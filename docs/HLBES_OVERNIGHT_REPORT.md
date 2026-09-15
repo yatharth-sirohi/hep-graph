@@ -161,6 +161,112 @@ it; anything ambiguous is recorded and left out rather than guessed.
 
 ## 9. Audit table
 
+Status at the start of the night, and what was done. `KEPT` means the audit
+found it correct and it was left alone.
+
+### Search mechanics
+
+| # | Item | Before | Action |
+|---|---|---|---|
+| 1 | Exact bidirectional BFS | PARTIAL — bidirectional frontiers, no exactness | Replaced by HLBES |
+| 2 | Direct-edge check first | IMPLEMENTED — `run` bootstrap `direct_pair` | KEPT |
+| 3 | Exact two-hop intersection | IMPLEMENTED — `_direct_pair_complete` gates it | KEPT; HLBES also derives it |
+| 4 | Fast cached trial path | PARTIAL — `guide_snapshot` corridor only | `_validated_route` seeds U |
+| 5 | Candidate-path shortcutting | MISSING | `offer()` |
+| 6 | Upper/lower-bound convergence | MISSING | `L = min(U, Rs+Rt+1)` |
+| 7 | Formally correct early stopping | MISSING | `U <= Rs+Rt+1`, derived in §3 |
+| 8 | Routing utility score | PARTIAL — facet counts ordered discovery | `_routing_score` |
+| 9 | Distance outranks routing utility | N/A | Structural: candidates are one depth |
+| 10 | Cheaper legal frontier | PARTIAL — smaller-queue rule | `_choose` by `cost_estimate` |
+
+### Endpoint precomputation
+
+| # | Item | Before | Action |
+|---|---|---|---|
+| 11-14 | Prepare on selection, reuse at Find, nothing on keystrokes | IMPLEMENTED — `PreparationJobs`, byte-identical warm-ups | KEPT |
+
+### Core cache
+
+| # | Item | Before | Action |
+|---|---|---|---|
+| 15 | ~500 seed physicists | MISSING | `core_nodes.SEEDS`, 499 |
+| 16 | Responsible prewarming | MISSING | Through the broker; see §11 |
+| 17 | Historical target prewarming | MISSING | Identities resolved; adjacency deferred, §11 |
+| 18 | Cache high-utility researchers | PARTIAL — LRU only | Unchanged |
+| 19-20 | Dynamic promotion / demotion | MISSING | Not built; §11 |
+
+### INSPIRE efficiency
+
+| # | Item | Before | Action |
+|---|---|---|---|
+| 21 | Compact coauthor summaries | IMPLEMENTED — facets | KEPT |
+| 22 | Discovery separate from evidence | IMPLEMENTED — `Navigator` is navigation-only | KEPT |
+| 23 | Author-count pushed upstream | IMPLEMENTED — every query carries the clause | KEPT |
+| 24-25 | Pagination reuse, no refetch | IMPLEMENTED — per-cursor page numbers | KEPT; rebuilds reuse cursors |
+| 26 | Evidence only for candidates | IMPLEMENTED | KEPT |
+| 27 | Deduplicate works | IMPLEMENTED — union-find on DOI/arXiv | KEPT |
+| 28 | True byline author count | IMPLEMENTED — raw `author_count` | KEPT |
+
+### Cache architecture
+
+| # | Item | Before | Action |
+|---|---|---|---|
+| 29-30 | Author / literature caches | IMPLEMENTED — 256 entries, 8 MiB, 900 s | KEPT |
+| 31 | Mode-specific adjacency | PARTIAL — per-`Graph`, unused in BFS | Oracle holds it per session, mode in the query |
+| 32 | UNKNOWN / PARTIAL / COMPLETE | MISSING | `Neighborhood.status` |
+| 33 | Shared-paper cache | IMPLEMENTED — `_pair_works`, 20k LRU | KEPT |
+| 34-35 | Search-state, final-path caches | PARTIAL — `_materialized`, `best` | KEPT; proof state added |
+| 36 | Canonical symmetric pair key | IMPLEMENTED | KEPT |
+| 37 | Search/data-version awareness | PARTIAL — job key includes filters | KEPT |
+| 38-39 | Bounded storage, no mirror | IMPLEMENTED | KEPT |
+
+### API protection
+
+| # | Item | Before | Action |
+|---|---|---|---|
+| 40 | One broker | IMPLEMENTED | KEPT |
+| 41-42 | Documented limit, conservative budget | UNSAFE — hardcoded 1 req/s, a third of the allowance | 0.5 s from the published 15-per-5-s |
+| 43 | Bounded concurrency | IMPLEMENTED — 8 in flight | KEPT |
+| 44 | Retry/backoff | PARTIAL — job level only, none in the client | Unchanged; §11 |
+| 45 | 429 and `Retry-After` | IMPLEMENTED | KEPT |
+| 46-48 | Coalescing, single-flight | IMPLEMENTED | KEPT |
+
+### Search persistence
+
+| # | Item | Before | Action |
+|---|---|---|---|
+| 49-52 | Frontier persists, continuation resumes | IMPLEMENTED in memory | KEPT; a paused proof resumes with its bounds |
+
+### Correctness
+
+| # | Item | Before | Action |
+|---|---|---|---|
+| 53 | Identity collisions | IMPLEMENTED — Bergmann fixture | KEPT; retraction now retires the proof |
+| 54 | Partial cannot certify | MISSING | Enforced by the radius rule |
+| 55 | INCOMPLETE vs NO_PATH | PARTIAL — never claimed NO_PATH | Both, with NO_PATH gated on real exhaustion |
+| 56-57 | Stale results, session isolation | IMPLEMENTED | KEPT |
+| 58-59 | Errata, duplicates | IMPLEMENTED | KEPT |
+| 60 | >10 cannot leak into <=10 | IMPLEMENTED | KEPT |
+| 61 | Adviser + coauthor is one hop | IMPLEMENTED — one edge, two types | KEPT |
+| 62 | Session consistency | IMPLEMENTED — per-session in-memory DB | KEPT |
+
+### Performance observability
+
+| # | Item | Before | Action |
+|---|---|---|---|
+| 63-68 | Requests, works, people, cache, coalescing | IMPLEMENTED | KEPT |
+| 66 | Complete neighbourhoods | PARTIAL — per-node flags only | `bounds.complete_neighborhoods` |
+| 69-70 | Time to first path / to proof | MISSING | In the benchmark harness, not the API; §11 |
+| 71-72 | Bound progression | MISSING | `bounds`, and `stats["bounds"]` per step |
+| 73-76 | Network vs local vs identity vs evidence wall time | MISSING | Not built; §11 |
+
+### Optional
+
+| # | Item | Before | Action |
+|---|---|---|---|
+| 77 | Exact landmark / A* | N/A | Not built. No exact-compatible landmark distances exist cheaply, and an approximate one would break exactness |
+
+
 ## 10. Model routing
 
 ## 11. Remaining bottlenecks

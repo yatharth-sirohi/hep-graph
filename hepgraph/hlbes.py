@@ -281,25 +281,38 @@ class HLBES:
         best = min(options)
         return best[2], best[3], best[4]
 
+    @staticmethod
+    def _open(side: _Side) -> list[str]:
+        return [node for node in sorted(side.dist)
+                if node not in side.complete and node not in side.blocked]
+
     def _discover(self, state: Search, *,
                   breadth: bool = False) -> tuple[_Side | None, _Side | None, str | None]:
         """Expand outside the radius rule. This can only lower U, never raise L.
 
-        ``breadth`` prefers people nothing has been read from yet, which is how
-        a route is found; the default prefers the cheapest remaining work,
-        which is how a stalled proof keeps making progress.
+        ``breadth`` is for finding a route at all.  It grows whichever side has
+        the smaller unexpanded frontier, which is the point of searching from
+        both ends: a famous endpoint with hundreds of collaborators and an
+        obscure one with three should not advance in lockstep, or the obscure
+        side never gets deep enough to meet anything.  Within that side it
+        takes the shallowest person, preferring those nothing has been read
+        from yet.
+
+        Without ``breadth`` it simply takes the cheapest remaining work, which
+        is how a stalled proof keeps making progress.
         """
-        best = None
+        options = []
         for side, other in ((state.left, state.right), (state.right, state.left)):
-            for node in sorted(side.dist):
-                if node in side.complete or node in side.blocked:
-                    continue
-                key = (side.dist[node],
-                       self.pages_fetched(node) if breadth else 0,
-                       self.cost_estimate(node), -self.routing_score(node), side.name, node)
-                if best is None or key < best[0]:
-                    best = (key, side, other, node)
-        return (best[1], best[2], best[3]) if best else (None, None, None)
+            work = self._open(side)
+            if work:
+                options.append((len(work) if breadth else 0, side.name, side, other, work))
+        if not options:
+            return None, None, None
+        _, _, side, other, work = min(options)
+        node = min(work, key=lambda item: (side.dist[item],
+                                           self.pages_fetched(item) if breadth else 0,
+                                           self.cost_estimate(item), -self.routing_score(item), item))
+        return side, other, node
 
     def _expand(self, state: Search, side: _Side, other: _Side, node: str) -> None:
         found = self.oracle.neighborhood(node)
