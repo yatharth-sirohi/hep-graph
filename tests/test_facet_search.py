@@ -3,6 +3,10 @@
 Facet rows are deliberately only navigation hints in these fixtures. Every
 returned hop still has to be fetched as an exact pair query and pass Graph's
 normal document, filter, and identity rules.
+
+Facet discovery is off by default: measured against HLBES it only spends
+requests (see DeepSearch.discovery_hints). These tests opt in because the
+subsystem is retained and must stay correct if it is ever switched back on.
 """
 from __future__ import annotations
 
@@ -38,7 +42,7 @@ def facet(*ids, truncated=False):
 
 
 def run(client, source=1, target=2, filters=None, **limits):
-    session = DeepSearch(client).start(source, target, filters or {"genealogy": False})
+    session = DeepSearch(client, discovery_hints=True).start(source, target, filters or {"genealogy": False})
     try:
         return session.run(budget(max_requests=80, **limits))
     finally:
@@ -136,7 +140,7 @@ def test_route_profile_hydration_resumes_after_a_slice_boundary():
     responses[("literature", pair_query(1, 3), 1)] = page(paper(501, [1, 3]))
     responses[("literature", pair_query(3, 2), 1)] = page(paper(502, [3, 2]))
     client = FacetClient(responses, {"1": facet(3), "2": facet(3)})
-    session = DeepSearch(client).start(1, 2, {"genealogy": False})
+    session = DeepSearch(client, discovery_hints=True).start(1, 2, {"genealogy": False})
     try:
         paused = session.run(budget(max_requests=6))
         resumed = session.run(budget(max_requests=40))
@@ -150,7 +154,7 @@ def test_route_profile_hydration_resumes_after_a_slice_boundary():
 
 def test_identity_rejection_does_not_blacklist_an_unfetched_current_facet_route():
     """Only the path being validated may lose its guarded-away pairs."""
-    session = DeepSearch(FacetClient({})).start(1, 2, {"genealogy": False})
+    session = DeepSearch(FacetClient({}), discovery_hints=True).start(1, 2, {"genealogy": False})
 
     class NoEdges:
         @staticmethod
@@ -184,7 +188,7 @@ def test_two_endpoint_facets_beat_an_older_longer_navigation_corridor():
     ):
         responses[("literature", pair_query(left, right), 1)] = page(paper(work_id, [left, right]))
     client = FacetClient(responses, {"1": facet(5), "2": facet(5)})
-    session = DeepSearch(client, suggestion_pairs=((1, 3), (3, 4), (4, 2))).start(
+    session = DeepSearch(client, suggestion_pairs=((1, 3), (3, 4), (4, 2)), discovery_hints=True).start(
         1, 2, {"genealogy": False}
     )
     try:

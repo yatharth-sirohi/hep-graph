@@ -114,11 +114,21 @@ class DeepSearch:
 
     def __init__(self, client: Any, guide_snapshot: dict[str, Any] | None = None,
                  suggestion_pairs: Iterable[tuple[Any, Any]] = (),
-                 core_nodes: Iterable[str] = ()) -> None:
+                 core_nodes: Iterable[str] = (),
+                 discovery_hints: bool = False) -> None:
         self.client = client
         self.guide_snapshot = guide_snapshot
         # Seed identities reorder equal-depth work and nothing else.
         self.core_nodes = frozenset(str(item) for item in core_nodes)
+        # Facet discovery and cross-frontier bridging were written for the
+        # previous engine, which had no systematic way to notice that its two
+        # frontiers had met. HLBES rescans every node both sides know after
+        # every expansion, so measured against it these two only spend
+        # requests: on Witten -> Visser they were 55 of 94, and removing them
+        # reached the same proven four-hop answer in 41 s instead of 85 s.
+        # They are kept, and off, because a future oracle change could make
+        # cheap hints worth having again.
+        self.discovery_hints = bool(discovery_hints)
         pairs: list[tuple[str, str]] = []
         for pair in suggestion_pairs:
             if not isinstance(pair, (tuple, list)) or len(pair) != 2:
@@ -139,7 +149,7 @@ class DeepSearch:
         active_filters = Filters() if filters is None else (filters if isinstance(filters, Filters) else Filters.from_dict(filters))
         return DeepSession(self.client, _id(source), _id(target), active_filters, self.guide_snapshot,
                            self.suggestion_pairs, cancel or threading.Event(), progress,
-                           core_nodes=self.core_nodes)
+                           core_nodes=self.core_nodes, discovery_hints=self.discovery_hints)
 
 
 class _EvidenceWithdrawn(Exception):
@@ -308,10 +318,12 @@ class DeepSession:
     def __init__(self, client: Any, source: str, target: str, filters: Filters,
                  guide_snapshot: dict[str, Any] | None, suggestion_pairs: tuple[tuple[str, str], ...], cancel: threading.Event,
                  progress: Callable[[dict[str, Any]], None] | None,
-                 core_nodes: frozenset[str] = frozenset()) -> None:
+                 core_nodes: frozenset[str] = frozenset(),
+                 discovery_hints: bool = False) -> None:
         self.client, self.source, self.target, self.filters = client, source, target, filters
         self.cancel, self.progress_callback = cancel, progress
         self.core_nodes = core_nodes
+        self.discovery_hints = discovery_hints
         self.connection = open_db(":memory:")
         self.owner = threading.get_ident()
         self.started = time.monotonic()
@@ -1467,7 +1479,7 @@ class DeepSession:
                     continue
                 # Both endpoint summaries are cheap and often expose a common
                 # coauthor. Check them before following a longer saved route.
-                if (self.navigator is not None and not self._navigation_disabled
+                if (self.discovery_hints and self.navigator is not None and not self._navigation_disabled
                         and not {self.source, self.target} <= self.navigator.queried
                         and self._navigation_step(budget)):
                     continue
@@ -1511,7 +1523,8 @@ class DeepSession:
                 # Explore compact summaries from both ends while retaining a
                 # regular bibliography/genealogy expansion at least every
                 # eight facet requests. Top-100 hints can never exhaust BFS.
-                if (self._hunting() and self._navigation_since_expansion < 8
+                if (self.discovery_hints and self._hunting()
+                        and self._navigation_since_expansion < 8
                         and self._navigation_step(budget)):
                     continue
                 if self._proof is None:
@@ -1551,7 +1564,7 @@ class DeepSession:
                     continue
                 self._register_discoveries(budget)
                 self._emit("hlbes_expand")
-                self._bridge_turn = self._hunting()
+                self._bridge_turn = self.discovery_hints and self._hunting()
                 if self._proof.upper < before or self._proof.done is not None:
                     if self._oracle.withdrawn():
                         self._oracle.reported.clear()

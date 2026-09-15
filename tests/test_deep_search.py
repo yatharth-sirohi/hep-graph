@@ -425,7 +425,7 @@ def test_cross_frontier_query_connects_discovered_groups_before_individual_crawl
     )
     responses[("literature", query, 1)] = page(paper(403, [2, 3]))
     client = Client(responses)
-    session = DeepSearch(client).start(1, 4, {"genealogy": False})
+    session = DeepSearch(client, discovery_hints=True).start(1, 4, {"genealogy": False})
     try:
         result = session.run(budget(max_requests=40))
     finally:
@@ -495,7 +495,7 @@ def test_optional_cross_frontier_failure_falls_back_to_regular_bfs() -> None:
         "(authors.record.$ref:3) AND author_count:1->10"
     )
     client = FlakyClient(responses, ("literature", cross, 1))
-    session = DeepSearch(client).start(1, 3, {"genealogy": False})
+    session = DeepSearch(client, discovery_hints=True).start(1, 3, {"genealogy": False})
     try:
         result = session.run(budget(max_requests=40))
     finally:
