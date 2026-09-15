@@ -509,3 +509,39 @@ silently carried.
 | Branch | `hlbes-search-optimization` |
 | Base | `0738987` |
 
+Commits, oldest last:
+
+```
+4f27168 Add the overnight report
+1a7d4f3 Close five more defects found in second-round review
+077965d Grow the smaller frontier when looking for a route
+75df0e1 Close five defects found in independent review
+0c30cd6 Find a route before proving one
+d1ff3cc Load optional seed identities in the server
+f870b77 Add the core seed list and wire it into routing priority only
+7837760 Remove the retired round-robin frontier
+92d0a32 Replace the live frontier scheduler with HLBES
+0be5946 Pace INSPIRE requests from the published ceiling, not a magic constant
+f42ffb9 Add HLBES exact bidirectional search engine
+```
+
+Files changed: `hepgraph/hlbes.py` (new), `hepgraph/core_nodes.py` (new),
+`hepgraph/deep_search.py`, `hepgraph/remote.py`, `hepgraph/server.py`, four new
+test modules, `tests/live_benchmark.py` (new), and five existing tests amended
+as described in §7. **No file under `static/`, `data/`, `launch_demo.py`,
+`Dockerfile` or `README.md` was touched.** The result payload gained exactly
+one key, `bounds`, and removed none.
+
+### Clean-clone acceptance
+
+A fresh clone of the private repository, with no cache, no database and no
+environment file: 415 tests pass, every module imports, the server starts, the
+health endpoint answers, the interface and `app.js` load, and a live path query
+(Feynman → Wheeler) returns a proven one-hop route with real paper evidence.
+
+### Acceptance gate
+
+Every gate in the brief that could be evaluated passes. One could not be:
+**the browser suite is not in the repository and could not be run** (§7). It is
+recorded as unverified, not as passed.
+
