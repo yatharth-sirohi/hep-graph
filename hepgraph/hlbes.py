@@ -153,6 +153,9 @@ class Search:
         #: True once no completed radius can advance: U may still fall, L cannot.
         self.stalled = False
         self.stop_message = ""
+        #: Set when an offered route is shorter than the proven lower bound,
+        #: which means this state was built on evidence that no longer holds.
+        self.conflict = False
         self.expansions = 0
 
     @property
@@ -211,6 +214,30 @@ class HLBES:
             # A timeout, rate limit or slice boundary is not an answer. Leave
             # the proof resumable so a continuation picks it up unchanged.
             return self._pause(state, stop.reason, stop.message)
+        self._record(state)
+        return True
+
+    def offer(self, state: Search, route: Iterable[str]) -> bool:
+        """Accept an externally verified route as an upper bound only.
+
+        A caller that can see an edge the oracle has not yet attributed to
+        either endpoint - a crossing edge between two unexpanded frontier
+        members, or a cheap shortcut across a known route - may hand it over
+        here.  It can only lower U; it never advances a completed radius.
+        """
+        path = tuple(str(node) for node in route)
+        if len(path) < 2 or len(set(path)) != len(path):
+            return False
+        if path[0] != state.source or path[-1] != state.target:
+            return False
+        if len(path) - 1 >= state.upper:
+            return False
+        if len(path) - 1 < state.lower:
+            # A verified route shorter than the proven minimum means the proof
+            # rests on adjacency that has since changed. Refuse it and say so.
+            state.conflict = True
+            return False
+        state.upper, state.best = len(path) - 1, path
         self._record(state)
         return True
 

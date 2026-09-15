@@ -14,7 +14,7 @@ from hepgraph.remote import RemoteError
 
 # Reuse the production suite's fully offline INSPIRE-shaped records.  The test
 # runner adds the application's tests directory to PYTHONPATH.
-from test_deep_search import Client, budget, page, paper, profiles
+from test_deep_search import Client, budget, page, paper, profiles, seed_frontiers
 
 
 def test_guarded_graph_is_reused_until_a_successful_fetch_changes_evidence(monkeypatch):
@@ -81,13 +81,22 @@ def test_repeated_work_bridge_between_closed_frontiers_is_detected_by_its_unrela
         for person_id in (1, 2, 3, 4, 5):
             session._fetch("authors", f"control_number:{person_id}", 1, budget())
         session._fetch("literature", "seed", 1, budget())
-        # These cursors deliberately simulate prior breadth work. A and B have
-        # already been closed; C is the only live cursor and is not eligible to
-        # either endpoint after its one new paper arrives.
-        session.left.seen = {"1": 0, "2": 1, "3": 1}
-        session.right.seen = {"5": 0, "4": 1}
-        cursor = session._cursor("3", 1, profile_done=True)
-        met = session._step_cursor(session.left, cursor, budget())
+        # These frontiers deliberately simulate prior breadth work. A and B
+        # have already been closed; C is the only live cursor and is not
+        # eligible to either endpoint after its one new paper arrives.
+        session._begin_proof(budget())
+        proof = session._proof
+        for person_id in ("2", "3"):
+            proof.left.add(person_id, 1, "1")
+        proof.right.add("4", 1, "5")
+        # The first expansion hydrates C's profile; the second fetches its page.
+        for _ in range(2):
+            session._engine._expand(proof, proof.left, proof.right, "3")
+        # The new 2--4 edge joins two frontier members that neither side has
+        # expanded, so no vertex meeting can see it. The page must say so.
+        assert session._oracle.bridged_page is True
+        session._offer_cached_route(budget())
+        met = proof.upper == 3 and proof.best == ("1", "2", "4", "5")
         snapshot, graph = session._snapshot(budget())
         found = graph.find_paths("1", "5", 1)
     finally:
@@ -103,8 +112,7 @@ def test_cross_frontier_diagonal_schedule_reaches_later_blocks_before_a_slice_is
     session = DeepSearch(Client()).start(100, 200, {"genealogy": False})
     queries: list[str] = []
     try:
-        session.left.seen = {str(item): 1 for item in range(100, 125)}
-        session.right.seen = {str(item): 1 for item in range(200, 225)}
+        seed_frontiers(session, range(100, 125), range(200, 225))
         session._run_requests = 0
         session._bridge_queries_this_run = 0
         session._run_deadline = time.monotonic() + 10

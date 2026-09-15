@@ -79,18 +79,6 @@ class _Cursor:
 
 
 @dataclass
-class _Side:
-    name: str
-    root: str
-    depth: int = 0
-    current: deque[_Cursor] = field(default_factory=deque)
-    following: deque[_Cursor] = field(default_factory=deque)
-    deferred: deque[_Cursor] = field(default_factory=deque)
-    seen: dict[str, int] = field(default_factory=dict)
-    closed_depths: set[int] = field(default_factory=set)
-
-
-@dataclass
 class _PendingValidation:
     """A candidate route whose current public identities are not all checked."""
 
@@ -158,6 +146,7 @@ class _LiveOracle:
         self.complete: set[str] = set()
         self.reported: dict[str, frozenset[str]] = {}
         self.contradicted: set[str] = set()
+        self.bridged_page = False
         self.genealogy_done: set[str] = set()
 
     def cursor_for(self, person_id: str, *, profile_done: bool = False) -> _Cursor:
@@ -228,6 +217,12 @@ class _LiveOracle:
             page_people = session._page_person(cursor, budget, self._companions(person_id))
             attested |= page_people
             self._audit(page_people - {person_id})
+            proof = session._proof
+            if proof is not None and page_people & set(proof.left.dist) and page_people & set(proof.right.dist):
+                # This page may have completed an edge between two frontier
+                # members that neither side has expanded, which no vertex
+                # meeting can see. Ask the session to look for a route.
+                self.bridged_page = True
             if self.contradicted:
                 # Raise before any of this page reaches the proof: the bounds
                 # were derived from a claim that no longer holds, so the whole
@@ -270,8 +265,6 @@ class DeepSession:
         self.works = 0
         self.failures: list[dict[str, str]] = []
         self.node_ledger: dict[str, dict[str, Any]] = {}
-        self.left = _Side("source", source, seen={source: 0})
-        self.right = _Side("target", target, seen={target: 0})
         self.bootstrap = deque(["source_profile", "target_profile", "direct_pair"])
         # A two-hop route is globally shortest only after every qualifying
         # endpoint-pair page has been checked. Retain this cursor across runs.
@@ -297,7 +290,6 @@ class DeepSession:
         self.best_version: str | None = None
         self.last_status: str | None = None
         self._prefer_left = True
-        self.frontier_started = False
         self._identity_confirmed: set[str] = set()
         self._unverified_people: dict[str, str] = {}
         self._pending_validation: _PendingValidation | None = None
@@ -677,36 +669,6 @@ class DeepSession:
             return []
         return historical_neighbors(person_id)
 
-    @staticmethod
-    def _advance(side: _Side) -> None:
-        # Deferred pages are a fairness checkpoint, not a breadth barrier:
-        # process already known next-layer candidates before returning to a
-        # prolific person's later pages.
-        if side.current or not side.following:
-            return
-        side.closed_depths.add(side.depth)
-        side.depth += 1
-        side.current, side.following = side.following, deque()
-
-    @staticmethod
-    def _restore_deferred(side: _Side) -> None:
-        """Resume page cursors at their original breadth depth next slice."""
-        while side.deferred:
-            cursor = side.deferred.popleft()
-            cursor.deferred = False
-            cursor.slice_pages = 0
-            side.current.append(cursor)
-
-    def _enqueue(self, side: _Side, person_id: str, depth: int, budget: DeepBudget) -> bool:
-        if person_id in side.seen:
-            return person_id in (self.right.seen if side is self.left else self.left.seen)
-        if len(set(self.left.seen) | set(self.right.seen)) >= budget.max_people:
-            raise DeepSearchError("resource_limit", "The deep-search people ceiling was reached.")
-        side.seen[person_id] = depth
-        side.following.append(self._cursor(person_id, depth))
-        self._queue_guide_bridge(person_id, discovered_from_source=side is self.left)
-        return person_id in (self.right.seen if side is self.left else self.left.seen)
-
     def _cross_frontier(self, budget: DeepBudget) -> bool:
         """Fetch one bounded cross-frontier coauthor page, if a new set exists."""
         if self._bridge_disabled_this_run or self._bridge_queries_this_run >= 12:
@@ -770,10 +732,8 @@ class DeepSession:
 
     def _bridge_groups(self) -> tuple[list[str], list[str]]:
         """Both discovered sides, taken from whichever frontier is in charge."""
-        if self._proof is not None:
-            left, right = self._proof.left.dist, self._proof.right.dist
-        else:
-            left, right = self.left.seen, self.right.seen
+        left, right = ((self._proof.left.dist, self._proof.right.dist) if self._proof is not None
+                       else ({self.source: 0}, {self.target: 0}))
         return (sorted(person_id for person_id in left if person_id not in self._unverified_people),
                 sorted(person_id for person_id in right if person_id not in self._unverified_people))
 
@@ -849,39 +809,6 @@ class DeepSession:
         self._record_node(cursor)
         return people
 
-    def _step_cursor(self, side: _Side, cursor: _Cursor, budget: DeepBudget) -> bool:
-        """Do one bounded remote page; return whether it met the other side."""
-        if not cursor.profile_done:
-            self._page_person(cursor, budget, side.current)
-            side.current.append(cursor)
-            return False
-        met = False
-        if self.filters.genealogy and not cursor.historical_enqueued:
-            cursor.historical_enqueued = True
-            # These are only exact, independently audited fixed neighbours.
-            # The neighbour is still fetched as a live public profile before
-            # an overlay edge can enter a graph snapshot.
-            for person_id in self._historical_neighbors(cursor.person_id):
-                if person_id != cursor.person_id:
-                    met = self._enqueue(side, person_id, cursor.depth + 1, budget) or met
-        # A work returned for cursor C can be the last required shared work
-        # for already-closed A and B. When A and B sit on opposing frontiers,
-        # checking only C's own filtered neighbours misses the newly
-        # completed bridge at ``min_shared > 1``.
-        hit_people = self._page_person(cursor, budget)
-        met = met or bool(hit_people.intersection(self.left.seen) and hit_people.intersection(self.right.seen))
-        for person_id in self._eligible_neighbors(cursor.person_id, budget):
-            if person_id != cursor.person_id:
-                met = self._enqueue(side, person_id, cursor.depth + 1, budget) or met
-        if cursor.deferred:
-            side.deferred.append(cursor)
-        elif cursor.literature_done and cursor.reverse_done:
-            cursor.closed = not cursor.incomplete
-        else:
-            side.current.append(cursor)
-        self._record_node(cursor)
-        return met
-
     def _routing_score(self, person_id: str) -> float:
         """Order equal-depth work only. This can never change a distance."""
         cursor = self._oracle.cursors.get(person_id) if self._oracle else None
@@ -906,6 +833,13 @@ class DeepSession:
             return None
         return [str(person["id"]) for person in found["paths"][0].get("people", [])]
 
+    def _offer_cached_route(self, budget: DeepBudget) -> None:
+        """Hand the proof any route the retrieved evidence already supports."""
+        _, graph = self._snapshot(budget)
+        route = self._cached_trial_path(graph)
+        if route is not None and self._proof is not None and self._engine is not None:
+            self._engine.offer(self._proof, route)
+
     def _begin_proof(self, budget: DeepBudget) -> None:
         self._budget = budget
         _, graph = self._snapshot(budget)
@@ -920,7 +854,6 @@ class DeepSession:
                              cost_estimate=self._retrieval_cost)
         self._proof = self._engine.begin(self.source, self.target,
                                          trial_path=self._cached_trial_path(graph))
-        self.frontier_started = True
         self._emit("hlbes_begin")
 
     def _harvest(self, budget: DeepBudget, message: str) -> dict[str, Any] | None:
@@ -1256,8 +1189,6 @@ class DeepSession:
         self._navigation_disabled = False
         self._run_deadline = time.monotonic() + float(budget.max_seconds)
         self._budget = budget
-        self._restore_deferred(self.left)
-        self._restore_deferred(self.right)
         try:
             while True:
                 if self.cancel.is_set():
@@ -1385,7 +1316,6 @@ class DeepSession:
                 if self._proof is None:
                     self._begin_proof(budget)
                     continue
-                self.frontier_started = True
                 if self._bridge_turn:
                     self._bridge_turn = False
                     if self._cross_frontier(budget):
@@ -1409,6 +1339,13 @@ class DeepSession:
                     # the session's own resumable error plumbing.
                     raise DeepSearchError(self._proof.reason or "search_incomplete",
                                           self._proof.stop_message or "The deep search paused before proving shortestness.")
+                if self._oracle.bridged_page:
+                    self._oracle.bridged_page = False
+                    self._offer_cached_route(budget)
+                if self._proof.conflict:
+                    self._proof = None
+                    self._emit("hlbes_restart")
+                    continue
                 self._register_discoveries(budget)
                 self._emit("hlbes_expand")
                 self._bridge_turn = True

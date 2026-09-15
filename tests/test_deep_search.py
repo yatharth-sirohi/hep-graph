@@ -114,6 +114,18 @@ def pair_query(left: int, right: int) -> str:
     return f"authors.record.$ref:{left} AND authors.record.$ref:{right} AND author_count:1->10"
 
 
+def seed_frontiers(session: "DeepSession", left, right) -> None:
+    """Place people on both HLBES frontiers without doing remote discovery."""
+    session._run_requests = 0
+    session._run_deadline = time.monotonic() + 10
+    session._budget = budget()
+    session._begin_proof(budget())
+    for person_id in left:
+        session._proof.left.add(str(person_id), 1, None)
+    for person_id in right:
+        session._proof.right.add(str(person_id), 1, None)
+
+
 def budget(**overrides: int | float) -> DeepBudget:
     values = dict(max_seconds=30.0, max_requests=120, max_works=500, max_people=500,
                   page_size=1, max_pages_per_person=3)
@@ -460,7 +472,7 @@ def test_failed_cross_frontier_request_is_retryable_in_the_same_session() -> Non
     client = FlakyClient(responses, ("literature", query, 1))
     session = DeepSearch(client).start(1, 4, {"genealogy": False})
     try:
-        session.left.seen = {"1": 0, "2": 1}; session.right.seen = {"3": 1, "4": 0}
+        seed_frontiers(session, ("1", "2"), ("3", "4"))
         session._run_requests = 0; session._bridge_queries_this_run = 0
         session._run_deadline = time.monotonic() + 10
         assert session._cross_frontier(budget()) is False
