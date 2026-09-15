@@ -186,8 +186,8 @@ class HLBES:
         if source == target:
             state.upper, state.best, state.lower = 0, (source,), 0
             state.done = EXACT
-        else:
-            self._seed(state, trial_path)
+        elif trial_path is not None:
+            self.offer(state, trial_path)
         self._record(state)
         return state
 
@@ -234,6 +234,13 @@ class HLBES:
         either endpoint - a crossing edge between two unexpanded frontier
         members, or a cheap shortcut across a known route - may hand it over
         here.  It can only lower U; it never advances a completed radius.
+
+        The route is taken on trust, because a lazily revealed graph gives the
+        engine no way to check an edge it has not been told about.  That trust
+        is the caller's whole responsibility: offering a route whose hops are
+        not real lowers U below the true distance and the engine will then
+        prove that wrong distance exactly.  Offer only routes whose every hop
+        is already evidenced.
         """
         path = tuple(str(node) for node in route)
         if len(path) < 2 or len(set(path)) != len(path):
@@ -259,17 +266,6 @@ class HLBES:
         return self.result(state)
 
     # ------------------------------------------------------------- mechanics
-    @staticmethod
-    def _seed(state: Search, trial_path: Iterable[str] | None) -> None:
-        """Adopt a caller-verified route purely as an upper bound."""
-        if trial_path is None:
-            return
-        route = tuple(str(node) for node in trial_path)
-        if len(route) < 2 or len(set(route)) != len(route):
-            return
-        if len(route) - 1 < state.upper:
-            state.upper, state.best = len(route) - 1, route
-
     def _choose(self, state: Search) -> tuple[_Side | None, _Side | None, str | None]:
         """Pick the cheaper side that can legally advance its completed radius."""
         options = []
@@ -367,8 +363,13 @@ class HLBES:
     def _record(self, state: Search) -> None:
         lower = min(state.upper, state.radius_sum + 1)
         lower = int(lower) if lower != float("inf") else state.lower
-        if lower < state.lower:  # pragma: no cover - guarded by invariant tests
-            raise AssertionError(f"lower bound regressed from {state.lower} to {lower}")
+        if lower < state.lower:
+            # The bounds were derived from adjacency that has since changed,
+            # so this state describes a graph that no longer exists. Say so
+            # and let the caller rebuild; never crash out of a search, and
+            # never quietly walk a proven lower bound backwards.
+            state.conflict = True
+            return
         state.lower = lower
         state.bounds.append((state.lower, state.upper))
         if self.observer is not None:

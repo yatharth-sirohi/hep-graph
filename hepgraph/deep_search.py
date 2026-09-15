@@ -167,13 +167,31 @@ class _LiveOracle:
         pending = (proof.left.open_pending() | proof.right.open_pending()) - {person_id}
         return [self.cursor_for(other) for other in sorted(pending)[:24]]
 
-    def _accounted(self, person_id: str) -> bool:
-        """A person's own exhausted query must account for every neighbour."""
+    def _members(self, person_id: str) -> tuple[frozenset[str], frozenset[str]]:
+        """This person's coauthor neighbours and their genealogy-only ones."""
         session = self.session
-        members = {other for other in session._eligible_neighbors(person_id, session._budget)
-                   if other != person_id}
-        attested = self.attested.get(person_id, set())
-        return members <= (attested | set(session._historical_neighbors(person_id)))
+        _, graph = session._snapshot(session._budget)
+        coauthors = frozenset(other for other in graph._coauthor_neighbors(person_id)
+                              if other != person_id)
+        everyone = frozenset(other for other in graph._neighbors(person_id)
+                             if other != person_id)
+        return coauthors, everyone - coauthors
+
+    def _accounted(self, person_id: str) -> bool:
+        """Every neighbour must be explained by a source this person exhausted.
+
+        Coauthorship is settled by their own literature query.  A doctoral edge
+        is settled by their public record's advisers plus the reverse student
+        query, so it needs those two to be finished rather than a literature
+        page that could never have carried it.
+        """
+        coauthors, genealogy = self._members(person_id)
+        if not coauthors <= self.attested.get(person_id, set()):
+            return False
+        cursor = self.cursors.get(person_id)
+        if genealogy and not (cursor is not None and cursor.profile_done and cursor.reverse_done):
+            return False
+        return True
 
     def _audit(self, touched: Iterable[str]) -> None:
         """A retrieved page can contradict an exhaustion claim made earlier.
@@ -183,7 +201,12 @@ class _LiveOracle:
         quietly leaving a proof resting on it.
         """
         for person_id in touched:
-            if person_id in self.complete and not self._accounted(person_id):
+            if person_id not in self.complete:
+                continue
+            coauthors, genealogy = self._members(person_id)
+            # An exhausted neighbourhood must not move in either direction: a
+            # pair can also cross ``min_shared`` on a work retrieved elsewhere.
+            if coauthors | genealogy != self.reported.get(person_id) or not self._accounted(person_id):
                 self.complete.discard(person_id)
                 self.contradicted.add(person_id)
 
@@ -321,6 +344,7 @@ class DeepSession:
         # retrieval, evidence, and identity. The proof state survives every
         # slice boundary so a continuation resumes rather than restarts.
         self._bridged: set[tuple[str, bool]] = set()
+        self._rebuilds = 0
         self._proof: Search | None = None
         self._engine: HLBES | None = None
         self._oracle: _LiveOracle | None = None
@@ -753,8 +777,17 @@ class DeepSession:
         return min(5, budget.page_size) if self.filters.max_authors is None or self.filters.max_authors > 100 else budget.page_size
 
     def _page_done(self, cursor: _Cursor, total: int, page: int, budget: DeepBudget, kind: str,
-                   page_size: int | None = None) -> None:
-        if page * (page_size or budget.page_size) >= total:
+                   page_size: int | None = None, *, total_exact: bool = True,
+                   returned: int | None = None) -> None:
+        size = page_size or budget.page_size
+        # INSPIRE reports ``{"value": n, "relation": "gte"}`` for large result
+        # sets. Page arithmetic against a lower bound would declare a query
+        # exhausted while later pages still exist, and a short page is only a
+        # convention, not a guarantee. When the count is a lower bound, read on
+        # until a page comes back empty: one extra request is a fair price for
+        # the exhaustion claim the whole proof rests on.
+        finished = page * size >= total if total_exact else returned == 0
+        if finished:
             if kind == "literature": cursor.literature_done = True
             else: cursor.reverse_done = True
         # A per-run page allowance is a fairness checkpoint, never a claim
@@ -796,20 +829,24 @@ class DeepSession:
         people: set[str] = set()
         if kind == "literature" and not cursor.literature_done:
             size = self._literature_size(budget)
-            hits, total, _ = self._fetch("literature", self.literature_query(cursor.person_id, self.filters),
-                                         cursor.literature_page, budget, size=size)
+            hits, total, total_exact = self._fetch(
+                "literature", self.literature_query(cursor.person_id, self.filters),
+                cursor.literature_page, budget, size=size)
             people = set(self._work_people(hits))
             cursor.pages += 1
             cursor.slice_pages += 1
-            self._page_done(cursor, total, cursor.literature_page, budget, "literature", page_size=size)
+            self._page_done(cursor, total, cursor.literature_page, budget, "literature", page_size=size,
+                            total_exact=total_exact, returned=len(hits))
             cursor.literature_page += 1
             cursor.next_kind = "reverse"
         elif kind == "reverse" and not cursor.reverse_done:
-            _, total, _ = self._fetch("authors", f"advisors.record.$ref:{cursor.person_id}",
-                                      cursor.reverse_page, budget)
+            hits, total, total_exact = self._fetch(
+                "authors", f"advisors.record.$ref:{cursor.person_id}", cursor.reverse_page, budget)
+            people = set(self._profile_people(hits))
             cursor.pages += 1
             cursor.slice_pages += 1
-            self._page_done(cursor, total, cursor.reverse_page, budget, "reverse")
+            self._page_done(cursor, total, cursor.reverse_page, budget, "reverse",
+                            total_exact=total_exact, returned=len(hits))
             cursor.reverse_page += 1
             cursor.next_kind = "literature"
         self._record_node(cursor)
@@ -844,12 +881,39 @@ class DeepSession:
             return None
         return [str(person["id"]) for person in found["paths"][0].get("people", [])]
 
+    def _validated_route(self) -> list[str] | None:
+        """The retained route, which already passed current-profile checks.
+
+        A bound is only as trustworthy as the evidence under it, so a proof is
+        never seeded from a graph route that identity validation has not yet
+        seen: that route can still lose a hop.
+        """
+        paths = (self.best or {}).get("paths") or []
+        people = paths[0].get("people") if paths and isinstance(paths[0], dict) else None
+        if not isinstance(people, list) or len(people) < 2:
+            return None
+        return [str(person["id"]) for person in people]
+
     def _offer_cached_route(self, budget: DeepBudget) -> None:
         """Hand the proof any route the retrieved evidence already supports."""
         _, graph = self._snapshot(budget)
         route = self._cached_trial_path(graph)
         if route is not None and self._proof is not None and self._engine is not None:
             self._engine.offer(self._proof, route)
+
+    MAX_REBUILDS = 32
+
+    def _rebuild_proof(self, reason: str) -> bool:
+        """Discard a proof built on evidence that changed. Bounded on purpose.
+
+        Each rebuild is triggered by new evidence, so they cannot continue
+        indefinitely in practice; the ceiling is there so that a pathological
+        upstream cannot turn a search into a rebuild loop.
+        """
+        self._proof = None
+        self._rebuilds += 1
+        self._emit(reason)
+        return self._rebuilds <= self.MAX_REBUILDS
 
     def _begin_proof(self, budget: DeepBudget) -> None:
         self._budget = budget
@@ -865,7 +929,7 @@ class DeepSession:
                              cost_estimate=self._retrieval_cost,
                              pages_fetched=self._pages_fetched)
         self._proof = self._engine.begin(self.source, self.target,
-                                         trial_path=self._cached_trial_path(graph))
+                                         trial_path=self._validated_route())
         self._emit("hlbes_begin")
 
     def _harvest(self, budget: DeepBudget, message: str) -> dict[str, Any] | None:
@@ -911,8 +975,9 @@ class DeepSession:
         if self._oracle is not None:
             self._oracle.cursors.pop(person_id, None)
             self._oracle.attested.pop(person_id, None)
-        self._proof = None
-        self._emit("hlbes_restart")
+            self._oracle.complete.discard(person_id)
+            self._oracle.reported.pop(person_id, None)
+        self._rebuild_proof("hlbes_restart")
 
     def _traversed_a_component(self) -> bool:
         """Exhausting a component we never saw any evidence for proves nothing."""
@@ -1183,7 +1248,10 @@ class DeepSession:
         bounds = self._bounds()
         return {"status": status, "message": message, "mode": "live", "filters": self.filters.to_dict(),
                 "paths": self._queryable_paths(paths), "exact": False, "exact_for_retrieved_graph": local_exact,
-                "global_shortest_proven": direct or two_hop_proven or bounds["proven"],
+                "global_shortest_proven": direct or two_hop_proven or (
+                    # Only call a route proven when the route being returned is
+                    # the one the bounds closed on.
+                    bounds["proven"] and bool(paths) and paths[0].get("hops") == bounds["upper"]),
                 "bounds": bounds, "alternatives_truncated": alternatives_truncated,
                 "can_continue": can_continue, "version": snapshot.get("version", self.best_version or "live-deep-incomplete") if snapshot else (self.best_version or "live-deep-incomplete"),
                 "coverage": coverage, "progress": {"people_explored": len(set(self.node_ledger) | (self.navigator.queried if self.navigator else set())), "works_retrieved": self.works,
@@ -1206,6 +1274,11 @@ class DeepSession:
                 if self.cancel.is_set():
                     self.last_status = "cancelled"
                     return self._result("cancelled", budget, message="The deep search was cancelled.")
+                if time.monotonic() >= self._run_deadline:
+                    # Requests are individually bounded, but local work between
+                    # them is not. Bound the loop itself so no combination of
+                    # rebuilds and cached expansions can outrun the allowance.
+                    raise DeepSearchError("resource_limit", "This deep-search slice reached its time allowance.")
                 if self._pending_validation is not None:
                     snapshot, graph = self._snapshot(budget)
                     validated = self._validate_candidate_paths(snapshot, graph, budget)
@@ -1343,8 +1416,9 @@ class DeepSession:
                     # Every retrieved page and page cursor survives, so the
                     # rebuild repeats no upstream request.
                     self._oracle.contradicted.clear()
-                    self._proof = None
-                    self._emit("hlbes_restart")
+                    if not self._rebuild_proof("hlbes_restart"):
+                        raise DeepSearchError("search_incomplete",
+                                              "Live records kept changing under this proof.")
                     continue
                 if not running and self._proof.done is None:
                     # The proof paused rather than finished: report it through
@@ -1355,8 +1429,9 @@ class DeepSession:
                     self._oracle.bridged_page = False
                     self._offer_cached_route(budget)
                 if self._proof.conflict:
-                    self._proof = None
-                    self._emit("hlbes_restart")
+                    if not self._rebuild_proof("hlbes_restart"):
+                        raise DeepSearchError("search_incomplete",
+                                              "Live records kept changing under this proof.")
                     continue
                 self._register_discoveries(budget)
                 self._emit("hlbes_expand")
@@ -1365,12 +1440,17 @@ class DeepSession:
                     if self._oracle.withdrawn():
                         self._oracle.reported.clear()
                         self._oracle.complete.clear()
-                        self._proof = None
-                        self._emit("hlbes_restart")
+                        if not self._rebuild_proof("hlbes_restart"):
+                            raise DeepSearchError("search_incomplete",
+                                                  "Live records kept changing under this proof.")
                         continue
                     result = self._harvest(budget, "A live route passed current-profile and source-name checks.")
                     if result is not None:
                         return result
+                    if self._proof is None:
+                        # Identity validation retired the proof while building
+                        # the result. Rebuild it rather than read a dead one.
+                        continue
                 if running:
                     continue
                 if self._proof.done == NO_PATH and self._traversed_a_component():

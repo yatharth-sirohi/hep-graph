@@ -106,7 +106,9 @@ def _request_interval(override: float | None) -> float:
         raw = os.environ.get("HEPGRAPH_REQUEST_INTERVAL")
         try:
             override = float(raw) if raw else REQUEST_INTERVAL_SECONDS
-        except ValueError:
+        except (TypeError, ValueError):
+            override = REQUEST_INTERVAL_SECONDS
+        if not math.isfinite(override):
             override = REQUEST_INTERVAL_SECONDS
     if isinstance(override, bool) or not isinstance(override, (int, float)) or not math.isfinite(float(override)):
         raise ValueError("request_interval must be a finite number of seconds")
