@@ -25,6 +25,22 @@ CORE_NODE_FILE = ROOT / "data" / "cache" / "core-nodes.json"
 FILTER_KEYS = {'max_authors', 'min_authors', 'min_shared', 'year_start', 'year_end', 'genealogy'}
 SERVICE_VERSION = 'general-search-v3'
 LOG = logging.getLogger('hepgraph')
+_SERVERLESS_STATE = None
+_SERVERLESS_STATE_LOCK = threading.Lock()
+
+
+def _state_for_handler(server):
+    """Attach one shared state when the hosting runtime owns the HTTP server."""
+    state = getattr(server, 'state', None)
+    if state is not None:
+        return state
+    global _SERVERLESS_STATE
+    with _SERVERLESS_STATE_LOCK:
+        if _SERVERLESS_STATE is None:
+            _SERVERLESS_STATE = State(ROOT / 'data' / 'current.json', default_mode='live')
+        state = _SERVERLESS_STATE
+    server.state = state
+    return state
 
 
 def folded(value):
@@ -287,7 +303,7 @@ class Handler(BaseHTTPRequestHandler):
         self.do_GET()
 
     def do_GET(self):
-        state = self.server.state
+        state = _state_for_handler(self.server)
         if len(self.path) > 4096:
             return self.respond({'status': 'invalid_input', 'message': 'Request URL is too long.'}, 414)
         if not state.rate_ok(self.client_address[0]):
