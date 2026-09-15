@@ -160,7 +160,14 @@ def test_health_dataset_headers_and_exact_snapshot_version(service) -> None:
     base, state = service
     status, headers, body = _request(base, "/api/health")
     assert status == 200
-    assert _json(body) == {"status": "ok", "version": "fixture-v1", "service_version": "general-search-v3"}
+    health = _json(body)
+    runtime = health.pop("runtime")
+    assert health == {"status": "ok", "version": "fixture-v1", "service_version": "general-search-v3"}
+    # Forensic identity for a serverless deployment: which build answered and
+    # from which process. Never anything secret.
+    assert set(runtime) == {"git_commit", "deployment", "region", "environment",
+                            "instance", "process_started", "pid"}
+    assert len(runtime["instance"]) == 32 and headers["X-HEP-Instance"] == runtime["instance"]
     assert headers["Content-Type"].startswith("application/json")
     assert headers["Cache-Control"] == "no-store"
     assert headers["X-Content-Type-Options"] == "nosniff"

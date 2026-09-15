@@ -7,12 +7,14 @@ from datetime import datetime, timezone
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 import json
 import logging
+import os
 from pathlib import Path
 import re
 import threading
 import time
 import unicodedata
 import urllib.parse
+import uuid
 
 from .graph import Filters, Graph, GraphError
 from .prefetch import PreparationError, PreparationJobs
@@ -25,6 +27,39 @@ CORE_NODE_FILE = ROOT / "data" / "cache" / "core-nodes.json"
 FILTER_KEYS = {'max_authors', 'min_authors', 'min_shared', 'year_start', 'year_end', 'genealogy'}
 SERVICE_VERSION = 'general-search-v3'
 LOG = logging.getLogger('hepgraph')
+# Forensics for a serverless deployment: which build is answering, and whether
+# consecutive requests of one search reached the same process. Vercel exposes
+# the build's commit and region as environment variables; the instance id is
+# minted once per process at import. Nothing here is secret.
+PROCESS_INSTANCE = uuid.uuid4().hex
+PROCESS_STARTED = datetime.now(timezone.utc).isoformat(timespec='seconds')
+
+
+def _git_commit():
+    for name in ('VERCEL_GIT_COMMIT_SHA', 'GIT_COMMIT', 'SOURCE_VERSION'):
+        value = os.environ.get(name)
+        if value:
+            return value[:40]
+    head = ROOT / '.git' / 'HEAD'
+    try:
+        ref = head.read_text().strip()
+        if ref.startswith('ref: '):
+            return (ROOT / '.git' / ref[5:]).read_text().strip()[:40]
+        return ref[:40]
+    except OSError:
+        return None
+
+
+def runtime_info():
+    return {
+        'git_commit': _git_commit(),
+        'deployment': os.environ.get('VERCEL_DEPLOYMENT_ID'),
+        'region': os.environ.get('VERCEL_REGION'),
+        'environment': os.environ.get('VERCEL_ENV'),
+        'instance': PROCESS_INSTANCE,
+        'process_started': PROCESS_STARTED,
+        'pid': os.getpid(),
+    }
 _SERVERLESS_STATE = None
 _SERVERLESS_STATE_LOCK = threading.Lock()
 
@@ -261,6 +296,9 @@ class Handler(BaseHTTPRequestHandler):
         self.send_header('Content-Length', str(len(body)))
         self.send_header('Cache-Control', 'no-store' if content_type.startswith('application/json') else 'no-cache')
         self.send_header('X-Content-Type-Options', 'nosniff')
+        # Which process answered. Lets a client tell whether the polls of one
+        # search all reached the same instance; carries nothing sensitive.
+        self.send_header('X-HEP-Instance', PROCESS_INSTANCE)
         self.send_header('Referrer-Policy', 'strict-origin-when-cross-origin')
         self.send_header('Content-Security-Policy', "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'")
         self.send_header('Permissions-Policy', 'camera=(), microphone=(), geolocation=()')
@@ -363,7 +401,7 @@ class Handler(BaseHTTPRequestHandler):
         state.reload()
         if path == '/api/health':
             return self.respond({'status': 'ok', 'version': state.snapshot['version'],
-                                 'service_version': SERVICE_VERSION})
+                                 'service_version': SERVICE_VERSION, 'runtime': runtime_info()})
         if path == '/api/dataset':
             return self.respond(state.dataset(mode))
         if path == '/api/cache':
