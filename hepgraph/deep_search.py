@@ -98,9 +98,12 @@ class DeepSearch:
     """Factory for owner-thread, continuation-capable deep live searches."""
 
     def __init__(self, client: Any, guide_snapshot: dict[str, Any] | None = None,
-                 suggestion_pairs: Iterable[tuple[Any, Any]] = ()) -> None:
+                 suggestion_pairs: Iterable[tuple[Any, Any]] = (),
+                 core_nodes: Iterable[str] = ()) -> None:
         self.client = client
         self.guide_snapshot = guide_snapshot
+        # Seed identities reorder equal-depth work and nothing else.
+        self.core_nodes = frozenset(str(item) for item in core_nodes)
         pairs: list[tuple[str, str]] = []
         for pair in suggestion_pairs:
             if not isinstance(pair, (tuple, list)) or len(pair) != 2:
@@ -119,8 +122,9 @@ class DeepSearch:
               cancel: threading.Event | None = None,
               progress: Callable[[dict[str, Any]], None] | None = None) -> "DeepSession":
         active_filters = Filters() if filters is None else (filters if isinstance(filters, Filters) else Filters.from_dict(filters))
-        return DeepSession(self.client, _id(source), _id(target), active_filters, self.guide_snapshot, self.suggestion_pairs,
-                           cancel or threading.Event(), progress)
+        return DeepSession(self.client, _id(source), _id(target), active_filters, self.guide_snapshot,
+                           self.suggestion_pairs, cancel or threading.Event(), progress,
+                           core_nodes=self.core_nodes)
 
 
 class _EvidenceWithdrawn(Exception):
@@ -254,9 +258,11 @@ class DeepSession:
 
     def __init__(self, client: Any, source: str, target: str, filters: Filters,
                  guide_snapshot: dict[str, Any] | None, suggestion_pairs: tuple[tuple[str, str], ...], cancel: threading.Event,
-                 progress: Callable[[dict[str, Any]], None] | None) -> None:
+                 progress: Callable[[dict[str, Any]], None] | None,
+                 core_nodes: frozenset[str] = frozenset()) -> None:
         self.client, self.source, self.target, self.filters = client, source, target, filters
         self.cancel, self.progress_callback = cancel, progress
+        self.core_nodes = core_nodes
         self.connection = open_db(":memory:")
         self.owner = threading.get_ident()
         self.started = time.monotonic()
@@ -814,8 +820,9 @@ class DeepSession:
         cursor = self._oracle.cursors.get(person_id) if self._oracle else None
         cached = 1.0 if cursor is not None and cursor.pages else 0.0
         hinted = 1.0 if person_id in self.suggestion_neighbors else 0.0
+        seeded = 0.5 if person_id in self.core_nodes else 0.0
         facets = len(self.navigator.adjacency.get(person_id, ())) if self.navigator is not None else 0
-        return cached + hinted + min(float(facets), 500.0) / 500.0
+        return cached + hinted + seeded + min(float(facets), 500.0) / 500.0
 
     def _retrieval_cost(self, person_id: str) -> float:
         """Estimated remaining upstream pages for this person."""
