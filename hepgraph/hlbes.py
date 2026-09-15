@@ -169,11 +169,13 @@ class HLBES:
     def __init__(self, oracle: NeighborhoodOracle, *,
                  routing_score: Callable[[str], float] | None = None,
                  cost_estimate: Callable[[str], float] | None = None,
+                 pages_fetched: Callable[[str], int] | None = None,
                  max_expansions: int | None = None,
                  observer: Callable[[dict[str, Any]], None] | None = None) -> None:
         self.oracle = oracle
         self.routing_score = routing_score or (lambda node: 0.0)
         self.cost_estimate = cost_estimate or (lambda node: 1.0)
+        self.pages_fetched = pages_fetched or (lambda node: 0)
         self.max_expansions = max_expansions
         self.observer = observer
 
@@ -195,12 +197,20 @@ class HLBES:
             return False
         if state.upper <= state.radius_sum + 1:
             return self._settle(state, EXACT)
-        side, other, node = self._choose(state)
+        side, other, node = (None, None, None)
+        if state.upper == float("inf"):
+            # No route is known yet. Finding one is worth more than closing a
+            # layer: reading one page each from many people reaches a meeting
+            # far sooner than reading every page of a prolific few. Radii still
+            # advance whenever a layer happens to complete.
+            side, other, node = self._discover(state, breadth=True)
         if side is None:
-            # The completed radius cannot move, so the proof is finished; keep
-            # discovering past it, which can only lower U and never raise L.
-            side, other, node = self._discover(state)
+            side, other, node = self._choose(state)
+        if side is None:
+            # No legal radius work remains, so the proof can go no further.
+            # Keep discovering past it: that can only lower U, never raise L.
             state.stalled = True
+            side, other, node = self._discover(state)
         if side is None:
             if self._exhausted(state.left) or self._exhausted(state.right):
                 return self._settle(state, EXACT if state.best is not None else NO_PATH)
@@ -275,15 +285,22 @@ class HLBES:
         best = min(options)
         return best[2], best[3], best[4]
 
-    def _discover(self, state: Search) -> tuple[_Side | None, _Side | None, str | None]:
-        """Expand past a stalled radius, shallowest first. This only lowers U."""
+    def _discover(self, state: Search, *,
+                  breadth: bool = False) -> tuple[_Side | None, _Side | None, str | None]:
+        """Expand outside the radius rule. This can only lower U, never raise L.
+
+        ``breadth`` prefers people nothing has been read from yet, which is how
+        a route is found; the default prefers the cheapest remaining work,
+        which is how a stalled proof keeps making progress.
+        """
         best = None
         for side, other in ((state.left, state.right), (state.right, state.left)):
             for node in sorted(side.dist):
                 if node in side.complete or node in side.blocked:
                     continue
-                key = (side.dist[node], self.cost_estimate(node), -self.routing_score(node),
-                       side.name, node)
+                key = (side.dist[node],
+                       self.pages_fetched(node) if breadth else 0,
+                       self.cost_estimate(node), -self.routing_score(node), side.name, node)
                 if best is None or key < best[0]:
                     best = (key, side, other, node)
         return (best[1], best[2], best[3]) if best else (None, None, None)

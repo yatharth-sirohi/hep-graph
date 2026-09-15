@@ -824,6 +824,10 @@ class DeepSession:
         facets = len(self.navigator.adjacency.get(person_id, ())) if self.navigator is not None else 0
         return cached + hinted + seeded + min(float(facets), 500.0) / 500.0
 
+    def _pages_fetched(self, person_id: str) -> int:
+        cursor = self._oracle.cursors.get(person_id) if self._oracle else None
+        return cursor.pages if cursor is not None else 0
+
     def _retrieval_cost(self, person_id: str) -> float:
         """Estimated remaining upstream pages for this person."""
         cursor = self._oracle.cursors.get(person_id) if self._oracle else None
@@ -858,7 +862,8 @@ class DeepSession:
             self._oracle.cursor_for(self.source, profile_done=True)
             self._oracle.cursor_for(self.target, profile_done=True)
         self._engine = HLBES(self._oracle, routing_score=self._routing_score,
-                             cost_estimate=self._retrieval_cost)
+                             cost_estimate=self._retrieval_cost,
+                             pages_fetched=self._pages_fetched)
         self._proof = self._engine.begin(self.source, self.target,
                                          trial_path=self._cached_trial_path(graph))
         self._emit("hlbes_begin")
