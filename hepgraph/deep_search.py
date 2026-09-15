@@ -16,6 +16,7 @@ import time
 from typing import Any, Callable, Iterable
 
 from .graph import Filters, Graph, GraphError
+from .remote import OVERSIZE_MESSAGE
 from .hlbes import (COMPLETE, EXACT, HLBES, NO_PATH, PARTIAL, UNKNOWN, Neighborhood,
                     OracleStopped, Search)
 from .discovery import Navigator
@@ -913,8 +914,10 @@ class DeepSession:
                     "literature", self.literature_query(cursor.person_id, self.filters),
                     cursor.literature_page, budget, size=size)
             except DeepSearchError as error:
-                # An oversized page is a transport limit, not an answer.
-                if error.code == "resource_limit" and "4 MiB" in error.message and self._shrink_pages(cursor):
+                # An oversized page is a transport limit, not an answer. The
+                # code is rewritten to search_incomplete after the first
+                # request of a run, so match the condition, not the code.
+                if error.message == OVERSIZE_MESSAGE and self._shrink_pages(cursor):
                     return set(), "literature"
                 raise
             people = set(self._work_people(hits))

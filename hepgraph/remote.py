@@ -33,6 +33,9 @@ MAX_CACHE_BYTES = 8 * 1024 * 1024
 MAX_CACHE_ENTRIES = 256
 CACHE_TTL_SECONDS = 15 * 60
 MAX_RESPONSE_BYTES = 4 * 1024 * 1024
+# Raised verbatim so a caller can tell "this page was too big" from every other
+# resource limit and retry smaller instead of giving up on the query.
+OVERSIZE_MESSAGE = "INSPIRE response exceeded the 4 MiB limit"
 NETWORK_TIMEOUT_SECONDS = 8.0
 # INSPIRE documents 15 requests per 5 s per IP (rest-api-doc, checked
 # 2026-09-15).  That ceiling is 3.0 req/s; HEP Graph paces at 2.0 req/s so the
@@ -544,7 +547,7 @@ class RemoteClient:
             raise RemoteError("upstream_unavailable", "INSPIRE transport returned invalid data")
         self._count(layer, "bytes", len(body))
         if len(body) > MAX_RESPONSE_BYTES:
-            raise RemoteError("resource_limit", "INSPIRE response exceeded the 4 MiB limit")
+            raise RemoteError("resource_limit", OVERSIZE_MESSAGE)
         try:
             value = json.loads(body.decode("utf-8"), parse_constant=lambda _: (_ for _ in ()).throw(ValueError("non-finite JSON number")))
         except (UnicodeDecodeError, json.JSONDecodeError, RecursionError, ValueError) as exc:
