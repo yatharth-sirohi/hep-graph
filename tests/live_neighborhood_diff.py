@@ -10,7 +10,7 @@ neighbourhood twice, at the old size and the new one, and requires the neighbour
 set and the supporting work set to be identical.
 """
 import re, sys, time
-sys.path.insert(0,'/Users/yatharthsirohi/Desktop/HEP-Graph')
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from hepgraph.remote import RemoteClient
 
 PEOPLE = {"Hostert":"1621061","Pascoli":"1019647","Rodgers":"991505",

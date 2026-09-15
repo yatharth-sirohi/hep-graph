@@ -307,3 +307,48 @@ corrects still loses those extra authors, since the two bylines are not merged.
 
 
 ## 12. Git
+
+Branch `exact-neighborhood-optimization`, based on `a4c6896`. Commits, newest first:
+
+```
+b410596 Pin the two fixes that mutation testing showed were unguarded
+fad05c2 Record final benchmark numbers and limitations
+1f5508f Act on the third review round
+ac1df78 Report core cache status and agent review rounds
+796c6d4 Act on the final pre-merge review, including reverting one of my own fixes
+9bdb414 Close the ten defects an adversarial review confirmed, and keep its tests
+8a8a80d Fix the regressions two independent reviews found in this branch
+3234380 Pin the page-size rules with tests and a live neighbourhood differential
+2e45a22 Turn off discovery hints by default and measure why
+888fccd Spend discovery requests only while no route is known
+460b900 Audit INSPIRE neighbourhood retrieval against the live API
+```
+
+Files changed: `hepgraph/deep_search.py`, `hepgraph/remote.py`,
+`hepgraph/prefetch.py`, `hepgraph/pipeline.py`, one dead local removed from
+`hepgraph/identity_guard.py`, three new test modules, two new live harnesses,
+and two documents. **`hepgraph/hlbes.py` is byte-identical to `main`**, and no
+file under `static/` or `data/` was touched.
+
+### Clean-clone acceptance
+
+A fresh clone of the private repository, with no cache, no database and no
+environment file: **447 passed, 1 xfailed**; every module imports; the server
+starts; health, index and `app.js` all answer; live author search works; and a
+live path query (Feynman → Wheeler) returns a proven one-hop route with real
+paper evidence. No machine-specific path is required — the two vendored
+harnesses were rewritten to resolve their own location.
+
+### Review outcome
+
+The third review round returned **MERGE**, having confirmed each fix by
+instrumented comparison against both the previous commit and `main` — most
+decisively a probe asserting that the page size `_page_done` reasons about
+equals the size actually sent upstream: 5 violations on the previous commit, 0
+on this one. Two randomized differentials (148 and 146 end-to-end searches
+against NetworkX ground truth) and the vendored fault suite found no new
+defect.
+
+Its two non-blocking notes were both acted on: the missing regression coverage
+is now two mutation-checked tests, and the window-tail recall difference is
+recorded in §11.

@@ -96,8 +96,8 @@ class Corpus(Client):
             return {"hits": {"total": {"value": total, "relation": "gte"}, "hits": hits}}
         return {"hits": {"total": total, "hits": hits}}
 
-sys.path.insert(0, "/Users/yatharthsirohi/Desktop/HEP-Graph")
-sys.path.insert(0, "/Users/yatharthsirohi/Desktop/HEP-Graph/tests")
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 
 def budget(**o):
@@ -196,7 +196,7 @@ def test_D5_global_shortest_proven_on_a_longer_route(faults):
         f"global_shortest_proven=True on {hops} hops while 1--20--2 exists"
 
 # --- D6: coauthor identity guard has no surname test -----------------------
-FIX = json.loads(Path("/Users/yatharthsirohi/Desktop/HEP-Graph/tests/fixtures/identity_collisions.json").read_text())
+FIX = json.loads((Path(__file__).resolve().parent / "fixtures" / "identity_collisions.json").read_text())
 BERG, BID = FIX["bergmann_profile"], "1016635"
 
 @pytest.mark.xfail(strict=True, reason=(
