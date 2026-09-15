@@ -91,7 +91,10 @@ def test_remote_reachability_and_every_returned_hop_match_independent_oracle(see
     finally:
         session.close()
     assert bool(result['paths']) == nx.has_path(expected, source, target), (seed, result)
-    assert result['status'] in {'ok', 'search_incomplete'}, (seed, result)
+    assert result['status'] in {'ok', 'search_incomplete', 'no_path'}, (seed, result)
+    # A proven no-route claim must agree with the independent oracle.
+    if result['status'] == 'no_path':
+        assert not nx.has_path(expected, source, target), (seed, result)
     for route in result['paths']:
         ids = [person['id'] for person in route['people']]
         assert len(ids) == len(set(ids))

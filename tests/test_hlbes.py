@@ -158,7 +158,8 @@ def test_partial_adjacency_still_allows_proof_it_cannot_affect():
     assert (result.status, result.distance) == (EXACT, 3)
 
 
-def test_partial_adjacency_on_both_endpoints_is_incomplete_not_no_path():
+def test_partial_adjacency_on_both_endpoints_keeps_searching_but_never_proves():
+    """Discovery continues past a stalled radius; the proof does not."""
     adjacency = graph_of(chain("s", "a", "t") + chain("s", "b", "c", "d", "t"))
 
     class Oracle:
@@ -169,8 +170,26 @@ def test_partial_adjacency_on_both_endpoints_is_incomplete_not_no_path():
             return Neighborhood(members, COMPLETE)
 
     result = HLBES(Oracle()).search("s", "t")
+    assert result.status == VERIFIED          # the long route was still found
+    assert result.upper_bound == 4
+    assert result.distance is None            # but 4 is never claimed as shortest
+    assert result.lower_bound < result.upper_bound
+    assert result.stats["stalled"] is True
+
+
+def test_no_route_behind_partial_adjacency_is_incomplete_not_no_path():
+    adjacency = graph_of(chain("s", "a", "b", "t"))
+
+    class Oracle:
+        def neighborhood(self, node):
+            if node in {"s", "t"}:  # neither end can be read past
+                return Neighborhood(frozenset(), PARTIAL)
+            return Neighborhood(frozenset(adjacency.get(node, ())), COMPLETE)
+
+    result = HLBES(Oracle()).search("s", "t")
     assert result.status == SEARCH_INCOMPLETE
     assert result.status != NO_PATH
+    assert result.path is None
 
 
 def test_unknown_adjacency_is_incomplete_not_no_path():
@@ -305,3 +324,55 @@ def test_random_trial_paths_never_change_the_distance(seed):
                 break
         result = HLBES(dict_oracle(adjacency)).search(source, target, trial_path=trial)
         assert (result.status, result.distance) == (EXACT, truth)
+
+
+# ------------------------------------------------------------- resumability
+def test_a_paused_search_resumes_without_losing_the_proof():
+    """A transient stop is not an answer: the same state must continue."""
+    adjacency = graph_of(chain("n0", "n1", "n2", "n3", "n4", "n5"))
+
+    class Flaky:
+        def __init__(self):
+            self.allowed = 2
+            self.calls = 0
+
+        def neighborhood(self, node):
+            if self.allowed <= 0:
+                raise OracleStopped("rate_limited", "slice exhausted")
+            self.allowed -= 1
+            self.calls += 1
+            return Neighborhood(frozenset(adjacency.get(node, ())), COMPLETE)
+
+    oracle = Flaky()
+    engine = HLBES(oracle)
+    state = engine.begin("n0", "n5")
+    while engine.advance(state):
+        pass
+    assert state.done is None                     # paused, not finished
+    assert HLBES.result(state).status in {VERIFIED, SEARCH_INCOMPLETE}
+    first_calls = oracle.calls
+
+    oracle.allowed = 50                           # the slice budget returns
+    while engine.advance(state):
+        pass
+    result = HLBES.result(state)
+    assert (result.status, result.distance) == (EXACT, 5)
+    assert oracle.calls > first_calls
+    lows = [low for low, _ in result.stats["bounds"]]
+    assert lows == sorted(lows)                   # the bound never went backwards
+
+
+def test_stopping_rule_uses_the_full_radius_sum_plus_one():
+    """U == Rs + Rt + 1 is provably exact and must not cost another layer."""
+    nodes = [f"n{index}" for index in range(7)]
+    counted = []
+
+    class Counting:
+        def neighborhood(self, node):
+            counted.append(node)
+            return Neighborhood(frozenset(graph_of(chain(*nodes)).get(node, ())), COMPLETE)
+
+    result = HLBES(Counting()).search(nodes[0], nodes[-1])
+    assert (result.status, result.distance) == (EXACT, 6)
+    # Six hops across seven nodes: proving it must not expand every node twice.
+    assert len(counted) <= len(nodes)

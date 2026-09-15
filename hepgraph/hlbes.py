@@ -13,15 +13,23 @@ COMPLETE neighborhood, so a PARTIAL neighborhood can lower ``U`` but can never
 raise ``L``.
 
 Let ``U`` be the length of the shortest verified route seen so far.  Any s-t
-path of length ``L <= Rs + Rt`` contains a vertex ``v`` at distance at most
+path of length ``k <= Rs + Rt`` contains a vertex ``v`` at distance at most
 ``Rs`` from the source and at most ``Rt`` from the target; both sides
 therefore know ``v`` with exact distances, and the meeting scan has already
-recorded ``U <= L``.  Hence
+recorded ``U <= k``.  Contrapositively, ``U > Rs + Rt`` proves no such path
+exists, so ``d(s, t) >= Rs + Rt + 1``.  Together with ``d(s, t) <= U`` that
+gives the rigorous lower bound
 
-    U <= Rs + Rt  =>  d(s, t) = U          (proven exact)
-    otherwise         d(s, t) >= Rs + Rt + 1
+    L = min(U, Rs + Rt + 1)
 
-which gives ``L = min(U, Rs + Rt + 1)`` and the stopping rule ``L == U``.
+and exactness follows in both of the ways ``L`` can meet ``U``:
+
+    U <= Rs + Rt      =>  U <= d <= U           (a shorter path would have met)
+    U == Rs + Rt + 1  =>  L <= d <= U == L      (nothing shorter can exist)
+
+so the stopping rule is ``L == U``, that is ``U <= Rs + Rt + 1``.  Stopping at
+``U <= Rs + Rt`` instead would be sound but would pay for one whole extra
+layer of remote expansion.
 """
 from __future__ import annotations
 
@@ -49,14 +57,19 @@ class Neighborhood:
 
     members: frozenset[str]
     status: str = UNKNOWN
+    #: Opaque progress marker. Two consecutive calls returning the same token
+    #: tell the engine that no further discovery is available for this node.
+    #: A paging oracle should advance it on every retrieved page, because a
+    #: page can legitimately add no new qualifying neighbour.
+    token: Any = None
 
     def __post_init__(self) -> None:
         if self.status not in _STATUSES:
             raise ValueError(f"neighborhood status must be one of {_STATUSES}")
 
     @property
-    def key(self) -> tuple[str, int, int]:
-        return self.status, len(self.members), hash(self.members)
+    def key(self) -> tuple[Any, ...]:
+        return self.status, len(self.members), hash(self.members), self.token
 
 
 class NeighborhoodOracle(Protocol):
@@ -137,6 +150,9 @@ class Search:
         self.meetings = 0
         self.done: str | None = None
         self.reason = ""
+        #: True once no completed radius can advance: U may still fall, L cannot.
+        self.stalled = False
+        self.stop_message = ""
         self.expansions = 0
 
     @property
@@ -174,21 +190,27 @@ class HLBES:
         """Do one unit of work. Returns False once the search is finished."""
         if state.done is not None:
             return False
-        if state.upper <= state.radius_sum:
+        if state.upper <= state.radius_sum + 1:
             return self._settle(state, EXACT)
-        side, other = self._choose(state)
+        side, other, node = self._choose(state)
+        if side is None:
+            # The completed radius cannot move, so the proof is finished; keep
+            # discovering past it, which can only lower U and never raise L.
+            side, other, node = self._discover(state)
+            state.stalled = True
         if side is None:
             if self._exhausted(state.left) or self._exhausted(state.right):
                 return self._settle(state, EXACT if state.best is not None else NO_PATH)
             return self._settle(state, VERIFIED if state.best else SEARCH_INCOMPLETE,
                                 state.reason or "adjacency_incomplete")
         if self.max_expansions is not None and state.expansions >= self.max_expansions:
-            return self._settle(state, VERIFIED if state.best else SEARCH_INCOMPLETE,
-                                "expansion_limit")
+            return self._pause(state, "expansion_limit")
         try:
-            self._expand(state, side, other)
+            self._expand(state, side, other, node)
         except OracleStopped as stop:
-            return self._settle(state, VERIFIED if state.best else SEARCH_INCOMPLETE, stop.reason)
+            # A timeout, rate limit or slice boundary is not an answer. Leave
+            # the proof resumable so a continuation picks it up unchanged.
+            return self._pause(state, stop.reason, stop.message)
         self._record(state)
         return True
 
@@ -211,23 +233,35 @@ class HLBES:
         if len(route) - 1 < state.upper:
             state.upper, state.best = len(route) - 1, route
 
-    def _choose(self, state: Search) -> tuple[_Side | None, _Side | None]:
+    def _choose(self, state: Search) -> tuple[_Side | None, _Side | None, str | None]:
         """Pick the cheaper side that can legally advance its completed radius."""
         options = []
         for side, other in ((state.left, state.right), (state.right, state.left)):
             work = side.open_pending()
             if work:
-                options.append((min(self.cost_estimate(node) for node in work), side, other))
+                # Distance is primary: every candidate here already sits at the
+                # same completed radius, so routing utility only breaks that tie.
+                node = max(sorted(work), key=self.routing_score)
+                options.append((min(self.cost_estimate(item) for item in work), side.name, side, other, node))
         if not options:
-            return None, None
-        options.sort(key=lambda item: (item[0], item[1].name))
-        return options[0][1], options[0][2]
+            return None, None, None
+        best = min(options)
+        return best[2], best[3], best[4]
 
-    def _expand(self, state: Search, side: _Side, other: _Side) -> None:
-        work = side.open_pending()
-        # Distance is primary: every candidate here already sits at the same
-        # completed radius, so routing utility only breaks that tie.
-        node = max(sorted(work), key=self.routing_score)
+    def _discover(self, state: Search) -> tuple[_Side | None, _Side | None, str | None]:
+        """Expand past a stalled radius, shallowest first. This only lowers U."""
+        best = None
+        for side, other in ((state.left, state.right), (state.right, state.left)):
+            for node in sorted(side.dist):
+                if node in side.complete or node in side.blocked:
+                    continue
+                key = (side.dist[node], self.cost_estimate(node), -self.routing_score(node),
+                       side.name, node)
+                if best is None or key < best[0]:
+                    best = (key, side, other, node)
+        return (best[1], best[2], best[3]) if best else (None, None, None)
+
+    def _expand(self, state: Search, side: _Side, other: _Side, node: str) -> None:
         found = self.oracle.neighborhood(node)
         side.expansions += 1
         state.expansions += 1
@@ -299,6 +333,12 @@ class HLBES:
                            "target_radius": state.right.radius,
                            "expansions": state.expansions})
 
+    @staticmethod
+    def _pause(state: Search, reason: str, message: str = "") -> bool:
+        """Stop this slice without deciding the search."""
+        state.reason, state.stop_message = reason, message or reason
+        return False
+
     def _settle(self, state: Search, status: str, reason: str = "") -> bool:
         state.done, state.reason = status, reason
         if status == EXACT:
@@ -317,7 +357,8 @@ class HLBES:
                  "source_known": len(left.dist), "target_known": len(right.dist),
                  "complete_neighborhoods": len(left.complete) + len(right.complete),
                  "blocked_neighborhoods": len(left.blocked) + len(right.blocked),
-                 "meeting_checks": state.meetings, "bounds": list(state.bounds)}
+                 "meeting_checks": state.meetings, "stalled": state.stalled,
+                 "bounds": list(state.bounds)}
         return SearchResult(status=status,
                             distance=int(state.upper) if status == EXACT else None,
                             path=state.best if status in {EXACT, VERIFIED} else None,

@@ -16,6 +16,8 @@ import time
 from typing import Any, Callable, Iterable
 
 from .graph import Filters, Graph, GraphError
+from .hlbes import (COMPLETE, EXACT, HLBES, NO_PATH, PARTIAL, UNKNOWN, Neighborhood,
+                    OracleStopped, Search)
 from .discovery import Navigator
 from .identity_guard import apply_identity_guard
 from .pipeline import PipelineError, build_snapshot, open_db, ref_id, store_record
@@ -133,6 +135,125 @@ class DeepSearch:
                            cancel or threading.Event(), progress)
 
 
+class _EvidenceWithdrawn(Exception):
+    """A retrieved page contradicted an exhaustion claim the proof rested on."""
+
+
+class _LiveOracle:
+    """DeepSession's paged retrieval, presented as an HLBES neighbourhood oracle.
+
+    COMPLETE means every qualifying literature page (and, with genealogy on,
+    every reverse-adviser page) for that person under the active mode has been
+    retrieved, *and* that those pages account for every neighbour the
+    cumulative evidence attributes to them.  A neighbour discovered only
+    through somebody else's page means the person's own exhausted query
+    disagrees with the index, so the neighbourhood stays PARTIAL and can never
+    close a search layer.
+    """
+
+    def __init__(self, session: "DeepSession") -> None:
+        self.session = session
+        self.cursors: dict[str, _Cursor] = {}
+        self.attested: dict[str, set[str]] = {}
+        self.complete: set[str] = set()
+        self.reported: dict[str, frozenset[str]] = {}
+        self.contradicted: set[str] = set()
+        self.genealogy_done: set[str] = set()
+
+    def cursor_for(self, person_id: str, *, profile_done: bool = False) -> _Cursor:
+        cursor = self.cursors.get(person_id)
+        if cursor is None:
+            cursor = self.cursors[person_id] = self.session._cursor(person_id, 0, profile_done=profile_done)
+        return cursor
+
+    def _companions(self, person_id: str) -> list[_Cursor]:
+        """Hydrate the rest of the pending layer in the same batched request."""
+        proof = self.session._proof
+        if proof is None:
+            return []
+        pending = (proof.left.open_pending() | proof.right.open_pending()) - {person_id}
+        return [self.cursor_for(other) for other in sorted(pending)[:24]]
+
+    def _accounted(self, person_id: str) -> bool:
+        """A person's own exhausted query must account for every neighbour."""
+        session = self.session
+        members = {other for other in session._eligible_neighbors(person_id, session._budget)
+                   if other != person_id}
+        attested = self.attested.get(person_id, set())
+        return members <= (attested | set(session._historical_neighbors(person_id)))
+
+    def _audit(self, touched: Iterable[str]) -> None:
+        """A retrieved page can contradict an exhaustion claim made earlier.
+
+        INSPIRE's index is not always self-consistent, so a neighbour that only
+        ever appeared on somebody else's page withdraws the claim rather than
+        quietly leaving a proof resting on it.
+        """
+        for person_id in touched:
+            if person_id in self.complete and not self._accounted(person_id):
+                self.complete.discard(person_id)
+                self.contradicted.add(person_id)
+
+    def complete_still_holds(self) -> bool:
+        return all(self._accounted(person_id) for person_id in sorted(self.complete))
+
+    def withdrawn(self) -> bool:
+        """True once the identity guard has removed adjacency already reported.
+
+        A name or lifetime conflict is only detectable after the neighbour's
+        public profile arrives, which can be several expansions later.  Bounds
+        derived from the retracted edge describe a graph that no longer exists.
+        """
+        session = self.session
+        for person_id, reported in self.reported.items():
+            members = {other for other in session._eligible_neighbors(person_id, session._budget)
+                       if other != person_id}
+            if not reported <= members:
+                return True
+        return False
+
+    def neighborhood(self, person_id: str) -> Neighborhood:
+        session = self.session
+        budget = session._budget
+        cursor = self.cursor_for(person_id)
+        try:
+            if session.filters.genealogy and person_id not in self.genealogy_done:
+                self.genealogy_done.add(person_id)
+                # An audited overlay edge still needs the neighbour's live
+                # public profile before it can enter a graph snapshot.
+                for other in session._historical_neighbors(person_id):
+                    if other != person_id:
+                        session._profile(other, budget)
+            attested = self.attested.setdefault(person_id, set())
+            page_people = session._page_person(cursor, budget, self._companions(person_id))
+            attested |= page_people
+            self._audit(page_people - {person_id})
+            if self.contradicted:
+                # Raise before any of this page reaches the proof: the bounds
+                # were derived from a claim that no longer holds, so the whole
+                # proof is rebuilt from the retained evidence instead.
+                raise _EvidenceWithdrawn()
+        except DeepSearchError as error:
+            raise OracleStopped(error.code, error.message) from error
+        if cursor.deferred:
+            # A per-run page allowance is a fairness checkpoint for the old
+            # round-robin frontier. HLBES already balances the two sides, and
+            # a layer cannot close until this person is read to the end.
+            cursor.deferred, cursor.slice_pages = False, 0
+        members = frozenset(other for other in session._eligible_neighbors(person_id, budget)
+                            if other != person_id)
+        # Retrieval progress, not the member set: a page may legitimately add
+        # no new qualifying neighbour and must not look like a dead end.
+        token = (cursor.profile_done, cursor.pages, cursor.literature_page, cursor.reverse_page)
+        self.reported[person_id] = members
+        paged_out = cursor.literature_done and cursor.reverse_done and not cursor.incomplete
+        if paged_out and self._accounted(person_id):
+            self.complete.add(person_id)
+            return Neighborhood(members, COMPLETE, token)
+        self.complete.discard(person_id)
+        return Neighborhood(members, PARTIAL if cursor.pages or members else UNKNOWN, token)
+
+
 class DeepSession:
     """One in-memory search state. All methods must run on its creator thread."""
 
@@ -198,6 +319,14 @@ class DeepSession:
         self._navigation_disabled = False
         self._navigation_failures: list[str] = []
         self._navigation_since_expansion = 0
+        # HLBES owns traversal and the exactness proof; this session owns
+        # retrieval, evidence, and identity. The proof state survives every
+        # slice boundary so a continuation resumes rather than restarts.
+        self._bridged: set[tuple[str, bool]] = set()
+        self._proof: Search | None = None
+        self._engine: HLBES | None = None
+        self._oracle: _LiveOracle | None = None
+        self._budget: DeepBudget = DeepBudget.standard()
         self._navigation_route: list[str] | None = None
         self._navigation_pending_route: list[str] | None = None
         self._guide_pair_pages: dict[tuple[str, str], int] = {}
@@ -363,14 +492,14 @@ class DeepSession:
         path = self._guide_path(self.source, self.target)
         return deque(zip(path, path[1:])) if path else deque()
 
-    def _queue_guide_bridge(self, side: _Side, person_id: str) -> None:
+    def _queue_guide_bridge(self, person_id: str, *, discovered_from_source: bool) -> None:
         """Turn a stale guide corridor into bounded fresh pair verifications.
 
         A candidate is useful only when it was *just discovered* by a live
         frontier from the other endpoint.  Guide records themselves never enter
         the temporary SQLite database or any returned evidence.
         """
-        guide_root = self.source if side is self.right else self.target
+        guide_root = self.target if discovered_from_source else self.source
         path = self._guide_path(guide_root, person_id)
         if not path:
             return
@@ -575,7 +704,7 @@ class DeepSession:
             raise DeepSearchError("resource_limit", "The deep-search people ceiling was reached.")
         side.seen[person_id] = depth
         side.following.append(self._cursor(person_id, depth))
-        self._queue_guide_bridge(side, person_id)
+        self._queue_guide_bridge(person_id, discovered_from_source=side is self.left)
         return person_id in (self.right.seen if side is self.left else self.left.seen)
 
     def _cross_frontier(self, budget: DeepBudget) -> bool:
@@ -585,8 +714,7 @@ class DeepSession:
         # Keep batches deterministic, including for the public query audit.
         # Diagonal scheduling below, rather than member order, prevents one
         # side's early blocks from consuming an entire bounded slice.
-        left_ids = sorted(person_id for person_id in self.left.seen if person_id not in self._unverified_people)
-        right_ids = sorted(person_id for person_id in self.right.seen if person_id not in self._unverified_people)
+        left_ids, right_ids = self._bridge_groups()
         # INSPIRE accepted profile OR batches but rejected live 25x25
         # literature combinations. Keep this optional probe deliberately small.
         left_blocks = [tuple(left_ids[start:start + 10]) for start in range(0, len(left_ids), 10)]
@@ -640,6 +768,15 @@ class DeepSession:
         self._bridge_block_offset = start + examined
         return False
 
+    def _bridge_groups(self) -> tuple[list[str], list[str]]:
+        """Both discovered sides, taken from whichever frontier is in charge."""
+        if self._proof is not None:
+            left, right = self._proof.left.dist, self._proof.right.dist
+        else:
+            left, right = self.left.seen, self.right.seen
+        return (sorted(person_id for person_id in left if person_id not in self._unverified_people),
+                sorted(person_id for person_id in right if person_id not in self._unverified_people))
+
     def _cursor(self, person_id: str, depth: int, *, profile_done: bool = False) -> _Cursor:
         return _Cursor(person_id, depth, profile_done=profile_done, reverse_done=not self.filters.genealogy)
 
@@ -660,10 +797,11 @@ class DeepSession:
         elif cursor.slice_pages >= budget.max_pages_per_person:
             cursor.deferred = True
 
-    def _hydrate_frontier_profiles(self, side: _Side, cursor: _Cursor, budget: DeepBudget) -> None:
+    def _hydrate_profiles(self, cursor: _Cursor, companions: Iterable[_Cursor],
+                          budget: DeepBudget) -> None:
         """Batch profile hydration for already discovered frontier members."""
         selected = [cursor]
-        selected.extend(item for item in side.current if not item.profile_done and len(selected) < 25)
+        selected.extend(item for item in companions if not item.profile_done and len(selected) < 25)
         requested = [item.person_id for item in selected if item.person_id not in self._unverified_people]
         confirmations = self._refresh_profiles(requested, budget, force=False) if requested else {}
         for item in selected:
@@ -674,10 +812,47 @@ class DeepSession:
             item.profile_done = True
             self._record_node(item)
 
+    def _page_person(self, cursor: _Cursor, budget: DeepBudget,
+                     companions: Iterable[_Cursor] = ()) -> set[str]:
+        """One bounded remote page for one person, with no frontier bookkeeping.
+
+        Returns the people named on a retrieved literature page, which is how
+        a bridge between two already closed cursors becomes visible.
+        """
+        if not cursor.profile_done:
+            self._hydrate_profiles(cursor, companions, budget)
+            return set()
+        kind = cursor.next_kind
+        if kind == "literature" and cursor.literature_done:
+            kind = "reverse"
+        if kind == "reverse" and cursor.reverse_done:
+            kind = "literature"
+        people: set[str] = set()
+        if kind == "literature" and not cursor.literature_done:
+            size = self._literature_size(budget)
+            hits, total, _ = self._fetch("literature", self.literature_query(cursor.person_id, self.filters),
+                                         cursor.literature_page, budget, size=size)
+            people = set(self._work_people(hits))
+            cursor.pages += 1
+            cursor.slice_pages += 1
+            self._page_done(cursor, total, cursor.literature_page, budget, "literature", page_size=size)
+            cursor.literature_page += 1
+            cursor.next_kind = "reverse"
+        elif kind == "reverse" and not cursor.reverse_done:
+            _, total, _ = self._fetch("authors", f"advisors.record.$ref:{cursor.person_id}",
+                                      cursor.reverse_page, budget)
+            cursor.pages += 1
+            cursor.slice_pages += 1
+            self._page_done(cursor, total, cursor.reverse_page, budget, "reverse")
+            cursor.reverse_page += 1
+            cursor.next_kind = "literature"
+        self._record_node(cursor)
+        return people
+
     def _step_cursor(self, side: _Side, cursor: _Cursor, budget: DeepBudget) -> bool:
         """Do one bounded remote page; return whether it met the other side."""
         if not cursor.profile_done:
-            self._hydrate_frontier_profiles(side, cursor, budget)
+            self._page_person(cursor, budget, side.current)
             side.current.append(cursor)
             return False
         met = False
@@ -689,39 +864,15 @@ class DeepSession:
             for person_id in self._historical_neighbors(cursor.person_id):
                 if person_id != cursor.person_id:
                     met = self._enqueue(side, person_id, cursor.depth + 1, budget) or met
-        kind = cursor.next_kind
-        if kind == "literature" and cursor.literature_done:
-            kind = "reverse"
-        if kind == "reverse" and cursor.reverse_done:
-            kind = "literature"
-        if kind == "literature" and not cursor.literature_done:
-            size = self._literature_size(budget)
-            hits, total, _ = self._fetch("literature", self.literature_query(cursor.person_id, self.filters), cursor.literature_page, budget, size=size)
-            # A work returned for cursor C can be the last required shared work
-            # for already-closed A and B. When A and B sit on opposing
-            # frontiers, checking only C's own filtered neighbours misses the
-            # newly completed bridge at ``min_shared > 1``.
-            hit_people = set(self._work_people(hits))
-            met = met or bool(hit_people.intersection(self.left.seen) and hit_people.intersection(self.right.seen))
-            cursor.pages += 1
-            cursor.slice_pages += 1
-            self._page_done(cursor, total, cursor.literature_page, budget, "literature", page_size=size)
-            cursor.literature_page += 1
-            cursor.next_kind = "reverse"
-        elif kind == "reverse" and not cursor.reverse_done:
-            hits, total, _ = self._fetch("authors", f"advisors.record.$ref:{cursor.person_id}", cursor.reverse_page, budget)
-            cursor.pages += 1
-            cursor.slice_pages += 1
-            for person_id in self._eligible_neighbors(cursor.person_id, budget):
-                if person_id != cursor.person_id:
-                    met = self._enqueue(side, person_id, cursor.depth + 1, budget) or met
-            self._page_done(cursor, total, cursor.reverse_page, budget, "reverse")
-            cursor.reverse_page += 1
-            cursor.next_kind = "literature"
-        if kind == "literature":
-            for person_id in self._eligible_neighbors(cursor.person_id, budget):
-                if person_id != cursor.person_id:
-                    met = self._enqueue(side, person_id, cursor.depth + 1, budget) or met
+        # A work returned for cursor C can be the last required shared work
+        # for already-closed A and B. When A and B sit on opposing frontiers,
+        # checking only C's own filtered neighbours misses the newly
+        # completed bridge at ``min_shared > 1``.
+        hit_people = self._page_person(cursor, budget)
+        met = met or bool(hit_people.intersection(self.left.seen) and hit_people.intersection(self.right.seen))
+        for person_id in self._eligible_neighbors(cursor.person_id, budget):
+            if person_id != cursor.person_id:
+                met = self._enqueue(side, person_id, cursor.depth + 1, budget) or met
         if cursor.deferred:
             side.deferred.append(cursor)
         elif cursor.literature_done and cursor.reverse_done:
@@ -730,6 +881,117 @@ class DeepSession:
             side.current.append(cursor)
         self._record_node(cursor)
         return met
+
+    def _routing_score(self, person_id: str) -> float:
+        """Order equal-depth work only. This can never change a distance."""
+        cursor = self._oracle.cursors.get(person_id) if self._oracle else None
+        cached = 1.0 if cursor is not None and cursor.pages else 0.0
+        hinted = 1.0 if person_id in self.suggestion_neighbors else 0.0
+        facets = len(self.navigator.adjacency.get(person_id, ())) if self.navigator is not None else 0
+        return cached + hinted + min(float(facets), 500.0) / 500.0
+
+    def _retrieval_cost(self, person_id: str) -> float:
+        """Estimated remaining upstream pages for this person."""
+        cursor = self._oracle.cursors.get(person_id) if self._oracle else None
+        if cursor is None:
+            return 4.0
+        remaining = 0.0 if cursor.literature_done else 2.0
+        remaining += 0.0 if cursor.reverse_done else 1.0
+        return remaining if cursor.profile_done else remaining + 1.0
+
+    def _cached_trial_path(self, graph: Graph) -> list[str] | None:
+        """A route in already-retrieved evidence: an upper bound, never a proof."""
+        found = graph.find_paths(self.source, self.target, 1)
+        if found.get("status") != "ok" or not found.get("paths"):
+            return None
+        return [str(person["id"]) for person in found["paths"][0].get("people", [])]
+
+    def _begin_proof(self, budget: DeepBudget) -> None:
+        self._budget = budget
+        _, graph = self._snapshot(budget)
+        # A rebuilt proof keeps the existing oracle: every page cursor and
+        # attested neighbour survives, so a restart repeats no request.
+        if self._oracle is None:
+            self._oracle = _LiveOracle(self)
+            # Bootstrap already confirmed both endpoint profiles.
+            self._oracle.cursor_for(self.source, profile_done=True)
+            self._oracle.cursor_for(self.target, profile_done=True)
+        self._engine = HLBES(self._oracle, routing_score=self._routing_score,
+                             cost_estimate=self._retrieval_cost)
+        self._proof = self._engine.begin(self.source, self.target,
+                                         trial_path=self._cached_trial_path(graph))
+        self.frontier_started = True
+        self._emit("hlbes_begin")
+
+    def _harvest(self, budget: DeepBudget, message: str) -> dict[str, Any] | None:
+        """Turn retrieved evidence into a validated, returnable route."""
+        snapshot, graph = self._snapshot(budget)
+        found = graph.find_paths(self.source, self.target, 3)
+        if found.get("status") != "ok":
+            return None
+        hops = (found.get("paths") or [{}])[0].get("hops")
+        best = self._best_hops()
+        if best is not None and isinstance(hops, int) and hops >= best and not self._proven():
+            return None
+        if self._validate_candidate_paths(snapshot, graph, budget) is None:
+            return None
+        return self._found_result(budget, message)
+
+    def _register_discoveries(self, budget: DeepBudget) -> None:
+        """Apply the people ceiling and the guide corridor to new discoveries."""
+        if self._proof is None:
+            return
+        left, right = self._proof.left.dist, self._proof.right.dist
+        if len(set(left) | set(right)) > budget.max_people:
+            raise DeepSearchError("resource_limit", "The deep-search people ceiling was reached.")
+        for known, from_source in ((left, True), (right, False)):
+            for person_id in sorted(known):
+                if (person_id, from_source) in self._bridged:
+                    continue
+                self._bridged.add((person_id, from_source))
+                self._queue_guide_bridge(person_id, discovered_from_source=from_source)
+
+    def _retire_proof(self, person_id: str) -> None:
+        """Rebuild the proof when the identity guard removes one of its nodes.
+
+        Distances and bounds recorded against a graph that contained this
+        person no longer describe the graph without them.  Retained evidence
+        and page cursors survive, so the rebuild costs no upstream requests
+        beyond the pages that were still outstanding anyway.
+        """
+        if self._proof is None or self._engine is None:
+            return
+        if person_id not in self._proof.left.dist and person_id not in self._proof.right.dist:
+            return
+        if self._oracle is not None:
+            self._oracle.cursors.pop(person_id, None)
+            self._oracle.attested.pop(person_id, None)
+        self._proof = None
+        self._emit("hlbes_restart")
+
+    def _traversed_a_component(self) -> bool:
+        """Exhausting a component we never saw any evidence for proves nothing."""
+        if self._proof is None or not self.works or self._oracle is None:
+            return False
+        if not any(len(side.dist) > 1 and side.complete
+                   for side in (self._proof.left, self._proof.right)):
+            return False
+        return self._oracle.complete_still_holds()
+
+    def _proven(self) -> bool:
+        return self._proof is not None and self._proof.done == EXACT
+
+    def _bounds(self) -> dict[str, Any]:
+        if self._proof is None:
+            return {"lower": None, "upper": None, "proven": False}
+        upper = self._proof.upper
+        return {"lower": self._proof.lower,
+                "upper": None if upper == float("inf") else int(upper),
+                "proven": self._proof.done == EXACT,
+                "source_radius": self._proof.left.radius,
+                "target_radius": self._proof.right.radius,
+                "complete_neighborhoods": len(self._proof.left.complete) + len(self._proof.right.complete),
+                "expansions": self._proof.expansions}
 
     def _snapshot(self, budget: DeepBudget) -> tuple[dict[str, Any], Graph]:
         if self._materialized is None:
@@ -850,6 +1112,7 @@ class DeepSession:
                 else:
                     self._unverified_people[person_id] = "current_public_profile_not_found"
                     self._invalidate_materialized()
+                    self._retire_proof(person_id)
                 pending.index += 1
                 self._emit("validate_identity")
         fresh_snapshot, fresh_graph = self._snapshot(budget)
@@ -912,6 +1175,7 @@ class DeepSession:
                                 "reported_total": self._direct_pair_total,
                                 "reported_total_exact": self._direct_pair_total_exact,
                                 "complete": self._direct_pair_complete},
+                "exact_proof": self._bounds(),
                 "identity_validation": {"confirmed_profiles": len(self._identity_confirmed),
                                         "pending": self._pending_validation is not None,
                                         "unverified_people": dict(self._unverified_people)}}
@@ -932,6 +1196,10 @@ class DeepSession:
     def _found_result(self, budget: DeepBudget, message: str) -> dict[str, Any]:
         """Retain a non-shortest verified path for explicit exact continuation."""
         hops = self._best_hops()
+        if self._proof is not None:
+            # Offer continuation exactly while shortestness is still open.
+            return self._result("ok", budget, message=message,
+                                can_continue=self._proof.done is None)
         return self._result("ok", budget, message=message, can_continue=bool(hops and hops > 2))
 
     @staticmethod
@@ -967,9 +1235,11 @@ class DeepSession:
         coverage = snapshot.get("coverage") if isinstance(snapshot, dict) and isinstance(snapshot.get("coverage"), dict) else self._coverage(snapshot)
         direct = bool(paths and paths[0].get("hops") in {0, 1})
         two_hop_proven = bool(paths and paths[0].get("hops") == 2 and self._direct_pair_complete)
+        bounds = self._bounds()
         return {"status": status, "message": message, "mode": "live", "filters": self.filters.to_dict(),
                 "paths": self._queryable_paths(paths), "exact": False, "exact_for_retrieved_graph": local_exact,
-                "global_shortest_proven": direct or two_hop_proven, "alternatives_truncated": alternatives_truncated,
+                "global_shortest_proven": direct or two_hop_proven or bounds["proven"],
+                "bounds": bounds, "alternatives_truncated": alternatives_truncated,
                 "can_continue": can_continue, "version": snapshot.get("version", self.best_version or "live-deep-incomplete") if snapshot else (self.best_version or "live-deep-incomplete"),
                 "coverage": coverage, "progress": {"people_explored": len(set(self.node_ledger) | (self.navigator.queried if self.navigator else set())), "works_retrieved": self.works,
                                                         "elapsed_seconds": round(time.monotonic() - self.started, 3),
@@ -985,6 +1255,7 @@ class DeepSession:
         self._bridge_disabled_this_run = False
         self._navigation_disabled = False
         self._run_deadline = time.monotonic() + float(budget.max_seconds)
+        self._budget = budget
         self._restore_deferred(self.left)
         self._restore_deferred(self.right)
         try:
@@ -1111,78 +1382,58 @@ class DeepSession:
                 # eight facet requests. Top-100 hints can never exhaust BFS.
                 if self._navigation_since_expansion < 8 and self._navigation_step(budget):
                     continue
-                if (not self.frontier_started and not self.left.current and not self.left.following
-                        and not self.right.current and not self.right.following):
-                    self.left.current.append(self._cursor(self.source, 0, profile_done=True))
-                    self.right.current.append(self._cursor(self.target, 0, profile_done=True))
-                    self.frontier_started = True
+                if self._proof is None:
+                    self._begin_proof(budget)
+                    continue
+                self.frontier_started = True
                 if self._bridge_turn:
                     self._bridge_turn = False
                     if self._cross_frontier(budget):
-                        snapshot, graph = self._snapshot(budget)
-                        found = graph.find_paths(self.source, self.target, 3)
-                        if found.get("status") == "ok":
-                            validated = self._validate_candidate_paths(snapshot, graph, budget)
-                            if validated is not None:
-                                return self._found_result(budget, "A route joining both search sides passed current-profile and source-name checks.")
+                        result = self._harvest(budget, "A route joining both search sides passed current-profile and source-name checks.")
+                        if result is not None:
+                            return result
                         self._emit("cross_frontier")
                         continue
-                self._advance(self.left); self._advance(self.right)
-                available = [side for side in (self.left, self.right) if side.current]
-                if not available:
-                    if self.left.deferred or self.right.deferred:
-                        # No known frontier work remains, so resume the exact
-                        # saved page cursors in this same allowance. Page five
-                        # is never silently abandoned just because page four
-                        # was a fair per-person checkpoint.
-                        self._restore_deferred(self.left)
-                        self._restore_deferred(self.right)
-                        continue
-                    # This is also a final safety net for a repeated-work edge
-                    # that formed between two already closed cursors. Normal
-                    # graph/identity ordering remains exactly the same.
-                    snapshot, graph = self._snapshot(budget)
-                    found = graph.find_paths(self.source, self.target, 3)
-                    found_hops = (found.get("paths") or [{}])[0].get("hops") if isinstance(found.get("paths"), list) and found.get("paths") else None
-                    if found.get("status") == "ok" and (self._best_hops() is None or (isinstance(found_hops, int) and found_hops < self._best_hops())):
-                        validated = self._validate_candidate_paths(snapshot, graph, budget)
-                        if validated is not None:
-                            return self._found_result(budget, "A route in the retrieved evidence passed current-profile and source-name checks.")
-                    if self.best:
-                        return self._result(
-                            "ok", budget,
-                            message="The retained bounded frontiers are exhausted; the verified route remains scoped to retrieved evidence.",
-                        )
-                    return self._result("search_incomplete", budget, message="All bounded frontiers were exhausted; unqueried INSPIRE records may still connect these people.")
-                smallest = min(len(item.current) for item in available)
-                candidates = [item for item in available if len(item.current) == smallest]
-                if len(candidates) == 1:
-                    side = candidates[0]
-                else:
-                    side = self.left if self._prefer_left else self.right
-                    if side not in candidates:
-                        side = candidates[0]
-                    self._prefer_left = not self._prefer_left
-                cursor = side.current.popleft()
-                self._navigation_since_expansion = 0
+                before = self._proof.upper
                 try:
-                    met = self._step_cursor(side, cursor, budget)
-                except DeepSearchError:
-                    # A budget boundary or transient upstream error must leave
-                    # the exact page cursor on its original breadth frontier.
-                    # A successful page has already advanced its cursor before
-                    # any later failure, so repeating it is safe and idempotent.
-                    side.current.appendleft(cursor)
-                    raise
-                self._emit(f"expand_{side.name}")
+                    running = self._engine.advance(self._proof)
+                except _EvidenceWithdrawn:
+                    # Every retrieved page and page cursor survives, so the
+                    # rebuild repeats no upstream request.
+                    self._oracle.contradicted.clear()
+                    self._proof = None
+                    self._emit("hlbes_restart")
+                    continue
+                if not running and self._proof.done is None:
+                    # The proof paused rather than finished: report it through
+                    # the session's own resumable error plumbing.
+                    raise DeepSearchError(self._proof.reason or "search_incomplete",
+                                          self._proof.stop_message or "The deep search paused before proving shortestness.")
+                self._register_discoveries(budget)
+                self._emit("hlbes_expand")
                 self._bridge_turn = True
-                if met:
-                    snapshot, graph = self._snapshot(budget)
-                    found = graph.find_paths(self.source, self.target, 3)
-                    if found.get("status") == "ok":
-                        validated = self._validate_candidate_paths(snapshot, graph, budget)
-                        if validated is not None:
-                            return self._found_result(budget, "A multi-hop live route passed current-profile and source-name checks.")
+                if self._proof.upper < before or self._proof.done is not None:
+                    if self._oracle.withdrawn():
+                        self._oracle.reported.clear()
+                        self._oracle.complete.clear()
+                        self._proof = None
+                        self._emit("hlbes_restart")
+                        continue
+                    result = self._harvest(budget, "A live route passed current-profile and source-name checks.")
+                    if result is not None:
+                        return result
+                if running:
+                    continue
+                if self._proof.done == NO_PATH and self._traversed_a_component():
+                    return self._result("no_path", budget, message=(
+                        "Every reachable collaborator of one endpoint was retrieved in full and "
+                        "none of them reaches the other person under these filters."))
+                if self.best:
+                    return self._result(
+                        "ok", budget,
+                        message="The retained bounded frontiers are exhausted; the verified route remains scoped to retrieved evidence.")
+                return self._result("search_incomplete", budget,
+                                    message="All bounded frontiers were exhausted; unqueried INSPIRE records may still connect these people.")
         except DeepSearchError as error:
             self.last_status = error.code
             continuable = error.code in {"resource_limit", "search_incomplete", "upstream_unavailable"} and not self.cancel.is_set()
