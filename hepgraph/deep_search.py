@@ -27,6 +27,13 @@ from .pipeline import PipelineError, build_snapshot, open_db, ref_id, store_reco
 # window can be read from but never read to the end.
 MAX_RESULT_WINDOW = 10_000
 
+# INSPIRE's maximum accepted page size, measured against the live API.
+MAX_LITERATURE_PAGE = 1_000
+# An exact-ID author lookup returns at most one record per requested ID, and
+# profile batches are capped at 25, so a literature-sized page would only make
+# the request (and its cache key) larger for nothing.
+PROFILE_PAGE_SIZE = 25
+
 
 class DeepSearchError(ValueError):
     def __init__(self, code: str, message: str) -> None:
@@ -42,7 +49,7 @@ class DeepBudget:
     max_requests: int
     max_works: int
     max_people: int
-    page_size: int = 100
+    page_size: int = 1000
     max_pages_per_person: int = 4
 
     @classmethod
@@ -59,7 +66,7 @@ class DeepBudget:
                 or not 1 <= float(self.max_seconds) <= 900):
             raise DeepSearchError("invalid_request", "max_seconds must be between 1 and 900.")
         for field, maximum in (("max_requests", 720), ("max_works", 50_000), ("max_people", 50_000),
-                               ("page_size", 100), ("max_pages_per_person", 100)):
+                               ("page_size", 1000), ("max_pages_per_person", 100)):
             value = getattr(self, field)
             if isinstance(value, bool) or not isinstance(value, int) or not 1 <= value <= maximum:
                 raise DeepSearchError("invalid_request", f"{field} is outside the supported deep-search limit.")
@@ -72,6 +79,9 @@ class _Cursor:
     profile_done: bool = False
     literature_page: int = 1
     reverse_page: int = 1
+    # Fixed once paging starts: page N means different records at a different
+    # size, so a mid-stream change would silently skip or repeat works.
+    page_size: int = 0
     literature_done: bool = False
     reverse_done: bool = False
     next_kind: str = "literature"
@@ -308,6 +318,11 @@ class DeepSession:
         self.closed = False
         self.requests = 0
         self.works = 0
+        # "Work records fetched" conflates a projected hit with a hydrated
+        # record. Count the distinct things separately so a change that trades
+        # one for the other is visible instead of hidden in one number.
+        self.literature_pages = 0
+        self.literature_hits = 0
         self.failures: list[dict[str, str]] = []
         self.node_ledger: dict[str, dict[str, Any]] = {}
         self.bootstrap = deque(["source_profile", "target_profile", "direct_pair"])
@@ -361,6 +376,9 @@ class DeepSession:
         # slice boundary so a continuation resumes rather than restarts.
         self._bridged: set[tuple[str, bool]] = set()
         self._rebuilds = 0
+        # Lowered, never raised, when INSPIRE returns a page too large for the
+        # transport. One session's worst record sets the pace for the rest.
+        self._page_ceiling = MAX_LITERATURE_PAGE
         self._proof: Search | None = None
         self._engine: HLBES | None = None
         self._oracle: _LiveOracle | None = None
@@ -555,6 +573,8 @@ class DeepSession:
             return
         explored = set(self.node_ledger) | (self.navigator.queried if self.navigator else set())
         update = {"people_explored": len(explored), "works_retrieved": self.works,
+                                                        "literature_pages": self.literature_pages,
+                                                        "literature_hits": self.literature_hits,
                   "elapsed_seconds": round(time.monotonic() - self.started, 3), "stage": stage,
                   "requests": self.requests, "guide_used": self.guide_used,
                   "guide_candidates_verified": self.guide_verified}
@@ -634,7 +654,8 @@ class DeepSession:
     def _profile(self, person_id: str, budget: DeepBudget, *, force: bool = False) -> bool:
         if self._has_profile(person_id) and not force:
             return True
-        hits, _, _ = self._fetch("authors", f"control_number:{person_id}", 1, budget)
+        hits, _, _ = self._fetch("authors", f"control_number:{person_id}", 1, budget,
+                                 size=PROFILE_PAGE_SIZE)
         # An old row in RAM cannot turn an unrelated or empty response into a
         # current identity confirmation.
         return person_id in self._profile_people(hits) and self._has_profile(person_id)
@@ -664,7 +685,7 @@ class DeepSession:
                 results[person_id] = self._profile(person_id, budget, force=force)
                 continue
             hits, _, _ = self._fetch("authors", self._profile_query(chunk), 1, budget,
-                                  size=max(25, len(chunk)))
+                                  size=max(PROFILE_PAGE_SIZE, len(chunk)))
             returned = set(self._profile_people(hits))
             for person_id in chunk:
                 if person_id in returned and self._has_profile(person_id):
@@ -787,10 +808,31 @@ class DeepSession:
         return _Cursor(person_id, depth, profile_done=profile_done, reverse_done=not self.filters.genealogy)
 
     def _literature_size(self, budget: DeepBudget) -> int:
-        # Thousands of authors per record can make a 100-paper response exceed
-        # the transport bound. Use small, consistently numbered pages for broad
-        # team-size filters, retaining full author lists and exact counts.
-        return min(5, budget.page_size) if self.filters.max_authors is None or self.filters.max_authors > 100 else budget.page_size
+        """Records per literature page for the active mode.
+
+        A large-team record carries its whole byline, measured at ~414 KB
+        each, so a page of more than a handful exceeds the transport bound.
+        A small-team record is ~1.8 KB, so the API's maximum page is both
+        affordable and the largest saving available: it turns a prolific
+        researcher's twelve requests into two.
+        """
+        broad = self.filters.max_authors is None or self.filters.max_authors > 100
+        return min(5, budget.page_size) if broad else min(budget.page_size, self._page_ceiling)
+
+    def _shrink_pages(self, cursor: _Cursor) -> bool:
+        """Halve the page size after an oversized response and start over.
+
+        Page numbers are only meaningful against a fixed size, so a cursor
+        that changes size has to re-read from page one.  Every page it already
+        read is still in the session cache, so this costs little.
+        """
+        if self._page_ceiling <= 25:
+            return False
+        self._page_ceiling = max(25, self._page_ceiling // 4)
+        cursor.literature_page, cursor.page_size = 1, 0
+        cursor.literature_done = False
+        self._emit("literature_page_shrink")
+        return True
 
     def _page_done(self, cursor: _Cursor, total: int, page: int, budget: DeepBudget, kind: str,
                    page_size: int | None = None, *, total_exact: bool = True,
@@ -851,11 +893,21 @@ class DeepSession:
             kind = "literature"
         people: set[str] = set()
         if kind == "literature" and not cursor.literature_done:
-            size = self._literature_size(budget)
-            hits, total, total_exact = self._fetch(
-                "literature", self.literature_query(cursor.person_id, self.filters),
-                cursor.literature_page, budget, size=size)
+            if not cursor.page_size:
+                cursor.page_size = self._literature_size(budget)
+            size = cursor.page_size
+            try:
+                hits, total, total_exact = self._fetch(
+                    "literature", self.literature_query(cursor.person_id, self.filters),
+                    cursor.literature_page, budget, size=size)
+            except DeepSearchError as error:
+                # An oversized page is a transport limit, not an answer.
+                if error.code == "resource_limit" and "4 MiB" in error.message and self._shrink_pages(cursor):
+                    return set(), "literature"
+                raise
             people = set(self._work_people(hits))
+            self.literature_pages += 1
+            self.literature_hits += len(hits)
             cursor.pages += 1
             cursor.slice_pages += 1
             self._page_done(cursor, total, cursor.literature_page, budget, "literature", page_size=size,
@@ -1029,6 +1081,19 @@ class DeepSession:
                    for side in (self._proof.left, self._proof.right)):
             return False
         return self._oracle.complete_still_holds()
+
+    def _hunting(self) -> bool:
+        """True while no route is known at all.
+
+        The facet navigator and the cross-frontier bridge exist to stumble onto
+        a first route.  HLBES scans every node both sides know after every
+        expansion, so once an upper bound exists those two find nothing the
+        search would not find anyway, and each one costs a request that could
+        have gone into closing the bound.  Measured on Witten -> Visser: the
+        same proven four-hop answer in 36 s and 39 requests instead of 85 s and
+        94, with both running on their old fixed cadence.
+        """
+        return self._proof is None or self._proof.upper == float("inf")
 
     def _proven(self) -> bool:
         return self._proof is not None and self._proof.done == EXACT
@@ -1212,6 +1277,8 @@ class DeepSession:
         return {"label": "Deep live INSPIRE retrieval", "complete": False,
                 "description": "Only retrieved pages and explicitly recorded evidence are represented.",
                 "retrieved": {"profiles": profiles, "works": self.works,
+                              "literature_pages": self.literature_pages,
+                              "literature_hits": self.literature_hits,
                               "people": len(snapshot["people"]) if snapshot else None},
                 "requests": self.requests, "nodes": dict(self.node_ledger), "failures": list(self.failures),
                 "guide_used": self.guide_used, "guide_candidates_verified": self.guide_verified,
@@ -1301,6 +1368,8 @@ class DeepSession:
                 "bounds": bounds, "alternatives_truncated": alternatives_truncated,
                 "can_continue": can_continue, "version": snapshot.get("version", self.best_version or "live-deep-incomplete") if snapshot else (self.best_version or "live-deep-incomplete"),
                 "coverage": coverage, "progress": {"people_explored": len(set(self.node_ledger) | (self.navigator.queried if self.navigator else set())), "works_retrieved": self.works,
+                                                        "literature_pages": self.literature_pages,
+                                                        "literature_hits": self.literature_hits,
                                                         "elapsed_seconds": round(time.monotonic() - self.started, 3),
                                                         "requests": self.requests}}
 
@@ -1442,7 +1511,8 @@ class DeepSession:
                 # Explore compact summaries from both ends while retaining a
                 # regular bibliography/genealogy expansion at least every
                 # eight facet requests. Top-100 hints can never exhaust BFS.
-                if self._navigation_since_expansion < 8 and self._navigation_step(budget):
+                if (self._hunting() and self._navigation_since_expansion < 8
+                        and self._navigation_step(budget)):
                     continue
                 if self._proof is None:
                     self._begin_proof(budget)
@@ -1481,7 +1551,7 @@ class DeepSession:
                     continue
                 self._register_discoveries(budget)
                 self._emit("hlbes_expand")
-                self._bridge_turn = True
+                self._bridge_turn = self._hunting()
                 if self._proof.upper < before or self._proof.done is not None:
                     if self._oracle.withdrawn():
                         self._oracle.reported.clear()

@@ -505,10 +505,10 @@ def test_cache_reports_bounded_usage_for_each_request_layer() -> None:
     ("authors", "x" * 4097, 25, 1, None),
     ("authors", "one\ntwo", 25, 1, None),
     ("authors", "recid:1", 0, 1, None),
-    ("authors", "recid:1", 101, 1, None),
+    ("authors", "recid:1", 1001, 1, None),
     ("authors", "recid:1", 25, 0, None),
     ("authors", "recid:1", 25, 10_001, None),
-    ("authors", "recid:1", 100, 101, None),
+    ("authors", "recid:1", 1000, 11, None),
     ("authors", "recid:1", 25, 1, "bad\x00sort"),
 ])
 def test_invalid_input_never_reaches_transport(collection, query, size, page, sort) -> None:

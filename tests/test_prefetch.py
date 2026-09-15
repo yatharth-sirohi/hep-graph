@@ -61,7 +61,7 @@ def test_prepare_warms_exact_deep_keys_once_and_reuses_ready_status() -> None:
 
     query = "authors.record.$ref:42 AND author_count:11+"
     assert client.calls == [
-        ("search", "authors", "control_number:42", 100, 1, "mostrecent"),
+        ("search", "authors", "control_number:42", 25, 1, "mostrecent"),
         ("facets", query),
         ("search", "literature", query, 5, 1, "mostrecent"),
     ]

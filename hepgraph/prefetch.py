@@ -17,7 +17,7 @@ import time
 import uuid
 from typing import Any
 
-from .deep_search import DeepBudget, DeepSession
+from .deep_search import PROFILE_PAGE_SIZE, DeepBudget, DeepSession
 from .graph import Filters
 
 
@@ -176,7 +176,7 @@ class PreparationJobs:
 
         query = DeepSession.literature_query(job.person, job.filters)
         identity_request = lambda: self.client.search(
-            "authors", f"control_number:{job.person}", size=DeepBudget.standard().page_size,
+            "authors", f"control_number:{job.person}", size=PROFILE_PAGE_SIZE,
             page=1, sort="mostrecent")
         downstream_requests = (
             ("facets", lambda: self.client.coauthors(query)),

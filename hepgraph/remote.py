@@ -46,7 +46,11 @@ MIN_REQUEST_INTERVAL_SECONDS = (
     INSPIRE_DOCUMENTED_WINDOW_SECONDS / INSPIRE_DOCUMENTED_REQUESTS)
 MAX_QUERY_LENGTH = 4096
 MAX_PAGE = 10_000
-MAX_SIZE = 100
+# INSPIRE accepts up to 1000 results per page and rejects 2000 with a 400
+# (measured; see docs/INSPIRE_NEIGHBORHOOD_API_AUDIT.md). Large pages are the
+# single biggest saving available on neighbourhood certification: 1,127
+# qualifying works cost two requests at 1000 and twelve at 100.
+MAX_SIZE = 1000
 MAX_FACET_BUCKETS = 100
 MAX_INFLIGHT = 8
 MIN_RETRY_AFTER_SECONDS = 5.0
@@ -519,7 +523,7 @@ class RemoteClient:
                 raise RemoteError("resource_limit", "request deadline elapsed while waiting for global pacing")
             self._pace_state.next_allowed = now + self._request_interval
 
-    def _fetch_json(self, url: str, deadline: float) -> Any:
+    def _fetch_json(self, url: str, deadline: float, layer: str) -> Any:
         """Fetch and validate JSON under the shared transport constraints."""
         timeout = min(NETWORK_TIMEOUT_SECONDS, deadline - self._clock())
         if timeout <= 0:
@@ -538,6 +542,7 @@ class RemoteClient:
             raise RemoteError("upstream_unavailable", "INSPIRE transport failed") from exc
         if not isinstance(body, bytes):
             raise RemoteError("upstream_unavailable", "INSPIRE transport returned invalid data")
+        self._count(layer, "bytes", len(body))
         if len(body) > MAX_RESPONSE_BYTES:
             raise RemoteError("resource_limit", "INSPIRE response exceeded the 4 MiB limit")
         try:
@@ -634,7 +639,7 @@ class RemoteClient:
             if sort is not None:
                 params["sort"] = sort
             url = f"{API_ROOT}/{collection}?{urlencode(params)}"
-            value = self._fetch_json(url, end)
+            value = self._fetch_json(url, end, self._cache_layer(key))
             response = self._sanitized_response(collection, self._validate_response(value, size))
             if collection == "authors":
                 self._index_author_records(response, self._clock())
@@ -654,7 +659,7 @@ class RemoteClient:
         def load() -> dict[str, Any]:
             self._reserve_request(end)
             url = f"{API_ROOT}/literature/facets?{urlencode({'q': query})}"
-            value = self._fetch_json(url, end)
+            value = self._fetch_json(url, end, "facets")
             return self._sanitized_coauthors_response(value)
 
         return self._request(key, end, load)
