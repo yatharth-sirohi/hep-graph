@@ -7,7 +7,6 @@ profile, its author facet, and the first filtered literature page.
 from __future__ import annotations
 
 from collections import Counter, OrderedDict
-from concurrent.futures import ThreadPoolExecutor
 from copy import deepcopy
 from dataclasses import dataclass, field
 import json
@@ -42,7 +41,20 @@ class _Preparation:
 
 
 class PreparationJobs:
-    """A fixed worker pool with a small explicit queue and retained statuses."""
+    """Endpoint preparation that runs inside the request that asks for it.
+
+    A preparation is the two or three upstream requests a deep search will make
+    first; doing them when a researcher is selected means the search later hits
+    a warm cache.  It used to run on a worker pool.  On a serverless runtime the
+    process is frozen between requests, so a pool thread only ran during the
+    next few hundred milliseconds that some other request happened to be open,
+    and the warm-up was usually still incomplete when Find was pressed.  Running
+    it inside the POST costs the caller about two seconds and actually happens.
+
+    ``max_active + max_pending`` now bounds how many preparations may be in
+    flight at once across concurrent requests; beyond that the request is
+    refused rather than queued, since nothing would run a queue.
+    """
 
     def __init__(
         self,
@@ -71,7 +83,6 @@ class PreparationJobs:
         self.clock = clock
         self.lock = threading.RLock()
         self.jobs: OrderedDict[str, _Preparation] = OrderedDict()
-        self.executor = ThreadPoolExecutor(max_workers=max_active, thread_name_prefix="hep-prepare")
         self.closed = False
         self.stop = threading.Event()
         self.counters: Counter[str] = Counter()
@@ -149,26 +160,19 @@ class PreparationJobs:
                 self.counters["reused"] += 1
                 return self._public(existing, reused=True)
             active = sum(job.status == "running" for job in self.jobs.values())
-            pending = sum(job.status == "queued" for job in self.jobs.values())
-            if active + pending >= self.max_active + self.max_pending:
+            if active >= self.max_active + self.max_pending:
                 self.counters["rejected"] += 1
-                raise PreparationError("resource_limit", "The small preparation queue is full. Retry shortly.", 503)
+                raise PreparationError("resource_limit", "Too many preparations are in flight. Retry shortly.", 503)
             if len(self.jobs) >= self.max_retained:
                 self.counters["rejected"] += 1
                 raise PreparationError("resource_limit", "The temporary preparation workspace is full.", 503)
             job = _Preparation(uuid.uuid4().hex, person, filters, key, self.clock())
-            # Reserve one of the two worker slots before submitting. This makes
-            # queue accounting deterministic even if the executor has not yet
-            # scheduled the new callable.
-            if active < self.max_active:
-                job.status = "running"
+            job.status = "running"
             self.jobs[job.id] = job
             self.counters["started"] += 1
-            try:
-                self.executor.submit(self._work, job)
-            except RuntimeError as exc:
-                del self.jobs[job.id]
-                raise PreparationError("resource_limit", "Preparation is stopping.", 503) from exc
+        # Inside this request: the only time this process is sure to be running.
+        self._work(job)
+        with self.lock:
             return self._public(job)
 
     def _work(self, job: _Preparation) -> None:
@@ -177,7 +181,6 @@ class PreparationJobs:
                 job.status = "cancelled"
                 job.finished_at = self.clock()
                 return
-            job.status = "running"
             job.started_at = self.clock()
 
         query = DeepSession.literature_query(job.person, job.filters)
@@ -276,4 +279,3 @@ class PreparationJobs:
                 if job.status == "queued":
                     job.status = "cancelled"
                     job.finished_at = self.clock()
-        self.executor.shutdown(wait=False, cancel_futures=True)

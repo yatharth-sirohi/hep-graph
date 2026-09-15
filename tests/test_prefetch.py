@@ -118,21 +118,27 @@ def test_prepare_requires_exact_current_identity_and_skips_downstream(author_hit
     }]
 
 
-def test_prepare_pool_has_two_workers_and_one_explicit_pending_slot() -> None:
+def test_prepare_runs_inside_the_request_and_bounds_concurrent_preparations() -> None:
+    """A preparation completes in the request that asked for it, and only
+    max_active + max_pending may be in flight across concurrent requests."""
+    import threading
+
     client = BlockingClient()
     jobs = PreparationJobs(client, max_active=2, max_pending=1, max_retained=8)
+    threads = [threading.Thread(target=jobs.start, args=(person, Filters()), daemon=True)
+               for person in ("1", "2", "3")]
     try:
-        jobs.start("1", Filters())
-        jobs.start("2", Filters())
-        assert client.entered.acquire(timeout=1) and client.entered.acquire(timeout=1)
-        queued = jobs.start("3", Filters())
-        assert queued["status"] == "queued"
-        assert jobs.info()["active"] == 2 and jobs.info()["pending"] == 1
+        for thread in threads:
+            thread.start()
+        assert all(client.entered.acquire(timeout=1) for _ in range(3))
+        assert jobs.info()["active"] == 3 and jobs.info()["pending"] == 0
         with pytest.raises(PreparationError) as full:
             jobs.start("4", Filters())
         assert full.value.http_status == 503
     finally:
         client.release.set()
+        for thread in threads:
+            thread.join(3)
         jobs.shutdown()
 
 

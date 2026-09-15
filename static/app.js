@@ -913,10 +913,34 @@
         job.timer = setTimeout(() => pollDeepJob(job), Math.min(30000, 2000 * job.pollFailures));
         return;
       }
+      if (e.status === 404 && !job.done && (job.restarts || 0) < 2) {
+        // The job is unknown to the process that answered: the search state
+        // lives in one server process, and a poll can reach a different one.
+        // Start the same search again there rather than dead-ending. Progress
+        // counters begin again with it, and the stage says so.
+        job.restarts = (job.restarts || 0) + 1;
+        forgetDeepJob(job);
+        job.jobId = null;
+        renderDeepProgress({ status: "searching", progress: {
+          ...job.progress, stage: "The search moved to another server; starting it again there…",
+        } }, job);
+        try {
+          const data = await api(urlWithFilters("/api/path", { source: job.source, target: job.target, search: "deep" }));
+          if (!deepJobCurrent(job)) return;
+          if (data.job_id) job.jobId = data.job_id;
+          rememberDeepJob(job);
+          consumeDeepResponse(data, job);
+        } catch (restartError) {
+          if (!deepJobCurrent(job)) return;
+          job.done = true;
+          renderDeepProgress({ status: "upstream_unavailable", message: restartError.message, can_continue: true }, job);
+          setLoading($("#find-connection"), false);
+        }
+        return;
+      }
       job.done = true;
       renderDeepProgress({ status: "upstream_unavailable", message: e.message, can_continue: true }, job);
       setLoading($("#find-connection"), false);
-      job.done = true;
     }
   }
 

@@ -271,8 +271,10 @@ CREATE TABLE IF NOT EXISTS identifier_aliases (
 """
 
 
-def open_db(path: str | Path) -> sqlite3.Connection:
-    connection = sqlite3.connect(path)
+def open_db(path: str | Path, *, shared: bool = False) -> sqlite3.Connection:
+    """``shared`` lets a connection be used from any thread; the caller must
+    then guarantee that no two calls overlap."""
+    connection = sqlite3.connect(path, check_same_thread=not shared)
     connection.row_factory = sqlite3.Row
     connection.executescript(SCHEMA)
     # Existing pilot databases may predate the resumability counters.

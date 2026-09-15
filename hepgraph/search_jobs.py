@@ -1,12 +1,27 @@
 """Bounded, cancellable live searches; all retrieved state stays in RAM.
 
-A paused worker owns its SQLite connection for its entire lifetime. Continuing
-a search wakes that same worker instead of moving the connection across threads.
+A search advances only inside HTTP requests.  Starting a job runs a short first
+slice before the response is written, and every poll runs another bounded slice
+before answering, so the engine's frontier, page cursors and proof state live in
+one process but never depend on a thread being scheduled between requests.
+
+That is the shape a serverless runtime actually offers.  The previous design ran
+each search on a daemon thread and let the browser poll; on Vercel the process is
+frozen whenever no request is in flight, so that thread only ran during the
+~130 ms a poll took every 1.5 s.  Measured on a one-hop pair: 19 s at a 1.5 s
+poll interval, 2.6 s at 0.25 s, 1.4 s locally - the same work, paced entirely
+by how often a request happened to be open.  Worse, an 8 s upstream deadline
+would elapse while the thread was frozen mid-request, which the engine then
+treated as an upstream failure and backed off from.
+
+Exactly one request drives a given job at a time; a poll that arrives while
+another is driving just reads the current state.
 """
 from __future__ import annotations
 
 from collections import OrderedDict
 from copy import deepcopy
+import dataclasses
 import json
 import logging
 import threading
@@ -36,9 +51,18 @@ class _Job:
                                                 separators=(',', ':')))
         self.cancel = threading.Event()
         self.retire = threading.Event()
-        self.wake = threading.Event()
         self.closed = threading.Event()
-        self.thread = None
+        # One request advances this job at a time. The engine session is not
+        # thread-bound; it is bound to whoever holds this lock.
+        self.drive = threading.Lock()
+        self.session = None
+        self.budget = None
+        self.auto_started = now
+        self.stalled_runs = 0
+        self.last_progress = None
+        # A transient upstream failure schedules the next attempt instead of
+        # sleeping: a request cannot sleep for the caller.
+        self.next_attempt_at = 0.0
         self.active = True
         self.worker_done = False
         self.expired = False
@@ -62,7 +86,8 @@ class SearchJobs:
                  max_retained=32, max_sessions=4,
                  max_result_bytes=MAX_RETAINED_RESULT_BYTES,
                  clock=time.monotonic, auto_continue=False,
-                 max_auto_seconds=7200.0, retry_delay=5.0, max_stalled_runs=12):
+                 max_auto_seconds=7200.0, retry_delay=5.0, max_stalled_runs=12,
+                 start_slice=3.0, poll_slice=5.0):
         self.engine_factory = engine_factory
         self.coverage = coverage or {'complete': False, 'mode': 'live',
                                     'label': 'Live INSPIRE — search in progress'}
@@ -91,10 +116,15 @@ class SearchJobs:
                 or isinstance(max_stalled_runs, bool) or not isinstance(max_stalled_runs, int)
                 or not 1 <= max_stalled_runs <= 100):
             raise ValueError('Invalid automatic continuation policy.')
+        for name, value in (('start_slice', start_slice), ('poll_slice', poll_slice)):
+            if isinstance(value, bool) or not isinstance(value, (int, float)) or not 0 <= value <= 60:
+                raise ValueError(f'{name} must be between 0 and 60 seconds.')
         self.auto_continue = auto_continue
         self.max_auto_seconds = max_auto_seconds
         self.retry_delay = retry_delay
         self.max_stalled_runs = max_stalled_runs
+        # Seconds of engine work a request may perform before answering.
+        self.start_slice, self.poll_slice = float(start_slice), float(poll_slice)
         self.lock = threading.RLock()
         self.jobs = OrderedDict()
         self.closed = False
@@ -213,9 +243,7 @@ class SearchJobs:
             if since is not None and now - since >= self.ttl:
                 job.expired = True
                 job.cancel.set()
-                job.wake.set()
-                # The worker still owns an active call until it acknowledges
-                # cancellation. Never free that capacity prematurely.
+                self._finalize(job)
                 if job.worker_done and not job.active:
                     del self.jobs[job_id]
 
@@ -229,24 +257,20 @@ class SearchJobs:
     def start(self, source, target, filters):
         key = (source, target, json.dumps(filters.to_dict(), sort_keys=True,
                                            separators=(',', ':')))
-        while True:
-            retired = None
-            with self.lock:
-                self._prune()
-                if self.closed:
-                    raise JobError('resource_limit', 'The search service is stopping.', 503)
-                reusable = next((job for job in reversed(self.jobs.values())
-                                 if job.key == key and not job.expired and job.data.get('status') != 'cancelled'
-                                 and (job.data.get('status') in {'searching', 'ok'}
-                                      or job.data.get('can_continue') is True)), None)
-                if reusable is not None:
-                    self.jobs.move_to_end(reusable.id)
-                    active = reusable.data.get('status') == 'searching'
-                    self.reuse_counters['reused_active' if active else 'reused_completed'] += 1
-                    return deepcopy(reusable.data) | {
-                        'reused': True,
-                        'reuse_state': 'active' if active else 'retained',
-                    }
+        with self.lock:
+            self._prune()
+            if self.closed:
+                raise JobError('resource_limit', 'The search service is stopping.', 503)
+            reusable = next((job for job in reversed(self.jobs.values())
+                             if job.key == key and not job.expired and job.data.get('status') != 'cancelled'
+                             and (job.data.get('status') in {'searching', 'ok'}
+                                  or job.data.get('can_continue') is True)), None)
+            if reusable is not None:
+                self.jobs.move_to_end(reusable.id)
+                active = reusable.data.get('status') == 'searching'
+                self.reuse_counters['reused_active' if active else 'reused_completed'] += 1
+                job, reused = reusable, {'reused': True, 'reuse_state': 'active' if active else 'retained'}
+            else:
                 if self._active_count() >= self.max_active:
                     raise JobError('resource_limit', 'Two deep searches are already running. Stop one or retry shortly.', 503)
                 if self._session_count() >= self.max_sessions:
@@ -257,38 +281,38 @@ class SearchJobs:
                     if victim is None:
                         raise JobError('resource_limit', 'The temporary search workspace is full of resumable searches. Continue, stop, or let one expire.', 503)
                     victim.retire.set()
-                    victim.wake.set()
                     if not self._update_job_data(
                             victim, can_continue=False, session_retired=True,
                             message='The verified result remains available; its older continuation state was released to admit a new search.'):
                         self._retention_limit_result(victim)
                     self.reuse_counters.setdefault('sessions_retired', 0)
                     self.reuse_counters['sessions_retired'] += 1
-                    retired = victim.closed
-                else:
-                    initial = _Job(source, target, filters, self.coverage, self.clock())
-                    initial.data['automatic_continuations'] = 0
-                    initial.data['search_policy'] = {
-                        'automatic_continuation': self.auto_continue,
-                        'max_automatic_seconds': self.max_auto_seconds,
-                        'storage': 'temporary_memory',
-                    }
-                    incoming = self._job_bytes(initial)
-                    self._make_result_room(incoming, reserve_slot=True)
-                    if (len(self.jobs) >= self.max_retained
-                            or self._retained_bytes() + incoming > self.max_result_bytes):
-                        raise JobError('resource_limit', 'The bounded result cache is full of searches that are still in use.', 503)
-                    job = initial
-                    self.jobs[job.id] = job
-                    self.reuse_counters['started'] += 1
-                    job.thread = threading.Thread(target=self._work, args=(job,),
-                                                  name='hep-search-' + job.id[:8], daemon=True)
-                    job.thread.start()
-                    return deepcopy(job.data) | {'reused': False}
-            # The paused worker must close its own SQLite connection. Wait only
-            # for that bounded owner-thread handoff; never close it here.
-            if retired is not None and not retired.wait(1):
-                raise JobError('resource_limit', 'An older verified search is still releasing its temporary state. Retry shortly.', 503)
+                    # A paused session has no driver, so its state is released
+                    # here rather than by a worker that no longer exists.
+                    if not self._finalize(victim):
+                        raise JobError('resource_limit', 'An older verified search is still releasing its temporary state. Retry shortly.', 503)
+                job = _Job(source, target, filters, self.coverage, self.clock())
+                job.budget = self.standard_budget
+                job.data['automatic_continuations'] = 0
+                job.data['search_policy'] = {
+                    'automatic_continuation': self.auto_continue,
+                    'max_automatic_seconds': self.max_auto_seconds,
+                    'storage': 'temporary_memory',
+                    'driver': 'request',
+                }
+                incoming = self._job_bytes(job)
+                self._make_result_room(incoming, reserve_slot=True)
+                if (len(self.jobs) >= self.max_retained
+                        or self._retained_bytes() + incoming > self.max_result_bytes):
+                    raise JobError('resource_limit', 'The bounded result cache is full of searches that are still in use.', 503)
+                self.jobs[job.id] = job
+                self.reuse_counters['started'] += 1
+                reused = {'reused': False}
+        # The first slice runs inside the starting request, so a direct
+        # connection is usually answered before the browser ever polls.
+        self._advance(job, self.start_slice)
+        with self.lock:
+            return deepcopy(job.data) | reused
 
     def info(self):
         with self.lock:
@@ -306,24 +330,34 @@ class SearchJobs:
                 'directional_keys': True,
                 'storage': 'memory',
                 'persistent': False,
+                'driver': 'request',
+                'start_slice_seconds': self.start_slice,
+                'poll_slice_seconds': self.poll_slice,
                 'counters': dict(self.reuse_counters),
             }
 
     def get(self, job_id):
         with self.lock:
-            return deepcopy(self._lookup(job_id).data)
+            job = self._lookup(job_id)
+        # A poll is the only moment this process is guaranteed to be running,
+        # so it does a bounded slice of the search before it answers.
+        self._advance(job, self.poll_slice)
+        with self.lock:
+            return deepcopy(job.data)
 
     def cancel(self, job_id):
         with self.lock:
             job = self._lookup(job_id)
             job.cancel.set()
-            job.wake.set()
             if not self._update_job_data(
                     job, status='cancelled', can_continue=False,
                     message='Search stopped. Any displayed route retains its supporting evidence.'):
                 self._retention_limit_result(job)
             job.finished_at = self.clock()
             job.paused_at = None
+            # If a slice is running right now it will notice the flag and
+            # release the session itself when it returns.
+            self._finalize(job)
             return deepcopy(job.data)
 
     def resume(self, job_id):
@@ -341,13 +375,18 @@ class SearchJobs:
             job.paused_at = None
             job.finished_at = None
             job.generation += 1
+            job.budget = self.extended_budget
+            job.auto_started = self.clock()
+            job.stalled_runs = 0
+            job.next_attempt_at = 0.0
             if not self._update_job_data(
                     job, status='searching', can_continue=False,
                     message='Continuing from the records and search progress already retrieved.'):
                 job.active = False
                 self._retention_limit_result(job)
                 raise JobError('resource_limit', 'The bounded result cache cannot retain this continued search.', 503)
-            job.wake.set()
+        self._advance(job, self.poll_slice)
+        with self.lock:
             return deepcopy(job.data)
 
     def _publish(self, job, update):
@@ -366,104 +405,34 @@ class SearchJobs:
             if not self._replace_job_data(job, candidate):
                 self._retention_limit_result(job)
                 job.retire.set()
-                job.wake.set()
 
-    def _work(self, job):
-        session = None
+    @staticmethod
+    def _slice(budget, seconds):
+        """The run allowance for one request: the job's budget, time-boxed."""
+        return dataclasses.replace(budget, max_seconds=max(1.0, min(float(seconds), float(budget.max_seconds))))
+
+    def _advance(self, job, seconds):
+        """Run one bounded slice of a job inside the calling request, if it is due."""
+        if seconds <= 0:
+            return
+        with self.lock:
+            due = (job.active and not job.worker_done and not job.cancel.is_set()
+                   and not job.retire.is_set() and self.clock() >= job.next_attempt_at)
+        if not due or not job.drive.acquire(blocking=False):
+            return
         try:
-            session = self.engine_factory().start(
-                job.source, job.target, job.filters, cancel=job.cancel,
-                progress=lambda update: self._publish(job, update))
-            budget = self.standard_budget
-            auto_started = self.clock()
-            last_progress = None
-            stalled_runs = 0
-            while not job.cancel.is_set() and not job.retire.is_set():
-                result = session.run(budget)
-                # A progress publication may itself have reached the strict
-                # retained-result ceiling and installed an explicit terminal
-                # state.  Do not let the subsequent engine return overwrite it.
-                if job.retire.is_set():
-                    break
-                progress = result.get('progress') or {}
-                marker = (progress.get('works_retrieved'), progress.get('people_explored'))
-                stalled_runs = stalled_runs + 1 if marker == last_progress else 0
-                last_progress = marker
-                # A time/request checkpoint is resumable; a session-wide
-                # memory ceiling cannot be fixed by immediately trying again.
-                ceiling = ('ceiling' in result.get('message', '').lower()
-                           and budget.max_works >= self.extended_budget.max_works
-                           and budget.max_people >= self.extended_budget.max_people)
-                automatic = (self.auto_continue and result.get('can_continue', False)
-                             and result.get('status') != 'ok' and not ceiling
-                             and self.clock() - auto_started < self.max_auto_seconds
-                             and stalled_runs < self.max_stalled_runs)
-                with self.lock:
-                    job.active = automatic
-                    if job.cancel.is_set():
-                        break
-                    # The engine may finish before the first HTTP response.
-                    # Preserve the job identity and its immutable configuration.
-                    candidate = deepcopy(job.data)
-                    candidate.update(deepcopy(result))
-                    candidate.update(job_id=job.id, mode='live',
-                                     source=job.source, target=job.target,
-                                     filters=job.filters.to_dict())
-                    if automatic:
-                        candidate['automatic_continuations'] += 1
-                        candidate.update(status='searching', can_continue=False,
-                                         message='Continuing automatically from the evidence already retrieved.')
-                        candidate['progress'] = {**progress, 'stage': (
-                            'retry_upstream' if result.get('status') in {'search_incomplete', 'upstream_unavailable'}
-                            else 'continue_search')}
-                    if not self._replace_job_data(job, candidate):
-                        self._retention_limit_result(job)
-                        job.retire.set()
-                        automatic = False
-                        job.active = False
-                        job.finished_at = self.clock()
-                        job.paused_at = None
-                        break
-                    if automatic:
-                        job.finished_at = job.paused_at = None
-                    else:
-                        job.finished_at = self.clock()
-                        if not result.get('can_continue', False):
-                            break
-                        job.paused_at = self.clock()
-                        generation = job.generation
-                if automatic:
-                    # Retain the same owning worker and all exact page cursors.
-                    # Event.wait makes backoff immediately cancellable.
-                    transient = result.get('status') in {'search_incomplete', 'upstream_unavailable'}
-                    delay = min(60, self.retry_delay * (2 ** min(stalled_runs, 4))) if transient else 0
-                    if job.cancel.wait(delay):
-                        break
-                    budget = self.extended_budget
-                    continue
-                while not job.cancel.is_set() and not job.retire.is_set():
-                    job.wake.wait(min(self.ttl, 30))
-                    with self.lock:
-                        job.wake.clear()
-                        if job.cancel.is_set():
-                            break
-                        if job.retire.is_set():
-                            if not self._update_job_data(job, can_continue=False):
-                                self._retention_limit_result(job)
-                            job.finished_at = self.clock()
-                            return
-                        if job.generation != generation:
-                            budget = self.extended_budget
-                            auto_started = self.clock()
-                            stalled_runs = 0
-                            break
-                        if job.paused_at is not None and self.clock() - job.paused_at >= self.ttl:
-                            if not self._update_job_data(
-                                    job, can_continue=False,
-                                    message='The temporary search state expired. Start a new search to continue exploring.'):
-                                self._retention_limit_result(job)
-                            job.finished_at = self.clock()
-                            return
+            self._run_slice(job, seconds)
+        finally:
+            job.drive.release()
+
+    def _run_slice(self, job, seconds):
+        """Caller holds ``job.drive``. One engine run, then the continuation decision."""
+        try:
+            if job.session is None:
+                job.session = self.engine_factory().start(
+                    job.source, job.target, job.filters, cancel=job.cancel,
+                    progress=lambda update: self._publish(job, update))
+            result = job.session.run(self._slice(job.budget, seconds))
         except Exception as exc:
             LOG.exception('Deep search failed')
             with self.lock:
@@ -475,12 +444,78 @@ class SearchJobs:
                             job, status=code, can_continue=False,
                             message=getattr(exc, 'message', 'The live search could not finish. Please retry.')):
                         self._retention_limit_result(job)
-        finally:
-            if session is not None:
+            self._finalize(job, held=True)
+            return
+        if job.retire.is_set() or job.cancel.is_set():
+            self._finalize(job, held=True)
+            return
+        progress = result.get('progress') or {}
+        # Any upstream request is progress: a slice spent hydrating profiles
+        # retrieves no new work and explores nobody new, yet it is not stuck.
+        marker = (progress.get('works_retrieved'), progress.get('people_explored'), progress.get('requests'))
+        job.stalled_runs = job.stalled_runs + 1 if marker == job.last_progress else 0
+        job.last_progress = marker
+        # A time/request checkpoint is resumable; a session-wide memory ceiling
+        # cannot be fixed by immediately trying again.
+        ceiling = ('ceiling' in result.get('message', '').lower()
+                   and job.budget.max_works >= self.extended_budget.max_works
+                   and job.budget.max_people >= self.extended_budget.max_people)
+        automatic = (self.auto_continue and result.get('can_continue', False)
+                     and result.get('status') != 'ok' and not ceiling
+                     and self.clock() - job.auto_started < self.max_auto_seconds
+                     and job.stalled_runs < self.max_stalled_runs)
+        with self.lock:
+            candidate = deepcopy(job.data)
+            candidate.update(deepcopy(result))
+            candidate.update(job_id=job.id, mode='live', source=job.source,
+                             target=job.target, filters=job.filters.to_dict())
+            if automatic:
+                transient = result.get('status') in {'search_incomplete', 'upstream_unavailable'}
+                candidate['automatic_continuations'] += 1
+                candidate.update(status='searching', can_continue=False,
+                                 message='Continuing automatically from the evidence already retrieved.')
+                candidate['progress'] = {**progress, 'stage': 'retry_upstream' if transient else 'continue_search'}
+            if not self._replace_job_data(job, candidate):
+                self._retention_limit_result(job)
+                job.retire.set()
+                terminal = True
+            else:
+                terminal = not result.get('can_continue', False)
+            if job.retire.is_set():
+                pass
+            elif automatic:
+                job.finished_at = job.paused_at = None
+                # Back off from a transient upstream failure without sleeping
+                # inside somebody's request: the next poll simply waits its turn.
+                delay = min(60, self.retry_delay * (2 ** min(job.stalled_runs, 4))) if transient else 0
+                job.next_attempt_at = self.clock() + delay
+                job.budget = self.extended_budget
+                return
+            else:
+                job.active = False
+                job.finished_at = self.clock()
+                if not terminal:
+                    job.paused_at = self.clock()
+                    return
+        self._finalize(job, held=True)
+
+    def _finalize(self, job, *, held=False):
+        """Release a job's engine session and mark it closed.
+
+        Returns False when a slice is running on another request; that slice
+        sees the cancel or retire flag when it returns and finalizes itself.
+        """
+        if job.worker_done:
+            return True
+        if not held and not job.drive.acquire(blocking=False):
+            return False
+        try:
+            if job.session is not None:
                 try:
-                    session.close()
+                    job.session.close()
                 except Exception:
                     LOG.exception('Could not release temporary search state')
+                job.session = None
             with self.lock:
                 job.active = False
                 job.worker_done = True
@@ -488,20 +523,28 @@ class SearchJobs:
                 if job.cancel.is_set():
                     if not self._update_job_data(job, status='cancelled', can_continue=False):
                         self._retention_limit_result(job)
+                elif job.retire.is_set():
+                    if not self._update_job_data(job, can_continue=False):
+                        self._retention_limit_result(job)
                 job.closed.set()
                 # Every mutation above was admitted before assignment.  This
                 # final pass only enforces the retained-count LRU bound.
                 self._make_result_room()
+            return True
+        finally:
+            if not held:
+                job.drive.release()
 
     def shutdown(self):
         with self.lock:
             self.closed = True
-            threads = []
-            for job in self.jobs.values():
+            jobs = list(self.jobs.values())
+            for job in jobs:
                 job.cancel.set()
-                job.wake.set()
-                if job.thread:
-                    threads.append(job.thread)
         deadline = time.monotonic() + 2
-        for thread in threads:
-            thread.join(max(0, deadline - time.monotonic()))
+        for job in jobs:
+            if job.drive.acquire(timeout=max(0.0, deadline - time.monotonic())):
+                try:
+                    self._finalize(job, held=True)
+                finally:
+                    job.drive.release()

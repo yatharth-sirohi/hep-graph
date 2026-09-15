@@ -1,4 +1,10 @@
-"""Owner-thread continuation, cancellation, capacity and HTTP boundary checks."""
+"""Request-driven continuation, cancellation, capacity and HTTP boundary checks.
+
+A search advances only inside start/poll/continue calls, one driver at a time.
+The fakes below assert that invariant - no two calls on a session overlap -
+rather than a particular owning thread, and use ``drive_in_background`` where a
+test needs a slice to be in flight while it acts from the outside.
+"""
 from copy import deepcopy
 import json
 import threading
@@ -38,38 +44,57 @@ class Engine:
 class Session:
     def __init__(self, cancel, progress, blocking):
         self.cancel, self.progress, self.blocking = cancel, progress, blocking
-        self.owner = threading.get_ident()
+        self.busy = threading.Lock()
         self.calls = []
         self.closed = threading.Event()
         self.entered = threading.Event()
         self.route = {'hops': 2, 'people': [{'id': '1'}, {'id': '2'}, {'id': '3'}], 'edges': []}
 
+    def _enter(self):
+        # The contract: calls never overlap, whichever thread makes them.
+        assert self.busy.acquire(blocking=False), 'two requests drove one session at once'
+        assert not self.closed.is_set(), 'a closed session was driven again'
+
     def run(self, budget):
-        assert threading.get_ident() == self.owner
-        self.calls.append(budget)
-        self.entered.set()
-        self.progress({'people_explored': 7, 'works_retrieved': 12, 'elapsed_seconds': 1,
-                       'stage': 'Searching', 'best_result': {'paths': [self.route], 'version': 'evidence-v1'}})
-        if self.blocking:
-            self.cancel.wait(2)
-            self.progress({'stage': 'late progress must not overwrite cancellation'})
-            return {'status': 'ok', 'can_continue': True, 'paths': [self.route]}
-        return {'status': 'search_incomplete' if len(self.calls) == 1 else 'ok',
-                'paths': [self.route], 'version': 'evidence-v1',
-                'can_continue': len(self.calls) == 1}
+        self._enter()
+        try:
+            self.calls.append(budget)
+            self.entered.set()
+            self.progress({'people_explored': 7, 'works_retrieved': 12, 'elapsed_seconds': 1,
+                           'stage': 'Searching', 'best_result': {'paths': [self.route], 'version': 'evidence-v1'}})
+            if self.blocking:
+                self.cancel.wait(2)
+                self.progress({'stage': 'late progress must not overwrite cancellation'})
+                return {'status': 'ok', 'can_continue': True, 'paths': [self.route]}
+            return {'status': 'search_incomplete' if len(self.calls) == 1 else 'ok',
+                    'paths': [self.route], 'version': 'evidence-v1',
+                    'can_continue': len(self.calls) == 1}
+        finally:
+            self.busy.release()
 
     def close(self):
-        assert threading.get_ident() == self.owner
+        self._enter()
         self.closed.set()
+        self.busy.release()
+
+
+def drive_in_background(jobs, key):
+    """Poll once on another thread, so a slice is in flight while the test acts."""
+    thread = threading.Thread(target=lambda: jobs.get(key), daemon=True)
+    thread.start()
+    return thread
 
 
 class ContinuableSuccessSession(Session):
     def run(self, budget):
-        assert threading.get_ident() == self.owner
-        self.calls.append(budget)
-        self.entered.set()
-        return {'status': 'ok', 'paths': [self.route], 'version': 'evidence-v1',
-                'can_continue': True}
+        self._enter()
+        try:
+            self.calls.append(budget)
+            self.entered.set()
+            return {'status': 'ok', 'paths': [self.route], 'version': 'evidence-v1',
+                    'can_continue': True}
+        finally:
+            self.busy.release()
 
 
 class ContinuableSuccessEngine(Engine):
@@ -145,11 +170,15 @@ def test_continue_uses_same_worker_session_and_frozen_filters():
         ended['paths'].clear()
         assert jobs.get(key)['paths']  # Browser/client cannot mutate RAM evidence.
         resumed = jobs.resume(key)
-        assert resumed['status'] == 'searching' and resumed['job_id'] == key
+        # Continuing runs a slice inside the request, so it may already be done.
+        assert resumed['status'] in {'searching', 'ok'} and resumed['job_id'] == key
         eventually(lambda: jobs.get(key)['status'] == 'ok')
         assert len(engine.sessions) == 1
         assert len(engine.sessions[0].calls) == 2
-        assert engine.sessions[0].calls[1].max_seconds == 900
+        # The continued run carries the extended session ceilings, time-boxed
+        # to one request's slice rather than the whole 900 s allowance.
+        assert engine.sessions[0].calls[1].max_works == 50_000
+        assert engine.sessions[0].calls[1].max_seconds <= jobs.poll_slice
         assert jobs.get(key)['filters']['max_authors'] == 5
         assert engine.sessions[0].closed.wait(1)
         with pytest.raises(JobError, match='cannot continue'):
@@ -160,9 +189,10 @@ def test_continue_uses_same_worker_session_and_frozen_filters():
 
 def test_cancel_is_immediate_preserves_evidence_and_ignores_late_updates():
     engine = Engine(blocking=True)
-    jobs = SearchJobs(lambda: engine)
+    jobs = SearchJobs(lambda: engine, start_slice=0)
     try:
         key = jobs.start('1', '3', Filters())['job_id']
+        driver = drive_in_background(jobs, key)
         eventually(lambda: engine.sessions)
         assert engine.sessions[0].entered.wait(1)
         eventually(lambda: jobs.get(key).get('paths'))
@@ -174,6 +204,7 @@ def test_cancel_is_immediate_preserves_evidence_and_ignores_late_updates():
         assert value['progress']['stage'] == 'Searching'
         with pytest.raises(JobError):
             jobs.resume(key)
+        driver.join(3)
     finally:
         jobs.shutdown()
 
@@ -201,29 +232,35 @@ def test_active_and_paused_capacity_are_bounded_and_expiry_releases_owner():
 
 def test_two_running_workers_reject_third_without_starting_it():
     engine = Engine(blocking=True)
-    jobs = SearchJobs(lambda: engine)
+    jobs = SearchJobs(lambda: engine, start_slice=0)
     try:
         keys = [jobs.start('1', str(target), Filters())['job_id'] for target in (2, 3)]
+        drivers = [drive_in_background(jobs, key) for key in keys]
+        eventually(lambda: len(engine.sessions) == 2 and all(s.entered.is_set() for s in engine.sessions))
         with pytest.raises(JobError) as error:
             jobs.start('1', '4', Filters())
         assert error.value.http_status == 503
-        eventually(lambda: len(engine.sessions) == 2)
         for key in keys:
             jobs.cancel(key)
         assert all(session.closed.wait(1) for session in engine.sessions)
+        for driver in drivers:
+            driver.join(3)
     finally:
         jobs.shutdown()
 
 
 def test_identical_directional_job_reuses_active_worker_and_filter_key_includes_min_authors():
     engine = Engine(blocking=True)
-    jobs = SearchJobs(lambda: engine, max_active=2)
+    jobs = SearchJobs(lambda: engine, max_active=2, start_slice=0)
     try:
         first = jobs.start('1', '3', Filters(max_authors=None, min_authors=11))
+        driver = drive_in_background(jobs, first['job_id'])
         eventually(lambda: engine.sessions)
         assert engine.sessions[0].entered.wait(1)
         duplicate = jobs.start('1', '3', Filters(max_authors=None, min_authors=11))
         different = jobs.start('1', '3', Filters(max_authors=None, min_authors=12))
+        # A job only acquires its engine session once something drives it.
+        other = drive_in_background(jobs, different['job_id'])
         assert duplicate['job_id'] == first['job_id']
         assert duplicate['reused'] is True and duplicate['reuse_state'] == 'active'
         assert different['job_id'] != first['job_id']
@@ -232,6 +269,7 @@ def test_identical_directional_job_reuses_active_worker_and_filter_key_includes_
         assert info['directional_keys'] is True
         assert info['counters'] == {'started': 2, 'reused_active': 1, 'reused_completed': 0}
         jobs.cancel(first['job_id']); jobs.cancel(different['job_id'])
+        driver.join(3); other.join(3)
     finally:
         jobs.shutdown()
 

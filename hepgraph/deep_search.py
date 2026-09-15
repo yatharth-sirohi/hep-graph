@@ -1,8 +1,10 @@
 """Longer, bounded, RAM-only live path retrieval.
 
 This is deliberately separate from :mod:`hepgraph.ondemand`.  A caller owns a
-``DeepSession`` on one worker thread, runs it in bounded slices, and closes it
-there.  No record, cursor, or graph is written to disk.
+``DeepSession``, runs it in bounded slices, and closes it.  Calls must never
+overlap, but they may come from different threads: the driver is whoever holds
+the caller's lock, not a particular thread.  No record, cursor, or graph is
+written to disk.
 """
 from __future__ import annotations
 
@@ -377,8 +379,10 @@ class DeepSession:
         self.cancel, self.progress_callback = cancel, progress
         self.core_nodes = core_nodes
         self.discovery_hints = discovery_hints
-        self.connection = open_db(":memory:")
-        self.owner = threading.get_ident()
+        # Callers serialize every call on this session (SearchJobs holds one
+        # lock per job). Different requests may drive it from different
+        # threads, so the connection must not be bound to the creating one.
+        self.connection = open_db(":memory:", shared=True)
         self.started = time.monotonic()
         self.closed = False
         self.requests = 0
@@ -454,8 +458,6 @@ class DeepSession:
         self._guide_pair_pages: dict[tuple[str, str], int] = {}
 
     def _check_owner(self) -> None:
-        if threading.get_ident() != self.owner:
-            raise RuntimeError("DeepSession must run and close on its owner thread.")
         if self.closed:
             raise RuntimeError("DeepSession is closed.")
 

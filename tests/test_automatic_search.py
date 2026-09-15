@@ -1,4 +1,8 @@
-"""Automatic continuation owns one session, backs off and remains cancellable."""
+"""Automatic continuation owns one session, backs off and remains cancellable.
+
+Searches advance only inside start/poll/continue calls, so a predicate that
+waits for progress must poll before it inspects the engine's call count.
+"""
 import threading
 
 import pytest
@@ -94,7 +98,7 @@ def test_automatic_wall_time_guard_can_be_explicitly_continued():
         eventually(lambda: jobs.get(key)['status'] != 'searching')
         assert engine.calls == 2
         jobs.resume(key)
-        eventually(lambda: engine.calls == 4 and jobs.get(key)['status'] != 'searching')
+        eventually(lambda: jobs.get(key)['status'] != 'searching' and engine.calls == 4)
     finally:
         jobs.shutdown()
 
