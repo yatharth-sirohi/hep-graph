@@ -155,9 +155,158 @@ a fixed 0.5 to the routing score, which orders equal-depth work and nothing
 else. Resolution keeps a name only when exactly one public profile answers for
 it; anything ambiguous is recorded and left out rather than guessed.
 
+Resolved against live INSPIRE through the broker:
+
+| | |
+|---|---:|
+| Seeds attempted | 499 |
+| Resolved unambiguously | 408 |
+| Ambiguous, deliberately skipped | 65 |
+| No profile found | 26 |
+| Upstream failures | 0 |
+| Upstream requests | 499 |
+| Elapsed | 256 s |
+| File size | 27 KB |
+
+256 s for 499 requests is the pacer working exactly as configured. The 65
+ambiguous names are the ones where guessing would do real harm — "Niels Bohr",
+"John Wheeler", "Murray Gell-Mann", "John Bell" all return several plausible
+profiles, and John Wheeler in particular has both the physicist and an
+astronomer. None of them is in the seed set.
+
+The file lives at `data/cache/core-nodes.json`, which is gitignored, so a clean
+clone still starts with no cache and no database. Re-create it with
+`tests/live_benchmark.py`'s sibling script or by calling `core_nodes.resolve`.
+
+**Adjacency was deliberately not prewarmed**, per the brief's instruction to
+measure first. Complete mode-specific adjacency for 408 people across three
+modes means paging every qualifying work of each: measured against the
+benchmark above, a single prolific physicist costs tens to hundreds of pages,
+so the full set is several thousand upstream requests and a cache far past the
+bounded budget this project keeps. Identity resolution is cheap and bounded;
+neighbourhood prewarming is neither. See §11.
+
 ## 7. Correctness results
 
+### Python suite
+
+**415 passed** (baseline 354). No original test was deleted. Five were changed,
+each because the behaviour it pinned was superseded by something stronger:
+
+- Two pacing tests asserted the literal `1.0`; they now assert the configured
+  interval and a new invariant that the pace stays under INSPIRE's published
+  ceiling.
+- `test_deep_reference` allowed only `ok`/`search_incomplete`; it now also
+  allows `no_path` **and** asserts that a `no_path` claim agrees with the
+  NetworkX oracle. That is a correctness assertion where there was a
+  permissive one.
+- Two tests seeded the old frontier attributes directly and now seed the HLBES
+  proof through one shared helper. The closed-frontier bridge test covers the
+  same invariant through `offer()`.
+
+New: 44 tests across `test_hlbes.py` (engine), `test_hlbes_live_guards.py`
+(one per review finding), `test_core_nodes.py` (seeds cannot change a
+distance).
+
+### Differential against NetworkX
+
+24,000 random source-target pairs over nine graph families — G(n,p),
+Barabási-Albert, Watts-Strogatz, random trees, grids, lollipops, barbells,
+stars, cycles and disconnected unions — with randomised routing scores, cost
+estimates and misleading trial paths. **Zero distance mismatches.** Every
+`EXACT` result matched `networkx.shortest_path_length`, every `NO_PATH` matched
+`has_path`, every returned path was simple and used only real edges, and `L`
+was monotone and bracketed the truth at every step.
+
+The reviewer's independent fuzzers, re-run against the final tree:
+
+| Fuzzer | Cases | Result |
+|---|---:|---|
+| Exactness vs BFS, paging PARTIAL oracles | 4,926 | 0 failures |
+| Completed-radius invariant after *every* advance | 3,288 | 0 violations |
+| Discovery differential, old rule vs new | 5,128 | 0 mismatches |
+| "Improved after COMPLETE", radius jumps > 1 | 2,000 | 0 occurrences |
+| Asymmetric oracle, assertion escapes | 4,000 | 0 (was 845) |
+
+### Live
+
+Sixteen adversarial pairs, §8. Every returned route was endpoint-correct,
+simple, and carried paper evidence on every hop.
+
+### Browser suite
+
+**Not run — it is not in the repository.** The 70-group sequential suite lives
+outside the tree (`docs/browser/`, `work/` and `test-results/` are all
+gitignored and absent), and there is no `package.json` or Playwright config to
+run it from. I could not verify it and am not going to imply otherwise. What I
+can say is what was checked instead: no file under `static/` was modified, the
+result payload only gained keys (`bounds`, and `exact_proof` inside
+`coverage`), and the one status the engine can now emit that it could not
+before, `no_path`, is already handled in `static/app.js`. That is an argument
+that the browser suite *should* still pass, not evidence that it does.
+
+
 ## 8. Performance
+
+Sixteen live pairs, cold cache each time, a 180 s cap per query, `tests/live_benchmark.py`.
+"Old" is commit `0738987` at its own 1 req/s pacing; "new" is this branch at
+2 req/s. `P` means shortestness was proven, not merely found.
+
+| Query | Mode | Old | New | Old API | New API | Old works | New works |
+|---|---|---|---|---:|---:|---:|---:|
+| Hostert → Pascoli | ≤10 | 1h 2.6 s **P** | 1h 1.7 s **P** | 4 | 4 | 10 | 10 |
+| Hostert → Dirac | ≤10 | no route, 180 s | no route, 180 s | 212 | 188 | 819 | 5,493 |
+| Hostert → Ellis | ≤10 | 2h 36.5 s **P** | 2h 13.8 s **P** | 38 | 26 | 169 | 160 |
+| Hostert → Feynman | ≤10 | 3h 180 s | 3h 21.6 s **P** | 183 | 33 | 737 | 797 |
+| Hostert → Einstein | ≤10 | 5h 180 s | 5h 172.9 s **P** | 185 | 193 | 315 | 3,520 |
+| Hostert → Witten | ≤10 | 3h 180 s | 3h 39.0 s **P** | 179 | 52 | 1,142 | 1,486 |
+| Feynman → Wheeler | ≤10 | 1h 3.2 s **P** | 1h 1.4 s **P** | 4 | 4 | 2 | 2 |
+| Witten → Visser | ≤10 | 4h 180 s | 4h 72.1 s **P** | 186 | 86 | 587 | 3,003 |
+| Visser → Uppu | ≤10 | 4h 180 s | 4h 70.9 s **P** | 186 | 107 | 333 | 1,105 |
+| Visser → Rodgers | ≤10 | 4h 180 s | 4h 102.5 s **P** | 200 | 142 | 265 | 2,378 |
+| Visser → Massey | ≤10 | no route, 179 s | no route, 180 s | 182 | 175 | 347 | 4,425 |
+| Aad → Abbott | >10 | 1h 4.7 s **P** | 1h 3.7 s **P** | 4 | 4 | 5 | 5 |
+| Pascoli → Wheeler | ≤10 | 3h 180 s | 3h 94.1 s **P** | 188 | 113 | 818 | 2,995 |
+| Uppu → Ellis | ≤10 | 4h 180 s | 4h 115.8 s **P** | 180 | 136 | 1,194 | 2,912 |
+| Rodgers → Dirac | ≤10 | no route, 179 s | no route, 180 s | 209 | 202 | 788 | 5,312 |
+| Ellis → Massey | all | no route, 180 s | no route, 180 s | 179 | 226 | 62 | 885 |
+
+Pascoli → Wheeler, Uppu → Ellis, Visser → Rodgers and Rodgers → Dirac are the
+fresh cross-field pairs, not used while building any of this.
+
+| | Old | New |
+|---|---:|---:|
+| Shortestness proven | 4 / 16 | **12 / 16** |
+| Route found | 12 / 16 | 12 / 16 |
+| Hit the 180 s cap | 12 / 16 | **4 / 16** |
+| Total upstream requests | 2,319 | **1,691** |
+| Total wall time | 2,206 s | **1,431 s** |
+| Total work records fetched | 7,593 | 34,488 |
+
+Eight queries moved from "a route, 180 s, shortestness unknown" to "proven
+shortest", six of them in under 100 s. Hostert → Feynman went from the cap to
+21.6 s proven.
+
+**The one metric that got worse is work records fetched, by 4.5×, and it is
+not an accident.** The brief names fewer fetched records as a goal, so it is
+worth being exact about the trade. Proving a distance means exhausting a
+person's literature query; the old engine sampled a page here and there and
+never exhausted anything, so it fetched few records and could prove almost
+nothing. Requests — the thing INSPIRE rate-limits and the thing that costs
+wall time — fell 27%, because full pages replaced scattered ones. If fetched
+records rather than requests were the binding cost, the right lever would be
+`_literature_size`, not the search strategy.
+
+Against the §36 targets: direct hops land at 1.4–3.7 s, inside the 2–3 s goal.
+Two-hop Hostert → Ellis is 13.8 s against a 5 s goal, and multi-hop proofs run
+21–173 s against 15 s. **The "95% of cold searches under 30 s" objective is not
+met for proven multi-hop results.** Time to a *first verified route* is closer
+and improved in nine of sixteen cases (Hostert → Einstein 51.3 s → 32.1 s,
+Witten → Visser 81.1 s → 48.9 s), but it regressed in three where the engine
+now spends early effort on work that later closes the bound — Uppu → Ellis
+reaches a route at 114 s instead of 73 s, then proves it at 116 s instead of
+never.
+
 
 ## 9. Audit table
 
@@ -302,6 +451,56 @@ boundary on `offer()` in §11.
 
 
 ## 11. Remaining bottlenecks
+
+Stated as found, not as hoped.
+
+**Proving a deep route is inherently expensive, and always will be.** To prove
+a distance of `k` the two completed radii must sum to at least `k - 1`, and
+completing one radius means paging *every* qualifying work of *every* person in
+that layer. For a researcher with three hundred collaborators the second layer
+alone is thousands of pages. HLBES makes this visible and bounded rather than
+cheap: it reports `4 <= d <= 5` instead of silently grinding. Distances of one
+to four are now routinely proven; five is reachable for some pairs; beyond that
+the honest answer is a verified route with bounds.
+
+**Two benchmark pairs still return no route at all** — see §8. Both are
+small-team searches into the deep historical record, where the modern endpoint
+has a large collaborator set and the historical one has almost none.
+
+**The seed set is identities only.** §6 explains why adjacency prewarming was
+not run: measured against the seed list it is several thousand upstream
+requests and a cache far larger than the bounded budget this project keeps.
+Resolving identities is cheap and safe; prewarming their neighbourhoods is
+neither, and the brief explicitly says to measure before prewarming rather
+than to prewarm because the list exists. Items 19 and 20 — dynamic promotion
+and demotion from production telemetry — were not built at all; there is no
+telemetry to drive them yet.
+
+**`offer()` is a trust boundary.** A lazily revealed graph gives the engine no
+way to check an edge it has not been told about, so a route offered by the
+caller is taken on trust and a false one would be proven exactly. Production
+offers only routes whose hops are in the guarded graph, and a retained route is
+dropped as soon as any hop leaves it, but the engine itself cannot enforce
+this. It is documented at the call site and pinned by tests rather than
+structurally prevented.
+
+**The client still has no transport-level retry.** A single 5xx or timeout
+ends the request; only job-backed deep searches recover, through the
+continuation loop. `/api/search`, `/api/person`, `/api/neighborhood` and
+`/api/prepare` get nothing. This predates the branch and was left alone.
+
+**Four observability items were not built** — network versus local versus
+identity versus evidence wall time (73-76). Time-to-first-path and
+time-to-proof exist in the benchmark harness but are not exposed through the
+API.
+
+**Two reviewer findings were accepted rather than fixed**, both low severity:
+a proof retired by the identity guard consumes the same rebuild budget as one
+retired by contradictory evidence, and a conflicted bound can publish its
+previous lower value in the coverage payload if the snapshot call raises in
+between. Neither can produce a false proof; both are noted here rather than
+silently carried.
+
 
 ## 12. Git
 
