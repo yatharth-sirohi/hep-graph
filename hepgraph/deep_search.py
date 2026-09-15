@@ -16,7 +16,7 @@ import time
 from typing import Any, Callable, Iterable
 
 from .graph import Filters, Graph, GraphError
-from .remote import OVERSIZE_MESSAGE
+from .remote import MAX_RESPONSE_BYTES, OVERSIZE_MESSAGE
 from .hlbes import (COMPLETE, EXACT, HLBES, NO_PATH, PARTIAL, UNKNOWN, Neighborhood,
                     OracleStopped, Search)
 from .discovery import Navigator
@@ -30,6 +30,18 @@ MAX_RESULT_WINDOW = 10_000
 
 # INSPIRE's maximum accepted page size, measured against the live API.
 MAX_LITERATURE_PAGE = 1_000
+# Measured in docs/INSPIRE_NEIGHBORHOOD_API_AUDIT.md: a literature record costs
+# roughly 700 bytes plus 175 per listed author. A page has to fit the 4 MiB
+# transport bound with room to spare, so the safe page size falls out of the
+# mode's author ceiling rather than from a flat threshold.
+# A floor count must be read to an empty page, which has to land inside the
+# result window; 100 keeps that reachable for every set the window can hold.
+GTE_PAGE_SIZE = 100
+RECORD_BASE_BYTES = 700
+RECORD_AUTHOR_BYTES = 175
+PAGE_BUDGET_FRACTION = 0.5
+# What an unbounded team size has to be assumed to cost.
+ASSUMED_BROAD_AUTHORS = 3_000
 # An exact-ID author lookup returns at most one record per requested ID, and
 # profile batches are capped at 25, so a literature-sized page would only make
 # the request (and its cache key) larger for nothing.
@@ -83,6 +95,21 @@ class _Cursor:
     # Fixed once paging starts: page N means different records at a different
     # size, so a mid-stream change would silently skip or repeat works.
     page_size: int = 0
+    # Page arithmetic alone cannot prove a query was read to the end: an empty
+    # or repeated page satisfies it while records are missing. Count the
+    # distinct records that actually arrived, and stop trusting the reported
+    # count if it ever moves.
+    literature_seen: set[str] = field(default_factory=set)
+    reverse_seen: set[str] = field(default_factory=set)
+    literature_total: int | None = None
+    reverse_total: int | None = None
+    literature_stable: bool = True
+    reverse_stable: bool = True
+    literature_stable_total: bool = True
+    # A transport retry is progress. Without this the oracle would see an
+    # unchanged token twice and park the person for the rest of the search.
+    shrinks: int = 0
+
     literature_done: bool = False
     reverse_done: bool = False
     next_kind: str = "literature"
@@ -92,6 +119,14 @@ class _Cursor:
     deferred: bool = False
     historical_enqueued: bool = False
     incomplete: list[str] = field(default_factory=list)
+
+    def literature_stable_window(self, window: int) -> bool:
+        """False when this size cannot reach the empty page a floor count needs."""
+        if self.literature_total is None or self.literature_stable_total:
+            return True
+        size = self.page_size or 1
+        return (self.literature_total // size + 1) * size <= window
+
 
 
 @dataclass
@@ -303,7 +338,8 @@ class _LiveOracle:
                             if other != person_id)
         # Retrieval progress, not the member set: a page may legitimately add
         # no new qualifying neighbour and must not look like a dead end.
-        token = (cursor.profile_done, cursor.pages, cursor.literature_page, cursor.reverse_page)
+        token = (cursor.profile_done, cursor.pages, cursor.literature_page,
+                 cursor.reverse_page, cursor.shrinks)
         self.reported[person_id] = members
         paged_out = cursor.literature_done and cursor.reverse_done and not cursor.incomplete
         if paged_out and self._accounted(person_id):
@@ -348,6 +384,7 @@ class DeepSession:
         self._direct_pair_records_seen = 0
         self._direct_pair_total: int | None = 0 if source == target else None
         self._direct_pair_total_exact = True
+        self._direct_pair_size = 0
         self.guide_graph = self._guide_graph(guide_snapshot)
         self.suggestion_neighbors: dict[str, set[str]] = {}
         for left, right in suggestion_pairs:
@@ -389,9 +426,9 @@ class DeepSession:
         # slice boundary so a continuation resumes rather than restarts.
         self._bridged: set[tuple[str, bool]] = set()
         self._rebuilds = 0
-        # Lowered, never raised, when INSPIRE returns a page too large for the
-        # transport. One session's worst record sets the pace for the rest.
-        self._page_ceiling = MAX_LITERATURE_PAGE
+        # Starts from what this mode can afford and is only ever lowered, when
+        # a real response turns out bigger than the estimate allowed for.
+        self._page_ceiling = self.page_ceiling_for(filters)
         self._proof: Search | None = None
         self._engine: HLBES | None = None
         self._oracle: _LiveOracle | None = None
@@ -784,7 +821,7 @@ class DeepSession:
                 continue
             self._bridge_queries_this_run += 1
             try:
-                self._fetch("literature", query, 1, budget, size=self._literature_size(budget))
+                self._fetch_literature(query, 1, budget, self._literature_size(budget))
             except DeepSearchError as error:
                 # This is an optimization only. A transient/unsupported
                 # upstream OR query must never abort ordinary BFS. Preserve
@@ -820,17 +857,55 @@ class DeepSession:
     def _cursor(self, person_id: str, depth: int, *, profile_done: bool = False) -> _Cursor:
         return _Cursor(person_id, depth, profile_done=profile_done, reverse_done=not self.filters.genealogy)
 
-    def _literature_size(self, budget: DeepBudget) -> int:
-        """Records per literature page for the active mode.
+    @staticmethod
+    def page_ceiling_for(filters: Filters) -> int:
+        """Largest page this mode can ask for and still fit the transport.
 
-        A large-team record carries its whole byline, measured at ~414 KB
-        each, so a page of more than a handful exceeds the transport bound.
-        A small-team record is ~1.8 KB, so the API's maximum page is both
-        affordable and the largest saving available: it turns a prolific
-        researcher's twelve requests into two.
+        A small-team record is about 1.8 KB and a large-team one about 414 KB,
+        so the affordable page size is a function of the mode's author ceiling.
+        Deriving it keeps the 11..100 band honest: it is neither "small" (a
+        100-author page of 1000 would be 1.7 MiB per 100 records) nor as
+        expensive as an unbounded collaboration.
         """
-        broad = self.filters.max_authors is None or self.filters.max_authors > 100
-        return min(5, budget.page_size) if broad else min(budget.page_size, self._page_ceiling)
+        authors = filters.max_authors if filters.max_authors is not None else ASSUMED_BROAD_AUTHORS
+        per_record = RECORD_BASE_BYTES + RECORD_AUTHOR_BYTES * authors
+        affordable = int(PAGE_BUDGET_FRACTION * MAX_RESPONSE_BYTES / max(per_record, 1))
+        return max(5, min(MAX_LITERATURE_PAGE, affordable))
+
+    def _literature_size(self, budget: DeepBudget) -> int:
+        """Records per literature page, never above what this session survived."""
+        return max(1, min(budget.page_size, self._page_ceiling))
+
+    def _lower_page_ceiling(self) -> bool:
+        """Drop the session's page size after a response the transport refused."""
+        if self._page_ceiling <= 5:
+            return False
+        self._page_ceiling = max(5, self._page_ceiling // 4)
+        self._emit("literature_page_shrink")
+        return True
+
+    def _fetch_literature(self, query: str, page: int, budget: DeepBudget,
+                          size: int) -> tuple[list[dict[str, Any]], int, bool, int]:
+        """Fetch one literature page, retrying smaller if it was too large.
+
+        Every literature call needs this, not only per-person pagination: the
+        endpoint-pair probe is the cheapest and most important query the
+        product makes, and without a retry an oversized first page turns a
+        one-hop answer into a permanent search_incomplete.
+        """
+        while True:
+            try:
+                hits, total, exact = self._fetch("literature", query, page, budget, size=size)
+                return hits, total, exact, size
+            except DeepSearchError as error:
+                if error.message != OVERSIZE_MESSAGE or not self._lower_page_ceiling():
+                    raise
+                smaller = self._literature_size(budget)
+                if smaller >= size:
+                    raise
+                # Page numbers only mean something against a fixed size, so a
+                # caller that had advanced has to be told to start over.
+                page, size = 1, smaller
 
     def _shrink_pages(self, cursor: _Cursor) -> bool:
         """Halve the page size after an oversized response and start over.
@@ -839,34 +914,64 @@ class DeepSession:
         that changes size has to re-read from page one.  Every page it already
         read is still in the session cache, so this costs little.
         """
-        if self._page_ceiling <= 25:
+        if not self._lower_page_ceiling():
             return False
-        self._page_ceiling = max(25, self._page_ceiling // 4)
+        cursor.shrinks += 1
         cursor.literature_page, cursor.page_size = 1, 0
         cursor.literature_done = False
-        self._emit("literature_page_shrink")
+        cursor.literature_seen, cursor.literature_total = set(), None
+        cursor.literature_stable = True
         return True
 
     def _page_done(self, cursor: _Cursor, total: int, page: int, budget: DeepBudget, kind: str,
                    page_size: int | None = None, *, total_exact: bool = True,
-                   returned: int | None = None) -> None:
+                   returned: int = 0, arrived: Iterable[str] = ()) -> None:
+        """Decide whether this query has been read to the end.
+
+        Page arithmetic is not proof.  A page that comes back empty, or that
+        repeats the one before it, satisfies ``page * size >= total`` while the
+        records it should have carried are missing, and the neighbourhood built
+        from it would then be certified COMPLETE with collaborators silently
+        absent.  So exhaustion needs the distinct records to have actually
+        arrived, and a reported count that moves mid-pagination is no longer
+        something to do arithmetic against at all.
+
+        This is the rule the endpoint-pair cursor has always used; the
+        per-person cursor simply never had it.
+        """
         size = page_size or budget.page_size
-        # INSPIRE reports ``{"value": n, "relation": "gte"}`` for large result
-        # sets. Page arithmetic against a lower bound would declare a query
-        # exhausted while later pages still exist, and a short page is only a
-        # convention, not a guarantee. When the count is a lower bound, read on
-        # until a page comes back empty: one extra request is a fair price for
-        # the exhaustion claim the whole proof rests on.
-        finished = page * size >= total if total_exact else returned == 0
-        # A count reported as a floor means the set fills INSPIRE's result
-        # window, and the window cannot be paged past. Stop, and say the
-        # neighbourhood is incomplete rather than retrying a page the
-        # transport will always refuse.
+        literature = kind == "literature"
+        seen = cursor.literature_seen if literature else cursor.reverse_seen
+        seen.update(str(item) for item in arrived)
+        if literature:
+            cursor.literature_stable_total = total_exact
+        known = cursor.literature_total if literature else cursor.reverse_total
+        if known is None:
+            if literature: cursor.literature_total = total
+            else: cursor.reverse_total = total
+        elif known != total:
+            # The result set moved underneath the cursor.
+            if literature: cursor.literature_stable = False
+            else: cursor.reverse_stable = False
+        stable = cursor.literature_stable if literature else cursor.reverse_stable
+
+        if total_exact and stable:
+            # Every reported record must have actually arrived, counted once.
+            finished = len(seen) >= total and page * size >= total
+        else:
+            # INSPIRE reports ``{"value": n, "relation": "gte"}`` for large
+            # result sets, and an unstable count is no better. Read on until a
+            # page comes back empty: one extra request is a fair price for the
+            # exhaustion claim the whole proof rests on.
+            finished = returned == 0
+
+        # INSPIRE serves at most MAX_RESULT_WINDOW results per query, so a set
+        # larger than the window can be read from but never read to the end.
         exhausted_window = not finished and (page + 1) * size > MAX_RESULT_WINDOW
         if exhausted_window and f"{kind}_window" not in cursor.incomplete:
             cursor.incomplete.append(f"{kind}_window")
         if finished or exhausted_window:
-            if kind == "literature": cursor.literature_done = True
+            if literature: cursor.literature_done = True
             else: cursor.reverse_done = True
         # A per-run page allowance is a fairness checkpoint, never a claim
         # that page 5 and later do not exist. ``run`` restores this cursor in
@@ -908,6 +1013,14 @@ class DeepSession:
         if kind == "literature" and not cursor.literature_done:
             if not cursor.page_size:
                 cursor.page_size = self._literature_size(budget)
+            if not cursor.literature_stable_window(MAX_RESULT_WINDOW):
+                # A floor count is only exhausted by an empty page, and that
+                # page has to fit inside the result window. A large page can
+                # step straight over it, so fall back to one that cannot.
+                cursor.page_size, cursor.literature_page = GTE_PAGE_SIZE, 1
+                cursor.literature_seen, cursor.literature_total = set(), None
+                cursor.literature_stable = True
+                cursor.shrinks += 1
             size = cursor.page_size
             try:
                 hits, total, total_exact = self._fetch(
@@ -926,7 +1039,8 @@ class DeepSession:
             cursor.pages += 1
             cursor.slice_pages += 1
             self._page_done(cursor, total, cursor.literature_page, budget, "literature", page_size=size,
-                            total_exact=total_exact, returned=len(hits))
+                            total_exact=total_exact, returned=len(hits),
+                            arrived=(hit.get("id") for hit in hits))
             cursor.literature_page += 1
             cursor.next_kind = "reverse"
         elif kind == "reverse" and not cursor.reverse_done:
@@ -936,7 +1050,8 @@ class DeepSession:
             cursor.pages += 1
             cursor.slice_pages += 1
             self._page_done(cursor, total, cursor.reverse_page, budget, "reverse",
-                            total_exact=total_exact, returned=len(hits))
+                            total_exact=total_exact, returned=len(hits),
+                            arrived=(hit.get("id") for hit in hits))
             cursor.reverse_page += 1
             cursor.next_kind = "literature"
         self._record_node(cursor)
@@ -1429,10 +1544,19 @@ class DeepSession:
                         return self._result("not_found", budget, message="The target profile was not found.")
                     if stage == "direct_pair" and self.source != self.target:
                         pair_size = self._literature_size(budget)
-                        hits, total, total_exact = self._fetch(
-                            "literature", self.pair_query(self.source, self.target, self.filters),
-                            self._direct_pair_page, budget, size=pair_size,
-                        )
+                        if self._direct_pair_size and self._direct_pair_size != pair_size:
+                            # Page N means different records at a different
+                            # size, so the accumulated ledger no longer
+                            # describes this pagination.
+                            self._direct_pair_page, self._direct_pair_records_seen = 1, 0
+                            self._direct_pair_total, self._direct_pair_total_exact = None, True
+                        hits, total, total_exact, pair_size = self._fetch_literature(
+                            self.pair_query(self.source, self.target, self.filters),
+                            self._direct_pair_page, budget, pair_size)
+                        if self._direct_pair_size and self._direct_pair_size != pair_size:
+                            self._direct_pair_page, self._direct_pair_records_seen = 1, 0
+                            self._direct_pair_total, self._direct_pair_total_exact = None, True
+                        self._direct_pair_size = pair_size
                         self._direct_pair_pages_checked += 1
                         self._direct_pair_last_page = self._direct_pair_page
                         self._direct_pair_records_seen += len(hits)
@@ -1506,7 +1630,8 @@ class DeepSession:
                             continue
                         pair_page = self._guide_pair_pages.get(pair, 1)
                         pair_size = self._literature_size(budget)
-                        _, total, _ = self._fetch("literature", self.pair_query(left, right, self.filters), pair_page, budget, size=pair_size)
+                        _, total, _, pair_size = self._fetch_literature(
+                            self.pair_query(left, right, self.filters), pair_page, budget, pair_size)
                         self._guide_pairs_this_run += 1
                         self.guide_verified += 1
                         snapshot, graph = self._snapshot(budget)

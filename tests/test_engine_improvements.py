@@ -119,7 +119,7 @@ def test_cross_frontier_diagonal_schedule_reaches_later_blocks_before_a_slice_is
 
         def fetched(_collection, query, _page, _budget, **_kwargs):
             queries.append(query)
-            return [], 0
+            return [], 0, True   # _fetch returns (hits, total, total_exact)
 
         session._fetch = fetched
         assert session._cross_frontier(budget())

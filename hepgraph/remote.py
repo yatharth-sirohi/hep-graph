@@ -29,7 +29,12 @@ from .pipeline import (
 )
 
 
-MAX_CACHE_BYTES = 8 * 1024 * 1024
+# A single literature page can now be megabytes, so an 8 MiB budget would let
+# two of them evict every warmed author record. Keep the cache bounded, but
+# large enough that one page is a small fraction of it.
+MAX_CACHE_BYTES = 64 * 1024 * 1024
+# No single response may occupy more than this share of the budget.
+MAX_ENTRY_FRACTION = 0.1
 MAX_CACHE_ENTRIES = 256
 CACHE_TTL_SECONDS = 15 * 60
 MAX_RESPONSE_BYTES = 4 * 1024 * 1024
@@ -241,7 +246,10 @@ class RemoteClient:
         except (TypeError, ValueError) as exc:
             raise RemoteError("upstream_unavailable", "INSPIRE returned a non-JSON-safe search result") from exc
         size = len(encoded)
-        if size > self._cache_limit:
+        # One large literature page must never be able to evict the warmed
+        # author records the next request depends on, so an entry that would
+        # dominate the budget is simply not kept.
+        if size > self._cache_limit * MAX_ENTRY_FRACTION:
             return
         with self._cache_lock:
             self._evict_expired(now)
@@ -545,7 +553,10 @@ class RemoteClient:
             raise RemoteError("upstream_unavailable", "INSPIRE transport failed") from exc
         if not isinstance(body, bytes):
             raise RemoteError("upstream_unavailable", "INSPIRE transport returned invalid data")
-        self._count(layer, "bytes", len(body))
+        # Traffic, counted at the one place the transport actually runs, and
+        # before the size check so a refused page still shows what it cost.
+        # Deliberately not the cache-residency figure in layers[*]["bytes"].
+        self._count(layer, "wire_bytes", len(body))
         if len(body) > MAX_RESPONSE_BYTES:
             raise RemoteError("resource_limit", OVERSIZE_MESSAGE)
         try:
@@ -684,7 +695,8 @@ class RemoteClient:
                 layers = {
                     layer: usage[layer] | {
                         field: int(self._stats[layer].get(field, 0))
-                        for field in ("hits", "misses", "coalesced", "upstream_requests", "errors", "rejected", "wait_deadlines")
+                        for field in ("hits", "misses", "coalesced", "upstream_requests",
+                                      "errors", "rejected", "wait_deadlines", "wire_bytes")
                     }
                     for layer in self._stats
                 }
@@ -695,7 +707,8 @@ class RemoteClient:
             pending = len(self._pending)
         totals = {
             field: sum(row[field] for row in layers.values())
-            for field in ("hits", "misses", "coalesced", "upstream_requests", "errors", "rejected", "wait_deadlines")
+            for field in ("hits", "misses", "coalesced", "upstream_requests",
+                          "errors", "rejected", "wait_deadlines", "wire_bytes")
         }
         return {"bytes": cache_bytes, "limit": self._cache_limit, "entries": cache_entries,
                 "ttl_seconds": self._ttl_seconds, "storage": "memory", "persistent": False,

@@ -53,6 +53,7 @@ class PreparationJobs:
         max_retained: int = 32,
         ttl: float = 10 * 60,
         clock=time.monotonic,
+        discovery_hints: bool = False,
     ) -> None:
         if (isinstance(max_active, bool) or not isinstance(max_active, int) or not 1 <= max_active <= 2
                 or isinstance(max_pending, bool) or not isinstance(max_pending, int) or not 1 <= max_pending <= 32
@@ -60,6 +61,9 @@ class PreparationJobs:
                 or isinstance(ttl, bool) or not isinstance(ttl, (int, float)) or not 1 <= ttl <= 3600):
             raise ValueError("Invalid preparation limits.")
         self.client = client
+        # Must match DeepSearch's setting, or the warm-up pays for a request
+        # the search that follows will never make.
+        self.discovery_hints = bool(discovery_hints)
         self.max_active = max_active
         self.max_pending = max_pending
         self.max_retained = max_retained
@@ -178,8 +182,11 @@ class PreparationJobs:
         identity_request = lambda: self.client.search(
             "authors", f"control_number:{job.person}", size=PROFILE_PAGE_SIZE,
             page=1, sort="mostrecent")
+        # The facet endpoint is warmed only when the search that follows will
+        # actually call it. With discovery hints off by default it never does,
+        # so warming it was a guaranteed wasted request per prepared person.
         downstream_requests = (
-            ("facets", lambda: self.client.coauthors(query)),
+            *((("facets", lambda: self.client.coauthors(query)),) if self.discovery_hints else ()),
             ("literature", lambda: self.client.search(
                 "literature", query, size=self._literature_size(job.filters),
                 page=1, sort="mostrecent")),

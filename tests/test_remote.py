@@ -13,7 +13,7 @@ from urllib.parse import parse_qs, urlparse
 import pytest
 
 from hepgraph.pipeline import AUTHOR_FIELDS, LITERATURE_FIELDS
-from hepgraph.remote import (MIN_REQUEST_INTERVAL_SECONDS, MAX_RESPONSE_BYTES,
+from hepgraph.remote import (MAX_CACHE_BYTES, MIN_REQUEST_INTERVAL_SECONDS, MAX_RESPONSE_BYTES,
                              REQUEST_INTERVAL_SECONDS, RemoteClient, RemoteError)
 
 
@@ -149,7 +149,7 @@ def test_fixed_endpoint_allowlisted_fields_encoded_params_and_memory_cache() -> 
     assert parameters == {"q": ['name.value:"Ada Lovelace"'], "size": ["25"], "page": ["2"], "sort": ["mostrecent"], "fields": [AUTHOR_FIELDS]}
     info = client.cache_info()
     assert {key: info[key] for key in ("bytes", "limit", "entries", "ttl_seconds", "storage", "persistent")} == {
-        "bytes": info["bytes"], "limit": 8 * 1024 * 1024, "entries": 2,
+        "bytes": info["bytes"], "limit": MAX_CACHE_BYTES, "entries": 2,
         "ttl_seconds": 900.0, "storage": "memory", "persistent": False,
     }
     assert info["layers"]["authors"]["entries"] == 2

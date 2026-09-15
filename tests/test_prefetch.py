@@ -60,12 +60,12 @@ def test_prepare_warms_exact_deep_keys_once_and_reuses_ready_status() -> None:
         jobs.shutdown()
 
     query = "authors.record.$ref:42 AND author_count:11+"
+    # No facet warm-up: with discovery hints off the search never calls it.
     assert client.calls == [
         ("search", "authors", "control_number:42", 25, 1, "mostrecent"),
-        ("facets", query),
         ("search", "literature", query, 5, 1, "mostrecent"),
     ]
-    assert ready["warmed"] == ["identity", "facets", "literature"]
+    assert ready["warmed"] == ["identity", "literature"]
     assert second["preparation_id"] == first["preparation_id"] and second["reused"] is True
     assert jobs.info()["counters"] == {"ready": 1, "reused": 1, "started": 1}
 

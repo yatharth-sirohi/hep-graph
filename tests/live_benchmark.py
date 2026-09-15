@@ -96,10 +96,12 @@ def run_case(name, source, target, filters, cap_seconds, slice_seconds):
         "api_calls": progress.get("requests"),
         "literature_pages": progress.get("literature_pages"),
         "literature_hits": progress.get("literature_hits"),
-        "bytes": sum(layer.get("bytes", 0) for layer in (info.get("layers") or {}).values()),
+        # wire_bytes is traffic; layers[*]["bytes"] is live cache residency,
+        # which is a different and much smaller number.
+        "bytes": sum(layer.get("wire_bytes", 0) for layer in (info.get("layers") or {}).values()),
         "layers": {name: {"req": layer.get("upstream_requests", 0),
                           "hits": layer.get("hits", 0),
-                          "mb": round(layer.get("bytes", 0) / 1048576, 2)}
+                          "mb": round(layer.get("wire_bytes", 0) / 1048576, 2)}
                    for name, layer in (info.get("layers") or {}).items()},
         "works_fetched": progress.get("works_retrieved"),
         "people_explored": progress.get("people_explored"),

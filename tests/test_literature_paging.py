@@ -147,3 +147,40 @@ def test_budget_rejects_a_page_size_above_the_api_maximum():
     with pytest.raises(DeepSearchError):
         budget(page_size=MAX_LITERATURE_PAGE + 1).validate()
     budget(page_size=MAX_LITERATURE_PAGE).validate()
+
+
+# ------------------------------------------- what the independent review broke
+def test_the_page_ceiling_follows_the_measured_payload_not_a_flat_threshold():
+    """A 100-author page of 1000 records would be megabytes, not kilobytes."""
+    from hepgraph.deep_search import DeepSession
+
+    small = DeepSession.page_ceiling_for(Filters(max_authors=10))
+    medium = DeepSession.page_ceiling_for(Filters(max_authors=100))
+    broad = DeepSession.page_ceiling_for(Filters(max_authors=None))
+    assert small > medium > broad, (small, medium, broad)
+    assert broad >= 5 and small <= MAX_LITERATURE_PAGE
+    for authors in (1, 5, 10, 11, 50, 100, 1000, None):
+        ceiling = DeepSession.page_ceiling_for(Filters(max_authors=authors))
+        per_record = 700 + 175 * (authors if authors is not None else 3000)
+        assert ceiling * per_record <= 4 * 1024 * 1024, f"{authors} authors would overflow"
+
+
+def test_wire_bytes_are_reported_separately_from_cache_residency():
+    """The benchmark's byte column must measure traffic, not what is cached."""
+    from hepgraph.remote import RemoteClient
+
+    class Clock:
+        now = 0.0
+        def __call__(self): return self.now
+
+    served = []
+    def transport(url, timeout):
+        body = b'{"hits": {"total": 1, "hits": [{"id": "1", "metadata": {"control_number": 1}}]}}'
+        served.append(len(body))
+        return body
+
+    client = RemoteClient(transport=transport, clock=Clock(), sleep=lambda _: None)
+    client.search("literature", "recid:1")
+    layers = client.cache_info()["layers"]
+    assert layers["literature"]["wire_bytes"] == sum(served)
+    assert layers["literature"]["wire_bytes"] != layers["literature"]["bytes"]
