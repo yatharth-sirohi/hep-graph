@@ -23,3 +23,6 @@ namespaces = true
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 addopts = "-ra"
+
+[tool.vercel]
+entrypoint = "hepgraph.server:Handler"
