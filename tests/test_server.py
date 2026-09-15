@@ -135,6 +135,27 @@ def _json(body: bytes) -> dict:
     return json.loads(body.decode("utf-8"))
 
 
+def test_handler_state_is_created_once_when_runtime_owns_server(monkeypatch: pytest.MonkeyPatch) -> None:
+    created = []
+    sentinel = object()
+
+    def make_state(path, default_mode):
+        created.append((path, default_mode))
+        return sentinel
+
+    monkeypatch.setattr(server_module, "State", make_state)
+    monkeypatch.setattr(server_module, "_SERVERLESS_STATE", None)
+    first_server = type("RuntimeServer", (), {})()
+    second_server = type("RuntimeServer", (), {})()
+
+    assert server_module._state_for_handler(first_server) is sentinel
+    assert server_module._state_for_handler(first_server) is sentinel
+    assert server_module._state_for_handler(second_server) is sentinel
+    assert first_server.state is sentinel
+    assert second_server.state is sentinel
+    assert created == [(server_module.ROOT / "data" / "current.json", "live")]
+
+
 def test_health_dataset_headers_and_exact_snapshot_version(service) -> None:
     base, state = service
     status, headers, body = _request(base, "/api/health")
