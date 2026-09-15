@@ -13,6 +13,7 @@ from dataclasses import dataclass
 from email.utils import parsedate_to_datetime
 import json
 import math
+import os
 import re
 import threading
 import time
@@ -33,7 +34,16 @@ MAX_CACHE_ENTRIES = 256
 CACHE_TTL_SECONDS = 15 * 60
 MAX_RESPONSE_BYTES = 4 * 1024 * 1024
 NETWORK_TIMEOUT_SECONDS = 8.0
-REQUEST_INTERVAL_SECONDS = 1.0
+# INSPIRE documents 15 requests per 5 s per IP (rest-api-doc, checked
+# 2026-09-15).  That ceiling is 3.0 req/s; HEP Graph paces at 2.0 req/s so the
+# worst case in any 5 s window is 10 of the allowed 15, leaving headroom for
+# retries and for a second process sharing the address.  Override with
+# HEPGRAPH_REQUEST_INTERVAL (seconds) to pace even more slowly.
+INSPIRE_DOCUMENTED_REQUESTS = 15
+INSPIRE_DOCUMENTED_WINDOW_SECONDS = 5.0
+REQUEST_INTERVAL_SECONDS = 0.5
+MIN_REQUEST_INTERVAL_SECONDS = (
+    INSPIRE_DOCUMENTED_WINDOW_SECONDS / INSPIRE_DOCUMENTED_REQUESTS)
 MAX_QUERY_LENGTH = 4096
 MAX_PAGE = 10_000
 MAX_SIZE = 100
@@ -90,6 +100,19 @@ def _default_transport(url: str, timeout: float) -> bytes:
     return body
 
 
+def _request_interval(override: float | None) -> float:
+    """Never pace faster than INSPIRE's published ceiling allows."""
+    if override is None:
+        raw = os.environ.get("HEPGRAPH_REQUEST_INTERVAL")
+        try:
+            override = float(raw) if raw else REQUEST_INTERVAL_SECONDS
+        except ValueError:
+            override = REQUEST_INTERVAL_SECONDS
+    if isinstance(override, bool) or not isinstance(override, (int, float)) or not math.isfinite(float(override)):
+        raise ValueError("request_interval must be a finite number of seconds")
+    return max(float(override), MIN_REQUEST_INTERVAL_SECONDS)
+
+
 class RemoteClient:
     """A synchronously bounded public-search client.
 
@@ -112,6 +135,7 @@ class RemoteClient:
         cache_bytes: int = MAX_CACHE_BYTES,
         cache_entries: int = MAX_CACHE_ENTRIES,
         ttl_seconds: float = CACHE_TTL_SECONDS,
+        request_interval: float | None = None,
     ) -> None:
         if isinstance(cache_bytes, bool) or not isinstance(cache_bytes, int) or not 1 <= cache_bytes <= MAX_CACHE_BYTES:
             raise ValueError(f"cache_bytes must be 1..{MAX_CACHE_BYTES}")
@@ -120,6 +144,7 @@ class RemoteClient:
         if (isinstance(ttl_seconds, bool) or not isinstance(ttl_seconds, (int, float))
                 or not math.isfinite(float(ttl_seconds)) or ttl_seconds <= 0):
             raise ValueError("ttl_seconds must be a finite positive number")
+        self._request_interval = _request_interval(request_interval)
         self._transport = transport or _default_transport
         self._clock = time.monotonic if clock is None else clock
         self._sleep = time.sleep if sleep is None else sleep
@@ -490,7 +515,7 @@ class RemoteClient:
                 now = self._clock()
             if now >= deadline:
                 raise RemoteError("resource_limit", "request deadline elapsed while waiting for global pacing")
-            self._pace_state.next_allowed = now + REQUEST_INTERVAL_SECONDS
+            self._pace_state.next_allowed = now + self._request_interval
 
     def _fetch_json(self, url: str, deadline: float) -> Any:
         """Fetch and validate JSON under the shared transport constraints."""

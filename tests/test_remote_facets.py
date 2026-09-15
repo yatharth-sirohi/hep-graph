@@ -7,7 +7,8 @@ from urllib.parse import parse_qs, urlparse
 
 import pytest
 
-from hepgraph.remote import MAX_FACET_BUCKETS, MAX_RESPONSE_BYTES, RemoteClient, RemoteError
+from hepgraph.remote import (MAX_FACET_BUCKETS, MAX_RESPONSE_BYTES,
+                             REQUEST_INTERVAL_SECONDS, RemoteClient, RemoteError)
 
 
 @pytest.fixture(autouse=True)
@@ -105,8 +106,8 @@ def test_facets_share_global_pacing_and_bounded_lru_with_search_requests() -> No
     right = RemoteClient(transport=transport, clock=clock, sleep=clock.sleep, cache_entries=2)
     left.coauthors("authors.record.$ref:1")
     right.search("authors", "recid:2")
-    assert [called_at for _, called_at in calls] == [0.0, 1.0]
-    assert clock.sleeps == [1.0]
+    assert [called_at for _, called_at in calls] == [0.0, REQUEST_INTERVAL_SECONDS]
+    assert clock.sleeps == [REQUEST_INTERVAL_SECONDS]
 
     # Cache reads do not consume pacing, and facet entries use the same LRU.
     left.coauthors("authors.record.$ref:1")

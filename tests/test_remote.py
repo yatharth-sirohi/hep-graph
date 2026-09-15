@@ -13,7 +13,8 @@ from urllib.parse import parse_qs, urlparse
 import pytest
 
 from hepgraph.pipeline import AUTHOR_FIELDS, LITERATURE_FIELDS
-from hepgraph.remote import MAX_RESPONSE_BYTES, RemoteClient, RemoteError
+from hepgraph.remote import (MIN_REQUEST_INTERVAL_SECONDS, MAX_RESPONSE_BYTES,
+                             REQUEST_INTERVAL_SECONDS, RemoteClient, RemoteError)
 
 
 class Clock:
@@ -297,8 +298,8 @@ def test_ttl_lru_and_global_pacing_across_clients_sharing_a_clock() -> None:
     right = RemoteClient(transport=transport, clock=clock, sleep=clock.sleep, cache_entries=2, ttl_seconds=2)
     left.search("literature", "recid:1")
     right.search("literature", "recid:2")
-    assert [time for _, time in calls] == [0.0, 1.0]
-    assert clock.sleeps == [1.0]
+    assert [time for _, time in calls] == [0.0, REQUEST_INTERVAL_SECONDS]
+    assert clock.sleeps == [REQUEST_INTERVAL_SECONDS]
     # Cache reads do not consume the global upstream request budget.
     left.search("literature", "recid:1")
     assert len(calls) == 2
@@ -586,3 +587,32 @@ def test_non_finite_time_configuration_and_deadlines_are_rejected() -> None:
         with pytest.raises(RemoteError) as error:
             client.search("authors", "recid:1", deadline=deadline)
         assert error.value.code == "resource_limit"
+
+
+def test_pacing_stays_below_the_documented_inspire_ceiling() -> None:
+    """INSPIRE publishes 15 requests per 5 s; never pace at or above that."""
+    assert REQUEST_INTERVAL_SECONDS > MIN_REQUEST_INTERVAL_SECONDS
+    window = 5.0 / REQUEST_INTERVAL_SECONDS
+    assert window <= 12, "a 5 s window must stay comfortably under 15 requests"
+
+
+def test_request_interval_can_be_slowed_but_never_sped_past_the_ceiling() -> None:
+    clock = Clock()
+    calls: list[float] = []
+
+    def transport(url: str, timeout: float) -> bytes:
+        calls.append(clock.now)
+        return response()
+
+    slow = RemoteClient(transport=transport, clock=clock, sleep=clock.sleep, request_interval=3.0)
+    slow.search("literature", "recid:1")
+    slow.search("literature", "recid:2")
+    assert calls == [0.0, 3.0]
+
+    faster = Clock()
+    calls.clear()
+    reckless = RemoteClient(transport=lambda url, timeout: (calls.append(faster.now), response())[1],
+                            clock=faster, sleep=faster.sleep, request_interval=0.0)
+    reckless.search("literature", "recid:1")
+    reckless.search("literature", "recid:2")
+    assert calls == [0.0, MIN_REQUEST_INTERVAL_SECONDS]

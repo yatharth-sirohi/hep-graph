@@ -122,6 +122,28 @@ class _Side:
         return route
 
 
+class Search:
+    """One resumable HLBES proof. Drive it with :meth:`HLBES.advance`."""
+
+    def __init__(self, source: str, target: str) -> None:
+        self.source, self.target = source, target
+        self.left, self.right = _Side("source", source), _Side("target", target)
+        self.left.add(source, 0, None)
+        self.right.add(target, 0, None)
+        self.upper: float = float("inf")
+        self.lower = 0
+        self.best: tuple[str, ...] | None = None
+        self.bounds: list[tuple[int, float]] = []
+        self.meetings = 0
+        self.done: str | None = None
+        self.reason = ""
+        self.expansions = 0
+
+    @property
+    def radius_sum(self) -> int:
+        return self.left.radius + self.right.radius
+
+
 class HLBES:
     """Exact unweighted shortest distance over a lazily revealed graph."""
 
@@ -136,61 +158,63 @@ class HLBES:
         self.max_expansions = max_expansions
         self.observer = observer
 
-    # ---------------------------------------------------------------- search
+    # ---------------------------------------------------------------- driving
+    def begin(self, source: str, target: str, *,
+              trial_path: Iterable[str] | None = None) -> Search:
+        state = Search(source, target)
+        if source == target:
+            state.upper, state.best, state.lower = 0, (source,), 0
+            state.done = EXACT
+        else:
+            self._seed(state, trial_path)
+        self._record(state)
+        return state
+
+    def advance(self, state: Search) -> bool:
+        """Do one unit of work. Returns False once the search is finished."""
+        if state.done is not None:
+            return False
+        if state.upper <= state.radius_sum:
+            return self._settle(state, EXACT)
+        side, other = self._choose(state)
+        if side is None:
+            if self._exhausted(state.left) or self._exhausted(state.right):
+                return self._settle(state, EXACT if state.best is not None else NO_PATH)
+            return self._settle(state, VERIFIED if state.best else SEARCH_INCOMPLETE,
+                                state.reason or "adjacency_incomplete")
+        if self.max_expansions is not None and state.expansions >= self.max_expansions:
+            return self._settle(state, VERIFIED if state.best else SEARCH_INCOMPLETE,
+                                "expansion_limit")
+        try:
+            self._expand(state, side, other)
+        except OracleStopped as stop:
+            return self._settle(state, VERIFIED if state.best else SEARCH_INCOMPLETE, stop.reason)
+        self._record(state)
+        return True
+
     def search(self, source: str, target: str, *,
                trial_path: Iterable[str] | None = None) -> SearchResult:
-        left, right = _Side("source", source), _Side("target", target)
-        left.add(source, 0, None)
-        right.add(target, 0, None)
-        self._upper: float = float("inf")
-        self._best: tuple[str, ...] | None = None
-        self._lower = 0
-        self._bounds: list[tuple[int, float]] = []
-        self._meetings = 0
-        self._stopped = ""
-
-        if source == target:
-            self._upper, self._best = 0, (source,)
-            return self._finish(left, right, EXACT, 0)
-
-        self._seed(trial_path)
-        self._record(left, right)
-
-        while True:
-            if self._upper <= left.radius + right.radius:
-                return self._finish(left, right, EXACT, int(self._upper))
-            side, other = self._choose(left, right)
-            if side is None:
-                if self._exhausted(left) or self._exhausted(right):
-                    if self._best is not None:
-                        return self._finish(left, right, EXACT, int(self._upper))
-                    return self._finish(left, right, NO_PATH, None)
-                return self._finish(left, right, VERIFIED if self._best else SEARCH_INCOMPLETE,
-                                    None, reason=self._stopped or "adjacency_incomplete")
-            if self.max_expansions is not None and left.expansions + right.expansions >= self.max_expansions:
-                return self._finish(left, right, VERIFIED if self._best else SEARCH_INCOMPLETE,
-                                    None, reason="expansion_limit")
-            try:
-                self._expand(side, other)
-            except OracleStopped as stop:
-                return self._finish(left, right, VERIFIED if self._best else SEARCH_INCOMPLETE,
-                                    None, reason=stop.reason)
-            self._record(left, right)
+        state = self.begin(source, target, trial_path=trial_path)
+        while self.advance(state):
+            pass
+        return self.result(state)
 
     # ------------------------------------------------------------- mechanics
-    def _seed(self, trial_path: Iterable[str] | None) -> None:
+    @staticmethod
+    def _seed(state: Search, trial_path: Iterable[str] | None) -> None:
         """Adopt a caller-verified route purely as an upper bound."""
         if trial_path is None:
             return
         route = tuple(str(node) for node in trial_path)
         if len(route) < 2 or len(set(route)) != len(route):
             return
-        self._upper, self._best = len(route) - 1, route
+        if len(route) - 1 < state.upper:
+            state.upper, state.best = len(route) - 1, route
 
-    def _choose(self, left: _Side, right: _Side) -> tuple[_Side | None, _Side | None]:
+    def _choose(self, state: Search) -> tuple[_Side | None, _Side | None]:
         """Pick the cheaper side that can legally advance its completed radius."""
         options = []
-        for side, other in ((left, right), (right, left)):
+        for side, other in ((state.left, state.right), (state.right, state.left)):
             work = side.open_pending()
             if work:
                 options.append((min(self.cost_estimate(node) for node in work), side, other))
@@ -199,13 +223,14 @@ class HLBES:
         options.sort(key=lambda item: (item[0], item[1].name))
         return options[0][1], options[0][2]
 
-    def _expand(self, side: _Side, other: _Side) -> None:
+    def _expand(self, state: Search, side: _Side, other: _Side) -> None:
         work = side.open_pending()
         # Distance is primary: every candidate here already sits at the same
         # completed radius, so routing utility only breaks that tie.
         node = max(sorted(work), key=self.routing_score)
         found = self.oracle.neighborhood(node)
         side.expansions += 1
+        state.expansions += 1
         previous, side.seen_key[node] = side.seen_key.get(node), found.key
         depth = side.dist[node]
         for neighbor in found.members:
@@ -218,32 +243,35 @@ class HLBES:
             # No further progress is available for this node, so it can never
             # certify a completed layer. Park it instead of spinning.
             side.blocked.add(node)
-        self._scan(side, other)
+        self._scan(state, side, other)
         if not side.pending():
             side.radius += 1
 
-    def _scan(self, side: _Side, other: _Side) -> None:
+    def _scan(self, state: Search, side: _Side, other: _Side) -> None:
         """Every node both sides know is a candidate meeting."""
-        near, far = (side.dist, other.dist) if len(side.dist) <= len(other.dist) else (other.dist, side.dist)
+        near, far = ((side.dist, other.dist) if len(side.dist) <= len(other.dist)
+                     else (other.dist, side.dist))
         for node, distance in near.items():
             opposite = far.get(node)
             if opposite is None:
                 continue
-            self._meetings += 1
+            state.meetings += 1
             total = distance + opposite
-            if total < self._upper:
-                self._upper, self._best = total, self._join(node, side, other)
+            if total < state.upper:
+                state.upper, state.best = total, self._join(node, side, other)
 
-    def _join(self, node: str, side: _Side, other: _Side) -> tuple[str, ...]:
+    @staticmethod
+    def _join(node: str, side: _Side, other: _Side) -> tuple[str, ...]:
         left, right = (side, other) if side.name == "source" else (other, side)
         head, tail = left.trace(node), right.trace(node)
         route = tuple(reversed(head)) + tuple(tail[1:])
-        return route if len(set(route)) == len(route) else self._simplify(route)
+        return route if len(set(route)) == len(route) else HLBES._simplify(route)
 
     @staticmethod
     def _simplify(route: tuple[str, ...]) -> tuple[str, ...]:
         """A walk proves at most its own length; shortcutting only shortens it."""
-        seen, out = {}, []
+        seen: dict[str, int] = {}
+        out: list[str] = []
         for node in route:
             if node in seen:
                 del out[seen[node] + 1:]
@@ -253,38 +281,49 @@ class HLBES:
             out.append(node)
         return tuple(out)
 
-    def _exhausted(self, side: _Side) -> bool:
+    @staticmethod
+    def _exhausted(side: _Side) -> bool:
         """The whole reachable component is known through COMPLETE adjacency."""
         return not side.blocked and all(node in side.complete for node in side.dist)
 
-    def _record(self, left: _Side, right: _Side) -> None:
-        lower = min(self._upper, left.radius + right.radius + 1)
-        lower = int(lower) if lower != float("inf") else self._lower
-        if lower < self._lower:  # pragma: no cover - guarded by invariant tests
-            raise AssertionError(f"lower bound regressed from {self._lower} to {lower}")
-        self._lower = lower
-        self._bounds.append((self._lower, self._upper))
+    def _record(self, state: Search) -> None:
+        lower = min(state.upper, state.radius_sum + 1)
+        lower = int(lower) if lower != float("inf") else state.lower
+        if lower < state.lower:  # pragma: no cover - guarded by invariant tests
+            raise AssertionError(f"lower bound regressed from {state.lower} to {lower}")
+        state.lower = lower
+        state.bounds.append((state.lower, state.upper))
         if self.observer is not None:
-            self.observer({"lower": self._lower, "upper": self._upper,
-                           "source_radius": left.radius, "target_radius": right.radius,
-                           "expansions": left.expansions + right.expansions})
+            self.observer({"lower": state.lower, "upper": state.upper,
+                           "source_radius": state.left.radius,
+                           "target_radius": state.right.radius,
+                           "expansions": state.expansions})
 
-    def _finish(self, left: _Side, right: _Side, status: str, distance: int | None,
-                reason: str = "") -> SearchResult:
+    def _settle(self, state: Search, status: str, reason: str = "") -> bool:
+        state.done, state.reason = status, reason
         if status == EXACT:
-            self._lower = int(self._upper)
-        self._bounds.append((self._lower, self._upper))
-        path = self._best if status in {EXACT, VERIFIED} else None
-        stats = {"expansions": left.expansions + right.expansions,
+            state.lower = int(state.upper)
+        state.bounds.append((state.lower, state.upper))
+        return False
+
+    # ----------------------------------------------------------------- output
+    @staticmethod
+    def result(state: Search) -> SearchResult:
+        status = state.done or (VERIFIED if state.best else SEARCH_INCOMPLETE)
+        left, right = state.left, state.right
+        stats = {"expansions": state.expansions,
                  "source_expansions": left.expansions, "target_expansions": right.expansions,
                  "source_radius": left.radius, "target_radius": right.radius,
                  "source_known": len(left.dist), "target_known": len(right.dist),
                  "complete_neighborhoods": len(left.complete) + len(right.complete),
                  "blocked_neighborhoods": len(left.blocked) + len(right.blocked),
-                 "meeting_checks": self._meetings, "bounds": list(self._bounds)}
-        return SearchResult(status=status, distance=distance if status != VERIFIED else None,
-                            path=path, lower_bound=self._lower, upper_bound=self._upper,
-                            reason=reason, stats=stats)
+                 "meeting_checks": state.meetings, "bounds": list(state.bounds)}
+        return SearchResult(status=status,
+                            distance=int(state.upper) if status == EXACT else None,
+                            path=state.best if status in {EXACT, VERIFIED} else None,
+                            lower_bound=state.lower, upper_bound=state.upper,
+                            reason=state.reason if status not in {EXACT, NO_PATH} else "",
+                            stats=stats)
 
 
 def dict_oracle(adjacency: dict[str, Iterable[str]], *, status: str = COMPLETE,
