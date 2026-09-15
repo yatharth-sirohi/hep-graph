@@ -38,11 +38,13 @@ class Paging(Client):
         self.total_override = total_override
         self.cap_bytes = cap_bytes
         self.sizes_seen = []
+        self.pages_seen = []
 
     def search(self, collection, query, *, size=25, page=1, sort=None, deadline=None):
         if collection != "literature":
             return super().search(collection, query, size=size, page=page, sort=sort, deadline=deadline)
         self.sizes_seen.append(size)
+        self.pages_seen.append((page, size))
         if self.cap_bytes is not None and size > self.cap_bytes:
             raise RemoteError("resource_limit", "INSPIRE response exceeded the 4 MiB limit")
         for person, works in self.works_by_person.items():
@@ -187,30 +189,40 @@ def test_wire_bytes_are_reported_separately_from_cache_residency():
 
 
 # ------------------------------- what the final pre-merge review found broken
-def test_a_floor_count_at_the_window_ceiling_stops_instead_of_restarting():
-    """INSPIRE reports gte exactly at 10,000, which no page size can page past.
+def test_a_floor_count_at_the_window_ceiling_reads_on_without_restarting(monkeypatch):
+    """INSPIRE reports gte only when a set fills the result window.
 
-    The first attempt at this fell into an unbounded loop: no size satisfied
-    the reachability test, so every expansion reset the cursor to page one.
+    No page size can reach the empty page that would end such a query, and the
+    first attempt at this looped for ever: every expansion reset the cursor to
+    page one. It must page normally instead, read everything the window can
+    serve, and stop there marked incomplete - stopping after one page would be
+    honest about completeness but would find an order of magnitude fewer
+    collaborators than the engine it replaced.
     """
-    works, people = corpus(50)
+    import hepgraph.deep_search as deep_search
+
+    monkeypatch.setattr(deep_search, "MAX_RESULT_WINDOW", 300)
+    monkeypatch.setattr(deep_search, "GTE_PAGE_SIZE", 50)
+    works, people = corpus(400)
     client = Paging({"1": works}, dict(people),
-                    total_override={"value": 10_000, "relation": "gte"})
+                    total_override={"value": 300, "relation": "gte"})
     session = DeepSearch(client).start(1, 2, Filters(genealogy=False))
     try:
         session._run_requests = 0
         session._run_deadline = time.monotonic() + 30
-        session._budget = budget()
+        session._budget = budget(page_size=100)
         session._begin_proof(session._budget)
-        for _ in range(30):
+        for _ in range(40):
             found = session._oracle.neighborhood("1")
+            if found.status == "complete":
+                break
         cursor = session._oracle.cursors["1"]
     finally:
         session.close()
-    assert cursor.literature_done is True
-    assert "literature_window" in cursor.incomplete
     assert found.status != "complete", "a set that fills the window is not exhausted"
-    assert len(set(client.sizes_seen)) <= 2, "it must not thrash between sizes"
+    assert "literature_window" in cursor.incomplete
+    assert client.pages_seen == sorted(set(client.pages_seen)), "no page re-read, no restart"
+    assert len(found.members) >= 250, "it must read the window, not stop at one page"
 
 
 def test_a_count_that_over_reports_stops_paging_without_certifying():

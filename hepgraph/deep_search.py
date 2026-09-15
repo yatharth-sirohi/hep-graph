@@ -1038,18 +1038,13 @@ class DeepSession:
         if kind == "literature" and not cursor.literature_done:
             if not cursor.page_size:
                 cursor.page_size = self._literature_size(budget)
-            reach = cursor.window_reach(MAX_RESULT_WINDOW, GTE_PAGE_SIZE)
-            if reach == "unreachable":
-                # A floor count reported at the window ceiling means the set is
-                # at least as large as anything that can be paged to, so no
-                # page size reaches the empty page that would end it. Say so
-                # once and stop, rather than restarting the cursor for ever.
-                if "literature_window" not in cursor.incomplete:
-                    cursor.incomplete.append("literature_window")
-                cursor.literature_done = True
-                self._record_node(cursor)
-                return set(), "literature"
-            if reach == "narrow":
+            # Only the reset needs guarding. When no page size can reach the
+            # empty page - a floor count reported at the window ceiling - the
+            # cursor is left to page normally and _page_done's own window rule
+            # ends it, which still reads everything the window can serve. An
+            # early stop here would be honest about completeness but would
+            # discover an order of magnitude fewer collaborators.
+            if cursor.window_reach(MAX_RESULT_WINDOW, GTE_PAGE_SIZE) == "narrow":
                 # The empty page exists but this size would step over it.
                 cursor.page_size, cursor.literature_page = GTE_PAGE_SIZE, 1
                 cursor.literature_seen, cursor.literature_total = set(), None
@@ -1097,6 +1092,7 @@ class DeepSession:
             cursor.pages += 1
             cursor.slice_pages += 1
             self._page_done(cursor, total, cursor.reverse_page, budget, "reverse",
+                            page_size=REVERSE_PAGE_SIZE,
                             total_exact=total_exact, returned=len(hits),
                             arrived=(hit.get("id") for hit in hits))
             cursor.reverse_page += 1

@@ -669,7 +669,6 @@ def apply_identity_guard(snapshot: dict[str, Any], connection: sqlite3.Connectio
             # Fully stated names take audit precedence over their initial
             # sequence, so ``Micheal`` versus ``Max`` is never reported as an
             # initial-only conflict.
-            surname_rows: list[tuple[str, str]] = []
             full_name_rows = [
                 (source_id, source_name) for source_id, source_name in rows
                 if full_given_name_conflict(source_name, profile_names)
