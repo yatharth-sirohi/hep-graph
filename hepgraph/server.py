@@ -20,6 +20,8 @@ from .remote import RemoteClient, RemoteError
 from .search_jobs import JobError, SearchJobs
 
 ROOT = Path(__file__).resolve().parent.parent
+# Optional and gitignored: the application starts and searches without it.
+CORE_NODE_FILE = ROOT / "data" / "cache" / "core-nodes.json"
 FILTER_KEYS = {'max_authors', 'min_authors', 'min_shared', 'year_start', 'year_end', 'genealogy'}
 SERVICE_VERSION = 'general-search-v3'
 LOG = logging.getLogger('hepgraph')
@@ -51,6 +53,7 @@ class State:
         self._remote_client = None
         self._jobs = None
         self._preparations = None
+        self._core_nodes = None
         self.live_queries = threading.BoundedSemaphore(2)
         self.path = Path(snapshot_path)
         self.lock = threading.RLock()
@@ -118,6 +121,13 @@ class State:
         from .ondemand import OnDemand
         return OnDemand(self.remote_client())
 
+    def core_nodes(self):
+        """Optional seed identities. Absent is normal and changes no result."""
+        from .core_nodes import load
+        if self._core_nodes is None:
+            self._core_nodes = load(CORE_NODE_FILE)
+        return self._core_nodes
+
     def search_jobs(self):
         from .deep_search import DeepSearch
         from .navigation_hints import HISTORICAL_NAVIGATION_PAIRS
@@ -125,7 +135,8 @@ class State:
             if self._jobs is None:
                 self._jobs = SearchJobs(
                     lambda: DeepSearch(self.remote_client(), guide_snapshot=self.snapshot,
-                                       suggestion_pairs=HISTORICAL_NAVIGATION_PAIRS),
+                                       suggestion_pairs=HISTORICAL_NAVIGATION_PAIRS,
+                                       core_nodes=self.core_nodes()),
                     coverage=self.dataset('live')['coverage'], auto_continue=True)
             return self._jobs
 

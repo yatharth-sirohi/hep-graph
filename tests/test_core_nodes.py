@@ -110,3 +110,13 @@ def test_seeds_are_not_edges_and_are_not_reported_as_evidence():
     for edge in result["paths"][0]["edges"]:
         assert edge["types"] == ["coauthor"]
         assert edge["works"], "every displayed hop still needs real paper evidence"
+
+
+def test_server_starts_without_a_seed_file(tmp_path, monkeypatch):
+    """Portability: a clean clone has no cache directory at all."""
+    from hepgraph import server
+
+    monkeypatch.setattr(server, "CORE_NODE_FILE", tmp_path / "missing" / "core-nodes.json")
+    state = server.State.__new__(server.State)
+    state._core_nodes = None
+    assert state.core_nodes() == frozenset()
