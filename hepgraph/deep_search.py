@@ -37,6 +37,11 @@ MAX_LITERATURE_PAGE = 1_000
 # A floor count must be read to an empty page, which has to land inside the
 # result window; 100 keeps that reachable for every set the window can hold.
 GTE_PAGE_SIZE = 100
+# A page whose records cannot be interpreted will not become interpretable by
+# being asked for again. Retry it a couple of times, then step past it with the
+# neighbourhood honestly marked incomplete.
+UNREADABLE_PAGE_MESSAGE = "A live record could not be safely interpreted."
+MAX_PAGE_ATTEMPTS = 2
 RECORD_BASE_BYTES = 700
 RECORD_AUTHOR_BYTES = 175
 PAGE_BUDGET_FRACTION = 0.5
@@ -109,6 +114,7 @@ class _Cursor:
     # A transport retry is progress. Without this the oracle would see an
     # unchanged token twice and park the person for the rest of the search.
     shrinks: int = 0
+    page_failures: int = 0
 
     literature_done: bool = False
     reverse_done: bool = False
@@ -689,7 +695,7 @@ class DeepSession:
                 self._invalidate_materialized()
             except (PipelineError, TypeError, KeyError, ValueError) as error:
                 self.failures.append({"collection": collection, "query": query, "error": f"malformed record: {error}"})
-                raise DeepSearchError("search_incomplete", "A live record could not be safely interpreted.") from error
+                raise DeepSearchError("search_incomplete", UNREADABLE_PAGE_MESSAGE) from error
         self.works = self.connection.execute("select count(*) from source_records where collection='literature' and deleted=0").fetchone()[0]
         if self.works > budget.max_works:
             raise DeepSearchError("resource_limit", "The deep-search work ceiling was reached.")
@@ -1032,6 +1038,18 @@ class DeepSession:
                 # request of a run, so match the condition, not the code.
                 if error.message == OVERSIZE_MESSAGE and self._shrink_pages(cursor):
                     return set(), "literature"
+                if error.message == UNREADABLE_PAGE_MESSAGE:
+                    cursor.page_failures += 1
+                    if cursor.page_failures >= MAX_PAGE_ATTEMPTS:
+                        # Step over it rather than spend every future slice on
+                        # the same page. The person can never be COMPLETE now,
+                        # so nothing downstream can mistake this for exhaustion.
+                        if "literature_unreadable" not in cursor.incomplete:
+                            cursor.incomplete.append("literature_unreadable")
+                        cursor.literature_page += 1
+                        cursor.page_failures = 0
+                        cursor.shrinks += 1
+                        self._emit("literature_page_skipped")
                 raise
             people = set(self._work_people(hits))
             self.literature_pages += 1

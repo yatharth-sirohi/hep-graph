@@ -665,11 +665,26 @@ def _work_groups(connection: sqlite3.Connection, rows: list[sqlite3.Row], person
     return list(groups.values())
 
 
+_CORRECTION_TITLE = re.compile(r"^\s*(?:erratum|errata|corrigendum)(?=$|\W)", re.IGNORECASE)
+
+
+def _is_correction(payload: dict[str, Any]) -> bool:
+    return any(_CORRECTION_TITLE.match(title) for title in payload.get("titles", [])
+               if isinstance(title, str))
+
+
 def _best_record(group: list[tuple[sqlite3.Row, dict[str, Any]]], person_redirects: dict[str, str], tombstones: set[str]) -> tuple[sqlite3.Row, dict[str, Any], list[dict[str, Any]]]:
-    def score(record: tuple[sqlite3.Row, dict[str, Any]]) -> tuple[int, int, int, str]:
+    def score(record: tuple[sqlite3.Row, dict[str, Any]]) -> tuple[int, int, int, int, str]:
         row, payload = record
         authors, _ = _author_members(payload, person_redirects, tombstones)
-        return (max(len(authors), payload["author_count"]), len(authors), len(payload["titles"]), row["recid"])
+        # An erratum shares its original's DOI, so it lands in the same group.
+        # With identical author lists the tie-break used to fall through to
+        # recid order, and a correction that sorted higher became the group's
+        # representative - which the graph then rejects as a standalone
+        # correction, erasing the real paper and the collaboration with it.
+        return (0 if _is_correction(payload) else 1,
+                max(len(authors), payload["author_count"]), len(authors),
+                len(payload["titles"]), row["recid"])
     row, payload = max(group, key=score)
     authors, _ = _author_members(payload, person_redirects, tombstones)
     return row, payload, authors
