@@ -246,3 +246,29 @@ def test_D8_a_poison_record_must_not_permanently_block_a_provable_route():
         if not r.get("can_continue"): break
     s.close()
     assert r["paths"], "eight slices returned no route, all spent re-requesting the same failing page"
+
+def test_an_erratum_with_a_fuller_byline_does_not_delete_the_paper():
+    """Mutation guard: scoring author count first erases the original work.
+
+    Graph discards a standalone correction outright, so choosing one as a
+    duplicate group's representative does not keep its longer author list, it
+    deletes the paper and every collaboration on it.
+    """
+    connection = open_db(":memory:")
+    try:
+        original = paper(6101, [1, 2], doi="10.1/y")
+        erratum = paper(6102, [1, 2, 3, 4, 5], doi="10.1/y")
+        erratum["metadata"]["titles"] = [{"title": "Erratum: Work 6101"}]
+        for identifier in (1, 2, 3, 4, 5):
+            store_record(connection, "authors", person(identifier))
+        for record in (original, erratum):
+            store_record(connection, "literature", record)
+        snapshot = build_snapshot(connection)
+    finally:
+        connection.close()
+    titles = [work["title"] for work in snapshot["works"].values()] \
+        if isinstance(snapshot["works"], dict) else [w["title"] for w in snapshot["works"]]
+    assert not any(title.lower().startswith("erratum") for title in titles), \
+        "the erratum must not represent the group"
+    graph = Graph(snapshot, Filters(genealogy=False))
+    assert graph._edge("1", "2") is not None, "the real paper and its edge must survive"

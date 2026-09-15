@@ -19,7 +19,7 @@ from hepgraph.deep_search import (MAX_LITERATURE_PAGE, PROFILE_PAGE_SIZE, DeepBu
                                   DeepSearch, DeepSearchError)
 from hepgraph.graph import Filters
 from hepgraph.remote import MAX_SIZE, RemoteError
-from test_deep_search import Client, literature_query, page, paper, profiles
+from test_deep_search import Client, literature_query, page, paper, person, profiles
 
 
 def budget(**overrides):
@@ -266,3 +266,52 @@ def test_the_prefetch_page_size_matches_what_the_search_will_request():
         finally:
             session.close()
     jobs.shutdown()
+
+
+def test_the_reverse_query_pages_through_all_advisees():
+    """Mutation guard: without page_size=REVERSE_PAGE_SIZE this stops at 100.
+
+    The reverse page is pinned to 100 records while budget.page_size is 1000,
+    so measuring the page against the budget makes the short-page rule fire on
+    page one and truncates genealogy to a person's first hundred advisees.
+    """
+    from hepgraph.deep_search import REVERSE_PAGE_SIZE
+
+    advisees = [str(500 + index) for index in range(250)]
+    people = profiles(*([1, 2] + [int(item) for item in advisees]))
+    responses = dict(people)
+    responses[("literature", literature_query(1), 1)] = page(total=0)
+    responses[("literature", literature_query(2), 1)] = page(total=0)
+
+    class Reverse(Client):
+        def __init__(self, responses):
+            super().__init__(responses)
+            self.reverse = []
+
+        def search(self, collection, query, *, size=25, page=1, sort=None, deadline=None):
+            if collection == "authors" and query.startswith("advisors.record.$ref:1"):
+                self.reverse.append((page, size))
+                window = advisees[(page - 1) * size:page * size]
+                return {"hits": {"total": len(advisees),
+                                 "hits": [person(item) for item in window]}}
+            if collection == "authors" and query.startswith("advisors.record.$ref:"):
+                return {"hits": {"total": 0, "hits": []}}
+            return super().search(collection, query, size=size, page=page, sort=sort, deadline=deadline)
+
+    client = Reverse(responses)
+    session = DeepSearch(client).start(1, 2, Filters(genealogy=True))
+    try:
+        session._run_requests = 0
+        session._run_deadline = time.monotonic() + 30
+        session._budget = budget()
+        session._begin_proof(session._budget)
+        cursor = session._oracle.cursor_for("1", profile_done=True)
+        for _ in range(12):
+            session._page_person(cursor, session._budget)
+            if cursor.reverse_done:
+                break
+    finally:
+        session.close()
+    assert [size for _, size in client.reverse] == [REVERSE_PAGE_SIZE] * 3
+    assert len(cursor.reverse_seen) == 250, "every advisee must be paged through"
+    assert "reverse_short" not in cursor.incomplete
