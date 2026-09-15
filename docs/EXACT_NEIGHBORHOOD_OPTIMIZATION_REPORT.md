@@ -161,36 +161,36 @@ Sixteen live pairs, cold cache, 180 s cap, `tests/live_benchmark.py`.
 | Query | Phase I | Phase II | Requests |
 |---|---|---|---|
 | Hostert → Pascoli | 1h 1.7 s **P** | 1h 1.6 s **P** | 4 → 4 |
-| Hostert → Dirac | no route, 180 s | no route, 180 s | 188 → **116** |
-| Hostert → Ellis | 2h 13.8 s **P** | 2h **5.9 s** **P** | 26 → **6** |
-| Hostert → Feynman | 3h 21.6 s **P** | 3h **14.6 s** **P** | 33 → **15** |
-| Hostert → Einstein | 5h 172.9 s **P** | 5h **142.1 s** **P** | 193 → **127** |
-| Hostert → Witten | 3h 39.0 s **P** | 3h **6.7 s** **P** | 52 → **8** |
+| Hostert → Dirac | no route, 180 s | no route, 180 s | 188 → **119** |
+| Hostert → Ellis | 2h 13.8 s **P** | 2h **6.3 s** **P** | 26 → **6** |
+| Hostert → Feynman | 3h 21.6 s **P** | 3h **14.7 s** **P** | 33 → **15** |
+| Hostert → Einstein | 5h 172.9 s **P** | 5h **142.2 s** **P** | 193 → **127** |
+| Hostert → Witten | 3h 39.0 s **P** | 3h **6.3 s** **P** | 52 → **8** |
 | Feynman → Wheeler | 1h 1.4 s **P** | 1h 1.4 s **P** | 4 → 4 |
-| Witten → Visser | 4h 72.1 s **P** | 4h **36.6 s** **P** | 86 → **39** |
-| Visser → Uppu | 4h 70.9 s **P** | 4h **24.1 s** **P** | 107 → **29** |
-| Visser → Rodgers | 4h 102.5 s **P** | 4h 98.8 s **P** | 142 → **116** |
-| Visser → Massey | no route, 180 s | no route, 180 s | 175 → **121** |
+| Witten → Visser | 4h 72.1 s **P** | 4h **35.7 s** **P** | 86 → **39** |
+| Visser → Uppu | 4h 70.9 s **P** | 4h **23.3 s** **P** | 107 → **29** |
+| Visser → Rodgers | 4h 102.5 s **P** | 4h 99.4 s **P** | 142 → **117** |
+| Visser → Massey | no route, 180 s | no route, 180 s | 175 → **116** |
 | Aad → Abbott (>10) | 1h 3.7 s **P** | 1h 3.8 s **P** | 4 → 4 |
-| Pascoli → Wheeler | 3h 94.1 s **P** | 3h **12.8 s** **P** | 113 → **15** |
-| Uppu → Ellis | 4h 115.8 s **P** | 4h 126.8 s **P** | 136 → **109** |
-| Rodgers → Dirac | no route, 180 s | no route, 180 s | 202 → **145** |
-| Ellis → Massey (all) | no route, 180 s | no route, 180 s | 226 → **204** |
+| Pascoli → Wheeler | 3h 94.1 s **P** | 3h **12.9 s** **P** | 113 → **15** |
+| Uppu → Ellis | 4h 115.8 s **P** | 4h 132.4 s **P** | 136 → **110** |
+| Rodgers → Dirac | no route, 180 s | no route, 180 s | 202 → **133** |
+| Ellis → Massey (all) | no route, 180 s | no route, 180 s | 226 → **187** |
 
 | | Phase I | Phase II |
 |---|---:|---:|
 | Shortestness proven | 12 / 16 | 12 / 16 |
 | Route found | 12 / 16 | 12 / 16 |
 | Hit the 180 s cap | 4 / 16 | 4 / 16 |
-| **Upstream requests** | 1,691 | **1,062 (−37%)** |
-| **Wall time** | 1,431 s | **1,198 s (−16%)** |
+| **Upstream requests** | 1,691 | **1,033 (−39%)** |
+| **Wall time** | 1,431 s | **1,202 s (−16%)** |
 
 Nothing got less exact and nothing stopped finding a route; the same answers
 cost a third fewer requests. Hostert → Witten is the clearest case: 39 s and 52
-requests became 6.7 s and 8.
+requests became 6.3 s and 8.
 
-Against the §71 query targets: Hostert → Feynman 21.6 s → **14.6 s** (goal was
-no regression, preferred under 20 s). Witten → Visser 72 s → **36.6 s** (goal
+Against the §71 query targets: Hostert → Feynman 21.6 s → **14.7 s** (goal was
+no regression, preferred under 20 s). Witten → Visser 72 s → **35.7 s** (goal
 under 45 s, met; stretch under 30 s, missed). Hostert → Einstein remains proven
 exact at five hops under identical settings.
 
@@ -198,12 +198,12 @@ Against the §70 aspirational targets, honestly:
 
 | Target | Result |
 |---|---|
-| ≥40% fewer upstream requests on hard queries | **Met per-query** (Witten −85%, Pascoli → Wheeler −87%); −37% in aggregate |
+| ≥40% fewer upstream requests on hard queries | **Met per-query** (Witten −85%, Pascoli → Wheeler −87%); **−39%** in aggregate |
 | ≥40% less wall time | **Missed** in aggregate (−16%); met on most individual hard queries |
 | ≥90% less full literature hydration | **Not attempted** — see §11 |
 | ≥70% fewer payload bytes | **Not met**; larger pages carry more records per request, and the win was in request count |
 
-One query regressed: Uppu → Ellis, 115.8 s → 126.8 s, on 27 fewer requests.
+One query regressed: Uppu → Ellis, 115.8 s → 132.4 s, on 26 fewer requests.
 
 
 ## 8. Performance
@@ -258,5 +258,52 @@ the next round caught it.
 ## 10. Agent review
 
 ## 11. Remaining limitations
+
+Stated as found.
+
+**A confirmed identity hole is documented, not fixed.** The coauthor guard
+compares given names, and those rules return False once the surnames already
+differ, so a byline of an unrelated surname carrying a profile's record
+reference passes every gate: a 2023 paper bylined "Schmidt, Anna" can resolve
+to a physicist who died in 2002. A surname check was written and reverted —
+measured against realistic INSPIRE name forms it withheld 13 of 23 legitimate
+bylines (particles like *de Boer* and *al-Hassan*, Spanish double surnames,
+hyphenated and married names, transliterations, and every two-token
+native-order name such as *Wang Ping*, which the existing surname parser reads
+as Given Surname). Withholding real collaborations is worse harm than the hole.
+It is pinned as a strict `xfail` in `tests/test_upstream_faults.py` with the
+evidence. A correct fix needs name-form parsing this phase did not attempt.
+
+**Discovery and evidence are still not separated.** The §70 target of a 90%
+cut in full literature hydration is not met, because that work was not
+attempted: the audit showed that a second, thinner projection for discovery
+would let `store_record` overwrite fully hydrated records with partial ones,
+and the phase's measured wins turned out to be elsewhere. This is the largest
+remaining lever after batching.
+
+**Batched OR neighbourhood queries were measured but not built.** Five
+researchers' 1,850 works union to 1,840, and paging the union certifies all
+five at once. The completeness argument has to hold against the 10,000 window
+for the *union*, and getting that wrong produces exactly the false-COMPLETE
+failure three review rounds were spent eliminating. It is the strongest
+remaining lever and deserves its own phase.
+
+**Large-team mode is payload-bound and untouched.** At ~414 KB per record,
+completing one prolific ATLAS member's `>10` neighbourhood is hundreds of
+megabytes. No projection or page size changes that.
+
+**Core prewarming was not run** — see §9.
+
+**Known and accepted, each confirmed by review:** one large page can still
+evict the warmed author-record index, because author records share the main
+LRU and are the smallest entries (the threshold moved from ~3 pages to ~23, the
+failure mode did not change); `_page_ceiling` is only ever lowered, so one
+oversized response pins a session for its lifetime; the direct-pair loop lacks
+the short-page escape that per-person pagination now has; the guide-pair reset
+detects an in-call shrink but not a size that merely differs from the one its
+saved page was taken at (unreachable in-product, since the ceiling only
+decreases); and an erratum carrying a *fuller* byline than the paper it
+corrects still loses those extra authors, since the two bylines are not merged.
+
 
 ## 12. Git
