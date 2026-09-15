@@ -9,6 +9,7 @@ from __future__ import annotations
 
 from pathlib import Path
 import sys
+import time
 
 import pytest
 
@@ -17,6 +18,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from hepgraph.deep_search import DeepBudget, DeepSearch
 from hepgraph.graph import Filters
+from hepgraph.remote import RemoteError
 from test_deep_search import (Client, DisappearingProfileClient, literature_query, page, paper,
                               person, profiles, ref)
 
@@ -181,3 +183,118 @@ def test_local_work_between_requests_cannot_outrun_the_time_allowance():
         responses[("literature", literature_query(identifier), 1)] = page(total=0)
     result = run(Client(responses), 1, 2, slices=0, max_seconds=1.0)
     assert result["status"] in {"no_path", "search_incomplete", "resource_limit", "ok"}
+
+
+# ------------------------------------- a retained route can lose its evidence
+def _retract(session, work_id):
+    """Mark a retrieved work deleted, as an upstream merge or retraction does."""
+    session.connection.execute(
+        "update source_records set deleted=1 where collection='literature' and recid=?", (work_id,))
+    session.connection.commit()
+    session._invalidate_materialized()
+
+
+def test_a_retained_route_is_dropped_once_its_evidence_is_withdrawn():
+    responses = profiles(1, 2, 3)
+    responses[("literature", literature_query(1), 1)] = page(paper(101, [1, 3]), total=1)
+    responses[("literature", literature_query(2), 1)] = page(paper(202, [2, 3]), total=1)
+    responses[("literature", literature_query(3), 1)] = page(paper(101, [1, 3]), paper(202, [2, 3]), total=2)
+    client = Client(responses)
+    session = DeepSearch(client).start(1, 2, Filters(genealogy=False))
+    try:
+        result = session.run(budget())
+        assert [item["id"] for item in result["paths"][0]["people"]] == ["1", "3", "2"]
+        assert session.best is not None
+        # Upstream retracts the record, so a refetch cannot restore it either.
+        for key in [k for k in client.responses if k[0] == "literature"]:
+            client.responses[key] = page(total=0)
+        _retract(session, "202")
+        after = session.run(budget())
+    finally:
+        session.close()
+    # The 3--2 hop no longer exists, so neither the route nor a proof may stand.
+    for route in after["paths"]:
+        assert [item["id"] for item in route["people"]] != ["1", "3", "2"]
+    assert not (after["global_shortest_proven"] and after["paths"] == [])
+    cited = {work["id"] for route in after["paths"] for edge in route["edges"] for work in edge["works"]}
+    assert "202" not in cited, "a withdrawn record must never be cited as evidence"
+
+
+def test_a_withdrawn_route_is_not_reused_as_an_upper_bound():
+    responses = profiles(1, 2, 3)
+    responses[("literature", literature_query(1), 1)] = page(paper(101, [1, 3]), total=1)
+    responses[("literature", literature_query(2), 1)] = page(paper(202, [2, 3]), total=1)
+    responses[("literature", literature_query(3), 1)] = page(paper(101, [1, 3]), paper(202, [2, 3]), total=2)
+    session = DeepSearch(Client(responses)).start(1, 2, Filters(genealogy=False))
+    try:
+        session.run(budget())
+        _retract(session, "202")
+        _, graph = session._snapshot(budget())
+        assert session._validated_route(graph) is None
+        assert session.best is None
+    finally:
+        session.close()
+
+
+# ------------------------------- a doctoral overlay fetch must be retried
+def test_an_interrupted_overlay_fetch_does_not_fake_an_exhausted_neighbourhood():
+    """A slice boundary during the overlay must not drop it permanently."""
+    from hepgraph import historical
+
+    responses = profiles(1, 2, 3)
+    for identifier in (1, 2, 3):
+        responses[("literature", literature_query(identifier), 1)] = page(total=0)
+        responses[("authors", f"advisors.record.$ref:{identifier}", 1)] = page(total=0)
+
+    class Stumbling(Client):
+        def __init__(self, responses, fail_for):
+            super().__init__(responses)
+            self.fail_for, self.failures = fail_for, 0
+
+        def search(self, collection, query, *, size=25, page=1, sort=None, deadline=None):
+            if collection == "authors" and query == f"control_number:{self.fail_for}" and self.failures < 1:
+                self.failures += 1
+                raise RemoteError("resource_limit", "slice boundary")
+            return super().search(collection, query, size=size, page=page, sort=sort, deadline=deadline)
+
+    session = DeepSearch(Stumbling(responses, "3")).start(1, 2, Filters(genealogy=True))
+    try:
+        for _ in range(4):
+            result = session.run(budget())
+            if not result.get("can_continue"):
+                break
+        oracle = session._oracle
+        if oracle is not None:
+            for person_id in sorted(oracle.complete):
+                assert oracle._accounted(person_id), "an exhaustion claim must still hold"
+    finally:
+        session.close()
+
+
+# ----------------------------- reverse-adviser results are not coauthor proof
+def test_a_student_id_does_not_answer_the_coauthor_exhaustion_question():
+    responses = profiles(1, 2, 20)
+    responses[("literature", literature_query(1), 1)] = page(total=0)
+    responses[("literature", literature_query(2), 1)] = page(total=0)
+    # Person 1's own literature query names nobody, yet a shared work exists.
+    responses[("literature", literature_query(20), 1)] = page(paper(900, [20, 1]), total=1)
+    responses[("authors", "advisors.record.$ref:1", 1)] = page(person(20), total=1)
+    for identifier in (2, 20):
+        responses[("authors", f"advisors.record.$ref:{identifier}", 1)] = page(total=0)
+    session = DeepSearch(Client(responses)).start(1, 2, Filters(genealogy=True))
+    try:
+        session._run_requests = 0
+        session._run_deadline = time.monotonic() + 30
+        session._begin_proof(budget())
+        oracle = session._oracle
+        for _ in range(4):
+            oracle.neighborhood("20")
+        for _ in range(4):
+            oracle.neighborhood("1")
+        coauthors, _ = oracle._members("1")
+        assert "20" in coauthors
+        assert "20" not in oracle.attested.get("1", set()), \
+            "a reverse-adviser hit must not stand in for a literature page"
+        assert not oracle._accounted("1")
+    finally:
+        session.close()

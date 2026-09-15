@@ -23,6 +23,11 @@ from .identity_guard import apply_identity_guard
 from .pipeline import PipelineError, build_snapshot, open_db, ref_id, store_record
 
 
+# INSPIRE serves at most this many results per query, so a set larger than the
+# window can be read from but never read to the end.
+MAX_RESULT_WINDOW = 10_000
+
+
 class DeepSearchError(ValueError):
     def __init__(self, code: str, message: str) -> None:
         super().__init__(message)
@@ -146,7 +151,12 @@ class _LiveOracle:
     def __init__(self, session: "DeepSession") -> None:
         self.session = session
         self.cursors: dict[str, _Cursor] = {}
+        # Kept apart on purpose: only a person's own literature pages can
+        # settle who their coauthors are. Reverse-adviser results name
+        # students, and letting them answer the coauthor question would
+        # silently retire the index-disagreement check.
         self.attested: dict[str, set[str]] = {}
+        self.students: dict[str, set[str]] = {}
         self.complete: set[str] = set()
         self.reported: dict[str, frozenset[str]] = {}
         self.contradicted: set[str] = set()
@@ -234,15 +244,21 @@ class _LiveOracle:
         cursor = self.cursor_for(person_id)
         try:
             if session.filters.genealogy and person_id not in self.genealogy_done:
-                self.genealogy_done.add(person_id)
                 # An audited overlay edge still needs the neighbour's live
-                # public profile before it can enter a graph snapshot.
+                # public profile before it can enter a graph snapshot. Mark
+                # this done only once every one of them has arrived: a slice
+                # boundary here would otherwise drop the overlay for good and
+                # leave a neighbourhood that looks exhausted but is not.
                 for other in session._historical_neighbors(person_id):
                     if other != person_id:
                         session._profile(other, budget)
+                self.genealogy_done.add(person_id)
             attested = self.attested.setdefault(person_id, set())
-            page_people = session._page_person(cursor, budget, self._companions(person_id))
-            attested |= page_people
+            page_people, kind = session._page_person(cursor, budget, self._companions(person_id))
+            if kind == "reverse":
+                self.students.setdefault(person_id, set()).update(page_people)
+            else:
+                attested |= page_people
             self._audit(page_people - {person_id})
             proof = session._proof
             if proof is not None and page_people & set(proof.left.dist) and page_people & set(proof.right.dist):
@@ -787,7 +803,14 @@ class DeepSession:
         # until a page comes back empty: one extra request is a fair price for
         # the exhaustion claim the whole proof rests on.
         finished = page * size >= total if total_exact else returned == 0
-        if finished:
+        # A count reported as a floor means the set fills INSPIRE's result
+        # window, and the window cannot be paged past. Stop, and say the
+        # neighbourhood is incomplete rather than retrying a page the
+        # transport will always refuse.
+        exhausted_window = not finished and (page + 1) * size > MAX_RESULT_WINDOW
+        if exhausted_window and f"{kind}_window" not in cursor.incomplete:
+            cursor.incomplete.append(f"{kind}_window")
+        if finished or exhausted_window:
             if kind == "literature": cursor.literature_done = True
             else: cursor.reverse_done = True
         # A per-run page allowance is a fairness checkpoint, never a claim
@@ -812,15 +835,15 @@ class DeepSession:
             self._record_node(item)
 
     def _page_person(self, cursor: _Cursor, budget: DeepBudget,
-                     companions: Iterable[_Cursor] = ()) -> set[str]:
+                     companions: Iterable[_Cursor] = ()) -> tuple[set[str], str]:
         """One bounded remote page for one person, with no frontier bookkeeping.
 
-        Returns the people named on a retrieved literature page, which is how
-        a bridge between two already closed cursors becomes visible.
+        Returns the people named on the page and which query produced them, so
+        a caller can tell coauthorship evidence from genealogy evidence.
         """
         if not cursor.profile_done:
             self._hydrate_profiles(cursor, companions, budget)
-            return set()
+            return set(), "profile"
         kind = cursor.next_kind
         if kind == "literature" and cursor.literature_done:
             kind = "reverse"
@@ -850,7 +873,7 @@ class DeepSession:
             cursor.reverse_page += 1
             cursor.next_kind = "literature"
         self._record_node(cursor)
-        return people
+        return people, kind
 
     def _routing_score(self, person_id: str) -> float:
         """Order equal-depth work only. This can never change a distance."""
@@ -881,18 +904,37 @@ class DeepSession:
             return None
         return [str(person["id"]) for person in found["paths"][0].get("people", [])]
 
-    def _validated_route(self) -> list[str] | None:
-        """The retained route, which already passed current-profile checks.
-
-        A bound is only as trustworthy as the evidence under it, so a proof is
-        never seeded from a graph route that identity validation has not yet
-        seen: that route can still lose a hop.
-        """
+    def _retained_route(self) -> list[str] | None:
         paths = (self.best or {}).get("paths") or []
         people = paths[0].get("people") if paths and isinstance(paths[0], dict) else None
         if not isinstance(people, list) or len(people) < 2:
             return None
         return [str(person["id"]) for person in people]
+
+    def _drop_retracted_best(self, graph: Graph) -> None:
+        """Forget a retained route whose evidence the guard has since removed.
+
+        ``best`` was validated when it was remembered, and a rebuild happens
+        precisely because the evidence moved underneath it.  A route whose hops
+        are no longer in the guarded graph must not be re-seeded as a bound,
+        and must not be returned citing records the snapshot now excludes.
+        """
+        route = self._retained_route()
+        if route is None:
+            return
+        if any(graph._edge(left, right) is None for left, right in zip(route, route[1:])):
+            self.best, self.best_version = None, None
+            self._emit("retained_route_retracted")
+
+    def _validated_route(self, graph: Graph) -> list[str] | None:
+        """The retained route, if identity validation and evidence both hold.
+
+        A bound is only as trustworthy as the evidence under it, so a proof is
+        never seeded from a graph route that identity validation has not yet
+        seen, nor from one whose hops have since been withdrawn.
+        """
+        self._drop_retracted_best(graph)
+        return self._retained_route()
 
     def _offer_cached_route(self, budget: DeepBudget) -> None:
         """Hand the proof any route the retrieved evidence already supports."""
@@ -929,7 +971,7 @@ class DeepSession:
                              cost_estimate=self._retrieval_cost,
                              pages_fetched=self._pages_fetched)
         self._proof = self._engine.begin(self.source, self.target,
-                                         trial_path=self._validated_route())
+                                         trial_path=self._validated_route(graph))
         self._emit("hlbes_begin")
 
     def _harvest(self, budget: DeepBudget, message: str) -> dict[str, Any] | None:
@@ -977,7 +1019,7 @@ class DeepSession:
             self._oracle.attested.pop(person_id, None)
             self._oracle.complete.discard(person_id)
             self._oracle.reported.pop(person_id, None)
-        self._rebuild_proof("hlbes_restart")
+        self._rebuild_proof("hlbes_retire")
 
     def _traversed_a_component(self) -> bool:
         """Exhausting a component we never saw any evidence for proves nothing."""
@@ -1234,7 +1276,11 @@ class DeepSession:
         try:
             # Never discover a route here: budget interruption during final
             # identity validation must not return an unverified candidate.
-            snapshot, _ = self._snapshot(budget)
+            snapshot, graph = self._snapshot(budget)
+            self._drop_retracted_best(graph)
+            paths = list(self.best.get("paths", [])) if self.best else []
+            local_exact = bool(self.best and self.best.get("exact_for_retrieved_graph"))
+            alternatives_truncated = bool(self.best and self.best.get("alternatives_truncated"))
         except (DeepSearchError, GraphError) as error:
             if status == "ok":
                 status, message = error.code, error.message

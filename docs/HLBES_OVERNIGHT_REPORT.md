@@ -269,6 +269,44 @@ found it correct and it was left alone.
 
 ## 10. Model routing
 
+Stated plainly, because the brief asked for specific models and told me not to
+claim one was used if it was not.
+
+**GPT-5.3 Spark / Codex: not available.** There is no `codex` CLI on this
+machine and no OpenAI credentials in the environment (`which codex` → not
+found; no `OPENAI_*` variables).
+
+**GPT-5.6 Luna: not available.** Same check, same result. The documented
+fallback could not be used either.
+
+**GPT-5.6 Sol: not available.** No independent-vendor model could be reached
+to perform the review.
+
+So all implementation in this branch was written by **Claude Opus 5**, the
+model running this session. That is not what the brief asked for, and it means
+the separation between implementer and reviewer is weaker than intended.
+
+What was done instead: independent review was delegated to **separate Claude
+agent instances** with no access to my reasoning, given only the repository,
+the diff, and instructions to break specific claims and to run code rather
+than reason about it. Two rounds were run. The first round found five real
+defects, including a false `global_shortest_proven: true` at four hops where
+the true distance was two — the branch's central claim, reproduced as a
+runnable script before I would accept it. Every fix in §7 traces to that
+round. A second round re-attacked the fixes and the code written after them.
+
+This is a genuine adversarial check and it caught genuine bugs, but it is not
+model-independent: a shared model can share a blind spot. Where the review
+could not reach, I have said so rather than implying coverage — see the trust
+boundary on `offer()` in §11.
+
+
 ## 11. Remaining bottlenecks
 
 ## 12. Git
+
+| | |
+|---|---|
+| Branch | `hlbes-search-optimization` |
+| Base | `0738987` |
+

@@ -304,15 +304,18 @@ class HLBES:
         options = []
         for side, other in ((state.left, state.right), (state.right, state.left)):
             work = self._open(side)
-            if work:
-                options.append((len(work) if breadth else 0, side.name, side, other, work))
+            if not work:
+                continue
+            node = min(work, key=lambda item: (side.dist[item],
+                                               self.pages_fetched(item) if breadth else 0,
+                                               self.cost_estimate(item), -self.routing_score(item), item))
+            rank = ((len(work), side.name) if breadth
+                    else (side.dist[node], self.cost_estimate(node), -self.routing_score(node), side.name))
+            options.append((rank, side, other, node))
         if not options:
             return None, None, None
-        _, _, side, other, work = min(options)
-        node = min(work, key=lambda item: (side.dist[item],
-                                           self.pages_fetched(item) if breadth else 0,
-                                           self.cost_estimate(item), -self.routing_score(item), item))
-        return side, other, node
+        options.sort(key=lambda item: item[0])
+        return options[0][1], options[0][2], options[0][3]
 
     def _expand(self, state: Search, side: _Side, other: _Side, node: str) -> None:
         found = self.oracle.neighborhood(node)
