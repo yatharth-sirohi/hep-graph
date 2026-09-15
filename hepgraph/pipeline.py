@@ -682,8 +682,11 @@ def _best_record(group: list[tuple[sqlite3.Row, dict[str, Any]]], person_redirec
         # recid order, and a correction that sorted higher became the group's
         # representative - which the graph then rejects as a standalone
         # correction, erasing the real paper and the collaboration with it.
-        return (0 if _is_correction(payload) else 1,
-                max(len(authors), payload["author_count"]), len(authors),
+        # Author count first, so a correction that carries the fuller byline
+        # still wins; the correction flag only breaks a tie that would
+        # otherwise fall through to recid order and erase the real paper.
+        return (max(len(authors), payload["author_count"]), len(authors),
+                0 if _is_correction(payload) else 1,
                 len(payload["titles"]), row["recid"])
     row, payload = max(group, key=score)
     authors, _ = _author_members(payload, person_redirects, tombstones)

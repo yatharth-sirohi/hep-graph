@@ -41,6 +41,9 @@ GTE_PAGE_SIZE = 100
 # being asked for again. Retry it a couple of times, then step past it with the
 # neighbourhood honestly marked incomplete.
 UNREADABLE_PAGE_MESSAGE = "A live record could not be safely interpreted."
+# Author records are small, but a thousand of them with long position and id
+# lists is not, and this query has no page-shrinking policy of its own.
+REVERSE_PAGE_SIZE = 100
 MAX_PAGE_ATTEMPTS = 2
 RECORD_BASE_BYTES = 700
 RECORD_AUTHOR_BYTES = 175
@@ -126,12 +129,19 @@ class _Cursor:
     historical_enqueued: bool = False
     incomplete: list[str] = field(default_factory=list)
 
-    def literature_stable_window(self, window: int) -> bool:
-        """False when this size cannot reach the empty page a floor count needs."""
+    def window_reach(self, window: int, fallback: int) -> str:
+        """Whether a floor count can be read to its empty page at all.
+
+        Returns "ok" when the current size reaches it, "narrow" when a smaller
+        page would, and "unreachable" when no page size can - which is what
+        INSPIRE reports when a set fills the result window entirely.
+        """
         if self.literature_total is None or self.literature_stable_total:
-            return True
-        size = self.page_size or 1
-        return (self.literature_total // size + 1) * size <= window
+            return "ok"
+        total = self.literature_total
+        if (total // (self.page_size or 1) + 1) * (self.page_size or 1) <= window:
+            return "ok"
+        return "narrow" if (total // fallback + 1) * fallback <= window else "unreachable"
 
 
 
@@ -387,7 +397,7 @@ class DeepSession:
         self._direct_pair_last_page: int | None = None
         self._direct_pair_complete = source == target
         self._direct_pair_pages_checked = 0
-        self._direct_pair_records_seen = 0
+        self._direct_pair_seen: set[str] = set()
         self._direct_pair_total: int | None = 0 if source == target else None
         self._direct_pair_total_exact = True
         self._direct_pair_size = 0
@@ -963,7 +973,16 @@ class DeepSession:
 
         if total_exact and stable:
             # Every reported record must have actually arrived, counted once.
-            finished = len(seen) >= total and page * size >= total
+            paged_past = page * size >= total
+            finished = len(seen) >= total and paged_past
+            if not finished and paged_past and returned < size:
+                # There are no further pages, yet fewer distinct records
+                # arrived than the count promised. Stop paging - nothing more
+                # is coming - but say the neighbourhood is incomplete rather
+                # than certify one that is missing collaborators.
+                if f"{kind}_short" not in cursor.incomplete:
+                    cursor.incomplete.append(f"{kind}_short")
+                finished = True
         else:
             # INSPIRE reports ``{"value": n, "relation": "gte"}`` for large
             # result sets, and an unstable count is no better. Read on until a
@@ -1019,10 +1038,19 @@ class DeepSession:
         if kind == "literature" and not cursor.literature_done:
             if not cursor.page_size:
                 cursor.page_size = self._literature_size(budget)
-            if not cursor.literature_stable_window(MAX_RESULT_WINDOW):
-                # A floor count is only exhausted by an empty page, and that
-                # page has to fit inside the result window. A large page can
-                # step straight over it, so fall back to one that cannot.
+            reach = cursor.window_reach(MAX_RESULT_WINDOW, GTE_PAGE_SIZE)
+            if reach == "unreachable":
+                # A floor count reported at the window ceiling means the set is
+                # at least as large as anything that can be paged to, so no
+                # page size reaches the empty page that would end it. Say so
+                # once and stop, rather than restarting the cursor for ever.
+                if "literature_window" not in cursor.incomplete:
+                    cursor.incomplete.append("literature_window")
+                cursor.literature_done = True
+                self._record_node(cursor)
+                return set(), "literature"
+            if reach == "narrow":
+                # The empty page exists but this size would step over it.
                 cursor.page_size, cursor.literature_page = GTE_PAGE_SIZE, 1
                 cursor.literature_seen, cursor.literature_total = set(), None
                 cursor.literature_stable = True
@@ -1063,7 +1091,8 @@ class DeepSession:
             cursor.next_kind = "reverse"
         elif kind == "reverse" and not cursor.reverse_done:
             hits, total, total_exact = self._fetch(
-                "authors", f"advisors.record.$ref:{cursor.person_id}", cursor.reverse_page, budget)
+                "authors", f"advisors.record.$ref:{cursor.person_id}", cursor.reverse_page, budget,
+                size=REVERSE_PAGE_SIZE)
             people = set(self._profile_people(hits))
             cursor.pages += 1
             cursor.slice_pages += 1
@@ -1438,7 +1467,7 @@ class DeepSession:
                                    "disabled_this_run": self._bridge_disabled_this_run},
                 "direct_pair": {"pages_checked": self._direct_pair_pages_checked,
                                 "last_page": self._direct_pair_last_page,
-                                "records_seen": self._direct_pair_records_seen,
+                                "records_seen": len(self._direct_pair_seen),
                                 "reported_total": self._direct_pair_total,
                                 "reported_total_exact": self._direct_pair_total_exact,
                                 "complete": self._direct_pair_complete},
@@ -1566,18 +1595,18 @@ class DeepSession:
                             # Page N means different records at a different
                             # size, so the accumulated ledger no longer
                             # describes this pagination.
-                            self._direct_pair_page, self._direct_pair_records_seen = 1, 0
+                            self._direct_pair_page, self._direct_pair_seen = 1, set()
                             self._direct_pair_total, self._direct_pair_total_exact = None, True
                         hits, total, total_exact, pair_size = self._fetch_literature(
                             self.pair_query(self.source, self.target, self.filters),
                             self._direct_pair_page, budget, pair_size)
                         if self._direct_pair_size and self._direct_pair_size != pair_size:
-                            self._direct_pair_page, self._direct_pair_records_seen = 1, 0
+                            self._direct_pair_page, self._direct_pair_seen = 1, set()
                             self._direct_pair_total, self._direct_pair_total_exact = None, True
                         self._direct_pair_size = pair_size
                         self._direct_pair_pages_checked += 1
                         self._direct_pair_last_page = self._direct_pair_page
-                        self._direct_pair_records_seen += len(hits)
+                        self._direct_pair_seen.update(str(hit.get("id")) for hit in hits)
                         if not total_exact:
                             self._direct_pair_total_exact = False
                         elif self._direct_pair_total is None:
@@ -1597,7 +1626,7 @@ class DeepSession:
                         # with a claimed total can otherwise skip unseen rows.
                         # Exact exhaustion requires every reported hit to have
                         # actually arrived across the retained page cursor.
-                        if self._direct_pair_total_exact and self._direct_pair_total is not None and self._direct_pair_records_seen < self._direct_pair_total:
+                        if self._direct_pair_total_exact and self._direct_pair_total is not None and len(self._direct_pair_seen) < self._direct_pair_total:
                             self._direct_pair_page += 1
                             self._emit(stage)
                             continue
@@ -1608,7 +1637,7 @@ class DeepSession:
                         self._direct_pair_complete = bool(
                             self._direct_pair_total_exact
                             and self._direct_pair_total is not None
-                            and self._direct_pair_records_seen == self._direct_pair_total
+                            and len(self._direct_pair_seen) >= self._direct_pair_total
                         )
                         self.bootstrap.popleft()
                         self._emit(stage)
@@ -1648,8 +1677,15 @@ class DeepSession:
                             continue
                         pair_page = self._guide_pair_pages.get(pair, 1)
                         pair_size = self._literature_size(budget)
+                        requested_size = pair_size
                         _, total, _, pair_size = self._fetch_literature(
                             self.pair_query(left, right, self.filters), pair_page, budget, pair_size)
+                        if pair_size != requested_size:
+                            # The retry restarted at page one under a new size,
+                            # so this pair's saved page number no longer names
+                            # the records it used to.
+                            pair_page = 1
+                            self._guide_pair_pages[pair] = 1
                         self._guide_pairs_this_run += 1
                         self.guide_verified += 1
                         snapshot, graph = self._snapshot(budget)

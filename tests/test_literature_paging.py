@@ -184,3 +184,73 @@ def test_wire_bytes_are_reported_separately_from_cache_residency():
     layers = client.cache_info()["layers"]
     assert layers["literature"]["wire_bytes"] == sum(served)
     assert layers["literature"]["wire_bytes"] != layers["literature"]["bytes"]
+
+
+# ------------------------------- what the final pre-merge review found broken
+def test_a_floor_count_at_the_window_ceiling_stops_instead_of_restarting():
+    """INSPIRE reports gte exactly at 10,000, which no page size can page past.
+
+    The first attempt at this fell into an unbounded loop: no size satisfied
+    the reachability test, so every expansion reset the cursor to page one.
+    """
+    works, people = corpus(50)
+    client = Paging({"1": works}, dict(people),
+                    total_override={"value": 10_000, "relation": "gte"})
+    session = DeepSearch(client).start(1, 2, Filters(genealogy=False))
+    try:
+        session._run_requests = 0
+        session._run_deadline = time.monotonic() + 30
+        session._budget = budget()
+        session._begin_proof(session._budget)
+        for _ in range(30):
+            found = session._oracle.neighborhood("1")
+        cursor = session._oracle.cursors["1"]
+    finally:
+        session.close()
+    assert cursor.literature_done is True
+    assert "literature_window" in cursor.incomplete
+    assert found.status != "complete", "a set that fills the window is not exhausted"
+    assert len(set(client.sizes_seen)) <= 2, "it must not thrash between sizes"
+
+
+def test_a_count_that_over_reports_stops_paging_without_certifying():
+    """A recid served twice, or a record the projection drops, must not strand."""
+    works, people = corpus(100)
+    client = Paging({"1": works[:99]}, dict(people), total_override=100)
+    session = DeepSearch(client).start(1, 2, Filters(genealogy=False))
+    try:
+        session._run_requests = 0
+        session._run_deadline = time.monotonic() + 30
+        session._budget = budget(page_size=10)
+        session._begin_proof(session._budget)
+        for _ in range(60):
+            found = session._oracle.neighborhood("1")
+            if found.status == "complete":
+                break
+        cursor = session._oracle.cursors["1"]
+    finally:
+        session.close()
+    assert found.status != "complete", "99 of a promised 100 is not exhaustion"
+    assert "literature_short" in cursor.incomplete
+    assert cursor.literature_page <= 12, "it must stop, not walk to the window"
+
+
+def test_the_prefetch_page_size_matches_what_the_search_will_request():
+    """A different size is a different cache key, so the warm-up is wasted."""
+    from hepgraph.prefetch import PreparationJobs
+
+    class Idle:
+        def search(self, *a, **k): return {"hits": {"total": 0, "hits": []}}
+        def coauthors(self, *a, **k): return {"authors": [], "truncated": False, "total": 0}
+
+    jobs = PreparationJobs(Idle())
+    for authors in (1, 5, 10, 11, 50, 100, 101, 1000, None):
+        filters = Filters(max_authors=authors)
+        session = DeepSearch(Idle()).start(1, 2, filters)
+        try:
+            session._budget = DeepBudget.standard()
+            assert jobs._literature_size(filters) == session._literature_size(session._budget), \
+                f"prefetch and search disagree at max_authors={authors}"
+        finally:
+            session.close()
+    jobs.shutdown()

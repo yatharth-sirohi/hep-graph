@@ -543,34 +543,13 @@ def _explicit_profile_surname(name: Any) -> str | None:
     return _normal(words[-1])
 
 
-def surname_conflict(source_name: Any, profile_names: Iterable[Any]) -> bool:
-    """True when every confident profile surname differs from the byline's.
-
-    The given-name rules answer "is this the same Bergmann?" and return False
-    the moment the surnames differ, because they are comparing given names.
-    Nothing was then asking the blunter question, so a byline of an unrelated
-    surname carrying a profile's record reference passed every gate.
-
-    Deliberately conservative in two ways. ``_explicit_profile_surname`` yields
-    None for multiword surnames, suffixes and native name order, and those
-    forms are skipped rather than counted against the byline; and a single
-    readable form that *does* match the byline's surname settles the question
-    in the byline's favour, so a maiden or transliterated name in the variants
-    still resolves. But an unreadable form no longer disables the check
-    outright: "Bergmann, Peter Gabriel" is readable even though the natural
-    order "Peter Gabriel Bergmann" beside it is not.
-    """
-    source = _comma_name(source_name)
-    if source is None:
-        return False
-    surnames = [_explicit_profile_surname(form) for form in profile_names]
-    readable = [surname for surname in surnames if surname is not None]
-    return bool(readable) and all(surname != source[0] for surname in readable)
-
-
 def _adviser_name_conflict(name: Any, forms: list[str]) -> bool:
-    return (surname_conflict(name, forms) or hard_initial_conflict(name, forms)
-            or full_given_name_conflict(name, forms))
+    source = _comma_name(name)
+    if source is None or not forms:
+        return False
+    surnames = [_explicit_profile_surname(form) for form in forms]
+    different_surname = all(surname is not None and surname != source[0] for surname in surnames)
+    return different_surname or hard_initial_conflict(name, forms) or full_given_name_conflict(name, forms)
 
 
 def _guard_phd_references(result: dict[str, Any], connection: sqlite3.Connection,
@@ -650,8 +629,7 @@ def apply_identity_guard(snapshot: dict[str, Any], connection: sqlite3.Connectio
                 continue
             for _, source_name in occurrences.get(person_id, []):
                 if (full_given_name_conflict(source_name, profile_names)
-                        or hard_initial_conflict(source_name, profile_names)
-                        or surname_conflict(source_name, profile_names)):
+                        or hard_initial_conflict(source_name, profile_names)):
                     hard_by_person.setdefault(person_id, []).append(source_name)
     ambiguous_profiles = _ambiguous_initial_only_profiles(profiles, inspected)
     hard_additions: list[dict[str, Any]] = []
@@ -691,37 +669,29 @@ def apply_identity_guard(snapshot: dict[str, Any], connection: sqlite3.Connectio
             # Fully stated names take audit precedence over their initial
             # sequence, so ``Micheal`` versus ``Max`` is never reported as an
             # initial-only conflict.
-            # A different surname is the bluntest disagreement there is, so it
-            # is decided before the given-name rules, which compare given names
-            # and say nothing once the surnames already differ.
-            surname_rows = [
-                (source_id, source_name) for source_id, source_name in rows
-                if surname_conflict(source_name, profile_names)
-            ]
-            full_name_rows = [] if surname_rows else [
+            surname_rows: list[tuple[str, str]] = []
+            full_name_rows = [
                 (source_id, source_name) for source_id, source_name in rows
                 if full_given_name_conflict(source_name, profile_names)
             ]
-            hard_rows = [] if surname_rows or full_name_rows else [
+            hard_rows = [] if full_name_rows else [
                 (source_id, source_name) for source_id, source_name in rows
                 if hard_initial_conflict(source_name, profile_names)
             ]
-            ambiguity_rows = [] if surname_rows or full_name_rows or hard_rows else [
+            ambiguity_rows = [] if full_name_rows or hard_rows else [
                 (source_id, source_name)
                 for source_id, source_name in rows
                 if partial_initial_ambiguity(source_name, profile_names, hard_by_person.get(person_id, []))
             ]
-            applied_rows = surname_rows or full_name_rows or hard_rows or ambiguity_rows
+            applied_rows = full_name_rows or hard_rows or ambiguity_rows
             if not applied_rows:
                 continue
             # Even when exact identifier deduplication groups another source,
             # a disputed person is not eligible as a coauthor until review. The
             # raw grouped evidence remains in source_ids and coverage.
             _remove_author_occurrence(work, person_id)
-            target = (full_name_additions if surname_rows or full_name_rows
-                      else hard_additions if hard_rows else ambiguity_additions)
+            target = full_name_additions if full_name_rows else hard_additions if hard_rows else ambiguity_additions
             reason = (
-                "all_public_profile_name_forms_have_a_different_surname" if surname_rows else
                 "all_public_profile_name_forms_have_incompatible_full_given_names"
                 if full_name_rows else "all_public_profile_name_forms_have_incompatible_initials"
                 if hard_rows else "partial_initial_matches_profile_and_observed_conflicting_occurrence"

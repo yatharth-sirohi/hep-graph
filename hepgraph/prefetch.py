@@ -84,8 +84,10 @@ class PreparationJobs:
 
     @staticmethod
     def _literature_size(filters: Filters) -> int:
-        page_size = DeepBudget.standard().page_size
-        return min(5, page_size) if filters.max_authors is None or filters.max_authors > 100 else page_size
+        # Must equal DeepSession._literature_size on a fresh session, or the
+        # warmed entry has a different cache key and is never reused.
+        return max(1, min(DeepBudget.standard().page_size,
+                          DeepSession.page_ceiling_for(filters)))
 
     @staticmethod
     def _has_exact_current_identity(response: Any, person: str) -> bool:
