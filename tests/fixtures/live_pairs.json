@@ -1,0 +1,386 @@
+{
+  "reviewed_at": "2026-09-15",
+  "notes": [
+    "All endpoints are exact numeric INSPIRE author identities. A documented route is an upper bound on shortest distance, not a guarantee of global shortestness.",
+    "Optional historical/sparse cases accept explicit incomplete states; they do not assert a connection exists.",
+    "All returned edges undergo independent structural checks. Source bylines additionally require human review; stable IDs can be wrong upstream.",
+    "No live queries run under pytest; this suite requires explicit invocation."
+  ],
+  "cases": [
+    {
+      "id": "hostert-pascoli",
+      "label": "Matheus Hostert → Silvia Pascoli",
+      "source": "1621061",
+      "target": "1019647",
+      "groups": [
+        "demo",
+        "direct"
+      ],
+      "filters": {},
+      "must_find": true,
+      "max_hops": 1
+    },
+    {
+      "id": "hostert-einstein",
+      "label": "Matheus Hostert → Albert Einstein",
+      "source": "1621061",
+      "target": "1010907",
+      "groups": [
+        "demo",
+        "historical"
+      ],
+      "filters": {},
+      "must_find": true,
+      "max_hops": 8
+    },
+    {
+      "id": "hostert-dirac",
+      "label": "Matheus Hostert → Paul Dirac",
+      "source": "1621061",
+      "target": "1011729",
+      "groups": [
+        "demo",
+        "historical"
+      ],
+      "filters": {
+        "genealogy": true
+      },
+      "must_find": true,
+      "max_hops": 4
+    },
+    {
+      "id": "hostert-feynman",
+      "label": "Matheus Hostert → Richard Feynman (repeated collaborations)",
+      "source": "1621061",
+      "target": "1010044",
+      "groups": [
+        "historical",
+        "stress"
+      ],
+      "filters": {
+        "genealogy": true,
+        "min_shared": 2
+      },
+      "must_find": false,
+      "max_hops": 4
+    },
+    {
+      "id": "feynman-wheeler",
+      "label": "Richard Feynman → John Archibald Wheeler",
+      "source": "1010044",
+      "target": "983692",
+      "groups": [
+        "demo",
+        "direct",
+        "historical"
+      ],
+      "filters": {},
+      "must_find": true,
+      "max_hops": 1
+    },
+    {
+      "id": "witten-visser",
+      "label": "Edward Witten → Erin Visser",
+      "source": "983328",
+      "target": "2955074",
+      "groups": [
+        "demo",
+        "cross-field"
+      ],
+      "filters": {},
+      "must_find": true,
+      "max_hops": 7
+    },
+    {
+      "id": "hostert-ellis",
+      "label": "Matheus Hostert → John Ellis",
+      "source": "1621061",
+      "target": "1010819",
+      "groups": [
+        "demo",
+        "cross-field"
+      ],
+      "filters": {},
+      "must_find": true
+    },
+    {
+      "id": "atlas-large",
+      "label": "Georges Aad → Braden Keim Abbott (>10 authors)",
+      "source": "1066085",
+      "target": "1019091",
+      "groups": [
+        "demo",
+        "large"
+      ],
+      "filters": {
+        "max_authors": null,
+        "min_authors": 11
+      },
+      "must_find": true,
+      "max_hops": 1
+    },
+    {
+      "id": "atlas-all",
+      "label": "Georges Aad → Braden Keim Abbott (all papers)",
+      "source": "1066085",
+      "target": "1019091",
+      "groups": [
+        "large"
+      ],
+      "filters": {
+        "max_authors": null
+      },
+      "must_find": true,
+      "max_hops": 1
+    },
+    {
+      "id": "atlas-small-control",
+      "label": "Same ATLAS pair: no qualifying direct small-team edge",
+      "source": "1066085",
+      "target": "1019091",
+      "groups": [
+        "restrictive"
+      ],
+      "filters": {},
+      "must_find": false,
+      "forbid_direct": true
+    },
+    {
+      "id": "hawking-vafa",
+      "label": "Hawking → Vafa",
+      "source": "1006450",
+      "target": "985117",
+      "groups": [
+        "known"
+      ],
+      "filters": {},
+      "must_find": true,
+      "max_hops": 2
+    },
+    {
+      "id": "penrose-strominger",
+      "label": "Penrose → Strominger",
+      "source": "993859",
+      "target": "987332",
+      "groups": [
+        "known"
+      ],
+      "filters": {},
+      "must_find": true,
+      "max_hops": 2
+    },
+    {
+      "id": "chandrasekhar-teller",
+      "label": "Chandrasekhar → Teller",
+      "source": "1014066",
+      "target": "1019685",
+      "groups": [
+        "known"
+      ],
+      "filters": {},
+      "must_find": true,
+      "max_hops": 2
+    },
+    {
+      "id": "glashow-ellis",
+      "label": "Glashow → Ellis",
+      "source": "1008235",
+      "target": "1010819",
+      "groups": [
+        "known"
+      ],
+      "filters": {},
+      "must_find": true,
+      "max_hops": 2
+    },
+    {
+      "id": "salam-luttinger",
+      "label": "Salam → Luttinger",
+      "source": "990582",
+      "target": "1058591",
+      "groups": [
+        "known"
+      ],
+      "filters": {},
+      "must_find": true,
+      "max_hops": 2
+    },
+    {
+      "id": "kobayashi-yamawaki",
+      "label": "Kobayashi → Yamawaki",
+      "source": "1002518",
+      "target": "982854",
+      "groups": [
+        "known"
+      ],
+      "filters": {},
+      "must_find": true,
+      "max_hops": 2
+    },
+    {
+      "id": "visser-einstein",
+      "label": "Erin Visser → Einstein (Bergmann collision trap)",
+      "source": "2955074",
+      "target": "1010907",
+      "groups": [
+        "identity",
+        "cross-field"
+      ],
+      "filters": {
+        "genealogy": true
+      },
+      "must_find": true
+    },
+    {
+      "id": "chandrasekhar-witten",
+      "label": "Chandrasekhar → Witten",
+      "source": "1014066",
+      "target": "983328",
+      "groups": [
+        "cross-field"
+      ],
+      "filters": {},
+      "must_find": true,
+      "max_hops": 3
+    },
+    {
+      "id": "salam-visser",
+      "label": "Abdus Salam → Erin Visser",
+      "source": "990582",
+      "target": "2955074",
+      "groups": [
+        "cross-field"
+      ],
+      "filters": {},
+      "must_find": true,
+      "max_hops": 7
+    },
+    {
+      "id": "hostert-bohr",
+      "label": "Matheus Hostert → Niels Bohr",
+      "source": "1621061",
+      "target": "1033333",
+      "groups": [
+        "historical"
+      ],
+      "filters": {
+        "genealogy": true
+      },
+      "must_find": false
+    },
+    {
+      "id": "hostert-landau",
+      "label": "Matheus Hostert → Lev Landau",
+      "source": "1621061",
+      "target": "1019139",
+      "groups": [
+        "historical"
+      ],
+      "filters": {
+        "genealogy": true
+      },
+      "must_find": false
+    },
+    {
+      "id": "hostert-weinberg",
+      "label": "Matheus Hostert → Steven Weinberg",
+      "source": "1621061",
+      "target": "983868",
+      "groups": [
+        "historical"
+      ],
+      "filters": {
+        "genealogy": true
+      },
+      "must_find": false
+    },
+    {
+      "id": "hostert-thooft",
+      "label": "Matheus Hostert → Gerard ’t Hooft",
+      "source": "1621061",
+      "target": "1019113",
+      "groups": [
+        "historical"
+      ],
+      "filters": {
+        "genealogy": true
+      },
+      "must_find": false
+    },
+    {
+      "id": "hostert-gellmann",
+      "label": "Matheus Hostert → Murray Gell-Mann",
+      "source": "1621061",
+      "target": "1008658",
+      "groups": [
+        "historical"
+      ],
+      "filters": {
+        "genealogy": true
+      },
+      "must_find": false
+    },
+    {
+      "id": "hostert-schwinger",
+      "label": "Matheus Hostert → Julian Schwinger",
+      "source": "1621061",
+      "target": "989551",
+      "groups": [
+        "historical"
+      ],
+      "filters": {
+        "genealogy": true
+      },
+      "must_find": false
+    },
+    {
+      "id": "hostert-fermi",
+      "label": "Matheus Hostert → Enrico Fermi",
+      "source": "1621061",
+      "target": "1020970",
+      "groups": [
+        "historical"
+      ],
+      "filters": {
+        "genealogy": true
+      },
+      "must_find": false
+    },
+    {
+      "id": "hostert-oppenheimer",
+      "label": "Matheus Hostert → J. Robert Oppenheimer",
+      "source": "1621061",
+      "target": "1033064",
+      "groups": [
+        "historical"
+      ],
+      "filters": {
+        "genealogy": true
+      },
+      "must_find": false
+    },
+    {
+      "id": "hostert-self",
+      "label": "Matheus Hostert → himself",
+      "source": "1621061",
+      "target": "1621061",
+      "groups": [
+        "identity"
+      ],
+      "filters": {},
+      "must_find": true,
+      "max_hops": 0
+    },
+    {
+      "id": "noether-einstein",
+      "label": "Sparse Emmy Noether profile → Einstein",
+      "source": "2585691",
+      "target": "1010907",
+      "groups": [
+        "sparse"
+      ],
+      "filters": {},
+      "must_find": false
+    }
+  ]
+}

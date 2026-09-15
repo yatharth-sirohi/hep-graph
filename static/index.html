@@ -1,0 +1,465 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Explore documented scholarly and doctoral connections using Live INSPIRE or the saved HEP Graph demo."
+    />
+    <title>HEP Graph · Research connections</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to workspace</a>
+    <header class="site-header">
+      <a class="brand" href="#connections" aria-label="HEP Graph home"
+        ><span class="brand-mark" aria-hidden="true">⌁</span
+        ><span>HEP <b>Graph</b></span></a
+      >
+      <nav aria-label="Primary navigation">
+        <button class="tab is-active" data-tab="connections" type="button">
+          Connections
+        </button>
+        <button class="tab" data-tab="centrality" type="button">
+          Centrality
+        </button>
+        <button class="tab" data-tab="about" type="button">
+          About &amp; coverage
+        </button>
+      </nav>
+      <span id="snapshot-label" class="snapshot-label" aria-live="polite"
+        >Loading source…</span
+      >
+    </header>
+
+    <main id="main">
+      <section id="coverage-banner" class="coverage-banner" aria-live="polite">
+        <span class="coverage-icon" aria-hidden="true">◌</span>
+        <div>
+          <strong>Source coverage</strong
+          ><span id="coverage-text">Reading coverage statement…</span>
+        </div>
+        <button id="coverage-details" class="text-button" type="button">
+          Details
+        </button>
+      </section>
+      <section
+        id="version-warning"
+        class="notice warning hidden"
+        role="alert"
+      ></section>
+      <section id="global-status" class="notice hidden" role="status"></section>
+
+      <section
+        id="connections"
+        class="view is-active"
+        aria-labelledby="connections-title"
+      >
+        <div class="section-intro">
+          <div>
+            <p class="eyebrow">Connection explorer</p>
+            <h1 id="connections-title">
+              Trace a documented research connection
+            </h1>
+            <p>
+              Search two researchers. Hops are person-to-person ties; paper and
+              doctoral-record evidence stays attached to every result.
+            </p>
+          </div>
+          <label class="example-picker"
+            >Example
+            <select id="example-select" aria-label="Snapshot example">
+              <option value="">Loading examples…</option></select
+            ><button id="load-example" class="secondary-button" type="button">
+              Load
+            </button></label
+          >
+        </div>
+        <form id="search-form" class="query-card" novalidate>
+          <div class="identity-grid">
+            <div class="identity-field">
+              <label for="source-query">From researcher</label>
+              <div class="picker-wrap">
+                <input
+                  id="source-query"
+                  name="source-query"
+                  type="search"
+                  autocomplete="off"
+                  placeholder="Name, INSPIRE ID, or ORCID"
+                  aria-controls="source-results"
+                  aria-expanded="false"
+                /><button
+                  class="clear-picker"
+                  data-clear="source"
+                  type="button"
+                  aria-label="Clear From researcher"
+                >
+                  ×
+                </button>
+              </div>
+              <div id="source-selected" class="selection" hidden></div>
+              <div
+                id="source-results"
+                class="result-menu"
+                role="listbox"
+                aria-label="From researcher suggestions"
+              ></div>
+            </div>
+            <button
+              id="swap-people"
+              class="swap-button"
+              type="button"
+              aria-label="Swap researchers"
+              title="Swap researchers"
+            >
+              ⇄
+            </button>
+            <div class="identity-field">
+              <label for="target-query">To researcher</label>
+              <div class="picker-wrap">
+                <input
+                  id="target-query"
+                  name="target-query"
+                  type="search"
+                  autocomplete="off"
+                  placeholder="Name, INSPIRE ID, or ORCID"
+                  aria-controls="target-results"
+                  aria-expanded="false"
+                /><button
+                  class="clear-picker"
+                  data-clear="target"
+                  type="button"
+                  aria-label="Clear To researcher"
+                >
+                  ×
+                </button>
+              </div>
+              <div id="target-selected" class="selection" hidden></div>
+              <div
+                id="target-results"
+                class="result-menu"
+                role="listbox"
+                aria-label="To researcher suggestions"
+              ></div>
+            </div>
+          </div>
+          <div class="query-actions">
+            <label class="source-mode-label" for="data-mode"
+              >Search source<select id="data-mode" aria-describedby="mode-description">
+                <option value="live">Live INSPIRE</option>
+                <option value="snapshot">Saved demo</option>
+              </select>
+              <span id="mode-description" class="subtle">Reading source mode…</span>
+            </label>
+            <button id="find-connection" class="primary-button" type="submit">
+              Find connection <span aria-hidden="true">→</span>
+            </button>
+          </div>
+          <details class="filter-panel" open>
+            <summary>
+              Connection filters
+              <span id="filter-summary"
+                >Small-team papers (up to 10 authors) · 1 shared work · PhD included</span
+              >
+            </summary>
+            <div class="filters">
+              <label
+                >Paper team size<select id="paper-team-size">
+                  <option value="small">Small-team (≤10 authors)</option>
+                  <option value="large">Large-team (&gt;10 authors)</option>
+                  <option value="all">All papers</option>
+                  <option value="custom" hidden>Custom author range</option>
+                </select>
+                <small class="filter-help">Choose which papers can establish a coauthor tie.</small>
+              </label>
+              <label
+                >Minimum shared works<select id="min-shared">
+                  <option value="1">1 (default)</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="custom">Custom…</option></select
+                ><input
+                  id="min-shared-custom"
+                  class="custom-filter hidden"
+                  type="number"
+                  min="1"
+                  max="1000"
+                  placeholder="1–1000"
+                  aria-label="Custom minimum shared works"
+              /></label>
+              <label
+                >From year<input
+                  id="year-start"
+                  type="number"
+                  min="1000"
+                  max="2100"
+                  placeholder="Any"
+              /></label>
+              <label
+                >To year<input
+                  id="year-end"
+                  type="number"
+                  min="1000"
+                  max="2100"
+                  placeholder="Any"
+              /></label>
+              <label class="toggle-field"
+                ><input id="genealogy" type="checkbox" checked /><span
+                  ><b>Include PhD records</b
+                  ><small
+                    >Directed adviser → student ties. This changes path
+                    calculations.</small
+                  ></span
+                ></label
+              >
+              <details class="advanced-filters">
+                <summary>Advanced paper author bounds</summary>
+                <p class="filter-help">
+                  Use a custom inclusive author range. The team-size choice above
+                  updates these bounds automatically.
+                </p>
+                <div class="advanced-filter-grid">
+                  <label
+                    >Minimum authors per paper<select id="min-authors">
+                      <option value="1">1 (default)</option>
+                      <option value="2">2</option>
+                      <option value="5">5</option>
+                      <option value="11">11</option>
+                      <option value="custom">Custom…</option></select
+                    ><input
+                      id="min-authors-custom"
+                      class="custom-filter hidden"
+                      type="number"
+                      min="1"
+                      max="100000"
+                      placeholder="1–100000"
+                      aria-label="Custom minimum authors"
+                  /></label>
+                  <label
+                    >Maximum authors per paper<select id="max-authors">
+                  <option value="10">10 (default)</option>
+                  <option value="5">5</option>
+                  <option value="25">25</option>
+                  <option value="50">50</option>
+                  <option value="all">All authors</option>
+                  <option value="custom">Custom…</option></select
+                ><input
+                  id="max-authors-custom"
+                  class="custom-filter hidden"
+                  type="number"
+                  min="1"
+                  max="100000"
+                  placeholder="1–100000"
+                  aria-label="Custom maximum authors"
+                  /></label>
+                </div>
+              </details>
+            </div>
+          </details>
+        </form>
+        <div id="connection-empty" class="empty-state">
+          <span class="empty-glyph" aria-hidden="true">⌁</span>
+          <h2>Choose two researchers</h2>
+          <p>
+            Results will state the active source and exact filters used. Search
+            suggestions come from the selected source. Live INSPIRE results
+            are temporary, queryable identities held in RAM for this session.
+          </p>
+        </div>
+        <section id="connection-results" class="hidden" aria-live="polite">
+          <div class="result-heading">
+            <div>
+              <p class="eyebrow">Path result</p>
+              <h2 id="path-title">Connection</h2>
+              <p id="path-meta" class="muted"></p>
+            </div>
+            <div class="result-actions">
+              <button id="copy-share" class="secondary-button" type="button">
+                Copy share link</button
+              ><button id="export-json" class="secondary-button" type="button">
+                Export JSON</button
+              ><button id="export-svg" class="secondary-button" type="button">
+                Export SVG
+              </button>
+            </div>
+          </div>
+          <div id="deep-progress" class="deep-progress hidden" aria-live="polite">
+            <div>
+              <strong id="deep-title">Exploring live INSPIRE…</strong>
+              <p id="deep-summary">The live graph search is starting.</p>
+            </div>
+            <div class="deep-actions">
+              <button id="deep-stop" class="secondary-button" type="button">Stop search</button>
+              <button id="deep-continue" class="secondary-button hidden" type="button">Continue exact search</button>
+            </div>
+          </div>
+          <div id="path-message" class="notice hidden"></div>
+          <div id="path-cards" class="path-cards"></div>
+          <div class="graph-shell">
+            <div class="graph-toolbar" aria-label="Graph controls">
+              <button data-graph="zoom-in" type="button" aria-label="Zoom in">
+                +</button
+              ><button
+                data-graph="zoom-out"
+                type="button"
+                aria-label="Zoom out"
+              >
+                −</button
+              ><button data-graph="fit" type="button">Fit</button
+              ><button data-graph="reset" type="button">Reset</button
+              ><label class="label-toggle"
+                ><input id="show-labels" type="checkbox" checked />
+                Labels</label
+              ><span id="graph-help" class="subtle"
+                >Scroll to zoom · drag nodes to pin · select a node for its
+                profile</span
+              >
+            </div>
+            <div
+              id="graph-stage"
+              class="graph-stage"
+              tabindex="0"
+              aria-label="Connection graph. Use mouse or touch to pan; drag a node to pin it."
+            >
+              <svg
+                id="connection-graph"
+                role="img"
+                aria-labelledby="graph-title graph-description"
+              >
+                <title id="graph-title">Connection graph</title>
+                <desc id="graph-description">
+                  A bounded visualization of the selected path and expanded
+                  researcher neighborhoods.
+                </desc>
+                <g class="viewport">
+                  <g class="edge-layer"></g>
+                  <g class="node-layer"></g>
+                </g>
+              </svg>
+            </div>
+            <div
+              id="edge-inspector"
+              class="edge-inspector hidden"
+              aria-live="polite"
+            ></div>
+            <div class="graph-legend">
+              <span><i class="legend-line coauthor"></i>Coauthorship (one hop)</span
+              ><span><i class="legend-line phd"></i>PhD adviser → student (genealogy-only edge)</span
+              ><span><i class="legend-node"></i>Selected path</span
+              ><span><i class="legend-node expanded"></i>Expanded profile</span>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <section id="centrality" class="view" aria-labelledby="centrality-title">
+        <div class="section-intro">
+          <div>
+            <p class="eyebrow">Network measures</p>
+            <h1 id="centrality-title">Centrality in the saved demo graph</h1>
+            <p>
+              Saved demo measures use the full eligible person graph for the
+              active filters, never the small graph displayed in the workspace.
+              Live INSPIRE centrality is unavailable because a global graph is
+              required. These network measures are not measures of scientific
+              quality, prestige, or contribution.
+            </p>
+          </div>
+        </div>
+        <div class="centrality-controls">
+          <label for="centrality-metric"
+            >Measure<select id="centrality-metric">
+              <option value="degree">Coauthor degree</option>
+              <option value="combined_degree">Combined degree</option>
+              <option value="harmonic">Harmonic closeness</option>
+              <option value="betweenness">Betweenness</option>
+              <option value="eccentricity">Eccentricity</option>
+            </select></label
+          ><button id="load-centrality" class="primary-button" type="button">
+            Calculate
+          </button>
+        </div>
+        <div id="centrality-status" class="notice hidden"></div>
+        <section id="centrality-results" class="data-card hidden">
+          <div id="centrality-explainer" class="metric-note"></div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Rank</th>
+                  <th>Researcher</th>
+                  <th id="metric-value-label">Value</th>
+                </tr>
+              </thead>
+              <tbody id="centrality-rows"></tbody>
+            </table>
+          </div>
+        </section>
+      </section>
+
+      <section id="about" class="view about-view" aria-labelledby="about-title">
+        <p class="eyebrow">Method &amp; scope</p>
+        <h1 id="about-title">What this source can support</h1>
+        <div id="about-coverage" class="data-card">
+          Loading source coverage metadata…
+        </div>
+        <div class="about-grid">
+          <article class="data-card">
+            <h2>Connection rules</h2>
+            <p>
+              A coauthor tie requires eligible distinct works, then applies the
+              shared-work threshold. Papers with a full author count above the
+              selected cap are excluded. Thesis, book, book chapter, and
+              proceedings records are excluded.
+            </p>
+            <p>
+              PhD records are independent evidence. They point from adviser to
+              student; ordinary connection paths may traverse either direction
+              while retaining the actual arrow.
+            </p>
+          </article>
+          <article class="data-card">
+            <h2>Identity &amp; evidence</h2>
+            <p>
+              People use stable profile IDs. Author names are never merged as an
+              identity rule. Each path edge lists the full documented work or
+              doctoral record that supports it.
+            </p>
+            <p>
+              “Literature only” identifies a person resolved from literature
+              links without claiming full upstream profile or neighborhood
+              coverage.
+            </p>
+          </article>
+          <article class="data-card">
+            <h2>Dates &amp; counts</h2>
+            <p>
+              Year filtering uses the earliest documented preprint or
+              publication date. Records with unknown dates remain only when no
+              date bound is selected. Author caps use the original full author
+              list, not just resolved authors.
+            </p>
+          </article>
+        </div>
+      </section>
+      <aside id="person-panel" class="person-panel hidden" aria-live="polite">
+        <button
+          id="close-profile"
+          class="icon-button"
+          type="button"
+          aria-label="Close researcher details"
+        >
+          ×
+        </button>
+        <div id="person-content"></div>
+      </aside>
+    </main>
+    <footer>
+      HEP Graph · Documented connections from the selected source ·
+      <span id="footer-version">—</span>
+    </footer>
+    <script src="app.js"></script>
+  </body>
+</html>

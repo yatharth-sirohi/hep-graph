@@ -1,0 +1,27 @@
+{
+  "label": "January 2020 HEP small-team pilot + selected author records",
+  "description": "INSPIRE works with January 2020 arXiv identifiers, a hep-ph or hep-th category (including cross-lists), and at most 10 listed authors; bounded most-cited works for selected modern and historical researchers; one ATLAS discovery paper for large-team coverage testing. Author profiles and doctoral evidence are a selected subset. This is not all of HEP and no researcher's full neighborhood is claimed complete.",
+  "literature": [
+    {"query": "arxiv_eprints.value:2001.* and (arxiv_eprints.categories:hep-ph or arxiv_eprints.categories:hep-th) and author_count:1->10", "limit": 1000},
+    {"query": "a Matheus.Hostert.1 and author_count:1->10", "limit": 80, "sort": "mostcited"},
+    {"query": "a S.Pascoli.1 and author_count:1->10", "limit": 60, "sort": "mostcited"},
+    {"query": "a Edward.Witten.1 and author_count:1->10", "limit": 60, "sort": "mostcited"},
+    {"query": "a David.J.Gross.1 and author_count:1->10", "limit": 40, "sort": "mostcited"},
+    {"query": "a Richard.P.Feynman.1", "limit": 60, "sort": "mostcited"},
+    {"query": "a Paul.Adrien.Maurice.Dirac.1", "limit": 40, "sort": "mostcited"},
+    {"query": "a Steven.Weinberg.1 and author_count:1->10", "limit": 60, "sort": "mostcited"},
+    {"query": "recid:1124337", "limit": 1},
+    {"query": "recid:1760672", "limit": 1}
+  ],
+  "authors": [
+    {"query": "control_number:1621061 OR control_number:1019647 OR control_number:983328 OR control_number:1007454 OR control_number:1010044 OR control_number:983692 OR control_number:1011729 OR control_number:983868", "limit": 20},
+    {"query": "advisors.record.$ref:1621061 OR advisors.record.$ref:1019647 OR advisors.record.$ref:983328 OR advisors.record.$ref:1007454 OR advisors.record.$ref:1010044 OR advisors.record.$ref:983692", "limit": 100},
+    {"query": "name.value:Witten", "limit": 10},
+    {"query": "name.value:Weinberg", "limit": 35}
+  ],
+  "examples": [
+    {"label": "Matheus Hostert → Silvia Pascoli", "source": "1621061", "target": "1019647"},
+    {"label": "Edward Witten → David Gross", "source": "983328", "target": "1007454"},
+    {"label": "Richard Feynman → John Wheeler", "source": "1010044", "target": "983692"}
+  ]
+}
