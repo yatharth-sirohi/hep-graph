@@ -24,6 +24,7 @@ from .hlbes import (COMPLETE, EXACT, HLBES, NO_PATH, PARTIAL, UNKNOWN, Neighborh
 from .discovery import Navigator
 from .identity_guard import apply_identity_guard
 from .pipeline import PipelineError, build_snapshot, open_db, ref_id, store_record
+from .providers import LiveInspireGraphProvider, ProviderOracle
 
 
 # INSPIRE serves at most this many results per query, so a set larger than the
@@ -1505,7 +1506,10 @@ class DeepSession:
             # Bootstrap already confirmed both endpoint profiles.
             self._oracle.cursor_for(self.source, profile_done=True)
             self._oracle.cursor_for(self.target, profile_done=True)
-        self._engine = HLBES(self._oracle, routing_score=self._routing_score,
+        # Keep the live oracle's page/audit state intact, but pass its response
+        # through the same version/filter-pinned boundary as future snapshots.
+        provider = LiveInspireGraphProvider(self, self._oracle)
+        self._engine = HLBES(ProviderOracle(provider, self.filters), routing_score=self._routing_score,
                              cost_estimate=self._retrieval_cost,
                              pages_fetched=self._pages_fetched)
         self._proof = self._engine.begin(self.source, self.target,

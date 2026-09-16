@@ -28,6 +28,12 @@ htmlcov/
 # Only the intentional small snapshot and bounded manifest are public data.
 data/cache/
 data/ingestion-report.json
+# Private candidate/production graph artifacts must never enter the public repo.
+data/production/
+data/snapshots/
+data/candidates/
+*.dump
+*.sql.gz
 # Generated screenshots, browser profiles, test output and old audit exports
 work/
 test-results/
