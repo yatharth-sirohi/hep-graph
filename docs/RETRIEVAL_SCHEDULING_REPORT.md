@@ -158,7 +158,167 @@ same three-hop proof both ways.
 
 ## 4. Measurements
 
-BENCH_SECTION
+### 4.1 Controlled A/B/C/D, in process, cold cache
+
+Run by a benchmark agent on clean worktrees, one live process at a time, each
+search as back-to-back 5-second slices (the shape the server drives), fresh
+`RemoteClient` per run, no guide snapshot (so the guide corridor is not
+exercised here — production has it; §4.2).
+
+| Version | Commit | Contents |
+|---|---|---|
+| A | `9b2abb4` | what production ran when this phase started |
+| B | `03f9fbe` | HLBES ordering, cursor cost model, guide instrumentation, identity-guard memoisation |
+| C | `af32691` | B + batched unions (first rule) + cheap snapshot rebuilds |
+| D | `8188476` | C with the canary-preserving union rule |
+
+| Pair | Ver | First route | First hops | Proven | Hops | Requests | Lit. pages | Unions |
+|---|---|---:|---:|---:|---:|---:|---:|---:|
+| Witten → Ellis | A | 7.5 s | 2 | 7.5 s | 2 | 7 | 2 | – |
+| | B | 7.7 s | 2 | 7.7 s | 2 | 7 | 2 | – |
+| | C | 7.4 s | 2 | 7.4 s | 2 | 7 | 2 | 0 |
+| | D | 7.1 s | 2 | 7.1 s | 2 | 7 | 2 | 0 |
+| Visser → Hostert | A | **8.6 s** | 4 | 18.1 s | 4 | 30 | 12 | – |
+| | B | 21.8 s | 4 | 21.8 s | 4 | 37 | 13 | – |
+| | C | 22.9 s | 4 | 22.9 s | 4 | 36 | 12 | 2 |
+| | D | 22.2 s | 4 | 22.2 s | 4 | 36 | 12 | 1 |
+| Hostert → Feynman | A | 17.6 s | 3 | 17.7 s | 3 | 18 | 10 | – |
+| | B | 11.9 s | 3 | 12.0 s | 3 | 14 | 7 | – |
+| | C | 8.7 s | 3 | 8.7 s | 3 | 10 | 3 | 1 |
+| | D | **7.9 s** | 3 | 7.9 s | 3 | 10 | 3 | 1 |
+| Einstein → Dirac | A | 32.8 s | 5 | 32.8 s | 5 | 52 | 25 | – |
+| | B | 28.6 s | 5 | 28.7 s | 5 | 49 | 23 | – |
+| | C | 20.5 s | 5 | 20.5 s | 5 | 32 | 6 | 4 |
+| | D | **20.6 s** | 5 | 20.6 s | 5 | 32 | 6 | 0 |
+| Hostert → Uppu | A | 268.4 s | 5 | 272.3 s | 5 | 273 | 116 | – |
+| | B | 240.0 s | 7 | 253.9 s | 5 | 325 | 117 | – |
+| | C | 195.8 s | 7 | 204.0 s | 5 | 304 | 96 | 4 |
+| | D | **212.0 s** | 7 | 222.4 s | 5 | 320 | 110 | 0 |
+
+| Version | Requests | Literature pages | Wall |
+|---|---:|---:|---:|
+| A | 380 | 165 | 349 s |
+| B | 432 | 162 | 324 s |
+| C | 389 | 119 | 264 s |
+| D | 405 | 133 | **280 s** |
+
+Zero upstream failures in twenty runs. **Every pair's proven hop count is
+identical across all four versions.** Routes are person-for-person identical
+on four pairs; on Hostert → Uppu, A/B prove one five-hop route and C/D an
+equally short different one (expansion order decides which of several
+shortest routes is found first — expected).
+
+Honest reading:
+
+- **Wall: −20 % (A → D).** Almost all of it is the CPU work removed from the
+  rebuild path (§3.1–3.2), not fewer requests.
+- **Requests: +7 % (A → D).** The ordering changes are mixed: fewer on
+  Hostert → Feynman (18 → 10) and Einstein → Dirac (52 → 32), more on
+  Visser → Hostert (30 → 36) and Hostert → Uppu (273 → 320). Single cold
+  runs against a live index; the ±10 % swings on the two long pairs are
+  within what expansion-order changes do, and no version is uniformly better
+  on requests.
+- **Time to first route improved on four pairs and regressed on one.**
+  Hostert → Feynman 17.6 → 7.9 s, Einstein → Dirac 32.8 → 20.6 s, Uppu
+  268 → 212 s (a seven-hop verified route shown 10 s before the five-hop
+  proof — progressive delivery at work). Visser → Hostert went the other way,
+  8.6 → 22 s: the old order stumbled on a route early; the new one closes
+  layers first and finds the four-hop route only when the proof does.
+- **Batching under the exact rule saves essentially nothing on real pairs.**
+  D formed no union at all on the two hardest pairs — the people HLBES reads
+  at one depth mostly co-occur on records already known — and where unions
+  formed (C) the request count was the same as without them on four pairs.
+  The audit's "largest cold-search optimization" does not survive the
+  requirement that exactness detection is unchanged; the code stays because
+  it is proven neutral and it wins 4× on layers of unrelated people, but it
+  is not a speed-up on the searches people actually run.
+
+
+Which ordering change moved Visser → Hostert? Isolated in process (fresh
+client each, keep-alive transport in place, same day):
+
+| Pair | Variant | First route | Proven | Requests |
+|---|---|---:|---:|---:|
+| Visser → Hostert | current | 21.2 s | 21.2 s | 36 |
+| | old breadth rank | 16.8 s | 21.1 s | 29 |
+| | old `_choose` | 21.6 s | 21.6 s | 36 |
+| | both old | 15.1 s | 19.1 s | 29 |
+| Hostert → Feynman | current | 11.8 s | 11.8 s | 10 |
+| | old breadth rank | 6.4 s | 6.8 s | 10 |
+| Einstein → Dirac | current | 17.9 s | 17.9 s | 32 |
+| | old breadth rank | 28.8 s | 28.8 s | 49 |
+
+The `_choose` fix is neutral on requests. The breadth rank (frontier = the
+side's shallowest open layer) costs 7 requests on Visser → Hostert and saves
+17 on Einstein → Dirac, with Hostert → Feynman identical in requests (its
+time difference is network variance on identical work). 78 requests against
+88 over the three; kept, with the trade recorded here.
+
+### 4.1a Time to first route is not always the proof
+
+On Hostert → Uppu every post-A version shows a seven-hop verified route 10 s
+before the five-hop proof, and the browser announces the shorter route when it
+lands (Phase IV). On Visser → Hostert the new order finds no route until the
+four-hop one, at 21 s; the old order stumbled on the same four-hop route at
+8–15 s depending on the run. That is the one measured regression of this
+phase in the metric that matters most to a waiting user.
+
+### 4.2 Where the remaining time goes (D, Hostert → Uppu, profiled)
+
+| | seconds | share |
+|---|---:|---:|
+| wall (profiler on) | 248 | |
+| network total | 169 | 68 % |
+| — reading responses (`SSL read`) | 85 | 34 % |
+| — **TLS handshake** | 42 | 17 % |
+| — **TCP connect** | 40 | 16 % |
+| — DNS | 2 | |
+| pacer sleep | 8 | 3 % |
+| `_snapshot` (233 rebuilds of 2,659 calls) | 56 | 22 % |
+| — `build_snapshot` | 32 | |
+| — `apply_identity_guard` | 12 | |
+| — `Graph()` | 4 | |
+
+Half of the network time is **connection setup**: every one of 320 requests
+opened its own DNS + TCP + TLS connection because the transport used
+`urllib.request.urlopen` per call. That is the largest remaining item, it is
+exactness-neutral, and it was not on the audit's list. §4.3.
+
+### 4.3 Keep-alive transport
+
+`231ccab`: `_KeepAliveTransport` replaces the per-call `urllib` opener. A
+lock-protected per-host pool of `http.client.HTTPSConnection` (four idle, 60 s
+idle age, expiry on borrow, no background thread); a connection is borrowed
+for one request and returned only when its body was read completely and the
+server did not answer `Connection: close`; on any failure it is closed. A
+reused connection that fails before any response byte (`RemoteDisconnected`,
+`BadStatusLine`, reset, broken pipe, `SSLError`) is retried once on a fresh
+one with the remaining timeout — the post-freeze case on Vercel. Timeouts are
+never retried. Non-2xx statuses, redirects included and never followed, raise
+`urllib.error.HTTPError` with the response headers, so `_fetch_json` and the
+429 `Retry-After` cooldown are unchanged; HTTPS only; body read capped at
+`MAX_RESPONSE_BYTES + 1`. Counters in `cache_info()["transport"]`. 24 new
+tests, five of them against a real local TLS server.
+
+Twelve sequential live calls: one connection opened, eleven reused; cold call
+743 ms, reused 221 ms before pacing.
+
+| Hostert → Uppu, in process, 5 s slices | wall | requests | per request |
+|---|---:|---:|---:|
+| start of phase (`9b2abb4`) | 492 s | 273 | 1.80 s |
+| guard memoised (`03f9fbe`) | 308 s | 325 | 0.95 s |
+| + cheap rebuild + unions (`8188476`) | 248 s | 320 | 0.78 s |
+| **+ keep-alive (`231ccab`)** | **201 s** | 320 | **0.63 s** |
+
+(Wall with the profiler on; production build A measured 272 s without it.)
+What is left in the profile: response reads 78 s, `_snapshot` 60 s (of which
+`build_snapshot` 35 s, identity guard 13 s), pacer sleep ~8 s. An incremental
+`build_snapshot` is the next item, not taken here.
+
+
+### 4.4 Production
+
+PRODUCTION_SECTION
 
 ## 5. Agent review
 
@@ -236,6 +396,22 @@ coauthors are within it.
 | 3 | low (pre-existing, both modes) | the canary is coauthor-level, not record-level, under `min_shared=2` | noted; not introduced here |
 | 4 | low | a union-certified cursor reported `literature_next_page: 1` | set to the union's next page |
 
+
+### 5.4 Keep-alive transport `231ccab`
+
+The independent review agent for this commit was terminated by an API session
+limit before it began; the transport was therefore reviewed by the
+coordinating agent (not independently), against the questions the agent had
+been given: a connection is pooled only when `len(body) <= MAX_RESPONSE_BYTES`
+and `response.isclosed()` and not `will_close`, so a truncated or undrained
+body can never poison the next response; borrow and return are under one
+lock and a connection is held by one request at a time; the stale retry
+applies only to a reused connection, only before response bytes, never to
+timeouts, and uses the remaining timeout; the retry is not re-paced (the
+server never saw the failed request); redirects and other non-2xx statuses
+surface as `HTTPError`; a fresh-connection failure is reported at once. No
+defect found. The 24 tests, including five over a real local TLS server,
+cover each of those paths.
 
 ## 6. Not built, and why
 
