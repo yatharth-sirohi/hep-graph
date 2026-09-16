@@ -352,3 +352,70 @@ def test_http_responses_carry_the_delivery_fields(tmp_path):
 def test_invalid_delivery_policy_is_rejected(policy):
     with pytest.raises(ValueError):
         SearchJobs(lambda: None, **policy)
+
+
+def test_a_route_the_engine_already_calls_shortest_is_terminal_even_if_the_bound_is_open():
+    """A direct pair or an exhausted two-hop check proves shortestness while
+    the HLBES bound is formally open, so the engine may say can_continue. There
+    is nothing left to look for: the job must not keep spending requests."""
+    engine = ImprovingEngine(script=[
+        {'status': 'ok', 'can_continue': True, 'paths': [route('A', 'M', 'B')], 'global_shortest_proven': True},
+        {'status': 'search_incomplete', 'can_continue': True, 'paths': [route('A', 'M', 'B')], 'global_shortest_proven': True},
+    ])
+    jobs = SearchJobs(lambda: engine, auto_continue=True, retry_delay=0)
+    try:
+        started = jobs.start('A', 'B', Filters())
+        assert started['status'] == 'ok' and started['can_continue'] is False
+        assert started['route_status'] == 'exact_route_proven' and started['best_route']['exact'] is True
+        assert engine.calls == 1 and engine.closed.wait(1)
+        # Stopping a proven result changes nothing: it is not a stopped search.
+        assert jobs.cancel(started['job_id'])['route_status'] == 'exact_route_proven'
+        assert jobs.get(started['job_id'])['status'] == 'ok'
+    finally:
+        jobs.shutdown()
+
+
+def test_delivery_tolerates_contract_violations_without_contradicting_itself():
+    """Malformed or self-contradictory engine output must degrade honestly:
+    no crash, no route without paths, no no_path beside a route, no
+    negative hop count, and a withdrawn proof does not survive its route."""
+    engine = ImprovingEngine(script=[
+        {'status': 'search_incomplete', 'can_continue': True, 'paths': 7},
+        {'status': 'no_path', 'can_continue': True, 'paths': [LONG]},
+        {'status': 'ok', 'can_continue': True, 'paths': [{**SHORT, 'hops': -1}]},
+        {'status': 'ok', 'can_continue': True, 'paths': [route('A', 'M', 'B')], 'global_shortest_proven': True},
+    ])
+    jobs = SearchJobs(lambda: engine, auto_continue=True, retry_delay=0)
+    try:
+        started = jobs.start('A', 'B', Filters())
+        assert started['paths'] == [] and started['best_route'] is None
+        states = polls_until(jobs, started['job_id'], lambda s: s['status'] != 'searching')
+        contradiction = states[0]  # 'no_path' beside a route: the route wins, and the search goes on.
+        assert contradiction['route_status'] == 'verified_route_found' and contradiction['best_route']['hops'] == 4
+        assert all(s['route_status'] != 'no_path' for s in states)
+        negative = states[1]
+        assert negative['best_route'] is None and negative['metrics']['best_hops'] is None
+        assert negative['events'][-1]['type'] == 'route_withdrawn'
+        final = states[-1]
+        assert final['route_status'] == 'exact_route_proven' and final['best_route']['hops'] == 2
+        assert final['metrics']['time_to_exact_proof'] >= final['metrics']['time_to_best_route']
+    finally:
+        jobs.shutdown()
+
+
+def test_withdrawing_a_proven_route_withdraws_its_proof():
+    engine = ImprovingEngine(script=[
+        {'status': 'ok', 'can_continue': True, 'paths': [SHORT]},
+        {'status': 'search_incomplete', 'can_continue': True, 'paths': []},
+        {'status': 'ok', 'can_continue': False, 'paths': [LONG], 'global_shortest_proven': True},
+    ])
+    jobs = SearchJobs(lambda: engine, auto_continue=True, retry_delay=0)
+    try:
+        key = jobs.start('A', 'B', Filters())['job_id']
+        final = polls_until(jobs, key, lambda s: s['status'] != 'searching')[-1]
+        metrics = final['metrics']
+        assert final['best_route']['hops'] == 4 and final['best_route']['exact'] is True
+        assert metrics['time_to_best_route'] <= metrics['time_to_exact_proof']
+        assert [e['type'] for e in final['events']].count('exact_proven') == 1
+    finally:
+        jobs.shutdown()

@@ -863,6 +863,13 @@
   function routeState(data, job) {
     const displayed = job?.displayed, best = data.best_route;
     if (displayed && best && best.hops < displayed.hops) return "BETTER_ROUTE_AVAILABLE";
+    // A route shorter than the server's best (a job restarted on another
+    // server that has not re-found it): the server's proof is about a
+    // different length and says nothing about this route.
+    // Likewise when the server currently has no route at all.
+    if (displayed && (!best || best.hops > displayed.hops))
+      return data.status === "searching" ? "VERIFIED_ROUTE_FOUND"
+        : data.status === "cancelled" ? "VERIFIED_SEARCH_STOPPED" : "SEARCH_INCOMPLETE";
     switch (data.route_status) {
       case "searching_no_path": return "SEARCHING_NO_PATH";
       case "verified_route_found": return "VERIFIED_ROUTE_FOUND";
@@ -884,6 +891,7 @@
     const proven = data.global_shortest_proven === true && Boolean(best) && displayed.hops === best.hops;
     return {
       ...data, paths: displayed.paths, version: displayed.version || data.version,
+      ...(job.note ? { client_message: job.note } : {}),
       global_shortest_proven: proven,
       exact_for_retrieved_graph: isBest ? data.exact_for_retrieved_graph : false,
       displayed_route_id: displayed.routeId, displayed_is_best: isBest,
@@ -909,6 +917,7 @@
     state.routeOffer = {
       apply() {
         job.displayed = job.best;
+        job.note = null;
         hideRouteOffer();
         if (job.lastData) renderDisplayed(job.lastData, job, true);
       },
@@ -924,45 +933,48 @@
     if (!deepJobCurrent(job)) return;
     // Versions come from the server. An update older than one already applied
     // is ignored whole, whatever it says; only its polling obligation remains.
-    if (Number.isInteger(data.sequence_number)) {
-      if (data.sequence_number < job.sequence) {
-        if (data.status === "searching" && !job.cancelled) scheduleDeepPoll(job);
-        return;
-      }
-      job.sequence = data.sequence_number;
+    if (Number.isInteger(data.sequence_number) && data.sequence_number < job.sequence) {
+      if (data.status === "searching" && !job.cancelled) scheduleDeepPoll(job);
+      return;
     }
+    const applied = job.sequence;
+    if (Number.isInteger(data.sequence_number)) job.sequence = data.sequence_number;
     job.lastData = data;
     job.progress = data.progress || job.progress;
     const best = routeSnapshot(data);
     const displayed = job.displayed;
-    const withdrawn = (data.events || []).some((e) => e.type === "route_withdrawn");
+    // Only a withdrawal the server reports for the route on screen, in a
+    // version newer than the last one applied, may take that route down.
+    const withdrawn = Boolean(displayed) && (data.events || []).some((e) =>
+      e.type === "route_withdrawn" && e.previous_route_id === displayed.routeId &&
+      (!Number.isInteger(e.sequence_number) || e.sequence_number > applied));
     job.best = best;
     let cards = false;
     if (best && !displayed) {
       job.displayed = best;
+      job.note = null;
+      cards = true;
+      hideRouteOffer();
+    } else if (withdrawn) {
+      // The engine's identity guard retracted the route on screen. A route
+      // that is no longer verified must not stay up as if it were.
+      job.displayed = best;
+      job.note = best
+        ? `The route shown earlier was withdrawn after identity checks. The best verified route now has ${best.hops} hop${best.hops === 1 ? "" : "s"}.`
+        : "The route shown earlier was withdrawn after identity checks. No verified route is currently known.";
       cards = true;
       hideRouteOffer();
     } else if (best && displayed && best.routeId !== displayed.routeId) {
       if (best.hops < displayed.hops) {
         showRouteOffer(job, data.global_shortest_proven === true ? "exact" : "shorter");
-      } else if (best.hops === displayed.hops) {
-        // An equal-length route is not an improvement: keep what is shown.
+      } else {
+        // An equal-length route is not an improvement, and a longer one is
+        // not better: keep what is shown, and offer nothing.
         hideRouteOffer();
-      } else if (withdrawn) {
-        // The engine's identity guard retracted the route on screen. A route
-        // that is no longer verified must not stay up as if it were.
-        job.displayed = best;
-        cards = true;
-        hideRouteOffer();
-        data = { ...data, client_message: `The route shown earlier was withdrawn after identity checks. The best verified route now has ${best.hops} hops.` };
-        job.lastData = data;
       }
-    } else if (!best && displayed && withdrawn) {
-      job.displayed = null;
-      cards = true;
+    } else if (!best && displayed) {
+      // The route that was on offer is gone; the one on screen stands.
       hideRouteOffer();
-      data = { ...data, client_message: "The route shown earlier was withdrawn after identity checks. No verified route is currently known." };
-      job.lastData = data;
     } else if (best && displayed && best.paths.length !== displayed.paths.length) {
       // Same primary route, more (or fewer) equal-length alternatives.
       job.displayed = best;
@@ -1117,7 +1129,7 @@
       continuing: false, progress: {}, lastData: null,
       // Versioned delivery: the last applied server version, the best route
       // the server reports, and the route this tab is showing.
-      sequence: -1, best: null, displayed: null, rendered: false,
+      sequence: -1, best: null, displayed: null, rendered: false, note: null,
     };
     state.deepJob = job;
     hideRouteOffer();

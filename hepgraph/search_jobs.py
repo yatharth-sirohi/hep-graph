@@ -221,12 +221,12 @@ class SearchJobs:
         return hashlib.sha1('>'.join(ids).encode('utf-8')).hexdigest()[:16]
 
     @staticmethod
-    def _route_status(status, has_route, proven, can_continue):
+    def _route_status(status, has_route, proven):
         if status == 'searching':
             return 'verified_route_found' if has_route else 'searching_no_path'
         if status == 'cancelled':
             return 'verified_search_stopped' if has_route else 'search_incomplete'
-        if status == 'no_path':
+        if status == 'no_path' and not has_route:
             return 'no_path'
         if status == 'ok' and has_route and proven:
             return 'exact_route_proven'
@@ -245,12 +245,15 @@ class SearchJobs:
         events = state['events']
         state['sequence'] += 1
         now = round(max(0.0, self.clock() - job.created_at), 3)
-        paths = [path for path in (candidate.get('paths') or []) if isinstance(path, dict)]
+        raw = candidate.get('paths')
+        paths = [path for path in raw if isinstance(path, dict)] if isinstance(raw, list) else []
+        if not isinstance(raw, list):
+            candidate['paths'] = paths
         for path in paths:
             path['route_id'] = self._route_id(path)
         primary = paths[0] if paths else None
         hops = primary.get('hops') if primary else None
-        hops = hops if isinstance(hops, int) and not isinstance(hops, bool) else None
+        hops = hops if isinstance(hops, int) and not isinstance(hops, bool) and hops >= 0 else None
         route_id = primary['route_id'] if primary and hops is not None else None
         proven = route_id is not None and candidate.get('global_shortest_proven') is True
         status = candidate.get('status')
@@ -272,10 +275,11 @@ class SearchJobs:
             # one is now the best it can stand behind.
             event('route_withdrawn', hops=hops, route_id=route_id,
                   previous_hops=state['hops'], previous_route_id=state['route_id'])
-            state['best_at'] = now
+            # Whatever was proven was proven about the withdrawn route.
+            state['best_at'], state['exact_at'] = now, None
         elif route_id is None and state['route_id'] is not None:
             event('route_withdrawn', previous_hops=state['hops'], previous_route_id=state['route_id'])
-            state['best_at'] = None
+            state['best_at'] = state['exact_at'] = None
         # An equal-length route replacing the primary one is not an improvement
         # and raises no event; only the identity below moves.
         state['route_id'], state['hops'] = route_id, hops
@@ -297,8 +301,7 @@ class SearchJobs:
             del events[1:len(events) - MAX_EVENTS + 1]
 
         candidate['sequence_number'] = state['sequence']
-        candidate['route_status'] = self._route_status(
-            status, route_id is not None, proven, candidate.get('can_continue') is True)
+        candidate['route_status'] = self._route_status(status, route_id is not None, proven)
         candidate['best_route'] = None if route_id is None else {
             'route_id': route_id, 'hops': hops, 'alternatives': len(paths) - 1,
             'exact': proven, 'found_at_seconds': state['best_at'],
@@ -511,6 +514,10 @@ class SearchJobs:
     def cancel(self, job_id):
         with self.lock:
             job = self._lookup(job_id)
+            if job.data.get('route_status') == 'exact_route_proven' and not job.data.get('can_continue'):
+                # Nothing is running and nothing is left to find: a proven
+                # result is not relabelled as a stopped search.
+                return deepcopy(job.data)
             job.cancel.set()
             if not self._update_job_data(
                     job, status='cancelled', can_continue=False,
@@ -564,7 +571,8 @@ class SearchJobs:
             best = progress.pop('best_result', None)
             candidate['progress'] = progress
             if best and best.get('paths'):
-                candidate['best_result'] = deepcopy(best)
+                # The route itself is published as paths + best_route; the raw
+                # progress payload is not retained a second time.
                 for key in ('paths', 'version', 'coverage', 'distance', 'exact_for_retrieved_graph', 'global_shortest_proven'):
                     if key in best:
                         candidate[key] = deepcopy(best[key])
@@ -666,6 +674,13 @@ class SearchJobs:
                    and job.budget.max_people >= self.extended_budget.max_people)
         # A verified route that is not yet proven shortest continues towards
         # the proof by itself; the route is already published in the job data.
+        # A route the engine already calls shortest (a direct pair, or a
+        # two-hop route with the direct pair exhausted) can leave the HLBES
+        # bound formally open and so arrive with can_continue=True; there is
+        # nothing left to look for, so that result is terminal here.
+        proven = result.get('global_shortest_proven') is True and bool(result.get('paths'))
+        if proven:
+            result['can_continue'] = False
         automatic = (self.auto_continue and result.get('can_continue', False)
                      and (result.get('status') != 'ok' or self.prove_after_route) and not ceiling
                      and self.clock() - job.auto_started < self.max_auto_seconds
@@ -683,7 +698,10 @@ class SearchJobs:
                              target=job.target, filters=job.filters.to_dict())
             if automatic:
                 transient = failed_upstream and result.get('status') in {'search_incomplete', 'upstream_unavailable'}
-                routed = result.get('status') == 'ok' and bool(result.get('paths'))
+                # A slice after the first route usually ends as a checkpoint,
+                # not as 'ok': the route is still shown, so say what the search
+                # is doing for it.
+                routed = bool(result.get('paths'))
                 candidate['automatic_continuations'] += 1
                 candidate.update(status='searching', can_continue=False,
                                  message=(result.get('message') if waiting else

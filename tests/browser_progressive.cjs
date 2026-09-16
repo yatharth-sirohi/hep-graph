@@ -43,6 +43,13 @@ const scenarios = {
   "a refresh restores the server's best route": [FOUND_LONG, PROVEN_SHORT],
   "the export names the displayed route and the delivery state": [FOUND_LONG, FOUND_SHORT],
   "an equal-length route is not announced": [FOUND_LONG, state(3, "searching", "verified_route_found", [route("r-twin", "9001", "9101", "9202", "9103", "9002"), LONG], { metrics: metrics() })],
+  // A job restarted on another server proves a longer route than the one on screen.
+  "a proof about a longer route does not label the shown route exact": [FOUND_SHORT, state(5, "ok", "exact_route_proven", [LONG], { global_shortest_proven: true })],
+  "withdrawing a route that is not on screen leaves the screen alone": [FOUND_LONG, FOUND_SHORT,
+    state(5, "searching", "searching_no_path", [], { events: [{ sequence_number: 0, type: "search_started", at_seconds: 0 }, { sequence_number: 5, type: "route_withdrawn", at_seconds: 14, previous_hops: 3, previous_route_id: "r-short" }] })],
+  "withdrawing the shown route replaces it and says why": [FOUND_LONG,
+    state(3, "searching", "verified_route_found", [SHORT], { events: [{ sequence_number: 0, type: "search_started", at_seconds: 0 }, { sequence_number: 3, type: "route_withdrawn", at_seconds: 14, hops: 3, route_id: "r-short", previous_hops: 4, previous_route_id: "r-long" }] }),
+    state(4, "searching", "verified_route_found", [SHORT])],
 };
 
 async function main() {
@@ -189,6 +196,44 @@ async function main() {
     assert.equal(await page.locator("#route-update").isVisible(), false);
     assert.match(await cardHops(page), /4 person-to-person hops/);
     assert.equal(await routeState(page), "VERIFIED_ROUTE_FOUND");
+  });
+
+  await check("a proof about a longer route does not label the shown route exact", async (page, h) => {
+    await choosePair(page);
+    await start(page);
+    await page.locator("#path-cards .path-card").waitFor();
+    assert.match(await cardHops(page), /3 person-to-person hops/);
+    await h.pollCount(2);
+    await page.locator("#deep-progress").waitFor({ state: "hidden" });
+    assert.match(await cardHops(page), /3 person-to-person hops/);
+    assert.equal(await routeState(page), "SEARCH_INCOMPLETE");
+    assert.doesNotMatch(await page.locator("#path-title").innerText(), /Exact/);
+    assert.doesNotMatch(await page.locator("#path-meta").innerText(), /exact shortest path/);
+    assert.equal(await page.locator("#route-update").isVisible(), false);
+  });
+
+  await check("withdrawing a route that is not on screen leaves the screen alone", async (page, h) => {
+    await choosePair(page);
+    await start(page);
+    await page.locator("#route-update").waitFor({ state: "visible" });
+    await h.pollCount(3);
+    await page.locator("#route-update").waitFor({ state: "hidden" });
+    assert.match(await cardHops(page), /4 person-to-person hops/);
+    assert.equal(await routeState(page), "VERIFIED_ROUTE_FOUND");
+    assert.doesNotMatch(await page.locator("#path-message").innerText(), /withdrawn/);
+  });
+
+  await check("withdrawing the shown route replaces it and says why", async (page, h) => {
+    await choosePair(page);
+    await start(page);
+    await page.locator("#path-cards .path-card").waitFor();
+    assert.match(await cardHops(page), /4 person-to-person hops/);
+    await page.locator("#path-message").filter({ hasText: "withdrawn after identity checks" }).waitFor();
+    assert.match(await cardHops(page), /3 person-to-person hops/);
+    // The explanation stays up on the next poll rather than flashing once.
+    await h.pollCount(3);
+    await page.waitForTimeout(200);
+    assert.match(await page.locator("#path-message").innerText(), /withdrawn after identity checks.*3 hops/);
   });
 
   await browser.close();
