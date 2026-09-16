@@ -67,14 +67,20 @@ AUTHOR_ID_PATTERN = r"[1-9][0-9]{0,11}"
 
 
 class RemoteError(RuntimeError):
-    """A safe remote-access failure suitable for an API response."""
+    """A safe remote-access failure suitable for an API response.
 
-    def __init__(self, code: str, message: str) -> None:
+    ``deadline`` marks a refusal or abort caused by the caller's own deadline
+    rather than by INSPIRE, so a caller can treat it as its own checkpoint
+    instead of recording an upstream failure.
+    """
+
+    def __init__(self, code: str, message: str, *, deadline: bool = False) -> None:
         if code not in {"upstream_unavailable", "resource_limit"}:
             raise ValueError("unsupported remote error code")
         super().__init__(message)
         self.code = code
         self.message = message
+        self.deadline = deadline
 
 
 @dataclass
@@ -220,7 +226,7 @@ class RemoteClient:
         if isinstance(deadline, bool) or not isinstance(deadline, (int, float)) or not math.isfinite(float(deadline)):
             raise RemoteError("resource_limit", "deadline must be a monotonic timestamp")
         if deadline <= now:
-            raise RemoteError("resource_limit", "request deadline has already elapsed")
+            raise RemoteError("resource_limit", "request deadline has already elapsed", deadline=True)
         return float(deadline)
 
     def _evict_expired(self, now: float) -> None:
@@ -378,10 +384,10 @@ class RemoteClient:
             remaining = deadline - self._clock()
             if remaining <= 0 or not pending.event.wait(remaining):
                 self._count(layer, "wait_deadlines")
-                raise RemoteError("resource_limit", "request deadline elapsed while waiting for an identical INSPIRE request")
+                raise RemoteError("resource_limit", "request deadline elapsed while waiting for an identical INSPIRE request", deadline=True)
             if self._clock() > deadline:
                 self._count(layer, "wait_deadlines")
-                raise RemoteError("resource_limit", "request deadline elapsed while waiting for an identical INSPIRE request")
+                raise RemoteError("resource_limit", "request deadline elapsed while waiting for an identical INSPIRE request", deadline=True)
             if pending.error is not None:
                 code, message = pending.error
                 # A short-deadline leader must not impose its private time
@@ -526,19 +532,19 @@ class RemoteClient:
             if delay > 0:
                 if now + delay >= deadline:
                     if self._pace_state.cooldown_until > now:
-                        raise RemoteError("resource_limit", "INSPIRE rate-limit cooldown would exceed this request deadline")
-                    raise RemoteError("resource_limit", "request deadline would be exceeded by global rate pacing")
+                        raise RemoteError("resource_limit", "INSPIRE rate-limit cooldown would exceed this request deadline", deadline=True)
+                    raise RemoteError("resource_limit", "request deadline would be exceeded by global rate pacing", deadline=True)
                 self._sleep(delay)
                 now = self._clock()
             if now >= deadline:
-                raise RemoteError("resource_limit", "request deadline elapsed while waiting for global pacing")
+                raise RemoteError("resource_limit", "request deadline elapsed while waiting for global pacing", deadline=True)
             self._pace_state.next_allowed = now + self._request_interval
 
     def _fetch_json(self, url: str, deadline: float, layer: str) -> Any:
         """Fetch and validate JSON under the shared transport constraints."""
         timeout = min(NETWORK_TIMEOUT_SECONDS, deadline - self._clock())
         if timeout <= 0:
-            raise RemoteError("resource_limit", "request deadline elapsed before transport")
+            raise RemoteError("resource_limit", "request deadline elapsed before transport", deadline=True)
         try:
             body = self._transport(url, timeout)
         except HTTPError as exc:
@@ -565,7 +571,7 @@ class RemoteClient:
             raise RemoteError("upstream_unavailable", "INSPIRE returned invalid JSON") from exc
         self._validate_json_value(value)
         if self._clock() > deadline:
-            raise RemoteError("resource_limit", "request deadline elapsed during transport")
+            raise RemoteError("resource_limit", "request deadline elapsed during transport", deadline=True)
         return value
 
     @staticmethod

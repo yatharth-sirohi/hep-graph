@@ -566,3 +566,41 @@ def test_nonexistent_navigation_hint_person_is_not_invented_as_evidence() -> Non
 
     assert result["status"] == "search_incomplete" and result["paths"] == []
     assert "999" not in raw_ids
+
+
+def test_a_short_slice_never_truncates_a_request_below_the_network_timeout() -> None:
+    """The slice allowance decides whether to start work, not how long a
+    started request may take. A 1 s slice must not hand the client a 1 s
+    deadline and then log the resulting abort as an upstream failure."""
+    from hepgraph.remote import NETWORK_TIMEOUT_SECONDS
+
+    seen: list[float] = []
+
+    class DeadlineClient(Client):
+        def search(self, collection, query, *, size=25, page=1, sort=None, deadline=None):
+            seen.append(deadline - time.monotonic())
+            return super().search(collection, query, size=size, page=page, sort=sort, deadline=deadline)
+
+    session = DeepSearch(DeadlineClient(profiles(1, 2))).start(1, 2, {"genealogy": False})
+    try:
+        session.run(budget(max_seconds=1))
+    finally:
+        session.close()
+    assert seen and all(remaining >= NETWORK_TIMEOUT_SECONDS - 0.5 for remaining in seen), seen
+
+
+def test_a_deadline_refusal_is_a_checkpoint_not_a_logged_failure() -> None:
+    class Refusing(Client):
+        def search(self, collection, query, *, size=25, page=1, sort=None, deadline=None):
+            if collection == "literature":
+                raise RemoteError("resource_limit", "request deadline would be exceeded by global rate pacing",
+                                  deadline=True)
+            return super().search(collection, query, size=size, page=page, sort=sort, deadline=deadline)
+
+    session = DeepSearch(Refusing(profiles(1, 2))).start(1, 2, {"genealogy": False})
+    try:
+        result = session.run(budget())
+        assert result["status"] == "resource_limit" and result["can_continue"] is True
+        assert result["coverage"]["failures"] == [], "our own clock is not an upstream failure"
+    finally:
+        session.close()

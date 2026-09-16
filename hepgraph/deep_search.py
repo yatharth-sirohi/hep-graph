@@ -18,7 +18,7 @@ import time
 from typing import Any, Callable, Iterable
 
 from .graph import Filters, Graph, GraphError
-from .remote import MAX_RESPONSE_BYTES, OVERSIZE_MESSAGE
+from .remote import MAX_RESPONSE_BYTES, NETWORK_TIMEOUT_SECONDS, OVERSIZE_MESSAGE
 from .hlbes import (COMPLETE, EXACT, HLBES, NO_PATH, PARTIAL, UNKNOWN, Neighborhood,
                     OracleStopped, Search)
 from .discovery import Navigator
@@ -679,16 +679,26 @@ class DeepSession:
             raise DeepSearchError("resource_limit", "This deep-search slice reached its request allowance.")
         if time.monotonic() >= self._run_deadline:
             raise DeepSearchError("resource_limit", "This deep-search slice reached its time allowance.")
-        self._run_requests += 1
-        self.requests += 1
+        # The slice allowance decides whether to *start* a request. A request
+        # that has started keeps the full network timeout: a slice of a few
+        # seconds must not turn an ordinary 0.6 s call into a transport abort
+        # that is then logged - and backed off from - as an upstream failure.
+        deadline = max(self._run_deadline, time.monotonic() + NETWORK_TIMEOUT_SECONDS)
         try:
             response = self.client.search(collection, query, size=size or budget.page_size, page=page,
-                                          sort="mostrecent", deadline=self._run_deadline)
+                                          sort="mostrecent", deadline=deadline)
         except Exception as error:
+            if getattr(error, "deadline", False):
+                # Our own clock, not INSPIRE: end the slice as a checkpoint.
+                raise DeepSearchError("resource_limit", "This deep-search slice reached its time allowance.") from error
+            self._run_requests += 1
+            self.requests += 1
             code = getattr(error, "code", "upstream_unavailable")
             message = getattr(error, "message", str(error) or "INSPIRE did not respond.")
             self.failures.append({"collection": collection, "query": query, "error": f"{code}: {message}"})
             raise DeepSearchError(code if self.requests == 1 else "search_incomplete", message) from error
+        self._run_requests += 1
+        self.requests += 1
         if not isinstance(response, dict) or not isinstance(response.get("hits"), dict):
             raise DeepSearchError("upstream_unavailable", "INSPIRE returned an invalid response.")
         hits = response["hits"].get("hits")

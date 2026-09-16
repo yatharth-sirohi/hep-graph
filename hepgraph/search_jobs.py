@@ -63,6 +63,7 @@ class _Job:
         # A transient upstream failure schedules the next attempt instead of
         # sleeping: a request cannot sleep for the caller.
         self.next_attempt_at = 0.0
+        self.failures_seen = 0
         self.last_driven_at = now
         self.active = True
         self.worker_done = False
@@ -488,13 +489,21 @@ class SearchJobs:
                      and result.get('status') != 'ok' and not ceiling
                      and self.clock() - job.auto_started < self.max_auto_seconds
                      and job.stalled_runs < self.max_stalled_runs)
+        # A short slice routinely ends mid-validation, which the engine reports
+        # as search_incomplete. That is a checkpoint, not an upstream failure,
+        # and must not be backed off from: the only sign of a real failure is
+        # a new entry in the coverage failure log during this slice.
+        failures = (result.get('coverage') or {}).get('failures')
+        failure_count = len(failures) if isinstance(failures, list) else job.failures_seen
+        failed_upstream = failure_count > job.failures_seen
+        job.failures_seen = failure_count
         with self.lock:
             candidate = deepcopy(job.data)
             candidate.update(deepcopy(result))
             candidate.update(job_id=job.id, mode='live', source=job.source,
                              target=job.target, filters=job.filters.to_dict())
             if automatic:
-                transient = result.get('status') in {'search_incomplete', 'upstream_unavailable'}
+                transient = failed_upstream and result.get('status') in {'search_incomplete', 'upstream_unavailable'}
                 candidate['automatic_continuations'] += 1
                 candidate.update(status='searching', can_continue=False,
                                  message='Continuing automatically from the evidence already retrieved.')
