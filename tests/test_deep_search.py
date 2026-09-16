@@ -58,7 +58,29 @@ class Client:
                 if response:
                     hits.extend(response["hits"]["hits"])
             return {"hits": {"total": len(hits), "hits": copy.deepcopy(hits)}}
+        if collection == "literature" and len(re.findall(r"\(([^()]*)\)", query)) == 1:
+            return self._union(query, size, page)
         return copy.deepcopy(self.responses.get((collection, query, page), {"hits": {"total": 0, "hits": []}}))
+
+    def _union(self, query: str, size: int, page: int) -> dict:
+        """Serve an OR-union of people from their fixed individual pages.
+
+        INSPIRE returns every work naming any member, so the union is the
+        distinct concatenation of each member's pages, re-paged at the size
+        asked for. A fixture that answered it with an empty page would let the
+        engine certify every member as isolated.
+        """
+        groups = re.findall(r"\(([^()]*)\)", query)
+        clause = query.rsplit(" AND ", 1)[1]
+        hits: list[dict] = []
+        for member in re.findall(r"authors\.record\.\$ref:([0-9]+)", groups[0]):
+            number = 1
+            while (response := self.responses.get(("literature", f"authors.record.$ref:{member} AND {clause}", number))):
+                for hit in response["hits"]["hits"]:
+                    if all(hit["id"] != known["id"] for known in hits):
+                        hits.append(hit)
+                number += 1
+        return {"hits": {"total": len(hits), "hits": copy.deepcopy(hits[(page - 1) * size:page * size])}}
 
 
 class FlakyClient(Client):

@@ -59,6 +59,12 @@ PROFILE_PAGE_SIZE = 25
 # Requests a stale guide corridor may spend without producing a route before
 # it yields to exact frontier work for the rest of the search.
 GUIDE_REQUEST_BUDGET = 24
+# People whose literature is read through one OR-union query. Measured in
+# docs/INSPIRE_NEIGHBORHOOD_API_AUDIT.md §H: five small-team authors cost
+# nineteen individual pages and two as a union. A work naming any member is
+# returned by the union, so exhausting it certifies every member at once; the
+# bound is the result window, which page one of the union reports against.
+BATCH_SIZE = 8
 
 
 class DeepSearchError(ValueError):
@@ -136,6 +142,13 @@ class _Cursor:
     deferred: bool = False
     historical_enqueued: bool = False
     incomplete: list[str] = field(default_factory=list)
+    # Set while this person's literature is being read through a shared
+    # OR-union query instead of their own; None again once it is exhausted
+    # into this cursor or the union was abandoned.
+    union: "_Union | None" = None
+    # Set when a union this person was in could not be read to the end. They
+    # read alone from then on, or the same union would form again and again.
+    solo: bool = False
 
     def window_reach(self, window: int, fallback: int) -> str:
         """Whether a floor count can be read to its empty page at all.
@@ -151,6 +164,35 @@ class _Cursor:
             return "ok"
         return "narrow" if (total // fallback + 1) * fallback <= window else "unreachable"
 
+
+
+@dataclass
+class _Union:
+    """One OR-union literature query shared by several pending people.
+
+    It carries the same paging fields a ``_Cursor`` has so ``_page_done`` and
+    ``_shrink_pages`` apply to it unchanged.  Per-member bookkeeping is kept
+    apart: a member owns exactly the union records that name them, never the
+    rest of the page.
+    """
+
+    members: tuple[str, ...]
+    page_size: int = 0
+    literature_page: int = 1
+    literature_seen: set[str] = field(default_factory=set)
+    literature_total: int | None = None
+    literature_stable: bool = True
+    literature_stable_total: bool = True
+    literature_done: bool = False
+    incomplete: list[str] = field(default_factory=list)
+    shrinks: int = 0
+    page_failures: int = 0
+    slice_pages: int = 0
+    deferred: bool = False
+    member_seen: dict[str, set[str]] = field(default_factory=dict)
+
+    def __post_init__(self) -> None:
+        self.member_seen = {member: set() for member in self.members}
 
 
 @dataclass
@@ -175,9 +217,12 @@ class DeepSearch:
     def __init__(self, client: Any, guide_snapshot: dict[str, Any] | None = None,
                  suggestion_pairs: Iterable[tuple[Any, Any]] = (),
                  core_nodes: Iterable[str] = (),
-                 discovery_hints: bool = False) -> None:
+                 discovery_hints: bool = False, batch_size: int = BATCH_SIZE) -> None:
         self.client = client
         self.guide_snapshot = guide_snapshot
+        # 1 reads every person's literature through their own query; tests
+        # use that to check that a union changes cost and nothing else.
+        self.batch_size = max(1, int(batch_size))
         # Seed identities reorder equal-depth work and nothing else.
         self.core_nodes = frozenset(str(item) for item in core_nodes)
         # Facet discovery and cross-frontier bridging were written for the
@@ -209,7 +254,8 @@ class DeepSearch:
         active_filters = Filters() if filters is None else (filters if isinstance(filters, Filters) else Filters.from_dict(filters))
         return DeepSession(self.client, _id(source), _id(target), active_filters, self.guide_snapshot,
                            self.suggestion_pairs, cancel or threading.Event(), progress,
-                           core_nodes=self.core_nodes, discovery_hints=self.discovery_hints)
+                           core_nodes=self.core_nodes, discovery_hints=self.discovery_hints,
+                           batch_size=self.batch_size)
 
 
 class _EvidenceWithdrawn(Exception):
@@ -256,6 +302,48 @@ class _LiveOracle:
             return []
         pending = (proof.left.open_pending() | proof.right.open_pending()) - {person_id}
         return [self.cursor_for(other) for other in sorted(pending)[:24]]
+
+    def _batch(self, person_id: str) -> None:
+        """Read this person's literature together with their layer, if it helps.
+
+        The companions are the people on the same side at the same depth who
+        still owe a COMPLETE expansion - the layer cannot close until every one
+        of them is read, so a union spends nothing that would not have been
+        spent.  Only people whose paging has not started can join: page N of a
+        union means nothing against a person's own pagination.  Large-team
+        pages hold five records, so a union there would only make pages fuller
+        of other people's works; the mode's page ceiling tells the two apart.
+        """
+        session = self.session
+        proof = session._proof
+        cursor = self.cursors[person_id]
+        if session.batch_size < 2 or proof is None or session._page_ceiling < 100:
+            return
+        side = next((item for item in (proof.left, proof.right) if person_id in item.dist), None)
+        if side is None:
+            return
+        depth = side.dist[person_id]
+        members = [person_id]
+        for other in sorted(side.levels.get(depth, ())):
+            if len(members) >= session.batch_size:
+                break
+            if other == person_id or other in side.complete or other in side.blocked:
+                continue
+            companion = self.cursors.get(other)
+            if companion is not None and self._batchable(companion):
+                members.append(other)
+        if len(members) < 2:
+            return
+        union = _Union(tuple(sorted(members)))
+        for member in union.members:
+            self.cursors[member].union = union
+
+    @staticmethod
+    def _batchable(cursor: _Cursor) -> bool:
+        """Profile known, literature paging not yet started, not in a union."""
+        return (cursor.profile_done and not cursor.literature_done and cursor.union is None
+                and not cursor.solo and cursor.literature_page == 1 and not cursor.page_size
+                and not cursor.literature_seen)
 
     def _members(self, person_id: str) -> tuple[frozenset[str], frozenset[str]]:
         """This person's coauthor neighbours and their genealogy-only ones."""
@@ -334,10 +422,14 @@ class _LiveOracle:
                         session._profile(other, budget)
                 self.genealogy_done.add(person_id)
             attested = self.attested.setdefault(person_id, set())
+            if self._batchable(cursor):
+                self._batch(person_id)
             page_people, kind = session._page_person(cursor, budget, self._companions(person_id))
             if kind == "reverse":
                 self.students.setdefault(person_id, set()).update(page_people)
-            else:
+            elif kind != "union":
+                # A union page is accounted per member inside ``_page_union``:
+                # only the records that name this person may attest for them.
                 attested |= page_people
             self._audit(page_people - {person_id})
             proof = session._proof
@@ -380,11 +472,12 @@ class DeepSession:
                  guide_snapshot: dict[str, Any] | None, suggestion_pairs: tuple[tuple[str, str], ...], cancel: threading.Event,
                  progress: Callable[[dict[str, Any]], None] | None,
                  core_nodes: frozenset[str] = frozenset(),
-                 discovery_hints: bool = False) -> None:
+                 discovery_hints: bool = False, batch_size: int = BATCH_SIZE) -> None:
         self.client, self.source, self.target, self.filters = client, source, target, filters
         self.cancel, self.progress_callback = cancel, progress
         self.core_nodes = core_nodes
         self.discovery_hints = discovery_hints
+        self.batch_size = batch_size
         # Callers serialize every call on this session (SearchJobs holds one
         # lock per job). Different requests may drive it from different
         # threads, so the connection must not be bound to the creating one.
@@ -590,6 +683,12 @@ class DeepSession:
     @staticmethod
     def literature_query(person_id: str, filters: Filters) -> str:
         return f"authors.record.$ref:{person_id} AND {DeepSession._author_count_clause(filters)}"
+
+    @staticmethod
+    def batch_query(person_ids: Iterable[str], filters: Filters) -> str:
+        """One query for several people's literature; sorted for a stable cache key."""
+        group = " OR ".join(f"authors.record.$ref:{person_id}" for person_id in sorted(person_ids))
+        return f"({group}) AND {DeepSession._author_count_clause(filters)}"
 
     @staticmethod
     def pair_query(source: str, target: str, filters: Filters) -> str:
@@ -838,6 +937,9 @@ class DeepSession:
             "literature_next_page": cursor.literature_page, "reverse_next_page": cursor.reverse_page,
             "incomplete": list(cursor.incomplete),
             "deferred": cursor.deferred,
+            # Read through a shared query: its page number is the honest one.
+            "union": ({"members": list(cursor.union.members), "next_page": cursor.union.literature_page}
+                      if cursor.union is not None else None),
         }
 
     @staticmethod
@@ -1083,6 +1185,8 @@ class DeepSession:
         if kind == "reverse" and cursor.reverse_done:
             kind = "literature"
         people: set[str] = set()
+        if kind == "literature" and not cursor.literature_done and cursor.union is not None:
+            return self._page_union(cursor.union, budget), "union"
         if kind == "literature" and not cursor.literature_done:
             if not cursor.page_size:
                 cursor.page_size = self._literature_size(budget)
@@ -1148,6 +1252,100 @@ class DeepSession:
         self._record_node(cursor)
         return people, kind
 
+    def _union_cursors(self, union: _Union) -> list[_Cursor]:
+        """The live cursors still reading through this union.
+
+        A member the identity guard retired has no cursor any more, and one
+        that detached reads on its own; neither may be touched by a union page.
+        """
+        cursors = self._oracle.cursors if self._oracle is not None else {}
+        return [cursor for member in union.members
+                if (cursor := cursors.get(member)) is not None and cursor.union is union]
+
+    def _page_union(self, union: _Union, budget: DeepBudget) -> set[str]:
+        """One page of a shared OR-union literature query.
+
+        The records are stored exactly as an individual page's would be; the
+        graph does not know which query fetched them.  What differs is the
+        accounting: a member owns the union records that name them and no
+        others, and is exhausted only when the whole union has been read to the
+        end under the same rules an individual query must meet.  Every member's
+        progress token advances on every page, so nobody is parked as a dead
+        end while their shared query is still being read.
+        """
+        cursors = self._union_cursors(union)
+        if not union.page_size:
+            union.page_size = self._literature_size(budget)
+        size = union.page_size
+        try:
+            hits, total, total_exact = self._fetch(
+                "literature", self.batch_query(union.members, self.filters),
+                union.literature_page, budget, size=size)
+        except DeepSearchError as error:
+            if error.message == OVERSIZE_MESSAGE and self._shrink_pages(union):
+                # Page numbers only mean something at a fixed size: the union
+                # restarts from page one, and so does what each member owns.
+                union.member_seen = {member: set() for member in union.members}
+                for cursor in cursors:
+                    cursor.shrinks += 1
+                    self._record_node(cursor)
+                return set()
+            if error.message == UNREADABLE_PAGE_MESSAGE:
+                union.page_failures += 1
+                if union.page_failures >= MAX_PAGE_ATTEMPTS:
+                    if "literature_unreadable" not in union.incomplete:
+                        union.incomplete.append("literature_unreadable")
+                    union.literature_page += 1
+                    union.page_failures = 0
+                    for cursor in cursors:
+                        cursor.shrinks += 1
+                        self._record_node(cursor)
+                    self._emit("literature_page_skipped")
+            raise
+        people = set(self._work_people(hits))
+        self.literature_pages += 1
+        self.literature_hits += len(hits)
+        attested = self._oracle.attested if self._oracle is not None else {}
+        for hit in hits:
+            named = self._work_people([hit])
+            for member in union.members:
+                if member in named:
+                    union.member_seen[member].add(str(hit.get("id")))
+                    attested.setdefault(member, set()).update(named)
+        for cursor in cursors:
+            cursor.pages += 1
+            cursor.slice_pages += 1
+            cursor.next_kind = "reverse"
+        self._page_done(union, total, union.literature_page, budget, "literature", page_size=size,
+                        total_exact=total_exact, returned=len(hits),
+                        arrived=(hit.get("id") for hit in hits))
+        union.literature_page += 1
+        pages_needed = -(-total // size) if total_exact else 0
+        if not union.literature_done and (not total_exact or total > MAX_RESULT_WINDOW
+                                          or pages_needed * size > MAX_RESULT_WINDOW):
+            # A floor count, or a set the window cannot hold: the union can be
+            # read from but never to the end, so it certifies nobody. Every
+            # member goes back to their own pagination, from page one; the
+            # page already stored stays as evidence like any other record.
+            for cursor in cursors:
+                cursor.union, cursor.solo = None, True
+            self._emit("literature_union_split")
+        elif union.literature_done:
+            for cursor in cursors:
+                cursor.literature_done = True
+                cursor.page_size = size
+                cursor.literature_seen = set(union.member_seen[cursor.person_id])
+                cursor.literature_total = len(cursor.literature_seen)
+                cursor.literature_stable, cursor.literature_stable_total = True, True
+                # A union that ended short or unreadable proves nothing for
+                # anyone: the marker travels with each member.
+                for marker in union.incomplete:
+                    if marker not in cursor.incomplete:
+                        cursor.incomplete.append(marker)
+        for cursor in cursors:
+            self._record_node(cursor)
+        return people
+
     def _routing_score(self, person_id: str) -> float:
         """Order equal-depth work only. This can never change a distance."""
         cursor = self._oracle.cursors.get(person_id) if self._oracle else None
@@ -1175,7 +1373,14 @@ class DeepSession:
         if cursor is None:
             return 4.0
         remaining = 0.0 if cursor.profile_done else 1.0
-        if not cursor.literature_done:
+        if not cursor.literature_done and cursor.union is not None:
+            # One shared query: the layer's sum over its members should come
+            # to the union's remaining pages, not that many times over.
+            union = cursor.union
+            remaining += self._pages_left(union.literature_total, len(union.literature_seen),
+                                          union.page_size, exact=union.literature_stable_total,
+                                          guess=2.0) / len(union.members)
+        elif not cursor.literature_done:
             remaining += self._pages_left(cursor.literature_total, len(cursor.literature_seen),
                                           cursor.page_size, exact=cursor.literature_stable_total, guess=2.0)
         if not cursor.reverse_done:
