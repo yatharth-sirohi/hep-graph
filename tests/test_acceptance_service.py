@@ -17,6 +17,7 @@ import time
 import pytest
 
 from hepgraph import server as server_module
+from fake_https_connection import json_body, make_connection_class
 from hepgraph import remote as remote_module
 
 
@@ -147,28 +148,6 @@ def test_malformed_snapshot_does_not_replace_last_loaded_state(snapshot_path: Pa
     assert state.snapshot["version"] == "acceptance-v2"
 
 
-class _FakeResponse:
-    def __init__(self, value: object):
-        self.value = json.dumps(value).encode()
-
-    def __enter__(self):
-        return self
-
-    def __exit__(self, *args):
-        return False
-
-    def read(self, limit: int = -1) -> bytes:
-        return self.value[:limit] if limit >= 0 else self.value
-
-
-class _FakeOpener:
-    def __init__(self, value: object):
-        self.value = value
-
-    def open(self, request, timeout):
-        return _FakeResponse(self.value)
-
-
 @pytest.mark.parametrize("payload", [
     {"hits": []},
     {"hits": {"hits": 17}},
@@ -181,7 +160,7 @@ class _FakeOpener:
 def test_malformed_live_upstream_payload_becomes_explicit_unavailable(monkeypatch: pytest.MonkeyPatch, snapshot_path: Path, payload: dict) -> None:
     # A proxy or upstream regression can return a non-object hit. The service
     # contract exposes this as upstream_unavailable rather than a traceback.
-    monkeypatch.setattr(remote_module, "build_opener", lambda _: _FakeOpener(payload))
+    monkeypatch.setattr(remote_module, "HTTPSConnection", make_connection_class(default=json_body(payload)))
     state = server_module.State(snapshot_path)
     result = state.live_search("Malformed payload")
     assert result["status"] == "upstream_unavailable"

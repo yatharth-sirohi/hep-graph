@@ -4,6 +4,10 @@ This module is deliberately a small transport boundary.  It never accepts an
 upstream URL, never writes a cache to disk, and has no background work.  Callers
 must share one client instance for process-wide request pacing in the normal
 application configuration.
+
+The default transport keeps a few TLS connections to INSPIRE alive between
+requests.  A connection serves exactly one request at a time and is pooled
+again only once that response was read to its end; anything else closes it.
 """
 from __future__ import annotations
 
@@ -11,17 +15,19 @@ import copy
 from collections import Counter, OrderedDict
 from dataclasses import dataclass
 from email.utils import parsedate_to_datetime
+from http.client import BadStatusLine, HTTPSConnection, RemoteDisconnected
+import io
 import json
 import math
 import os
 import re
+import ssl
 import threading
 import time
 from typing import Any, Callable
 import weakref
 from urllib.error import HTTPError, URLError
-from urllib.parse import urlencode
-from urllib.request import HTTPRedirectHandler, Request, build_opener
+from urllib.parse import urlencode, urlsplit
 
 from .pipeline import (
     API_ROOT, AUTHOR_FIELDS, LITERATURE_FIELDS, PipelineError, _cached_hit,
@@ -42,6 +48,12 @@ MAX_RESPONSE_BYTES = 4 * 1024 * 1024
 # resource limit and retry smaller instead of giving up on the query.
 OVERSIZE_MESSAGE = "INSPIRE response exceeded the 4 MiB limit"
 NETWORK_TIMEOUT_SECONDS = 8.0
+# Keep-alive pool: at most this many idle connections per host, dropped once
+# idle for longer than this.  INSPIRE sits behind Cloudflare, which closes idle
+# keep-alives itself, and the serverless process is frozen between requests
+# for arbitrary periods, so a stale connection is expected and retried once.
+MAX_IDLE_CONNECTIONS = 4
+MAX_IDLE_SECONDS = 60.0
 # INSPIRE documents 15 requests per 5 s per IP (rest-api-doc, checked
 # 2026-09-15).  That ceiling is 3.0 req/s; HEP Graph paces at 2.0 req/s so the
 # worst case in any 5 s window is 10 of the allowed 15, leaving headroom for
@@ -106,16 +118,178 @@ class _PendingRequest:
     error: tuple[str, str] | None = None
 
 
-class _NoRedirect(HTTPRedirectHandler):
-    def redirect_request(self, req: Request, fp: Any, code: int, msg: str, headers: Any, newurl: str) -> None:
-        return None
+_REQUEST_HEADERS = {"Accept": "application/json", "User-Agent": "hep-graph/1", "Connection": "keep-alive"}
+# What a pooled connection the server has already closed looks like on the
+# next request.  These are retried once, on a fresh connection, and only when
+# they happen before any response byte arrived (the GETs are idempotent).
+# Timeouts are deliberately absent: _fetch_json's deadline accounting depends
+# on them surfacing at once.
+_STALE_CONNECTION_ERRORS = (
+    RemoteDisconnected, BadStatusLine, ConnectionResetError, BrokenPipeError,
+    ConnectionAbortedError, ssl.SSLError,
+)
+_TRANSPORT_FIELDS = ("connections_opened", "requests", "reused_requests", "stale_retries", "idle_expired")
 
 
-def _default_transport(url: str, timeout: float) -> bytes:
-    request = Request(url, headers={"Accept": "application/json", "User-Agent": "hep-graph/1"})
-    with build_opener(_NoRedirect()).open(request, timeout=timeout) as response:
-        body = response.read(MAX_RESPONSE_BYTES + 1)
-    return body
+def _close_quietly(*closeables: Any) -> None:
+    for item in closeables:
+        if item is None:
+            continue
+        try:
+            item.close()
+        except Exception:
+            pass
+
+
+class _KeepAliveTransport:
+    """The default ``transport(url, timeout) -> bytes``, reusing TLS connections.
+
+    One DNS lookup, TCP connect and TLS handshake per request was more than
+    half of a live search's network time.  Here a connection is borrowed for
+    exactly one request and returned to a small per-host pool only after its
+    body was read completely; on any failure it is closed instead, and a
+    connection is never shared between two in-flight requests.  Idle
+    connections expire on the next borrow - there is no background reaper.
+
+    The response contract is the one the previous ``urllib`` transport had:
+    HTTPS only, any non-2xx status (redirects included, which are never
+    followed) raises ``urllib.error.HTTPError`` carrying the response headers,
+    and the body read is capped at ``MAX_RESPONSE_BYTES + 1`` bytes.
+    """
+
+    def __init__(
+        self,
+        *,
+        ssl_context: ssl.SSLContext | None = None,
+        clock: Callable[[], float] | None = None,
+        max_idle: int = MAX_IDLE_CONNECTIONS,
+        max_idle_seconds: float = MAX_IDLE_SECONDS,
+    ) -> None:
+        self._ssl_context = ssl_context
+        self._clock = time.monotonic if clock is None else clock
+        self._max_idle = max_idle
+        self._max_idle_seconds = float(max_idle_seconds)
+        self._lock = threading.Lock()
+        self._idle: dict[tuple[str, int], list[tuple[Any, float]]] = {}
+        self._counts: Counter[str] = Counter()
+        self._closed = False
+
+    def stats(self) -> dict[str, int]:
+        with self._lock:
+            idle = sum(len(connections) for connections in self._idle.values())
+            counts = {field: int(self._counts.get(field, 0)) for field in _TRANSPORT_FIELDS}
+        return counts | {"idle_connections": idle}
+
+    def close(self) -> None:
+        """Close every idle connection; later requests run without pooling."""
+        with self._lock:
+            self._closed = True
+            dropped = [connection for entries in self._idle.values() for connection, _ in entries]
+            self._idle.clear()
+        _close_quietly(*dropped)
+
+    def _count(self, field: str, amount: int = 1) -> None:
+        with self._lock:
+            self._counts[field] += amount
+
+    def _context(self) -> ssl.SSLContext:
+        # Created on first use, as urllib did, so constructing a client never
+        # touches the certificate store.
+        with self._lock:
+            if self._ssl_context is None:
+                self._ssl_context = ssl.create_default_context()
+            return self._ssl_context
+
+    def _borrow(self, key: tuple[str, int]) -> Any | None:
+        now = self._clock()
+        connection = None
+        expired: list[Any] = []
+        with self._lock:
+            idle = self._idle.get(key)
+            if idle:
+                candidate, returned_at = idle.pop()
+                if now - returned_at <= self._max_idle_seconds:
+                    connection = candidate
+                else:
+                    # Entries are appended in return order, so everything
+                    # beneath the newest expired connection is older still.
+                    expired = [candidate] + [entry for entry, _ in idle]
+                    idle.clear()
+                    self._counts["idle_expired"] += len(expired)
+        _close_quietly(*expired)
+        return connection
+
+    def _return(self, key: tuple[str, int], connection: Any) -> None:
+        now = self._clock()
+        with self._lock:
+            idle = self._idle.setdefault(key, [])
+            if not self._closed and len(idle) < self._max_idle:
+                idle.append((connection, now))
+                return
+        _close_quietly(connection)
+
+    def _open(self, host: str, port: int, timeout: float) -> Any:
+        connection = HTTPSConnection(host, port, timeout=timeout, context=self._context())
+        try:
+            connection.connect()
+        except BaseException:
+            _close_quietly(connection)
+            raise
+        self._count("connections_opened")
+        return connection
+
+    def __call__(self, url: str, timeout: float) -> bytes:
+        parts = urlsplit(url)
+        if parts.scheme != "https" or not parts.hostname:
+            raise ValueError("only https URLs may be fetched")
+        host, port = parts.hostname, parts.port or 443
+        target = (parts.path or "/") + (f"?{parts.query}" if parts.query else "")
+        key = (host, port)
+        started = self._clock()
+        retried = False
+        self._count("requests")
+        while True:
+            connection = self._borrow(key)
+            reused = connection is not None
+            if reused:
+                connection.timeout = timeout
+                connection.sock.settimeout(timeout)
+            else:
+                connection = self._open(host, port, timeout)
+            try:
+                connection.request("GET", target, headers=_REQUEST_HEADERS)
+                response = connection.getresponse()
+            except BaseException as exc:
+                _close_quietly(connection)
+                # Only a pooled connection can be stale; a fresh one failing
+                # the same way is a real fault and is reported at once.
+                if (reused and not retried and isinstance(exc, _STALE_CONNECTION_ERRORS)
+                        and not isinstance(exc, TimeoutError)):
+                    remaining = timeout - (self._clock() - started)
+                    if remaining > 0:
+                        retried = True
+                        timeout = remaining
+                        self._count("stale_retries")
+                        continue
+                raise
+            try:
+                body = response.read(MAX_RESPONSE_BYTES + 1)
+            except BaseException:
+                _close_quietly(response, connection)
+                raise
+            # Unread body bytes would arrive as the start of the next response,
+            # so a truncated or otherwise undrained body discards the
+            # connection, as does a server that answered ``Connection: close``.
+            drained = len(body) <= MAX_RESPONSE_BYTES and response.isclosed()
+            if drained and not response.will_close and connection.sock is not None:
+                self._return(key, connection)
+            else:
+                _close_quietly(response, connection)
+            if reused:
+                self._count("reused_requests")
+            if not 200 <= response.status < 300:
+                raise HTTPError(url, response.status, response.reason, response.headers, io.BytesIO(body))
+            return body
 
 
 def _request_interval(override: float | None) -> float:
@@ -165,7 +339,7 @@ class RemoteClient:
                 or not math.isfinite(float(ttl_seconds)) or ttl_seconds <= 0):
             raise ValueError("ttl_seconds must be a finite positive number")
         self._request_interval = _request_interval(request_interval)
-        self._transport = transport or _default_transport
+        self._transport = transport or _KeepAliveTransport()
         self._clock = time.monotonic if clock is None else clock
         self._sleep = time.sleep if sleep is None else sleep
         self._cache_limit = cache_bytes
@@ -722,11 +896,20 @@ class RemoteClient:
             for field in ("hits", "misses", "coalesced", "upstream_requests",
                           "errors", "rejected", "wait_deadlines", "wire_bytes")
         }
+        stats = getattr(self._transport, "stats", None)
+        transport = stats() if callable(stats) else {}
         return {"bytes": cache_bytes, "limit": self._cache_limit, "entries": cache_entries,
                 "ttl_seconds": self._ttl_seconds, "storage": "memory", "persistent": False,
-                "inflight": pending, "inflight_limit": MAX_INFLIGHT, "layers": layers, **totals}
+                "inflight": pending, "inflight_limit": MAX_INFLIGHT, "layers": layers,
+                "transport": transport, **totals}
 
     def clear_cache(self) -> None:
         with self._cache_lock:
             self._cache.clear()
             self._cache_bytes = 0
+
+    def close(self) -> None:
+        """Drop pooled upstream connections.  The client remains usable."""
+        close = getattr(self._transport, "close", None)
+        if callable(close):
+            close()

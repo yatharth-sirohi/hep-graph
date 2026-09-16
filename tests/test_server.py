@@ -16,6 +16,7 @@ import time
 import pytest
 
 from hepgraph import server as server_module
+from fake_https_connection import make_connection_class
 from hepgraph import remote as remote_module
 from hepgraph.graph import Filters, Graph
 
@@ -296,33 +297,6 @@ def test_resource_limit_is_not_returned_as_success_or_no_path(service, monkeypat
     assert result["status"] != "no_path"
 
 
-class _FakeResponse:
-    def __init__(self, payload: bytes):
-        self.payload = payload
-
-    def __enter__(self):
-        return self
-
-    def __exit__(self, *args):
-        return False
-
-    def read(self, limit: int = -1) -> bytes:
-        return self.payload if limit < 0 else self.payload[:limit]
-
-
-class _FakeOpener:
-    def __init__(self, response=None, error=None):
-        self.response = response
-        self.error = error
-        self.requests = []
-
-    def open(self, request, timeout):
-        self.requests.append((request, timeout))
-        if self.error:
-            raise self.error
-        return self.response
-
-
 def _live_payload(name: str = "<script>alert(1)</script>") -> bytes:
     return json.dumps({"hits": {"total": 1, "hits": [{
         "id": "77",
@@ -337,36 +311,37 @@ def _live_payload(name: str = "<script>alert(1)</script>") -> bytes:
 
 
 def test_live_search_constructs_only_fixed_upstream_urls_and_bounds_query(monkeypatch, snapshot_path: Path) -> None:
-    opener = _FakeOpener(_FakeResponse(_live_payload()))
-    monkeypatch.setattr(remote_module, "build_opener", lambda _: opener)
+    connections = make_connection_class(default=_live_payload())
+    monkeypatch.setattr(remote_module, "HTTPSConnection", connections)
     state = server_module.State(snapshot_path)
     result = state.live_search("x/y? OR attacker")
     assert result["status"] == "ok"
     assert result["results"][0]["id"] == "77"
     assert result["results"][0]["name"] == "<script>alert(1)</script>"
     assert "untrusted_field" not in result["results"][0]
-    request, timeout = opener.requests[0]
-    parsed = server_module.urllib.parse.urlsplit(request.full_url)
-    assert parsed.scheme == "https"
-    assert parsed.netloc == "inspirehep.net"
+    (connection,) = connections.instances
+    method, target, _ = connection.requests[0]
+    # The transport refuses anything but https and hands TLS a real context.
+    assert isinstance(connection.context, remote_module.ssl.SSLContext)
+    assert (connection.host, connection.port, method) == ("inspirehep.net", 443, "GET")
+    parsed = server_module.urllib.parse.urlsplit(target)
     assert parsed.path == "/api/authors"
     assert "attacker" in server_module.urllib.parse.parse_qs(parsed.query)["q"][0]
-    assert 0 < timeout <= 8
+    assert 0 < connection.timeout <= 8
 
 
 def test_live_upstream_failure_is_explicit_and_cached_results_are_isolated(monkeypatch, snapshot_path: Path) -> None:
-    failing = _FakeOpener(error=remote_module.URLError("offline"))
-    monkeypatch.setattr(remote_module, "build_opener", lambda _: failing)
+    monkeypatch.setattr(remote_module, "HTTPSConnection", make_connection_class(connect_error=OSError("offline")))
     state = server_module.State(snapshot_path)
     unavailable = state.live_search("Offline researcher")
     assert unavailable["status"] == "upstream_unavailable"
     assert unavailable["results"] == []
 
-    opener = _FakeOpener(_FakeResponse(_live_payload("Cached name")))
-    monkeypatch.setattr(remote_module, "build_opener", lambda _: opener)
+    connections = make_connection_class(default=_live_payload("Cached name"))
+    monkeypatch.setattr(remote_module, "HTTPSConnection", connections)
     state = server_module.State(snapshot_path)
     first = state.live_search("Cached researcher")
     first["results"][0]["name"] = "mutated by caller"
     second = state.live_search("Cached researcher")
     assert second["results"][0]["name"] == "Cached name"
-    assert len(opener.requests) == 1
+    assert sum(len(connection.requests) for connection in connections.instances) == 1
