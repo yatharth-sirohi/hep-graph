@@ -926,7 +926,12 @@
         } }, job);
         try {
           const data = await api(urlWithFilters("/api/path", { source: job.source, target: job.target, search: "deep" }));
-          if (!deepJobCurrent(job)) return;
+          if (!deepJobCurrent(job)) {
+            // The user moved on while the restart was in flight; do not leave
+            // the fresh server job running for nobody.
+            if (data.job_id) { job.jobId = data.job_id; sendDeepCancel(job); }
+            return;
+          }
           if (data.job_id) job.jobId = data.job_id;
           rememberDeepJob(job);
           consumeDeepResponse(data, job);

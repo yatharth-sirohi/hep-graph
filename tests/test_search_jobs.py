@@ -459,3 +459,126 @@ def test_idle_expiry_frees_capacity_and_marks_the_job_cancelled():
         assert engine.sessions == [] or all(s.closed.is_set() for s in engine.sessions)
     finally:
         jobs.shutdown()
+
+
+class SlowFinishSession(Session):
+    """Blocks inside run() until told to finish, then returns a continuable result."""
+
+    def __init__(self, cancel, progress, blocking):
+        super().__init__(cancel, progress, blocking)
+        self.release = threading.Event()
+
+    def run(self, budget):
+        self._enter()
+        try:
+            self.calls.append(budget)
+            self.entered.set()
+            self.release.wait(3)
+            return {'status': 'search_incomplete', 'can_continue': True, 'paths': [],
+                    'coverage': {'failures': []},
+                    'progress': {'works_retrieved': len(self.calls), 'people_explored': 1, 'requests': len(self.calls)}}
+        finally:
+            self.busy.release()
+
+
+class SlowFinishEngine(Engine):
+    def start(self, source, target, filters, *, cancel, progress):
+        session = SlowFinishSession(cancel, progress, False)
+        self.sessions.append(session)
+        return session
+
+
+def test_a_cancel_during_a_slice_is_never_overwritten_by_that_slice():
+    """The slice's continuation decision re-checks cancel under the lock it writes with."""
+    engine = SlowFinishEngine()
+    jobs = SearchJobs(lambda: engine, auto_continue=True, retry_delay=0, start_slice=0)
+    try:
+        key = jobs.start('1', '3', Filters())['job_id']
+        driver = drive_in_background(jobs, key)
+        assert eventually(lambda: engine.sessions and engine.sessions[0].entered.is_set())
+        assert jobs.cancel(key)['status'] == 'cancelled'
+        engine.sessions[0].release.set()
+        driver.join(3)
+        job = jobs.jobs[key]
+        assert job.data['status'] == 'cancelled' and job.worker_done and not job.active
+        assert engine.sessions[0].closed.is_set()
+        assert jobs.info()['active'] == 0
+    finally:
+        jobs.shutdown()
+
+
+def test_continuing_after_a_long_read_is_not_reaped_as_abandoned():
+    clock = [0.0]
+    engine = ContinuableSuccessEngine()
+    jobs = SearchJobs(lambda: engine, clock=lambda: clock[0], idle_seconds=30, start_slice=0)
+    try:
+        key = jobs.start('1', '3', Filters())['job_id']
+        paused = jobs.get(key)
+        assert paused['status'] == 'ok' and paused['can_continue'] is True
+        clock[0] = 600.0  # the user reads the result for ten minutes
+        resumed = jobs.resume(key)
+        assert resumed['status'] in {'ok', 'searching'}
+        assert jobs.get(key)['status'] != 'cancelled'
+        assert 'nothing asked about it' not in (jobs.get(key).get('message') or '')
+    finally:
+        jobs.shutdown()
+
+
+def test_a_slice_in_flight_is_not_reaped_at_the_idle_boundary():
+    clock = [0.0]
+    engine = SlowFinishEngine()
+    jobs = SearchJobs(lambda: engine, clock=lambda: clock[0], idle_seconds=30,
+                      start_slice=0, auto_continue=True, retry_delay=0)
+    try:
+        key = jobs.start('1', '3', Filters())['job_id']
+        clock[0] = 29.0
+        driver = drive_in_background(jobs, key)
+        assert eventually(lambda: engine.sessions and engine.sessions[0].entered.is_set())
+        clock[0] = 31.0
+        jobs.info()  # runs _prune while the slice is in flight
+        assert jobs.jobs[key].data['status'] == 'searching', 'a running slice is not abandonment'
+        engine.sessions[0].release.set()
+        driver.join(3)
+    finally:
+        jobs.shutdown()
+
+
+def test_a_finalized_job_never_acquires_a_fresh_engine_session():
+    """cancel() between a poll's decision and its slice must not open a session for nobody."""
+    engine = Engine()
+    jobs = SearchJobs(lambda: engine, start_slice=0)
+    try:
+        key = jobs.start('1', '3', Filters())['job_id']
+        job = jobs.jobs[key]
+        assert job.session is None
+        jobs.cancel(key)
+        jobs.get(key)
+        assert job.session is None and engine.sessions == []
+    finally:
+        jobs.shutdown()
+
+
+def test_a_dead_upstream_still_backs_off_and_eventually_pauses():
+    from test_automatic_search import FailingEngine
+
+    now = [0.0]
+    engine = FailingEngine(clock=now)
+    jobs = SearchJobs(lambda: engine, auto_continue=True, retry_delay=5, max_stalled_runs=3,
+                      clock=lambda: now[0], start_slice=0)
+    try:
+        key = jobs.start('1', '3', Filters())['job_id']
+        job = jobs.jobs[key]
+        delays = []
+        for _ in range(6):
+            now[0] = max(now[0], job.next_attempt_at)
+            before = engine.calls
+            jobs.get(key)
+            if engine.calls > before:
+                delays.append(job.next_attempt_at - now[0])
+            if job.data['status'] != 'searching':
+                break
+        # Failed requests are not progress: the delay grows and the job pauses.
+        assert job.data['status'] != 'searching' and job.data['can_continue'] is True
+        assert engine.calls <= 4
+    finally:
+        jobs.shutdown()

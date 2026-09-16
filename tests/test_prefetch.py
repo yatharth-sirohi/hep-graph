@@ -152,7 +152,8 @@ def test_prepare_http_is_post_only_same_origin_bodyless_and_parses_min_authors(t
     try:
         query = "/api/prepare?mode=live&person=42&min_authors=11&max_authors=all&genealogy=false"
         status, _, body = service.request(query, method="POST", extra_headers={"Origin": "http://localhost"})
-        assert status == 202
+        # The warm-up ran inside the request; a completed one is 200, not 202.
+        assert status == 200
         started = json.loads(body)
         assert started["person"] == "42"
         assert started["filters"]["min_authors"] == 11

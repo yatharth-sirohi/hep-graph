@@ -398,6 +398,9 @@ class SearchJobs:
             job.paused_at = None
             job.finished_at = None
             job.generation += 1
+            # The user may have read the result for minutes before continuing;
+            # from here the job is live again and must not look abandoned.
+            job.last_driven_at = self.clock()
             job.budget = self.extended_budget
             job.auto_started = self.clock()
             job.stalled_runs = 0
@@ -436,14 +439,24 @@ class SearchJobs:
 
     def _advance(self, job, seconds):
         """Run one bounded slice of a job inside the calling request, if it is due."""
-        if seconds <= 0:
-            return
-        with self.lock:
-            due = (job.active and not job.worker_done and not job.cancel.is_set()
-                   and not job.retire.is_set() and self.clock() >= job.next_attempt_at)
-        if not due or not job.drive.acquire(blocking=False):
+        if seconds <= 0 or not job.drive.acquire(blocking=False):
             return
         try:
+            with self.lock:
+                if (job.cancel.is_set() or job.retire.is_set()) and not job.worker_done:
+                    # Nobody else can release it: a cancel or retire that found
+                    # the lock busy left that to whoever holds it next.
+                    self._finalize(job, held=True)
+                    return
+                # Decided under the lock while holding drive, so nothing can
+                # finalize this job between the decision and the slice.
+                due = (job.active and not job.worker_done
+                       and self.clock() >= job.next_attempt_at)
+                if not due:
+                    return
+                # Stamped before the slice as well as after: a slice that has
+                # started is not abandoned, however long ago the last one ran.
+                job.last_driven_at = self.clock()
             self._run_slice(job, seconds)
         finally:
             with self.lock:
@@ -475,10 +488,22 @@ class SearchJobs:
             self._finalize(job, held=True)
             return
         progress = result.get('progress') or {}
-        # Any upstream request is progress: a slice spent hydrating profiles
-        # retrieves no new work and explores nobody new, yet it is not stuck.
+        # A short slice routinely ends mid-validation, which the engine reports
+        # as search_incomplete. That is a checkpoint, not an upstream failure,
+        # and must not be backed off from: the only sign of a real failure is
+        # a new entry in the coverage failure log during this slice.
+        failures = (result.get('coverage') or {}).get('failures')
+        failure_count = len(failures) if isinstance(failures, list) else job.failures_seen
+        failed_upstream = failure_count > job.failures_seen
+        job.failures_seen = failure_count
+        # Progress is new evidence or new people. A slice spent hydrating
+        # profiles retrieves neither yet is not stuck, so successful requests
+        # count too - but requests that failed are not progress, or a dead
+        # upstream would be hammered every slice for hours and never pause.
         marker = (progress.get('works_retrieved'), progress.get('people_explored'), progress.get('requests'))
-        job.stalled_runs = job.stalled_runs + 1 if marker == job.last_progress else 0
+        last = job.last_progress or (None, None, None)
+        progressed = (marker[:2] != last[:2]) or (marker[2] != last[2] and not failed_upstream)
+        job.stalled_runs = 0 if progressed else job.stalled_runs + 1
         job.last_progress = marker
         # A time/request checkpoint is resumable; a session-wide memory ceiling
         # cannot be fixed by immediately trying again.
@@ -489,15 +514,13 @@ class SearchJobs:
                      and result.get('status') != 'ok' and not ceiling
                      and self.clock() - job.auto_started < self.max_auto_seconds
                      and job.stalled_runs < self.max_stalled_runs)
-        # A short slice routinely ends mid-validation, which the engine reports
-        # as search_incomplete. That is a checkpoint, not an upstream failure,
-        # and must not be backed off from: the only sign of a real failure is
-        # a new entry in the coverage failure log during this slice.
-        failures = (result.get('coverage') or {}).get('failures')
-        failure_count = len(failures) if isinstance(failures, list) else job.failures_seen
-        failed_upstream = failure_count > job.failures_seen
-        job.failures_seen = failure_count
         with self.lock:
+            if job.cancel.is_set() or job.retire.is_set():
+                # cancel() writes its status under this same lock; a slice
+                # that finished just after must not overwrite it with a
+                # 'searching' nobody will ever drive again.
+                self._finalize(job, held=True)
+                return
             candidate = deepcopy(job.data)
             candidate.update(deepcopy(result))
             candidate.update(job_id=job.id, mode='live', source=job.source,
@@ -538,7 +561,7 @@ class SearchJobs:
         Returns False when a slice is running on another request; that slice
         sees the cancel or retire flag when it returns and finalizes itself.
         """
-        if job.worker_done:
+        if job.worker_done and job.session is None:
             return True
         if not held and not job.drive.acquire(blocking=False):
             return False

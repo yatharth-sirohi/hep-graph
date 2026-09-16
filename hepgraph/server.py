@@ -442,7 +442,10 @@ class Handler(BaseHTTPRequestHandler):
                 return self.respond({'status': 'invalid_request', 'message': 'Use POST to prepare a selected author.'}, 405)
             if mode != 'live':
                 return self.respond({'status': 'invalid_request', 'message': 'Preparation is available only in live mode.'}, 400)
-            return self.respond(state.preparation_jobs().start(person_id(args.get('person')), filters), 202)
+            prepared = state.preparation_jobs().start(person_id(args.get('person')), filters)
+            # The warm-up runs inside this request, so it has usually finished
+            # by now; only a still-running one is "accepted".
+            return self.respond(prepared, 202 if prepared.get('status') in {'queued', 'running'} else 200)
         if mode == 'live':
             if path == '/api/path' and args.get('search', 'deep') == 'deep':
                 source, target = person_id(args.get('source')), person_id(args.get('target'))

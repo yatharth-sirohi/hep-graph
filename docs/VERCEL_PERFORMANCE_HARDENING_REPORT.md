@@ -113,6 +113,52 @@ contributed a useful edge here; it is not a cost to remove.
 
 ## 11. What changed
 
+Nothing in `hlbes.py`. Nothing in how neighbourhoods are certified. The
+changes are to *when the engine gets to run*.
+
+**Searches advance inside requests** (`hepgraph/search_jobs.py`). `start()`
+runs a bounded first slice (3 s) before it answers, so a direct connection is
+usually returned by the start request itself. Every poll runs a 5 s slice
+before answering; `continue` runs one immediately. Exactly one request drives
+a given job at a time, enforced by a per-job lock; a poll that arrives while
+another is driving reads the current state. A transient upstream failure
+schedules the next attempt instead of sleeping inside somebody's request.
+
+**The engine's ownership contract changed from a thread to a lock.**
+`DeepSession` required a single owner thread because its in-memory SQLite
+connection was thread-bound. The invariant that matters is that calls never
+overlap; the connection is opened `check_same_thread=False` and the driving
+lock provides the exclusion. The test fakes now assert exactly that.
+
+**The slice allowance starts work; it never truncates a request.** The first
+version handed the slice deadline to the HTTP client, so a request begun late
+in a 5 s slice got a one-second transport timeout or was refused by the pacer,
+and each was logged as an upstream failure — which the continuation logic then
+backed off from for 5, 10, 20 s. Measured over local HTTP: 2 of 70 polls
+actually drove, first route at 24 s instead of 9. Now a started request keeps
+the full network timeout, a refusal caused by our own deadline is tagged by the
+client and ends the slice as an unlogged checkpoint, and only a *new* entry in
+the failure log earns a retry delay.
+
+**Abandoned searches expire.** A job advances only when polled, so a closed
+tab left a job `searching` for ever and its TTL never started; two of them
+would have held both active slots and refused every later search. A job not
+driven for two minutes is stopped honestly and releases its slot.
+
+**Endpoint preparation runs inside its POST** (`hepgraph/prefetch.py`). Its
+worker pool had the identical freeze problem. It costs the preparing request
+about two seconds and actually happens.
+
+**The browser restarts a search whose job is unknown to the answering
+process** (`static/app.js`), at most twice, and says so in the progress line.
+Job state is per process; every measured poll reached the same one, but
+nothing guarantees it.
+
+**Forensics.** `/api/health` reports the build commit, deployment id, region
+and a per-process instance id; every JSON response carries the instance id in
+`X-HEP-Instance`.
+
+
 ## 12. Performance after
 
 ## 13. Tests
