@@ -10,6 +10,7 @@ neighbourhood twice, at the old size and the new one, and requires the neighbour
 set and the supporting work set to be identical.
 """
 import re, sys, time
+from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from hepgraph.remote import RemoteClient
 
