@@ -80,7 +80,9 @@ progress or `verify` to rehash all committed shards and recheck upstream
 counts. `plan` and `fetch` are available for fault diagnosis; `fetch
 --max-partitions N` makes a bounded test run but cannot certify the source.
 The spool records per-partition SHA-256 values and a source-accounting report.
-It does **not** claim a transactionally consistent INSPIRE cutoff: the public
+That report deliberately leaves `source_complete=false` even when
+`partition_accounting_passed=true`; it cannot unlock promotion. It does
+**not** claim a transactionally consistent INSPIRE cutoff: the public
 API has no documented point-in-time export, and an unchanged total alone
 cannot exclude an in-place correction during a long crawl. A production
 validator must resolve this with INSPIRE or a defensible reconciliation

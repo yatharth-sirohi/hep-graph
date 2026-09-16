@@ -185,7 +185,12 @@ class FullAcquisition:
 
     def verify(self) -> dict[str, Any]:
         """Independent re-hash and accounting; never certifies graph semantics."""
-        report: dict[str, Any] = {"source_complete": False, "collections": {}}
+        # Matching counts do not prove a point-in-time INSPIRE snapshot: an
+        # upstream correction can swap records without changing the total.
+        # In particular, this report must never satisfy the registry's
+        # independent source_complete promotion gate on its own.
+        report: dict[str, Any] = {"partition_accounting_passed": False,
+                                  "source_complete": False, "collections": {}}
         for collection in COLLECTIONS:
             meta = self.db.execute("SELECT * FROM acquisition_meta WHERE collection=?",
                                    (collection,)).fetchone()
@@ -224,7 +229,7 @@ class FullAcquisition:
                 raise PipelineError(f"{collection} upstream count drifted; no cutoff can be certified")
             report["collections"][collection] = {"records": actual, "shards": len(leaves),
                                                   "started_at": meta["started_at"]}
-        report["source_complete"] = True
+        report["partition_accounting_passed"] = True
         report["verified_at"] = utc_now()
         with self.db:
             self.db.execute("INSERT INTO acquisition_report(singleton,payload) VALUES (1,?) "

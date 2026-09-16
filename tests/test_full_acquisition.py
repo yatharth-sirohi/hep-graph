@@ -50,7 +50,8 @@ def test_full_acquisition_resume_verify_and_privacy(tmp_path):
     runner.plan()
     runner.fetch()
     report = runner.verify()
-    assert report["source_complete"] is True
+    assert report["partition_accounting_passed"] is True
+    assert report["source_complete"] is False  # no atomic upstream cutoff
     assert report["collections"]["literature"]["records"] == 7
     assert report["collections"]["authors"]["records"] == 4
     stored = db.execute("SELECT payload FROM acquisition_record WHERE collection='authors' LIMIT 1").fetchone()[0]
