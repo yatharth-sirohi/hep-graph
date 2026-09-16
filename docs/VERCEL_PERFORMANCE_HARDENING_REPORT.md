@@ -161,6 +161,35 @@ and a per-process instance id; every JSON response carries the instance id in
 
 ## 12. Performance after
 
+All figures are cold-cache and use browser-identical polling (1.5 s idle,
+250 ms after a poll that did work). "Old" is `main` at `89912cb`.
+
+| Query | Environment | Old | New |
+|---|---|---:|---:|
+| Feynman → Wheeler (1 hop) | local, in process | 1.4 s | — |
+| Feynman → Wheeler (1 hop) | local, over HTTP | ≈1.4 s | **1.8 s** (answered by the start request) |
+| Hostert → Pascoli (1 hop) | **Vercel**, 1.5 s polls | **19.0 s** | *unmeasured — see § 15* |
+| Erin → Hostert, first verified route | local, in process | 8.8 s | 8.8 s (engine unchanged) |
+| Erin → Hostert, first verified route | local, over HTTP | ≈9 s (thread ran continuously) | **19.5 s** |
+| Erin → Hostert, first verified route | **Vercel** | 89 s observed; **no route in 241 s** measured | *unmeasured — see § 15* |
+| Erin → Hostert, proven | local, in process | 18.2 s, 4 hops | 18.2 s, 4 hops |
+
+Two honest readings of that table:
+
+- **Locally the new driver is about twice as slow to a first route over HTTP.**
+  A background thread never stopped between polls; slices do. That is the
+  price of a design that survives a platform which freezes the process, paid
+  on a platform that does not. It is bounded and predictable rather than
+  accidental, and it does not touch what is proven.
+- **The deployed gain is the whole point and is not yet measured.** The
+  mechanism was measured on production — poll rate alone moved a one-hop
+  search from 19.0 s to 2.6 s — and the fixed build behaves as designed over
+  HTTP locally. The remaining step needs access to the preview (§ 15).
+
+CPU: in a 3.3 s slice, 2.6 s is `urllib` waiting on INSPIRE; HLBES's own time
+rounds to zero. Per § 27 of the brief, no language rewrite is justified.
+
+
 ## 13. Tests
 
 | | |
@@ -223,4 +252,73 @@ Every item was fixed and pinned by a regression test in
 
 ## 15. Remaining bottlenecks
 
+Stated as found.
+
+**The fixed build has not been measured on Vercel.** The branch's preview
+deployments build successfully but sit behind Vercel's preview protection
+(every route answers 302 to `vercel.com/sso-api`), and no bypass token is
+available in this environment. The mechanism was measured on production (§ 2,
+§ 3); the fix was measured over local HTTP with browser-identical polling
+(§ 12). Whether the fixed build behaves the same on Vercel is a prediction
+with strong grounds — every slice now runs inside an open invocation, which is
+the one thing the platform guarantees — but it is a prediction until the
+deployment is measured. That needs either a protection-bypass secret, preview
+protection disabled for this project, or a production deploy.
+
+**Per-process state still means per-process everything.** The request pacer
+and in-flight coalescing are enforced within a process. One serving instance
+stays under INSPIRE's published limit; two concurrent instances do not
+coordinate. Every measured poll reached the same process, so this is a scaling
+question, not an observed problem. The instance header now makes it measurable
+on a deployment.
+
+**Time to a verified route over HTTP is ~2× the in-process figure** (19.5 s vs
+8.8 s for Erin → Hostert). Each slice ends at its deadline before *starting* a
+request, a started request keeps its full timeout, and the browser round-trip
+adds a quarter second — so a five-second slice delivers roughly four seconds of
+engine work. Larger slices would narrow the gap at the cost of longer poll
+responses; five seconds keeps a poll well inside any plausible function
+duration limit.
+
+**After a verified route, proving shortestness still needs Continue.** That is
+Phase I product behaviour, unchanged: automatic continuation runs only while no
+route is known. It is why the deployment showed a five-hop route — the guide
+corridor found one — while the proof, which needs Continue, finds four.
+
+**Discovery/evidence split not implemented.** The profile shows time is
+per-request network latency, not bytes: a small-team record is ~1.8 KB and
+HLBES CPU rounds to zero. A thinner discovery projection would save bytes that
+are not the bottleneck while reintroducing the upsert hazard Phase II
+documented. Left as designed there.
+
+**Identity hole unchanged** (strict `xfail`). See § 11 of the Phase II report
+for why the naive fix was reverted; a name-compatibility layer was not built in
+this phase.
+
+**Batched OR queries** remain a documented, unbuilt lever (Phase II § 11).
+
+**Core prewarming** was not run: it depends on cache state surviving between
+searches, which is per process on this deployment.
+
+
 ## 16. Git and deployment
+
+| | |
+|---|---|
+| Branch | `deployment-performance-hardening`, pushed |
+| Base | `89912cb` (`main`, unchanged) |
+| Preview deployments | built for every push; protected by Vercel SSO |
+| Production | still `89912cb` — **not merged** |
+
+```
+d55ea8f Poll again at once after a poll that did work
+acc5a65 Close six races an independent review found in the request driver
+cd4e0cc Let the slice allowance start work, never truncate a request
+4020937 Stop a searching job that nothing has polled for two minutes
+b743fd9 Advance searches inside requests, not on a thread the platform freezes
+831e561 Expose build commit and process identity on the health endpoint
+```
+
+`main` was left untouched on purpose: the hard gate "deployed Erin → Hostert
+substantially improved" cannot be verified against a preview that answers 302,
+and the brief says not to replace production before the preview is tested.
