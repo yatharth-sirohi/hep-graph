@@ -169,6 +169,106 @@ construction.
 `search.json`; people search is delegated to HEP Graph live search.
 `people/<collab>/_unknown.json` holds rows with no institution.
 
+**A15. Claim-level evidence (from the provenance review).** Every sourced
+value, quantity, coordinate, interval, membership/affiliation/lineage/
+leadership/placement row may carry `quote` (verbatim ≤ 300 chars seen in the
+fetched content) and `locator` ("p. 12, Table 1.1", "§4.2", "section
+'Institutions'"). One of them is **required** for: coordinates, `key_specs`
+quantities, baselines, result `date`/`significance`/`result_type`, membership
+rows with an `official_*` class, collaboration `formation`, and interval
+bounds at day or month precision. The source-level `excerpt` stays optional.
+`sources` (source id → citing paths) is derived at build into `sources.json`;
+never authored.
+
+**A16. Results.** `result.claim: {"quote": "...", "locator": "", "sources": [...]}`
+is required and must come from the publication title/abstract or the
+collaboration's own result page (never a press release, PDG or Wikipedia).
+Mechanical check: `result_type: discovery` requires "discover" in
+`claim.quote` or the cited source title; `observation` requires "observ";
+`evidence` requires "evidence". `result.experiment_ids` rows may be objects
+`{"id", "sources"}` when attribution needs its own source. `result.date_kind:
+"announcement"|"preprint"|"publication"` is required.
+
+**A17. No from-memory values on critical fields.** Rule 5 of the agent rules
+is amended: a critical field is either sourced (non-empty `sources`) or
+`null` with a `note`. `confidence: uncertain` still requires a source; it
+means the source itself is weak or ambiguous. A `verified` value must cite at
+least one source of rank ≤ 10; coordinates of `kind: detector|underground_lab`
+may not rely solely on `geocoder` or rank ≥ 8 sources (geocoder coordinates are
+`campus|headquarters` only).
+
+**A18. Sources.** `accessed` is required. New optional fields: `retrieval:
+"full_text"|"partial"|"summary"|"failed"` (a source with `failed` may not be
+cited; a `quote` on a `summary` retrieval is an error), `archive_url`,
+`content_hash` (filled by the link checker), `publisher_id` (the
+collaboration/facility/institution that publishes it). Rank mapping
+(derived): official_experiment_site 1, official_facility_site 2,
+experiment_registry 3, inspire_experiment_record 3, design_report 4,
+detector_paper 5, hepdata 6, pdg 7, institution_page 8, geocoder 8,
+result_page 9, press_release 9, project_document 9, journal_article 10,
+arxiv 10, inspire_literature_record 10, wikipedia 12, wikidata 12,
+secondary 12. `inspire_record` is retired in favour of the two explicit types.
+
+**A19. Evidence classes.** Add `inspire_author_profile` (INSPIRE author record
+lists the collaboration) and `self_reported` (personal page/CV). Every
+`publication_affiliation_*` row requires `evidence_date`; `_current` fails
+when `as_of − evidence_date > 3 y`; `_historical` requires `end` or
+`known_until`. `derived` is forbidden on person rows (institution rows only,
+hollow). Precedence when several apply: official_roster >
+official_institution_list > inspire_author_profile >
+publication_affiliation_current > institutional_page > self_reported >
+publication_affiliation_historical > derived. Source-type consistency:
+`official_*` ⇒ a source of type official_experiment_site /
+official_facility_site / experiment_registry; `publication_*` ⇒
+journal_article / arxiv / inspire_literature_record / detector_paper /
+design_report; `institutional_page` ⇒ institution_page. Counts labelled
+"member institutions" include official_*, inspire_author_profile,
+publication_affiliation_current and institutional_page only. Affiliation rows
+on people carry `evidence_class` and `evidence_date` too. Per-row
+`evidence_class` and `sources` are required in membership files
+(`default_evidence_class` is removed; `roster_sources` is documentation).
+UI wording: official_roster → "On the collaboration's own member list (as of
+<as_of>)"; official_institution_list → "On the official institution list (as
+of <as_of>)"; inspire_author_profile → "INSPIRE author profile lists this
+collaboration"; publication_affiliation_current → "Listed with this affiliation
+on a <collab> paper (<year>); current membership not confirmed";
+publication_affiliation_historical → "Listed on a <collab> paper in <year>; may
+no longer be a member"; institutional_page → "The institution's own page states
+participation (checked <date>)"; self_reported → "Self-reported"; derived →
+"Inferred, not verified".
+
+**A20. Duplicate detection (validator).** Fail: two entities of one type share
+any `external.*` id, DOI, arXiv id, INSPIRE recid or ORCID; normalised
+name/alias collision within a type (lower-case, strip non-alphanumerics and a
+leading "the") unless both records list each other in `distinct_from: [id]`;
+two `src:` records with the same normalised URL or DOI; alias equal to own
+name; duplicate aliases in one record; tier A/B experiment without
+`external.inspire_experiment` and without a note. Warn: two sites of one
+facility within 100 m; an unresolved person whose normalised name equals a
+resolved person's. Every `external.*` id needs a record-level source whose URL
+contains that id (inspirehep.net/institutions/<recid>, ror.org/<id>,
+inspirehep.net/experiments/<recid>).
+
+**A21. Geometry and plausibility (validator).** `beamline.baselines[].distance`
+must agree with the great-circle distance between the two sites within 2 %
+(fail). A detector site more than 50 km from its facility's primary site warns
+unless the experiment kind is accelerator_neutrino, astrophysical_neutrino or
+cosmic_ray. Spec-key → dimension whitelist from Appendix A is enforced; per-key
+plausibility ranges (baseline 0.1–20 000 km; overburden 0–12 000 m / 0–15 000
+m.w.e.; altitude −500–6 000 m; cms_energy 100 MeV–1 000 TeV; beam_power 1 kW–
+10 MW; total_mass 1 kg–10⁹ t) fail outside range; the number parsed from
+`display` must match `value` after unit conversion within a factor 10 (fail)
+and 5 % (warn). An interval whose `start.planned` is true may not have status
+active/commissioning/completed/decommissioned. `power` gains GW; `mass` gains
+Mt; `rate` gains "/yr".
+
+**A22. Record-level `sources` is required non-empty on every entity and covers
+only identity claims** (name, aliases, kind, external ids, summary, links,
+topic_ids, country, place). Everything else listed as critical is a sourced
+value or sourced row. `hep_graph` is never authored. A source cited by nothing
+warns. Link-check failures never fail the build; a 404/410 that is the sole
+source of a `verified` value is listed as "review required".
+
 ## 0. Ground rules
 
 1. **Canonical data is JSON under `data/atlas/`**, one file per entity, human
