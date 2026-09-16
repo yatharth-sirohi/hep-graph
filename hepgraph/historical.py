@@ -397,19 +397,23 @@ def _overlay_phd(snapshot: dict[str, Any]) -> None:
     ))
 
 
-def apply_historical(snapshot: dict[str, Any]) -> dict[str, Any]:
+def apply_historical(snapshot: dict[str, Any], *, copy_input: bool = True, version: bool = True) -> dict[str, Any]:
     """Return a new snapshot with the narrow historical overlay applied.
 
     Existing people are never modified or added.  Exact record exclusions are
     removed from the derived coauthor-work view while their reason and source
     remain in ``coverage.historical_coauthorship_exclusions``.  The function is
-    idempotent and leaves the input object untouched.
+    idempotent and leaves the input object untouched - unless the caller owns a
+    fresh object and passes ``copy_input=False``; a live search rebuilds this
+    after every page, and the copy and the version hash it would recompute
+    anyway are most of that cost.
     """
     if not isinstance(snapshot, dict):
         raise ValueError("snapshot must be an object")
-    result = copy.deepcopy(snapshot)
+    result = copy.deepcopy(snapshot) if copy_input else snapshot
     _overlay_exclusions(result)
     _overlay_authorship_occurrences(result)
     _overlay_phd(result)
-    result["version"] = _snapshot_version(result)
+    if version:
+        result["version"] = _snapshot_version(result)
     return result

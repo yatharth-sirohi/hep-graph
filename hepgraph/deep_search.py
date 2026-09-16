@@ -751,6 +751,10 @@ class DeepSession:
         frontier from the other endpoint.  Guide records themselves never enter
         the temporary SQLite database or any returned evidence.
         """
+        if self.guide_yielded:
+            # The corridor spent its allowance without a route; a discovery
+            # that would refill it costs another request per refill.
+            return
         guide_root = self.target if discovered_from_source else self.source
         path = self._guide_path(guide_root, person_id)
         if not path:
@@ -1381,8 +1385,8 @@ class DeepSession:
                                           union.page_size, exact=union.literature_stable_total,
                                           guess=2.0) / len(union.members)
         elif not cursor.literature_done:
-            remaining += self._pages_left(cursor.literature_total, len(cursor.literature_seen),
-                                          cursor.page_size, exact=cursor.literature_stable_total, guess=2.0)
+            remaining += self._pages_left(cursor.literature_total, len(cursor.literature_seen), cursor.page_size,
+                                          exact=cursor.literature_stable_total and cursor.literature_stable, guess=2.0)
         if not cursor.reverse_done:
             remaining += self._pages_left(cursor.reverse_total, len(cursor.reverse_seen),
                                           REVERSE_PAGE_SIZE, exact=True, guess=1.0)
@@ -1558,15 +1562,22 @@ class DeepSession:
 
     def _snapshot(self, budget: DeepBudget) -> tuple[dict[str, Any], Graph]:
         if self._materialized is None:
-            snapshot = build_snapshot(self.connection, {"label": "Deep live INSPIRE retrieval", "description": "RAM-only bounded deep search."})
+            # Rebuilt after every retrieved page: no derived-table writes, no
+            # intermediate copies or hashes - the evidence is hashed once here
+            # and the live coverage on top of it at every call below.
+            snapshot = build_snapshot(self.connection, {"label": "Deep live INSPIRE retrieval", "description": "RAM-only bounded deep search."},
+                                      persist=False, version=False)
             from .historical import apply_historical
-            snapshot = apply_historical(snapshot)
-            snapshot = apply_identity_guard(snapshot, self.connection)
+            snapshot = apply_historical(snapshot, copy_input=False, version=False)
+            snapshot = apply_identity_guard(snapshot, self.connection, copy_input=False, version=False)
             self._exclude_unverified_people(snapshot)
             if len(snapshot["people"]) > budget.max_people:
                 raise DeepSearchError("resource_limit", "The deep-search people ceiling was reached.")
-            self._materialized = (snapshot, Graph(snapshot, self.filters))
-        snapshot, graph = self._materialized
+            evidence = {key: value for key, value in snapshot.items() if key not in {"version", "created_at", "coverage"}}
+            digest = hashlib.sha256(json.dumps(evidence, ensure_ascii=False, sort_keys=True, separators=(",", ":"),
+                                               allow_nan=False).encode("utf-8")).hexdigest()
+            self._materialized = (snapshot, Graph(snapshot, self.filters), digest)
+        snapshot, graph, evidence_digest = self._materialized
         if len(snapshot["people"]) > budget.max_people:
             raise DeepSearchError("resource_limit", "The deep-search people ceiling was reached.")
         # Keep audited historical and identity corrections when replacing the
@@ -1583,11 +1594,10 @@ class DeepSession:
         snapshot["coverage"] = coverage
         # The overlay version preceded the live coverage replacement. Hash the
         # final evidence and policy view so this version names exactly what the
-        # returned Graph received.
-        content = {key: value for key, value in snapshot.items() if key not in {"version", "created_at"}}
-        snapshot["version"] = "sha256:" + hashlib.sha256(
-            json.dumps(content, ensure_ascii=False, sort_keys=True, separators=(",", ":"), allow_nan=False).encode("utf-8")
-        ).hexdigest()
+        # returned Graph received: the evidence digest, hashed once per
+        # materialisation, combined with this call's coverage.
+        coverage_bytes = json.dumps(coverage, ensure_ascii=False, sort_keys=True, separators=(",", ":"), allow_nan=False).encode("utf-8")
+        snapshot["version"] = "sha256:" + hashlib.sha256(evidence_digest.encode("ascii") + coverage_bytes).hexdigest()
         # Graph takes a reference to this snapshot but snapshots its version at
         # construction. Updating that metadata is safe: graph incidence and
         # all identity-filtered evidence remain unchanged until invalidation.
@@ -1958,8 +1968,13 @@ class DeepSession:
                         pair_page = self._guide_pair_pages.get(pair, 1)
                         pair_size = self._literature_size(budget)
                         requested_size = pair_size
-                        _, total, _, pair_size = self._fetch_literature(
-                            self.pair_query(left, right, self.filters), pair_page, budget, pair_size)
+                        try:
+                            _, total, _, pair_size = self._fetch_literature(
+                                self.pair_query(left, right, self.filters), pair_page, budget, pair_size)
+                        except DeepSearchError:
+                            # A slice ending here still spent the profile requests above.
+                            self.guide_requests += self.requests - requests_before
+                            raise
                         if pair_size != requested_size:
                             # The retry restarted at page one under a new size,
                             # so this pair's saved page number no longer names

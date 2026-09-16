@@ -22,10 +22,10 @@ def test_guarded_graph_is_reused_until_a_successful_fetch_changes_evidence(monke
     calls = 0
     original = deep_module.build_snapshot
 
-    def counted(connection, manifest):
+    def counted(connection, manifest, **kwargs):
         nonlocal calls
         calls += 1
-        return original(connection, manifest)
+        return original(connection, manifest, **kwargs)
 
     monkeypatch.setattr(deep_module, "build_snapshot", counted)
     session = DeepSearch(Client(profiles(1, 2))).start(1, 2, {"genealogy": False})

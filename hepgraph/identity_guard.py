@@ -661,19 +661,24 @@ def _guard_phd_references(result: dict[str, Any], connection: sqlite3.Connection
         coverage["identity_phd_conflicts"] = [merged[key] for key in sorted(merged)]
 
 
-def apply_identity_guard(snapshot: dict[str, Any], connection: sqlite3.Connection) -> dict[str, Any]:
+def apply_identity_guard(snapshot: dict[str, Any], connection: sqlite3.Connection, *,
+                         copy_input: bool = True, version: bool = True) -> dict[str, Any]:
     """Return a copy with explicit identity conflicts and local ambiguity removed.
 
     The first pass observes hard conflicts across every relevant normalized work.
     The second pass can then make a shorter otherwise-compatible initial form
     unresolved only when it is ambiguous with one of those observed conflicts.
+    ``copy_input=False`` lets a caller that owns a fresh object skip the copy,
+    and ``version=False`` the hash it will recompute itself (see the live
+    search's ``_snapshot``).
     """
     if not isinstance(snapshot, dict):
         raise ValueError("snapshot must be an object")
-    result = copy.deepcopy(snapshot)
+    result = copy.deepcopy(snapshot) if copy_input else snapshot
     works = result.get("works")
     if not isinstance(works, list):
-        result["version"] = _version(result)
+        if version:
+            result["version"] = _version(result)
         return result
     profiles = _profile_people(result, connection)
     lifetimes = _profile_lifetimes(result, connection)
@@ -794,5 +799,6 @@ def apply_identity_guard(snapshot: dict[str, Any], connection: sqlite3.Connectio
         _merge_coverage(coverage, reviews, "identity_conflict_review")
         _merge_coverage(coverage, lifetime_reviews, "identity_lifetime_review")
         _merge_profile_coverage(coverage, profile_additions)
-    result["version"] = _version(result)
+    if version:
+        result["version"] = _version(result)
     return result

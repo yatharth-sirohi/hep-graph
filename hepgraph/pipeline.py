@@ -823,7 +823,15 @@ def _ensure_person(people: dict[str, dict[str, Any]], recid: str, *, name: str |
                      "profile_status": "literature_only", "source_url": source_url("authors", recid)}
 
 
-def build_snapshot(connection: sqlite3.Connection, manifest: dict[str, Any] | None = None) -> dict[str, Any]:
+def build_snapshot(connection: sqlite3.Connection, manifest: dict[str, Any] | None = None, *,
+                   persist: bool = True, version: bool = True) -> dict[str, Any]:
+    """Normalise every retrieved record into one graph snapshot.
+
+    ``persist`` writes the derived ``works``/``people`` tables, which the saved
+    snapshot pipeline publishes; a live search rebuilds after every page and
+    reads only the returned object, so it skips the writes and the content
+    hash (``version``) it recomputes for itself.
+    """
     if manifest is None:
         saved_manifest = connection.execute("SELECT payload FROM ingestion_manifest WHERE name='active'").fetchone()
         manifest = json.loads(saved_manifest["payload"]) if saved_manifest else {}
@@ -915,20 +923,22 @@ def build_snapshot(connection: sqlite3.Connection, manifest: dict[str, Any] | No
                          "limited": row["upstream_total"] is not None and row["upstream_total"] > row["requested_limit"],
                          "truncated": row["upstream_total"] is not None and row["received_count"] < row["upstream_total"]} for row in checkpoints]
     created_at = utc_now()
-    with connection:
-        connection.execute("DELETE FROM works")
-        connection.execute("DELETE FROM people")
-        for work in works:
-            connection.execute("INSERT INTO works VALUES(?,?,?,?)", (work["id"], json.dumps(work, sort_keys=True), json.dumps(work["source_ids"]), created_at))
-        for person in people.values():
-            connection.execute("INSERT INTO people VALUES(?,?,?)", (person["id"], json.dumps(person, sort_keys=True), created_at))
+    if persist:
+        with connection:
+            connection.execute("DELETE FROM works")
+            connection.execute("DELETE FROM people")
+            for work in works:
+                connection.execute("INSERT INTO works VALUES(?,?,?,?)", (work["id"], json.dumps(work, sort_keys=True), json.dumps(work["source_ids"]), created_at))
+            for person in people.values():
+                connection.execute("INSERT INTO people VALUES(?,?,?)", (person["id"], json.dumps(person, sort_keys=True), created_at))
     coverage_failures = ([{"collection": row["collection"], "query": row["query"], "error": row["error"]} for row in failure_rows] +
                          [{"collection": row["collection"], "records": json.loads(row["record_ids"]), "error": row["reason"]} for row in redirect_rows])
     snapshot_content = {"coverage": {"label": manifest.get("label", "INSPIRE subset"), "description": manifest.get("description", ""), "complete": False,
                                      "queries": coverage_queries, "failures": coverage_failures},
                         "people": sorted(people.values(), key=lambda item: (item["name"].casefold(), item["id"])),
                         "works": sorted(works, key=lambda item: item["id"]), "phd": sorted(unique_phd.values(), key=lambda item: (item["student"], item["adviser"], item["source_record"])), "examples": examples}
-    content_hash = hashlib.sha256(json.dumps(snapshot_content, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")).hexdigest()
+    content_hash = (hashlib.sha256(json.dumps(snapshot_content, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")).hexdigest()
+                    if version else "unversioned")
     return {"version": f"sha256:{content_hash}", "created_at": created_at,
             "coverage": {"label": manifest.get("label", "INSPIRE subset"), "description": manifest.get("description", ""), "complete": False,
                          "queries": coverage_queries, "failures": coverage_failures},
