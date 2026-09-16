@@ -436,3 +436,26 @@ def test_head_and_invalid_parameters_never_start_a_search(service):
                   'source=101&target=102&search=anything', 'source=101&source=102&target=103'):
         assert get_json(local, '/api/path?' + query)[0] == 400
     assert transport.calls == [] and local.state._jobs is None
+
+
+def test_idle_expiry_frees_capacity_and_marks_the_job_cancelled():
+    clock = [0.0]
+    engine = Engine()
+    jobs = SearchJobs(lambda: engine, max_active=1, clock=lambda: clock[0],
+                      start_slice=0, auto_continue=True, retry_delay=0, idle_seconds=30)
+    try:
+        key = jobs.start('1', '3', Filters())['job_id']
+        # Nothing polls; the job is still nominally active and searching.
+        assert jobs.jobs[key].active and jobs.jobs[key].data['status'] == 'searching'
+        with pytest.raises(JobError, match='already running'):
+            jobs.start('2', '4', Filters())
+        clock[0] = 31.0
+        stopped = jobs.get(key)
+        assert stopped['status'] == 'cancelled' and stopped['can_continue'] is False
+        assert 'nothing asked about it' in stopped['message']
+        assert jobs.info()['active'] == 0
+        # The slot is free again.
+        assert jobs.start('2', '4', Filters())['job_id'] != key
+        assert engine.sessions == [] or all(s.closed.is_set() for s in engine.sessions)
+    finally:
+        jobs.shutdown()

@@ -63,6 +63,7 @@ class _Job:
         # A transient upstream failure schedules the next attempt instead of
         # sleeping: a request cannot sleep for the caller.
         self.next_attempt_at = 0.0
+        self.last_driven_at = now
         self.active = True
         self.worker_done = False
         self.expired = False
@@ -87,7 +88,7 @@ class SearchJobs:
                  max_result_bytes=MAX_RETAINED_RESULT_BYTES,
                  clock=time.monotonic, auto_continue=False,
                  max_auto_seconds=7200.0, retry_delay=5.0, max_stalled_runs=12,
-                 start_slice=3.0, poll_slice=5.0):
+                 start_slice=3.0, poll_slice=5.0, idle_seconds=120.0):
         self.engine_factory = engine_factory
         self.coverage = coverage or {'complete': False, 'mode': 'live',
                                     'label': 'Live INSPIRE — search in progress'}
@@ -119,6 +120,12 @@ class SearchJobs:
         for name, value in (('start_slice', start_slice), ('poll_slice', poll_slice)):
             if isinstance(value, bool) or not isinstance(value, (int, float)) or not 0 <= value <= 60:
                 raise ValueError(f'{name} must be between 0 and 60 seconds.')
+        if isinstance(idle_seconds, bool) or not isinstance(idle_seconds, (int, float)) or not 1 <= idle_seconds <= 3600:
+            raise ValueError('idle_seconds must be between 1 and 3600 seconds.')
+        # A searching job only advances when somebody polls it. One that nobody
+        # has polled for this long has been abandoned - a closed tab - and must
+        # not keep an active slot for ever.
+        self.idle_seconds = float(idle_seconds)
         self.auto_continue = auto_continue
         self.max_auto_seconds = max_auto_seconds
         self.retry_delay = retry_delay
@@ -239,6 +246,20 @@ class SearchJobs:
     def _prune(self):
         now = self.clock()
         for job_id, job in list(self.jobs.items()):
+            if (job.active and not job.worker_done and not job.cancel.is_set()
+                    and now - job.last_driven_at >= self.idle_seconds):
+                # Abandoned mid-search. Stop it honestly and release its slot;
+                # the retained result, if any, stays until the ordinary TTL.
+                job.cancel.set()
+                if self._update_job_data(
+                        job, status='cancelled', can_continue=False,
+                        message='This search stopped because nothing asked about it for a while. Start it again to continue.'):
+                    pass
+                else:
+                    self._retention_limit_result(job)
+                job.finished_at = now
+                self._finalize(job)
+                continue
             since = job.paused_at if job.paused_at is not None else job.finished_at
             if since is not None and now - since >= self.ttl:
                 job.expired = True
@@ -333,6 +354,7 @@ class SearchJobs:
                 'driver': 'request',
                 'start_slice_seconds': self.start_slice,
                 'poll_slice_seconds': self.poll_slice,
+                'idle_seconds': self.idle_seconds,
                 'counters': dict(self.reuse_counters),
             }
 
@@ -423,6 +445,8 @@ class SearchJobs:
         try:
             self._run_slice(job, seconds)
         finally:
+            with self.lock:
+                job.last_driven_at = self.clock()
             job.drive.release()
 
     def _run_slice(self, job, seconds):
