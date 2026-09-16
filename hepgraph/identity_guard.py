@@ -8,6 +8,7 @@ name search.  It does no network I/O and writes no database state.
 from __future__ import annotations
 
 import copy
+import functools
 import hashlib
 import json
 import re
@@ -23,13 +24,41 @@ _SUFFIXES = {"jr", "sr", "ii", "iii", "iv"}
 _MAX_COMPACT_INITIALS = 4
 
 
+def _memo(function):
+    """Cache a pure name helper.
+
+    Every helper below is a function of its string arguments alone, and a live
+    search rebuilds the guarded snapshot after every retrieved page: the same
+    few thousand bylines and profile forms are compared again each time.  On a
+    273-request search the uncached guard spent 220 s in these comparisons
+    against 167 s waiting for INSPIRE.  Unhashable arguments (malformed source
+    data) fall back to the plain call.
+    """
+    cached = functools.lru_cache(maxsize=1 << 18)(function)
+
+    @functools.wraps(function)
+    def wrapper(*args):
+        try:
+            return cached(*args)
+        except TypeError:
+            return function(*args)
+    return wrapper
+
+
+def _forms(names: Iterable[Any]) -> tuple[Any, ...]:
+    """A hashable, order-preserving view of profile name forms."""
+    return names if isinstance(names, tuple) else tuple(names)
+
+
+@_memo
 def _normal(value: str) -> str:
     """Case-fold a name component while treating diacritics and hyphens alike."""
     decomposed = unicodedata.normalize("NFKD", value)
     return "".join(char for char in decomposed.casefold() if char.isalpha())
 
 
-def _words(value: str) -> list[str]:
+@_memo
+def _words(value: str) -> tuple[str, ...]:
     """Split a name only after removing NFKD combining marks.
 
     Regex word boundaries regard a combining mark as a separator.  Running the
@@ -40,10 +69,11 @@ def _words(value: str) -> list[str]:
     """
     decomposed = unicodedata.normalize("NFKD", value)
     without_marks = "".join(char for char in decomposed if not unicodedata.combining(char))
-    return [word for word in re.findall(r"[^\W\d_]+", without_marks, flags=re.UNICODE) if _normal(word)]
+    return tuple(word for word in re.findall(r"[^\W\d_]+", without_marks, flags=re.UNICODE) if _normal(word))
 
 
-def _given_words(value: str) -> list[str]:
+@_memo
+def _given_words(value: str) -> tuple[str, ...]:
     """Return given-name tokens, expanding short all-caps compact initials.
 
     INSPIRE bylines sometimes omit periods and spaces in initial sequences, for
@@ -62,9 +92,10 @@ def _given_words(value: str) -> list[str]:
             expanded.extend(normalized)
         else:
             expanded.append(word)
-    return expanded
+    return tuple(expanded)
 
 
+@_memo
 def _given_initials(value: str) -> tuple[str, ...] | None:
     """Return stated initials/full-name initials, or ``None`` for unusable text."""
     words = _given_words(value)
@@ -74,12 +105,14 @@ def _given_initials(value: str) -> tuple[str, ...] | None:
     return initials or None
 
 
+@_memo
 def _given_tokens(value: str) -> tuple[str, ...] | None:
     """Return normalized given-name tokens, retaining full-token information."""
     tokens = tuple(_normal(word) for word in _given_words(value))
     return tokens or None
 
 
+@_memo
 def _comma_name(name: Any) -> tuple[str, tuple[str, ...]] | None:
     """Parse the unambiguous ``surname, given`` source form only."""
     if not isinstance(name, str) or name.count(",") != 1:
@@ -92,6 +125,7 @@ def _comma_name(name: Any) -> tuple[str, tuple[str, ...]] | None:
     return surname_key, initials
 
 
+@_memo
 def _profile_initials(name: Any, expected_surname: str) -> tuple[str, ...] | None:
     """Parse one profile name only when its surname is explicit and compatible.
 
@@ -114,6 +148,7 @@ def _profile_initials(name: Any, expected_surname: str) -> tuple[str, ...] | Non
     return _given_initials(" ".join(words[:-1]))
 
 
+@_memo
 def _profile_given_tokens(name: Any, expected_surname: str) -> tuple[str, ...] | None:
     """Parse profile given-name tokens under the same conservative surname rule."""
     if not isinstance(name, str) or not name.strip():
@@ -137,6 +172,11 @@ def _full_token_compatible(left: str, right: str) -> bool:
 
 
 def hard_initial_conflict(source_name: Any, profile_names: Iterable[Any]) -> bool:
+    return _hard_initial_conflict(source_name, _forms(profile_names))
+
+
+@_memo
+def _hard_initial_conflict(source_name: Any, profile_names: tuple[Any, ...]) -> bool:
     """Whether a source's explicit initial sequence contradicts every profile form.
 
     A source initial sequence may be a prefix of a profile's known given names:
@@ -167,6 +207,11 @@ def hard_initial_conflict(source_name: Any, profile_names: Iterable[Any]) -> boo
 
 
 def full_given_name_conflict(source_name: Any, profile_names: Iterable[Any]) -> bool:
+    return _full_given_name_conflict(source_name, _forms(profile_names))
+
+
+@_memo
+def _full_given_name_conflict(source_name: Any, profile_names: tuple[Any, ...]) -> bool:
     """Whether fully stated source names contradict every public profile form.
 
     Initials cannot settle a ``Micheal`` versus ``Max`` collision, because both
@@ -202,6 +247,11 @@ def full_given_name_conflict(source_name: Any, profile_names: Iterable[Any]) -> 
 
 
 def partial_initial_ambiguity(source_name: Any, profile_names: Iterable[Any], conflicting_names: Iterable[Any]) -> bool:
+    return _partial_initial_ambiguity(source_name, _forms(profile_names), _forms(conflicting_names))
+
+
+@_memo
+def _partial_initial_ambiguity(source_name: Any, profile_names: tuple[Any, ...], conflicting_names: tuple[Any, ...]) -> bool:
     """Whether a short compatible form is ambiguous within this retrieved corpus.
 
     This is deliberately weaker than a hard conflict.  It applies only after a
@@ -402,23 +452,30 @@ def _source_ids(work: dict[str, Any]) -> set[str]:
     return result
 
 
-def _occurrences(connection: sqlite3.Connection, source_ids: set[str]) -> dict[str, list[tuple[str, str]]]:
-    """Map resolved person IDs to exact ``(source_id, source_name)`` rows."""
-    if not source_ids:
-        return {}
-    placeholders = ",".join("?" for _ in source_ids)
+def _occurrence_index(connection: sqlite3.Connection) -> dict[str, list[tuple[str, str]]]:
+    """Every ``(person_id, source_name)`` occurrence, keyed by source record.
+
+    Read once per guard run: a per-work query was one SQLite round trip per
+    work per rebuild, which a long live search repeats hundreds of times.
+    """
     try:
-        rows = connection.execute(
-            f"SELECT record_id,person_id,full_name FROM authorship_occurrences WHERE record_id IN ({placeholders})",
-            tuple(sorted(source_ids)),
-        ).fetchall()
+        rows = connection.execute("SELECT record_id,person_id,full_name FROM authorship_occurrences").fetchall()
     except (sqlite3.DatabaseError, AttributeError, TypeError):
         return {}
-    result: dict[str, list[tuple[str, str]]] = {}
+    index: dict[str, list[tuple[str, str]]] = {}
     for record_id, person_id, full_name in rows:
         if person_id is None or not isinstance(full_name, str):
             continue
-        result.setdefault(str(person_id), []).append((str(record_id), full_name))
+        index.setdefault(str(record_id), []).append((str(person_id), full_name))
+    return index
+
+
+def _occurrences(index: dict[str, list[tuple[str, str]]], source_ids: set[str]) -> dict[str, list[tuple[str, str]]]:
+    """Map resolved person IDs to exact ``(source_id, source_name)`` rows."""
+    result: dict[str, list[tuple[str, str]]] = {}
+    for source_id in sorted(source_ids):
+        for person_id, full_name in index.get(source_id, ()):
+            result.setdefault(person_id, []).append((source_id, full_name))
     return result
 
 
@@ -447,6 +504,11 @@ def _merge_profile_coverage(coverage: dict[str, Any], additions: list[dict[str, 
 
 
 def _profile_forms_are_initial_only(profile_names: Iterable[Any], surname: str) -> bool:
+    return _profile_forms_initial_only(_forms(profile_names), surname)
+
+
+@_memo
+def _profile_forms_initial_only(profile_names: tuple[Any, ...], surname: str) -> bool:
     """Require every public profile form to parse and contain initials only."""
     forms = list(profile_names)
     if not forms:
@@ -455,6 +517,7 @@ def _profile_forms_are_initial_only(profile_names: Iterable[Any], surname: str) 
     return bool(parsed) and all(tokens is not None and all(len(token) == 1 for token in tokens) for tokens in parsed)
 
 
+@_memo
 def _incompatible_full_given_forms(left: str, right: str) -> bool:
     """Whether two source names state conflicting full given-name tokens."""
     left_parsed = _comma_name(left)
@@ -529,6 +592,7 @@ def _remove_author_occurrence(work: dict[str, Any], person_id: str) -> None:
         work["unresolved_count"] = max(prior_count + 1, raw_count - len(work["authors"]))
 
 
+@_memo
 def _explicit_profile_surname(name: Any) -> str | None:
     """Parse only an explicit comma form or an ordinary two-word full name."""
     parsed = _comma_name(name)
@@ -616,11 +680,12 @@ def apply_identity_guard(snapshot: dict[str, Any], connection: sqlite3.Connectio
     _guard_phd_references(result, connection, profiles)
     inspected: list[tuple[dict[str, Any], set[str], dict[str, list[tuple[str, str]]]]] = []
     hard_by_person: dict[str, list[str]] = {}
+    index = _occurrence_index(connection)
     for work in works:
         if not isinstance(work, dict) or not isinstance(work.get("authors"), list):
             continue
         source_ids = _source_ids(work)
-        occurrences = _occurrences(connection, source_ids)
+        occurrences = _occurrences(index, source_ids)
         inspected.append((work, source_ids, occurrences))
         for person in work["authors"]:
             person_id = str(person)
