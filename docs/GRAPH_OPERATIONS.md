@@ -2,7 +2,7 @@
 
 ## Current behavior (2026-09-16)
 
-HEP Graph **does not yet serve a production graph snapshot**. Its normal path is live INSPIRE; the bundled `data/current.json` is a selected, incomplete offline demo and cannot certify global shortest paths. The provider boundary now preserves per-neighborhood completeness and pins version/filter semantics for live HLBES, but the private cloud snapshot and manual lifecycle have **not** been deployed. No automatic refresh job runs.
+HEP Graph **does not yet serve a production graph snapshot**. Its normal path is live INSPIRE; the bundled `data/current.json` is a selected, incomplete offline demo and cannot certify global shortest paths. The provider boundary now preserves per-neighborhood completeness and pins version/filter semantics for live HLBES. `hepgraph/snapshot_registry.py` tests the lifecycle against local SQLite; `hepgraph/postgres_registry.py` implements the same control plane with PostgreSQL transactions and row locks. Neither is connected to a full builder, deployed Neon database or the application. The private cloud snapshot and maintainer CLI have **not** been deployed. No automatic refresh job runs.
 
 Do not present this document as instructions to promote the demo file. The operations below are acceptance requirements, not commands available today.
 
@@ -32,7 +32,7 @@ In v0.3, “Exact” must mean exact under the selected filters within the valid
 
 ## Cost and authorization gate
 
-No paid cloud resources or full INSPIRE acquisition have been initiated. `FREE_TIER_STORAGE_DECISION.md` selects Turso as a conditional free-tier target, but a full dataset has not been sized against its storage/write quotas. Before that stage, obtain an approved source acquisition approach, measure representative corpus size and large-team skew, and estimate **one-time build** separately from **monthly serving**. The repo's earlier scenario estimates are not a provider quote. Never enable a paid plan or overages merely to finish a build. v0.3 should incur zero scheduled synchronization executions.
+No paid cloud resources or full INSPIRE acquisition have been initiated. `FREE_TIER_STORAGE_DECISION.md` now selects Neon Postgres through the Vercel Marketplace as the cost-minimized target: Vercel Hobby first, Neon Free for a bounded prototype, and usage-based Neon Launch only after the full active/candidate/rollback footprint and spend controls are measured. Before that stage, obtain an approved source acquisition approach, measure representative corpus size and large-team skew, and estimate **one-time build** separately from **monthly serving**. The repo's earlier scenario estimates are not a provider quote. Vercel Pro's $20/month fee does not pay the separate Neon bill; never enable a paid plan or overages merely to finish a build. v0.3 should incur zero scheduled synchronization executions.
 
 ## Future (v0.4+)
 
