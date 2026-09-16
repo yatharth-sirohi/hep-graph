@@ -168,10 +168,15 @@ All figures are cold-cache and use browser-identical polling (1.5 s idle,
 |---|---|---:|---:|
 | Feynman → Wheeler (1 hop) | local, in process | 1.4 s | — |
 | Feynman → Wheeler (1 hop) | local, over HTTP | ≈1.4 s | **1.8 s** (answered by the start request) |
-| Hostert → Pascoli (1 hop) | **Vercel**, 1.5 s polls | **19.0 s** | *unmeasured — see § 15* |
+| Hostert → Pascoli (1 hop) | **Vercel**, 1.5 s polls | **19.0 s** | — |
+| Aad → Abbott (1 hop, large-team, fresh) | **Vercel production** | — | **7.2 s** (answered by the start request) |
+| Hostert → Ellis (2 hops, fresh) | **Vercel production** | — | **8.8 s, proven** |
 | Erin → Hostert, first verified route | local, in process | 8.8 s | 8.8 s (engine unchanged) |
 | Erin → Hostert, first verified route | local, over HTTP | ≈9 s (thread ran continuously) | **19.5 s** |
-| Erin → Hostert, first verified route | **Vercel** | 89 s observed; **no route in 241 s** measured | *unmeasured — see § 15* |
+| Erin → Hostert, first verified route | **Vercel production** | 89 s observed; **no route in 241 s** measured | **12.1 s** |
+| Erin → Hostert, immediate repeat | **Vercel production** | 240 s (cap), route at 138 s | **2.0 s** (retained job) |
+| Erin → Hostert, after one Continue | **Vercel production** | — | 4-hop route at once |
+| Erin → Hostert, after a second Continue | **Vercel production** | never proven | **proven exact, 4 hops, 6.9 s** more (38 requests, 0 failures) |
 | Erin → Hostert, proven | local, in process | 18.2 s, 4 hops | 18.2 s, 4 hops |
 
 Two honest readings of that table:
@@ -181,10 +186,21 @@ Two honest readings of that table:
   price of a design that survives a platform which freezes the process, paid
   on a platform that does not. It is bounded and predictable rather than
   accidental, and it does not touch what is proven.
-- **The deployed gain is the whole point and is not yet measured.** The
-  mechanism was measured on production — poll rate alone moved a one-hop
-  search from 19.0 s to 2.6 s — and the fixed build behaves as designed over
-  HTTP locally. The remaining step needs access to the preview (§ 15).
+- **The deployed gain is the point, and it is measured.** All production
+  figures are for the merged build (`14b49e1`, verified through
+  `/api/health`), with browser-identical polling. Every poll of every search
+  reached one instance; no request failed; the longest poll took 5.4 s, so the
+  function duration limit was never approached. Erin → Hostert went from "no
+  route in four minutes" to a verified route in ten to twelve seconds and a
+  proven four-hop answer about twenty-five seconds after the first click,
+  Continues included — on a second process, after a redeploy had discarded
+  the first one, which is exactly the per-process state model at work.
+
+Deployed searches are still slower than local ones by a few seconds per
+search: a cold function start on the first request of a new deployment, and
+about 0.6 s per INSPIRE call from `iad1` against ~0.4 s from here. Those are
+the platform's costs, now visible because they are no longer hidden behind a
+frozen thread.
 
 CPU: in a 3.3 s slice, 2.6 s is `urllib` waiting on INSPIRE; HLBES's own time
 rounds to zero. Per § 27 of the brief, no language rewrite is justified.
@@ -285,16 +301,20 @@ Fluid compute, and the production measurements in § 12 are the check.
 
 Stated as found.
 
-**The fixed build has not been measured on Vercel.** The branch's preview
-deployments build successfully but sit behind Vercel's preview protection
-(every route answers 302 to `vercel.com/sso-api`), and no bypass token is
-available in this environment. The mechanism was measured on production (§ 2,
-§ 3); the fix was measured over local HTTP with browser-identical polling
-(§ 12). Whether the fixed build behaves the same on Vercel is a prediction
-with strong grounds — every slice now runs inside an open invocation, which is
-the one thing the platform guarantees — but it is a prediction until the
-deployment is measured. That needs either a protection-bypass secret, preview
-protection disabled for this project, or a production deploy.
+**The preview could not be measured; production was.** The branch's preview
+deployments built but sat behind Vercel's preview protection (every route
+answered 302 to `vercel.com/sso-api`) with no bypass available here. At the
+owner's direction the branch was merged and measured on production instead
+(§ 12). Future phases would benefit from a protection-bypass secret so a build
+can be measured before it replaces production.
+
+**Proving shortestness still takes two Continues.** Automatic continuation
+runs only while no route is known — Phase I behaviour, unchanged. On
+production that means: a verified five-hop route at 12 s, pause; Continue
+finds the four-hop route in 3.4 s, pause again because a better route counts
+as a fresh `ok`; Continue again to close the bound. Whether a user who has
+pressed Continue once wants the engine to stop on every improvement is a
+product question this phase did not take on.
 
 **Per-process state still means per-process everything.** The request pacer
 and in-flight coalescing are enforced within a process. One serving instance
@@ -310,11 +330,6 @@ adds a quarter second — so a five-second slice delivers roughly four seconds o
 engine work. Larger slices would narrow the gap at the cost of longer poll
 responses; five seconds keeps a poll well inside any plausible function
 duration limit.
-
-**After a verified route, proving shortestness still needs Continue.** That is
-Phase I product behaviour, unchanged: automatic continuation runs only while no
-route is known. It is why the deployment showed a five-hop route — the guide
-corridor found one — while the proof, which needs Continue, finds four.
 
 **Discovery/evidence split not implemented.** The profile shows time is
 per-request network latency, not bytes: a small-team record is ~1.8 KB and
@@ -336,20 +351,14 @@ searches, which is per process on this deployment.
 
 | | |
 |---|---|
-| Branch | `deployment-performance-hardening`, pushed |
-| Base | `89912cb` (`main`, unchanged) |
-| Preview deployments | built for every push; protected by Vercel SSO |
-| Production | still `89912cb` — **not merged** |
+| Branch | `deployment-performance-hardening`, merged into `main` fast-forward |
+| Base | `89912cb` |
+| `main` after merge | `14b49e1`, then `b9d3b10` (a `finally` fix) and this report |
+| Production | redeployed on each push; `/api/health` reports the deployed commit |
+| Clean clone of `main` | 461 passed, 1 xfailed; imports, server, health, index, live search and a proven direct path all work with no cache directory and no environment file |
 
-```
-d55ea8f Poll again at once after a poll that did work
-acc5a65 Close six races an independent review found in the request driver
-cd4e0cc Let the slice allowance start work, never truncate a request
-4020937 Stop a searching job that nothing has polled for two minutes
-b743fd9 Advance searches inside requests, not on a thread the platform freezes
-831e561 Expose build commit and process identity on the health endpoint
-```
-
-`main` was left untouched on purpose: the hard gate "deployed Erin → Hostert
-substantially improved" cannot be verified against a preview that answers 302,
-and the brief says not to replace production before the preview is tested.
+Merging before a preview measurement was the owner's explicit decision
+("just merge it to main and make sure the most updated code is deployed and
+works"), taken when preview protection made the alternative impossible. Every
+other gate had passed: 461 tests, the 24,000-pair NetworkX differential with
+zero mismatches, and no unresolved finding from either review round.
