@@ -1,4 +1,4 @@
-# HEP Atlas ontology and data contract (v0.1, 2026-09-16)
+# HEP Atlas ontology and data contract (v0.2, 2026-09-16)
 
 This document is the interface contract between every HEP Atlas workstream:
 research agents produce records in this shape, the validator enforces it, the
@@ -9,6 +9,165 @@ HEP Graph (the people network) is unchanged by it.
 Status of this document: **draft under review**. Reviewers challenge it; the
 orchestrator resolves conflicts; the version number changes when a field's
 meaning changes.
+
+
+## v0.2 amendments (resolved from the entity-schema and temporal-model reviews)
+
+These override anything below that contradicts them. Files written under v0.1
+remain valid where the change is additive; the build normalises the rest.
+
+**A1. One canonical direction per relation; inverses are derived at build.**
+Canonical (kept in data files): `site.facility_id`, `accelerator.facility_id`,
+`accelerator.feeds_accelerator_ids` (downstream), `beamline.accelerator_id`,
+`beamline.facility_id`, `detector.experiment_ids`, `detector.placements`,
+`experiment.collaboration_ids`, `experiment.facility_roles`,
+`experiment.beamline_ids`, `experiment.accelerator_ids`, `experiment.topic_ids`,
+`experiment.lineage` (only `predecessor`, `upgrade_of`, `same_program`,
+`complementary`; the latter two live on the lexicographically smaller id),
+`result.experiment_ids`, `document.owner_ids`, `institution.facility_id`,
+`institution.parent_institution_id`, `facility.primary_site_id` (a choice),
+`facility.operator_ids` (+ `operator_text` S). Derived (do not write; the
+validator warns and the build ignores them): `facility.site_ids`,
+`facility.accelerator_ids`, `facility.beamline_ids`, `facility.institution_id`,
+`accelerator.beamline_ids`, `accelerator.serves_experiment_ids`,
+`experiment.detector_ids`, `experiment.site_ids`, `experiment.result_ids`,
+`*.document_ids`, `collaboration.experiment_ids`, `successor`/`upgraded_to`
+lineage rows.
+
+**A2. Placement has role and time.** `detector.placements: [{"site_id", "role":
+"main"|"near"|"far"|"prototype"|"storage", "start": Date|null, "end": Date|null,
+"sources", "verified_at", "confidence", "note"}]` replaces `detector.site_id`
+and `detector.facility_id` (legacy scalar accepted and migrated as one `main`
+placement with null dates). `experiment.facility_roles: [{"facility_id",
+"role": "host"|"beam_source"|"detector_host"|"prototype_host", "sources"}]`
+replaces `experiment.facility_ids` (legacy list accepted, role `host`).
+`detector.parent_detector_id` for DeepCore/IceTop-style sub-arrays.
+
+**A3. Timeline semantics (replaces §4 "Timeline semantics").** For an
+imprecise date d, `lo(d)`/`hi(d)` are the first/last day it can denote
+("2008" → 2008-01-01/2008-12-31). The slider selects a closed range
+`[Y_lo, Y_hi]` at its resolution. An interval **covers** the selection iff
+`lo(start) ≤ Y_hi` and (`end` null or `hi(end) ≥ Y_lo`); coverage is
+**certain** if also `hi(start) ≤ Y_lo` and (`end` null or `lo(end) ≥ Y_hi`),
+else **possible** (rendered hatched). `start: null` covers only
+`[lo(end), hi(end)]`. Open intervals (`end: null`) extend to the **build date**
+from `manifest.json`, not to `verified_at`; for years after the build date they
+render dimmed "assumed ongoing" and are not counted as active.
+**Presence** at Y uses the entity's existence hull `[lo(earliest start),
+lo(earliest terminal start) or build date]`. **State** at Y is chosen among
+covering intervals: (1) if any covering interval has status in {construction,
+commissioning, active, shutdown, upgrade} or is terminal, drop {proposed,
+approved, planned} candidates; (2) pick the latest `lo(start)`; (3) tie-break by
+rank decommissioned > cancelled > completed > shutdown > upgrade > active >
+commissioning > construction > approved > proposed > planned. Other covering
+intervals become `secondary_states` (tooltip). Hull covers Y but no interval
+does → state `unrecorded` (grey). Terminal statuses are events: `end` optional;
+a non-terminal interval starting after a terminal start is an error (a revived
+programme is a new experiment id with lineage). Results appear iff
+`lo(result.date) ≤ Y_hi`. The build precomputes per-entity
+`state_segments: [[m0, m1, status, certainty], …]` (months since 1950-01) in
+`atlas.json`; slider, range mode, playback and the history tests read only
+that. Range mode: presence = union; colour = state with the longest clipped
+duration; tooltip lists all segments. Optional `Interval.kind:
+"lifecycle"|"run"|"phase"` (default lifecycle) and optional `Interval.specs`
+(map of Q) for values that change per run (LHC energy per run).
+
+**A4. Dates.** The Date object gains optional `earliest`, `latest`
+(`earliest ≤ date ≤ latest`) and `display` (source wording, e.g. "Spring 2008",
+"~2030"); seasons: date = middle month, earliest/latest = first/last month
+(spring 03–05, summer 06–08, autumn 09–11, winter 12–02). `planned: true` means
+"the source is a schedule or plan, not a report of an event" and stays true
+after the date passes (UI: "was planned for 2030"). A future date without
+`planned: true` is an error.
+
+**A5. Memberships.** `memberships/<collab>.json` gains required file-level
+`"membership_history": "unknown"|"partial"|"complete"` and optional
+`"roster_snapshots": [{"as_of", "sources"}]`. Rows gain `known_since`,
+`known_until` (earliest/latest *evidence* dates, never join dates). A row is a
+solid, counted member at Y only when `[start,end]` or `[known_since,
+known_until]` covers Y; for Y between collaboration formation and
+`known_since` it is a hollow "undated member" excluded from counts (unless
+`membership_history: complete`); after `as_of` and before the build date it is
+hollow "not re-verified". Count wording: "N confirmed members (+M undated)".
+The v0.1 rule "present from formation year" is withdrawn.
+
+**A6. Ids and people.** Person ids are `person:inspire-<recid>` (file
+`people/inspire-<recid>.json`) or `person:unresolved-<collab>-<institution>-<name>`
+(scoped; never merged across collaborations). Every `person:inspire-*` carries
+`identity_evidence: {"method": "orcid"|"collaboration_page_link"|"inspire_profile_affiliation_match"|"institution_page_link", "sources": []}`.
+Any entity may carry `superseded_by: id|null`; references resolve through it.
+`hep_graph` is build-derived only. `memberships[].role` is dropped from people
+(career stage lives on `affiliations[].role`); collaboration-level roles live
+in `collaboration.leadership[].role` ∈ {spokesperson, deputy_spokesperson,
+physics_coordinator, technical_coordinator, ib_chair, other}.
+
+**A7. Sources.** `rank` is derived from `source_type` (table in
+HEP_ATLAS_SOURCES.md); `source_type` gains `geocoder`, `press_release`,
+`project_document`, `wikipedia`, `wikidata`, `experiment_registry` (Greybook),
+`inspire_record`. `type` field of a source file is `"src"`. The build warns on
+two sources with the same normalised DOI/URL. `document.source_id` (optional)
+and `result.publication_source_id` (optional) cross-link when the same DOI is
+both a source and a document/publication.
+
+**A8. Units added to §2.4:** `energy` += meV, µeV, PeV, EeV; `mass` += g, mg;
+`time` += min, h; `magnetic_field` += mT, G; `area` (m^2, km^2, cm^2);
+`electric_field` (V/cm, kV/cm, kV/m); `exposure` (kg d, kg yr, t yr, kt yr);
+`fraction` (%, ""); `volume` += L; `current` (A, mA); `cross_section` (cm^2,
+b, mb, µb, nb, pb, fb, zb); `rate` (Hz, kHz, MHz); `mass_energy` (eV/c^2,
+keV/c^2, MeV/c^2, GeV/c^2, TeV/c^2); `luminosity` += nb^-1 s^-1, Hz/nb;
+`angle` += rad, µrad, arcmin, arcsec; `count` unit "" only.
+
+**A9. Shapes.** `SList<T>` = `[Sourced<T>]` for `physics_goals`,
+`unique_capabilities`, `subsystems[].description`. `result.key_value: Q|null`
+and `result.key_value_text: S string|null`. `site.depth_rock: Q(length)`,
+`site.depth_mwe: Q(depth_mwe)`. `beamline.primary_beam: {"particle": string,
+"energy": Q}`. `countries: []` on facility, site, institution. `result.announced`
+and `result.published` optional Dates; `result.date` remains the display date
+(earliest non-null). Any `*_ids` list entry may be either an id string or
+`{"id", "start", "end", "sources"}` to give a relationship its own interval
+(PS → ISR 1971–1984); otherwise the build uses `hull(A) ∩ hull(B)`.
+`detector.technology_classes: []` (primary first) alongside the legacy scalar;
+`noble_liquid_tpc` is preferred with `specs.target_medium` (S) and
+`specs.phase` (S: "single-phase"/"dual-phase") — `lar_tpc`/`xenon_tpc`/
+`argon_tpc` remain accepted aliases. `accelerator.is_collider: bool`.
+
+**A10. Coverage and status.** Entity-level `coverage.validated` and
+`globe_ready` are build outputs; `registry` rows keep planning fields only
+(`entity_id`/`experiment_id`, `tier`, `priority`, `owner`, `researched`,
+`missing_fields`, `notes`). Entity `status` must equal the derived state at
+the build date or the validator errors.
+
+**A11. Every data file may carry `"schema": "hep-atlas/0.2"`; the build adds
+it if missing. Canonical formatting: `json.dumps(sort_keys=True, indent=2,
+ensure_ascii=False)` + trailing newline.**
+
+**A12. Additional validations (build-failing unless marked warn):** date
+regex/calendar validity, year ∈ [1900, 2100]; `hi(end) < lo(start)` error;
+non-terminal after terminal error; result (non-milestone) dated before every
+listed experiment's earliest commissioning/active start error; result dated
+after build date error; future date without `planned` error; `verified_at`
+earlier than a non-planned date in the same value error; membership
+`start`/`end` > `as_of` error; `known_since ≤ known_until ≤ as_of` error;
+warn: hull gap ≥ 12 months, `active` before `construction`, experiment before
+its facility's founding, experiment active while no listed accelerator/beamline
+is active, membership `end: null` for a completed collaboration (clamped at
+build), build date − `verified_at` > 18 months, `approx` on a day-precision
+date, `planned` date passed without a non-planned interval, membership row
+whose institution lacks coordinates (dot excluded, not a failure), two sources
+sharing a normalised URL/DOI, derived fields present in data files.
+
+**A13. Historical tests** assert derived state, not presence:
+`state_at(id, "1990") -> None | {"status", "certainty"}`; e.g. ATLAS 1990 is
+None, ATLAS 1994 status ∈ {proposed, approved}, Belle 1997 status ∉ {active,
+commissioning}, ALEPH 2001 is None on the default layer, DUNE 2026 status ==
+construction.
+
+**A14. Bundles.** `atlas.json` carries stripped values (`value/unit/display`,
+`status/start/end/label`, `state_segments`) — provenance (`sources`,
+`verified_at`, `confidence`, `note`) for every field moves to a lazy
+`provenance.json` keyed by entity id and field path. People are never in
+`search.json`; people search is delegated to HEP Graph live search.
+`people/<collab>/_unknown.json` holds rows with no institution.
 
 ## 0. Ground rules
 
