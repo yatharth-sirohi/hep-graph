@@ -1364,7 +1364,7 @@ class DeepSession:
         elif union.literature_done:
             for cursor in cursors:
                 cursor.union = None
-                coauthors, _ = self._oracle._members(cursor.person_id) if self._oracle is not None else (frozenset(), frozenset())
+                coauthors, _ = self._oracle._members(cursor.person_id)
                 if not coauthors <= attested.get(cursor.person_id, set()):
                     # Some coauthor is known only from records shared with a
                     # companion. Whether this person's own term returns those
@@ -1373,7 +1373,7 @@ class DeepSession:
                     cursor.solo = True
                     continue
                 cursor.literature_done = True
-                cursor.page_size = size
+                cursor.page_size, cursor.literature_page = size, union.literature_page
                 cursor.literature_seen = set(union.member_seen[cursor.person_id])
                 cursor.literature_total = len(cursor.literature_seen)
                 cursor.literature_stable, cursor.literature_stable_total = True, True
