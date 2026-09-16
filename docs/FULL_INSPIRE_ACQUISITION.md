@@ -3,9 +3,33 @@
 This is a v0.3 manual-build component, **not** a completed production graph.
 The `cloud-database-migration` branch contains a resumable, privacy-minimising
 source acquirer in `hepgraph/full_acquisition.py` and a compact index prototype
-in `hepgraph/compact_graph.py`. No full crawl has run. No full INSPIRE data has
-been written to Neon, the developer Mac, Git, or Vercel. The existing
+in `hepgraph/compact_graph.py`. The direct Neon candidate importer is
+`hepgraph/neon_compact_import.py`. It writes no raw source files to the Mac,
+Git, or Vercel; only a private compact candidate exists in Neon. The existing
 `data/current.json` remains an incomplete demo.
+
+## Live candidate import
+
+On 2026-09-16 the manual import began in Neon branch
+`candidate-inspire-20260916`, a non-default child of `production`. It is
+intentionally disconnected from the application and cannot be promoted. The
+importer recursively partitions `recid` ranges below INSPIRE's 10,000-result
+window, fetches at no more than one request per second, and transactionally
+commits a page's graph rows plus its resume cursor. A Postgres advisory lock
+allows exactly one writer per import ID. The compact tables retain only:
+
+- `work_id`, `year`, source-supplied `author_count`, and retrieval/update time;
+- resolved INSPIRE author ID ↔ work ID membership rows;
+- private shard counts and resume cursors.
+
+The importer discards titles after using them to exclude standalone correction
+records, and never stores abstract, full text, email, affiliations, name, or
+author-profile fields in Neon. It cannot yet safely deduplicate all work
+versions or certify a frozen source cutoff; no `source_complete` gate is met.
+Use `python -m hepgraph.neon_compact_import --status` with the candidate's
+direct connection to read counters. A later explicit `--retry-failed` resumes
+the checkpoint without deleting any committed work/member rows. Do not run a
+second writer against the same `import_id`.
 
 ## Storage minimization selected for v0.3
 
