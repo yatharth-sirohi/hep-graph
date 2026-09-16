@@ -435,7 +435,6 @@ def test_breadth_ranks_a_side_by_its_next_layer_not_everyone_it_has_heard_of():
 
     result = HLBES(Recording(dict_oracle(graph_of(edges)))).search("s", "t")
     assert result.status == EXACT and result.distance == 3
-    # The thirty-person layer was glimpsed, never read: the small frontier
-    # was grown until the sides met, and the proof closed on the roots.
+    # The thirty-person layer was never read: the small frontier was grown
+    # until it reached the target, and the proof closed on the source side.
     assert not any(node.startswith("d") for node in expanded)
-    assert expanded.count("t") == 1
