@@ -267,15 +267,24 @@ class HLBES:
 
     # ------------------------------------------------------------- mechanics
     def _choose(self, state: Search) -> tuple[_Side | None, _Side | None, str | None]:
-        """Pick the cheaper side that can legally advance its completed radius."""
+        """Pick the side whose completed radius is cheaper to advance.
+
+        Every candidate on a side sits at the same completed radius and the
+        layer cannot close until all of them are read, so a side's cost is the
+        whole layer's remaining cost, not its cheapest member.  Within the
+        layer the cheapest person is read first - the order cannot change the
+        layer's total, but partial evidence arrives sooner - with routing
+        utility breaking ties.  The side is ranked by the same estimates it
+        will actually spend, so it can no longer win on a one-page person and
+        then read a ten-page one.
+        """
         options = []
         for side, other in ((state.left, state.right), (state.right, state.left)):
             work = side.open_pending()
             if work:
-                # Distance is primary: every candidate here already sits at the
-                # same completed radius, so routing utility only breaks that tie.
-                node = max(sorted(work), key=self.routing_score)
-                options.append((min(self.cost_estimate(item) for item in work), side.name, side, other, node))
+                costs = {item: self.cost_estimate(item) for item in work}
+                node = min(work, key=lambda item: (costs[item], -self.routing_score(item), item))
+                options.append((sum(costs.values()), side.name, side, other, node))
         if not options:
             return None, None, None
         best = min(options)
@@ -294,9 +303,12 @@ class HLBES:
         the smaller unexpanded frontier, which is the point of searching from
         both ends: a famous endpoint with hundreds of collaborators and an
         obscure one with three should not advance in lockstep, or the obscure
-        side never gets deep enough to meet anything.  Within that side it
-        takes the shallowest person, preferring those nothing has been read
-        from yet.
+        side never gets deep enough to meet anything.  The frontier is the
+        people at that side's shallowest open depth - the ones it will read
+        next - not everyone it has ever heard of, or a side that has glimpsed
+        many deep names through others' pages would look expensive while its
+        own next layer is small.  Within that side it takes the shallowest
+        person, preferring those nothing has been read from yet.
 
         Without ``breadth`` it simply takes the cheapest remaining work, which
         is how a stalled proof keeps making progress.
@@ -309,7 +321,8 @@ class HLBES:
             node = min(work, key=lambda item: (side.dist[item],
                                                self.pages_fetched(item) if breadth else 0,
                                                self.cost_estimate(item), -self.routing_score(item), item))
-            rank = ((len(work), side.name) if breadth
+            frontier = sum(1 for item in work if side.dist[item] == side.dist[node])
+            rank = ((frontier, side.name) if breadth
                     else (side.dist[node], self.cost_estimate(node), -self.routing_score(node), side.name))
             options.append((rank, side, other, node))
         if not options:
@@ -323,9 +336,8 @@ class HLBES:
         state.expansions += 1
         previous, side.seen_key[node] = side.seen_key.get(node), found.key
         depth = side.dist[node]
-        for neighbor in found.members:
-            if neighbor != node:
-                side.add(neighbor, depth + 1, node)
+        changed = [neighbor for neighbor in found.members
+                   if neighbor != node and side.add(neighbor, depth + 1, node)]
         if found.status == COMPLETE:
             side.complete.add(node)
             side.blocked.discard(node)
@@ -333,20 +345,24 @@ class HLBES:
             # No further progress is available for this node, so it can never
             # certify a completed layer. Park it instead of spinning.
             side.blocked.add(node)
-        self._scan(state, side, other)
+        self._scan(state, side, other, changed)
         if not side.pending():
             side.radius += 1
 
-    def _scan(self, state: Search, side: _Side, other: _Side) -> None:
-        """Every node both sides know is a candidate meeting."""
-        near, far = ((side.dist, other.dist) if len(side.dist) <= len(other.dist)
-                     else (other.dist, side.dist))
-        for node, distance in near.items():
-            opposite = far.get(node)
+    def _scan(self, state: Search, side: _Side, other: _Side, changed: Iterable[str]) -> None:
+        """Every node both sides know is a candidate meeting.
+
+        Only a node whose distance on this side was just set or lowered can
+        make a new or shorter meeting: every other pair of distances was
+        already scanned when it last changed, so the check is incremental
+        rather than a full intersection after every expansion.
+        """
+        for node in changed:
+            opposite = other.dist.get(node)
             if opposite is None:
                 continue
             state.meetings += 1
-            total = distance + opposite
+            total = side.dist[node] + opposite
             if total < state.upper:
                 state.upper, state.best = total, self._join(node, side, other)
 

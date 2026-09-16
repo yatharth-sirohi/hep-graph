@@ -11,7 +11,7 @@ import pytest
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from hepgraph.hlbes import (COMPLETE, EXACT, NO_PATH, PARTIAL, SEARCH_INCOMPLETE, UNKNOWN,
-                            VERIFIED, HLBES, Neighborhood, OracleStopped, cached_trial_path,
+                            VERIFIED, HLBES, Neighborhood, OracleStopped, Search, cached_trial_path,
                             dict_oracle)
 
 
@@ -376,3 +376,66 @@ def test_stopping_rule_uses_the_full_radius_sum_plus_one():
     assert (result.status, result.distance) == (EXACT, 6)
     # Six hops across seven nodes: proving it must not expand every node twice.
     assert len(counted) <= len(nodes)
+
+
+def test_side_is_ranked_by_the_cost_of_the_layer_it_would_actually_read():
+    """The side rank and the node it expands use the same estimates: a side
+    cannot win on a one-page person and then read a ten-page one."""
+    costs = {"a": 1.0, "b": 10.0, "c": 2.0, "d": 2.0}
+    engine = HLBES(dict_oracle({}), cost_estimate=lambda n: costs[n],
+                   routing_score=lambda n: {"b": 5.0}.get(n, 0.0))
+    state = Search("s", "t")
+    state.left.complete.add("s"); state.right.complete.add("t")
+    for node in ("a", "b"):
+        state.left.add(node, 1, "s")
+    for node in ("c", "d"):
+        state.right.add(node, 1, "t")
+    state.left.radius = state.right.radius = 1
+    side, _, node = engine._choose(state)
+    # Source layer costs 11 in total, target layer 4: the target side wins even
+    # though the source has the single cheapest person and the highest score.
+    assert side.name == "target" and node == "c"
+    # Within a layer the cheapest person goes first; routing utility only
+    # breaks ties between equal costs.
+    costs["c"] = 3.0
+    side, _, node = engine._choose(state)
+    assert side.name == "target" and node == "d"
+    state.left.radius = 0  # Nothing pending on the source at its radius.
+    side, _, node = engine._choose(state)
+    assert side.name == "target"
+
+
+def test_within_a_layer_the_cheapest_person_is_read_first():
+    costs = {"a": 3.0, "b": 1.0, "c": 2.0}
+    engine = HLBES(dict_oracle({}), cost_estimate=lambda n: costs.get(n, 1.0),
+                   routing_score=lambda n: {"a": 9.0}.get(n, 0.0))
+    state = Search("s", "t")
+    state.left.complete.add("s"); state.right.complete.add("t")
+    for node in costs:
+        state.left.add(node, 1, "s")
+    state.left.radius = 1
+    assert engine._choose(state)[2] == "b"
+    state.left.complete.add("b")
+    assert engine._choose(state)[2] == "c"
+    costs["c"] = costs["a"]
+    assert engine._choose(state)[2] == "a"  # Equal cost: the higher score wins.
+
+
+def test_breadth_ranks_a_side_by_its_next_layer_not_everyone_it_has_heard_of():
+    """A side that glimpsed many deep names is not thereby the expensive side."""
+    # The target root's own page names thirty people; the source root's names one.
+    edges = [("s", "a"), ("a", "m"), ("m", "t")] + [("t", f"d{i}") for i in range(30)]
+    expanded = []
+
+    class Recording:
+        def __init__(self, inner): self.inner = inner
+        def neighborhood(self, node):
+            expanded.append(node)
+            return self.inner.neighborhood(node)
+
+    result = HLBES(Recording(dict_oracle(graph_of(edges)))).search("s", "t")
+    assert result.status == EXACT and result.distance == 3
+    # The thirty-person layer was glimpsed, never read: the small frontier
+    # was grown until the sides met, and the proof closed on the roots.
+    assert not any(node.startswith("d") for node in expanded)
+    assert expanded.count("t") == 1

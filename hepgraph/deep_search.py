@@ -56,6 +56,9 @@ ASSUMED_BROAD_AUTHORS = 3_000
 # profile batches are capped at 25, so a literature-sized page would only make
 # the request (and its cache key) larger for nothing.
 PROFILE_PAGE_SIZE = 25
+# Requests a stale guide corridor may spend without producing a route before
+# it yields to exact frontier work for the rest of the search.
+GUIDE_REQUEST_BUDGET = 24
 
 
 class DeepSearchError(ValueError):
@@ -418,6 +421,12 @@ class DeepSession:
         self.guide_used = self.guide_graph is not None or bool(self.suggestion_neighbors)
         self.suggestion_pairs_configured = len(suggestion_pairs)
         self.guide_verified = 0
+        # Instrumented so the corridor's worth is measured, not assumed:
+        # requests it spent, routes it produced, and whether it was cut off.
+        self.guide_requests = 0
+        self.guide_routes = 0
+        self.guide_first_route = False
+        self.guide_yielded = False
         self.guide_routes_attempted: set[tuple[str, ...]] = set()
         self.guide_pairs_requested: set[tuple[str, str]] = set()
         self.best: dict[str, Any] | None = None
@@ -1153,13 +1162,33 @@ class DeepSession:
         return cursor.pages if cursor is not None else 0
 
     def _retrieval_cost(self, person_id: str) -> float:
-        """Estimated remaining upstream pages for this person."""
+        """Estimated remaining upstream requests for this person.
+
+        Before anything has been read the guess is one profile, two literature
+        pages and one reverse-adviser page.  Once page one has arrived the
+        cursor knows the reported total, the page size and how many distinct
+        records have come, so the remaining pages are arithmetic - plus the
+        empty page that ends a floor (``gte``) count.  HLBES uses this only to
+        order equal-depth work; it can never change a distance.
+        """
         cursor = self._oracle.cursors.get(person_id) if self._oracle else None
         if cursor is None:
             return 4.0
-        remaining = 0.0 if cursor.literature_done else 2.0
-        remaining += 0.0 if cursor.reverse_done else 1.0
-        return remaining if cursor.profile_done else remaining + 1.0
+        remaining = 0.0 if cursor.profile_done else 1.0
+        if not cursor.literature_done:
+            remaining += self._pages_left(cursor.literature_total, len(cursor.literature_seen),
+                                          cursor.page_size, exact=cursor.literature_stable_total, guess=2.0)
+        if not cursor.reverse_done:
+            remaining += self._pages_left(cursor.reverse_total, len(cursor.reverse_seen),
+                                          REVERSE_PAGE_SIZE, exact=True, guess=1.0)
+        return remaining
+
+    @staticmethod
+    def _pages_left(total: int | None, seen: int, page_size: int, *, exact: bool, guess: float) -> float:
+        if total is None or page_size <= 0:
+            return guess
+        pages = -(-max(0, total - seen) // page_size)
+        return max(1.0, float(pages) + (0.0 if exact else 1.0))
 
     def _cached_trial_path(self, graph: Graph) -> list[str] | None:
         """A route in already-retrieved evidence: an upper bound, never a proof."""
@@ -1494,6 +1523,9 @@ class DeepSession:
                               "people": len(snapshot["people"]) if snapshot else None},
                 "requests": self.requests, "nodes": dict(self.node_ledger), "failures": list(self.failures),
                 "guide_used": self.guide_used, "guide_candidates_verified": self.guide_verified,
+                "guide": {"requests": self.guide_requests, "routes_found": self.guide_routes,
+                          "first_route": self.guide_first_route, "yielded": self.guide_yielded,
+                          "request_budget": GUIDE_REQUEST_BUDGET},
                 "navigation_suggestion_pairs": self.suggestion_pairs_configured,
                 "coauthor_discovery": {**(self.navigator.coverage() if self.navigator else {'enabled': False}),
                                        'failures': list(self._navigation_failures)},
@@ -1707,6 +1739,7 @@ class DeepSession:
                         left, right = self.guide_pairs[0]
                         pair = (left, right) if left < right else (right, left)
                         self.guide_pairs_requested.add(pair)
+                        requests_before = self.requests
                         # Literature pair evidence proves coauthorship. An
                         # overlay PhD hop additionally requires both current
                         # public profiles, never a stale guide-only assertion.
@@ -1714,6 +1747,7 @@ class DeepSession:
                         right_profile = self._profile(right, budget)
                         if not left_profile or not right_profile:
                             self.guide_pairs.popleft()
+                            self.guide_requests += self.requests - requests_before
                             self._emit("guide_profile_missing")
                             continue
                         pair_page = self._guide_pair_pages.get(pair, 1)
@@ -1737,10 +1771,22 @@ class DeepSession:
                             if self.navigator is not None and graph._edge(left, right) is None:
                                 self.navigator.reject_edge(left, right)
                         found = graph.find_paths(self.source, self.target, 1)
+                        self.guide_requests += self.requests - requests_before
                         if found.get("status") == "ok":
+                            self.guide_routes += 1
+                            if self.best is None:
+                                self.guide_first_route = True
                             validated = self._validate_candidate_paths(snapshot, graph, budget)
                             if validated is not None:
                                 return self._found_result(budget, "A suggested route passed current-profile and source-name checks.")
+                        elif self.guide_routes == 0 and self.guide_requests >= GUIDE_REQUEST_BUDGET and self.guide_pairs:
+                            # The corridor has spent its allowance without a
+                            # route; frontier work finds routes too, and every
+                            # one of its requests also advances the proof.
+                            self.guide_pairs.clear()
+                            self.guide_yielded = True
+                            self._emit("guide_yield")
+                            continue
                         self._emit("guide_verify")
                         continue
                 # Explore compact summaries from both ends while retaining a

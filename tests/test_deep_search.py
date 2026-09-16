@@ -211,7 +211,11 @@ def test_cycles_do_not_repeat_nodes_and_sliced_continuation_keeps_ram_evidence()
         session.close()
 
     assert first["status"] == "resource_limit" and first["can_continue"] is True
-    assert second["status"] == "ok" and second["paths"][0]["hops"] == 3
+    # 1-3 (paper 53) and 3-4 (paper 54) make the true shortest route two hops.
+    # The three-hop 1-2-3-4 an earlier expansion order reported first was a
+    # verified route, never the shortest one.
+    assert second["status"] == "ok" and second["paths"][0]["hops"] == 2
+    assert [p["id"] for p in second["paths"][0]["people"]] == ["1", "3", "4"]
     assert len({(kind, query, number) for kind, query, number in client.calls}) == len(client.calls)
 
 
