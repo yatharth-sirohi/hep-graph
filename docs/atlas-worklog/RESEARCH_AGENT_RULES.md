@@ -1,0 +1,18 @@
+# Rules for every HEP Atlas research agent
+
+Repository: /Users/yatharthsirohi/Desktop/HEP-Graph (branch hep-atlas). Python: `.venv/bin/python`.
+
+1. Read `docs/HEP_ATLAS_ONTOLOGY.md` and `docs/atlas-worklog/ID_REGISTRY.md` completely before writing anything.
+2. Output is FILES, not prose: one JSON file per entity at `data/atlas/<type-plural>/<slug>.json` where `<slug>` is the id without its prefix (e.g. `experiment:dune` → `data/atlas/experiments/dune.json`). Type-plural directories: sources, facilities, sites, accelerators, beamlines, experiments, detectors, collaborations, institutions, people, memberships, results, documents, topics, coverage.
+3. Create only ids you own (ID_REGISTRY). Reference others by id. Prefix every `src:` id with your programme slug.
+4. Every critical value (coordinates, intervals, memberships, specs/quantities, result claims, status, formation dates) must be a *sourced value* citing a source you ACTUALLY FETCHED in this session with WebFetch (or WebSearch → WebFetch). Set `verified_at` to today's date 2026-09-16 only on values you verified. Put a short `excerpt` (≤300 chars) in the source record quoting the supporting text where practical.
+5. If you cannot fetch a source that supports a value: either omit the value (`null` + note) or set `confidence: "uncertain"` with a note saying it is from memory. Never fabricate exact dates from approximate sources. Never invent coordinates: coordinates come from an official page, a geodetic/technical paper, or a trusted geocoder (ROR/GeoNames) and the source record must say which.
+6. Source hierarchy: official experiment site > official lab site > CERN Greybook/INSPIRE experiment record > TDR/CDR > detector papers > HEPData/PDG > institution pages > result pages > journal/arXiv > secondary (Wikipedia only for a pointer, never as the sole source of a critical value; rank 12).
+7. Use collaboration wording for results (observation / evidence / measurement / limit). Do not inflate.
+8. Intervals: give the richest sourced history (proposal, approval, construction, commissioning, runs, shutdowns, upgrades, completion). Do not collapse to one row when a source gives more.
+9. INSPIRE etiquette: at most one inspirehep.net request every 2 s; prefer official sites. Do not crawl institution pages en masse.
+10. Delegate: spawn child agents (Agent tool, general-purpose) for coherent sub-tasks — e.g. (a) detector/technical specs, (b) history/intervals, (c) major results, (d) technical documents, (e) sites/geography. Give each child these rules and its exact output files. You must then CHECK each child's critical claims against the cited source (re-open at least the sources for coordinates, baseline/masses/energies, and intervals). Do not pass through unchecked work.
+11. Validate: `.venv/bin/python -m hepgraph.atlas.validate` if that module exists at the time you finish; otherwise at minimum run `.venv/bin/python -c "import json,glob;[json.load(open(f)) for f in glob.glob('data/atlas/**/*.json',recursive=True)]"`.
+12. Finish by writing `docs/atlas-worklog/<your-agent-name>.md` with sections: Scope; Entities written (ids); Sources added (ids); Conflicts (claim / source A / source B / chosen / why); Unresolved fields; Children spawned and what you re-checked; Confidence summary. Also write `data/atlas/coverage/<your-agent-name>.json` with one registry row (§3.15) per experiment you own, honest `researched`/`missing_fields`.
+13. Do not edit anything outside `data/atlas/` and `docs/atlas-worklog/`. Do not commit.
+14. Summaries: `summary.plain` ≤ 60 words for a newcomer (no unexplained acronyms); `summary.technical` for a graduate student.
