@@ -16,12 +16,24 @@ treated as an upstream failure and backed off from.
 
 Exactly one request drives a given job at a time; a poll that arrives while
 another is driving just reads the current state.
+
+Progressive route delivery.  The first verified route is published the moment
+the engine returns it, and the exact search then continues automatically
+towards the shortestness proof.  Every installed job state carries a
+monotonic ``sequence_number``, the ``best_route`` the server currently knows
+(identity, hop count, when it was found), a ``route_status`` naming where the
+search stands, an ``events`` timeline and timing ``metrics``.  Which route the
+browser *displays* is the browser's decision; the server only ever reports the
+best one it can prove is real.  All of that is derived in one place,
+``_deliver``, from the state being installed, so no code path can publish a
+route without versioning it.
 """
 from __future__ import annotations
 
 from collections import OrderedDict
 from copy import deepcopy
 import dataclasses
+import hashlib
 import json
 import logging
 import threading
@@ -32,6 +44,9 @@ from .deep_search import DeepBudget
 
 LOG = logging.getLogger(__name__)
 MAX_RETAINED_RESULT_BYTES = 8 * 1024 * 1024
+MAX_EVENTS = 64
+ROUTE_STATUSES = ('searching_no_path', 'verified_route_found', 'exact_route_proven',
+                  'verified_search_stopped', 'search_incomplete', 'no_path')
 
 
 class JobError(ValueError):
@@ -71,6 +86,13 @@ class _Job:
         self.paused_at = None
         self.finished_at = None
         self.generation = 0
+        self.created_at = now
+        # Progressive-delivery bookkeeping, committed only with the state it
+        # describes (see SearchJobs._replace_job_data).
+        self.delivery = {'sequence': 0, 'status': 'searching', 'route_id': None, 'hops': None,
+                         'first_at': None, 'first_hops': None, 'best_at': None,
+                         'exact_at': None, 'improvements': 0,
+                         'events': [{'sequence_number': 0, 'type': 'search_started', 'at_seconds': 0.0}]}
         self.data = {
             'job_id': self.id, 'status': 'searching', 'mode': 'live',
             'version': 'live-deep-v1', 'filters': filters.to_dict(),
@@ -79,6 +101,11 @@ class _Job:
             'progress': {'people_explored': 0, 'works_retrieved': 0,
                          'elapsed_seconds': 0, 'stage': 'Starting the search'},
             'message': 'Searching INSPIRE for a documented connection.',
+            'sequence_number': 0, 'route_status': 'searching_no_path', 'best_route': None,
+            'events': deepcopy(self.delivery['events']),
+            'metrics': {'elapsed_seconds': 0.0, 'time_to_first_verified_path': None,
+                        'time_to_best_route': None, 'time_to_exact_proof': None,
+                        'improvements': 0, 'first_hops': None, 'best_hops': None},
         }
 
 
@@ -89,7 +116,8 @@ class SearchJobs:
                  max_result_bytes=MAX_RETAINED_RESULT_BYTES,
                  clock=time.monotonic, auto_continue=False,
                  max_auto_seconds=7200.0, retry_delay=5.0, max_stalled_runs=12,
-                 start_slice=3.0, poll_slice=5.0, idle_seconds=120.0):
+                 start_slice=3.0, poll_slice=5.0, idle_seconds=120.0,
+                 prove_after_route=True):
         self.engine_factory = engine_factory
         self.coverage = coverage or {'complete': False, 'mode': 'live',
                                     'label': 'Live INSPIRE — search in progress'}
@@ -127,6 +155,13 @@ class SearchJobs:
         # has polled for this long has been abandoned - a closed tab - and must
         # not keep an active slot for ever.
         self.idle_seconds = float(idle_seconds)
+        if not isinstance(prove_after_route, bool):
+            raise ValueError('prove_after_route must be a boolean.')
+        # A verified route used to pause the job until the user pressed
+        # Continue. Now the route is published and the exact search carries on
+        # towards the proof by itself, still under every automatic-continuation
+        # guard (wall time, stall detection, memory ceiling, cancellation).
+        self.prove_after_route = prove_after_route
         self.auto_continue = auto_continue
         self.max_auto_seconds = max_auto_seconds
         self.retry_delay = retry_delay
@@ -160,6 +195,7 @@ class SearchJobs:
         discarded.  Checking before assignment keeps the advertised byte
         ceiling true even while a worker is finalizing a large response.
         """
+        delivery = self._deliver(job, candidate)
         candidate_bytes = len(json.dumps(candidate, ensure_ascii=False,
                                          separators=(',', ':'),
                                          allow_nan=False).encode('utf-8'))
@@ -167,13 +203,115 @@ class SearchJobs:
             other_bytes = sum(self._job_bytes(item) for item in self.jobs.values()
                               if item is not job)
             if other_bytes + candidate_bytes <= self.max_result_bytes:
-                job.data = candidate
+                # Bookkeeping commits with the state it describes: a candidate
+                # refused below leaves the sequence and the timeline untouched.
+                job.data, job.delivery = candidate, delivery
                 return True
             removable = next((job_id for job_id, item in self.jobs.items()
                               if item is not job and item.worker_done and not item.active), None)
             if removable is None:
                 return False
             del self.jobs[removable]
+
+    @staticmethod
+    def _route_id(path):
+        """A stable identity for one route: the people it passes through, in order."""
+        people = path.get('people') if isinstance(path, dict) else None
+        ids = [str(person.get('id')) for person in people if isinstance(person, dict)] if isinstance(people, list) else []
+        return hashlib.sha1('>'.join(ids).encode('utf-8')).hexdigest()[:16]
+
+    @staticmethod
+    def _route_status(status, has_route, proven, can_continue):
+        if status == 'searching':
+            return 'verified_route_found' if has_route else 'searching_no_path'
+        if status == 'cancelled':
+            return 'verified_search_stopped' if has_route else 'search_incomplete'
+        if status == 'no_path':
+            return 'no_path'
+        if status == 'ok' and has_route and proven:
+            return 'exact_route_proven'
+        # A verified route whose shortestness is still open, or no route and
+        # no proof of absence: the search is incomplete either way.
+        return 'search_incomplete'
+
+    def _deliver(self, job, candidate):
+        """Version and annotate one candidate job state; return its bookkeeping.
+
+        The caller holds ``self.lock`` and installs ``candidate`` only if it
+        fits, committing the returned bookkeeping with it.  The candidate is
+        always a private copy, so it is annotated in place.
+        """
+        state = deepcopy(job.delivery)
+        events = state['events']
+        state['sequence'] += 1
+        now = round(max(0.0, self.clock() - job.created_at), 3)
+        paths = [path for path in (candidate.get('paths') or []) if isinstance(path, dict)]
+        for path in paths:
+            path['route_id'] = self._route_id(path)
+        primary = paths[0] if paths else None
+        hops = primary.get('hops') if primary else None
+        hops = hops if isinstance(hops, int) and not isinstance(hops, bool) else None
+        route_id = primary['route_id'] if primary and hops is not None else None
+        proven = route_id is not None and candidate.get('global_shortest_proven') is True
+        status = candidate.get('status')
+
+        def event(kind, **extra):
+            events.append({'sequence_number': state['sequence'], 'type': kind, 'at_seconds': now, **extra})
+
+        if route_id is not None and state['route_id'] is None:
+            event('first_path_found', hops=hops, route_id=route_id)
+            if state['first_at'] is None:
+                state['first_at'], state['first_hops'] = now, hops
+            state['best_at'] = now
+        elif route_id is not None and state['hops'] is not None and hops < state['hops']:
+            event('path_improved', hops=hops, route_id=route_id, previous_hops=state['hops'])
+            state['improvements'] += 1
+            state['best_at'] = now
+        elif route_id is not None and state['hops'] is not None and hops > state['hops']:
+            # The engine withdrew its best route (identity guard) and a longer
+            # one is now the best it can stand behind.
+            event('route_withdrawn', hops=hops, route_id=route_id,
+                  previous_hops=state['hops'], previous_route_id=state['route_id'])
+            state['best_at'] = now
+        elif route_id is None and state['route_id'] is not None:
+            event('route_withdrawn', previous_hops=state['hops'], previous_route_id=state['route_id'])
+            state['best_at'] = None
+        # An equal-length route replacing the primary one is not an improvement
+        # and raises no event; only the identity below moves.
+        state['route_id'], state['hops'] = route_id, hops
+        if proven and state['exact_at'] is None:
+            event('exact_proven', hops=hops, route_id=route_id)
+            state['exact_at'] = now
+        if status != state['status']:
+            if status == 'cancelled':
+                event('search_stopped', hops=hops)
+            elif status == 'searching':
+                event('search_resumed')
+            elif candidate.get('can_continue') is True:
+                event('search_paused', status=status)
+            else:
+                event('search_finished', status=status)
+            state['status'] = status
+        if len(events) > MAX_EVENTS:
+            # Keep the beginning of the story and the most recent part of it.
+            del events[1:len(events) - MAX_EVENTS + 1]
+
+        candidate['sequence_number'] = state['sequence']
+        candidate['route_status'] = self._route_status(
+            status, route_id is not None, proven, candidate.get('can_continue') is True)
+        candidate['best_route'] = None if route_id is None else {
+            'route_id': route_id, 'hops': hops, 'alternatives': len(paths) - 1,
+            'exact': proven, 'found_at_seconds': state['best_at'],
+            'version': candidate.get('version')}
+        candidate['events'] = deepcopy(events)
+        candidate['metrics'] = {
+            'elapsed_seconds': now,
+            'time_to_first_verified_path': state['first_at'],
+            'time_to_best_route': state['best_at'],
+            'time_to_exact_proof': state['exact_at'],
+            'improvements': state['improvements'],
+            'first_hops': state['first_hops'], 'best_hops': hops}
+        return state
 
     def _update_job_data(self, job, **changes):
         candidate = deepcopy(job.data)
@@ -318,6 +456,7 @@ class SearchJobs:
                 job.data['automatic_continuations'] = 0
                 job.data['search_policy'] = {
                     'automatic_continuation': self.auto_continue,
+                    'prove_after_route': self.auto_continue and self.prove_after_route,
                     'max_automatic_seconds': self.max_auto_seconds,
                     'storage': 'temporary_memory',
                     'driver': 'request',
@@ -353,6 +492,7 @@ class SearchJobs:
                 'storage': 'memory',
                 'persistent': False,
                 'driver': 'request',
+                'prove_after_route': self.auto_continue and self.prove_after_route,
                 'start_slice_seconds': self.start_slice,
                 'poll_slice_seconds': self.poll_slice,
                 'idle_seconds': self.idle_seconds,
@@ -524,8 +664,10 @@ class SearchJobs:
         ceiling = ('ceiling' in result.get('message', '').lower()
                    and job.budget.max_works >= self.extended_budget.max_works
                    and job.budget.max_people >= self.extended_budget.max_people)
+        # A verified route that is not yet proven shortest continues towards
+        # the proof by itself; the route is already published in the job data.
         automatic = (self.auto_continue and result.get('can_continue', False)
-                     and result.get('status') != 'ok' and not ceiling
+                     and (result.get('status') != 'ok' or self.prove_after_route) and not ceiling
                      and self.clock() - job.auto_started < self.max_auto_seconds
                      and job.stalled_runs < self.max_stalled_runs)
         with self.lock:
@@ -541,12 +683,16 @@ class SearchJobs:
                              target=job.target, filters=job.filters.to_dict())
             if automatic:
                 transient = failed_upstream and result.get('status') in {'search_incomplete', 'upstream_unavailable'}
+                routed = result.get('status') == 'ok' and bool(result.get('paths'))
                 candidate['automatic_continuations'] += 1
                 candidate.update(status='searching', can_continue=False,
                                  message=(result.get('message') if waiting else
+                                          'A verified route is shown. The exact search continues to look for a shorter one.'
+                                          if routed else
                                           'Continuing automatically from the evidence already retrieved.'))
                 candidate['progress'] = {**progress, 'stage': ('rate_limit_wait' if waiting else
-                                                                'retry_upstream' if transient else 'continue_search')}
+                                                                'retry_upstream' if transient else
+                                                                'prove_shortest' if routed else 'continue_search')}
             if not self._replace_job_data(job, candidate):
                 self._retention_limit_result(job)
                 job.retire.set()

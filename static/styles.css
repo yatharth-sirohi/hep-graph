@@ -667,6 +667,23 @@ button:focus-visible {
   gap: 8px;
   flex-shrink: 0;
 }
+/* A better route is announced here, never swapped in under the reader. */
+.route-update {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin: 14px 0;
+  padding: 10px 14px;
+  border: 1px solid #edc47c;
+  border-left-width: 4px;
+  border-radius: 8px;
+  background: #fff8e8;
+  color: #5b3d0a;
+}
+.route-update button {
+  flex-shrink: 0;
+}
 .graph-stage:active {
   cursor: grabbing;
 }
@@ -980,7 +997,8 @@ footer {
   .query-actions .primary-button {
     width: 100%;
   }
-  .deep-progress {
+  .deep-progress,
+  .route-update {
     align-items: stretch;
     flex-direction: column;
   }

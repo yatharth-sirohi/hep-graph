@@ -189,7 +189,8 @@ async function install(page, name) {
         await new Promise((resolve) => { releaseInitial = resolve; });
       }
       body = { status: "searching", job_id: "deep-job-1", mode: "live", version, filters: routeFilters(), coverage, progress: progress(), can_continue: false, paths: [] };
-      if (scenario === "an early verified route appears while live search continues") body.best_result = routeData;
+      // The server publishes an early route as paths + best_route on a versioned state.
+      if (scenario === "an early verified route appears while live search continues") body = { ...body, paths: routeData.paths, best_route: { route_id: "r-deep", hops: 1, alternatives: 0, exact: false, found_at_seconds: 2.5, version }, route_status: "verified_route_found", sequence_number: 2 };
       if (scenario === "completed live job renders its terminal route") body = { ...routeData, job_id: "deep-job-1" };
       if (scenario === "incomplete") body = { status: "search_incomplete", job_id: "deep-job-1", mode: "live", version, filters: routeFilters(), coverage, progress: progress(), paths: [], can_continue: false };
       if (scenario === "upstream") body = { status: "upstream_unavailable", job_id: "deep-job-1", mode: "live", version, message: "Live INSPIRE is temporarily unavailable.", paths: [], can_continue: false };
@@ -199,7 +200,8 @@ async function install(page, name) {
       seePoll();
       if (scenario === "delayed poll cannot restore a result after mode changes") await new Promise((resolve) => { releasePoll = resolve; });
       body = { status: "ok", ...routeData, job_id: "deep-job-1" };
-      if (scenario === "progress reports explored people works elapsed time and stage" || scenario === "an early verified route appears while live search continues") body = { status: "searching", job_id: "deep-job-1", mode: "live", version, progress: progress(31, 92, "checking documented ties"), coverage, paths: [], can_continue: false };
+      if (scenario === "progress reports explored people works elapsed time and stage") body = { status: "searching", job_id: "deep-job-1", mode: "live", version, progress: progress(31, 92, "checking documented ties"), coverage, paths: [], can_continue: false };
+      if (scenario === "an early verified route appears while live search continues") body = { status: "searching", job_id: "deep-job-1", mode: "live", version, progress: progress(31, 92, "checking documented ties"), coverage, paths: routeData.paths, best_route: { route_id: "r-deep", hops: 1, alternatives: 0, exact: false, found_at_seconds: 2.5, version }, route_status: "verified_route_found", sequence_number: 3, can_continue: false };
       if (scenario === "resource limit preserves evidence and offers continuation") body = { status: "resource_limit", job_id: "deep-job-1", mode: "live", version, progress: progress(83, 210, "resource limit reached"), coverage, paths: routeData.paths, can_continue: true };
     } else if (u.pathname === "/api/search-jobs/deep-job-1/continue") {
       body = { status: "searching", job_id: "deep-job-1", mode: "live", version, progress: progress(88, 224, "continuing bounded exploration"), coverage, paths: [], can_continue: false };

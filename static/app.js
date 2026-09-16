@@ -271,6 +271,7 @@
       $("#path-message").textContent =
         "Previous path cleared because the selected inputs changed.";
       $("#path-cards").replaceChildren();
+      hideRouteOffer();
       state.lastPath = null;
       state.displayGraph = null;
       state.graph.nodes.clear();
@@ -315,6 +316,7 @@
     $("#connection-empty").classList.remove("hidden");
     $("#connection-results").classList.add("hidden");
     $("#path-cards").replaceChildren();
+    hideRouteOffer();
     $("#path-message").className = "notice hidden";
     $("#path-meta").textContent = "";
     $("#person-panel").classList.add("hidden");
@@ -679,10 +681,13 @@
   }
 
   function statusForPath(data) {
+    if (data.client_message) return data.client_message;
     if (data.status === "ok") return null;
     const hasPath = Boolean(data.paths?.length);
     if (hasPath) {
       const withPath = {
+        searching:
+          "A verified route is shown. The exact search continues in the background; if a shorter route is found it is announced above the result and never swapped in by itself.",
         search_incomplete:
           "A verified path is shown, but the exact live search is incomplete. A shorter path may still be found.",
         resource_limit:
@@ -692,6 +697,7 @@
         upstream_unavailable:
           "Live INSPIRE became unavailable after a verified path was found. The shown evidence remains scoped to retrieved records, and the exact search is incomplete.",
       };
+      if (data.status === "searching") return withPath.searching;
       if (withPath[data.status]) return data.message || withPath[data.status];
     }
     const messages = {
@@ -746,6 +752,7 @@
     sendDeepCancel(job);
     forgetDeepJob(job);
     state.deepJob = null;
+    hideRouteOffer();
     $("#deep-progress")?.classList.add("hidden");
   }
 
@@ -804,6 +811,8 @@
       guide_profile_missing: "Checking another possible connection",
       guide_pair_cap: "Continuing the broader search",
       continue_search: "Continuing automatically with the records already retrieved",
+      prove_shortest: "Looking for a shorter route",
+      rate_limit_wait: "Waiting for INSPIRE’s rate limit, then continuing automatically",
       retry_upstream: "Waiting briefly for INSPIRE, then retrying automatically",
       discover_coauthors: "Exploring INSPIRE’s coauthor summaries from both ends",
     };
@@ -816,7 +825,7 @@
     box.classList.remove("hidden");
     const terminal = data.status !== "searching";
     $("#deep-title").textContent = data.status === "searching"
-      ? "Exploring live INSPIRE…"
+      ? (job?.displayed ? "Looking for a shorter route…" : "Exploring live INSPIRE…")
       : data.status === "cancelled"
         ? "Live search stopped"
         : data.status === "resource_limit"
@@ -830,57 +839,142 @@
     const stop = $("#deep-stop"), cont = $("#deep-continue");
     const retryableFailure = data.status === "upstream_unavailable" && job?.jobId;
     stop.classList.toggle("hidden", (terminal && !retryableFailure) || job?.cancelled || job?.continuing);
-    const verified = Boolean(
-      data.paths?.length || deepBestResult(data)?.paths?.length || job?.bestResult?.paths?.length,
-    );
+    const verified = Boolean(data.paths?.length || job?.displayed || job?.best);
     cont.textContent = verified ? "Continue exact search" : "Continue search";
     cont.classList.toggle("hidden", !(terminal && data.can_continue === true));
   }
 
-  function deepBestResult(data) {
-    const best = data?.best_result?.path_result || data?.best_result;
-    return best && Array.isArray(best.paths) ? best : null;
+  // The server reports the best route it can currently stand behind
+  // (best_route); which route this tab shows (job.displayed) is decided here
+  // and is never swapped under the reader. A shorter route is offered in
+  // #route-update and shown only when the reader asks for it.
+  function routeSnapshot(data) {
+    if (!data.paths?.length) return null;
+    const best = data.best_route || {
+      route_id: data.paths[0].route_id || (data.paths[0].people || []).map((p) => p.id).join(">"),
+      hops: data.paths[0].hops,
+    };
+    return {
+      routeId: best.route_id, hops: best.hops, paths: data.paths,
+      version: data.version, foundAt: best.found_at_seconds ?? null,
+    };
+  }
+
+  function routeState(data, job) {
+    const displayed = job?.displayed, best = data.best_route;
+    if (displayed && best && best.hops < displayed.hops) return "BETTER_ROUTE_AVAILABLE";
+    switch (data.route_status) {
+      case "searching_no_path": return "SEARCHING_NO_PATH";
+      case "verified_route_found": return "VERIFIED_ROUTE_FOUND";
+      case "exact_route_proven": return "EXACT_ROUTE_PROVEN";
+      case "verified_search_stopped": return "VERIFIED_SEARCH_STOPPED";
+      case "no_path": return "NO_PATH";
+      case undefined: return undefined;
+      default: return "SEARCH_INCOMPLETE";
+    }
+  }
+
+  function displayedResult(data, job) {
+    const displayed = job.displayed;
+    if (!displayed) return { ...data, route_state: routeState(data, job) };
+    const best = data.best_route;
+    const isBest = Boolean(best && best.route_id === displayed.routeId);
+    // A proof closes on a hop count: every verified route of that length is a
+    // shortest one, whichever of them is on screen.
+    const proven = data.global_shortest_proven === true && Boolean(best) && displayed.hops === best.hops;
+    return {
+      ...data, paths: displayed.paths, version: displayed.version || data.version,
+      global_shortest_proven: proven,
+      exact_for_retrieved_graph: isBest ? data.exact_for_retrieved_graph : false,
+      displayed_route_id: displayed.routeId, displayed_is_best: isBest,
+      route_state: routeState(data, job),
+    };
+  }
+
+  function renderDisplayed(data, job, cards) {
+    const shown = displayedResult(data, job);
+    if (cards || !job.rendered) renderPath(shown); else renderPathHeading(shown);
+    job.rendered = true;
+  }
+
+  function showRouteOffer(job, kind) {
+    const best = job.best, displayed = job.displayed;
+    if (!best || !displayed) return;
+    const plural = (n) => `${n} hop${n === 1 ? "" : "s"}`;
+    $("#route-update-text").textContent = kind === "exact"
+      ? `Exact shortest path found: ${plural(best.hops)}. The ${plural(displayed.hops)} route shown is verified but not the shortest.`
+      : `Shorter route found: ${plural(displayed.hops)} → ${plural(best.hops)}. The route shown stays until you switch.`;
+    $("#route-update-show").textContent = kind === "exact" ? "Show exact route" : "Show shorter route";
+    $("#route-update").classList.remove("hidden");
+    state.routeOffer = {
+      apply() {
+        job.displayed = job.best;
+        hideRouteOffer();
+        if (job.lastData) renderDisplayed(job.lastData, job, true);
+      },
+    };
+  }
+
+  function hideRouteOffer() {
+    state.routeOffer = null;
+    $("#route-update")?.classList.add("hidden");
   }
 
   function consumeDeepResponse(data, job) {
     if (!deepJobCurrent(job)) return;
-    const best = deepBestResult(data);
-    if (best?.paths?.length) {
-      job.bestResult = {
-        ...best,
-        status: "ok",
-        mode: "live",
-        version: best.version || data.version || job.version,
-        filters: best.filters || data.filters,
-        coverage: best.coverage || data.coverage,
-      };
-      renderPath(job.bestResult);
-      if (data.status === "searching")
-        $("#path-meta").textContent += " · early route shown while the search continues";
+    // Versions come from the server. An update older than one already applied
+    // is ignored whole, whatever it says; only its polling obligation remains.
+    if (Number.isInteger(data.sequence_number)) {
+      if (data.sequence_number < job.sequence) {
+        if (data.status === "searching" && !job.cancelled) scheduleDeepPoll(job);
+        return;
+      }
+      job.sequence = data.sequence_number;
     }
+    job.lastData = data;
     job.progress = data.progress || job.progress;
+    const best = routeSnapshot(data);
+    const displayed = job.displayed;
+    const withdrawn = (data.events || []).some((e) => e.type === "route_withdrawn");
+    job.best = best;
+    let cards = false;
+    if (best && !displayed) {
+      job.displayed = best;
+      cards = true;
+      hideRouteOffer();
+    } else if (best && displayed && best.routeId !== displayed.routeId) {
+      if (best.hops < displayed.hops) {
+        showRouteOffer(job, data.global_shortest_proven === true ? "exact" : "shorter");
+      } else if (best.hops === displayed.hops) {
+        // An equal-length route is not an improvement: keep what is shown.
+        hideRouteOffer();
+      } else if (withdrawn) {
+        // The engine's identity guard retracted the route on screen. A route
+        // that is no longer verified must not stay up as if it were.
+        job.displayed = best;
+        cards = true;
+        hideRouteOffer();
+        data = { ...data, client_message: `The route shown earlier was withdrawn after identity checks. The best verified route now has ${best.hops} hops.` };
+        job.lastData = data;
+      }
+    } else if (!best && displayed && withdrawn) {
+      job.displayed = null;
+      cards = true;
+      hideRouteOffer();
+      data = { ...data, client_message: "The route shown earlier was withdrawn after identity checks. No verified route is currently known." };
+      job.lastData = data;
+    } else if (best && displayed && best.paths.length !== displayed.paths.length) {
+      // Same primary route, more (or fewer) equal-length alternatives.
+      job.displayed = best;
+      cards = true;
+    }
+    if (job.displayed || data.status !== "searching") renderDisplayed(data, job, cards);
     renderDeepProgress(data, job);
     if (data.status === "searching") {
       if (!job.cancelled) scheduleDeepPoll(job);
       return;
     }
     job.done = true;
-    if (data.status === "cancelled") {
-      const prior = job.bestResult || state.lastPath;
-      renderPath({
-        ...(prior || data),
-        ...data,
-        status: "cancelled",
-        mode: "live",
-        paths: data.paths || prior?.paths || [],
-        message: data.message || "The live search was stopped; this result is incomplete.",
-      });
-    } else if (data.paths || data.status !== "ok") {
-      const terminal = job.bestResult && !data.paths?.length
-        ? { ...job.bestResult, ...data, paths: job.bestResult.paths }
-        : data;
-      renderPath(terminal);
-    }
     setLoading($("#find-connection"), false);
     if (data.can_continue !== true) {
       forgetDeepJob(job);
@@ -927,6 +1021,7 @@
         job.restarts = (job.restarts || 0) + 1;
         forgetDeepJob(job);
         job.jobId = null;
+        job.sequence = -1;
         renderDeepProgress({ status: "searching", progress: {
           ...job.progress, stage: "The search moved to another server; starting it again there…",
         } }, job);
@@ -992,18 +1087,24 @@
     job.timer = null;
     sendDeepCancel(job);
     forgetDeepJob(job);
-    const prior = job.bestResult || state.lastPath;
     state.deepJob = null;
-    renderPath({
-      ...(prior || {}),
-      status: "cancelled",
-      mode: "live",
-      version: prior?.version || job.version,
-      filters: prior?.filters || job.filters,
-      coverage: prior?.coverage || job.coverage,
-      paths: prior?.paths || [],
-      message: "The live search was stopped; this result is incomplete.",
-    });
+    const last = job.lastData || {};
+    // The route on screen was verified before Stop was pressed; Stop only
+    // ends the search for a shorter one. A pending offer stays: that shorter
+    // route is verified too.
+    const data = {
+      ...last, status: "cancelled", can_continue: false, mode: "live",
+      version: last.version || job.version, filters: last.filters || job.filters,
+      coverage: last.coverage || job.coverage,
+      paths: job.displayed ? last.paths || [] : [],
+      route_status: job.displayed ? "verified_search_stopped" : "search_incomplete",
+      message: job.displayed
+        ? "The exact search was stopped. The route shown is verified by retrieved evidence; whether a shorter one exists was not established."
+        : "The live search was stopped before a route was verified; this result is incomplete.",
+    };
+    job.lastData = data;
+    job.done = true;
+    renderDisplayed(data, job, false);
     $("#deep-progress").classList.add("hidden");
     setLoading($("#find-connection"), false);
   }
@@ -1013,9 +1114,13 @@
       source, target, revision, request, key, mode: "live", jobId: null,
       version: "live-deep-v1", filters: canonicalFilters(), coverage: state.dataset?.coverage,
       cancelled: false, cancelSent: false, timer: null, done: false,
-      continuing: false, bestResult: null, progress: {},
+      continuing: false, progress: {}, lastData: null,
+      // Versioned delivery: the last applied server version, the best route
+      // the server reports, and the route this tab is showing.
+      sequence: -1, best: null, displayed: null, rendered: false,
     };
     state.deepJob = job;
+    hideRouteOffer();
     setLoading($("#find-connection"), true, "Exploring…");
     renderDeepProgress({ status: "searching", progress: job.progress }, job);
     $("#connection-empty").classList.add("hidden");
@@ -1314,6 +1419,18 @@
       snapshot_version: result.version || state.dataset?.version,
       filters: { min_authors: 1, ...(result.filters || filters()) },
       path_result: state.lastPath || null,
+      // The export describes the route on screen, which may be an older
+      // verified route than the server's best; both are named here.
+      route_delivery: state.lastPath ? {
+        route_status: state.lastPath.route_status ?? null,
+        route_state: state.lastPath.route_state ?? null,
+        displayed_route_id: state.lastPath.displayed_route_id ?? state.lastPath.paths?.[0]?.route_id ?? null,
+        displayed_is_best: state.lastPath.displayed_is_best ?? (state.lastPath.best_route ? true : null),
+        best_route: state.lastPath.best_route ?? null,
+        sequence_number: state.lastPath.sequence_number ?? null,
+        metrics: state.lastPath.metrics ?? null,
+        events: state.lastPath.events ?? null,
+      } : null,
       display_scope: state.displayGraph || null,
       displayed_graph: shown,
     };
@@ -2027,22 +2144,40 @@
     }
   }
 
-  function renderPath(data) {
+  const seconds = (value) => `${value < 10 ? Math.round(value * 10) / 10 : Math.round(value)}s`;
+
+  // Title, message and meta line only: updated on every poll without
+  // rebuilding the route cards, so an opened evidence panel stays open.
+  function renderPathHeading(data) {
     state.lastPath = data;
     $("#copy-share").hidden = false;
     $("#connection-empty").classList.add("hidden");
     $("#connection-results").classList.remove("hidden");
-    $("#path-cards").replaceChildren();
+    $("#connection-results").dataset.routeState = data.route_state || "";
     const message = statusForPath(data),
       msg = $("#path-message");
     msg.className = `notice ${message ? "" : "hidden"} ${data.status === "resource_limit" ? "warning" : ""}`;
     msg.textContent = message || "";
+    const routes = data.paths?.length || 0;
+    const hops = data.paths?.[0]?.hops;
+    const hopText = Number.isInteger(hops) ? ` · ${hops} hop${hops === 1 ? "" : "s"}` : "";
+    const rs = routes ? data.route_state : null;
     $("#path-title").textContent =
-      data.status === "ok"
-        ? `${data.paths?.length || 0} documented route${data.paths?.length === 1 ? "" : "s"}`
-        : data.paths?.length
-          ? `${data.paths.length} verified route${data.paths.length === 1 ? "" : "s"} · exact search incomplete`
-          : "Connection result";
+      rs === "EXACT_ROUTE_PROVEN"
+        ? `Exact shortest path${hopText}${routes > 1 ? ` · ${routes} routes` : ""}`
+        : rs === "VERIFIED_ROUTE_FOUND"
+          ? `Verified route shown${hopText} · looking for a shorter one`
+          : rs === "BETTER_ROUTE_AVAILABLE"
+            ? `Verified route shown${hopText} · shorter route available`
+            : rs === "VERIFIED_SEARCH_STOPPED"
+              ? `Verified route${hopText} · search stopped`
+              : rs === "SEARCH_INCOMPLETE"
+                ? `Verified route${hopText} · exact search incomplete`
+                : data.status === "ok"
+                  ? `${routes} documented route${routes === 1 ? "" : "s"}`
+                  : routes
+                    ? `${routes} verified route${routes === 1 ? "" : "s"} · exact search incomplete`
+                    : "Connection result";
     const scopedFilters = data.filters || filters();
     const liveResult = isLive(data) || state.mode === "live";
     const hasPath = Boolean(data.paths?.length);
@@ -2050,13 +2185,19 @@
     const precision = liveResult
       ? data.global_shortest_proven === true
         ? "exact shortest path for this identity query"
-        : hasPath && incomplete
-          ? "verified path; exact search incomplete"
-          : hasPath
-            ? "verified path; exhaustive shortestness not established"
-            : incomplete
-              ? "search incomplete; no no-path conclusion"
-              : "bounded result; exhaustive shortestness not established"
+        : rs === "VERIFIED_ROUTE_FOUND"
+          ? "verified route; the exact search is still looking for a shorter one"
+          : rs === "BETTER_ROUTE_AVAILABLE"
+            ? "verified route; a shorter verified route is available above"
+            : rs === "VERIFIED_SEARCH_STOPPED"
+              ? "verified route; search stopped before shortestness was proven"
+              : hasPath && incomplete
+                ? "verified path; exact search incomplete"
+                : hasPath
+                  ? "verified path; exhaustive shortestness not established"
+                  : incomplete
+                    ? "search incomplete; no no-path conclusion"
+                    : "bounded result; exhaustive shortestness not established"
       : data.exact === false
         ? "bounded / not exact"
         : "exact for this snapshot and filters";
@@ -2064,9 +2205,19 @@
     const retrieval = retrievalInfo
       ? ` · retrieved ${retrievalInfo.people ?? retrievalInfo.profiles ?? "?"} people / ${retrievalInfo.works ?? "?"} works${data.retrieval?.truncated || data.coverage?.partial ? " · truncated" : ""}`
       : "";
+    const metrics = data.metrics || {};
+    const timing = hasPath && metrics.time_to_first_verified_path != null
+      ? ` · first route after ${seconds(metrics.time_to_first_verified_path)}${
+        metrics.time_to_exact_proof != null ? `, proven shortest after ${seconds(metrics.time_to_exact_proof)}` : ""}`
+      : "";
     $("#path-meta").textContent =
-      `${modeLabel(data.mode || state.mode)} ${data.version || state.dataset?.version || "unknown"} · ${precision} · ${filterDescription(scopedFilters)} · scope: ${data.coverage?.label || data.coverage?.description || (liveResult ? "temporary in-memory INSPIRE result" : "indexed local snapshot")}${retrieval}`;
+      `${modeLabel(data.mode || state.mode)} ${data.version || state.dataset?.version || "unknown"} · ${precision} · ${filterDescription(scopedFilters)} · scope: ${data.coverage?.label || data.coverage?.description || (liveResult ? "temporary in-memory INSPIRE result" : "indexed local snapshot")}${retrieval}${timing}`;
     displayCoverage(data.coverage || state.dataset?.coverage);
+  }
+
+  function renderPath(data) {
+    renderPathHeading(data);
+    $("#path-cards").replaceChildren();
     (data.paths || []).forEach((path, index) => {
       const card = document.createElement("article");
       card.className = "path-card";
@@ -2350,6 +2501,7 @@
     $("#deep-continue").addEventListener("click", () => {
       if (state.deepJob) continueDeepSearch(state.deepJob);
     });
+    $("#route-update-show").addEventListener("click", () => state.routeOffer?.apply());
     $("#export-json").addEventListener("click", jsonExport);
     $("#export-svg").addEventListener("click", svgExport);
     $("#close-profile").addEventListener("click", () => {
