@@ -163,7 +163,63 @@ and a per-process instance id; every JSON response carries the instance id in
 
 ## 13. Tests
 
+| | |
+|---|---|
+| Python suite at start | 448 passed, 1 xfailed |
+| Python suite now | **458 passed, 1 xfailed** |
+| `hlbes.py` | unchanged; the 24,000-pair NetworkX differential is re-run in § 12 |
+
+Tests that encoded the old thread model were ported, not deleted: the fakes
+assert that no two calls on a session overlap (the invariant that matters)
+instead of a thread identity, and tests that need a slice in flight drive one
+on a helper thread. New tests cover the six review findings, the idle reaper,
+the checkpoint-versus-failure distinction, the deadline handling in `_fetch`,
+and inline preparation.
+
+The known identity `xfail` (unrelated-surname byline carrying a profile's
+`$ref`) is unchanged; see § 15.
+
+
 ## 14. Agent review
+
+Implementation: Claude Fable 5.1 (this session). Review: separate Claude Code
+agents with no access to the implementer's reasoning, instructed to run code
+rather than reason about it. No OpenAI model was available or used.
+
+**Round 1, independent correctness reviewer** — attacked the request-driven
+driver, the relaxed session ownership, the inline preparation, and the browser
+restart. It re-ran everything against the tree as it stood at the end of the
+review because the tree moved under it. Six confirmed defects, all in code
+written in this phase, each reproduced by a script before I touched it:
+
+1. `cancel()` landing between a slice's cancel check and its continuation block
+   left a job `searching`, undrivable, unresumable and unreapable — an active
+   slot and an engine session held until the process died. The continuation
+   block now re-checks under the lock `cancel()` writes with.
+2. `resume()` did not stamp `last_driven_at`, so a search continued after the
+   user had read its result for a few minutes was reaped as abandoned by any
+   concurrent request — sometimes by `resume()` itself.
+3. The same stamp was written only *after* a slice, so the reaper could cancel
+   a slice already in flight at the idle boundary.
+4. A poll decided it was due, released the registry lock, then took the drive
+   lock; a cancel in between finalized the job and the poll opened a fresh
+   engine session nobody would ever close.
+5. Counting requests as progress meant a dead upstream never registered as
+   stalled: flat five-second retries for two hours where the old worker backed
+   off and paused.
+6. A victim retired while its last slice was releasing the drive lock kept an
+   open session with no owner.
+
+Also: the browser's restart-on-404 left a fresh server job running if the user
+moved on mid-restart; a completed inline preparation answered 202. The reviewer
+confirmed by inspection that the lock discipline has no inversion (every
+registry→drive path acquires non-blocking), that no SQLite access escapes the
+drive lock, that `_slice()` preserves the session-wide ceilings, and that
+`hlbes.py` is byte-identical to `main`.
+
+Every item was fixed and pinned by a regression test in
+`tests/test_search_jobs.py` before the next round.
+
 
 ## 15. Remaining bottlenecks
 

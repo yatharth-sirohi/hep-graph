@@ -892,14 +892,20 @@
   function scheduleDeepPoll(job) {
     if (!deepJobCurrent(job)) return;
     if (job.timer) clearTimeout(job.timer);
-    job.timer = setTimeout(() => pollDeepJob(job), 1500);
+    // The search advances only inside a poll. A poll that took a while was
+    // doing that work, so ask again at once rather than idling; a quick one
+    // found the job busy or paused, so there is nothing to gain by hurrying.
+    const delay = job.lastPollMs > 1000 ? 250 : 1500;
+    job.timer = setTimeout(() => pollDeepJob(job), delay);
   }
 
   async function pollDeepJob(job) {
     job.timer = null;
     if (!deepJobCurrent(job)) return;
+    const startedAt = performance.now();
     try {
       const data = await api(deepEndpoint(job));
+      job.lastPollMs = performance.now() - startedAt;
       if (!deepJobCurrent(job)) return;
       job.pollFailures = 0;
       consumeDeepResponse(data, job);
