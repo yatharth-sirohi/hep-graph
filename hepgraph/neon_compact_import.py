@@ -303,16 +303,27 @@ class NeonCompactImporter:
             "SELECT status,COUNT(*) AS count FROM inspire_compact_shard WHERE import_id=%s GROUP BY status",
             (self.import_id,)).fetchall()
         counts = {row["status"]: row["count"] for row in rows}
-        totals = self.connection.execute(
-            "SELECT COALESCE(SUM(received_records),0) AS source_records_seen,"
-            "COALESCE(SUM(retained_works),0) AS works_retained,"
-            "COALESCE(SUM(retained_memberships),0) AS memberships_retained "
+        # Shard counters are checkpoints, not the source of truth for graph
+        # cardinality. A stopped process can be retried after a successful
+        # page commit, so primary-key deduplication may make the table row
+        # count smaller than the historical "retained" attempt counter.
+        # Clamp source progress to a shard's known upstream total and report
+        # persisted graph rows directly so the operator never mistakes retry
+        # attempts for imported topology.
+        source = self.connection.execute(
+            "SELECT COALESCE(SUM(CASE WHEN expected_records IS NULL THEN 0 "
+            "ELSE LEAST(received_records, expected_records) END),0) AS source_records_seen "
             "FROM inspire_compact_shard WHERE import_id=%s",
             (self.import_id,)).fetchone()
+        stored = self.connection.execute(
+            "SELECT "
+            "(SELECT COUNT(*) FROM inspire_compact_work WHERE import_id=%s) AS works_retained,"
+            "(SELECT COUNT(*) FROM inspire_compact_membership WHERE import_id=%s) AS memberships_retained",
+            (self.import_id, self.import_id)).fetchone()
         return {"import_id": self.import_id, "requests_this_run": requests,
-                "shards": counts, "source_records_seen": totals["source_records_seen"],
-                "works_retained": totals["works_retained"],
-                "memberships_retained": totals["memberships_retained"]}
+                "shards": counts, "source_records_seen": source["source_records_seen"],
+                "works_retained": stored["works_retained"],
+                "memberships_retained": stored["memberships_retained"]}
 
 
 def main(argv: list[str] | None = None) -> int:
