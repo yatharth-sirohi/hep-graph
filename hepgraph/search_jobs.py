@@ -439,7 +439,16 @@ class SearchJobs:
 
     def _advance(self, job, seconds):
         """Run one bounded slice of a job inside the calling request, if it is due."""
-        if seconds <= 0 or not job.drive.acquire(blocking=False):
+        if seconds <= 0:
+            return
+        with self.lock:
+            # Cheap pre-check so a poll on a paused or finished job never
+            # touches the drive lock; the decision is re-made under it below.
+            if job.worker_done or not (job.active or job.cancel.is_set() or job.retire.is_set()):
+                return
+            if job.active and self.clock() < job.next_attempt_at:
+                return
+        if not job.drive.acquire(blocking=False):
             return
         try:
             with self.lock:
@@ -503,7 +512,12 @@ class SearchJobs:
         marker = (progress.get('works_retrieved'), progress.get('people_explored'), progress.get('requests'))
         last = job.last_progress or (None, None, None)
         progressed = (marker[:2] != last[:2]) or (marker[2] != last[2] and not failed_upstream)
-        job.stalled_runs = 0 if progressed else job.stalled_runs + 1
+        # A slice the pacer refused outright - an upstream cooldown - did no
+        # work and proves nothing about being stuck; it is told when to retry.
+        retry_after = result.get('retry_after')
+        waiting = isinstance(retry_after, (int, float)) and retry_after > 0
+        if not waiting:
+            job.stalled_runs = 0 if progressed else job.stalled_runs + 1
         job.last_progress = marker
         # A time/request checkpoint is resumable; a session-wide memory ceiling
         # cannot be fixed by immediately trying again.
@@ -529,8 +543,10 @@ class SearchJobs:
                 transient = failed_upstream and result.get('status') in {'search_incomplete', 'upstream_unavailable'}
                 candidate['automatic_continuations'] += 1
                 candidate.update(status='searching', can_continue=False,
-                                 message='Continuing automatically from the evidence already retrieved.')
-                candidate['progress'] = {**progress, 'stage': 'retry_upstream' if transient else 'continue_search'}
+                                 message=(result.get('message') if waiting else
+                                          'Continuing automatically from the evidence already retrieved.'))
+                candidate['progress'] = {**progress, 'stage': ('rate_limit_wait' if waiting else
+                                                                'retry_upstream' if transient else 'continue_search')}
             if not self._replace_job_data(job, candidate):
                 self._retention_limit_result(job)
                 job.retire.set()
@@ -544,6 +560,8 @@ class SearchJobs:
                 # Back off from a transient upstream failure without sleeping
                 # inside somebody's request: the next poll simply waits its turn.
                 delay = min(60, self.retry_delay * (2 ** min(job.stalled_runs, 4))) if transient else 0
+                if waiting:
+                    delay = min(60.0, float(retry_after))
                 job.next_attempt_at = self.clock() + delay
                 job.budget = self.extended_budget
                 return

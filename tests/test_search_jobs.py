@@ -582,3 +582,69 @@ def test_a_dead_upstream_still_backs_off_and_eventually_pauses():
         assert engine.calls <= 4
     finally:
         jobs.shutdown()
+
+
+def test_an_upstream_cooldown_waits_instead_of_pausing_as_exhausted():
+    """A 429 cooldown refuses every slice instantly. That is not exhaustion and
+    not stalling: the job stays searching, says why, and retries after the wait."""
+    class CooldownSession(Session):
+        def run(self, budget):
+            self._enter()
+            try:
+                self.calls.append(budget)
+                return {'status': 'resource_limit', 'can_continue': True, 'paths': [],
+                        'message': "Waiting 42s for INSPIRE's rate limit before continuing.",
+                        'retry_after': 42.0, 'coverage': {'failures': []},
+                        'progress': {'works_retrieved': 0, 'people_explored': 0, 'requests': 0}}
+            finally:
+                self.busy.release()
+
+    class CooldownEngine(Engine):
+        def start(self, source, target, filters, *, cancel, progress):
+            session = CooldownSession(cancel, progress, False)
+            self.sessions.append(session)
+            return session
+
+    clock = [0.0]
+    engine = CooldownEngine()
+    jobs = SearchJobs(lambda: engine, auto_continue=True, retry_delay=5, max_stalled_runs=3,
+                      clock=lambda: clock[0])
+    try:
+        key = jobs.start('1', '3', Filters())['job_id']
+        job = jobs.jobs[key]
+        assert job.data['status'] == 'searching'
+        assert job.data['progress']['stage'] == 'rate_limit_wait'
+        assert 'rate limit' in job.data['message']
+        assert job.next_attempt_at == 42.0 and job.stalled_runs == 0
+        for _ in range(10):
+            jobs.get(key)          # nothing is due yet: no slice, no stall count
+        assert len(engine.sessions[0].calls) == 1 and job.data['status'] == 'searching'
+        clock[0] = 42.0
+        jobs.get(key)
+        assert len(engine.sessions[0].calls) == 2 and job.stalled_runs == 0
+    finally:
+        jobs.shutdown()
+
+
+def test_polling_a_paused_job_never_blocks_its_retirement():
+    """A poll on a paused job must not touch its drive lock, or start() retiring
+    it as a victim would fail spuriously and destroy its continuation."""
+    engine = ContinuableSuccessEngine()
+    jobs = SearchJobs(lambda: engine, max_active=1, max_sessions=1, start_slice=0)
+    try:
+        key = jobs.start('1', '3', Filters())['job_id']
+        assert jobs.get(key)['status'] == 'ok'              # paused, can_continue
+        stop = threading.Event()
+        pollers = [threading.Thread(target=lambda: [jobs.get(key) for _ in iter(lambda: stop.is_set(), True)],
+                                    daemon=True) for _ in range(3)]
+        for thread in pollers:
+            thread.start()
+        try:
+            for _ in range(20):
+                jobs.start('2', '4', Filters(min_shared=2))   # must never see 'still releasing'
+        finally:
+            stop.set()
+            for thread in pollers:
+                thread.join(3)
+    finally:
+        jobs.shutdown()

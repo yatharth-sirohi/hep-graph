@@ -604,3 +604,19 @@ def test_a_deadline_refusal_is_a_checkpoint_not_a_logged_failure() -> None:
         assert result["coverage"]["failures"] == [], "our own clock is not an upstream failure"
     finally:
         session.close()
+
+
+def test_overlapping_calls_on_one_session_fail_loudly() -> None:
+    """Threads may differ; calls may not overlap. The old owner-thread check is
+    replaced by this, so a caller without a lock is told instead of corrupting
+    the evidence store."""
+    session = DeepSearch(Client(profiles(1, 2))).start(1, 2, {"genealogy": False})
+    try:
+        session._busy.acquire()          # simulate a call in flight elsewhere
+        with pytest.raises(RuntimeError, match="must not overlap"):
+            session.run(budget())
+        with pytest.raises(RuntimeError, match="must not overlap"):
+            session.close()
+        session._busy.release()
+    finally:
+        session.close()

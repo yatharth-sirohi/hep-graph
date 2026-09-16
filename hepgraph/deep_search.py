@@ -59,9 +59,12 @@ PROFILE_PAGE_SIZE = 25
 
 
 class DeepSearchError(ValueError):
-    def __init__(self, code: str, message: str) -> None:
+    def __init__(self, code: str, message: str, *, retry_after: float | None = None) -> None:
         super().__init__(message)
         self.code, self.message = code, message
+        # Set when the slice ended because of our own pacing or an upstream
+        # cooldown: how long a caller should wait before driving again.
+        self.retry_after = retry_after
 
 
 @dataclass(frozen=True)
@@ -383,6 +386,7 @@ class DeepSession:
         # lock per job). Different requests may drive it from different
         # threads, so the connection must not be bound to the creating one.
         self.connection = open_db(":memory:", shared=True)
+        self._busy = threading.Lock()
         self.started = time.monotonic()
         self.closed = False
         self.requests = 0
@@ -460,6 +464,22 @@ class DeepSession:
     def _check_owner(self) -> None:
         if self.closed:
             raise RuntimeError("DeepSession is closed.")
+
+    def _enter(self) -> None:
+        """Calls may come from any thread but must never overlap.
+
+        The SQLite connection is shared across threads on purpose; the driver
+        serializes calls with its own lock. This is the defence in depth for a
+        caller that does not: a second concurrent call fails loudly instead of
+        corrupting the evidence store.
+        """
+        if not self._busy.acquire(blocking=False):
+            raise RuntimeError("DeepSession calls must not overlap.")
+        try:
+            self._check_owner()
+        except BaseException:
+            self._busy.release()
+            raise
 
     def _invalidate_materialized(self) -> None:
         """Discard only derived state after an evidence-affecting mutation."""
@@ -689,7 +709,14 @@ class DeepSession:
                                           sort="mostrecent", deadline=deadline)
         except Exception as error:
             if getattr(error, "deadline", False):
-                # Our own clock, not INSPIRE: end the slice as a checkpoint.
+                # Our own clock, not INSPIRE: end the slice as a checkpoint. If
+                # the pacer is what refused - a 429 cooldown, say - tell the
+                # caller how long to wait so it neither hammers nor gives up.
+                wait = getattr(self.client, "pacing_wait", lambda: 0.0)()
+                if wait > 0:
+                    raise DeepSearchError("resource_limit",
+                                          f"Waiting {wait:.0f}s for INSPIRE's rate limit before continuing.",
+                                          retry_after=wait) from error
                 raise DeepSearchError("resource_limit", "This deep-search slice reached its time allowance.") from error
             self._run_requests += 1
             self.requests += 1
@@ -1559,7 +1586,13 @@ class DeepSession:
                                                         "requests": self.requests}}
 
     def run(self, budget: DeepBudget | None = None) -> dict[str, Any]:
-        self._check_owner()
+        self._enter()
+        try:
+            return self._run(budget)
+        finally:
+            self._busy.release()
+
+    def _run(self, budget: DeepBudget | None = None) -> dict[str, Any]:
         budget = budget or DeepBudget.standard()
         budget.validate()
         self._run_requests = 0
@@ -1785,9 +1818,15 @@ class DeepSession:
         except DeepSearchError as error:
             self.last_status = error.code
             continuable = error.code in {"resource_limit", "search_incomplete", "upstream_unavailable"} and not self.cancel.is_set()
-            return self._result(error.code, budget, message=error.message, can_continue=continuable)
+            result = self._result(error.code, budget, message=error.message, can_continue=continuable)
+            if error.retry_after:
+                result["retry_after"] = round(float(error.retry_after), 1)
+            return result
 
     def close(self) -> None:
-        self._check_owner()
-        self.connection.close()
-        self.closed = True
+        self._enter()
+        try:
+            self.connection.close()
+            self.closed = True
+        finally:
+            self._busy.release()

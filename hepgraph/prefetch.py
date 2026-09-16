@@ -171,9 +171,16 @@ class PreparationJobs:
             self.jobs[job.id] = job
             self.counters["started"] += 1
         # Inside this request: the only time this process is sure to be running.
-        self._work(job)
-        with self.lock:
-            return self._public(job)
+        try:
+            self._work(job)
+        finally:
+            with self.lock:
+                if job.finished_at is None:
+                    # Whatever escaped, the slot is released and the status is honest.
+                    job.status = "failed"
+                    job.finished_at = self.clock()
+                    self.counters["failed"] += 1
+                return self._public(job)
 
     def _work(self, job: _Preparation) -> None:
         with self.lock:

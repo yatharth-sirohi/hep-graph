@@ -249,6 +249,37 @@ drive lock, that `_slice()` preserves the session-wide ceilings, and that
 Every item was fixed and pinned by a regression test in
 `tests/test_search_jobs.py` before the next round.
 
+**Round 2, independent adversarial tester** — built fakes that record overlaps
+and use-after-close instead of asserting, and ran them under concurrency: four
+threads polling one job while `cancel()` fires; `cancel`, `resume`, same-key
+`start` and `shutdown` during a slice; fifty abandoned jobs on a fake clock; an
+engine that raises mid-slice; lock-ordering stress across four jobs; HTTP-level
+concurrent polls with cancel and continue. All of it held — zero overlapping
+calls, zero use-after-close, zero 5xx, every job ending consistent — and it
+confirmed by injection that the three races it had predicted from the earlier
+tree were exactly the ones round 1's fixes closed. Three findings, all fixed:
+
+1. A 429 cooldown refused every slice instantly (our own deadline, correctly
+   unlogged), each refusal counted as a stalled run, and after twelve the job
+   paused as `resource_limit` with the message "reached its time allowance" —
+   while forty seconds of cooldown remained; Continue repeated the cycle. The
+   pacer now reports its wait, the slice carries it as `retry_after`, the job
+   stays `searching` with a rate-limit message and stage, and no slice runs
+   until the wait is over.
+2. `DeepSession` had lost all defence against overlapping calls; two threads
+   without a lock produced a different corruption each trial where the old
+   thread check had raised deterministically. A non-reentrant lock acquired
+   non-blocking at the top of `run()` and `close()` restores a loud failure.
+3. A poll on a *paused* job briefly held its drive lock, so `start()` retiring
+   it as a victim failed with "still releasing" in 65 % of trials and, having
+   already marked it retired, destroyed its continuation for nothing. Polls
+   now check cheaply whether a slice is due before touching the lock.
+
+It also noted that a poll can legitimately run ~13 s (5 s slice plus a full
+8 s network timeout) and asked that the function's duration limit be
+verified; Vercel's current documentation gives 300 s for this plan under
+Fluid compute, and the production measurements in § 12 are the check.
+
 
 ## 15. Remaining bottlenecks
 

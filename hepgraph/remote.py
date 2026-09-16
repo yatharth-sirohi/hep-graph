@@ -524,6 +524,12 @@ class RemoteClient:
             self._pace_state.cooldown_until = max(self._pace_state.cooldown_until, until)
             self._pace_state.next_allowed = max(self._pace_state.next_allowed, self._pace_state.cooldown_until)
 
+    def pacing_wait(self) -> float:
+        """Seconds until this client may send its next request (0 if now)."""
+        with self._pace_state.lock:
+            earliest = max(self._pace_state.next_allowed, self._pace_state.cooldown_until)
+            return max(0.0, earliest - self._clock())
+
     def _reserve_request(self, deadline: float) -> None:
         with self._pace_state.lock:
             now = self._clock()
