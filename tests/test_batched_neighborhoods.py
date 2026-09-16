@@ -206,9 +206,97 @@ def test_union_paging_changes_cost_and_nothing_else(seed):
             assert run.reported[person_id] == expected.get(person_id, set()), person_id
     for person_id in batched.complete & single.complete:
         assert batched.reported[person_id] == single.reported[person_id]
-    assert batched.client.union_calls(), "this corpus is built to make the search read whole layers"
     assert not single.client.union_calls()
+    # These communities co-publish heavily, so most same-layer people already
+    # co-occur on a known record and are deliberately not batched together
+    # (they would only detach again). Batching must never cost more here.
+    assert len(batched.client.literature_calls()) <= len(single.client.literature_calls()) + len(batched.client.union_calls())
+
+
+def star_corpus(members=6, per_member=3):
+    """The case batching is for: each endpoint's coauthors know each other only
+    through that endpoint (one two-author paper each) and have partners of
+    their own. One paper joins a partner on each side, so the shortest route
+    is five hops and the proof must close both depth-one layers."""
+    left = tuple(str(11 + index) for index in range(members))
+    right = tuple(str(21 + index) for index in range(members))
+    works, partners, people = layer_corpus(left + right, per_member)
+    works.extend(paper(6000 + index, ["1", member]) for index, member in enumerate(left))
+    works.extend(paper(6100 + index, ["2", member]) for index, member in enumerate(right))
+    works.append(paper(6500, [max(partners[left[-1]]), max(partners[right[-1]])]))
+    return works, people
+
+
+def test_a_layer_of_unrelated_people_is_read_in_fewer_requests():
+    works, people = star_corpus()
+    batched = search(Corpus(works, people), "1", "2", runs=60)
+    single = search(Corpus(works, people), "1", "2", batch_size=1, runs=60)
+    assert hops(batched) == hops(single) == 5
+    assert batched.result["global_shortest_proven"] and single.result["global_shortest_proven"]
+    assert batched.client.union_calls()
     assert len(batched.client.literature_calls()) < len(single.client.literature_calls())
+
+
+def test_the_union_keeps_the_index_disagreement_canary():
+    """Found in review: an OR query cannot say which member's term returned a
+    record naming two members, so crediting it to both silently disabled the
+    check that a person's own exhausted query explains every coauthor. With a
+    record hidden from 11's own term, the first version proved a four-hop route
+    exact where individual paging (correctly) found three. Now a member whose
+    coauthors are not all explained by records naming no other member is not
+    certified by the union; they read their own query, and the canary stands."""
+    # s=1, t=2. A:1-11 B:1-12 C:11-12 (hidden from 11's term) R':11-32 (hidden
+    # from 11's term) D:2-32 E:2-31 F:12-21 G:21-31. Shortest 1-11-32-2 = 3.
+    works = [paper(5001, ["1", "11"]), paper(5002, ["1", "12"]), paper(5003, ["11", "12"]),
+             paper(5004, ["11", "32"]), paper(5005, ["2", "32"]), paper(5006, ["2", "31"]),
+             paper(5007, ["12", "21"]), paper(5008, ["21", "31"])]
+    people = ["1", "2", "11", "12", "21", "31", "32"]
+    hidden = {5003: ["11"], 5004: ["11"]}
+    for page_size in (1000, 5, 2):
+        batched = search(Corpus(works, people, hidden=hidden), "1", "2", page_size=page_size, runs=60)
+        single = search(Corpus(works, people, hidden=hidden), "1", "2", page_size=page_size, batch_size=1, runs=60)
+        assert hops(single) == 3 and single.result["global_shortest_proven"]
+        assert hops(batched) == 3 and batched.result["global_shortest_proven"], (page_size, hops(batched))
+        assert "11" not in batched.complete
+
+
+def test_a_member_with_shared_records_is_not_certified_by_the_union():
+    """Work 5003 names 11 and 12, both in the layer; 11's own term omits it.
+    Individually 12's page reveals the edge and 11 is contradicted. The union
+    must not certify 11 either: 11 reads alone and stays PARTIAL."""
+    works = [paper(5001, ["11", "101"]), paper(5002, ["12", "102"]), paper(5003, ["11", "12"])]
+    people = ["1", "2", "11", "12", "101", "102"]
+    client = Corpus(works, people, hidden={5003: ["11"]})
+    session = seeded(client, ["1", "11", "12"], ["2"])
+    try:
+        found = certify(session, "11", limit=6)
+        assert found.status != "complete"
+        assert client.union_calls() and client.person_calls(), "detached to its own query"
+        cursor = session._oracle.cursors["11"]
+        assert cursor.union is None and cursor.solo
+        assert "11" not in session._oracle.complete
+        # 12's own records are unshared apart from 5003, which names 11: 12 is
+        # also read alone, and certifies from its own term.
+        assert certify(session, "12").status == "complete"
+    finally:
+        session.close()
+
+
+def test_people_who_already_co_occur_are_not_batched_together():
+    """The root's coauthors all sit on the root's papers: a union of them
+    would detach every member and only spend pages."""
+    works = [paper(5001, ["1", "11", "12", "13"]), paper(5002, ["11", "101"]),
+             paper(5003, ["12", "102"]), paper(5004, ["13", "103"]), paper(5005, ["14", "104"])]
+    people = ["1", "2", "11", "12", "13", "14", "101", "102", "103", "104"]
+    client = Corpus(works, people)
+    session = seeded(client, ["1", "11", "12", "13", "14"], ["2"])
+    try:
+        session._oracle.neighborhood("11")
+        unions = {call[1] for call in client.union_calls()}
+        # 11 may be batched with 14 (no shared record) but never with 12 or 13.
+        assert all("12" not in query and "13" not in query for query in unions)
+    finally:
+        session.close()
 
 
 # ---------------------------------------------------------------- one union
@@ -236,8 +324,9 @@ def test_an_exhausted_union_certifies_every_member_without_another_request():
     try:
         found = certify(session, "11")
         assert found.status == "complete" and set(found.members) == partners["11"]
-        union = session._oracle.cursors["11"].union
-        assert union is not None and union.members == MEMBERS and union.literature_done
+        # Exhausted into each member's cursor: the shared handle is released.
+        assert session._oracle.cursors["11"].union is None
+        assert session.node_ledger["11"]["union"] is None
         # Twelve records at size five: three pages, each read exactly once.
         assert [call[3] for call in client.union_calls()] == [1, 2, 3]
         assert {call[1] for call in client.union_calls()} == {DeepSession.batch_query(MEMBERS, SMALL)}
@@ -392,7 +481,8 @@ def test_an_audit_contradiction_withdraws_a_member_the_union_certified():
 
 # ------------------------------------------------------------ whole searches
 def test_a_union_resumes_across_slice_boundaries():
-    works, people, source, target = random_corpus(3)
+    works, people = star_corpus()
+    source, target = "1", "2"
     sliced = search(Corpus(works, people), source, target, page_size=5, max_requests=1, runs=600)
     whole = search(Corpus(works, people), source, target, page_size=5, runs=50)
     assert not sliced.result["can_continue"] and not whole.result["can_continue"]

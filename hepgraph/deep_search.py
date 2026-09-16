@@ -174,6 +174,14 @@ class _Union:
     ``_shrink_pages`` apply to it unchanged.  Per-member bookkeeping is kept
     apart: a member owns exactly the union records that name them, never the
     rest of the page.
+
+    An OR query cannot say which member's index term returned a record that
+    names two members.  A member's own attestation - what ``_accounted``
+    checks against the index-disagreement canary - therefore comes only from
+    records naming no other member, which the union can only have returned
+    through that member's own term.  A member whose coauthors are not all
+    explained that way is not certified by the union; they read their own
+    query afterwards, exactly as they would have without batching.
     """
 
     members: tuple[str, ...]
@@ -319,19 +327,33 @@ class _LiveOracle:
         cursor = self.cursors[person_id]
         if session.batch_size < 2 or proof is None or session._page_ceiling < 100:
             return
-        side = next((item for item in (proof.left, proof.right) if person_id in item.dist), None)
+        # The side that is reading this person: where they sit at the completed
+        # radius, else their shallowest open appearance. A person both sides
+        # know must not be batched with the wrong side's layer.
+        sides = [item for item in (proof.left, proof.right)
+                 if person_id in item.dist and person_id not in item.complete]
+        side = min(sides, key=lambda item: (item.dist[person_id] != item.radius, item.dist[person_id]), default=None)
         if side is None:
             return
         depth = side.dist[person_id]
         members = [person_id]
+        # Two people already on one known record will share records in the
+        # union too, and a member with shared records is not certified by it
+        # (see _Union): such a union only spends pages. The root's own
+        # coauthors are the common case - they all sit on the root's papers.
+        known = {member: set(self._members(member)[0]) for member in members}
         for other in sorted(side.levels.get(depth, ())):
             if len(members) >= session.batch_size:
                 break
             if other == person_id or other in side.complete or other in side.blocked:
                 continue
             companion = self.cursors.get(other)
-            if companion is not None and self._batchable(companion):
-                members.append(other)
+            if companion is None or not self._batchable(companion):
+                continue
+            if any(other in coauthors for coauthors in known.values()):
+                continue
+            members.append(other)
+            known[other] = set(self._members(other)[0])
         if len(members) < 2:
             return
         union = _Union(tuple(sorted(members)))
@@ -1310,12 +1332,17 @@ class DeepSession:
         self.literature_pages += 1
         self.literature_hits += len(hits)
         attested = self._oracle.attested if self._oracle is not None else {}
+        live = {cursor.person_id for cursor in cursors}
         for hit in hits:
             named = self._work_people([hit])
-            for member in union.members:
-                if member in named:
-                    union.member_seen[member].add(str(hit.get("id")))
-                    attested.setdefault(member, set()).update(named)
+            named_members = [member for member in union.members if member in named]
+            for member in named_members:
+                union.member_seen[member].add(str(hit.get("id")))
+            # A record naming one member came through that member's own term;
+            # one naming two could have come through either, so it attests
+            # for nobody (see _Union). A retired member is not re-attested.
+            if len(named_members) == 1 and named_members[0] in live:
+                attested.setdefault(named_members[0], set()).update(named)
         for cursor in cursors:
             cursor.pages += 1
             cursor.slice_pages += 1
@@ -1336,6 +1363,15 @@ class DeepSession:
             self._emit("literature_union_split")
         elif union.literature_done:
             for cursor in cursors:
+                cursor.union = None
+                coauthors, _ = self._oracle._members(cursor.person_id) if self._oracle is not None else (frozenset(), frozenset())
+                if not coauthors <= attested.get(cursor.person_id, set()):
+                    # Some coauthor is known only from records shared with a
+                    # companion. Whether this person's own term returns those
+                    # records is exactly what the canary would have checked, so
+                    # they read their own query from page one instead.
+                    cursor.solo = True
+                    continue
                 cursor.literature_done = True
                 cursor.page_size = size
                 cursor.literature_seen = set(union.member_seen[cursor.person_id])
