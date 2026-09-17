@@ -436,6 +436,106 @@
         <div id="about-coverage" class="data-card">
           Loading source coverage metadata…
         </div>
+        <section
+          class="data-card about-method"
+          aria-labelledby="about-method-title"
+        >
+          <h2 id="about-method-title">How routes are found</h2>
+          <p>
+            One hop between two researchers means they share enough qualifying
+            published works: the works must survive the filters, and the count
+            of shared works must reach the threshold in use. A doctoral hop is a
+            different claim from a different source. It rests on documented
+            adviser and student records rather than on any paper, so it is never
+            merged into coauthorship and is always shown as its own kind of
+            link.
+          </p>
+          <ol class="method-stages">
+            <li>
+              <b>The route is found first.</b> The search reads a stored
+              collaboration map that holds only bare structure — which record,
+              which person, how many authors the record had, what year. It
+              carries no titles and no names. That map is a fixed, labelled
+              version of the source with a cutoff date, not a live reading of
+              INSPIRE, so the same question asked twice against the same version
+              returns the same route.
+            </li>
+            <li>
+              <b>The details arrive afterwards.</b> Once a route is settled, the
+              paper titles, dates, links, and researcher profiles are fetched
+              for the few people and records actually shown. Those details never
+              steer the search. Nothing read at this stage can add a hop, remove
+              one, or pull the route toward a better-documented person.
+            </li>
+          </ol>
+          <h3>What the filters change</h3>
+          <p>
+            Filters do not rank results. They decide which ties exist at all, so
+            each setting produces a different graph to walk.
+          </p>
+          <ul class="about-list">
+            <li>
+              <b>Paper type.</b> Only research literature can carry a
+              coauthorship hop. Theses, books, book chapters, and conference
+              proceedings are set aside.
+            </li>
+            <li>
+              <b>Author-count cap.</b> Small-team papers, large-collaboration
+              papers, or all of them, judged on the full author count printed on
+              the record rather than on the authors resolved here.
+            </li>
+            <li>
+              <b>Minimum shared works.</b> Raising it drops pairs who appear
+              together only once or twice, which removes hops and can lengthen
+              or erase a route.
+            </li>
+            <li>
+              <b>Year range.</b> Works dated outside the range stop counting as
+              evidence, and records with no usable date drop out as soon as any
+              bound is set.
+            </li>
+            <li>
+              <b>Doctoral records.</b> Switching them off leaves a
+              coauthorship-only graph. Switching them on adds ties that no paper
+              could supply.
+            </li>
+          </ul>
+          <h3>What a result claims</h3>
+          <p>
+            The engine looks for the shortest route the active filters allow,
+            and says plainly how far it got.
+          </p>
+          <ul class="about-list">
+            <li>
+              <b>Verified route.</b> This route exists and every hop is backed
+              by a documented record. A shorter route has not been ruled out.
+            </li>
+            <li>
+              <b>Proven shortest.</b> No shorter route can exist in the version
+              searched, under the filters in use.
+            </li>
+            <li>
+              <b>Incomplete search.</b> The search stopped early — a limit, a
+              time cutoff, or data that was only partly there. Finding nothing
+              in an incomplete search means nothing.
+            </li>
+            <li>
+              <b>No route.</b> Stated only when coverage for that question is
+              certified complete. Otherwise the same outcome is reported as an
+              incomplete search instead.
+            </li>
+          </ul>
+          <h3>What coverage does and does not tell you</h3>
+          <p class="notice disclaimer">
+            Every answer is drawn from one dated version of the source, and that
+            version is partial: records added or corrected upstream since the
+            cutoff are absent, and some records that are present arrive with
+            missing or thin details. So the absence of a route is not proof that
+            no connection exists. Unless a result is marked as complete
+            coverage, silence describes this version of the data, not the
+            researchers.
+          </p>
+        </section>
         <div class="about-grid">
           <article class="data-card">
             <h2>Connection rules</h2>
