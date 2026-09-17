@@ -22,6 +22,7 @@
         <button class="tab is-active" data-tab="connections" type="button">
           Connections
         </button>
+        <button class="tab" data-tab="lineage" type="button">Lineage</button>
         <button class="tab" data-tab="about" type="button">
           About &amp; coverage
         </button>
@@ -324,6 +325,110 @@
               ><span><i class="legend-node expanded"></i>Expanded profile</span>
             </div>
           </div>
+        </section>
+      </section>
+
+      <section id="lineage" class="view" aria-labelledby="lineage-title">
+        <div class="section-intro">
+          <div>
+            <p class="eyebrow">Doctoral lineage</p>
+            <h1 id="lineage-title">Follow an academic family tree</h1>
+            <p>
+              Trace documented adviser and student records one generation at a
+              time. Every relation states the degree recorded and whether
+              INSPIRE curators confirmed the link. A researcher may have more
+              than one adviser; all documented links are listed.
+            </p>
+          </div>
+        </div>
+        <form id="lineage-form" class="query-card" novalidate>
+          <div class="lineage-grid">
+            <div class="identity-field">
+              <label for="lineage-query">Researcher</label>
+              <div class="picker-wrap">
+                <input
+                  id="lineage-query"
+                  name="lineage-query"
+                  type="search"
+                  autocomplete="off"
+                  placeholder="Name, INSPIRE ID, or ORCID"
+                  aria-controls="lineage-results"
+                  aria-expanded="false"
+                /><button
+                  class="clear-picker"
+                  data-clear="lineage"
+                  type="button"
+                  aria-label="Clear lineage researcher"
+                >
+                  ×
+                </button>
+              </div>
+              <div id="lineage-selected" class="selection" hidden></div>
+              <div
+                id="lineage-results"
+                class="result-menu"
+                role="listbox"
+                aria-label="Lineage researcher suggestions"
+              ></div>
+            </div>
+            <label
+              >Direction<select id="lineage-direction">
+                <option value="ancestors">Ancestors (advisers)</option>
+                <option value="descendants">Descendants (students)</option>
+              </select>
+              <small class="filter-help"
+                >Ancestors look back to advisers; descendants look forward to
+                students.</small
+              >
+            </label>
+            <label
+              >Generations<select id="lineage-depth">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3" selected>3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+              </select>
+              <small class="filter-help"
+                >How many steps away from the selected researcher.</small
+              >
+            </label>
+          </div>
+          <div class="query-actions">
+            <span class="subtle"
+              >Doctoral records are shown as documented; links that INSPIRE has
+              not confirmed are labelled as such.</span
+            >
+            <button id="lineage-run" class="primary-button" type="submit">
+              Show lineage <span aria-hidden="true">→</span>
+            </button>
+          </div>
+        </form>
+        <div id="lineage-empty" class="empty-state">
+          <span class="empty-glyph" aria-hidden="true">⌁</span>
+          <h2>Choose a researcher</h2>
+          <p>
+            Search for someone above, or open a researcher profile and choose
+            “View doctoral lineage”. Lineage uses documented adviser and student
+            records only; it does not use coauthorship.
+          </p>
+        </div>
+        <section
+          id="lineage-output"
+          class="hidden"
+          aria-labelledby="lineage-heading"
+          aria-live="polite"
+        >
+          <div class="result-heading">
+            <div>
+              <p class="eyebrow">Lineage result</p>
+              <h2 id="lineage-heading">Doctoral lineage</h2>
+              <p id="lineage-meta" class="muted"></p>
+            </div>
+          </div>
+          <div id="lineage-message" class="notice hidden"></div>
+          <div id="lineage-generations" class="lineage-generations"></div>
         </section>
       </section>
 

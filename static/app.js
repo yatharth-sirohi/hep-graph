@@ -15,6 +15,8 @@
     pathRequest: 0,
     deepJob: null,
     profileRequest: 0,
+    lineage: null,
+    lineageRequest: 0,
     graph: {
       nodes: new Map(),
       edges: [],
@@ -418,6 +420,10 @@
     holder.append(badge);
   }
   function clearPicker(which) {
+    if (which === "lineage") {
+      clearLineage();
+      return;
+    }
     invalidateResults();
     state[which] = null;
     $(`#${which}-query`).value = "";
@@ -427,6 +433,13 @@
     syncUrl();
   }
   function choosePerson(which, result) {
+    const chosen = result.person || result;
+    if (which === "lineage") {
+      // The lineage root is independent of the connection query, so picking
+      // one must not disturb a path result already on screen.
+      setLineageRoot({ ...chosen, indexed: result.indexed ?? chosen.indexed });
+      return;
+    }
     invalidateResults();
     const p = result.person || result;
     state[which] = remember({
@@ -2034,6 +2047,12 @@
         });
         actions.append(b);
       });
+      const lineage = document.createElement("button");
+      lineage.className = "secondary-button";
+      lineage.type = "button";
+      lineage.textContent = "View doctoral lineage";
+      lineage.addEventListener("click", () => setLineageRoot({ ...p }));
+      actions.append(lineage);
       const expand = document.createElement("button");
       expand.className = "secondary-button";
       expand.type = "button";
@@ -2103,12 +2122,385 @@
       if (current()) content.textContent = `Profile unavailable: ${e.message}`;
     }
   }
+  // --- Doctoral lineage -----------------------------------------------------
+  // Adviser→student records only. A person may have several advisers, so the
+  // rendering groups people by generation and lists every documented relation
+  // that reached them rather than assuming a single parent.
+  const degreeLabels = {
+    phd: "PhD",
+    doctorate: "Doctorate",
+    doctoral: "Doctoral degree",
+    habilitation: "Habilitation",
+    master: "Master's",
+    masters: "Master's",
+    diploma: "Diploma",
+    bachelor: "Bachelor's",
+    bachelors: "Bachelor's",
+    other: "Degree kind recorded as other",
+  };
+  const degreeLabel = (degree) =>
+    degree
+      ? degreeLabels[String(degree).toLowerCase()] || String(degree)
+      : "degree not recorded";
+  const lineageDirection = () =>
+    $("#lineage-direction").value === "descendants"
+      ? "descendants"
+      : "ancestors";
+  const lineageDepth = () => {
+    const value = Number($("#lineage-depth").value);
+    return Number.isInteger(value) && value >= 1 && value <= 6 ? value : 3;
+  };
+  const inspireAuthorUrl = (id) =>
+    /^\d+$/.test(String(id ?? ""))
+      ? `https://inspirehep.net/authors/${String(id)}`
+      : null;
+  const generationLabel = (generation, direction, count) => {
+    if (generation === 0) return "Selected researcher";
+    if (!Number.isFinite(generation)) return "Generation not recorded";
+    if (generation === 1)
+      return direction === "ancestors"
+        ? count === 1
+          ? "Adviser"
+          : "Advisers"
+        : count === 1
+          ? "Student"
+          : "Students";
+    return `${generation} generation${generation === 1 ? "" : "s"} ${direction === "ancestors" ? "back" : "forward"}`;
+  };
+  const lineageNotice = (message, kind = "") => {
+    const box = $("#lineage-message");
+    box.className = `notice ${kind}`;
+    box.textContent = message;
+  };
+  function renderLineagePicker() {
+    const holder = $("#lineage-selected");
+    holder.replaceChildren();
+    holder.hidden = !state.lineage;
+    if (!state.lineage) return;
+    const name = document.createElement("b");
+    name.textContent = personName(state.lineage);
+    const sub = document.createElement("span");
+    sub.textContent = ` · ${state.lineage.id}`;
+    holder.append(name, sub);
+  }
+  function setLineageRoot(person) {
+    if (!person?.id) return;
+    // A lineage entry without a name must not overwrite a known profile.
+    const known = state.people.get(String(person.id));
+    state.lineage = person.name ? remember({ ...person }) : known || person;
+    $("#lineage-query").value = "";
+    $("#lineage-results").replaceChildren();
+    $("#lineage-results").classList.remove("inline-search-notice");
+    $("#lineage-query").setAttribute("aria-expanded", "false");
+    renderLineagePicker();
+    $("#person-panel").classList.add("hidden");
+    showTab("lineage");
+    loadLineage();
+  }
+  function clearLineage() {
+    state.lineageRequest++;
+    state.lineage = null;
+    $("#lineage-query").value = "";
+    $("#lineage-results").replaceChildren();
+    $("#lineage-results").classList.remove("inline-search-notice");
+    $("#lineage-query").setAttribute("aria-expanded", "false");
+    renderLineagePicker();
+    $("#lineage-generations").replaceChildren();
+    lineageNotice("", "hidden");
+    $("#lineage-output").classList.add("hidden");
+    $("#lineage-empty").classList.remove("hidden");
+    setLoading($("#lineage-run"), false);
+  }
+  function lineagePersonButton(person) {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "person-link";
+    b.textContent = personName(person);
+    b.title = `Show the doctoral lineage of ${personName(person)}`;
+    b.addEventListener("click", () => setLineageRoot(person));
+    return b;
+  }
+  function lineageRelationRow(edge, lookup, direction) {
+    const li = document.createElement("li");
+    li.className = "lineage-relation";
+    const counterpart = lookup(
+      direction === "ancestors" ? edge.student : edge.adviser,
+    );
+    li.append(
+      document.createTextNode(
+        direction === "ancestors" ? "Adviser of " : "Student of ",
+      ),
+      lineagePersonButton(counterpart),
+      document.createTextNode(` · ${degreeLabel(edge.degree)} · `),
+    );
+    const tag = document.createElement("span");
+    tag.className = `status ${edge.curated === true ? "curated" : "uncurated"}`;
+    tag.textContent =
+      edge.curated === true ? "INSPIRE-confirmed" : "not curator-confirmed";
+    li.append(tag);
+    if (edge.source_record != null && edge.source_record !== "") {
+      const record = document.createElement("span");
+      record.className = "lineage-id";
+      record.textContent = ` · source record ${edge.source_record}`;
+      li.append(record);
+    }
+    return li;
+  }
+  function lineagePersonCard(person, relations, lookup, direction, isRoot) {
+    const li = document.createElement("li");
+    li.className = "lineage-person";
+    const head = document.createElement("div");
+    head.className = "lineage-person-head";
+    head.append(lineagePersonButton(person));
+    const id = document.createElement("span");
+    id.className = "lineage-id";
+    id.textContent = `INSPIRE ${person.id}`;
+    head.append(id);
+    const href = person.source_url || inspireAuthorUrl(person.id);
+    if (href && safeHref(href)) head.append(link("Profile ↗", href));
+    li.append(head);
+    if (person.details_unavailable === true) {
+      const note = document.createElement("p");
+      note.className = "lineage-note";
+      const reason = String(person.reason || "").trim();
+      note.textContent = `Name not retrieved${reason ? `: ${reason.replace(/[.;:,]$/, "")}` : ""}. The INSPIRE identifier is shown instead.`;
+      li.append(note);
+    }
+    if (relations.length > 1) {
+      const note = document.createElement("p");
+      note.className = "lineage-note";
+      note.textContent =
+        direction === "ancestors"
+          ? `Documented as adviser to ${relations.length} people shown here.`
+          : `Documented as student of ${relations.length} people shown here.`;
+      li.append(note);
+    }
+    if (isRoot) return li;
+    const list = document.createElement("ul");
+    list.className = "lineage-relations";
+    relations.forEach((edge) =>
+      list.append(lineageRelationRow(edge, lookup, direction)),
+    );
+    if (!relations.length) {
+      const empty = document.createElement("li");
+      empty.className = "lineage-relation";
+      empty.textContent =
+        "No relation record accompanied this person in the response.";
+      list.append(empty);
+    }
+    li.append(list);
+    return li;
+  }
+  function lineageGroup(generation, entries, direction, lookup, relations) {
+    const section = document.createElement("section");
+    section.className = `lineage-generation${generation === 0 ? " is-root" : ""}`;
+    const headingId = `lineage-gen-${Number.isFinite(generation) ? generation : "unknown"}`;
+    section.setAttribute("aria-labelledby", headingId);
+    const heading = document.createElement("h3");
+    heading.id = headingId;
+    heading.textContent = `${generationLabel(generation, direction, entries.length)} · ${entries.length} ${entries.length === 1 ? "person" : "people"}`;
+    section.append(heading);
+    const list = document.createElement("ul");
+    list.className = "lineage-people";
+    entries.forEach((person) =>
+      list.append(
+        lineagePersonCard(
+          person,
+          relations.get(String(person.id)) || [],
+          lookup,
+          direction,
+          generation === 0,
+        ),
+      ),
+    );
+    section.append(list);
+    return section;
+  }
+  function renderLineage(data, context) {
+    const { person, direction, depth } = context;
+    const holder = $("#lineage-generations");
+    holder.replaceChildren();
+    const status = data.status || "ok";
+    if (status !== "ok") {
+      $("#lineage-heading").textContent =
+        status === "unavailable"
+          ? "Doctoral lineage is not available"
+          : "No doctoral record found";
+      $("#lineage-meta").textContent =
+        status === "unavailable"
+          ? "Nothing is claimed about this researcher's advisers or students."
+          : `${personName(person)} · INSPIRE ${person.id}`;
+      lineageNotice(
+        data.message ||
+          (status === "unavailable"
+            ? "Doctoral lineage records are not configured in this release."
+            : "This researcher was not found in the doctoral records of this release. That silence describes the records, not the researcher."),
+      );
+      return;
+    }
+    const root = data.person && data.person.id != null ? data.person : person;
+    if (root.name) remember({ ...root });
+    const shown =
+      data.direction === "descendants"
+        ? "descendants"
+        : data.direction === "ancestors"
+          ? "ancestors"
+          : direction;
+    $("#lineage-heading").textContent =
+      shown === "ancestors"
+        ? `Doctoral ancestors of ${personName(root)}`
+        : `Doctoral descendants of ${personName(root)}`;
+    const people = Array.isArray(data.people) ? data.people : [];
+    const edges = Array.isArray(data.edges) ? data.edges : [];
+    const known = new Map();
+    people.forEach((p) => {
+      if (p && p.id != null && !known.has(String(p.id)))
+        known.set(String(p.id), p);
+    });
+    const lookup = (id) =>
+      known.get(String(id)) ||
+      (String(id) === String(root.id) ? root : null) ||
+      state.people.get(String(id)) || { id: String(id) };
+    // The near side of an edge is the person further from the root: their
+    // adviser links for ancestors, their student links for descendants.
+    const nearKey = shown === "ancestors" ? "adviser" : "student";
+    const relations = new Map();
+    edges.forEach((edge) => {
+      if (!edge || edge[nearKey] == null) return;
+      const key = String(edge[nearKey]);
+      if (!relations.has(key)) relations.set(key, []);
+      relations.get(key).push(edge);
+    });
+    const groups = new Map();
+    const seen = new Map();
+    people.forEach((p) => {
+      if (!p || p.id == null) return;
+      const raw = Number(p.generation);
+      const generation = Number.isFinite(raw) && raw > 0 ? raw : NaN;
+      const key = Number.isFinite(generation) ? generation : "unknown";
+      if (!groups.has(key)) {
+        groups.set(key, []);
+        seen.set(key, new Set());
+      }
+      if (seen.get(key).has(String(p.id))) return;
+      seen.get(key).add(String(p.id));
+      groups.get(key).push(p);
+    });
+    const ordered = [...groups.keys()]
+      .filter((k) => k !== "unknown")
+      .sort((a, b) => a - b);
+    if (groups.has("unknown")) ordered.push("unknown");
+    holder.append(
+      lineageGroup(0, [root], shown, lookup, new Map()),
+      ...ordered.map((key) =>
+        lineageGroup(
+          key === "unknown" ? NaN : key,
+          groups
+            .get(key)
+            .slice()
+            .sort((a, b) => personName(a).localeCompare(personName(b))),
+          shown,
+          lookup,
+          relations,
+        ),
+      ),
+    );
+    const total = [...groups.values()].reduce((n, list) => n + list.length, 0);
+    const curated = edges.filter((edge) => edge.curated === true).length;
+    $("#lineage-meta").textContent =
+      `${lastUpdatedText()} · ${shown === "ancestors" ? "adviser" : "student"} records to ${data.depth ?? depth} generation${(data.depth ?? depth) === 1 ? "" : "s"} · ` +
+      `${total} ${total === 1 ? "person" : "people"} · ${edges.length} documented relation${edges.length === 1 ? "" : "s"}, ` +
+      `${curated} INSPIRE-confirmed · ${data.version ? `records ${data.version}` : "record version not supplied"}`;
+    if (data.truncated === true)
+      lineageNotice(
+        "This lineage is truncated: more documented relations exist than are shown. Open a person shown here to continue from them, or reduce the depth.",
+        "warning",
+      );
+    else if (!total)
+      lineageNotice(
+        shown === "ancestors"
+          ? "No documented adviser is recorded for this researcher in this release. That is a gap in the records, not proof that none exists."
+          : "No documented student is recorded for this researcher in this release. That is a gap in the records, not proof that none exists.",
+      );
+    else lineageNotice("", "hidden");
+  }
+  async function loadLineage() {
+    const person = state.lineage;
+    if (!person?.id) {
+      clearLineage();
+      return;
+    }
+    const direction = lineageDirection(),
+      depth = lineageDepth(),
+      request = ++state.lineageRequest,
+      current = () =>
+        request === state.lineageRequest && state.lineage === person;
+    const button = $("#lineage-run");
+    setLoading(button, true, "Loading…");
+    $("#lineage-empty").classList.add("hidden");
+    $("#lineage-output").classList.remove("hidden");
+    $("#lineage-generations").replaceChildren();
+    lineageNotice("", "hidden");
+    $("#lineage-heading").textContent =
+      direction === "ancestors"
+        ? `Doctoral ancestors of ${personName(person)}`
+        : `Doctoral descendants of ${personName(person)}`;
+    $("#lineage-meta").textContent = "Loading documented doctoral records…";
+    try {
+      const u = new URL(
+        `/api/ancestry/${encodeURIComponent(person.id)}`,
+        location.origin,
+      );
+      u.searchParams.set("direction", direction);
+      u.searchParams.set("depth", String(depth));
+      const data = await api(u.pathname + "?" + u.searchParams.toString());
+      if (!current()) return;
+      renderLineage(data, { person, direction, depth });
+    } catch (e) {
+      if (!current()) return;
+      const body = e.body || {};
+      if (body.status === "unavailable" || body.status === "not_found")
+        renderLineage(body, { person, direction, depth });
+      else {
+        $("#lineage-generations").replaceChildren();
+        $("#lineage-meta").textContent =
+          "No lineage is shown for this request.";
+        lineageNotice(`Doctoral lineage is unavailable: ${e.message}`, "error");
+      }
+    } finally {
+      if (current()) setLoading(button, false);
+    }
+  }
+  function setupLineageSearch() {
+    const input = $("#lineage-query");
+    input.addEventListener("input", () => {
+      state.searches.lineage = {
+        query: input.value,
+        token: (state.searches.lineage?.token || 0) + 1,
+      };
+      clearTimeout(state.timers.lineage);
+      state.timers.lineage = setTimeout(() => searchPeople("lineage"), 220);
+    });
+    input.addEventListener("keydown", (e) => {
+      const buttons = $$(
+        '.search-result[role="option"]',
+        $("#lineage-results"),
+      );
+      if (e.key === "Escape") $("#lineage-results").replaceChildren();
+      if (e.key === "ArrowDown" && buttons[0]) {
+        e.preventDefault();
+        buttons[0].focus();
+      }
+    });
+  }
+
   function init() {
     restoreUrl();
     setupSearch("source");
     setupSearch("target");
+    setupLineageSearch();
     document.addEventListener("pointerdown", (event) => {
-      ["source", "target"].forEach((which) => {
+      ["source", "target", "lineage"].forEach((which) => {
         const field = $(`#${which}-query`).closest(".identity-field");
         if (!field.contains(event.target)) {
           const menu = $(`#${which}-results`);
@@ -2123,6 +2515,15 @@
       e.preventDefault();
       findPath();
     });
+    $("#lineage-form").addEventListener("submit", (e) => {
+      e.preventDefault();
+      loadLineage();
+    });
+    ["lineage-direction", "lineage-depth"].forEach((id) =>
+      $("#" + id).addEventListener("change", () => {
+        if (state.lineage) loadLineage();
+      }),
+    );
     $$(".clear-picker").forEach((b) =>
       b.addEventListener("click", () => clearPicker(b.dataset.clear)),
     );
