@@ -35,7 +35,7 @@
   "links": {},
   "name": "LEP Point 2 (L3 cavern)",
   "notes": [
-    "Point number inferred by chaining two official CERN sources: 'the detector is ... based on the current magnet of LEP's L3 experiment ... When LEP switches off, the L3 magnet will be left in place whilst ALICE is installed' (src:lep-cern-courier-l3-magnet-alice) plus the voisins.cern and home.cern pages placing ALICE at Point 2 (src:lep-cern-voisins-point-2, src:lep-cern-alice-experiment-page). No single fetched sentence states 'L3 was at Point 2' verbatim.",
+    "Point number inferred by chaining two official CERN sources: 'the detector is ... based on the current magnet of LEP's L3 experiment ... When LEP switches off, the L3 magnet will be left in place whilst ALICE is installed' (src:lep-cern-courier-l3-magnet-alice) plus the voisins.cern and home.cern pages placing ALICE at Point 2 (src:lep-cern-voisins-point-2, src:lep-cern-alice-experiment-page). No single fetched sentence states 'L3 was at Point 2' verbatim. (src:lep-cern-alice-experiment-page was checked for an explicit L3-legacy statement and found none, but corroborates ALICE's own location, which is Point 2.)",
     "Coordinate kind is 'campus' rather than 'detector'/'underground_lab' because the only coordinate source available in this session is an OpenStreetMap/Nominatim geocoder lookup, and A17 restricts geocoder-backed coordinates to campus/headquarters kind (the validator's GEOCODER_COORDINATE_KINDS). This point should be read as 'the general CERN-site area this marker names', not a surveyed detector-cavern location. Because of this, detector:l3 does not carry a structured placements[] row against this site (it would require kind 'detector'/'underground_lab', which in turn requires a non-geocoder source we do not have); the experiment-to-place relationship is instead recorded only as prose in this file and via collaboration.host_site_id, per A22/A17 rather than by fabricating a stronger source."
   ],
   "place": {
@@ -48,7 +48,8 @@
   "sources": [
     "src:lep-cern-courier-l3-magnet-alice",
     "src:lep-point-2-osm-nominatim",
-    "src:lep-cern-voisins-point-2"
+    "src:lep-cern-voisins-point-2",
+    "src:lep-cern-alice-experiment-page"
   ],
   "summary": {
     "plain": "The underground cavern at Point 2 of the LEP ring, near the French village of Sergy, where the L3 detector recorded electron-positron collisions from 1989 to 2000. The same cavern and L3's huge magnet were later reused for the ALICE experiment.",
