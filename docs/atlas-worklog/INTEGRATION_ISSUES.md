@@ -36,3 +36,21 @@ verbatim; no fabricated citation, no unit error, no inflated result wording.
 | 16 | P1 | `site:kek-tsukuba-belle-ii` carries `point_kind: detector` coordinates sourced only from a Wikipedia infobox (rank 12), which A17 forbids for a detector point. The flavour lead disclosed this honestly in its worklog, but it is still live. Needs a real source or a demotion to an approximate region. | open |
 | 17 | P2 | Two coordinate-supporting quotes (CMS Point 5 from arXiv:1005.5332, the LZ Davis Campus from arXiv:1503.01112) could not be independently confirmed because only the abstract pages were retrievable. Plausible but unverified. | open |
 | 18 | P2 | The Belle detector paper is paywalled; the record correctly leaves subsystem geometry null rather than inventing it. No action beyond keeping the disclosure. | closed |
+
+## Fixture-versus-generated divergence (orchestrator, 2026-09-17)
+
+A class of bug that neither test suite could see, because the browser suite
+loaded `?data=fixtures` and the Python suite built the fixture dataset. Three
+separate features were dead against the real bundles while every test was green.
+
+| # | Severity | Issue | State |
+| --- | --- | --- | --- |
+| 19 | P0 | Sites: the generated bundle nests coordinates, the fixtures flatten them. The globe read an undefined latitude, computed a NaN position and drew **no markers at all**. | fixed (loader accepts both) |
+| 20 | P1 | Institutions in membership rows: same nesting split, so collaboration mode showed no institution dots. | fixed |
+| 21 | P1 | Results and documents: the generated bundles are flat id maps, the fixtures wrap them under a named key. Results mode and the document library were **empty**. | fixed |
+| 22 | P1 | Every cold deep link opened an empty globe: startup rebuilt the URL from uninitialised state, erasing the route before it was read. In-app navigation worked, so no test caught it. | fixed |
+
+The lesson for the release gate: a test that exercises fixtures is not a test of
+the product. `tests/browser_atlas.cjs` should run twice, once against each tree,
+and `static/atlas/fixtures/build_fixture.py` should be regenerated from the
+canonical nested shape so the two stop drifting.
