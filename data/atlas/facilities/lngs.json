@@ -17,14 +17,15 @@
       "confidence": "uncertain",
       "end": null,
       "label": "laboratory operating",
-      "note": "Start unknown: no foundation or construction date appears on the LNGS pages fetched. The laboratory is described as currently operating (\"Currently 1300 scientists from 30 different Countries are taking part in the experimental activities of LNGS\").",
-      "quote": "Currently 1300 scientists from 30 different Countries are taking part in the experimental activities of LNGS",
+      "note": "A10: an interval with `start: null` and `end: null` covers no date at all (A3: \"start: null covers only [lo(end), hi(end)]\"), so the derived state at the build date was `unrecorded`, not `active`, though the laboratory is clearly operating today (\"Currently 1300 scientists from 30 different Countries are taking part in the experimental activities of LNGS\", src:lngs-overview). No official LNGS or INFN page reached in this session states a foundation, construction or opening date (lngs.infn.it/en/lab-history returned HTTP 404; lngs.infn.it/en gives no date). As a fallback, `start` is set to 1987 on Wikipedia's authority (\"the research center became fully operational in 1987\") — a rank-12 source, flagged for review — rather than left null, which would misrepresent the laboratory as not currently operating.",
+      "quote": "the research center became fully operational in 1987",
       "sources": [
-        "src:lngs-overview"
+        "src:lngs-overview",
+        "src:lngs-wikipedia-history"
       ],
-      "start": null,
+      "start": "1987",
       "status": "active",
-      "verified_at": "2026-09-16"
+      "verified_at": "2026-09-17"
     }
   ],
   "kind": "underground_laboratory",
@@ -43,7 +44,7 @@
   "notes": [
     "LNGS is owned in this wave by the fermilab-neutrino-other lead only because ICARUS ran in Hall B; the record covers the laboratory at the level needed for that placement, not the full LNGS programme.",
     "The commonly quoted 3800 m.w.e. overburden is NOT recorded: no page fetched in this session states a metres-water-equivalent figure, only the 1400 m rock thickness.",
-    "The foundation/construction dates of LNGS were not found on the pages fetched; the operating interval therefore has no start."
+    "The foundation/construction dates of LNGS were not found on an official page fetched in this session; the operating interval's start (1987) is sourced to Wikipedia only (src:lngs-wikipedia-history) and is flagged for review."
   ],
   "operator": {
     "confidence": "verified",
@@ -64,7 +65,8 @@
   "sources": [
     "src:lngs-overview",
     "src:lngs-about-general",
-    "src:lngs-how-to-reach"
+    "src:lngs-how-to-reach",
+    "src:lngs-wikipedia-history"
   ],
   "specs": {
     "depth": {

@@ -100,7 +100,10 @@ async function main() {
   }
 
   async function viewOnGlobe(collaborationId) {
-    state.navigate({ entity: { type: 'collaboration', slug: collaborationId.split(':')[1] }, mode: 'collab' });
+    // `collab` keeps the context in the URL, so a link to an institution can say
+    // which collaboration it is being viewed within.
+    const slug = collaborationId.split(':')[1];
+    state.navigate({ entity: { type: 'collaboration', slug }, mode: 'collab', collab: slug });
   }
 
   panels.init({
@@ -188,12 +191,18 @@ async function main() {
 
     timeline.syncFromState(current);
 
+    // A shared institution link carries its collaboration in `c`.
+    if (current.collab) panels.setCollaborationContext(`collaboration:${current.collab}`);
+
     const isCollabMode = current.mode === 'collab' && current.entity && current.entity.type === 'collaboration';
     if (isCollabMode) {
       const collabId = `collaboration:${current.entity.slug}`;
       if (collabId !== lastCollabShown) {
         lastCollabShown = collabId;
         panels.setCollaborationContext(collabId);
+        if (current.collab !== current.entity.slug) {
+          state.navigate({ collab: current.entity.slug }, { replace: true });
+        }
         if (globeApi) {
           const membership = await loader.getMembership(collabId);
           globeApi.setCollaboration(collabId, membership);

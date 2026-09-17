@@ -22,7 +22,7 @@ function parseHashEntity(hash) {
 function parseSearch(search) {
   const params = new URLSearchParams(search);
   const state = {
-    year: null, range: null, topic: null, status: null, mode: null, arcs: false,
+    year: null, range: null, topic: null, status: null, mode: null, arcs: false, collab: null,
   };
   if (params.has('y')) {
     const y = parseInt(params.get('y'), 10);
@@ -35,6 +35,7 @@ function parseSearch(search) {
   if (params.has('t')) state.topic = params.get('t');
   if (params.has('s')) state.status = params.get('s');
   if (params.has('m')) state.mode = params.get('m');
+  if (params.has('c')) state.collab = params.get('c');
   state.arcs = params.get('arcs') === '1';
   return state;
 }
@@ -55,6 +56,7 @@ function buildURL(state) {
   if (state.topic) params.set('t', state.topic);
   if (state.status) params.set('s', state.status);
   if (state.mode) params.set('m', state.mode);
+  if (state.collab) params.set('c', state.collab);
   if (state.arcs) params.set('arcs', '1');
   const search = params.toString();
   const hash = state.entity ? `#/${state.entity.type}/${state.entity.slug}` : '';
