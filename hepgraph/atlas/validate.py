@@ -1595,13 +1595,44 @@ def check_duplicate_externals(ctx: _Context) -> Iterator[Finding]:
                               f'A20: {bucket} {value!r} is also on {", ".join(sorted(others))}')
 
 
+#: A20 (amended): a normalised alias shorter than this is an initialism
+#: routinely reused by unrelated institutions ("CU", "ISU", "NU", "IFT") and
+#: is ignored entirely for the cross-record collision check below; it can
+#: still fail the per-record checks (an alias equal to the record's own
+#: name, or repeated within one record).
+MIN_ALIAS_COLLISION_LENGTH = 5
+
+
+def _mutually_distinct(table: dict[str, dict], entity_id: str, others: Iterable[str]) -> bool:
+    """A20: true when `entity_id` and every one of `others` name each other
+    in `distinct_from` — the escape hatch for a deliberate name collision."""
+    distinct = {schema.canonical_id(other) for other in table[entity_id].get('distinct_from') or []}
+    return all(
+        other in distinct
+        and entity_id in {schema.canonical_id(x) for x in table[other].get('distinct_from') or []}
+        for other in others)
+
+
 def check_duplicate_names(ctx: _Context) -> Iterator[Finding]:
-    """A20: a normalised name/alias collision inside one type, unless both
-    records name each other in `distinct_from`; plus an alias equal to the
-    record's own name, and a repeated alias."""
+    """A20 (amended): a normalised **name**-vs-name collision, or a name
+    colliding with another record's long alias, is build-failing, unless
+    both records name each other in `distinct_from`; plus an alias equal to
+    the record's own name, and a repeated alias (both per-record, so length
+    does not excuse them).
+
+    Two records merely sharing a long alias — neither's own name — is
+    reported as informational only.  A short alias (under
+    :data:`MIN_ALIAS_COLLISION_LENGTH` normalised characters) is ignored for
+    all of the cross-record comparisons: "CU", "ISU", "NU" and "IFT" are
+    routinely reused by unrelated institutions, and asking every ROR-derived
+    record to cross-list every homonym in `distinct_from` is not a real fix.
+    A long alias still catches the case that matters, "Super-K" duplicating
+    "Super-Kamiokande".
+    """
     for entity_type in schema.ENTITY_TYPES:
-        index: dict[str, list[str]] = {}
         table = ctx.atlas.by_type(entity_type)
+        names: dict[str, list[str]] = {}
+        long_aliases: dict[str, list[str]] = {}
         for entity_id, record in sorted(table.items()):
             path = ctx.path_of(entity_id)
             own = schema.normalise_name(record.get('name'))
@@ -1621,28 +1652,60 @@ def check_duplicate_names(ctx: _Context) -> Iterator[Finding]:
                                   _pointer('aliases', position),
                                   f'A20: alias {alias!r} is listed twice')
                 seen.add(normalised)
-            for name in {own} | seen:
-                if name:
-                    index.setdefault(name, []).append(entity_id)
-        for name, ids in sorted(index.items()):
+            if own:
+                names.setdefault(own, []).append(entity_id)
+            for alias_name in seen:
+                if len(alias_name) >= MIN_ALIAS_COLLISION_LENGTH:
+                    long_aliases.setdefault(alias_name, []).append(entity_id)
+
+        # name vs. name.
+        for name, ids in sorted(names.items()):
             unique = sorted(set(ids))
             if len(unique) < 2:
                 continue
             for entity_id in unique:
-                record = table[entity_id]
-                distinct = {schema.canonical_id(other) for other in record.get('distinct_from') or []}
                 others = [other for other in unique if other != entity_id]
-                mutual = all(
-                    other in distinct
-                    and entity_id in {schema.canonical_id(x) for x in table[other].get('distinct_from') or []}
-                    for other in others)
-                if mutual:
+                if _mutually_distinct(table, entity_id, others):
                     continue
                 yield Finding(ERROR, 'duplicate-name', ctx.path_of(entity_id), entity_id,
                               _pointer('name'),
                               f'A20: the normalised name {name!r} collides with '
                               f'{", ".join(others)}; list them in `distinct_from` if they '
                               f'really are different things')
+
+        # name vs. another record's long alias.
+        for name, alias_ids in sorted(long_aliases.items()):
+            name_ids = names.get(name) or []
+            if not name_ids:
+                continue
+            for alias_entity_id in sorted(set(alias_ids)):
+                others = sorted({other for other in name_ids if other != alias_entity_id})
+                if not others or _mutually_distinct(table, alias_entity_id, others):
+                    continue
+                yield Finding(ERROR, 'duplicate-name', ctx.path_of(alias_entity_id), alias_entity_id,
+                              _pointer('aliases'),
+                              f'A20: the normalised alias {name!r} collides with the name of '
+                              f'{", ".join(others)}; list them in `distinct_from` if they '
+                              f'really are different things')
+
+        # long alias vs. long alias only (neither is anyone's own name):
+        # informational — likely just two records independently using the
+        # same shorthand, not evidence of one canonical entity written twice.
+        for name, alias_ids in sorted(long_aliases.items()):
+            if name in names:
+                continue  # already reported (as an error) above
+            unique = sorted(set(alias_ids))
+            if len(unique) < 2:
+                continue
+            for entity_id in unique:
+                others = [other for other in unique if other != entity_id]
+                if _mutually_distinct(table, entity_id, others):
+                    continue
+                yield Finding(INFO, 'duplicate-alias-across-records', ctx.path_of(entity_id),
+                              entity_id, _pointer('aliases'),
+                              f'A20: the normalised alias {name!r} is also used by '
+                              f'{", ".join(others)}; informational only — not necessarily the '
+                              f'same thing')
 
 
 def _part_of_chain(ctx: _Context, entity_id: str, limit: int = 8) -> set[str]:

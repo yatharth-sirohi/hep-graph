@@ -33,7 +33,7 @@ function h(tag, attrs = {}, children = []) {
   }
   for (const child of [].concat(children)) {
     if (child == null) continue;
-    el.appendChild(typeof child === 'string' ? document.createTextNode(child) : child);
+    el.appendChild((typeof child === 'string' || typeof child === 'number') ? document.createTextNode(String(child)) : child);
   }
   return el;
 }

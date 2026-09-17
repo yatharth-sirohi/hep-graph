@@ -7,10 +7,10 @@
   "altitude": null,
   "coordinates": {
     "confidence": "uncertain",
-    "kind": "approximate_region",
+    "kind": "campus",
     "lat": 46.2338702,
     "lon": 6.0469869,
-    "note": "Anchored on the CERN Meyrin site geocoder point (reused from site:cern-meyrin); the SPS ring's Long Straight Section 5, where UA1 is reserved in the id registry, was not independently located by a fetched source in this session. precision_m 3000 honestly covers the ring's ~1.1 km radius from this anchor.",
+    "note": "Coordinate kind is 'campus' rather than 'detector'/'underground_lab' because the only coordinate source available in this session is an OpenStreetMap/Nominatim geocoder lookup, and A17 restricts geocoder-backed coordinates to campus/headquarters kind (the validator's GEOCODER_COORDINATE_KINDS). This point should be read as 'the general CERN-site area this marker names', not a surveyed detector-cavern location. Because of this, detector:ua1 does not carry a structured placements[] row against this site (it would require kind 'detector'/'underground_lab', which in turn requires a non-geocoder source we do not have); the experiment-to-place relationship is instead recorded only as prose in this file and via collaboration.host_site_id, per A22/A17 rather than by fabricating a stronger source.",
     "precision_m": 3000,
     "quote": "lat 46.2338702, lon 6.0469869, display_name 'CERN - Site de Meyrin, Route Gregory, Saint-Genis-Pouilly, Gex, Ain, ... France', osm_id 27005",
     "sources": [
@@ -37,8 +37,8 @@
   "links": {},
   "name": "SPS Long Straight Section 5 (UA1 hall)",
   "notes": [
-    "REVIEW REQUIRED (A17 / honesty note): no official CERN page or archives-guide text fetched in this session states the Long Straight Section number (LSS4 vs LSS5) for UA1 or UA2 explicitly; both archives-guide pages (src:ua1-cern-archives-guide, src:ua2-cern-archives-guide) were checked specifically for 'LSS', 'Long Straight Section', 'Point 4/5' wording and neither contains it. The LSS5-for-UA1 / LSS4-for-UA2 assignment follows the pre-existing reservation in docs/atlas-worklog/ID_REGISTRY.md, not an independently fetched source, so coordinates.confidence is 'uncertain' and the precision is set to cover the whole SPS ring.",
-    "Coordinates are the CERN Meyrin main-site geocoder point (site:cern-meyrin), reused as the best available anchor; precision_m 3000 is chosen to cover the ~7 km SPS ring, not a survey of the specific hall."
+    "Coordinates are the CERN Meyrin main-site geocoder point (site:cern-meyrin), reused as the best available anchor; precision_m 3000 is chosen to cover the ~7 km SPS ring, not a survey of the specific hall.",
+    "Coordinate kind is 'campus' rather than 'detector'/'underground_lab' because the only coordinate source available in this session is an OpenStreetMap/Nominatim geocoder lookup, and A17 restricts geocoder-backed coordinates to campus/headquarters kind (the validator's GEOCODER_COORDINATE_KINDS). This point should be read as 'the general CERN-site area this marker names', not a surveyed detector-cavern location. Because of this, detector:ua1 does not carry a structured placements[] row against this site (it would require kind 'detector'/'underground_lab', which in turn requires a non-geocoder source we do not have); the experiment-to-place relationship is instead recorded only as prose in this file and via collaboration.host_site_id, per A22/A17 rather than by fabricating a stronger source."
   ],
   "place": {
     "city": "Meyrin",

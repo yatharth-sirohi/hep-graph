@@ -496,3 +496,117 @@ def test_alias_equals_name_message_tells_the_author_what_to_do(root: Path) -> No
     assert matches
     assert all("remove this alias" in finding.message
                and "case or punctuation" in finding.message for finding in matches)
+
+
+# ---------------------------------------------------------------------------
+# Third review wave, against real research-data volume (two more defects).
+# ---------------------------------------------------------------------------
+
+# --- (1) A3 supersedes §4: a terminal interval's `end` is optional; only an
+#     `end` earlier than `start` is an error. ---
+
+def test_a3_a_terminal_interval_with_no_end_is_not_an_error(root: Path) -> None:
+    """The LEP detectors' `completed` event in November 2000 has no `end`,
+    and A3 says that is fine: "Terminal statuses are events: `end` is
+    optional." The withdrawn §4 sentence required one; it must not fire."""
+    def edit(r: dict) -> None:
+        r["intervals"].append({
+            "label": "completed", "status": "completed", "kind": "lifecycle",
+            "start": "2020", "end": None, "sources": ["src:demo-experiment-site"],
+            "verified_at": "2026-09-16", "confidence": "verified", "note": "",
+        })
+    _mutate(root, "experiments/demo.json", edit)
+    findings = _validate(root)
+    assert not _findings(findings, "terminal-interval-without-end")
+    assert "terminal-interval-without-end" not in {finding.rule for finding in findings}
+
+
+def test_a3_a_terminal_intervals_end_before_its_start_is_still_an_error(root: Path) -> None:
+    """A3's actual requirement — `end`, when given, must not precede
+    `start` — must still be enforced, just under the general rule that
+    already exists for every interval."""
+    def edit(r: dict) -> None:
+        r["intervals"].append({
+            "label": "completed", "status": "completed", "kind": "lifecycle",
+            "start": "2020", "end": "2015", "sources": ["src:demo-experiment-site"],
+            "verified_at": "2026-09-16", "confidence": "verified", "note": "",
+        })
+    _mutate(root, "experiments/demo.json", edit)
+    findings = _validate(root)
+    matches = _findings(findings, "interval-end-before-start")
+    assert matches and all(finding.level == v.ERROR for finding in matches)
+
+
+def test_terminal_interval_without_end_rule_no_longer_exists() -> None:
+    """The rule itself is gone, not merely silenced by an excuse clause."""
+    source = Path(v.__file__).read_text(encoding="utf-8")
+    assert "terminal-interval-without-end" not in source
+
+
+# --- (2) duplicate-name: name-vs-name real, alias-vs-alias only
+#     informational, short aliases (initialisms) ignored entirely. ---
+
+def _write_institution(root: Path, slug: str, name: str, aliases: list[str]) -> None:
+    template = _read(root, "institutions/demo-lab.json")
+    template.update(id=f"institution:{slug}", name=name, aliases=aliases,
+                    external={}, facility_id=None)
+    _write(root, f"institutions/{slug}.json", template)
+
+
+def test_a20_short_acronym_aliases_are_ignored_entirely(root: Path) -> None:
+    """"CU" is shared by Chulalongkorn, Columbia and Cornell in the real
+    data; none of that is a real duplicate, and it must not even be an
+    informational finding."""
+    _write_institution(root, "columbia-test", "Columbia Test University", ["CU"])
+    _write_institution(root, "cornell-test", "Cornell Test University", ["CU"])
+    _write_institution(root, "chulalongkorn-test", "Chulalongkorn Test University", ["CU"])
+    findings = _validate(root)
+    assert not _findings(findings, "duplicate-name")
+    assert not _findings(findings, "duplicate-alias-across-records")
+
+
+def test_a20_name_vs_name_collision_is_still_an_error(root: Path) -> None:
+    _write_institution(root, "iowa-state-a", "Duplicate State University", [])
+    _write_institution(root, "iowa-state-b", "Duplicate State University", [])
+    findings = _validate(root)
+    matches = _findings(findings, "duplicate-name")
+    assert matches and all(finding.level == v.ERROR for finding in matches)
+
+
+def test_a20_name_vs_long_alias_collision_is_still_an_error(root: Path) -> None:
+    """"Super-K" duplicating "Super-Kamiokande": a long alias that is
+    literally another record's name is exactly the kind of collision A20
+    means to keep catching."""
+    _write_institution(root, "superk-real", "Super-Kamiokande Test Institute", [])
+    _write_institution(root, "superk-impostor", "An Unrelated Institute",
+                        ["Super-Kamiokande Test Institute"])
+    findings = _validate(root)
+    matches = _findings(findings, "duplicate-name")
+    assert matches and all(finding.level == v.ERROR for finding in matches)
+    assert any(finding.entity_id == "institution:superk-impostor" for finding in matches)
+
+
+def test_a20_long_alias_vs_long_alias_only_is_informational(root: Path) -> None:
+    """Two records that merely share a long shorthand — neither's own
+    name — is not build-failing; it is a note for a human to check."""
+    _write_institution(root, "alias-holder-a", "Alias Holder Institute A", ["Shorthandalias"])
+    _write_institution(root, "alias-holder-b", "Alias Holder Institute B", ["Shorthandalias"])
+    findings = _validate(root)
+    assert not _findings(findings, "duplicate-name")
+    matches = _findings(findings, "duplicate-alias-across-records")
+    assert matches and all(finding.level == v.INFO for finding in matches)
+
+
+def test_a20_distinct_from_excuses_a_genuine_name_collision(root: Path) -> None:
+    def edit(a: dict) -> None:
+        a["distinct_from"] = ["institution:iowa-state-b"]
+
+    def edit_b(b: dict) -> None:
+        b["distinct_from"] = ["institution:iowa-state-a"]
+
+    _write_institution(root, "iowa-state-a", "Distinct State University", [])
+    _write_institution(root, "iowa-state-b", "Distinct State University", [])
+    _mutate(root, "institutions/iowa-state-a.json", edit)
+    _mutate(root, "institutions/iowa-state-b.json", edit_b)
+    findings = _validate(root)
+    assert not _findings(findings, "duplicate-name")
