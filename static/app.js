@@ -2136,6 +2136,14 @@
     const record = relation.source_record;
     if (record == null || record === "") return "source record";
     if (relation.source_kind === "wikidata") return `Wikidata ${record}`;
+    if (/^https?:\/\//.test(record)) {
+      /* A relation cited to a published page is named by where it lives. */
+      try {
+        return new URL(record).hostname.replace(/^www\./, "");
+      } catch {
+        return "cited source";
+      }
+    }
     return relation.source_kind === "thesis"
       ? `thesis ${record}`
       : `author record ${record}`;

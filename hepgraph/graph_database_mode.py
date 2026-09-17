@@ -34,8 +34,11 @@ def evidence_url(source_kind: Any, source_record: str) -> str:
 
     A thesis names its supervisors on a literature record, an adviser field
     lives on the student's author profile, and a Wikidata relation lives on the
-    item that states it. Each links to what actually carries the claim.
+    item that states it. Each links to what actually carries the claim - and a
+    relation taken from a published page carries that page's own address.
     """
+    if str(source_record).startswith(("http://", "https://")):
+        return str(source_record)
     if source_kind == "wikidata":
         return f"https://www.wikidata.org/wiki/{source_record}"
     collection = "literature" if source_kind == "thesis" else "authors"

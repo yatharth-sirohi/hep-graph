@@ -53,11 +53,16 @@ _PATTERNS = (
     "?adviser wdt:P185 ?person . ?adviser wdt:P2930 ?adviserInspire .",
 )
 
+#: An ORCID is an identifier INSPIRE stores too, so it resolves by the same
+#: lookup as a BAI and rescues living scientists whose item lacks P2930.
 QUERY = """
-SELECT DISTINCT ?person ?personInspire ?personLabel ?adviser ?adviserInspire ?adviserLabel WHERE {
+SELECT DISTINCT ?person ?personInspire ?personOrcid ?personLabel
+                ?adviser ?adviserInspire ?adviserOrcid ?adviserLabel WHERE {
   %(pattern)s
   OPTIONAL { ?person wdt:P2930 ?personInspire }
   OPTIONAL { ?adviser wdt:P2930 ?adviserInspire }
+  OPTIONAL { ?person wdt:P496 ?personOrcid }
+  OPTIONAL { ?adviser wdt:P496 ?adviserOrcid }
   SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
 }
 """
@@ -66,13 +71,16 @@ SELECT DISTINCT ?person ?personInspire ?personLabel ?adviser ?adviserInspire ?ad
 #: for chains that run entirely above the BAI frontier - Bohr and his own
 #: adviser both sit here, and neither has a BAI that resolves.
 BRIDGED_QUERY = """
-SELECT DISTINCT ?person ?personInspire ?personLabel ?adviser ?adviserInspire ?adviserLabel WHERE {
+SELECT DISTINCT ?person ?personInspire ?personOrcid ?personLabel
+                ?adviser ?adviserInspire ?adviserOrcid ?adviserLabel WHERE {
   VALUES ?anchor { %(values)s }
   { ?anchor wdt:P184 ?other } UNION { ?other wdt:P185 ?anchor }
   BIND(IF(EXISTS { ?anchor wdt:P184 ?other }, ?anchor, ?other) AS ?person)
   BIND(IF(EXISTS { ?anchor wdt:P184 ?other }, ?other, ?anchor) AS ?adviser)
   OPTIONAL { ?person wdt:P2930 ?personInspire }
   OPTIONAL { ?adviser wdt:P2930 ?adviserInspire }
+  OPTIONAL { ?person wdt:P496 ?personOrcid }
+  OPTIONAL { ?adviser wdt:P496 ?adviserOrcid }
   SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
 }
 """
@@ -102,9 +110,11 @@ def _row(binding: dict[str, Any]) -> dict[str, str]:
         "item": binding["person"]["value"],
         "student_qid": binding["person"]["value"].rsplit("/", 1)[-1],
         "student_bai": binding.get("personInspire", {}).get("value", ""),
+        "student_orcid": binding.get("personOrcid", {}).get("value", ""),
         "student_label": binding.get("personLabel", {}).get("value", ""),
         "adviser_qid": binding["adviser"]["value"].rsplit("/", 1)[-1],
         "adviser_bai": binding.get("adviserInspire", {}).get("value", ""),
+        "adviser_orcid": binding.get("adviserOrcid", {}).get("value", ""),
         "adviser_label": binding.get("adviserLabel", {}).get("value", "")}
 
 
@@ -243,10 +253,13 @@ def leads(pairs: list[dict[str, str]], resolved: dict[str, int],
         how = []
 
         def side(which: str) -> int | None:
-            recid = resolved.get(pair.get(f"{which}_bai", ""))
-            if recid:
-                how.append(f"{which} by INSPIRE identifier {pair[f'{which}_bai']}")
-                return recid
+            for kind in ("bai", "orcid"):
+                value = pair.get(f"{which}_{kind}", "")
+                recid = resolved.get(value)
+                if recid:
+                    how.append(f"{which} by {'INSPIRE identifier' if kind == 'bai' else 'ORCID'}"
+                               f" {value}")
+                    return recid
             recid = bridged.get(pair.get(f"{which}_qid", ""))
             if recid:
                 how.append(f"{which} by the Wikipedia article on INSPIRE record {recid}")
@@ -282,7 +295,8 @@ def collect(client: Any, *, pause: float = 0.4) -> tuple[list[Lead], dict[str, A
     pairs = fetch_pairs(bridged=bridged)
     time.sleep(pause)
     resolved = resolve_bais(
-        [value for pair in pairs for value in (pair["student_bai"], pair["adviser_bai"])], client)
+        [pair[f"{which}_{kind}"] for pair in pairs
+         for which in ("student", "adviser") for kind in ("bai", "orcid")], client)
     return leads(pairs, resolved, bridged), {
         "pairs": len(pairs), "identifiers": len(resolved), "wikipedia_bridge": len(bridged)}
 

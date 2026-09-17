@@ -124,3 +124,16 @@ def test_the_bridge_never_rescues_an_end_it_cannot_identify():
             "student_bai": "", "student_label": "Someone",
             "adviser_qid": "Q2", "adviser_bai": "", "adviser_label": "Another"}
     assert leads([pair], {}, {"Q1": 5}) == []      # the adviser is still unidentified
+
+
+def test_an_orcid_identifies_someone_whose_item_has_no_inspire_id():
+    """504 people in an adviser relation have an ORCID and no P2930."""
+    from hepgraph.wikidata_genealogy import leads
+
+    pair = {"item": "http://www.wikidata.org/entity/Q9", "student_qid": "Q9",
+            "student_bai": "", "student_orcid": "0000-0002-8177-5953", "student_label": "A Student",
+            "adviser_qid": "Q10", "adviser_bai": "A.Adviser.1", "adviser_orcid": "",
+            "adviser_label": "An Adviser"}
+    made = leads([pair], {"0000-0002-8177-5953": 993651, "A.Adviser.1": 111})
+    assert len(made) == 1 and made[0].student_id == 993651
+    assert "ORCID" in made[0].corroboration
