@@ -81,7 +81,7 @@ def search(client: Any, query: str, *, provider: Any = None,
         person = _person(str(recid), payload)
         person["indexed"] = (provider.resolve_author(person["id"]) is not None
                              if provider is not None else None)
-        person["queryable"] = True
+        person["queryable"] = person["indexed"] is True
         results.append(person)
     status = "ambiguous" if len(results) > 1 else ("ok" if results else "not_found")
     return {"status": status, "results": results, "source": "inspire",

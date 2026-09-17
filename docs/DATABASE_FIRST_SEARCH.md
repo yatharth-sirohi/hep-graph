@@ -124,10 +124,10 @@ between interpreters — while `blocked`, the decision that key produced, is.
 | Coverage/version labelling | **Yes** | `/api/dataset` reports the pin and its limits |
 | **Doctoral / genealogy edges** | **No** — gap | Not in the compact import; overlay schema shipped, unpopulated |
 | **Ancestry view** | **No** — gap | Returns `unavailable` with a reason |
-| **Global centrality** | **No** — gap | Needs the whole graph resident; stays a saved-snapshot feature |
+| **Global centrality** | **No** — gap | Needs a separate large-graph implementation; not offered in this release |
 
-The three gaps are reported to the user, never silently dropped. Live mode and
-the saved demo snapshot remain available and keep their own coverage labels.
+The three gaps are reported to the user, never silently dropped. The production
+application serves only the pinned graph database and does not ship a local demo graph.
 
 ### Known limitations of the compact schema
 
@@ -261,8 +261,9 @@ started on; searches started afterwards take the restored version. If a running
 job's provider no longer matches its pin, that job ends `failed` with
 `graph_version_changed` — never a silently mixed answer.
 
-To disable database serving entirely, unset `HEPGRAPH_GRAPH_DATABASE_URL`: the
-app falls back to live and saved-snapshot modes with no code change.
+To disable database serving entirely, unset `HEPGRAPH_GRAPH_DATABASE_URL`. The
+application then reports graph search as unavailable; it does not fall back to
+a differently scoped graph without an explicit deployment change.
 
 
 ## 11. Measured end to end

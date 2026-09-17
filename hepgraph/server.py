@@ -70,7 +70,7 @@ def _state_for_handler(server):
     global _SERVERLESS_STATE
     with _SERVERLESS_STATE_LOCK:
         if _SERVERLESS_STATE is None:
-            _SERVERLESS_STATE = State(ROOT / 'data' / 'current.json', default_mode='database')
+            _SERVERLESS_STATE = State()
         state = _SERVERLESS_STATE
     server.state = state
     return state
@@ -95,34 +95,18 @@ def person_id(value):
 
 
 class State:
-    def __init__(self, snapshot_path, default_mode='database'):
-        if default_mode != 'database':
-            raise ValueError('Routes are served from the pinned graph database.')
-        self.default_mode = default_mode
+    def __init__(self):
+        self.default_mode = 'database'
         self._remote_client = None
         self._graph_database = None
-        self.path = Path(snapshot_path)
         self.lock = threading.RLock()
         self.workers = threading.BoundedSemaphore(8)
         self.rates = OrderedDict()
-        self.stamp = None
-        self.reload()
-
-    def reload(self):
-        """Read only the suggested example pairs shipped with the repository.
-
-        Routes come from the graph database, so no local person or work index is
-        built here any more; the file is kept solely for the examples the UI
-        offers and for a version label.
-        """
-        with self.lock:
-            stat = self.path.stat()
-            stamp = (stat.st_mtime_ns, stat.st_size)
-            if stamp == self.stamp:
-                return
-            data = json.loads(self.path.read_text())
-            self.examples = data.get('examples', [])
-            self.stamp = stamp
+        self.examples = [
+            {'label': 'Matheus Hostert → Silvia Pascoli', 'source': '1621061', 'target': '1019647'},
+            {'label': 'Edward Witten → David Gross', 'source': '983328', 'target': '1007454'},
+            {'label': 'Richard Feynman → John Wheeler', 'source': '1010044', 'target': '983692'},
+        ]
 
     def rate_ok(self, ip):
         now = time.monotonic()
@@ -294,7 +278,6 @@ class Handler(BaseHTTPRequestHandler):
             raise ValueError('Routes are served from the pinned graph database.')
         if args.get('summary', '0') not in {'0', '1'}:
             raise ValueError('Profile summary must be 0 or 1.')
-        state.reload()
         if path == '/api/health':
             return self.respond({'status': 'ok', 'service_version': SERVICE_VERSION,
                                  'runtime': runtime_info()})
@@ -366,14 +349,11 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--host', default='127.0.0.1')
     parser.add_argument('--port', type=int, default=8765)
-    parser.add_argument('--snapshot', default=str(ROOT / 'data' / 'current.json'))
-    parser.add_argument('--default-mode', choices=('database',), default='database',
-                        help='live retrieves records on demand in memory; snapshot uses the saved demo')
     args = parser.parse_args()
     logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s %(message)s')
     server = ThreadingHTTPServer((args.host, args.port), Handler)
     server.daemon_threads = True
-    server.state = State(args.snapshot, default_mode=args.default_mode)
+    server.state = State()
     LOG.info('HEP Graph running at http://%s:%s', args.host, args.port)
     try:
         server.serve_forever()

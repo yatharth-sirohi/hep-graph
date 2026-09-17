@@ -5,17 +5,15 @@
   const $$ = (s, root = document) => [...root.querySelectorAll(s)];
   const state = {
     dataset: null,
-    mode: null,
+    mode: "database",
     people: new Map(),
     source: null,
     target: null,
     lastPath: null,
     displayGraph: null,
-    centrality: null,
     revision: 0,
     pathRequest: 0,
     deepJob: null,
-    analysisRequest: 0,
     profileRequest: 0,
     graph: {
       nodes: new Map(),
@@ -68,17 +66,14 @@
     min_shared: String(f?.min_shared ?? 1),
     year_start: String(f?.year_start ?? ""),
     year_end: String(f?.year_end ?? ""),
-    genealogy: String(f?.genealogy ?? "true"),
+    genealogy: String(f?.genealogy ?? "false"),
   });
   const filterKey = () => JSON.stringify([state.mode, canonicalFilters()]);
   const queryKey = () =>
     JSON.stringify([state.mode, canonicalFilters(), state.source?.id, state.target?.id]);
-  const modeLabel = (mode = state.mode) =>
-    mode === "live" ? "Live INSPIRE" : "Saved demo";
-  const isLive = (value) =>
-    value === "live" || (value && (value.mode === "live" || value.source_mode === "live"));
+  const modeLabel = () => "Neon graph";
   const canQuery = (person) =>
-    Boolean(person && (person.queryable === true || person.indexed === true || (state.mode === "snapshot" && person.indexed !== false)));
+    Boolean(person && (person.queryable === true || person.indexed === true));
   const teamSizeDescription = (f) => {
     const min = Number(f?.min_authors ?? 1);
     const max = f?.max_authors == null || f.max_authors === "all"
@@ -154,8 +149,7 @@
   const urlWithFilters = (pathname, extras = {}) => {
     const u = new URL(pathname, location.origin);
     const f = filters();
-    const version = state.mode === "snapshot" ? state.requestedVersion : null;
-    Object.entries({ ...f, ...extras, mode: state.mode, version }).forEach(([k, v]) => {
+    Object.entries({ ...f, ...extras, mode: "database" }).forEach(([k, v]) => {
       if (v !== "" && v != null) u.searchParams.set(k, v);
     });
     return u.pathname + "?" + u.searchParams.toString();
@@ -263,7 +257,6 @@
     $("#edge-inspector").classList.add("hidden");
     $("#edge-inspector").replaceChildren();
     setLoading($("#find-connection"), false);
-    setLoading($("#load-centrality"), false);
     if (state.lastPath || state.displayGraph) {
       $("#path-meta").textContent =
         "Inputs changed. Run the connection query again; the previous result is no longer in scope.";
@@ -278,68 +271,10 @@
       state.graph.edges = [];
       renderGraph();
     }
-    if (state.centrality) {
-      $("#centrality-results").classList.add("hidden");
-      $("#centrality-status").className = "notice warning";
-      $("#centrality-status").textContent =
-        "Filters changed. Recalculate centrality for the new eligible graph.";
-      state.centrality = null;
-    }
     if (hadDeepJob) {
       $("#connection-empty").classList.remove("hidden");
       $("#connection-results").classList.add("hidden");
     }
-  }
-  function clearModeState() {
-    cancelDeepJob();
-    clearPreparation();
-    state.preparation.completed.clear();
-    state.pathRequest++;
-    state.analysisRequest++;
-    state.profileRequest++;
-    state.source = null;
-    state.target = null;
-    state.lastPath = null;
-    state.displayGraph = null;
-    state.centrality = null;
-    state.people.clear();
-    state.searchResults = {};
-    state.searches = { source: [], target: [] };
-    Object.values(state.timers).forEach((timer) => clearTimeout(timer));
-    state.timers = {};
-    ["source", "target"].forEach((which) => {
-      $(`#${which}-query`).value = "";
-      $(`#${which}-results`).replaceChildren();
-      $(`#${which}-results`).classList.remove("inline-search-notice");
-      renderPicker(which);
-    });
-    $("#connection-empty").classList.remove("hidden");
-    $("#connection-results").classList.add("hidden");
-    $("#path-cards").replaceChildren();
-    hideRouteOffer();
-    $("#path-message").className = "notice hidden";
-    $("#path-meta").textContent = "";
-    $("#person-panel").classList.add("hidden");
-    $("#person-content").replaceChildren();
-    $("#edge-inspector").classList.add("hidden");
-    $("#edge-inspector").replaceChildren();
-    $("#centrality-results").classList.add("hidden");
-    $("#centrality-status").className = "notice hidden";
-    state.graph.nodes.clear();
-    state.graph.edges = [];
-    renderGraph();
-  }
-  async function changeMode(mode) {
-    if (!(mode === "live" || mode === "snapshot") || mode === state.mode) return;
-    state.mode = mode;
-    state.requestedVersion = null;
-    state.restore = null;
-    state.revision++;
-    clearModeState();
-    $("#data-mode").value = mode;
-    syncUrl();
-    setStatus(`Loading ${modeLabel(mode)} metadata…`);
-    await loadDataset({ requestedMode: mode, restoreQuery: false });
   }
   function updateCustomVisibility() {
     ["min-authors", "max-authors", "min-shared"].forEach((base) => {
@@ -402,13 +337,8 @@
     Object.entries(f).forEach(([k, v]) =>
       v === "" ? u.searchParams.delete(k) : u.searchParams.set(k, v),
     );
-    if (state.mode) u.searchParams.set("mode", state.mode);
-    else u.searchParams.delete("mode");
-    const version = state.mode === "snapshot"
-      ? state.requestedVersion || state.dataset?.version
-      : null;
-    if (version) u.searchParams.set("version", version);
-    else u.searchParams.delete("version");
+    u.searchParams.set("mode", "database");
+    u.searchParams.delete("version");
     if (state.source) u.searchParams.set("source", state.source.id);
     else u.searchParams.delete("source");
     if (state.target) u.searchParams.set("target", state.target.id);
@@ -436,31 +366,19 @@
       if (u.searchParams.has(key))
         $(`#${key.replace("_", "-")}`).value = u.searchParams.get(key);
     if (u.searchParams.has("genealogy"))
-      $("#genealogy").checked = u.searchParams.get("genealogy") !== "false";
-    const modeParam = u.searchParams.get("mode");
+      $("#genealogy").checked = u.searchParams.get("genealogy") === "true";
     state.restore = {
-      // Before source modes were encoded, shared snapshot links carried a
-      // version query parameter. Preserve that intent when mode is absent;
-      // an explicit mode always wins.
-      mode: ["live", "snapshot"].includes(modeParam)
-        ? modeParam
-        : !modeParam && u.searchParams.has("version")
-          ? "snapshot"
-          : null,
       source: u.searchParams.get("source"),
       target: u.searchParams.get("target"),
-      version: u.searchParams.get("version"),
     };
-    state.mode = state.restore.mode;
-    state.requestedVersion = state.restore.mode === "snapshot" ? state.restore.version : null;
-    if ($("#data-mode") && state.mode) $("#data-mode").value = state.mode;
+    state.mode = "database";
     syncTeamSizeFromBounds();
     updateFilterSummary({ invalidate: false });
     state.restoring = false;
   }
   function coverageText(coverage) {
     if (!coverage) return "Coverage metadata is unavailable.";
-    return `${coverage.label || "Local snapshot"}${coverage.complete ? " · declared complete" : " · partial / bounded coverage"}. ${coverage.description || ""}`;
+    return `${coverage.label || "Pinned graph"}${coverage.complete ? " · declared complete" : " · partial / bounded coverage"}. ${coverage.description || ""}`;
   }
 
   function showCoverageDetails(coverage, extra) {
@@ -525,11 +443,6 @@
       x.setAttribute("aria-selected", active ? "true" : "false");
     });
     $$(".view").forEach((x) => x.classList.toggle("is-active", x.id === id));
-    if (
-      id === "centrality" &&
-      !$("#centrality-results").classList.contains("hidden")
-    )
-      loadCentrality();
   }
 
   function renderPicker(which) {
@@ -546,9 +459,8 @@
     sub.textContent = ` · ${p.id}`;
     holder.append(sub);
     const badge = document.createElement("span");
-    const live = state.mode === "live" || isLive(p);
-    badge.className = `status ${live ? "live" : p.indexed === false ? "unindexed" : "indexed"}`;
-    badge.textContent = live ? "Live INSPIRE" : p.indexed === false ? "not indexed" : "indexed";
+    badge.className = `status ${p.indexed === false ? "unindexed" : "indexed"}`;
+    badge.textContent = p.indexed === false ? "not in graph" : "in graph";
     holder.append(badge);
   }
   function clearPicker(which) {
@@ -565,8 +477,8 @@
     const p = result.person || result;
     state[which] = remember({
       ...p,
-      indexed: state.mode === "live" ? false : result.indexed ?? p.indexed,
-      queryable: state.mode === "live" ? true : result.queryable ?? p.queryable ?? (state.mode === "snapshot" && p.indexed !== false),
+      indexed: result.indexed ?? p.indexed,
+      queryable: result.queryable ?? p.queryable ?? false,
       indexed_publications:
         result.indexed_publications ?? p.indexed_publications,
     });
@@ -584,8 +496,7 @@
     parts.push(`INSPIRE ${p.id}`);
     if (p.affiliations?.length) parts.push(p.affiliations.join("; "));
     if (p.orcid) parts.push(`ORCID ${p.orcid}`);
-    if (state.mode === "live" || isLive(result) || isLive(p)) parts.push("Live INSPIRE");
-    else if (result.indexed === false) parts.push("not indexed");
+    if (result.indexed === false) parts.push("not in graph");
     else if (result.indexed_publications != null)
       parts.push(
         `${result.indexed_publications} indexed publication${result.indexed_publications === 1 ? "" : "s"}`,
@@ -683,37 +594,43 @@
   function statusForPath(data) {
     if (data.client_message) return data.client_message;
     if (data.status === "ok") return null;
+    if (data.mode === "database" && data.status === "settled") {
+      if (data.route_status === "exact_route_proven") return null;
+      if (data.paths?.length) return "This route is documented, but a shorter one has not been ruled out.";
+      if (data.route_status === "no_path") return "No connection was found in this graph version under the selected filters.";
+      return data.message || "The search ended without a proven connection. The absence of a route is not conclusive.";
+    }
     const hasPath = Boolean(data.paths?.length);
     if (hasPath) {
       const withPath = {
         searching:
           "A verified route is shown. The exact search continues in the background; if a shorter route is found it is announced above the result and never swapped in by itself.",
         search_incomplete:
-          "A verified path is shown, but the exact live search is incomplete. A shorter path may still be found.",
+          "A verified path is shown, but the exact graph search is incomplete. A shorter path may still be found.",
         resource_limit:
-          "A verified path is shown, but the exact live search reached its current resource limit. Continue the exact search to look for a shorter route.",
+          "A verified path is shown, but the graph search reached its current resource limit. Continue the search to look for a shorter route.",
         cancelled:
-          "The live search was stopped. The verified path shown is supported by retrieved evidence, but the exact search is incomplete.",
+          "The graph search was stopped. The verified path shown is supported by retrieved evidence, but shortestness is not established.",
         upstream_unavailable:
-          "Live INSPIRE became unavailable after a verified path was found. The shown evidence remains scoped to retrieved records, and the exact search is incomplete.",
+          "Source details became unavailable after a route was found. The route remains scoped to the pinned graph version, and the search is incomplete.",
       };
       if (data.status === "searching") return withPath.searching;
       if (withPath[data.status]) return data.message || withPath[data.status];
     }
     const messages = {
       not_indexed:
-        "At least one selected researcher is not indexed in this snapshot, so no connection claim can be calculated.",
+        "At least one selected researcher is not in the pinned graph, so no connection claim can be calculated.",
       no_path:
         "No documented connection was found within the indexed data and selected filters.",
       not_found: "The selected researcher was not found by the active source.",
       search_incomplete:
-        "The live search ended before its bounded exploration was complete; any route shown is scoped to the retrieved graph.",
+        "The graph search ended before exploration was complete; any route shown is scoped to the pinned graph.",
       searching:
         "The live source is still exploring the retrieved graph; no complete connection claim is available yet.",
       cancelled:
-        "The live search was stopped. Any route shown is an incomplete result from the retrieved graph.",
+        "The graph search was stopped. Any route shown is an incomplete result from the pinned graph.",
       upstream_unavailable:
-        "Live INSPIRE is temporarily unavailable. Try again or switch to Saved demo.",
+        "The graph service is temporarily unavailable. Try again shortly.",
       resource_limit:
         "This calculation reached a resource limit before a path could be established.",
     };
@@ -816,7 +733,9 @@
       retry_upstream: "Waiting briefly for INSPIRE, then retrying automatically",
       discover_coauthors: "Exploring INSPIRE’s coauthor summaries from both ends",
     };
-    const stage = stageLabels[progress.stage] || progress.stage || "exploring retrieved records";
+    const stage = stageLabels[progress.stage] || progress.stage || "exploring stored graph records";
+    if (progress.expansions != null)
+      return `${progress.expansions} graph expansions · ${stage}`;
     return `${people} people explored · ${works} works retrieved · ${elapsed} · ${stage}`;
   }
 
@@ -825,17 +744,17 @@
     box.classList.remove("hidden");
     const terminal = data.status !== "searching";
     $("#deep-title").textContent = data.status === "searching"
-      ? (job?.displayed ? "Looking for a shorter route…" : "Exploring live INSPIRE…")
+      ? (job?.displayed ? "Looking for a shorter route…" : "Exploring the Neon graph…")
       : data.status === "cancelled"
-        ? "Live search stopped"
-        : data.status === "resource_limit"
-          ? "Live search reached its current limit"
-          : data.status === "search_incomplete"
-            ? "Live search is incomplete"
-            : "Live search finished";
+        ? "Graph search stopped"
+      : data.status === "resource_limit"
+          ? "Graph search reached its current limit"
+      : data.status === "search_incomplete"
+            ? "Graph search is incomplete"
+            : "Graph search finished";
     $("#deep-summary").textContent = data.progress
       ? deepProgressText(data.progress)
-      : data.message || (terminal ? "The bounded live search has ended." : "The live graph search is starting.");
+      : data.message || (terminal ? "The graph search has ended." : "The graph search is starting.");
     const stop = $("#deep-stop"), cont = $("#deep-continue");
     const retryableFailure = data.status === "upstream_unavailable" && job?.jobId;
     stop.classList.toggle("hidden", (terminal && !retryableFailure) || job?.cancelled || job?.continuing);
@@ -1038,7 +957,7 @@
           ...job.progress, stage: "The search moved to another server; starting it again there…",
         } }, job);
         try {
-          const data = await api(urlWithFilters("/api/path", { source: job.source, target: job.target, search: "deep" }));
+          const data = await api(urlWithFilters("/api/path", { source: job.source, target: job.target }));
           if (!deepJobCurrent(job)) {
             // The user moved on while the restart was in flight; do not leave
             // the fresh server job running for nobody.
@@ -1065,7 +984,7 @@
   async function continueDeepSearch(job) {
     if (!deepJobCurrent(job) || !job.done || job.continuing) return;
     job.continuing = true;
-    renderDeepProgress({ status: "searching", progress: job.progress, message: "Continuing the bounded live search." }, job);
+    renderDeepProgress({ status: "searching", progress: job.progress, message: "Continuing the graph search." }, job);
     try {
       const response = await fetch(deepEndpoint(job, "/continue"), {
         method: "POST",
@@ -1105,14 +1024,14 @@
     // ends the search for a shorter one. A pending offer stays: that shorter
     // route is verified too.
     const data = {
-      ...last, status: "cancelled", can_continue: false, mode: "live",
+      ...last, status: "cancelled", can_continue: false, mode: "database",
       version: last.version || job.version, filters: last.filters || job.filters,
       coverage: last.coverage || job.coverage,
       paths: job.displayed ? last.paths || [] : [],
       route_status: job.displayed ? "verified_search_stopped" : "search_incomplete",
       message: job.displayed
         ? "The exact search was stopped. The route shown is verified by retrieved evidence; whether a shorter one exists was not established."
-        : "The live search was stopped before a route was verified; this result is incomplete.",
+        : "The graph search was stopped before a route was verified; this result is incomplete.",
     };
     job.lastData = data;
     job.done = true;
@@ -1123,8 +1042,8 @@
 
   async function startDeepSearch({ source, target, revision, request, key }) {
     const job = {
-      source, target, revision, request, key, mode: "live", jobId: null,
-      version: "live-deep-v1", filters: canonicalFilters(), coverage: state.dataset?.coverage,
+      source, target, revision, request, key, mode: "database", jobId: null,
+      version: state.dataset?.version, filters: canonicalFilters(), coverage: state.dataset?.coverage,
       cancelled: false, cancelSent: false, timer: null, done: false,
       continuing: false, progress: {}, lastData: null,
       // Versioned delivery: the last applied server version, the best route
@@ -1157,7 +1076,7 @@
           job.jobId = null;
         }
       }
-      if (!data) data = await api(urlWithFilters("/api/path", { source, target, search: "deep" }));
+      if (!data) data = await api(urlWithFilters("/api/path", { source, target }));
       if (data.job_id) job.jobId = data.job_id;
       job.version = data.version || job.version;
       job.filters = canonicalFilters(data.filters || job.filters);
@@ -1193,9 +1112,7 @@
     }
     if (!canQuery(state.source) || !canQuery(state.target)) {
       setStatus(
-        state.mode === "live"
-          ? "The selected Live INSPIRE result is not queryable. Choose another result."
-          : "One of the selected researchers is not indexed in this saved demo snapshot. Choose a different result.",
+        "One of the selected researchers is not in the pinned graph. Choose another result.",
         "warning",
       );
       return;
@@ -1217,32 +1134,7 @@
         revision === state.revision &&
         request === state.pathRequest &&
         key === queryKey();
-    if (state.mode === "live") {
-      startDeepSearch({ source: state.source.id, target: state.target.id, revision, request, key });
-      return;
-    }
-    setLoading(btn, true, "Finding…");
-    try {
-      const data = await api(
-        urlWithFilters("/api/path", {
-          source: state.source.id,
-          target: state.target.id,
-        }),
-      );
-      if (!current()) return;
-      renderPath(data);
-      syncUrl();
-    } catch (e) {
-      if (!current()) return;
-      setStatus(
-        e.body?.code === "resource_limit"
-          ? "The request exceeded the service resource limit. Narrow the filters and try again."
-          : e.message,
-        "error",
-      );
-    } finally {
-      if (request === state.pathRequest) setLoading(btn, false);
-    }
+    startDeepSearch({ source: state.source.id, target: state.target.id, revision, request, key });
   }
 
   function addGraphNode(person, kind = "") {
@@ -1398,8 +1290,8 @@
             if (!current()) return;
             remember({
               ...d.person,
-              indexed: mode === "live" ? false : d.indexed ?? d.person?.indexed ?? (mode === "snapshot"),
-              queryable: mode === "live" ? true : d.queryable ?? d.person?.queryable ?? (mode === "snapshot" && d.indexed !== false && d.person?.indexed !== false),
+              indexed: d.indexed ?? d.person?.indexed ?? false,
+              queryable: d.queryable ?? d.person?.queryable ?? false,
             });
           } catch {
             /* ID is still shown if this profile is unavailable */
@@ -1486,108 +1378,6 @@
     a.remove();
     setTimeout(() => URL.revokeObjectURL(a.href), 1000);
   }
-  async function loadCentrality() {
-    if (!validateFilters()) return;
-    const btn = $("#load-centrality"),
-      status = $("#centrality-status"),
-      revision = state.revision,
-      request = ++state.analysisRequest,
-      key = filterKey(),
-      mode = state.mode,
-      metric = $("#centrality-metric").value,
-      current = () =>
-        revision === state.revision &&
-        request === state.analysisRequest &&
-        mode === state.mode &&
-        key === filterKey() &&
-        metric === $("#centrality-metric").value;
-    state.centrality = null;
-    $("#centrality-results").classList.add("hidden");
-    setLoading(btn, true, "Calculating…");
-    status.className = "notice hidden";
-    try {
-      const d = await api(urlWithFilters("/api/centrality", { metric }));
-      if (!current()) return;
-      if (d.status && d.status !== "ok") {
-        status.className = "notice warning";
-        status.textContent =
-          d.message || "This measure is unavailable for the selected scope.";
-        return;
-      }
-      state.centrality = d;
-      $("#centrality-results").classList.remove("hidden");
-      const explain = $("#centrality-explainer");
-      explain.replaceChildren();
-      const h = document.createElement("strong");
-      h.textContent = (d.metric || metric).replaceAll("_", " ");
-      explain.append(h);
-      const p = document.createElement("p"),
-        centers = d.centers || d.center || [];
-      const scope = [
-        `Definition: ${d.definition || "not supplied"}`,
-        `population: ${d.population ?? "not supplied"}`,
-        `scope: ${d.scope || "eligible indexed graph"}`,
-        `method: ${d.method || "not supplied"}`,
-        `${modeLabel(d.mode || state.mode)}: ${d.version || state.dataset?.version || "not supplied"}`,
-        `computed: ${formatDate(d.computed_at)}`,
-      ];
-      const active = d.filters || filters();
-      scope.push(`filters: ${filterDescription(active)}`);
-      if (d.approximation) {
-        const a = d.approximation;
-        scope.push(
-          `approximation: ${a.source_count ?? "not supplied"} sampled sources from ${a.active_population ?? "not supplied"} active people, seed ${a.seed ?? "not supplied"}${a.uncertainty != null ? `, uncertainty ${a.uncertainty}` : ""}`,
-        );
-      }
-      if (d.ranking_note) scope.push(`ranking note: ${d.ranking_note}`);
-      if (d.radius != null) scope.push(`radius: ${d.radius}`);
-      if (centers.length)
-        scope.push(`center: ${centers.map((x) => personName(x)).join(", ")}`);
-      p.textContent = `${scope.join(". ")}. ${d.exact === false ? "Result is bounded or approximate. " : ""}`;
-      explain.append(p);
-      $("#metric-value-label").textContent = (d.metric || metric).replaceAll(
-        "_",
-        " ",
-      );
-      const body = $("#centrality-rows");
-      body.replaceChildren();
-      (d.rows || []).forEach((row) => {
-        remember(row.person);
-        const tr = document.createElement("tr");
-        [
-          d.approximation ? `Estimated ${row.rank}` : row.rank,
-          personName(row.person),
-          typeof row.value === "number"
-            ? Number(row.value).toPrecision(3)
-            : row.value,
-        ].forEach((v, i) => {
-          const td = document.createElement("td");
-          if (i === 1) td.append(personButton(row.person));
-          else td.textContent = v ?? "—";
-          tr.append(td);
-        });
-        body.append(tr);
-      });
-      if (!(d.rows || []).length) {
-        const tr = document.createElement("tr"),
-          td = document.createElement("td");
-        td.colSpan = 3;
-        td.textContent = "No eligible people for this measure and filters.";
-        tr.append(td);
-        body.append(tr);
-      }
-      displayCoverage(d.coverage || state.dataset?.coverage);
-    } catch (e) {
-      if (!current()) return;
-      status.className = "notice error";
-      status.textContent =
-        e.body?.code === "resource_limit"
-          ? "This measure exceeded the service resource limit. Narrow the filters and try again."
-          : e.message;
-    } finally {
-      if (request === state.analysisRequest) setLoading(btn, false);
-    }
-  }
   async function resolvePerson(id) {
     const revision = state.revision;
     const mode = state.mode;
@@ -1597,8 +1387,8 @@
     if (revision !== state.revision || mode !== state.mode) return null;
     return remember({
       ...d.person,
-      indexed: mode === "live" ? false : d.indexed ?? d.person?.indexed ?? (mode === "snapshot"),
-      queryable: mode === "live" ? true : d.queryable ?? d.person?.queryable ?? (mode === "snapshot" && d.indexed !== false && d.person?.indexed !== false),
+      indexed: d.indexed ?? d.person?.indexed ?? false,
+      queryable: d.queryable ?? d.person?.queryable ?? false,
       indexed_publications: d.indexed_publications ?? d.person?.indexed_publications,
     });
   }
@@ -1610,7 +1400,7 @@
       mc.registerTool({
         name: "findConnection",
         description:
-          "Find documented researcher connections in the current HEP Graph source. Live searches may return a job that must be polled for progress; Saved demo searches return synchronously.",
+          "Find documented researcher connections in the pinned Neon graph. Searches return a resumable job that can be polled for progress.",
         inputSchema: {
           type: "object",
           properties: {
@@ -1620,7 +1410,7 @@
           required: ["source", "target"],
         },
         execute: async ({ source, target }) =>
-          api(urlWithFilters("/api/path", { source, target, ...(state.mode === "live" ? { search: "deep" } : {}) })),
+          api(urlWithFilters("/api/path", { source, target })),
       });
       mc.registerTool({
         name: "setFilters",
@@ -2041,7 +1831,7 @@
   function populateExamples() {
     const select = $("#example-select");
     const picker = select.closest(".example-picker");
-    if (picker) picker.hidden = state.mode === "live";
+    if (picker) picker.hidden = false;
     select.replaceChildren();
     const examples = state.dataset?.examples || [];
     if (!examples.length) {
@@ -2059,14 +1849,10 @@
     });
   }
   async function loadExample() {
-    if (state.mode === "live") {
-      setStatus("Saved demo examples are available after switching to Saved demo.", "warning");
-      return;
-    }
     const e =
       state.dataset?.examples?.[Number($("#example-select").value) || 0];
     if (!e) {
-      setStatus("No example pair is supplied by this snapshot.", "warning");
+      setStatus("No example pair is supplied by this graph version.", "warning");
       return;
     }
     invalidateResults();
@@ -2084,35 +1870,26 @@
       findPath();
     } catch (err) {
       setStatus(
-        `The snapshot example could not be resolved: ${err.message}`,
+        `The example could not be resolved: ${err.message}`,
         "error",
       );
     }
   }
-  async function loadDataset({ requestedMode = null, restoreQuery = true } = {}) {
+  async function loadDataset({ restoreQuery = true } = {}) {
     const revision = state.revision;
-    const modeAtRequest = requestedMode || state.restore?.mode || null;
     try {
-      // An empty mode asks the server for its advertised default (live on the
-      // main service, snapshot on regression fixtures); the mode key remains
-      // explicit on every data request.
-      const endpoint = `/api/dataset?mode=${encodeURIComponent(modeAtRequest || "")}`;
-      const d = await api(endpoint);
-      if (revision !== state.revision || (requestedMode && requestedMode !== state.mode)) return;
+      const d = await api("/api/dataset?mode=database");
+      if (revision !== state.revision) return;
       state.dataset = d;
-      state.mode = d.source_mode === "live" || d.mode === "live"
-        ? "live"
-        : d.source_mode === "snapshot" || d.mode === "snapshot"
-          ? "snapshot"
-          : state.mode || "snapshot";
-      $("#data-mode").value = state.mode;
-      $("#mode-description").textContent = state.mode === "live"
-        ? "Temporary RAM-only INSPIRE data; global centrality is unavailable."
-        : "Saved local snapshot for deterministic demo queries.";
+      if (d.source_mode !== "database") throw new Error("The service did not return a pinned graph database.");
+      state.mode = "database";
+      if (d.capabilities?.genealogy !== true) {
+        $("#genealogy").checked = false;
+        $("#genealogy").disabled = true;
+        $("#genealogy-note").textContent = "Not in this graph version; routes use coauthorship only.";
+        updateFilterSummary({ invalidate: false });
+      }
       $("#coverage-banner strong").textContent = `${modeLabel()} coverage`;
-      $("#centrality-title").textContent = state.mode === "live"
-        ? "Centrality unavailable for Live INSPIRE"
-        : "Centrality in the saved demo graph";
       $("#snapshot-label").textContent = `${modeLabel()} · ${d.version || "unknown"}`;
       $("#footer-version").textContent =
         `${modeLabel()} · ${d.version || "unknown"} · ${d.created_at ? formatDate(d.created_at) : "date not supplied"}`;
@@ -2120,13 +1897,7 @@
       populateExamples();
       clearStatus();
       if (!state.restoring) syncUrl();
-      const requested = state.mode === "snapshot" && state.restore?.version;
       $("#version-warning").classList.add("hidden");
-      if (requested && requested !== d.version) {
-        const w = $("#version-warning");
-        w.textContent = `This link requests snapshot ${requested}, but the local service currently has ${d.version}. Results may differ from the shared result.`;
-        w.classList.remove("hidden");
-      }
       const ids = restoreQuery
         ? [state.restore?.source, state.restore?.target].filter(Boolean)
         : [];
@@ -2151,8 +1922,8 @@
         }
       }
     } catch (e) {
-      $("#snapshot-label").textContent = "Snapshot unavailable";
-      setStatus(`Could not load local dataset: ${e.message}`, "error");
+      $("#snapshot-label").textContent = "Graph unavailable";
+      setStatus(`Could not load the Neon graph: ${e.message}`, "error");
     }
   }
 
@@ -2191,28 +1962,15 @@
                     ? `${routes} verified route${routes === 1 ? "" : "s"} · exact search incomplete`
                     : "Connection result";
     const scopedFilters = data.filters || filters();
-    const liveResult = isLive(data) || state.mode === "live";
     const hasPath = Boolean(data.paths?.length);
     const incomplete = ["search_incomplete", "resource_limit", "cancelled", "upstream_unavailable"].includes(data.status);
-    const precision = liveResult
-      ? data.global_shortest_proven === true
-        ? "exact shortest path for this identity query"
-        : rs === "VERIFIED_ROUTE_FOUND"
-          ? "verified route; the exact search is still looking for a shorter one"
-          : rs === "BETTER_ROUTE_AVAILABLE"
-            ? "verified route; a shorter verified route is available above"
-            : rs === "VERIFIED_SEARCH_STOPPED"
-              ? "verified route; search stopped before shortestness was proven"
-              : hasPath && incomplete
-                ? "verified path; exact search incomplete"
-                : hasPath
-                  ? "verified path; exhaustive shortestness not established"
-                  : incomplete
-                    ? "search incomplete; no no-path conclusion"
-                    : "bounded result; exhaustive shortestness not established"
-      : data.exact === false
-        ? "bounded / not exact"
-        : "exact for this snapshot and filters";
+    const precision = data.global_shortest_proven === true
+      ? "proven shortest in this graph version and filters"
+      : hasPath
+        ? "verified route; shortestness not established"
+        : incomplete || data.route_status !== "no_path"
+          ? "search incomplete; no no-path conclusion"
+          : "no path in this graph version and filters";
     const retrievalInfo = data.retrieval || data.coverage?.retrieved;
     const retrieval = retrievalInfo
       ? ` · retrieved ${retrievalInfo.people ?? retrievalInfo.profiles ?? "?"} people / ${retrievalInfo.works ?? "?"} works${data.retrieval?.truncated || data.coverage?.partial ? " · truncated" : ""}`
@@ -2223,7 +1981,7 @@
         metrics.time_to_exact_proof != null ? `, proven shortest after ${seconds(metrics.time_to_exact_proof)}` : ""}`
       : "";
     $("#path-meta").textContent =
-      `${modeLabel(data.mode || state.mode)} ${data.version || state.dataset?.version || "unknown"} · ${precision} · ${filterDescription(scopedFilters)} · scope: ${data.coverage?.label || data.coverage?.description || (liveResult ? "temporary in-memory INSPIRE result" : "indexed local snapshot")}${retrieval}${timing}`;
+      `${modeLabel()} ${data.version || state.dataset?.version || "unknown"} · ${precision} · ${filterDescription(scopedFilters)} · scope: ${data.coverage?.label || data.coverage?.description || "pinned Neon graph"}${retrieval}${timing}`;
     displayCoverage(data.coverage || state.dataset?.coverage);
   }
 
@@ -2325,11 +2083,10 @@
       const title = document.createElement("div"),
         h = document.createElement("h2"),
         meta = document.createElement("p");
-      const liveProfile = state.mode === "live" || d.mode === "live";
       title.className = "profile-title";
       h.textContent = personName(p);
       meta.className = "profile-meta";
-      meta.textContent = `${p.id}${p.profile_status === "literature_only" ? " · literature only" : ""}${p.orcid ? ` · ORCID ${p.orcid}` : ""}${p.affiliations?.length ? ` · Affiliations reported in ${liveProfile ? "retrieved sources" : "indexed sources"}: ${p.affiliations.join("; ")}` : ` · Affiliations reported in ${liveProfile ? "retrieved sources" : "indexed sources"}: not supplied`}`;
+      meta.textContent = `${p.id}${p.profile_status === "literature_only" ? " · literature only" : ""}${p.orcid ? ` · ORCID ${p.orcid}` : ""}${p.affiliations?.length ? ` · Affiliations reported in retrieved sources: ${p.affiliations.join("; ")}` : " · Affiliations reported in retrieved sources: not supplied"}`;
       title.append(h, meta);
       if (p.source_url)
         title.append(link("Open source profile ↗", p.source_url));
@@ -2337,8 +2094,8 @@
       const stats = document.createElement("div");
       stats.className = "profile-stats";
       for (const [field, label] of [
-        ["indexed_publications", liveProfile ? "Retrieved works" : "Indexed works"],
-        ["eligible_publications", liveProfile ? "Eligible retrieved works" : "Eligible works"],
+        ["indexed_publications", "Indexed works"],
+        ["eligible_publications", "Eligible works"],
         ["coauthor_count", "Unique coauthors"],
         ["combined_degree", "Combined degree"],
       ]) {
@@ -2346,11 +2103,9 @@
           number = document.createElement("strong"),
           caption = document.createElement("span");
         number.dataset.stat = field;
-        const value = liveProfile && field === "indexed_publications"
-          ? d.retrieved_publications ?? d[field]
-          : d[field];
+        const value = d[field];
         number.textContent =
-          value == null ? (liveProfile ? "Not calculated" : "Not supplied") : String(value);
+          value == null ? "Not supplied" : String(value);
         caption.textContent = label;
         cell.append(number, caption);
         stats.append(cell);
@@ -2358,9 +2113,7 @@
       content.append(stats);
       const scope = document.createElement("p");
       scope.className = "profile-meta";
-      scope.textContent = liveProfile
-        ? `Live INSPIRE ${d.version || "live-inspire-v1"}. Retrieved counts are temporary RAM-only results; a full publication total is unknown. Active filters: ${filterDescription(d.filters || filters())}.`
-        : `Snapshot ${d.version}. Counts refer to indexed sources, not an upstream publication total. Active filters: ${filterDescription(d.filters)}. Paper eligibility controls eligible works; the repeat threshold controls coauthor ties.`;
+      scope.textContent = `Neon graph ${d.version || state.dataset?.version || "unknown"}. Counts refer to this pinned graph version, not all upstream publications. Active filters: ${filterDescription(d.filters || filters())}. Paper eligibility controls eligible works; the repeat threshold controls coauthor ties.`;
       content.append(scope);
       const actions = document.createElement("div");
       actions.className = "profile-actions";
@@ -2376,8 +2129,8 @@
           invalidateResults();
           state[slot] = {
             ...p,
-            indexed: state.mode === "live" ? false : d.indexed ?? p.indexed ?? (state.mode === "snapshot"),
-            queryable: state.mode === "live" ? true : d.queryable ?? p.queryable ?? (state.mode === "snapshot" && d.indexed !== false && p.indexed !== false),
+            indexed: d.indexed ?? p.indexed ?? false,
+            queryable: d.queryable ?? p.queryable ?? false,
           };
           renderPicker(slot);
           syncUrl();
@@ -2389,7 +2142,7 @@
       const expand = document.createElement("button");
       expand.className = "secondary-button";
       expand.type = "button";
-      expand.textContent = state.mode === "live" ? "Add retrieved neighborhood" : "Add local neighborhood";
+      expand.textContent = "Add graph neighborhood";
       expand.addEventListener("click", () => expandNeighborhood(id));
       actions.append(expand);
       content.append(actions);
@@ -2447,7 +2200,7 @@
         pu.append(li);
       });
       if (!pu.children.length)
-        pu.textContent = "No doctoral records in this snapshot.";
+        pu.textContent = "No doctoral records in this graph version.";
       phd.append(ph, pu);
       content.append(phd);
       displayCoverage(d.coverage || state.dataset?.coverage);
@@ -2519,14 +2272,6 @@
     $("#close-profile").addEventListener("click", () => {
       state.profileRequest++;
       $("#person-panel").classList.add("hidden");
-    });
-    $("#data-mode").addEventListener("change", () =>
-      changeMode($("#data-mode").value),
-    );
-    $("#load-centrality").addEventListener("click", loadCentrality);
-    $("#centrality-metric").addEventListener("change", () => {
-      if (!$("#centrality-results").classList.contains("hidden"))
-        loadCentrality();
     });
     setupGraphInteractions();
     const graphStage = $("#graph-stage");

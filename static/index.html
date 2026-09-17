@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="Explore documented scholarly and doctoral connections using Live INSPIRE or the saved HEP Graph demo."
+      content="Explore documented research collaborations using a pinned graph stored in Neon, with source evidence retrieved for results."
     />
     <title>HEP Graph · Research connections</title>
     <link rel="icon" href="favicon.svg" type="image/svg+xml" />
@@ -21,9 +21,6 @@
       <nav aria-label="Primary navigation">
         <button class="tab is-active" data-tab="connections" type="button">
           Connections
-        </button>
-        <button class="tab" data-tab="centrality" type="button">
-          Centrality
         </button>
         <button class="tab" data-tab="about" type="button">
           About &amp; coverage
@@ -91,13 +88,13 @@
               Trace a documented research connection
             </h1>
             <p>
-              Search two researchers. Hops are person-to-person ties; paper and
-              doctoral-record evidence stays attached to every result.
+              Search two researchers. Routes follow documented coauthorship
+              ties in the pinned Neon graph; source evidence is attached to results.
             </p>
           </div>
           <label class="example-picker"
             >Example
-            <select id="example-select" aria-label="Snapshot example">
+            <select id="example-select" aria-label="Graph example">
               <option value="">Loading examples…</option></select
             ><button id="load-example" class="secondary-button" type="button">
               Load
@@ -173,13 +170,7 @@
             </div>
           </div>
           <div class="query-actions">
-            <label class="source-mode-label" for="data-mode"
-              >Search source<select id="data-mode" aria-describedby="mode-description">
-                <option value="live">Live INSPIRE</option>
-                <option value="snapshot">Saved demo</option>
-              </select>
-              <span id="mode-description" class="subtle">Reading source mode…</span>
-            </label>
+            <span class="source-mode-label">Search source: pinned Neon graph</span>
             <button id="find-connection" class="primary-button" type="submit">
               Find connection <span aria-hidden="true">→</span>
             </button>
@@ -188,7 +179,7 @@
             <summary>
               Connection filters
               <span id="filter-summary"
-                >Small-team papers (up to 10 authors) · 1 shared work · PhD included</span
+                >Small-team papers (up to 10 authors) · 1 shared work · PhD excluded</span
               >
             </summary>
             <div class="filters">
@@ -233,11 +224,10 @@
                   placeholder="Any"
               /></label>
               <label class="toggle-field"
-                ><input id="genealogy" type="checkbox" checked /><span
+                ><input id="genealogy" type="checkbox" disabled /><span
                   ><b>Include PhD records</b
-                  ><small
-                    >Directed adviser → student ties. This changes path
-                    calculations.</small
+                  ><small id="genealogy-note"
+                    >Checking whether a doctoral-record overlay is available…</small
                   ></span
                 ></label
               >
@@ -290,9 +280,9 @@
           <span class="empty-glyph" aria-hidden="true">⌁</span>
           <h2>Choose two researchers</h2>
           <p>
-            Results will state the active source and exact filters used. Search
-            suggestions come from the selected source. Live INSPIRE results
-            are temporary, queryable identities held in RAM for this session.
+            Routes use the pinned Neon graph and the exact filters shown above.
+            Search suggestions resolve INSPIRE identities; the graph decides
+            whether those people can be connected.
           </p>
         </div>
         <section id="connection-results" class="hidden" aria-live="polite">
@@ -377,55 +367,9 @@
             ></div>
             <div class="graph-legend">
               <span><i class="legend-line coauthor"></i>Coauthorship (one hop)</span
-              ><span><i class="legend-line phd"></i>PhD adviser → student (genealogy-only edge)</span
               ><span><i class="legend-node"></i>Selected path</span
               ><span><i class="legend-node expanded"></i>Expanded profile</span>
             </div>
-          </div>
-        </section>
-      </section>
-
-      <section id="centrality" class="view" aria-labelledby="centrality-title">
-        <div class="section-intro">
-          <div>
-            <p class="eyebrow">Network measures</p>
-            <h1 id="centrality-title">Centrality in the saved demo graph</h1>
-            <p>
-              Saved demo measures use the full eligible person graph for the
-              active filters, never the small graph displayed in the workspace.
-              Live INSPIRE centrality is unavailable because a global graph is
-              required. These network measures are not measures of scientific
-              quality, prestige, or contribution.
-            </p>
-          </div>
-        </div>
-        <div class="centrality-controls">
-          <label for="centrality-metric"
-            >Measure<select id="centrality-metric">
-              <option value="degree">Coauthor degree</option>
-              <option value="combined_degree">Combined degree</option>
-              <option value="harmonic">Harmonic closeness</option>
-              <option value="betweenness">Betweenness</option>
-              <option value="eccentricity">Eccentricity</option>
-            </select></label
-          ><button id="load-centrality" class="primary-button" type="button">
-            Calculate
-          </button>
-        </div>
-        <div id="centrality-status" class="notice hidden"></div>
-        <section id="centrality-results" class="data-card hidden">
-          <div id="centrality-explainer" class="metric-note"></div>
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr>
-                  <th>Rank</th>
-                  <th>Researcher</th>
-                  <th id="metric-value-label">Value</th>
-                </tr>
-              </thead>
-              <tbody id="centrality-rows"></tbody>
-            </table>
           </div>
         </section>
       </section>
@@ -444,11 +388,9 @@
           <p>
             One hop between two researchers means they share enough qualifying
             published works: the works must survive the filters, and the count
-            of shared works must reach the threshold in use. A doctoral hop is a
-            different claim from a different source. It rests on documented
-            adviser and student records rather than on any paper, so it is never
-            merged into coauthorship and is always shown as its own kind of
-            link.
+            of shared works must reach the threshold in use. This deployed
+            graph version contains coauthorship ties only; doctoral records
+            require a separately certified overlay that is not yet installed.
           </p>
           <ol class="method-stages">
             <li>
@@ -495,9 +437,8 @@
               bound is set.
             </li>
             <li>
-              <b>Doctoral records.</b> Switching them off leaves a
-              coauthorship-only graph. Switching them on adds ties that no paper
-              could supply.
+              <b>Doctoral records.</b> Unavailable in the current graph version;
+              the disabled control cannot change route calculations.
             </li>
           </ul>
           <h3>What a result claims</h3>
@@ -546,17 +487,16 @@
               proceedings records are excluded.
             </p>
             <p>
-              PhD records are independent evidence. They point from adviser to
-              student; ordinary connection paths may traverse either direction
-              while retaining the actual arrow.
+              Doctoral ties are not part of this pinned graph version. They
+              would require a separate certified overlay before being offered.
             </p>
           </article>
           <article class="data-card">
             <h2>Identity &amp; evidence</h2>
             <p>
               People use stable profile IDs. Author names are never merged as an
-              identity rule. Each path edge lists the full documented work or
-              doctoral record that supports it.
+              identity rule. Each path edge lists documented source works that
+              support it.
             </p>
             <p>
               “Literature only” identifies a person resolved from literature

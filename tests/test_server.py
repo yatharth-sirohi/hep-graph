@@ -9,7 +9,6 @@ instead of pretending to answer.
 from __future__ import annotations
 
 import json
-from pathlib import Path
 import socket
 import threading
 
@@ -17,14 +16,6 @@ import pytest
 
 from hepgraph import server as server_module
 from hepgraph.graph import Filters
-
-
-@pytest.fixture
-def snapshot_path(tmp_path: Path) -> Path:
-    path = tmp_path / "current.json"
-    path.write_text(json.dumps({"examples": [{"label": "A to B", "source": "1", "target": "2"}]}),
-                    encoding="utf-8")
-    return path
 
 
 class StubDatabase:
@@ -85,12 +76,12 @@ class StubDatabase:
 
 
 @pytest.fixture
-def service(snapshot_path: Path, monkeypatch: pytest.MonkeyPatch):
+def service(monkeypatch: pytest.MonkeyPatch):
     stub = StubDatabase()
 
     class LocalServer:
         def __init__(self):
-            self.state = server_module.State(snapshot_path, default_mode="database")
+            self.state = server_module.State()
 
         def request(self, path, *, method="GET", body=None, database=stub):
             monkeypatch.setattr(self.state, "graph_database", lambda: database)
