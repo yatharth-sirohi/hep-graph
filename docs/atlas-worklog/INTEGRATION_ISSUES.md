@@ -54,3 +54,16 @@ The lesson for the release gate: a test that exercises fixtures is not a test of
 the product. `tests/browser_atlas.cjs` should run twice, once against each tree,
 and `static/atlas/fixtures/build_fixture.py` should be regenerated from the
 canonical nested shape so the two stop drifting.
+
+## From the independent scientific and historical review
+
+Zero P0 findings across Fermilab/DUNE, the Fermilab neutrino programme, Japan,
+CERN/ATLAS and the historic experiments. 32 technical values re-verified
+word-for-word against primary sources. Verdict: a physicist would trust it.
+
+| # | Severity | Issue | State |
+| --- | --- | --- | --- |
+| 23 | P1 | `facility:fermilab` and `accelerator:fermilab-linac` derived to `construction` for every year from 1969 to today, because an open-ended groundbreaking milestone outranked the operating interval. Root cause: amendment A3 gives only lifecycle intervals the power to set state, and nothing implemented it. | fixed: runs and phases now decide only where no lifecycle interval covers the year; the two milestones are recorded as phases |
+| 24 | P2 | Several detector coordinates are campus centroids reused for specific halls (the SURF 4850 Level caverns, the J-PARC near-detector hall, and one Fermilab campus point shared by seven near detectors). All self-disclosed with approximate confidence and review notes, so nothing is hidden, but they are not surveyed positions. | open |
+| 25 | P2 | `src:ua1-inspire-w-z-discovery-papers` is named for UA1 but is a combined UA1 and UA2 query, and is cited as UA2's source too. Confusing id, correct content. | open |
+| 26 | P2 | The 1989 three-neutrino-species result uses one ALEPH paper title as the shared claim quote for all four LEP collaborations, whose papers have different titles. The physics is right; the quote misrepresents three of the four. Should use per-attribution sources. | open |
