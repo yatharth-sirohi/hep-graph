@@ -5,12 +5,9 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 
 WORKDIR /app
 
-# Runtime is intentionally limited to the service, browser assets, and the
-# already-published snapshot. No ingestion cache, tests, docs, or dev packages
-# are included in the local image.
+# Runtime is limited to the service and browser assets. The graph lives in Neon.
 COPY hepgraph /app/hepgraph
 COPY static /app/static
-COPY data/current.json /app/data/current.json
 
 RUN addgroup --system hepgraph \
     && adduser --system --ingroup hepgraph hepgraph \
@@ -19,4 +16,4 @@ RUN addgroup --system hepgraph \
 USER hepgraph
 EXPOSE 8765
 
-CMD ["python", "-m", "hepgraph.server", "--host", "0.0.0.0", "--port", "8765", "--snapshot", "/app/data/current.json"]
+CMD ["python", "-m", "hepgraph.server", "--host", "0.0.0.0", "--port", "8765"]

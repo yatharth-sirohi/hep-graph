@@ -2,6 +2,7 @@
 .env
 .env.*
 !.env.example
+.neon
 .venv/
 venv/
 node_modules/
@@ -25,9 +26,15 @@ dist/
 coverage.xml
 .coverage
 htmlcov/
-# Only the intentional small snapshot and bounded manifest are public data.
+# Local source-acquisition files and generated graph artifacts are private.
 data/cache/
 data/ingestion-report.json
+# Private candidate/production graph artifacts must never enter the public repo.
+data/production/
+data/snapshots/
+data/candidates/
+*.dump
+*.sql.gz
 # Generated screenshots, browser profiles, test output and old audit exports
 work/
 test-results/
@@ -42,3 +49,7 @@ docs/**/*.xml
 docs/browser/
 docs/deep-search-verification/
 .venv
+
+# Vercel CLI project link
+.vercel
+.env*

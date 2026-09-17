@@ -318,7 +318,31 @@ What is left in the profile: response reads 78 s, `_snapshot` 60 s (of which
 
 ### 4.4 Production
 
-PRODUCTION_SECTION
+Production served `020e00f` (checked through `/api/health`) before the first
+run; every poll of every search reached one instance. Browser-identical
+polling (Phase IV probe); fresh job keys. Phase IV's figures for the same
+pairs on `7b0bf88` are in brackets.
+
+| Pair | Route | First verified route | Proven shortest | Requests | Polls |
+|---|---|---:|---:|---:|---:|
+| Hostert → Pascoli | 1 hop | **1.4 s** (1.9) | 1.4 s (1.9) | 4 | 1 |
+| Witten → Ellis | 2 hops | **8.0 s** (10.3) | 8.0 s (10.3) | 7 | 2 |
+| Erin Visser → Hostert | 4 hops | 19.1 s (12.4) | **19.6 s** (28.1) | 32 (38) | 5 |
+| Hostert → Feynman | 3 hops | **6.3 s** (20.1) | **8.0 s** (26.6) | 10 (23) | 3 |
+| Einstein → Dirac | 6 → 5 hops | **8.4 s** (10.3) | **25.1 s** (43.7) | 44 (56) | 6 |
+| Hostert → Uppu | 7 → 5 hops | **283 s** (729) | **312 s** (749) | 320 (273) | 52 (103) |
+
+Zero upstream failures. The transport counters on the instance after the
+first three searches: 18 requests, 1 connection opened, 16 reused.
+
+The long search is the one this phase was aimed at: on the same platform,
+729 s → 312 s to the proof with the same number of polls per request halved
+(103 → 52; each 5 s slice now performs ~6 requests instead of 2–3), and a
+verified seven-hop route on screen at 283 s that Phase IV's build never had
+before its proof. Hostert → Feynman and Einstein → Dirac finish in a third and
+in 57 % of their previous time. Visser → Hostert's proof arrives 8.5 s sooner
+and its first route 6.7 s later — the ordering trade of §4.1a, visible in
+production exactly as measured locally.
 
 ## 5. Agent review
 
@@ -424,4 +448,17 @@ cover each of those paths.
 
 ## 7. Git and deployment
 
-GIT_SECTION
+| | |
+|---|---|
+| Branch | `retrieval-scheduling`: `4b7271c` ordering, `ecb5600`, `03f9fbe` guard memoisation, `dda87c6`/`aaa94a4` unions, `af32691` cheap rebuild + guide fixes, `2c3ccfa`, `8188476` canary-preserving union rule, `91da2cb`, `231ccab` keep-alive, `020e00f` report |
+| `main` | fast-forwarded to `020e00f` and pushed; this final section committed on `main` afterwards |
+| Production | `hep-graph.vercel.app` served `020e00f` before and during §4.4 |
+| Tests | 527 passed, 1 xfailed (the pre-existing D6 identity case) |
+| `hepgraph/hlbes.py` | changed for the first time since Phase I, ordering only (§3.3), under the NetworkX equivalence suite and an independent 7,500-run differential |
+| Repository | private; no force-push, no history rewrite; no secrets, credentials or absolute local paths committed |
+
+Agents: implementation, correctness review and adversarial testing by
+separate Claude Code agents (Claude Fable 5.1) for every commit except the
+keep-alive transport, whose review agent was terminated by an API session
+limit and which the coordinating agent reviewed itself (§5.4). No OpenAI model
+was involved.
