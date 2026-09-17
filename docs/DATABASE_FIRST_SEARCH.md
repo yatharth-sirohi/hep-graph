@@ -378,6 +378,23 @@ two record ids. The lesson is not that the agents were careless but that prose
 sources let a model produce text shaped like evidence; a source keyed on
 identifiers does not. Verify before storing, and prefer structured sources.
 
+**Not every INSPIRE "author" is a person.** Author records built from thesis
+metadata include the form's own heading (`Advisor(s)`, 29 records), placeholders
+(`[unknown], [unknown]`) and the awarding faculty inverted like a surname
+(`Fizyki, Wydzial`). Those assert that a university supervised somebody, so
+`person_names.py` refuses them and `quarantine_non_people` withdraws their 86
+relations. A real person whose name merely carries a role label - `Quadt,
+Betreuer: Arnulf` is Arnulf Quadt - keeps every relation and loses only the
+label.
+
+The rules err towards admitting, deliberately, and an earlier draft shows why:
+being stricter refused `Chair, Noureddine` (a surname that is also a role word),
+`Povinec, Pavel Comenius University` and twelve people who had appended
+"Graduate School Representative". An institution drawn as a box is a blemish; a
+deleted relation is a false claim about a person. A handful of institutions are
+therefore still admitted, and `test_some_institutions_are_admitted_on_purpose`
+records which.
+
 **Web research is staged, not merged.** `hepgraph/genealogy_research.py` holds
 leads found off the open web in `graph_genealogy_research`: each carries the URL
 it came from, a quote from that source, and why the adviser resolves to *that*

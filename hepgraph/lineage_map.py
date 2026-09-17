@@ -31,6 +31,7 @@ from .pipeline import InspireClient, PipelineError, _hits, sanitize_author
 
 #: Only doctoral relations form the tree, matching what the app traverses.
 from .neon_graph_provider import ADVISER_DEGREES  # noqa: E402
+from .person_names import clean_name  # noqa: E402
 
 DEGREES = list(ADVISER_DEGREES)
 NAME_BATCH = 25
@@ -238,7 +239,10 @@ def harvest_names(connection: Any, overlay_id: str, client: Any, *,
                 name = payload.get("name")
                 if isinstance(name, dict):
                     name = name.get("preferred_name") or name.get("value")
-                rows.append((overlay_id, int(recid), name if isinstance(name, str) else None))
+                # A few records carry a role label in the name field; the person
+                # is real, the label is not part of their name.
+                rows.append((overlay_id, int(recid),
+                             clean_name(name) if isinstance(name, str) else None))
         except Exception as error:  # a blip must not lose the run's progress
             failed += len(batch)
             print(f"batch at {start} failed: {error}", file=sys.stderr, flush=True)

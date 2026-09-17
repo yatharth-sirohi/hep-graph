@@ -30,6 +30,7 @@ from typing import Any
 
 from .fast_compact_import import DEFAULT_RATE, DEFAULT_WORKERS, ShardWorker, run as run_shards
 from .neon_graph_provider import ADVISER_DEGREES, _at
+from .person_names import clean_name, non_person_reason
 from .pipeline import PipelineError, _metadata, ref_id
 
 
@@ -313,6 +314,51 @@ def quarantine_cycles(connection: Any, overlay_id: str = "inspire-genealogy") ->
                               "source_record": _at(row, 3), "reason": reason})
 
 
+def quarantine_non_people(connection: Any, overlay_id: str = "inspire-genealogy") -> dict[str, Any]:
+    """Withdraw relations whose end is not a person, and tidy the names that are.
+
+    INSPIRE builds author records from thesis metadata, so a few of them are the
+    form's own heading ("Advisor(s)"), a placeholder, or the awarding faculty
+    inverted like a surname ("Fizyki, Wydzial"). Those assert that a university
+    supervised somebody, which is not a relation this map should draw.
+
+    A real person whose name merely carries a role label - "Quadt, Betreuer:
+    Arnulf" is Arnulf Quadt - keeps every relation; only the label comes off.
+    """
+    rows = connection.execute(
+        "SELECT DISTINCT p.person_id, p.name FROM graph_genealogy_person p "
+        "JOIN graph_genealogy_edge e ON e.overlay_id = p.overlay_id "
+        " AND (e.adviser_id = p.person_id OR e.student_id = p.person_id) "
+        "WHERE p.overlay_id=%s AND p.name IS NOT NULL", (overlay_id,)).fetchall()
+    withdrawn, cleaned = 0, 0
+    reasons: dict[str, int] = {}
+    for row in rows:
+        person, name = int(_at(row, 0)), str(_at(row, 1))
+        tidy = clean_name(name)
+        reason = non_person_reason(tidy)
+        if reason is None:
+            if tidy != name:
+                connection.execute(
+                    "UPDATE graph_genealogy_person SET name=%s WHERE overlay_id=%s "
+                    "AND person_id=%s", (tidy, overlay_id, person))
+                cleaned += 1
+            continue
+        moved = connection.execute(
+            "DELETE FROM graph_genealogy_edge WHERE overlay_id=%s "
+            "AND (adviser_id=%s OR student_id=%s) "
+            "RETURNING overlay_id, adviser_id, student_id, source_record, degree, source_kind",
+            (overlay_id, person, person)).fetchall()
+        for edge in moved:
+            connection.execute(
+                "INSERT INTO graph_genealogy_quarantine(overlay_id,adviser_id,student_id,"
+                "source_record,degree,source_kind,reason) VALUES (%s,%s,%s,%s,%s,%s,%s) "
+                "ON CONFLICT DO NOTHING",
+                (*[_at(edge, i) for i in range(6)], f"{reason}: {name!r} (record {person})"))
+            withdrawn += 1
+        reasons[reason] = reasons.get(reason, 0) + 1
+    return {"relations_withdrawn": withdrawn, "names_cleaned": cleaned, "reasons": reasons}
+
+
 def run_theses(url: str, *, import_id: str = "genealogy-theses-20260917",
                overlay_id: str = "inspire-genealogy", low: int = 1, high: int = 4_000_000,
                workers: int = 8, rate: float = DEFAULT_RATE) -> dict[str, Any]:
@@ -388,7 +434,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--theses", action="store_true",
                         help="harvest supervisors named on thesis records instead of author profiles")
     parser.add_argument("--quarantine", action="store_true",
-                        help="withdraw the evidence behind impossible doctoral loops")
+                        help="withdraw impossible loops and relations that are not between people")
     parser.add_argument("--phd-only", action="store_true",
                         help="store only advisers INSPIRE explicitly typed as doctoral")
     parser.add_argument("--duration", type=float, default=None)
@@ -407,6 +453,7 @@ def main(argv: list[str] | None = None) -> int:
                 for item in quarantine_cycles(connection, args.overlay_id):
                     print(f"withdrew {item['adviser']}->{item['student']} "
                           f"(record {item['source_record']}): {item['reason']}", flush=True)
+                print(quarantine_non_people(connection, args.overlay_id), flush=True)
             return 0
         run(args.database_url, import_id=args.import_id, overlay_id=args.overlay_id,
             low=args.low, high=args.high, workers=args.workers, rate=args.rate,

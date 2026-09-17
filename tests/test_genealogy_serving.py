@@ -292,3 +292,37 @@ def test_a_loop_withdraws_the_weaker_claim_not_the_explicit_doctorate(database):
         database.execute("DELETE FROM graph_genealogy_edge WHERE overlay_id=%s "
                          "AND adviser_id IN (51,52)", (OVERLAY_ID,))
         database.execute("DELETE FROM graph_genealogy_quarantine WHERE overlay_id=%s", (OVERLAY_ID,))
+
+
+def test_a_faculty_is_not_an_adviser_but_a_mislabelled_person_still_is(database):
+    """INSPIRE author records built from thesis metadata include non-people."""
+    from hepgraph.genealogy_import import quarantine_non_people
+
+    database.execute(
+        "INSERT INTO graph_genealogy_person(overlay_id,person_id,name) VALUES "
+        "(%s,61,'Fizyki, Wydział'), (%s,62,'Quadt, Betreuer: Arnulf'), (%s,63,'Advisor(s)') "
+        "ON CONFLICT DO NOTHING", (OVERLAY_ID, OVERLAY_ID, OVERLAY_ID))
+    database.execute(
+        "INSERT INTO graph_genealogy_edge(overlay_id,adviser_id,student_id,source_record,degree)"
+        " VALUES (%s,61,10,'t1','phd'), (%s,62,10,'t2','phd'), (%s,63,10,'t3','phd')",
+        (OVERLAY_ID, OVERLAY_ID, OVERLAY_ID))
+    try:
+        summary = quarantine_non_people(database, OVERLAY_ID)
+        assert summary["relations_withdrawn"] == 2 and summary["names_cleaned"] == 1
+
+        advisers = {item["adviser"] for item in
+                    service(database).person("10", Filters(max_authors=10, genealogy=True))["advisers"]}
+        assert "62" in advisers                      # Arnulf Quadt keeps his student
+        assert {"61", "63"}.isdisjoint(advisers)     # a faculty and a form heading do not
+        assert database.execute(
+            "SELECT name FROM graph_genealogy_person WHERE overlay_id=%s AND person_id=62",
+            (OVERLAY_ID,)).fetchone()["name"] == "Quadt, Arnulf"
+        assert database.execute(
+            "SELECT count(*) AS n FROM graph_genealogy_quarantine WHERE overlay_id=%s",
+            (OVERLAY_ID,)).fetchone()["n"] == 2
+    finally:
+        database.execute("DELETE FROM graph_genealogy_edge WHERE overlay_id=%s "
+                         "AND adviser_id IN (61,62,63)", (OVERLAY_ID,))
+        database.execute("DELETE FROM graph_genealogy_person WHERE overlay_id=%s "
+                         "AND person_id IN (61,62,63)", (OVERLAY_ID,))
+        database.execute("DELETE FROM graph_genealogy_quarantine WHERE overlay_id=%s", (OVERLAY_ID,))

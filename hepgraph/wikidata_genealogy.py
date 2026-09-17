@@ -30,11 +30,13 @@ from .genealogy_research import Lead, record
 ENDPOINT = "https://query.wikidata.org/sparql"
 AGENT = "hep-graph-genealogy/1.0 (https://hep-graph.vercel.app)"
 
-#: Doctoral advisor, both sides identified in INSPIRE's own namespace.
+#: Doctoral advisor, both sides identified in INSPIRE's own namespace. The
+#: relation is recorded from either end - P184 on the student, P185 on the
+#: adviser - and often only from one of them, so both are asked for.
 QUERY = """
-SELECT ?person ?personInspire ?personLabel ?adviser ?adviserInspire ?adviserLabel WHERE {
-  ?person wdt:P2930 ?personInspire ;
-          wdt:P184 ?adviser .
+SELECT DISTINCT ?person ?personInspire ?personLabel ?adviser ?adviserInspire ?adviserLabel WHERE {
+  { ?person wdt:P184 ?adviser . } UNION { ?adviser wdt:P185 ?person . }
+  ?person wdt:P2930 ?personInspire .
   ?adviser wdt:P2930 ?adviserInspire .
   SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
 }
