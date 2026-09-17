@@ -75,8 +75,8 @@ export function render(container, { atlas, results, navigate }) {
 
   const resultRows = results.list.slice().sort((a, b) => (b.month || 0) - (a.month || 0)).map((r) => {
     const tr = h('tr', {});
-    tr.appendChild(linkCell({ type: 'result', slug: r.id.split(':')[1] }, r.title, navigate));
-    tr.append(h('td', {}, fmtDate(r.date) || String(r.year || '')), h('td', {}, titleCase(r.result_type)), h('td', {}, r.significance || ''));
+    tr.appendChild(linkCell({ type: 'result', slug: r.id.split(':')[1] }, (r.name || r.title), navigate));
+    tr.append(h('td', {}, fmtDate(r.date) || ''), h('td', {}, titleCase(r.result_type)), h('td', {}, r.significance || ''));
     return tr;
   });
   container.appendChild(table('Results', ['Title', 'Date', 'Type', 'Significance'], resultRows));

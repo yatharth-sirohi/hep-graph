@@ -6,6 +6,23 @@ import { titleCase, fmtDate } from './model.js';
 
 let ctx = null; // { container, atlas, results, documents, navigate, highlightGlobe, setTimelineYear }
 
+/** The human label of a record.
+ *
+ * Documents carry `name`; results carry both a `name` (the atlas's short
+ * label) and a `title` (the publication's own wording). Reading only `title`
+ * left every document in the library blank.
+ */
+function labelOf(record) {
+  return record.name || record.title || record.id;
+}
+
+/** The year of a record, from its date; there is no `year` field. */
+function yearOf(record) {
+  const date = record.date && (record.date.date || record.date);
+  const match = typeof date === 'string' ? /^(\d{4})/.exec(date) : null;
+  return match ? Number(match[1]) : null;
+}
+
 export function init(context) {
   ctx = context;
 }
@@ -72,7 +89,7 @@ function renderResultsMode() {
   const facilityNames = new Map(Object.values(ctx.atlas.facilities).map((f) => [f.id, f.name]));
   const topicNames = new Map(Object.values(ctx.atlas.topics).map((t) => [t.id, t.name]));
 
-  const years = uniqueSorted(results.map((r) => r.year));
+  const years = uniqueSorted(results.map((r) => yearOf(r)));
   const types = uniqueSorted(results.map((r) => r.result_type));
   const experiments = uniqueSorted(results.flatMap((r) => r.experiment_ids || []));
   const facilities = uniqueSorted(results.flatMap((r) => r.facility_ids || []));
@@ -102,7 +119,7 @@ function renderResultsMode() {
     filters.topic = topicSel.value;
     filters.type = typeSel.value;
     const filtered = results.filter((r) => (
-      (!filters.year || String(r.year) === filters.year)
+      (!filters.year || String(yearOf(r)) === filters.year)
       && (!filters.experiment || (r.experiment_ids || []).includes(filters.experiment))
       && (!filters.facility || (r.facility_ids || []).includes(filters.facility))
       && (!filters.topic || (r.topic_ids || []).includes(filters.topic))
@@ -115,8 +132,8 @@ function renderResultsMode() {
     }
     for (const result of filtered) {
       const li = h('li', { class: 'result-row' });
-      li.appendChild(h('span', { class: 'result-date' }, fmtDate(result.date) || String(result.year || '')));
-      const link = h('a', { href: `#/result/${result.id.split(':')[1]}` }, result.title);
+      li.appendChild(h('span', { class: 'result-date' }, fmtDate(result.date) || String(yearOf(result) || '')));
+      const link = h('a', { href: `#/result/${result.id.split(':')[1]}` }, labelOf(result));
       link.addEventListener('click', (event) => {
         event.preventDefault();
         const firstExp = (result.experiment_ids || [])[0];
@@ -126,7 +143,7 @@ function renderResultsMode() {
       li.appendChild(link);
       if (result.month != null) {
         const jump = h('button', { type: 'button', class: 'text-btn jump-year-btn' }, 'Move timeline here');
-        jump.addEventListener('click', () => ctx.setTimelineYear(result.year));
+        jump.addEventListener('click', () => ctx.setTimelineYear(yearOf(result)));
         li.appendChild(jump);
       }
       list.appendChild(li);
@@ -144,11 +161,11 @@ function renderResultsMode() {
 
 // --------------------------------------------------------- document library
 function renderDocsMode() {
-  const documents = ctx.documents.list.slice().sort((a, b) => (b.year || 0) - (a.year || 0));
+  const documents = ctx.documents.list.slice().sort((a, b) => (yearOf(b) || 0) - (yearOf(a) || 0));
   const list = h('ul', { class: 'entity-list document-library' }, documents.map((d) => h('li', {}, [
     h('a', {
       href: (d.reference && d.reference.url) || '#', target: '_blank', rel: 'noopener', class: 'document-title',
-    }, d.title),
+    }, labelOf(d)),
     h('span', { class: 'document-meta' }, ` — ${titleCase(d.doc_type)}${d.year ? `, ${d.year}` : ''}`),
   ])));
   return h('div', { class: 'mode-body' }, [
