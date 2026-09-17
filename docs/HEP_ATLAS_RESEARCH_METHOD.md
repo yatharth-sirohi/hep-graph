@@ -106,6 +106,30 @@ Rules of thumb:
 - **A detector is not a site.** `detector:icarus-t600` is one instrument that has
   occupied three sites; the sites are three `site:` records and three
   `placements[]` rows.
+- **A sub-array is a detector with a parent, not a subsystem.** A physically
+  distinct, separately instrumented array that is nonetheless part of a larger
+  detector's data-taking gets its own `detector:` record with
+  `parent_detector_id` pointing at the whole (A2), rather than being folded
+  into `subsystems[]`. `detector:icecube-deepcore` and `detector:icetop` each
+  carry `parent_detector_id: "detector:icecube"` and their own
+  `experiment_ids: ["experiment:icecube"]`; they are not IceCube subsystems
+  because each has its own instrumentation, siting detail (DeepCore is the
+  denser infill at the bottom of the array; IceTop is the surface array) and,
+  in IceTop's case, its own distinct physics role (cosmic-ray air showers
+  rather than in-ice Cherenkov light). Use `subsystems[]` instead when the
+  component has no separate identity outside the parent instrument (a
+  calorimeter inside ATLAS is a subsystem, not a `detector:` record).
+- **Facility operator is a relationship, not a caption.** `facility.operator`
+  (§3.1) is superseded by `facility.operator_ids` + `operator_text` (A1):
+  `operator_ids` links to the `institution:` record(s) that actually run the
+  site when that operator is itself modelled in the atlas (CERN operates
+  `facility:cern` through `institution:cern`; Fermilab through
+  `institution:fermilab`); `operator_text` is the sourced free-text fallback
+  for an operator that is a consortium, agency or authority not otherwise
+  represented as an `institution:` record (e.g. a state science authority
+  running an underground lab). `institution.facility_id` is the reverse
+  pointer, set on the operating institution's own record, and the two must
+  agree. Do not fill the legacy scalar `operator` on new records.
 
 ### 2.1 Worked edge cases
 
