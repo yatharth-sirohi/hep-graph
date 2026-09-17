@@ -25,7 +25,7 @@ from dataclasses import dataclass
 from typing import Any, Callable, Iterable, Protocol
 
 from .pipeline import (PipelineError, _documented_date, _hits, _person_from_profile,
-                       sanitize_author, sanitize_literature, source_url, utc_now)
+                       ref_id, sanitize_author, sanitize_literature, source_url, utc_now)
 from .remote import RemoteError
 
 
@@ -169,6 +169,22 @@ def _dedupe(ids: Iterable[str]) -> list[str]:
     return list(dict.fromkeys(str(ident) for ident in ids if isinstance(ident, str) and ident))
 
 
+def _member_ids(hit: Any) -> frozenset[str]:
+    """Resolved INSPIRE author record IDs on one literature hit."""
+    metadata = hit.get("metadata") if isinstance(hit, dict) else None
+    authors = metadata.get("authors") if isinstance(metadata, dict) else None
+    if not isinstance(authors, list):
+        return frozenset()
+    found = set()
+    for author in authors:
+        if not isinstance(author, dict):
+            continue
+        identifier = ref_id(author.get("record"))
+        if identifier is not None:
+            found.add(str(identifier))
+    return frozenset(found)
+
+
 def _work_entry(recid: str, payload: dict[str, Any]) -> dict[str, Any]:
     date, date_source = _documented_date([payload])
     year = int(date[:4]) if date and re.fullmatch(r"\d{4}(?:-\d{2}(?:-\d{2})?)?", date) else None
@@ -204,6 +220,10 @@ class Hydrator:
         self._next_request_at = 0.0
         self._used = {PEOPLE: 0, WORKS: 0}
         self.requests_made = self.cache_hits = self.failures = 0
+        #: Resolved author IDs per fetched work, kept from the same response
+        #: that supplied the metadata so verifying a route's edges against the
+        #: source costs no additional requests.
+        self.work_members: dict[str, frozenset[str]] = {}
 
     def hydrate_people(self, ids: tuple[str, ...]) -> dict[str, dict[str, Any]]:
         return self._hydrate(PEOPLE, ids)
@@ -315,6 +335,11 @@ class Hydrator:
                 reasons[recid] = "record_deleted"
                 continue
             records[recid] = payload
+            if kind == WORKS:
+                # The byline is not display metadata, so it is not part of the
+                # work entry; it is kept aside so a route's edges can be checked
+                # against the source without fetching the record twice.
+                self.work_members[recid] = _member_ids(hit)
             reasons.pop(recid, None)
         return records, reasons, None
 

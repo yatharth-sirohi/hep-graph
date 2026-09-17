@@ -233,3 +233,89 @@ def test_config_requires_an_explicit_completeness_certificate():
     assert DatabaseModeConfig.from_env({}) is None
     assert DatabaseModeConfig.from_env(env | {"HEPGRAPH_GRAPH_CERTIFIED_COMPLETE": "true"}
                                        ).certified_complete is True
+
+
+# ----------------------------------------------------------- verification
+
+class BylineClient(SpyClient):
+    """Returns literature whose byline can be steered per work."""
+
+    def __init__(self, bylines):
+        super().__init__()
+        self.bylines = bylines
+
+    def fetch(self, collection, query, page=1, size=25, **kwargs):
+        self.calls.append((collection, query))
+        hits = []
+        for token in query.replace("control_number:", "").replace(" OR ", " ").split():
+            if not token.isdigit():
+                continue
+            if collection == "literature":
+                authors = [{"record": {"$ref": f"https://inspirehep.net/api/authors/{a}"}}
+                           for a in self.bylines.get(token, [])]
+                hits.append({"metadata": {"control_number": int(token),
+                                          "titles": [{"title": f"Paper {token}"}],
+                                          "earliest_date": "2001-01-01", "author_count": 2,
+                                          "document_type": ["article"], "authors": authors}})
+            else:
+                hits.append({"metadata": {"control_number": int(token),
+                                          "name": {"value": f"Person {token}"}}})
+        return {"hits": {"hits": hits, "total": len(hits)}}
+
+    search = fetch
+
+
+def test_edges_are_confirmed_against_the_inspire_byline(database):
+    client = BylineClient({"301": ["11", "12"]})
+    handle = service(database, client)
+    handle._hydrator = Hydrator(client)
+    record = settle(handle, handle.start_path("11", "12", FILTERS))
+    edge = record["paths"][0]["edges"][0]
+    assert edge["verification"] == "confirmed"
+    assert edge["verified_works"] == ["301"]
+    assert record["verification"]["edges_confirmed"] == 1
+    assert record["verification"]["route_confirmed"] is True
+
+
+def test_a_byline_that_omits_an_endpoint_withdraws_the_proof(database):
+    """The graph claims the edge; INSPIRE does not. The claim must not stand."""
+    client = BylineClient({"301": ["11", "999"]})
+    handle = service(database, client)
+    handle._hydrator = Hydrator(client)
+    record = settle(handle, handle.start_path("11", "12", FILTERS))
+    edge = record["paths"][0]["edges"][0]
+    assert edge["verification"] == "contradicted"
+    assert record["verification"]["edges_contradicted"] == 1
+    assert record["proof_status"] == SEARCH_INCOMPLETE
+    assert record["global_shortest_proven"] is False
+    assert "drifted from the source" in record["message"]
+
+
+def test_an_unlinked_byline_is_unverified_not_a_contradiction(database):
+    """A record with no linked authors is missing evidence, not counter-evidence."""
+    client = BylineClient({"301": []})
+    handle = service(database, client)
+    handle._hydrator = Hydrator(client)
+    record = settle(handle, handle.start_path("11", "12", FILTERS))
+    edge = record["paths"][0]["edges"][0]
+    assert edge["verification"] == "unverified"
+    assert record["verification"]["edges_contradicted"] == 0
+    assert record["proof_status"] == EXACT
+
+
+def test_each_delivery_gets_a_fresh_hydration_budget(database):
+    """A cached hydrator fixes its deadline once and starves later results.
+
+    An explicitly injected hydrator is still honoured, because a test that
+    supplies one wants exactly that instance.
+    """
+    spy = SpyClient()
+    config = DatabaseModeConfig(url="unused", import_id=IMPORT_ID, certified_complete=True)
+    handle = DatabaseGraphService(config, client=spy, connection=database)
+    first, second = handle.hydrator(), handle.hydrator()
+    assert first is not second
+    assert first._cache is second._cache
+
+    injected = Hydrator(spy)
+    pinned = DatabaseGraphService(config, client=spy, connection=database, hydrator=injected)
+    assert pinned.hydrator() is injected

@@ -24,7 +24,7 @@ HOST = "127.0.0.1"
 PORT = 8765
 BASE_URL = f"http://{HOST}:{PORT}"
 HEALTH_URL = f"{BASE_URL}/api/health"
-DEMO_URL = f"{BASE_URL}/?mode=live"
+DEMO_URL = f"{BASE_URL}/"
 READY_TIMEOUT = 10.0
 SERVICE_VERSION = "general-search-v3"
 

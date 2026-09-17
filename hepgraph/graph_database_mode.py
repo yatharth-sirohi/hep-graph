@@ -19,6 +19,7 @@ import threading
 from typing import Any
 
 from .graph import Filters
+from .hlbes import SEARCH_INCOMPLETE
 from .graph_hydration import (PEOPLE, WORKS, Hydrator, HydrationBudget,
                               HydrationCache, placeholder)
 from .db_search_jobs import DatabaseSearchJobs
@@ -38,6 +39,10 @@ class DatabaseModeConfig:
     certified_complete: bool = False
     overlay_certified: bool = False
     statement_timeout_ms: int = 15_000
+    #: Job state is the one thing serving writes. It is a separate URL so the
+    #: graph itself can be served by a credential with no write rights at all;
+    #: it defaults to the graph URL for a single-credential deployment.
+    job_store_url: str | None = None
 
     @classmethod
     def from_env(cls, environ: dict[str, str] | None = None) -> "DatabaseModeConfig | None":
@@ -48,6 +53,7 @@ class DatabaseModeConfig:
             return None
         overlay = env.get("HEPGRAPH_GRAPH_OVERLAY_ID", "").strip() or None
         return cls(url=url, import_id=import_id, overlay_id=overlay,
+                   job_store_url=env.get("HEPGRAPH_GRAPH_JOB_STORE_URL", "").strip() or None,
                    certified_complete=_flag(env.get("HEPGRAPH_GRAPH_CERTIFIED_COMPLETE")),
                    overlay_certified=_flag(env.get("HEPGRAPH_GRAPH_OVERLAY_CERTIFIED")),
                    statement_timeout_ms=int(env.get("HEPGRAPH_GRAPH_STATEMENT_TIMEOUT_MS", "15000")))
@@ -66,7 +72,8 @@ class DatabaseGraphService:
     """
 
     def __init__(self, config: DatabaseModeConfig, *, client: Any = None,
-                 connection: Any = None, hydrator: Hydrator | None = None) -> None:
+                 connection: Any = None, job_connection: Any = None,
+                 hydrator: Hydrator | None = None) -> None:
         self.config = config
         self.lock = threading.RLock()
         self._connection = connection
@@ -74,6 +81,9 @@ class DatabaseGraphService:
         self._hydrator = hydrator
         self._cache = HydrationCache()
         self._coverage: CoverageClaim | None = None
+        # An injected connection serves both roles: a caller supplying one
+        # already owns its read/write policy, so no second dial is made.
+        self._job_connection = job_connection if job_connection is not None else connection
 
     # ------------------------------------------------------------- connection
     def connection(self) -> Any:
@@ -128,20 +138,41 @@ class DatabaseGraphService:
         return NeonCompactGraphProvider(self.connection(), coverage=coverage,
                                         genealogy_overlay=self.overlay())
 
+    def job_connection(self) -> Any:
+        """The writable connection, used only for search-job rows."""
+        import psycopg
+
+        with self.lock:
+            if self._job_connection is not None and not self._closed(self._job_connection):
+                return self._job_connection
+            self._job_connection = psycopg.connect(
+                self.config.job_store_url or self.config.url,
+                autocommit=True, row_factory=psycopg.rows.dict_row)
+            self._job_connection.execute(
+                "SELECT set_config('statement_timeout', %s, false)",
+                (str(int(self.config.statement_timeout_ms)),))
+            return self._job_connection
+
     def jobs(self) -> DatabaseSearchJobs:
         engine = DatabaseSearchJobs(
-            self.connection(),
+            self.job_connection(),
             provider_factory=lambda: self.provider(),
             provider_for=lambda pin: self.provider(pin.import_id))
         engine.ensure_schema()
         return engine
 
     def hydrator(self) -> Hydrator | None:
-        with self.lock:
-            if self._hydrator is None and self._client is not None:
-                self._hydrator = Hydrator(self._client, cache=self._cache,
-                                          budget=HydrationBudget())
+        """A fresh hydrator per delivery, sharing the process-wide cache.
+
+        A hydrator fixes its deadline when it is built, so reusing one across
+        requests would silently exhaust every later result's budget while the
+        cache it holds is exactly the part worth keeping.
+        """
+        if self._hydrator is not None:
             return self._hydrator
+        if self._client is None:
+            return None
+        return Hydrator(self._client, cache=self._cache, budget=HydrationBudget())
 
     # ------------------------------------------------------------------- API
     def dataset(self) -> dict[str, Any]:
@@ -285,7 +316,7 @@ class DatabaseGraphService:
                 "coverage": self.dataset()["coverage"]}
 
     def owns_job(self, job_id: str) -> bool:
-        row = self.connection().execute(
+        row = self.job_connection().execute(
             "SELECT 1 FROM graph_search_job WHERE job_id=%s", (job_id,)).fetchone()
         return row is not None
 
@@ -315,19 +346,59 @@ class DatabaseGraphService:
         else:
             result = hydrator.hydrate_route(people_ids=people_ids, work_ids=work_ids)
             people, works = result.people, result.works
+        members = getattr(hydrator, "work_members", {}) if hydrator is not None else {}
+        verified_edges = contradicted = unverified = 0
         for path in paths:
             path["people"] = [people.get(str(person["id"]),
                                          placeholder(PEOPLE, str(person["id"]), "not_requested"))
                               for person in path.get("people", ())]
             for edge in path.get("edges", ()):
                 refs = edge.get("evidence_refs", ())
-                edge["works"] = [works[ref.split(":", 1)[1]] for ref in refs
-                                 if ref.startswith("work:") and ref.split(":", 1)[1] in works]
+                work_ids = [ref.split(":", 1)[1] for ref in refs if ref.startswith("work:")]
+                edge["works"] = [works[work_id] for work_id in work_ids if work_id in works]
                 edge["phd"] = [{"source_record": ref.split(":", 1)[1]} for ref in refs
                                if ref.startswith("phd:")]
-                edge["types"] = ([  "coauthor"] if edge["works"] else []) + (
+                edge["types"] = (["coauthor"] if edge["works"] else []) + (
                     ["phd"] if edge["phd"] else [])
                 edge["shared_works"] = len(edge["works"])
+                # The graph said these two share this paper; INSPIRE is asked to
+                # confirm it from the byline of the very record being displayed.
+                # A contradiction means the pinned graph has drifted from the
+                # source, which the reader must be told rather than shown a
+                # clean-looking edge.
+                # Only a record that actually carries linked authors can
+                # confirm or contradict anything. An unlinked byline is missing
+                # evidence, not evidence of absence.
+                checked = [work_id for work_id in work_ids if members.get(work_id)]
+                confirmed = [work_id for work_id in checked
+                             if {str(edge["source"]), str(edge["target"])} <= members[work_id]]
+                edge["verified_works"] = confirmed
+                if confirmed:
+                    edge["verification"] = "confirmed"
+                    verified_edges += 1
+                elif checked:
+                    edge["verification"] = "contradicted"
+                    contradicted += 1
+                else:
+                    edge["verification"] = "unverified"
+                    unverified += 1
+            path["verified"] = all(edge.get("verification") == "confirmed"
+                                   for edge in path.get("edges", ())) if path.get("edges") else True
+        record["verification"] = {
+            "edges_confirmed": verified_edges, "edges_contradicted": contradicted,
+            "edges_unverified": unverified,
+            "route_confirmed": contradicted == 0 and unverified == 0,
+        }
+        if contradicted:
+            # Never present a contradicted route as proven: the evidence the
+            # proof rests on is not what the source says.
+            record["proof_status"] = SEARCH_INCOMPLETE
+            record["route_status"] = "search_incomplete"
+            record["global_shortest_proven"] = False
+            record["exact"] = False
+            record["reason"] = "evidence_contradicted_by_source"
+            record["message"] = ("INSPIRE does not list both researchers on a paper this route "
+                                 "relies on, so the pinned graph has drifted from the source.")
         record["retrieval"] = {
             "people": len(people_ids), "works": len(work_ids),
             "requests": getattr(result, "requests_made", 0),

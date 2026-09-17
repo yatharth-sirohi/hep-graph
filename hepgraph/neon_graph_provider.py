@@ -140,10 +140,15 @@ def connect_read_only(url: str, *, statement_timeout_ms: int = DEFAULT_STATEMENT
     """
     import psycopg
 
-    connection = psycopg.connect(url, autocommit=True)
+    # dict rows: the job engine reads its record by column name.
+    connection = psycopg.connect(url, autocommit=True, row_factory=psycopg.rows.dict_row)
     connection.execute("SET default_transaction_read_only = on")
-    connection.execute("SET statement_timeout = %s", (int(statement_timeout_ms),))
-    connection.execute("SET idle_in_transaction_session_timeout = %s", (int(statement_timeout_ms),))
+    # SET takes no bound parameters, so the value goes through set_config rather
+    # than being interpolated into the statement.
+    connection.execute("SELECT set_config('statement_timeout', %s, false)",
+                       (str(int(statement_timeout_ms)),))
+    connection.execute("SELECT set_config('idle_in_transaction_session_timeout', %s, false)",
+                       (str(int(statement_timeout_ms)),))
     return connection
 
 

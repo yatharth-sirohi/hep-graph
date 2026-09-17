@@ -3,10 +3,11 @@
 How a route search works once the graph lives in PostgreSQL, what it may and may
 not claim, and what still has to happen before production can be switched.
 
-Status at the time of writing: **implemented and tested, not cut over.** The
-`candidate-inspire-20260916` import is incomplete, so no promotion, no pointer
-change and no production deployment has been made. See
-[Cutover gates](#cutover-gates).
+Status: **this is now the only way the application finds routes.** The live
+INSPIRE traversal engine has been removed, not disabled. The import is complete
+and validated (all 1,885,680 INSPIRE literature records reconciled, drift 0),
+and searches run against it end to end. See
+[Measured end to end](#11-measured-end-to-end).
 
 ## 1. The two stages
 
@@ -20,9 +21,13 @@ work/author incidence tables. Nothing but identifiers, true author counts and
 years is read. No titles, names or affiliations exist in the graph at all, so
 traversal *cannot* accidentally fetch them.
 
-**Stage 2 — hydration.** Once a route settles, `Hydrator` fetches the people and
-evidence works the answer actually displays, deduplicated, paced, cached and
-budgeted. `tests/test_graph_database_mode.py::test_no_paper_fetch_during_traversal`
+**Stage 2 — verification and hydration.** Once a route settles, `Hydrator`
+fetches the people and evidence works the answer actually displays -
+deduplicated, paced, cached and budgeted - and the *same* response is used to
+check the route: for every edge, INSPIRE's byline on the cited paper must list
+both researchers. A contradiction withdraws the proof rather than displaying a
+clean-looking edge, so a graph that has drifted from the source cannot present
+itself as verified. Verification therefore costs no extra requests. `tests/test_graph_database_mode.py::test_no_paper_fetch_during_traversal`
 is the enforcing test: it spies on the INSPIRE client and asserts zero calls
 during expansion, then asserts calls appear only after delivery.
 
@@ -258,3 +263,37 @@ job's provider no longer matches its pin, that job ends `failed` with
 
 To disable database serving entirely, unset `HEPGRAPH_GRAPH_DATABASE_URL`: the
 app falls back to live and saved-snapshot modes with no code change.
+
+
+## 11. Measured end to end
+
+Against the live graph (1,261,552 works, 21,017,590 memberships) from a laptop
+over WAN, small-team filters, genealogy off. Every route below settled inside a
+single request - no polling - and every edge was confirmed against INSPIRE's
+byline:
+
+| Pair | Time | Hops | Proof | Edges confirmed |
+|---|---:|---:|---|---:|
+| Hostert → Pascoli | 4.24 s | 1 | exact | 1/1 |
+| Witten → Ellis | 1.92 s | 2 | exact | 2/2 |
+| Hostert → Feynman | 2.10 s | 3 | exact | 3/3 |
+| Visser → Hostert | 5.75 s | 4 | exact | 4/4 |
+| Einstein → Dirac | 4.57 s | 3 | exact | 3/3 |
+| Hostert → Uppu | 11.46 s | 4 | exact | 4/4 |
+| Unknown endpoint | 0.25 s | - | `search_incomplete`, `author_not_in_graph` | - |
+
+For comparison, the removed live engine on production Vercel took **241.7 s on
+Visser → Hostert and returned no route at all**; it now resolves in 5.75 s with
+the same four-hop route its own report predicted (Visser → Gardiner → Isaacson
+→ Fox → Hostert), proven shortest.
+
+Two hop counts are *shorter* than the historical benchmarks (Einstein → Dirac
+3 rather than 5, Hostert → Uppu 4 rather than 5). That is the expected
+consequence of searching the whole corpus instead of a sampled demo snapshot:
+more data admits shorter true routes.
+
+**Certification is load-bearing, not cosmetic.** An uncertified graph returns
+PARTIAL neighborhoods, which can never advance a completed radius, so the engine
+cannot stop early and explores the component instead - the same searches took
+minutes rather than seconds. Certifying a graph whose completeness has actually
+been validated is what makes termination possible.
