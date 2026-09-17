@@ -75,6 +75,14 @@ body {
   display: flex;
   align-self: stretch;
   gap: 3px;
+  /* Four tabs no longer fit a phone. The strip scrolls within itself so the
+     page never gains a horizontal scrollbar. */
+  min-width: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.site-header nav::-webkit-scrollbar {
+  display: none;
 }
 .tab {
   appearance: none;
@@ -1097,6 +1105,8 @@ footer {
   .tab {
     font-size: 12px;
     padding: 0 5px;
+    white-space: nowrap;
+    flex: 0 0 auto;
   }
   .identity-grid {
     grid-template-columns: 1fr;
@@ -1189,5 +1199,202 @@ footer {
   }
   .centrality-controls select {
     width: 100%;
+  }
+}
+
+/* ---- Whole-forest lineage map ---------------------------------------- */
+.map-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+.map-shell {
+  background: #fff;
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.map-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--line);
+  background: #f8fafb;
+  flex-wrap: wrap;
+}
+.map-search {
+  flex: 1 1 240px;
+  min-width: 0;
+}
+.map-search .picker-wrap input {
+  width: 100%;
+}
+.map-buttons {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+.map-button {
+  min-width: 42px;
+  padding: 11px 10px;
+  font-size: 17px;
+}
+.map-stage {
+  position: relative;
+  height: 560px;
+  background: #fbfcfd;
+  touch-action: none;
+  cursor: grab;
+  overscroll-behavior: contain;
+}
+.map-stage:active {
+  cursor: grabbing;
+}
+.map-stage:focus-visible {
+  outline: 3px solid var(--teal);
+  outline-offset: -3px;
+}
+.map-stage canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.map-loading {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+  color: var(--muted);
+  background: #fbfcfdf2;
+  font-size: 14px;
+}
+.map-loading.hidden {
+  display: none !important;
+}
+.map-legend {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+  padding: 9px 12px;
+  border-top: 1px solid var(--line);
+  background: #f8fafb;
+  font-size: 13px;
+  color: var(--muted);
+}
+.map-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+#map-zoom-readout {
+  margin-left: auto;
+}
+.map-key {
+  width: 15px;
+  height: 10px;
+  border-radius: 2px;
+  display: inline-block;
+  border: 1px solid #93a8b2;
+  background: #fff;
+}
+.map-key-ancestor {
+  background: var(--amber-soft);
+  border-color: var(--amber);
+}
+.map-key-descendant {
+  background: var(--teal-soft);
+  border-color: var(--teal);
+}
+.map-detail {
+  margin: 18px 0 0;
+  padding: 16px;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--teal);
+  border-radius: 9px;
+}
+.map-detail-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  gap: 14px;
+}
+.map-detail-head h2 {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+.map-detail-body {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  align-items: center;
+  font-size: 14px;
+}
+.map-detail-body dl {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 18px;
+  margin: 0;
+}
+.map-detail-body dt {
+  color: var(--muted);
+  font-size: 13px;
+}
+.map-detail-body dd {
+  margin: 0 14px 0 4px;
+  font-weight: 700;
+}
+.map-alt-heading {
+  font-size: 15px;
+  margin: 22px 0 4px;
+}
+.map-alt,
+#map-meta {
+  max-width: 900px;
+  overflow-wrap: anywhere;
+  margin-bottom: 6px;
+}
+@media (max-width: 860px) {
+  .map-stage {
+    height: 440px;
+  }
+}
+@media (max-width: 600px) {
+  .map-toolbar {
+    gap: 8px;
+  }
+  .map-buttons {
+    width: 100%;
+  }
+  .map-buttons .secondary-button:last-child {
+    flex: 1 1 auto;
+  }
+  .map-stage {
+    height: 380px;
+  }
+  .map-detail-head {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .map-legend {
+    font-size: 12px;
+    gap: 10px;
+  }
+  #map-zoom-readout {
+    margin-left: 0;
   }
 }

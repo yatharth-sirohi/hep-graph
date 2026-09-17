@@ -33,9 +33,12 @@ from .pipeline import InspireClient, PipelineError, _hits, sanitize_author
 DEGREE = "phd"
 NAME_BATCH = 25
 
-#: Abstract layout units. A browser scales these; they only set proportions.
-COLUMN = 30
-ROW = 95
+#: Abstract layout units. A browser scales these; they only set proportions,
+#: but the proportion is the whole point: the renderer sizes each box to the
+#: gap to its neighbour, so a narrow column makes every box too thin to hold a
+#: name. A column several times the row height gives boxes a readable shape.
+COLUMN = 180
+ROW = 110
 #: Components are shelf-packed, and the shelf is as wide as the widest tree.
 #: One component - 3,783 people across eight generations - is 2,662 columns
 #: wide on its own, so it fixes the total width whatever else is done. Making

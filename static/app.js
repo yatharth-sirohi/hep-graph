@@ -399,6 +399,8 @@
       x.setAttribute("aria-selected", active ? "true" : "false");
     });
     $$(".view").forEach((x) => x.classList.toggle("is-active", x.id === id));
+    // The forest map is fetched the first time it is actually looked at.
+    if (id === "lineage-map") ensureLineageMap();
   }
 
   function renderPicker(which) {
@@ -2231,13 +2233,8 @@
         direction === "ancestors" ? "Adviser of " : "Student of ",
       ),
       lineagePersonButton(counterpart),
-      document.createTextNode(` · ${degreeLabel(edge.degree)} · `),
+      document.createTextNode(` · ${degreeLabel(edge.degree)}`),
     );
-    const tag = document.createElement("span");
-    tag.className = `status ${edge.curated === true ? "curated" : "uncurated"}`;
-    tag.textContent =
-      edge.curated === true ? "INSPIRE-confirmed" : "not curator-confirmed";
-    li.append(tag);
     if (edge.source_record != null && edge.source_record !== "") {
       const record = document.createElement("span");
       record.className = "lineage-id";
@@ -2406,11 +2403,10 @@
       ),
     );
     const total = [...groups.values()].reduce((n, list) => n + list.length, 0);
-    const curated = edges.filter((edge) => edge.curated === true).length;
     $("#lineage-meta").textContent =
       `${lastUpdatedText()} · ${shown === "ancestors" ? "adviser" : "student"} records to ${data.depth ?? depth} generation${(data.depth ?? depth) === 1 ? "" : "s"} · ` +
-      `${total} ${total === 1 ? "person" : "people"} · ${edges.length} documented relation${edges.length === 1 ? "" : "s"}, ` +
-      `${curated} INSPIRE-confirmed · ${data.version ? `records ${data.version}` : "record version not supplied"}`;
+      `${total} ${total === 1 ? "person" : "people"} · ${edges.length} documented relation${edges.length === 1 ? "" : "s"} · ` +
+      `${data.version ? `records ${data.version}` : "record version not supplied"}`;
     if (data.truncated === true)
       lineageNotice(
         "This lineage is truncated: more documented relations exist than are shown. Open a person shown here to continue from them, or reduce the depth.",
@@ -2494,13 +2490,1156 @@
     });
   }
 
+  /* ---- Whole-forest lineage map -----------------------------------------
+     One canvas holds every documented adviser-to-student relation in the
+     release. Typed arrays and a uniform grid keep 20k+ boxes affordable:
+     nothing is drawn unless it is inside the viewport, and nothing is
+     redrawn unless the reader moved something. */
+  // Box size is derived from the layout the API sends, so the chart reads the
+  // same whether generations are 95 units apart or 0.95. Level of detail is
+  // then decided in drawn pixels, not in layout units.
+  const MAP_BOX_PX = 5; // below this a person is a mark, not a box
+  const MAP_LABEL_PX = 34; // names start here
+  const MAP_LABEL_LIMIT = 1400; // never queue more text draws than this
+  const MAP_CHUNK_MS = 12;
+  const mapState = {
+    status: "idle",
+    request: 0,
+    count: 0,
+    edgeCount: 0,
+    ids: null,
+    xs: null,
+    ys: null,
+    gens: null,
+    comps: null,
+    names: null,
+    lower: null,
+    edgeA: null,
+    edgeB: null,
+    childOff: null,
+    childNode: null,
+    childEdge: null,
+    parentOff: null,
+    parentNode: null,
+    parentEdge: null,
+    genTop: null,
+    genBottom: null,
+    cell: 256,
+    gridW: 0,
+    gridH: 0,
+    gridOff: null,
+    gridIdx: null,
+    minX: 0,
+    minY: 0,
+    maxX: 0,
+    maxY: 0,
+    nodeW: 1,
+    nodeH: 1,
+    rowSpacing: 1,
+    bandsUsable: true,
+    view: { scale: 1, tx: 0, ty: 0 },
+    minScale: 0.01,
+    maxScale: 8,
+    fitScale: 1,
+    mark: null,
+    edgeMark: null,
+    selection: -1,
+    ancestors: 0,
+    descendants: 0,
+    visNodes: null,
+    visCount: 0,
+    visEdges: null,
+    visEdgeCount: 0,
+    labelsShown: false,
+    counts: null,
+    version: "",
+    ctx: null,
+    dpr: 1,
+    w: 0,
+    h: 0,
+    frame: 0,
+    pointers: new Map(),
+    gesture: null,
+    suggestions: [],
+  };
+  state.map = mapState;
+  const mapClamp = (v, lo, hi) => (v < lo ? lo : v > hi ? hi : v);
+  const mapCount = (value) => Number(value || 0).toLocaleString();
+  const mapZoomText = () => {
+    const factor = mapState.view.scale / (mapState.fitScale || 1);
+    return factor >= 9.5
+      ? `${Math.round(factor)}× the whole forest`
+      : `${factor.toFixed(1)}× the whole forest`;
+  };
+  const mapNodeName = (i) =>
+    mapState.names && mapState.names[i]
+      ? mapState.names[i]
+      : `INSPIRE ${mapState.ids ? mapState.ids[i] : "unknown"}`;
+  const mapNotice = (message, kind = "") => {
+    const box = $("#map-message");
+    if (!box) return;
+    box.className = `notice ${kind}`;
+    box.textContent = message;
+  };
+  const mapAnnounce = (message) => {
+    const box = $("#map-status");
+    if (box) box.textContent = message;
+  };
+  const setMapLoading = (message) => {
+    const box = $("#map-loading");
+    if (!box) return;
+    box.classList.toggle("hidden", !message);
+    if (message) box.textContent = message;
+  };
+
+  function mapUnavailable(message, retryable) {
+    mapState.status = "error";
+    setMapLoading("");
+    mapNotice(
+      message || "The family map is not available in this release.",
+      "warning",
+    );
+    $("#map-alt").textContent =
+      "The family map could not be loaded, so nothing is drawn.";
+    if (retryable) {
+      const retry = document.createElement("button");
+      retry.type = "button";
+      retry.id = "map-retry";
+      retry.className = "secondary-button";
+      retry.textContent = "Try again";
+      retry.addEventListener("click", () => loadLineageMap());
+      $("#map-message").append(document.createTextNode(" "), retry);
+    }
+  }
+
+  const mapYield = () => new Promise((resolve) => setTimeout(resolve, 0));
+  /* Indexing 21k nodes is chunked so a slow device never freezes on load. */
+  async function mapChunks(total, label, request, worker) {
+    let i = 0;
+    while (i < total) {
+      const deadline = performance.now() + MAP_CHUNK_MS;
+      while (i < total && performance.now() < deadline) {
+        const end = Math.min(total, i + 2048);
+        worker(i, end);
+        i = end;
+      }
+      if (i < total) {
+        setMapLoading(`${label} ${Math.round((i / total) * 100)}%`);
+        await mapYield();
+        if (request !== mapState.request) return false;
+      }
+    }
+    return true;
+  }
+
+  async function buildMapIndex(data, request) {
+    const m = mapState;
+    const nodes = Array.isArray(data.nodes) ? data.nodes : [];
+    const rawEdges = Array.isArray(data.edges) ? data.edges : [];
+    const rawNames = data.names && typeof data.names === "object" ? data.names : {};
+    const n = nodes.length;
+    if (!n) {
+      mapUnavailable(
+        "The family map contains no people in this release.",
+        false,
+      );
+      return;
+    }
+    m.count = n;
+    m.ids = new Float64Array(n);
+    m.xs = new Float32Array(n);
+    m.ys = new Float32Array(n);
+    m.gens = new Uint16Array(n);
+    m.comps = new Int32Array(n);
+    m.names = new Array(n);
+    m.lower = new Array(n);
+    let minX = Infinity,
+      minY = Infinity,
+      maxX = -Infinity,
+      maxY = -Infinity,
+      maxGen = 0;
+    let ok = await mapChunks(n, "Reading people", request, (from, to) => {
+      for (let i = from; i < to; i += 1) {
+        const row = nodes[i] || [];
+        const id = Number(row[0]);
+        const x = Number(row[1]) || 0;
+        const y = Number(row[2]) || 0;
+        const gen = Number(row[3]);
+        m.ids[i] = Number.isFinite(id) ? id : 0;
+        m.xs[i] = x;
+        m.ys[i] = y;
+        m.gens[i] = Number.isFinite(gen) && gen > 0 ? Math.min(gen, 65535) : 0;
+        m.comps[i] = Number(row[4]) || 0;
+        if (x < minX) minX = x;
+        if (x > maxX) maxX = x;
+        if (y < minY) minY = y;
+        if (y > maxY) maxY = y;
+        if (m.gens[i] > maxGen) maxGen = m.gens[i];
+        const name = rawNames[String(m.ids[i])];
+        m.names[i] = typeof name === "string" ? name : "";
+        m.lower[i] = m.names[i] ? m.names[i].toLowerCase() : "";
+      }
+    });
+    if (!ok) return;
+    m.minX = minX;
+    m.maxX = maxX;
+    m.minY = minY;
+    m.maxY = maxY;
+    m.genTop = new Float32Array(maxGen + 1).fill(Infinity);
+    m.genBottom = new Float32Array(maxGen + 1).fill(-Infinity);
+    const genCount = new Int32Array(maxGen + 1);
+    for (let i = 0; i < n; i += 1) {
+      const g = m.gens[i];
+      genCount[g] += 1;
+      if (m.ys[i] < m.genTop[g]) m.genTop[g] = m.ys[i];
+      if (m.ys[i] > m.genBottom[g]) m.genBottom[g] = m.ys[i];
+    }
+    measureMapLayout(genCount, maxGen);
+
+    const edgeTotal = rawEdges.length;
+    const edgeA = new Int32Array(edgeTotal);
+    const edgeB = new Int32Array(edgeTotal);
+    let kept = 0;
+    ok = await mapChunks(edgeTotal, "Reading relations", request, (from, to) => {
+      for (let e = from; e < to; e += 1) {
+        const row = rawEdges[e] || [];
+        const a = Number(row[0]);
+        const b = Number(row[1]);
+        if (!Number.isInteger(a) || !Number.isInteger(b)) continue;
+        if (a < 0 || b < 0 || a >= n || b >= n || a === b) continue;
+        edgeA[kept] = a;
+        edgeB[kept] = b;
+        kept += 1;
+      }
+    });
+    if (!ok) return;
+    m.edgeA = edgeA.subarray(0, kept);
+    m.edgeB = edgeB.subarray(0, kept);
+    m.edgeCount = kept;
+
+    // Compressed adjacency: children (adviser to student) and parents.
+    const childOff = new Int32Array(n + 1);
+    const parentOff = new Int32Array(n + 1);
+    for (let e = 0; e < kept; e += 1) {
+      childOff[m.edgeA[e] + 1] += 1;
+      parentOff[m.edgeB[e] + 1] += 1;
+    }
+    for (let i = 0; i < n; i += 1) {
+      childOff[i + 1] += childOff[i];
+      parentOff[i + 1] += parentOff[i];
+    }
+    const childNode = new Int32Array(kept);
+    const childEdge = new Int32Array(kept);
+    const parentNode = new Int32Array(kept);
+    const parentEdge = new Int32Array(kept);
+    const childFill = childOff.slice(0, n);
+    const parentFill = parentOff.slice(0, n);
+    for (let e = 0; e < kept; e += 1) {
+      const a = m.edgeA[e];
+      const b = m.edgeB[e];
+      const ci = childFill[a]++;
+      childNode[ci] = b;
+      childEdge[ci] = e;
+      const pi = parentFill[b]++;
+      parentNode[pi] = a;
+      parentEdge[pi] = e;
+    }
+    m.childOff = childOff;
+    m.childNode = childNode;
+    m.childEdge = childEdge;
+    m.parentOff = parentOff;
+    m.parentNode = parentNode;
+    m.parentEdge = parentEdge;
+
+    // Uniform grid so the viewport query and hit test never scan all nodes.
+    const spanX = Math.max(1, maxX - minX);
+    const spanY = Math.max(1, maxY - minY);
+    const cell = Math.max(
+      128,
+      Math.ceil(Math.sqrt((spanX * spanY) / Math.max(1, n / 3))),
+    );
+    const gridW = Math.max(1, Math.ceil(spanX / cell) + 1);
+    const gridH = Math.max(1, Math.ceil(spanY / cell) + 1);
+    const cells = gridW * gridH;
+    const gridOff = new Int32Array(cells + 1);
+    const cellOf = new Int32Array(n);
+    for (let i = 0; i < n; i += 1) {
+      const cx = mapClamp(Math.floor((m.xs[i] - minX) / cell), 0, gridW - 1);
+      const cy = mapClamp(Math.floor((m.ys[i] - minY) / cell), 0, gridH - 1);
+      const c = cy * gridW + cx;
+      cellOf[i] = c;
+      gridOff[c + 1] += 1;
+    }
+    for (let c = 0; c < cells; c += 1) gridOff[c + 1] += gridOff[c];
+    const gridIdx = new Int32Array(n);
+    const gridFill = gridOff.slice(0, cells);
+    for (let i = 0; i < n; i += 1) gridIdx[gridFill[cellOf[i]]++] = i;
+    m.cell = cell;
+    m.gridW = gridW;
+    m.gridH = gridH;
+    m.gridOff = gridOff;
+    m.gridIdx = gridIdx;
+
+    m.mark = new Uint8Array(n);
+    m.edgeMark = new Uint8Array(kept);
+    m.visNodes = new Int32Array(n);
+    m.visEdges = new Int32Array(kept);
+    m.selection = -1;
+    m.ancestors = 0;
+    m.descendants = 0;
+    m.counts = data.counts && typeof data.counts === "object" ? data.counts : null;
+    m.version = typeof data.version === "string" ? data.version : "";
+    m.status = "ready";
+    setMapLoading("");
+    mapNotice("", "hidden");
+    $("#map-query").disabled = false;
+    renderMapMeta();
+    resizeMapCanvas();
+    openMapView();
+    scheduleMapDraw();
+    updateMapAlt();
+  }
+
+  /* The API lays the forest out in its own coordinate space, so the box size
+     is measured from the data: the typical gap between neighbouring siblings
+     across, and the gap between generation rows down. */
+  function measureMapLayout(genCount, maxGen) {
+    const m = mapState;
+    const rows = [];
+    for (let g = 0; g <= maxGen; g += 1)
+      if (genCount[g] && Number.isFinite(m.genTop[g])) rows.push(m.genTop[g]);
+    rows.sort((a, b) => a - b);
+    const rowGaps = [];
+    for (let k = 1; k < rows.length; k += 1)
+      if (rows[k] - rows[k - 1] > 0) rowGaps.push(rows[k] - rows[k - 1]);
+    rowGaps.sort((a, b) => a - b);
+    const spanY = Math.max(1e-6, m.maxY - m.minY);
+    const rowSpacing = rowGaps.length
+      ? rowGaps[Math.floor(rowGaps.length / 2)]
+      : spanY || 1;
+    // Sample the busiest generation for the usual distance between siblings.
+    let busiest = 0;
+    for (let g = 0; g <= maxGen; g += 1)
+      if (genCount[g] > genCount[busiest]) busiest = g;
+    const sample = [];
+    for (let i = 0; i < m.count && sample.length < 6000; i += 1)
+      if (m.gens[i] === busiest) sample.push(m.xs[i]);
+    sample.sort((a, b) => a - b);
+    const colGaps = [];
+    for (let k = 1; k < sample.length; k += 1)
+      if (sample[k] - sample[k - 1] > 0) colGaps.push(sample[k] - sample[k - 1]);
+    colGaps.sort((a, b) => a - b);
+    const colSpacing = colGaps.length
+      ? colGaps[Math.floor(colGaps.length / 2)]
+      : rowSpacing;
+    m.rowSpacing = rowSpacing;
+    // Boxes never grow wider than the gap to the next sibling, so they cannot
+    // collide however dense or sparse the layout is.
+    m.nodeW = Math.max(1e-6, Math.min(colSpacing * 0.86, rowSpacing * 3));
+    m.nodeH = Math.max(1e-6, Math.min(rowSpacing * 0.34, m.nodeW * 0.9));
+    // Generation bands are only honest when each generation owns its own
+    // horizontal strip; a layout that wraps trees into stacked rows does not.
+    m.bandsUsable = true;
+    let previous = -Infinity;
+    for (let g = 0; g <= maxGen; g += 1) {
+      if (!genCount[g] || !Number.isFinite(m.genTop[g])) continue;
+      if (m.genTop[g] <= previous) {
+        m.bandsUsable = false;
+        break;
+      }
+      previous = m.genBottom[g];
+    }
+  }
+
+  function renderMapMeta() {
+    const m = mapState;
+    const people = m.counts?.people ?? m.count;
+    const relations = m.counts?.relations ?? m.edgeCount;
+    const components = m.counts?.components;
+    const parts = [
+      `${mapCount(people)} people`,
+      `${mapCount(relations)} adviser-to-student records`,
+    ];
+    if (components != null)
+      parts.push(`${mapCount(components)} separate family trees`);
+    parts.push(m.version ? `data version ${m.version}` : "data version not supplied");
+    $("#map-meta").textContent = `${lastUpdatedText()} · ${parts.join(" · ")}`;
+  }
+
+  async function loadLineageMap() {
+    const m = mapState;
+    const request = ++m.request;
+    m.status = "loading";
+    mapNotice("", "hidden");
+    setMapLoading("Loading the family map…");
+    try {
+      const data = await api("/api/lineage-map");
+      if (request !== m.request) return;
+      if (data.status && data.status !== "ok") {
+        mapUnavailable(data.message, false);
+        return;
+      }
+      await buildMapIndex(data, request);
+    } catch (e) {
+      if (request !== m.request) return;
+      const body = e.body || {};
+      if (body.status === "unavailable") mapUnavailable(body.message, false);
+      else mapUnavailable(`The family map could not be loaded: ${e.message}`, true);
+    }
+  }
+
+  function ensureLineageMap() {
+    if (mapState.status === "idle") {
+      loadLineageMap();
+      return;
+    }
+    if (mapState.status === "ready") {
+      if (resizeMapCanvas()) scheduleMapDraw();
+    }
+  }
+
+  function resizeMapCanvas() {
+    const stage = $("#map-stage");
+    const canvas = $("#map-canvas");
+    if (!stage || !canvas) return false;
+    const w = stage.clientWidth;
+    const h = stage.clientHeight;
+    if (!w || !h) return false;
+    const dpr = mapClamp(window.devicePixelRatio || 1, 1, 3);
+    if (!mapState.ctx) mapState.ctx = canvas.getContext("2d");
+    if (mapState.w === w && mapState.h === h && mapState.dpr === dpr)
+      return true;
+    mapState.w = w;
+    mapState.h = h;
+    mapState.dpr = dpr;
+    canvas.width = Math.round(w * dpr);
+    canvas.height = Math.round(h * dpr);
+    return true;
+  }
+
+  function fitMapView() {
+    const m = mapState;
+    if (m.status !== "ready" || !m.w || !m.h) return;
+    const spanX = Math.max(1e-6, m.maxX - m.minX + m.nodeW * 2);
+    const spanY = Math.max(1e-6, m.maxY - m.minY + m.nodeH * 4);
+    const whole = Math.min((m.w - 24) / spanX, (m.h - 24) / spanY);
+    m.fitScale = whole;
+    // Zooming out past the whole forest would only shrink it into a speck.
+    m.minScale = whole * 0.9;
+    m.maxScale = Math.max(whole * 8, (MAP_LABEL_PX * 4) / Math.max(1e-6, m.nodeW));
+    const scale = mapClamp(whole, m.minScale, m.maxScale);
+    m.view.scale = scale;
+    m.view.tx = m.w / 2 - ((m.minX + m.maxX) / 2) * scale;
+    m.view.ty = m.h / 2 - ((m.minY + m.maxY) / 2) * scale;
+    scheduleMapDraw();
+  }
+
+  // The forest is one very wide tree beside thousands of small ones, so the
+  // whole extent fits the screen only as a hairline. Opening on the height
+  // instead shows every generation at once, anchored at the left edge where the
+  // largest tree begins, so the first thing a reader sees is a tree.
+  function openMapView() {
+    const m = mapState;
+    fitMapView();
+    if (m.status !== "ready" || !m.w || !m.h) return;
+    const spanY = Math.max(1e-6, m.maxY - m.minY + m.nodeH * 4);
+    const scale = mapClamp((m.h - 24) / spanY, m.minScale, m.maxScale);
+    m.view.scale = scale;
+    m.view.tx = 16 + m.nodeW * scale - m.minX * scale;
+    m.view.ty = m.h / 2 - ((m.minY + m.maxY) / 2) * scale;
+    scheduleMapDraw();
+  }
+
+  function mapZoomAt(px, py, factor) {
+    const m = mapState;
+    const next = mapClamp(m.view.scale * factor, m.minScale, m.maxScale);
+    const ratio = next / m.view.scale;
+    if (ratio === 1) return;
+    m.view.tx = px - (px - m.view.tx) * ratio;
+    m.view.ty = py - (py - m.view.ty) * ratio;
+    m.view.scale = next;
+    scheduleMapDraw();
+  }
+  const mapZoomCentre = (factor) =>
+    mapZoomAt(mapState.w / 2, mapState.h / 2, factor);
+
+  function mapCentreOn(i, scale) {
+    const m = mapState;
+    if (scale) m.view.scale = mapClamp(scale, m.minScale, m.maxScale);
+    m.view.tx = m.w / 2 - m.xs[i] * m.view.scale;
+    m.view.ty = m.h / 2 - m.ys[i] * m.view.scale;
+    scheduleMapDraw();
+  }
+
+  /* Visible-node collection walks only the grid cells the viewport covers. */
+  function collectVisible() {
+    const m = mapState;
+    const { scale, tx, ty } = m.view;
+    const padX = m.nodeW / 2 + 4 / scale;
+    const padY = m.nodeH / 2 + 4 / scale;
+    const x0 = (0 - tx) / scale - padX;
+    const x1 = (m.w - tx) / scale + padX;
+    const y0 = (0 - ty) / scale - padY;
+    const y1 = (m.h - ty) / scale + padY;
+    const cell = m.cell;
+    const cx0 = mapClamp(Math.floor((x0 - m.minX) / cell), 0, m.gridW - 1);
+    const cx1 = mapClamp(Math.floor((x1 - m.minX) / cell), 0, m.gridW - 1);
+    const cy0 = mapClamp(Math.floor((y0 - m.minY) / cell), 0, m.gridH - 1);
+    const cy1 = mapClamp(Math.floor((y1 - m.minY) / cell), 0, m.gridH - 1);
+    let count = 0;
+    for (let cy = cy0; cy <= cy1; cy += 1) {
+      const row = cy * m.gridW;
+      const start = m.gridOff[row + cx0];
+      const end = m.gridOff[row + cx1 + 1];
+      for (let k = start; k < end; k += 1) {
+        const i = m.gridIdx[k];
+        const x = m.xs[i];
+        const y = m.ys[i];
+        if (x < x0 || x > x1 || y < y0 || y > y1) continue;
+        m.visNodes[count++] = i;
+      }
+    }
+    m.visCount = count;
+    m.visRect = { x0, x1, y0, y1 };
+    return count;
+  }
+
+  const mapInRect = (i, r) => {
+    const x = mapState.xs[i];
+    const y = mapState.ys[i];
+    return x >= r.x0 && x <= r.x1 && y >= r.y0 && y <= r.y1;
+  };
+
+  function collectVisibleEdges() {
+    const m = mapState;
+    const r = m.visRect;
+    let count = 0;
+    for (let k = 0; k < m.visCount; k += 1) {
+      const i = m.visNodes[k];
+      for (let c = m.childOff[i]; c < m.childOff[i + 1]; c += 1)
+        m.visEdges[count++] = m.childEdge[c];
+      for (let p = m.parentOff[i]; p < m.parentOff[i + 1]; p += 1) {
+        // Only claim an incoming edge when its adviser is off-screen, so an
+        // edge with both ends visible is collected exactly once.
+        if (!mapInRect(m.parentNode[p], r)) m.visEdges[count++] = m.parentEdge[p];
+      }
+    }
+    m.visEdgeCount = count;
+    return count;
+  }
+
+  function strokeMapEdges(ctx, filter, style, width, alpha) {
+    const m = mapState;
+    const { scale, tx, ty } = m.view;
+    const orth = m.nodeW * scale >= MAP_BOX_PX;
+    const half = (m.nodeH / 2) * scale;
+    let drawn = 0;
+    ctx.beginPath();
+    for (let k = 0; k < m.visEdgeCount; k += 1) {
+      const e = m.visEdges[k];
+      if (!filter(e)) continue;
+      const a = m.edgeA[e];
+      const b = m.edgeB[e];
+      const ax = m.xs[a] * scale + tx;
+      const ay = m.ys[a] * scale + ty;
+      const bx = m.xs[b] * scale + tx;
+      const by = m.ys[b] * scale + ty;
+      if (!orth) {
+        ctx.moveTo(ax, ay);
+        ctx.lineTo(bx, by);
+      } else {
+        const top = ay + half;
+        const bottom = by - half;
+        const mid = (top + bottom) / 2;
+        ctx.moveTo(ax, top);
+        ctx.lineTo(ax, mid);
+        ctx.lineTo(bx, mid);
+        ctx.lineTo(bx, bottom);
+      }
+      drawn += 1;
+    }
+    if (!drawn) return;
+    ctx.globalAlpha = alpha;
+    ctx.strokeStyle = style;
+    ctx.lineWidth = width;
+    ctx.stroke();
+    ctx.globalAlpha = 1;
+  }
+
+  function drawLineageMap() {
+    const m = mapState;
+    const ctx = m.ctx;
+    if (!ctx || !m.w || !m.h) return;
+    ctx.setTransform(m.dpr, 0, 0, m.dpr, 0, 0);
+    ctx.fillStyle = "#fbfcfd";
+    ctx.fillRect(0, 0, m.w, m.h);
+    if (m.status !== "ready") return;
+    const { scale, tx, ty } = m.view;
+    const boxPx = m.nodeW * scale;
+    const selected = m.selection;
+    const dimming = selected >= 0;
+
+    // Generation bands give the chart its rows.
+    if (m.bandsUsable && m.rowSpacing * scale >= 5 && m.genTop) {
+      for (let g = 0; g < m.genTop.length; g += 1) {
+        if (!Number.isFinite(m.genTop[g])) continue;
+        const top = (m.genTop[g] - m.rowSpacing * 0.42) * scale + ty;
+        const bottom = (m.genBottom[g] + m.rowSpacing * 0.42) * scale + ty;
+        if (bottom < 0 || top > m.h) continue;
+        ctx.fillStyle = g % 2 ? "#f2f6f8" : "#f8fbfb";
+        ctx.fillRect(0, top, m.w, Math.max(1, bottom - top));
+      }
+    }
+
+    collectVisible();
+    collectVisibleEdges();
+
+    strokeMapEdges(
+      ctx,
+      (e) => !m.edgeMark[e],
+      "#9db3bd",
+      boxPx >= MAP_BOX_PX ? 1.1 : 0.6,
+      dimming ? 0.16 : boxPx >= MAP_BOX_PX ? 0.75 : 0.45,
+    );
+    if (dimming) {
+      strokeMapEdges(ctx, (e) => m.edgeMark[e] === 1, "#b86c06", 2, 0.95);
+      strokeMapEdges(ctx, (e) => m.edgeMark[e] === 2, "#168b85", 2, 0.95);
+    }
+
+    const boxes = boxPx >= MAP_BOX_PX;
+    const w = boxPx;
+    const h = m.nodeH * scale;
+    const markSize = mapClamp(boxPx, 1.5, 4);
+    const paint = (filter, fill, stroke, alpha) => {
+      ctx.globalAlpha = alpha;
+      ctx.fillStyle = fill;
+      for (let k = 0; k < m.visCount; k += 1) {
+        const i = m.visNodes[k];
+        if (!filter(i)) continue;
+        const x = m.xs[i] * scale + tx;
+        const y = m.ys[i] * scale + ty;
+        if (boxes) ctx.fillRect(x - w / 2, y - h / 2, w, h);
+        else ctx.fillRect(x - markSize / 2, y - markSize / 2, markSize, markSize);
+      }
+      if (boxes && stroke) {
+        ctx.strokeStyle = stroke;
+        ctx.lineWidth = scale > 1 ? 1.2 : 1;
+        ctx.beginPath();
+        for (let k = 0; k < m.visCount; k += 1) {
+          const i = m.visNodes[k];
+          if (!filter(i)) continue;
+          const x = m.xs[i] * scale + tx;
+          const y = m.ys[i] * scale + ty;
+          ctx.rect(x - w / 2, y - h / 2, w, h);
+        }
+        ctx.stroke();
+      }
+      ctx.globalAlpha = 1;
+    };
+
+    paint(
+      (i) => !m.mark[i],
+      boxes ? "#ffffff" : "#5d7885",
+      "#a8bcc5",
+      dimming ? 0.25 : 1,
+    );
+    if (dimming) {
+      paint((i) => m.mark[i] & 1 && !(m.mark[i] & 4), "#fff0d6", "#b86c06", 1);
+      paint((i) => m.mark[i] & 2 && !(m.mark[i] & 4), "#dcf3f0", "#168b85", 1);
+      paint((i) => m.mark[i] & 4, "#10283f", "#10283f", 1);
+    }
+
+    m.labelsShown = boxPx >= MAP_LABEL_PX && m.visCount <= MAP_LABEL_LIMIT;
+    if (m.labelsShown) {
+      const fontSize = mapClamp(Math.round(h * 0.42), 9, 18);
+      ctx.font = `${fontSize}px Inter, system-ui, sans-serif`;
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      const budget = Math.max(3, Math.floor((w - 6) / (fontSize * 0.53)));
+      for (let k = 0; k < m.visCount; k += 1) {
+        const i = m.visNodes[k];
+        const flags = m.mark[i];
+        ctx.globalAlpha = dimming && !flags ? 0.35 : 1;
+        ctx.fillStyle = flags & 4 ? "#ffffff" : "#1d3442";
+        const label = mapNodeName(i);
+        const text =
+          label.length > budget ? `${label.slice(0, budget - 1)}…` : label;
+        ctx.fillText(text, m.xs[i] * scale + tx, m.ys[i] * scale + ty);
+      }
+      ctx.globalAlpha = 1;
+    }
+
+    if (selected >= 0) {
+      const x = m.xs[selected] * scale + tx;
+      const y = m.ys[selected] * scale + ty;
+      ctx.strokeStyle = "#168b85";
+      ctx.lineWidth = 3;
+      const rw = Math.max(w, 14);
+      const rh = Math.max(h, 12);
+      ctx.strokeRect(x - rw / 2 - 3, y - rh / 2 - 3, rw + 6, rh + 6);
+    }
+    clearTimeout(state.timers.mapAlt);
+    state.timers.mapAlt = setTimeout(updateMapAlt, 400);
+  }
+
+  function scheduleMapDraw() {
+    if (mapState.frame) return;
+    mapState.frame = requestAnimationFrame(() => {
+      mapState.frame = 0;
+      drawLineageMap();
+      renderMapZoomReadout();
+    });
+  }
+
+  function mapHitTest(px, py) {
+    const m = mapState;
+    if (m.status !== "ready") return -1;
+    const { scale, tx, ty } = m.view;
+    const x = (px - tx) / scale;
+    const y = (py - ty) / scale;
+    const tolerance = Math.max(m.nodeW / 2, 9 / scale);
+    const toleranceY = Math.max(m.nodeH / 2, 9 / scale);
+    const cell = m.cell;
+    const cx0 = mapClamp(Math.floor((x - tolerance - m.minX) / cell), 0, m.gridW - 1);
+    const cx1 = mapClamp(Math.floor((x + tolerance - m.minX) / cell), 0, m.gridW - 1);
+    const cy0 = mapClamp(Math.floor((y - toleranceY - m.minY) / cell), 0, m.gridH - 1);
+    const cy1 = mapClamp(Math.floor((y + toleranceY - m.minY) / cell), 0, m.gridH - 1);
+    let best = -1;
+    let bestDist = Infinity;
+    for (let cy = cy0; cy <= cy1; cy += 1) {
+      const row = cy * m.gridW;
+      for (let k = m.gridOff[row + cx0]; k < m.gridOff[row + cx1 + 1]; k += 1) {
+        const i = m.gridIdx[k];
+        const dx = Math.abs(m.xs[i] - x);
+        const dy = Math.abs(m.ys[i] - y);
+        if (dx > tolerance || dy > toleranceY) continue;
+        const dist = dx / tolerance + dy / toleranceY;
+        if (dist < bestDist) {
+          bestDist = dist;
+          best = i;
+        }
+      }
+    }
+    return best;
+  }
+
+  /* Selection lights one person's own lineage: every adviser above them and
+     every student below them, following the loaded relations only. */
+  function selectMapNode(i, options = {}) {
+    const m = mapState;
+    if (m.status !== "ready") return;
+    m.mark.fill(0);
+    m.edgeMark.fill(0);
+    m.ancestors = 0;
+    m.descendants = 0;
+    m.selection = i >= 0 ? i : -1;
+    if (m.selection < 0) {
+      renderMapDetail();
+      scheduleMapDraw();
+      updateMapAlt();
+      return;
+    }
+    const stack = [i];
+    m.mark[i] |= 1;
+    while (stack.length) {
+      const node = stack.pop();
+      for (let p = m.parentOff[node]; p < m.parentOff[node + 1]; p += 1) {
+        m.edgeMark[m.parentEdge[p]] = 1;
+        const parent = m.parentNode[p];
+        if (m.mark[parent] & 1) continue;
+        m.mark[parent] |= 1;
+        m.ancestors += 1;
+        stack.push(parent);
+      }
+    }
+    stack.push(i);
+    m.mark[i] |= 2;
+    while (stack.length) {
+      const node = stack.pop();
+      for (let c = m.childOff[node]; c < m.childOff[node + 1]; c += 1) {
+        m.edgeMark[m.childEdge[c]] = m.edgeMark[m.childEdge[c]] || 2;
+        const child = m.childNode[c];
+        if (m.mark[child] & 2) continue;
+        m.mark[child] |= 2;
+        m.descendants += 1;
+        stack.push(child);
+      }
+    }
+    m.mark[i] |= 4;
+    renderMapDetail();
+    scheduleMapDraw();
+    updateMapAlt();
+    if (options.announce !== false)
+      mapAnnounce(
+        `${mapNodeName(i)} selected. ${mapCount(m.ancestors)} advisers above, ${mapCount(m.descendants)} students below.`,
+      );
+  }
+
+  function mapAdviserCount(i) {
+    return mapState.parentOff[i + 1] - mapState.parentOff[i];
+  }
+  function mapStudentCount(i) {
+    return mapState.childOff[i + 1] - mapState.childOff[i];
+  }
+
+  function renderMapDetail() {
+    const m = mapState;
+    const panel = $("#map-detail");
+    const body = $("#map-detail-body");
+    body.replaceChildren();
+    if (m.selection < 0) {
+      panel.classList.add("hidden");
+      $("#map-detail-name").textContent = "No one selected";
+      return;
+    }
+    const i = m.selection;
+    const id = String(m.ids[i]);
+    panel.classList.remove("hidden");
+    $("#map-detail-name").textContent = m.names[i] || `INSPIRE ${id}`;
+    const facts = document.createElement("dl");
+    const add = (label, value) => {
+      const dt = document.createElement("dt");
+      dt.textContent = label;
+      const dd = document.createElement("dd");
+      dd.textContent = value;
+      facts.append(dt, dd);
+    };
+    add("INSPIRE", id);
+    add(
+      "Generation",
+      m.gens[i] === 0 ? "0 (no recorded adviser)" : String(m.gens[i]),
+    );
+    add("Advisers recorded", mapCount(mapAdviserCount(i)));
+    add("Students recorded", mapCount(mapStudentCount(i)));
+    add("Lineage shown", `${mapCount(m.ancestors)} up · ${mapCount(m.descendants)} down`);
+    if (m.comps[i]) add("Family tree size", mapCount(m.comps[i]));
+    body.append(facts);
+    const href = inspireAuthorUrl(id);
+    if (href && safeHref(href)) body.append(link("Profile ↗", href));
+    const open = document.createElement("button");
+    open.type = "button";
+    open.id = "map-open-lineage";
+    open.className = "primary-button";
+    open.textContent = "Open in Lineage view";
+    open.addEventListener("click", () =>
+      setLineageRoot({ id, name: m.names[i] || "" }),
+    );
+    body.append(open);
+    if (!m.names[i]) {
+      const note = document.createElement("p");
+      note.className = "lineage-note";
+      note.textContent =
+        "No name accompanied this person in the map data; the INSPIRE identifier is shown instead.";
+      body.append(note);
+    }
+  }
+
+  function updateMapAlt() {
+    const m = mapState;
+    const alt = $("#map-alt");
+    if (!alt) return;
+    if (m.status !== "ready") return;
+    const people = m.counts?.people ?? m.count;
+    const relations = m.counts?.relations ?? m.edgeCount;
+    const components = m.counts?.components;
+    const sentences = [
+      `A chart of ${mapCount(people)} researchers joined by ${mapCount(relations)} documented adviser-to-student records${
+        components != null
+          ? `, in ${mapCount(components)} separate family trees`
+          : ""
+      }. Advisers sit above their students, one row per generation.`,
+      `The view is magnified ${mapZoomText()} and covers ${mapCount(m.visCount)} of them; names are ${m.labelsShown ? "drawn on the boxes" : "hidden until you zoom in further"}.`,
+    ];
+    if (m.selection >= 0) {
+      const i = m.selection;
+      sentences.push(
+        `${mapNodeName(i)} is selected: generation ${m.gens[i]}, ${mapCount(mapAdviserCount(i))} recorded advisers, ${mapCount(mapStudentCount(i))} recorded students, with ${mapCount(m.ancestors)} people above and ${mapCount(m.descendants)} below highlighted.`,
+      );
+    } else {
+      sentences.push("No one is selected. Use the search field to find a person.");
+    }
+    alt.textContent = sentences.join(" ");
+    renderMapZoomReadout();
+  }
+
+  // Whether names are shown is only known once a frame is drawn, so the readout
+  // is refreshed after drawing rather than before, or it describes the last one.
+  function renderMapZoomReadout() {
+    const readout = $("#map-zoom-readout");
+    if (readout)
+      readout.textContent = `Zoom ${mapZoomText()} · ${
+        mapState.labelsShown ? "names shown" : "names appear as you zoom in"
+      }`;
+  }
+
+  function focusMapNode(i) {
+    const m = mapState;
+    if (i < 0 || i >= m.count) return;
+    resizeMapCanvas();
+    mapCentreOn(i, Math.max(m.view.scale, 1.1));
+    selectMapNode(i, { announce: false });
+    mapAnnounce(
+      `Centred on ${mapNodeName(i)}. ${mapCount(m.ancestors)} advisers above, ${mapCount(m.descendants)} students below.`,
+    );
+  }
+
+  /* Search runs over precomputed lowercase names, so it stays instant. */
+  function mapSearch(query) {
+    const m = mapState;
+    const q = query.trim().toLowerCase();
+    if (m.status !== "ready" || q.length < 2) return [];
+    const digits = /^\d+$/.test(q);
+    const best = [];
+    const consider = (i, score) => {
+      if (best.length < 8) {
+        best.push({ i, score });
+      } else {
+        let worst = 0;
+        for (let k = 1; k < best.length; k += 1)
+          if (best[k].score > best[worst].score) worst = k;
+        if (best[worst].score <= score) return;
+        best[worst] = { i, score };
+      }
+    };
+    for (let i = 0; i < m.count; i += 1) {
+      if (digits) {
+        const id = String(m.ids[i]);
+        if (id === q) consider(i, -1);
+        else if (id.startsWith(q)) consider(i, 0);
+        continue;
+      }
+      const name = m.lower[i];
+      if (!name) continue;
+      const at = name.indexOf(q);
+      if (at < 0) continue;
+      if (at === 0) consider(i, name.length === q.length ? 0 : 1);
+      else if (name.charCodeAt(at - 1) === 32 || name.charCodeAt(at - 1) === 46)
+        consider(i, 2);
+      else consider(i, 3);
+    }
+    best.sort(
+      (a, b) => a.score - b.score || mapNodeName(a.i).localeCompare(mapNodeName(b.i)),
+    );
+    return best.map((entry) => entry.i);
+  }
+
+  function renderMapSuggestions(indices, query) {
+    const menu = $("#map-results");
+    const input = $("#map-query");
+    menu.replaceChildren();
+    menu.classList.remove("inline-search-notice");
+    mapState.suggestions = indices;
+    if (!query.trim()) {
+      input.setAttribute("aria-expanded", "false");
+      return;
+    }
+    if (!indices.length) {
+      const empty = document.createElement("div");
+      empty.className = "search-result search-notice";
+      empty.textContent =
+        mapState.status === "ready"
+          ? "No one on the map matches that."
+          : "The map is still loading.";
+      menu.append(empty);
+      menu.classList.add("inline-search-notice");
+      input.setAttribute("aria-expanded", "false");
+      return;
+    }
+    indices.forEach((i) => {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.className = "search-result";
+      b.setAttribute("role", "option");
+      const strong = document.createElement("strong");
+      strong.textContent = mapNodeName(i);
+      const small = document.createElement("small");
+      small.textContent = `INSPIRE ${mapState.ids[i]} · generation ${mapState.gens[i]} · family tree of ${mapCount(mapState.comps[i] || 0)}`;
+      b.append(strong, small);
+      b.addEventListener("click", () => {
+        menu.replaceChildren();
+        input.setAttribute("aria-expanded", "false");
+        focusMapNode(i);
+        $("#map-stage").focus();
+      });
+      menu.append(b);
+    });
+    input.setAttribute("aria-expanded", "true");
+  }
+
+  function setupLineageMapSearch() {
+    const input = $("#map-query");
+    input.addEventListener("input", () => {
+      clearTimeout(state.timers.mapSearch);
+      const value = input.value;
+      state.timers.mapSearch = setTimeout(
+        () => renderMapSuggestions(mapSearch(value), value),
+        120,
+      );
+    });
+    input.addEventListener("keydown", (e) => {
+      const options = $$('.search-result[role="option"]', $("#map-results"));
+      if (e.key === "Escape") {
+        $("#map-results").replaceChildren();
+        input.setAttribute("aria-expanded", "false");
+      }
+      if (e.key === "ArrowDown" && options[0]) {
+        e.preventDefault();
+        options[0].focus();
+      }
+      if (e.key === "Enter") {
+        e.preventDefault();
+        const first = mapState.suggestions[0];
+        if (first != null) {
+          $("#map-results").replaceChildren();
+          input.setAttribute("aria-expanded", "false");
+          focusMapNode(first);
+        }
+      }
+    });
+  }
+
+  function setupLineageMapInteractions() {
+    const stage = $("#map-stage");
+    if (!stage) return;
+    const local = (e) => {
+      const rect = stage.getBoundingClientRect();
+      return { x: e.clientX - rect.left, y: e.clientY - rect.top };
+    };
+    stage.addEventListener("pointerdown", (e) => {
+      if (mapState.status !== "ready") return;
+      stage.setPointerCapture(e.pointerId);
+      mapState.pointers.set(e.pointerId, local(e));
+      if (mapState.pointers.size === 1) {
+        const p = mapState.pointers.get(e.pointerId);
+        mapState.gesture = { moved: 0, startX: p.x, startY: p.y };
+      }
+    });
+    stage.addEventListener("pointermove", (e) => {
+      const pointers = mapState.pointers;
+      if (!pointers.has(e.pointerId)) return;
+      const previous = pointers.get(e.pointerId);
+      const point = local(e);
+      pointers.set(e.pointerId, point);
+      if (pointers.size === 1) {
+        mapState.view.tx += point.x - previous.x;
+        mapState.view.ty += point.y - previous.y;
+        if (mapState.gesture)
+          mapState.gesture.moved +=
+            Math.abs(point.x - previous.x) + Math.abs(point.y - previous.y);
+        scheduleMapDraw();
+        return;
+      }
+      if (pointers.size === 2) {
+        const [a, b] = [...pointers.values()];
+        const distance = Math.hypot(a.x - b.x, a.y - b.y);
+        const midX = (a.x + b.x) / 2;
+        const midY = (a.y + b.y) / 2;
+        const last = mapState.gesture?.pinch;
+        if (last && last.distance > 0 && distance > 0) {
+          mapState.view.tx += midX - last.midX;
+          mapState.view.ty += midY - last.midY;
+          mapZoomAt(midX, midY, distance / last.distance);
+        }
+        mapState.gesture = {
+          moved: 999,
+          pinch: { distance, midX, midY },
+        };
+        scheduleMapDraw();
+      }
+    });
+    const endPointer = (e) => {
+      const pointers = mapState.pointers;
+      if (!pointers.has(e.pointerId)) return;
+      pointers.delete(e.pointerId);
+      if (stage.hasPointerCapture?.(e.pointerId))
+        stage.releasePointerCapture(e.pointerId);
+      if (pointers.size === 0 && mapState.gesture) {
+        const tap = mapState.gesture.moved < 6;
+        const start = { x: mapState.gesture.startX, y: mapState.gesture.startY };
+        mapState.gesture = null;
+        if (tap && e.type === "pointerup") {
+          const hit = mapHitTest(start.x, start.y);
+          selectMapNode(hit);
+          stage.focus();
+        }
+      } else if (pointers.size === 1) {
+        mapState.gesture = { moved: 999 };
+      }
+    };
+    stage.addEventListener("pointerup", endPointer);
+    stage.addEventListener("pointercancel", endPointer);
+    stage.addEventListener(
+      "wheel",
+      (e) => {
+        if (mapState.status !== "ready") return;
+        e.preventDefault();
+        const unit = e.deltaMode === 1 ? 16 : e.deltaMode === 2 ? 400 : 1;
+        const point = local(e);
+        mapZoomAt(
+          point.x,
+          point.y,
+          Math.exp(mapClamp(-e.deltaY * unit * 0.0018, -0.6, 0.6)),
+        );
+      },
+      { passive: false },
+    );
+    stage.addEventListener("keydown", (e) => {
+      if (mapState.status !== "ready") return;
+      const step = 60;
+      const keys = {
+        ArrowLeft: () => (mapState.view.tx += step),
+        ArrowRight: () => (mapState.view.tx -= step),
+        ArrowUp: () => (mapState.view.ty += step),
+        ArrowDown: () => (mapState.view.ty -= step),
+      };
+      if (keys[e.key]) {
+        e.preventDefault();
+        keys[e.key]();
+        scheduleMapDraw();
+        return;
+      }
+      if (e.key === "+" || e.key === "=") {
+        e.preventDefault();
+        mapZoomCentre(1.3);
+      } else if (e.key === "-" || e.key === "_") {
+        e.preventDefault();
+        mapZoomCentre(1 / 1.3);
+      } else if (e.key === "0") {
+        e.preventDefault();
+        fitMapView();
+      } else if (e.key === "Escape") {
+        selectMapNode(-1);
+      }
+    });
+    $("#map-zoom-in").addEventListener("click", () => mapZoomCentre(1.4));
+    $("#map-zoom-out").addEventListener("click", () => mapZoomCentre(1 / 1.4));
+    $("#map-fit").addEventListener("click", () => {
+      resizeMapCanvas();
+      fitMapView();
+      updateMapAlt();
+    });
+    $("#map-clear-selection").addEventListener("click", () => {
+      selectMapNode(-1);
+      mapAnnounce("Selection cleared.");
+    });
+    const observe = () => {
+      if (resizeMapCanvas()) {
+        if (mapState.status === "ready") scheduleMapDraw();
+      }
+    };
+    if (window.ResizeObserver) new ResizeObserver(observe).observe(stage);
+    else window.addEventListener("resize", observe);
+  }
+
   function init() {
     restoreUrl();
     setupSearch("source");
     setupSearch("target");
     setupLineageSearch();
+    setupLineageMapSearch();
+    setupLineageMapInteractions();
     document.addEventListener("pointerdown", (event) => {
-      ["source", "target", "lineage"].forEach((which) => {
+      ["source", "target", "lineage", "map"].forEach((which) => {
         const field = $(`#${which}-query`).closest(".identity-field");
         if (!field.contains(event.target)) {
           const menu = $(`#${which}-results`);

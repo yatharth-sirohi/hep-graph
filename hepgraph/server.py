@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 from collections import Counter, OrderedDict, deque
 from datetime import datetime, timezone
 import gzip
@@ -213,7 +214,7 @@ class Handler(BaseHTTPRequestHandler):
             'image/svg+xml', 'model/gltf-binary',
         }
 
-    def respond(self, value, status=200, content_type='application/json; charset=utf-8', *, cache_control=None, raw=False):
+    def respond(self, value, status=200, content_type='application/json; charset=utf-8', *, cache_control=None, etag=None, raw=False):
         body = json.dumps(value, ensure_ascii=False, allow_nan=False).encode() if content_type.startswith('application/json') and not raw else value
         encoding = None
 
@@ -228,6 +229,8 @@ class Handler(BaseHTTPRequestHandler):
             self.send_header('Vary', 'Accept-Encoding')
         self.send_header('Content-Length', str(len(body)))
         self.send_header('Cache-Control', cache_control or ('no-store' if content_type.startswith('application/json') else 'no-cache'))
+        if etag:
+            self.send_header('ETag', etag)
         self.send_header('X-Content-Type-Options', 'nosniff')
         # Which process answered. Lets a client tell whether the polls of one
         # search all reached the same instance; carries nothing sensitive.
@@ -398,10 +401,20 @@ class Handler(BaseHTTPRequestHandler):
                 person_id(path.removeprefix('/api/neighborhood/')), filters,
                 limit=integer(args.get('limit'), 40, 1, 80)))
         if path == '/api/lineage-map':
-            # Large and unchanging between overlay rebuilds, so it is the one
-            # response worth letting a browser keep.
-            return self.respond(database.lineage_map(),
-                                cache_control='public, max-age=3600')
+            # 1.5 MB that changes only when the layout is rebuilt. A fixed
+            # max-age would keep showing the old map after a rebuild, so the
+            # browser revalidates every time and an unchanged map costs a 304.
+            payload = database.lineage_map()
+            body = json.dumps(payload, ensure_ascii=False, allow_nan=False).encode()
+            etag = 'W/"' + hashlib.sha256(body).hexdigest()[:32] + '"'
+            if self.headers.get('If-None-Match') == etag:
+                self.send_response(304)
+                self.send_header('ETag', etag)
+                self.send_header('Cache-Control', 'no-cache')
+                self.end_headers()
+                return None
+            return self.respond(body, content_type='application/json; charset=utf-8',
+                                cache_control='no-cache', etag=etag, raw=True)
         if path.startswith('/api/ancestry/'):
             direction = args.get('direction', 'ancestors')
             if direction not in {'ancestors', 'descendants'}:

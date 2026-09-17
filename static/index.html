@@ -23,6 +23,9 @@
           Connections
         </button>
         <button class="tab" data-tab="lineage" type="button">Lineage</button>
+        <button class="tab" data-tab="lineage-map" type="button">
+          Family map
+        </button>
         <button class="tab" data-tab="about" type="button">
           About &amp; coverage
         </button>
@@ -398,8 +401,7 @@
           </div>
           <div class="query-actions">
             <span class="subtle"
-              >Doctoral records are shown as documented; links that INSPIRE has
-              not confirmed are labelled as such.</span
+              >Doctoral records are shown exactly as INSPIRE documents them.</span
             >
             <button id="lineage-run" class="primary-button" type="submit">
               Show lineage <span aria-hidden="true">→</span>
@@ -433,6 +435,131 @@
         </section>
       </section>
 
+      <section
+        id="lineage-map"
+        class="view"
+        aria-labelledby="lineage-map-title"
+      >
+        <div class="section-intro">
+          <div>
+            <p class="eyebrow">Whole-forest map</p>
+            <h1 id="lineage-map-title">
+              Every documented family tree at once
+            </h1>
+            <p>
+              Each box is a researcher; each line is a documented adviser to
+              student record. Generations run downward, and every separate
+              family tree is drawn side by side. Zoom in to read names, search
+              to land on a person, or select a box to light up that person's own
+              lineage.
+            </p>
+          </div>
+        </div>
+
+        <div class="map-shell">
+          <div class="map-toolbar">
+            <div class="identity-field map-search">
+              <label class="map-sr" for="map-query"
+                >Find a researcher on the map</label
+              >
+              <div class="picker-wrap">
+                <input
+                  id="map-query"
+                  name="map-query"
+                  type="search"
+                  autocomplete="off"
+                  placeholder="Find a name or INSPIRE ID"
+                  aria-controls="map-results"
+                  aria-expanded="false"
+                  disabled
+                />
+              </div>
+              <div
+                id="map-results"
+                class="result-menu"
+                role="listbox"
+                aria-label="Map search suggestions"
+              ></div>
+            </div>
+            <div class="map-buttons">
+              <button
+                id="map-zoom-out"
+                class="secondary-button map-button"
+                type="button"
+                aria-label="Zoom out"
+              >
+                <span aria-hidden="true">−</span>
+              </button>
+              <button
+                id="map-zoom-in"
+                class="secondary-button map-button"
+                type="button"
+                aria-label="Zoom in"
+              >
+                <span aria-hidden="true">+</span>
+              </button>
+              <button id="map-fit" class="secondary-button" type="button">
+                Fit to screen
+              </button>
+            </div>
+          </div>
+          <div
+            id="map-stage"
+            class="map-stage"
+            tabindex="0"
+            aria-describedby="map-stage-help"
+          >
+            <canvas id="map-canvas" role="img" aria-labelledby="map-alt">
+            </canvas>
+            <div id="map-loading" class="map-loading">
+              Loading the family map…
+            </div>
+          </div>
+          <p id="map-stage-help" class="map-sr">
+            Drag to pan, scroll or pinch to zoom, and select a box for details.
+            With this area focused, the arrow keys pan, plus and minus zoom,
+            zero fits the whole map, and Escape clears the selection.
+          </p>
+          <div class="map-legend">
+            <span><i class="map-key map-key-node"></i>Researcher</span
+            ><span><i class="map-key map-key-ancestor"></i>Advisers above</span
+            ><span
+              ><i class="map-key map-key-descendant"></i>Students below</span
+            ><span id="map-zoom-readout" class="subtle"></span>
+          </div>
+        </div>
+
+        <div id="map-message" class="notice hidden"></div>
+        <p id="map-status" class="map-sr" role="status" aria-live="polite"></p>
+
+        <section
+          id="map-detail"
+          class="map-detail hidden"
+          aria-labelledby="map-detail-name"
+        >
+          <div class="map-detail-head">
+            <div>
+              <p class="eyebrow">Selected researcher</p>
+              <h2 id="map-detail-name">No one selected</h2>
+            </div>
+            <button
+              id="map-clear-selection"
+              class="secondary-button"
+              type="button"
+            >
+              Clear selection
+            </button>
+          </div>
+          <div id="map-detail-body" class="map-detail-body"></div>
+        </section>
+
+        <h2 class="map-alt-heading">What the map shows</h2>
+        <p id="map-alt" class="muted map-alt">
+          The family map has not been loaded yet.
+        </p>
+        <p id="map-meta" class="muted"></p>
+      </section>
+
       <section id="about" class="view about-view" aria-labelledby="about-title">
         <p class="eyebrow">Method &amp; scope</p>
         <h1 id="about-title">What this source can support</h1>
@@ -447,9 +574,9 @@
           <p>
             One hop between two researchers means they share enough qualifying
             published works: the works must survive the filters, and the count
-            of shared works must reach the threshold in use. This deployed
-            release contains coauthorship ties only; doctoral records
-            require a separately certified overlay that is not yet installed.
+            of shared works must reach the threshold in use. A doctoral
+            adviser-to-student record, when the doctoral filter is on, is a
+            separate kind of tie read from the student's own INSPIRE record.
           </p>
           <ol class="method-stages">
             <li>
@@ -546,8 +673,11 @@
               proceedings records are excluded.
             </p>
             <p>
-              Doctoral ties are not part of this release. They
-              would require a separate certified overlay before being offered.
+              Doctoral ties come from adviser records on each student's INSPIRE
+              profile and are shown as INSPIRE records them. Only relations
+              INSPIRE marks as doctoral count; INSPIRE lists an adviser for only
+              a small share of researchers, so a missing adviser usually means
+              none was recorded rather than none existed.
             </p>
           </article>
           <article class="data-card">
