@@ -332,6 +332,10 @@ input {
   cursor: pointer;
   filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.6));
   transition: opacity 0.2s ease;
+  /* three-globe's html-elements container sets pointer-events: none on
+     itself so camera-drag gestures pass through to the canvas; markers
+     must opt back in individually to stay clickable/focusable. */
+  pointer-events: auto;
 }
 .atlas-marker-label {
   font-size: 10px;
