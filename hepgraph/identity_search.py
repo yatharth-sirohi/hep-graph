@@ -17,6 +17,7 @@ from typing import Any
 
 from .graph import GraphError
 from .pipeline import PipelineError, _hits, sanitize_author, source_url
+from .remote import RemoteError
 
 
 MAX_RESULTS = 25
@@ -49,10 +50,18 @@ def author_search_query(value: str) -> str:
 
 
 def _person(recid: str, payload: dict[str, Any]) -> dict[str, Any]:
-    return {"id": recid, "name": payload.get("name") or f"INSPIRE author {recid}",
-            "orcid": payload.get("orcid"),
-            "affiliations": payload.get("affiliations") or [],
-            "profile_status": payload.get("profile_status") or "profile",
+    name = payload.get("name") or {}
+    preferred = (name.get("preferred_name") or name.get("value") or
+                 next(iter(name.get("name_variants") or []), f"INSPIRE author {recid}"))
+    positions = payload.get("positions") or []
+    current = [item["institution"] for item in positions if item.get("current")]
+    affiliations = list(dict.fromkeys(current or [item["institution"] for item in positions]))
+    orcid = next((item["value"] for item in payload.get("ids") or []
+                  if item.get("schema", "").lower() == "orcid"), None)
+    return {"id": recid, "name": preferred,
+            "orcid": orcid,
+            "affiliations": affiliations,
+            "profile_status": "profile",
             "source_url": source_url("authors", recid)}
 
 
@@ -67,9 +76,9 @@ def search(client: Any, query: str, *, provider: Any = None,
     if not isinstance(query, str) or not 2 <= len(query.strip()) <= 120:
         raise GraphError("invalid_input", "Search must contain 2-120 characters.")
     try:
-        response = client.fetch("authors", author_search_query(query), 1, limit)
+        response = client.search("authors", author_search_query(query), size=limit, page=1)
         hits = _hits(response)
-    except PipelineError as error:
+    except (PipelineError, RemoteError) as error:
         return {"status": "upstream_unavailable", "results": [], "source": "inspire",
                 "message": str(error)}
     results = []
