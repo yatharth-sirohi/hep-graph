@@ -10,14 +10,13 @@
     "kind": "detector",
     "lat": 36.4587536,
     "lon": 140.599175,
-    "note": "Position inherited from the J-PARC site geocoder point; the T2K instrumentation paper places the hall 280 m downstream of the production target on the same site, which is inside the stated precision. Not a surveyed detector coordinate.",
+    "note": "Position inherited from the J-PARC site geocoder point (kept as src:jparc-osm-nominatim in the record's top-level sources for provenance, but not cited on this coordinate because A17 forbids a geocoder backing a `detector`-kind point); the T2K instrumentation paper places the hall 280 m downstream of the production target on the same site, which is inside the stated precision. Not a surveyed detector coordinate.",
     "precision_m": 1500,
     "quote": "The near detector site at ~280 m from the production target houses on-axis and off-axis detectors.",
     "sources": [
-      "src:jparc-osm-nominatim",
       "src:t2k-nim-2011"
     ],
-    "verified_at": "2026-09-16"
+    "verified_at": "2026-09-17"
   },
   "countries": [
     "JP"
@@ -60,7 +59,8 @@
   "setting": "underground",
   "sources": [
     "src:t2k-nim-2011",
-    "src:kek-neutrino-group-nd-page"
+    "src:kek-neutrino-group-nd-page",
+    "src:jparc-osm-nominatim"
   ],
   "summary": {
     "plain": "An underground pit on the J-PARC site, 280 metres from the target where the neutrinos are made. It holds the detectors that measure the beam before the neutrinos have had time to change type.",

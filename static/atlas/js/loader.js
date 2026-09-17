@@ -114,9 +114,15 @@ export async function getProvenance() {
   return fetchJSON('provenance.json');
 }
 
-/** Returns { list: [record,...] (in canonical order), byId: Map }. */
+/** Returns { list: [record,...] (in canonical order), byId: Map }.
+ *
+ * The generated bundles are a flat map of id to record; the fixtures wrap the
+ * same map under a named key alongside an explicit order. Reading only the
+ * wrapped form left results and documents silently empty against real data.
+ */
 function orderedBundle(raw, key) {
-  const table = raw[key] || {};
+  const table = raw[key]
+    || Object.fromEntries(Object.entries(raw).filter(([id]) => id.includes(':')));
   const order = Array.isArray(raw.order) ? raw.order : Object.keys(table).sort();
   const list = order.filter((id) => table[id]).map((id) => table[id]);
   const byId = new Map(list.map((record) => [record.id, record]));
