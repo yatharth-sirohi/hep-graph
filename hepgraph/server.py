@@ -176,12 +176,12 @@ class Handler(BaseHTTPRequestHandler):
     def log_message(self, fmt, *args):
         LOG.info('%s %s', self.address_string(), fmt % args)
 
-    def respond(self, value, status=200, content_type='application/json; charset=utf-8'):
+    def respond(self, value, status=200, content_type='application/json; charset=utf-8', *, cache_control=None):
         body = json.dumps(value, ensure_ascii=False, allow_nan=False).encode() if content_type.startswith('application/json') else value
         self.send_response(status)
         self.send_header('Content-Type', content_type)
         self.send_header('Content-Length', str(len(body)))
-        self.send_header('Cache-Control', 'no-store' if content_type.startswith('application/json') else 'no-cache')
+        self.send_header('Cache-Control', cache_control or ('no-store' if content_type.startswith('application/json') else 'no-cache'))
         self.send_header('X-Content-Type-Options', 'nosniff')
         # Which process answered. Lets a client tell whether the polls of one
         # search all reached the same instance; carries nothing sensitive.
@@ -320,6 +320,11 @@ class Handler(BaseHTTPRequestHandler):
             return self.respond(database.neighborhood(
                 person_id(path.removeprefix('/api/neighborhood/')), filters,
                 limit=integer(args.get('limit'), 40, 1, 80)))
+        if path == '/api/lineage-map':
+            # Large and unchanging between overlay rebuilds, so it is the one
+            # response worth letting a browser keep.
+            return self.respond(database.lineage_map(),
+                                cache_control='public, max-age=3600')
         if path.startswith('/api/ancestry/'):
             direction = args.get('direction', 'ancestors')
             if direction not in {'ancestors', 'descendants'}:

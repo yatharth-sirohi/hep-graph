@@ -407,6 +407,22 @@ class DatabaseGraphService:
                     for identifier in wanted}
         return hydrator.hydrate_people(wanted)
 
+    def lineage_map(self) -> dict[str, Any]:
+        """The whole doctoral forest, laid out once and read back whole.
+
+        This is the one payload the application sends in bulk. It is a derived
+        drawing of relations already public on INSPIRE, and it is precomputed
+        rather than assembled per request.
+        """
+        if self.config.overlay_id is None:
+            return {"status": "unavailable",
+                    "message": "Doctoral records are not part of this release."}
+        from .lineage_map import read_map
+
+        coverage = self.coverage()
+        return read_map(self.connection(), self.config.overlay_id,
+                        f"graph-db:{coverage.import_id}")
+
     def owns_job(self, job_id: str) -> bool:
         row = self.job_connection().execute(
             "SELECT 1 FROM graph_search_job WHERE job_id=%s", (job_id,)).fetchone()
