@@ -61,10 +61,10 @@ baseline and its two sites, evidence-class consistency with source type,
 claim-level quotes where the contract requires them, and duplicate sources by
 normalised URL or DOI.
 
-Errors fell from **368** at the first run against real data to **16** at the
-time of writing, and the pilot gate stayed green through every change.
+Errors fell from **368** at the first run against real data to **zero**, and
+the pilot gate stayed green through every change.
 
-The test suite runs 730 tests. The pre-existing HEP Graph suite is unchanged at
+The test suite runs 730 Python tests and 14 browser checks. The pre-existing HEP Graph suite is unchanged at
 527 passed with one known expected failure, verified in isolation; the
 remainder are new atlas tests covering the schema and temporal semantics, the
 validator (one deliberately mutated fixture per rule), the build and its
@@ -100,10 +100,41 @@ in the CMS results, where the contract requires an announcement date to win
 over a later preprint; a detector-kind coordinate resting on a Wikipedia
 infobox; and duplicate source records shared with other workstreams.
 
-### Scientific and historical review, and user-experience review
+### Scientific and historical review (`REVIEW_scientific.md`)
 
-In progress at the time of writing; their reports are
-`docs/atlas-worklog/REVIEW_scientific.md` and `REVIEW_ux.md`.
+Zero P0 findings across Fermilab and DUNE, the Fermilab neutrino programme,
+Japan, CERN and ATLAS, and the historic experiments. 32 technical values were
+re-fetched and matched word for word against their cited primary sources, and
+`state_at` was swept across 1975, 1985, 1995, 2005, 2012, 2020 and 2026 for
+every entity in scope. Its verdict: a physicist would trust this data. Its one
+P1 — Fermilab derived as under construction in every year since 1969 — turned
+out to be an unimplemented contract rule rather than a data error, and is
+fixed: only lifecycle intervals may set the timeline state.
+
+### Performance and adversarial review (`REVIEW_performance.md`)
+
+Zero P0. No hang, crash, leak or security failure: eleven path-traversal
+variants were refused, 400 concurrent asset requests never reached the query
+workers or the search rate budget, and memory plateaus after repeated
+navigation. Four P1s, all fixed: no compression at all (the globe library alone
+was 1.7 MB uncompressed), a half-megabyte institutions bundle fetched on first
+load and never read, share links silently discarding a year or a range, and
+search ranking burying the thing a person searched for.
+
+### User-experience review (`REVIEW_ux.md`)
+
+The most valuable review of the four. Four P0 defects, and its verdict was
+blunt: "a newcomer would not understand what they're looking at, and an expert
+would not trust it past the first timeline scrub — not because the underlying
+data is bad, but because four field-name bugs between that data and the screen
+make the interface state things the atlas's own data directly contradicts."
+The status badge ignored the selected year, so ATLAS read "Upgrade" in 1995;
+plain-language summaries existed in the data but never rendered; every
+collaboration read "0 confirmed members" above a correct institution count; and
+all 56 documents showed blank titles. All are fixed and independently
+re-verified against the real bundles, along with four more of the same class
+found while auditing for it — including topic pages that listed no experiments
+and no results at all.
 
 ### Integration defects found by the orchestrator
 
@@ -157,4 +188,5 @@ python -m hepgraph.atlas.build        # regenerate static/atlas/generated/
 python -m pytest -q                   # 730 tests
 python scripts/atlas_coverage_report.py --check   # coverage doc matches the data
 node tests/browser_atlas.cjs          # globe, panels, timeline, mobile, fallback
+HEP_ATLAS_DATA=generated node tests/browser_atlas.cjs   # the same against real data
 ```
