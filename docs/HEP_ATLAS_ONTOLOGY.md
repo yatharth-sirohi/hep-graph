@@ -135,7 +135,10 @@ and `result.published` optional Dates; `result.date` remains the display date
 `globe_ready` are build outputs; `registry` rows keep planning fields only
 (`entity_id`/`experiment_id`, `tier`, `priority`, `owner`, `researched`,
 `missing_fields`, `notes`). Entity `status` must equal the derived state at
-the build date or the validator errors.
+the build date, **except** where a terminal interval has already started by
+that date: presence ends there, so the derived state is `None` and `status`
+must instead equal that terminal interval's own status. A decommissioned
+accelerator says `decommissioned`, not nothing.
 
 **A11. Every data file may carry `"schema": "hep-atlas/0.2"`; the build adds
 it if missing. Canonical formatting: `json.dumps(sort_keys=True, indent=2,
@@ -661,7 +664,9 @@ work. The registry is the honest statement of what the atlas covers.
 `planned`.
 
 Terminal statuses: `completed`, `decommissioned`, `cancelled`. A terminal
-interval must have an `end` unless `confidence` is `uncertain` with a note.
+interval is an **event**: `end` is optional, and where given it may not precede
+`start` (A3). (An earlier draft required an end here; it was withdrawn, because
+the end of ALEPH's `completed` is not a fact anyone can source.)
 
 Timeline semantics: at year *Y* an entity is **present** if some interval
 covers *Y*; its **state** is that interval's status; a `proposed`/`planned`
@@ -728,8 +733,11 @@ types without changing entity files.
 | `search.json` | typed search index `[type, id, name, aliases, subtitle]` | search focus |
 | `graph.json` | edge list (§7) | on demand |
 
-Bundle budget: `atlas.json` + `manifest.json` ≤ 400 KB uncompressed for the
-pilot; the build fails above 1.5 MB and prints per-type sizes.
+Bundle budget: `atlas.json` + `manifest.json` ≤ 400 KB uncompressed was set
+against the three-experiment pilot and is now a warning threshold rather than a
+target; at 30 experiments the bundle is ~457 KB. The build still fails above
+1.5 MB and prints per-type sizes, and the lazily loaded bundles (provenance,
+sources, institutions, text, graph) are where growth is expected to land.
 
 ## 9. Validation (structural, build-failing)
 

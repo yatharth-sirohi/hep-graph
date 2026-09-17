@@ -67,6 +67,13 @@ function renderLegend() {
 }
 
 async function main() {
+  // Read the URL before anything else. The components created below call
+  // state.navigate() as they initialise, and navigate() rebuilds the address
+  // from the current state — so if the route has not been parsed yet, the
+  // entity in a shared link is written out of the URL before it is ever read,
+  // and every deep link opens the globe with no panel.
+  state.init();
+
   const { notice } = await loader.init();
   setNotice(notice);
 

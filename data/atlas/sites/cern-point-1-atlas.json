@@ -7,18 +7,17 @@
   ],
   "altitude": null,
   "coordinates": {
-    "confidence": "approximate",
+    "confidence": "uncertain",
     "kind": "detector",
     "lat": 46.2355606,
-    "locator": "Nominatim search result 1 for 'ATLAS, Meyrin, Switzerland'",
+    "locator": "Meyrin Site – Point 1 (CERN and its Neighbours)",
     "lon": 6.0546968,
-    "note": "OpenStreetMap/Nominatim centroid of the surface enclosure named 'CERN - Point 1 (ATLAS)'. precision_m 300 covers the offset between that surface polygon and the underground interaction point. A17 requires an official or geodetic source for kind 'detector' coordinates - this value does not meet that bar and is flagged for review.",
-    "precision_m": 300,
-    "quote": "lat 46.2355606, lon 6.0546968, display_name 'CERN - Point 1 (ATLAS), Chemin de la Berne, Meyrin, Genève, 1217', osm_type way, osm_id 340213340",
+    "note": "REVIEW REQUIRED (A17), after real effort: no CERN geodetic-survey or metrology publication giving WGS84 coordinates for the underground ATLAS cavern was found (searched CERN survey/metrology conference papers, the ATLAS JINST detector paper, CERN's neighbours/open-days pages for Point 1, and Wikipedia's own infobox, which itself carries no citation for its coordinate). The numeric value is inherited from an OpenStreetMap/Nominatim centroid for the surface enclosure named 'CERN - Point 1 (ATLAS)' (kept as src:cern-point-1-osm-nominatim in the record's top-level sources for provenance); that geocoder source is not cited on this coordinate because A17 forbids a geocoder backing a `detector`-kind point. precision_m widened from 300 to 500 m to reflect that this is an unsurveyed estimate.",
+    "precision_m": 500,
     "sources": [
-      "src:cern-point-1-osm-nominatim"
+      "src:cern-meyrin-site-point-1"
     ],
-    "verified_at": "2026-09-16"
+    "verified_at": "2026-09-17"
   },
   "countries": [
     "CH"
@@ -74,7 +73,7 @@
   },
   "name": "LHC Point 1 (ATLAS cavern)",
   "notes": [
-    "REVIEW REQUIRED (A17): the coordinates rest on a geocoder source only. No official CERN or geodetic publication giving WGS84 coordinates for LHC Point 1 was reachable in this session (cds.cern.ch is behind bot protection; home.cern and atlas.cern state only that ATLAS 'sits in a cavern 100 m below ground near the main CERN site, close to the village of Meyrin')."
+    "REVIEW REQUIRED (A17): no official CERN or geodetic publication giving WGS84 coordinates for LHC Point 1 was found after real effort (cds.cern.ch is behind bot protection; home.cern and atlas.cern state only that ATLAS 'sits in a cavern 100 m below ground near the main CERN site, close to the village of Meyrin'). The coordinate value is a geocoder estimate; see coordinates.note."
   ],
   "place": {
     "city": "Meyrin",
