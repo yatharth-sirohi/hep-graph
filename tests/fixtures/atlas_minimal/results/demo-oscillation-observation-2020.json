@@ -1,35 +1,60 @@
 {
   "aliases": [],
+  "announced": {
+    "confidence": "verified",
+    "locator": "News, 'Demo sees oscillations'",
+    "note": "conference announcement",
+    "sources": [
+      "src:demo-experiment-site"
+    ],
+    "value": "2020-02-11",
+    "verified_at": "2026-09-16"
+  },
+  "claim": {
+    "locator": "abstract",
+    "quote": "We report the observation of nu_e appearance at 5.2 sigma.",
+    "sources": [
+      "src:demo-result-paper"
+    ]
+  },
   "collaboration_ids": [
     "collaboration:demo"
   ],
   "coverage": {
     "researched": "full",
-    "tier": "A",
-    "validated": true
+    "tier": "A"
   },
   "date": {
     "confidence": "verified",
-    "note": "publication date",
+    "locator": "title page",
+    "note": "journal publication date",
     "sources": [
       "src:demo-result-paper"
     ],
     "value": "2020-03-15",
     "verified_at": "2026-09-16"
   },
+  "date_kind": "publication",
   "detector_ids": [
     "detector:demo-far-detector"
   ],
   "experiment_ids": [
-    "experiment:demo"
+    {
+      "id": "experiment:demo",
+      "sources": [
+        "src:demo-result-paper"
+      ]
+    }
   ],
   "facility_ids": [
     "facility:demo-lab"
   ],
   "hepdata": null,
   "id": "result:demo-oscillation-observation-2020",
-  "key_value": {
+  "key_value": null,
+  "key_value_text": {
     "confidence": "verified",
+    "locator": "abstract",
     "note": "",
     "sources": [
       "src:demo-result-paper"
@@ -56,10 +81,24 @@
     "doi": "10.0000/demo-result",
     "inspire": 1790000
   },
+  "publication_source_id": "src:demo-result-paper",
+  "published": {
+    "confidence": "verified",
+    "locator": "title page",
+    "note": "",
+    "sources": [
+      "src:demo-result-paper"
+    ],
+    "value": "2020-03-15",
+    "verified_at": "2026-09-16"
+  },
   "result_type": "observation",
+  "schema": "hep-atlas/0.2",
   "significance": {
     "confidence": "verified",
+    "locator": "abstract",
     "note": "",
+    "quote": "at 5.2 sigma",
     "sources": [
       "src:demo-result-paper"
     ],
@@ -71,7 +110,7 @@
     "src:demo-experiment-site"
   ],
   "summary": {
-    "plain": "The experiment saw neutrinos change type over 800 kilometres.",
+    "plain": "The experiment saw neutrinos change type over 1300 kilometres.",
     "technical": "nu_e appearance at 5.2 sigma with 2010-2018 data."
   },
   "title": "Observation of demo oscillations",

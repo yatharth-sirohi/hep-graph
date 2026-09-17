@@ -1,28 +1,25 @@
 {
-  "accelerator_ids": [
-    "accelerator:demo-synchrotron"
-  ],
   "aliases": [
     "DemoLab"
   ],
-  "beamline_ids": [
-    "beamline:demo-beam"
+  "countries": [
+    "US"
   ],
   "country": [
     "US"
   ],
   "coverage": {
     "researched": "full",
-    "tier": "A",
-    "validated": true
+    "tier": "A"
   },
   "id": "facility:demo-lab",
-  "institution_id": "institution:demo-lab",
   "intervals": [
     {
       "confidence": "verified",
       "end": null,
+      "kind": "lifecycle",
       "label": "founded",
+      "locator": "About page, 'History'",
       "note": "",
       "sources": [
         "src:demo-lab-site"
@@ -46,8 +43,12 @@
   },
   "name": "Demo Laboratory",
   "notes": [],
-  "operator": {
+  "operator_ids": [
+    "institution:demo-lab"
+  ],
+  "operator_text": {
     "confidence": "verified",
+    "locator": "About page, 'Operator'",
     "note": "",
     "sources": [
       "src:demo-lab-site"
@@ -57,9 +58,7 @@
   },
   "primary_site_id": "site:demo-lab-campus",
   "related_facility_ids": [],
-  "site_ids": [
-    "site:demo-lab-campus"
-  ],
+  "schema": "hep-atlas/0.2",
   "sources": [
     "src:demo-lab-site"
   ],
@@ -69,6 +68,7 @@
       "confidence": "verified",
       "dimension": "power",
       "display": "700 kW",
+      "locator": "About page, 'Accelerator complex'",
       "note": "",
       "sources": [
         "src:demo-lab-site"

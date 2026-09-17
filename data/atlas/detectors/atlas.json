@@ -1,0 +1,346 @@
+{
+  "aliases": [
+    "ATLAS"
+  ],
+  "coverage": {
+    "researched": "full",
+    "tier": "A",
+    "validated": false
+  },
+  "experiment_ids": [
+    "experiment:atlas"
+  ],
+  "id": "detector:atlas",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2008-09",
+      "label": "construction and installation",
+      "note": "",
+      "quote": "In July 1997, formal construction approval for ATLAS was given by CERN's Director General, starting with the calorimeters.",
+      "sources": [
+        "src:atlas-happy-birthday-news",
+        "src:atlas-detector-jinst-2008"
+      ],
+      "start": "1997-07",
+      "status": "construction",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "verified",
+      "end": "2026-06",
+      "label": "operating",
+      "locator": "INSPIRE experiment record 1108541, field date_started",
+      "note": "From the first recorded proton-proton collisions to the LHC switch-off for Long Shutdown 3 in June 2026.",
+      "sources": [
+        "src:atlas-inspire-experiment-record",
+        "src:atlas-run3-first-collisions",
+        "src:cern-ls3-farewell-2026"
+      ],
+      "start": "2009-11-23",
+      "status": "active",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "approximate",
+      "end": {
+        "approx": true,
+        "date": "2029",
+        "planned": true
+      },
+      "label": "Phase-II upgrade (LS3)",
+      "note": "",
+      "quote": "They will all be installed and commissioned during LS3 in time for the start of Run 4, currently planned for 2029.",
+      "sources": [
+        "src:atlas-high-luminosity-feature",
+        "src:cern-long-shutdown-3-page"
+      ],
+      "start": "2026-06",
+      "status": "upgrade",
+      "verified_at": "2026-09-16"
+    }
+  ],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "note": "",
+      "sources": [
+        "src:atlas-detector-page"
+      ],
+      "value": "https://atlas.cern/Discover/Detector",
+      "verified_at": "2026-09-16"
+    }
+  },
+  "name": "ATLAS detector",
+  "notes": [
+    "CONFLICT on the overall length: the 2008 JINST detector paper says 'The dimensions of the detector are 25 m in height and 44 m in length', while atlas.cern ('46m long') and home.cern ('At 46 m long, 25 m high and 25 m wide') say 46 m. The 46 m value from the collaboration's own current page is recorded in specs.length; the 44 m JINST value is kept in the note of that quantity. The most likely explanation is that the two figures count the forward shielding differently, but no fetched source says so.",
+    "CONFLICT on the toroid field: atlas.cern's magnet page says the toroids 'provide a magnetic field of up to 3.5 Tesla' in its text and lists '4 T magnetic field on superconductor' in its barrel- and end-cap-toroid tables. 3.5 T is recorded as the delivered field and 4 T is noted as the peak on the conductor.",
+    "Trigger numbers are the 2008 design values from the JINST paper; atlas.cern's current Trigger & DAQ page quotes up to 100 000 events/s after the first level and ~1000 events/s to storage."
+  ],
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "locator": "arXiv:2305.16623, abstract; 2008 JINST 3 S08003 abstract uses the same wording",
+      "note": "Start = 2008, when the JINST detector paper described the installation as nearing completion; year precision.",
+      "quote": "The ATLAS detector is installed in its experimental cavern at Point 1 of the CERN Large Hadron Collider.",
+      "role": "main",
+      "site_id": "site:cern-point-1-atlas",
+      "sources": [
+        "src:atlas-run3-detector-paper-2024",
+        "src:atlas-detector-jinst-2008",
+        "src:atlas-detector-page"
+      ],
+      "start": "2008",
+      "verified_at": "2026-09-16"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:atlas-detector-page",
+    "src:atlas-detector-jinst-2008",
+    "src:atlas-detector-jinst-2008-ch01",
+    "src:cern-atlas-page",
+    "src:atlas-run3-detector-paper-2024"
+  ],
+  "specs": {
+    "calorimeters": {
+      "confidence": "verified",
+      "note": "",
+      "quote": "High granularity liquid-argon (LAr) electromagnetic sampling calorimeters, with excellent performance in terms of energy and position resolution, cover the pseudorapidity range |eta| < 3.2.",
+      "sources": [
+        "src:atlas-calorimeter-page",
+        "src:atlas-detector-jinst-2008-ch01"
+      ],
+      "value": "Liquid-argon electromagnetic calorimeter with accordion geometry kept at -184 C, scintillator-tile hadronic calorimeter of about 420 000 tiles weighing almost 2900 tonnes, and liquid-argon hadronic end-cap and forward calorimeters",
+      "verified_at": "2026-09-16"
+    },
+    "diameter": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "25 m",
+      "locator": "2008 JINST 3 S08003, figure 1.1 caption",
+      "note": "atlas.cern gives '25m in diameter'; home.cern gives '25 m high and 25 m wide'. All three agree on 25 m.",
+      "quote": "The dimensions of the detector are 25 m in height and 44 m in length.",
+      "sources": [
+        "src:atlas-detector-page",
+        "src:cern-atlas-page",
+        "src:atlas-detector-jinst-2008-ch01"
+      ],
+      "unit": "m",
+      "value": 25,
+      "verified_at": "2026-09-16"
+    },
+    "length": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "46 m",
+      "note": "The 2008 JINST detector paper instead states 44 m: 'The dimensions of the detector are 25 m in height and 44 m in length.' See the record notes.",
+      "quote": "ATLAS has the dimensions of a cylinder, 46m long, 25m in diameter, and sits in a cavern 100m below ground.",
+      "sources": [
+        "src:atlas-detector-page",
+        "src:cern-atlas-page"
+      ],
+      "unit": "m",
+      "value": 46,
+      "verified_at": "2026-09-16"
+    },
+    "muon_system": {
+      "confidence": "verified",
+      "note": "",
+      "quote": "The calorimeter is surrounded by the muon spectrometer. The air-core toroid system, with a long barrel and two inserted end-cap magnets, generates strong bending power in a large volume within a light and open structure.",
+      "sources": [
+        "src:atlas-detector-jinst-2008-ch01",
+        "src:atlas-muon-spectrometer-page"
+      ],
+      "value": "Air-core toroid muon spectrometer with three layers of precision tracking chambers - monitored drift tubes, plus resistive plate, thin-gap, small-strip thin-gap chambers and Micromegas for triggering",
+      "verified_at": "2026-09-16"
+    },
+    "pseudorapidity_coverage": {
+      "confidence": "verified",
+      "locator": "2008 JINST 3 S08003, chapter 1 and table 1.1",
+      "note": "",
+      "quote": "The LAr forward calorimeters provide both electromagnetic and hadronic energy measurements, and extend the pseudorapidity coverage to |eta| = 4.9.",
+      "sources": [
+        "src:atlas-detector-jinst-2008-ch01"
+      ],
+      "value": "Precision tracking |eta| < 2.5; electromagnetic calorimetry |eta| < 3.2 extended to |eta| = 4.9 by the forward calorimeters; muon spectrometer |eta| < 2.7 (trigger 2.4)",
+      "verified_at": "2026-09-16"
+    },
+    "solenoid_field": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "magnetic_field",
+      "display": "2 T",
+      "locator": "2008 JINST 3 S08003, chapter 1",
+      "note": "",
+      "quote": "The inner detector is immersed in a 2 T solenoidal field.",
+      "sources": [
+        "src:atlas-detector-jinst-2008-ch01",
+        "src:atlas-magnet-system-page"
+      ],
+      "unit": "T",
+      "value": 2,
+      "verified_at": "2026-09-16"
+    },
+    "toroid_field": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "magnetic_field",
+      "display": "up to 3.5 T",
+      "note": "The same page's magnet tables list '4 T magnetic field on superconductor' for the barrel and end-cap toroids.",
+      "quote": "The ATLAS toroids use a series of eight coils to provide a magnetic field of up to 3.5 Tesla",
+      "sources": [
+        "src:atlas-magnet-system-page"
+      ],
+      "unit": "T",
+      "value": 3.5,
+      "verified_at": "2026-09-16"
+    },
+    "total_mass": {
+      "approx": true,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "7000 t",
+      "locator": "2008 JINST 3 S08003, figure 1.1 caption",
+      "note": "",
+      "quote": "The overall weight of the detector is approximately 7000 tonnes.",
+      "sources": [
+        "src:atlas-detector-page",
+        "src:cern-atlas-page",
+        "src:atlas-detector-jinst-2008-ch01"
+      ],
+      "unit": "t",
+      "value": 7000,
+      "verified_at": "2026-09-16"
+    },
+    "tracker": {
+      "confidence": "verified",
+      "note": "",
+      "quote": "Located just 3.3 cm from the LHC beam line, the Pixel Detector is the first point of detection in the ATLAS experiment.",
+      "sources": [
+        "src:atlas-inner-detector-page"
+      ],
+      "value": "Silicon pixel detector (92 million pixels, innermost layer 3.3 cm from the beam), semiconductor tracker (about 4000 modules, 6 million silicon micro-strips over 60 m^2) and transition radiation tracker (300 000 thin-walled drift tubes)",
+      "verified_at": "2026-09-16"
+    },
+    "trigger_rate": {
+      "approx": true,
+      "confidence": "verified",
+      "dimension": "rate",
+      "display": "~75 kHz (Level-1)",
+      "locator": "2008 JINST 3 S08003, chapter 1",
+      "note": "Design Level-1 output rate; the high-level trigger reduces this to 'a final data-taking rate of approximately 200 Hz' (same source). atlas.cern's current page quotes up to 100 000 events/s after the first stage and about 1000 events/s to storage.",
+      "quote": "reducing the data rate to approximately 75 kHz (limited by the bandwidth of the readout system, which is upgradeable to 100 kHz)",
+      "sources": [
+        "src:atlas-detector-jinst-2008-ch01"
+      ],
+      "unit": "kHz",
+      "value": 75,
+      "verified_at": "2026-09-16"
+    }
+  },
+  "status": "upgrade",
+  "subsystems": [
+    {
+      "description": {
+        "confidence": "verified",
+        "note": "",
+        "quote": "The precision tracking detectors (pixels and SCT) cover the region |eta| < 2.5.",
+        "sources": [
+          "src:atlas-inner-detector-page",
+          "src:atlas-detector-jinst-2008-ch01"
+        ],
+        "value": "Pixel detector, semiconductor tracker and transition radiation tracker inside the 2 T solenoid, reconstructing charged-particle tracks and vertices for |eta| < 2.5",
+        "verified_at": "2026-09-16"
+      },
+      "name": "Inner Detector"
+    },
+    {
+      "description": {
+        "confidence": "verified",
+        "note": "",
+        "quote": "Barrel 6.4m long, 53cm thick, 110,000 channels",
+        "sources": [
+          "src:atlas-calorimeter-page"
+        ],
+        "value": "Accordion-geometry lead/liquid-argon sampling calorimeter measuring electron and photon energies; barrel 6.4 m long, 53 cm thick, 110 000 channels, held at -184 C",
+        "verified_at": "2026-09-16"
+      },
+      "name": "Liquid-argon electromagnetic calorimeter"
+    },
+    {
+      "description": {
+        "confidence": "verified",
+        "note": "",
+        "quote": "made up of about 420,000 plastic scintillator tiles",
+        "sources": [
+          "src:atlas-calorimeter-page"
+        ],
+        "value": "Steel and plastic-scintillator sampling calorimeter of about 420 000 tiles and 9500 photomultipliers weighing almost 2900 tonnes, measuring hadron and jet energies in the barrel region",
+        "verified_at": "2026-09-16"
+      },
+      "name": "Tile hadronic calorimeter"
+    },
+    {
+      "description": {
+        "confidence": "verified",
+        "note": "",
+        "quote": "1,171 chambers with total 354,240 tubes (3 cm diameter, 0.85-6.5 m long)",
+        "sources": [
+          "src:atlas-muon-spectrometer-page"
+        ],
+        "value": "Three layers of precision chambers in the air-core toroid field, including 1171 monitored-drift-tube chambers with 354 240 tubes, and wheels 25 m in diameter at each end",
+        "verified_at": "2026-09-16"
+      },
+      "name": "Muon spectrometer"
+    },
+    {
+      "description": {
+        "confidence": "verified",
+        "note": "",
+        "quote": "At 25.3 m in length, the central toroid is the largest toroidal magnet ever constructed",
+        "sources": [
+          "src:atlas-magnet-system-page"
+        ],
+        "value": "Central superconducting solenoid giving 2 T in 4.5 cm of material with 38 MJ stored energy, a 25.3 m long barrel toroid of eight coils with 1.08 GJ stored, and two end-cap toroids with 0.25 GJ each",
+        "verified_at": "2026-09-16"
+      },
+      "name": "Magnet system"
+    },
+    {
+      "description": {
+        "confidence": "verified",
+        "note": "",
+        "quote": "The second-level trigger finally selects about 1000 events per second and passes them on to a data storage system for offline analysis.",
+        "sources": [
+          "src:atlas-trigger-daq-page"
+        ],
+        "value": "Two-stage trigger selecting interesting collisions out of up to 1.7 billion per second and writing about 1000 events per second to storage, with the first-level decision taken in under 2.5 microseconds",
+        "verified_at": "2026-09-16"
+      },
+      "name": "Trigger and data acquisition"
+    }
+  ],
+  "summary": {
+    "plain": "A cylinder 46 metres long and 25 metres across weighing 7000 tonnes - the largest particle detector ever built. Layers of tracking chambers, calorimeters and muon chambers wrap around the point where the two proton beams meet, so that almost everything produced in a collision leaves a trace somewhere.",
+    "technical": "General-purpose 4-pi collider detector: silicon pixel + SCT + TRT inner detector in a 2 T solenoid, liquid-argon EM and forward calorimetry, scintillator-tile hadronic calorimeter, and an air-core toroid muon spectrometer. Calorimetry to |eta| = 4.9, precision tracking to |eta| < 2.5, muon measurement to |eta| < 2.7."
+  },
+  "technology": {
+    "confidence": "verified",
+    "note": "",
+    "quote": "The magnet configuration comprises a thin superconducting solenoid surrounding the inner-detector cavity, and three large superconducting toroids (one barrel and two end-caps) arranged with an eight-fold azimuthal symmetry around the calorimeters.",
+    "sources": [
+      "src:atlas-detector-jinst-2008-ch01"
+    ],
+    "value": "General-purpose 4-pi collider detector with a thin superconducting solenoid around the inner-detector cavity and three large superconducting air-core toroids around the calorimeters",
+    "verified_at": "2026-09-16"
+  },
+  "technology_class": "general_purpose_collider",
+  "technology_classes": [
+    "general_purpose_collider"
+  ],
+  "type": "detector"
+}

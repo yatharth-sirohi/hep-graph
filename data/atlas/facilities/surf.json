@@ -1,0 +1,159 @@
+{
+  "aliases": [
+    "SURF",
+    "Sanford Lab",
+    "Sanford Underground Laboratory",
+    "Homestake"
+  ],
+  "countries": [
+    "US"
+  ],
+  "country": [
+    "US"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "A",
+    "validated": false
+  },
+  "id": "facility:surf",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2001",
+      "label": "Homestake gold mine",
+      "locator": "page 'Our story'",
+      "note": "Predecessor operation on the same site; the mine closed before the laboratory was created.",
+      "quote": "SURF is indelibly linked to the history of the Homestake Mine, which operated from 1876 until 2001.",
+      "sources": [
+        "src:surf-our-story"
+      ],
+      "start": "1876",
+      "status": "completed",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "South Dakota Science and Technology Authority formed",
+      "locator": "page 'Our story'",
+      "note": "Creation of the operating authority; no end date.",
+      "quote": "In 2004, then-Governor Mike Rounds and the State Legislature formed the South Dakota Science and Technology Authority",
+      "sources": [
+        "src:surf-our-story"
+      ],
+      "start": "2004",
+      "status": "approved",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "operating as an underground laboratory",
+      "locator": "abstract",
+      "note": "",
+      "quote": "The Sanford Underground Research Facility (SURF) has been operating since 2007 supporting underground research in rare-process physics",
+      "sources": [
+        "src:surf-heise-snowmass-2022"
+      ],
+      "start": "2007",
+      "status": "active",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "verified",
+      "end": "2009",
+      "label": "4850 Level dedicated",
+      "locator": "page 'Our story'",
+      "note": "Dedication of the 4850 Level after dewatering; treated as a commissioning event with year precision.",
+      "quote": "After an extensive dewatering process, the 4850 Level of SURF was dedicated in 2009.",
+      "sources": [
+        "src:surf-our-story"
+      ],
+      "start": "2009",
+      "status": "commissioning",
+      "verified_at": "2026-09-16"
+    }
+  ],
+  "kind": "underground_laboratory",
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "note": "",
+      "sources": [
+        "src:surf-official-site"
+      ],
+      "value": "https://sanfordlab.org/",
+      "verified_at": "2026-09-16"
+    }
+  },
+  "name": "Sanford Underground Research Facility",
+  "notes": [],
+  "operator_ids": [],
+  "operator_text": {
+    "confidence": "verified",
+    "locator": "page 'Our story'",
+    "note": "",
+    "quote": "In 2004, then-Governor Mike Rounds and the State Legislature formed the South Dakota Science and Technology Authority to study the feasibility of turning the mine into a research laboratory.",
+    "sources": [
+      "src:surf-official-site",
+      "src:surf-our-story"
+    ],
+    "value": "South Dakota Science and Technology Authority",
+    "verified_at": "2026-09-16"
+  },
+  "primary_site_id": "site:surf-surface-campus",
+  "related_facility_ids": [
+    "facility:fermilab"
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:surf-official-site",
+    "src:surf-our-story",
+    "src:surf-heise-snowmass-2022",
+    "src:surf-sdsta-ror-record"
+  ],
+  "specs": {
+    "depth": {
+      "approx": true,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "1500 m (4850-foot level)",
+      "locator": "abstract",
+      "note": "Rock depth of the 4850-foot level as quoted by the facility scientific director; a 2024 paper by the same author gives 1490 m.",
+      "quote": "campuses at the 4850-foot level (1500 m, 4300 m.w.e.)",
+      "sources": [
+        "src:surf-heise-snowmass-2022"
+      ],
+      "unit": "m",
+      "value": 1500,
+      "verified_at": "2026-09-16"
+    },
+    "overburden": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "depth_mwe",
+      "display": "4300 m.w.e.",
+      "locator": "abstract",
+      "note": "",
+      "quote": "campuses at the 4850-foot level (1500 m, 4300 m.w.e.)",
+      "sources": [
+        "src:surf-heise-snowmass-2022"
+      ],
+      "unit": "m.w.e.",
+      "value": 4300,
+      "verified_at": "2026-09-16"
+    }
+  },
+  "status": "active",
+  "summary": {
+    "plain": "A laboratory built in a former gold mine in Lead, South Dakota. Nearly a mile of rock above it blocks cosmic rays, so experiments there can look for very rare events, including the giant DUNE neutrino detectors.",
+    "technical": "Underground laboratory operated by the South Dakota Science and Technology Authority in the former Homestake mine. The 4850-foot level (about 1500 m of rock, 4300 m.w.e.) hosts LZ, the Majorana Demonstrator, CASPAR and the LBNF/DUNE far-detector campus."
+  },
+  "topic_ids": [
+    "topic:neutrino-physics",
+    "topic:direct-dark-matter-detection",
+    "topic:neutrinoless-double-beta-decay"
+  ],
+  "type": "facility"
+}

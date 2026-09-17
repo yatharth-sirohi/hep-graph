@@ -1,0 +1,116 @@
+{
+  "aliases": [
+    "SPS",
+    "SppS",
+    "proton-antiproton collider"
+  ],
+  "coverage": {
+    "researched": "full",
+    "tier": "A",
+    "validated": false
+  },
+  "facility_id": "facility:cern",
+  "feeds_accelerator_ids": [
+    "accelerator:lhc"
+  ],
+  "id": "accelerator:sps",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "operating",
+      "note": "",
+      "quote": "The SPS became the workhorse of CERN's particle physics programme when it switched on in 1976.",
+      "sources": [
+        "src:cern-sps-page"
+      ],
+      "start": "1976",
+      "status": "active",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "verified",
+      "end": "1990",
+      "label": "proton-antiproton collider (SppS)",
+      "locator": "home.cern, UA1 experiment page",
+      "note": "Years taken from the operating period of UA1, which ran only during the Sp̄pS collider era; home.cern's SPS page dates the W and Z discovery to 1983 'with the SPS running as a proton-antiproton collider'.",
+      "quote": "It ran from 1981 until 1990, when the SPS was used as a proton-antiproton collider",
+      "sources": [
+        "src:cern-ua1-page",
+        "src:cern-sps-page"
+      ],
+      "start": "1981",
+      "status": "active",
+      "verified_at": "2026-09-16"
+    }
+  ],
+  "is_collider": false,
+  "kind": "synchrotron",
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "note": "",
+      "sources": [
+        "src:cern-sps-page"
+      ],
+      "value": "https://home.cern/science/accelerators/super-proton-synchrotron",
+      "verified_at": "2026-09-16"
+    }
+  },
+  "name": "Super Proton Synchrotron",
+  "notes": [
+    "CONFLICT on the Sp̄pS collider era: home.cern's UA1 page gives 1981-1990 ('It ran from 1981 until 1990, when the SPS was used as a proton-antiproton collider'); some literature extends the era to 1991. The sourced 1981-1990 is recorded.",
+    "is_collider is false because the SPS is normally a synchrotron injector; its proton-antiproton collider operation is carried as a separate interval."
+  ],
+  "particles": [
+    "proton",
+    "antiproton",
+    "lead ion",
+    "electron",
+    "positron"
+  ],
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:cern-meyrin",
+  "sources": [
+    "src:cern-sps-page",
+    "src:cern-accelerator-complex",
+    "src:cern-ua1-page"
+  ],
+  "specs": {
+    "beam_energy": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "energy",
+      "display": "up to 450 GeV",
+      "note": "",
+      "quote": "The SPS operates at up to 450 GeV.",
+      "sources": [
+        "src:cern-sps-page",
+        "src:cern-accelerator-complex"
+      ],
+      "unit": "GeV",
+      "value": 450,
+      "verified_at": "2026-09-16"
+    },
+    "circumference": {
+      "approx": true,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "nearly 7 km",
+      "note": "",
+      "quote": "Measuring nearly 7 kilometres in circumference, it takes particles from the Proton Synchrotron and accelerates them to provide beams for the Large Hadron Collider...",
+      "sources": [
+        "src:cern-sps-page"
+      ],
+      "unit": "km",
+      "value": 7,
+      "verified_at": "2026-09-16"
+    }
+  },
+  "status": "active",
+  "summary": {
+    "plain": "A seven-kilometre ring at CERN that has been the laboratory's workhorse since 1976. It accelerates protons to 450 billion electronvolts and hands them to the Large Hadron Collider, and in the 1980s it was rebuilt to collide protons with antiprotons, which is how the W and Z particles were discovered.",
+    "technical": "~7 km proton synchrotron, 1317 room-temperature magnets, top energy 450 GeV; LHC injector and fixed-target source for the North Area, NA61/SHINE, NA62, COMPASS and AWAKE; operated as the Sp̄pS proton-antiproton collider for UA1/UA2 from 1981 to 1990."
+  },
+  "type": "accelerator"
+}

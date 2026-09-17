@@ -1,0 +1,124 @@
+{
+  "aliases": [
+    "ProtoDUNE dual-phase",
+    "NP02"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C",
+    "validated": false
+  },
+  "experiment_ids": [
+    "experiment:dune"
+  ],
+  "id": "detector:protodune-dp",
+  "intervals": [
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "construction and operation at the CERN Neutrino Platform",
+      "locator": "Vol. I, §1.3.2",
+      "note": "The DUNE FD TDR Vol. I (2020) states that both ProtoDUNE prototypes had been constructed and operated at CERN, but gives no start or end date for ProtoDUNE-DP. The dual-phase line was subsequently discontinued in favour of the vertical-drift design.",
+      "quote": "The DUNE collaboration has constructed and operated two large prototype detectors, ProtoDUNE-SP , and pddp , at CERN .",
+      "sources": [
+        "src:dune-fd-tdr-vol-1"
+      ],
+      "start": null,
+      "status": "completed",
+      "verified_at": "2026-09-16"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "ProtoDUNE-DP",
+  "notes": [
+    "Start and end dates and the liquid argon mass are unresolved; only the DUNE FD TDR Vol. I description could be fetched."
+  ],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "locator": "Vol. I, figure caption, §1.3.2",
+      "note": "Installed alongside ProtoDUNE-SP in the CERN Neutrino Platform hall in the CERN North Area; no installation date sourced.",
+      "quote": "ProtoDUNE-SP and ProtoDUNE-DP cryostats in the CERN Neutrino Platform in CERN ’s North Area.",
+      "role": "prototype",
+      "site_id": "site:cern-neutrino-platform-ehn1",
+      "sources": [
+        "src:dune-fd-tdr-vol-1"
+      ],
+      "start": null,
+      "verified_at": "2026-09-16"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:dune-fd-tdr-vol-1",
+    "src:dune-cern-neutrino-platform-page"
+  ],
+  "specs": {
+    "active_mass": null,
+    "drift_length": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "6 m maximum drift",
+      "locator": "Vol. I, §1.3.2",
+      "note": "",
+      "quote": "ProtoDUNE-DP has a 6 m maximum drift length, half that planned for the DP module .",
+      "sources": [
+        "src:dune-fd-tdr-vol-1"
+      ],
+      "unit": "m",
+      "value": 6,
+      "verified_at": "2026-09-16"
+    },
+    "phase": {
+      "confidence": "verified",
+      "locator": "Vol. I, abstract",
+      "note": "",
+      "quote": "the single- and dual-phase DUNE liquid argon TPC far detector modules",
+      "sources": [
+        "src:dune-fd-tdr-vol-1"
+      ],
+      "value": "dual-phase",
+      "verified_at": "2026-09-16"
+    },
+    "target_medium": {
+      "confidence": "verified",
+      "locator": "Vol. I, abstract",
+      "note": "",
+      "quote": "the single- and dual-phase DUNE liquid argon TPC far detector modules",
+      "sources": [
+        "src:dune-fd-tdr-vol-1"
+      ],
+      "value": "liquid argon",
+      "verified_at": "2026-09-16"
+    },
+    "total_mass": null
+  },
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "The second DUNE prototype at CERN. It tested a design in which the electron signal is amplified in a thin layer of argon gas above the liquid, allowing a much longer drift.",
+    "technical": "Dual-phase LArTPC prototype at the CERN Neutrino Platform with a single homogeneous drift volume and a 6 m maximum drift, about one twentieth of a DUNE far-detector module. The dual-phase technology was later superseded by the vertical-drift design for FD2."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "Vol. I, §1.3.1",
+    "note": "",
+    "quote": "Whereas the SP design has multiple drift volumes, the DP module design allows a single, fully homogeneous LAr volume with a much longer drift length.",
+    "sources": [
+      "src:dune-fd-tdr-vol-1"
+    ],
+    "value": "dual-phase liquid argon time projection chamber with a single homogeneous drift volume and charge amplification in the gas phase",
+    "verified_at": "2026-09-16"
+  },
+  "technology_class": "lar_tpc",
+  "technology_classes": [
+    "noble_liquid_tpc",
+    "lar_tpc"
+  ],
+  "type": "detector"
+}

@@ -1,1130 +1,1164 @@
 [
   {
+    "aliases": [
+      "energy frontier",
+      "high-energy colliders"
+    ],
     "id": "topic:collider-physics",
-    "type": "topic",
     "name": "Collider physics",
-    "parent_id": null,
-    "question": "What are the fundamental particles and forces, and how do they behave at the highest energies we can create in a laboratory?",
-    "overview": "Collider physics studies particle collisions at the highest centre-of-mass energies achievable in the laboratory: today 13.6 TeV proton–proton collisions at the LHC, building on electron–positron data from LEP and SLC and the proton–antiproton Tevatron programme. It covers precision Standard Model measurements (Higgs, electroweak, top quark, QCD) and direct searches for new particles and interactions. Reconstructed final states of jets, leptons, photons and missing transverse momentum are compared with theory predictions at next-to-next-to-leading order. Facilities under study include the HL-LHC, electron–positron Higgs factories (FCC-ee, CEPC, ILC, C^3, CLIC), a ~100 TeV hadron collider (FCC-hh) and a multi-TeV muon collider.",
     "observables": [
+      "centre-of-mass energy and integrated luminosity",
       "production cross sections",
       "particle masses and widths",
       "coupling strengths",
       "resonance searches",
       "missing transverse momentum"
     ],
-    "aliases": [
-      "energy frontier",
-      "high-energy colliders"
-    ],
+    "overview": "Collider physics studies particle collisions at the highest centre-of-mass energies reachable in the laboratory. LHC Run 3 began in July 2022 at 13.6 TeV, building on electron-positron data from LEP and SLC and on the proton-antiproton Tevatron programme. The field combines precision Standard Model measurements - of the Higgs boson, the electroweak sector, the top quark and QCD - with direct searches for new particles. Events are reconstructed as jets, leptons, photons and missing transverse momentum and compared with perturbative predictions. The Snowmass 2021 Energy Frontier report and the 2023 P5 report set out the next steps, including the High-Luminosity LHC and a proposed offshore Higgs factory.",
+    "parent_id": null,
+    "question": "What are the elementary particles and forces, and how do they behave at the highest collision energies we can create in a laboratory?",
+    "schema": "hep-atlas/0.2",
     "sources": [
       "src:topic-snowmass-2021-energy-frontier-report",
-      "src:topic-p5-2023-report"
-    ]
+      "src:topic-p5-2023-report",
+      "src:topic-pdg-2026-collider-parameters",
+      "src:topic-pdg-2026-supersymmetry-experiment"
+    ],
+    "type": "topic"
   },
   {
-    "id": "topic:flavor-physics",
-    "type": "topic",
-    "name": "Flavor physics",
-    "parent_id": null,
-    "question": "Why are there three copies of each type of matter particle, and why do they transform into one another in the specific pattern we observe?",
-    "overview": "Flavor physics studies transitions between the three generations of quarks and leptons. In the Standard Model, quark flavor change is governed by the CKM matrix and flavor-changing neutral currents arise only at loop level, so rare decays, meson mixing and CP asymmetries in K, D and B hadrons are sensitive to new particles at mass scales of 10^3 to 10^5 TeV, far beyond direct collider reach. CP violation is also a necessary ingredient for the observed matter–antimatter asymmetry of the universe, although the Standard Model amount is too small. Major facilities are Belle II at SuperKEKB, LHCb and the general-purpose LHC detectors, BESIII, NA62 and KOTO.",
-    "observables": [
-      "CKM matrix elements",
-      "CP asymmetries",
-      "rare-decay branching fractions",
-      "meson mixing parameters"
-    ],
     "aliases": [
       "quark flavor physics",
       "heavy flavor physics"
     ],
+    "id": "topic:flavor-physics",
+    "name": "Flavor physics",
+    "observables": [
+      "CKM matrix elements",
+      "CP asymmetries",
+      "rare-decay branching fractions",
+      "meson mixing frequencies",
+      "unitarity-triangle consistency"
+    ],
+    "overview": "Flavor physics studies transitions between the three generations of quarks and leptons. In the Standard Model the masses and mixings of quarks have a common origin in the Yukawa interactions with the Higgs condensate, and quark flavor change is governed by the unitary Cabibbo-Kobayashi-Maskawa matrix, which carries three real parameters and one complex phase. Flavor-changing neutral currents arise only through loops, so meson mixing, rare decays and CP asymmetries in kaon, charm and beauty hadrons are sensitive to hypothetical new particles far above direct collider reach - the Snowmass Rare Processes and Precision Frontier report quotes scales up to thousands of TeV.",
+    "parent_id": null,
+    "question": "Why are there three copies of each kind of matter particle, and why do they change into one another in the particular pattern we observe?",
+    "schema": "hep-atlas/0.2",
     "sources": [
-      "src:topic-snowmass-2021-rare-processes-precision-frontier-report",
-      "src:topic-pdg-2024-ckm-matrix"
-    ]
+      "src:topic-pdg-2026-ckm-matrix",
+      "src:topic-snowmass-2021-rare-precision-frontier-report"
+    ],
+    "type": "topic"
   },
   {
-    "id": "topic:neutrino-physics",
-    "type": "topic",
-    "name": "Neutrino physics",
-    "parent_id": null,
-    "question": "What are neutrinos, the most abundant matter particles, really like: how heavy are they, how do they mix, and are they their own antiparticles?",
-    "overview": "Neutrino physics addresses the least understood Standard Model fermions: their masses and ordering, mixing and CP violation, Dirac or Majorana nature, interactions with nuclei, possible sterile partners, and their role as astrophysical messengers. Neutrino sources span nuclear reactors, accelerator beams, the Sun, cosmic-ray air showers, supernovae, the Earth's interior and distant cosmic accelerators, with energies from meV (relic neutrinos) to beyond 10 PeV. Detection uses charged-current and neutral-current scattering in large water, ice, scintillator or liquid-argon detectors, and precision spectroscopy of beta decays. Non-zero neutrino masses, established by oscillation experiments, are the only laboratory evidence for physics beyond the minimal Standard Model.",
-    "observables": [
-      "oscillation parameters",
-      "neutrino mass scale",
-      "cross sections",
-      "flux and spectrum from each source"
-    ],
     "aliases": [
       "neutrino frontier"
     ],
+    "id": "topic:neutrino-physics",
+    "name": "Neutrino physics",
+    "observables": [
+      "oscillation parameters",
+      "absolute neutrino mass scale",
+      "neutrino-nucleus cross sections",
+      "flux and energy spectrum from each source",
+      "lepton number conservation"
+    ],
+    "overview": "Neutrino physics addresses the least understood Standard Model fermions. Oscillation experiments established that neutrinos have mass and mix, which the minimal Standard Model does not accommodate; oscillations depend only on mass-squared differences, so the absolute mass scale and the Dirac or Majorana nature must be probed by other means. Sources span reactors, accelerator beams, the Sun, the atmosphere, supernovae, the Earth and distant cosmic accelerators, covering more than twenty orders of magnitude in energy. Detection uses charged-current and neutral-current scattering in large water, ice, scintillator and liquid-argon detectors, and precision spectroscopy of weak decays.",
+    "parent_id": null,
+    "question": "What are neutrinos really like: how heavy are they, how do they mix, how do they interact, and are they their own antiparticles?",
+    "schema": "hep-atlas/0.2",
     "sources": [
-      "src:topic-snowmass-2021-neutrino-frontier-report",
-      "src:topic-pdg-2024-neutrino-mixing"
-    ]
+      "src:topic-pdg-2026-neutrino-mixing",
+      "src:topic-snowmass-2021-neutrino-frontier-report"
+    ],
+    "type": "topic"
   },
   {
-    "id": "topic:dark-matter",
-    "type": "topic",
-    "name": "Dark matter",
-    "parent_id": null,
-    "question": "What is the invisible matter that makes up about 85% of all matter in the universe, and can we detect it as a particle?",
-    "overview": "Gravitational evidence from galaxy rotation curves, gravitational lensing, the cosmic microwave background and large-scale structure implies that about 27% of the energy density of the universe, roughly 85% of its matter, is non-luminous dark matter with no Standard Model candidate. Particle searches follow three complementary strategies: direct detection of Galactic dark matter scattering in low-background detectors, indirect detection of annihilation or decay products, and production at accelerators. Candidates range from ultralight wave-like fields such as the QCD axion (down to 10^-22 eV) through sub-GeV hidden-sector particles to weakly interacting massive particles (WIMPs) and primordial black holes. No non-gravitational detection has been confirmed.",
-    "observables": [
-      "scattering cross sections",
-      "annihilation cross sections",
-      "candidate mass",
-      "coupling to Standard Model portals"
-    ],
     "aliases": [
       "dark matter searches"
     ],
+    "id": "topic:dark-matter",
+    "name": "Dark matter",
+    "observables": [
+      "relic abundance",
+      "scattering cross sections",
+      "annihilation cross sections",
+      "candidate mass range",
+      "portal couplings to the Standard Model"
+    ],
+    "overview": "Cosmological models include a non-baryonic, electromagnetically near-neutral matter species with negligible velocity, generically called cold dark matter. In the benchmark LambdaCDM fit adopted by the Particle Data Group it accounts for 26.4 per cent of the critical density and 84.4 per cent of the total matter density; only a small fraction of the non-baryonic content, the three Standard Model neutrinos, is identified. Its particle nature is hypothetical. Searches follow three complementary strategies - direct detection of Galactic dark matter scattering underground, indirect detection of annihilation or decay products, and production at accelerators. No non-gravitational detection has been established.",
+    "parent_id": null,
+    "question": "What is the invisible matter that dominates the mass of galaxies, and can we detect it as a particle rather than only through its gravity?",
+    "schema": "hep-atlas/0.2",
     "sources": [
-      "src:topic-pdg-2024-dark-matter",
+      "src:topic-pdg-2026-dark-matter",
+      "src:topic-snowmass-2021-cf1-particle-dark-matter",
       "src:topic-snowmass-2021-cosmic-frontier-report",
       "src:topic-p5-2023-report"
-    ]
+    ],
+    "type": "topic"
   },
   {
-    "id": "topic:precision-and-rare-processes",
-    "type": "topic",
-    "name": "Precision and rare processes",
-    "parent_id": null,
-    "question": "Can extremely precise measurements, or searches for processes that should almost never happen, reveal new particles too heavy or too weakly coupled to produce directly?",
-    "overview": "Precision measurements and searches for forbidden or extremely rare processes test the Standard Model indirectly. Quantum corrections from heavy or feebly interacting new particles shift observables such as the muon anomalous magnetic moment, electric dipole moments and rare-decay rates, so a measurement at the part-per-million or 10^-13 branching-fraction level can probe mass scales of hundreds of TeV. The area also includes searches for new light or long-lived states with tiny couplings at intense beams and beam dumps: heavy neutral leptons, dark photons and other long-lived particles. Experiments are typically small or medium scale, at PSI, Fermilab, J-PARC, CERN's SPS and LHC forward regions, and electron–positron colliders.",
-    "observables": [
-      "anomalous magnetic moments",
-      "electric dipole moments",
-      "forbidden-decay branching fractions",
-      "coupling versus mass exclusions"
-    ],
     "aliases": [
       "rare processes and precision frontier",
       "intensity frontier"
     ],
+    "id": "topic:precision-and-rare-processes",
+    "name": "Precision and rare processes",
+    "observables": [
+      "anomalous magnetic moments",
+      "electric dipole moments",
+      "branching fractions of forbidden or loop-suppressed decays",
+      "coupling-versus-mass exclusion contours",
+      "decay lengths and displaced-vertex yields"
+    ],
+    "overview": "This area covers searches for extremely rare processes and for tiny deviations from the Standard Model, studied with intense sources and high-precision detectors. Quantum corrections from hypothetical heavy or feebly interacting states shift observables such as the muon anomalous magnetic moment, electric dipole moments and rare-decay rates, so measurements at the part-per-billion or 10^-13 branching-fraction level probe mass scales far above collider energies. The same facilities search directly for light, long-lived or feebly coupled states - heavy neutral leptons, dark photons and other long-lived particles - at beam dumps, fixed-target experiments and the forward regions of colliders.",
+    "parent_id": null,
+    "question": "Can extremely precise measurements, or searches for processes that should almost never happen, reveal particles too heavy or too weakly coupled to produce directly?",
+    "schema": "hep-atlas/0.2",
     "sources": [
-      "src:topic-snowmass-2021-rare-processes-precision-frontier-report",
+      "src:topic-snowmass-2021-rare-precision-frontier-report",
       "src:topic-p5-2023-report"
-    ]
+    ],
+    "type": "topic"
   },
   {
-    "id": "topic:astroparticle-physics",
-    "type": "topic",
-    "name": "Astroparticle physics",
-    "parent_id": null,
-    "question": "What can particles arriving from space, from cosmic rays to gamma rays and neutrinos, tell us about the most extreme objects in the universe and about fundamental physics?",
-    "overview": "Astroparticle physics uses the universe as a laboratory, detecting cosmic rays, gamma rays, neutrinos and, increasingly, gravitational waves to study cosmic accelerators and to test fundamental physics at energies and distances unreachable on Earth. Ground-based instruments include extensive air-shower arrays, imaging atmospheric Cherenkov telescopes, and cubic-kilometre neutrino telescopes in ice and water; space-borne instruments measure charged cosmic rays and gamma rays directly above the atmosphere. Central questions are the origin of ultra-high-energy cosmic rays, the identification of PeV-scale Galactic accelerators, the sources of high-energy neutrinos, and indirect signatures of dark matter, Lorentz-invariance violation and axion–photon conversion.",
-    "observables": [
-      "energy spectra",
-      "arrival-direction anisotropy",
-      "source catalogues",
-      "flavor and mass composition",
-      "multimessenger coincidences"
-    ],
     "aliases": [
       "particle astrophysics",
       "cosmic frontier"
     ],
+    "id": "topic:astroparticle-physics",
+    "name": "Astroparticle physics",
+    "observables": [
+      "energy spectra and spectral features",
+      "arrival-direction anisotropy",
+      "mass and flavor composition",
+      "source catalogues and identifications",
+      "multimessenger temporal coincidences"
+    ],
+    "overview": "Astroparticle physics uses the universe as a laboratory. Cosmic rays are a non-thermal population pervading the universe, with charged-particle energies from tens of MeV to close to 1 ZeV; gamma rays and high-energy neutrinos are detected alongside them, and combining these messengers with gravitational waves is called multi-messenger astrophysics. Instruments include extensive air-shower arrays, atmospheric fluorescence detectors, imaging atmospheric Cherenkov telescopes, cubic-kilometre neutrino telescopes in ice and water, and space-borne spectrometers. Central questions are the origin of ultra-high-energy cosmic rays, the identity of the sources of astrophysical neutrinos, and astrophysical signatures of dark matter and of new light particles.",
+    "parent_id": null,
+    "question": "What do particles arriving from space - cosmic rays, gamma rays and neutrinos - tell us about extreme cosmic objects and about fundamental physics?",
+    "schema": "hep-atlas/0.2",
     "sources": [
-      "src:topic-snowmass-2021-cosmic-frontier-report",
-      "src:topic-snowmass-2021-cf7-cosmic-probes"
-    ]
+      "src:topic-pdg-2026-cosmic-rays",
+      "src:topic-snowmass-2021-cosmic-frontier-report"
+    ],
+    "type": "topic"
   },
   {
-    "id": "topic:nuclear-and-heavy-ion",
-    "type": "topic",
-    "name": "Nuclear and heavy-ion physics",
-    "parent_id": null,
-    "question": "How does the strong force behave in dense, hot nuclear matter and inside nuclei, and what does that tell particle physics?",
-    "overview": "This area covers the interface between nuclear and particle physics where the questions are materially particle-physics questions: quantum chromodynamics under extreme temperature and density in relativistic heavy-ion collisions at RHIC and the LHC, the phase diagram of QCD matter, and hadron and nucleon structure studied at Jefferson Lab and the planned Electron–Ion Collider. Low-energy nuclear physics, nuclear structure and applied nuclear science are outside the atlas scope unless a facility participates directly in a high-energy-physics question, for example through neutrinoless double beta decay or coherent neutrino scattering. Heavy-ion programmes at ALICE, ATLAS, CMS, LHCb, STAR, sPHENIX and PHENIX are included.",
-    "observables": [
-      "QGP transport properties",
-      "flow coefficients",
-      "nuclear modification factors",
-      "nucleon structure functions"
-    ],
     "aliases": [
       "QCD matter",
       "relativistic heavy ions"
     ],
+    "id": "topic:nuclear-and-heavy-ion",
+    "name": "Nuclear and heavy-ion physics",
+    "observables": [
+      "quark-gluon plasma transport coefficients",
+      "anisotropic flow coefficients",
+      "nuclear modification factors",
+      "jet quenching observables",
+      "nucleon and nuclear structure functions"
+    ],
+    "overview": "This area covers the interface between nuclear and particle physics where the questions are materially particle-physics questions: quantum chromodynamics at extreme temperature and density in relativistic heavy-ion collisions, and the structure of nucleons and nuclei. Heavy-ion collisions quickly form a droplet of quark-gluon plasma with a remarkably small viscosity; energetic partons traversing that plasma emerge as jets whose modification probes its properties. The Snowmass Energy Frontier QCD and heavy-ion report emphasises the connections to nucleon structure and to the Electron-Ion Collider. Low-energy nuclear structure and applied nuclear science are outside the atlas scope.",
+    "parent_id": null,
+    "question": "How does the strong force behave in hot, dense nuclear matter and inside nuclei, and what does that tell particle physics?",
+    "schema": "hep-atlas/0.2",
     "sources": [
-      "src:topic-nsac-2023-long-range-plan",
-      "src:topic-review-busza-2018-heavy-ions"
-    ]
+      "src:topic-review-busza-2018-heavy-ion-collisions",
+      "src:topic-snowmass-2021-ef-qcd-heavy-ions-report"
+    ],
+    "type": "topic"
   },
   {
-    "id": "topic:instrumentation",
-    "type": "topic",
-    "name": "Instrumentation and detector technology",
-    "parent_id": null,
-    "question": "What new detector and accelerator technologies make the next generation of particle-physics experiments possible?",
-    "overview": "Instrumentation covers the sensors, electronics, data acquisition, software and accelerator technology that determine what experiments can measure. Progress in this area, from wire chambers and silicon pixel detectors to liquid-argon time projection chambers and superconducting magnets, has repeatedly enabled discoveries, and technology milestones (first operation of a new detector type at scale, record timing or energy resolution) are tracked in the atlas as results of type technology_milestone. Community roadmaps, notably the 2021 ECFA Detector R&D Roadmap and the Snowmass 2021 Instrumentation Frontier report, organise the effort into themes such as solid-state tracking, calorimetry, photon detection, gaseous and noble-liquid detectors, quantum sensing, and trigger and readout systems.",
-    "observables": [
-      "spatial, timing and energy resolution",
-      "radiation tolerance",
-      "detector scale (mass, channel count)",
-      "data throughput"
-    ],
     "aliases": [
       "detector development",
       "instrumentation frontier"
     ],
+    "id": "topic:instrumentation",
+    "name": "Instrumentation and detector technology",
+    "observables": [
+      "spatial, timing and energy resolution",
+      "radiation tolerance",
+      "photon detection efficiency",
+      "background index and radiopurity",
+      "detector scale (mass, channel count)",
+      "data throughput"
+    ],
+    "overview": "Instrumentation covers the sensors, electronics, readout and analysis techniques that set what an experiment can measure. The Particle Data Group treats accelerator and non-accelerator detectors in separate review chapters covering photon detectors, organic and inorganic scintillators, Cherenkov and gaseous detectors, liquid-argon time projection chambers, air-shower and atmospheric-fluorescence detectors, neutrino telescopes, sub-kelvin detectors and low-radioactivity background techniques. The Snowmass 2021 Instrumentation Frontier report organises the research and development needed for future collider, neutrino, rare-process and cosmic experiments, and identifies priority areas for sustaining that capability.",
+    "parent_id": null,
+    "question": "What detector technologies make particle-physics measurements possible, and what new ones does the next generation of experiments need?",
+    "schema": "hep-atlas/0.2",
     "sources": [
-      "src:topic-ecfa-2021-detector-rd-roadmap",
-      "src:topic-snowmass-2021-instrumentation-frontier-report"
-    ]
+      "src:topic-snowmass-2021-instrumentation-frontier-report",
+      "src:topic-pdg-2026-particle-detectors-accelerators",
+      "src:topic-pdg-2026-particle-detectors-non-accelerator"
+    ],
+    "type": "topic"
   },
   {
-    "id": "topic:higgs-physics",
-    "type": "topic",
-    "name": "Higgs physics",
-    "parent_id": "topic:collider-physics",
-    "question": "What is the Higgs boson, does it behave exactly as the Standard Model predicts, and does it give mass to every other particle in the way theory says?",
-    "overview": "The Higgs boson, discovered by ATLAS and CMS in 2012 with a mass near 125 GeV, is the quantum of the field responsible for electroweak symmetry breaking. Its couplings to the W and Z bosons and to third-generation fermions (top, bottom, tau) have been measured at the LHC and agree with Standard Model predictions within current uncertainties of roughly 5–20% depending on the channel. Open questions include the Higgs self-coupling, which fixes the shape of the Higgs potential and is accessible through di-Higgs production; couplings to second-generation fermions, where H→μμ has been seen with about 3σ evidence but not yet observed; CP properties; the total width; and possible invisible or exotic decays. The HL-LHC and proposed Higgs factories target per-cent-level coupling precision.",
-    "observables": [
-      "Higgs mass m_H",
-      "signal strengths μ per production and decay mode",
-      "coupling modifiers κ_V, κ_f",
-      "total width Γ_H",
-      "CP quantum numbers of HVV and Hff couplings",
-      "di-Higgs cross section and trilinear self-coupling λ_HHH",
-      "rare decays H→μμ, H→Zγ",
-      "invisible branching fraction",
-      "simplified template and differential cross sections"
-    ],
     "aliases": [
       "Higgs boson",
       "electroweak symmetry breaking",
       "H(125)"
     ],
+    "id": "topic:higgs-physics",
+    "name": "Higgs physics",
+    "observables": [
+      "Higgs boson mass",
+      "inclusive and differential cross sections per production mode",
+      "branching ratios and signal strengths",
+      "coupling modifiers in the kappa framework and EFT coefficients",
+      "total width",
+      "spin and CP properties",
+      "Higgs self-coupling from di-Higgs production",
+      "exotic and invisible decay branching fractions"
+    ],
+    "overview": "Electroweak symmetry breaking posits a self-interacting complex scalar doublet whose CP-even neutral component acquires a vacuum expectation value of about 246 GeV; the remaining component is the Higgs boson, discovered at the LHC in 2012 with a mass near 125 GeV. Measurements cover inclusive, differential and simplified-template cross sections in each production and decay channel, couplings expressed in the kappa framework or as effective field theory coefficients, the mass, the width, and spin and CP properties. The Higgs self-coupling and possible exotic or beyond-Standard-Model Higgs decays remain open.",
+    "parent_id": "topic:collider-physics",
+    "question": "What is the Higgs boson, and does it behave exactly as the Standard Model predicts in how it is produced, how it decays and how it couples to other particles?",
+    "schema": "hep-atlas/0.2",
     "sources": [
-      "src:topic-pdg-2024-higgs-boson",
-      "src:topic-snowmass-2021-energy-frontier-report"
-    ]
+      "src:topic-pdg-2026-higgs-boson",
+      "src:topic-snowmass-2021-energy-frontier-report",
+      "src:topic-p5-2023-report"
+    ],
+    "type": "topic"
   },
   {
-    "id": "topic:electroweak-physics",
-    "type": "topic",
-    "name": "Electroweak physics",
-    "parent_id": "topic:collider-physics",
-    "question": "How precisely do the W and Z bosons behave, and do precision measurements of the weak force reveal cracks in the Standard Model?",
-    "overview": "Electroweak physics tests the SU(2)×U(1) gauge structure of the Standard Model through precision measurements of W and Z boson properties and multi-boson production. LEP and SLC fixed the Z lineshape parameters, asymmetries and the number of light neutrino species; the Tevatron and LHC measure the W mass, the effective weak mixing angle, and diboson and triboson cross sections. Because m_W, m_Z, m_t, m_H and α_s are related by loop corrections, a global electroweak fit tests internal consistency. The 2022 CDF W-mass measurement is in tension with the fit and with ATLAS, LHCb and CMS measurements, which agree with the Standard Model. Vector-boson scattering and anomalous gauge couplings, usually interpreted in the SMEFT framework, probe new physics at scales beyond direct reach.",
-    "observables": [
-      "W boson mass m_W and width Γ_W",
-      "Z mass, width and lineshape parameters",
-      "effective weak mixing angle sin²θ_eff",
-      "forward–backward and left–right asymmetries",
-      "number of light neutrino species",
-      "diboson and triboson cross sections (WW, WZ, ZZ, Wγ, Zγ)",
-      "vector-boson scattering cross sections",
-      "anomalous triple and quartic gauge coupling limits",
-      "W helicity fractions and charge asymmetry"
-    ],
     "aliases": [
       "electroweak precision tests",
       "W and Z physics",
-      "EWPT"
+      "electroweak fit"
     ],
+    "id": "topic:electroweak-physics",
+    "name": "Electroweak physics",
+    "observables": [
+      "W boson mass and width",
+      "Z boson mass, width and lineshape parameters",
+      "effective weak mixing angle",
+      "forward-backward and left-right asymmetries",
+      "electromagnetic coupling and Fermi constant",
+      "W and Z branching fractions",
+      "oblique parameters and constraints on new physics"
+    ],
+    "overview": "The electroweak Standard Model is a renormalizable gauge theory based on SU(2) x U(1). Because the W and Z masses, the Higgs and top masses, the electromagnetic and strong couplings and the weak mixing angle are related through radiative corrections, a global fit tests the theory at the quantum level. Inputs include low-energy observables, Z-pole lineshape parameters and asymmetries from LEP and SLC, W and Z masses and widths and W and Z decays. The Particle Data Group fit does not include the CDF Run II W-mass measurement, which dominates the tension among direct determinations.",
+    "parent_id": "topic:collider-physics",
+    "question": "How precisely do the W and Z bosons behave, and does a global fit of electroweak measurements still hold together?",
+    "schema": "hep-atlas/0.2",
     "sources": [
-      "src:topic-pdg-2024-electroweak-model",
+      "src:topic-pdg-2026-electroweak-model",
       "src:topic-snowmass-2021-energy-frontier-report"
-    ]
+    ],
+    "type": "topic"
   },
   {
-    "id": "topic:top-physics",
-    "type": "topic",
-    "name": "Top-quark physics",
-    "parent_id": "topic:collider-physics",
-    "question": "Why is the top quark so heavy, and does the heaviest known particle behave exactly as the Standard Model predicts in how it is produced and decays?",
-    "overview": "The top quark, discovered at the Tevatron in 1995 by CDF and DØ, is the heaviest known elementary particle (about 172.5 GeV) and decays via t→Wb before hadronising, so its spin information is passed to its decay products. At the LHC it is produced copiously in pairs through the strong interaction and singly through electroweak processes. Measurements cover the mass, now with sub-GeV precision but with subtleties in relating the directly measured mass to the pole or MS-bar mass; total and differential cross sections; the Wtb vertex structure; spin correlations and quantum entanglement; charge asymmetries; and associated production with W, Z, γ and Higgs bosons, including four-top production. The large top Yukawa coupling makes the top quark central to vacuum stability and to many Standard Model extensions.",
-    "observables": [
-      "top-quark mass m_t (direct, pole, MS-bar)",
-      "tt̄ cross section, total and differential",
-      "single-top cross sections (t-, s-, tW-channel)",
-      "|V_tb|",
-      "W helicity fractions in top decay",
-      "tt̄ spin correlations and entanglement",
-      "charge asymmetry A_C",
-      "tt̄H, tt̄Z, tt̄W and tt̄tt̄ cross sections",
-      "top width Γ_t",
-      "flavour-changing neutral-current decay limits"
-    ],
     "aliases": [
       "top quark",
       "top physics"
     ],
+    "id": "topic:top-physics",
+    "name": "Top-quark physics",
+    "observables": [
+      "top-quark mass (direct, pole and MS-bar)",
+      "top-quark width",
+      "top-pair production cross section, total and differential",
+      "single-top cross sections",
+      "W helicity fractions in top decay",
+      "spin correlations",
+      "charge asymmetry",
+      "associated production with W, Z, photon and Higgs bosons",
+      "flavour-changing neutral-current decay limits"
+    ],
+    "overview": "The top quark is the weak-isospin partner of the bottom quark, with a mass of about 172.5 GeV and therefore a Yukawa coupling of order unity. Being heavier than the W boson it is the only quark that decays weakly into a real W and a b quark, and its lifetime is shorter than the timescale of non-perturbative strong interactions, so it does not hadronize and its spin information survives into its decay products. Abundant LHC production enables precise measurements of the mass, couplings, production cross sections and branching ratios; the Particle Data Group notes a mild tension between the top and W mass determinations.",
+    "parent_id": "topic:collider-physics",
+    "question": "Does the heaviest known elementary particle behave exactly as the Standard Model predicts in how it is produced and how it decays?",
+    "schema": "hep-atlas/0.2",
     "sources": [
-      "src:topic-pdg-2024-top-quark",
+      "src:topic-pdg-2026-top-quark",
       "src:topic-snowmass-2021-energy-frontier-report"
-    ]
+    ],
+    "type": "topic"
   },
   {
-    "id": "topic:qcd",
-    "type": "topic",
-    "name": "Quantum chromodynamics",
-    "parent_id": "topic:collider-physics",
-    "question": "How does the strong force bind quarks and gluons, how strong is it at different energies, and how are protons and other hadrons built from their constituents?",
-    "overview": "Quantum chromodynamics (QCD) is the SU(3) gauge theory of quarks and gluons. Its coupling α_s decreases with energy (asymptotic freedom), so hard-scattering processes are computed perturbatively, while confinement and hadron structure require lattice QCD or non-perturbative modelling. Collider and e+e− experiments measure jet cross sections, event shapes and multi-jet ratios to extract α_s(m_Z) ≈ 0.118, and combine deep-inelastic scattering (HERA), Drell–Yan and jet data to determine parton distribution functions. Other active areas are hadron spectroscopy, including exotic multiquark candidates such as the X(3872) and the pentaquark states reported by LHCb; fragmentation and hadronisation; diffraction and small-x physics; and the transverse-momentum-dependent and spin structure of the nucleon, a focus of Jefferson Lab and the future Electron–Ion Collider.",
-    "observables": [
-      "strong coupling α_s(m_Z) and its running",
-      "inclusive jet, dijet and multijet cross sections",
-      "parton distribution functions",
-      "event-shape variables (thrust, jet broadening)",
-      "structure functions F_2, F_L, xF_3",
-      "hadron masses, widths and quantum numbers",
-      "exotic hadron spectrum (tetraquark and pentaquark candidates)",
-      "jet substructure observables",
-      "Drell–Yan cross sections",
-      "charged-particle multiplicities and fragmentation functions"
-    ],
     "aliases": [
       "QCD",
       "strong interaction",
-      "hadron physics",
-      "jets"
+      "jets",
+      "hadron structure"
     ],
+    "id": "topic:qcd",
+    "name": "Quantum chromodynamics",
+    "observables": [
+      "strong coupling at the Z mass and its running",
+      "inclusive jet, dijet and multijet cross sections",
+      "event-shape variables",
+      "parton distribution functions",
+      "structure functions",
+      "fragmentation functions and charged-particle multiplicities",
+      "jet substructure observables",
+      "diffractive and soft-QCD cross sections"
+    ],
+    "overview": "Quantum chromodynamics is the SU(3) gauge field theory describing the strong interactions of coloured quarks and gluons within the Standard Model. Its coupling runs, so hard scattering is computed perturbatively while confinement and hadron structure need lattice QCD or non-perturbative modelling. The Particle Data Group review organises experimental QCD around hadronic final-state observables and collider measurements, and determines the strong coupling from hadronic tau decays, heavy-quarkonium decays, parton-distribution fits, electron-positron final states, hadron-collider observables, the electroweak precision fit and lattice QCD, which are then combined into a world average.",
+    "parent_id": "topic:collider-physics",
+    "question": "How does the strong force bind quarks and gluons, how strong is it at different energies, and how are protons and other hadrons built from their constituents?",
+    "schema": "hep-atlas/0.2",
     "sources": [
-      "src:topic-pdg-2024-qcd",
-      "src:topic-snowmass-2021-energy-frontier-report"
-    ]
+      "src:topic-pdg-2026-qcd",
+      "src:topic-snowmass-2021-ef-qcd-heavy-ions-report"
+    ],
+    "type": "topic"
   },
   {
-    "id": "topic:collider-bsm-searches",
-    "type": "topic",
-    "name": "Direct searches for new particles at colliders",
-    "parent_id": "topic:collider-physics",
-    "question": "Are there undiscovered heavy particles, such as supersymmetric partners or new force carriers, that colliders could produce directly?",
-    "overview": "Direct searches look for new particles produced in collisions and identified by their decay products: resonances in dijet, dilepton, diphoton or top-pair mass spectra; final states with large missing transverse momentum from invisible particles as predicted by supersymmetry or dark-matter models; leptoquarks; vector-like quarks; heavy gauge bosons (W′, Z′); extra Higgs bosons; and microscopic black holes or extra dimensions. No new particle has been observed at the LHC beyond the Higgs boson; typical exclusions reach several TeV for strongly produced states and about 1 TeV for electroweak-scale supersymmetric partners, with gaps in compressed and long-lived scenarios. Results are reported as cross-section limits and interpreted in simplified models, complete models, or effective field theories, which is why the same search constrains many theories.",
-    "observables": [
-      "95% CL cross-section upper limits versus mass",
-      "mass exclusions in simplified models (gluino, squark, stop, chargino, neutralino)",
-      "resonance mass spectra (dijet, dilepton, diphoton, tt̄)",
-      "missing transverse momentum distributions",
-      "leptoquark and vector-like quark masses",
-      "compositeness and contact-interaction scale Λ",
-      "extra-dimension parameters (M_D, M_KK)"
-    ],
     "aliases": [
       "BSM searches",
       "exotics searches",
-      "supersymmetry searches",
-      "new physics searches"
+      "supersymmetry searches"
     ],
+    "id": "topic:collider-bsm-searches",
+    "name": "Direct searches for new particles at colliders",
+    "observables": [
+      "95% CL cross-section upper limits versus mass",
+      "mass exclusions in simplified supersymmetry models",
+      "resonance mass spectra",
+      "missing transverse momentum distributions",
+      "leptoquark and vector-like quark mass limits",
+      "compositeness and contact-interaction scales",
+      "extra-dimension parameters"
+    ],
+    "overview": "Direct searches look for hypothetical new particles produced in collisions and identified by their decay products. Supersymmetry, one of the most studied extensions, would pair every Standard Model fermion and gauge boson with a partner differing by half a unit of spin: squarks, sleptons, gluinos, and the charginos and neutralinos formed by mixing gauginos with higgsinos. Since no such particle has been seen, supersymmetry would have to be broken. Other targets include heavy gauge bosons, leptoquarks, vector-like quarks, extra Higgs bosons, extra dimensions and compositeness. Results are reported as cross-section limits interpreted in simplified or complete models.",
+    "parent_id": "topic:collider-physics",
+    "question": "Are there undiscovered heavy particles, such as supersymmetric partners or new force carriers, that colliders could produce directly?",
+    "schema": "hep-atlas/0.2",
     "sources": [
-      "src:topic-pdg-2024-supersymmetry-experiment",
+      "src:topic-pdg-2026-supersymmetry-experiment",
       "src:topic-snowmass-2021-energy-frontier-report"
-    ]
+    ],
+    "type": "topic"
   },
   {
-    "id": "topic:cp-violation",
-    "type": "topic",
-    "name": "Flavor mixing and CP violation",
-    "parent_id": "topic:flavor-physics",
-    "question": "Why does matter behave slightly differently from antimatter, and do quark transitions follow the single pattern that the Standard Model predicts?",
-    "overview": "In the Standard Model, quark flavor transitions and all CP violation in the quark sector are governed by the Cabibbo–Kobayashi–Maskawa (CKM) matrix, a 3×3 unitary matrix with one irreducible phase. Experiments test whether measurements of its magnitudes (from semileptonic and leptonic decays and meson mixing) and angles (from CP asymmetries in B, D and K decays) are consistent with a single unitarity triangle. CP violation has been established in the K (1964), B (2001, BaBar and Belle) and D (2019, LHCb) meson systems, in both mixing-induced and direct forms. Because flavor-changing neutral currents arise only at loop level in the Standard Model, rare and loop-induced processes are sensitive to new physics at mass scales far above direct collider reach. Global fits currently show consistency with the CKM picture.",
-    "observables": [
-      "CKM magnitudes |V_ud|, |V_us|, |V_cb|, |V_ub|, |V_td|/|V_ts|",
-      "unitarity-triangle angles β (φ_1), α (φ_2), γ (φ_3)",
-      "sin 2β from B→J/ψ K_S",
-      "B_s mixing phase φ_s",
-      "indirect CP violation ε_K and direct ε′/ε",
-      "mixing frequencies Δm_d and Δm_s",
-      "ΔA_CP in D→KK and D→ππ",
-      "unitarity-triangle apex (ρ̄, η̄)",
-      "time-dependent CP asymmetries S_f and C_f"
-    ],
     "aliases": [
       "CP violation",
       "CKM physics",
       "quark mixing",
       "unitarity triangle"
     ],
+    "id": "topic:cp-violation",
+    "name": "Flavor mixing and CP violation",
+    "observables": [
+      "CKM matrix magnitudes",
+      "unitarity-triangle angles alpha, beta and gamma",
+      "time-dependent CP asymmetries such as sin 2beta from B to J/psi K_S",
+      "direct CP asymmetries in B, D and K decays",
+      "indirect and direct CP violation in the kaon system",
+      "neutral-meson mixing frequencies",
+      "unitarity-triangle apex"
+    ],
+    "overview": "CP combines charge conjugation with parity. The weak interactions violate C and P maximally but preserve CP in most processes; CP violation appears in interference effects, discovered in neutral kaon decays in 1964 and established later in B decays (2001) and D decays (2019). In the Standard Model all quark-sector CP violation follows from one irreducible phase of the unitary CKM matrix, whose unitarity relations form triangles. Experiments test whether magnitudes measured in semileptonic and leptonic decays and mixing, and angles measured from CP asymmetries, describe a single consistent triangle.",
+    "parent_id": "topic:flavor-physics",
+    "question": "Why does matter behave slightly differently from antimatter, and do all quark transitions follow the single pattern the Standard Model predicts?",
+    "schema": "hep-atlas/0.2",
     "sources": [
-      "src:topic-pdg-2024-cp-violation",
-      "src:topic-pdg-2024-ckm-matrix"
-    ]
+      "src:topic-pdg-2026-cp-violation",
+      "src:topic-pdg-2026-ckm-matrix",
+      "src:topic-pdg-2026-ckm-angles"
+    ],
+    "type": "topic"
   },
   {
-    "id": "topic:b-physics",
-    "type": "topic",
-    "name": "B physics",
-    "parent_id": "topic:flavor-physics",
-    "question": "What can the decays of particles containing bottom quarks tell us about new forces or particles that are too heavy to produce directly?",
-    "overview": "B physics studies hadrons containing b quarks, produced at e+e− B factories (BaBar, Belle, Belle II at the Υ(4S)) and at hadron colliders (LHCb, CMS, ATLAS, and formerly CDF and DØ). Measurements include lifetimes, the mixing frequencies Δm_d and Δm_s, CP asymmetries, and semileptonic decays used to extract |V_cb| and |V_ub|, where inclusive and exclusive determinations have long differed at the 2–3σ level. Rare decays probe loop-level physics: B_s→μ+μ− agrees with the Standard Model; b→sℓℓ angular observables and branching fractions lie below predictions while the lepton-universality ratios R_K and R_K* returned to Standard Model agreement in 2022. The ratios R(D) and R(D*), testing τ/ℓ universality, exceed predictions by about 3σ combined. Belle II and the upgraded LHCb aim to sharpen these tests.",
-    "observables": [
-      "B meson and b-baryon lifetimes",
-      "mixing parameters Δm_d, Δm_s, ΔΓ_s",
-      "B(B_s→μ+μ−) and B(B0→μ+μ−)",
-      "b→sℓℓ branching fractions and angular observables (P_5′)",
-      "lepton-universality ratios R_K, R_K*",
-      "R(D) and R(D*)",
-      "|V_cb| and |V_ub| (inclusive and exclusive)",
-      "B(B→τν) and B(B→K(*)νν̄)",
-      "time-dependent CP asymmetries",
-      "B→K*γ and radiative decay rates"
-    ],
     "aliases": [
       "beauty physics",
       "b-hadron physics",
       "B-meson decays"
     ],
+    "id": "topic:b-physics",
+    "name": "B physics",
+    "observables": [
+      "b-hadron lifetimes and production cross sections",
+      "B0 and Bs mixing frequencies",
+      "Vcb and Vub from inclusive and exclusive semileptonic decays",
+      "b to s lepton-pair branching fractions and angular observables",
+      "lepton-universality ratios in b to s transitions and in semitauonic decays",
+      "radiative decay rates and photon polarization",
+      "time-dependent CP asymmetries",
+      "Bs and B0 dimuon branching fractions"
+    ],
+    "overview": "The b quark is the lighter member of the third-generation doublet, so b-flavored hadrons decay through generation-changing transitions; loop and box diagrams, flavor oscillations and large CP asymmetries are all accessible. Measurements cover production and spectroscopy, lifetimes, mixing, hadronic, rare hadronic and electroweak-penguin decays. Semileptonic decays determine the CKM elements Vcb and Vub, where inclusive and exclusive determinations remain inconsistent enough that the Particle Data Group scales the averaged uncertainty. Measured b to s lepton-pair branching fractions sit consistently below Standard Model expectations, while lepton-universality ratios, once discrepant, are now consistent after a background reassessment.",
+    "parent_id": "topic:flavor-physics",
+    "question": "What can the decays of particles containing bottom quarks tell us about new forces or particles too heavy to produce directly?",
+    "schema": "hep-atlas/0.2",
     "sources": [
-      "src:topic-pdg-2024-vcb-vub",
-      "src:topic-pdg-2024-b-hadron-production-decay",
-      "src:topic-snowmass-2021-rare-processes-precision-frontier-report"
-    ]
+      "src:topic-pdg-2026-b-hadron-production-decay",
+      "src:topic-pdg-2026-vcb-vub",
+      "src:topic-snowmass-2021-rare-precision-frontier-report"
+    ],
+    "type": "topic"
   },
   {
-    "id": "topic:rare-kaon-physics",
-    "type": "topic",
-    "name": "Rare kaon physics",
-    "parent_id": "topic:flavor-physics",
-    "question": "Can extremely rare decays of kaons, which happen in fewer than one in ten billion cases, reveal new particles or forces?",
-    "overview": "Rare kaon decays probe flavor-changing neutral currents at low energy with exceptional theoretical cleanliness. The decays K+→π+νν̄ and K_L→π0νν̄ are dominated by short-distance physics and their Standard Model branching fractions are predicted to a few per cent, around 8×10^-11 and 3×10^-11 respectively. NA62 at the CERN SPS reported the first observation of K+→π+νν̄ at above 5σ in 2024, with a branching fraction of about 13×10^-11, roughly 1.7σ above the prediction; KOTO at J-PARC sets upper limits on K_L→π0νν̄ and KOTO II is proposed. Other channels include K_L→π0ℓ+ℓ−, K_S→μ+μ−, lepton-flavor and lepton-number violating kaon decays, and precision tests of lepton universality and |V_us| in K→ℓν and K→πℓν decays.",
-    "observables": [
-      "B(K+→π+νν̄)",
-      "B(K_L→π0νν̄)",
-      "B(K_L→π0ℓ+ℓ−) and B(K_S→μ+μ−)",
-      "R_K = Γ(K→eν)/Γ(K→μν)",
-      "|V_us| from K_ℓ3 and K_ℓ2 decays",
-      "ε′/ε",
-      "lepton-flavor-violating limits (K+→π+μ+e−)",
-      "lepton-number-violating limits (K+→π−ℓ+ℓ+)",
-      "K+→π+X invisible-particle searches"
-    ],
     "aliases": [
       "kaon physics",
       "rare K decays",
       "golden kaon modes"
     ],
+    "id": "topic:rare-kaon-physics",
+    "name": "Rare kaon physics",
+    "observables": [
+      "branching fraction of K+ to pi+ neutrino antineutrino",
+      "branching fraction or limit for K_L to pi0 neutrino antineutrino",
+      "K_L to pi0 charged-lepton-pair and K_S to dimuon branching fractions",
+      "Vus from semileptonic and leptonic kaon decays",
+      "direct CP violation parameter in K to pi pi",
+      "lepton-flavor-violating decay limits",
+      "lepton-number-violating decay limits",
+      "searches for K to pi plus an invisible particle"
+    ],
+    "overview": "Rare kaon decays divide into searches for explicit Standard Model violations, the golden modes, other constraints on Standard Model parameters, and studies of low-energy strong interactions. The golden modes K+ to pi+ neutrino antineutrino and K_L to pi0 neutrino antineutrino are dominated by short-distance physics and calculable with negligible theoretical uncertainty. NA62 at the CERN SPS reported in 2026, using data through 2024, a branching fraction of 9.6 (+1.9/-1.8) x 10^-11 against a Standard Model estimate of (8.2 +/- 0.6) x 10^-11; KOTO at J-PARC pursues the neutral mode. Lepton-flavor and lepton-number violating kaon decays are also searched for.",
+    "parent_id": "topic:flavor-physics",
+    "question": "Can kaon decays that happen in fewer than one in ten billion cases reveal new particles or forces?",
+    "schema": "hep-atlas/0.2",
     "sources": [
-      "src:topic-pdg-2024-rare-kaon-decays",
-      "src:topic-snowmass-2021-rare-processes-precision-frontier-report"
-    ]
+      "src:topic-pdg-2026-rare-kaon-decays",
+      "src:topic-snowmass-2021-rare-precision-frontier-report"
+    ],
+    "type": "topic"
   },
   {
-    "id": "topic:charm-physics",
-    "type": "topic",
-    "name": "Charm physics",
-    "parent_id": "topic:flavor-physics",
-    "question": "Do charm quarks, the only up-type quarks whose mixing and CP violation can be measured, behave as the Standard Model predicts?",
-    "overview": "Charm hadrons offer the only accessible up-type-quark system in which meson mixing and CP violation can be studied. D0–D̄0 mixing is well established with mixing parameters x and y below about one per cent; LHCb observed direct CP violation in the difference of asymmetries in D0→K+K− and D0→π+π− decays in 2019, ΔA_CP = (−15.4 ± 2.9)×10^-4, larger than naive Standard Model estimates but hard to interpret because long-distance contributions are not calculable from first principles. Charm also provides decay constants and form factors that validate lattice QCD (BESIII, CLEO-c), precise |V_cs| and |V_cd|, rare decays such as D0→μ+μ−, and a rich spectroscopy of charmed baryons and charmonium-like exotic states.",
-    "observables": [
-      "mixing parameters x and y",
-      "y_CP and A_Γ",
-      "ΔA_CP and A_CP in individual channels",
-      "strong-phase differences in D→K_Sππ",
-      "|V_cs| and |V_cd|",
-      "decay constants f_D and f_Ds",
-      "semileptonic form factors (D→Kℓν, D→πℓν)",
-      "B(D0→μ+μ−) and other rare-decay limits",
-      "charmed baryon lifetimes and branching fractions",
-      "charmonium-like exotic state masses and widths"
-    ],
     "aliases": [
       "charm",
       "D mesons",
       "charmed hadrons"
     ],
+    "id": "topic:charm-physics",
+    "name": "Charm physics",
+    "observables": [
+      "mixing parameters x and y",
+      "CP-violating mixing parameters q/p and its phase",
+      "difference of CP asymmetries in D0 to K+K- and D0 to pi+pi-",
+      "strong-phase differences in multibody D decays",
+      "Vcs and Vcd",
+      "charm decay constants and semileptonic form factors",
+      "rare charm decay limits",
+      "charmed-baryon and charmonium-like state properties"
+    ],
+    "overview": "Charm hadrons provide the only accessible up-type-quark system in which meson mixing and CP violation can be studied. A meson created as a D0 time-evolves into a D0-bar, and the mixing parameters are measured to be small and positive. CP violation in decay has been established in the difference of asymmetries for D0 to K+K- and D0 to pi+pi-, with the Particle Data Group quoting (-0.159 +/- 0.029) per cent. Interpretation is limited because long-distance contributions are not calculable from first principles. Charm decays also provide decay constants, form factors and precise Vcs and Vcd.",
+    "parent_id": "topic:flavor-physics",
+    "question": "Do charm quarks, the only up-type quarks whose mixing and CP violation we can measure, behave as the Standard Model predicts?",
+    "schema": "hep-atlas/0.2",
     "sources": [
-      "src:topic-pdg-2024-d0-dbar0-mixing",
-      "src:topic-pdg-2024-ckm-matrix"
-    ]
+      "src:topic-pdg-2026-d0-dbar0-mixing",
+      "src:topic-pdg-2026-cp-violation",
+      "src:topic-pdg-2026-ckm-matrix"
+    ],
+    "type": "topic"
   },
   {
-    "id": "topic:neutrino-oscillations",
-    "type": "topic",
-    "name": "Neutrino oscillations",
-    "parent_id": "topic:neutrino-physics",
-    "question": "Why do neutrinos change from one type to another as they travel, which neutrino is heaviest, and do neutrinos and antineutrinos oscillate differently?",
-    "overview": "Neutrino oscillations, established by Super-Kamiokande with atmospheric neutrinos (1998) and SNO with solar neutrinos (2001–2002), show that neutrinos have mass and that flavor states are superpositions of mass states described by the PMNS matrix, with three mixing angles, one Dirac CP phase and two independent mass-squared differences. θ_12 and Δm²_21 come from solar and KamLAND data; θ_13 from reactor experiments (Daya Bay, RENO, Double Chooz); θ_23 and |Δm²_32| from atmospheric and long-baseline accelerator experiments (T2K, NOvA, Super-K, IceCube). The remaining unknowns are the mass ordering (normal or inverted), the θ_23 octant, and δ_CP, where T2K and NOvA are individually compatible with CP conservation but jointly disfavour some parameter regions. JUNO, DUNE and Hyper-Kamiokande are designed to resolve them.",
-    "observables": [
-      "Δm²_21",
-      "|Δm²_32| (or Δm²_31) and its sign (mass ordering)",
-      "sin²θ_12",
-      "sin²θ_13",
-      "sin²θ_23 and octant",
-      "δ_CP",
-      "ν_μ and ν̄_μ disappearance probabilities",
-      "ν_e and ν̄_e appearance probabilities",
-      "L/E spectral distortion",
-      "PMNS unitarity tests"
-    ],
     "aliases": [
       "neutrino mixing",
       "PMNS matrix",
       "long-baseline neutrino physics",
       "neutrino mass ordering"
     ],
+    "id": "topic:neutrino-oscillations",
+    "name": "Neutrino oscillations",
+    "observables": [
+      "solar mass-squared difference",
+      "atmospheric mass-squared difference and its sign (mass ordering)",
+      "the three mixing angles and the octant of theta_23",
+      "Dirac CP phase",
+      "muon-neutrino and antineutrino disappearance probabilities",
+      "electron-neutrino and antineutrino appearance probabilities",
+      "L/E spectral distortion",
+      "matter-effect asymmetries",
+      "unitarity tests of the mixing matrix"
+    ],
+    "overview": "Neutrino flavour oscillations follow from neutrinos having mass and from flavour states being superpositions of mass states, described by a lepton mixing matrix with three angles, one Dirac CP phase and, for Majorana neutrinos, two further phases. Two independent mass-squared differences are measured. Solar, atmospheric, accelerator and reactor experiments each constrain different combinations, and propagation through matter modifies the pattern, notably through the Mikheyev-Smirnov-Wolfenstein effect for solar neutrinos. A combined three-neutrino analysis leaves the mass ordering, the octant of the largest atmospheric angle, and the size of leptonic CP violation as the principal open questions.",
+    "parent_id": "topic:neutrino-physics",
+    "question": "Why do neutrinos change from one type into another as they travel, which neutrino is heaviest, and do neutrinos and antineutrinos oscillate differently?",
+    "schema": "hep-atlas/0.2",
     "sources": [
-      "src:topic-pdg-2024-neutrino-mixing",
-      "src:topic-snowmass-2021-neutrino-frontier-report"
-    ]
+      "src:topic-pdg-2026-neutrino-mixing",
+      "src:topic-snowmass-2021-neutrino-frontier-report",
+      "src:topic-p5-2023-report"
+    ],
+    "type": "topic"
   },
   {
-    "id": "topic:neutrino-interactions",
-    "type": "topic",
-    "name": "Neutrino interactions and cross sections",
-    "parent_id": "topic:neutrino-physics",
-    "question": "How do neutrinos interact with atomic nuclei, and how well can we model those interactions, which every accelerator neutrino measurement depends on?",
-    "overview": "Neutrino–nucleus scattering cross sections in the 0.1–20 GeV range are among the largest systematic uncertainties for accelerator-based oscillation experiments. Processes include charged-current quasi-elastic scattering, resonant and coherent pion production, deep-inelastic scattering and neutral-current channels; nuclear effects such as Fermi motion, multi-nucleon (2p2h) correlations and final-state interactions distort the observed kinematics and bias energy reconstruction. MiniBooNE, MINERvA, the T2K near detectors, NOvA, MicroBooNE and ArgoNeuT have measured cross sections on carbon, water, argon and other targets; the SBN detectors and the DUNE near detector will improve argon data. Neutrino–electron scattering and inverse beta decay are precisely calculable and serve as flux normalisation, while high-energy data from NuTeV, CCFR and FASERν test QCD and the weak mixing angle.",
-    "observables": [
-      "CC inclusive, CC0π, CC1π and CCQE cross sections versus E_ν",
-      "double-differential cross sections d²σ/dp_μ dcosθ_μ",
-      "NC π0 and NC elastic cross sections",
-      "coherent pion production cross section",
-      "target-mass (A) dependence",
-      "axial-vector form factor and M_A",
-      "ν–e elastic scattering rate",
-      "deep-inelastic structure functions and sin²θ_W from ν-N",
-      "energy-reconstruction bias and transverse kinematic imbalance"
-    ],
     "aliases": [
       "neutrino cross sections",
-      "neutrino-nucleus scattering",
-      "neutrino interaction physics"
+      "neutrino-nucleus scattering"
     ],
+    "id": "topic:neutrino-interactions",
+    "name": "Neutrino interactions and cross sections",
+    "observables": [
+      "charged-current inclusive and exclusive cross sections versus neutrino energy",
+      "double-differential cross sections in outgoing lepton kinematics",
+      "quasi-elastic, resonance and deep-inelastic channel cross sections",
+      "neutral-current cross sections",
+      "coherent pion production",
+      "target-nucleus (A) dependence",
+      "neutrino-electron elastic scattering rate",
+      "reconstructed-energy bias"
+    ],
+    "overview": "Neutrino cross sections are an essential ingredient of every neutrino experiment, and uncertainties in neutrino-nucleus scattering remain a dominant systematic in oscillation measurements. The Particle Data Group surveys measurements from roughly 0.1 to 1000 GeV with emphasis on inclusive, deep inelastic, quasi-elastic and resonance-production processes on a range of nuclear targets. Nuclear effects distort the observed kinematics and bias reconstructed neutrino energy, so precise flux estimates, theoretical input and complementary electron-nucleus scattering data are all needed. Modern measurements come from ArgoNeuT, ICARUS, MicroBooNE, MINERvA, NOvA, T2K, IceCube and FASERnu, among others.",
+    "parent_id": "topic:neutrino-physics",
+    "question": "How do neutrinos interact with atomic nuclei, and how well can we model those interactions, which every accelerator neutrino measurement depends on?",
+    "schema": "hep-atlas/0.2",
     "sources": [
+      "src:topic-pdg-2026-neutrino-cross-sections",
       "src:topic-snowmass-2021-nf06-neutrino-interactions",
-      "src:topic-review-formaggio-zeller-2012-neutrino-cross-sections"
-    ]
+      "src:topic-review-formaggio-zeller-2013-neutrino-cross-sections"
+    ],
+    "type": "topic"
   },
   {
+    "aliases": [
+      "core-collapse supernova neutrinos",
+      "SN neutrinos",
+      "diffuse supernova neutrino background"
+    ],
     "id": "topic:supernova-neutrinos",
-    "type": "topic",
     "name": "Supernova neutrinos",
-    "parent_id": "topic:neutrino-physics",
-    "question": "What happens inside a collapsing star, and can the burst of neutrinos from the next nearby supernova reveal how stars explode and what neutrinos are like?",
-    "overview": "A core-collapse supernova emits about 3×10^53 erg, some 99% of the released gravitational binding energy, as neutrinos and antineutrinos of all flavors over roughly ten seconds, with mean energies of 10–15 MeV. The only detection so far is SN 1987A: about two dozen events in Kamiokande-II, IMB and Baksan, which confirmed the basic picture and constrained neutrino mass, lifetime and exotic couplings. A Galactic supernova today would yield thousands of events in Super-Kamiokande, JUNO, IceCube, DUNE and other detectors; the time, energy and flavor structure would probe the neutronisation burst, accretion and cooling phases, collective flavor conversion and the mass ordering. The SNEWS network coordinates early alerts. Searches for the diffuse supernova neutrino background (Super-Kamiokande with gadolinium) are approaching predicted flux levels.",
     "observables": [
-      "event rate versus time (burst time profile)",
-      "ν̄_e energy spectrum via inverse beta decay",
-      "ν_e neutronisation burst via ν_e–Ar charged-current and ν–e elastic scattering",
-      "all-flavor flux via neutral-current interactions",
-      "total emitted energy and mean energies per flavor",
-      "flavor composition and spectral swaps",
+      "event rate versus time across the burst",
+      "energy spectra per flavour",
+      "total emitted energy and mean energies",
+      "neutronization-burst signal",
+      "all-flavour flux through neutral-current channels",
+      "flavour composition and spectral swaps",
       "diffuse supernova neutrino background flux",
       "alert latency and pointing accuracy",
-      "time-of-flight neutrino mass constraint"
+      "time-of-flight constraints on neutrino mass"
     ],
-    "aliases": [
-      "SN neutrinos",
-      "core-collapse supernova neutrinos",
-      "DSNB"
-    ],
+    "overview": "Neutrinos govern the infall of a collapsing stellar core, help trigger and fuel the explosion, and drive the cooling and deleptonization of the newly formed neutron star, so they offer the only direct probe of conditions at the centre of a supernova. A core-collapse supernova produces a burst of neutrinos of all flavours in the few-tens-of-MeV range over seconds. Extracting source properties requires separating them from effects imprinted on the way out: self-induced flavour conversion from neutrino-neutrino interactions in the deepest regions, and matter effects in the envelope. Neutrinos from past cosmic supernovae form a diffuse background that is also observable in principle.",
+    "parent_id": "topic:neutrino-physics",
+    "question": "What happens inside a collapsing star, and what would the burst of neutrinos from the next nearby supernova reveal about the explosion and about neutrinos?",
+    "schema": "hep-atlas/0.2",
     "sources": [
       "src:topic-review-mirizzi-2016-supernova-neutrinos",
-      "src:topic-review-scholberg-2012-supernova-neutrino-detection"
-    ]
+      "src:topic-review-scholberg-2012-supernova-neutrino-detection",
+      "src:topic-snowmass-2021-nf04-natural-sources"
+    ],
+    "type": "topic"
   },
   {
-    "id": "topic:solar-neutrinos",
-    "type": "topic",
-    "name": "Solar neutrinos",
-    "parent_id": "topic:neutrino-physics",
-    "question": "How does the Sun produce its energy, and what did the missing solar neutrinos teach us about the neutrino itself?",
-    "overview": "Solar neutrinos are produced in the proton–proton chain and the CNO cycle. The Homestake chlorine experiment (from 1968) measured a deficit relative to the standard solar model, confirmed by Kamiokande, GALLEX/GNO and SAGE; SNO's charged-current, neutral-current and elastic-scattering measurements (2001–2002) showed that the total 8B flux matched the model while the electron-flavor fraction was about one third, establishing flavor conversion through the MSW matter effect. Borexino measured the 7Be, pep, pp and, in 2020, CNO fluxes, the last confirming that the CNO cycle operates in the Sun. Current topics include the day–night asymmetry, the 8B spectrum shape at low energy, solar metallicity from CNO neutrinos, and using the Sun as a source for oscillation and non-standard-interaction tests in Super-Kamiokande, SNO+, JUNO, and large dark-matter detectors.",
-    "observables": [
-      "8B, 7Be, pep, pp, CNO and hep neutrino fluxes",
-      "charged-current to neutral-current ratio",
-      "day–night asymmetry A_DN",
-      "electron survival probability P_ee versus energy",
-      "recoil-electron energy spectrum",
-      "Δm²_21 and sin²θ_12 from solar data",
-      "solar metallicity (high-Z versus low-Z models)"
-    ],
     "aliases": [
       "solar neutrino problem",
       "pp-chain neutrinos",
       "CNO neutrinos"
     ],
+    "id": "topic:solar-neutrinos",
+    "name": "Solar neutrinos",
+    "observables": [
+      "fluxes of the 8B, 7Be, pep, pp, hep and CNO components",
+      "charged-current to neutral-current ratio",
+      "electron-neutrino survival probability versus energy",
+      "recoil-electron energy spectrum",
+      "day-night asymmetry",
+      "solar values of the mixing angle theta_12 and the solar mass-squared difference",
+      "solar metallicity inferred from CNO neutrinos"
+    ],
+    "overview": "The Sun produces energy through two main chains, the proton-proton chain and the CNO cycle, each emitting electron neutrinos with characteristic spectra; mean energies are low, with the pp neutrinos carrying only a fraction of an MeV. Radiochemical and water-Cherenkov experiments found fewer electron neutrinos than the standard solar model predicts, which is explained by flavour conversion, enhanced inside the Sun by the Mikheyev-Smirnov-Wolfenstein matter effect. Borexino, a liquid-scintillator detector at Gran Sasso operating from 2007 to 2021, made the first real-time measurements of several low-energy components, including the CNO neutrinos.",
+    "parent_id": "topic:neutrino-physics",
+    "question": "How does the Sun produce its energy, and what did the long-standing shortfall of solar neutrinos teach us about the neutrino itself?",
+    "schema": "hep-atlas/0.2",
     "sources": [
-      "src:topic-pdg-2024-neutrino-mixing",
-      "src:topic-snowmass-2021-nf04-natural-neutrino-sources"
-    ]
+      "src:topic-pdg-2026-neutrino-mixing",
+      "src:topic-snowmass-2021-nf04-natural-sources"
+    ],
+    "type": "topic"
   },
   {
-    "id": "topic:atmospheric-neutrinos",
-    "type": "topic",
-    "name": "Atmospheric neutrinos",
-    "parent_id": "topic:neutrino-physics",
-    "question": "How do neutrinos made by cosmic rays hitting the atmosphere behave over distances from tens to thousands of kilometres through the Earth?",
-    "overview": "Cosmic rays striking the atmosphere produce pions and kaons whose decays yield muon and electron neutrinos and antineutrinos from about 100 MeV to well above 1 TeV, over baselines from about 15 km (downward) to about 13,000 km (upward through the Earth). Super-Kamiokande's 1998 observation of a zenith-angle-dependent muon-neutrino deficit was the first compelling evidence for neutrino oscillations. Atmospheric samples now constrain θ_23 and |Δm²_32|, and through Earth matter effects in the 2–8 GeV range are sensitive to the mass ordering; Super-Kamiokande and IceCube DeepCore have also observed tau-neutrino appearance. Flux modelling relies on cosmic-ray spectra and hadronic-interaction models, calibrated against muon data. Super-Kamiokande, IceCube DeepCore and the IceCube Upgrade, KM3NeT/ORCA, JUNO, Hyper-Kamiokande and DUNE continue this programme.",
-    "observables": [
-      "zenith-angle distributions by flavor and energy",
-      "up–down asymmetry",
-      "L/E oscillation pattern",
-      "ν_μ disappearance and ν_τ appearance",
-      "sin²θ_23 and |Δm²_32|",
-      "mass-ordering sensitivity via resonant matter effects",
-      "atmospheric flux normalisation and ν/ν̄ ratio",
-      "muon and electron neutrino flux ratio"
-    ],
     "aliases": [
       "atmospheric neutrino oscillations"
     ],
+    "id": "topic:atmospheric-neutrinos",
+    "name": "Atmospheric neutrinos",
+    "observables": [
+      "zenith-angle distributions by flavour and energy",
+      "up-down asymmetry",
+      "L/E oscillation pattern",
+      "muon-neutrino disappearance",
+      "tau-neutrino appearance",
+      "atmospheric mixing angle and mass-squared difference",
+      "mass-ordering sensitivity through Earth matter effects",
+      "atmospheric flux normalisation and neutrino/antineutrino ratio"
+    ],
+    "overview": "Cosmic rays interacting in the atmosphere produce mesons whose decays yield muon and electron neutrinos and antineutrinos over a very wide energy range and over baselines from a few tens of kilometres for downward-going neutrinos to the Earth diameter for upward-going ones. Because the same detector sees both, the zenith-angle and energy dependence of the observed rates maps the oscillation pattern directly. Atmospheric samples constrain the atmospheric mixing angle and mass-squared difference, and, through matter effects during passage through the Earth, carry sensitivity to the neutrino mass ordering. Flux predictions rely on cosmic-ray spectra and hadronic-interaction models.",
+    "parent_id": "topic:neutrino-physics",
+    "question": "How do neutrinos made when cosmic rays strike the atmosphere behave over distances from tens to thousands of kilometres through the Earth?",
+    "schema": "hep-atlas/0.2",
     "sources": [
-      "src:topic-pdg-2024-neutrino-mixing",
-      "src:topic-snowmass-2021-nf04-natural-neutrino-sources"
-    ]
+      "src:topic-pdg-2026-neutrino-mixing",
+      "src:topic-snowmass-2021-nf04-natural-sources"
+    ],
+    "type": "topic"
   },
   {
-    "id": "topic:reactor-neutrinos",
-    "type": "topic",
-    "name": "Reactor neutrinos",
-    "parent_id": "topic:neutrino-physics",
-    "question": "What can the antineutrinos streaming out of nuclear reactors teach us about neutrino mixing and about which neutrino is the heaviest?",
-    "overview": "Nuclear reactors are intense, pure sources of electron antineutrinos from beta decays of fission fragments of 235U, 239Pu, 238U and 241Pu, with energies up to about 10 MeV, detected through inverse beta decay in liquid scintillator. The Cowan–Reines experiment at Savannah River (1956) provided the first detection of neutrinos. KamLAND (2002) observed disappearance at a mean baseline of about 180 km, confirming the solar oscillation solution; Daya Bay, RENO and Double Chooz (2012) measured θ_13 at 1–2 km. JUNO, at about 53 km, aims to determine the mass ordering from the interference of the Δm²_31 and Δm²_32 oscillation patterns and to measure several parameters to sub-per-cent precision. A spectral bump near 5 MeV and a flux deficit relative to older predictions motivated revised flux models and short-baseline sterile-neutrino searches.",
-    "observables": [
-      "inverse-beta-decay rate and prompt-energy spectrum",
-      "sin²2θ_13",
-      "|Δm²_ee| and Δm²_32",
-      "Δm²_21 and sin²θ_12 (KamLAND, JUNO)",
-      "antineutrino flux and spectrum per fission, by isotope",
-      "5 MeV spectral bump",
-      "fuel-evolution dependence of yields",
-      "near/far detector ratio",
-      "geoneutrino flux"
-    ],
     "aliases": [
       "reactor antineutrinos",
       "reactor neutrino oscillations"
     ],
+    "id": "topic:reactor-neutrinos",
+    "name": "Reactor neutrinos",
+    "observables": [
+      "inverse-beta-decay rate and prompt-energy spectrum",
+      "the reactor mixing angle theta_13",
+      "the effective atmospheric mass-squared difference",
+      "solar parameters from medium-baseline disappearance",
+      "antineutrino flux and spectrum per fission by isotope",
+      "spectral structure near 5 MeV",
+      "fuel-evolution dependence of the yield",
+      "near-to-far detector ratio"
+    ],
+    "overview": "Nuclear reactors are intense sources of electron antineutrinos from the beta decays of fission fragments, detected mainly through inverse beta decay in liquid scintillator. Reactor antineutrinos provided the first direct detection of the neutrino, and later experiments found clear evidence for oscillation, giving unique input to neutrino mass and mixing. Kilometre-baseline experiments measured the smallest mixing angle, and a medium-baseline detector about 53 km from two Chinese power plants is designed to determine the mass ordering from the fine structure of the disappearance spectrum. Ongoing questions include reactor flux and spectrum predictions and short-baseline searches for hypothetical sterile states.",
+    "parent_id": "topic:neutrino-physics",
+    "question": "What can the electron antineutrinos streaming out of nuclear reactors teach us about neutrino mixing and about which neutrino is heaviest?",
+    "schema": "hep-atlas/0.2",
     "sources": [
-      "src:topic-pdg-2024-neutrino-mixing",
-      "src:topic-review-qian-peng-2019-reactor-neutrinos"
-    ]
+      "src:topic-pdg-2026-neutrino-mixing",
+      "src:topic-review-qian-peng-2018-reactor-neutrinos"
+    ],
+    "type": "topic"
   },
   {
-    "id": "topic:high-energy-astrophysical-neutrinos",
-    "type": "topic",
-    "name": "High-energy astrophysical neutrinos",
-    "parent_id": "topic:neutrino-physics",
-    "question": "Where do the highest-energy neutrinos in the universe come from, and what do they reveal about extreme cosmic accelerators?",
-    "overview": "Astrophysical neutrinos above about 10 TeV were discovered by IceCube in 2013 as an approximately isotropic diffuse flux exceeding the atmospheric background. Sources identified since include the blazar TXS 0506+056 (2017, with a coincident gamma-ray flare, about 3σ), the Seyfert galaxy NGC 1068 (4.2σ, 2022) and the Galactic plane (4.5σ, 2023). Cubic-kilometre Cherenkov detectors in ice (IceCube) and water (ANTARES, KM3NeT, Baikal-GVD) reconstruct through-going muon tracks and cascades; KM3NeT reported an event with estimated energy of about 220 PeV in 2025. Radio detectors (ARA, ARIANNA, RNO-G) and the Pierre Auger Observatory search for EeV cosmogenic neutrinos, not yet detected. Measurements constrain the spectrum, flavor composition, neutrino–nucleon cross sections via Earth absorption, and physics beyond the Standard Model at otherwise inaccessible energies.",
-    "observables": [
-      "diffuse flux normalisation and spectral index",
-      "flavor ratio at Earth",
-      "point-source significance and catalogue",
-      "Glashow-resonance events near 6.3 PeV",
-      "ν–N cross section from Earth absorption",
-      "neutrino sky map and Galactic-plane emission",
-      "neutrino–gamma-ray temporal coincidences",
-      "ultra-high-energy neutrino flux limits above 10^17 eV",
-      "tau-neutrino identification (double cascade)"
-    ],
     "aliases": [
       "cosmic neutrinos",
       "neutrino astronomy",
-      "UHE neutrinos"
+      "ultra-high-energy neutrinos"
     ],
+    "id": "topic:high-energy-astrophysical-neutrinos",
+    "name": "High-energy astrophysical neutrinos",
+    "observables": [
+      "diffuse flux normalisation and spectral index",
+      "flavour ratio at Earth",
+      "point-source significances and catalogues",
+      "neutrino sky map and Galactic-plane emission",
+      "neutrino-nucleon cross section from Earth absorption",
+      "coincidences with gamma-ray and gravitational-wave events",
+      "ultra-high-energy flux limits",
+      "tau-neutrino identification"
+    ],
+    "overview": "Astrophysical neutrinos have energies far beyond those of solar, supernova, atmospheric and accelerator neutrinos, and probe fundamental physics from the TeV to the EeV scale and beyond. Because they are weakly interacting and electrically neutral they escape regions opaque to electromagnetic radiation and point back to their sources, carrying unique information about extreme non-thermal environments. The Particle Data Group notes that the observed distribution is largely isotropic, with evidence for two extragalactic sources and for a contribution from the Galactic plane. Detection uses cubic-kilometre Cherenkov arrays in ice and water, with radio and air-shower techniques targeting the highest energies.",
+    "parent_id": "topic:neutrino-physics",
+    "question": "Where do the highest-energy neutrinos in the universe come from, and what do they reveal about extreme cosmic accelerators and about physics at unreachable energies?",
+    "schema": "hep-atlas/0.2",
     "sources": [
       "src:topic-snowmass-2021-high-energy-neutrinos",
-      "src:topic-snowmass-2021-cf7-cosmic-probes"
-    ]
+      "src:topic-pdg-2026-cosmic-rays",
+      "src:topic-snowmass-2021-nf04-natural-sources"
+    ],
+    "type": "topic"
   },
   {
-    "id": "topic:sterile-neutrinos",
-    "type": "topic",
-    "name": "Sterile neutrinos",
-    "parent_id": "topic:neutrino-physics",
-    "question": "Are there additional kinds of neutrino that do not feel the weak force, and could they explain puzzling results from short-distance neutrino experiments?",
-    "overview": "Sterile neutrinos are hypothetical neutral fermions with no Standard Model gauge interactions that could mix with the three active neutrinos. Light (eV-scale) sterile neutrinos were motivated by anomalies: LSND's ν̄_e appearance (1990s), MiniBooNE's low-energy excess, the reactor antineutrino anomaly and the gallium anomaly (GALLEX and SAGE, reinforced by BEST in 2022). However, disappearance searches (MINOS+, IceCube, Daya Bay, PROSPECT, STEREO, DANSS) exclude most of the parameter space favoured by the appearance anomalies, MicroBooNE found no evidence that the MiniBooNE excess is due to electron neutrinos, and the reactor anomaly is largely explained by revised flux models. The Short-Baseline Neutrino programme (SBND, MicroBooNE, ICARUS) and JSNS² are testing the remaining regions. keV-scale sterile neutrinos are dark-matter candidates constrained by X-ray observations and beta-decay spectra.",
-    "observables": [
-      "Δm²_41",
-      "sin²2θ_14, sin²2θ_24 and sin²2θ_μe",
-      "ν_e and ν̄_e appearance rates at short baselines",
-      "ν_μ and ν̄_e disappearance at short baselines",
-      "L/E-dependent distortions in reactor spectra",
-      "gallium-source rate ratio R",
-      "N_eff from cosmology",
-      "X-ray line searches (e.g. 3.5 keV)",
-      "kinks in beta-decay spectra (KATRIN, TRISTAN)"
-    ],
     "aliases": [
       "light sterile neutrinos",
       "short-baseline anomalies",
       "3+1 model"
     ],
+    "id": "topic:sterile-neutrinos",
+    "name": "Sterile neutrinos",
+    "observables": [
+      "new mass-squared splitting at the eV scale",
+      "active-sterile mixing amplitudes",
+      "electron-neutrino appearance at short baselines",
+      "muon-neutrino and electron-antineutrino disappearance at short baselines",
+      "L/E distortions of reactor spectra",
+      "gallium source rate ratio",
+      "effective number of relativistic species from cosmology",
+      "kinks in beta-decay spectra"
+    ],
+    "overview": "Sterile neutrinos are hypothetical neutral fermions without Standard Model gauge interactions that could mix with the three active neutrinos; the Particle Data Group treats light sterile states as one way of extending the Standard Model to give neutrinos mass, and devotes a section to additional neutrinos at the eV scale. Four canonical short-baseline anomalies - from decay-at-rest and decay-in-flight accelerator experiments, from reactors and from radioactive-source gallium measurements - remain unresolved, and the Snowmass white paper argues that disappearance and appearance data do not fit consistently within a minimal 3+1 picture. Heavier sterile states are candidate dark matter.",
+    "parent_id": "topic:neutrino-physics",
+    "question": "Are there extra kinds of neutrino that do not feel the weak force, and could they explain puzzling results from short-distance neutrino experiments?",
+    "schema": "hep-atlas/0.2",
     "sources": [
-      "src:topic-snowmass-2021-nf02-sterile-neutrinos",
-      "src:topic-pdg-2024-neutrino-mixing"
-    ]
+      "src:topic-pdg-2026-neutrino-mixing",
+      "src:topic-snowmass-2021-nf02-sterile-neutrinos"
+    ],
+    "type": "topic"
   },
   {
-    "id": "topic:neutrino-mass-direct",
-    "type": "topic",
-    "name": "Direct neutrino mass measurement",
-    "parent_id": "topic:neutrino-physics",
-    "question": "How heavy is the neutrino? Can we measure its mass directly from the shape of a radioactive decay spectrum, without relying on cosmological models?",
-    "overview": "Direct neutrino-mass experiments measure the kinematics of beta or electron-capture decay near the spectral endpoint, where the effective mass m_β = (Σ|U_ei|²m_i²)^1/2 distorts the spectrum; the method is model-independent, unlike the cosmological sum Σm_ν or the Majorana mass m_ββ from neutrinoless double beta decay. KATRIN, using gaseous molecular tritium and a MAC-E-filter spectrometer, set m_β < 0.45 eV (90% CL) in 2025 and targets a final sensitivity near 0.3 eV; the earlier Mainz and Troitsk experiments reached about 2 eV. Alternative approaches include cyclotron radiation emission spectroscopy (Project 8), 163Ho electron-capture calorimetry (ECHo, HOLMES) and the proposed relic-neutrino capture experiment PTOLEMY. Cosmology gives Σm_ν below roughly 0.1 eV under ΛCDM assumptions, while oscillation data require Σm_ν of at least about 0.06 eV.",
-    "observables": [
-      "effective electron-antineutrino mass m_β",
-      "tritium endpoint energy E_0",
-      "integral spectrum shape near the endpoint",
-      "163Ho Q-value and endpoint spectrum",
-      "sterile-neutrino kink search",
-      "Σm_ν (cosmology, for comparison)",
-      "spectrometer energy resolution and background rate"
-    ],
     "aliases": [
-      "neutrino mass",
+      "kinematic neutrino mass",
       "tritium beta-decay endpoint",
-      "kinematic neutrino mass"
+      "neutrino mass scale"
     ],
+    "id": "topic:neutrino-mass-direct",
+    "name": "Direct neutrino mass measurement",
+    "observables": [
+      "effective electron-antineutrino mass",
+      "endpoint energy of the beta spectrum",
+      "integral or differential spectrum shape near the endpoint",
+      "holmium-163 decay energy and calorimetric spectrum",
+      "kink searches for extra neutrino states",
+      "energy resolution and background rate",
+      "cosmological sum of neutrino masses, for comparison"
+    ],
+    "overview": "Oscillations fix only mass-squared differences, so the absolute scale must come from elsewhere. The only model-independent information comes from energy-momentum conservation in weak decays: a non-zero mass distorts the beta spectrum near its endpoint, and tritium is favoured because its decay energy is small. KATRIN has found no indication of a non-zero mass and sets an upper limit of 0.45 eV at 90 per cent confidence, improving on the roughly 2.2 eV bounds from Mainz and Troitsk, and should approach a sensitivity near 0.3 eV. Holmium-163 electron-capture calorimetry and cyclotron-radiation spectroscopy are complementary approaches.",
+    "parent_id": "topic:neutrino-physics",
+    "question": "How heavy is the neutrino? Can we measure its mass from the shape of a radioactive decay spectrum, without relying on cosmological models?",
+    "schema": "hep-atlas/0.2",
     "sources": [
+      "src:topic-pdg-2026-neutrino-mixing",
       "src:topic-review-formaggio-2021-direct-neutrino-mass",
-      "src:topic-snowmass-2021-nf05-neutrino-properties"
-    ]
+      "src:topic-pdg-2026-neutrinos-in-cosmology"
+    ],
+    "type": "topic"
   },
   {
-    "id": "topic:neutrinoless-double-beta-decay",
-    "type": "topic",
-    "name": "Neutrinoless double beta decay",
-    "parent_id": "topic:neutrino-physics",
-    "question": "Is the neutrino its own antiparticle? Seeing a nucleus decay by emitting two electrons and no neutrinos would prove it, and hint at how neutrinos acquire mass.",
-    "overview": "Neutrinoless double beta decay (0νββ) would convert a nucleus (A,Z) into (A,Z+2) emitting two electrons and no neutrinos, violating lepton number by two units and demonstrating that neutrinos are Majorana particles. In the light-neutrino-exchange mechanism the rate scales with the square of the effective Majorana mass m_ββ and with nuclear matrix elements, whose theoretical uncertainty is a factor of two to three. No observation exists; leading half-life limits exceed 10^26 years from KamLAND-Zen (136Xe, above 3.8×10^26 yr), GERDA and MAJORANA DEMONSTRATOR (76Ge), CUORE (130Te) and EXO-200 (136Xe), with LEGEND-200 now running. Tonne-scale experiments (LEGEND-1000, nEXO, CUPID, KamLAND2-Zen, NEXT, SNO+) target sensitivities of 10^27–10^28 years, covering the inverted-ordering region m_ββ ≈ 15–50 meV. Backgrounds from 2νββ, radiogenic and cosmogenic sources require deep underground operation and ultra-pure materials.",
-    "observables": [
-      "0νββ half-life limit T_1/2^0ν",
-      "effective Majorana mass m_ββ",
-      "2νββ half-lives and spectra",
-      "energy resolution at the Q-value",
-      "background index (counts/keV/kg/yr)",
-      "isotope exposure (kg·yr) and enrichment",
-      "nuclear matrix elements and g_A quenching (theory inputs)",
-      "Majoron-emitting mode limits"
-    ],
     "aliases": [
-      "0νββ",
       "double beta decay",
       "Majorana neutrino searches",
       "lepton number violation"
     ],
+    "id": "topic:neutrinoless-double-beta-decay",
+    "name": "Neutrinoless double beta decay",
+    "observables": [
+      "half-life limits for the neutrinoless mode",
+      "inferred effective Majorana mass",
+      "two-neutrino double-beta half-lives and spectra",
+      "energy resolution at the decay energy",
+      "background index per unit exposure",
+      "isotope mass, enrichment and exposure",
+      "nuclear matrix elements as a theory input",
+      "limits on Majoron-emitting modes"
+    ],
+    "overview": "Neutrinoless double beta decay is a hypothetical ultra-rare nuclear decay that would violate total lepton number by two units and require neutrinos to be Majorana particles. Under the assumption that Majorana neutrino mass is the only low-energy source of lepton-number violation, the half-life relates to an effective Majorana mass through phase space and nuclear matrix elements, whose uncertainty spreads the inferred mass by a factor of two to three; other new-physics mechanisms could dominate instead. No decay has been seen. The strongest limits come from xenon-136 and germanium-76, exceeding 10^26 years.",
+    "parent_id": "topic:neutrino-physics",
+    "question": "Is the neutrino its own antiparticle? A nucleus decaying by emitting two electrons and no neutrinos would show that it is, and hint at how neutrino mass arises.",
+    "schema": "hep-atlas/0.2",
     "sources": [
-      "src:topic-pdg-2024-neutrinoless-double-beta-decay",
-      "src:topic-review-agostini-2023-double-beta"
-    ]
+      "src:topic-pdg-2026-neutrino-mixing",
+      "src:topic-review-agostini-2023-neutrinoless-double-beta-decay"
+    ],
+    "type": "topic"
   },
   {
-    "id": "topic:cevns",
-    "type": "topic",
-    "name": "Coherent elastic neutrino–nucleus scattering",
-    "parent_id": "topic:neutrino-physics",
-    "question": "Can we see a neutrino bounce off an entire atomic nucleus at once, and what does that tell us about the nucleus and about possible new forces?",
-    "overview": "Coherent elastic neutrino–nucleus scattering (CEvNS) is a neutral-current process in which a low-energy neutrino (tens of MeV or below) scatters off a nucleus as a whole, with a cross section that grows roughly as the square of the neutron number but yields only a keV-scale nuclear recoil. Predicted by Freedman in 1974, it was first observed by COHERENT in 2017 on CsI at the Oak Ridge Spallation Neutron Source (6.7σ), and later on argon and germanium. The process tests the Standard Model weak charge, constrains the neutron radius of nuclei, non-standard interactions, neutrino magnetic moments and light mediators, and sets the irreducible neutrino fog for direct dark-matter detection. Reactor CEvNS searches (CONUS, Dresden-II, TEXONO, νGeN, Ricochet) need sub-keV thresholds; in 2024 XENONnT and PandaX-4T each reported about 2.7σ indications of solar 8B CEvNS.",
-    "observables": [
-      "flux-averaged CEvNS cross section",
-      "N² scaling of the cross section",
-      "nuclear-recoil energy spectrum",
-      "neutron rms radius R_n",
-      "weak mixing angle at low momentum transfer",
-      "non-standard-interaction parameters ε_αβ",
-      "neutrino magnetic moment limit",
-      "quenching factor of the target",
-      "timing relative to the pulsed source"
-    ],
     "aliases": [
       "CEvNS",
-      "coherent neutrino scattering",
-      "CEνNS"
+      "coherent neutrino scattering"
     ],
+    "id": "topic:cevns",
+    "name": "Coherent elastic neutrino-nucleus scattering",
+    "observables": [
+      "flux-averaged coherent cross section",
+      "scaling with neutron number",
+      "nuclear-recoil energy spectrum",
+      "timing relative to a pulsed source",
+      "quenching factor of the target material",
+      "neutron root-mean-square radius",
+      "weak mixing angle at low momentum transfer",
+      "non-standard interaction parameters",
+      "neutrino magnetic moment limits"
+    ],
+    "overview": "In coherent elastic neutrino-nucleus scattering a low-energy neutrino scatters from a nucleus acting as a single particle. The total cross section is large by neutrino standards, but the process eluded detection for four decades because the nuclear recoil deposits only about a keV. COHERENT observed it at 6.7 sigma in 2017 using a 14.6 kg caesium-iodide scintillator at the Oak Ridge Spallation Neutron Source, and derived improved constraints on non-standard neutrino interactions with quarks. The process bears on nuclear structure and astrophysics as well as particle physics, and sets an irreducible neutrino background for dark-matter detectors.",
+    "parent_id": "topic:neutrino-physics",
+    "question": "Can we watch a neutrino bounce off an entire atomic nucleus at once, and what does that reveal about the nucleus and about possible new forces?",
+    "schema": "hep-atlas/0.2",
     "sources": [
+      "src:topic-coherent-2017-cevns-observation",
       "src:topic-snowmass-2021-cevns",
-      "src:topic-coherent-2017-science-observation"
-    ]
+      "src:topic-pdg-2026-dark-matter"
+    ],
+    "type": "topic"
   },
   {
-    "id": "topic:direct-dark-matter-detection",
-    "type": "topic",
-    "name": "Direct dark matter detection",
-    "parent_id": "topic:dark-matter",
-    "question": "Can we catch a dark-matter particle from our own galaxy colliding with an atom in a detector deep underground?",
-    "overview": "Direct detection experiments search for nuclear or electron recoils produced when Galactic dark matter passes through detectors operated deep underground to shield against cosmic rays. For WIMP masses of roughly 10 GeV to 10 TeV, dual-phase liquid-xenon time projection chambers (LZ, XENONnT, PandaX-4T) lead, with spin-independent cross-section limits near 2×10^-48 cm² at about 40 GeV (LZ, 2024), approaching the neutrino fog from solar and atmospheric neutrinos; liquid argon (DarkSide, DEAP-3600) and cryogenic crystals (SuperCDMS, CRESST, EDELWEISS) extend sensitivity to lower masses. Sub-GeV searches use electron recoils in skipper CCDs (SENSEI, DAMIC-M) or novel targets. The DAMA/LIBRA annual-modulation claim has not been confirmed by COSINE-100 and ANAIS-112 using the same NaI(Tl) target. Next-generation observatories (XLZD, DARWIN, ARGO) are being planned.",
-    "observables": [
-      "spin-independent WIMP–nucleon cross section versus mass",
-      "spin-dependent WIMP–proton and WIMP–neutron cross sections",
-      "dark matter–electron scattering cross section",
-      "annual-modulation amplitude and phase",
-      "recoil energy spectrum and threshold",
-      "exposure (tonne·year) and background index",
-      "electronic/nuclear recoil discrimination",
-      "solar 8B neutrino fog level",
-      "effective-field-theory operator limits",
-      "assumed local density (0.3 GeV/cm³) and velocity distribution"
-    ],
     "aliases": [
       "WIMP searches",
       "direct detection",
       "underground dark matter experiments"
     ],
+    "id": "topic:direct-dark-matter-detection",
+    "name": "Direct dark matter detection",
+    "observables": [
+      "spin-independent cross section versus mass",
+      "spin-dependent proton and neutron cross sections",
+      "dark-matter-electron scattering cross section",
+      "nuclear-recoil energy spectrum and threshold",
+      "exposure and background index",
+      "electronic/nuclear recoil discrimination",
+      "annual-modulation amplitude and phase",
+      "assumed local density and velocity distribution",
+      "level of the coherent-neutrino-scattering background"
+    ],
+    "overview": "Direct detection looks for nuclear or electron recoils left when Galactic dark matter passes through a low-background detector operated deep underground. Interpretation needs the local dark-matter density and velocity distribution, which are themselves uncertain at the level of a factor of a few. Dual-phase liquid-xenon time projection chambers currently lead for masses around tens of GeV: the Particle Data Group tabulates a spin-independent cross-section limit of 2.2 x 10^-48 cm^2 near 40 GeV from LUX-ZEPLIN, with XENONnT and PandaX-4T close behind. Sensitivity is approaching the irreducible background from coherent neutrino scattering, which those detectors have now begun to observe.",
+    "parent_id": "topic:dark-matter",
+    "question": "Can we catch a dark-matter particle from our own galaxy recoiling off an atom in a detector deep underground?",
+    "schema": "hep-atlas/0.2",
     "sources": [
-      "src:topic-pdg-2024-dark-matter",
-      "src:topic-snowmass-2021-cf1-dark-matter-particlelike",
+      "src:topic-pdg-2026-dark-matter",
+      "src:topic-snowmass-2021-cf1-particle-dark-matter",
       "src:topic-review-billard-2022-direct-detection-appec"
-    ]
+    ],
+    "type": "topic"
   },
   {
-    "id": "topic:indirect-dark-matter-detection",
-    "type": "topic",
-    "name": "Indirect dark matter detection",
-    "parent_id": "topic:dark-matter",
-    "question": "If dark-matter particles annihilate or decay somewhere in space, can we spot the gamma rays, neutrinos or antimatter they would produce?",
-    "overview": "Indirect detection searches for Standard Model particles produced by dark-matter annihilation or decay in astrophysical environments. Gamma-ray instruments (Fermi-LAT, H.E.S.S., MAGIC, VERITAS, HAWC, LHAASO) observe dwarf spheroidal galaxies, the Galactic Centre and galaxy clusters; combined Fermi-LAT dwarf-galaxy limits exclude thermal-relic annihilation cross sections for WIMP masses below about 100 GeV in some channels. Cosmic-ray antiprotons, positrons and antinuclei (AMS-02, PAMELA) and neutrinos from the Sun or the Galactic Centre (IceCube, Super-Kamiokande, ANTARES) give complementary constraints. The Galactic Centre GeV excess and the 3.5 keV X-ray line have been discussed as candidate signals but have plausible astrophysical or instrumental explanations. Interpretation depends strongly on the assumed dark-matter density profile (J-factor) and on astrophysical backgrounds.",
-    "observables": [
-      "velocity-averaged annihilation cross section ⟨σv⟩ versus mass, per channel",
-      "decay-lifetime limits",
-      "J-factors of targets",
-      "gamma-ray line searches",
-      "positron fraction and antiproton/proton ratio",
-      "antideuteron and antihelium searches",
-      "neutrino flux from the Sun (spin-dependent capture)",
-      "Galactic Centre excess spectrum and morphology",
-      "3.5 keV line flux"
-    ],
     "aliases": [
       "indirect detection",
       "dark matter annihilation searches"
     ],
+    "id": "topic:indirect-dark-matter-detection",
+    "name": "Indirect dark matter detection",
+    "observables": [
+      "velocity-averaged annihilation cross section versus mass, per channel",
+      "decay-lifetime limits",
+      "astrophysical J-factors of targets",
+      "gamma-ray line searches",
+      "positron fraction and antiproton-to-proton ratio",
+      "antideuteron and antihelium searches",
+      "neutrino flux from the Sun and Galactic Centre",
+      "Galactic Centre excess spectrum and morphology",
+      "X-ray line searches"
+    ],
+    "overview": "Indirect detection looks for Standard Model particles produced by hypothetical dark-matter annihilation or decay in astrophysical environments, using photons, charged cosmic rays and neutrinos. Substantial advances in observational data sets, complemented by numerical simulations, have enabled strong constraints on particle models and revealed several intriguing hints of possible signals whose astrophysical interpretation remains debated. Targets include dwarf spheroidal galaxies, the Galactic Centre, galaxy clusters, the Sun and the diffuse background. Limits depend strongly on the assumed dark-matter density profile of the target and on the modelling of astrophysical backgrounds and cosmic-ray propagation.",
+    "parent_id": "topic:dark-matter",
+    "question": "If dark-matter particles annihilate or decay somewhere in space, can we spot the gamma rays, neutrinos or antimatter they would produce?",
+    "schema": "hep-atlas/0.2",
     "sources": [
-      "src:topic-pdg-2024-dark-matter",
-      "src:topic-review-gaskins-2016-indirect-dm"
-    ]
+      "src:topic-pdg-2026-dark-matter",
+      "src:topic-review-gaskins-2016-indirect-dark-matter",
+      "src:topic-snowmass-2021-cf3-cosmic-probes-dark-matter"
+    ],
+    "type": "topic"
   },
   {
-    "id": "topic:accelerator-dark-matter-searches",
-    "type": "topic",
-    "name": "Accelerator dark matter searches",
-    "parent_id": "topic:dark-matter",
-    "question": "Can particle accelerators make dark matter in the laboratory, and detect it either as missing energy or when it scatters in a detector downstream?",
-    "overview": "Accelerators can produce dark matter or its mediators under controlled conditions, complementing direct and indirect searches. At the LHC, ATLAS and CMS look for missing transverse momentum recoiling against a jet, photon, Z or Higgs boson (mono-X signatures) and for mediator resonances, interpreted in simplified models. Electron-beam experiments (NA64, and the proposed LDMX) use missing-energy or missing-momentum signatures for sub-GeV dark matter coupled through a dark photon, while proton beam dumps and neutrino detectors (MiniBooNE-DM, COHERENT, SBND, the DUNE near detector) search for dark matter scattering downstream. BaBar and Belle II constrain invisible dark-photon decays via e+e−→γ+invisible. Results for light dark matter are compared with the thermal-relic target in the dimensionless coupling y = ε²α_D(m_χ/m_A′)^4.",
-    "observables": [
-      "mono-X cross-section limits",
-      "mediator mass versus coupling (g_q, g_χ) exclusions",
-      "missing-energy and missing-momentum spectra",
-      "y versus m_χ compared with thermal-relic targets",
-      "ε versus m_A′ for invisible dark photons",
-      "dark matter–electron and –nucleon scattering rates in downstream detectors",
-      "Higgs invisible branching fraction"
-    ],
     "aliases": [
       "collider dark matter searches",
-      "beam-dump dark matter",
-      "light dark matter at accelerators"
+      "fixed-target dark matter searches",
+      "missing-energy searches"
     ],
+    "id": "topic:accelerator-dark-matter-searches",
+    "name": "Accelerator searches for dark matter",
+    "observables": [
+      "missing-transverse-momentum spectra in mono-X final states",
+      "mediator resonance searches in dijet and dilepton spectra",
+      "dijet angular distributions",
+      "invisible decay branching fractions of the Higgs and Z bosons",
+      "missing-energy and missing-momentum yields at fixed-target experiments",
+      "thermal relic target curves in coupling-versus-mass planes",
+      "mediator mass and coupling exclusion limits"
+    ],
+    "overview": "Accelerator searches assume dark-matter particles escape the detector without interacting, leaving missing energy and momentum. At the LHC, ATLAS and CMS look for an imbalance in transverse momentum recoiling against a Standard Model particle, for bumps in dijet or dilepton mass spectra from a mediator, and for excesses in dijet angular distributions; no signal has been seen and limits are set on masses, couplings and cross sections. Fixed-target experiments increasingly probe lighter, sub-GeV dark sectors, where thermal relic targets are sharp and largely model-independent. A collider signal alone cannot prove that what was produced is the cosmological dark matter.",
+    "parent_id": "topic:dark-matter",
+    "question": "Can we make dark matter in a laboratory, by producing it in a collider or a beam dump and noticing the energy it carries away?",
+    "schema": "hep-atlas/0.2",
     "sources": [
+      "src:topic-pdg-2026-dark-matter",
       "src:topic-snowmass-2021-rf6-dark-sectors",
-      "src:topic-snowmass-2021-cf1-dark-matter-particlelike"
-    ]
+      "src:topic-snowmass-2021-cf1-particle-dark-matter"
+    ],
+    "type": "topic"
   },
   {
-    "id": "topic:axions-alps",
-    "type": "topic",
-    "name": "Axions and axion-like particles",
-    "parent_id": "topic:dark-matter",
-    "question": "Does an extremely light particle called the axion exist? It could solve a puzzle about the strong force and might also be the dark matter.",
-    "overview": "The QCD axion is a pseudoscalar predicted by the Peccei–Quinn solution of the strong CP problem, with mass and couplings inversely proportional to the decay constant f_a; axion-like particles (ALPs) generalise this without the mass–coupling relation. Axions produced non-thermally in the early universe are a leading dark-matter candidate. Searches include haloscopes converting Galactic axions to microwave photons in a strong magnetic field (ADMX has excluded DFSZ-model couplings in parts of the 2.7–4.2 μeV range; HAYSTAC, CAPP, ORGAN, MADMAX and ALPHA cover other masses), helioscopes for solar axions (CAST; IAXO proposed), light-shining-through-walls (ALPS II), nuclear-spin and lumped-circuit techniques (CASPEr, ABRACADABRA, DMRadio), and astrophysical bounds from stellar cooling and SN 1987A. No detection has been made.",
-    "observables": [
-      "axion–photon coupling g_aγγ versus mass m_a",
-      "axion–electron coupling g_aee",
-      "axion–nucleon coupling g_aNN",
-      "decay constant f_a",
-      "haloscope power excess and scan rate",
-      "solar axion flux limit",
-      "oscillating nuclear EDM amplitude",
-      "stellar-cooling constraints",
-      "relic axion density"
-    ],
     "aliases": [
       "axion",
-      "ALP",
-      "axion dark matter",
-      "wave-like dark matter"
+      "ALPs",
+      "QCD axion",
+      "wave dark matter"
     ],
-    "sources": [
-      "src:topic-pdg-2024-axions",
-      "src:topic-snowmass-2021-cf2-wave-dark-matter"
-    ]
-  },
-  {
-    "id": "topic:dark-photons-dark-sectors",
-    "type": "topic",
-    "name": "Dark photons and dark sectors",
+    "id": "topic:axions-alps",
+    "name": "Axions and axion-like particles",
+    "observables": [
+      "axion-photon coupling versus mass",
+      "axion-electron and axion-nucleon couplings",
+      "stellar energy-loss bounds",
+      "solar axion flux limits",
+      "microwave-cavity haloscope power excess",
+      "light-shining-through-walls conversion probability",
+      "astrophysical photon-axion conversion signatures",
+      "black-hole superradiance exclusions",
+      "relic axion abundance for a given decay constant"
+    ],
+    "overview": "Axions and axion-like particles are hypothetical light bosons arising from the spontaneous breaking of a global symmetry; a small explicit breaking gives them mass. The QCD axion, from the Peccei-Quinn mechanism, is of particular interest because it offers a compelling scheme to preserve CP symmetry in QCD, and the cold dark matter of the universe may consist of axions. Couplings to Standard Model particles are suppressed by the symmetry-breaking scale, so the particles interact very weakly and detecting them would open a window on physics far beyond accelerator reach. Searches run in laboratories, in stars and in the Galactic halo.",
     "parent_id": "topic:dark-matter",
-    "question": "Is there a hidden sector of particles that barely interacts with ordinary matter, communicating only through a faint portal such as a dark photon?",
-    "overview": "Dark sectors are hypothetical sets of particles neutral under the Standard Model gauge groups that couple to ordinary matter through portals: the vector portal (a dark photon A′ kinetically mixing with the photon with strength ε), the Higgs portal (dark scalars), the neutrino portal (heavy neutral leptons) and the axion portal. A visibly decaying dark photon appears as a narrow e+e− or μ+μ− resonance in electron fixed-target experiments (APEX, HPS, A1 at MAMI, NA64), meson decays (NA48/2, KLOE, BaBar, LHCb) and beam dumps (E137, E141, NA64, FASER, and the approved SHiP); invisible decays are covered under accelerator dark-matter searches. Exclusions cover much of the ε ~ 10^-3 region for masses below about 10 GeV, including the band once favoured by the muon g−2 anomaly. Related searches target dark Higgs bosons, millicharged particles and inelastic dark matter.",
-    "observables": [
-      "kinetic-mixing parameter ε versus dark-photon mass m_A′",
-      "dilepton resonance bump hunts",
-      "displaced-vertex lifetime searches",
-      "dark-scalar mixing angle sin²θ versus mass",
-      "millicharge fraction limits",
-      "e+e−→γA′ cross section",
-      "dark-photon branching fractions"
-    ],
-    "aliases": [
-      "hidden sectors",
-      "dark photon",
-      "A′",
-      "portal physics"
-    ],
+    "question": "Is there a very light particle that explains why the strong force respects matter-antimatter symmetry, and could such particles be the dark matter?",
+    "schema": "hep-atlas/0.2",
     "sources": [
-      "src:topic-snowmass-2021-rf6-dark-sectors",
-      "src:topic-review-fabbrichesi-2021-dark-photon"
-    ]
+      "src:topic-pdg-2026-axions",
+      "src:topic-snowmass-2021-cf2-axion-dark-matter"
+    ],
+    "type": "topic"
   },
   {
-    "id": "topic:long-lived-particles",
-    "type": "topic",
-    "name": "Long-lived particles",
-    "parent_id": "topic:precision-and-rare-processes",
-    "question": "Could new particles be hiding from collider searches because they travel metres before decaying, leaving signatures that detectors were not designed to catch?",
-    "overview": "Long-lived particles (LLPs) are new states with macroscopic proper decay lengths, from millimetres to kilometres, arising in models with small couplings, compressed spectra or heavy mediators, such as hidden valleys, split supersymmetry, right-handed neutrinos and dark photons. Signatures include displaced vertices, disappearing or kinked tracks, delayed calorimeter deposits, trackless jets and stopped particles decaying out of time, requiring dedicated triggers and reconstruction that standard prompt searches lack. ATLAS, CMS and LHCb run broad LLP programmes, and forward or transverse detectors extend coverage to very weakly coupled light states: FASER and SND@LHC (which observed collider neutrinos in 2023), MoEDAL-MAPP, the proposed CODEX-b, ANUBIS and MATHUSLA, and the SHiP beam dump at the SPS, approved by CERN in 2024. Historical beam dumps such as CHARM, NuCal and E137 still set leading limits in some regions.",
-    "observables": [
-      "lifetime cτ versus mass versus coupling exclusions",
-      "displaced-vertex invariant mass and track multiplicity",
-      "track impact parameter d_0",
-      "time-of-flight delay and dE/dx anomalies",
-      "disappearing-track length",
-      "out-of-time decays of stopped particles",
-      "trigger efficiency versus decay length",
-      "collider neutrino event yields (forward detectors)"
+    "aliases": [
+      "dark photon",
+      "hidden sector",
+      "portal physics",
+      "dark sector"
     ],
+    "id": "topic:dark-photons-dark-sectors",
+    "name": "Dark photons and dark sectors",
+    "observables": [
+      "kinetic mixing parameter versus dark-photon mass",
+      "dark-sector coupling constant and mass ratios",
+      "visible resonance searches in dilepton spectra",
+      "displaced-vertex and beam-dump yields",
+      "missing-mass and missing-momentum spectra",
+      "invisible decay limits of the dark photon",
+      "constraints on milli-charged particles",
+      "thermal relic target lines"
+    ],
+    "overview": "A dark sector is a set of hypothetical particles neutral under the Standard Model forces, connected to ordinary matter only through weak portal interactions. The dark photon is a conjectured gauge boson of such a sector, detectable through kinetic mixing with the ordinary photon; vector, Higgs and neutrino portals and axion-like-particle portals are the minimal renormalizable or dimension-five options. Because such sectors are generically weakly coupled and can naturally have MeV-to-GeV masses while respecting Standard Model symmetries, they are only mildly constrained by high-energy collider data, and intensity-frontier experiments, including those on neutrino beams, offer the strongest reach.",
+    "parent_id": "topic:dark-matter",
+    "question": "Could there be a whole family of particles that feel none of the known forces, connected to our world only through a very weak \"portal\" interaction?",
+    "schema": "hep-atlas/0.2",
+    "sources": [
+      "src:topic-review-fabbrichesi-2021-dark-photon",
+      "src:topic-snowmass-2021-rf6-dark-sectors",
+      "src:topic-snowmass-2021-dark-sectors-neutrino-beams"
+    ],
+    "type": "topic"
+  },
+  {
     "aliases": [
       "LLPs",
       "displaced signatures",
-      "hidden-sector long-lived states"
+      "exotic long-lived signatures"
     ],
+    "id": "topic:long-lived-particles",
+    "name": "Long-lived particles",
+    "observables": [
+      "proper decay length or lifetime versus mass",
+      "displaced-vertex yields and vertex-position distributions",
+      "disappearing-track and short-track-segment rates",
+      "delayed-arrival timing signatures",
+      "anomalous ionization energy loss",
+      "non-pointing photon signatures",
+      "cross-section limits versus lifetime",
+      "trigger and reconstruction efficiency versus decay radius"
+    ],
+    "overview": "Particles beyond the Standard Model can generically have lifetimes long compared with weak-scale Standard Model particles. Produced at the LHC, such long-lived particles would decay far from the primary proton-proton interaction vertex, giving signatures unlike those of the promptly decaying particles most searches target. Identifying them needs customized techniques: significantly displaced decay vertices, tracks with atypical properties, and short track segments. A joint effort by theorists and the ATLAS, CMS and LHCb collaborations, together with dedicated experiments such as MoEDAL, milliQan, MATHUSLA, CODEX-b and FASER, has surveyed the signature space to avoid overlooking discovery avenues.",
+    "parent_id": "topic:precision-and-rare-processes",
+    "question": "If a new particle lived long enough to travel some distance before decaying, would our detectors even notice, and how do we search for such delayed decays?",
+    "schema": "hep-atlas/0.2",
     "sources": [
-      "src:topic-review-alimena-2020-llp",
-      "src:topic-snowmass-2021-rare-processes-precision-frontier-report"
-    ]
+      "src:topic-review-alimena-2019-long-lived-particles",
+      "src:topic-snowmass-2021-rare-precision-frontier-report"
+    ],
+    "type": "topic"
   },
   {
-    "id": "topic:heavy-neutral-leptons",
-    "type": "topic",
-    "name": "Heavy neutral leptons",
-    "parent_id": "topic:precision-and-rare-processes",
-    "question": "Do heavy, mostly sterile partners of the neutrino exist? They could explain why neutrinos have mass and why the universe contains more matter than antimatter.",
-    "overview": "Heavy neutral leptons (HNLs) are hypothetical neutral fermions that mix with active neutrinos with strength |U_α|², as in type-I seesaw models; masses from MeV to TeV are searched for, and GeV-scale HNLs could generate the baryon asymmetry through leptogenesis (νMSM). Signatures depend on mass: peak searches in pion and kaon decays (PIENU, NA62, KOTO), displaced decays in beam dumps and neutrino detectors (PS191, CHARM, NuTeV, T2K ND280, MicroBooNE, ArgoNeuT), prompt and displaced trilepton or dilepton-plus-jets final states at colliders (ATLAS, CMS, LHCb, Belle II, and DELPHI at LEP), and neutrinoless double beta decay for Majorana HNLs. Big Bang nucleosynthesis excludes very small mixings below about 0.1 GeV. SHiP, the DUNE near detector, FCC-ee and the HL-LHC would reach seesaw-motivated mixings at GeV-scale masses. No HNL has been observed.",
-    "observables": [
-      "|U_e|², |U_μ|², |U_τ|² versus m_N exclusions",
-      "peak searches in K→μN and π→μN spectra",
-      "displaced-decay lengths and vertex distributions",
-      "lepton-number-violating final states (Dirac versus Majorana)",
-      "Z→νN branching-fraction limits",
-      "W→ℓN prompt trilepton limits",
-      "0νββ half-life contribution"
-    ],
     "aliases": [
-      "HNL",
-      "sterile neutrinos (heavy)",
-      "right-handed neutrinos",
-      "seesaw partners"
+      "HNLs",
+      "sterile neutrinos at high mass",
+      "right-handed neutrinos"
     ],
+    "id": "topic:heavy-neutral-leptons",
+    "name": "Heavy neutral leptons",
+    "observables": [
+      "mixing amplitude with each active flavour versus mass",
+      "peak searches in leptonic meson decays",
+      "displaced-decay yields in beam-dump and forward detectors",
+      "same-sign dilepton signatures at colliders",
+      "decay length versus mass and mixing",
+      "cosmological and astrophysical exclusion regions",
+      "contributions to neutrinoless double beta decay"
+    ],
+    "overview": "Non-zero neutrino masses point to the likely existence of additional Standard Model neutral fermions. When such hypothetical states are heavy enough that they cannot be produced in oscillations they are called heavy neutral leptons. They would mix with the active neutrinos and could be produced in meson and tau decays, in beam dumps and at colliders, then decay to visible final states after a possibly macroscopic flight distance. Searches span beta decay, accelerator experiments and colliders, and are complemented by astrophysical and cosmological constraints; the parameter space is usually presented as mixing angle versus mass for each lepton flavour.",
+    "parent_id": "topic:precision-and-rare-processes",
+    "question": "If neutrino masses come from heavier neutral partners, could some of those partners be light enough to make and detect in an experiment?",
+    "schema": "hep-atlas/0.2",
     "sources": [
-      "src:topic-review-abdullahi-2023-hnl",
-      "src:topic-snowmass-2021-rare-processes-precision-frontier-report"
-    ]
+      "src:topic-snowmass-2021-heavy-neutral-leptons",
+      "src:topic-snowmass-2021-rare-precision-frontier-report"
+    ],
+    "type": "topic"
   },
   {
-    "id": "topic:lepton-flavor-violation",
-    "type": "topic",
-    "name": "Charged lepton flavor violation",
-    "parent_id": "topic:precision-and-rare-processes",
-    "question": "Can a muon turn into an electron without emitting neutrinos? That is essentially forbidden in the Standard Model, so seeing it would be unambiguous new physics.",
-    "overview": "Charged lepton flavor violation (CLFV) processes such as μ→eγ, μ→eee, μ−N→e−N conversion, and τ→μγ or τ→3ℓ have Standard Model rates below 10^-50 induced by neutrino mixing, so any observation would signal new physics. MEG set B(μ+→e+γ) < 4.2×10^-13 (2016) and MEG II improved the combined limit to 1.5×10^-13 (2024); SINDRUM II limits muon-to-electron conversion in gold to below 7×10^-13. Mu3e at PSI aims at 10^-16 for μ→3e, and Mu2e (Fermilab) and COMET (J-PARC) target conversion sensitivities near 10^-17, four orders of magnitude beyond current limits. Belle II and LHCb pursue tau LFV at the 10^-9 level, and LFV is also sought in Z, Higgs, kaon and B-meson decays and in muonium–antimuonium conversion.",
-    "observables": [
-      "B(μ→eγ)",
-      "B(μ→eee)",
-      "muon-to-electron conversion rate R_μe on Al, Au, Ti",
-      "B(τ→μγ), B(τ→eγ), B(τ→3ℓ)",
-      "B(Z→eμ, eτ, μτ)",
-      "B(H→eμ, μτ, eτ)",
-      "B(K_L→μe), B(B→Kμe)",
-      "muonium–antimuonium conversion probability"
-    ],
     "aliases": [
       "CLFV",
-      "LFV",
-      "muon-to-electron conversion",
-      "μ→eγ"
+      "cLFV",
+      "muon to electron conversion",
+      "lepton flavour violation"
     ],
+    "id": "topic:lepton-flavor-violation",
+    "name": "Charged lepton flavor violation",
+    "observables": [
+      "branching-fraction limit for muon to electron plus photon",
+      "branching-fraction limit for muon to three electrons",
+      "muon-to-electron conversion rate relative to nuclear capture",
+      "tau lepton-flavour-violating branching-fraction limits",
+      "muonium-antimuonium conversion probability",
+      "lepton-flavour-violating decays of the Higgs and Z bosons",
+      "effective new-physics mass scale implied by each limit"
+    ],
+    "overview": "Charged lepton flavour violating transitions would be a clear signal of physics beyond the Standard Model, in which they are forbidden or utterly negligible. Searches cover a variety of channels, the most sensitive involving muons - radiative decay to an electron and a photon, decay to three electrons, and conversion to an electron in the field of a nucleus - as well as tau decays and transitions of heavier states. No positive evidence has been found. The Snowmass topical group report notes that these processes already probe mass scales up to thousands of TeV, so an observation would be unambiguous evidence of new particles.",
+    "parent_id": "topic:precision-and-rare-processes",
+    "question": "Electrons, muons and taus never seem to turn into one another. If we ever saw that happen, what would it mean?",
+    "schema": "hep-atlas/0.2",
     "sources": [
-      "src:topic-snowmass-2021-rf5-clfv",
-      "src:topic-review-calibbi-signorelli-2018-clfv"
-    ]
+      "src:topic-snowmass-2021-rf5-charged-lepton-flavor-violation",
+      "src:topic-review-calibbi-signorelli-2018-charged-lepton-flavour-violation"
+    ],
+    "type": "topic"
   },
   {
-    "id": "topic:muon-precision-physics",
-    "type": "topic",
-    "name": "Muon precision physics (g−2, EDM)",
-    "parent_id": "topic:precision-and-rare-processes",
-    "question": "Does the muon's magnetic moment match theory to better than a part in a million, and does the muon have an electric dipole moment? Either could expose new particles.",
-    "overview": "The muon anomalous magnetic moment a_μ = (g−2)/2 is measured by storing polarised muons in a magnetic ring and observing the spin precession frequency relative to the cyclotron frequency. Fermilab's Muon g−2 experiment published its final result in 2025 with 127 ppb precision, consistent with BNL E821. The Standard Model prediction is limited by the hadronic vacuum polarisation: the 2020 data-driven (e+e−→hadrons) prediction differed from experiment by 4.2σ, but lattice-QCD calculations and the CMD-3 e+e− data shifted the 2025 Muon g−2 Theory Initiative prediction into agreement with experiment at about the 1σ level, so the hadronic input is now the central question. J-PARC plans an independent low-emittance measurement. Muon EDM searches (BNL limit 1.8×10^-19 e·cm; a frozen-spin experiment at PSI), the muon lifetime (MuLan) and Michel-parameter measurements complete the programme.",
-    "observables": [
-      "anomalous magnetic moment a_μ",
-      "frequency ratio ω_a/ω̃_p",
-      "muon electric dipole moment d_μ",
-      "muon lifetime τ_μ and Fermi constant G_F",
-      "Michel parameters ρ, δ, ξ, ξδ",
-      "hadronic vacuum polarisation a_μ^HVP (data-driven and lattice)",
-      "R-ratio σ(e+e−→hadrons)",
-      "space-like HVP from μ–e scattering (MUonE)",
-      "muonium hyperfine and 1S–2S spectroscopy"
-    ],
     "aliases": [
       "muon g-2",
-      "muon anomalous magnetic moment",
-      "muon EDM",
-      "muon physics"
+      "anomalous magnetic moment",
+      "electric dipole moments",
+      "EDM"
     ],
+    "id": "topic:muon-precision-physics",
+    "name": "Muon precision physics: g-2 and electric dipole moments",
+    "observables": [
+      "muon anomalous magnetic moment, experiment and Standard Model prediction",
+      "hadronic vacuum polarization and hadronic light-by-light contributions",
+      "electron anomalous magnetic moment and the fine-structure constant",
+      "electric dipole moment limits for the electron, neutron, muon and diamagnetic atoms",
+      "muon lifetime and decay parameters",
+      "implied new-physics mass scales"
+    ],
+    "overview": "Quantum loop effects make the muon magnetic moment deviate slightly from the Dirac value, and the anomaly can be both measured in storage rings and predicted precisely, testing the Standard Model at loop level. After the final Fermilab E989 result the experimental world average is 116 592 071.5(14.5) x 10^-11, against a Standard Model prediction of 116 592 033(62) x 10^-11 compiled by the Muon g-2 Theory Initiative; the difference, 38(63) x 10^-11, is compatible with zero and now dominated by theory uncertainty. A permanent electric dipole moment would directly signal time-reversal and, assuming CPT, CP violation; only upper limits exist.",
+    "parent_id": "topic:precision-and-rare-processes",
+    "question": "Does the muon wobble in a magnetic field exactly as theory says, and do any particles have a permanent electric dipole moment that would violate time-reversal symmetry?",
+    "schema": "hep-atlas/0.2",
     "sources": [
-      "src:topic-pdg-2024-muon-g-2",
-      "src:topic-review-aoyama-2020-muon-g-2-theory",
-      "src:topic-review-chupp-2019-edm"
-    ]
+      "src:topic-pdg-2026-muon-g-2",
+      "src:topic-review-muon-g-2-theory-initiative-2025",
+      "src:topic-review-chupp-2019-electric-dipole-moments"
+    ],
+    "type": "topic"
   },
   {
-    "id": "topic:cosmic-rays",
-    "type": "topic",
-    "name": "Cosmic rays",
-    "parent_id": "topic:astroparticle-physics",
-    "question": "Where do the most energetic particles in the universe come from, and how are they accelerated to energies far beyond anything a laboratory can reach?",
-    "overview": "Cosmic rays are charged nuclei (and electrons) arriving from space with energies from below 1 GeV to above 10^20 eV, following a steeply falling power-law spectrum with features: the knee near 3 PeV, the second knee, the ankle near 5 EeV, and a suppression above about 50 EeV consistent with the GZK effect and/or the exhaustion of sources. Direct measurements above the atmosphere (AMS-02, CALET, DAMPE, ISS-CREAM, balloon flights) resolve spectra and composition to about 100 TeV; extensive air-shower arrays (Pierre Auger Observatory, Telescope Array, IceTop, LHAASO, KASCADE-Grande, Tibet ASγ) cover higher energies through fluorescence, surface and radio detection. Auger observes a dipole anisotropy above 8 EeV pointing away from the Galactic Centre and a composition growing heavier above the ankle. Accelerator data (LHCf, NA61/SHINE) constrain the hadronic models used to interpret showers; the muon excess in showers remains unexplained.",
-    "observables": [
-      "all-particle energy spectrum and its features",
-      "mass composition from X_max distributions and muon content",
-      "large-scale anisotropy (dipole amplitude and direction)",
-      "positron fraction and antiproton/proton ratio",
-      "secondary-to-primary ratios (B/C) for propagation",
-      "proton and helium spectra and spectral hardenings",
-      "muon number N_μ versus hadronic-model predictions",
-      "arrival-direction correlations with source catalogues"
-    ],
     "aliases": [
+      "ultra-high-energy cosmic rays",
       "UHECR",
-      "cosmic-ray physics",
       "air showers"
     ],
+    "id": "topic:cosmic-rays",
+    "name": "Cosmic rays",
+    "observables": [
+      "all-particle and per-species energy spectra",
+      "spectral indices and break energies",
+      "mass composition versus energy",
+      "large-scale and small-scale anisotropy",
+      "depth of shower maximum",
+      "muon content of air showers",
+      "antiproton and positron fluxes",
+      "hadronic-interaction model tests at air-shower energies"
+    ],
+    "overview": "Cosmic rays are a non-thermal population of particles pervading the universe, characterised by their spectrum, composition and arrival directions. Charged cosmic rays extend from tens of MeV to close to 1 ZeV, with an intensity of about 10^4 per square metre per second per steradian above 1 GeV and a steeply falling power-law spectrum. The striking spectral features are the knee at a few PeV, where the index changes from about 2.7 to about 3, a second knee near 100 PeV, and the ankle at a few EeV; the flux is largely suppressed above a few tens of EeV. Arrival directions are mostly isotropic.",
+    "parent_id": "topic:astroparticle-physics",
+    "question": "Where do the fast-moving atomic nuclei that constantly rain down on Earth come from, and what accelerates the most energetic of them?",
+    "schema": "hep-atlas/0.2",
     "sources": [
-      "src:topic-pdg-2024-cosmic-rays",
-      "src:topic-review-alves-batista-2019-uhecr"
-    ]
+      "src:topic-pdg-2026-cosmic-rays",
+      "src:topic-review-alves-batista-2019-ultrahigh-energy-cosmic-rays"
+    ],
+    "type": "topic"
   },
   {
-    "id": "topic:gamma-rays",
-    "type": "topic",
-    "name": "Gamma-ray astrophysics",
-    "parent_id": "topic:astroparticle-physics",
-    "question": "What do the highest-energy photons from space tell us about black holes, exploding stars and the physics of extreme environments?",
-    "overview": "Gamma-ray astronomy spans MeV to PeV photons. Fermi-LAT (20 MeV to above 300 GeV) has catalogued thousands of sources; imaging atmospheric Cherenkov telescopes (H.E.S.S., MAGIC, VERITAS, and the coming CTAO) cover roughly 30 GeV to 100 TeV with arcminute resolution; water-Cherenkov and hybrid arrays (HAWC, LHAASO, Tibet ASγ) survey the sky above about 1 TeV, and in 2021 LHAASO reported photons above 1 PeV from Galactic sources, including a 1.4 PeV photon from the Cygnus region. Sources include pulsar wind nebulae, supernova remnants, blazars, the Galactic diffuse emission and gamma-ray bursts, with GRB 221009A detected by LHAASO up to about 13 TeV. Particle-physics targets are dark-matter annihilation, axion–photon conversion in magnetic fields, Lorentz-invariance violation through energy-dependent arrival-time delays, and the extragalactic background light.",
-    "observables": [
-      "source energy spectra dN/dE and cutoffs",
-      "light curves and variability time scales",
-      "sky maps and source catalogues",
-      "extragalactic-background-light attenuation",
-      "Lorentz-invariance-violation energy-scale limits",
-      "dark-matter annihilation limits from dwarf galaxies",
-      "PeVatron identification (spectra extending to PeV)",
-      "TeV emission from gamma-ray bursts",
-      "MeV polarisation"
-    ],
     "aliases": [
-      "VHE gamma rays",
       "gamma-ray astronomy",
+      "VHE gamma rays",
       "TeV astronomy"
     ],
-    "sources": [
-      "src:topic-snowmass-2021-cf7-cosmic-probes",
-      "src:topic-review-funk-2015-gamma-ray-astronomy"
-    ]
-  },
-  {
-    "id": "topic:multimessenger-astrophysics",
-    "type": "topic",
-    "name": "Multimessenger particle astrophysics",
+    "id": "topic:gamma-rays",
+    "name": "High-energy gamma-ray astrophysics",
+    "observables": [
+      "source fluxes and energy spectra",
+      "spectral cutoffs and breaks",
+      "source morphology and extension",
+      "variability and flaring time scales",
+      "diffuse Galactic and extragalactic emission",
+      "source catalogues and population statistics",
+      "gamma-ray line searches",
+      "extragalactic background light attenuation"
+    ],
+    "overview": "Gamma rays trace non-thermal processes and identify sites where particles are accelerated. The Particle Data Group counts roughly 6660 catalogued sources above 50 MeV and about 300 at TeV energies, plus diffuse Galactic and extragalactic emission that largely follows power laws. Space-borne pair-conversion telescopes cover the MeV-GeV range; above about 100 GeV the flux is too low for satellites, so ground-based imaging atmospheric Cherenkov telescopes and particle-detector arrays observe the air showers gamma rays initiate. Observations address particle acceleration in supernova remnants, pulsars, binaries, active galaxies and gamma-ray bursts, and are also used to search for new physics.",
     "parent_id": "topic:astroparticle-physics",
-    "question": "By combining light, neutrinos, cosmic rays and gravitational waves from the same cosmic event, what can we learn that no single messenger reveals?",
-    "overview": "Multimessenger astrophysics combines electromagnetic, neutrino, cosmic-ray and gravitational-wave observations of the same sources. Landmarks include SN 1987A (neutrinos and light), GW170817 (the LIGO/Virgo binary neutron-star merger of 2017 with the gamma-ray burst GRB 170817A and a kilonova) and IceCube-170922A coincident with the flaring blazar TXS 0506+056 (2017, about 3σ). Neutrino follow-up of gravitational-wave events and gamma-ray follow-up of neutrino alerts, distributed through GCN and AMON, have so far produced no further confirmed neutrino–gravitational-wave coincidences. Physics goals include identifying the sources of ultra-high-energy cosmic rays through neutrinos, constraining the speed of gravity and neutrino properties through arrival-time differences, and testing Lorentz invariance. The SNEWS 2.0 network prepares a coordinated alert for the next Galactic supernova.",
-    "observables": [
-      "spatial and temporal coincidence significance",
-      "alert latency and localisation area",
-      "neutrino upper limits on isotropic-equivalent energy for GW events",
-      "arrival-time differences between messengers",
-      "joint spectral energy distributions",
-      "UHECR–neutrino–gamma-ray correlations",
-      "kilonova and afterglow light curves"
-    ],
-    "aliases": [
-      "multimessenger astronomy",
-      "time-domain particle astrophysics"
-    ],
+    "question": "What do the most energetic light particles in the universe tell us about where cosmic rays are accelerated?",
+    "schema": "hep-atlas/0.2",
     "sources": [
-      "src:topic-snowmass-2021-cf7-cosmic-probes",
-      "src:topic-review-meszaros-2019-multimessenger"
-    ]
+      "src:topic-review-funk-2015-gamma-ray-astrophysics",
+      "src:topic-pdg-2026-cosmic-rays",
+      "src:topic-pdg-2026-particle-detectors-non-accelerator"
+    ],
+    "type": "topic"
   },
   {
-    "id": "topic:heavy-ion-physics-qgp",
-    "type": "topic",
-    "name": "Heavy-ion physics and the quark–gluon plasma",
-    "parent_id": "topic:nuclear-and-heavy-ion",
-    "question": "What was the universe made of a few microseconds after the Big Bang, and how does a hot soup of free quarks and gluons behave?",
-    "overview": "Colliding heavy nuclei at RHIC (Au+Au up to √s_NN = 200 GeV) and the LHC (Pb+Pb at 2.76 and 5.02 TeV, 5.36 TeV in Run 3) produces the quark–gluon plasma (QGP), a deconfined state of QCD matter above a transition temperature of about 155 MeV. It behaves as a near-perfect fluid with a shear-viscosity-to-entropy ratio close to the conjectured quantum bound, evidenced by large elliptic and higher-order anisotropic flow, and it quenches jets: high-p_T hadron and jet yields are suppressed (R_AA) relative to scaled proton–proton collisions. Heavy quarks and quarkonia probe thermalisation and colour screening, including J/ψ regeneration at the LHC. Current frontiers are collectivity in small systems (p+Pb, high-multiplicity p+p), the search for a QCD critical point in the RHIC Beam Energy Scan, vorticity effects such as Λ polarisation, and the sPHENIX and upgraded ALICE programmes.",
-    "observables": [
-      "charged-particle multiplicity dN_ch/dη",
-      "anisotropic flow coefficients v_n",
-      "nuclear modification factor R_AA",
-      "jet quenching and dijet asymmetry",
-      "quarkonium suppression and regeneration",
-      "heavy-flavor R_AA and v_2",
-      "femtoscopic (HBT) radii",
-      "net-proton cumulant ratios",
-      "strangeness enhancement",
-      "Λ global polarisation",
-      "thermal photon and dilepton spectra",
-      "extracted η/s and transport coefficients"
-    ],
     "aliases": [
-      "QGP",
+      "multi-messenger astronomy",
+      "transient follow-up"
+    ],
+    "id": "topic:multimessenger-astrophysics",
+    "name": "Multimessenger astrophysics",
+    "observables": [
+      "temporal and spatial coincidence significance between messengers",
+      "joint source localisation areas",
+      "alert latency and follow-up depth",
+      "relative energetics carried by each messenger",
+      "source-population constraints from joint limits",
+      "tests of the propagation speed and of Lorentz invariance"
+    ],
+    "overview": "Multimessenger astrophysics combines photons, gravitational waves, neutrinos and cosmic rays, which carry inherently complementary information about individual cosmic sources and about source populations. The Particle Data Group describes combined observations of charged cosmic rays, gamma rays, neutrinos and gravitational waves as giving valuable insight into the most extreme astrophysical environments. Key achievements include measuring the ultra-high-energy cosmic-ray spectrum to the highest observable energies, discovering the diffuse high-energy neutrino background, the first direct gravitational-wave detections, and the first joint electromagnetic and gravitational-wave identification. The practical challenge is rapid alert distribution and follow-up across observatories.",
+    "parent_id": "topic:astroparticle-physics",
+    "question": "What can we learn by catching the same cosmic event in several different ways at once: in light, in neutrinos, in cosmic rays and in gravitational waves?",
+    "schema": "hep-atlas/0.2",
+    "sources": [
+      "src:topic-review-meszaros-2019-multimessenger-astrophysics",
+      "src:topic-pdg-2026-cosmic-rays",
+      "src:topic-snowmass-2021-cosmic-frontier-report"
+    ],
+    "type": "topic"
+  },
+  {
+    "aliases": [
       "quark-gluon plasma",
-      "relativistic heavy-ion collisions",
-      "hot QCD matter"
+      "QGP",
+      "relativistic heavy-ion collisions"
     ],
+    "id": "topic:heavy-ion-physics-qgp",
+    "name": "Heavy-ion collisions and the quark-gluon plasma",
+    "observables": [
+      "anisotropic flow coefficients",
+      "shear and bulk viscosity to entropy-density ratios",
+      "nuclear modification factors for hadrons and jets",
+      "jet quenching and jet substructure modification",
+      "quarkonium suppression and regeneration",
+      "strangeness and heavy-flavour production",
+      "particle spectra and yields versus centrality",
+      "femtoscopic source sizes",
+      "initial-state and small-system collectivity"
+    ],
+    "overview": "Heavy-ion collisions quickly form a droplet of quark-gluon plasma with a remarkably small viscosity - the hottest and smallest droplet of liquid made on Earth. The physics spans highly energetic quarks and gluons described by perturbative QCD down to a bath of strongly interacting gluons at lower energy scales; those gluons thermalize quickly and form the plasma, while energetic partons traverse it and emerge as jets. Analysing the final particles in different ways probes the plasma properties and the multi-scale QCD dynamics governing its formation and evolution. The Snowmass Energy Frontier report stresses the connection to nuclear structure and the nuclear medium.",
+    "parent_id": "topic:nuclear-and-heavy-ion",
+    "question": "If you heat nuclear matter until protons and neutrons melt, what does the resulting state of quarks and gluons behave like?",
+    "schema": "hep-atlas/0.2",
     "sources": [
-      "src:topic-review-busza-2018-heavy-ions",
-      "src:topic-nsac-2023-long-range-plan"
-    ]
+      "src:topic-review-busza-2018-heavy-ion-collisions",
+      "src:topic-snowmass-2021-ef-qcd-heavy-ions-report"
+    ],
+    "type": "topic"
   },
   {
-    "id": "topic:detector-rd",
-    "type": "topic",
-    "name": "Detector R&D and technology milestones",
-    "parent_id": "topic:instrumentation",
-    "question": "Which new detector technologies make future discoveries possible, and which milestones show that a technique is ready for a full-scale experiment?",
-    "overview": "Detector R&D develops the sensors, readout and infrastructure that set what experiments can measure. Recent milestones include kilotonne-scale liquid-argon time projection chambers (ICARUS T600; ProtoDUNE single- and dual-phase prototypes at the CERN Neutrino Platform, 2018–2020), silicon sensors with about 30 ps timing (LGADs for the ATLAS HGTD and CMS MTD), monolithic CMOS pixel sensors (ALICE ITS2 and the bent-wafer ITS3), large silicon-photomultiplier arrays, gadolinium-loaded and water-based scintillators, and high-pressure gaseous TPCs. Priorities in the 2021 ECFA Detector R&D Roadmap and the Snowmass 2021 Instrumentation Frontier report include picosecond timing, radiation-hard sensors for the HL-LHC and future colliders, noble-liquid scaling to tens of kilotonnes, quantum sensors for light dark matter and axions, radiopure low-background materials, high-throughput trigger and data-acquisition systems using machine learning, and dual-readout or highly granular calorimetry.",
-    "observables": [
-      "spatial resolution",
-      "timing resolution",
-      "energy resolution (stochastic and constant terms)",
-      "radiation tolerance (fluence in n_eq/cm²)",
-      "photon detection efficiency and dark-count rate",
-      "electron drift lifetime and purity in noble liquids",
-      "channel count and data throughput",
-      "power per channel and material budget (X/X_0)",
-      "detector mass or active volume achieved"
-    ],
     "aliases": [
-      "detector development",
-      "technology milestones",
+      "detector R&D",
+      "sensor development",
       "instrumentation R&D"
     ],
+    "id": "topic:detector-rd",
+    "name": "Detector research and development",
+    "observables": [
+      "position, timing and energy resolution",
+      "photon detection efficiency and dark-count rate",
+      "radiation hardness and ageing",
+      "channel count, granularity and power per channel",
+      "drift-field uniformity and electron lifetime in noble liquids",
+      "radiopurity and background index",
+      "readout bandwidth and trigger rate",
+      "operating temperature and cryogenic performance"
+    ],
+    "overview": "Detector research and development turns measurement requirements into working technology. The Particle Data Group review chapters catalogue the working principles and performance of the main families: vacuum, gaseous, solid-state and superconducting photon detectors; organic and inorganic scintillators; Cherenkov, gaseous and transition-radiation detectors; time projection chambers including liquid-argon ones; large rare-event time projection chambers; sub-kelvin detectors; and low-radioactivity background techniques. The Snowmass 2021 Instrumentation Frontier report groups the needed research and development for collider, neutrino, rare-process and cosmic experiments and lays out priority areas for keeping that capability healthy.",
+    "parent_id": "topic:instrumentation",
+    "question": "What new sensors, electronics and techniques have to be invented before the experiments of the next twenty years can be built?",
+    "schema": "hep-atlas/0.2",
     "sources": [
-      "src:topic-pdg-2024-particle-detectors-accelerators",
-      "src:topic-ecfa-2021-detector-rd-roadmap",
+      "src:topic-pdg-2026-particle-detectors-accelerators",
+      "src:topic-pdg-2026-particle-detectors-non-accelerator",
       "src:topic-snowmass-2021-instrumentation-frontier-report"
-    ]
+    ],
+    "type": "topic"
   }
 ]

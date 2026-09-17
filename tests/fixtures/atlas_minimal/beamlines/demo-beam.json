@@ -7,13 +7,14 @@
         "approx": true,
         "confidence": "verified",
         "dimension": "length",
-        "display": "~800 km",
-        "note": "",
+        "display": "~1300 km",
+        "locator": "Vol. I §1.2",
+        "note": "1285 km beam baseline",
         "sources": [
           "src:demo-tdr"
         ],
         "unit": "km",
-        "value": 800,
+        "value": 1285,
         "verified_at": "2026-09-16"
       },
       "from_site_id": "site:demo-lab-campus",
@@ -22,11 +23,11 @@
   ],
   "coverage": {
     "researched": "full",
-    "tier": "A",
-    "validated": true
+    "tier": "A"
   },
   "direction": {
     "confidence": "verified",
+    "locator": "Vol. II §3.1",
     "note": "",
     "sources": [
       "src:demo-tdr"
@@ -34,9 +35,6 @@
     "value": "west-north-west",
     "verified_at": "2026-09-16"
   },
-  "document_ids": [
-    "document:demo-tdr"
-  ],
   "facility_id": "facility:demo-lab",
   "far_detector_site_ids": [
     "site:demo-far-cavern"
@@ -46,7 +44,9 @@
     {
       "confidence": "verified",
       "end": null,
+      "kind": "lifecycle",
       "label": "operating",
+      "locator": "Vol. I §1.4",
       "note": "",
       "sources": [
         "src:demo-tdr"
@@ -65,31 +65,26 @@
   ],
   "notes": [],
   "primary_beam": {
-    "confidence": "verified",
-    "note": "",
-    "sources": [
-      "src:demo-tdr"
-    ],
-    "value": {
-      "energy": {
-        "approx": false,
-        "confidence": "verified",
-        "dimension": "energy",
-        "display": "120 GeV",
-        "note": "",
-        "sources": [
-          "src:demo-tdr"
-        ],
-        "unit": "GeV",
-        "value": 120,
-        "verified_at": "2026-09-16"
-      },
-      "particle": "proton"
+    "energy": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "energy",
+      "display": "120 GeV",
+      "locator": "Vol. II §3.1",
+      "note": "",
+      "sources": [
+        "src:demo-tdr"
+      ],
+      "unit": "GeV",
+      "value": 120,
+      "verified_at": "2026-09-16"
     },
-    "verified_at": "2026-09-16"
+    "particle": "proton"
   },
+  "schema": "hep-atlas/0.2",
   "secondary_beam": {
     "confidence": "verified",
+    "locator": "Vol. II §3.1",
     "note": "",
     "sources": [
       "src:demo-tdr"
@@ -106,6 +101,7 @@
       "confidence": "verified",
       "dimension": "power",
       "display": "700 kW",
+      "locator": "Vol. II §3.1",
       "note": "",
       "sources": [
         "src:demo-tdr"
@@ -119,6 +115,7 @@
       "confidence": "verified",
       "dimension": "energy",
       "display": "2.5 GeV",
+      "locator": "Vol. II Fig. 3.4",
       "note": "",
       "sources": [
         "src:demo-tdr"
@@ -135,6 +132,7 @@
   },
   "target": {
     "confidence": "verified",
+    "locator": "Vol. II §3.2",
     "note": "",
     "sources": [
       "src:demo-tdr"

@@ -1,0 +1,114 @@
+{
+  "aliases": [
+    "ATLAS"
+  ],
+  "coverage": {
+    "researched": "full",
+    "tier": "A",
+    "validated": false
+  },
+  "formation": {
+    "confidence": "verified",
+    "locator": "atlas.cern, 'Happy Birthday ATLAS!'",
+    "note": "ATLAS marked its 30th anniversary on 1 October 2022, consistent with this date; INSPIRE's experiment record gives date_proposed 1992-10-01.",
+    "quote": "Submitted on 1 October 1992 (being considered the birthdate of the collaboration), the Letter of Intent was a 108-page document which made the physics case for a general purpose proton-proton experiment at the LHC.",
+    "sources": [
+      "src:atlas-happy-birthday-news",
+      "src:atlas-30-years-news",
+      "src:atlas-inspire-experiment-record"
+    ],
+    "value": "1992-10-01",
+    "verified_at": "2026-09-16"
+  },
+  "host_facility_id": "facility:cern",
+  "host_site_id": "site:cern-point-1-atlas",
+  "id": "collaboration:atlas",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "collaboration",
+      "note": "",
+      "quote": "The ATLAS Collaboration celebrated its 30th anniversary on 1 October 2022.",
+      "sources": [
+        "src:atlas-happy-birthday-news",
+        "src:atlas-30-years-news"
+      ],
+      "start": "1992-10-01",
+      "status": "active",
+      "verified_at": "2026-09-16"
+    }
+  ],
+  "leadership": [],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "note": "",
+      "sources": [
+        "src:atlas-collaboration-page"
+      ],
+      "value": "https://atlas.cern/Discover/Collaboration",
+      "verified_at": "2026-09-16"
+    }
+  },
+  "membership": {
+    "as_of": "2026-09",
+    "country_count": {
+      "confidence": "approximate",
+      "locator": "atlas.cern, 'The ATLAS Collaboration', figures panel",
+      "note": "home.cern states 42 countries as of March 2022.",
+      "quote": "40 Countries",
+      "sources": [
+        "src:atlas-collaboration-page"
+      ],
+      "value": 40,
+      "verified_at": "2026-09-16"
+    },
+    "evidence_class": "official_institution_list",
+    "institution_count": {
+      "confidence": "approximate",
+      "locator": "atlas.cern, 'The ATLAS Collaboration', figures panel",
+      "note": "The page states '170+', so 170 is a lower bound. home.cern states 245 institutes as of March 2022 - see the record notes.",
+      "quote": "170+ Institutions",
+      "sources": [
+        "src:atlas-collaboration-page"
+      ],
+      "value": 170,
+      "verified_at": "2026-09-16"
+    },
+    "member_count": {
+      "confidence": "approximate",
+      "locator": "atlas.cern, 'The ATLAS Collaboration'",
+      "note": "Lower bound ('over 5500'). The same sentence gives 3000 scientific authors; the page also states 1200 doctoral students.",
+      "quote": "over 5500 members and 3000 scientific authors",
+      "sources": [
+        "src:atlas-collaboration-page"
+      ],
+      "value": 5500,
+      "verified_at": "2026-09-16"
+    },
+    "roster_source_ids": [
+      "src:atlas-collaboration-page"
+    ]
+  },
+  "name": "ATLAS Collaboration",
+  "notes": [
+    "CONFLICT on size: atlas.cern (the collaboration's own page) gives 'over 5500 members and 3000 scientific authors', '170+ Institutions', '40 Countries'; home.cern's ATLAS page gives 'More than 5500 scientists from 245 institutes in 42 countries (March 2022)'. The collaboration's own current figures are recorded; the two institution counts are almost certainly counting different things (member institutions vs. institutes including sub-groups), but no fetched source says so.",
+    "The stated counts carry no publication date on the page; as_of is set to the month this partition was researched (2026-09) and the counts are marked approximate because the page gives them as 'over' and '170+'.",
+    "Leadership rows are intentionally empty: no fetched source names the current spokesperson.",
+    "Institution membership rows (data/atlas/memberships/atlas.json) are owned by the membership lead and are not written here."
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:atlas-collaboration-page",
+    "src:atlas-happy-birthday-news",
+    "src:atlas-30-years-news",
+    "src:cern-atlas-page"
+  ],
+  "status": "active",
+  "summary": {
+    "plain": "The international team that built and runs the ATLAS experiment. It counts its birthday as 1 October 1992, the day it handed CERN its Letter of Intent, and today it has more than 5500 members from over 170 institutions in about 40 countries.",
+    "technical": "Collaboration operating experiment:atlas at CERN LHC Point 1. Founded 1 October 1992 with the submission of the ATLAS Letter of Intent to the LHC Experiments Committee. Governed by a Collaboration Board that elects the Spokesperson for renewable two-year terms."
+  },
+  "type": "collaboration"
+}

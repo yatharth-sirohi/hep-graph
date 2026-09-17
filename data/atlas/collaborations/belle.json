@@ -1,0 +1,115 @@
+{
+  "aliases": [
+    "Belle"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "A"
+  },
+  "formation": {
+    "confidence": "uncertain",
+    "locator": "INSPIRE experiment record KEK-BF-BELLE, date_proposed 1994 / date_approved March 1994",
+    "note": "No source fetched in this session gives a formation date for the collaboration itself. The year is taken from the proposal/approval of the experiment on the INSPIRE experiment record and should be replaced by a collaboration-published date.",
+    "sources": [
+      "src:belle-inspire-experiment"
+    ],
+    "value": "1994",
+    "verified_at": "2026-09-16"
+  },
+  "host_facility_id": "facility:kek",
+  "host_site_id": "site:kek-tsukuba-belle-ii",
+  "id": "collaboration:belle",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2010-06-30",
+      "label": "data-taking collaboration",
+      "locator": "INSPIRE experiment record KEK-BF-BELLE; belle.kek.jp",
+      "note": "Start is the experiment proposal/approval year (see formation).",
+      "sources": [
+        "src:belle-inspire-experiment",
+        "src:belle-legacy-site"
+      ],
+      "start": "1994",
+      "status": "active",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "verified",
+      "end": "2010-06-30",
+      "label": "completed (analysis continues)",
+      "note": "Data taking ended on this date; the collaboration has continued to publish analyses of the Belle data set.",
+      "quote": "KEKB/Belle operation successfully ended on 30-June-2010.",
+      "sources": [
+        "src:belle-legacy-site"
+      ],
+      "start": "2010-06-30",
+      "status": "completed",
+      "verified_at": "2026-09-16"
+    }
+  ],
+  "leadership": [],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "note": "",
+      "sources": [
+        "src:belle-legacy-site"
+      ],
+      "value": "https://belle.kek.jp/",
+      "verified_at": "2026-09-16"
+    }
+  },
+  "membership": {
+    "as_of": "2026-09",
+    "country_count": {
+      "confidence": "approximate",
+      "locator": "INSPIRE experiment record KEK-BF-BELLE, description",
+      "note": "From the same undated INSPIRE description.",
+      "sources": [
+        "src:belle-inspire-experiment"
+      ],
+      "value": 14,
+      "verified_at": "2026-09-16"
+    },
+    "evidence_class": "derived",
+    "institution_count": {
+      "confidence": "approximate",
+      "locator": "INSPIRE experiment record KEK-BF-BELLE, description",
+      "note": "The INSPIRE record describes 'physicists from 14 countries across 60+ institutions'; this is a lower bound with no date, and it describes the collaboration during operation, not today.",
+      "sources": [
+        "src:belle-inspire-experiment"
+      ],
+      "value": 60,
+      "verified_at": "2026-09-16"
+    },
+    "member_count": {
+      "confidence": "uncertain",
+      "note": "Not published on any source fetched in this session.",
+      "sources": [
+        "src:belle-inspire-experiment"
+      ],
+      "value": null,
+      "verified_at": "2026-09-16"
+    },
+    "roster_source_ids": []
+  },
+  "name": "Belle Collaboration",
+  "notes": [
+    "Institution membership rows live in data/atlas/memberships/ and are owned by the membership-lead workstream; none are written here.",
+    "Leadership (spokespersons) is unresolved: no fetched source lists it.",
+    "The membership counts carry evidence_class 'derived' because they come from an undated INSPIRE experiment-record description, not from a collaboration roster."
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:belle-legacy-site",
+    "src:belle-inspire-experiment",
+    "src:belle-detector-nima-2002"
+  ],
+  "status": "completed",
+  "summary": {
+    "plain": "The international team of physicists who built and ran the Belle detector at the KEK laboratory in Japan and analysed its data.",
+    "technical": "Collaboration operating the Belle detector at KEKB from 1999 to 2010; roughly 60 institutions in 14 countries during operation, still publishing analyses of the recorded data set."
+  },
+  "type": "collaboration"
+}

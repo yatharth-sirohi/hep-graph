@@ -1,0 +1,99 @@
+{
+  "aliases": [
+    "IceCube array",
+    "South Pole ice (IceCube)"
+  ],
+  "altitude": {
+    "approx": true,
+    "confidence": "approximate",
+    "dimension": "length",
+    "display": "~2,835 m (9,301 ft)",
+    "note": "Ice-surface elevation given by NSF for the station; the array is beneath the same ice surface.",
+    "quote": "Positioned at 90°S, the geographic South Pole. Sits atop the Antarctic ice sheet at an elevation of approximately 2,835 meters (9,301 feet) above sea level.",
+    "sources": [
+      "src:icecube-nsf-south-pole-station"
+    ],
+    "unit": "m",
+    "value": 2835,
+    "verified_at": "2026-09-16"
+  },
+  "coordinates": {
+    "confidence": "approximate",
+    "kind": "detector",
+    "lat": -90.0,
+    "locator": "IceCube — Detector, opening paragraph; NSF station page, “Location”",
+    "lon": 0.0,
+    "note": "No official IceCube or NSF page publishes the latitude/longitude of the array. The array sits in the ice next to the station at the geographic South Pole, so the pole itself (90°S) is recorded with precision_m = 2000, which covers the ~1 km array footprint and its offset from the pole marker. Longitude is degenerate at the pole and is recorded as 0. Do not treat this as a surveyed position.",
+    "precision_m": 2000,
+    "quote": "IceCube, the South Pole neutrino observatory, is a cubic-kilometer particle detector made of Antarctic ice and located near the Amundsen-Scott South Pole Station.",
+    "sources": [
+      "src:icecube-official-detector-page",
+      "src:icecube-nsf-south-pole-station"
+    ],
+    "verified_at": "2026-09-16"
+  },
+  "countries": [
+    "AQ"
+  ],
+  "country": "AQ",
+  "coverage": {
+    "researched": "partial",
+    "tier": "A",
+    "validated": false
+  },
+  "depth": {
+    "approx": false,
+    "confidence": "verified",
+    "dimension": "length",
+    "display": "1,450–2,450 m",
+    "locator": "IceCube — Detector, “Detector” section; Quick Facts, “Detector”",
+    "max": 2450,
+    "min": 1450,
+    "note": "Depth range of the instrumented part of the in-ice array below the ice surface.",
+    "quote": "The DOMs are attached to vertical “strings,” frozen into 86 boreholes and arrayed over a cubic kilometer from 1,450 meters to 2,450 meters depth.",
+    "sources": [
+      "src:icecube-official-detector-page",
+      "src:icecube-official-quick-facts"
+    ],
+    "unit": "m",
+    "verified_at": "2026-09-16"
+  },
+  "depth_mwe": null,
+  "depth_rock": null,
+  "facility_id": "facility:amundsen-scott-south-pole-station",
+  "id": "site:south-pole-icecube",
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "locator": "page URL",
+      "note": "",
+      "sources": [
+        "src:icecube-official-detector-page"
+      ],
+      "value": "https://icecube.wisc.edu/science/icecube/",
+      "verified_at": "2026-09-16"
+    }
+  },
+  "name": "South Pole — IceCube array",
+  "notes": [
+    "The ice sheet, and with it the whole array, drifts about 10 m per year (NSF: “Due to ice movement, the station drifts approximately 10 meters (33 feet) each year.”), so any fixed coordinate is only meaningful at ~10 m/yr precision anyway.",
+    "The IceCube detector paper (arXiv:1612.05093) states that IceCube is located at Amundsen-Scott South Pole Station but publishes no geographic coordinates; the IceCube internal coordinate system is a local grid (eastings/northings), not lat/lon."
+  ],
+  "place": {
+    "city": null,
+    "country": "AQ",
+    "region": "Antarctica (geographic South Pole)"
+  },
+  "schema": "hep-atlas/0.2",
+  "setting": "ice",
+  "sources": [
+    "src:icecube-official-detector-page",
+    "src:icecube-nsf-south-pole-station",
+    "src:icecube-official-quick-facts"
+  ],
+  "summary": {
+    "plain": "The patch of Antarctic ice next to the South Pole station where a cubic kilometre of sensors is frozen in, between about 1.5 and 2.5 kilometres below the surface.",
+    "technical": "Ice-embedded detector site at the geographic South Pole; 86 boreholes on a 125 m hexagonal grid instrumented between 1,450 m and 2,450 m depth, with the IceTop surface array above and the IceCube Laboratory at the surface."
+  },
+  "type": "site"
+}

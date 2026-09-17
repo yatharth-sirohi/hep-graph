@@ -1,0 +1,117 @@
+{
+  "aliases": [
+    "Belle"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "A"
+  },
+  "experiment_ids": [
+    "experiment:belle"
+  ],
+  "id": "detector:belle",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2010-06-30",
+      "label": "data taking",
+      "locator": "INSPIRE experiment record KEK-BF-BELLE (date_started, date_completed); belle.kek.jp",
+      "note": "Mirrors the experiment's data-taking interval.",
+      "sources": [
+        "src:belle-inspire-experiment",
+        "src:belle-legacy-site"
+      ],
+      "start": "1999-05",
+      "status": "active",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "verified",
+      "end": "2010-06-30",
+      "label": "completed",
+      "note": "Terminal event. The fate of the individual subdetectors after 2010 is not recorded here: no fetched source describes the dismantling.",
+      "quote": "KEKB/Belle operation successfully ended on 30-June-2010.",
+      "sources": [
+        "src:belle-legacy-site"
+      ],
+      "start": "2010-06-30",
+      "status": "completed",
+      "verified_at": "2026-09-16"
+    }
+  ],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "note": "",
+      "sources": [
+        "src:belle-legacy-site"
+      ],
+      "value": "https://belle.kek.jp/",
+      "verified_at": "2026-09-16"
+    }
+  },
+  "name": "Belle detector",
+  "notes": [
+    "Subsystem list and dimensions are EMPTY on purpose: the Belle detector paper (NIM A 479 (2002) 117) is paywalled at Elsevier and blocked to automated fetching, and only its title, abstract fragment, DOI and journal reference could be read (via the INSPIRE literature record). Subdetector names (SVD, CDC, ACC, TOF, ECL, KLM) and geometry must be added from the paper itself.",
+    "The 1.5 T solenoid field is the only spec taken from a fetched source."
+  ],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": "2010-06-30",
+      "note": "Start and end follow the Belle data-taking interval (INSPIRE date_started May 1999; belle.kek.jp end 30 June 2010). The detector paper gives the location as the Tsukuba interaction region.",
+      "quote": "The Belle detector is configured around a 1.5 T superconducting solenoid and iron structure surrounding the KEK-B beams at the Tsukuba interaction region",
+      "role": "main",
+      "site_id": "site:kek-tsukuba-belle-ii",
+      "sources": [
+        "src:belle-detector-nima-2002",
+        "src:belle-legacy-site"
+      ],
+      "start": "1999-05",
+      "verified_at": "2026-09-16"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:belle-detector-nima-2002",
+    "src:belle-legacy-site"
+  ],
+  "specs": {
+    "solenoid_field": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "magnetic_field",
+      "display": "1.5 T",
+      "note": "",
+      "quote": "configured around a 1.5 T superconducting solenoid",
+      "sources": [
+        "src:belle-detector-nima-2002"
+      ],
+      "unit": "T",
+      "value": 1.5,
+      "verified_at": "2026-09-16"
+    }
+  },
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "The large barrel-shaped particle detector that surrounded the collision point of the KEKB machine from 1999 to 2010. A powerful magnet bent the tracks of the particles produced so that their momenta could be measured.",
+    "technical": "General-purpose 4π spectrometer at the KEKB Tsukuba interaction region, built around a 1.5 T superconducting solenoid with an instrumented iron flux return, optimised for time-dependent CP-violation measurements in B decays."
+  },
+  "technology": {
+    "confidence": "verified",
+    "note": "",
+    "quote": "The Belle detector is configured around a 1.5 T superconducting solenoid and iron structure surrounding the KEK-B beams at the Tsukuba interaction region",
+    "sources": [
+      "src:belle-detector-nima-2002"
+    ],
+    "value": "general-purpose 4π magnetic spectrometer built around a 1.5 T superconducting solenoid",
+    "verified_at": "2026-09-16"
+  },
+  "technology_class": "general_purpose_collider",
+  "technology_classes": [
+    "general_purpose_collider"
+  ],
+  "type": "detector"
+}

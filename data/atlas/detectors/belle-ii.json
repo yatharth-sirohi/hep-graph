@@ -1,0 +1,272 @@
+{
+  "aliases": [
+    "Belle II"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "A"
+  },
+  "experiment_ids": [
+    "experiment:belle-ii"
+  ],
+  "id": "detector:belle-ii",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2017-04-11",
+      "label": "assembly and integration",
+      "note": "Start taken as the Technical Design Report (1 November 2010); the precise start of physical construction is not given by any fetched source.",
+      "quote": "On 11 April, the Belle II detector was successfully “rolled-in” to the collision point",
+      "sources": [
+        "src:belle2-tdr-2010",
+        "src:belle2-rollin-2017"
+      ],
+      "start": "2010-11",
+      "status": "construction",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "verified",
+      "end": "2018-07",
+      "label": "Phase 2 commissioning",
+      "note": "Operated without the full vertex detector.",
+      "quote": "the first collisions recorded in the early hours of April 26th",
+      "sources": [
+        "src:superkekb-phase3-start-2019"
+      ],
+      "start": "2018-03",
+      "status": "commissioning",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "verified",
+      "end": {
+        "approx": true,
+        "date": "2022"
+      },
+      "label": "Run 1",
+      "note": "End only dated to 'the summer of 2022' by KEK IPNS.",
+      "quote": "Phase 3 operation of the SuperKEKB project began successfully",
+      "sources": [
+        "src:superkekb-phase3-start-2019",
+        "src:superkekb-run2-start-2024"
+      ],
+      "start": "2019-03-11",
+      "status": "active",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "verified",
+      "end": "2024-01-29",
+      "label": "Long Shutdown 1 (vertex detector upgrade)",
+      "locator": "KEK IPNS news item on the Run 2 restart, paragraph on the long shutdown upgrades",
+      "note": "Detector-side work during SuperKEKB Long Shutdown 1: KEK IPNS reports the installation of a new vertex detector with a pixel detector and an improved beam pipe, enhanced radiation shielding and other improvements. The interval bounds are those of the accelerator shutdown.",
+      "sources": [
+        "src:superkekb-run2-start-2024"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2022",
+        "display": "summer of 2022"
+      },
+      "status": "upgrade",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "Run 2",
+      "note": "",
+      "quote": "At 22:12 JST on the 20th of February, the Belle II detector recorded the first electron-positron collisions",
+      "sources": [
+        "src:superkekb-run2-start-2024"
+      ],
+      "start": "2024-02-20",
+      "status": "active",
+      "verified_at": "2026-09-16"
+    }
+  ],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "note": "",
+      "sources": [
+        "src:belle2-detector-page"
+      ],
+      "value": "https://www.belle2.org/about_us/belle_ii_detector/",
+      "verified_at": "2026-09-16"
+    }
+  },
+  "name": "Belle II detector",
+  "notes": [
+    "Overall dimensions other than the 8 m height quoted at the 2017 roll-in are NOT recorded: the Belle II Technical Design Report body (arXiv:1011.0352) was not fetched in this session, only its abstract page, so no TDR geometry table could be cited. Height: 'the entire 8 m-tall, 1400 tonne Belle II detector system' (belle2.jp, roll-in article). It is not recorded as a spec because 'height' is not in the Appendix A spec-key whitelist for general_purpose_collider.",
+    "Per-subsystem quantities (channel counts, radii, crystal counts) are unresolved for the same reason."
+  ],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "note": "The roll-in placed the assembled detector at the SuperKEKB interaction point in the Tsukuba hall; it has been there since.",
+      "quote": "On 11 April, the Belle II detector was successfully “rolled-in” to the collision point [...] moving the entire 8 m-tall, 1400 tonne Belle II detector system from its assembly area to the beam-collision point 13 m away",
+      "role": "main",
+      "site_id": "site:kek-tsukuba-belle-ii",
+      "sources": [
+        "src:belle2-rollin-2017"
+      ],
+      "start": "2017-04-11",
+      "verified_at": "2026-09-16"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:belle2-detector-page",
+    "src:belle2-rollin-2017",
+    "src:belle2-tdr-2010",
+    "src:belle2-collaboration-site"
+  ],
+  "specs": {
+    "solenoid_field": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "magnetic_field",
+      "display": "1.5 T",
+      "note": "",
+      "quote": "a superconducting solenoid coil that provides a 1.5 Tesla magnetic field",
+      "sources": [
+        "src:belle2-detector-page"
+      ],
+      "unit": "T",
+      "value": 1.5,
+      "verified_at": "2026-09-16"
+    },
+    "total_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "1400 t",
+      "note": "Mass of the complete detector system as moved at the 2017 roll-in.",
+      "quote": "moving the entire 8 m-tall, 1400 tonne Belle II detector system from its assembly area to the beam-collision point 13 m away",
+      "sources": [
+        "src:belle2-rollin-2017"
+      ],
+      "unit": "t",
+      "value": 1400,
+      "verified_at": "2026-09-16"
+    }
+  },
+  "status": "active",
+  "subsystems": [
+    {
+      "description": {
+        "confidence": "verified",
+        "note": "",
+        "quote": "two layers of pixelated silicon sensors (PXD) and four layers of double-sided silicon strip sensors (SVD)",
+        "sources": [
+          "src:belle2-detector-page",
+          "src:superkekb-run2-start-2024"
+        ],
+        "value": "Two layers of pixelated silicon sensors immediately around the beam pipe, measuring decay-vertex positions. A new, fully implemented pixel detector was installed during Long Shutdown 1.",
+        "verified_at": "2026-09-16"
+      },
+      "name": "PXD — pixel vertex detector"
+    },
+    {
+      "description": {
+        "confidence": "verified",
+        "note": "",
+        "quote": "two layers of pixelated silicon sensors (PXD) and four layers of double-sided silicon strip sensors (SVD)",
+        "sources": [
+          "src:belle2-detector-page"
+        ],
+        "value": "Four layers of double-sided silicon strip sensors surrounding the PXD.",
+        "verified_at": "2026-09-16"
+      },
+      "name": "SVD — silicon vertex detector"
+    },
+    {
+      "description": {
+        "confidence": "verified",
+        "note": "",
+        "quote": "a central drift chamber (CDC) that measures trajectories, momenta and dE/dx information of charged particles",
+        "sources": [
+          "src:belle2-detector-page"
+        ],
+        "value": "The main tracking device: a large gas volume strung with sense and field wires that measures charged-particle trajectories, momenta and specific ionisation (dE/dx).",
+        "verified_at": "2026-09-16"
+      },
+      "name": "CDC — central drift chamber"
+    },
+    {
+      "description": {
+        "confidence": "verified",
+        "note": "",
+        "quote": "a barrel-shaped array of Time-Of-Propagation (TOP) counters",
+        "sources": [
+          "src:belle2-detector-page"
+        ],
+        "value": "A barrel-shaped array of quartz-radiator Cherenkov counters used for charged-hadron identification.",
+        "verified_at": "2026-09-16"
+      },
+      "name": "TOP — time-of-propagation counters"
+    },
+    {
+      "description": {
+        "confidence": "verified",
+        "note": "",
+        "quote": "another ring-imaging Cherenkov counters with aerogel radiator in the forward end-cap (ARICH)",
+        "sources": [
+          "src:belle2-detector-page"
+        ],
+        "value": "A ring-imaging Cherenkov counter with an aerogel radiator in the forward end-cap, complementing the TOP for particle identification.",
+        "verified_at": "2026-09-16"
+      },
+      "name": "ARICH — aerogel ring-imaging Cherenkov counter"
+    },
+    {
+      "description": {
+        "confidence": "verified",
+        "note": "",
+        "quote": "an electromagnetic calorimeter (ECL) comprised of scintillator crystals located inside a superconducting solenoid coil",
+        "sources": [
+          "src:belle2-detector-page"
+        ],
+        "value": "Scintillator crystals inside the solenoid that measure the energies of photons and electrons.",
+        "verified_at": "2026-09-16"
+      },
+      "name": "ECL — electromagnetic calorimeter"
+    },
+    {
+      "description": {
+        "confidence": "verified",
+        "note": "",
+        "quote": "an iron flux-return located outside of the coil which is instrumented to detect K0L mesons and to identify muons (KLM)",
+        "sources": [
+          "src:belle2-detector-page"
+        ],
+        "value": "The instrumented iron flux return outside the solenoid, which detects long-lived neutral kaons and identifies muons.",
+        "verified_at": "2026-09-16"
+      },
+      "name": "KLM — K-long and muon detector"
+    }
+  ],
+  "summary": {
+    "plain": "The detector that records what comes out of the SuperKEKB collisions. Seven layers of instruments, wrapped in a strong magnet, track and identify the particles produced when electrons and positrons annihilate.",
+    "technical": "General-purpose 4π spectrometer at the SuperKEKB interaction point: PXD, SVD, CDC, TOP and ARICH, ECL inside a 1.5 T solenoid, and the KLM in the instrumented flux return; about 1400 t, rolled in on 11 April 2017."
+  },
+  "technology": {
+    "confidence": "verified",
+    "note": "",
+    "quote": "an electromagnetic calorimeter (ECL) comprised of scintillator crystals located inside a superconducting solenoid coil that provides a 1.5 Tesla magnetic field",
+    "sources": [
+      "src:belle2-detector-page"
+    ],
+    "value": "general-purpose 4π magnetic spectrometer with seven subdetectors inside a 1.5 T superconducting solenoid",
+    "verified_at": "2026-09-16"
+  },
+  "technology_class": "general_purpose_collider",
+  "technology_classes": [
+    "general_purpose_collider"
+  ],
+  "type": "detector"
+}

@@ -1,0 +1,151 @@
+{
+  "accelerator_id": "accelerator:fermilab-booster",
+  "aliases": [
+    "BNB",
+    "Booster Neutrino Beamline"
+  ],
+  "baselines": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B",
+    "validated": false
+  },
+  "direction": {
+    "confidence": "verified",
+    "locator": "§1, Introduction",
+    "note": "",
+    "quote": "MicroBooNE will be exposed to the 0.5-2 GeV on-axis Booster Neutrino Beam (BNB) at a ~500 m baseline, the same as was employed for MiniBoonE.",
+    "sources": [
+      "src:fermilab-microboone-detector-paper-2017"
+    ],
+    "value": "on-axis toward the short-baseline detector halls on the Fermilab site, about 500 m from the target",
+    "verified_at": "2026-09-16"
+  },
+  "facility_id": "facility:fermilab",
+  "far_detector_site_ids": [],
+  "id": "beamline:bnb",
+  "intervals": [
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "operating",
+      "note": "Evidence date only: the MiniBooNE flux paper (submitted June 2008) describes the BNB in routine operation for MiniBooNE. The BNB first-beam date (commonly given as 2002) could not be confirmed from any source fetched in this session.",
+      "sources": [
+        "src:fermilab-miniboone-flux-paper-2009"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2008",
+        "display": "in routine operation by 2008",
+        "earliest": "1999",
+        "latest": "2008"
+      },
+      "status": "active",
+      "verified_at": "2026-09-16"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "Booster Neutrino Beam (BNB)",
+  "near_detector_site_ids": [
+    "site:fermilab-main-campus"
+  ],
+  "notes": [
+    "The BNB start date (2002) is not sourced; see the interval note."
+  ],
+  "primary_beam": {
+    "confidence": "verified",
+    "locator": "abstract",
+    "note": "",
+    "quote": "protons with 8 GeV kinetic energy (8.89 GeV/c momentum)",
+    "sources": [
+      "src:fermilab-miniboone-flux-paper-2009"
+    ],
+    "value": {
+      "energy": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "energy",
+        "display": "8 GeV kinetic (8.89 GeV/c)",
+        "locator": "abstract",
+        "note": "",
+        "quote": "The Booster delivers protons with 8 GeV kinetic energy (8.89 GeV/c momentum) to a beryllium target",
+        "sources": [
+          "src:fermilab-miniboone-flux-paper-2009"
+        ],
+        "unit": "GeV",
+        "value": 8,
+        "verified_at": "2026-09-16"
+      },
+      "particle": "proton"
+    },
+    "verified_at": "2026-09-16"
+  },
+  "schema": "hep-atlas/0.2",
+  "secondary_beam": {
+    "confidence": "verified",
+    "locator": "§II, The Booster Neutrino Beamline",
+    "note": "",
+    "quote": "Secondary mesons produced by the interaction of the protons in the target decay to produce a neutrino beam with an average energy of ~800 MeV",
+    "sources": [
+      "src:fermilab-miniboone-flux-paper-2009",
+      "src:fermilab-microboone-detector-paper-2017"
+    ],
+    "value": "muon neutrinos / antineutrinos, on-axis, mean energy about 800 MeV",
+    "verified_at": "2026-09-16"
+  },
+  "sources": [
+    "src:fermilab-miniboone-flux-paper-2009",
+    "src:fermilab-microboone-detector-paper-2017"
+  ],
+  "specs": {
+    "peak_neutrino_energy": {
+      "approx": true,
+      "confidence": "verified",
+      "dimension": "energy",
+      "display": "~800 MeV mean",
+      "locator": "§II",
+      "note": "Average, not peak, neutrino energy as stated by the source.",
+      "quote": "a neutrino beam with an average energy of ~800 MeV",
+      "sources": [
+        "src:fermilab-miniboone-flux-paper-2009"
+      ],
+      "unit": "GeV",
+      "value": 0.8,
+      "verified_at": "2026-09-16"
+    },
+    "proton_energy": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "energy",
+      "display": "8 GeV kinetic",
+      "locator": "abstract",
+      "note": "",
+      "quote": "protons with 8 GeV kinetic energy (8.89 GeV/c momentum)",
+      "sources": [
+        "src:fermilab-miniboone-flux-paper-2009"
+      ],
+      "unit": "GeV",
+      "value": 8,
+      "verified_at": "2026-09-16"
+    }
+  },
+  "status": "active",
+  "summary": {
+    "plain": "A low-energy neutrino beam at Fermilab made by firing 8-billion-electronvolt protons at a beryllium target. It feeds the short-baseline detectors on the laboratory site.",
+    "technical": "On-axis muon-neutrino beam from 8 GeV kinetic (8.89 GeV/c) Booster protons on a beryllium target inside a pulsed horn, mean neutrino energy about 800 MeV, serving MiniBooNE, MicroBooNE, SBND and ICARUS at baselines of order 500 m."
+  },
+  "target": {
+    "confidence": "verified",
+    "locator": "§II, The Booster Neutrino Beamline",
+    "note": "",
+    "quote": "The Booster Neutrino Beamline (BNB) produces neutrinos using 8.89 GeV/c momentum protons from the Booster synchrotron that are incident on a beryllium target.",
+    "sources": [
+      "src:fermilab-miniboone-flux-paper-2009"
+    ],
+    "value": "beryllium",
+    "verified_at": "2026-09-16"
+  },
+  "type": "beamline"
+}

@@ -1,0 +1,86 @@
+{
+  "aliases": [
+    "J-PARC LINAC",
+    "J-PARC linear accelerator"
+  ],
+  "coverage": {
+    "researched": "full",
+    "tier": "B",
+    "validated": false
+  },
+  "facility_id": "facility:j-parc",
+  "feeds_accelerator_ids": [
+    "accelerator:j-parc-rcs"
+  ],
+  "id": "accelerator:j-parc-linac",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "design energy reached",
+      "note": "",
+      "quote": "January  Expected energy was achieved at Linac.",
+      "sources": [
+        "src:jparc-history"
+      ],
+      "start": "2007-01",
+      "status": "active",
+      "verified_at": "2026-09-16"
+    }
+  ],
+  "kind": "linac",
+  "links": {
+    "website": null
+  },
+  "name": "J-PARC linac",
+  "notes": [
+    "The negative hydrogen ions are converted to protons by charge-stripping foils at RCS injection (T2K instrumentation paper)."
+  ],
+  "particles": [
+    "H-"
+  ],
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:j-parc-main-ring",
+  "sources": [
+    "src:jparc-linac-page",
+    "src:jparc-accelerators",
+    "src:jparc-facilities"
+  ],
+  "specs": {
+    "beam_energy": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "energy",
+      "display": "400 MeV",
+      "note": "The older \"What is J-PARC\" page adds \"(currently operating at 180 MeV)\"; the current facilities and linac pages give 400 MeV.",
+      "quote": "A 400 MeV linear accelerator",
+      "sources": [
+        "src:jparc-linac-page",
+        "src:jparc-facilities"
+      ],
+      "unit": "MeV",
+      "value": 400,
+      "verified_at": "2026-09-16"
+    },
+    "length": {
+      "approx": true,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "about 300 m",
+      "note": "",
+      "quote": "Linac about 300m in length",
+      "sources": [
+        "src:jparc-accelerators"
+      ],
+      "unit": "m",
+      "value": 300,
+      "verified_at": "2026-09-16"
+    }
+  },
+  "status": "active",
+  "summary": {
+    "plain": "The first machine in the J-PARC chain: a 300-metre linear accelerator that gives hydrogen ions their initial energy before they are passed to the ring accelerators.",
+    "technical": "400 MeV normal-conducting H- linac (324/972 MHz RFQ, DTL, SDTL and ACS), about 300 m long, injecting into the 3 GeV RCS through charge-stripping foils."
+  },
+  "type": "accelerator"
+}

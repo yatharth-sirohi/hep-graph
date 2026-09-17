@@ -1,0 +1,95 @@
+{
+  "aliases": [
+    "FNAL Booster",
+    "Booster synchrotron"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B",
+    "validated": false
+  },
+  "facility_id": "facility:fermilab",
+  "feeds_accelerator_ids": [
+    "accelerator:fermilab-recycler",
+    "accelerator:fermilab-main-injector"
+  ],
+  "id": "accelerator:fermilab-booster",
+  "intervals": [
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "operating",
+      "locator": "§II, The Booster Neutrino Beamline",
+      "note": "Evidence date, not a commissioning date: this is the earliest operation of the machine documented by a source fetched in this session (NuMI beam paper, MINOS data taking from 20 May 2005). The machine has run since the 1970s; no fetchable source gave its commissioning date (fnal.gov and history.fnal.gov returned HTTP 403).",
+      "quote": "Protons from the Fermilab LINAC are injected at 400 MeV and accelerated to 8 GeV kinetic energy",
+      "sources": [
+        "src:fermilab-numi-beam-paper-2016",
+        "src:fermilab-miniboone-flux-paper-2009"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2005",
+        "display": "in operation by 2005; commissioning date not sourced",
+        "earliest": "1968",
+        "latest": "2005"
+      },
+      "status": "active",
+      "verified_at": "2026-09-16"
+    }
+  ],
+  "is_collider": false,
+  "kind": "booster",
+  "links": {
+    "website": null
+  },
+  "name": "Fermilab Booster",
+  "notes": [],
+  "particles": [
+    "proton"
+  ],
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:fermilab-main-campus",
+  "sources": [
+    "src:fermilab-numi-beam-paper-2016",
+    "src:fermilab-miniboone-flux-paper-2009"
+  ],
+  "specs": {
+    "beam_energy": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "energy",
+      "display": "8 GeV",
+      "locator": "§1.1, accelerator complex",
+      "note": "",
+      "quote": "The Booster then accelerates those protons to 8 GeV.",
+      "sources": [
+        "src:fermilab-numi-beam-paper-2016",
+        "src:fermilab-miniboone-flux-paper-2009"
+      ],
+      "unit": "GeV",
+      "value": 8,
+      "verified_at": "2026-09-16"
+    },
+    "circumference": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "474 m",
+      "locator": "§II, The Booster Neutrino Beamline",
+      "note": "",
+      "quote": "The FNAL Booster is a 474-meter-circumference synchrotron operating at 15Hz.",
+      "sources": [
+        "src:fermilab-miniboone-flux-paper-2009"
+      ],
+      "unit": "m",
+      "value": 474,
+      "verified_at": "2026-09-16"
+    }
+  },
+  "status": "active",
+  "summary": {
+    "plain": "A rapid-cycling ring 474 metres around that takes protons to 8 billion electronvolts. It feeds the Booster neutrino beam and the rest of the Fermilab chain.",
+    "technical": "474 m circumference rapid-cycling synchrotron running at 15 Hz, accelerating protons from 400 MeV to 8 GeV kinetic energy (8.89 GeV/c) for the BNB and for injection into the Recycler and Main Injector."
+  },
+  "type": "accelerator"
+}

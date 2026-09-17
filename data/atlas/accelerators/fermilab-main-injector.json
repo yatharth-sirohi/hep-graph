@@ -1,0 +1,91 @@
+{
+  "aliases": [
+    "Main Injector",
+    "MI"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B",
+    "validated": false
+  },
+  "facility_id": "facility:fermilab",
+  "feeds_accelerator_ids": [],
+  "id": "accelerator:fermilab-main-injector",
+  "intervals": [
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "operating",
+      "locator": "§1, Introduction",
+      "note": "Evidence date, not a commissioning date: this is the earliest operation of the machine documented by a source fetched in this session (NuMI beam paper, MINOS data taking from 20 May 2005). The machine has run since the 1970s; no fetchable source gave its commissioning date (fnal.gov and history.fnal.gov returned HTTP 403).",
+      "quote": "the 120 GeV protons extracted from the Fermilab Main Injector",
+      "sources": [
+        "src:fermilab-numi-beam-paper-2016"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2005",
+        "display": "in operation by 2005; commissioning date not sourced",
+        "earliest": "1968",
+        "latest": "2005"
+      },
+      "status": "active",
+      "verified_at": "2026-09-16"
+    }
+  ],
+  "is_collider": false,
+  "kind": "synchrotron",
+  "links": {
+    "website": null
+  },
+  "name": "Fermilab Main Injector",
+  "notes": [
+    "Design energy 150 GeV per the NuMI beam paper; 120 GeV is the neutrino-production operating point."
+  ],
+  "particles": [
+    "proton"
+  ],
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:fermilab-main-campus",
+  "sources": [
+    "src:fermilab-numi-beam-paper-2016"
+  ],
+  "specs": {
+    "beam_energy": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "energy",
+      "display": "120 GeV",
+      "locator": "§1, Introduction",
+      "note": "Operating energy for neutrino production; the design energy is 150 GeV.",
+      "quote": "The NuMI beam is presently the world's most powerful neutrino beam and is produced by the 120 GeV protons extracted from the Fermilab Main Injector.",
+      "sources": [
+        "src:fermilab-numi-beam-paper-2016"
+      ],
+      "unit": "GeV",
+      "value": 120,
+      "verified_at": "2026-09-16"
+    },
+    "circumference": {
+      "approx": true,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "3.3 km",
+      "locator": "§4.2",
+      "note": "",
+      "quote": "The Recycler is a fixed energy machine of 8 GeV located on the top of the MI with the same circumference of 3.3 km.",
+      "sources": [
+        "src:fermilab-numi-beam-paper-2016"
+      ],
+      "unit": "km",
+      "value": 3.3,
+      "verified_at": "2026-09-16"
+    }
+  },
+  "status": "active",
+  "summary": {
+    "plain": "A 3.3-kilometre ring that accelerates protons to 120 billion electronvolts. Its beam makes the NuMI neutrinos today and will make the LBNF beam for DUNE.",
+    "technical": "3.3 km circumference proton synchrotron, design energy 150 GeV, operated at 120 GeV for neutrino production; slip-stacked Booster batches are loaded via the Recycler. Source of the NuMI beam and of the future LBNF beam."
+  },
+  "type": "accelerator"
+}

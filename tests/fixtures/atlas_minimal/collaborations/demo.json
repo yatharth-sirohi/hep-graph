@@ -2,14 +2,11 @@
   "aliases": [],
   "coverage": {
     "researched": "full",
-    "tier": "A",
-    "validated": true
+    "tier": "A"
   },
-  "experiment_ids": [
-    "experiment:demo"
-  ],
   "formation": {
     "confidence": "verified",
+    "locator": "About page, 'History'",
     "note": "",
     "sources": [
       "src:demo-experiment-site"
@@ -24,7 +21,9 @@
     {
       "confidence": "verified",
       "end": null,
+      "kind": "lifecycle",
       "label": "collaboration",
+      "locator": "About page, 'History'",
       "note": "",
       "sources": [
         "src:demo-experiment-site"
@@ -36,13 +35,16 @@
   ],
   "leadership": [
     {
+      "confidence": "verified",
       "end": null,
-      "person_id": "person:inspire:1019647",
+      "note": "",
+      "person_id": "person:inspire-1019647",
       "role": "spokesperson",
       "sources": [
         "src:demo-experiment-site"
       ],
-      "start": "2020"
+      "start": "2020",
+      "verified_at": "2026-09-16"
     }
   ],
   "links": {
@@ -52,6 +54,7 @@
     "as_of": "2026-09",
     "country_count": {
       "confidence": "verified",
+      "locator": "section 'Institutions'",
       "note": "",
       "sources": [
         "src:demo-institution-list"
@@ -62,6 +65,7 @@
     "evidence_class": "official_institution_list",
     "institution_count": {
       "confidence": "verified",
+      "locator": "section 'Institutions'",
       "note": "",
       "sources": [
         "src:demo-institution-list"
@@ -71,7 +75,7 @@
     },
     "member_count": {
       "confidence": "uncertain",
-      "note": "not published",
+      "note": "the collaboration does not publish a headcount",
       "sources": [
         "src:demo-institution-list"
       ],
@@ -84,6 +88,7 @@
   },
   "name": "Demo Collaboration",
   "notes": [],
+  "schema": "hep-atlas/0.2",
   "sources": [
     "src:demo-experiment-site",
     "src:demo-institution-list"

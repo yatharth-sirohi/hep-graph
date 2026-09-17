@@ -1,0 +1,254 @@
+{
+  "aliases": [
+    "Super KEKB",
+    "SuperKEKB collider"
+  ],
+  "coverage": {
+    "researched": "full",
+    "tier": "A"
+  },
+  "facility_id": "facility:kek",
+  "feeds_accelerator_ids": [],
+  "id": "accelerator:superkekb",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2016-02",
+      "label": "construction (from groundbreaking)",
+      "locator": "www-superkekb.kek.jp home page, milestone list ('Groundbreaking Ceremony', 18 November 2011)",
+      "note": "KEKB stopped on 30 June 2010 and the upgrade work began after that; the groundbreaking ceremony on 18 November 2011 is the earliest dated construction milestone on the project site. The accelerator paper records 'Large-scale construction to upgrade both the collider rings and the injector was conducted'.",
+      "sources": [
+        "src:superkekb-project-site",
+        "src:superkekb-collider-nima-2018"
+      ],
+      "start": "2011-11-18",
+      "status": "construction",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "verified",
+      "end": "2016-06",
+      "label": "Phase 1 (beam commissioning, no collisions)",
+      "note": "The 2019 KEK press release describes the same period: 'Low-emittance Ampère-level beams were circulated in both rings, but no collisions were possible.'",
+      "quote": "beam commissioning without the Belle II detector and final-focus magnets was successfully carried out from February to June in 2016",
+      "sources": [
+        "src:superkekb-collider-nima-2018",
+        "src:superkekb-phase3-start-2019"
+      ],
+      "start": "2016-02",
+      "status": "commissioning",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "derived",
+      "end": "2018-03",
+      "label": "interaction-region installation",
+      "note": "Month bounds are inferred from the end of Phase 1 and the start of Phase 2 given in the same paper; confidence derived.",
+      "quote": "Subsequently, renovation of the interaction region, including the installation of the final-focus magnets and Belle II, and construction in the final stage of a new positron damping ring were conducted.",
+      "sources": [
+        "src:superkekb-collider-nima-2018"
+      ],
+      "start": "2016-06",
+      "status": "construction",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "verified",
+      "end": "2018-07",
+      "label": "Phase 2 (pilot run, first collisions)",
+      "note": "First electron-positron collisions were recorded on 26 April 2018 ('the first collisions recorded in the early hours of April 26th'; the INSPIRE experiment record gives date_started 26 April 2018). The accelerator paper was written before the run and states the schedule.",
+      "quote": "Having completed the interaction region, beam collision tuning is scheduled from March till July in 2018.",
+      "sources": [
+        "src:superkekb-collider-nima-2018",
+        "src:superkekb-phase3-start-2019"
+      ],
+      "start": "2018-03",
+      "status": "commissioning",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "verified",
+      "end": {
+        "approx": true,
+        "date": "2022"
+      },
+      "label": "Phase 3 / Run 1",
+      "note": "Start: KEK press release of 11 March 2019. End: KEK IPNS states only 'a long-shutdown that started in the summer of 2022', so the end is a year-precision approximate date.",
+      "quote": "Phase 3 operation of the SuperKEKB project began successfully",
+      "sources": [
+        "src:superkekb-phase3-start-2019",
+        "src:superkekb-run2-start-2024"
+      ],
+      "start": "2019-03-11",
+      "status": "active",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "verified",
+      "end": "2024-01-29",
+      "label": "Long Shutdown 1",
+      "note": "Upgrade shutdown for the two-layer pixel detector, a new beam pipe and accelerator improvements.",
+      "quote": "The accelerator and detector were both upgraded during a long-shutdown that started in the summer of 2022 [...] the accelerator operations restarted on the 29th of January 2024",
+      "sources": [
+        "src:superkekb-run2-start-2024"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2022",
+        "display": "summer of 2022"
+      },
+      "status": "shutdown",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "Run 2",
+      "note": "Ongoing at 2026-09-16; the Belle II collaboration reported a new luminosity world record on 30 June 2026.",
+      "quote": "the accelerator operations restarted on the 29th of January 2024",
+      "sources": [
+        "src:superkekb-run2-start-2024"
+      ],
+      "start": "2024-01-29",
+      "status": "active",
+      "verified_at": "2026-09-16"
+    }
+  ],
+  "is_collider": true,
+  "kind": "collider",
+  "lineage": [
+    {
+      "accelerator_id": "accelerator:kekb",
+      "confidence": "verified",
+      "note": "",
+      "quote": "SuperKEKB, a 7 GeV electron - 4 GeV positron double-ring collider, is constructed by upgrading KEKB",
+      "relation": "upgrade_of",
+      "sources": [
+        "src:superkekb-collider-nima-2018",
+        "src:belle2-tdr-2010"
+      ],
+      "verified_at": "2026-09-16"
+    }
+  ],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "note": "",
+      "sources": [
+        "src:superkekb-project-site"
+      ],
+      "value": "https://www-superkekb.kek.jp/",
+      "verified_at": "2026-09-16"
+    }
+  },
+  "name": "SuperKEKB",
+  "notes": [
+    "Accelerator lineage is expressed with a `lineage` list keyed on `accelerator_id`, mirroring `experiment.lineage`; v0.2 A1 defines the canonical direction only for experiments.",
+    "Conflict logged in docs/atlas-worklog/flavor.md: design luminosity 8×10³⁵ (2018 accelerator paper and belle2.org) vs 6.0×10³⁵ (2025 Belle II strategy input). The newer value is recorded as design_luminosity and both are quoted."
+  ],
+  "particles": [
+    "electron",
+    "positron"
+  ],
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:kek-tsukuba-belle-ii",
+  "sources": [
+    "src:superkekb-project-site",
+    "src:superkekb-collider-nima-2018",
+    "src:belle2-superkekb-page",
+    "src:belle2-espp-input-2025"
+  ],
+  "specs": {
+    "beam_energy": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "energy",
+      "display": "7 GeV e⁻ (HER) × 4 GeV e⁺ (LER)",
+      "note": "Same values in the SuperKEKB accelerator paper: 'a 7 GeV electron - 4 GeV positron double-ring collider'.",
+      "quote": "The beam energies for the High Energy Ring (HER) and the Low Energy Ring (LER) are 7 GeV and 4 GeV, respectively",
+      "sources": [
+        "src:belle2-espp-input-2025",
+        "src:superkekb-collider-nima-2018"
+      ],
+      "unit": "GeV",
+      "value": {
+        "max": 7.0,
+        "min": 4.0
+      },
+      "verified_at": "2026-09-16"
+    },
+    "circumference": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "3 km",
+      "note": "",
+      "quote": "3 km in circumference",
+      "sources": [
+        "src:belle2-superkekb-page"
+      ],
+      "unit": "km",
+      "value": 3,
+      "verified_at": "2026-09-16"
+    },
+    "cms_energy": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "energy",
+      "display": "10.579 GeV (Υ(4S))",
+      "note": "Nominal Υ(4S) running energy quoted by Belle II for its 2023 τ-mass data set.",
+      "quote": "at a center-of-mass energy of $10.579\\,\\mathrm{GeV}$",
+      "sources": [
+        "src:belle2-tau-mass-2023"
+      ],
+      "unit": "GeV",
+      "value": 10.579,
+      "verified_at": "2026-09-16"
+    },
+    "collision_scheme": {
+      "confidence": "verified",
+      "note": "The SuperKEKB project page describes the same idea as 'squeezing beams to nanometer-scale, rather than by increasing the beam intensity and the beam-beam parameter' with 'a large crossing angle at the interaction point'.",
+      "quote": "The greater part of the gain comes from significantly decreasing the beam sizes at the interaction point based on the nanobeam collision scheme; the design beam currents in both rings are double those achieved in KEKB.",
+      "sources": [
+        "src:superkekb-collider-nima-2018",
+        "src:superkekb-feature-story"
+      ],
+      "value": "nano-beam scheme with a large crossing angle at the interaction point",
+      "verified_at": "2026-09-16"
+    },
+    "design_luminosity": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "luminosity",
+      "display": "6.0 × 10³⁵ cm⁻² s⁻¹ (target)",
+      "note": "Current target (Belle II input to the European Strategy, 2025). The original design value was 8×10³⁵ cm⁻² s⁻¹ — see the SuperKEKB accelerator paper ('The design luminosity of SuperKEKB is 8 x 10^35 /cm^2 /s - 40 times higher than that achieved by KEKB') and belle2.org ('goal of increasing the instantaneous luminosity by a factor of ~40 to 8.0x1035 cm-2 s-1').",
+      "quote": "with a target luminosity of 6.0×10³⁵ cm⁻² s⁻¹",
+      "sources": [
+        "src:belle2-espp-input-2025"
+      ],
+      "unit": "cm^-2 s^-1",
+      "value": 6e+35,
+      "verified_at": "2026-09-16"
+    },
+    "peak_luminosity": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "luminosity",
+      "display": "5.319 × 10³⁴ cm⁻² s⁻¹ (30 June 2026)",
+      "note": "World record for any particle accelerator as stated by the Belle II collaboration on 2026-09-16. Earlier milestones on the same machine: 2.22×10³⁴ on 15 June 2020 (first time SuperKEKB passed KEKB) and 5.1×10³⁴ quoted in the 2025 Belle II strategy input.",
+      "quote": "We currently hold the world record for the highest instantaneous luminosity ever achieved at a particle accelerator: 5.319 x 1034 cm−2s−1 achieved on June 30, 2026.",
+      "sources": [
+        "src:belle2-collaboration-site"
+      ],
+      "unit": "cm^-2 s^-1",
+      "value": 5.319e+34,
+      "verified_at": "2026-09-16"
+    }
+  },
+  "status": "active",
+  "summary": {
+    "plain": "The rebuilt version of the KEKB collider in Japan. It squeezes its electron and positron beams down to nanometre thinness so they collide far more often than before, and since 2020 it has held the world record for collision rate.",
+    "technical": "Asymmetric e+e- double-ring collider, 7 GeV HER × 4 GeV LER at √s = 10.579 GeV, 3 km circumference, using the nano-beam scheme with a large crossing angle; target luminosity 6×10³⁵ cm⁻² s⁻¹ (originally 8×10³⁵), peak achieved 5.319×10³⁴ cm⁻² s⁻¹ on 30 June 2026."
+  },
+  "type": "accelerator"
+}

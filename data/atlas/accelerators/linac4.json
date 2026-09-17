@@ -1,0 +1,106 @@
+{
+  "aliases": [
+    "Linear accelerator 4",
+    "LINAC4"
+  ],
+  "coverage": {
+    "researched": "full",
+    "tier": "A",
+    "validated": false
+  },
+  "facility_id": "facility:cern",
+  "feeds_accelerator_ids": [
+    "accelerator:psb"
+  ],
+  "id": "accelerator:linac4",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2020",
+      "label": "beam production",
+      "note": "",
+      "quote": "Beams began to be produced in 2013 and the milestone energy of 160 MeV was reached in 2016",
+      "sources": [
+        "src:cern-linac4-page"
+      ],
+      "start": "2013",
+      "status": "commissioning",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "CERN's proton source",
+      "note": "",
+      "quote": "It became the source of proton beams for the Large Hadron Collider (LHC) in 2020",
+      "sources": [
+        "src:cern-linac4-page"
+      ],
+      "start": "2020",
+      "status": "active",
+      "verified_at": "2026-09-16"
+    }
+  ],
+  "is_collider": false,
+  "kind": "linac",
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "note": "",
+      "sources": [
+        "src:cern-linac4-page"
+      ],
+      "value": "https://home.cern/science/accelerators/linear-accelerator-4",
+      "verified_at": "2026-09-16"
+    }
+  },
+  "name": "Linac4",
+  "notes": [],
+  "particles": [
+    "H- ion",
+    "proton"
+  ],
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:cern-meyrin",
+  "sources": [
+    "src:cern-linac4-page",
+    "src:cern-accelerator-complex"
+  ],
+  "specs": {
+    "beam_energy": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "energy",
+      "display": "160 MeV",
+      "note": "",
+      "quote": "Linac4 accelerates negative hydrogen ions (H-, consisting of a hydrogen atom with an additional electron) to 160 MeV to prepare them to enter the Proton Synchrotron Booster",
+      "sources": [
+        "src:cern-linac4-page",
+        "src:cern-accelerator-complex"
+      ],
+      "unit": "MeV",
+      "value": 160,
+      "verified_at": "2026-09-16"
+    },
+    "length": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "86 m",
+      "note": "",
+      "quote": "Linac4 is 86 metres long and located 12 metres below ground.",
+      "sources": [
+        "src:cern-linac4-page"
+      ],
+      "unit": "m",
+      "value": 86,
+      "verified_at": "2026-09-16"
+    }
+  },
+  "status": "active",
+  "summary": {
+    "plain": "An 86-metre straight accelerator, 12 metres underground, that is the first step for every proton used at CERN. It accelerates hydrogen ions to 160 million electronvolts and has been the source of the beams that end up in the Large Hadron Collider since 2020.",
+    "technical": "86 m H- linac (RFQ to 3 MeV, DTL to 50 MeV, CCDTL to 100 MeV, PIMS to 160 MeV) injecting into the PS Booster; replaced Linac2 during the 2019-20 long shutdown."
+  },
+  "type": "accelerator"
+}

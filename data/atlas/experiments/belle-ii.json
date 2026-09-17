@@ -1,0 +1,296 @@
+{
+  "accelerator_ids": [
+    "accelerator:superkekb"
+  ],
+  "aliases": [
+    "Belle-II",
+    "BELLE II",
+    "KEK-BF-BELLE-II",
+    "KEK Super B Factory"
+  ],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:belle-ii"
+  ],
+  "coverage": {
+    "researched": "full",
+    "tier": "A"
+  },
+  "energy_regime": {
+    "confidence": "verified",
+    "note": "",
+    "quote": "at a center-of-mass energy of $10.579\\,\\mathrm{GeV}$",
+    "sources": [
+      "src:belle2-tau-mass-2023"
+    ],
+    "value": "e+e- collisions at √s = 10.579 GeV (Υ(4S) resonance)",
+    "verified_at": "2026-09-16"
+  },
+  "external": {
+    "greybook": null,
+    "inspire_experiment": 1108235,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "facility_id": "facility:kek",
+      "note": "",
+      "quote": "Belle II is an intensity-frontier experiment at the SuperKEKB collider in Tsukuba, Japan.",
+      "role": "host",
+      "sources": [
+        "src:belle2-inspire-experiment",
+        "src:belle2-espp-input-2025"
+      ],
+      "verified_at": "2026-09-16"
+    }
+  ],
+  "id": "experiment:belle-ii",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2010-11",
+      "label": "proposal",
+      "locator": "INSPIRE experiment record KEK-BF-BELLE-II, date_proposed 'April 2004'",
+      "note": "End of the interval is the publication of the Technical Design Report (arXiv:1011.0352, 1 November 2010).",
+      "sources": [
+        "src:belle2-inspire-experiment",
+        "src:belle2-tdr-2010"
+      ],
+      "start": "2004-04",
+      "status": "proposed",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "verified",
+      "end": "2017-04-11",
+      "label": "design and construction (TDR to roll-in)",
+      "note": "Start: the Belle II Technical Design Report, submitted 1 November 2010, which states 'A new international collaboration Belle-II, is being formed.' End: the roll-in of the assembled detector to the SuperKEKB interaction point.",
+      "quote": "On 11 April, the Belle II detector was successfully “rolled-in” to the collision point",
+      "sources": [
+        "src:belle2-tdr-2010",
+        "src:belle2-rollin-2017"
+      ],
+      "start": "2010-11",
+      "status": "construction",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "verified",
+      "end": "2018-07",
+      "label": "Phase 2 (pilot run)",
+      "note": "INSPIRE gives date_started 26 April 2018 for the experiment. Phase 2 ran without the full vertex detector.",
+      "quote": "the first collisions recorded in the early hours of April 26th",
+      "sources": [
+        "src:superkekb-phase3-start-2019",
+        "src:superkekb-collider-nima-2018"
+      ],
+      "start": "2018-03",
+      "status": "commissioning",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "verified",
+      "end": {
+        "approx": true,
+        "date": "2022"
+      },
+      "label": "Phase 3 / Run 1 physics data taking",
+      "note": "KEK press release of 11 March 2019: Belle II 'now fully equipped and ready to take physics data'. Run 1 ended with the start of Long Shutdown 1, which KEK IPNS dates only to 'the summer of 2022'.",
+      "quote": "Phase 3 operation of the SuperKEKB project began successfully",
+      "sources": [
+        "src:superkekb-phase3-start-2019",
+        "src:superkekb-run2-start-2024"
+      ],
+      "start": "2019-03-11",
+      "status": "active",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "verified",
+      "end": "2024-01-29",
+      "label": "Long Shutdown 1",
+      "note": "A new two-layer pixel vertex detector and an improved beam pipe were installed.",
+      "quote": "The accelerator and detector were both upgraded during a long-shutdown that started in the summer of 2022",
+      "sources": [
+        "src:superkekb-run2-start-2024"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2022",
+        "display": "summer of 2022"
+      },
+      "status": "shutdown",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "Run 2",
+      "note": "The collider itself restarted on 29 January 2024; this interval starts at the first recorded Run 2 collisions.",
+      "quote": "At 22:12 JST on the 20th of February, the Belle II detector recorded the first electron-positron collisions",
+      "sources": [
+        "src:superkekb-run2-start-2024"
+      ],
+      "start": "2024-02-20",
+      "status": "active",
+      "verified_at": "2026-09-16"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Beam energies",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "energy",
+        "display": "7 GeV e⁻ × 4 GeV e⁺",
+        "note": "",
+        "quote": "The beam energies for the High Energy Ring (HER) and the Low Energy Ring (LER) are 7 GeV and 4 GeV, respectively",
+        "sources": [
+          "src:belle2-espp-input-2025"
+        ],
+        "unit": "GeV",
+        "value": {
+          "max": 7.0,
+          "min": 4.0
+        },
+        "verified_at": "2026-09-16"
+      }
+    },
+    {
+      "label": "Integrated luminosity recorded",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "integrated_luminosity",
+        "display": "914 fb⁻¹",
+        "note": "As stated on belle2.org on 2026-09-16. The March 2025 Belle II strategy input quoted 'about 575 fb⁻¹'.",
+        "quote": "we have accumulated a total of 914 fb-1 of data rich in beauty and charm hadrons as well as tau leptons",
+        "sources": [
+          "src:belle2-collaboration-site"
+        ],
+        "unit": "fb^-1",
+        "value": 914,
+        "verified_at": "2026-09-16"
+      }
+    },
+    {
+      "label": "Target integrated luminosity",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "integrated_luminosity",
+        "display": "50 ab⁻¹",
+        "note": "The Belle II Physics Book states the same target: 'It is anticipated to collect 50/ab of collision data over its lifetime.'",
+        "quote": "Our goal is to accumulate an integrated luminosity of 50 ab–1 by the mid of next decade",
+        "sources": [
+          "src:belle2-superkekb-page",
+          "src:belle2-physics-book-2019"
+        ],
+        "unit": "ab^-1",
+        "value": 50,
+        "verified_at": "2026-09-16"
+      }
+    },
+    {
+      "label": "Peak luminosity of SuperKEKB",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "luminosity",
+        "display": "5.319 × 10³⁴ cm⁻² s⁻¹",
+        "note": "",
+        "quote": "5.319 x 1034 cm−2s−1 achieved on June 30, 2026",
+        "sources": [
+          "src:belle2-collaboration-site"
+        ],
+        "unit": "cm^-2 s^-1",
+        "value": 5.319e+34,
+        "verified_at": "2026-09-16"
+      }
+    }
+  ],
+  "kind": "collider",
+  "lineage": [
+    {
+      "confidence": "verified",
+      "experiment_id": "experiment:belle",
+      "note": "",
+      "quote": "To exploit the increased luminosity, an upgrade of the Belle detector has been proposed. A new international collaboration Belle-II, is being formed.",
+      "relation": "predecessor",
+      "sources": [
+        "src:belle2-tdr-2010",
+        "src:belle2-inspire-experiment"
+      ],
+      "verified_at": "2026-09-16"
+    }
+  ],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "note": "",
+      "sources": [
+        "src:belle2-collaboration-site"
+      ],
+      "value": "https://www.belle2.org/",
+      "verified_at": "2026-09-16"
+    }
+  },
+  "name": "Belle II",
+  "notes": [
+    "facility:kek is owned by the japan-neutrino workstream and is referenced only."
+  ],
+  "physics_goals": {
+    "confidence": "verified",
+    "note": "Third goal from the Belle II strategy input: 'searches for new physics beyond the SM across flavor, tau, electroweak, and dark sector physics'.",
+    "quote": "The experiment's low-background environment and precisely known kinematics enable high-precision measurements of hundreds of Standard Model (SM) parameters while probing for new particles at mass scales far beyond the direct reach of high-energy colliders.",
+    "sources": [
+      "src:belle2-espp-input-2025",
+      "src:belle2-physics-book-2019"
+    ],
+    "value": [
+      "Search for physics beyond the Standard Model in the decays of B mesons, charm hadrons and tau leptons",
+      "Make high-precision measurements of Standard Model flavour parameters",
+      "Search for dark-sector particles and other new light states"
+    ],
+    "verified_at": "2026-09-16"
+  },
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:belle2-collaboration-site",
+    "src:belle2-collaboration-page-jp",
+    "src:belle2-inspire-experiment",
+    "src:belle2-espp-input-2025",
+    "src:belle2-tdr-2010"
+  ],
+  "status": "active",
+  "summary": {
+    "plain": "The successor to the Belle experiment at the KEK laboratory in Japan. Running since 2019, it records electron-positron collisions from the SuperKEKB machine, looking for tiny departures from the known laws of physics in the decays of heavy, short-lived particles.",
+    "technical": "Intensity-frontier e+e- experiment at SuperKEKB (√s = 10.579 GeV), aiming at 50 ab⁻¹ to probe flavour observables in B, charm and tau decays and to search for dark-sector states; 914 fb⁻¹ recorded by September 2026."
+  },
+  "topic_ids": [
+    "topic:flavor-physics",
+    "topic:cp-violation",
+    "topic:b-physics",
+    "topic:charm-physics",
+    "topic:precision-and-rare-processes",
+    "topic:dark-photons-dark-sectors"
+  ],
+  "type": "experiment",
+  "unique_capabilities": {
+    "confidence": "derived",
+    "note": "Third item derived from the recorded and target integrated luminosities.",
+    "quote": "The experiment's low-background environment and precisely known kinematics enable high-precision measurements",
+    "sources": [
+      "src:belle2-espp-input-2025"
+    ],
+    "value": [
+      "Reconstruction of decays with neutrinos or photons using the precisely known e+e- initial state",
+      "A low-background environment compared with hadron colliders",
+      "The world's largest e+e- data set at the Υ(4S) resonance"
+    ],
+    "verified_at": "2026-09-16"
+  }
+}

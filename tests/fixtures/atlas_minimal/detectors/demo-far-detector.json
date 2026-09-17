@@ -2,22 +2,19 @@
   "aliases": [],
   "coverage": {
     "researched": "full",
-    "tier": "A",
-    "validated": true
+    "tier": "A"
   },
-  "document_ids": [
-    "document:demo-tdr"
-  ],
   "experiment_ids": [
     "experiment:demo"
   ],
-  "facility_id": null,
   "id": "detector:demo-far-detector",
   "intervals": [
     {
       "confidence": "verified",
       "end": "2010-02",
+      "kind": "lifecycle",
       "label": "construction",
+      "locator": "Vol. I §1.4",
       "note": "",
       "sources": [
         "src:demo-tdr"
@@ -29,7 +26,9 @@
     {
       "confidence": "verified",
       "end": null,
+      "kind": "lifecycle",
       "label": "operating",
+      "locator": "Vol. I §1.4",
       "note": "",
       "sources": [
         "src:demo-tdr"
@@ -44,7 +43,23 @@
   },
   "name": "Demo far detector",
   "notes": [],
-  "site_id": "site:demo-far-cavern",
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "locator": "Vol. I §2.3",
+      "note": "",
+      "role": "far",
+      "site_id": "site:demo-far-cavern",
+      "sources": [
+        "src:demo-tdr"
+      ],
+      "start": "2010-03",
+      "verified_at": "2026-09-16"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
   "sources": [
     "src:demo-tdr"
   ],
@@ -54,6 +69,7 @@
       "confidence": "verified",
       "dimension": "length",
       "display": "3.5 m",
+      "locator": "Vol. I §2.2",
       "note": "",
       "sources": [
         "src:demo-tdr"
@@ -67,6 +83,7 @@
       "confidence": "verified",
       "dimension": "count",
       "display": "4 modules",
+      "locator": "Vol. I §2.1",
       "note": "",
       "sources": [
         "src:demo-tdr"
@@ -75,11 +92,32 @@
       "value": 4,
       "verified_at": "2026-09-16"
     },
+    "phase": {
+      "confidence": "verified",
+      "locator": "Vol. I §2.1",
+      "note": "",
+      "sources": [
+        "src:demo-tdr"
+      ],
+      "value": "single-phase",
+      "verified_at": "2026-09-16"
+    },
+    "target_medium": {
+      "confidence": "verified",
+      "locator": "Vol. I §2.1",
+      "note": "",
+      "sources": [
+        "src:demo-tdr"
+      ],
+      "value": "liquid argon",
+      "verified_at": "2026-09-16"
+    },
     "total_mass": {
       "approx": false,
       "confidence": "verified",
       "dimension": "mass",
       "display": "10 kt",
+      "locator": "Vol. I §2.1",
       "note": "",
       "sources": [
         "src:demo-tdr"
@@ -92,15 +130,18 @@
   "status": "active",
   "subsystems": [
     {
-      "description": {
-        "confidence": "verified",
-        "note": "",
-        "sources": [
-          "src:demo-tdr"
-        ],
-        "value": "Wire readout planes",
-        "verified_at": "2026-09-16"
-      },
+      "description": [
+        {
+          "confidence": "verified",
+          "locator": "Vol. I §2.2",
+          "note": "",
+          "sources": [
+            "src:demo-tdr"
+          ],
+          "value": "Wire readout planes",
+          "verified_at": "2026-09-16"
+        }
+      ],
       "name": "Anode plane assemblies"
     }
   ],
@@ -110,6 +151,7 @@
   },
   "technology": {
     "confidence": "verified",
+    "locator": "Vol. I §2.1",
     "note": "",
     "sources": [
       "src:demo-tdr"
@@ -118,5 +160,9 @@
     "verified_at": "2026-09-16"
   },
   "technology_class": "lar_tpc",
+  "technology_classes": [
+    "noble_liquid_tpc",
+    "lar_tpc"
+  ],
   "type": "detector"
 }

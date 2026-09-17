@@ -1,14 +1,9 @@
 {
   "aliases": [],
-  "beamline_ids": [
-    "beamline:demo-beam"
-  ],
   "coverage": {
     "researched": "full",
-    "tier": "A",
-    "validated": true
+    "tier": "A"
   },
-  "document_ids": [],
   "facility_id": "facility:demo-lab",
   "feeds_accelerator_ids": [],
   "id": "accelerator:demo-synchrotron",
@@ -16,6 +11,7 @@
     {
       "confidence": "verified",
       "end": null,
+      "kind": "lifecycle",
       "label": "operating",
       "note": "",
       "sources": [
@@ -26,6 +22,7 @@
       "verified_at": "2026-09-16"
     }
   ],
+  "is_collider": false,
   "kind": "synchrotron",
   "links": {
     "website": null
@@ -35,9 +32,7 @@
   "particles": [
     "proton"
   ],
-  "serves_experiment_ids": [
-    "experiment:demo"
-  ],
+  "schema": "hep-atlas/0.2",
   "site_id": "site:demo-lab-campus",
   "sources": [
     "src:demo-lab-site"
@@ -48,6 +43,7 @@
       "confidence": "verified",
       "dimension": "energy",
       "display": "120 GeV",
+      "locator": "About page, 'Accelerator complex'",
       "note": "",
       "sources": [
         "src:demo-lab-site"
@@ -61,6 +57,7 @@
       "confidence": "verified",
       "dimension": "length",
       "display": "3.3 km",
+      "locator": "About page, 'Accelerator complex'",
       "note": "",
       "sources": [
         "src:demo-lab-site"

@@ -1,0 +1,285 @@
+{
+  "aliases": [
+    "T600",
+    "ICARUS-T600"
+  ],
+  "coverage": {
+    "researched": "full",
+    "tier": "B",
+    "validated": false
+  },
+  "document_ids": [
+    "document:sbn-proposal",
+    "document:icarus-lngs-cryogenics-paper",
+    "document:icarus-sbn-initial-operation"
+  ],
+  "experiment_ids": [
+    "experiment:icarus"
+  ],
+  "id": "detector:icarus-t600",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2013-06",
+      "label": "operation at LNGS",
+      "locator": "ICARUS T600 cryogenic plant paper",
+      "note": "",
+      "quote": "was smoothly and safely operated from May 2010 to June 2013",
+      "sources": [
+        "src:icarus-lngs-cryogenics-2015"
+      ],
+      "start": "2010-05",
+      "status": "active",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "verified",
+      "end": "2017-07",
+      "label": "overhaul at CERN",
+      "locator": "ICARUS official About page; shipping date from ICARUS EPJC 2023",
+      "note": "",
+      "quote": "In 2014 the detector was moved to CERN, where it has been refurbished and improved for its new mission.",
+      "sources": [
+        "src:icarus-about-page",
+        "src:icarus-epjc-2023-initial-operation"
+      ],
+      "start": "2014",
+      "status": "upgrade",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "verified",
+      "end": "2020-02-13",
+      "label": "installation at Fermilab",
+      "locator": "ICARUS EPJC 2023",
+      "note": "",
+      "quote": "ICARUS-T600 was shipped to Fermilab in July 2017 and the two cryostats hosting the TPCs were finally deployed in their shallow depth position in August 2018.",
+      "sources": [
+        "src:icarus-epjc-2023-initial-operation"
+      ],
+      "start": "2017-07",
+      "status": "construction",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "verified",
+      "end": "2021-11-05",
+      "label": "cryogenic commissioning",
+      "locator": "ICARUS EPJC 2023",
+      "note": "",
+      "quote": "The cryogenic commissioning of the ICARUS-T600 detector started on February 13, 2020.",
+      "sources": [
+        "src:icarus-epjc-2023-initial-operation"
+      ],
+      "start": "2020-02-13",
+      "status": "commissioning",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "physics operation at Fermilab",
+      "locator": "ICARUS EPJC 2023 abstract and run description",
+      "note": "The EPJC paper places the start of full data taking on 5 November 2021 after the summer shutdown; the ICARUS official site had earlier said \"The detector will start collecting data in 2020\".",
+      "quote": "ICARUS has started operations and successfully completed its commissioning phase, collecting the first neutrino events from the Booster Neutrino Beam (BNB) and the Neutrinos at the Main Injector (NuMI) beam off-axis",
+      "sources": [
+        "src:icarus-epjc-2023-initial-operation"
+      ],
+      "start": "2021-11-05",
+      "status": "active",
+      "verified_at": "2026-09-16"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "ICARUS T600",
+  "notes": [
+    "Placed at site:fermilab-main-campus (owned by the fermilab-dune lead): no separately sourceable site record exists for this detector hall in this wave.",
+    "The original ICARUS T600 construction paper (Nucl. Instrum. Meth. A 527 (2004) 329) could not be fetched in this session (publisher blocked); no value is taken from it."
+  ],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": "2013-06",
+      "locator": "ICARUS T600 cryogenic plant paper",
+      "note": "The ICARUS official page says the collaboration \"studied neutrinos at Gran Sasso National Laboratory in Italy ... from 2010 to 2013\"; the 2023 EPJC paper says the three-year run concluded in 2013.",
+      "quote": "was activated in Hall B of the INFN Gran Sasso Laboratory during spring 2010 ... was smoothly and safely operated from May 2010 to June 2013",
+      "role": "main",
+      "site_id": "site:lngs-hall-b",
+      "sources": [
+        "src:icarus-lngs-cryogenics-2015",
+        "src:icarus-about-page"
+      ],
+      "start": "2010",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "verified",
+      "end": "2017-07",
+      "locator": "ICARUS official About page",
+      "note": "Role \"storage\" is used for the CERN period: the detector was not taking data, it was undergoing the WA104/NP01 overhaul in the CERN Neutrino Platform. site:cern-neutrino-platform-ehn1 is owned by the fermilab-dune lead. \"ICARUS-T600 was shipped to Fermilab in July 2017\".",
+      "quote": "In 2014 the detector was moved to CERN, where it has been refurbished and improved for its new mission.",
+      "role": "storage",
+      "site_id": "site:cern-neutrino-platform-ehn1",
+      "sources": [
+        "src:icarus-about-page",
+        "src:icarus-epjc-2023-initial-operation"
+      ],
+      "start": "2014",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "locator": "ICARUS EPJC 2023",
+      "note": "Placed at site:fermilab-main-campus (owned by the fermilab-dune lead): no separately sourceable site record exists for this detector hall in this wave. The SBN far detector building is 600 m from the BNB target.",
+      "quote": "ICARUS-T600 was shipped to Fermilab in July 2017 and the two cryostats hosting the TPCs were finally deployed in their shallow depth position in August 2018.",
+      "role": "far",
+      "site_id": "site:fermilab-main-campus",
+      "sources": [
+        "src:icarus-epjc-2023-initial-operation",
+        "src:icarus-about-page"
+      ],
+      "start": "2017-07",
+      "verified_at": "2026-09-16"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:icarus-experiment-site",
+    "src:icarus-about-page",
+    "src:icarus-epjc-2023-initial-operation",
+    "src:icarus-lngs-cryogenics-2015",
+    "src:sbn-proposal-2015"
+  ],
+  "specs": {
+    "active_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "476 t active mass",
+      "locator": "ICARUS EPJC 2023, detector description",
+      "note": "Some ICARUS-at-LNGS papers quote ~470 t.",
+      "quote": "The ICARUS-T600, with a total active mass of 476 ton, is the first large-scale operating LAr-TPC detector",
+      "sources": [
+        "src:icarus-epjc-2023-initial-operation",
+        "src:sbn-proposal-2015"
+      ],
+      "unit": "t",
+      "value": 476,
+      "verified_at": "2026-09-16"
+    },
+    "baseline": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "600 m",
+      "locator": "SBN proposal, detector locations",
+      "note": "",
+      "quote": "The far detector (the improved ICARUS-T600) will be located in a new building 600 m from the BNB target.",
+      "sources": [
+        "src:sbn-proposal-2015"
+      ],
+      "unit": "m",
+      "value": 600,
+      "verified_at": "2026-09-16"
+    },
+    "length": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "19.6 m (per module)",
+      "locator": "ICARUS EPJC 2023, detector description",
+      "note": "",
+      "quote": "internal dimensions 3.6 × 3.9 × 19.6 m³",
+      "sources": [
+        "src:icarus-epjc-2023-initial-operation"
+      ],
+      "unit": "m",
+      "value": 19.6,
+      "verified_at": "2026-09-16"
+    },
+    "module_count": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "count",
+      "display": "2 modules",
+      "locator": "ICARUS EPJC 2023, detector description",
+      "note": "",
+      "quote": "it consists of two large and identical adjacent modules with internal dimensions 3.6 × 3.9 × 19.6 m³",
+      "sources": [
+        "src:icarus-epjc-2023-initial-operation"
+      ],
+      "unit": "",
+      "value": 2,
+      "verified_at": "2026-09-16"
+    },
+    "target_medium": {
+      "confidence": "verified",
+      "locator": "ICARUS EPJC 2023",
+      "note": "",
+      "quote": "filled with a total of 760 tons of ultra-pure liquid argon",
+      "sources": [
+        "src:icarus-epjc-2023-initial-operation"
+      ],
+      "value": "liquid argon",
+      "verified_at": "2026-09-16"
+    },
+    "total_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "760 t",
+      "locator": "ICARUS EPJC 2023, detector description",
+      "note": "",
+      "quote": "filled with a total of 760 tons of ultra-pure liquid argon",
+      "sources": [
+        "src:icarus-epjc-2023-initial-operation",
+        "src:icarus-experiment-site"
+      ],
+      "unit": "t",
+      "value": 760,
+      "verified_at": "2026-09-16"
+    }
+  },
+  "status": "active",
+  "subsystems": [
+    {
+      "description": {
+        "confidence": "verified",
+        "locator": "ICARUS official site",
+        "note": "",
+        "quote": "Along with the new Cosmic Ray Tagger it forms the far detector for the Short-Baseline Neutrino program.",
+        "sources": [
+          "src:icarus-experiment-site"
+        ],
+        "value": "cosmic ray tagger surrounding the cryostats, needed because the detector operates at shallow depth at Fermilab",
+        "verified_at": "2026-09-16"
+      },
+      "name": "Cosmic Ray Tagger"
+    }
+  ],
+  "summary": {
+    "plain": "A 760-tonne liquid argon detector, the first of its size ever built. It worked under an Italian mountain from 2010 to 2013, was rebuilt at CERN, and now sits at Fermilab as the far detector of a search for a possible fourth kind of neutrino.",
+    "technical": "Two adjacent 3.6 x 3.9 x 19.6 m liquid argon TPC modules holding 760 t of argon with 476 t active mass; operated in LNGS Hall B 2010-2013 on the CNGS beam, overhauled at CERN 2014-2017, and running at Fermilab as the SBN far detector 600 m from the BNB target."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "ICARUS EPJC 2023, detector description",
+    "note": "",
+    "quote": "it consists of two large and identical adjacent modules with internal dimensions 3.6 × 3.9 × 19.6 m³, filled with a total of 760 tons of ultra-pure liquid argon",
+    "sources": [
+      "src:icarus-epjc-2023-initial-operation"
+    ],
+    "value": "single-phase liquid argon time projection chamber in two adjacent modules",
+    "verified_at": "2026-09-16"
+  },
+  "technology_class": "lar_tpc",
+  "technology_classes": [
+    "noble_liquid_tpc",
+    "lar_tpc"
+  ],
+  "type": "detector"
+}

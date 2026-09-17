@@ -1,0 +1,204 @@
+{
+  "aliases": [
+    "LUX",
+    "Large Underground Xenon experiment"
+  ],
+  "collaboration_ids": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B",
+    "validated": false
+  },
+  "external": {
+    "greybook": null,
+    "inspire_experiment": 1108192,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "end": "2016-05-02",
+      "facility_id": "facility:surf",
+      "locator": "arXiv:1310.8214, abstract",
+      "note": "",
+      "quote": "a dual-phase xenon time-projection chamber operating at the Sanford Underground Research Facility (Lead, South Dakota), was cooled and filled in February 2013",
+      "role": "host",
+      "sources": [
+        "src:lux-prl-first-results-2014",
+        "src:lz-official-site-laboratory"
+      ],
+      "start": "2013-02",
+      "verified_at": "2026-09-16"
+    }
+  ],
+  "id": "experiment:lux",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2013-04",
+      "label": "commissioning",
+      "locator": "arXiv:1310.8214, abstract",
+      "note": "End is set where the first WIMP search dataset begins in April 2013.",
+      "quote": "was cooled and filled in February 2013",
+      "sources": [
+        "src:lux-prl-first-results-2014"
+      ],
+      "start": "2013-02",
+      "status": "commissioning",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "verified",
+      "end": "2013-08",
+      "kind": "run",
+      "label": "WIMP search run WS2013",
+      "locator": "arXiv:1310.8214, abstract",
+      "note": "85.3 live days, 118 kg fiducial volume.",
+      "quote": "taken during the period April to August 2013",
+      "sources": [
+        "src:lux-prl-first-results-2014"
+      ],
+      "start": "2013-04",
+      "status": "active",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "verified",
+      "end": "2016-05-02",
+      "kind": "run",
+      "label": "WIMP search run WS2014-16",
+      "locator": "arXiv:1608.07648, run description",
+      "note": "332.0 live days; combined with WS2013 this is the complete LUX exposure.",
+      "quote": "ran from September 11, 2014 until May 2, 2016",
+      "sources": [
+        "src:lux-prl-complete-exposure-2017"
+      ],
+      "start": "2014-09-11",
+      "status": "active",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "verified",
+      "end": "2016-05-02",
+      "label": "completed",
+      "locator": "arXiv:1608.07648",
+      "note": "Data taking ended with the WS2014-16 run; lz.lbl.gov states the Davis Laboratory \"was occupied by the LUX experiment until 2016\". The gap between August 2013 and September 2014 (detector work and calibration) is not covered by a sourced interval.",
+      "quote": "ran from September 11, 2014 until May 2, 2016",
+      "sources": [
+        "src:lux-prl-complete-exposure-2017",
+        "src:lz-official-site-laboratory"
+      ],
+      "start": "2016-05-02",
+      "status": "completed",
+      "verified_at": "2026-09-16"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Detector xenon mass",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "mass",
+        "display": "370 kg",
+        "locator": "arXiv:1211.3788, abstract",
+        "note": "",
+        "quote": "the inner 100-kg fiducial volume (FV) of the 370-kg detector",
+        "sources": [
+          "src:lux-detector-paper-nima"
+        ],
+        "unit": "kg",
+        "value": 370,
+        "verified_at": "2026-09-16"
+      }
+    },
+    {
+      "label": "Active xenon mass",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "mass",
+        "display": "250 kg",
+        "locator": "arXiv:1608.07648, abstract",
+        "note": "",
+        "quote": "A dual-phase xenon time projection chamber with 250 kg of active mass is operated at the Sanford Underground Research Facility",
+        "sources": [
+          "src:lux-prl-complete-exposure-2017"
+        ],
+        "unit": "kg",
+        "value": 250,
+        "verified_at": "2026-09-16"
+      }
+    },
+    {
+      "label": "Fiducial volume (WS2013)",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "mass",
+        "display": "118 kg",
+        "locator": "arXiv:1310.8214, abstract",
+        "note": "",
+        "quote": "the analysis of 85.3 live-days of data with a fiducial volume of 118 kg",
+        "sources": [
+          "src:lux-prl-first-results-2014"
+        ],
+        "unit": "kg",
+        "value": 118,
+        "verified_at": "2026-09-16"
+      }
+    }
+  ],
+  "kind": "direct_dark_matter",
+  "lineage": [],
+  "links": {
+    "website": {
+      "confidence": "uncertain",
+      "note": "URL listed on the INSPIRE experiment record; not re-checked for liveness in this session.",
+      "sources": [
+        "src:lux-inspire-experiment"
+      ],
+      "value": "http://luxdarkmatter.org/",
+      "verified_at": "2026-09-16"
+    }
+  },
+  "name": "Large Underground Xenon (LUX)",
+  "notes": [
+    "No collaboration: record is created for LUX. collaboration:lux is not in the ID registry and LUX is held here only as LZ lineage; the experiment therefore has an empty collaboration_ids list (see ontology §9: an experiment without a collaboration needs an explicit note).",
+    "No detector: record is created for LUX; detector:lux is not owned by this workstream.",
+    "INSPIRE experiment record 1108192 gives date_started 2014-10 and date_completed 2016-05, which disagrees with the collaboration's own papers (cooled and filled February 2013, first WIMP search April-August 2013). The papers are used — see the worklog conflicts."
+  ],
+  "physics_goals": {
+    "confidence": "verified",
+    "locator": "arXiv:1211.3788, abstract",
+    "note": "",
+    "quote": "The goal of the LUX detector is to clearly detect (or exclude) WIMPS with a spin independent cross section per nucleon of $2\\times 10^{-46}$ cm$^{2}$",
+    "sources": [
+      "src:lux-detector-paper-nima",
+      "src:lux-prl-first-results-2014"
+    ],
+    "value": [
+      "Detect or exclude WIMPs with a spin-independent cross section per nucleon of 2e-46 cm2",
+      "Test low-mass WIMP interpretations of other direct-detection results"
+    ],
+    "verified_at": "2026-09-16"
+  },
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:lux-inspire-experiment",
+    "src:lux-detector-paper-nima",
+    "src:lux-prl-first-results-2014",
+    "src:lux-prl-complete-exposure-2017",
+    "src:lz-official-site-laboratory"
+  ],
+  "status": "completed",
+  "summary": {
+    "plain": "LUX was a dark matter detector holding about a third of a tonne of liquid xenon, run from 2013 to 2016 in the same underground hall in South Dakota that LZ uses now. It found no dark matter, and set the tightest limits of its day.",
+    "technical": "Dual-phase xenon TPC, 370 kg total / 250 kg active, in the Davis Cavern at SURF. WS2013 (85.3 live days, 118 kg fiducial) and WS2014-16 (332.0 live days) gave a combined 3.35e4 kg day exposure and a spin-independent limit of 1.1e-46 cm2 at 50 GeV/c2. Direct predecessor of LZ."
+  },
+  "topic_ids": [
+    "topic:dark-matter",
+    "topic:direct-dark-matter-detection"
+  ],
+  "type": "experiment"
+}

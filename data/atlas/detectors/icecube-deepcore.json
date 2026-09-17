@@ -1,0 +1,170 @@
+{
+  "aliases": [
+    "IceCube DeepCore"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B",
+    "validated": false
+  },
+  "experiment_ids": [
+    "experiment:icecube"
+  ],
+  "id": "detector:icecube-deepcore",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2011",
+      "kind": "lifecycle",
+      "label": "deployment",
+      "note": "First specialised string January 2009; two additional strings close to the central DeepCore string were deployed in the 2010/11 austral summer.",
+      "quote": "The first specialized string for DeepCore—the infill at the center of the IceCube array consisting of eight more densely deployed strings of modules—was successfully deployed in January 2009.",
+      "sources": [
+        "src:icecube-official-timeline"
+      ],
+      "start": "2009-01",
+      "status": "construction",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "kind": "lifecycle",
+      "label": "physics data taking",
+      "note": "",
+      "quote": "DeepCore started acquiring physics data in April 2010, and in May 2010, it made its first observation.",
+      "sources": [
+        "src:icecube-official-timeline"
+      ],
+      "start": "2010-04",
+      "status": "active",
+      "verified_at": "2026-09-16"
+    }
+  ],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "locator": "page URL, DeepCore paragraph",
+      "note": "",
+      "sources": [
+        "src:icecube-official-detector-page"
+      ],
+      "value": "https://icecube.wisc.edu/science/icecube/",
+      "verified_at": "2026-09-16"
+    }
+  },
+  "name": "DeepCore",
+  "notes": [
+    "Sensor count for DeepCore is not published on the official pages and is left unrecorded."
+  ],
+  "parent_detector_id": "detector:icecube",
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "note": "First DeepCore string deployed January 2009; two further strings in the 2010/11 season.",
+      "quote": "The first specialized string for DeepCore—the infill at the center of the IceCube array consisting of eight more densely deployed strings of modules—was successfully deployed in January 2009.",
+      "role": "main",
+      "site_id": "site:south-pole-icecube",
+      "sources": [
+        "src:icecube-official-timeline"
+      ],
+      "start": "2009-01",
+      "verified_at": "2026-09-16"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:icecube-official-detector-page",
+    "src:icecube-official-timeline"
+  ],
+  "specs": {
+    "depth_max": {
+      "approx": false,
+      "confidence": "uncertain",
+      "dimension": "length",
+      "display": "2,450 m",
+      "note": "See depth_min: inherited from the parent array, not a DeepCore-specific published value.",
+      "quote": "The DOMs are attached to vertical “strings,” frozen into 86 boreholes and arrayed over a cubic kilometer from 1,450 meters to 2,450 meters depth.",
+      "sources": [
+        "src:icecube-official-detector-page"
+      ],
+      "unit": "m",
+      "value": 2450,
+      "verified_at": "2026-09-16"
+    },
+    "depth_min": {
+      "approx": false,
+      "confidence": "uncertain",
+      "dimension": "length",
+      "display": "1,450 m",
+      "note": "The official pages do not give a separate depth range for DeepCore; the parent array range is recorded and should be replaced with the DeepCore-specific range (deep, below the dust layer) when a source is available.",
+      "quote": "The DOMs are attached to vertical “strings,” frozen into 86 boreholes and arrayed over a cubic kilometer from 1,450 meters to 2,450 meters depth.",
+      "sources": [
+        "src:icecube-official-detector-page"
+      ],
+      "unit": "m",
+      "value": 1450,
+      "verified_at": "2026-09-16"
+    },
+    "energy_range": {
+      "confidence": "verified",
+      "note": "",
+      "quote": "This denser configuration forms the DeepCore subdetector, which lowers the neutrino energy threshold to about 10 GeV, creating the opportunity to study neutrino oscillations.",
+      "sources": [
+        "src:icecube-official-detector-page"
+      ],
+      "value": "Neutrino energy threshold lowered to about 10 GeV",
+      "verified_at": "2026-09-16"
+    },
+    "string_count": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "count",
+      "display": "8 strings",
+      "note": "",
+      "quote": "Eight of these strings at the center of the array were deployed more compactly, with a horizontal separation of about 70 meters and a vertical DOM spacing of 7 meters.",
+      "sources": [
+        "src:icecube-official-detector-page"
+      ],
+      "unit": "",
+      "value": 8,
+      "verified_at": "2026-09-16"
+    }
+  },
+  "status": "active",
+  "subsystems": [
+    {
+      "description": {
+        "confidence": "verified",
+        "note": "",
+        "quote": "Eight of these strings at the center of the array were deployed more compactly, with a horizontal separation of about 70 meters and a vertical DOM spacing of 7 meters.",
+        "sources": [
+          "src:icecube-official-detector-page"
+        ],
+        "value": "Horizontal separation about 70 m and vertical DOM spacing 7 m, versus 125 m and 17 m in the main array",
+        "verified_at": "2026-09-16"
+      },
+      "name": "Dense string geometry"
+    }
+  ],
+  "summary": {
+    "plain": "A tightly packed cluster of sensors in the middle of IceCube. Because the sensors sit closer together, it can see much fainter, lower-energy neutrinos, which is what makes IceCube able to study how neutrinos change type.",
+    "technical": "Low-energy infill subdetector: eight specially deployed strings at the centre of IceCube with ~70 m horizontal and 7 m vertical DOM spacing, lowering the neutrino energy threshold to about 10 GeV and enabling atmospheric-oscillation measurements."
+  },
+  "technology": {
+    "confidence": "verified",
+    "note": "",
+    "quote": "Eight of these strings at the center of the array were deployed more compactly, with a horizontal separation of about 70 meters and a vertical DOM spacing of 7 meters.",
+    "sources": [
+      "src:icecube-official-detector-page"
+    ],
+    "value": "Densely instrumented in-ice Cherenkov infill at the centre of the IceCube array",
+    "verified_at": "2026-09-16"
+  },
+  "technology_class": "ice_cherenkov",
+  "technology_classes": [
+    "ice_cherenkov"
+  ],
+  "type": "detector"
+}

@@ -1,0 +1,98 @@
+{
+  "aliases": [
+    "Point 1",
+    "IP1",
+    "ATLAS cavern",
+    "CERN Point 1"
+  ],
+  "altitude": null,
+  "coordinates": {
+    "confidence": "approximate",
+    "kind": "detector",
+    "lat": 46.2355606,
+    "locator": "Nominatim search result 1 for 'ATLAS, Meyrin, Switzerland'",
+    "lon": 6.0546968,
+    "note": "OpenStreetMap/Nominatim centroid of the surface enclosure named 'CERN - Point 1 (ATLAS)'. precision_m 300 covers the offset between that surface polygon and the underground interaction point. A17 requires an official or geodetic source for kind 'detector' coordinates - this value does not meet that bar and is flagged for review.",
+    "precision_m": 300,
+    "quote": "lat 46.2355606, lon 6.0546968, display_name 'CERN - Point 1 (ATLAS), Chemin de la Berne, Meyrin, Genève, 1217', osm_type way, osm_id 340213340",
+    "sources": [
+      "src:cern-point-1-osm-nominatim"
+    ],
+    "verified_at": "2026-09-16"
+  },
+  "countries": [
+    "CH"
+  ],
+  "country": "CH",
+  "coverage": {
+    "researched": "full",
+    "tier": "A",
+    "validated": false
+  },
+  "depth": {
+    "approx": false,
+    "confidence": "verified",
+    "dimension": "length",
+    "display": "100 m below ground",
+    "locator": "atlas.cern, 'Detector & Technology', opening paragraph",
+    "note": "Rock overburden above the ATLAS cavern; home.cern states the same figure ('It sits in a cavern 100 m below ground near the main CERN site').",
+    "quote": "ATLAS has the dimensions of a cylinder, 46m long, 25m in diameter, and sits in a cavern 100m below ground.",
+    "sources": [
+      "src:atlas-detector-page",
+      "src:cern-atlas-page"
+    ],
+    "unit": "m",
+    "value": 100,
+    "verified_at": "2026-09-16"
+  },
+  "depth_rock": {
+    "approx": false,
+    "confidence": "verified",
+    "dimension": "length",
+    "display": "100 m",
+    "locator": "atlas.cern, 'Detector & Technology'",
+    "note": "",
+    "quote": "sits in a cavern 100m below ground",
+    "sources": [
+      "src:atlas-detector-page"
+    ],
+    "unit": "m",
+    "value": 100,
+    "verified_at": "2026-09-16"
+  },
+  "facility_id": "facility:cern",
+  "id": "site:cern-point-1-atlas",
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "note": "",
+      "sources": [
+        "src:atlas-detector-page"
+      ],
+      "value": "https://atlas.cern/Discover/Detector",
+      "verified_at": "2026-09-16"
+    }
+  },
+  "name": "LHC Point 1 (ATLAS cavern)",
+  "notes": [
+    "REVIEW REQUIRED (A17): the coordinates rest on a geocoder source only. No official CERN or geodetic publication giving WGS84 coordinates for LHC Point 1 was reachable in this session (cds.cern.ch is behind bot protection; home.cern and atlas.cern state only that ATLAS 'sits in a cavern 100 m below ground near the main CERN site, close to the village of Meyrin')."
+  ],
+  "place": {
+    "city": "Meyrin",
+    "country": "CH",
+    "region": "Geneva"
+  },
+  "schema": "hep-atlas/0.2",
+  "setting": "underground",
+  "sources": [
+    "src:atlas-detector-page",
+    "src:cern-atlas-page",
+    "src:cern-meyrin-site-point-1",
+    "src:cern-point-1-osm-nominatim"
+  ],
+  "summary": {
+    "plain": "The underground cavern at the edge of CERN's Meyrin campus where the ATLAS detector sits, about 100 metres below ground. It is one of the eight access points around the 27-kilometre Large Hadron Collider ring and the place where two of the LHC's proton beams are made to collide inside ATLAS.",
+    "technical": "LHC interaction point 1 on the CERN Meyrin site: the UX15 experimental cavern ~100 m below the surface housing the ATLAS detector, together with its surface buildings and the ATLAS control room."
+  },
+  "type": "site"
+}

@@ -1,0 +1,126 @@
+{
+  "aliases": [
+    "Soudan Mine laboratory",
+    "Soudan Underground Mine State Park laboratory"
+  ],
+  "country": [
+    "US"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C",
+    "validated": false
+  },
+  "id": "facility:soudan-underground-laboratory",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2016-06-29",
+      "label": "MINOS far detector hall in operation",
+      "locator": "MINOS detector paper §1; end date from the Fermilab newsroom item of 2016-08",
+      "note": "Start is the date the MINOS far detector became fully operational underground; end is the day the MINOS/MINOS+ runs concluded.",
+      "quote": "has been fully operational for cosmic-ray and atmospheric-neutrino data since July 2003",
+      "sources": [
+        "src:minos-detector-paper-2008",
+        "src:minos-fermilab-news-2016-farewell"
+      ],
+      "start": "2003-07",
+      "status": "active",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "decommissioning",
+      "note": "The University of Minnesota page (last modified 2012-01-10) says the facility \"is being decommissioned as existing experiments finish and new experiments go into newer, deeper facilities\"; the MINOS/MINOS+ run ended on 2016-06-29. No official closure date was published in any source fetched, so no end date is asserted.",
+      "quote": "being decommissioned as existing experiments finish and new experiments go into newer, deeper facilities",
+      "sources": [
+        "src:soudan-umn-laboratory-site",
+        "src:minos-fermilab-news-2016-farewell"
+      ],
+      "start": "2016",
+      "status": "decommissioned",
+      "verified_at": "2026-09-16"
+    }
+  ],
+  "kind": "underground_laboratory",
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "note": "",
+      "sources": [
+        "src:soudan-umn-laboratory-site"
+      ],
+      "value": "https://www.soudan.umn.edu/",
+      "verified_at": "2026-09-16"
+    }
+  },
+  "name": "Soudan Underground Laboratory",
+  "notes": [
+    "CDMS II is recorded here only as a note: the Soudan page states \"The MINOS neutrino experiment and the CDMS2 dark matter search are the two largest projects\"; the dark-matter workstream owns any CDMS entity.",
+    "No official closure date for the laboratory was found in the sources fetched; the decommissioning interval is marked uncertain."
+  ],
+  "operator": {
+    "confidence": "uncertain",
+    "locator": "site header/footer",
+    "note": "The laboratory pages are published by the University of Minnesota and the site identifies the University of Minnesota as publisher; no explicit operating-agreement statement was found on the pages fetched.",
+    "sources": [
+      "src:soudan-umn-laboratory-site"
+    ],
+    "value": "University of Minnesota",
+    "verified_at": "2026-09-16"
+  },
+  "primary_site_id": "site:soudan-minos-far-detector",
+  "related_facility_ids": [
+    "facility:fermilab"
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:soudan-umn-laboratory-site",
+    "src:minos-detector-paper-2008",
+    "src:minos-fermilab-news-2016-farewell"
+  ],
+  "specs": {
+    "depth": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "705 m",
+      "locator": "MINOS detector paper §1",
+      "note": "The University of Minnesota page gives the same depth as \"2,341 feet beneath the surface\" (713 m); commonly quoted as ~710 m.",
+      "quote": "705 m underground (2070 meters-water-equivalent), 210 m below sea level",
+      "sources": [
+        "src:minos-detector-paper-2008"
+      ],
+      "unit": "m",
+      "value": 705,
+      "verified_at": "2026-09-16"
+    },
+    "overburden": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "depth_mwe",
+      "display": "2070 m.w.e.",
+      "locator": "MINOS detector paper §1",
+      "note": "Often quoted as ~2090 m.w.e.; the MINOS detector paper value is used.",
+      "quote": "705 m underground (2070 meters-water-equivalent), 210 m below sea level",
+      "sources": [
+        "src:minos-detector-paper-2008"
+      ],
+      "unit": "m.w.e.",
+      "value": 2070,
+      "verified_at": "2026-09-16"
+    }
+  },
+  "status": "decommissioned",
+  "summary": {
+    "plain": "A laboratory dug into a disused iron mine in northern Minnesota, about 700 metres below ground. The rock above it screens out most of the particles raining down from the sky, which let it host the far detector of the MINOS neutrino experiment and a dark matter search.",
+    "technical": "University of Minnesota underground facility in the Soudan iron mine at 705 m depth (2070 m.w.e.), host of the 5.4 kt MINOS far detector (2003-2016) and, on the same level, the CDMS II cryogenic dark matter experiment."
+  },
+  "topic_ids": [
+    "topic:neutrino-oscillations",
+    "topic:atmospheric-neutrinos",
+    "topic:direct-dark-matter-detection"
+  ],
+  "type": "facility"
+}

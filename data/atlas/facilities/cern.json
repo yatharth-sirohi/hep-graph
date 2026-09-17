@@ -1,0 +1,92 @@
+{
+  "aliases": [
+    "European Organization for Nuclear Research",
+    "Organisation européenne pour la recherche nucléaire",
+    "European Laboratory for Particle Physics"
+  ],
+  "countries": [
+    "CH",
+    "FR"
+  ],
+  "country": [
+    "CH",
+    "FR"
+  ],
+  "coverage": {
+    "researched": "full",
+    "tier": "A",
+    "validated": false
+  },
+  "id": "facility:cern",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "founded",
+      "locator": "section 'Our Member States', opening paragraph",
+      "note": "Start = the day the CERN Convention entered into force.",
+      "quote": "The CERN convention was signed in 1953 by the 12 founding states Belgium, Denmark, France, the Federal Republic of Germany, Greece, Italy, the Netherlands, Norway, Sweden, Switzerland, the United Kingdom and Yugoslavia, and entered into force on 29 September 1954.",
+      "sources": [
+        "src:cern-member-states"
+      ],
+      "start": "1954-09-29",
+      "status": "active",
+      "verified_at": "2026-09-16"
+    }
+  ],
+  "kind": "accelerator_laboratory",
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "note": "",
+      "sources": [
+        "src:cern-who-we-are"
+      ],
+      "value": "https://home.cern",
+      "verified_at": "2026-09-16"
+    }
+  },
+  "name": "CERN",
+  "notes": [
+    "Member States as of 2026-09: 25, per src:cern-member-states, quote 'Today CERN has 25 Member States: Austria, Belgium, Bulgaria, Czech Republic, Denmark, Estonia, Finland, France, Germany, Greece, Hungary, Israel, Italy, Netherlands, Norway, Poland, Portugal, Romania, Serbia, Slovak Republic, Slovenia, Spain, Sweden, Switzerland and United Kingdom.' The same page lists 11 Associate Member States (Brazil, Chile, Croatia, Cyprus, India, Ireland, Latvia, Lithuania, Pakistan, Turkiye, Ukraine). Recorded as a note because 'member_states' is not an Appendix-A spec key (A21).",
+    "home.cern/about/who-we-are renders '25 Member States' plus '11 Associated Member States'; both readings agree on 25 full Member States.",
+    "institution:cern (the member-institution role of this laboratory) is owned by the membership lead and is intentionally not created here."
+  ],
+  "operator_ids": [],
+  "operator_text": {
+    "confidence": "verified",
+    "locator": "ROR record 01ggx4157, field 'name'",
+    "note": "CERN is self-operated: the intergovernmental organisation and the laboratory are the same legal body.",
+    "quote": "European Organization for Nuclear Research",
+    "sources": [
+      "src:cern-ror-record",
+      "src:cern-member-states"
+    ],
+    "value": "CERN, European Organization for Nuclear Research",
+    "verified_at": "2026-09-16"
+  },
+  "primary_site_id": "site:cern-meyrin",
+  "related_facility_ids": [],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:cern-who-we-are",
+    "src:cern-member-states",
+    "src:cern-our-history",
+    "src:cern-ror-record",
+    "src:cern-meyrin-site-point-1"
+  ],
+  "specs": {},
+  "status": "active",
+  "summary": {
+    "plain": "CERN is Europe's particle physics laboratory, on the Swiss-French border near Geneva. Founded in 1954 by twelve countries, it builds and runs the accelerators that send beams of protons and ions into experiments such as ATLAS and CMS, and it is the home of the Large Hadron Collider.",
+    "technical": "International intergovernmental accelerator laboratory (25 Member States as of 2026-09) straddling the CH/FR border at Meyrin. Operates the injector chain Linac4 -> PS Booster -> PS -> SPS feeding the 26.7 km LHC, plus its historical machines (ISR, SppS, LEP)."
+  },
+  "topic_ids": [
+    "topic:collider-physics",
+    "topic:higgs-physics",
+    "topic:electroweak-physics",
+    "topic:heavy-ion-physics-qgp",
+    "topic:instrumentation"
+  ],
+  "type": "facility"
+}

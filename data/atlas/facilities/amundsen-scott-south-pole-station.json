@@ -1,0 +1,100 @@
+{
+  "aliases": [
+    "NSF Amundsen-Scott South Pole Station",
+    "South Pole Station",
+    "Amundsen–Scott South Pole Station"
+  ],
+  "countries": [
+    "AQ"
+  ],
+  "country": [
+    "AQ"
+  ],
+  "coverage": {
+    "researched": "full",
+    "tier": "A",
+    "validated": false
+  },
+  "id": "facility:amundsen-scott-south-pole-station",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "kind": "lifecycle",
+      "label": "station opened",
+      "note": "The NSF page gives the opening year only; the current elevated station was completed in 2008.",
+      "quote": "Opened in 1956 as part of Operation Deep Freeze to support scientific exploration during the International Geophysical Year (1957-1958).",
+      "sources": [
+        "src:icecube-nsf-south-pole-station"
+      ],
+      "start": "1956",
+      "status": "active",
+      "verified_at": "2026-09-16"
+    }
+  ],
+  "kind": "polar_station",
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "locator": "page URL",
+      "note": "",
+      "sources": [
+        "src:icecube-nsf-south-pole-station"
+      ],
+      "value": "https://www.nsf.gov/geo/opp/ail/amundson-scott-south-pole-station",
+      "verified_at": "2026-09-16"
+    }
+  },
+  "name": "Amundsen-Scott South Pole Station",
+  "notes": [
+    "Only one site of this station is in scope for this workstream (site:south-pole-icecube), so it is recorded as primary_site_id; the station has other science sites (South Pole Telescope, MAPO, ARO) that are not modelled here.",
+    "The NSF page states the station hosts “a massive in-ice neutrino detector, the IceCube South Pole Neutrino Observatory”.",
+    "Derived fields (site_ids, institution_id) are deliberately not written (v0.2 A1)."
+  ],
+  "operator_ids": [],
+  "operator_text": {
+    "confidence": "verified",
+    "locator": "page header “NSF Amundsen-Scott South Pole Station — Office of Polar Programs (OD/OPP)”",
+    "note": "The NSF page is published by the Office of Polar Programs and links to the U.S. Antarctic Program website; it does not name a separate operating contractor.",
+    "quote": "NSF Amundsen-Scott South Pole Station is the southernmost year-round research station in the world, serving as a critical center for cutting-edge scientific research and a logistical hub for access to East Antarctica.",
+    "sources": [
+      "src:icecube-nsf-south-pole-station"
+    ],
+    "value": "U.S. National Science Foundation / U.S. Antarctic Program",
+    "verified_at": "2026-09-16"
+  },
+  "primary_site_id": "site:south-pole-icecube",
+  "related_facility_ids": [],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:icecube-nsf-south-pole-station",
+    "src:icecube-official-detector-page",
+    "src:icecube-upgrade-press-release-2026"
+  ],
+  "specs": {
+    "altitude": {
+      "approx": true,
+      "confidence": "approximate",
+      "dimension": "length",
+      "display": "~2,835 m (9,301 ft)",
+      "note": "NSF gives “approximately 2,835 meters” for the station, not for the IceCube array specifically.",
+      "quote": "Positioned at 90°S, the geographic South Pole. Sits atop the Antarctic ice sheet at an elevation of approximately 2,835 meters (9,301 feet) above sea level.",
+      "sources": [
+        "src:icecube-nsf-south-pole-station"
+      ],
+      "unit": "m",
+      "value": 2835,
+      "verified_at": "2026-09-16"
+    }
+  },
+  "status": "active",
+  "summary": {
+    "plain": "The United States research station at the South Pole. It is the southernmost place people live all year, and it supports the giant IceCube neutrino telescope buried in the ice below it.",
+    "technical": "NSF polar station at the geographic South Pole, elevation ~2,835 m on the Antarctic ice sheet, hosting the IceCube Neutrino Observatory, the South Pole Telescope and other astrophysics and aeronomy instruments; the ice sheet drifts ~10 m per year."
+  },
+  "topic_ids": [
+    "topic:astroparticle-physics",
+    "topic:neutrino-physics"
+  ],
+  "type": "facility"
+}

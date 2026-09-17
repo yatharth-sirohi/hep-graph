@@ -1,0 +1,93 @@
+{
+  "aliases": [
+    "PS Booster",
+    "PSB",
+    "Booster"
+  ],
+  "coverage": {
+    "researched": "full",
+    "tier": "A",
+    "validated": false
+  },
+  "facility_id": "facility:cern",
+  "feeds_accelerator_ids": [
+    "accelerator:ps"
+  ],
+  "id": "accelerator:psb",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "operating",
+      "note": "",
+      "quote": "Before the Booster received its first beams on 26 May 1972, protons were injected directly from Linac1 into the PS, where they were accelerated to 26 GeV.",
+      "sources": [
+        "src:cern-psb-page"
+      ],
+      "start": "1972-05-26",
+      "status": "active",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "verified",
+      "end": "2018",
+      "label": "Linac2 era (50 MeV in, 1.4 GeV out)",
+      "note": "",
+      "quote": "From 1978 until 2018, the Booster received protons from Linac2 at 50 MeV and accelerated them to 1.4 GeV for injection into the PS.",
+      "sources": [
+        "src:cern-psb-page"
+      ],
+      "start": "1978",
+      "status": "active",
+      "verified_at": "2026-09-16"
+    }
+  ],
+  "is_collider": false,
+  "kind": "booster",
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "note": "",
+      "sources": [
+        "src:cern-psb-page"
+      ],
+      "value": "https://home.cern/science/accelerators/proton-synchrotron-booster",
+      "verified_at": "2026-09-16"
+    }
+  },
+  "name": "Proton Synchrotron Booster",
+  "notes": [],
+  "particles": [
+    "proton",
+    "lead ion"
+  ],
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:cern-meyrin",
+  "sources": [
+    "src:cern-psb-page",
+    "src:cern-accelerator-complex"
+  ],
+  "specs": {
+    "beam_energy": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "energy",
+      "display": "2 GeV",
+      "note": "",
+      "quote": "The ions are stripped of their two electrons during injection from Linac4 into the Proton Synchrotron Booster to leave only protons, which are accelerated to 2 GeV for injection into the Proton Synchrotron (PS).",
+      "sources": [
+        "src:cern-psb-page",
+        "src:cern-accelerator-complex"
+      ],
+      "unit": "GeV",
+      "value": 2,
+      "verified_at": "2026-09-16"
+    }
+  },
+  "status": "active",
+  "summary": {
+    "plain": "Four small accelerator rings stacked on top of each other that take particles from the linear accelerator and give them their first big push before the Proton Synchrotron. Adding the Booster in 1972 let CERN put more than a hundred times as many protons into the next machine.",
+    "technical": "Four superimposed synchrotron rings; receives 160 MeV H- from Linac4 (stripped to protons on injection) and accelerates to 2 GeV for the PS. From 1978 to 2018 it received 50 MeV protons from Linac2 and delivered 1.4 GeV."
+  },
+  "type": "accelerator"
+}

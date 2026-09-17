@@ -1,0 +1,93 @@
+{
+  "aliases": [
+    "Fermilab linear accelerator",
+    "FNAL Linac"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B",
+    "validated": false
+  },
+  "facility_id": "facility:fermilab",
+  "feeds_accelerator_ids": [
+    "accelerator:fermilab-booster"
+  ],
+  "id": "accelerator:fermilab-linac",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "construction",
+      "locator": "article 'The birth of Fermilab'",
+      "note": "The news article states the 1 December 1968 groundbreaking was for the linac, the first part of the accelerator complex. No completion date sourced.",
+      "quote": "the lab broke ground for its first accelerator on Dec. 1, 1968.",
+      "sources": [
+        "src:fermilab-news-birth-of-fermilab-2017"
+      ],
+      "start": "1968-12-01",
+      "status": "construction",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "operating",
+      "locator": "§1.1, accelerator complex",
+      "note": "Evidence date, not a commissioning date: this is the earliest operation of the machine documented by a source fetched in this session (NuMI beam paper, MINOS data taking from 20 May 2005). The machine has run since the 1970s; no fetchable source gave its commissioning date (fnal.gov and history.fnal.gov returned HTTP 403).",
+      "quote": "Protons originate as H - ions in the Linac which accelerates them to 400 MeV.",
+      "sources": [
+        "src:fermilab-numi-beam-paper-2016",
+        "src:fermilab-proton-complex-status-2017"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2005",
+        "display": "in operation by 2005; commissioning date not sourced",
+        "earliest": "1968",
+        "latest": "2005"
+      },
+      "status": "active",
+      "verified_at": "2026-09-16"
+    }
+  ],
+  "is_collider": false,
+  "kind": "linac",
+  "links": {
+    "website": null
+  },
+  "name": "Fermilab Linac",
+  "notes": [],
+  "particles": [
+    "H-"
+  ],
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:fermilab-main-campus",
+  "sources": [
+    "src:fermilab-numi-beam-paper-2016",
+    "src:fermilab-news-birth-of-fermilab-2017",
+    "src:fermilab-proton-complex-status-2017"
+  ],
+  "specs": {
+    "beam_energy": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "energy",
+      "display": "400 MeV",
+      "locator": "§1.1, accelerator complex",
+      "note": "",
+      "quote": "Subsequently a 201.2 MHz linac accelerates them to 400 MeV",
+      "sources": [
+        "src:fermilab-numi-beam-paper-2016"
+      ],
+      "unit": "MeV",
+      "value": 400,
+      "verified_at": "2026-09-16"
+    }
+  },
+  "status": "active",
+  "summary": {
+    "plain": "The first machine in the Fermilab chain: it turns hydrogen ions into a 400-million-electronvolt beam and passes them to the next accelerator.",
+    "technical": "201.25 MHz normal-conducting H- linac delivering 400 MeV to the Booster; to be replaced by the 800 MeV PIP-II superconducting linac."
+  },
+  "type": "accelerator"
+}

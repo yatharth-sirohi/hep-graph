@@ -1,0 +1,91 @@
+{
+  "aliases": [
+    "Recycler"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B",
+    "validated": false
+  },
+  "facility_id": "facility:fermilab",
+  "feeds_accelerator_ids": [
+    "accelerator:fermilab-main-injector"
+  ],
+  "id": "accelerator:fermilab-recycler",
+  "intervals": [
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "proton stacking for the NuMI programme",
+      "locator": "§4.2",
+      "note": "Evidence date only. The Recycler was built as an antiproton storage ring for Tevatron Run II; the fetched source documents its reuse for proton stacking once the Tevatron stopped, for the post-MINOS (NOvA-era) programme that restarted in September 2013. Its own commissioning date was not sourced.",
+      "quote": "Advantage is taken of the availability of the Recycler since the Tevatron is no longer operational.",
+      "sources": [
+        "src:fermilab-numi-beam-paper-2016"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2013",
+        "display": "in this role from the 2013 NuMI restart",
+        "earliest": "1999",
+        "latest": "2013"
+      },
+      "status": "active",
+      "verified_at": "2026-09-16"
+    }
+  ],
+  "is_collider": false,
+  "kind": "storage_ring",
+  "links": {
+    "website": null
+  },
+  "name": "Fermilab Recycler Ring",
+  "notes": [],
+  "particles": [
+    "proton",
+    "antiproton"
+  ],
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:fermilab-main-campus",
+  "sources": [
+    "src:fermilab-numi-beam-paper-2016"
+  ],
+  "specs": {
+    "beam_energy": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "energy",
+      "display": "8 GeV",
+      "locator": "§4.2",
+      "note": "",
+      "quote": "The Recycler is a fixed energy machine of 8 GeV located on the top of the MI with the same circumference of 3.3 km.",
+      "sources": [
+        "src:fermilab-numi-beam-paper-2016"
+      ],
+      "unit": "GeV",
+      "value": 8,
+      "verified_at": "2026-09-16"
+    },
+    "circumference": {
+      "approx": true,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "3.3 km",
+      "locator": "§4.2",
+      "note": "",
+      "quote": "the same circumference of 3.3 km",
+      "sources": [
+        "src:fermilab-numi-beam-paper-2016"
+      ],
+      "unit": "km",
+      "value": 3.3,
+      "verified_at": "2026-09-16"
+    }
+  },
+  "status": "active",
+  "summary": {
+    "plain": "A fixed-energy storage ring sitting in the same tunnel as the Main Injector. It stacks protons while the Main Injector accelerates, so the neutrino beam can be made faster.",
+    "technical": "8 GeV permanent-magnet storage ring in the Main Injector tunnel (3.3 km). Built for Tevatron Run II antiproton storage, now used for Booster-batch stacking and slip stacking ahead of Main Injector acceleration."
+  },
+  "type": "accelerator"
+}

@@ -1,0 +1,160 @@
+{
+  "aliases": [
+    "IceCube IceTop",
+    "IceCube surface array"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B",
+    "validated": false
+  },
+  "experiment_ids": [
+    "experiment:icecube"
+  ],
+  "id": "detector:icetop",
+  "intervals": [
+    {
+      "confidence": "derived",
+      "end": null,
+      "kind": "lifecycle",
+      "label": "operating",
+      "note": "IceTop stations were installed on top of the IceCube strings during the 2004–2010 construction seasons, but the collaboration does not publish IceTop-specific start or completion dates; the start of full 86-string operation is used.",
+      "quote": "IceTop consists of 81 stations located on top of the same number of IceCube strings. Each station has two tanks, each equipped with two downward facing DOMs.",
+      "sources": [
+        "src:icecube-official-detector-page",
+        "src:icecube-official-quick-facts"
+      ],
+      "start": "2011",
+      "status": "active",
+      "verified_at": "2026-09-16"
+    }
+  ],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "locator": "page URL, IceTop paragraph",
+      "note": "",
+      "sources": [
+        "src:icecube-official-detector-page"
+      ],
+      "value": "https://icecube.wisc.edu/science/icecube/",
+      "verified_at": "2026-09-16"
+    }
+  },
+  "name": "IceTop",
+  "notes": [
+    "The area covered by IceTop (≈1 km², matching the in-ice array footprint) is not stated on the fetched official pages and is not recorded."
+  ],
+  "parent_detector_id": "detector:icecube",
+  "placements": [
+    {
+      "confidence": "derived",
+      "end": null,
+      "note": "IceTop stations sit on the surface above the IceCube strings; no separate deployment start is published, so the start of full 86-string operation is used.",
+      "quote": "IceTop consists of 81 stations located on top of the same number of IceCube strings. Each station has two tanks, each equipped with two downward facing DOMs.",
+      "role": "main",
+      "site_id": "site:south-pole-icecube",
+      "sources": [
+        "src:icecube-official-detector-page"
+      ],
+      "start": "2011",
+      "verified_at": "2026-09-16"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:icecube-official-detector-page",
+    "src:icecube-official-quick-facts",
+    "src:icecube-nsf-south-pole-station"
+  ],
+  "specs": {
+    "altitude": {
+      "approx": true,
+      "confidence": "approximate",
+      "dimension": "length",
+      "display": "~2,835 m (9,301 ft)",
+      "note": "Ice-surface elevation of the South Pole station given by NSF; IceTop sits at that surface.",
+      "quote": "Positioned at 90°S, the geographic South Pole. Sits atop the Antarctic ice sheet at an elevation of approximately 2,835 meters (9,301 feet) above sea level.",
+      "sources": [
+        "src:icecube-nsf-south-pole-station"
+      ],
+      "unit": "m",
+      "value": 2835,
+      "verified_at": "2026-09-16"
+    },
+    "energy_range": {
+      "confidence": "verified",
+      "note": "",
+      "quote": "IceTop, built as a veto and calibration detector for IceCube, also detects air showers from primary cosmic rays in the 300 TeV to 1 EeV energy range.",
+      "sources": [
+        "src:icecube-official-detector-page"
+      ],
+      "value": "Air showers from primary cosmic rays in the 300 TeV to 1 EeV energy range",
+      "verified_at": "2026-09-16"
+    },
+    "sensor_count": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "count",
+      "display": "324 DOMs",
+      "note": "",
+      "quote": "An additional 324 DOMs make up a surface detector called IceTop.",
+      "sources": [
+        "src:icecube-official-quick-facts"
+      ],
+      "unit": "",
+      "value": 324,
+      "verified_at": "2026-09-16"
+    },
+    "station_count": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "count",
+      "display": "81 stations",
+      "note": "",
+      "quote": "IceTop consists of 81 stations located on top of the same number of IceCube strings. Each station has two tanks, each equipped with two downward facing DOMs.",
+      "sources": [
+        "src:icecube-official-detector-page"
+      ],
+      "unit": "",
+      "value": 81,
+      "verified_at": "2026-09-16"
+    }
+  },
+  "status": "active",
+  "subsystems": [
+    {
+      "description": {
+        "confidence": "verified",
+        "note": "",
+        "quote": "IceTop consists of 81 stations located on top of the same number of IceCube strings. Each station has two tanks, each equipped with two downward facing DOMs.",
+        "sources": [
+          "src:icecube-official-detector-page"
+        ],
+        "value": "Each of the 81 stations has two ice-filled tanks, each with two downward-facing DOMs",
+        "verified_at": "2026-09-16"
+      },
+      "name": "Cherenkov tank pair"
+    }
+  ],
+  "summary": {
+    "plain": "The part of IceCube that sits on the snow surface: 81 pairs of frozen water tanks that catch the showers of particles made when cosmic rays hit the atmosphere. It also helps IceCube tell cosmic rays apart from neutrinos.",
+    "technical": "Surface air-shower array of 162 ice-filled Cherenkov tanks in 81 stations (324 DOMs) above the IceCube strings; serves as a cosmic-ray veto and calibration detector and measures cosmic-ray flux, composition and Southern-Hemisphere arrival directions from 300 TeV to 1 EeV."
+  },
+  "technology": {
+    "confidence": "verified",
+    "note": "",
+    "quote": "IceTop consists of 81 stations located on top of the same number of IceCube strings. Each station has two tanks, each equipped with two downward facing DOMs.",
+    "sources": [
+      "src:icecube-official-detector-page"
+    ],
+    "value": "Surface array of ice-filled Cherenkov tanks read out by downward-facing digital optical modules",
+    "verified_at": "2026-09-16"
+  },
+  "technology_class": "air_shower_array",
+  "technology_classes": [
+    "air_shower_array",
+    "ice_cherenkov"
+  ],
+  "type": "detector"
+}

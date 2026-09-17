@@ -1,0 +1,226 @@
+{
+  "accelerator_ids": [],
+  "aliases": [
+    "IceCube Upgrade project"
+  ],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:icecube"
+  ],
+  "coverage": {
+    "researched": "full",
+    "tier": "B",
+    "validated": false
+  },
+  "energy_regime": {
+    "confidence": "verified",
+    "note": "",
+    "quote": "An improved atmospheric neutrino event selection efficiency and reconstruction at a few GeV can be achieved with the dense infill of the Upgrade's photosensor array.",
+    "sources": [
+      "src:icecube-upgrade-design-icrc-2019"
+    ],
+    "value": "Few-GeV atmospheric neutrinos",
+    "verified_at": "2026-09-16"
+  },
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "facility_id": "facility:amundsen-scott-south-pole-station",
+      "note": "",
+      "quote": "Located at NSF’s Amundsen-Scott South Pole Station, IceCube uses one cubic kilometer of Antarctic ice to detect nearly massless particles called neutrinos that travel through outer space.",
+      "role": "host",
+      "sources": [
+        "src:icecube-upgrade-press-release-2026"
+      ],
+      "verified_at": "2026-09-16"
+    }
+  ],
+  "id": "experiment:icecube-upgrade",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2023",
+      "kind": "lifecycle",
+      "label": "funding approved",
+      "locator": "press release, opening paragraph",
+      "note": "NSF and partners approved funding in 2019; the end of this interval is the start of the first construction field season.",
+      "quote": "In 2019, the U.S. National Science Foundation, together with US institutional and international partners, approved funding of the IceCube Upgrade project, an improvement that would significantly push the scientific capabilities of the IceCube Neutrino Observatory.",
+      "sources": [
+        "src:icecube-upgrade-press-release-2026"
+      ],
+      "start": "2019",
+      "status": "approved",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "verified",
+      "end": "2026-02",
+      "kind": "lifecycle",
+      "label": "construction field seasons",
+      "note": "Three consecutive 10-week Antarctic field seasons, 2023–2026; drilling and installation completed in the 2025/26 season.",
+      "quote": "Years of preparation and international coordination for the Upgrade were condensed into three consecutive 10-week field seasons (2023-2026) for construction, with drilling and installation completed in the most recent season.",
+      "sources": [
+        "src:icecube-upgrade-press-release-2026"
+      ],
+      "start": "2023",
+      "status": "construction",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "derived",
+      "end": null,
+      "kind": "lifecycle",
+      "label": "commissioning",
+      "note": "Start taken as the February 2026 announcement that the Upgrade “has now been successfully deployed” and the final field-work report of 10 February 2026. The collaboration has not announced a start of physics operation with the new strings.",
+      "quote": "Seven years later, the IceCube Upgrade has now been successfully deployed, marking the first significant expansion of IceCube since its completion 15 years ago.",
+      "sources": [
+        "src:icecube-upgrade-press-release-2026",
+        "src:icecube-upgrade-update-15-2026"
+      ],
+      "start": "2026-02",
+      "status": "commissioning",
+      "verified_at": "2026-09-16"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "New strings (as built)",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "count",
+        "display": "5 strings",
+        "note": "Five strings as built. The 2019 design (PoS(ICRC2019)1031) called for seven; see notes.",
+        "quote": "The Upgrade consists of five more closely spaced and more densely instrumented cables, or strings, of light sensors at the bottom center of the 86 existing strings, adding more than 600 new and enhanced light sensors and calibration instruments to the ones already embedded in the ice.",
+        "sources": [
+          "src:icecube-upgrade-press-release-2026",
+          "src:icecube-official-beyond-icecube"
+        ],
+        "unit": "",
+        "value": 5,
+        "verified_at": "2026-09-16"
+      }
+    },
+    {
+      "label": "New sensors and calibration devices",
+      "quantity": {
+        "approx": true,
+        "confidence": "approximate",
+        "dimension": "count",
+        "display": ">600 modules",
+        "note": "“more than 600 new and enhanced light sensors and calibration instruments”; the exact count is not published.",
+        "quote": "The Upgrade consists of five more closely spaced and more densely instrumented cables, or strings, of light sensors at the bottom center of the 86 existing strings, adding more than 600 new and enhanced light sensors and calibration instruments to the ones already embedded in the ice.",
+        "sources": [
+          "src:icecube-upgrade-press-release-2026"
+        ],
+        "unit": "",
+        "value": 600,
+        "verified_at": "2026-09-16"
+      }
+    }
+  ],
+  "kind": "atmospheric_neutrino",
+  "lineage": [
+    {
+      "confidence": "verified",
+      "experiment_id": "experiment:icecube",
+      "note": "First significant expansion of IceCube since its completion.",
+      "quote": "Seven years later, the IceCube Upgrade has now been successfully deployed, marking the first significant expansion of IceCube since its completion 15 years ago.",
+      "relation": "upgrade_of",
+      "sources": [
+        "src:icecube-upgrade-press-release-2026"
+      ],
+      "verified_at": "2026-09-16"
+    }
+  ],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "locator": "page URL",
+      "note": "",
+      "sources": [
+        "src:icecube-official-beyond-icecube"
+      ],
+      "value": "https://icecube.wisc.edu/science/beyond/",
+      "verified_at": "2026-09-16"
+    }
+  },
+  "name": "IceCube Upgrade",
+  "notes": [
+    "Conflict (design vs as built): the 2019 design paper says “The IceCube Upgrade consists of seven new columns of photosensors” and that it “will be constructed in the 2022/23 Antarctic Summer season”. The February 2026 NSF/IceCube announcement and the official “Beyond IceCube” page both describe five strings deployed in the 2025/26 season. The as-built figure (five strings, >600 modules) is recorded; the seven-string design figure is kept here.",
+    "Conflict (sensor count): a February 2025 field-season report on icecube.wisc.edu described “700 high-performance instruments”; the final press release says “more than 600”. The final figure is used and the earlier one is not cited.",
+    "No separate INSPIRE experiment record was found for the IceCube Upgrade; INSPIRE record 1281974 is PINGU, a different (earlier) low-energy extension concept, and is not recorded as this experiment."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "note": "",
+      "quote": "For IceCube, the Upgrade will allow more precise measurements of neutrino properties like neutrino oscillations, a phenomenon where atmospheric neutrinos can morph into different types or “flavors”—electron, muon, and tau.",
+      "sources": [
+        "src:icecube-upgrade-press-release-2026",
+        "src:icecube-official-beyond-icecube"
+      ],
+      "value": "Make more precise measurements of atmospheric neutrino oscillations, including tau-neutrino appearance",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "verified",
+      "note": "",
+      "quote": "Using the enhanced devices deployed in the ice, scientists will be able to better characterize the surrounding ice, leading to improved reconstruction of neutrinos and a reanalysis of 15 years of archived data.",
+      "sources": [
+        "src:icecube-upgrade-press-release-2026"
+      ],
+      "value": "Recalibrate the optical properties of the ice and re-reconstruct the full IceCube archive",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "verified",
+      "note": "",
+      "quote": "The Upgrade will also improve the scientists’ ability to determine the cosmic ray composition and measure neutrinos from galactic supernovae.",
+      "sources": [
+        "src:icecube-upgrade-press-release-2026"
+      ],
+      "value": "Improve determination of cosmic-ray composition and measurement of neutrinos from galactic supernovae",
+      "verified_at": "2026-09-16"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [
+    "astrophysical_neutrino"
+  ],
+  "sources": [
+    "src:icecube-upgrade-press-release-2026",
+    "src:icecube-official-beyond-icecube",
+    "src:icecube-upgrade-design-icrc-2019",
+    "src:icecube-upgrade-update-15-2026"
+  ],
+  "status": "commissioning",
+  "summary": {
+    "plain": "New, more sensitive light detectors added to the middle of IceCube. They let the observatory see lower-energy neutrinos more sharply and help scientists understand the ice itself, which improves every measurement IceCube has already made.",
+    "technical": "Dense low-energy infill of the IceCube array: five new strings carrying more than 600 mDOM, D-Egg and calibration modules deployed at the bottom centre of the existing 86-string array during the 2025/26 austral season, after field seasons in 2023/24 and 2024/25. Targets precision atmospheric-oscillation and tau-appearance measurements and an ice-calibration-driven reprocessing of the IceCube archive."
+  },
+  "topic_ids": [
+    "topic:neutrino-oscillations",
+    "topic:atmospheric-neutrinos",
+    "topic:detector-rd",
+    "topic:high-energy-astrophysical-neutrinos"
+  ],
+  "type": "experiment",
+  "unique_capabilities": [
+    {
+      "confidence": "verified",
+      "note": "",
+      "quote": "Two new types of light sensors, the multi-PMT digital optical module (mDOM) and the “Dual optical sensors in an Ellipsoid Glass for Gen2,” (D-Egg), boast two to three times more sensitivity than the sensors that make up the current detector.",
+      "sources": [
+        "src:icecube-upgrade-press-release-2026"
+      ],
+      "value": "Dense infill at the bottom centre of IceCube with mDOM and D-Egg sensors two to three times more sensitive than the original DOMs",
+      "verified_at": "2026-09-16"
+    }
+  ]
+}
