@@ -487,6 +487,76 @@ def test_a20_part_of_pointing_nowhere_is_still_a_dangling_reference(root: Path) 
     assert _findings(findings, "dangling-reference")
 
 
+# --- (3b) URL normalisation keeps the query string: two distinct API
+#     queries (or geocoder lookups) must never collapse into one "duplicate"
+#     — that would corrupt provenance if anyone acted on the finding. ---
+
+def _add_source(root: Path, slug: str, url: str, *, doi: str | None = None) -> None:
+    payload = {
+        "id": f"src:{slug}", "type": "src", "source_type": "secondary", "rank": 12,
+        "title": slug, "publisher": "", "url": url, "accessed": "2026-09-16",
+        "date": "2026", "excerpt": "", "retrieval": "partial",
+        "link_check": {"last_checked": None, "http_status": None, "redirect": None},
+    }
+    if doi is not None:
+        payload["reference"] = {"doi": doi}
+    (root / "sources" / f"{slug}.json").write_text(json.dumps(payload), encoding="utf-8")
+
+
+def test_a20_inspire_api_queries_differing_only_in_query_string_are_not_duplicates(root: Path) -> None:
+    """The exact scenario that made this dangerous rather than merely noisy:
+    folding the query string away would have proposed merging eleven
+    distinct INSPIRE searches into one source record."""
+    _add_source(root, "inspire-query-t2k", "https://inspirehep.net/api/literature?q=t2k")
+    _add_source(root, "inspire-query-dune", "https://inspirehep.net/api/literature?q=dune")
+    findings = _validate(root)
+    assert not _findings(findings, "duplicate-source-url")
+
+
+def test_a20_geocoder_lookups_differing_only_in_query_string_are_not_duplicates(root: Path) -> None:
+    _add_source(root, "geocoder-fermilab", "https://nominatim.openstreetmap.org/search?q=Fermilab")
+    _add_source(root, "geocoder-cern", "https://nominatim.openstreetmap.org/search?q=CERN+Meyrin")
+    findings = _validate(root)
+    assert not _findings(findings, "duplicate-source-url")
+
+
+def test_a20_url_normalisation_drops_the_fragment_and_utm_params_but_keeps_the_query(root: Path) -> None:
+    _add_source(root, "tracked-a",
+                "https://Home.CERN/science/accelerators/lep/?utm_source=x&utm_campaign=y#history")
+    _add_source(root, "tracked-b", "https://home.cern/science/accelerators/lep/")
+    findings = _validate(root)
+    matches = _findings(findings, "duplicate-source-url")
+    assert {"src:tracked-a", "src:tracked-b"} <= {finding.entity_id for finding in matches}
+
+
+def test_a20_url_normalisation_keeps_a_real_query_string_difference_apart(root: Path) -> None:
+    """The fix must not become a no-op either: the exact same query string,
+    not merely the same host and path, is still a duplicate."""
+    _add_source(root, "same-query-a", "https://inspirehep.net/api/literature?q=t2k")
+    _add_source(root, "same-query-b", "https://INSPIREHEP.NET/api/literature?q=t2k")
+    findings = _validate(root)
+    matches = _findings(findings, "duplicate-source-url")
+    assert {"src:same-query-a", "src:same-query-b"} <= {finding.entity_id for finding in matches}
+
+
+def test_a20_part_of_is_the_intended_way_to_cite_a_chapter_of_a_shared_doi(root: Path) -> None:
+    """The orchestrator's own dedup pass keeps the whole-document record and
+    points a chapter-level record at it with `part_of` — confirm that shape
+    validates cleanly end to end, not just that the pair is excused."""
+    _add_source(root, "book-whole-document", "https://doi.org/10.0000/demo-book",
+               doi="10.0000/demo-book")
+    (root / "sources" / "book-chapter.json").write_text(json.dumps({
+        "id": "src:book-chapter", "type": "src", "source_type": "secondary", "rank": 12,
+        "title": "Chapter 1", "publisher": "", "url": "https://doi.org/10.0000/demo-book",
+        "part_of": "src:book-whole-document", "reference": {"doi": "10.0000/demo-book"},
+        "accessed": "2026-09-16", "date": "2026", "excerpt": "", "retrieval": "partial",
+        "link_check": {"last_checked": None, "http_status": None, "redirect": None},
+    }), encoding="utf-8")
+    findings = _validate(root)
+    assert not _findings(findings, "duplicate-source-url")
+    assert not _findings(findings, "dangling-reference")
+
+
 # --- (4) alias-equals-name says what to do about it. ---
 
 def test_alias_equals_name_message_tells_the_author_what_to_do(root: Path) -> None:
