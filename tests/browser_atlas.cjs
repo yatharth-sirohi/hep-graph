@@ -8,6 +8,11 @@ const fs = require("node:fs");
 const path = require("node:path");
 
 const base = process.env.HEP_URL || "http://127.0.0.1:8790";
+// Which data tree to exercise. The fixtures are convenient but they are not
+// the product: three separate features were dead against the generated
+// bundles while this suite was green, because it only ever loaded fixtures.
+// HEP_ATLAS_DATA=generated runs the same checks against the real build.
+const dataTree = process.env.HEP_ATLAS_DATA === "generated" ? "" : "?data=fixtures";
 const output = process.env.HEP_ATLAS_OUTPUT || path.join(__dirname, "../test-results/atlas");
 fs.mkdirSync(output, { recursive: true });
 
@@ -48,7 +53,7 @@ async function setRangeValue(locator, value) {
   const page = await context.newPage();
 
   await record("Atlas loads with a WebGL canvas and no console errors", async () => {
-    await page.goto(`${base}/atlas?data=fixtures`);
+    await page.goto(`${base}/atlas${dataTree}`);
     await page.locator("canvas").first().waitFor({ timeout: 15000 });
     await page.waitForFunction(() => document.querySelectorAll(".atlas-marker").length > 0, { timeout: 15000 });
     assert.ok(await page.locator("canvas").count() > 0, "expected a <canvas> element");
@@ -107,7 +112,7 @@ async function setRangeValue(locator, value) {
     const mobile = await browser.newContext({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true });
     mobile.on("page", (p) => p.on("pageerror", (e) => errors.push(e.message)));
     const p = await mobile.newPage();
-    await p.goto(`${base}/atlas?data=fixtures`);
+    await p.goto(`${base}/atlas${dataTree}`);
     await p.locator("canvas").first().waitFor({ timeout: 15000 });
     assert.ok(await p.evaluate(() => document.documentElement.scrollWidth <= 392));
     await p.screenshot({ path: path.join(output, "mobile.png"), fullPage: true });
@@ -129,7 +134,7 @@ async function setRangeValue(locator, value) {
     const noGlErrors = [];
     noGlContext.on("page", (p) => p.on("pageerror", (e) => noGlErrors.push(e.message)));
     const noGlPage = await noGlContext.newPage();
-    await noGlPage.goto(`${base}/atlas?data=fixtures`);
+    await noGlPage.goto(`${base}/atlas${dataTree}`);
     await noGlPage.locator(".fallback-notice").waitFor({ timeout: 15000 });
     assert.match(await noGlPage.locator(".fallback-notice").innerText(), /not shown/i);
     assert.ok(await noGlPage.locator(".fallback-table").count() >= 3);

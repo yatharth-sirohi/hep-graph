@@ -13926,12 +13926,12 @@
     "/intervals/0": {
       "confidence": "uncertain",
       "locator": "Vol. I, §1.3.2",
-      "note": "The DUNE FD TDR Vol. I (2020) states that both ProtoDUNE prototypes had been constructed and operated at CERN, but gives no start or end date for ProtoDUNE-DP. The dual-phase line was subsequently discontinued in favour of the vertical-drift design.",
+      "note": "A10: an interval with `start: null` and `end: null` covers no date at all (A3: \"start: null covers only [lo(end), hi(end)]\"), so the derived state at the build date was `unrecorded` rather than `completed`. The DUNE FD TDR Vol. I (2020-02-07) states, in the past tense, that both ProtoDUNE prototypes had already been constructed and operated at CERN, but gives no explicit start or end date for ProtoDUNE-DP. `start` is set to the TDR's own publication year (2020) as a \"known complete by\" evidence bound, not a claim that this is the true construction date, which is not sourced. The dual-phase line was subsequently discontinued in favour of the vertical-drift design.",
       "quote": "The DUNE collaboration has constructed and operated two large prototype detectors, ProtoDUNE-SP , and pddp , at CERN .",
       "sources": [
         "src:dune-fd-tdr-vol-1"
       ],
-      "verified_at": "2026-09-16"
+      "verified_at": "2026-09-17"
     },
     "/placements/0": {
       "confidence": "verified",
@@ -20922,12 +20922,13 @@
     "/intervals/0": {
       "confidence": "uncertain",
       "locator": null,
-      "note": "Start unknown: no foundation or construction date appears on the LNGS pages fetched. The laboratory is described as currently operating (\"Currently 1300 scientists from 30 different Countries are taking part in the experimental activities of LNGS\").",
-      "quote": "Currently 1300 scientists from 30 different Countries are taking part in the experimental activities of LNGS",
+      "note": "A10: an interval with `start: null` and `end: null` covers no date at all (A3: \"start: null covers only [lo(end), hi(end)]\"), so the derived state at the build date was `unrecorded`, not `active`, though the laboratory is clearly operating today (\"Currently 1300 scientists from 30 different Countries are taking part in the experimental activities of LNGS\", src:lngs-overview). No official LNGS or INFN page reached in this session states a foundation, construction or opening date (lngs.infn.it/en/lab-history returned HTTP 404; lngs.infn.it/en gives no date). As a fallback, `start` is set to 1987 on Wikipedia's authority (\"the research center became fully operational in 1987\") — a rank-12 source, flagged for review — rather than left null, which would misrepresent the laboratory as not currently operating.",
+      "quote": "the research center became fully operational in 1987",
       "sources": [
-        "src:lngs-overview"
+        "src:lngs-overview",
+        "src:lngs-wikipedia-history"
       ],
-      "verified_at": "2026-09-16"
+      "verified_at": "2026-09-17"
     },
     "/links/website": {
       "confidence": "verified",
@@ -20967,7 +20968,8 @@
       "sources": [
         "src:lngs-overview",
         "src:lngs-about-general",
-        "src:lngs-how-to-reach"
+        "src:lngs-how-to-reach",
+        "src:lngs-wikipedia-history"
       ],
       "verified_at": null
     },
@@ -43117,6 +43119,16 @@
       "confidence": null,
       "locator": null,
       "note": "Elsevier full text blocked; bibliographic data and abstract read from the INSPIRE literature record (https://inspirehep.net/api/literature/572361). No numerical machine parameters were taken from this source.",
+      "quote": null,
+      "sources": null,
+      "verified_at": null
+    }
+  },
+  "src:lngs-wikipedia-history": {
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": "Used ONLY as a fallback for the laboratory's founding/operational year, which no official LNGS or INFN page reached in this session states in fetchable content (lngs.infn.it/en/lab-history returned HTTP 404; lngs.infn.it/en gives no founding date). REVIEW REQUIRED: a rank-12 source backing a year-precision, `confidence: uncertain` interval start.",
       "quote": null,
       "sources": null,
       "verified_at": null

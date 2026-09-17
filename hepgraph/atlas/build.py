@@ -779,6 +779,36 @@ def build_search_bundle(ctx: _Context) -> dict:
     return {'schema': schema.SCHEMA_TAG, 'entries': entries}
 
 
+#: Which facility best answers "where is this experiment", most telling first.
+_FACILITY_ROLE_ORDER = ('host', 'beam_source', 'detector_host', 'prototype_host')
+
+
+def _principal_facility(ctx: _Context, record: dict) -> str | None:
+    """The facility an experiment should be named after.
+
+    An experiment can touch several facilities in different roles, and the
+    order they happen to appear in is meaningless. A prototype host is the
+    least representative of them, so it is chosen last.
+    """
+    roles = record.get('facility_roles')
+    if isinstance(roles, list) and roles:
+        def rank(row: dict) -> tuple[int, int]:
+            role = row.get('role')
+            # A role the record itself calls historic is the least useful
+            # answer: ICARUS ran at Gran Sasso, but it is at Fermilab now.
+            historic = 1 if 'historic' in str(row.get('note') or '').lower() else 0
+            position = (_FACILITY_ROLE_ORDER.index(role) if role in _FACILITY_ROLE_ORDER
+                        else len(_FACILITY_ROLE_ORDER))
+            return (historic, position)
+
+        ranked = sorted((row for row in roles
+                         if isinstance(row, dict) and row.get('facility_id')), key=rank)
+        if ranked:
+            return ranked[0]['facility_id']
+    facilities = ctx.links.ids(record['id'], 'facility_ids')
+    return facilities[0] if facilities else None
+
+
 def _subtitle(ctx: _Context, entity_type: str, record: dict, stripped: dict) -> str:
     """One short line of context per search hit."""
     if entity_type == 'facility':
@@ -794,9 +824,11 @@ def _subtitle(ctx: _Context, entity_type: str, record: dict, stripped: dict) -> 
     if entity_type == 'beamline':
         return _join(['Beamline', ctx.name_of(record.get('facility_id'))])
     if entity_type == 'experiment':
-        facilities = ctx.links.ids(record['id'], 'facility_ids')
+        # Name the facility that *hosts* the experiment, not whichever id sorts
+        # first: DUNE's prototypes live at CERN, and labelling DUNE "CERN" in
+        # search results is simply wrong.
         return _join([humanise(record.get('kind')),
-                      ctx.name_of(facilities[0]) if facilities else ''])
+                      ctx.name_of(_principal_facility(ctx, record)) or ''])
     if entity_type == 'detector':
         classes = record.get('technology_classes') or []
         experiments = schema.ref_ids(record.get('experiment_ids'))

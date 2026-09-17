@@ -17,12 +17,12 @@ interface says only "coverage updated" with this date.
 | experiment | 30 |
 | facility | 9 |
 | institution | 529 |
-| person | 0 |
+| person | 12 |
 | result | 62 |
 | site | 22 |
-| source | 953 |
+| source | 957 |
 | topic | 42 |
-| membership rows | 660 |
+| membership rows | 659 |
 
 ## Coverage by category
 
@@ -58,7 +58,7 @@ exists with sourced content. Gaps are computed per record, not declared.
 | DONUT | not researched | all |
 | DUNE | researched | — |
 | ICARUS | researched | institution membership |
-| K2K | researched | institution membership, detector, technical documents |
+| K2K | researched | institution membership, technical documents |
 | KARMEN | not researched | all |
 | LSND | not researched | all |
 | MINERvA | researched | institution membership |
@@ -104,7 +104,7 @@ exists with sourced content. Gaps are computed per record, not declared.
 
 | Experiment | State | Still missing |
 | --- | --- | --- |
-| ALEPH | researched | institution membership |
+| ALEPH | researched | institution membership, placeable geography |
 | ALICE | not researched | all |
 | ATLAS | researched | — |
 | BaBar | not researched | all |
@@ -112,10 +112,10 @@ exists with sourced content. Gaps are computed per record, not declared.
 | Belle II | researched | institution membership |
 | CDF | not researched | all |
 | D0 | not researched | all |
-| DELPHI | researched | institution membership |
+| DELPHI | researched | institution membership, placeable geography |
 | FASER | not researched | all |
 | H1 | not researched | all |
-| L3 | researched | institution membership |
+| L3 | researched | institution membership, placeable geography |
 | LHCb | not researched | all |
 | LHCf | not researched | all |
 | MoEDAL | not researched | all |
@@ -123,8 +123,8 @@ exists with sourced content. Gaps are computed per record, not declared.
 | SLD | not researched | all |
 | SND@LHC | not researched | all |
 | TOTEM | not researched | all |
-| UA1 | researched | institution membership, technical documents |
-| UA2 | researched | institution membership, technical documents |
+| UA1 | researched | institution membership, placeable geography, technical documents |
+| UA2 | researched | institution membership, placeable geography, technical documents |
 | ZEUS | not researched | all |
 
 ### Cosmic rays, gamma rays and astroparticle
