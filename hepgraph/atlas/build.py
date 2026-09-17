@@ -187,8 +187,16 @@ class Stripper:
         if schema.is_coordinates(value):
             return {key: rest.get(key) for key in ('lat', 'lon', 'precision_m', 'kind')}
         if schema.is_interval(value):
-            kept = {key: rest[key] for key in ('label', 'status', 'start', 'end', 'kind')
-                    if key in rest}
+            kept = {key: rest[key] for key in ('label', 'status', 'kind') if key in rest}
+            # `start`/`end` may themselves be date *objects* carrying a `note`
+            # qualifier (§2.2): that note is provenance, not part of the
+            # documented stripped Date-object shape (`date`/`approx`/
+            # `planned`/`display`/…), so it must go through the same
+            # recursive strip as everything else — not be copied verbatim —
+            # or it leaks into atlas.json instead of provenance.json.
+            for key in ('start', 'end'):
+                if key in rest:
+                    kept[key] = self.strip(rest[key], entity_id, pointer_of(pointer, key))
             if 'specs' in rest:
                 kept['specs'] = self.strip(rest['specs'], entity_id, pointer_of(pointer, 'specs'))
             return kept

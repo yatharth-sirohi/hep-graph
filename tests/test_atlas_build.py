@@ -250,6 +250,107 @@ def test_graph_json_is_sorted_and_deduplicated(built: BuildResult) -> None:
 
 
 # ---------------------------------------------------------------------------
+# The globe's contract: every site's coordinates are readable as lat/lon.
+#
+# docs/HEP_ATLAS_BUNDLES.md's stripping-rules table is explicit about this
+# shape: "Coordinates | {"lat", "lon", "precision_m", "kind"}" — a *nested*
+# object, matching the canonical data files (§2.5) exactly, not the
+# flattened `site.lat` / `site.lon` a since-fixed frontend bug assumed.
+# That nested shape is the one this test enforces: it is what the doc
+# already specifies, what `build.py` already emits, and the shape
+# `static/atlas/fixtures/build_fixture.py` should be regenerated to match
+# rather than the other way around (see the final report for detail).
+# ---------------------------------------------------------------------------
+
+def test_every_site_with_authored_coordinates_has_readable_lat_lon(built: BuildResult) -> None:
+    sites = _json(built, "atlas.json")["sites"]
+    from hepgraph.atlas.load import load_atlas
+
+    authored = load_atlas(FIXTURE)
+    checked = 0
+    for site_id, site in sites.items():
+        authored_coordinates = authored.get(site_id).get("coordinates")
+        if not isinstance(authored_coordinates, dict):
+            continue  # A17: a site legitimately may not have coordinates yet.
+        checked += 1
+        coordinates = site.get("coordinates")
+        assert coordinates is not None, (
+            f"{site_id} has authored coordinates but the built bundle's are null — "
+            f"exactly the shape that left the globe with a NaN bounding sphere")
+        assert isinstance(coordinates, dict), f"{site_id}.coordinates must be an object, not flattened"
+        assert set(coordinates) == {"lat", "lon", "precision_m", "kind"}, (
+            f"{site_id}.coordinates must match the BUNDLES.md contract exactly, got "
+            f"{sorted(coordinates)}")
+        assert isinstance(coordinates["lat"], (int, float)) and not isinstance(coordinates["lat"], bool)
+        assert isinstance(coordinates["lon"], (int, float)) and not isinstance(coordinates["lon"], bool)
+        assert -90.0 <= coordinates["lat"] <= 90.0
+        assert -180.0 <= coordinates["lon"] <= 180.0
+    assert checked >= 2, "the fixture should exercise more than one site with coordinates"
+
+
+def test_site_coordinates_are_never_flattened_onto_the_record(built: BuildResult) -> None:
+    """The bug this guards against: `site.lat` / `site.lon` alongside (or
+    instead of) `site.coordinates` — the shape a since-fixed frontend
+    build assumed and the canonical data never provided."""
+    sites = _json(built, "atlas.json")["sites"]
+    for site_id, site in sites.items():
+        assert "lat" not in site and "lon" not in site, (
+            f"{site_id} carries top-level lat/lon; coordinates belong under "
+            f"the nested `coordinates` object per BUNDLES.md")
+
+
+def test_institution_coordinates_use_the_same_nested_contract(built: BuildResult) -> None:
+    """`institutions.json` carries `coordinates` too (§8); the shape must be
+    the same nested one, not a second, different convention."""
+    institutions = _json(built, "institutions.json")
+    checked = 0
+    for institution_id, institution in institutions.items():
+        if not isinstance(institution, dict):
+            continue  # the bundle-level "schema" tag, not an institution
+        coordinates = institution.get("coordinates")
+        if coordinates is None:
+            continue
+        checked += 1
+        assert set(coordinates) == {"lat", "lon", "precision_m", "kind"}
+        assert isinstance(coordinates["lat"], (int, float))
+        assert isinstance(coordinates["lon"], (int, float))
+    assert checked >= 1
+
+
+# ---------------------------------------------------------------------------
+# A14: a `note` qualifier on an interval's `start`/`end` date object is
+# provenance and must not leak into atlas.json alongside the display keys
+# the BUNDLES.md contract actually names for a Date object.
+# ---------------------------------------------------------------------------
+
+def test_no_provenance_keys_leak_through_an_intervals_start_or_end(tmp_path: Path) -> None:
+    import shutil
+
+    root = tmp_path / "atlas"
+    shutil.copytree(FIXTURE, root)
+    experiment_path = root / "experiments" / "demo.json"
+    experiment = json.loads(experiment_path.read_text(encoding="utf-8"))
+    experiment["intervals"][-1]["end"] = None
+    experiment["intervals"][-1]["start"] = {
+        "date": "2017", "approx": True,
+        "note": "a note on the date qualifier itself, not the interval — must not leak",
+    }
+    experiment_path.write_text(json.dumps(experiment), encoding="utf-8")
+
+    result = build(root, tmp_path / "out", build_date=BUILD_DATE)
+    assert result.errors == []
+    built_experiment = json.loads(result.files["atlas.json"])["experiments"]["experiment:demo"]
+    mutated_interval = built_experiment["intervals"][-1]
+    assert set(mutated_interval["start"]) == {"date", "approx"}, (
+        "the stripped Date object must match BUNDLES.md's documented shape "
+        "(date/approx/planned/display/…), not carry a bare `note`")
+    provenance = json.loads(result.files["provenance.json"])
+    pointer = f"/intervals/{len(experiment['intervals']) - 1}/start"
+    assert provenance["experiment:demo"][pointer]["note"] == (
+        "a note on the date qualifier itself, not the interval — must not leak")
+
+
+# ---------------------------------------------------------------------------
 # Sanity checks on the remaining bundles the fixture must exercise.
 # ---------------------------------------------------------------------------
 
