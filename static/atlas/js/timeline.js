@@ -151,9 +151,16 @@ export function createTimeline(container, { minYear, maxYear, defaultYear, onCha
   playBtn.addEventListener('click', () => (playing ? stopPlay() : startPlay()));
 
   updateLegend();
-  emit();
+  // Deliberately no emit() here. Announcing the default year at construction
+  // overwrote whatever the URL asked for, so a shared link carrying ?y= or ?r=
+  // silently reset to the present. The caller seeds the timeline from the URL
+  // and calls start() once, after that.
 
   return {
+    /** Announce the current selection once, after the URL has been applied. */
+    start() {
+      emit();
+    },
     setYear(year) {
       yearInput.value = String(clamp(year, minYear, maxYear));
       if (mode !== 'year') setMode('year'); else emit();
@@ -167,8 +174,11 @@ export function createTimeline(container, { minYear, maxYear, defaultYear, onCha
      * subscriber reacting to state.navigate) into the slider UI *without*
      * re-emitting onChange — emitting here would re-call state.navigate and
      * loop forever between state.js and this module. */
-    syncFromState({ mode: m, year, range }) {
-      if (m === 'range' && range) {
+    syncFromState({ year, range }) {
+      // Which timeline mode to show follows from what the URL carries. The
+      // caller's `mode` is the view mode ("collab"), not this one, so reading
+      // it here silently dropped every shared range.
+      if (range) {
         loInput.value = String(clamp(range[0], minYear, maxYear));
         hiInput.value = String(clamp(range[1], minYear, maxYear));
         mode = 'range';

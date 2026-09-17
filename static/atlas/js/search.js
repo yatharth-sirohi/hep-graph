@@ -3,6 +3,10 @@
 
 import { titleCase } from './model.js';
 
+//: Which kind of thing a person most likely means when several records match.
+const TYPE_ORDER = ['experiment', 'facility', 'collaboration', 'site', 'detector',
+  'accelerator', 'beamline', 'topic', 'result', 'document', 'institution'];
+
 export function init({ inputEl, listEl, entries, navigate }) {
   let active = -1;
   let shown = [];
@@ -40,11 +44,30 @@ export function init({ inputEl, listEl, entries, navigate }) {
   function render(query) {
     const q = query.trim().toLowerCase();
     if (!q) { close(); return; }
-    shown = entries.filter((entry) => (
-      entry.name.toLowerCase().includes(q)
-      || entry.aliases.some((alias) => alias.toLowerCase().includes(q))
-      || entry.subtitle.toLowerCase().includes(q)
-    )).slice(0, 25);
+    // Rank by how directly an entry answers the query, then by type. Typing
+    // "DUNE" must offer the experiment first: it matches only through its
+    // alias, while the beamline, collaboration and three detector records all
+    // carry "DUNE" inside their names and would otherwise bury it.
+    const score = (entry) => {
+      const name = entry.name.toLowerCase();
+      const aliases = entry.aliases.map((alias) => alias.toLowerCase());
+      if (name === q || aliases.includes(q)) return 0;
+      if (name.startsWith(q) || aliases.some((alias) => alias.startsWith(q))) return 1;
+      if (name.includes(q) || aliases.some((alias) => alias.includes(q))) return 2;
+      return 3;
+    };
+    const typeRank = (type) => {
+      const at = TYPE_ORDER.indexOf(type);
+      return at < 0 ? TYPE_ORDER.length : at;
+    };
+    shown = entries
+      .map((entry) => ({ entry, rank: score(entry) }))
+      .filter((row) => row.rank < 3 || row.entry.subtitle.toLowerCase().includes(q))
+      .sort((a, b) => a.rank - b.rank
+        || typeRank(a.entry.type) - typeRank(b.entry.type)
+        || a.entry.name.length - b.entry.name.length)
+      .map((row) => row.entry)
+      .slice(0, 25);
     listEl.innerHTML = '';
     if (!shown.length) {
       listEl.appendChild(Object.assign(document.createElement('li'), {

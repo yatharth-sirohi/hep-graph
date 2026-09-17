@@ -4,6 +4,7 @@ from __future__ import annotations
 import argparse
 from collections import Counter, OrderedDict, deque
 from datetime import datetime, timezone
+import gzip
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 import json
 import logging
@@ -306,10 +307,37 @@ class Handler(BaseHTTPRequestHandler):
     def log_message(self, fmt, *args):
         LOG.info('%s %s', self.address_string(), fmt % args)
 
+    #: Compressing below this costs more than it saves.
+    COMPRESS_MIN_BYTES = 1024
+
+    def _compressible(self, content_type, body):
+        """Whether to gzip this response for this client.
+
+        The atlas ships large JSON bundles and a megabyte-and-a-half of vendored
+        JavaScript; uncompressed they dominate its first load. Images and fonts
+        are already compressed, so they are left alone.
+        """
+        if len(body) < self.COMPRESS_MIN_BYTES:
+            return False
+        if 'gzip' not in (self.headers.get('Accept-Encoding') or ''):
+            return False
+        return content_type.split(';')[0] in {
+            'application/json', 'text/html', 'text/css', 'text/javascript',
+            'image/svg+xml', 'model/gltf-binary',
+        }
+
     def respond(self, value, status=200, content_type='application/json; charset=utf-8', *, cache_control=None, raw=False):
         body = json.dumps(value, ensure_ascii=False, allow_nan=False).encode() if content_type.startswith('application/json') and not raw else value
+        encoding = None
+        if self.command != 'HEAD' and self._compressible(content_type, body):
+            compressed = gzip.compress(body, 6)
+            if len(compressed) < len(body):
+                body, encoding = compressed, 'gzip'
         self.send_response(status)
         self.send_header('Content-Type', content_type)
+        if encoding:
+            self.send_header('Content-Encoding', encoding)
+            self.send_header('Vary', 'Accept-Encoding')
         self.send_header('Content-Length', str(len(body)))
         if cache_control is None:
             cache_control = 'no-store' if content_type.startswith('application/json') else 'no-cache'

@@ -77,11 +77,15 @@ async function main() {
   const { notice } = await loader.init();
   setNotice(notice);
 
-  const [manifest, atlas, institutions, resultsBundle, documentsBundle, searchEntries] = await Promise.all([
-    loader.getManifest(), loader.getAtlas(), loader.getInstitutions(),
-    loader.getResults(), loader.getDocuments(), loader.getSearchEntries(),
+  // Only what the first view needs. institutions.json is half a megabyte and
+  // is not read until a collaboration or an institution is opened; results and
+  // documents are fetched when their modes are.
+  const [manifest, atlas, searchEntries] = await Promise.all([
+    loader.getManifest(), loader.getAtlas(), loader.getSearchEntries(),
   ]);
-  void institutions;
+  const [resultsBundle, documentsBundle] = await Promise.all([
+    loader.getResults(), loader.getDocuments(),
+  ]);
 
   els.versionLabel.textContent = `Atlas data version ${manifest.data_version || manifest.version || ''} · coverage updated ${manifest.coverage_updated || manifest.build_date || ''}`;
   if (manifest.fixture && manifest.banner) {
@@ -220,6 +224,11 @@ async function main() {
     }
     await panels.render(current.entity);
   }
+
+  // Seed the timeline from the URL before it announces anything, so a shared
+  // link that names a year or a range keeps it.
+  timeline.syncFromState(state.get());
+  timeline.start();
 
   state.subscribe((current) => { applyState(current); });
   const initial = state.init();
