@@ -13,6 +13,12 @@ const base = process.env.HEP_URL || "http://127.0.0.1:8790";
 // bundles while this suite was green, because it only ever loaded fixtures.
 // HEP_ATLAS_DATA=generated runs the same checks against the real build.
 const dataTree = process.env.HEP_ATLAS_DATA === "generated" ? "" : "?data=fixtures";
+// The fixture names DUNE by its acronym; the real data uses its full name with
+// "DUNE" as an alias. Both must be searchable, so the label differs per tree.
+const duneLabel = process.env.HEP_ATLAS_DATA === "generated"
+  ? "Deep Underground Neutrino Experiment" : "DUNE — Experiment";
+const duneHeading = process.env.HEP_ATLAS_DATA === "generated"
+  ? "Deep Underground Neutrino Experiment" : "DUNE";
 const output = process.env.HEP_ATLAS_OUTPUT || path.join(__dirname, "../test-results/atlas");
 fs.mkdirSync(output, { recursive: true });
 
@@ -72,8 +78,8 @@ async function setRangeValue(locator, value) {
   await record("Search finds DUNE and its panel shows a baseline", async () => {
     await page.locator("#atlas-search").fill("DUNE");
     await page.locator(".search-result", { hasText: "DUNE" }).first().waitFor();
-    await page.locator(".search-result", { hasText: "DUNE — Experiment" }).first().click();
-    await page.locator("#detail-panel h2", { hasText: "DUNE" }).waitFor();
+    await page.locator(".search-result", { hasText: duneLabel }).first().click();
+    await page.locator("#detail-panel h2", { hasText: duneHeading }).waitFor();
     const panelText = await page.locator("#detail-panel").innerText();
     assert.match(panelText, /Baseline/);
     assert.match(panelText, /1285 ?km|1,285 ?km/);

@@ -1010,10 +1010,23 @@ def selection_bounds(selection: Any) -> tuple[_dt.date, _dt.date]:
     return _dt.date(year, month, 1), _dt.date(year, month, _days_in_month(year, month))
 
 
-def _entity_intervals(entity: Any) -> list[dict]:
-    """The `intervals` list of an entity; `entity` may be the list itself."""
+def _entity_intervals(entity: Any, *, lifecycle_only: bool = False) -> list[dict]:
+    """The `intervals` list of an entity; `entity` may be the list itself.
+
+    With `lifecycle_only`, `run` and `phase` rows are dropped. A3 gives only
+    lifecycle intervals the power to set the timeline state: a run or a phase
+    annotates a state rather than being one. Without the distinction an
+    open-ended milestone such as "first accelerator groundbreaking" outranks
+    the operating interval that follows it, and the entity reads as under
+    construction for ever after.
+    """
     intervals = entity if isinstance(entity, list) else (entity or {}).get('intervals') or []
-    return [row for row in intervals if isinstance(row, dict)]
+    rows = [row for row in intervals if isinstance(row, dict)]
+    if not lifecycle_only:
+        return rows
+    lifecycle = [row for row in rows if (row.get('kind') or 'lifecycle') == 'lifecycle']
+    # An entity annotated only with runs or phases must still exist somewhere.
+    return lifecycle or rows
 
 
 def interval_coverage(interval: dict, y_lo: _dt.date, y_hi: _dt.date, *,
@@ -1146,7 +1159,7 @@ def state_at(entity: Any, selection: Any, *, build_date: Any = None) -> dict | N
         return None
     y_lo, y_hi = selection_bounds(selection)
     candidates: list[tuple[tuple, dict, str]] = []
-    for index, row in enumerate(_entity_intervals(entity)):
+    for index, row in enumerate(_entity_intervals(entity, lifecycle_only=True)):
         coverage = interval_coverage(row, y_lo, y_hi, build_date=build)
         if coverage is None:
             continue
