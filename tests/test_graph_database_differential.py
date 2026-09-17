@@ -124,7 +124,7 @@ def pair():
             "INSERT INTO graph_genealogy_edge(overlay_id,adviser_id,student_id,source_record,"
             "degree,year) VALUES (%s,%s,%s,%s,%s,%s)",
             (OVERLAY_ID, int(record["adviser"]), int(record["student"]),
-             record["source_record"], record["degree"], record["year"]))
+             record["source_record"], str(record["degree"]).lower(), record["year"]))
     provider = NeonCompactGraphProvider(
         connection,
         coverage=CoverageClaim(import_id=IMPORT_ID, certified_complete=True, reason=""),

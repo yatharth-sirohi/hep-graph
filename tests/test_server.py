@@ -59,7 +59,8 @@ class StubDatabase:
         self.calls.append(("neighborhood", person_id))
         return {"status": "ok", "people": [], "edges": []}
 
-    def ancestry(self, person_id, filters):
+    def ancestry(self, person_id, filters, **kwargs):
+        self.calls.append(("ancestry", person_id, kwargs.get("direction"), kwargs.get("depth")))
         return {"status": "unavailable", "message": "no overlay"}
 
     def owns_job(self, job_id):

@@ -23,7 +23,8 @@ from .hlbes import SEARCH_INCOMPLETE
 from .graph_hydration import (PEOPLE, WORKS, Hydrator, HydrationBudget,
                               HydrationCache, placeholder)
 from .db_search_jobs import DatabaseSearchJobs
-from .neon_graph_provider import (CoverageClaim, GenealogyOverlay, GraphDatabaseError,
+from .graph import GraphError
+from .neon_graph_provider import (DOCTORAL_DEGREES, CoverageClaim, GenealogyOverlay, GraphDatabaseError, _at,
                                   NeonCompactGraphProvider, connect_read_only,
                                   observe_coverage)
 
@@ -253,6 +254,7 @@ class DatabaseGraphService:
                     "coverage": self.dataset()["coverage"]}
         found = provider.get_neighbors(str(person_id), filters)
         neighbors = sorted(found.members, key=lambda value: (len(value), value))[:limit]
+        relations = self._direct_relations(str(person_id))
         hydrator = self.hydrator()
         wanted = (str(person_id), *neighbors)
         people = (hydrator.hydrate_people(wanted) if hydrator is not None
@@ -271,7 +273,7 @@ class DatabaseGraphService:
                                        str(person_id), identifier, filters)
                                    if ref.startswith("work:")])}
                               for identifier in neighbors],
-            "advisers": [], "students": [],
+            "advisers": relations["advisers"], "students": relations["students"],
             "indexed_publications": None, "eligible_publications": None,
             "truncated": len(found.members) > len(neighbors),
             "neighborhood_status": found.status, "neighborhood_reason": found.reason,
@@ -294,26 +296,116 @@ class DatabaseGraphService:
                 "truncated": profile["truncated"], "filters": filters.to_dict(),
                 "version": profile["version"], "coverage": profile["coverage"]}
 
-    def ancestry(self, person_id: str, filters: Filters) -> dict[str, Any]:
-        coverage = self.coverage()
+    def _direct_relations(self, person_id: str) -> dict[str, list[dict[str, Any]]]:
+        """One generation either side, for the profile panel."""
+        empty: dict[str, list[dict[str, Any]]] = {"advisers": [], "students": []}
         if self.config.overlay_id is None:
-            return {"status": "unavailable", "mode": "database",
-                    "message": "Doctoral records are not part of this release.",
-                    "person": {"id": str(person_id)}, "people": [], "edges": [],
-                    "filters": filters.to_dict(),
-                    "version": f"graph-db:{coverage.import_id}",
-                    "coverage": self.dataset()["coverage"]}
+            return empty
         rows = self.connection().execute(
-            "SELECT adviser_id, student_id, source_record FROM graph_genealogy_edge "
-            "WHERE overlay_id=%s AND (adviser_id=%s OR student_id=%s) "
-            "ORDER BY adviser_id, student_id LIMIT 100",
-            (self.config.overlay_id, int(person_id), int(person_id))).fetchall()
-        edges = [{"adviser": str(row[0]), "student": str(row[1]), "source_record": str(row[2])}
-                 for row in rows]
-        return {"status": "ok", "mode": "database", "person": {"id": str(person_id)},
-                "people": [], "edges": edges, "truncated": len(edges) >= 100,
-                "filters": filters.to_dict(), "version": f"graph-db:{coverage.import_id}",
+            "SELECT adviser_id, student_id, source_record, degree, curated "
+            "FROM graph_genealogy_edge WHERE overlay_id=%s AND degree = ANY(%s) "
+            "AND (adviser_id=%s OR student_id=%s) ORDER BY adviser_id, student_id LIMIT 200",
+            (self.config.overlay_id, list(DOCTORAL_DEGREES),
+             int(person_id), int(person_id))).fetchall()
+        for row in rows:
+            adviser, student = str(_at(row, 0)), str(_at(row, 1))
+            source_record = str(_at(row, 2))
+            record = {"adviser": adviser, "student": student,
+                      "source_record": source_record, "degree": _at(row, 3),
+                      "curated": bool(_at(row, 4)),
+                      "source_url": f"https://inspirehep.net/authors/{source_record}"}
+            empty["advisers" if student == str(person_id) else "students"].append(record)
+        return empty
+
+    MAX_LINEAGE_DEPTH = 6
+    MAX_LINEAGE_EDGES = 400
+
+    def ancestry(self, person_id: str, filters: Filters, *,
+                 direction: str = "ancestors", depth: int = 4) -> dict[str, Any]:
+        """Walk doctoral lineage up or down, several generations at a time.
+
+        Supervision is a directed acyclic graph, not a tree: a person may have
+        more than one adviser, and two lines can rejoin. The walk therefore
+        carries the visited path and refuses to re-enter it, so a cycle in the
+        source data cannot spin here, and it reports the generation each
+        relation was found at so the caller can group by distance.
+        """
+        coverage = self.coverage()
+        base = {"mode": "database", "person": {"id": str(person_id)},
+                "direction": direction, "people": [], "edges": [],
+                "filters": filters.to_dict(),
+                "version": f"graph-db:{coverage.import_id}",
                 "coverage": self.dataset()["coverage"]}
+        if self.config.overlay_id is None:
+            return base | {"status": "unavailable",
+                           "message": "Doctoral records are not part of this release."}
+        if direction not in {"ancestors", "descendants"}:
+            raise GraphError("invalid_input", "Direction must be ancestors or descendants.")
+        depth = max(1, min(int(depth), self.MAX_LINEAGE_DEPTH))
+        provider = self.provider()
+        if provider.resolve_author(str(person_id)) is None:
+            return base | {"status": "not_found",
+                           "message": "This person has no doctoral record in the pinned graph, "
+                                      "which is not evidence that none exists."}
+        # Climbing means following adviser_id from a student; descending is the
+        # same edge read the other way, so only the two column roles swap.
+        step_from, step_to = (("student_id", "adviser_id") if direction == "ancestors"
+                              else ("adviser_id", "student_id"))
+        rows = self.connection().execute(
+            f"""WITH RECURSIVE walk(origin, reached, generation, path) AS (
+                    SELECT e.{step_from}, e.{step_to}, 1,
+                           ARRAY[e.{step_from}, e.{step_to}]
+                      FROM graph_genealogy_edge e
+                     WHERE e.overlay_id = %s AND e.degree = ANY(%s)
+                       AND e.{step_from} = %s
+                    UNION ALL
+                    SELECT w.reached, e.{step_to}, w.generation + 1,
+                           w.path || e.{step_to}
+                      FROM walk w
+                      JOIN graph_genealogy_edge e
+                        ON e.overlay_id = %s AND e.degree = ANY(%s)
+                       AND e.{step_from} = w.reached
+                     WHERE w.generation < %s AND NOT e.{step_to} = ANY(w.path))
+                SELECT DISTINCT w.origin, w.reached, w.generation,
+                       e.source_record, e.degree, e.curated
+                  FROM walk w
+                  JOIN graph_genealogy_edge e
+                    ON e.overlay_id = %s AND e.degree = ANY(%s)
+                   AND e.{step_from} = w.origin AND e.{step_to} = w.reached
+                 ORDER BY w.generation, w.origin, w.reached
+                 LIMIT %s""",
+            (self.config.overlay_id, list(DOCTORAL_DEGREES), int(person_id),
+             self.config.overlay_id, list(DOCTORAL_DEGREES), depth,
+             self.config.overlay_id, list(DOCTORAL_DEGREES),
+             self.MAX_LINEAGE_EDGES + 1)).fetchall()
+        truncated = len(rows) > self.MAX_LINEAGE_EDGES
+        rows = rows[:self.MAX_LINEAGE_EDGES]
+        edges, generation_of = [], {}
+        for row in rows:
+            origin, reached, generation = str(_at(row, 0)), str(_at(row, 1)), int(_at(row, 2))
+            adviser, student = ((reached, origin) if direction == "ancestors"
+                                else (origin, reached))
+            edges.append({"adviser": adviser, "student": student,
+                          "source_record": str(_at(row, 3)), "degree": _at(row, 4),
+                          "curated": bool(_at(row, 5)), "generation": generation})
+            generation_of[reached] = min(generation_of.get(reached, generation), generation)
+        people = self._lineage_people(str(person_id), generation_of)
+        return base | {"status": "ok", "depth": depth, "truncated": truncated,
+                       "person": people.get(str(person_id), {"id": str(person_id)}),
+                       "people": [people[identifier] | {"generation": generation}
+                                  for identifier, generation in sorted(
+                                      generation_of.items(), key=lambda item: (item[1], item[0]))
+                                  if identifier in people],
+                       "edges": edges}
+
+    def _lineage_people(self, root: str, generation_of: dict[str, int]) -> dict[str, Any]:
+        """Names for the people on show. A failure keeps the ID, never invents one."""
+        wanted = (root, *sorted(generation_of, key=lambda item: (generation_of[item], item)))
+        hydrator = self.hydrator()
+        if hydrator is None:
+            return {identifier: placeholder(PEOPLE, identifier, "hydration_unavailable")
+                    for identifier in wanted}
+        return hydrator.hydrate_people(wanted)
 
     def owns_job(self, job_id: str) -> bool:
         row = self.job_connection().execute(

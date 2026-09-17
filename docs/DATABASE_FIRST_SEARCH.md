@@ -122,11 +122,11 @@ between interpreters — while `blocked`, the decision that key produced, is.
 | Neighborhood view | **Yes** | `/api/neighborhood/...` |
 | Filters (type, author count, shared works, years) | **Yes** | Semantics matched to `graph.py`, differential-tested |
 | Coverage/version labelling | **Yes** | `/api/dataset` reports the pin and its limits |
-| **Doctoral / genealogy edges** | **No** — gap | Not in the compact import; overlay schema shipped, unpopulated |
-| **Ancestry view** | **No** — gap | Returns `unavailable` with a reason |
+| **Doctoral / genealogy edges** | **Yes** | Separately versioned overlay, 36,589 relations |
+| **Doctoral lineage / family tree** | **Yes** | `/api/ancestry`, multi-generation, both directions |
 | **Global centrality** | **No** — gap | Needs a separate large-graph implementation; not offered in this release |
 
-The three gaps are reported to the user, never silently dropped. The production
+The remaining gap is reported to the user, never silently dropped. The production
 application serves only the pinned graph database and does not ship a local demo graph.
 
 ### Known limitations of the compact schema
@@ -298,3 +298,37 @@ PARTIAL neighborhoods, which can never advance a completed radius, so the engine
 cannot stop early and explores the component instead - the same searches took
 minutes rather than seconds. Certifying a graph whose completeness has actually
 been validated is what makes termination possible.
+
+
+## 12. Doctoral lineage
+
+Adviser relations are not collaboration topology. They come from INSPIRE's
+`authors` collection, on the student's own record, so they load into
+`graph_genealogy_edge` under their own `overlay_id` with their own certificate.
+A neighborhood that includes doctoral edges is COMPLETE only when *both* the
+import and the overlay are certified; otherwise it is PARTIAL, because the
+neighborhood would be missing an edge class rather than merely filtered.
+
+`hepgraph/genealogy_import.py` harvests it, reusing the shard protocol from
+`fast_compact_import` rather than restating it. Present: **36,589 relations,
+29,394 students, 13,344 advisers**, reconciled exactly against the 29,404
+INSPIRE author records that carry an adviser with a record reference.
+
+**Only relations INSPIRE typed `phd` are traversable.** The overlay stores every
+supervision relation it records - master's, bachelor's, and 1,561 it left
+untyped - because filtering at crawl time would discard real relationships and
+re-deciding would mean crawling again. `DOCTORAL_DEGREES` is the single place
+that decides what counts, and it is applied in the neighborhood query, the
+evidence refs, author resolution, the profile panel and the lineage walk. An
+untyped relation is precisely one INSPIRE did *not* call doctoral, so it is
+stored and not traversed.
+
+Supervision is a directed acyclic graph, not a tree: a person can have several
+advisers, and lines rejoin. `ancestry()` walks it with a recursive CTE carrying
+the visited path, so a cycle in the source cannot spin, and reports the
+generation each relation was found at.
+
+What this cannot tell you: INSPIRE records an adviser for only ~4% of its
+authors, so an empty lineage is usually upstream silence rather than an
+orphan. A further 5,241 records name an adviser INSPIRE has no record for;
+those are counted, never matched by name.

@@ -31,6 +31,12 @@ from .providers import GraphVersion, ProviderNeighborhood, filter_key
 
 SCHEMA_VERSION = "neon-compact-incidence-v1"
 
+#: The overlay stores every supervision relation INSPIRE records, including
+#: master's, bachelor's and relations it left untyped. Only explicitly doctoral
+#: ones are traversable: the application's stated rule is doctoral supervision,
+#: and an untyped relation is precisely one INSPIRE did *not* call doctoral.
+DOCTORAL_DEGREES = ("phd",)
+
 #: Resolved author slots read while building one batch of neighborhoods.  A
 #: neighborhood over this bound is reported PARTIAL rather than streamed into
 #: the function instance, so one hub author cannot exhaust serverless memory.
@@ -244,8 +250,10 @@ class NeonCompactGraphProvider:
         if self.overlay is not None:
             rows = self._execute(
                 "SELECT 1 FROM graph_genealogy_edge WHERE overlay_id=%(overlay_id)s "
+                "AND degree = ANY(%(degrees)s) "
                 "AND (adviser_id=%(author_id)s OR student_id=%(author_id)s) LIMIT 1",
-                {"overlay_id": self.overlay.overlay_id, "author_id": anchor})
+                {"overlay_id": self.overlay.overlay_id, "author_id": anchor,
+                 "degrees": list(DOCTORAL_DEGREES)})
             if rows:
                 return {"id": str(anchor), "source": "genealogy_overlay",
                         "source_url": f"https://inspirehep.net/authors/{anchor}"}
@@ -296,6 +304,24 @@ class NeonCompactGraphProvider:
             if _at(row, 1):
                 present.add(name)
             cost[name] = int(_at(row, 2) or 0)
+        if filters.genealogy and self.overlay is not None:
+            # Someone INSPIRE knows only as a student or an adviser has no
+            # membership row, but they are still in this graph when doctoral
+            # edges are in play. Reporting them unknown would hide every person
+            # whose sole tie is their supervision.
+            missing = [anchor for anchor in anchors if str(anchor) not in present]
+            if missing:
+                present.update(str(_at(row, 0)) for row in self._execute(
+                    "SELECT DISTINCT person FROM ("
+                    "  SELECT adviser_id AS person FROM graph_genealogy_edge"
+                    "   WHERE overlay_id=%(overlay_id)s AND degree = ANY(%(degrees)s)"
+                    "     AND adviser_id = ANY(%(missing)s)"
+                    "  UNION ALL"
+                    "  SELECT student_id FROM graph_genealogy_edge"
+                    "   WHERE overlay_id=%(overlay_id)s AND degree = ANY(%(degrees)s)"
+                    "     AND student_id = ANY(%(missing)s)) AS known",
+                    {"overlay_id": self.overlay.overlay_id, "missing": missing,
+                     "degrees": list(DOCTORAL_DEGREES)}))
         affordable = [anchor for anchor in anchors
                       if str(anchor) in present
                       and cost.get(str(anchor), 0) <= self.member_visit_budget]
@@ -345,9 +371,11 @@ class NeonCompactGraphProvider:
             return []
         rows = self._execute(
             "SELECT adviser_id, student_id FROM graph_genealogy_edge "
-            "WHERE overlay_id=%(overlay_id)s AND (adviser_id = ANY(%(anchors)s) "
-            "OR student_id = ANY(%(anchors)s)) ORDER BY adviser_id, student_id",
-            {"overlay_id": self.overlay.overlay_id, "anchors": anchors})
+            "WHERE overlay_id=%(overlay_id)s AND degree = ANY(%(degrees)s) "
+            "AND (adviser_id = ANY(%(anchors)s) OR student_id = ANY(%(anchors)s)) "
+            "ORDER BY adviser_id, student_id",
+            {"overlay_id": self.overlay.overlay_id, "anchors": anchors,
+             "degrees": list(DOCTORAL_DEGREES)})
         wanted = {str(anchor) for anchor in anchors}
         edges: list[tuple[str, str]] = []
         for row in rows:
@@ -383,9 +411,11 @@ class NeonCompactGraphProvider:
         if filters.genealogy and self.overlay is not None:
             refs.extend(f"phd:{_at(row, 0)}" for row in self._execute(
                 "SELECT source_record FROM graph_genealogy_edge WHERE overlay_id=%(overlay_id)s "
+                "AND degree = ANY(%(degrees)s) "
                 "AND ((adviser_id=%(a)s AND student_id=%(b)s) "
                 "  OR (adviser_id=%(b)s AND student_id=%(a)s)) ORDER BY source_record",
-                {"overlay_id": self.overlay.overlay_id, "a": anchor, "b": other}))
+                {"overlay_id": self.overlay.overlay_id, "a": anchor, "b": other,
+                 "degrees": list(DOCTORAL_DEGREES)}))
         return tuple(refs)
 
     def get_work_metadata(self, work_id: str) -> dict[str, Any] | None:

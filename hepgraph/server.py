@@ -264,7 +264,7 @@ class Handler(BaseHTTPRequestHandler):
             raise ValueError('Duplicate query parameters are not allowed.')
         args = {k: v[0] for k, v in pairs.items() if v[0] != ''}
         allowed = FILTER_KEYS | {'source', 'target', 'person', 'alternatives', 'q', 'limit',
-                                 'metric', 'direction', 'version', 'mode', 'summary'}
+                                 'metric', 'direction', 'depth', 'version', 'mode', 'summary'}
         if set(args) - allowed:
             raise ValueError('Unknown query parameter.')
         if args.get('mode', 'database') != 'database':
@@ -325,7 +325,8 @@ class Handler(BaseHTTPRequestHandler):
             if direction not in {'ancestors', 'descendants'}:
                 raise ValueError('Direction must be ancestors or descendants.')
             return self.respond(database.ancestry(
-                person_id(path.removeprefix('/api/ancestry/')), filters))
+                person_id(path.removeprefix('/api/ancestry/')), filters,
+                direction=direction, depth=integer(args.get('depth'), 4, 1, 6)))
         if path == '/api/centrality':
             # A whole-graph metric needs the whole graph resident, which a
             # function instance must never hold for a corpus this size.

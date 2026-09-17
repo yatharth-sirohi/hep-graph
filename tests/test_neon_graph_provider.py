@@ -84,8 +84,8 @@ def database():
         "INSERT INTO graph_genealogy_overlay(overlay_id,source_description,source_cutoff,"
         "certified_complete) VALUES (%s,'test','2026-01-01T00:00:00+00:00', TRUE)", (OVERLAY_ID,))
     connection.execute(
-        "INSERT INTO graph_genealogy_edge(overlay_id,adviser_id,student_id,source_record) "
-        "VALUES (%s,1,7,'rec-17')", (OVERLAY_ID,))
+        "INSERT INTO graph_genealogy_edge(overlay_id,adviser_id,student_id,source_record,degree) "
+        "VALUES (%s,1,7,'rec-17','phd')", (OVERLAY_ID,))
     yield connection
     connection.close()
 
