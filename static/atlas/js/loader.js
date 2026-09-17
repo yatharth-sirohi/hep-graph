@@ -175,7 +175,18 @@ export async function getCoverage() {
 
 export async function getMembership(collaborationId) {
   const slug = collaborationId.split(':')[1];
-  return fetchJSON(`memberships/${slug}.json`);
+  const roster = await fetchJSON(`memberships/${slug}.json`);
+  // Same nested-versus-flat coordinate split as the site records: an
+  // institution whose latitude reads as undefined silently draws no dot, so
+  // collaboration mode would come up empty against the generated bundles.
+  for (const member of roster.members || []) {
+    const coordinates = member.coordinates;
+    if (member.lat == null && coordinates && coordinates.lat != null) {
+      member.lat = coordinates.lat;
+      member.lon = coordinates.lon;
+    }
+  }
+  return roster;
 }
 
 /** relPath is the exact value of a membership row's `people_bundle` field. */
