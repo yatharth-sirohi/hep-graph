@@ -1,0 +1,146 @@
+{
+  "accelerator_id": "accelerator:demo-synchrotron",
+  "aliases": [],
+  "baselines": [
+    {
+      "distance": {
+        "approx": true,
+        "confidence": "verified",
+        "dimension": "length",
+        "display": "~800 km",
+        "note": "",
+        "sources": [
+          "src:demo-tdr"
+        ],
+        "unit": "km",
+        "value": 800,
+        "verified_at": "2026-09-16"
+      },
+      "from_site_id": "site:demo-lab-campus",
+      "to_site_id": "site:demo-far-cavern"
+    }
+  ],
+  "coverage": {
+    "researched": "full",
+    "tier": "A",
+    "validated": true
+  },
+  "direction": {
+    "confidence": "verified",
+    "note": "",
+    "sources": [
+      "src:demo-tdr"
+    ],
+    "value": "west-north-west",
+    "verified_at": "2026-09-16"
+  },
+  "document_ids": [
+    "document:demo-tdr"
+  ],
+  "facility_id": "facility:demo-lab",
+  "far_detector_site_ids": [
+    "site:demo-far-cavern"
+  ],
+  "id": "beamline:demo-beam",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "operating",
+      "note": "",
+      "sources": [
+        "src:demo-tdr"
+      ],
+      "start": "2010-03",
+      "status": "active",
+      "verified_at": "2026-09-16"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "Demo neutrino beamline",
+  "near_detector_site_ids": [
+    "site:demo-lab-campus"
+  ],
+  "notes": [],
+  "primary_beam": {
+    "confidence": "verified",
+    "note": "",
+    "sources": [
+      "src:demo-tdr"
+    ],
+    "value": {
+      "energy": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "energy",
+        "display": "120 GeV",
+        "note": "",
+        "sources": [
+          "src:demo-tdr"
+        ],
+        "unit": "GeV",
+        "value": 120,
+        "verified_at": "2026-09-16"
+      },
+      "particle": "proton"
+    },
+    "verified_at": "2026-09-16"
+  },
+  "secondary_beam": {
+    "confidence": "verified",
+    "note": "",
+    "sources": [
+      "src:demo-tdr"
+    ],
+    "value": "muon neutrinos / antineutrinos, on-axis",
+    "verified_at": "2026-09-16"
+  },
+  "sources": [
+    "src:demo-tdr"
+  ],
+  "specs": {
+    "beam_power": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "power",
+      "display": "700 kW",
+      "note": "",
+      "sources": [
+        "src:demo-tdr"
+      ],
+      "unit": "kW",
+      "value": 700,
+      "verified_at": "2026-09-16"
+    },
+    "peak_neutrino_energy": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "energy",
+      "display": "2.5 GeV",
+      "note": "",
+      "sources": [
+        "src:demo-tdr"
+      ],
+      "unit": "GeV",
+      "value": 2.5,
+      "verified_at": "2026-09-16"
+    }
+  },
+  "status": "active",
+  "summary": {
+    "plain": "A beam of neutrinos aimed at the far detector.",
+    "technical": "Conventional horn-focused muon neutrino beam, on-axis."
+  },
+  "target": {
+    "confidence": "verified",
+    "note": "",
+    "sources": [
+      "src:demo-tdr"
+    ],
+    "value": "graphite",
+    "verified_at": "2026-09-16"
+  },
+  "type": "beamline"
+}

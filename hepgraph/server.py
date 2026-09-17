@@ -22,6 +22,15 @@ from .remote import RemoteClient, RemoteError
 from .search_jobs import JobError, SearchJobs
 
 ROOT = Path(__file__).resolve().parent.parent
+# HEP Atlas is served additively under /atlas from its own directory. Bound as a
+# module constant so tests can point it at a temporary tree.
+ATLAS_STATIC = ROOT / 'static' / 'atlas'
+ATLAS_CONTENT_TYPES = {
+    '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8',
+    '.css': 'text/css; charset=utf-8', '.json': 'application/json; charset=utf-8',
+    '.svg': 'image/svg+xml', '.png': 'image/png', '.webp': 'image/webp',
+    '.woff2': 'font/woff2', '.glb': 'model/gltf-binary',
+}
 # Optional and gitignored: the application starts and searches without it.
 CORE_NODE_FILE = ROOT / "data" / "cache" / "core-nodes.json"
 FILTER_KEYS = {'max_authors', 'min_authors', 'min_shared', 'year_start', 'year_end', 'genealogy'}
@@ -289,12 +298,14 @@ class Handler(BaseHTTPRequestHandler):
     def log_message(self, fmt, *args):
         LOG.info('%s %s', self.address_string(), fmt % args)
 
-    def respond(self, value, status=200, content_type='application/json; charset=utf-8'):
-        body = json.dumps(value, ensure_ascii=False, allow_nan=False).encode() if content_type.startswith('application/json') else value
+    def respond(self, value, status=200, content_type='application/json; charset=utf-8', *, cache_control=None, raw=False):
+        body = json.dumps(value, ensure_ascii=False, allow_nan=False).encode() if content_type.startswith('application/json') and not raw else value
         self.send_response(status)
         self.send_header('Content-Type', content_type)
         self.send_header('Content-Length', str(len(body)))
-        self.send_header('Cache-Control', 'no-store' if content_type.startswith('application/json') else 'no-cache')
+        if cache_control is None:
+            cache_control = 'no-store' if content_type.startswith('application/json') else 'no-cache'
+        self.send_header('Cache-Control', cache_control)
         self.send_header('X-Content-Type-Options', 'nosniff')
         # Which process answered. Lets a client tell whether the polls of one
         # search all reached the same instance; carries nothing sensitive.
@@ -370,12 +381,37 @@ class Handler(BaseHTTPRequestHandler):
         finally:
             state.workers.release()
 
+    def respond_atlas(self, path):
+        """Serve one file of the HEP Atlas tree; anything doubtful is not_found."""
+        not_found = {'status': 'not_found'}
+        root = ATLAS_STATIC.resolve()
+        relative = 'index.html' if path in {'/atlas', '/atlas/'} else path[len('/atlas/'):]
+        decoded = urllib.parse.unquote(relative)
+        for candidate in (relative, decoded):
+            if ('..' in candidate or '\\' in candidate or '\x00' in candidate
+                    or '//' in candidate or candidate.startswith('/') or candidate.endswith('/')):
+                return self.respond(not_found, 404)
+        content_type = ATLAS_CONTENT_TYPES.get(Path(decoded).suffix.lower())
+        if content_type is None:
+            return self.respond(not_found, 404)
+        target = (root / decoded).resolve()
+        if not target.is_relative_to(root) or not target.is_file():
+            return self.respond(not_found, 404)
+        try:
+            body = target.read_bytes()
+        except OSError:
+            return self.respond(not_found, 404)
+        cache = 'public, max-age=300' if decoded.startswith('generated/') else 'no-cache'
+        return self.respond(body, content_type=content_type, cache_control=cache, raw=True)
+
     def route(self, state):
         parsed = urllib.parse.urlsplit(self.path)
         if parsed.scheme or parsed.netloc:
             raise ValueError('Absolute request URLs are not supported.')
         path = parsed.path
         if not path.startswith('/api/'):
+            if path == '/atlas' or path.startswith('/atlas/'):
+                return self.respond_atlas(path)
             assets = {'/': ('index.html', 'text/html'), '/index.html': ('index.html', 'text/html'),
                       '/app.js': ('app.js', 'text/javascript'), '/styles.css': ('styles.css', 'text/css'), '/favicon.svg': ('favicon.svg', 'image/svg+xml')}
             if path not in assets:
