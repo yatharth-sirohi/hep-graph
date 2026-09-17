@@ -292,7 +292,14 @@ export function createGlobe(container, { atlas, index, onSelect, onArcHover }) {
 
   // --- public API -------------------------------------------------------
   const api = {
-    ready() { rebuildBaseLayers(); },
+    ready() {
+      // No fly-in intro: an animated initial camera move is exactly the kind
+      // of motion prefers-reduced-motion asks us to skip, and it also left
+      // marker screen positions a moving target for a second or two after
+      // load. Frame a stable default view instantly instead.
+      globe.pointOfView({ lat: 20, lng: 10, altitude: 2.4 }, 0);
+      rebuildBaseLayers();
+    },
     setYear(year) {
       timelineMode = { kind: 'year', year, month: Math.round((year - 1950) * 12 + 6) };
       reapplyTimeline();

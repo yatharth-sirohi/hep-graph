@@ -24,3 +24,15 @@ plus, where possible, a validator rule so the class cannot recur.
 | 12 | P1 | Genuine duplicate source records across workstreams: the same home.cern pages, the SURF site, the CERN ROR record, the UA1 page and the MicroBooNE detector paper each exist under two ids. Needs one mechanical dedup pass once research settles. | multiple leads | open |
 | 13 | P2 | Several Japan results are missing the required `links` field. | orchestrator | open |
 | 14 | P2 | Super-Kamiokande construction starts before the recorded founding date of the Kamioka Observatory facility. Probably the observatory's formal establishment versus the mine's earlier use; needs a note either way. | orchestrator | open |
+
+## From the independent data-quality review of wave 1 (report: REVIEW_data_quality_wave1.md)
+
+Zero P0 findings. 36 of 36 independently re-fetched quotes matched their sources
+verbatim; no fabricated citation, no unit error, no inflated result wording.
+
+| # | Severity | Issue | State |
+| --- | --- | --- | --- |
+| 15 | P1 | Systemic in the CMS results: where a result carries an `announced` date earlier than its preprint, amendment A16 requires `date`/`date_kind` to use the announcement. Both CMS results with an `announced` field use the later preprint instead — 2 of 2, so a class rather than a slip. The LZ results implement the rule correctly. | open |
+| 16 | P1 | `site:kek-tsukuba-belle-ii` carries `point_kind: detector` coordinates sourced only from a Wikipedia infobox (rank 12), which A17 forbids for a detector point. The flavour lead disclosed this honestly in its worklog, but it is still live. Needs a real source or a demotion to an approximate region. | open |
+| 17 | P2 | Two coordinate-supporting quotes (CMS Point 5 from arXiv:1005.5332, the LZ Davis Campus from arXiv:1503.01112) could not be independently confirmed because only the abstract pages were retrievable. Plausible but unverified. | open |
+| 18 | P2 | The Belle detector paper is paywalled; the record correctly leaves subsystem geometry null rather than inventing it. No action beyond keeping the disclosure. | closed |

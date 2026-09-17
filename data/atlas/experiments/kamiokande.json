@@ -13,7 +13,7 @@
   },
   "external": {
     "greybook": null,
-    "inspire_experiment": null,
+    "inspire_experiment": 1110455,
     "wikidata": null
   },
   "facility_roles": [
@@ -53,13 +53,13 @@
       "kind": "lifecycle",
       "label": "Kamiokande-II (solar and supernova neutrino phase)",
       "locator": "Super-Kamiokande history page, entry “Dec. 1986”",
-      "note": "No source fetched in this session states an explicit end/decommissioning date for Kamiokande; Super-Kamiokande (a newer, larger detector in the same mine) began operation in April 1996. This interval is left open with a note rather than assigning an unsourced end date (v0.2 A17 / A12 terminal-status exception).",
+      "note": "Status recorded as 'completed' because Kamiokande no longer operates (Super-Kamiokande, a newer/larger detector in the same mine, began operation in April 1996), but no source fetched in this session states an explicit end/decommissioning date for Kamiokande itself; end is left null under the terminal-status uncertain-confidence exception (v0.2 A17; §4) rather than assigning an unsourced end date.",
       "quote": "Kamiokande modified detector to observe solar neutrinos",
       "sources": [
         "src:sk-history-page"
       ],
       "start": "1986-12",
-      "status": "active",
+      "status": "completed",
       "verified_at": "2026-09-17"
     }
   ],
@@ -130,7 +130,7 @@
     "The ontology's experiment-kind enum has no value for a proton-decay search; Kamiokande's original proton-decay goal is recorded in physics_goals only, and the primary 'kind' instead reflects its best-known result (the SN1987A supernova-neutrino detection).",
     "Lineage (Super-Kamiokande's 'predecessor' relation to Kamiokande) is recorded once, on experiment:super-kamiokande, per this workstream's instructions.",
     "Height for the 'Tank dimensions' key_spec (16 m) and the fiducial-mass range are carried in the quantity's display/note text because the ontology's Quantity shape holds one value per entry; see the quote for the full comparison-table row.",
-    "external.inspire_experiment is null: no INSPIRE experiment record for Kamiokande (as distinct from Kamiokande-II results or Super-Kamiokande) was found or fetched in this session."
+    "external.inspire_experiment = 1110455 (src:kamiokande-inspire-experiment, INSPIRE experiment record for KAMIOKANDE)."
   ],
   "physics_goals": [
     {
@@ -175,7 +175,8 @@
     "src:sk-history-page",
     "src:sk-research-page",
     "src:sk-outline-page",
-    "src:sk-5min-page"
+    "src:sk-5min-page",
+    "src:kamiokande-inspire-experiment"
   ],
   "status": "completed",
   "summary": {

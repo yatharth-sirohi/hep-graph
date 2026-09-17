@@ -377,3 +377,122 @@ def test_cli_strict_mode_fails_on_warnings_alone(root: Path) -> None:
             }))
     assert v.main(["--data", str(root)]) == 0
     assert v.main(["--data", str(root), "--strict"]) == 1
+
+
+# ---------------------------------------------------------------------------
+# Second review wave, against the live research data (four more defects).
+# ---------------------------------------------------------------------------
+
+# --- (1) A10's amended reading: status vs. a terminal interval already
+#     reached, not the raw (and by then necessarily absent) derived state. ---
+
+def _add_terminal_interval(r: dict, *, start: str = "2020", end: str | None = "2020",
+                           confidence: str = "verified", note: str = "") -> None:
+    r["intervals"].append({
+        "label": "decommissioned", "status": "decommissioned", "kind": "lifecycle",
+        "start": start, "end": end, "sources": ["src:demo-experiment-site"],
+        "verified_at": "2026-09-16", "confidence": confidence, "note": note,
+    })
+
+
+def test_a10_status_matches_a_terminal_interval_already_reached(root: Path) -> None:
+    """A3: the existence hull ends at the terminal interval's start, so
+    `state_at` at the build date legitimately answers "absent" (None) for a
+    decommissioned entity.  A10 must compare `status` against the terminal
+    interval's own status in that case, not against that `None`."""
+    def edit(r: dict) -> None:
+        _add_terminal_interval(r)
+        r["status"] = "decommissioned"
+    _mutate(root, "experiments/demo.json", edit)
+    findings = _validate(root)
+    assert not _findings(findings, "status-not-derived-state")
+
+
+def test_a10_status_still_errors_when_it_disagrees_with_the_reached_terminal_status(root: Path) -> None:
+    def edit(r: dict) -> None:
+        _add_terminal_interval(r)
+        # `status` left at "active": wrong once the terminal event has passed.
+    _mutate(root, "experiments/demo.json", edit)
+    findings = _validate(root)
+    matches = _findings(findings, "status-not-derived-state")
+    assert matches and all(finding.level == v.ERROR for finding in matches)
+    assert any("decommissioned" in finding.message for finding in matches)
+
+
+def test_a10_a_future_terminal_interval_does_not_yet_override_the_derived_state(root: Path) -> None:
+    """A terminal interval whose start has not happened yet (relative to the
+    build date) must not pre-empt A10's comparison — `status` is still
+    checked against the ordinary current derived state."""
+    def edit(r: dict) -> None:
+        _add_terminal_interval(r, start="2030", end=None, confidence="uncertain",
+                               note="future decommissioning; exact date not yet fixed")
+        r["status"] = "decommissioned"
+    _mutate(root, "experiments/demo.json", edit)
+    findings = _validate(root)
+    matches = _findings(findings, "status-not-derived-state")
+    assert matches, ("a not-yet-reached terminal interval must not excuse `status` from matching "
+                     "the ordinary derived state")
+
+
+# --- (2) display_magnitude's parsing bugs, at the validator level (the unit
+#     tests for the function itself live in test_atlas_schema.py). ---
+
+def test_a21_display_parsing_fix_stops_flagging_correct_data(root: Path) -> None:
+    def edit(r: dict) -> None:
+        r["specs"]["circumference"]["value"] = 3300
+        r["specs"]["circumference"]["unit"] = "m"
+        r["specs"]["circumference"]["display"] = "3 300 m"       # space-grouped thousands
+    _mutate(root, "accelerators/demo-synchrotron.json", edit)
+    findings = _validate(root)
+    assert not _findings(findings, "display-value-mismatch")
+    assert not _findings(findings, "display-value-drift")
+
+
+def test_a21_display_parsing_still_catches_a_real_mismatch(root: Path) -> None:
+    """The fix must not turn the check into a no-op: a display that genuinely
+    disagrees with `value`, once correctly parsed, still errors."""
+    def edit(r: dict) -> None:
+        r["specs"]["circumference"]["value"] = 3300
+        r["specs"]["circumference"]["unit"] = "m"
+        r["specs"]["circumference"]["display"] = "330 000 m"     # a real factor-100 disagreement
+    _mutate(root, "accelerators/demo-synchrotron.json", edit)
+    findings = _validate(root)
+    matches = _findings(findings, "display-value-mismatch")
+    assert matches and all(finding.level == v.ERROR for finding in matches)
+
+
+# --- (3) `part_of` excuses a chapter/volume from sharing its container's DOI. ---
+
+def test_a20_duplicate_source_url_still_errors_without_part_of(root: Path) -> None:
+    _mutate(root, "sources/demo-result-paper.json",
+            lambda r: r["reference"].__setitem__("doi", "10.0000/demo-tdr"))
+    findings = _validate(root)
+    matches = _findings(findings, "duplicate-source-url")
+    assert matches and all(finding.level == v.ERROR for finding in matches)
+
+
+def test_a20_part_of_excuses_a_shared_doi_from_its_container(root: Path) -> None:
+    def edit(r: dict) -> None:
+        r["reference"]["doi"] = "10.0000/demo-tdr"
+        r["part_of"] = "src:demo-tdr"
+    _mutate(root, "sources/demo-result-paper.json", edit)
+    findings = _validate(root)
+    assert not _findings(findings, "duplicate-source-url")
+
+
+def test_a20_part_of_pointing_nowhere_is_still_a_dangling_reference(root: Path) -> None:
+    _mutate(root, "sources/demo-result-paper.json",
+            lambda r: r.__setitem__("part_of", "src:does-not-exist"))
+    findings = _validate(root)
+    assert _findings(findings, "dangling-reference")
+
+
+# --- (4) alias-equals-name says what to do about it. ---
+
+def test_alias_equals_name_message_tells_the_author_what_to_do(root: Path) -> None:
+    _mutate(root, "experiments/demo.json", lambda r: r["aliases"].append("Demo Experiment"))
+    findings = _validate(root)
+    matches = _findings(findings, "alias-equals-name")
+    assert matches
+    assert all("remove this alias" in finding.message
+               and "case or punctuation" in finding.message for finding in matches)

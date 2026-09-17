@@ -686,9 +686,12 @@ def check_coordinates(ctx: _Context) -> Iterator[Finding]:
 
 
 def check_intervals(ctx: _Context) -> Iterator[Finding]:
-    """§2.3 / §4 / A12: `hi(end) < lo(start)`, a terminal status without an
-    `end`, two same-label intervals that overlap, a non-terminal interval that
-    starts after a terminal one, and the "start unknown" warning."""
+    """§2.3 / A3 / A12: `hi(end) < lo(start)` (which also covers a terminal
+    interval's `end`, when given — A3 supersedes §4's "a terminal status
+    needs an `end`": terminal statuses are events, `end` is optional, and the
+    only requirement is that it not be earlier than `start`), two same-label
+    intervals that overlap, a non-terminal interval that starts after a
+    terminal one, and the "start unknown" warning."""
     for _type, entity_id, record in ctx.atlas.iter_entities():
         path = ctx.path_of(entity_id)
         rows = _intervals(record)
@@ -698,13 +701,6 @@ def check_intervals(ctx: _Context) -> Iterator[Finding]:
             if start is not None and end is not None and end < start:
                 yield Finding(ERROR, 'interval-end-before-start', path, entity_id, pointer,
                               f'interval ends {end.isoformat()} before it starts {start.isoformat()}')
-            status = row.get('status')
-            if status in schema.TERMINAL_STATUSES and row.get('end') is None:
-                excused = row.get('confidence') == 'uncertain' and _text(row.get('note'))
-                if not excused:
-                    yield Finding(ERROR, 'terminal-interval-without-end', path, entity_id, pointer,
-                                  f'a terminal status ({status}) needs an `end` unless '
-                                  f'`confidence` is "uncertain" with a note (§4)')
             if 'start' in row and row.get('start') is None:
                 yield Finding(WARNING, 'interval-start-unknown', path, entity_id,
                               _pointer('intervals', index, 'start'),
