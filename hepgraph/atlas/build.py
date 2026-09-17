@@ -429,8 +429,46 @@ class _Context:
                 self.text[entity_id] = long_text
             if record.get('intervals'):
                 self.segments[entity_id] = schema.state_segments(record, build_day)
+        self._derive_site_segments(atlas, build_day)
         for collaboration_id in sorted(atlas.memberships):
             self._strip_membership_file(collaboration_id)
+
+    def _derive_site_segments(self, atlas: load.Atlas, build_day) -> None:
+        """Give each site the timeline of what stands there.
+
+        A site is a place and has no intervals of its own, but the globe has to
+        answer "what was here in 1990". Without this every site marker shows in
+        every year, so the ATLAS cavern appears a decade before it was dug and
+        the timeline changes nothing. The answer is the union of the experiments
+        whose detectors are placed at the site: a cavern is on the map when
+        something is in it.
+        """
+        by_site: dict[str, list[dict]] = {}
+        for detector in atlas.by_type('detector').values():
+            experiments = [atlas.get(eid) for eid in schema.ref_ids(detector.get('experiment_ids'))]
+            for placement in detector.get('placements') or []:
+                site_id = placement.get('site_id') if isinstance(placement, dict) else None
+                if not site_id:
+                    continue
+                # Prefer the experiments' own history; fall back to the
+                # detector's when an experiment records none.
+                sources = [e for e in experiments if e and e.get('intervals')] or [detector]
+                by_site.setdefault(site_id, []).extend(s for s in sources if s.get('intervals'))
+
+        for site_id, sources in by_site.items():
+            if site_id in self.segments or not atlas.get(site_id):
+                continue
+            merged: dict[int, tuple[str, str]] = {}
+            for source in sources:
+                for m0, m1, status, certainty in schema.state_segments(source, build_day):
+                    for month in range(m0, m1 + 1):
+                        # An operating state beats a speculative one when two
+                        # experiments share a hall.
+                        previous = merged.get(month)
+                        if previous is None or _state_rank(status) > _state_rank(previous[0]):
+                            merged[month] = (status, certainty)
+            if merged:
+                self.segments[site_id] = _run_length(merged)
 
     # -- long text (§8) ----------------------------------------------------
     def _extract_text(self, entity_type: str, entity_id: str, record: dict) -> dict:
@@ -536,6 +574,13 @@ def _atlas_record(ctx: _Context, entity_type: str, entity_id: str,
     if authored.get('intervals'):
         record['state_segments'] = ctx.segments.get(entity_id, [])
         record['status'] = ctx.status_at_build(authored)
+    elif entity_id in ctx.segments:
+        # A site has no intervals of its own; its timeline is derived from what
+        # stands there, so the globe can answer "what was here in 1990". Its
+        # status follows from the same derivation rather than being authored.
+        segments = ctx.segments[entity_id]
+        record['state_segments'] = segments
+        record['status'] = _status_from_segments(segments, ctx.build_day)
 
     flags = coverage_flags.get(entity_id)
     if flags:
@@ -687,6 +732,32 @@ def _plain_date(value: Any) -> Any:
         text = schema.date_text(value)
         return text if set(value) <= schema.DATE_OBJECT_KEYS else value
     return value
+
+
+def _status_from_segments(segments: list[list], build_day: _dt.date) -> str | None:
+    """The derived status a site has at the build date, from its own segments."""
+    month = (build_day.year - 1950) * 12 + (build_day.month - 1)
+    for m0, m1, status, _certainty in segments:
+        if m0 <= month <= m1:
+            return status
+    return segments[-1][2] if segments else None
+
+
+def _state_rank(status: str) -> int:
+    """How strongly a status claims a site; unknown statuses rank lowest."""
+    return schema.STATE_RANK.get(status, -1)
+
+
+def _run_length(months: dict[int, tuple[str, str]]) -> list[list]:
+    """Collapse a month -> (status, certainty) map into `state_segments`."""
+    out: list[list] = []
+    for month in sorted(months):
+        status, certainty = months[month]
+        if out and out[-1][1] == month - 1 and out[-1][2] == status and out[-1][3] == certainty:
+            out[-1][1] = month
+        else:
+            out.append([month, month, status, certainty])
+    return out
 
 
 def _link_people_bundles(files: dict[str, dict], people_bundles: dict[str, dict]) -> None:

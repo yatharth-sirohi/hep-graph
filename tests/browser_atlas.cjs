@@ -19,6 +19,10 @@ const duneLabel = process.env.HEP_ATLAS_DATA === "generated"
   ? "Deep Underground Neutrino Experiment" : "DUNE — Experiment";
 const duneHeading = process.env.HEP_ATLAS_DATA === "generated"
   ? "Deep Underground Neutrino Experiment" : "DUNE";
+// The ATLAS cavern, whose marker must vanish in 1990.
+const atlasCavernId = process.env.HEP_ATLAS_DATA === "generated"
+  ? "site:cern-point-1-atlas" : "site:cern-lhc-point-1";
+const atlasCavernSelector = `.atlas-marker[data-id="${atlasCavernId}"]`;
 const output = process.env.HEP_ATLAS_OUTPUT || path.join(__dirname, "../test-results/atlas");
 fs.mkdirSync(output, { recursive: true });
 
@@ -96,11 +100,11 @@ async function setRangeValue(locator, value) {
 
   await record("Setting the year to 1990 hides the not-yet-built ATLAS cavern site", async () => {
     await setRangeValue(page.locator("#timeline-year"), 1990);
-    await page.waitForFunction(() => {
-      const el = document.querySelector('.atlas-marker[data-id="site:cern-lhc-point-1"]');
+    await page.waitForFunction((selector) => {
+      const el = document.querySelector(selector);
       return !!el && (el.classList.contains("is-absent") || el.classList.contains("is-dimmed"));
-    }, { timeout: 5000 });
-    const state = await page.locator('.atlas-marker[data-id="site:cern-lhc-point-1"]').evaluate((el) => ({
+    }, atlasCavernSelector, { timeout: 5000 });
+    const state = await page.locator(atlasCavernSelector).evaluate((el) => ({
       absent: el.classList.contains("is-absent"),
       dimmed: el.classList.contains("is-dimmed"),
       display: getComputedStyle(el).display,
