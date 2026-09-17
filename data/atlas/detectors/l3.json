@@ -1,0 +1,171 @@
+{
+  "aliases": [
+    "L3"
+  ],
+  "coverage": {
+    "researched": "full",
+    "tier": "A",
+    "validated": false
+  },
+  "distinct_from": [],
+  "document_ids": [
+    "document:l3-detector-nim-1990"
+  ],
+  "experiment_ids": [
+    "experiment:l3"
+  ],
+  "id": "detector:l3",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "1989-08",
+      "label": "construction",
+      "note": "Bounded by the CERN LEPC approval date and L3's data-taking start; no separate detector-construction date sourced.",
+      "sources": [
+        "src:l3-inspire-experiment-record"
+      ],
+      "start": "1982-11-18",
+      "status": "construction",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": "2000-11",
+      "label": "operation",
+      "locator": "home.cern L3 page",
+      "note": "",
+      "quote": "It started up in 1989 and stopped taking data in November 2000",
+      "sources": [
+        "src:l3-cern-experiment-page"
+      ],
+      "start": "1989-08",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "completed",
+      "locator": "home.cern L3 page",
+      "note": "",
+      "quote": "Data taking ended November 2000.",
+      "sources": [
+        "src:l3-cern-experiment-page"
+      ],
+      "start": "2000-11",
+      "status": "completed",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "links": {},
+  "name": "L3 detector",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": "2000-11",
+      "note": "Start approximated at CERN LEPC approval (no explicit installation-start date sourced); end at L3's own quoted stop date. Point-2 attribution inferred (see site record notes).",
+      "role": "main",
+      "site_id": "site:cern-lep-point-2-l3",
+      "sources": [
+        "src:lep-cern-courier-l3-magnet-alice",
+        "src:l3-inspire-experiment-record"
+      ],
+      "start": "1982-11-18",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:l3-cern-experiment-page",
+    "src:lep-cern-courier-l3-magnet-alice"
+  ],
+  "specs": {
+    "calorimeters": {
+      "confidence": "verified",
+      "locator": "home.cern L3 page",
+      "note": "",
+      "quote": "electromagnetic calorimeter (called the 'BGO' - it was made of bismuth germanium oxide), a hadronic calorimeter and a muon detector",
+      "sources": [
+        "src:l3-cern-experiment-page"
+      ],
+      "value": "Bismuth-germanate (BGO) electromagnetic calorimeter, plus a hadronic calorimeter",
+      "verified_at": "2026-09-17"
+    },
+    "muon_system": {
+      "confidence": "verified",
+      "locator": "home.cern L3 page",
+      "note": "",
+      "quote": "a hadronic calorimeter and a muon detector\" ... \"scintillation counters",
+      "sources": [
+        "src:l3-cern-experiment-page"
+      ],
+      "value": "Muon detector with scintillation counters",
+      "verified_at": "2026-09-17"
+    },
+    "tracker": {
+      "confidence": "verified",
+      "locator": "home.cern L3 page",
+      "note": "",
+      "quote": "silicon strip microvertex detector and a time-expansion chamber",
+      "sources": [
+        "src:l3-cern-experiment-page"
+      ],
+      "value": "Silicon strip microvertex detector and a time-expansion chamber",
+      "verified_at": "2026-09-17"
+    }
+  },
+  "status": "completed",
+  "subsystems": [
+    {
+      "description": {
+        "confidence": "verified",
+        "locator": "home.cern L3 page",
+        "note": "",
+        "quote": "electromagnetic calorimeter (called the 'BGO' - it was made of bismuth germanium oxide)",
+        "sources": [
+          "src:l3-cern-experiment-page"
+        ],
+        "value": "Bismuth-germanate crystal calorimeter giving very high resolution for electrons and photons.",
+        "verified_at": "2026-09-17"
+      },
+      "name": "BGO electromagnetic calorimeter"
+    },
+    {
+      "description": {
+        "confidence": "verified",
+        "locator": "CERN Courier, 'ALICE: new kid on the block' (archive)",
+        "note": "",
+        "quote": "the detector is of moderate proportions, being based on the current magnet of LEP's L3 experiment",
+        "sources": [
+          "src:lep-cern-courier-l3-magnet-alice"
+        ],
+        "value": "A very large solenoid magnet, later reused as ALICE's central magnet at the same LEP/LHC point.",
+        "verified_at": "2026-09-17"
+      },
+      "name": "Solenoid magnet"
+    }
+  ],
+  "summary": {
+    "plain": "A detector at LEP's Point 2 built to measure electrons, muons and photons with exceptional precision, using dense bismuth-germanate crystals and one of the largest magnets ever built for a particle detector.",
+    "technical": "L3-optimised (not fully general-purpose) LEP detector: silicon-strip microvertex detector and time-expansion chamber for tracking, a bismuth-germanate (BGO) electromagnetic calorimeter, a hadron calorimeter, a muon spectrometer and scintillation counters, all inside a very large solenoid magnet. That magnet was left in place after LEP shut down and now forms the core of the ALICE detector at the same point."
+  },
+  "superseded_by": null,
+  "technology": {
+    "confidence": "verified",
+    "locator": "'The Construction of the L3 Experiment', Nucl.Instrum.Meth.A 289 (1990) 35, abstract",
+    "note": "",
+    "quote": "It is the only detector that concentrates its efforts on limited goals of measuring electrons, muons and photons.",
+    "sources": [
+      "src:lep-inspire-detector-papers"
+    ],
+    "value": "Collider detector optimised for high-resolution electron, muon and photon measurement, built around a bismuth-germanate calorimeter and a very large solenoid magnet",
+    "verified_at": "2026-09-17"
+  },
+  "technology_class": "general_purpose_collider",
+  "technology_classes": [
+    "general_purpose_collider"
+  ],
+  "type": "detector"
+}

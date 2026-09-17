@@ -1,0 +1,61 @@
+{
+  "aliases": [
+    "LSS4",
+    "UA2 experimental area",
+    "Underground Area 2"
+  ],
+  "altitude": null,
+  "coordinates": {
+    "confidence": "uncertain",
+    "kind": "approximate_region",
+    "lat": 46.2338702,
+    "lon": 6.0469869,
+    "note": "Anchored on the CERN Meyrin site geocoder point (reused from site:cern-meyrin); the SPS ring's Long Straight Section 4, where UA2 is reserved in the id registry, was not independently located by a fetched source in this session. precision_m 3000 honestly covers the ring's ~1.1 km radius from this anchor.",
+    "precision_m": 3000,
+    "quote": "lat 46.2338702, lon 6.0469869, display_name 'CERN - Site de Meyrin, Route Gregory, Saint-Genis-Pouilly, Gex, Ain, ... France', osm_id 27005",
+    "sources": [
+      "src:cern-meyrin-osm-nominatim"
+    ],
+    "verified_at": "2026-09-17"
+  },
+  "countries": [
+    "CH",
+    "FR"
+  ],
+  "country": "CH",
+  "coverage": {
+    "researched": "full",
+    "tier": "A",
+    "validated": false
+  },
+  "depth": null,
+  "depth_mwe": null,
+  "depth_rock": null,
+  "distinct_from": [],
+  "facility_id": "facility:cern",
+  "id": "site:cern-sps-lss4-ua2",
+  "links": {},
+  "name": "SPS Long Straight Section 4 (UA2 hall)",
+  "notes": [
+    "REVIEW REQUIRED (A17 / honesty note): no official CERN page or archives-guide text fetched in this session states the Long Straight Section number (LSS4 vs LSS5) for UA1 or UA2 explicitly; both archives-guide pages were checked specifically for 'LSS', 'Long Straight Section', 'Point 4/5' wording and neither contains it. The LSS4-for-UA2 assignment follows the pre-existing reservation in docs/atlas-worklog/ID_REGISTRY.md, not an independently fetched source, so coordinates.confidence is 'uncertain' and the precision is set to cover the whole SPS ring.",
+    "Coordinates are the CERN Meyrin main-site geocoder point (site:cern-meyrin), reused as the best available anchor; precision_m 3000 is chosen to cover the ~7 km SPS ring, not a survey of the specific hall."
+  ],
+  "place": {
+    "city": "Meyrin",
+    "country": "CH",
+    "region": "Geneva"
+  },
+  "schema": "hep-atlas/0.2",
+  "setting": "underground",
+  "sources": [
+    "src:ua2-cern-archives-guide",
+    "src:ua2-cern-experiment-page",
+    "src:cern-meyrin-osm-nominatim"
+  ],
+  "summary": {
+    "plain": "The underground hall on CERN's Super Proton Synchrotron ring where the UA2 detector sat to catch head-on collisions between protons and antiprotons.",
+    "technical": "One of the SPS's experimental insertion points, conventionally identified as Long Straight Section 4, where UA2 was installed around the beam pipe for the 1981-1990 SppS collider programme."
+  },
+  "superseded_by": null,
+  "type": "site"
+}

@@ -9,6 +9,7 @@
   },
   "formation": {
     "confidence": "uncertain",
+    "locator": "SBN proposal (arXiv:1503.01520, as LAr1-ND) (no formation date stated)",
     "note": "No fetched source states an explicit collaboration formation date; left null rather than inferred from the Technical Design Report or first-run date.",
     "sources": [
       "src:sbn-proposal-2015"
@@ -21,14 +22,17 @@
   "id": "collaboration:sbnd",
   "intervals": [
     {
-      "confidence": "verified",
+      "confidence": "approximate",
       "end": null,
       "label": "collaboration",
-      "note": "Start unknown: no fetched source states a collaboration formation date; the 2015 SBN proposal (as LAr1-ND) is the earliest dated collaboration document found.",
+      "locator": "arXiv:1503.01520, title",
+      "note": "True formation date not sourced; start is a lower bound taken from the March 2015 SBN proposal, in which this collaboration is named LAr1-ND, the earliest dated collaboration document found.",
+      "quote": "A Proposal for a Three Detector Short-Baseline Neutrino Oscillation Program in the Fermilab Booster Neutrino Beam",
       "sources": [
+        "src:sbn-proposal-2015",
         "src:sbnd-fermilab-news-2024-first-neutrinos"
       ],
-      "start": null,
+      "start": "2015-03",
       "status": "active",
       "verified_at": "2026-09-17"
     }

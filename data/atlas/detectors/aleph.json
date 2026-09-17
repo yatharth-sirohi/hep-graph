@@ -1,0 +1,178 @@
+{
+  "aliases": [
+    "ALEPH"
+  ],
+  "coverage": {
+    "researched": "full",
+    "tier": "A",
+    "validated": false
+  },
+  "distinct_from": [],
+  "document_ids": [
+    "document:aleph-detector-nim-1990"
+  ],
+  "experiment_ids": [
+    "experiment:aleph"
+  ],
+  "id": "detector:aleph",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "1989-07",
+      "label": "construction",
+      "note": "Bounded by the CERN LEPC approval date and ALEPH's first measured events; no separate detector-construction date sourced.",
+      "sources": [
+        "src:aleph-inspire-experiment-record"
+      ],
+      "start": "1982-11-18",
+      "status": "construction",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": "2000-11",
+      "label": "operation",
+      "locator": "home.cern ALEPH page",
+      "note": "",
+      "quote": "ALEPH first measured events in LEP in July 1989.",
+      "sources": [
+        "src:aleph-cern-experiment-page",
+        "src:aleph-cern-courier-article"
+      ],
+      "start": "1989-07",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "completed",
+      "locator": "INSPIRE experiment record 1109311, field date_completed",
+      "note": "",
+      "quote": "\"date_completed\":\"2000-11\"",
+      "sources": [
+        "src:aleph-inspire-experiment-record"
+      ],
+      "start": "2000-11",
+      "status": "completed",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "links": {},
+  "name": "ALEPH detector",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": "2000-11",
+      "locator": "CERN Courier ALEPH page",
+      "note": "Start approximated at CERN LEPC approval (no explicit installation-start date sourced); end at ALEPH's INSPIRE date_completed.",
+      "quote": "Located at point 4 of the LEP ring",
+      "role": "main",
+      "site_id": "site:cern-lep-point-4-aleph",
+      "sources": [
+        "src:aleph-cern-courier-article",
+        "src:aleph-inspire-experiment-record"
+      ],
+      "start": "1982-11-18",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:aleph-cern-experiment-page",
+    "src:aleph-cern-courier-article"
+  ],
+  "specs": {
+    "calorimeters": {
+      "confidence": "verified",
+      "locator": "home.cern ALEPH page",
+      "note": "",
+      "quote": "an electromagnetic calorimeter to identify electrons and photons; a hadron calorimeter to detect hadrons",
+      "sources": [
+        "src:aleph-cern-experiment-page"
+      ],
+      "value": "Electromagnetic calorimeter to identify electrons and photons; hadron calorimeter to detect hadrons",
+      "verified_at": "2026-09-17"
+    },
+    "solenoid_field": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "magnetic_field",
+      "display": "1.5 T",
+      "locator": "home.cern ALEPH page",
+      "note": "",
+      "quote": "a superconducting coil, 6.3 metres long and 5.3 metres in diameter, to provide the 1.5 tesla magnetic field",
+      "sources": [
+        "src:aleph-cern-experiment-page"
+      ],
+      "unit": "T",
+      "value": 1.5,
+      "verified_at": "2026-09-17"
+    },
+    "tracker": {
+      "confidence": "verified",
+      "locator": "home.cern ALEPH page",
+      "note": "",
+      "quote": "a vertex detector composed of two layers of double-sided silicon microstrips; an inner drift-chamber that provided 8 tracking coordinates and a trigger signal for charged particles from the interaction point; a time projection chamber - 4.4 metres long and 3.6 metres in diameter",
+      "sources": [
+        "src:aleph-cern-experiment-page"
+      ],
+      "value": "Silicon-microstrip vertex detector (two double-sided layers), 8-coordinate inner drift chamber with trigger, and a 4.4 m x 3.6 m time projection chamber",
+      "verified_at": "2026-09-17"
+    }
+  },
+  "status": "completed",
+  "subsystems": [
+    {
+      "description": {
+        "confidence": "verified",
+        "locator": "home.cern ALEPH page",
+        "note": "",
+        "quote": "a time projection chamber - 4.4 metres long and 3.6 metres in diameter - to detect charged particles",
+        "sources": [
+          "src:aleph-cern-experiment-page"
+        ],
+        "value": "4.4 m long, 3.6 m in diameter, the central charged-particle tracker.",
+        "verified_at": "2026-09-17"
+      },
+      "name": "Time projection chamber"
+    },
+    {
+      "description": {
+        "confidence": "verified",
+        "locator": "home.cern ALEPH page",
+        "note": "",
+        "quote": "a superconducting coil, 6.3 metres long and 5.3 metres in diameter, to provide the 1.5 tesla magnetic field",
+        "sources": [
+          "src:aleph-cern-experiment-page"
+        ],
+        "value": "6.3 m long, 5.3 m in diameter, providing a 1.5 T magnetic field.",
+        "verified_at": "2026-09-17"
+      },
+      "name": "Superconducting solenoid"
+    }
+  ],
+  "summary": {
+    "plain": "A cylindrical, general-purpose detector at LEP's Point 4, built around a giant gas chamber and a superconducting magnet to track and identify particles from electron-positron collisions.",
+    "technical": "General-purpose LEP detector: silicon-microstrip vertex detector (two double-sided layers), an 8-coordinate inner drift chamber with trigger, a 4.4 m x 3.6 m time projection chamber, electromagnetic and hadron calorimeters, and a 6.3 m x 5.3 m superconducting coil providing a 1.5 T field."
+  },
+  "superseded_by": null,
+  "technology": {
+    "confidence": "verified",
+    "locator": "CERN Courier ALEPH page",
+    "note": "",
+    "quote": "a large superconducting coil enclosing a Time Projection Chamber as central track detector",
+    "sources": [
+      "src:aleph-cern-courier-article"
+    ],
+    "value": "General-purpose collider detector with a large-volume time projection chamber inside a superconducting solenoid",
+    "verified_at": "2026-09-17"
+  },
+  "technology_class": "general_purpose_collider",
+  "technology_classes": [
+    "general_purpose_collider"
+  ],
+  "type": "detector"
+}

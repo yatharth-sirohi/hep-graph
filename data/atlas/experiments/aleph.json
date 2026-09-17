@@ -1,0 +1,243 @@
+{
+  "accelerator_ids": [
+    "accelerator:lep"
+  ],
+  "aliases": [
+    "Apparatus for LEP PHysics",
+    "ALEPH experiment"
+  ],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:aleph"
+  ],
+  "coverage": {
+    "researched": "full",
+    "tier": "A",
+    "validated": false
+  },
+  "distinct_from": [],
+  "energy_regime": {
+    "confidence": "verified",
+    "locator": "home.cern ALEPH page",
+    "note": "",
+    "quote": "LEP operated at around 91 GeV\" initially, and \"From 1995 the accelerator operated at energies up to 200 GeV.",
+    "sources": [
+      "src:aleph-cern-experiment-page"
+    ],
+    "value": "Electron-positron collisions at and above the Z resonance (about 91 GeV, rising to 200 GeV from 1995)",
+    "verified_at": "2026-09-17"
+  },
+  "external": {
+    "greybook": null,
+    "inspire_experiment": 1109311,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "facility_id": "facility:cern",
+      "note": "",
+      "quote": "ALEPH first measured events in LEP in July 1989.",
+      "role": "host",
+      "sources": [
+        "src:aleph-cern-experiment-page"
+      ],
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "id": "experiment:aleph",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "1982-11-18",
+      "label": "proposal",
+      "locator": "INSPIRE experiments search 'LEP'",
+      "note": "INSPIRE's date_proposed is recorded at year precision '1982' for DELPHI, L3 and OPAL, and as '1982-01-01' for ALEPH; the day-of-January value for ALEPH looks like a default rather than a sourced day, so all four are treated here as year-precision 1982. (ALEPH experiment record 1109311 gives date_proposed '1982-01-01')",
+      "quote": "CERN-LEP-ALEPH / CERN-LEP-DELPHI / CERN-LEP-L3 / CERN-LEP-OPAL: approved 1982-11-18, started 1989-08",
+      "sources": [
+        "src:lep-inspire-experiment-search"
+      ],
+      "start": "1982",
+      "status": "proposed",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": "1989-08",
+      "label": "approval (CERN LEPC)",
+      "locator": "INSPIRE experiment record, field date_approved",
+      "note": "",
+      "quote": "\"date_approved\":\"1982-11-18\"",
+      "sources": [
+        "src:aleph-inspire-experiment-record"
+      ],
+      "start": "1982-11-18",
+      "status": "approved",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "approximate",
+      "end": "1989-08",
+      "label": "construction",
+      "note": "No experiment-specific 'construction began' sentence was fetched; bounded by the sourced CERN LEPC approval date and the sourced start of data-taking. The LEP tunnel itself was excavated 1985-1988 (accelerator:lep intervals).",
+      "sources": [
+        "src:aleph-inspire-experiment-record"
+      ],
+      "start": "1982-11-18",
+      "status": "construction",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": "2000-11",
+      "label": "LEP data taking",
+      "locator": "home.cern ALEPH page",
+      "note": "home.cern's own ALEPH page gives 'July 1989' for first measured events; the CERN Courier retrospective gives 'began data-taking in July 1989 and operated for 11 years until the end of LEP programme'; INSPIRE's date_completed is '2000-11'.",
+      "quote": "ALEPH first measured events in LEP in July 1989.",
+      "sources": [
+        "src:aleph-cern-experiment-page",
+        "src:aleph-cern-courier-article",
+        "src:aleph-inspire-experiment-record"
+      ],
+      "start": "1989-07",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "completed",
+      "locator": "INSPIRE experiment record 1109311, field date_completed",
+      "note": "",
+      "quote": "\"date_completed\":\"2000-11\"",
+      "sources": [
+        "src:aleph-inspire-experiment-record"
+      ],
+      "start": "2000-11",
+      "status": "completed",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Time projection chamber",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "length",
+        "display": "4.4 m long x 3.6 m diameter",
+        "locator": "home.cern ALEPH page",
+        "max": 4.4,
+        "min": 4.4,
+        "note": "",
+        "quote": "a time projection chamber - 4.4 metres long and 3.6 metres in diameter - to detect charged particles",
+        "sources": [
+          "src:aleph-cern-experiment-page"
+        ],
+        "unit": "m",
+        "verified_at": "2026-09-17"
+      }
+    },
+    {
+      "label": "Solenoid magnetic field",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "magnetic_field",
+        "display": "1.5 T",
+        "locator": "home.cern ALEPH page",
+        "note": "",
+        "quote": "a superconducting coil, 6.3 metres long and 5.3 metres in diameter, to provide the 1.5 tesla magnetic field",
+        "sources": [
+          "src:aleph-cern-experiment-page"
+        ],
+        "unit": "T",
+        "value": 1.5,
+        "verified_at": "2026-09-17"
+      }
+    },
+    {
+      "label": "Collaboration size",
+      "quantity": {
+        "approx": true,
+        "confidence": "verified",
+        "dimension": "count",
+        "display": "~300 scientists, 25 institutes, 9 countries",
+        "locator": "CERN Courier ALEPH page",
+        "note": "",
+        "quote": "some 300 scientists from 25 research centres in nine countries and three continents",
+        "sources": [
+          "src:aleph-cern-courier-article"
+        ],
+        "unit": "",
+        "value": 300,
+        "verified_at": "2026-09-17"
+      }
+    }
+  ],
+  "kind": "collider",
+  "lineage": [],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "note": "",
+      "sources": [
+        "src:aleph-cern-experiment-page"
+      ],
+      "value": "https://home.cern/science/experiments/aleph",
+      "verified_at": "2026-09-17"
+    }
+  },
+  "name": "ALEPH",
+  "notes": [
+    "'ALEPH: Apparatus for LEP Physics' per the experiment's INSPIRE long_name (src:aleph-inspire-experiment-record).",
+    "home.cern's own ALEPH page dates first measured events to 'July 1989', one month ahead of the collaboration-wide August 1989 start used for DELPHI/L3/OPAL; both are recorded (home.cern's July 1989 as the interval start, since it is ALEPH-specific and more precise)."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "CERN Courier ALEPH page",
+      "note": "",
+      "quote": "began data-taking in July 1989 and operated for 11 years until the end of LEP programme",
+      "sources": [
+        "src:aleph-cern-courier-article"
+      ],
+      "value": "Make precision measurements of the Z and W bosons produced in electron-positron collisions at LEP",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:aleph-cern-experiment-page",
+    "src:aleph-cern-courier-article",
+    "src:aleph-inspire-experiment-record"
+  ],
+  "status": "completed",
+  "summary": {
+    "plain": "One of four giant detectors on CERN's LEP electron-positron collider from 1989 to 2000, used to study the Z and W bosons with great precision, including proving there are exactly three kinds of light neutrino.",
+    "technical": "General-purpose LEP detector at interaction Point 4: silicon-microstrip vertex detector, inner drift chamber, a 4.4 m long x 3.6 m diameter time projection chamber, electromagnetic and hadron calorimeters and a superconducting coil (6.3 m long x 5.3 m diameter, 1.5 T) providing the magnetic field. Approved by the CERN LEPC on 18 November 1982; took data from July/August 1989 to November 2000."
+  },
+  "superseded_by": null,
+  "topic_ids": [
+    "topic:collider-physics",
+    "topic:electroweak-physics",
+    "topic:higgs-physics",
+    "topic:qcd",
+    "topic:b-physics"
+  ],
+  "type": "experiment",
+  "unique_capabilities": [
+    {
+      "confidence": "verified",
+      "locator": "home.cern ALEPH page",
+      "note": "",
+      "quote": "a time projection chamber - 4.4 metres long and 3.6 metres in diameter - to detect charged particles",
+      "sources": [
+        "src:aleph-cern-experiment-page"
+      ],
+      "value": "A large time-projection chamber (4.4 m long, 3.6 m diameter) inside a 1.5 T superconducting solenoid for precise charged-particle tracking",
+      "verified_at": "2026-09-17"
+    }
+  ]
+}

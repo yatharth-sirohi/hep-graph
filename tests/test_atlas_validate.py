@@ -336,7 +336,15 @@ def _add_uncited_source(root: Path) -> None:
      lambda r: r["members"][0].__setitem__("sources", [_EXTRA_SOURCE_ID])),
     ("results/demo-oscillation-observation-2020.json",
      lambda r: r["claim"].__setitem__("sources", [_EXTRA_SOURCE_ID])),
-], ids=["interval", "quantity", "coordinates", "placement", "leadership", "membership-row", "claim"])
+    ("experiments/demo.json",
+     lambda r: r["facility_roles"][0].__setitem__("sources", [_EXTRA_SOURCE_ID])),
+    ("beamlines/demo-beam.json",
+     lambda r: r["baselines"][0].__setitem__("sources", [_EXTRA_SOURCE_ID])),
+    ("experiments/demo.json",
+     lambda r: r["lineage"].append({"experiment_id": "experiment:demo", "relation": "same_program",
+                                    "sources": [_EXTRA_SOURCE_ID]})),
+], ids=["interval", "quantity", "coordinates", "placement", "leadership", "membership-row", "claim",
+        "facility-role", "baseline", "lineage-row"])
 def test_a22_every_citation_path_marks_a_source_as_cited(root: Path, relative: str,
                                                          edit: Callable[[dict], None]) -> None:
     """A brand-new, otherwise-uncited source is cited through each provenance

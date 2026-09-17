@@ -1,0 +1,251 @@
+{
+  "accelerator_ids": [
+    "accelerator:sps"
+  ],
+  "aliases": [
+    "Underground Area 1",
+    "UA1 experiment"
+  ],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:ua1"
+  ],
+  "coverage": {
+    "researched": "full",
+    "tier": "A",
+    "validated": false
+  },
+  "distinct_from": [],
+  "energy_regime": {
+    "confidence": "verified",
+    "locator": "INSPIRE experiment record 1109643, long_name; 1983 discovery papers quote 540 GeV",
+    "note": "",
+    "quote": "A 4-pi Solid Angle Detector for the SPS Used as a pp-bar Collider at a c.m. Energy of 630 GeV",
+    "sources": [
+      "src:ua1-inspire-w-z-discovery-papers",
+      "src:ua1-inspire-experiment-record"
+    ],
+    "value": "Proton-antiproton collisions at 540-630 GeV centre-of-mass energy",
+    "verified_at": "2026-09-17"
+  },
+  "external": {
+    "greybook": null,
+    "inspire_experiment": 1109643,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "facility_id": "facility:cern",
+      "note": "",
+      "quote": "UA1 (Underground Area 1) was a particle detector at the Super Proton Synchrotron (SPS).",
+      "role": "host",
+      "sources": [
+        "src:ua1-cern-experiment-page"
+      ],
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "id": "experiment:ua1",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "1978-06-29",
+      "label": "proposal",
+      "locator": "INSPIRE experiment record 1109643, field date_proposed",
+      "note": "",
+      "quote": "\"date_proposed\":\"1978-01-30\"",
+      "sources": [
+        "src:ua1-inspire-experiment-record"
+      ],
+      "start": "1978-01-30",
+      "status": "proposed",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": "1981-07-17",
+      "label": "approval",
+      "locator": "INSPIRE experiment record 1109643, field date_approved",
+      "note": "",
+      "quote": "\"date_approved\":\"1978-06-29\"",
+      "sources": [
+        "src:ua1-inspire-experiment-record"
+      ],
+      "start": "1978-06-29",
+      "status": "approved",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "approximate",
+      "end": "1981-07-17",
+      "label": "construction",
+      "locator": "CERN archives guide, isaua1",
+      "note": "No explicit 'construction began' sentence was found; bounded by the sourced approval date and the sourced start of data-taking. The CERN archives guide separately says the UA1 project 'began in 1976' as an idea/design phase, predating the formal 1978 proposal.",
+      "quote": "The UA1 project began in 1976; the idea was to detect the communicators of weak interaction (W and Z bosons)",
+      "sources": [
+        "src:ua1-cern-archives-guide",
+        "src:ua1-inspire-experiment-record"
+      ],
+      "start": "1978-06-29",
+      "status": "construction",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": "1990-02",
+      "label": "SppS data taking",
+      "locator": "home.cern UA1 page",
+      "note": "INSPIRE's date_started (1981-07-17) is used as the sourced start; home.cern's own narrative ('It ran from 1981 until 1990') and the archives guide's 'In summer 1981 the first collision ... was recorded' corroborate the year. The run had short accelerator shutdowns within this span (e.g. Dec 1982-Apr 1983 per the archives guide) that are not modelled as separate intervals.",
+      "quote": "It ran from 1981 until 1990, when the SPS was used as a proton-antiproton collider, searching for traces of W and Z particles in collisions.",
+      "sources": [
+        "src:ua1-inspire-experiment-record",
+        "src:ua1-cern-experiment-page"
+      ],
+      "start": "1981-07-17",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": "1990-02",
+      "label": "second-phase upgrade",
+      "locator": "INSPIRE experiment record 1109643, field description",
+      "note": "INSPIRE's own description of the experiment record.",
+      "quote": "For the second phase of operation (1988/89 collider runs) the following items were upgraded: the muon detection system, the data acquisition system, and the central detector.",
+      "sources": [
+        "src:ua1-inspire-experiment-record"
+      ],
+      "start": "1988",
+      "status": "upgrade",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "completed",
+      "locator": "INSPIRE experiment record 1109643, field date_completed",
+      "note": "",
+      "quote": "\"date_completed\":\"1990-02\"",
+      "sources": [
+        "src:ua1-inspire-experiment-record"
+      ],
+      "start": "1990-02",
+      "status": "completed",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Central detector (drift chamber)",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "length",
+        "display": "5.8 m long x 2.3 m diameter",
+        "locator": "home.cern UA1 page",
+        "max": 5.8,
+        "min": 5.8,
+        "note": "",
+        "quote": "The central detector of UA1 was a six-chambered cylinder, 5.8 metres long and 2.3 metres in diameter. It was the largest imaging drift chamber of its day.",
+        "sources": [
+          "src:ua1-cern-experiment-page"
+        ],
+        "unit": "m",
+        "verified_at": "2026-09-17"
+      }
+    },
+    {
+      "label": "Dipole magnet mass",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "mass",
+        "display": "800 t",
+        "locator": "home.cern UA1 page",
+        "note": "",
+        "quote": "An 800-tonne conventional electromagnet",
+        "sources": [
+          "src:ua1-cern-experiment-page"
+        ],
+        "unit": "t",
+        "value": 800,
+        "verified_at": "2026-09-17"
+      }
+    }
+  ],
+  "kind": "collider",
+  "lineage": [],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "note": "",
+      "sources": [
+        "src:ua1-cern-experiment-page"
+      ],
+      "value": "https://home.cern/science/experiments/ua1",
+      "verified_at": "2026-09-17"
+    }
+  },
+  "name": "UA1",
+  "notes": [
+    "The INSPIRE experiment record's own long_name is 'A 4-pi Solid Angle Detector for the SPS Used as a pp-bar Collider at a c.m. Energy of 630 GeV' (src:ua1-inspire-experiment-record); the 1983 discovery papers instead quote a c.m. energy of 540 GeV, reflecting the SppS's staged energy increase.",
+    "home.cern's own UA1 page and the CERN archives guide give slightly different early narratives (archives guide: project conception in 1976, first proton-antiproton collisions in summer 1981, 'first experiments' in November 1981; INSPIRE: date_started 1981-07-17). The INSPIRE date is used as the sourced start of physics data-taking; the narrative dates are recorded in this note rather than as separate sourced intervals."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "INSPIRE experiment record 1109643, field description",
+      "note": "",
+      "quote": "In the first phase of operation has discovered the W and Z bosons and found limits on the top quark, heavy lepton, and supersymmetric particle masses.",
+      "sources": [
+        "src:ua1-inspire-experiment-record"
+      ],
+      "value": "Discover the W and Z bosons, the carriers of the weak nuclear force, by colliding protons with antiprotons at the highest energy then available",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "locator": "INSPIRE experiment record 1109643, field description",
+      "note": "",
+      "quote": "Also studied B BBAR mixing, b-quark production, QCD (via jets), and intermediate bosons and photon production.",
+      "sources": [
+        "src:ua1-inspire-experiment-record"
+      ],
+      "value": "Search for the top quark, heavy leptons and supersymmetric particles, and study B-Bbar mixing, b-quark production, QCD jets and intermediate-boson and photon production",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:ua1-cern-experiment-page",
+    "src:ua1-cern-archives-guide",
+    "src:ua1-inspire-experiment-record"
+  ],
+  "status": "completed",
+  "summary": {
+    "plain": "A giant particle detector built around CERN's Super Proton Synchrotron in the early 1980s, when the machine was turned into a proton-antiproton collider. UA1 co-discovered the W and Z bosons, the carriers of the weak nuclear force.",
+    "technical": "General-purpose 4-pi collider detector at the CERN SppS (Super Proton-Antiproton Synchrotron), operated 1981-1990; central image drift chamber, electromagnetic and hadronic calorimetry and muon chambers around an 800-tonne dipole magnet. Co-discovered the W (Jan 1983) and Z (1983) bosons with UA2 and provided early limits on the top quark and supersymmetric particles."
+  },
+  "superseded_by": null,
+  "topic_ids": [
+    "topic:collider-physics",
+    "topic:electroweak-physics",
+    "topic:qcd"
+  ],
+  "type": "experiment",
+  "unique_capabilities": [
+    {
+      "confidence": "verified",
+      "locator": "home.cern UA1 page",
+      "note": "",
+      "quote": "The central detector of UA1 was a six-chambered cylinder, 5.8 metres long and 2.3 metres in diameter. It was the largest imaging drift chamber of its day.",
+      "sources": [
+        "src:ua1-cern-experiment-page"
+      ],
+      "value": "The largest imaging drift chamber of its day, giving UA1 a photographic, bubble-chamber-like view of each collision inside a general-purpose 4-pi detector",
+      "verified_at": "2026-09-17"
+    }
+  ]
+}

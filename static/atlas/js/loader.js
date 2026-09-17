@@ -131,7 +131,8 @@ export async function getSources() {
 
 export async function getSearchEntries() {
   const raw = await fetchJSON('search.json');
-  return (raw.entries || []).map(([type, id, name, aliases, subtitle]) => ({
+  const entries = Array.isArray(raw) ? raw : (raw.entries || []);
+  return entries.map(([type, id, name, aliases, subtitle]) => ({
     type, id, name, aliases: aliases || [], subtitle: subtitle || '',
   }));
 }

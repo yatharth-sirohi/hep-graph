@@ -525,24 +525,94 @@ def quantity_magnitude(quantity: dict) -> float | None:
     return None
 
 
-_DISPLAY_NUMBER_RE = re.compile(r'[-+]?\d[\d,]*(?:\.\d+)?(?:[eE][-+]?\d+)?')
+# A21: characters a source uses to group digits in a written-out number —
+# a plain space, a no-break space, a narrow no-break space (the thousands
+# separator French- and SI-styled sources favour, e.g. "26 659 m"), or a
+# comma.  Included in the number only when it sits between two digits, so a
+# trailing unit ("659 m") is never swallowed into the match.
+_GROUP_CHARS = '   ,'
+_NUMBER_RE = re.compile(
+    r'[-+]?\d(?:\d|[' + _GROUP_CHARS + r'](?=\d))*(?:\.\d+)?(?:[eE][-+]?\d+)?')
+# A21: "mantissa (x|×) 10^exponent", once `_normalise_exponents` has turned a
+# unicode superscript exponent ("10³⁴") into a caret ("10^34").
+_SCI_NOTATION_RE = re.compile(
+    r'(?P<mantissa>[-+]?\d(?:\d|[' + _GROUP_CHARS + r'](?=\d))*(?:\.\d+)?)'
+    r'\s*[x×]\s*10\^(?P<exponent>-?\d+)')
+# A21: superscript digits/sign a source uses for "10³⁴" or a unit exponent
+# ("cm⁻²"); only the ones following "10" are turned into an ASCII exponent
+# (`_normalise_exponents`) — the rest are left alone, since unit detection
+# below only needs to recognise the ASCII unit spellings in Appendix A.
+_SUPERSCRIPT_TRANSLATION = str.maketrans('⁰¹²³⁴⁵⁶⁷⁸⁹⁻⁺', '0123456789-+')
+_TEN_TO_SUPERSCRIPT_RE = re.compile(r'10([⁰¹²³⁴⁵⁶⁷⁸⁹⁻⁺]+)')
+
+
+def _normalise_exponents(text: str) -> str:
+    """"10³⁴" -> "10^34"; leaves ordinary text and other superscripts alone."""
+    return _TEN_TO_SUPERSCRIPT_RE.sub(
+        lambda match: '10^' + match.group(1).translate(_SUPERSCRIPT_TRANSLATION), text)
+
+
+def _clean_number(text: str) -> str:
+    """Strip A21 grouping characters, leaving a string `float()` accepts."""
+    return re.sub('[' + _GROUP_CHARS + ']', '', text)
+
+
+def _detect_display_unit(text: str, dimension: Any) -> str | None:
+    """The longest Appendix A unit of `dimension` that appears in `text` as
+    its own token (not, say, the "m" inside "MeV").  `display` sometimes
+    states its number in a different unit than the quantity's own `unit`
+    ("800 MeV" on a quantity stored in GeV, "26 659 m" on one stored in km);
+    when that happens the display's own unit is what its number must be
+    scaled by, not the quantity's."""
+    units = UNITS.get(dimension)
+    if not units:
+        return None
+    for unit in sorted((u for u in units if u), key=len, reverse=True):
+        pattern = r'(?<![A-Za-zµ])' + re.escape(unit) + r'(?![A-Za-zµ])'
+        if re.search(pattern, text):
+            return unit
+    return None
 
 
 def display_magnitude(quantity: dict) -> float | None:
-    """A21: the first number parsed out of `display`, scaled by the quantity's
-    own unit, so it can be compared with `value`.  None when `display` holds
-    no number or the unit is unusable."""
+    """A21: the number in `display`, scaled to the quantity's base unit so it
+    can be compared with `value`.  None when `display` holds no recognisable
+    number or no usable unit.
+
+    Two source conventions this must not misparse: a thousands separator
+    written as a plain or narrow no-break space ("26 659 m"), and scientific
+    notation written either ASCII-style ("2 x 10^34") or with a unicode
+    multiplication sign and superscript exponent ("2.11 × 10³⁴").  And one
+    thing it must not assume: that `display`'s number is in the quantity's
+    own `unit` — a source may state the same fact in a different, equally
+    valid unit ("~800 MeV mean" on a quantity stored in GeV), so a unit
+    named in `display` itself takes precedence over the quantity's `unit`.
+    """
     display = quantity.get('display')
     if not isinstance(display, str):
         return None
-    match = _DISPLAY_NUMBER_RE.search(display)
-    scale = unit_scale(quantity.get('dimension'), quantity.get('unit'))
-    if match is None or scale is None:
+    dimension = quantity.get('dimension')
+    scale = unit_scale(dimension, quantity.get('unit'))
+    if scale is None:
         return None
+    normalised = _normalise_exponents(display)
+    sci = _SCI_NOTATION_RE.search(normalised)
     try:
-        return float(match.group(0).replace(',', '')) * scale
-    except ValueError:  # pragma: no cover - the regex only matches numbers
+        if sci is not None:
+            magnitude = float(_clean_number(sci.group('mantissa'))) * (10.0 ** int(sci.group('exponent')))
+        else:
+            match = _NUMBER_RE.search(normalised)
+            if match is None:
+                return None
+            magnitude = float(_clean_number(match.group(0)))
+    except ValueError:  # pragma: no cover - the regexes only match numbers
         return None
+    display_unit = _detect_display_unit(normalised, dimension)
+    if display_unit is not None:
+        display_scale = unit_scale(dimension, display_unit)
+        if display_scale is not None:
+            scale = display_scale
+    return magnitude * scale
 
 
 # A21 per-key plausibility ranges, expressed in each dimension's base unit.
@@ -1585,6 +1655,7 @@ ENTITY_FIELDS: dict[str, dict[str, FieldSpec]] = {
         'title': _f('str', True),
         'publisher': _f('str'),
         'publisher_id': _f('id', ref_type=('collaboration', 'facility', 'institution')),
+        'part_of': _f('id', ref_type='source'),                 # A20: a chapter/volume's container
         'url': _f('str', True),
         'archive_url': _f('str'),                               # A18
         'content_hash': _f('str'),                              # A18, link checker
@@ -1778,7 +1849,7 @@ def slist_is_legacy(value: Any) -> bool:
 def iter_reference_fields(record: Any, path: str = '') -> Iterable[tuple[str, str]]:
     """Yield (json_path, id) for every value under a key named `*_id` /
     `*_ids` (and `sources`, `roster_sources`, `roster_source_ids`,
-    `distinct_from`), recursively.
+    `distinct_from`, `part_of`), recursively.
 
     Used by the validator for the §9 / A12 "dangling references" rule,
     independent of the per-type field tables.  A9 object entries are
@@ -1787,7 +1858,7 @@ def iter_reference_fields(record: Any, path: str = '') -> Iterable[tuple[str, st
     if isinstance(record, dict):
         for key, value in record.items():
             here = f'{path}.{key}' if path else key
-            if key.endswith('_id') and isinstance(value, str):
+            if (key.endswith('_id') or key == 'part_of') and isinstance(value, str):
                 yield here, value
             elif key.endswith('_ids') or key in {'sources', 'roster_sources', 'distinct_from'}:
                 if isinstance(value, list):

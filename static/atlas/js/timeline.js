@@ -163,6 +163,28 @@ export function createTimeline(container, { minYear, maxYear, defaultYear, onCha
       hiInput.value = String(clamp(hi, minYear, maxYear));
       if (mode !== 'range') setMode('range'); else emit();
     },
+    /** Reflects an externally-driven state (e.g. a restored URL, or another
+     * subscriber reacting to state.navigate) into the slider UI *without*
+     * re-emitting onChange — emitting here would re-call state.navigate and
+     * loop forever between state.js and this module. */
+    syncFromState({ mode: m, year, range }) {
+      if (m === 'range' && range) {
+        loInput.value = String(clamp(range[0], minYear, maxYear));
+        hiInput.value = String(clamp(range[1], minYear, maxYear));
+        mode = 'range';
+      } else if (year != null) {
+        yearInput.value = String(clamp(year, minYear, maxYear));
+        mode = 'year';
+      } else {
+        return;
+      }
+      yearBtn.classList.toggle('is-active', mode === 'year');
+      rangeBtn.classList.toggle('is-active', mode === 'range');
+      yearInput.classList.toggle('hidden', mode !== 'year');
+      rangeWrap.classList.toggle('hidden', mode !== 'range');
+      readout.textContent = mode === 'year' ? yearInput.value : `${loInput.value} – ${hiInput.value}`;
+      updateLegend();
+    },
     getState() {
       return mode === 'year'
         ? { mode: 'year', year: Number(yearInput.value) }

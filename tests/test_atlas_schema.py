@@ -433,6 +433,60 @@ def test_quantity_and_display_magnitudes() -> None:
     assert schema.quantity_magnitude(span) == pytest.approx(5.3e9)
 
 
+# ------------------------------------------------- display_magnitude (A21) -
+
+def test_a21_display_magnitude_handles_space_grouped_thousands() -> None:
+    """"26 659 m": a plain space is a thousands separator here, not a gap
+    before the next word — the review found this parsed as 26, not 26659."""
+    quantity = {"value": 26659, "unit": "m", "dimension": "length", "display": "26 659 m"}
+    assert schema.display_magnitude(quantity) == 26_659.0
+
+
+def test_a21_display_magnitude_handles_narrow_no_break_space_grouping() -> None:
+    quantity = {"value": 12000, "unit": "m", "dimension": "length",
+                "display": "12 000 m"}
+    assert schema.display_magnitude(quantity) == 12_000.0
+
+
+def test_a21_display_magnitude_handles_comma_grouped_thousands() -> None:
+    quantity = {"value": 295_335.2, "unit": "km", "dimension": "length",
+                "display": "295,335.2 +- 0.7 m"}
+    # The display states its own number in metres, not the quantity's km.
+    assert schema.display_magnitude(quantity) == pytest.approx(295_335.2)
+
+
+def test_a21_display_magnitude_handles_ascii_scientific_notation() -> None:
+    quantity = {"value": 2e34, "unit": "cm^-2 s^-1", "dimension": "luminosity",
+                "display": "2 x 10^34 cm^-2 s^-1"}
+    assert schema.display_magnitude(quantity) == pytest.approx(2e34)
+
+
+def test_a21_display_magnitude_handles_unicode_superscript_scientific_notation() -> None:
+    """"2.11 × 10³⁴ cm⁻² s⁻¹" — a unicode multiplication sign and superscript
+    exponent digits, which the review found parsed as bare 2.11."""
+    quantity = {"value": 2.11e34, "unit": "cm^-2 s^-1", "dimension": "luminosity",
+                "display": "2.11 × 10³⁴ cm⁻² s⁻¹"}
+    assert schema.display_magnitude(quantity) == pytest.approx(2.11e34)
+
+
+def test_a21_display_magnitude_prefers_a_unit_named_in_display() -> None:
+    """"~800 MeV mean" on a quantity stored in GeV: the display's own unit,
+    not the quantity's, must scale the number the display actually gives."""
+    quantity = {"value": 0.8, "unit": "GeV", "dimension": "energy", "display": "~800 MeV mean"}
+    assert schema.display_magnitude(quantity) == pytest.approx(800e6)
+
+
+def test_a21_display_magnitude_falls_back_to_the_quantity_unit_when_display_names_none() -> None:
+    quantity = {"value": 1285, "unit": "km", "dimension": "length", "display": "~1300"}
+    assert schema.display_magnitude(quantity) == pytest.approx(1_300_000.0)
+
+
+def test_a21_display_magnitude_does_not_confuse_short_units_inside_longer_ones() -> None:
+    """A bare "m" must not match inside "km" or "MeV"."""
+    quantity = {"value": 3, "unit": "km", "dimension": "length", "display": "3 km"}
+    assert schema.display_magnitude(quantity) == pytest.approx(3000.0)
+
+
 def test_a21_plausibility_table_and_great_circle() -> None:
     low, high = schema.PLAUSIBILITY_RANGES["baseline"]["length"]
     assert low == 100.0 and high == 2.0e7
@@ -474,6 +528,15 @@ def test_reference_walker_finds_nested_and_object_entries(atlas) -> None:
     assert found["facility_roles[0].facility_id"] == "facility:demo-lab"
     assert found["sources[0]"].startswith("src:")
     assert found["key_specs[0].quantity.sources[0]"] == "src:demo-tdr"
+
+
+def test_a20_part_of_is_a_source_reference_field() -> None:
+    """A chapter/volume source names its container via `part_of`; the
+    reference walker (and so dangling-reference checking) must see it even
+    though the key does not end in `_id`."""
+    assert schema.ENTITY_FIELDS["source"]["part_of"].ref_type == "source"
+    found = dict(schema.iter_reference_fields({"id": "src:chapter", "part_of": "src:volume"}))
+    assert found["part_of"] == "src:volume"
 
 
 def test_normalised_names_ignore_case_punctuation_and_a_leading_the() -> None:

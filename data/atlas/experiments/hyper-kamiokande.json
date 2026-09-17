@@ -1,0 +1,289 @@
+{
+  "accelerator_ids": [
+    "accelerator:j-parc-main-ring"
+  ],
+  "aliases": [
+    "Hyper-K",
+    "HK"
+  ],
+  "beamline_ids": [
+    "beamline:j-parc-neutrino"
+  ],
+  "collaboration_ids": [
+    "collaboration:hyper-kamiokande"
+  ],
+  "coverage": {
+    "researched": "full",
+    "tier": "A",
+    "validated": false
+  },
+  "external": {
+    "greybook": null,
+    "inspire_experiment": 1340261,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "facility_id": "facility:kamioka-observatory",
+      "note": "",
+      "quote": "",
+      "role": "detector_host",
+      "sources": [
+        "src:hk-outline-page"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "facility_id": "facility:j-parc",
+      "locator": "arXiv:1805.04163, abstract",
+      "note": "",
+      "quote": "hosted in the Tochibora mine, about 295 km away from the J-PARC proton accelerator research complex in Tokai, Japan",
+      "role": "beam_source",
+      "sources": [
+        "src:hk-design-report-2018"
+      ],
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "id": "experiment:hyper-kamiokande",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "kind": "lifecycle",
+      "label": "approved",
+      "locator": "interactions.org press release, 12 Feb 2020",
+      "note": "",
+      "quote": "The supplementary budget for FY2019 which includes the first-year construction budget of 3.5 billion yen for the Hyper-Kamiokande project was approved by the Japanese Diet.",
+      "sources": [
+        "src:hk-approval-press-2020"
+      ],
+      "start": "2020-02-12",
+      "status": "approved",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "kind": "lifecycle",
+      "label": "cavern excavation and detector construction",
+      "locator": "Frontiers in Physics 12:1378254 (2024)",
+      "note": "Sub-milestones: cavern excavation expected complete 2024 per the same 2024 status article; the 2026 cavern-engineering paper (arXiv:2602.14810) reports the 69 m x 94 m cavern excavation complete; the official news page's most recent entry (4 Aug 2026, in Japanese) reports the water-tank lining work complete.",
+      "quote": "In October 2022 it was started the excavation of one of the world's largest underground caverns to suite the HK detector.",
+      "sources": [
+        "src:hk-frontiers-2024-status",
+        "src:hk-cavern-paper-2026",
+        "src:hk-news-page"
+      ],
+      "start": "2022-10",
+      "status": "construction",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "kind": "lifecycle",
+      "label": "planned start of operation",
+      "locator": "Super-Kamiokande/Hyper-Kamiokande outline page (2026)",
+      "note": "",
+      "quote": "aims to start experimentation in 2028",
+      "sources": [
+        "src:hk-outline-page",
+        "src:hk-approval-press-2020"
+      ],
+      "start": {
+        "date": "2028",
+        "earliest": "2027",
+        "latest": "2028",
+        "note": "Earlier sources (2020 approval press release; T2K-and-beyond page) projected 2027; the current (2026) official outline page instead says 2028. Recorded as a range given conflicting officially-stated schedules.",
+        "planned": true
+      },
+      "status": "planned",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Total / fiducial mass",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "mass",
+        "display": "260 kt total, 188 kt fiducial",
+        "locator": "Frontiers in Physics 12:1378254 (2024)",
+        "note": "Fiducial mass 188 kt per the same 2024 article ('0.188 million metric tons'); the official outline-page comparison table instead rounds this to 190,000 t — see conflicts in the worklog.",
+        "quote": "0.260 million metric tons of ultra pure water",
+        "sources": [
+          "src:hk-frontiers-2024-status"
+        ],
+        "unit": "kt",
+        "value": 260,
+        "verified_at": "2026-09-17"
+      }
+    },
+    {
+      "label": "Tank diameter x height",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "length",
+        "display": "68 m diameter x 71 m height",
+        "locator": "Frontiers in Physics 12:1378254 (2024)",
+        "note": "",
+        "quote": "71 m high and 68 m diameter",
+        "sources": [
+          "src:hk-frontiers-2024-status"
+        ],
+        "unit": "m",
+        "value": 68,
+        "verified_at": "2026-09-17"
+      }
+    },
+    {
+      "label": "Inner-detector photosensors",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "count",
+        "display": "~20,000 (plus 1,000 compound-eye sensors)",
+        "locator": "Super-Kamiokande/Hyper-Kamiokande outline page, Hyper-Kamiokande section",
+        "note": "The same outline page's comparison table instead gives '50cm diameter / about 40000' as a separate, larger figure for Hyper-Kamiokande; both are on the official site and could not be reconciled from the sources fetched in this session — see conflicts in the worklog. 20,000 is used as the primary value because it is stated as a specific sensor count rather than qualified as a maximum.",
+        "quote": "20,000 ultra high sensitivity photosensors and 1,000 compound eye photosensors",
+        "sources": [
+          "src:hk-outline-page"
+        ],
+        "unit": "",
+        "value": 20000,
+        "verified_at": "2026-09-17"
+      }
+    },
+    {
+      "label": "Baseline (J-PARC to Hyper-Kamiokande)",
+      "quantity": {
+        "approx": true,
+        "confidence": "verified",
+        "dimension": "length",
+        "display": "~295 km",
+        "locator": "arXiv:1805.04163, abstract",
+        "note": "",
+        "quote": "hosted in the Tochibora mine, about 295 km away from the J-PARC proton accelerator research complex in Tokai, Japan",
+        "sources": [
+          "src:hk-design-report-2018"
+        ],
+        "unit": "km",
+        "value": 295,
+        "verified_at": "2026-09-17"
+      }
+    }
+  ],
+  "kind": "atmospheric_neutrino",
+  "lineage": [
+    {
+      "confidence": "verified",
+      "experiment_id": "experiment:super-kamiokande",
+      "note": "T2K's own page names Hyper-K as its successor; Hyper-Kamiokande is explicitly designed and sited (Tochibora mine, same 2.5 degree off-axis angle) as the next-generation successor to the Super-Kamiokande detector, per the Frontiers 2024 status article and the design report.",
+      "quote": "the plan is to start the successor of the T2K experiment – the Hyper-Kamiokande experiment",
+      "relation": "predecessor",
+      "sources": [
+        "src:t2k-and-beyond-page",
+        "src:hk-frontiers-2024-status"
+      ],
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "locator": "site root",
+      "note": "",
+      "sources": [
+        "src:hk-outline-page"
+      ],
+      "value": "https://www-sk.icrr.u-tokyo.ac.jp/en/hk/",
+      "verified_at": "2026-09-17"
+    }
+  },
+  "name": "Hyper-Kamiokande",
+  "notes": [
+    "Derived fields (detector_ids, site_ids, result_ids, document_ids) are deliberately not written (v0.2 A1).",
+    "status is 'construction' (cavern excavated, water-tank lining complete as of the August 2026 news entry; PMT installation and water filling not yet reported as started in the sources fetched)."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "t2k-experiment.org/t2k/t2k-and-beyond/",
+      "note": "",
+      "quote": "the plan is to start the successor of the T2K experiment – the Hyper-Kamiokande experiment",
+      "sources": [
+        "src:t2k-and-beyond-page"
+      ],
+      "value": "Search for CP violation in neutrino oscillations using the upgraded J-PARC beam, as the successor to T2K",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "approximate",
+      "locator": "arXiv:1805.04163, abstract",
+      "note": "The design report abstract as fetched describes HK as 'the largest underground water Cherenkov detector in the world' without quoting the proton-decay sensitivity goal directly in this session's fetch; proton decay is Hyper-K's long-stated primary science driver alongside CP violation, per the outline/detector pages.",
+      "quote": "the largest underground water Cherenkov detector in the world",
+      "sources": [
+        "src:hk-design-report-2018"
+      ],
+      "value": "Search for proton decay with much greater sensitivity than Super-Kamiokande",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "locator": "Frontiers in Physics 12:1378254 (2024)",
+      "note": "",
+      "quote": "0.260 million metric tons of ultra pure water",
+      "sources": [
+        "src:hk-frontiers-2024-status"
+      ],
+      "value": "Observe atmospheric, solar and supernova neutrinos with a much larger detector than Super-Kamiokande",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [
+    "accelerator_neutrino",
+    "solar_neutrino",
+    "astrophysical_neutrino"
+  ],
+  "sources": [
+    "src:hk-outline-page",
+    "src:hk-detector-page",
+    "src:hk-design-report-2018",
+    "src:hk-approval-press-2020",
+    "src:hk-frontiers-2024-status",
+    "src:hk-cavern-paper-2026",
+    "src:hk-inspire-experiment"
+  ],
+  "status": "construction",
+  "summary": {
+    "plain": "The next, much bigger version of Super-Kamiokande, being built in a newly dug cavern near the original detector. When it starts up later this decade it will use the same J-PARC neutrino beam and look for a difference between how neutrinos and antineutrinos behave, hunt for proton decay, and watch for supernovae.",
+    "technical": "Next-generation underground water Cherenkov detector under construction in the Tochibora mine, Kamioka (69 m x 94 m cavern, excavation complete): 68 m diameter x 71 m height tank, 260 kt total / 188 kt fiducial mass, on the order of 20,000 new high-sensitivity photosensors. Approved by the Japanese government 12 February 2020; cavern excavation began October 2022. Will serve as the far detector (~295 km, 2.5 degree off-axis) for the upgraded J-PARC neutrino beam as T2K's successor."
+  },
+  "topic_ids": [
+    "topic:neutrino-oscillations",
+    "topic:atmospheric-neutrinos",
+    "topic:solar-neutrinos",
+    "topic:supernova-neutrinos",
+    "topic:cp-violation",
+    "topic:astroparticle-physics"
+  ],
+  "type": "experiment",
+  "unique_capabilities": [
+    {
+      "confidence": "approximate",
+      "locator": "INSPIRE experiment record (recid 1340261)",
+      "note": "Paraphrased from the INSPIRE experiment record via the fetch tool rather than read as continuous prose.",
+      "sources": [
+        "src:hk-inspire-experiment"
+      ],
+      "value": "About 25 times the fiducial volume of Super-Kamiokande, planned as the world's largest water Cherenkov detector",
+      "verified_at": "2026-09-17"
+    }
+  ]
+}

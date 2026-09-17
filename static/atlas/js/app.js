@@ -107,7 +107,7 @@ async function main() {
     documents: documentsBundle,
     navigate: state.navigate,
     highlightGlobe: (idSet) => globeApi && globeApi.setHighlight(idSet),
-    setTimelineYear: (year) => { timeline.setYear(year); state.navigate({ year, range: null }, { replace: true }); },
+    setTimelineYear: (year) => timeline.setYear(year),
   });
 
   search.init({
@@ -116,7 +116,7 @@ async function main() {
 
   if (hasGL2) {
     try {
-      if (!window.Globe) await loadVendorScript('vendor/globe.gl.min.js');
+      if (!window.Globe) await loadVendorScript('/atlas/vendor/globe.gl.min.js');
       globeApi = globeModule.createGlobe(els.globeContainer, {
         atlas,
         index,
@@ -179,8 +179,7 @@ async function main() {
     els.arcsToggle.checked = !!current.arcs;
     if (globeApi) globeApi.setArcsEnabled(!!current.arcs);
 
-    if (current.year != null) timeline.setYear(current.year);
-    else if (current.range) timeline.setRange(current.range[0], current.range[1]);
+    timeline.syncFromState(current);
 
     const isCollabMode = current.mode === 'collab' && current.entity && current.entity.type === 'collaboration';
     if (isCollabMode) {

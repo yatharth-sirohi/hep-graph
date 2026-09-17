@@ -7,6 +7,7 @@
   },
   "formation": {
     "confidence": "uncertain",
+    "locator": "ICARUS official About page (credits Carlo Rubbia's leadership of the 2010-2013 Gran Sasso run, no founding date for the collaboration itself)",
     "note": "No fetched source states an explicit collaboration formation date; left null rather than inferred from the Technical Design Report or first-run date. The official About page credits Carlo Rubbia's leadership of the Gran Sasso run (2010-2013) but gives no founding date for the collaboration itself.",
     "sources": [
       "src:icarus-about-page"
@@ -19,15 +20,18 @@
   "id": "collaboration:icarus",
   "intervals": [
     {
-      "confidence": "verified",
+      "confidence": "approximate",
       "end": null,
       "label": "collaboration",
-      "note": "Start unknown: no fetched source states a collaboration formation date. The collaboration operated the T600 at Gran Sasso from 2010 under Carlo Rubbia's leadership, and continues to operate it at Fermilab.",
+      "locator": "ICARUS T600 cryogenic plant paper",
+      "note": "True formation date not sourced (the collaboration certainly predates the Gran Sasso run under Carlo Rubbia's leadership); start is a lower bound taken from the May 2010 start of T600 operation at LNGS, the earliest dated collaboration activity found. The collaboration continues to operate the detector at Fermilab.",
+      "quote": "was smoothly and safely operated from May 2010 to June 2013",
       "sources": [
+        "src:icarus-lngs-cryogenics-2015",
         "src:icarus-about-page",
         "src:icarus-epjc-2023-initial-operation"
       ],
-      "start": null,
+      "start": "2010-05",
       "status": "active",
       "verified_at": "2026-09-17"
     }

@@ -1,0 +1,184 @@
+{
+  "aliases": [
+    "UA1"
+  ],
+  "coverage": {
+    "researched": "full",
+    "tier": "A",
+    "validated": false
+  },
+  "distinct_from": [],
+  "document_ids": [],
+  "experiment_ids": [
+    "experiment:ua1"
+  ],
+  "id": "detector:ua1",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "1981-07-17",
+      "label": "construction",
+      "note": "Bounded by the experiment's approval and first-collision dates; no separate detector-construction date sourced.",
+      "sources": [
+        "src:ua1-inspire-experiment-record"
+      ],
+      "start": "1978-06-29",
+      "status": "construction",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": "1990-02",
+      "label": "operation",
+      "locator": "INSPIRE experiment record 1109643",
+      "note": "Mirrors the experiment's SppS data-taking interval.",
+      "sources": [
+        "src:ua1-inspire-experiment-record"
+      ],
+      "start": "1981-07-17",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": "1990-02",
+      "label": "second-phase upgrade",
+      "locator": "INSPIRE experiment record 1109643, field description",
+      "note": "",
+      "quote": "For the second phase of operation (1988/89 collider runs) the following items were upgraded: the muon detection system, the data acquisition system, and the central detector.",
+      "sources": [
+        "src:ua1-inspire-experiment-record"
+      ],
+      "start": "1988",
+      "status": "upgrade",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "completed",
+      "locator": "INSPIRE experiment record 1109643, field date_completed",
+      "note": "",
+      "quote": "\"date_completed\":\"1990-02\"",
+      "sources": [
+        "src:ua1-inspire-experiment-record"
+      ],
+      "start": "1990-02",
+      "status": "completed",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "links": {},
+  "name": "UA1 detector",
+  "notes": [
+    "Detector site placement carries the same LSS4-vs-LSS5 caveat as site:cern-sps-lss5-ua1 (see that record's notes): the specific SPS hall was not independently verified by a fetched source this session."
+  ],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "uncertain",
+      "end": "1990-02",
+      "note": "Start approximated at the experiment's approval date (no explicit installation-start date sourced); end at UA1's INSPIRE date_completed. Hall assignment (LSS5) not independently verified (see site record).",
+      "role": "main",
+      "site_id": "site:cern-sps-lss5-ua1",
+      "sources": [
+        "src:ua1-cern-archives-guide",
+        "src:ua1-inspire-experiment-record"
+      ],
+      "start": "1978-06-29",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:ua1-cern-experiment-page"
+  ],
+  "specs": {
+    "calorimeters": {
+      "confidence": "verified",
+      "locator": "home.cern UA1 page",
+      "note": "",
+      "quote": "48 electromagnetic subdetectors\" made from lead layers nicknamed \"gondolas,",
+      "sources": [
+        "src:ua1-cern-experiment-page"
+      ],
+      "value": "48 lead-layer electromagnetic subdetectors nicknamed 'gondolas', plus hadronic calorimetry",
+      "verified_at": "2026-09-17"
+    },
+    "muon_system": {
+      "confidence": "verified",
+      "locator": "home.cern UA1 page",
+      "note": "",
+      "quote": "some 30 kilometres of extruded aluminium",
+      "sources": [
+        "src:ua1-cern-experiment-page"
+      ],
+      "value": "Muon chambers requiring about 30 km of extruded aluminium",
+      "verified_at": "2026-09-17"
+    },
+    "tracker": {
+      "confidence": "verified",
+      "locator": "home.cern UA1 page",
+      "note": "",
+      "quote": "The central detector of UA1 was a six-chambered cylinder, 5.8 metres long and 2.3 metres in diameter. It was the largest imaging drift chamber of its day.",
+      "sources": [
+        "src:ua1-cern-experiment-page"
+      ],
+      "value": "Six-chambered central imaging drift chamber, 5.8 m long and 2.3 m in diameter - the largest imaging drift chamber of its day",
+      "verified_at": "2026-09-17"
+    }
+  },
+  "status": "completed",
+  "subsystems": [
+    {
+      "description": {
+        "confidence": "verified",
+        "locator": "home.cern UA1 page",
+        "note": "",
+        "quote": "The central detector of UA1 was a six-chambered cylinder, 5.8 metres long and 2.3 metres in diameter.",
+        "sources": [
+          "src:ua1-cern-experiment-page"
+        ],
+        "value": "Six-chambered cylinder 5.8 m long and 2.3 m in diameter; the largest imaging drift chamber of its day.",
+        "verified_at": "2026-09-17"
+      },
+      "name": "Central imaging drift chamber"
+    },
+    {
+      "description": {
+        "confidence": "verified",
+        "locator": "home.cern UA1 page",
+        "note": "",
+        "quote": "An 800-tonne conventional electromagnet",
+        "sources": [
+          "src:ua1-cern-experiment-page"
+        ],
+        "value": "An 800-tonne conventional electromagnet surrounding the central detector.",
+        "verified_at": "2026-09-17"
+      },
+      "name": "Dipole magnet"
+    }
+  ],
+  "summary": {
+    "plain": "A house-sized detector wrapped around the SPS beam pipe, with a giant electronic 'camera' (a drift chamber) at its heart to photograph particle tracks from each collision.",
+    "technical": "General-purpose (4-pi) collider detector: central six-chambered imaging drift chamber (5.8 m long, 2.3 m diameter) inside an 800-tonne conventional dipole magnet, 48 lead-layer ('gondola') electromagnetic subdetectors, hadron calorimetry and muon chambers requiring about 30 km of extruded aluminium."
+  },
+  "superseded_by": null,
+  "technology": {
+    "confidence": "verified",
+    "locator": "INSPIRE experiment record 1109643, long_name",
+    "note": "",
+    "quote": "A 4-pi Solid Angle Detector for the SPS Used as a pp-bar Collider at a c.m. Energy of 630 GeV",
+    "sources": [
+      "src:ua1-cern-experiment-page",
+      "src:ua1-inspire-experiment-record"
+    ],
+    "value": "General-purpose (4-pi) collider detector with a central imaging drift chamber, electromagnetic and hadronic calorimetry and muon chambers around a conventional dipole magnet",
+    "verified_at": "2026-09-17"
+  },
+  "technology_class": "general_purpose_collider",
+  "technology_classes": [
+    "general_purpose_collider"
+  ],
+  "type": "detector"
+}

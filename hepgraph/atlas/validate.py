@@ -1196,15 +1196,50 @@ def _check_experiment_timeline(ctx: _Context) -> Iterator[Finding]:
 # A10 / A11 / A15 / A18 / A19 / A22
 # ===========================================================================
 
+def _terminal_status_already_reached(record: dict, build_date: _dt.date) -> str | None:
+    """A10 (amended reading): the status of the earliest terminal interval
+    whose `start` is at or before the build date, or None if there is none.
+
+    A3's existence hull ends at `lo(earliest terminal start)`, so once the
+    build date is past that point `state_at` legitimately answers "absent"
+    (`None`) — the entity's presence really has ended.  The authored
+    `status` for a terminal entity is correctly the terminal status itself
+    (e.g. `decommissioned`), not the hull's "absent" answer, so that is what
+    A10 must compare it against.  Picking the *earliest* qualifying terminal
+    interval matches the interval `existence_hull` itself uses as the hull
+    boundary, so the two stay consistent with each other.
+    """
+    candidates: list[tuple[_dt.date, str]] = []
+    for row in _intervals(record):
+        row_status = row.get('status')
+        if row_status not in schema.TERMINAL_STATUSES:
+            continue
+        start = schema.lo(row.get('start'))
+        if start is not None and start <= build_date:
+            candidates.append((start, row_status))
+    if not candidates:
+        return None
+    candidates.sort(key=lambda pair: pair[0])
+    return candidates[0][1]
+
+
 def check_status_matches_state(ctx: _Context) -> Iterator[Finding]:
-    """A10: an entity's `status` must equal the A3 state derived from its
+    """A10 (amended): an entity's `status` must equal the status of a
+    terminal interval already reached by the build date (§4: terminal
+    statuses are events, and A3's existence hull ends exactly there, so
+    `state_at` answering "absent" past it does not mean `status` is wrong);
+    failing that, it must equal the ordinary A3 state derived from its
     intervals at the build date's month."""
     for entity_type, entity_id, record in ctx.atlas.iter_entities():
         if 'status' not in schema.ENTITY_FIELDS[entity_type]:
             continue
         status = record.get('status')
-        state = schema.state_at(record, ctx.selection, build_date=ctx.build_date)
-        derived = state['status'] if state else None
+        terminal = _terminal_status_already_reached(record, ctx.build_date)
+        if terminal is not None:
+            derived = terminal
+        else:
+            state = schema.state_at(record, ctx.selection, build_date=ctx.build_date)
+            derived = state['status'] if state else None
         if status is None and derived is None:
             continue
         if status == derived:
@@ -1582,7 +1617,9 @@ def check_duplicate_names(ctx: _Context) -> Iterator[Finding]:
                 if normalised == own:
                     yield Finding(ERROR, 'alias-equals-name', path, entity_id,
                                   _pointer('aliases', position),
-                                  f'A20: alias {alias!r} repeats the record\'s own name')
+                                  f'A20: alias {alias!r} repeats the record\'s own name; remove '
+                                  f'this alias; it differs from the name only in case or '
+                                  f'punctuation')
                 if normalised in seen:
                     yield Finding(ERROR, 'duplicate-alias', path, entity_id,
                                   _pointer('aliases', position),
@@ -1612,8 +1649,32 @@ def check_duplicate_names(ctx: _Context) -> Iterator[Finding]:
                               f'really are different things')
 
 
+def _part_of_chain(ctx: _Context, entity_id: str, limit: int = 8) -> set[str]:
+    """`entity_id` and every source it (transitively) names as `part_of`."""
+    chain = {entity_id}
+    current = entity_id
+    for _ in range(limit):
+        record = ctx.atlas.get(current)
+        parent = record.get('part_of') if record is not None else None
+        if not isinstance(parent, str):
+            break
+        current = schema.canonical_id(parent)
+        if current in chain:
+            break
+        chain.add(current)
+    return chain
+
+
+def _sources_share_a_container(ctx: _Context, a: str, b: str) -> bool:
+    """A20: true when `a` is `b`'s container (or vice versa) via `part_of` —
+    a chapter or volume of a larger work legitimately shares its DOI/URL."""
+    return b in _part_of_chain(ctx, a) or a in _part_of_chain(ctx, b)
+
+
 def check_duplicate_source_urls(ctx: _Context) -> Iterator[Finding]:
-    """A20/A7: two `src:` records with the same normalised URL or DOI."""
+    """A20/A7: two `src:` records with the same normalised URL or DOI —
+    unless one names the other as its `part_of` container (a chapter or
+    volume of a larger work legitimately shares that work's DOI/URL)."""
     index: dict[tuple[str, str], list[str]] = {}
     for entity_id, record in sorted(ctx.atlas.by_type('source').items()):
         url = _normalise_url(record.get('url'))
@@ -1627,7 +1688,10 @@ def check_duplicate_source_urls(ctx: _Context) -> Iterator[Finding]:
         if len(ids) < 2:
             continue
         for entity_id in ids:
-            others = [other for other in ids if other != entity_id]
+            others = [other for other in ids if other != entity_id
+                      and not _sources_share_a_container(ctx, entity_id, other)]
+            if not others:
+                continue
             yield Finding(ERROR, 'duplicate-source-url', ctx.path_of(entity_id), entity_id,
                           _pointer(bucket if bucket == 'url' else 'reference'),
                           f'A20: the normalised {bucket} {value!r} is also on '

@@ -7,6 +7,7 @@
   },
   "formation": {
     "confidence": "uncertain",
+    "locator": "MINERvA official site and Why study neutrinos? page (no formation date stated)",
     "note": "No fetched source states an explicit collaboration formation date; left null rather than inferred from the Technical Design Report or first-run date.",
     "sources": [
       "src:minerva-experiment-site"
@@ -19,15 +20,17 @@
   "id": "collaboration:minerva",
   "intervals": [
     {
-      "confidence": "verified",
+      "confidence": "approximate",
       "end": null,
       "label": "collaboration",
-      "note": "Start unknown: no fetched source states a collaboration formation date. Detector data taking ended 26 Feb 2019 (status 'completed' per the experiment entity), but the collaboration continued to publish analyses of the recorded data, e.g. the 2023 Nature paper; the collaboration record itself is left 'active' since no dissolution is sourced.",
+      "locator": "Fermilab newsroom, 2019-04",
+      "note": "True formation date not sourced; start is a lower bound taken from the start of MINERvA data taking in early 2010 (the collaboration must have existed by then). Detector data taking ended 26 Feb 2019 (status 'completed' on the experiment entity), but the collaboration continued to publish analyses of the recorded data, e.g. the 2023 Nature paper; left 'active' since no dissolution is sourced.",
+      "quote": "MINERvA started collecting data in early 2010.",
       "sources": [
         "src:minerva-fermilab-news-2019-completes-run",
         "src:minerva-nature-2023-axial-form-factor"
       ],
-      "start": null,
+      "start": "2010",
       "status": "active",
       "verified_at": "2026-09-17"
     }

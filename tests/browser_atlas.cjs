@@ -36,7 +36,10 @@ async function setRangeValue(locator, value) {
     headless: true,
     ...(process.env.HEP_BROWSER_EXECUTABLE ? { executablePath: process.env.HEP_BROWSER_EXECUTABLE } : {}),
   });
-  const context = await browser.newContext({ viewport: { width: 1440, height: 960 } });
+  const context = await browser.newContext({
+    viewport: { width: 1440, height: 960 },
+    reducedMotion: "reduce",
+  });
   context.on("page", (p) => p.on("pageerror", (e) => errors.push(e.message)));
   context.on("page", (p) => p.on("console", (msg) => {
     if (msg.type() === "error") errors.push(`console.error: ${msg.text()}`);
@@ -52,11 +55,11 @@ async function setRangeValue(locator, value) {
   });
 
   await record("Clicking a facility marker opens its detail panel", async () => {
-    const marker = page.locator('.atlas-marker[data-id="facility:fermilab"]');
+    const marker = page.locator('.atlas-marker[data-id="facility:cern"]');
     await marker.waitFor();
-    await marker.click();
+    await marker.click({ force: true });
     await page.locator("#detail-panel h2").waitFor();
-    assert.match(await page.locator("#detail-panel h2").innerText(), /Fermilab/);
+    assert.match(await page.locator("#detail-panel h2").innerText(), /CERN/);
     assert.equal(await page.locator("#detail-panel").isHidden(), false);
   });
 

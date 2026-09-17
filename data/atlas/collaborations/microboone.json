@@ -7,6 +7,7 @@
   },
   "formation": {
     "confidence": "uncertain",
+    "locator": "MicroBooNE official site (no formation date stated)",
     "note": "No fetched source states an explicit collaboration formation date; left null rather than inferred from the Technical Design Report or first-run date.",
     "sources": [
       "src:microboone-experiment-site"
@@ -19,15 +20,17 @@
   "id": "collaboration:microboone",
   "intervals": [
     {
-      "confidence": "verified",
+      "confidence": "approximate",
       "end": null,
       "label": "collaboration",
-      "note": "Start unknown: no fetched source states a collaboration formation date. Detector data taking ended in 2021 (status 'completed' per the experiment entity), but the collaboration continued to publish analyses, e.g. the December 2025 Nature sterile-neutrino search; the collaboration record itself is left 'active' since no dissolution is sourced.",
+      "locator": "MicroBooNE official site",
+      "note": "True formation date not sourced; start is a lower bound taken from the start of MicroBooNE neutrino data taking in October 2015 (the collaboration must have existed by then). Detector data taking ended in 2021 (status 'completed' on the experiment entity), but the collaboration continued to publish analyses, e.g. the December 2025 Nature sterile-neutrino search; left 'active' since no dissolution is sourced.",
+      "quote": "The experiment first started collecting neutrino data in October 2015.",
       "sources": [
         "src:microboone-experiment-site",
         "src:microboone-nature-2025-sterile-search"
       ],
-      "start": null,
+      "start": "2015-10",
       "status": "active",
       "verified_at": "2026-09-17"
     }

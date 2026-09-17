@@ -7,6 +7,7 @@
   },
   "formation": {
     "confidence": "uncertain",
+    "locator": "NOvA TDR (FERMILAB-DESIGN-2007-01), OSTI 935497 (no formation date stated in the record fetched)",
     "note": "No fetched source states an explicit collaboration formation date; left null rather than inferred from the Technical Design Report or first-run date.",
     "sources": [
       "src:nova-tdr-osti"
@@ -19,15 +20,17 @@
   "id": "collaboration:nova",
   "intervals": [
     {
-      "confidence": "verified",
+      "confidence": "approximate",
       "end": null,
       "label": "collaboration",
-      "note": "Start unknown: no fetched source states a collaboration formation date. The NOvA TDR (FERMILAB-DESIGN-2007-01) is the earliest dated collaboration document found.",
+      "locator": "src:nova-tdr-osti, title/date",
+      "note": "True formation date not sourced; start is a lower bound taken from the October 2007 NOvA Technical Design Report, the earliest dated collaboration document found. The collaboration continues to operate the experiment.",
+      "quote": "The NOvA Technical Design Report",
       "sources": [
         "src:nova-experiment-site",
         "src:nova-tdr-osti"
       ],
-      "start": null,
+      "start": "2007-10",
       "status": "active",
       "verified_at": "2026-09-17"
     }
