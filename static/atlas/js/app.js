@@ -222,7 +222,12 @@ async function main() {
     } else {
       modes.show(null);
     }
-    await panels.render(current.entity);
+    // Same shape the timeline itself tracks: a range takes precedence over a
+    // single year (matches timeline.js's own onChange payload and globe.js's
+    // setYear/setRange split), so the detail panel's status badge always
+    // reflects exactly what's currently selected.
+    const timelineState = current.range ? { range: current.range } : { year: current.year };
+    await panels.render(current.entity, timelineState);
   }
 
   // Seed the timeline from the URL before it announces anything, so a shared

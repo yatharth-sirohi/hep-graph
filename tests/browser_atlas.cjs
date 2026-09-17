@@ -92,10 +92,83 @@ async function setRangeValue(locator, value) {
   await record("Collaboration mode shows institution dots on the globe", async () => {
     await page.locator(".collab-line .collab-link").first().click();
     await page.locator("#detail-panel h2", { hasText: "DUNE Collaboration" }).waitFor();
-    assert.match(await page.locator("#detail-panel").innerText(), /confirmed members/);
+    const panelText = await page.locator("#detail-panel").innerText();
+    // Ontology amendment A19/A5 wording, sourced from the membership bundle's
+    // own `counts.confirmed`/`counts.undated` — not the literal "0 confirmed
+    // members" the panel used to show for every collaboration (it read a
+    // `confirmed_count` field the collaboration record never carried).
+    assert.match(panelText, /\d+ confirmed members \(\+\d+ undated\)/);
+    assert.doesNotMatch(panelText, /\b0 confirmed members\b(?!\s*\()/, "DUNE has a real, nonzero confirmed-member count");
     await page.locator("#view-on-globe").click();
     await page.waitForFunction(() => document.querySelectorAll(".atlas-marker.tier-institution").length > 0, { timeout: 10000 });
     assert.ok(await page.locator(".atlas-marker.tier-institution").count() > 0);
+  });
+
+  await record("Experiment status badge follows the selected timeline year, not just build-time status", async () => {
+    await page.goto(`${base}/atlas${dataTree}#/experiment/dune`);
+    await page.locator("#detail-panel h2").waitFor();
+    await setRangeValue(page.locator("#timeline-year"), 1995);
+    await page.waitForFunction(() => {
+      const el = document.querySelector("#detail-panel .status-badge");
+      return !!el && el.textContent.trim().length > 0;
+    });
+    // DUNE was not proposed until the 2010s in either data tree — at 1995
+    // the panel must say so plainly instead of showing a frozen status like
+    // "Construction" or "Active" that didn't apply for another two decades.
+    const badge1995 = await page.locator("#detail-panel .status-badge").first().innerText();
+    assert.match(badge1995, /not yet/i, `expected DUNE's 1995 badge to say it did not exist yet, got "${badge1995}"`);
+    assert.ok(await page.locator("#detail-panel .status-badge.is-outside-timeline").count() > 0);
+
+    await setRangeValue(page.locator("#timeline-year"), 2026);
+    await page.waitForFunction((prev) => {
+      const el = document.querySelector("#detail-panel .status-badge");
+      return !!el && el.textContent.trim() !== prev;
+    }, badge1995);
+    const badge2026 = await page.locator("#detail-panel .status-badge").first().innerText();
+    assert.notEqual(badge2026, badge1995, "the badge must change when the timeline year changes");
+    assert.doesNotMatch(badge2026, /not yet/i, "DUNE has a real status by 2026");
+    await setRangeValue(page.locator("#timeline-year"), 2026);
+  });
+
+  await record("Experiment panel shows its plain-language summary, not the placeholder", async () => {
+    await page.goto(`${base}/atlas${dataTree}#/experiment/dune`);
+    await page.locator("#detail-panel h2").waitFor();
+    const panelText = await page.locator("#detail-panel").innerText();
+    // The real bundle puts summary.plain on the atlas.json record itself;
+    // the fixtures instead put it in text.json. Whichever tree is live, one
+    // of those exists for DUNE, so the placeholder must never show.
+    assert.doesNotMatch(panelText, /No plain-language summary yet/);
+    assert.match(panelText, /1285/, "expected DUNE's own baseline figure to appear in its plain summary");
+  });
+
+  await record("Document panel shows a real title and date, not a blank heading", async () => {
+    await page.locator("#atlas-search").fill("");
+    await page.locator("#atlas-search").fill("Technical Design Report");
+    await page.locator(".search-result").first().waitFor();
+    await page.locator(".search-result").first().click();
+    await page.locator("#detail-panel h2").waitFor();
+    const heading = (await page.locator("#detail-panel h2").innerText()).trim();
+    const subtitle = (await page.locator("#detail-panel .panel-subtitle").innerText()).trim();
+    // The bundle's document records carry `name`/`date`, not `title`/`year`;
+    // reading the wrong pair left every one of the ~56 documents with a
+    // blank <h2> and a subtitle ending in a dangling "· " separator.
+    assert.ok(heading.length > 0, "document heading must not be blank");
+    assert.doesNotMatch(subtitle, /·\s*$/, "document subtitle must not end in a dangling separator");
+    assert.match(subtitle, /\d{4}/, "document subtitle should carry a real year");
+  });
+
+  await record("Fermilab facility panel lists under-construction DUNE as current, not historical", async () => {
+    await page.goto(`${base}/atlas${dataTree}#/facility/fermilab`);
+    await page.locator("#detail-panel h2", { hasText: /Fermi/ }).waitFor();
+    const sections = await page.locator("#detail-panel .panel-section").evaluateAll(
+      (nodes) => nodes.map((n) => ({ heading: n.querySelector("summary")?.textContent || "", text: n.textContent || "" })),
+    );
+    const current = sections.find((s) => s.heading.includes("Current experiments"));
+    const historical = sections.find((s) => s.heading.includes("Historical experiments"));
+    const future = sections.find((s) => s.heading.includes("Future"));
+    assert.ok(current && current.text.includes(duneHeading), "DUNE should be listed under Current experiments at Fermilab");
+    assert.ok(historical && !historical.text.includes(duneHeading), "DUNE must not also be listed under Historical experiments");
+    assert.ok(future, "a Future / planned experiments section should exist alongside current and historical");
   });
 
   await record("Setting the year to 1990 hides the not-yet-built ATLAS cavern site", async () => {
@@ -112,6 +185,34 @@ async function setRangeValue(locator, value) {
     assert.ok(state.absent || state.dimmed, "ATLAS site marker should be absent or dimmed at 1990");
     if (state.absent) assert.equal(state.display, "none");
     await setRangeValue(page.locator("#timeline-year"), 2026);
+  });
+
+  await record("Key-specification values wrap inside the panel instead of spilling past its edge", async () => {
+    await page.goto(`${base}/atlas${dataTree}#/experiment/dune`);
+    await page.locator("#detail-panel h2").waitFor();
+    await page.waitForFunction(() => document.querySelectorAll("#detail-panel .kv-list dd").length > 0);
+    const overflowing = await page.evaluate(() => {
+      const panelRight = document.getElementById("detail-panel").getBoundingClientRect().right;
+      return [...document.querySelectorAll("#detail-panel .kv-list dd")]
+        .filter((dd) => dd.getBoundingClientRect().right > panelRight + 1)
+        .map((dd) => dd.textContent);
+    });
+    assert.deepEqual(overflowing, [], "no key-spec value should render past the detail panel's own right edge");
+  });
+
+  await record("Site-tier globe markers have an enlarged tap target", async () => {
+    await page.goto(`${base}/atlas${dataTree}`);
+    await page.waitForFunction(() => document.querySelectorAll(".atlas-marker").length > 0, { timeout: 15000 });
+    const afterInset = await page.evaluate(() => {
+      const el = document.querySelector(".atlas-marker.is-site-tier");
+      if (!el) return null;
+      return getComputedStyle(el, "::after").inset;
+    });
+    assert.ok(afterInset, "expected at least one site-tier marker in the DOM");
+    // A negative inset grows the ::after hit box symmetrically outward from
+    // the (still 12x12px) drawn glyph, without moving it off its geographic
+    // anchor the way padding+margin on the marker itself would.
+    assert.match(afterInset, /^-\d/, `expected a negative inset to enlarge the tap target, got "${afterInset}"`);
   });
 
   await record("Desktop screenshot", async () => {

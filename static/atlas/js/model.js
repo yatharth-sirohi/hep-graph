@@ -31,6 +31,65 @@ export function statusColor(status) {
   return STATUS_COLOR[status] || '#9aa7b0';
 }
 
+// Which of three coarse eras a lifecycle status belongs to, used to group
+// an entity's related experiments into "current" / "historical" / "future"
+// lists (facility and topic panels). Under construction, commissioning,
+// upgrade and shutdown all count as *current* (the thing is happening now,
+// even if it isn't taking data this second); only a genuinely finished
+// program is historical; proposed/approved/planned things haven't started.
+export const STATUS_ERA = {
+  active: 'current', construction: 'current', commissioning: 'current', upgrade: 'current', shutdown: 'current',
+  completed: 'historical', decommissioned: 'historical', cancelled: 'historical',
+  proposed: 'future', approved: 'future', planned: 'future',
+};
+
+export function statusEra(status) {
+  return STATUS_ERA[status] || 'future';
+}
+
+/** Resolves the status (+certainty) an entity's `state_segments` show at the
+ * currently selected timeline position — a single year, or an inclusive
+ * [lo, hi] range — instead of its static build-time `status`. Mirrors what
+ * globe.js already does per marker (statusAtMonth / statusInRange), so the
+ * detail panel's badge and the globe's dimming agree at every year. Returns
+ * `null` when the entity has no recorded state at that selection (it hadn't
+ * started yet, or it had already ended, or it carries no state_segments). */
+export function statusForTimeline(segments, timelineState) {
+  if (!segments || !timelineState) return null;
+  if (timelineState.range) {
+    const [lo, hi] = timelineState.range;
+    return statusInRange(segments, monthIndex(lo, 1), monthIndex(hi, 12));
+  }
+  if (timelineState.year != null) {
+    return statusAtMonth(segments, monthIndex(timelineState.year, 7));
+  }
+  return null;
+}
+
+/** When statusForTimeline() returns null, explains *why* in one of:
+ * "no_history" (no state_segments at all), "not_yet" (selection is entirely
+ * before the entity's first recorded segment), "ended" (entirely after its
+ * last), or "gap" (falls between two segments, which the model doesn't
+ * currently produce but is handled rather than mis-explained). */
+export function timelineAbsenceReason(segments, timelineState) {
+  if (!segments || !segments.length) return 'no_history';
+  const first = segments[0][0];
+  const last = segments[segments.length - 1][1];
+  let lo;
+  let hi;
+  if (timelineState.range) {
+    [lo, hi] = timelineState.range;
+    lo = monthIndex(lo, 1);
+    hi = monthIndex(hi, 12);
+  } else {
+    lo = monthIndex(timelineState.year, 7);
+    hi = lo;
+  }
+  if (hi < first) return 'not_yet';
+  if (lo > last) return 'ended';
+  return 'gap';
+}
+
 /** Status (+certainty) covering a single month, or null if absent there. */
 export function statusAtMonth(segments, month) {
   if (!segments) return null;

@@ -4,7 +4,9 @@
 // fetched lazily, on first panel open, via loader.js (which itself caches).
 
 import * as loader from './loader.js';
-import { quantityText, fmtDate, titleCase } from './model.js';
+import {
+  quantityText, fmtDate, titleCase, statusEra, statusForTimeline, timelineAbsenceReason,
+} from './model.js';
 
 let ATLAS = null;
 let INDEX = null;
@@ -74,6 +76,15 @@ function emptyNote(text) {
   return h('p', { class: 'empty-note' }, text);
 }
 
+// The generated bundle puts an entity's plain-language summary right on its
+// atlas.json record (`record.summary.plain`); the fixtures instead only put
+// it in the lazily-loaded text bundle (`t.summary_plain`, no `summary` key
+// on the record at all). Prefer the record's own field and fall back to the
+// text bundle's, so both trees render a summary when one was written.
+function plainSummaryOf(record, t) {
+  return (record && record.summary && record.summary.plain) || (t && t.summary_plain) || null;
+}
+
 async function sourcesDisclosure(entityId) {
   const [provenance, sourcesBundle] = await Promise.all([loader.getProvenance(), loader.getSources()]);
   const entries = provenance[entityId];
@@ -98,21 +109,43 @@ async function sourcesDisclosure(entityId) {
     : [emptyNote('No sourced fields recorded for this entity yet.')], { open: false });
 }
 
-function experimentBadge(exp) {
-  const div = h('div', { class: `status-badge status-${exp.status}` }, titleCase(exp.status));
-  return div;
+// Renders the status pill from the entity's per-year `state_segments` at the
+// currently selected timeline position, never from its static build-time
+// `status` — the globe's own markers already do this (model.js's
+// statusAtMonth/statusInRange), and the panel must agree with them instead
+// of showing a frozen, potentially anachronistic label (e.g. an experiment
+// reading "Active" at a year decades before it existed).
+function experimentBadge(record, timelineState) {
+  const segments = record.state_segments;
+  const resolved = statusForTimeline(segments, timelineState);
+  const when = timelineState && timelineState.range
+    ? `${timelineState.range[0]}–${timelineState.range[1]}`
+    : String((timelineState && timelineState.year) || '');
+  if (resolved) {
+    const label = titleCase(resolved.status) + (resolved.certainty === 'possible' ? ' (uncertain)' : '');
+    return h('div', { class: `status-badge status-${resolved.status}` }, label);
+  }
+  const reason = timelineAbsenceReason(segments, timelineState || {});
+  const text = {
+    not_yet: `Not yet proposed in ${when}`,
+    ended: `No longer active in ${when}`,
+    gap: `No recorded status in ${when}`,
+    no_history: 'No timeline data recorded for this entity',
+  }[reason] || 'No timeline data recorded for this entity';
+  return h('div', { class: 'status-badge is-outside-timeline' }, text);
 }
 
 // ------------------------------------------------------------------ facility
-async function renderFacility(id) {
+async function renderFacility(id, timelineState) {
   const facility = ATLAS.facilities[id];
   if (!facility) return emptyNote('Unknown facility.');
   const text = await loader.getText();
   const t = text[id] || {};
 
   const experiments = (facility.experiment_ids || []).map((eid) => ATLAS.experiments[eid]).filter(Boolean);
-  const current = experiments.filter((e) => e.status === 'active' || e.status === 'commissioning');
-  const historical = experiments.filter((e) => !current.includes(e));
+  const current = experiments.filter((e) => statusEra(e.status) === 'current');
+  const historical = experiments.filter((e) => statusEra(e.status) === 'historical');
+  const future = experiments.filter((e) => statusEra(e.status) === 'future');
 
   const { list: allResults } = await loader.getResults();
   const { list: allDocuments } = await loader.getDocuments();
@@ -123,13 +156,16 @@ async function renderFacility(id) {
   const frag = document.createDocumentFragment();
   frag.appendChild(h('h2', {}, facility.name));
   frag.appendChild(h('p', { class: 'panel-subtitle' }, titleCase(facility.kind)));
-  frag.appendChild(experimentBadge(facility));
+  frag.appendChild(experimentBadge(facility, timelineState));
 
+  const facilitySummary = plainSummaryOf(facility, t);
   frag.appendChild(section('Overview', [
-    t.summary_plain ? h('p', {}, t.summary_plain) : emptyNote('No plain-language summary yet.'),
+    facilitySummary ? h('p', {}, facilitySummary) : emptyNote('No plain-language summary yet.'),
     keyValueList([
       ['Aliases', (facility.aliases || []).join(', ')],
-      ['Operator', facility.operator],
+      // Generated bundle: `operator_text` (no `operator` field at all).
+      // Fixtures: `operator` (no `operator_text`). Read whichever exists.
+      ['Operator', facility.operator_text || facility.operator],
       ['Country', (facility.country || []).join(', ')],
     ]),
   ]));
@@ -145,6 +181,9 @@ async function renderFacility(id) {
   frag.appendChild(section('Historical experiments', historical.length
     ? [h('ul', { class: 'entity-list' }, historical.map((e) => h('li', {}, linkTo(idRoute(e.id), e.name))))]
     : [emptyNote('No historical experiments recorded.')], { open: false }));
+  frag.appendChild(section('Future / planned experiments', future.length
+    ? [h('ul', { class: 'entity-list' }, future.map((e) => h('li', {}, linkTo(idRoute(e.id), e.name))))]
+    : [emptyNote('No future or planned experiments recorded.')], { open: false }));
 
   frag.appendChild(section('Results', results.length
     ? [h('ul', { class: 'entity-list' }, results.map((r) => h('li', {}, linkTo(idRoute(r.id), r.title))))]
@@ -152,7 +191,7 @@ async function renderFacility(id) {
 
   frag.appendChild(section('Documents', documents.length
     ? [h('ul', { class: 'entity-list' }, documents.map((d) => h('li', {},
-      h('a', { href: d.reference && d.reference.url, target: '_blank', rel: 'noopener' }, d.title))))]
+      h('a', { href: d.reference && d.reference.url, target: '_blank', rel: 'noopener' }, d.name))))]
     : [emptyNote('No documents recorded.')], { open: false }));
 
   const links = Object.entries(facility.links || {}).filter(([, v]) => v);
@@ -171,7 +210,7 @@ async function renderFacility(id) {
 }
 
 // ---------------------------------------------------------------- experiment
-async function renderExperiment(id) {
+async function renderExperiment(id, timelineState) {
   const exp = ATLAS.experiments[id];
   if (!exp) return emptyNote('Unknown experiment.');
   const text = await loader.getText();
@@ -180,7 +219,7 @@ async function renderExperiment(id) {
   const frag = document.createDocumentFragment();
   frag.appendChild(h('h2', {}, exp.name));
   frag.appendChild(h('p', { class: 'panel-subtitle' }, titleCase(exp.kind)));
-  frag.appendChild(experimentBadge(exp));
+  frag.appendChild(experimentBadge(exp, timelineState));
 
   const collabs = (exp.collaboration_ids || []).map((cid) => ATLAS.collaborations[cid]).filter(Boolean);
   if (collabs.length) {
@@ -190,8 +229,9 @@ async function renderExperiment(id) {
     ]));
   }
 
+  const expPlainSummary = plainSummaryOf(exp, t);
   frag.appendChild(section('What it studies', [
-    t.summary_plain ? h('p', { class: 'plain-summary' }, t.summary_plain) : emptyNote('No plain-language summary yet.'),
+    expPlainSummary ? h('p', { class: 'plain-summary' }, expPlainSummary) : emptyNote('No plain-language summary yet.'),
     exp.topic_ids && exp.topic_ids.length
       ? h('p', {}, ['Research topics: ', ...exp.topic_ids.flatMap((tid, i) => {
         const topic = ATLAS.topics[tid];
@@ -237,7 +277,7 @@ async function renderExperiment(id) {
   const documents = (exp.document_ids || []).map((did) => docById.get(did)).filter(Boolean);
   frag.appendChild(section('Documents', documents.length
     ? [h('ul', { class: 'entity-list' }, documents.map((d) => h('li', {},
-      h('a', { href: d.reference && d.reference.url, target: '_blank', rel: 'noopener' }, d.title))))]
+      h('a', { href: d.reference && d.reference.url, target: '_blank', rel: 'noopener' }, d.name))))]
     : [emptyNote('No documents recorded.')], { open: false }));
 
   const predecessors = (exp.lineage || []).filter((l) => ['predecessor', 'upgrade_of'].includes(l.relation));
@@ -263,7 +303,7 @@ async function renderExperiment(id) {
 }
 
 // ------------------------------------------------------------- collaboration
-async function renderCollaboration(id) {
+async function renderCollaboration(id, timelineState) {
   const collab = ATLAS.collaborations[id];
   if (!collab) return emptyNote('Unknown collaboration.');
   const text = await loader.getText();
@@ -272,9 +312,9 @@ async function renderCollaboration(id) {
 
   const frag = document.createDocumentFragment();
   frag.appendChild(h('h2', {}, collab.name));
-  frag.appendChild(experimentBadge(collab));
+  frag.appendChild(experimentBadge(collab, timelineState));
 
-  const summary = t.summary_plain
+  const summary = plainSummaryOf(collab, t)
     || `Formed ${collab.formation || 'at an unrecorded date'}${host ? `, hosted at ${host.name}` : ''}.`;
   frag.appendChild(section('Summary', [h('p', {}, summary)]));
 
@@ -286,8 +326,21 @@ async function renderCollaboration(id) {
   viewBtn.addEventListener('click', () => CALLBACKS.viewOnGlobe(id));
   frag.appendChild(h('div', { class: 'panel-actions' }, viewBtn));
 
-  const countLabel = (collab.membership && collab.membership.count_label)
-    || `${(collab.membership && collab.membership.confirmed_count) || 0} confirmed members`;
+  // The collaboration record's own `membership` block does not carry a
+  // confirmed-member count (only institution_count / country_count / as_of
+  // headline stats) — the actual roster counts, split into confirmed and
+  // undated per ontology amendment A5, live in the membership bundle itself.
+  let countLabel = 'Membership counts not yet available.';
+  try {
+    const membership = await loader.getMembership(id);
+    const counts = membership.counts || {};
+    const confirmed = counts.confirmed || 0;
+    const undated = counts.undated || 0;
+    countLabel = `${confirmed} confirmed members (+${undated} undated)`;
+  } catch (error) {
+    // Leave the fallback text in place; the Membership section below still
+    // shows whatever headline stats the collaboration record itself has.
+  }
   frag.appendChild(section('Membership', [
     h('p', { class: 'membership-count' }, countLabel),
     keyValueList([
@@ -340,16 +393,25 @@ async function renderInstitution(id) {
   ]));
 
   const peopleSection = h('div', { class: 'people-section' });
-  const filterRow = h('div', { class: 'role-filter', role: 'group', 'aria-label': 'Filter by role' },
-    ROLE_FILTERS.map((f) => h('button', { type: 'button', class: `role-btn${f.id === 'all' ? ' is-active' : ''}`, 'data-role': f.id }, f.label)));
   const peopleList = h('ul', { class: 'people-list', id: 'people-list' });
-  peopleSection.append(filterRow, peopleList);
 
   let people = [];
   if (row && row.people_bundle) {
     const bundle = await loader.getPeople(row.people_bundle);
     people = bundle.people || [];
   }
+
+  // The role-filter buttons only mean anything when the people bundle
+  // actually carries a `role_group` per person — the generated bundle
+  // currently never does (only the dev fixtures do), so showing four
+  // buttons that all silently return "no people" except "All" would be its
+  // own false statement. Only wire the filter row up when it can work.
+  const hasRoleData = people.some((p) => p.role_group);
+  const filterRow = hasRoleData
+    ? h('div', { class: 'role-filter', role: 'group', 'aria-label': 'Filter by role' },
+      ROLE_FILTERS.map((f) => h('button', { type: 'button', class: `role-btn${f.id === 'all' ? ' is-active' : ''}`, 'data-role': f.id }, f.label)))
+    : null;
+  peopleSection.append(...(filterRow ? [filterRow, peopleList] : [peopleList]));
 
   function renderPeople(filter) {
     peopleList.innerHTML = '';
@@ -361,7 +423,10 @@ async function renderInstitution(id) {
     for (const person of filtered) {
       const li = h('li', {}, [
         h('span', { class: 'person-name' }, person.name),
-        h('span', { class: 'person-role' }, ` — ${titleCase(person.role)}`),
+        // `role` isn't part of the real bundle's person records at all (see
+        // above) — only show it when a value actually exists, rather than a
+        // dangling " — " with nothing after the separator.
+        person.role ? h('span', { class: 'person-role' }, ` — ${titleCase(person.role)}`) : null,
         h('div', { class: 'person-evidence' }, person.evidence_label),
       ]);
       if (person.hep_graph && person.hep_graph.available && person.hep_graph.url) {
@@ -370,12 +435,14 @@ async function renderInstitution(id) {
       peopleList.appendChild(li);
     }
   }
-  filterRow.addEventListener('click', (event) => {
-    const btn = event.target.closest('.role-btn');
-    if (!btn) return;
-    for (const b of filterRow.querySelectorAll('.role-btn')) b.classList.toggle('is-active', b === btn);
-    renderPeople(btn.dataset.role);
-  });
+  if (filterRow) {
+    filterRow.addEventListener('click', (event) => {
+      const btn = event.target.closest('.role-btn');
+      if (!btn) return;
+      for (const b of filterRow.querySelectorAll('.role-btn')) b.classList.toggle('is-active', b === btn);
+      renderPeople(btn.dataset.role);
+    });
+  }
   renderPeople('all');
 
   frag.appendChild(section(`People (${people.length})`, people.length ? [peopleSection] : [emptyNote(
@@ -401,10 +468,16 @@ async function renderTopic(id) {
     frag.appendChild(section('Observables', [h('ul', { class: 'entity-list' }, topic.observables.map((o) => h('li', {}, o)))]));
   }
 
-  const experiments = (topic.experiment_ids || []).map((eid) => ATLAS.experiments[eid]).filter(Boolean);
-  const current = experiments.filter((e) => ['active', 'commissioning'].includes(e.status));
-  const historical = experiments.filter((e) => ['completed', 'decommissioned', 'shutdown'].includes(e.status));
-  const future = experiments.filter((e) => !current.includes(e) && !historical.includes(e));
+  // `topic.experiment_ids` / `topic.result_ids` are not derived fields in
+  // the generated bundle (unlike facility/experiment/collaboration, topics
+  // get no inverse relation at build time — see docs/HEP_ATLAS_BUNDLES.md's
+  // list of derived inverse lists, which does not include topic). The link
+  // does exist the other way round (`experiment.topic_ids`, `result.topic_ids`),
+  // so resolve it here instead of reading a field that is always undefined.
+  const experiments = Object.values(ATLAS.experiments || {}).filter((e) => (e.topic_ids || []).includes(id));
+  const current = experiments.filter((e) => statusEra(e.status) === 'current');
+  const historical = experiments.filter((e) => statusEra(e.status) === 'historical');
+  const future = experiments.filter((e) => statusEra(e.status) === 'future');
   function expList(list) {
     return list.length ? h('ul', { class: 'entity-list' }, list.map((e) => h('li', {}, linkTo(idRoute(e.id), e.name)))) : emptyNote('None.');
   }
@@ -414,8 +487,8 @@ async function renderTopic(id) {
     h('h4', {}, 'Future / planned'), expList(future),
   ]));
 
-  const { byId: resultById } = await loader.getResults();
-  const results = (topic.result_ids || []).map((rid) => resultById.get(rid)).filter(Boolean);
+  const { list: allResults } = await loader.getResults();
+  const results = allResults.filter((r) => (r.topic_ids || []).includes(id));
   frag.appendChild(section('Related results', results.length
     ? [h('ul', { class: 'entity-list' }, results.map((r) => h('li', {}, linkTo(idRoute(r.id), r.title))))]
     : [emptyNote('No results recorded yet.')], { open: false }));
@@ -435,11 +508,14 @@ async function renderResult(id) {
   frag.appendChild(h('h2', {}, result.title));
   frag.appendChild(h('p', { class: 'panel-subtitle' }, `${titleCase(result.result_type)} · ${fmtDate(result.date)}`));
   frag.appendChild(h('p', {}, (t.claim && t.claim.quote) || (result.claim && result.claim.quote) || result.summary && result.summary.plain || ''));
+  // The bundle carries one `date` plus a `date_kind` ("announcement" |
+  // "preprint" | "publication"), not separate `announced` / `published`
+  // fields — those never exist on a real result record, so this used to
+  // silently drop both rows every time.
   frag.appendChild(keyValueList([
     ['Significance', result.significance],
     ['Key value', result.key_value_text],
-    ['Announced', result.announced],
-    ['Published', result.published],
+    [titleCase(result.date_kind) || 'Date', fmtDate(result.date)],
   ]));
   const experiments = (result.experiment_ids || []).map((eid) => ATLAS.experiments[eid]).filter(Boolean);
   if (experiments.length) {
@@ -462,8 +538,12 @@ async function renderDocument(id) {
   const document_ = byId.get(id);
   if (!document_) return emptyNote('Unknown document.');
   const frag = document.createDocumentFragment();
-  frag.appendChild(h('h2', {}, document_.title));
-  frag.appendChild(h('p', { class: 'panel-subtitle' }, `${titleCase(document_.doc_type)} · ${document_.year || ''}`));
+  // The bundle's document records carry `name` and `date`, not `title` and
+  // `year` — reading the latter left every document panel's heading blank
+  // and its subtitle a dangling "Technical Design Report · " with nothing
+  // after the separator, for all ~56 documents in the atlas.
+  frag.appendChild(h('h2', {}, document_.name));
+  frag.appendChild(h('p', { class: 'panel-subtitle' }, `${titleCase(document_.doc_type)} · ${fmtDate(document_.date)}`));
   frag.appendChild(h('p', {}, h('a', { href: document_.reference && document_.reference.url, target: '_blank', rel: 'noopener' }, 'Open document (new tab)')));
   if (document_.volumes && document_.volumes.length) {
     frag.appendChild(section('Volumes', [h('ul', { class: 'entity-list' }, document_.volumes.map((v) => h('li', {}, h('a', { href: v.url, target: '_blank', rel: 'noopener' }, v.title))))]));
@@ -485,7 +565,14 @@ const RENDERERS = {
   document: renderDocument,
 };
 
-export async function render(route) {
+// `timelineState` is `{ year }` or `{ range: [lo, hi] }`, the same shape
+// app.js already tracks from the URL/slider — passed through so the
+// facility/experiment/collaboration badges (the only ones with a lifecycle)
+// can read the entity's state *at that selection* instead of its frozen
+// build-time status. app.js re-invokes render() on every timeline change
+// (it is itself a state.navigate() subscriber), so this also re-renders the
+// whole panel whenever the year or range moves.
+export async function render(route, timelineState = { year: new Date().getFullYear() }) {
   if (!route) {
     container.innerHTML = '';
     container.classList.add('hidden');
@@ -503,7 +590,7 @@ export async function render(route) {
     return;
   }
   try {
-    const frag = await renderer(id);
+    const frag = await renderer(id, timelineState);
     container.innerHTML = '';
     const closeBtn = h('button', {
       type: 'button', class: 'close-btn', id: 'close-detail', 'aria-label': 'Close panel',

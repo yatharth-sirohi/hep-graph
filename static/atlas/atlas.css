@@ -350,6 +350,18 @@ input {
 .atlas-marker.tier-institution .atlas-marker-label {
   display: none;
 }
+/* Site-tier glyphs are drawn at 12x12px (globe.js) so cavern/hall pins stay
+   visually secondary next to facility markers — but that is well under any
+   usable touch-target size on a phone. An ::after pseudo-element extends the
+   *clickable* area (click/tap on it bubbles to the marker's own listener)
+   without changing the marker's own box, so it doesn't shift the glyph off
+   its true geographic anchor the way padding+margin would. The marker's
+   existing `transform` already gives it a containing block for this. */
+.atlas-marker.is-site-tier::after {
+  content: '';
+  position: absolute;
+  inset: -12px;
+}
 .atlas-marker.is-dimmed {
   opacity: 0.4;
 }
@@ -487,6 +499,17 @@ input {
   margin-bottom: 10px;
   text-transform: capitalize;
 }
+/* The entity has no recorded state at the currently selected year/range
+   (not yet started, already ended, or carries no timeline data at all) —
+   styled distinctly from a real status so it doesn't read as just another
+   lifecycle stage. */
+.status-badge.is-outside-timeline {
+  background: transparent;
+  border: 1px dashed var(--muted);
+  color: var(--muted);
+  font-style: italic;
+  text-transform: none;
+}
 .close-btn {
   position: absolute;
   top: 12px;
@@ -511,7 +534,12 @@ input {
 }
 .kv-list {
   display: grid;
-  grid-template-columns: max-content 1fr;
+  /* minmax(0, 1fr), not a bare 1fr: a grid track's automatic minimum size
+     is its content's min-content width unless told otherwise, so a long
+     unbroken value (a baseline, a mass) pushed the column past the panel's
+     own right edge instead of wrapping inside it — this is what "1285 km"
+     rendered as "1285 k" (desktop, 340px panel). */
+  grid-template-columns: max-content minmax(0, 1fr);
   gap: 4px 10px;
   margin: 0;
 }
@@ -520,6 +548,8 @@ input {
 }
 .kv-list dd {
   margin: 0;
+  min-width: 0;
+  overflow-wrap: break-word;
 }
 .entity-list {
   list-style: none;
