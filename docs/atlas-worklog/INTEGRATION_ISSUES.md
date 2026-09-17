@@ -67,3 +67,28 @@ word-for-word against primary sources. Verdict: a physicist would trust it.
 | 24 | P2 | Several detector coordinates are campus centroids reused for specific halls (the SURF 4850 Level caverns, the J-PARC near-detector hall, and one Fermilab campus point shared by seven near detectors). All self-disclosed with approximate confidence and review notes, so nothing is hidden, but they are not surveyed positions. | open |
 | 25 | P2 | `src:ua1-inspire-w-z-discovery-papers` is named for UA1 but is a combined UA1 and UA2 query, and is cited as UA2's source too. Confusing id, correct content. | open |
 | 26 | P2 | The 1989 three-neutrino-species result uses one ALEPH paper title as the shared claim quote for all four LEP collaborations, whose papers have different titles. The physics is right; the quote misrepresents three of the four. Should use per-attribution sources. | open |
+
+## From the independent user-experience review
+
+Four P0 defects, five P1, five P2. Its verdict: "a newcomer would not understand
+what they're looking at, and an expert would not trust it past the first
+timeline scrub — not because the underlying data is bad, but because four
+field-name bugs between that data and the screen make the interface state things
+the atlas's own data directly contradicts." Every one is the fixture-versus-real
+divergence class again, this time in the detail panels.
+
+| # | Severity | Issue | State |
+| --- | --- | --- | --- |
+| 27 | P0 | The panel's status badge ignored the selected year: ATLAS read "Upgrade" in 1995, SBND read "Active" in 1995 although it first took data in 2024. The globe used `state_segments` correctly; only the panel did not. | assigned |
+| 28 | P0 | Plain-language summaries never rendered. Every record has a good `summary.plain`, but the panels read a field the bundle does not carry, so every panel said "No plain-language summary yet". | assigned |
+| 29 | P0 | Every collaboration read "0 confirmed members" directly above a correct institution count. | assigned |
+| 30 | P0 | All 56 documents showed blank titles and dates: the panel read `title` and `year`, the records carry `name` and `date`. | assigned |
+| 31 | P1 | DUNE was labelled a historical experiment on Fermilab's panel, because only active and commissioning counted as current. | assigned |
+| 32 | P0 | The globe's timeline did not filter anything: sites have no intervals of their own, so every marker showed in every year and the ATLAS cavern appeared a decade before it was dug. | fixed: a site's history is derived from the experiments placed there |
+
+What the review praised, and what should be preserved: sources are consistently
+inspectable with quotes and access dates; the evidence-class wording is
+reproduced verbatim; the institution to person to HEP Graph handoff works
+end to end; the no-WebGL fallback is a genuinely good accessible view; reduced
+motion is honoured; and result-type wording is well calibrated against real
+physics history everywhere it was spot-checked.
