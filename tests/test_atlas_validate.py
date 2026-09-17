@@ -680,3 +680,92 @@ def test_a20_distinct_from_excuses_a_genuine_name_collision(root: Path) -> None:
     _mutate(root, "institutions/iowa-state-b.json", edit_b)
     findings = _validate(root)
     assert not _findings(findings, "duplicate-name")
+
+
+# ---------------------------------------------------------------------------
+# Fourth review wave: A12 active-before-construction, refined against real
+# multi-phase histories (a relocated/rebuilt detector, a lab founded before
+# its first accelerator broke ground).
+# ---------------------------------------------------------------------------
+
+def test_a12_active_before_construction_is_still_only_a_warning(root: Path) -> None:
+    def edit(r: dict) -> None:
+        r["intervals"] = [
+            {"label": "premature", "status": "active", "kind": "lifecycle",
+             "start": "2000", "end": "2001", "sources": ["src:demo-lab-site"],
+             "verified_at": "2026-09-16", "confidence": "verified", "note": ""},
+            {"label": "built", "status": "construction", "kind": "lifecycle",
+             "start": "2005", "end": "2008", "sources": ["src:demo-lab-site"],
+             "verified_at": "2026-09-16", "confidence": "verified", "note": ""},
+        ]
+    _mutate(root, "accelerators/demo-synchrotron.json", edit)
+    findings = _validate(root)
+    matches = _findings(findings, "active-before-construction")
+    assert matches and all(finding.level == v.WARNING for finding in matches)
+    assert any("relocated" in finding.message for finding in matches)
+
+
+def test_a12_is_exempted_for_a_detector_relocated_across_multiple_placements(root: Path) -> None:
+    """`detector:icarus-t600`'s real shape: active at the first site, a fresh
+    `construction` interval for the rebuild at a second site.  A2's own
+    `placements` model exists precisely to express this; it must not warn."""
+    def edit(r: dict) -> None:
+        r["intervals"] = [
+            {"label": "operation at site A", "status": "active", "kind": "lifecycle",
+             "start": "2010", "end": "2013", "sources": ["src:demo-tdr"],
+             "verified_at": "2026-09-16", "confidence": "verified", "note": ""},
+            {"label": "rebuild at site B", "status": "construction", "kind": "lifecycle",
+             "start": "2017", "end": "2020", "sources": ["src:demo-tdr"],
+             "verified_at": "2026-09-16", "confidence": "verified", "note": ""},
+        ]
+        r["placements"] = [
+            {"site_id": "site:demo-lab-campus", "role": "prototype", "start": "2010", "end": "2013",
+             "sources": ["src:demo-tdr"], "verified_at": "2026-09-16", "confidence": "verified", "note": ""},
+            {"site_id": "site:demo-far-cavern", "role": "main", "start": "2017", "end": None,
+             "sources": ["src:demo-tdr"], "verified_at": "2026-09-16", "confidence": "verified", "note": ""},
+        ]
+    _mutate(root, "detectors/demo-far-detector.json", edit)
+    findings = _validate(root)
+    assert not _findings(findings, "active-before-construction")
+
+
+def test_a12_is_exempted_when_a_later_active_interval_follows_construction(root: Path) -> None:
+    """Even with only one site, an entity that operates, is upgraded
+    (a fresh `construction` interval), and operates again is not the
+    "shown running before it was built" mistake this rule targets: not
+    *every* `active` start precedes the `construction` start."""
+    def edit(r: dict) -> None:
+        r["intervals"] = [
+            {"label": "first run", "status": "active", "kind": "lifecycle",
+             "start": "2000", "end": "2009", "sources": ["src:demo-lab-site"],
+             "verified_at": "2026-09-16", "confidence": "verified", "note": ""},
+            {"label": "upgrade", "status": "construction", "kind": "lifecycle",
+             "start": "2010", "end": "2011", "sources": ["src:demo-lab-site"],
+             "verified_at": "2026-09-16", "confidence": "verified", "note": ""},
+            {"label": "second run", "status": "active", "kind": "lifecycle",
+             "start": "2012", "end": None, "sources": ["src:demo-lab-site"],
+             "verified_at": "2026-09-16", "confidence": "verified", "note": ""},
+        ]
+    _mutate(root, "accelerators/demo-synchrotron.json", edit)
+    findings = _validate(root)
+    assert not _findings(findings, "active-before-construction")
+
+
+def test_a12_a_single_placement_detector_is_not_exempted(root: Path) -> None:
+    """The relocation exemption is for *more than one* placement; a detector
+    with just one still gets the ordinary check."""
+    def edit(r: dict) -> None:
+        r["intervals"] = [
+            {"label": "premature", "status": "active", "kind": "lifecycle",
+             "start": "2000", "end": "2001", "sources": ["src:demo-tdr"],
+             "verified_at": "2026-09-16", "confidence": "verified", "note": ""},
+            {"label": "built", "status": "construction", "kind": "lifecycle",
+             "start": "2005", "end": "2008", "sources": ["src:demo-tdr"],
+             "verified_at": "2026-09-16", "confidence": "verified", "note": ""},
+        ]
+        # exactly one placement: the fixture's existing single row.
+        assert len(r["placements"]) == 1
+    _mutate(root, "detectors/demo-far-detector.json", edit)
+    findings = _validate(root)
+    matches = _findings(findings, "active-before-construction")
+    assert matches and all(finding.level == v.WARNING for finding in matches)

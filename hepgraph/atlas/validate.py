@@ -1119,11 +1119,22 @@ def check_membership_dates(ctx: _Context) -> Iterator[Finding]:
                               f'{row["known_until"]!r}')
 
 
+def _has_multiple_locations(entity_type: str, record: dict) -> bool:
+    """True when the entity can legitimately have operated at more than one
+    place — currently only a `detector` with more than one A2 `placements`
+    row, the ontology's own model for a detector that relocates: it operates
+    at its first site, is rebuilt (a fresh `construction` interval) at a
+    second, and operates again."""
+    if entity_type == 'detector':
+        return len(record.get('placements') or []) > 1
+    return False
+
+
 def check_timeline_warnings(ctx: _Context) -> Iterator[Finding]:
     """A12 warnings: hull gaps, `active` before `construction`, an experiment
     that predates its host facility, an experiment operating with no beam, a
     stale `verified_at` and a `planned` date that has quietly passed."""
-    for _type, entity_id, record in ctx.atlas.iter_entities():
+    for entity_type, entity_id, record in ctx.atlas.iter_entities():
         path = ctx.path_of(entity_id)
         rows = _intervals(record)
         if rows:
@@ -1140,11 +1151,24 @@ def check_timeline_warnings(ctx: _Context) -> Iterator[Finding]:
             construction = [day for day in construction if day is not None]
             active = [schema.lo(row.get('start')) for row in rows if row.get('status') == 'active']
             active = [day for day in active if day is not None]
-            if construction and active and min(active) < min(construction):
+            # A12 (refined): only a genuine "shown running before it was built"
+            # mistake — every `active` start earlier than every `construction`
+            # start — and only when the entity has nowhere else it could have
+            # been operating before this construction (a detector relocated
+            # across more than one `placements` row is expected to look
+            # exactly like this: active at the first site, a fresh
+            # `construction` interval for the rebuild at the second, active
+            # again — and must not be flagged).
+            if (construction and active and max(active) < min(construction)
+                    and not _has_multiple_locations(entity_type, record)):
                 yield Finding(WARNING, 'active-before-construction', path, entity_id,
                               _pointer('intervals'),
-                              f'A12: `active` starts {min(active).isoformat()} before the first '
-                              f'`construction` interval ({min(construction).isoformat()})')
+                              f'A12: every `active` interval starts before the first '
+                              f'`construction` interval ({min(construction).isoformat()}), '
+                              f'latest {max(active).isoformat()}; a relocated or rebuilt '
+                              f'detector (more than one A2 `placements` row) is expected to '
+                              f'look like this and is exempted — otherwise check whether '
+                              f'`active` and `construction` are in the right order')
         yield from _check_stale_verification(ctx, path, entity_id, record)
         yield from _check_planned_dates_passed(ctx, path, entity_id, record)
     yield from _check_experiment_timeline(ctx)

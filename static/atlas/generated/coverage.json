@@ -1,0 +1,2143 @@
+{
+  "rows": [
+    {
+      "category": "collider",
+      "entity_id": "experiment:aleph",
+      "facility": "CERN LEP",
+      "globe_ready": false,
+      "missing_fields": [
+        "detector solenoid/TPC quantitative specs beyond those quoted",
+        "leadership/spokesperson names"
+      ],
+      "name": "ALEPH",
+      "notes": "Site (LEP Point 4) directly sourced via CERN Courier. Proposal/approval/data-taking/completed intervals sourced from INSPIRE experiment record 1109311 and home.cern.",
+      "owner": "historic-cern",
+      "priority": 1,
+      "researched": "full",
+      "status": "completed",
+      "tier": "A",
+      "validated": true
+    },
+    {
+      "category": "collider",
+      "entity_id": "experiment:atlas",
+      "facility": "CERN",
+      "globe_ready": true,
+      "missing_fields": [
+        "collaboration:atlas institution memberships (owned by membership-lead)",
+        "muon spectrometer TDR (CERN-LHCC-97-22) not written: not requested by the task scope",
+        "HEPData record URLs (hepdata.net returned HTTP 403 to automated fetches this session; all result.hepdata fields are null)"
+      ],
+      "name": "ATLAS",
+      "notes": "Completed for the pilot gate: 1994 Technical Proposal, 2008 detector paper, 1996-97 inner-detector and calorimeter TDRs, and the 2017 Phase-II ITk pixel/strip TDRs added as documents; 9 results added (Higgs observation 2012, H->tautau observation, ttH observation, H->bb observation, the 2022 Nature ten-years-on paper, W-boson mass, top-quark mass, light-by-light scattering observation, and a squark/gluino exclusion limit). experiment:atlas, detector:atlas and collaboration:atlas were already researched and verified against their cited sources without changes.",
+      "owner": "dune-atlas-completion",
+      "priority": 1,
+      "researched": "full",
+      "status": "upgrade",
+      "tier": "A",
+      "validated": true
+    },
+    {
+      "category": "collider",
+      "entity_id": "experiment:belle",
+      "facility": "KEK (KEKB), Tsukuba, Japan",
+      "globe_ready": true,
+      "missing_fields": [
+        "detector:belle subsystems and dimensions (Belle detector paper NIM A 479 (2002) 117 is paywalled/blocked)",
+        "collaboration:belle formation date, leadership, dated membership counts",
+        "experiment:belle construction interval (no fetched source dates it)",
+        "site:kek-tsukuba-belle-ii coordinates from an official or technical source"
+      ],
+      "name": "Belle",
+      "notes": "Intervals, key specs, lineage and four major results are sourced. facility:kek is referenced but owned by japan-neutrino.",
+      "owner": "flavor",
+      "priority": 1,
+      "researched": "full",
+      "schema": "hep-atlas/0.2",
+      "status": "completed",
+      "tier": "A",
+      "validated": true
+    },
+    {
+      "category": "collider",
+      "entity_id": "experiment:belle-ii",
+      "facility": "KEK (SuperKEKB), Tsukuba, Japan",
+      "globe_ready": true,
+      "missing_fields": [
+        "detector:belle-ii overall dimensions and per-subsystem quantities (TDR body not fetched)",
+        "collaboration:belle-ii leadership; membership counts carry no published 'as of' date",
+        "site:kek-tsukuba-belle-ii coordinates from an official or technical source",
+        "site depth below surface"
+      ],
+      "name": "Belle II",
+      "notes": "Full interval history (TDR, construction, roll-in, Phase 2, Run 1, LS1, Run 2), key specs, two results plus the SuperKEKB luminosity milestone. facility:kek is referenced but owned by japan-neutrino.",
+      "owner": "flavor",
+      "priority": 1,
+      "researched": "full",
+      "schema": "hep-atlas/0.2",
+      "status": "active",
+      "tier": "A",
+      "validated": true
+    },
+    {
+      "category": "collider",
+      "entity_id": "experiment:delphi",
+      "facility": "CERN LEP",
+      "globe_ready": false,
+      "missing_fields": [
+        "leadership/spokesperson names",
+        "exact end-of-data-taking date conflict (Nov vs Dec 2000) unresolved"
+      ],
+      "name": "DELPHI",
+      "notes": "Site (LEP Point 8) inferred via the DELPHI/LHCb shared-cavern CERN news story, not a direct statement. Proposal/approval/data-taking/completed intervals sourced from INSPIRE experiment record 1109312 and home.cern.",
+      "owner": "historic-cern",
+      "priority": 1,
+      "researched": "full",
+      "status": "completed",
+      "tier": "A",
+      "validated": true
+    },
+    {
+      "category": "accelerator_neutrino",
+      "entity_id": "experiment:dune",
+      "facility": "Fermilab / SURF",
+      "globe_ready": true,
+      "missing_fields": [
+        "collaboration:dune institution memberships (owned by membership-lead)",
+        "CD-1R formal approval date (not sourced this session)",
+        "an oscillation-physics result (DUNE has none yet; only construction/technology milestones recorded)"
+      ],
+      "name": "DUNE",
+      "notes": "Completed for the pilot gate: Far Detector TDR Vols. I-IV, Near Detector CDR, LBNF/DUNE CDR 2015 and the 2018 Interim Design Report added as documents; ProtoDUNE-SP performance paper and the 2024 far-site excavation completion added as technology_milestone results. experiment:dune and detector:dune-* were already researched and were not changed.",
+      "owner": "dune-atlas-completion",
+      "priority": 1,
+      "researched": "full",
+      "status": "construction",
+      "tier": "A",
+      "validated": true
+    },
+    {
+      "category": "atmospheric_neutrino",
+      "entity_id": "experiment:hyper-kamiokande",
+      "facility": "Kamioka Observatory / J-PARC",
+      "globe_ready": true,
+      "missing_fields": [
+        "PMT count unresolved between two official-site figures (20,000 vs ~40,000; see worklog conflicts)",
+        "fiducial mass unresolved between two official-site figures (188 kt vs 190 kt; see worklog conflicts)",
+        "exact broad 'construction start' date (only cavern-excavation start, Oct 2022, is sourced; no source confirms a 2021 construction start)",
+        "collaboration leadership (spokesperson) not sourced"
+      ],
+      "name": "Hyper-Kamiokande",
+      "notes": "Approved 2020-02-12; cavern excavation 2022-10, complete per 2026 paper; water-tank lining complete per Aug-2026 news entry; planned operation start 2027-2028 (sources disagree).",
+      "owner": "japan-neutrino",
+      "priority": 1,
+      "researched": "full",
+      "status": "construction",
+      "tier": "A",
+      "validated": true
+    },
+    {
+      "category": "astrophysical_neutrino",
+      "entity_id": "experiment:icecube",
+      "facility": "Amundsen-Scott South Pole Station",
+      "globe_ready": true,
+      "missing_fields": [
+        "per-season string deployment counts (IC1/IC9/IC22/IC40/IC59/IC79/IC86)",
+        "site coordinates are the geographic South Pole with 2 km precision; no surveyed array position is published",
+        "collaboration leadership (person records owned elsewhere)"
+      ],
+      "name": "IceCube",
+      "notes": "Detector, intervals, physics goals, key specs, 8 results and 5 documents recorded. IceTop and DeepCore are separate detector records with parent_detector_id.",
+      "owner": "icecube",
+      "priority": 1,
+      "researched": "full",
+      "status": "active",
+      "tier": "A",
+      "validated": true
+    },
+    {
+      "category": "collider",
+      "entity_id": "experiment:l3",
+      "facility": "CERN LEP",
+      "globe_ready": false,
+      "missing_fields": [
+        "leadership/spokesperson names",
+        "magnet field strength / detector envelope dimensions"
+      ],
+      "name": "L3",
+      "notes": "Site (LEP Point 2) inferred via the L3-magnet-reused-by-ALICE CERN Courier story plus ALICE's own Point 2 location, not a direct statement. Proposal/approval/data-taking/completed intervals sourced from INSPIRE experiment record 1109313 and home.cern.",
+      "owner": "historic-cern",
+      "priority": 1,
+      "researched": "full",
+      "status": "completed",
+      "tier": "A",
+      "validated": true
+    },
+    {
+      "category": "direct_dark_matter",
+      "entity_id": "experiment:lz",
+      "facility": "SURF (Davis Campus, 4850 Level)",
+      "globe_ready": true,
+      "missing_fields": [
+        "detector:lz specs.threshold (no sourced nuclear-recoil energy threshold)",
+        "collaboration:lz formation (no published founding date)",
+        "memberships/lz.json (no published institution roster; owned by membership-lead)",
+        "experiment:lz intervals: DOE CD-0/CD-1/CD-2/CD-3 dates unsourced",
+        "result: LZ 136Xe 0vbb half-life limit (not published as of 2026-09-16)",
+        "result: 2026 EFT high-energy nuclear recoil search (no arXiv id yet)"
+      ],
+      "name": "LZ (LUX-ZEPLIN)",
+      "notes": "Detector, site, results and design documents are fully sourced. facility:surf is referenced but owned by fermilab-dune.",
+      "owner": "dark-matter",
+      "priority": 1,
+      "researched": "full",
+      "status": "active",
+      "tier": "A",
+      "validated": true
+    },
+    {
+      "category": "collider",
+      "entity_id": "experiment:opal",
+      "facility": "CERN LEP",
+      "globe_ready": false,
+      "missing_fields": [
+        "LEP interaction point number (unverified; no site written)",
+        "leadership/spokesperson names",
+        "magnet field strength / subdetector dimensions"
+      ],
+      "name": "OPAL",
+      "notes": "No site recorded: no fetched source states which LEP point hosted OPAL (see experiment notes). Proposal/approval/data-taking/completed intervals sourced from INSPIRE experiment record 1109310 and OPAL's own site.",
+      "owner": "historic-cern",
+      "priority": 1,
+      "researched": "full",
+      "status": "completed",
+      "tier": "A",
+      "validated": true
+    },
+    {
+      "category": "atmospheric_neutrino",
+      "entity_id": "experiment:super-kamiokande",
+      "facility": "Kamioka Observatory",
+      "globe_ready": true,
+      "missing_fields": [
+        "collaboration leadership (spokesperson) not sourced",
+        "detector-paper (NIM 2003) PMT count could not be extracted directly; official detector page used instead"
+      ],
+      "name": "Super-Kamiokande",
+      "notes": "8 intervals from cavity excavation to SK-Gd; 4 results recorded.",
+      "owner": "japan-neutrino",
+      "priority": 1,
+      "researched": "full",
+      "status": "active",
+      "tier": "A",
+      "validated": true
+    },
+    {
+      "category": "accelerator_neutrino",
+      "entity_id": "experiment:t2k",
+      "facility": "J-PARC / Super-Kamiokande (Kamioka Observatory)",
+      "globe_ready": true,
+      "missing_fields": [
+        "a distinct 'approved' interval (only 'proposed', from an INSPIRE metadata field, is sourced)",
+        "INGRID module count and per-module specs (not published in the fetched T2K experiment paper)",
+        "ND280 total/per-subsystem mass",
+        "collaboration leadership (spokesperson) not sourced"
+      ],
+      "name": "T2K",
+      "notes": "9 intervals, 4 physics goals, 5 key specs, lineage to K2K.",
+      "owner": "japan-neutrino",
+      "priority": 1,
+      "researched": "full",
+      "status": "active",
+      "tier": "A",
+      "validated": true
+    },
+    {
+      "category": "collider",
+      "entity_id": "experiment:ua1",
+      "facility": "CERN SPS (SppS)",
+      "globe_ready": false,
+      "missing_fields": [
+        "site LSS assignment (LSS5) unverified by a fetched source",
+        "collaboration institution/member/country counts",
+        "original SPSC proposal document"
+      ],
+      "name": "UA1",
+      "notes": "Proposal/approval/data-taking/completed intervals sourced from INSPIRE experiment record 1109643 and home.cern; W and Z discovery results written.",
+      "owner": "historic-cern",
+      "priority": 1,
+      "researched": "full",
+      "status": "completed",
+      "tier": "A",
+      "validated": true
+    },
+    {
+      "category": "collider",
+      "entity_id": "experiment:ua2",
+      "facility": "CERN SPS (SppS)",
+      "globe_ready": false,
+      "missing_fields": [
+        "site LSS assignment (LSS4) unverified by a fetched source",
+        "collaboration member/country counts",
+        "original SPSC proposal document"
+      ],
+      "name": "UA2",
+      "notes": "Proposal/approval/data-taking/upgrade(1985-1987)/completed intervals sourced from INSPIRE experiment record 1109640 and CERN archives guide; W and Z discovery results written.",
+      "owner": "historic-cern",
+      "priority": 1,
+      "researched": "full",
+      "status": "completed",
+      "tier": "A",
+      "validated": true
+    },
+    {
+      "category": "collider",
+      "entity_id": "experiment:alice",
+      "facility": "CERN / LHC",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "ALICE",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 2,
+      "researched": "none",
+      "tier": "A",
+      "validated": false
+    },
+    {
+      "category": "collider",
+      "entity_id": "experiment:babar",
+      "facility": "SLAC",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "BaBar",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 2,
+      "researched": "none",
+      "tier": "D",
+      "validated": false
+    },
+    {
+      "category": "collider",
+      "entity_id": "experiment:cdf",
+      "facility": "Fermilab / Tevatron",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "CDF",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 2,
+      "researched": "none",
+      "tier": "D",
+      "validated": false
+    },
+    {
+      "category": "collider",
+      "entity_id": "experiment:d0",
+      "facility": "Fermilab / Tevatron",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "D0",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 2,
+      "researched": "none",
+      "tier": "D",
+      "validated": false
+    },
+    {
+      "category": "reactor_neutrino",
+      "entity_id": "experiment:daya-bay",
+      "facility": "various",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "Daya Bay",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 2,
+      "researched": "none",
+      "tier": "B",
+      "validated": false
+    },
+    {
+      "category": "reactor_neutrino",
+      "entity_id": "experiment:double-chooz",
+      "facility": "various",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "Double Chooz",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 2,
+      "researched": "none",
+      "tier": "B",
+      "validated": false
+    },
+    {
+      "category": "accelerator_neutrino",
+      "entity_id": "experiment:icarus",
+      "facility": "LNGS (2010-2013) / CERN (2014-2017) / Fermilab (2017-present)",
+      "globe_ready": true,
+      "missing_fields": [
+        "collaboration formation date",
+        "original 2004 T600 construction paper (publisher blocked, not fetched)",
+        "collaboration leadership beyond Carlo Rubbia's historic role"
+      ],
+      "name": "ICARUS",
+      "notes": "Full 5-interval history recorded: Gran Sasso operation, CERN refurbishment, Fermilab installation, cryogenic commissioning, physics operation. same_program lineage to experiment:microboone and experiment:sbnd. First Fermilab-era physics result (2025 hidden-sector-scalar limit) recorded.",
+      "owner": "fermilab-neutrino-other",
+      "priority": 2,
+      "researched": "full",
+      "status": "active",
+      "tier": "B",
+      "validated": true
+    },
+    {
+      "category": "atmospheric_neutrino",
+      "entity_id": "experiment:icecube-upgrade",
+      "facility": "Amundsen-Scott South Pole Station",
+      "globe_ready": false,
+      "missing_fields": [
+        "exact module count (only “more than 600” is published)",
+        "no detector record for the Upgrade strings",
+        "no INSPIRE experiment record found",
+        "start of physics operation not announced"
+      ],
+      "name": "IceCube Upgrade",
+      "notes": "As built: five strings, >600 modules, deployed in the 2025/26 season; the 2019 design paper specified seven strings in 2022/23.",
+      "owner": "icecube",
+      "priority": 2,
+      "researched": "full",
+      "status": "commissioning",
+      "tier": "B",
+      "validated": true
+    },
+    {
+      "category": "reactor_neutrino",
+      "entity_id": "experiment:juno",
+      "facility": "various",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "JUNO",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 2,
+      "researched": "none",
+      "tier": "B",
+      "validated": false
+    },
+    {
+      "category": "accelerator_neutrino",
+      "entity_id": "experiment:k2k",
+      "facility": "KEK / Super-Kamiokande (Kamioka Observatory)",
+      "globe_ready": true,
+      "missing_fields": [
+        "collaboration institution/member/country counts (none published in sources fetched)",
+        "exact construction-start date"
+      ],
+      "name": "K2K",
+      "notes": "First long-baseline accelerator neutrino oscillation experiment; direct predecessor of T2K.",
+      "owner": "japan-neutrino",
+      "priority": 2,
+      "researched": "full",
+      "status": "completed",
+      "tier": "B",
+      "validated": true
+    },
+    {
+      "category": "astrophysical_neutrino",
+      "entity_id": "experiment:kamiokande",
+      "facility": "Kamioka Observatory",
+      "globe_ready": false,
+      "missing_fields": [
+        "exact end/decommissioning date",
+        "no collaboration record (see notes)",
+        "INSPIRE experiment recid"
+      ],
+      "name": "Kamiokande",
+      "notes": "SN 1987A neutrino detection; predecessor of Super-Kamiokande.",
+      "owner": "japan-neutrino",
+      "priority": 2,
+      "researched": "full",
+      "status": "completed",
+      "tier": "A",
+      "validated": true
+    },
+    {
+      "category": "reactor_neutrino",
+      "entity_id": "experiment:kamland",
+      "facility": "various",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "KamLAND",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 2,
+      "researched": "none",
+      "tier": "B",
+      "validated": false
+    },
+    {
+      "category": "collider",
+      "entity_id": "experiment:lhcb",
+      "facility": "CERN / LHC",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "LHCb",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 2,
+      "researched": "none",
+      "tier": "A",
+      "validated": false
+    },
+    {
+      "category": "direct_dark_matter",
+      "entity_id": "experiment:lux",
+      "facility": "SURF (Davis Campus, 4850 Level)",
+      "globe_ready": false,
+      "missing_fields": [
+        "collaboration:lux (not in the ID registry; not created)",
+        "detector:lux (not owned by this workstream)",
+        "intervals: 2013-08 to 2014-09 gap between WS2013 and WS2014-16 not sourced",
+        "construction / installation intervals before February 2013"
+      ],
+      "name": "LUX (Large Underground Xenon)",
+      "notes": "Held as LZ lineage (predecessor); researched to the depth needed for that role.",
+      "owner": "dark-matter",
+      "priority": 2,
+      "researched": "partial",
+      "status": "completed",
+      "tier": "B",
+      "validated": true
+    },
+    {
+      "category": "accelerator_neutrino",
+      "entity_id": "experiment:microboone",
+      "facility": "Fermilab",
+      "globe_ready": false,
+      "missing_fields": [
+        "collaboration formation date",
+        "collaboration leadership (person records owned elsewhere)"
+      ],
+      "name": "MicroBooNE",
+      "notes": "4 key specs, 3 physics goals recorded. Two results recorded: the 2021 no-low-energy-excess search (this workstream's required MicroBooNE result) and, as a bonus, the December 2025 Nature sterile-neutrino search is cited as a collaboration source but not written as a separate result file in this pass.",
+      "owner": "fermilab-neutrino-other",
+      "priority": 2,
+      "researched": "full",
+      "status": "completed",
+      "tier": "B",
+      "validated": true
+    },
+    {
+      "category": "accelerator_neutrino",
+      "entity_id": "experiment:miniboone",
+      "facility": "Fermilab",
+      "globe_ready": false,
+      "missing_fields": [
+        "exact end-of-data-taking date (2019 is not stated verbatim in any fetched source; confidence uncertain)",
+        "collaboration formation date"
+      ],
+      "name": "MiniBooNE",
+      "notes": "4 key specs and 2 physics goals recorded; the low-energy excess result uses the 2021 updated (4.8 sigma) figure with the 2018 (4.5 sigma) paper cited as a supporting source.",
+      "owner": "fermilab-neutrino-other",
+      "priority": 2,
+      "researched": "full",
+      "status": "completed",
+      "tier": "B",
+      "validated": true
+    },
+    {
+      "category": "accelerator_neutrino",
+      "entity_id": "experiment:minos",
+      "facility": "Fermilab (near) / Soudan Underground Laboratory (far)",
+      "globe_ready": true,
+      "missing_fields": [
+        "collaboration formation date",
+        "collaboration leadership (person records owned elsewhere)"
+      ],
+      "name": "MINOS",
+      "notes": "Commissioning (2002-09/2003-07) and beam-data (2005-05-20/2012-04-30) intervals sourced from the MINOS detector paper and the NuMI beamline paper; superseded by experiment:minos-plus (upgrade_of lineage on the successor record per v0.2 A1). Two results recorded (2013 oscillation measurement, 2016 sterile-neutrino limit).",
+      "owner": "fermilab-neutrino-other",
+      "priority": 2,
+      "researched": "full",
+      "status": "completed",
+      "tier": "B",
+      "validated": true
+    },
+    {
+      "category": "accelerator_neutrino",
+      "entity_id": "experiment:nova",
+      "facility": "Fermilab (near) / Ash River, MN (far)",
+      "globe_ready": true,
+      "missing_fields": [
+        "collaboration formation date",
+        "collaboration leadership (person records owned elsewhere)",
+        "exact antineutrino-mode data-taking end date (run is ongoing)"
+      ],
+      "name": "NOvA",
+      "notes": "Two detectors (near, far), rich construction/commissioning/active intervals including the 2017 antineutrino-mode start, 5 key specs, 3 physics goals and 1 oscillation-measurement result recorded.",
+      "owner": "fermilab-neutrino-other",
+      "priority": 2,
+      "researched": "full",
+      "status": "active",
+      "tier": "B",
+      "validated": true
+    },
+    {
+      "category": "reactor_neutrino",
+      "entity_id": "experiment:reno",
+      "facility": "various",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "RENO",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 2,
+      "researched": "none",
+      "tier": "B",
+      "validated": false
+    },
+    {
+      "category": "accelerator_neutrino",
+      "entity_id": "experiment:sbnd",
+      "facility": "Fermilab",
+      "globe_ready": false,
+      "missing_fields": [
+        "collaboration formation date",
+        "collaboration leadership (person records owned elsewhere)",
+        "no physics (oscillation/cross-section) result yet published as of the sources fetched -- only detector commissioning and first-neutrinos coverage"
+      ],
+      "name": "SBND",
+      "notes": "Commissioning (July 2024) and stable-data-taking (10 Sept 2024 announcement) intervals recorded; same_program lineage to experiment:icarus. No SBND physics result exists yet in the sources fetched this session.",
+      "owner": "fermilab-neutrino-other",
+      "priority": 2,
+      "researched": "full",
+      "status": "active",
+      "tier": "B",
+      "validated": true
+    },
+    {
+      "category": "collider",
+      "entity_id": "experiment:sld",
+      "facility": "SLAC",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "SLD",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 2,
+      "researched": "none",
+      "tier": "D",
+      "validated": false
+    },
+    {
+      "category": "astrophysical_neutrino",
+      "entity_id": "experiment:amanda",
+      "facility": "Amundsen-Scott South Pole Station",
+      "globe_ready": false,
+      "missing_fields": [
+        "month-precision start and end of operation",
+        "decommissioning date",
+        "no collaboration record (merged into IceCube in 2005)",
+        "no detector record"
+      ],
+      "name": "AMANDA",
+      "notes": "Operating interval 1996–2009 is derived from the IceCube timeline plus the INSPIRE record; the 2008 AMANDA data page says 2000–2006 for the AMANDA-II dataset.",
+      "owner": "icecube",
+      "priority": 3,
+      "researched": "partial",
+      "status": "completed",
+      "tier": "B",
+      "validated": true
+    },
+    {
+      "category": "astrophysical_neutrino",
+      "entity_id": "experiment:anita",
+      "facility": "various",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "ANITA",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 3,
+      "researched": "none",
+      "tier": "B",
+      "validated": false
+    },
+    {
+      "category": "astrophysical_neutrino",
+      "entity_id": "experiment:antares",
+      "facility": "various",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "ANTARES",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 3,
+      "researched": "none",
+      "tier": "B",
+      "validated": false
+    },
+    {
+      "category": "astrophysical_neutrino",
+      "entity_id": "experiment:ara",
+      "facility": "various",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "ARA",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 3,
+      "researched": "none",
+      "tier": "B",
+      "validated": false
+    },
+    {
+      "category": "astrophysical_neutrino",
+      "entity_id": "experiment:arianna",
+      "facility": "various",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "ARIANNA",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 3,
+      "researched": "none",
+      "tier": "B",
+      "validated": false
+    },
+    {
+      "category": "astrophysical_neutrino",
+      "entity_id": "experiment:baikal-gvd",
+      "facility": "various",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "Baikal-GVD",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 3,
+      "researched": "none",
+      "tier": "B",
+      "validated": false
+    },
+    {
+      "category": "solar_neutrino",
+      "entity_id": "experiment:borexino",
+      "facility": "LNGS / SNOLAB / Baksan / Homestake",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "Borexino",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 3,
+      "researched": "none",
+      "tier": "D",
+      "validated": false
+    },
+    {
+      "category": "direct_dark_matter",
+      "entity_id": "experiment:cdms-ii",
+      "facility": "LNGS / SNOLAB / CJPL / Modane / SURF",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "CDMS II",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 3,
+      "researched": "none",
+      "tier": "B",
+      "validated": false
+    },
+    {
+      "category": "muon_precision",
+      "entity_id": "experiment:comet",
+      "facility": "Fermilab / PSI / J-PARC",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "COMET",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 3,
+      "researched": "none",
+      "tier": "B",
+      "validated": false
+    },
+    {
+      "category": "direct_dark_matter",
+      "entity_id": "experiment:cresst",
+      "facility": "LNGS / SNOLAB / CJPL / Modane / SURF",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "CRESST",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 3,
+      "researched": "none",
+      "tier": "B",
+      "validated": false
+    },
+    {
+      "category": "double_beta_decay",
+      "entity_id": "experiment:cuore",
+      "facility": "LNGS / SURF / Kamioka / Canfranc",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "CUORE",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 3,
+      "researched": "none",
+      "tier": "B",
+      "validated": false
+    },
+    {
+      "category": "double_beta_decay",
+      "entity_id": "experiment:cupid",
+      "facility": "LNGS / SURF / Kamioka / Canfranc",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "CUPID",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 3,
+      "researched": "none",
+      "tier": "B",
+      "validated": false
+    },
+    {
+      "category": "direct_dark_matter",
+      "entity_id": "experiment:damic",
+      "facility": "LNGS / SNOLAB / CJPL / Modane / SURF",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "DAMIC",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 3,
+      "researched": "none",
+      "tier": "B",
+      "validated": false
+    },
+    {
+      "category": "direct_dark_matter",
+      "entity_id": "experiment:damic-m",
+      "facility": "LNGS / SNOLAB / CJPL / Modane / SURF",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "DAMIC-M",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 3,
+      "researched": "none",
+      "tier": "B",
+      "validated": false
+    },
+    {
+      "category": "fixed_target",
+      "entity_id": "experiment:darkquest",
+      "facility": "CERN / Fermilab / BNL / J-PARC",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "DarkQuest",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 3,
+      "researched": "none",
+      "tier": "B",
+      "validated": false
+    },
+    {
+      "category": "direct_dark_matter",
+      "entity_id": "experiment:darkside-20k",
+      "facility": "LNGS / SNOLAB / CJPL / Modane / SURF",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "DarkSide-20k",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 3,
+      "researched": "none",
+      "tier": "B",
+      "validated": false
+    },
+    {
+      "category": "direct_dark_matter",
+      "entity_id": "experiment:darkside-50",
+      "facility": "LNGS / SNOLAB / CJPL / Modane / SURF",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "DarkSide-50",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 3,
+      "researched": "none",
+      "tier": "B",
+      "validated": false
+    },
+    {
+      "category": "direct_dark_matter",
+      "entity_id": "experiment:deap-3600",
+      "facility": "LNGS / SNOLAB / CJPL / Modane / SURF",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "DEAP-3600",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 3,
+      "researched": "none",
+      "tier": "B",
+      "validated": false
+    },
+    {
+      "category": "accelerator_neutrino",
+      "entity_id": "experiment:donut",
+      "facility": "various",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "DONUT",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 3,
+      "researched": "none",
+      "tier": "D",
+      "validated": false
+    },
+    {
+      "category": "fixed_target",
+      "entity_id": "experiment:e949",
+      "facility": "CERN / Fermilab / BNL / J-PARC",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "E949",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 3,
+      "researched": "none",
+      "tier": "B",
+      "validated": false
+    },
+    {
+      "category": "direct_dark_matter",
+      "entity_id": "experiment:edelweiss",
+      "facility": "LNGS / SNOLAB / CJPL / Modane / SURF",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "EDELWEISS",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 3,
+      "researched": "none",
+      "tier": "B",
+      "validated": false
+    },
+    {
+      "category": "double_beta_decay",
+      "entity_id": "experiment:exo-200",
+      "facility": "LNGS / SURF / Kamioka / Canfranc",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "EXO-200",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 3,
+      "researched": "none",
+      "tier": "B",
+      "validated": false
+    },
+    {
+      "category": "collider",
+      "entity_id": "experiment:faser",
+      "facility": "CERN / LHC",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "FASER",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 3,
+      "researched": "none",
+      "tier": "C",
+      "validated": false
+    },
+    {
+      "category": "solar_neutrino",
+      "entity_id": "experiment:gallex-gno",
+      "facility": "LNGS / SNOLAB / Baksan / Homestake",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "GALLEX/GNO",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 3,
+      "researched": "none",
+      "tier": "D",
+      "validated": false
+    },
+    {
+      "category": "double_beta_decay",
+      "entity_id": "experiment:gerda",
+      "facility": "LNGS / SURF / Kamioka / Canfranc",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "GERDA",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 3,
+      "researched": "none",
+      "tier": "B",
+      "validated": false
+    },
+    {
+      "category": "astrophysical_neutrino",
+      "entity_id": "experiment:grand",
+      "facility": "various",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "GRAND",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 3,
+      "researched": "none",
+      "tier": "B",
+      "validated": false
+    },
+    {
+      "category": "collider",
+      "entity_id": "experiment:h1",
+      "facility": "DESY / HERA",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "H1",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 3,
+      "researched": "none",
+      "tier": "D",
+      "validated": false
+    },
+    {
+      "category": "solar_neutrino",
+      "entity_id": "experiment:homestake",
+      "facility": "LNGS / SNOLAB / Baksan / Homestake",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "Homestake",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 3,
+      "researched": "none",
+      "tier": "D",
+      "validated": false
+    },
+    {
+      "category": "astrophysical_neutrino",
+      "entity_id": "experiment:icecube-gen2",
+      "facility": "Amundsen-Scott South Pole Station",
+      "globe_ready": false,
+      "missing_fields": [
+        "no approval, funding or construction dates published",
+        "surface-array design not recorded",
+        "no detector records",
+        "TDR PDFs not parsed (page-level figures only)"
+      ],
+      "name": "IceCube-Gen2",
+      "notes": "TDR Parts I–II July 2023, Part III June 2024. The arXiv id given in the task brief (2308.04141) is an unrelated theory paper.",
+      "owner": "icecube",
+      "priority": 3,
+      "researched": "partial",
+      "status": "proposed",
+      "tier": "B",
+      "validated": false
+    },
+    {
+      "category": "double_beta_decay",
+      "entity_id": "experiment:kamland-zen",
+      "facility": "LNGS / SURF / Kamioka / Canfranc",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "KamLAND-Zen",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 3,
+      "researched": "none",
+      "tier": "B",
+      "validated": false
+    },
+    {
+      "category": "accelerator_neutrino",
+      "entity_id": "experiment:karmen",
+      "facility": "various",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "KARMEN",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 3,
+      "researched": "none",
+      "tier": "D",
+      "validated": false
+    },
+    {
+      "category": "neutrino_mass",
+      "entity_id": "experiment:katrin",
+      "facility": "KIT / UW",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "KATRIN",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 3,
+      "researched": "none",
+      "tier": "B",
+      "validated": false
+    },
+    {
+      "category": "astrophysical_neutrino",
+      "entity_id": "experiment:km3net",
+      "facility": "various",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "KM3NeT",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 3,
+      "researched": "none",
+      "tier": "B",
+      "validated": false
+    },
+    {
+      "category": "fixed_target",
+      "entity_id": "experiment:koto",
+      "facility": "CERN / Fermilab / BNL / J-PARC",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "KOTO",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 3,
+      "researched": "none",
+      "tier": "B",
+      "validated": false
+    },
+    {
+      "category": "fixed_target",
+      "entity_id": "experiment:ktev",
+      "facility": "CERN / Fermilab / BNL / J-PARC",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "KTeV",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 3,
+      "researched": "none",
+      "tier": "B",
+      "validated": false
+    },
+    {
+      "category": "double_beta_decay",
+      "entity_id": "experiment:legend",
+      "facility": "LNGS / SURF / Kamioka / Canfranc",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "LEGEND",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 3,
+      "researched": "none",
+      "tier": "B",
+      "validated": false
+    },
+    {
+      "category": "collider",
+      "entity_id": "experiment:lhcf",
+      "facility": "CERN / LHC",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "LHCf",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 3,
+      "researched": "none",
+      "tier": "C",
+      "validated": false
+    },
+    {
+      "category": "accelerator_neutrino",
+      "entity_id": "experiment:lsnd",
+      "facility": "various",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "LSND",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 3,
+      "researched": "none",
+      "tier": "D",
+      "validated": false
+    },
+    {
+      "category": "double_beta_decay",
+      "entity_id": "experiment:majorana-demonstrator",
+      "facility": "LNGS / SURF / Kamioka / Canfranc",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "Majorana Demonstrator",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 3,
+      "researched": "none",
+      "tier": "B",
+      "validated": false
+    },
+    {
+      "category": "fixed_target",
+      "entity_id": "experiment:mathusla",
+      "facility": "CERN / Fermilab / BNL / J-PARC",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "MATHUSLA",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 3,
+      "researched": "none",
+      "tier": "B",
+      "validated": false
+    },
+    {
+      "category": "muon_precision",
+      "entity_id": "experiment:meg",
+      "facility": "Fermilab / PSI / J-PARC",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "MEG",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 3,
+      "researched": "none",
+      "tier": "B",
+      "validated": false
+    },
+    {
+      "category": "muon_precision",
+      "entity_id": "experiment:meg-ii",
+      "facility": "Fermilab / PSI / J-PARC",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "MEG II",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 3,
+      "researched": "none",
+      "tier": "B",
+      "validated": false
+    },
+    {
+      "category": "accelerator_neutrino",
+      "entity_id": "experiment:minerva",
+      "facility": "Fermilab",
+      "globe_ready": false,
+      "missing_fields": [
+        "detector mass/dimension quantities (not stated on the official site or in the detector-paper abstract; full paper not fetched)",
+        "collaboration formation date",
+        "collaboration leadership (person records owned elsewhere)"
+      ],
+      "name": "MINERvA",
+      "notes": "No key_specs quantities recorded (matches detector:minerva's own gap). One cross-section/form-factor result (2023 Nature paper) recorded.",
+      "owner": "fermilab-neutrino-other",
+      "priority": 3,
+      "researched": "full",
+      "status": "completed",
+      "tier": "C",
+      "validated": true
+    },
+    {
+      "category": "accelerator_neutrino",
+      "entity_id": "experiment:minos-plus",
+      "facility": "Fermilab (near) / Soudan Underground Laboratory (far)",
+      "globe_ready": true,
+      "missing_fields": [
+        "collaboration leadership (person records owned elsewhere)"
+      ],
+      "name": "MINOS+",
+      "notes": "Continuation run of MINOS on the restarted, medium-energy NuMI beam, Sept 2013 to 29 June 2016; upgrade_of experiment:minos lineage recorded here per v0.2 A1 (derived inverse not written on the predecessor).",
+      "owner": "fermilab-neutrino-other",
+      "priority": 3,
+      "researched": "full",
+      "status": "completed",
+      "tier": "B",
+      "validated": true
+    },
+    {
+      "category": "collider",
+      "entity_id": "experiment:moedal",
+      "facility": "CERN / LHC",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "MoEDAL",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 3,
+      "researched": "none",
+      "tier": "C",
+      "validated": false
+    },
+    {
+      "category": "muon_precision",
+      "entity_id": "experiment:mu2e",
+      "facility": "Fermilab / PSI / J-PARC",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "Mu2e",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 3,
+      "researched": "none",
+      "tier": "B",
+      "validated": false
+    },
+    {
+      "category": "muon_precision",
+      "entity_id": "experiment:mu3e",
+      "facility": "Fermilab / PSI / J-PARC",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "Mu3e",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 3,
+      "researched": "none",
+      "tier": "B",
+      "validated": false
+    },
+    {
+      "category": "muon_precision",
+      "entity_id": "experiment:muon-g-2",
+      "facility": "Fermilab / PSI / J-PARC",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "Muon g-2",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 3,
+      "researched": "none",
+      "tier": "B",
+      "validated": false
+    },
+    {
+      "category": "fixed_target",
+      "entity_id": "experiment:na48",
+      "facility": "CERN / Fermilab / BNL / J-PARC",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "NA48",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 3,
+      "researched": "none",
+      "tier": "B",
+      "validated": false
+    },
+    {
+      "category": "fixed_target",
+      "entity_id": "experiment:na62",
+      "facility": "CERN / Fermilab / BNL / J-PARC",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "NA62",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 3,
+      "researched": "none",
+      "tier": "B",
+      "validated": false
+    },
+    {
+      "category": "fixed_target",
+      "entity_id": "experiment:na64",
+      "facility": "CERN / Fermilab / BNL / J-PARC",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "NA64",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 3,
+      "researched": "none",
+      "tier": "B",
+      "validated": false
+    },
+    {
+      "category": "direct_dark_matter",
+      "entity_id": "experiment:news-g",
+      "facility": "LNGS / SNOLAB / CJPL / Modane / SURF",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "NEWS-G",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 3,
+      "researched": "none",
+      "tier": "B",
+      "validated": false
+    },
+    {
+      "category": "double_beta_decay",
+      "entity_id": "experiment:nexo",
+      "facility": "LNGS / SURF / Kamioka / Canfranc",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "nEXO",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 3,
+      "researched": "none",
+      "tier": "B",
+      "validated": false
+    },
+    {
+      "category": "double_beta_decay",
+      "entity_id": "experiment:next",
+      "facility": "LNGS / SURF / Kamioka / Canfranc",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "NEXT",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 3,
+      "researched": "none",
+      "tier": "B",
+      "validated": false
+    },
+    {
+      "category": "accelerator_neutrino",
+      "entity_id": "experiment:opera",
+      "facility": "various",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "OPERA",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 3,
+      "researched": "none",
+      "tier": "D",
+      "validated": false
+    },
+    {
+      "category": "astrophysical_neutrino",
+      "entity_id": "experiment:p-one",
+      "facility": "various",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "P-ONE",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 3,
+      "researched": "none",
+      "tier": "B",
+      "validated": false
+    },
+    {
+      "category": "direct_dark_matter",
+      "entity_id": "experiment:pandax-4t",
+      "facility": "LNGS / SNOLAB / CJPL / Modane / SURF",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "PandaX-4T",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 3,
+      "researched": "none",
+      "tier": "B",
+      "validated": false
+    },
+    {
+      "category": "heavy_ion",
+      "entity_id": "experiment:phenix",
+      "facility": "Brookhaven / RHIC",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "PHENIX",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 3,
+      "researched": "none",
+      "tier": "B",
+      "validated": false
+    },
+    {
+      "category": "neutrino_mass",
+      "entity_id": "experiment:project-8",
+      "facility": "KIT / UW",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "Project 8",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 3,
+      "researched": "none",
+      "tier": "B",
+      "validated": false
+    },
+    {
+      "category": "astrophysical_neutrino",
+      "entity_id": "experiment:rno-g",
+      "facility": "various",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "RNO-G",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 3,
+      "researched": "none",
+      "tier": "B",
+      "validated": false
+    },
+    {
+      "category": "solar_neutrino",
+      "entity_id": "experiment:sage",
+      "facility": "LNGS / SNOLAB / Baksan / Homestake",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "SAGE",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 3,
+      "researched": "none",
+      "tier": "D",
+      "validated": false
+    },
+    {
+      "category": "fixed_target",
+      "entity_id": "experiment:seaquest",
+      "facility": "CERN / Fermilab / BNL / J-PARC",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "SeaQuest",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 3,
+      "researched": "none",
+      "tier": "B",
+      "validated": false
+    },
+    {
+      "category": "direct_dark_matter",
+      "entity_id": "experiment:sensei",
+      "facility": "LNGS / SNOLAB / CJPL / Modane / SURF",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "SENSEI",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 3,
+      "researched": "none",
+      "tier": "B",
+      "validated": false
+    },
+    {
+      "category": "fixed_target",
+      "entity_id": "experiment:ship",
+      "facility": "CERN / Fermilab / BNL / J-PARC",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "SHiP",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 3,
+      "researched": "none",
+      "tier": "B",
+      "validated": false
+    },
+    {
+      "category": "collider",
+      "entity_id": "experiment:snd-lhc",
+      "facility": "CERN / LHC",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "SND@LHC",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 3,
+      "researched": "none",
+      "tier": "C",
+      "validated": false
+    },
+    {
+      "category": "solar_neutrino",
+      "entity_id": "experiment:sno",
+      "facility": "LNGS / SNOLAB / Baksan / Homestake",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "SNO",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 3,
+      "researched": "none",
+      "tier": "D",
+      "validated": false
+    },
+    {
+      "category": "heavy_ion",
+      "entity_id": "experiment:sphenix",
+      "facility": "Brookhaven / RHIC",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "sPHENIX",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 3,
+      "researched": "none",
+      "tier": "B",
+      "validated": false
+    },
+    {
+      "category": "heavy_ion",
+      "entity_id": "experiment:star",
+      "facility": "Brookhaven / RHIC",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "STAR",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 3,
+      "researched": "none",
+      "tier": "B",
+      "validated": false
+    },
+    {
+      "category": "direct_dark_matter",
+      "entity_id": "experiment:supercdms",
+      "facility": "LNGS / SNOLAB / CJPL / Modane / SURF",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "SuperCDMS",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 3,
+      "researched": "none",
+      "tier": "B",
+      "validated": false
+    },
+    {
+      "category": "collider",
+      "entity_id": "experiment:totem",
+      "facility": "CERN / LHC",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "TOTEM",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 3,
+      "researched": "none",
+      "tier": "C",
+      "validated": false
+    },
+    {
+      "category": "direct_dark_matter",
+      "entity_id": "experiment:xenon1t",
+      "facility": "LNGS / SNOLAB / CJPL / Modane / SURF",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "XENON1T",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 3,
+      "researched": "none",
+      "tier": "B",
+      "validated": false
+    },
+    {
+      "category": "direct_dark_matter",
+      "entity_id": "experiment:xenonnt",
+      "facility": "LNGS / SNOLAB / CJPL / Modane / SURF",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "XENONnT",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 3,
+      "researched": "none",
+      "tier": "B",
+      "validated": false
+    },
+    {
+      "category": "collider",
+      "entity_id": "experiment:zeus",
+      "facility": "DESY / HERA",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "ZEUS",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 3,
+      "researched": "none",
+      "tier": "D",
+      "validated": false
+    },
+    {
+      "category": "axion",
+      "entity_id": "experiment:abracadabra",
+      "facility": "various",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "ABRACADABRA",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 4,
+      "researched": "none",
+      "tier": "C",
+      "validated": false
+    },
+    {
+      "category": "axion",
+      "entity_id": "experiment:admx",
+      "facility": "various",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "ADMX",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 4,
+      "researched": "none",
+      "tier": "C",
+      "validated": false
+    },
+    {
+      "category": "axion",
+      "entity_id": "experiment:alps-ii",
+      "facility": "various",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "ALPS II",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 4,
+      "researched": "none",
+      "tier": "C",
+      "validated": false
+    },
+    {
+      "category": "axion",
+      "entity_id": "experiment:cast",
+      "facility": "various",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "CAST",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 4,
+      "researched": "none",
+      "tier": "C",
+      "validated": false
+    },
+    {
+      "category": "cevns",
+      "entity_id": "experiment:coherent",
+      "facility": "ORNL / reactors",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "COHERENT",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 4,
+      "researched": "none",
+      "tier": "C",
+      "validated": false
+    },
+    {
+      "category": "cevns",
+      "entity_id": "experiment:conus",
+      "facility": "ORNL / reactors",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "CONUS+",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 4,
+      "researched": "none",
+      "tier": "C",
+      "validated": false
+    },
+    {
+      "category": "cosmic_ray",
+      "entity_id": "experiment:ctao",
+      "facility": "various",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "CTAO",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 4,
+      "researched": "none",
+      "tier": "B",
+      "validated": false
+    },
+    {
+      "category": "axion",
+      "entity_id": "experiment:dmradio",
+      "facility": "various",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "DMRadio",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 4,
+      "researched": "none",
+      "tier": "C",
+      "validated": false
+    },
+    {
+      "category": "cosmic_ray",
+      "entity_id": "experiment:h-e-s-s",
+      "facility": "various",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "H.E.S.S.",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 4,
+      "researched": "none",
+      "tier": "B",
+      "validated": false
+    },
+    {
+      "category": "cosmic_ray",
+      "entity_id": "experiment:hawc",
+      "facility": "various",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "HAWC",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 4,
+      "researched": "none",
+      "tier": "B",
+      "validated": false
+    },
+    {
+      "category": "axion",
+      "entity_id": "experiment:haystac",
+      "facility": "various",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "HAYSTAC",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 4,
+      "researched": "none",
+      "tier": "C",
+      "validated": false
+    },
+    {
+      "category": "axion",
+      "entity_id": "experiment:iaxo",
+      "facility": "various",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "IAXO",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 4,
+      "researched": "none",
+      "tier": "C",
+      "validated": false
+    },
+    {
+      "category": "cosmic_ray",
+      "entity_id": "experiment:lhaaso",
+      "facility": "various",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "LHAASO",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 4,
+      "researched": "none",
+      "tier": "B",
+      "validated": false
+    },
+    {
+      "category": "cosmic_ray",
+      "entity_id": "experiment:magic",
+      "facility": "various",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "MAGIC",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 4,
+      "researched": "none",
+      "tier": "B",
+      "validated": false
+    },
+    {
+      "category": "cevns",
+      "entity_id": "experiment:nucleus",
+      "facility": "ORNL / reactors",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "NUCLEUS",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 4,
+      "researched": "none",
+      "tier": "C",
+      "validated": false
+    },
+    {
+      "category": "cosmic_ray",
+      "entity_id": "experiment:pierre-auger-observatory",
+      "facility": "various",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "Pierre Auger Observatory",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 4,
+      "researched": "none",
+      "tier": "B",
+      "validated": false
+    },
+    {
+      "category": "cevns",
+      "entity_id": "experiment:ricochet",
+      "facility": "ORNL / reactors",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "Ricochet",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 4,
+      "researched": "none",
+      "tier": "C",
+      "validated": false
+    },
+    {
+      "category": "cosmic_ray",
+      "entity_id": "experiment:telescope-array",
+      "facility": "various",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "Telescope Array",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 4,
+      "researched": "none",
+      "tier": "B",
+      "validated": false
+    },
+    {
+      "category": "cosmic_ray",
+      "entity_id": "experiment:veritas",
+      "facility": "various",
+      "globe_ready": false,
+      "missing_fields": [
+        "all"
+      ],
+      "name": "VERITAS",
+      "notes": "Identified in the coverage scope; not yet researched.",
+      "owner": null,
+      "priority": 4,
+      "researched": "none",
+      "tier": "B",
+      "validated": false
+    }
+  ],
+  "schema": "hep-atlas/0.2"
+}

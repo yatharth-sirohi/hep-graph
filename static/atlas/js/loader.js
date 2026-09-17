@@ -77,8 +77,28 @@ export async function getManifest() {
   return fetchJSON('manifest.json');
 }
 
+/** Lift a site's coordinates to the top level.
+ *
+ * The generated bundle keeps them in a `coordinates` object, as the canonical
+ * data files do; the fixtures flatten them. The globe wants one shape, and a
+ * site whose latitude reads as undefined silently becomes a NaN position that
+ * draws no marker at all, so this normalisation is load-bearing.
+ */
+function flattenSiteCoordinates(atlas) {
+  for (const site of Object.values(atlas.sites || {})) {
+    const coordinates = site.coordinates;
+    if (site.lat == null && coordinates && coordinates.lat != null) {
+      site.lat = coordinates.lat;
+      site.lon = coordinates.lon;
+      site.coord_kind = site.coord_kind || coordinates.kind;
+      site.precision_m = site.precision_m ?? coordinates.precision_m;
+    }
+  }
+  return atlas;
+}
+
 export async function getAtlas() {
-  return fetchJSON('atlas.json');
+  return flattenSiteCoordinates(await fetchJSON('atlas.json'));
 }
 
 export async function getInstitutions() {
