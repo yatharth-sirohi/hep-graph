@@ -22,6 +22,7 @@ from dataclasses import dataclass, field
 from datetime import datetime
 from typing import Any
 
+from .neon_compact_import import PAGE_SIZE
 from .postgres_registry import _REQUIRED_GATES
 
 
@@ -240,16 +241,17 @@ class CompactImportValidator:
             self._identity = (int(row[0]), int(row[1]), row[2], str(row[3]))
         return self._identity
 
-    def _shards(self) -> list[tuple[int, int, str, int | None, int, int, int]]:
+    def _shards(self) -> list[tuple[int, int, str, int | None, int, int, int, int]]:
         columns = ("low_recid", "high_recid", "status", "expected_records",
-                   "received_records", "retained_works", "retained_memberships")
+                   "received_records", "retained_works", "retained_memberships",
+                   "next_page")
         return [(int(low), int(high), str(status),
                  None if expected is None else int(expected),
-                 _int(received), _int(works), _int(memberships))
-                for low, high, status, expected, received, works, memberships
+                 _int(received), _int(works), _int(memberships), _int(page))
+                for low, high, status, expected, received, works, memberships, page
                 in self._fetch(
                     "SELECT low_recid, high_recid, status, expected_records, "
-                    "received_records, retained_works, retained_memberships "
+                    "received_records, retained_works, retained_memberships, next_page "
                     "FROM inspire_compact_shard WHERE import_id = %s "
                     "ORDER BY low_recid, high_recid", (self.import_id,), columns)]
 
@@ -259,10 +261,10 @@ class CompactImportValidator:
         """Leaf shards must tile the declared range with no gap and no overlap."""
         low, high, _, _ = self.import_row()
         shards = self._shards()
-        unknown = sorted({status for _, _, status, _, _, _, _ in shards
+        unknown = sorted({status for _, _, status, _, _, _, _, _ in shards
                           if status not in _LEAF_STATES and status != _INTERIOR_STATE})
         leaves = sorted((shard_low, shard_high)
-                        for shard_low, shard_high, status, _, _, _, _ in shards
+                        for shard_low, shard_high, status, _, _, _, _, _ in shards
                         if status in _LEAF_STATES)
         inverted = [[a, b] for a, b in leaves if a > b]
         outside = [[a, b] for a, b in leaves if a < low or b > high]
@@ -290,7 +292,7 @@ class CompactImportValidator:
         return Finding("shard_coverage", passed, {
             "declared_range": [low, high],
             "leaf_shards": len(leaves),
-            "interior_shards": sum(1 for _, _, status, _, _, _, _ in shards
+            "interior_shards": sum(1 for _, _, status, _, _, _, _, _ in shards
                                    if status == _INTERIOR_STATE),
             "covered_ranges": covered,
             "gaps": gaps,
@@ -306,11 +308,11 @@ class CompactImportValidator:
         _, _, _, import_status = self.import_row()
         shards = self._shards()
         counts: dict[str, int] = {}
-        for _, _, status, _, _, _, _ in shards:
+        for _, _, status, _, _, _, _, _ in shards:
             counts[status] = counts.get(status, 0) + 1
         outstanding = {state: counts[state] for state in _UNFINISHED_STATES
                        if counts.get(state)}
-        examples = [[low, high, status] for low, high, status, _, _, _, _ in shards
+        examples = [[low, high, status] for low, high, status, _, _, _, _, _ in shards
                     if status in _UNFINISHED_STATES][:EXAMPLE_LIMIT]
         return Finding("shard_completion", bool(shards) and not outstanding, {
             "shard_status_counts": counts,
@@ -328,8 +330,9 @@ class CompactImportValidator:
         undiscovered: list[list[int]] = []
         under: list[dict[str, int]] = []
         over: list[dict[str, int]] = []
+        replayed: list[dict[str, int]] = []
         expected_total = received_total = retained_works_total = 0
-        for low, high, status, expected, received, works, _ in shards:
+        for low, high, status, expected, received, works, _, next_page in shards:
             if status not in _LEAF_STATES:
                 continue
             retained_works_total += works
@@ -342,11 +345,19 @@ class CompactImportValidator:
                 under.append({"low_recid": low, "high_recid": high,
                               "expected_records": expected, "received_records": received})
             elif received > expected:
-                # More rows than the source said exist means the shard counters
-                # cannot be reconciled with any upstream total; refuse to treat
-                # the surplus as evidence of completeness.
-                over.append({"low_recid": low, "high_recid": high,
-                             "expected_records": expected, "received_records": received})
+                # The counter records page *attempts*, so a replayed page inflates
+                # it while the primary key discards the duplicate rows. What
+                # actually proves the shard was covered is the page cursor: every
+                # page up to ceil(expected / PAGE_SIZE) has been committed. Treat
+                # a surplus with a complete cursor as a replay, and keep failing
+                # the ones where pagination really did stop short.
+                entry = {"low_recid": low, "high_recid": high,
+                         "expected_records": expected, "received_records": received,
+                         "next_page": next_page}
+                if (next_page - 1) * PAGE_SIZE >= expected:
+                    replayed.append(entry)
+                else:
+                    over.append(entry)
         work_rows = self._work_count()
         impossible = work_rows > retained_works_total
         passed = not undiscovered and not under and not over and not impossible
@@ -359,6 +370,8 @@ class CompactImportValidator:
             "under_receipt_count": len(under),
             "over_receipt": over[:EXAMPLE_LIMIT],
             "over_receipt_count": len(over),
+            "replayed_pages": replayed[:EXAMPLE_LIMIT],
+            "replayed_page_shard_count": len(replayed),
             "retained_works_counter": retained_works_total,
             "work_rows": work_rows,
             # Retry attempts can inflate the counter above the deduplicated row

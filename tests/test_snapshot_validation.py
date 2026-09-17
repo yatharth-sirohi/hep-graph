@@ -377,3 +377,43 @@ def test_report_dict_is_shaped_for_mark_ready_and_names_its_limitations():
     assert any("DOI" in item for item in payload["limitations"])
     assert any("atomic snapshot" in item for item in payload["limitations"])
     assert any("cannot be re-derived" in item for item in payload["limitations"])
+
+
+def _replay_import(next_page: int) -> FakeConnection:
+    """One leaf shard whose counter over-ran because a page was fetched twice.
+
+    ``next_page`` is what decides the verdict: the counter records page
+    attempts, so a replay inflates it while the primary key throws the
+    duplicate rows away. Only the cursor says whether the shard was covered.
+    """
+    connection = FakeConnection()
+    _seed_import(connection, low=1, high=100)
+    connection.seed(
+        "inspire_compact_shard",
+        [(IMPORT_ID, 1, 100, "DONE", 1500, 3000, 2, next_page)],
+        "import_id,low_recid,high_recid,status,expected_records,received_records,"
+        "retained_works,next_page")
+    _seed_works(connection, [(10, 2000, 2, 2, CUTOFF), (30, 2001, 2, 2, CUTOFF)])
+    _seed_memberships(connection, [(10, 1), (10, 2), (30, 1), (30, 3)])
+    return connection
+
+
+def test_replayed_pages_do_not_deny_completeness_when_the_cursor_is_complete():
+    # 1500 expected records is two pages; next_page=3 means both were committed.
+    report = validator(_replay_import(next_page=3)).validate()
+    finding = _finding(report, "record_reconciliation")
+    assert finding.passed is True
+    assert finding.details["over_receipt_count"] == 0
+    assert finding.details["replayed_page_shard_count"] == 1
+    assert report.gates["source_complete"] is True
+
+
+def test_over_receipt_still_fails_when_pagination_stopped_short():
+    # The counter claims 3000 records but the cursor never left page 2, so the
+    # second page of the shard was never committed.
+    report = validator(_replay_import(next_page=2)).validate()
+    finding = _finding(report, "record_reconciliation")
+    assert finding.passed is False
+    assert finding.details["over_receipt_count"] == 1
+    assert finding.details["replayed_page_shard_count"] == 0
+    assert report.gates["source_complete"] is False
