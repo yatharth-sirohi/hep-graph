@@ -65,17 +65,10 @@ def _snapshot(version: str = "fixture-v1") -> dict:
 
 
 @pytest.fixture
-def snapshot_path(tmp_path: Path) -> Path:
-    path = tmp_path / "current.json"
-    path.write_text(json.dumps(_snapshot()), encoding="utf-8")
-    return path
-
-
-@pytest.fixture
-def service(snapshot_path: Path):
+def service():
     class LocalServer:
         def __init__(self):
-            self.state = server_module.State(snapshot_path)
+            self.state = server_module.State()
 
         def request(self, path: str, *, method: str = "GET", body: bytes | None = None):
             left, right = socket.socketpair()
