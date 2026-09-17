@@ -61,10 +61,14 @@ class GenealogyOverlayValidator:
         "checked against a plausible chronology.",
     )
 
-    def __init__(self, connection: Any, overlay_id: str, *, import_id: str) -> None:
+    def __init__(self, connection: Any, overlay_id: str, *, import_id: str,
+                 thesis_import_id: str | None = None) -> None:
         self.connection = connection
         self.overlay_id = overlay_id
         self.import_id = import_id
+        #: Supervisors read from thesis records are a second crawl feeding the
+        #: same overlay; when present it must reconcile too.
+        self.thesis_import_id = thesis_import_id
 
     def _one(self, sql: str, params: tuple[Any, ...] = ()) -> Any:
         row = self.connection.execute(sql, params).fetchone()
@@ -80,24 +84,29 @@ class GenealogyOverlayValidator:
                        {"overlay_id": self.overlay_id, "present": row is not None})
 
     def check_crawl_reconciled(self) -> Finding:
-        """The crawl's own shards must be finished and add up."""
-        outstanding = self._one(
-            "SELECT count(*) FROM inspire_compact_shard WHERE import_id=%s "
-            "AND status NOT IN ('DONE','SPLIT')", (self.import_id,))
-        mismatched = self.connection.execute(
-            "SELECT low_recid, high_recid, expected_records, received_records "
-            "FROM inspire_compact_shard WHERE import_id=%s AND status='DONE' "
-            "AND received_records <> expected_records LIMIT %s",
-            (self.import_id, EXAMPLE_LIMIT)).fetchall()
-        expected = self._one(
-            "SELECT COALESCE(sum(expected_records),0) FROM inspire_compact_shard "
-            "WHERE import_id=%s AND status='DONE'", (self.import_id,))
-        return Finding("crawl_reconciled",
-                       outstanding == 0 and not mismatched,
-                       {"outstanding_shards": outstanding,
-                        "records_expected": int(expected or 0),
-                        "mismatched_shards": [[_at(row, i) for i in range(4)]
-                                              for row in mismatched]})
+        """Every crawl feeding the overlay must be finished and add up."""
+        details: dict[str, Any] = {}
+        passed = True
+        for import_id in filter(None, (self.import_id, self.thesis_import_id)):
+            outstanding = self._one(
+                "SELECT count(*) FROM inspire_compact_shard WHERE import_id=%s "
+                "AND status NOT IN ('DONE','SPLIT')", (import_id,))
+            shards = self._one(
+                "SELECT count(*) FROM inspire_compact_shard WHERE import_id=%s", (import_id,))
+            mismatched = self.connection.execute(
+                "SELECT low_recid, high_recid, expected_records, received_records "
+                "FROM inspire_compact_shard WHERE import_id=%s AND status='DONE' "
+                "AND received_records <> expected_records LIMIT %s",
+                (import_id, EXAMPLE_LIMIT)).fetchall()
+            expected = self._one(
+                "SELECT COALESCE(sum(expected_records),0) FROM inspire_compact_shard "
+                "WHERE import_id=%s AND status='DONE'", (import_id,))
+            passed = passed and bool(shards) and outstanding == 0 and not mismatched
+            details[import_id] = {"outstanding_shards": outstanding,
+                                  "records_expected": int(expected or 0),
+                                  "mismatched_shards": [[_at(row, i) for i in range(4)]
+                                                        for row in mismatched]}
+        return Finding("crawl_reconciled", passed, details)
 
     def check_no_self_relations(self) -> Finding:
         count = self._one(
@@ -124,20 +133,19 @@ class GenealogyOverlayValidator:
         return Finding("degrees_known", bool(spread), {"degree_spread": spread})
 
     def check_lineage_acyclic(self) -> Finding:
-        """A doctoral chain that returns to its start would loop a lineage walk."""
-        cycles = self._one(
-            """WITH RECURSIVE walk(root, reached, depth, path) AS (
-                   SELECT student_id, adviser_id, 1, ARRAY[student_id, adviser_id]
-                     FROM graph_genealogy_edge
-                    WHERE overlay_id=%s AND degree='phd'
-                   UNION ALL
-                   SELECT w.root, e.adviser_id, w.depth+1, w.path || e.adviser_id
-                     FROM walk w JOIN graph_genealogy_edge e
-                       ON e.overlay_id=%s AND e.degree='phd' AND e.student_id = w.reached
-                    WHERE w.depth < 8 AND NOT e.adviser_id = ANY(w.path))
-               SELECT count(*) FROM walk WHERE reached = root""",
-            (self.overlay_id, self.overlay_id))
-        return Finding("lineage_acyclic", cycles == 0, {"closed_loops": cycles})
+        """A doctoral chain that returns to its start would loop a lineage walk.
+
+        Checked exactly over the whole relation rather than by a bounded walk,
+        because a loop longer than any walk bound would otherwise pass.
+        """
+        from .genealogy_import import find_cycle
+
+        pairs = [(int(_at(row, 0)), int(_at(row, 1))) for row in self.connection.execute(
+            "SELECT DISTINCT adviser_id, student_id FROM graph_genealogy_edge "
+            "WHERE overlay_id=%s AND degree='phd'", (self.overlay_id,)).fetchall()]
+        loop = find_cycle(pairs)
+        return Finding("lineage_acyclic", loop is None,
+                       {"example_loop": loop[:EXAMPLE_LIMIT * 2] if loop else []})
 
     def validate(self) -> OverlayReport:
         findings = (self.check_registered(), self.check_crawl_reconciled(),

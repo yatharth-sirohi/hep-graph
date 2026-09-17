@@ -302,18 +302,22 @@ class DatabaseGraphService:
         if self.config.overlay_id is None:
             return empty
         rows = self.connection().execute(
-            "SELECT adviser_id, student_id, source_record, degree, curated "
+            "SELECT adviser_id, student_id, source_record, degree, curated, source_kind "
             "FROM graph_genealogy_edge WHERE overlay_id=%s AND degree = ANY(%s) "
             "AND (adviser_id=%s OR student_id=%s) ORDER BY adviser_id, student_id LIMIT 200",
             (self.config.overlay_id, list(DOCTORAL_DEGREES),
              int(person_id), int(person_id))).fetchall()
         for row in rows:
             adviser, student = str(_at(row, 0)), str(_at(row, 1))
-            source_record = str(_at(row, 2))
+            source_record, source_kind = str(_at(row, 2)), _at(row, 5)
+            # A thesis names its supervisors on a literature record; an adviser
+            # field lives on the student's author profile. Link to whichever the
+            # relation was actually read from.
+            collection = "literature" if source_kind == "thesis" else "authors"
             record = {"adviser": adviser, "student": student,
                       "source_record": source_record, "degree": _at(row, 3),
-                      "curated": bool(_at(row, 4)),
-                      "source_url": f"https://inspirehep.net/authors/{source_record}"}
+                      "curated": bool(_at(row, 4)), "source_kind": source_kind,
+                      "source_url": f"https://inspirehep.net/{collection}/{source_record}"}
             empty["advisers" if student == str(person_id) else "students"].append(record)
         return empty
 

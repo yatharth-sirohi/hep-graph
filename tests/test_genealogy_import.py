@@ -120,3 +120,72 @@ def test_a_crawl_loads_only_doctoral_edges(monkeypatch):
     assert found == [(900, 100, "phd", False), (900, 101, "phd", True)]
     assert rows[0]["source_record"] == "100"
     connection.close()
+
+
+# ------------------------------------------------------------------ theses
+
+def thesis(recid, students, supervisors, degree="PhD"):
+    return {"metadata": {
+        "control_number": recid,
+        "thesis_info": {"degree_type": degree},
+        "authors": [{"record": ref(s)} for s in students],
+        "supervisors": [{"record": ref(s), "inspire_roles": ["supervisor"]} for s in supervisors]}}
+
+
+def test_a_thesis_yields_each_supervisor_of_its_student():
+    from hepgraph.genealogy_import import supervisors_from_thesis
+    recid, students, supervisors, degree = supervisors_from_thesis(
+        thesis(1239704, [2395015], [994042, 994043]))
+    assert recid == 1239704 and students == [2395015]
+    assert supervisors == [994042, 994043]
+    # INSPIRE capitalises degree types; the doctoral rule compares lowercase.
+    assert degree == "phd"
+
+
+def test_an_unlinked_supervisor_is_not_turned_into_an_edge():
+    from hepgraph.genealogy_import import supervisors_from_thesis
+    hit = thesis(5, [10], [20])
+    hit["metadata"]["supervisors"].append({"full_name": "Named, Only"})
+    _, _, supervisors, _ = supervisors_from_thesis(hit)
+    assert supervisors == [20]
+
+
+def test_the_thesis_query_is_a_literature_recid_range():
+    from hepgraph.genealogy_import import ThesisSupervisorShardWorker
+    worker = ThesisSupervisorShardWorker.__new__(ThesisSupervisorShardWorker)
+    assert ThesisSupervisorShardWorker.COLLECTION == "literature"
+    query = worker.range_query(1, 500)
+    assert "document_type:thesis" in query and "recid:1->500" in query
+
+
+def test_a_supervisor_repeated_as_an_author_is_not_their_own_colleagues_student():
+    """Thesis 1810658 lists both supervisors again as plain authors."""
+    from hepgraph.genealogy_import import supervisors_from_thesis
+    hit = {"metadata": {"control_number": 1810658, "thesis_info": {"degree_type": "phd"},
+           "authors": [{"record": ref(1605519)}, {"record": ref(1220742)}, {"record": ref(2308451)},
+                       {"record": ref(1220742), "inspire_roles": ["supervisor"]},
+                       {"record": ref(2308451), "inspire_roles": ["supervisor"]}]}}
+    _, students, supervisors, _ = supervisors_from_thesis(hit)
+    assert students == [1605519]
+    assert supervisors == [1220742, 2308451]
+
+
+def test_supervisors_listed_only_inside_authors_are_still_found():
+    from hepgraph.genealogy_import import supervisors_from_thesis
+    hit = {"metadata": {"control_number": 1, "authors": [
+        {"record": ref(10)}, {"record": ref(20), "inspire_roles": ["supervisor"]}]}}
+    _, students, supervisors, _ = supervisors_from_thesis(hit)
+    assert (students, supervisors) == ([10], [20])
+
+
+def test_find_cycle_returns_none_for_a_forest_and_the_loop_otherwise():
+    from hepgraph.genealogy_import import find_cycle
+    assert find_cycle([(1, 2), (1, 3), (3, 4), (2, 4)]) is None
+    loop = find_cycle([(9, 1), (1, 2), (2, 3), (3, 1), (3, 7)])
+    assert loop is not None and set(loop) == {(1, 2), (2, 3), (3, 1)}
+
+
+def test_a_long_loop_is_found_too():
+    from hepgraph.genealogy_import import find_cycle
+    chain = [(i, i + 1) for i in range(1, 40)] + [(40, 1)]
+    assert len(find_cycle(chain)) == 40

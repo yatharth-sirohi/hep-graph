@@ -59,6 +59,7 @@ class Names:
 def database():
     connection = psycopg.connect(URL, autocommit=True, row_factory=psycopg.rows.dict_row)
     for table in ("graph_search_job", "graph_genealogy_edge", "graph_genealogy_overlay",
+                  "graph_genealogy_quarantine",
                   "inspire_compact_membership", "inspire_compact_work",
                   "inspire_compact_shard", "inspire_compact_import"):
         connection.execute(f"DROP TABLE IF EXISTS {table} CASCADE")
@@ -200,3 +201,33 @@ def test_the_validator_reports_an_unfinished_crawl(database):
     finally:
         database.execute("DELETE FROM inspire_compact_shard WHERE import_id=%s AND low_recid=101",
                          (IMPORT_ID,))
+
+
+def test_a_contradictory_thesis_loop_fails_validation_and_is_quarantined(database):
+    """Two theses naming each other as supervisor: the newer record is withdrawn, not deleted."""
+    from hepgraph.genealogy_import import quarantine_cycles
+
+    rows = [(10, 40, "2830917"), (40, 10, "2897779")]  # 10 already descends from 40
+    for adviser, student, record in rows:
+        database.execute(
+            "INSERT INTO graph_genealogy_edge(overlay_id,adviser_id,student_id,source_record,"
+            "degree,source_kind) VALUES (%s,%s,%s,%s,'phd','thesis')",
+            (OVERLAY_ID, adviser, student, record))
+    try:
+        report = GenealogyOverlayValidator(database, OVERLAY_ID, import_id=IMPORT_ID).validate()
+        assert "lineage_acyclic" in [item.name for item in report.failures()]
+
+        withdrawn = quarantine_cycles(database, OVERLAY_ID)
+        assert len(withdrawn) >= 1
+        assert GenealogyOverlayValidator(database, OVERLAY_ID, import_id=IMPORT_ID) \
+            .check_lineage_acyclic().passed
+        kept = database.execute(
+            "SELECT count(*) AS n FROM graph_genealogy_quarantine WHERE overlay_id=%s",
+            (OVERLAY_ID,)).fetchone()["n"]
+        assert kept == len(withdrawn)
+        # The sound, single-source author-profile lineage is never what gets withdrawn.
+        assert all(item["source_record"] in {"2830917", "2897779"} for item in withdrawn)
+    finally:
+        database.execute("DELETE FROM graph_genealogy_edge WHERE overlay_id=%s "
+                         "AND source_kind='thesis'", (OVERLAY_ID,))
+        database.execute("DELETE FROM graph_genealogy_quarantine WHERE overlay_id=%s", (OVERLAY_ID,))
