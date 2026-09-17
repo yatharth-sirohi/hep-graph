@@ -147,16 +147,24 @@ class State:
             self.stamp = stamp
             LOG.info('Loaded snapshot %s: %d people, %d works', data['version'], len(people), len(data['works']))
 
-    def rate_ok(self, ip):
+    def rate_ok(self, ip, limit=180, bucket='api'):
+        """Per-address request budget for the last minute.
+
+        The API budget protects the query service, whose requests reach INSPIRE
+        and occupy a worker. Static files cost neither, and one HEP Atlas page
+        legitimately fetches dozens of small bundles, so assets get their own
+        larger budget in a separate bucket: browsing the atlas must never spend
+        the allowance a search needs (see `do_GET`).
+        """
         now = time.monotonic()
         with self.lock:
-            q = self.rates.setdefault(ip, deque())
+            q = self.rates.setdefault((ip, bucket), deque())
             while q and q[0] < now - 60:
                 q.popleft()
-            if len(q) >= 180:
+            if len(q) >= limit:
                 return False
             q.append(now)
-            self.rates.move_to_end(ip)
+            self.rates.move_to_end((ip, bucket))
             while len(self.rates) > 4096:
                 self.rates.popitem(last=False)
             return True
@@ -355,9 +363,14 @@ class Handler(BaseHTTPRequestHandler):
         state = _state_for_handler(self.server)
         if len(self.path) > 4096:
             return self.respond({'status': 'invalid_input', 'message': 'Request URL is too long.'}, 414)
-        if not state.rate_ok(self.client_address[0]):
+        # A static asset is a file read: it neither reaches INSPIRE nor needs a
+        # worker. One HEP Atlas page pulls dozens of bundles, so serving them
+        # under the query budget would throttle ordinary browsing.
+        asset = not urllib.parse.urlsplit(self.path).path.startswith('/api/')
+        if not state.rate_ok(self.client_address[0], 2000 if asset else 180,
+                             'asset' if asset else 'api'):
             return self.respond({'status': 'resource_limit', 'message': 'Request rate limit reached; retry after one minute.'}, 429)
-        if not state.workers.acquire(blocking=False):
+        if not asset and not state.workers.acquire(blocking=False):
             return self.respond({'status': 'resource_limit', 'message': 'The query service is busy. Retry shortly.'}, 503)
         try:
             self.route(state)
@@ -379,7 +392,8 @@ class Handler(BaseHTTPRequestHandler):
             LOG.exception('Unhandled request error')
             self.respond({'status': 'error', 'message': 'The request failed. Please retry or inspect the local service log.'}, 500)
         finally:
-            state.workers.release()
+            if not asset:
+                state.workers.release()
 
     def respond_atlas(self, path):
         """Serve one file of the HEP Atlas tree; anything doubtful is not_found."""
