@@ -30,7 +30,9 @@ from .pipeline import InspireClient, PipelineError, _hits, sanitize_author
 
 
 #: Only doctoral relations form the tree, matching what the app traverses.
-DEGREE = "phd"
+from .neon_graph_provider import ADVISER_DEGREES  # noqa: E402
+
+DEGREES = list(ADVISER_DEGREES)
 NAME_BATCH = 25
 
 #: Abstract layout units. A browser scales these; they only set proportions,
@@ -71,8 +73,8 @@ SCHEMA = (
 def read_edges(connection: Any, overlay_id: str) -> list[tuple[int, int]]:
     return [(int(_at(row, 0)), int(_at(row, 1))) for row in connection.execute(
         "SELECT adviser_id, student_id FROM graph_genealogy_edge "
-        "WHERE overlay_id=%s AND degree=%s ORDER BY adviser_id, student_id",
-        (overlay_id, DEGREE)).fetchall()]
+        "WHERE overlay_id=%s AND COALESCE(degree,'other')=ANY(%s) ORDER BY adviser_id, student_id",
+        (overlay_id, DEGREES)).fetchall()]
 
 
 def _components(edges: list[tuple[int, int]]) -> dict[int, int]:
@@ -212,12 +214,12 @@ def harvest_names(connection: Any, overlay_id: str, client: Any, *,
     missing = [int(_at(row, 0)) for row in connection.execute(
         "SELECT DISTINCT person FROM ("
         "  SELECT adviser_id AS person FROM graph_genealogy_edge"
-        "   WHERE overlay_id=%s AND degree=%s"
+        "   WHERE overlay_id=%s AND COALESCE(degree,'other')=ANY(%s)"
         "  UNION SELECT student_id FROM graph_genealogy_edge"
-        "   WHERE overlay_id=%s AND degree=%s) AS everyone "
+        "   WHERE overlay_id=%s AND COALESCE(degree,'other')=ANY(%s)) AS everyone "
         "WHERE NOT EXISTS (SELECT 1 FROM graph_genealogy_person p "
         "                   WHERE p.overlay_id=%s AND p.person_id = everyone.person) "
-        "ORDER BY person", (overlay_id, DEGREE, overlay_id, DEGREE, overlay_id)).fetchall()]
+        "ORDER BY person", (overlay_id, DEGREES, overlay_id, DEGREES, overlay_id)).fetchall()]
     if limit is not None:
         missing = missing[:limit]
     stored = failed = 0

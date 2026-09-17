@@ -16,7 +16,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Any
 
-from .neon_graph_provider import _at
+from .neon_graph_provider import ADVISER_DEGREES, _at
 
 
 #: Bounded so a broken overlay reports examples instead of dumping the table.
@@ -55,8 +55,9 @@ class GenealogyOverlayValidator:
         "person with no edge here may simply have no adviser recorded upstream.",
         "An adviser given only as a name, with no INSPIRE record, cannot become an "
         "edge and is excluded rather than matched by name.",
-        "Only relations INSPIRE typed as doctoral are traversable; relations it left "
-        "untyped are stored but are not doctoral evidence.",
+        "Traversable relations are those INSPIRE did not mark as a lesser degree: "
+        "'phd' and 'other'. Only a 'phd' relation is evidence of a doctorate; 'other' "
+        "means INSPIRE did not record which degree it was.",
         "Adviser relations carry no date in this schema, so a lineage cannot be "
         "checked against a plausible chronology.",
     )
@@ -142,7 +143,8 @@ class GenealogyOverlayValidator:
 
         pairs = [(int(_at(row, 0)), int(_at(row, 1))) for row in self.connection.execute(
             "SELECT DISTINCT adviser_id, student_id FROM graph_genealogy_edge "
-            "WHERE overlay_id=%s AND degree='phd'", (self.overlay_id,)).fetchall()]
+            "WHERE overlay_id=%s AND COALESCE(degree,'other') = ANY(%s)",
+            (self.overlay_id, list(ADVISER_DEGREES))).fetchall()]
         loop = find_cycle(pairs)
         return Finding("lineage_acyclic", loop is None,
                        {"example_loop": loop[:EXAMPLE_LIMIT * 2] if loop else []})

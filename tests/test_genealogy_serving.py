@@ -231,3 +231,44 @@ def test_a_contradictory_thesis_loop_fails_validation_and_is_quarantined(databas
         database.execute("DELETE FROM graph_genealogy_edge WHERE overlay_id=%s "
                          "AND source_kind='thesis'", (OVERLAY_ID,))
         database.execute("DELETE FROM graph_genealogy_quarantine WHERE overlay_id=%s", (OVERLAY_ID,))
+
+
+def test_a_thesis_relation_links_to_the_thesis_not_an_author_profile(database):
+    """Evidence must point at the record that actually states the supervision."""
+    database.execute(
+        "INSERT INTO graph_genealogy_edge(overlay_id,adviser_id,student_id,source_record,"
+        "degree,source_kind) VALUES (%s,41,10,'2830917','phd','thesis')", (OVERLAY_ID,))
+    try:
+        profile = service(database).person("10", Filters(max_authors=10, genealogy=True))
+        thesis = next(item for item in profile["advisers"] if item["adviser"] == "41")
+        assert thesis["source_kind"] == "thesis"
+        assert thesis["source_url"] == "https://inspirehep.net/literature/2830917"
+        profile_sourced = next(item for item in profile["advisers"] if item["adviser"] == "20")
+        assert profile_sourced["source_url"] == "https://inspirehep.net/authors/10"
+        walk = service(database).ancestry("10", Filters(), direction="ancestors", depth=1)
+        kinds = {edge["adviser"]: edge["source_kind"] for edge in walk["edges"]}
+        assert kinds["41"] == "thesis" and kinds["20"] == "author_profile"
+    finally:
+        database.execute("DELETE FROM graph_genealogy_edge WHERE overlay_id=%s AND adviser_id=41",
+                         (OVERLAY_ID,))
+
+
+def test_an_adviser_inspire_left_untyped_is_still_an_adviser(database):
+    """INSPIRE writes 'other' when it did not record the degree, not 'not a doctorate'.
+
+    Treating that as no relation hid an adviser from 12,518 people, so 'other'
+    and untyped are traversable; a master's relation still is not.
+    """
+    database.execute(
+        "INSERT INTO graph_genealogy_edge(overlay_id,adviser_id,student_id,source_record,degree)"
+        " VALUES (%s,42,10,'10','other'), (%s,43,10,'10',NULL)", (OVERLAY_ID, OVERLAY_ID))
+    try:
+        profile = service(database).person("10", Filters(max_authors=10, genealogy=True))
+        advisers = {item["adviser"] for item in profile["advisers"]}
+        assert {"42", "43"} <= advisers
+        assert "99" not in advisers  # the master's relation stays out
+        walk = service(database).ancestry("10", Filters(), direction="ancestors", depth=1)
+        assert {edge["adviser"] for edge in walk["edges"]} >= {"42", "43"}
+    finally:
+        database.execute("DELETE FROM graph_genealogy_edge WHERE overlay_id=%s "
+                         "AND adviser_id IN (42,43)", (OVERLAY_ID,))

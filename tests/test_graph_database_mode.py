@@ -208,7 +208,7 @@ def test_ancestry_is_unavailable_without_an_overlay(database):
     found = service(database, SpyClient()).ancestry("12", FILTERS)
     assert found["status"] == "unavailable"
     # Wording is the UI's to choose; what matters is that it says no, with a reason.
-    assert "Doctoral records" in found["message"]
+    assert "Adviser records" in found["message"]
 
 
 def test_unknown_endpoint_is_reported_without_a_negative_claim(database):

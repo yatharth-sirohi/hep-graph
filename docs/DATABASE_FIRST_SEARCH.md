@@ -310,9 +310,27 @@ import and the overlay are certified; otherwise it is PARTIAL, because the
 neighborhood would be missing an edge class rather than merely filtered.
 
 `hepgraph/genealogy_import.py` harvests it, reusing the shard protocol from
-`fast_compact_import` rather than restating it. Present: **36,589 relations,
-29,394 students, 13,344 advisers**, reconciled exactly against the 29,404
-INSPIRE author records that carry an adviser with a record reference.
+`fast_compact_import` rather than restating it, from **two** INSPIRE sources
+that disagree about how much they know:
+
+| Crawl | Source | Records | Import id |
+| --- | --- | --- | --- |
+| Author profiles | `advisors` on the student's own record | 29,404 | `genealogy-20260917` |
+| Thesis supervisors | `supervisors` on the thesis, `document_type:thesis` | 27,194 | `genealogy-theses-20260917` |
+
+The thesis side is the larger of the two and was missing entirely at first:
+together they hold **73,171 relations, 50,255 of them doctoral**, over 52,683
+people, of whom 35,979 have a doctoral adviser. Both crawls reconcile exactly
+against INSPIRE's own counts. `source_kind` records which crawl a relation came
+from, and the evidence link follows it - a thesis relation links to the thesis,
+an adviser-field relation to the author profile.
+
+A thesis repeats its supervisors inside `authors`, sometimes as plain authors
+too, so anyone named supervisor anywhere on a thesis is never treated as its
+student. Where two records still contradict each other - each thesis naming the
+other's author as supervisor - the loop is impossible rather than merely
+surprising, and the weaker side is withdrawn into `graph_genealogy_quarantine`
+with the loop as its reason. Withdrawn evidence is kept, never deleted.
 
 **Only relations INSPIRE typed `phd` are traversable.** The overlay stores every
 supervision relation it records - master's, bachelor's, and 1,561 it left
@@ -323,6 +341,11 @@ evidence refs, author resolution, the profile panel and the lineage walk. An
 untyped relation is precisely one INSPIRE did *not* call doctoral, so it is
 stored and not traversed.
 
+Acyclicity is checked exactly over the whole relation, not by a bounded walk:
+a loop longer than the bound would otherwise pass unnoticed, and the first
+version of that check could not fail at all because it carried the root in its
+own visited path.
+
 Supervision is a directed acyclic graph, not a tree: a person can have several
 advisers, and lines rejoin. `ancestry()` walks it with a recursive CTE carrying
 the visited path, so a cycle in the source cannot spin, and reports the
@@ -332,3 +355,12 @@ What this cannot tell you: INSPIRE records an adviser for only ~4% of its
 authors, so an empty lineage is usually upstream silence rather than an
 orphan. A further 5,241 records name an adviser INSPIRE has no record for;
 those are counted, never matched by name.
+
+**Web research is staged, not merged.** `hepgraph/genealogy_research.py` holds
+leads found off the open web in `graph_genealogy_research`: each carries the URL
+it came from, a quote from that source, and why the adviser resolves to *that*
+INSPIRE record rather than a same-named person. A lead whose adviser arrives as
+a name instead of a record id is refused outright. Nothing in this table is
+served as an INSPIRE relation, so the overlay's certificate keeps meaning what
+it says; people already searched without result are remembered in
+`graph_genealogy_research_miss` so the next batch does not retry them forever.

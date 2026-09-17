@@ -21,7 +21,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any
 
-from .neon_graph_provider import _at
+from .neon_graph_provider import ADVISER_DEGREES, _at
 
 SCHEMA = (
     "CREATE TABLE IF NOT EXISTS graph_genealogy_research ("
@@ -88,19 +88,20 @@ def targets(connection: Any, overlay_id: str = "inspire-genealogy", *,
     whole point of looking outside INSPIRE. Layout is only used for ordering,
     so targets can be handed out before a rebuilt map exists.
     """
+    degrees = list(ADVISER_DEGREES)
     rows = connection.execute(
         """WITH placed AS (
                SELECT adviser_id AS person_id FROM graph_genealogy_edge
-                WHERE overlay_id=%s AND degree='phd'
+                WHERE overlay_id=%s AND COALESCE(degree,'other') = ANY(%s)
                UNION
                SELECT student_id FROM graph_genealogy_edge
-                WHERE overlay_id=%s AND degree='phd'),
+                WHERE overlay_id=%s AND COALESCE(degree,'other') = ANY(%s)),
              advised AS (
                SELECT DISTINCT student_id FROM graph_genealogy_edge
-                WHERE overlay_id=%s AND degree='phd'),
+                WHERE overlay_id=%s AND COALESCE(degree,'other') = ANY(%s)),
              descendants AS (
                SELECT adviser_id, count(*) AS n FROM graph_genealogy_edge
-                WHERE overlay_id=%s AND degree='phd' GROUP BY 1)
+                WHERE overlay_id=%s AND COALESCE(degree,'other') = ANY(%s) GROUP BY 1)
            SELECT p.person_id AS student_id, COALESCE(n.name,'') AS display_name,
                   COALESCE(d.n,0) AS descendants, COALESCE(l.component_size,0) AS component_size
              FROM placed p
@@ -116,7 +117,8 @@ def targets(connection: Any, overlay_id: str = "inspire-genealogy", *,
                                        WHERE overlay_id=%s)
             ORDER BY COALESCE(d.n,0) DESC, COALESCE(l.component_size,0) DESC, p.person_id
             LIMIT %s OFFSET %s""",
-        (overlay_id,) * 8 + (limit, offset)).fetchall()
+        (overlay_id, degrees, overlay_id, degrees, overlay_id, degrees, overlay_id, degrees,
+         overlay_id, overlay_id, overlay_id, overlay_id, limit, offset)).fetchall()
     return [dict(zip(TARGET_COLUMNS, (int(_at(row, 0)), str(_at(row, 1)),
                                       int(_at(row, 2)), int(_at(row, 3))))) for row in rows]
 

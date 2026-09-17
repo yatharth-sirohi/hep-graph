@@ -24,7 +24,7 @@ from .graph_hydration import (PEOPLE, WORKS, Hydrator, HydrationBudget,
                               HydrationCache, placeholder)
 from .db_search_jobs import DatabaseSearchJobs
 from .graph import GraphError
-from .neon_graph_provider import (DOCTORAL_DEGREES, CoverageClaim, GenealogyOverlay, GraphDatabaseError, _at,
+from .neon_graph_provider import (ADVISER_DEGREES, CoverageClaim, GenealogyOverlay, GraphDatabaseError, _at,
                                   NeonCompactGraphProvider, connect_read_only,
                                   observe_coverage)
 
@@ -215,9 +215,9 @@ class DatabaseGraphService:
                 "papers": "Articles and individual conference papers; correction notices and "
                           "theses, books and proceedings were excluded when the graph was built.",
                 "identity": "Stable INSPIRE author record IDs; names never establish identity.",
-                "genealogy": ("Doctoral records come from a separately versioned overlay."
+                "genealogy": ("Adviser records come from a separately versioned overlay."
                               if self.config.overlay_id else
-                              "Doctoral records are not part of this graph version."),
+                              "Adviser records are not part of this graph version."),
                 "storage": "The graph stores identifiers, author counts and years only. "
                            "Titles, names and affiliations are fetched per result and kept in memory.",
                 "distance": "One person-to-person tie is one hop. A route is shortest only "
@@ -303,9 +303,9 @@ class DatabaseGraphService:
             return empty
         rows = self.connection().execute(
             "SELECT adviser_id, student_id, source_record, degree, curated, source_kind "
-            "FROM graph_genealogy_edge WHERE overlay_id=%s AND degree = ANY(%s) "
+            "FROM graph_genealogy_edge WHERE overlay_id=%s AND COALESCE(degree,'other') = ANY(%s) "
             "AND (adviser_id=%s OR student_id=%s) ORDER BY adviser_id, student_id LIMIT 200",
-            (self.config.overlay_id, list(DOCTORAL_DEGREES),
+            (self.config.overlay_id, list(ADVISER_DEGREES),
              int(person_id), int(person_id))).fetchall()
         for row in rows:
             adviser, student = str(_at(row, 0)), str(_at(row, 1))
@@ -342,7 +342,7 @@ class DatabaseGraphService:
                 "coverage": self.dataset()["coverage"]}
         if self.config.overlay_id is None:
             return base | {"status": "unavailable",
-                           "message": "Doctoral records are not part of this release."}
+                           "message": "Adviser records are not part of this release."}
         if direction not in {"ancestors", "descendants"}:
             raise GraphError("invalid_input", "Direction must be ancestors or descendants.")
         depth = max(1, min(int(depth), self.MAX_LINEAGE_DEPTH))
@@ -360,27 +360,27 @@ class DatabaseGraphService:
                     SELECT e.{step_from}, e.{step_to}, 1,
                            ARRAY[e.{step_from}, e.{step_to}]
                       FROM graph_genealogy_edge e
-                     WHERE e.overlay_id = %s AND e.degree = ANY(%s)
+                     WHERE e.overlay_id = %s AND COALESCE(e.degree,'other') = ANY(%s)
                        AND e.{step_from} = %s
                     UNION ALL
                     SELECT w.reached, e.{step_to}, w.generation + 1,
                            w.path || e.{step_to}
                       FROM walk w
                       JOIN graph_genealogy_edge e
-                        ON e.overlay_id = %s AND e.degree = ANY(%s)
+                        ON e.overlay_id = %s AND COALESCE(e.degree,'other') = ANY(%s)
                        AND e.{step_from} = w.reached
                      WHERE w.generation < %s AND NOT e.{step_to} = ANY(w.path))
                 SELECT DISTINCT w.origin, w.reached, w.generation,
-                       e.source_record, e.degree, e.curated
+                       e.source_record, e.degree, e.curated, e.source_kind
                   FROM walk w
                   JOIN graph_genealogy_edge e
-                    ON e.overlay_id = %s AND e.degree = ANY(%s)
+                    ON e.overlay_id = %s AND COALESCE(e.degree,'other') = ANY(%s)
                    AND e.{step_from} = w.origin AND e.{step_to} = w.reached
                  ORDER BY w.generation, w.origin, w.reached
                  LIMIT %s""",
-            (self.config.overlay_id, list(DOCTORAL_DEGREES), int(person_id),
-             self.config.overlay_id, list(DOCTORAL_DEGREES), depth,
-             self.config.overlay_id, list(DOCTORAL_DEGREES),
+            (self.config.overlay_id, list(ADVISER_DEGREES), int(person_id),
+             self.config.overlay_id, list(ADVISER_DEGREES), depth,
+             self.config.overlay_id, list(ADVISER_DEGREES),
              self.MAX_LINEAGE_EDGES + 1)).fetchall()
         truncated = len(rows) > self.MAX_LINEAGE_EDGES
         rows = rows[:self.MAX_LINEAGE_EDGES]
@@ -391,7 +391,8 @@ class DatabaseGraphService:
                                 else (origin, reached))
             edges.append({"adviser": adviser, "student": student,
                           "source_record": str(_at(row, 3)), "degree": _at(row, 4),
-                          "curated": bool(_at(row, 5)), "generation": generation})
+                          "curated": bool(_at(row, 5)), "source_kind": _at(row, 6),
+                          "generation": generation})
             generation_of[reached] = min(generation_of.get(reached, generation), generation)
         people = self._lineage_people(str(person_id), generation_of)
         return base | {"status": "ok", "depth": depth, "truncated": truncated,
@@ -420,7 +421,7 @@ class DatabaseGraphService:
         """
         if self.config.overlay_id is None:
             return {"status": "unavailable",
-                    "message": "Doctoral records are not part of this release."}
+                    "message": "Adviser records are not part of this release."}
         from .lineage_map import read_map
 
         coverage = self.coverage()

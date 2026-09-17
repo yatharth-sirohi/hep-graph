@@ -29,7 +29,7 @@ import sys
 from typing import Any
 
 from .fast_compact_import import DEFAULT_RATE, DEFAULT_WORKERS, ShardWorker, run as run_shards
-from .neon_graph_provider import _at
+from .neon_graph_provider import ADVISER_DEGREES, _at
 from .pipeline import PipelineError, _metadata, ref_id
 
 
@@ -274,7 +274,8 @@ def quarantine_cycles(connection: Any, overlay_id: str = "inspire-genealogy") ->
     while True:
         pairs = [(int(_at(r, 0)), int(_at(r, 1))) for r in connection.execute(
             "SELECT DISTINCT adviser_id, student_id FROM graph_genealogy_edge "
-            "WHERE overlay_id=%s AND degree='phd'", (overlay_id,)).fetchall()]
+            "WHERE overlay_id=%s AND COALESCE(degree,'other') = ANY(%s)",
+            (overlay_id, list(ADVISER_DEGREES))).fetchall()]
         loop = find_cycle(pairs)
         if loop is None:
             return withdrawn
@@ -282,8 +283,8 @@ def quarantine_cycles(connection: Any, overlay_id: str = "inspire-genealogy") ->
         def weight(pair: tuple[int, int]) -> tuple[int, int, int]:
             rows = connection.execute(
                 "SELECT source_kind, source_record FROM graph_genealogy_edge WHERE overlay_id=%s "
-                "AND degree='phd' AND adviser_id=%s AND student_id=%s",
-                (overlay_id, *pair)).fetchall()
+                "AND COALESCE(degree,'other') = ANY(%s) AND adviser_id=%s AND student_id=%s",
+                (overlay_id, list(ADVISER_DEGREES), *pair)).fetchall()
             profile = any(_at(r, 0) != "thesis" for r in rows)
             newest = max(int(_at(r, 1)) for r in rows)
             return (len(rows), int(profile), -newest)
@@ -291,10 +292,10 @@ def quarantine_cycles(connection: Any, overlay_id: str = "inspire-genealogy") ->
         adviser, student = min(loop, key=weight)
         reason = "doctoral loop: " + " -> ".join(str(a) for a, _ in loop) + f" -> {loop[-1][1]}"
         moved = connection.execute(
-            "DELETE FROM graph_genealogy_edge WHERE overlay_id=%s AND degree='phd' "
-            "AND adviser_id=%s AND student_id=%s "
+            "DELETE FROM graph_genealogy_edge WHERE overlay_id=%s "
+            "AND COALESCE(degree,'other') = ANY(%s) AND adviser_id=%s AND student_id=%s "
             "RETURNING overlay_id, adviser_id, student_id, source_record, degree, source_kind",
-            (overlay_id, adviser, student)).fetchall()
+            (overlay_id, list(ADVISER_DEGREES), adviser, student)).fetchall()
         for row in moved:
             connection.execute(
                 "INSERT INTO graph_genealogy_quarantine(overlay_id,adviser_id,student_id,"

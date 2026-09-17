@@ -185,7 +185,7 @@
                 ><input id="genealogy" type="checkbox" disabled /><span
                   ><b>Include PhD records</b
                   ><small id="genealogy-note"
-                    >Checking whether a doctoral-record overlay is available…</small
+                    >Checking whether an adviser-record overlay is available…</small
                   ></span
                 ></label
               >
@@ -335,7 +335,7 @@
       <section id="lineage" class="view" aria-labelledby="lineage-title">
         <div class="section-intro">
           <div>
-            <p class="eyebrow">Doctoral lineage</p>
+            <p class="eyebrow">Academic lineage</p>
             <h1 id="lineage-title">Follow an academic family tree</h1>
             <p>
               Trace documented adviser and student records one generation at a
@@ -401,7 +401,7 @@
           </div>
           <div class="query-actions">
             <span class="subtle"
-              >Doctoral records are shown exactly as INSPIRE documents them.</span
+              >Adviser records are shown exactly as INSPIRE documents them.</span
             >
             <button id="lineage-run" class="primary-button" type="submit">
               Show lineage <span aria-hidden="true">→</span>
@@ -413,7 +413,7 @@
           <h2>Choose a researcher</h2>
           <p>
             Search for someone above, or open a researcher profile and choose
-            “View doctoral lineage”. Lineage uses documented adviser and student
+            “View academic lineage”. Lineage uses documented adviser and student
             records only; it does not use coauthorship.
           </p>
         </div>
@@ -426,7 +426,7 @@
           <div class="result-heading">
             <div>
               <p class="eyebrow">Lineage result</p>
-              <h2 id="lineage-heading">Doctoral lineage</h2>
+              <h2 id="lineage-heading">Academic lineage</h2>
               <p id="lineage-meta" class="muted"></p>
             </div>
           </div>
@@ -574,9 +574,9 @@
           <p>
             One hop between two researchers means they share enough qualifying
             published works: the works must survive the filters, and the count
-            of shared works must reach the threshold in use. A doctoral
-            adviser-to-student record, when the doctoral filter is on, is a
-            separate kind of tie read from the student's own INSPIRE record.
+            of shared works must reach the threshold in use. An
+            adviser-to-student record, when the adviser filter is on, is a
+            separate kind of tie read from INSPIRE's own supervision records.
           </p>
           <ol class="method-stages">
             <li>
@@ -623,7 +623,7 @@
               bound is set.
             </li>
             <li>
-              <b>Doctoral records.</b> Unavailable in the current release;
+              <b>Adviser records.</b> Unavailable in the current release;
               the disabled control cannot change route calculations.
             </li>
           </ul>
@@ -673,11 +673,15 @@
               proceedings records are excluded.
             </p>
             <p>
-              Doctoral ties come from adviser records on each student's INSPIRE
-              profile and are shown as INSPIRE records them. Only relations
-              INSPIRE marks as doctoral count; INSPIRE lists an adviser for only
-              a small share of researchers, so a missing adviser usually means
-              none was recorded rather than none existed.
+              Adviser ties come from two INSPIRE sources: the adviser field on a
+              student's own profile, and the supervisors named on a thesis
+              record. They are shown as INSPIRE records them, including its
+              degree type: <b>PhD</b> where INSPIRE says so, and
+              <b>degree not recorded</b> where it does not. A relation INSPIRE
+              marks as a master's, bachelor's or diploma is a different claim
+              and is not shown here. INSPIRE lists an adviser for only a small
+              share of researchers, so a missing adviser usually means none was
+              recorded rather than none existed.
             </p>
           </article>
           <article class="data-card">

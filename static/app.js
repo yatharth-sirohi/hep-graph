@@ -1439,7 +1439,7 @@
       );
     if (edge.phd?.length)
       labels.push(
-        `${edge.phd?.length || 0} ${edge.types?.includes("coauthor") ? "supplemental " : ""}doctoral record${edge.phd?.length === 1 ? "" : "s"}`,
+        `${edge.phd?.length || 0} ${edge.types?.includes("coauthor") ? "supplemental " : ""}adviser record${edge.phd?.length === 1 ? "" : "s"}`,
       );
     div.append(
       document.createTextNode(labels.join(" · ") || "Documented relationship"),
@@ -1488,7 +1488,7 @@
         document.createTextNode(" (adviser) → "),
         personButton(byId(String(phd.student))),
         document.createTextNode(
-          ` (student) · ${phd.degree || "doctoral degree"}${phd.year ? ` · ${phd.year}` : ""}`,
+          ` (student) · ${degreeLabel(phd.degree)}${phd.year ? ` · ${phd.year}` : ""}`,
         ),
       );
       if (phd.uncertainty)
@@ -1501,7 +1501,7 @@
         row.append(document.createTextNode(" · institutional historical source"));
       row.append(
         document.createTextNode(" · "),
-        link(phd.source_record || "source record", phd.source_url),
+        link(sourceLabel(phd), phd.source_url),
       );
       if (phd.retrieved_at)
         row.append(
@@ -1922,7 +1922,7 @@
           arrow.title = d
             ? "Actual adviser → student direction; this route may traverse it in either direction."
             : e.types?.includes("coauthor")
-              ? "Coauthorship tie; supplemental doctoral metadata does not add another hop."
+              ? "Coauthorship tie; supplemental adviser metadata does not add another hop."
               : "Documented relationship";
           route.append(arrow);
         }
@@ -2052,7 +2052,7 @@
       const lineage = document.createElement("button");
       lineage.className = "secondary-button";
       lineage.type = "button";
-      lineage.textContent = "View doctoral lineage";
+      lineage.textContent = "View academic lineage";
       lineage.addEventListener("click", () => setLineageRoot({ ...p }));
       actions.append(lineage);
       const expand = document.createElement("button");
@@ -2099,7 +2099,7 @@
         ph = document.createElement("h3"),
         pu = document.createElement("ul");
       phd.className = "profile-section";
-      ph.textContent = "Documented doctoral ties";
+      ph.textContent = "Documented adviser ties";
       pu.className = "profile-list";
       ties.forEach((x) => {
         const other = x.adviser === id ? x.student : x.adviser,
@@ -2109,14 +2109,14 @@
           document.createTextNode(`${side}: `),
           personButton(byId(other)),
           document.createTextNode(
-            ` · ${x.degree || "doctoral degree"} · ${x.year || "year unknown"} · `,
+            ` · ${degreeLabel(x.degree)} · ${x.year || "year unknown"} · `,
           ),
-          link(x.source_record || "source record", x.source_url),
+          link(sourceLabel(x), x.source_url),
         );
         pu.append(li);
       });
       if (!pu.children.length)
-        pu.textContent = "No doctoral records in this release.";
+        pu.textContent = "No adviser records in this release.";
       phd.append(ph, pu);
       content.append(phd);
       displayCoverage(d.coverage || state.dataset?.coverage);
@@ -2124,10 +2124,20 @@
       if (current()) content.textContent = `Profile unavailable: ${e.message}`;
     }
   }
-  // --- Doctoral lineage -----------------------------------------------------
+  // --- Academic lineage -----------------------------------------------------
   // Adviser→student records only. A person may have several advisers, so the
   // rendering groups people by generation and lists every documented relation
   // that reached them rather than assuming a single parent.
+  /* INSPIRE records supervision in two places, and they are not equally
+     direct: a thesis names its own supervisors, an author profile is a claim
+     on the student's own record. Say which one a relation rests on. */
+  function sourceLabel(relation) {
+    const record = relation.source_record;
+    if (record == null || record === "") return "source record";
+    return relation.source_kind === "thesis"
+      ? `thesis ${record}`
+      : `author record ${record}`;
+  }
   const degreeLabels = {
     phd: "PhD",
     doctorate: "Doctorate",
@@ -2138,7 +2148,7 @@
     diploma: "Diploma",
     bachelor: "Bachelor's",
     bachelors: "Bachelor's",
-    other: "Degree kind recorded as other",
+    other: "Degree not recorded by INSPIRE",
   };
   const degreeLabel = (degree) =>
     degree
@@ -2218,7 +2228,7 @@
     b.type = "button";
     b.className = "person-link";
     b.textContent = personName(person);
-    b.title = `Show the doctoral lineage of ${personName(person)}`;
+    b.title = `Show the academic lineage of ${personName(person)}`;
     b.addEventListener("click", () => setLineageRoot(person));
     return b;
   }
@@ -2238,7 +2248,7 @@
     if (edge.source_record != null && edge.source_record !== "") {
       const record = document.createElement("span");
       record.className = "lineage-id";
-      record.textContent = ` · source record ${edge.source_record}`;
+      record.textContent = ` · ${sourceLabel(edge)}`;
       li.append(record);
     }
     return li;
@@ -2321,8 +2331,8 @@
     if (status !== "ok") {
       $("#lineage-heading").textContent =
         status === "unavailable"
-          ? "Doctoral lineage is not available"
-          : "No doctoral record found";
+          ? "Academic lineage is not available"
+          : "No adviser record found";
       $("#lineage-meta").textContent =
         status === "unavailable"
           ? "Nothing is claimed about this researcher's advisers or students."
@@ -2330,8 +2340,8 @@
       lineageNotice(
         data.message ||
           (status === "unavailable"
-            ? "Doctoral lineage records are not configured in this release."
-            : "This researcher was not found in the doctoral records of this release. That silence describes the records, not the researcher."),
+            ? "Adviser records are not configured in this release."
+            : "This researcher was not found in the adviser records of this release. That silence describes the records, not the researcher."),
       );
       return;
     }
@@ -2345,8 +2355,8 @@
           : direction;
     $("#lineage-heading").textContent =
       shown === "ancestors"
-        ? `Doctoral ancestors of ${personName(root)}`
-        : `Doctoral descendants of ${personName(root)}`;
+        ? `Academic ancestors of ${personName(root)}`
+        : `Academic descendants of ${personName(root)}`;
     const people = Array.isArray(data.people) ? data.people : [];
     const edges = Array.isArray(data.edges) ? data.edges : [];
     const known = new Map();
@@ -2415,7 +2425,7 @@
     else if (!total)
       lineageNotice(
         shown === "ancestors"
-          ? "No documented adviser is recorded for this researcher in this release. That is a gap in the records, not proof that none exists."
+          ? "No adviser is recorded for this researcher in this release. That is a gap in the records, not proof that none exists."
           : "No documented student is recorded for this researcher in this release. That is a gap in the records, not proof that none exists.",
       );
     else lineageNotice("", "hidden");
@@ -2439,9 +2449,9 @@
     lineageNotice("", "hidden");
     $("#lineage-heading").textContent =
       direction === "ancestors"
-        ? `Doctoral ancestors of ${personName(person)}`
-        : `Doctoral descendants of ${personName(person)}`;
-    $("#lineage-meta").textContent = "Loading documented doctoral records…";
+        ? `Academic ancestors of ${personName(person)}`
+        : `Academic descendants of ${personName(person)}`;
+    $("#lineage-meta").textContent = "Loading documented adviser records…";
     try {
       const u = new URL(
         `/api/ancestry/${encodeURIComponent(person.id)}`,
@@ -2461,7 +2471,7 @@
         $("#lineage-generations").replaceChildren();
         $("#lineage-meta").textContent =
           "No lineage is shown for this request.";
-        lineageNotice(`Doctoral lineage is unavailable: ${e.message}`, "error");
+        lineageNotice(`Academic lineage is unavailable: ${e.message}`, "error");
       }
     } finally {
       if (current()) setLoading(button, false);
