@@ -25,6 +25,9 @@ CREATE TABLE IF NOT EXISTS graph_genealogy_edge (
     source_record TEXT NOT NULL,
     degree TEXT,
     year SMALLINT,
+    -- INSPIRE marks a relation curated when a human confirmed it. A family
+    -- tree wants to show that difference rather than flatten it.
+    curated BOOLEAN NOT NULL DEFAULT FALSE,
     PRIMARY KEY (overlay_id, adviser_id, student_id, source_record),
     CHECK (adviser_id <> student_id)
 );

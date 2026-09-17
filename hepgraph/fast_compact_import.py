@@ -80,7 +80,18 @@ class _PacedClient(InspireClient):
 
 
 class ShardWorker:
-    """Claims one shard at a time and drives it to DONE or SPLIT."""
+    """Claims one shard at a time and drives it to DONE or SPLIT.
+
+    Everything here is corpus-independent: claiming, splitting a range that
+    exceeds the 10,000-result window, paging with the completeness and drift
+    checks, and checkpointing. A different corpus overrides ``COLLECTION``,
+    ``range_query`` and ``persist``.
+    """
+
+    COLLECTION = "literature"
+
+    def range_query(self, low: int, high: int) -> str:
+        return _query(low, high)
 
     def __init__(self, connection: Any, client: Any, import_id: str, *,
                  stop: threading.Event, report: Any) -> None:
@@ -128,7 +139,7 @@ class ShardWorker:
     # --------------------------------------------------------------- the work
     def _discover(self, shard: dict[str, Any]) -> None:
         low, high = shard["low_recid"], shard["high_recid"]
-        count = _upstream_total(self.client.fetch("literature", _query(low, high), 1, 1))
+        count = _upstream_total(self.client.fetch(self.COLLECTION, self.range_query(low, high), 1, 1))
         if count is None:
             raise PipelineError("INSPIRE did not provide an exact shard count")
         with self.connection.transaction():
@@ -153,50 +164,56 @@ class ShardWorker:
     def _load_page(self, shard: dict[str, Any]) -> bool:
         low, high = shard["low_recid"], shard["high_recid"]
         page, expected = shard["next_page"], shard["expected_records"]
-        response = self.client.fetch("literature", _query(low, high), page, PAGE_SIZE)
+        response = self.client.fetch(self.COLLECTION, self.range_query(low, high), page, PAGE_SIZE)
         total, hits = _upstream_total(response), _hits(response)
         if total != expected:
             raise PipelineError(f"INSPIRE shard {low}-{high} changed during import")
         remaining = expected - (page - 1) * PAGE_SIZE
         if len(hits) != min(PAGE_SIZE, remaining):
             raise PipelineError(f"INSPIRE shard {low}-{high} page {page} is incomplete")
-        works: list[tuple[Any, ...]] = []
-        memberships: list[tuple[Any, ...]] = []
         seen: set[int] = set()
         for hit in hits:
             recid, _ = _metadata(hit)
             if not low <= int(recid) <= high or int(recid) in seen:
                 raise PipelineError(f"INSPIRE shard {low}-{high} contains an invalid or duplicate ID")
             seen.add(int(recid))
+        done = page * PAGE_SIZE >= expected
+        with self.connection.transaction():
+            primary, secondary = self.persist(hits)
+            self.connection.execute(
+                "UPDATE inspire_compact_shard SET status=%s,next_page=%s,"
+                "received_records=received_records+%s,retained_works=retained_works+%s,"
+                "retained_memberships=retained_memberships+%s,updated_at=now() "
+                "WHERE import_id=%s AND low_recid=%s AND high_recid=%s",
+                ("DONE" if done else "PENDING", page + 1, len(hits), primary,
+                 secondary, self.import_id, low, high))
+        self.pages += 1
+        self.records += len(hits)
+        self.report(len(hits))
+        shard["next_page"], shard["received_records"] = page + 1, shard["received_records"] + len(hits)
+        return done
+
+    def persist(self, hits: list[Any]) -> tuple[int, int]:
+        """Store one page. Returns the two counters the shard row tracks."""
+        works: list[tuple[Any, ...]] = []
+        memberships: list[tuple[Any, ...]] = []
+        for hit in hits:
             compact = _work_from_hit(hit)
             if compact is None:
                 continue
             work_id, year, author_count, authors, updated = compact
             works.append((self.import_id, work_id, year, author_count, len(authors), updated, _utcnow()))
             memberships.extend((self.import_id, work_id, author_id) for author_id in authors)
-        done = page * PAGE_SIZE >= expected
-        with self.connection.transaction():
-            if works:
-                self._executemany(
-                    "INSERT INTO inspire_compact_work(import_id,work_id,year,author_count,"
-                    "member_count,source_updated_at,retrieved_at) VALUES (%s,%s,%s,%s,%s,%s,%s) "
-                    "ON CONFLICT (import_id,work_id) DO NOTHING", works)
-            if memberships:
-                self._executemany(
-                    "INSERT INTO inspire_compact_membership(import_id,work_id,author_id) "
-                    "VALUES (%s,%s,%s) ON CONFLICT DO NOTHING", memberships)
-            self.connection.execute(
-                "UPDATE inspire_compact_shard SET status=%s,next_page=%s,"
-                "received_records=received_records+%s,retained_works=retained_works+%s,"
-                "retained_memberships=retained_memberships+%s,updated_at=now() "
-                "WHERE import_id=%s AND low_recid=%s AND high_recid=%s",
-                ("DONE" if done else "PENDING", page + 1, len(hits), len(works),
-                 len(memberships), self.import_id, low, high))
-        self.pages += 1
-        self.records += len(hits)
-        self.report(len(hits))
-        shard["next_page"], shard["received_records"] = page + 1, shard["received_records"] + len(hits)
-        return done
+        if works:
+            self._executemany(
+                "INSERT INTO inspire_compact_work(import_id,work_id,year,author_count,"
+                "member_count,source_updated_at,retrieved_at) VALUES (%s,%s,%s,%s,%s,%s,%s) "
+                "ON CONFLICT (import_id,work_id) DO NOTHING", works)
+        if memberships:
+            self._executemany(
+                "INSERT INTO inspire_compact_membership(import_id,work_id,author_id) "
+                "VALUES (%s,%s,%s) ON CONFLICT DO NOTHING", memberships)
+        return len(works), len(memberships)
 
     def run(self) -> None:
         while not self.stop.is_set():
@@ -225,7 +242,8 @@ class ShardWorker:
 
 def run(url: str, import_id: str, *, workers: int = DEFAULT_WORKERS,
         rate: float = DEFAULT_RATE, minimal_fields: bool = True,
-        duration: float | None = None) -> dict[str, Any]:
+        duration: float | None = None, worker_class: type = None,
+        setup: Any = None) -> dict[str, Any]:
     import psycopg
 
     control = psycopg.connect(url, autocommit=True, row_factory=psycopg.rows.dict_row)
@@ -235,6 +253,8 @@ def run(url: str, import_id: str, *, workers: int = DEFAULT_WORKERS,
         control.close()
         raise PipelineError("another compact importer already owns this candidate")
     control.execute(SCHEMA)
+    if setup is not None:
+        setup(control)
     control.execute("UPDATE inspire_compact_import SET status='FETCHING',updated_at=now() "
                     "WHERE import_id=%s", (import_id,))
     # Resume anything a previous run left FAILED, exactly as the serial importer
@@ -268,8 +288,8 @@ def run(url: str, import_id: str, *, workers: int = DEFAULT_WORKERS,
         for _ in range(workers):
             connection = psycopg.connect(url, autocommit=True, row_factory=psycopg.rows.dict_row)
             connections.append(connection)
-            worker = ShardWorker(connection, _PacedClient(limiter),
-                                 import_id, stop=stop, report=report)
+            worker = (worker_class or ShardWorker)(connection, _PacedClient(limiter),
+                                                   import_id, stop=stop, report=report)
             thread = threading.Thread(target=worker.run, daemon=True)
             threads.append(thread)
             thread.start()
