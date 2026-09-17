@@ -45,8 +45,8 @@ exists with sourced content. Gaps are computed per record, not declared.
 | Muon precision and rare processes | 6 | 0 | 0 | 0 | 0 | 0 | 0 |
 | Neutrinoless double beta decay | 9 | 0 | 0 | 0 | 0 | 0 | 0 |
 | Reactor and low-energy neutrinos | 5 | 0 | 0 | 0 | 0 | 0 | 0 |
-| Solar and radiochemical neutrinos | 5 | 0 | 0 | 0 | 0 | 0 | 0 |
-| **All** | **128** | **29** | **2** | **27** | **0** | **5** | **5** |
+| Solar and radiochemical neutrinos | 6 | 0 | 0 | 0 | 0 | 0 | 0 |
+| **All** | **129** | **29** | **2** | **27** | **0** | **5** | **5** |
 
 ## Per-experiment detail
 
@@ -253,6 +253,7 @@ exists with sourced content. Gaps are computed per record, not declared.
 | Homestake | not researched | all |
 | SAGE | not researched | all |
 | SNO | not researched | all |
+| SNO+ | not researched | all |
 
 ## What is deliberately out of scope
 
