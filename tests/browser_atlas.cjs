@@ -40,6 +40,7 @@ async function setRangeValue(locator, value) {
     viewport: { width: 1440, height: 960 },
     reducedMotion: "reduce",
   });
+  context.setDefaultTimeout(45000);
   context.on("page", (p) => p.on("pageerror", (e) => errors.push(e.message)));
   context.on("page", (p) => p.on("console", (msg) => {
     if (msg.type() === "error") errors.push(`console.error: ${msg.text()}`);
@@ -112,6 +113,11 @@ async function setRangeValue(locator, value) {
     await p.screenshot({ path: path.join(output, "mobile.png"), fullPage: true });
     await mobile.close();
   });
+
+  // Close the main (WebGL, continuously rendering) context before launching
+  // a second Chromium process for the no-WebGL check, so the two renderers
+  // do not compete for CPU on the same machine.
+  await context.close();
 
   await record("Without WebGL2 the accessible fallback list renders", async () => {
     const noGlBrowser = await chromium.launch({

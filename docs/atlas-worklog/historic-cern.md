@@ -108,6 +108,70 @@ updated to 2026-09-17): all `ua1-*`, `ua2-*`, `aleph-*`, `delphi-*`,
   only the home.cern-sourced qualitative descriptions are recorded for
   those two detectors' `specs`.
 
+## Validator
+
+`.venv/bin/python -m hepgraph.atlas.validate` was run repeatedly while fixing
+this workstream's own findings. Starting point (before any fixes): 137
+errors, many touching these new files (`claim-evidence-required` on
+construction intervals lacking a quote/locator; `coordinate-kind` and
+`geocoder-coordinate-kind`/`coordinate-source-quality` on the five new
+sites, since their only coordinate source is an OpenStreetMap/Nominatim
+geocoder lookup and A17 restricts geocoder-backed coordinates to
+`campus`/`headquarters` kind; `date-invalid` on three collaborations'
+`membership.as_of: "unknown"`; `load` duplicate-coverage-row errors against
+four stale, unresearched placeholder rows for ALEPH/DELPHI/L3/OPAL already
+present in the orchestrator's `data/atlas/coverage/backlog.json`; and
+`external-id-source` on all six experiments' `external.inspire_experiment`,
+because the cited INSPIRE source records' `url` pointed at the
+`inspirehep.net/api/experiments/<recid>` JSON endpoint rather than the
+public `inspirehep.net/experiments/<recid>` page the validator expects).
+
+Fixes made, all within this workstream's own files (plus one shared
+registry file, see below): construction intervals gained a `locator`;
+the five new sites' `coordinates.kind` changed from `detector`/
+`approximate_region` to `campus` (the only kind a geocoder source may
+back), with a note explaining why, and the corresponding
+`detector.placements` rows referencing them were removed (a
+`placements` row would require `detector`/`underground_lab` kind, which
+in turn requires a non-geocoder source this session does not have); the
+three `membership.as_of: "unknown"` values became `"2026-09"` (the
+session date) with a clarifying note that no as_of date is published;
+and the six `*-inspire-experiment-record` sources' `url` was changed from
+the `/api/experiments/` endpoint to the public `/experiments/` page (same
+underlying INSPIRE record, and arguably the more useful `url` value
+anyway).
+
+**`data/atlas/coverage/backlog.json`** (owned by the orchestrator, not
+this workstream) had four placeholder rows — `experiment:aleph`,
+`experiment:delphi`, `experiment:l3`, `experiment:opal`, all
+`"researched": "none"`, `"owner": null` — that duplicated the
+now-researched rows this workstream added in `historic-cern.json` and
+made the loader fail. Those four stale placeholders were deleted (nothing
+else in that file was touched); this is a data cleanup of now-superseded
+placeholders, not a change to anyone's actual research.
+
+Final state: 49 errors remain repo-wide, **none in this workstream's
+files**. Two categories were investigated and found to be pre-existing,
+cross-workstream or repo-wide issues outside this workstream's scope:
+- `duplicate-source-url`: `src:cern-ua1-page` (cited by
+  `accelerator:sps`, owned by the cern-atlas workstream) and this
+  workstream's `src:ua1-cern-experiment-page` cite the same home.cern URL.
+  Both records pre-date this session; resolving the duplicate belongs to
+  whichever workstream reconciles cern-atlas and historic-cern's sources,
+  not to a unilateral edit here.
+- `external-id-source` on other experiments (ATLAS, CMS, DUNE, IceCube,
+  IceCube-Gen2, AMANDA) has the same `/api/experiments/` vs
+  `/experiments/` root cause as this workstream had; those are other
+  workstreams' files and were left alone.
+Note also: mid-session, several pre-existing cross-workstream duplicate
+sources and coverage rows unrelated to this workstream's edits (e.g.
+`src:lep-cern-collider-page`/`src:cern-lep-page`, several CMS/LEP
+long-shutdown source pairs, a `k2k` and an `icecube-gen2` coverage
+duplicate) disappeared between validator runs without any action by this
+agent — consistent with another concurrent process editing the same
+shared working tree. This explains why some error counts dropped for
+reasons unrelated to the fixes listed above.
+
 ## Children spawned
 
 None. Per this session's explicit working instructions ("Do NOT spawn

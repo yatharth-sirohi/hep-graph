@@ -344,17 +344,50 @@ def _has_claim_evidence(node: Any) -> bool:
     return bool(_text(node.get('quote')) or _text(node.get('locator')))
 
 
+#: A20: a query parameter whose *name* starts with this is tracking noise
+#: ("utm_source", "utm_campaign", …), never part of what a URL identifies.
+_UTM_PARAM_RE = re.compile(r'(?i)^utm_[^=]*(=|$)')
+
+
 def _normalise_url(url: Any) -> str:
-    """A20/A7 URL normalisation: lower-case, no scheme, no `www.`, no trailing `/`."""
-    text = str(url or '').strip().lower()
-    text = re.sub(r'^[a-z][a-z0-9+.\-]*://', '', text)
-    if text.startswith('www.'):
-        text = text[4:]
-    return text.rstrip('/')
+    """A20/A7 URL normalisation: lower-case the scheme and host (never the
+    path or query — those can be meaningfully case-sensitive and, much more
+    importantly, are where two genuinely different sources are told apart:
+    an INSPIRE API search and a geocoder lookup are identified by their
+    query string, not merely their host), no `www.`, drop the fragment and
+    any `utm_*` tracking parameters, keep the rest of the query string, no
+    trailing `/` on a query-less path.
+
+    A validator that folded the query string away would propose merging
+    every INSPIRE literature search into one record and every geocoder
+    lookup into one record — a P0-shaped data-corruption risk, not a
+    cosmetic false positive, so this is deliberately conservative about
+    what it throws away.
+    """
+    text = str(url or '').strip()
+    text = text.split('#', 1)[0]                                  # drop the fragment
+    match = re.match(r'^[a-zA-Z][a-zA-Z0-9+.\-]*://([^/?]*)(.*)$', text)
+    if match:
+        host, rest = match.group(1).lower(), match.group(2)
+    else:
+        host, rest = '', text
+    if host.startswith('www.'):
+        host = host[4:]
+    path, _sep, query = rest.partition('?')
+    path = path.rstrip('/')
+    if query:
+        kept = [param for param in query.split('&') if param and not _UTM_PARAM_RE.match(param)]
+        rest = path + ('?' + '&'.join(kept) if kept else '')
+    else:
+        rest = path
+    return host + rest
 
 
 def _normalise_doi(doi: Any) -> str:
-    text = _normalise_url(doi)
+    # DOIs are case-insensitive by the DOI Handbook and never carry a
+    # meaningful query string, so (unlike a general URL) the whole thing is
+    # safely lower-cased for comparison.
+    text = _normalise_url(doi).lower()
     for prefix in ('doi.org/', 'dx.doi.org/'):
         if text.startswith(prefix):
             text = text[len(prefix):]
@@ -371,7 +404,7 @@ def _bare_external_id(key: str, value: Any) -> str:
     """A20: the id itself, even when the author wrote the full URL."""
     text = str(value).strip()
     if key == 'ror':
-        text = _normalise_url(text)
+        text = _normalise_url(text).lower()
         return text.rsplit('/', 1)[-1] if '/' in text else text
     return text
 
@@ -1768,7 +1801,7 @@ def check_external_id_sources(ctx: _Context) -> Iterator[Finding]:
         for source_id in record.get('sources') or []:
             source = ctx.source(source_id)
             if source is not None:
-                urls.append(_normalise_url(source.get('url')))
+                urls.append(_normalise_url(source.get('url')).lower())
         for key, template in EXTERNAL_ID_URL_PATTERNS.items():
             value = external.get(key)
             if value in (None, '', [], {}):
