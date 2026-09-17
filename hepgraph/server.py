@@ -98,11 +98,12 @@ def person_id(value):
 
 class State:
     def __init__(self, snapshot_path, default_mode='snapshot'):
-        if default_mode not in {'live', 'snapshot'}:
-            raise ValueError('Choose live or snapshot mode.')
+        if default_mode not in {'live', 'snapshot', 'database'}:
+            raise ValueError('Choose live, snapshot or database mode.')
         self.default_mode = default_mode
         self._remote_client = None
         self._jobs = None
+        self._graph_database = None
         self._preparations = None
         self._core_nodes = None
         self.live_queries = threading.BoundedSemaphore(2)
@@ -190,6 +191,18 @@ class State:
                                        core_nodes=self.core_nodes()),
                     coverage=self.dataset('live')['coverage'], auto_continue=True)
             return self._jobs
+
+    def graph_database(self):
+        """The pinned-graph serving mode, or None when it is not configured.
+
+        Built lazily so an unconfigured deployment never opens a connection,
+        and cached per process like every other client here.
+        """
+        from .graph_database_mode import service_from_env
+        with self.lock:
+            if self._graph_database is None:
+                self._graph_database = service_from_env(self.remote_client()) or False
+            return self._graph_database or None
 
     def preparation_jobs(self):
         with self.lock:
@@ -392,8 +405,10 @@ class Handler(BaseHTTPRequestHandler):
         # Links from the saved-only release carry a snapshot version but no
         # source mode. Preserve their meaning after the default becomes live.
         mode = args.get('mode', 'snapshot' if args.get('version') else state.default_mode)
-        if mode not in {'live', 'snapshot'}:
-            raise ValueError('Choose live or snapshot mode.')
+        if mode not in {'live', 'snapshot', 'database'}:
+            raise ValueError('Choose live, snapshot or database mode.')
+        if mode == 'database' and state.graph_database() is None:
+            raise ValueError('The pinned graph database is not configured.')
         if args.get('summary', '0') not in {'0', '1'}:
             raise ValueError('Profile summary must be 0 or 1.')
         if args.get('search', 'deep') not in {'deep', 'quick'}:
@@ -403,6 +418,10 @@ class Handler(BaseHTTPRequestHandler):
             return self.respond({'status': 'ok', 'version': state.snapshot['version'],
                                  'service_version': SERVICE_VERSION, 'runtime': runtime_info()})
         if path == '/api/dataset':
+            if mode == 'database':
+                return self.respond(state.graph_database().dataset()
+                                    | {'default_mode': state.default_mode,
+                                       'examples': state.snapshot.get('examples', [])})
             return self.respond(state.dataset(mode))
         if path == '/api/cache':
             return self.respond(state.cache_info())
@@ -413,12 +432,20 @@ class Handler(BaseHTTPRequestHandler):
             return self.respond(state.preparation_jobs().get(match.group(1)))
         if path.startswith('/api/search-jobs/'):
             match = re.fullmatch(r'/api/search-jobs/([0-9a-f]{32})(?:/(continue|cancel))?', path)
-            if not match or mode != 'live':
+            if not match or mode not in {'live', 'database'}:
                 return self.respond({'status': 'not_found', 'message': 'Search job not found.'}, 404)
             job_id, action = match.groups()
-            if action:
-                if self.command != 'POST':
-                    return self.respond({'status': 'invalid_request', 'message': 'Use POST for search controls.'}, 405)
+            if action and self.command != 'POST':
+                return self.respond({'status': 'invalid_request', 'message': 'Use POST for search controls.'}, 405)
+            # A database job is identified by the row that owns it, so a client
+            # polls the same endpoint whichever engine started its search.
+            database = state.graph_database()
+            if database is not None and database.owns_job(job_id):
+                result = (database.resume(job_id) if action == 'continue' else
+                          database.cancel(job_id) if action else database.job(job_id))
+            elif mode != 'live':
+                return self.respond({'status': 'not_found', 'message': 'Search job not found.'}, 404)
+            elif action:
                 result = state.search_jobs().resume(job_id) if action == 'continue' else state.search_jobs().cancel(job_id)
             else:
                 result = state.search_jobs().get(job_id)
@@ -429,7 +456,10 @@ class Handler(BaseHTTPRequestHandler):
                 raise ValueError('Search must contain 2–120 characters.')
             if args.get('live', '0') not in {'0', '1'}:
                 raise ValueError('Live search must be 0 or 1.')
-            if mode == 'live':
+            # Identity resolution is a name lookup, not graph traversal, so the
+            # database mode still resolves people against live INSPIRE: the
+            # compact graph stores no names to search.
+            if mode in {'live', 'database'}:
                 return self.live_result(state.on_demand().search(q))
             return self.respond(state.live_search(q) if args.get('live') == '1' else state.local_search(q))
         filter_values = {k: v for k, v in args.items() if k in FILTER_KEYS}
@@ -446,6 +476,31 @@ class Handler(BaseHTTPRequestHandler):
             # The warm-up runs inside this request, so it has usually finished
             # by now; only a still-running one is "accepted".
             return self.respond(prepared, 202 if prepared.get('status') in {'queued', 'running'} else 200)
+        if mode == 'database':
+            database = state.graph_database()
+            if path == '/api/path':
+                source, target = person_id(args.get('source')), person_id(args.get('target'))
+                integer(args.get('alternatives'), 3, 1, 3)
+                return self.respond(database.start_path(source, target, filters))
+            if path.startswith('/api/person/'):
+                return self.respond(database.person(person_id(path[len('/api/person/'):]), filters))
+            if path.startswith('/api/neighborhood/'):
+                return self.respond(database.neighborhood(
+                    person_id(path[len('/api/neighborhood/'):]), filters,
+                    limit=integer(args.get('limit'), 40, 1, 80)))
+            if path.startswith('/api/ancestry/'):
+                return self.respond(database.ancestry(
+                    person_id(path[len('/api/ancestry/'):]), filters))
+            if path == '/api/centrality':
+                # Whole-graph metrics need the whole graph resident, which a
+                # function instance must not hold. Say so rather than sampling.
+                return self.respond({
+                    'status': 'unavailable', 'mode': 'database', 'exact': False,
+                    'message': 'Global centrality needs the whole graph in memory. It stays '
+                               'available on the saved demo snapshot.',
+                    'filters': filters.to_dict(),
+                    'version': f"graph-db:{database.coverage().import_id}",
+                    'coverage': database.dataset()['coverage']})
         if mode == 'live':
             if path == '/api/path' and args.get('search', 'deep') == 'deep':
                 source, target = person_id(args.get('source')), person_id(args.get('target'))
