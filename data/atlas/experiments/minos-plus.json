@@ -1,0 +1,179 @@
+{
+  "accelerator_ids": [],
+  "aliases": [
+    "MINOS Plus"
+  ],
+  "beamline_ids": [
+    "beamline:numi"
+  ],
+  "collaboration_ids": [
+    "collaboration:minos"
+  ],
+  "coverage": {
+    "researched": "full",
+    "tier": "B",
+    "validated": false
+  },
+  "energy_regime": null,
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "facility_id": "facility:fermilab",
+      "note": "Same host/beam-source roles as MINOS, continued into the MINOS+ run.",
+      "role": "host",
+      "sources": [
+        "src:minos-fermilab-news-2016-farewell"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "facility_id": "facility:fermilab",
+      "note": "",
+      "role": "beam_source",
+      "sources": [
+        "src:fermilab-numi-beam-paper-2016"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "facility_id": "facility:soudan-underground-laboratory",
+      "note": "",
+      "role": "detector_host",
+      "sources": [
+        "src:minos-fermilab-news-2016-farewell"
+      ],
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "id": "experiment:minos-plus",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2016-06-29",
+      "label": "NuMI medium-energy beam operation",
+      "locator": "The NuMI Neutrino Beam, §5",
+      "note": "",
+      "quote": "After a long accelerator shutdown following the completion of the MINOS experiment, the NuMI beam was restarted in September 2013",
+      "sources": [
+        "src:fermilab-numi-beam-paper-2016",
+        "src:minos-fermilab-news-2016-farewell"
+      ],
+      "start": "2013-09",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": "2016-06-29",
+      "label": "end of MINOS+ run",
+      "locator": "Fermilab newsroom, 2016-08",
+      "note": "",
+      "quote": "After more than a decade of running, on June 29, the Main Injector Neutrino Oscillation Search experiment and its second iteration, MINOS+, concluded their runs.",
+      "sources": [
+        "src:minos-fermilab-news-2016-farewell"
+      ],
+      "start": "2016-06-29",
+      "status": "completed",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Baseline (far detector)",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "length",
+        "display": "735.3 km",
+        "locator": "MINOS detector paper, far detector description",
+        "note": "",
+        "quote": "located in Soudan, MN (47.8∘ N latitude, and 92.2∘ W longitude), 735.3 km from the NuMI beam production target",
+        "sources": [
+          "src:minos-detector-paper-2008"
+        ],
+        "unit": "km",
+        "value": 735.3,
+        "verified_at": "2026-09-17"
+      }
+    },
+    {
+      "label": "Far detector mass",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "mass",
+        "display": "5.4 kt (5,400 t)",
+        "locator": "MINOS detector paper §1",
+        "note": "",
+        "quote": "This 5,400 metric ton detector is constructed as two 'supermodules'",
+        "sources": [
+          "src:minos-detector-paper-2008"
+        ],
+        "unit": "kt",
+        "value": 5.4,
+        "verified_at": "2026-09-17"
+      }
+    }
+  ],
+  "kind": "accelerator_neutrino",
+  "lineage": [
+    {
+      "confidence": "verified",
+      "experiment_id": "experiment:minos",
+      "note": "Same collaboration and same two detectors as MINOS, running on a medium-energy NuMI beam restarted after the 2012-2013 accelerator shutdown.",
+      "quote": "This was superseded by MINOS+, the continuation of the two-detector, on-axis, long-baseline experiment based at Fermilab",
+      "relation": "upgrade_of",
+      "sources": [
+        "src:minos-timmons-2015-results-review"
+      ],
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "MINOS+",
+  "notes": [
+    "Derived fields (detector_ids, site_ids, result_ids, document_ids) are deliberately not written (v0.2 A1).",
+    "No INSPIRE experiment-registry lookup was performed in this session (inspirehep.net requests are rate-limited to one per 10 s); external.inspire_experiment is left null rather than guessed."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "arXiv:1511.06178, abstract",
+      "note": "",
+      "quote": "This was superseded by MINOS+, the continuation of the two-detector, on-axis, long-baseline experiment based at Fermilab, and at the Soudan Underground Laboratory in northern Minnesota.",
+      "sources": [
+        "src:minos-timmons-2015-results-review"
+      ],
+      "value": "Continue the MINOS oscillation programme with a medium-energy NuMI beam to search for exotic phenomena including non-standard interactions and sterile neutrinos",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:minos-fermilab-news-2016-farewell",
+    "src:minos-timmons-2015-results-review",
+    "src:fermilab-numi-beam-paper-2016"
+  ],
+  "status": "completed",
+  "summary": {
+    "plain": "MINOS's second act: the same two detectors kept running from 2013 to 2016 on a higher-energy beam, hunting for a hypothetical fourth kind of neutrino.",
+    "technical": "Upgrade of MINOS (same collaboration, same near/far magnetised steel-scintillator detectors) running on the NuMI beam restarted in September 2013 after the post-MINOS accelerator shutdown, with a medium-energy configuration for sterile-neutrino and non-standard-interaction searches; concluded 29 June 2016."
+  },
+  "topic_ids": [
+    "topic:neutrino-oscillations",
+    "topic:sterile-neutrinos",
+    "topic:atmospheric-neutrinos"
+  ],
+  "type": "experiment",
+  "unique_capabilities": []
+}

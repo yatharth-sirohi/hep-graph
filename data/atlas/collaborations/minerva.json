@@ -1,0 +1,67 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C",
+    "validated": false
+  },
+  "formation": {
+    "confidence": "uncertain",
+    "note": "No fetched source states an explicit collaboration formation date; left null rather than inferred from the Technical Design Report or first-run date.",
+    "sources": [
+      "src:minerva-experiment-site"
+    ],
+    "value": null,
+    "verified_at": "2026-09-17"
+  },
+  "host_facility_id": "facility:fermilab",
+  "host_site_id": "site:fermilab-main-campus",
+  "id": "collaboration:minerva",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "collaboration",
+      "note": "Start unknown: no fetched source states a collaboration formation date. Detector data taking ended 26 Feb 2019 (status 'completed' per the experiment entity), but the collaboration continued to publish analyses of the recorded data, e.g. the 2023 Nature paper; the collaboration record itself is left 'active' since no dissolution is sourced.",
+      "sources": [
+        "src:minerva-fermilab-news-2019-completes-run",
+        "src:minerva-nature-2023-axial-form-factor"
+      ],
+      "start": null,
+      "status": "active",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "leadership": [],
+  "links": {
+    "website": null
+  },
+  "membership": {
+    "as_of": "2026",
+    "country_count": null,
+    "evidence_class": "official_institution_list",
+    "institution_count": null,
+    "member_count": null,
+    "roster_source_ids": [
+      "src:minerva-experiment-site"
+    ]
+  },
+  "name": "MINERvA Collaboration",
+  "notes": [
+    "Institution-level membership rows are owned by the membership-lead workstream and are not written here.",
+    "Leadership is left empty: person records are owned by another workstream.",
+    "Derived field collaboration.experiment_ids is deliberately not written (v0.2 A1)."
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:minerva-experiment-site",
+    "src:minerva-publications-page",
+    "src:minerva-fermilab-news-2019-completes-run"
+  ],
+  "status": "active",
+  "summary": {
+    "plain": "The team that built and ran the MINERvA neutrino-nucleus cross-section experiment at Fermilab, and continues to publish analyses of its data.",
+    "technical": "Collaboration operating the MINERvA fine-grained scintillator tracker in the NuMI near-detector hall at Fermilab; data taking 2010-2019, with continued publication of cross-section analyses afterward."
+  },
+  "type": "collaboration"
+}

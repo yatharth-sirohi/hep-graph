@@ -42,12 +42,16 @@ from typing import Any, Iterable, Iterator
 from . import load, schema
 
 __all__ = [
-    'Finding', 'validate_atlas', 'errors', 'warnings', 'group_findings',
+    'Finding', 'validate_atlas', 'errors', 'warnings', 'infos', 'group_findings',
     'format_report', 'main',
 ]
 
 ERROR = 'error'
 WARNING = 'warning'
+#: A10: a coverage backlog row naming an experiment that is not researched
+#: yet is not a defect (that is the backlog's purpose) — informational only,
+#: never build-failing and never counted as a warning either.
+INFO = 'info'
 
 # ---------------------------------------------------------------------------
 # Tables the contract states but schema.py does not expose yet.
@@ -115,7 +119,7 @@ class Finding:
     file, relative to the data root, an operator has to open to fix it.
     """
 
-    level: str            # 'error' | 'warning'
+    level: str            # 'error' | 'warning' | 'info'
     rule: str             # stable kebab-case rule id, e.g. 'baseline-distance'
     path: str             # e.g. 'experiments/demo.json'
     entity_id: str | None
@@ -400,13 +404,24 @@ def check_duplicate_ids(ctx: _Context) -> Iterator[Finding]:
 
 
 def _reference_rows(ctx: _Context) -> Iterator[tuple[str, str | None, dict]]:
-    """(file path, entity id, record) for every record that may hold references."""
-    for _type, entity_id, record in ctx.atlas.iter_entities():
+    """(file path, entity id, record) for every record that may hold references.
+
+    A1: a build-derived field (``detector.document_ids`` and the like) is
+    stripped from the record before it is walked for references.  Authoring
+    one is already reported once by :func:`check_derived_fields`; the build
+    ignores whatever it names, so its contents must not also be checked as
+    dangling references (that would be reporting the same defect twice, and
+    under the wrong rule).  Coverage registry rows are handled separately by
+    :func:`check_coverage_references`, since a backlog row naming an
+    unresearched experiment is not a dangling reference at all.
+    """
+    for entity_type, entity_id, record in ctx.atlas.iter_entities():
+        derived = schema.DERIVED_FIELDS.get(entity_type, ())
+        if derived and any(name in record for name in derived):
+            record = {key: value for key, value in record.items() if key not in derived}
         yield ctx.path_of(entity_id), entity_id, record
     for collaboration_id, payload in sorted(ctx.atlas.memberships.items()):
         yield ctx.atlas.membership_files.get(collaboration_id, ''), collaboration_id, payload
-    for index, row in enumerate(ctx.atlas.coverage):
-        yield row.get('_file', ''), row.get('entity_id'), {k: v for k, v in row.items() if k != '_file'}
 
 
 def check_references(ctx: _Context) -> Iterator[Finding]:
@@ -428,6 +443,46 @@ def check_references(ctx: _Context) -> Iterator[Finding]:
             if ctx.resolve(canonical) is None:
                 yield Finding(ERROR, 'dangling-reference', path, entity_id, pointer,
                               f'{reference!r} does not exist in the atlas')
+
+
+def check_coverage_references(ctx: _Context) -> Iterator[Finding]:
+    """§3.15 / A10: a coverage registry row names an experiment via `entity_id`
+    (and its legacy twin `experiment_id`).
+
+    The backlog's entire purpose is to name experiments nobody has researched
+    yet, so a row whose `researched` is `"none"` naming an entity that does
+    not exist is not a defect — it is an informational note that the entity
+    is still queued.  A row that *claims* research happened (`"partial"` or
+    `"full"`) for a missing entity is still a dangling reference and stays an
+    error.
+    """
+    for row in ctx.atlas.coverage:
+        path = row.get('_file', '')
+        label = row.get('entity_id')
+        researched = row.get('researched')
+        for key in ('entity_id', 'experiment_id'):
+            reference = row.get(key)
+            if not isinstance(reference, str):
+                continue
+            pointer = _pointer(key)
+            canonical = schema.canonical_id(reference)
+            if schema.id_type(canonical) is None:
+                yield Finding(ERROR, 'unknown-id-prefix', path, label, pointer,
+                              f'{reference!r} has no known id prefix')
+                continue
+            if not schema.is_valid_id(canonical):
+                yield Finding(ERROR, 'malformed-id', path, label, pointer,
+                              f'{reference!r} is not a lower-case `-` slug with a typed prefix')
+                continue
+            if ctx.resolve(canonical) is None:
+                if researched == 'none':
+                    yield Finding(INFO, 'coverage-not-yet-researched', path, label, pointer,
+                                  f'{reference!r} is not in the atlas yet; backlog entry '
+                                  f'awaiting research')
+                else:
+                    yield Finding(ERROR, 'dangling-reference', path, label, pointer,
+                                  f'{reference!r} does not exist in the atlas, but this row '
+                                  f'claims researched={researched!r}')
 
 
 def check_reference_types(ctx: _Context) -> Iterator[Finding]:
@@ -1837,6 +1892,7 @@ CHECKS = (
     check_load_problems,
     check_duplicate_ids,
     check_references,
+    check_coverage_references,
     check_reference_types,
     check_required_fields,
     check_enums,
@@ -1908,6 +1964,11 @@ def warnings(findings: Iterable[Finding]) -> list[Finding]:
     return [finding for finding in findings if finding.level == WARNING]
 
 
+def infos(findings: Iterable[Finding]) -> list[Finding]:
+    """Only the informational findings (never build-failing, never a warning)."""
+    return [finding for finding in findings if finding.level == INFO]
+
+
 def group_findings(findings: Iterable[Finding]) -> dict[str, list[Finding]]:
     """Rule id -> its findings, rules in alphabetical order."""
     grouped: dict[str, list[Finding]] = {}
@@ -1922,17 +1983,23 @@ def format_report(findings: Iterable[Finding], *, strict: bool = False) -> str:
     grouped = group_findings(findings)
     lines: list[str] = []
     for rule, rows in grouped.items():
-        level = ERROR if any(row.level == ERROR for row in rows) else WARNING
+        if any(row.level == ERROR for row in rows):
+            level = ERROR
+        elif any(row.level == WARNING for row in rows):
+            level = WARNING
+        else:
+            level = INFO
         lines.append(f'{rule} [{level}] — {len(rows)} finding(s)')
         for row in rows:
             location = f'{row.path}{row.pointer}' if row.pointer else row.path
             entity = f' ({row.entity_id})' if row.entity_id else ''
             lines.append(f'  - {location}{entity}: {row.message}')
         lines.append('')
-    error_count, warning_count = len(errors(findings)), len(warnings(findings))
+    error_count, warning_count, info_count = (
+        len(errors(findings)), len(warnings(findings)), len(infos(findings)))
     if not findings:
         lines.append('no findings')
-    lines.append(f'{error_count} errors, {warning_count} warnings')
+    lines.append(f'{error_count} errors, {warning_count} warnings, {info_count} informational')
     if strict and warning_count and not error_count:
         lines.append('--strict: warnings are treated as errors')
     return '\n'.join(lines)

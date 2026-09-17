@@ -1,0 +1,291 @@
+{
+  "accelerator_ids": [],
+  "aliases": [
+    "NuMI Off-Axis νe Appearance Experiment"
+  ],
+  "beamline_ids": [
+    "beamline:numi"
+  ],
+  "collaboration_ids": [
+    "collaboration:nova"
+  ],
+  "coverage": {
+    "researched": "full",
+    "tier": "B",
+    "validated": false
+  },
+  "energy_regime": {
+    "confidence": "verified",
+    "locator": "NOvA PRD 106, 032004, detector section",
+    "note": "",
+    "quote": "Both detectors are centered 14.6 mrad off the beam axis and receive a narrow-band neutrino flux peaked at 1.8 GeV.",
+    "sources": [
+      "src:nova-prd-2022-oscillation-parameters"
+    ],
+    "value": "Off-axis NuMI wide-band beam peaked at 1.8 GeV",
+    "verified_at": "2026-09-17"
+  },
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "facility_id": "facility:fermilab",
+      "locator": "Fermilab newsroom, 2014-10",
+      "note": "",
+      "quote": "Construction on NOvA's two massive neutrino detectors began in 2009.",
+      "role": "host",
+      "sources": [
+        "src:nova-fermilab-news-2014-up-and-running"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "facility_id": "facility:fermilab",
+      "note": "NOvA runs on the off-axis NuMI beam produced at Fermilab.",
+      "role": "beam_source",
+      "sources": [
+        "src:fermilab-numi-beam-paper-2016"
+      ],
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "id": "experiment:nova",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2014-09",
+      "label": "construction",
+      "locator": "Fermilab newsroom, 2014-10",
+      "note": "",
+      "quote": "Construction on NOvA's two massive neutrino detectors began in 2009.",
+      "sources": [
+        "src:nova-fermilab-news-2014-up-and-running"
+      ],
+      "start": "2009",
+      "status": "construction",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": "2014-09",
+      "label": "first long-distance neutrinos",
+      "locator": "Fermilab newsroom, 2014-10",
+      "note": "",
+      "quote": "saw its first long-distance neutrinos in November 2013",
+      "sources": [
+        "src:nova-fermilab-news-2014-up-and-running"
+      ],
+      "start": "2013-11",
+      "status": "commissioning",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "neutrino- and antineutrino-beam operation",
+      "locator": "NOvA PRD 106, 032004, data-set description",
+      "note": "Start is the first day of the neutrino-mode data set used in the NOvA 2022 oscillation analysis. The experiment continues to operate as of the most recent sourced publication (2025).",
+      "quote": "13.6×10²⁰ POT from 555.3 s of integrated beam-pulse time recorded between February 6, 2014, to March 20, 2020",
+      "sources": [
+        "src:nova-prd-2022-oscillation-parameters"
+      ],
+      "start": "2014-02-06",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "kind": "run",
+      "label": "antineutrino-beam running begins",
+      "locator": "Fermilab newsroom, 2018-06",
+      "note": "Secondary run label: marks the start of antineutrino-mode beam data collection alongside the ongoing neutrino-mode run.",
+      "quote": "NOvA began studying antineutrinos in February 2017.",
+      "sources": [
+        "src:nova-fermilab-news-2018-antineutrino"
+      ],
+      "start": "2017-02",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Baseline",
+      "quantity": {
+        "approx": true,
+        "confidence": "verified",
+        "dimension": "length",
+        "display": "~810 km",
+        "locator": "NOvA monopole search, detector description",
+        "note": "",
+        "quote": "the 14 kt Far Detector (FD) is located on the surface, 810 km from the target, near Ash River, Minnesota",
+        "sources": [
+          "src:nova-prd-2022-oscillation-parameters",
+          "src:nova-arxiv-2025-monopole-search"
+        ],
+        "unit": "km",
+        "value": 810,
+        "verified_at": "2026-09-17"
+      }
+    },
+    {
+      "label": "Off-axis angle",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "angle",
+        "display": "14.6 mrad",
+        "locator": "NOvA PRD 106, 032004, detector section",
+        "note": "",
+        "quote": "Both detectors are centered 14.6 mrad off the beam axis and receive a narrow-band neutrino flux peaked at 1.8 GeV.",
+        "sources": [
+          "src:nova-prd-2022-oscillation-parameters"
+        ],
+        "unit": "mrad",
+        "value": 14.6,
+        "verified_at": "2026-09-17"
+      }
+    },
+    {
+      "label": "Far detector mass",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "mass",
+        "display": "14 kt",
+        "locator": "NOvA PRD 106, 032004",
+        "note": "",
+        "quote": "The 14 k Far Detector (FD) is located at Ash River, Minnesota, ∼810 km from the source.",
+        "sources": [
+          "src:nova-prd-2022-oscillation-parameters",
+          "src:nova-how-does-nova-work"
+        ],
+        "unit": "kt",
+        "value": 14,
+        "verified_at": "2026-09-17"
+      }
+    },
+    {
+      "label": "Near detector mass",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "mass",
+        "display": "0.3 kt (300 t)",
+        "locator": "NOvA monopole search, detector description",
+        "note": "",
+        "quote": "The 0.3 kt Near Detector is located 1 km downstream of the neutrino production target and 100 m underground at Fermilab",
+        "sources": [
+          "src:nova-arxiv-2025-monopole-search"
+        ],
+        "unit": "kt",
+        "value": 0.3,
+        "verified_at": "2026-09-17"
+      }
+    },
+    {
+      "label": "Peak neutrino energy",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "energy",
+        "display": "1.8 GeV",
+        "locator": "NOvA PRD 106, 032004, detector section",
+        "note": "",
+        "quote": "receive a narrow-band neutrino flux peaked at 1.8 GeV",
+        "sources": [
+          "src:nova-prd-2022-oscillation-parameters"
+        ],
+        "unit": "GeV",
+        "value": 1.8,
+        "verified_at": "2026-09-17"
+      }
+    }
+  ],
+  "kind": "accelerator_neutrino",
+  "lineage": [],
+  "links": {
+    "website": null
+  },
+  "name": "NOvA",
+  "notes": [
+    "Derived fields (detector_ids, site_ids, result_ids, document_ids) are deliberately not written (v0.2 A1).",
+    "No INSPIRE experiment-registry lookup was performed in this session (inspirehep.net requests are rate-limited to one per 10 s); external.inspire_experiment is left null rather than guessed."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "NOvA — Research Goals",
+      "note": "",
+      "quote": "Can we observe the oscillation of muon neutrinos to electron neutrinos?",
+      "sources": [
+        "src:nova-research-goals-page"
+      ],
+      "value": "Observe the oscillation of muon neutrinos into electron neutrinos",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "locator": "NOvA — Research Goals",
+      "note": "",
+      "quote": "What is the ordering of the neutrino masses?",
+      "sources": [
+        "src:nova-research-goals-page"
+      ],
+      "value": "Determine the ordering of the neutrino masses (mass hierarchy)",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "locator": "NOvA — Research Goals",
+      "note": "",
+      "quote": "What is the symmetry between matter and antimatter?",
+      "sources": [
+        "src:nova-research-goals-page"
+      ],
+      "value": "Search for a matter–antimatter (CP-violating) asymmetry by comparing neutrino and antineutrino oscillations",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:nova-experiment-site",
+    "src:nova-how-does-nova-work",
+    "src:nova-research-goals-page",
+    "src:nova-prd-2022-oscillation-parameters",
+    "src:nova-fermilab-news-2014-up-and-running",
+    "src:nova-fermilab-news-2018-antineutrino"
+  ],
+  "status": "active",
+  "summary": {
+    "plain": "A long-distance neutrino experiment: Fermilab fires a beam of neutrinos 810 kilometres through the Earth to northern Minnesota, watching how they change type on the way to learn about neutrino masses and matter-antimatter asymmetry.",
+    "technical": "Off-axis NuMI accelerator neutrino oscillation experiment with functionally identical near (0.3 kt, Fermilab) and far (14 kt, Ash River, MN) liquid-scintillator tracking calorimeters, 810 km baseline, 14.6 mrad off-axis, peak beam energy 1.8 GeV. Took first long-distance neutrinos in November 2013, began physics data in February 2014 and antineutrino-mode running in February 2017."
+  },
+  "topic_ids": [
+    "topic:neutrino-oscillations",
+    "topic:neutrino-interactions",
+    "topic:multimessenger-astrophysics"
+  ],
+  "type": "experiment",
+  "unique_capabilities": [
+    {
+      "confidence": "verified",
+      "locator": "NOvA PRD 106, 032004, detector section",
+      "note": "",
+      "quote": "Charged particle tracking is accomplished via PVC cells filled with a mineral oil-based liquid scintillator.",
+      "sources": [
+        "src:nova-how-does-nova-work",
+        "src:nova-prd-2022-oscillation-parameters"
+      ],
+      "value": "Two functionally identical liquid-scintillator tracking-calorimeter detectors on the same off-axis beam line, allowing many systematic uncertainties to cancel between near and far measurements",
+      "verified_at": "2026-09-17"
+    }
+  ]
+}

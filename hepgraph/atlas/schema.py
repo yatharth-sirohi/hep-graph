@@ -574,6 +574,9 @@ SPEC_KEY_DIMENSIONS: dict[str, tuple[str, ...]] = {
     'peak_neutrino_energy': ('energy',),
     'off_axis_angle': ('angle',),
     'baseline': ('length',),
+    'integrated_luminosity': ('integrated_luminosity',),
+    'design_luminosity': ('luminosity',),
+    'collision_scheme': (),
     # lar_tpc / noble_liquid_tpc
     'total_mass': ('mass',),
     'active_mass': ('mass',),

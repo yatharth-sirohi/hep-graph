@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="HEP Atlas: an interactive 3D globe of particle- and astro-physics facilities, experiments, collaborations and results."
+    />
+    <title>HEP Atlas · Explore facilities, experiments and results</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/atlas/atlas.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#atlas-main">Skip to atlas</a>
+    <header class="atlas-header">
+      <a class="brand" href="/" aria-label="Back to HEP Graph">&larr; HEP Graph</a>
+      <h1 class="atlas-title">HEP <b>Atlas</b></h1>
+      <div class="search-wrap">
+        <label for="atlas-search" class="visually-hidden">Search the atlas</label>
+        <input
+          id="atlas-search"
+          type="text"
+          autocomplete="off"
+          placeholder="Search facilities, experiments, results…"
+          role="combobox"
+          aria-expanded="false"
+          aria-autocomplete="list"
+          aria-controls="search-results"
+        />
+        <ul id="search-results" class="search-results hidden" role="listbox"></ul>
+      </div>
+      <span id="fixture-banner" class="fixture-banner hidden" role="note"></span>
+    </header>
+
+    <div id="data-notice" class="notice hidden" role="status"></div>
+
+    <main id="atlas-main">
+      <aside id="filters-panel" class="filters-panel" aria-label="Filters and legend">
+        <details open>
+          <summary>View</summary>
+          <div id="mode-buttons" class="mode-buttons" role="group" aria-label="Browse mode">
+            <button type="button" class="mode-toggle is-active" data-mode="">Globe</button>
+            <button type="button" class="mode-toggle" data-mode="topic">Topics</button>
+            <button type="button" class="mode-toggle" data-mode="results">Results</button>
+            <button type="button" class="mode-toggle" data-mode="docs">Documents</button>
+          </div>
+        </details>
+        <details open>
+          <summary>Legend</summary>
+          <div id="marker-legend" class="marker-legend"></div>
+        </details>
+        <details>
+          <summary>Options</summary>
+          <label class="option-row">
+            <input type="checkbox" id="arcs-toggle" />
+            Show institution connections
+          </label>
+        </details>
+      </aside>
+
+      <section id="globe-stage" class="globe-stage" aria-label="Globe">
+        <div id="globe-container" class="globe-container"></div>
+        <div id="fallback-container" class="fallback-container hidden"></div>
+      </section>
+
+      <section id="mode-panel" class="mode-panel hidden" aria-live="polite"></section>
+
+      <section id="detail-panel" class="detail-panel hidden" aria-live="polite"></section>
+    </main>
+
+    <div id="timeline-bar" class="timeline-bar" aria-label="Timeline"></div>
+
+    <footer class="atlas-footer">
+      <span id="data-version-label" class="data-version-label"></span>
+      <button id="share-link" type="button" class="text-btn">Copy share link</button>
+      <span id="share-status" role="status" aria-live="polite" class="share-status"></span>
+    </footer>
+
+    <script type="module" src="/atlas/js/app.js"></script>
+  </body>
+</html>

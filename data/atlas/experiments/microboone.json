@@ -1,0 +1,245 @@
+{
+  "accelerator_ids": [],
+  "aliases": [
+    "MicroBooNE LArTPC"
+  ],
+  "beamline_ids": [
+    "beamline:bnb"
+  ],
+  "collaboration_ids": [
+    "collaboration:microboone"
+  ],
+  "coverage": {
+    "researched": "full",
+    "tier": "B",
+    "validated": false
+  },
+  "energy_regime": null,
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "facility_id": "facility:fermilab",
+      "locator": "MicroBooNE official site",
+      "note": "",
+      "quote": "The experiment first started collecting neutrino data in October 2015.",
+      "role": "host",
+      "sources": [
+        "src:microboone-experiment-site"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "facility_id": "facility:fermilab",
+      "locator": "MicroBooNE detector paper §2",
+      "note": "",
+      "quote": "470 m downstream from the neutrino production target",
+      "role": "beam_source",
+      "sources": [
+        "src:microboone-detector-paper-2017"
+      ],
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "id": "experiment:microboone",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2021",
+      "label": "neutrino data taking",
+      "locator": "MicroBooNE official site",
+      "note": "",
+      "quote": "The experiment first started collecting neutrino data in October 2015.",
+      "sources": [
+        "src:microboone-experiment-site",
+        "src:microboone-fermilab-news-2025-no-sterile"
+      ],
+      "start": "2015-10",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": "2021",
+      "label": "end of data taking",
+      "locator": "Fermilab newsroom, 2025-12",
+      "note": "",
+      "quote": "MicroBooNE collected data from 2015 to 2021.",
+      "sources": [
+        "src:microboone-fermilab-news-2025-no-sterile"
+      ],
+      "start": "2021",
+      "status": "completed",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Total argon mass",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "mass",
+        "display": "170 t",
+        "locator": "MicroBooNE detector paper, Table 2",
+        "note": "",
+        "quote": "Total liquid argon mass: 170 tonnes",
+        "sources": [
+          "src:microboone-detector-paper-2017",
+          "src:microboone-experiment-site"
+        ],
+        "unit": "t",
+        "value": 170,
+        "verified_at": "2026-09-17"
+      }
+    },
+    {
+      "label": "Active (TPC) argon mass",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "mass",
+        "display": "90 t",
+        "locator": "MicroBooNE detector paper, Table 2",
+        "note": "",
+        "quote": "LArTPC argon mass: 90 tonnes",
+        "sources": [
+          "src:microboone-detector-paper-2017"
+        ],
+        "unit": "t",
+        "value": 90,
+        "verified_at": "2026-09-17"
+      }
+    },
+    {
+      "label": "Baseline",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "length",
+        "display": "470 m",
+        "locator": "MicroBooNE detector paper §2",
+        "note": "",
+        "quote": "470 m downstream from the neutrino production target",
+        "sources": [
+          "src:microboone-detector-paper-2017"
+        ],
+        "unit": "m",
+        "value": 470,
+        "verified_at": "2026-09-17"
+      }
+    },
+    {
+      "label": "Maximum drift length",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "length",
+        "display": "2.6 m",
+        "locator": "MicroBooNE detector paper, TPC coordinate definition",
+        "note": "",
+        "quote": "x ranges from 0.0 m at the innermost anode plane to +2.6 m at the cathode",
+        "sources": [
+          "src:microboone-detector-paper-2017"
+        ],
+        "unit": "m",
+        "value": 2.6,
+        "verified_at": "2026-09-17"
+      }
+    }
+  ],
+  "kind": "accelerator_neutrino",
+  "lineage": [
+    {
+      "confidence": "verified",
+      "experiment_id": "experiment:sbnd",
+      "note": "MicroBooNE, SBND and ICARUS form the three-detector Short-Baseline Neutrino programme on the Booster Neutrino Beam; this row is recorded on the lexicographically smaller pair member (v0.2 A1) after 'icarus'/'microboone', so it is placed here for the microboone/sbnd pair.",
+      "quote": "A Proposal for a Three Detector Short-Baseline Neutrino Oscillation Program in the Fermilab Booster Neutrino Beam",
+      "relation": "same_program",
+      "sources": [
+        "src:sbn-proposal-2015"
+      ],
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "MicroBooNE",
+  "notes": [
+    "Derived fields (detector_ids, site_ids, result_ids, document_ids) are deliberately not written (v0.2 A1).",
+    "No INSPIRE experiment-registry lookup was performed in this session (inspirehep.net requests are rate-limited to one per 10 s); external.inspire_experiment is left null rather than guessed."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "MicroBooNE — Physics",
+      "note": "",
+      "quote": "Understanding the source of the MiniBooNE excess is MicroBooNE's primary physics goal.",
+      "sources": [
+        "src:microboone-physics-page"
+      ],
+      "value": "Determine the source of the MiniBooNE low-energy excess using a technology that can distinguish electrons from photons",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "locator": "MicroBooNE — Physics",
+      "note": "",
+      "quote": "the world's largest dataset of neutrino-argon interactions",
+      "sources": [
+        "src:microboone-physics-page"
+      ],
+      "value": "Measure neutrino-argon interaction cross sections",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "locator": "MicroBooNE — Physics",
+      "note": "",
+      "quote": "MicroBooNE will provide enormous technical experience in the construction, operation, and analysis of a large LArTPC.",
+      "sources": [
+        "src:microboone-physics-page"
+      ],
+      "value": "Provide technical experience in the construction, operation and analysis of a large liquid argon time projection chamber for future experiments such as DUNE",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:microboone-experiment-site",
+    "src:microboone-physics-page",
+    "src:microboone-detector-paper-2017",
+    "src:microboone-fermilab-news-2025-no-sterile"
+  ],
+  "status": "completed",
+  "summary": {
+    "plain": "A 170-tonne liquid-argon camera on Fermilab's Booster neutrino beam, built to find out what caused an earlier experiment's mysterious signal, and along the way to measure neutrino collisions with unprecedented clarity.",
+    "technical": "Single-phase LArTPC accelerator neutrino experiment on the BNB, 470 m baseline, 170 t total / 90 t active argon mass, 2.6 m drift; took data October 2015 - 2021, primarily to test the MiniBooNE low-energy excess and to develop LArTPC technology and cross-section measurements for DUNE."
+  },
+  "topic_ids": [
+    "topic:sterile-neutrinos",
+    "topic:neutrino-interactions",
+    "topic:detector-rd"
+  ],
+  "type": "experiment",
+  "unique_capabilities": [
+    {
+      "confidence": "verified",
+      "locator": "MicroBooNE — Physics",
+      "note": "",
+      "quote": "the world's largest dataset of neutrino-argon interactions",
+      "sources": [
+        "src:microboone-physics-page"
+      ],
+      "value": "The world's largest liquid-argon-based dataset of neutrino-argon interactions at the time of collection",
+      "verified_at": "2026-09-17"
+    }
+  ]
+}

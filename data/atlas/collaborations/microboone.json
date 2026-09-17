@@ -1,0 +1,67 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B",
+    "validated": false
+  },
+  "formation": {
+    "confidence": "uncertain",
+    "note": "No fetched source states an explicit collaboration formation date; left null rather than inferred from the Technical Design Report or first-run date.",
+    "sources": [
+      "src:microboone-experiment-site"
+    ],
+    "value": null,
+    "verified_at": "2026-09-17"
+  },
+  "host_facility_id": "facility:fermilab",
+  "host_site_id": "site:fermilab-main-campus",
+  "id": "collaboration:microboone",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "collaboration",
+      "note": "Start unknown: no fetched source states a collaboration formation date. Detector data taking ended in 2021 (status 'completed' per the experiment entity), but the collaboration continued to publish analyses, e.g. the December 2025 Nature sterile-neutrino search; the collaboration record itself is left 'active' since no dissolution is sourced.",
+      "sources": [
+        "src:microboone-experiment-site",
+        "src:microboone-nature-2025-sterile-search"
+      ],
+      "start": null,
+      "status": "active",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "leadership": [],
+  "links": {
+    "website": null
+  },
+  "membership": {
+    "as_of": "2026",
+    "country_count": null,
+    "evidence_class": "official_institution_list",
+    "institution_count": null,
+    "member_count": null,
+    "roster_source_ids": [
+      "src:microboone-experiment-site"
+    ]
+  },
+  "name": "MicroBooNE Collaboration",
+  "notes": [
+    "Institution-level membership rows are owned by the membership-lead workstream and are not written here.",
+    "Leadership is left empty: person records are owned by another workstream.",
+    "Derived field collaboration.experiment_ids is deliberately not written (v0.2 A1)."
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:microboone-experiment-site",
+    "src:microboone-physics-page",
+    "src:microboone-fermilab-news-2025-no-sterile"
+  ],
+  "status": "active",
+  "summary": {
+    "plain": "The team that built and ran the MicroBooNE liquid-argon detector at Fermilab, and continues to analyse its data to search for new kinds of neutrinos.",
+    "technical": "Collaboration operating the MicroBooNE LArTPC on the Fermilab Booster Neutrino Beam; data taking October 2015-2021, with continued publication of sterile-neutrino and cross-section analyses afterward."
+  },
+  "type": "collaboration"
+}

@@ -1,0 +1,207 @@
+{
+  "accelerator_ids": [],
+  "aliases": [
+    "Short-Baseline Near Detector",
+    "LAr1-ND"
+  ],
+  "beamline_ids": [
+    "beamline:bnb"
+  ],
+  "collaboration_ids": [
+    "collaboration:sbnd"
+  ],
+  "coverage": {
+    "researched": "full",
+    "tier": "B",
+    "validated": false
+  },
+  "energy_regime": null,
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "facility_id": "facility:fermilab",
+      "locator": "SBND detector paper abstract",
+      "note": "",
+      "quote": "SBND is a 112 ton liquid argon time projection chamber (LArTPC) neutrino detector located 110 meters from the Booster Neutrino Beam (BNB) target at Fermilab.",
+      "role": "host",
+      "sources": [
+        "src:sbnd-detector-paper-2025"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "facility_id": "facility:fermilab",
+      "note": "",
+      "role": "beam_source",
+      "sources": [
+        "src:sbnd-detector-paper-2025"
+      ],
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "id": "experiment:sbnd",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2024-09-10",
+      "label": "commissioning and first neutrinos",
+      "locator": "SBND detector paper abstract",
+      "note": "",
+      "quote": "SBND began operation in July 2024, and started collecting stable neutrino beam data in December 2024",
+      "sources": [
+        "src:sbnd-detector-paper-2025",
+        "src:sbnd-fermilab-news-2024-first-neutrinos"
+      ],
+      "start": "2024-07",
+      "status": "commissioning",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "stable neutrino data taking",
+      "locator": "Fermilab newsroom, 2024-09-10",
+      "note": "",
+      "quote": "the first neutrinos have been observed by the Short-Baseline Near Detector collaboration",
+      "sources": [
+        "src:sbnd-fermilab-news-2024-first-neutrinos",
+        "src:sbnd-detector-paper-2025"
+      ],
+      "start": "2024-09-10",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Active argon mass",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "mass",
+        "display": "112 t active mass",
+        "locator": "SBND detector paper abstract",
+        "note": "",
+        "quote": "SBND is a 112 ton liquid argon time projection chamber (LArTPC) neutrino detector located 110 meters from the Booster Neutrino Beam (BNB) target at Fermilab.",
+        "sources": [
+          "src:sbnd-detector-paper-2025",
+          "src:sbn-proposal-2015"
+        ],
+        "unit": "t",
+        "value": 112,
+        "verified_at": "2026-09-17"
+      }
+    },
+    {
+      "label": "Baseline",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "length",
+        "display": "110 m",
+        "locator": "SBND detector paper abstract",
+        "note": "",
+        "quote": "located 110 meters from the Booster Neutrino Beam (BNB) target at Fermilab",
+        "sources": [
+          "src:sbnd-detector-paper-2025"
+        ],
+        "unit": "m",
+        "value": 110,
+        "verified_at": "2026-09-17"
+      }
+    }
+  ],
+  "kind": "accelerator_neutrino",
+  "lineage": [
+    {
+      "confidence": "verified",
+      "experiment_id": "experiment:icarus",
+      "note": "Row recorded on 'icarus' as the lexicographically smaller id of the icarus/sbnd pair (v0.2 A1).",
+      "relation": "same_program",
+      "sources": [
+        "src:sbn-proposal-2015"
+      ],
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "SBND",
+  "notes": [
+    "Derived fields (detector_ids, site_ids, result_ids, document_ids) are deliberately not written (v0.2 A1).",
+    "No INSPIRE experiment-registry lookup was performed in this session (inspirehep.net requests are rate-limited to one per 10 s); external.inspire_experiment is left null rather than guessed."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "Fermilab newsroom, 2024-09",
+      "note": "",
+      "quote": "SBND will measure the neutrinos as they were produced in the Fermilab beam and ICARUS will measure the neutrinos after they've potentially oscillated.",
+      "sources": [
+        "src:sbnd-fermilab-news-2024-first-neutrinos"
+      ],
+      "value": "Measure the un-oscillated neutrino flux and neutrino-argon interaction rate close to the BNB target, as the near-detector reference for the SBN sterile-neutrino search",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "locator": "Fermilab newsroom, 2024-09",
+      "note": "",
+      "quote": "Together SBND and ICARUS will have outstanding ability to test the existence of these new neutrinos.",
+      "sources": [
+        "src:sbnd-fermilab-news-2024-first-neutrinos"
+      ],
+      "value": "Test, together with ICARUS, the existence of a sterile neutrino",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "locator": "Fermilab newsroom, 2024-09, quoting Ornella Palamara",
+      "note": "",
+      "quote": "We will collect 10 times more data on how neutrinos interact with argon than all previous experiments combined",
+      "sources": [
+        "src:sbnd-fermilab-news-2024-first-neutrinos"
+      ],
+      "value": "Collect a large sample of neutrino-argon interactions to support future liquid-argon experiments such as DUNE",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:sbnd-detector-paper-2025",
+    "src:sbnd-fermilab-news-2024-first-neutrinos",
+    "src:sbn-proposal-2015"
+  ],
+  "status": "active",
+  "summary": {
+    "plain": "The newest and closest of Fermilab's three short-baseline liquid-argon detectors, sitting right next to where the neutrino beam is made so it can measure the beam before anything has a chance to change.",
+    "technical": "Near detector of the Short-Baseline Neutrino programme: 112 t active-mass single-phase LArTPC, 110 m from the BNB target at Fermilab. Began operation July 2024; stable neutrino data taking (~7,000 events/day) from December 2024/first-neutrinos announcement 10 September 2024."
+  },
+  "topic_ids": [
+    "topic:sterile-neutrinos",
+    "topic:neutrino-interactions",
+    "topic:neutrino-oscillations"
+  ],
+  "type": "experiment",
+  "unique_capabilities": [
+    {
+      "confidence": "verified",
+      "locator": "SBND detector paper abstract",
+      "note": "",
+      "quote": "SBND began operation in July 2024, and started collecting stable neutrino beam data in December 2024 with an unprecedented rate of ~7,000 neutrino events per day.",
+      "sources": [
+        "src:sbnd-detector-paper-2025"
+      ],
+      "value": "Closest of the three SBN detectors to the beam target, seeing an unprecedented ~7,000 neutrino events per day",
+      "verified_at": "2026-09-17"
+    }
+  ]
+}
