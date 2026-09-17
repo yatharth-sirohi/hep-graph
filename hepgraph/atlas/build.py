@@ -689,6 +689,27 @@ def _plain_date(value: Any) -> Any:
     return value
 
 
+def _link_people_bundles(files: dict[str, dict], people_bundles: dict[str, dict]) -> None:
+    """Point each membership row at its people bundle, where one exists.
+
+    People load lazily, one institution at a time, so a roster row has to carry
+    the path of its own bundle: without it the interface has no way to reach
+    the people at an institution and the collaboration view stops at the dots.
+    Rows with no people keep no pointer, which is how the panel knows to say so.
+    """
+    by_pair = {(bundle['collaboration_id'], bundle['institution_id']): path
+               for path, bundle in people_bundles.items()}
+    for path, bundle in files.items():
+        if not path.startswith('memberships/'):
+            continue
+        collaboration_id = bundle.get('collaboration_id')
+        for row in bundle.get('members') or []:
+            people_path = by_pair.get((collaboration_id, row.get('institution_id')))
+            if people_path:
+                row['people_bundle'] = people_path
+                row['people_count'] = len(people_bundles[people_path]['people'])
+
+
 def build_people_bundles(ctx: _Context) -> dict[str, dict]:
     """`people/<collab>/<institution>.json`, split lazily per (collab, institution)."""
     groups: dict[tuple[str, str | None], list[dict]] = {}
@@ -1082,7 +1103,9 @@ def build(data_dir: Path | str | None = None, out_dir: Path | str | None = None,
         'coverage.json': coverage_bundle,
     }
     files.update(build_membership_bundles(ctx))
-    files.update(build_people_bundles(ctx))
+    people_bundles = build_people_bundles(ctx)
+    files.update(people_bundles)
+    _link_people_bundles(files, people_bundles)
 
     # `atlas.json` repeats the data version, so the version must be computed
     # from the bundle text with the field blanked, then written back.

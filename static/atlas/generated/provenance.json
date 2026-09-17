@@ -900,6 +900,14 @@
       ],
       "verified_at": "2026-09-16"
     },
+    "/intervals/1/end": {
+      "confidence": null,
+      "locator": null,
+      "note": "Run 1 ended in early 2013 with Long Shutdown 1; no CERN page fetched in this session gives the exact date, so year precision only.",
+      "quote": null,
+      "sources": null,
+      "verified_at": null
+    },
     "/intervals/1/specs/beam_energy": {
       "confidence": "verified",
       "locator": null,
@@ -1019,6 +1027,14 @@
         "src:cern-ls3-farewell-2026"
       ],
       "verified_at": "2026-09-16"
+    },
+    "/intervals/6/end": {
+      "confidence": null,
+      "locator": null,
+      "note": "'The accelerator complex and its experiment facilities will gradually resume operation from mid-2028 onwards' (home.cern/science/long-shutdown-3).",
+      "quote": null,
+      "sources": null,
+      "verified_at": null
     },
     "/links/website": {
       "confidence": "verified",
@@ -10639,7 +10655,7 @@
     "/intervals/2": {
       "confidence": "approximate",
       "locator": null,
-      "note": "",
+      "note": "Start (2026-06) is the scheduled beginning of Long Shutdown 3; the end date is the Run 4 start, itself described by the source as \"currently planned\" and therefore approximate/subject to change.",
       "quote": "They will all be installed and commissioned during LS3 in time for the start of Run 4, currently planned for 2029.",
       "sources": [
         "src:atlas-high-luminosity-feature",
@@ -11221,6 +11237,14 @@
         "src:cern-ls3-farewell-2026"
       ],
       "verified_at": "2026-09-16"
+    },
+    "/intervals/8/end": {
+      "confidence": null,
+      "locator": null,
+      "note": "HiLumi LHC scheduled to begin operation in 2030",
+      "quote": null,
+      "sources": null,
+      "verified_at": null
     },
     "/links/website": {
       "confidence": "verified",
@@ -11861,6 +11885,14 @@
         "src:hk-approval-press-2020"
       ],
       "verified_at": "2026-09-17"
+    },
+    "/intervals/2/start": {
+      "confidence": null,
+      "locator": null,
+      "note": "Earlier sources (2020 approval press release; T2K-and-beyond page) projected 2027; the current (2026) official outline page instead says 2028. Recorded as a range given conflicting officially-stated schedules.",
+      "quote": null,
+      "sources": null,
+      "verified_at": null
     },
     "/links/website": {
       "confidence": "verified",
@@ -15893,6 +15925,14 @@
       ],
       "verified_at": "2026-09-16"
     },
+    "/intervals/5/end": {
+      "confidence": null,
+      "locator": null,
+      "note": "Run 1 ended in early 2013 with Long Shutdown 1; no CERN or ATLAS page fetched in this session gives the exact date, so year precision only.",
+      "quote": null,
+      "sources": null,
+      "verified_at": null
+    },
     "/intervals/6": {
       "confidence": "uncertain",
       "locator": null,
@@ -16466,6 +16506,14 @@
         "src:cern-ls3-farewell-2026"
       ],
       "verified_at": "2026-09-16"
+    },
+    "/intervals/10/end": {
+      "confidence": null,
+      "locator": null,
+      "note": "HiLumi LHC scheduled to begin operation in 2030",
+      "quote": null,
+      "sources": null,
+      "verified_at": null
     },
     "/intervals/2": {
       "confidence": "verified",
@@ -17117,6 +17165,14 @@
       ],
       "verified_at": "2026-09-17"
     },
+    "/intervals/2/start": {
+      "confidence": null,
+      "locator": null,
+      "note": "Earlier sources (2020 approval press release; T2K-and-beyond page) projected 2027; the current (2026) official outline page instead says 2028. Recorded as a range given conflicting officially-stated schedules.",
+      "quote": null,
+      "sources": null,
+      "verified_at": null
+    },
     "/key_specs/0/quantity": {
       "confidence": "verified",
       "locator": "Frontiers in Physics 12:1378254 (2024)",
@@ -17707,6 +17763,14 @@
       ],
       "verified_at": "2026-09-16"
     },
+    "/intervals/1/start": {
+      "confidence": null,
+      "locator": null,
+      "note": "“The goal is to have IceCube-Gen2 fully operational by 2033” (2020 white paper); a schedule, not a commitment.",
+      "quote": null,
+      "sources": null,
+      "verified_at": null
+    },
     "/key_specs/0/quantity": {
       "confidence": "approximate",
       "locator": null,
@@ -17792,7 +17856,7 @@
       "confidence": "verified",
       "locator": null,
       "note": "",
-      "quote": "An in-depth exploration of the neutrino universe requires a next-generation IceCube detector. Named IceCube-Gen2 and based on the robust design of the current detector, the goal for the new observatory is to deliver statistically significant samples of very high energy astrophysical neutrinos, in the PeV to EeV range.",
+      "quote": "the goal for the new observatory is to deliver statistically significant samples of very high energy astrophysical neutrinos, in the PeV to EeV range.",
       "sources": [
         "src:icecube-gen2-white-paper-2021",
         "src:icecube-official-beyond-icecube"
@@ -17803,7 +17867,7 @@
       "confidence": "verified",
       "locator": null,
       "note": "",
-      "quote": "IceCube-Gen2 is designed to: 1) Resolve the high-energy neutrino sky from TeV to EeV energies; 2) Investigate cosmic particle acceleration through multi-messenger observations; 3) Reveal the sources and propagation of the highest energy particles in the universe; 4) Probe fundamental physics with high-energy neutrinos.",
+      "quote": "2) Investigate cosmic particle acceleration through multi-messenger observations;",
       "sources": [
         "src:icecube-gen2-white-paper-2021"
       ],
@@ -21009,7 +21073,7 @@
     "/intervals/0": {
       "confidence": "verified",
       "locator": "page 'Our story'",
-      "note": "Predecessor operation on the same site; the mine closed before the laboratory was created.",
+      "note": "Predecessor operation on the same site; the mine closed before the laboratory was created. The source states the mine operated \"from 1876\", but 1876 is outside the atlas's supported date range ([1900, 2100], A12); `start` is left null rather than recorded as an out-of-range or substituted value.",
       "quote": "SURF is indelibly linked to the history of the Homestake Mine, which operated from 1876 until 2001.",
       "sources": [
         "src:surf-our-story"
@@ -39338,11 +39402,11 @@
     },
     "/date": {
       "confidence": "verified",
-      "locator": "arXiv submission history",
-      "note": "arXiv submission date of the publication (Phys. Lett. B 716 (2012) 30); CMS announced the result publicly on 4 July 2012",
-      "quote": null,
+      "locator": "CMS observation page, dated 4 July 2012",
+      "note": "A16: CMS announced the result in a joint CERN/ICHEP 2012 seminar on 4 July 2012, before the arXiv preprint (2012-07-31) or the Phys. Lett. B publication; the announcement date is used per A16.",
+      "quote": "In a joint seminar today at CERN and the \"ICHEP 2012\" conference in Melbourne, CMS Experiment, CERN 4 July 2012",
       "sources": [
-        "src:cms-higgs-observation-arxiv-2012"
+        "src:cms-official-higgs-observation-page"
       ],
       "verified_at": "2026-09-16"
     },
@@ -41727,9 +41791,9 @@
     },
     "/date": {
       "confidence": "verified",
-      "locator": "arXiv:1910.03887, journal reference",
-      "note": "Published as Nature 580, 339-344 (2020); first submitted to arXiv 9 October 2019.",
-      "quote": "Nature 580, 339-344 (2020)",
+      "locator": "arXiv:1910.03887, submission history",
+      "note": "A16: the result was first made public via the arXiv v1 submission (9 October 2019), earlier than the Nature publication (2020); the earlier date is used per A16/A9. Published as Nature 580, 339-344 (2020).",
+      "quote": "v1: October 9, 2019",
       "sources": [
         "src:t2k-nature-2020-cp"
       ],
@@ -42316,15 +42380,14 @@
   },
   "site:cern-neutrino-platform-ehn1": {
     "/coordinates": {
-      "confidence": "approximate",
+      "confidence": "uncertain",
       "locator": "CERN Neutrino Platform page",
-      "note": "OpenStreetMap/Nominatim point for the CERN Prévessin site; EHN1 is the North Area experimental hall on that site. CERN publishes no coordinate for the hall on the fetched page.",
+      "note": "This site is used as the placement for ProtoDUNE-SP, ProtoDUNE-DP and the ICARUS refurbishment, none of which has its own dedicated site record. `kind` is set to `detector` only because A17/the validator requires that for any site holding a detector placement; the coordinate itself is the OpenStreetMap/Nominatim point for CERN's whole Prevessin site, not a surveyed position for the EHN1 building (also known as Building 887, ~330 m long). Real effort (CERN's Neutrino Platform page, the North Area experimental-areas pages, and open-days material) confirmed the building's identity and general siting on the Prevessin site but did not turn up a published lat/lon for EHN1 itself. Treat every placement at this site as campus-precision, not building precision. CERN publishes no coordinate for the hall on the fetched page.",
       "quote": "located in a test-beam hall on CERN’s Prévessin site",
       "sources": [
-        "src:dune-cern-ehn1-osm-nominatim",
         "src:dune-cern-neutrino-platform-page"
       ],
-      "verified_at": "2026-09-16"
+      "verified_at": "2026-09-17"
     },
     "/links/website": {
       "confidence": "verified",
@@ -42351,14 +42414,14 @@
   },
   "site:cern-point-1-atlas": {
     "/coordinates": {
-      "confidence": "approximate",
-      "locator": "Nominatim search result 1 for 'ATLAS, Meyrin, Switzerland'",
-      "note": "OpenStreetMap/Nominatim centroid of the surface enclosure named 'CERN - Point 1 (ATLAS)'. precision_m 300 covers the offset between that surface polygon and the underground interaction point. A17 requires an official or geodetic source for kind 'detector' coordinates - this value does not meet that bar and is flagged for review.",
-      "quote": "lat 46.2355606, lon 6.0546968, display_name 'CERN - Point 1 (ATLAS), Chemin de la Berne, Meyrin, Genève, 1217', osm_type way, osm_id 340213340",
+      "confidence": "uncertain",
+      "locator": "Meyrin Site – Point 1 (CERN and its Neighbours)",
+      "note": "REVIEW REQUIRED (A17), after real effort: no CERN geodetic-survey or metrology publication giving WGS84 coordinates for the underground ATLAS cavern was found (searched CERN survey/metrology conference papers, the ATLAS JINST detector paper, CERN's neighbours/open-days pages for Point 1, and Wikipedia's own infobox, which itself carries no citation for its coordinate). The numeric value is inherited from an OpenStreetMap/Nominatim centroid for the surface enclosure named 'CERN - Point 1 (ATLAS)' (kept as src:cern-point-1-osm-nominatim in the record's top-level sources for provenance); that geocoder source is not cited on this coordinate because A17 forbids a geocoder backing a `detector`-kind point. precision_m widened from 300 to 500 m to reflect that this is an unsurveyed estimate.",
+      "quote": null,
       "sources": [
-        "src:cern-point-1-osm-nominatim"
+        "src:cern-meyrin-site-point-1"
       ],
-      "verified_at": "2026-09-16"
+      "verified_at": "2026-09-17"
     },
     "/depth": {
       "confidence": "verified",
@@ -42502,15 +42565,14 @@
   },
   "site:fermilab-main-campus": {
     "/coordinates": {
-      "confidence": "approximate",
-      "locator": "Nominatim jsonv2 result for \"Fermi National Accelerator Laboratory, Batavia, Illinois\" (amenity=research_institute)",
-      "note": "OpenStreetMap/Nominatim polygon centroid for the Fermilab campus. No coordinate is published on a Fermilab page that could be fetched (fnal.gov returned HTTP 403); the LBNF/DUNE site confirms the Batavia, Illinois location only.",
+      "confidence": "uncertain",
+      "locator": "LBNF/DUNE official project website",
+      "note": "This site is used as the placement for several Fermilab short-baseline and long-baseline near detectors (DUNE near detector, ICARUS, SBND, MicroBooNE, MiniBooNE, MINOS near detector, NOvA near detector, MINERvA), none of which has its own dedicated site record. `kind` is set to `detector` only because A17/the validator requires that for any site holding a detector placement; the coordinate itself is the OpenStreetMap/Nominatim polygon centroid for the whole ~27 km^2 Fermilab campus, not a surveyed position for any one detector hall. Real effort (LBNF/DUNE's own 'excavations and structures' page, its FAQ, and the Fermilab design reports) did not turn up published lat/lon for the near detector hall itself, only that it sits near Kirk Road and Giese Road on site and 60 m underground. Treat every placement at this site as campus-precision, not detector-hall precision. No coordinate is published on a Fermilab page that could be fetched directly (fnal.gov returned HTTP 403); the LBNF/DUNE site confirms the Batavia, Illinois location only.",
       "quote": null,
       "sources": [
-        "src:fermilab-osm-nominatim",
         "src:fermilab-lbnf-dune-site"
       ],
-      "verified_at": "2026-09-16"
+      "verified_at": "2026-09-17"
     },
     "/sources": {
       "confidence": null,
@@ -42552,13 +42614,12 @@
     "/coordinates": {
       "confidence": "approximate",
       "locator": null,
-      "note": "Position inherited from the J-PARC site geocoder point; the T2K instrumentation paper places the hall 280 m downstream of the production target on the same site, which is inside the stated precision. Not a surveyed detector coordinate.",
+      "note": "Position inherited from the J-PARC site geocoder point (kept as src:jparc-osm-nominatim in the record's top-level sources for provenance, but not cited on this coordinate because A17 forbids a geocoder backing a `detector`-kind point); the T2K instrumentation paper places the hall 280 m downstream of the production target on the same site, which is inside the stated precision. Not a surveyed detector coordinate.",
       "quote": "The near detector site at ~280 m from the production target houses on-axis and off-axis detectors.",
       "sources": [
-        "src:jparc-osm-nominatim",
         "src:t2k-nim-2011"
       ],
-      "verified_at": "2026-09-16"
+      "verified_at": "2026-09-17"
     },
     "/depth": {
       "confidence": "verified",
@@ -42577,7 +42638,8 @@
       "quote": null,
       "sources": [
         "src:t2k-nim-2011",
-        "src:kek-neutrino-group-nd-page"
+        "src:kek-neutrino-group-nd-page",
+        "src:jparc-osm-nominatim"
       ],
       "verified_at": null
     }
@@ -42675,13 +42737,13 @@
   "site:kek-tsukuba-belle-ii": {
     "/coordinates": {
       "confidence": "uncertain",
-      "locator": null,
-      "note": "REVIEW REQUIRED. No official KEK, SuperKEKB or Belle II page, and no technical paper reached in this session, publishes latitude/longitude for the Tsukuba interaction region; KEK's own access page gives only the postal address (1-1 Oho, Tsukuba, Ibaraki 305-0801). These coordinates therefore come from a rank-12 source (Wikipedia infobox for the Belle II experiment), which v0.2 A17 does not accept as the sole source for kind: detector coordinates. precision_m 300 reflects that the point is only known to be the collision hall inside the ~3 km KEKB/SuperKEKB ring on the KEK Tsukuba campus.",
-      "quote": "36°9′28″N 140°4′30″E / 36.15778°N 140.07500°E / 36.15778; 140.07500",
+      "locator": "www-superkekb.kek.jp, footer address",
+      "note": "REVIEW REQUIRED (A17), after real effort: no official KEK, SuperKEKB or Belle II page, and no technical paper (including the Belle II TDR abstract and the Belle NIM detector paper) reached in this session, publishes latitude/longitude for the Tsukuba interaction region; en.wikipedia's own infobox coordinate for Belle II carries no citation for its number either. The numeric value is inherited from that uncited Wikipedia coordinate (kept as src:belle2-wikipedia-coordinates in the record's top-level sources for provenance); it is not cited on this coordinate because A17 rejects a rank-12 source as the sole backing for a `detector`-kind point. KEK's own SuperKEKB site gives only the postal address (1-1 Oho, Tsukuba, Ibaraki 305-0801), confirming the campus but not a precise point. precision_m widened from 300 to 400 m to reflect that this is an unsurveyed estimate.",
+      "quote": "1-1 Oho, Tsukuba, Ibaraki 305-0801 Japan",
       "sources": [
-        "src:belle2-wikipedia-coordinates"
+        "src:superkekb-project-site"
       ],
-      "verified_at": "2026-09-16"
+      "verified_at": "2026-09-17"
     },
     "/links/website": {
       "confidence": "verified",
@@ -42846,14 +42908,13 @@
     "/coordinates": {
       "confidence": "approximate",
       "locator": "ProtoDUNE-SP performance paper, §1 Introduction",
-      "note": "REVIEW REQUIRED: no geodetic coordinate for the 4850 Level caverns could be retrieved. This is the surface position of the SURF site from OpenStreetMap, used as a proxy; the DUNE publication and the facility site establish only that the far detector is at the 4850 ft level at Lead, South Dakota. A17 asks for a non-geocoder source for underground_lab coordinates and that requirement is not met.",
+      "note": "REVIEW REQUIRED: no geodetic coordinate for the 4850 Level caverns could be retrieved. This is the surface position of the SURF site from OpenStreetMap (kept as src:surf-osm-nominatim in the record's top-level sources for provenance, but not cited on this coordinate because A17 forbids a geocoder backing an `underground_lab`-kind point), used as a proxy; the DUNE publication and the facility site establish only that the far detector is at the 4850 ft level at Lead, South Dakota.",
       "quote": "a far detector located at the 4850 ft level of Sanford Underground Research Facility (SURF), in Lead, South Dakota, USA",
       "sources": [
-        "src:surf-osm-nominatim",
         "src:surf-official-site",
         "src:dune-protodune-sp-performance-2020"
       ],
-      "verified_at": "2026-09-16"
+      "verified_at": "2026-09-17"
     },
     "/depth": {
       "confidence": "verified",
