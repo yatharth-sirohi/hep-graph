@@ -35,6 +35,19 @@ def upstream_total(client: Any, low: int, high: int) -> int | None:
     return _upstream_total(client.fetch("literature", _query(low, high), 1, 1))
 
 
+def _unrestricted_total(client: Any) -> int | None:
+    """Every literature record INSPIRE holds, with no recid restriction."""
+    return _upstream_total(client.fetch("literature", "", 1, 1))
+
+
+def _outside_total(client: Any, low: int, high: int) -> int | None:
+    below = _upstream_total(client.fetch("literature", f"recid:1->{max(low - 1, 1)}", 1, 1)) if low > 1 else 0
+    above = _upstream_total(client.fetch("literature", f"recid:{high + 1}->99999999", 1, 1))
+    if below is None or above is None:
+        return None
+    return below + above
+
+
 def sample_works(connection: Any, import_id: str, size: int) -> list[dict[str, Any]]:
     """A uniform sample, taken in the database so no id list is shipped around."""
     rows = connection.execute(
@@ -111,6 +124,11 @@ def verify_coverage(connection: Any, client: Any, import_id: str) -> dict[str, A
         raise PipelineError(f"unknown import {import_id!r}")
     low, high = dict(header)["low_recid"], dict(header)["high_recid"]
     live = upstream_total(client, low, high)
+    # Reconciling only within the declared range cannot detect the range being
+    # too narrow: a flawless crawl of the wrong window looks identical to a
+    # flawless crawl. Ask INSPIRE what exists outside it as well.
+    everything = _unrestricted_total(client)
+    outside = _outside_total(client, low, high)
     claimed = dict(connection.execute(
         "SELECT COALESCE(sum(expected_records), 0) AS n FROM inspire_compact_shard "
         "WHERE import_id=%s AND status <> 'SPLIT'", (import_id,)).fetchone())["n"]
@@ -125,11 +143,16 @@ def verify_coverage(connection: Any, client: Any, import_id: str) -> dict[str, A
     # report the gap rather than asserting equality.
     drift = None if live is None else live - int(claimed)
     return {"declared_range": [low, high], "upstream_total_now": live,
+            "upstream_total_all_inspire": everything,
+            "records_outside_declared_range": outside,
             "leaf_shard_expected_total": int(claimed),
             "source_records_seen": int(received), "works_retained": retained,
             "drift_vs_upstream": drift,
             "retention_rate": round(retained / int(received), 4) if received else None,
-            "passed": live is not None and abs(drift) <= max(500, live * 0.001)}
+            # A record outside the declared range was never a candidate for
+            # import, so any at all means the corpus is not covered.
+            "passed": (live is not None and abs(drift) <= max(500, live * 0.001)
+                       and outside == 0)}
 
 
 def run(url: str, import_id: str, *, sample: int = 200) -> dict[str, Any]:
@@ -179,6 +202,11 @@ def _print(report: dict[str, Any]) -> None:
           f"  ({coverage['retention_rate']:.1%} of records seen)"
           if coverage["retention_rate"] else f"  works retained           {coverage['works_retained']:,}")
     print(f"  drift vs upstream        {coverage['drift_vs_upstream']}")
+    print(f"  ALL INSPIRE records      {coverage['upstream_total_all_inspire']:,}"
+          if coverage["upstream_total_all_inspire"] is not None else
+          "  ALL INSPIRE records      unavailable")
+    print(f"  outside declared range   {coverage['records_outside_declared_range']:,}"
+          f"{'  <-- NOT COVERED' if coverage['records_outside_declared_range'] else ''}")
     spot = report["spot_check"]
     print("\nspot check:", "PASS" if spot["passed"] else "FAIL")
     print(f"  works re-fetched and compared   {spot['checked']}")
