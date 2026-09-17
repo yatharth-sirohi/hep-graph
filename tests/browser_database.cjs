@@ -19,10 +19,9 @@ async function main() {
   });
   try {
     await page.route("**/api/dataset*", (route) => route.fulfill({ json: {
-      version: "graph-db:test", source_mode: "database", created_at: "2026-09-16T00:00:00Z",
+      version: "graph-db:test", source_mode: "database", created_at: "2026-09-16T22:00:00Z",
       coverage: { label: "Pinned graph version", complete: true, description: "Test graph." },
       capabilities: { genealogy: false, deep_search: true, global_centrality: false },
-      examples: [{ label: "Example pair", source: "1", target: "2" }],
     } }));
     await page.route("**/api/search?*", (route) => {
       const q = new URL(route.request().url()).searchParams.get("q");
@@ -43,8 +42,11 @@ async function main() {
           works: [{ id: "9", title: "Test work", year: 2024, author_count: 2, source_url: "https://inspirehep.net/literature/9" }] }] }],
     } }));
     await page.goto(base, { waitUntil: "domcontentloaded" });
-    await page.getByText("Neon graph", { exact: false }).first().waitFor();
+    await page.locator("#snapshot-label").getByText("v0.3", { exact: true }).waitFor();
+    await page.locator("#last-updated").getByText("Last updated 09/16/2026", { exact: true }).waitFor();
     assert.equal(await page.locator("#data-mode").count(), 0);
+    assert.equal(await page.locator("#example-select").count(), 0);
+    assert.equal(await page.locator("#coverage-banner").count(), 0);
     assert.equal(await page.locator("#genealogy").isDisabled(), true);
     assert.equal(await page.locator("#genealogy").isChecked(), false);
     await page.locator("#source-query").fill("alice");
@@ -55,10 +57,11 @@ async function main() {
     await page.locator(".path-card").first().waitFor({ timeout: 15000 });
     assert.match(await page.locator("#path-title").innerText(), /Exact shortest path/);
     assert.equal(await page.getByText("Test work").count(), 1);
+    assert.doesNotMatch(await page.locator("body").innerText(), /Neon graph|graph database|graph-db:/i);
     assert.ok(seen.filter((url) => url.pathname.startsWith("/api/")).every((url) => url.searchParams.get("mode") !== "snapshot"));
     assert.ok(seen.some((url) => url.pathname === "/api/path" && url.searchParams.get("mode") === "database" && url.searchParams.get("genealogy") === "false"));
     assert.deepEqual(errors, []);
-    console.log("PASS database-only browser path and Neon job polling");
+    console.log("PASS v0.3 browser path, update date, and search-job polling");
   } finally {
     await browser.close();
   }

@@ -107,38 +107,6 @@ main {
   margin: auto;
   padding: 24px 28px 50px;
 }
-.coverage-banner {
-  display: flex;
-  align-items: flex-start;
-  gap: 11px;
-  padding: 12px 15px;
-  background: #e8f2f5;
-  border: 1px solid #c8dde3;
-  border-radius: 10px;
-  color: #294a5b;
-  font-size: 14px;
-}
-.coverage-banner strong {
-  display: block;
-}
-.coverage-banner div span {
-  margin-left: 8px;
-}
-.coverage-icon {
-  font-size: 22px;
-  color: var(--teal);
-  line-height: 1;
-}
-.text-button {
-  border: 0;
-  background: none;
-  color: #176b78;
-  text-decoration: underline;
-  font: inherit;
-  cursor: pointer;
-  margin-left: auto;
-  padding: 0;
-}
 .view {
   display: none;
 }
@@ -964,6 +932,9 @@ th {
   border-color: #edc47c;
   border-left-width: 4px;
 }
+#project-disclaimer {
+  margin-top: 40px;
+}
 footer {
   border-top: 1px solid var(--line);
   padding: 17px 28px;
@@ -992,7 +963,8 @@ footer {
     font-size: 14px;
   }
   .snapshot-label {
-    display: none;
+    margin-left: 0;
+    font-size: 12px;
   }
   main {
     padding: 17px 14px 40px;
@@ -1008,10 +980,6 @@ footer {
   }
   .about-grid {
     grid-template-columns: 1fr;
-  }
-  .coverage-banner div span {
-    display: block;
-    margin: 2px 0 0;
   }
 }
 @media (max-width: 600px) {

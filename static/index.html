@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="Explore documented research collaborations using a pinned graph stored in Neon, with source evidence retrieved for results."
+      content="Explore documented research collaborations, inspect connection paths, and review the supporting source evidence."
     />
     <title>HEP Graph · Research connections</title>
     <link rel="icon" href="favicon.svg" type="image/svg+xml" />
@@ -26,49 +26,10 @@
           About &amp; coverage
         </button>
       </nav>
-      <span id="snapshot-label" class="snapshot-label" aria-live="polite"
-        >Loading source…</span
-      >
+      <span id="snapshot-label" class="snapshot-label">v0.3</span>
     </header>
 
     <main id="main">
-      <section id="coverage-banner" class="coverage-banner" aria-live="polite">
-        <span class="coverage-icon" aria-hidden="true">◌</span>
-        <div>
-          <strong>Source coverage</strong
-          ><span id="coverage-text">Reading coverage statement…</span>
-        </div>
-        <button id="coverage-details" class="text-button" type="button">
-          Details
-        </button>
-      </section>
-      <section id="project-disclaimer" class="notice disclaimer">
-        <p>
-          HEP-Atlas is an independently developed research software project
-          maintained by Yatharth Sirohi. The project is intended to support
-          the exploration, organization, and presentation of information
-          relevant to the high-energy physics community.
-        </p>
-        <p>
-          While care is taken to ensure the accuracy and reliability of the
-          information presented, HEP-Atlas may occasionally contain
-          incomplete, outdated, or incorrect information, particularly in
-          uncommon or edge-case scenarios. Users are encouraged to verify
-          critical information against authoritative or primary sources when
-          appropriate.
-        </p>
-        <p>
-          Reports of bugs, factual inaccuracies, technical issues, data
-          inconsistencies, or suggestions for improvement are welcome and may
-          be sent to
-          <a href="mailto:yatharth-sirohi@uiowa.edu"
-            >yatharth-sirohi@uiowa.edu</a
-          >. Researchers, developers, students, and members of the
-          high-energy physics community interested in contributing,
-          proposing integrations, providing technical feedback, or exploring
-          research collaborations are also encouraged to get in touch.
-        </p>
-      </section>
       <section
         id="version-warning"
         class="notice warning hidden"
@@ -89,17 +50,9 @@
             </h1>
             <p>
               Search two researchers. Routes follow documented coauthorship
-              ties in the pinned Neon graph; source evidence is attached to results.
+              ties, with source evidence attached to results.
             </p>
           </div>
-          <label class="example-picker"
-            >Example
-            <select id="example-select" aria-label="Graph example">
-              <option value="">Loading examples…</option></select
-            ><button id="load-example" class="secondary-button" type="button">
-              Load
-            </button></label
-          >
         </div>
         <form id="search-form" class="query-card" novalidate>
           <div class="identity-grid">
@@ -170,7 +123,7 @@
             </div>
           </div>
           <div class="query-actions">
-            <span class="source-mode-label">Search source: pinned Neon graph</span>
+            <span id="last-updated" class="source-mode-label">Last updated 09/16/2026</span>
             <button id="find-connection" class="primary-button" type="submit">
               Find connection <span aria-hidden="true">→</span>
             </button>
@@ -280,9 +233,9 @@
           <span class="empty-glyph" aria-hidden="true">⌁</span>
           <h2>Choose two researchers</h2>
           <p>
-            Routes use the pinned Neon graph and the exact filters shown above.
-            Search suggestions resolve INSPIRE identities; the graph decides
-            whether those people can be connected.
+            Routes use the published research data and the exact filters shown above.
+            Search suggestions resolve INSPIRE identities; the available
+            records determine whether those people can be connected.
           </p>
         </div>
         <section id="connection-results" class="hidden" aria-live="polite">
@@ -305,7 +258,7 @@
           <div id="deep-progress" class="deep-progress hidden" aria-live="polite">
             <div>
               <strong id="deep-title">Exploring live INSPIRE…</strong>
-              <p id="deep-summary">The live graph search is starting.</p>
+              <p id="deep-summary">The connection search is starting.</p>
             </div>
             <div class="deep-actions">
               <button id="deep-stop" class="secondary-button" type="button">Stop search</button>
@@ -389,7 +342,7 @@
             One hop between two researchers means they share enough qualifying
             published works: the works must survive the filters, and the count
             of shared works must reach the threshold in use. This deployed
-            graph version contains coauthorship ties only; doctoral records
+            release contains coauthorship ties only; doctoral records
             require a separately certified overlay that is not yet installed.
           </p>
           <ol class="method-stages">
@@ -437,7 +390,7 @@
               bound is set.
             </li>
             <li>
-              <b>Doctoral records.</b> Unavailable in the current graph version;
+              <b>Doctoral records.</b> Unavailable in the current release;
               the disabled control cannot change route calculations.
             </li>
           </ul>
@@ -487,7 +440,7 @@
               proceedings records are excluded.
             </p>
             <p>
-              Doctoral ties are not part of this pinned graph version. They
+              Doctoral ties are not part of this release. They
               would require a separate certified overlay before being offered.
             </p>
           </article>
@@ -526,10 +479,36 @@
         </button>
         <div id="person-content"></div>
       </aside>
+      <section id="project-disclaimer" class="notice disclaimer">
+        <p>
+          HEP-Atlas is an independently developed research software project
+          maintained by Yatharth Sirohi. The project is intended to support
+          the exploration, organization, and presentation of information
+          relevant to the high-energy physics community.
+        </p>
+        <p>
+          While care is taken to ensure the accuracy and reliability of the
+          information presented, HEP-Atlas may occasionally contain
+          incomplete, outdated, or incorrect information, particularly in
+          uncommon or edge-case scenarios. Users are encouraged to verify
+          critical information against authoritative or primary sources when
+          appropriate.
+        </p>
+        <p>
+          Reports of bugs, factual inaccuracies, technical issues, data
+          inconsistencies, or suggestions for improvement are welcome and may
+          be sent to
+          <a href="mailto:yatharth-sirohi@uiowa.edu"
+            >yatharth-sirohi@uiowa.edu</a
+          >. Researchers, developers, students, and members of the
+          high-energy physics community interested in contributing,
+          proposing integrations, providing technical feedback, or exploring
+          research collaborations are also encouraged to get in touch.
+        </p>
+      </section>
     </main>
     <footer>
-      HEP Graph · Documented connections from the selected source ·
-      <span id="footer-version">—</span>
+      HEP Graph · Documented research connections
     </footer>
     <script src="app.js"></script>
   </body>

@@ -246,7 +246,7 @@ class DatabaseGraphService:
         coverage = self.coverage()
         if provider.resolve_author(str(person_id)) is None:
             return {"status": "not_found", "mode": "database",
-                    "message": "This person is not in the pinned graph version, which is not "
+                    "message": "This person is not included in this release, which is not "
                                "evidence that they are absent from INSPIRE.",
                     "person": {"id": str(person_id)}, "filters": filters.to_dict(),
                     "version": f"graph-db:{coverage.import_id}",
@@ -298,7 +298,7 @@ class DatabaseGraphService:
         coverage = self.coverage()
         if self.config.overlay_id is None:
             return {"status": "unavailable", "mode": "database",
-                    "message": "Doctoral records are not part of this graph version.",
+                    "message": "Doctoral records are not part of this release.",
                     "person": {"id": str(person_id)}, "people": [], "edges": [],
                     "filters": filters.to_dict(),
                     "version": f"graph-db:{coverage.import_id}",

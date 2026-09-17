@@ -102,11 +102,6 @@ class State:
         self.lock = threading.RLock()
         self.workers = threading.BoundedSemaphore(8)
         self.rates = OrderedDict()
-        self.examples = [
-            {'label': 'Matheus Hostert → Silvia Pascoli', 'source': '1621061', 'target': '1019647'},
-            {'label': 'Edward Witten → David Gross', 'source': '983328', 'target': '1007454'},
-            {'label': 'Richard Feynman → John Wheeler', 'source': '1010044', 'target': '983692'},
-        ]
 
     def rate_ok(self, ip):
         now = time.monotonic()
@@ -157,18 +152,16 @@ class State:
         if database is None:
             return {'version': None, 'source_mode': 'database', 'default_mode': self.default_mode,
                     'created_at': None, 'counts': {'people': None, 'works': None, 'phd': None},
-                    'coverage': {'label': 'Graph database not configured',
-                                 'description': 'This deployment has no pinned graph database, so '
-                                                'routes cannot be traced. Set the graph database '
-                                                'environment variables and redeploy.',
+                    'coverage': {'label': 'Research data unavailable',
+                                 'description': 'This deployment has no published research data, so '
+                                                'routes cannot be traced.',
                                  'complete': False, 'mode': 'database',
                                  'queries': [], 'failures': []},
-                    'examples': self.examples, 'cache': self.cache_info(),
+                    'cache': self.cache_info(),
                     'capabilities': {'live_graph': False, 'deep_search': False,
                                      'global_centrality': False},
                     'policy': {}}
         return database.dataset() | {'default_mode': self.default_mode,
-                                     'examples': self.examples,
                                      'cache': self.cache_info()}
 
 
@@ -235,7 +228,7 @@ class Handler(BaseHTTPRequestHandler):
             # The store could not answer. That is an error, never an empty
             # neighborhood, which HLBES would read as proof of no connection.
             self.respond({'status': 'unavailable', 'mode': 'database', 'exact': False,
-                          'message': 'The graph database could not be reached.',
+                          'message': 'The research data could not be reached.',
                           'reason': exc.reason}, 503)
         except RemoteError as exc:
             self.respond({'status': exc.code, 'message': exc.message, 'mode': 'database',
@@ -275,7 +268,7 @@ class Handler(BaseHTTPRequestHandler):
         if set(args) - allowed:
             raise ValueError('Unknown query parameter.')
         if args.get('mode', 'database') != 'database':
-            raise ValueError('Routes are served from the pinned graph database.')
+            raise ValueError('The requested search source is unavailable.')
         if args.get('summary', '0') not in {'0', '1'}:
             raise ValueError('Profile summary must be 0 or 1.')
         if path == '/api/health':
@@ -290,7 +283,7 @@ class Handler(BaseHTTPRequestHandler):
         if database is None:
             return self.respond({
                 'status': 'unavailable', 'mode': 'database',
-                'message': 'This deployment has no pinned graph database configured, so routes '
+                'message': 'This deployment has no published research data available, so routes '
                            'cannot be traced.'}, 503)
 
         if path.startswith('/api/search-jobs/'):
@@ -338,8 +331,7 @@ class Handler(BaseHTTPRequestHandler):
             # function instance must never hold for a corpus this size.
             return self.respond({
                 'status': 'unavailable', 'mode': 'database', 'exact': False,
-                'message': 'Global centrality needs the whole graph in memory and is not '
-                           'available against the pinned graph database.',
+                'message': 'Global centrality is not available in this release.',
                 'filters': filters.to_dict(),
                 'version': f"graph-db:{database.coverage().import_id}"})
         return self.respond({'status': 'not_found'}, 404)

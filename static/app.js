@@ -71,7 +71,16 @@
   const filterKey = () => JSON.stringify([state.mode, canonicalFilters()]);
   const queryKey = () =>
     JSON.stringify([state.mode, canonicalFilters(), state.source?.id, state.target?.id]);
-  const modeLabel = () => "Neon graph";
+  const updateDate = (value) => {
+    const date = value ? new Date(value) : null;
+    return date && !Number.isNaN(date.getTime())
+      ? new Intl.DateTimeFormat("en-US", {
+          timeZone: "America/Chicago", month: "2-digit", day: "2-digit", year: "numeric",
+        }).format(date)
+      : "09/16/2026";
+  };
+  const lastUpdatedText = () =>
+    `Last updated ${updateDate(state.dataset?.source_cutoff || state.dataset?.created_at)}`;
   const canQuery = (person) =>
     Boolean(person && (person.queryable === true || person.indexed === true));
   const teamSizeDescription = (f) => {
@@ -378,64 +387,9 @@
   }
   function coverageText(coverage) {
     if (!coverage) return "Coverage metadata is unavailable.";
-    return `${coverage.label || "Pinned graph"}${coverage.complete ? " · declared complete" : " · partial / bounded coverage"}. ${coverage.description || ""}`;
+    return `Last updated ${updateDate(state.dataset?.source_cutoff || state.dataset?.created_at)}. ${coverage.complete ? "Coverage verified for this release." : "Coverage is partial or bounded."}`;
   }
 
-  function showCoverageDetails(coverage, extra) {
-    showTab("about");
-    const card = $("#about-coverage");
-    card.replaceChildren();
-    const h = document.createElement("h2");
-    h.textContent = coverage.label || "Snapshot coverage";
-    card.append(h);
-    const p = document.createElement("p");
-    p.textContent =
-      coverage.description || "No further description was supplied.";
-    card.append(p);
-    const facts = document.createElement("p");
-    facts.className = "muted";
-    facts.textContent = `Completeness: ${coverage.complete ? "declared complete" : "not complete"} · queries recorded: ${(coverage.queries || []).length} · failures recorded: ${(coverage.failures || []).length}`;
-    card.append(facts);
-    const checks = [
-      ["Conflicting author links withheld", coverage.identity_conflicts],
-      ["Ambiguous author links withheld", coverage.identity_ambiguities],
-      ["Conflicting full author names withheld", coverage.identity_full_name_conflicts],
-      ["Historical author links awaiting identity review", coverage.identity_lifetime_review],
-      ["Ambiguous author profiles withheld", coverage.identity_ambiguous_profiles],
-      ["Doctoral references withheld for identity conflicts", coverage.identity_phd_conflicts],
-      ["Historical author links corrected", coverage.historical_authorship_exclusions],
-      ["Historical adviser links corrected", coverage.historical_profile_relation_exclusions],
-      ["Historical editorial records excluded", coverage.historical_coauthorship_exclusions],
-    ].filter(([, rows]) => Array.isArray(rows) && rows.length);
-    if (checks.length) {
-      const heading = document.createElement("h3");
-      heading.textContent = "Evidence checks for this search";
-      const list = document.createElement("ul");
-      checks.forEach(([label, rows]) => {
-        const item = document.createElement("li");
-        item.textContent = `${label}: ${rows.length}`;
-        list.append(item);
-      });
-      const note = document.createElement("p");
-      note.textContent = "These checks apply to the retrieved records. They do not establish the identity of every author in INSPIRE. The JSON export includes the affected records and reasons.";
-      card.append(heading, list, note);
-    }
-    if (extra.length) {
-      const details = document.createElement("details");
-      const sum = document.createElement("summary");
-      sum.textContent = "Recorded queries and failures";
-      details.append(sum);
-      const ul = document.createElement("ul");
-      extra.forEach((x) => {
-        const li = document.createElement("li");
-        li.textContent = typeof x === "string" ? x : JSON.stringify(x);
-        ul.append(li);
-      });
-      details.append(ul);
-      card.append(details);
-    }
-    card.scrollIntoView({ behavior: "smooth", block: "start" });
-  }
   function showTab(id) {
     $$(".tab").forEach((x) => {
       const active = x.dataset.tab === id;
@@ -460,7 +414,7 @@
     holder.append(sub);
     const badge = document.createElement("span");
     badge.className = `status ${p.indexed === false ? "unindexed" : "indexed"}`;
-    badge.textContent = p.indexed === false ? "not in graph" : "in graph";
+    badge.textContent = p.indexed === false ? "not in this release" : "available";
     holder.append(badge);
   }
   function clearPicker(which) {
@@ -496,7 +450,7 @@
     parts.push(`INSPIRE ${p.id}`);
     if (p.affiliations?.length) parts.push(p.affiliations.join("; "));
     if (p.orcid) parts.push(`ORCID ${p.orcid}`);
-    if (result.indexed === false) parts.push("not in graph");
+    if (result.indexed === false) parts.push("not in this release");
     else if (result.indexed_publications != null)
       parts.push(
         `${result.indexed_publications} indexed publication${result.indexed_publications === 1 ? "" : "s"}`,
@@ -597,7 +551,7 @@
     if (data.mode === "database" && data.status === "settled") {
       if (data.route_status === "exact_route_proven") return null;
       if (data.paths?.length) return "This route is documented, but a shorter one has not been ruled out.";
-      if (data.route_status === "no_path") return "No connection was found in this graph version under the selected filters.";
+      if (data.route_status === "no_path") return "No connection was found in this release under the selected filters.";
       return data.message || "The search ended without a proven connection. The absence of a route is not conclusive.";
     }
     const hasPath = Boolean(data.paths?.length);
@@ -612,25 +566,25 @@
         cancelled:
           "The graph search was stopped. The verified path shown is supported by retrieved evidence, but shortestness is not established.",
         upstream_unavailable:
-          "Source details became unavailable after a route was found. The route remains scoped to the pinned graph version, and the search is incomplete.",
+          "Source details became unavailable after a route was found. The result remains scoped to this release, and the search is incomplete.",
       };
       if (data.status === "searching") return withPath.searching;
       if (withPath[data.status]) return data.message || withPath[data.status];
     }
     const messages = {
       not_indexed:
-        "At least one selected researcher is not in the pinned graph, so no connection claim can be calculated.",
+        "At least one selected researcher is not included in this release, so no connection claim can be calculated.",
       no_path:
         "No documented connection was found within the indexed data and selected filters.",
       not_found: "The selected researcher was not found by the active source.",
       search_incomplete:
-        "The graph search ended before exploration was complete; any route shown is scoped to the pinned graph.",
+        "The search ended before exploration was complete; any route shown is scoped to this release.",
       searching:
-        "The live source is still exploring the retrieved graph; no complete connection claim is available yet.",
+        "The search is still exploring source records; no complete connection claim is available yet.",
       cancelled:
-        "The graph search was stopped. Any route shown is an incomplete result from the pinned graph.",
+        "The search was stopped. Any route shown is an incomplete result from this release.",
       upstream_unavailable:
-        "The graph service is temporarily unavailable. Try again shortly.",
+        "The search service is temporarily unavailable. Try again shortly.",
       resource_limit:
         "This calculation reached a resource limit before a path could be established.",
     };
@@ -733,9 +687,9 @@
       retry_upstream: "Waiting briefly for INSPIRE, then retrying automatically",
       discover_coauthors: "Exploring INSPIRE’s coauthor summaries from both ends",
     };
-    const stage = stageLabels[progress.stage] || progress.stage || "exploring stored graph records";
+    const stage = stageLabels[progress.stage] || progress.stage || "exploring source records";
     if (progress.expansions != null)
-      return `${progress.expansions} graph expansions · ${stage}`;
+      return `${progress.expansions} search steps · ${stage}`;
     return `${people} people explored · ${works} works retrieved · ${elapsed} · ${stage}`;
   }
 
@@ -744,17 +698,17 @@
     box.classList.remove("hidden");
     const terminal = data.status !== "searching";
     $("#deep-title").textContent = data.status === "searching"
-      ? (job?.displayed ? "Looking for a shorter route…" : "Exploring the Neon graph…")
+      ? (job?.displayed ? "Looking for a shorter route…" : "Finding a connection…")
       : data.status === "cancelled"
-        ? "Graph search stopped"
+        ? "Search stopped"
       : data.status === "resource_limit"
-          ? "Graph search reached its current limit"
+          ? "Search reached its current limit"
       : data.status === "search_incomplete"
-            ? "Graph search is incomplete"
-            : "Graph search finished";
+            ? "Search is incomplete"
+            : "Search finished";
     $("#deep-summary").textContent = data.progress
       ? deepProgressText(data.progress)
-      : data.message || (terminal ? "The graph search has ended." : "The graph search is starting.");
+      : data.message || (terminal ? "The search has ended." : "The search is starting.");
     const stop = $("#deep-stop"), cont = $("#deep-continue");
     const retryableFailure = data.status === "upstream_unavailable" && job?.jobId;
     stop.classList.toggle("hidden", (terminal && !retryableFailure) || job?.cancelled || job?.continuing);
@@ -984,7 +938,7 @@
   async function continueDeepSearch(job) {
     if (!deepJobCurrent(job) || !job.done || job.continuing) return;
     job.continuing = true;
-    renderDeepProgress({ status: "searching", progress: job.progress, message: "Continuing the graph search." }, job);
+    renderDeepProgress({ status: "searching", progress: job.progress, message: "Continuing the search." }, job);
     try {
       const response = await fetch(deepEndpoint(job, "/continue"), {
         method: "POST",
@@ -1031,7 +985,7 @@
       route_status: job.displayed ? "verified_search_stopped" : "search_incomplete",
       message: job.displayed
         ? "The exact search was stopped. The route shown is verified by retrieved evidence; whether a shorter one exists was not established."
-        : "The graph search was stopped before a route was verified; this result is incomplete.",
+        : "The search was stopped before a route was verified; this result is incomplete.",
     };
     job.lastData = data;
     job.done = true;
@@ -1112,7 +1066,7 @@
     }
     if (!canQuery(state.source) || !canQuery(state.target)) {
       setStatus(
-        "One of the selected researchers is not in the pinned graph. Choose another result.",
+        "One of the selected researchers is not included in this release. Choose another result.",
         "warning",
       );
       return;
@@ -1363,7 +1317,7 @@
       ".edge{stroke:#168b85;stroke-width:2.4;fill:none}.edge.phd{stroke:#b86c06;stroke-dasharray:7 4}.edge.selected{stroke-width:4}.edge-label{font:11px system-ui;fill:#4c626d;paint-order:stroke;stroke:#fff;stroke-width:3}.node circle{fill:#e8f7f5;stroke:#168b85;stroke-width:2.3}.node.path circle{fill:#d1f1ed;stroke-width:3.3}.node.expanded circle{fill:#fff1d8;stroke:#b86c06}.node text{font:12px system-ui;fill:#233e4b;paint-order:stroke;stroke:#fff;stroke-width:3}";
     copy.prepend(style);
     copy.querySelector("desc").textContent =
-      `HEP Graph: bounded display of documented coauthorship and genealogy-only PhD adviser → student ties. ${modeLabel(result.mode || state.mode)} ${result.version || ""}. Filters ${JSON.stringify({ min_authors: 1, ...(result.filters || filters()) })}. ${coverageText(result.coverage)} The displayed neighborhood does not define the calculation graph.`;
+      `HEP Graph: bounded display of documented coauthorship ties. Filters ${JSON.stringify({ min_authors: 1, ...(result.filters || filters()) })}. ${coverageText(result.coverage)} The displayed neighborhood does not define the path calculation.`;
     const blob = new Blob([new XMLSerializer().serializeToString(copy)], {
       type: "image/svg+xml",
     });
@@ -1400,7 +1354,7 @@
       mc.registerTool({
         name: "findConnection",
         description:
-          "Find documented researcher connections in the pinned Neon graph. Searches return a resumable job that can be polled for progress.",
+          "Find documented researcher connections in the published research data. Searches may return a resumable job that can be polled for progress.",
         inputSchema: {
           type: "object",
           properties: {
@@ -1731,7 +1685,7 @@
         $("#path-cards").replaceChildren();
         $("#path-title").textContent = "Bounded local neighborhood";
         $("#path-meta").textContent =
-          `${modeLabel(state.displayGraph.mode || state.mode)} ${state.displayGraph.version || ""} · ${filterDescription(state.displayGraph.filters)} · ${state.mode === "live" ? "retrieved" : "local"} display around ${personName(byId(id))} · this display does not define the calculation graph.`;
+          `${lastUpdatedText()} · ${filterDescription(state.displayGraph.filters)} · neighborhood around ${personName(byId(id))} · this display does not define the path calculation.`;
         fitGraph();
         renderGraph();
       }
@@ -1810,70 +1764,16 @@
     if (!coverage) return;
     card.replaceChildren();
     const h = document.createElement("h2");
-    h.textContent = coverage.label || "Snapshot coverage";
+    h.textContent = "Data coverage";
     const p = document.createElement("p");
-    p.textContent =
-      coverage.description || "No further description was supplied.";
+    p.textContent = `Connections reflect source records available as of ${updateDate(state.dataset?.source_cutoff || state.dataset?.created_at)}. An absent route does not prove that no connection exists outside this release.`;
     const meta = document.createElement("p");
     meta.className = "muted";
     meta.textContent = `Completeness: ${coverage.complete ? "declared complete" : "partial / bounded"} · queries recorded: ${(coverage.queries || []).length} · failures recorded: ${(coverage.failures || []).length}`;
     card.append(h, p, meta);
   }
   function displayCoverage(coverage) {
-    $("#coverage-text").textContent = coverageText(coverage);
     populateAbout(coverage);
-    if (coverage) {
-      const extra = [...(coverage.queries || []), ...(coverage.failures || [])];
-      $("#coverage-details").onclick = () =>
-        showCoverageDetails(coverage, extra);
-    }
-  }
-  function populateExamples() {
-    const select = $("#example-select");
-    const picker = select.closest(".example-picker");
-    if (picker) picker.hidden = false;
-    select.replaceChildren();
-    const examples = state.dataset?.examples || [];
-    if (!examples.length) {
-      const option = document.createElement("option");
-      option.textContent = "No examples supplied";
-      option.value = "";
-      select.append(option);
-      return;
-    }
-    examples.forEach((e, i) => {
-      const o = document.createElement("option");
-      o.value = String(i);
-      o.textContent = e.label || `Example ${i + 1}`;
-      select.append(o);
-    });
-  }
-  async function loadExample() {
-    const e =
-      state.dataset?.examples?.[Number($("#example-select").value) || 0];
-    if (!e) {
-      setStatus("No example pair is supplied by this graph version.", "warning");
-      return;
-    }
-    invalidateResults();
-    const revision = state.revision;
-    try {
-      const people = await Promise.all([
-        resolvePerson(e.source),
-        resolvePerson(e.target),
-      ]);
-      if (revision !== state.revision) return;
-      [state.source, state.target] = people;
-      renderPicker("source");
-      renderPicker("target");
-      syncUrl();
-      findPath();
-    } catch (err) {
-      setStatus(
-        `The example could not be resolved: ${err.message}`,
-        "error",
-      );
-    }
   }
   async function loadDataset({ restoreQuery = true } = {}) {
     const revision = state.revision;
@@ -1881,20 +1781,16 @@
       const d = await api("/api/dataset?mode=database");
       if (revision !== state.revision) return;
       state.dataset = d;
-      if (d.source_mode !== "database") throw new Error("The service did not return a pinned graph database.");
+      if (d.source_mode !== "database") throw new Error("The research data is unavailable.");
       state.mode = "database";
       if (d.capabilities?.genealogy !== true) {
         $("#genealogy").checked = false;
         $("#genealogy").disabled = true;
-        $("#genealogy-note").textContent = "Not in this graph version; routes use coauthorship only.";
+        $("#genealogy-note").textContent = "Not in this release; routes use coauthorship only.";
         updateFilterSummary({ invalidate: false });
       }
-      $("#coverage-banner strong").textContent = `${modeLabel()} coverage`;
-      $("#snapshot-label").textContent = `${modeLabel()} · ${d.version || "unknown"}`;
-      $("#footer-version").textContent =
-        `${modeLabel()} · ${d.version || "unknown"} · ${d.created_at ? formatDate(d.created_at) : "date not supplied"}`;
+      $("#last-updated").textContent = lastUpdatedText();
       displayCoverage(d.coverage);
-      populateExamples();
       clearStatus();
       if (!state.restoring) syncUrl();
       $("#version-warning").classList.add("hidden");
@@ -1922,8 +1818,7 @@
         }
       }
     } catch (e) {
-      $("#snapshot-label").textContent = "Graph unavailable";
-      setStatus(`Could not load the Neon graph: ${e.message}`, "error");
+      setStatus(`Could not load the research data: ${e.message}`, "error");
     }
   }
 
@@ -1965,12 +1860,12 @@
     const hasPath = Boolean(data.paths?.length);
     const incomplete = ["search_incomplete", "resource_limit", "cancelled", "upstream_unavailable"].includes(data.status);
     const precision = data.global_shortest_proven === true
-      ? "proven shortest in this graph version and filters"
+      ? "proven shortest in this release and filters"
       : hasPath
         ? "verified route; shortestness not established"
         : incomplete || data.route_status !== "no_path"
           ? "search incomplete; no no-path conclusion"
-          : "no path in this graph version and filters";
+          : "no path in this release and filters";
     const retrievalInfo = data.retrieval || data.coverage?.retrieved;
     const retrieval = retrievalInfo
       ? ` · retrieved ${retrievalInfo.people ?? retrievalInfo.profiles ?? "?"} people / ${retrievalInfo.works ?? "?"} works${data.retrieval?.truncated || data.coverage?.partial ? " · truncated" : ""}`
@@ -1981,7 +1876,7 @@
         metrics.time_to_exact_proof != null ? `, proven shortest after ${seconds(metrics.time_to_exact_proof)}` : ""}`
       : "";
     $("#path-meta").textContent =
-      `${modeLabel()} ${data.version || state.dataset?.version || "unknown"} · ${precision} · ${filterDescription(scopedFilters)} · scope: ${data.coverage?.label || data.coverage?.description || "pinned Neon graph"}${retrieval}${timing}`;
+      `${lastUpdatedText()} · ${precision} · ${filterDescription(scopedFilters)}${retrieval}${timing}`;
     displayCoverage(data.coverage || state.dataset?.coverage);
   }
 
@@ -2113,7 +2008,7 @@
       content.append(stats);
       const scope = document.createElement("p");
       scope.className = "profile-meta";
-      scope.textContent = `Neon graph ${d.version || state.dataset?.version || "unknown"}. Counts refer to this pinned graph version, not all upstream publications. Active filters: ${filterDescription(d.filters || filters())}. Paper eligibility controls eligible works; the repeat threshold controls coauthor ties.`;
+      scope.textContent = `${lastUpdatedText()}. Counts refer to this release, not all upstream publications. Active filters: ${filterDescription(d.filters || filters())}. Paper eligibility controls eligible works; the repeat threshold controls coauthor ties.`;
       content.append(scope);
       const actions = document.createElement("div");
       actions.className = "profile-actions";
@@ -2200,7 +2095,7 @@
         pu.append(li);
       });
       if (!pu.children.length)
-        pu.textContent = "No doctoral records in this graph version.";
+        pu.textContent = "No doctoral records in this release.";
       phd.append(ph, pu);
       content.append(phd);
       displayCoverage(d.coverage || state.dataset?.coverage);
@@ -2260,7 +2155,6 @@
     ].forEach((id) =>
       $("#" + id).addEventListener("change", () => updateFilterSummary()),
     );
-    $("#load-example").addEventListener("click", loadExample);
     $("#copy-share").addEventListener("click", copyShare);
     $("#deep-stop").addEventListener("click", stopDeepSearch);
     $("#deep-continue").addEventListener("click", () => {

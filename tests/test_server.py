@@ -151,7 +151,7 @@ def test_health_and_dataset_describe_the_pinned_graph(service):
     assert payload["source_mode"] == "database"
     assert payload["version"] == "graph-db:stub-import"
     assert payload["capabilities"]["live_graph"] is False
-    assert payload["examples"]
+    assert "examples" not in payload
 
 
 def test_an_unconfigured_deployment_refuses_instead_of_pretending(service):
@@ -161,7 +161,7 @@ def test_an_unconfigured_deployment_refuses_instead_of_pretending(service):
     assert status == 503
     payload = _json(body)
     assert payload["status"] == "unavailable"
-    assert "no pinned graph database" in payload["message"]
+    assert "no published research data" in payload["message"]
 
 
 def test_route_search_reaches_the_database_with_parsed_filters(service):
@@ -226,7 +226,7 @@ def test_the_removed_live_mode_is_rejected_not_silently_ignored(service):
     base, _, _ = service
     status, _, body = base.request("/api/path?mode=live&source=101&target=102")
     assert status == 400
-    assert "pinned graph database" in _json(body)["message"]
+    assert "search source is unavailable" in _json(body)["message"]
 
 
 def test_excessive_parameters_and_url_length_are_rejected(service):
