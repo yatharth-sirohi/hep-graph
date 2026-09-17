@@ -1159,11 +1159,23 @@ def state_at(entity: Any, selection: Any, *, build_date: Any = None) -> dict | N
         return None
     y_lo, y_hi = selection_bounds(selection)
     candidates: list[tuple[tuple, dict, str]] = []
-    for index, row in enumerate(_entity_intervals(entity, lifecycle_only=True)):
+    annotations: list[tuple[tuple, dict, str]] = []
+    for index, row in enumerate(_entity_intervals(entity)):
         coverage = interval_coverage(row, y_lo, y_hi, build_date=build)
         if coverage is None:
             continue
-        candidates.append((_state_sort_key(row, coverage, index), row, coverage))
+        item = (_state_sort_key(row, coverage, index), row, coverage)
+        if (row.get('kind') or 'lifecycle') == 'lifecycle':
+            candidates.append(item)
+        else:
+            annotations.append(item)
+    # A3: a run or a phase annotates a state rather than being one, so it only
+    # decides the answer where no lifecycle interval covers the selection. A run
+    # is how an experiment's operating years are usually recorded, but an
+    # open-ended milestone such as a groundbreaking must never outrank the
+    # operating interval that follows it.
+    if not candidates:
+        candidates = annotations
     if not candidates:
         return {'status': UNRECORDED, 'certainty': 'possible', 'secondary': []}
     strong = [item for item in candidates
