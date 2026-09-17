@@ -283,15 +283,17 @@ def read_map(connection: Any, overlay_id: str, version: str) -> dict[str, Any]:
         return {"status": "unavailable",
                 "message": "The lineage map has not been built for this release."}
     index = {}
-    nodes, names = [], {}
+    # Names ride alongside the nodes in the same order rather than in a map
+    # keyed by id: at this size the repeated keys alone cost about 600 kB, and
+    # the response has a hard ceiling on the platform that serves it.
+    index = {}
+    nodes, names = [], []
     width = height = 0
     for position, row in enumerate(rows):
         person, x, y = int(_at(row, 0)), int(_at(row, 1)), int(_at(row, 2))
         index[person] = position
         nodes.append([person, x, y, int(_at(row, 3)), int(_at(row, 4))])
-        name = _at(row, 5)
-        if name:
-            names[str(person)] = name
+        names.append(_at(row, 5) or "")
         width, height = max(width, x), max(height, y)
     edges = [[index[adviser], index[student]]
              for adviser, student in read_edges(connection, overlay_id)
@@ -299,7 +301,8 @@ def read_map(connection: Any, overlay_id: str, version: str) -> dict[str, Any]:
     components = len({_at(row, 6) for row in rows})
     return {"status": "ok", "version": version, "overlay": overlay_id,
             "counts": {"people": len(nodes), "relations": len(edges),
-                       "components": components, "named": len(names)},
+                       "components": components,
+                       "named": sum(1 for name in names if name)},
             "bounds": {"width": width + 200, "height": height + 200},
             "nodes": nodes, "names": names, "edges": edges}
 

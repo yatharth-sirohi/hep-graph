@@ -8,6 +8,8 @@ dropped.
 
 from __future__ import annotations
 
+import os
+
 import pytest
 
 from hepgraph.lineage_map import COLUMN, ROW, build_layout
@@ -85,3 +87,45 @@ def test_multiple_advisers_keep_one_position_each():
     found = by_id(nodes)
     assert found[3]["generation"] == 1
     assert found[1]["component"] == found[2]["component"] == found[3]["component"]
+
+
+# ------------------------------------------------------- the served payload
+
+URL = os.environ.get("HEPGRAPH_TEST_DATABASE_URL")
+
+
+@pytest.mark.skipif(not URL, reason="HEPGRAPH_TEST_DATABASE_URL is not set")
+def test_names_ride_alongside_the_nodes_in_the_same_order():
+    """65,843 repeated id keys cost ~600 kB against a hard response ceiling."""
+    psycopg = pytest.importorskip("psycopg")
+    from hepgraph.genealogy_import import SCHEMA as OVERLAY_SCHEMA
+    from hepgraph.lineage_map import SCHEMA, read_map, store_layout
+
+    overlay = "map-payload-test"
+    connection = psycopg.connect(URL, autocommit=True, row_factory=psycopg.rows.dict_row)
+    connection.execute(OVERLAY_SCHEMA)
+    connection.execute(SCHEMA)
+    connection.execute("INSERT INTO graph_genealogy_overlay(overlay_id,source_description,"
+                       "source_cutoff) VALUES (%s,'test',now()) ON CONFLICT DO NOTHING", (overlay,))
+    connection.execute("DELETE FROM graph_genealogy_edge WHERE overlay_id=%s", (overlay,))
+    connection.execute("DELETE FROM graph_lineage_layout WHERE overlay_id=%s", (overlay,))
+    connection.execute("DELETE FROM graph_genealogy_person WHERE overlay_id=%s", (overlay,))
+    connection.execute(
+        "INSERT INTO graph_genealogy_edge(overlay_id,adviser_id,student_id,source_record,degree)"
+        " VALUES (%s,7,8,'8','phd'), (%s,7,9,'9','other')", (overlay, overlay))
+    connection.execute("INSERT INTO graph_genealogy_person(overlay_id,person_id,name) "
+                       "VALUES (%s,7,'Adviser Seven')", (overlay,))
+    nodes, _ = build_layout([(7, 8), (7, 9)])
+    store_layout(connection, overlay, nodes)
+    try:
+        payload = read_map(connection, overlay, "v-test")
+        assert isinstance(payload["names"], list)
+        assert len(payload["names"]) == len(payload["nodes"]) == 3
+        by_id = {node[0]: payload["names"][i] for i, node in enumerate(payload["nodes"])}
+        assert by_id[7] == "Adviser Seven"
+        assert by_id[8] == "" and by_id[9] == ""   # unnamed, but still placed
+        assert payload["counts"]["named"] == 1
+        # An 'other' relation is a relation: both students are on the map.
+        assert payload["counts"]["relations"] == 2
+    finally:
+        connection.close()

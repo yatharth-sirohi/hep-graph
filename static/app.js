@@ -2646,7 +2646,7 @@
     const m = mapState;
     const nodes = Array.isArray(data.nodes) ? data.nodes : [];
     const rawEdges = Array.isArray(data.edges) ? data.edges : [];
-    const rawNames = data.names && typeof data.names === "object" ? data.names : {};
+    const rawNames = Array.isArray(data.names) ? data.names : [];
     const n = nodes.length;
     if (!n) {
       mapUnavailable(
@@ -2685,9 +2685,9 @@
         if (y < minY) minY = y;
         if (y > maxY) maxY = y;
         if (m.gens[i] > maxGen) maxGen = m.gens[i];
-        const name = rawNames[String(m.ids[i])];
+        const name = rawNames[i];
         m.names[i] = typeof name === "string" ? name : "";
-        m.lower[i] = m.names[i] ? m.names[i].toLowerCase() : "";
+        m.lower[i] = m.names[i] ? foldName(m.names[i]) : "";
       }
     });
     if (!ok) return;
@@ -3393,10 +3393,26 @@
     );
   }
 
-  /* Search runs over precomputed lowercase names, so it stays instant. */
+  /* Half this corpus is spelled with diacritics - Lüst, Söldner-Rembold,
+     Helayël-Neto - and people type the plain letters. Search compares folded
+     forms so "Dieter Lust" finds "Dieter Lüst"; the map still draws the real
+     spelling. */
+  function foldName(value) {
+    return String(value)
+      .normalize("NFD")
+      .replace(/\p{Diacritic}/gu, "")
+      .replace(/[øØ]/g, "o")
+      .replace(/[đĐ]/g, "d")
+      .replace(/[łŁ]/g, "l")
+      .replace(/[æ]/g, "ae")
+      .replace(/[ß]/g, "ss")
+      .toLowerCase();
+  }
+
+  /* Search runs over precomputed folded names, so it stays instant. */
   function mapSearch(query) {
     const m = mapState;
-    const q = query.trim().toLowerCase();
+    const q = foldName(query.trim());
     if (m.status !== "ready" || q.length < 2) return [];
     const digits = /^\d+$/.test(q);
     const best = [];

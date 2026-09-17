@@ -75,6 +75,10 @@ class StubDatabase:
     def cancel(self, job_id):
         return {"job_id": job_id, "status": "cancelled"}
 
+    def lineage_map(self):
+        return {"status": "ok", "version": "v1", "nodes": [[7, 0, 0, 0, 2]] * 400,
+                "names": ["Adviser Seven"] * 400, "edges": [], "counts": {"people": 400}}
+
 
 @pytest.fixture
 def service(monkeypatch: pytest.MonkeyPatch):
@@ -84,12 +88,13 @@ def service(monkeypatch: pytest.MonkeyPatch):
         def __init__(self):
             self.state = server_module.State()
 
-        def request(self, path, *, method="GET", body=None, database=stub):
+        def request(self, path, *, method="GET", body=None, database=stub, extra_headers=()):
             monkeypatch.setattr(self.state, "graph_database", lambda: database)
             left, right = socket.socketpair()
             left.settimeout(5)
             try:
-                headers = [f"{method} {path} HTTP/1.1", "Host: localhost", "Connection: close"]
+                headers = [f"{method} {path} HTTP/1.1", "Host: localhost", "Connection: close",
+                           *extra_headers]
                 if body is not None:
                     headers.append(f"Content-Length: {len(body)}")
                 payload = ("\r\n".join(headers) + "\r\n\r\n").encode() + (body or b"")
@@ -255,3 +260,25 @@ def test_head_has_no_body_and_post_is_limited_to_search_controls(service):
     status, headers, body = base.request("/api/health", method="HEAD")
     assert status == 200 and body == b""
     assert base.request("/api/dataset", method="POST", body=b"")[0] == 501
+
+
+def test_the_map_drops_names_rather_than_exceeding_the_response_limit(service):
+    """Compressed the map fits; sent whole it does not, and a 5 MB reply is an error.
+
+    Names are the compressible bulk and the one part the map can draw without,
+    so a client that cannot take gzip gets a drawable map instead of a failure.
+    """
+    local, _, _ = service
+    status, headers, body = local.request("/api/lineage-map")
+    assert status == 200 and "Content-Encoding" not in headers
+    plain = _json(body)
+    assert plain["names"] == [] and plain["names_omitted"] is True
+    assert len(plain["nodes"]) == 400          # the map itself is untouched
+
+    status, headers, body = local.request(
+        "/api/lineage-map", extra_headers=["Accept-Encoding: gzip"])
+    assert status == 200 and headers["Content-Encoding"] == "gzip"
+    import gzip as gziplib
+
+    sent = _json(gziplib.decompress(body))
+    assert len(sent["names"]) == 400 and "names_omitted" not in sent

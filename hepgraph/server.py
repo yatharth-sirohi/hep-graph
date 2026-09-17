@@ -405,6 +405,13 @@ class Handler(BaseHTTPRequestHandler):
             # max-age would keep showing the old map after a rebuild, so the
             # browser revalidates every time and an unchanged map costs a 304.
             payload = database.lineage_map()
+            # The platform caps a response at 4.5 MB. Compressed this map is
+            # about 1.2 MB, but a client that cannot take gzip would be sent
+            # the whole 5 MB and get an error instead of a map. Names are the
+            # compressible bulk and the only part the map can draw without, so
+            # they are what gives way - the map still renders, with ids.
+            if 'gzip' not in (self.headers.get('Accept-Encoding') or ''):
+                payload = payload | {'names': [], 'names_omitted': True}
             body = json.dumps(payload, ensure_ascii=False, allow_nan=False).encode()
             etag = 'W/"' + hashlib.sha256(body).hexdigest()[:32] + '"'
             if self.headers.get('If-None-Match') == etag:
