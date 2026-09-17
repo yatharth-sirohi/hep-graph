@@ -115,3 +115,39 @@ def test_ingest_counts_what_it_refused_rather_than_dropping_it(database):
     assert len(summary["refused"]) == 3
     assert database.execute(
         "SELECT count(*) AS n FROM graph_genealogy_research").fetchone()["n"] == 1
+
+
+def test_accepting_a_lead_keeps_its_provenance_and_its_citation(database):
+    from hepgraph.genealogy_research import accept
+    from hepgraph.graph_database_mode import evidence_url
+
+    lead = dict(GOOD, evidence_url="https://www.wikidata.org/wiki/Q7186")
+    record(database, Lead(40, 30, **lead), researcher="wikidata-p184", overlay_id=OVERLAY)
+    summary = accept(database, researcher="wikidata-p184", source_kind="wikidata",
+                     overlay_id=OVERLAY)
+    assert summary == {"rejected": 0, "promoted": 1}
+    row = database.execute(
+        "SELECT source_kind, source_record, degree FROM graph_genealogy_edge "
+        "WHERE overlay_id=%s AND adviser_id=30 AND student_id=40", (OVERLAY,)).fetchone()
+    assert row["source_kind"] == "wikidata" and row["source_record"] == "Q7186"
+    assert evidence_url(row["source_kind"], row["source_record"]) == lead["evidence_url"]
+    assert database.execute(
+        "SELECT status FROM graph_genealogy_research WHERE student_id=40").fetchone()[
+            "status"] == "accepted"
+
+
+def test_a_lead_that_reverses_inspire_is_rejected_rather_than_served(database):
+    """INSPIRE says 30 advised 20; a source claiming the reverse cannot also be true."""
+    from hepgraph.genealogy_research import accept
+
+    record(database, Lead(30, 20, **GOOD), researcher="wikidata-p184", overlay_id=OVERLAY)
+    summary = accept(database, researcher="wikidata-p184", source_kind="wikidata",
+                     overlay_id=OVERLAY)
+    assert summary["rejected"] == 1 and summary["promoted"] == 0
+    row = database.execute(
+        "SELECT status, reviewed_note FROM graph_genealogy_research "
+        "WHERE student_id=30 AND adviser_id=20").fetchone()
+    assert row["status"] == "rejected" and "opposite direction" in row["reviewed_note"]
+    assert database.execute(
+        "SELECT count(*) AS n FROM graph_genealogy_edge WHERE overlay_id=%s "
+        "AND adviser_id=20 AND student_id=30", (OVERLAY,)).fetchone()["n"] == 0

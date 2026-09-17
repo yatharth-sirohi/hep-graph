@@ -203,6 +203,42 @@ def ingest(connection: Any, lines: list[str], *, researcher: str,
     return summary
 
 
+def accept(connection: Any, *, researcher: str, source_kind: str,
+           overlay_id: str = "inspire-genealogy") -> dict[str, Any]:
+    """Serve the pending leads from one researcher, keeping their provenance.
+
+    A promoted lead keeps its own ``source_kind`` and its citation as the source
+    record, so the interface can say where it came from and never present it as
+    something INSPIRE published. A lead that reverses a relation INSPIRE already
+    records is rejected instead: the two cannot both be true, and INSPIRE is
+    this project's authority.
+    """
+    reversed_rows = connection.execute(
+        "SELECT r.student_id, r.adviser_id FROM graph_genealogy_research r "
+        "JOIN graph_genealogy_edge e ON e.overlay_id = r.overlay_id "
+        " AND e.adviser_id = r.student_id AND e.student_id = r.adviser_id "
+        "WHERE r.overlay_id=%s AND r.researcher=%s AND r.status='pending'",
+        (overlay_id, researcher)).fetchall()
+    for row in reversed_rows:
+        connection.execute(
+            "UPDATE graph_genealogy_research SET status='rejected', "
+            "reviewed_note='INSPIRE records this relation in the opposite direction' "
+            "WHERE overlay_id=%s AND student_id=%s AND adviser_id=%s",
+            (overlay_id, _at(row, 0), _at(row, 1)))
+    promoted = connection.execute(
+        "WITH taken AS ("
+        " UPDATE graph_genealogy_research SET status='accepted' "
+        "  WHERE overlay_id=%s AND researcher=%s AND status='pending' "
+        "  RETURNING student_id, adviser_id, degree, evidence_url) "
+        "INSERT INTO graph_genealogy_edge(overlay_id,adviser_id,student_id,source_record,"
+        "degree,year,curated,source_kind) "
+        "SELECT %s, adviser_id, student_id, "
+        "       regexp_replace(evidence_url, '^.*/', ''), COALESCE(degree,'phd'), NULL, FALSE, %s "
+        "  FROM taken ON CONFLICT DO NOTHING",
+        (overlay_id, researcher, overlay_id, source_kind))
+    return {"rejected": len(reversed_rows), "promoted": promoted.rowcount}
+
+
 def main(argv: list[str] | None = None) -> int:
     import argparse
     import json
@@ -218,6 +254,10 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--offset", type=int, default=0)
     parser.add_argument("--researcher", default="subagent",
                         help="which model produced the leads being ingested")
+    parser.add_argument("--accept", metavar="RESEARCHER",
+                        help="serve that researcher's pending leads, keeping their provenance")
+    parser.add_argument("--source-kind", default="wikidata",
+                        help="the provenance label promoted leads carry")
     parser.add_argument("leads", nargs="*", help="JSONL files written by research agents")
     args = parser.parse_args(argv)
     if not args.database_url:
@@ -232,8 +272,13 @@ def main(argv: list[str] | None = None) -> int:
             print(json.dumps(targets(connection, args.overlay_id, limit=args.targets,
                                      offset=args.offset), indent=1))
             return 0
+        if args.accept:
+            print(json.dumps(accept(connection, researcher=args.accept,
+                                    source_kind=args.source_kind,
+                                    overlay_id=args.overlay_id), indent=1))
+            return 0
         if not args.leads:
-            parser.error("give at least one leads file, or --targets N")
+            parser.error("give at least one leads file, --targets N, or --accept RESEARCHER")
         total = {"stored": 0, "missed": 0, "refused": []}
         for path in args.leads:
             summary = ingest(connection, pathlib.Path(path).read_text().splitlines(),

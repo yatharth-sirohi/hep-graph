@@ -29,6 +29,19 @@ from .neon_graph_provider import (ADVISER_DEGREES, CoverageClaim, GenealogyOverl
                                   observe_coverage)
 
 
+def evidence_url(source_kind: Any, source_record: str) -> str:
+    """Where a reader can check this relation for themselves.
+
+    A thesis names its supervisors on a literature record, an adviser field
+    lives on the student's author profile, and a Wikidata relation lives on the
+    item that states it. Each links to what actually carries the claim.
+    """
+    if source_kind == "wikidata":
+        return f"https://www.wikidata.org/wiki/{source_record}"
+    collection = "literature" if source_kind == "thesis" else "authors"
+    return f"https://inspirehep.net/{collection}/{source_record}"
+
+
 @dataclass(frozen=True)
 class DatabaseModeConfig:
     url: str
@@ -310,14 +323,10 @@ class DatabaseGraphService:
         for row in rows:
             adviser, student = str(_at(row, 0)), str(_at(row, 1))
             source_record, source_kind = str(_at(row, 2)), _at(row, 5)
-            # A thesis names its supervisors on a literature record; an adviser
-            # field lives on the student's author profile. Link to whichever the
-            # relation was actually read from.
-            collection = "literature" if source_kind == "thesis" else "authors"
             record = {"adviser": adviser, "student": student,
                       "source_record": source_record, "degree": _at(row, 3),
                       "curated": bool(_at(row, 4)), "source_kind": source_kind,
-                      "source_url": f"https://inspirehep.net/{collection}/{source_record}"}
+                      "source_url": evidence_url(source_kind, source_record)}
             empty["advisers" if student == str(person_id) else "students"].append(record)
         return empty
 

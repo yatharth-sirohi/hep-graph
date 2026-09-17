@@ -356,6 +356,28 @@ authors, so an empty lineage is usually upstream silence rather than an
 orphan. A further 5,241 records name an adviser INSPIRE has no record for;
 those are counted, never matched by name.
 
+**Wikidata supplies 854 relations INSPIRE does not have.** Wikidata states
+`doctoral advisor` (P184) between items, and physics items often carry
+`INSPIRE-HEP author ID` (P2930). Where both ends have one, the relation arrives
+as *identifier to identifier*, with no name to match:
+`hepgraph/wikidata_genealogy.py` resolves each BAI against INSPIRE and drops any
+that does not resolve to exactly one record. Of 2,404 such pairs, 970 are
+relations INSPIRE already records - an agreement rate that is itself the
+quality check - and 854 are new, reaching 584 people the map did not hold at
+all. They are served with `source_kind = 'wikidata'` and link to the item that
+states them, so nothing Wikidata says is presented as something INSPIRE
+published. A lead reversing a relation INSPIRE records is rejected, not served.
+
+**Web research by language models was measured and mostly failed.** A pilot put
+three weak-model agents on 18 people with instructions to cite sources. They
+reported 13 high-confidence finds; verification against the cited pages upheld
+**one**. Five cited the person's own INSPIRE record and quoted a
+`"Doctoral Advisor:"` line that does not exist there, most of the rest
+rediscovered `other`-typed relations the overlay already held, and one swapped
+two record ids. The lesson is not that the agents were careless but that prose
+sources let a model produce text shaped like evidence; a source keyed on
+identifiers does not. Verify before storing, and prefer structured sources.
+
 **Web research is staged, not merged.** `hepgraph/genealogy_research.py` holds
 leads found off the open web in `graph_genealogy_research`: each carries the URL
 it came from, a quote from that source, and why the adviser resolves to *that*

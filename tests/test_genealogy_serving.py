@@ -272,3 +272,23 @@ def test_an_adviser_inspire_left_untyped_is_still_an_adviser(database):
     finally:
         database.execute("DELETE FROM graph_genealogy_edge WHERE overlay_id=%s "
                          "AND adviser_id IN (42,43)", (OVERLAY_ID,))
+
+
+def test_a_loop_withdraws_the_weaker_claim_not_the_explicit_doctorate(database):
+    """INSPIRE typed one direction 'phd' and the reverse not at all; keep the doctorate."""
+    from hepgraph.genealogy_import import quarantine_cycles
+
+    database.execute(
+        "INSERT INTO graph_genealogy_edge(overlay_id,adviser_id,student_id,source_record,degree)"
+        " VALUES (%s,51,52,'52','phd'), (%s,52,51,'51','other')", (OVERLAY_ID, OVERLAY_ID))
+    try:
+        withdrawn = quarantine_cycles(database, OVERLAY_ID)
+        assert [(item["adviser"], item["student"]) for item in withdrawn] == [(52, 51)]
+        kept = database.execute(
+            "SELECT degree FROM graph_genealogy_edge WHERE overlay_id=%s AND adviser_id=51 "
+            "AND student_id=52", (OVERLAY_ID,)).fetchone()
+        assert kept["degree"] == "phd"
+    finally:
+        database.execute("DELETE FROM graph_genealogy_edge WHERE overlay_id=%s "
+                         "AND adviser_id IN (51,52)", (OVERLAY_ID,))
+        database.execute("DELETE FROM graph_genealogy_quarantine WHERE overlay_id=%s", (OVERLAY_ID,))

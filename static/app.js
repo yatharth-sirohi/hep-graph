@@ -2128,12 +2128,14 @@
   // Adviser→student records only. A person may have several advisers, so the
   // rendering groups people by generation and lists every documented relation
   // that reached them rather than assuming a single parent.
-  /* INSPIRE records supervision in two places, and they are not equally
+  /* Supervision is recorded in more than one place, and they are not equally
      direct: a thesis names its own supervisors, an author profile is a claim
-     on the student's own record. Say which one a relation rests on. */
+     on the student's own record, and a Wikidata relation is not INSPIRE's at
+     all. Say which one a relation rests on. */
   function sourceLabel(relation) {
     const record = relation.source_record;
     if (record == null || record === "") return "source record";
+    if (relation.source_kind === "wikidata") return `Wikidata ${record}`;
     return relation.source_kind === "thesis"
       ? `thesis ${record}`
       : `author record ${record}`;

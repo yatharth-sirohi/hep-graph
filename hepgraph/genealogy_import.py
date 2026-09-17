@@ -265,10 +265,16 @@ def quarantine_cycles(connection: Any, overlay_id: str = "inspire-genealogy") ->
     INSPIRE is taken at its word, but a person cannot be their own academic
     ancestor, and a loop would make "generation" meaningless. Such a loop is a
     record error - typically a thesis whose author link points at the wrong
-    person. One relation per loop is withdrawn, chosen without any judgement
-    about who is right: the pair with the least supporting evidence, a thesis
-    before an author profile, then the most recently created record. Withdrawn
-    rows are kept, with the reason, rather than deleted.
+    person, or a profile listing a student in the adviser field.
+
+    One relation per loop is withdrawn, and which one is decided by how much
+    the source itself commits to it, strongest last: a relation INSPIRE typed
+    as a doctorate outranks one it left unrecorded, more supporting records
+    outrank fewer, an author profile outranks a thesis, and an older record
+    outranks a newer one. Degree has to come first - without it the rule
+    withdrew INSPIRE's explicit "Vilanova advised Lethuillier (phd)" and kept
+    the untyped claim of the reverse. Withdrawn rows are kept, with the reason,
+    rather than deleted.
     """
     withdrawn: list[dict[str, Any]] = []
     while True:
@@ -280,14 +286,16 @@ def quarantine_cycles(connection: Any, overlay_id: str = "inspire-genealogy") ->
         if loop is None:
             return withdrawn
 
-        def weight(pair: tuple[int, int]) -> tuple[int, int, int]:
+        def weight(pair: tuple[int, int]) -> tuple[int, int, int, int]:
             rows = connection.execute(
-                "SELECT source_kind, source_record FROM graph_genealogy_edge WHERE overlay_id=%s "
-                "AND COALESCE(degree,'other') = ANY(%s) AND adviser_id=%s AND student_id=%s",
+                "SELECT source_kind, source_record, degree FROM graph_genealogy_edge "
+                "WHERE overlay_id=%s AND COALESCE(degree,'other') = ANY(%s) "
+                "AND adviser_id=%s AND student_id=%s",
                 (overlay_id, list(ADVISER_DEGREES), *pair)).fetchall()
+            doctoral = any(_at(r, 2) == "phd" for r in rows)
             profile = any(_at(r, 0) != "thesis" for r in rows)
             newest = max(int(_at(r, 1)) for r in rows)
-            return (len(rows), int(profile), -newest)
+            return (int(doctoral), len(rows), int(profile), -newest)
 
         adviser, student = min(loop, key=weight)
         reason = "doctoral loop: " + " -> ".join(str(a) for a, _ in loop) + f" -> {loop[-1][1]}"
