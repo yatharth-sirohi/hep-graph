@@ -716,7 +716,7 @@ input {
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 12px;
 }
 .source-meta {
   font-size: 12px;
@@ -725,6 +725,49 @@ input {
 .source-access {
   font-size: 11px;
   color: var(--muted);
+}
+/* provenance.js's grouped-by-claim Sources disclosure (task A4): one claim
+   label, its quote/locator and confidence, then the sources that back it —
+   the raw JSON pointer stays available (title attribute + this small line)
+   but is no longer the headline. */
+.claim-group {
+  border-left: 2px solid var(--line-strong);
+  padding-left: 10px;
+}
+.claim-label {
+  font-weight: 600;
+}
+.claim-evidence {
+  font-size: 13px;
+  color: var(--muted);
+  font-style: italic;
+}
+.claim-confidence {
+  font-size: 12px;
+  color: var(--muted);
+}
+.claim-sources {
+  list-style: none;
+  padding: 0;
+  margin: 4px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.claim-source {
+  font-size: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: baseline;
+}
+.source-type {
+  color: var(--muted);
+}
+.claim-field {
+  font-size: 10px;
+  color: var(--muted);
+  opacity: 0.7;
 }
 .site-location-note {
   font-size: 12px;
@@ -785,6 +828,11 @@ input {
   padding: 7px 14px;
   cursor: pointer;
   font-weight: 600;
+}
+.primary-btn:disabled {
+  background: var(--panel-2);
+  color: var(--muted);
+  cursor: not-allowed;
 }
 .loading-note {
   color: var(--muted);

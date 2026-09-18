@@ -170,7 +170,7 @@ function renderDocsMode() {
   ])));
   return h('div', { class: 'mode-body' }, [
     h('h2', {}, 'Document library'),
-    list.children.length ? list : h('p', { class: 'empty-note' }, 'No documents available.'),
+    list.children.length ? list : h('p', { class: 'empty-note' }, 'No documents curated yet.'),
   ]);
 }
 

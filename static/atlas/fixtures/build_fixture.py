@@ -113,6 +113,52 @@ def q(value, unit, display, dimension):
     return {"value": value, "unit": unit, "display": display, "dimension": dimension}
 
 
+_ARXIV_ID_RE = re.compile(r'^([0-9]{4}\.[0-9]{4,5}|[a-z-]+(?:\.[A-Za-z-]+)?/[0-9]{7})(?:v\d+)?$')
+_ARXIV_URL_RE = re.compile(
+    r'^(?:https?://)?(?:www\.)?arxiv\.org/(?:abs|pdf)/([^\s?#]+?)(?:\.pdf)?/?$', re.IGNORECASE)
+_DOI_URL_RE = re.compile(r'^(?:https?://)?(?:dx\.)?doi\.org/(.+)$', re.IGNORECASE)
+
+
+def _normalize_arxiv_id(value):
+    if not isinstance(value, str) or not value.strip():
+        return None
+    text_ = value.strip()
+    m = _ARXIV_URL_RE.match(text_)
+    if m:
+        text_ = m.group(1)
+    m = _ARXIV_ID_RE.match(text_)
+    return m.group(1) if m else None
+
+
+def _normalize_doi(value):
+    if not isinstance(value, str) or not value.strip():
+        return None
+    text_ = value.strip()
+    m = _DOI_URL_RE.match(text_)
+    if m:
+        text_ = m.group(1)
+    text_ = text_.strip('/')
+    return text_.lower() or None
+
+
+def official_url_kind(official_url, publication):
+    """Mirrors hepgraph/atlas/build.py's `_official_url_kind` (A4): whether
+    `official_url` restates `publication.arxiv`/`.doi` under another name, so
+    the panel never shows the same target twice. Kept independent (not
+    imported) because this script builds the dev-fixtures tree standalone,
+    without the ontology pipeline `hepgraph.atlas.build` runs against."""
+    if not official_url:
+        return None
+    publication = publication if isinstance(publication, dict) else {}
+    official_arxiv = _normalize_arxiv_id(official_url)
+    if official_arxiv and official_arxiv == _normalize_arxiv_id(publication.get("arxiv")):
+        return "arxiv"
+    official_doi = _normalize_doi(official_url)
+    if official_doi and official_doi == _normalize_doi(publication.get("doi")):
+        return "doi"
+    return "official"
+
+
 def great_circle_km(a, b):
     lat1, lon1, lat2, lon2 = map(math.radians, (a[0], a[1], b[0], b[1]))
     d = math.sin((lat2 - lat1) / 2) ** 2 + math.cos(lat1) * math.cos(lat2) * math.sin((lon2 - lon1) / 2) ** 2
@@ -1073,7 +1119,9 @@ RESULTS = [
          claim=("The events are consistent with the discovery of the intermediate vector boson W.",
                 "abstract", ["src:ua1-w-1983"]),
          publication={"doi": "10.1016/0370-2693(83)91177-2", "inspire": 188630},
-         official_url="https://home.cern/science/physics/w-boson-sunshine-and-stardust", hepdata=None),
+         # official_url deliberately restates the DOI above (task A4):
+         # exercises official_url_kind == "doi".
+         official_url="https://doi.org/10.1016/0370-2693(83)91177-2", hepdata=None),
     dict(id="result:super-k-atmospheric-oscillation-1998", title="Evidence for oscillation of atmospheric neutrinos",
          date="1998-06-05", date_kind="preprint", result_type="evidence",
          experiment_ids=["experiment:super-kamiokande"], collaboration_ids=["collaboration:super-kamiokande"],
@@ -1084,7 +1132,10 @@ RESULTS = [
          claim=("We present an analysis of these data which gives evidence for oscillation of atmospheric neutrinos.",
                 "abstract", ["src:superk-atmospheric-1998"]),
          publication={"arxiv": "hep-ex/9807003", "doi": "10.1103/PhysRevLett.81.1562", "inspire": 471304},
-         official_url="https://www-sk.icrr.u-tokyo.ac.jp/en/sk/physics/", hepdata=None),
+         # official_url deliberately restates the arXiv link above (task A4):
+         # exercises official_url_kind == "arxiv" so the panel shows one
+         # arXiv link instead of a redundant second "Official page".
+         official_url="https://arxiv.org/abs/hep-ex/9807003", hepdata=None),
     dict(id="result:t2k-electron-neutrino-appearance-2013", title="Observation of electron neutrino appearance in a muon neutrino beam",
          date="2013-07-19", date_kind="preprint", result_type="observation",
          experiment_ids=["experiment:t2k"], collaboration_ids=["collaboration:t2k"],
@@ -1357,7 +1408,7 @@ def main() -> int:
             "state_segments": segs, "open_ended": open_ended or not ivs,
         }
         site_by_id[sid] = (lat, lon)
-        prov(sid, "coordinates", ["src:cern-about" if fac == "facility:cern" else "src:fermilab-about"],
+        prov(sid, "/coordinates", ["src:cern-about" if fac == "facility:cern" else "src:fermilab-about"],
              quote=f"{name} is located at {lat:.4f}, {lon:.4f}.", locator="site page")
 
     facilities = {}
@@ -1377,7 +1428,7 @@ def main() -> int:
         }
         plain, tech = SUMMARIES.get(f["id"], ("", ""))
         text(f["id"], summary_plain=plain, summary_technical=tech)
-        prov(f["id"], "operator", ["src:cern-about"], quote=f["operator"], locator="about page")
+        prov(f["id"], "/operator", ["src:cern-about"], quote=f["operator"], locator="about page")
 
     accelerators = {}
     for a in ACCELERATORS:
@@ -1418,7 +1469,7 @@ def main() -> int:
         }
         facilities[b["facility_id"]]["beamline_ids"].append(b["id"])
         accelerators[b["accelerator_id"]]["beamline_ids"].append(b["id"])
-        prov(b["id"], "baselines[0].distance", ["src:lbnf-beamline-cdr"],
+        prov(b["id"], "/baselines/0/distance", ["src:lbnf-beamline-cdr"],
              quote=f"The baseline is {baselines[0]['distance']['display']}.", locator="§2.1")
 
     detectors = {}
@@ -1470,11 +1521,11 @@ def main() -> int:
             beamlines[b]["experiment_ids"].append(e["id"])
         for a in e["accelerator_ids"]:
             accelerators[a]["serves_experiment_ids"].append(e["id"])
-        prov(e["id"], "intervals", [f"src:greybook-{e['name'].lower()}" if e["id"] in
+        prov(e["id"], "/intervals/0", [f"src:greybook-{e['name'].lower()}" if e["id"] in
              ("experiment:dune", "experiment:atlas") else "src:cern-about"],
              quote="Operating dates as published by the collaboration.", locator="timeline page")
         if e["key_specs"]:
-            prov(e["id"], "key_specs[0]", ["src:dune-tdr-vol2"],
+            prov(e["id"], "/key_specs/0/quantity", ["src:dune-tdr-vol2"],
                  quote=f"{e['key_specs'][0][0]}: {e['key_specs'][0][1]['display']}.", locator="Table 1.1")
 
     collaborations = {}
@@ -1493,7 +1544,7 @@ def main() -> int:
             "status": segs[-1][2] if segs else "active", "state_segments": segs,
             "open_ended": open_ended,
         }
-        prov(c["id"], "formation", ["src:dune-institutions"],
+        prov(c["id"], "/formation", ["src:dune-institutions"],
              quote=f"The {c['name']} was formed in {c['formation']}.", locator="collaboration page")
 
     topics = {}
@@ -1632,12 +1683,13 @@ def main() -> int:
             "significance": r["significance"],
             "claim": {"quote": r["claim"][0], "locator": r["claim"][1], "sources": r["claim"][2]},
             "publication": r["publication"], "official_url": r["official_url"],
+            "official_url_kind": official_url_kind(r["official_url"], r["publication"]),
             "hepdata": r["hepdata"], "month": parse(r["date"])[0],
         }
         text(rid, why_it_matters=WHY_IT_MATTERS.get(rid, ""),
              summary_plain=r["claim"][0])
-        prov(rid, "date", r["claim"][2], quote=r["claim"][0], locator=r["claim"][1])
-        prov(rid, "significance", r["claim"][2], quote=r["significance"] or "not reported",
+        prov(rid, "/date", r["claim"][2], quote=r["claim"][0], locator=r["claim"][1])
+        prov(rid, "/significance", r["claim"][2], quote=r["significance"] or "not reported",
              locator=r["claim"][1])
         for e in r["experiment_ids"]:
             if e in experiments:
