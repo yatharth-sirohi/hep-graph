@@ -1,0 +1,56 @@
+{
+  "accuracy_m": null,
+  "aliases": [],
+  "checks": [],
+  "coverage": {
+    "researched": "full",
+    "tier": "A"
+  },
+  "depth_m": null,
+  "entity_id": "beamline:demo-beam",
+  "feature_type": "direction_line",
+  "geometry": {
+    "confidence": "derived",
+    "locator": "Vol. I §1.2 (baseline) and Vol. I §2.3, Table 2.1 (far site coordinates)",
+    "note": "Not a structure: the neutrinos travel through the Earth. Drawn and labelled as an inferred direction.",
+    "sources": [
+      "src:demo-tdr"
+    ],
+    "value": {
+      "coordinates": [
+        [
+          -88.25,
+          41.83
+        ],
+        [
+          -88.2787324,
+          41.8368687
+        ]
+      ],
+      "type": "LineString"
+    },
+    "verified_at": "2026-09-16"
+  },
+  "id": "geometry:demo-beam-direction",
+  "level_id": "surface",
+  "license": null,
+  "links": {
+    "website": null
+  },
+  "map_id": "map:demo-lab",
+  "method": "The great-circle azimuth from the surveyed target position to site:demo-far-cavern, clipped to the map extent.",
+  "name": "Demo neutrino beam direction towards the far cavern",
+  "notes": [],
+  "osm": null,
+  "representation": "inferred_direction",
+  "schema": "hep-atlas/0.2",
+  "site_id": null,
+  "sources": [
+    "src:demo-tdr"
+  ],
+  "summary": {
+    "plain": "Where the neutrino beam points — an inferred direction, not a tunnel."
+  },
+  "type": "geometry",
+  "valid": null
+}

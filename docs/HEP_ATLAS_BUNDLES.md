@@ -16,13 +16,16 @@ Rules that hold for every bundle:
   for every field move to the lazily loaded `provenance.json` (A14).
 * **Derived fields are added here, never authored.** Inverse relations (A1),
   `status`, `state_segments`, `hep_graph`, source `rank` and `cited_by`,
-  coverage `validated` / `globe_ready`.
+  coverage `validated` / `globe_ready`, and the A25 map links
+  `facility.map_id`, `site.map_id` and
+  `{accelerator,beamline,detector}.geometry_map_ids`.
 * **Months.** Every month index is *months since 1950-01*
   (`(year - 1950) * 12 + (month - 1)`).  Dates before 1950 give negative
   indices; nothing is clamped.  `manifest.epoch` states the epoch.
 * **Size.** The build fails when `atlas.json` exceeds 1 500 000 bytes and
   prints a per-type size table; the pilot budget is 400 KB for
-  `atlas.json` + `manifest.json` together.
+  `atlas.json` + `manifest.json` together.  A `geometry/<slug>.json` bundle
+  fails the build above 2 000 000 bytes (A25).
 
 ## Caching (closes P2-2 / part of P1-2 in `REVIEW_performance.md`)
 
@@ -149,7 +152,8 @@ Loaded first.  One key per entity type, each an object keyed by id.
   "facilities": {"facility:demo-lab": { … }},
   "sites": {"site:demo-lab-campus": { … }},
   "accelerators": { … }, "beamlines": { … }, "experiments": { … },
-  "detectors": { … }, "collaborations": { … }, "topics": { … }
+  "detectors": { … }, "collaborations": { … }, "topics": { … },
+  "maps": {"map:demo-lab": { … }}
 }
 ```
 
@@ -371,6 +375,119 @@ institution go to `people/<collaboration-slug>/_unknown.json`.
 `hep_graph.url` exists only for `person:inspire-*` ids; an unresolved person
 gets `{"available": false}` and no URL.
 
+
+## `atlas.json` &rarr; `maps` (A25)
+
+One entry per local map, keyed by `map:<slug>`.  Present and empty when no
+campus has been researched, so the frontend can rely on the key.
+
+```json
+"map:demo-lab": {
+  "id": "map:demo-lab",
+  "name": "Demo Laboratory \u2014 main campus",
+  "facility_id": "facility:demo-lab",
+  "site_ids": ["site:demo-lab-campus"],
+  "center": {"lat": 41.8325, "lon": -88.2525},
+  "extent_m": 3000,
+  "levels": [{"id": "surface", "name": "Surface", "kind": "surface", "depth_m": null},
+             {"id": "ring-tunnel", "name": "Synchrotron tunnel (9 m below grade)",
+              "kind": "underground",
+              "depth_m": {"value": 9, "unit": "m", "dimension": "length", "display": "9 m",
+                          "approx": false}}],
+  "feature_count": 4,
+  "to_scale_count": 3,
+  "unlocated_count": 1,
+  "linked_map_ids": [],
+  "attribution": ["\u00a9 OpenStreetMap contributors (ODbL-1.0)"],
+  "bundle": "geometry/demo-lab.json",
+  "coverage": {"tier": "A", "researched": "partial"},
+  "state_segments": [[214, 214, "active", "possible"], [215, 920, "active", "certain"]],
+  "status": "active"
+}
+```
+
+* `center` is the stripped Coordinates reduced to `lat`/`lon`; its kind,
+  precision and sources are in `provenance.json` at `/center`.  It is the
+  default camera position, nothing more.
+* `levels[].depth_m` strips like any Quantity: numbers here, sources in
+  `provenance.json`.
+* `to_scale_count` excludes `inferred_direction` features, which are
+  directions rather than structures.
+* `linked_map_ids` is the authored list **union** the derived ones: the map
+  of any far site a beamline of this facility points at, and the map of any
+  `related_facility_ids` entry that has one.
+* `attribution` is the sorted unique `"<attribution> (<licence name>)"` of
+  every feature that carries a licence; the browser shows it on the map.
+* `state_segments` and `status` are the **facility's**.  A map is a view of a
+  facility and never claims a history of its own.
+
+## `geometry/<map-slug>.json` (A25)
+
+Lazy, one per map, loaded only when a `#/map/<slug>` route opens.  The build
+fails when one exceeds 2 MB.
+
+```json
+{
+  "schema": "hep-atlas/0.2",
+  "version": "9f2c4d6a1b0e5837",
+  "build_date": "2026-09-16",
+  "map": { "…the stripped map record…",
+           "unlocated": [{"entity_id": "experiment:demo", "entity_name": "Demo Experiment",
+                          "entity_type": "experiment", "reason": "…", "backlog": "…",
+                          "sources": ["src:demo-experiment-site"]}],
+           "schematics": [{"title": "… (schematic, not to scale)", "url": "https://…",
+                           "source_id": "src:demo-lab-site", "note": "…"}] },
+  "bbox": [-88.2787324, 41.8287752, -88.2481587, 41.8382248],
+  "attribution": ["\u00a9 OpenStreetMap contributors (ODbL-1.0)"],
+  "features": [{
+    "id": "geometry:demo-synchrotron-ring",
+    "name": "Demo Synchrotron tunnel, full ring",
+    "feature_type": "ring", "level_id": "ring-tunnel",
+    "entity_id": "accelerator:demo-synchrotron", "entity_type": "accelerator",
+    "entity_name": "Demo Synchrotron", "site_id": "site:demo-lab-campus",
+    "representation": "derived", "accuracy_m": 120, "method": "…", "depth_m": null,
+    "geometry": {"type": "LineString", "coordinates": [[-88.2545, 41.8382248], …]},
+    "measured": {"length_m": 3300.0007, "area_m2": null, "centroid": [-88.2545, 41.8335]},
+    "checks": [{"kind": "length", "expected_m": 3300.0, "measured_m": 3300.0007,
+                "unit": "m", "tolerance": 0.02, "passed": true,
+                "sources": ["src:demo-lab-site"]}],
+    "state_segments": [[588, 599, "active", "possible"], …], "status": "active",
+    "provenance": {"sources": ["src:demo-lab-site"], "verified_at": "2026-09-16",
+                   "confidence": "derived", "locator": "…", "quote": null, "note": "…"},
+    "license": null, "osm": null
+  }],
+  "source_titles": {"src:demo-lab-site": {"title": "…", "url": "https://…",
+                                          "source_type": "official_facility_site"}},
+  "entity_index": {"accelerator:demo-synchrotron": ["geometry:demo-synchrotron-ring"]}
+}
+```
+
+* `features` are sorted by `id`.  Coordinates are emitted with **7 decimals**
+  (about 11 mm), which is what makes the bundle byte-deterministic.
+* `geometry` is the **bare GeoJSON object** — the authored value's `sources`,
+  `confidence`, `locator`, `quote` and `note` are in `provenance` on the same
+  feature (a geometry bundle is already lazy, so its provenance travels with
+  it rather than going to `provenance.json`).
+* `measured` is recomputed by the build, never authored: geodesic length (a
+  polygon's is its outer-ring perimeter), spherical-excess area, and a
+  representative centroid.
+* `checks[].expected_m` and `measured_m` are in the base unit of the kind —
+  metres, square metres, or **degrees** for an `azimuth`; `unit` says which.
+  `passed` is `true`/`false`, and `null` only for a row that could not be
+  executed (which the validator reports as an error, so it should never
+  reach a committed bundle).
+* `state_segments` come from the feature's own `valid` window when it has one
+  (a single `active` segment), otherwise from the entity it depicts.  A
+  context feature with neither is `null` and is drawn in every year.
+* `bbox` is `[minLon, minLat, maxLon, maxLat]` over every feature, `null`
+  when the map draws nothing yet.
+* `source_titles` covers every source cited anywhere in the bundle — features,
+  checks, unlocated rows, level depths, schematics and the map record — so
+  the panel can name a source without loading `sources.json`.
+* `entity_index` maps an entity id to the features that depict it, so the
+  drawer can highlight every shape of one machine at once.  Context features
+  depict nothing and are absent from it.
+
 ## `search.json`
 
 ```json
@@ -382,6 +499,12 @@ gets `{"available": false}` and no URL.
 Each entry is `[type, id, name, aliases, subtitle]`.  **People are never in
 `search.json`** (A14): person search is delegated to HEP Graph live search.
 Sorted by `(type, id)`.
+
+A25 adds `map` entries, whose subtitle is `"Local map · <facility name>"`:
+
+```json
+["map", "map:demo-lab", "Demo Laboratory — main campus", [], "Local map · Demo Laboratory"]
+```
 
 ## `graph.json`
 
@@ -421,3 +544,18 @@ build.  `validated` and `globe_ready` are **build outputs** (A10):
 * `globe_ready` — `validated`, and the experiment resolves to at least one
   site with coordinates whose `kind` is `detector` or `underground_lab`, and
   it has at least one interval with a known start.
+
+A25 adds two more keys alongside `rows`:
+
+```json
+{"maps": [{"map_id": "map:demo-lab", "name": "Demo Laboratory — main campus",
+           "facility_id": "facility:demo-lab", "feature_count": 4,
+           "representations": {"surveyed": 1, "georeferenced": 1,
+                               "derived": 1, "inferred_direction": 1},
+           "unlocated_count": 1, "checks_passed": 1, "checks_failed": 0}],
+ "facilities_without_a_map": [{"facility_id": "facility:cern", "name": "CERN"}]}
+```
+
+`facilities_without_a_map` names every facility nobody has drawn.  That is
+not a defect — it is the only way the coverage report cannot quietly read as
+though the atlas maps everything it contains.

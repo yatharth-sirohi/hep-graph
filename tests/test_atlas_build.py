@@ -377,3 +377,340 @@ def test_membership_bundle_reports_confirmed_and_undated_counts(built: BuildResu
     roster = _json(built, "memberships/demo.json")
     assert roster["collaboration_id"] == "collaboration:demo"
     assert "counts" in roster and "confirmed" in roster["counts"]
+
+
+# ---------------------------------------------------------------------------
+# A25 — the local-map geometry layer (docs/HEP_ATLAS_GEOMETRY.md §3)
+# ---------------------------------------------------------------------------
+
+MAP_ID = "map:demo-lab"
+GEOMETRY_BUNDLE = "geometry/demo-lab.json"
+
+
+def test_atlas_json_carries_a_maps_table(built: BuildResult) -> None:
+    table = _json(built, "atlas.json")["maps"]
+    entry = table[MAP_ID]
+    assert entry["facility_id"] == "facility:demo-lab"
+    assert entry["site_ids"] == ["site:demo-lab-campus"]
+    assert entry["center"] == {"lat": 41.8325, "lon": -88.2525}
+    assert entry["extent_m"] == 3000
+    assert entry["bundle"] == GEOMETRY_BUNDLE
+    assert [level["id"] for level in entry["levels"]] == ["surface", "ring-tunnel"]
+
+
+def test_the_maps_table_counts_features_to_scale_and_unlocated(built: BuildResult) -> None:
+    entry = _json(built, "atlas.json")["maps"][MAP_ID]
+    assert entry["feature_count"] == 4
+    # Three shapes are to scale; the inferred direction line is not a structure.
+    assert entry["to_scale_count"] == 3
+    assert entry["unlocated_count"] == 1
+
+
+def test_a_map_inherits_its_facilitys_timeline(built: BuildResult) -> None:
+    """A map is a view of a facility and never claims a history of its own."""
+    atlas = _json(built, "atlas.json")
+    entry = atlas["maps"][MAP_ID]
+    facility = atlas["facilities"]["facility:demo-lab"]
+    assert entry["state_segments"] == facility["state_segments"]
+    assert entry["status"] == facility["status"]
+
+
+def test_the_maps_table_aggregates_licence_attributions(built: BuildResult) -> None:
+    entry = _json(built, "atlas.json")["maps"][MAP_ID]
+    assert entry["attribution"] == ["© OpenStreetMap contributors (ODbL-1.0)"]
+
+
+def test_a_level_depth_strips_like_a_quantity(built: BuildResult) -> None:
+    """`levels[].depth_m` keeps its numbers; its sources go to provenance.json."""
+    levels = _json(built, "atlas.json")["maps"][MAP_ID]["levels"]
+    depth = next(level for level in levels if level["id"] == "ring-tunnel")["depth_m"]
+    assert depth == {"value": 9, "unit": "m", "dimension": "length",
+                     "display": "9 m", "approx": False}
+    assert "sources" not in depth
+
+
+def test_a_map_centre_strips_like_coordinates(built: BuildResult) -> None:
+    provenance = _json(built, "provenance.json")[MAP_ID]
+    assert "/center" in provenance
+    assert provenance["/center"]["sources"] == ["src:demo-lab-site"]
+
+
+def test_facilities_and_sites_gain_a_derived_map_id(built: BuildResult) -> None:
+    atlas = _json(built, "atlas.json")
+    assert atlas["facilities"]["facility:demo-lab"]["map_id"] == MAP_ID
+    assert atlas["sites"]["site:demo-lab-campus"]["map_id"] == MAP_ID
+    # A site no map covers says so with null, not by omitting the key.
+    assert atlas["sites"]["site:demo-far-cavern"]["map_id"] is None
+
+
+def test_machines_gain_derived_geometry_map_ids_even_when_empty(built: BuildResult) -> None:
+    atlas = _json(built, "atlas.json")
+    assert atlas["accelerators"]["accelerator:demo-synchrotron"]["geometry_map_ids"] == [MAP_ID]
+    assert atlas["beamlines"]["beamline:demo-beam"]["geometry_map_ids"] == [MAP_ID]
+    # The far detector is on no map; the key still exists so the frontend can
+    # ask without checking whether it was emitted.
+    assert atlas["detectors"]["detector:demo-far-detector"]["geometry_map_ids"] == []
+
+
+def test_an_authored_derived_map_field_is_recomputed(tmp_path: Path) -> None:
+    """A1: whatever a file writes into a derived field, the build ignores."""
+    import shutil
+
+    root = tmp_path / "atlas"
+    shutil.copytree(FIXTURE, root)
+    path = root / "sites" / "demo-far-cavern.json"
+    record = json.loads(path.read_text(encoding="utf-8"))
+    record["map_id"] = "map:invented"
+    path.write_text(json.dumps(record), encoding="utf-8")
+    result = build(root, tmp_path / "out", build_date=BUILD_DATE)
+    assert json.loads(result.files["atlas.json"])["sites"]["site:demo-far-cavern"]["map_id"] is None
+
+
+def test_the_manifest_counts_maps_and_geometry(built: BuildResult) -> None:
+    counts = _json(built, "manifest.json")["counts"]
+    assert counts["maps"] == 1
+    assert counts["geometry"] == 4
+
+
+def test_search_json_offers_the_map(built: BuildResult) -> None:
+    entries = [entry for entry in _json(built, "search.json")["entries"] if entry[0] == "map"]
+    assert entries == [["map", MAP_ID, "Demo Laboratory — main campus", [],
+                        "Local map · Demo Laboratory"]]
+
+
+# -- the per-map bundle ------------------------------------------------------
+
+def test_the_build_emits_one_geometry_bundle_per_map(built: BuildResult) -> None:
+    assert GEOMETRY_BUNDLE in built.files
+
+
+def test_the_geometry_bundle_has_the_shape_the_contract_specifies(built: BuildResult) -> None:
+    bundle = _json(built, GEOMETRY_BUNDLE)
+    assert set(bundle) == {"schema", "version", "build_date", "map", "bbox", "attribution",
+                           "features", "source_titles", "entity_index"}
+    assert bundle["version"] == built.version
+    assert bundle["build_date"] == BUILD_DATE.isoformat()
+    assert bundle["attribution"] == ["© OpenStreetMap contributors (ODbL-1.0)"]
+    minlon, minlat, maxlon, maxlat = bundle["bbox"]
+    assert minlon < maxlon and minlat < maxlat
+
+
+def test_features_are_sorted_by_id(built: BuildResult) -> None:
+    ids = [feature["id"] for feature in _json(built, GEOMETRY_BUNDLE)["features"]]
+    assert ids == sorted(ids)
+    assert ids == ["geometry:demo-beam-axis", "geometry:demo-beam-direction",
+                   "geometry:demo-synchrotron-ring", "geometry:demo-target-hall"]
+
+
+def test_a_feature_carries_its_measurements_and_provenance(built: BuildResult) -> None:
+    feature = next(f for f in _json(built, GEOMETRY_BUNDLE)["features"]
+                   if f["id"] == "geometry:demo-synchrotron-ring")
+    assert feature["entity_id"] == "accelerator:demo-synchrotron"
+    assert feature["entity_type"] == "accelerator"
+    assert feature["entity_name"] == "Demo Synchrotron"
+    assert feature["representation"] == "derived"
+    assert feature["accuracy_m"] == 120
+    assert feature["measured"]["length_m"] == pytest.approx(3300, rel=1e-3)
+    assert feature["measured"]["area_m2"] is None
+    assert feature["measured"]["centroid"] is not None
+    assert feature["provenance"]["confidence"] == "derived"
+    assert feature["provenance"]["sources"] == ["src:demo-lab-site"]
+    assert feature["provenance"]["locator"]
+
+
+def test_a_feature_reports_its_checks_with_the_arithmetic(built: BuildResult) -> None:
+    feature = next(f for f in _json(built, GEOMETRY_BUNDLE)["features"]
+                   if f["id"] == "geometry:demo-synchrotron-ring")
+    check = feature["checks"][0]
+    assert check["kind"] == "length"
+    assert check["passed"] is True
+    assert check["expected_m"] == pytest.approx(3300)
+    assert check["measured_m"] == pytest.approx(3300, rel=1e-3)
+    assert check["tolerance"] == 0.02
+    assert check["sources"] == ["src:demo-lab-site"]
+
+
+def test_the_geometry_value_strips_to_a_bare_geojson_object(built: BuildResult) -> None:
+    """No `sources`/`confidence` inside the shape: they are in `provenance`."""
+    for feature in _json(built, GEOMETRY_BUNDLE)["features"]:
+        assert set(feature["geometry"]) == {"type", "coordinates"}
+        assert feature["geometry"]["type"] in (
+            "Point", "LineString", "MultiLineString", "Polygon", "MultiPolygon")
+
+
+def test_coordinates_are_rounded_to_seven_decimals(built: BuildResult) -> None:
+    from hepgraph.atlas import geo
+
+    for feature in _json(built, GEOMETRY_BUNDLE)["features"]:
+        for lon, lat in geo.positions(feature["geometry"]):
+            assert round(lon, 7) == lon and round(lat, 7) == lat
+
+
+def test_a_shape_with_its_own_valid_window_uses_it(built: BuildResult) -> None:
+    """The ODbL building is valid from 1999; the feature's timeline says so."""
+    from hepgraph.atlas import schema
+
+    feature = next(f for f in _json(built, GEOMETRY_BUNDLE)["features"]
+                   if f["id"] == "geometry:demo-target-hall")
+    assert feature["state_segments"] == [[schema.month_index("1999-01"),
+                                          schema.month_index(BUILD_DATE.isoformat()),
+                                          "active", "certain"]]
+
+
+def test_a_shape_without_valid_inherits_its_entitys_timeline(built: BuildResult) -> None:
+    atlas = _json(built, "atlas.json")
+    feature = next(f for f in _json(built, GEOMETRY_BUNDLE)["features"]
+                   if f["id"] == "geometry:demo-beam-axis")
+    assert feature["state_segments"] == atlas["beamlines"]["beamline:demo-beam"]["state_segments"]
+
+
+def test_the_bundle_map_section_names_every_unlocated_entity(built: BuildResult) -> None:
+    unlocated = _json(built, GEOMETRY_BUNDLE)["map"]["unlocated"]
+    assert len(unlocated) == 1
+    row = unlocated[0]
+    assert row["entity_id"] == "experiment:demo"
+    assert row["entity_name"] == "Demo Experiment"
+    assert row["entity_type"] == "experiment"
+    # An unlocated entry is worth nothing without a reason and a way forward.
+    assert row["reason"] and row["backlog"] and row["sources"]
+
+
+def test_schematics_are_links_only(built: BuildResult) -> None:
+    schematics = _json(built, GEOMETRY_BUNDLE)["map"]["schematics"]
+    assert len(schematics) == 1
+    assert set(schematics[0]) == {"title", "url", "source_id", "note"}
+    assert "not to scale" in schematics[0]["title"]
+
+
+def test_the_bundle_indexes_features_by_the_entity_they_depict(built: BuildResult) -> None:
+    index = _json(built, GEOMETRY_BUNDLE)["entity_index"]
+    assert index["accelerator:demo-synchrotron"] == ["geometry:demo-synchrotron-ring"]
+    assert index["beamline:demo-beam"] == ["geometry:demo-beam-axis",
+                                           "geometry:demo-beam-direction"]
+    # A context feature depicts nothing and is not in the index.
+    assert all("geometry:demo-target-hall" not in rows for rows in index.values())
+
+
+def test_the_bundle_titles_every_source_it_cites(built: BuildResult) -> None:
+    bundle = _json(built, GEOMETRY_BUNDLE)
+    titles = bundle["source_titles"]
+    assert "src:demo-osm-extract" in titles
+    assert titles["src:demo-osm-extract"]["source_type"] == "openstreetmap"
+    cited = {source for feature in bundle["features"]
+             for source in feature["provenance"]["sources"]}
+    assert cited <= set(titles)
+
+
+# -- coverage, determinism and the size guard --------------------------------
+
+def test_coverage_json_gains_a_maps_section(built: BuildResult) -> None:
+    coverage = _json(built, "coverage.json")
+    row = coverage["maps"][0]
+    assert row["map_id"] == MAP_ID
+    assert row["feature_count"] == 4
+    assert row["representations"] == {"surveyed": 1, "georeferenced": 1,
+                                      "derived": 1, "inferred_direction": 1}
+    assert row["unlocated_count"] == 1
+    assert row["checks_passed"] == 1 and row["checks_failed"] == 0
+
+
+def test_coverage_json_lists_facilities_without_a_map(tmp_path: Path) -> None:
+    """A facility nobody has drawn is named, not silently absent."""
+    import shutil
+
+    root = tmp_path / "atlas"
+    shutil.copytree(FIXTURE, root)
+    (root / "maps" / "demo-lab.json").unlink()
+    for path in (root / "geometry").glob("*.json"):
+        path.unlink()
+    result = build(root, tmp_path / "out", build_date=BUILD_DATE)
+    coverage = json.loads(result.files["coverage.json"])
+    assert coverage["maps"] == []
+    assert coverage["facilities_without_a_map"] == [
+        {"facility_id": "facility:demo-lab", "name": "Demo Laboratory"}]
+
+
+def test_an_atlas_with_no_maps_still_emits_the_table(tmp_path: Path) -> None:
+    """The real tree has no maps yet; the browser must still find the key."""
+    import shutil
+
+    root = tmp_path / "atlas"
+    shutil.copytree(FIXTURE, root)
+    (root / "maps" / "demo-lab.json").unlink()
+    for path in (root / "geometry").glob("*.json"):
+        path.unlink()
+    result = build(root, tmp_path / "out", build_date=BUILD_DATE)
+    assert result.errors == []
+    assert json.loads(result.files["atlas.json"])["maps"] == {}
+    assert not [path for path in result.files if path.startswith("geometry/")]
+
+
+def test_the_geometry_bundle_is_byte_deterministic(tmp_path: Path) -> None:
+    first = build(FIXTURE, tmp_path / "out1", build_date=BUILD_DATE)
+    second = build(FIXTURE, tmp_path / "out2", build_date=BUILD_DATE)
+    assert first.files[GEOMETRY_BUNDLE] == second.files[GEOMETRY_BUNDLE]
+
+
+def test_check_mode_sees_no_drift_once_the_geometry_bundle_is_written(tmp_path: Path) -> None:
+    out_dir = tmp_path / "out"
+    build(FIXTURE, out_dir, build_date=BUILD_DATE)
+    assert (out_dir / GEOMETRY_BUNDLE).is_file()
+    assert build(FIXTURE, out_dir, build_date=BUILD_DATE, check=True).drift == []
+
+
+def test_a_geometry_bundle_over_two_megabytes_fails_the_build(tmp_path: Path,
+                                                              monkeypatch) -> None:
+    """The 2 MB guard is what stops a campus shipping a million OSM nodes."""
+    import shutil
+
+    from hepgraph.atlas import schema
+
+    root = tmp_path / "atlas"
+    shutil.copytree(FIXTURE, root)
+    monkeypatch.setattr(schema, "GEOMETRY_BUNDLE_MAX_BYTES", 4096)
+    result = build(root, tmp_path / "out", build_date=BUILD_DATE)
+    assert any("over the 4096 byte limit" in error for error in result.errors), result.errors
+    assert any(GEOMETRY_BUNDLE in error for error in result.errors)
+
+
+def test_linked_maps_agree_between_the_table_and_the_bundle(tmp_path: Path) -> None:
+    """A facility with two campus maps must not get two different answers.
+
+    `linked_map_ids` is derived twice — once for `atlas.json.maps` and once
+    for the per-map bundle — and a facility with more than one map is exactly
+    where a first-wins and a last-wins index would disagree.
+    """
+    import shutil
+
+    root = tmp_path / "atlas"
+    shutil.copytree(FIXTURE, root)
+
+    # A second map of the same facility, covering no site of its own, and a
+    # far-site map so there is something real to link to.
+    annex = json.loads((root / "maps" / "demo-lab.json").read_text(encoding="utf-8"))
+    annex["id"] = "map:demo-lab-annex"
+    annex["name"] = "Demo Laboratory — annex campus"
+    annex["site_ids"] = []
+    annex["unlocated"] = []
+    (root / "maps" / "demo-lab-annex.json").write_text(json.dumps(annex), encoding="utf-8")
+
+    far = json.loads((root / "maps" / "demo-lab.json").read_text(encoding="utf-8"))
+    far["id"] = "map:demo-far"
+    far["name"] = "Demo far detector campus"
+    far["facility_id"] = "facility:demo-lab"
+    far["site_ids"] = ["site:demo-far-cavern"]
+    far["unlocated"] = []
+    far["center"] = dict(far["center"], lat=44.352, lon=-103.751)
+    (root / "maps" / "demo-far.json").write_text(json.dumps(far), encoding="utf-8")
+
+    result = build(root, tmp_path / "out", build_date=BUILD_DATE)
+    table = json.loads(result.files["atlas.json"])["maps"]
+    for map_id, entry in table.items():
+        bundle = json.loads(result.files[entry["bundle"]])
+        assert bundle["map"]["linked_map_ids"] == entry["linked_map_ids"], map_id
+
+    # The beamline's far site is on map:demo-far, so the campus map links to it.
+    assert "map:demo-far" in table["map:demo-lab"]["linked_map_ids"]
+    # A map never links to itself.
+    for map_id, entry in table.items():
+        assert map_id not in entry["linked_map_ids"]

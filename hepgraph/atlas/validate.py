@@ -39,7 +39,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Iterable, Iterator
 
-from . import load, schema
+from . import geo, load, schema
 
 __all__ = [
     'Finding', 'validate_atlas', 'errors', 'warnings', 'infos', 'group_findings',
@@ -98,6 +98,20 @@ _SKIP_REQUIRED: frozenset[tuple[str, str]] = frozenset({
 #: (entity type, field) pairs the generic enum check leaves alone.
 _SKIP_ENUM: frozenset[tuple[str, str]] = frozenset({
     ('result', 'date_kind'),
+    ('geometry', 'representation'),   # geometry-representation (A25)
+})
+#: (entity type, field) pairs the generic *dangling reference* check leaves
+#: alone because an A25 rule owns the resolution of that field and says
+#: something more specific about it than "does not exist".
+_SKIP_REFERENCE: frozenset[tuple[str, str]] = frozenset({
+    ('map', 'facility_id'),      # map-unknown-facility
+    ('map', 'site_ids'),         # map-unknown-site
+    ('geometry', 'map_id'),      # geometry-unknown-map
+})
+#: (entity type, field) pairs the generic reference-*type* check leaves alone.
+_SKIP_REFERENCE_TYPE: frozenset[tuple[str, str]] = frozenset({
+    ('map', 'facility_id'), ('map', 'site_ids'), ('geometry', 'map_id'),
+    ('geometry', 'entity_id'),   # geometry-entity-type
 })
 
 #: A9 fields that must be an SList (a list of sourced values), not one value.
@@ -450,8 +464,12 @@ def _reference_rows(ctx: _Context) -> Iterator[tuple[str, str | None, dict]]:
     """
     for entity_type, entity_id, record in ctx.atlas.iter_entities():
         derived = schema.DERIVED_FIELDS.get(entity_type, ())
-        if derived and any(name in record for name in derived):
-            record = {key: value for key, value in record.items() if key not in derived}
+        # A25: `_SKIP_REFERENCE` fields are dropped for the same reason as a
+        # derived one — another rule reports them, with a better message.
+        owned = {name for etype, name in _SKIP_REFERENCE if etype == entity_type}
+        drop = set(derived) | owned
+        if drop and any(name in record for name in drop):
+            record = {key: value for key, value in record.items() if key not in drop}
         yield ctx.path_of(entity_id), entity_id, record
     for collaboration_id, payload in sorted(ctx.atlas.memberships.items()):
         yield ctx.atlas.membership_files.get(collaboration_id, ''), collaboration_id, payload
@@ -525,6 +543,8 @@ def check_reference_types(ctx: _Context) -> Iterator[Finding]:
         path = ctx.path_of(entity_id)
         for name, spec in schema.ENTITY_FIELDS[entity_type].items():
             if spec.kind not in {'id', 'ids'} or spec.ref_type is None or name not in record:
+                continue
+            if (entity_type, name) in _SKIP_REFERENCE_TYPE:
                 continue
             expected = (spec.ref_type,) if isinstance(spec.ref_type, str) else tuple(spec.ref_type)
             values = [record[name]] if spec.kind == 'id' else schema.ref_ids(record[name])
@@ -617,9 +637,21 @@ def check_enums(ctx: _Context) -> Iterator[Finding]:
                     finding = _enum_finding(path, entity_id, tokens + (key,), node[key], allowed, key)
                     if finding is not None:
                         yield finding
-            if 'kind' in node and tokens and tokens[-1] == 'coordinates':
+            # A25: `map.center` is a Coordinates value under its own key, so
+            # the coordinate-kind vocabulary has to reach it too.
+            if 'kind' in node and tokens and tokens[-1] in ('coordinates', 'center'):
                 finding = _enum_finding(path, entity_id, tokens + ('kind',), node['kind'],
                                         schema.COORDINATE_KINDS, 'coordinate kind')
+                if finding is not None:
+                    yield finding
+            if 'kind' in node and len(tokens) >= 2 and tokens[-2] == 'levels':
+                finding = _enum_finding(path, entity_id, tokens + ('kind',), node['kind'],
+                                        schema.LEVEL_KINDS, 'level kind')
+                if finding is not None:
+                    yield finding
+            if 'kind' in node and len(tokens) >= 2 and tokens[-2] == 'checks':
+                finding = _enum_finding(path, entity_id, tokens + ('kind',), node['kind'],
+                                        schema.CHECK_KINDS, 'check kind')
                 if finding is not None:
                     yield finding
             if 'kind' in node and schema.is_interval(node):
@@ -676,7 +708,29 @@ def check_enums(ctx: _Context) -> Iterator[Finding]:
 def check_coordinates(ctx: _Context) -> Iterator[Finding]:
     """§2.5 / §9: a site needs coordinates; latitude and longitude stay in
     range; a `headquarters` point may only mark an institution and a site that
-    holds a detector must be a `detector` or `underground_lab` point."""
+    holds a detector must be a `detector` or `underground_lab` point.
+
+    A25: a `map.center` is a Coordinates value of any kind (it is a camera
+    position, not a claim about a structure), so only its range is checked
+    here — the kind-vs-entity rules above are about markers on the globe and
+    would be meaningless for a map centre.  The GeoJSON arrays of a
+    `geometry` record are not Coordinates at all and are never walked by this
+    rule; `geometry-geojson-invalid` owns them."""
+    for entity_id, record in sorted(ctx.atlas.by_type('map').items()):
+        center = record.get('center')
+        if not isinstance(center, dict):
+            continue
+        path = ctx.path_of(entity_id)
+        latitude, longitude = center.get('lat'), center.get('lon')
+        if not schema.is_number(latitude) or not -90 <= float(latitude) <= 90:
+            yield Finding(ERROR, 'coordinates-out-of-range', path, entity_id,
+                          _pointer('center', 'lat'),
+                          f'latitude {latitude!r} is not a number in [-90, 90]')
+        if not schema.is_number(longitude) or not -180 <= float(longitude) <= 180:
+            yield Finding(ERROR, 'coordinates-out-of-range', path, entity_id,
+                          _pointer('center', 'lon'),
+                          f'longitude {longitude!r} is not a number in [-180, 180]')
+
     detector_sites: set[str] = set()
     for _id, detector in sorted(ctx.atlas.by_type('detector').items()):
         for row in detector.get('placements') or []:
@@ -892,7 +946,12 @@ def check_sourced_values(ctx: _Context) -> Iterator[Finding]:
         for tokens, node in _iter_provenance(record):
             if entity_type == 'result' and tokens == ('claim',):
                 continue  # owned by result-claim-sources
-            yield from _provenance_findings(ctx, path, entity_id, tokens, node)
+            # A25: `geometry-confidence` states the whole rule for a shape's
+            # own provenance (rank <= 10 *and* surveyed-or-a-passing-check),
+            # so the generic half of it must not fire a second time.
+            skip_rank = (entity_type == 'geometry' and tokens == ('geometry',))
+            yield from _provenance_findings(ctx, path, entity_id, tokens, node,
+                                            skip_verified_rank=skip_rank)
     for collaboration_id, payload in sorted(ctx.atlas.memberships.items()):
         path = ctx.atlas.membership_files.get(collaboration_id, '')
         for index, row in enumerate(payload.get('members') or []):
@@ -901,7 +960,8 @@ def check_sourced_values(ctx: _Context) -> Iterator[Finding]:
 
 
 def _provenance_findings(ctx: _Context, path: str, entity_id: str | None,
-                         tokens: tuple[Any, ...], node: dict) -> Iterator[Finding]:
+                         tokens: tuple[Any, ...], node: dict, *,
+                         skip_verified_rank: bool = False) -> Iterator[Finding]:
     """The §2.1 / A17 / A18 checks for one provenance-bearing node."""
     sources = node.get('sources')
     if not sources:
@@ -914,7 +974,7 @@ def _provenance_findings(ctx: _Context, path: str, entity_id: str | None,
                       f'`confidence: {confidence}` requires a `note` (§2.1)')
     resolved = [ctx.source(source_id) for source_id in sources or []]
     resolved = [source for source in resolved if source is not None]
-    if confidence == 'verified' and resolved:
+    if confidence == 'verified' and resolved and not skip_verified_rank:
         ranks = [schema.source_rank(source.get('source_type')) for source in resolved]
         ranks = [rank for rank in ranks if rank is not None]
         if ranks and min(ranks) > schema.VERIFIED_MAX_RANK:
@@ -1384,6 +1444,18 @@ def check_claim_evidence(ctx: _Context) -> Iterator[Finding]:
         if entity_type == 'collaboration':
             yield from demand(path, entity_id, ('formation',), record.get('formation'),
                               "a collaboration's formation date")
+        if entity_type == 'geometry':
+            # A25/§1.2: the shape's own provenance must name the OSM element
+            # and timestamp, or the drawing/table it was read from, and every
+            # cross-check must say where its official figure came from.
+            yield from demand(path, entity_id, ('geometry',), record.get('geometry'),
+                              'a geometry value (name the OSM element and timestamp, or the '
+                              'drawing/table reference)')
+            for index, row in enumerate(record.get('checks') or []):
+                if isinstance(row, dict):
+                    yield from demand(path, entity_id, ('checks', index), row,
+                                      'a geometry cross-check (cite where the official figure '
+                                      'is printed)')
         for index, row in enumerate(_intervals(record)):
             precise = False
             for key in ('start', 'end'):
@@ -2096,6 +2168,508 @@ def check_detector_site_distance(ctx: _Context) -> Iterator[Finding]:
 
 
 # ===========================================================================
+# A25 — the local-map geometry layer (docs/HEP_ATLAS_GEOMETRY.md §2)
+# ===========================================================================
+
+#: A `site:` id mentioned anywhere in free text (a `derived` shape's `method`
+#: or its `note`), so the anchor rule can find what a derivation rests on.
+_SITE_ID_RE = re.compile(r'\bsite:[a-z0-9]+(?:-[a-z0-9]+)*')
+
+
+def _map_levels(record: Any) -> list[dict]:
+    rows = (record or {}).get('levels') if isinstance(record, dict) else None
+    return [row for row in rows or [] if isinstance(row, dict)]
+
+
+def _map_center(record: Any) -> tuple[float, float] | None:
+    """A map's centre as `(lat, lon)`, or None when it is not a usable point."""
+    center = (record or {}).get('center') if isinstance(record, dict) else None
+    if not isinstance(center, dict):
+        return None
+    lat, lon = center.get('lat'), center.get('lon')
+    if schema.is_number(lat) and schema.is_number(lon):
+        return float(lat), float(lon)
+    return None
+
+
+def _geometry_value(record: Any) -> Any:
+    """The GeoJSON object inside a geometry record's sourced `geometry`."""
+    sourced = (record or {}).get('geometry') if isinstance(record, dict) else None
+    if isinstance(sourced, dict) and 'value' in sourced:
+        return sourced.get('value')
+    return sourced
+
+
+def _geometry_by_map(ctx: _Context) -> dict[str, list[tuple[str, dict]]]:
+    """`map_id -> [(geometry_id, record), …]`, ids in sorted order."""
+    grouped: dict[str, list[tuple[str, dict]]] = {}
+    for entity_id, record in sorted(ctx.atlas.by_type('geometry').items()):
+        map_id = schema.canonical_id(record.get('map_id'))
+        if isinstance(map_id, str):
+            grouped.setdefault(map_id, []).append((entity_id, record))
+    return grouped
+
+
+def _drawn_entities(rows: Iterable[tuple[str, dict]]) -> set[str]:
+    """Every entity id a set of geometry records depicts."""
+    drawn: set[str] = set()
+    for _geometry_id, record in rows:
+        entity_id = record.get('entity_id')
+        if isinstance(entity_id, str):
+            drawn.add(schema.canonical_id(entity_id))
+    return drawn
+
+
+def _best_rank(ctx: _Context, source_ids: Any) -> int | None:
+    """The strongest (lowest) A18 rank among a list of source ids."""
+    ranks = []
+    for source_id in source_ids or []:
+        source = ctx.source(source_id)
+        rank = schema.source_rank((source or {}).get('source_type')) if source else None
+        if rank is not None:
+            ranks.append(rank)
+    return min(ranks) if ranks else None
+
+
+def _far_site_of(ctx: _Context, entity: Any) -> dict | None:
+    """The far site an `inferred_direction` points at (contract §2).
+
+    A beamline names it directly (`far_detector_site_ids[0]`); an experiment
+    names it through the site of a detector placement with role `far`.  Any
+    other entity type has no far site and the azimuth is left unchecked
+    rather than measured against a guess.
+    """
+    if not isinstance(entity, dict):
+        return None
+    kind = schema.id_type(entity.get('id', ''))
+    if kind == 'beamline':
+        for site_id in schema.ref_ids(entity.get('far_detector_site_ids')):
+            site = ctx.resolve(site_id)
+            if site is not None:
+                return site
+        return None
+    if kind == 'experiment':
+        candidates: list[str] = []
+        for _detector_id, detector in sorted(ctx.atlas.by_type('detector').items()):
+            if entity.get('id') not in schema.ref_ids(detector.get('experiment_ids')):
+                continue
+            for placement in detector.get('placements') or []:
+                if isinstance(placement, dict) and placement.get('role') == 'far' \
+                        and isinstance(placement.get('site_id'), str):
+                    candidates.append(schema.canonical_id(placement['site_id']))
+        for site_id in sorted(set(candidates)):
+            site = ctx.resolve(site_id)
+            if site is not None:
+                return site
+    return None
+
+
+def check_maps(ctx: _Context) -> Iterator[Finding]:
+    """A25 §1.1 / §2: one local map per facility campus — its facility, its
+    sites, its extent, its levels, and the honesty rule that every accelerator,
+    beamline and detector-hosting site is either drawn or explicitly listed as
+    unlocated with a reason and a research backlog."""
+    maps = ctx.atlas.by_type('map')
+    by_map = _geometry_by_map(ctx)
+
+    # A site may appear on one map only (§1.1).
+    site_owner: dict[str, str] = {}
+    for map_id in sorted(maps):
+        for site_id in schema.ref_ids(maps[map_id].get('site_ids')):
+            site_owner.setdefault(schema.canonical_id(site_id), map_id)
+
+    # "Drawn or unlocated" is answered across every map of the same facility:
+    # Fermilab's campus map and its Ash River map are two maps of one
+    # inventory, and an entity drawn on either is accounted for.
+    drawn_by_facility: dict[str, set[str]] = {}
+    unlocated_by_facility: dict[str, set[str]] = {}
+    for map_id, record in sorted(maps.items()):
+        facility_id = schema.canonical_id(record.get('facility_id'))
+        if not isinstance(facility_id, str):
+            continue
+        drawn_by_facility.setdefault(facility_id, set()).update(
+            _drawn_entities(by_map.get(map_id, ())))
+        listed = unlocated_by_facility.setdefault(facility_id, set())
+        for row in record.get('unlocated') or []:
+            if isinstance(row, dict) and isinstance(row.get('entity_id'), str):
+                listed.add(schema.canonical_id(row['entity_id']))
+
+    for map_id, record in sorted(maps.items()):
+        path = ctx.path_of(map_id)
+        facility_id = record.get('facility_id')
+        facility = ctx.resolve(facility_id) if isinstance(facility_id, str) else None
+        if facility is None or schema.id_type(facility.get('id', '')) != 'facility':
+            yield Finding(ERROR, 'map-unknown-facility', path, map_id, _pointer('facility_id'),
+                          f'`facility_id` {facility_id!r} does not resolve to a facility; a map '
+                          f'is always a map of one facility campus')
+            facility = None
+
+        # -- sites ---------------------------------------------------------
+        for index, site_id in enumerate(schema.ref_ids(record.get('site_ids'))):
+            pointer = _pointer('site_ids', index)
+            site = ctx.resolve(site_id)
+            if site is None or schema.id_type(site.get('id', '')) != 'site':
+                yield Finding(ERROR, 'map-unknown-site', path, map_id, pointer,
+                              f'{site_id!r} does not resolve to a site')
+                continue
+            canonical = schema.canonical_id(site_id)
+            owner = site_owner.get(canonical)
+            if owner is not None and owner != map_id:
+                yield Finding(ERROR, 'map-site-elsewhere', path, map_id, pointer,
+                              f'{site_id!r} is already covered by {owner}; a site belongs to '
+                              f'exactly one local map (§1.1)')
+            elif facility is not None and isinstance(site.get('facility_id'), str) \
+                    and schema.canonical_id(site['facility_id']) != schema.canonical_id(facility['id']):
+                yield Finding(ERROR, 'map-site-elsewhere', path, map_id, pointer,
+                              f'{site_id!r} belongs to {site["facility_id"]}, not to this map\'s '
+                              f'facility {facility["id"]}')
+
+        # -- extent --------------------------------------------------------
+        extent = record.get('extent_m')
+        if not schema.is_number(extent) or not schema.MIN_EXTENT_M <= float(extent) <= schema.MAX_EXTENT_M:
+            yield Finding(ERROR, 'map-extent', path, map_id, _pointer('extent_m'),
+                          f'`extent_m` {extent!r} is not a number of metres in '
+                          f'[{schema.MIN_EXTENT_M:g}, {schema.MAX_EXTENT_M:g}] (half-width of the '
+                          f'default view)')
+
+        # -- levels --------------------------------------------------------
+        seen_levels: dict[str, int] = {}
+        for index, level in enumerate(_map_levels(record)):
+            level_id = level.get('id')
+            if not isinstance(level_id, str) or not level_id:
+                yield Finding(ERROR, 'map-level-duplicate', path, map_id,
+                              _pointer('levels', index, 'id'),
+                              'every level needs a non-empty `id`; features name it')
+                continue
+            if level_id in seen_levels:
+                yield Finding(ERROR, 'map-level-duplicate', path, map_id,
+                              _pointer('levels', index, 'id'),
+                              f'level id {level_id!r} is already used by levels[{seen_levels[level_id]}]')
+            else:
+                seen_levels[level_id] = index
+
+        # -- centre --------------------------------------------------------
+        center = _map_center(record)
+        if center is not None and facility is not None:
+            primary = ctx.resolve(facility.get('primary_site_id'))
+            point = schema.coordinates_of(primary) if primary is not None else None
+            if point is not None:
+                distance = schema.great_circle_m(center[0], center[1], point[0], point[1])
+                if distance > schema.MAX_MAP_CENTER_DISTANCE_M:
+                    yield Finding(WARNING, 'map-center-far', path, map_id, _pointer('center'),
+                                  f'the map centre is {distance / 1000:.1f} km from '
+                                  f'{facility["primary_site_id"]}, the facility\'s primary site '
+                                  f'(over {schema.MAX_MAP_CENTER_DISTANCE_M / 1000:g} km); a separate '
+                                  f'campus wants its own map')
+
+        # -- unlocated -----------------------------------------------------
+        drawn_here = _drawn_entities(by_map.get(map_id, ()))
+        for index, row in enumerate(record.get('unlocated') or []):
+            pointer = _pointer('unlocated', index)
+            if not isinstance(row, dict):
+                yield Finding(ERROR, 'map-unlocated-unsourced', path, map_id, pointer,
+                              'an `unlocated[]` entry must be an object with `entity_id`, a '
+                              'sourced `reason` and a `backlog`')
+                continue
+            missing = [name for name in ('reason', 'backlog') if not _text(row.get(name))]
+            if not row.get('sources'):
+                missing.append('sources')
+            if missing:
+                yield Finding(ERROR, 'map-unlocated-unsourced', path, map_id, pointer,
+                              f'an `unlocated[]` row needs a sourced `reason` and a concrete '
+                              f'research `backlog`; missing {sorted(missing)}. Saying "we could '
+                              f'not place this" is the honest answer only when it says why and '
+                              f'what would fix it')
+            entity_id = row.get('entity_id')
+            if isinstance(entity_id, str) and schema.canonical_id(entity_id) in drawn_here:
+                yield Finding(ERROR, 'map-unlocated-drawn', path, map_id,
+                              _pointer('unlocated', index, 'entity_id'),
+                              f'{entity_id!r} is listed as unlocated but a geometry feature of '
+                              f'this map draws it; an entity is one or the other')
+
+        # -- the honesty warning -------------------------------------------
+        if facility is None:
+            continue
+        canonical_facility = schema.canonical_id(facility['id'])
+        accounted = (drawn_by_facility.get(canonical_facility, set())
+                     | unlocated_by_facility.get(canonical_facility, set()))
+        expected: list[tuple[str, str]] = []
+        for entity_type in ('accelerator', 'beamline'):
+            for entity_id, entity in sorted(ctx.atlas.by_type(entity_type).items()):
+                if schema.canonical_id(entity.get('facility_id')) == canonical_facility:
+                    expected.append((entity_type, entity_id))
+        map_sites = {schema.canonical_id(site_id)
+                     for site_id in schema.ref_ids(record.get('site_ids'))}
+        for _detector_id, detector in sorted(ctx.atlas.by_type('detector').items()):
+            for placement in detector.get('placements') or []:
+                site_id = placement.get('site_id') if isinstance(placement, dict) else None
+                if isinstance(site_id, str) and schema.canonical_id(site_id) in map_sites:
+                    expected.append(('site', schema.canonical_id(site_id)))
+        for entity_type, entity_id in sorted(set(expected)):
+            if schema.canonical_id(entity_id) in accounted:
+                continue
+            yield Finding(WARNING, 'map-entity-unaccounted', path, map_id, _pointer('unlocated'),
+                          f'{entity_id} is {"a detector-hosting site of" if entity_type == "site" else "an " + entity_type + " of"} '
+                          f'{facility["id"]} but this map neither draws it nor lists it in '
+                          f'`unlocated[]`; completeness is not required, saying so is')
+
+
+def check_geometry(ctx: _Context) -> Iterator[Finding]:
+    """A25 §1.2 / §2: one drawable feature — valid GeoJSON inside the map it
+    names, an honest representation class and accuracy, `verified` only with
+    the evidence §1.2 demands, and every `checks[]` row actually executed."""
+    maps = ctx.atlas.by_type('map')
+    geometries = ctx.atlas.by_type('geometry')
+    by_map = _geometry_by_map(ctx)
+
+    # `geometry-duplicate-shape`: identical coordinates on one map (§2).
+    duplicates: dict[str, str] = {}
+    for map_id in sorted(by_map):
+        seen: dict[str, str] = {}
+        for geometry_id, record in by_map[map_id]:
+            value = _geometry_value(record)
+            if not isinstance(value, dict) or not value.get('coordinates'):
+                continue
+            key = json.dumps([value.get('type'), value.get('coordinates')], sort_keys=True)
+            if key in seen:
+                duplicates[geometry_id] = seen[key]
+            else:
+                seen[key] = geometry_id
+
+    for entity_id, record in sorted(geometries.items()):
+        path = ctx.path_of(entity_id)
+        value = _geometry_value(record)
+        representation = record.get('representation')
+        feature_type = record.get('feature_type')
+
+        # -- the shape itself ----------------------------------------------
+        problems = geo.geojson_problems(value)
+        if problems:
+            shown = problems[:3]
+            more = f' (and {len(problems) - 3} more)' if len(problems) > 3 else ''
+            yield Finding(ERROR, 'geometry-geojson-invalid', path, entity_id,
+                          _pointer('geometry', 'value'),
+                          '; '.join(shown) + more)
+
+        # -- the map and its level -----------------------------------------
+        map_id = record.get('map_id')
+        map_record = ctx.resolve(map_id) if isinstance(map_id, str) else None
+        if map_record is None or schema.id_type(map_record.get('id', '')) != 'map':
+            yield Finding(ERROR, 'geometry-unknown-map', path, entity_id, _pointer('map_id'),
+                          f'`map_id` {map_id!r} does not resolve to a map; a feature is always '
+                          f'drawn on one')
+            map_record = None
+        else:
+            level_ids = [level.get('id') for level in _map_levels(map_record)]
+            if record.get('level_id') not in level_ids:
+                yield Finding(ERROR, 'geometry-unknown-level', path, entity_id,
+                              _pointer('level_id'),
+                              f'`level_id` {record.get("level_id")!r} is not one of '
+                              f'{map_record["id"]}\'s levels {sorted(i for i in level_ids if i)}; '
+                              f'two levels may never share an unlabelled plane (§1.1)')
+
+        # -- what the feature depicts --------------------------------------
+        feature_entity_id = record.get('entity_id')
+        if feature_entity_id is None:
+            if feature_type in schema.FEATURE_TYPES_REQUIRING_ENTITY:
+                yield Finding(ERROR, 'geometry-entity-type', path, entity_id, _pointer('entity_id'),
+                              f'a {feature_type!r} feature must name the entity it depicts; only '
+                              f'context features (building, boundary, road, water) may be null')
+        elif isinstance(feature_entity_id, str):
+            target = ctx.resolve(feature_entity_id)
+            actual = schema.id_type((target or {}).get('id', '')) if target is not None else None
+            if target is not None and actual not in schema.GEOMETRY_ENTITY_TYPES:
+                yield Finding(ERROR, 'geometry-entity-type', path, entity_id, _pointer('entity_id'),
+                              f'{feature_entity_id!r} is a {actual}; a feature may depict one of '
+                              f'{list(schema.GEOMETRY_ENTITY_TYPES)}')
+
+        # -- distance from the map centre ----------------------------------
+        center = _map_center(map_record) if map_record is not None else None
+        if center is not None and feature_type != 'direction_line':
+            points = geo.positions(value)
+            if points:
+                furthest = max(geo.haversine_m(lon, lat, center[1], center[0])
+                               for lon, lat in points)
+                extent = map_record.get('extent_m')
+                if furthest > schema.MAX_FEATURE_DISTANCE_M:
+                    yield Finding(ERROR, 'geometry-out-of-extent', path, entity_id,
+                                  _pointer('geometry', 'value'),
+                                  f'a position lies {furthest / 1000:.1f} km from the centre of '
+                                  f'{map_record["id"]}, beyond the '
+                                  f'{schema.MAX_FEATURE_DISTANCE_M / 1000:g} km a local map covers')
+                elif schema.is_number(extent) and furthest > 3 * float(extent):
+                    yield Finding(WARNING, 'geometry-out-of-extent', path, entity_id,
+                                  _pointer('geometry', 'value'),
+                                  f'a position lies {furthest / 1000:.2f} km from the centre of '
+                                  f'{map_record["id"]}, more than 3 x `extent_m` '
+                                  f'({float(extent) / 1000:g} km); the default view will not show it')
+
+        # -- representation -------------------------------------------------
+        method = _text(record.get('method'))
+        if representation not in schema.REPRESENTATIONS:
+            extra = ('; there is no `schematic` class — a tracing of an unscaled diagram belongs '
+                     'in `map.schematics` as a link' if representation == 'schematic' else '')
+            yield Finding(ERROR, 'geometry-representation', path, entity_id,
+                          _pointer('representation'),
+                          f'{representation!r} is not one of {list(schema.REPRESENTATIONS)}{extra}')
+        elif representation == 'derived' and not method:
+            yield Finding(ERROR, 'geometry-representation', path, entity_id, _pointer('method'),
+                          'a `derived` shape must state the computation and its inputs in '
+                          '`method`; otherwise nobody can tell what it rests on')
+        elif representation == 'georeferenced':
+            sourced = record.get('geometry') if isinstance(record.get('geometry'), dict) else {}
+            from_osm = any((ctx.source(source_id) or {}).get('source_type') == 'openstreetmap'
+                           for source_id in (sourced.get('sources') or []) + (record.get('sources') or []))
+            osm = record.get('osm')
+            if from_osm:
+                if not isinstance(osm, dict) or not (osm.get('elements') or []):
+                    yield Finding(ERROR, 'geometry-representation', path, entity_id, _pointer('osm'),
+                                  'a shape georeferenced from OpenStreetMap must record the '
+                                  '`osm.elements` it came from and the extract timestamp')
+                if not isinstance(record.get('license'), dict) or \
+                        not _text((record.get('license') or {}).get('attribution')):
+                    yield Finding(ERROR, 'geometry-representation', path, entity_id,
+                                  _pointer('license'),
+                                  f'OpenStreetMap geometry is {schema.ODBL_LICENSE_NAME} data: '
+                                  f'`license` must carry the name and the attribution string '
+                                  f'"{schema.OSM_ATTRIBUTION}"')
+
+        # -- accuracy --------------------------------------------------------
+        accuracy = record.get('accuracy_m')
+        if representation != schema.DIRECTION_REPRESENTATION:
+            if not schema.is_number(accuracy) or float(accuracy) <= 0:
+                yield Finding(ERROR, 'geometry-accuracy', path, entity_id, _pointer('accuracy_m'),
+                              f'`accuracy_m` {accuracy!r} must be a positive number of metres, '
+                              f'rounded up honestly (§1.2)')
+
+        # -- a derivation may not rest on a coarser anchor --------------------
+        if representation == 'derived' and schema.is_number(accuracy):
+            note = _text(((record.get('geometry') or {}) if isinstance(record.get('geometry'), dict)
+                          else {}).get('note'))
+            mentioned = sorted(set(_SITE_ID_RE.findall(method)) | set(_SITE_ID_RE.findall(note)))
+            for site_id in mentioned:
+                site = ctx.resolve(site_id)
+                coordinates = (site or {}).get('coordinates')
+                precision = coordinates.get('precision_m') if isinstance(coordinates, dict) else None
+                if schema.is_number(precision) and float(precision) > float(accuracy):
+                    yield Finding(ERROR, 'geometry-derived-from-coarse-anchor', path, entity_id,
+                                  _pointer('method'),
+                                  f'this shape is derived from {site_id}, whose point is good to '
+                                  f'{float(precision):g} m, but it claims `accuracy_m` '
+                                  f'{float(accuracy):g}; a derivation is never more precise than '
+                                  f'its anchor (§1.2)')
+
+        # -- the cross-checks -------------------------------------------------
+        rows = [row for row in record.get('checks') or [] if isinstance(row, dict)]
+        passing_official = False
+        for index, row in enumerate(rows):
+            pointer = _pointer('checks', index)
+            other = None
+            if row.get('kind') == 'distance':
+                other_record = ctx.resolve(row.get('to_geometry_id'))
+                other = _geometry_value(other_record) if other_record is not None else None
+            result = geo.evaluate_check(value, row, other)
+            if result['passed'] is None:
+                yield Finding(ERROR, 'geometry-check-unmeasurable', path, entity_id, pointer,
+                              f'this check cannot be executed: {result["reason"]}')
+            elif not result['passed']:
+                yield Finding(ERROR, 'geometry-check-failed', path, entity_id, pointer,
+                              f'{row.get("kind")} check against an independent figure disagrees '
+                              f'with the shape: {geo.format_check(result)}')
+            else:
+                rank = _best_rank(ctx, row.get('sources'))
+                if rank is not None and rank <= schema.VERIFIED_MAX_RANK:
+                    passing_official = True
+        if feature_type == 'ring' and not any(row.get('kind') == 'length' for row in rows):
+            yield Finding(WARNING, 'ring-without-length-check', path, entity_id, _pointer('checks'),
+                          'a ring whose circumference is published anywhere should carry a '
+                          '`length` check; without one the shape is nobody\'s claim but ours')
+
+        # -- confidence -------------------------------------------------------
+        sourced = record.get('geometry') if isinstance(record.get('geometry'), dict) else {}
+        if sourced.get('confidence') == 'verified':
+            rank = _best_rank(ctx, sourced.get('sources'))
+            has_official = rank is not None and rank <= schema.VERIFIED_MAX_RANK
+            has_evidence = representation == 'surveyed' or passing_official
+            if not has_official or not has_evidence:
+                reasons = []
+                if not has_official:
+                    reasons.append(f'no source of rank <= {schema.VERIFIED_MAX_RANK} is cited '
+                                   f'(best rank {rank if rank is not None else "none"})')
+                if not has_evidence:
+                    reasons.append('the representation is not `surveyed` and no passing check '
+                                   'cites an independent official figure')
+                yield Finding(ERROR, 'geometry-confidence', path, entity_id,
+                              _pointer('geometry', 'confidence'),
+                              f'`verified` needs a rank <= {schema.VERIFIED_MAX_RANK} source **and** '
+                              f'either a surveyed shape or a passing cross-check against one: '
+                              f'{"; ".join(reasons)}. OpenStreetMap alone is `approximate`')
+
+        # -- an inferred direction is recomputed ------------------------------
+        if representation == schema.DIRECTION_REPRESENTATION:
+            entity = ctx.resolve(feature_entity_id) if isinstance(feature_entity_id, str) else None
+            far_site = _far_site_of(ctx, entity)
+            point = schema.coordinates_of(far_site) if far_site is not None else None
+            drawn = geo.geometry_azimuth_deg(value)
+            vertices = geo.positions(value)
+            if point is not None and drawn is not None and vertices:
+                start = vertices[0]
+                expected = geo.initial_bearing_deg(start[0], start[1], point[1], point[0])
+                difference = geo.bearing_difference_deg(drawn, expected)
+                if difference > schema.AZIMUTH_TOLERANCE_DEG:
+                    yield Finding(ERROR, 'geometry-direction-azimuth', path, entity_id,
+                                  _pointer('geometry', 'value'),
+                                  f'this line bears {drawn:.3f}deg, but the great-circle bearing '
+                                  f'from its first vertex to {far_site["id"]} is {expected:.3f}deg '
+                                  f'— off by {difference:.3f}deg, over the '
+                                  f'{schema.AZIMUTH_TOLERANCE_DEG:g}deg A25 allows. An inferred '
+                                  f'direction that does not point at the far site is a drawing, '
+                                  f'not a measurement')
+
+        # -- the shape's own lifetime ------------------------------------------
+        valid = record.get('valid')
+        if isinstance(valid, dict):
+            start, end = schema.lo(valid.get('start')), schema.hi(valid.get('end'))
+            if start is not None and end is not None and end < start:
+                yield Finding(ERROR, 'geometry-valid-order', path, entity_id, _pointer('valid'),
+                              f'the shape ends {end.isoformat()} before it starts {start.isoformat()}')
+            entity = ctx.resolve(feature_entity_id) if isinstance(feature_entity_id, str) else None
+            hull = schema.existence_hull(entity, build_date=ctx.build_date) if entity else None
+            if hull is not None and start is not None and end is not None and end >= start:
+                if end < hull[0] or start > hull[1]:
+                    yield Finding(WARNING, 'geometry-outside-entity-hull', path, entity_id,
+                                  _pointer('valid'),
+                                  f'the shape is valid {start.isoformat()}..{end.isoformat()}, '
+                                  f'entirely outside {entity["id"]}\'s existence '
+                                  f'{hull[0].isoformat()}..{hull[1].isoformat()}')
+
+        # -- the site it stands at ----------------------------------------------
+        site = ctx.resolve(record.get('site_id')) if isinstance(record.get('site_id'), str) else None
+        coordinates = (site or {}).get('coordinates') if site is not None else None
+        if isinstance(coordinates, dict) and coordinates.get('kind') in schema.DETECTOR_COORDINATE_KINDS:
+            precision = coordinates.get('precision_m')
+            point = schema.coordinates_of(site)
+            here = geo.centroid(value)
+            if schema.is_number(precision) and float(precision) <= schema.SITE_MATCH_MAX_PRECISION_M \
+                    and point is not None and here is not None:
+                allowed = max(3 * float(precision), schema.SITE_MATCH_FLOOR_M)
+                distance = geo.haversine_m(here[0], here[1], point[1], point[0])
+                if distance > allowed:
+                    yield Finding(WARNING, 'geometry-site-mismatch', path, entity_id,
+                                  _pointer('site_id'),
+                                  f'the centroid is {distance:.0f} m from {site["id"]}, whose '
+                                  f'point is good to {float(precision):g} m (allowed '
+                                  f'{allowed:.0f} m); one of the two is in the wrong place')
+
+        # -- duplicates -----------------------------------------------------------
+        if entity_id in duplicates:
+            yield Finding(WARNING, 'geometry-duplicate-shape', path, entity_id,
+                          _pointer('geometry', 'value'),
+                          f'identical coordinates to {duplicates[entity_id]} on the same map; '
+                          f'one shape drawn twice reads as two structures')
+
+
+# ===========================================================================
 # Dispatcher and reporting
 # ===========================================================================
 
@@ -2144,6 +2718,8 @@ CHECKS = (
     check_specs,
     check_planned_starts,
     check_detector_site_distance,
+    check_maps,
+    check_geometry,
 )
 
 
