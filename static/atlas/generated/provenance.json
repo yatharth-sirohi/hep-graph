@@ -74343,13 +74343,13 @@
   "site:fermilab-cdf-collision-hall-b0": {
     "/coordinates": {
       "confidence": "approximate",
-      "locator": "site:fermilab-main-campus coordinates field, sourced to the LBNF/DUNE official project website (src:fermilab-lbnf-dune-site), reused here per the wave-3 brief's campus-point fallback for a detector hall with no separately published coordinate",
-      "note": "No fetched source gives a specific coordinate for the CDF (B0) interaction hall itself; this point is the Fermilab campus centroid (reused, with its existing source, from site:fermilab-main-campus per A23) and is only campus-precision, not a survey of this hall. The Tevatron ring is about 6.3 km in circumference (about 1 km radius), so the true position could be up to roughly 2 km from this point in an unknown direction.",
+      "locator": "OSM way 51755116 \"CDF Hall\" building centroid (extract of 2026-09-18)",
+      "note": "`kind: campus` under A23: the point is an OpenStreetMap building centroid (rank-11 source), which A17 does not admit as a detector-grade point on its own; it is nevertheless within ~40 m of the hall. The CDF collision hall (B0) footprint is mapped in OpenStreetMap as the named building \"CDF Hall\"; the coordinate is its centroid. OpenStreetMap is a rank-11 source, so the point is recorded as approximate rather than verified; precision_m is the half-size of the footprint. Previous record: campus point 41.8422582, -88.245782 at 3000 m precision.",
       "quote": null,
       "sources": [
-        "src:fermilab-lbnf-dune-site"
+        "src:fermilab-geo-osm-buildings"
       ],
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-09-18"
     },
     "/sources": {
       "confidence": null,
@@ -74366,13 +74366,13 @@
   "site:fermilab-d0-collision-hall": {
     "/coordinates": {
       "confidence": "approximate",
-      "locator": "site:fermilab-main-campus coordinates field, sourced to the LBNF/DUNE official project website (src:fermilab-lbnf-dune-site), reused here per the wave-3 brief's campus-point fallback for a detector hall with no separately published coordinate",
-      "note": "No fetched source gives a specific coordinate for the D0 interaction hall itself; this point is the Fermilab campus centroid (reused, with its existing source, from site:fermilab-main-campus per A23) and is only campus-precision, not a survey of this hall. The Tevatron ring is about 6.3 km in circumference (about 1 km radius), so the true position could be up to roughly 2 km from this point in an unknown direction.",
+      "locator": "OSM D0 Assembly Building centroid (extract of 2026-09-18)",
+      "note": "`kind: campus` under A23: the point is an OpenStreetMap building centroid (rank-11 source), which A17 does not admit as a detector-grade point on its own; it is nevertheless within ~40 m of the hall. The D0 assembly/collision hall building is mapped in OpenStreetMap; the coordinate is the building centroid. OpenStreetMap is a rank-11 source, so the point is recorded as approximate; precision_m is the half-size of the footprint. Previous record: campus point 41.8422582, -88.245782 at 3000 m precision.",
       "quote": null,
       "sources": [
-        "src:fermilab-lbnf-dune-site"
+        "src:fermilab-geo-osm-rings-and-d0"
       ],
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-09-18"
     },
     "/sources": {
       "confidence": null,
@@ -74437,13 +74437,13 @@
   "site:fermilab-mc-1-muon-campus": {
     "/coordinates": {
       "confidence": "approximate",
-      "locator": null,
-      "note": "No official Fermilab page or technical/geodetic paper giving a building-specific coordinate for MC-1 was found or fetchable in this session (fnal.gov and muon.fnal.gov pages returned HTTP 403/404 to every fetch attempt). This is the OpenStreetMap Nominatim centroid of the whole Fermilab industrial-landuse polygon, not a survey point for the MC-1 building specifically, which sits in the Muon Campus area in the northwest part of the Fermilab site (per the official MC-1 Building Project Plan title found via search, not itself fetchable). Recorded as a campus-level approximate point per the ontology's fallback rule.",
-      "quote": "Fermilab, Batavia Township, Kane County, Illinois, United States -- lat 41.8332023, lon -88.2653684 (landuse/industrial polygon centroid)",
+      "locator": "OSM MC-1 building centroid (extract of 2026-09-18)",
+      "note": "`kind: campus` under A23: the point is an OpenStreetMap building centroid (rank-11 source), which A17 does not admit as a detector-grade point on its own; it is nevertheless within ~40 m of the hall. The MC-1 building housing the Muon g-2 storage ring is mapped in OpenStreetMap; the coordinate is the building centroid, confirmed against the g-2 TDR layout by the geometry worklog. OpenStreetMap is a rank-11 source, so the point is recorded as approximate. Previous record: campus point 41.8332023, -88.2653684 at 4000 m precision.",
+      "quote": null,
       "sources": [
-        "src:muons-nominatim-fermilab"
+        "src:fermilab-geo-osm-mc1"
       ],
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-09-18"
     },
     "/sources": {
       "confidence": null,
