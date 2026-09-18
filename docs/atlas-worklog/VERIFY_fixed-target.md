@@ -224,10 +224,17 @@ one for BDF/SHiP construction status.
 
 `.venv/bin/python -m hepgraph.atlas.validate` (run from
 `/Users/yatharthsirohi/Desktop/HEP-Graph/.venv/bin/python`, against this
-worktree): **4 errors total in the whole repository, 0 attributable to
-fixed-target.** The 4 remaining errors are all in `experiments/gallex-gno.json`
-and `results/borexino-pp-first-detection-2014.json` (a different domain,
-out of scope for this verification). All fixed-target-relevant findings are
+worktree), run three times to confirm stability: **0 errors attributable to
+fixed-target in every run.** The first two runs (4, then transiently 30,
+errors) reflected other domains only: `experiments/gallex-gno.json` /
+`results/borexino-pp-first-detection-2014.json`, and then a same-worktree
+race with a concurrent verifier agent mid-write on SAGE records (this
+worktree is evidently shared by more than one verifier session; its
+untracked `sage-*`/`VERIFY_axions.md` files are not mine). A clean re-run
+after that write settled shows **1 error in the whole repository**
+(`results/sage-capture-rate-1999.json`, again a different domain), **0**
+touching fixed-target, and 0 warnings/errors on any of the new
+`src:fixed-target-verify-*` sources. All fixed-target-relevant findings are
 warnings-only after the fixes above (e.g. `coordinate-kind-approximate` now
 correctly fires for the three campus-grade sites instead of being silently
 bypassed).

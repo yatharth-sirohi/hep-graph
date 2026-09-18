@@ -1,66 +1,122 @@
 {
-  "id": "experiment:p-one",
-  "type": "experiment",
-  "name": "P-ONE",
-  "aliases": ["Pacific Ocean Neutrino Experiment"],
-  "kind": "astrophysical_neutrino",
-  "secondary_kinds": [],
-  "collaboration_ids": ["collaboration:p-one"],
-  "facility_roles": [],
-  "beamline_ids": [],
   "accelerator_ids": [],
-  "topic_ids": ["topic:high-energy-astrophysical-neutrinos", "topic:multimessenger-astrophysics"],
+  "aliases": [
+    "Pacific Ocean Neutrino Experiment"
+  ],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:p-one"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "document_ids": [],
+  "energy_regime": null,
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [],
+  "id": "experiment:p-one",
   "intervals": [
     {
-      "label": "proposed",
-      "status": "proposed",
-      "start": "2020-05",
+      "confidence": "verified",
       "end": null,
-      "sources": ["src:astro-neutrino-p-one-official-site", "src:astro-neutrino-p-one-nature-astronomy-2020"],
-      "verified_at": "2026-09-17", "confidence": "verified",
+      "label": "full array proposed",
+      "note": "Start is the submission date of the 2020 Nature Astronomy design paper; the collaboration's own official site still describes the full multi-cubic-kilometre array as 'proposed' as of the 2026-09-18 re-check. This interval alone would leave experiment status 'proposed', but see the commissioning interval below for the pathfinder programme that has actually been deployed and is taking data (A3: a realised interval knocks out a merely-proposed one covering the same time).",
       "quote": "The Pacific Ocean Neutrino Experiment is a proposed large-volume neutrino telescope in the Northeast Pacific Ocean, off the coast of Vancouver Island, Canada.",
-      "note": "Start is the submission date of the 2020 Nature Astronomy design paper; the collaboration's own official site still describes the full array as 'proposed' as of this session's access date (2026-09-17). Pathfinder/demonstrator hardware (STRAW, STRAW-b, P-ONE-1) has already been built and deployed, but is modelled on detector:p-one rather than as a realised-status interval here, since the overall multi-cubic-kilometre array remains at the proposal stage per the collaboration's own current wording."
-    }
-  ],
-  "status": "proposed",
-  "physics_goals": [
+      "sources": [
+        "src:astro-neutrino-p-one-official-site",
+        "src:astro-neutrino-p-one-nature-astronomy-2020"
+      ],
+      "start": "2020-05",
+      "status": "proposed",
+      "verified_at": "2026-09-17"
+    },
     {
-      "value": "Build a multi-cubic-kilometre neutrino telescope in the deep Pacific Ocean to detect high-energy astrophysical neutrinos",
-      "sources": ["src:astro-neutrino-p-one-nature-astronomy-2020"],
-      "verified_at": "2026-09-17", "confidence": "verified",
-      "quote": "multi-cubic kilometre neutrino telescope", "note": ""
+      "confidence": "verified",
+      "end": null,
+      "label": "pathfinder programme deployed and taking data (STRAW active; P-ONE-1 integrated/tested, first line not yet deployed)",
+      "note": "Verification fix (2026-09-18): added because detector:p-one (the STRAW pathfinder) has been actively deployed and taking data at Cascadia Basin since January 2019, which is inconsistent with leaving the experiment record itself at 'proposed' (a detector cannot be running for an experiment that has nothing built). Re-fetching the official site on 2026-09-18 confirms P-ONE-1 (the first production detection line) has completed integration and a wet test on land/harbour but, per the site's own present-tense wording, has NOT yet been deployed to depth ('will be deployed' in 2026); only the STRAW/STRAW-b pathfinder hardware is genuinely operating undersea. 'commissioning' is used (not 'construction' or 'active') to reflect this mixed state: a precursor line is actively taking data while the production array's own first line is still being readied, the same overlapping pattern used for experiment:km3net and experiment:baikal-gvd.",
+      "quote": "works in near real-time with a duty cycle of 98% since completion of the commissioning phase in January 2019 / [official site, re-fetched 2026-09-18:] In 2026, the first detection line of P-ONE will be deployed.",
+      "sources": [
+        "src:astro-neutrino-p-one-straw-site-characterization-2021",
+        "src:astro-neutrino-p-one-official-site"
+      ],
+      "start": "2019-01",
+      "status": "commissioning",
+      "verified_at": "2026-09-18"
     }
   ],
-  "unique_capabilities": [],
-  "energy_regime": null,
   "key_specs": [
     {
       "label": "Site depth (Cascadia Basin)",
       "quantity": {
-        "value": 2660, "unit": "m", "dimension": "length", "approx": false,
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "length",
         "display": "2660 m",
-        "sources": ["src:astro-neutrino-p-one-straw-site-characterization-2021"],
-        "verified_at": "2026-09-17", "confidence": "verified",
+        "note": "",
         "quote": "An established ONC site, known as the Cascadia Basin, 2,660 m below sea level, provides an ideal environment for a large scale undersea neutrino telescope.",
-        "note": ""
+        "sources": [
+          "src:astro-neutrino-p-one-straw-site-characterization-2021"
+        ],
+        "unit": "m",
+        "value": 2660,
+        "verified_at": "2026-09-17"
       }
     }
   ],
+  "kind": "astrophysical_neutrino",
   "lineage": [],
-  "external": {"greybook": null, "inspire_experiment": null, "wikidata": null},
-  "document_ids": [],
-  "result_ids": [],
-  "links": {"website": {"value": "https://www.pacific-neutrino.org/", "sources": ["src:astro-neutrino-p-one-official-site"], "verified_at": "2026-09-17", "confidence": "verified", "note": ""}},
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "note": "",
+      "sources": [
+        "src:astro-neutrino-p-one-official-site"
+      ],
+      "value": "https://www.pacific-neutrino.org/",
+      "verified_at": "2026-09-17"
+    }
+  },
+  "name": "P-ONE",
   "notes": [
     "detector:p-one is placed at site:cascadia-basin-p-one, the nearest named coastal feature (Barkley Sound, Vancouver Island): no source fetched this session (official site, Nature Astronomy design paper, EPJC site-characterization paper, Ocean Networks Canada pages, Wikipedia) gives a numeric latitude/longitude for the actual Cascadia Basin seafloor deployment point, only qualitative descriptions ('Cascadia Basin, ~200 km off the coast of British Columbia/Vancouver Island, Canada', depth 2660 m). Per A17's fallback rule, the coastal point is recorded as a coarse regional pointer (kind: campus, confidence: uncertain) rather than a surveyed seafloor position.",
-    "Timeline per the collaboration's own pages/papers: STRAW pathfinder deployed Spring 2018, commissioning completed January 2019; STRAW-b under construction as of the 2021 paper with deployment then planned for 2020 (i.e. the 2021 paper's schedule predates its own writing, an internal inconsistency in that source, left unresolved); P-ONE Explorer deployment was planned for 2023-2024 in the 2020 design paper; the official site (accessed 2026-09-17) states 'In 2026, the first detection line of P-ONE will be deployed' and separately notes a completed 'wet test of P-ONE-1 in Vancouver's Granville Island' and 'Completed integration of first detector line P-ONE-1' as past milestones -- it is not possible to tell from the fetched text alone whether the first real detection line has already been deployed in the ocean as of the access date or is still upcoming later in 2026.",
+    "Timeline per the collaboration's own pages/papers: STRAW pathfinder deployed Spring 2018, commissioning completed January 2019; STRAW-b under construction as of the 2021 paper with deployment then planned for 2020 (i.e. the 2021 paper's schedule predates its own writing, an internal inconsistency in that source, left unresolved); P-ONE Explorer deployment was planned for 2023-2024 in the 2020 design paper; the official site (re-fetched 2026-09-18) states 'In 2026, the first detection line of P-ONE will be deployed' (future tense) and separately lists completed milestones 'Successful wet test of P-ONE-1 in Vancouver's Granville Island' and 'Completed integration of first detector line P-ONE-1' -- read together, P-ONE-1 has been built and tested on land/in harbour but the site's own present-tense wording indicates it has not yet been deployed to depth at Cascadia Basin.",
     "Derived fields (detector_ids, site_ids, result_ids, document_ids) are deliberately not written (v0.2 A1)."
   ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "note": "",
+      "quote": "multi-cubic kilometre neutrino telescope",
+      "sources": [
+        "src:astro-neutrino-p-one-nature-astronomy-2020"
+      ],
+      "value": "Build a multi-cubic-kilometre neutrino telescope in the deep Pacific Ocean to detect high-energy astrophysical neutrinos",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "result_ids": [],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:astro-neutrino-p-one-official-site",
+    "src:astro-neutrino-p-one-nature-astronomy-2020",
+    "src:astro-neutrino-p-one-straw-site-characterization-2021"
+  ],
+  "status": "commissioning",
   "summary": {
-    "plain": "A proposed neutrino telescope planned for the deep Pacific Ocean off Canada's west coast, building on an undersea science network. Small pathfinder instruments have already been tested there; the full telescope is still being built up piece by piece.",
-    "technical": "Proposed multi-cubic-kilometre water-Cherenkov neutrino telescope for the Cascadia Basin (2660 m depth) on Ocean Networks Canada's NEPTUNE cabled infrastructure off Vancouver Island. Pathfinder instruments (STRAW, deployed Spring 2018; STRAW-b; P-ONE-1) have validated the deep-sea deployment and optical-background characterization; the full array remains at the proposal stage as of the collaboration's own current description."
+    "plain": "A planned neutrino telescope for the deep Pacific Ocean off Canada's west coast, building on an undersea science network. A small pathfinder instrument has been actively taking data there since 2019, proving the technology, while the full telescope and its first production line are still being built.",
+    "technical": "Multi-cubic-kilometre water-Cherenkov neutrino telescope proposed for the Cascadia Basin (2660 m depth) on Ocean Networks Canada's NEPTUNE cabled infrastructure off Vancouver Island. The STRAW pathfinder (deployed Spring 2018) has been actively taking data since January 2019, validating deep-sea deployment and optical-background characterization; P-ONE-1, the planned first production detection line, has completed integration and a wet test but had not yet been deployed to depth as of the 2026-09-18 re-check. The full design array remains at the proposal stage."
   },
-  "coverage": {"researched": "partial", "tier": "B"},
-  "sources": ["src:astro-neutrino-p-one-official-site", "src:astro-neutrino-p-one-nature-astronomy-2020", "src:astro-neutrino-p-one-straw-site-characterization-2021"],
-  "schema": "hep-atlas/0.2"
+  "topic_ids": [
+    "topic:high-energy-astrophysical-neutrinos",
+    "topic:multimessenger-astrophysics"
+  ],
+  "type": "experiment",
+  "unique_capabilities": []
 }

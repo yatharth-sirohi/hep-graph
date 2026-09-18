@@ -1,77 +1,132 @@
 {
-  "id": "experiment:grand",
-  "type": "experiment",
-  "name": "GRAND",
-  "aliases": ["Giant Radio Array for Neutrino Detection"],
-  "kind": "astrophysical_neutrino",
-  "secondary_kinds": ["cosmic_ray"],
-  "collaboration_ids": ["collaboration:grand"],
-  "facility_roles": [],
-  "beamline_ids": [],
   "accelerator_ids": [],
-  "topic_ids": ["topic:high-energy-astrophysical-neutrinos", "topic:cosmic-rays"],
+  "aliases": [
+    "Giant Radio Array for Neutrino Detection"
+  ],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:grand"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "document_ids": [],
+  "energy_regime": null,
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [],
+  "id": "experiment:grand",
   "intervals": [
     {
-      "label": "proposed",
-      "status": "proposed",
-      "start": "2018-10",
+      "confidence": "verified",
       "end": null,
-      "sources": ["src:astro-neutrino-grand-white-paper-2018"],
-      "verified_at": "2026-09-17", "confidence": "verified",
+      "label": "full 200,000-antenna array proposed",
+      "note": "Start is the 2018 white paper's submission date; the full 200,000-antenna GRAND array remains at the proposal stage as of the most recent prototype paper fetched (2026). This interval alone would leave experiment status 'proposed', but see the commissioning interval below for the GRANDProto300 prototype that has actually been deployed and is taking data (A3: a realised interval knocks out a merely-proposed one covering the same time).",
       "quote": "planned large-scale observatory: 20 separate, independent sub-arrays, each of 10,000 radio antennas deployed over 10,000 km^2",
-      "note": "Start is the 2018 white paper's submission date; the full 200,000-antenna GRAND array remains at the proposal stage as of the most recent prototype paper fetched (2026). The GRANDProto300 prototype's own construction/commissioning intervals are modelled on detector:grand rather than here, so that this experiment-level status continues to reflect the collaboration's own current description of the full array as 'proposed' (A10); see detector:grand for the prototype's active build-out."
-    }
-  ],
-  "status": "proposed",
-  "physics_goals": [
+      "sources": [
+        "src:astro-neutrino-grand-white-paper-2018"
+      ],
+      "start": "2018-10",
+      "status": "proposed",
+      "verified_at": "2026-09-17"
+    },
     {
-      "value": "Detect ultra-high-energy cosmic neutrinos and cosmic rays using giant radio antenna arrays sensitive to air showers and Earth-skimming neutrino-induced showers",
-      "sources": ["src:astro-neutrino-grand-white-paper-2018"],
-      "verified_at": "2026-09-17", "confidence": "verified",
-      "quote": "planned large-scale observatory: 20 separate, independent sub-arrays, each of 10,000 radio antennas deployed over 10,000 km^2, for a total of 200,000 antennas",
-      "note": ""
+      "confidence": "verified",
+      "end": null,
+      "label": "GRANDProto300 prototype deployed and taking data",
+      "note": "Verification fix (2026-09-18): added because detector:grand (GRANDProto300) has been genuinely deployed and growing (13 to 65 antennas) since June 2023, which is inconsistent with leaving the experiment record itself at 'proposed' (a detector cannot be commissioning for an experiment that has nothing built). 'commissioning' matches detector:grand's own status and the same overlapping proposed-design/active-prototype pattern used for experiment:p-one.",
+      "quote": "In June 2023, the deployment of the 13-antenna stage, GP300_s13, was completed. ... By April 2025, the array was extended to its current 65-antenna stage (GP300_s65)",
+      "sources": [
+        "src:astro-neutrino-grandproto300-progress-icrc2025"
+      ],
+      "start": "2023-06",
+      "status": "commissioning",
+      "verified_at": "2026-09-18"
     }
   ],
-  "unique_capabilities": [],
-  "energy_regime": null,
   "key_specs": [
     {
       "label": "GRANDProto300 antennas (current stage)",
       "quantity": {
-        "value": 65, "unit": "", "dimension": "count", "approx": false,
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "count",
         "display": "65 antennas (GP300_s65)",
-        "sources": ["src:astro-neutrino-grandproto300-progress-icrc2025"],
-        "verified_at": "2026-09-17", "confidence": "verified",
-        "quote": "the array was extended to its current 65-antenna stage (GP300_s65)", "note": "Prototype stage, not the full design array."
+        "note": "Prototype stage, not the full design array.",
+        "quote": "the array was extended to its current 65-antenna stage (GP300_s65)",
+        "sources": [
+          "src:astro-neutrino-grandproto300-progress-icrc2025"
+        ],
+        "unit": "",
+        "value": 65,
+        "verified_at": "2026-09-17"
       }
     },
     {
       "label": "Full GRAND design: total antennas",
       "quantity": {
-        "value": 200000, "unit": "", "dimension": "count", "approx": false,
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "count",
         "display": "200,000 antennas (design)",
-        "sources": ["src:astro-neutrino-grand-white-paper-2018"],
-        "verified_at": "2026-09-17", "confidence": "verified",
-        "quote": "20 separate, independent sub-arrays, each of 10,000 radio antennas deployed over 10,000 km^2, for a total of 200,000 antennas", "note": "Design/proposal figure; not yet built."
+        "note": "Design/proposal figure; not yet built.",
+        "quote": "20 separate, independent sub-arrays, each of 10,000 radio antennas deployed over 10,000 km^2, for a total of 200,000 antennas",
+        "sources": [
+          "src:astro-neutrino-grand-white-paper-2018"
+        ],
+        "unit": "",
+        "value": 200000,
+        "verified_at": "2026-09-17"
       }
     }
   ],
+  "kind": "astrophysical_neutrino",
   "lineage": [],
-  "external": {"greybook": null, "inspire_experiment": null, "wikidata": null},
-  "document_ids": [],
-  "result_ids": [],
-  "links": {"website": null},
+  "links": {
+    "website": null
+  },
+  "name": "GRAND",
   "notes": [
     "detector:grand is placed at site:grandproto300-dunhuang, the nearest named city to GRANDProto300's actual location ('200 km^2 in the Gobi Desert near Xiaodushan, in northern Dunhuang, China' per the collaboration's own progress paper) -- no fetched source states a numeric latitude/longitude for the array itself, so the city point is used as a coarse regional pointer (kind: campus, confidence: uncertain) rather than a surveyed position, per A17's fallback rule.",
     "Three small-scale prototype arrays exist since 2023 per the 2026 JINST paper: GRAND@Nancay (France), GRAND@Auger (Argentina) and GRANDProto300 (China); only GRANDProto300 is modelled in any detail here since it is the collaboration's own most-covered prototype in the sources fetched.",
     "No INSPIRE experiment-registry lookup was performed for GRAND in this session; external.inspire_experiment left null.",
     "Derived fields (detector_ids, site_ids, result_ids, document_ids) are deliberately not written (v0.2 A1)."
   ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "note": "",
+      "quote": "planned large-scale observatory: 20 separate, independent sub-arrays, each of 10,000 radio antennas deployed over 10,000 km^2, for a total of 200,000 antennas",
+      "sources": [
+        "src:astro-neutrino-grand-white-paper-2018"
+      ],
+      "value": "Detect ultra-high-energy cosmic neutrinos and cosmic rays using giant radio antenna arrays sensitive to air showers and Earth-skimming neutrino-induced showers",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "result_ids": [],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [
+    "cosmic_ray"
+  ],
+  "sources": [
+    "src:astro-neutrino-grand-white-paper-2018",
+    "src:astro-neutrino-grand-prototypes-jinst-2026",
+    "src:astro-neutrino-grandproto300-progress-icrc2025"
+  ],
+  "status": "commissioning",
   "summary": {
-    "plain": "A proposed giant array of 200,000 radio antennas spread over a huge area, designed to catch the radio flash from ultra-high-energy cosmic rays and neutrinos. Small test versions are already running in China, France and Argentina.",
-    "technical": "Proposed 200,000-antenna, 20-sub-array giant radio observatory for ultra-high-energy neutrinos and cosmic rays. Full array remains at proposal stage; the GRANDProto300 prototype in the Gobi Desert near Dunhuang, China grew from a 13-antenna stage (deployed June 2023) to a 65-antenna stage (April 2025), alongside sister prototypes GRAND@Nancay (France) and GRAND@Auger (Argentina), all operating since 2023."
+    "plain": "A giant planned array of 200,000 radio antennas spread over a huge area, designed to catch the radio flash from ultra-high-energy cosmic rays and neutrinos. Small test versions are already up and running in China, France and Argentina.",
+    "technical": "Planned 200,000-antenna, 20-sub-array giant radio observatory for ultra-high-energy neutrinos and cosmic rays. The full design array remains at the proposal stage, but the GRANDProto300 prototype in the Gobi Desert near Dunhuang, China has been deployed and growing since June 2023 (13-antenna stage, then 65-antenna stage by April 2025), alongside sister prototypes GRAND@Nancay (France) and GRAND@Auger (Argentina), all operating since 2023."
   },
-  "coverage": {"researched": "partial", "tier": "B"},
-  "sources": ["src:astro-neutrino-grand-white-paper-2018", "src:astro-neutrino-grand-prototypes-jinst-2026", "src:astro-neutrino-grandproto300-progress-icrc2025"],
-  "schema": "hep-atlas/0.2"
+  "topic_ids": [
+    "topic:high-energy-astrophysical-neutrinos",
+    "topic:cosmic-rays"
+  ],
+  "type": "experiment",
+  "unique_capabilities": []
 }
