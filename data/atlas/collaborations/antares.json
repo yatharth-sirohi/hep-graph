@@ -1,55 +1,96 @@
 {
-  "id": "collaboration:antares",
-  "type": "collaboration",
-  "name": "ANTARES Collaboration",
   "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "document_ids": [],
   "formation": {
+    "confidence": "verified",
+    "note": "",
+    "quote": "The ANTARES collaboration was created in 1996",
+    "sources": [
+      "src:astro-neutrino-antares-two-decades-detector-paper"
+    ],
     "value": "1996",
-    "sources": ["src:astro-neutrino-antares-two-decades-detector-paper"],
-    "verified_at": "2026-09-17", "confidence": "verified",
-    "quote": "The ANTARES collaboration was created in 1996", "note": ""
+    "verified_at": "2026-09-17"
   },
-  "intervals": [
-    {
-      "label": "collaboration",
-      "status": "completed",
-      "start": "1996",
-      "end": "2022-02-12",
-      "sources": ["src:astro-neutrino-antares-two-decades-detector-paper"],
-      "verified_at": "2026-09-17", "confidence": "approximate",
-      "quote": "The ANTARES collaboration was created in 1996",
-      "note": "End date set to the detector switch-off (2022-02-12); the collaboration may have continued analysis work after that date, but no source fetched this session states a formal dissolution date, so this is an approximation of the operating lifetime rather than a sourced end of the collaboration itself."
-    }
-  ],
-  "status": "completed",
-  "membership": {
-    "as_of": "2026",
-    "evidence_class": "official_institution_list",
-    "institution_count": null,
-    "country_count": null,
-    "member_count": {
-      "value": 150,
-      "sources": ["src:astro-neutrino-antares-official-collaboration"],
-      "verified_at": "2026-09-17", "confidence": "approximate",
-      "quote": "The ANTARES collaboration is composed of around 150 engineers, technicians and physicists from the institutes listed below.",
-      "note": "\"Around 150\"; the source does not give an explicit total institution or country count. The institute list on the page names institutes in France, Morocco, Spain, the Netherlands, Italy, Germany, Romania and Australia, but the page itself does not state a total country count, so institution_count and country_count are left null rather than derived by counting."
-    },
-    "roster_source_ids": ["src:astro-neutrino-antares-official-collaboration"]
-  },
-  "leadership": [],
   "host_facility_id": null,
   "host_site_id": "site:antares-toulon",
-  "document_ids": [],
-  "links": {"website": {"value": "https://antares.in2p3.fr/", "sources": ["src:astro-neutrino-antares-official-collaboration"], "verified_at": "2026-09-17", "confidence": "verified", "note": ""}},
+  "id": "collaboration:antares",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2022-02-12",
+      "label": "collaboration",
+      "note": "End date set to the detector switch-off (2022-02-12); the collaboration may have continued analysis work after that date, but no source fetched this session states a formal dissolution date, so this is an approximation of the operating lifetime rather than a sourced end of the collaboration itself. Operating interval; the single sourced row was split from its terminal event (A3, 2026-09-17).",
+      "quote": "The ANTARES collaboration was created in 1996",
+      "sources": [
+        "src:astro-neutrino-antares-two-decades-detector-paper"
+      ],
+      "start": "1996",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "completed",
+      "note": "End date set to the detector switch-off (2022-02-12); the collaboration may have continued analysis work after that date, but no source fetched this session states a formal dissolution date, so this is an approximation of the operating lifetime rather than a sourced end of the collaboration itself. Terminal event derived from the end of the same sourced interval (A3, 2026-09-17).",
+      "quote": "The ANTARES collaboration was created in 1996",
+      "sources": [
+        "src:astro-neutrino-antares-two-decades-detector-paper"
+      ],
+      "start": "2022-02-12",
+      "status": "completed",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "leadership": [],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "note": "",
+      "sources": [
+        "src:astro-neutrino-antares-official-collaboration"
+      ],
+      "value": "https://antares.in2p3.fr/",
+      "verified_at": "2026-09-17"
+    }
+  },
+  "membership": {
+    "as_of": "2026",
+    "country_count": null,
+    "evidence_class": "official_institution_list",
+    "institution_count": null,
+    "member_count": {
+      "confidence": "approximate",
+      "note": "\"Around 150\"; the source does not give an explicit total institution or country count. The institute list on the page names institutes in France, Morocco, Spain, the Netherlands, Italy, Germany, Romania and Australia, but the page itself does not state a total country count, so institution_count and country_count are left null rather than derived by counting.",
+      "quote": "The ANTARES collaboration is composed of around 150 engineers, technicians and physicists from the institutes listed below.",
+      "sources": [
+        "src:astro-neutrino-antares-official-collaboration"
+      ],
+      "value": 150,
+      "verified_at": "2026-09-17"
+    },
+    "roster_source_ids": [
+      "src:astro-neutrino-antares-official-collaboration"
+    ]
+  },
+  "name": "ANTARES Collaboration",
   "notes": [
     "Institution-level membership rows and leadership are owned by the membership-lead workstream and are not written here.",
     "Derived field collaboration.experiment_ids is deliberately not written (v0.2 A1)."
   ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:astro-neutrino-antares-official-collaboration",
+    "src:astro-neutrino-antares-two-decades-detector-paper"
+  ],
+  "status": "completed",
   "summary": {
     "plain": "The roughly 150 scientists and engineers, from institutes in about eight countries, who built and ran the ANTARES undersea neutrino telescope from 1996 until it was switched off in 2022.",
     "technical": "International collaboration (created 1996) operating the ANTARES deep-sea neutrino telescope off Toulon, France; approximately 150 engineers, technicians and physicists per the collaboration's own site."
   },
-  "coverage": {"researched": "partial", "tier": "B"},
-  "sources": ["src:astro-neutrino-antares-official-collaboration", "src:astro-neutrino-antares-two-decades-detector-paper"],
-  "schema": "hep-atlas/0.2"
+  "type": "collaboration"
 }

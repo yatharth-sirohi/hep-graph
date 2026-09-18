@@ -1,53 +1,82 @@
 {
-  "schema": "hep-atlas/0.2",
-  "id": "facility:daya-bay-reactor-neutrino-lab",
-  "type": "facility",
-  "name": "Daya Bay Reactor Neutrino Laboratory",
   "aliases": [],
-  "kind": "reactor_site",
-  "operator": {
-    "value": "Institute of High Energy Physics (IHEP), Chinese Academy of Sciences",
-    "sources": ["src:daya-bay-inspire-experiment-record"],
-    "verified_at": "2026-09-17",
-    "confidence": "uncertain",
-    "note": "IHEP leads the Daya Bay collaboration per general knowledge of the experiment's structure, but no page fetched this session states an explicit 'operator' of the underground halls themselves (as distinct from the collaboration); recorded uncertain rather than asserted as verified."
+  "countries": [
+    "CN"
+  ],
+  "country": [
+    "CN"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
   },
-  "operator_ids": [],
-  "country": ["CN"],
-  "countries": ["CN"],
-  "primary_site_id": "site:daya-bay-experimental-halls",
+  "id": "facility:daya-bay-reactor-neutrino-lab",
   "intervals": [
     {
-      "label": "operating period (per Wikipedia infobox)",
-      "status": "completed",
-      "start": "2011",
-      "end": "2020",
-      "sources": ["src:daya-bay-wikipedia"],
-      "verified_at": "2026-09-17",
       "confidence": "approximate",
-      "quote": "Operating Period: 2011–2020",
+      "end": "2020",
+      "label": "operating period (per Wikipedia infobox)",
       "locator": "Wikipedia infobox",
-      "note": "Wikipedia is the only source fetched this session giving an operating-period range; no official page or paper with the same explicit start/end was fetched. Recorded approximate; see experiment:daya-bay intervals for the better-sourced 2012 discovery-paper data-taking window."
+      "note": "Wikipedia is the only source fetched this session giving an operating-period range; no official page or paper with the same explicit start/end was fetched. Recorded approximate; see experiment:daya-bay intervals for the better-sourced 2012 discovery-paper data-taking window. Operating interval; the single sourced row was split from its terminal event (A3, 2026-09-17).",
+      "quote": "Operating Period: 2011–2020",
+      "sources": [
+        "src:daya-bay-wikipedia"
+      ],
+      "start": "2011",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "completed",
+      "locator": "Wikipedia infobox",
+      "note": "Wikipedia is the only source fetched this session giving an operating-period range; no official page or paper with the same explicit start/end was fetched. Recorded approximate; see experiment:daya-bay intervals for the better-sourced 2012 discovery-paper data-taking window. Terminal event derived from the end of the same sourced interval (A3, 2026-09-17).",
+      "quote": "Operating Period: 2011–2020",
+      "sources": [
+        "src:daya-bay-wikipedia"
+      ],
+      "start": "2020",
+      "status": "completed",
+      "verified_at": "2026-09-17"
     }
   ],
-  "status": "completed",
-  "specs": {},
-  "topic_ids": ["topic:reactor-neutrinos", "topic:neutrino-oscillations"],
-  "related_facility_ids": [],
+  "kind": "reactor_site",
   "links": {
     "website": null
   },
+  "name": "Daya Bay Reactor Neutrino Laboratory",
   "notes": [
     "The Daya Bay official experiment site (dayabay.ihep.ac.cn) timed out on every WebFetch attempt this session; this record relies on the INSPIRE experiment record, the 2012 discovery paper (arXiv:1203.1669), the detector paper (arXiv:1309.1557), and Wikipedia (used only for the pointer-level facts noted per-field).",
     "This facility record covers the three underground experimental halls (Daya Bay near, Ling Ao near, far hall) as one reactor-neutrino site complex; no source fetched this session gives distinct, separately-sourced coordinates for the individual halls (see site:daya-bay-experimental-halls note)."
   ],
-  "sources": ["src:daya-bay-inspire-experiment-record", "src:daya-bay-wikipedia", "src:daya-bay-discovery-2012"],
+  "operator": {
+    "confidence": "uncertain",
+    "note": "IHEP leads the Daya Bay collaboration per general knowledge of the experiment's structure, but no page fetched this session states an explicit 'operator' of the underground halls themselves (as distinct from the collaboration); recorded uncertain rather than asserted as verified.",
+    "sources": [
+      "src:daya-bay-inspire-experiment-record"
+    ],
+    "value": "Institute of High Energy Physics (IHEP), Chinese Academy of Sciences",
+    "verified_at": "2026-09-17"
+  },
+  "operator_ids": [],
+  "primary_site_id": "site:daya-bay-experimental-halls",
+  "related_facility_ids": [],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:daya-bay-inspire-experiment-record",
+    "src:daya-bay-wikipedia",
+    "src:daya-bay-discovery-2012"
+  ],
+  "specs": {},
+  "status": "completed",
   "summary": {
     "plain": "A set of underground experimental halls near the Daya Bay and Ling Ao nuclear power plants in Guangdong, China, built to catch antineutrinos streaming out of the reactors.",
     "technical": "Reactor-neutrino site hosting three underground experimental halls (two near halls and one far hall) at baselines of 470 m, 576 m and 1648 m from six 2.9 GW_th reactor cores at the Daya Bay and Ling Ao nuclear power complexes, Guangdong, China."
   },
-  "coverage": {
-    "tier": "B",
-    "researched": "partial"
-  }
+  "topic_ids": [
+    "topic:reactor-neutrinos",
+    "topic:neutrino-oscillations"
+  ],
+  "type": "facility"
 }

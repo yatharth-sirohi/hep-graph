@@ -317,6 +317,8 @@ RESULT_CLAIM_KEYWORDS: dict[str, str] = {
     'discovery': 'discover',
     'observation': 'observ',
     'evidence': 'evidence',
+    # A16 (extended 2026-09-17): a "first detection" must say so in the paper.
+    'first_detection': 'detect',
 }
 RESULT_DATE_KINDS: tuple[str, ...] = ('announcement', 'preprint', 'publication')  # A16
 # A12: results that are allowed to predate their experiment's operation.

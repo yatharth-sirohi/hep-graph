@@ -146,6 +146,13 @@ def _detector_site_at_admitted_campus_point(root: Path) -> None:
     _mutate(root, "sites/demo-far-cavern.json", edit)
 
 
+def _collapsed_history(root: Path) -> None:
+    # A3: one terminal row spanning a lifetime derives "completed" for every year.
+    def edit(r: dict) -> None:
+        r["intervals"] = [dict(r["intervals"][0], status="completed", start="1990", end="2005")]
+    _mutate(root, "collaborations/demo.json", edit)
+
+
 def _baseline_disagrees_with_great_circle(root: Path) -> None:
     def edit(r: dict) -> None:
         r["baselines"][0]["distance"]["value"] = 1
@@ -193,6 +200,7 @@ MUTATION_CASES: tuple[tuple[str, Callable[[Path], None], str, str], ...] = (
      "coordinate-kind", v.ERROR),
     ("detector site at an admitted campus point", _detector_site_at_admitted_campus_point,
      "coordinate-kind-approximate", v.WARNING),
+    ("collapsed history", _collapsed_history, "collapsed-history", v.WARNING),
     ("baseline disagrees with the great-circle distance", _baseline_disagrees_with_great_circle,
      "baseline-distance", v.ERROR),
     ("display string ten times its value", _display_ten_times_the_value,

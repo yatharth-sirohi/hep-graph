@@ -16,13 +16,28 @@
       "end": "2021",
       "label": "operating",
       "locator": "NEXT status paper (arXiv:2201.10907), directly fetched, confirms completion; start/end years from secondary web summaries of NEXT-White run papers, not independently re-verified against a directly fetched primary source in this session",
-      "note": "The directly fetched status paper confirms in its own words that NEXT-White \"has recently finished operation at the LSC\" as of January 2022, supporting `status: completed`. The 2016 start / 2021 end years themselves are carried from secondary summaries of NEXT-White run papers (Run I-V, depleted-then-enriched xenon) that this agent did not verify against a directly fetched primary source in this session; recorded as `confidence: uncertain` rather than left as a null/null interval (which would derive to 'no presence').",
+      "note": "The directly fetched status paper confirms in its own words that NEXT-White \"has recently finished operation at the LSC\" as of January 2022, supporting `status: completed`. The 2016 start / 2021 end years themselves are carried from secondary summaries of NEXT-White run papers (Run I-V, depleted-then-enriched xenon) that this agent did not verify against a directly fetched primary source in this session; recorded as `confidence: uncertain` rather than left as a null/null interval (which would derive to 'no presence'). Operating interval; the single sourced row was split from its terminal event (A3, 2026-09-17).",
       "quote": "The NEXT-White detector has recently finished operation at the LSC.",
       "sources": [
         "src:next-arxiv-2201-10907-status",
         "src:next-official-site"
       ],
       "start": "2016",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "completed",
+      "locator": "NEXT status paper (arXiv:2201.10907), directly fetched, confirms completion; start/end years from secondary web summaries of NEXT-White run papers, not independently re-verified against a directly fetched primary source in this session",
+      "note": "The directly fetched status paper confirms in its own words that NEXT-White \"has recently finished operation at the LSC\" as of January 2022, supporting `status: completed`. The 2016 start / 2021 end years themselves are carried from secondary summaries of NEXT-White run papers (Run I-V, depleted-then-enriched xenon) that this agent did not verify against a directly fetched primary source in this session; recorded as `confidence: uncertain` rather than left as a null/null interval (which would derive to 'no presence'). Terminal event derived from the end of the same sourced interval (A3, 2026-09-17).",
+      "quote": "The NEXT-White detector has recently finished operation at the LSC.",
+      "sources": [
+        "src:next-arxiv-2201-10907-status",
+        "src:next-official-site"
+      ],
+      "start": "2021",
       "status": "completed",
       "verified_at": "2026-09-17"
     }
@@ -39,17 +54,17 @@
   "placements": [
     {
       "confidence": "uncertain",
-      "end": null,
-      "locator": "NEXT original proposal (arXiv:1210.4020)",
-      "note": "",
-      "quote": "approved to start data taking at the Laboratorio Subterráneo de Canfranc (LSC), Spain, in 2014",
+      "end": "2021",
+      "locator": "NEXT status paper (arXiv:2201.10907) / NEXT original proposal (arXiv:1210.4020)",
+      "note": "Start/end years (2016/2021) are carried from secondary summaries of NEXT-White run papers, not independently re-verified against a directly fetched primary source in this session (see detector-level interval note).",
+      "quote": "The NEXT-White detector has recently finished operation at the LSC.",
       "role": "prototype",
       "site_id": "site:lsc-canfranc",
       "sources": [
-        "src:next-arxiv-1210-4020-original-proposal"
+        "src:next-arxiv-1210-4020-original-proposal",
+        "src:next-arxiv-2201-10907-status"
       ],
       "start": "2016",
-      "end": "2021",
       "verified_at": "2026-09-17"
     }
   ],

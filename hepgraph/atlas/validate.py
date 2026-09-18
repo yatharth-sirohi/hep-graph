@@ -754,6 +754,18 @@ def check_intervals(ctx: _Context) -> Iterator[Finding]:
                 yield Finding(WARNING, 'interval-start-unknown', path, entity_id,
                               _pointer('intervals', index, 'start'),
                               'start unknown; the UI will say so (§2.3)')
+        # A3 says a terminal status is an event. One terminal row that also
+        # carries an `end` is a whole lifetime folded into its final state:
+        # the entity derives `completed` for every year it was running (PHENIX
+        # read completed in 2005). Split it into the operating interval and
+        # the terminal event.
+        if len(rows) == 1 and rows[0].get('status') in schema.TERMINAL_STATUSES \
+                and rows[0].get('end') is not None and rows[0].get('start') is not None \
+                and schema.lo(rows[0].get('start')) != schema.lo(rows[0].get('end')):
+            yield Finding(WARNING, 'collapsed-history', path, entity_id, _pointer('intervals', 0),
+                          'A3: the only interval is terminal but spans a lifetime; the entity '
+                          'derives its terminal state for every year it was operating — split '
+                          'into an operating interval and the terminal event')
         for first in range(len(rows)):
             for second in range(first + 1, len(rows)):
                 a, b = rows[first], rows[second]

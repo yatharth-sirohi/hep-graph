@@ -33,22 +33,7 @@
       "verified_at": "2026-09-17"
     }
   ],
-  "leadership": [
-    {
-      "confidence": "verified",
-      "end": null,
-      "locator": "NEXT official site",
-      "note": "",
-      "person_id": "person:unresolved-next-lsc-gomez-cadenas",
-      "quote": "Spokesperson: Juan José Gómez Cadenas",
-      "role": "spokesperson",
-      "sources": [
-        "src:next-official-site"
-      ],
-      "start": null,
-      "verified_at": "2026-09-17"
-    }
-  ],
+  "leadership": [],
   "links": {
     "website": {
       "confidence": "verified",
@@ -103,7 +88,7 @@
   },
   "name": "NEXT Collaboration",
   "notes": [
-    "Leadership: person_id uses the unresolved-person convention (person:unresolved-<collab>-<institution>-<name>) per v0.2 A6; person records are not created in this wave (people/ files are out of scope), this row exists only to carry the sourced role/name in the collaboration record's own leadership list.",
+    "Leadership left empty: the NEXT official site names Juan José Gómez Cadenas as spokesperson (src:next-official-site), but the validator requires a `leadership[].person_id` to resolve to an existing record, and person records (including unresolved-person placeholders) are out of scope for this wave; the sourced fact is recorded here as a note instead of a structured leadership row.",
     "Institution-level membership rows and person records are owned by the membership-lead workstream and are not written here.",
     "Derived field collaboration.experiment_ids is deliberately not written (v0.2 A1)."
   ],

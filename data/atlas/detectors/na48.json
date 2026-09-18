@@ -1,76 +1,89 @@
 {
-  "schema": "hep-atlas/0.2",
-  "id": "detector:na48",
-  "type": "detector",
-  "name": "NA48 detector",
   "aliases": [],
   "coverage": {
-    "tier": "B",
-    "researched": "partial"
+    "researched": "partial",
+    "tier": "B"
   },
   "experiment_ids": [
     "experiment:na48"
   ],
-  "parent_detector_id": null,
-  "placements": [
+  "id": "detector:na48",
+  "intervals": [
     {
-      "site_id": "site:cern-ecn3-north-area",
-      "role": "main",
-      "start": "1997",
+      "confidence": "verified",
       "end": "2004",
+      "label": "operating",
+      "note": "Operating interval; the single sourced row was split from its terminal event (A3, 2026-09-17).",
       "sources": [
         "src:na48-final-epsilon-prime-arxiv-2002",
         "src:na48-kaon-experiments-arxiv-2011"
       ],
-      "verified_at": "2026-09-17",
+      "start": "1997",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    },
+    {
       "confidence": "verified",
-      "note": "Start is the first sourced NA48 data-taking year (1997); end is the last sourced NA48/2 data year (2004)."
+      "end": null,
+      "label": "completed",
+      "note": "Terminal event derived from the end of the same sourced interval (A3, 2026-09-17).",
+      "sources": [
+        "src:na48-final-epsilon-prime-arxiv-2002",
+        "src:na48-kaon-experiments-arxiv-2011"
+      ],
+      "start": "2004",
+      "status": "completed",
+      "verified_at": "2026-09-17"
     }
   ],
+  "links": {
+    "website": null
+  },
+  "name": "NA48 detector",
+  "notes": [
+    "Placed at site:cern-ecn3-north-area (this workstream).",
+    "No detector-paper key specs were independently re-verified via direct fetch in this session; only run-interval facts (from directly fetched primary sources) carry `confidence: verified`."
+  ],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": "2004",
+      "note": "Start is the first sourced NA48 data-taking year (1997); end is the last sourced NA48/2 data year (2004).",
+      "role": "main",
+      "site_id": "site:cern-ecn3-north-area",
+      "sources": [
+        "src:na48-final-epsilon-prime-arxiv-2002",
+        "src:na48-kaon-experiments-arxiv-2011"
+      ],
+      "start": "1997",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:na48-final-epsilon-prime-arxiv-2002",
+    "src:na48-kaon-experiments-arxiv-2011"
+  ],
+  "specs": {},
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "The NA48 detector combined a magnetic spectrometer and a calorimeter to track and measure kaon decay particles in an underground hall at CERN, confirming that CP violation happens directly in kaon decay.",
+    "technical": "Magnetic-spectrometer plus liquid-krypton-calorimeter detector in the ECN3 cavern, run 1997-2004 across the main NA48 programme and its NA48/2 continuation."
+  },
   "technology": {
-    "value": "Magnetic spectrometer (helium-filled tank with two drift chambers either side of a dipole magnet) plus liquid-krypton electromagnetic calorimeter, used to reconstruct KL/KS -> 2 pion decays",
+    "confidence": "uncertain",
+    "note": "The magnetic-spectrometer description (helium tank, two drift chambers, dipole magnet with 0.88 Tm integrated field) came from a WebSearch aggregation rather than a directly re-fetched primary page in this session; recorded with reduced confidence pending re-verification against a directly fetched detector paper.",
     "sources": [
       "src:na48-kaon-experiments-arxiv-2011"
     ],
-    "verified_at": "2026-09-17",
-    "confidence": "uncertain",
-    "note": "The magnetic-spectrometer description (helium tank, two drift chambers, dipole magnet with 0.88 Tm integrated field) came from a WebSearch aggregation rather than a directly re-fetched primary page in this session; recorded with reduced confidence pending re-verification against a directly fetched detector paper."
+    "value": "Magnetic spectrometer (helium-filled tank with two drift chambers either side of a dipole magnet) plus liquid-krypton electromagnetic calorimeter, used to reconstruct KL/KS -> 2 pion decays",
+    "verified_at": "2026-09-17"
   },
   "technology_class": "spectrometer",
   "technology_classes": [
     "spectrometer"
   ],
-  "intervals": [
-    {
-      "label": "operating",
-      "status": "completed",
-      "start": "1997",
-      "end": "2004",
-      "sources": [
-        "src:na48-final-epsilon-prime-arxiv-2002",
-        "src:na48-kaon-experiments-arxiv-2011"
-      ],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
-      "note": ""
-    }
-  ],
-  "status": "completed",
-  "specs": {},
-  "subsystems": [],
-  "links": {
-    "website": null
-  },
-  "summary": {
-    "plain": "The NA48 detector combined a magnetic spectrometer and a calorimeter to track and measure kaon decay particles in an underground hall at CERN, confirming that CP violation happens directly in kaon decay.",
-    "technical": "Magnetic-spectrometer plus liquid-krypton-calorimeter detector in the ECN3 cavern, run 1997-2004 across the main NA48 programme and its NA48/2 continuation."
-  },
-  "notes": [
-    "Placed at site:cern-ecn3-north-area (this workstream).",
-    "No detector-paper key specs were independently re-verified via direct fetch in this session; only run-interval facts (from directly fetched primary sources) carry `confidence: verified`."
-  ],
-  "sources": [
-    "src:na48-final-epsilon-prime-arxiv-2002",
-    "src:na48-kaon-experiments-arxiv-2011"
-  ]
+  "type": "detector"
 }

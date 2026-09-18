@@ -4,6 +4,7 @@
   "type": "collaboration",
   "name": "SNO Collaboration",
   "aliases": [],
+  "distinct_from": ["collaboration:sno-plus"],
   "formation": {
     "value": "1984",
     "sources": ["src:sno-official-site"],
@@ -14,8 +15,8 @@
   },
   "intervals": [
     {
-      "label": "collaboration",
-      "status": "completed",
+      "label": "collaboration active",
+      "status": "active",
       "start": "1984",
       "end": "2007-05",
       "sources": ["src:sno-official-site", "src:sno-milestones"],
@@ -23,6 +24,17 @@
       "confidence": "verified",
       "quote": "The collaboration was established in 1984",
       "note": "End taken as the D2O-drain date (2007-05), when the SNO experiment as such concluded and the site was refitted for SNO+."
+    },
+    {
+      "label": "collaboration completed",
+      "status": "completed",
+      "start": "2007-05",
+      "end": null,
+      "sources": ["src:sno-milestones"],
+      "verified_at": "2026-09-17",
+      "confidence": "verified",
+      "quote": "May 2007 -- D2O drained from acrylic vessel",
+      "note": "Terminal event recorded at the D2O-drain date."
     }
   ],
   "status": "completed",
@@ -34,8 +46,8 @@
       "sources": ["src:sno-institutions-page"],
       "verified_at": "2026-09-17",
       "confidence": "verified",
-      "quote": "13 active institutions listed (Queen's University, Carleton University, University of Guelph, Laurentian University, University of British Columbia, University of Pennsylvania, Los Alamos National Laboratory, Lawrence Berkeley National Laboratory, University of Washington, Oxford University, Brookhaven National Laboratory, University of Texas at Austin, Massachusetts Institute of Technology)",
-      "note": "Counted directly from the official institutions page's list; the page itself gives no single summary sentence stating a count."
+      "quote": "13 active institutions listed on the official Participating Institutions page",
+      "note": "Counted directly from the official institutions page's list (Queen's, Carleton, Guelph, Laurentian, UBC, Penn, LANL, LBNL, U. Washington, Oxford, BNL, UT Austin, MIT); the page itself gives no single summary sentence stating a count."
     },
     "country_count": {
       "value": 3,

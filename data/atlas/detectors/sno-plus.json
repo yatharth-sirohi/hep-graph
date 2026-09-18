@@ -1,0 +1,89 @@
+{
+  "schema": "hep-atlas/0.2",
+  "id": "detector:sno-plus",
+  "type": "detector",
+  "name": "SNO+ detector",
+  "aliases": [],
+  "distinct_from": ["detector:sno"],
+  "experiment_ids": ["experiment:sno-plus"],
+  "parent_detector_id": null,
+  "technology": {
+    "value": "The original SNO 12 m acrylic vessel and PMT support structure, refilled first with ultrapure water, then with liquid scintillator, and eventually planned to be loaded with tellurium for a double-beta-decay search",
+    "sources": ["src:sno-plus-wikipedia"],
+    "verified_at": "2026-09-17",
+    "confidence": "approximate",
+    "quote": "780 tonnes of organic liquid scintillator",
+    "note": "Structural continuity with the SNO vessel is per the official site's own description of SNO+ as reusing SNO's infrastructure; the specific scintillator mass figure is Wikipedia-sourced only."
+  },
+  "technology_class": "liquid_scintillator",
+  "technology_classes": ["liquid_scintillator", "water_cherenkov"],
+  "placements": [
+    {
+      "site_id": "site:snolab-underground-lab",
+      "role": "main",
+      "start": "2017",
+      "end": null,
+      "sources": ["src:sno-plus-wikipedia"],
+      "verified_at": "2026-09-17",
+      "confidence": "approximate",
+      "quote": "The detector underwent a water-filled commissioning phase from 2017 to 2019",
+      "note": "Placed at site:snolab-underground-lab (owned by the facilities workstream; not created here), the same cavern as experiment:sno."
+    }
+  ],
+  "intervals": [
+    {
+      "label": "water-fill commissioning",
+      "status": "commissioning",
+      "start": "2017",
+      "end": "2019",
+      "sources": ["src:sno-plus-wikipedia"],
+      "verified_at": "2026-09-17",
+      "confidence": "approximate",
+      "quote": "The detector underwent a water-filled commissioning phase from 2017 to 2019",
+      "note": "Years sourced from Wikipedia (rank 12) only."
+    },
+    {
+      "label": "liquid-scintillator phase",
+      "status": "active",
+      "start": "2022",
+      "end": null,
+      "sources": ["src:sno-plus-wikipedia"],
+      "verified_at": "2026-09-17",
+      "confidence": "approximate",
+      "quote": "In 2022, the detector was filled with Linear alkylbenzene (LAB) liquid scintillator loaded with the wavelength shifter PPO",
+      "note": "Year sourced from Wikipedia (rank 12) only."
+    }
+  ],
+  "status": "active",
+  "specs": {
+    "target_mass": {
+      "value": 780,
+      "unit": "t",
+      "dimension": "mass",
+      "approx": false,
+      "display": "780 t liquid scintillator",
+      "sources": ["src:sno-plus-wikipedia"],
+      "verified_at": "2026-09-17",
+      "confidence": "approximate",
+      "quote": "780 tonnes of organic liquid scintillator",
+      "note": "Sourced from Wikipedia (rank 12) only this session."
+    }
+  },
+  "subsystems": [],
+  "document_ids": [],
+  "links": {
+    "website": null
+  },
+  "notes": [
+    "Modelled as a distinct detector record from detector:sno despite sharing the same physical acrylic vessel/cavern, because the target medium and physics program changed materially (heavy water -> water -> liquid scintillator, eventually tellurium-loaded); see experiment:sno-plus.lineage (`upgrade_of` experiment:sno)."
+  ],
+  "sources": ["src:sno-plus-official-site", "src:sno-plus-wikipedia"],
+  "summary": {
+    "plain": "The same 12-metre acrylic ball that once held SNO's heavy water, now filled with liquid scintillator, watching for solar neutrinos, reactor antineutrinos, and a hoped-for rare nuclear decay.",
+    "technical": "SNO's original acrylic vessel and PMT support structure, water-filled 2017-2019 for commissioning, then filled with 780 t of LAB+PPO liquid scintillator from 2022; a future phase will load natural tellurium for a 0νββ search."
+  },
+  "coverage": {
+    "tier": "B",
+    "researched": "partial"
+  }
+}

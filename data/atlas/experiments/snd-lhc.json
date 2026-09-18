@@ -60,15 +60,37 @@
   "intervals": [
     {
       "confidence": "verified",
-      "end": null,
-      "label": "approved",
+      "end": {
+        "approx": true,
+        "date": "2022",
+        "note": "Year precision only: bounded above by the 2023 PRL's statement that SND@LHC recorded pp collision data in 2022; no source fetched gives an exact installation/commissioning-complete date."
+      },
+      "label": "approved / construction / commissioning",
       "locator": "INSPIRE experiment record 2032474, field date_approved",
-      "note": "No separate proposal, construction, commissioning or first-data date was found in this session; only the approval date is sourced. Status is nonetheless recorded as 'active' below since SND@LHC is publicly known to have taken data since LHC Run 3 began (2022), but no source fetched in this session states the first-data date at day/month precision, so no 'active' interval with a sourced start is written -- see missing_fields in the coverage row.",
+      "note": "No separate proposal, construction-start or commissioning date was found; only the approval date is sourced. VERIFIER FIX (2026-09-17): a prior draft of this record left `status` at 'approved' although its own note already said the true state should be 'active', citing SND@LHC's publicly known Run 3 data-taking; that self-contradiction is fixed here by actually sourcing the operating interval below (arXiv:2305.09383 / PRL 131, 031802), rather than by asserting 'active' unsourced.",
       "sources": [
         "src:colliders-lhc-snd-lhc-inspire-experiment-record"
       ],
       "start": "2021-03-17",
       "status": "approved",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "kind": "run",
+      "label": "data-taking (LHC Run 3)",
+      "locator": "arXiv:2305.09383 / Phys. Rev. Lett. 131, 031802 (2023), abstract",
+      "note": "VERIFIER-ADDED (2026-09-17): the SND@LHC Collaboration's own first-neutrino-observation paper states it used 'a data set of proton-proton collisions at sqrt(s) = 13.6 TeV collected by SND@LHC in 2022'. This directly establishes SND@LHC as an operating, data-taking experiment from 2022, correcting the prior 'approved'-only record (a P1 timeline error per the wave-3 verification brief). Year precision only; no exact first-data day/month is sourced.",
+      "quote": "A data set of proton-proton collisions at sqrt(s) = 13.6 TeV collected by SND@LHC in 2022 is used, corresponding to an integrated luminosity of 36.8 fb-1.",
+      "sources": [
+        "src:colliders-lhc-snd-lhc-2023-prl-muon-neutrino"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2022"
+      },
+      "status": "active",
       "verified_at": "2026-09-17"
     }
   ],
@@ -86,9 +108,10 @@
   "name": "SND@LHC",
   "notes": [
     "Derived fields (detector_ids, site_ids, result_ids, document_ids) deliberately not written (v0.2 A1).",
-    "The official SND@LHC site (attempted at home.cern/science/experiments/snd-lhc [404], sndlhc.web.cern.ch and sndlhc.cern [DNS failure in this environment]) could not be fetched in this session; only the INSPIRE experiment record was used. links.website is left null rather than guessed.",
+    "The official SND@LHC site (attempted at home.cern/science/experiments/snd-lhc [404, re-checked 2026-09-17], sndlhc.web.cern.ch and sndlhc.cern [DNS failure, re-checked 2026-09-17]) could not be fetched; only the INSPIRE experiment record and the collaboration's own PRL were used. links.website is left null rather than guessed.",
     "key_specs pseudo-rapidity coverage value is left as a bare label with a null quantity because pseudo-rapidity_coverage is a sourced-string (S) Appendix-A key, not a quantity; the value '7.2 < eta < 8.6' is instead carried on physics_goals/unique_capabilities above with its quote.",
-    "Mandatory-bar-only pass: no results/technical documents written (SND@LHC is not a wave-3 flagship)."
+    "Mandatory-bar-only pass: no results/technical documents written (SND@LHC is not a wave-3 flagship); the 2023 muon-neutrino-observation PRL was added only as timeline evidence for the 'active' interval, not as a flagship result record.",
+    "VERIFIER FIX (2026-09-17): status corrected 'approved' -> 'active' and a sourced data-taking interval added, citing arXiv:2305.09383 (SND@LHC Collaboration, 'Observation of Collider Muon Neutrinos with the SND@LHC Experiment', PRL 131, 031802 (2023)), which states data were collected 'in 2022'. The prior record left status at 'approved' citing an absence of a sourced first-data date, even though its own interval note already said the true state was 'active' -- a P1 timeline error per the wave-3 verification brief (SND@LHC has taken Run 3 data since 2022)."
   ],
   "physics_goals": [
     {
