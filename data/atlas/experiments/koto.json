@@ -1,0 +1,142 @@
+{
+  "schema": "hep-atlas/0.2",
+  "id": "experiment:koto",
+  "type": "experiment",
+  "name": "KOTO",
+  "aliases": [
+    "J-PARC E14"
+  ],
+  "coverage": {
+    "tier": "B",
+    "researched": "partial"
+  },
+  "kind": "rare_kaon",
+  "secondary_kinds": [
+    "fixed_target"
+  ],
+  "collaboration_ids": [
+    "collaboration:koto"
+  ],
+  "facility_roles": [
+    {
+      "facility_id": "facility:j-parc",
+      "role": "host",
+      "start": null,
+      "end": null,
+      "sources": [
+        "src:koto-official-site"
+      ],
+      "verified_at": "2026-09-17",
+      "confidence": "verified",
+      "quote": "KOTO operates at J-PARC's Hadron Experimental Facility",
+      "note": ""
+    },
+    {
+      "facility_id": "facility:j-parc",
+      "role": "beam_source",
+      "start": null,
+      "end": null,
+      "sources": [
+        "src:koto-official-site"
+      ],
+      "verified_at": "2026-09-17",
+      "confidence": "verified",
+      "quote": "First physics run for 100 hours with 24kW beam",
+      "note": "Beam delivered via the J-PARC Main Ring (accelerator:j-parc-main-ring) to the Hadron Experimental Facility."
+    }
+  ],
+  "beamline_ids": [],
+  "accelerator_ids": [
+    "accelerator:j-parc-main-ring"
+  ],
+  "topic_ids": [
+    "topic:rare-kaon-physics",
+    "topic:cp-violation"
+  ],
+  "intervals": [
+    {
+      "label": "first physics run",
+      "status": "commissioning",
+      "start": "2013-05",
+      "end": null,
+      "sources": [
+        "src:koto-official-site"
+      ],
+      "verified_at": "2026-09-17",
+      "confidence": "verified",
+      "quote": "First physics run for 100 hours with 24kW beam.",
+      "note": ""
+    },
+    {
+      "label": "physics run resumed",
+      "status": "active",
+      "start": "2015-04",
+      "end": null,
+      "sources": [
+        "src:koto-official-site"
+      ],
+      "verified_at": "2026-09-17",
+      "confidence": "verified",
+      "quote": "Resume the physics run.",
+      "note": "The official site does not state why the run had paused between 2013 and 2015; not asserted here."
+    },
+    {
+      "label": "ongoing data-taking and analysis",
+      "status": "active",
+      "start": "2015",
+      "end": null,
+      "sources": [
+        "src:koto-official-site"
+      ],
+      "verified_at": "2026-09-17",
+      "confidence": "verified",
+      "note": "The official site cites results 'from 2015 data', 'from 2016-2018 data', 'from 2018 data' and 'from 2021 data', with the most recent (2021-data) results published February 2025; taken together as evidence of ongoing active operation, though the page does not state an unbroken single run interval."
+    }
+  ],
+  "status": "active",
+  "physics_goals": [
+    {
+      "value": "Measure or bound the branching ratio of the CP-violating rare decay KL -> pi0 nu nubar",
+      "sources": [
+        "src:koto-official-site"
+      ],
+      "verified_at": "2026-09-17",
+      "confidence": "verified",
+      "note": ""
+    }
+  ],
+  "unique_capabilities": [],
+  "energy_regime": null,
+  "key_specs": [],
+  "lineage": [],
+  "external": {
+    "inspire_experiment": 1108227,
+    "greybook": null,
+    "wikidata": null
+  },
+  "links": {
+    "website": {
+      "value": "https://koto.kek.jp/",
+      "sources": [
+        "src:koto-official-site"
+      ],
+      "verified_at": "2026-09-17",
+      "confidence": "verified",
+      "note": ""
+    }
+  },
+  "summary": {
+    "plain": "KOTO is a Japanese experiment at J-PARC that watches for an extremely rare kaon decay into a neutral pion and two invisible neutrinos, testing the same physics as NA62 but with the neutral, longer-lived kind of kaon.",
+    "technical": "J-PARC E14 KOTO: fixed-target experiment at the J-PARC Hadron Experimental Facility measuring/bounding the branching ratio of the CP-violating decay KL -> pi0 nu nubar. First physics run May 2013 (100 hours, 24 kW beam); physics running resumed April 2015; has published results from 2015, 2016-2018, 2018 and 2021 data, most recently in February 2025; successor to the KEK-PS E391a experiment."
+  },
+  "notes": [
+    "Derived fields (detector_ids, site_ids, result_ids, document_ids) are deliberately not written (v0.2 A1).",
+    "Predecessor KEK-PS E391a is named on the official site but no experiment:e391a id exists in this wave's ID_REGISTRY and none was created; the relationship is noted here in prose only, not as a lineage row to an unowned id.",
+    "site:j-parc-hadron-hall (owned by the muons workstream) already existed on disk when this record was written -- not dangling.",
+    "No collaboration membership counts found on the official site."
+  ],
+  "sources": [
+    "src:koto-official-site",
+    "src:koto-inspire-experiment-record"
+  ]
+}

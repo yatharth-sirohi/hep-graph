@@ -1,0 +1,53 @@
+{
+  "id": "facility:lhaaso-daocheng",
+  "type": "facility",
+  "schema": "hep-atlas/0.2",
+  "name": "LHAASO (Daocheng)",
+  "aliases": ["Large High Altitude Air Shower Observatory site"],
+  "distinct_from": [],
+  "superseded_by": null,
+  "kind": "astroparticle_observatory",
+  "operator": {
+    "value": "Institute of High Energy Physics, Chinese Academy of Sciences",
+    "sources": ["src:cosmic-gamma-lhaaso-ihep-homepage"],
+    "verified_at": "2026-09-17",
+    "confidence": "approximate",
+    "quote": "Institute of High Energy Physics, Chinese Academy of Sciences",
+    "note": "Inferred from IHEP hosting the LHAASO site under its own domain and contact address; no fetched source states an explicit operator sentence."
+  },
+  "operator_text": null,
+  "operator_ids": [],
+  "country": ["CN"],
+  "countries": ["CN"],
+  "primary_site_id": "site:lhaaso-haizi-mountain",
+  "intervals": [
+    {
+      "label": "operations",
+      "status": "active",
+      "start": "2021-05",
+      "end": null,
+      "sources": ["src:cosmic-gamma-lhaaso-uhe-photons-arxiv-2021"],
+      "verified_at": "2026-09-17",
+      "confidence": "approximate",
+      "quote": "currently operating at TeV and PeV energies",
+      "note": "2021-05 is the date of the earliest fetched source that describes LHAASO as already operating; it is a lower bound, not a sourced construction-start or full-completion date. Public reporting elsewhere describes a phased buildout with full-array completion later in 2021, but no source fetched this session states that date."
+    }
+  ],
+  "status": "active",
+  "specs": {
+    "altitude": {"value": 4410, "unit": "m", "dimension": "length", "approx": false, "display": "4410 m", "sources": ["src:cosmic-gamma-lhaaso-science-book-arxiv-2019"], "verified_at": "2026-09-17", "confidence": "verified", "quote": "at an altitude of 4410 meters", "note": ""}
+  },
+  "topic_ids": ["topic:gamma-rays", "topic:cosmic-rays", "topic:multimessenger-astrophysics"],
+  "related_facility_ids": [],
+  "summary": {
+    "plain": "A high-altitude observatory on Haizi Mountain in Sichuan, China, that catches cosmic rays and the highest-energy gamma rays yet seen, using several kinds of ground detectors at once.",
+    "technical": "Multi-component high-altitude air-shower facility on Haizi Mountain, Daocheng County, Sichuan, China, at 4410 m altitude; operated by IHEP/Chinese Academy of Sciences."
+  },
+  "sources": ["src:cosmic-gamma-lhaaso-science-book-arxiv-2019", "src:cosmic-gamma-lhaaso-ihep-homepage"],
+  "links": {"website": {"value": "http://english.ihep.cas.cn/lhaaso/", "sources": ["src:cosmic-gamma-lhaaso-ihep-homepage"], "verified_at": "2026-09-17", "confidence": "verified", "note": ""}},
+  "notes": [
+    "site_ids, accelerator_ids, beamline_ids, institution_id, document_ids, experiment_ids are deliberately not written (v0.2 A1 derived fields).",
+    "The IHEP LHAASO site's inner pages (Observatory/Site, Scientific Goals) render as empty shells when fetched (JavaScript-driven content not captured by WebFetch); construction/completion dates come from collaboration arXiv papers instead."
+  ],
+  "coverage": {"tier": "B", "researched": "partial"}
+}

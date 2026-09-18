@@ -1,0 +1,53 @@
+{
+  "id": "facility:fred-lawrence-whipple-observatory",
+  "type": "facility",
+  "schema": "hep-atlas/0.2",
+  "name": "Fred Lawrence Whipple Observatory",
+  "aliases": ["FLWO", "Whipple Observatory"],
+  "distinct_from": [],
+  "superseded_by": null,
+  "kind": "astroparticle_observatory",
+  "operator": {
+    "value": "Smithsonian Astrophysical Observatory",
+    "sources": ["src:cosmic-gamma-veritas-official-homepage"],
+    "verified_at": "2026-09-17",
+    "confidence": "verified",
+    "quote": "Smithsonian Institution",
+    "note": "VERITAS is supported by/hosted at the Smithsonian's Fred Lawrence Whipple Observatory; the exact operator sentence names the Smithsonian Institution among the observatory's supporting bodies."
+  },
+  "operator_text": null,
+  "operator_ids": [],
+  "country": ["US"],
+  "countries": ["US"],
+  "primary_site_id": "site:mount-hopkins-veritas",
+  "intervals": [
+    {
+      "label": "VERITAS hosted at FLWO",
+      "status": "active",
+      "start": "2003-04",
+      "end": null,
+      "sources": ["src:cosmic-gamma-veritas-official-about-page"],
+      "verified_at": "2026-09-17",
+      "confidence": "verified",
+      "quote": "Installation of VERITAS prototype telescope at the FLWO Basecamp",
+      "note": "Interval reflects when VERITAS itself began at this pre-existing observatory (founded 1968 as the Whipple 10m telescope site per public knowledge, not independently sourced this session); FLWO's own founding date is not recorded here."
+    }
+  ],
+  "status": "active",
+  "specs": {
+    "altitude": {"value": 1268, "unit": "m", "dimension": "length", "approx": false, "display": "1268 m (4159 ft)", "sources": ["src:cosmic-gamma-veritas-official-specifications-page"], "verified_at": "2026-09-17", "confidence": "verified", "quote": "Altitude 1268 m (4159 ft)", "note": ""}
+  },
+  "topic_ids": ["topic:gamma-rays", "topic:multimessenger-astrophysics"],
+  "related_facility_ids": [],
+  "summary": {
+    "plain": "A mountain observatory in southern Arizona, home to the VERITAS gamma-ray telescopes among other instruments.",
+    "technical": "Smithsonian Astrophysical Observatory site on Mount Hopkins, Arizona, at 1268 m altitude, hosting VERITAS since 2003."
+  },
+  "sources": ["src:cosmic-gamma-veritas-official-homepage", "src:cosmic-gamma-veritas-official-specifications-page"],
+  "links": {"website": {"value": "https://veritas.sao.arizona.edu/", "sources": ["src:cosmic-gamma-veritas-official-homepage"], "verified_at": "2026-09-17", "confidence": "verified", "note": ""}},
+  "notes": [
+    "site_ids, accelerator_ids, beamline_ids, institution_id, document_ids, experiment_ids are deliberately not written (v0.2 A1 derived fields).",
+    "FLWO's own founding date (pre-dating VERITAS) was not sourced this session; only VERITAS-relevant intervals are recorded."
+  ],
+  "coverage": {"tier": "B", "researched": "partial"}
+}

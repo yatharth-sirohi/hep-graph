@@ -1,0 +1,68 @@
+{
+  "aliases": [
+    "SLAC Linac",
+    "2-mile accelerator"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "facility_id": "facility:slac",
+  "feeds_accelerator_ids": [],
+  "id": "accelerator:slac-linac",
+  "intervals": [],
+  "is_collider": false,
+  "kind": "linac",
+  "links": {
+    "website": null
+  },
+  "name": "SLAC linear accelerator",
+  "notes": [
+    "No sourced construction/commissioning interval was found in this session; `intervals` is left empty rather than guessed. The linac has fed SLC, PEP-II and (currently) LCLS; only SLC and PEP-II are modeled in this wave."
+  ],
+  "particles": [
+    "electron",
+    "positron"
+  ],
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:slac-menlo-park-campus",
+  "sources": [
+    "src:slac-wikipedia"
+  ],
+  "specs": {
+    "beam_energy": {
+      "approx": false,
+      "confidence": "uncertain",
+      "dimension": "energy",
+      "display": "up to 50 GeV (design/maximum, electrons)",
+      "note": "Sourced to Wikipedia only; originally 20 GeV, later upgraded.",
+      "quote": "could accelerate electrons to energies of 20 GeV, and later up to 50 GeV",
+      "sources": [
+        "src:slac-wikipedia"
+      ],
+      "unit": "GeV",
+      "value": 50,
+      "verified_at": "2026-09-17"
+    },
+    "length": {
+      "approx": false,
+      "confidence": "uncertain",
+      "dimension": "length",
+      "display": "3.2 km (2 mi)",
+      "note": "Sourced to Wikipedia only.",
+      "quote": "3.2 km (2 mi) long",
+      "sources": [
+        "src:slac-wikipedia"
+      ],
+      "unit": "km",
+      "value": 3.2,
+      "verified_at": "2026-09-17"
+    }
+  },
+  "status": "active",
+  "summary": {
+    "plain": "",
+    "technical": ""
+  },
+  "type": "accelerator"
+}

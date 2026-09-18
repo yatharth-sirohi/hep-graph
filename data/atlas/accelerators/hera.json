@@ -1,0 +1,82 @@
+{
+  "aliases": [
+    "HERA"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "facility_id": "facility:desy",
+  "feeds_accelerator_ids": [],
+  "id": "accelerator:hera",
+  "intervals": [
+    {
+      "confidence": "uncertain",
+      "end": "2007-06-30",
+      "label": "operation",
+      "note": "Sourced to Wikipedia only; flagged for review.",
+      "quote": "It was operated from 1992 to 30 June 2007.",
+      "sources": [
+        "src:hera-wikipedia"
+      ],
+      "start": "1992",
+      "status": "completed",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "is_collider": true,
+  "kind": "collider",
+  "links": {
+    "website": null
+  },
+  "name": "Hadron-Elektron-Ring-Anlage",
+  "notes": [
+    "Beam energies (27.5 GeV electrons/positrons, 920 GeV protons per src:hera-wikipedia) are not itemised as separate specs keys here since ACCELERATOR specs conventionally uses `beam_energy` for a single-species machine; HERA is dual-species and its per-species energies are recorded only in this note rather than risking a misleading single `beam_energy` key."
+  ],
+  "particles": [
+    "electron",
+    "positron",
+    "proton"
+  ],
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:desy-hamburg-campus",
+  "sources": [
+    "src:hera-wikipedia"
+  ],
+  "specs": {
+    "circumference": {
+      "approx": false,
+      "confidence": "uncertain",
+      "dimension": "length",
+      "display": "6.3 km",
+      "note": "Sourced to Wikipedia only.",
+      "quote": "The HERA tunnel runs 10 to 25 m below ground level and has a circumference of 6.3 km",
+      "sources": [
+        "src:hera-wikipedia"
+      ],
+      "unit": "km",
+      "value": 6.3,
+      "verified_at": "2026-09-17"
+    },
+    "cms_energy": {
+      "approx": false,
+      "confidence": "uncertain",
+      "dimension": "energy",
+      "display": "320 GeV",
+      "note": "Sourced to Wikipedia only; no official DESY page fetched in this session states the cms energy directly.",
+      "quote": "electrons or positrons were brought to collision with protons at a center-of-mass energy of 320 GeV.",
+      "sources": [
+        "src:hera-wikipedia"
+      ],
+      "unit": "GeV",
+      "value": 320,
+      "verified_at": "2026-09-17"
+    }
+  },
+  "status": "completed",
+  "summary": {
+    "plain": "",
+    "technical": ""
+  },
+  "type": "accelerator"
+}

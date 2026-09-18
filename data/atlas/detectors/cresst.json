@@ -1,0 +1,130 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "experiment_ids": [
+    "experiment:cresst"
+  ],
+  "id": "detector:cresst",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2003",
+      "label": "CRESST-I (sapphire)",
+      "note": "",
+      "sources": [
+        "src:cresst-official-history-page"
+      ],
+      "start": "2000",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": "2019",
+      "label": "CRESST-II (300 g CaWO4)",
+      "note": "",
+      "sources": [
+        "src:cresst-official-history-page"
+      ],
+      "start": "2003",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "CRESST-III (~25 g, low threshold)",
+      "note": "Open interval; ongoing per the May 2026 detector-development paper.",
+      "sources": [
+        "src:cresst-official-detectors-page",
+        "src:cresst-tes-optimization-2026-arxiv"
+      ],
+      "start": "2019",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "CRESST cryogenic calorimeter array",
+  "notes": [
+    "Module count currently in operation and a precise operating temperature (mK) were not stated on any page fetched this session."
+  ],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "locator": "official site, 'A Short History of CRESST'",
+      "note": "",
+      "quote": "led to the proposal of a dark matter search experiment using cryogenic calorimeters with transition edge sensors in the LNGS underground laboratory in 1993.",
+      "role": "main",
+      "site_id": "site:lngs-hall-a",
+      "sources": [
+        "src:cresst-official-history-page"
+      ],
+      "start": "2000",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:cresst-official-detectors-page",
+    "src:cresst-official-history-page"
+  ],
+  "specs": {
+    "isotope": {
+      "confidence": "verified",
+      "locator": "official site, CRESST Detectors page",
+      "note": "",
+      "quote": "about 300g",
+      "sources": [
+        "src:cresst-official-detectors-page"
+      ],
+      "value": "CaWO4 (CRESST-II/III main target); sapphire (Al2O3) in CRESST-I; lithium aluminate modules also deployed in CRESST-III",
+      "verified_at": "2026-09-17"
+    },
+    "temperature": {
+      "approx": true,
+      "confidence": "uncertain",
+      "dimension": "temperature",
+      "display": "15 mK",
+      "locator": "official site",
+      "note": "No page fetched this session states CRESST's operating temperature directly; 15 mK is the typical mK-range figure implied by 'cryogenic calorimeter'/TES technology in the sources but is not a verbatim quoted value, so this spec is flagged uncertain rather than verified.",
+      "quote": "tungsten transition-edge sensors",
+      "sources": [
+        "src:cresst-tes-optimization-2026-arxiv"
+      ],
+      "unit": "mK",
+      "value": 15,
+      "verified_at": "2026-09-17"
+    }
+  },
+  "status": "active",
+  "subsystems": [],
+  "summary": {
+    "plain": "Small crystals, some no heavier than a coin, cooled colder than outer space and watched for the tiny flash of light and warmth made when a particle bumps an atom inside.",
+    "technical": "Cryogenic transition-edge-sensor calorimeters on scintillating crystal absorbers: sapphire in CRESST-I (2000-2003), 300 g CaWO4 crystals in CRESST-II (2003-2019), and ~25 g CaWO4/Al2O3/LiAlO4 crystals in CRESST-III (from 2019) optimised for sub-100 eV thresholds."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "official site, CRESST Detectors page",
+    "note": "",
+    "quote": "the simultaneous read-out of the deposited energy in the main absorber and an associated light signal",
+    "sources": [
+      "src:cresst-official-detectors-page"
+    ],
+    "value": "Cryogenic calorimeters with tungsten transition-edge sensors (TES) on scintillating crystal absorbers (sapphire in CRESST-I; CaWO4 from CRESST-II on), reading both a phonon (heat) and a scintillation-light channel",
+    "verified_at": "2026-09-17"
+  },
+  "technology_class": "scintillating_crystal",
+  "technology_classes": [
+    "scintillating_crystal",
+    "cryogenic_bolometer"
+  ],
+  "type": "detector"
+}

@@ -11,7 +11,23 @@
     "tier": "C"
   },
   "id": "facility:wipp",
-  "intervals": [],
+  "intervals": [
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "operating (DOE transuranic-waste repository)",
+      "locator": "WIPP official DOE page",
+      "note": "No source fetched in this session gives WIPP's actual opening/founding date; 2011 is a lower bound borrowed from the earliest sourced fact available in this session (EXO-200 beginning operations there), not the facility's true founding date. Recorded this way, rather than `start: null`, because a null start with a null end would derive to 'no presence at all' at the build date, misrepresenting a facility that is clearly operating.",
+      "quote": "2,150 feet underground",
+      "sources": [
+        "src:exo-200-doe-wipp-official-page",
+        "src:exo-200-final-results-arxiv-1906"
+      ],
+      "start": "2011",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    }
+  ],
   "kind": "underground_laboratory",
   "links": {
     "website": {
@@ -26,7 +42,7 @@
   },
   "name": "Waste Isolation Pilot Plant",
   "notes": [
-    "WIPP is primarily a U.S. Department of Energy transuranic nuclear-waste repository; it hosted the EXO-200 double-beta-decay experiment as a secondary underground physics use. No source fetched in this session gives a founding/opening interval for the facility itself (only for its role as a waste repository), so `intervals` is left empty per v0.2 A17 rather than guessed."
+    "WIPP is primarily a U.S. Department of Energy transuranic nuclear-waste repository; it hosted the EXO-200 double-beta-decay experiment as a secondary underground physics use. No source fetched in this session gives the facility's own true founding/opening date; see the interval's note for how the recorded lower-bound start was chosen."
   ],
   "operator_ids": [],
   "operator_text": {

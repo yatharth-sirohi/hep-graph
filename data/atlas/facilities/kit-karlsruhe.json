@@ -25,7 +25,7 @@
       "sources": [
         "src:katrin-official-site"
       ],
-      "start": null,
+      "start": "2019",
       "status": "active",
       "verified_at": "2026-09-17"
     }
@@ -44,7 +44,7 @@
   },
   "name": "Karlsruhe Institute of Technology, Campus North",
   "notes": [
-    "No source fetched in this session gives a founding/opening interval for KIT Campus North itself (as distinct from KATRIN); `intervals` is left empty per v0.2 A17 rather than guessed.",
+    "No source fetched in this session gives a founding/opening date for KIT Campus North or the Tritium Laboratory Karlsruhe itself; the sole interval's `start` (2019) is a lower bound borrowed from KATRIN's own sourced operating start (the earliest dated fact available), not a true facility founding date. Recorded this way, rather than `start: null`, because a null start with a null end would derive to 'no presence at all' at the build date, misrepresenting a facility that is clearly operating.",
     "This record covers KIT Campus North (the Tritium Laboratory Karlsruhe site) at the level needed for KATRIN's host-facility role; it is not a full record of KIT as a university/research organisation."
   ],
   "operator_ids": [],
@@ -62,6 +62,9 @@
   "primary_site_id": "site:kit-campus-north",
   "related_facility_ids": [],
   "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:katrin-official-site"
+  ],
   "specs": {},
   "status": "active",
   "summary": {

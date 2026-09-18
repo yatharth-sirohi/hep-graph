@@ -1,0 +1,84 @@
+{
+  "aliases": [
+    "PEP-II B-Factory"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "facility_id": "facility:slac",
+  "feeds_accelerator_ids": [
+    "accelerator:slac-linac"
+  ],
+  "id": "accelerator:pep-ii",
+  "intervals": [
+    {
+      "confidence": "uncertain",
+      "end": "2008",
+      "label": "operation",
+      "note": "Year-precision only; sourced to Wikipedia only, flagged for review.",
+      "quote": "From 1999 to 2008",
+      "sources": [
+        "src:slac-wikipedia"
+      ],
+      "start": "1999",
+      "status": "completed",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "is_collider": true,
+  "kind": "collider",
+  "links": {
+    "website": null
+  },
+  "name": "PEP-II",
+  "notes": [
+    "feeds_accelerator_ids records that PEP-II was injected from the SLAC linac; no source fetched in this session states this explicitly, so it is recorded as an uncited structural fact of the accelerator complex rather than a sourced claim — flag for a future agent to source or remove."
+  ],
+  "particles": [
+    "electron",
+    "positron"
+  ],
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:slac-pep-ii-ir2-babar",
+  "sources": [
+    "src:slac-wikipedia",
+    "src:babar-wikipedia"
+  ],
+  "specs": {
+    "circumference": {
+      "approx": false,
+      "confidence": "uncertain",
+      "dimension": "length",
+      "display": "2.2 km (1.4 mi)",
+      "note": "Sourced to Wikipedia only.",
+      "quote": "a pair of storage rings 2.2 km (1.4 mi) in circumference",
+      "sources": [
+        "src:slac-wikipedia"
+      ],
+      "unit": "km",
+      "value": 2.2,
+      "verified_at": "2026-09-17"
+    },
+    "cms_energy": {
+      "approx": false,
+      "confidence": "uncertain",
+      "dimension": "energy",
+      "display": "10.58 GeV (Upsilon(4S) resonance)",
+      "note": "Sourced to Wikipedia (BaBar experiment article) only; flagged for review.",
+      "quote": "9 GeV electrons collide with 3.1 GeV antielectrons to produce a center-of-mass collision energy of 10.58 GeV, corresponding to the Upsilon(4S) resonance.",
+      "sources": [
+        "src:babar-wikipedia"
+      ],
+      "unit": "GeV",
+      "value": 10.58,
+      "verified_at": "2026-09-17"
+    }
+  },
+  "status": "completed",
+  "summary": {
+    "plain": "",
+    "technical": ""
+  },
+  "type": "accelerator"
+}

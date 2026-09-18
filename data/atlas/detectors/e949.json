@@ -1,0 +1,74 @@
+{
+  "schema": "hep-atlas/0.2",
+  "id": "detector:e949",
+  "type": "detector",
+  "name": "E949 detector",
+  "aliases": [],
+  "coverage": {
+    "tier": "B",
+    "researched": "partial"
+  },
+  "experiment_ids": [
+    "experiment:e949"
+  ],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "site_id": "site:bnl-upton-campus",
+      "role": "main",
+      "start": null,
+      "end": "2009-02",
+      "sources": [
+        "src:e949-first-year-physics-run-2004",
+        "src:e949-e787-combined-result-arxiv-2009"
+      ],
+      "verified_at": "2026-09-17",
+      "confidence": "uncertain",
+      "note": "Placed at the existing facilities-owned site:bnl-upton-campus; start date not sourced, end is the date of the final combined result paper."
+    }
+  ],
+  "technology": {
+    "value": "Stopped-kaon spectrometer: incoming kaons are brought to rest in an active target/scintillator stack, and the outgoing pion is tracked and its full decay chain (range, energy and kinematics) measured to reject backgrounds",
+    "sources": [
+      "src:e949-first-year-physics-run-2004"
+    ],
+    "verified_at": "2026-09-17",
+    "confidence": "uncertain",
+    "note": "General description inferred from the stopped-kaon technique named in the sourced titles; a dedicated E949 detector-paper full text was not fetched this session."
+  },
+  "technology_class": "spectrometer",
+  "technology_classes": [
+    "spectrometer"
+  ],
+  "intervals": [
+    {
+      "label": "operating",
+      "status": "completed",
+      "start": null,
+      "end": "2009-02",
+      "sources": [
+        "src:e949-e787-combined-result-arxiv-2009"
+      ],
+      "verified_at": "2026-09-17",
+      "confidence": "uncertain",
+      "note": "See experiment:e949 notes on unconfirmed exact run years."
+    }
+  ],
+  "status": "completed",
+  "specs": {},
+  "subsystems": [],
+  "links": {
+    "website": null
+  },
+  "summary": {
+    "plain": "The E949 detector stopped kaons inside itself and watched what happened next, looking for the rare case of a kaon turning into a pion and invisible particles.",
+    "technical": "Stopped-kaon spectrometer at BNL, successor to the E787 apparatus, tracking the decay pion's range, energy and kinematics to isolate K+ -> pi+ nu nubar candidates from background."
+  },
+  "notes": [
+    "Placed at the existing site:bnl-upton-campus (owned by the facilities workstream, already on file)."
+  ],
+  "sources": [
+    "src:e949-first-year-physics-run-2004",
+    "src:e949-e787-combined-result-arxiv-2009"
+  ]
+}

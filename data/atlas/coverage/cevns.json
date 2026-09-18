@@ -3,60 +3,74 @@
     "category": "cevns",
     "entity_id": "experiment:coherent",
     "experiment_id": "experiment:coherent",
-    "facility": "ORNL / reactors",
+    "facility": "ORNL Spallation Neutron Source (Neutrino Alley)",
     "missing_fields": [
-      "all"
+      "exact CsI[Na]/CENNS-10/germanium/NaI installation dates (only bounded/approximate dates sourced, not exact)",
+      "collaboration leadership (spokesperson etc.; not sourced)",
+      "collaboration member_count headcount (only institution_count=21, country_count=4 sourced)",
+      "facility:oak-ridge-national-laboratory, site:ornl-sns-neutrino-alley, accelerator:sns (dangling references, owned by the facilities workstream)"
     ],
     "name": "COHERENT",
-    "notes": "Identified in the coverage scope; not yet researched.",
+    "notes": "Flagship, full depth: experiment, 4 detectors (CsI[Na] 14.6 kg, CENNS-10 LAr 22 kg, Ge-Mini 17.6 kg / 8x2.2kg, NaI[Tl] 185 kg), collaboration (21 institutions/4 countries, formed 2013), 4 major results with verbatim titles (2017 observation, 2021 argon, 2022 CsI full dataset, 2024 germanium evidence), 1 technical document (2015 proposal arXiv:1509.08702), INSPIRE experiment recid 1486780 sourced. Host facility/site/accelerator are dangling references pending the facilities lead.",
     "owner": "cevns",
     "priority": 4,
-    "researched": "none",
-    "tier": "C"
+    "researched": "full",
+    "tier": "A"
   },
   {
     "category": "cevns",
     "entity_id": "experiment:conus",
     "experiment_id": "experiment:conus",
-    "facility": "ORNL / reactors",
+    "facility": "Brokdorf NPP (2018-2023) / Leibstadt NPP (from 2023)",
     "missing_fields": [
-      "all"
+      "collaboration formation date (not stated in any fetched source)",
+      "collaboration membership counts (no official collaboration page found/fetched)",
+      "official CONUS/CONUS+ website (not located; plausible MPIK URLs 404'd)",
+      "INSPIRE experiment record (searched inspirehep.net/api/experiments; zero results)",
+      "exact Brokdorf data-taking start date (Wikipedia states 2018-04-01 but is not usable as sole source of a critical value; left null)"
     ],
-    "name": "CONUS+",
-    "notes": "Identified in the coverage scope; not yet researched.",
+    "name": "CONUS",
+    "notes": "One-experiment-record decision: CONUS+ is documented by its own overview paper (arXiv:2407.11912) as 'continuing ... the CONUS physics program' with 'the same four ... HPGe detectors ... refurbished', so recorded as a single experiment:conus record (not two lineage-linked records), with facility_roles/placements at both facility:brokdorf-nuclear-power-plant (2018-2023) and facility:leibstadt-nuclear-power-plant (from 2023), both created here with Wikipedia-sourced, campus-level, approximate coordinates. One detector record (4x1kg/2.83kg-active HPGe array) covers both phases.",
     "owner": "cevns",
     "priority": 4,
-    "researched": "none",
+    "researched": "full",
     "tier": "C"
   },
   {
     "category": "cevns",
     "entity_id": "experiment:nucleus",
     "experiment_id": "experiment:nucleus",
-    "facility": "ORNL / reactors",
+    "facility": "Chooz nuclear power plant (very-near site)",
     "missing_fields": [
-      "all"
+      "distance from the Chooz reactor core (collaboration says only 'very near'; no fetched source gives a number)",
+      "precise site coordinate (campus-level Chooz plant point used instead; A23 warning)",
+      "collaboration formation date and membership counts (no official page found/fetched)",
+      "official website and INSPIRE experiment record (not searched/found in this pass)",
+      "facility:chooz (dangling reference, owned by the reactor-solar-neutrino workstream)"
     ],
     "name": "NUCLEUS",
-    "notes": "Identified in the coverage scope; not yet researched.",
+    "notes": "Status independently verified against a fetched 2026 primary source (arXiv:2603.24450, 'low-energy excess ... observed during commissioning'): commissioning, not just per the brief's secondhand note. Detector: gram-scale CaWO4/Al2O3 cryogenic calorimeter array, 7 g CaWO4 Technical Run target, 20 eV(nr) threshold. site:chooz-very-near-nucleus created here (campus-level, approximate coordinate) referencing the dangling facility:chooz.",
     "owner": "cevns",
     "priority": 4,
-    "researched": "none",
+    "researched": "partial",
     "tier": "C"
   },
   {
     "category": "cevns",
     "entity_id": "experiment:ricochet",
     "experiment_id": "experiment:ricochet",
-    "facility": "ORNL / reactors",
+    "facility": "ILL Grenoble",
     "missing_fields": [
-      "all"
+      "precise final-array mass (only qualitative 'kg-scale' sourced for the full CryoCube; 126 g sourced for the mini-CryoCube commissioning module actually characterized)",
+      "collaboration formation date and membership counts (no official page found/fetched)",
+      "official website and INSPIRE experiment record (not found in this pass)",
+      "precise detector-hall coordinate (campus-level ILL point used instead; A23 warning)"
     ],
     "name": "Ricochet",
-    "notes": "Identified in the coverage scope; not yet researched.",
+    "notes": "Status independently verified against a fetched 2025 primary source (arXiv:2507.22751, mini-CryoCube commissioning). facility:ill-grenoble and site:ill-grenoble-reactor-hall created here with a Wikipedia-sourced, campus-level, approximate coordinate (45.206239, 5.692774) and a 1967 founding interval. Detector 8.8 m from the 58 MW reactor core (arXiv:2208.01760).",
     "owner": "cevns",
     "priority": 4,
-    "researched": "none",
+    "researched": "partial",
     "tier": "C"
   }
 ]

@@ -1,0 +1,72 @@
+{
+  "schema": "hep-atlas/0.2",
+  "id": "detector:koto",
+  "type": "detector",
+  "name": "KOTO detector",
+  "aliases": [],
+  "coverage": {
+    "tier": "B",
+    "researched": "partial"
+  },
+  "experiment_ids": [
+    "experiment:koto"
+  ],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "site_id": "site:j-parc-hadron-hall",
+      "role": "main",
+      "start": "2013-05",
+      "end": null,
+      "sources": [
+        "src:koto-official-site"
+      ],
+      "verified_at": "2026-09-17",
+      "confidence": "verified",
+      "note": ""
+    }
+  ],
+  "technology": {
+    "value": "Hermetic electromagnetic calorimeter and veto-counter system surrounding a neutral-kaon beamline, reconstructing KL -> pi0 (-> gamma gamma) decays while vetoing all other visible particles",
+    "sources": [
+      "src:koto-official-site"
+    ],
+    "verified_at": "2026-09-17",
+    "confidence": "uncertain",
+    "note": "General description of the KOTO technique; a dedicated detector-paper full text was not fetched this session, only the official experiment site."
+  },
+  "technology_class": "spectrometer",
+  "technology_classes": [
+    "spectrometer"
+  ],
+  "intervals": [
+    {
+      "label": "operating",
+      "status": "active",
+      "start": "2013-05",
+      "end": null,
+      "sources": [
+        "src:koto-official-site"
+      ],
+      "verified_at": "2026-09-17",
+      "confidence": "verified",
+      "note": "See experiment:koto for the run-by-run breakdown."
+    }
+  ],
+  "status": "active",
+  "specs": {},
+  "subsystems": [],
+  "links": {
+    "website": null
+  },
+  "summary": {
+    "plain": "The KOTO detector is a hermetic calorimeter and veto system in Japan that watches for the tell-tale flash of a neutral kaon decaying into a neutral pion and invisible particles, with nothing else visible.",
+    "technical": "Hermetic CsI electromagnetic calorimeter with surrounding veto counters at the J-PARC Hadron Experimental Facility, reconstructing KL -> pi0(->gamma gamma) nu nubar candidates against visible-particle vetoes."
+  },
+  "notes": [
+    "Placed at the existing site:j-parc-hadron-hall (owned by the muons workstream, already on file)."
+  ],
+  "sources": [
+    "src:koto-official-site"
+  ]
+}

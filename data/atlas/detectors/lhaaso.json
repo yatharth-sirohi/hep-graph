@@ -1,0 +1,63 @@
+{
+  "id": "detector:lhaaso",
+  "type": "detector",
+  "schema": "hep-atlas/0.2",
+  "name": "LHAASO multi-component array",
+  "aliases": [],
+  "distinct_from": [],
+  "superseded_by": null,
+  "experiment_ids": ["experiment:lhaaso"],
+  "placements": [
+    {
+      "site_id": "site:lhaaso-haizi-mountain",
+      "role": "main",
+      "start": "2021-05",
+      "end": null,
+      "sources": ["src:cosmic-gamma-lhaaso-uhe-photons-arxiv-2021"],
+      "verified_at": "2026-09-17",
+      "confidence": "approximate",
+      "quote": "currently operating at TeV and PeV energies",
+      "note": ""
+    }
+  ],
+  "parent_detector_id": null,
+  "technology": {
+    "value": "Multi-component extensive-air-shower detector combining different shower-sampling techniques (electron, muon and Cherenkov/fluorescence light) at one high-altitude site.",
+    "sources": ["src:cosmic-gamma-lhaaso-science-book-arxiv-2019"],
+    "verified_at": "2026-09-17",
+    "confidence": "verified",
+    "quote": "new generation multi-component facility",
+    "note": "The individual KM2A (electromagnetic/muon), WCDA (water Cherenkov) and WFCTA (wide-field Cherenkov telescope) sub-array names are public knowledge of the LHAASO design but their specifications (unit counts, per-component areas) were not confirmed by a source fetched this session; not asserted here as sourced facts."
+  },
+  "technology_class": "air_shower_array",
+  "technology_classes": ["air_shower_array"],
+  "intervals": [
+    {
+      "label": "data taking",
+      "status": "active",
+      "start": "2021-05",
+      "end": null,
+      "sources": ["src:cosmic-gamma-lhaaso-uhe-photons-arxiv-2021"],
+      "verified_at": "2026-09-17",
+      "confidence": "approximate",
+      "quote": "currently operating at TeV and PeV energies",
+      "note": ""
+    }
+  ],
+  "status": "active",
+  "specs": {
+    "altitude": {"value": 4410, "unit": "m", "dimension": "length", "approx": false, "display": "4410 m", "sources": ["src:cosmic-gamma-lhaaso-science-book-arxiv-2019"], "verified_at": "2026-09-17", "confidence": "verified", "quote": "at an altitude of 4410 meters", "note": ""}
+  },
+  "subsystems": [],
+  "summary": {
+    "plain": "A set of different kinds of ground detectors on a Chinese mountain, working together to sense cosmic-ray and gamma-ray showers in several ways at once.",
+    "technical": "Multi-component air-shower array at 4410 m on Haizi Mountain, Sichuan, China. Sub-array names/specifications (KM2A/WCDA/WFCTA unit counts) are not recorded here: no source fetched this session gave them (the IHEP site's technical pages render as empty JavaScript shells under WebFetch)."
+  },
+  "sources": ["src:cosmic-gamma-lhaaso-science-book-arxiv-2019"],
+  "links": {"website": null},
+  "notes": [
+    "document_ids deliberately not written (v0.2 A1 derived field).",
+    "Sub-array unit counts (KM2A/WCDA/WFCTA) deliberately left out of specs/subsystems: not sourced this session. Do not fill from memory."
+  ],
+  "coverage": {"tier": "B", "researched": "partial"}
+}
