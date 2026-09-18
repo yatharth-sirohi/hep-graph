@@ -420,6 +420,22 @@ input {
 .globe-container {
   position: absolute;
   inset: 0;
+  /* Layering bug fix (reproduced at 1084x786, /atlas?m=results, generated
+     data: marker facility:roque-de-los-muchachos-observatory got inline
+     z-index:14 from three-globe and elementFromPoint over #mode-panel
+     returned the marker's own <polygon>, not the panel). Neither this
+     element nor .globe-stage previously had a z-index other than `auto`, so
+     they created no stacking context of their own — three-globe's per-marker
+     inline z-index (see .atlas-header's comment above) was then compared
+     directly against .mode-panel's z-index:10 in the *root* stacking
+     context, and any marker sorted deeper than 10 painted over the panel and
+     ate its clicks. `isolation: isolate` makes this element its own
+     stacking context, so every marker z-index three-globe assigns is scoped
+     inside it and can never again be compared against .mode-panel's (or
+     anything else outside this element) — fixing the cause structurally
+     instead of raising .mode-panel's z-index to out-guess a library-
+     controlled, unbounded range. */
+  isolation: isolate;
 }
 .globe-container.hidden {
   display: none;
@@ -525,20 +541,67 @@ input {
   width: min(420px, 92%);
   margin: 12px;
   max-height: calc(100% - 24px);
-  overflow-y: auto;
   background: var(--panel);
   border: 1px solid var(--line);
   border-radius: var(--radius);
   padding: 14px;
   box-shadow: var(--shadow);
   z-index: 10;
+  /* A3 dense browsing: the panel itself no longer scrolls as a whole
+     (overflow: hidden) — instead .mode-scroll, a flex child of .mode-body,
+     owns the scrollbar, so the heading/count/sort/filter controls above it
+     stay put (out of the scroll region) while a long results or document
+     list scrolls underneath them. */
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 .mode-panel.hidden {
   display: none;
 }
+/* A3: on a laptop-or-wider viewport there is room to show a genuinely
+   dense list without covering the whole globe. A percentage width on a
+   grid item resolves against its own grid area (here, the "globe" track,
+   not the full viewport — #atlas-main's side columns are fixed px), so
+   92% here means the same thing the base rule's 92% already means: at
+   least an 8% sliver of the globe track stays visible. The only change
+   from the base rule is the pixel ceiling, 420px -> 560px, which is what
+   actually makes the panel wider on real screens (the globe track is
+   comfortably past 609px — 560 / 0.92 — at any width this query matches).
+   Left as-is below 1084px and under the phone breakpoint further down,
+   which overrides width separately. */
+@media (min-width: 1084px) {
+  .mode-panel {
+    width: min(560px, 92%);
+  }
+}
 .mode-hint {
   color: var(--muted);
   font-size: 13px;
+}
+/* The scrollable region inside a mode panel (topic tree / results list /
+   document library) — flexes to fill whatever space the panel's own
+   heading and controls don't use, and is the only thing that scrolls. */
+.mode-scroll {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+}
+.mode-count {
+  color: var(--muted);
+  font-size: 12px;
+  margin: 0 0 8px;
+}
+.mode-toolbar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.group-toggle-row {
+  display: flex;
+  gap: 4px;
 }
 .topic-tree,
 .topic-tree-children {
@@ -558,12 +621,17 @@ input {
   gap: 6px;
   margin-bottom: 10px;
 }
-.results-filters select {
+.results-filters select,
+.results-filters input[type="search"] {
   background: var(--panel-2);
   border: 1px solid var(--line-strong);
   color: var(--white);
   border-radius: 6px;
   padding: 4px 6px;
+}
+.results-filters input[type="search"] {
+  flex: 1;
+  min-width: 160px;
 }
 .results-list {
   list-style: none;
@@ -573,9 +641,23 @@ input {
   flex-direction: column;
   gap: 6px;
 }
+.result-group-header {
+  padding: 10px 0 2px;
+}
+.result-group-header:first-child {
+  padding-top: 0;
+}
+.result-group-header h3 {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
 .result-row {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 8px;
   font-size: 13px;
   border-bottom: 1px solid var(--line);
@@ -584,9 +666,34 @@ input {
 .result-date {
   color: var(--muted);
   min-width: 70px;
+  padding-top: 1px;
+}
+.result-main {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  flex: 1;
+  min-width: 0;
+}
+.result-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+.result-tag {
+  font-size: 11px;
+  color: var(--muted);
+  background: var(--panel-2);
+  border-radius: 4px;
+  padding: 1px 6px;
+  white-space: nowrap;
+}
+.result-significance {
+  color: var(--amber);
 }
 .jump-year-btn {
   margin-left: auto;
+  flex: none;
 }
 .text-btn,
 .jump-year-btn {
@@ -598,13 +705,30 @@ input {
   cursor: pointer;
   font-size: 12px;
 }
+.text-btn.is-active {
+  background: var(--teal);
+  color: #06201d;
+  border-color: var(--teal);
+}
 .document-library {
   list-style: none;
   padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.document-row {
+  padding: 4px 0 8px;
+  border-bottom: 1px solid var(--line);
 }
 .document-meta {
   color: var(--muted);
   font-size: 12px;
+}
+.document-owners {
+  color: var(--muted);
+  font-size: 12px;
+  margin-top: 2px;
 }
 
 /* ------------------------------------------------------------- detail */

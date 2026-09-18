@@ -63,6 +63,11 @@ const duneHeading = process.env.HEP_ATLAS_DATA === "generated"
 const atlasCavernId = process.env.HEP_ATLAS_DATA === "generated"
   ? "site:cern-point-1-atlas" : "site:cern-lhc-point-1";
 const atlasCavernSelector = `.atlas-marker[data-id="${atlasCavernId}"]`;
+// A `?m=<mode>` URL, composed with whichever data-tree query (if any) the
+// rest of the suite is already using — same pattern as browser_atlas_a11y.cjs.
+function modeQuery(mode) {
+  return dataTree ? `${dataTree}&m=${mode}` : `?m=${mode}`;
+}
 const output = process.env.HEP_ATLAS_OUTPUT || path.join(__dirname, "../test-results/atlas");
 fs.mkdirSync(output, { recursive: true });
 
@@ -726,6 +731,230 @@ async function setRangeValue(locator, value) {
     const filteredRows = await noGlPage.locator(".fallback-table").first().locator("tbody tr").count();
     assert.ok(filteredRows < unfilteredRows, "the fallback Facilities table must shrink under the same region filter");
     await noGlContext2.close();
+  });
+
+  // ---------------------------------------------------------------------
+  // A2: the layering bug. Globe markers get an inline z-index from
+  // three-globe (see .atlas-header's comment in atlas.css) sorted by camera
+  // depth, which used to be compared directly against #mode-panel's own
+  // z-index in the *root* stacking context (neither .globe-stage nor
+  // #globe-container had a z-index of their own, so they created no
+  // stacking context to contain it) — any marker three-globe sorted deeper
+  // than 10 painted over the panel and ate its clicks. Reproduced by zooming
+  // in (which widens the range of per-marker z-index values three-globe
+  // hands out) at each of the four viewports the brief names, for both
+  // Results and Documents mode; the fix (isolation: isolate on
+  // #globe-container) must hold at all of them.
+  // ---------------------------------------------------------------------
+  const layeringViewports = [
+    { name: "1084x786", width: 1084, height: 786 },
+    { name: "1280x800", width: 1280, height: 800 },
+    { name: "1440x900", width: 1440, height: 900 },
+    { name: "390x844", width: 390, height: 844 },
+  ];
+  for (const mode of ["results", "docs"]) {
+    for (const viewport of layeringViewports) {
+      await record(`A2 layering: ${mode} mode panel wins elementFromPoint over globe markers at ${viewport.name}`, async () => {
+        const layerContext = await browser.newContext({ viewport: { width: viewport.width, height: viewport.height } });
+        const layerErrors = [];
+        layerContext.on("page", (p) => p.on("pageerror", (e) => layerErrors.push(e.message)));
+        const layerPage = await layerContext.newPage();
+        await layerPage.goto(`${base}/atlas${modeQuery(mode)}`);
+        await layerPage.waitForFunction(() => document.querySelectorAll(".atlas-marker").length > 0, { timeout: 15000 });
+        await layerPage.waitForTimeout(300);
+        // Zoom in over the panel: this is what actually produces marker
+        // z-index values large enough to threaten #mode-panel's z-index:10
+        // (see atlas.css's #globe-container comment) — the bug was never
+        // visible at the untouched default camera position.
+        const canvasBox = await layerPage.locator("canvas").first().boundingBox();
+        if (canvasBox) {
+          await layerPage.mouse.move(canvasBox.x + canvasBox.width * 0.55, canvasBox.y + canvasBox.height * 0.4);
+          for (let i = 0; i < 25; i += 1) {
+            await layerPage.mouse.wheel(0, -200);
+            await layerPage.waitForTimeout(30);
+          }
+          await layerPage.waitForTimeout(500);
+        }
+        const outcome = await layerPage.evaluate(() => {
+          const panel = document.getElementById("mode-panel");
+          const panelRect = panel.getBoundingClientRect();
+          const markers = [...document.querySelectorAll(".atlas-marker")];
+          let checked = 0;
+          for (const marker of markers) {
+            const r = marker.getBoundingClientRect();
+            const overlaps = !(r.right < panelRect.left || r.left > panelRect.right
+              || r.bottom < panelRect.top || r.top > panelRect.bottom);
+            if (!overlaps || r.width === 0 || r.height === 0) continue;
+            checked += 1;
+            const x = Math.max(panelRect.left + 2, Math.min(r.left + r.width / 2, panelRect.right - 2));
+            const y = Math.max(panelRect.top + 2, Math.min(r.top + r.height / 2, panelRect.bottom - 2));
+            const top = document.elementFromPoint(x, y);
+            if (!top || !panel.contains(top)) {
+              return {
+                checked, offender: marker.dataset.id, topTag: top && top.tagName, insideModePanel: false,
+              };
+            }
+          }
+          return { checked, insideModePanel: true };
+        });
+        await layerPage.screenshot({ path: path.join(output, `layering-${mode}-${viewport.name}.png`) });
+        await layerContext.close();
+        assert.deepEqual(layerErrors, [], `no uncaught errors while probing ${mode} mode at ${viewport.name}`);
+        assert.ok(
+          outcome.insideModePanel,
+          `expected elementFromPoint over every marker/panel overlap to land inside #mode-panel at ${viewport.name}` +
+            (outcome.offender ? ` — "${outcome.offender}" (<${outcome.topTag}>) painted on top instead` : ""),
+        );
+      });
+    }
+  }
+
+  // ---------------------------------------------------------------------
+  // A3: dense Results browsing — visible count, default newest-first order,
+  // the sort control, the year/experiment grouping toggle (with
+  // aria-pressed), and the two distinct empty-state messages.
+  // ---------------------------------------------------------------------
+  await record("Results mode: count matches rendered rows, and is newest-first by default", async () => {
+    await page.goto(`${base}/atlas${modeQuery("results")}`);
+    await page.locator("#results-mode-list").waitFor();
+    await page.waitForFunction(() => document.querySelectorAll("#results-mode-list .result-row").length > 0);
+    const countText = await page.locator("#results-count").innerText();
+    const match = /^Showing (\d+) of (\d+) results$/.exec(countText);
+    assert.ok(match, `expected a "Showing X of Y results" count, got "${countText}"`);
+    const rowCount = await page.locator("#results-mode-list .result-row").count();
+    assert.equal(Number(match[1]), rowCount, "the visible count must equal the number of rendered result rows");
+    assert.ok(Number(match[2]) >= rowCount, "the total in the count must be >= the visible count");
+
+    // A bare year (no month/day in the displayed date) is padded to
+    // January 1st here — matching modes.js's own timeKey(), which treats an
+    // undated-to-day record as the earliest point in its year rather than
+    // guessing a mid-year date, so it sorts after (not ahead of) dated peers
+    // from the same year.
+    const dates = await page.evaluate(() => [...document.querySelectorAll("#results-mode-list .result-row .result-date")]
+      .map((el) => Date.parse(el.textContent.trim().length === 4 ? `${el.textContent.trim()}-01-01` : el.textContent.trim()) || 0));
+    const sortedDesc = [...dates].sort((a, b) => b - a);
+    assert.deepEqual(dates, sortedDesc, "results must render newest-first by default");
+  });
+
+  await record("Results mode: the sort control reorders rows; the group toggles bucket them and set aria-pressed", async () => {
+    await page.goto(`${base}/atlas${modeQuery("results")}`);
+    await page.locator("#results-mode-list").waitFor();
+
+    await page.selectOption("#results-sort", "experiment");
+    await page.waitForTimeout(150);
+    // A result naming several experiments (e.g. a LEP paper citing "ALEPH,
+    // DELPHI, L3, OPAL") displays all of them, but modes.js sorts by the
+    // *first* experiment_id's name only — take the same prefix here (split
+    // on the tag's own ", " join) rather than comparing the full joined
+    // text, which would (correctly) fail to be alphabetical on its own.
+    const primaryExperiments = await page.evaluate(() => [...document.querySelectorAll("#results-mode-list > .result-row")]
+      .map((li) => (li.querySelector(".result-tag")?.textContent.trim() || "").split(", ")[0]));
+    const sortedPrimary = [...primaryExperiments].sort((a, b) => a.localeCompare(b));
+    assert.deepEqual(primaryExperiments, sortedPrimary, "sorting by experiment must order rows alphabetically by primary experiment");
+    await page.selectOption("#results-sort", "date");
+
+    assert.equal(await page.locator("#results-group-year").getAttribute("aria-pressed"), "false");
+    await page.locator("#results-group-year").click();
+    assert.equal(await page.locator("#results-group-year").getAttribute("aria-pressed"), "true");
+    await page.waitForFunction(() => document.querySelectorAll("#results-mode-list .result-group-header").length > 0);
+    const groupHeaderCount = await page.locator("#results-mode-list .result-group-header").count();
+    assert.ok(groupHeaderCount > 1, "grouping by year must produce more than one group heading");
+
+    // Grouping by experiment turns year-grouping back off (it's a toggle,
+    // not independent checkboxes) — same aria-pressed contract in reverse.
+    await page.locator("#results-group-experiment").click();
+    assert.equal(await page.locator("#results-group-year").getAttribute("aria-pressed"), "false");
+    assert.equal(await page.locator("#results-group-experiment").getAttribute("aria-pressed"), "true");
+    await page.locator("#results-group-experiment").click();
+    assert.equal(await page.locator("#results-group-experiment").getAttribute("aria-pressed"), "false");
+    assert.equal(await page.locator("#results-mode-list .result-group-header").count(), 0, "toggling grouping off must ungroup the list again");
+  });
+
+  await record("Results mode: distinguishes \"no results match filters\" from \"nothing curated for this experiment\"", async () => {
+    await page.goto(`${base}/atlas${modeQuery("results")}`);
+    await page.locator("#results-mode-list").waitFor();
+
+    // The experiment select lists every atlas experiment, not just ones a
+    // result already cites (otherwise this empty state could never be
+    // reached) — find one whose result count is genuinely zero.
+    const experimentOptions = await page.locator("#results-filter-experiment option").evaluateAll(
+      (opts) => opts.map((o) => o.value).filter(Boolean),
+    );
+    let curatedMessage = null;
+    for (const value of experimentOptions) {
+      await page.selectOption("#results-filter-experiment", value);
+      await page.waitForTimeout(30);
+      const rows = await page.locator("#results-mode-list .result-row").count();
+      if (rows === 0) {
+        curatedMessage = await page.locator("#results-mode-list .empty-note").innerText();
+        break;
+      }
+    }
+    assert.equal(curatedMessage, "No results curated yet for this experiment.");
+
+    // Now find an experiment WITH results, then pair it with a result type
+    // it never has, for the generic "these filters" message instead.
+    await page.selectOption("#results-filter-experiment", "");
+    const typeOptions = await page.locator("#results-filter-type option").evaluateAll(
+      (opts) => opts.map((o) => o.value).filter(Boolean),
+    );
+    let genericMessage = null;
+    for (const expValue of experimentOptions) {
+      if (genericMessage) break;
+      await page.selectOption("#results-filter-experiment", expValue);
+      for (const typeValue of typeOptions) {
+        await page.selectOption("#results-filter-type", typeValue);
+        await page.waitForTimeout(30);
+        const rows = await page.locator("#results-mode-list .result-row").count();
+        if (rows === 0) {
+          genericMessage = await page.locator("#results-mode-list .empty-note").innerText();
+          if (genericMessage === "No results match these filters.") break;
+          genericMessage = null; // this combo happened to be the curated-empty case; keep looking
+        }
+      }
+    }
+    assert.equal(genericMessage, "No results match these filters.");
+  });
+
+  // ---------------------------------------------------------------------
+  // A3: dense Documents browsing — count, doc-type grouping, resolved
+  // owner names, and the text filter.
+  // ---------------------------------------------------------------------
+  await record("Documents mode: count matches rendered rows, grouped by doc type, owners resolved to names, text filter reduces rows", async () => {
+    await page.goto(`${base}/atlas${modeQuery("docs")}`);
+    await page.locator("#docs-mode-list").waitFor();
+    await page.waitForFunction(() => document.querySelectorAll("#docs-mode-list .document-row").length > 0);
+
+    const countText = await page.locator("#docs-count").innerText();
+    const match = /^Showing (\d+) of (\d+) documents$/.exec(countText);
+    assert.ok(match, `expected a "Showing X of Y documents" count, got "${countText}"`);
+    const rowCount = await page.locator("#docs-mode-list .document-row").count();
+    assert.equal(Number(match[1]), rowCount, "the visible count must equal the number of rendered document rows");
+
+    const groupHeaderCount = await page.locator("#docs-mode-list .result-group-header").count();
+    assert.ok(groupHeaderCount >= 1, "documents must be grouped under at least one doc-type heading");
+
+    // Owners are resolved from ids to names (never a bare "experiment:xyz").
+    const ownersText = await page.locator("#docs-mode-list .document-owners").first().innerText();
+    assert.doesNotMatch(ownersText, /\b\w+:[\w-]+\b/, `owner names must be resolved, not raw ids: "${ownersText}"`);
+
+    // The text filter narrows the list. Filter on the first visible
+    // document's own full title — specific enough to match only that (or a
+    // small handful of) row(s), so this also proves the filter *reduces*
+    // the list rather than merely re-rendering the same rows.
+    const firstTitle = await page.locator("#docs-mode-list .document-title").first().innerText();
+    await page.fill("#docs-text-filter", firstTitle.trim());
+    await page.waitForTimeout(150);
+    const filteredRows = await page.locator("#docs-mode-list .document-row").count();
+    assert.ok(filteredRows > 0, "filtering by an existing document's own title must keep at least that row");
+    assert.ok(filteredRows < rowCount, "the text filter must reduce the row count");
+
+    // An unmatchable filter must show the documents-specific empty note,
+    // not silently show stale rows.
+    await page.fill("#docs-text-filter", "zzz-no-such-document-zzz");
+    await page.waitForTimeout(150);
+    assert.equal(await page.locator("#docs-mode-list .document-row").count(), 0);
+    assert.match(await page.locator("#docs-mode-list .empty-note").innerText(), /No documents match this filter\./);
   });
 
   // Three device classes named in the brief: iPhone-size, Android-size, and
