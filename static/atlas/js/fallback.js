@@ -89,9 +89,22 @@ export function render(container, {
         h('td', {}, (f.country || []).join(', ')),
         h('td', {}, isApproximateFacility(f) ? 'Approximate' : 'Precise'),
       );
+      // ---- local map view (docs/HEP_ATLAS_GEOMETRY.md §4) -- begin ------
+      // Leaflet needs no WebGL, so the to-scale local map is reachable from
+      // the no-WebGL fallback too. A facility with no map cell says "not
+      // mapped yet", never nothing at all — the blank would read as "this
+      // laboratory has no layout".
+      const mapId = f.map_id && atlas.maps && atlas.maps[f.map_id] ? f.map_id : null;
+      if (mapId) {
+        tr.appendChild(linkCell({ type: 'map', slug: mapId.split(':')[1] }, 'Local map', navigate));
+      } else {
+        tr.appendChild(h('td', { class: 'fallback-nomap' }, 'Not mapped yet'));
+      }
+      // ---- local map view -- end ----------------------------------------
       return tr;
     });
-  container.appendChild(table('Facilities', ['Name', 'Kind', 'Status', 'Country', 'Location'], facilityRows));
+  container.appendChild(table('Facilities',
+    ['Name', 'Kind', 'Status', 'Country', 'Location', 'Local map'], facilityRows));
 
   const experimentRows = Object.values(atlas.experiments)
     .filter((e) => filtersModule.experimentMatches(e, activeFilters, tls, topics))

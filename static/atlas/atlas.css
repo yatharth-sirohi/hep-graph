@@ -1316,5 +1316,520 @@ body.about-page {
   }
   .about-toc {
     position: static;
+/* ---- local map ----------------------------------------------------------
+   The 2D, to-scale local-map view (docs/HEP_ATLAS_GEOMETRY.md §4). Everything
+   below belongs to `#/map/<slug>`; the route puts `.is-map-route` on
+   #atlas-main, which stands the globe layout down and gives the map view the
+   whole grid. Colours come from the existing tokens so the dark theme's
+   measured contrast still holds.
+   ------------------------------------------------------------------------ */
+#atlas-main.is-map-route {
+  grid-template-columns: 1fr;
+  grid-template-areas: none;
+}
+#atlas-main.is-map-route > :not(.map-view) {
+  display: none !important;
+}
+.map-view {
+  grid-column: 1 / -1;
+  grid-row: 1;
+  display: grid;
+  /* With the drawer shut the map has the stage to itself; with it open the
+     map still holds >= 60 % of a 1280 px laptop viewport (17 % + 22 % of
+     chrome leaves 61 %), which is the §4 floor for a to-scale view. */
+  grid-template-columns: minmax(200px, 17%) minmax(0, 1fr) 0;
+  min-height: 0;
+  overflow: hidden;
+}
+.map-view.drawer-open {
+  grid-template-columns: minmax(200px, 17%) minmax(0, 1fr) minmax(240px, 22%);
+}
+.map-view.hidden {
+  display: none;
+}
+
+/* ---- left column: layers, places, legend */
+.map-layers {
+  background: var(--panel);
+  border-right: 1px solid var(--line);
+  padding: 10px;
+  overflow-y: auto;
+  min-height: 0;
+}
+.map-back-btn {
+  appearance: none;
+  background: var(--panel-2);
+  border: 1px solid var(--line-strong);
+  color: var(--white);
+  border-radius: var(--radius);
+  padding: 6px 10px;
+  cursor: pointer;
+  font: inherit;
+}
+.map-back-btn {
+  display: block;
+  width: 100%;
+  text-align: left;
+  margin-bottom: 10px;
+}
+.map-back-btn:hover,
+.map-toggle:hover {
+  border-color: var(--teal);
+}
+.map-title {
+  margin: 0 0 2px;
+  font-size: 17px;
+}
+.map-subtitle {
+  margin: 0 0 6px;
+  color: var(--muted);
+  font-size: 12px;
+}
+.map-data-note {
+  margin: 0 0 8px;
+  padding: 6px 8px;
+  border-left: 3px solid var(--amber);
+  background: var(--panel-2);
+  color: var(--white);
+  font-size: 12px;
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+.map-section {
+  margin-bottom: 8px;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 6px;
+}
+.map-section > summary {
+  cursor: pointer;
+  font-weight: 600;
+  padding: 4px 0;
+}
+.map-section-body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.map-note {
+  color: var(--muted);
+  font-size: 12px;
+  margin: 0;
+}
+.map-toggle {
+  appearance: none;
+  background: transparent;
+  border: 1px solid var(--line-strong);
+  color: var(--white);
+  border-radius: var(--radius);
+  padding: 6px 8px;
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.map-toggle[aria-pressed='true'] {
+  background: var(--panel-2);
+  border-color: var(--teal);
+}
+/* Not colour alone: a pressed toggle also gains a leading check mark, and an
+   unpressed one a cross. Every toggle's label is wrapped in .map-toggle-name
+   (see localmap.js toggleButton) so this needs no :has(). */
+.map-toggle[aria-pressed='true'] .map-toggle-name::before {
+  content: '\2713\00a0';
+  color: var(--teal);
+}
+.map-toggle[aria-pressed='false'] .map-toggle-name::before {
+  content: '\2715\00a0';
+  color: var(--muted);
+}
+.map-toggle-meta {
+  color: var(--muted);
+  font-size: 11px;
+}
+.map-feature-group {
+  margin: 8px 0 2px;
+  font-size: 12px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.map-feature-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.map-feature-row {
+  appearance: none;
+  background: transparent;
+  border: 1px solid var(--line-strong);
+  border-left-width: 4px;
+  color: var(--white);
+  border-radius: var(--radius);
+  padding: 6px 8px;
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.map-feature-row.is-selected {
+  background: var(--panel-2);
+  border-color: var(--teal);
+}
+.map-feature-row.is-ghosted .map-feature-name::after {
+  content: ' \2014 outside the selected year';
+  color: var(--amber);
+  font-size: 11px;
+}
+.map-feature-name {
+  font-weight: 600;
+  font-size: 13px;
+}
+.map-feature-meta {
+  color: var(--muted);
+  font-size: 11px;
+}
+.map-unlocated-list,
+.map-linked-list,
+.map-schematic-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.map-unlocated-row {
+  border-left: 3px solid var(--amber);
+  padding-left: 8px;
+}
+.map-unlocated-name {
+  font-weight: 600;
+  font-size: 13px;
+}
+.map-unlocated-reason,
+.map-unlocated-backlog {
+  margin: 2px 0;
+  font-size: 12px;
+  color: var(--white);
+}
+.map-unlocated-backlog {
+  color: var(--muted);
+}
+.map-attribution {
+  color: var(--muted);
+  font-size: 11px;
+  margin: 10px 0 0;
+}
+.map-legend-group h4 {
+  margin: 8px 0 2px;
+  font-size: 13px;
+}
+.map-legend-list {
+  margin: 4px 0 0;
+  font-size: 12px;
+}
+.map-legend-list dt {
+  font-weight: 600;
+  margin-top: 4px;
+}
+.map-legend-list dd {
+  margin: 0 0 2px;
+  color: var(--muted);
+}
+.map-swatch {
+  display: inline-block;
+  width: 22px;
+  height: 0;
+  margin-right: 6px;
+  vertical-align: middle;
+  border-top-style: solid;
+  border-top-width: 3px;
+  border-top-color: #9aa7b0;
+}
+.map-swatch.legend-type-ring { border-top-width: 5px; border-top-color: #54c6ba; }
+.map-swatch.legend-type-linac { border-top-width: 4px; border-top-color: #54c6ba; }
+.map-swatch.legend-type-beamline { border-top-color: #7fd1e6; }
+.map-swatch.legend-type-hall {
+  height: 12px;
+  border: 2px solid #f2b441;
+  background: #f2b44140;
+}
+.map-swatch.legend-type-boundary { border-top-style: dashed; border-top-color: #98a3a9; }
+.map-swatch.legend-type-direction_line { border-top-style: dotted; border-top-color: #c98bd6; }
+.map-swatch.legend-status-active { border-top-color: var(--white); }
+.map-swatch.legend-status-construction { border-top-style: dashed; border-top-color: #f2b441; }
+.map-swatch.legend-status-completed { border-top-color: #98a3a9; }
+.map-swatch.legend-status-proposed { border-top-style: dotted; border-top-color: var(--white); }
+.map-swatch.legend-status-outside { border-top-color: #5a636b; }
+.map-swatch.legend-level-under {
+  border-top-style: double;
+  border-top-width: 5px;
+  border-top-color: #f4f7f8;
+}
+.map-swatch.legend-level-surface { border-top-color: var(--white); }
+.map-swatch.legend-rep-surveyed { border-top-color: var(--white); }
+.map-swatch.legend-rep-georeferenced { border-top-color: #cdd7dc; }
+.map-swatch.legend-rep-derived { border-top-color: #8d9aa2; }
+.map-swatch.legend-rep-inferred_direction { border-top-style: dotted; border-top-color: #c98bd6; }
+
+/* ---- centre: the map stage */
+.map-stage {
+  position: relative;
+  min-height: 0;
+  min-width: 0;
+  background: var(--paper);
+}
+.map-canvas {
+  position: absolute;
+  inset: 0;
+}
+/* Leaflet's own default is a light grey; with the basemap off the features
+   must sit on the atlas's dark background, not on a white sheet. */
+.map-canvas.leaflet-container,
+.map-canvas .leaflet-container {
+  background: #0b1620;
+  font: inherit;
+  outline-offset: -3px;
+}
+.map-canvas .leaflet-control-attribution {
+  background: #0b1620d9;
+  color: var(--white);
+  font-size: 11px;
+}
+.map-canvas .leaflet-control-attribution a {
+  color: var(--teal);
+}
+.map-canvas .leaflet-control-scale-line {
+  background: #0b1620d9;
+  border: 2px solid var(--white);
+  border-top: none;
+  color: var(--white);
+  font-size: 12px;
+  line-height: 1.2;
+  padding: 2px 6px 1px;
+  text-shadow: none;
+}
+.map-canvas .leaflet-bar a {
+  background: var(--panel);
+  color: var(--white);
+  border-bottom-color: var(--line-strong);
+}
+.map-canvas .leaflet-bar a:hover {
+  background: var(--panel-2);
+  color: var(--white);
+}
+.map-canvas path.is-ghosted {
+  stroke-opacity: 0.3;
+}
+.map-tooltip.leaflet-tooltip {
+  background: var(--panel);
+  color: var(--white);
+  border: 1px solid var(--line-strong);
+  box-shadow: var(--shadow);
+  white-space: pre-line;
+  font-size: 12px;
+  max-width: 280px;
+}
+.map-north {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 1100;
+  background: #0b1620d9;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  padding: 4px 8px;
+  color: var(--white);
+  text-align: center;
+  line-height: 1.1;
+  font-size: 12px;
+  pointer-events: none;
+}
+.map-north-arrow {
+  display: block;
+  font-size: 15px;
+}
+.map-tile-notice {
+  position: absolute;
+  left: 50px;
+  right: 50px;
+  top: 10px;
+  z-index: 1100;
+  margin: 0;
+  background: var(--panel);
+  border: 1px solid var(--amber);
+  border-radius: var(--radius);
+  padding: 6px 10px;
+  color: var(--white);
+  font-size: 12px;
+}
+.map-tile-notice.hidden {
+  display: none;
+}
+/* ---- depth diagram: a vertical section, never a plan */
+.map-depth {
+  position: absolute;
+  right: 10px;
+  bottom: 34px;
+  z-index: 1100;
+  width: min(340px, calc(100% - 20px));
+  max-height: calc(100% - 60px);
+  overflow-y: auto;
+  background: var(--panel);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 10px;
+}
+.map-depth.hidden {
+  display: none;
+}
+.map-depth h3 {
+  margin: 0 0 4px;
+  font-size: 14px;
+}
+.map-depth-svg {
+  width: 100%;
+  height: auto;
+  margin: 6px 0;
+}
+.map-depth-axis {
+  stroke: var(--line-strong);
+  stroke-width: 1;
+}
+.map-depth-axis-label,
+.map-depth-tick {
+  fill: var(--muted);
+  font-size: 9px;
+}
+.map-depth-bar.is-level {
+  fill: #54c6ba59;
+  stroke: #54c6ba;
+  stroke-width: 1;
+}
+.map-depth-bar.is-feature {
+  fill: #f2b44159;
+  stroke: #f2b441;
+  stroke-width: 1;
+}
+.map-depth-floor {
+  stroke: var(--white);
+  stroke-width: 1.5;
+}
+.map-depth-key {
+  list-style: none;
+  margin: 4px 0 8px;
+  padding: 0;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+/* ---- right: the selection drawer */
+.map-drawer {
+  background: var(--panel);
+  border-left: 1px solid var(--line);
+  padding: 14px;
+  overflow-y: auto;
+  min-height: 0;
+  position: relative;
+}
+.map-drawer.hidden {
+  display: none;
+}
+.map-drawer-title {
+  margin: 0 0 8px;
+  padding-right: 28px;
+  font-size: 16px;
+}
+.map-drawer .close-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+}
+.map-facts h3 {
+  margin: 12px 0 4px;
+  font-size: 13px;
+  border-top: 1px solid var(--line);
+  padding-top: 8px;
+}
+.map-check-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.map-check {
+  font-size: 12px;
+  border-left: 3px solid var(--line-strong);
+  padding-left: 8px;
+}
+.map-check.is-passed {
+  border-left-color: var(--teal);
+}
+.map-check.is-failed {
+  border-left-color: var(--danger);
+}
+.map-check-verdict {
+  display: inline-block;
+  font-weight: 700;
+  margin-right: 6px;
+}
+.map-check.is-passed .map-check-verdict {
+  color: var(--teal);
+}
+.map-check.is-failed .map-check-verdict {
+  color: var(--danger);
+}
+.map-inferred-warning {
+  margin: 6px 0;
+  padding: 6px 8px;
+  border-left: 3px solid #c98bd6;
+  background: var(--panel-2);
+  font-size: 12px;
+}
+.fallback-nomap {
+  color: var(--muted);
+}
+
+/* ---- mobile: stacked, with the drawer as a bottom sheet */
+@media (max-width: 760px) {
+  .map-view,
+  .map-view.drawer-open {
+    grid-template-columns: 1fr;
+    grid-template-rows: minmax(45vh, 1fr) auto;
+    grid-template-areas:
+      'mapstage'
+      'maplayers';
+    overflow-y: auto;
+  }
+  .map-stage {
+    grid-area: mapstage;
+    min-height: 45vh;
+  }
+  .map-layers {
+    grid-area: maplayers;
+    border-right: none;
+    border-top: 1px solid var(--line);
+  }
+  .map-drawer {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: auto;
+    max-height: 55vh;
+    border-left: none;
+    border-top: 1px solid var(--line);
+    border-radius: 14px 14px 0 0;
+    box-shadow: 0 -6px 20px #00000060;
+    z-index: 1200;
+  }
+  .map-depth {
+    width: calc(100% - 20px);
   }
 }

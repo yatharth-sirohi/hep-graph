@@ -6,6 +6,10 @@ const TYPE_PREFIX = {
   facility: 'facility', experiment: 'experiment', collaboration: 'collaboration',
   institution: 'institution', topic: 'topic', result: 'result', document: 'document',
   site: 'site', detector: 'detector', accelerator: 'accelerator', beamline: 'beamline',
+  // ---- local map view (docs/HEP_ATLAS_GEOMETRY.md §4) ----
+  // `#/map/<facility-slug>` is a route like any other, so back/forward, the
+  // search box and a pasted link all reach it through the same code path.
+  map: 'map',
 };
 
 const subscribers = new Set();
@@ -25,6 +29,10 @@ function parseSearch(search) {
   const state = {
     year: null, range: null, topic: null, status: null, mode: null, arcs: false, collab: null,
     era: null, facilityKind: null, experimentKind: null, region: null,
+    // ---- local map view (§4): `lv` visible levels, `bm` basemap, `sel`
+    // the entity (or context feature) in the drawer. `levels: null` means
+    // "all levels", which is not the same as "no levels" (`[]`).
+    levels: null, basemap: true, sel: null,
   };
   if (params.has('y')) {
     const y = parseInt(params.get('y'), 10);
@@ -46,6 +54,13 @@ function parseSearch(search) {
   if (params.has('m')) state.mode = params.get('m');
   if (params.has('c')) state.collab = params.get('c');
   state.arcs = params.get('arcs') === '1';
+  // ---- local map view (§4) ----
+  if (params.has('lv')) {
+    const raw = params.get('lv');
+    state.levels = raw === '' ? [] : raw.split(',').filter(Boolean);
+  }
+  if (params.get('bm') === '0') state.basemap = false;
+  if (params.has('sel')) state.sel = params.get('sel');
   return state;
 }
 
@@ -71,6 +86,15 @@ function buildURL(state) {
   if (state.mode) params.set('m', state.mode);
   if (state.collab) params.set('c', state.collab);
   if (state.arcs) params.set('arcs', '1');
+  // ---- local map view (§4) ----
+  // These three only mean anything on a map route, so they are written only
+  // there: leaving a map must not leave `lv`/`bm`/`sel` stranded in the URL
+  // of a globe view that cannot honour them.
+  if (state.entity && state.entity.type === 'map') {
+    if (state.levels) params.set('lv', state.levels.join(','));
+    if (state.basemap === false) params.set('bm', '0');
+    if (state.sel) params.set('sel', state.sel);
+  }
   const search = params.toString();
   const hash = state.entity ? `#/${state.entity.type}/${state.entity.slug}` : '';
   return `${window.location.pathname}${search ? `?${search}` : ''}${hash}`;

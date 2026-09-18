@@ -260,6 +260,92 @@ async function contrastOf(page, selector) {
       await runAxe(page, tree.label, "document library");
     });
 
+    // ---- local map view (docs/HEP_ATLAS_GEOMETRY.md §4) -- begin --------
+    // Two states, both of which have to be clean: the map with nothing
+    // selected, and the map with the drawer open (which is where panels.js's
+    // detail panel, the shape facts, the checks and the sources all land).
+    // The generated tree has no `maps` yet, so this skips explicitly rather
+    // than reporting a scan it never ran.
+    await record(`[${tree.label}] axe: local map view`, async () => {
+      const mapTreeBase = `${base}/atlas/${dataTree ? "fixtures" : "generated"}/`;
+      let maps = {};
+      try {
+        const response = await fetch(`${mapTreeBase}atlas.json`);
+        if (response.ok) maps = (await response.json()).maps || {};
+      } catch (error) {
+        maps = {};
+      }
+      const mapId = Object.keys(maps).find((id) => maps[id].feature_count > 0);
+      if (!mapId) {
+        axeReport.push({
+          tree: tree.label, state: "local map view", skipped: true,
+          reason: "no maps in this tree",
+        });
+        console.log(`SKIP [${tree.label}]: local map view — this data tree publishes no \`maps\``);
+        return;
+      }
+      const slug = mapId.split(":")[1];
+      const geometry = await (await fetch(`${mapTreeBase}${maps[mapId].bundle}`)).json();
+      const mapContext = await browser.newContext({ viewport: { width: 1440, height: 960 } });
+      const mapPage = await mapContext.newPage();
+      mapPage.setDefaultTimeout(30000);
+      await mapPage.goto(`${base}/atlas${dataTree}#/map/${slug}`, { waitUntil: "domcontentloaded" });
+      await mapPage.locator(".leaflet-container").waitFor({ timeout: 20000 });
+      await mapPage.locator("[data-feature-row]").first().waitFor({ timeout: 20000 });
+      await runAxe(mapPage, tree.label, "local map view");
+
+      await mapPage.locator("[data-feature-row]").first().click();
+      await mapPage.locator("#map-drawer-title").waitFor({ timeout: 15000 });
+      await mapPage.locator("#map-depth-toggle").click();
+      await mapPage.locator(".map-depth-svg").waitFor({ timeout: 15000 });
+      // Open every disclosure in the left column *after* the clicks: axe
+      // cannot see into a closed <details>, and each click re-renders the
+      // list (so opening them first would not survive to the scan).
+      await mapPage.evaluate(() => document.querySelectorAll("#map-layers details")
+        .forEach((d) => { d.open = true; }));
+      await runAxe(mapPage, tree.label, "local map view, drawer and depth diagram open");
+
+      // The four §4 encodings must each be readable as text, not colour
+      // alone: the legend names them, every list row states its accuracy and
+      // representation, and the map surface says how to use it without one.
+      const legendText = await mapPage.locator("#map-layers").innerText();
+      for (const term of ["Feature type", "Status in the selected year", "Level", "Representation"]) {
+        assert.ok(legendText.includes(term), `the legend must explain "${term}" in words`);
+      }
+      const application = mapPage.locator("#map-canvas[role='application']");
+      assert.equal(await application.count(), 1, "the map surface declares role=application");
+      const label = await application.getAttribute("aria-label");
+      assert.match(label, /arrow keys/i, "role=application must describe its keyboard alternative");
+      assert.match(label, /listed|list/i, "…and point at the accessible list that mirrors it");
+      const live = mapPage.locator("#map-selection-live");
+      assert.equal(await live.getAttribute("aria-live"), "polite", "selection is announced in a live region");
+      assert.match(await live.innerText(), /Selected /, "…and the live region names what was selected");
+
+      // Contrast of the map view's own text, measured on the rendered DOM.
+      for (const check of [
+        { selector: ".map-feature-row .map-feature-meta", min: 4.5, label: "feature row metadata" },
+        { selector: ".map-subtitle", min: 4.5, label: "map subtitle" },
+        { selector: ".map-data-note", min: 4.5, label: "synthetic-data note" },
+        { selector: ".map-drawer-title", min: 4.5, label: "drawer title" },
+        { selector: ".leaflet-control-scale-line", min: 4.5, label: "scale bar label" },
+      ]) {
+        const measured = await contrastOf(mapPage, check.selector);
+        assert.ok(measured, `could not measure contrast for ${check.label} (${check.selector})`);
+        assert.ok(measured.ratio >= check.min,
+          `${check.label} contrast ${measured.ratio.toFixed(2)}:1 is below ${check.min}:1`);
+      }
+
+      // Toggles are buttons with aria-pressed, not colour-only chips.
+      const levelIds = (maps[mapId].levels || []).map((level) => level.id);
+      for (const levelId of levelIds) {
+        const pressed = await mapPage.locator(`[data-level-id="${levelId}"]`).getAttribute("aria-pressed");
+        assert.ok(pressed === "true" || pressed === "false", `level toggle ${levelId} exposes aria-pressed`);
+      }
+      assert.ok(geometry.features.length > 0, "the bundle this scan exercised actually has features");
+      await mapContext.close();
+    });
+    // ---- local map view -- end -------------------------------------------
+
     await context.close();
 
     // ------------------------------------------------- no-WebGL fallback

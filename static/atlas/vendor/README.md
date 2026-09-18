@@ -39,6 +39,42 @@ namespaces, licence links and library homepages. Requires WebGL2.
 Fed to `Globe.polygonsData()` so the globe has coastlines without a raster
 texture or a tile server.
 
+## leaflet/
+
+The 2D map engine for the to-scale local-map view
+(`docs/HEP_ATLAS_GEOMETRY.md` §4). Loaded **lazily** — `static/atlas/js/localmap.js`
+injects the script and stylesheet the first time a `#/map/<slug>` route
+opens, so the globe's cold load does not pay for it.
+
+| | |
+| --- | --- |
+| package | `leaflet` |
+| version | 1.9.4 |
+| url | https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/ |
+| licence | BSD-2-Clause (Volodymyr Agafonkin; `leaflet/LICENSE.txt`) |
+| globals | `window.L` |
+| WebGL | not required — the map view works in the no-WebGL fallback |
+
+| file | bytes | sha256 |
+| --- | --- | --- |
+| `leaflet.js` | 147552 | `db49d009c841f5ca34a888c96511ae936fd9f5533e90d8b2c4d57596f4e5641a` |
+| `leaflet.css` | 14806 | `a7837102824184820dfa198d1ebcd109ff6d0ff9a2672a074b9a1b4d147d04c6` |
+| `images/layers.png` | 696 | `1dbbe9d028e292f36fcba8f8b3a28d5e8932754fc2215b9ac69e4cdecf5107c6` |
+| `images/layers-2x.png` | 1259 | `066daca850d8ffbef007af00b06eac0015728dee279c51f3cb6c716df7c42edf` |
+| `images/marker-icon.png` | 1466 | `574c3a5cca85f4114085b6841596d62f00d7c892c7b03f28cbfa301deb1dc437` |
+| `images/marker-icon-2x.png` | 2464 | `00179c4c1ee830d3a108412ae0d294f55776cfeb085c60129a39aa6fc4ae2528` |
+| `images/marker-shadow.png` | 618 | `264f5c640339f042dd729062cfc04c17f8ea0f29882b538e3848ed8f10edb4da` |
+
+The `images/` sprites are referenced by `leaflet.css` (the layers control and
+the default marker icon). They are vendored so the stylesheet never reaches
+out to a CDN; the map view itself draws GeoJSON paths, not pin markers.
+
+The only absolute URLs inside `leaflet.js` are the SVG namespace and the
+library homepage: it fetches nothing at runtime. Tiles are a separate,
+explicit choice made by `localmap.js` — OpenStreetMap standard tiles with the
+mandatory attribution, no API key, toggleable, and the one third-party origin
+named in the server's `img-src` (`hepgraph/server.py`).
+
 ## Decision record
 
 `docs/HEP_ATLAS_GLOBE_LIBRARY.md` — measured bytes, measured FPS, and why the
