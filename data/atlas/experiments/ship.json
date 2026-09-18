@@ -1,0 +1,179 @@
+{
+  "schema": "hep-atlas/0.2",
+  "id": "experiment:ship",
+  "type": "experiment",
+  "name": "SHiP",
+  "aliases": [
+    "Search for Hidden Particles"
+  ],
+  "coverage": {
+    "tier": "B",
+    "researched": "partial"
+  },
+  "kind": "long_lived_particle",
+  "secondary_kinds": [
+    "fixed_target"
+  ],
+  "collaboration_ids": [
+    "collaboration:ship"
+  ],
+  "facility_roles": [
+    {
+      "facility_id": "facility:cern",
+      "role": "host",
+      "start": null,
+      "end": null,
+      "sources": [
+        "src:ship-official-site"
+      ],
+      "verified_at": "2026-09-17",
+      "confidence": "verified",
+      "note": ""
+    },
+    {
+      "facility_id": "facility:cern",
+      "role": "beam_source",
+      "start": null,
+      "end": null,
+      "sources": [
+        "src:ship-official-site"
+      ],
+      "verified_at": "2026-09-17",
+      "confidence": "verified",
+      "quote": "in preparation at the SPS",
+      "note": "Beam-dump facility fed by the SPS proton beam."
+    }
+  ],
+  "beamline_ids": [],
+  "accelerator_ids": [
+    "accelerator:sps"
+  ],
+  "topic_ids": [
+    "topic:heavy-neutral-leptons",
+    "topic:dark-photons-dark-sectors",
+    "topic:long-lived-particles",
+    "topic:direct-dark-matter-detection"
+  ],
+  "intervals": [
+    {
+      "label": "Expression of Interest",
+      "status": "proposed",
+      "start": "2013-10",
+      "end": null,
+      "sources": [
+        "src:ship-wikipedia-pointer"
+      ],
+      "verified_at": "2026-09-17",
+      "confidence": "uncertain",
+      "note": "Sourced only to a Wikipedia pointer (rank 12), not independently corroborated by a rank <= 10 source fetched this session; recorded as uncertain per A17/A18."
+    },
+    {
+      "label": "SPSC review of Technical and Physics Proposal",
+      "status": "proposed",
+      "start": "2016-02-12",
+      "end": null,
+      "sources": [
+        "src:ship-cern-courier-2016-spsc"
+      ],
+      "verified_at": "2026-09-17",
+      "confidence": "verified",
+      "quote": "The CERN SPS and PS experiments Committee (SPSC) has recently completed a review of the SHiP Technical and Physics Proposal, and it recommended that the SHiP collaboration proceed towards preparing a Comprehensive Design Report.",
+      "note": ""
+    },
+    {
+      "label": "approved for ECN3",
+      "status": "approved",
+      "start": "2024",
+      "end": null,
+      "sources": [
+        "src:ship-wikipedia-pointer"
+      ],
+      "verified_at": "2026-09-17",
+      "confidence": "uncertain",
+      "note": "The 2024 CERN Council/Research Board approval for the ECN3 site is stated on Wikipedia (a pointer-only source, rank 12) and is consistent with the official ship.web.cern.ch page's current framing ('in preparation at the SPS', referencing the 'High-Intensity ECN3 Facility'), but no rank <= 10 source stating the exact 2024 approval date was fetched this session. Recorded as uncertain rather than verified, per A17/A18 (Wikipedia may never be the sole source of a critical value at 'verified' confidence)."
+    },
+    {
+      "label": "planned experiment start",
+      "status": "approved",
+      "start": {
+        "date": "2033",
+        "planned": true
+      },
+      "end": null,
+      "sources": [
+        "src:ship-wikipedia-pointer"
+      ],
+      "verified_at": "2026-09-17",
+      "confidence": "uncertain",
+      "note": "Same sourcing caveat as the 2024 approval interval above."
+    }
+  ],
+  "status": "approved",
+  "physics_goals": [
+    {
+      "value": "Search for feebly interacting long-lived particles beyond the Standard Model -- heavy neutral leptons, dark photons, dark scalars and axion-like particles -- and for light dark matter, using a high-intensity beam-dump facility",
+      "sources": [
+        "src:ship-official-site"
+      ],
+      "verified_at": "2026-09-17",
+      "confidence": "verified",
+      "note": ""
+    },
+    {
+      "value": "Study tau-neutrino interactions",
+      "sources": [
+        "src:ship-official-site"
+      ],
+      "verified_at": "2026-09-17",
+      "confidence": "verified",
+      "quote": "ideally suited to study the interactions of tau neutrinos",
+      "note": ""
+    }
+  ],
+  "unique_capabilities": [
+    {
+      "value": "A dedicated high-intensity beam-dump facility (rather than a collider-detector) designed to maximise sensitivity to hidden-sector particles produced in proton interactions on a heavy target",
+      "sources": [
+        "src:ship-official-site"
+      ],
+      "verified_at": "2026-09-17",
+      "confidence": "verified",
+      "note": ""
+    }
+  ],
+  "energy_regime": null,
+  "key_specs": [],
+  "lineage": [],
+  "external": {
+    "inspire_experiment": 1388776,
+    "greybook": null,
+    "wikidata": null
+  },
+  "links": {
+    "website": {
+      "value": "https://ship.web.cern.ch/",
+      "sources": [
+        "src:ship-official-site"
+      ],
+      "verified_at": "2026-09-17",
+      "confidence": "verified",
+      "note": ""
+    }
+  },
+  "summary": {
+    "plain": "SHiP is a planned CERN experiment that will dump an intense proton beam into a heavy target and search the debris for new, weakly interacting particles that could explain dark matter and other mysteries. It is approved to be built in the same underground hall once used by NA48 and NA62.",
+    "technical": "Approved beam-dump experiment for feebly interacting long-lived particles (heavy neutral leptons, dark photons, dark scalars, axion-like particles) and light dark matter, sited at CERN's ECN3 cavern on the SPS. SPSC reviewed the Technical and Physics Proposal in February 2016; approved for ECN3 in 2024 per secondary reporting; planned experiment start around 2033."
+  },
+  "notes": [
+    "Derived fields (detector_ids, site_ids, result_ids, document_ids) are deliberately not written (v0.2 A1).",
+    "Placed at site:cern-ecn3-north-area, created by this same workstream for NA48/NA62; the official site's own description ('High-Intensity ECN3 Facility') supports this placement.",
+    "The 2024 approval date and 2033 start date rest only on a Wikipedia pointer (rank 12) in this session; WebSearch access was exhausted before a rank <= 10 corroborating source (e.g. a CERN Research Board or Council press release) could be fetched. Flagged as `confidence: uncertain` throughout rather than presented as verified. Re-verification against an official CERN Council/SPSC document is recommended as a follow-up.",
+    "No collaboration membership counts found on the official site."
+  ],
+  "sources": [
+    "src:ship-official-site",
+    "src:ship-cern-courier-2016-spsc",
+    "src:ship-wikipedia-pointer",
+    "src:ship-inspire-experiment-record"
+  ]
+}

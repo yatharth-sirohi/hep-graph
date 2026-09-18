@@ -13,16 +13,30 @@
   "id": "facility:brokdorf-nuclear-power-plant",
   "intervals": [
     {
-      "confidence": "verified",
+      "confidence": "approximate",
       "end": "2021-12-31",
       "label": "reactor operation",
       "locator": "Wikipedia infobox",
-      "note": "Reactor shutdown date; the CONUS experiment's own setup at this site continued taking background(-only) data for some time afterward before physically relocating to Leibstadt in 2023 (see experiment:conus).",
+      "note": "Commissioning and shutdown dates from Wikipedia's infobox/text.",
+      "quote": "the power plant was commissioned on October 14, 1986",
+      "sources": [
+        "src:cevns-conus-brokdorf-wikipedia"
+      ],
+      "start": "1986-10-14",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "decommissioned",
+      "locator": "Wikipedia infobox",
+      "note": "The CONUS experiment's own setup at this site continued taking background(-only) data for some time after the reactor's own shutdown, before physically relocating to Leibstadt in 2023 (see experiment:conus); this interval describes the reactor/facility itself, not the CONUS detector's own operating window.",
       "quote": "ceased operations on 31 December 2021",
       "sources": [
         "src:cevns-conus-brokdorf-wikipedia"
       ],
-      "start": null,
+      "start": "2021-12-31",
       "status": "decommissioned",
       "verified_at": "2026-09-17"
     }
@@ -34,7 +48,7 @@
   "name": "Brokdorf Nuclear Power Plant",
   "notes": [
     "Created by the cevns workstream (ID_REGISTRY Wave 3) as the original host facility of the CONUS experiment (2018-2023); operated as CONUS+ at facility:leibstadt-nuclear-power-plant from late 2023.",
-    "Reactor operation start date not sourced in this pass; only the shutdown date was fetched."
+    "Reactor thermal power (3.9 GWth, per arXiv:2011.00210) is not recorded as a `specs` quantity: the only Appendix A power-dimension spec key is `beam_power`, whose A21 plausibility range (1 kW-10 MW) is built for accelerator beamlines and rejects a gigawatt-scale reactor core; the figure is given in prose in `summary.technical` instead."
   ],
   "operator": {
     "confidence": "verified",
@@ -54,23 +68,7 @@
     "src:cevns-conus-brokdorf-wikipedia",
     "src:cevns-conus-prl-2021-first-limit"
   ],
-  "specs": {
-    "beam_power": {
-      "approx": false,
-      "confidence": "verified",
-      "dimension": "power",
-      "display": "3.9 GWth",
-      "locator": "arXiv:2011.00210, abstract",
-      "note": "Reactor thermal power, used here for lack of a more specific 'thermal_power' Appendix A key; beam_power is the closest whitelisted power-dimension spec key.",
-      "quote": "positioned at 17.1m from the 3.9GWth reactor core",
-      "sources": [
-        "src:cevns-conus-prl-2021-first-limit"
-      ],
-      "unit": "GW",
-      "value": 3.9,
-      "verified_at": "2026-09-17"
-    }
-  },
+  "specs": {},
   "status": "decommissioned",
   "summary": {
     "plain": "A now-closed German nuclear power plant on the Elbe river that hosted the CONUS reactor-neutrino experiment from 2018 until the setup moved to Switzerland in 2023.",

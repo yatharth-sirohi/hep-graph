@@ -15,7 +15,7 @@
     "tier": "D"
   },
   "energy_regime": {
-    "confidence": "verified",
+    "confidence": "uncertain",
     "locator": "Wikipedia, DONUT",
     "note": "Sole source for beam-energy framing is Wikipedia (rank 12); no official Fermilab page describing DONUT's beam setup was reachable in this session (fnal.gov returned HTTP 403 to every fetch attempt).",
     "quote": "used the Tevatron ... to produce tau neutrinos via decay of charmed mesons",
@@ -32,10 +32,10 @@
   },
   "facility_roles": [
     {
-      "confidence": "verified",
+      "confidence": "uncertain",
       "facility_id": "facility:fermilab",
       "locator": "Wikipedia, DONUT",
-      "note": "",
+      "note": "Sole fetched source is Wikipedia (rank 12); fnal.gov returned HTTP 403 to every fetch attempt in this session.",
       "quote": "operated at Fermilab",
       "role": "host",
       "sources": [
@@ -44,10 +44,10 @@
       "verified_at": "2026-09-17"
     },
     {
-      "confidence": "verified",
+      "confidence": "uncertain",
       "facility_id": "facility:fermilab",
       "locator": "Wikipedia, DONUT",
-      "note": "",
+      "note": "Sole fetched source is Wikipedia (rank 12); fnal.gov returned HTTP 403 to every fetch attempt in this session.",
       "quote": "used the Tevatron ... to produce tau neutrinos via decay of charmed mesons",
       "role": "beam_source",
       "sources": [
@@ -73,16 +73,16 @@
       "verified_at": "2026-09-17"
     },
     {
-      "confidence": "verified",
+      "confidence": "uncertain",
       "end": null,
       "label": "completed",
-      "locator": "abstract",
-      "note": "Terminal event; the primary publication (submitted December 2000) postdates the 1997 run and reports final analysis, confirming data taking had ended.",
-      "quote": "The DONUT experiment has analyzed 203 neutrino interactions recorded in nuclear emulsion targets.",
+      "locator": "Wikipedia, DONUT; abstract",
+      "note": "Terminal event. No fetched source gives a month/day precision end-of-run date; 1997 (the sourced run year, rank 12) is used as the start of this terminal interval rather than the 2000-12 publication-submission date, since the experiment's actual data taking ended in 1997 and the publication only reports the completed analysis.",
+      "quote": "operated at Fermilab in summer 1997",
       "sources": [
-        "src:donut-plb-2001-observation"
+        "src:donut-wikipedia"
       ],
-      "start": "2000-12",
+      "start": "1997",
       "status": "completed",
       "verified_at": "2026-09-17"
     }

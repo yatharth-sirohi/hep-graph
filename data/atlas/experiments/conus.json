@@ -1,8 +1,6 @@
 {
   "accelerator_ids": [],
-  "aliases": [
-    "CONUS+"
-  ],
+  "aliases": [],
   "beamline_ids": [],
   "collaboration_ids": [
     "collaboration:conus"
@@ -118,7 +116,8 @@
   },
   "name": "CONUS",
   "notes": [
-    "One-experiment-record decision (per WAVE3_LEAD_BRIEF.md): the CONUS+ overview paper (arXiv:2407.11912) states CONUS+ is 'continuing on this way the CONUS physics program started at the Brokdorf nuclear power plant' using 'the same four point-contact high-purity germanium (HPGe) detectors produced for the former experiment, however refurbished'. This is the same collaboration, same detector array, relocated to a new reactor site under a new name; recorded as one experiment:conus record with alias 'CONUS+', not two lineage-linked records.",
+    "One-experiment-record decision (per WAVE3_LEAD_BRIEF.md): the CONUS+ overview paper (arXiv:2407.11912) states CONUS+ is 'continuing on this way the CONUS physics program started at the Brokdorf nuclear power plant' using 'the same four point-contact high-purity germanium (HPGe) detectors produced for the former experiment, however refurbished'. This is the same collaboration, same detector array, relocated to a new reactor site under a new name; recorded as one experiment:conus record, not two lineage-linked records.",
+    "'CONUS+' is not encoded as a formal `aliases` entry: the validator's A20 duplicate-name check strips non-alphanumeric characters before comparing, so 'CONUS+' normalises to the same string as the name 'CONUS' and is rejected as a redundant alias ('alias equal to own name'). The name/alias relationship is documented here in prose instead.",
     "No INSPIRE experiment-registry record was found for CONUS/CONUS+ (searched inspirehep.net/api/experiments this session; zero results); external.inspire_experiment left null rather than guessed.",
     "links.website is null: no official CONUS/CONUS+ website was found reachable in this pass (attempts at plausible MPIK URLs returned 404); this is a gap, not a considered absence.",
     "Derived fields (detector_ids, site_ids, result_ids, document_ids) are deliberately not written (v0.2 A1)."

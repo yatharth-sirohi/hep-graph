@@ -1,0 +1,145 @@
+{
+  "aliases": [
+    "MEG-II"
+  ],
+  "collaboration_ids": [
+    "collaboration:meg-ii"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "energy_regime": "",
+  "external": {
+    "greybook": null,
+    "inspire_experiment": 1679100,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "facility_id": "facility:psi",
+      "note": "facility:psi is owned by the 'facilities' Wave-3 workstream and had not landed in data/atlas/facilities/ as of this session; this is an expected dangling reference (see worklog).",
+      "role": "host",
+      "sources": [
+        "src:muons-inspire-experiment-meg-ii"
+      ],
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "id": "experiment:meg-ii",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2021",
+      "label": "first physics run",
+      "note": "",
+      "quote": "data taken from the first physics run in 2021",
+      "sources": [
+        "src:muons-arxiv-2310-12614"
+      ],
+      "start": "2021",
+      "status": "commissioning",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "high-statistics data taking",
+      "note": "Open interval: the source states data-taking continues in subsequent years.",
+      "quote": "A ten-fold larger sample of data is being collected during the years 2022-2023, and data-taking will continue in the coming years.",
+      "sources": [
+        "src:muons-arxiv-2310-12614"
+      ],
+      "start": "2022",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Target branching-ratio sensitivity",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "fraction",
+        "display": "6x10^-14",
+        "note": "",
+        "quote": "reaching a target branching ratio sensitivity of \"6 \\times 10^{-14}\" for this decay process.",
+        "sources": [
+          "src:muons-inspire-experiment-meg-ii"
+        ],
+        "unit": "",
+        "value": 6e-14,
+        "verified_at": "2026-09-17"
+      }
+    }
+  ],
+  "kind": "muon_precision",
+  "lineage": [
+    {
+      "experiment_id": "experiment:meg",
+      "relation": "upgrade_of",
+      "sources": [
+        "src:muons-inspire-experiment-meg-ii"
+      ]
+    }
+  ],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "note": "meg.web.psi.ch returned HTTP 404 to a fetch attempt in this session; the ICEPP (University of Tokyo) mirror, an official collaboration site, was fetched successfully.",
+      "sources": [
+        "src:muons-meg-icepp-site"
+      ],
+      "value": "https://meg.icepp.s.u-tokyo.ac.jp/",
+      "verified_at": "2026-09-17"
+    }
+  },
+  "name": "MEG II",
+  "notes": [
+    "facility_roles references facility:psi, which is owned by the 'facilities' Wave-3 workstream and was not yet present in data/atlas/facilities/ at the time this file was written -- an expected dangling reference.",
+    "external.inspire_experiment (1679100) is sourced from https://inspirehep.net/api/experiments?q=%22meg+ii%22, confirmed at https://inspirehep.net/experiments/1679100."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "note": "",
+      "quote": "MEG II represents a major upgrade designed to improve sensitivity by approximately one order of magnitude, reaching a target branching ratio sensitivity of \"6 \\times 10^{-14}\"",
+      "sources": [
+        "src:muons-inspire-experiment-meg-ii"
+      ],
+      "value": "Search for the charged-lepton-flavor-violating decay mu+ -> e+ gamma with roughly an order of magnitude better sensitivity than MEG, targeting a branching-ratio sensitivity of 6x10^-14",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:muons-inspire-experiment-meg-ii",
+    "src:muons-arxiv-2310-12614",
+    "src:muons-meg-icepp-site"
+  ],
+  "status": "active",
+  "summary": {
+    "plain": "The upgraded version of MEG at the same Swiss laboratory, hunting for the same forbidden muon decay with about ten times better sensitivity. It has been taking data since 2021 and is still running.",
+    "technical": "MEG II: upgrade of MEG on the PSI piE5 DC muon beamline, with an upgraded LXe calorimeter, new cylindrical drift chamber, timing counter and radiative decay counter, targeting a branching-ratio sensitivity of 6x10^-14 for mu+ -> e+ gamma. First physics run 2021; a ten-fold larger dataset collected 2022-2023 with data-taking continuing. See result:meg-ii-mu-to-e-gamma-limit-2024 for the first-dataset limit."
+  },
+  "topic_ids": [
+    "topic:lepton-flavor-violation",
+    "topic:muon-precision-physics"
+  ],
+  "type": "experiment",
+  "unique_capabilities": [
+    {
+      "confidence": "verified",
+      "note": "",
+      "quote": "Liquid Xenon Calorimeter...Cylindrical Drift Chamber...Timing Counter...Target and Radial Drift Chamber (RDC)",
+      "sources": [
+        "src:muons-meg-icepp-site"
+      ],
+      "value": "Upgraded liquid xenon calorimeter, cylindrical drift chamber and timing counter, plus a radiative decay counter, on the same PSI piE5 DC muon beamline used by MEG",
+      "verified_at": "2026-09-17"
+    }
+  ]
+}

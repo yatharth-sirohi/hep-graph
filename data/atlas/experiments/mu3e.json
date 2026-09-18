@@ -1,0 +1,125 @@
+{
+  "aliases": [
+    "The mu3e Experiment"
+  ],
+  "collaboration_ids": [
+    "collaboration:mu3e"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "energy_regime": "",
+  "external": {
+    "greybook": null,
+    "inspire_experiment": 1114537,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "facility_id": "facility:psi",
+      "note": "facility:psi is owned by the 'facilities' Wave-3 workstream and had not landed in data/atlas/facilities/ as of this session; this is an expected dangling reference (see worklog). accelerator:psi-hipa (also owned by 'facilities') is Mu3e's beam source and is referenced in notes rather than in a dedicated accelerator field, since §3.5 does not give experiment a single 'beam accelerator' field distinct from facility_roles.",
+      "quote": "a new search for the lepton-flavour violating decay of a positive muon into two positrons and one electron",
+      "role": "host",
+      "sources": [
+        "src:muons-psi-mu3e-site"
+      ],
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "id": "experiment:mu3e",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2026-09",
+      "label": "pixel-tracker installation",
+      "note": "Dated evidence of active detector construction: the third of the tracker's pixel layers was installed on 2026-09-16. No single fetched source gives a clean overall 'construction' status statement with its own start date, so this interval is anchored to the most recent dated construction milestone found rather than an unsourced project start year.",
+      "quote": "The third layer of the Mu3e pixel detector was sucessfully installed.",
+      "sources": [
+        "src:muons-psi-mu3e-site"
+      ],
+      "start": "2026-09",
+      "status": "construction",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Target branching-ratio sensitivity",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "fraction",
+        "display": "10^-16",
+        "note": "",
+        "quote": "a branching ratio sensitivity of 10^{-16}",
+        "sources": [
+          "src:muons-inspire-experiment-mu3e"
+        ],
+        "unit": "",
+        "value": 1e-16,
+        "verified_at": "2026-09-17"
+      }
+    }
+  ],
+  "kind": "muon_precision",
+  "lineage": [],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "note": "",
+      "sources": [
+        "src:muons-psi-mu3e-site"
+      ],
+      "value": "https://www.psi.ch/en/mu3e",
+      "verified_at": "2026-09-17"
+    }
+  },
+  "name": "Mu3e",
+  "notes": [
+    "No physics results exist yet; the detector is still being assembled (most recent dated evidence: third pixel layer installed 2026-09-16). Stated explicitly rather than left to silence.",
+    "facility_roles/beam source reference facility:psi and accelerator:psi-hipa, both owned by the 'facilities' Wave-3 workstream and not yet present in data/atlas/ at the time this file was written -- expected dangling references.",
+    "external.inspire_experiment (1114537) is sourced from https://inspirehep.net/api/experiments?q=mu3e, confirmed at https://inspirehep.net/experiments/1114537."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "note": "",
+      "quote": "We plan an eXperiment to search for the lepton flavour violating decay of the muon to three electrons with a branching ratio sensitivity of 10^{-16}",
+      "sources": [
+        "src:muons-inspire-experiment-mu3e"
+      ],
+      "value": "Search for the lepton-flavor-violating decay of a positive muon into two positrons and one electron (mu+ -> e+e+e-) with a branching-ratio sensitivity of 10^-16",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:muons-inspire-experiment-mu3e",
+    "src:muons-psi-mu3e-site"
+  ],
+  "status": "construction",
+  "summary": {
+    "plain": "An experiment being built at the Paul Scherrer Institute in Switzerland to look for a muon splitting into three lighter particles (two positrons and an electron), which the Standard Model says essentially never happens. It is still under construction.",
+    "technical": "Mu3e (PSI, on the HiMB/piE5 beamline fed by accelerator:psi-hipa, referenced but owned by the 'facilities' workstream): searches for mu+ -> e+e+e- using an ultra-thin HV-MAPS silicon pixel tracker plus scintillating fibre and tile timing detectors, targeting a branching-ratio sensitivity of 10^-16. As of the most recently fetched official update (2026-09-16), the pixel tracker's third layer had just been installed; the detector remains under construction and no physics result has been produced yet."
+  },
+  "topic_ids": [
+    "topic:lepton-flavor-violation",
+    "topic:muon-precision-physics"
+  ],
+  "type": "experiment",
+  "unique_capabilities": [
+    {
+      "confidence": "verified",
+      "note": "",
+      "quote": "To this aim, we use innovative high-voltage monolithic active pixel sensors (HV-MAPS)",
+      "sources": [
+        "src:muons-inspire-experiment-mu3e"
+      ],
+      "value": "Uses innovative high-voltage monolithic active pixel sensors (HV-MAPS) for an ultra-thin, high-rate silicon pixel tracker combined with scintillating-fibre and -tile timing detectors",
+      "verified_at": "2026-09-17"
+    }
+  ]
+}

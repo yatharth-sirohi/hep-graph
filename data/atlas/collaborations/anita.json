@@ -1,0 +1,38 @@
+{
+  "id": "collaboration:anita",
+  "type": "collaboration",
+  "name": "ANITA Collaboration",
+  "aliases": [],
+  "formation": {
+    "value": null,
+    "sources": ["src:astro-neutrino-anita-official-collaboration"],
+    "verified_at": "2026-09-17", "confidence": "uncertain",
+    "note": "No fetched source states an explicit collaboration formation date."
+  },
+  "intervals": [
+    {"label": "collaboration", "status": "completed", "start": "2003-12", "end": "2017-01",
+     "sources": ["src:astro-neutrino-anita-campaign-anita-lite", "src:astro-neutrino-anita-pueo-washu-news"],
+     "verified_at": "2026-09-17", "confidence": "approximate",
+     "quote": "ANITA-LITE launched December 17, 2003",
+     "note": "Start is a lower bound from the earliest flight (ANITA-LITE); end is approximate, taken from the last flight (ANITA-IV, Dec 2016) plus the announcement that PUEO supersedes ANITA."}
+  ],
+  "status": "completed",
+  "membership": {"as_of": null, "evidence_class": "official_institution_list", "institution_count": null, "country_count": null, "member_count": null, "roster_source_ids": []},
+  "leadership": [],
+  "host_facility_id": "facility:mcmurdo-ldb",
+  "host_site_id": "site:mcmurdo-ldb-launch-site",
+  "document_ids": [],
+  "links": {"website": {"value": "https://www.phys.hawaii.edu/~anita/about/collaboration", "sources": ["src:astro-neutrino-anita-official-collaboration"], "verified_at": "2026-09-17", "confidence": "verified", "note": ""}},
+  "notes": [
+    "The official collaboration page names participating institutions (University of Hawai'i at Manoa (lead), Ohio State University, Washington University in St. Louis, UCLA, University of Kansas, University College London, National Taiwan University, University of Delaware, SLAC, Jet Propulsion Laboratory) but states no total institution/country/scientist count; counts are left null rather than derived by counting the list (forbidden by RESEARCH_AGENT_RULES #4).",
+    "Institution-level membership rows and leadership are owned by the membership-lead workstream and are not written here.",
+    "Derived field collaboration.experiment_ids is deliberately not written (v0.2 A1)."
+  ],
+  "summary": {
+    "plain": "The team of scientists, led from the University of Hawai'i, who built and flew the ANITA balloon-borne neutrino detector over Antarctica five times between 2003 and 2016.",
+    "technical": "Collaboration led by the University of Hawai'i at Manoa operating the ANITA balloon payload; named partner institutions include Ohio State, Washington University in St. Louis, UCLA, Kansas, UCL, National Taiwan University, Delaware, SLAC and JPL; no published total membership count found this session."
+  },
+  "coverage": {"researched": "partial", "tier": "B"},
+  "sources": ["src:astro-neutrino-anita-official-collaboration", "src:astro-neutrino-anita-official-site"],
+  "schema": "hep-atlas/0.2"
+}

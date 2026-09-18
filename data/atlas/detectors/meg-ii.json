@@ -1,0 +1,88 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "experiment_ids": [
+    "experiment:meg-ii"
+  ],
+  "id": "detector:meg-ii",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2021",
+      "label": "first physics run",
+      "note": "",
+      "quote": "data taken from the first physics run in 2021",
+      "sources": [
+        "src:muons-arxiv-2310-12614"
+      ],
+      "start": "2021",
+      "status": "commissioning",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "high-statistics data taking",
+      "note": "",
+      "quote": "A ten-fold larger sample of data is being collected during the years 2022-2023, and data-taking will continue in the coming years.",
+      "sources": [
+        "src:muons-arxiv-2310-12614"
+      ],
+      "start": "2022",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "MEG II detector",
+  "notes": [
+    "technology_classes uses 'other', matching detector:meg for the same reason (no LXe-scintillation-calorimeter class exists in the ontology's enum)."
+  ],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "note": "site:psi-villigen is owned by the 'facilities' Wave-3 workstream and had not landed in data/atlas/sites/ as of this session; this is an expected dangling reference.",
+      "role": "main",
+      "site_id": "site:psi-villigen",
+      "sources": [
+        "src:muons-arxiv-2310-12614"
+      ],
+      "start": "2021",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:muons-inspire-experiment-meg-ii",
+    "src:muons-meg-icepp-site",
+    "src:muons-arxiv-2310-12614"
+  ],
+  "specs": {},
+  "status": "active",
+  "subsystems": [],
+  "summary": {
+    "plain": "The upgraded version of the MEG detector: a finer liquid-xenon calorimeter and new tracking and timing detectors, at the same Swiss laboratory, still taking data.",
+    "technical": "Upgrade of the MEG detector: higher-granularity LXe calorimeter, single-volume cylindrical drift chamber (replacing MEG's drift chamber array), upgraded plastic-scintillator timing counter and a new radiative decay counter (RDC) for normalization, on the PSI piE5 beamline. First physics run 2021, ongoing data-taking through at least 2023 per the most recent fetched source. No separately sourced subsystem dimension quantities were fetched this session."
+  },
+  "technology": {
+    "confidence": "verified",
+    "note": "",
+    "quote": "Liquid Xenon Calorimeter...Cylindrical Drift Chamber...Timing Counter...Target and Radial Drift Chamber (RDC)",
+    "sources": [
+      "src:muons-meg-icepp-site"
+    ],
+    "value": "Upgraded liquid xenon calorimeter with finer granularity, a new single-volume cylindrical drift chamber, upgraded timing counter and a new radiative decay counter, on the same PSI DC muon beamline",
+    "verified_at": "2026-09-17"
+  },
+  "technology_classes": [
+    "other"
+  ],
+  "type": "detector"
+}

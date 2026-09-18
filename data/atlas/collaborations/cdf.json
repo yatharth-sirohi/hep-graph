@@ -1,0 +1,121 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
+  },
+  "formation": {
+    "confidence": "approximate",
+    "locator": "INSPIRE experiment record 1109361 (experiment proposal date, used as a lower bound; no separately stated collaboration-formation date was found)",
+    "note": "INSPIRE gives day precision (1981-08-01) for date_proposed but the day is very likely a database default (see experiments/cdf.json notes); recorded here at month precision. This is the experiment's proposal date, used as a lower bound for collaboration formation -- no source states a separate \"collaboration formed\" date.",
+    "quote": "date_proposed: 1981-08-01",
+    "sources": [
+      "src:colliders-historical-cdf-inspire-experiment-record"
+    ],
+    "value": "1981-08",
+    "verified_at": "2026-09-17"
+  },
+  "host_facility_id": "facility:fermilab",
+  "host_site_id": "site:fermilab-cdf-collision-hall-b0",
+  "id": "collaboration:cdf",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2011-09-30",
+      "label": "building and running CDF",
+      "locator": "INSPIRE experiment record 1109361 (experiment proposal date, used as a lower bound for the collaboration's active period; no separately stated collaboration-formation date was found)",
+      "note": "Start is the INSPIRE proposal date, used as a lower bound (see formation note).",
+      "quote": "date_proposed: 1981-08-01",
+      "sources": [
+        "src:colliders-historical-cdf-inspire-experiment-record",
+        "src:colliders-historical-tevatron-fnal-news-2011-shutdown"
+      ],
+      "start": "1981-08",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "analysis-only phase",
+      "locator": "cdf.fnal.gov home page",
+      "note": "Collaboration continues to publish analyses of the archived Run I/II dataset (e.g. an April 2022 W-boson mass measurement per the same page), but no new data has been recorded since the 2011 Tevatron shutdown.",
+      "quote": "The Collider Detector at Fermilab (CDF) experimental collaboration studies high energy proton-antiproton collisions from data collected through 2011.",
+      "sources": [
+        "src:colliders-historical-cdf-official-site"
+      ],
+      "start": "2011-09-30",
+      "status": "completed",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "leadership": [],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "note": "",
+      "sources": [
+        "src:colliders-historical-cdf-official-site"
+      ],
+      "value": "https://cdf.fnal.gov/",
+      "verified_at": "2026-09-17"
+    }
+  },
+  "membership": {
+    "as_of": "2014",
+    "country_count": {
+      "confidence": "approximate",
+      "locator": "fnal.gov Tevatron Experiments: CDF page",
+      "note": "Figure is stated with \"about\" (\"about 60 institutions in 15 countries\", \"about 600 members\") on the fnal.gov Tevatron Experiments: CDF page (2014); not a precise headcount.",
+      "quote": "The CDF collaboration consists of researchers from about 60 institutions in 15 countries.",
+      "sources": [
+        "src:colliders-historical-cdf-fnal-tevatron-experiments-page"
+      ],
+      "value": 15,
+      "verified_at": "2026-09-17"
+    },
+    "evidence_class": "official_institution_list",
+    "institution_count": {
+      "confidence": "approximate",
+      "locator": "fnal.gov Tevatron Experiments: CDF page",
+      "note": "Figure is stated with \"about\" (\"about 60 institutions in 15 countries\", \"about 600 members\") on the fnal.gov Tevatron Experiments: CDF page (2014); not a precise headcount.",
+      "quote": "The CDF collaboration consists of researchers from about 60 institutions in 15 countries.",
+      "sources": [
+        "src:colliders-historical-cdf-fnal-tevatron-experiments-page"
+      ],
+      "value": 60,
+      "verified_at": "2026-09-17"
+    },
+    "member_count": {
+      "confidence": "approximate",
+      "locator": "fnal.gov Tevatron Experiments: CDF page",
+      "note": "Figure is stated with \"about\" (\"about 60 institutions in 15 countries\", \"about 600 members\") on the fnal.gov Tevatron Experiments: CDF page (2014); not a precise headcount.",
+      "quote": "The collaboration consists of about 600 members, including about 100 graduate students and about 100 postdoctoral researchers.",
+      "sources": [
+        "src:colliders-historical-cdf-fnal-tevatron-experiments-page"
+      ],
+      "value": 600,
+      "verified_at": "2026-09-17"
+    },
+    "roster_source_ids": [
+      "src:colliders-historical-cdf-fnal-tevatron-experiments-page"
+    ]
+  },
+  "name": "CDF Collaboration",
+  "notes": [
+    "Institution-level membership rows and leadership are out of scope for this wave (person records and rosters are owned by other workstreams); only the published aggregate counts are recorded.",
+    "Derived field collaboration.experiment_ids is deliberately not written (v0.2 A1)."
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:colliders-historical-cdf-fnal-tevatron-experiments-page",
+    "src:colliders-historical-cdf-official-intro",
+    "src:colliders-historical-cdf-inspire-experiment-record"
+  ],
+  "status": "completed",
+  "summary": {
+    "plain": "About 600 physicists and engineers from roughly 60 institutions in 15 countries who built and ran the CDF particle detector at Fermilab from the 1980s until the Tevatron collider shut down in 2011, and who still analyze the data it recorded.",
+    "technical": "International collaboration operating the CDF general-purpose detector at the Fermilab Tevatron; per fnal.gov (2014), about 600 members from about 60 institutions in 15 countries, split roughly evenly between U.S. and non-U.S. participants."
+  },
+  "type": "collaboration"
+}

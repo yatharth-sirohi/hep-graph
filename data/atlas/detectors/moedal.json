@@ -1,0 +1,108 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "document_ids": [],
+  "experiment_ids": [
+    "experiment:moedal"
+  ],
+  "id": "detector:moedal",
+  "intervals": [
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "operating",
+      "locator": "INSPIRE experiment record 1110581, field date_approved",
+      "note": "Uses the approval date as a lower bound; no explicit installation/first-data date for the detector was found in this session (distinct from the experiment's own approval).",
+      "sources": [
+        "src:colliders-lhc-moedal-inspire-experiment-record"
+      ],
+      "start": "2009-12-02",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "MoEDAL detector",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "locator": "INSPIRE experiment record 1110581, field description",
+      "note": "MoEDAL is deployed inside the LHCb cavern at Point 8, surrounding the intersection region; placed at site:cern-point-8-lhcb (created by the lhcb pass of this same wave), role 'main' since MoEDAL's own detector fully occupies its NTD/trapping-detector footprint there (not a prototype).",
+      "quote": "The MoEDAL experiment at Point 8 of the LHC ring is the seventh and newest LHC experiment.",
+      "role": "main",
+      "site_id": "site:cern-point-8-lhcb",
+      "sources": [
+        "src:colliders-lhc-moedal-inspire-experiment-record"
+      ],
+      "start": "2009-12-02",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:colliders-lhc-moedal-mapp-home-cern-page",
+    "src:colliders-lhc-moedal-inspire-experiment-record"
+  ],
+  "specs": {
+    "area": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "area",
+      "display": "47 m^2 (NTD plastic)",
+      "locator": "home.cern MoEDAL-MAPP page",
+      "note": "",
+      "quote": "125 plastic Nuclear Track Detector (NTD) stacks with a total of 47m2 of deployed plastic",
+      "sources": [
+        "src:colliders-lhc-moedal-mapp-home-cern-page"
+      ],
+      "unit": "m^2",
+      "value": 47,
+      "verified_at": "2026-09-17"
+    },
+    "total_mass": {
+      "approx": true,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "~1 tonne (trapping detectors)",
+      "locator": "home.cern MoEDAL-MAPP page",
+      "note": "",
+      "quote": "Approximately one tonne of trapping detectors to register and retain exotic particles for analysis",
+      "sources": [
+        "src:colliders-lhc-moedal-mapp-home-cern-page"
+      ],
+      "unit": "kg",
+      "value": 1000,
+      "verified_at": "2026-09-17"
+    }
+  },
+  "status": "active",
+  "subsystems": [],
+  "summary": {
+    "plain": "MoEDAL's detector is mostly passive: 125 stacks of special plastic sheets that record the tracks of heavily-charged particles, plus about a tonne of metal to trap and hold onto anything unusual.",
+    "technical": "125 NTD stacks (47 m^2 total plastic), ~1 t of paramagnetic trapping detectors, TimePix pixel monitors; deployed in the LHCb cavern at Point 8, requiring no trigger or online DAQ for its main passive elements."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "home.cern MoEDAL-MAPP page",
+    "note": "",
+    "quote": "125 plastic Nuclear Track Detector (NTD) stacks with a total of 47m2 of deployed plastic... Approximately one tonne of trapping detectors to register and retain exotic particles for analysis... TimePix pixel detectors for real-time radiation environment assessment",
+    "sources": [
+      "src:colliders-lhc-moedal-mapp-home-cern-page"
+    ],
+    "value": "passive Nuclear Track Detector (NTD) stacks plus paramagnetic trapping volumes and TimePix pixel monitors",
+    "verified_at": "2026-09-17"
+  },
+  "technology_class": "other",
+  "technology_classes": [
+    "other"
+  ],
+  "type": "detector"
+}

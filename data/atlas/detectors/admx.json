@@ -1,0 +1,109 @@
+{
+  "aliases": [
+    "ADMX Gen 2",
+    "Axion Dark Matter eXperiment detector"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "document_ids": [],
+  "experiment_ids": [
+    "experiment:admx"
+  ],
+  "id": "detector:admx",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2019",
+      "kind": "run",
+      "label": "run reported 2020 (2.81-3.31 ueV)",
+      "note": "Start/end approximated from the paper's 2019-10-18 arXiv submission date (exact run dates not stated in the fetched abstract); kind=run.",
+      "quote": "This paper reports on a cavity haloscope search for dark matter axions in the galactic halo in the mass range 2.81-3.31 ueV.",
+      "sources": [
+        "src:axions-admx-prl-2020-invisible-axion"
+      ],
+      "start": "2019",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "kind": "run",
+      "label": "most recent published run (1.10-1.31 GHz)",
+      "note": "Start approximated from the paper's 2025-04-09 arXiv submission date; end left open (ongoing at verified_at) since no fetched source states the experiment stopped.",
+      "quote": "In the most recent run, ADMX searched for axions between 1.10-1.31 GHz to extended Kim-Shifman-Vainshtein-Zakharov (KSVZ) sensitivity.",
+      "sources": [
+        "src:axions-admx-prl-2025-1p1-1p3ghz"
+      ],
+      "start": "2025",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "ADMX detector",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "note": "Exact date ADMX began operating at CENPA not sourced this session; site placement is otherwise well attested by the official site and the INSPIRE experiment record.",
+      "quote": "The experiment is managed by Fermilab and sited at the Center for Experimental Physics and Astrophysics at the University of Washington.",
+      "role": "main",
+      "site_id": "site:uw-cenpa-campus",
+      "sources": [
+        "src:axions-admx-official-site",
+        "src:axions-admx-inspire-experiment"
+      ],
+      "start": null,
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:axions-admx-official-site",
+    "src:axions-admx-cenpa-page"
+  ],
+  "specs": {
+    "temperature": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "temperature",
+      "display": "90 mK",
+      "note": "",
+      "quote": "dilution refrigerator operating at 90mK",
+      "sources": [
+        "src:axions-admx-cenpa-page"
+      ],
+      "unit": "mK",
+      "value": 90,
+      "verified_at": "2026-09-17"
+    }
+  },
+  "status": "active",
+  "subsystems": [],
+  "summary": {
+    "plain": "The ADMX detector uses a powerful magnet and a supercooled tunable metal cavity to try to convert dark-matter axions into faint microwave signals, which are then amplified and measured.",
+    "technical": "Tunable copper-plated microwave cavity haloscope inside a superconducting solenoid, cooled by a dilution refrigerator to ~90 mK and read out with near-quantum-limited amplifiers, at CENPA (University of Washington)."
+  },
+  "technology": {
+    "confidence": "verified",
+    "note": "",
+    "sources": [
+      "src:axions-admx-cenpa-page",
+      "src:axions-admx-prl-2025-1p1-1p3ghz"
+    ],
+    "value": "Microwave-cavity haloscope: a tunable, cylindrical copper-plated resonant cavity inside a large superconducting solenoid magnet, read out through a dilution refrigerator and a near-quantum-limited (Josephson parametric / SQUID) amplifier chain.",
+    "verified_at": "2026-09-17"
+  },
+  "technology_class": "haloscope",
+  "technology_classes": [
+    "haloscope"
+  ],
+  "type": "detector"
+}

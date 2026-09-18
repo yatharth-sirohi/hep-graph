@@ -1,0 +1,134 @@
+{
+  "aliases": [
+    "CERN Axion Solar Telescope"
+  ],
+  "collaboration_ids": [
+    "collaboration:cast"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "document_ids": [],
+  "energy_regime": null,
+  "external": {
+    "greybook": null,
+    "inspire_experiment": 1110249,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "facility_id": "facility:cern",
+      "note": "",
+      "role": "host",
+      "sources": [
+        "src:axions-cast-inspire-experiment",
+        "src:axions-cern-home-cast"
+      ],
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "id": "experiment:cast",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "proposed",
+      "locator": "INSPIRE experiment record 1110249, field date_proposed",
+      "note": "Day-precision date from the INSPIRE experiment record's date_proposed field.",
+      "sources": [
+        "src:axions-cast-inspire-experiment"
+      ],
+      "start": "1999-08-09",
+      "status": "proposed",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "approved",
+      "locator": "INSPIRE experiment record 1110249, field date_approved",
+      "note": "Day-precision date from the INSPIRE experiment record's date_approved field.",
+      "sources": [
+        "src:axions-cast-inspire-experiment"
+      ],
+      "start": "2000-04-13",
+      "status": "approved",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": "2022-12-31",
+      "label": "data taking",
+      "locator": "INSPIRE experiment record 1110249, fields date_started / date_completed",
+      "note": "Day-precision dates from the INSPIRE experiment record's date_started/date_completed fields, which mirror the CERN Greybook per the wave-3 brief's guidance ('status per CERN Greybook - data taking ended').",
+      "sources": [
+        "src:axions-cast-inspire-experiment"
+      ],
+      "start": "2003-06-18",
+      "status": "completed",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "key_specs": [],
+  "kind": "axion",
+  "lineage": [],
+  "links": {
+    "website": {
+      "confidence": "approximate",
+      "note": "CAST's own dedicated site (cast.web.cern.ch) no longer resolves; linking CERN's own experiment page instead.",
+      "sources": [
+        "src:axions-cern-home-cast"
+      ],
+      "value": "https://home.cern/science/experiments/cast",
+      "verified_at": "2026-09-17"
+    }
+  },
+  "name": "CAST",
+  "notes": [
+    "No numeric magnet field-strength or length value was found with a clean verbatim quote in a source fetched this session; left out of key_specs rather than guessed."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "note": "",
+      "quote": "The CERN Axion Solar Telescope (CAST) is an experiment to search for hypothetical particles called 'axions'.",
+      "sources": [
+        "src:axions-cern-home-cast"
+      ],
+      "value": "Search for axions produced in the Sun's core by pointing a strong dipole magnet at the Sun and looking for X-rays from axion-to-photon conversion",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "result_ids": [],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:axions-cern-home-cast",
+    "src:axions-cast-inspire-experiment"
+  ],
+  "status": "completed",
+  "summary": {
+    "plain": "CAST looked for axions, hypothetical particles that might explain dark matter, by pointing a powerful magnet left over from Large Hadron Collider testing at the Sun and watching for X-rays. It ran at CERN from 2003 until the end of 2022.",
+    "technical": "Axion helioscope at CERN using a decommissioned LHC test dipole magnet (reusing former LEP DELPHI cryogenics) tracking the Sun, with X-ray optics and detectors at the bores; proposed 1999, approved 2000, data taking 2003-06-18 to 2022-12-31 (completed) per its INSPIRE/Greybook record."
+  },
+  "topic_ids": [
+    "topic:axions-alps",
+    "topic:direct-dark-matter-detection",
+    "topic:solar-neutrinos"
+  ],
+  "type": "experiment",
+  "unique_capabilities": [
+    {
+      "confidence": "verified",
+      "note": "",
+      "quote": "a prototype of a dipole magnet for the Large Hadron Collider, with its hollow beam pipes acting as viewing tubes",
+      "sources": [
+        "src:axions-cern-home-cast"
+      ],
+      "value": "Reuses a decommissioned LHC prototype superconducting dipole magnet, with its beam-pipe bores as viewing tubes, tracking the Sun on a moving platform",
+      "verified_at": "2026-09-17"
+    }
+  ]
+}

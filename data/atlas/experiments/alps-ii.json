@@ -1,0 +1,121 @@
+{
+  "aliases": [
+    "Any Light Particle Search II"
+  ],
+  "collaboration_ids": [
+    "collaboration:alps-ii"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "document_ids": [],
+  "energy_regime": null,
+  "external": {
+    "greybook": null,
+    "inspire_experiment": 1761312,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "facility_id": "facility:desy",
+      "note": "facility:desy is owned by the 'facilities' lead and does not exist on disk in this wave; this is an expected dangling reference (ID_REGISTRY Wave 3), not an error, per the wave-3 brief.",
+      "role": "host",
+      "sources": [
+        "src:axions-alps-ii-official-site"
+      ],
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "id": "experiment:alps-ii",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "Technical Design Report submitted to DESY PRC",
+      "note": "Month-precision date from the TDR's own text.",
+      "quote": "as submitted to the DESY PRC in August 2012 and reviewed in November 2012",
+      "sources": [
+        "src:axions-alps-ii-tdr-2013"
+      ],
+      "start": "2012-08",
+      "status": "proposed",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "operating",
+      "locator": "INSPIRE experiment record 1761312, field date_started",
+      "note": "Day-precision start date from the INSPIRE experiment record's date_started field, matching the wave-3 brief's 'operating since 2023' guidance.",
+      "sources": [
+        "src:axions-alps-ii-inspire-experiment"
+      ],
+      "start": "2023-05-23",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "key_specs": [],
+  "kind": "axion",
+  "lineage": [],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "note": "",
+      "sources": [
+        "src:axions-alps-ii-official-site"
+      ],
+      "value": "https://alps.desy.de/",
+      "verified_at": "2026-09-17"
+    }
+  },
+  "name": "ALPS II",
+  "notes": [
+    "site:desy-hera-north-hall-h1 (owned by the facilities lead) is NOT referenced on the detector's placements: no source fetched this session explicitly confirms ALPS II sits specifically in the HERA 'North Hall'; forcing that reference without confirmation would violate A17. Flagged for the facilities lead / a future session to confirm.",
+    "ALPS I (the predecessor LSW experiment, completed 2010) is not created as a separate entity in this wave (out of the axions lead's assigned scope); its history is only described in prose here from the ALPS II INSPIRE record's description field."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "note": "",
+      "quote": "very light particles which can point the way toward unknown physics phenomena, like e.g. the dark matter in the Universe",
+      "sources": [
+        "src:axions-alps-ii-official-site"
+      ],
+      "value": "Search for axion-like particles and other very light, weakly interacting particles using a light-shining-through-a-wall technique",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "result_ids": [],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:axions-alps-ii-official-site",
+    "src:axions-alps-ii-inspire-experiment",
+    "src:axions-alps-ii-tdr-2013"
+  ],
+  "status": "active",
+  "summary": {
+    "plain": "ALPS II shines a laser at a light-tight wall to see whether a tiny fraction can pass through as an undetectable particle and turn back into light on the far side. This would reveal new, very light particles related to dark matter. It has been operating at DESY since 2023.",
+    "technical": "Light-shining-through-a-wall (LSW) experiment at DESY reusing decommissioned superconducting HERA dipole magnets and matched optical build-up/regeneration cavities, successor to ALPS I (completed 2010); TDR submitted 2012-08, operating (data taking) since 2023-05-23."
+  },
+  "topic_ids": [
+    "topic:axions-alps",
+    "topic:direct-dark-matter-detection"
+  ],
+  "type": "experiment",
+  "unique_capabilities": [
+    {
+      "confidence": "verified",
+      "note": "",
+      "quote": "The ALPS I experiment at DESY set the world-wide best laboratory limits for WISPs in 2010, improving previous results by a factor of 10. After its completion the ALPS collaboration decided to continue looking for WISPs by designing the ALPS II experiment for probing further into regions where there are strong astrophysical hints for their existence.",
+      "sources": [
+        "src:axions-alps-ii-inspire-experiment"
+      ],
+      "value": "Reuses decommissioned superconducting HERA dipole magnets in matched build-up and regeneration optical cavities to boost sensitivity to photon-into-WISP oscillation",
+      "verified_at": "2026-09-17"
+    }
+  ]
+}

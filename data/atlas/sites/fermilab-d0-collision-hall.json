@@ -1,0 +1,53 @@
+{
+  "aliases": [],
+  "altitude": null,
+  "coordinates": {
+    "confidence": "approximate",
+    "kind": "detector",
+    "lat": 41.8422582,
+    "locator": "site:fermilab-main-campus coordinates field, sourced to the LBNF/DUNE official project website (src:fermilab-lbnf-dune-site), reused here per the wave-3 brief's campus-point fallback for a detector hall with no separately published coordinate",
+    "lon": -88.245782,
+    "note": "`kind` is set to `detector` (not `campus`) only because the validator requires that for any site holding a detector placement (A17/§2.5); the coordinate itself is campus precision, not a survey of this specific interaction hall.",
+    "precision_m": 3000,
+    "sources": [
+      "src:fermilab-lbnf-dune-site"
+    ],
+    "verified_at": "2026-09-17"
+  },
+  "countries": [
+    "US"
+  ],
+  "country": "US",
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
+  },
+  "depth": null,
+  "depth_mwe": null,
+  "depth_rock": null,
+  "facility_id": "facility:fermilab",
+  "id": "site:fermilab-d0-collision-hall",
+  "links": {
+    "website": null
+  },
+  "name": "D0 collision hall (Tevatron D0)",
+  "notes": [
+    "Coordinates reuse the sourced Fermilab main-campus point from site:fermilab-main-campus (src:fermilab-lbnf-dune-site), per the wave-3 brief's explicit fallback for a detector hall whose own coordinates are not separately published: a sourced campus point marked approximate. No source found this session gives a dedicated lat/lon for this specific interaction hall; the Tevatron ring (about 6.3 km circumference, about 1 km radius) means the true position could be up to roughly 2 km from this point.",
+    "fnal.gov states \"DZero is one of two detectors positioned along the four-mile Tevatron accelerator ring. It takes its name from its location on the ring, D0.\" (src:colliders-historical-d0-fnal-tevatron-experiments-page), confirming the D0 location name, though not coordinates."
+  ],
+  "place": {
+    "city": "Batavia",
+    "country": "US",
+    "region": "Illinois"
+  },
+  "schema": "hep-atlas/0.2",
+  "setting": "surface",
+  "sources": [
+    "src:fermilab-lbnf-dune-site"
+  ],
+  "summary": {
+    "plain": "The interaction hall on the Fermilab Tevatron ring where the D0 detector sat, in Batavia, Illinois. Its own precise position is not published in a source found this session, so it is shown at the precision of the wider Fermilab site.",
+    "technical": "D0 collision hall (Tevatron D0): one of the Tevatron ring's interaction regions, at Fermilab, Batavia, Illinois. No dedicated survey coordinate for the hall itself was found; shown at Fermilab campus precision (~3 km) as an approximate marker."
+  },
+  "type": "site"
+}

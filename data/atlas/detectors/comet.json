@@ -1,0 +1,91 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "experiment_ids": [
+    "experiment:comet"
+  ],
+  "id": "detector:comet",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "Phase-I construction",
+      "note": "No fetched source gives an explicit dated construction-start statement; see experiment:comet notes for the same caveat.",
+      "quote": "COMET CM48 in 27/Jul.-31/Jul. 2026 at J-PARC.",
+      "sources": [
+        "src:muons-arxiv-1812-09018",
+        "src:muons-comet-official-site"
+      ],
+      "start": null,
+      "status": "construction",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "COMET detector",
+  "notes": [
+    "technology_classes uses 'other': no listed technology_class names a curved-solenoid muon-transport spectrometer of this kind."
+  ],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "note": "",
+      "role": "main",
+      "site_id": "site:j-parc-hadron-hall",
+      "sources": [
+        "src:muons-arxiv-1812-09018",
+        "src:muons-jparc-hadron-facility-page"
+      ],
+      "start": null,
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:muons-inspire-experiment-comet",
+    "src:muons-arxiv-1812-09018",
+    "src:muons-comet-official-site"
+  ],
+  "specs": {
+    "beam_power": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "power",
+      "note": "",
+      "quote": "the 3.2 kW 8 GeV proton beam from J-PARC will be used.",
+      "sources": [
+        "src:muons-arxiv-1812-09018"
+      ],
+      "unit": "kW",
+      "value": 3.2,
+      "verified_at": "2026-09-17"
+    }
+  },
+  "status": "construction",
+  "subsystems": [],
+  "summary": {
+    "plain": "A curved tunnel of superconducting magnets at the J-PARC laboratory in Japan that bends and slows down muons, feeding them into a detector built to catch the single electron that would appear if a muon converted into one.",
+    "technical": "Curved-solenoid pion capture and muon transport system selecting low-momentum, negatively-charged muons off an 8 GeV, 3.2 kW J-PARC proton beam, feeding a detector solenoid instrumented for Phase-I with CyDet (cylindrical drift chamber + trigger hodoscope) and, for background studies toward Phase-II, StrECAL (straw tracker + electromagnetic calorimeter)."
+  },
+  "technology": {
+    "confidence": "verified",
+    "note": "",
+    "quote": "Two types of detectors, CyDet and StrECAL, will be used for detecting the mu-e conversion events, and for measuring the beam-related background events in view of the Phase-II experiment, respectively.",
+    "sources": [
+      "src:muons-arxiv-1812-09018"
+    ],
+    "value": "Curved superconducting solenoid pion/muon transport (capture and transport solenoids) feeding a detector solenoid instrumented with cylindrical drift chamber and trigger hodoscope (CyDet, Phase-I) or straw tracker and electromagnetic calorimeter (StrECAL)",
+    "verified_at": "2026-09-17"
+  },
+  "technology_classes": [
+    "other"
+  ],
+  "type": "detector"
+}

@@ -5,12 +5,12 @@
   ],
   "altitude": null,
   "coordinates": {
-    "confidence": "uncertain",
-    "kind": "detector",
+    "confidence": "approximate",
+    "kind": "campus",
     "lat": 51.570862,
     "locator": "About | ISIS Neutron and Muon Source (address); coordinate value from the OSM/Nominatim geocoder result cited in this record's `sources`",
     "lon": -1.315498,
-    "note": "`kind` is set to `detector` only because the validator requires that for any site holding a detector placement (KARMEN); the coordinate itself is the OpenStreetMap/Nominatim polygon centroid for the whole Rutherford Appleton Laboratory campus (src:karmen-isis-osm-nominatim, listed in this record's top-level `sources`, not in `coordinates.sources`, since a geocoder source may only back a campus/headquarters coordinate kind per A17), not a surveyed position for the KARMEN detector hall. No official STFC/ISIS page fetched in this session publishes WGS84 coordinates for the site, only the postal address (OX11 0QX). Wikipedia's infobox coordinate for ISIS (51.57167 N, 1.32000 W) is about 0.4 km from this geocoder point and corroborates it (src:karmen-wikipedia, rank 12, not used as a coordinate source). Confidence is `uncertain` and this coordinate should be treated as campus-precision, not detector-hall precision.",
+    "note": "Campus-grade point for the ISIS facility at Rutherford Appleton Laboratory (geocoder, cross-checked against an independent secondary coordinate to 0.4 km). No fetched source gives the KARMEN bunker position; shown as an approximate location (A23) until a surveyed point is sourced.",
     "precision_m": 1500,
     "sources": [
       "src:karmen-isis-stfc-about"

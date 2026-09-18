@@ -1,0 +1,166 @@
+{
+  "aliases": [
+    "Collider Detector at Fermilab"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
+  },
+  "experiment_ids": [
+    "experiment:cdf"
+  ],
+  "id": "detector:cdf",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2011-09-30",
+      "label": "operating",
+      "locator": "fnal.gov Tevatron Experiments: CDF page",
+      "note": "",
+      "quote": "Physicists observed the first proton-antiproton collisions produced by the Tevatron on Oct. 13, 1985.",
+      "sources": [
+        "src:colliders-historical-cdf-fnal-tevatron-experiments-page",
+        "src:colliders-historical-tevatron-fnal-news-2011-shutdown"
+      ],
+      "start": "1985-10-13",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": {
+        "approx": true,
+        "date": "2011-10"
+      },
+      "label": "shut down",
+      "locator": "fnal.gov Tevatron Shutdown Process page",
+      "note": "",
+      "quote": "CDF will have its fluids and gases removed within a month and be completely shut down.",
+      "sources": [
+        "src:colliders-historical-tevatron-fnal-shutdown-process",
+        "src:colliders-historical-cdf-official-site"
+      ],
+      "start": "2011-09-30",
+      "status": "completed",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "CDF detector",
+  "notes": [
+    "Placed at site:fermilab-cdf-collision-hall-b0 (the Tevatron B0 interaction hall), created by this owner (colliders-historical); coordinates on that site are campus-precision only, see the site record."
+  ],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": "2011-10",
+      "locator": "fnal.gov Tevatron Experiments: CDF page; the INSPIRE experiment record long_name identifies the detector's location as \"B0\"",
+      "note": "End date approximate: CDF was \"completely shut down\" about one month after the Tevatron's 2011-09-30 shutdown per the Fermilab shutdown-process page.",
+      "quote": "Physicists observed the first proton-antiproton collisions produced by the Tevatron on Oct. 13, 1985.",
+      "role": "main",
+      "site_id": "site:fermilab-cdf-collision-hall-b0",
+      "sources": [
+        "src:colliders-historical-cdf-fnal-tevatron-experiments-page",
+        "src:colliders-historical-tevatron-fnal-news-2011-shutdown"
+      ],
+      "start": "1985-10-13",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:colliders-historical-cdf-inspire-experiment-record",
+    "src:colliders-historical-cdf-fnal-tevatron-experiments-page",
+    "src:colliders-historical-cdf-nim-1988-detector-overview"
+  ],
+  "specs": {
+    "calorimeters": {
+      "confidence": "verified",
+      "locator": "fnal.gov Tevatron Experiments: CDF page",
+      "note": "",
+      "quote": "CDF's calorimeter for measuring the energies of particles that interact electromagnetically ... is made of 23 layers of lead and light-emitting plastic, and its calorimeter for particles that interact via the strong force ... is made of 23 layers of steel and plastic.",
+      "sources": [
+        "src:colliders-historical-cdf-fnal-tevatron-experiments-page"
+      ],
+      "value": "23 layers of lead and scintillating plastic (electromagnetic) and 23 layers of steel and scintillating plastic (hadronic) sampling calorimeters",
+      "verified_at": "2026-09-17"
+    },
+    "muon_system": {
+      "confidence": "verified",
+      "locator": "fnal.gov Tevatron Experiments: CDF page",
+      "note": "",
+      "quote": "The final layer of the detector is made up of muon detectors, which catch the signals of the muons that pass through the calorimeters, giving up only a fraction of their energy.",
+      "sources": [
+        "src:colliders-historical-cdf-fnal-tevatron-experiments-page"
+      ],
+      "value": "Outer layer of muon drift chambers catching muons that pass through the calorimeters",
+      "verified_at": "2026-09-17"
+    },
+    "solenoid_field": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "magnetic_field",
+      "display": "1.4 T",
+      "locator": "INSPIRE experiment record 1109361, description field",
+      "note": "",
+      "quote": "A superconducting solenoid of length 4.8 m and radius 1.5 m generates a 1.4 T magnetic field.",
+      "sources": [
+        "src:colliders-historical-cdf-inspire-experiment-record"
+      ],
+      "unit": "T",
+      "value": 1.4,
+      "verified_at": "2026-09-17"
+    },
+    "total_mass": {
+      "approx": true,
+      "confidence": "approximate",
+      "dimension": "mass",
+      "display": "~4,500 tons",
+      "locator": "fnal.gov Tevatron Experiments: CDF page",
+      "note": "1988 NIM overview paper instead states \"5000 t\"; not reconciled, see experiment record note.",
+      "quote": "The 4,500-ton detector sits more than four stories tall and is composed of more than 1 million individual detector elements.",
+      "sources": [
+        "src:colliders-historical-cdf-fnal-tevatron-experiments-page"
+      ],
+      "unit": "t",
+      "value": 4500,
+      "verified_at": "2026-09-17"
+    },
+    "tracker": {
+      "confidence": "verified",
+      "locator": "fnal.gov Tevatron Experiments: CDF page",
+      "note": "",
+      "quote": "CDF excels at tracking particle paths, using 7 layers of silicon positioned closely around the beam pipe, and a large \"wire\" chamber around the silicon that records up to 96 position measurements for each particle produced in the collision.",
+      "sources": [
+        "src:colliders-historical-cdf-fnal-tevatron-experiments-page"
+      ],
+      "value": "7 layers of silicon microstrip detectors around the beam pipe plus a large open-cell drift (\"wire\") chamber recording up to 96 position measurements per particle",
+      "verified_at": "2026-09-17"
+    }
+  },
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "A four-story-tall, roughly 4,500-tonne particle detector built around the point where Fermilab's Tevatron collided protons with antiprotons, used to trace and measure the particles produced.",
+    "technical": "General-purpose solenoidal collider detector: silicon microstrip tracking plus a large open-cell drift chamber inside a 1.4 T, 4.8 m long, 1.5 m radius superconducting solenoid; lead/scintillator electromagnetic and steel/scintillator hadronic sampling calorimeters (23 layers each); outer muon drift chambers."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "NIM A271 (1988) 387, abstract",
+    "note": "",
+    "quote": "The Collider Detector at Fermilab (CDF) is a 5000 t magnetic detector built to study 2 TeV p pbar collisions at the Fermilab Tevatron. Event analysis is based on charged particle tracking, magnetic momentum analysis and fine-grained calorimetry.",
+    "sources": [
+      "src:colliders-historical-cdf-nim-1988-detector-overview"
+    ],
+    "value": "General-purpose solenoidal collider detector with silicon and drift-chamber tracking, sampling calorimetry and muon chambers",
+    "verified_at": "2026-09-17"
+  },
+  "technology_class": "general_purpose_collider",
+  "technology_classes": [
+    "general_purpose_collider"
+  ],
+  "type": "detector"
+}

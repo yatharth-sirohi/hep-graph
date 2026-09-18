@@ -1,0 +1,166 @@
+{
+  "accelerator_ids": [],
+  "aliases": [
+    "Cryogenic Underground Observatory for Rare Events"
+  ],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:cuore"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "energy_regime": null,
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "facility_id": "facility:lngs",
+      "locator": "LBL news center article, 2025-11",
+      "note": "",
+      "quote": "operated at INFN's Gran Sasso National Laboratory",
+      "role": "host",
+      "sources": [
+        "src:cuore-lbl-newscenter-2025"
+      ],
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "id": "experiment:cuore",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2019",
+      "label": "commissioning / early operation",
+      "locator": "LBL news center article, 2025-11",
+      "note": "",
+      "quote": "CUORE began operating in 2017 and has been taking data steadily since 2019",
+      "sources": [
+        "src:cuore-lbl-newscenter-2025"
+      ],
+      "start": "2017",
+      "status": "commissioning",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "steady data taking",
+      "locator": "LBL news center article, 2025-11",
+      "note": "",
+      "quote": "has been taking data steadily since 2019",
+      "sources": [
+        "src:cuore-lbl-newscenter-2025"
+      ],
+      "start": "2019",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Total exposure (2024 result)",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "mass",
+        "display": "over 2 tonne·year TeO2 exposure",
+        "locator": "CUORE 2024 paper (arXiv:2404.04453), abstract",
+        "note": "",
+        "quote": "with over 2 tonne·year TeO2 exposure",
+        "sources": [
+          "src:cuore-arxiv-2404-lepton-number-violation"
+        ],
+        "unit": "t",
+        "value": 2,
+        "verified_at": "2026-09-17"
+      }
+    },
+    {
+      "label": "0νββ half-life lower limit",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "time",
+        "display": "T₁/₂ > 3.5×10²⁵ yr (90% C.I.)",
+        "locator": "CUORE 2024 paper, abstract",
+        "note": "",
+        "quote": "we ... place a lower limit on the half-life of T1/2 >3.5 x 10^25 years (90% C.I.)",
+        "sources": [
+          "src:cuore-arxiv-2404-lepton-number-violation"
+        ],
+        "unit": "yr",
+        "value": 3.5e+25,
+        "verified_at": "2026-09-17"
+      }
+    }
+  ],
+  "kind": "double_beta_decay",
+  "lineage": [
+    {
+      "experiment_id": "experiment:cupid",
+      "relation": "predecessor",
+      "sources": [
+        "src:cupid-experiment-official-page"
+      ]
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "CUORE",
+  "notes": [
+    "Located in LNGS Hall A: this record references site:lngs-hall-a, owned by the 'facilities' Wave 3 lead, which does not exist yet in this repository as of 2026-09-17 (dangling reference, ID_REGISTRY row 54).",
+    "facility:lngs already exists (owned by the fermilab-neutrino-other lead) and is referenced here, not edited.",
+    "No INSPIRE experiment-registry lookup was performed in this session; external.inspire_experiment is left null with this note rather than guessed.",
+    "Collaboration formation date not sourced in this session.",
+    "CUPID is CUORE's successor, reusing the CUORE cryostat infrastructure (lineage: predecessor -> CUPID)."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "CUORE 2024 paper, abstract",
+      "note": "",
+      "quote": "The CUORE experiment searches for 0νββ of 130Te using a tonne-scale cryogenic calorimeter operated at milli-kelvin temperatures.",
+      "sources": [
+        "src:cuore-arxiv-2404-lepton-number-violation"
+      ],
+      "value": "Search for neutrinoless double-beta decay of 130Te using a tonne-scale array of cryogenic bolometers",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:cuore-arxiv-2404-lepton-number-violation",
+    "src:cuore-lbl-newscenter-2025"
+  ],
+  "status": "active",
+  "summary": {
+    "plain": "A huge array of super-cold tellurium crystals under an Italian mountain, listening for a faint click of heat that would signal a rare radioactive decay. CUORE has been steadily collecting data since 2019.",
+    "technical": "CUORE (Cryogenic Underground Observatory for Rare Events): tonne-scale array of 988 TeO2 bolometric crystals (19 towers) operated at ~10 mK in Hall A of LNGS. Began operating in 2017, steady data taking since 2019; the 2024 result set T1/2 0ν(130Te) > 3.5x10^25 yr (90% C.I.) with over 2 t·yr TeO2 exposure. Predecessor to CUPID, which will reuse its cryostat."
+  },
+  "topic_ids": [
+    "topic:neutrinoless-double-beta-decay",
+    "topic:neutrino-physics"
+  ],
+  "type": "experiment",
+  "unique_capabilities": [
+    {
+      "confidence": "verified",
+      "locator": "LBL news center article, 2025-11",
+      "note": "",
+      "quote": "988 crystals of tellurium dioxide",
+      "sources": [
+        "src:cuore-lbl-newscenter-2025"
+      ],
+      "value": "First bolometric 0νββ experiment to reach the tonne mass scale, using a single large millikelvin cryostat",
+      "verified_at": "2026-09-17"
+    }
+  ]
+}

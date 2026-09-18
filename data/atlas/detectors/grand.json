@@ -1,0 +1,62 @@
+{
+  "id": "detector:grand",
+  "type": "detector",
+  "name": "GRANDProto300 (GRAND prototype)",
+  "aliases": ["GP300"],
+  "experiment_ids": ["experiment:grand"],
+  "parent_detector_id": null,
+  "placements": [],
+  "technology": {
+    "value": "Surface radio antenna array detecting the radio pulses from extensive air showers and Earth-skimming neutrino-induced showers",
+    "sources": ["src:astro-neutrino-grandproto300-progress-icrc2025"],
+    "verified_at": "2026-09-17", "confidence": "verified",
+    "quote": "the array was extended to its current 65-antenna stage (GP300_s65), built south of GP13, covering an area of about 30 km².",
+    "note": ""
+  },
+  "technology_class": "radio",
+  "technology_classes": ["radio"],
+  "intervals": [
+    {
+      "label": "GP300_s13", "status": "commissioning", "start": "2023-06", "end": "2025-04",
+      "sources": ["src:astro-neutrino-grandproto300-progress-icrc2025"],
+      "verified_at": "2026-09-17", "confidence": "verified",
+      "quote": "In June 2023, the deployment of the 13-antenna stage, GP300_s13, was completed.", "note": ""
+    },
+    {
+      "label": "GP300_s65", "status": "commissioning", "start": "2025-04", "end": null,
+      "sources": ["src:astro-neutrino-grandproto300-progress-icrc2025"],
+      "verified_at": "2026-09-17", "confidence": "verified",
+      "quote": "By April 2025, the array was extended to its current 65-antenna stage (GP300_s65)", "note": ""
+    }
+  ],
+  "status": "commissioning",
+  "specs": {
+    "station_count": {
+      "value": 65, "unit": "", "dimension": "count", "approx": false,
+      "display": "65 antennas",
+      "sources": ["src:astro-neutrino-grandproto300-progress-icrc2025"],
+      "verified_at": "2026-09-17", "confidence": "verified",
+      "quote": "the array was extended to its current 65-antenna stage (GP300_s65)", "note": ""
+    },
+    "area": {
+      "value": 30, "unit": "km^2", "dimension": "area", "approx": true,
+      "display": "~30 km²",
+      "sources": ["src:astro-neutrino-grandproto300-progress-icrc2025"],
+      "verified_at": "2026-09-17", "confidence": "verified",
+      "quote": "covering an area of about 30 km²", "note": "Design target for the full GRANDProto300 stage is 200 km²."
+    }
+  },
+  "subsystems": [],
+  "document_ids": [],
+  "links": {"website": null},
+  "notes": [
+    "No placement: no source fetched this session gives a numeric coordinate for the Gobi Desert / Dunhuang site (only 'near Xiaodushan, in northern Dunhuang, China'); a coordinate was not invented per A17."
+  ],
+  "summary": {
+    "plain": "A prototype radio antenna array in the Gobi Desert in China, testing the technology for a much bigger planned array to detect cosmic rays and neutrinos.",
+    "technical": "GRANDProto300 pathfinder array in the Gobi Desert near Dunhuang, China: grew from a 13-antenna stage (deployed 2023-06) to a 65-antenna stage covering ~30 km² (2025-04), validating the radio-detection approach for the full GRAND design."
+  },
+  "coverage": {"researched": "partial", "tier": "B"},
+  "sources": ["src:astro-neutrino-grandproto300-progress-icrc2025"],
+  "schema": "hep-atlas/0.2"
+}

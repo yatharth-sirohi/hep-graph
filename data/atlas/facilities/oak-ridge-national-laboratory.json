@@ -1,0 +1,77 @@
+{
+  "aliases": [
+    "ORNL"
+  ],
+  "country": [
+    "US"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "id": "facility:oak-ridge-national-laboratory",
+  "intervals": [
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "laboratory founded",
+      "note": "Flagged for review: sourced to Wikipedia only.",
+      "quote": "Founded in 1943, the laboratory was established as part of the Manhattan Project during World War II.",
+      "sources": [
+        "src:ornl-wikipedia"
+      ],
+      "start": {
+        "date": "1943",
+        "note": "Sourced to Wikipedia only (src:ornl-wikipedia); no official ORNL page fetched in this session states a founding year directly."
+      },
+      "status": "active",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "kind": "research_laboratory",
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "note": "",
+      "sources": [
+        "src:ornl-sns-page"
+      ],
+      "value": "https://neutrons.ornl.gov/sns",
+      "verified_at": "2026-09-17"
+    }
+  },
+  "name": "Oak Ridge National Laboratory",
+  "notes": [
+    "kind is recorded as `research_laboratory` (no better single-value fit in FACILITY_KINDS for a large multiprogram DOE laboratory); the SNS accelerator itself is separately recorded as accelerator:sns.",
+    "primary_site_id points at site:ornl-sns-neutrino-alley because that is the only site this wave creates for ORNL (per the ID registry); it is not meant to imply that hall is ORNL's literal main entrance."
+  ],
+  "operator_ids": [],
+  "operator_text": {
+    "confidence": "verified",
+    "note": "",
+    "quote": "Oak Ridge National Laboratory is managed by UT-Battelle LLC for the US Department of Energy.",
+    "sources": [
+      "src:ornl-sns-page",
+      "src:ornl-wikipedia"
+    ],
+    "value": "UT-Battelle, LLC (a partnership of the University of Tennessee and Battelle Memorial Institute) for the U.S. Department of Energy",
+    "verified_at": "2026-09-17"
+  },
+  "primary_site_id": "site:ornl-sns-neutrino-alley",
+  "related_facility_ids": [],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:ornl-sns-page",
+    "src:ornl-wikipedia"
+  ],
+  "specs": {},
+  "status": "active",
+  "summary": {
+    "plain": "The United States' largest multiprogram science laboratory, in Oak Ridge, Tennessee. It runs the Spallation Neutron Source, whose intense proton beam also produces one of the world's best sources of neutrinos for the COHERENT experiment.",
+    "technical": "DOE Office of Science multiprogram national laboratory (Oak Ridge, Tennessee, ~10,000 acres), managed by UT-Battelle, LLC; operates the Spallation Neutron Source (SNS) and High Flux Isotope Reactor among other user facilities."
+  },
+  "topic_ids": [
+    "topic:cevns"
+  ],
+  "type": "facility"
+}

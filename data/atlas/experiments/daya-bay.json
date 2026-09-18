@@ -1,0 +1,163 @@
+{
+  "schema": "hep-atlas/0.2",
+  "id": "experiment:daya-bay",
+  "type": "experiment",
+  "name": "Daya Bay Reactor Neutrino Experiment",
+  "aliases": [
+    "Daya Bay"
+  ],
+  "kind": "reactor_neutrino",
+  "secondary_kinds": [],
+  "collaboration_ids": ["collaboration:daya-bay"],
+  "facility_roles": [
+    {
+      "facility_id": "facility:daya-bay-reactor-neutrino-lab",
+      "role": "host",
+      "start": null,
+      "end": null,
+      "sources": ["src:daya-bay-inspire-experiment-record"],
+      "verified_at": "2026-09-17",
+      "confidence": "verified",
+      "note": ""
+    }
+  ],
+  "beamline_ids": [],
+  "accelerator_ids": [],
+  "topic_ids": ["topic:reactor-neutrinos", "topic:neutrino-oscillations"],
+  "intervals": [
+    {
+      "label": "6-AD data-taking period used in the 2012 discovery",
+      "status": "active",
+      "start": null,
+      "end": null,
+      "sources": ["src:daya-bay-discovery-2012"],
+      "verified_at": "2026-09-17",
+      "confidence": "uncertain",
+      "quote": "This corresponds to a 43000 ton-GW_th-day exposure accumulated in 55 days",
+      "locator": "arXiv:1203.1669 abstract",
+      "note": "The 2012 discovery paper reports a 55-day exposure but no explicit calendar start/end date was seen verbatim in the fetched abstract; both bounds are left null rather than guessed."
+    },
+    {
+      "label": "8-AD full configuration operation",
+      "status": "active",
+      "start": "2012",
+      "end": "2020",
+      "sources": ["src:daya-bay-detector-paper-2013", "src:daya-bay-wikipedia"],
+      "verified_at": "2026-09-17",
+      "confidence": "approximate",
+      "quote": "eight, functionally identical antineutrino detectors",
+      "locator": "arXiv:1309.1557 abstract (8-AD configuration); end year per Wikipedia infobox 'Operating Period: 2011–2020'",
+      "note": "Start year for the full 8-AD configuration is approximate (the 2012 discovery result used only 6 ADs; the near halls' remaining detectors were installed later in 2012 per general knowledge of the experiment, but no fetched source states the exact completion date of the 8-AD configuration)."
+    },
+    {
+      "label": "completed",
+      "status": "completed",
+      "start": "2020",
+      "end": null,
+      "sources": ["src:daya-bay-wikipedia"],
+      "verified_at": "2026-09-17",
+      "confidence": "approximate",
+      "quote": "Operating Period: 2011–2020",
+      "locator": "Wikipedia infobox",
+      "note": "Only Wikipedia (rank 12) states an end date for the experiment; no official page or paper fetched this session confirms 2020 as the shutdown year."
+    }
+  ],
+  "physics_goals": [
+    {
+      "value": "Measure the neutrino mixing angle theta_13 using reactor antineutrino disappearance",
+      "sources": ["src:daya-bay-discovery-2012"],
+      "verified_at": "2026-09-17",
+      "confidence": "verified",
+      "quote": "Observation of electron-antineutrino disappearance at Daya Bay",
+      "locator": "arXiv:1203.1669, title"
+    }
+  ],
+  "unique_capabilities": [
+    {
+      "value": "Multiple functionally identical antineutrino detectors deployed across near and far underground halls to cancel reactor-flux and detector systematics between near and far measurements",
+      "sources": ["src:daya-bay-detector-paper-2013"],
+      "verified_at": "2026-09-17",
+      "confidence": "verified",
+      "quote": "eight, functionally identical antineutrino detectors",
+      "locator": "arXiv:1309.1557, abstract"
+    }
+  ],
+  "energy_regime": null,
+  "key_specs": [
+    {
+      "label": "Near-hall baselines",
+      "quantity": {
+        "value": 470,
+        "unit": "m",
+        "dimension": "length",
+        "approx": false,
+        "display": "470 m and 576 m",
+        "sources": ["src:daya-bay-discovery-2012"],
+        "verified_at": "2026-09-17",
+        "confidence": "verified",
+        "quote": "flux-weighted baselines of 470 m and 576 m",
+        "note": "Two near halls (Daya Bay near and Ling Ao near); the shorter of the two flux-weighted baselines is recorded as `value` and both are given in `display`."
+      }
+    },
+    {
+      "label": "Far-hall baseline",
+      "quantity": {
+        "value": 1648,
+        "unit": "m",
+        "dimension": "length",
+        "approx": false,
+        "display": "1648 m",
+        "sources": ["src:daya-bay-discovery-2012"],
+        "verified_at": "2026-09-17",
+        "confidence": "verified",
+        "quote": "far hall ... at 1648 m",
+        "note": ""
+      }
+    },
+    {
+      "label": "Reactor thermal power (per reactor, x6)",
+      "quantity": {
+        "value": 2.9,
+        "unit": "GW",
+        "dimension": "power",
+        "approx": false,
+        "display": "6 x 2.9 GW_th",
+        "sources": ["src:daya-bay-discovery-2012"],
+        "verified_at": "2026-09-17",
+        "confidence": "verified",
+        "quote": "six 2.9 GW_th reactors",
+        "note": ""
+      }
+    }
+  ],
+  "lineage": [],
+  "external": {
+    "inspire_experiment": 1108266,
+    "greybook": null,
+    "wikidata": null
+  },
+  "document_ids": [],
+  "result_ids": [],
+  "links": {
+    "website": null
+  },
+  "notes": [
+    "The official experiment site (dayabay.ihep.ac.cn) timed out on every fetch attempt this session; `links.website` is left null rather than guessed.",
+    "Derived fields (detector_ids, site_ids, result_ids, document_ids) deliberately not authored (v0.2 A1)."
+  ],
+  "sources": [
+    "src:daya-bay-inspire-experiment-record",
+    "src:daya-bay-discovery-2012",
+    "src:daya-bay-detector-paper-2013",
+    "src:daya-bay-wikipedia"
+  ],
+  "status": "completed",
+  "summary": {
+    "plain": "An experiment in southern China that used clusters of detectors near and far from nuclear reactors to discover that one type of neutrino oscillation, long searched for, really happens.",
+    "technical": "Reactor-antineutrino oscillation experiment using up to eight functionally identical Gd-doped liquid-scintillator antineutrino detectors at near (470 m, 576 m) and far (1648 m) underground halls from six 2.9 GW_th reactor cores at the Daya Bay/Ling Ao nuclear power complex, Guangdong, China. Its 2012 result was the first observation of a non-zero theta_13 mixing angle via reactor antineutrino disappearance."
+  },
+  "coverage": {
+    "tier": "B",
+    "researched": "partial"
+  }
+}

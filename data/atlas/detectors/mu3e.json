@@ -1,0 +1,74 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "experiment_ids": [
+    "experiment:mu3e"
+  ],
+  "id": "detector:mu3e",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2026-09",
+      "label": "pixel-tracker installation",
+      "note": "Most recent dated construction milestone found; overall project start date not found in a fetched source this session.",
+      "quote": "The third layer of the Mu3e pixel detector was sucessfully installed.",
+      "sources": [
+        "src:muons-psi-mu3e-site"
+      ],
+      "start": "2026-09",
+      "status": "construction",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "Mu3e detector",
+  "notes": [
+    "technology_classes uses 'other': none of the ontology's listed classes (lar_tpc, water_cherenkov, ..., gaseous_tpc, emulsion, tracking_calorimeter, haloscope, spectrometer, other) names a silicon-pixel HV-MAPS tracker specifically; Mu3e's tracker is solid-state silicon, not a gas TPC, so 'gaseous_tpc' was rejected in favour of 'other'."
+  ],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "note": "site:psi-villigen is owned by the 'facilities' Wave-3 workstream and had not landed in data/atlas/sites/ as of this session; this is an expected dangling reference.",
+      "role": "main",
+      "site_id": "site:psi-villigen",
+      "sources": [
+        "src:muons-psi-mu3e-site"
+      ],
+      "start": null,
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:muons-inspire-experiment-mu3e",
+    "src:muons-psi-mu3e-site"
+  ],
+  "specs": {},
+  "status": "construction",
+  "subsystems": [],
+  "summary": {
+    "plain": "A very thin, high-speed silicon camera built from custom pixel chips, combined with fast timing detectors, being assembled at the Paul Scherrer Institute to catch three particles flying apart from a single muon.",
+    "technical": "Multi-layer HV-MAPS silicon pixel tracker (vertex + outer tracking layers; third layer installed 2026-09) combined with scintillating-fibre and scintillating-tile timing systems, on the PSI HiMB/piE5 beamline. Under construction; no data yet."
+  },
+  "technology": {
+    "confidence": "verified",
+    "note": "",
+    "quote": "To this aim, we use innovative high-voltage monolithic active pixel sensors (HV-MAPS)",
+    "sources": [
+      "src:muons-inspire-experiment-mu3e"
+    ],
+    "value": "Ultra-thin silicon pixel tracker built from high-voltage monolithic active pixel sensors (HV-MAPS), combined with scintillating-fibre and scintillating-tile timing detectors",
+    "verified_at": "2026-09-17"
+  },
+  "technology_classes": [
+    "other"
+  ],
+  "type": "detector"
+}

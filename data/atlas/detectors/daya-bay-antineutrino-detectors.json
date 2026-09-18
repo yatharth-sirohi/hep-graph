@@ -1,0 +1,110 @@
+{
+  "schema": "hep-atlas/0.2",
+  "id": "detector:daya-bay-antineutrino-detectors",
+  "type": "detector",
+  "name": "Daya Bay antineutrino detectors",
+  "aliases": ["Daya Bay ADs"],
+  "experiment_ids": ["experiment:daya-bay"],
+  "parent_detector_id": null,
+  "technology": {
+    "value": "Functionally identical cylindrical antineutrino detectors filled with gadolinium-doped liquid scintillator, viewed by photomultiplier tubes",
+    "sources": ["src:daya-bay-detector-paper-2013"],
+    "verified_at": "2026-09-17",
+    "confidence": "verified",
+    "quote": "eight, functionally identical antineutrino detectors",
+    "note": ""
+  },
+  "technology_class": "liquid_scintillator",
+  "technology_classes": ["liquid_scintillator"],
+  "placements": [
+    {
+      "site_id": "site:daya-bay-experimental-halls",
+      "role": "near",
+      "start": null,
+      "end": null,
+      "sources": ["src:daya-bay-discovery-2012"],
+      "verified_at": "2026-09-17",
+      "confidence": "approximate",
+      "quote": "flux-weighted baselines of 470 m and 576 m",
+      "note": "Daya Bay near hall (470 m flux-weighted baseline). Placed at the shared campus-grade site point (see site note); hall-specific coordinates not found."
+    },
+    {
+      "site_id": "site:daya-bay-experimental-halls",
+      "role": "near",
+      "start": null,
+      "end": null,
+      "sources": ["src:daya-bay-discovery-2012"],
+      "verified_at": "2026-09-17",
+      "confidence": "approximate",
+      "quote": "flux-weighted baselines of 470 m and 576 m",
+      "note": "Ling Ao near hall (576 m flux-weighted baseline). Placed at the shared campus-grade site point (see site note); hall-specific coordinates not found."
+    },
+    {
+      "site_id": "site:daya-bay-experimental-halls",
+      "role": "far",
+      "start": null,
+      "end": null,
+      "sources": ["src:daya-bay-discovery-2012"],
+      "verified_at": "2026-09-17",
+      "confidence": "approximate",
+      "quote": "far hall ... at 1648 m",
+      "note": "Far hall (1648 m baseline). Placed at the shared campus-grade site point (see site note); hall-specific coordinates not found."
+    }
+  ],
+  "intervals": [
+    {
+      "label": "6-detector configuration",
+      "status": "active",
+      "start": null,
+      "end": null,
+      "sources": ["src:daya-bay-discovery-2012"],
+      "verified_at": "2026-09-17",
+      "confidence": "uncertain",
+      "quote": "six antineutrino detectors",
+      "note": "Configuration used for the 2012 discovery result; no calendar dates found verbatim."
+    },
+    {
+      "label": "8-detector configuration",
+      "status": "active",
+      "start": "2012",
+      "end": "2020",
+      "sources": ["src:daya-bay-detector-paper-2013", "src:daya-bay-wikipedia"],
+      "verified_at": "2026-09-17",
+      "confidence": "approximate",
+      "quote": "eight, functionally identical antineutrino detectors",
+      "note": "Start year approximate; end year per Wikipedia's 'Operating Period: 2011-2020'."
+    }
+  ],
+  "status": "completed",
+  "specs": {
+    "target_mass": {
+      "value": 20,
+      "unit": "t",
+      "dimension": "mass",
+      "approx": false,
+      "display": "20 t Gd-doped liquid scintillator per detector",
+      "sources": ["src:daya-bay-wikipedia"],
+      "verified_at": "2026-09-17",
+      "confidence": "approximate",
+      "quote": "each detector containing 20 tons of liquid scintillator",
+      "note": "Sourced from Wikipedia (rank 12); corroborated by an INSPIRE-indexed reference to '20,000 kg of Gd-doped scintillating liquid (GDLS)' per detector found via an INSPIRE literature search summary, but that figure was not independently confirmed by directly reading the cited paper's own text in this session, so confidence is kept at approximate rather than verified."
+    }
+  },
+  "subsystems": [],
+  "document_ids": [],
+  "links": {
+    "website": null
+  },
+  "notes": [
+    "Modelled as a single detector-system record covering all (six, later eight) functionally identical antineutrino detectors, per the detector paper's own description of them as 'functionally identical'; individual AD1-AD8 unit records were not created in this wave."
+  ],
+  "sources": ["src:daya-bay-detector-paper-2013", "src:daya-bay-discovery-2012", "src:daya-bay-wikipedia"],
+  "summary": {
+    "plain": "A set of identical tank-like detectors, each holding 20 tonnes of a liquid that glows when antineutrinos interact in it, spread across near and far halls at Daya Bay.",
+    "technical": "Six (2011-2012) then eight (2012-2020) functionally identical Gd-doped liquid-scintillator antineutrino detectors, each ~20 t target mass, deployed across the Daya Bay near, Ling Ao near and far underground halls."
+  },
+  "coverage": {
+    "tier": "B",
+    "researched": "partial"
+  }
+}

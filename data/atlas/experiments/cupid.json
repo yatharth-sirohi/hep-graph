@@ -1,0 +1,159 @@
+{
+  "accelerator_ids": [],
+  "aliases": [
+    "CUORE Upgrade with Particle IDentification"
+  ],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:cupid"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "energy_regime": null,
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "facility_id": "facility:lngs",
+      "locator": "CUPID Experiment official site",
+      "note": "",
+      "quote": "Laboratori Nazionali del Gran Sasso (LNGS) in the Abruzzo region of central Italy",
+      "role": "host",
+      "sources": [
+        "src:cupid-experiment-official-page"
+      ],
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "id": "experiment:cupid",
+  "intervals": [
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "approved / preparation",
+      "locator": "no fetched primary source gives an exact CUPID approval or construction-start date",
+      "note": "No source fetched in this session directly states CUPID's DOE Critical-Decision stage or a construction-start date with a quote this agent saw verbatim; a secondary web summary described CD-0 ('approval of mission need') and a prototype 'in construction' for mid-2025 data, but this agent could not re-verify that specific wording against a directly fetched primary source in this session, so status is recorded conservatively as `proposed` rather than `construction`. The official CUPID site describes the detector only in future tense ('CUPID will profit of ...').",
+      "quote": "CUPID will profit of the established CUORE cryogenic infrastructure, and deploy ~1500 Li2MoO4 crystals in place of the TeO2 ones.",
+      "sources": [
+        "src:cupid-experiment-official-page"
+      ],
+      "start": null,
+      "status": "proposed",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Planned crystal array",
+      "quantity": {
+        "approx": true,
+        "confidence": "verified",
+        "dimension": "count",
+        "display": "~1500 Li2MoO4 crystals",
+        "locator": "CUPID Experiment official site",
+        "note": "",
+        "quote": "deploy ~1500 Li2MoO4 crystals in place of the TeO2 ones",
+        "sources": [
+          "src:cupid-experiment-official-page"
+        ],
+        "unit": "",
+        "value": 1500,
+        "verified_at": "2026-09-17"
+      }
+    },
+    {
+      "label": "0νββ Q-value (100Mo)",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "energy",
+        "display": "3034 keV",
+        "locator": "CUPID Experiment official site",
+        "note": "Given by the official site in comparison to CUORE's 130Te Q-value (2527 keV).",
+        "quote": "a Q-value of 3034 keV (compared to 2527 keV of 130Te)",
+        "sources": [
+          "src:cupid-experiment-official-page"
+        ],
+        "unit": "keV",
+        "value": 3034,
+        "verified_at": "2026-09-17"
+      }
+    }
+  ],
+  "kind": "double_beta_decay",
+  "lineage": [
+    {
+      "experiment_id": "experiment:cuore",
+      "relation": "successor",
+      "sources": [
+        "src:cupid-experiment-official-page"
+      ]
+    }
+  ],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "note": "",
+      "sources": [
+        "src:cupid-experiment-official-page"
+      ],
+      "value": "https://cupidexperiment.org/",
+      "verified_at": "2026-09-17"
+    }
+  },
+  "name": "CUPID",
+  "notes": [
+    "Located in LNGS (reuses the existing CUORE cryostat, itself in Hall A): this record references site:lngs-hall-a, owned by the 'facilities' Wave 3 lead, which does not exist yet in this repository as of 2026-09-17 (dangling reference).",
+    "facility:lngs already exists (owned by the fermilab-neutrino-other lead) and is referenced here, not edited.",
+    "Status is recorded conservatively as 'proposed': the official CUPID site describes the detector only in future tense and no source fetched in this session gives an unambiguous 'under construction' statement with a verifiable quote. A secondary summary described a DOE CD-0 mission-need approval and a prototype under construction for mid-2025 data, which this agent could not re-verify against a directly fetched primary source; reported here for the domain lead's awareness.",
+    "No INSPIRE experiment-registry lookup was performed in this session; external.inspire_experiment is left null with this note rather than guessed.",
+    "Collaboration formation date not sourced in this session."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "CUPID Experiment official site",
+      "note": "",
+      "quote": "CUPID is a proposed future ton-scale bolometric neutrinoless double beta decay (0νββ) experiment to probe the Majorana nature of neutrinos",
+      "sources": [
+        "src:cupid-experiment-official-page"
+      ],
+      "value": "Search for neutrinoless double-beta decay of 100Mo with a ton-scale array of scintillating bolometers, reusing the CUORE cryostat",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:cupid-experiment-official-page"
+  ],
+  "status": "proposed",
+  "summary": {
+    "plain": "The planned successor to CUORE: about 1500 crystals of a different material (lithium molybdate) that both glow and register heat, reusing CUORE's giant refrigerator under an Italian mountain to search for a rare radioactive process even more precisely.",
+    "technical": "CUPID (CUORE Upgrade with Particle IDentification): proposed ton-scale array of ~1500 Li2MoO4 scintillating bolometers targeting 0νββ of 100Mo (Qbb = 3034 keV), reusing the CUORE cryostat at LNGS. Successor to CUORE; no confirmed construction-start date sourced in this session."
+  },
+  "topic_ids": [
+    "topic:neutrinoless-double-beta-decay",
+    "topic:neutrino-physics"
+  ],
+  "type": "experiment",
+  "unique_capabilities": [
+    {
+      "confidence": "verified",
+      "locator": "CUPID Experiment official site",
+      "note": "",
+      "quote": "a scintillating material with a particle-dependent light yield",
+      "sources": [
+        "src:cupid-experiment-official-page"
+      ],
+      "value": "Scintillating bolometers (heat + light readout) give particle-type discrimination that CUORE's plain TeO2 bolometers lack, suppressing alpha backgrounds",
+      "verified_at": "2026-09-17"
+    }
+  ]
+}

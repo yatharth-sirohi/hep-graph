@@ -1,0 +1,63 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "document_ids": [],
+  "experiment_ids": [
+    "experiment:alps-ii"
+  ],
+  "id": "detector:alps-ii",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "operating",
+      "locator": "INSPIRE experiment record 1761312, field date_started",
+      "note": "Day-precision start date from the INSPIRE experiment record's date_started field, matching the wave-3 brief's 'operating since 2023' guidance.",
+      "sources": [
+        "src:axions-alps-ii-inspire-experiment"
+      ],
+      "start": "2023-05-23",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "ALPS II apparatus",
+  "notes": [
+    "No placements[] entry recorded: a fetched source explicitly confirming ALPS II sits in the DESY 'HERA North Hall' (site:desy-hera-north-hall-h1, owned by the facilities lead) was not found this session; forcing that reference without confirmation would violate A17. See worklog."
+  ],
+  "parent_detector_id": null,
+  "placements": [],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:axions-alps-ii-official-site",
+    "src:axions-alps-ii-inspire-experiment"
+  ],
+  "specs": {},
+  "status": "active",
+  "subsystems": [],
+  "summary": {
+    "plain": "ALPS II shines a laser at a wall to see if a tiny fraction of the light can sneak through as an undetectable particle and turn back into light on the far side, which would be a sign of new, very light particles.",
+    "technical": "Light-shining-through-a-wall (LSW) apparatus reusing decommissioned HERA superconducting dipole magnets and optical build-up/regeneration cavities at DESY, operating since 2023-05-23."
+  },
+  "technology": {
+    "confidence": "verified",
+    "note": "No light-shining-through-walls value exists in the ontology's technology_classes enum; recorded as 'other' (see worklog).",
+    "sources": [
+      "src:axions-alps-ii-official-site",
+      "src:axions-alps-ii-inspire-experiment"
+    ],
+    "value": "Light-shining-through-a-wall apparatus: a laser beam is enhanced in a build-up optical cavity, blocked by a light-tight wall, with a second, identical regeneration cavity and superconducting dipole magnets (reused HERA magnets) on both sides, and a low-noise single-photon/heterodyne detector looking for regenerated photons on the far side.",
+    "verified_at": "2026-09-17"
+  },
+  "technology_class": "other",
+  "technology_classes": [
+    "other"
+  ],
+  "type": "detector"
+}

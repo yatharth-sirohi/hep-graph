@@ -1,0 +1,151 @@
+{
+  "aliases": [
+    "DZero detector",
+    "DØ detector"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
+  },
+  "experiment_ids": [
+    "experiment:d0"
+  ],
+  "id": "detector:d0",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2011-09-30",
+      "label": "operating",
+      "locator": "INSPIRE experiment record 1109214",
+      "note": "",
+      "quote": "date_started: 1992-05",
+      "sources": [
+        "src:colliders-historical-d0-inspire-experiment-record"
+      ],
+      "start": "1992-05",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": {
+        "approx": true,
+        "date": "2011-12"
+      },
+      "label": "shut down",
+      "locator": "fnal.gov Tevatron Shutdown Process page",
+      "note": "",
+      "quote": "The DZero detector was completely shut down after about three months.",
+      "sources": [
+        "src:colliders-historical-tevatron-fnal-shutdown-process",
+        "src:colliders-historical-d0-official-site"
+      ],
+      "start": "2011-09-30",
+      "status": "completed",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "D0 detector",
+  "notes": [
+    "Placed at site:fermilab-d0-collision-hall (the Tevatron D0 interaction hall), created by this owner (colliders-historical); coordinates on that site are campus-precision only, see the site record."
+  ],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": "2011-12",
+      "locator": "INSPIRE experiment record 1109214; the experiment's long_name identifies the detector's location as \"D0\"",
+      "note": "End date approximate: D0 was \"completely shut down after about three months\" following the Tevatron's 2011-09-30 shutdown, having taken cosmic-ray calibration data in the interim, per the Fermilab shutdown-process page.",
+      "quote": "date_started: 1992-05",
+      "role": "main",
+      "site_id": "site:fermilab-d0-collision-hall",
+      "sources": [
+        "src:colliders-historical-d0-inspire-experiment-record",
+        "src:colliders-historical-tevatron-fnal-shutdown-process"
+      ],
+      "start": "1992-05",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:colliders-historical-d0-inspire-experiment-record",
+    "src:colliders-historical-d0-fnal-tevatron-experiments-page",
+    "src:colliders-historical-d0-upgraded-detector-nim-2006"
+  ],
+  "specs": {
+    "calorimeters": {
+      "confidence": "verified",
+      "locator": "Upgraded D0 Detector, NIM A565 (2006), abstract",
+      "note": "",
+      "quote": "The uranium/liquid-argon calorimeters and central muon detector, remaining from Run I, are discussed briefly.",
+      "sources": [
+        "src:colliders-historical-d0-upgraded-detector-nim-2006"
+      ],
+      "value": "Uranium/liquid-argon sampling calorimeters",
+      "verified_at": "2026-09-17"
+    },
+    "muon_system": {
+      "confidence": "verified",
+      "locator": "fnal.gov Tevatron Experiments: DZero page",
+      "note": "",
+      "quote": "Another of the strengths of the DZero detector is its comprehensive outer shell of muon detectors. Three layers of the detectors catch the signals of muons that escape the inner layers of the detector.",
+      "sources": [
+        "src:colliders-historical-d0-fnal-tevatron-experiments-page"
+      ],
+      "value": "Three outer layers of muon detectors surrounding the calorimeters",
+      "verified_at": "2026-09-17"
+    },
+    "total_mass": {
+      "approx": true,
+      "confidence": "approximate",
+      "dimension": "mass",
+      "display": "~5,500 tons",
+      "locator": "fnal.gov Tevatron Experiments: DZero page",
+      "note": "Approximate figure (\"about 5,500-ton\") as stated on the fnal.gov Tevatron Experiments: DZero page; no independent detector-paper mass figure was found to cross-check it against this session.",
+      "quote": "The 5,500-ton detector sits more than four stories tall and is composed of more than 1 million individual detector elements.",
+      "sources": [
+        "src:colliders-historical-d0-fnal-tevatron-experiments-page"
+      ],
+      "unit": "t",
+      "value": 5500,
+      "verified_at": "2026-09-17"
+    },
+    "tracker": {
+      "confidence": "verified",
+      "locator": "fnal.gov Tevatron Experiments: DZero page",
+      "note": "",
+      "quote": "DZero records this information with a series of silicon detectors nestled scintillating fiber detectors mounted on carbon fiber supports.",
+      "sources": [
+        "src:colliders-historical-d0-fnal-tevatron-experiments-page"
+      ],
+      "value": "Silicon detectors nested inside scintillating-fiber tracking detectors mounted on carbon-fiber supports (Run II)",
+      "verified_at": "2026-09-17"
+    }
+  },
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "A four-story-tall, roughly 5,500-tonne particle detector at Fermilab, named after its location on the Tevatron ring, built to trace and measure particles from proton-antiproton collisions with especially precise calorimeters.",
+    "technical": "General-purpose collider detector, complementary to CDF, with uranium/liquid-argon calorimetry retained from Run I; upgraded for Run II (2001) with a silicon microstrip tracker, central fiber tracker, solenoidal magnet, preshower detectors, forward muon detector and forward proton detector added around the original calorimeters and muon system."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "Upgraded D0 Detector, NIM A565 (2006), abstract",
+    "note": "",
+    "quote": "We describe the new elements of the detector, including the silicon microstrip tracker, central fiber tracker, solenoidal magnet, preshower detectors, forward muon detector, and forward proton detector.",
+    "sources": [
+      "src:colliders-historical-d0-upgraded-detector-nim-2006"
+    ],
+    "value": "General-purpose collider detector with uranium/liquid-argon calorimetry, and (from Run II) silicon and fiber tracking inside a solenoidal magnet",
+    "verified_at": "2026-09-17"
+  },
+  "technology_class": "general_purpose_collider",
+  "technology_classes": [
+    "general_purpose_collider"
+  ],
+  "type": "detector"
+}

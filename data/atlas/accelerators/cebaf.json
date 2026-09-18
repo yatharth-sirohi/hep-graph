@@ -1,0 +1,88 @@
+{
+  "aliases": [
+    "CEBAF"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "facility_id": "facility:jefferson-lab",
+  "feeds_accelerator_ids": [],
+  "id": "accelerator:cebaf",
+  "intervals": [
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "construction begins",
+      "note": "Sourced to Wikipedia only; flagged for review.",
+      "quote": "on February 13, 1987, the construction of the main component, the CEBAF accelerator began.",
+      "sources": [
+        "src:jlab-wikipedia"
+      ],
+      "start": "1987-02-13",
+      "status": "construction",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "12 GeV Upgrade dedication",
+      "note": "Sourced to Wikipedia only; flagged for review. Original operation at 6 GeV presumably began earlier (commonly cited as the early 1990s) but no source fetched in this session states that start date, so it is not recorded as a separate interval.",
+      "quote": "On 2 May 2018 the CEBAF 12 GeV Upgrade Dedication Ceremony took place.",
+      "sources": [
+        "src:jlab-wikipedia"
+      ],
+      "start": "2018-05-02",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "is_collider": false,
+  "kind": "linac",
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "note": "",
+      "sources": [
+        "src:jlab-accelerator-page"
+      ],
+      "value": "https://www.jlab.org/accelerator",
+      "verified_at": "2026-09-17"
+    }
+  },
+  "name": "Continuous Electron Beam Accelerator Facility",
+  "notes": [
+    "kind is recorded as `linac`; CEBAF is technically a recirculating (racetrack) superconducting linac, which ACCELERATOR_KINDS does not have a dedicated value for."
+  ],
+  "particles": [
+    "electron"
+  ],
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:jlab-newport-news",
+  "sources": [
+    "src:jlab-accelerator-page",
+    "src:jlab-wikipedia"
+  ],
+  "specs": {
+    "beam_energy": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "energy",
+      "display": "12 GeV (after the 2018 upgrade; originally 6 GeV)",
+      "note": "Original design energy was 6 GeV; the 12 GeV Upgrade was dedicated 2 May 2018 (src:jlab-wikipedia).",
+      "quote": "The CEBAF energy was recently upgraded from 6 GeV to 12 GeV, and an additional experimental area was added to support the highest-energy experiments.",
+      "sources": [
+        "src:jlab-accelerator-page"
+      ],
+      "unit": "GeV",
+      "value": 12,
+      "verified_at": "2026-09-17"
+    }
+  },
+  "status": "active",
+  "summary": {
+    "plain": "",
+    "technical": ""
+  },
+  "type": "accelerator"
+}

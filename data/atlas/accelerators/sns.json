@@ -1,0 +1,105 @@
+{
+  "aliases": [
+    "SNS"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "facility_id": "facility:oak-ridge-national-laboratory",
+  "feeds_accelerator_ids": [],
+  "id": "accelerator:sns",
+  "intervals": [
+    {
+      "confidence": "uncertain",
+      "end": {
+        "date": "2006-04",
+        "note": "Month precision ('April 2006') from Wikipedia only; no official page fetched in this session confirms this date."
+      },
+      "label": "construction completed",
+      "note": "Sourced to Wikipedia only; flagged for review.",
+      "quote": "completed in April 2006",
+      "sources": [
+        "src:sns-wikipedia"
+      ],
+      "start": null,
+      "status": "construction",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "Proton Power Upgrade (1.4 -> 2.8 MW)",
+      "note": "No start/end date for the Proton Power Upgrade project is stated on the page fetched in this session; recorded without dates rather than guessed.",
+      "quote": "The Proton Power Upgrade project doubled the power capability of the SNS linear accelerator, from 1.4 to 2.8 megawatts.",
+      "sources": [
+        "src:ornl-sns-page"
+      ],
+      "start": null,
+      "status": "upgrade",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "is_collider": false,
+  "kind": "linac",
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "note": "",
+      "sources": [
+        "src:ornl-sns-page"
+      ],
+      "value": "https://neutrons.ornl.gov/sns",
+      "verified_at": "2026-09-17"
+    }
+  },
+  "name": "Spallation Neutron Source",
+  "notes": [
+    "kind is recorded as `linac`; the SNS accelerator complex also includes an accumulator ring (not separately modeled here)."
+  ],
+  "particles": [
+    "proton"
+  ],
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:ornl-sns-neutrino-alley",
+  "sources": [
+    "src:ornl-sns-page",
+    "src:sns-wikipedia"
+  ],
+  "specs": {
+    "beam_energy": {
+      "approx": true,
+      "confidence": "uncertain",
+      "dimension": "energy",
+      "display": "~1 GeV",
+      "note": "Sourced to Wikipedia only; no official page fetched in this session states the proton beam energy directly in GeV.",
+      "quote": "accelerates them to an energy of about one GeV (or to about 90% the speed of light)",
+      "sources": [
+        "src:sns-wikipedia"
+      ],
+      "unit": "GeV",
+      "value": 1,
+      "verified_at": "2026-09-17"
+    },
+    "beam_power": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "power",
+      "display": "1.4 MW (original design); upgraded to 2.8 MW; 1.8 MW as of this session",
+      "note": "The official SNS page states current operation 'Beam is on target at 1.8 MW' and that 'The Proton Power Upgrade project doubled the power capability of the SNS linear accelerator, from 1.4 to 2.8 megawatts.' The 1.4 MW value (original design/baseline) is recorded as the primary spec value; see note for the upgrade figures.",
+      "quote": "The Proton Power Upgrade project doubled the power capability of the SNS linear accelerator, from 1.4 to 2.8 megawatts.",
+      "sources": [
+        "src:ornl-sns-page"
+      ],
+      "unit": "MW",
+      "value": 1.4,
+      "verified_at": "2026-09-17"
+    }
+  },
+  "status": "active",
+  "summary": {
+    "plain": "",
+    "technical": ""
+  },
+  "type": "accelerator"
+}

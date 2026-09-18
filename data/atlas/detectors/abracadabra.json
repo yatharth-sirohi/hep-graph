@@ -1,0 +1,94 @@
+{
+  "aliases": [
+    "ABRA-10cm"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "document_ids": [],
+  "experiment_ids": [
+    "experiment:abracadabra"
+  ],
+  "id": "detector:abracadabra",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2018",
+      "kind": "run",
+      "label": "first run (1-month search)",
+      "note": "Approximated from the 2018-10-29 arXiv submission date.",
+      "quote": "we present the first results from a 1 month search for axions with ABRACADABRA-10 cm",
+      "sources": [
+        "src:axions-abracadabra-prl-2019-first-results"
+      ],
+      "start": "2018",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "approximate",
+      "end": "2021-02",
+      "label": "broadband run and completion",
+      "note": "End approximated from the final axion-search paper's 2021-02-12 arXiv submission date; the MIT faculty page confirms the group has since moved on to a larger successor instrument, corroborating that the ABRACADABRA-10 cm axion search itself is complete (the same hardware was later reused for unrelated gravitational-wave-search papers, which are out of scope here).",
+      "quote": "demonstrated this technique with the ABRA-10cm experiment and is now working towards a larger and more sensitive experiment",
+      "sources": [
+        "src:axions-abracadabra-prl-2021-broadband",
+        "src:axions-abracadabra-mit-winslow-page"
+      ],
+      "start": null,
+      "status": "completed",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "ABRACADABRA-10 cm apparatus",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": "2021",
+      "note": "Start/end approximated from the first-result (2018-10-29) and final broadband-result (2021-02-12) arXiv submission dates; no fetched source gives exact installation/decommissioning dates.",
+      "quote": "we present the first results from a 1 month search for axions with ABRACADABRA-10 cm",
+      "role": "main",
+      "site_id": "site:mit-cambridge-campus",
+      "sources": [
+        "src:axions-abracadabra-prl-2019-first-results",
+        "src:axions-abracadabra-prl-2021-broadband"
+      ],
+      "start": "2018",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:axions-abracadabra-inspire-experiment",
+    "src:axions-abracadabra-prl-2019-first-results",
+    "src:axions-abracadabra-prl-2021-broadband"
+  ],
+  "specs": {},
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "ABRACADABRA-10 cm was a small prototype detector at MIT that looked for a tiny magnetic signal that dark-matter axions would produce inside a toroidal magnet. It finished its axion search around 2021.",
+    "technical": "Small-scale (10 cm) toroidal lumped-element / broadband-resonant axion haloscope prototype at MIT; completed its dedicated axion dark-matter search program around 2021 after a 1-month first run (2018) and a broadband final run."
+  },
+  "technology": {
+    "confidence": "verified",
+    "note": "No 'lumped-element' value exists in the ontology's technology_classes enum; recorded as 'other' (see worklog).",
+    "sources": [
+      "src:axions-abracadabra-inspire-experiment",
+      "src:axions-abracadabra-prl-2019-first-results"
+    ],
+    "value": "Lumped-element (broadband/resonant) toroidal magnetometer: a toroidal magnet with a SQUID-based pickup at its center senses the small oscillating magnetic field an axion dark-matter background would induce, rather than using a resonant microwave cavity.",
+    "verified_at": "2026-09-17"
+  },
+  "technology_class": "other",
+  "technology_classes": [
+    "other"
+  ],
+  "type": "detector"
+}

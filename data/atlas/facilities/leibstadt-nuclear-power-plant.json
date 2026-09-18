@@ -11,14 +11,30 @@
     "tier": "C"
   },
   "id": "facility:leibstadt-nuclear-power-plant",
-  "intervals": [],
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "reactor operation",
+      "locator": "Wikipedia infobox",
+      "note": "Commissioning date from Wikipedia's infobox/text; plant is operating as of verified_at.",
+      "quote": "Commission date: May 24, 1984",
+      "sources": [
+        "src:cevns-conus-leibstadt-wikipedia"
+      ],
+      "start": "1984-05-24",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    }
+  ],
   "kind": "reactor_site",
   "links": {
     "website": null
   },
   "name": "Leibstadt Nuclear Power Plant",
   "notes": [
-    "Created by the cevns workstream (ID_REGISTRY Wave 3) as the current host facility of CONUS+ (the CONUS experiment's setup, relocated from facility:brokdorf-nuclear-power-plant in 2023)."
+    "Created by the cevns workstream (ID_REGISTRY Wave 3) as the current host facility of CONUS+ (the CONUS experiment's setup, relocated from facility:brokdorf-nuclear-power-plant in 2023).",
+    "Reactor thermal power (3.6 GWth, per arXiv:2407.11912) is not recorded as a `specs` quantity: the only Appendix A power-dimension spec key is `beam_power`, whose A21 plausibility range (1 kW-10 MW) is built for accelerator beamlines and rejects a gigawatt-scale reactor core; the figure is given in prose in `summary.technical` instead."
   ],
   "operator": {
     "confidence": "uncertain",
@@ -37,23 +53,7 @@
     "src:cevns-conus-leibstadt-wikipedia",
     "src:cevns-conus-plus-overview-2024"
   ],
-  "specs": {
-    "beam_power": {
-      "approx": false,
-      "confidence": "verified",
-      "dimension": "power",
-      "display": "3.6 GWth",
-      "locator": "arXiv:2407.11912, abstract",
-      "note": "Reactor thermal power; beam_power is the closest Appendix A power-dimension spec key.",
-      "quote": "at a distance of 20.7 m from the 3.6 GW thermal power reactor core",
-      "sources": [
-        "src:cevns-conus-plus-overview-2024"
-      ],
-      "unit": "GW",
-      "value": 3.6,
-      "verified_at": "2026-09-17"
-    }
-  },
+  "specs": {},
   "status": "active",
   "summary": {
     "plain": "A Swiss nuclear power plant on the Rhine that has hosted the CONUS+ reactor-neutrino experiment since late 2023.",

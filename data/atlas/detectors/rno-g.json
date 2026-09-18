@@ -1,0 +1,55 @@
+{
+  "id": "detector:rno-g",
+  "type": "detector",
+  "name": "RNO-G stations",
+  "aliases": [],
+  "experiment_ids": ["experiment:rno-g"],
+  "parent_detector_id": null,
+  "placements": [
+    {"site_id": "site:summit-station-rno-g", "role": "main", "start": "2021-05-24", "end": null,
+     "sources": ["src:astro-neutrino-rno-g-geo-summit-rno-g-project-page"], "verified_at": "2026-09-17", "confidence": "verified",
+     "quote": "Fieldwork occurred in 2021 (May 24-August 19, with 13 personnel)", "note": ""}
+  ],
+  "technology": {
+    "value": "In-ice radio antenna stations: each with three strings of antennas ~100 m deep in the firn plus surface antennas, detecting the Askaryan radio pulse from neutrino-induced showers in ice",
+    "sources": ["src:astro-neutrino-rno-g-geo-summit-rno-g-project-page"], "verified_at": "2026-09-17", "confidence": "verified",
+    "quote": "array is a 1.25 km grid of stations with three strings of 15 antennas 100 m below the surface and 9 surface antennas", "note": ""
+  },
+  "technology_class": "radio",
+  "technology_classes": ["radio"],
+  "intervals": [
+    {"label": "first 7 stations built", "status": "construction", "start": "2021-05-24", "end": "2022-08-15",
+     "sources": ["src:astro-neutrino-rno-g-first-seven-stations-2024"], "verified_at": "2026-09-17", "confidence": "verified",
+     "quote": "with 7 stations deployed during the first two boreal summer field seasons of 2021 and 2022", "note": ""},
+    {"label": "deployment paused", "status": "construction", "start": "2023", "end": null,
+     "sources": ["src:astro-neutrino-rno-g-first-seven-stations-2024"], "verified_at": "2026-09-17", "confidence": "verified",
+     "quote": "RNO-G paused deployment in 2023 in order to evaluate the instrument performance and design aspects before pushing forward to complete the array.", "note": ""}
+  ],
+  "status": "construction",
+  "specs": {
+    "station_count": {"value": 7, "unit": "", "dimension": "count", "approx": false, "display": "7 stations built",
+      "sources": ["src:astro-neutrino-rno-g-first-seven-stations-2024"], "verified_at": "2026-09-17", "confidence": "verified",
+      "quote": "7 stations deployed during the first two boreal summer field seasons of 2021 and 2022", "note": ""},
+    "depth_max": {"value": 100, "unit": "m", "dimension": "length", "approx": false, "display": "~100 m",
+      "sources": ["src:astro-neutrino-rno-g-geo-summit-rno-g-project-page"], "verified_at": "2026-09-17", "confidence": "verified",
+      "quote": "three strings of 15 antennas 100 m below the surface", "note": "In-ice antenna string depth."}
+  },
+  "subsystems": [
+    {"name": "Deep strings", "description": {"value": "Three strings of 15 antennas per station, ~100 m below the surface",
+      "sources": ["src:astro-neutrino-rno-g-geo-summit-rno-g-project-page"], "verified_at": "2026-09-17", "confidence": "verified",
+      "quote": "three strings of 15 antennas 100 m below the surface", "note": ""}},
+    {"name": "Surface antennas", "description": {"value": "9 surface antennas per station",
+      "sources": ["src:astro-neutrino-rno-g-geo-summit-rno-g-project-page"], "verified_at": "2026-09-17", "confidence": "verified",
+      "quote": "9 surface antennas", "note": ""}}
+  ],
+  "document_ids": [],
+  "links": {"website": null},
+  "notes": [],
+  "summary": {
+    "plain": "Stations of buried and surface radio antennas, spaced more than a kilometre apart on the Greenland ice sheet, listening for the radio crackle of the highest-energy neutrinos.",
+    "technical": "RNO-G station design: 3 in-ice strings of 15 antennas each (~100 m depth) plus 9 surface antennas per station, on a 1.25 km grid; 7 stations built over the 2021-2022 field seasons, deployment paused in 2023 pending a performance/design review."
+  },
+  "coverage": {"researched": "partial", "tier": "B"},
+  "sources": ["src:astro-neutrino-rno-g-geo-summit-rno-g-project-page", "src:astro-neutrino-rno-g-first-seven-stations-2024"],
+  "schema": "hep-atlas/0.2"
+}

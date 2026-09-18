@@ -1,0 +1,95 @@
+{
+  "aliases": [
+    "DMRadio-m3",
+    "DMRadio-50L"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "document_ids": [],
+  "experiment_ids": [
+    "experiment:dmradio"
+  ],
+  "id": "detector:dmradio",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "under construction",
+      "note": "No fetched source gives an exact construction-start date. The 2022 status paper says the hardware 'is being built'; the 2026 cryogenic-system paper reports 'measured performance' of the built cryostat, showing construction/commissioning is well advanced by mid-2026.",
+      "quote": "This experiment is being built on the Stanford University campus.",
+      "sources": [
+        "src:axions-dmradio-status-2022",
+        "src:axions-dmradio-cryo-2026"
+      ],
+      "start": null,
+      "status": "construction",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "DMRadio apparatus (DMRadio-m3 / DMRadio-50L)",
+  "notes": [
+    "No placements[] entry recorded: facility:slac (and any Stanford-campus site) are owned by the facilities lead and not yet landed this wave; DMRadio-50L is explicitly described as being built on the Stanford University campus itself, distinct from the SLAC site, per the cited source."
+  ],
+  "parent_detector_id": null,
+  "placements": [],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:axions-dmradio-status-2022",
+    "src:axions-dmradio-cryo-2026"
+  ],
+  "specs": {
+    "magnetic_field_50l": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "magnetic_field",
+      "display": "1 T average field (toroidal, DMRadio-50L)",
+      "note": "",
+      "quote": "DMRadio-50L uses a 1 T average field toroidal magnet",
+      "sources": [
+        "src:axions-dmradio-status-2022"
+      ],
+      "unit": "T",
+      "value": 1,
+      "verified_at": "2026-09-17"
+    },
+    "magnetic_field_m3": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "magnetic_field",
+      "display": "4 T peak field (solenoidal, DMRadio-m3)",
+      "note": "",
+      "quote": "DMRadio-m3 consists of a higher frequency LC-oscillator in a 4 T peak field solenoidal magnet",
+      "sources": [
+        "src:axions-dmradio-status-2022"
+      ],
+      "unit": "T",
+      "value": 4,
+      "verified_at": "2026-09-17"
+    }
+  },
+  "status": "construction",
+  "subsystems": [],
+  "summary": {
+    "plain": "DMRadio is a family of experiments being built at Stanford and SLAC that use a magnet and a tuned electrical circuit, instead of a microwave cavity, to search for very light dark-matter axions.",
+    "technical": "Lumped-element LC-resonator axion haloscopes: DMRadio-50L (1 T toroidal magnet, 5 kHz-5 MHz) on the Stanford University campus and DMRadio-m3 (4 T solenoidal magnet, 30-200 MHz) at SLAC; under construction as of the sources fetched this session."
+  },
+  "technology": {
+    "confidence": "verified",
+    "note": "No 'lumped-element' value exists in the ontology's technology_classes enum; recorded as 'other' (see worklog).",
+    "sources": [
+      "src:axions-dmradio-status-2022"
+    ],
+    "value": "Lumped-element resonant LC-circuit axion dark-matter search: a toroidal (DMRadio-50L) or solenoidal (DMRadio-m3) magnet coupled to a high-Q LC oscillator and SQUID readout, sensitive to sub-microwave-frequency axion-induced currents rather than a resonant cavity.",
+    "verified_at": "2026-09-17"
+  },
+  "technology_class": "other",
+  "technology_classes": [
+    "other"
+  ],
+  "type": "detector"
+}

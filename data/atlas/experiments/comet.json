@@ -1,0 +1,144 @@
+{
+  "aliases": [
+    "COherent Muon to Electron Transition"
+  ],
+  "collaboration_ids": [
+    "collaboration:comet"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "energy_regime": "",
+  "external": {
+    "greybook": null,
+    "inspire_experiment": 1108246,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "facility_id": "facility:j-parc",
+      "note": "",
+      "quote": "part of J-PARC's 50 GeV Proton Synchrotron",
+      "role": "host",
+      "sources": [
+        "src:muons-jparc-hadron-facility-page"
+      ],
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "id": "experiment:comet",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "Phase-I construction",
+      "note": "No single fetched source gives an explicit dated 'construction started on <date>' statement; status is inferred from the 2018/2020 Phase-I TDR describing the design and the collaboration's own site showing ongoing collaboration-meeting activity as recently as July 2026 (CM48), with no data-taking or commissioning-complete statement found. Start left unknown rather than guessed.",
+      "quote": "COMET CM48 in 27/Jul.-31/Jul. 2026 at J-PARC.",
+      "sources": [
+        "src:muons-arxiv-1812-09018",
+        "src:muons-comet-official-site"
+      ],
+      "start": null,
+      "status": "construction",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Phase-I sensitivity goal (90% C.L. upper limit)",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "fraction",
+        "display": "7x10^-15 (90% C.L.); design sensitivity 3.1x10^-15",
+        "note": "The TDR states both a design sensitivity (3.1x10^-15) and the corresponding 90% C.L. upper limit if no signal is seen (7x10^-15); the upper-limit figure is recorded as the primary quantity with the design sensitivity in the note, both from the same quote.",
+        "quote": "The experimental sensitivity goal for this process in the Phase-I experiment is 3.1x10^-15, or 90 % upper limit of branching ratio of 7x10^-15, which is a factor of 100 improvement over the existing limit.",
+        "sources": [
+          "src:muons-arxiv-1812-09018"
+        ],
+        "unit": "",
+        "value": 7e-15,
+        "verified_at": "2026-09-17"
+      }
+    },
+    {
+      "label": "Phase-I proton beam power",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "power",
+        "note": "",
+        "quote": "the 3.2 kW 8 GeV proton beam from J-PARC will be used.",
+        "sources": [
+          "src:muons-arxiv-1812-09018"
+        ],
+        "unit": "kW",
+        "value": 3.2,
+        "verified_at": "2026-09-17"
+      }
+    }
+  ],
+  "kind": "muon_precision",
+  "lineage": [],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "note": "",
+      "sources": [
+        "src:muons-comet-official-site"
+      ],
+      "value": "https://comet.kek.jp/",
+      "verified_at": "2026-09-17"
+    }
+  },
+  "name": "COMET",
+  "notes": [
+    "No physics results exist yet; the fetched TDR and official site describe an ongoing, staged construction/commissioning programme (most recent dated activity found: a collaboration meeting, CM48, in July 2026) with no data-taking or first-result statement. Stated explicitly rather than left to silence.",
+    "site:j-parc-hadron-hall was created by this workstream ('muons' owns it per the Wave-3 ID registry) specifically so the 'fixed-target' workstream can reference it for KOTO; its coordinate is a coarse, campus-level geocoder approximation (see the site record's own notes) and should be treated as such by any downstream reference.",
+    "external.inspire_experiment (1108246) is sourced from https://inspirehep.net/api/experiments?q=comet, confirmed at https://inspirehep.net/experiments/1108246."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "note": "",
+      "quote": "COMET is an experiment at J-PARC, Japan, which will search for neutrinoless conversion of muons into electrons in the field of an aluminium nucleus (mu-e conversion, mu- N -> e- N); a lepton flavor violating process.",
+      "sources": [
+        "src:muons-arxiv-1812-09018"
+      ],
+      "value": "Search for neutrinoless muon-to-electron conversion in the field of an aluminium nucleus (mu- N -> e- N), a charged-lepton-flavor-violating process, in a staged Phase-I then Phase-II programme",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:muons-inspire-experiment-comet",
+    "src:muons-arxiv-1812-09018",
+    "src:muons-comet-official-site",
+    "src:muons-jparc-hadron-facility-page"
+  ],
+  "status": "construction",
+  "summary": {
+    "plain": "An experiment being built at the J-PARC laboratory in Japan to look for a muon turning directly into an electron near an aluminium atom -- a process the Standard Model forbids. It is being built in stages, starting with a smaller first phase.",
+    "technical": "COMET (J-PARC Hadron Experimental Facility): stages a search for mu- N -> e- N conversion, using curved-solenoid muon transport from an 8 GeV, 3.2 kW proton beam off the J-PARC Main Ring. Phase-I targets a 90% C.L. branching-ratio upper limit of 7x10^-15 (design sensitivity 3.1x10^-15) using CyDet, a factor of 100 improvement over the previous (SINDRUM II) limit; StrECAL measures background in view of Phase-II. Collaboration: more than 290 researchers from 48 institutes. No physics result has been produced yet as of the sources fetched this session."
+  },
+  "topic_ids": [
+    "topic:lepton-flavor-violation",
+    "topic:muon-precision-physics"
+  ],
+  "type": "experiment",
+  "unique_capabilities": [
+    {
+      "confidence": "verified",
+      "note": "",
+      "quote": "Two types of detectors, CyDet and StrECAL, will be used for detecting the mu-e conversion events, and for measuring the beam-related background events in view of the Phase-II experiment, respectively.",
+      "sources": [
+        "src:muons-arxiv-1812-09018"
+      ],
+      "value": "Uses a curved-solenoid pion/muon transport system (to select low-momentum muons and suppress backgrounds) feeding cylindrical or straw-tube/electromagnetic-calorimeter detector systems (CyDet for Phase-I; StrECAL for background measurement toward Phase-II)",
+      "verified_at": "2026-09-17"
+    }
+  ]
+}

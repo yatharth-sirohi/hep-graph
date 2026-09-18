@@ -1,0 +1,212 @@
+{
+  "accelerator_ids": [],
+  "aliases": [
+    "Dark Matter In CCDs"
+  ],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:damic"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "energy_regime": {
+    "confidence": "verified",
+    "note": "",
+    "quote": "the strongest constraints from a silicon target on the existence of WIMPs with m_chi<9 GeV/c^2",
+    "sources": [
+      "src:damic-11kgday-2020-arxiv"
+    ],
+    "value": "WIMPs of a few GeV/c^2 (silicon target); low-energy ionization excess near 100 eV under continued study",
+    "verified_at": "2026-09-17"
+  },
+  "external": {
+    "greybook": null,
+    "inspire_experiment": 1401315,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "approximate",
+      "end": "2012-04",
+      "facility_id": "facility:fermilab",
+      "locator": "INSPIRE experiment record 1108203 (FNAL-T-0987), fields date_approved / date_completed",
+      "note": "Original shallow-depth Fermilab prototype phase, before the SNOLAB deployment; year/month precision from the INSPIRE registry only.",
+      "role": "prototype_host",
+      "sources": [
+        "src:damic-inspire-experiment-original"
+      ],
+      "start": "2008-12",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:snolab",
+      "locator": "arXiv:2007.15622, abstract",
+      "note": "",
+      "quote": "an 11 kg-day target exposure of the DAMIC experiment at the SNOLAB underground laboratory",
+      "role": "host",
+      "sources": [
+        "src:damic-11kgday-2020-arxiv"
+      ],
+      "start": "2017",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "id": "experiment:damic",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2012-04",
+      "label": "Fermilab prototype",
+      "locator": "INSPIRE experiment record 1108203, fields date_approved (2008-12-15) / date_completed (2012-04-09)",
+      "note": "Recorded as non-terminal `active` (not `completed`) because the same experiment id continues below at SNOLAB; A3 forbids a non-terminal interval after a terminal one on one entity. Original CCD prototype run, precision from the INSPIRE registry only.",
+      "sources": [
+        "src:damic-inspire-experiment-original"
+      ],
+      "start": "2008-12",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": "2018",
+      "label": "SNOLAB science run (thick CCDs)",
+      "locator": "arXiv:2007.15622 (ar5iv)",
+      "note": "",
+      "quote": "Throughout 2017-2018, DAMIC acquired data for its dark matter search",
+      "sources": [
+        "src:damic-11kgday-2020-arxiv"
+      ],
+      "start": "2017",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "SNOLAB science run (skipper CCDs)",
+      "locator": "INSPIRE literature record 2752302 (2024-01), abstract",
+      "note": "Open-ended per the sources found; no source fetched this session states an explicit end date or completion of DAMIC. The wave-3 brief describes DAMIC as 'completed' (superseded by DAMIC-M); that claim is NOT independently sourced this session, so this interval is left open (status active) rather than asserting a completion date, per A17 and the instruction to under-claim rather than over-claim. Flagged for review.",
+      "quote": "two 24-megapixel skipper charge-coupled devices (CCDs) deployed in the DAMIC setup at SNOLAB",
+      "sources": [
+        "src:damic-skipper-excess-2023-arxiv",
+        "src:damic-inspire-literature-2024-excess"
+      ],
+      "start": "2022",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "CCD tower (2017-2018 run)",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "mass",
+        "display": "7 x 16-Mpixel CCDs, 6.0 g each (~42 g total)",
+        "locator": "arXiv:2007.15622 (ar5iv)",
+        "note": "",
+        "quote": "a tower of seven 16-megapixel CCDs (6.0 g each)",
+        "sources": [
+          "src:damic-11kgday-2020-arxiv"
+        ],
+        "unit": "g",
+        "value": 42,
+        "verified_at": "2026-09-17"
+      }
+    },
+    {
+      "label": "Target exposure (2017-2018 run)",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "exposure",
+        "display": "11 kg d",
+        "locator": "arXiv:2007.15622, abstract",
+        "note": "",
+        "quote": "an 11 kg-day target exposure of the DAMIC experiment at the SNOLAB underground laboratory",
+        "sources": [
+          "src:damic-11kgday-2020-arxiv"
+        ],
+        "unit": "kg d",
+        "value": 11,
+        "verified_at": "2026-09-17"
+      }
+    }
+  ],
+  "kind": "direct_dark_matter",
+  "lineage": [
+    {
+      "confidence": "verified",
+      "experiment_id": "experiment:damic-m",
+      "note": "DAMIC-M's own status paper identifies itself as the follow-on programme using the DAMIC name and skipper-CCD technology at a new site (Modane); no source explicitly uses the word 'predecessor', so this relation is inferred from the shared name and collaboration continuity described in that paper, flagged confidence verified only for the site/technology facts quoted, not for the lineage label itself.",
+      "quote": "A prototype with 20g of low-background skipper CCDs was installed at Laboratoire Souterrain de Modane",
+      "relation": "predecessor",
+      "sources": [
+        "src:damic-m-status-2022-arxiv"
+      ],
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "links": {
+    "website": {
+      "confidence": "uncertain",
+      "note": "URL from the INSPIRE record; the page itself returned HTTP 404 when fetched directly on 2026-09-17.",
+      "sources": [
+        "src:damic-inspire-experiment-snolab"
+      ],
+      "value": "https://www.snolab.ca/science/experiments/damic",
+      "verified_at": "2026-09-17"
+    }
+  },
+  "name": "DAMIC",
+  "notes": [
+    "Two INSPIRE experiment records exist: the original Fermilab prototype (recid 1108203, FNAL-T-0987, approved 2008-12-15, completed 2012-04-09) and the current SNOLAB programme (recid 1401315). Both are represented as one experiment:damic record with dated intervals, per the same reasoning used for CDMS-II/SuperCDMS. external.inspire_experiment cites the current (SNOLAB) recid.",
+    "Status is recorded as `active`, not `completed`: the wave-3 brief describes DAMIC as completed (superseded by DAMIC-M), but no source fetched this session states an end date or an explicit cessation of DAMIC operations - the most recent DAMIC-specific paper found (INSPIRE literature 2752302, 2024-01) describes an active skipper-CCD run. This is flagged as an open item in the worklog rather than asserting the brief's claim without a citation (A17)."
+  ],
+  "physics_goals": {
+    "confidence": "verified",
+    "note": "",
+    "quote": "our data exclude spin-independent WIMP-nucleon scattering cross sections as low as 3x10^-41 cm^2 for WIMPs with masses from 7 to 10 GeV/c^2",
+    "sources": [
+      "src:damic-11kgday-2020-arxiv"
+    ],
+    "value": [
+      "Search for WIMP and light dark matter via ionization signals in silicon CCDs"
+    ],
+    "verified_at": "2026-09-17"
+  },
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:damic-inspire-experiment-snolab",
+    "src:damic-inspire-experiment-original",
+    "src:damic-11kgday-2020-arxiv"
+  ],
+  "status": "active",
+  "summary": {
+    "plain": "DAMIC searches for dark matter using the same kind of light-sensing chips found in digital cameras, cooled and shielded deep underground at SNOLAB in Canada. It started at Fermilab and moved to SNOLAB, later gaining even more sensitive 'skipper' chips.",
+    "technical": "Silicon CCD dark matter search; began as a shallow Fermilab prototype (2008-2012), then operated a tower of seven 16-Mpixel CCDs (~42 g, 11 kg-day exposure) at SNOLAB in 2017-2018, and later two 24-Mpixel skipper CCDs investigating a low-energy ionization excess through at least January 2024. Superseded in name by DAMIC-M at Modane, though no source fetched this session states DAMIC's own operations have formally ended."
+  },
+  "topic_ids": [
+    "topic:dark-matter",
+    "topic:direct-dark-matter-detection"
+  ],
+  "type": "experiment",
+  "unique_capabilities": {
+    "confidence": "verified",
+    "note": "",
+    "quote": "two silicon charge-coupled devices (CCDs), each with 24 megapixels and skipper readout, deployed in the DAMIC setup at SNOLAB",
+    "sources": [
+      "src:damic-skipper-excess-2023-arxiv"
+    ],
+    "value": [
+      "Thick, fully-depleted scientific CCDs with very low dark current, later upgraded to skipper-readout CCDs for single-electron sensitivity"
+    ],
+    "verified_at": "2026-09-17"
+  }
+}

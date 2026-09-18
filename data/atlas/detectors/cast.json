@@ -1,0 +1,76 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "document_ids": [],
+  "experiment_ids": [
+    "experiment:cast"
+  ],
+  "id": "detector:cast",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2022-12-31",
+      "label": "data taking",
+      "locator": "INSPIRE experiment record 1110249, fields date_started / date_completed",
+      "note": "Precise day-level dates from the INSPIRE experiment record's date_started/date_completed fields; the CERN Greybook mirrors this data.",
+      "sources": [
+        "src:axions-cast-inspire-experiment"
+      ],
+      "start": "2003-06-18",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "CAST detector",
+  "notes": [
+    "No numeric magnet field-strength or length value was found with a clean verbatim quote in a source fetched this session; left out of specs rather than guessed."
+  ],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": "2022-12-31",
+      "locator": "INSPIRE experiment record 1110249, fields date_started / date_completed",
+      "note": "Start/end from the INSPIRE experiment record's date_started/date_completed fields.",
+      "role": "main",
+      "site_id": "site:cern-cast-sr8",
+      "sources": [
+        "src:axions-cast-inspire-experiment"
+      ],
+      "start": "2003-06-18",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:axions-cern-home-cast",
+    "src:axions-cast-inspire-experiment"
+  ],
+  "specs": {},
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "The CAST detector reused a retired magnet originally built for the Large Hadron Collider, pointed it at the Sun, and looked for the faint X-rays that would appear if hypothetical axion particles convert into light inside the magnet.",
+    "technical": "Straight, twin-bore prototype LHC dipole magnet (formerly LEP DELPHI cryogenics) tracking the Sun, coupled to X-ray optics and detectors for the axion helioscope technique; data-taking 2003-06-18 to 2022-12-31."
+  },
+  "technology": {
+    "confidence": "verified",
+    "note": "No 'helioscope' value exists in the ontology's technology_classes enum; recorded as 'other' with this technology description (see worklog).",
+    "sources": [
+      "src:axions-cern-home-cast"
+    ],
+    "value": "Axion helioscope: a decommissioned LHC prototype superconducting dipole magnet, pointed at the Sun, with its hollow beam-pipe bores acting as viewing tubes for X-ray optics and X-ray detectors that look for photons produced by solar axions converting in the magnetic field.",
+    "verified_at": "2026-09-17"
+  },
+  "technology_class": "other",
+  "technology_classes": [
+    "other"
+  ],
+  "type": "detector"
+}

@@ -1,0 +1,91 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "experiment_ids": [
+    "experiment:mu2e"
+  ],
+  "id": "detector:mu2e",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "construction and subsystem installation",
+      "note": "Ongoing as of the most recent fetched status report (2026-07).",
+      "quote": "The experiment received DOE CD-3 approval for construction in June 2016 and construction activities have begun.",
+      "sources": [
+        "src:muons-inspire-experiment-mu2e",
+        "src:muons-inspire-lit-mu2e-status-2026"
+      ],
+      "start": "2016-06",
+      "status": "construction",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "Mu2e detector",
+  "notes": [
+    "technology_classes uses 'spectrometer': the detector's function (momentum/energy analysis of a mono-energetic conversion electron via tracker + calorimeter behind a solenoidal magnet chain) is closer to a spectrometer than to any of the other listed classes (none of which name a solenoidal charged-lepton spectrometer specifically)."
+  ],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "note": "",
+      "role": "main",
+      "site_id": "site:fermilab-mu2e-hall",
+      "sources": [
+        "src:muons-inspire-lit-mu2e-status-2026"
+      ],
+      "start": null,
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:muons-inspire-experiment-mu2e",
+    "src:muons-inspire-lit-mu2e-status-2022",
+    "src:muons-inspire-lit-mu2e-status-2026",
+    "src:muons-arxiv-1501-05241"
+  ],
+  "specs": {
+    "length": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "length",
+      "note": "",
+      "quote": "the design and realization of a unique 25 m long superconducting solenoidal system.",
+      "sources": [
+        "src:muons-inspire-lit-mu2e-status-2026"
+      ],
+      "unit": "m",
+      "value": 25,
+      "verified_at": "2026-09-17"
+    }
+  },
+  "status": "construction",
+  "subsystems": [],
+  "summary": {
+    "plain": "A 25-metre chain of giant superconducting magnets at Fermilab, with a tracker and a fast crystal detector at the end, built to catch the single electron that would appear if a muon ever turned into one.",
+    "technical": "Production, transport and detector superconducting solenoids (25 m combined length) with a straw-tube tracker and fast CsI crystal calorimeter behind the stopping target, plus a cosmic ray veto system covering the solenoids, per the Mu2e TDR and subsequent status reports. Under construction; no data yet."
+  },
+  "technology": {
+    "confidence": "verified",
+    "note": "",
+    "quote": "The system comprises production, transport, and detector solenoids, with downstream straw tracker and crystal calorimeter.",
+    "sources": [
+      "src:muons-inspire-lit-mu2e-status-2026"
+    ],
+    "value": "A 25-metre chain of three superconducting solenoids (production, transport, detector) feeding a straw-tube tracker and a fast CsI crystal calorimeter, surrounded by a cosmic-ray veto",
+    "verified_at": "2026-09-17"
+  },
+  "technology_classes": [
+    "spectrometer"
+  ],
+  "type": "detector"
+}

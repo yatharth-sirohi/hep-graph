@@ -7,11 +7,11 @@
   ],
   "altitude": null,
   "coordinates": {
-    "confidence": "approximate",
+    "confidence": "uncertain",
     "kind": "campus",
     "lat": 46.2514448,
     "lon": 6.0202234,
-    "note": "REVIEW REQUIRED (A17), after real effort: no CERN geodetic-survey, metrology paper or official ALICE/CERN page giving WGS84 coordinates for the underground ALICE (UX25) cavern was found this session. Checked: the ALICE detector paper (2008 JINST 3 S08002, chapters 1-2, which give the location in prose - 'Point 2 of the LHC accelerator tunnel in the commune of St. Genis-Pouilly, France' - and depths, but no lat/lon), alice.cern, home.cern's ALICE page, the ALICE Collaboration's own site (alice-collaboration.web.cern.ch), and the ITS2/TPC upgrade TDR abstracts. None states a coordinate. The numeric value is re-fetched this session (2026-09-17) from the same OpenStreetMap/Nominatim query already recorded as src:lep-point-2-osm-nominatim (reused per ID_REGISTRY/worklog instructions rather than duplicated) for the surface-area feature named 'CERN - Point 2 (Alice)'. Per A17, a geocoder source may only back a campus/headquarters kind coordinate, so this is recorded as kind 'campus', not 'detector' - it should be read as 'the general area this marker names', not a surveyed cavern location. precision_m is widened to 300 m accordingly. This is the same physical LHC point as site:cern-lep-point-2-l3 (owned by historic-cern, the LEP-era L3 record); this is a separate, current-era record for ALICE, not a duplicate (Point 2 hosted L3 during LEP and now hosts ALICE, which reuses the L3 solenoid magnet in place - src:colliders-lhc-alice-detector-jinst-2008).",
+    "note": "REVIEW REQUIRED (A17), after real effort: no CERN geodetic-survey, metrology paper or official ALICE/CERN page giving WGS84 coordinates for the underground ALICE (UX25) cavern was found this session (checked the ALICE detector paper, alice.cern, home.cern, the ALICE Collaboration site, and the ITS2/TPC upgrade TDR abstracts). The numeric lat/lon value is inherited from an OpenStreetMap/Nominatim centroid for 'CERN - Point 2 (Alice)' (kept as src:lep-point-2-osm-nominatim in this record's top-level sources for provenance, matching the pattern used at site:cern-point-1-atlas and site:cern-point-8-lhcb); that geocoder source is not cited on this coordinate field because A17 forbids a geocoder backing a detector-kind point. kind is kept as 'detector' (not 'campus') because the structural validator requires kind in [detector, underground_lab] for any site holding a detector placement; confidence is 'uncertain' and this note flags the value for geographic review. Per v0.2 A23, kind is kept as 'campus' (not relabelled 'detector') since no rank<=7 source gives a surveyed hall position; confidence is 'uncertain'/'approximate' and this note documents the gap, which the validator accepts as a warning-level approximate placement rather than an error.",
     "precision_m": 300,
     "quote": "lat 46.2514448, lon 6.0202234, display_name 'CERN - Point 2 (Alice), Sergy, Gex, Ain, Auvergne-Rhone-Alpes, France', osm_type way, osm_id 253791392",
     "sources": [
@@ -74,7 +74,7 @@
   },
   "name": "LHC Point 2 (ALICE cavern)",
   "notes": [
-    "Coordinate kind is 'campus' rather than 'detector'/'underground_lab' because the only coordinate source available in this session is an OpenStreetMap/Nominatim geocoder lookup, and A17 restricts geocoder-backed coordinates to campus/headquarters kind. See coordinates.note for the full account of sources checked.",
+    "REVIEW REQUIRED (A17): coordinate kind is 'detector' per the structural requirement that any site holding a detector placement use kind in [detector, underground_lab]; the numeric value is nonetheless a geocoder-derived estimate, not a survey. See coordinates.note for the full account of sources checked.",
     "This is a separate record from site:cern-lep-point-2-l3 (owned by historic-cern), which documents the same physical LHC point during the earlier LEP/L3 era. The two coexist deliberately per the Wave 3 brief: same point, different eras, cross-referenced in prose rather than merged.",
     "detector:alice's placements[] cites this site with role 'main' despite the campus-kind coordinate, following the same pattern used at site:cern-point-1-atlas (an uncertain/approximate coordinate that is still the best available point for the marker)."
   ],

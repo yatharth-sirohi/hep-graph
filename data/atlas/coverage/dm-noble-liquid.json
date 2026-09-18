@@ -1,92 +1,117 @@
 [
   {
     "category": "direct_dark_matter",
+    "entity_id": "experiment:xenonnt",
+    "experiment_id": "experiment:xenonnt",
+    "facility": "LNGS",
+    "missing_fields": [
+      "exact SR0/SR1 run-boundary dates (only the INSPIRE date_started and result-paper exposures are sourced)",
+      "official xenonexperiment.org result-page URL for the 2023 result (constructed from a search-listing slug, not independently re-fetched; arXiv is the verified citation)",
+      "institution-level membership roster (aggregate scientist/institution/country counts only)",
+      "leadership (no person: records created this wave)"
+    ],
+    "name": "XENONnT",
+    "notes": "Flagship: full depth. LNGS Hall B placement, 8.5 t total / 5.9 t active liquid xenon per the instrument paper (quoted), intervals from construction (2018-12) through open science operations (2021-07-06), 2 major results with verbatim collaboration wording (2023 WIMP limit; 2024 solar 8B CEvNS indication, deliberately NOT upgraded to \"evidence\"/\"observation\"), and the instrument paper as a document: record.",
+    "owner": "dm-noble-liquid",
+    "priority": 1,
+    "researched": "full",
+    "tier": "A"
+  },
+  {
+    "category": "direct_dark_matter",
+    "entity_id": "experiment:xenon1t",
+    "experiment_id": "experiment:xenon1t",
+    "facility": "LNGS",
+    "missing_fields": [
+      "documents (detector paper is cited as a source but no document: record was written; non-flagship, so not required)",
+      "institution-level membership roster",
+      "leadership",
+      "precise run boundaries beyond the first-results run (Nov 2016 - Jan 2017)"
+    ],
+    "name": "XENON1T",
+    "notes": "Mandatory bar met: intervals (installation/construction 2014-2015, active 2015-2018, completed 2018-12), facility_roles, key_specs (3.2 t total / 2.0 t active, quoted), external.inspire_experiment (1386519), lineage held on xenonnt (predecessor/upgrade_of), and one result (the 2020 electronic-recoil excess, recorded honestly as result_type \"anomaly\", never \"discovery\" or \"observation\").",
+    "owner": "dm-noble-liquid",
+    "priority": 2,
+    "researched": "partial",
+    "tier": "B"
+  },
+  {
+    "category": "direct_dark_matter",
     "entity_id": "experiment:darkside-20k",
     "experiment_id": "experiment:darkside-20k",
-    "facility": "LNGS / SNOLAB / CJPL / Modane / SURF",
+    "facility": "LNGS Hall C",
     "missing_fields": [
-      "all"
+      "exact construction-start date (anchored to 2024, when a source first confirms construction was under way, not a true start date)",
+      "resolved data-taking start date (arXiv:2402.07566 says \"late 2026\"; the LNGS facility page says \"2027\" -- both recorded, not reconciled)",
+      "collaboration membership counts",
+      "results",
+      "documents"
     ],
     "name": "DarkSide-20k",
-    "notes": "Identified in the coverage scope; not yet researched.",
+    "notes": "Mandatory bar met; construction status confirmed directly from the LNGS facility page (\"currently under construction\") and the collaboration's own JINST proceedings paper. Site placement is a dangling reference to site:lngs-hall-c.",
     "owner": "dm-noble-liquid",
     "priority": 3,
-    "researched": "none",
+    "researched": "partial",
     "tier": "B"
   },
   {
     "category": "direct_dark_matter",
     "entity_id": "experiment:darkside-50",
     "experiment_id": "experiment:darkside-50",
-    "facility": "LNGS / SNOLAB / CJPL / Modane / SURF",
+    "facility": "LNGS Hall C",
     "missing_fields": [
-      "all"
+      "external.inspire_experiment (no INSPIRE experiments-collection record exists for DarkSide-50; confirmed by an empty API query result, noted on the record)",
+      "exact end-of-operations date (sources give only years: LNGS facility page says \"2013 to 2020\")",
+      "collaboration membership counts",
+      "results",
+      "documents"
     ],
     "name": "DarkSide-50",
-    "notes": "Identified in the coverage scope; not yet researched.",
+    "notes": "Mandatory bar met; completed status. Site placement is a dangling reference to site:lngs-hall-c (owned by \"facilities\", not yet created). Kept both the nominal 50 kg active mass and the first-results paper's measured 46.4+-0.7 kg as separate key_specs rather than merging them.",
     "owner": "dm-noble-liquid",
     "priority": 3,
-    "researched": "none",
+    "researched": "partial",
     "tier": "B"
   },
   {
     "category": "direct_dark_matter",
     "entity_id": "experiment:deap-3600",
     "experiment_id": "experiment:deap-3600",
-    "facility": "LNGS / SNOLAB / CJPL / Modane / SURF",
+    "facility": "SNOLAB",
     "missing_fields": [
-      "all"
+      "formation (collaboration founding date)",
+      "leadership",
+      "membership roster (institution-level)",
+      "documents",
+      "results",
+      "precise start date of the current \"upgrade\" phase (anchored to 2026-09, when the status was confirmed, not a true start date)",
+      "proposal/approval dates (INSPIRE record has no date fields)"
     ],
     "name": "DEAP-3600",
-    "notes": "Identified in the coverage scope; not yet researched.",
+    "notes": "Mandatory bar met; researched by a delegated child and re-verified by the lead (detector-paper specs and SNOLAB status page re-fetched independently and matched exactly). Current status \"upgrade\" per SNOLAB's own page (\"Upgrading\"), not assumed to still be \"active\". Site placement is a dangling reference to site:snolab-underground-lab.",
     "owner": "dm-noble-liquid",
     "priority": 3,
-    "researched": "none",
+    "researched": "partial",
     "tier": "B"
   },
   {
     "category": "direct_dark_matter",
     "entity_id": "experiment:pandax-4t",
     "experiment_id": "experiment:pandax-4t",
-    "facility": "LNGS / SNOLAB / CJPL / Modane / SURF",
+    "facility": "CJPL-II (China Jinping Underground Laboratory)",
     "missing_fields": [
-      "all"
+      "detector specs.phase (dual-phase/single-phase): no source fetched this session uses either word for PandaX-4T specifically, so left null rather than assumed",
+      "PandaX-4T-specific INSPIRE experiment record (only the generic umbrella \"PandaX\" record, recid 1221671, was found)",
+      "collaboration membership counts (institutions named on the official site but no aggregate count given)",
+      "formation date",
+      "results",
+      "documents"
     ],
     "name": "PandaX-4T",
-    "notes": "Identified in the coverage scope; not yet researched.",
+    "notes": "Mandatory bar met. Site placement is a dangling reference to site:cjpl-ii (owned by the \"facilities\" workstream, not yet created). Two distinct mass figures kept separate rather than conflated: 6 t total / 4 t sensitive target (design, official site) vs. 3.7 t target mass used in the 2021 commissioning-run analysis (paper).",
     "owner": "dm-noble-liquid",
     "priority": 3,
-    "researched": "none",
-    "tier": "B"
-  },
-  {
-    "category": "direct_dark_matter",
-    "entity_id": "experiment:xenon1t",
-    "experiment_id": "experiment:xenon1t",
-    "facility": "LNGS / SNOLAB / CJPL / Modane / SURF",
-    "missing_fields": [
-      "all"
-    ],
-    "name": "XENON1T",
-    "notes": "Identified in the coverage scope; not yet researched.",
-    "owner": "dm-noble-liquid",
-    "priority": 3,
-    "researched": "none",
-    "tier": "B"
-  },
-  {
-    "category": "direct_dark_matter",
-    "entity_id": "experiment:xenonnt",
-    "experiment_id": "experiment:xenonnt",
-    "facility": "LNGS / SNOLAB / CJPL / Modane / SURF",
-    "missing_fields": [
-      "all"
-    ],
-    "name": "XENONnT",
-    "notes": "Identified in the coverage scope; not yet researched.",
-    "owner": "dm-noble-liquid",
-    "priority": 3,
-    "researched": "none",
+    "researched": "partial",
     "tier": "B"
   }
 ]

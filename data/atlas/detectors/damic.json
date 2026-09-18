@@ -1,0 +1,150 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "experiment_ids": [
+    "experiment:damic"
+  ],
+  "id": "detector:damic",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2018",
+      "label": "SNOLAB thick-CCD run",
+      "note": "",
+      "sources": [
+        "src:damic-11kgday-2020-arxiv"
+      ],
+      "start": "2017",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "SNOLAB skipper-CCD run",
+      "locator": "INSPIRE literature record 2752302 (2024-01), abstract",
+      "note": "Open-ended: no source fetched this session states an end date for DAMIC operations; last confirmed activity is this January 2024 record. See experiment:damic notes on status.",
+      "quote": "two 24-megapixel skipper charge-coupled devices (CCDs) deployed in the DAMIC setup at SNOLAB",
+      "sources": [
+        "src:damic-skipper-excess-2023-arxiv",
+        "src:damic-inspire-literature-2024-excess"
+      ],
+      "start": "2022",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "DAMIC CCD array",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": "2012-04",
+      "locator": "INSPIRE experiment record 1108203",
+      "note": "Original shallow-depth Fermilab prototype; precise coordinate not sourced, existing campus-precision site reused.",
+      "role": "prototype",
+      "site_id": "site:fermilab-main-campus",
+      "sources": [
+        "src:damic-inspire-experiment-original"
+      ],
+      "start": "2008-12",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "locator": "arXiv:2007.15622, abstract",
+      "note": "",
+      "quote": "an 11 kg-day target exposure of the DAMIC experiment at the SNOLAB underground laboratory",
+      "role": "main",
+      "site_id": "site:snolab-underground-lab",
+      "sources": [
+        "src:damic-11kgday-2020-arxiv"
+      ],
+      "start": "2017",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:damic-11kgday-2020-arxiv",
+    "src:damic-skipper-excess-2023-arxiv"
+  ],
+  "specs": {
+    "ccd_count": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "count",
+      "display": "7",
+      "locator": "arXiv:2007.15622 (ar5iv)",
+      "note": "2017-2018 configuration; the 2022-2024 skipper-CCD run used two 24-megapixel CCDs per src:damic-skipper-excess-2023-arxiv.",
+      "quote": "a tower of seven 16-megapixel CCDs (6.0 g each)",
+      "sources": [
+        "src:damic-11kgday-2020-arxiv"
+      ],
+      "unit": "",
+      "value": 7,
+      "verified_at": "2026-09-17"
+    },
+    "ccd_mass": {
+      "approx": true,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "~42 g (7 x 6.0 g CCDs)",
+      "locator": "arXiv:2007.15622 (ar5iv)",
+      "note": "",
+      "quote": "a tower of seven 16-megapixel CCDs (6.0 g each)",
+      "sources": [
+        "src:damic-11kgday-2020-arxiv"
+      ],
+      "unit": "g",
+      "value": 42,
+      "verified_at": "2026-09-17"
+    },
+    "exposure": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "exposure",
+      "display": "11 kg d",
+      "locator": "arXiv:2007.15622, abstract",
+      "note": "",
+      "quote": "an 11 kg-day target exposure",
+      "sources": [
+        "src:damic-11kgday-2020-arxiv"
+      ],
+      "unit": "kg d",
+      "value": 11,
+      "verified_at": "2026-09-17"
+    }
+  },
+  "status": "active",
+  "subsystems": [],
+  "summary": {
+    "plain": "A stack of camera-sensor-like silicon chips, cooled and shielded two kilometres underground at SNOLAB, watching for the faint trace of a dark matter particle bumping into a silicon atom.",
+    "technical": "CCD array: seven 16-Mpixel CCDs (6.0 g each, ~42 g total) in the 2017-2018 SNOLAB run (11 kg-day exposure); later replaced/supplemented by two 24-Mpixel skipper CCDs for a low-energy-threshold run through at least January 2024."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "arXiv:2007.15622 (ar5iv)",
+    "note": "",
+    "quote": "a tower of seven 16-megapixel CCDs (6.0 g each)",
+    "sources": [
+      "src:damic-11kgday-2020-arxiv",
+      "src:damic-skipper-excess-2023-arxiv"
+    ],
+    "value": "Thick, fully-depleted scientific CCDs for ionization detection, later supplemented with skipper-readout CCDs for single-electron sensitivity",
+    "verified_at": "2026-09-17"
+  },
+  "technology_class": "other",
+  "technology_classes": [
+    "other"
+  ],
+  "type": "detector"
+}

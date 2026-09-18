@@ -1,0 +1,107 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "experiment_ids": [
+    "experiment:cuore"
+  ],
+  "id": "detector:cuore",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "operating",
+      "locator": "LBL news center article, 2025-11",
+      "note": "",
+      "quote": "CUORE began operating in 2017 and has been taking data steadily since 2019",
+      "sources": [
+        "src:cuore-lbl-newscenter-2025"
+      ],
+      "start": "2017",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "CUORE detector",
+  "notes": [
+    "Placed at site:lngs-hall-a (dangling reference: owned by the 'facilities' lead, not yet created)."
+  ],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "locator": "LBL news center article, 2025-11",
+      "note": "site:lngs-hall-a is owned by the 'facilities' Wave 3 lead and does not exist yet in this repository (dangling reference).",
+      "quote": "operated at INFN's Gran Sasso National Laboratory",
+      "role": "main",
+      "site_id": "site:lngs-hall-a",
+      "sources": [
+        "src:cuore-lbl-newscenter-2025"
+      ],
+      "start": "2017",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:cuore-lbl-newscenter-2025",
+    "src:cuore-arxiv-2404-lepton-number-violation"
+  ],
+  "specs": {
+    "isotope": {
+      "confidence": "verified",
+      "locator": "CUORE 2024 paper, abstract",
+      "note": "",
+      "quote": "The CUORE experiment searches for 0νββ of 130Te",
+      "sources": [
+        "src:cuore-arxiv-2404-lepton-number-violation"
+      ],
+      "unit": "",
+      "value": "130Te",
+      "verified_at": "2026-09-17"
+    },
+    "isotope_mass": {
+      "approx": true,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "988 TeO2 crystals, ~0.8 t of crystal mass",
+      "locator": "LBL news center article, 2025-11",
+      "note": "The article gives the crystal mass as \"approximately 0.8 tonnes\"; other secondary literature describes the full detector as reaching the \"tonne mass scale\" (including structural material), not independently re-verified in this session.",
+      "quote": "988 crystals of tellurium dioxide ... approximately 0.8 tonnes",
+      "sources": [
+        "src:cuore-lbl-newscenter-2025"
+      ],
+      "unit": "t",
+      "value": 0.8,
+      "verified_at": "2026-09-17"
+    }
+  },
+  "status": "active",
+  "subsystems": [],
+  "summary": {
+    "plain": "988 crystals of tellurium dioxide, cooled to a fraction of a degree above absolute zero, arranged in towers inside a giant refrigerator under an Italian mountain.",
+    "technical": "Array of 988 TeO2 bolometric crystals (19 towers, ~0.8 t crystal mass) operated at ~10 mK in a dedicated cryostat in LNGS Hall A."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "CUORE 2024 paper, abstract",
+    "note": "",
+    "quote": "a tonne-scale cryogenic calorimeter operated at milli-kelvin temperatures",
+    "sources": [
+      "src:cuore-arxiv-2404-lepton-number-violation"
+    ],
+    "value": "Array of TeO2 cryogenic bolometers",
+    "verified_at": "2026-09-17"
+  },
+  "technology_class": "cryogenic_bolometer",
+  "technology_classes": [
+    "cryogenic_bolometer"
+  ],
+  "type": "detector"
+}

@@ -1,0 +1,90 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "document_ids": [],
+  "experiment_ids": [
+    "experiment:haystac"
+  ],
+  "id": "detector:haystac",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "built and in operation",
+      "note": "INSPIRE experiment record gives date_proposed 2010 and date_approved 2011 for the experiment as a whole (see experiment:haystac); no separate detector commissioning date fetched this session, so start is left unknown per A3.",
+      "quote": "The detector was built and is in operation at Yale University's Wright laboratory.",
+      "sources": [
+        "src:axions-haystac-inspire-experiment"
+      ],
+      "start": null,
+      "status": "active",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "kind": "run",
+      "label": "Phase II squeezed-state run",
+      "note": "Start approximated from the paper's 2024-09-13 arXiv submission date.",
+      "quote": "This Letter reports new results from the HAYSTAC experiment's search for dark matter axions in our galactic halo. It represents the widest search to date that utilizes squeezing to realize sub-quantum limited noise.",
+      "sources": [
+        "src:axions-haystac-prl-2025-phase-ii"
+      ],
+      "start": "2024",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "HAYSTAC detector",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "note": "Exact commissioning date not sourced this session.",
+      "quote": "The detector was built and is in operation at Yale University's Wright laboratory.",
+      "role": "main",
+      "site_id": "site:yale-wright-lab-campus",
+      "sources": [
+        "src:axions-haystac-official-page",
+        "src:axions-haystac-inspire-experiment"
+      ],
+      "start": null,
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:axions-haystac-official-page",
+    "src:axions-haystac-inspire-experiment"
+  ],
+  "specs": {},
+  "status": "active",
+  "subsystems": [],
+  "summary": {
+    "plain": "The HAYSTAC detector uses a strong magnet and a tunable metal cavity, plus quantum-noise-reducing electronics, to search for faint signals from dark-matter axions converting into radio photons.",
+    "technical": "Tunable microwave cavity haloscope at Yale Wright Laboratory using inverse-Primakoff axion-to-photon conversion in a static magnetic field, with a Josephson parametric amplifier / squeezed-vacuum receiver for sub-quantum-limited noise."
+  },
+  "technology": {
+    "confidence": "verified",
+    "note": "",
+    "sources": [
+      "src:axions-haystac-inspire-experiment",
+      "src:axions-haystac-prl-2025-phase-ii"
+    ],
+    "value": "Microwave-cavity haloscope using a strong static magnetic field (inverse Primakoff conversion) with quantum-electronics/cavity-QED readout, including a squeezed-vacuum receiver to beat the standard quantum noise limit.",
+    "verified_at": "2026-09-17"
+  },
+  "technology_class": "haloscope",
+  "technology_classes": [
+    "haloscope"
+  ],
+  "type": "detector"
+}

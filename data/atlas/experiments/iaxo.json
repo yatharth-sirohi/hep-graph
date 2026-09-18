@@ -1,0 +1,113 @@
+{
+  "aliases": [
+    "International Axion Observatory",
+    "BabyIAXO"
+  ],
+  "collaboration_ids": [
+    "collaboration:iaxo"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "document_ids": [],
+  "energy_regime": null,
+  "external": {
+    "greybook": null,
+    "inspire_experiment": 1698854,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "facility_id": "facility:desy",
+      "note": "facility:desy is owned by the 'facilities' lead and does not exist on disk in this wave; this is an expected dangling reference (ID_REGISTRY Wave 3), not an error, per the wave-3 brief.",
+      "role": "host",
+      "sources": [
+        "src:axions-iaxo-official-site"
+      ],
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "id": "experiment:iaxo",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "full-scale IAXO proposed",
+      "locator": "INSPIRE experiment record 1698854, field date_proposed",
+      "note": "Month-precision date from the INSPIRE experiment record's date_proposed field.",
+      "sources": [
+        "src:axions-iaxo-inspire-experiment"
+      ],
+      "start": "2013-08",
+      "status": "proposed",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "BabyIAXO under construction",
+      "note": "No fetched source gives an exact construction-start date for BabyIAXO; the 2025-04 European Strategy input paper confirms it is currently under construction. Per A3/A10, this non-terminal 'construction' interval takes precedence over the older 'proposed' interval for the entity's current derived status.",
+      "quote": "the detailed studies for BabyIAXO, which is currently under construction",
+      "sources": [
+        "src:axions-iaxo-strategy-2025"
+      ],
+      "start": null,
+      "status": "construction",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "key_specs": [],
+  "kind": "axion",
+  "lineage": [],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "note": "",
+      "sources": [
+        "src:axions-iaxo-official-site"
+      ],
+      "value": "https://iaxo.desy.de/",
+      "verified_at": "2026-09-17"
+    }
+  },
+  "name": "IAXO",
+  "notes": [
+    "BabyIAXO has its own INSPIRE experiment record (recid 1826394, 'BabyIAXO: An intermediate experimental stage of the International Axion Observatory'); modelled here as an interval on the single experiment:iaxo record rather than a second experiment id, since the collaboration's own sources treat it as a stage of one program.",
+    "IAXO Collaboration was formally established 2017-07-07 per its own news page; recorded on collaboration:iaxo, not here."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "note": "",
+      "quote": "The International Axion Observatory (IAXO) is a proposed fourth-generation axion helioscope.",
+      "sources": [
+        "src:axions-iaxo-official-site"
+      ],
+      "value": "Search for solar axions with a purpose-built helioscope with much larger sensitivity than CAST",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "result_ids": [],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:axions-iaxo-official-site",
+    "src:axions-iaxo-inspire-experiment",
+    "src:axions-babyiaxo-inspire-experiment",
+    "src:axions-iaxo-strategy-2025"
+  ],
+  "status": "construction",
+  "summary": {
+    "plain": "IAXO is a planned next-generation axion helioscope at DESY, a much larger successor to CAST. Its intermediate prototype, BabyIAXO, is currently under construction, while the full-scale instrument remains a proposal.",
+    "technical": "Fourth-generation axion helioscope program: full-scale IAXO (proposed 2013, not yet approved/built) and its intermediate prototype BabyIAXO (INSPIRE recid 1826394), currently under construction at DESY as of the 2025 European Strategy input document."
+  },
+  "topic_ids": [
+    "topic:axions-alps",
+    "topic:direct-dark-matter-detection",
+    "topic:solar-neutrinos"
+  ],
+  "type": "experiment",
+  "unique_capabilities": []
+}

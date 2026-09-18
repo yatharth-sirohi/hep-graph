@@ -1,0 +1,116 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "experiment_ids": [
+    "experiment:muon-g-2"
+  ],
+  "id": "detector:muon-g-2",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2017-05",
+      "label": "relocation, reassembly and commissioning at Fermilab (MC-1)",
+      "note": "",
+      "quote": "In 2013, Brookhaven's magnetic storage ring was transported from Long Island, New York, to Fermilab in Batavia, Illinois.",
+      "sources": [
+        "src:muons-news-fnal-2025-final-result"
+      ],
+      "start": "2013",
+      "status": "construction",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": "2023-05",
+      "label": "Run-1 through Run-6 data taking",
+      "note": "",
+      "quote": "over the six data-taking periods, or runs, from April 2018 to May 2023",
+      "sources": [
+        "src:muons-news-fnal-2025-final-result"
+      ],
+      "start": "2018-04",
+      "status": "completed",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "Muon g-2 storage ring",
+  "notes": [
+    "technology_classes uses 'other': no listed technology_class in the ontology enum (lar_tpc, water_cherenkov, ... haloscope, spectrometer, other) specifically names a muon storage ring; 'spectrometer' was considered but the ring's function (long-term storage in a precision magnetic field, not momentum analysis) is a poorer fit than the generic 'other' with a descriptive `technology` string."
+  ],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "note": "",
+      "role": "storage",
+      "site_id": "site:fermilab-mc-1-muon-campus",
+      "sources": [
+        "src:muons-news-fnal-2025-final-result"
+      ],
+      "start": "2013",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:muons-arxiv-1411-2555",
+    "src:muons-arxiv-1501-06858",
+    "src:muons-news-fnal-2025-final-result"
+  ],
+  "specs": {
+    "diameter": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "14.2 m (7.112 m orbit radius)",
+      "note": "",
+      "quote": "The resulting ring had a central orbit radius of 7.112 m",
+      "sources": [
+        "src:muons-arxiv-1411-2555"
+      ],
+      "unit": "m",
+      "value": 14.224,
+      "verified_at": "2026-09-17"
+    },
+    "magnetic_field": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "magnetic_field",
+      "note": "",
+      "quote": "B0 needed to be well below saturation and was chosen to be 1.45 T.",
+      "sources": [
+        "src:muons-arxiv-1411-2555"
+      ],
+      "unit": "T",
+      "value": 1.45,
+      "verified_at": "2026-09-17"
+    }
+  },
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "A 14-metre ring of superconducting magnet, originally built at Brookhaven and moved to Fermilab, that holds spinning muons in a very uniform magnetic field while detectors around its rim watch them wobble.",
+    "technical": "Superferric muon storage ring (7.112 m central orbit radius, 14.224 m diameter, 1.45 T field), the same magnet used in BNL E821, relocated to Fermilab in 2013 and instrumented with 24 calorimeter/tracker stations around its inner radius for the Muon g-2 (E989) precession measurement."
+  },
+  "technology": {
+    "confidence": "verified",
+    "note": "",
+    "quote": "The resulting ring had a central orbit radius of 7.112 m, and 24 detector stations were placed symmetrically around the inner radius of the storage ring.",
+    "sources": [
+      "src:muons-arxiv-1411-2555"
+    ],
+    "value": "Superconducting superferric muon storage ring with 24 electromagnetic calorimeter stations and straw tracking detectors around its circumference",
+    "verified_at": "2026-09-17"
+  },
+  "technology_classes": [
+    "other"
+  ],
+  "type": "detector"
+}

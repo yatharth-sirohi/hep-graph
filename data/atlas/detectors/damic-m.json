@@ -1,0 +1,126 @@
+{
+  "aliases": [
+    "LBC"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "experiment_ids": [
+    "experiment:damic-m"
+  ],
+  "id": "detector:damic-m",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2022-10",
+      "label": "commissioning / first results",
+      "locator": "arXiv:2210.12070, abstract",
+      "note": "",
+      "quote": "A prototype with 20g of low-background skipper CCDs was installed at Laboratoire Souterrain de Modane",
+      "sources": [
+        "src:damic-m-status-2022-arxiv"
+      ],
+      "start": "2022",
+      "status": "commissioning",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "science operations",
+      "locator": "arXiv:2511.13962, abstract",
+      "note": "Open interval; most recent confirmation is the Nov 2025 paper's 1.257 kg-day dataset.",
+      "quote": "a 1.257 kg-day dataset collected with the DAMIC-M Low Background Chamber",
+      "sources": [
+        "src:damic-m-daily-modulation-2025-arxiv"
+      ],
+      "start": "2022-10",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "DAMIC-M Low Background Chamber",
+  "notes": [
+    "'LBC' (Low Background Chamber) is a prototype-scale device; no source fetched this session describes a larger final-scale DAMIC-M detector as installed."
+  ],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "locator": "arXiv:2210.12070, abstract",
+      "note": "",
+      "quote": "A prototype with 20g of low-background skipper CCDs was installed at Laboratoire Souterrain de Modane",
+      "role": "prototype",
+      "site_id": "site:lsm-frejus",
+      "sources": [
+        "src:damic-m-status-2022-arxiv"
+      ],
+      "start": "2022",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:damic-m-status-2022-arxiv",
+    "src:damic-m-daily-modulation-2025-arxiv"
+  ],
+  "specs": {
+    "active_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "20 g",
+      "locator": "arXiv:2210.12070, abstract",
+      "note": "",
+      "quote": "A prototype with 20g of low-background skipper CCDs",
+      "sources": [
+        "src:damic-m-status-2022-arxiv"
+      ],
+      "unit": "g",
+      "value": 20,
+      "verified_at": "2026-09-17"
+    },
+    "exposure": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "exposure",
+      "display": "1.257 kg d",
+      "locator": "arXiv:2511.13962, abstract",
+      "note": "",
+      "quote": "a 1.257 kg-day dataset collected with the DAMIC-M Low Background Chamber",
+      "sources": [
+        "src:damic-m-daily-modulation-2025-arxiv"
+      ],
+      "unit": "kg d",
+      "value": 1.257,
+      "verified_at": "2026-09-17"
+    }
+  },
+  "status": "active",
+  "subsystems": [],
+  "summary": {
+    "plain": "A small, extremely quiet chamber of silicon chips deep under a mountain in France, sensitive enough to notice a single electron being knocked loose by a dark matter particle.",
+    "technical": "20 g skipper-CCD 'Low Background Chamber' prototype at LSM (Modane); commissioned 2022, with a 1.257 kg-day analysed exposure reported in a November 2025 daily-modulation search for sub-MeV hidden-sector dark matter."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "arXiv:2210.12070",
+    "note": "",
+    "quote": "novel skipper readout providing single electron resolution through multiple non-destructive measurements of the individual pixel charge",
+    "sources": [
+      "src:damic-m-status-2022-arxiv"
+    ],
+    "value": "Skipper-readout silicon CCDs providing single-electron ionization resolution",
+    "verified_at": "2026-09-17"
+  },
+  "technology_class": "other",
+  "technology_classes": [
+    "other"
+  ],
+  "type": "detector"
+}

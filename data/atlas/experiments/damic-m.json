@@ -1,0 +1,177 @@
+{
+  "accelerator_ids": [],
+  "aliases": [
+    "DArk Matter In CCDs at Modane"
+  ],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:damic-m"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "energy_regime": {
+    "confidence": "verified",
+    "note": "",
+    "quote": "Hidden Sector particles, with masses in the range [0.53,2] MeV/c2, interacting with electrons via a dark photon mediator",
+    "sources": [
+      "src:damic-m-daily-modulation-2025-arxiv"
+    ],
+    "value": "Hidden-sector / light dark matter, roughly 0.5-1000 MeV/c^2 (electron-recoil channel)",
+    "verified_at": "2026-09-17"
+  },
+  "external": {
+    "greybook": null,
+    "inspire_experiment": 2169497,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:modane-underground-laboratory",
+      "locator": "arXiv:2210.12070, abstract",
+      "note": "",
+      "quote": "A prototype with 20g of low-background skipper CCDs was installed at Laboratoire Souterrain de Modane",
+      "role": "host",
+      "sources": [
+        "src:damic-m-status-2022-arxiv"
+      ],
+      "start": "2022",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "id": "experiment:damic-m",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2022-10",
+      "label": "Low Background Chamber: status and first results",
+      "locator": "arXiv:2210.12070, abstract",
+      "note": "End set to the paper's submission date (2022-10-11).",
+      "quote": "A prototype with 20g of low-background skipper CCDs was installed at Laboratoire Souterrain de Modane",
+      "sources": [
+        "src:damic-m-status-2022-arxiv"
+      ],
+      "start": "2022",
+      "status": "commissioning",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "Low Background Chamber: science operations",
+      "locator": "arXiv:2511.13962 (2025-11), abstract",
+      "note": "Open interval; data collection was ongoing as of the November 2025 paper (submitted 2025-11-17), the most recent DAMIC-M source found this session. The full DAMIC-M final detector (larger than this 20 g prototype) was not found described as operating by any source fetched this session.",
+      "quote": "a 1.257 kg-day dataset collected with the DAMIC-M Low Background Chamber",
+      "sources": [
+        "src:damic-m-daily-modulation-2025-arxiv"
+      ],
+      "start": "2022-10",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Low Background Chamber prototype mass",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "mass",
+        "display": "20 g",
+        "locator": "arXiv:2210.12070, abstract",
+        "note": "",
+        "quote": "A prototype with 20g of low-background skipper CCDs",
+        "sources": [
+          "src:damic-m-status-2022-arxiv"
+        ],
+        "unit": "g",
+        "value": 20,
+        "verified_at": "2026-09-17"
+      }
+    },
+    {
+      "label": "Analysed exposure (2025)",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "exposure",
+        "display": "1.257 kg d",
+        "locator": "arXiv:2511.13962, abstract",
+        "note": "",
+        "quote": "a 1.257 kg-day dataset collected with the DAMIC-M Low Background Chamber",
+        "sources": [
+          "src:damic-m-daily-modulation-2025-arxiv"
+        ],
+        "unit": "kg d",
+        "value": 1.257,
+        "verified_at": "2026-09-17"
+      }
+    }
+  ],
+  "kind": "direct_dark_matter",
+  "lineage": [
+    {
+      "confidence": "verified",
+      "experiment_id": "experiment:damic",
+      "note": "Inferred from shared DAMIC name, collaboration continuity, and CCD technology described in DAMIC-M's own status paper; no source uses the literal word 'predecessor'.",
+      "quote": "A prototype with 20g of low-background skipper CCDs was installed at Laboratoire Souterrain de Modane",
+      "relation": "predecessor",
+      "sources": [
+        "src:damic-m-status-2022-arxiv"
+      ],
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "DAMIC-M",
+  "notes": [
+    "No official DAMIC-M website was found and fetched this session; links.website left null rather than guessed.",
+    "The full-scale final DAMIC-M detector (beyond the 20 g Low Background Chamber prototype) is described in earlier planning documents (not fetched this session) as a much larger kg-scale array; no source fetched this session confirms it is yet installed or operating, so only the prototype's status is recorded."
+  ],
+  "physics_goals": {
+    "confidence": "verified",
+    "note": "",
+    "quote": "novel skipper readout providing single electron resolution through multiple non-destructive measurements of the individual pixel charge",
+    "sources": [
+      "src:damic-m-status-2022-arxiv"
+    ],
+    "value": [
+      "Search for sub-GeV/hidden-sector dark matter via single-electron ionization signals in skipper CCDs"
+    ],
+    "verified_at": "2026-09-17"
+  },
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:damic-m-inspire-experiment",
+    "src:damic-m-status-2022-arxiv",
+    "src:damic-m-daily-modulation-2025-arxiv"
+  ],
+  "status": "active",
+  "summary": {
+    "plain": "DAMIC-M is the next generation of the DAMIC dark matter search, using very sensitive silicon chips called skipper CCDs that can count single electrons. A 20-gram prototype has been running deep under a mountain in the French Alps since 2022, hunting for very light, hidden particles.",
+    "technical": "Skipper-CCD dark matter search at the Laboratoire Souterrain de Modane (LSM); a 20 g 'Low Background Chamber' prototype has been operating since 2022, most recently reporting a 1.257 kg-day analysed exposure (Nov 2025) setting improved constraints on sub-MeV hidden-sector dark matter via a daily-modulation search. Successor in name and technology to DAMIC at SNOLAB."
+  },
+  "topic_ids": [
+    "topic:dark-matter",
+    "topic:direct-dark-matter-detection"
+  ],
+  "type": "experiment",
+  "unique_capabilities": {
+    "confidence": "verified",
+    "note": "",
+    "quote": "advancing dark matter exploration particularly for hidden sector candidates with eV-scale detection thresholds",
+    "sources": [
+      "src:damic-m-status-2022-arxiv"
+    ],
+    "value": [
+      "Skipper-CCD readout giving single-electron charge resolution with eV-scale ionization thresholds"
+    ],
+    "verified_at": "2026-09-17"
+  }
+}
