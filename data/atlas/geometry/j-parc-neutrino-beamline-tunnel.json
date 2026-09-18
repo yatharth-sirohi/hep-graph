@@ -1,0 +1,135 @@
+{
+  "accuracy_m": 25,
+  "aliases": [],
+  "checks": [
+    {
+      "expected": {
+        "approx": true,
+        "confidence": "verified",
+        "dimension": "length",
+        "display": "334 m (238 m primary beamline + 96 m decay volume)",
+        "locator": "Section 3.1 'Primary Beamline' and Figure 6 caption",
+        "note": "54+147+37=238 m primary beamline (extraction point to target) plus the ~96 m decay volume (target station to beam dump) = 334 m, computed by this record's author from the paper's own sub-lengths; the paper does not state this sum directly.",
+        "quote": "The primary beamline consists of the preparation section (54 m long), arc section (147 m) and final focusing section (37 m). [...] The length of the decay volume is ~96 m.",
+        "sources": [
+          "src:t2k-nim-2011"
+        ],
+        "unit": "m",
+        "value": 334,
+        "verified_at": "2026-09-18"
+      },
+      "kind": "length",
+      "locator": "Section 3.1 'Primary Beamline' and Figure 6 caption",
+      "quote": "The primary beamline consists of the preparation section (54 m long), arc section (147 m) and final focusing section (37 m).",
+      "sources": [
+        "src:t2k-nim-2011"
+      ],
+      "tolerance": 0.04
+    }
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "A"
+  },
+  "depth_m": null,
+  "entity_id": "beamline:j-parc-neutrino",
+  "feature_type": "beamline",
+  "geometry": {
+    "confidence": "verified",
+    "locator": "OSM way 1019815058, timestamp_osm_base 2026-09-18T22:24:35Z; T2K NIM paper (arXiv:1106.1238) Section 3.1/3.2 and Figure 6",
+    "note": "Confidence 'verified' rests on the passing length check against the T2K instrumentation paper's own sectional lengths (rank 5).",
+    "sources": [
+      "src:geo-jparc-osm-neutrino-beamline",
+      "src:t2k-nim-2011"
+    ],
+    "value": {
+      "coordinates": [
+        [
+          140.606246,
+          36.4482004
+        ],
+        [
+          140.6060475,
+          36.4485586
+        ],
+        [
+          140.6058705,
+          36.448783
+        ],
+        [
+          140.6056559,
+          36.4489254
+        ],
+        [
+          140.6054054,
+          36.4490391
+        ],
+        [
+          140.6051759,
+          36.44909
+        ],
+        [
+          140.6048449,
+          36.4491261
+        ],
+        [
+          140.6046792,
+          36.449132
+        ],
+        [
+          140.6040206,
+          36.4491514
+        ],
+        [
+          140.60371,
+          36.4491444
+        ],
+        [
+          140.6036841,
+          36.4491431
+        ],
+        [
+          140.6029461,
+          36.4491273
+        ]
+      ],
+      "type": "LineString"
+    },
+    "verified_at": "2026-09-18"
+  },
+  "id": "geometry:j-parc-neutrino-beamline-tunnel",
+  "level_id": "underground",
+  "license": {
+    "attribution": "© OpenStreetMap contributors",
+    "name": "ODbL-1.0",
+    "url": "https://www.openstreetmap.org/copyright"
+  },
+  "links": {
+    "website": null
+  },
+  "map_id": "map:j-parc",
+  "method": "OpenStreetMap way 1019815058, name 'Neutrino Beamline' (access=private, highway=corridor, indoor=yes, level=-1, tunnel=yes), an indoor-mapped access corridor running from the Main Ring extraction point, through the primary beamline (preparation section, arc, final focusing) to the target station and into the start of the decay volume; nodes kept verbatim, no simplification.",
+  "name": "J-PARC neutrino primary+secondary beamline, tunnel",
+  "notes": [
+    "Expected value (334 m) is this record's own sum of the paper's sub-section lengths, not a single quoted total; tolerance widened to 4% for the same indoor-corridor-tracing reason as the Main Ring tunnel.",
+    "This tunnel traces the beam's actual 'on-axis' path. It is NOT the great-circle line to Super-Kamiokande: T2K deliberately points the beam 2.5 degrees off that line (see geometry:j-parc-neutrino-direction-line, drawn separately and labelled 'inferred direction')."
+  ],
+  "osm": {
+    "elements": [
+      "way/1019815058"
+    ],
+    "timestamp": "2026-09-18T22:24:35Z"
+  },
+  "representation": "georeferenced",
+  "schema": "hep-atlas/0.2",
+  "site_id": null,
+  "sources": [
+    "src:geo-jparc-osm-neutrino-beamline",
+    "src:t2k-nim-2011"
+  ],
+  "summary": {
+    "plain": "The underground tunnel carrying J-PARC's proton beam from the Main Ring, around an arc toward Kamioka, onto a graphite target, and through the volume where the resulting pions decay into neutrinos."
+  },
+  "type": "geometry",
+  "valid": null
+}

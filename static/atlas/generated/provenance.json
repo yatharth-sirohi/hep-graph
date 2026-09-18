@@ -48503,6 +48503,558 @@
       "verified_at": null
     }
   },
+  "geometry:j-parc-hadron-hall-building": {
+    "/geometry": {
+      "confidence": "approximate",
+      "locator": "OSM way 649546811, timestamp_osm_base 2026-09-18T22:24:35Z",
+      "note": "OpenStreetMap building footprint alone; caps confidence at approximate. No official hall-dimension figure was fetched this session to cross-check against.",
+      "quote": null,
+      "sources": [
+        "src:geo-jparc-osm-hadron-hall"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-jparc-osm-hadron-hall"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:j-parc-linac-building": {
+    "/geometry": {
+      "confidence": "approximate",
+      "locator": "OSM way 553984823, timestamp_osm_base 2026-09-18T22:24:35Z",
+      "note": "OpenStreetMap building footprint alone; source-rank 11 caps confidence at approximate.",
+      "quote": null,
+      "sources": [
+        "src:geo-jparc-osm-linac-building"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-jparc-osm-linac-building"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:j-parc-main-ring-tunnel": {
+    "/checks/0": {
+      "confidence": null,
+      "locator": "Table 1: Machine design parameters of the J-PARC MR for the fast extraction",
+      "note": null,
+      "quote": "Circumference 1567 m",
+      "sources": [
+        "src:t2k-nim-2011"
+      ],
+      "verified_at": null
+    },
+    "/checks/0/expected": {
+      "confidence": "verified",
+      "locator": "Table 1: Machine design parameters of the J-PARC MR for the fast extraction",
+      "note": "",
+      "quote": "Circumference 1567 m",
+      "sources": [
+        "src:t2k-nim-2011"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/geometry": {
+      "confidence": "verified",
+      "locator": "OSM way 1019815059, timestamp_osm_base 2026-09-18T22:24:35Z; T2K NIM paper (arXiv:1106.1238) Table 1",
+      "note": "Confidence 'verified' rests on the passing circumference check against the T2K instrumentation paper's own machine-parameter table (rank 5).",
+      "quote": null,
+      "sources": [
+        "src:geo-jparc-osm-mr-ring",
+        "src:t2k-nim-2011"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-jparc-osm-mr-ring",
+        "src:t2k-nim-2011"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:j-parc-neutrino-beamline-tunnel": {
+    "/checks/0": {
+      "confidence": null,
+      "locator": "Section 3.1 'Primary Beamline' and Figure 6 caption",
+      "note": null,
+      "quote": "The primary beamline consists of the preparation section (54 m long), arc section (147 m) and final focusing section (37 m).",
+      "sources": [
+        "src:t2k-nim-2011"
+      ],
+      "verified_at": null
+    },
+    "/checks/0/expected": {
+      "confidence": "verified",
+      "locator": "Section 3.1 'Primary Beamline' and Figure 6 caption",
+      "note": "54+147+37=238 m primary beamline (extraction point to target) plus the ~96 m decay volume (target station to beam dump) = 334 m, computed by this record's author from the paper's own sub-lengths; the paper does not state this sum directly.",
+      "quote": "The primary beamline consists of the preparation section (54 m long), arc section (147 m) and final focusing section (37 m). [...] The length of the decay volume is ~96 m.",
+      "sources": [
+        "src:t2k-nim-2011"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/geometry": {
+      "confidence": "verified",
+      "locator": "OSM way 1019815058, timestamp_osm_base 2026-09-18T22:24:35Z; T2K NIM paper (arXiv:1106.1238) Section 3.1/3.2 and Figure 6",
+      "note": "Confidence 'verified' rests on the passing length check against the T2K instrumentation paper's own sectional lengths (rank 5).",
+      "quote": null,
+      "sources": [
+        "src:geo-jparc-osm-neutrino-beamline",
+        "src:t2k-nim-2011"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-jparc-osm-neutrino-beamline",
+        "src:t2k-nim-2011"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:j-parc-neutrino-direction-line": {
+    "/geometry": {
+      "confidence": "derived",
+      "locator": "T2K NIM paper (arXiv:1106.1238), section 3.6.1 (GPS baseline survey) and site:kamioka-mozumi-mine-super-kamiokande's own sourced coordinate",
+      "note": "Not a physical structure: the beam's actual on-axis tunnel (geometry:j-parc-neutrino-beamline-tunnel) points 2.5 degrees away from this line by design, so that Super-K sees an off-axis, narrow-band neutrino spectrum. Drawn only as the first kilometres of the direction toward Super-Kamiokande, labelled 'inferred direction'.",
+      "quote": null,
+      "sources": [
+        "src:t2k-nim-2011"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:t2k-nim-2011"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:j-parc-neutrino-muon-monitor-building": {
+    "/geometry": {
+      "confidence": "approximate",
+      "locator": "OSM way 649374227, timestamp_osm_base 2026-09-18T22:24:35Z",
+      "note": "OSM building footprint alone; context feature, no atlas entity models the muon monitor itself.",
+      "quote": null,
+      "sources": [
+        "src:geo-jparc-osm-muon-monitor"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-jparc-osm-muon-monitor"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:j-parc-neutrino-near-detector-hall-building": {
+    "/checks/0": {
+      "confidence": null,
+      "locator": "T2K NIM paper, near detector section",
+      "note": null,
+      "quote": "The near detector site at ~280 m from the production target houses on-axis and off-axis detectors.",
+      "sources": [
+        "src:t2k-nim-2011"
+      ],
+      "verified_at": null
+    },
+    "/checks/0/expected": {
+      "confidence": "verified",
+      "locator": "T2K NIM paper, near detector section",
+      "note": "",
+      "quote": "The near detector site at ~280 m from the production target houses on-axis and off-axis detectors.",
+      "sources": [
+        "src:t2k-nim-2011"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/depth_m": {
+      "confidence": "verified",
+      "locator": "T2K NIM paper, near detector section",
+      "note": "Depth of the underground pit this surface building stands over/beside, not of the drawn footprint itself; matches the existing site record's own depth field.",
+      "quote": "pit has a diameter of 17.5 m and a depth of 37 m, and has three floors.",
+      "sources": [
+        "src:t2k-nim-2011"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/geometry": {
+      "confidence": "approximate",
+      "locator": "OSM way 649337623, timestamp_osm_base 2026-09-18T22:24:35Z",
+      "note": "OSM building footprint (rank 11) caps confidence at approximate even though the description tag independently corroborates the ND280 identification.",
+      "quote": null,
+      "sources": [
+        "src:geo-jparc-osm-neutrino-monitor-building",
+        "src:t2k-nim-2011"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-jparc-osm-neutrino-monitor-building",
+        "src:t2k-nim-2011"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:j-parc-neutrino-target-station": {
+    "/geometry": {
+      "confidence": "approximate",
+      "locator": "OSM way 649374332, timestamp_osm_base 2026-09-18T22:24:35Z",
+      "note": "OSM building footprint (rank 11) caps confidence at approximate.",
+      "quote": null,
+      "sources": [
+        "src:geo-jparc-osm-neutrino-target-station",
+        "src:t2k-nim-2011"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-jparc-osm-neutrino-target-station",
+        "src:t2k-nim-2011"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:j-parc-rcs-tunnel": {
+    "/checks/0": {
+      "confidence": null,
+      "locator": "J-PARC Accelerators page",
+      "note": null,
+      "quote": "RCS about 350m in circumference",
+      "sources": [
+        "src:jparc-accelerators"
+      ],
+      "verified_at": null
+    },
+    "/checks/0/expected": {
+      "confidence": "verified",
+      "locator": "J-PARC Accelerators page",
+      "note": "",
+      "quote": "RCS about 350m in circumference",
+      "sources": [
+        "src:jparc-accelerators"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/geometry": {
+      "confidence": "verified",
+      "locator": "OSM way 1019815060, timestamp_osm_base 2026-09-18T22:24:35Z; J-PARC accelerators page",
+      "note": "Confidence 'verified' rests on the passing circumference check against the official J-PARC accelerators page (rank <=10).",
+      "quote": null,
+      "sources": [
+        "src:geo-jparc-osm-rcs-ring",
+        "src:jparc-accelerators"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-jparc-osm-rcs-ring",
+        "src:jparc-accelerators"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:kek-belle2-detector-facility-boundary": {
+    "/geometry": {
+      "confidence": "approximate",
+      "locator": "OSM way 560185030, timestamp_osm_base 2026-09-18T22:22:35Z",
+      "note": "OSM landuse polygon alone; context feature, broader than geometry:kek-tsukuba-hall's own building footprint.",
+      "quote": null,
+      "sources": [
+        "src:geo-kek-osm-belle2-facility"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-kek-osm-belle2-facility"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:kek-campus-boundary": {
+    "/geometry": {
+      "confidence": "approximate",
+      "locator": "OSM way 100702753, timestamp_osm_base 2026-09-18T22:22:35Z",
+      "note": "OSM landuse polygon alone; context feature.",
+      "quote": null,
+      "sources": [
+        "src:geo-kek-osm-campus-boundary"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-kek-osm-campus-boundary"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:kek-fuji-hall": {
+    "/geometry": {
+      "confidence": "approximate",
+      "locator": "OSM way 785269337, timestamp_osm_base 2026-09-18T22:22:35Z",
+      "note": "OSM building footprint alone; context feature (one of SuperKEKB's four ring straight sections per Fig. 1 of src:superkekb-collider-nima-2018, rank 10).",
+      "quote": null,
+      "sources": [
+        "src:geo-kek-osm-fuji-hall",
+        "src:superkekb-collider-nima-2018"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-kek-osm-fuji-hall",
+        "src:superkekb-collider-nima-2018"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:kek-linac-building": {
+    "/geometry": {
+      "confidence": "approximate",
+      "locator": "OSM way 560186130, timestamp_osm_base 2026-09-18T22:22:35Z",
+      "note": "OSM building footprint alone; context feature -- no atlas accelerator record models KEK's electron/positron injector linac separately from accelerator:kekb / accelerator:superkekb.",
+      "quote": null,
+      "sources": [
+        "src:geo-kek-osm-linac-building"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-kek-osm-linac-building"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:kek-neutrino-direction-line": {
+    "/geometry": {
+      "confidence": "derived",
+      "locator": "K2K tutorial page / K2K FAQ page (src:k2k-tutorial-page, src:k2k-faq-page) and site:kamioka-mozumi-mine-super-kamiokande's own sourced coordinate",
+      "note": "Not a physical structure: drawn only as the first kilometres of the direction toward Super-Kamiokande, labelled 'inferred direction'. K2K ended in 2004; drawn on the map's underlying timeline via beamline:kek-neutrino's own state_segments (completed).",
+      "quote": null,
+      "sources": [
+        "src:k2k-tutorial-page",
+        "src:k2k-prd-2006"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:k2k-tutorial-page",
+        "src:k2k-prd-2006"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:kek-nikko-hall": {
+    "/geometry": {
+      "confidence": "approximate",
+      "locator": "OSM way 785269338, timestamp_osm_base 2026-09-18T22:22:35Z",
+      "note": "OSM building footprint alone; context feature (one of SuperKEKB's four ring straight sections per Fig. 1 of src:superkekb-collider-nima-2018, rank 10).",
+      "quote": null,
+      "sources": [
+        "src:geo-kek-osm-nikko-hall",
+        "src:superkekb-collider-nima-2018"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-kek-osm-nikko-hall",
+        "src:superkekb-collider-nima-2018"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:kek-north-counter-hall": {
+    "/geometry": {
+      "confidence": "approximate",
+      "locator": "OSM way 100705587, timestamp_osm_base 2026-09-18T22:22:35Z",
+      "note": "Identification with accelerator:kek-ps rests on circumstantial evidence, not a direct official coordinate; see notes.",
+      "quote": null,
+      "sources": [
+        "src:geo-kek-osm-north-counter-hall",
+        "src:k2k-tutorial-page"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-kek-osm-north-counter-hall",
+        "src:k2k-tutorial-page"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:kek-oho-hall": {
+    "/geometry": {
+      "confidence": "approximate",
+      "locator": "OSM way 785269336, timestamp_osm_base 2026-09-18T22:22:35Z",
+      "note": "OSM building footprint alone; context feature (one of SuperKEKB's four ring straight sections per Fig. 1 of src:superkekb-collider-nima-2018, rank 10).",
+      "quote": null,
+      "sources": [
+        "src:geo-kek-osm-oho-hall",
+        "src:superkekb-collider-nima-2018"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-kek-osm-oho-hall",
+        "src:superkekb-collider-nima-2018"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:kek-tsukuba-hall": {
+    "/geometry": {
+      "confidence": "approximate",
+      "locator": "OSM way 560183492, timestamp_osm_base 2026-09-18T22:22:35Z",
+      "note": "OSM building footprint (rank 11) caps confidence at approximate, though its identification as the Tsukuba straight section is corroborated by the SuperKEKB accelerator paper's own Figure 1 (rank 10).",
+      "quote": null,
+      "sources": [
+        "src:geo-kek-osm-tsukuba-hall",
+        "src:superkekb-collider-nima-2018"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-kek-osm-tsukuba-hall",
+        "src:superkekb-collider-nima-2018"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:kekb-tunnel-ring": {
+    "/checks/0": {
+      "confidence": null,
+      "locator": "Table 1: Machine Parameters of KEKB and SuperKEKB",
+      "note": null,
+      "quote": "Circumference ... 3016.262 ... m",
+      "sources": [
+        "src:superkekb-collider-nima-2018"
+      ],
+      "verified_at": null
+    },
+    "/checks/0/expected": {
+      "confidence": "verified",
+      "locator": "Table 1: Machine Parameters of KEKB and SuperKEKB",
+      "note": "KEKB row of Table 1; the circumference cell spans both the LER and HER columns (one ring).",
+      "quote": "Circumference ... 3016.262",
+      "sources": [
+        "src:superkekb-collider-nima-2018"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/geometry": {
+      "confidence": "verified",
+      "locator": "OSM way 138322704, timestamp_osm_base 2026-09-18T22:22:35Z; Akai, Furukawa & Koiso, 'SuperKEKB Collider', NIM A (2018), Table 1",
+      "note": "Confidence 'verified' rests on the passing circumference check against the official machine-parameter table (rank 10).",
+      "quote": null,
+      "sources": [
+        "src:geo-kek-osm-kekb-ring",
+        "src:superkekb-collider-nima-2018"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-kek-osm-kekb-ring",
+        "src:superkekb-collider-nima-2018"
+      ],
+      "verified_at": null
+    }
+  },
   "geometry:lep-tunnel-ring": {
     "/checks/0": {
       "confidence": null,
@@ -48969,6 +49521,50 @@
       "quote": null,
       "sources": [
         "src:geo-cern-osm-sps-way"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:superkekb-tunnel-ring": {
+    "/checks/0": {
+      "confidence": null,
+      "locator": "Table 1: Machine Parameters of KEKB and SuperKEKB",
+      "note": null,
+      "quote": "Circumference ... 3016.315 ... m",
+      "sources": [
+        "src:superkekb-collider-nima-2018"
+      ],
+      "verified_at": null
+    },
+    "/checks/0/expected": {
+      "confidence": "verified",
+      "locator": "Table 1: Machine Parameters of KEKB and SuperKEKB",
+      "note": "SuperKEKB row of Table 1; the circumference cell spans both the LER and HER columns (one ring).",
+      "quote": "Circumference ... 3016.315",
+      "sources": [
+        "src:superkekb-collider-nima-2018"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/geometry": {
+      "confidence": "verified",
+      "locator": "OSM way 138322704, timestamp_osm_base 2026-09-18T22:22:35Z; Akai, Furukawa & Koiso, 'SuperKEKB Collider', NIM A (2018), Table 1",
+      "note": "Confidence 'verified' rests on the passing circumference check against the official machine-parameter table (rank 10).",
+      "quote": null,
+      "sources": [
+        "src:geo-kek-osm-kekb-ring",
+        "src:superkekb-collider-nima-2018"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-kek-osm-kekb-ring",
+        "src:superkekb-collider-nima-2018"
       ],
       "verified_at": null
     }
@@ -66244,6 +66840,79 @@
       "quote": null,
       "sources": [
         "src:sensei-shallow-underground-2019-arxiv"
+      ],
+      "verified_at": "2026-09-18"
+    }
+  },
+  "map:j-parc": {
+    "/center": {
+      "confidence": "derived",
+      "locator": "Arithmetic mean of the 39 vertices of the Main Ring tunnel corridor (OSM way 1019815059)",
+      "note": "Map centre only; not a claim about any structure. precision_m is set loosely because this is a naive vertex-average centroid, not an area centroid.",
+      "quote": null,
+      "sources": [
+        "src:geo-jparc-osm-mr-ring"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/levels/1": {
+      "confidence": null,
+      "locator": null,
+      "note": "Plan view of the Linac-to-RCS-to-Main-Ring accelerator chain and the neutrino primary/secondary beamline tunnels. No fetched source this session states a metre depth below surface for these tunnels (J-PARC's own pages give layout, not depth); left null per A17 rather than guessed.",
+      "quote": null,
+      "sources": null,
+      "verified_at": null
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-jparc-osm-mr-ring",
+        "src:t2k-nim-2011"
+      ],
+      "verified_at": null
+    }
+  },
+  "map:kek": {
+    "/center": {
+      "confidence": "derived",
+      "locator": "Arithmetic mean of the 53 vertices of the merged KEKB/SuperKEKB ring (OSM way 138322704)",
+      "note": "Map centre only; not a claim about any structure. precision_m is set loosely because this is a naive vertex-average centroid, not an area centroid.",
+      "quote": null,
+      "sources": [
+        "src:geo-kek-osm-kekb-ring"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/levels/1": {
+      "confidence": null,
+      "locator": null,
+      "note": "The ring is commonly described as roughly 11 m underground, but no official page fetched this session states a metre figure, so depth_m is left null per A17 rather than guessed.",
+      "quote": null,
+      "sources": null,
+      "verified_at": null
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-kek-osm-kekb-ring",
+        "src:superkekb-collider-nima-2018"
+      ],
+      "verified_at": null
+    },
+    "/unlocated/0": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-kek-osm-north-counter-hall",
+        "src:k2k-tutorial-page"
       ],
       "verified_at": "2026-09-18"
     }

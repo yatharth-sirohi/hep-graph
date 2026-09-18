@@ -1,0 +1,140 @@
+{
+  "accuracy_m": 10,
+  "aliases": [],
+  "checks": [
+    {
+      "expected": {
+        "approx": true,
+        "confidence": "verified",
+        "dimension": "length",
+        "display": "~280 m",
+        "locator": "T2K NIM paper, near detector section",
+        "note": "",
+        "quote": "The near detector site at ~280 m from the production target houses on-axis and off-axis detectors.",
+        "sources": [
+          "src:t2k-nim-2011"
+        ],
+        "unit": "m",
+        "value": 280,
+        "verified_at": "2026-09-18"
+      },
+      "kind": "distance",
+      "locator": "T2K NIM paper, near detector section",
+      "quote": "The near detector site at ~280 m from the production target houses on-axis and off-axis detectors.",
+      "sources": [
+        "src:t2k-nim-2011"
+      ],
+      "to_geometry_id": "geometry:j-parc-neutrino-target-station",
+      "tolerance": 0.05
+    }
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "A"
+  },
+  "depth_m": {
+    "approx": false,
+    "confidence": "verified",
+    "dimension": "length",
+    "display": "37 m (pit depth)",
+    "locator": "T2K NIM paper, near detector section",
+    "note": "Depth of the underground pit this surface building stands over/beside, not of the drawn footprint itself; matches the existing site record's own depth field.",
+    "quote": "pit has a diameter of 17.5 m and a depth of 37 m, and has three floors.",
+    "sources": [
+      "src:t2k-nim-2011"
+    ],
+    "unit": "m",
+    "value": 37,
+    "verified_at": "2026-09-18"
+  },
+  "entity_id": "site:j-parc-neutrino-near-detector-hall",
+  "feature_type": "hall",
+  "geometry": {
+    "confidence": "approximate",
+    "locator": "OSM way 649337623, timestamp_osm_base 2026-09-18T22:24:35Z",
+    "note": "OSM building footprint (rank 11) caps confidence at approximate even though the description tag independently corroborates the ND280 identification.",
+    "sources": [
+      "src:geo-jparc-osm-neutrino-monitor-building",
+      "src:t2k-nim-2011"
+    ],
+    "value": {
+      "coordinates": [
+        [
+          [
+            140.6010824,
+            36.4493113
+          ],
+          [
+            140.6013361,
+            36.4493113
+          ],
+          [
+            140.6013362,
+            36.4490232
+          ],
+          [
+            140.601372,
+            36.4490232
+          ],
+          [
+            140.601372,
+            36.4490072
+          ],
+          [
+            140.6012402,
+            36.4490072
+          ],
+          [
+            140.6012402,
+            36.4490366
+          ],
+          [
+            140.6010824,
+            36.4490366
+          ],
+          [
+            140.6010824,
+            36.4493113
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    },
+    "verified_at": "2026-09-18"
+  },
+  "id": "geometry:j-parc-neutrino-near-detector-hall-building",
+  "level_id": "surface",
+  "license": {
+    "attribution": "© OpenStreetMap contributors",
+    "name": "ODbL-1.0",
+    "url": "https://www.openstreetmap.org/copyright"
+  },
+  "links": {
+    "website": null
+  },
+  "map_id": "map:j-parc",
+  "method": "OpenStreetMap building footprint way 649337623, name 'Neutrino Monitor Building' (description tag: 'Contains T2K ND280 Detectors'), used verbatim. This is the surface access building over/beside the vertical near-detector pit (17.5 m diameter, 37 m deep per the T2K NIM paper); it is NOT the pit's own footprint, which is much smaller and has no separate OSM trace this session.",
+  "name": "J-PARC neutrino near detector hall, surface building",
+  "notes": [
+    "Tolerance widened to 5%: the 280 m figure is target-to-detector-centre, while this check compares two OSM building centroids (target station building centroid to this building's centroid, measured 269.0 m) -- a different, coarser reference than the physics distance it approximates.",
+    "Houses detector:nd280 and detector:ingrid."
+  ],
+  "osm": {
+    "elements": [
+      "way/649337623"
+    ],
+    "timestamp": "2026-09-18T22:24:35Z"
+  },
+  "representation": "georeferenced",
+  "schema": "hep-atlas/0.2",
+  "site_id": null,
+  "sources": [
+    "src:geo-jparc-osm-neutrino-monitor-building",
+    "src:t2k-nim-2011"
+  ],
+  "summary": {
+    "plain": "The surface building above J-PARC's near-detector pit, 280 metres from the neutrino target, holding the ND280 and INGRID detectors."
+  },
+  "type": "geometry",
+  "valid": null
+}
