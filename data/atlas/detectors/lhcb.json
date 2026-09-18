@@ -27,7 +27,11 @@
     },
     {
       "confidence": "verified",
-      "end": null,
+      "end": {
+        "approx": true,
+        "date": "2026-06",
+        "note": "VERIFIER FIX (2026-09-17): capped at the LHC-wide Long Shutdown 3 boundary (see the added interval below); previously open-ended (end: null), which made detector:lhcb derive as permanently 'active' during LS3, contradicting experiment:lhcb's own 'shutdown' status at the same date."
+      },
       "label": "operating",
       "locator": "INSPIRE experiment record 1110643, field date_started",
       "note": "The detector has recorded data (with the Upgrade I replacement of its tracking/trigger subsystems in 2019-2023) continuously since first collisions; see experiment:lhcb for the full run/shutdown history.",
@@ -37,6 +41,19 @@
       "start": "2009-11-23",
       "status": "active",
       "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "Long Shutdown 3",
+      "locator": "reused from experiment:lhcb's sourced Long Shutdown 3 interval (src:cern-ls3-farewell-2026)",
+      "note": "VERIFIER-ADDED (2026-09-17): mirrors experiment:lhcb's Long Shutdown 3 interval so the detector-level derived status agrees with the experiment-level one; ongoing at verified_at.",
+      "sources": [
+        "src:cern-ls3-farewell-2026"
+      ],
+      "start": "2026-06",
+      "status": "shutdown",
+      "verified_at": "2026-09-17"
     }
   ],
   "links": {
@@ -44,7 +61,8 @@
   },
   "name": "LHCb detector",
   "notes": [
-    "Placed at site:cern-point-8-lhcb (created in this pass). The detector paper (2008 JINST 3 S08005) was found but its full text was blocked by CERN's document-server bot protection (cds.cern.ch) and exceeded the fetch size limit at the SISSA mirror; only its abstract (via the INSPIRE literature API) is cited. Pseudorapidity coverage, dipole bending power, RICH/VELO/calorimeter/muon-system specs are left unsourced (missing_fields) rather than guessed from memory."
+    "Placed at site:cern-point-8-lhcb (created in this pass). The detector paper (2008 JINST 3 S08005) was found but its full text was blocked by CERN's document-server bot protection (cds.cern.ch) and exceeded the fetch size limit at the SISSA mirror; only its abstract (via the INSPIRE literature API) is cited. Pseudorapidity coverage, dipole bending power, RICH/VELO/calorimeter/muon-system specs are left unsourced (missing_fields) rather than guessed from memory.",
+    "VERIFIER FIX (2026-09-17): status corrected 'active' -> 'shutdown' and a Long Shutdown 3 interval added (mirroring experiment:lhcb), because the prior record's open-ended 'operating' interval made the detector derive as permanently active even while CERN's LHC -- LHCb's only beam source -- is in Long Shutdown 3, contradicting experiment:lhcb's own status."
   ],
   "parent_detector_id": null,
   "placements": [

@@ -31,7 +31,11 @@
     },
     {
       "confidence": "verified",
-      "end": null,
+      "end": {
+        "approx": true,
+        "date": "2026-06",
+        "note": "VERIFIER FIX (2026-09-17): capped at the LHC-wide Long Shutdown 3 boundary (see the added interval below); this record previously left this interval open-ended (end: null), which made detector:alice derive as permanently 'active' even during LS3, contradicting experiment:alice's own (correct) 'shutdown' status at the same date. ALICE cannot record collisions the LHC is not delivering."
+      },
       "label": "operating",
       "locator": "INSPIRE experiment record 1110642, field date_started",
       "note": "The original ITS1/MWPC-TPC configuration operated 2009-2018; the upgraded ITS2/GEM-TPC configuration (ALICE 2) operates from 2021. Both are recorded as a single 'operating' interval since the detector identity (detector:alice) persists across the upgrade; the upgrade itself is a separate interval below.",
@@ -55,6 +59,19 @@
       "start": "2018-12-03",
       "status": "upgrade",
       "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "Long Shutdown 3",
+      "locator": "reused from experiment:alice's sourced Long Shutdown 3 interval (src:cern-ls3-farewell-2026)",
+      "note": "VERIFIER-ADDED (2026-09-17): mirrors experiment:alice's Long Shutdown 3 interval so the detector-level derived status agrees with the experiment-level one; ongoing at verified_at.",
+      "sources": [
+        "src:cern-ls3-farewell-2026"
+      ],
+      "start": "2026-06",
+      "status": "shutdown",
+      "verified_at": "2026-09-17"
     }
   ],
   "links": {
@@ -63,7 +80,8 @@
   "name": "ALICE detector",
   "notes": [
     "specs.total_mass/length/diameter reflect the as-built (2008) detector; the ALICE 2 upgrade (2021) replaced the ITS and TPC internals but no fetched source gives updated overall mass/dimension figures, so the original detector-paper values are kept with a note.",
-    "Placed at site:cern-point-2-alice, whose coordinate is an approximate geocoder-derived campus point (see that record's notes) rather than a surveyed cavern coordinate."
+    "Placed at site:cern-point-2-alice, whose coordinate is an approximate geocoder-derived campus point (see that record's notes) rather than a surveyed cavern coordinate.",
+    "VERIFIER FIX (2026-09-17): status corrected 'active' -> 'shutdown' and a Long Shutdown 3 interval added (mirroring experiment:alice), because the prior record's open-ended 'operating' interval made the detector derive as permanently active even while CERN's LHC -- ALICE's only beam source -- is in Long Shutdown 3, contradicting experiment:alice's own status."
   ],
   "parent_detector_id": null,
   "placements": [
@@ -85,7 +103,8 @@
   "schema": "hep-atlas/0.2",
   "sources": [
     "src:colliders-lhc-alice-detector-jinst-2008",
-    "src:lep-cern-alice-experiment-page"
+    "src:lep-cern-alice-experiment-page",
+    "src:cern-ls3-farewell-2026"
   ],
   "specs": {
     "calorimeters": {
@@ -196,7 +215,7 @@
       "verified_at": "2026-09-17"
     }
   },
-  "status": "active",
+  "status": "shutdown",
   "subsystems": [
     {
       "confidence": "verified",
