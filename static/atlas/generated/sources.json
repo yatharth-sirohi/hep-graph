@@ -7935,18 +7935,38 @@
     "url": "https://en.wikipedia.org/wiki/Chooz_Nuclear_Power_Plant"
   },
   "src:cjpl-arxiv-early-science-2018": {
-    "accessed": "2026-09-17",
+    "accessed": "2026-09-18",
     "cited_by": {
       "facility:cjpl": [
         "/intervals/0",
         "/intervals/1"
+      ],
+      "geometry:cjpl-i-point": [
+        "/depth_m",
+        "/geometry",
+        "/sources"
+      ],
+      "geometry:cjpl-ii-point": [
+        "/depth_m",
+        "/geometry",
+        "/sources"
+      ],
+      "geometry:jinping-traffic-tunnel": [
+        "/checks/0",
+        "/checks/0/expected",
+        "/sources"
+      ],
+      "map:cjpl": [
+        "/center",
+        "/levels/1/depth_m",
+        "/sources"
       ],
       "site:cjpl-i": [
         "/sources"
       ]
     },
     "date": "2018-01",
-    "excerpt": "The China Jinping Underground Laboratory, inaugurated in 2010, is an underground research facility ... the deepest rock overburden and largest space by volume in the world. ... Phase II of the facility is being constructed.",
+    "excerpt": "The China Jinping Underground Laboratory, inaugurated in 2010, is an underground research facility ... the deepest rock overburden and largest space by volume in the world. ... Phase II of the facility is being constructed. Sec. II: \"Construction of Phase I of CJPL (CJPL-I) started in December 2009 near the center of one of the Jinping traffic tunnels, where the vertical rock overburden is maximal... It has drive-in access via a two-lane road tunnel... (The distances to the east and west ends of the tunnel entrance are 8.7 km and 8.8 km, respectively.)\" Table I: CJPL-I volume 4,000 m^3, rock burden/depth 2,400 m, start year 2010; CJPL-II volume 300,000 m^3, rock burden/depth 2,400 m, start year 2017. Sec. VI: \"CJPL-II is located 500 m to the west of CJPL-I, along the same road tunnel. It will have four caverns, each with dimensions of 14 m (width) x 14 m (height) x 130 m (length)...\" Table III: main road tunnels, two parallel tunnels, 9.2(8.3) km from east(west) entrance [to CJPL-II].",
     "id": "src:cjpl-arxiv-early-science-2018",
     "link_check": {
       "http_status": 200,
@@ -7956,7 +7976,7 @@
     "publisher": "arXiv preprint",
     "rank": 10,
     "reference": {},
-    "retrieval": "summary",
+    "retrieval": "full_text",
     "source_type": "arxiv",
     "title": "The China Jinping Underground Laboratory and its Early Science",
     "type": "src",
@@ -18529,6 +18549,63 @@
     "type": "src",
     "url": "https://www.openstreetmap.org/way/1019815060"
   },
+  "src:geo-kamioka-cjpl-hk-loi-2011": {
+    "accessed": "2026-09-18",
+    "cited_by": {
+      "geometry:hyper-kamiokande-point": [
+        "/geometry",
+        "/sources"
+      ],
+      "map:kamioka-observatory": [
+        "/center"
+      ]
+    },
+    "date": "2011-09",
+    "excerpt": "Section II.1 (Site, caverns, and tanks): \"at geographic coordinates Lat. 36 deg 21' 08.928'' N, Long. 137 deg 18' 49.688'' E, and an altitude of 508 m above sea level.\" Abstract: \"A proposed location for Hyper-K is about 8 km south of Super-K (and 295 km away from J-PARC) at an underground depth of 1,750 meters water equivalent (m.w.e.).\"",
+    "id": "src:geo-kamioka-cjpl-hk-loi-2011",
+    "publisher": "arXiv preprint",
+    "rank": 10,
+    "reference": {
+      "arxiv": "1109.3262"
+    },
+    "retrieval": "full_text",
+    "source_type": "arxiv",
+    "title": "Letter of Intent: The Hyper-Kamiokande Experiment -- Detector Design and Physics Potential --",
+    "type": "src",
+    "url": "https://arxiv.org/html/1109.3262v1"
+  },
+  "src:geo-kamioka-cjpl-osm-jinping-tunnel": {
+    "accessed": "2026-09-18",
+    "cited_by": {
+      "geometry:cjpl-i-point": [
+        "/geometry",
+        "/sources"
+      ],
+      "geometry:cjpl-ii-point": [
+        "/geometry",
+        "/sources"
+      ],
+      "geometry:jinping-traffic-tunnel": [
+        "/geometry",
+        "/sources"
+      ],
+      "map:cjpl": [
+        "/center",
+        "/sources"
+      ]
+    },
+    "date": "2026-09-18",
+    "excerpt": "Way 681216327, highway=tertiary, tunnel=yes, name '锦屏二级水电站交通隙洞' (Jinping-II Hydropower Station traffic tunnel), 20 nodes, west portal ~28.2151N 101.6424E to east portal ~28.1318N 101.7890E, measured length 17505.4 m. A near-identical parallel bore, way 653641019 (same name, 19 nodes, measured length 17456.2 m), lies ~65-70 m away throughout — OSM's trace of the twin-tunnel pair CJPL's own papers describe as \"two 17.5-km-long traffic tunnels\". Short unnamed/tunnel=<absent> stub ways (423382055/423382056/653641018/681216328) link the two bores at each portal. Extract via Overpass way(681216327); way(653641019); out geom;, osm3s.timestamp_osm_base 2026-09-18T22:26:31Z.",
+    "id": "src:geo-kamioka-cjpl-osm-jinping-tunnel",
+    "publisher": "OpenStreetMap contributors",
+    "rank": 11,
+    "reference": {},
+    "retrieval": "full_text",
+    "source_type": "openstreetmap",
+    "title": "OpenStreetMap way 681216327 (and parallel way 653641019): Jinping traffic tunnel(s)",
+    "type": "src",
+    "url": "https://www.openstreetmap.org/way/681216327"
+  },
   "src:geo-kek-osm-belle2-facility": {
     "accessed": "2026-09-18",
     "cited_by": {
@@ -19959,6 +20036,9 @@
         "/physics_goals/2",
         "/sources"
       ],
+      "map:kamioka-observatory": [
+        "/levels/2/depth_m"
+      ],
       "site:kamioka-hyper-kamiokande-tochibora": [
         "/depth",
         "/sources"
@@ -20076,6 +20156,11 @@
       "beamline:j-parc-neutrino": [
         "/baselines/1",
         "/baselines/1/distance"
+      ],
+      "geometry:hyper-kamiokande-point": [
+        "/checks/0",
+        "/checks/0/expected",
+        "/sources"
       ],
       "site:kamioka-hyper-kamiokande-tochibora": [
         "/coordinates",
@@ -21529,6 +21614,10 @@
         "/sources",
         "/specs/depth",
         "/specs/overburden"
+      ],
+      "map:kamioka-observatory": [
+        "/levels/1/depth_m",
+        "/sources"
       ],
       "site:kamioka-mozumi-mine-super-kamiokande": [
         "/sources"
@@ -22984,6 +23073,10 @@
   "src:jparc-osm-nominatim": {
     "accessed": "2026-09-16",
     "cited_by": {
+      "geometry:t2k-beam-direction-kamioka": [
+        "/geometry",
+        "/sources"
+      ],
       "site:j-parc-main-ring": [
         "/coordinates"
       ],
@@ -23876,6 +23969,10 @@
         "/facility_roles/0",
         "/intervals/0",
         "/key_specs/0/quantity",
+        "/sources"
+      ],
+      "geometry:kamland-point": [
+        "/geometry",
         "/sources"
       ],
       "site:kamioka-kamland": [
@@ -44883,6 +44980,12 @@
         "/key_specs/2/quantity",
         "/key_specs/3/quantity",
         "/sources"
+      ],
+      "geometry:super-kamiokande-cavern": [
+        "/checks/0",
+        "/checks/0/expected",
+        "/geometry",
+        "/sources"
       ]
     },
     "date": "2026",
@@ -45006,6 +45109,18 @@
       "facility:kamioka-observatory": [
         "/specs/depth",
         "/specs/overburden"
+      ],
+      "geometry:super-kamiokande-cavern": [
+        "/geometry",
+        "/sources"
+      ],
+      "geometry:t2k-beam-direction-kamioka": [
+        "/geometry"
+      ],
+      "map:kamioka-observatory": [
+        "/center",
+        "/levels/1/depth_m",
+        "/sources"
       ],
       "site:kamioka-hyper-kamiokande-tochibora": [
         "/coordinates"
@@ -46883,6 +46998,11 @@
       ],
       "geometry:j-parc-neutrino-target-station": [
         "/geometry",
+        "/sources"
+      ],
+      "geometry:t2k-beam-direction-kamioka": [
+        "/checks/0",
+        "/checks/0/expected",
         "/sources"
       ],
       "map:j-parc": [

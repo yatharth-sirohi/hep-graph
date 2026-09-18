@@ -3561,7 +3561,8 @@
         "site:kamioka-hyper-kamiokande-tochibora"
       ],
       "geometry_map_ids": [
-        "map:j-parc"
+        "map:j-parc",
+        "map:kamioka-observatory"
       ],
       "id": "beamline:j-parc-neutrino",
       "intervals": [
@@ -46045,7 +46046,7 @@
       "links": {
         "website": "https://cjpl.tsinghua.edu.cn/"
       },
-      "map_id": null,
+      "map_id": "map:cjpl",
       "name": "China Jinping Underground Laboratory",
       "operator_ids": [],
       "operator_text": "Tsinghua University, together with Yalong River Hydropower Development Company",
@@ -47077,7 +47078,7 @@
       "links": {
         "website": "https://www.icrr.u-tokyo.ac.jp/en/facility/4218/"
       },
-      "map_id": null,
+      "map_id": "map:kamioka-observatory",
       "name": "Kamioka Observatory (ICRR, University of Tokyo)",
       "operator": "Institute for Cosmic Ray Research, University of Tokyo",
       "operator_ids": [],
@@ -49340,6 +49341,67 @@
       "to_scale_count": 20,
       "unlocated_count": 7
     },
+    "map:cjpl": {
+      "attribution": [
+        "© OpenStreetMap contributors (ODbL-1.0)"
+      ],
+      "bundle": "geometry/cjpl.json",
+      "center": {
+        "lat": 28.1786453,
+        "lon": 101.7171657
+      },
+      "coverage": {
+        "researched": "partial",
+        "tier": "B"
+      },
+      "extent_m": 3000,
+      "facility_id": "facility:cjpl",
+      "feature_count": 3,
+      "id": "map:cjpl",
+      "levels": [
+        {
+          "depth_m": null,
+          "id": "surface",
+          "kind": "surface",
+          "name": "Surface"
+        },
+        {
+          "depth_m": {
+            "approx": false,
+            "dimension": "length",
+            "display": "2400 m of rock",
+            "unit": "m",
+            "value": 2400
+          },
+          "id": "jinping-tunnel",
+          "kind": "underground",
+          "name": "Jinping traffic tunnel (~2400 m level)"
+        }
+      ],
+      "linked_map_ids": [],
+      "name": "China Jinping Underground Laboratory (CJPL)",
+      "site_ids": [
+        "site:cjpl-i",
+        "site:cjpl-ii"
+      ],
+      "state_segments": [
+        [
+          720,
+          731,
+          "active",
+          "possible"
+        ],
+        [
+          732,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
+      "to_scale_count": 3,
+      "unlocated_count": 0
+    },
     "map:desy": {
       "attribution": [
         "© OpenStreetMap contributors (ODbL-1.0)"
@@ -49546,6 +49608,7 @@
         }
       ],
       "linked_map_ids": [
+        "map:kamioka-observatory",
         "map:kek"
       ],
       "name": "J-PARC — Tokai accelerator complex",
@@ -49596,6 +49659,81 @@
       "to_scale_count": 8,
       "unlocated_count": 0
     },
+    "map:kamioka-observatory": {
+      "attribution": [],
+      "bundle": "geometry/kamioka-observatory.json",
+      "center": {
+        "lat": 36.389101,
+        "lon": 137.312054
+      },
+      "coverage": {
+        "researched": "partial",
+        "tier": "B"
+      },
+      "extent_m": 9000,
+      "facility_id": "facility:kamioka-observatory",
+      "feature_count": 4,
+      "id": "map:kamioka-observatory",
+      "levels": [
+        {
+          "depth_m": null,
+          "id": "surface",
+          "kind": "surface",
+          "name": "Surface"
+        },
+        {
+          "depth_m": {
+            "approx": false,
+            "dimension": "length",
+            "display": "1000 m of rock (2700 m.w.e.)",
+            "unit": "m",
+            "value": 1000
+          },
+          "id": "ikenoyama-1000m",
+          "kind": "underground",
+          "name": "Mt. Ikenoyama, Mozumi mine (~1000 m level)"
+        },
+        {
+          "depth_m": {
+            "approx": false,
+            "dimension": "length",
+            "display": "650 m of rock at the detector centre",
+            "unit": "m",
+            "value": 650
+          },
+          "id": "nijuugoyama-650m",
+          "kind": "underground",
+          "name": "Mt. Nijuugoyama, Tochibora mine (~650 m level)"
+        }
+      ],
+      "linked_map_ids": [
+        "map:j-parc",
+        "map:kek"
+      ],
+      "name": "Kamioka Observatory — Mozumi and Tochibora mines",
+      "site_ids": [
+        "site:kamioka-hyper-kamiokande-tochibora",
+        "site:kamioka-kamland",
+        "site:kamioka-mozumi-mine-super-kamiokande"
+      ],
+      "state_segments": [
+        [
+          540,
+          551,
+          "active",
+          "possible"
+        ],
+        [
+          552,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
+      "to_scale_count": 3,
+      "unlocated_count": 0
+    },
     "map:kek": {
       "attribution": [
         "© OpenStreetMap contributors (ODbL-1.0)"
@@ -49628,7 +49766,8 @@
         }
       ],
       "linked_map_ids": [
-        "map:j-parc"
+        "map:j-parc",
+        "map:kamioka-observatory"
       ],
       "name": "KEK — Tsukuba campus",
       "site_ids": [
@@ -52488,7 +52627,7 @@
       "links": {
         "website": null
       },
-      "map_id": null,
+      "map_id": "map:cjpl",
       "name": "CJPL-I",
       "place": {
         "city": "Jinping (Muli/Yanyuan area)",
@@ -52538,7 +52677,7 @@
       "links": {
         "website": null
       },
-      "map_id": null,
+      "map_id": "map:cjpl",
       "name": "CJPL-II",
       "place": {
         "city": "Jinping (Muli/Yanyuan area)",
@@ -54544,7 +54683,7 @@
       "links": {
         "website": null
       },
-      "map_id": null,
+      "map_id": "map:kamioka-observatory",
       "name": "Tochibora mine, Kamioka — Hyper-Kamiokande cavern",
       "place": {
         "city": "Hida",
@@ -54702,7 +54841,7 @@
       "links": {
         "website": null
       },
-      "map_id": null,
+      "map_id": "map:kamioka-observatory",
       "name": "KamLAND cavity, Kamioka mine",
       "place": {
         "city": "Hida",
@@ -54777,7 +54916,7 @@
       "links": {
         "website": null
       },
-      "map_id": null,
+      "map_id": "map:kamioka-observatory",
       "name": "Mozumi mine, Kamioka — Super-Kamiokande cavern",
       "place": {
         "city": "Hida",
@@ -59496,5 +59635,5 @@
       "type": "topic"
     }
   },
-  "version": "fa06f3ad85a835d4"
+  "version": "800e2addd3d11349"
 }

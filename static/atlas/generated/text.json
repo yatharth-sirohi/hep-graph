@@ -4420,6 +4420,12 @@
       "No checks[] row: a Point has no length/area/span to cross-check independently."
     ]
   },
+  "geometry:cjpl-i-point": {
+    "notes": []
+  },
+  "geometry:cjpl-ii-point": {
+    "notes": []
+  },
   "geometry:cngs-direction-line": {
     "notes": []
   },
@@ -4505,6 +4511,9 @@
       "valid.start (1990-11-08) is the OSM way's own start_date tag, which predates accelerator:hera's own sourced operation interval (1992) -- the tunnel/ring structure itself predates first physics collisions, matching the contract's guidance that a shape's own lifetime may differ from its entity's."
     ]
   },
+  "geometry:hyper-kamiokande-point": {
+    "notes": []
+  },
   "geometry:j-parc-hadron-hall-building": {
     "notes": [
       "Represents site:j-parc-hadron-hall, which hosts detector:koto and detector:comet."
@@ -4549,6 +4558,12 @@
     ]
   },
   "geometry:j-parc-rcs-tunnel": {
+    "notes": []
+  },
+  "geometry:jinping-traffic-tunnel": {
+    "notes": []
+  },
+  "geometry:kamland-point": {
     "notes": []
   },
   "geometry:kek-belle2-detector-facility-boundary": {
@@ -4701,6 +4716,9 @@
   "geometry:sps-tunnel-ring": {
     "notes": []
   },
+  "geometry:super-kamiokande-cavern": {
+    "notes": []
+  },
   "geometry:superkekb-tunnel-ring": {
     "notes": [
       "`valid` left null: the feature inherits accelerator:superkekb's own state_segments (construction from 2011-11-18, active from 2019-03-11). The tunnel is the same KEKB tunnel, reused in place.",
@@ -4723,6 +4741,9 @@
     "notes": []
   },
   "geometry:surf-yates-hoist": {
+    "notes": []
+  },
+  "geometry:t2k-beam-direction-kamioka": {
     "notes": []
   },
   "geometry:ti12-faser-point": {
@@ -6959,6 +6980,13 @@
     ],
     "summary_technical": "One local map for facility:cern spanning the Meyrin and Prévessin sites and the full LHC/LEP tunnel footprint. Geometry sourced from OpenStreetMap (relation 9512017 for the LHC/LEP ring; ways 66473762/174646428/309914733 for SPS/PS/PSB; named Point-N surface enclosures for ATLAS/ALICE/CMS/LHCb and their LEP-era predecessors L3/ALEPH/DELPHI) cross-checked against CERN's published circumference and depth figures, plus one CMS-paper surveyed cavern point and two ring-derived points for FASER/SND@LHC in TI12/TI18."
   },
+  "map:cjpl": {
+    "notes": [
+      "No accelerator or beamline entity has facility_id: facility:cjpl (it is a passive underground laboratory, not an accelerator complex), so unlocated[] has nothing to list on that front; both of the facility's sites (site:cjpl-i, site:cjpl-ii) are drawn.",
+      "detector:pandax-4t's placement site_id is site:cjpl-ii; no independently sourced sub-position for PandaX-4T within the CJPL-II hall complex was found this session, so it shares geometry:cjpl-ii-point rather than getting its own feature (unlike CERN's CMS cavern point, which had its own published coordinate)."
+    ],
+    "summary_technical": "Local map for facility:cjpl. Both halls are drawn as points derived by walking the sourced portal-to-hall distances (8.7-9.2 km) along an OpenStreetMap trace of the Jinping traffic tunnel (two near-identical parallel bores; one is drawn). The tunnel's own OSM-measured length (17.5 km) is cross-checked against the facility's published '17.5-km-long traffic tunnels' figure."
+  },
   "map:desy": {
     "notes": [
       "Site coordinate correction (for the integrator, not applied here): site:desy-hamburg-campus, site:desy-hera-north-hall-h1 and site:desy-hera-south-hall-zeus all currently carry the same ROR-geocoded point (53.55073N, 9.99302E, precision_m 800). That point is about 10.3 km from DESY's actual Hamburg-Bahrenfeld campus. Two independent sources fetched this session agree with each other instead: (1) OSM way 276641657, the campus landuse polygon itself, tagged with DESY's own postal address (Notkestraße 85, 22607 Hamburg) and centroid 53.5771N, 9.8808E; (2) src:desy-wikipedia's own excerpt, already cited by the existing site record, states the coordinate '53 34'33''N 9 52'46''E' = 53.5758N, 9.8794E -- 150 m from (1) and nothing like the ROR point actually used. See the worklog for the full correction list.",
@@ -6978,6 +7006,14 @@
       "facility:j-parc's notes record that the Materials and Life Science Experimental Facility (MLF, fed by the RCS) and a proposed muon g-2/EDM experiment are mentioned on official J-PARC pages, but neither has an atlas accelerator/beamline/detector/experiment record of its own (out of the HEP scope this atlas models), so neither appears in this map or in `unlocated[]` -- there is no entity id to list."
     ],
     "summary_technical": "One local map for facility:j-parc covering the Tokai campus: the 400 MeV linac, 3 GeV RCS and 1567 m Main Ring tunnels (OSM indoor-mapped corridors, cross-checked against the T2K NIM paper's machine table), the Hadron Experimental Facility building (KOTO, COMET), the neutrino primary+secondary beamline tunnel and target station, the near-detector hall building (ND280, INGRID), and an inferred-direction line toward Super-Kamiokande."
+  },
+  "map:kamioka-observatory": {
+    "notes": [
+      "linked_map_ids is left empty: map:j-parc does not exist in this worktree/branch as of 2026-09-18 (a concurrent researcher's task). facility:kamioka-observatory.related_facility_ids already lists facility:j-parc, so once map:j-parc is merged the build's automatic derivation (related_facility_ids with a map, plus beamline:j-parc-neutrino's far_detector_site_ids pointing at this map's own sites) should link the two maps without any authoring change here.",
+      "facility:kamioka-observatory's own notes record that the Kamioka Observatory also hosts KAGRA, CANDLES, NEWAGE and XENONnT R&D, and that experiment:kamiokande/experiment:kamland-zen exist as atlas experiment records; none of these have their own site: record in this atlas (only the two mines already in site_ids do), so there is nothing further to draw or list in unlocated[] for them — flagged here as a completeness gap, not a map defect.",
+      "Overpass (overpass-api.de and lz4.overpass-api.de) refused every connection attempted this session (curl error 7, 'Failed to connect') for a Mozumi-area building/tunnel-entrance query; unlike the CJPL query earlier in the same session, which succeeded once. No OpenStreetMap feature for the Atotsu tunnel entrance or the Kamioka Observatory's surface buildings could be added. Backlog: retry the query `way[\"building\"](36.415,137.300,36.435,137.325); way[\"tunnel\"](36.415,137.300,36.435,137.325);` on either mirror."
+    ],
+    "summary_technical": "Local map for facility:kamioka-observatory spanning the Mozumi mine (site:kamioka-mozumi-mine-super-kamiokande, site:kamioka-kamland) and the Tochibora mine (site:kamioka-hyper-kamiokande-tochibora), 8 km apart. Super-Kamiokande is drawn as a derived 39.3 m circle around its own surveyed GPS centre; Hyper-Kamiokande as a surveyed point from its 2011 Letter of Intent; KamLAND as the coarse point already on record (no better source was fetched this session). An inferred_direction feature shows the T2K beam's 295 km baseline from J-PARC, cross-checked against the T2K instrumentation paper's own surveyed figure."
   },
   "map:kek": {
     "notes": [

@@ -47890,6 +47890,74 @@
       "verified_at": null
     }
   },
+  "geometry:cjpl-i-point": {
+    "/depth_m": {
+      "confidence": "verified",
+      "locator": "Section II",
+      "note": "",
+      "quote": "CJPL-I was built under Jinping Mountain with 2,400 m of rock overburden.",
+      "sources": [
+        "src:cjpl-arxiv-early-science-2018"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/geometry": {
+      "confidence": "derived",
+      "locator": "Section II: \"The distances to the east and west ends of the tunnel entrance are 8.7 km and 8.8 km, respectively.\"",
+      "note": "Point stands in for the ~6.5 m x 6.5 m x 40 m main hall; not a trace of the hall's own footprint (no plan with that footprint's orientation along the tunnel axis was fetched this session).",
+      "quote": "Construction of Phase I of CJPL (CJPL-I) started in December 2009 near the center of one of the Jinping traffic tunnels, where the vertical rock overburden is maximal ... The distances to the east and west ends of the tunnel entrance are 8.7 km and 8.8 km, respectively.",
+      "sources": [
+        "src:geo-kamioka-cjpl-osm-jinping-tunnel",
+        "src:cjpl-arxiv-early-science-2018"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-kamioka-cjpl-osm-jinping-tunnel",
+        "src:cjpl-arxiv-early-science-2018"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:cjpl-ii-point": {
+    "/depth_m": {
+      "confidence": "verified",
+      "locator": "Table I",
+      "note": "This 2018 review's Table I gives CJPL-II the SAME 2,400 m depth column as CJPL-I. The existing site record (site:cjpl-ii, not edited here) instead carries 2100 m from an earlier 2014 paper (arXiv:1404.2651); see the worklog for this conflict, flagged for the integrator rather than resolved here.",
+      "quote": "CJPL-II ... rock burden/depth 2,400 m",
+      "sources": [
+        "src:cjpl-arxiv-early-science-2018"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/geometry": {
+      "confidence": "derived",
+      "locator": "Table III: \"Main Road Tunnels ... 9.2(8.3) km from East(West) Entrance\"; Section VI: \"CJPL-II is located 500 m to the west of CJPL-I\"",
+      "note": "Point stands in for the four-cavern hall complex's centre; not a trace of the individual caverns' footprints (their exact offsets from this reference point along the connecting tunnels were not fetched to a level that supports drawing polygons).",
+      "quote": "CJPL-II is located 500 m to the west of CJPL-I, along the same road tunnel. It will have four caverns, each with dimensions of 14 m (width) x 14 m (height) x 130 m (length)",
+      "sources": [
+        "src:geo-kamioka-cjpl-osm-jinping-tunnel",
+        "src:cjpl-arxiv-early-science-2018"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-kamioka-cjpl-osm-jinping-tunnel",
+        "src:cjpl-arxiv-early-science-2018"
+      ],
+      "verified_at": null
+    }
+  },
   "geometry:cngs-direction-line": {
     "/geometry": {
       "confidence": "derived",
@@ -48646,6 +48714,49 @@
       "verified_at": null
     }
   },
+  "geometry:hyper-kamiokande-point": {
+    "/checks/0": {
+      "confidence": null,
+      "locator": "detector-site paragraph",
+      "note": null,
+      "quote": "approximately 8 km south of the Super-Kamiokande site",
+      "sources": [
+        "src:hk-pos-icrc2021-status"
+      ],
+      "verified_at": null
+    },
+    "/checks/0/expected": {
+      "confidence": "verified",
+      "locator": "detector-site paragraph",
+      "note": "",
+      "quote": "the far detector site is located at Mt. Nijuugo-yama in the Tochibora mine at Kamioka ... approximately 8 km south of the Super-Kamiokande site",
+      "sources": [
+        "src:hk-pos-icrc2021-status"
+      ],
+      "verified_at": "2026-09-16"
+    },
+    "/geometry": {
+      "confidence": "verified",
+      "locator": "Section II.1 (Site, caverns, and tanks)",
+      "note": "`verified` rests on `representation: surveyed` from a rank-10 arXiv technical paper (A15/A25), independent of any OSM check.",
+      "quote": "at geographic coordinates Lat. 36 deg 21' 08.928'' N, Long. 137 deg 18' 49.688'' E, and an altitude of 508 m above sea level.",
+      "sources": [
+        "src:geo-kamioka-cjpl-hk-loi-2011"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-kamioka-cjpl-hk-loi-2011",
+        "src:hk-pos-icrc2021-status"
+      ],
+      "verified_at": null
+    }
+  },
   "geometry:j-parc-hadron-hall-building": {
     "/geometry": {
       "confidence": "approximate",
@@ -48940,6 +49051,71 @@
       "sources": [
         "src:geo-jparc-osm-rcs-ring",
         "src:jparc-accelerators"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:jinping-traffic-tunnel": {
+    "/checks/0": {
+      "confidence": null,
+      "locator": "Section II",
+      "note": null,
+      "quote": "two 17.5-km-long traffic tunnels under Jinping Mountain were completed",
+      "sources": [
+        "src:cjpl-arxiv-early-science-2018"
+      ],
+      "verified_at": null
+    },
+    "/checks/0/expected": {
+      "confidence": "verified",
+      "locator": "Section II",
+      "note": "",
+      "quote": "two 17.5-km-long traffic tunnels under Jinping Mountain were completed",
+      "sources": [
+        "src:cjpl-arxiv-early-science-2018"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/geometry": {
+      "confidence": "approximate",
+      "locator": "OSM way 681216327, extracted via Overpass, osm3s.timestamp_osm_base 2026-09-18T22:26:31Z",
+      "note": "OpenStreetMap alone yields at most `approximate` confidence even though the independent length check below passes (A25 §1.2).",
+      "quote": "name='锦屏二级水电站交通隙洞', highway=tertiary, tunnel=yes",
+      "sources": [
+        "src:geo-kamioka-cjpl-osm-jinping-tunnel"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-kamioka-cjpl-osm-jinping-tunnel",
+        "src:cjpl-arxiv-early-science-2018"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:kamland-point": {
+    "/geometry": {
+      "confidence": "approximate",
+      "locator": "Wikipedia infobox coordinate (36 deg 25' 21'' N, 137 deg 18' 55'' E)",
+      "note": "Representation is honestly weak: the only fetched source is Wikipedia (rank 12), not a lab page or paper, so this is not `surveyed`, and it is not traced from OSM/GIS so it is not `georeferenced` either; `derived` is used here for a zero-offset reuse of the existing sourced parameter, flagged `approximate` confidence. See worklog backlog for a better source.",
+      "quote": "36°25′21″N 137°18′55″E",
+      "sources": [
+        "src:kamland-wikipedia"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:kamland-wikipedia"
       ],
       "verified_at": null
     }
@@ -49980,6 +50156,50 @@
       "verified_at": null
     }
   },
+  "geometry:super-kamiokande-cavern": {
+    "/checks/0": {
+      "confidence": null,
+      "locator": "Super-Kamiokande detector page",
+      "note": null,
+      "quote": "39.3 m in diameter and 41.4 m in height",
+      "sources": [
+        "src:sk-detector-page"
+      ],
+      "verified_at": null
+    },
+    "/checks/0/expected": {
+      "confidence": "verified",
+      "locator": "Super-Kamiokande detector page",
+      "note": "",
+      "quote": "39.3 m in diameter and 41.4 m in height",
+      "sources": [
+        "src:sk-detector-page"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/geometry": {
+      "confidence": "derived",
+      "locator": "SK NIM paper (GPS survey of detector centre); Super-Kamiokande detector page, \"39.3 m in diameter and 41.4 m in height\"",
+      "note": "Circle computed by this record's author from a sourced centre and a sourced diameter; not itself a published shape.",
+      "quote": "at geographic coordinates 36 25' 32.6\" N, 137 18' 37.1\" E ... 39.3 m in diameter and 41.4 m in height",
+      "sources": [
+        "src:sk-nim-2003",
+        "src:sk-detector-page"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:sk-nim-2003",
+        "src:sk-detector-page"
+      ],
+      "verified_at": null
+    }
+  },
   "geometry:superkekb-tunnel-ring": {
     "/checks/0": {
       "confidence": null,
@@ -50154,6 +50374,50 @@
       "quote": null,
       "sources": [
         "src:geo-surf-osm-campus-buildings"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:t2k-beam-direction-kamioka": {
+    "/checks/0": {
+      "confidence": null,
+      "locator": "src:t2k-nim-2011",
+      "note": null,
+      "quote": "The measured distance between the target and the center position of Super-Kamiokande is 295,335.2 +- 0.7 m.",
+      "sources": [
+        "src:t2k-nim-2011"
+      ],
+      "verified_at": null
+    },
+    "/checks/0/expected": {
+      "confidence": "verified",
+      "locator": "src:t2k-nim-2011",
+      "note": "",
+      "quote": "The measured distance between the target and the center position of Super-Kamiokande is 295,335.2 +- 0.7 m.",
+      "sources": [
+        "src:t2k-nim-2011"
+      ],
+      "verified_at": "2026-09-16"
+    },
+    "/geometry": {
+      "confidence": "derived",
+      "locator": "site:j-parc-main-ring's own sourced coordinate; SK NIM paper's GPS survey of the Super-Kamiokande centre",
+      "note": "Not a physical structure: this is the T2K neutrino beam's direction, drawn on the far (Kamioka) end to show the direction from which it arrives. The validator recomputes the bearing from this line's first vertex (J-PARC) to beamline:j-parc-neutrino's far site (Super-Kamiokande, this line's own second vertex) and checks it matches.",
+      "quote": "at geographic coordinates 36 25' 32.6\" N, 137 18' 37.1\" E, and altitude 370 m above the conventional (WGS-84) geodetic ellipsoid, as determined by a GPS survey",
+      "sources": [
+        "src:jparc-osm-nominatim",
+        "src:sk-nim-2003"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:t2k-nim-2011",
+        "src:jparc-osm-nominatim"
       ],
       "verified_at": null
     }
@@ -67389,6 +67653,56 @@
       "verified_at": "2026-09-18"
     }
   },
+  "map:cjpl": {
+    "/center": {
+      "confidence": "derived",
+      "locator": "Midpoint of the tunnel-walked CJPL-I and CJPL-II points",
+      "note": "Map centre only; not a claim about any structure.",
+      "quote": null,
+      "sources": [
+        "src:geo-kamioka-cjpl-osm-jinping-tunnel",
+        "src:cjpl-arxiv-early-science-2018"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/levels/0": {
+      "confidence": null,
+      "locator": null,
+      "note": "Jinping Mountain's surface above the tunnel; the two portal areas (west, near the Yalong River bend, and east) are about 8.4-8.8 km from the map centre. No feature is drawn at this level.",
+      "quote": null,
+      "sources": null,
+      "verified_at": null
+    },
+    "/levels/1": {
+      "confidence": null,
+      "locator": null,
+      "note": "Houses geometry:jinping-traffic-tunnel, geometry:cjpl-i-point and geometry:cjpl-ii-point, all beside the same twin road-tunnel pair.",
+      "quote": null,
+      "sources": null,
+      "verified_at": null
+    },
+    "/levels/1/depth_m": {
+      "confidence": "verified",
+      "locator": "Section II / Table I",
+      "note": "Table I of this 2018 review gives BOTH CJPL-I and CJPL-II the same 2,400 m rock-burden/depth figure. The existing site:cjpl-ii record (not edited here) instead carries 2100 m from an earlier 2014 paper; see the worklog conflicts section.",
+      "quote": "CJPL-I was built under Jinping Mountain with 2,400 m of rock overburden.",
+      "sources": [
+        "src:cjpl-arxiv-early-science-2018"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:cjpl-arxiv-early-science-2018",
+        "src:geo-kamioka-cjpl-osm-jinping-tunnel"
+      ],
+      "verified_at": null
+    }
+  },
   "map:desy": {
     "/center": {
       "confidence": "derived",
@@ -67775,6 +68089,75 @@
       "sources": [
         "src:geo-jparc-osm-mr-ring",
         "src:t2k-nim-2011"
+      ],
+      "verified_at": null
+    }
+  },
+  "map:kamioka-observatory": {
+    "/center": {
+      "confidence": "derived",
+      "locator": "Midpoint of Super-Kamiokande's surveyed GPS point and Hyper-Kamiokande's surveyed LOI point",
+      "note": "Map centre only; not a claim about any structure. precision_m is set loosely because this is a naive two-point midpoint spanning two separate mines 8 km apart, not an area centroid.",
+      "quote": null,
+      "sources": [
+        "src:sk-nim-2003",
+        "src:geo-kamioka-cjpl-hk-loi-2011"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/levels/0": {
+      "confidence": null,
+      "locator": null,
+      "note": "The Kamioka valley surface: the Mozumi and Atotsu mine entrances (the latter a 1.7 km horizontal drive-in tunnel) and the Kamioka Observatory's surface buildings. No OpenStreetMap trace of these was obtained this session (Overpass connectivity failed on both mirrors every time it was tried — see worklog); no surface feature is drawn at this level.",
+      "quote": null,
+      "sources": null,
+      "verified_at": null
+    },
+    "/levels/1": {
+      "confidence": null,
+      "locator": null,
+      "note": "Houses geometry:super-kamiokande-cavern and geometry:kamland-point, both under Mt. Ikenoyama in the Mozumi mine, reached via the Atotsu tunnel.",
+      "quote": null,
+      "sources": null,
+      "verified_at": null
+    },
+    "/levels/1/depth_m": {
+      "confidence": "verified",
+      "locator": "ICRR Kamioka Observatory page",
+      "note": "Reuses the depth already sourced on facility:kamioka-observatory and site:kamioka-mozumi-mine-super-kamiokande verbatim.",
+      "quote": "50,000-ton water Cherenkov detector located 1000m underground (2700m.w.e) in the Kamioka Mine",
+      "sources": [
+        "src:icrr-kamioka-observatory-page",
+        "src:sk-nim-2003"
+      ],
+      "verified_at": "2026-09-16"
+    },
+    "/levels/2": {
+      "confidence": null,
+      "locator": null,
+      "note": "Houses geometry:hyper-kamiokande-point, under Mt. Nijuugoyama in the Tochibora mine.",
+      "quote": null,
+      "sources": null,
+      "verified_at": null
+    },
+    "/levels/2/depth_m": {
+      "confidence": "verified",
+      "locator": "Frontiers in Physics 12:1378254 (2024)",
+      "note": "Reuses the depth already sourced on site:kamioka-hyper-kamiokande-tochibora verbatim. A separate level from ikenoyama-1000m: Tochibora is a physically distinct mine and mountain 8 km south of Mozumi, not the same plane at a different scale.",
+      "quote": "overburden at the top of the main cavern is 592m and 650 m at the center of the detector",
+      "sources": [
+        "src:hk-frontiers-2024-status"
+      ],
+      "verified_at": "2026-09-16"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:sk-nim-2003",
+        "src:icrr-kamioka-observatory-page"
       ],
       "verified_at": null
     }
