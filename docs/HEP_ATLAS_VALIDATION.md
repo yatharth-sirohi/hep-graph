@@ -285,65 +285,80 @@ Generated at 2026-09-18 by `scripts/atlas_validation_counts.py`. Every figure be
 
 | Type | Count |
 | --- | ---: |
-| Facilities | 9 |
-| Sites | 22 |
-| Accelerators | 21 |
-| Beamlines | 5 |
-| Experiments | 30 |
-| Detectors | 32 |
-| Collaborations | 25 |
+| Facilities | 48 |
+| Sites | 93 |
+| Accelerators | 31 |
+| Beamlines | 6 |
+| Experiments | 131 |
+| Detectors | 135 |
+| Collaborations | 122 |
 | Institutions | 529 |
 | People | 12 |
-| Results | 62 |
-| Documents | 55 |
+| Results | 109 |
+| Documents | 70 |
 | Topics | 42 |
-| Sources | 957 |
+| Sources | 1486 |
 | Membership rosters | 3 |
-| Coverage registry rows | 128 |
+| Coverage registry rows | 131 |
 
-Of 957 sources, 0 (0%) carry a recorded link-check status (`link_check.last_checked` or `link_check.http_status` is not null); the rest have never been through `python -m hepgraph.atlas.linkcheck`.
+Of 1486 sources, 0 (0%) carry a recorded link-check status (`link_check.last_checked` or `link_check.http_status` is not null); the rest have never been through `python -m hepgraph.atlas.linkcheck`.
+
+Results by the type their publication used: 32 observation, 22 measurement, 17 limit, 15 precision measurement, 15 evidence, 4 technology milestone, 2 anomaly, 1 first detection, 1 discovery.
 
 ### 8.2 Coverage registry, by tier and researched state
 
 | Tier | Researched | Rows |
 | --- | --- | ---: |
-| A | full | 16 |
-| A | none | 2 |
-| B | full | 9 |
-| B | none | 66 |
-| B | partial | 3 |
-| C | full | 1 |
-| C | none | 16 |
-| D | none | 15 |
+| A | full | 21 |
+| A | partial | 2 |
+| B | full | 11 |
+| B | partial | 65 |
+| C | full | 2 |
+| C | partial | 15 |
+| D | full | 4 |
+| D | partial | 11 |
 
 ### 8.3 Validator findings (`python -m hepgraph.atlas.validate`)
 
 | Level | Count |
 | --- | ---: |
 | error | 0 |
-| warning | 940 |
-| info | 198 |
+| warning | 1589 |
+| info | 4 |
 
 ### 8.4 Integration issues (`docs/atlas-worklog/INTEGRATION_ISSUES.md`)
 
-37 rows parsed across every severity/state table in that file.
+54 rows parsed across every severity/state table in that file.
 
 | Severity | State | Rows |
 | --- | --- | ---: |
 | P0 | assigned | 4 |
-| P0 | fixed | 1 |
+| P0 | fixed | 2 |
 | P0 | fixed (loader accepts both) | 1 |
+| P0 | fixed from the collaborations' own papers | 1 |
+| P0 | fixed in every verified domain; no mechanical check exists — the release note lists it as the main residual risk for unverified fields | 1 |
+| P0 | fixed; a16 keyword check extended to `first_detection` (requires "detect"); kamiokande sn1987a relabelled `observation` to match its title | 1 |
 | P1 | assigned | 1 |
-| P1 | fixed | 6 |
+| P1 | fixed | 8 |
 | P1 | fixed (by a separate change; verified by this closure pass) | 1 |
+| P1 | fixed mechanically; new warning `collapsed-history` | 1 |
+| P1 | fixed with sourced intervals | 1 |
+| P1 | fixed; amendment a23 lets an admitted approximation warn (`coordinate-kind-approximate`), the bundle carries `approximate | 1 |
+| P1 | fixed; moedal (`upgrade` vs `active`) remains a documented p2 | 1 |
 | P1 | open | 5 |
 | P1 | open — out of this workstream's scope (`globe.js`, owned separately) | 1 |
 | P1 | sent to pipeline | 4 |
+| P1 | split into `experiment | 1 |
+| P1 | upgraded to ror geocoder points (rank 8); boulby, cjpl, lsm keep osm points with notes | 1 |
 | P2 | closed | 1 |
 | P2 | fixed | 1 |
-| P2 | open | 8 |
+| P2 | fixed by repointing; validator `duplicate-source-url` caught each | 1 |
+| P2 | fixed; amendment a24 adds the classes | 1 |
+| P2 | open | 9 |
+| P2 | open by design (a23) | 1 |
 | P2 | sent to pipeline | 1 |
 | info | closed | 1 |
+| info | not done; stated in the release report | 1 |
 | info | open | 1 |
 
 ### 8.5 Python test suite
@@ -352,17 +367,16 @@ Source: a local `pytest -q` log (outside the repository tree, path not recorded)
 
 | Outcome | Count |
 | --- | ---: |
-| passed | 509 |
+| passed | 513 |
 | skipped | 129 |
 
 ### 8.6 Browser test results
 
-2 result file(s) found under `test-results/atlas`.
+1 result file(s) found under `test-results/atlas`.
 
 | File | Status | Checks passed | Uncaught errors | Checked at |
 | --- | --- | ---: | ---: | --- |
-| test-results/atlas/fixtures/report.json | passed | 17/17 | 0 | 2026-09-18T03:38:20.418Z |
-| test-results/atlas/generated/report.json | failed | 1/1 | 0 | — |
+| test-results/atlas/report.json | passed | 23/23 | 0 | 2026-09-18T17:04:18.190Z |
 
 ### 8.7 Manual / human-verified fields
 
@@ -371,10 +385,20 @@ From `docs/atlas-worklog/validation_counts_manual.json` — anything a script ca
 | Field | Value | Evidence |
 | --- | --- | --- |
 | accessibility_audit | not yet run | not yet run |
+| coverage_red_team | not run | addendum §26 agent was started and stopped by the user; see INTEGRATION_ISSUES.md row 54 |
+| experiments_independently_reviewed | 101 (wave 3) + 30 (waves 1–2, REVIEW_data_quality_wave1.md / REVIEW_scientific.md) | docs/HEP_ATLAS_COVERAGE.md "Independent verification by workstream" |
+| factual_corrections_from_qa_P0 | 14 | VERIFY_*.md finding tables: dm-noble 1, dm-cryogenic 2, fixed-target 3, neutrino-mass 5, reactor-solar 3 |
+| factual_corrections_from_qa_P1 | 51 | VERIFY_*.md finding tables (sum of P1 rows across the 15 reports), plus two orchestrator class fixes: 28 collapsed histories split, 11 sites relabelled campus under A23 |
 | firefox_manual_run | not yet run | not yet run |
+| flagships_fully_reviewed | 19 of 19 | ATLAS, CMS, DUNE, Super-K, T2K: REVIEW_scientific.md + REVIEW_data_quality_wave1.md; Hyper-K, NOvA, IceCube, Belle II, LZ: REVIEW_data_quality_wave1.md / REVIEW_scientific.md + flagship-depth.md orchestrator check; ALICE, LHCb: VERIFY_colliders-lhc.md; KM3NeT: VERIFY_astro-neutrino.md; JUNO: VERIFY_reactor-solar-neutrino.md; XENONnT: VERIFY_dm-noble-liquid.md; Muon g-2, Mu2e: VERIFY_muons.md; NA62: VERIFY_fixed-target.md; COHERENT: VERIFY_cevns.md |
+| independent_verification_workstreams_wave3 | 15 | docs/atlas-worklog/VERIFY_*.md — 13 by separate Sonnet agents; muons and cosmic-gamma by the orchestrator after their verifiers were stopped by the user |
+| nested_subagents_spawned_by_leads | 7 | Reported in lead worklogs: facilities (BNL), colliders-lhc (ALICE), astro-neutrino (KM3NeT, ANTARES+Baikal-GVD, radio detectors), dm-noble-liquid (DEAP-3600), fixed-target (NA62+NA48); the 20-agent cap blocked the rest. |
+| qa_P2_remaining_documented | 28 | VERIFY_*.md P2 rows left as documented judgement calls; INTEGRATION_ISSUES.md rows 52–53 |
+| research_workstreams_wave3 | 16 | docs/atlas-worklog/<owner>.md for the 15 experiment domains and facilities, plus flagship-depth.md |
 | safari_manual_run | not yet run | not yet run |
-| source_conflict_count | not yet run | not yet run |
+| source_conflict_count | 106 | Rows in the "Conflicts" tables of the research worklogs (docs/atlas-worklog/*.md, counted by script on 2026-09-18) |
 | subagent_count_total | not yet run | not yet run |
+| subagents_spawned_by_orchestrator | 37 | Agent tool calls in the v1.0 session: W1, W3, W4; 16 wave-3 leads (15 domains + facilities); 15 domain verifiers; flagship-depth; flagship-membership and coverage red team (both stopped by the user before producing output). All Sonnet. |
 
 <!-- counts:end -->
 
