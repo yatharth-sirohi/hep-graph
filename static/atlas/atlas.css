@@ -699,6 +699,15 @@ input {
 .entity-link {
   text-decoration: none;
 }
+/* A link sharing a block with plain text (e.g. "Facility: <link>", or a
+   relationship link followed by its role/date) needs a non-colour way to
+   tell it apart from that surrounding text (WCAG 1.4.1) — an underline,
+   since the link colour alone doesn't reach 3:1 contrast against the
+   panel's own body text. A link that is the sole content of its <li>/<p>
+   (the common case elsewhere in these panels) doesn't need this. */
+.entity-link-with-meta .entity-link {
+  text-decoration: underline;
+}
 .empty-note {
   color: var(--muted);
   font-style: italic;

@@ -740,7 +740,7 @@ async function renderSite(id, timelineState) {
     .map((detector) => ({ detector, placement: (detector.placements || []).find((p) => p.site_id === id) }))
     .filter((row) => row.placement);
   frag.appendChild(section('Detectors placed here', detectorsHere.length
-    ? [h('ul', { class: 'entity-list' }, detectorsHere.map(({ detector, placement }) => h('li', {}, [
+    ? [h('ul', { class: 'entity-list' }, detectorsHere.map(({ detector, placement }) => h('li', { class: 'entity-link-with-meta' }, [
       linkTo(idRoute(detector.id), detector.name),
       placement.role ? ` — ${titleCase(placement.role)}` : '',
       (placement.start || placement.end) ? ` (${placement.start || '?'}–${placement.end || 'present'})` : '',
@@ -808,7 +808,7 @@ async function renderDetector(id, timelineState) {
   frag.appendChild(section('Placements', placements.length
     ? [h('ul', { class: 'entity-list' }, placements.map((p) => {
       const site = ATLAS.sites[p.site_id];
-      return h('li', {}, [
+      return h('li', { class: 'entity-link-with-meta' }, [
         site ? linkTo(idRoute(site.id), site.name) : document.createTextNode(p.site_id),
         p.role ? ` — ${titleCase(p.role)}` : '',
         (p.start || p.end) ? ` (${p.start || '?'}–${p.end || 'present'})` : '',
@@ -879,8 +879,8 @@ async function renderAccelerator(id, timelineState) {
   const facility = accelerator.facility_id && ATLAS.facilities[accelerator.facility_id];
   const site = accelerator.site_id && ATLAS.sites[accelerator.site_id];
   frag.appendChild(section('Facility and site', [
-    facility ? h('p', {}, ['Facility: ', linkTo(idRoute(facility.id), facility.name)]) : emptyNote('No facility recorded.'),
-    site ? h('p', {}, ['Site: ', linkTo(idRoute(site.id), site.name)]) : emptyNote('No site recorded.'),
+    facility ? h('p', { class: 'entity-link-with-meta' }, ['Facility: ', linkTo(idRoute(facility.id), facility.name)]) : emptyNote('No facility recorded.'),
+    site ? h('p', { class: 'entity-link-with-meta' }, ['Site: ', linkTo(idRoute(site.id), site.name)]) : emptyNote('No site recorded.'),
   ]));
 
   const feeds = (accelerator.feeds_accelerator_ids || []).map((aid) => ATLAS.accelerators[aid]).filter(Boolean);
@@ -958,8 +958,8 @@ async function renderBeamline(id, timelineState) {
   const facility = beamline.facility_id && ATLAS.facilities[beamline.facility_id];
   const accelerator = beamline.accelerator_id && ATLAS.accelerators[beamline.accelerator_id];
   frag.appendChild(section('Facility and accelerator', [
-    facility ? h('p', {}, ['Facility: ', linkTo(idRoute(facility.id), facility.name)]) : emptyNote('No facility recorded.'),
-    accelerator ? h('p', {}, ['Accelerator: ', linkTo(idRoute(accelerator.id), accelerator.name)]) : emptyNote('No accelerator recorded.'),
+    facility ? h('p', { class: 'entity-link-with-meta' }, ['Facility: ', linkTo(idRoute(facility.id), facility.name)]) : emptyNote('No facility recorded.'),
+    accelerator ? h('p', { class: 'entity-link-with-meta' }, ['Accelerator: ', linkTo(idRoute(accelerator.id), accelerator.name)]) : emptyNote('No accelerator recorded.'),
   ]));
 
   function siteLi(sid) {
