@@ -414,3 +414,10 @@ def test_a_named_relationship_is_walked_from_the_first_person_to_the_second(data
     up = service(database).relationship("10", "40", Filters())
     assert [step["direction"] for step in up["chain"]] == ["up", "up", "up"]
     assert [step["student"] for step in up["chain"]] == ["10", "20", "30"]
+
+
+def test_a_summary_names_the_person_without_their_neighbourhood(database):
+    found = service(database).person("10", Filters(max_authors=10, genealogy=True), summary=True)
+    assert found["status"] == "ok" and found["summary"] is True
+    assert found["person"]["id"] == "10"
+    assert "collaborators" not in found and "advisers" not in found

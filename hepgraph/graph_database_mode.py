@@ -254,11 +254,14 @@ class DatabaseGraphService:
     def cancel(self, job_id: str) -> dict[str, Any]:
         return self.hydrate(self.jobs().cancel(job_id))
 
-    def person(self, person_id: str, filters: Filters, *, limit: int = 40) -> dict[str, Any]:
+    def person(self, person_id: str, filters: Filters, *, limit: int = 40,
+               summary: bool = False) -> dict[str, Any]:
         """A profile opened deliberately: counts from the graph, details fetched.
 
         Opening a profile is a user action, so hydrating it here is exactly the
-        post-route rule, not a traversal cost.
+        post-route rule, not a traversal cost. ``summary`` is for callers that
+        only need to know who an id is - restoring a shared route, labelling a
+        node - and skips the neighbourhood, which is most of the cost.
         """
         provider = self.provider()
         coverage = self.coverage()
@@ -269,6 +272,16 @@ class DatabaseGraphService:
                     "person": {"id": str(person_id)}, "filters": filters.to_dict(),
                     "version": f"graph-db:{coverage.import_id}",
                     "coverage": self.dataset()["coverage"]}
+        if summary:
+            hydrator = self.hydrator()
+            people = (hydrator.hydrate_people((str(person_id),)) if hydrator is not None
+                      else {str(person_id): placeholder(PEOPLE, str(person_id),
+                                                        "hydration_unavailable")})
+            return {"status": "ok", "mode": "database", "summary": True,
+                    "person": people.get(str(person_id),
+                                         placeholder(PEOPLE, str(person_id), "not_found")),
+                    "indexed": True, "queryable": True, "filters": filters.to_dict(),
+                    "version": f"graph-db:{coverage.import_id}"}
         found = provider.get_neighbors(str(person_id), filters)
         neighbors = sorted(found.members, key=lambda value: (len(value), value))[:limit]
         relations = self._direct_relations(str(person_id))

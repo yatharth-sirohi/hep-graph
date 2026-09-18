@@ -1727,3 +1727,78 @@ body:not([data-tab="connections"]) .disclaimer-short:not(.is-hidden) {
   width: auto;
   flex: 0 0 auto;
 }
+
+/* ------------------------------------------------ routes through many people */
+.route-stops {
+  display: grid;
+  gap: 14px;
+  margin-top: 14px;
+}
+.route-stops:empty {
+  display: none;
+}
+.route-stop {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 6px 10px;
+  align-items: start;
+}
+.route-stop > label,
+.route-stop > .picker-wrap,
+.route-stop > .selection,
+.route-stop > .result-menu {
+  grid-column: 1;
+}
+.route-stop-tools {
+  grid-column: 2;
+  grid-row: 2;
+  display: flex;
+  gap: 6px;
+}
+.route-stop-tools button {
+  min-width: 38px;
+  height: 38px;
+  padding: 0 10px;
+}
+.route-stop .stop-number {
+  display: inline-block;
+  min-width: 1.6em;
+  margin-right: 6px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: #e2f2f0;
+  color: #0f6f6a;
+  font-size: 12px;
+  text-align: center;
+}
+.route-stops-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 14px;
+  margin-top: 14px;
+}
+.leg-label {
+  font-size: 13px;
+  font-weight: 650;
+  color: #0f6f6a;
+  margin: 0 0 6px;
+}
+.path-card.leg-broken {
+  border-left-color: #b86c06;
+}
+@media (max-width: 600px) {
+  .route-stops-actions .subtle {
+    flex-basis: 100%;
+  }
+}
+
+.node.stop circle {
+  fill: #0f6f6a;
+  stroke: #0b4f4b;
+}
+
+.legend-node.stop {
+  background: #0f6f6a;
+  border-color: #0b4f4b;
+}

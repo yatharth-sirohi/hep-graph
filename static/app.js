@@ -72,7 +72,8 @@
   });
   const filterKey = () => JSON.stringify([state.mode, canonicalFilters()]);
   const queryKey = () =>
-    JSON.stringify([state.mode, canonicalFilters(), state.source?.id, state.target?.id]);
+    JSON.stringify([state.mode, canonicalFilters(), state.source?.id, state.target?.id,
+                    ...(state.stopKeys || []).map((key) => state[key]?.id || null)]);
   const updateDate = (value) => {
     const date = value ? new Date(value) : null;
     return date && !Number.isNaN(date.getTime())
@@ -354,6 +355,9 @@
     else u.searchParams.delete("source");
     if (state.target) u.searchParams.set("target", state.target.id);
     else u.searchParams.delete("target");
+    const via = (state.stopKeys || []).map((key) => state[key]?.id).filter(Boolean);
+    if (via.length) u.searchParams.set("then", via.join(","));
+    else u.searchParams.delete("then");
     history.replaceState(null, "", u);
   }
   function setFilterFromUrl(base, value) {
@@ -381,6 +385,8 @@
     state.restore = {
       source: u.searchParams.get("source"),
       target: u.searchParams.get("target"),
+      then: (u.searchParams.get("then") || "").split(",").map((id) => id.trim())
+        .filter((id) => /^\d{1,12}$/.test(id)),
     };
     state.mode = "database";
     syncTeamSizeFromBounds();
@@ -1135,7 +1141,201 @@
         revision === state.revision &&
         request === state.pathRequest &&
         key === queryKey();
+    const extras = state.stopKeys.map((stop) => state[stop]);
+    if (extras.length) {
+      if (extras.some((person) => !person)) {
+        setStatus("Choose a researcher in every added field, or remove the empty ones.", "warning");
+        return;
+      }
+      if (extras.some((person) => !canQuery(person))) {
+        setStatus("One of the added researchers is not included in this release. Choose another result.", "warning");
+        return;
+      }
+      findRouteThrough(routePeople(), { revision, request, key });
+      return;
+    }
     startDeepSearch({ source: state.source.id, target: state.target.id, revision, request, key });
+  }
+
+  /* Each leg is an ordinary two-person search, asked of the same engine, so
+     every leg carries the same proof it would on its own. Legs run a few at a
+     time: they are independent, and serial legs would make a long route slow
+     for no reason. */
+  const LEG_CONCURRENCY = 4;
+  const LEG_TIMEOUT_MS = 120000;
+
+  async function runLeg(source, target, current) {
+    const began = performance.now();
+    let data = await api(urlWithFilters("/api/path", { source, target }));
+    let restarts = 0;
+    while (data.status === "searching" && current()) {
+      if (performance.now() - began > LEG_TIMEOUT_MS) {
+        return { ...data, status: "search_incomplete", leg_timed_out: true };
+      }
+      await new Promise((resolve) => setTimeout(resolve, 300));
+      try {
+        data = await api(`/api/search-jobs/${encodeURIComponent(data.job_id)}?mode=database`);
+      } catch (error) {
+        // The job lives in one server process and a poll can reach another;
+        // start the same leg again there, as the single search does.
+        if (error.status === 404 && restarts < 2) {
+          restarts += 1;
+          data = await api(urlWithFilters("/api/path", { source, target }));
+          continue;
+        }
+        throw error;
+      }
+    }
+    return data;
+  }
+
+  async function findRouteThrough(people, { revision, request, key }) {
+    const current = () =>
+      revision === state.revision && request === state.pathRequest && key === queryKey();
+    const legs = people.slice(0, -1).map((person, index) => ({
+      index, from: person, to: people[index + 1], data: null, error: null }));
+    const repeated = legs.find((leg) => String(leg.from.id) === String(leg.to.id));
+    if (repeated) {
+      setStatus(`${personName(repeated.from)} appears twice in a row. Remove one of them or put someone between.`, "warning");
+      return;
+    }
+    hideRouteOffer();
+    $("#relation-crosslink")?.remove();
+    setLoading($("#find-connection"), true, "Exploring…");
+    $("#connection-empty").classList.add("hidden");
+    $("#connection-results").classList.remove("hidden");
+    $("#path-message").className = "notice hidden";
+    $("#path-cards").replaceChildren();
+    $("#path-title").textContent = `Route through ${people.length} people`;
+    const progress = $("#deep-progress");
+    progress.classList.remove("hidden");
+    $("#deep-stop").classList.add("hidden");
+    $("#deep-continue").classList.add("hidden");
+    $("#deep-title").textContent = "Finding each step of the route…";
+    let finished = 0;
+    const report = () => {
+      $("#deep-summary").textContent =
+        `${finished} of ${legs.length} steps found. Steps run at the same time, each as its own shortest-connection search.`;
+    };
+    report();
+    const began = performance.now();
+    let next = 0;
+    const worker = async () => {
+      while (next < legs.length && current()) {
+        const leg = legs[next++];
+        try {
+          leg.data = await runLeg(leg.from.id, leg.to.id, current);
+        } catch (error) {
+          leg.error = error;
+        }
+        finished += 1;
+        if (current()) report();
+      }
+    };
+    await Promise.all(Array.from({ length: Math.min(LEG_CONCURRENCY, legs.length) }, worker));
+    if (!current()) return;
+    progress.classList.add("hidden");
+    setLoading($("#find-connection"), false);
+    renderRouteThrough(people, legs, performance.now() - began);
+  }
+
+  /* ------------------------------------------- more than two people --- */
+
+  /* People after "To" are extra stops: the route goes From, To, then each of
+     them in the order listed. Each field reuses the ordinary picker - its key
+     ("stop1", "stop2", ...) is the same handle "source" and "target" are. */
+  state.stopKeys = [];
+  let nextStop = 1;
+
+  const routePeople = () =>
+    [state.source, state.target, ...state.stopKeys.map((key) => state[key])];
+
+  function renumberStops() {
+    state.stopKeys.forEach((key, index) => {
+      const field = $(`[data-stop="${key}"]`);
+      if (!field) return;
+      field.querySelector(".stop-number").textContent = String(index + 3);
+      field.querySelector('[data-move="up"]').disabled = index === 0;
+      field.querySelector('[data-move="down"]').disabled = index === state.stopKeys.length - 1;
+    });
+    $("#swap-people").title = state.stopKeys.length ? "Reverse the route" : "Swap researchers";
+    $("#swap-people").setAttribute("aria-label", $("#swap-people").title);
+  }
+
+  function addStop(person = null) {
+    const key = `stop${nextStop++}`;
+    state.stopKeys.push(key);
+    state[key] = null;
+    const field = document.createElement("div");
+    field.className = "identity-field route-stop";
+    field.dataset.stop = key;
+    field.innerHTML = `
+      <label for="${key}-query"><span class="stop-number"></span>Then to</label>
+      <div class="picker-wrap">
+        <input id="${key}-query" name="${key}-query" type="search" autocomplete="off"
+          placeholder="Name, INSPIRE ID, or ORCID" aria-controls="${key}-results"
+          aria-expanded="false" /><button class="clear-picker" type="button"
+          aria-label="Clear this person">×</button>
+      </div>
+      <div id="${key}-selected" class="selection" hidden></div>
+      <div id="${key}-results" class="result-menu" role="listbox"
+        aria-label="Suggestions for this person"></div>
+      <div class="route-stop-tools">
+        <button class="secondary-button" type="button" data-move="up"
+          aria-label="Move earlier in the route" title="Move earlier">↑</button>
+        <button class="secondary-button" type="button" data-move="down"
+          aria-label="Move later in the route" title="Move later">↓</button>
+        <button class="secondary-button" type="button" data-remove
+          aria-label="Remove this person from the route" title="Remove">✕</button>
+      </div>`;
+    $("#route-stops").append(field);
+    setupSearch(key);
+    field.querySelector(".clear-picker").addEventListener("click", () => clearPicker(key));
+    field.querySelectorAll("[data-move]").forEach((button) =>
+      button.addEventListener("click", () => moveStop(key, button.dataset.move === "up" ? -1 : 1)));
+    field.querySelector("[data-remove]").addEventListener("click", () => removeStop(key));
+    renumberStops();
+    if (person) {
+      state[key] = remember(person);
+      renderPicker(key);
+    }
+    return key;
+  }
+
+  function removeStop(key) {
+    invalidateResults();
+    state.stopKeys = state.stopKeys.filter((item) => item !== key);
+    delete state[key];
+    $(`[data-stop="${key}"]`)?.remove();
+    renumberStops();
+    syncUrl();
+  }
+
+  function moveStop(key, step) {
+    const at = state.stopKeys.indexOf(key);
+    const to = at + step;
+    if (at < 0 || to < 0 || to >= state.stopKeys.length) return;
+    invalidateResults();
+    [state.stopKeys[at], state.stopKeys[to]] = [state.stopKeys[to], state.stopKeys[at]];
+    const field = $(`[data-stop="${key}"]`);
+    const other = $(`[data-stop="${state.stopKeys[at]}"]`);
+    if (step < 0) other.before(field); else other.after(field);
+    renumberStops();
+    syncUrl();
+    field.querySelector("input").focus();
+  }
+
+  /* Reverse every person's place, keeping the fields where they are. */
+  function reverseRoute() {
+    const people = routePeople().reverse();
+    state.source = people[0] || null;
+    state.target = people[1] || null;
+    state.stopKeys.forEach((key, index) => { state[key] = people[index + 2] || null; });
+    ["source", "target", ...state.stopKeys].forEach((which) => {
+      if (!state[which]) $(`#${which}-query`).value = "";
+      renderPicker(which);
+    });
+    syncUrl();
   }
 
   function addGraphNode(person, kind = "") {
@@ -1174,9 +1374,13 @@
       });
     });
     const nodes = [...state.graph.nodes.values()];
+    // Rows snake back and forth, so the next person on a long route sits
+    // beside the last one instead of at the far end of the row below.
     nodes.forEach((n, idx) => {
-      n.x = 160 + (idx % 4) * 240;
-      n.y = 160 + Math.floor(idx / 4) * 165;
+      const row = Math.floor(idx / 4);
+      const col = row % 2 ? 3 - (idx % 4) : idx % 4;
+      n.x = 160 + col * 240;
+      n.y = 160 + row * 165;
     });
     state.graph.scale = 1;
     state.graph.tx = 0;
@@ -1286,7 +1490,7 @@
           try {
             if (!current()) return;
             const d = await api(
-              urlWithFilters(`/api/person/${encodeURIComponent(id)}`, state.mode === "live" ? { summary: "1" } : {}),
+              urlWithFilters(`/api/person/${encodeURIComponent(id)}`, { summary: "1" }),
             );
             if (!current()) return;
             remember({
@@ -1383,7 +1587,7 @@
     const revision = state.revision;
     const mode = state.mode;
     const d = await api(
-      urlWithFilters(`/api/person/${encodeURIComponent(id)}`, state.mode === "live" ? { summary: "1" } : {}),
+      urlWithFilters(`/api/person/${encodeURIComponent(id)}`, { summary: "1" }),
     );
     if (revision !== state.revision || mode !== state.mode) return null;
     return remember({
@@ -1859,14 +2063,20 @@
         : [];
       if (ids.length && revision === state.revision) {
         try {
-          const people = await Promise.all(ids.map(resolvePerson));
+          // Everyone on a shared route is looked up at once; one at a time made
+          // a ten-person link wait half a minute before searching.
+          const then = state.restore.then || [];
+          const everyone = await Promise.all([...ids, ...then].map(resolvePerson));
           if (revision !== state.revision) return;
+          const people = everyone.slice(0, ids.length);
+          const extra = everyone.slice(ids.length);
           if (state.restore.source)
             state.source = people[ids.indexOf(state.restore.source)];
           if (state.restore.target)
             state.target = people[ids.indexOf(state.restore.target)];
           renderPicker("source");
           renderPicker("target");
+          extra.forEach((person) => { if (person) addStop(person); });
           syncUrl();
           schedulePreparation([state.source, state.target], 0, "restore");
           if (state.source && state.target) findPath();
@@ -1943,9 +2153,26 @@
   function renderPath(data) {
     renderPathHeading(data);
     $("#path-cards").replaceChildren();
+    $("#legend-stop").hidden = true;
     (data.paths || []).forEach((path, index) => {
+      $("#path-cards").append(pathCard(path, `Route ${index + 1}`));
+    });
+    const people = new Set();
+    (data.paths || []).forEach((path) => (path.people || []).forEach((p) => people.add(String(p.id))));
+    $("#graph-stage").classList.toggle("is-compact", people.size > 0 && people.size <= 7);
+    drawPathGraph(data);
+    showAcademicRelation(data);
+  }
+
+  function pathCard(path, label, heading = "") {
       const card = document.createElement("article");
       card.className = "path-card";
+      if (heading) {
+        const title = document.createElement("p");
+        title.className = "leg-label";
+        title.textContent = heading;
+        card.append(title);
+      }
       const route = document.createElement("div");
       route.className = "path-route";
       path.people.forEach((p, i) => {
@@ -1975,7 +2202,7 @@
       card.append(route);
       const summary = document.createElement("p");
       summary.className = "edge-summary";
-      summary.textContent = `Route ${index + 1} · ${path.hops} person-to-person hop${path.hops === 1 ? "" : "s"}.`;
+      summary.textContent = `${label} · ${path.hops} person-to-person hop${path.hops === 1 ? "" : "s"}.`;
       card.append(summary);
       (path.edges || []).forEach((e, i) => {
         const details = document.createElement("details");
@@ -1985,13 +2212,90 @@
         details.append(sum, evidenceItem(e));
         card.append(details);
       });
-      $("#path-cards").append(card);
+      return card;
+  }
+
+  /* One result for the whole route: a card per step, the steps joined into
+     a single chain on the graph, and a claim no stronger than its weakest
+     step. */
+  function renderRouteThrough(people, legs, elapsedMs) {
+    const found = legs.filter((leg) => leg.data?.paths?.length);
+    const broken = legs.filter((leg) => !leg.data?.paths?.length);
+    const proven = legs.every((leg) => leg.data?.global_shortest_proven === true);
+    const hops = found.reduce((total, leg) => total + leg.data.paths[0].hops, 0);
+    const plural = (n, word) => `${n} ${word}${n === 1 ? "" : "s"}`;
+    $("#path-title").textContent = broken.length
+      ? `Route through ${people.length} people · ${plural(broken.length, "step")} without a route`
+      : `Route through ${people.length} people · ${plural(hops, "hop")}`;
+    const claim = broken.length
+      ? "route incomplete: at least one step has no verified route"
+      : proven
+        ? "every step proven shortest in this release and filters, so this is the shortest route that visits them in this order"
+        : "every step verified; not every step is proven shortest";
+    $("#path-meta").textContent =
+      `${lastUpdatedText()} · ${claim} · ${filterDescription(legs[0]?.data?.filters || filters())} · ` +
+      `${plural(legs.length, "step")} found in ${(elapsedMs / 1000).toFixed(1)} s`;
+    const cards = $("#path-cards");
+    cards.replaceChildren();
+    legs.forEach((leg) => {
+      const label = `Step ${leg.index + 1}: ${personName(leg.from)} → ${personName(leg.to)}`;
+      const path = leg.data?.paths?.[0];
+      if (path) {
+        const card = pathCard(path, `Step ${leg.index + 1}`, label);
+        if (leg.data.global_shortest_proven !== true) {
+          const note = document.createElement("p");
+          note.className = "edge-summary";
+          note.textContent = "This step is verified; a shorter one was not ruled out.";
+          card.append(note);
+        }
+        cards.append(card);
+        return;
+      }
+      const card = document.createElement("article");
+      card.className = "path-card leg-broken";
+      const title = document.createElement("p");
+      title.className = "leg-label";
+      title.textContent = label;
+      const why = document.createElement("p");
+      why.className = "edge-summary";
+      why.textContent = leg.error
+        ? `This step could not be searched: ${leg.error.message}`
+        : leg.data?.route_status === "no_path"
+          ? "No route connects these two in this release and filters."
+          : "The search for this step did not finish, so nothing is concluded about it.";
+      card.append(title, why);
+      cards.append(card);
     });
-    const people = new Set();
-    (data.paths || []).forEach((path) => (path.people || []).forEach((p) => people.add(String(p.id))));
-    $("#graph-stage").classList.toggle("is-compact", people.size > 0 && people.size <= 7);
-    drawPathGraph(data);
-    showAcademicRelation(data);
+    // Join the steps into one chain for the graph; each step starts where the
+    // last one ended, so that person is not repeated.
+    const chain = { hops, people: [], edges: [] };
+    found.forEach((leg) => {
+      const path = leg.data.paths[0];
+      (path.people || []).forEach((person, index) => {
+        const last = chain.people[chain.people.length - 1];
+        if (index === 0 && last && String(last.id) === String(person.id)) return;
+        chain.people.push(person);
+      });
+      chain.edges.push(...(path.edges || []));
+    });
+    const combined = { ...(found[0]?.data || {}), paths: chain.people.length ? [chain] : [],
+                       route_through: people.map((person) => String(person.id)),
+                       steps: legs.map((leg) => ({ from: String(leg.from.id), to: String(leg.to.id),
+                                                   route_status: leg.data?.route_status || null,
+                                                   proven_shortest: leg.data?.global_shortest_proven === true,
+                                                   path: leg.data?.paths?.[0] || null })) };
+    state.lastPath = combined;
+    const distinct = new Set(chain.people.map((person) => String(person.id)));
+    $("#graph-stage").classList.toggle("is-compact", distinct.size > 0 && distinct.size <= 7);
+    drawPathGraph(combined);
+    const stops = new Set(people.map((person) => String(person.id)));
+    // The people the reader chose are drawn apart from those the route found.
+    state.graph.nodes.forEach((node, id) => { if (stops.has(String(id))) node.kind = "path stop"; });
+    fitGraph();
+    renderGraph();
+    $("#legend-stop").hidden = false;
+    $("#copy-share").hidden = false;
+    syncUrl();
   }
 
   /* ---------------------------------------- the other kind of connection --- */
@@ -4661,7 +4965,7 @@
     setupRelationshipFinder();
     setupLineageMapInteractions();
     document.addEventListener("pointerdown", (event) => {
-      ["source", "target", "lineage", "map"].forEach((which) => {
+      ["source", "target", "lineage", "map", ...(state.stopKeys || [])].forEach((which) => {
         const field = $(`#${which}-query`).closest(".identity-field");
         if (!field.contains(event.target)) {
           const menu = $(`#${which}-results`);
@@ -4688,8 +4992,17 @@
     $$(".clear-picker").forEach((b) =>
       b.addEventListener("click", () => clearPicker(b.dataset.clear)),
     );
+    $("#add-stop").addEventListener("click", () => {
+      invalidateResults();
+      const key = addStop();
+      $(`#${key}-query`).focus();
+    });
     $("#swap-people").addEventListener("click", () => {
       invalidateResults();
+      if ((state.stopKeys || []).length) {
+        reverseRoute();
+        return;
+      }
       [state.source, state.target] = [state.target, state.source];
       ["source", "target"].forEach((which) => {
         if (!state[which]) $(`#${which}-query`).value = "";

@@ -298,3 +298,19 @@ def test_the_relationship_route_needs_two_valid_people(service):
 
     status, _, body = local.request("/api/relationship?a=1621061")
     assert status == 400          # a relationship needs both sides
+
+
+def test_a_person_summary_is_asked_for_by_name(service):
+    """Restoring a shared route needs who an id is, not their whole neighbourhood."""
+    local, _, stub = service
+    seen = {}
+
+    def person(person_id, filters, **kwargs):
+        seen.update(kwargs)
+        return {"status": "ok", "person": {"id": person_id}}
+
+    stub.person = person
+    status, _, _ = local.request("/api/person/1621061?summary=1")
+    assert status == 200 and seen.get("summary") is True
+    local.request("/api/person/1621061")
+    assert seen.get("summary") is False

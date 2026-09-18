@@ -396,7 +396,9 @@ class Handler(BaseHTTPRequestHandler):
             integer(args.get('alternatives'), 3, 1, 3)
             return self.respond(database.start_path(source, target, filters))
         if path.startswith('/api/person/'):
-            return self.respond(database.person(person_id(path.removeprefix('/api/person/')), filters))
+            return self.respond(database.person(
+                person_id(path.removeprefix('/api/person/')), filters,
+                summary=args.get('summary') == '1'))
         if path.startswith('/api/neighborhood/'):
             return self.respond(database.neighborhood(
                 person_id(path.removeprefix('/api/neighborhood/')), filters,

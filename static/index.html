@@ -55,8 +55,9 @@
               Trace a documented research connection
             </h1>
             <p>
-              Search two researchers. Routes follow documented coauthorship
-              ties, with source evidence attached to results.
+              Search two researchers, or add more to route through several in
+              order. Routes follow documented coauthorship ties, with source
+              evidence attached to results.
             </p>
             <p id="last-updated" class="data-date">Last updated 09/16/2026</p>
           </div>
@@ -128,6 +129,16 @@
                 aria-label="To researcher suggestions"
               ></div>
             </div>
+          </div>
+          <div id="route-stops" class="route-stops"></div>
+          <div class="route-stops-actions">
+            <button id="add-stop" class="secondary-button" type="button">
+              <span aria-hidden="true">+</span> Add another person
+            </button>
+            <span class="subtle" id="route-stops-help">
+              Add as many people as you like. The route visits everyone in the
+              order listed, and each step is its own shortest connection.
+            </span>
           </div>
           <div class="query-actions">
             <button id="find-connection" class="primary-button" type="submit">
@@ -327,7 +338,8 @@
             <div class="graph-legend">
               <span><i class="legend-line coauthor"></i>Coauthorship (one hop)</span
               ><span><i class="legend-node"></i>Selected path</span
-              ><span><i class="legend-node expanded"></i>Expanded profile</span>
+              ><span><i class="legend-node expanded"></i>Expanded profile</span
+              ><span id="legend-stop" hidden><i class="legend-node stop"></i>A person you chose</span>
             </div>
           </div>
         </section>
@@ -660,6 +672,15 @@
               one, or pull the route toward a better-documented person.
             </li>
           </ol>
+          <p>
+            <b>Routes through more than two people.</b> Add people with
+            <i>Add another person</i> and the route visits everyone in the
+            order listed. Each step is an ordinary two-person search with its
+            own proof, and the steps run at the same time. When every step is
+            proven shortest, the whole route is the shortest one that visits
+            those people in that order; a step that finds no route is shown as
+            such rather than skipped.
+          </p>
           <h3>What the filters change</h3>
           <p>
             Filters do not rank results. They decide which ties exist at all, so
