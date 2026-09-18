@@ -1,0 +1,60 @@
+{
+  "accuracy_m": null,
+  "aliases": [],
+  "checks": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "depth_m": null,
+  "entity_id": "detector:dune-far-detector-1",
+  "feature_type": "direction_line",
+  "geometry": {
+    "confidence": "derived",
+    "locator": "Near point per site:fermilab-main-campus (src:fermilab-lbnf-dune-site); far point per site:surf-4850-level-dune-far-detector (src:dune-protodune-sp-performance-2020, 'a far detector located at the 4850 ft level of Sanford Underground Research Facility (SURF), in Lead, South Dakota')",
+    "note": "Not a physical structure; drawn and labelled as an inferred direction only. The true LBNF beam also points down (about 5.3 degrees below horizontal per src:dune-nd-cdr) toward SURF, which this plan-view line cannot show.",
+    "sources": [
+      "src:fermilab-lbnf-dune-site",
+      "src:dune-protodune-sp-performance-2020",
+      "src:surf-official-site"
+    ],
+    "value": {
+      "coordinates": [
+        [
+          -88.245782,
+          41.8422582
+        ],
+        [
+          -88.2802842,
+          41.8504625
+        ]
+      ],
+      "type": "LineString"
+    },
+    "verified_at": "2026-09-18"
+  },
+  "id": "geometry:fermilab-lbnf-direction",
+  "level_id": "surface",
+  "license": null,
+  "links": {
+    "website": null
+  },
+  "map_id": "map:fermilab",
+  "method": "Great-circle bearing (287.7 degrees) from the sourced Fermilab main-campus point (site:fermilab-main-campus, 41.8422582,-88.245782, precision_m 3000 -- used only for its bearing, not as a positional claim about the LBNF target) to the sourced SURF 4850 Level coordinate (site:surf-4850-level-dune-far-detector, 44.3474397,-103.7548247), clipped to the first 3000 m. Haversine/initial-bearing on R=6371008.8 m.",
+  "name": "LBNF beam direction toward SURF (DUNE far detector) -- inferred",
+  "notes": [],
+  "osm": null,
+  "representation": "inferred_direction",
+  "schema": "hep-atlas/0.2",
+  "site_id": null,
+  "sources": [
+    "src:fermilab-lbnf-dune-site",
+    "src:dune-protodune-sp-performance-2020",
+    "src:surf-official-site"
+  ],
+  "summary": {
+    "plain": "Not a physical structure; drawn and labelled as an inferred direction only. The true LBNF beam also points down (about 5.3 degrees below horizontal per src:dune-nd-cdr) toward SUR..."
+  },
+  "type": "geometry",
+  "valid": null
+}

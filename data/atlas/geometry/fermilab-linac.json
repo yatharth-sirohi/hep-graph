@@ -1,0 +1,74 @@
+{
+  "accuracy_m": 25,
+  "aliases": [],
+  "checks": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "depth_m": null,
+  "entity_id": "accelerator:fermilab-linac",
+  "feature_type": "linac",
+  "geometry": {
+    "confidence": "approximate",
+    "locator": "OSM ways/272646258,1316753870, extract timestamp 2026-09-18T20:20:01Z",
+    "note": "No sourced length exists for this specific 400 MeV Linac (only its energy is sourced), so no length check is possible; confidence stays approximate per the contract's rule for an uncheckable shape.",
+    "sources": [
+      "src:fermilab-geo-osm-buildings"
+    ],
+    "value": {
+      "coordinates": [
+        [
+          -88.2635558,
+          41.8380404
+        ],
+        [
+          -88.2630596,
+          41.8378024
+        ],
+        [
+          -88.2597516,
+          41.8362156
+        ],
+        [
+          -88.2592554,
+          41.8359775
+        ]
+      ],
+      "type": "LineString"
+    },
+    "verified_at": "2026-09-18"
+  },
+  "id": "geometry:fermilab-linac",
+  "level_id": "surface",
+  "license": {
+    "attribution": "\u00a9 OpenStreetMap contributors",
+    "name": "ODbL-1.0",
+    "url": "https://www.openstreetmap.org/copyright"
+  },
+  "links": {
+    "website": null
+  },
+  "map_id": "map:fermilab",
+  "method": "Straight line from 15% beyond the OSM 'Linac Gallery' (way 272646258) footprint centroid, through that centroid, through the OSM 'LINAC-II' (way 1316753870) footprint centroid, to 15% beyond it -- approximating the beam axis along the two buildings that house the linac. Not a trace of the accelerator itself (OSM has no beamline way for it).",
+  "name": "Fermilab Linac (approximate axis)",
+  "notes": [],
+  "osm": {
+    "elements": [
+      "way/272646258",
+      "way/1316753870"
+    ],
+    "timestamp": "2026-09-18T20:20:01Z"
+  },
+  "representation": "georeferenced",
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:fermilab-main-campus",
+  "sources": [
+    "src:fermilab-geo-osm-buildings"
+  ],
+  "summary": {
+    "plain": "No sourced length exists for this specific 400 MeV Linac (only its energy is sourced), so no length check is possible; confidence stays approximate per the contract's rule for an uncheckable shape."
+  },
+  "type": "geometry",
+  "valid": null
+}

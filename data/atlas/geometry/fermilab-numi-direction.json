@@ -1,0 +1,60 @@
+{
+  "accuracy_m": null,
+  "aliases": [],
+  "checks": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "depth_m": null,
+  "entity_id": "detector:nova-far-detector",
+  "feature_type": "direction_line",
+  "geometry": {
+    "confidence": "derived",
+    "locator": "Near point per site:fermilab-main-campus (src:fermilab-lbnf-dune-site); far point per site:ash-river-nova-far-detector (src:nova-prd-2021-seasonal-multiple-muons, 'located on the surface in Minnesota near the U.S.-Canada Border at (48.4N,92.8W)')",
+    "note": "Not a physical structure; drawn and labelled as an inferred direction only, per contract rules. The NuMI beam also served the MINOS far detector at Soudan (1985-2016) on a nearly identical bearing (336.0 degrees vs 335.5 degrees here, both computed from the same near point) -- not drawn separately to avoid clutter; see the worklog for the Soudan distance/bearing.",
+    "sources": [
+      "src:fermilab-lbnf-dune-site",
+      "src:nova-prd-2021-seasonal-multiple-muons",
+      "src:nova-how-does-nova-work"
+    ],
+    "value": {
+      "coordinates": [
+        [
+          -88.245782,
+          41.8422582
+        ],
+        [
+          -88.2608139,
+          41.8668049
+        ]
+      ],
+      "type": "LineString"
+    },
+    "verified_at": "2026-09-18"
+  },
+  "id": "geometry:fermilab-numi-direction",
+  "level_id": "surface",
+  "license": null,
+  "links": {
+    "website": null
+  },
+  "map_id": "map:fermilab",
+  "method": "Great-circle bearing (335.5 degrees) from the sourced Fermilab main-campus point (site:fermilab-main-campus, 41.8422582,-88.245782, precision_m 3000 -- used only for its bearing, not as a positional claim about the NuMI target, whose own coordinate is not sourced this session) to the sourced Ash River far-site coordinate (site:ash-river-nova-far-detector, 48.4,-92.8), clipped to the first 3000 m so it stays within the map extent (map extent_m 2500). Haversine/initial-bearing on R=6371008.8 m.",
+  "name": "NuMI beam direction toward Ash River (NOvA far detector) -- inferred",
+  "notes": [],
+  "osm": null,
+  "representation": "inferred_direction",
+  "schema": "hep-atlas/0.2",
+  "site_id": null,
+  "sources": [
+    "src:fermilab-lbnf-dune-site",
+    "src:nova-prd-2021-seasonal-multiple-muons",
+    "src:nova-how-does-nova-work"
+  ],
+  "summary": {
+    "plain": "Not a physical structure; drawn and labelled as an inferred direction only, per contract rules. The NuMI beam also served the MINOS far detector at Soudan (1985-2016) on a nearly identical bearing ..."
+  },
+  "type": "geometry",
+  "valid": null
+}
