@@ -741,10 +741,15 @@ async function setRangeValue(locator, value) {
 
     await page.selectOption("#results-sort", "experiment");
     await page.waitForTimeout(150);
-    const experimentTags = await page.evaluate(() => [...document.querySelectorAll("#results-mode-list > .result-row")]
-      .map((li) => li.querySelector(".result-tag")?.textContent.trim() || ""));
-    const sortedTags = [...experimentTags].sort((a, b) => a.localeCompare(b));
-    assert.deepEqual(experimentTags, sortedTags, "sorting by experiment must order rows alphabetically by experiment");
+    // A result naming several experiments (e.g. a LEP paper citing "ALEPH,
+    // DELPHI, L3, OPAL") displays all of them, but modes.js sorts by the
+    // *first* experiment_id's name only — take the same prefix here (split
+    // on the tag's own ", " join) rather than comparing the full joined
+    // text, which would (correctly) fail to be alphabetical on its own.
+    const primaryExperiments = await page.evaluate(() => [...document.querySelectorAll("#results-mode-list > .result-row")]
+      .map((li) => (li.querySelector(".result-tag")?.textContent.trim() || "").split(", ")[0]));
+    const sortedPrimary = [...primaryExperiments].sort((a, b) => a.localeCompare(b));
+    assert.deepEqual(primaryExperiments, sortedPrimary, "sorting by experiment must order rows alphabetically by primary experiment");
     await page.selectOption("#results-sort", "date");
 
     assert.equal(await page.locator("#results-group-year").getAttribute("aria-pressed"), "false");
