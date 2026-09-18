@@ -1,0 +1,75 @@
+{
+  "schema": "hep-atlas/0.2",
+  "id": "detector:reno",
+  "type": "detector",
+  "name": "RENO detectors",
+  "aliases": [],
+  "experiment_ids": ["experiment:reno"],
+  "parent_detector_id": null,
+  "technology": {
+    "value": "Two identical gadolinium-doped liquid-scintillator antineutrino detectors",
+    "sources": ["src:reno-discovery-2012"],
+    "verified_at": "2026-09-17",
+    "confidence": "verified",
+    "quote": "detected by two identical detectors",
+    "note": "The 2012 discovery paper does not itself state the detectors' liquid-scintillator technology in the abstract text fetched; classified as liquid_scintillator based on the well-established RENO/Daya-Bay-family detector design referenced generally across reactor-neutrino experiments in this workstream, but no per-detector target mass was found in a fetched source this session."
+  },
+  "technology_class": "liquid_scintillator",
+  "technology_classes": ["liquid_scintillator"],
+  "placements": [
+    {
+      "site_id": "site:reno-near-detector",
+      "role": "near",
+      "start": "2011-08-11",
+      "end": null,
+      "sources": ["src:reno-discovery-2012"],
+      "verified_at": "2026-09-17",
+      "confidence": "verified",
+      "quote": "In the 229 day data-taking period between 11 August 2011 and 26 March 2012",
+      "note": ""
+    },
+    {
+      "site_id": "site:reno-far-detector",
+      "role": "far",
+      "start": "2011-08-11",
+      "end": null,
+      "sources": ["src:reno-discovery-2012"],
+      "verified_at": "2026-09-17",
+      "confidence": "verified",
+      "quote": "In the 229 day data-taking period between 11 August 2011 and 26 March 2012",
+      "note": ""
+    }
+  ],
+  "intervals": [
+    {
+      "label": "data taking",
+      "status": "active",
+      "start": "2011-08-11",
+      "end": "2012-03-26",
+      "sources": ["src:reno-discovery-2012"],
+      "verified_at": "2026-09-17",
+      "confidence": "verified",
+      "quote": "In the 229 day data-taking period between 11 August 2011 and 26 March 2012",
+      "note": ""
+    }
+  ],
+  "status": "active",
+  "specs": {},
+  "subsystems": [],
+  "document_ids": [],
+  "links": {
+    "website": null
+  },
+  "notes": [
+    "No target mass, PMT count, or other detector spec was found in a source fetched this session beyond the baselines already in key_specs; left out of `specs` rather than guessed."
+  ],
+  "sources": ["src:reno-discovery-2012"],
+  "summary": {
+    "plain": "Two identical tank-like detectors near and far from South Korea's Hanbit nuclear reactors, watching for antineutrinos.",
+    "technical": "Two identical Gd-doped liquid-scintillator antineutrino detectors at 294 m and 1383 m from the Hanbit reactor array; per-detector target mass not found in a source fetched this session."
+  },
+  "coverage": {
+    "tier": "B",
+    "researched": "partial"
+  }
+}

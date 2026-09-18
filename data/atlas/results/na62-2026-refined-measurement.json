@@ -1,102 +1,110 @@
 {
-  "schema": "hep-atlas/0.2",
-  "id": "result:na62-2026-refined-measurement",
-  "type": "result",
-  "name": "NA62 refined measurement of the K+ -> pi+ nu nubar branching ratio (2026 update)",
   "aliases": [],
-  "title": "NA62 Collaboration refines measurement of rare particle decay",
-  "coverage": {
-    "tier": "A",
-    "researched": "partial"
+  "announced": "2026-03-04",
+  "claim": {
+    "locator": "arXiv:2607.16413, abstract",
+    "quote": "the analysis gives B_2016-2024(K+ -> pi+ nu nubar) = (9.6+1.9-1.8) x 10^-11, corresponding to a relative precision of 20%",
+    "sources": [
+      "src:fixed-target-verify-na62-refined-arxiv-2607-16413"
+    ]
   },
-  "experiment_ids": [
-    "experiment:na62"
-  ],
   "collaboration_ids": [
     "collaboration:na62"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "A"
+  },
+  "date": {
+    "confidence": "verified",
+    "locator": "home.cern news article, dated 4 March 2026",
+    "note": "This is a CERN news article about a conference presentation (2026 La Thuile conference) announcing a preliminary value; the full measurement was subsequently posted as arXiv:2607.16413 (submitted 17 July 2026, CERN-EP-2026-214), which restates the identical central value and is now the source for the result's claim (A16 forbids sourcing claim.quote to a press release).",
+    "sources": [
+      "src:na62-cern-news-2026-refined-measurement"
+    ],
+    "value": "2026-03-04",
+    "verified_at": "2026-09-17"
+  },
+  "date_kind": "announcement",
+  "detector_ids": [
+    "detector:na62"
+  ],
+  "experiment_ids": [
+    "experiment:na62"
   ],
   "facility_ids": [
     "facility:cern"
   ],
-  "detector_ids": [
-    "detector:na62"
+  "hepdata": null,
+  "id": "result:na62-2026-refined-measurement",
+  "key_value": {
+    "approx": false,
+    "confidence": "verified",
+    "dimension": "count",
+    "display": "(9.6+1.9-1.8) x 10^-11",
+    "note": "Branching ratio in units of 10^-11; stored as a bare count-like number because the ontology has no branching-ratio dimension. Confirmed verbatim in arXiv:2607.16413 abstract, corroborated by the earlier CERN news article. See key_value_text for the fully formatted value.",
+    "quote": "(9.6+1.9-1.8) x 10^-11",
+    "sources": [
+      "src:fixed-target-verify-na62-refined-arxiv-2607-16413",
+      "src:na62-cern-news-2026-refined-measurement"
+    ],
+    "unit": "",
+    "value": 9.6,
+    "verified_at": "2026-09-17"
+  },
+  "key_value_text": {
+    "confidence": "verified",
+    "note": "",
+    "quote": "corresponding to a relative precision of 20%",
+    "sources": [
+      "src:fixed-target-verify-na62-refined-arxiv-2607-16413",
+      "src:na62-cern-news-2026-refined-measurement"
+    ],
+    "value": "B(K+ -> pi+ nu nubar) = (9.6+1.9-1.8) x 10^-11, combining data collected 2016-2024 (including newly analysed 2023-2024 data: B_2023-2024 = (7.2+2.3-2.1) x 10^-11), a relative precision of 20%",
+    "verified_at": "2026-09-17"
+  },
+  "links": {
+    "website": null
+  },
+  "name": "NA62 refined measurement of the K+ -> pi+ nu nubar branching ratio (2026 update)",
+  "notes": [
+    "Originally sourced only to a CERN news article about a conference talk (press_release), which left claim.quote in violation of A16 (claim must come from the publication title/abstract or the collaboration's own result page, never a press release). Fixed 2026-09-17 during fixed-target wave-3 verification: claim, key_value corroboration, publication and publication_source_id now cite arXiv:2607.16413 (CERN-EP-2026-214, submitted 17 July 2026), 'Measurement of the branching ratio of the K+ -> pi+ nu nubar decay', which restates the identical (9.6+1.9-1.8) x 10^-11 central value first announced at the 2026 La Thuile conference.",
+    "An intermediate conference-proceedings preprint, arXiv:2604.12649 ('New measurement of K+ -> pi+ nu nubar branching ratio at the NA62 experiment', submitted 14 April 2026), also restates this value from a preliminary analysis; the later, full measurement paper arXiv:2607.16413 is used instead as the primary claim source.",
+    "As of 2026-09-17 arXiv:2607.16413 has no journal DOI yet (CERN preprint report number CERN-EP-2026-214); publication.doi is left null rather than guessed."
   ],
-  "date": {
-    "value": "2026-03-04",
+  "official_url": "https://home.cern/na62-collaboration-refines-measurement-rare-particle-decay",
+  "publication": {
+    "arxiv": "2607.16413",
+    "doi": null,
+    "url": "https://arxiv.org/abs/2607.16413"
+  },
+  "publication_source_id": "src:fixed-target-verify-na62-refined-arxiv-2607-16413",
+  "published": "2026-07-17",
+  "result_type": "measurement",
+  "schema": "hep-atlas/0.2",
+  "significance": {
+    "confidence": "uncertain",
+    "locator": "home.cern news article, 4 March 2026 (no sigma value restated for this update)",
+    "note": "Neither the arXiv:2607.16413 abstract nor the CERN news article states a sigma value for this specific combined 2016-2024 measurement (the abstract instead states a 20% relative precision); left null rather than assumed unchanged from the 2025 discovery-level result.",
     "sources": [
       "src:na62-cern-news-2026-refined-measurement"
     ],
-    "verified_at": "2026-09-17",
-    "confidence": "verified",
-    "locator": "home.cern news article, dated 4 March 2026",
-    "note": "This is a CERN news article about a conference presentation (2026 La Thuile conference); no arXiv/journal identifier for this specific update was found by a source fetched this session."
+    "value": null,
+    "verified_at": "2026-09-17"
   },
-  "date_kind": "announcement",
-  "topic_ids": [
-    "topic:rare-kaon-physics",
-    "topic:cp-violation"
+  "sources": [
+    "src:na62-cern-news-2026-refined-measurement",
+    "src:fixed-target-verify-na62-refined-arxiv-2607-16413"
   ],
-  "result_type": "measurement",
-  "claim": {
-    "quote": "The NA62 Collaboration refines the measurement of an extremely rare process",
-    "locator": "home.cern news article, headline/lede, 4 March 2026",
-    "sources": [
-      "src:na62-cern-news-2026-refined-measurement"
-    ]
-  },
   "summary": {
     "plain": "An update, presented at a March 2026 conference, that sharpens NA62's measurement of the rare kaon decay using more data, including runs from 2023 and 2024, cutting the uncertainty on the earlier 2025 observation.",
     "technical": "Refined B(K+ -> pi+ nu nubar) = (9.6+1.9-1.8) x 10^-11, combining all NA62 data recorded since the experiment began (including newly added 2023-2024 data), with about 40% smaller uncertainty than the previously published (2025) result; presented at the 2026 La Thuile conference."
   },
-  "why_it_matters": "Tracks NA62's continuing improvement in precision on one of the cleanest Standard Model tests in kaon physics as more data (2023-2024) is added beyond the 2025 observation paper.",
-  "key_value": {
-    "value": 9.6,
-    "unit": "",
-    "dimension": "count",
-    "approx": false,
-    "display": "(9.6+1.9-1.8) x 10^-11",
-    "sources": [
-      "src:na62-cern-news-2026-refined-measurement"
-    ],
-    "verified_at": "2026-09-17",
-    "confidence": "verified",
-    "quote": "9.6+1.9-1.8 x 10^-11",
-    "note": "Branching ratio in units of 10^-11."
-  },
-  "key_value_text": {
-    "value": "B(K+ -> pi+ nu nubar) = (9.6+1.9-1.8) x 10^-11, combining data taken since the experiment began plus newly incorporated 2023-2024 data, ~40% smaller uncertainty than the previous (2025) result",
-    "sources": [
-      "src:na62-cern-news-2026-refined-measurement"
-    ],
-    "verified_at": "2026-09-17",
-    "confidence": "verified",
-    "note": ""
-  },
-  "significance": {
-    "value": null,
-    "sources": [
-      "src:na62-cern-news-2026-refined-measurement"
-    ],
-    "verified_at": "2026-09-17",
-    "confidence": "uncertain",
-    "locator": "home.cern news article, 4 March 2026 (no sigma value restated for this update)",
-    "note": "The news article references the earlier 2024/2025 discovery-level (5 sigma) result but does not itself restate a sigma value for this refined 2026 measurement; left null rather than assumed unchanged."
-  },
-  "publication": {
-    "doi": null,
-    "arxiv": null,
-    "url": "https://home.cern/na62-collaboration-refines-measurement-rare-particle-decay"
-  },
-  "publication_source_id": "src:na62-cern-news-2026-refined-measurement",
-  "official_url": "https://home.cern/na62-collaboration-refines-measurement-rare-particle-decay",
-  "hepdata": null,
-  "links": {
-    "website": null
-  },
-  "notes": [
-    "Bonus (non-mandatory) third NA62 result, included because a source was available; sourced only to a CERN news article about a conference talk, not a peer-reviewed publication -- flagged accordingly in confidence/notes throughout."
+  "title": "Measurement of the branching ratio of the K+ -> pi+ nu nubar decay",
+  "topic_ids": [
+    "topic:rare-kaon-physics",
+    "topic:cp-violation"
   ],
-  "sources": [
-    "src:na62-cern-news-2026-refined-measurement"
-  ]
+  "type": "result",
+  "why_it_matters": "Tracks NA62's continuing improvement in precision on one of the cleanest Standard Model tests in kaon physics as more data (2023-2024) is added beyond the 2025 observation paper."
 }

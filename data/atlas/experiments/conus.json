@@ -19,7 +19,7 @@
       "confidence": "verified",
       "facility_id": "facility:brokdorf-nuclear-power-plant",
       "locator": "abstract",
-      "note": "Original host, 2018-2023 (experiment referred to simply as 'CONUS' in this phase).",
+      "note": "Historic host, 2018-2023, superseded by facility:leibstadt-nuclear-power-plant in 2023 (experiment referred to simply as 'CONUS' in this phase). Marked 'historic' so the build's principal-facility choice (used in search subtitles and elsewhere) names the current host, not the original one — the same mechanism build.py already uses for DUNE/CERN.",
       "quote": "the CONUS detectors positioned at 17.1m from the 3.9GWth reactor core of the nuclear power plant in Brokdorf, Germany",
       "role": "host",
       "sources": [
@@ -121,7 +121,8 @@
     "No INSPIRE experiment-registry record was found for CONUS/CONUS+ (searched inspirehep.net/api/experiments this session; zero results); external.inspire_experiment left null rather than guessed.",
     "links.website is null: no official CONUS/CONUS+ website was found reachable in this pass (attempts at plausible MPIK URLs returned 404); this is a gap, not a considered absence.",
     "Derived fields (detector_ids, site_ids, result_ids, document_ids) are deliberately not written (v0.2 A1).",
-    "Record name is 'CONUS / CONUS+' (not just 'CONUS') so that the in-app search, which matches only `name`/`aliases` (never `summary`), surfaces this experiment when a user searches 'CONUS+'. 'CONUS+' cannot be a formal alias (A20 rejects it as equal to the name modulo punctuation), and the collaboration/detector records already use this same 'X / X+' convention, so the experiment record is changed to match them for consistency and discoverability. [verifier fix, 2026-09-17]"
+    "Record name is 'CONUS / CONUS+' (not just 'CONUS') so that the in-app search, which matches only `name`/`aliases` (never `summary`), surfaces this experiment when a user searches 'CONUS+'. 'CONUS+' cannot be a formal alias (A20 rejects it as equal to the name modulo punctuation), and the collaboration/detector records already use this same 'X / X+' convention, so the experiment record is changed to match them for consistency and discoverability. [verifier fix, 2026-09-17]",
+    "facility_roles[0] (Brokdorf)'s note now says 'historic' so build.py's _principal_facility() deprioritises it; without that keyword the search-result subtitle named the closed Brokdorf plant instead of the current Leibstadt host, since both facility_roles carry role:host and the tie broke on list order. [verifier fix, 2026-09-17]"
   ],
   "physics_goals": [
     {
