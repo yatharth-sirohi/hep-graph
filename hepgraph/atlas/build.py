@@ -31,6 +31,7 @@ from __future__ import annotations
 import argparse
 import datetime as _dt
 import hashlib
+import re as _re
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Iterable
@@ -642,8 +643,57 @@ def build_results_bundle(ctx: _Context) -> dict:
         record = dict(ctx.stripped[entity_id])
         record.pop('schema', None)
         record['month'] = schema.month_index(schema.lo(record.get('date')))
+        official_url = record.get('official_url')
+        record['official_url_kind'] = (
+            _official_url_kind(official_url, record.get('publication')) if official_url else None)
         bundle[entity_id] = record
     return bundle
+
+
+_ARXIV_ID_RE = _re.compile(r'^([0-9]{4}\.[0-9]{4,5}|[a-z-]+(?:\.[A-Za-z-]+)?/[0-9]{7})(?:v\d+)?$')
+_ARXIV_URL_RE = _re.compile(
+    r'^(?:https?://)?(?:www\.)?arxiv\.org/(?:abs|pdf)/([^\s?#]+?)(?:\.pdf)?/?$', _re.IGNORECASE)
+_DOI_URL_RE = _re.compile(r'^(?:https?://)?(?:dx\.)?doi\.org/(.+)$', _re.IGNORECASE)
+
+
+def _normalize_arxiv_id(value: Any) -> str | None:
+    """The bare arXiv id (no version) a URL or id string names, or None."""
+    if not isinstance(value, str) or not value.strip():
+        return None
+    text = value.strip()
+    m = _ARXIV_URL_RE.match(text)
+    if m:
+        text = m.group(1)
+    m = _ARXIV_ID_RE.match(text)
+    return m.group(1) if m else None
+
+
+def _normalize_doi(value: Any) -> str | None:
+    """A DOI target, case- and doi.org-prefix-folded, or None."""
+    if not isinstance(value, str) or not value.strip():
+        return None
+    text = value.strip()
+    m = _DOI_URL_RE.match(text)
+    if m:
+        text = m.group(1)
+    text = text.strip('/')
+    return text.lower() or None
+
+
+def _official_url_kind(official_url: str, publication: Any) -> str:
+    """A4: whether `official_url` is really a distinct link, or a restated
+    arXiv/DOI reference the panel would otherwise show a second time under a
+    misleading "Official page" label (37 of 109 generated results did, all of
+    them arXiv). `publication` is the result's `{"doi", "arxiv", "inspire"}`
+    external-reference dict, unSourced (A9/§9)."""
+    publication = publication if isinstance(publication, dict) else {}
+    official_arxiv = _normalize_arxiv_id(official_url)
+    if official_arxiv and official_arxiv == _normalize_arxiv_id(publication.get('arxiv')):
+        return 'arxiv'
+    official_doi = _normalize_doi(official_url)
+    if official_doi and official_doi == _normalize_doi(publication.get('doi')):
+        return 'doi'
+    return 'official'
 
 
 def build_documents_bundle(ctx: _Context) -> dict:
@@ -694,7 +744,15 @@ def build_membership_bundles(ctx: _Context) -> dict[str, dict]:
         render_kwargs = dict(formation=formation, as_of=as_of, build_date=ctx.build_day,
                              membership_history=history)
 
-        members = [_membership_row(ctx, row, collaboration, as_of, render_kwargs) for row in rows]
+        # `source_index` records each row's position in the *authored* file,
+        # before the display sort below reorders it — the panel's provenance
+        # pointers (`/members/3`) index into that authored order (they are
+        # RFC 6901 pointers into the record as written, per
+        # docs/HEP_ATLAS_BUNDLES.md), so a client resolving one of those
+        # pointers into an institution name needs this to find the right row
+        # rather than the row that happens to land at position 3 once sorted.
+        members = [dict(_membership_row(ctx, row, collaboration, as_of, render_kwargs), source_index=i)
+                   for i, row in enumerate(rows)]
         members.sort(key=lambda row: (str(row.get('name') or ''), str(row.get('institution_id') or '')))
 
         snapshots = [ctx.stripper.strip(snapshot, collaboration_id, '')

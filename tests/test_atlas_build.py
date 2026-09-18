@@ -714,3 +714,130 @@ def test_linked_maps_agree_between_the_table_and_the_bundle(tmp_path: Path) -> N
     # A map never links to itself.
     for map_id, entry in table.items():
         assert map_id not in entry["linked_map_ids"]
+
+def test_membership_row_carries_its_authored_source_index(built: BuildResult) -> None:
+    """A5 (panel provenance, task A4): the roster is display-sorted, but a
+    `/members/N` provenance pointer indexes the *authored* file order — each
+    row must say what N it was so the panel's claim label can find the right
+    institution rather than whatever landed at sorted position N."""
+    roster = _json(built, "memberships/demo.json")
+    indices = sorted(row["source_index"] for row in roster["members"])
+    assert indices == list(range(len(roster["members"])))
+
+
+# ---------------------------------------------------------------------------
+# `official_url_kind` (task A4): the panel must never show the same target
+# twice as both its real link (arXiv/DOI) and a redundant "Official page".
+# ---------------------------------------------------------------------------
+
+def _result_fixture(result_id: str, *, official_url: str, arxiv: str, doi: str, inspire: int) -> dict:
+    """A minimal, schema-valid `result` record differing only in its
+    publication links, for `test_official_url_kind_*` below."""
+    return {
+        "id": result_id,
+        "type": "result",
+        "name": f"Fixture result {result_id}",
+        "title": f"Fixture result {result_id}",
+        "aliases": [],
+        "summary": {"plain": "A synthetic fixture result for the official_url_kind build rule."},
+        "sources": ["src:demo-result-paper"],
+        "links": {"website": None},
+        "notes": [],
+        "coverage": {"tier": "C", "researched": "partial"},
+        "experiment_ids": ["experiment:demo"],
+        "collaboration_ids": ["collaboration:demo"],
+        "facility_ids": ["facility:demo-lab"],
+        "topic_ids": ["topic:neutrino-oscillations"],
+        "result_type": "measurement",
+        "date": {"value": "2021-06-15", "sources": ["src:demo-result-paper"],
+                  "confidence": "verified", "verified_at": "2026-09-16", "locator": "title page"},
+        "date_kind": "publication",
+        "significance": None,
+        "key_value": None,
+        "key_value_text": None,
+        "hepdata": None,
+        "claim": {"quote": "A synthetic measurement for build-rule testing.",
+                   "locator": "abstract", "sources": ["src:demo-result-paper"]},
+        "publication": {"doi": doi, "arxiv": arxiv, "inspire": inspire},
+        "official_url": {"value": official_url, "sources": ["src:demo-experiment-site"],
+                          "confidence": "verified", "verified_at": "2026-09-16"},
+    }
+
+
+@pytest.fixture(scope="module")
+def built_with_official_url_variants(tmp_path_factory) -> BuildResult:
+    import shutil
+
+    root = tmp_path_factory.mktemp("atlas-official-url") / "atlas"
+    shutil.copytree(FIXTURE, root)
+    results_dir = root / "results"
+    fixtures = {
+        # (a) official_url is a variant of the paper's own arXiv link
+        # (different scheme path + version suffix) — must not read as a
+        # second, distinct "Official page".
+        "result:test-arxiv-duplicate": _result_fixture(
+            "result:test-arxiv-duplicate",
+            official_url="https://arxiv.org/pdf/2101.00002v2",
+            arxiv="2101.00002", doi="10.1000/test-arxiv-dup", inspire=1800001),
+        # (b) official_url is a variant of the paper's own DOI link
+        # (doi.org prefix, different case).
+        "result:test-doi-duplicate": _result_fixture(
+            "result:test-doi-duplicate",
+            official_url="https://doi.org/10.1000/TEST-DOI-DUP",
+            arxiv="2101.00003", doi="10.1000/test-doi-dup", inspire=1800002),
+        # (c) official_url is a genuinely distinct collaboration page — must
+        # be kept, never dropped as a class fix for (a)/(b).
+        "result:test-distinct-official": _result_fixture(
+            "result:test-distinct-official",
+            official_url="https://demo-experiment.org/results/2022-distinct",
+            arxiv="2101.00004", doi="10.1000/test-distinct", inspire=1800003),
+    }
+    # (d) no official_url at all — `official_url_kind` must be null, not
+    # "official" (there is nothing to classify).
+    no_official = _result_fixture(
+        "result:test-no-official-url", official_url="https://unused.example/never-read",
+        arxiv="2101.00005", doi="10.1000/test-no-official", inspire=1800004)
+    no_official["official_url"] = None
+    fixtures["result:test-no-official-url"] = no_official
+    for result_id, record in fixtures.items():
+        slug = schema.id_slug(result_id)
+        (results_dir / f"{slug}.json").write_text(json.dumps(record), encoding="utf-8")
+    result = build(root, tmp_path_factory.mktemp("atlas-official-url-out"), build_date=BUILD_DATE)
+    assert result.errors == [], result.errors
+    return result
+
+
+def test_official_url_kind_marks_an_arxiv_duplicate(built_with_official_url_variants: BuildResult) -> None:
+    results = _json(built_with_official_url_variants, "results.json")
+    record = results["result:test-arxiv-duplicate"]
+    assert record["official_url_kind"] == "arxiv"
+    assert record["official_url"] == "https://arxiv.org/pdf/2101.00002v2"  # kept, never dropped
+
+
+def test_official_url_kind_marks_a_doi_duplicate(built_with_official_url_variants: BuildResult) -> None:
+    results = _json(built_with_official_url_variants, "results.json")
+    record = results["result:test-doi-duplicate"]
+    assert record["official_url_kind"] == "doi"
+    assert record["official_url"] == "https://doi.org/10.1000/TEST-DOI-DUP"
+
+
+def test_official_url_kind_keeps_a_genuinely_distinct_page(built_with_official_url_variants: BuildResult) -> None:
+    results = _json(built_with_official_url_variants, "results.json")
+    record = results["result:test-distinct-official"]
+    assert record["official_url_kind"] == "official"
+    assert record["official_url"] == "https://demo-experiment.org/results/2022-distinct"
+
+
+def test_official_url_kind_is_null_without_an_official_url(
+        built_with_official_url_variants: BuildResult) -> None:
+    results = _json(built_with_official_url_variants, "results.json")
+    record = results["result:test-no-official-url"]
+    assert record["official_url"] is None
+    assert record["official_url_kind"] is None
+
+
+def test_official_url_kind_on_the_shared_fixture_result(built: BuildResult) -> None:
+    # The shared fixture's own result has a genuinely distinct official_url.
+    results = _json(built, "results.json")
+    record = results["result:demo-oscillation-observation-2020"]
+    assert record["official_url_kind"] == "official"

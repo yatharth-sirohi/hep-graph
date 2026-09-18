@@ -264,6 +264,7 @@ fields of `schema.LONG_TEXT_FIELDS`:
   "significance": "5.2σ",
   "publication": {"doi": "10.0000/demo-result", "arxiv": "2003.00001", "inspire": 1790000},
   "official_url": "https://example.org/demo-experiment/results/2020",
+  "official_url_kind": "official",
   "hepdata": null,
   "summary": {"plain": "The experiment saw neutrinos change type over 1300 kilometres."}
 }}
@@ -272,6 +273,15 @@ fields of `schema.LONG_TEXT_FIELDS`:
 `month` is the result date in months since the epoch, so the slider can filter
 without re-parsing dates.  `claim`, `why_it_matters` and the technical summary
 are in `text.json`.
+
+`official_url_kind` (added for A4) is derived, never authored: `null` when
+`official_url` is absent, else `"arxiv"` or `"doi"` when the URL normalises to
+the same target as `publication.arxiv` (an `arxiv.org/abs/<id>` or `/pdf/<id>`
+link, any version suffix) or `publication.doi` (a `doi.org/<doi>` link,
+case-folded), else `"official"`. This lets the panel avoid showing the same
+target twice under both its real link and a redundant "Official page" —
+across the generated bundle 37 of 109 results had `official_url` equal to
+their own arXiv link before this was added.
 
 ## `documents.json`
 
@@ -336,11 +346,18 @@ Loaded when a collaboration is selected.
       "evidence_label": "On the official institution list (as of 2026-09)",
       "render": "solid",
       "counted": true,
-      "note": "join date not published; first seen on the 2012 roster"
+      "note": "join date not published; first seen on the 2012 roster",
+      "source_index": 0
     }
   ]
 }
 ```
+
+`source_index` is this row's position in the *authored* roster file, before
+the display sort below reorders `members`. The collaboration's provenance
+pointers (`/members/3`) are RFC 6901 pointers into that authored order, so a
+client resolving one into an institution name (Task A4's claim labels) must
+look up `source_index === 3`, not array position 3 of the sorted list.
 
 `render` / `counted` / `counts` are evaluated **at the build date**; the
 frontend recomputes them per slider year with the A5 rule using `start`,

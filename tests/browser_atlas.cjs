@@ -171,9 +171,13 @@ async function setRangeValue(locator, value) {
     // Ontology amendment A19/A5 wording, sourced from the membership bundle's
     // own `counts.confirmed`/`counts.undated` — not the literal "0 confirmed
     // members" the panel used to show for every collaboration (it read a
-    // `confirmed_count` field the collaboration record never carried).
-    assert.match(panelText, /\d+ confirmed members \(\+\d+ undated\)/);
-    assert.doesNotMatch(panelText, /\b0 confirmed members\b(?!\s*\()/, "DUNE has a real, nonzero confirmed-member count");
+    // `confirmed_count` field the collaboration record never carried). Task
+    // A4/A5: a `membership_history` of "partial"/"unknown" (DUNE, both trees)
+    // is worded "Partial roster: N confirmed institutions (+M undated)…; the
+    // full membership is larger" — never a bare "N members" that reads as a
+    // complete count.
+    assert.match(panelText, /Partial roster: \d+ confirmed institutions \(\+\d+ undated\)[^.]*the full membership is larger/);
+    assert.doesNotMatch(panelText, /\b0 confirmed institutions\b(?!\s*\()/, "DUNE has a real, nonzero confirmed-member count");
     await page.locator("#view-on-globe").click();
     await page.waitForFunction(() => document.querySelectorAll(".atlas-marker.tier-institution").length > 0, { timeout: 10000 });
     assert.ok(await page.locator(".atlas-marker.tier-institution").count() > 0);
@@ -778,6 +782,130 @@ async function setRangeValue(locator, value) {
     }
     console.log("FPS measurement:", JSON.stringify(summary));
   });
+
+  // ------------------------------------------------------------------------
+  // Task A4/A5: readable provenance labels, official_url dedup, honest
+  // empty states. Small shared helpers (this file already duplicates this
+  // pattern per test block above, e.g. the A23 check) rather than reaching
+  // into panels.js's own closures.
+  async function openSection(targetPage, headingText) {
+    const handle = await targetPage.evaluateHandle((text) => {
+      const summaries = [...document.querySelectorAll("#detail-panel details.panel-section summary")];
+      return summaries.find((s) => s.textContent.trim() === text) || null;
+    }, headingText);
+    const el = handle.asElement();
+    if (el) await el.click();
+    await targetPage.waitForFunction((text) => {
+      const summaries = [...document.querySelectorAll("#detail-panel details.panel-section summary")];
+      const details = summaries.find((s) => s.textContent.trim() === text)?.closest("details");
+      return !!details && details.open;
+    }, headingText, { timeout: 10000 });
+  }
+
+  await record("Sources disclosure shows readable claim labels, never a raw JSON pointer", async () => {
+    await page.goto(`${base}/atlas${dataTree}#/experiment/dune`);
+    await page.locator("#detail-panel h2").waitFor();
+    await openSection(page, "Sources");
+    await page.waitForFunction(() => {
+      const summaries = [...document.querySelectorAll("#detail-panel details.panel-section summary")];
+      const details = summaries.find((s) => s.textContent.trim() === "Sources")?.closest("details");
+      return !!details && !details.querySelector(".loading-note");
+    }, { timeout: 10000 });
+    const labels = await page.locator("#detail-panel .claim-label").allInnerTexts();
+    assert.ok(labels.length > 0, "expected at least one claim label in DUNE's Sources disclosure");
+    for (const label of labels) {
+      assert.doesNotMatch(label.trim(), /^\//, `claim label must not be a raw JSON pointer, got "${label}"`);
+    }
+    // At least one of DUNE's own sourced fields (its timeline or baseline)
+    // should render with content pulled from its own record, not just a
+    // title-cased fallback of the pointer path.
+    assert.ok(labels.some((l) => /Timeline:|Baseline/.test(l)), `expected a Timeline/Baseline claim label, got ${JSON.stringify(labels)}`);
+    // The exact pointer is still available, just not the headline.
+    const fieldLines = await page.locator("#detail-panel .claim-field").allInnerTexts();
+    assert.ok(fieldLines.some((t) => /^field: \//.test(t.trim())), "expected the raw pointer to remain visible in a 'field: /...' line");
+  });
+
+  await record("A result whose official_url restates its arXiv link shows one arXiv link and no 'Official page'", async () => {
+    const arxivDuplicateResult = process.env.HEP_ATLAS_DATA === "generated"
+      ? "alice-hypertriton-lifetime-2019" : "super-k-atmospheric-oscillation-1998";
+    await page.goto(`${base}/atlas${dataTree}#/result/${arxivDuplicateResult}`);
+    await page.locator("#detail-panel h2").waitFor();
+    await openSection(page, "Publication");
+    const pubText = await page.locator("#detail-panel").innerText();
+    assert.doesNotMatch(pubText, /Official page/, "an official_url that just restates the arXiv link must not also show as a distinct 'Official page'");
+    const arxivLinks = await page.locator('#detail-panel a[href*="arxiv.org"]').count();
+    assert.equal(arxivLinks, 1, `expected exactly one arXiv link, found ${arxivLinks}`);
+  });
+
+  await record("A result with a genuinely distinct official page still shows it, labelled by kind", async () => {
+    // Regression guard for the class fix above: deduping the arXiv/DOI
+    // restatement must never also drop a real, separate collaboration page.
+    const [distinctResult, distinctArxiv] = process.env.HEP_ATLAS_DATA === "generated"
+      ? ["alice-strangeness-enhancement-pp-2017", "1606.07424"]
+      : ["higgs-boson-observation-2012", "1207.7214"];
+    await page.goto(`${base}/atlas${dataTree}#/result/${distinctResult}`);
+    await page.locator("#detail-panel h2").waitFor();
+    await openSection(page, "Publication");
+    const pubText = await page.locator("#detail-panel").innerText();
+    assert.match(pubText, /Collaboration result page/, "a distinct official_url must still show its own link");
+    assert.match(pubText, new RegExp(`arXiv ${distinctArxiv.replace(".", "\\.")} \\(preprint\\)`));
+  });
+
+  await record("An experiment without curated results explains why, with counts from the loaded bundle", async () => {
+    const noResultsExperiment = process.env.HEP_ATLAS_DATA === "generated" ? "abracadabra" : "belle";
+    await page.goto(`${base}/atlas${dataTree}#/experiment/${noResultsExperiment}`);
+    await page.locator("#detail-panel h2").waitFor();
+    await openSection(page, "Results timeline");
+    const sectionText = await page.evaluate(() => {
+      const summaries = [...document.querySelectorAll("#detail-panel details.panel-section summary")];
+      const details = summaries.find((s) => s.textContent.trim() === "Results timeline")?.closest("details");
+      return details ? details.innerText : "";
+    });
+    assert.match(sectionText, /No results curated for this experiment yet \(the atlas records \d+ results across \d+ experiments; see coverage\)/,
+      `expected the honest "not yet curated" wording with real counts, got: ${sectionText}`);
+  });
+
+  if (process.env.HEP_ATLAS_DATA === "generated") {
+    await record("A proposed experiment with no results says so is not yet operating, not 'not curated'", async () => {
+      // experiment:cupid is `proposed` with no result_ids in the generated
+      // bundle — a scientifically meaningful absence (nothing to report yet),
+      // distinct from a curation gap, so it gets its own wording.
+      await page.goto(`${base}/atlas${dataTree}#/experiment/cupid`);
+      await page.locator("#detail-panel h2").waitFor();
+      await openSection(page, "Results timeline");
+      const sectionText = await page.evaluate(() => {
+        const summaries = [...document.querySelectorAll("#detail-panel details.panel-section summary")];
+        const details = summaries.find((s) => s.textContent.trim() === "Results timeline")?.closest("details");
+        return details ? details.innerText : "";
+      });
+      assert.match(sectionText, /Not yet operating — no results expected\./, `got: ${sectionText}`);
+    });
+
+    await record("A collaboration with no curated roster disables 'View collaboration on globe' with a reason", async () => {
+      // A fresh, unlistened context: this deliberately requests a
+      // memberships/abracadabra.json that does not exist (the whole point
+      // of the check), which the app itself handles via a caught rejection
+      // — but Chromium still logs the failed network request itself as a
+      // console error regardless of whether JS catches it, which would
+      // otherwise fail this file's blanket "no uncaught console errors"
+      // assertion on the shared `page`/`context` for a 404 this test causes
+      // on purpose.
+      const freshContext = await browser.newContext({ viewport: { width: 1440, height: 960 } });
+      const freshPage = await freshContext.newPage();
+      await freshPage.goto(`${base}/atlas${dataTree}#/collaboration/abracadabra`);
+      await freshPage.locator("#detail-panel h2").waitFor();
+      const panelText = await freshPage.locator("#detail-panel").innerText();
+      assert.match(panelText, /Institution roster not yet curated for this collaboration\./);
+      const viewBtn = freshPage.locator("#view-on-globe");
+      await viewBtn.waitFor();
+      assert.equal(await viewBtn.isDisabled(), true, "the globe button must be disabled without a curated roster");
+      const title = await viewBtn.getAttribute("title");
+      assert.ok(title && title.length > 0, "the disabled button must carry a reason in its title");
+      await freshContext.close();
+    });
+  }
+
+  // ------------------------------------------------------------------------
 
   // Close the main (WebGL, continuously rendering) context before opening the
   // no-WebGL context, so the two renderers do not compete for CPU on the

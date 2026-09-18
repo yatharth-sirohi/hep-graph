@@ -7,6 +7,7 @@ import * as loader from './loader.js';
 import {
   quantityText, fmtDate, titleCase, statusEra, statusForTimeline, timelineAbsenceReason,
 } from './model.js';
+import * as provenance from './provenance.js';
 
 let ATLAS = null;
 let INDEX = null;
@@ -26,6 +27,7 @@ export function init({ el, atlas, index, navigate, focusGlobe, viewOnGlobe }) {
   ATLAS = atlas;
   INDEX = index;
   CALLBACKS = { navigate, focusGlobe, viewOnGlobe };
+  provenance.configure(index);
 }
 
 export function setCollaborationContext(id) {
@@ -83,6 +85,21 @@ function emptyNote(text) {
   return h('p', { class: 'empty-note' }, text);
 }
 
+// Task A4/A5: an empty "Results" section must say whether that is because
+// curation hasn't reached this entity yet or the atlas is simply small —
+// never read as if the atlas had checked and found none (CLAUDE.md: "an
+// empty 'complete' neighborhood reads as proof a person has no
+// collaborators" is exactly the failure mode this avoids). The counts come
+// from the results bundle the caller already loaded, never hardcoded, so
+// they can't drift from what the atlas actually holds.
+function noResultsCurated(list, scopeLabel) {
+  const experimentIds = new Set();
+  for (const r of list) for (const eid of r.experiment_ids || []) experimentIds.add(eid);
+  return emptyNote(
+    `No results curated for this ${scopeLabel} yet (the atlas records ${list.length} results `
+    + `across ${experimentIds.size} experiments; see coverage)`);
+}
+
 // The generated bundle puts an entity's plain-language summary right on its
 // atlas.json record (`record.summary.plain`); the fixtures instead only put
 // it in the lazily-loaded text bundle (`t.summary_plain`, no `summary` key
@@ -115,7 +132,14 @@ function siteLocationNote(site) {
 // click or the keyboard), the body shows a visible loading state while the
 // request is in flight, and a failure renders a real message plus a retry
 // button rather than leaving the disclosure silently empty.
-function sourcesDisclosure(entityId, { approximateSites = [] } = {}) {
+// `record` is the entity's own already-loaded record (facility/experiment/
+// collaboration/result/…, whatever the caller is rendering) — claimLabel()
+// reads it to turn a pointer like `/key_specs/0/quantity` into "Baseline:
+// ~1300 km" using the record's own content, instead of showing the pointer
+// itself. For a collaboration, pass `membershipMembers` (the loaded roster,
+// reordered to each row's authored `source_index`) so `/members/N` resolves
+// to the right institution's name.
+function sourcesDisclosure(entityId, record, { approximateSites = [], membershipMembers = null } = {}) {
   const details = h('details', { class: 'panel-section' });
   details.appendChild(h('summary', {}, 'Sources'));
   const body = h('div', { class: 'panel-section-body' }, [
@@ -132,24 +156,10 @@ function sourcesDisclosure(entityId, { approximateSites = [] } = {}) {
     body.innerHTML = '';
     body.appendChild(h('p', { class: 'loading-note', role: 'status' }, 'Loading sources…'));
     try {
-      const [provenance, sourcesBundle] = await Promise.all([loader.getProvenance(), loader.getSources()]);
-      const entries = provenance[entityId];
-      const items = [];
-      if (entries) {
-        for (const [pointer, record] of Object.entries(entries)) {
-          const srcIds = record.sources || [];
-          for (const srcId of srcIds) {
-            const src = sourcesBundle.byId[srcId];
-            if (!src) continue;
-            const locatorOrQuote = record.quote ? `“${record.quote}”` : (record.locator || '');
-            items.push(h('li', {}, [
-              h('a', { href: src.url || '#', target: '_blank', rel: 'noopener' }, src.title || srcId),
-              h('div', { class: 'source-meta' }, `${pointer}${locatorOrQuote ? ` — ${locatorOrQuote}` : ''}`),
-              h('div', { class: 'source-access' }, src.accessed ? `Accessed ${src.accessed}` : ''),
-            ]));
-          }
-        }
-      }
+      const [provenanceBundle, sourcesBundle] = await Promise.all([loader.getProvenance(), loader.getSources()]);
+      const entries = provenanceBundle[entityId];
+      const labelRecord = membershipMembers ? { ...record, members: membershipMembers } : record;
+      const items = provenance.renderClaimItems(entries, sourcesBundle, labelRecord);
       // A23: a linked site's admitted-approximate coordinate explains *why*
       // in its own provenance note (e.g. "campus point, real hall position
       // not yet sourced") — the visible location line only says *that* it
@@ -157,12 +167,9 @@ function sourcesDisclosure(entityId, { approximateSites = [] } = {}) {
       // site's own entry is already sitting in the same object this
       // disclosure just fetched for its own entity; no extra request.
       for (const site of approximateSites) {
-        const siteEntry = provenance[site.id] && provenance[site.id]['/coordinates'];
+        const siteEntry = provenanceBundle[site.id] && provenanceBundle[site.id]['/coordinates'];
         if (siteEntry && siteEntry.note) {
-          items.push(h('li', { class: 'approximate-location-note' }, [
-            h('div', {}, `Approximate location — ${site.name}`),
-            h('div', { class: 'source-meta' }, siteEntry.note),
-          ]));
+          items.push(provenance.renderApproximateLocationNote(site, siteEntry.note));
         }
       }
       body.innerHTML = '';
@@ -259,19 +266,19 @@ async function renderFacility(id, timelineState) {
     : [emptyNote('No experiments currently active here.')]));
   frag.appendChild(section('Historical experiments', historical.length
     ? [h('ul', { class: 'entity-list' }, historical.map((e) => h('li', {}, linkTo(idRoute(e.id), e.name))))]
-    : [emptyNote('No historical experiments recorded.')], { open: false }));
+    : [emptyNote('No historical experiments recorded in the atlas (coverage is partial).')], { open: false }));
   frag.appendChild(section('Future / planned experiments', future.length
     ? [h('ul', { class: 'entity-list' }, future.map((e) => h('li', {}, linkTo(idRoute(e.id), e.name))))]
-    : [emptyNote('No future or planned experiments recorded.')], { open: false }));
+    : [emptyNote('No future or planned experiments recorded in the atlas (coverage is partial).')], { open: false }));
 
   frag.appendChild(section('Results', results.length
     ? [h('ul', { class: 'entity-list' }, results.map((r) => h('li', {}, linkTo(idRoute(r.id), r.title))))]
-    : [emptyNote('No results attributed directly to this facility.')], { open: false }));
+    : [noResultsCurated(allResults, 'facility')], { open: false }));
 
   frag.appendChild(section('Documents', documents.length
     ? [h('ul', { class: 'entity-list' }, documents.map((d) => h('li', {},
       h('a', { href: d.reference && d.reference.url, target: '_blank', rel: 'noopener' }, d.name))))]
-    : [emptyNote('No documents recorded.')], { open: false }));
+    : [emptyNote('No documents curated yet.')], { open: false }));
 
   const links = Object.entries(facility.links || {}).filter(([, v]) => v);
   frag.appendChild(section('Official links', links.length
@@ -283,7 +290,7 @@ async function renderFacility(id, timelineState) {
     ? [h('ul', { class: 'entity-list' }, related.map((r) => h('li', {}, linkTo(idRoute(r.id), r.name))))]
     : [emptyNote('No related facilities recorded.')], { open: false }));
 
-  frag.appendChild(sourcesDisclosure(id));
+  frag.appendChild(sourcesDisclosure(id, facility));
   CALLBACKS.focusGlobe(id);
   return frag;
 }
@@ -350,23 +357,30 @@ async function renderExperiment(id, timelineState) {
     ]))) : null,
   ], { open: false }));
 
-  const { byId: resultById } = await loader.getResults();
+  const { byId: resultById, list: allResults } = await loader.getResults();
   const results = (exp.result_ids || []).map((rid) => resultById.get(rid)).filter(Boolean)
     .sort((a, b) => (a.month || 0) - (b.month || 0));
+  // Task A5: an experiment that hasn't started operating yet has no results
+  // *because there is nothing to report yet* — a scientifically meaningful
+  // absence, not a curation gap — so it gets its own wording instead of the
+  // "not yet curated" note every other empty Results section uses.
+  const notYetOperating = statusEra(exp.status) === 'future';
   frag.appendChild(section('Results timeline', results.length
     ? [h('ol', { class: 'entity-list timeline-list' }, results.map((r) => h('li', {}, [
       h('span', { class: 'result-date' }, r.date || String(r.year || '')),
       ' ',
       linkTo(idRoute(r.id), r.title),
     ])))]
-    : [emptyNote('No results recorded yet.')], { open: false }));
+    : [notYetOperating
+      ? emptyNote('Not yet operating — no results expected.')
+      : noResultsCurated(allResults, 'experiment')], { open: false }));
 
   const { byId: docById } = await loader.getDocuments();
   const documents = (exp.document_ids || []).map((did) => docById.get(did)).filter(Boolean);
   frag.appendChild(section('Documents', documents.length
     ? [h('ul', { class: 'entity-list' }, documents.map((d) => h('li', {},
       h('a', { href: d.reference && d.reference.url, target: '_blank', rel: 'noopener' }, d.name))))]
-    : [emptyNote('No documents recorded.')], { open: false }));
+    : [emptyNote('No documents curated yet.')], { open: false }));
 
   const predecessors = (exp.lineage || []).filter((l) => ['predecessor', 'upgrade_of'].includes(l.relation));
   const successors = (exp.lineage || []).filter((l) => ['successor', 'upgraded_to'].includes(l.relation));
@@ -385,7 +399,7 @@ async function renderExperiment(id, timelineState) {
     others.length ? h('div', {}, [h('h4', {}, 'Related programs'), lineageList(others)]) : null,
   ], { open: false }));
 
-  frag.appendChild(sourcesDisclosure(id, { approximateSites }));
+  frag.appendChild(sourcesDisclosure(id, exp, { approximateSites }));
   CALLBACKS.focusGlobe(id);
   return frag;
 }
@@ -410,35 +424,62 @@ async function renderCollaboration(id, timelineState) {
     ? [linkTo(idRoute(host.id), host.name)]
     : [emptyNote('No host facility recorded.')]));
 
-  const viewBtn = h('button', { type: 'button', id: 'view-on-globe', class: 'primary-btn' }, 'View collaboration on globe');
-  viewBtn.addEventListener('click', () => CALLBACKS.viewOnGlobe(id));
-  frag.appendChild(h('div', { class: 'panel-actions' }, viewBtn));
-
   // The collaboration record's own `membership` block does not carry a
   // confirmed-member count (only institution_count / country_count / as_of
   // headline stats) — the actual roster counts, split into confirmed and
   // undated per ontology amendment A5, live in the membership bundle itself.
-  let countLabel = 'Membership counts not yet available.';
+  // A missing bundle (no roster curated at all) is not the same absence as
+  // one that exists but is only partially researched — §TASK3 keeps those
+  // two honest instead of collapsing both into "0 members" or a stale count.
+  let membership = null;
   try {
-    const membership = await loader.getMembership(id);
+    membership = await loader.getMembership(id);
+  } catch (error) {
+    membership = null;
+  }
+
+  const viewBtn = h('button', { type: 'button', id: 'view-on-globe', class: 'primary-btn' }, 'View collaboration on globe');
+  if (membership && (membership.members || []).length) {
+    viewBtn.addEventListener('click', () => CALLBACKS.viewOnGlobe(id));
+  } else {
+    viewBtn.disabled = true;
+    viewBtn.setAttribute('aria-disabled', 'true');
+    viewBtn.title = 'No institution roster curated yet for this collaboration.';
+  }
+  frag.appendChild(h('div', { class: 'panel-actions' }, viewBtn));
+
+  let membershipBody;
+  let membershipMembers = null;
+  if (!membership) {
+    membershipBody = [emptyNote('Institution roster not yet curated for this collaboration.')];
+  } else {
     const counts = membership.counts || {};
     const confirmed = counts.confirmed || 0;
     const undated = counts.undated || 0;
-    countLabel = `${confirmed} confirmed members (+${undated} undated)`;
-  } catch (error) {
-    // Leave the fallback text in place; the Membership section below still
-    // shows whatever headline stats the collaboration record itself has.
+    const asOf = membership.as_of ? ` as of ${membership.as_of}` : '';
+    const history = membership.membership_history;
+    const countLabel = (history === 'partial' || history === 'unknown')
+      ? `Partial roster: ${confirmed} confirmed institutions (+${undated} undated)${asOf}; the full membership is larger`
+      : `${confirmed} confirmed institutions (+${undated} undated)${asOf}`;
+    membershipBody = [
+      h('p', { class: 'membership-count' }, countLabel),
+      keyValueList([
+        ['Institutions', collab.membership && collab.membership.institution_count],
+        ['Countries', collab.membership && collab.membership.country_count],
+        ['As of', collab.membership && collab.membership.as_of],
+      ]),
+    ];
+    // `/members/N` provenance pointers index the roster's *authored* file
+    // order (`source_index`), not this display-sorted `members` array — see
+    // build.py's `_membership_row` and docs/HEP_ATLAS_BUNDLES.md.
+    membershipMembers = [];
+    for (const row of membership.members || []) {
+      if (typeof row.source_index === 'number') membershipMembers[row.source_index] = row;
+    }
   }
-  frag.appendChild(section('Membership', [
-    h('p', { class: 'membership-count' }, countLabel),
-    keyValueList([
-      ['Institutions', collab.membership && collab.membership.institution_count],
-      ['Countries', collab.membership && collab.membership.country_count],
-      ['As of', collab.membership && collab.membership.as_of],
-    ]),
-  ]));
+  frag.appendChild(section('Membership', membershipBody));
 
-  frag.appendChild(sourcesDisclosure(id));
+  frag.appendChild(sourcesDisclosure(id, collab, { membershipMembers }));
   return frag;
 }
 
@@ -567,19 +608,24 @@ async function renderTopic(id) {
   const historical = experiments.filter((e) => statusEra(e.status) === 'historical');
   const future = experiments.filter((e) => statusEra(e.status) === 'future');
   function expList(list) {
+    // "None." here means none *of this era specifically* — only meaningful
+    // once the section as a whole has at least one tagged experiment; the
+    // all-eras-empty case below gets its own honest wording instead.
     return list.length ? h('ul', { class: 'entity-list' }, list.map((e) => h('li', {}, linkTo(idRoute(e.id), e.name)))) : emptyNote('None.');
   }
-  frag.appendChild(section('Experiments', [
-    h('h4', {}, 'Current'), expList(current),
-    h('h4', {}, 'Historical'), expList(historical),
-    h('h4', {}, 'Future / planned'), expList(future),
-  ]));
+  frag.appendChild(section('Experiments', experiments.length
+    ? [
+      h('h4', {}, 'Current'), expList(current),
+      h('h4', {}, 'Historical'), expList(historical),
+      h('h4', {}, 'Future / planned'), expList(future),
+    ]
+    : [emptyNote('No experiments in the atlas tagged with this topic yet.')]));
 
   const { list: allResults } = await loader.getResults();
   const results = allResults.filter((r) => (r.topic_ids || []).includes(id));
   frag.appendChild(section('Related results', results.length
     ? [h('ul', { class: 'entity-list' }, results.map((r) => h('li', {}, linkTo(idRoute(r.id), r.title))))]
-    : [emptyNote('No results recorded yet.')], { open: false }));
+    : [noResultsCurated(allResults, 'topic')], { open: false }));
 
   return frag;
 }
@@ -611,12 +657,21 @@ async function renderResult(id) {
   }
   const pub = result.publication || {};
   const pubLinks = [];
-  if (pub.doi) pubLinks.push(h('li', {}, h('a', { href: `https://doi.org/${pub.doi}`, target: '_blank', rel: 'noopener' }, `DOI ${pub.doi}`)));
-  if (pub.arxiv) pubLinks.push(h('li', {}, h('a', { href: `https://arxiv.org/abs/${pub.arxiv}`, target: '_blank', rel: 'noopener' }, `arXiv ${pub.arxiv}`)));
-  if (result.official_url) pubLinks.push(h('li', {}, h('a', { href: result.official_url, target: '_blank', rel: 'noopener' }, 'Official page')));
+  if (pub.doi) pubLinks.push(h('li', {}, h('a', { href: `https://doi.org/${pub.doi}`, target: '_blank', rel: 'noopener' }, `DOI ${pub.doi} (journal)`)));
+  if (pub.arxiv) pubLinks.push(h('li', {}, h('a', { href: `https://arxiv.org/abs/${pub.arxiv}`, target: '_blank', rel: 'noopener' }, `arXiv ${pub.arxiv} (preprint)`)));
+  // A4: `official_url_kind` (build-derived) says whether `official_url`
+  // just restates the arXiv/DOI link already shown above under another
+  // name — in that case it is not a second link, so showing a redundant
+  // "Official page" pointed at the same target is never correct. Only a
+  // `kind` the build could not match to either (`"official"`, or the field
+  // absent from a bundle the build hasn't run against — never silently
+  // dropped) gets its own row.
+  if (result.official_url && result.official_url_kind !== 'arxiv' && result.official_url_kind !== 'doi') {
+    pubLinks.push(h('li', {}, h('a', { href: result.official_url, target: '_blank', rel: 'noopener' }, 'Collaboration result page')));
+  }
   frag.appendChild(section('Publication', pubLinks.length ? [h('ul', { class: 'entity-list' }, pubLinks)] : [emptyNote('No publication links recorded.')], { open: false }));
 
-  frag.appendChild(sourcesDisclosure(id));
+  frag.appendChild(sourcesDisclosure(id, result));
   return frag;
 }
 
