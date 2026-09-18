@@ -281,15 +281,15 @@ async function contrastOf(page, selector) {
       await mapPage.locator("[data-feature-row]").first().waitFor({ timeout: 20000 });
       await runAxe(mapPage, tree.label, "local map view");
 
-      // Open every disclosure in the left column first: axe cannot see into a
-      // closed <details>, and the legend, the unlocated list and the linked
-      // maps all live in one.
-      await mapPage.evaluate(() => document.querySelectorAll("#map-layers details")
-        .forEach((d) => { d.open = true; }));
       await mapPage.locator("[data-feature-row]").first().click();
       await mapPage.locator("#map-drawer-title").waitFor({ timeout: 15000 });
       await mapPage.locator("#map-depth-toggle").click();
       await mapPage.locator(".map-depth-svg").waitFor({ timeout: 15000 });
+      // Open every disclosure in the left column *after* the clicks: axe
+      // cannot see into a closed <details>, and each click re-renders the
+      // list (so opening them first would not survive to the scan).
+      await mapPage.evaluate(() => document.querySelectorAll("#map-layers details")
+        .forEach((d) => { d.open = true; }));
       await runAxe(mapPage, tree.label, "local map view, drawer and depth diagram open");
 
       // The four §4 encodings must each be readable as text, not colour

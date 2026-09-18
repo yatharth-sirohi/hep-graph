@@ -792,6 +792,32 @@ async function setRangeValue(locator, value) {
         await perfContext.close();
       });
 
+      await record("Local map: the no-WebGL fallback links to it and opens it (Leaflet needs no WebGL)", async () => {
+        const noGl = await newNoWebGL2Context(browser, { viewport: { width: 1280, height: 900 } });
+        const noGlErrors = [];
+        noGl.on("page", (pg) => pg.on("pageerror", (e) => noGlErrors.push(e.message)));
+        const p = await noGl.newPage();
+        p.setDefaultTimeout(30000);
+        await p.goto(`${base}/atlas${dataTree}`, { waitUntil: "domcontentloaded" });
+        await p.locator(".fallback-notice").waitFor({ timeout: 20000 });
+        // Every facility row answers the question: a link, or "Not mapped
+        // yet". A blank cell would read as "this laboratory has no layout".
+        const rows = await p.locator(".fallback-table").first().locator("tbody tr").count();
+        const links = await p.locator(".fallback-table a", { hasText: "Local map" }).count();
+        const unmapped = await p.locator(".fallback-nomap").count();
+        assert.equal(links + unmapped, rows,
+          `every facility row states its map status (${links} links + ${unmapped} unmapped vs ${rows} rows)`);
+        const link = p.locator(".fallback-table a", { hasText: "Local map" }).first();
+        assert.equal(await link.count(), 1, "the fallback facility table offers a Local map link");
+        await link.click();
+        await p.locator(".leaflet-container").waitFor({ timeout: 20000 });
+        assert.ok(await p.locator(".leaflet-overlay-pane svg path").count() > 0,
+          "the map draws its features with no WebGL2 available");
+        assert.equal(await p.locator("canvas").count(), 0, "and still no WebGL canvas anywhere");
+        assert.deepEqual(noGlErrors, [], "no uncaught errors opening the map without WebGL2");
+        await noGl.close();
+      });
+
       await record("Local map: desktop and mobile screenshots", async () => {
         const { mapContext, p } = await openMap();
         await clickFeature(p, ring.id);
