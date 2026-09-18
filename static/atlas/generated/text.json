@@ -4547,6 +4547,9 @@
   "geometry:hyper-kamiokande-point": {
     "notes": []
   },
+  "geometry:ikenoyama-peak-marker": {
+    "notes": []
+  },
   "geometry:j-parc-hadron-hall-building": {
     "notes": [
       "Represents site:j-parc-hadron-hall, which hosts detector:koto and detector:comet."
@@ -4600,6 +4603,9 @@
     "notes": []
   },
   "geometry:jlab-newport-news-campus-boundary": {
+    "notes": []
+  },
+  "geometry:kamioka-mine-entrance": {
     "notes": []
   },
   "geometry:kamland-point": {
@@ -7065,7 +7071,7 @@
     "notes": [
       "linked_map_ids is left empty: map:j-parc does not exist in this worktree/branch as of 2026-09-18 (a concurrent researcher's task). facility:kamioka-observatory.related_facility_ids already lists facility:j-parc, so once map:j-parc is merged the build's automatic derivation (related_facility_ids with a map, plus beamline:j-parc-neutrino's far_detector_site_ids pointing at this map's own sites) should link the two maps without any authoring change here.",
       "facility:kamioka-observatory's own notes record that the Kamioka Observatory also hosts KAGRA, CANDLES, NEWAGE and XENONnT R&D, and that experiment:kamiokande/experiment:kamland-zen exist as atlas experiment records; none of these have their own site: record in this atlas (only the two mines already in site_ids do), so there is nothing further to draw or list in unlocated[] for them — flagged here as a completeness gap, not a map defect.",
-      "Overpass (overpass-api.de and lz4.overpass-api.de) refused every connection attempted this session (curl error 7, 'Failed to connect') for a Mozumi-area building/tunnel-entrance query; unlike the CJPL query earlier in the same session, which succeeded once. No OpenStreetMap feature for the Atotsu tunnel entrance or the Kamioka Observatory's surface buildings could be added. Backlog: retry the query `way[\"building\"](36.415,137.300,36.435,137.325); way[\"tunnel\"](36.415,137.300,36.435,137.325);` on either mirror."
+      "Overpass (overpass-api.de and lz4.overpass-api.de) refused every connection attempted for a Mozumi-area building/tunnel-entrance query for most of this session (curl error 7, 'Failed to connect'), same as the kumi mirror; the fallback mirror maps.mail.ru eventually answered and yielded one named mine-entrance node and one mountain-summit survey point (see the surface level's own note and geometry:kamioka-mine-entrance/geometry:ikenoyama-peak-marker), but still no ICRR surface-building footprints or a way to tell the Atotsu entrance apart from the Mozumi entrance. Backlog: retry a named-building query (`way[\"building\"][\"name\"]`) over a wider bbox on maps.mail.ru or overpass.private.coffee, or fetch a known building/way id directly via https://api.openstreetmap.org/api/0.6/way/<id>/full.json once one is identified."
     ],
     "summary_technical": "Local map for facility:kamioka-observatory spanning the Mozumi mine (site:kamioka-mozumi-mine-super-kamiokande, site:kamioka-kamland) and the Tochibora mine (site:kamioka-hyper-kamiokande-tochibora), 8 km apart. Super-Kamiokande is drawn as a derived 39.3 m circle around its own surveyed GPS centre; Hyper-Kamiokande as a surveyed point from its 2011 Letter of Intent; KamLAND as the coarse point already on record (no better source was fetched this session). An inferred_direction feature shows the T2K beam's 295 km baseline from J-PARC, cross-checked against the T2K instrumentation paper's own surveyed figure."
   },

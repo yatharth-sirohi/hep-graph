@@ -16,13 +16,13 @@ interface says only "coverage updated" with this date.
 | document | 70 |
 | experiment | 131 |
 | facility | 48 |
-| geometry | 109 |
+| geometry | 111 |
 | institution | 529 |
 | map | 18 |
 | person | 12 |
 | result | 109 |
 | site | 93 |
-| source | 1558 |
+| source | 1559 |
 | topic | 42 |
 | membership rows | 659 |
 
@@ -332,7 +332,7 @@ Checks are independent official figures the validator re-measures on every run.
 | Fermilab — Batavia, Illinois | Fermi National Accelerator Laboratory | 22 | 0 | 12 | 8 | 2 | 19 | 9 | 0 |
 | J-PARC — Tokai accelerator complex | J-PARC (Japan Proton Accelerator Research Complex) | 9 | 0 | 8 | 0 | 1 | 0 | 4 | 0 |
 | Jefferson Lab — Newport News campus | Thomas Jefferson National Accelerator Facility | 2 | 0 | 2 | 0 | 0 | 1 | 0 | 0 |
-| Kamioka Observatory — Mozumi and Tochibora mines | Kamioka Observatory (ICRR, University of Tokyo) | 4 | 1 | 0 | 2 | 1 | 0 | 3 | 0 |
+| Kamioka Observatory — Mozumi and Tochibora mines | Kamioka Observatory (ICRR, University of Tokyo) | 6 | 1 | 2 | 2 | 1 | 0 | 3 | 0 |
 | KEK — Tsukuba campus | KEK (High Energy Accelerator Research Organization) | 11 | 0 | 10 | 0 | 1 | 1 | 2 | 0 |
 | KM3NeT/ARCA — Capo Passero deep-sea site | KM3NeT | 2 | 1 | 0 | 1 | 0 | 0 | 0 | 0 |
 | KM3NeT/ORCA — Toulon deep-sea site | KM3NeT | 2 | 1 | 0 | 1 | 0 | 0 | 0 | 0 |
