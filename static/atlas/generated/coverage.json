@@ -156,6 +156,27 @@
       "validated": true
     },
     {
+      "category": "astrophysical_neutrino",
+      "entity_id": "experiment:km3net",
+      "facility": "Capo Passero, Sicily (ARCA) / Toulon, France (ORCA)",
+      "globe_ready": true,
+      "missing_fields": [
+        "collaboration formation date",
+        "collaboration membership counts (institution/country/scientist totals; only qualitative 'hundreds of scientists' found)",
+        "collaboration leadership (person records owned elsewhere)",
+        "detector sensor_count / depth_min specs for ARCA and ORCA (per-string counts sourced, array-wide totals not stated by any fetched source)",
+        "institution memberships/roster"
+      ],
+      "name": "KM3NeT",
+      "notes": "FLAGSHIP, full depth. facility:km3net with ARCA (Capo Passero) and ORCA (Toulon) sites, both with sourced sea-floor coordinates (36°16'N 16°06'E / 42°48'N 06°02'E) and depths (3500 m / 2450 m) independently re-verified by the lead against the KM3NeT Letter of Intent (arXiv:1601.07459). Two detectors with placements, rich construction/operation intervals, LoI + TDR documents, 3 results including the mandatory 2025 Nature ultra-high-energy neutrino observation with verbatim claim wording.",
+      "owner": "astro-neutrino",
+      "priority": 1,
+      "researched": "partial",
+      "status": "construction",
+      "tier": "B",
+      "validated": true
+    },
+    {
       "category": "collider",
       "entity_id": "experiment:l3",
       "facility": "CERN LEP",
@@ -189,6 +210,64 @@
       "name": "LZ (LUX-ZEPLIN)",
       "notes": "Detector, site, results and design documents are fully sourced. facility:surf is referenced but owned by fermilab-dune.",
       "owner": "dark-matter",
+      "priority": 1,
+      "researched": "full",
+      "status": "active",
+      "tier": "A",
+      "validated": true
+    },
+    {
+      "category": "muon_precision",
+      "entity_id": "experiment:mu2e",
+      "facility": "Fermilab",
+      "globe_ready": true,
+      "missing_fields": [
+        "collaboration formation date",
+        "collaboration leadership (person records owned elsewhere)",
+        "precise Mu2e Hall coordinate (campus-level geocoder approximation only; mu2e.fnal.gov returned HTTP 403 to every fetch)",
+        "results (none exist yet; every fetched status source describes Mu2e as under construction, with initial data collection most recently planned for 2027)"
+      ],
+      "name": "Mu2e",
+      "notes": "FLAGSHIP depth achieved except results (honestly none, per the correctness rule against implying results by omission): site:fermilab-mu2e-hall, experiment, detector (25 m solenoid system, sourced), collaboration and the TDR document (document:mu2e-tdr) all written. Sensitivity-goal conflict recorded and resolved: 2.5x10^-17 (INSPIRE experiment record, rank 3) used as the primary key_specs value, 3x10^-17 (2022 status proceedings) noted as a distinct, later staged-plan figure -- see docs/atlas-worklog/muons.md Conflicts.",
+      "owner": "muons",
+      "priority": 1,
+      "researched": "full",
+      "tier": "B",
+      "validated": true
+    },
+    {
+      "category": "muon_precision",
+      "entity_id": "experiment:muon-g-2",
+      "facility": "Fermilab",
+      "globe_ready": true,
+      "missing_fields": [
+        "collaboration formation date",
+        "collaboration leadership (person records owned elsewhere)",
+        "precise MC-1 building coordinate (campus-level geocoder approximation only; fnal.gov and muon.fnal.gov paths returned HTTP 403/404)",
+        "33-month interval gap (2014-08 to 2017-04, ring installation/magnetic-field-mapping era) not covered by a sourced interval -- flagged by the validator as an honest hull gap rather than filled with an invented status",
+        "BNL E821 lineage recorded only as a sourced prose note, not a structured lineage row (experiment:bnl-e821 is not this workstream's id to create)"
+      ],
+      "name": "Muon g-2",
+      "notes": "FLAGSHIP depth achieved: site:fermilab-mc-1-muon-campus, experiment, detector (14.224 m / 1.45 T storage ring, both quoted from the collaboration's own paper), collaboration, 3 results (2021 0.46 ppm, 2023 0.20 ppm, 2025 127 ppb final measurements, all verbatim collaboration titles) and the TDR document (document:muon-g-2-tdr) all written.",
+      "owner": "muons",
+      "priority": 1,
+      "researched": "full",
+      "tier": "B",
+      "validated": true
+    },
+    {
+      "category": "fixed_target",
+      "entity_id": "experiment:na62",
+      "facility": "CERN",
+      "globe_ready": true,
+      "missing_fields": [
+        "membership (official page links to Greybook, no headline count found)",
+        "collaboration leadership (person records owned elsewhere)",
+        "detector full specs beyond GigaTracker (JINST PDF was bot-blocked)"
+      ],
+      "name": "NA62",
+      "notes": "Flagship, full depth: detector paper (JINST 12 (2017) P05025), 3 results (2021 measurement 3.4-sigma, 2025 observation >5-sigma, 2026 refined-measurement conference update), site:cern-ecn3-north-area, lineage to NA48.",
+      "owner": "fixed-target",
       "priority": 1,
       "researched": "full",
       "status": "active",
@@ -291,84 +370,166 @@
       "validated": true
     },
     {
+      "category": "direct_dark_matter",
+      "entity_id": "experiment:xenonnt",
+      "facility": "LNGS",
+      "globe_ready": true,
+      "missing_fields": [
+        "exact SR0/SR1 run-boundary dates (only the INSPIRE date_started and result-paper exposures are sourced)",
+        "official xenonexperiment.org result-page URL for the 2023 result (constructed from a search-listing slug, not independently re-fetched; arXiv is the verified citation)",
+        "institution-level membership roster (aggregate scientist/institution/country counts only)",
+        "leadership (no person: records created this wave)"
+      ],
+      "name": "XENONnT",
+      "notes": "Flagship: full depth. LNGS Hall B placement, 8.5 t total / 5.9 t active liquid xenon per the instrument paper (quoted), intervals from construction (2018-12) through open science operations (2021-07-06), 2 major results with verbatim collaboration wording (2023 WIMP limit; 2024 solar 8B CEvNS indication, deliberately NOT upgraded to \"evidence\"/\"observation\"), and the instrument paper as a document: record.",
+      "owner": "dm-noble-liquid",
+      "priority": 1,
+      "researched": "full",
+      "tier": "A",
+      "validated": true
+    },
+    {
       "category": "collider",
       "entity_id": "experiment:alice",
       "facility": "CERN / LHC",
-      "globe_ready": false,
+      "globe_ready": true,
       "missing_fields": [
-        "all"
+        "verified detector-kind coordinate for site:cern-point-2-alice (geocoder campus fallback used; no CERN survey/geodetic source found)",
+        "Technical Proposal exact date (CERN/LHCC/95-71 report not directly fetched; year-precision only)",
+        "ALICE TPC upgrade TDR full text (cds.cern.ch blocked by bot protection; corroborated via a related arXiv paper only, confidence uncertain)",
+        "collaboration leadership (spokesperson) - not named on any page fetched",
+        "membership roster file (explicitly out of scope for this wave)",
+        "updated overall detector mass/dimensions after the ALICE 2 (ITS2/TPC) upgrade"
       ],
       "name": "ALICE",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
+      "notes": "Full flagship treatment: experiment, detector, collaboration, new site:cern-point-2-alice, 3 major results (2012 J/psi suppression in Pb-Pb, 2017 first observation of strangeness enhancement in high-multiplicity pp, 2019 hypertriton lifetime measurement), 3 key documents (2008 JINST detector paper, 2014 ITS2 upgrade TDR, 2013 TPC upgrade TDR). Coordinates are a reused geocoder fallback (kind campus, confidence approximate), consistent with the site:cern-point-1-atlas and site:cern-lep-point-2-l3 precedent. Depth has a minor unresolved conflict (detector paper: 52 m cavern floor / 28 m overburden; home.cern: \"56 m below ground\") - see worklog.",
+      "owner": "colliders-lhc",
       "priority": 2,
-      "researched": "none",
+      "researched": "full",
+      "status": "shutdown",
       "tier": "A",
-      "validated": false
+      "validated": true
+    },
+    {
+      "category": "astrophysical_neutrino",
+      "entity_id": "experiment:antares",
+      "facility": "Mediterranean Sea, off Toulon, France",
+      "globe_ready": true,
+      "missing_fields": [
+        "collaboration formation confirmed as an exact date (source gives year 1996 only)",
+        "collaboration membership institution/country counts (only an approximate scientist count, ~150, found)",
+        "collaboration leadership (person records owned elsewhere)",
+        "precise sea-floor coordinates from a rank<=7 source giving explicit degrees (only an official page's coarse '43°N' latitude and a collaboration paper's qualitative '40 km offshore' were fetched directly; the specific 42°48'N 6°10'E value is corroborated only indirectly, via the KM3NeT LoI's statement that ORCA sits ~10 km west of ANTARES)"
+      ],
+      "name": "ANTARES",
+      "notes": "Completed (switched off 2022-02-12 after nearly 16 years). Site, experiment, detector and collaboration all sourced from the collaboration's own 2025 detector paper (arXiv:2504.09473) and official site; coordinate precision flagged for review (see worklog conflicts).",
+      "owner": "astro-neutrino",
+      "priority": 2,
+      "researched": "partial",
+      "status": "completed",
+      "tier": "B",
+      "validated": true
     },
     {
       "category": "collider",
       "entity_id": "experiment:babar",
       "facility": "SLAC",
-      "globe_ready": false,
+      "globe_ready": true,
       "missing_fields": [
-        "all"
+        "collaboration institution_count (member_count and country_count sourced from INSPIRE; institution count not stated by any source fetched)",
+        "key_specs quantities (detector paper abstract gave qualitative technology description only, no numeric dimensions/fields)",
+        "official website link (no live BaBar/PEP-II URL was independently fetched and confirmed this session; left null rather than citing an unverified address)",
+        "documents (TDR/CDR) - full-depth extra, not attempted (non-flagship)",
+        "results - full-depth extra, not attempted (non-flagship)"
       ],
       "name": "BaBar",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
+      "notes": "Mandatory bar complete: experiment/detector/collaboration with sourced intervals (proposed 1994-06 to completed 2008-04-08), facility_roles and accelerator_ids referencing facility:slac/accelerator:pep-ii (both now created by the facilities lead), placement referencing site:slac-pep-ii-ir2-babar (also now created). INSPIRE experiment recid 1108553.",
+      "owner": "colliders-historical",
       "priority": 2,
-      "researched": "none",
+      "researched": "partial",
+      "status": "completed",
       "tier": "D",
-      "validated": false
+      "validated": true
+    },
+    {
+      "category": "astrophysical_neutrino",
+      "entity_id": "experiment:baikal-gvd",
+      "facility": "Lake Baikal, Russia",
+      "globe_ready": true,
+      "missing_fields": [
+        "collaboration formation date",
+        "collaboration membership counts (institution/country/scientist totals not found; dedicated baikalgvd.jinr.ru site unreachable this session, persistent TLS error)",
+        "collaboration leadership",
+        "results and technical documents (not attempted; optional extra for a non-flagship)"
+      ],
+      "name": "Baikal-GVD",
+      "notes": "facility:baikal-deep-underwater-neutrino-telescope created per the seed list, with a lake site carrying sourced coordinates (51°46'N 104°24'E) and depth (~1366 m) from the collaboration's own 2023 status paper (arXiv:2309.16310). Status recorded as 'construction' (annual cluster expansion ongoing since 2016), not 'active', since the design cubic-kilometre array is not yet complete.",
+      "owner": "astro-neutrino",
+      "priority": 2,
+      "researched": "partial",
+      "status": "construction",
+      "tier": "B",
+      "validated": true
     },
     {
       "category": "collider",
       "entity_id": "experiment:cdf",
       "facility": "Fermilab / Tevatron",
-      "globe_ready": false,
+      "globe_ready": true,
       "missing_fields": [
-        "all"
+        "precise B0 collision-hall coordinates (no source found this session gives a hall-specific position; recorded as an honest campus-precision point per A23)",
+        "collaboration formation date (no source states one separately from the 1981-08 INSPIRE proposal date, used as a lower bound)",
+        "full detector spec set (only total_mass and solenoid_field sourced; the two figures found for total_mass conflict by ~10% and are not reconciled)",
+        "documents (TDR/CDR) - full-depth extra, not attempted (non-flagship)"
       ],
       "name": "CDF",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
+      "notes": "Mandatory bar complete plus the optional 1995 top-quark bonus: experiment/detector/collaboration/site (site:fermilab-cdf-collision-hall-b0, created by this owner) with a 7-interval sourced history (proposed 1981-08 to completed 2011-09-30/10) and one result (result:cdf-top-quark-observation-1995, PRL 74, 2626, result_type observation per the paper's own title). INSPIRE experiment recid 1109361. Reuses facility:fermilab and accelerator:fermilab-tevatron (fermilab-dune, pre-existing).",
+      "owner": "colliders-historical",
       "priority": 2,
-      "researched": "none",
+      "researched": "partial",
+      "status": "completed",
       "tier": "D",
-      "validated": false
+      "validated": true
     },
     {
       "category": "collider",
       "entity_id": "experiment:d0",
       "facility": "Fermilab / Tevatron",
-      "globe_ready": false,
+      "globe_ready": true,
       "missing_fields": [
-        "all"
+        "precise D0 collision-hall coordinates (no source found this session gives a hall-specific position; recorded as an honest campus-precision point per A23)",
+        "collaboration formation date (no source states one separately from the 1983-09-09 INSPIRE proposal date, used as a lower bound)",
+        "key_specs quantities beyond total_mass (no numeric solenoid field or dimensions sourced this session)",
+        "documents (TDR/CDR) - full-depth extra, not attempted (non-flagship)"
       ],
       "name": "D0",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
+      "notes": "Mandatory bar complete plus the optional 1995 top-quark bonus: experiment/detector/collaboration/site (site:fermilab-d0-collision-hall, created by this owner) with a 7-interval sourced history (proposed 1983-09-09 to completed 2011-09-30/12) and one result (result:d0-top-quark-observation-1995, PRL 74, 2632, result_type observation per the paper's own title). Flags a real conflict: INSPIRE's own date_completed=2001 field is contradicted by its own description text (\"the DZero experiment ran from 2001 to 2011\"); the 2011 date is used. INSPIRE experiment recid 1109214. Reuses facility:fermilab and accelerator:fermilab-tevatron (fermilab-dune, pre-existing).",
+      "owner": "colliders-historical",
       "priority": 2,
-      "researched": "none",
+      "researched": "partial",
+      "status": "completed",
       "tier": "D",
-      "validated": false
+      "validated": true
     },
     {
       "category": "reactor_neutrino",
       "entity_id": "experiment:daya-bay",
-      "facility": "various",
-      "globe_ready": false,
+      "facility": "Daya Bay Reactor Neutrino Laboratory",
+      "globe_ready": true,
       "missing_fields": [
-        "all"
+        "hall-specific coordinates (near/near/far) -- official site dayabay.ihep.ac.cn timed out on every fetch; one shared campus/approximate point used for all three halls",
+        "overburden/depth per hall",
+        "official membership counts (used Wikipedia's '40+ institutions' instead)",
+        "leadership",
+        "exact calendar dates for most intervals (only the 2012 discovery paper's day-precision submission date is solid)"
       ],
       "name": "Daya Bay",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
+      "notes": "Mandatory bar written: experiment/detector/facility/site/collaboration/1 result (2012 discovery, verbatim quote) validated clean.",
+      "owner": "reactor-solar-neutrino",
       "priority": 2,
-      "researched": "none",
+      "researched": "partial",
       "tier": "B",
-      "validated": false
+      "validated": true
     },
     {
       "category": "reactor_neutrino",
@@ -380,7 +541,7 @@
       ],
       "name": "Double Chooz",
       "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
+      "owner": "reactor-solar-neutrino",
       "priority": 2,
       "researched": "none",
       "tier": "B",
@@ -428,18 +589,22 @@
     {
       "category": "reactor_neutrino",
       "entity_id": "experiment:juno",
-      "facility": "various",
-      "globe_ready": false,
+      "facility": "JUNO Jiangmen Underground Neutrino Observatory",
+      "globe_ready": true,
       "missing_fields": [
-        "all"
+        "site coordinate at underground_lab precision (no rank<=7 source found; recorded as kind:campus/approximate off Wikipedia per A17, which produces one expected validator error, see worklog)",
+        "collaboration formation date",
+        "leadership",
+        "membership counts from JUNO's own dedicated collaboration page (used IHEP host-institute press release instead)",
+        "TDR (only CDR 2015 and the 2021 'JUNO Physics and Detector' review paper found; no document explicitly titled 'Technical Design Report' located)"
       ],
       "name": "JUNO",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
+      "notes": "Flagship, full depth: experiment/detector/site/collaboration/2 documents/2 results written and validated (one known coordinate-kind validator error, documented in worklog).",
+      "owner": "reactor-solar-neutrino",
       "priority": 2,
-      "researched": "none",
-      "tier": "B",
-      "validated": false
+      "researched": "partial",
+      "tier": "A",
+      "validated": true
     },
     {
       "category": "accelerator_neutrino",
@@ -481,34 +646,81 @@
     {
       "category": "reactor_neutrino",
       "entity_id": "experiment:kamland",
-      "facility": "various",
-      "globe_ready": false,
+      "facility": "Kamioka Observatory (existing facility, referenced)",
+      "globe_ready": true,
       "missing_fields": [
-        "all"
+        "site coordinate at underground_lab precision (official site's technical pages 404'd; Wikipedia campus/approximate used)",
+        "overburden (Wikipedia's own '105 m.w.e.' figure looked implausible next to the mine's established ~2700 m.w.e. and was deliberately not recorded)",
+        "official membership counts",
+        "leadership",
+        "formation date"
       ],
       "name": "KamLAND",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
+      "notes": "Mandatory bar written: experiment/detector/site(under existing facility:kamioka-observatory)/collaboration/1 result (2002 first-results evidence paper, verbatim quote) validated clean. detector:kamland and site:kamioka-kamland created exactly as needed by the 0νββ lead's kamland-zen files.",
+      "owner": "reactor-solar-neutrino",
       "priority": 2,
-      "researched": "none",
+      "researched": "partial",
       "tier": "B",
-      "validated": false
+      "validated": true
+    },
+    {
+      "category": "fixed_target",
+      "entity_id": "experiment:koto",
+      "facility": "J-PARC",
+      "globe_ready": true,
+      "missing_fields": [
+        "collaboration membership",
+        "a written-up major result (2025 PRL from 2021 data exists but its exact result_type/significance was not confirmed by a source fetched this session, so no results/ file was written)"
+      ],
+      "name": "KOTO",
+      "notes": "Placed at the existing (muons-owned) site:j-parc-hadron-hall, which had already landed by the time this record was written (not dangling). Rich, directly-quoted run history from the official site (koto.kek.jp): first run May 2013, resumed April 2015, active through 2021 data (published Feb 2025).",
+      "owner": "fixed-target",
+      "priority": 2,
+      "researched": "partial",
+      "status": "active",
+      "tier": "B",
+      "validated": true
+    },
+    {
+      "category": "fixed_target",
+      "entity_id": "experiment:ktev",
+      "facility": "Fermilab",
+      "globe_ready": true,
+      "missing_fields": [
+        "exact run-year breakdown (E799-II/E832 run periods not confirmed by a source fetched this session)",
+        "collaboration formation/membership",
+        "official website (fnal.gov blocked all session)"
+      ],
+      "name": "KTeV",
+      "notes": "site:fermilab-ktev-hall created (campus-precision coordinate, honestly flagged). Design report 1992; 1999 direct-CP-violation observation announced.",
+      "owner": "fixed-target",
+      "priority": 2,
+      "researched": "partial",
+      "status": "completed",
+      "tier": "B",
+      "validated": true
     },
     {
       "category": "collider",
       "entity_id": "experiment:lhcb",
       "facility": "CERN / LHC",
-      "globe_ready": false,
+      "globe_ready": true,
       "missing_fields": [
-        "all"
+        "verified detector-kind coordinate for site:cern-point-8-lhcb (geocoder fallback used)",
+        "pseudorapidity coverage / dipole magnet field / RICH,VELO,calorimeter,muon-system specs (JINST paper full text blocked)",
+        "CERN Greybook code (external.greybook)",
+        "collaboration leadership (spokesperson) and institution_count",
+        "exact construction-start date distinct from approval date",
+        "resolution of the 5600t vs 4500t detector-mass conflict"
       ],
       "name": "LHCb",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
+      "notes": "Full flagship treatment: experiment, detector, collaboration, new site:cern-point-8-lhcb, 3 major results (2015 pentaquark, 2017 doubly-charmed-baryon, 2019 CP violation in charm), 2 key documents (2008 JINST detector paper, 2012 Upgrade Framework TDR). Coordinates are a geocoder fallback (kind campus, confidence approximate); detector mass has an unresolved 5600t vs 4500t conflict (see worklog).",
+      "owner": "colliders-lhc",
       "priority": 2,
-      "researched": "none",
+      "researched": "partial",
+      "status": "shutdown",
       "tier": "A",
-      "validated": false
+      "validated": true
     },
     {
       "category": "direct_dark_matter",
@@ -585,6 +797,43 @@
       "validated": true
     },
     {
+      "category": "fixed_target",
+      "entity_id": "experiment:na48",
+      "facility": "CERN",
+      "globe_ready": true,
+      "missing_fields": [
+        "collaboration formation date",
+        "results/documents (optional 'only if time' for non-flagship; not written)",
+        "NA48/1 (2002) sub-programme dates (only found via unconfirmed secondary aggregation)"
+      ],
+      "name": "NA48",
+      "notes": "Mandatory-bar depth: approved 1991, main run 1997-2001, NA48/2 2003-2004, predecessor of NA62 (lineage recorded on na62). Facility-role/approval confidence is 'approximate' because the only source found is CERN Courier (rank 12).",
+      "owner": "fixed-target",
+      "priority": 2,
+      "researched": "partial",
+      "status": "completed",
+      "tier": "B",
+      "validated": true
+    },
+    {
+      "category": "fixed_target",
+      "entity_id": "experiment:na64",
+      "facility": "CERN",
+      "globe_ready": true,
+      "missing_fields": [
+        "collaboration membership counts",
+        "key_specs quantities"
+      ],
+      "name": "NA64",
+      "notes": "Placed at the existing site:cern-neutrino-platform-ehn1 (not a new site), sourced confirmation that its H4 beamline is inside EHN1. Proposed Jan 2014, approved 9 March 2016, active since 2016.",
+      "owner": "fixed-target",
+      "priority": 2,
+      "researched": "partial",
+      "status": "active",
+      "tier": "B",
+      "validated": true
+    },
+    {
       "category": "accelerator_neutrino",
       "entity_id": "experiment:nova",
       "facility": "Fermilab (near) / Ash River, MN (far)",
@@ -613,7 +862,7 @@
       ],
       "name": "RENO",
       "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
+      "owner": "reactor-solar-neutrino",
       "priority": 2,
       "researched": "none",
       "tier": "B",
@@ -639,20 +888,80 @@
       "validated": true
     },
     {
+      "category": "fixed_target",
+      "entity_id": "experiment:seaquest",
+      "facility": "Fermilab",
+      "globe_ready": true,
+      "missing_fields": [
+        "exact data-taking start/end calendar years (not confirmed by a source fetched this session)",
+        "collaboration formation/membership",
+        "official website (DNS failures all session)"
+      ],
+      "name": "SeaQuest",
+      "notes": "site:fermilab-nm4-hall created. 'Final SeaQuest results' paper (Dec 2025) confirms completion; spectrometer paper (2017) gives the 120 GeV Main Injector beam and detector description.",
+      "owner": "fixed-target",
+      "priority": 2,
+      "researched": "partial",
+      "status": "completed",
+      "tier": "B",
+      "validated": true
+    },
+    {
+      "category": "fixed_target",
+      "entity_id": "experiment:ship",
+      "facility": "CERN",
+      "globe_ready": true,
+      "missing_fields": [
+        "a rank <= 10 source for the 2024 approval date and 2033 start date (only a Wikipedia pointer found; WebSearch budget was exhausted before a CERN Council/SPSC document could be located)",
+        "collaboration membership"
+      ],
+      "name": "SHiP",
+      "notes": "Placed at site:cern-ecn3-north-area (shared with NA48/NA62). Official site + a 2016 CERN Courier article confirm the SPSC review stage; the 2024 approval and 2033 start are flagged uncertain pending a better source.",
+      "owner": "fixed-target",
+      "priority": 2,
+      "researched": "partial",
+      "status": "approved",
+      "tier": "B",
+      "validated": true
+    },
+    {
       "category": "collider",
       "entity_id": "experiment:sld",
       "facility": "SLAC",
-      "globe_ready": false,
+      "globe_ready": true,
       "missing_fields": [
-        "all"
+        "collaboration membership/institution/country counts (no source fetched this session states any of them)",
+        "key_specs quantities (only a qualitative technology description sourced, no numeric dimensions/fields)",
+        "documents (TDR/CDR) - full-depth extra, not attempted (non-flagship)",
+        "results - full-depth extra, not attempted (non-flagship)"
       ],
       "name": "SLD",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
+      "notes": "Mandatory bar complete: experiment/detector/collaboration with sourced intervals (proposed 1983 to completed 1998-06, including a first-data-run sub-interval with quoted polarization figures), facility_roles and accelerator_ids referencing facility:slac/accelerator:slc (both now created by the facilities lead), placement referencing site:slac-slc-collider-hall-sld (also now created). INSPIRE experiment recid 1109249.",
+      "owner": "colliders-historical",
       "priority": 2,
-      "researched": "none",
+      "researched": "partial",
+      "status": "completed",
       "tier": "D",
-      "validated": false
+      "validated": true
+    },
+    {
+      "category": "direct_dark_matter",
+      "entity_id": "experiment:xenon1t",
+      "facility": "LNGS",
+      "globe_ready": true,
+      "missing_fields": [
+        "documents (detector paper is cited as a source but no document: record was written; non-flagship, so not required)",
+        "institution-level membership roster",
+        "leadership",
+        "precise run boundaries beyond the first-results run (Nov 2016 - Jan 2017)"
+      ],
+      "name": "XENON1T",
+      "notes": "Mandatory bar met: intervals (installation/construction 2014-2015, active 2015-2018, completed 2018-12), facility_roles, key_specs (3.2 t total / 2.0 t active, quoted), external.inspire_experiment (1386519), lineage held on xenonnt (predecessor/upgrade_of), and one result (the 2020 electronic-recoil excess, recorded honestly as result_type \"anomaly\", never \"discovery\" or \"observation\").",
+      "owner": "dm-noble-liquid",
+      "priority": 2,
+      "researched": "partial",
+      "tier": "B",
+      "validated": true
     },
     {
       "category": "astrophysical_neutrino",
@@ -677,82 +986,64 @@
     {
       "category": "astrophysical_neutrino",
       "entity_id": "experiment:anita",
-      "facility": "various",
-      "globe_ready": false,
+      "facility": "NASA LDB facility near McMurdo Station, Antarctica (balloon launch site; detection occurs at float altitude)",
+      "globe_ready": true,
       "missing_fields": [
-        "all"
+        "collaboration formation date",
+        "collaboration membership counts",
+        "collaboration leadership",
+        "ANITA anomalous-events result (not recorded; optional extra deprioritised for time)",
+        "exact end dates for ANITA-III and ANITA-IV (only launch month + flight duration sourced)"
       ],
       "name": "ANITA",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
+      "notes": "Completed (5 flights, 2003-2016; superseded by PUEO, not modelled here). Balloon-experiment placement handled per the brief: facility:mcmurdo-ldb and a launch-site record created with sources, with an explicit note that this is the launch point, not the detection location (ANITA detects at ~37 km float altitude over the ice sheet).",
+      "owner": "astro-neutrino",
       "priority": 3,
-      "researched": "none",
+      "researched": "partial",
+      "status": "completed",
       "tier": "B",
-      "validated": false
-    },
-    {
-      "category": "astrophysical_neutrino",
-      "entity_id": "experiment:antares",
-      "facility": "various",
-      "globe_ready": false,
-      "missing_fields": [
-        "all"
-      ],
-      "name": "ANTARES",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
-      "priority": 3,
-      "researched": "none",
-      "tier": "B",
-      "validated": false
+      "validated": true
     },
     {
       "category": "astrophysical_neutrino",
       "entity_id": "experiment:ara",
-      "facility": "various",
-      "globe_ready": false,
+      "facility": "Amundsen-Scott South Pole Station, Antarctica (facility owned by the icecube workstream; referenced, not created)",
+      "globe_ready": true,
       "missing_fields": [
-        "all"
+        "collaboration formation date",
+        "collaboration membership counts",
+        "collaboration leadership",
+        "per-station coordinates (only 'about 2 km from IceCube' sourced; site uses the same approximate South Pole anchor as site:south-pole-icecube)"
       ],
       "name": "ARA",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
+      "notes": "New site (site:south-pole-ara) created under the existing facility:amundsen-scott-south-pole-station per the brief. Status 'active' but only 2 of 5 deployed stations (A3, A5+PA) are confirmed currently collecting data per the collaboration's own 2024 overview paper (arXiv:2411.01761); the rest await a planned upgrade -- documented as a partial/degraded active state, not overclaimed as full operation.",
+      "owner": "astro-neutrino",
       "priority": 3,
-      "researched": "none",
+      "researched": "partial",
+      "status": "active",
       "tier": "B",
-      "validated": false
+      "validated": true
     },
     {
       "category": "astrophysical_neutrino",
       "entity_id": "experiment:arianna",
-      "facility": "various",
-      "globe_ready": false,
+      "facility": "Moore's Bay, Ross Ice Shelf, Antarctica",
+      "globe_ready": true,
       "missing_fields": [
-        "all"
+        "collaboration formation date",
+        "collaboration membership counts",
+        "collaboration leadership",
+        "exact decommissioning date (only a lower-bound approximation from the last confirmed data-collection month, Feb 2019, is recorded)",
+        "surveyed station coordinates (only a coarse regional Wikipedia pointer to nearby Minna Bluff was found)"
       ],
       "name": "ARIANNA",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
+      "notes": "Status 'decommissioned' per the collaboration's own home page ('the now decommissioned ARIANNA pilot experiment'), conflicting with the same domain's research page ('Currently, eight ARIANNA stations are taking data'); both are recorded, decommissioned is chosen as the more current statement -- see worklog conflicts.",
+      "owner": "astro-neutrino",
       "priority": 3,
-      "researched": "none",
+      "researched": "partial",
+      "status": "decommissioned",
       "tier": "B",
-      "validated": false
-    },
-    {
-      "category": "astrophysical_neutrino",
-      "entity_id": "experiment:baikal-gvd",
-      "facility": "various",
-      "globe_ready": false,
-      "missing_fields": [
-        "all"
-      ],
-      "name": "Baikal-GVD",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
-      "priority": 3,
-      "researched": "none",
-      "tier": "B",
-      "validated": false
+      "validated": true
     },
     {
       "category": "solar_neutrino",
@@ -764,7 +1055,7 @@
       ],
       "name": "Borexino",
       "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
+      "owner": "reactor-solar-neutrino",
       "priority": 3,
       "researched": "none",
       "tier": "D",
@@ -773,258 +1064,329 @@
     {
       "category": "direct_dark_matter",
       "entity_id": "experiment:cdms-ii",
-      "facility": "LNGS / SNOLAB / CJPL / Modane / SURF",
-      "globe_ready": false,
+      "facility": "Soudan Underground Laboratory",
+      "globe_ready": true,
       "missing_fields": [
-        "all"
+        "results (no result: records written; optional for tier B)",
+        "documents (no TDR/detector-paper document: records written; optional for tier B)",
+        "collaboration:cdms-ii membership (no institution/member counts sourced)",
+        "detector:cdms-ii total mass in kg (only per-detector Ge/Si masses sourced)"
       ],
       "name": "CDMS II",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
+      "notes": "Fully sourced from INSPIRE experiment record 1108506 and the final-exposure arXiv paper (0912.3592): 19 Ge + 11 Si ZIP-style detectors, 5 towers, <50 mK, 612 kg-day final exposure. Placed at the existing site:soudan-minos-far-detector (owned by fermilab-neutrino-other); no distinct CDMS-specific cavern coordinate was found, so site:soudan-cdms was NOT created.",
+      "owner": "dm-cryogenic-low-threshold",
       "priority": 3,
-      "researched": "none",
+      "researched": "partial",
+      "status": "completed",
       "tier": "B",
-      "validated": false
+      "validated": true
     },
     {
       "category": "muon_precision",
       "entity_id": "experiment:comet",
-      "facility": "Fermilab / PSI / J-PARC",
-      "globe_ready": false,
+      "facility": "J-PARC (Hadron Experimental Facility)",
+      "globe_ready": true,
       "missing_fields": [
-        "all"
+        "collaboration formation date",
+        "collaboration leadership (person records owned elsewhere)",
+        "precise Hadron Hall coordinate (campus-level geocoder approximation only; no official building-level point was fetchable)",
+        "dated Phase-I construction-start statement (interval start anchored to the 2018 TDR as an approximate lower bound, not a stated construction-start date)",
+        "results (none exist yet; Phase-I is still under construction/commissioning per every source fetched)"
       ],
       "name": "COMET",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
+      "notes": "Mandatory-bar depth: experiment, detector, collaboration and Phase-I TDR document written; site:j-parc-hadron-hall created (owned by this workstream per the Wave-3 registry) for the fixed-target lead's KOTO record to reference. Sensitivity goal (3.1x10^-15 design, 7x10^-15 90% C.L. upper limit) sourced from the Phase-I TDR (arXiv:1812.09018).",
+      "owner": "muons",
       "priority": 3,
-      "researched": "none",
+      "researched": "partial",
       "tier": "B",
-      "validated": false
+      "validated": true
     },
     {
       "category": "direct_dark_matter",
       "entity_id": "experiment:cresst",
-      "facility": "LNGS / SNOLAB / CJPL / Modane / SURF",
-      "globe_ready": false,
+      "facility": "LNGS (Hall A)",
+      "globe_ready": true,
       "missing_fields": [
-        "all"
+        "results (optional for tier B)",
+        "documents (optional for tier B)",
+        "collaboration:cresst membership/institution count",
+        "current module count in operation and precise operating temperature in mK (only implied, not directly quoted)"
       ],
       "name": "CRESST",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
+      "notes": "The best-documented history in this file: the official site's own history page gives a dated timeline from the 1993 proposal through CRESST-I/II/III with verbatim quotes for every transition. Placed at site:lngs-hall-a (created by the facilities workstream).",
+      "owner": "dm-cryogenic-low-threshold",
       "priority": 3,
-      "researched": "none",
+      "researched": "partial",
+      "status": "active",
       "tier": "B",
-      "validated": false
+      "validated": true
     },
     {
       "category": "double_beta_decay",
       "entity_id": "experiment:cuore",
-      "facility": "LNGS / SURF / Kamioka / Canfranc",
-      "globe_ready": false,
+      "facility": "LNGS Hall A",
+      "globe_ready": true,
       "missing_fields": [
-        "all"
+        "collaboration formation date",
+        "collaboration membership/leadership counts",
+        "INSPIRE experiment recid",
+        "results (only key_specs recorded, no results/ file)",
+        "site:lngs-hall-a coordinates (owned by facilities lead)"
       ],
       "name": "CUORE",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
+      "notes": "experiment/detector/collaboration written. Status active since ~2019 (steady data-taking); 988 TeO2 crystals, ~0.8 t crystal mass; 2024 result T1/2>3.5e25 yr (90% C.I.), 2 tonne-yr exposure. Lineage: predecessor of CUPID.",
+      "owner": "neutrino-mass-0vbb",
       "priority": 3,
-      "researched": "none",
+      "researched": "partial",
+      "status": "active",
       "tier": "B",
-      "validated": false
+      "validated": true
     },
     {
       "category": "double_beta_decay",
       "entity_id": "experiment:cupid",
-      "facility": "LNGS / SURF / Kamioka / Canfranc",
-      "globe_ready": false,
+      "facility": "LNGS Hall A",
+      "globe_ready": true,
       "missing_fields": [
-        "all"
+        "collaboration formation date",
+        "collaboration membership/leadership counts",
+        "INSPIRE experiment recid",
+        "confirmed construction-start / CD stage (only 'proposed' recorded; secondary summaries mention CD-0 and a mid-2025 prototype but were not re-verified against a primary source)",
+        "site:lngs-hall-a coordinates (owned by facilities lead)"
       ],
       "name": "CUPID",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
+      "notes": "experiment/detector/collaboration written. Status recorded as proposed (conservative; official site describes it only in future tense). Planned ~1500 Li2MoO4 crystals, 240 kg of 100Mo, Qbb=3034 keV. Lineage: successor of CUORE, reuses its cryostat.",
+      "owner": "neutrino-mass-0vbb",
       "priority": 3,
-      "researched": "none",
+      "researched": "partial",
+      "status": "proposed",
       "tier": "B",
-      "validated": false
+      "validated": true
     },
     {
       "category": "direct_dark_matter",
       "entity_id": "experiment:damic",
-      "facility": "LNGS / SNOLAB / CJPL / Modane / SURF",
-      "globe_ready": false,
+      "facility": "Fermilab (prototype) / SNOLAB",
+      "globe_ready": true,
       "missing_fields": [
-        "all"
+        "results (optional for tier B)",
+        "documents (optional for tier B)",
+        "collaboration:damic membership",
+        "an explicit end-of-operations date/status (the brief describes DAMIC as 'completed'; the most recent DAMIC-specific source found this session, INSPIRE literature 2752302 dated 2024-01, describes an ongoing skipper-CCD run, so status is recorded as active with an open interval rather than asserting an unsourced completion -- FLAGGED FOR REVIEW)"
       ],
       "name": "DAMIC",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
+      "notes": "Two INSPIRE experiment records (original Fermilab prototype 1108203, current SNOLAB programme 1401315) folded into one experiment record per the brief's guidance. Detector specs (7 x 16-Mpixel CCDs, 6.0 g each, 11 kg-day exposure) sourced to arXiv:2007.15622.",
+      "owner": "dm-cryogenic-low-threshold",
       "priority": 3,
-      "researched": "none",
+      "researched": "partial",
+      "status": "active",
       "tier": "B",
-      "validated": false
+      "validated": true
     },
     {
       "category": "direct_dark_matter",
       "entity_id": "experiment:damic-m",
-      "facility": "LNGS / SNOLAB / CJPL / Modane / SURF",
-      "globe_ready": false,
+      "facility": "Laboratoire Souterrain de Modane (LSM)",
+      "globe_ready": true,
       "missing_fields": [
-        "all"
+        "results (optional for tier B)",
+        "documents (optional for tier B)",
+        "collaboration:damic-m membership and website",
+        "the full-scale final DAMIC-M detector's status (only the 20 g 'Low Background Chamber' prototype is confirmed operating by sources fetched this session)"
       ],
       "name": "DAMIC-M",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
+      "notes": "Sourced to the collaboration's own 2022 status paper (arXiv:2210.12070) and a November 2025 physics result (arXiv:2511.13962, 1.257 kg-day exposure), confirming ongoing operation of the 20 g skipper-CCD prototype at LSM.",
+      "owner": "dm-cryogenic-low-threshold",
       "priority": 3,
-      "researched": "none",
+      "researched": "partial",
+      "status": "active",
       "tier": "B",
-      "validated": false
+      "validated": true
     },
     {
       "category": "fixed_target",
       "entity_id": "experiment:darkquest",
-      "facility": "CERN / Fermilab / BNL / J-PARC",
+      "facility": "Fermilab",
       "globe_ready": false,
       "missing_fields": [
-        "all"
+        "collaboration (no distinct 'DarkQuest Collaboration' found; none created)",
+        "detector record (reuses SeaQuest/SpinQuest apparatus; no separate hardware description sourced)",
+        "approval status beyond the 2021/2022 Snowmass proposal"
       ],
       "name": "DarkQuest",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
+      "notes": "Proposed successor at site:fermilab-nm4-hall (referenced, not duplicated); status 'proposed' per a Snowmass 2021 contribution (arXiv:2203.08322), positioned there as an upgrade to 'SpinQuest' (out of scope) rather than directly to SeaQuest -- noted as a simplification.",
+      "owner": "fixed-target",
       "priority": 3,
-      "researched": "none",
+      "researched": "partial",
+      "status": "proposed",
       "tier": "B",
-      "validated": false
+      "validated": true
     },
     {
       "category": "direct_dark_matter",
       "entity_id": "experiment:darkside-20k",
-      "facility": "LNGS / SNOLAB / CJPL / Modane / SURF",
-      "globe_ready": false,
+      "facility": "LNGS Hall C",
+      "globe_ready": true,
       "missing_fields": [
-        "all"
+        "exact construction-start date (anchored to 2024, when a source first confirms construction was under way, not a true start date)",
+        "resolved data-taking start date (arXiv:2402.07566 says \"late 2026\"; the LNGS facility page says \"2027\" -- both recorded, not reconciled)",
+        "collaboration membership counts",
+        "results",
+        "documents"
       ],
       "name": "DarkSide-20k",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
+      "notes": "Mandatory bar met; construction status confirmed directly from the LNGS facility page (\"currently under construction\") and the collaboration's own JINST proceedings paper. Site placement is a dangling reference to site:lngs-hall-c.",
+      "owner": "dm-noble-liquid",
       "priority": 3,
-      "researched": "none",
+      "researched": "partial",
       "tier": "B",
-      "validated": false
+      "validated": true
     },
     {
       "category": "direct_dark_matter",
       "entity_id": "experiment:darkside-50",
-      "facility": "LNGS / SNOLAB / CJPL / Modane / SURF",
-      "globe_ready": false,
+      "facility": "LNGS Hall C",
+      "globe_ready": true,
       "missing_fields": [
-        "all"
+        "external.inspire_experiment (no INSPIRE experiments-collection record exists for DarkSide-50; confirmed by an empty API query result, noted on the record)",
+        "exact end-of-operations date (sources give only years: LNGS facility page says \"2013 to 2020\")",
+        "collaboration membership counts",
+        "results",
+        "documents"
       ],
       "name": "DarkSide-50",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
+      "notes": "Mandatory bar met; completed status. Site placement is a dangling reference to site:lngs-hall-c (owned by \"facilities\", not yet created). Kept both the nominal 50 kg active mass and the first-results paper's measured 46.4+-0.7 kg as separate key_specs rather than merging them.",
+      "owner": "dm-noble-liquid",
       "priority": 3,
-      "researched": "none",
+      "researched": "partial",
       "tier": "B",
-      "validated": false
+      "validated": true
     },
     {
       "category": "direct_dark_matter",
       "entity_id": "experiment:deap-3600",
-      "facility": "LNGS / SNOLAB / CJPL / Modane / SURF",
-      "globe_ready": false,
+      "facility": "SNOLAB",
+      "globe_ready": true,
       "missing_fields": [
-        "all"
+        "formation (collaboration founding date)",
+        "leadership",
+        "membership roster (institution-level)",
+        "documents",
+        "results",
+        "precise start date of the current \"upgrade\" phase (anchored to 2026-09, when the status was confirmed, not a true start date)",
+        "proposal/approval dates (INSPIRE record has no date fields)"
       ],
       "name": "DEAP-3600",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
+      "notes": "Mandatory bar met; researched by a delegated child and re-verified by the lead (detector-paper specs and SNOLAB status page re-fetched independently and matched exactly). Current status \"upgrade\" per SNOLAB's own page (\"Upgrading\"), not assumed to still be \"active\". Site placement is a dangling reference to site:snolab-underground-lab.",
+      "owner": "dm-noble-liquid",
       "priority": 3,
-      "researched": "none",
+      "researched": "partial",
       "tier": "B",
-      "validated": false
+      "validated": true
     },
     {
       "category": "accelerator_neutrino",
       "entity_id": "experiment:donut",
-      "facility": "various",
-      "globe_ready": false,
+      "facility": "Fermilab (Tevatron fixed-target beam dump)",
+      "globe_ready": true,
       "missing_fields": [
-        "all"
+        "collaboration formation date",
+        "collaboration leadership (person records owned elsewhere)",
+        "day/month-precision run dates (only 'summer 1997', sourced solely to Wikipedia, was found)",
+        "detector specs beyond emulsion/steel technology and event counts (fnal.gov returned HTTP 403; the primary 2001 PLB paper's PDF could not be parsed in this session)",
+        "external.inspire_experiment (no INSPIRE experiment-registry lookup performed; not mandatory at tier D)",
+        "dedicated site record (placement reuses site:fermilab-main-campus, owned by the fermilab-dune lead, rather than a DONUT-specific hall coordinate, which is not published)"
       ],
       "name": "DONUT",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
+      "notes": "Mandatory-bar record complete: experiment, detector, collaboration, and the required 'Observation of tau neutrino interactions' (Kodama et al., Phys. Lett. B 504 (2001) 218) result, all validator-clean. Several fields carry confidence 'uncertain' because Wikipedia was the only reachable source for the run period and detector description (fnal.gov blocked every fetch with HTTP 403); the primary publication's abstract was fetched directly and used for the harder facts (event counts, background, exact title).",
+      "owner": "accelerator-neutrino-historical",
       "priority": 3,
-      "researched": "none",
+      "researched": "full",
+      "status": "completed",
       "tier": "D",
-      "validated": false
+      "validated": true
     },
     {
       "category": "fixed_target",
       "entity_id": "experiment:e949",
-      "facility": "CERN / Fermilab / BNL / J-PARC",
-      "globe_ready": false,
+      "facility": "Brookhaven National Laboratory",
+      "globe_ready": true,
       "missing_fields": [
-        "all"
+        "exact run years (commonly cited elsewhere as centred on 2002, not confirmed by a source fetched this session)",
+        "collaboration formation/membership",
+        "experiment:e787 predecessor record (out of this wave's scope; not created)"
       ],
       "name": "E949",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
+      "notes": "Placed at the existing (facilities-owned) site:bnl-upton-campus and referencing accelerator:ags; both already existed on disk (not dangling). Combined E787+E949 final result (PRD 79, 092004, 2009) recorded as a bonus fact within the experiment record.",
+      "owner": "fixed-target",
       "priority": 3,
-      "researched": "none",
+      "researched": "partial",
+      "status": "completed",
       "tier": "B",
-      "validated": false
+      "validated": true
     },
     {
       "category": "direct_dark_matter",
       "entity_id": "experiment:edelweiss",
-      "facility": "LNGS / SNOLAB / CJPL / Modane / SURF",
-      "globe_ready": false,
+      "facility": "Laboratoire Souterrain de Modane (LSM)",
+      "globe_ready": true,
       "missing_fields": [
-        "all"
+        "results (optional for tier B)",
+        "documents (optional for tier B)",
+        "collaboration:edelweiss membership, formation date and website (DNS resolution failed for edelweiss.in2p3.fr and www.edelweiss.in2p3.fr this session)",
+        "early history: EDELWEISS/EDELWEISS-II/EDELWEISS-III founding and transition dates -- the INSPIRE registry lists three separate experiment records for these but none carries populated dates, and no working official site or history paper was found this session",
+        "operating temperature in mK"
       ],
       "name": "EDELWEISS",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
+      "notes": "The thinnest-sourced record in this file: only the current (2022-2024) sub-GeV/Migdal-effect programme (200 g Ge, NbSi TES) is richly quoted, from two arXiv papers. Early history intervals are left start:null rather than invented. Flagged for follow-up once a reachable official source is found.",
+      "owner": "dm-cryogenic-low-threshold",
       "priority": 3,
-      "researched": "none",
+      "researched": "partial",
+      "status": "active",
       "tier": "B",
-      "validated": false
+      "validated": true
     },
     {
       "category": "double_beta_decay",
       "entity_id": "experiment:exo-200",
-      "facility": "LNGS / SURF / Kamioka / Canfranc",
-      "globe_ready": false,
+      "facility": "WIPP",
+      "globe_ready": true,
       "missing_fields": [
-        "all"
+        "collaboration formation date, membership/leadership counts",
+        "INSPIRE experiment recid",
+        "exact Phase I/Phase II boundary dates (only overall 2011-2018 span sourced)",
+        "underground clean-room depth in m.w.e. (only the facility's 655 m rock-depth figure sourced; ~1624 m.w.e. reported in secondary summaries, not independently re-verified)",
+        "detector target_mass confidence is 'uncertain' (110 kg carried from a secondary summary, not independently re-verified against a primary EXO-200 detector paper)"
       ],
       "name": "EXO-200",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
+      "notes": "facility:wipp and site:wipp-surface-campus created (new, owned by this lead). experiment/detector/collaboration written. Completed 2011-2018; 234.1 kg·yr exposure, T1/2>3.5e25 yr (90% C.L.). Predecessor of nEXO.",
+      "owner": "neutrino-mass-0vbb",
       "priority": 3,
-      "researched": "none",
+      "researched": "partial",
+      "status": "completed",
       "tier": "B",
-      "validated": false
+      "validated": true
     },
     {
       "category": "collider",
       "entity_id": "experiment:faser",
       "facility": "CERN / LHC",
-      "globe_ready": false,
+      "globe_ready": true,
       "missing_fields": [
-        "all"
+        "membership counts (not stated on home.cern page fetched)",
+        "verified TI12 coordinate (campus-grade placeholder used, A23)",
+        "CERN Greybook code",
+        "collaboration leadership",
+        "no results/documents written (non-flagship)"
       ],
       "name": "FASER",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
+      "notes": "Mandatory bar: experiment, detector, collaboration, new site:cern-ti12-faser (campus-grade placeholder coordinate). INSPIRE recid 1711193.",
+      "owner": "colliders-lhc",
       "priority": 3,
-      "researched": "none",
+      "researched": "partial",
+      "status": "active",
       "tier": "C",
-      "validated": false
+      "validated": true
     },
     {
       "category": "solar_neutrino",
@@ -1036,7 +1398,7 @@
       ],
       "name": "GALLEX/GNO",
       "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
+      "owner": "reactor-solar-neutrino",
       "priority": 3,
       "researched": "none",
       "tier": "D",
@@ -1045,50 +1407,64 @@
     {
       "category": "double_beta_decay",
       "entity_id": "experiment:gerda",
-      "facility": "LNGS / SURF / Kamioka / Canfranc",
-      "globe_ready": false,
+      "facility": "LNGS Hall A",
+      "globe_ready": true,
       "missing_fields": [
-        "all"
+        "collaboration formation date",
+        "INSPIRE experiment recid",
+        "exact Phase I/Phase II day-level boundary dates",
+        "site:lngs-hall-a coordinates (owned by facilities lead)"
       ],
       "name": "GERDA",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
+      "notes": "experiment/detector/collaboration written. Completed 2011-2019/2020; 127.2 kg·yr exposure, T1/2>1.8e26 yr (90% C.L.). Collaboration: ~120 members, 16 institutes, 6 countries. Lineage: predecessor of LEGEND.",
+      "owner": "neutrino-mass-0vbb",
       "priority": 3,
-      "researched": "none",
+      "researched": "partial",
+      "status": "completed",
       "tier": "B",
-      "validated": false
+      "validated": true
     },
     {
       "category": "astrophysical_neutrino",
       "entity_id": "experiment:grand",
-      "facility": "various",
-      "globe_ready": false,
+      "facility": "Gobi Desert near Dunhuang, Gansu, China (GRANDProto300 prototype)",
+      "globe_ready": true,
       "missing_fields": [
-        "all"
+        "collaboration formation date",
+        "collaboration membership counts",
+        "collaboration leadership",
+        "surveyed coordinates for the GRANDProto300 array (only a coarse regional pointer to the nearest named city, Dunhuang, was found)",
+        "GRAND@Nançay and GRAND@Auger prototypes not modelled in detail (only named in notes)"
       ],
       "name": "GRAND",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
+      "notes": "Full GRAND array status 'proposed' (200,000-antenna design, not built); the GRANDProto300 prototype's own build-out (13-antenna stage since 2023-06, 65-antenna stage since 2025-04) is modelled only on detector:grand so the experiment-level status keeps matching the collaboration's own current description of the full array, per A10.",
+      "owner": "astro-neutrino",
       "priority": 3,
-      "researched": "none",
+      "researched": "partial",
+      "status": "proposed",
       "tier": "B",
-      "validated": false
+      "validated": true
     },
     {
       "category": "collider",
       "entity_id": "experiment:h1",
       "facility": "DESY / HERA",
-      "globe_ready": false,
+      "globe_ready": true,
       "missing_fields": [
-        "all"
+        "collaboration membership/institution/country counts (no source fetched this session states any of them)",
+        "day-precision shutdown date (H1's own site only says \"ended June 2007\"; ZEUS's INSPIRE record gives the shared HERA shutdown as 2007-06-30 but that is not asserted as H1's own sourced day)",
+        "key_specs / detector technical specs (no detector paper or TDR fetched this session)",
+        "documents (TDR/CDR) - full-depth extra, not attempted (non-flagship)",
+        "results - full-depth extra, not attempted (non-flagship)"
       ],
       "name": "H1",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
+      "notes": "Mandatory bar complete: experiment/detector/collaboration with sourced intervals (proposed 1985-06 to completed 2007-06), facility_roles and accelerator_ids referencing facility:desy/accelerator:hera (both now created by the facilities lead), placement referencing site:desy-hera-north-hall-h1 (also now created). INSPIRE experiment recid 1109080.",
+      "owner": "colliders-historical",
       "priority": 3,
-      "researched": "none",
+      "researched": "partial",
+      "status": "completed",
       "tier": "D",
-      "validated": false
+      "validated": true
     },
     {
       "category": "solar_neutrino",
@@ -1100,7 +1476,7 @@
       ],
       "name": "Homestake",
       "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
+      "owner": "reactor-solar-neutrino",
       "priority": 3,
       "researched": "none",
       "tier": "D",
@@ -1129,210 +1505,200 @@
     {
       "category": "double_beta_decay",
       "entity_id": "experiment:kamland-zen",
-      "facility": "LNGS / SURF / Kamioka / Canfranc",
+      "facility": "Kamioka Observatory",
       "globe_ready": false,
       "missing_fields": [
-        "all"
+        "collaboration formation date, membership/institution/country counts",
+        "INSPIRE experiment recid",
+        "exact KamLAND-Zen 800 start date (only lower-bound year recorded)",
+        "no separate detector file (shares detector:kamland, owned by reactor-solar-neutrino lead; technology specs carried in experiment key_specs instead)"
       ],
       "name": "KamLAND-Zen",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
+      "notes": "experiment/collaboration written; no detector file per the id registry (references detector:kamland, now created by reactor-solar-neutrino, and site:kamioka-kamland, likewise now created; formerly dangling, both now resolved). Active; latest (2024) result 2.1 t·yr exposure, T1/2>3.8e26 yr (90% C.L.).",
+      "owner": "neutrino-mass-0vbb",
       "priority": 3,
-      "researched": "none",
+      "researched": "partial",
+      "status": "active",
       "tier": "B",
-      "validated": false
+      "validated": true
     },
     {
       "category": "accelerator_neutrino",
       "entity_id": "experiment:karmen",
-      "facility": "various",
-      "globe_ready": false,
+      "facility": "ISIS Neutron and Muon Source, Rutherford Appleton Laboratory (created facility:isis-neutron-source, site:isis-rutherford-appleton)",
+      "globe_ready": true,
       "missing_fields": [
-        "all"
+        "collaboration formation date",
+        "collaboration leadership and membership counts (person records owned elsewhere; no sourced official roster count found)",
+        "external.inspire_experiment (no INSPIRE experiment-registry lookup performed; not mandatory at tier D)",
+        "detector-hall-specific coordinate (site coordinate is a campus-level OSM/Nominatim centroid for the whole RAL campus, not a surveyed KARMEN-hall position)"
       ],
       "name": "KARMEN",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
+      "notes": "Mandatory-bar record complete and validator-clean: created facility:isis-neutron-source and site:isis-rutherford-appleton (sourced coordinates, kind 'detector' per the validator's structural requirement for any site holding a detector placement, confidence 'uncertain' since the number is a geocoder centroid), experiment, detector, and collaboration. Rich dated intervals (KARMEN 1 from 1990, KARMEN 2 upgrade 1996, KARMEN 2 data taking Feb 1997-Mar 2001) and 3 key specs sourced to two primary KARMEN publications (arXiv hep-ex/0203021, hep-ex/9801007).",
+      "owner": "accelerator-neutrino-historical",
       "priority": 3,
-      "researched": "none",
+      "researched": "full",
+      "status": "completed",
       "tier": "D",
-      "validated": false
+      "validated": true
     },
     {
       "category": "neutrino_mass",
       "entity_id": "experiment:katrin",
-      "facility": "KIT / UW",
-      "globe_ready": false,
+      "facility": "KIT Campus North",
+      "globe_ready": true,
       "missing_fields": [
-        "all"
+        "collaboration formation date, leadership",
+        "INSPIRE experiment recid",
+        "precise coordinate for the KATRIN spectrometer hall itself (only a geocoder campus point for KIT Campus North sourced)"
       ],
       "name": "KATRIN",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
+      "notes": "facility:kit-karlsruhe and site:kit-campus-north created (new, owned by this lead). experiment/detector/collaboration written, plus results/katrin-neutrino-mass-upper-limit-2025.json (2025 Science paper, upper limit mν<0.45 eV at 90% CL). Active since ~2019.",
+      "owner": "neutrino-mass-0vbb",
       "priority": 3,
-      "researched": "none",
+      "researched": "partial",
+      "status": "active",
       "tier": "B",
-      "validated": false
-    },
-    {
-      "category": "astrophysical_neutrino",
-      "entity_id": "experiment:km3net",
-      "facility": "various",
-      "globe_ready": false,
-      "missing_fields": [
-        "all"
-      ],
-      "name": "KM3NeT",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
-      "priority": 3,
-      "researched": "none",
-      "tier": "B",
-      "validated": false
-    },
-    {
-      "category": "fixed_target",
-      "entity_id": "experiment:koto",
-      "facility": "CERN / Fermilab / BNL / J-PARC",
-      "globe_ready": false,
-      "missing_fields": [
-        "all"
-      ],
-      "name": "KOTO",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
-      "priority": 3,
-      "researched": "none",
-      "tier": "B",
-      "validated": false
-    },
-    {
-      "category": "fixed_target",
-      "entity_id": "experiment:ktev",
-      "facility": "CERN / Fermilab / BNL / J-PARC",
-      "globe_ready": false,
-      "missing_fields": [
-        "all"
-      ],
-      "name": "KTeV",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
-      "priority": 3,
-      "researched": "none",
-      "tier": "B",
-      "validated": false
+      "validated": true
     },
     {
       "category": "double_beta_decay",
       "entity_id": "experiment:legend",
-      "facility": "LNGS / SURF / Kamioka / Canfranc",
-      "globe_ready": false,
+      "facility": "LNGS Hall A",
+      "globe_ready": true,
       "missing_fields": [
-        "all"
+        "collaboration formation date, country count",
+        "INSPIRE experiment recid",
+        "LEGEND-1000 host site and start date (both discussed in secondary literature as LNGS or SNOLAB, not confirmed by a primary source this session; no detector:legend-1000 file created, per the brief's instruction not to guess)",
+        "site:lngs-hall-a coordinates (owned by facilities lead)"
       ],
       "name": "LEGEND",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
+      "notes": "experiment + detector:legend-200 + collaboration written. Active since 2023 (LEGEND-200); >250 researchers, ~50 institutions. First result (2025): T1/2(LEGEND-200)>0.5e26 yr, combined GERDA+MJD+LEGEND-200 T1/2>1.9e26 yr (90% CL). LEGEND-1000 recorded as proposed with no site.",
+      "owner": "neutrino-mass-0vbb",
       "priority": 3,
-      "researched": "none",
+      "researched": "partial",
+      "status": "active",
       "tier": "B",
-      "validated": false
+      "validated": true
     },
     {
       "category": "collider",
       "entity_id": "experiment:lhcf",
       "facility": "CERN / LHC",
-      "globe_ready": false,
+      "globe_ready": true,
       "missing_fields": [
-        "all"
+        "collaboration membership count is stale (November 2012 snapshot, flagged)",
+        "CERN Greybook code",
+        "collaboration leadership",
+        "no results/documents written (non-flagship)"
       ],
       "name": "LHCf",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
+      "notes": "Mandatory bar: experiment, detector, collaboration; reuses existing site:cern-point-1-atlas per registry (no new site). INSPIRE recid 1126263.",
+      "owner": "colliders-lhc",
       "priority": 3,
-      "researched": "none",
+      "researched": "partial",
+      "status": "active",
       "tier": "C",
-      "validated": false
+      "validated": true
     },
     {
       "category": "accelerator_neutrino",
       "entity_id": "experiment:lsnd",
-      "facility": "various",
-      "globe_ready": false,
+      "facility": "Los Alamos LAMPF/LANSCE (facility:los-alamos-national-laboratory, site:lanl-lansce, accelerator:lansce -- owned by the 'facilities' lead and referenced here; none existed in data/atlas/ at the time this record was written, so these are expected dangling references, not defects in this record)",
+      "globe_ready": true,
       "missing_fields": [
-        "all"
+        "collaboration formation date",
+        "collaboration leadership and membership counts (person records owned elsewhere; no sourced official roster count found)",
+        "external.inspire_experiment (no INSPIRE experiment-registry lookup performed; not mandatory at tier D)",
+        "a stated sigma significance for the antineutrino-appearance result (the 2001 PRD paper gives an event excess and its uncertainties but not a single sigma figure in the text fetched)"
       ],
       "name": "LSND",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
+      "notes": "Mandatory-bar record complete: experiment, detector, collaboration, and the required antineutrino-appearance 'evidence' result (Aguilar et al., Phys. Rev. D 64, 112007 (2001), title contains 'Evidence', never called a discovery), all clean except 6 expected dangling references to facility:los-alamos-national-laboratory/site:lanl-lansce, which belong to the 'facilities' lead and had not landed when this record was written -- re-check once that lead's files exist. Rich intervals (proposed 1989, data taking 1993-1998) and 3 key specs sourced to the LSND NIM detector paper (arXiv nucl-ex/9605002) and the 2001 PRD result paper (arXiv hep-ex/0104049).",
+      "owner": "accelerator-neutrino-historical",
       "priority": 3,
-      "researched": "none",
+      "researched": "full",
+      "status": "completed",
       "tier": "D",
-      "validated": false
+      "validated": true
     },
     {
       "category": "double_beta_decay",
       "entity_id": "experiment:majorana-demonstrator",
-      "facility": "LNGS / SURF / Kamioka / Canfranc",
-      "globe_ready": false,
+      "facility": "SURF, Davis Campus, 4850 Level",
+      "globe_ready": true,
       "missing_fields": [
-        "all"
+        "collaboration formation date, membership/leadership counts",
+        "INSPIRE experiment recid",
+        "exact data-taking start/end dates (2015-2022 span flagged uncertain; only installation-start (2012-03) and final-result-paper (2022) dates are solidly sourced)",
+        "no distinct site created: placed at the existing site:surf-davis-campus-lz (LZ's point) per the domain lead's instruction, since no source gives Majorana a distinct coordinate"
       ],
       "name": "Majorana Demonstrator",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
+      "notes": "experiment/detector/collaboration written. Completed; 64.5 kg·yr exposure, T1/2>8.3e25 yr (90% C.L.). Lineage: predecessor of LEGEND (shared personnel/technology).",
+      "owner": "neutrino-mass-0vbb",
       "priority": 3,
-      "researched": "none",
+      "researched": "partial",
+      "status": "completed",
       "tier": "B",
-      "validated": false
+      "validated": true
     },
     {
       "category": "fixed_target",
       "entity_id": "experiment:mathusla",
-      "facility": "CERN / Fermilab / BNL / J-PARC",
+      "facility": "CERN",
       "globe_ready": false,
       "missing_fields": [
-        "all"
+        "placement/site (official page names no specific interaction point; no new site created per the brief)",
+        "proposal date",
+        "collaboration membership"
       ],
       "name": "MATHUSLA",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
+      "notes": "status is null (not 'proposed'): no interval has a non-planned start date, so no interval covers the present build date and the A10-derived state is genuinely unrecorded; recorded honestly rather than asserting an unsupported covering status.",
+      "owner": "fixed-target",
       "priority": 3,
-      "researched": "none",
-      "tier": "B",
-      "validated": false
+      "researched": "partial",
+      "status": null,
+      "tier": "C",
+      "validated": true
     },
     {
       "category": "muon_precision",
       "entity_id": "experiment:meg",
-      "facility": "Fermilab / PSI / J-PARC",
-      "globe_ready": false,
+      "facility": "PSI (Paul Scherrer Institut)",
+      "globe_ready": true,
       "missing_fields": [
-        "all"
+        "collaboration formation date",
+        "collaboration membership counts (not stated in any source fetched this session)",
+        "collaboration leadership (person records owned elsewhere)",
+        "detector specs (LXe mass, chamber dimensions -- not sourced this session)",
+        "facility:psi / site:psi-villigen (owned by the 'facilities' workstream, not yet landed; referenced as expected dangling ids)"
       ],
       "name": "MEG",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
+      "notes": "Mandatory-bar depth plus the required exception result: experiment, detector, collaboration and the 2016 final branching-ratio upper limit (result:meg-mu-to-e-gamma-limit-2016, BR < 4.2x10^-13, 90% C.L.) all written, sourced from the collaboration's own final-result paper (arXiv:1605.05081).",
+      "owner": "muons",
       "priority": 3,
-      "researched": "none",
+      "researched": "partial",
       "tier": "B",
-      "validated": false
+      "validated": true
     },
     {
       "category": "muon_precision",
       "entity_id": "experiment:meg-ii",
-      "facility": "Fermilab / PSI / J-PARC",
-      "globe_ready": false,
+      "facility": "PSI (Paul Scherrer Institut)",
+      "globe_ready": true,
       "missing_fields": [
-        "all"
+        "collaboration formation date",
+        "collaboration membership counts (not stated in any source fetched this session)",
+        "collaboration leadership (person records owned elsewhere)",
+        "detector specs (upgraded LXe calorimeter volume/granularity, chamber dimensions -- not sourced this session)",
+        "facility:psi / site:psi-villigen / accelerator:psi-hipa (owned by the 'facilities' workstream, not yet landed; referenced as expected dangling ids)"
       ],
       "name": "MEG II",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
+      "notes": "Mandatory-bar depth plus the required exception result: experiment, detector, collaboration and the 2024 first-dataset branching-ratio upper limit (result:meg-ii-mu-to-e-gamma-limit-2024, BR < 7.5x10^-13 alone / < 3.1x10^-13 combined with MEG, 90% C.L.) all written, sourced from arXiv:2310.12614. lineage.upgrade_of experiment:meg recorded.",
+      "owner": "muons",
       "priority": 3,
-      "researched": "none",
+      "researched": "partial",
       "tier": "B",
-      "validated": false
+      "validated": true
     },
     {
       "category": "accelerator_neutrino",
@@ -1374,257 +1740,224 @@
       "category": "collider",
       "entity_id": "experiment:moedal",
       "facility": "CERN / LHC",
-      "globe_ready": false,
+      "globe_ready": true,
       "missing_fields": [
-        "all"
+        "collaboration membership counts (not stated on home.cern page fetched)",
+        "CERN Greybook code",
+        "collaboration leadership",
+        "no results/documents written (non-flagship)"
       ],
       "name": "MoEDAL",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
+      "notes": "Mandatory bar: experiment, detector, collaboration; reuses existing site:cern-point-8-lhcb (created by the lhcb pass of this wave) per registry (MoEDAL places at LHCb's site). INSPIRE recid 1110581. MAPP upgrade (2021) recorded as an alias + interval on the same experiment record.",
+      "owner": "colliders-lhc",
       "priority": 3,
-      "researched": "none",
+      "researched": "partial",
+      "status": "upgrade",
       "tier": "C",
-      "validated": false
-    },
-    {
-      "category": "muon_precision",
-      "entity_id": "experiment:mu2e",
-      "facility": "Fermilab / PSI / J-PARC",
-      "globe_ready": false,
-      "missing_fields": [
-        "all"
-      ],
-      "name": "Mu2e",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
-      "priority": 3,
-      "researched": "none",
-      "tier": "B",
-      "validated": false
+      "validated": true
     },
     {
       "category": "muon_precision",
       "entity_id": "experiment:mu3e",
-      "facility": "Fermilab / PSI / J-PARC",
-      "globe_ready": false,
+      "facility": "PSI (Paul Scherrer Institut)",
+      "globe_ready": true,
       "missing_fields": [
-        "all"
+        "collaboration formation date",
+        "collaboration membership counts (not stated in any source fetched this session)",
+        "collaboration leadership (named on the official site -- Prof. Andre Schoning, Dr. Stefan Ritt -- but not recorded as structured leadership rows, since person records are owned elsewhere)",
+        "detector dimension specs (pixel layer count/geometry beyond 'third layer installed' -- not sourced this session)",
+        "facility:psi / site:psi-villigen / accelerator:psi-hipa (owned by the 'facilities' workstream, not yet landed; referenced as expected dangling ids)",
+        "results (none exist yet; detector still under construction as of the most recent official update, 2026-09-16)"
       ],
       "name": "Mu3e",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
+      "notes": "Mandatory-bar depth: experiment, detector and collaboration written. No result: Mu3e is still assembling its pixel tracker (third layer installed 2026-09-16 per the official site).",
+      "owner": "muons",
       "priority": 3,
-      "researched": "none",
+      "researched": "partial",
       "tier": "B",
-      "validated": false
-    },
-    {
-      "category": "muon_precision",
-      "entity_id": "experiment:muon-g-2",
-      "facility": "Fermilab / PSI / J-PARC",
-      "globe_ready": false,
-      "missing_fields": [
-        "all"
-      ],
-      "name": "Muon g-2",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
-      "priority": 3,
-      "researched": "none",
-      "tier": "B",
-      "validated": false
-    },
-    {
-      "category": "fixed_target",
-      "entity_id": "experiment:na48",
-      "facility": "CERN / Fermilab / BNL / J-PARC",
-      "globe_ready": false,
-      "missing_fields": [
-        "all"
-      ],
-      "name": "NA48",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
-      "priority": 3,
-      "researched": "none",
-      "tier": "B",
-      "validated": false
-    },
-    {
-      "category": "fixed_target",
-      "entity_id": "experiment:na62",
-      "facility": "CERN / Fermilab / BNL / J-PARC",
-      "globe_ready": false,
-      "missing_fields": [
-        "all"
-      ],
-      "name": "NA62",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
-      "priority": 3,
-      "researched": "none",
-      "tier": "B",
-      "validated": false
-    },
-    {
-      "category": "fixed_target",
-      "entity_id": "experiment:na64",
-      "facility": "CERN / Fermilab / BNL / J-PARC",
-      "globe_ready": false,
-      "missing_fields": [
-        "all"
-      ],
-      "name": "NA64",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
-      "priority": 3,
-      "researched": "none",
-      "tier": "B",
-      "validated": false
+      "validated": true
     },
     {
       "category": "direct_dark_matter",
       "entity_id": "experiment:news-g",
-      "facility": "LNGS / SNOLAB / CJPL / Modane / SURF",
-      "globe_ready": false,
+      "facility": "Laboratoire Souterrain de Modane (SEDINE) / SNOLAB (S140)",
+      "globe_ready": true,
       "missing_fields": [
-        "all"
+        "results (optional for tier B)",
+        "documents (optional for tier B)",
+        "collaboration:news-g membership/institution count",
+        "the exact relationship between the SNOLAB S140 sphere and the 135 cm sphere reported running a 10-day physics run at LSM in 2024 (same unit relocated, or two spheres) -- not resolved by any source fetched this session"
       ],
       "name": "NEWS-G",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
+      "notes": "Official site (news-g.org / snolab.ca both redirect to queensu.ca/physics/news-g/) and two arXiv papers (2205.15433, 2407.12769) give sphere diameters (60 cm SEDINE, 135 cm S140), gas fills, and installation dates with verbatim quotes.",
+      "owner": "dm-cryogenic-low-threshold",
       "priority": 3,
-      "researched": "none",
+      "researched": "partial",
+      "status": "active",
       "tier": "B",
-      "validated": false
+      "validated": true
     },
     {
       "category": "double_beta_decay",
       "entity_id": "experiment:nexo",
-      "facility": "LNGS / SURF / Kamioka / Canfranc",
-      "globe_ready": false,
+      "facility": "SNOLAB (planned)",
+      "globe_ready": true,
       "missing_fields": [
-        "all"
+        "collaboration formation date",
+        "INSPIRE experiment recid",
+        "confirmed construction-start date (a secondary summary describes a phased 'nEXO 2.0' plan with construction ~2026, not independently re-verified against a primary source)"
       ],
       "name": "nEXO",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
+      "notes": "experiment/detector/collaboration written. Status: proposed (design/construction-preparation phase; references facility:snolab and site:snolab-underground-lab, both now created by the facilities lead — formerly dangling, now resolved). Planned 5 t of 136Xe enriched to ~90%. Successor of EXO-200.",
+      "owner": "neutrino-mass-0vbb",
       "priority": 3,
-      "researched": "none",
+      "researched": "partial",
+      "status": "proposed",
       "tier": "B",
-      "validated": false
+      "validated": true
     },
     {
       "category": "double_beta_decay",
       "entity_id": "experiment:next",
-      "facility": "LNGS / SURF / Kamioka / Canfranc",
-      "globe_ready": false,
+      "facility": "LSC, Canfranc",
+      "globe_ready": true,
       "missing_fields": [
-        "all"
+        "collaboration formation date",
+        "INSPIRE experiment recid",
+        "NEXT-White exact start/end dates (2016/2021 carried from secondary summaries, not independently re-verified against a directly fetched primary NEXT-White paper)",
+        "leadership (spokesperson named on the official site but not recorded structurally; no person records in this wave — see worklog)"
       ],
       "name": "NEXT",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
+      "notes": "experiment + detector:next-white + detector:next-100 + collaboration written. References facility:canfranc-underground-laboratory and site:lsc-canfranc, both now created by the facilities lead (formerly dangling, now resolved). NEXT-100 active since May 2024; NEXT-White completed (~2016-2021). ~20 institutions, ~100 collaborators, 6 countries.",
+      "owner": "neutrino-mass-0vbb",
       "priority": 3,
-      "researched": "none",
+      "researched": "partial",
+      "status": "active",
       "tier": "B",
-      "validated": false
+      "validated": true
     },
     {
       "category": "accelerator_neutrino",
       "entity_id": "experiment:opera",
-      "facility": "various",
-      "globe_ready": false,
+      "facility": "LNGS Hall C (facility:lngs exists, referenced; site:lngs-hall-c owned by the 'facilities' lead and not yet created -- expected dangling reference) / CERN SPS (facility:cern, accelerator:sps exist, referenced)",
+      "globe_ready": true,
       "missing_fields": [
-        "all"
+        "collaboration formation date (only a rank-12 Wikipedia lower bound of 2003 is recorded, flagged uncertain)",
+        "collaboration leadership and membership counts (person records owned elsewhere; no sourced official roster count found)",
+        "external.inspire_experiment (no INSPIRE experiment-registry lookup performed; not mandatory at tier D)",
+        "A21 great-circle cross-check of the 732 km CNGS baseline against site:cern-meyrin and site:lngs-hall-c cannot run until the latter site (owned by 'facilities') exists with coordinates -- re-verify then",
+        "construction-period sourcing is Wikipedia-only (rank 12), flagged uncertain; no official OPERA/LNGS page with construction dates was reachable (operaweb.lngs.infn.it did not resolve; lngs.infn.it/en/opera returned HTTP 500)"
       ],
       "name": "OPERA",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
+      "notes": "Mandatory-bar record complete: experiment, detector, collaboration, and beamline:cngs (CERN SPS to LNGS, 732 km baseline sourced to CERN's own CNGS page, quote '732 kilometres away in Italy'), plus the required 2015 tau-neutrino-appearance 'Discovery' result (Agafonova et al., Phys. Rev. Lett. 115, 121802 (2015), 5.1 sigma). Data-taking dates (2008-2012) and the CNGS beam-operation range (July 2006-December 2012) are verified against the primary PRL paper and CERN's official CNGS page respectively.",
+      "owner": "accelerator-neutrino-historical",
       "priority": 3,
-      "researched": "none",
+      "researched": "full",
+      "status": "completed",
       "tier": "D",
-      "validated": false
+      "validated": true
     },
     {
       "category": "astrophysical_neutrino",
       "entity_id": "experiment:p-one",
-      "facility": "various",
-      "globe_ready": false,
+      "facility": "Cascadia Basin, off Vancouver Island, British Columbia, Canada",
+      "globe_ready": true,
       "missing_fields": [
-        "all"
+        "collaboration formation date",
+        "collaboration membership counts",
+        "collaboration leadership",
+        "surveyed seafloor coordinates for the actual Cascadia Basin deployment point (only a coarse regional pointer to the nearest named coastal feature, Barkley Sound, was found)",
+        "unambiguous 2026 deployment status (official site's 'In 2026, the first detection line of P-ONE will be deployed' could not be resolved to already-happened vs still-upcoming)"
       ],
       "name": "P-ONE",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
+      "notes": "Status classified conservatively: experiment:p-one remains 'proposed' (matching the collaboration's own current wording, 'a proposed large-volume neutrino telescope'), while the built pathfinder hardware (STRAW, deployed 2018; STRAW-b) is modelled as 'active' on detector:p-one, keeping the two levels honestly distinct per A10.",
+      "owner": "astro-neutrino",
       "priority": 3,
-      "researched": "none",
+      "researched": "partial",
+      "status": "proposed",
       "tier": "B",
-      "validated": false
+      "validated": true
     },
     {
       "category": "direct_dark_matter",
       "entity_id": "experiment:pandax-4t",
-      "facility": "LNGS / SNOLAB / CJPL / Modane / SURF",
-      "globe_ready": false,
+      "facility": "CJPL-II (China Jinping Underground Laboratory)",
+      "globe_ready": true,
       "missing_fields": [
-        "all"
+        "detector specs.phase (dual-phase/single-phase): no source fetched this session uses either word for PandaX-4T specifically, so left null rather than assumed",
+        "PandaX-4T-specific INSPIRE experiment record (only the generic umbrella \"PandaX\" record, recid 1221671, was found)",
+        "collaboration membership counts (institutions named on the official site but no aggregate count given)",
+        "formation date",
+        "results",
+        "documents"
       ],
       "name": "PandaX-4T",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
+      "notes": "Mandatory bar met. Site placement is a dangling reference to site:cjpl-ii (owned by the \"facilities\" workstream, not yet created). Two distinct mass figures kept separate rather than conflated: 6 t total / 4 t sensitive target (design, official site) vs. 3.7 t target mass used in the 2021 commissioning-run analysis (paper).",
+      "owner": "dm-noble-liquid",
       "priority": 3,
-      "researched": "none",
+      "researched": "partial",
       "tier": "B",
-      "validated": false
+      "validated": true
     },
     {
       "category": "heavy_ion",
       "entity_id": "experiment:phenix",
-      "facility": "Brookhaven / RHIC",
-      "globe_ready": false,
+      "facility": "Brookhaven National Laboratory / RHIC",
+      "globe_ready": true,
       "missing_fields": [
-        "all"
+        "central/muon arm acceptance and magnet key_specs (only found via unverified secondary compilations; primary NIM A499 papers not fetchable as text this session)",
+        "collaboration membership counts (institutions/countries/collaborators)",
+        "collaboration leadership (person records owned elsewhere)",
+        "site coordinates (site:bnl-rhic-ip8-phenix-sphenix owned by facilities lead, dangling)"
       ],
       "name": "PHENIX",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
+      "notes": "Pioneering High Energy Nuclear Interaction eXperiment. Formation (1991-08), first collision (2000-06-15) and end of data taking (2016) all sourced verbatim to the PHENIX collaboration's own concept/history page. Lineage to sPHENIX is recorded on experiment:sphenix (upgrade_of), not here, per v0.2 A1 (derived inverse not authored). One extra: the PHENIX 2005 'perfect liquid' white paper recorded as result_type 'measurement' (never discovery), collaboration's own title wording.",
+      "owner": "heavy-ions",
       "priority": 3,
-      "researched": "none",
+      "researched": "partial",
+      "status": "completed",
       "tier": "B",
-      "validated": false
+      "validated": true
     },
     {
       "category": "neutrino_mass",
       "entity_id": "experiment:project-8",
-      "facility": "KIT / UW",
-      "globe_ready": false,
+      "facility": "University of Washington / CENPA",
+      "globe_ready": true,
       "missing_fields": [
-        "all"
+        "collaboration formation date, membership/institution/country counts",
+        "INSPIRE experiment recid",
+        "Phase II/III precise start dates (only publication-date lower bounds recorded)",
+        "precise building/room coordinate for the Phase I apparatus (only a geocoder campus point for CENPA, owned by the axions lead, referenced)"
       ],
       "name": "Project 8",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
+      "notes": "experiment/detector/collaboration written, phase-by-phase (Phase I commissioning at UW from 2015, placed at site:uw-cenpa-campus; Phase II active from ~2025-03; Phase III proposed/R&D). facility:university-of-washington-cenpa and site:uw-cenpa-campus referenced (not created); both already existed when checked (created by the axions lead for ADMX), so no duplication occurred.",
+      "owner": "neutrino-mass-0vbb",
       "priority": 3,
-      "researched": "none",
+      "researched": "partial",
+      "status": "active",
       "tier": "B",
-      "validated": false
+      "validated": true
     },
     {
       "category": "astrophysical_neutrino",
       "entity_id": "experiment:rno-g",
-      "facility": "various",
-      "globe_ready": false,
+      "facility": "Summit Station, Greenland",
+      "globe_ready": true,
       "missing_fields": [
-        "all"
+        "collaboration formation date",
+        "collaboration membership counts",
+        "collaboration leadership",
+        "post-2024 status update (deployment paused in 2023 per the most recent source fetched; current 2026 status not independently re-confirmed)"
       ],
       "name": "RNO-G",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
+      "notes": "facility:summit-station-greenland created with sourced coordinates/altitude; array site coordinates (72°35'46\"N 38°25'19\"W) sourced directly from the collaboration's own JINST design paper (arXiv:2010.12279), a rank-4 design_report. 7 of a planned 35 stations built (2021-2022 seasons); status 'construction' (paused for evaluation since 2023, not cancelled).",
+      "owner": "astro-neutrino",
       "priority": 3,
-      "researched": "none",
+      "researched": "partial",
+      "status": "construction",
       "tier": "B",
-      "validated": false
+      "validated": true
     },
     {
       "category": "solar_neutrino",
@@ -1636,507 +1969,567 @@
       ],
       "name": "SAGE",
       "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
+      "owner": "reactor-solar-neutrino",
       "priority": 3,
       "researched": "none",
       "tier": "D",
-      "validated": false
-    },
-    {
-      "category": "fixed_target",
-      "entity_id": "experiment:seaquest",
-      "facility": "CERN / Fermilab / BNL / J-PARC",
-      "globe_ready": false,
-      "missing_fields": [
-        "all"
-      ],
-      "name": "SeaQuest",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
-      "priority": 3,
-      "researched": "none",
-      "tier": "B",
       "validated": false
     },
     {
       "category": "direct_dark_matter",
       "entity_id": "experiment:sensei",
-      "facility": "LNGS / SNOLAB / CJPL / Modane / SURF",
-      "globe_ready": false,
+      "facility": "Fermilab (MINOS cavern)",
+      "globe_ready": true,
       "missing_fields": [
-        "all"
+        "results (optional for tier B)",
+        "documents (optional for tier B)",
+        "collaboration:sensei membership and website (no live official page found)",
+        "SNOLAB placement (a 2020 paper describes a ~100 g detector 'planned' for SNOLAB, but the most recent source found, 2026-05, still places the operating detector 'near the MINOS cavern' at Fermilab, so no SNOLAB placement/facility_role is recorded)"
       ],
       "name": "SENSEI",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
+      "notes": "Placed at the existing site:fermilab-main-campus (owned by fermilab-dune), which that lead's own record already uses as the campus-precision marker for the Fermilab MINOS near-detector hall specifically; site:fermilab-minos-near-detector-hall was deliberately NOT created to avoid a near-duplicate site with the same fabricated-precision coordinate. This is a documented deviation from the brief's default instruction; see the worklog.",
+      "owner": "dm-cryogenic-low-threshold",
       "priority": 3,
-      "researched": "none",
+      "researched": "partial",
+      "status": "active",
       "tier": "B",
-      "validated": false
-    },
-    {
-      "category": "fixed_target",
-      "entity_id": "experiment:ship",
-      "facility": "CERN / Fermilab / BNL / J-PARC",
-      "globe_ready": false,
-      "missing_fields": [
-        "all"
-      ],
-      "name": "SHiP",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
-      "priority": 3,
-      "researched": "none",
-      "tier": "B",
-      "validated": false
+      "validated": true
     },
     {
       "category": "collider",
       "entity_id": "experiment:snd-lhc",
       "facility": "CERN / LHC",
-      "globe_ready": false,
+      "globe_ready": true,
       "missing_fields": [
-        "all"
+        "first-data/commissioning date (status left as approved, not active, pending this)",
+        "membership counts",
+        "verified TI18 coordinate (campus-grade placeholder used, A23)",
+        "CERN Greybook code",
+        "collaboration leadership",
+        "no results/documents written (non-flagship)"
       ],
       "name": "SND@LHC",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
+      "notes": "Mandatory bar: experiment, detector, collaboration, new site:cern-ti18-snd-lhc (campus-grade placeholder coordinate). INSPIRE recid 2032474. Official SND@LHC site could not be fetched (DNS failure in this environment; home.cern/science/experiments/snd-lhc 404s), so status is honestly left at \"approved\" rather than \"active\" since no sourced first-data date at required precision was found this session.",
+      "owner": "colliders-lhc",
       "priority": 3,
-      "researched": "none",
+      "researched": "partial",
+      "status": "approved",
       "tier": "C",
-      "validated": false
+      "validated": true
     },
     {
       "category": "solar_neutrino",
       "entity_id": "experiment:sno",
-      "facility": "LNGS / SNOLAB / Baksan / Homestake",
-      "globe_ready": false,
+      "facility": "SNOLAB (existing facility, referenced)",
+      "globe_ready": true,
       "missing_fields": [
-        "all"
+        "official membership counts beyond institution/country counts (member_count not stated on official page)",
+        "leadership person_id (spokesperson named but no people/ records in this wave)",
+        "formal collaboration formation citation beyond the homepage's one-line mention"
       ],
       "name": "SNO",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
+      "notes": "Mandatory bar written: experiment/detector/collaboration/2 results (2001 CC evidence, 2002 NC evidence, both verbatim titles/quotes) validated clean. Referenced existing facility:snolab/site:snolab-underground-lab (already sourced with the SNO NIM paper's own coordinate); did not create facility/site files.",
+      "owner": "reactor-solar-neutrino",
       "priority": 3,
-      "researched": "none",
+      "researched": "partial",
       "tier": "D",
-      "validated": false
+      "validated": true
+    },
+    {
+      "category": "solar_neutrino",
+      "entity_id": "experiment:sno-plus",
+      "facility": "SNOLAB (existing facility, referenced)",
+      "globe_ready": true,
+      "missing_fields": [
+        "membership counts (only Oxford/UC Berkeley named on homepage, no full list)",
+        "exact tellurium-loading phase date (only that a future phase is planned)",
+        "results (Jan 2025 reactor-oscillation and Dec 2024 solar-scattering results mentioned on the official site were not written up as result: records this pass, time-boxed to the mandatory bar)",
+        "collaboration formation date"
+      ],
+      "name": "SNO+",
+      "notes": "Mandatory bar written: experiment/detector/collaboration validated clean. lineage upgrade_of experiment:sno recorded. Referenced existing facility:snolab/site:snolab-underground-lab.",
+      "owner": "reactor-solar-neutrino",
+      "priority": 3,
+      "researched": "partial",
+      "tier": "B",
+      "validated": true
     },
     {
       "category": "heavy_ion",
       "entity_id": "experiment:sphenix",
-      "facility": "Brookhaven / RHIC",
-      "globe_ready": false,
+      "facility": "Brookhaven National Laboratory / RHIC",
+      "globe_ready": true,
       "missing_fields": [
-        "all"
+        "collaboration formation date (only the DOE CD-0 project-approval milestone is sourced)",
+        "collaboration membership counts",
+        "collaboration leadership (person records owned elsewhere)",
+        "site coordinates (site:bnl-rhic-ip8-phenix-sphenix owned by facilities lead, dangling)",
+        "sPHENIX TDR/design-report document record (not reached this wave)",
+        "first-physics-results (2025-07-18) results/ record (not reached this wave)"
       ],
       "name": "sPHENIX",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
+      "notes": "Successor detector to PHENIX at the same RHIC interaction point (IP8), built around a reused 20-ton BaBar solenoid. DOE CD-0 (2017-01-13), construction complete (2023-04), commissioning/first Au+Au data (2023) and RHIC's final-run closure (2026-02-06) all sourced. lineage.relation 'upgrade_of' -> experiment:phenix recorded here (canonical direction per v0.2 A1); 'successor' is deliberately not written on experiment:phenix.",
+      "owner": "heavy-ions",
       "priority": 3,
-      "researched": "none",
+      "researched": "partial",
+      "status": "completed",
       "tier": "B",
-      "validated": false
+      "validated": true
     },
     {
       "category": "heavy_ion",
       "entity_id": "experiment:star",
-      "facility": "Brookhaven / RHIC",
-      "globe_ready": false,
+      "facility": "Brookhaven National Laboratory / RHIC",
+      "globe_ready": true,
       "missing_fields": [
-        "all"
+        "collaboration formation date (not independently verified)",
+        "magnet field strength (source fetch attempts returned 403/empty)",
+        "STAR detector-overview paper (NIM A499:624-632) full-text specs (bibliographic only)",
+        "collaboration leadership (person records owned elsewhere)",
+        "site coordinates (site:bnl-rhic-ip6-star owned by facilities lead, dangling)"
       ],
       "name": "STAR",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
+      "notes": "Solenoidal Tracker at RHIC. Status/intervals sourced to the BNL STAR page and the BNL 'RHIC Wraps up Final Collisions' article (2026-02-06, RHIC's 25th and final run); TPC specs sourced to the STAR TPC subsystem paper (NIM A499:659-678). Collaboration membership counts (609 collaborators / 55 institutions / 12 countries) sourced. One 1991 extra: the STAR 2005 'perfect liquid' white paper recorded as result_type 'measurement' (never discovery), collaboration's own title wording.",
+      "owner": "heavy-ions",
       "priority": 3,
-      "researched": "none",
+      "researched": "partial",
+      "status": "completed",
       "tier": "B",
-      "validated": false
+      "validated": true
     },
     {
       "category": "direct_dark_matter",
       "entity_id": "experiment:supercdms",
-      "facility": "LNGS / SNOLAB / CJPL / Modane / SURF",
-      "globe_ready": false,
+      "facility": "Soudan Underground Laboratory (historical) / SNOLAB (current)",
+      "globe_ready": true,
       "missing_fields": [
-        "all"
+        "results (optional for tier B)",
+        "documents (optional for tier B)",
+        "collaboration:supercdms membership (institution/member counts not stated by the official site)",
+        "detector:supercdms total/active/fiducial mass in kg (only the 24-crystal count is sourced)",
+        "lineage to experiment:cdms-ii (technology/name continuity is well known but no fetched source states it explicitly)"
       ],
       "name": "SuperCDMS",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
+      "notes": "Richly sourced current-affairs history: DOE construction approval (Symmetry Magazine, 2018-05-07), cooldown/commissioning (SLAC news, 2026-03-17), and early-science start (SLAC news, 2026-08-26) all carry verbatim quotes. Both SuperCDMS-Soudan (INSPIRE recid 1298909) and SuperCDMS-SNOLAB (recid 1357671) are folded into one experiment record per the brief's guidance; the Soudan-era interval is deliberately left non-terminal (status active, not completed) to satisfy A3.",
+      "owner": "dm-cryogenic-low-threshold",
       "priority": 3,
-      "researched": "none",
+      "researched": "partial",
+      "status": "active",
       "tier": "B",
-      "validated": false
+      "validated": true
     },
     {
       "category": "collider",
       "entity_id": "experiment:totem",
       "facility": "CERN / LHC",
-      "globe_ready": false,
+      "globe_ready": true,
       "missing_fields": [
-        "all"
+        "CERN Greybook code",
+        "collaboration leadership",
+        "up-to-date membership count (2014 snapshot)",
+        "no results/documents written (non-flagship)"
       ],
       "name": "TOTEM",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
+      "notes": "Mandatory bar: experiment, detector, collaboration; reuses existing site:cern-point-5-cms per registry (no new site). INSPIRE recid 1110567. Run/shutdown history after first data reuses the LHC-wide machine schedule (already sourced for accelerator:lhc) since no TOTEM-specific run-by-run source was fetched.",
+      "owner": "colliders-lhc",
       "priority": 3,
-      "researched": "none",
+      "researched": "partial",
+      "status": "shutdown",
       "tier": "C",
-      "validated": false
-    },
-    {
-      "category": "direct_dark_matter",
-      "entity_id": "experiment:xenon1t",
-      "facility": "LNGS / SNOLAB / CJPL / Modane / SURF",
-      "globe_ready": false,
-      "missing_fields": [
-        "all"
-      ],
-      "name": "XENON1T",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
-      "priority": 3,
-      "researched": "none",
-      "tier": "B",
-      "validated": false
-    },
-    {
-      "category": "direct_dark_matter",
-      "entity_id": "experiment:xenonnt",
-      "facility": "LNGS / SNOLAB / CJPL / Modane / SURF",
-      "globe_ready": false,
-      "missing_fields": [
-        "all"
-      ],
-      "name": "XENONnT",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
-      "priority": 3,
-      "researched": "none",
-      "tier": "B",
-      "validated": false
+      "validated": true
     },
     {
       "category": "collider",
       "entity_id": "experiment:zeus",
       "facility": "DESY / HERA",
-      "globe_ready": false,
+      "globe_ready": true,
       "missing_fields": [
-        "all"
+        "collaboration institution_count/country_count (only member_count ≈450 sourced, from the collaboration's own site)",
+        "key_specs quantities (only a qualitative technology description sourced, no numeric dimensions/fields)",
+        "documents (TDR/CDR) - full-depth extra, not attempted (non-flagship)",
+        "results - full-depth extra, not attempted (non-flagship)"
       ],
       "name": "ZEUS",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
+      "notes": "Mandatory bar complete: experiment/detector/collaboration with sourced intervals (proposed 1986-03 to completed 2007-06-30, including a polarized-beam sub-interval from 2001), facility_roles and accelerator_ids referencing facility:desy/accelerator:hera (both now created by the facilities lead), placement referencing site:desy-hera-south-hall-zeus (also now created). INSPIRE experiment recid 1109012.",
+      "owner": "colliders-historical",
       "priority": 3,
-      "researched": "none",
+      "researched": "partial",
+      "status": "completed",
       "tier": "D",
-      "validated": false
+      "validated": true
     },
     {
       "category": "axion",
       "entity_id": "experiment:abracadabra",
-      "facility": "various",
-      "globe_ready": false,
+      "facility": "MIT",
+      "globe_ready": true,
       "missing_fields": [
-        "all"
+        "collaboration membership counts / leadership",
+        "results/documents records (non-flagship, full-depth extra, skipped)",
+        "numeric magnet/toroid field strength (no clean verbatim source found)",
+        "precise MIT building coordinate (site uses MIT campus approximate)",
+        "2019-2021 interval gap (only first-run 2018 and broadband/completion 2021 sourced)"
       ],
       "name": "ABRACADABRA",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
+      "notes": "Researched this session (2026-09-17): experiment, detector, collaboration records written; see docs/atlas-worklog/axions.md.",
+      "owner": "axions",
       "priority": 4,
-      "researched": "none",
+      "researched": "partial",
+      "status": "completed",
       "tier": "C",
-      "validated": false
+      "validated": true
     },
     {
       "category": "axion",
       "entity_id": "experiment:admx",
-      "facility": "various",
-      "globe_ready": false,
+      "facility": "University of Washington (CENPA)",
+      "globe_ready": true,
       "missing_fields": [
-        "all"
+        "collaboration formation date / membership counts / leadership",
+        "results/documents records (non-flagship, full-depth extra, skipped)",
+        "numeric magnet field strength and cavity volume (no clean verbatim source found)",
+        "2020-2024 run-history gap (only 2019 and 2025 runs sourced)"
       ],
       "name": "ADMX",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
+      "notes": "Researched this session (2026-09-17): experiment, detector, collaboration records written; see docs/atlas-worklog/axions.md.",
+      "owner": "axions",
       "priority": 4,
-      "researched": "none",
+      "researched": "partial",
+      "status": "active",
       "tier": "C",
-      "validated": false
+      "validated": true
     },
     {
       "category": "axion",
       "entity_id": "experiment:alps-ii",
-      "facility": "various",
-      "globe_ready": false,
+      "facility": "DESY",
+      "globe_ready": true,
       "missing_fields": [
-        "all"
+        "collaboration membership counts / leadership",
+        "results/documents records (non-flagship, full-depth extra, skipped)",
+        "key_specs (magnet count/field, resonator length) - no clean verbatim source found",
+        "ALPS II placement at site:desy-hera-north-hall-h1 is confidence: approximate, resting on a rank-12 Wikipedia source cited by the facilities lead's own site record, not a source fetched directly by axions"
       ],
       "name": "ALPS II",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
+      "notes": "Researched this session (2026-09-17): experiment, detector, collaboration records written; see docs/atlas-worklog/axions.md.",
+      "owner": "axions",
       "priority": 4,
-      "researched": "none",
+      "researched": "partial",
+      "status": "active",
       "tier": "C",
-      "validated": false
+      "validated": true
     },
     {
       "category": "axion",
       "entity_id": "experiment:cast",
-      "facility": "various",
-      "globe_ready": false,
+      "facility": "CERN",
+      "globe_ready": true,
       "missing_fields": [
-        "all"
+        "collaboration membership counts / leadership",
+        "results/documents records (non-flagship, full-depth extra, skipped)",
+        "numeric magnet field strength/length (no clean verbatim source found)",
+        "precise SR8 hall coordinate (site uses CERN Prevessin campus approximate fallback)"
       ],
       "name": "CAST",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
+      "notes": "Researched this session (2026-09-17): experiment, detector, collaboration records written; see docs/atlas-worklog/axions.md.",
+      "owner": "axions",
       "priority": 4,
-      "researched": "none",
+      "researched": "partial",
+      "status": "completed",
       "tier": "C",
-      "validated": false
+      "validated": true
     },
     {
       "category": "cevns",
       "entity_id": "experiment:coherent",
-      "facility": "ORNL / reactors",
-      "globe_ready": false,
+      "facility": "ORNL Spallation Neutron Source (Neutrino Alley)",
+      "globe_ready": true,
       "missing_fields": [
-        "all"
+        "exact CsI[Na]/CENNS-10/germanium/NaI installation dates (only bounded/approximate dates sourced, not exact)",
+        "collaboration leadership (spokesperson etc.; not sourced)",
+        "collaboration member_count headcount (only institution_count=21, country_count=4 sourced)",
+        "facility:oak-ridge-national-laboratory, site:ornl-sns-neutrino-alley, accelerator:sns (dangling references, owned by the facilities workstream)"
       ],
       "name": "COHERENT",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
+      "notes": "Flagship, full depth: experiment, 4 detectors (CsI[Na] 14.6 kg, CENNS-10 LAr 22 kg, Ge-Mini 17.6 kg / 8x2.2kg, NaI[Tl] 185 kg), collaboration (21 institutions/4 countries, formed 2013), 4 major results with verbatim titles (2017 observation, 2021 argon, 2022 CsI full dataset, 2024 germanium evidence), 1 technical document (2015 proposal arXiv:1509.08702), INSPIRE experiment recid 1486780 sourced. Host facility/site/accelerator are dangling references pending the facilities lead.",
+      "owner": "cevns",
       "priority": 4,
-      "researched": "none",
-      "tier": "C",
-      "validated": false
+      "researched": "full",
+      "tier": "A",
+      "validated": true
     },
     {
       "category": "cevns",
       "entity_id": "experiment:conus",
-      "facility": "ORNL / reactors",
-      "globe_ready": false,
+      "facility": "Brokdorf NPP (2018-2023) / Leibstadt NPP (from 2023)",
+      "globe_ready": true,
       "missing_fields": [
-        "all"
+        "collaboration formation date (not stated in any fetched source)",
+        "collaboration membership counts (no official collaboration page found/fetched)",
+        "official CONUS/CONUS+ website (not located; plausible MPIK URLs 404'd)",
+        "INSPIRE experiment record (searched inspirehep.net/api/experiments; zero results)",
+        "exact Brokdorf data-taking start date (Wikipedia states 2018-04-01 but is not usable as sole source of a critical value; left null)"
       ],
-      "name": "CONUS+",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
+      "name": "CONUS / CONUS+",
+      "notes": "One-experiment-record decision: CONUS+ is documented by its own overview paper (arXiv:2407.11912) as 'continuing ... the CONUS physics program' with 'the same four ... HPGe detectors ... refurbished', so recorded as a single experiment:conus record (not two lineage-linked records), with facility_roles/placements at both facility:brokdorf-nuclear-power-plant (2018-2023) and facility:leibstadt-nuclear-power-plant (from 2023), both created here with Wikipedia-sourced, campus-level, approximate coordinates. One detector record (4x1kg/2.83kg-active HPGe array) covers both phases.",
+      "owner": "cevns",
       "priority": 4,
-      "researched": "none",
+      "researched": "full",
       "tier": "C",
-      "validated": false
+      "validated": true
     },
     {
-      "category": "cosmic_ray",
+      "category": "gamma_ray",
       "entity_id": "experiment:ctao",
-      "facility": "various",
-      "globe_ready": false,
+      "facility": "Roque de los Muchachos, La Palma, Spain (North) and Paranal, Chile (South)",
+      "globe_ready": true,
       "missing_fields": [
-        "all"
+        "precise current construction phase / per-site installed telescope counts (as opposed to design maximums)",
+        "LST-1 and other individual telescope commissioning dates",
+        "array-centre decimal coordinates at both sites (only the wider host-observatory campuses were geocoded)",
+        "CTAO ERIC legal-establishment date",
+        "membership/institution/country counts"
       ],
       "name": "CTAO",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
+      "notes": "Two facilities (roque-de-los-muchachos-observatory, shared with MAGIC; ctao-south-paranal), one shared site under the Roque facility, one Paranal site, one experiment, one detector (two placements) and one collaboration record written. ctao.org's 'sites', 'arrays' and 'news' subpages returned 404 or empty JS shells on every attempt; only the homepage, about-us and technology pages yielded readable content.",
+      "owner": "cosmic-gamma",
       "priority": 4,
-      "researched": "none",
+      "researched": "partial",
+      "status": "construction",
       "tier": "B",
-      "validated": false
+      "validated": true
     },
     {
       "category": "axion",
       "entity_id": "experiment:dmradio",
-      "facility": "various",
-      "globe_ready": false,
+      "facility": "SLAC / Stanford University",
+      "globe_ready": true,
       "missing_fields": [
-        "all"
+        "collaboration membership counts / leadership",
+        "results/documents records (non-flagship, full-depth extra, skipped)",
+        "no INSPIRE experiment record found (external.inspire_experiment left null)",
+        "no dedicated official website found/fetched (links.website left null)",
+        "DMRadio-50L Stanford-campus site not created (facility:slac's own site is used for the DMRadio-m3 placement only)"
       ],
       "name": "DMRadio",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
+      "notes": "Researched this session (2026-09-17): experiment, detector, collaboration records written; see docs/atlas-worklog/axions.md.",
+      "owner": "axions",
       "priority": 4,
-      "researched": "none",
+      "researched": "partial",
+      "status": "construction",
       "tier": "C",
-      "validated": false
+      "validated": true
     },
     {
-      "category": "cosmic_ray",
+      "category": "gamma_ray",
       "entity_id": "experiment:h-e-s-s",
-      "facility": "various",
-      "globe_ready": false,
+      "facility": "Khomas Highland, Namibia",
+      "globe_ready": true,
       "missing_fields": [
-        "all"
+        "CT5 (H.E.S.S. II, 28 m telescope) commissioning date",
+        "exact country count (source says only 'more than a dozen')",
+        "collaboration institution count and formation date"
       ],
       "name": "H.E.S.S.",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
+      "notes": "Facility, site, experiment, detector and collaboration written from the official hess-experiment.eu site (homepage, site and about pages): exact coordinates/altitude, first-light 2002, five-telescope (4x12m+1x28m) configuration, ~200-scientist/dozen-plus-country collaboration. CT5's own commissioning date (commonly reported elsewhere as 2012) was deliberately left null: not confirmed by a source fetched this session.",
+      "owner": "cosmic-gamma",
       "priority": 4,
-      "researched": "none",
+      "researched": "partial",
+      "status": "active",
       "tier": "B",
-      "validated": false
+      "validated": true
     },
     {
-      "category": "cosmic_ray",
+      "category": "gamma_ray",
       "entity_id": "experiment:hawc",
-      "facility": "various",
-      "globe_ready": false,
+      "facility": "Sierra Negra, Mexico",
+      "globe_ready": true,
       "missing_fields": [
-        "all"
+        "water-tank count and array footprint coordinates (design-paper PDF text extraction failed; official site TLS-blocked all session)",
+        "collaboration institution/member/country counts",
+        "collaboration formation date"
       ],
       "name": "HAWC",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
+      "notes": "Facility, site, experiment, detector and collaboration written from collaboration arXiv papers. Altitude (4100 m) and construction/operations-start (March 2015) sourced; hawc-observatory.org and hawc.umd.edu both failed (TLS verification / redirect-to-blocked-domain) on every attempt.",
+      "owner": "cosmic-gamma",
       "priority": 4,
-      "researched": "none",
+      "researched": "partial",
+      "status": "active",
       "tier": "B",
-      "validated": false
+      "validated": true
     },
     {
       "category": "axion",
       "entity_id": "experiment:haystac",
-      "facility": "various",
-      "globe_ready": false,
+      "facility": "Yale University (Wright Laboratory)",
+      "globe_ready": true,
       "missing_fields": [
-        "all"
+        "collaboration membership counts / leadership",
+        "results/documents records (non-flagship, full-depth extra, skipped)",
+        "numeric magnet field strength and cavity volume (no clean verbatim source found)"
       ],
       "name": "HAYSTAC",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
+      "notes": "Researched this session (2026-09-17): experiment, detector, collaboration records written; see docs/atlas-worklog/axions.md.",
+      "owner": "axions",
       "priority": 4,
-      "researched": "none",
+      "researched": "partial",
+      "status": "active",
       "tier": "C",
-      "validated": false
+      "validated": true
     },
     {
       "category": "axion",
       "entity_id": "experiment:iaxo",
-      "facility": "various",
+      "facility": "DESY (planned/BabyIAXO under construction)",
       "globe_ready": false,
       "missing_fields": [
-        "all"
+        "collaboration membership counts / leadership",
+        "results/documents records (non-flagship, full-depth extra, skipped)",
+        "key_specs (magnet design field/bore) - no clean verbatim source found",
+        "exact BabyIAXO construction-start date (only a 2025 confirmation date sourced)"
       ],
       "name": "IAXO",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
+      "notes": "Researched this session (2026-09-17): experiment, detector, collaboration records written; see docs/atlas-worklog/axions.md.",
+      "owner": "axions",
       "priority": 4,
-      "researched": "none",
+      "researched": "partial",
+      "status": "construction",
       "tier": "C",
-      "validated": false
+      "validated": true
     },
     {
-      "category": "cosmic_ray",
+      "category": "gamma_ray",
       "entity_id": "experiment:lhaaso",
-      "facility": "various",
-      "globe_ready": false,
+      "facility": "Haizi Mountain, Daocheng, Sichuan, China",
+      "globe_ready": true,
       "missing_fields": [
-        "all"
+        "KM2A/WCDA/WFCTA sub-array unit counts and individual specifications",
+        "construction-start and full-array-completion dates",
+        "array-centre decimal coordinates (only a nearby route waypoint was geocoded)",
+        "collaboration institution/member/country counts and formation date"
       ],
       "name": "LHAASO",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
+      "notes": "Facility, site, experiment, detector and collaboration written. Altitude (4410 m) sourced from the LHAASO Science Book; 'currently operating' status sourced from a 2021 Nature/arXiv paper as a lower bound. The IHEP LHAASO site's Observatory/Site subpages render as empty JavaScript shells under WebFetch, so no official technical specifications were recovered.",
+      "owner": "cosmic-gamma",
       "priority": 4,
-      "researched": "none",
+      "researched": "partial",
+      "status": "active",
       "tier": "B",
-      "validated": false
+      "validated": true
     },
     {
-      "category": "cosmic_ray",
+      "category": "gamma_ray",
       "entity_id": "experiment:magic",
-      "facility": "various",
-      "globe_ready": false,
+      "facility": "Roque de los Muchachos, La Palma, Spain",
+      "globe_ready": true,
       "missing_fields": [
-        "all"
+        "site altitude (no source fetched this session states it)",
+        "distinguishing decimal coordinates from CTAO-North's telescopes at the same shared site",
+        "collaboration formation date and membership/institution/country counts"
       ],
       "name": "MAGIC",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
+      "notes": "Experiment, detector and collaboration written; facility and site are the ones shared with CTAO-North (facility:roque-de-los-muchachos-observatory, site:roque-de-los-muchachos-gamma-ray-array), created once by this same workstream. magic.mpp.mpg.de failed TLS verification on every attempt; all facts sourced from three collaboration arXiv papers (2004, 2009, 2014).",
+      "owner": "cosmic-gamma",
       "priority": 4,
-      "researched": "none",
+      "researched": "partial",
+      "status": "active",
       "tier": "B",
-      "validated": false
+      "validated": true
     },
     {
       "category": "cevns",
       "entity_id": "experiment:nucleus",
-      "facility": "ORNL / reactors",
-      "globe_ready": false,
+      "facility": "Chooz nuclear power plant (very-near site)",
+      "globe_ready": true,
       "missing_fields": [
-        "all"
+        "distance from the Chooz reactor core (collaboration says only 'very near'; no fetched source gives a number)",
+        "precise site coordinate (campus-level Chooz plant point used instead; A23 warning)",
+        "collaboration formation date and membership counts (no official page found/fetched)",
+        "official website and INSPIRE experiment record (not searched/found in this pass)",
+        "facility:chooz (dangling reference, owned by the reactor-solar-neutrino workstream)"
       ],
       "name": "NUCLEUS",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
+      "notes": "Status independently verified against a fetched 2026 primary source (arXiv:2603.24450, 'low-energy excess ... observed during commissioning'): commissioning, not just per the brief's secondhand note. Detector: gram-scale CaWO4/Al2O3 cryogenic calorimeter array, 7 g CaWO4 Technical Run target, 20 eV(nr) threshold. site:chooz-very-near-nucleus created here (campus-level, approximate coordinate) referencing the dangling facility:chooz.",
+      "owner": "cevns",
       "priority": 4,
-      "researched": "none",
+      "researched": "partial",
       "tier": "C",
-      "validated": false
+      "validated": true
     },
     {
       "category": "cosmic_ray",
       "entity_id": "experiment:pierre-auger-observatory",
-      "facility": "various",
-      "globe_ready": false,
+      "facility": "Pierre Auger Observatory, Malargue, Argentina",
+      "globe_ready": true,
       "missing_fields": [
-        "all"
+        "survey-grade coordinates for the array's own geometric centre (only the administrative campus address was geocoded)",
+        "site altitude figure",
+        "collaboration institution count",
+        "AugerPrime upgrade completion date"
       ],
       "name": "Pierre Auger Observatory",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
+      "notes": "Facility, site, experiment, detector and collaboration written. Rich sourced interval history (1995 proposal through the ongoing AugerPrime upgrade) from the observatory's own history page. Status is 'upgrade' per the A3 state-selection rule (see experiment notes).",
+      "owner": "cosmic-gamma",
       "priority": 4,
-      "researched": "none",
+      "researched": "partial",
+      "status": "upgrade",
       "tier": "B",
-      "validated": false
+      "validated": true
     },
     {
       "category": "cevns",
       "entity_id": "experiment:ricochet",
-      "facility": "ORNL / reactors",
-      "globe_ready": false,
+      "facility": "ILL Grenoble",
+      "globe_ready": true,
       "missing_fields": [
-        "all"
+        "precise final-array mass (only qualitative 'kg-scale' sourced for the full CryoCube; 126 g sourced for the mini-CryoCube commissioning module actually characterized)",
+        "collaboration formation date and membership counts (no official page found/fetched)",
+        "official website and INSPIRE experiment record (not found in this pass)",
+        "precise detector-hall coordinate (campus-level ILL point used instead; A23 warning)"
       ],
       "name": "Ricochet",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
+      "notes": "Status independently verified against a fetched 2025 primary source (arXiv:2507.22751, mini-CryoCube commissioning). facility:ill-grenoble and site:ill-grenoble-reactor-hall created here with a Wikipedia-sourced, campus-level, approximate coordinate (45.206239, 5.692774) and a 1967 founding interval. Detector 8.8 m from the 58 MW reactor core (arXiv:2208.01760).",
+      "owner": "cevns",
       "priority": 4,
-      "researched": "none",
+      "researched": "partial",
       "tier": "C",
-      "validated": false
+      "validated": true
     },
     {
       "category": "cosmic_ray",
       "entity_id": "experiment:telescope-array",
-      "facility": "various",
-      "globe_ready": false,
+      "facility": "Telescope Array, Delta, Utah",
+      "globe_ready": true,
       "missing_fields": [
-        "all"
+        "construction-start and collaboration-formation dates (official site unreachable all session)",
+        "array-centre decimal coordinates (only the town of Delta was geocoded)",
+        "membership/institution/country counts"
       ],
       "name": "Telescope Array",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
+      "notes": "Facility, site, experiment, detector and collaboration written from a 2026 collaboration arXiv paper (telescopearray.org and all known mirrors failed DNS/connection/502 on every attempt this session). Original array (507 SD, 38 FD telescopes, ~700 km^2) and TAx4 extension both recorded.",
+      "owner": "cosmic-gamma",
       "priority": 4,
-      "researched": "none",
+      "researched": "partial",
+      "status": "active",
       "tier": "B",
-      "validated": false
+      "validated": true
     },
     {
-      "category": "cosmic_ray",
+      "category": "gamma_ray",
       "entity_id": "experiment:veritas",
-      "facility": "various",
-      "globe_ready": false,
+      "facility": "Fred Lawrence Whipple Observatory, Mount Hopkins, Arizona",
+      "globe_ready": true,
       "missing_fields": [
-        "all"
+        "collaboration institution/member/country counts"
       ],
       "name": "VERITAS",
-      "notes": "Identified in the coverage scope; not yet researched.",
-      "owner": null,
+      "notes": "Fully sourced from VERITAS's own official site (specifications, about, and history-timeline pages): exact coordinates/altitude, full proposal-through-upgrade interval history, telescope count/mirror diameter/energy range. The most completely sourced record in this coverage file.",
+      "owner": "cosmic-gamma",
       "priority": 4,
-      "researched": "none",
+      "researched": "partial",
+      "status": "active",
       "tier": "B",
-      "validated": false
+      "validated": true
     }
   ],
   "schema": "hep-atlas/0.2"
