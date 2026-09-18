@@ -4025,7 +4025,7 @@
       "type": "beamline"
     }
   },
-  "build_date": "2026-09-17",
+  "build_date": "2026-09-18",
   "collaborations": {
     "collaboration:abracadabra": {
       "aliases": [],
@@ -6940,6 +6940,80 @@
       "status": "active",
       "summary": {
         "plain": "The collaboration of Yale, UC Berkeley, Lawrence Berkeley National Laboratory, and University of Colorado Boulder scientists running the HAYSTAC axion search."
+      },
+      "type": "collaboration"
+    },
+    "collaboration:homestake": {
+      "aliases": [],
+      "coverage": {
+        "researched": "partial",
+        "tier": "D"
+      },
+      "document_ids": [],
+      "experiment_ids": [
+        "experiment:homestake"
+      ],
+      "formation": null,
+      "host_facility_id": "facility:surf",
+      "host_site_id": "site:surf-surface-campus",
+      "id": "collaboration:homestake",
+      "intervals": [
+        {
+          "end": "1994",
+          "label": "collaboration active",
+          "start": "1970",
+          "status": "active"
+        },
+        {
+          "end": null,
+          "label": "collaboration completed",
+          "start": "1994",
+          "status": "completed"
+        }
+      ],
+      "leadership": [
+        {
+          "end": null,
+          "person_id": null,
+          "role": "spokesperson",
+          "start": null
+        }
+      ],
+      "links": {
+        "website": null
+      },
+      "membership": {
+        "as_of": null,
+        "country_count": null,
+        "evidence_class": "institutional_page",
+        "institution_count": null,
+        "member_count": null,
+        "roster_source_ids": []
+      },
+      "name": "Homestake Chlorine Experiment Collaboration",
+      "state_segments": [
+        [
+          240,
+          251,
+          "active",
+          "possible"
+        ],
+        [
+          252,
+          527,
+          "active",
+          "certain"
+        ],
+        [
+          528,
+          528,
+          "completed",
+          "possible"
+        ]
+      ],
+      "status": "completed",
+      "summary": {
+        "plain": "The small team led by Ray Davis (experiment) and John Bahcall (theory) that ran the Homestake chlorine experiment for over two decades."
       },
       "type": "collaboration"
     },
@@ -10034,6 +10108,68 @@
       },
       "type": "collaboration"
     },
+    "collaboration:sage": {
+      "aliases": [],
+      "coverage": {
+        "researched": "partial",
+        "tier": "D"
+      },
+      "document_ids": [],
+      "experiment_ids": [
+        "experiment:sage"
+      ],
+      "formation": null,
+      "host_facility_id": "facility:baksan-neutrino-observatory",
+      "host_site_id": "site:baksan-sage-underground-lab",
+      "id": "collaboration:sage",
+      "intervals": [
+        {
+          "end": null,
+          "label": "collaboration",
+          "start": "1989-12",
+          "status": "active"
+        }
+      ],
+      "leadership": [
+        {
+          "end": null,
+          "person_id": null,
+          "role": "spokesperson",
+          "start": null
+        }
+      ],
+      "links": {
+        "website": null
+      },
+      "membership": {
+        "as_of": null,
+        "country_count": null,
+        "evidence_class": "institutional_page",
+        "institution_count": null,
+        "member_count": null,
+        "roster_source_ids": []
+      },
+      "name": "SAGE Collaboration",
+      "state_segments": [
+        [
+          479,
+          479,
+          "active",
+          "possible"
+        ],
+        [
+          480,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
+      "summary": {
+        "plain": "The Russian-American team, including physicists Vladimir Gavrin, Georgiy Zatsepin and Thomas Bowles, who built and run the SAGE gallium solar-neutrino experiment."
+      },
+      "type": "collaboration"
+    },
     "collaboration:sbn": {
       "aliases": [
         "SBN Program",
@@ -10785,7 +10921,8 @@
       },
       "document_ids": [],
       "experiment_ids": [
-        "experiment:supercdms"
+        "experiment:supercdms",
+        "experiment:supercdms-soudan"
       ],
       "formation": null,
       "host_facility_id": "facility:snolab",
@@ -16668,6 +16805,85 @@
       ],
       "type": "detector"
     },
+    "detector:homestake": {
+      "aliases": [],
+      "coverage": {
+        "researched": "partial",
+        "tier": "D"
+      },
+      "document_ids": [],
+      "experiment_ids": [
+        "experiment:homestake"
+      ],
+      "id": "detector:homestake",
+      "intervals": [
+        {
+          "end": "1994",
+          "label": "continuous operation",
+          "start": "1970",
+          "status": "active"
+        },
+        {
+          "end": null,
+          "label": "shut down",
+          "start": "1994",
+          "status": "completed"
+        }
+      ],
+      "links": {
+        "website": null
+      },
+      "name": "Homestake chlorine detector",
+      "parent_detector_id": null,
+      "placements": [
+        {
+          "end": "1994",
+          "role": "main",
+          "site_id": "site:surf-surface-campus",
+          "start": "1970"
+        }
+      ],
+      "specs": {
+        "target_mass": {
+          "approx": false,
+          "dimension": "mass",
+          "display": null,
+          "unit": "t",
+          "value": null
+        }
+      },
+      "state_segments": [
+        [
+          240,
+          251,
+          "active",
+          "possible"
+        ],
+        [
+          252,
+          527,
+          "active",
+          "certain"
+        ],
+        [
+          528,
+          528,
+          "completed",
+          "possible"
+        ]
+      ],
+      "status": "completed",
+      "subsystems": [],
+      "summary": {
+        "plain": "A tank of dry-cleaning fluid, nearly a mile underground, that turned rare chlorine atoms into argon whenever a solar neutrino struck."
+      },
+      "technology": "Radiochemical chlorine detector: solar neutrinos capture on 37Cl to produce 37Ar via inverse beta decay in a large tank of perchloroethylene (dry-cleaning fluid), with the argon periodically extracted and counted",
+      "technology_class": "other",
+      "technology_classes": [
+        "other"
+      ],
+      "type": "detector"
+    },
     "detector:hyper-kamiokande": {
       "aliases": [
         "Hyper-K detector",
@@ -19847,14 +20063,7 @@
           "start": null
         }
       ],
-      "specs": {
-        "length": {
-          "approx": false,
-          "dimension": "length",
-          "unit": "m",
-          "value": 25
-        }
-      },
+      "specs": {},
       "state_segments": [
         [
           797,
@@ -22139,6 +22348,73 @@
       ],
       "type": "detector"
     },
+    "detector:sage": {
+      "aliases": [],
+      "coverage": {
+        "researched": "partial",
+        "tier": "D"
+      },
+      "document_ids": [],
+      "experiment_ids": [
+        "experiment:sage"
+      ],
+      "id": "detector:sage",
+      "intervals": [
+        {
+          "end": null,
+          "label": "primary data-taking",
+          "start": "1990-01",
+          "status": "active"
+        }
+      ],
+      "links": {
+        "website": null
+      },
+      "name": "SAGE gallium target",
+      "parent_detector_id": null,
+      "placements": [
+        {
+          "end": null,
+          "role": "main",
+          "site_id": "site:baksan-sage-underground-lab",
+          "start": "1990-01"
+        }
+      ],
+      "specs": {
+        "target_mass": {
+          "approx": true,
+          "dimension": "mass",
+          "display": "50-57 t liquid gallium",
+          "unit": "t",
+          "value": 50
+        }
+      },
+      "state_segments": [
+        [
+          480,
+          480,
+          "active",
+          "possible"
+        ],
+        [
+          481,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
+      "subsystems": [],
+      "summary": {
+        "plain": "Tonnes of liquid gallium metal, deep in a Russian mountain, that solar neutrinos occasionally turn into germanium, which scientists then extract and count."
+      },
+      "technology": "Radiochemical gallium detector: solar neutrinos capture on 71Ga to produce 71Ge via inverse beta decay in liquid gallium metal, which is chemically extracted and counted in periodic campaigns",
+      "technology_class": "other",
+      "technology_classes": [
+        "other"
+      ],
+      "type": "detector"
+    },
     "detector:sbnd": {
       "aliases": [
         "Short-Baseline Near Detector",
@@ -23374,12 +23650,6 @@
       "id": "detector:supercdms",
       "intervals": [
         {
-          "end": "2015",
-          "label": "Soudan operating",
-          "start": "2009",
-          "status": "active"
-        },
-        {
           "end": "2026-08",
           "label": "SNOLAB commissioning",
           "start": "2026-03",
@@ -23398,12 +23668,6 @@
       "name": "SuperCDMS detector",
       "parent_detector_id": null,
       "placements": [
-        {
-          "end": "2015",
-          "role": "main",
-          "site_id": "site:soudan-minos-far-detector",
-          "start": "2009"
-        },
         {
           "end": null,
           "role": "main",
@@ -23429,30 +23693,6 @@
         }
       },
       "state_segments": [
-        [
-          708,
-          719,
-          "active",
-          "possible"
-        ],
-        [
-          720,
-          779,
-          "active",
-          "certain"
-        ],
-        [
-          780,
-          791,
-          "active",
-          "possible"
-        ],
-        [
-          792,
-          913,
-          "unrecorded",
-          "possible"
-        ],
         [
           914,
           914,
@@ -23491,6 +23731,80 @@
         "plain": "Twenty-four silicon and germanium crystals, each the size of a hockey puck, cooled to a fraction of a degree above absolute zero more than a mile underground in Canada, watching for the faint vibration of a dark matter particle striking an atom."
       },
       "technology": "Cryogenic silicon and germanium crystal detectors (iZIP/HV-style ionization-and-phonon sensing), operated at 15-30 mK",
+      "technology_class": "germanium",
+      "technology_classes": [
+        "germanium",
+        "cryogenic_bolometer"
+      ],
+      "type": "detector"
+    },
+    "detector:supercdms-soudan": {
+      "aliases": [
+        "iZIP detector array (SuperCDMS Soudan)"
+      ],
+      "coverage": {
+        "researched": "partial",
+        "tier": "B"
+      },
+      "document_ids": [],
+      "experiment_ids": [
+        "experiment:supercdms-soudan"
+      ],
+      "id": "detector:supercdms-soudan",
+      "intervals": [
+        {
+          "end": "2015",
+          "label": "operating",
+          "start": "2009",
+          "status": "active"
+        },
+        {
+          "end": null,
+          "label": "completed",
+          "start": "2015",
+          "status": "completed"
+        }
+      ],
+      "links": {
+        "website": null
+      },
+      "name": "SuperCDMS Soudan detector (iZIP array)",
+      "parent_detector_id": null,
+      "placements": [
+        {
+          "end": "2015",
+          "role": "main",
+          "site_id": "site:soudan-minos-far-detector",
+          "start": "2009"
+        }
+      ],
+      "specs": {},
+      "state_segments": [
+        [
+          708,
+          719,
+          "active",
+          "possible"
+        ],
+        [
+          720,
+          779,
+          "active",
+          "certain"
+        ],
+        [
+          780,
+          780,
+          "completed",
+          "possible"
+        ]
+      ],
+      "status": "completed",
+      "subsystems": [],
+      "summary": {
+        "plain": "An array of cryogenic germanium and silicon crystal detectors, using an improved sensor design called iZIP, that ran in the Soudan mine in Minnesota from 2009 to 2015."
+      },
+      "technology": "iZIP (interleaved Z-sensitive Ionization and Phonon) cryogenic germanium/silicon detectors, an evolution of the CDMS-II detector design with improved surface-event background rejection",
       "technology_class": "germanium",
       "technology_classes": [
         "germanium",
@@ -26885,6 +27199,7 @@
       "result_ids": [
         "result:belle-ii-b-to-k-nunu-evidence-2023",
         "result:belle-ii-tau-mass-measurement-2023",
+        "result:belle-ii-vcb-measurement-2025",
         "result:superkekb-luminosity-world-record-2026"
       ],
       "secondary_kinds": [],
@@ -27017,10 +27332,10 @@
         "collaboration:borexino"
       ],
       "coverage": {
-        "globe_ready": false,
+        "globe_ready": true,
         "researched": "partial",
         "tier": "D",
-        "validated": false
+        "validated": true
       },
       "detector_ids": [
         "detector:borexino"
@@ -27644,7 +27959,13 @@
         }
       ],
       "kind": "direct_dark_matter",
-      "lineage": [],
+      "lineage": [
+        {
+          "derived": true,
+          "experiment_id": "experiment:supercdms-soudan",
+          "relation": "successor"
+        }
+      ],
       "links": {
         "website": "http://cdms.berkeley.edu/"
       },
@@ -27721,8 +28042,10 @@
         "collaboration:cms"
       ],
       "coverage": {
+        "globe_ready": true,
         "researched": "full",
-        "tier": "A"
+        "tier": "A",
+        "validated": true
       },
       "detector_ids": [
         "detector:cms"
@@ -29201,12 +29524,6 @@
       "id": "experiment:damic",
       "intervals": [
         {
-          "end": "2012-04",
-          "label": "Fermilab prototype",
-          "start": "2008-12",
-          "status": "active"
-        },
-        {
           "end": "2018",
           "label": "SNOLAB science run (thick CCDs)",
           "start": "2017",
@@ -29270,30 +29587,6 @@
         "site:snolab-underground-lab"
       ],
       "state_segments": [
-        [
-          707,
-          707,
-          "active",
-          "possible"
-        ],
-        [
-          708,
-          746,
-          "active",
-          "certain"
-        ],
-        [
-          747,
-          747,
-          "active",
-          "possible"
-        ],
-        [
-          748,
-          803,
-          "unrecorded",
-          "possible"
-        ],
         [
           804,
           827,
@@ -31378,10 +31671,10 @@
         "collaboration:gallex-gno"
       ],
       "coverage": {
-        "globe_ready": false,
+        "globe_ready": true,
         "researched": "partial",
         "tier": "D",
-        "validated": false
+        "validated": true
       },
       "detector_ids": [
         "detector:gallex-gno"
@@ -31691,9 +31984,15 @@
       "intervals": [
         {
           "end": null,
-          "label": "proposed",
+          "label": "full 200,000-antenna array proposed",
           "start": "2018-10",
           "status": "proposed"
+        },
+        {
+          "end": null,
+          "label": "GRANDProto300 prototype deployed and taking data",
+          "start": "2023-06",
+          "status": "commissioning"
         }
       ],
       "key_specs": [
@@ -31740,14 +32039,26 @@
         ],
         [
           826,
-          920,
+          880,
           "proposed",
+          "certain"
+        ],
+        [
+          881,
+          881,
+          "commissioning",
+          "possible"
+        ],
+        [
+          882,
+          920,
+          "commissioning",
           "certain"
         ]
       ],
-      "status": "proposed",
+      "status": "commissioning",
       "summary": {
-        "plain": "A proposed giant array of 200,000 radio antennas spread over a huge area, designed to catch the radio flash from ultra-high-energy cosmic rays and neutrinos. Small test versions are already running in China, France and Argentina."
+        "plain": "A giant planned array of 200,000 radio antennas spread over a huge area, designed to catch the radio flash from ultra-high-energy cosmic rays and neutrinos. Small test versions are already up and running in China, France and Argentina."
       },
       "topic_ids": [
         "topic:high-energy-astrophysical-neutrinos",
@@ -32271,6 +32582,122 @@
       "topic_ids": [
         "topic:axions-alps",
         "topic:direct-dark-matter-detection"
+      ],
+      "type": "experiment"
+    },
+    "experiment:homestake": {
+      "accelerator_ids": [],
+      "aliases": [
+        "Davis experiment",
+        "Homestake solar neutrino experiment"
+      ],
+      "beamline_ids": [],
+      "collaboration_ids": [
+        "collaboration:homestake"
+      ],
+      "coverage": {
+        "globe_ready": true,
+        "researched": "partial",
+        "tier": "D",
+        "validated": true
+      },
+      "detector_ids": [
+        "detector:homestake"
+      ],
+      "document_ids": [],
+      "energy_regime": null,
+      "external": {
+        "greybook": null,
+        "inspire_experiment": 1110247,
+        "wikidata": null
+      },
+      "facility_ids": [
+        "facility:surf"
+      ],
+      "facility_roles": [
+        {
+          "end": null,
+          "facility_id": "facility:surf",
+          "role": "host",
+          "start": null
+        }
+      ],
+      "id": "experiment:homestake",
+      "intervals": [
+        {
+          "end": "1994",
+          "label": "continuous operation",
+          "start": "1970",
+          "status": "active"
+        },
+        {
+          "end": null,
+          "label": "completed",
+          "start": "1994",
+          "status": "completed"
+        }
+      ],
+      "key_specs": [
+        {
+          "label": "Target volume (perchloroethylene)",
+          "quantity": {
+            "approx": false,
+            "dimension": "volume",
+            "display": "380 m3 (100,000 gallons) perchloroethylene",
+            "unit": "m^3",
+            "value": 380
+          }
+        },
+        {
+          "label": "Depth",
+          "quantity": {
+            "approx": false,
+            "dimension": "length",
+            "display": "1478 m (4850 ft)",
+            "unit": "m",
+            "value": 1478
+          }
+        }
+      ],
+      "kind": "solar_neutrino",
+      "lineage": [],
+      "links": {
+        "website": null
+      },
+      "name": "Homestake chlorine experiment",
+      "result_ids": [
+        "result:homestake-flux-measurement-1998"
+      ],
+      "secondary_kinds": [],
+      "site_ids": [
+        "site:surf-surface-campus"
+      ],
+      "state_segments": [
+        [
+          240,
+          251,
+          "active",
+          "possible"
+        ],
+        [
+          252,
+          527,
+          "active",
+          "certain"
+        ],
+        [
+          528,
+          528,
+          "completed",
+          "possible"
+        ]
+      ],
+      "status": "completed",
+      "summary": {
+        "plain": "A tank of dry-cleaning fluid nearly a mile underground in a South Dakota gold mine, run for decades by Ray Davis, that made the first direct detection of solar neutrinos and found far fewer than expected — a puzzle not solved for thirty years."
+      },
+      "topic_ids": [
+        "topic:solar-neutrinos"
       ],
       "type": "experiment"
     },
@@ -37637,15 +38064,6 @@
             "unit": "",
             "value": 2.5e-17
           }
-        },
-        {
-          "label": "Superconducting solenoid system length",
-          "quantity": {
-            "approx": false,
-            "dimension": "length",
-            "unit": "m",
-            "value": 25
-          }
         }
       ],
       "kind": "muon_precision",
@@ -38879,7 +39297,7 @@
       "energy_regime": "Off-axis NuMI wide-band beam peaked at 1.8 GeV",
       "external": {
         "greybook": null,
-        "inspire_experiment": null,
+        "inspire_experiment": 1108441,
         "wikidata": null
       },
       "facility_ids": [
@@ -38982,7 +39400,8 @@
       },
       "name": "NOvA",
       "result_ids": [
-        "result:nova-oscillation-parameters-2022"
+        "result:nova-oscillation-parameters-2022",
+        "result:nova-t2k-joint-oscillation-analysis-2025"
       ],
       "secondary_kinds": [],
       "site_ids": [
@@ -39498,9 +39917,15 @@
       "intervals": [
         {
           "end": null,
-          "label": "proposed",
+          "label": "full array proposed",
           "start": "2020-05",
           "status": "proposed"
+        },
+        {
+          "end": null,
+          "label": "pathfinder programme deployed and taking data (STRAW active; P-ONE-1 integrated/tested, first line not yet deployed)",
+          "start": "2019-01",
+          "status": "commissioning"
         }
       ],
       "key_specs": [
@@ -39528,21 +39953,21 @@
       ],
       "state_segments": [
         [
-          844,
-          844,
-          "proposed",
+          828,
+          828,
+          "commissioning",
           "possible"
         ],
         [
-          845,
+          829,
           920,
-          "proposed",
+          "commissioning",
           "certain"
         ]
       ],
-      "status": "proposed",
+      "status": "commissioning",
       "summary": {
-        "plain": "A proposed neutrino telescope planned for the deep Pacific Ocean off Canada's west coast, building on an undersea science network. Small pathfinder instruments have already been tested there; the full telescope is still being built up piece by piece."
+        "plain": "A planned neutrino telescope for the deep Pacific Ocean off Canada's west coast, building on an undersea science network. A small pathfinder instrument has been actively taking data there since 2019, proving the technology, while the full telescope and its first production line are still being built."
       },
       "topic_ids": [
         "topic:high-energy-astrophysical-neutrinos",
@@ -40491,6 +40916,130 @@
       "topic_ids": [
         "topic:high-energy-astrophysical-neutrinos",
         "topic:cosmic-rays"
+      ],
+      "type": "experiment"
+    },
+    "experiment:sage": {
+      "accelerator_ids": [],
+      "aliases": [
+        "Soviet-American Gallium Experiment",
+        "Russian-American Gallium Experiment"
+      ],
+      "beamline_ids": [],
+      "collaboration_ids": [
+        "collaboration:sage"
+      ],
+      "coverage": {
+        "globe_ready": true,
+        "researched": "partial",
+        "tier": "D",
+        "validated": true
+      },
+      "detector_ids": [
+        "detector:sage"
+      ],
+      "document_ids": [],
+      "energy_regime": null,
+      "external": {
+        "greybook": null,
+        "inspire_experiment": 1109179,
+        "wikidata": null
+      },
+      "facility_ids": [
+        "facility:baksan-neutrino-observatory"
+      ],
+      "facility_roles": [
+        {
+          "end": null,
+          "facility_id": "facility:baksan-neutrino-observatory",
+          "role": "host",
+          "start": null
+        }
+      ],
+      "id": "experiment:sage",
+      "intervals": [
+        {
+          "end": "1990-01",
+          "label": "construction / start",
+          "start": "1989-12",
+          "status": "construction"
+        },
+        {
+          "end": "2007-12",
+          "label": "primary data-taking",
+          "start": "1990-01",
+          "status": "active"
+        },
+        {
+          "end": null,
+          "label": "continued operations",
+          "start": "2007-12",
+          "status": "active"
+        }
+      ],
+      "key_specs": [
+        {
+          "label": "Gallium target mass",
+          "quantity": {
+            "approx": true,
+            "dimension": "mass",
+            "display": "50-57 t liquid gallium",
+            "unit": "t",
+            "value": 50
+          }
+        }
+      ],
+      "kind": "solar_neutrino",
+      "lineage": [],
+      "links": {
+        "website": null
+      },
+      "name": "SAGE",
+      "result_ids": [
+        "result:sage-capture-rate-1999"
+      ],
+      "secondary_kinds": [],
+      "site_ids": [
+        "site:baksan-sage-underground-lab"
+      ],
+      "state_segments": [
+        [
+          479,
+          479,
+          "construction",
+          "possible"
+        ],
+        [
+          480,
+          480,
+          "active",
+          "possible"
+        ],
+        [
+          481,
+          694,
+          "active",
+          "certain"
+        ],
+        [
+          695,
+          695,
+          "active",
+          "possible"
+        ],
+        [
+          696,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
+      "summary": {
+        "plain": "An experiment deep inside a Russian mountain that uses tonnes of liquid gallium metal to catch the Sun's lowest-energy neutrinos."
+      },
+      "topic_ids": [
+        "topic:solar-neutrinos"
       ],
       "type": "experiment"
     },
@@ -42137,6 +42686,7 @@
       "name": "Super-Kamiokande",
       "result_ids": [
         "result:sk-atmospheric-oscillation-evidence-1998",
+        "result:sk-dsnb-limit-2025",
         "result:sk-gd-first-antineutrino-search-2023",
         "result:sk-solar-neutrino-measurement-2024"
       ],
@@ -42256,8 +42806,7 @@
       "accelerator_ids": [],
       "aliases": [
         "Super Cryogenic Dark Matter Search",
-        "SuperCDMS SNOLAB",
-        "SuperCDMS Soudan"
+        "SuperCDMS SNOLAB"
       ],
       "beamline_ids": [],
       "collaboration_ids": [
@@ -42272,6 +42821,9 @@
       "detector_ids": [
         "detector:supercdms"
       ],
+      "distinct_from": [
+        "experiment:supercdms-soudan"
+      ],
       "document_ids": [],
       "energy_regime": "Low-mass WIMPs, smaller than about ten proton masses",
       "external": {
@@ -42280,16 +42832,9 @@
         "wikidata": null
       },
       "facility_ids": [
-        "facility:snolab",
-        "facility:soudan-underground-laboratory"
+        "facility:snolab"
       ],
       "facility_roles": [
-        {
-          "end": "2015",
-          "facility_id": "facility:soudan-underground-laboratory",
-          "role": "host",
-          "start": "2009"
-        },
         {
           "end": null,
           "facility_id": "facility:snolab",
@@ -42299,24 +42844,6 @@
       ],
       "id": "experiment:supercdms",
       "intervals": [
-        {
-          "end": "2006",
-          "label": "Soudan: proposal",
-          "start": "2005",
-          "status": "proposed"
-        },
-        {
-          "end": "2009",
-          "label": "Soudan: approval",
-          "start": "2006",
-          "status": "approved"
-        },
-        {
-          "end": "2015",
-          "label": "Soudan: data taking (SuperCDMS Soudan)",
-          "start": "2009",
-          "status": "active"
-        },
         {
           "end": "2014",
           "label": "SNOLAB: proposal",
@@ -42372,7 +42899,12 @@
         }
       ],
       "kind": "direct_dark_matter",
-      "lineage": [],
+      "lineage": [
+        {
+          "experiment_id": "experiment:supercdms-soudan",
+          "relation": "upgrade_of"
+        }
+      ],
       "links": {
         "website": "https://supercdms.slac.stanford.edu/"
       },
@@ -42380,48 +42912,23 @@
       "result_ids": [],
       "secondary_kinds": [],
       "site_ids": [
-        "site:snolab-underground-lab",
-        "site:soudan-minos-far-detector"
+        "site:snolab-underground-lab"
       ],
       "state_segments": [
         [
-          660,
-          671,
+          756,
+          767,
           "proposed",
           "possible"
         ],
         [
-          672,
-          683,
-          "approved",
-          "possible"
-        ],
-        [
-          684,
-          707,
-          "approved",
-          "certain"
-        ],
-        [
-          708,
-          719,
-          "active",
-          "possible"
-        ],
-        [
-          720,
+          768,
           779,
-          "active",
-          "certain"
+          "approved",
+          "possible"
         ],
         [
           780,
-          791,
-          "active",
-          "possible"
-        ],
-        [
-          792,
           819,
           "approved",
           "certain"
@@ -42465,7 +42972,142 @@
       ],
       "status": "active",
       "summary": {
-        "plain": "SuperCDMS looks for dark matter using silicon and germanium crystals cooled almost to absolute zero. It first ran at the Soudan mine in Minnesota until 2015, and its bigger successor is now starting up nearly a mile underground at SNOLAB in Canada, aiming at very light dark matter particles."
+        "plain": "SuperCDMS SNOLAB looks for dark matter using silicon and germanium crystals cooled almost to absolute zero. It is the successor to an earlier version of the experiment that ran at the Soudan mine in Minnesota until 2015, and is now starting up nearly a mile underground at SNOLAB in Canada, aiming at very light dark matter particles."
+      },
+      "topic_ids": [
+        "topic:dark-matter",
+        "topic:direct-dark-matter-detection"
+      ],
+      "type": "experiment"
+    },
+    "experiment:supercdms-soudan": {
+      "accelerator_ids": [],
+      "aliases": [
+        "Super Cryogenic Dark Matter Search at Soudan Mine"
+      ],
+      "beamline_ids": [],
+      "collaboration_ids": [
+        "collaboration:supercdms"
+      ],
+      "coverage": {
+        "globe_ready": true,
+        "researched": "partial",
+        "tier": "B",
+        "validated": true
+      },
+      "detector_ids": [
+        "detector:supercdms-soudan"
+      ],
+      "distinct_from": [
+        "experiment:supercdms"
+      ],
+      "document_ids": [],
+      "external": {
+        "greybook": null,
+        "inspire_experiment": 1298909,
+        "wikidata": null
+      },
+      "facility_ids": [
+        "facility:soudan-underground-laboratory"
+      ],
+      "facility_roles": [
+        {
+          "end": "2015",
+          "facility_id": "facility:soudan-underground-laboratory",
+          "role": "host",
+          "start": "2009"
+        }
+      ],
+      "id": "experiment:supercdms-soudan",
+      "intervals": [
+        {
+          "end": "2006",
+          "label": "proposal",
+          "start": "2005",
+          "status": "proposed"
+        },
+        {
+          "end": "2009",
+          "label": "approval",
+          "start": "2006",
+          "status": "approved"
+        },
+        {
+          "end": "2015",
+          "label": "data taking (iZIP detectors)",
+          "start": "2009",
+          "status": "active"
+        },
+        {
+          "end": null,
+          "label": "completed",
+          "start": "2015",
+          "status": "completed"
+        }
+      ],
+      "key_specs": [],
+      "kind": "direct_dark_matter",
+      "lineage": [
+        {
+          "experiment_id": "experiment:cdms-ii",
+          "relation": "predecessor"
+        },
+        {
+          "derived": true,
+          "experiment_id": "experiment:supercdms",
+          "relation": "upgraded_to"
+        }
+      ],
+      "links": {
+        "website": null
+      },
+      "name": "SuperCDMS Soudan",
+      "result_ids": [],
+      "secondary_kinds": [],
+      "site_ids": [
+        "site:soudan-minos-far-detector"
+      ],
+      "state_segments": [
+        [
+          660,
+          671,
+          "proposed",
+          "possible"
+        ],
+        [
+          672,
+          683,
+          "approved",
+          "possible"
+        ],
+        [
+          684,
+          707,
+          "approved",
+          "certain"
+        ],
+        [
+          708,
+          719,
+          "active",
+          "possible"
+        ],
+        [
+          720,
+          779,
+          "active",
+          "certain"
+        ],
+        [
+          780,
+          780,
+          "completed",
+          "possible"
+        ]
+      ],
+      "status": "completed",
+      "summary": {
+        "plain": "The first-generation SuperCDMS dark matter detector, which ran in the Soudan mine in Minnesota from about 2009 until 2015, using an improved version of the CDMS II crystal detectors before the experiment moved to a larger site in Canada."
       },
       "topic_ids": [
         "topic:dark-matter",
@@ -42607,6 +43249,48 @@
           "status": "active"
         }
       ],
+      "key_specs": [
+        {
+          "label": "Baseline",
+          "quantity": {
+            "approx": true,
+            "dimension": "length",
+            "display": "295 km",
+            "unit": "km",
+            "value": 295
+          }
+        },
+        {
+          "label": "Off-axis angle",
+          "quantity": {
+            "approx": true,
+            "dimension": "angle",
+            "display": "2.5° (2.504° measured)",
+            "unit": "deg",
+            "value": 2.5
+          }
+        },
+        {
+          "label": "ND280 magnet field",
+          "quantity": {
+            "approx": false,
+            "dimension": "magnetic_field",
+            "display": "0.2 T",
+            "unit": "T",
+            "value": 0.2
+          }
+        },
+        {
+          "label": "Beam power (design)",
+          "quantity": {
+            "approx": true,
+            "dimension": "power",
+            "display": "~750 kW",
+            "unit": "kW",
+            "value": 750
+          }
+        }
+      ],
       "kind": "accelerator_neutrino",
       "lineage": [
         {
@@ -42619,6 +43303,7 @@
       },
       "name": "T2K (Tokai to Kamioka)",
       "result_ids": [
+        "result:nova-t2k-joint-oscillation-analysis-2025",
         "result:t2k-cp-violation-constraint-2020",
         "result:t2k-electron-neutrino-appearance-observation-2014",
         "result:t2k-electron-neutrino-indication-2011"
@@ -44450,6 +45135,81 @@
       "topic_ids": [
         "topic:high-energy-astrophysical-neutrinos",
         "topic:multimessenger-astrophysics"
+      ],
+      "type": "facility"
+    },
+    "facility:baksan-neutrino-observatory": {
+      "accelerator_ids": [],
+      "aliases": [
+        "BNO"
+      ],
+      "beamline_ids": [],
+      "countries": [
+        "RU"
+      ],
+      "country": [
+        "RU"
+      ],
+      "coverage": {
+        "researched": "partial",
+        "tier": "D"
+      },
+      "document_ids": [],
+      "experiment_ids": [
+        "experiment:sage"
+      ],
+      "id": "facility:baksan-neutrino-observatory",
+      "institution_id": null,
+      "intervals": [
+        {
+          "end": null,
+          "label": "hosting SAGE",
+          "start": "1989-12",
+          "status": "active"
+        }
+      ],
+      "kind": "underground_laboratory",
+      "links": {
+        "website": null
+      },
+      "name": "Baksan Neutrino Observatory",
+      "operator": "Institute for Nuclear Research of the Russian Academy of Sciences (INR RAS)",
+      "operator_ids": [],
+      "operator_text": "Institute for Nuclear Research of the Russian Academy of Sciences (INR RAS)",
+      "primary_site_id": "site:baksan-sage-underground-lab",
+      "related_facility_ids": [],
+      "site_ids": [
+        "site:baksan-sage-underground-lab"
+      ],
+      "specs": {
+        "depth": {
+          "approx": false,
+          "dimension": "length",
+          "display": "2100 m (6900 ft)",
+          "unit": "m",
+          "value": 2100
+        }
+      },
+      "state_segments": [
+        [
+          479,
+          479,
+          "active",
+          "possible"
+        ],
+        [
+          480,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
+      "summary": {
+        "plain": "An underground laboratory dug into a mountain in the Russian Caucasus, more than two kilometres of rock overhead, built to study neutrinos from the Sun and elsewhere."
+      },
+      "topic_ids": [
+        "topic:solar-neutrinos"
       ],
       "type": "facility"
     },
@@ -47329,7 +48089,7 @@
         "experiment:cdms-ii",
         "experiment:minos",
         "experiment:minos-plus",
-        "experiment:supercdms"
+        "experiment:supercdms-soudan"
       ],
       "id": "facility:soudan-underground-laboratory",
       "institution_id": null,
@@ -47507,6 +48267,7 @@
       "document_ids": [],
       "experiment_ids": [
         "experiment:dune",
+        "experiment:homestake",
         "experiment:lux",
         "experiment:lz",
         "experiment:majorana-demonstrator"
@@ -47867,7 +48628,7 @@
         {
           "end": null,
           "label": "operating",
-          "start": "2018",
+          "start": "2010",
           "status": "active"
         }
       ],
@@ -47886,13 +48647,13 @@
       "specs": {},
       "state_segments": [
         [
-          816,
-          827,
+          720,
+          731,
           "active",
           "possible"
         ],
         [
-          828,
+          732,
           920,
           "active",
           "certain"
@@ -48264,6 +49025,83 @@
       },
       "type": "site"
     },
+    "site:baksan-sage-underground-lab": {
+      "aliases": [],
+      "altitude": null,
+      "coordinates": {
+        "approximate": true,
+        "kind": "campus",
+        "lat": 43.2756,
+        "lon": 42.6903,
+        "precision_m": 3000
+      },
+      "countries": [
+        "RU"
+      ],
+      "country": "RU",
+      "coverage": {
+        "researched": "partial",
+        "tier": "D"
+      },
+      "depth": {
+        "approx": false,
+        "dimension": "length",
+        "display": "2100 m (6900 ft)",
+        "unit": "m",
+        "value": 2100
+      },
+      "depth_mwe": null,
+      "document_ids": [],
+      "facility_id": "facility:baksan-neutrino-observatory",
+      "id": "site:baksan-sage-underground-lab",
+      "links": {
+        "website": null
+      },
+      "name": "Baksan SAGE underground laboratory",
+      "place": {
+        "city": null,
+        "country": "RU",
+        "region": "Kabardino-Balkaria, Caucasus Mountains"
+      },
+      "setting": "underground",
+      "state_segments": [
+        [
+          479,
+          479,
+          "construction",
+          "possible"
+        ],
+        [
+          480,
+          480,
+          "active",
+          "possible"
+        ],
+        [
+          481,
+          694,
+          "active",
+          "certain"
+        ],
+        [
+          695,
+          695,
+          "active",
+          "possible"
+        ],
+        [
+          696,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
+      "summary": {
+        "plain": "A chamber more than two kilometres inside a mountain in the Russian Caucasus, holding tonnes of liquid gallium metal to catch solar neutrinos."
+      },
+      "type": "site"
+    },
     "site:bnl-rhic-ip6-star": {
       "aliases": [
         "STAR interaction region",
@@ -48630,19 +49468,19 @@
       "setting": "sea",
       "state_segments": [
         [
-          844,
-          844,
-          "proposed",
+          828,
+          828,
+          "commissioning",
           "possible"
         ],
         [
-          845,
+          829,
           920,
-          "proposed",
+          "commissioning",
           "certain"
         ]
       ],
-      "status": "proposed",
+      "status": "commissioning",
       "summary": {
         "plain": "A deep patch of the Pacific Ocean floor off the west coast of Vancouver Island, Canada, more than 2.6 kilometres down, where a planned neutrino telescope will one day be built using an existing undersea cable network."
       },
@@ -51169,18 +52007,18 @@
         ],
         [
           633,
-          706,
+          719,
           "active",
           "certain"
         ],
         [
-          707,
-          707,
+          720,
+          724,
           "active",
           "possible"
         ],
         [
-          708,
+          725,
           746,
           "active",
           "certain"
@@ -51582,12 +52420,24 @@
         ],
         [
           826,
-          920,
+          880,
           "proposed",
+          "certain"
+        ],
+        [
+          881,
+          881,
+          "commissioning",
+          "possible"
+        ],
+        [
+          882,
+          920,
+          "commissioning",
           "certain"
         ]
       ],
-      "status": "proposed",
+      "status": "commissioning",
       "summary": {
         "plain": "A stretch of the Gobi Desert north of the city of Dunhuang, China, where a prototype array of radio antennas is testing technology for the giant GRAND project."
       },
@@ -55178,42 +56028,6 @@
           "possible"
         ],
         [
-          683,
-          683,
-          "approved",
-          "possible"
-        ],
-        [
-          684,
-          706,
-          "approved",
-          "certain"
-        ],
-        [
-          707,
-          707,
-          "active",
-          "possible"
-        ],
-        [
-          708,
-          746,
-          "active",
-          "certain"
-        ],
-        [
-          747,
-          747,
-          "active",
-          "possible"
-        ],
-        [
-          748,
-          755,
-          "active",
-          "certain"
-        ],
-        [
           756,
           767,
           "active",
@@ -55429,6 +56243,18 @@
         ],
         [
           765,
+          779,
+          "active",
+          "certain"
+        ],
+        [
+          780,
+          780,
+          "completed",
+          "possible"
+        ],
+        [
+          781,
           796,
           "active",
           "certain"
@@ -55438,51 +56264,9 @@
           797,
           "completed",
           "possible"
-        ],
-        [
-          798,
-          819,
-          "approved",
-          "certain"
-        ],
-        [
-          820,
-          820,
-          "construction",
-          "possible"
-        ],
-        [
-          821,
-          913,
-          "construction",
-          "certain"
-        ],
-        [
-          914,
-          914,
-          "commissioning",
-          "possible"
-        ],
-        [
-          915,
-          918,
-          "commissioning",
-          "certain"
-        ],
-        [
-          919,
-          919,
-          "active",
-          "possible"
-        ],
-        [
-          920,
-          920,
-          "active",
-          "certain"
         ]
       ],
-      "status": "active",
+      "status": "completed",
       "summary": {
         "plain": "The purpose-built cavern half a mile underground in the old Soudan iron mine that held the MINOS far detector, 735 kilometres from the neutrino beam that was aimed at it."
       },
@@ -56033,6 +56817,27 @@
         "region": "South Dakota"
       },
       "setting": "surface",
+      "state_segments": [
+        [
+          240,
+          251,
+          "active",
+          "possible"
+        ],
+        [
+          252,
+          527,
+          "active",
+          "certain"
+        ],
+        [
+          528,
+          528,
+          "completed",
+          "possible"
+        ]
+      ],
+      "status": "completed",
       "summary": {
         "plain": "The above-ground part of the Sanford laboratory in Lead, South Dakota, with the shafts, offices and assembly buildings that serve the experiments a mile below."
       },
@@ -57209,5 +58014,5 @@
       "type": "topic"
     }
   },
-  "version": "5901a7f8c235db25"
+  "version": "3e7693911c6a2145"
 }

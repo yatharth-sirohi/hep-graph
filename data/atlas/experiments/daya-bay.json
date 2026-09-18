@@ -26,40 +26,52 @@
   "topic_ids": ["topic:reactor-neutrinos", "topic:neutrino-oscillations"],
   "intervals": [
     {
-      "label": "6-AD data-taking period used in the 2012 discovery",
+      "label": "six-AD configuration (includes the 2012 discovery)",
       "status": "active",
-      "start": null,
-      "end": null,
-      "sources": ["src:daya-bay-discovery-2012"],
-      "verified_at": "2026-09-17",
-      "confidence": "uncertain",
-      "quote": "This corresponds to a 43000 ton-GW_th-day exposure accumulated in 55 days",
-      "locator": "arXiv:1203.1669 abstract",
-      "note": "The 2012 discovery paper reports a 55-day exposure but no explicit calendar start/end date was seen verbatim in the fetched abstract; both bounds are left null rather than guessed."
+      "start": "2011-12-24",
+      "end": "2012-07-28",
+      "sources": ["src:reactor-solar-verify-daya-bay-final-prl-2023"],
+      "verified_at": "2026-09-18",
+      "confidence": "verified",
+      "quote": "From 24 December 2011 to 28 July 2012 (217 days), the experiment ran in an initial six-AD configuration",
+      "locator": "arXiv:2211.14988 = PRL 130, 161802 (2023)",
+      "note": "CORRECTED 2026-09-18: replaces the earlier null-dated interval (sourced only to a 55-day exposure figure in the 2012 discovery paper's abstract, with no calendar dates) with day-precision dates from the Daya Bay Collaboration's own final-result paper."
     },
     {
-      "label": "8-AD full configuration operation",
+      "label": "eight-AD full configuration operation",
       "status": "active",
-      "start": "2012",
-      "end": "2020",
-      "sources": ["src:daya-bay-detector-paper-2013", "src:daya-bay-wikipedia"],
-      "verified_at": "2026-09-17",
-      "confidence": "approximate",
-      "quote": "eight, functionally identical antineutrino detectors",
-      "locator": "arXiv:1309.1557 abstract (8-AD configuration); end year per Wikipedia infobox 'Operating Period: 2011–2020'",
-      "note": "Start year for the full 8-AD configuration is approximate (the 2012 discovery result used only 6 ADs; the near halls' remaining detectors were installed later in 2012 per general knowledge of the experiment, but no fetched source states the exact completion date of the 8-AD configuration)."
+      "start": "2012-10-19",
+      "end": "2016-12-20",
+      "sources": ["src:reactor-solar-verify-daya-bay-final-prl-2023"],
+      "verified_at": "2026-09-18",
+      "confidence": "verified",
+      "quote": "this eight-AD configuration was operated from 19 October 2012 until 20 December 2016 (1524 days)",
+      "locator": "arXiv:2211.14988 = PRL 130, 161802 (2023)",
+      "note": "CORRECTED 2026-09-18: replaces the earlier approximate '2012'-'2020' interval (sourced to Wikipedia and a detector-assembly paper abstract, with no exact dates) with day-precision dates from the Daya Bay Collaboration's own final-result paper. The prior interval conflated the eight-AD and seven-AD configurations into one row; they are now split (next interval)."
+    },
+    {
+      "label": "seven-AD configuration (one AD re-purposed for JUNO-related R&D)",
+      "status": "active",
+      "start": "2017-01-26",
+      "end": "2020-12-12",
+      "sources": ["src:reactor-solar-verify-daya-bay-final-prl-2023"],
+      "verified_at": "2026-09-18",
+      "confidence": "verified",
+      "quote": "Seven-AD operation occurred from 26 January 2017 until 12 December 2020 (1417 days) with one AD in EH1 re-purposed for liquid scintillator R&D for the JUNO experiment",
+      "locator": "arXiv:2211.14988 = PRL 130, 161802 (2023)",
+      "note": "CORRECTED 2026-09-18: new interval, split out from the prior single '8-AD' row. Final day of data taking (12 December 2020) is the source for the 'completed' interval below."
     },
     {
       "label": "completed",
       "status": "completed",
-      "start": "2020",
+      "start": "2020-12-12",
       "end": null,
-      "sources": ["src:daya-bay-wikipedia"],
-      "verified_at": "2026-09-17",
-      "confidence": "approximate",
-      "quote": "Operating Period: 2011–2020",
-      "locator": "Wikipedia infobox",
-      "note": "Only Wikipedia (rank 12) states an end date for the experiment; no official page or paper fetched this session confirms 2020 as the shutdown year."
+      "sources": ["src:reactor-solar-verify-daya-bay-final-prl-2023", "src:daya-bay-wikipedia"],
+      "verified_at": "2026-09-18",
+      "confidence": "verified",
+      "quote": "Seven-AD operation occurred from 26 January 2017 until 12 December 2020 (1417 days)",
+      "locator": "arXiv:2211.14988 = PRL 130, 161802 (2023)",
+      "note": "CORRECTED 2026-09-18: prior value ('2020', confidence approximate) was sourced only to Wikipedia; now day-precision and verified directly against the Daya Bay Collaboration's own final-result paper, which confirms the last day of data taking was 12 December 2020."
     }
   ],
   "physics_goals": [
@@ -149,7 +161,8 @@
     "src:daya-bay-inspire-experiment-record",
     "src:daya-bay-discovery-2012",
     "src:daya-bay-detector-paper-2013",
-    "src:daya-bay-wikipedia"
+    "src:daya-bay-wikipedia",
+    "src:reactor-solar-verify-daya-bay-final-prl-2023"
   ],
   "status": "completed",
   "summary": {

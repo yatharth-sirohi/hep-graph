@@ -5522,7 +5522,7 @@
     "/intervals/0": {
       "confidence": "approximate",
       "locator": "INSPIRE experiment record 1108553 (experiment proposal date; CERN Courier dates an earlier, informal organizing meeting to end of 1993, see notes)",
-      "note": "Start is the INSPIRE proposal date, used as a lower bound (see formation note; an informal organizing meeting is dated even earlier, to end of 1993).",
+      "note": "Start is the INSPIRE proposal date, used as a lower bound (see formation note; an informal organizing meeting is dated even earlier, to end of 1993). End date: Symmetry Magazine's own dateline is 2008-04-08, but its text says the last data was taken \"last night\", so the actual day could be 2008-04-07; INSPIRE's date_completed is month-precision only (2008-04). Verification review, 2026-09-17.",
       "quote": "date_proposed: 1994-06",
       "sources": [
         "src:colliders-historical-babar-inspire-experiment-record",
@@ -5531,9 +5531,9 @@
       "verified_at": "2026-09-17"
     },
     "/intervals/1": {
-      "confidence": "verified",
+      "confidence": "approximate",
       "locator": "Symmetry Magazine, \"End of PEP-II and BaBar runs at SLAC\" (2008-04-08)",
-      "note": "CERN Courier (2019) states the collaboration \"continues to publish impactful results\" after 2008; no end date for the collaboration itself (as opposed to data-taking) is sourced.",
+      "note": "CERN Courier (2019) states the collaboration \"continues to publish impactful results\" after 2008; no end date for the collaboration itself (as opposed to data-taking) is sourced. Start date: Symmetry Magazine's own dateline is 2008-04-08, but its text says the last data was taken \"last night\", so the actual day could be 2008-04-07; INSPIRE's date_completed is month-precision only (2008-04). Verification review, 2026-09-17.",
       "quote": "Last night, the beams were dumped for the final time from the PEP-II rings and the BaBar experiment took its last data.",
       "sources": [
         "src:colliders-historical-babar-symmetry-2008-pepii-end"
@@ -12112,6 +12112,59 @@
       "verified_at": null
     }
   },
+  "collaboration:homestake": {
+    "/formation": {
+      "confidence": "uncertain",
+      "locator": "INSPIRE experiment record 1110247",
+      "note": "No fetched source states an explicit formation date; Wikipedia says the experiment was 'headed by astrophysicists Raymond Davis, Jr. and John N. Bahcall in the late 1960s' without a precise date.",
+      "quote": null,
+      "sources": [
+        "src:homestake-inspire-experiment-record"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/intervals/0": {
+      "confidence": "approximate",
+      "locator": null,
+      "note": "Dates sourced from Wikipedia (rank 12) only.",
+      "quote": "The experiment operated continuously from 1970 until 1994.",
+      "sources": [
+        "src:homestake-wikipedia"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/intervals/1": {
+      "confidence": "approximate",
+      "locator": null,
+      "note": "Terminal event date sourced from Wikipedia (rank 12) only.",
+      "quote": "The experiment operated continuously from 1970 until 1994.",
+      "sources": [
+        "src:homestake-wikipedia"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/leadership/0": {
+      "confidence": "uncertain",
+      "locator": null,
+      "note": "Raymond Davis Jr. (apparatus/experiment) and John N. Bahcall (theoretical predictions) are named as having headed the experiment in the late 1960s, per Wikipedia; `person_id` left null per this wave's rule against creating people/ records. Davis shared the 2002 Nobel Prize in Physics for this work (general knowledge, not independently re-sourced this session).",
+      "quote": null,
+      "sources": [
+        "src:homestake-wikipedia"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:homestake-inspire-experiment-record",
+        "src:homestake-wikipedia"
+      ],
+      "verified_at": null
+    }
+  },
   "collaboration:hyper-kamiokande": {
     "/formation": {
       "confidence": "approximate",
@@ -13294,7 +13347,7 @@
       "confidence": "approximate",
       "locator": "SURF news",
       "note": "Lower bound is the sourced installation start (March 2012); true formation date not sourced.",
-      "quote": "The collaboration began installing the detector at the 4850 Level Davis Campus underground in March 2012.",
+      "quote": "The MAJORANA Collaboration began installing the “MAJORANA Demonstrator (MJD)” detector at the 4850 Level Davis Campus underground in March 2012.",
       "sources": [
         "src:majorana-demonstrator-surf-news"
       ],
@@ -14839,6 +14892,49 @@
       "sources": [
         "src:astro-neutrino-rno-g-official-site",
         "src:astro-neutrino-rno-g-design-paper-jinst-2021"
+      ],
+      "verified_at": null
+    }
+  },
+  "collaboration:sage": {
+    "/formation": {
+      "confidence": "uncertain",
+      "locator": "INSPIRE experiment record 1109179",
+      "note": "No fetched source states an explicit collaboration formation date.",
+      "quote": null,
+      "sources": [
+        "src:sage-inspire-experiment-record"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/intervals/0": {
+      "confidence": "uncertain",
+      "locator": null,
+      "note": "Start taken as a lower bound (start of construction).",
+      "quote": "Construction/Start: December 1989",
+      "sources": [
+        "src:sage-wikipedia"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/leadership/0": {
+      "confidence": "uncertain",
+      "locator": null,
+      "note": "Wikipedia names Vladimir Gavrin, Georgiy Zatsepin and Thomas J. Bowles as leading physicists on the experiment, without dates or explicit titles; `person_id` left null per this wave's rule against creating people/ records.",
+      "quote": null,
+      "sources": [
+        "src:sage-wikipedia"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:sage-inspire-experiment-record",
+        "src:sage-wikipedia"
       ],
       "verified_at": null
     }
@@ -18890,8 +18986,8 @@
     "/specs/isotope": {
       "confidence": "verified",
       "locator": "CUPID Experiment official site",
-      "note": "",
-      "quote": "Target Isotope: Molybdenum-100 (100Mo)",
+      "note": "Verification fix (2026-09-17): the previous `quote` (\"Target Isotope: Molybdenum-100 (100Mo)\") was not verbatim text on the page; replaced with the page's actual sentence naming the isotope.",
+      "quote": "the candidate isotope 100Mo has a Q-value of 3034 keV (compared to 2527 keV of 130Te)",
       "sources": [
         "src:cupid-experiment-official-page"
       ],
@@ -20486,7 +20582,7 @@
     "/intervals/0": {
       "confidence": "approximate",
       "locator": null,
-      "note": "",
+      "note": "Dates sourced from Wikipedia (rank 12) only.",
       "quote": "GALLEX: Operated from 1991 to 1997 ... GNO (successor): Continued from May 1998 to April 2003",
       "sources": [
         "src:gallex-wikipedia"
@@ -20496,7 +20592,7 @@
     "/intervals/1": {
       "confidence": "approximate",
       "locator": null,
-      "note": "",
+      "note": "Terminal event date sourced from Wikipedia (rank 12) only.",
       "quote": "GNO (successor): Continued from May 1998 to April 2003",
       "sources": [
         "src:gallex-wikipedia"
@@ -20526,7 +20622,7 @@
     "/specs/target_mass": {
       "confidence": "approximate",
       "locator": null,
-      "note": "",
+      "note": "Sourced from Wikipedia (rank 12) only this session.",
       "quote": "101 tons of gallium trichloride–hydrochloric acid solution, which contained 30.3 tons of gallium",
       "sources": [
         "src:gallex-wikipedia"
@@ -20943,6 +21039,69 @@
         "src:axions-haystac-prl-2025-phase-ii"
       ],
       "verified_at": "2026-09-17"
+    }
+  },
+  "detector:homestake": {
+    "/intervals/0": {
+      "confidence": "approximate",
+      "locator": null,
+      "note": "Dates sourced from Wikipedia (rank 12) only.",
+      "quote": "The experiment operated continuously from 1970 until 1994.",
+      "sources": [
+        "src:homestake-wikipedia"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/intervals/1": {
+      "confidence": "approximate",
+      "locator": null,
+      "note": "Terminal event date sourced from Wikipedia (rank 12) only.",
+      "quote": "The experiment operated continuously from 1970 until 1994.",
+      "sources": [
+        "src:homestake-wikipedia"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/placements/0": {
+      "confidence": "uncertain",
+      "locator": null,
+      "note": "site:surf-surface-campus (owned by the fermilab-dune workstream; not created or edited here) is a `kind: campus`/`confidence: approximate` point for the whole SURF/Homestake site, used here per this workstream's brief as the fallback when no distinct sourced coordinate exists for the Davis chlorine-tank chamber specifically. This detector was actually ~1478 m (4850 ft) underground, NOT at the surface; the placement's role/time are sourced, but the site point itself only marks the general campus location, not the true underground depth -- flagged in `missing_fields`.",
+      "quote": "positioned 1,478 meters (4,850 feet) underground",
+      "sources": [
+        "src:homestake-wikipedia"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:homestake-wikipedia",
+        "src:homestake-1998-flux-measurement"
+      ],
+      "verified_at": null
+    },
+    "/specs/target_mass": {
+      "confidence": "uncertain",
+      "locator": null,
+      "note": "Wikipedia gives target volume (380 m3 / 100,000 gallons of perchloroethylene) but no source fetched this session converts this to a mass; left null rather than computed from an assumed density.",
+      "quote": null,
+      "sources": [
+        "src:homestake-wikipedia"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/technology": {
+      "confidence": "verified",
+      "locator": null,
+      "note": "",
+      "quote": "using the inverse beta-decay reaction to measure solar neutrinos ... extraction and counting efficiencies",
+      "sources": [
+        "src:homestake-1998-flux-measurement"
+      ],
+      "verified_at": "2026-09-18"
     }
   },
   "detector:hyper-kamiokande": {
@@ -23070,7 +23229,7 @@
       "confidence": "verified",
       "locator": "SURF news / MAJORANA final-results paper",
       "note": "Operating interval; the single sourced row was split from its terminal event (A3, 2026-09-17).",
-      "quote": "The collaboration began installing the detector at the 4850 Level Davis Campus underground in March 2012.",
+      "quote": "The MAJORANA Collaboration began installing the “MAJORANA Demonstrator (MJD)” detector at the 4850 Level Davis Campus underground in March 2012.",
       "sources": [
         "src:majorana-demonstrator-surf-news",
         "src:majorana-demonstrator-final-results-arxiv-2207"
@@ -23081,7 +23240,7 @@
       "confidence": "verified",
       "locator": "SURF news / MAJORANA final-results paper",
       "note": "Terminal event derived from the end of the same sourced interval (A3, 2026-09-17).",
-      "quote": "The collaboration began installing the detector at the 4850 Level Davis Campus underground in March 2012.",
+      "quote": "The MAJORANA Collaboration began installing the “MAJORANA Demonstrator (MJD)” detector at the 4850 Level Davis Campus underground in March 2012.",
       "sources": [
         "src:majorana-demonstrator-surf-news",
         "src:majorana-demonstrator-final-results-arxiv-2207"
@@ -23888,16 +24047,6 @@
       ],
       "verified_at": null
     },
-    "/specs/length": {
-      "confidence": "verified",
-      "locator": null,
-      "note": "",
-      "quote": "the design and realization of a unique 25 m long superconducting solenoidal system.",
-      "sources": [
-        "src:muons-inspire-lit-mu2e-status-2026"
-      ],
-      "verified_at": "2026-09-17"
-    },
     "/technology": {
       "confidence": "verified",
       "locator": null,
@@ -24505,21 +24654,21 @@
   "detector:next-100": {
     "/intervals/0": {
       "confidence": "verified",
-      "locator": "NEXT official site",
-      "note": "",
-      "quote": "NEXT-100: commissioned May 2024, operational at LSC since May 2024, producing first physics results as of December 2025",
+      "locator": "NEXT news, \"The NEXT-100 Detector is Commissioned and Taking Data\" (2025-05-27)",
+      "note": "Verification fix (2026-09-17): the previous `quote` was a constructed summary, not verbatim text from any single fetched source; replaced and re-sourced (see experiment:next interval note for detail).",
+      "quote": "The NEXT collaboration is pleased to announce the publication of a detailed article describing the design, construction, and commissioning of the NEXT-100 detector, now fully operational at the Laboratorio Subterráneo de Canfranc (LSC) since May 2024.",
       "sources": [
-        "src:next-official-site"
+        "src:0vbb-verify-next-100-commissioned-news"
       ],
       "verified_at": "2026-09-17"
     },
     "/placements/0": {
       "confidence": "verified",
-      "locator": "NEXT official site",
-      "note": "site:lsc-canfranc is owned by the 'facilities' Wave 3 lead and does not exist yet in this repository (dangling reference).",
-      "quote": "NEXT-100: commissioned May 2024, operational at LSC since May 2024",
+      "locator": "NEXT news, \"The NEXT-100 Detector is Commissioned and Taking Data\" (2025-05-27)",
+      "note": "site:lsc-canfranc is owned by the 'facilities' Wave 3 lead. Verification fix (2026-09-17): the previous `quote` was a constructed summary, not verbatim; replaced and re-sourced.",
+      "quote": "now fully operational at the Laboratorio Subterráneo de Canfranc (LSC) since May 2024",
       "sources": [
-        "src:next-official-site"
+        "src:0vbb-verify-next-100-commissioned-news"
       ],
       "verified_at": "2026-09-17"
     },
@@ -24530,7 +24679,8 @@
       "quote": null,
       "sources": [
         "src:next-official-site",
-        "src:next-arxiv-1210-4020-original-proposal"
+        "src:next-arxiv-1210-4020-original-proposal",
+        "src:0vbb-verify-next-100-commissioned-news"
       ],
       "verified_at": null
     },
@@ -25850,6 +26000,58 @@
       "verified_at": "2026-09-17"
     }
   },
+  "detector:sage": {
+    "/intervals/0": {
+      "confidence": "uncertain",
+      "locator": null,
+      "note": "Wikipedia's own wording on the end date is ambiguous; `end` left null (ongoing at `verified_at`, §2.3) rather than asserting a firm shutdown or continuation.",
+      "quote": "Primary Data-Taking: January 1990 through December 2007 (168 extractions) ... End: August 2011, with continued operations thereafter",
+      "sources": [
+        "src:sage-wikipedia"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/placements/0": {
+      "confidence": "approximate",
+      "locator": null,
+      "note": "Placed at site:baksan-sage-underground-lab (owned by this workstream, created above).",
+      "quote": "Primary Data-Taking: January 1990 through December 2007 (168 extractions)",
+      "sources": [
+        "src:sage-wikipedia"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:sage-wikipedia"
+      ],
+      "verified_at": null
+    },
+    "/specs/target_mass": {
+      "confidence": "approximate",
+      "locator": null,
+      "note": "Sourced from Wikipedia (rank 12) only this session.",
+      "quote": "Between 50–57 tonnes of liquid gallium metal served as the neutrino detection medium.",
+      "sources": [
+        "src:sage-wikipedia"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/technology": {
+      "confidence": "uncertain",
+      "locator": null,
+      "note": "Sourced from Wikipedia (rank 12) only this session. No `radiochemical` value exists in TECHNOLOGY_CLASSES; `technology_class` is set to `other`, matching the same resolution used for detector:gallex-gno.",
+      "quote": "a radiochemical method based on inverse beta decay involving gallium-71 atoms and neutrinos",
+      "sources": [
+        "src:sage-wikipedia"
+      ],
+      "verified_at": "2026-09-18"
+    }
+  },
   "detector:sbnd": {
     "/intervals/0": {
       "confidence": "verified",
@@ -26861,16 +27063,6 @@
   },
   "detector:supercdms": {
     "/intervals/0": {
-      "confidence": "approximate",
-      "locator": "INSPIRE experiment record 1298909",
-      "note": "See experiment:supercdms intervals for full sourcing detail; year-precision from the INSPIRE registry.",
-      "quote": null,
-      "sources": [
-        "src:supercdms-inspire-experiment-soudan"
-      ],
-      "verified_at": "2026-09-17"
-    },
-    "/intervals/1": {
       "confidence": "verified",
       "locator": "SLAC news, 2026-03-17",
       "note": "",
@@ -26880,7 +27072,7 @@
       ],
       "verified_at": "2026-09-17"
     },
-    "/intervals/2": {
+    "/intervals/1": {
       "confidence": "verified",
       "locator": "SLAC news, 2026-08-26",
       "note": "",
@@ -26891,17 +27083,6 @@
       "verified_at": "2026-09-17"
     },
     "/placements/0": {
-      "confidence": "approximate",
-      "locator": null,
-      "note": "SuperCDMS Soudan was this detector's earlier main placement, superseded by the SNOLAB placement below; PLACEMENT_ROLES has no 'prior'/'former' value, so 'main' plus the end date is used per A2.",
-      "quote": "The most recent version, located at the Soudan Mine in Minnesota, completed operations in 2015.",
-      "sources": [
-        "src:supercdms-inspire-experiment-soudan",
-        "src:supercdms-symmetry-2018-construction-begins"
-      ],
-      "verified_at": "2026-09-17"
-    },
-    "/placements/1": {
       "confidence": "approximate",
       "locator": "SLAC news, 2026-08-26",
       "note": "Start date approximated to the 2018-05 DOE construction approval; installation/cooldown completed by early 2026 per src:supercdms-fnal-installation-commissioning and src:supercdms-slac-news-2026-03-17-cooldown.",
@@ -26962,6 +27143,61 @@
       "sources": [
         "src:supercdms-slac-news-2026-08-26-early-science",
         "src:supercdms-slac-news-2026-03-17-cooldown"
+      ],
+      "verified_at": "2026-09-17"
+    }
+  },
+  "detector:supercdms-soudan": {
+    "/intervals/0": {
+      "confidence": "verified",
+      "locator": "INSPIRE experiment record 1298909",
+      "note": "See experiment:supercdms-soudan intervals for full sourcing detail.",
+      "quote": null,
+      "sources": [
+        "src:supercdms-inspire-experiment-soudan"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/intervals/1": {
+      "confidence": "verified",
+      "locator": null,
+      "note": "",
+      "quote": null,
+      "sources": [
+        "src:supercdms-inspire-experiment-soudan",
+        "src:supercdms-symmetry-2018-construction-begins"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/placements/0": {
+      "confidence": "approximate",
+      "locator": null,
+      "note": "Placed at the existing site:soudan-minos-far-detector (owned by fermilab-neutrino-other): no source gives a coordinate for a distinct SuperCDMS-specific cavern at Soudan, so the shared Soudan Underground Laboratory site is reused.",
+      "quote": "The most recent version, located at the Soudan Mine in Minnesota, completed operations in 2015.",
+      "sources": [
+        "src:supercdms-inspire-experiment-soudan",
+        "src:supercdms-symmetry-2018-construction-begins"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:supercdms-inspire-experiment-soudan",
+        "src:supercdms-symmetry-2018-construction-begins"
+      ],
+      "verified_at": null
+    },
+    "/technology": {
+      "confidence": "verified",
+      "locator": "INSPIRE experiment record 1298909, description field",
+      "note": "",
+      "quote": "A new style of detector, with interleaved Z-sensitive Ionization and Phonon sensors (iZIP), was developed and deployed in the CDMS facility at Soudan, resulting in substantially improved rejection of surface event backgrounds that had limited CDMS-II.",
+      "sources": [
+        "src:supercdms-inspire-experiment-soudan"
       ],
       "verified_at": "2026-09-17"
     }
@@ -30053,23 +30289,24 @@
     "/intervals/2": {
       "confidence": "uncertain",
       "locator": null,
-      "note": "The official research page is undated (no explicit publication date fetched) and its 'currently' may predate the 'decommissioned' statement on the official home page; both are recorded and the conflict is noted in the worklog.",
+      "note": "The official research page is undated (no explicit publication date fetched) and its 'currently' may predate the 'decommissioned' statement on the official home page; both are recorded and the conflict is noted in the worklog. Verification note (2026-09-18): the dated 2023 collaboration results paper (arXiv:2304.07179) refers to the HRA throughout as 'an array of seven identical radio detector stations', never eight; this further supports treating the research page's '8 stations, currently taking data' wording as stale, pre-decommissioning copy rather than a current fact.",
       "quote": "Currently, eight ARIANNA stations are taking data on the Ross Ice-shelf, in a prototype experiment called the Hexagonal Radio Array (HRA)",
       "sources": [
         "src:astro-neutrino-arianna-official-research-page"
       ],
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-09-18"
     },
     "/intervals/3": {
       "confidence": "approximate",
       "locator": null,
-      "note": "No exact decommissioning date is stated by any source fetched this session; start is set to the last confirmed data-collection month (February 2019, from the testbed paper's data range) as a lower bound, not a sourced decommissioning date itself. A truly null start/end pair would leave this interval covering no time in the derived-state model (A3), which would misrepresent an experiment the collaboration's own page calls decommissioned as 'unrecorded' at the current build date.",
-      "quote": "Set in the Antarctic, the now decommissioned ARIANNA pilot experiment pushed the boundaries of UHE neutrino physics to new limits.",
+      "note": "No exact decommissioning date is stated by any source fetched this session; start is set to the last confirmed data-collection month (February 2019, from the testbed paper's data range) as a lower bound, not a sourced decommissioning date itself. A truly null start/end pair would leave this interval covering no time in the derived-state model (A3), which would misrepresent an experiment the collaboration's own page calls decommissioned as 'unrecorded' at the current build date. Verification fix (2026-09-18): the 2023 collaboration results paper (rank 10, dated, peer-reviewed) independently and explicitly states the array 'was decommissioned', corroborating the undated home page and giving a dated, authoritative confirmation that supersedes the weaker 'home page vs. inner page' reasoning originally used.",
+      "quote": "Set in the Antarctic, the now decommissioned ARIANNA pilot experiment pushed the boundaries of UHE neutrino physics to new limits. / [2023 collaboration results paper, arXiv:2304.07179:] The array was completed in 2015 and operated successfully until it was decommissioned.",
       "sources": [
         "src:astro-neutrino-arianna-official-home-page",
-        "src:astro-neutrino-arianna-arxiv-testbed-2019"
+        "src:astro-neutrino-arianna-arxiv-testbed-2019",
+        "src:astro-neutrino-arianna-arxiv-results-2023"
       ],
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-09-18"
     },
     "/key_specs/0/quantity": {
       "confidence": "verified",
@@ -32685,7 +32922,7 @@
     "/facility_roles/0": {
       "confidence": "approximate",
       "locator": "INSPIRE experiment record 1108203 (FNAL-T-0987), fields date_approved / date_completed",
-      "note": "Original shallow-depth Fermilab prototype phase, before the SNOLAB deployment; year/month precision from the INSPIRE registry only.",
+      "note": "Original shallow-depth Fermilab prototype phase, before the SNOLAB deployment. INSPIRE experiment record 1108203 gives date_approved 2008-12-15 and an explicit terminal date_completed 2012-04-09. This phase is deliberately represented only here (a dated facility_roles/placement row) and not as a lifecycle `intervals` row: it was a small-scale R&D prototype, not a revived full science programme (contrast experiment:supercdms-soudan, which WAS split into its own experiment id because it ran a multi-year science campaign with its own terminal INSPIRE record). Keeping a terminal-status `intervals` row for this phase would conflict with the later, still-active/completed SNOLAB intervals under A3's non-terminal-after-terminal check regardless of `Interval.kind`, since the current validator does not filter that check by kind.",
       "quote": null,
       "sources": [
         "src:damic-inspire-experiment-original"
@@ -32704,16 +32941,6 @@
       "verified_at": "2026-09-17"
     },
     "/intervals/0": {
-      "confidence": "approximate",
-      "locator": "INSPIRE experiment record 1108203, fields date_approved (2008-12-15) / date_completed (2012-04-09)",
-      "note": "Recorded as non-terminal `active` (not `completed`) because the same experiment id continues below at SNOLAB; A3 forbids a non-terminal interval after a terminal one on one entity. Original CCD prototype run, precision from the INSPIRE registry only.",
-      "quote": null,
-      "sources": [
-        "src:damic-inspire-experiment-original"
-      ],
-      "verified_at": "2026-09-17"
-    },
-    "/intervals/1": {
       "confidence": "verified",
       "locator": "arXiv:2007.15622 (ar5iv)",
       "note": "",
@@ -32723,7 +32950,7 @@
       ],
       "verified_at": "2026-09-17"
     },
-    "/intervals/2": {
+    "/intervals/1": {
       "confidence": "verified",
       "locator": "INSPIRE literature record 2752302 (2024-01), abstract",
       "note": "End set to 2025 per a newly fetched source (2026-09-17 verification pass): the 2025 SNOLAB Future Projects Workshop report states the original DAMIC detector has become a test stand, i.e. its dark-matter science run had ended by then. Exact month of cessation not given, so year precision is used.",
@@ -32735,7 +32962,7 @@
       ],
       "verified_at": "2026-09-17"
     },
-    "/intervals/3": {
+    "/intervals/2": {
       "confidence": "verified",
       "locator": "arXiv:2507.11368 (2025-07), full text",
       "note": "Terminal marker (status completed = 'data taking over' per ontology S4): the original DAMIC detector's dark-matter search at SNOLAB ended and the apparatus is now used as a test stand for background studies, per the 2025 SNOLAB Future Projects Workshop community report. This resolves the open item flagged by the original research pass, which had recorded DAMIC as active because no closure source had been found yet.",
@@ -34485,9 +34712,9 @@
   },
   "experiment:gallex-gno": {
     "/facility_roles/0": {
-      "confidence": "verified",
+      "confidence": "uncertain",
       "locator": null,
-      "note": "facility:lngs already exists (owned by the dark-matter/facilities workstreams) and is referenced here, not edited.",
+      "note": "facility:lngs already exists (owned by the dark-matter/facilities workstreams) and is referenced here, not edited. Confidence kept uncertain because the only source cited here is Wikipedia (rank 12), below the rank<=10 bar A17 requires for `verified`.",
       "quote": null,
       "sources": [
         "src:gallex-wikipedia"
@@ -34507,7 +34734,7 @@
     "/intervals/1": {
       "confidence": "approximate",
       "locator": null,
-      "note": "",
+      "note": "Dates sourced from Wikipedia (rank 12) only.",
       "quote": "GNO (successor): Continued from May 1998 to April 2003",
       "sources": [
         "src:gallex-wikipedia"
@@ -34517,7 +34744,7 @@
     "/intervals/2": {
       "confidence": "approximate",
       "locator": null,
-      "note": "",
+      "note": "Terminal event date sourced from Wikipedia (rank 12) only.",
       "quote": "GNO (successor): Continued from May 1998 to April 2003",
       "sources": [
         "src:gallex-wikipedia"
@@ -34578,10 +34805,10 @@
       "verified_at": "2026-09-17"
     },
     "/intervals/0": {
-      "confidence": "approximate",
-      "locator": "web search summary of GERDA status papers",
-      "note": "Exact start/end days not sourced from a fetched primary document; month precision taken from a secondary summary of GERDA status reports, flagged approximate pending re-verification against a GERDA Phase I status paper.",
-      "quote": "Phase I data taking of GERDA has started in November 2011 ... finished in May 2013 with 21.6 kg yr of exposure",
+      "confidence": "verified",
+      "locator": "GERDA status paper (arXiv:1710.07776), Section 2",
+      "note": "Verification fix (2026-09-17): re-verified directly against the cited paper's full text. The previous `quote` was a paraphrase, not verbatim (it read \"...has started in November 2011 ... finished in May 2013 with 21.6 kg yr of exposure\", which does not appear in the source); replaced with the paper's actual sentence and confidence raised from 'approximate' to 'verified' accordingly.",
+      "quote": "The first phase (Phase I), from November 2011 to May 2013, accumulated an exposure of 21.6 kg⋅yr with a background of about 10−2 cts/(keV⋅kg⋅yr) at Qββ",
       "sources": [
         "src:gerda-searching-conf-2017"
       ],
@@ -34611,9 +34838,9 @@
     },
     "/key_specs/0/quantity": {
       "confidence": "verified",
-      "locator": "GERDA final-results paper, key results",
-      "note": "Reported as a mass-time exposure (kg·yr); recorded under the `mass` dimension using the kg value only as a locator-qualified figure since kg·yr is not a native dimension in the ontology's quantity table.",
-      "quote": "Total Exposure: 127.2 kg·yr (combining Phase I and Phase II data)",
+      "locator": "GERDA final-results paper (arXiv:2009.06079), abstract",
+      "note": "Reported as a mass-time exposure (kg·yr); recorded under the `mass` dimension using the kg value only as a locator-qualified figure since kg·yr is not a native dimension in the ontology's quantity table. Verification fix (2026-09-17): the previous `quote` (\"Total Exposure: 127.2 kg\\u00b7yr (combining Phase I and Phase II data)\") was not verbatim text from the source; replaced with the actual abstract sentence.",
+      "quote": "When combined with the result of Phase I, no signal is observed after 127.2 kg·yr of total exposure.",
       "sources": [
         "src:gerda-final-results-prl-2020"
       ],
@@ -34687,12 +34914,22 @@
     "/intervals/0": {
       "confidence": "verified",
       "locator": null,
-      "note": "Start is the 2018 white paper's submission date; the full 200,000-antenna GRAND array remains at the proposal stage as of the most recent prototype paper fetched (2026). The GRANDProto300 prototype's own construction/commissioning intervals are modelled on detector:grand rather than here, so that this experiment-level status continues to reflect the collaboration's own current description of the full array as 'proposed' (A10); see detector:grand for the prototype's active build-out.",
+      "note": "Start is the 2018 white paper's submission date; the full 200,000-antenna GRAND array remains at the proposal stage as of the most recent prototype paper fetched (2026). This interval alone would leave experiment status 'proposed', but see the commissioning interval below for the GRANDProto300 prototype that has actually been deployed and is taking data (A3: a realised interval knocks out a merely-proposed one covering the same time).",
       "quote": "planned large-scale observatory: 20 separate, independent sub-arrays, each of 10,000 radio antennas deployed over 10,000 km^2",
       "sources": [
         "src:astro-neutrino-grand-white-paper-2018"
       ],
       "verified_at": "2026-09-17"
+    },
+    "/intervals/1": {
+      "confidence": "verified",
+      "locator": null,
+      "note": "Verification fix (2026-09-18): added because detector:grand (GRANDProto300) has been genuinely deployed and growing (13 to 65 antennas) since June 2023, which is inconsistent with leaving the experiment record itself at 'proposed' (a detector cannot be commissioning for an experiment that has nothing built). 'commissioning' matches detector:grand's own status and the same overlapping proposed-design/active-prototype pattern used for experiment:p-one.",
+      "quote": "In June 2023, the deployment of the 13-antenna stage, GP300_s13, was completed. ... By April 2025, the array was extended to its current 65-antenna stage (GP300_s65)",
+      "sources": [
+        "src:astro-neutrino-grandproto300-progress-icrc2025"
+      ],
+      "verified_at": "2026-09-18"
     },
     "/key_specs/0/quantity": {
       "confidence": "verified",
@@ -35121,6 +35358,90 @@
         "src:axions-haystac-prl-2025-phase-ii"
       ],
       "verified_at": "2026-09-17"
+    }
+  },
+  "experiment:homestake": {
+    "/facility_roles/0": {
+      "confidence": "uncertain",
+      "locator": null,
+      "note": "facility:surf already exists (owned by the fermilab-dune workstream) and is referenced here, not edited. The experiment ran in the Homestake Gold Mine, the same mine the later Sanford Underground Research Facility (facility:surf) was built in after the mine's 2001 closure; facility:surf's own record already documents this predecessor relationship. Confidence kept uncertain because the only source cited here is Wikipedia (rank 12), below the rank<=10 bar A17 requires for `verified`.",
+      "quote": null,
+      "sources": [
+        "src:homestake-wikipedia"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/intervals/0": {
+      "confidence": "approximate",
+      "locator": null,
+      "note": "Sourced from Wikipedia (rank 12) only this session; the 1998 results paper (src:homestake-1998-flux-measurement) confirms the detector 'operated continuously since 1970' without independently restating the 1994 end date in the text fetched.",
+      "quote": "The experiment operated continuously from 1970 until 1994.",
+      "sources": [
+        "src:homestake-wikipedia"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/intervals/1": {
+      "confidence": "approximate",
+      "locator": null,
+      "note": "Terminal event date sourced from Wikipedia (rank 12) only.",
+      "quote": "The experiment operated continuously from 1970 until 1994.",
+      "sources": [
+        "src:homestake-wikipedia"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/key_specs/0/quantity": {
+      "confidence": "approximate",
+      "locator": null,
+      "note": "Sourced from Wikipedia (rank 12) only this session.",
+      "quote": "a 380 cubic meter (100,000 gallon) tank of perchloroethylene",
+      "sources": [
+        "src:homestake-wikipedia"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/key_specs/1/quantity": {
+      "confidence": "approximate",
+      "locator": null,
+      "note": "Sourced from Wikipedia (rank 12) only this session; this is the same 4850-foot level of the Homestake mine that facility:surf's 4850 Level (dedicated 2009, per that facility's own sourced interval) later reused, but the Davis chlorine tank's specific chamber within that level is not separately geolocated by any source fetched this session -- see site note below.",
+      "quote": "positioned 1,478 meters (4,850 feet) underground",
+      "sources": [
+        "src:homestake-wikipedia"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/physics_goals/0": {
+      "confidence": "verified",
+      "locator": "Cleveland et al. 1998, ApJ 496, 505",
+      "note": null,
+      "quote": "using the inverse beta-decay reaction to measure solar neutrinos",
+      "sources": [
+        "src:homestake-1998-flux-measurement"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:homestake-inspire-experiment-record",
+        "src:homestake-wikipedia",
+        "src:homestake-1998-flux-measurement"
+      ],
+      "verified_at": null
+    },
+    "/unique_capabilities/0": {
+      "confidence": "approximate",
+      "locator": "Wikipedia",
+      "note": "Sourced from Wikipedia (rank 12) only this session.",
+      "quote": "Davis's experiment turned up only one third of this figure",
+      "sources": [
+        "src:homestake-wikipedia"
+      ],
+      "verified_at": "2026-09-18"
     }
   },
   "experiment:hyper-kamiokande": {
@@ -38386,7 +38707,7 @@
       "confidence": "verified",
       "locator": "SURF news, \"The MAJORANA Demonstrator Project at the 4850 Level Davis Campus\"",
       "note": "",
-      "quote": "The collaboration began installing the detector at the 4850 Level Davis Campus underground in March 2012.",
+      "quote": "The MAJORANA Collaboration began installing the “MAJORANA Demonstrator (MJD)” detector at the 4850 Level Davis Campus underground in March 2012.",
       "sources": [
         "src:majorana-demonstrator-surf-news"
       ],
@@ -39574,7 +39895,7 @@
       "confidence": "verified",
       "locator": null,
       "note": "Most recent fetched status source (dated 2026-07-20); earlier sources projected commissioning in 2020 (INSPIRE experiment record, now outdated) and data collection in 2025 (2022 status paper, also superseded). Recorded per A21: a planned-start interval may not carry an active/commissioning/completed/decommissioned status, hence 'planned'.",
-      "quote": "Initial data collection scheduled to begin in 2027.",
+      "quote": "initial data collection scheduled to begin in 2027",
       "sources": [
         "src:muons-inspire-lit-mu2e-status-2026"
       ],
@@ -39587,16 +39908,6 @@
       "quote": "in the Coulomb field of a nucleus with a single event sensitivity of about $2.5 \\times 10^{-17}$.",
       "sources": [
         "src:muons-inspire-experiment-mu2e"
-      ],
-      "verified_at": "2026-09-17"
-    },
-    "/key_specs/1/quantity": {
-      "confidence": "verified",
-      "locator": null,
-      "note": "",
-      "quote": "the design and realization of a unique 25 m long superconducting solenoidal system.",
-      "sources": [
-        "src:muons-inspire-lit-mu2e-status-2026"
       ],
       "verified_at": "2026-09-17"
     },
@@ -40455,11 +40766,11 @@
     },
     "/intervals/1": {
       "confidence": "verified",
-      "locator": "NEXT official site",
-      "note": "Covers the current main-phase detector (NEXT-100); the earlier NEXT-White prototype phase is recorded on its own detector record with its own interval.",
-      "quote": "NEXT-100: commissioned May 2024, operational at LSC since May 2024, producing first physics results as of December 2025",
+      "locator": "NEXT news, \"The NEXT-100 Detector is Commissioned and Taking Data\" (2025-05-27)",
+      "note": "Covers the current main-phase detector (NEXT-100); the earlier NEXT-White prototype phase is recorded on its own detector record with its own interval. Verification fix (2026-09-17): the previous `quote` (\"NEXT-100: commissioned May 2024, operational at LSC since May 2024, producing first physics results as of December 2025\") was a constructed summary, not verbatim text seen in any single fetched source; replaced with the actual news-post sentence and re-sourced. The \"first physics results as of December 2025\" clause was independently corroborated by a separate NEXT news post dated 2025-12-17 (\"First physics results with the NEXT-100 detector\", https://next-experiment.org/2025/12/17/first-physics-results-with-the-next-100-detector/) but that page was not directly fetched in this pass, so it is reported here rather than re-added as a further sourced claim.",
+      "quote": "The NEXT collaboration is pleased to announce the publication of a detailed article describing the design, construction, and commissioning of the NEXT-100 detector, now fully operational at the Laboratorio Subterráneo de Canfranc (LSC) since May 2024.",
       "sources": [
-        "src:next-official-site"
+        "src:0vbb-verify-next-100-commissioned-news"
       ],
       "verified_at": "2026-09-17"
     },
@@ -40501,7 +40812,8 @@
       "sources": [
         "src:next-official-site",
         "src:next-collaboration-page",
-        "src:next-arxiv-1210-4020-original-proposal"
+        "src:next-arxiv-1210-4020-original-proposal",
+        "src:0vbb-verify-next-100-commissioned-news"
       ],
       "verified_at": null
     },
@@ -40675,12 +40987,13 @@
       "note": null,
       "quote": null,
       "sources": [
+        "src:flagship-depth-nova-inspire-experiment",
         "src:nova-experiment-site",
-        "src:nova-how-does-nova-work",
-        "src:nova-research-goals-page",
-        "src:nova-prd-2022-oscillation-parameters",
         "src:nova-fermilab-news-2014-up-and-running",
-        "src:nova-fermilab-news-2018-antineutrino"
+        "src:nova-fermilab-news-2018-antineutrino",
+        "src:nova-how-does-nova-work",
+        "src:nova-prd-2022-oscillation-parameters",
+        "src:nova-research-goals-page"
       ],
       "verified_at": null
     },
@@ -41028,13 +41341,24 @@
     "/intervals/0": {
       "confidence": "verified",
       "locator": null,
-      "note": "Start is the submission date of the 2020 Nature Astronomy design paper; the collaboration's own official site still describes the full array as 'proposed' as of this session's access date (2026-09-17). Pathfinder/demonstrator hardware (STRAW, STRAW-b, P-ONE-1) has already been built and deployed, but is modelled on detector:p-one rather than as a realised-status interval here, since the overall multi-cubic-kilometre array remains at the proposal stage per the collaboration's own current wording.",
+      "note": "Start is the submission date of the 2020 Nature Astronomy design paper; the collaboration's own official site still describes the full multi-cubic-kilometre array as 'proposed' as of the 2026-09-18 re-check. This interval alone would leave experiment status 'proposed', but see the commissioning interval below for the pathfinder programme that has actually been deployed and is taking data (A3: a realised interval knocks out a merely-proposed one covering the same time).",
       "quote": "The Pacific Ocean Neutrino Experiment is a proposed large-volume neutrino telescope in the Northeast Pacific Ocean, off the coast of Vancouver Island, Canada.",
       "sources": [
         "src:astro-neutrino-p-one-official-site",
         "src:astro-neutrino-p-one-nature-astronomy-2020"
       ],
       "verified_at": "2026-09-17"
+    },
+    "/intervals/1": {
+      "confidence": "verified",
+      "locator": null,
+      "note": "Verification fix (2026-09-18): added because detector:p-one (the STRAW pathfinder) has been actively deployed and taking data at Cascadia Basin since January 2019, which is inconsistent with leaving the experiment record itself at 'proposed' (a detector cannot be running for an experiment that has nothing built). Re-fetching the official site on 2026-09-18 confirms P-ONE-1 (the first production detection line) has completed integration and a wet test on land/harbour but, per the site's own present-tense wording, has NOT yet been deployed to depth ('will be deployed' in 2026); only the STRAW/STRAW-b pathfinder hardware is genuinely operating undersea. 'commissioning' is used (not 'construction' or 'active') to reflect this mixed state: a precursor line is actively taking data while the production array's own first line is still being readied, the same overlapping pattern used for experiment:km3net and experiment:baikal-gvd.",
+      "quote": "works in near real-time with a duty cycle of 98% since completion of the commissioning phase in January 2019 / [official site, re-fetched 2026-09-18:] In 2026, the first detection line of P-ONE will be deployed.",
+      "sources": [
+        "src:astro-neutrino-p-one-straw-site-characterization-2021",
+        "src:astro-neutrino-p-one-official-site"
+      ],
+      "verified_at": "2026-09-18"
     },
     "/key_specs/0/quantity": {
       "confidence": "verified",
@@ -41779,6 +42103,90 @@
         "src:astro-neutrino-rno-g-inspire-experiment-record"
       ],
       "verified_at": null
+    }
+  },
+  "experiment:sage": {
+    "/facility_roles/0": {
+      "confidence": "uncertain",
+      "locator": null,
+      "note": "Sourced from Wikipedia (rank 12) only this session.",
+      "quote": null,
+      "sources": [
+        "src:sage-wikipedia"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/intervals/0": {
+      "confidence": "approximate",
+      "locator": null,
+      "note": "Sourced from Wikipedia (rank 12) only this session.",
+      "quote": "Construction/Start: December 1989",
+      "sources": [
+        "src:sage-wikipedia"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/intervals/1": {
+      "confidence": "approximate",
+      "locator": null,
+      "note": "Sourced from Wikipedia (rank 12) only this session.",
+      "quote": "Primary Data-Taking: January 1990 through December 2007 (168 extractions)",
+      "sources": [
+        "src:sage-wikipedia"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/intervals/2": {
+      "confidence": "uncertain",
+      "locator": null,
+      "note": "Wikipedia's own wording is ambiguous/self-contradictory ('End: August 2011, with continued operations thereafter'); no source fetched this session clarifies whether SAGE stopped or continued. Left open (`end: null`, ongoing at `verified_at` per §2.3) rather than asserting either a firm shutdown or firm continuation.",
+      "quote": "End: August 2011, with continued operations thereafter",
+      "sources": [
+        "src:sage-wikipedia"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/key_specs/0/quantity": {
+      "confidence": "approximate",
+      "locator": null,
+      "note": "Sourced from Wikipedia (rank 12) only this session; recorded value is the lower bound of the stated range.",
+      "quote": "Between 50–57 tonnes of liquid gallium metal served as the neutrino detection medium.",
+      "sources": [
+        "src:sage-wikipedia"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/physics_goals/0": {
+      "confidence": "uncertain",
+      "locator": "Wikipedia",
+      "note": "Sourced from Wikipedia (rank 12) only this session.",
+      "quote": "to measure the flux of solar neutrinos",
+      "sources": [
+        "src:sage-wikipedia"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:sage-inspire-experiment-record",
+        "src:sage-wikipedia",
+        "src:sage-1999-capture-rate"
+      ],
+      "verified_at": null
+    },
+    "/unique_capabilities/0": {
+      "confidence": "uncertain",
+      "locator": "Wikipedia",
+      "note": "Sourced from Wikipedia (rank 12) only this session.",
+      "quote": "Between 50–57 tonnes of liquid gallium metal served as the neutrino detection medium.",
+      "sources": [
+        "src:sage-wikipedia"
+      ],
+      "verified_at": "2026-09-18"
     }
   },
   "experiment:sbnd": {
@@ -43208,17 +43616,6 @@
     "/facility_roles/0": {
       "confidence": "approximate",
       "locator": null,
-      "note": "Start year from INSPIRE experiment record 1298909 (date_started 2009); commonly reported public start of the SuperCDMS Soudan science run is later (~2011-2012) but no independently fetched detector/results paper confirms an exact date this session, so 2009 is used as approximate per the registry.",
-      "quote": "The most recent version, located at the Soudan Mine in Minnesota, completed operations in 2015.",
-      "sources": [
-        "src:supercdms-inspire-experiment-soudan",
-        "src:supercdms-symmetry-2018-construction-begins"
-      ],
-      "verified_at": "2026-09-17"
-    },
-    "/facility_roles/1": {
-      "confidence": "approximate",
-      "locator": null,
       "note": "Start set to the 2018-05 DOE construction approval reported by Symmetry Magazine; facility:snolab was created by the `facilities` workstream after this record was drafted and now resolves.",
       "quote": "The US Department of Energy has approved funding and start of construction for the SuperCDMS SNOLAB experiment, which will begin operations in the early 2020s.",
       "sources": [
@@ -43228,37 +43625,6 @@
     },
     "/intervals/0": {
       "confidence": "approximate",
-      "locator": "INSPIRE experiment record 1298909, field date_proposed",
-      "note": "Year-precision date from the INSPIRE experiment registry (rank 3); no independently fetched proposal document.",
-      "quote": null,
-      "sources": [
-        "src:supercdms-inspire-experiment-soudan"
-      ],
-      "verified_at": "2026-09-17"
-    },
-    "/intervals/1": {
-      "confidence": "approximate",
-      "locator": "INSPIRE experiment record 1298909, field date_approved",
-      "note": "Year-precision date from the INSPIRE experiment registry.",
-      "quote": null,
-      "sources": [
-        "src:supercdms-inspire-experiment-soudan"
-      ],
-      "verified_at": "2026-09-17"
-    },
-    "/intervals/2": {
-      "confidence": "approximate",
-      "locator": null,
-      "note": "INSPIRE date_started 2009; Symmetry Magazine (2018-05-07) confirms operations at Soudan ended in 2015. Recorded as non-terminal `active` (not `completed`) because the same experiment id continues below at SNOLAB; A3 forbids a non-terminal interval after a terminal one on one entity.",
-      "quote": "The most recent version, located at the Soudan Mine in Minnesota, completed operations in 2015.",
-      "sources": [
-        "src:supercdms-inspire-experiment-soudan",
-        "src:supercdms-symmetry-2018-construction-begins"
-      ],
-      "verified_at": "2026-09-17"
-    },
-    "/intervals/3": {
-      "confidence": "approximate",
       "locator": "INSPIRE experiment record 1357671, field date_proposed",
       "note": "Year-precision date from the INSPIRE experiment registry.",
       "quote": null,
@@ -43267,7 +43633,7 @@
       ],
       "verified_at": "2026-09-17"
     },
-    "/intervals/4": {
+    "/intervals/1": {
       "confidence": "approximate",
       "locator": "INSPIRE experiment record 1357671, field date_approved",
       "note": "Year-precision date from the INSPIRE experiment registry; end set where the sourced DOE construction-approval interval below begins.",
@@ -43277,7 +43643,7 @@
       ],
       "verified_at": "2026-09-17"
     },
-    "/intervals/5": {
+    "/intervals/2": {
       "confidence": "approximate",
       "locator": null,
       "note": "Start: Symmetry Magazine article dated 2018-05-07 announcing DOE construction approval. End: approximate, set where the collaboration's own materials describe installation as complete and cooldown/commissioning beginning (Fermilab CPC page: 'Installation was completed late last year'; SLAC news 2026-03-17: base temperature reached, moving into detector commissioning).",
@@ -43289,7 +43655,7 @@
       ],
       "verified_at": "2026-09-17"
     },
-    "/intervals/6": {
+    "/intervals/3": {
       "confidence": "verified",
       "locator": "SLAC news, 2026-03-17",
       "note": "End set where the 2026-08-26 SLAC article reports the start of the early-science data-collection phase.",
@@ -43300,7 +43666,7 @@
       ],
       "verified_at": "2026-09-17"
     },
-    "/intervals/7": {
+    "/intervals/4": {
       "confidence": "verified",
       "locator": "SLAC news, 2026-08-26",
       "note": "Open interval. The same source states the early-science phase continues through fall 2026, followed by a warm-up/optimization period, then a full-sensitivity science run planned to start in 2027; those future phases are not separately recorded as they had not begun as of verified_at.",
@@ -43327,6 +43693,16 @@
       "quote": "roughly 15 to 30 millikelvins",
       "sources": [
         "src:supercdms-slac-news-2026-03-17-cooldown"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/lineage/0": {
+      "confidence": "verified",
+      "locator": null,
+      "note": "Split from a single combined record on 2026-09-18: SuperCDMS-Soudan (INSPIRE recid 1298909) has its own terminal `date_completed` (2015) and is now a separate experiment id per A3 ('a revived programme is a new experiment id with lineage'); this (SNOLAB) record carries the canonical predecessor pointer.",
+      "quote": "The most recent version, located at the Soudan Mine in Minnesota, completed operations in 2015.",
+      "sources": [
+        "src:supercdms-symmetry-2018-construction-begins"
       ],
       "verified_at": "2026-09-17"
     },
@@ -43358,8 +43734,7 @@
       "quote": null,
       "sources": [
         "src:supercdms-official-site",
-        "src:supercdms-inspire-experiment-snolab",
-        "src:supercdms-inspire-experiment-soudan"
+        "src:supercdms-inspire-experiment-snolab"
       ],
       "verified_at": null
     },
@@ -43370,6 +43745,92 @@
       "quote": "For SuperCDMS, that temperature is just tens of millikelvins, or thousandths of a degree above absolute zero.",
       "sources": [
         "src:supercdms-slac-news-2026-03-17-cooldown"
+      ],
+      "verified_at": "2026-09-17"
+    }
+  },
+  "experiment:supercdms-soudan": {
+    "/facility_roles/0": {
+      "confidence": "verified",
+      "locator": "INSPIRE experiment record 1298909 (date_started/date_completed); Symmetry Magazine, 2018-05-07",
+      "note": "",
+      "quote": "The most recent version, located at the Soudan Mine in Minnesota, completed operations in 2015.",
+      "sources": [
+        "src:supercdms-inspire-experiment-soudan",
+        "src:supercdms-symmetry-2018-construction-begins"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/intervals/0": {
+      "confidence": "approximate",
+      "locator": "INSPIRE experiment record 1298909, field date_proposed",
+      "note": "Year-precision date from the INSPIRE experiment registry (rank 3); no independently fetched proposal document.",
+      "quote": null,
+      "sources": [
+        "src:supercdms-inspire-experiment-soudan"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/intervals/1": {
+      "confidence": "approximate",
+      "locator": "INSPIRE experiment record 1298909, field date_approved",
+      "note": "Year-precision date from the INSPIRE experiment registry.",
+      "quote": null,
+      "sources": [
+        "src:supercdms-inspire-experiment-soudan"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/intervals/2": {
+      "confidence": "verified",
+      "locator": "INSPIRE experiment record 1298909, field date_started; Symmetry Magazine, 2018-05-07",
+      "note": "INSPIRE gives date_started 2009-01-01 and date_completed 2015-01-01 for this experiment code (recid 1298909); Symmetry Magazine independently confirms operations at Soudan ended in 2015. Recorded honestly as a bounded, non-terminal `active` phase followed by its own terminal marker below -- this entity's timeline ends here, so there is no A3 conflict (unlike when this was folded into the SNOLAB record).",
+      "quote": "The most recent version, located at the Soudan Mine in Minnesota, completed operations in 2015.",
+      "sources": [
+        "src:supercdms-inspire-experiment-soudan",
+        "src:supercdms-symmetry-2018-construction-begins"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/intervals/3": {
+      "confidence": "verified",
+      "locator": null,
+      "note": "Terminal marker; INSPIRE date_completed is 2015-01-01, matching Symmetry Magazine's 'completed operations in 2015'.",
+      "quote": "The most recent version, located at the Soudan Mine in Minnesota, completed operations in 2015.",
+      "sources": [
+        "src:supercdms-inspire-experiment-soudan",
+        "src:supercdms-symmetry-2018-construction-begins"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/lineage/0": {
+      "confidence": "verified",
+      "locator": null,
+      "note": "INSPIRE's own description field for this experiment record explicitly ties the iZIP detector development to overcoming a CDMS-II limitation, naming CDMS-II directly -- this is the citable link the original research pass could not find.",
+      "quote": "A new style of detector, with interleaved Z-sensitive Ionization and Phonon sensors (iZIP), was developed and deployed in the CDMS facility at Soudan, resulting in substantially improved rejection of surface event backgrounds that had limited CDMS-II.",
+      "sources": [
+        "src:supercdms-inspire-experiment-soudan"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:supercdms-inspire-experiment-soudan",
+        "src:supercdms-symmetry-2018-construction-begins"
+      ],
+      "verified_at": null
+    },
+    "/unique_capabilities": {
+      "confidence": "verified",
+      "locator": null,
+      "note": "",
+      "quote": "A new style of detector, with interleaved Z-sensitive Ionization and Phonon sensors (iZIP), was developed and deployed in the CDMS facility at Soudan, resulting in substantially improved rejection of surface event backgrounds that had limited CDMS-II.",
+      "sources": [
+        "src:supercdms-inspire-experiment-soudan"
       ],
       "verified_at": "2026-09-17"
     }
@@ -43505,6 +43966,46 @@
         "src:jparc-press-2024-t2k-new-phase"
       ],
       "verified_at": "2026-09-17"
+    },
+    "/key_specs/0/quantity": {
+      "confidence": "verified",
+      "locator": null,
+      "note": "",
+      "quote": "The measured distance between the target and the center position of Super-Kamiokande is 295,335.2 +- 0.7 m.",
+      "sources": [
+        "src:t2k-nim-2011"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/key_specs/1/quantity": {
+      "confidence": "verified",
+      "locator": null,
+      "note": "",
+      "quote": "The measured off-axis angle is 2.504 +- 0.004 deg.",
+      "sources": [
+        "src:t2k-nim-2011"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/key_specs/2/quantity": {
+      "confidence": "verified",
+      "locator": "NIM A 659 (2011) 106-135, §4.3.1 'UA1 Magnet'",
+      "note": "",
+      "quote": "The ND280 off-axis detector is built around the old CERN UA1/NOMAD magnet providing a dipole magnetic field of 0.2 T, to measure momenta with good resolution and determine the sign of charged particles produced by neutrino interactions.",
+      "sources": [
+        "src:t2k-nim-2011"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/key_specs/3/quantity": {
+      "confidence": "verified",
+      "locator": "NIM A 659 (2011) 106-135, Table 1 'Machine design parameters of the J-PARC MR for the fast extraction'",
+      "note": "Design/nominal beam power for the fast-extraction J-PARC Main Ring supply to the T2K neutrino beamline, as tabulated in the 2011 NIM paper; not a claim about beam power actually delivered in any given run.",
+      "quote": "Beam power ∼750 kW",
+      "sources": [
+        "src:t2k-nim-2011"
+      ],
+      "verified_at": "2026-09-18"
     },
     "/lineage/0": {
       "confidence": "approximate",
@@ -44876,6 +45377,59 @@
         "src:astro-neutrino-baikal-gvd-cern-courier-2016"
       ],
       "verified_at": null
+    }
+  },
+  "facility:baksan-neutrino-observatory": {
+    "/intervals/0": {
+      "confidence": "approximate",
+      "locator": null,
+      "note": "Sourced from Wikipedia (rank 12) only this session; no official Baksan/INR page was reachable (inr.ru/baksan.html returned 404).",
+      "quote": "Construction/Start: December 1989",
+      "sources": [
+        "src:sage-wikipedia"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/operator": {
+      "confidence": "uncertain",
+      "locator": null,
+      "note": "Wikipedia (rank 12) names the Joint Institute for Nuclear Research (Russia) as a SAGE participant, but not explicitly as the Baksan facility's operator; INR RAS's operatorship is general knowledge of the Baksan observatory not independently confirmed by a rank<=10 source fetched this session, so recorded uncertain rather than verified.",
+      "quote": null,
+      "sources": [
+        "src:sage-wikipedia"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/operator_text": {
+      "confidence": "uncertain",
+      "locator": null,
+      "note": "Wikipedia (rank 12) names the Joint Institute for Nuclear Research (Russia) as a SAGE participant, but not explicitly as the Baksan facility's operator; INR RAS's operatorship is general knowledge of the Baksan observatory not independently confirmed by a rank<=10 source fetched this session, so recorded uncertain rather than verified.",
+      "quote": null,
+      "sources": [
+        "src:sage-wikipedia"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:sage-inspire-experiment-record",
+        "src:sage-wikipedia"
+      ],
+      "verified_at": null
+    },
+    "/specs/depth": {
+      "confidence": "approximate",
+      "locator": null,
+      "note": "Sourced from Wikipedia (rank 12) only this session.",
+      "quote": "the apparatus situated 2,100 meters (6,900 feet) underground",
+      "sources": [
+        "src:sage-wikipedia"
+      ],
+      "verified_at": "2026-09-18"
     }
   },
   "facility:boulby-underground-laboratory": {
@@ -47109,7 +47663,7 @@
     "/intervals/0": {
       "confidence": "approximate",
       "locator": null,
-      "note": "No fetched source gives Wright Laboratory's founding date. Start is approximated to 2018, the earliest operational milestone this session found for a hosted experiment (HAYSTAC's Phase I result accepted to Physical Review D, April 2018; see experiment:haystac intervals), used as a conservative lower bound for this open-ended 'active' interval, not a claimed founding date. VERIFIER FIX (2026-09-17): the previous start:null/end:null interval covered no date under A3, so the derived state at the build date was None while status said 'active' (validator error status-not-derived-state); this bound resolves that.",
+      "note": "No fetched source gives Wright Laboratory's founding date. Start is approximated to 2010, the earliest sourced HAYSTAC milestone (the experiment's INSPIRE date_proposed; see experiment:haystac intervals), used as a conservative lower bound for this open-ended 'active' interval (a hosted experiment cannot predate its host facility), not a claimed founding date. VERIFIER FIX (2026-09-17): an earlier fix used 2018 here, which the validator then flagged (experiment-before-facility) because HAYSTAC's own earliest interval starts in 2010; corrected to 2010 to resolve that inconsistency. The underlying issue this interval addresses is that the original start:null/end:null interval covered no date under A3, so the derived state at the build date was None while status said 'active' (validator error status-not-derived-state).",
       "quote": "Located at Yale's Wright Laboratory in New Haven, Connecticut, the HAYSTAC collaboration consists of members from Yale University, the University of California Berkeley, Lawrence Berkeley National Laboratory, and the University of Colorado at Boulder.",
       "sources": [
         "src:axions-haystac-official-page",
@@ -65520,6 +66074,48 @@
       "verified_at": null
     }
   },
+  "result:belle-ii-vcb-measurement-2025": {
+    "/claim": {
+      "confidence": null,
+      "locator": "arXiv:2506.15256, abstract",
+      "note": null,
+      "quote": "We present a determination of the Cabibbo-Kobayashi-Maskawa matrix element |Vcb| from the decay B to D l nu_l using a 365 fb^-1 e+e- to Upsilon(4S) to B Bbar data sample recorded by the Belle II experiment at the SuperKEKB collider.",
+      "sources": [
+        "src:flagship-depth-belle2-vcb-2025"
+      ],
+      "verified_at": null
+    },
+    "/date": {
+      "confidence": "verified",
+      "locator": "arXiv:2506.15256, submission date",
+      "note": "Published as Phys. Rev. D 112, 112009 (2025).",
+      "quote": "June 18, 2025 (v1)",
+      "sources": [
+        "src:flagship-depth-belle2-vcb-2025"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/key_value_text": {
+      "confidence": "verified",
+      "locator": "arXiv:2506.15256, abstract",
+      "note": "|Vcb| is a dimensionless CKM matrix element; recorded as key_value_text (not a Quantity) since the ontology has no dedicated dimensionless-ratio unit, mirroring the existing convention in result:nova-oscillation-parameters-2022.",
+      "quote": "we obtain |Vcb| = (39.2 ± 0.4 (stat.) ± 0.6 (sys.) ± 0.5 (th.)) × 10^-3",
+      "sources": [
+        "src:flagship-depth-belle2-vcb-2025"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:flagship-depth-belle2-vcb-2025"
+      ],
+      "verified_at": null
+    }
+  },
   "result:belle-x3872-observation-2003": {
     "/claim": {
       "confidence": null,
@@ -66854,6 +67450,78 @@
         "src:dune-protodune-sp-performance-2020"
       ],
       "verified_at": null
+    }
+  },
+  "result:homestake-flux-measurement-1998": {
+    "/claim": {
+      "confidence": null,
+      "locator": "ApJ 496, 505 (1998), title",
+      "note": null,
+      "quote": "Measurement of the Solar Electron Neutrino Flux with the Homestake Chlorine Detector",
+      "sources": [
+        "src:homestake-1998-flux-measurement"
+      ],
+      "verified_at": null
+    },
+    "/date": {
+      "confidence": "verified",
+      "locator": "Astrophysical Journal 496, 505-526 (1998)",
+      "note": "Journal issue year; no month/day was captured from the fetched page.",
+      "quote": null,
+      "sources": [
+        "src:homestake-1998-flux-measurement"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/key_value": {
+      "confidence": "verified",
+      "locator": null,
+      "note": "SNU is not one of the atlas's recognised dimensions; recorded with dimension `count`/unit \"\" as the closest representation, true unit given in `display`.",
+      "quote": "2.56 ± 0.16 (statistical) ± 0.16 (systematic) SNU",
+      "sources": [
+        "src:homestake-1998-flux-measurement"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/key_value_text": {
+      "confidence": "verified",
+      "locator": null,
+      "note": "",
+      "quote": "a solar neutrino-induced 37Ar production rate of 2.56 ± 0.16 (statistical) ± 0.16 (systematic) SNU",
+      "sources": [
+        "src:homestake-1998-flux-measurement"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/significance": {
+      "confidence": "uncertain",
+      "locator": "ApJ 496, 505 (1998)",
+      "note": "A rate measurement, not a discovery/observation/evidence claim with a single sigma; no significance figure applies.",
+      "quote": null,
+      "sources": [
+        "src:homestake-1998-flux-measurement"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:homestake-1998-flux-measurement"
+      ],
+      "verified_at": null
+    },
+    "/why_it_matters": {
+      "confidence": "verified",
+      "locator": null,
+      "note": "",
+      "quote": "a solar neutrino-induced 37Ar production rate of 2.56 ± 0.16 (statistical) ± 0.16 (systematic) SNU",
+      "sources": [
+        "src:homestake-1998-flux-measurement"
+      ],
+      "verified_at": "2026-09-18"
     }
   },
   "result:icarus-hidden-sector-scalar-limit-2025": {
@@ -69405,6 +70073,48 @@
       "verified_at": null
     }
   },
+  "result:nova-t2k-joint-oscillation-analysis-2025": {
+    "/claim": {
+      "confidence": null,
+      "locator": "arXiv:2510.19888, abstract",
+      "note": null,
+      "quote": "Here, we carry out the first joint analysis of data sets from NOvA and T2K, the two currently operating long-baseline neutrino oscillation experiments (hundreds of kilometers of neutrino travel distance), taking advantage of our complementary experimental designs and setting new constraints on several neutrino sector parameters.",
+      "sources": [
+        "src:flagship-depth-nova-t2k-joint-2025"
+      ],
+      "verified_at": null
+    },
+    "/date": {
+      "confidence": "verified",
+      "locator": "Nature 646, 818-824 (2025), publication date",
+      "note": "Published as Nature 646, 818-824 (2025); posted to arXiv the same day (2510.19888).",
+      "quote": "Submitted on 22 Oct 2025",
+      "sources": [
+        "src:flagship-depth-nova-t2k-joint-2025"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/key_value_text": {
+      "confidence": "verified",
+      "locator": "arXiv:2510.19888, abstract",
+      "note": "Recorded as key_value_text (not a Quantity) because the ontology's `energy` dimension has no eV² (mass-squared-difference) unit; this mirrors the existing convention in result:nova-oscillation-parameters-2022.",
+      "quote": "This analysis provides new precision on the Δm²₃₂ mass difference, finding 2.43+0.04/-0.03 (-2.48+0.03/-0.04)×10⁻³ eV² in the normal (inverted) ordering, as well as a 3σ interval on δᶜᵖ of [-1.38π, 0.30π] ([-0.92π, -0.04π]) in the normal (inverted) ordering.",
+      "sources": [
+        "src:flagship-depth-nova-t2k-joint-2025"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:flagship-depth-nova-t2k-joint-2025"
+      ],
+      "verified_at": null
+    }
+  },
   "result:opera-tau-neutrino-appearance-discovery-2015": {
     "/claim": {
       "confidence": null,
@@ -69571,6 +70281,78 @@
       "verified_at": "2026-09-17"
     }
   },
+  "result:sage-capture-rate-1999": {
+    "/claim": {
+      "confidence": null,
+      "locator": "Phys. Rev. C 60, 055801 (1999), title",
+      "note": null,
+      "quote": "Measurement of the solar neutrino capture rate with gallium metal",
+      "sources": [
+        "src:sage-1999-capture-rate"
+      ],
+      "verified_at": null
+    },
+    "/date": {
+      "confidence": "verified",
+      "locator": "arXiv:astro-ph/9907113, submitted 9 July 1999",
+      "note": "Published as Phys. Rev. C 60, 055801 (1999).",
+      "quote": null,
+      "sources": [
+        "src:sage-1999-capture-rate"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/key_value": {
+      "confidence": "verified",
+      "locator": null,
+      "note": "SNU (solar neutrino unit) is not itself one of the atlas's recognised dimensions; recorded here with dimension `count` and unit \"\" as the closest available representation, with the true unit given in `display`.",
+      "quote": "67.2 (+7.2-7.0) (+3.5-3.0) SNU",
+      "sources": [
+        "src:sage-1999-capture-rate"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/key_value_text": {
+      "confidence": "verified",
+      "locator": null,
+      "note": "",
+      "quote": "67.2 (+7.2-7.0) (+3.5-3.0) SNU ... only about half of the predicted Standard Solar Model rate of 129 SNU",
+      "sources": [
+        "src:sage-1999-capture-rate"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/significance": {
+      "confidence": "uncertain",
+      "locator": "Phys. Rev. C 60, 055801 (1999)",
+      "note": "A rate measurement, not a discovery/observation/evidence claim with a single sigma; no significance figure applies.",
+      "quote": null,
+      "sources": [
+        "src:sage-1999-capture-rate"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:sage-1999-capture-rate"
+      ],
+      "verified_at": null
+    },
+    "/why_it_matters": {
+      "confidence": "verified",
+      "locator": null,
+      "note": "",
+      "quote": "This represents only about half of the predicted Standard Solar Model rate of 129 SNU.",
+      "sources": [
+        "src:sage-1999-capture-rate"
+      ],
+      "verified_at": "2026-09-18"
+    }
+  },
   "result:sk-atmospheric-oscillation-evidence-1998": {
     "/claim": {
       "confidence": null,
@@ -69630,6 +70412,48 @@
       "sources": [
         "src:sk-prl-1998-atmospheric",
         "src:sk-history-page"
+      ],
+      "verified_at": null
+    }
+  },
+  "result:sk-dsnb-limit-2025": {
+    "/claim": {
+      "confidence": null,
+      "locator": "arXiv:2511.02222, abstract",
+      "note": null,
+      "quote": "We report the search result for the Diffuse Supernova Neutrino Background (DSNB) in neutrino energies beyond 9.3 MeV in the gadolinium-loaded Super-Kamiokande (SK) detector with 22,500x956.2 m^3·day exposure.",
+      "sources": [
+        "src:flagship-depth-sk-dsnb-2025"
+      ],
+      "verified_at": null
+    },
+    "/date": {
+      "confidence": "verified",
+      "locator": "arXiv:2511.02222, submission date",
+      "note": "arXiv submission date; accepted by the Astrophysical Journal as of the fetched abstract page, no volume/page assigned yet.",
+      "quote": "November 4, 2025",
+      "sources": [
+        "src:flagship-depth-sk-dsnb-2025"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/significance": {
+      "confidence": "verified",
+      "locator": "arXiv:2511.02222, abstract",
+      "note": "The abstract separately notes a spectral-fitting result with a ~1.2 sigma disagreement with the null-DSNB hypothesis, not a detection claim.",
+      "quote": "No significant excess over background predictions was found in a DSNB spectrum-independent analysis, and 90\\% C.L. upper limits on the astrophysical electron anti-neutrino flux were set.",
+      "sources": [
+        "src:flagship-depth-sk-dsnb-2025"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:flagship-depth-sk-dsnb-2025"
       ],
       "verified_at": null
     }
@@ -70825,6 +71649,38 @@
       "sources": [
         "src:astro-neutrino-baikal-gvd-status-2023-paper",
         "src:astro-neutrino-baikal-gvd-official-facility-page"
+      ],
+      "verified_at": null
+    }
+  },
+  "site:baksan-sage-underground-lab": {
+    "/coordinates": {
+      "confidence": "approximate",
+      "locator": "Wikipedia infobox coordinate (43°16'32\"N 42°41'25\"E)",
+      "note": "No rank<=7 source fetched this session (the SAGE 1999 results paper's abstract does not state coordinates; the official Baksan/INR site returned 404) gives numeric coordinates for the underground lab specifically. Per A17/A23, recorded as `kind: campus`/`confidence: approximate` off Wikipedia (rank 12) rather than as a fabricated `underground_lab`-precision point.",
+      "quote": null,
+      "sources": [
+        "src:sage-wikipedia"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/depth": {
+      "confidence": "approximate",
+      "locator": null,
+      "note": "Sourced from Wikipedia (rank 12) only this session.",
+      "quote": "the apparatus situated 2,100 meters (6,900 feet) underground",
+      "sources": [
+        "src:sage-wikipedia"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:sage-wikipedia"
       ],
       "verified_at": null
     }

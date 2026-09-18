@@ -1,74 +1,103 @@
 {
-  "schema": "hep-atlas/0.2",
-  "id": "result:juno-initial-performance-2026",
-  "type": "result",
-  "name": "Initial performance results of the JUNO detector",
   "aliases": [],
-  "experiment_ids": ["experiment:juno"],
-  "collaboration_ids": ["collaboration:juno"],
-  "facility_ids": ["facility:juno-jiangmen"],
-  "detector_ids": ["detector:juno"],
+  "claim": {
+    "locator": "Chinese Physics C 50, 043001 (2026), article title; confirmed verbatim against arXiv:2511.14590 and INSPIRE literature id 3084402",
+    "quote": "Initial performance results of the JUNO detector",
+    "sources": [
+      "src:juno-cpc-initial-performance-2026",
+      "src:reactor-solar-verify-juno-cpc-2026-arxiv"
+    ]
+  },
+  "collaboration_ids": [
+    "collaboration:juno"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "A"
+  },
   "date": {
-    "value": "2026",
-    "sources": ["src:juno-cpc-initial-performance-2026"],
-    "verified_at": "2026-09-17",
     "confidence": "approximate",
-    "locator": "Chin. Phys. C 50, 043001 (2026), Issue 4, 2026",
-    "note": "Chinese Physics C 50, 043001 (2026), 'Issue 4, 2026'; no day/month was seen in the fetched page, so only year precision is recorded."
+    "locator": "Chin. Phys. C 50, 043001 (2026), Issue 4, 2026; INSPIRE literature id 3084402",
+    "note": "Chinese Physics C 50, 043001 (2026), Issue 4; confirmed via INSPIRE-HEP (control_number 3084402) and the IOP article page (DOI 10.1088/1674-1137/ae3dc1), which additionally records 'Received 19 November 2025' but no day/month for the print/online-publication date itself, so only year precision is recorded here. The arXiv preprint (2511.14590) was posted 2025-11-18.",
+    "sources": [
+      "src:juno-cpc-initial-performance-2026",
+      "src:reactor-solar-verify-juno-cpc-2026-arxiv"
+    ],
+    "value": "2026",
+    "verified_at": "2026-09-18"
   },
   "date_kind": "publication",
-  "topic_ids": ["topic:reactor-neutrinos", "topic:neutrino-oscillations"],
-  "result_type": "technology_milestone",
-  "title": "Initial performance results of the JUNO detector",
-  "claim": {
-    "quote": "Initial performance results of the JUNO detector",
-    "locator": "Chinese Physics C 50, 043001 (2026), article title",
-    "sources": ["src:juno-cpc-initial-performance-2026"]
+  "detector_ids": [
+    "detector:juno"
+  ],
+  "experiment_ids": [
+    "experiment:juno"
+  ],
+  "facility_ids": [
+    "facility:juno-jiangmen"
+  ],
+  "hepdata": null,
+  "id": "result:juno-initial-performance-2026",
+  "key_value": null,
+  "key_value_text": {
+    "confidence": "verified",
+    "note": "CORRECTED 2026-09-18: prior quote attributed to src:juno-cpc-initial-performance-2026, whose URL renders as an empty JS shell under a plain fetch and could not be verified as seen. Replaced with text confirmed verbatim (each elided fragment individually exact) against the full text of arXiv:2511.14590, the same paper.",
+    "quote": "yielded about 1785 photoelectrons per MeV of energy deposit at the detector centre ... The reconstructed energy resolution is 3.4% for two 0.511 MeV γ at the detector centre ... attenuation length of 20.6 m at 430 nm",
+    "sources": [
+      "src:reactor-solar-verify-juno-cpc-2026-arxiv"
+    ],
+    "value": "Light yield 1,785 p.e./MeV; energy resolution 3.4% at 0.511 MeV; attenuation length 20.6 m at 430 nm",
+    "verified_at": "2026-09-18"
   },
+  "links": {
+    "website": null
+  },
+  "name": "Initial performance results of the JUNO detector",
+  "notes": [
+    "DOI 10.1088/1674-1137/ae3dc1 added 2026-09-18, confirmed via INSPIRE-HEP (control_number 3084402) and the IOP DOI-resolved article page; the original pass had left it unset rather than guess.",
+    "src:juno-cpc-initial-performance-2026 (cpc.ihep.ac.cn) renders as a JS shell under a plain fetch -- its 'excerpt' quotes could not be independently verified this session. The claim and key_value_text quotes now cite src:reactor-solar-verify-juno-cpc-2026-arxiv, the arXiv preprint of the identical peer-reviewed paper (same title, same INSPIRE record, DOI-confirmed), whose full text was fetched and checked directly."
+  ],
+  "official_url": null,
+  "publication": {
+    "arxiv": "2511.14590",
+    "doi": "10.1088/1674-1137/ae3dc1",
+    "url": "https://cpc.ihep.ac.cn/news/specialissue/cdb801c8-850f-451f-962b-ee78ebb52f4d_en.htm"
+  },
+  "publication_source_id": "src:juno-cpc-initial-performance-2026",
+  "result_type": "technology_milestone",
+  "schema": "hep-atlas/0.2",
+  "significance": {
+    "confidence": "uncertain",
+    "locator": "Chin. Phys. C 50, 043001 (2026)",
+    "note": "A detector-performance report, not a discovery/observation/evidence claim; no significance figure applies.",
+    "sources": [
+      "src:juno-cpc-initial-performance-2026"
+    ],
+    "value": null,
+    "verified_at": "2026-09-17"
+  },
+  "sources": [
+    "src:juno-cpc-initial-performance-2026",
+    "src:reactor-solar-verify-juno-cpc-2026-arxiv"
+  ],
   "summary": {
     "plain": "The JUNO collaboration's first report on how well the detector itself works: how much light it collects, how sharply it measures energy, and how clear its liquid is.",
     "technical": "First reported in-situ performance figures for the JUNO central detector: light yield 1,785 photoelectrons/MeV, energy resolution 3.4% at 0.511 MeV γ-rays, and liquid-scintillator attenuation length 20.6 m at 430 nm."
   },
-  "why_it_matters": {
-    "value": "Confirms the detector meets or exceeds its design specifications ahead of its long-term physics program.",
-    "sources": ["src:juno-cpc-initial-performance-2026"],
-    "verified_at": "2026-09-17",
-    "confidence": "verified",
-    "quote": "attenuation length of 20.6 m at 430 nm, exceeding expectations",
-    "note": ""
-  },
-  "key_value": null,
-  "key_value_text": {
-    "value": "Light yield 1,785 p.e./MeV; energy resolution 3.4% at 0.511 MeV; attenuation length 20.6 m at 430 nm",
-    "sources": ["src:juno-cpc-initial-performance-2026"],
-    "verified_at": "2026-09-17",
-    "confidence": "verified",
-    "quote": "a light yield of 1,785 photoelectrons per MeV\" and \"energy resolution was measured at 3.4% for 0.511 MeV γ-rays\" ... \"attenuation length of 20.6 m at 430 nm",
-    "note": ""
-  },
-  "significance": {
-    "value": null,
-    "sources": ["src:juno-cpc-initial-performance-2026"],
-    "verified_at": "2026-09-17",
-    "confidence": "uncertain",
-    "locator": "Chin. Phys. C 50, 043001 (2026)",
-    "note": "A detector-performance report, not a discovery/observation/evidence claim; no significance figure applies."
-  },
-  "publication": {
-    "url": "https://cpc.ihep.ac.cn/news/specialissue/cdb801c8-850f-451f-962b-ee78ebb52f4d_en.htm"
-  },
-  "publication_source_id": "src:juno-cpc-initial-performance-2026",
-  "official_url": null,
-  "hepdata": null,
-  "links": {
-    "website": null
-  },
-  "notes": [
-    "No DOI was seen verbatim in the fetched page beyond the journal/volume/page citation 'Chin. Phys. C 50, 043001 (2026)'; `publication.doi` is left unset rather than guessed."
+  "title": "Initial performance results of the JUNO detector",
+  "topic_ids": [
+    "topic:reactor-neutrinos",
+    "topic:neutrino-oscillations"
   ],
-  "sources": ["src:juno-cpc-initial-performance-2026"],
-  "coverage": {
-    "tier": "A",
-    "researched": "partial"
+  "type": "result",
+  "why_it_matters": {
+    "confidence": "verified",
+    "note": "CORRECTED 2026-09-18: the prior quote ('attenuation length of 20.6 m at 430 nm, exceeding expectations') could not be verified verbatim against any fetched source (the cited page, cpc.ihep.ac.cn, renders as a JS shell with no article text reachable by a plain fetch). Replaced with a verbatim sentence from the paper's own full text (arXiv:2511.14590) that supports the same claim.",
+    "quote": "The measured attenuation lengths are 20.6 m for the LS at 430 nm and greater than 70.0 m for water at 400 nm, outperforming the simulated values of 20.0 m and 40.0 m, respectively.",
+    "sources": [
+      "src:reactor-solar-verify-juno-cpc-2026-arxiv"
+    ],
+    "value": "Confirms the detector meets or exceeds its design specifications ahead of its long-term physics program.",
+    "verified_at": "2026-09-18"
   }
 }

@@ -1,146 +1,189 @@
 {
-  "schema": "hep-atlas/0.2",
-  "id": "detector:juno",
-  "type": "detector",
-  "name": "JUNO central detector",
   "aliases": [
     "JUNO detector"
   ],
-  "experiment_ids": ["experiment:juno"],
-  "parent_detector_id": null,
-  "technology": {
-    "value": "20-kiloton liquid-scintillator sphere viewed by large- and small-diameter photomultiplier tubes, immersed in a water-Cherenkov veto pool with an overhead Top Tracker",
-    "sources": ["src:juno-cdr-arxiv-2015"],
-    "verified_at": "2026-09-17",
-    "confidence": "verified",
-    "quote": "The central detector contains 20,000 tons liquid scintillator with an acrylic sphere of 35 m in diameter. ... The veto system ... consists of a Water Cherenkov detector and a Top Tracker system.",
-    "note": ""
+  "coverage": {
+    "researched": "partial",
+    "tier": "A"
   },
-  "technology_class": "liquid_scintillator",
-  "technology_classes": ["liquid_scintillator"],
-  "placements": [
-    {
-      "site_id": "site:juno-jiangmen-underground-lab",
-      "role": "main",
-      "start": "2021",
-      "end": null,
-      "sources": ["src:juno-ihep-detector-completion-2024"],
-      "verified_at": "2026-09-17",
-      "confidence": "approximate",
-      "quote": "Detector installation started in 2021 and completed in December 2024",
-      "note": "Start year taken from a search-summarised IHEP report, not verbatim text in a fetched page."
-    }
+  "document_ids": [],
+  "experiment_ids": [
+    "experiment:juno"
   ],
+  "id": "detector:juno",
   "intervals": [
     {
-      "label": "installation",
+      "confidence": "verified",
+      "end": "2021-12-19",
+      "label": "civil construction of underground laboratory",
+      "note": "Closes a gap the original pass explicitly left uncovered ('no source... states an explicit approval date between the 2015 CDR and the 2021 start of detector installation'); the JUNO Collaboration's own performance paper gives this date directly. End date is the day the detector's Stainless Steel support-structure installation began, per the same source.",
+      "quote": "The civil construction of the JUNO underground lab started in January 2015.",
+      "sources": [
+        "src:reactor-solar-verify-juno-cpc-2026-arxiv"
+      ],
+      "start": "2015-01",
       "status": "construction",
-      "start": "2021",
-      "end": "2024-12",
-      "sources": ["src:juno-ihep-detector-completion-2024"],
-      "verified_at": "2026-09-17",
-      "confidence": "approximate",
-      "quote": "Detector installation started in 2021 and completed in December 2024",
-      "note": "Start year taken from a search-summarised IHEP report, not verbatim text seen in a fetched page; recorded approximate accordingly."
+      "verified_at": "2026-09-18"
     },
     {
-      "label": "filling with ultrapure water and liquid scintillator",
-      "status": "commissioning",
-      "start": "2024-12-18",
+      "confidence": "verified",
+      "end": "2024-12-17",
+      "label": "detector support-structure, acrylic-vessel and PMT installation",
+      "note": "Replaces the earlier single 'installation' interval (2021-2024-12, confidence approximate, sourced only to a search-engine summary of an IHEP report) with day-precision dates verified directly in the JUNO Collaboration's own paper.",
+      "quote": "The installation of the Stainless Steel support structure started on 19 December 2021. The installation of the photomultiplier tube (PMT) modules and electronics boxes started on 23 October 2022 and finished on 17 December 2024.",
+      "sources": [
+        "src:reactor-solar-verify-juno-cpc-2026-arxiv"
+      ],
+      "start": "2021-12-19",
+      "status": "construction",
+      "verified_at": "2026-09-18"
+    },
+    {
+      "confidence": "verified",
       "end": "2025-08-26",
-      "sources": ["src:juno-ihep-detector-completion-2024", "src:juno-ihep-first-results-en"],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
+      "label": "filling with ultrapure water and liquid scintillator",
+      "note": "",
       "quote": "During the first two months, the inner and outer spaces of the acrylic sphere will be filled with ultrapure water. Over the following six months, the ultrapure water inside the acrylic sphere will be replaced with liquid scintillator.",
-      "note": ""
+      "sources": [
+        "src:juno-ihep-detector-completion-2024",
+        "src:juno-ihep-first-results-en"
+      ],
+      "start": "2024-12-18",
+      "status": "commissioning",
+      "verified_at": "2026-09-17"
     },
     {
-      "label": "physics data taking",
-      "status": "active",
-      "start": "2025-08-26",
+      "confidence": "verified",
       "end": null,
-      "sources": ["src:juno-ihep-first-results-en"],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
+      "label": "physics data taking",
+      "note": "",
       "quote": "JUNO began physics data taking on August 26, 2025",
-      "note": ""
+      "sources": [
+        "src:juno-ihep-first-results-en"
+      ],
+      "start": "2025-08-26",
+      "status": "active",
+      "verified_at": "2026-09-17"
     }
   ],
-  "status": "active",
-  "specs": {
-    "target_mass": {
-      "value": 20,
-      "unit": "kt",
-      "dimension": "mass",
-      "approx": false,
-      "display": "20 kt liquid scintillator",
-      "sources": ["src:juno-cdr-arxiv-2015"],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
-      "quote": "The central detector contains 20,000 tons liquid scintillator with an acrylic sphere of 35 m in diameter.",
-      "note": ""
-    },
-    "pmt_count": {
-      "value": 20000,
-      "unit": "",
-      "dimension": "count",
-      "approx": false,
-      "display": "20000",
-      "sources": ["src:juno-ihep-detector-completion-2024"],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
-      "quote": "The facility is equipped with 20,000 20-inch photomultiplier tubes and 25,000 3-inch photomultiplier tubes",
-      "note": "A separate array of ~25,000 (25,600 per the 2021 design paper) 3-inch PMTs forms a complementary double-calorimeter system; recorded in `subsystems` rather than as a second `pmt_count` (not an Appendix A key for a second array)."
-    },
-    "energy_resolution": {
-      "value": "3.02%/√E (MeV), design target",
-      "sources": ["src:juno-physics-detector-arxiv-2021"],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
-      "quote": "anticipated energy resolution of \"3.02%/√E (MeV)\"",
-      "note": "This is the pre-operation design target. The first measured performance (Chin. Phys. C 50, 043001 (2026)) reports 3.4% at 0.511 MeV -- see result:juno-initial-performance-2026."
-    }
-  },
-  "subsystems": [
-    {
-      "name": "3-inch PMT double-calorimeter array",
-      "description": [
-        {
-          "value": "A complementary array of roughly 25,000 3-inch photomultiplier tubes providing an independent, non-saturating energy measurement alongside the 20-inch PMT array",
-          "sources": ["src:juno-ihep-detector-completion-2024"],
-          "verified_at": "2026-09-17",
-          "confidence": "verified",
-          "quote": "20,000 20-inch photomultiplier tubes and 25,000 3-inch photomultiplier tubes that work together to detect flashes of light",
-          "note": ""
-        }
-      ]
-    },
-    {
-      "name": "Water Cherenkov veto and Top Tracker",
-      "description": [
-        {
-          "value": "A water-Cherenkov detector plus an overhead Top Tracker system used for muon detection and cosmogenic-background rejection",
-          "sources": ["src:juno-cdr-arxiv-2015"],
-          "verified_at": "2026-09-17",
-          "confidence": "verified",
-          "quote": "The veto system is used for muon detection, muon induced background study and reduction. It consists of a Water Cherenkov detector and a Top Tracker system.",
-          "note": ""
-        }
-      ]
-    }
-  ],
-  "document_ids": [],
   "links": {
     "website": null
   },
+  "name": "JUNO central detector",
   "notes": [],
-  "sources": ["src:juno-cdr-arxiv-2015", "src:juno-physics-detector-arxiv-2021", "src:juno-ihep-detector-completion-2024"],
-  "summary": {
-    "plain": "A 20,000-tonne sphere of clear liquid, watched by 20,000 large light sensors and 25,000 smaller ones, sitting inside a pool of water that screens out stray particles.",
-    "technical": "20 kt liquid-scintillator central detector in a 35 m acrylic sphere, read out by 20,000 20-inch and ~25,000 3-inch PMTs, immersed in a water-Cherenkov veto pool with an overhead Top Tracker; design energy resolution 3.02%/√E (MeV)."
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "note": "Superseded the earlier 'start 2021, approximate' value (drawn from a search-engine summary) with the day-precision date verified directly in the JUNO Collaboration's own Initial performance results paper (arXiv:2511.14590 = Chin. Phys. C 50, 043001 (2026)).",
+      "quote": "The installation of the Stainless Steel support structure started on 19 December 2021",
+      "role": "main",
+      "site_id": "site:juno-jiangmen-underground-lab",
+      "sources": [
+        "src:reactor-solar-verify-juno-cpc-2026-arxiv"
+      ],
+      "start": "2021-12-19",
+      "verified_at": "2026-09-18"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:juno-cdr-arxiv-2015",
+    "src:juno-physics-detector-arxiv-2021",
+    "src:juno-ihep-detector-completion-2024",
+    "src:reactor-solar-verify-juno-cpc-2026-arxiv"
+  ],
+  "specs": {
+    "energy_resolution": {
+      "confidence": "verified",
+      "note": "CORRECTED 2026-09-18: prior quote ('anticipated energy resolution of \"3.02%/√E (MeV)\"') was not verbatim -- the abstract says 'effective energy resolution', not 'anticipated'. This is the pre-operation design target. The first measured performance (Chin. Phys. C 50, 043001 (2026)) reports 3.4% at 0.511 MeV -- see result:juno-initial-performance-2026.",
+      "quote": "we expect a yield of 1345 p.e. per MeV and an effective energy resolution of 3.02%/\\sqrt{E (MeV)}$ in simulations",
+      "sources": [
+        "src:juno-physics-detector-arxiv-2021"
+      ],
+      "value": "3.02%/√E (MeV), design target",
+      "verified_at": "2026-09-18"
+    },
+    "pmt_count": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "count",
+      "display": "17596 (4939 dynode-PMTs + 12657 MCP-PMTs)",
+      "note": "CORRECTED 2026-09-18: the prior value (20000) was the 2015 design target/2024 IHEP press-release rounding, not the as-built count. The JUNO Collaboration's own Initial performance results paper (arXiv:2511.14590 = Chin. Phys. C 50, 043001 (2026)) gives the actual installed count: 17596 20-inch PMTs (4939 Hamamatsu R12860-50 dynode-PMTs + 12657 NNVT GDB6201 MCP-PMTs). A separate array of 25587 3-inch PMTs (per the same source; IHEP's press release rounds this to 25,000, the 2021 design paper projected 25,600) forms a complementary double-calorimeter system; recorded in `subsystems` rather than as a second `pmt_count` (not an Appendix A key for a second array).",
+      "quote": "The main system consists of 17596 20-inch PMTs, (referred in the following as 'large PMTs') installed on the SS structure. Two types of PMTs have been employed: 4939 dynode-PMTs ... and 12657 Micro-Channel Plate photomultipliers, MCP-PMTs",
+      "sources": [
+        "src:reactor-solar-verify-juno-cpc-2026-arxiv"
+      ],
+      "unit": "",
+      "value": 17596,
+      "verified_at": "2026-09-18"
+    },
+    "target_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "20 kt liquid scintillator",
+      "note": "",
+      "quote": "The central detector contains 20,000 tons liquid scintillator with an acrylic sphere of 35 m in diameter.",
+      "sources": [
+        "src:juno-cdr-arxiv-2015"
+      ],
+      "unit": "kt",
+      "value": 20,
+      "verified_at": "2026-09-17"
+    }
   },
-  "coverage": {
-    "tier": "A",
-    "researched": "partial"
-  }
+  "status": "active",
+  "subsystems": [
+    {
+      "description": [
+        {
+          "confidence": "verified",
+          "note": "CORRECTED 2026-09-18: the as-built count (25587) replaces the earlier IHEP press-release rounding (25,000).",
+          "quote": "In addition, 25587 3-inch PMTs (referred in the following as 'small PMTs') have been produced from Hainan Zhanchuang Photonics Technology (China) and installed in the space between the 20-inch PMTs.",
+          "sources": [
+            "src:reactor-solar-verify-juno-cpc-2026-arxiv"
+          ],
+          "value": "A complementary array of 25,587 3-inch photomultiplier tubes providing an independent, non-saturating energy measurement alongside the 20-inch PMT array",
+          "verified_at": "2026-09-18"
+        }
+      ],
+      "name": "3-inch PMT double-calorimeter array"
+    },
+    {
+      "description": [
+        {
+          "confidence": "verified",
+          "note": "",
+          "quote": "The veto system is used for muon detection, muon induced background study and reduction. It consists of a Water Cherenkov detector and a Top Tracker system.",
+          "sources": [
+            "src:juno-cdr-arxiv-2015"
+          ],
+          "value": "A water-Cherenkov detector plus an overhead Top Tracker system used for muon detection and cosmogenic-background rejection",
+          "verified_at": "2026-09-17"
+        }
+      ],
+      "name": "Water Cherenkov veto and Top Tracker"
+    }
+  ],
+  "summary": {
+    "plain": "A 20,000-tonne sphere of clear liquid, watched by more than 17,000 large light sensors and over 25,000 smaller ones, sitting inside a pool of water that screens out stray particles.",
+    "technical": "20 kt liquid-scintillator central detector in a 35 m acrylic sphere, read out by 17,596 20-inch PMTs (4,939 dynode + 12,657 MCP) and 25,587 3-inch PMTs, immersed in a water-Cherenkov veto pool with an overhead Top Tracker; design energy resolution 3.02%/√E (MeV), first measured at 3.4% for 0.511 MeV γ-rays."
+  },
+  "technology": {
+    "confidence": "verified",
+    "note": "",
+    "quote": "The central detector contains 20,000 tons liquid scintillator with an acrylic sphere of 35 m in diameter. ... The veto system ... consists of a Water Cherenkov detector and a Top Tracker system.",
+    "sources": [
+      "src:juno-cdr-arxiv-2015"
+    ],
+    "value": "20-kiloton liquid-scintillator sphere viewed by large- and small-diameter photomultiplier tubes, immersed in a water-Cherenkov veto pool with an overhead Top Tracker",
+    "verified_at": "2026-09-17"
+  },
+  "technology_class": "liquid_scintillator",
+  "technology_classes": [
+    "liquid_scintillator"
+  ],
+  "type": "detector"
 }

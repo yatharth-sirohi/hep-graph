@@ -70,12 +70,31 @@
         "site depth below surface"
       ],
       "name": "Belle II",
-      "notes": "Full interval history (TDR, construction, roll-in, Phase 2, Run 1, LS1, Run 2), key specs, two results plus the SuperKEKB luminosity milestone. facility:kek is referenced but owned by japan-neutrino.",
+      "notes": "Full interval history (TDR, construction, roll-in, Phase 2, Run 1, LS1, Run 2), key specs, and 3 results as of 2026-09-18 (2023 B->K nu nubar evidence, 2023 tau-mass precision measurement, and the 2025 |Vcb| determination from B->D l nu decays) plus the SuperKEKB luminosity milestone. facility:kek is referenced but owned by japan-neutrino.",
       "owner": "flavor",
       "priority": 1,
       "researched": "full",
       "schema": "hep-atlas/0.2",
       "status": "active",
+      "tier": "A",
+      "validated": true
+    },
+    {
+      "category": "collider",
+      "entity_id": "experiment:cms",
+      "facility": "CERN",
+      "globe_ready": true,
+      "missing_fields": [
+        "collaboration:cms institution memberships beyond the existing memberships/cms.json roster snapshot (owned by membership-lead)",
+        "collaboration leadership (spokesperson) not sourced in this pass",
+        "HEPData record URLs (result.hepdata fields not populated in this pass)"
+      ],
+      "name": "CMS",
+      "notes": "No coverage row existed for CMS before this flagship-depth pass (2026-09-18); experiment:cms, detector:cms, collaboration:cms and site:cern-point-5-cms were already fully researched by an earlier session (10 results including the 2012 Higgs observation, the 2022 'Higgs portrait' paper, H->bb, H->tautau and ttH observations, a high-mass dilepton search, W-boson and top-quark mass measurements, and a joint CMS+LHCb Bs->mumu observation; 9 documents including the 1994 Technical Proposal, 2008 JINST detector paper, 1997-98 ECAL/HCAL/tracker TDRs and the Phase-2 tracker/muon/MIP-timing/endcap-calorimeter TDRs; 5 key specs; external.inspire_experiment = 1108642); this pass added only the missing registry row, cross-checked against the on-disk entity files without changing them.",
+      "owner": "cern-cms",
+      "priority": 1,
+      "researched": "full",
+      "status": "upgrade",
       "tier": "A",
       "validated": true
     },
@@ -125,10 +144,11 @@
         "PMT count unresolved between two official-site figures (20,000 vs ~40,000; see worklog conflicts)",
         "fiducial mass unresolved between two official-site figures (188 kt vs 190 kt; see worklog conflicts)",
         "exact broad 'construction start' date (only cavern-excavation start, Oct 2022, is sourced; no source confirms a 2021 construction start)",
-        "collaboration leadership (spokesperson) not sourced"
+        "collaboration leadership (spokesperson) not sourced",
+        "results: zero (Hyper-Kamiokande is under construction; no physics run has started, so no result exists to source — this is a fact about the experiment's stage, not a research gap)"
       ],
       "name": "Hyper-Kamiokande",
-      "notes": "Approved 2020-02-12; cavern excavation 2022-10, complete per 2026 paper; water-tank lining complete per Aug-2026 news entry; planned operation start 2027-2028 (sources disagree).",
+      "notes": "Approved 2020-02-12; cavern excavation 2022-10, complete per 2026 paper; water-tank lining complete per Aug-2026 news entry; planned operation start 2027-2028 (sources disagree). Flagship-depth pass (2026-09-18): confirmed, without adding, that Hyper-Kamiokande has zero results on file. The detector is still under construction (status: construction; no commissioning or run interval sourced); no physics result exists yet, and none was invented to fill the quota. 1 technical document (2018 design report, arXiv:1805.04163) and 4 key specs are on file.",
       "owner": "japan-neutrino",
       "priority": 1,
       "researched": "full",
@@ -303,7 +323,7 @@
         "detector-paper (NIM 2003) PMT count could not be extracted directly; official detector page used instead"
       ],
       "name": "Super-Kamiokande",
-      "notes": "8 intervals from cavity excavation to SK-Gd; 4 results recorded.",
+      "notes": "8 intervals from cavity excavation to SK-Gd; 4 results recorded as of 2026-09-18 (1998 atmospheric-oscillation evidence, the 2023 SK-Gd first astrophysical-antineutrino search, the 2024 full-SK-IV solar-neutrino precision measurement, and the 2025 DSNB limit from 956.2 days of SK-VI/VII gadolinium data).",
       "owner": "japan-neutrino",
       "priority": 1,
       "researched": "full",
@@ -323,7 +343,7 @@
         "collaboration leadership (spokesperson) not sourced"
       ],
       "name": "T2K",
-      "notes": "9 intervals, 4 physics goals, 5 key specs, lineage to K2K.",
+      "notes": "9 intervals, 4 physics goals, 3 results (2011 indication, 2014 observation, 2020 Nature CP-phase constraint), lineage to K2K. Flagship-depth pass (2026-09-18): added 4 key_specs to the experiment record (295 km baseline, 2.5 deg/2.504 deg measured off-axis angle, ND280 0.2 T magnet field, ~750 kW design beam power), all quoted from the existing src:t2k-nim-2011 full-text source.",
       "owner": "japan-neutrino",
       "priority": 1,
       "researched": "full",
@@ -440,10 +460,11 @@
         "key_specs quantities (detector paper abstract gave qualitative technology description only, no numeric dimensions/fields)",
         "official website link (no live BaBar/PEP-II URL was independently fetched and confirmed this session; left null rather than citing an unverified address)",
         "documents (TDR/CDR) - full-depth extra, not attempted (non-flagship)",
-        "results - full-depth extra, not attempted (non-flagship)"
+        "results - full-depth extra, not attempted (non-flagship)",
+        "exact last-data day (2008-04-08 is Symmetry Magazine's own article dateline, but its text says the last data was taken \"last night\"; the actual day may be 2008-04-07 and is not independently confirmed -- confidence downgraded to approximate in a 2026-09-17 verification pass)"
       ],
       "name": "BaBar",
-      "notes": "Mandatory bar complete: experiment/detector/collaboration with sourced intervals (proposed 1994-06 to completed 2008-04-08), facility_roles and accelerator_ids referencing facility:slac/accelerator:pep-ii (both now created by the facilities lead), placement referencing site:slac-pep-ii-ir2-babar (also now created). INSPIRE experiment recid 1108553.",
+      "notes": "Mandatory bar complete: experiment/detector/collaboration with sourced intervals (proposed 1994-06 to completed 2008-04-08 [day uncertain, see missing_fields]), facility_roles and accelerator_ids referencing facility:slac/accelerator:pep-ii (both now created by the facilities lead), placement referencing site:slac-pep-ii-ir2-babar (also now created). INSPIRE experiment recid 1108553.",
       "owner": "colliders-historical",
       "priority": 2,
       "researched": "partial",
@@ -463,11 +484,11 @@
         "results and technical documents (not attempted; optional extra for a non-flagship)"
       ],
       "name": "Baikal-GVD",
-      "notes": "facility:baikal-deep-underwater-neutrino-telescope created per the seed list, with a lake site carrying sourced coordinates (51°46'N 104°24'E) and depth (~1366 m) from the collaboration's own 2023 status paper (arXiv:2309.16310). Status recorded as 'construction' (annual cluster expansion ongoing since 2016), not 'active', since the design cubic-kilometre array is not yet complete.",
+      "notes": "facility:baikal-deep-underwater-neutrino-telescope created per the seed list, with a lake site carrying sourced coordinates (51°46'N 104°24'E) and depth (~1366 m) from the collaboration's own 2023 status paper (arXiv:2309.16310). Verification fix (2026-09-18): status changed from 'construction' to 'commissioning' -- the same 2023 status paper states already-deployed clusters have taken continuous physics data since 2018 ('data collected in 2018-2022 indicate the presence of cosmic neutrino flux...'), the same overlapping build/operate pattern used for KM3NeT, so a bare 'construction' label understated it; the design cubic-kilometre array is still not complete.",
       "owner": "astro-neutrino",
       "priority": 2,
       "researched": "partial",
-      "status": "construction",
+      "status": "commissioning",
       "tier": "B",
       "validated": true
     },
@@ -844,10 +865,11 @@
       "missing_fields": [
         "collaboration formation date",
         "collaboration leadership (person records owned elsewhere)",
-        "exact antineutrino-mode data-taking end date (run is ongoing)"
+        "exact antineutrino-mode data-taking end date (run is ongoing)",
+        "NOvA detector design/instrumentation paper distinct from the 2007 TDR: searched INSPIRE literature (collaboration NOvA, title containing 'detector') and novaexperiment.fnal.gov/publications in this session and found only subsystem papers (liquid-scintillator production, NuMI beam, Library Event Matching) and the TDR itself; no standalone refereed 'NOvA Detector' NIM/JINST paper was found, so none was added rather than mislabelling a subsystem paper as the detector paper"
       ],
       "name": "NOvA",
-      "notes": "Two detectors (near, far), rich construction/commissioning/active intervals including the 2017 antineutrino-mode start, 5 key specs, 3 physics goals and 1 oscillation-measurement result recorded.",
+      "notes": "Two detectors (near, far), rich construction/commissioning/active intervals including the 2017 antineutrino-mode start, 5 key specs, 3 physics goals. Flagship-depth pass (2026-09-18): added external.inspire_experiment (recid 1108441, INSPIRE experiment record) and a second result, the first joint NOvA-T2K oscillation analysis (Nature 646, 818-824, 2025); 2 results on file (2022 PRD oscillation-parameters measurement + the 2025 joint analysis).",
       "owner": "fermilab-neutrino-other",
       "priority": 2,
       "researched": "full",
@@ -1054,18 +1076,20 @@
     {
       "category": "solar_neutrino",
       "entity_id": "experiment:borexino",
-      "facility": "LNGS / SNOLAB / Baksan / Homestake",
-      "globe_ready": false,
+      "facility": "LNGS (existing facility/site:lngs-hall-c, referenced)",
+      "globe_ready": true,
       "missing_fields": [
-        "all"
+        "official membership counts and leadership beyond the two named founders",
+        "exact overburden reconciliation (site average ~1400 m rock vs this experiment's own 3800 m.w.e. figure)",
+        "significance sigma for the CNO result (abstract states 'high statistical significance' without a number in what was fetched)"
       ],
       "name": "Borexino",
-      "notes": "Identified in the coverage scope; not yet researched.",
+      "notes": "Mandatory bar plus 2 non-flagship bonus results written: experiment/detector/collaboration/2 results (2014 pp measurement, 2020 CNO evidence, both verbatim quotes) validated clean. Referenced existing facility:lngs/site:lngs-hall-c; did not create facility/site files.",
       "owner": "reactor-solar-neutrino",
       "priority": 3,
-      "researched": "none",
+      "researched": "partial",
       "tier": "D",
-      "validated": false
+      "validated": true
     },
     {
       "category": "direct_dark_matter",
@@ -1137,10 +1161,11 @@
         "collaboration membership/leadership counts",
         "INSPIRE experiment recid",
         "results (only key_specs recorded, no results/ file)",
-        "site:lngs-hall-a coordinates (owned by facilities lead)"
+        "site:lngs-hall-a coordinates (owned by facilities lead)",
+        "a source that states Hall A specifically for CUORE (the cited LBL press release only says 'Gran Sasso National Laboratory' generally; see detector note)"
       ],
       "name": "CUORE",
-      "notes": "experiment/detector/collaboration written. Status active since ~2019 (steady data-taking); 988 TeO2 crystals, ~0.8 t crystal mass; 2024 result T1/2>3.5e25 yr (90% C.I.), 2 tonne-yr exposure. Lineage: predecessor of CUPID.",
+      "notes": "experiment/detector/collaboration written. Began operating 2017 (commissioning), steady data-taking since 2019, status active; 988 TeO2 crystals, ~0.8 t crystal mass; 2024 result T1/2>3.5e25 yr (90% C.I., verbatim from abstract - note C.I. not C.L.), 2 tonne-yr exposure. Lineage: predecessor of CUPID. Independent verification (2026-09-17, src:0vbb-verify-*): re-fetched the arXiv abstract and LBL press release, both confirmed verbatim; the Hall A placement's confidence was downgraded from 'verified' to 'approximate' because the cited source does not itself say 'Hall A' (see detector note).",
       "owner": "neutrino-mass-0vbb",
       "priority": 3,
       "researched": "partial",
@@ -1158,10 +1183,11 @@
         "collaboration membership/leadership counts",
         "INSPIRE experiment recid",
         "confirmed construction-start / CD stage (only 'proposed' recorded; secondary summaries mention CD-0 and a mid-2025 prototype but were not re-verified against a primary source)",
-        "site:lngs-hall-a coordinates (owned by facilities lead)"
+        "site:lngs-hall-a coordinates (owned by facilities lead)",
+        "a source that states Hall A specifically for CUPID (only general LNGS confirmed; CUPID is expected to reuse the CUORE cryostat, which is in Hall A, but no fetched source says so directly for CUPID)"
       ],
       "name": "CUPID",
-      "notes": "experiment/detector/collaboration written. Status recorded as proposed (conservative; official site describes it only in future tense). Planned ~1500 Li2MoO4 crystals, 240 kg of 100Mo, Qbb=3034 keV. Lineage: successor of CUORE, reuses its cryostat.",
+      "notes": "experiment/detector/collaboration written. Status recorded as proposed (conservative; official site describes it only in future tense; a WebSearch in the independent-verification pass corroborated CD-0 status circa 2019 but found no fetchable primary source for a later CD stage or construction start, so 'proposed' stands). Planned ~1500 Li2MoO4 crystals, 240 kg of 100Mo, Qbb=3034 keV. Lineage: successor of CUORE, reuses its cryostat. Independent verification (2026-09-17): re-fetched official site and arXiv:2503.02894 abstract, both confirmed verbatim.",
       "owner": "neutrino-mass-0vbb",
       "priority": 3,
       "researched": "partial",
@@ -1395,18 +1421,21 @@
     {
       "category": "solar_neutrino",
       "entity_id": "experiment:gallex-gno",
-      "facility": "LNGS / SNOLAB / Baksan / Homestake",
-      "globe_ready": false,
+      "facility": "LNGS (existing facility/site:lngs-hall-a, referenced)",
+      "globe_ready": true,
       "missing_fields": [
-        "all"
+        "official membership/institution counts (only 6 nationalities named)",
+        "leadership",
+        "no dedicated official GALLEX/GNO site was found; all facts sourced from Wikipedia only",
+        "results (capture-rate measurement papers not written up as result: records, time-boxed to the mandatory bar)"
       ],
       "name": "GALLEX/GNO",
-      "notes": "Identified in the coverage scope; not yet researched.",
+      "notes": "Mandatory bar written: experiment/detector/collaboration validated clean. Modelled as one experiment record with GNO as an alias, per this workstream's brief. Referenced existing facility:lngs/site:lngs-hall-a.",
       "owner": "reactor-solar-neutrino",
       "priority": 3,
-      "researched": "none",
+      "researched": "partial",
       "tier": "D",
-      "validated": false
+      "validated": true
     },
     {
       "category": "double_beta_decay",
@@ -1417,10 +1446,11 @@
         "collaboration formation date",
         "INSPIRE experiment recid",
         "exact Phase I/Phase II day-level boundary dates",
-        "site:lngs-hall-a coordinates (owned by facilities lead)"
+        "site:lngs-hall-a coordinates (owned by facilities lead)",
+        "sourced interval for the 2013-06 to 2015-11 gap between Phase I and Phase II (upgrade/shutdown period; validator flags this as 30 months unrecorded)"
       ],
       "name": "GERDA",
-      "notes": "experiment/detector/collaboration written. Completed 2011-2019/2020; 127.2 kg·yr exposure, T1/2>1.8e26 yr (90% C.L.). Collaboration: ~120 members, 16 institutes, 6 countries. Lineage: predecessor of LEGEND.",
+      "notes": "experiment/detector/collaboration written. Completed 2011-2019/2020; 127.2 kg·yr exposure, T1/2>1.8e26 yr (90% C.L.). Collaboration: ~120 members, 16 institutes, 6 countries. Lineage: predecessor of LEGEND. Independent verification (2026-09-17, src:0vbb-verify-*): re-fetched the final-results and Phase I status papers directly; corrected two paraphrased 'quote' fields to verbatim text (total exposure and Phase I dates).",
       "owner": "neutrino-mass-0vbb",
       "priority": 3,
       "researched": "partial",
@@ -1441,11 +1471,11 @@
         "GRAND@Nançay and GRAND@Auger prototypes not modelled in detail (only named in notes)"
       ],
       "name": "GRAND",
-      "notes": "Full GRAND array status 'proposed' (200,000-antenna design, not built); the GRANDProto300 prototype's own build-out (13-antenna stage since 2023-06, 65-antenna stage since 2025-04) is modelled only on detector:grand so the experiment-level status keeps matching the collaboration's own current description of the full array, per A10.",
+      "notes": "Verification fix (2026-09-18): status changed from 'proposed' to 'commissioning'. The full 200,000-antenna GRAND design remains unbuilt/proposed, but the GRANDProto300 prototype's own build-out (13-antenna stage since 2023-06, 65-antenna stage since 2025-04) has genuinely been deployed and taking data, which is inconsistent with leaving the experiment record at 'proposed' while detector:grand was 'commissioning'; the experiment level now matches the detector.",
       "owner": "astro-neutrino",
       "priority": 3,
       "researched": "partial",
-      "status": "proposed",
+      "status": "commissioning",
       "tier": "B",
       "validated": true
     },
@@ -1473,18 +1503,21 @@
     {
       "category": "solar_neutrino",
       "entity_id": "experiment:homestake",
-      "facility": "LNGS / SNOLAB / Baksan / Homestake",
-      "globe_ready": false,
+      "facility": "SURF (existing facility, referenced; predecessor Homestake mine)",
+      "globe_ready": true,
       "missing_fields": [
-        "all"
+        "a distinct sourced coordinate for the Davis chlorine-tank chamber itself (none found; placed at the existing site:surf-surface-campus campus/approximate point per this workstream's brief, which is a surface point, not the detector's true ~1478 m depth)",
+        "target mass in tonnes (only volume, 380 m3, was sourced)",
+        "official membership/institution counts",
+        "precise formation date (only 'headed... in the late 1960s' per Wikipedia)"
       ],
       "name": "Homestake",
-      "notes": "Identified in the coverage scope; not yet researched.",
+      "notes": "Mandatory bar written: experiment/detector/collaboration/1 result (1998 definitive flux measurement, verbatim title, key SNU value) validated clean. Referenced existing facility:surf and site:surf-surface-campus; did NOT create a new site and did NOT conflate with site:surf-4850-level-dune-far-detector, per the brief's explicit instruction.",
       "owner": "reactor-solar-neutrino",
       "priority": 3,
-      "researched": "none",
+      "researched": "partial",
       "tier": "D",
-      "validated": false
+      "validated": true
     },
     {
       "category": "astrophysical_neutrino",
@@ -1557,7 +1590,7 @@
         "precise coordinate for the KATRIN spectrometer hall itself (only a geocoder campus point for KIT Campus North sourced)"
       ],
       "name": "KATRIN",
-      "notes": "facility:kit-karlsruhe and site:kit-campus-north created (new, owned by this lead). experiment/detector/collaboration written, plus results/katrin-neutrino-mass-upper-limit-2025.json (2025 Science paper, upper limit mν<0.45 eV at 90% CL). Active since ~2019.",
+      "notes": "facility:kit-karlsruhe and site:kit-campus-north created (new, owned by this lead). experiment/detector/collaboration written, plus results/katrin-neutrino-mass-upper-limit-2025.json (2025 Science paper, upper limit mν<0.45 eV at 90% CL). Active since ~2019. Independent verification (2026-09-17, src:0vbb-verify-*): re-fetched the Science paper abstract, confirmed verbatim; fixed detector:katrin technology_class from the legacy 'spectrometer' to 'magnetic_spectrometer' per ontology amendment A24 (2026-09-17), which postdates this record and specifically names KATRIN's MAC-E filter.",
       "owner": "neutrino-mass-0vbb",
       "priority": 3,
       "researched": "partial",
@@ -1577,7 +1610,7 @@
         "site:lngs-hall-a coordinates (owned by facilities lead)"
       ],
       "name": "LEGEND",
-      "notes": "experiment + detector:legend-200 + collaboration written. Active since 2023 (LEGEND-200); >250 researchers, ~50 institutions. First result (2025): T1/2(LEGEND-200)>0.5e26 yr, combined GERDA+MJD+LEGEND-200 T1/2>1.9e26 yr (90% CL). LEGEND-1000 recorded as proposed with no site.",
+      "notes": "experiment + detector:legend-200 + collaboration written. Active since 2023 (LEGEND-200); >250 researchers, ~50 institutions. First result (2025): T1/2(LEGEND-200)>0.5e26 yr, combined GERDA+MJD+LEGEND-200 T1/2>1.9e26 yr (90% CL). LEGEND-1000 recorded as proposed with no site. Independent verification (2026-09-17, src:0vbb-verify-*): re-fetched arXiv:2509.21166 abstract, both half-life limits confirmed verbatim. The previously cited source for the detector's Hall A placement (LEGEND official site) does not itself say 'Hall A'; added src:0vbb-verify-legend-200-hall-a-lbl (LBL Nuclear Science Division), which does, and cited it alongside.",
       "owner": "neutrino-mass-0vbb",
       "priority": 3,
       "researched": "partial",
@@ -1873,11 +1906,11 @@
         "unambiguous 2026 deployment status (official site's 'In 2026, the first detection line of P-ONE will be deployed' could not be resolved to already-happened vs still-upcoming)"
       ],
       "name": "P-ONE",
-      "notes": "Status classified conservatively: experiment:p-one remains 'proposed' (matching the collaboration's own current wording, 'a proposed large-volume neutrino telescope'), while the built pathfinder hardware (STRAW, deployed 2018; STRAW-b) is modelled as 'active' on detector:p-one, keeping the two levels honestly distinct per A10.",
+      "notes": "Verification fix (2026-09-18): status changed from 'proposed' to 'commissioning'. The original 'proposed' label for experiment:p-one while detector:p-one was 'active' was an internally inconsistent pair (a detector cannot be running for an experiment that is only proposed); the STRAW pathfinder has been actively deployed and taking data at Cascadia Basin since January 2019, so the experiment-level status now reflects that, while the full multi-cubic-kilometre design array (and P-ONE-1, its first production line, confirmed via a 2026-09-18 re-fetch of the official site to still be un-deployed) remains at the proposal stage.",
       "owner": "astro-neutrino",
       "priority": 3,
       "researched": "partial",
-      "status": "proposed",
+      "status": "commissioning",
       "tier": "B",
       "validated": true
     },
@@ -1965,18 +1998,21 @@
     {
       "category": "solar_neutrino",
       "entity_id": "experiment:sage",
-      "facility": "LNGS / SNOLAB / Baksan / Homestake",
-      "globe_ready": false,
+      "facility": "Baksan Neutrino Observatory",
+      "globe_ready": true,
       "missing_fields": [
-        "all"
+        "underground_lab-precision coordinates (official Baksan/INR page 404'd; Wikipedia campus/approximate point used)",
+        "official membership/institution counts",
+        "leadership person_id (named physicists, no people/ records in this wave)",
+        "confirmation of a current operating status vs. shutdown (Wikipedia's own wording is self-contradictory: 'End: August 2011, with continued operations thereafter')"
       ],
       "name": "SAGE",
-      "notes": "Identified in the coverage scope; not yet researched.",
+      "notes": "Mandatory bar written: experiment/detector/facility(facility:baksan-neutrino-observatory, newly created)/site/collaboration/1 result (1999 capture-rate measurement, verbatim quote) validated clean.",
       "owner": "reactor-solar-neutrino",
       "priority": 3,
-      "researched": "none",
+      "researched": "partial",
       "tier": "D",
-      "validated": false
+      "validated": true
     },
     {
       "category": "direct_dark_matter",
@@ -2103,21 +2139,40 @@
     {
       "category": "direct_dark_matter",
       "entity_id": "experiment:supercdms",
-      "facility": "Soudan Underground Laboratory (historical) / SNOLAB (current)",
+      "facility": "SNOLAB",
       "globe_ready": true,
       "missing_fields": [
         "results (optional for tier B)",
         "documents (optional for tier B)",
         "collaboration:supercdms membership (institution/member counts not stated by the official site)",
-        "detector:supercdms total/active/fiducial mass in kg (only the 24-crystal count is sourced)",
-        "lineage to experiment:cdms-ii (technology/name continuity is well known but no fetched source states it explicitly)"
+        "detector:supercdms total/active/fiducial mass in kg (only the 24-crystal count is sourced)"
       ],
       "name": "SuperCDMS",
-      "notes": "Richly sourced current-affairs history: DOE construction approval (Symmetry Magazine, 2018-05-07), cooldown/commissioning (SLAC news, 2026-03-17), and early-science start (SLAC news, 2026-08-26) all carry verbatim quotes. Both SuperCDMS-Soudan (INSPIRE recid 1298909) and SuperCDMS-SNOLAB (recid 1357671) are folded into one experiment record per the brief's guidance; the Soudan-era interval is deliberately left non-terminal (status active, not completed) to satisfy A3.",
+      "notes": "Richly sourced current-affairs history: DOE construction approval (Symmetry Magazine, 2018-05-07), cooldown/commissioning (SLAC news, 2026-03-17), and early-science start (SLAC news, 2026-08-26) all carry verbatim quotes. RESOLVED by independent verification (2026-09-18): the earlier SuperCDMS-Soudan programme (INSPIRE recid 1298909) is now split out as its own record, experiment:supercdms-soudan, linked via lineage (relation upgrade_of), instead of being folded in as a deliberately-mislabelled non-terminal interval on this record. A citable predecessor link to experiment:cdms-ii was also found (INSPIRE 1298909's own description field) and recorded on the new Soudan record, resolving that previously-unresolved lineage gap.",
       "owner": "dm-cryogenic-low-threshold",
       "priority": 3,
       "researched": "partial",
       "status": "active",
+      "tier": "B",
+      "validated": true
+    },
+    {
+      "category": "direct_dark_matter",
+      "entity_id": "experiment:supercdms-soudan",
+      "facility": "Soudan Underground Laboratory",
+      "globe_ready": true,
+      "missing_fields": [
+        "results (optional for tier B)",
+        "documents (optional for tier B)",
+        "detector:supercdms-soudan crystal count/total mass (no source found for the Soudan-era payload distinct from the later SNOLAB 24-crystal figure)",
+        "energy_regime / physics_goals (no Soudan-specific source distinct from the shared collaboration-level goal already on experiment:supercdms; left unauthored rather than duplicated without its own source)"
+      ],
+      "name": "SuperCDMS Soudan",
+      "notes": "Split out of experiment:supercdms on 2026-09-18 (independent-verification fix) per A3's own prescription: this experiment code (INSPIRE recid 1298909, FNAL-E-0891) has an explicit terminal `date_completed` (2015-01-01, INSPIRE + Symmetry Magazine agree) and is now represented with an honest terminal interval instead of a mislabelled non-terminal one. Carries a newly-found, sourced predecessor link to experiment:cdms-ii (INSPIRE's own description: the iZIP detector was developed 'resulting in substantially improved rejection of surface event backgrounds that had limited CDMS-II'). collaboration_ids points at the shared collaboration:supercdms.",
+      "owner": "dm-cryogenic-low-threshold",
+      "priority": 3,
+      "researched": "partial",
+      "status": "completed",
       "tier": "B",
       "validated": true
     },

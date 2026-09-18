@@ -396,7 +396,8 @@
   "collaboration:d0": {
     "notes": [
       "Institution-level membership rows and leadership are out of scope for this wave (person records and rosters are owned by other workstreams); only the published aggregate counts are recorded.",
-      "Derived field collaboration.experiment_ids is deliberately not written (v0.2 A1)."
+      "Derived field collaboration.experiment_ids is deliberately not written (v0.2 A1).",
+      "Conflict noted in a 2026-09-17 verification pass: the D0 INSPIRE experiment record's own description field states \"At its peak, the DZero Collaboration included 650 physicists from over 80 national and international research institutions from 21 countries\" -- larger than the 540/90/18 figures used above from fnal.gov (2014). Both are genuine published figures for different moments (INSPIRE's is an unstated-date peak; fnal.gov's is dated 2014, after data-taking ended); the fnal.gov figures are kept as `membership` since they carry an explicit `as_of`, and this note records the alternate INSPIRE figure rather than silently dropping it."
     ],
     "summary_technical": "International collaboration operating the D0 general-purpose detector at the Fermilab Tevatron; per fnal.gov (2014), about 540 members from about 90 institutions in 18 countries, split roughly evenly between U.S. and non-U.S. participants."
   },
@@ -541,6 +542,12 @@
   "collaboration:haystac": {
     "notes": [],
     "summary_technical": "Multi-institution collaboration (Yale University, UC Berkeley, LBNL, University of Colorado Boulder) operating the HAYSTAC haloscope at Yale's Wright Laboratory."
+  },
+  "collaboration:homestake": {
+    "notes": [
+      "The 1998 results paper (Cleveland, Daily, Davis, Distel, Lande, Lee, Wildenhain, Ullman) lists 8 named authors, from the University of Pennsylvania and Brookhaven National Laboratory per general knowledge of this well-documented historical experiment; a formal institution count was not independently confirmed by a source fetched this session and is left null rather than guessed."
+    ],
+    "summary_technical": "Collaboration operating the Homestake chlorine solar-neutrino experiment 1970-1994, led by Raymond Davis Jr. and John N. Bahcall; institution/membership counts not independently confirmed by a source fetched this session."
   },
   "collaboration:hyper-kamiokande": {
     "notes": [
@@ -935,6 +942,12 @@
       "Derived field collaboration.experiment_ids is deliberately not written (v0.2 A1)."
     ],
     "summary_technical": "Collaboration (hosted administratively at the University of Chicago) developing and deploying the Radio Neutrino Observatory Greenland at Summit Station; WIPAC (UW-Madison) is a named partner; no published total membership count found this session."
+  },
+  "collaboration:sage": {
+    "notes": [
+      "No membership counts or dedicated official site were found in a source fetched this session; the Joint Institute for Nuclear Research (Russia) and Los Alamos National Laboratory (USA) are named as participants on Wikipedia, without a full institution list."
+    ],
+    "summary_technical": "Collaboration operating SAGE at Baksan; participants include the Institute for Nuclear Research (Russia) and Los Alamos National Laboratory (USA); membership counts not found in a source fetched this session."
   },
   "collaboration:sbn": {
     "notes": [
@@ -1396,6 +1409,12 @@
     "notes": [],
     "summary_technical": "Tunable microwave cavity haloscope at Yale Wright Laboratory using inverse-Primakoff axion-to-photon conversion in a static magnetic field, with a Josephson parametric amplifier / squeezed-vacuum receiver for sub-quantum-limited noise."
   },
+  "detector:homestake": {
+    "notes": [
+      "Coordinate caveat: the site referenced (site:surf-surface-campus) is a surface campus point, not the detector's true ~1478 m underground location; see placement note."
+    ],
+    "summary_technical": "Radiochemical chlorine-argon detector, 380 m3 perchloroethylene target, 1478 m (4850 ft) underground in the Homestake mine; ran 1970-1994, measured 37Ar production rate 2.56±0.16(stat)±0.16(syst) SNU."
+  },
   "detector:hyper-kamiokande": {
     "notes": [
       "PMT count is unresolved between two figures on the same official site (20,000 vs 'about 40,000'); recorded transparently with both values noted rather than picking silently. See conflicts in the worklog.",
@@ -1592,7 +1611,8 @@
   },
   "detector:mu2e": {
     "notes": [
-      "technology_classes uses 'spectrometer': the detector's function (momentum/energy analysis of a mono-energetic conversion electron via tracker + calorimeter behind a solenoidal magnet chain) is closer to a spectrometer than to any of the other listed classes (none of which name a solenoidal charged-lepton spectrometer specifically)."
+      "technology_classes uses 'spectrometer': the detector's function (momentum/energy analysis of a mono-energetic conversion electron via tracker + calorimeter behind a solenoidal magnet chain) is closer to a spectrometer than to any of the other listed classes (none of which name a solenoidal charged-lepton spectrometer specifically).",
+      "Overall solenoid-system length not stated in any fetched source; an unsupported 25 m value was removed on 2026-09-18 verification."
     ],
     "summary_technical": "Production, transport and detector superconducting solenoids (25 m combined length) with a straw-tube tracker and fast CsI crystal calorimeter behind the stopping target, plus a cosmic ray veto system covering the solenoids, per the Mu2e TDR and subsequent status reports. Under construction; no data yet."
   },
@@ -1749,6 +1769,10 @@
     "notes": [],
     "summary_technical": "RNO-G station design: 3 in-ice strings of 15 antennas each (~100 m depth) plus 9 surface antennas per station, on a 1.25 km grid; 7 stations built over the 2021-2022 field seasons, deployment paused in 2023 pending a performance/design review."
   },
+  "detector:sage": {
+    "notes": [],
+    "summary_technical": "Radiochemical liquid-gallium-metal detector (50-57 t), 71Ga(nu_e,e-)71Ge reaction, at Baksan; chemically extracted and counted in periodic campaigns rather than observed in real time."
+  },
   "detector:sbnd": {
     "notes": [
       "Placed at site:fermilab-main-campus (owned by the fermilab-dune lead): no separately sourceable site record exists for this detector hall in this wave.",
@@ -1821,9 +1845,16 @@
   },
   "detector:supercdms": {
     "notes": [
-      "Detector total/active/fiducial mass in kg was not found on any page fetched this session; only the crystal count (24) is sourced."
+      "Detector total/active/fiducial mass in kg was not found on any page fetched this session; only the crystal count (24) is sourced.",
+      "Split on 2026-09-18: this record now covers only the SNOLAB payload. The earlier Soudan-era iZIP payload is now detector:supercdms-soudan (see experiment:supercdms.lineage)."
     ],
-    "summary_technical": "24-crystal Si/Ge cryogenic ionization-and-phonon payload operated at 15-30 mK at SNOLAB, preceded by an earlier-generation payload that ran at the Soudan Underground Laboratory 2009-2015; multiple shielding layers (Cu, polyethylene, ultrapure Pb, radon barrier) suppress backgrounds."
+    "summary_technical": "24-crystal Si/Ge cryogenic ionization-and-phonon payload operated at 15-30 mK at SNOLAB, succeeding an earlier-generation iZIP payload (detector:supercdms-soudan) that ran at the Soudan Underground Laboratory 2009-2015; multiple shielding layers (Cu, polyethylene, ultrapure Pb, radon barrier) suppress backgrounds."
+  },
+  "detector:supercdms-soudan": {
+    "notes": [
+      "No Soudan-specific crystal count or total mass was found by any source fetched this session or the original research pass; left unsourced rather than assumed from the later SNOLAB payload's 24-crystal figure."
+    ],
+    "summary_technical": "iZIP (interleaved Z-sensitive Ionization and Phonon) cryogenic Ge/Si detector payload operated at the Soudan Underground Laboratory, 2009-2015; an evolution of the CDMS-II detector design with substantially improved surface-event background rejection."
   },
   "detector:telescope-array": {
     "notes": [
@@ -2638,8 +2669,9 @@
   },
   "experiment:damic": {
     "notes": [
-      "Two INSPIRE experiment records exist: the original Fermilab prototype (recid 1108203, FNAL-T-0987, approved 2008-12-15, completed 2012-04-09) and the current SNOLAB programme (recid 1401315). Both are represented as one experiment:damic record with dated intervals, per the same reasoning used for CDMS-II/SuperCDMS. external.inspire_experiment cites the current (SNOLAB) recid.",
-      "RESOLVED by independent verification (2026-09-17): the original research pass recorded status `active` because no source it had fetched stated an end date. A 2025 SNOLAB Future Projects Workshop report (arXiv:2507.11368), fetched during verification, states the original DAMIC detector at SNOLAB has become a test stand for background studies -- i.e. its dark-matter science run is over. Status is now recorded as `completed` with a sourced terminal interval."
+      "Two INSPIRE experiment records exist: the original Fermilab prototype (recid 1108203, FNAL-T-0987, approved 2008-12-15, completed 2012-04-09) and the current SNOLAB programme (recid 1401315). Unlike SuperCDMS-Soudan/SNOLAB (see experiment:supercdms-soudan), the Fermilab prototype is not represented as its own experiment id or as a lifecycle `intervals` row: it was a small-scale R&D device establishing feasibility, not an independent science campaign, so it is recorded only via the dated `facility_roles` row above. `external.inspire_experiment` cites the current (SNOLAB) recid.",
+      "RESOLVED by independent verification (2026-09-17 pass): the original research pass recorded status `active` because no source it had fetched stated an end date. A 2025 SNOLAB Future Projects Workshop report (arXiv:2507.11368), fetched during verification, states the original DAMIC detector at SNOLAB has become a test stand for background studies -- i.e. its dark-matter science run is over. Status is now recorded as `completed` with a sourced terminal interval.",
+      "2026-09-18 fix: the Fermilab prototype's lifecycle `intervals` row was removed (previously labelled non-terminal `active` through 2012-04 specifically to avoid an A3 non-terminal-after-terminal conflict with the later SNOLAB intervals, despite INSPIRE giving an explicit date_completed for that phase). The underlying fact (2008-12 to 2012-04, at Fermilab) is unchanged and remains fully sourced via `facility_roles`; only its representation moved, per the coordinator's instruction that a prototype phase belongs in a dated placement/facility_role row rather than a mislabelled lifecycle interval."
     ],
     "physics_goals": [
       "Search for WIMP and light dark matter via ionization signals in silicon CCDs"
@@ -2869,7 +2901,8 @@
       "facility:lngs already exists (owned by the fermilab-neutrino-other lead) and is referenced here, not edited.",
       "No INSPIRE experiment-registry lookup was performed in this session; external.inspire_experiment is left null with this note rather than guessed (v0.2 A17).",
       "Collaboration formation date and precise Phase I/Phase II day-level dates were not found in any source fetched in this session; see the collaboration record and interval notes above for what is and is not sourced.",
-      "GERDA is superseded by LEGEND-200, which reuses much of the Hall A infrastructure (lineage: predecessor)."
+      "GERDA is superseded by LEGEND-200, which reuses much of the Hall A infrastructure (lineage: predecessor).",
+      "Verification note (2026-09-17): the validator flags a 30-month gap (2013-06 to 2015-11) between the Phase I and Phase II intervals with no recorded status; this corresponds to GERDA's known upgrade/shutdown period between phases, but no source fetched in this or the prior session gives a sourced interval for it. Left as an honest gap (state `unrecorded`) rather than guessed."
     ],
     "physics_goals": [
       "Search for neutrinoless double-beta decay of 76Ge to test whether the neutrino is its own antiparticle (a Majorana fermion)"
@@ -2889,7 +2922,7 @@
     "physics_goals": [
       "Detect ultra-high-energy cosmic neutrinos and cosmic rays using giant radio antenna arrays sensitive to air showers and Earth-skimming neutrino-induced showers"
     ],
-    "summary_technical": "Proposed 200,000-antenna, 20-sub-array giant radio observatory for ultra-high-energy neutrinos and cosmic rays. Full array remains at proposal stage; the GRANDProto300 prototype in the Gobi Desert near Dunhuang, China grew from a 13-antenna stage (deployed June 2023) to a 65-antenna stage (April 2025), alongside sister prototypes GRAND@Nancay (France) and GRAND@Auger (Argentina), all operating since 2023.",
+    "summary_technical": "Planned 200,000-antenna, 20-sub-array giant radio observatory for ultra-high-energy neutrinos and cosmic rays. The full design array remains at the proposal stage, but the GRANDProto300 prototype in the Gobi Desert near Dunhuang, China has been deployed and growing since June 2023 (13-antenna stage, then 65-antenna stage by April 2025), alongside sister prototypes GRAND@Nancay (France) and GRAND@Auger (Argentina), all operating since 2023.",
     "unique_capabilities": []
   },
   "experiment:h-e-s-s": {
@@ -2937,6 +2970,19 @@
     "summary_technical": "Tunable microwave-cavity haloscope at Yale Wright Laboratory searching for cold dark-matter axions above 20 ueV via inverse-Primakoff conversion in a static magnetic field; Phase II uses a squeezed-vacuum receiver for sub-quantum-limited noise, having scanned 16.96-19.46 ueV combined as of 2024-2025 data.",
     "unique_capabilities": [
       "Uses a squeezed-vacuum quantum receiver to beat the standard quantum noise limit and speed up the axion search"
+    ]
+  },
+  "experiment:homestake": {
+    "notes": [
+      "Per this workstream's brief: no distinct sourced coordinate for the Davis chlorine-tank chamber (as opposed to the mine/facility generally) was found in this session, so no new `site:` record is created for it. `facility_roles` references the EXISTING `facility:surf` (its own record already carries the pre-SURF 'Homestake gold mine' interval, sourced by the fermilab-dune workstream, and its `site:surf-surface-campus` campus point, `kind: campus`/`confidence: approximate`). This is NOT the same physical location as `site:surf-4850-level-dune-far-detector` (the DUNE far-detector cavern), which this record deliberately does not reference, per the explicit instruction not to conflate the two.",
+      "Derived fields (detector_ids, site_ids, result_ids, document_ids) deliberately not authored (v0.2 A1)."
+    ],
+    "physics_goals": [
+      "Detect solar neutrinos via the inverse beta-decay reaction on chlorine-37, converting it to argon-37"
+    ],
+    "summary_technical": "Radiochemical chlorine-argon solar-neutrino experiment in the Homestake Gold Mine, Lead, South Dakota, 1478 m (4850 ft) underground; 380 m3 (100,000 gal) perchloroethylene target. Operated continuously 1970-1994, measuring a 37Ar production rate of 2.56±0.16(stat)±0.16(syst) SNU, about one-third of the Standard Solar Model prediction -- the original 'solar neutrino problem', later resolved by neutrino oscillation (SNO, Super-Kamiokande).",
+    "unique_capabilities": [
+      "First experiment to directly detect solar neutrinos, and the first to reveal the 'solar neutrino problem' (a measured rate about one-third of the theoretical prediction)"
     ]
   },
   "experiment:hyper-kamiokande": {
@@ -3306,7 +3352,8 @@
       "Detector placement uses the EXISTING site:surf-davis-campus-lz (owned by the dark-matter workstream) rather than a new site record: no source fetched in this session gives the Majorana Demonstrator a coordinate distinct from LZ's point in the same Davis Campus / 4850 Level. The SURF news page states the Majorana depth as 1478 m, essentially identical to the ~1480 m depth already sourced on site:surf-davis-campus-lz for LZ; both experiments are described as being in the Davis Campus at SURF's 4850 Level. No site:surf-4850-davis-campus-majorana file was created, per the domain lead's instruction to reuse the existing point unless a genuinely distinct one is sourced.",
       "facility:surf already exists (owned by the fermilab-dune lead) and is referenced here, not edited.",
       "No INSPIRE experiment-registry lookup was performed in this session; external.inspire_experiment is left null with this note rather than guessed.",
-      "Exact data-taking start/end dates (interval labelled 'data taking') are flagged uncertain: see that interval's note."
+      "Exact data-taking start/end dates (interval labelled 'data taking') are flagged uncertain: see that interval's note.",
+      "Verification fix (2026-09-17, src:0vbb-verify-*): re-fetched the SURF news page; the installation-start `quote` (here, on the collaboration record, and on both detector-record occurrences, plus the source's own `excerpt`) previously dropped “The MAJORANA Collaboration”/““MAJORANA Demonstrator (MJD)”” and paraphrased it as “The collaboration ... the detector ...”; corrected to the page's actual sentence in all four files."
     ],
     "physics_goals": [
       "Search for neutrinoless double-beta decay of 76Ge and demonstrate the technology needed for a future tonne-scale germanium experiment (LEGEND)"
@@ -3443,7 +3490,8 @@
       "No physics results exist yet: every fetched status source describes Mu2e as still under construction/installation, with data collection not yet begun (most recently planned for 2027). This is stated explicitly rather than left to silence, per the correctness rule that an incomplete/no-results state must never be implied by omission.",
       "Sensitivity-goal conflict: the INSPIRE experiment record (rank 3, closer to the original approved proposal) states 2.5x10^-17; a 2022 Mu2e collaboration status proceedings paper (rank 10) states 3x10^-17 for a staged Run-1+Run-2 plan. Both are recorded (primary value 2.5x10^-17, the other noted) rather than silently picking one; see the muons.md worklog Conflicts section.",
       "A documented lineage exists to the cancelled Brookhaven proposal MECO (Muon-to-Electron COnversion); no source describing this lineage was fetched in this session (a BNL-owned MECO experiment id is not in scope for the 'muons' workstream in any case), so it is not recorded here at all rather than asserted from memory.",
-      "external.inspire_experiment (1108209) is sourced from https://inspirehep.net/api/experiments?q=mu2e, confirmed at https://inspirehep.net/experiments/1108209."
+      "external.inspire_experiment (1108209) is sourced from https://inspirehep.net/api/experiments?q=mu2e, confirmed at https://inspirehep.net/experiments/1108209.",
+      "2026-09-18 verification: the \"25 m long superconducting solenoidal system\" key spec was removed — the quoted sentence does not appear in the cited status paper (PoS WIFAI2025 020, INSPIRE 3189846) or its abstract, and no fetched source states the length; the 2027 quote was made verbatim (lower-case)."
     ],
     "physics_goals": [
       "Search for charged-lepton-flavor-violating, neutrino-less conversion of a muon to an electron in the field of an aluminum nucleus (mu- N -> e- N), a process forbidden in the Standard Model"
@@ -3570,8 +3618,7 @@
   },
   "experiment:nova": {
     "notes": [
-      "Derived fields (detector_ids, site_ids, result_ids, document_ids) are deliberately not written (v0.2 A1).",
-      "No INSPIRE experiment-registry lookup was performed in this session (inspirehep.net requests are rate-limited to one per 10 s); external.inspire_experiment is left null rather than guessed."
+      "Derived fields (detector_ids, site_ids, result_ids, document_ids) are deliberately not written (v0.2 A1)."
     ],
     "physics_goals": [
       "Observe the oscillation of muon neutrinos into electron neutrinos",
@@ -3627,13 +3674,13 @@
   "experiment:p-one": {
     "notes": [
       "detector:p-one is placed at site:cascadia-basin-p-one, the nearest named coastal feature (Barkley Sound, Vancouver Island): no source fetched this session (official site, Nature Astronomy design paper, EPJC site-characterization paper, Ocean Networks Canada pages, Wikipedia) gives a numeric latitude/longitude for the actual Cascadia Basin seafloor deployment point, only qualitative descriptions ('Cascadia Basin, ~200 km off the coast of British Columbia/Vancouver Island, Canada', depth 2660 m). Per A17's fallback rule, the coastal point is recorded as a coarse regional pointer (kind: campus, confidence: uncertain) rather than a surveyed seafloor position.",
-      "Timeline per the collaboration's own pages/papers: STRAW pathfinder deployed Spring 2018, commissioning completed January 2019; STRAW-b under construction as of the 2021 paper with deployment then planned for 2020 (i.e. the 2021 paper's schedule predates its own writing, an internal inconsistency in that source, left unresolved); P-ONE Explorer deployment was planned for 2023-2024 in the 2020 design paper; the official site (accessed 2026-09-17) states 'In 2026, the first detection line of P-ONE will be deployed' and separately notes a completed 'wet test of P-ONE-1 in Vancouver's Granville Island' and 'Completed integration of first detector line P-ONE-1' as past milestones -- it is not possible to tell from the fetched text alone whether the first real detection line has already been deployed in the ocean as of the access date or is still upcoming later in 2026.",
+      "Timeline per the collaboration's own pages/papers: STRAW pathfinder deployed Spring 2018, commissioning completed January 2019; STRAW-b under construction as of the 2021 paper with deployment then planned for 2020 (i.e. the 2021 paper's schedule predates its own writing, an internal inconsistency in that source, left unresolved); P-ONE Explorer deployment was planned for 2023-2024 in the 2020 design paper; the official site (re-fetched 2026-09-18) states 'In 2026, the first detection line of P-ONE will be deployed' (future tense) and separately lists completed milestones 'Successful wet test of P-ONE-1 in Vancouver's Granville Island' and 'Completed integration of first detector line P-ONE-1' -- read together, P-ONE-1 has been built and tested on land/in harbour but the site's own present-tense wording indicates it has not yet been deployed to depth at Cascadia Basin.",
       "Derived fields (detector_ids, site_ids, result_ids, document_ids) are deliberately not written (v0.2 A1)."
     ],
     "physics_goals": [
       "Build a multi-cubic-kilometre neutrino telescope in the deep Pacific Ocean to detect high-energy astrophysical neutrinos"
     ],
-    "summary_technical": "Proposed multi-cubic-kilometre water-Cherenkov neutrino telescope for the Cascadia Basin (2660 m depth) on Ocean Networks Canada's NEPTUNE cabled infrastructure off Vancouver Island. Pathfinder instruments (STRAW, deployed Spring 2018; STRAW-b; P-ONE-1) have validated the deep-sea deployment and optical-background characterization; the full array remains at the proposal stage as of the collaboration's own current description.",
+    "summary_technical": "Multi-cubic-kilometre water-Cherenkov neutrino telescope proposed for the Cascadia Basin (2660 m depth) on Ocean Networks Canada's NEPTUNE cabled infrastructure off Vancouver Island. The STRAW pathfinder (deployed Spring 2018) has been actively taking data since January 2019, validating deep-sea deployment and optical-background characterization; P-ONE-1, the planned first production detection line, has completed integration and a wet test but had not yet been deployed to depth as of the 2026-09-18 re-check. The full design array remains at the proposal stage.",
     "unique_capabilities": []
   },
   "experiment:pandax-4t": {
@@ -3729,6 +3776,19 @@
     ],
     "summary_technical": "In-ice radio neutrino detector under phased construction at Summit Station, Greenland (72°35'46\"N 38°25'19\"W, atop >3 km of ice); design target 35 stations on a 1.25 km grid, each with 3 strings of 15 antennas ~100 m deep plus 9 surface antennas. 7 stations deployed over the 2021-2022 field seasons; deployment paused in 2023 to evaluate instrument performance before continuing.",
     "unique_capabilities": []
+  },
+  "experiment:sage": {
+    "notes": [
+      "No dedicated official SAGE/Baksan website was reachable this session (inr.ru/baksan.html returned 404); `links.website` left null rather than guessed.",
+      "Derived fields (detector_ids, site_ids, result_ids, document_ids) deliberately not authored (v0.2 A1)."
+    ],
+    "physics_goals": [
+      "Measure the flux of low-energy (pp-chain) solar neutrinos via the radiochemical gallium-to-germanium reaction"
+    ],
+    "summary_technical": "Radiochemical liquid-gallium solar-neutrino experiment at the Baksan Neutrino Observatory, Russia, ~2100 m underground; 50-57 t gallium target. Measured a solar neutrino capture rate of 67.2 (+7.2/-7.0 stat) (+3.5/-3.0 syst) SNU over 1990-1997, about half the Standard Solar Model prediction of 129 SNU.",
+    "unique_capabilities": [
+      "Radiochemical liquid-gallium target sensitive to the lowest-energy (pp) solar neutrinos"
+    ]
   },
   "experiment:sbnd": {
     "notes": [
@@ -3894,16 +3954,24 @@
   },
   "experiment:supercdms": {
     "notes": [
-      "Two INSPIRE experiment records exist for this programme: SuperCDMS-Soudan (recid 1298909, FNAL-E-0891) and SuperCDMS-SNOLAB (recid 1357671, FNAL-E-0947). Both phases are represented here as one experiment:supercdms record with dated intervals and two facility_roles/detector placements, per the wave-3 brief's guidance to record the Soudan phase as an interval rather than a separate experiment id. external.inspire_experiment cites the current (SNOLAB) recid. The Soudan-phase interval is deliberately kept non-terminal (status `active`, not `completed`) because A3 forbids a non-terminal interval after a terminal one on the same entity; the fact that Soudan operations ended in 2015 is recorded in that interval's note and end date instead.",
-      "No source fetched this session explicitly states a predecessor relationship between experiment:cdms-ii and experiment:supercdms in citable text; lineage is left empty rather than asserted from memory (A17). Known gap worth revisiting once an official SuperCDMS history page is found.",
+      "Split on 2026-09-18: this record now covers only the SNOLAB programme (INSPIRE recid 1357671). The earlier Soudan-era programme (INSPIRE recid 1298909, FNAL-E-0891), which has its own terminal `date_completed` (2015-01-01) confirmed by Symmetry Magazine, is now `experiment:supercdms-soudan`, linked here via `lineage`. A prior draft folded both eras into this one record with the Soudan interval deliberately mislabelled non-terminal (`active`) to dodge the A3 non-terminal-after-terminal check; that was incorrect and has been corrected by the split, per A3's own prescription.",
       "DOE Critical Decision milestones between the 2014 INSPIRE approval and the 2018 construction start (if any) are not recorded: no source fetched this session gives them."
     ],
     "physics_goals": [
       "Detect dark matter particles with masses smaller than about ten times the mass of the proton via nuclear recoils in cryogenic silicon and germanium crystals"
     ],
-    "summary_technical": "Cryogenic Ge/Si ionization-and-phonon dark matter search; SuperCDMS Soudan (Soudan Underground Laboratory, ~2009-2015) was succeeded by SuperCDMS SNOLAB, now under commissioning/early science with 24 detector crystals cooled to 15-30 mK, targeting sub-10-proton-mass WIMPs; full-sensitivity science operations are planned for 2027.",
+    "summary_technical": "Cryogenic Ge/Si ionization-and-phonon dark matter search at SNOLAB, succeeding the earlier SuperCDMS Soudan programme (experiment:supercdms-soudan, 2009-2015). Now under commissioning/early science with 24 detector crystals cooled to 15-30 mK, targeting sub-10-proton-mass WIMPs; full-sensitivity science operations are planned for 2027.",
     "unique_capabilities": [
       "Phonon- and ionization-sensing cryogenic crystal detectors optimized for very low-mass WIMP nuclear recoils, operated near 15-30 mK"
+    ]
+  },
+  "experiment:supercdms-soudan": {
+    "notes": [
+      "Split out of the combined `experiment:supercdms` record on 2026-09-18 per A3's own prescription ('a revived programme is a new experiment id with lineage'): this experiment code (INSPIRE recid 1298909, FNAL-E-0891) has an explicit terminal `date_completed` (2015-01-01) independently confirmed by Symmetry Magazine, so it is represented as its own, honestly-terminal timeline rather than a non-terminal interval papered over inside the still-active SNOLAB record."
+    ],
+    "summary_technical": "SuperCDMS Soudan (INSPIRE FNAL-E-0891, recid 1298909): first-generation SuperCDMS programme at the Soudan Underground Laboratory, 2009-2015, using iZIP (interleaved Z-sensitive Ionization and Phonon) cryogenic Ge/Si detectors -- an evolution of the CDMS-II detector design with substantially improved surface-event background rejection. Superseded by SuperCDMS SNOLAB (experiment:supercdms).",
+    "unique_capabilities": [
+      "iZIP (interleaved Z-sensitive Ionization and Phonon) sensor geometry giving substantially improved surface-event background rejection relative to CDMS-II"
     ]
   },
   "experiment:t2k": {
@@ -4048,6 +4116,12 @@
       "Only one site (the lake deployment point) is modelled here; derived fields (site_ids, accelerator_ids, beamline_ids, institution_id, document_ids, experiment_ids) are deliberately not written (v0.2 A1)."
     ],
     "summary_technical": "Baikal-GVD (Gigaton Volume Detector): expanding underwater neutrino telescope in the southern basin of Lake Baikal, operated by INR RAS with international partners; traces to 1980s-era Baikal neutrino experiments (NT-200), first Baikal-GVD cluster deployed 2015, under continuous annual expansion since."
+  },
+  "facility:baksan-neutrino-observatory": {
+    "notes": [
+      "The Baksan/INR official site (inr.ru/baksan.html) returned 404 on the one URL guessed this session; this record relies on Wikipedia and the SAGE 1999 results paper (which does not itself state facility coordinates or depth)."
+    ],
+    "summary_technical": "Underground neutrino laboratory in the Caucasus Mountains, Russia, operated by INR RAS; the SAGE gallium detector sits about 2100 m (6900 ft) underground."
   },
   "facility:boulby-underground-laboratory": {
     "notes": [],
@@ -6736,6 +6810,15 @@
     "summary_technical": "Pseudomass-endpoint measurement in τ⁻ → π⁻π⁺π⁻ ν_τ using ~175 million e⁺e⁻ → τ⁺τ⁻ events in 190 fb⁻¹ at √s = 10.579 GeV, giving m_τ = 1777.09 ± 0.08(stat) ± 0.11(syst) MeV/c².",
     "why_it_matters": "The tau mass enters tests of lepton universality and of the Standard Model's lepton sector; this measurement was the most precise at the time of publication."
   },
+  "result:belle-ii-vcb-measurement-2025": {
+    "claim": {
+      "locator": "arXiv:2506.15256, abstract",
+      "quote": "We present a determination of the Cabibbo-Kobayashi-Maskawa matrix element |Vcb| from the decay B to D l nu_l using a 365 fb^-1 e+e- to Upsilon(4S) to B Bbar data sample recorded by the Belle II experiment at the SuperKEKB collider."
+    },
+    "notes": [],
+    "summary_technical": "Inclusive-tag determination of |Vcb| from B0->D-(->K+pi-pi-) l+ nu_l and B+->D0bar(->K+pi-) l+ nu_l decays in 365 fb^-1 of Belle II Upsilon(4S) data, using the recoil variable w=v_B.v_D and lattice-QCD form-factor averages. Reports B(B0->D- l+ nu_l) = (2.06 +/- 0.05stat +/- 0.10sys)%, B(B+->D0bar l+ nu_l) = (2.31 +/- 0.04stat +/- 0.09sys)%, a lepton-flavor-universality ratio B(B->D e nu_e)/B(B->D mu nu_mu) = 1.020 +/- 0.020stat +/- 0.022sys, and |Vcb| = (39.2 +/- 0.4stat +/- 0.6sys +/- 0.5th)x10^-3.",
+    "why_it_matters": "|Vcb| is one of the least precisely known entries of the CKM quark-mixing matrix and a long-standing input to tests of the Standard Model's flavor sector; Belle II's large, clean e+e- data set gives an independent determination from the exclusive B->D l nu channel."
+  },
   "result:belle-x3872-observation-2003": {
     "claim": {
       "locator": "",
@@ -6760,7 +6843,7 @@
       "quote": "the first direct spectral measurement of the neutrinos from the keystone proton-proton fusion"
     },
     "notes": [
-      "result_type set to `first_detection` rather than `discovery`/`observation`/`evidence`: the title itself contains none of the A16 mechanical-check keywords ('discover'/'observ'/'evidence'), and the collaboration's own framing (per the fetched summary) is 'the first direct spectral measurement', i.e. a first-of-its-kind measurement rather than a discovery claim."
+      "result_type set to `measurement` rather than `discovery`/`observation`/`evidence`/`first_detection`: the title and cited quote contain none of the A16 mechanical-check keywords ('discover'/'observ'/'evidence'), and `first_detection` requires 'detect' in the claim quote or a cited source title, which this quote also lacks; the collaboration's own framing (per the fetched summary) is 'the first direct spectral measurement'."
     ],
     "summary_technical": "First direct spectral measurement of pp-chain solar neutrinos (the reaction producing ~99% of the Sun's power), made with the Borexino liquid-scintillator detector at LNGS.",
     "why_it_matters": "Completed the direct spectroscopic observation of the dominant solar neutrino-producing reaction, confirming the Sun is currently generating energy at the rate implied by its present-day photon luminosity."
@@ -6771,7 +6854,8 @@
       "quote": "We establish the existence of the top quark using a 67 pb^-1 data sample of Pbar-P collisions at Sqrt(s) = 1.8 TeV collected with the Collider Detector at Fermilab (CDF)."
     },
     "notes": [
-      "result_type is \"observation\" (not \"discovery\") because that is the paper's own title/abstract wording, per instructions to follow the collaboration's wording rather than press characterizations (Fermilab's own tevatron/experiments pages call this \"the discovery of the top quark\", but the PRL 74, 2626 title and abstract say \"Observation ...\\\"/\"We establish the existence...\")."
+      "result_type is \"observation\" (not \"discovery\") because that is the paper's own title/abstract wording, per instructions to follow the collaboration's wording rather than press characterizations (Fermilab's own tevatron/experiments pages call this \"the discovery of the top quark\", but the PRL 74, 2626 title and abstract say \"Observation ...\\\"/\"We establish the existence...\").",
+      "title/name corrected in a 2026-09-17 verification pass: the record previously read \"Observation of top quark production in ppbar collisions\", dropping the published title's \"with the Collider Detector at Fermilab\" clause and its capitalisation; confirmed verbatim against journals.aps.org/prl/abstract/10.1103/PhysRevLett.74.2626, whose title is \"Observation of Top Quark Production in pbar-p Collisions with the Collider Detector at Fermilab\" (rendered here with the repository's ASCII \"ppbar\" convention)."
     ],
     "summary_technical": "CDF observation of top-quark pair production in ppbar collisions at sqrt(s)=1.8 TeV using a 67 pb^-1 sample; a signal consistent with t-tbar -> WWbbbar decay, inconsistent with background by 4.8 sigma, with a corroborating peak in the reconstructed mass distribution.",
     "why_it_matters": "The top quark was the last of the six quarks of the Standard Model to be found; establishing its existence and mass let physicists test the internal consistency of the Standard Model and, later, constrain the Higgs boson mass."
@@ -6916,7 +7000,8 @@
       "quote": "We conclude that we have observed the top quark and measure its mass."
     },
     "notes": [
-      "result_type is \"observation\" (not \"discovery\"), matching the paper's own title \"Observation of the top quark\" (PRL 74, 2632), per instructions to follow the collaboration's own wording."
+      "result_type is \"observation\" (not \"discovery\"), matching the paper's own title \"Observation of the Top Quark\" (PRL 74, 2632), per instructions to follow the collaboration's own wording.",
+      "title/name capitalisation corrected in a 2026-09-17 verification pass (was \"Observation of the top quark\"); confirmed verbatim against journals.aps.org/prl/abstract/10.1103/PhysRevLett.74.2632, whose title is \"Observation of the Top Quark\"."
     ],
     "summary_technical": "D0 observation of the top quark in ppbar collisions at sqrt(s)=1.8 TeV with an integrated luminosity of about 50 pb^-1: 17 dilepton/single-lepton candidate events against an expected background of 3.8+/-0.6, a background-fluctuation probability of 2.0e-6 (4.6 standard deviations).",
     "why_it_matters": "The top quark was the last of the six quarks of the Standard Model to be found; D0's independent observation, simultaneous with CDF's, cross-confirmed the discovery and let physicists begin measuring the top quark's properties."
@@ -6973,6 +7058,15 @@
     ],
     "summary_technical": "ProtoDUNE-SP (NP04), a 770 t single-phase LArTPC built at the CERN Neutrino Platform, was exposed to a charged-particle beam of 0.3-7 GeV/c; the paper reports the detector's first operational performance (drift, purity, calorimetric response) validating the technology for the DUNE far-detector modules.",
     "why_it_matters": "ProtoDUNE-SP proved that DUNE's single-phase liquid-argon TPC technology works at close to full detector-module scale before the collaboration committed to building the far-detector modules underground at SURF."
+  },
+  "result:homestake-flux-measurement-1998": {
+    "claim": {
+      "locator": "ApJ 496, 505 (1998), title",
+      "quote": "Measurement of the Solar Electron Neutrino Flux with the Homestake Chlorine Detector"
+    },
+    "notes": [],
+    "summary_technical": "Full-dataset (1970-1994) measurement of the solar-neutrino-induced 37Ar production rate: 2.56±0.16(stat)±0.16(syst) SNU.",
+    "why_it_matters": "The definitive statement of the multi-decade chlorine-detector result that established the 'solar neutrino problem', motivating SNO, Super-Kamiokande, GALLEX/SAGE and eventually the discovery of neutrino oscillation."
   },
   "result:icarus-hidden-sector-scalar-limit-2025": {
     "claim": {
@@ -7411,6 +7505,15 @@
     "summary_technical": "Joint νμ/ν̄μ disappearance and νe/ν̄e appearance fit with 50% more neutrino-mode exposure than the previous NOvA release: Δm²₃₂=(2.41±0.07)×10⁻³ eV², sin²θ₂₃=0.57 (upper octant), normal ordering favored; δ_CP near π/2 excluded at >3σ assuming inverted ordering.",
     "why_it_matters": "Determining the neutrino mass ordering and the CP-violating phase delta_CP are two of the biggest open questions in neutrino physics; NOvA's beam and atmospheric-scale baseline give it direct sensitivity to both, in combination with results from other experiments such as T2K."
   },
+  "result:nova-t2k-joint-oscillation-analysis-2025": {
+    "claim": {
+      "locator": "arXiv:2510.19888, abstract",
+      "quote": "Here, we carry out the first joint analysis of data sets from NOvA and T2K, the two currently operating long-baseline neutrino oscillation experiments (hundreds of kilometers of neutrino travel distance), taking advantage of our complementary experimental designs and setting new constraints on several neutrino sector parameters."
+    },
+    "notes": [],
+    "summary_technical": "First joint three-flavor oscillation fit of NOvA and T2K neutrino- and antineutrino-mode data sets, exploiting the experiments' different baselines and beam energies to break parameter degeneracies. Reports |Δm²₃₂| = 2.43+0.04/-0.03 (normal ordering) or -2.48+0.03/-0.04 (inverted ordering) ×10⁻³ eV², and a 3σ interval on δ_CP of [-1.38π, 0.30π] (normal) / [-0.92π, -0.04π] (inverted); no strong preference for mass ordering is found.",
+    "why_it_matters": "The first combination of the world's two currently running long-baseline accelerator neutrino experiments, giving the most precise joint constraint yet on the neutrino mass-squared splitting and narrowing the allowed range for the CP-violating phase δ_CP."
+  },
   "result:opera-tau-neutrino-appearance-discovery-2015": {
     "claim": {
       "locator": "title",
@@ -7442,6 +7545,17 @@
     "summary_technical": "In a 229-day exposure (11 Aug 2011 - 26 Mar 2012), RENO observed a far-detector-to-expectation ratio of 0.920±0.009(stat)±0.014(syst), giving sin²(2θ₁₃) = 0.113±0.013(stat)±0.019(syst) from a rate-only analysis, at 4.9σ significance.",
     "why_it_matters": "One of the three reactor experiments (with Daya Bay and Double Chooz) to establish a relatively large, non-zero theta_13 in 2012."
   },
+  "result:sage-capture-rate-1999": {
+    "claim": {
+      "locator": "Phys. Rev. C 60, 055801 (1999), title",
+      "quote": "Measurement of the solar neutrino capture rate with gallium metal"
+    },
+    "notes": [
+      "Wikipedia separately cites a later, full-dataset (through 2007) capture rate of 65.4 SNU; this result record covers only the 1999 paper's 1990-1997 dataset and its own 67.2 SNU figure, sourced directly from the paper itself rather than the later secondary figure."
+    ],
+    "summary_technical": "Solar neutrino capture rate on gallium, January 1990-December 1997, measured at 67.2 (+7.2/-7.0 stat) (+3.5/-3.0 syst) SNU, about half the Standard Solar Model prediction of 129 SNU.",
+    "why_it_matters": "One of the gallium experiments (with GALLEX/GNO) confirming the solar neutrino deficit extended down to the lowest-energy pp neutrinos, later explained by neutrino oscillation."
+  },
   "result:sk-atmospheric-oscillation-evidence-1998": {
     "claim": {
       "locator": "arXiv:hep-ex/9807003 (Phys. Rev. Lett. 81, 1562, 1998), title",
@@ -7450,6 +7564,15 @@
     "notes": [],
     "summary_technical": "33.0 kiloton-year exposure; observed a zenith-angle-dependent muon-neutrino deficit inconsistent with the no-oscillation expectation, consistent with two-flavour nu_mu <-> nu_tau oscillation. The collaboration's own title states 'evidence', not 'discovery' or 'observation'.",
     "why_it_matters": "The result that first convinced the field neutrinos oscillate (and hence have mass), contradicting the Standard Model's massless-neutrino assumption; foundational to the 2015 Nobel Prize in Physics (shared with SNO)."
+  },
+  "result:sk-dsnb-limit-2025": {
+    "claim": {
+      "locator": "arXiv:2511.02222, abstract",
+      "quote": "We report the search result for the Diffuse Supernova Neutrino Background (DSNB) in neutrino energies beyond 9.3 MeV in the gadolinium-loaded Super-Kamiokande (SK) detector with 22,500x956.2 m^3·day exposure."
+    },
+    "notes": [],
+    "summary_technical": "DSNB search using 552.2 days of SK-VI (0.01% Gd) and 404.0 days of SK-VII (0.03% Gd) data through September 2023, combining new machine-learning neutron-tagging with Gd, improved atmospheric-neutrino background rejection, and two parallel statistical analyses. No significant excess over background was found in the spectrum-independent analysis; 90% C.L. upper limits were set on the astrophysical electron-antineutrino flux above 9.3 MeV. A separate spectral fit showed a ~1.2σ preference over the null-DSNB hypothesis, consistent with an earlier 5823-day all-phase SK result.",
+    "why_it_matters": "The diffuse supernova neutrino background is the relic glow of every core-collapse supernova in the observable universe; SK-Gd is the first detector generation built specifically to have a realistic chance of seeing it, and this is its most sensitive search to date."
   },
   "result:sk-gd-first-antineutrino-search-2023": {
     "claim": {
@@ -7627,6 +7750,10 @@
   "site:baikal-gvd-lake-baikal": {
     "notes": [],
     "summary_technical": "Southern basin of Lake Baikal, ~3.6 km offshore at 51°46'N 104°24'E, lakebed depth ~1366 m; site of the expanding Baikal-GVD neutrino telescope's clusters."
+  },
+  "site:baksan-sage-underground-lab": {
+    "notes": [],
+    "summary_technical": "Underground laboratory of the Baksan Neutrino Observatory, ~2100 m (6900 ft) underground in the Caucasus Mountains, Kabardino-Balkaria, Russia, housing the SAGE gallium detector."
   },
   "site:bnl-rhic-ip6-star": {
     "notes": [
