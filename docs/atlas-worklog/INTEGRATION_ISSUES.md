@@ -92,3 +92,19 @@ reproduced verbatim; the institution to person to HEP Graph handoff works
 end to end; the no-WebGL fallback is a genuinely good accessible view; reduced
 motion is honoured; and result-type wording is well calibrated against real
 physics history everywhere it was spot-checked.
+
+## From the independent performance and adversarial review (report: `REVIEW_performance.md`)
+
+Zero P0. The review states plainly it is "measure-and-report only" and "no
+application code was edited," so all four of its P1s were open when it
+concluded; none had a row in this table until workstream W1's closure pass.
+See `REVIEW_performance.md`'s "Closure (2026-09-17)" section for the
+measured bytes and evidence behind each state below.
+
+| # | Severity | Issue | Raised by | State |
+| --- | --- | --- | --- | --- |
+| 33 | P1 | A shared link's `y=`/`r=` timeline year/range was silently discarded on fresh load; `createTimeline`'s constructor emitted the manifest's default year before the URL-parsed state was applied. | performance review | fixed (by a separate change; verified by this closure pass) |
+| 34 | P1 | Opening any detail panel eagerly fetched `provenance.json` (1.44 MB) + `sources.json` (0.79 MB) even though the Sources disclosure renders collapsed. | performance review | fixed: `panels.js`'s Sources disclosure fetches only on first `toggle`-open, with a loading state and a real error/retry on failure |
+| 35 | P1 | Collaboration-mode drag with a large roster's institutions + arcs drops FPS to ~15-20, well under the ~60 fps target. | performance review | open — out of this workstream's scope (`globe.js`, owned separately) |
+| 36 | P1 | On a slow or offline connection the interface sat blank with no spinner and no text; no `online`/`offline` handling anywhere. | performance review | fixed: visible loading text in the existing `role="status"` notice for the whole cold load, plus a new `role="alert"` error banner with a retry button |
+| 37 | P2 | No `ETag`/compression-aware caching on any atlas asset; every reload re-downloaded the full ~4.9 MB of bundles. | performance review | fixed: `respond_atlas` sends a strong content-hash `ETag` + `Cache-Control: public, max-age=0, must-revalidate` and honours `If-None-Match` with a `304`; see `HEP_ATLAS_BUNDLES.md`'s "Caching" section for the design and its one open caveat (browser `fetch()` calls did not visibly revalidate in this project's automated-test Chrome, though the protocol-level 304 is proven by both `curl` and a dedicated unit test) |

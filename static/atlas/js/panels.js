@@ -85,28 +85,71 @@ function plainSummaryOf(record, t) {
   return (record && record.summary && record.summary.plain) || (t && t.summary_plain) || null;
 }
 
-async function sourcesDisclosure(entityId) {
-  const [provenance, sourcesBundle] = await Promise.all([loader.getProvenance(), loader.getSources()]);
-  const entries = provenance[entityId];
-  const items = [];
-  if (entries) {
-    for (const [pointer, record] of Object.entries(entries)) {
-      const srcIds = record.sources || [];
-      for (const srcId of srcIds) {
-        const src = sourcesBundle.byId[srcId];
-        if (!src) continue;
-        const locatorOrQuote = record.quote ? `“${record.quote}”` : (record.locator || '');
-        items.push(h('li', {}, [
-          h('a', { href: src.url || '#', target: '_blank', rel: 'noopener' }, src.title || srcId),
-          h('div', { class: 'source-meta' }, `${pointer}${locatorOrQuote ? ` — ${locatorOrQuote}` : ''}`),
-          h('div', { class: 'source-access' }, src.accessed ? `Accessed ${src.accessed}` : ''),
-        ]));
+// Sources are ~2.2 MB combined (provenance.json + sources.json) and the
+// disclosure they render into is collapsed by default — P1-2 in
+// docs/atlas-worklog/REVIEW_performance.md found every panel open fetching
+// both regardless, because this used to be `await`-ed unconditionally before
+// the panel even rendered. Now nothing is fetched until the <details> is
+// actually opened (a native `toggle` event fires whether that came from a
+// click or the keyboard), the body shows a visible loading state while the
+// request is in flight, and a failure renders a real message plus a retry
+// button rather than leaving the disclosure silently empty.
+function sourcesDisclosure(entityId) {
+  const details = h('details', { class: 'panel-section' });
+  details.appendChild(h('summary', {}, 'Sources'));
+  const body = h('div', { class: 'panel-section-body' }, [
+    emptyNote('Opens to load this entity’s sources.'),
+  ]);
+  details.appendChild(body);
+
+  let loaded = false;
+  let inFlight = false;
+
+  async function load() {
+    if (loaded || inFlight) return;
+    inFlight = true;
+    body.innerHTML = '';
+    body.appendChild(h('p', { class: 'loading-note', role: 'status' }, 'Loading sources…'));
+    try {
+      const [provenance, sourcesBundle] = await Promise.all([loader.getProvenance(), loader.getSources()]);
+      const entries = provenance[entityId];
+      const items = [];
+      if (entries) {
+        for (const [pointer, record] of Object.entries(entries)) {
+          const srcIds = record.sources || [];
+          for (const srcId of srcIds) {
+            const src = sourcesBundle.byId[srcId];
+            if (!src) continue;
+            const locatorOrQuote = record.quote ? `“${record.quote}”` : (record.locator || '');
+            items.push(h('li', {}, [
+              h('a', { href: src.url || '#', target: '_blank', rel: 'noopener' }, src.title || srcId),
+              h('div', { class: 'source-meta' }, `${pointer}${locatorOrQuote ? ` — ${locatorOrQuote}` : ''}`),
+              h('div', { class: 'source-access' }, src.accessed ? `Accessed ${src.accessed}` : ''),
+            ]));
+          }
+        }
       }
+      body.innerHTML = '';
+      body.appendChild(items.length
+        ? h('ul', { class: 'source-list' }, items)
+        : emptyNote('No sourced fields recorded for this entity yet.'));
+      loaded = true;
+    } catch (error) {
+      body.innerHTML = '';
+      body.appendChild(h('p', { class: 'error-note', role: 'alert' },
+        `Could not load sources: ${error.message}`));
+      const retry = h('button', { type: 'button', class: 'text-btn' }, 'Retry');
+      retry.addEventListener('click', load);
+      body.appendChild(retry);
+    } finally {
+      inFlight = false;
     }
   }
-  return section('Sources', items.length
-    ? [h('ul', { class: 'source-list' }, items)]
-    : [emptyNote('No sourced fields recorded for this entity yet.')], { open: false });
+
+  details.addEventListener('toggle', () => {
+    if (details.open) load();
+  });
+  return details;
 }
 
 // Renders the status pill from the entity's per-year `state_segments` at the
@@ -204,7 +247,7 @@ async function renderFacility(id, timelineState) {
     ? [h('ul', { class: 'entity-list' }, related.map((r) => h('li', {}, linkTo(idRoute(r.id), r.name))))]
     : [emptyNote('No related facilities recorded.')], { open: false }));
 
-  frag.appendChild(await sourcesDisclosure(id));
+  frag.appendChild(sourcesDisclosure(id));
   CALLBACKS.focusGlobe(id);
   return frag;
 }
@@ -297,7 +340,7 @@ async function renderExperiment(id, timelineState) {
     others.length ? h('div', {}, [h('h4', {}, 'Related programs'), lineageList(others)]) : null,
   ], { open: false }));
 
-  frag.appendChild(await sourcesDisclosure(id));
+  frag.appendChild(sourcesDisclosure(id));
   CALLBACKS.focusGlobe(id);
   return frag;
 }
@@ -350,7 +393,7 @@ async function renderCollaboration(id, timelineState) {
     ]),
   ]));
 
-  frag.appendChild(await sourcesDisclosure(id));
+  frag.appendChild(sourcesDisclosure(id));
   return frag;
 }
 
@@ -528,7 +571,7 @@ async function renderResult(id) {
   if (result.official_url) pubLinks.push(h('li', {}, h('a', { href: result.official_url, target: '_blank', rel: 'noopener' }, 'Official page')));
   frag.appendChild(section('Publication', pubLinks.length ? [h('ul', { class: 'entity-list' }, pubLinks)] : [emptyNote('No publication links recorded.')], { open: false }));
 
-  frag.appendChild(await sourcesDisclosure(id));
+  frag.appendChild(sourcesDisclosure(id));
   return frag;
 }
 

@@ -319,3 +319,122 @@ traversal, rate-limit separation, malformed-input handling, rapid
 interaction, back/forward/reload/multi-tab state, offline error handling) —
 these are called out above as positive findings so they aren't lost among
 the negative ones.
+
+## Closure (2026-09-17)
+
+Workstream W1 (`hep-atlas-v1-w1`), correctness-debt pass. This review's own
+words are worth repeating: it is "measure-and-report only" and "no
+application code was edited" — so every one of its four P1s was still open
+when it concluded. This section closes two of them, confirms one was fixed
+by a separate change before this pass, and leaves one open out of scope.
+
+### P1-1 — share-link year/range — confirmed fixed (not by this pass)
+
+Read-only verification. `static/atlas/js/timeline.js`'s `createTimeline` no
+longer calls `emit()` from its constructor ("Deliberately no emit() here.
+Announcing the default year at construction..."), and `static/atlas/js/app.js`'s
+`main()` now calls `timeline.syncFromState(state.get())` before
+`timeline.start()`, seeding the widget from the parsed URL before it can
+announce a default. This was already true on this worktree's starting
+commit; not re-measured against the throttled-network scenario in the
+original finding, only confirmed by reading the current code.
+
+### P1-2 — eager provenance/sources fetch — fixed this pass
+
+`static/atlas/js/panels.js`'s `sourcesDisclosure()` no longer fetches
+anything until the `<details>` element's native `toggle` event fires with
+`details.open === true`. The disclosure shows "Opens to load this entity's
+sources." before that, "Loading sources…" while the fetch is in flight
+(`role="status"`), and a real error message plus a Retry button
+(`role="alert"`) on failure — never a silently empty list.
+
+Measured with Playwright against the **generated** tree, server on
+`127.0.0.1:8792` (`hepgraph/server.py`, this worktree's code):
+
+| Scenario | Requests | Bytes | provenance.json/sources.json |
+| --- | ---: | ---: | ---: |
+| Open a facility panel, Sources collapsed | 21 | 3,079,432 | 0 requests, 0 bytes |
+| Then open the Sources disclosure | +2 | +2,228,865 | 2 requests, 2,228,865 bytes |
+
+Opening a panel no longer touches provenance/sources at all (previously
+~2.2 MB on the *first* panel of any session, per this review's own
+measurement of the same two files); the cost now lands only on the person
+who actually expands "Sources", and only once (`loader.js`'s existing bundle
+cache still applies). Browser test:
+`tests/browser_atlas.cjs`'s "Opening a panel does not fetch
+provenance/sources; opening the Sources disclosure does (P1-2)", run against
+both the fixtures and generated trees via Playwright request interception.
+
+### P1-3 — collaboration-mode drag FPS — still open
+
+Not addressed by this workstream. `static/atlas/js/globe.js` is owned
+separately (institution markers, arcs, FPS); no clustering, level-of-detail
+or marker-count reduction was found in the current file
+(`grep -n 'cluster\|LOD\|throttle' static/atlas/js/globe.js` finds nothing).
+Left open, matching the task assignment for this pass.
+
+### P1-4 — blank UI on a slow/offline connection — fixed this pass
+
+`static/atlas/index.html` adds `#atlas-error` (`role="alert"`,
+`aria-live="assertive"`, a message paragraph and a Retry button).
+`static/atlas/js/app.js` shows visible loading text
+("Loading HEP Atlas… this can take a few seconds on a slow connection.") in
+the pre-existing `#data-notice` (`role="status"`) for the entire cold-load
+fetch, not just the initial base-path probe, and routes any startup failure
+(including a blocked/failed bundle fetch) to the new error banner with a
+real explanation and a retry that reloads the page. No spinner-only state:
+both states are plain visible text in an `aria-live` region. Neither state
+introduces motion, so both are reduced-motion-safe by construction.
+
+Browser tests (`tests/browser_atlas.cjs`, both trees):
+"Blocking atlas.json shows an accessible error state with a retry control
+(P1-4)" (aborts the `atlas.json` request, asserts `#atlas-error` appears
+with `role="alert"` and a working `#atlas-retry`) and "A throttled
+connection shows a visible, accessible loading state before data arrives
+(P1-4)" (400 kbps / 400 ms CDP throttle, asserts `#data-notice` shows
+loading text with `role="status"` before the bundles arrive).
+
+### Caching (P2-2, and the reload half of the "all at once" finding)
+
+Not requested as a P1 fix, but the same pass closed it because the loader
+change for P1-2 needed the server side of caching to make sense.
+`hepgraph/server.py`'s `respond_atlas` now sends a strong ETag (SHA-256 of
+the file's bytes) and `Cache-Control: public, max-age=0, must-revalidate`
+for every file under `/atlas/**`, honours `If-None-Match` with a bodyless
+304, and `static/atlas/js/loader.js` no longer opts out with
+`cache: 'no-store'`. Design rationale and why this covers both the local
+server and the Vercel deployment (same Python handler, no separate static
+layer) are in `docs/HEP_ATLAS_BUNDLES.md`'s "Caching" section.
+
+Measured, real Chrome (Playwright, not chrome-headless-shell), generated
+tree, same server:
+
+| Load | Requests | Bytes | Notes |
+| --- | ---: | ---: | --- |
+| Cold first load | 20 | 2,763,794 | fresh browser context |
+| Warm reload, same context | 20 | 920,055 | 12 responses came back `304` (all JS modules, `atlas.css`, vendor `globe.gl.min.js`) |
+
+**Caveat, stated plainly because this is the one number in this closure that
+did not fully reproduce as expected:** the 8 responses that stayed `200` on
+the warm reload are exactly the bundles `loader.js` fetches via `fetch()`
+(`manifest.json`, `atlas.json`, `search.json`, `results.json`,
+`documents.json`) — not the ones loaded as ordinary `<script>`/`<link>`
+subresources, which did revalidate correctly. This was checked three ways
+before writing it down: (1) `curl` round-trips against the live server
+prove the server sends a correct ETag and answers a matching
+`If-None-Match` with a real `304` (see `tests/test_atlas_server.py`'s
+`test_generated_json_and_vendor_js_revalidate_with_etag`, which asserts this
+at the protocol level with no browser involved); (2) a from-scratch minimal
+Node `http` reference server with the same headers, fetched twice by the
+same Playwright/Chrome used throughout this project, shows the identical
+non-revalidating behaviour for `fetch()`-initiated requests — so this is not
+specific to `hepgraph/server.py`; (3) the same page's `<script>`-loaded
+files reliably get `304`s on reload in the same test run. This looks like a
+`fetch()`-cache-mode characteristic of the Chrome build used for this
+project's automated testing (untested here: whether a real, non-automated
+end-user browser session behaves the same way for `fetch()` calls against a
+`max-age=0` resource) rather than a defect in the ETag/304 implementation,
+but it is reported as an open caveat rather than asserted as harmless.
+`static/atlas/js/loader.js`'s bundle fetches remain covered by the
+protocol-level guarantee (a correct 304 whenever a client does send
+`If-None-Match`), which is what `hepgraph/server.py` is responsible for.

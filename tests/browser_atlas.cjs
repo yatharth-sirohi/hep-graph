@@ -215,6 +215,71 @@ async function setRangeValue(locator, value) {
     assert.match(afterInset, /^-\d/, `expected a negative inset to enlarge the tap target, got "${afterInset}"`);
   });
 
+  await record("Opening a panel does not fetch provenance/sources; opening the Sources disclosure does (P1-2)", async () => {
+    // A fresh context so loader.js's in-memory bundle cache starts empty —
+    // every earlier check in this file may already have opened a Sources
+    // disclosure, which would otherwise mask a regression to eager fetching.
+    const freshContext = await browser.newContext({ viewport: { width: 1280, height: 900 } });
+    const freshErrors = [];
+    freshContext.on("page", (p) => p.on("pageerror", (e) => freshErrors.push(e.message)));
+    const freshPage = await freshContext.newPage();
+    const requested = [];
+    await freshPage.route("**/*", (route) => {
+      const url = route.request().url();
+      if (url.includes("provenance.json") || url.includes("sources.json")) requested.push(url);
+      route.continue();
+    });
+    await freshPage.goto(`${base}/atlas${dataTree}#/facility/cern`);
+    await freshPage.locator("#detail-panel h2").waitFor();
+    assert.deepEqual(requested, [], `opening a panel must not eagerly fetch provenance/sources, got ${JSON.stringify(requested)}`);
+
+    const sourcesSummary = freshPage.locator("#detail-panel details.panel-section summary", { hasText: "Sources" });
+    await sourcesSummary.waitFor();
+    await sourcesSummary.click();
+    await freshPage.waitForFunction(() => {
+      const summaries = [...document.querySelectorAll("#detail-panel details.panel-section summary")];
+      const details = summaries.find((s) => s.textContent.trim() === "Sources")?.closest("details");
+      return !!details && details.open && !details.querySelector(".loading-note");
+    }, { timeout: 10000 });
+    assert.ok(requested.some((u) => u.includes("provenance.json")), "opening the Sources disclosure must fetch provenance.json");
+    assert.ok(requested.some((u) => u.includes("sources.json")), "opening the Sources disclosure must fetch sources.json");
+    assert.deepEqual(freshErrors, [], "no console errors while loading sources lazily");
+    await freshContext.close();
+  });
+
+  await record("Blocking atlas.json shows an accessible error state with a retry control (P1-4)", async () => {
+    const freshContext = await browser.newContext({ viewport: { width: 1280, height: 900 } });
+    const freshPage = await freshContext.newPage();
+    await freshPage.route("**/atlas.json", (route) => route.abort());
+    await freshPage.goto(`${base}/atlas${dataTree}`);
+    await freshPage.locator("#atlas-error:not(.hidden)").waitFor({ timeout: 15000 });
+    assert.equal(await freshPage.locator("#atlas-error").getAttribute("role"), "alert");
+    const errorText = await freshPage.locator("#atlas-error-message").innerText();
+    assert.match(errorText, /could not load|offline/i, `expected a real explanation, got "${errorText}"`);
+    await freshPage.locator("#atlas-retry").waitFor();
+    await freshContext.close();
+  });
+
+  await record("A throttled connection shows a visible, accessible loading state before data arrives (P1-4)", async () => {
+    const freshContext = await browser.newContext({ viewport: { width: 1280, height: 900 } });
+    const freshPage = await freshContext.newPage();
+    const client = await freshContext.newCDPSession(freshPage);
+    await client.send("Network.enable");
+    await client.send("Network.emulateNetworkConditions", {
+      offline: false, latency: 400, downloadThroughput: (400 * 1024) / 8, uploadThroughput: (400 * 1024) / 8,
+    });
+    const navigation = freshPage.goto(`${base}/atlas${dataTree}`);
+    await freshPage.locator("#data-notice:not(.hidden)").waitFor({ timeout: 10000 });
+    assert.equal(await freshPage.locator("#data-notice").getAttribute("role"), "status");
+    const loadingText = await freshPage.locator("#data-notice").innerText();
+    assert.match(loadingText, /loading/i, `expected visible loading text, got "${loadingText}"`);
+    await client.send("Network.emulateNetworkConditions", {
+      offline: false, latency: 0, downloadThroughput: -1, uploadThroughput: -1,
+    });
+    await navigation;
+    await freshContext.close();
+  });
+
   await record("Desktop screenshot", async () => {
     await page.screenshot({ path: path.join(output, "desktop.png"), fullPage: true });
   });

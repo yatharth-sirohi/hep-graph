@@ -157,6 +157,21 @@ input {
 .notice.hidden {
   display: none;
 }
+.notice-error {
+  background: #3a1414;
+  color: #ffb4b4;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.notice-error p {
+  margin: 0;
+}
+.notice-error .text-btn {
+  color: #ffb4b4;
+  border-color: #ffb4b4;
+}
 
 /* ------------------------------------------------------------------ main */
 #atlas-main {
@@ -566,6 +581,10 @@ input {
   color: var(--muted);
   font-style: italic;
   margin: 0;
+}
+.error-note {
+  color: var(--danger, #c0392b);
+  margin: 0 0 8px;
 }
 .plain-summary {
   font-size: 15px;

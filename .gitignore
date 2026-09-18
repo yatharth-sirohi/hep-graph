@@ -45,6 +45,10 @@ docs/**/*.png
 docs/**/*.jpg
 docs/**/*.webm
 docs/**/*.json
+# ...except the small, hand-authored manual-counts file
+# scripts/atlas_validation_counts.py reads and merges in — it is
+# configuration the doc depends on, not a generated audit export.
+!docs/atlas-worklog/validation_counts_manual.json
 docs/**/*.xml
 docs/browser/
 docs/deep-search-verification/

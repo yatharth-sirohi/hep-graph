@@ -28,7 +28,25 @@ const els = {
   searchResults: document.getElementById('search-results'),
   shareBtn: document.getElementById('share-link'),
   shareStatus: document.getElementById('share-status'),
+  errorBanner: document.getElementById('atlas-error'),
+  errorMessage: document.getElementById('atlas-error-message'),
+  retryBtn: document.getElementById('atlas-retry'),
 };
+
+// P1-4 (docs/atlas-worklog/REVIEW_performance.md): on a slow or offline
+// connection the page used to sit blank with no spinner and no text. These
+// two states are the fix — both are plain visible text in an aria-live
+// region, not a purely visual spinner, and the error state names what
+// failed and offers a real retry instead of leaving the globe stage empty.
+function showError(message) {
+  if (els.errorMessage) els.errorMessage.textContent = message;
+  if (els.errorBanner) els.errorBanner.classList.remove('hidden');
+  setNotice(null);
+}
+
+if (els.retryBtn) {
+  els.retryBtn.addEventListener('click', () => window.location.reload());
+}
 
 function loadVendorScript(src) {
   return new Promise((resolve, reject) => {
@@ -74,8 +92,13 @@ async function main() {
   // and every deep link opens the globe with no panel.
   state.init();
 
+  // Visible text in an aria-live region (#data-notice is role="status"),
+  // shown for the whole cold-load fetch below, not just the initial probe —
+  // on a throttled connection this is what used to be a blank globe stage
+  // with no explanation (P1-4).
+  setNotice('Loading HEP Atlas… this can take a few seconds on a slow connection.');
+
   const { notice } = await loader.init();
-  setNotice(notice);
 
   // Only what the first view needs. institutions.json is half a megabyte and
   // is not read until a collaboration or an institution is opened; results and
@@ -86,6 +109,10 @@ async function main() {
   const [resultsBundle, documentsBundle] = await Promise.all([
     loader.getResults(), loader.getDocuments(),
   ]);
+
+  // Replace the loading text with the fixture-fallback notice, if any, or
+  // clear it now that the cold load has actually finished.
+  setNotice(notice);
 
   els.versionLabel.textContent = `Atlas data version ${manifest.data_version || manifest.version || ''} · coverage updated ${manifest.coverage_updated || manifest.build_date || ''}`;
   if (manifest.fixture && manifest.banner) {
@@ -242,9 +269,8 @@ async function main() {
 
 main().catch((error) => {
   window.console.error('HEP Atlas failed to start', error);
-  const el = document.getElementById('data-notice');
-  if (el) {
-    el.textContent = `HEP Atlas could not load: ${error.message}`;
-    el.classList.remove('hidden');
-  }
+  const offline = typeof navigator !== 'undefined' && navigator.onLine === false;
+  showError(offline
+    ? 'You appear to be offline, so HEP Atlas could not load. Check your connection and retry.'
+    : `HEP Atlas could not load: ${error.message}. Check your connection and retry.`);
 });
