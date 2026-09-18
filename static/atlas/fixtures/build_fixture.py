@@ -1411,11 +1411,9 @@ def _ring_area_m2(coords):
 def _centroid(geom):
     if geom["type"] == "Point":
         return [round(geom["coordinates"][0], 7), round(geom["coordinates"][1], 7)]
-    rings = geom["coordinates"] if geom["type"] == "LineString" else None
     pts = geom["coordinates"] if geom["type"] == "LineString" else geom["coordinates"][0]
     lon = sum(p[0] for p in pts) / len(pts)
     lat = sum(p[1] for p in pts) / len(pts)
-    del rings
     return [round(lon, 7), round(lat, 7)]
 
 

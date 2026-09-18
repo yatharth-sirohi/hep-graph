@@ -187,13 +187,11 @@ function ensureDom() {
     h('span', { class: 'map-north-label' }, 'N'),
   ]);
   const tileNotice = h('p', { class: 'map-tile-notice hidden', id: 'map-tile-notice', role: 'status' });
-  const stageControls = h('div', { class: 'map-stage-controls' });
   const depth = h('div', {
     class: 'map-depth hidden', id: 'map-depth', role: 'region',
     'aria-label': 'Depth and level diagram (vertical section)',
   });
-  const status = h('div', { class: 'map-status', id: 'map-status', role: 'status' });
-  stage.append(canvas, north, tileNotice, stageControls, depth, status);
+  stage.append(canvas, north, tileNotice, depth);
 
   const drawer = h('aside', {
     class: 'map-drawer', id: 'map-drawer', 'aria-label': 'Selected feature',
@@ -205,7 +203,7 @@ function ensureDom() {
 
   root.append(layers, stage, drawer);
   host.appendChild(root);
-  dom = { root, layers, stage, canvas, tileNotice, stageControls, depth, drawer, drawerHead, drawerPanel, drawerFacts, status };
+  dom = { root, layers, stage, canvas, tileNotice, depth, drawer, drawerHead, drawerPanel, drawerFacts };
   return dom;
 }
 
@@ -387,7 +385,6 @@ function drawFeatures(L) {
     const group = L.featureGroup(parts);
     const tooltip = tooltipFor(feature);
     group.bindTooltip(tooltip, { sticky: true, className: 'map-tooltip' });
-    if (ghost) group.getLayers().forEach((l) => l.getElement && l.getElement());
     group.on('click', () => selectFrom(feature, null));
     group.addTo(featureGroup);
     const el = main.getLayers()[0] && main.getLayers()[0].getElement && main.getLayers()[0].getElement();
