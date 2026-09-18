@@ -21,7 +21,15 @@ script named next to it or taken from a report file under
   and 25/25 on the generated tree; Firefox 24/24 and 25/25, WebKit 24/24 and 25/25 on the same two trees (147/147 across the three engines, `docs/atlas-worklog/REVIEW_browser_matrix.md`); WebKit is Safari's engine driven by Playwright, not Safari.app. Accessibility suite `tests/browser_atlas_a11y.cjs`: 30/30, 0 axe WCAG violations over 16 scanned states.
   `scripts/atlas_coverage_report.py --check` and
   `scripts/atlas_validation_counts.py --check`: current.
-- **Deployment.** [TBD-DEPLOY].
+- **Deployment.** `hep-atlas-v1` was pushed to `origin/main` as a fast-forward
+  (`2cae5e9` → `ca0f2b0`) on 2026-09-18; Vercel production deployment
+  `dpl_HL8A34gNXxKdTrzZqL1UTRC7Njzj` reports `git_commit ca0f2b0` at
+  `/api/health`. Verified against the live URL, not assumed: the served
+  `manifest.json` is build `19c54b535e38d66f` (131 experiments, 48
+  facilities); `atlas.json` arrives gzip-compressed (1.42 MB → 192 KB) with a
+  strong ETag and `Cache-Control: public, max-age=0, must-revalidate`; and
+  `HEP_URL=https://hep-graph.vercel.app HEP_ATLAS_DATA=generated node
+  tests/browser_atlas.cjs` passes 25/25 in Chromium against production.
 
 ## 2. Architecture
 
