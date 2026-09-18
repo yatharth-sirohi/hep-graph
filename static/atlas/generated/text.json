@@ -4410,6 +4410,16 @@
   "geometry:antiproton-decelerator-hall": {
     "notes": []
   },
+  "geometry:baikal-gvd-cluster-footprint": {
+    "notes": [
+      "No checks[] row: the circle's radius IS the sourced figure (60 m string distance), so a span check against that same number would be tautological, not an independent cross-check (same reasoning as the KM3NeT/ARCA footprint, geometry:km3net-arca-footprint)."
+    ]
+  },
+  "geometry:baikal-gvd-site-point": {
+    "notes": [
+      "No checks[] row: a Point has no length/area/span to cross-check independently."
+    ]
+  },
   "geometry:cngs-direction-line": {
     "notes": []
   },
@@ -4581,6 +4591,26 @@
       "Same OSM way and coordinates as geometry:superkekb-tunnel-ring (the physically same tunnel, reused across the KEKB-to-SuperKEKB upgrade): intentionally triggers geometry-duplicate-shape, explained here and in the worklog."
     ]
   },
+  "geometry:km3net-arca-footprint": {
+    "notes": [
+      "No checks[] row: the circle's radius IS the sourced LoI figure (R=500 m), so a span check against that same number would be tautological (draw exactly R, then check that R measures R), not an independent cross-check -- the same reasoning docs/atlas-worklog/GEOMETRY_cern.md gives for the TI12/TI18 derived points. A genuine independent check would need a second, different official figure for ARCA's footprint (e.g. a horizontal span stated in an unrelated paper); none was fetched this session."
+    ]
+  },
+  "geometry:km3net-arca-site-point": {
+    "notes": [
+      "No checks[] row: a Point has no length/area/span to cross-check independently; the coordinate itself is corroborated by two independent official sources (site page + Letter of Intent), which is why confidence is 'verified' rather than 'approximate'."
+    ]
+  },
+  "geometry:km3net-orca-footprint": {
+    "notes": [
+      "No checks[] row: no independently-published ORCA footprint figure was found this session to check this estimate against (three fetched papers -- arXiv:2408.07015, arXiv:1701.05849, and the km3net.org ARCA-and-ORCA detector page -- give string spacing but not an overall radius/diameter for ORCA). Web-search summaries suggested a ~100 m radius / ~200 m diameter figure consistent with this estimate, but no primary source stating it could be directly fetched and quoted this session, so it is not cited as a source or used as a checks[] row (see the worklog)."
+    ]
+  },
+  "geometry:km3net-orca-site-point": {
+    "notes": [
+      "No checks[] row: a Point has no length/area/span to cross-check independently; the coordinate is corroborated by two independent official sources."
+    ]
+  },
   "geometry:lep-tunnel-ring": {
     "notes": []
   },
@@ -4625,6 +4655,11 @@
   },
   "geometry:psb-tunnel-ring": {
     "notes": []
+  },
+  "geometry:south-pole-station-marker": {
+    "notes": [
+      "This marker stands in for site:south-pole-icecube on the map, the same way geometry:meyrin-site-marker stands in for site:cern-meyrin on map:cern. site:south-pole-ara is NOT covered by this marker (it is a physically distinct site ~2 km away with no sourced position of its own this session) and is listed in map.unlocated[] instead."
+    ]
   },
   "geometry:sps-tunnel-ring": {
     "notes": []
@@ -6839,6 +6874,20 @@
     "notes": [],
     "summary_technical": "university (ROR https://ror.org/04ypx8c21); established 1956."
   },
+  "map:amundsen-scott-south-pole-station": {
+    "notes": [
+      "Overpass (overpass-api.de and lz4.overpass-api.de) was refusing all connections for a long stretch of this session (curl exit 7 'Failed to connect', even to /api/status) after one successful query; this matches the shared-load pattern documented in docs/atlas-worklog/GEOMETRY_cern.md. Only one South Pole query succeeded before the outage (the station node used for geometry:south-pole-station-marker); a follow-up unrestricted building/man_made query and a search for the IceCube Laboratory (ICL) building did not complete this session. See the worklog for the retry outcome.",
+      "The 86-string IceCube in-ice array, IceTop, DeepCore, the ARA stations, AMANDA, the IceCube Upgrade and IceCube-Gen2 are all deliberately left unlocated: IceCube's own coordinate system is a local South Pole grid (Northings/Eastings) documented on docs.icecube.aq, which returned HTTP 401 Unauthorized to every fetch attempt this session and so could not be read or quoted; no other fetched source states how that grid's axes relate to true geographic north. Nothing in this record is derived from that unreachable page."
+    ],
+    "summary_technical": "Local map for facility:amundsen-scott-south-pole-station. A single OpenStreetMap reference point stands in for site:south-pole-icecube; site:south-pole-ara and every South Pole detector/experiment entity (detector:icecube, detector:icecube-deepcore, detector:icetop, detector:ara, experiment:amanda, experiment:icecube-upgrade, experiment:icecube-gen2) are unlocated pending a citable statement of the IceCube local (x,y) coordinate system's orientation relative to true north (docs.icecube.aq's Coordinate Systems page states this but returned 401 Unauthorized to every fetch attempt this session)."
+  },
+  "map:baikal-deep-underwater-neutrino-telescope": {
+    "notes": [
+      "The array is described as growing annually (12 clusters implied by 96 strings / 8 strings-per-cluster as of the winter 2023 season cited here; web search indicates further growth to 14-15 clusters by 2024-2025, but that could not be independently fetched and quoted this session, so only the 2023 status paper's own directly-quoted numbers are used in the data records). Only one representative cluster's footprint is drawn (geometry:baikal-gvd-cluster-footprint); the full multi-cluster array footprint is not stated by any source fetched this session and is not derived here (drawing a hexagonal-packing guess for 12+ clusters at 300 m spacing would assume a specific packing shape that is not itself sourced).",
+      "The onshore 'shore station' housing the control/DAQ systems is mentioned in secondary sources (~4 km from the lake site, near the Ivanovka river outfall) but no source fetched this session gives it a citable building-level position, and Overpass access was unreachable for most of this session (see map:amundsen-scott-south-pole-station's notes) so no OSM search for it could be completed. Left as a backlog item rather than drawn or guessed."
+    ],
+    "summary_technical": "Local map for facility:baikal-deep-underwater-neutrino-telescope. One surveyed point (the collaboration's own published 51 46'N 104 24'E) and one derived ~120 m-diameter circle for a single cluster's string layout (per the 2023 status paper, arXiv:2309.16310); the full multi-cluster array footprint is not sourced and not drawn."
+  },
   "map:cern": {
     "notes": [
       "Linked maps: map:lngs (the CNGS far site at LNGS) does not exist yet in this atlas; linked_map_ids is left empty here and the build's automatic derivation (from beamline:cngs's far_detector_site_ids) will populate it once LNGS has its own map.",
@@ -6865,6 +6914,21 @@
       "accelerator:kek-ps is drawn (geometry:kek-north-counter-hall) rather than listed in `unlocated[]`, but with an explicitly flagged, circumstantial identification -- see that record's own notes and the worklog's 'Conflicts and honesty calls' section. No source found this session gives the 12 GeV PS ring's own tunnel path; two targeted Overpass searches for tunnel/particle_accelerator/landuse ways near the historic PS site found none."
     ],
     "summary_technical": "One local map for facility:kek covering the Tsukuba campus: the 3016 m KEKB/SuperKEKB ring tunnel (OSM way 138322704, cross-checked against the SuperKEKB accelerator paper's own machine-parameter table), the Tsukuba interaction hall (Belle, Belle II) and the ring's Oho/Fuji/Nikko straight-section halls, the KEK injector linac building, a building tentatively identified with the historic KEK-PS North Counter Hall, and an inferred-direction line for the K2K beam toward Super-Kamiokande."
+  },
+  "map:km3net-arca": {
+    "notes": [
+      "Portopalo di Capo Passero, the nearest shore town, is ~100 km from this site (per the KM3NeT-It page and the Letter of Intent) -- more than the 60 km limit for drawing a shore feature as context on the same map (and more than the validator's own 60 km hard error on feature position). It is not drawn here and there is no separate facility/site record for it to anchor a linked map either; noted in the worklog as a backlog item only.",
+      "Overpass access was unreachable for most of this session (see map:amundsen-scott-south-pole-station's notes); a sea site has no OSM features to fetch in any case, per the research brief, so this did not block this map."
+    ],
+    "summary_technical": "Local map for the KM3NeT-It / ARCA deep-sea site (facility:km3net). One surveyed point (the collaboration's own published 36°16' N 16°06' E) and one derived ~1 km-diameter circle for a single ARCA building block (R=500 m per the KM3NeT 2.0 Letter of Intent). ARCA and ORCA are ~900 km apart and cannot share a to-scale map; see map:km3net-orca (linked)."
+  },
+  "map:km3net-orca": {
+    "notes": [
+      "ANTARES (site:antares-toulon, detector:antares) sits about 10 km east of this site per the Letter of Intent ('ORCA ... approximately 10 kilometers west of the existing ANTARES telescope site'), but site:antares-toulon carries facility_id: null -- it does not belong to any atlas facility, so per this workstream's scope it is out of map:km3net-orca's inventory (not drawn, and not listed in unlocated[] either, since unlocated[] is for this facility's own entities). Its own coordinate is separately only 'approximate' with precision_m 12000 (a corroborated estimate, not a directly published lat/lon), which is too coarse to add a defensibly-placed context point here anyway. Left as a backlog item in the worklog rather than drawn.",
+      "The ORCA shore control station has moved between buildings during this session's research window (Institut Michel Pacha, La Seyne-sur-Mer originally; the Brégaillon/Ifremer site since January 2024; the MEUST building once ready), so no single building was confidently identified as 'the' current shore station to draw as OSM context this session; Overpass access was also unreachable for most of this session (see map:amundsen-scott-south-pole-station's notes). Left as a backlog item.",
+      "Overpass had no bearing on the two drawn features here (a sea site has no OSM footprint, per the research brief)."
+    ],
+    "summary_technical": "Local map for the KM3NeT-Fr / ORCA deep-sea site (facility:km3net). One surveyed point (the collaboration's own published 42°48' N 06°02' E) and one derived ~200 m-diameter circle for the single ORCA building block, its radius estimated by scaling ARCA's sourced R=500 m by the two blocks' relative string spacing (both from the KM3NeT 2.0 Letter of Intent). ARCA and ORCA are ~900 km apart and cannot share a to-scale map; see map:km3net-arca (linked)."
   },
   "person:inspire-1005149": {
     "notes": []

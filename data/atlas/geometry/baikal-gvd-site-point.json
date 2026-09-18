@@ -1,0 +1,66 @@
+{
+  "accuracy_m": 2000,
+  "aliases": [],
+  "checks": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "depth_m": {
+    "approx": false,
+    "confidence": "verified",
+    "dimension": "length",
+    "display": "~1366 m",
+    "note": "Reused verbatim from site:baikal-gvd-lake-baikal.",
+    "quote": "The lakebed reaches its plateau at a nearly constant depth of 1366 m",
+    "sources": [
+      "src:astro-neutrino-baikal-gvd-status-2023-paper"
+    ],
+    "unit": "m",
+    "value": 1366,
+    "verified_at": "2026-09-18"
+  },
+  "entity_id": "site:baikal-gvd-lake-baikal",
+  "feature_type": "other",
+  "geometry": {
+    "confidence": "verified",
+    "locator": "Large neutrino telescope Baikal-GVD: recent status (arXiv:2309.16310)",
+    "note": "'verified' because representation is 'surveyed' from a rank <=10 detector paper (rank 5).",
+    "quote": "located about 3.6 km offshore at 51 46'N and 104 24'E coordinates",
+    "sources": [
+      "src:astro-neutrino-baikal-gvd-status-2023-paper"
+    ],
+    "value": {
+      "coordinates": [
+        104.4,
+        51.7667
+      ],
+      "type": "Point"
+    },
+    "verified_at": "2026-09-18"
+  },
+  "id": "geometry:baikal-gvd-site-point",
+  "level_id": "lakebed",
+  "license": null,
+  "links": {
+    "website": null
+  },
+  "map_id": "map:baikal-deep-underwater-neutrino-telescope",
+  "method": "Point coordinate taken directly from the Baikal-GVD status paper's published '51 46'N and 104 24'E' (converted to decimal degrees), the same value already recorded on site:baikal-gvd-lake-baikal. accuracy_m matches that record's own precision_m (2000 m), reflecting the arc-minute precision of the published coordinate.",
+  "name": "Baikal-GVD site (surveyed point)",
+  "notes": [
+    "No checks[] row: a Point has no length/area/span to cross-check independently."
+  ],
+  "osm": null,
+  "representation": "surveyed",
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:baikal-gvd-lake-baikal",
+  "sources": [
+    "src:astro-neutrino-baikal-gvd-status-2023-paper"
+  ],
+  "summary": {
+    "plain": "The published location of the Baikal-GVD neutrino telescope, about 3.6 km offshore in the southern basin of Lake Baikal and 1366 m down."
+  },
+  "type": "geometry",
+  "valid": null
+}
