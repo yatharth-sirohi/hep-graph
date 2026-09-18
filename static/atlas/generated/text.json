@@ -1089,7 +1089,8 @@
   "detector:alice": {
     "notes": [
       "specs.total_mass/length/diameter reflect the as-built (2008) detector; the ALICE 2 upgrade (2021) replaced the ITS and TPC internals but no fetched source gives updated overall mass/dimension figures, so the original detector-paper values are kept with a note.",
-      "Placed at site:cern-point-2-alice, whose coordinate is an approximate geocoder-derived campus point (see that record's notes) rather than a surveyed cavern coordinate."
+      "Placed at site:cern-point-2-alice, whose coordinate is an approximate geocoder-derived campus point (see that record's notes) rather than a surveyed cavern coordinate.",
+      "VERIFIER FIX (2026-09-17): status corrected 'active' -> 'shutdown' and a Long Shutdown 3 interval added (mirroring experiment:alice), because the prior record's open-ended 'operating' interval made the detector derive as permanently active even while CERN's LHC -- ALICE's only beam source -- is in Long Shutdown 3, contradicting experiment:alice's own status."
     ],
     "summary_technical": "General-purpose heavy-ion detector: six-layer silicon Inner Tracking System, cylindrical Time-Projection Chamber, TOF/HMPID/TRD particle-identification arrays and PHOS/EMCal calorimeters inside the 0.5 T L3 solenoid (reused from LEP), plus a forward muon spectrometer (2-9 degrees) with a dipole magnet and 14 tracking/trigger chamber planes. Upgraded (ALICE 2: new ITS2 pixel tracker, GEM-based continuous-readout TPC) for LHC Run 3."
   },
@@ -1327,7 +1328,8 @@
   },
   "detector:faser": {
     "notes": [
-      "No dimension/mass specs were sourced in this session; left out rather than guessed."
+      "No dimension/mass specs were sourced in this session; left out rather than guessed.",
+      "VERIFIER FIX (2026-09-17): status corrected 'active' -> 'shutdown' (see experiment:faser)."
     ],
     "summary_technical": "Forward spectrometer plus FASERv (emulsion film / tungsten target-detector) subdetector, installed in TI12 during LS2 (2019-2021), operating since LHC Run 3 (July 2022)."
   },
@@ -1477,7 +1479,8 @@
   },
   "detector:lhcb": {
     "notes": [
-      "Placed at site:cern-point-8-lhcb (created in this pass). The detector paper (2008 JINST 3 S08005) was found but its full text was blocked by CERN's document-server bot protection (cds.cern.ch) and exceeded the fetch size limit at the SISSA mirror; only its abstract (via the INSPIRE literature API) is cited. Pseudorapidity coverage, dipole bending power, RICH/VELO/calorimeter/muon-system specs are left unsourced (missing_fields) rather than guessed from memory."
+      "Placed at site:cern-point-8-lhcb (created in this pass). The detector paper (2008 JINST 3 S08005) was found but its full text was blocked by CERN's document-server bot protection (cds.cern.ch) and exceeded the fetch size limit at the SISSA mirror; only its abstract (via the INSPIRE literature API) is cited. Pseudorapidity coverage, dipole bending power, RICH/VELO/calorimeter/muon-system specs are left unsourced (missing_fields) rather than guessed from memory.",
+      "VERIFIER FIX (2026-09-17): status corrected 'active' -> 'shutdown' and a Long Shutdown 3 interval added (mirroring experiment:lhcb), because the prior record's open-ended 'operating' interval made the detector derive as permanently active even while CERN's LHC -- LHCb's only beam source -- is in Long Shutdown 3, contradicting experiment:lhcb's own status."
     ],
     "summary_technical": "Single-arm forward spectrometer at LHC Point 8: VELO, dipole magnet, two RICH detectors, tracking stations, calorimeters and a muon system arranged sequentially along the outgoing beam direction over ~20 m; 5600 t (per INSPIRE/home.cern; lhcb-outreach states 4500 t, unresolved conflict), 21 m x 10 m x 13 m."
   },
@@ -1802,7 +1805,9 @@
     "summary_technical": "Hybrid surface-detector/fluorescence-detector system: 507 scintillator counters on a 1.2 km grid over ~700 km^2, plus 38 fluorescence telescopes at three sites; extended since 2019 by TAx4 (500 further counters on a 2.08 km grid, 12 new FD telescopes, ~3000 km^2 target coverage)."
   },
   "detector:totem": {
-    "notes": [],
+    "notes": [
+      "VERIFIER FIX (2026-09-17): status corrected 'active' -> 'shutdown' and a Long Shutdown 3 interval added (mirroring experiment:totem), because the prior record's open-ended 'operating' interval made the detector derive as permanently active even while CERN's LHC -- TOTEM's only beam source -- is in Long Shutdown 3, contradicting experiment:totem's own status."
+    ],
     "summary_technical": "Roman Pot silicon-strip stations (26 total) symmetric about IP5, plus T1 (CSC) and T2 (GEM) forward tracking telescopes covering pseudo-rapidity 3-7; ~3000 kg total equipment."
   },
   "detector:ua1": {
@@ -2792,13 +2797,14 @@
   "experiment:faser": {
     "notes": [
       "Derived fields (detector_ids, site_ids, result_ids, document_ids) deliberately not written (v0.2 A1).",
-      "Mandatory-bar-only pass: no results/technical documents written (FASER is not a wave-3 flagship)."
+      "Mandatory-bar-only pass: no results/technical documents written (FASER is not a wave-3 flagship).",
+      "VERIFIER FIX (2026-09-17): status corrected 'active' -> 'shutdown' and a Long Shutdown 3 interval added, reusing the same LHC-wide LS3 source already cited for ALICE/LHCb/TOTEM. The prior record left FASER's data-taking interval open-ended, so it derived as permanently active even though FASER cannot record anything while its only beam source (the LHC) is off for LS3."
     ],
     "physics_goals": [
       "Search for light, extremely weakly-interacting particles (e.g. dark photons, ALPs, heavy neutral leptons) produced along the beam collision axis that would decay far from the interaction point",
       "Detect and study high-energy neutrinos produced in LHC collisions via the FASERv subdetector, a first for a particle collider experiment"
     ],
-    "summary_technical": "Forward, long-lived-particle search experiment sited in the TI12 tunnel, 480 m downstream of ATLAS interaction point 1 along the beam collision axis; includes the FASERv emulsion/tungsten neutrino subdetector. Proposed September 2018, approved March 2019, installed during LS2 (2019-2021), data-taking since July 2022 (LHC Run 3).",
+    "summary_technical": "Forward, long-lived-particle search experiment sited in the TI12 tunnel, 480 m downstream of ATLAS interaction point 1 along the beam collision axis; includes the FASERv emulsion/tungsten neutrino subdetector. Proposed September 2018, approved March 2019, installed during LS2 (2019-2021), data-taking July 2022 - June 2026 (LHC Run 3); off since CERN's Long Shutdown 3 began.",
     "unique_capabilities": [
       "Located in an unused service tunnel directly along the beam collision axis, 480 m from ATLAS, exploiting a gap in the LHC's main-detector coverage to catch forward, long-lived and weakly-interacting particles"
     ]
@@ -3439,7 +3445,7 @@
       "Derived fields (detector_ids, site_ids, result_ids, document_ids) are deliberately not written (v0.2 A1).",
       "external.greybook is the CERN Greybook experiment code as used in the URL greybook.cern.ch/greybook/experiment/detail?id=NA62; the Greybook page itself is a client-rendered app and could not be fetched for a verbatim quote this session.",
       "Membership counts (institutions/countries/participants) are deliberately left off both here and on collaboration:na62: the official collaboration page (na62.web.cern.ch/Collaboration/organisationalStructure.html) links to the Greybook for the member list but states no headline number itself, and a per-brief rule requires the collaboration's own page as the source for any membership count. A widely repeated figure (~300 participants, ~33 institutions, ~16 countries) appears in secondary aggregations but was not confirmed on a page fetched this session, so it is not recorded.",
-      "The 2026-03-04 CERN news article (src:na62-cern-news-2026-refined-measurement) describes a conference presentation (La Thuile 2026) with a refined branching-ratio value; as of 2026-09-17 no arXiv/journal identifier for that update had been found, so it is recorded as a bonus result sourced only to the press release, not as a peer-reviewed publication."
+      "The 2026-03-04 CERN news article (src:na62-cern-news-2026-refined-measurement) first previewed a refined branching-ratio value from the 2026 La Thuile conference; a full arXiv preprint restating the identical value, arXiv:2607.16413 ('Measurement of the branching ratio of the K+ -> pi+ nu nubar decay', submitted 17 July 2026, CERN-EP-2026-214), was found during 2026-09-17 verification and is now used to source result:na62-2026-refined-measurement's claim, since A16 forbids sourcing a result claim to a press release."
     ],
     "physics_goals": [
       "Measure the branching ratio of the very rare kaon decay K+ -> pi+ nu nubar to extract a percent-level measurement of the CKM matrix element |Vtd| and test the Standard Model"
@@ -7339,6 +7345,15 @@
     "summary_technical": "PHENIX's 2005 white paper (Nucl. Phys. A 757, 184-283) evaluates RHIC Au+Au data and concludes the created matter cannot be described in terms of ordinary color-neutral hadrons, supporting a picture of dense, strongly-interacting partonic matter.",
     "why_it_matters": "One of the four RHIC collaborations' widely reported 2005 assessments that reframed RHIC collisions as producing a strongly-coupled, nearly-perfect liquid of quarks and gluons."
   },
+  "result:reno-observation-2012": {
+    "claim": {
+      "locator": "Phys. Rev. Lett. 108, 191802 (2012), title",
+      "quote": "Observation of Reactor Electron Antineutrino Disappearance in the RENO Experiment"
+    },
+    "notes": [],
+    "summary_technical": "In a 229-day exposure (11 Aug 2011 - 26 Mar 2012), RENO observed a far-detector-to-expectation ratio of 0.920±0.009(stat)±0.014(syst), giving sin²(2θ₁₃) = 0.113±0.013(stat)±0.019(syst) from a rate-only analysis, at 4.9σ significance.",
+    "why_it_matters": "One of the three reactor experiments (with Daya Bay and Double Chooz) to establish a relatively large, non-zero theta_13 in 2012."
+  },
   "result:sk-atmospheric-oscillation-evidence-1998": {
     "claim": {
       "locator": "arXiv:hep-ex/9807003 (Phys. Rev. Lett. 81, 1562, 1998), title",
@@ -7569,7 +7584,8 @@
     "notes": [
       "facility:cern is owned by the cern-atlas workstream; this record only references it.",
       "Coordinates are the CERN Prevessin campus point, at the same precision and for the same reason as the existing site:cern-neutrino-platform-ehn1 record: no fetched source gives a surveyed point for this specific cavern.",
-      "Shared by experiment:na48, experiment:na62 and (planned) experiment:ship."
+      "Shared by experiment:na48, experiment:na62 and (planned) experiment:ship.",
+      "2026-09-17 fixed-target verification: `coordinates.kind` was `detector`, which is dishonest under A23 (a campus-grade point relabelled `detector` to satisfy the validator, which then passes silently instead of emitting the honest `coordinate-kind-approximate` warning). Corrected to `campus`, matching this record's own note that the point is campus precision, not hall/cavern precision."
     ],
     "summary_technical": "ECN3 underground cavern (with its TCC8 target/beam area) in the CERN SPS North Area on the Prevessin site, fed by the P42 and K12 beamlines; successive home of NA48 (1997-2001), NA62 (2015-present) and the planned SHiP experiment."
   },
@@ -7738,7 +7754,8 @@
   "site:fermilab-ktev-hall": {
     "notes": [
       "facility:fermilab is owned by the fermilab-dune workstream; this record only references it.",
-      "Coordinates reuse the same honestly-approximate Fermilab campus point as site:fermilab-main-campus (a different, existing site record owned by another workstream) rather than duplicating a fresh geocoder lookup; see coordinates.note."
+      "Coordinates reuse the same honestly-approximate Fermilab campus point as site:fermilab-main-campus (a different, existing site record owned by another workstream) rather than duplicating a fresh geocoder lookup; see coordinates.note.",
+      "2026-09-17 fixed-target verification: `coordinates.kind` was `detector`, which is dishonest under A23 (a campus-grade point relabelled `detector` to satisfy the validator, which then passes silently instead of emitting the honest `coordinate-kind-approximate` warning). Corrected to `campus`, matching this record's own note that the point is campus precision, not hall/cavern precision."
     ],
     "summary_technical": "Fixed-target experimental hall on the Fermilab site (Batavia, Illinois) housing the KTeV (E799-II/E832) kaon spectrometer; no surveyed coordinate for this specific hall was found, so the Fermilab campus point is used at reduced precision."
   },
@@ -7764,7 +7781,8 @@
     "notes": [
       "facility:fermilab is owned by the fermilab-dune workstream; this record only references it.",
       "Coordinates reuse the same honestly-approximate Fermilab campus point as site:fermilab-main-campus rather than duplicating a fresh geocoder lookup; see coordinates.note.",
-      "Building identity ('NM4 Bldg.') sourced to a Wikipedia pointer (src:seaquest-wikipedia-pointer, rank 12); no rank <= 10 source naming the building was fetched this session."
+      "Building identity ('NM4 Bldg.') sourced to a Wikipedia pointer (src:seaquest-wikipedia-pointer, rank 12); no rank <= 10 source naming the building was fetched this session.",
+      "2026-09-17 fixed-target verification: `coordinates.kind` was `detector`, which is dishonest under A23 (a campus-grade point relabelled `detector` to satisfy the validator, which then passes silently instead of emitting the honest `coordinate-kind-approximate` warning). Corrected to `campus`, matching this record's own note that the point is campus precision, not hall/cavern precision."
     ],
     "summary_technical": "NM4 Building on the Fermilab fixed-target beamlines (Batavia, Illinois), housing the SeaQuest/E906 dimuon spectrometer on the 120 GeV Main Injector proton beam; proposed site of the DarkQuest dark-sector upgrade. No surveyed coordinate for this specific hall was found, so the Fermilab campus point is used at reduced precision."
   },

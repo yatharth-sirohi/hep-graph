@@ -121,6 +121,97 @@ text, provenance, results, documents, institutions, memberships and people
 arrive only when something asks for them. A collaboration's people are fetched
 per institution, so ATLAS-scale rosters never load at once.
 
+## 6a. Clustering, semantic zoom and filters
+
+`static/atlas/js/globe.js` rebuilds the globe's marker/arc layer only on
+real state changes — initial load, a camera zoom, a timeline move, a filter
+change, or entering/leaving a collaboration — never per animation frame.
+Each rebuild:
+
+* **Coordinates.** `coordsOf()` reads either the flat dev-fixture shape
+  (`{lat, lon}`) or the real build's nested shape
+  (`{coordinates: {lat, lon, approximate}}`, A9/A23); a marker whose entity
+  carries `coordinates.approximate: true` (typically a campus-grade point
+  standing in for a not-yet-pinned hall) renders as a dashed, unfilled
+  glyph and its accessible name gets an "(approximate location)" suffix —
+  shape encodes it for sighted users, the label for everyone else. The
+  fallback tables carry the same distinction as a "Location" column.
+* **Semantic zoom (§70).** Below `FACILITY_CLUSTER_ALTITUDE` nearby
+  facilities render individually; at or above it they merge into a cluster
+  marker (§17). Below `SITE_VISIBLE_ALTITUDE` site/experiment-tier markers
+  are drawn at all; above it only the facility tier is (far zoom = "major
+  facilities only"). Site markers are intentionally **not** geometrically
+  clustered — each stays individually addressable by id — since the far
+  zoom tier already keeps them off-screen entirely and merging them would
+  make specific caverns/halls unreachable by direct id (used elsewhere for
+  timeline/testing).
+* **Clustering algorithm.** A single-pass greedy radius merge
+  (`clusterByRadius`): each item joins the first existing cluster within a
+  radius (degrees) of that cluster's running centroid, else it starts a new
+  one. The radius scales with camera altitude (`facilityClusterRadiusDeg`,
+  `institutionClusterRadiusDeg`) and uses the shortest signed longitude
+  delta so clustering near the antimeridian doesn't see a false 350°+ gap.
+  Grid-bucket clustering was tried first and rejected: two markers a few
+  hundred km apart can fall into different buckets purely from where the
+  grid lines land, which is exactly the class of bug this feature exists to
+  fix (see the CERN/LNGS example below).
+* **Institutions.** In collaboration mode, institution dots cluster the
+  same way, at every zoom level (not just "far"), since a single
+  collaboration can have hundreds of members in a small region.
+  `INSTITUTION_ARC_THRESHOLD` (150) is a real constant, not a heuristic:
+  above that many rendered (post-filter, post-timeline) members, arcs
+  default off for that collaboration (`isArcsForcedOff()`), and app.js
+  resets the `arcs` URL/UI state accordingly the first time a large
+  collaboration is entered. The "Show institution connections" checkbox
+  always reflects and controls exactly what's drawn — it is never silently
+  overridden — so re-enabling it after the reset still works.
+* **Arcs are capped to what's drawn.** An institution connection arc exists
+  only for the currently visible/clustered institution marker set (a
+  cluster gets one arc to its centroid, not one per member), so zooming out
+  to cluster institutions also shrinks the arc count, and arc dash
+  animation is off unconditionally (a continuously re-animated dash on a
+  couple hundred arcs was a standing per-frame cost regardless of user
+  interaction — REVIEW_performance.md P1-3).
+* **Label budget (§70, "do not show 5,000 labels simultaneously").**
+  `LABEL_BUDGET` (40) caps simultaneously visible marker *labels* — glyphs
+  and click/focus targets are never hidden by the budget, only the text
+  caption (`.atlas-marker.no-label .atlas-marker-label { display: none }`).
+  Cluster badges (the count *is* the label) always count toward the budget
+  first; individual markers fill the remainder in facility → site →
+  institution priority order.
+* **Filters** (`static/atlas/js/filters.js`) are pure predicate functions —
+  `facilityMatches`, `siteMatches`, `experimentMatches`,
+  `collaborationMatches`, `institutionMatches` — shared verbatim by
+  `globe.js` (marker/cluster visibility), `fallback.js` (the no-WebGL
+  tables) and the filter panel's own per-option counts, so a filtered-out
+  entity disappears from every surface identically. Facets: experiment
+  status (the exact derived status at the selected year, A3), the coarser
+  active/completed/planned era group (a relabelling of `model.js`'s
+  `statusEra`, never a second ranking rule), research topic (hierarchical —
+  selecting a parent matches every descendant, `buildTopicIndex`), facility
+  kind, experiment kind, and geographic region (`REGION_BY_COUNTRY`, a
+  static ISO-3166 alpha-2 → continent table; an unmapped code is visible as
+  "Unknown" rather than silently dropped). Facets AND together; multiple
+  values within one facet OR. A site itself carries no kind/topic of its
+  own, so an experiment-kind/topic filter matches a site through the
+  experiments hosted there (`buildSiteExperimentIndex`); an institution
+  matches through its collaboration's experiment(s), and status/era facets
+  don't apply to institutions at all (a membership row has no lifecycle
+  status). Filters live in the URL (`t`, `s`, `er`, `fk`, `ek`, `rg` — the
+  first two predate the filter panel and are reused with comma-separated
+  OR-lists) alongside the existing timeline/mode/collab state, so they are
+  deep-linkable and survive reload and back/forward through `state.js`'s
+  existing `navigate`/`init` contract.
+
+Concrete example this design fixed: in the real bundle, CERN and LNGS
+(Laboratori Nazionali del Gran Sasso, ~730 km apart) sat close enough on
+screen at the default overview zoom that clicking the CERN marker could hit
+LNGS's DOM element instead — a real, user-visible bug, not just a
+performance concern. Clustering the two into one "2 facilities" marker
+(expandable by click or Enter) removes the overlap entirely: there is
+exactly one hit-testable element at that position until the user zooms in
+or expands it.
+
 ## 7. HEP Graph integration
 
 People reuse INSPIRE author identifiers. Where a person is resolved, the build

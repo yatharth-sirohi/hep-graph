@@ -5962,8 +5962,14 @@
       "intervals": [
         {
           "end": "2017-12",
-          "label": "collaboration",
-          "start": null,
+          "label": "collaboration active",
+          "start": "2011",
+          "status": "active"
+        },
+        {
+          "end": null,
+          "label": "collaboration completed",
+          "start": "2017-12",
           "status": "completed"
         }
       ],
@@ -5980,7 +5986,26 @@
         "roster_source_ids": []
       },
       "name": "Double Chooz Collaboration",
-      "state_segments": [],
+      "state_segments": [
+        [
+          732,
+          743,
+          "active",
+          "possible"
+        ],
+        [
+          744,
+          814,
+          "active",
+          "certain"
+        ],
+        [
+          815,
+          815,
+          "completed",
+          "possible"
+        ]
+      ],
       "status": "completed",
       "summary": {
         "plain": "The international team of scientists who built and ran the Double Chooz reactor-neutrino experiment in France."
@@ -11219,7 +11244,10 @@
           "status": "construction"
         },
         {
-          "end": null,
+          "end": {
+            "approx": true,
+            "date": "2026-06"
+          },
           "label": "operating",
           "start": "2009-11-23",
           "status": "active"
@@ -11229,6 +11257,12 @@
           "label": "ALICE 2 upgrade (new ITS2 pixel tracker, GEM-based continuous-readout TPC)",
           "start": "2018-12-03",
           "status": "upgrade"
+        },
+        {
+          "end": null,
+          "label": "Long Shutdown 3",
+          "start": "2026-06",
+          "status": "shutdown"
         }
       ],
       "links": {
@@ -11335,12 +11369,24 @@
         ],
         [
           864,
-          920,
+          916,
           "active",
+          "certain"
+        ],
+        [
+          917,
+          917,
+          "shutdown",
+          "possible"
+        ],
+        [
+          918,
+          920,
+          "shutdown",
           "certain"
         ]
       ],
-      "status": "active",
+      "status": "shutdown",
       "subsystems": [
         "Inner Tracking System (ITS): six planes of silicon pixel (SPD), drift (SDD) and strip (SSD) detectors",
         "Time-Projection Chamber (TPC): main tracking and dE/dx particle-identification detector",
@@ -15432,10 +15478,19 @@
           "status": "construction"
         },
         {
-          "end": null,
+          "end": {
+            "approx": true,
+            "date": "2026-06"
+          },
           "label": "operating",
           "start": "2022-07",
           "status": "active"
+        },
+        {
+          "end": null,
+          "label": "Long Shutdown 3",
+          "start": "2026-06",
+          "status": "shutdown"
         }
       ],
       "links": {
@@ -15485,12 +15540,24 @@
         ],
         [
           871,
-          920,
+          916,
           "active",
+          "certain"
+        ],
+        [
+          917,
+          917,
+          "shutdown",
+          "possible"
+        ],
+        [
+          918,
+          920,
+          "shutdown",
           "certain"
         ]
       ],
-      "status": "active",
+      "status": "shutdown",
       "subsystems": [],
       "summary": {
         "plain": "A compact particle detector in a disused CERN tunnel, combining a tracking spectrometer with a special emulsion-and-tungsten neutrino detector called FASERv."
@@ -16924,7 +16991,12 @@
       },
       "document_ids": [],
       "experiment_ids": [
-        "experiment:kamland"
+        "experiment:kamland",
+        {
+          "end": null,
+          "id": "experiment:kamland-zen",
+          "start": null
+        }
       ],
       "id": "detector:kamland",
       "intervals": [
@@ -16981,7 +17053,7 @@
       "status": "active",
       "subsystems": [],
       "summary": {
-        "plain": "A giant balloon of clear liquid inside a mine in Japan, watched by nearly 1,900 light sensors, that catches antineutrinos from nuclear reactors across the country."
+        "plain": "A giant balloon of clear liquid inside a mine in Japan, watched by nearly 1,900 light sensors, that catches antineutrinos from nuclear reactors across the country. A xenon-loaded inner balloon suspended at its centre (KamLAND-Zen) uses the same detector to search for a different rare process."
       },
       "technology": "Liquid-scintillator antineutrino detector: an 18-m-diameter spherical balloon of liquid scintillator viewed by photomultiplier tubes, surrounded by a mineral-oil buffer and an outer water-Cherenkov muon veto",
       "technology_class": "liquid_scintillator",
@@ -17711,10 +17783,19 @@
           "status": "construction"
         },
         {
-          "end": null,
+          "end": {
+            "approx": true,
+            "date": "2026-06"
+          },
           "label": "operating",
           "start": "2009-11-23",
           "status": "active"
+        },
+        {
+          "end": null,
+          "label": "Long Shutdown 3",
+          "start": "2026-06",
+          "status": "shutdown"
         }
       ],
       "links": {
@@ -17779,12 +17860,24 @@
         ],
         [
           719,
-          920,
+          916,
           "active",
+          "certain"
+        ],
+        [
+          917,
+          917,
+          "shutdown",
+          "possible"
+        ],
+        [
+          918,
+          920,
+          "shutdown",
           "certain"
         ]
       ],
-      "status": "active",
+      "status": "shutdown",
       "subsystems": [],
       "summary": {
         "plain": "The LHCb detector is a single forward-pointing spectrometer, 21 metres long, 5600 tonnes, sitting 100 metres underground at CERN. Instead of surrounding the collision point on all sides like ATLAS or CMS, it stacks its sub-detectors one behind another to catch particles thrown forward by the collision."
@@ -22860,10 +22953,19 @@
       "id": "detector:totem",
       "intervals": [
         {
-          "end": null,
+          "end": {
+            "approx": true,
+            "date": "2026-06"
+          },
           "label": "operating",
           "start": "2009-11-28",
           "status": "active"
+        },
+        {
+          "end": null,
+          "label": "Long Shutdown 3",
+          "start": "2026-06",
+          "status": "shutdown"
         }
       ],
       "links": {
@@ -22897,12 +22999,24 @@
         ],
         [
           719,
-          920,
+          916,
           "active",
+          "certain"
+        ],
+        [
+          917,
+          917,
+          "shutdown",
+          "possible"
+        ],
+        [
+          918,
+          920,
+          "shutdown",
           "certain"
         ]
       ],
-      "status": "active",
+      "status": "shutdown",
       "subsystems": [],
       "summary": {
         "plain": "TOTEM's detectors: 26 Roman Pots that creep to within a millimetre of the LHC beam to catch protons scattered at tiny angles, plus two tracking telescopes covering the forward direction around the CMS collision point."
@@ -29502,7 +29616,7 @@
         {
           "end": "2015",
           "label": "far-detector-only running (flux-model comparison)",
-          "start": null,
+          "start": "2011",
           "status": "active"
         },
         {
@@ -29555,6 +29669,18 @@
         "site:double-chooz-near-detector"
       ],
       "state_segments": [
+        [
+          732,
+          743,
+          "active",
+          "possible"
+        ],
+        [
+          744,
+          779,
+          "active",
+          "certain"
+        ],
         [
           780,
           791,
@@ -30254,11 +30380,20 @@
           "status": "commissioning"
         },
         {
-          "end": null,
+          "end": {
+            "approx": true,
+            "date": "2026-06"
+          },
           "kind": "run",
           "label": "Run 3 (data-taking)",
           "start": "2022-07",
           "status": "active"
+        },
+        {
+          "end": null,
+          "label": "Long Shutdown 3",
+          "start": "2026-06",
+          "status": "shutdown"
         }
       ],
       "key_specs": [
@@ -30331,12 +30466,24 @@
         ],
         [
           871,
-          920,
+          916,
           "active",
+          "certain"
+        ],
+        [
+          917,
+          917,
+          "shutdown",
+          "possible"
+        ],
+        [
+          918,
+          920,
+          "shutdown",
           "certain"
         ]
       ],
-      "status": "active",
+      "status": "shutdown",
       "summary": {
         "plain": "FASER is a small experiment placed in an unused tunnel 480 metres from CERN's ATLAS detector, watching for rare, long-lived particles and neutrinos that fly straight down the LHC's beamline."
       },
@@ -32731,12 +32878,14 @@
         "collaboration:kamland-zen"
       ],
       "coverage": {
-        "globe_ready": false,
+        "globe_ready": true,
         "researched": "partial",
         "tier": "B",
         "validated": true
       },
-      "detector_ids": [],
+      "detector_ids": [
+        "detector:kamland"
+      ],
       "document_ids": [],
       "energy_regime": null,
       "external": {
@@ -32802,7 +32951,9 @@
       "name": "KamLAND-Zen",
       "result_ids": [],
       "secondary_kinds": [],
-      "site_ids": [],
+      "site_ids": [
+        "site:kamioka-kamland"
+      ],
       "state_segments": [
         [
           864,
@@ -38883,7 +39034,9 @@
         "website": null
       },
       "name": "RENO",
-      "result_ids": [],
+      "result_ids": [
+        "result:reno-observation-2012"
+      ],
       "secondary_kinds": [],
       "site_ids": [
         "site:reno-far-detector",
@@ -47323,7 +47476,7 @@
       "altitude": null,
       "coordinates": {
         "approximate": true,
-        "kind": "detector",
+        "kind": "campus",
         "lat": 46.2601088,
         "lon": 6.0577057,
         "precision_m": 2000
@@ -48661,12 +48814,24 @@
         ],
         [
           871,
-          920,
+          916,
           "active",
+          "certain"
+        ],
+        [
+          917,
+          917,
+          "shutdown",
+          "possible"
+        ],
+        [
+          918,
+          920,
+          "shutdown",
           "certain"
         ]
       ],
-      "status": "active",
+      "status": "shutdown",
       "summary": {
         "plain": "An unused service tunnel at CERN, 480 metres from the ATLAS collision point, that now holds the FASER experiment, searching for rare particles thrown straight down the beamline."
       },
@@ -49259,6 +49424,18 @@
       "setting": "underground",
       "state_segments": [
         [
+          732,
+          743,
+          "active",
+          "possible"
+        ],
+        [
+          744,
+          779,
+          "active",
+          "certain"
+        ],
+        [
           780,
           791,
           "active",
@@ -49317,6 +49494,18 @@
       },
       "setting": "underground",
       "state_segments": [
+        [
+          732,
+          743,
+          "active",
+          "possible"
+        ],
+        [
+          744,
+          779,
+          "active",
+          "certain"
+        ],
         [
           780,
           791,
@@ -49599,7 +49788,7 @@
       "altitude": null,
       "coordinates": {
         "approximate": true,
-        "kind": "detector",
+        "kind": "campus",
         "lat": 41.8422582,
         "lon": -88.245782,
         "precision_m": 3000
@@ -50007,7 +50196,7 @@
       "altitude": null,
       "coordinates": {
         "approximate": true,
-        "kind": "detector",
+        "kind": "campus",
         "lat": 41.8422582,
         "lon": -88.245782,
         "precision_m": 3000
@@ -55654,5 +55843,5 @@
       "type": "topic"
     }
   },
-  "version": "64fea9943b69d26d"
+  "version": "8477e0a60516a1f7"
 }

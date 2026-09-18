@@ -9121,7 +9121,18 @@
     "/intervals/0": {
       "confidence": "uncertain",
       "locator": null,
-      "note": "Start not sourced; end taken from the experiment's data-taking end date.",
+      "note": "Start (2011) inferred as a lower bound from the 2012 discovery paper's exposure window (see experiment:double-chooz); end taken from the experiment's data-taking end date.",
+      "quote": "Data collection ended: Late December 2017",
+      "sources": [
+        "src:double-chooz-wikipedia",
+        "src:double-chooz-2012-evidence"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/intervals/1": {
+      "confidence": "approximate",
+      "locator": null,
+      "note": "Terminal event date sourced from Wikipedia (rank 12) only.",
       "quote": "Data collection ended: Late December 2017",
       "sources": [
         "src:double-chooz-wikipedia"
@@ -15969,6 +15980,14 @@
       ],
       "verified_at": "2026-09-17"
     },
+    "/intervals/1/end": {
+      "confidence": null,
+      "locator": null,
+      "note": "VERIFIER FIX (2026-09-17): capped at the LHC-wide Long Shutdown 3 boundary (see the added interval below); this record previously left this interval open-ended (end: null), which made detector:alice derive as permanently 'active' even during LS3, contradicting experiment:alice's own (correct) 'shutdown' status at the same date. ALICE cannot record collisions the LHC is not delivering.",
+      "quote": null,
+      "sources": null,
+      "verified_at": null
+    },
     "/intervals/2": {
       "confidence": "verified",
       "locator": "alice-collaboration.web.cern.ch",
@@ -15976,6 +15995,16 @@
       "quote": "In 2021, the collaboration completed a major upgrade, denoted ALICE 2, to enhance its detector capabilities and continue its scientific journey at the LHC in Runs 3 and 4.",
       "sources": [
         "src:colliders-lhc-alice-collaboration-site"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/intervals/3": {
+      "confidence": "verified",
+      "locator": "reused from experiment:alice's sourced Long Shutdown 3 interval (src:cern-ls3-farewell-2026)",
+      "note": "VERIFIER-ADDED (2026-09-17): mirrors experiment:alice's Long Shutdown 3 interval so the detector-level derived status agrees with the experiment-level one; ongoing at verified_at.",
+      "quote": null,
+      "sources": [
+        "src:cern-ls3-farewell-2026"
       ],
       "verified_at": "2026-09-17"
     },
@@ -15996,7 +16025,8 @@
       "quote": null,
       "sources": [
         "src:colliders-lhc-alice-detector-jinst-2008",
-        "src:lep-cern-alice-experiment-page"
+        "src:lep-cern-alice-experiment-page",
+        "src:cern-ls3-farewell-2026"
       ],
       "verified_at": null
     },
@@ -19374,7 +19404,7 @@
     "/intervals/1": {
       "confidence": "approximate",
       "locator": null,
-      "note": "",
+      "note": "Dates sourced from Wikipedia (rank 12) only.",
       "quote": "Data collection began: Early 2015 (both detectors) ... Data collection ended: Late December 2017",
       "sources": [
         "src:double-chooz-wikipedia"
@@ -19384,7 +19414,7 @@
     "/intervals/2": {
       "confidence": "approximate",
       "locator": null,
-      "note": "",
+      "note": "Terminal event date sourced from Wikipedia (rank 12) only.",
       "quote": "Data collection ended: Late December 2017",
       "sources": [
         "src:double-chooz-wikipedia"
@@ -19976,6 +20006,24 @@
       ],
       "verified_at": "2026-09-17"
     },
+    "/intervals/1/end": {
+      "confidence": null,
+      "locator": null,
+      "note": "VERIFIER FIX (2026-09-17): capped at the LHC-wide Long Shutdown 3 boundary; mirrors experiment:faser.",
+      "quote": null,
+      "sources": null,
+      "verified_at": null
+    },
+    "/intervals/2": {
+      "confidence": "verified",
+      "locator": "reused from experiment:faser's sourced Long Shutdown 3 interval (src:cern-ls3-farewell-2026)",
+      "note": "VERIFIER-ADDED (2026-09-17): mirrors experiment:faser so the detector-level derived status agrees with the experiment-level one.",
+      "quote": null,
+      "sources": [
+        "src:cern-ls3-farewell-2026"
+      ],
+      "verified_at": "2026-09-17"
+    },
     "/placements/0": {
       "confidence": "verified",
       "locator": null,
@@ -19993,7 +20041,8 @@
       "quote": null,
       "sources": [
         "src:colliders-lhc-faser-inspire-experiment-record",
-        "src:colliders-lhc-faser-home-cern-page"
+        "src:colliders-lhc-faser-home-cern-page",
+        "src:cern-ls3-farewell-2026"
       ],
       "verified_at": null
     },
@@ -21339,6 +21388,16 @@
     }
   },
   "detector:kamland": {
+    "/experiment_ids/1": {
+      "confidence": null,
+      "locator": null,
+      "note": "KamLAND-Zen suspends a xenon-loaded inner balloon 'at the center of the KamLAND detector' (arXiv:1211.3863); it does not have its own separate detector: record (owned by the neutrino-mass-0vbb workstream, which references this detector:kamland id directly per ID_REGISTRY).",
+      "quote": null,
+      "sources": [
+        "src:kamland-zen-arxiv-1211-first-phase"
+      ],
+      "verified_at": null
+    },
     "/intervals/0": {
       "confidence": "approximate",
       "locator": null,
@@ -21365,7 +21424,8 @@
       "note": null,
       "quote": null,
       "sources": [
-        "src:kamland-wikipedia"
+        "src:kamland-wikipedia",
+        "src:kamland-zen-arxiv-1211-first-phase"
       ],
       "verified_at": null
     },
@@ -22009,6 +22069,24 @@
       ],
       "verified_at": "2026-09-17"
     },
+    "/intervals/1/end": {
+      "confidence": null,
+      "locator": null,
+      "note": "VERIFIER FIX (2026-09-17): capped at the LHC-wide Long Shutdown 3 boundary (see the added interval below); previously open-ended (end: null), which made detector:lhcb derive as permanently 'active' during LS3, contradicting experiment:lhcb's own 'shutdown' status at the same date.",
+      "quote": null,
+      "sources": null,
+      "verified_at": null
+    },
+    "/intervals/2": {
+      "confidence": "verified",
+      "locator": "reused from experiment:lhcb's sourced Long Shutdown 3 interval (src:cern-ls3-farewell-2026)",
+      "note": "VERIFIER-ADDED (2026-09-17): mirrors experiment:lhcb's Long Shutdown 3 interval so the detector-level derived status agrees with the experiment-level one; ongoing at verified_at.",
+      "quote": null,
+      "sources": [
+        "src:cern-ls3-farewell-2026"
+      ],
+      "verified_at": "2026-09-17"
+    },
     "/placements/0": {
       "confidence": "verified",
       "locator": "INSPIRE experiment record 1110643, field description",
@@ -22029,7 +22107,8 @@
         "src:colliders-lhc-lhcb-inspire-experiment-record",
         "src:lep-cern-lhcb-experiment-page",
         "src:colliders-lhc-lhcb-detector-jinst-2008",
-        "src:colliders-lhc-lhcb-outreach-detector-page"
+        "src:colliders-lhc-lhcb-outreach-detector-page",
+        "src:cern-ls3-farewell-2026"
       ],
       "verified_at": null
     },
@@ -26473,6 +26552,24 @@
       ],
       "verified_at": "2026-09-17"
     },
+    "/intervals/0/end": {
+      "confidence": null,
+      "locator": null,
+      "note": "VERIFIER FIX (2026-09-17): capped at the LHC-wide Long Shutdown 3 boundary (see the added interval below); previously open-ended (end: null), which made detector:totem derive as permanently 'active' during LS3, contradicting experiment:totem's own 'shutdown' status at the same date.",
+      "quote": null,
+      "sources": null,
+      "verified_at": null
+    },
+    "/intervals/1": {
+      "confidence": "verified",
+      "locator": "reused from experiment:totem's sourced Long Shutdown 3 interval (src:cern-ls3-farewell-2026)",
+      "note": "VERIFIER-ADDED (2026-09-17): mirrors experiment:totem's Long Shutdown 3 interval so the detector-level derived status agrees with the experiment-level one; ongoing at verified_at.",
+      "quote": null,
+      "sources": [
+        "src:cern-ls3-farewell-2026"
+      ],
+      "verified_at": "2026-09-17"
+    },
     "/placements/0": {
       "confidence": "verified",
       "locator": "home.cern TOTEM page",
@@ -26490,7 +26587,8 @@
       "quote": null,
       "sources": [
         "src:colliders-lhc-totem-home-cern-page",
-        "src:colliders-lhc-totem-inspire-experiment-record"
+        "src:colliders-lhc-totem-inspire-experiment-record",
+        "src:cern-ls3-farewell-2026"
       ],
       "verified_at": null
     },
@@ -32944,12 +33042,13 @@
       "verified_at": "2026-09-17"
     },
     "/intervals/0": {
-      "confidence": "approximate",
+      "confidence": "uncertain",
       "locator": null,
-      "note": "The 2012 discovery result itself used only the far detector (10.3 m3 fiducial volume, 227.93 live days) compared to a predicted flux rather than a near-detector measurement. No exact start date for far-detector-only running was found in a fetched source.",
+      "note": "No fetched source states an exact far-detector-only start date. '2011' is inferred (not stated verbatim) as a lower bound consistent with the 2012 discovery paper's own 227.93 live-day exposure ending by its July 2012 submission; flagged uncertain rather than treated as a sourced date.",
       "quote": "Previous operation: Several years with only the far detector using flux models",
       "sources": [
-        "src:double-chooz-wikipedia"
+        "src:double-chooz-wikipedia",
+        "src:double-chooz-2012-evidence"
       ],
       "verified_at": "2026-09-17"
     },
@@ -32966,7 +33065,7 @@
     "/intervals/2": {
       "confidence": "approximate",
       "locator": null,
-      "note": "",
+      "note": "Terminal event date sourced from Wikipedia (rank 12) only.",
       "quote": "Data collection ended: Late December 2017",
       "sources": [
         "src:double-chooz-wikipedia"
@@ -32994,9 +33093,9 @@
       "verified_at": "2026-09-17"
     },
     "/physics_goals/0": {
-      "confidence": "verified",
+      "confidence": "uncertain",
       "locator": "Wikipedia",
-      "note": null,
+      "note": "Sourced from Wikipedia (rank 12) only; A17 requires rank<=10 for a `verified` confidence, so this is kept uncertain despite being a widely-corroborated fact (also implied by the 2012 discovery paper's own framing).",
       "quote": "to measure or set a limit on the θ₁₃ mixing angle, a neutrino oscillation parameter responsible for changing electron neutrinos into other neutrinos",
       "sources": [
         "src:double-chooz-wikipedia"
@@ -33018,7 +33117,7 @@
     "/unique_capabilities/0": {
       "confidence": "approximate",
       "locator": "Wikipedia",
-      "note": null,
+      "note": "Sourced from Wikipedia (rank 12) only this session.",
       "quote": "Near detector: 400 meters from reactors ... Far detector: 1,050 meters from reactors",
       "sources": [
         "src:double-chooz-wikipedia"
@@ -33623,6 +33722,24 @@
       ],
       "verified_at": "2026-09-17"
     },
+    "/intervals/3/end": {
+      "confidence": null,
+      "locator": null,
+      "note": "VERIFIER FIX (2026-09-17): capped at the LHC-wide Long Shutdown 3 boundary (see the added interval below); previously open-ended (end: null). FASER has no beam source other than the LHC, so it cannot be 'active' while the LHC itself is shut down for LS3 (as already correctly modelled for experiment:alice, experiment:lhcb and experiment:totem in this same partition).",
+      "quote": null,
+      "sources": null,
+      "verified_at": null
+    },
+    "/intervals/4": {
+      "confidence": "verified",
+      "locator": "reused from accelerator:lhc's sourced Long Shutdown 3 interval (src:cern-ls3-farewell-2026)",
+      "note": "VERIFIER-ADDED (2026-09-17): FASER only detects particles from LHC collisions, so it shares the LHC-wide Long Shutdown 3 interval already sourced for ALICE, LHCb and TOTEM in this partition; ongoing at verified_at.",
+      "quote": null,
+      "sources": [
+        "src:cern-ls3-farewell-2026"
+      ],
+      "verified_at": "2026-09-17"
+    },
     "/key_specs/0/quantity": {
       "confidence": "verified",
       "locator": "INSPIRE experiment record 1711193, field description",
@@ -33672,7 +33789,8 @@
       "quote": null,
       "sources": [
         "src:colliders-lhc-faser-inspire-experiment-record",
-        "src:colliders-lhc-faser-home-cern-page"
+        "src:colliders-lhc-faser-home-cern-page",
+        "src:cern-ls3-farewell-2026"
       ],
       "verified_at": null
     },
@@ -39045,11 +39163,12 @@
     "/intervals/4": {
       "confidence": "verified",
       "locator": null,
-      "note": "Ongoing as of the most recent source fetched this session, a 4 March 2026 CERN news article reporting results including 2023-2024 data presented at the 2026 La Thuile conference.",
+      "note": "Ongoing as of the most recent source fetched this session, arXiv:2607.16413 (submitted 17 July 2026), reporting a combined 2016-2024 measurement that includes 2023-2024 data first previewed at the 2026 La Thuile conference (src:na62-cern-news-2026-refined-measurement).",
       "quote": "enhanced beam intensity during the 2021-2022 campaign following detector upgrades",
       "sources": [
         "src:na62-jhep-2025-observation",
-        "src:na62-cern-news-2026-refined-measurement"
+        "src:na62-cern-news-2026-refined-measurement",
+        "src:fixed-target-verify-na62-refined-arxiv-2607-16413"
       ],
       "verified_at": "2026-09-17"
     },
@@ -39117,6 +39236,7 @@
         "src:na62-jhep-2021-measurement",
         "src:na62-jhep-2025-observation",
         "src:na62-cern-news-2026-refined-measurement",
+        "src:fixed-target-verify-na62-refined-arxiv-2607-16413",
         "src:na62-collaboration-organisational-structure",
         "src:na62-inspire-experiment-record",
         "src:na62-cern-north-area-page"
@@ -68364,6 +68484,68 @@
         "src:heavy-ions-phenix-perfect-liquid-whitepaper-2005"
       ],
       "verified_at": null
+    }
+  },
+  "result:reno-observation-2012": {
+    "/claim": {
+      "confidence": null,
+      "locator": "Phys. Rev. Lett. 108, 191802 (2012), title",
+      "note": null,
+      "quote": "Observation of Reactor Electron Antineutrino Disappearance in the RENO Experiment",
+      "sources": [
+        "src:reno-discovery-2012"
+      ],
+      "verified_at": null
+    },
+    "/date": {
+      "confidence": "verified",
+      "locator": "arXiv:1204.0626, submitted 3 April 2012",
+      "note": "Published as Phys. Rev. Lett. 108, 191802 (2012).",
+      "quote": null,
+      "sources": [
+        "src:reno-discovery-2012"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/key_value_text": {
+      "confidence": "verified",
+      "locator": null,
+      "note": "",
+      "quote": "sin^2 2 θ_13 = 0.113 ± 0.013(stat.) ± 0.019(syst.)",
+      "sources": [
+        "src:reno-discovery-2012"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/significance": {
+      "confidence": "verified",
+      "locator": null,
+      "note": "",
+      "quote": "with a significance of 4.9 standard deviations",
+      "sources": [
+        "src:reno-discovery-2012"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:reno-discovery-2012"
+      ],
+      "verified_at": null
+    },
+    "/why_it_matters": {
+      "confidence": "verified",
+      "locator": null,
+      "note": "",
+      "quote": "consistent with neutrino oscillations, with a significance of 4.9 standard deviations",
+      "sources": [
+        "src:reno-discovery-2012"
+      ],
+      "verified_at": "2026-09-17"
     }
   },
   "result:sk-atmospheric-oscillation-evidence-1998": {

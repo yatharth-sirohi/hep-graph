@@ -25,7 +25,11 @@
     },
     {
       "confidence": "verified",
-      "end": null,
+      "end": {
+        "approx": true,
+        "date": "2026-06",
+        "note": "VERIFIER FIX (2026-09-17): capped at the LHC-wide Long Shutdown 3 boundary; mirrors experiment:faser."
+      },
       "label": "operating",
       "note": "",
       "quote": "Data collection began in July 2022 at the start of LHC Run 3",
@@ -35,6 +39,19 @@
       "start": "2022-07",
       "status": "active",
       "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "Long Shutdown 3",
+      "locator": "reused from experiment:faser's sourced Long Shutdown 3 interval (src:cern-ls3-farewell-2026)",
+      "note": "VERIFIER-ADDED (2026-09-17): mirrors experiment:faser so the detector-level derived status agrees with the experiment-level one.",
+      "sources": [
+        "src:cern-ls3-farewell-2026"
+      ],
+      "start": "2026-06",
+      "status": "shutdown",
+      "verified_at": "2026-09-17"
     }
   ],
   "links": {
@@ -42,7 +59,8 @@
   },
   "name": "FASER detector",
   "notes": [
-    "No dimension/mass specs were sourced in this session; left out rather than guessed."
+    "No dimension/mass specs were sourced in this session; left out rather than guessed.",
+    "VERIFIER FIX (2026-09-17): status corrected 'active' -> 'shutdown' (see experiment:faser)."
   ],
   "parent_detector_id": null,
   "placements": [
@@ -63,10 +81,11 @@
   "schema": "hep-atlas/0.2",
   "sources": [
     "src:colliders-lhc-faser-inspire-experiment-record",
-    "src:colliders-lhc-faser-home-cern-page"
+    "src:colliders-lhc-faser-home-cern-page",
+    "src:cern-ls3-farewell-2026"
   ],
   "specs": {},
-  "status": "active",
+  "status": "shutdown",
   "subsystems": [],
   "summary": {
     "plain": "A compact particle detector in a disused CERN tunnel, combining a tracking spectrometer with a special emulsion-and-tungsten neutrino detector called FASERv.",

@@ -14,15 +14,26 @@
   },
   "intervals": [
     {
-      "label": "collaboration",
-      "status": "completed",
-      "start": null,
+      "label": "collaboration active",
+      "status": "active",
+      "start": "2011",
       "end": "2017-12",
-      "sources": ["src:double-chooz-wikipedia"],
+      "sources": ["src:double-chooz-wikipedia", "src:double-chooz-2012-evidence"],
       "verified_at": "2026-09-17",
       "confidence": "uncertain",
       "quote": "Data collection ended: Late December 2017",
-      "note": "Start not sourced; end taken from the experiment's data-taking end date."
+      "note": "Start (2011) inferred as a lower bound from the 2012 discovery paper's exposure window (see experiment:double-chooz); end taken from the experiment's data-taking end date."
+    },
+    {
+      "label": "collaboration completed",
+      "status": "completed",
+      "start": "2017-12",
+      "end": null,
+      "sources": ["src:double-chooz-wikipedia"],
+      "verified_at": "2026-09-17",
+      "confidence": "approximate",
+      "quote": "Data collection ended: Late December 2017",
+      "note": "Terminal event date sourced from Wikipedia (rank 12) only."
     }
   ],
   "status": "completed",
