@@ -104,7 +104,16 @@ async function main() {
   // with no explanation (P1-4).
   setNotice('Loading HEP Atlas… this can take a few seconds on a slow connection.');
 
-  const { notice } = await loader.init();
+  const { notice, error } = await loader.init();
+  // On a non-dev host with no generated bundle, loader.init() reports an
+  // error instead of a base path (see loader.js's resolveBase): showing the
+  // fixture tree there would masquerade development data as the real atlas.
+  // Stop before any get*() call, which would otherwise fail against a null
+  // base with a confusing "nullmanifest.json" message.
+  if (error) {
+    showError(error);
+    return;
+  }
 
   // Only what the first view needs. institutions.json is half a megabyte and
   // is not read until a collaboration or an institution is opened; results and
@@ -122,11 +131,27 @@ async function main() {
 
   // Coverage is partial and the footer says so: the atlas holds what its
   // registry has researched, not every experiment in the field (spec §104).
+  // "the coverage report" is a real link to the methodology page's live
+  // Coverage section (about.html reads the same manifest/coverage bundles,
+  // so it can never drift from these numbers) — built with DOM calls rather
+  // than an HTML string so nothing here depends on escaping manifest text.
   const counts = manifest.counts || {};
-  const coverageNote = counts.experiments
-    ? ` · ${counts.experiments} experiments researched — partial coverage of the field, see the coverage report`
-    : ' · partial coverage of the field';
-  els.versionLabel.textContent = `Atlas data version ${manifest.data_version || manifest.version || ''} · coverage updated ${manifest.coverage_updated || manifest.build_date || ''}${coverageNote}`;
+  els.versionLabel.textContent = '';
+  els.versionLabel.appendChild(document.createTextNode(
+    `Atlas data version ${manifest.data_version || manifest.version || ''} · coverage updated ${manifest.coverage_updated || manifest.build_date || ''}`
+  ));
+  if (counts.experiments) {
+    els.versionLabel.appendChild(document.createTextNode(
+      ` · ${counts.experiments} experiments researched — partial coverage of the field, see `
+    ));
+    const coverageLink = document.createElement('a');
+    coverageLink.href = '/atlas/about.html#coverage';
+    coverageLink.className = 'footer-link';
+    coverageLink.textContent = 'the coverage report';
+    els.versionLabel.appendChild(coverageLink);
+  } else {
+    els.versionLabel.appendChild(document.createTextNode(' · partial coverage of the field'));
+  }
   if (manifest.fixture && manifest.banner) {
     els.bannerLabel.textContent = manifest.banner;
     els.bannerLabel.classList.remove('hidden');

@@ -805,6 +805,100 @@ async function setRangeValue(locator, value) {
     await noGlContext.close();
   });
 
+  await record("Footer links: Methodology and the coverage-report link resolve to about.html, Report an error points at GitHub issues", async () => {
+    // The shared top-level `context`/`page` were deliberately closed above
+    // (see the comment before "Without WebGL2..."), so this and every
+    // remaining check opens its own context.
+    const footerContext = await browser.newContext({ viewport: { width: 1280, height: 900 } });
+    const footerPage = await footerContext.newPage();
+    await footerPage.goto(`${base}/atlas${dataTree}`);
+    await footerPage.waitForFunction(() => document.querySelectorAll(".atlas-marker").length > 0, { timeout: 15000 });
+    const methodologyHref = await footerPage.locator("a.footer-link", { hasText: "Methodology" }).getAttribute("href");
+    assert.equal(methodologyHref, "/atlas/about.html");
+    const reportHref = await footerPage.locator("a.footer-link", { hasText: "Report an error" }).getAttribute("href");
+    assert.equal(reportHref, "https://github.com/yatharth-sirohi/hep-graph/issues/new");
+    const coverageLink = footerPage.locator("#data-version-label a", { hasText: "the coverage report" });
+    assert.equal(await coverageLink.getAttribute("href"), "/atlas/about.html#coverage");
+    // Both same-origin links must actually resolve, not just look right.
+    for (const href of [methodologyHref, "/atlas/about.html#coverage"]) {
+      const response = await footerPage.request.get(`${base}${href.split("#")[0]}`);
+      assert.equal(response.status(), 200, `expected 200 for ${href}`);
+    }
+    await footerContext.close();
+  });
+
+  await record("about.html loads with live coverage counts read from the current data tree, and 0 console errors", async () => {
+    const freshContext = await browser.newContext({ viewport: { width: 1280, height: 900 } });
+    const freshErrors = [];
+    freshContext.on("page", (p) => p.on("pageerror", (e) => freshErrors.push(e.message)));
+    freshContext.on("page", (p) => p.on("console", (msg) => {
+      if (msg.type() === "error") freshErrors.push(`console.error: ${msg.text()}`);
+    }));
+    const freshPage = await freshContext.newPage();
+    await freshPage.goto(`${base}/atlas/about.html${dataTree}`);
+    await freshPage.locator("#coverage-entities table").waitFor({ timeout: 15000 });
+    await freshPage.locator("#coverage-tiers table").waitFor({ timeout: 10000 });
+    await freshPage.locator("#coverage-gaps table").waitFor({ timeout: 10000 });
+
+    const manifest = await (await freshPage.request.get(
+      `${base}/atlas/${process.env.HEP_ATLAS_DATA === "generated" ? "generated" : "fixtures"}/manifest.json`,
+    )).json();
+    const entitiesText = await freshPage.locator("#coverage-entities").innerText();
+    assert.match(entitiesText, new RegExp(`Experiments\\s+${manifest.counts.experiments}\\b`), "experiment count on the page must match manifest.json's counts");
+    assert.match(entitiesText, new RegExp(`Facilities\\s+${manifest.counts.facilities}\\b`));
+
+    const tiersText = await freshPage.locator("#coverage-tiers").innerText();
+    const tierRowsTotal = [...tiersText.matchAll(/^([A-D])\t(\d+)\t/gm)].reduce((sum, m) => sum + Number(m[2]), 0);
+    assert.equal(tierRowsTotal, manifest.counts.experiments, "tier-split rows must sum to the experiment count");
+
+    const versionText = await freshPage.locator("#about-data-version").innerText();
+    assert.match(versionText, /^Data version .+ · built /);
+
+    assert.deepEqual(freshErrors, [], "no console errors loading about.html");
+    await freshContext.close();
+  });
+
+  // Chromium only: simulating a non-localhost hostname against a server that
+  // only listens on 127.0.0.1 needs a DNS rewrite, and `--host-resolver-rules`
+  // is a Chromium launch flag with no Firefox/WebKit equivalent (both real
+  // engines resolve DNS through the OS, which Playwright cannot intercept
+  // portably). A fresh `engine.launch()` (not `context.newContext()`) is
+  // required because host-resolver-rules is launch-time, not per-context.
+  // This is the robust way to test loader.js's isDevHost() branch end to
+  // end — window.location.hostname cannot be stubbed by patching
+  // `window.location` itself, since it is an unforgeable, non-configurable
+  // property in every real browser engine.
+  if (BROWSER_NAME === "chromium") {
+    await record("A non-localhost host with a missing generated bundle shows the accessible error state, not the fixture banner (loader.js resolveBase)", async () => {
+      const hostBrowser = await engine.launch(launchOptions({
+        args: ["--host-resolver-rules=MAP atlas.hep-browser-test 127.0.0.1"],
+      }));
+      try {
+        const hostContext = await hostBrowser.newContext({ viewport: { width: 1280, height: 900 } });
+        const hostErrors = [];
+        hostContext.on("page", (p) => p.on("pageerror", (e) => hostErrors.push(e.message)));
+        const hostPage = await hostContext.newPage();
+        await hostPage.route("**/atlas/generated/manifest.json", (route) => route.fulfill({
+          status: 404, contentType: "application/json", body: JSON.stringify({ status: "not_found" }),
+        }));
+        const port = new URL(base).port || "80";
+        // No ?data=fixtures and not localhost/127.0.0.1: resolveBase() must
+        // report the deployment-missing error, never the fixture fallback.
+        await hostPage.goto(`http://atlas.hep-browser-test:${port}/atlas/`);
+        await hostPage.locator("#atlas-error:not(.hidden)").waitFor({ timeout: 15000 });
+        assert.equal(await hostPage.locator("#atlas-error").getAttribute("role"), "alert");
+        const errorText = await hostPage.locator("#atlas-error-message").innerText();
+        assert.match(errorText, /missing from this deployment/i, `expected the deployment-missing error, got "${errorText}"`);
+        assert.equal(await hostPage.locator("#fixture-banner").isVisible(), false, "the fixture banner must never appear on a non-dev host with no generated bundle");
+        assert.equal(await hostPage.locator("#data-notice").isVisible(), false, "the loading notice must be cleared once the error state is shown");
+        await hostPage.locator("#atlas-retry").waitFor();
+        assert.deepEqual(hostErrors, [], "no uncaught errors reaching the error state");
+      } finally {
+        await hostBrowser.close();
+      }
+    });
+  }
+
   assert.deepEqual(errors, [], "No uncaught browser errors in the main scenario");
 
   fs.writeFileSync(

@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="How HEP Atlas researches, sources and covers particle- and astro-physics facilities: coverage tiers, evidence and confidence, timeline semantics, and what the data does and does not claim."
+    />
+    <title>About · HEP Atlas</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/atlas/atlas.css" />
+  </head>
+  <body class="about-page">
+    <a class="skip-link" href="#about-main">Skip to content</a>
+    <header class="atlas-header about-header">
+      <a class="brand" href="/atlas/" aria-label="Back to the atlas">&larr; Atlas</a>
+      <h1 class="atlas-title about-title">About <b>HEP Atlas</b></h1>
+    </header>
+
+    <main id="about-main" class="about-main">
+      <nav class="about-toc" aria-label="On this page">
+        <h2>On this page</h2>
+        <ol>
+          <li><a href="#what-it-is">What this is</a></li>
+          <li><a href="#method">Research method and sources</a></li>
+          <li><a href="#evidence">Claims and evidence</a></li>
+          <li><a href="#confidence">Confidence and uncertainty</a></li>
+          <li><a href="#timeline">The timeline</a></li>
+          <li><a href="#locations">Approximate locations</a></li>
+          <li><a href="#rosters">Collaboration rosters</a></li>
+          <li><a href="#results-wording">How results are worded</a></li>
+          <li><a href="#local-maps">Local-map geometry</a></li>
+          <li><a href="#coverage">Coverage</a></li>
+          <li><a href="#report-error">Report an error</a></li>
+        </ol>
+      </nav>
+
+      <article class="about-article">
+        <p class="about-lede">
+          HEP Atlas is a map of experimental particle and astroparticle physics: facilities,
+          accelerators, detectors, collaborations, people and results, drawn from sources an
+          agent fetched and read, not from memory. This page explains what it covers, how it
+          decided what to include, what its confidence words mean, and where the coverage is
+          thin — with the numbers below read live from the data, not typed by hand.
+        </p>
+        <p id="about-data-version" class="about-data-version">Loading data version…</p>
+
+        <section id="what-it-is" aria-labelledby="what-it-is-h">
+          <h2 id="what-it-is-h">What this is, and is not</h2>
+          <p>
+            The atlas is <strong>partial by design and says so</strong>. It covers the
+            programmes a particle physicist would recognise as their own field — see
+            <a href="#method">the scope boundary</a> below — but it does not claim to hold
+            every experiment in the field's history, and most of what it does hold is
+            researched to a "mandatory bar," not exhaustively.
+          </p>
+          <p>
+            Every record carries a coverage <strong>tier</strong>, which states how deeply the
+            atlas intends to cover it — a plan, not an achievement — and a
+            <strong>researched</strong> state (<code>none</code>/<code>partial</code>/<code>full</code>),
+            which is the achievement:
+          </p>
+          <div class="about-table-wrap">
+            <table class="about-table">
+              <caption>Coverage tiers (docs/HEP_ATLAS_RESEARCH_METHOD.md §11)</caption>
+              <thead><tr><th scope="col">Tier</th><th scope="col">Meaning</th><th scope="col">A tier-complete record contains</th></tr></thead>
+              <tbody>
+                <tr><th scope="row">A — Flagship</th><td>A programme a newcomer would expect to find and explore in depth</td><td>Full history from proposal to shutdown/upgrade, every detector with technology and key specs, sited coordinates, a dated institution roster and leadership, major results with a verbatim quote, design reports and detector papers, an INSPIRE experiment id.</td></tr>
+                <tr><th scope="row">B — Major</th><td>Scientifically important and well documented, but not a landing page</td><td>Intervals to at least construction/active/completion granularity, the principal detector's main specs, correct sites, a roster snapshot, two or three defining results, a TDR or detector paper.</td></tr>
+                <tr><th scope="row">C — Covered</th><td>Appears correctly on the globe and in search, with a real summary</td><td>Identity, kind, host facility and site with coordinates, a lifecycle interval, a sourced plain-language summary, topic links, at least one result or document. A roster may be absent.</td></tr>
+                <tr><th scope="row">D — Listed</th><td>Present so the map is not misleading by omission</td><td>Identity, host facility, an approximate lifecycle interval, topic links, and a record-level source. Explicitly incomplete.</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p>
+            Tier is not a claim of importance — a historically decisive but sparsely documented
+            programme can sit at tier C, and a well-documented small experiment can sit at tier
+            B. It answers "how much of this do we intend to hold?", not "how good was it?" The
+            live entity and tier counts are in the <a href="#coverage">Coverage</a> section below.
+          </p>
+        </section>
+
+        <section id="method" aria-labelledby="method-h">
+          <h2 id="method-h">Research method and source hierarchy</h2>
+          <p>
+            The atlas prefers the party closest to the fact, and prefers a party that has to
+            live with being wrong: a collaboration is the authority on its own detector; a
+            laboratory is the authority on its own accelerators; a journal article is the
+            authority on a measurement; nobody is the authority on somebody else's history.
+            Between two sources that disagree, the atlas takes the one that is primary rather
+            than reporting, official rather than third-party, technical rather than
+            promotional, and — when the fact can change — newer rather than older.
+          </p>
+          <p>Every source is typed, and its rank (how close it sits to the fact) follows from the type:</p>
+          <ol>
+            <li>The collaboration's own web pages.</li>
+            <li>The host laboratory's own web pages.</li>
+            <li>The CERN Greybook, or an INSPIRE experiment record.</li>
+            <li>A design report — CDR, TDR, technical proposal, letter of intent.</li>
+            <li>The instrument paper for a detector.</li>
+            <li>HEPData — the numbers behind a published figure or table.</li>
+            <li>A PDG Review of Particle Physics chapter.</li>
+            <li>A member institution's own group page, or a geocoder (ROR, GeoNames, OSM/Nominatim).</li>
+            <li>A collaboration's public result page, a press release, or a funding-agency/strategy document.</li>
+            <li>A refereed journal article, a preprint, or an INSPIRE literature record.</li>
+            <li>Wikipedia, Wikidata, or anything else — news, blogs, talks, theses — used only as a pointer to a real source, never as the sole source of a critical value.</li>
+          </ol>
+          <p>
+            Rank is not a quality score for the claim, it is a distance-to-the-fact score: a
+            PDG chapter outranks a collaboration's own page for a world-average number, because
+            averaging is what PDG is for. A value marked <span class="confidence-term">verified</span>
+            must cite at least one source in the top ten ranks; a coordinate for a detector or
+            underground-laboratory site may never rest solely on a geocoder or on a rank at or
+            below institution-page level.
+          </p>
+          <p>
+            <strong>Scope.</strong> An entity is in scope if it is an accelerator-based particle-physics
+            programme, or if it materially participates in a question the field itself would take to
+            Snowmass, the European Strategy, or a P5-style prioritisation — the 2023 P5 report's three
+            themes and six science drivers. Optical/radio astronomy, most nuclear-structure physics,
+            applied and medical accelerators, and pure theory are out; borderline admissions (CTAO,
+            gravitational-wave observatories as multimessenger partners, cosmological surveys referenced
+            from topics) carry a note saying why.
+          </p>
+        </section>
+
+        <section id="evidence" aria-labelledby="evidence-h">
+          <h2 id="evidence-h">Claims and evidence</h2>
+          <p>
+            A field is either sourced — a non-empty list of sources, and for coordinates, key
+            specifications, baselines, a result's date/significance/type, an official-class
+            membership row, a collaboration's formation date, or a day/month-precision interval
+            bound, a <em>locator</em> as well ("p. 12, Table 1.1", "§4.2") — or it is
+            <code>null</code> with a note saying what was looked at and what it did not say.
+            "Unknown is a value": a plausible number typed from memory is never an acceptable
+            substitute for a sourced <code>null</code>.
+          </p>
+          <p>
+            A recorded result carries a required <code>claim</code>: a verbatim quote, up to 300
+            characters, taken only from the publication's own title or abstract, or from the
+            collaboration's own result page — never from a press release, PDG, or Wikipedia. The
+            wording is checked mechanically: a result typed as a <em>discovery</em> requires
+            "discover" in the quote or a cited source's title; <em>observation</em> requires
+            "observ"; <em>evidence</em> requires "evidence" — so the badge on screen cannot say
+            more than the collaboration itself said.
+          </p>
+        </section>
+
+        <section id="confidence" aria-labelledby="confidence-h">
+          <h2 id="confidence-h">What "verified", "approximate", "uncertain" and "derived" mean</h2>
+          <p>Every sourced value carries one of four confidence words. A note is required whenever it is not <code>verified</code>:</p>
+          <div class="about-table-wrap">
+            <table class="about-table">
+              <thead><tr><th scope="col">Word</th><th scope="col">What it asserts</th><th scope="col">When it is used</th></tr></thead>
+              <tbody>
+                <tr><td><span class="confidence-term">verified</span></td><td>A source in the top ten ranks states this value directly</td><td>The normal case — no badge is shown for it</td></tr>
+                <tr><td><span class="confidence-term">derived</span></td><td>The atlas computed it from sourced inputs</td><td>Unit conversion, a great-circle distance from two sourced coordinates, a total from sourced parts</td></tr>
+                <tr><td><span class="confidence-term">approximate</span></td><td>The source itself gives it approximately, or as a round number</td><td>"about 1300 km", "~40,000 PMTs"</td></tr>
+                <tr><td><span class="confidence-term">uncertain</span></td><td>A source exists but is weak, ambiguous, or contradicted</td><td>Two sources disagree and neither is clearly better; the only source is a low-rank pointer; the wording is ambiguous</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p>
+            <code>uncertain</code> still requires a source — it describes a weak source, not a
+            guess. A <code>verified</code> value whose only source later goes dead is not
+            silently downgraded: the link checker flags it "review required" and a human
+            decides, rather than the atlas quietly changing what it claims to know.
+          </p>
+        </section>
+
+        <section id="timeline" aria-labelledby="timeline-h">
+          <h2 id="timeline-h">The timeline, in plain words</h2>
+          <p>
+            Nothing on the timeline is asserted directly for a given year — it is
+            <strong>derived</strong> from the sourced start/end intervals on each record, the
+            same way every time the page is loaded. Scrubbing to a year selects whichever
+            sourced interval covers it; if two intervals could apply, the atlas prefers the one
+            that is definitely happening (construction, active, shutdown, upgrade, or a
+            terminal event) over one that is merely proposed, approved or planned, and among
+            those, the one that started most recently. A year a record's intervals do not
+            reach at all reads as <em>unrecorded</em>, in grey — that is a gap in the sources,
+            not a claim that nothing was happening.
+          </p>
+          <p>
+            An interval whose evidence supports it exactly renders solid; one whose evidence is
+            looser (an imprecise date at the edge of the selected range) renders hatched, for
+            "possibly covers this year, not certainly." An open-ended interval (still running,
+            no recorded end) extends only to the atlas's own build date — not into the future —
+            and any year after that renders dimmed, labelled "assumed ongoing": a record's
+            silence about tomorrow is not evidence that a programme is still active tomorrow.
+          </p>
+        </section>
+
+        <section id="locations" aria-labelledby="locations-h">
+          <h2 id="locations-h">Approximate locations</h2>
+          <p>
+            Every detector site should carry a real position for its detector hall or
+            underground cavern. When no fetched source gives that exact position, the honest
+            record is a campus-grade point instead — the laboratory's or site's general
+            location — carrying a note saying what specifically is missing. Relabelling a
+            campus-grade point as a precise detector position to satisfy validation is
+            forbidden: what the coordinate <em>is</em> and how well it is <em>known</em> are
+            recorded separately.
+          </p>
+          <p>
+            The globe draws these markers with a dashed outline and the panel says "Approximate
+            location." The exact current count of sites at campus-grade precision — computed
+            from the data, not fixed here — is in the <a href="#coverage">Coverage</a> section
+            below.
+          </p>
+        </section>
+
+        <section id="rosters" aria-labelledby="rosters-h">
+          <h2 id="rosters-h">Collaboration rosters</h2>
+          <p>
+            Institution membership is deliberately partial. Only a handful of collaborations
+            currently have a full, dated, geographic roster of member institutions built into
+            the atlas — the rest carry only whatever summary numbers (institution count,
+            country count, member count) the collaboration's own page states, if it states
+            them at all. The <a href="#coverage">Coverage</a> section below reads the live
+            count of which collaborations have a built roster and which experiments still lack
+            one.
+          </p>
+          <p>Where a roster exists, each row's evidence class controls both what "member" means and its exact wording in the interface:</p>
+          <ul>
+            <li><strong>On the collaboration's own member list</strong> — the collaboration's own roster page states it.</li>
+            <li><strong>On the official institution list</strong> — the official institution list states it, as of a given date.</li>
+            <li><strong>INSPIRE author profile lists this collaboration</strong> — an individual's own INSPIRE record names the affiliation.</li>
+            <li><strong>Listed with this affiliation on a paper (year); current membership not confirmed</strong> — seen on a recent publication, not independently reconfirmed.</li>
+            <li><strong>Listed on a paper in (year); may no longer be a member</strong> — the same, but old enough that membership may have lapsed.</li>
+            <li><strong>The institution's own page states participation</strong> — the institution, not the collaboration, is the source.</li>
+            <li><strong>Self-reported</strong> — a personal page or CV.</li>
+            <li><strong>Inferred, not verified</strong> — never used for a person; a weak, unconfirmed institutional inference only.</li>
+          </ul>
+        </section>
+
+        <section id="results-wording" aria-labelledby="results-wording-h">
+          <h2 id="results-wording-h">How results are worded</h2>
+          <p>
+            A result is recorded only when the collaboration itself presented it as one — a
+            publication, or a conference note, not a rumour or an unpublished plot — and only
+            when it is a first observation or discovery, evidence for a process, a
+            best-or-first-of-its-kind measurement, a frontier-defining limit, a documented
+            anomaly, a first detection, or a technology milestone. Routine updates to an
+            existing measurement are not new results; they update the existing record.
+          </p>
+          <p>
+            The wording always follows the collaboration's own vocabulary, without inflating
+            it — <strong>discovery</strong> &gt; <strong>observation</strong> &gt;
+            <strong>evidence</strong> &gt; <strong>measurement</strong>/<strong>precision
+            measurement</strong> &gt; <strong>limit</strong> &gt; <strong>anomaly</strong>. If a
+            collaboration itself called something "evidence," the atlas records it as evidence,
+            regardless of what significance is quoted elsewhere — see
+            <a href="#evidence">Claims and evidence</a> for the mechanical quote check behind that rule.
+          </p>
+        </section>
+
+        <section id="local-maps" aria-labelledby="local-maps-h">
+          <h2 id="local-maps-h">Local-map geometry</h2>
+          <p>
+            Some facilities also carry a to-scale local map — accelerator rings on their true
+            paths, beamlines as lines, detector halls and experimental areas as footprints — in
+            addition to the single point shown on the globe. The full contract for this layer,
+            including what the validator enforces and how a campus is researched, is
+            <a href="https://github.com/yatharth-sirohi/hep-graph/blob/main/docs/HEP_ATLAS_GEOMETRY.md" target="_blank" rel="noopener">docs/HEP_ATLAS_GEOMETRY.md</a>.
+          </p>
+          <p>Every drawn shape carries a representation class stating how it was obtained:</p>
+          <ul>
+            <li><strong>surveyed</strong> — coordinates published by the laboratory itself, or in a technical drawing.</li>
+            <li><strong>georeferenced</strong> — traced from imagery or GIS data (OpenStreetMap, a national mapping agency) or an official plan aligned against surveyed control points.</li>
+            <li><strong>derived</strong> — computed from sourced parameters and sourced anchor points, with the computation itself stated.</li>
+            <li><strong>inferred direction</strong> — for a long-baseline neutrino beam, the bearing to a far site rather than a surveyed path; drawn and labelled explicitly as inferred, never as a real trajectory.</li>
+          </ul>
+          <p>
+            Where public evidence cannot support a shape, the facility stays visible in an
+            "unlocated / geometry not verified" list with a sourced explanation — it is never
+            drawn from a guess. Official diagrams that are not to scale (schematics) are offered
+            as links only, labelled "not to scale," and are never presented as a geometry record.
+          </p>
+          <p>
+            Where OpenStreetMap data contributes to a shape or to the basemap tiles, the map
+            carries the attribution <strong>© OpenStreetMap contributors</strong> under the Open
+            Database License (ODbL) 1.0, as OpenStreetMap's own licence requires.
+          </p>
+        </section>
+
+        <section id="coverage" aria-labelledby="coverage-h">
+          <h2 id="coverage-h">Coverage</h2>
+          <p>
+            Every number in this section is read from the same generated bundles the atlas
+            itself loads (<code>manifest.json</code>, <code>coverage.json</code>,
+            <code>atlas.json</code>, <code>results.json</code>, <code>documents.json</code>),
+            at the moment this page is opened — never typed by hand, so it cannot drift out of
+            date the way prose can. A fuller breakdown, generated the same way, lives in
+            <a href="https://github.com/yatharth-sirohi/hep-graph/blob/main/docs/HEP_ATLAS_COVERAGE.md" target="_blank" rel="noopener">docs/HEP_ATLAS_COVERAGE.md</a>
+            (per-category and per-experiment detail) and
+            <a href="https://github.com/yatharth-sirohi/hep-graph/blob/main/docs/HEP_ATLAS_VALIDATION.md" target="_blank" rel="noopener">docs/HEP_ATLAS_VALIDATION.md</a>
+            (what was checked, by whom, and what it found).
+          </p>
+          <p id="coverage-status" class="about-status" role="status" aria-live="polite">Loading live coverage numbers…</p>
+          <button type="button" id="coverage-retry" class="text-btn hidden">Retry</button>
+
+          <h3>Entities in the atlas</h3>
+          <div id="coverage-entities" class="about-table-wrap" aria-live="polite"></div>
+
+          <h3>Coverage by tier</h3>
+          <div id="coverage-tiers" class="about-table-wrap" aria-live="polite"></div>
+
+          <h3>What is still missing</h3>
+          <div id="coverage-gaps" class="about-table-wrap" aria-live="polite"></div>
+        </section>
+
+        <section id="report-error" aria-labelledby="report-error-h">
+          <h2 id="report-error-h">Report an error</h2>
+          <p>
+            Every record traces to a fetched source, but mistakes happen — a misread quote, a
+            stale status, a coordinate that should be marked approximate and is not. If you
+            find one,
+            <a href="https://github.com/yatharth-sirohi/hep-graph/issues/new" target="_blank" rel="noopener">open an issue on GitHub</a>
+            naming the record and what looks wrong; a link to the source that contradicts it is
+            the fastest way to get it fixed.
+          </p>
+        </section>
+      </article>
+    </main>
+
+    <footer class="atlas-footer about-footer">
+      <a class="footer-link" href="/atlas/">&larr; Back to the atlas</a>
+    </footer>
+
+    <script type="module" src="/atlas/js/about.js"></script>
+  </body>
+</html>

@@ -188,6 +188,47 @@ def test_atlas_scripts_styles_and_images_have_their_content_types(service, atlas
     _assert_security_headers(headers)
 
 
+def test_atlas_serves_html_under_subpaths(service, atlas_dir) -> None:
+    """respond_atlas serves any .html file under /atlas/, not just the index —
+    the route in hepgraph/server.py is generic over path/extension rather than
+    special-casing index.html, which is what lets static/atlas/about.html be
+    served at /atlas/about.html with no server change (see the sibling test
+    below, which checks the real file at that real path)."""
+    base, _ = service
+    (atlas_dir / "about.html").write_text("<!doctype html><title>About</title><h1>About</h1>", encoding="utf-8")
+    nested = atlas_dir / "docs"
+    nested.mkdir()
+    (nested / "guide.html").write_text("<!doctype html><title>Guide</title><h1>Guide</h1>", encoding="utf-8")
+
+    status, headers, body = _request(base, "/atlas/about.html")
+    assert status == 200
+    assert headers["Content-Type"] == "text/html; charset=utf-8"
+    assert headers["Cache-Control"] == ATLAS_CACHE_CONTROL
+    assert "ETag" in headers
+    assert b"About" in body
+    _assert_security_headers(headers)
+
+    status, headers, body = _request(base, "/atlas/docs/guide.html")
+    assert status == 200
+    assert headers["Content-Type"] == "text/html; charset=utf-8"
+    assert b"Guide" in body
+
+
+def test_about_page_is_served_at_its_real_path(service) -> None:
+    """Integration check against the real static/atlas tree (ATLAS_STATIC is
+    not monkeypatched here): the methodology page this branch adds is
+    reachable at /atlas/about.html exactly as the footer links to it."""
+    base, _ = service
+    status, headers, body = _request(base, "/atlas/about.html")
+    assert status == 200
+    assert headers["Content-Type"] == "text/html; charset=utf-8"
+    assert headers["Cache-Control"] == ATLAS_CACHE_CONTROL
+    assert "ETag" in headers
+    assert b"About" in body and b"HEP Atlas" in body
+    assert b'id="coverage"' in body
+    _assert_security_headers(headers)
+
+
 def test_generated_files_are_cacheable_and_sent_byte_for_byte(service, atlas_dir) -> None:
     base, _ = service
     status, headers, body = _request(base, "/atlas/generated/manifest.json")

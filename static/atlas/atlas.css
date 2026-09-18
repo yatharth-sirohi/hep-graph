@@ -914,6 +914,15 @@ input {
 .data-version-label {
   color: var(--muted);
 }
+.footer-link {
+  color: var(--teal);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.footer-link:hover,
+.footer-link:focus-visible {
+  text-decoration: underline;
+}
 .share-status {
   color: var(--teal);
 }
@@ -967,5 +976,161 @@ input {
     order: 3;
     flex-basis: 100%;
     max-width: none;
+  }
+}
+
+/* ---- about page ---- */
+/* static/atlas/about.html only. Reuses the tokens and header/footer rules
+   above; everything below is scoped under body.about-page so it can't leak
+   into the main app's layout. */
+body.about-page {
+  display: block;
+  min-height: 100vh;
+}
+.about-header {
+  gap: 12px;
+}
+.about-title {
+  font-size: 17px;
+  margin: 0;
+}
+.about-main {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 28px 20px 60px;
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 32px;
+  align-items: start;
+}
+.about-toc {
+  position: sticky;
+  top: 76px;
+  font-size: 13px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 14px;
+}
+.about-toc h2 {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  margin: 0 0 8px;
+}
+.about-toc ol {
+  margin: 0;
+  padding-left: 18px;
+}
+.about-toc li {
+  margin-bottom: 6px;
+}
+.about-toc a {
+  color: var(--white);
+  text-decoration: none;
+}
+.about-toc a:hover,
+.about-toc a:focus-visible {
+  color: var(--teal);
+  text-decoration: underline;
+}
+.about-article section {
+  margin-bottom: 34px;
+  scroll-margin-top: 76px;
+}
+.about-article h2 {
+  font-size: 19px;
+  margin: 0 0 10px;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 8px;
+}
+.about-article h3 {
+  font-size: 15px;
+  margin: 18px 0 6px;
+}
+.about-article p {
+  margin: 0 0 12px;
+  max-width: 68ch;
+}
+.about-article ul,
+.about-article ol {
+  margin: 0 0 12px;
+  padding-left: 22px;
+  max-width: 68ch;
+}
+.about-article li {
+  margin-bottom: 4px;
+}
+.about-lede {
+  font-size: 16px;
+  color: var(--white);
+  max-width: 68ch;
+}
+.about-table-wrap {
+  overflow-x: auto;
+  margin: 0 0 16px;
+}
+.about-table {
+  border-collapse: collapse;
+  font-size: 13px;
+  min-width: 320px;
+}
+.about-table caption {
+  caption-side: top;
+  text-align: left;
+  color: var(--muted);
+  font-size: 12px;
+  margin-bottom: 6px;
+}
+.about-table th,
+.about-table td {
+  border: 1px solid var(--line);
+  padding: 6px 10px;
+  text-align: left;
+  vertical-align: top;
+}
+.about-table th {
+  background: var(--panel-2);
+}
+.about-table td.num,
+.about-table th.num {
+  text-align: right;
+}
+.confidence-term {
+  font-weight: 600;
+  color: var(--amber);
+}
+.about-status {
+  font-size: 13px;
+  color: var(--muted);
+  margin: 0 0 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.about-status.hidden {
+  display: none;
+}
+.about-status[data-state="error"] {
+  color: var(--danger);
+}
+#coverage-retry.hidden {
+  display: none;
+}
+.about-data-version {
+  font-size: 13px;
+  color: var(--muted);
+  margin: -4px 0 16px;
+}
+.about-footer {
+  justify-content: center;
+}
+@media (max-width: 760px) {
+  .about-main {
+    grid-template-columns: 1fr;
+  }
+  .about-toc {
+    position: static;
   }
 }
