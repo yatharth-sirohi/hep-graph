@@ -1,0 +1,166 @@
+{
+  "accuracy_m": 30,
+  "aliases": [],
+  "checks": [
+    {
+      "expected": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "length",
+        "display": "807.1 m (computed from the official mean radius)",
+        "locator": "'AGS Design Specifications' table, p.8, and 'The circular orbit of the synchrotron... is 842.9 feet in diameter (about one-half mile in circumference)', p.3",
+        "note": "807.1 m = 2π × 421.5 ft (the design table's own mean radius) = 2,648.3 ft, converted at 0.3048 m/ft. This computation, not a directly-quoted circumference figure, is why the ring stays 'approximate' rather than being promoted by this check alone.",
+        "quote": "MAGNET Mean radius.......421.5 ft.",
+        "sources": [
+          "src:geo-bnl-ags-1960-bulletin"
+        ],
+        "unit": "m",
+        "value": 807.1,
+        "verified_at": "2026-09-18"
+      },
+      "kind": "length",
+      "locator": "'AGS Design Specifications' table, p.8",
+      "quote": "MAGNET Mean radius.......421.5 ft.",
+      "sources": [
+        "src:geo-bnl-ags-1960-bulletin"
+      ],
+      "tolerance": 0.03
+    }
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "depth_m": null,
+  "entity_id": "accelerator:ags",
+  "feature_type": "ring",
+  "geometry": {
+    "confidence": "approximate",
+    "locator": "OSM way/289305285, timestamp_osm_base 2026-09-18T22:24:35Z; BNL Bulletin Board, 1960-08-02, 'AGS Design Specifications' table",
+    "note": "Kept 'approximate' by an honesty call (see method) even though the length check below passes against a rank-2 official source.",
+    "sources": [
+      "src:geo-bnl-osm-ags-ring",
+      "src:geo-bnl-ags-1960-bulletin"
+    ],
+    "value": {
+      "coordinates": [
+        [
+          -72.8808389,
+          40.8732027
+        ],
+        [
+          -72.8812423,
+          40.8734193
+        ],
+        [
+          -72.8815308,
+          40.8737233
+        ],
+        [
+          -72.8816732,
+          40.8740816
+        ],
+        [
+          -72.8816539,
+          40.8744555
+        ],
+        [
+          -72.8814752,
+          40.8748044
+        ],
+        [
+          -72.8811563,
+          40.8750905
+        ],
+        [
+          -72.8807319,
+          40.8752828
+        ],
+        [
+          -72.8802479,
+          40.8753605
+        ],
+        [
+          -72.8797567,
+          40.8753151
+        ],
+        [
+          -72.8793117,
+          40.8751516
+        ],
+        [
+          -72.8789609,
+          40.8748877
+        ],
+        [
+          -72.8787425,
+          40.874552
+        ],
+        [
+          -72.8786801,
+          40.8741808
+        ],
+        [
+          -72.8787805,
+          40.8738144
+        ],
+        [
+          -72.8790327,
+          40.8734926
+        ],
+        [
+          -72.8794095,
+          40.8732501
+        ],
+        [
+          -72.87987,
+          40.8731132
+        ],
+        [
+          -72.8803643,
+          40.8730968
+        ],
+        [
+          -72.8808389,
+          40.8732027
+        ]
+      ],
+      "type": "LineString"
+    },
+    "verified_at": "2026-09-18"
+  },
+  "id": "geometry:bnl-ags-ring",
+  "level_id": "ags-tunnel",
+  "license": {
+    "attribution": "© OpenStreetMap contributors",
+    "name": "ODbL-1.0",
+    "url": "https://www.openstreetmap.org/copyright"
+  },
+  "links": {
+    "website": null
+  },
+  "map_id": "map:brookhaven-national-laboratory",
+  "method": "OpenStreetMap way 289305285 ('913 - ASG Ring' [sic], place=locality, wikidata Q438407 linking to the Alternating Gradient Synchrotron), a single closed way of 20 nodes, used verbatim. Building 913 is independently confirmed as 'AGS Ring' (map coordinate H3) by BNL's own central-campus-map building key (src:geo-bnl-central-campus-map). Kept accuracy_m at the ring-road/imagery-traced tier (≥30 m) and confidence 'approximate' despite a passing length check: the way carries place=locality rather than a tunnel/building/man_made tag, i.e. it reads as a hand-drawn boundary around the visible ring feature in aerial imagery, not an official technical alignment (contrast geometry:bnl-rhic-ring's explicit tunnel=yes/indoor=yes tagging). This mirrors the CERN SPS ring precedent (GEOMETRY_cern.md conflict #1).",
+  "name": "Alternating Gradient Synchrotron ring, full ring",
+  "notes": [],
+  "osm": {
+    "elements": [
+      "way/289305285"
+    ],
+    "timestamp": "2026-09-18T22:24:35Z"
+  },
+  "representation": "georeferenced",
+  "schema": "hep-atlas/0.2",
+  "site_id": null,
+  "sources": [
+    "src:geo-bnl-osm-ags-ring"
+  ],
+  "summary": {
+    "plain": "The 807-metre underground ring at Brookhaven National Laboratory, operating since 1960; now part of RHIC's injector chain."
+  },
+  "type": "geometry",
+  "valid": {
+    "end": null,
+    "start": "1960-07"
+  }
+}

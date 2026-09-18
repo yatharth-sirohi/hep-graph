@@ -1,0 +1,79 @@
+{
+  "aliases": [],
+  "center": {
+    "confidence": "derived",
+    "kind": "campus",
+    "lat": 40.8839221,
+    "locator": "Arithmetic mean of the 34 vertices of the RHIC ring (OSM way/50074088)",
+    "lon": -72.8760526,
+    "note": "Map centre only; not a claim about any structure. precision_m is set loosely because this is a naive vertex-average centroid, not an area centroid.",
+    "precision_m": 700,
+    "sources": [
+      "src:geo-bnl-osm-rhic-ring"
+    ],
+    "verified_at": "2026-09-18"
+  },
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "extent_m": 4800,
+  "facility_id": "facility:brookhaven-national-laboratory",
+  "id": "map:brookhaven-national-laboratory",
+  "levels": [
+    {
+      "depth_m": null,
+      "id": "surface",
+      "kind": "surface",
+      "name": "Surface",
+      "note": ""
+    },
+    {
+      "depth_m": null,
+      "id": "rhic-tunnel",
+      "kind": "underground",
+      "name": "RHIC tunnel",
+      "note": "OpenStreetMap tags the ring tunnel=yes/indoor=yes/layer=-5, confirming it is underground; no fetched source this session states a metres-below-surface figure for the RHIC tunnel specifically, so depth_m is left null per A17 rather than guessed."
+    },
+    {
+      "depth_m": null,
+      "id": "ags-tunnel",
+      "kind": "underground",
+      "name": "AGS tunnel",
+      "note": "BNL's own 1960 Bulletin Board describes the AGS ring as an 'underground magnet tunnel' built in a dug 'circular trench' with a 'ring-shaped 18 foot square' cross-section (src:geo-bnl-ags-1960-bulletin), confirming it is underground; no fetched source states a metres-below-surface figure, so depth_m is left null per A17 rather than guessed."
+    }
+  ],
+  "linked_map_ids": [],
+  "links": {
+    "website": null
+  },
+  "name": "Brookhaven National Laboratory — Upton campus, RHIC and AGS rings",
+  "notes": [
+    "All three of this facility's atlas sites (site:bnl-upton-campus, site:bnl-rhic-ip6-star, site:bnl-rhic-ip8-phenix-sphenix) and both of its atlas accelerators (accelerator:rhic, accelerator:ags) are drawn; map.unlocated is empty. accelerator:bnl-linac and accelerator:bnl-booster (optional ids reserved for the 'facilities' partition in ID_REGISTRY.md) were never created in this atlas, so Buildings 930 (Linear Accelerator), 901 (Tandem Van de Graaff) and 942 (AGS Booster) are drawn as unlinked context features (entity_id null) rather than being listed in unlocated[], which only covers entities that actually exist as atlas records.",
+    "An Overpass query for a BNL campus-boundary polygon (comparable to CERN's Meyrin/Prévessin fence lines) was queued but overpass-api.de and its lz4 mirror both became unreachable ('Connection refused') for the remainder of this session; the boundary (geometry:bnl-upton-campus-boundary) was instead fetched via the Nominatim search API (OSM relation 18896697), a separate OSM service that remained reachable. See the worklog's 'Method note' section.",
+    "E949 (Brookhaven AGS experiment, K+ -> pi+ nu nu-bar) has no atlas site or detector record of its own (its facility_roles reference facility:brookhaven-national-laboratory only), so nothing about it is drawn or listed in unlocated[]; a candidate location (Building 912, 'AGS Exp. Area', drawn here as geometry:bnl-ags-experimental-area-building) is flagged in the worklog as a lead for whoever creates that site record."
+  ],
+  "schema": "hep-atlas/0.2",
+  "schematics": [
+    {
+      "note": "Official BNL campus-map inset draws RHIC as a plain circle with numbered interaction-region halls; topology and building-number key only, not geographic. Never drawn on the to-scale map (the georeferenced OSM ring is used instead).",
+      "source_id": "src:geo-bnl-central-campus-map",
+      "title": "Brookhaven National Laboratory campus map, North Area Facility inset (schematic RHIC ring, not to scale)"
+    }
+  ],
+  "site_ids": [
+    "site:bnl-upton-campus",
+    "site:bnl-rhic-ip6-star",
+    "site:bnl-rhic-ip8-phenix-sphenix"
+  ],
+  "sources": [
+    "src:bnl-about-page",
+    "src:geo-bnl-central-campus-map"
+  ],
+  "summary": {
+    "plain": "Brookhaven National Laboratory's main campus in Upton, New York: the 3.8-km RHIC ring with the STAR and PHENIX/sPHENIX detector halls at two of its interaction points, the older 807-m AGS ring that now injects into RHIC, and nearby accelerator buildings, drawn to scale from OpenStreetMap and BNL's own published figures.",
+    "technical": "One local map for facility:brookhaven-national-laboratory spanning the RHIC and AGS ring footprints and the adjoining accelerator-complex buildings on the Upton campus. Geometry sourced from OpenStreetMap (way 50074088 for the RHIC ring, tagged tunnel=yes/indoor=yes; way 289305285 for the AGS ring, tagged place=locality) cross-checked against BNL's published RHIC circumference (2.4 mi) and the AGS's 1960 design-specification mean radius (421.5 ft), plus OSM building footprints for the STAR (1006/1006A) and PHENIX/sPHENIX (1008/1008A) halls corroborated against BNL's own central-campus-map building-number key."
+  },
+  "type": "map",
+  "unlocated": []
+}

@@ -4420,6 +4420,39 @@
       "No checks[] row: a Point has no length/area/span to cross-check independently."
     ]
   },
+  "geometry:bnl-accelerator-test-facility-building": {
+    "notes": []
+  },
+  "geometry:bnl-ags-booster-area": {
+    "notes": []
+  },
+  "geometry:bnl-ags-experimental-area-building": {
+    "notes": []
+  },
+  "geometry:bnl-ags-ring": {
+    "notes": []
+  },
+  "geometry:bnl-berkner-hall-building": {
+    "notes": []
+  },
+  "geometry:bnl-linac-930-building": {
+    "notes": []
+  },
+  "geometry:bnl-phenix-sphenix-hall": {
+    "notes": []
+  },
+  "geometry:bnl-rhic-ring": {
+    "notes": []
+  },
+  "geometry:bnl-star-hall": {
+    "notes": []
+  },
+  "geometry:bnl-tandem-van-de-graaff-building": {
+    "notes": []
+  },
+  "geometry:bnl-upton-campus-boundary": {
+    "notes": []
+  },
   "geometry:cjpl-i-point": {
     "notes": []
   },
@@ -4561,6 +4594,12 @@
     "notes": []
   },
   "geometry:jinping-traffic-tunnel": {
+    "notes": []
+  },
+  "geometry:jlab-cebaf-center-building": {
+    "notes": []
+  },
+  "geometry:jlab-newport-news-campus-boundary": {
     "notes": []
   },
   "geometry:kamland-point": {
@@ -6973,6 +7012,14 @@
     ],
     "summary_technical": "Local map for facility:baikal-deep-underwater-neutrino-telescope. One surveyed point (the collaboration's own published 51 46'N 104 24'E) and one derived ~120 m-diameter circle for a single cluster's string layout (per the 2023 status paper, arXiv:2309.16310); the full multi-cluster array footprint is not sourced and not drawn."
   },
+  "map:brookhaven-national-laboratory": {
+    "notes": [
+      "All three of this facility's atlas sites (site:bnl-upton-campus, site:bnl-rhic-ip6-star, site:bnl-rhic-ip8-phenix-sphenix) and both of its atlas accelerators (accelerator:rhic, accelerator:ags) are drawn; map.unlocated is empty. accelerator:bnl-linac and accelerator:bnl-booster (optional ids reserved for the 'facilities' partition in ID_REGISTRY.md) were never created in this atlas, so Buildings 930 (Linear Accelerator), 901 (Tandem Van de Graaff) and 942 (AGS Booster) are drawn as unlinked context features (entity_id null) rather than being listed in unlocated[], which only covers entities that actually exist as atlas records.",
+      "An Overpass query for a BNL campus-boundary polygon (comparable to CERN's Meyrin/Prévessin fence lines) was queued but overpass-api.de and its lz4 mirror both became unreachable ('Connection refused') for the remainder of this session; the boundary (geometry:bnl-upton-campus-boundary) was instead fetched via the Nominatim search API (OSM relation 18896697), a separate OSM service that remained reachable. See the worklog's 'Method note' section.",
+      "E949 (Brookhaven AGS experiment, K+ -> pi+ nu nu-bar) has no atlas site or detector record of its own (its facility_roles reference facility:brookhaven-national-laboratory only), so nothing about it is drawn or listed in unlocated[]; a candidate location (Building 912, 'AGS Exp. Area', drawn here as geometry:bnl-ags-experimental-area-building) is flagged in the worklog as a lead for whoever creates that site record."
+    ],
+    "summary_technical": "One local map for facility:brookhaven-national-laboratory spanning the RHIC and AGS ring footprints and the adjoining accelerator-complex buildings on the Upton campus. Geometry sourced from OpenStreetMap (way 50074088 for the RHIC ring, tagged tunnel=yes/indoor=yes; way 289305285 for the AGS ring, tagged place=locality) cross-checked against BNL's published RHIC circumference (2.4 mi) and the AGS's 1960 design-specification mean radius (421.5 ft), plus OSM building footprints for the STAR (1006/1006A) and PHENIX/sPHENIX (1008/1008A) halls corroborated against BNL's own central-campus-map building-number key."
+  },
   "map:cern": {
     "notes": [
       "Linked maps: map:lngs (the CNGS far site at LNGS) does not exist yet in this atlas; linked_map_ids is left empty here and the build's automatic derivation (from beamline:cngs's far_detector_site_ids) will populate it once LNGS has its own map.",
@@ -7006,6 +7053,13 @@
       "facility:j-parc's notes record that the Materials and Life Science Experimental Facility (MLF, fed by the RCS) and a proposed muon g-2/EDM experiment are mentioned on official J-PARC pages, but neither has an atlas accelerator/beamline/detector/experiment record of its own (out of the HEP scope this atlas models), so neither appears in this map or in `unlocated[]` -- there is no entity id to list."
     ],
     "summary_technical": "One local map for facility:j-parc covering the Tokai campus: the 400 MeV linac, 3 GeV RCS and 1567 m Main Ring tunnels (OSM indoor-mapped corridors, cross-checked against the T2K NIM paper's machine table), the Hadron Experimental Facility building (KOTO, COMET), the neutrino primary+secondary beamline tunnel and target station, the near-detector hall building (ND280, INGRID), and an inferred-direction line toward Super-Kamiokande."
+  },
+  "map:jefferson-lab": {
+    "notes": [
+      "Only one atlas accelerator (accelerator:cebaf) and one atlas site (site:jlab-newport-news) exist for this facility in this wave (see docs/atlas-worklog/ID_REGISTRY.md); no beamline or detector-hosting site records exist for JLab's experimental halls, so nothing beyond CEBAF itself needs to be drawn or unlocated.",
+      "Site coordinate correction: site:jlab-newport-news's existing coordinate (36.98038, -76.42975, a ROR-geocoded point, precision_m 800) is about 13 km south-southeast of this session's independently-corroborated Nominatim/site-plan location for the actual campus (centroid 37.0989568, -76.4815705; the campus-boundary way's own Nominatim point is 37.0961464, -76.4815621; both match Jefferson Lab's own site-plan address '12000 Jefferson Ave.'). See the worklog's site coordinate corrections list; not applied here (a geometry researcher may not edit existing site records)."
+    ],
+    "summary_technical": "One local map for facility:jefferson-lab. The campus boundary (OSM/Nominatim way 246018258) and the CEBAF Center administration building (way 319579555) are drawn as georeferenced OpenStreetMap shapes, corroborated by Jefferson Lab's own site-plan building-number key. accelerator:cebaf (the racetrack tunnel and its four experimental halls) is listed in unlocated[] because both permitted Overpass mirrors were unreachable for the remainder of the session."
   },
   "map:kamioka-observatory": {
     "notes": [

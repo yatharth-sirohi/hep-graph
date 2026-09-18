@@ -15,7 +15,9 @@
       "feeds_accelerator_ids": [
         "accelerator:rhic"
       ],
-      "geometry_map_ids": [],
+      "geometry_map_ids": [
+        "map:brookhaven-national-laboratory"
+      ],
       "id": "accelerator:ags",
       "intervals": [
         {
@@ -2605,7 +2607,9 @@
         "accelerator:ags"
       ],
       "feeds_accelerator_ids": [],
-      "geometry_map_ids": [],
+      "geometry_map_ids": [
+        "map:brookhaven-national-laboratory"
+      ],
       "id": "accelerator:rhic",
       "intervals": [
         {
@@ -45711,7 +45715,7 @@
       "links": {
         "website": "https://www.bnl.gov/about/"
       },
-      "map_id": null,
+      "map_id": "map:brookhaven-national-laboratory",
       "name": "Brookhaven National Laboratory",
       "operator_ids": [],
       "operator_text": "Brookhaven Science Associates, LLC (a partnership of Stony Brook University and Battelle, with six core universities) for the U.S. Department of Energy's Office of Science",
@@ -46863,7 +46867,7 @@
       "links": {
         "website": "https://www.jlab.org/"
       },
-      "map_id": null,
+      "map_id": "map:jefferson-lab",
       "name": "Thomas Jefferson National Accelerator Facility",
       "operator_ids": [],
       "operator_text": "SURATech, LLC (a partnership of the Southeastern Universities Research Association and Virginia Tech, with four subcontractors) for the U.S. Department of Energy",
@@ -49255,6 +49259,68 @@
       "to_scale_count": 2,
       "unlocated_count": 0
     },
+    "map:brookhaven-national-laboratory": {
+      "attribution": [
+        "© OpenStreetMap contributors (ODbL-1.0)"
+      ],
+      "bundle": "geometry/brookhaven-national-laboratory.json",
+      "center": {
+        "lat": 40.8839221,
+        "lon": -72.8760526
+      },
+      "coverage": {
+        "researched": "partial",
+        "tier": "B"
+      },
+      "extent_m": 4800,
+      "facility_id": "facility:brookhaven-national-laboratory",
+      "feature_count": 11,
+      "id": "map:brookhaven-national-laboratory",
+      "levels": [
+        {
+          "depth_m": null,
+          "id": "surface",
+          "kind": "surface",
+          "name": "Surface"
+        },
+        {
+          "depth_m": null,
+          "id": "rhic-tunnel",
+          "kind": "underground",
+          "name": "RHIC tunnel"
+        },
+        {
+          "depth_m": null,
+          "id": "ags-tunnel",
+          "kind": "underground",
+          "name": "AGS tunnel"
+        }
+      ],
+      "linked_map_ids": [],
+      "name": "Brookhaven National Laboratory — Upton campus, RHIC and AGS rings",
+      "site_ids": [
+        "site:bnl-rhic-ip6-star",
+        "site:bnl-rhic-ip8-phenix-sphenix",
+        "site:bnl-upton-campus"
+      ],
+      "state_segments": [
+        [
+          -36,
+          -25,
+          "active",
+          "possible"
+        ],
+        [
+          -24,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
+      "to_scale_count": 11,
+      "unlocated_count": 0
+    },
     "map:cern": {
       "attribution": [
         "© OpenStreetMap contributors (ODbL-1.0)"
@@ -49658,6 +49724,66 @@
       "status": "active",
       "to_scale_count": 8,
       "unlocated_count": 0
+    },
+    "map:jefferson-lab": {
+      "attribution": [
+        "© OpenStreetMap contributors (ODbL-1.0)"
+      ],
+      "bundle": "geometry/jefferson-lab.json",
+      "center": {
+        "lat": 37.0989568,
+        "lon": -76.4815705
+      },
+      "coverage": {
+        "researched": "partial",
+        "tier": "C"
+      },
+      "extent_m": 1300,
+      "facility_id": "facility:jefferson-lab",
+      "feature_count": 2,
+      "id": "map:jefferson-lab",
+      "levels": [
+        {
+          "depth_m": null,
+          "id": "surface",
+          "kind": "surface",
+          "name": "Surface"
+        },
+        {
+          "depth_m": {
+            "dimension": "length",
+            "display": "≈8.35 m below grade (25-30 ft across two official pages)",
+            "max": 9.1,
+            "min": 7.6,
+            "unit": "m"
+          },
+          "id": "cebaf-tunnel",
+          "kind": "underground",
+          "name": "CEBAF accelerator tunnel"
+        }
+      ],
+      "linked_map_ids": [],
+      "name": "Jefferson Lab — Newport News campus",
+      "site_ids": [
+        "site:jlab-newport-news"
+      ],
+      "state_segments": [
+        [
+          408,
+          419,
+          "active",
+          "possible"
+        ],
+        [
+          420,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
+      "to_scale_count": 2,
+      "unlocated_count": 1
     },
     "map:kamioka-observatory": {
       "attribution": [],
@@ -50618,7 +50744,7 @@
       "links": {
         "website": null
       },
-      "map_id": null,
+      "map_id": "map:brookhaven-national-laboratory",
       "name": "RHIC Interaction Point 6 (STAR experimental hall)",
       "place": {
         "city": "Upton",
@@ -50678,7 +50804,7 @@
       "links": {
         "website": null
       },
-      "map_id": null,
+      "map_id": "map:brookhaven-national-laboratory",
       "name": "RHIC Interaction Point 8 (PHENIX / sPHENIX experimental hall)",
       "place": {
         "city": "Upton",
@@ -50779,7 +50905,7 @@
       "links": {
         "website": null
       },
-      "map_id": null,
+      "map_id": "map:brookhaven-national-laboratory",
       "name": "Brookhaven National Laboratory, Upton campus",
       "place": {
         "city": "Upton",
@@ -54532,7 +54658,7 @@
       "links": {
         "website": null
       },
-      "map_id": null,
+      "map_id": "map:jefferson-lab",
       "name": "Jefferson Lab, Newport News campus",
       "place": {
         "city": "Newport News",
@@ -59635,5 +59761,5 @@
       "type": "topic"
     }
   },
-  "version": "800e2addd3d11349"
+  "version": "f7448bc29c7f66af"
 }
