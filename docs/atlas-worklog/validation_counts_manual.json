@@ -58,5 +58,17 @@
   "coverage_red_team": {
     "value": "not run",
     "evidence": "addendum §26 agent was started and stopped by the user; see INTEGRATION_ISSUES.md row 54"
+  },
+  "browser_matrix_release_gate": {
+    "value": "chromium 24/24 fixtures + 25/25 generated; firefox 24/24 + 25/25; webkit 24/24 + 25/25 — 147/147 on the merged release candidate (2026-09-18)",
+    "evidence": "release_gate.sh runs after merging hep-atlas-v1-w4 (4cb2109); per-run JSON summaries in the orchestrator session log; W4's own six logs under test-results/atlas/logs/ (gitignored) as described in docs/atlas-worklog/REVIEW_browser_matrix.md"
+  },
+  "accessibility_suite_release_gate": {
+    "value": "tests/browser_atlas_a11y.cjs: 30 passed, 0 failed, 0 WCAG axe violations over 16 scanned states, on the merged release candidate",
+    "evidence": "run on 2026-09-18 against http://127.0.0.1:8793 with both data trees"
+  },
+  "link_check": {
+    "value": "1,485 of 1,486 sources checked: 1,467 × 200, 11 × 403 (bot-blocked lab sites), 6 × 406, 1 no response (a BNL PDF mirror of the Super-K NIM paper, src:sk-nim-2003); 0 × 404/410",
+    "evidence": "python -m hepgraph.atlas.linkcheck --delay 1.5 on 2026-09-18, statuses recorded in each source's link_check block; commit 58e34f6"
   }
 }

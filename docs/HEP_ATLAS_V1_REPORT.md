@@ -17,7 +17,7 @@ script named next to it or taken from a report file under
   PostgreSQL-backed HEP Graph tests that need a throwaway database). HEP
   Graph's own suite is unchanged. `python -m hepgraph.atlas.validate`: 0
   errors. Browser suite `tests/browser_atlas.cjs`: 22/22 on the fixture tree,
-  23/23 on the generated tree in Chromium; Firefox and WebKit: [TBD-BROWSERS].
+  23/23 on the generated tree in Chromium; Firefox 24/24 and 25/25, WebKit 24/24 and 25/25 on the same two trees (147/147 across the three engines, `docs/atlas-worklog/REVIEW_browser_matrix.md`); WebKit is Safari's engine driven by Playwright, not Safari.app. Accessibility suite `tests/browser_atlas_a11y.cjs`: 30/30, 0 axe WCAG violations over 16 scanned states.
   `scripts/atlas_coverage_report.py --check` and
   `scripts/atlas_validation_counts.py --check`: current.
 - **Deployment.** [TBD-DEPLOY].
@@ -166,7 +166,8 @@ assets have their own rate-limit bucket.
   → 12.5–15.5 fps for CMS/ATLAS with arcs on (a 1.5–1.9× improvement); the
   60 fps target on real hardware was not measured this release and is not
   claimed.
-- Accessibility: [TBD-A11Y].
+- Accessibility (`docs/atlas-worklog/REVIEW_accessibility.md`): axe-core 0 violations across 16 scans; three P1s fixed (muted-text and border contrast below WCAG AA, uncertain markers had no non-colour encoding, Escape did not close panels or return focus); one P2 left documented (legend glyph for "uncertain" differs from the marker hatch).
+- Link check: 1,485 of 1,486 sources checked; none dead (11 bot-blocked 403s, 6 × 406, one unresponsive PDF mirror listed for review).
 
 ## 11. Remaining coverage
 
