@@ -702,6 +702,19 @@ async function setRangeValue(locator, value) {
             return el && el.hasAttribute("data-feature-row") ? el.getAttribute("data-feature-row") : null;
           });
         }
+        if (!landed && BROWSER_NAME === "webkit") {
+          // WebKit/Safari's default tab order skips <button> entirely unless
+          // macOS "Full Keyboard Access" is on — a platform preference, not
+          // a markup problem: these are real buttons, so they join the tab
+          // order the moment a user turns that on. What this suite can still
+          // assert on WebKit is that the button takes focus and Enter
+          // activates it, which is the part the app controls.
+          const first = p.locator("[data-feature-row]").first();
+          await first.focus();
+          landed = await first.getAttribute("data-feature-row");
+          console.log("NOTE: webkit's default tab order skips buttons (macOS Full Keyboard Access is off); "
+            + "verified focus + Enter on the feature button instead.");
+        }
         assert.ok(landed, "expected Tab to reach a feature button in the accessible list");
         await p.keyboard.press("Enter");
         await p.locator("#map-drawer-title").waitFor({ timeout: 15000 });
