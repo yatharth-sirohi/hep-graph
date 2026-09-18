@@ -229,5 +229,102 @@ coordinate source is deliberately left `kind: campus`/`confidence:
 approximate` rather than mislabelled `detector`/`underground_lab` to pass
 validation — this now warns rather than fails, per A23.
 
-*(Log continues below as Borexino, GALLEX/GNO, SAGE and Homestake are
-completed.)*
+### Borexino (mandatory bar + 2 non-flagship bonus results)
+
+- `experiment:borexino`, `detector:borexino`, `collaboration:borexino`,
+  referencing the EXISTING `facility:lngs`/`site:lngs-hall-c` (owned by
+  facilities/dark-matter workstreams; not touched).
+- `result:borexino-pp-first-detection-2014` (Nature 512, 383-386 (2014),
+  first direct spectral pp-neutrino measurement; `result_type: measurement`
+  after the validator rejected `first_detection` for lacking the required
+  "detect" keyword in the quote) and `result:borexino-cno-evidence-2020`
+  ("Experimental evidence of neutrinos produced in the CNO fusion cycle in
+  the Sun", arXiv:2006.15115, Nature 587 (2020)).
+- 5 sources under `src:borexino-*`.
+
+### GALLEX/GNO (mandatory bar)
+
+- `experiment:gallex-gno` (one record, GNO as an alias, per the brief),
+  `detector:gallex-gno`, `collaboration:gallex-gno`, referencing the
+  EXISTING `facility:lngs`/`site:lngs-hall-a`.
+- No dedicated official GALLEX/GNO site exists/was reachable; every fact
+  (30.3 t gallium target, GALLEX 1991-1997, GNO May 1998-April 2003, 73.1/
+  62.9 SNU capture rates, 6-nation collaboration led by MPIK Heidelberg)
+  comes from Wikipedia only (rank 12) — flagged throughout with `uncertain`/
+  `approximate` confidence rather than `verified`, and listed in
+  `missing_fields`. No results written this pass (time-boxed).
+- 2 sources under `src:gallex-*`.
+
+### SAGE (mandatory bar)
+
+- `facility:baksan-neutrino-observatory` (new), `site:baksan-sage-underground-lab`
+  (new, campus/approximate coordinate per A17/A23 — the Baksan/INR official
+  site returned 404 on the one URL guessed), `experiment:sage`,
+  `detector:sage`, `collaboration:sage`.
+- `result:sage-capture-rate-1999` ("Measurement of the solar neutrino
+  capture rate with gallium metal", arXiv:astro-ph/9907113, 67.2 SNU vs. 129
+  SNU predicted).
+- Wikipedia's own end-date wording ("End: August 2011, with continued
+  operations thereafter") is internally ambiguous; rather than picking one
+  reading, the open-ended interval convention (`end: null` = "ongoing at
+  `verified_at`", not a certainty claim) was used and flagged.
+- 3 sources under `src:sage-*`.
+
+### Homestake / Davis chlorine experiment (mandatory bar)
+
+- `experiment:homestake`, `detector:homestake`, `collaboration:homestake`.
+  Per the brief's explicit instruction: **no new site was created** (no
+  source fetched this session gives a distinct coordinate for the Davis
+  chlorine-tank chamber specifically, as opposed to the Homestake mine/SURF
+  generally); both reference the EXISTING `facility:surf` (owned by
+  fermilab-dune) and its `site:surf-surface-campus` (`kind: campus`,
+  `confidence: approximate`) rather than fabricating precision. This is
+  explicitly **not** the same site as `site:surf-4850-level-dune-far-detector`
+  (the DUNE far-detector cavern) — confirmed by name and not referenced.
+- `result:homestake-flux-measurement-1998` ("Measurement of the Solar
+  Electron Neutrino Flux with the Homestake Chlorine Detector", Cleveland,
+  Daily, Davis et al., ApJ 496, 505 (1998), DOI 10.1086/305343): the
+  definitive 1970-1994 dataset, 2.56±0.16(stat)±0.16(syst) SNU, about
+  one-third of the Standard Solar Model prediction — the original "solar
+  neutrino problem".
+- 3 sources under `src:homestake-*`.
+
+## Final validator/build status
+
+- `hepgraph.atlas.validate`: **0 errors attributable to any file this
+  workstream authored**, across all 11 experiments plus the
+  `detector:kamland` cross-link, checked repeatedly (after every ~2
+  experiments and again at the very end). Two `[error]`-level findings exist
+  in the repository as of the final check (`experiments/supercdms-soudan.json`
+  alias collision; `detectors/mu2e.json` unsourced spec) — both belong to
+  other workstreams (dm-cryogenic-low-threshold, muons) and are untouched by
+  this workstream.
+- `hepgraph.atlas.build`: succeeds (writes 31 bundle files); the only
+  message is a pre-existing, repo-wide warning that `atlas.json` +
+  `manifest.json` (1.42 MB, summed across all ~55 experiments now in the
+  atlas) exceeds the original 3-experiment pilot's 400 KB budget — explicitly
+  documented in the ontology (§8) as an expected, non-failing threshold at
+  this scale.
+- `python -c "import json,glob; [json.load(open(f)) ...]"`: all 2787 JSON
+  files under `data/atlas/` parse successfully.
+
+## Final coverage summary
+
+All 11 rows in `data/atlas/coverage/reactor-solar-neutrino.json` are
+honestly `"researched": "partial"` (none are `"complete"`: every experiment
+has at least one `missing_fields` entry, mostly official membership counts
+unreachable behind dead/DNS-failing official sites, and coordinate precision
+where no rank≤7 source was found). JUNO is the only flagship (tier A,
+full depth: 2 documents + 2 results). Daya Bay's mandatory-bar-plus result is
+its 2012 discovery; KamLAND's is its 2003 first-results evidence paper;
+SNO's are its 2001/2002 evidence papers; Borexino's are its 2014 pp and 2020
+CNO results — all four of the brief's named "historically defining results"
+were written with verbatim, collaboration-sourced titles/claims.
+
+## Dangling references (final)
+
+None outstanding: `facility:kamioka-observatory`, `facility:lngs` (+ Halls
+A/B/C), `facility:snolab` (+ underground lab site), and `facility:surf` all
+existed on disk (created by other Wave 3 leads) by the time each experiment
+referencing them was written, so no forward-reference placeholders remain
+unresolved from this workstream's side.
