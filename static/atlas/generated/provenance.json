@@ -47991,6 +47991,28 @@
       "verified_at": null
     }
   },
+  "geometry:ikenoyama-peak-marker": {
+    "/geometry": {
+      "confidence": "approximate",
+      "locator": "OSM node 8719816444",
+      "note": "Context feature with no atlas entity of its own (entity_id null, per the contract's allowance for building/boundary/road/water-like context features); a mountain summit is not itself an accelerator, beamline, detector, site, experiment or facility.",
+      "quote": "man_made=survey_point, natural=peak, name='池ノ山', ele=1368.6",
+      "sources": [
+        "src:geo-kamioka-cjpl-osm-mine-entrance"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-kamioka-cjpl-osm-mine-entrance"
+      ],
+      "verified_at": null
+    }
+  },
   "geometry:jinping-traffic-tunnel": {
     "/checks/0": {
       "confidence": null,
@@ -48030,6 +48052,28 @@
       "sources": [
         "src:geo-kamioka-cjpl-osm-jinping-tunnel",
         "src:cjpl-arxiv-early-science-2018"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:kamioka-mine-entrance": {
+    "/geometry": {
+      "confidence": "approximate",
+      "locator": "OSM node 759469233",
+      "note": "Marks a single named entrance to the Kamioka mine complex; OSM does not distinguish which of the mine's two named entrances (Atotsu, Mozumi) this node represents, and no source fetched this session resolves that.",
+      "quote": "natural=cave_entrance, name='Kamioka Mine, ICRR, Kamiokande, CLIO'",
+      "sources": [
+        "src:geo-kamioka-cjpl-osm-mine-entrance"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-kamioka-cjpl-osm-mine-entrance"
       ],
       "verified_at": null
     }
@@ -65654,7 +65698,7 @@
     "/levels/0": {
       "confidence": null,
       "locator": null,
-      "note": "The Kamioka valley surface: the Mozumi and Atotsu mine entrances (the latter a 1.7 km horizontal drive-in tunnel) and the Kamioka Observatory's surface buildings. No OpenStreetMap trace of these was obtained this session (Overpass connectivity failed on both mirrors every time it was tried — see worklog); no surface feature is drawn at this level.",
+      "note": "The Kamioka valley surface: the Mozumi and Atotsu mine entrances (the latter a 1.7 km horizontal drive-in tunnel) and the Kamioka Observatory's surface buildings. overpass-api.de, lz4.overpass-api.de and the kumi mirror all refused connections this session; a fallback mirror (maps.mail.ru) answered and yielded geometry:kamioka-mine-entrance (a single named cave_entrance node, not distinguished as Atotsu vs Mozumi) and geometry:ikenoyama-peak-marker (context only). No ICRR surface-building footprints were found.",
       "quote": null,
       "sources": null,
       "verified_at": null

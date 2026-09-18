@@ -1,7 +1,9 @@
 {
-  "attribution": [],
+  "attribution": [
+    "© OpenStreetMap contributors (ODbL-1.0)"
+  ],
   "bbox": [
-    137.3100864,
+    137.3082522,
     36.35248,
     140.599175,
     36.4587536
@@ -10,6 +12,9 @@
   "entity_index": {
     "beamline:j-parc-neutrino": [
       "geometry:t2k-beam-direction-kamioka"
+    ],
+    "facility:kamioka-observatory": [
+      "geometry:kamioka-mine-entrance"
     ],
     "site:kamioka-hyper-kamiokande-tochibora": [
       "geometry:hyper-kamiokande-point"
@@ -192,6 +197,125 @@
         ]
       ],
       "status": null
+    },
+    {
+      "accuracy_m": 15,
+      "checks": [],
+      "depth_m": null,
+      "entity_id": null,
+      "entity_name": null,
+      "entity_type": null,
+      "feature_type": "other",
+      "geometry": {
+        "coordinates": [
+          137.311011,
+          36.4269801
+        ],
+        "type": "Point"
+      },
+      "id": "geometry:ikenoyama-peak-marker",
+      "level_id": "surface",
+      "license": {
+        "attribution": "© OpenStreetMap contributors",
+        "name": "ODbL-1.0",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "measured": {
+        "area_m2": null,
+        "centroid": [
+          137.311011,
+          36.4269801
+        ],
+        "length_m": null
+      },
+      "method": "OpenStreetMap node 8719816444 (man_made=survey_point, natural=peak, name '池ノ山' [Ikenoyama], ele 1368.6 m), extracted via the maps.mail.ru Overpass mirror. A context feature only, drawn to show the mountain the Super-Kamiokande site's own summary already names ('under the peak of Mt. Ikenoyama'): this summit node is 153 m horizontally from Super-Kamiokande's own surveyed underground position, consistent with the detector sitting beneath it.",
+      "name": "Mt. Ikenoyama summit (OSM survey point)",
+      "osm": {
+        "elements": [
+          "node/8719816444"
+        ],
+        "timestamp": "2026-09-18T22:51:14Z"
+      },
+      "provenance": {
+        "confidence": "approximate",
+        "locator": "OSM node 8719816444",
+        "note": "Context feature with no atlas entity of its own (entity_id null, per the contract's allowance for building/boundary/road/water-like context features); a mountain summit is not itself an accelerator, beamline, detector, site, experiment or facility.",
+        "quote": "man_made=survey_point, natural=peak, name='池ノ山', ele=1368.6",
+        "sources": [
+          "src:geo-kamioka-cjpl-osm-mine-entrance"
+        ],
+        "verified_at": "2026-09-18"
+      },
+      "representation": "georeferenced",
+      "site_id": null,
+      "state_segments": null,
+      "status": null
+    },
+    {
+      "accuracy_m": 30,
+      "checks": [],
+      "depth_m": null,
+      "entity_id": "facility:kamioka-observatory",
+      "entity_name": "Kamioka Observatory (ICRR, University of Tokyo)",
+      "entity_type": "facility",
+      "feature_type": "other",
+      "geometry": {
+        "coordinates": [
+          137.3082522,
+          36.4089839
+        ],
+        "type": "Point"
+      },
+      "id": "geometry:kamioka-mine-entrance",
+      "level_id": "surface",
+      "license": {
+        "attribution": "© OpenStreetMap contributors",
+        "name": "ODbL-1.0",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "measured": {
+        "area_m2": null,
+        "centroid": [
+          137.3082522,
+          36.4089839
+        ],
+        "length_m": null
+      },
+      "method": "OpenStreetMap node 759469233 (natural=cave_entrance, name 'Kamioka Mine, ICRR, Kamiokande, CLIO'), extracted via the maps.mail.ru Overpass mirror after overpass-api.de, lz4.overpass-api.de and the kumi mirror all refused connections this session. This node sits 1.87 km (bearing ~5.6 deg, i.e. almost due north) from Super-Kamiokande's own surveyed underground position — broadly consistent with the ~1.7-1.8 km horizontal Atotsu access tunnel described in secondary sources, though no primary source fetched this session states that tunnel length as a directly quotable figure, so this is reported as an informational corroboration in the worklog rather than a formal `checks[]` row.",
+      "name": "Kamioka mine entrance (OSM cave_entrance node)",
+      "osm": {
+        "elements": [
+          "node/759469233"
+        ],
+        "timestamp": "2026-09-18T22:52:20Z"
+      },
+      "provenance": {
+        "confidence": "approximate",
+        "locator": "OSM node 759469233",
+        "note": "Marks a single named entrance to the Kamioka mine complex; OSM does not distinguish which of the mine's two named entrances (Atotsu, Mozumi) this node represents, and no source fetched this session resolves that.",
+        "quote": "natural=cave_entrance, name='Kamioka Mine, ICRR, Kamiokande, CLIO'",
+        "sources": [
+          "src:geo-kamioka-cjpl-osm-mine-entrance"
+        ],
+        "verified_at": "2026-09-18"
+      },
+      "representation": "georeferenced",
+      "site_id": null,
+      "state_segments": [
+        [
+          540,
+          551,
+          "active",
+          "possible"
+        ],
+        [
+          552,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active"
     },
     {
       "accuracy_m": 2000,
@@ -821,6 +945,11 @@
       "title": "Letter of Intent: The Hyper-Kamiokande Experiment -- Detector Design and Physics Potential --",
       "url": "https://arxiv.org/html/1109.3262v1"
     },
+    "src:geo-kamioka-cjpl-osm-mine-entrance": {
+      "source_type": "openstreetmap",
+      "title": "OpenStreetMap nodes 759469233 (Kamioka Mine entrance) and 8719816444 (Mt. Ikenoyama survey point)",
+      "url": "https://www.openstreetmap.org/node/759469233"
+    },
     "src:hk-frontiers-2024-status": {
       "source_type": "journal_article",
       "title": "Hyper-Kamiokande construction status and prospects",
@@ -862,5 +991,5 @@
       "url": "https://arxiv.org/pdf/1106.1238"
     }
   },
-  "version": "660e9194c7adf056"
+  "version": "9f352e3a3de19983"
 }

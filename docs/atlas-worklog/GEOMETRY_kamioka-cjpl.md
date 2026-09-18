@@ -6,14 +6,26 @@ Researcher: geometry-kamioka-cjpl. Worktree
 
 ## Method note: Overpass access this session
 
-Overpass was reachable exactly once this session: a query for the Jinping
-traffic tunnel (`overpass-api.de`) at the very start succeeded on the first
-try. Every later attempt — three retries for a Mozumi-mine buildings/tunnel
-query, alternating `overpass-api.de` and `lz4.overpass-api.de`, spaced by real
-work in between rather than bare sleeps — failed outright with `curl: (7)
-Failed to connect`, never a 429/504 to back off from. No OpenStreetMap trace
-of the Kamioka valley (Atotsu tunnel entrance, ICRR surface buildings) was
-obtained; this is recorded as backlog, not guessed around.
+Overpass was reachable exactly once on the original mirrors: a query for the
+Jinping traffic tunnel (`overpass-api.de`) at the very start succeeded on the
+first try. Every later attempt on `overpass-api.de`/`lz4.overpass-api.de` —
+three retries for a Mozumi-mine buildings/tunnel query, spaced by real work
+in between rather than bare sleeps — failed outright with `curl: (7) Failed
+to connect`, never a 429/504 to back off from.
+
+The coordinator later reported that `overpass-api.de`, `lz4` and `kumi` were
+refusing connections to every concurrent researcher and pointed at two
+fallback mirrors. `overpass.private.coffee` returned `HTTP 504` on the first
+try (a real rate-limit-shaped response, unlike the original mirrors' bare
+connection refusals). `maps.mail.ru`'s Overpass endpoint answered twice, ~70 s
+apart: a first, narrow query over Super-K's own bbox found only two named
+nodes (a mountain-summit survey point and a locality name); a second, wider
+query with an explicit `["name"]` filter found `geometry:kamioka-mine-entrance`
+(a `natural=cave_entrance` node named "Kamioka Mine, ICRR, Kamiokande, CLIO")
+and `geometry:ikenoyama-peak-marker` (the "池ノ山"/Ikenoyama summit, matching
+the mountain the Super-K site record's own summary already names). Neither
+query found the ICRR surface buildings or a way to distinguish the Atotsu
+entrance from the Mozumi entrance; that stays in the backlog.
 
 ## Inventory
 
@@ -24,15 +36,20 @@ obtained; this is recorded as backlog, not guessed around.
 | site:kamioka-kamland | drawn | geometry:kamland-point | derived (zero-offset reuse of existing Wikipedia point) | 2000 m | none — no independent figure was found to check against |
 | site:kamioka-hyper-kamiokande-tochibora | drawn | geometry:hyper-kamiokande-point | **surveyed** (2011 LOI) | 150 m | distance to Super-K: 8.15 km vs "≈8 km" — pass |
 | beamline:j-parc-neutrino | drawn (direction only) | geometry:t2k-beam-direction-kamioka | inferred_direction | n/a | length 294 203 m vs sourced baseline 295 335.2 m — pass (0.38%) |
+| (context) Kamioka mine entrance | drawn | geometry:kamioka-mine-entrance | georeferenced (OSM) | 30 m | none formal; 1.87 km from Super-K, informally consistent with the ~1.7-1.8 km Atotsu tunnel figure (no primary source quotes that number this session) |
+| (context) Mt. Ikenoyama summit | drawn | geometry:ikenoyama-peak-marker | georeferenced (OSM) | 15 m | none formal; 153 m from Super-K's surveyed point, consistent with "under the peak of Mt. Ikenoyama" |
 | facility:cjpl | map:cjpl authored | — | — | — | — |
 | site:cjpl-i | drawn | geometry:cjpl-i-point | derived (walked along OSM tunnel line) | 100 m | none formal (see "informational" note below) |
 | site:cjpl-ii | drawn | geometry:cjpl-ii-point | derived (walked along OSM tunnel line) | 100 m | none formal (see "informational" note below) |
 | (context) Jinping traffic tunnel | drawn | geometry:jinping-traffic-tunnel | georeferenced (OSM) | 25 m | length 17 505.4 m vs sourced 17.5 km — pass (0.03%) |
 
-7 geometry records total (4 on map:kamioka-observatory, 3 on map:cjpl). No
-entity is left `unlocated[]` on either map: `facility:kamioka-observatory` and
-`facility:cjpl` have no accelerator/beamline records of their own, and all
-five sites named in the brief's inventory (three Kamioka, two CJPL) are drawn.
+9 geometry records total (6 on map:kamioka-observatory, 3 on map:cjpl; the
+last 2 on map:kamioka-observatory were added after a coordinator message
+midway through this task pointed at working Overpass mirrors — see the
+Method note above). No entity is left `unlocated[]` on either map:
+`facility:kamioka-observatory` and `facility:cjpl` have no accelerator/
+beamline records of their own, and all five sites named in the brief's
+inventory (three Kamioka, two CJPL) are drawn.
 
 Detectors named in the brief that have **no atlas `detector:` record at all**
 in this session's checkout — `kamiokande` (the original, decommissioned
@@ -101,6 +118,34 @@ coordinate; CJPL-II is 622 m away. Both are well inside their site's own
 stated `precision_m` — consistent, not a contradiction, but the tunnel-walked
 points are far more precise and are recommended below as a site coordinate
 correction.
+
+## Two surface context features from the fallback Overpass mirror
+
+After the coordinator's note that `overpass-api.de`/`lz4`/`kumi` were refusing
+every concurrent researcher and that `maps.mail.ru` was answering, a retry of
+the Mozumi-area query there returned two named nodes worth drawing as surface
+context, added to `map:kamioka-observatory` (`level_id: surface`) after the
+rest of this worklog was first written:
+
+- `geometry:kamioka-mine-entrance` — OSM node 759469233, `natural=cave_entrance`,
+  named "Kamioka Mine, ICRR, Kamiokande, CLIO". It sits 1.87 km (bearing ~5.6°,
+  almost due north) from Super-Kamiokande's own surveyed point, in the right
+  range for the ~1.7–1.8 km horizontal Atotsu access tunnel mentioned in
+  secondary sources — but no primary source fetched this session states that
+  tunnel length as a directly quotable figure, and OSM does not tag which of
+  the mine's two named entrances (Atotsu, Mozumi) this node represents, so
+  this is reported as an informal corroboration, not a `checks[]` row.
+- `geometry:ikenoyama-peak-marker` — OSM node 8719816444, a named
+  `natural=peak`/`man_made=survey_point` for "池ノ山" (Ikenoyama, elevation
+  1368.6 m), 153 m horizontally from Super-Kamiokande's own surveyed point —
+  consistent with the site record's own summary, "under the peak of Mt.
+  Ikenoyama". Drawn as a context feature (`entity_id: null`): a mountain
+  summit is not an accelerator, beamline, detector, site, experiment or
+  facility.
+
+Neither query (a narrow one over Super-K's bbox, then a wider one with an
+explicit `["name"]` filter) found the ICRR surface buildings themselves; that
+stays in the backlog below.
 
 ## The Hyper-Kamiokande coordinate: an upgrade over the existing site record
 
@@ -236,11 +281,16 @@ brief's inventory (`site:kamioka-mozumi-mine-super-kamiokande`,
 
 ## Backlog (concrete next steps)
 
-1. **Mozumi-area OpenStreetMap trace.** Retry
-   `way["building"](36.415,137.300,36.435,137.325); way["tunnel"](36.415,137.300,36.435,137.325); node["name"](36.415,137.300,36.435,137.325);`
-   on `overpass-api.de` or `lz4.overpass-api.de` once connectivity recovers,
-   to add the Atotsu tunnel entrance and Kamioka Observatory's surface
-   buildings at the `surface` level.
+1. **ICRR surface buildings and the Atotsu-vs-Mozumi distinction.** Two
+   Overpass queries this session (one narrow, one wide, both on the
+   `maps.mail.ru` mirror) found only one named mine-entrance node
+   (`geometry:kamioka-mine-entrance`, undifferentiated) and no building
+   footprints. Retry `way["building"]["name"]` over a wider bbox (this
+   session's widest was 36.400–36.440, 137.290–137.335) on `maps.mail.ru` or
+   `overpass.private.coffee`, or, if a specific building/way id is ever
+   identified by name, fetch it directly via
+   `https://api.openstreetmap.org/api/0.6/way/<id>/full.json` rather than a
+   bbox query.
 2. **KamLAND's own position.** Find an official Tohoku University Research
    Center for Neutrino Science page, or the original KamLAND NIM/detector
    paper (not just overview/review articles), stating a numeric offset (with
@@ -297,8 +347,9 @@ brief's inventory (`site:kamioka-mozumi-mine-super-kamiokande`,
 
 ## Sources added
 
-2 new `src:geo-kamioka-cjpl-*` records (1 OpenStreetMap extract covering both
-Jinping tunnel bores, 1 arXiv Letter of Intent); see
+3 new `src:geo-kamioka-cjpl-*` records (2 OpenStreetMap extracts — one
+covering both Jinping tunnel bores, one covering the Kamioka mine-entrance
+and Ikenoyama-summit nodes — and 1 arXiv Letter of Intent); see
 `data/atlas/sources/geo-kamioka-cjpl-*.json`. One existing source,
 `src:cjpl-arxiv-early-science-2018`, was upgraded from `retrieval: summary`
 to `retrieval: full_text` with its `excerpt` expanded to the verbatim
@@ -310,17 +361,20 @@ site, detector, accelerator, beamline or facility record was edited.
 ## Validator / build / test results
 
 - `.venv/bin/python -m hepgraph.atlas.validate`: **0 errors**, 1593 warnings,
-  4 informational (reproduced across two separate runs after canonicalizing
-  the written JSON; see the anomaly noted in Conflicts §7 for one earlier,
+  4 informational (reproduced across three separate runs, the last two after
+  canonicalizing the written JSON and after adding the two OSM context
+  features; see the anomaly noted in Conflicts §7 for one earlier,
   non-reproduced run's extra unrelated findings). None of the 1593 warnings
   concern this worklog's files beyond the universal, atlas-wide "`rank` is
-  derived at build time" advisory that fires on every `src:` record, and one
-  pre-existing warning on `experiment:super-kamiokande` unrelated to this
-  work (its start date predates its host facility's founding date, already
-  documented in `facilities/kamioka-observatory.json`'s own notes).
+  derived at build time" advisory (which only fires on `src:` records that
+  author a `rank` field at all — the OpenStreetMap sources here deliberately
+  do not, following the CERN precedent), and one pre-existing warning on
+  `experiment:super-kamiokande` unrelated to this work (its start date
+  predates its host facility's founding date, already documented in
+  `facilities/kamioka-observatory.json`'s own notes).
 - `.venv/bin/python -m hepgraph.atlas.build`: succeeds;
-  `geometry/kamioka-observatory.json` is 24 KB (4 features, bbox
-  `[137.3100864, 36.35248, 140.599175, 36.4587536]` — see the T2K
+  `geometry/kamioka-observatory.json` is 28 KB (6 features, bbox
+  `[137.3082522, 36.35248, 140.599175, 36.4587536]` — see the T2K
   direction-line trade-off discussed above for why it reaches Ibaraki);
   `geometry/cjpl.json` is 16 KB (3 features, bbox
   `[101.6423797, 28.1317909, 101.7889765, 28.2159996]`, attribution
