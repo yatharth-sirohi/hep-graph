@@ -8,16 +8,17 @@
     "lat": 42.8,
     "lon": 6.17,
     "kind": "detector",
-    "precision_m": 15000,
+    "precision_m": 12000,
     "sources": [
       "src:astro-neutrino-antares-official-detection-principle",
       "src:astro-neutrino-antares-two-decades-detector-paper",
+      "src:astro-neutrino-km3net-loi-2016",
       "src:astro-neutrino-antares-wikipedia"
     ],
     "verified_at": "2026-09-17",
-    "confidence": "uncertain",
-    "quote": "At about 40 km off the coast of Toulon (France), anchored at 2475 m deep in the Mediterranean Sea, there is ANTARES.",
-    "note": "The official ANTARES site states only \"a latitude of 43° North\"; the collaboration's own 2025 detector paper (arXiv:2504.09473) states the depth (2475 m) and offshore distance (40 km from Toulon) but does not give explicit degrees anywhere in the text (checked for every degree symbol and N/E pattern). The precise decimal value used here, 42.8°N 6.17°E (42°48'N 6°10'E), is corroborated by secondary literature (Wikipedia, rank 12) only; it is consistent with the official site's coarse latitude statement but is not independently confirmed by a rank<=7 source. Flagged for review."
+    "confidence": "approximate",
+    "quote": "At about 40 km off the coast of Toulon (France), anchored at 2475 m deep in the Mediterranean Sea, there is ANTARES. / [KM3NeT LoI, on ORCA:] 42° 48' N 06° 02' E at a depth of 2450 m ... approximately 10 kilometers west of the existing ANTARES telescope site.",
+    "note": "The official ANTARES site states only \"a latitude of 43° North\"; the collaboration's own 2025 detector paper (arXiv:2504.09473) states the depth (2475 m) and offshore distance (40 km from Toulon) but gives no explicit degrees anywhere in the text (checked for every degree symbol and N/E pattern). Independent corroboration (re-fetched and re-checked personally by the astro-neutrino lead, not just the child that researched ANTARES): the KM3NeT Letter of Intent (arXiv:1601.07459, rank 4 design_report, sourced independently by the sibling KM3NeT child and re-verified here) states ORCA sits at 42°48'N 06°02'E, \"approximately 10 kilometers west of the existing ANTARES telescope site\" -- since west means lower longitude, ANTARES should be at roughly 06°02'E + ~10 km east ≈ 06°10'E at the same latitude, which matches the widely cited 42°48'N 6°10'E value (42.8°N 6.17°E) almost exactly (0.137° ≈ 11.4 km at this latitude). This upgrades confidence from 'uncertain' to 'approximate': the number is now corroborated by a rank<=7 source's relative-position statement, even though no single source states ANTARES's own degrees directly."
   },
   "setting": "sea",
   "depth": {
@@ -45,7 +46,8 @@
   },
   "sources": [
     "src:astro-neutrino-antares-official-detection-principle",
-    "src:astro-neutrino-antares-two-decades-detector-paper"
+    "src:astro-neutrino-antares-two-decades-detector-paper",
+    "src:astro-neutrino-km3net-loi-2016"
   ],
   "links": {"website": null},
   "notes": [

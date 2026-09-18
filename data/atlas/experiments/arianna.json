@@ -1,0 +1,74 @@
+{
+  "id": "experiment:arianna",
+  "type": "experiment",
+  "name": "ARIANNA",
+  "aliases": ["Antarctic Ross Ice Shelf Antenna Neutrino Array"],
+  "kind": "astrophysical_neutrino",
+  "secondary_kinds": [],
+  "collaboration_ids": ["collaboration:arianna"],
+  "facility_roles": [],
+  "beamline_ids": [],
+  "accelerator_ids": [],
+  "topic_ids": ["topic:high-energy-astrophysical-neutrinos"],
+  "intervals": [
+    {"label": "prototype station", "status": "commissioning", "start": "2009-12", "end": "2014-11",
+     "sources": ["src:astro-neutrino-arianna-arxiv-prototype-2010"], "verified_at": "2026-09-17", "confidence": "verified",
+     "quote": "We describe a prototype station for ARIANNA which was deployed in Moore's Bay on the Ross Ice Shelf in December 2009", "note": ""},
+    {"label": "Hexagonal Radio Array (HRA) pilot, 7 stations", "status": "active", "start": "2014-11", "end": "2019-02",
+     "sources": ["src:astro-neutrino-arianna-arxiv-testbed-2019"], "verified_at": "2026-09-17", "confidence": "verified",
+     "quote": "A pilot array, consisting of seven ARIANNA stations located on the surface of the Ross Ice Shelf in Antarctica, was commissioned in November 2014. We report on the search for astrophysical neutrinos using data collected between November 2014 and February 2019.",
+     "note": "The 2023 results paper independently states the seven-station hexagonal array was 'completed in 2015'; both dates are recorded (commissioned Nov 2014, completed 2015) without further reconciliation."},
+    {"label": "expanded to 8 stations", "status": "active", "start": null, "end": null,
+     "sources": ["src:astro-neutrino-arianna-official-research-page"], "verified_at": "2026-09-17", "confidence": "uncertain",
+     "quote": "Currently, eight ARIANNA stations are taking data on the Ross Ice-shelf, in a prototype experiment called the Hexagonal Radio Array (HRA)",
+     "note": "The official research page is undated (no explicit publication date fetched) and its 'currently' may predate the 'decommissioned' statement on the official home page; both are recorded and the conflict is noted in the worklog."},
+    {"label": "decommissioned", "status": "decommissioned", "start": null, "end": null,
+     "sources": ["src:astro-neutrino-arianna-official-home-page"], "verified_at": "2026-09-17", "confidence": "verified",
+     "quote": "Set in the Antarctic, the now decommissioned ARIANNA pilot experiment pushed the boundaries of UHE neutrino physics to new limits.",
+     "note": "No exact decommissioning date is stated by any source fetched this session; start is left null rather than guessed, per A17."}
+  ],
+  "status": "decommissioned",
+  "physics_goals": [
+    {"value": "Search for ultra-high-energy cosmogenic neutrinos using a surface radio (Askaryan-effect) array on the Ross Ice Shelf, as a pathfinder for a much larger planned array",
+     "sources": ["src:astro-neutrino-arianna-inspire-experiment-record"], "verified_at": "2026-09-17", "confidence": "verified",
+     "quote": "ARIANNA (The Antarctic Ross Ice Shelf Antenna Neutrino Array) is a proposed 100 km^3 detector for ultra-high energy (above 10^17 eV) astrophysical neutrinos.", "note": ""}
+  ],
+  "unique_capabilities": [
+    {"value": "Surface-deployed (not deep in-ice) radio stations sitting directly on the flat, radio-transparent Ross Ice Shelf, simplifying station deployment and maintenance compared to deep-ice arrays",
+     "sources": ["src:astro-neutrino-arianna-official-research-page"], "verified_at": "2026-09-17", "confidence": "verified",
+     "quote": "eight ARIANNA stations are taking data on the Ross Ice-shelf, in a prototype experiment called the Hexagonal Radio Array (HRA)", "note": ""}
+  ],
+  "energy_regime": null,
+  "key_specs": [
+    {"label": "Pilot array stations", "quantity": {
+        "value": 7, "unit": "", "dimension": "count", "approx": false, "display": "7 stations (pilot, 2014)",
+        "sources": ["src:astro-neutrino-arianna-arxiv-testbed-2019"], "verified_at": "2026-09-17", "confidence": "verified",
+        "quote": "A pilot array, consisting of seven ARIANNA stations located on the surface of the Ross Ice Shelf in Antarctica, was commissioned in November 2014.", "note": ""}},
+    {"label": "Full design target", "quantity": {
+        "value": 1000, "unit": "", "dimension": "count", "approx": true, "display": "~1000 stations (design, never built)",
+        "sources": ["src:astro-neutrino-arianna-official-research-page"], "verified_at": "2026-09-17", "confidence": "verified",
+        "quote": "the full ARIANNA telescope will contain about 1000 detector stations spread over an area of 36 km by 36 km", "note": "Design goal; the experiment was decommissioned at pilot scale (7-8 stations), never reaching this design."}},
+    {"label": "Ice shelf thickness at deployment site", "quantity": {
+        "value": 572, "unit": "m", "dimension": "length", "approx": false, "display": "572 ± 6 m",
+        "sources": ["src:astro-neutrino-arianna-arxiv-prototype-2010"], "verified_at": "2026-09-17", "confidence": "verified",
+        "quote": "The ice shelf thickness was measured to be 572 +/- 6 m at the deployment site.", "note": ""}}
+  ],
+  "lineage": [],
+  "external": {"greybook": null, "inspire_experiment": 1108245, "wikidata": null},
+  "document_ids": [],
+  "result_ids": [],
+  "links": {"website": {"value": "https://arianna.ps.uci.edu/", "sources": ["src:astro-neutrino-arianna-official-home-page"], "verified_at": "2026-09-17", "confidence": "verified", "note": ""}},
+  "notes": [
+    "External INSPIRE experiment recid 1108245 confirmed via the INSPIRE experiment API record fetched this session.",
+    "Conflict: the official home page (undated, fetched 2026-09-17) calls ARIANNA 'the now decommissioned ARIANNA pilot experiment'; the official research page (also undated, same domain) says 'Currently, eight ARIANNA stations are taking data'. Both are official-tier sources but cannot both be true today; the home page's explicit 'decommissioned' wording is treated as the more current/authoritative statement (home pages are typically kept more current than inner content pages), so status is set to decommissioned, but the research page's 8-station claim is kept as a separate interval for the historical record rather than discarded.",
+    "The 2023 results paper (arXiv:2304.07179) mentions RNO-G in Greenland as ARIANNA's larger planned successor array ('a larger array of autonomous radio detector stations is being constructed in Greenland (RNO-G)'); this workstream models RNO-G as its own experiment (experiment:rno-g), not as ARIANNA's lineage, since no source frames it as a formal predecessor/successor relationship rather than a separate, related programme.",
+    "Derived fields (detector_ids, site_ids, result_ids, document_ids) are deliberately not written (v0.2 A1)."
+  ],
+  "summary": {
+    "plain": "A small, now-shut-down array of radio antennas that once sat on the surface of Antarctica's Ross Ice Shelf, listening for the crackle of ultra-high-energy neutrinos, and testing ideas for a much bigger array that was never built.",
+    "technical": "ARIANNA: surface-deployed radio (Askaryan-effect) neutrino pathfinder on the Ross Ice Shelf. Single prototype station deployed December 2009 (ice thickness 572±6 m); 7-station Hexagonal Radio Array pilot commissioned November 2014 (data through February 2019, described elsewhere as 'completed' in 2015); expanded to 8 stations per the official research page; now decommissioned per the collaboration's own home page. Full ~1000-station design was never built."
+  },
+  "coverage": {"researched": "partial", "tier": "B"},
+  "sources": ["src:astro-neutrino-arianna-official-home-page", "src:astro-neutrino-arianna-official-research-page", "src:astro-neutrino-arianna-arxiv-prototype-2010", "src:astro-neutrino-arianna-arxiv-testbed-2019", "src:astro-neutrino-arianna-arxiv-results-2023", "src:astro-neutrino-arianna-inspire-experiment-record"],
+  "schema": "hep-atlas/0.2"
+}

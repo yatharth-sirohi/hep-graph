@@ -1,0 +1,46 @@
+{
+  "schema": "hep-atlas/0.2",
+  "id": "site:kamioka-kamland",
+  "type": "site",
+  "name": "KamLAND cavity, Kamioka mine",
+  "aliases": ["old Kamiokande cavity"],
+  "facility_id": "facility:kamioka-observatory",
+  "coordinates": {
+    "lat": 36.4225,
+    "lon": 137.3153,
+    "kind": "campus",
+    "precision_m": 2000,
+    "sources": ["src:kamland-wikipedia"],
+    "verified_at": "2026-09-17",
+    "confidence": "approximate",
+    "locator": "Wikipedia infobox coordinate (36°25′21″N 137°18′55″E)",
+    "note": "No official KamLAND page or paper fetched this session states numeric coordinates; per A17/A23 this is recorded as `kind: campus`/`confidence: approximate` off Wikipedia (rank 12) rather than as a fabricated `underground_lab`-precision point. KamLAND occupies the original Kamiokande cavity in the Kamioka mine, the same general underground complex as facility:kamioka-observatory's primary site (site:kamioka-mozumi-mine-super-kamiokande, owned by the japan-neutrino workstream)."
+  },
+  "setting": "underground",
+  "depth": null,
+  "depth_mwe": null,
+  "altitude": null,
+  "country": "JP",
+  "countries": ["JP"],
+  "place": {
+    "city": "Hida",
+    "region": "Gifu",
+    "country": "JP"
+  },
+  "links": {
+    "website": null
+  },
+  "notes": [
+    "Wikipedia states an overburden of '105 m.w.e.' for KamLAND; this figure is inconsistent with the ~2700 m.w.e. established for the same Kamioka/Mozumi mine by facility:kamioka-observatory (sourced by the japan-neutrino workstream from the ICRR facility page and the Super-Kamiokande NIM paper) and is very likely a Wikipedia error or refers to a different overburden metric. It is deliberately NOT recorded here (`depth`/`depth_mwe` left null) to avoid citing an implausible figure; see coverage `missing_fields`.",
+    "This site is newly created by the reactor-solar-neutrino workstream under the EXISTING facility:kamioka-observatory (owned by japan-neutrino); that facility's own file was not edited."
+  ],
+  "sources": ["src:kamland-wikipedia"],
+  "summary": {
+    "plain": "The cavern in the Kamioka mine in Japan, originally dug for the first Kamiokande detector, that now holds the KamLAND reactor-antineutrino detector.",
+    "technical": "Underground cavity within the Kamioka mine (facility:kamioka-observatory), reusing the original Kamiokande excavation, housing the KamLAND liquid-scintillator antineutrino detector."
+  },
+  "coverage": {
+    "tier": "B",
+    "researched": "partial"
+  }
+}

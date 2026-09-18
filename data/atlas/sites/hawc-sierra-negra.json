@@ -1,0 +1,37 @@
+{
+  "id": "site:hawc-sierra-negra",
+  "type": "site",
+  "schema": "hep-atlas/0.2",
+  "name": "HAWC array site, Sierra Negra",
+  "aliases": [],
+  "distinct_from": [],
+  "superseded_by": null,
+  "facility_id": "facility:sierra-negra",
+  "coordinates": {
+    "lat": 18.9862137,
+    "lon": -97.3151017,
+    "precision_m": 3000,
+    "kind": "campus",
+    "sources": ["src:cosmic-gamma-hawc-design-paper-arxiv-2013", "src:cosmic-gamma-nominatim-sierra-negra"],
+    "verified_at": "2026-09-17",
+    "confidence": "approximate",
+    "quote": "under construction 4100 meters above sea level at Sierra Negra, Mexico",
+    "note": "Coordinates are a geocode of the Sierra Negra peak itself, used as an approximate anchor per A23; the HAWC array's own compact footprint (a few hundred metres across, on the volcano's flank) has its own decimal coordinates in the collaboration's technical papers, but none of those papers' full text was readable via WebFetch this session (PDF text extraction failed) and the official site (hawc-observatory.org) failed TLS verification on every attempt. Kept as kind: campus / confidence: approximate rather than kind: detector until a rank<=7 source with decimal coordinates is fetched."
+  },
+  "setting": "mountain",
+  "depth": null,
+  "depth_rock": null,
+  "depth_mwe": null,
+  "altitude": {"value": 4100, "unit": "m", "dimension": "length", "approx": false, "display": "4100 m", "sources": ["src:cosmic-gamma-hawc-design-paper-arxiv-2013"], "verified_at": "2026-09-17", "confidence": "verified", "quote": "under construction 4100 meters above sea level at Sierra Negra, Mexico", "note": ""},
+  "country": "MX",
+  "countries": ["MX"],
+  "place": {"city": null, "region": "Puebla", "country": "MX"},
+  "summary": {
+    "plain": "The high slope of the Sierra Negra volcano in Mexico where the HAWC observatory's water tanks sit, high enough in the thin air to catch gamma-ray air showers.",
+    "technical": "HAWC array site on the Sierra Negra volcano, Puebla, Mexico, at 4100 m altitude."
+  },
+  "sources": ["src:cosmic-gamma-hawc-design-paper-arxiv-2013", "src:cosmic-gamma-nominatim-sierra-negra"],
+  "links": {"website": null},
+  "notes": [],
+  "coverage": {"tier": "B", "researched": "partial"}
+}

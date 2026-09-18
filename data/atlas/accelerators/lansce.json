@@ -1,0 +1,68 @@
+{
+  "aliases": [
+    "LANSCE",
+    "LAMPF",
+    "Los Alamos Meson Physics Facility"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "facility_id": "facility:los-alamos-national-laboratory",
+  "feeds_accelerator_ids": [],
+  "id": "accelerator:lansce",
+  "intervals": [
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "opened as LAMPF",
+      "note": "Sourced to Wikipedia only; flagged for review. Renamed LANSCE in 1995 per the same source (not modeled as a separate interval; see facility aliases).",
+      "quote": "It was the most powerful linear accelerator in the world when it was opened in June 1972.",
+      "sources": [
+        "src:lansce-wikipedia"
+      ],
+      "start": "1972-06",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "is_collider": false,
+  "kind": "linac",
+  "links": {
+    "website": null
+  },
+  "name": "Los Alamos Neutron Science Center (linac)",
+  "notes": [
+    "kind is `linac`; LANSCE's proton beam also feeds spallation-neutron and other secondary-beam facilities not modeled here."
+  ],
+  "particles": [
+    "proton"
+  ],
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:lanl-lansce",
+  "sources": [
+    "src:lansce-wikipedia"
+  ],
+  "specs": {
+    "beam_energy": {
+      "approx": false,
+      "confidence": "uncertain",
+      "dimension": "energy",
+      "display": "800 MeV",
+      "note": "Sourced to Wikipedia only; no official LANL page fetched in this session states the beam energy directly.",
+      "quote": "The facility is capable of accelerating protons up to 800 MeV.",
+      "sources": [
+        "src:lansce-wikipedia"
+      ],
+      "unit": "MeV",
+      "value": 800,
+      "verified_at": "2026-09-17"
+    }
+  },
+  "status": "active",
+  "summary": {
+    "plain": "",
+    "technical": ""
+  },
+  "type": "accelerator"
+}

@@ -1,0 +1,93 @@
+{
+  "id": "experiment:hawc",
+  "type": "experiment",
+  "schema": "hep-atlas/0.2",
+  "name": "HAWC",
+  "aliases": ["High-Altitude Water Cherenkov Observatory", "High Altitude Water Cherenkov Experiment"],
+  "distinct_from": [],
+  "superseded_by": null,
+  "kind": "gamma_ray",
+  "secondary_kinds": ["cosmic_ray"],
+  "collaboration_ids": ["collaboration:hawc"],
+  "facility_roles": [
+    {
+      "facility_id": "facility:sierra-negra",
+      "role": "host",
+      "start": null,
+      "end": null,
+      "sources": ["src:cosmic-gamma-hawc-design-paper-arxiv-2013"],
+      "verified_at": "2026-09-17",
+      "confidence": "verified",
+      "note": "The facility and the experiment coincide."
+    }
+  ],
+  "beamline_ids": [],
+  "accelerator_ids": [],
+  "topic_ids": ["topic:gamma-rays", "topic:cosmic-rays", "topic:multimessenger-astrophysics"],
+  "intervals": [
+    {
+      "label": "construction",
+      "status": "construction",
+      "start": null,
+      "end": "2015-03",
+      "sources": ["src:cosmic-gamma-hawc-design-paper-arxiv-2013"],
+      "verified_at": "2026-09-17",
+      "confidence": "approximate",
+      "quote": "under construction 4100 meters above sea level at Sierra Negra, Mexico",
+      "note": "Construction start not sourced; a September 2013 paper describes the array as still under construction at that time."
+    },
+    {
+      "label": "partial-array data taking",
+      "status": "active",
+      "start": "2014-11",
+      "end": null,
+      "sources": ["src:cosmic-gamma-hawc-crab-nebula-arxiv-2017"],
+      "verified_at": "2026-09-17",
+      "confidence": "verified",
+      "quote": "from 2014 November to 2016 June",
+      "note": "Data used in a 2017 Crab Nebula analysis began in November 2014, before the array was declared complete (early 2015)."
+    },
+    {
+      "label": "full-array operations",
+      "status": "active",
+      "start": "2015-03",
+      "end": null,
+      "sources": ["src:cosmic-gamma-hawc-10-years-arxiv-2025"],
+      "verified_at": "2026-09-17",
+      "confidence": "verified",
+      "quote": "began operations in March 2015",
+      "note": "A 2025 paper ('the first 10 years of the HAWC Gamma-Ray Observatory') dates the start of operations to March 2015; a 2017 paper independently describes the observatory as 'completed in early 2015'."
+    }
+  ],
+  "status": "active",
+  "physics_goals": [],
+  "unique_capabilities": [
+    {
+      "value": "A wide field-of-view (nearly 2 steradian instantaneous), continuously operating ground array that surveys the gamma-ray sky at TeV-PeV energies without pointing, unlike imaging atmospheric Cherenkov telescopes.",
+      "sources": ["src:cosmic-gamma-hawc-crab-nebula-arxiv-2017"],
+      "verified_at": "2026-09-17",
+      "confidence": "verified",
+      "quote": "up to 100 TeV... nearly 2 sr at any instant",
+      "note": ""
+    }
+  ],
+  "energy_regime": null,
+  "key_specs": [
+    {"label": "Altitude", "quantity": {"value": 4100, "unit": "m", "dimension": "length", "approx": false, "display": "4100 m", "sources": ["src:cosmic-gamma-hawc-design-paper-arxiv-2013"], "verified_at": "2026-09-17", "confidence": "verified", "quote": "under construction 4100 meters above sea level at Sierra Negra, Mexico", "note": ""}}
+  ],
+  "lineage": [],
+  "external": {"inspire_experiment": 1108207, "greybook": null, "wikidata": null},
+  "summary": {
+    "plain": "A gamma-ray observatory on a Mexican volcano: an array of water tanks 4100 metres up that watches nearly the whole sky at once for the highest-energy light in the universe, day and night.",
+    "technical": "Water-Cherenkov gamma-ray/cosmic-ray air-shower array at 4100 m on Sierra Negra, Mexico, with a wide (~2 sr) instantaneous field of view sensitive up to 100 TeV. Under construction as of September 2013, taking partial-array data from November 2014, full-array operations from March 2015."
+  },
+  "sources": ["src:cosmic-gamma-hawc-design-paper-arxiv-2013", "src:cosmic-gamma-hawc-10-years-arxiv-2025", "src:cosmic-gamma-inspire-hawc-experiment-record"],
+  "links": {"website": null},
+  "notes": [
+    "site_ids, detector_ids, document_ids, result_ids are deliberately not written (v0.2 A1 derived fields).",
+    "links.website left null: the official site (hawc-observatory.org, and its hawc.umd.edu redirect target) could not be fetched this session (TLS certificate verification failures on every attempt).",
+    "No station/tank count is recorded: no source fetched this session (PDF text extraction of the design paper failed; the official site was unreachable) states the number of water tanks. This is listed in missing_fields.",
+    "No results or technical documents were written in this pass (non-flagship experiment; mandatory bar only per the wave-3 brief)."
+  ],
+  "coverage": {"tier": "B", "researched": "partial"}
+}

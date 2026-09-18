@@ -1,0 +1,48 @@
+{
+  "id": "detector:ara",
+  "type": "detector",
+  "name": "ARA stations",
+  "aliases": [],
+  "experiment_ids": ["experiment:ara"],
+  "parent_detector_id": null,
+  "placements": [
+    {"site_id": "site:south-pole-ara", "role": "main", "start": "2012", "end": null,
+     "sources": ["src:astro-neutrino-ara-overview-paper-2024"], "verified_at": "2026-09-17", "confidence": "verified",
+     "quote": "deployed at a depth of 100-200 m over the period 2012-2018", "note": ""}
+  ],
+  "technology": {
+    "value": "Autonomous in-ice radio (Askaryan-effect) detector stations, each an independent array of radio antennas buried 100-200 m deep in the ice",
+    "sources": ["src:astro-neutrino-ara-overview-paper-2024"], "verified_at": "2026-09-17", "confidence": "verified",
+    "quote": "ARA comprises five independent autonomous stations, with an additional low threshold phased array merged with station 5", "note": ""
+  },
+  "technology_class": "radio",
+  "technology_classes": ["radio"],
+  "intervals": [
+    {"label": "deployment", "status": "construction", "start": "2012", "end": "2018",
+     "sources": ["src:astro-neutrino-ara-overview-paper-2024"], "verified_at": "2026-09-17", "confidence": "verified",
+     "quote": "deployed at a depth of 100-200 m over the period 2012-2018", "note": ""},
+    {"label": "partial operation", "status": "active", "start": "2018", "end": null,
+     "sources": ["src:astro-neutrino-ara-overview-paper-2024"], "verified_at": "2026-09-17", "confidence": "verified",
+     "quote": "Currently A3 and A5+PA are currently collecting data; other stations are awaiting a planned instrument upgrade", "note": "Only 2 of 5 stations confirmed actively collecting data as of the cited 2024 paper."}
+  ],
+  "status": "active",
+  "specs": {
+    "station_count": {"value": 5, "unit": "", "dimension": "count", "approx": false, "display": "5 stations",
+      "sources": ["src:astro-neutrino-ara-overview-paper-2024"], "verified_at": "2026-09-17", "confidence": "verified",
+      "quote": "ARA comprises five independent autonomous stations", "note": ""},
+    "depth_max": {"value": 200, "unit": "m", "dimension": "length", "approx": true, "display": "100-200 m", "max": 200, "min": 100,
+      "sources": ["src:astro-neutrino-ara-overview-paper-2024"], "verified_at": "2026-09-17", "confidence": "verified",
+      "quote": "deployed at a depth of 100-200 m", "note": ""}
+  },
+  "subsystems": [],
+  "document_ids": [],
+  "links": {"website": null},
+  "notes": [],
+  "summary": {
+    "plain": "Five separate stations of radio antennas buried in the ice near the South Pole, each listening on its own for the radio flash of an ultra-high-energy neutrino.",
+    "technical": "5 autonomous ARA in-ice radio stations, 100-200 m deep, deployed 2012-2018 near the South Pole; only A3 and A5+PA (with its low-threshold phased array) confirmed actively collecting data as of the 2024 collaboration overview paper."
+  },
+  "coverage": {"researched": "partial", "tier": "B"},
+  "sources": ["src:astro-neutrino-ara-overview-paper-2024"],
+  "schema": "hep-atlas/0.2"
+}

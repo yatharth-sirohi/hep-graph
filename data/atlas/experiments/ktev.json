@@ -1,0 +1,138 @@
+{
+  "schema": "hep-atlas/0.2",
+  "id": "experiment:ktev",
+  "type": "experiment",
+  "name": "KTeV",
+  "aliases": [
+    "E799-II",
+    "E832",
+    "Kaons at the Tevatron"
+  ],
+  "coverage": {
+    "tier": "B",
+    "researched": "partial"
+  },
+  "kind": "rare_kaon",
+  "secondary_kinds": [
+    "fixed_target"
+  ],
+  "collaboration_ids": [
+    "collaboration:ktev"
+  ],
+  "facility_roles": [
+    {
+      "facility_id": "facility:fermilab",
+      "role": "host",
+      "start": null,
+      "end": null,
+      "sources": [
+        "src:ktev-design-report-1992"
+      ],
+      "verified_at": "2026-09-17",
+      "confidence": "verified",
+      "note": ""
+    },
+    {
+      "facility_id": "facility:fermilab",
+      "role": "beam_source",
+      "start": null,
+      "end": null,
+      "sources": [
+        "src:ktev-design-report-1992"
+      ],
+      "verified_at": "2026-09-17",
+      "confidence": "approximate",
+      "quote": "Kaons at the Tevatron design report",
+      "note": "The design report's own alternative title names the Tevatron as the source machine; no source fetched this session gives a numeric beam energy or explicitly says 'fixed-target proton beam extracted from the Tevatron', so this is recorded as approximate rather than verified."
+    }
+  ],
+  "beamline_ids": [],
+  "accelerator_ids": [
+    "accelerator:fermilab-tevatron"
+  ],
+  "topic_ids": [
+    "topic:rare-kaon-physics",
+    "topic:cp-violation"
+  ],
+  "intervals": [
+    {
+      "label": "design",
+      "status": "proposed",
+      "start": "1992-01",
+      "end": null,
+      "sources": [
+        "src:ktev-design-report-1992"
+      ],
+      "verified_at": "2026-09-17",
+      "confidence": "verified",
+      "locator": "FERMILAB-DESIGN-1992-01 / FERMILAB-FN-0580, January 1992",
+      "note": ""
+    },
+    {
+      "label": "direct CP violation observation reported",
+      "status": "active",
+      "start": "1999-11",
+      "end": null,
+      "sources": [
+        "src:ktev-1999-cp-violation-conference"
+      ],
+      "verified_at": "2026-09-17",
+      "confidence": "verified",
+      "locator": "FERMILAB-CONF-99-313-E, presented 21 June 1999",
+      "note": "Marks a dated point of active data analysis/results, not a run start or end boundary."
+    },
+    {
+      "label": "completed",
+      "status": "completed",
+      "start": "2000",
+      "end": null,
+      "sources": [
+        "src:ktev-1999-cp-violation-conference"
+      ],
+      "verified_at": "2026-09-17",
+      "confidence": "uncertain",
+      "note": "No source fetched this session states an explicit end-of-data-taking date for KTeV (commonly cited elsewhere as two run periods, 1996-1997 and 1999-2000, but that specific breakdown was not confirmed by a source fetched in this session, so it is not asserted as a dated interval). 2000 is a rough lower bound inferred from the 1999 CP-violation result being reported as the experiment's landmark measurement; the experiment is treated as completed because it is a historical, closed Fermilab fixed-target programme with no source suggesting ongoing operation."
+    }
+  ],
+  "status": "completed",
+  "physics_goals": [
+    {
+      "value": "Measure direct CP violation in neutral kaon decays (Re(epsilon'/epsilon)) and search for rare KL decays",
+      "sources": [
+        "src:ktev-1999-cp-violation-conference",
+        "src:ktev-design-report-1992"
+      ],
+      "verified_at": "2026-09-17",
+      "confidence": "verified",
+      "note": ""
+    }
+  ],
+  "unique_capabilities": [],
+  "energy_regime": null,
+  "key_specs": [],
+  "lineage": [],
+  "external": {
+    "inspire_experiment": 1108757,
+    "greybook": null,
+    "wikidata": null
+  },
+  "links": {
+    "website": null
+  },
+  "summary": {
+    "plain": "KTeV was a Fermilab experiment in the 1990s that studied neutral kaon decays, showing that nature's matter-antimatter asymmetry (CP violation) can happen directly inside a kaon's decay, at the same time as CERN's NA48 was making the same discovery.",
+    "technical": "Fermilab fixed-target kaon experiment (jointly E799-II and E832, together called KTeV / 'Kaons at the Tevatron'), designed 1992, measuring direct CP violation (Re(epsilon'/epsilon)) and rare KL decays; announced its landmark direct-CP-violation observation in 1999. Contemporary and complementary to CERN's NA48."
+  },
+  "notes": [
+    "Derived fields (detector_ids, site_ids, result_ids, document_ids) are deliberately not written (v0.2 A1).",
+    "KTeV is jointly E799-II and E832; both INSPIRE experiment records are cited (external.inspire_experiment uses E832's recid, 1108757, since 'KTeV' most commonly denotes the CP-violation programme; E799's recid, 1108830, is also on file at src:ktev-inspire-e799).",
+    "No official KTeV website was fetchable this session (fnal.gov returned HTTP 403 / DNS failures for several guessed subdomains); records rely on INSPIRE and the 1992 design report instead.",
+    "The commonly cited 1996-1997 and 1999-2000 run-period breakdown was not confirmed by any source fetched this session and is therefore not asserted; see the 'completed' interval note."
+  ],
+  "sources": [
+    "src:ktev-design-report-1992",
+    "src:ktev-inspire-e832",
+    "src:ktev-inspire-e799",
+    "src:ktev-1999-cp-violation-conference"
+  ]
+}

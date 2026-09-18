@@ -1,0 +1,128 @@
+{
+  "aliases": [
+    "nu-cleus detector"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "experiment_ids": [
+    "experiment:nucleus"
+  ],
+  "id": "detector:nucleus-calorimeter-array",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "under construction",
+      "locator": "abstract",
+      "note": "",
+      "quote": "NUCLEUS is an experiment under construction based on ultra-low threshold (20 eVnr) cryogenic calorimeters, operated at tens-of-mK temperatures.",
+      "sources": [
+        "src:cevns-nucleus-construction-2022"
+      ],
+      "start": "2022",
+      "status": "construction",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "commissioning (technical run)",
+      "locator": "abstract",
+      "note": "",
+      "quote": "incorporating a data-driven treatment of the low-energy excess (LEE) observed during commissioning",
+      "sources": [
+        "src:cevns-nucleus-prospect-2026"
+      ],
+      "start": "2026",
+      "status": "commissioning",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "NUCLEUS cryogenic calorimeter array",
+  "notes": [
+    "Placed at site:chooz-very-near-nucleus; facility:chooz is a dangling reference (owned by the reactor-solar-neutrino workstream, not created here).",
+    "Mass figures differ by publication phase: the 2017 founding concept paper describes a combined CaWO4 + Al2O3 array of about 10 g total; the 2026 sensitivity-projection paper describes the current 'Technical Run' target as 7 g of CaWO4 specifically. Both are recorded; neither supersedes the other in the sources fetched."
+  ],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "locator": "abstract",
+      "note": "Site is a dangling reference (facility:chooz owned by another workstream).",
+      "quote": "operated at the Chooz nuclear power plant in France",
+      "role": "main",
+      "site_id": "site:chooz-very-near-nucleus",
+      "sources": [
+        "src:cevns-nucleus-prospect-2026"
+      ],
+      "start": null,
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:cevns-nucleus-founding-2017",
+    "src:cevns-nucleus-construction-2022",
+    "src:cevns-nucleus-prospect-2026"
+  ],
+  "specs": {
+    "target_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "7 g CaWO4 (Technical Run)",
+      "locator": "abstract",
+      "note": "This is the Technical Run target mass from the most recent (2026) sourced paper. The original 2017 concept paper described a combined CaWO4 + Al2O3 array of about 10 g total (src:cevns-nucleus-founding-2017); recorded here in `note` rather than as a second value.",
+      "quote": "For the Technical Run with a 7 g CaWO4 target, we find competitive sensitivity to several scenarios beyond the Standard Model",
+      "sources": [
+        "src:cevns-nucleus-prospect-2026"
+      ],
+      "unit": "g",
+      "value": 7,
+      "verified_at": "2026-09-17"
+    },
+    "threshold": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "energy",
+      "display": "20 eV(nr) ionization threshold",
+      "locator": "abstract",
+      "note": "eV(nr) = nuclear-recoil-equivalent electron-volts; not a standard energy unit distinct from eV, recorded here as eV.",
+      "quote": "ultra-low threshold (20 eVnr) cryogenic calorimeters",
+      "sources": [
+        "src:cevns-nucleus-construction-2022"
+      ],
+      "unit": "eV",
+      "value": 20,
+      "verified_at": "2026-09-17"
+    }
+  },
+  "status": "commissioning",
+  "subsystems": [],
+  "summary": {
+    "plain": "A tiny, extraordinarily sensitive detector made of a few grams of crystal, cooled almost to absolute zero, designed to feel the faint nudge of a reactor antineutrino bouncing off a whole atomic nucleus at the lowest energies yet attempted.",
+    "technical": "NUCLEUS cryogenic calorimeter array: gram-scale CaWO4 (and, in the original concept, Al2O3) target crystals operated at millikelvin temperatures with a ~20 eV(nr) nuclear-recoil threshold; Technical Run target mass 7 g CaWO4; under construction by 2022, in commissioning (with an observed low-energy excess under study) by 2026."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "abstract",
+    "note": "",
+    "quote": "gram-scale cryogenic calorimeters",
+    "sources": [
+      "src:cevns-nucleus-prospect-2026"
+    ],
+    "value": "gram-scale CaWO4/Al2O3 cryogenic calorimeters with active background discrimination, operated at millikelvin temperatures",
+    "verified_at": "2026-09-17"
+  },
+  "technology_class": "cryogenic_bolometer",
+  "technology_classes": [
+    "cryogenic_bolometer"
+  ],
+  "type": "detector"
+}

@@ -1,0 +1,62 @@
+{
+  "id": "experiment:ara",
+  "type": "experiment",
+  "name": "ARA",
+  "aliases": ["Askaryan Radio Array"],
+  "kind": "astrophysical_neutrino",
+  "secondary_kinds": [],
+  "collaboration_ids": ["collaboration:ara"],
+  "facility_roles": [
+    {"facility_id": "facility:amundsen-scott-south-pole-station", "role": "host",
+     "sources": ["src:astro-neutrino-ara-overview-paper-2024"], "verified_at": "2026-09-17", "confidence": "verified",
+     "quote": "located about 2 km from the IceCube Neutrino Observatory", "note": ""}
+  ],
+  "beamline_ids": [],
+  "accelerator_ids": [],
+  "topic_ids": ["topic:high-energy-astrophysical-neutrinos"],
+  "intervals": [
+    {"label": "station deployment", "status": "construction", "start": "2012", "end": "2018",
+     "sources": ["src:astro-neutrino-ara-overview-paper-2024"], "verified_at": "2026-09-17", "confidence": "verified",
+     "quote": "ARA comprises five independent autonomous stations, with an additional low threshold phased array merged with station 5, which were deployed at a depth of 100-200 m over the period 2012-2018",
+     "note": ""},
+    {"label": "reduced-scale operation", "status": "active", "start": "2018", "end": null,
+     "sources": ["src:astro-neutrino-ara-overview-paper-2024"], "verified_at": "2026-09-17", "confidence": "verified",
+     "quote": "Currently A3 and A5+PA are currently collecting data; other stations are awaiting a planned instrument upgrade in the upcoming Antarctic summer season.",
+     "note": "Only 2 of 5 stations (A3 and A5+PA) are confirmed actively collecting data per the cited 2024 paper; the others await a planned upgrade. Status recorded as 'active' for the experiment overall to reflect that some stations are genuinely taking data now, per the brief's instruction to classify conservatively rather than default to 'active' -- this is a partial/degraded active state, documented in the note rather than overstated as full operation."}
+  ],
+  "status": "active",
+  "physics_goals": [
+    {"value": "Search for the highest-energy astrophysical and cosmogenic neutrinos using in-ice radio (Askaryan-effect) detection, as an R&D pathfinder toward IceCube-Gen2's radio array",
+     "sources": ["src:astro-neutrino-ara-wipac-project-page"], "verified_at": "2026-09-17", "confidence": "verified",
+     "quote": "an R&D device geared toward an IceCube-Gen2 radio detector", "note": ""}
+  ],
+  "unique_capabilities": [],
+  "energy_regime": null,
+  "key_specs": [
+    {"label": "Stations deployed", "quantity": {
+        "value": 5, "unit": "", "dimension": "count", "approx": false, "display": "5 stations",
+        "sources": ["src:astro-neutrino-ara-overview-paper-2024"], "verified_at": "2026-09-17", "confidence": "verified",
+        "quote": "ARA comprises five independent autonomous stations, with an additional low threshold phased array merged with station 5", "note": ""}},
+    {"label": "Deployment depth", "quantity": {
+        "value": 200, "unit": "m", "dimension": "length", "approx": true, "display": "100-200 m", "max": 200, "min": 100,
+        "sources": ["src:astro-neutrino-ara-overview-paper-2024"], "verified_at": "2026-09-17", "confidence": "verified",
+        "quote": "deployed at a depth of 100-200 m over the period 2012-2018", "note": ""}}
+  ],
+  "lineage": [],
+  "external": {"greybook": null, "inspire_experiment": 1911572, "wikidata": null},
+  "document_ids": [],
+  "result_ids": [],
+  "links": {"website": {"value": "https://wipac.wisc.edu/science/projects/ara/", "sources": ["src:astro-neutrino-ara-wipac-project-page"], "verified_at": "2026-09-17", "confidence": "verified", "note": "No dedicated ARA collaboration site distinct from its host institutions' project pages was fetched this session; WIPAC's own project page is used as the pointer."}},
+  "notes": [
+    "External INSPIRE experiment recid 1911572 confirmed via the INSPIRE experiment API record fetched this session.",
+    "facility_roles references facility:amundsen-scott-south-pole-station, owned by the icecube workstream; not created here.",
+    "Derived fields (detector_ids, site_ids, result_ids, document_ids) are deliberately not written (v0.2 A1)."
+  ],
+  "summary": {
+    "plain": "A handful of radio-antenna stations buried in the ice near the South Pole, testing technology for finding the highest-energy neutrinos from space and for a future upgrade to IceCube.",
+    "technical": "Askaryan Radio Array: five autonomous in-ice radio stations (100-200 m depth) deployed 2012-2018 near the South Pole, ~2 km from IceCube, as an R&D pathfinder for IceCube-Gen2's planned radio array. As of the collaboration's 2024 overview paper, only stations A3 and A5+PA (with its phased array) are actively collecting data; the others await a planned upgrade."
+  },
+  "coverage": {"researched": "partial", "tier": "B"},
+  "sources": ["src:astro-neutrino-ara-overview-paper-2024", "src:astro-neutrino-ara-wipac-project-page", "src:astro-neutrino-ara-inspire-experiment-record"],
+  "schema": "hep-atlas/0.2"
+}

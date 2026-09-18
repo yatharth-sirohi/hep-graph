@@ -1,0 +1,99 @@
+{
+  "aliases": [
+    "mini-CryoCube",
+    "CryoCube"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "experiment_ids": [
+    "experiment:ricochet"
+  ],
+  "id": "detector:ricochet-cryocube",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "commissioning (mini-CryoCube module)",
+      "locator": "abstract",
+      "note": "",
+      "quote": "the detector performance achieved during its commissioning with a mini-CryoCube module consisting of three 42-gram germanium cryogenic calorimeters",
+      "sources": [
+        "src:cevns-ricochet-commissioning-2025"
+      ],
+      "start": "2025",
+      "status": "commissioning",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "Ricochet CryoCube (Ge/Zn cryogenic calorimeter array)",
+  "notes": [
+    "Placed at site:ill-grenoble-reactor-hall.",
+    "Two mass figures from two different papers/phases: the full, final CryoCube is described only qualitatively as a 'kg-scale' Ge+Zn array (arXiv:2208.01760, a background-characterization paper for the planned final detector); the commissioning-phase mini-CryoCube module actually operated and characterized (arXiv:2507.22751) is precisely 3 x 42 g = 126 g of germanium. specs.target_mass below records the precisely-quoted mini-CryoCube figure."
+  ],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "locator": "abstract",
+      "note": "",
+      "quote": "a research nuclear reactor operated by the Institut Laue-Langevin (Grenoble, France)",
+      "role": "main",
+      "site_id": "site:ill-grenoble-reactor-hall",
+      "sources": [
+        "src:cevns-ricochet-commissioning-2025"
+      ],
+      "start": "2025",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:cevns-ricochet-fast-neutron-2022",
+    "src:cevns-ricochet-commissioning-2025"
+  ],
+  "specs": {
+    "target_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "126 g (3 x 42 g Ge, mini-CryoCube commissioning module)",
+      "locator": "abstract",
+      "note": "This is the commissioning-phase module actually characterized; the planned full CryoCube is described only qualitatively as 'kg-scale' combining Ge and Zn crystals (arXiv:2208.01760), with no precise total mass quoted in a source fetched this session.",
+      "quote": "three 42-gram germanium cryogenic calorimeters",
+      "sources": [
+        "src:cevns-ricochet-commissioning-2025"
+      ],
+      "unit": "g",
+      "value": 126,
+      "verified_at": "2026-09-17"
+    }
+  },
+  "status": "commissioning",
+  "subsystems": [],
+  "summary": {
+    "plain": "A set of ultra-cold germanium and zinc crystals, weighing from a few dozen grams (in the test module now running) up to a planned kilogram scale, designed to catch reactor antineutrinos nudging whole atomic nuclei.",
+    "technical": "Ricochet CryoCube: planned kg-scale array of Ge and Zn cryogenic calorimeters; a mini-CryoCube commissioning module of three 42 g germanium calorimeters (126 g total) achieved 40 eV ionization / 50-80 eV phonon baseline resolutions during 2025 commissioning at the ILL."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "abstract",
+    "note": "",
+    "quote": "kg-scale low-energy-threshold detector array combining Ge and Zn target crystals",
+    "sources": [
+      "src:cevns-ricochet-fast-neutron-2022"
+    ],
+    "value": "cryogenic heat-and-ionization germanium and zinc calorimeters (CryoCube)",
+    "verified_at": "2026-09-17"
+  },
+  "technology_class": "cryogenic_bolometer",
+  "technology_classes": [
+    "cryogenic_bolometer"
+  ],
+  "type": "detector"
+}

@@ -1,0 +1,74 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "formation": {
+    "confidence": "uncertain",
+    "locator": "no fetched source states an explicit Project 8 collaboration formation date",
+    "note": "No source fetched in this session states an explicit formation date; left null rather than inferred from the 2015 first-demonstration date (v0.2 A17).",
+    "sources": [
+      "src:project8-official-site"
+    ],
+    "value": null,
+    "verified_at": "2026-09-17"
+  },
+  "host_facility_id": "facility:university-of-washington-cenpa",
+  "host_site_id": null,
+  "id": "collaboration:project-8",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "collaboration",
+      "locator": "DOE Office of Science highlight, 2015-11",
+      "note": "Lower bound is the sourced 2015 Phase I demonstration; true formation date not sourced.",
+      "quote": "The prototype instrument demonstrating the new technique was built at the University of Washington",
+      "sources": [
+        "src:project8-doe-highlight-2015"
+      ],
+      "start": "2015",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "leadership": [],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "note": "",
+      "sources": [
+        "src:project8-official-site"
+      ],
+      "value": "https://www.project8.org/",
+      "verified_at": "2026-09-17"
+    }
+  },
+  "membership": {
+    "as_of": null,
+    "country_count": null,
+    "evidence_class": null,
+    "institution_count": null,
+    "member_count": null,
+    "roster_source_ids": []
+  },
+  "name": "Project 8 Collaboration",
+  "notes": [
+    "host_facility_id references facility:university-of-washington-cenpa, owned by the 'axions' lead and not yet created (dangling reference); the collaboration itself spans multiple institutions (MIT, University of Washington, UC Santa Barbara, PNNL, Yale, Case Western, University of Mainz, and others per secondary sources), so this host designation reflects only the Phase I prototype site, per this workstream's specific scope.",
+    "No source fetched in this session states institution/member/country counts; membership block left null per v0.2 A17.",
+    "Institution-level membership rows and person records are owned by the membership-lead workstream and are not written here.",
+    "Derived field collaboration.experiment_ids is deliberately not written (v0.2 A1)."
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:project8-official-site",
+    "src:project8-doe-highlight-2015"
+  ],
+  "status": "active",
+  "summary": {
+    "plain": "The scientists and engineers from institutions including MIT, the University of Washington, UC Santa Barbara, Yale and PNNL who are developing the Project 8 neutrino-mass experiment.",
+    "technical": "Project 8 Collaboration: multi-institution team (MIT, University of Washington, UC Santa Barbara, PNNL, Yale, and others per the collaboration's own site) developing the phased CRES-based neutrino-mass programme."
+  },
+  "type": "collaboration"
+}

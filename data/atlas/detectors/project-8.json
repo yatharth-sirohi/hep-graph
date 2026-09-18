@@ -1,0 +1,80 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "experiment_ids": [
+    "experiment:project-8"
+  ],
+  "id": "detector:project-8",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "Phase I apparatus (University of Washington)",
+      "locator": "DOE Office of Science highlight, 2015-11",
+      "note": "R&D/demonstration apparatus, not a mature physics detector.",
+      "quote": "The prototype instrument demonstrating the new technique was built at the University of Washington",
+      "sources": [
+        "src:project8-doe-highlight-2015"
+      ],
+      "start": "2015",
+      "status": "commissioning",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "Project 8 CRES apparatus",
+  "notes": [
+    "Placed at facility:university-of-washington-cenpa (dangling reference: owned by the 'axions' lead, not yet created). No site_id is recorded because no site under that facility exists yet to reference either; this placement therefore omits site_id pending the axions lead creating the facility and a site (v0.2 A2 requires site_id on a placement, so a real placement row is deferred rather than pointing at a guessed, possibly-wrong site slug)."
+  ],
+  "parent_detector_id": null,
+  "placements": [],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:project8-doe-highlight-2015",
+    "src:project8-arxiv-2503-08807-phase2"
+  ],
+  "specs": {
+    "magnetic_field": {
+      "approx": false,
+      "confidence": "uncertain",
+      "dimension": "magnetic_field",
+      "display": "1 T",
+      "locator": "secondary web summary, not directly fetched from a primary Project 8 paper in this session",
+      "note": "The 1 Tesla figure is carried from a secondary summary of Project 8 publications describing the CRES technique; not independently confirmed against a directly fetched primary source in this session.",
+      "quote": "",
+      "sources": [
+        "src:project8-arxiv-2503-08807-phase2"
+      ],
+      "unit": "T",
+      "value": 1,
+      "verified_at": "2026-09-17"
+    }
+  },
+  "status": "commissioning",
+  "subsystems": [],
+  "summary": {
+    "plain": "A small tabletop instrument built at the University of Washington that catches the faint radio hum a single electron makes as it spirals in a magnetic field, the first step toward weighing the neutrino this way.",
+    "technical": "Project 8 Phase I CRES apparatus: single-electron cyclotron-radiation detection cell in a ~1 T magnetic field, demonstrated on 83mKr conversion electrons at the University of Washington (2015); later phases add gaseous tritium sources."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "Project 8 Phase II apparatus paper, abstract",
+    "note": "",
+    "quote": "Cyclotron Radiation Emission Spectroscopy (CRES) is a novel technique for the precise measurement of relativistic electron energy.",
+    "sources": [
+      "src:project8-arxiv-2503-08807-phase2"
+    ],
+    "value": "Cyclotron Radiation Emission Spectroscopy (CRES): single-electron microwave radiometry in a magnetic trap",
+    "verified_at": "2026-09-17"
+  },
+  "technology_class": "other",
+  "technology_classes": [
+    "other"
+  ],
+  "type": "detector"
+}

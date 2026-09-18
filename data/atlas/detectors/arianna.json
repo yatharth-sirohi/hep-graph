@@ -1,0 +1,48 @@
+{
+  "id": "detector:arianna",
+  "type": "detector",
+  "name": "ARIANNA Hexagonal Radio Array",
+  "aliases": ["HRA"],
+  "experiment_ids": ["experiment:arianna"],
+  "parent_detector_id": null,
+  "placements": [
+    {"site_id": "site:moores-bay-arianna", "role": "main", "start": "2009-12", "end": null,
+     "sources": ["src:astro-neutrino-arianna-arxiv-prototype-2010"], "verified_at": "2026-09-17", "confidence": "verified",
+     "quote": "We describe a prototype station for ARIANNA which was deployed in Moore's Bay on the Ross Ice Shelf in December 2009", "note": ""}
+  ],
+  "technology": {
+    "value": "Surface-deployed radio antenna stations detecting Askaryan-effect radio pulses from neutrino interactions in the ice below",
+    "sources": ["src:astro-neutrino-arianna-official-research-page"], "verified_at": "2026-09-17", "confidence": "verified",
+    "quote": "eight ARIANNA stations are taking data on the Ross Ice-shelf, in a prototype experiment called the Hexagonal Radio Array (HRA)", "note": ""
+  },
+  "technology_class": "radio",
+  "technology_classes": ["radio"],
+  "intervals": [
+    {"label": "prototype station", "status": "commissioning", "start": "2009-12", "end": "2014-11",
+     "sources": ["src:astro-neutrino-arianna-arxiv-prototype-2010"], "verified_at": "2026-09-17", "confidence": "verified",
+     "quote": "deployed in Moore's Bay on the Ross Ice Shelf in December 2009", "note": ""},
+    {"label": "7-8 station HRA operating", "status": "active", "start": "2014-11", "end": "2019-02",
+     "sources": ["src:astro-neutrino-arianna-arxiv-testbed-2019"], "verified_at": "2026-09-17", "confidence": "verified",
+     "quote": "commissioned in November 2014 ... data collected between November 2014 and February 2019", "note": ""},
+    {"label": "decommissioned", "status": "decommissioned", "start": null, "end": null,
+     "sources": ["src:astro-neutrino-arianna-official-home-page"], "verified_at": "2026-09-17", "confidence": "verified",
+     "quote": "the now decommissioned ARIANNA pilot experiment", "note": "No exact date sourced."}
+  ],
+  "status": "decommissioned",
+  "specs": {
+    "station_count": {"value": 8, "unit": "", "dimension": "count", "approx": false, "display": "up to 8 stations",
+      "sources": ["src:astro-neutrino-arianna-official-research-page"], "verified_at": "2026-09-17", "confidence": "verified",
+      "quote": "Currently, eight ARIANNA stations are taking data on the Ross Ice-shelf", "note": "7 stations in the 2014-2019 pilot data-taking papers; the official research page states 8."}
+  },
+  "subsystems": [],
+  "document_ids": [],
+  "links": {"website": null},
+  "notes": [],
+  "summary": {
+    "plain": "A small hexagon of radio-antenna stations that once sat on the surface of the Ross Ice Shelf, each one a self-contained listening post for neutrino signals.",
+    "technical": "ARIANNA Hexagonal Radio Array: surface radio-detection stations on the Ross Ice Shelf, from a single 2009 prototype to a 7-8 station pilot array (2014-2019), now decommissioned."
+  },
+  "coverage": {"researched": "partial", "tier": "B"},
+  "sources": ["src:astro-neutrino-arianna-arxiv-prototype-2010", "src:astro-neutrino-arianna-arxiv-testbed-2019", "src:astro-neutrino-arianna-official-research-page", "src:astro-neutrino-arianna-official-home-page"],
+  "schema": "hep-atlas/0.2"
+}

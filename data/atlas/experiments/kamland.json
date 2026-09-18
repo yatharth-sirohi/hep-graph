@@ -1,0 +1,122 @@
+{
+  "schema": "hep-atlas/0.2",
+  "id": "experiment:kamland",
+  "type": "experiment",
+  "name": "KamLAND",
+  "aliases": [
+    "Kamioka Liquid Scintillator Antineutrino Detector"
+  ],
+  "kind": "reactor_neutrino",
+  "secondary_kinds": ["solar_neutrino"],
+  "collaboration_ids": ["collaboration:kamland"],
+  "facility_roles": [
+    {
+      "facility_id": "facility:kamioka-observatory",
+      "role": "host",
+      "start": null,
+      "end": null,
+      "sources": ["src:kamland-wikipedia"],
+      "verified_at": "2026-09-17",
+      "confidence": "verified",
+      "note": "Host facility inferred from the site being within the Kamioka Observatory's mine complex; not from an explicit 'host' statement on an official KamLAND page (the official site's technical pages returned 404 on every URL guessed this session)."
+    }
+  ],
+  "beamline_ids": [],
+  "accelerator_ids": [],
+  "topic_ids": ["topic:reactor-neutrinos", "topic:solar-neutrinos", "topic:neutrino-oscillations"],
+  "intervals": [
+    {
+      "label": "first results data-taking period",
+      "status": "active",
+      "start": "2002-01-17",
+      "end": null,
+      "sources": ["src:kamland-wikipedia"],
+      "verified_at": "2026-09-17",
+      "confidence": "approximate",
+      "quote": "KamLAND started to collect data on January 17, 2002.",
+      "locator": "Wikipedia",
+      "note": "Day-precision start date is sourced only from Wikipedia (rank 12); no official page or paper fetched this session restates this exact date, so confidence is kept approximate rather than verified despite the day precision."
+    },
+    {
+      "label": "first-results exposure used in the 2002 discovery paper",
+      "status": "active",
+      "start": null,
+      "end": null,
+      "sources": ["src:kamland-first-results-2002"],
+      "verified_at": "2026-09-17",
+      "confidence": "uncertain",
+      "quote": "an exposure of 162 ton·yr (145.1 days)",
+      "locator": "arXiv:hep-ex/0212021 abstract",
+      "note": "The paper reports a 145.1-day exposure but no explicit calendar bounds were seen verbatim in the fetched abstract."
+    }
+  ],
+  "physics_goals": [
+    {
+      "value": "Measure the flux and energy spectrum of electron antineutrinos from distant nuclear reactors to test neutrino oscillation solutions to the solar neutrino problem",
+      "sources": ["src:kamland-first-results-2002"],
+      "verified_at": "2026-09-17",
+      "confidence": "verified",
+      "quote": "KamLAND has been used to measure the flux of electron antineutrinos from distant nuclear reactors.",
+      "locator": "arXiv:hep-ex/0212021, abstract"
+    }
+  ],
+  "unique_capabilities": [
+    {
+      "value": "A single very large liquid-scintillator detector far from many reactors, seeing a flux-weighted average baseline rather than one fixed near/far pair",
+      "sources": ["src:kamland-first-results-2002"],
+      "verified_at": "2026-09-17",
+      "confidence": "verified",
+      "quote": "KamLAND has been used to measure the flux of electron antineutrinos from distant nuclear reactors.",
+      "locator": "arXiv:hep-ex/0212021, abstract"
+    }
+  ],
+  "energy_regime": null,
+  "key_specs": [
+    {
+      "label": "Target mass (liquid scintillator)",
+      "quantity": {
+        "value": 1000,
+        "unit": "t",
+        "dimension": "mass",
+        "approx": true,
+        "display": "~1000 t",
+        "sources": ["src:kamland-wikipedia"],
+        "verified_at": "2026-09-17",
+        "confidence": "approximate",
+        "quote": "1,000 metric tons of mineral oil, benzene, and fluorescent chemicals",
+        "note": "Sourced from Wikipedia (rank 12); no official/paper source fetched this session restates this figure independently."
+      }
+    }
+  ],
+  "lineage": [],
+  "external": {
+    "inspire_experiment": 1110499,
+    "greybook": null,
+    "wikidata": null
+  },
+  "document_ids": [],
+  "result_ids": [],
+  "links": {
+    "website": {
+      "value": "https://www.awa.tohoku.ac.jp/kamland/",
+      "sources": ["src:kamland-official-site"],
+      "verified_at": "2026-09-17",
+      "confidence": "verified",
+      "note": "Homepage only; the 'About KamLAND' technical sub-page returned 404 on every URL guessed this session."
+    }
+  },
+  "notes": [
+    "Derived fields (detector_ids, site_ids, result_ids, document_ids) deliberately not authored (v0.2 A1).",
+    "KamLAND's later physics program (solar neutrinos, geoneutrinos, and the separate KamLAND-Zen double-beta-decay search using the same detector:kamland) is not detailed here beyond the `secondary_kinds` tag; KamLAND-Zen is owned by the neutrino-mass-0vbb workstream, which references detector:kamland."
+  ],
+  "sources": ["src:kamland-inspire-experiment-record", "src:kamland-first-results-2002", "src:kamland-wikipedia", "src:kamland-official-site"],
+  "status": "active",
+  "summary": {
+    "plain": "A huge detector in a Japanese mine that watches antineutrinos from nuclear power plants across the country, and in 2002 gave the first direct proof that they disappear the way solar-neutrino theories predicted.",
+    "technical": "Reactor-antineutrino oscillation experiment in the old Kamiokande cavity of the Kamioka mine, using a ~1000 t liquid-scintillator detector to observe a flux-weighted average of many distant Japanese reactors; started data-taking 2002-01-17 and reported first results (evidence for reactor antineutrino disappearance) later that year."
+  },
+  "coverage": {
+    "tier": "B",
+    "researched": "partial"
+  }
+}

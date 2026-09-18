@@ -1,0 +1,163 @@
+{
+  "aliases": [
+    "SEDINE",
+    "S140"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "experiment_ids": [
+    "experiment:news-g"
+  ],
+  "id": "detector:news-g",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2015",
+      "label": "SEDINE operating",
+      "note": "Start year approximate.",
+      "sources": [
+        "src:news-g-snolab-detector-2022-arxiv"
+      ],
+      "start": "2013",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": "2021",
+      "label": "S140 installation",
+      "note": "",
+      "sources": [
+        "src:news-g-snolab-detector-2022-arxiv"
+      ],
+      "start": "2020",
+      "status": "construction",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "S140 operating",
+      "note": "Open interval; ongoing per the September 2025 paper.",
+      "sources": [
+        "src:news-g-light-wimp-2025-inspire"
+      ],
+      "start": "2021",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "NEWS-G spherical proportional counter",
+  "notes": [
+    "technology_class 'gaseous_tpc' is used as the closest available enum value; NEWS-G's spherical proportional counter is not a true time-projection chamber (no drift+readout planes, single central sensor electrode instead). The ontology has no dedicated SPC class."
+  ],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": "2015",
+      "locator": "arXiv:2205.15433 (ar5iv)",
+      "note": "SEDINE, 60 cm sphere; start year approximate.",
+      "quote": "A first detector, SEDINE, was developed for dark matter search and installed at the LSM.",
+      "role": "prototype",
+      "site_id": "site:lsm-frejus",
+      "sources": [
+        "src:news-g-snolab-detector-2022-arxiv"
+      ],
+      "start": "2013",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "locator": "arXiv:2205.15433 (ar5iv)",
+      "note": "S140, 135 cm sphere.",
+      "quote": "installed at SNOLAB in 2020-2021",
+      "role": "main",
+      "site_id": "site:snolab-underground-lab",
+      "sources": [
+        "src:news-g-snolab-detector-2022-arxiv"
+      ],
+      "start": "2020",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": "2024-07",
+      "locator": "arXiv:2407.12769, abstract",
+      "note": "Relationship to the SNOLAB S140 sphere (same unit temporarily relocated, or a second sphere) is not established by any source fetched this session.",
+      "quote": "New results from a 10 day physics run with a 135 cm in diameter spherical proportional counter at the Laboratoire Souterrain de Modane are reported.",
+      "role": "prototype",
+      "site_id": "site:lsm-frejus",
+      "sources": [
+        "src:news-g-lsm-methane-2024-arxiv"
+      ],
+      "start": "2024",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:news-g-snolab-detector-2022-arxiv",
+    "src:news-g-lsm-methane-2024-arxiv"
+  ],
+  "specs": {
+    "sphere_diameter_s140": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "135 cm",
+      "locator": "arXiv:2205.15433 (ar5iv)",
+      "note": "",
+      "quote": "135 cm in diameter\" spherical copper vessel",
+      "sources": [
+        "src:news-g-snolab-detector-2022-arxiv"
+      ],
+      "unit": "cm",
+      "value": 135,
+      "verified_at": "2026-09-17"
+    },
+    "sphere_diameter_sedine": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "60 cm",
+      "locator": "arXiv:2205.15433 (ar5iv)",
+      "note": "",
+      "quote": "the 60 cm SEDINE detector",
+      "sources": [
+        "src:news-g-snolab-detector-2022-arxiv"
+      ],
+      "unit": "cm",
+      "value": 60,
+      "verified_at": "2026-09-17"
+    }
+  },
+  "status": "active",
+  "subsystems": [],
+  "summary": {
+    "plain": "A hollow copper sphere filled with gas and a tiny sensor at its centre, sensitive enough to notice a single electron freed when a particle bumps a gas atom.",
+    "technical": "Spherical proportional counter: 60 cm SEDINE sphere (Ne+CH4, 3.1 bar) operated at LSM through 2015; 135 cm 'S140' copper sphere (pure CH4, 135 mbar) installed at SNOLAB 2020-2021, operating since summer 2021; a 135 cm sphere also ran a 10-day methane run at LSM reported in 2024."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "official NEWS-G site",
+    "note": "",
+    "quote": "low capacitance, low energy threshold, excellent energy resolution, single readout channel (in its simplest version), low cost, robustness, and flexibility in gas choice and operating pressure",
+    "sources": [
+      "src:news-g-official-site-queens"
+    ],
+    "value": "Spherical proportional counter (SPC): a large gas-filled copper sphere with a single small sensor electrode at the centre, sensitive to single ionization electrons",
+    "verified_at": "2026-09-17"
+  },
+  "technology_class": "gaseous_tpc",
+  "technology_classes": [
+    "gaseous_tpc"
+  ],
+  "type": "detector"
+}

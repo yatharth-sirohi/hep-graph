@@ -1,0 +1,57 @@
+{
+  "id": "facility:sierra-negra",
+  "type": "facility",
+  "schema": "hep-atlas/0.2",
+  "name": "Sierra Negra (HAWC site)",
+  "aliases": ["HAWC Observatory site"],
+  "distinct_from": [],
+  "superseded_by": null,
+  "kind": "astroparticle_observatory",
+  "operator": null,
+  "operator_text": null,
+  "operator_ids": [],
+  "country": ["MX"],
+  "countries": ["MX"],
+  "primary_site_id": "site:hawc-sierra-negra",
+  "intervals": [
+    {
+      "label": "construction",
+      "status": "construction",
+      "start": null,
+      "end": "2015-03",
+      "sources": ["src:cosmic-gamma-hawc-design-paper-arxiv-2013", "src:cosmic-gamma-hawc-10-years-arxiv-2025"],
+      "verified_at": "2026-09-17",
+      "confidence": "approximate",
+      "quote": "began operations in March 2015",
+      "note": "Start of construction is not sourced; a 2013 design paper describes the array as 'under construction' at that time. Full-array completion/operations start is dated to March 2015 by a 2025 collaboration paper ('completed in early 2015' per a 2017 paper)."
+    },
+    {
+      "label": "operations",
+      "status": "active",
+      "start": "2015-03",
+      "end": null,
+      "sources": ["src:cosmic-gamma-hawc-10-years-arxiv-2025"],
+      "verified_at": "2026-09-17",
+      "confidence": "verified",
+      "quote": "began operations in March 2015",
+      "note": ""
+    }
+  ],
+  "status": "active",
+  "specs": {
+    "altitude": {"value": 4100, "unit": "m", "dimension": "length", "approx": false, "display": "4100 m", "sources": ["src:cosmic-gamma-hawc-design-paper-arxiv-2013"], "verified_at": "2026-09-17", "confidence": "verified", "quote": "under construction 4100 meters above sea level at Sierra Negra, Mexico", "note": ""}
+  },
+  "topic_ids": ["topic:gamma-rays", "topic:cosmic-rays", "topic:multimessenger-astrophysics"],
+  "related_facility_ids": [],
+  "summary": {
+    "plain": "A gamma-ray observatory on the slopes of the Sierra Negra volcano in Mexico, high enough (4100 metres) that ground-based tanks of water can catch particle showers from gamma rays hitting the atmosphere.",
+    "technical": "High-altitude gamma-ray observatory site on Sierra Negra, Puebla, Mexico, at 4100 m altitude; hosts the HAWC water-Cherenkov array, operating since March 2015."
+  },
+  "sources": ["src:cosmic-gamma-hawc-design-paper-arxiv-2013", "src:cosmic-gamma-hawc-10-years-arxiv-2025"],
+  "links": {"website": null},
+  "notes": [
+    "site_ids, accelerator_ids, beamline_ids, institution_id, document_ids, experiment_ids are deliberately not written (v0.2 A1 derived fields).",
+    "The official hawc-observatory.org site could not be fetched this session (TLS certificate verification failures on every attempt); all facts come from collaboration arXiv papers instead."
+  ],
+  "coverage": {"tier": "B", "researched": "partial"}
+}

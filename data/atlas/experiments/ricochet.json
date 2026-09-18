@@ -1,0 +1,125 @@
+{
+  "accelerator_ids": [],
+  "aliases": [],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:ricochet"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "facility_id": "facility:ill-grenoble",
+      "locator": "abstract",
+      "note": "",
+      "quote": "a research nuclear reactor operated by the Institut Laue-Langevin (Grenoble, France)",
+      "role": "host",
+      "sources": [
+        "src:cevns-ricochet-commissioning-2025"
+      ],
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "id": "experiment:ricochet",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "background characterization / pre-construction",
+      "locator": "abstract",
+      "note": "",
+      "quote": "will deploy a kg-scale low-energy-threshold detector array combining Ge and Zn target crystals 8.8 meters away from the 58 MW research nuclear reactor core",
+      "sources": [
+        "src:cevns-ricochet-fast-neutron-2022"
+      ],
+      "start": "2022",
+      "status": "construction",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "commissioning (mini-CryoCube module)",
+      "locator": "abstract",
+      "note": "Status independently verified against this fetched primary source rather than taken from the brief's secondhand description; a 2026 status paper ('Status of the Ricochet experiment at the ILL', PoS EPS-HEP2025:150) was found in the literature search but not separately fetched/cited as a source in this pass.",
+      "quote": "the detector performance achieved during its commissioning with a mini-CryoCube module",
+      "sources": [
+        "src:cevns-ricochet-commissioning-2025"
+      ],
+      "start": "2025",
+      "status": "commissioning",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Distance from reactor core",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "length",
+        "display": "8.8 m",
+        "locator": "abstract",
+        "note": "",
+        "quote": "8.8 meters away from the 58 MW research nuclear reactor core",
+        "sources": [
+          "src:cevns-ricochet-fast-neutron-2022"
+        ],
+        "unit": "m",
+        "value": 8.8,
+        "verified_at": "2026-09-17"
+      }
+    }
+  ],
+  "kind": "cevns",
+  "lineage": [],
+  "links": {
+    "website": null
+  },
+  "name": "Ricochet",
+  "notes": [
+    "No INSPIRE experiment-registry search turned up a dedicated Ricochet experiment record (a literature search found many Ricochet papers but no `experiments` collection record) in this pass; external.inspire_experiment left null rather than guessed.",
+    "No official Ricochet website was located/fetched in this pass; links.website left null.",
+    "Derived fields (detector_ids, site_ids, result_ids, document_ids) are deliberately not written (v0.2 A1)."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "abstract",
+      "note": "",
+      "quote": "aims to measure the coherent elastic neutrino-nucleus scattering process from antineutrinos emitted by a research nuclear reactor",
+      "sources": [
+        "src:cevns-ricochet-commissioning-2025"
+      ],
+      "value": "Measure CEvNS from reactor antineutrinos using multiple target materials (Ge, Zn) to probe the Standard Model prediction and search for new physics",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [
+    "reactor_neutrino"
+  ],
+  "sources": [
+    "src:cevns-ricochet-fast-neutron-2022",
+    "src:cevns-ricochet-commissioning-2025"
+  ],
+  "status": "commissioning",
+  "summary": {
+    "plain": "A reactor-neutrino experiment at a French research reactor, using ultra-cold germanium and zinc crystals just a few metres from the reactor core to catch antineutrinos bouncing off whole atomic nuclei.",
+    "technical": "Ricochet: reactor CEvNS experiment at the ILL research reactor (Grenoble, France), 8.8 m from the 58 MW reactor core, using a planned kg-scale CryoCube array of Ge and Zn cryogenic calorimeters; a 126 g (3 x 42 g Ge) mini-CryoCube commissioning module was operated and characterized in 2025."
+  },
+  "topic_ids": [
+    "topic:cevns",
+    "topic:reactor-neutrinos"
+  ],
+  "type": "experiment",
+  "unique_capabilities": []
+}

@@ -1,0 +1,90 @@
+{
+  "schema": "hep-atlas/0.2",
+  "id": "detector:kamland",
+  "type": "detector",
+  "name": "KamLAND detector",
+  "aliases": [],
+  "experiment_ids": ["experiment:kamland"],
+  "parent_detector_id": null,
+  "technology": {
+    "value": "Liquid-scintillator antineutrino detector: an 18-m-diameter spherical balloon of liquid scintillator viewed by photomultiplier tubes, surrounded by a mineral-oil buffer and an outer water-Cherenkov muon veto",
+    "sources": ["src:kamland-wikipedia"],
+    "verified_at": "2026-09-17",
+    "confidence": "approximate",
+    "quote": "an 18-meter-diameter stainless steel containment vessel lined with 1,879 photomultiplier tubes, surrounded by a 3.2 kiloton cylindrical water Cherenkov detector for cosmic ray shielding",
+    "note": "Detailed structural description (containment vessel dimensions, PMT count, veto mass) sourced only from Wikipedia (rank 12) this session; no official/paper source was independently fetched to corroborate these exact figures, so confidence is kept approximate. This record is referenced by the neutrino-mass-0vbb workstream for KamLAND-Zen (which reuses this same detector volume with a different central balloon/isotope load); the placement/site below is the load-bearing fact for that reference and is sourced accordingly."
+  },
+  "technology_class": "liquid_scintillator",
+  "technology_classes": ["liquid_scintillator"],
+  "placements": [
+    {
+      "site_id": "site:kamioka-kamland",
+      "role": "main",
+      "start": "2002-01-17",
+      "end": null,
+      "sources": ["src:kamland-wikipedia"],
+      "verified_at": "2026-09-17",
+      "confidence": "approximate",
+      "quote": "KamLAND started to collect data on January 17, 2002.",
+      "note": "Placement start date sourced only from Wikipedia (rank 12); site coordinates are themselves only campus-grade/approximate (see site:kamioka-kamland)."
+    }
+  ],
+  "intervals": [
+    {
+      "label": "reactor-antineutrino data taking",
+      "status": "active",
+      "start": "2002-01-17",
+      "end": null,
+      "sources": ["src:kamland-wikipedia"],
+      "verified_at": "2026-09-17",
+      "confidence": "approximate",
+      "quote": "KamLAND started to collect data on January 17, 2002.",
+      "note": ""
+    }
+  ],
+  "status": "active",
+  "specs": {
+    "target_mass": {
+      "value": 1000,
+      "unit": "t",
+      "dimension": "mass",
+      "approx": true,
+      "display": "~1000 t liquid scintillator",
+      "sources": ["src:kamland-wikipedia"],
+      "verified_at": "2026-09-17",
+      "confidence": "approximate",
+      "quote": "1,000 metric tons of mineral oil, benzene, and fluorescent chemicals",
+      "note": ""
+    },
+    "pmt_count": {
+      "value": 1879,
+      "unit": "",
+      "dimension": "count",
+      "approx": false,
+      "display": "1879",
+      "sources": ["src:kamland-wikipedia"],
+      "verified_at": "2026-09-17",
+      "confidence": "approximate",
+      "quote": "1,879 photomultiplier tubes",
+      "note": "Sourced only from Wikipedia (rank 12) this session."
+    }
+  },
+  "subsystems": [],
+  "document_ids": [],
+  "links": {
+    "website": null
+  },
+  "notes": [
+    "IMPORTANT for downstream reference: `detector:kamland` is the id the neutrino-mass-0vbb workstream references for KamLAND-Zen, which loads a xenon-doped mini-balloon inside this same liquid-scintillator volume. This detector record describes KamLAND's own reactor-antineutrino configuration only; KamLAND-Zen's own specs/intervals are owned and written by that workstream.",
+    "All structural specs here (containment vessel, PMT count, veto mass) come from Wikipedia only; no official KamLAND page (the 'About KamLAND' sub-page returned 404 on every URL guessed) or detector paper was reached this session to independently confirm them. Flagged in coverage `missing_fields`."
+  ],
+  "sources": ["src:kamland-wikipedia"],
+  "summary": {
+    "plain": "A giant balloon of clear liquid inside a mine in Japan, watched by nearly 1,900 light sensors, that catches antineutrinos from nuclear reactors across the country.",
+    "technical": "~1000 t liquid-scintillator antineutrino detector in an 18 m diameter vessel with 1,879 PMTs, surrounded by a water-Cherenkov muon veto, in the old Kamiokande cavity of the Kamioka mine; operating since 2002-01-17."
+  },
+  "coverage": {
+    "tier": "B",
+    "researched": "partial"
+  }
+}

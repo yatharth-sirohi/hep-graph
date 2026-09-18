@@ -1,0 +1,125 @@
+{
+  "schema": "hep-atlas/0.2",
+  "id": "experiment:darkquest",
+  "type": "experiment",
+  "name": "DarkQuest",
+  "aliases": [],
+  "coverage": {
+    "tier": "B",
+    "researched": "partial"
+  },
+  "kind": "long_lived_particle",
+  "secondary_kinds": [
+    "fixed_target"
+  ],
+  "collaboration_ids": [],
+  "facility_roles": [
+    {
+      "facility_id": "facility:fermilab",
+      "role": "host",
+      "start": null,
+      "end": null,
+      "sources": [
+        "src:darkquest-proposal-arxiv-2022"
+      ],
+      "verified_at": "2026-09-17",
+      "confidence": "verified",
+      "note": ""
+    },
+    {
+      "facility_id": "facility:fermilab",
+      "role": "beam_source",
+      "start": null,
+      "end": null,
+      "sources": [
+        "src:darkquest-proposal-arxiv-2022"
+      ],
+      "verified_at": "2026-09-17",
+      "confidence": "verified",
+      "quote": "the 120 GeV Fermilab Main Injector",
+      "note": ""
+    }
+  ],
+  "beamline_ids": [],
+  "accelerator_ids": [
+    "accelerator:fermilab-main-injector"
+  ],
+  "topic_ids": [
+    "topic:dark-photons-dark-sectors",
+    "topic:long-lived-particles",
+    "topic:axions-alps"
+  ],
+  "intervals": [
+    {
+      "label": "proposed (Snowmass 2021 contribution)",
+      "status": "proposed",
+      "start": "2022-03",
+      "end": null,
+      "sources": [
+        "src:darkquest-proposal-arxiv-2022"
+      ],
+      "verified_at": "2026-09-17",
+      "confidence": "verified",
+      "locator": "arXiv:2203.08322, submitted 16 March 2022",
+      "note": "This is the date of the Snowmass planning-document proposal, not a formal experiment-approval date; no source fetched this session states that DarkQuest has been formally approved or scheduled."
+    }
+  ],
+  "status": "proposed",
+  "physics_goals": [
+    {
+      "value": "Search for visible decays of dark-sector particles (e.g. dark photons, axion-like particles, dark scalars) with leading sensitivity, reusing existing Fermilab accelerator and detector infrastructure",
+      "sources": [
+        "src:darkquest-proposal-arxiv-2022"
+      ],
+      "verified_at": "2026-09-17",
+      "confidence": "verified",
+      "quote": "DarkQuest is a proton fixed-target experiment with leading sensitivity to an array of visible dark sector signatures",
+      "note": ""
+    }
+  ],
+  "unique_capabilities": [
+    {
+      "value": "A proposed dark-sector upgrade/run mode of the existing SeaQuest/SpinQuest spectrometer, offering 'powerful but modest-cost' new physics reach on a short timescale by reusing installed accelerator and detector infrastructure rather than building a new facility",
+      "sources": [
+        "src:darkquest-proposal-arxiv-2022"
+      ],
+      "verified_at": "2026-09-17",
+      "confidence": "verified",
+      "quote": "builds off of existing accelerator and detector infrastructure",
+      "note": ""
+    }
+  ],
+  "energy_regime": null,
+  "key_specs": [],
+  "lineage": [
+    {
+      "experiment_id": "experiment:seaquest",
+      "relation": "upgrade_of",
+      "sources": [
+        "src:darkquest-proposal-arxiv-2022"
+      ]
+    }
+  ],
+  "external": {
+    "inspire_experiment": null,
+    "greybook": null,
+    "wikidata": null
+  },
+  "links": {
+    "website": null
+  },
+  "summary": {
+    "plain": "DarkQuest is a proposed Fermilab experiment that would reuse the SeaQuest particle detector to search for hidden, dark-sector particles instead of ordinary quarks, at low cost since it builds on equipment already installed.",
+    "technical": "Proposed dark-sector upgrade (Snowmass 2021 contribution, arXiv:2203.08322) to the SeaQuest/SpinQuest spectrometer at the 120 GeV Fermilab Main Injector, targeting visible decays of dark photons, axion-like particles and dark scalars in the MeV-GeV mass range; not yet formally approved as of the sources fetched this session."
+  },
+  "notes": [
+    "Derived fields (detector_ids, site_ids, result_ids, document_ids) are deliberately not written (v0.2 A1).",
+    "collaboration_ids left empty: no source fetched this session names a distinct 'DarkQuest Collaboration' separate from the SeaQuest/SpinQuest proponents; no collaboration:darkquest record was created rather than inventing one.",
+    "The proposal paper positions DarkQuest as an upgrade to 'SpinQuest' (Fermilab E-1039, the spin-physics successor to SeaQuest that reuses the same spectrometer), not directly to SeaQuest; the `upgrade_of` lineage row points to experiment:seaquest (the id this workstream owns per the coverage file) since SpinQuest is out of this wave's scope and has no record here. This is noted as a simplification.",
+    "No detector record created: DarkQuest is described as reusing the SeaQuest/SpinQuest apparatus at site:fermilab-nm4-hall (see experiment:seaquest and detector:seaquest) rather than a distinct new detector; no source fetched this session describes DarkQuest-specific hardware changes in enough detail to justify a separate detector file in this pass.",
+    "status is `proposed` because the only source found is a 2021/2022 Snowmass community-planning contribution, not an approval document; do not read this as an active or under-construction programme."
+  ],
+  "sources": [
+    "src:darkquest-proposal-arxiv-2022"
+  ]
+}

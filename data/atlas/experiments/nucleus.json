@@ -1,0 +1,160 @@
+{
+  "accelerator_ids": [],
+  "aliases": [],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:nucleus"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "facility_id": "facility:chooz",
+      "locator": "abstract",
+      "note": "facility:chooz is owned by the reactor-solar-neutrino workstream (ID_REGISTRY Wave 3, Double Chooz row) and does not exist yet in this repo as of 2026-09-17; dangling reference until that lead lands.",
+      "quote": "operated at the Chooz nuclear power plant in France",
+      "role": "host",
+      "sources": [
+        "src:cevns-nucleus-prospect-2026"
+      ],
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "id": "experiment:nucleus",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "concept proposed (nu-cleus)",
+      "locator": "abstract",
+      "note": "The original 2017 concept paper investigates several possible reactor sites and a radioactive-source option; it does not name Chooz specifically. The Chooz site is confirmed only from 2022 onward (see next interval).",
+      "quote": "a small-scale experiment, called nu-cleus, for the first detection of coherent neutrino-nucleus scattering",
+      "sources": [
+        "src:cevns-nucleus-founding-2017"
+      ],
+      "start": "2017-04",
+      "status": "proposed",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "under construction at Chooz",
+      "locator": "abstract",
+      "note": "",
+      "quote": "NUCLEUS is an experiment under construction based on ultra-low threshold (20 eVnr) cryogenic calorimeters",
+      "sources": [
+        "src:cevns-nucleus-construction-2022"
+      ],
+      "start": "2022",
+      "status": "construction",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "commissioning (technical run)",
+      "locator": "abstract",
+      "note": "Status independently verified against this fetched primary source rather than taken from the brief's secondhand description; commissioning is ongoing as of verified_at, with a Physics Run projected for the future.",
+      "quote": "incorporating a data-driven treatment of the low-energy excess (LEE) observed during commissioning",
+      "sources": [
+        "src:cevns-nucleus-prospect-2026"
+      ],
+      "start": "2026",
+      "status": "commissioning",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Technical Run target mass",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "mass",
+        "display": "7 g CaWO4",
+        "locator": "abstract",
+        "note": "",
+        "quote": "For the Technical Run with a 7 g CaWO4 target, we find competitive sensitivity",
+        "sources": [
+          "src:cevns-nucleus-prospect-2026"
+        ],
+        "unit": "g",
+        "value": 7,
+        "verified_at": "2026-09-17"
+      }
+    },
+    {
+      "label": "Nuclear-recoil energy threshold",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "energy",
+        "display": "20 eV(nr)",
+        "locator": "abstract",
+        "note": "",
+        "quote": "ultra-low threshold (20 eVnr) cryogenic calorimeters",
+        "sources": [
+          "src:cevns-nucleus-construction-2022"
+        ],
+        "unit": "eV",
+        "value": 20,
+        "verified_at": "2026-09-17"
+      }
+    }
+  ],
+  "kind": "cevns",
+  "lineage": [],
+  "links": {
+    "website": null
+  },
+  "name": "NUCLEUS",
+  "notes": [
+    "'nu-cleus' (the experiment's original spelling) is not encoded as a formal `aliases` entry: the validator's A20 duplicate-name check strips non-alphanumeric characters before comparing, so 'nu-cleus' normalises to the same string as the name 'NUCLEUS' and is rejected as a redundant alias.",
+    "Distance from the Chooz reactor core is not recorded: no source fetched in this pass gives it precisely (see site:chooz-very-near-nucleus notes); the collaboration's own wording is only 'very near' the core, closer than Double Chooz's near detector.",
+    "No INSPIRE experiment-registry search was performed for NUCLEUS in this pass (time budget prioritised primary-literature status/spec verification); external.inspire_experiment left null rather than guessed.",
+    "No official NUCLEUS website was located/fetched in this pass; links.website left null.",
+    "Derived fields (detector_ids, site_ids, result_ids, document_ids) are deliberately not written (v0.2 A1)."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "abstract",
+      "note": "",
+      "quote": "Access to recoil energies at the O(10 eV) scale enables CEvNS studies at extremely low momentum transfer and provides enhanced sensitivity to new physics.",
+      "sources": [
+        "src:cevns-nucleus-prospect-2026"
+      ],
+      "value": "Measure CEvNS at the lowest nuclear-recoil energies yet attempted, for a low-momentum-transfer determination of the weak mixing angle and sensitivity to new physics (neutrino charge radius, new mediators)",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [
+    "reactor_neutrino"
+  ],
+  "sources": [
+    "src:cevns-nucleus-founding-2017",
+    "src:cevns-nucleus-construction-2022",
+    "src:cevns-nucleus-prospect-2026"
+  ],
+  "status": "commissioning",
+  "summary": {
+    "plain": "A very small, super-cold detector at a French nuclear power plant, sitting closer to the reactor core than any similar experiment, built to catch antineutrinos at the gentlest nudges ever attempted.",
+    "technical": "NUCLEUS: reactor CEvNS experiment using gram-scale CaWO4 (and originally Al2O3) cryogenic calorimeters with a ~20 eV(nr) nuclear-recoil threshold, sited very near the reactor core of the EDF Chooz B nuclear power plant, France. Proposed as the 'nu-cleus' concept in 2017, under construction by 2022, and in commissioning (Technical Run, 7 g CaWO4 target, with an observed low-energy excess under study) as of the most recent sourced publication (2026)."
+  },
+  "topic_ids": [
+    "topic:cevns",
+    "topic:reactor-neutrinos"
+  ],
+  "type": "experiment",
+  "unique_capabilities": []
+}

@@ -1,0 +1,74 @@
+{
+  "id": "detector:hawc",
+  "type": "detector",
+  "schema": "hep-atlas/0.2",
+  "name": "HAWC water-Cherenkov array",
+  "aliases": [],
+  "distinct_from": [],
+  "superseded_by": null,
+  "experiment_ids": ["experiment:hawc"],
+  "placements": [
+    {
+      "site_id": "site:hawc-sierra-negra",
+      "role": "main",
+      "start": "2015-03",
+      "end": null,
+      "sources": ["src:cosmic-gamma-hawc-10-years-arxiv-2025"],
+      "verified_at": "2026-09-17",
+      "confidence": "verified",
+      "quote": "began operations in March 2015",
+      "note": ""
+    }
+  ],
+  "parent_detector_id": null,
+  "technology": {
+    "value": "Array of closed water-Cherenkov detector tanks continuously sampling extensive air showers from gamma rays and cosmic rays.",
+    "sources": ["src:cosmic-gamma-hawc-crab-nebula-arxiv-2017"],
+    "verified_at": "2026-09-17",
+    "confidence": "verified",
+    "quote": "High Altitude Water Cherenkov Observatory",
+    "note": "Named for its detection technique; exact tank count/geometry not sourced this session (see notes)."
+  },
+  "technology_class": "water_cherenkov",
+  "technology_classes": ["water_cherenkov", "air_shower_array"],
+  "intervals": [
+    {
+      "label": "construction",
+      "status": "construction",
+      "start": null,
+      "end": "2015-03",
+      "sources": ["src:cosmic-gamma-hawc-design-paper-arxiv-2013"],
+      "verified_at": "2026-09-17",
+      "confidence": "approximate",
+      "quote": "under construction 4100 meters above sea level at Sierra Negra, Mexico",
+      "note": ""
+    },
+    {
+      "label": "full-array operations",
+      "status": "active",
+      "start": "2015-03",
+      "end": null,
+      "sources": ["src:cosmic-gamma-hawc-10-years-arxiv-2025"],
+      "verified_at": "2026-09-17",
+      "confidence": "verified",
+      "quote": "began operations in March 2015",
+      "note": ""
+    }
+  ],
+  "status": "active",
+  "specs": {
+    "altitude": {"value": 4100, "unit": "m", "dimension": "length", "approx": false, "display": "4100 m", "sources": ["src:cosmic-gamma-hawc-design-paper-arxiv-2013"], "verified_at": "2026-09-17", "confidence": "verified", "quote": "under construction 4100 meters above sea level at Sierra Negra, Mexico", "note": ""}
+  },
+  "subsystems": [],
+  "summary": {
+    "plain": "An array of closed water tanks on a Mexican volcano that sense the faint flashes of light left by particles from gamma-ray and cosmic-ray showers as they pass through the water.",
+    "technical": "Water-Cherenkov extensive-air-shower array at 4100 m on Sierra Negra, Mexico; full-array operations since March 2015. Tank count and individual tank dimensions are not recorded in this pass (source PDFs with those specifications could not be read this session)."
+  },
+  "sources": ["src:cosmic-gamma-hawc-design-paper-arxiv-2013", "src:cosmic-gamma-hawc-crab-nebula-arxiv-2017"],
+  "links": {"website": null},
+  "notes": [
+    "document_ids deliberately not written (v0.2 A1 derived field).",
+    "Tank count (commonly cited elsewhere as 300) is NOT recorded here: no source fetched this session states it (PDF text extraction of the design paper failed and the official site was unreachable). Do not fill this in from memory; re-fetch a working technical source first."
+  ],
+  "coverage": {"tier": "B", "researched": "partial"}
+}
