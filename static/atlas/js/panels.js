@@ -13,6 +13,13 @@ let INDEX = null;
 let CALLBACKS = {};
 let lastCollaborationId = null;
 let container = null;
+// §23 "focus returning to the trigger": whatever had keyboard focus the
+// moment a *new* entity was opened (a search result, a globe marker, a link
+// inside another panel) — not re-captured on a timeline-driven re-render of
+// the same entity, so a slider drag while a panel is open doesn't overwrite
+// it. Restored when the panel closes (render(null, ...)).
+let openerElement = null;
+let lastRenderedId = null;
 
 export function init({ el, atlas, index, navigate, focusGlobe, viewOnGlobe }) {
   container = el;
@@ -657,9 +664,21 @@ export async function render(route, timelineState = { year: new Date().getFullYe
   if (!route) {
     container.innerHTML = '';
     container.classList.add('hidden');
+    lastRenderedId = null;
+    // Return keyboard focus to whatever opened this panel — otherwise
+    // closing it (the close button or Escape) drops focus to <body> and a
+    // keyboard user loses their place entirely.
+    if (openerElement && document.body.contains(openerElement)) {
+      openerElement.focus({ preventScroll: true });
+    }
+    openerElement = null;
     return;
   }
   const id = `${route.type}:${route.slug}`;
+  if (id !== lastRenderedId) {
+    openerElement = document.activeElement;
+    lastRenderedId = id;
+  }
   const renderer = RENDERERS[route.type];
   container.classList.remove('hidden');
   container.setAttribute('aria-busy', 'true');

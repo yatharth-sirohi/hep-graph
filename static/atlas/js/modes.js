@@ -72,7 +72,7 @@ function renderTopicMode() {
   const roots = topicChildren(topics, null).concat(topicChildren(topics, undefined));
   const tree = h('ul', { class: 'topic-tree' }, roots.map((r) => renderTopicNode(topics, r)));
   return h('div', { class: 'mode-body' }, [
-    h('h3', {}, 'Research topics'),
+    h('h2', {}, 'Research topics'),
     h('p', { class: 'mode-hint' }, 'Select a topic to highlight its experiments and facilities on the globe.'),
     tree,
   ]);
@@ -153,7 +153,7 @@ function renderResultsMode() {
   apply();
 
   return h('div', { class: 'mode-body' }, [
-    h('h3', {}, 'Results'),
+    h('h2', {}, 'Results'),
     h('div', { class: 'results-filters' }, [yearSel, expSel, facSel, topicSel, typeSel]),
     list,
   ]);
@@ -169,12 +169,19 @@ function renderDocsMode() {
     h('span', { class: 'document-meta' }, ` — ${titleCase(d.doc_type)}${d.year ? `, ${d.year}` : ''}`),
   ])));
   return h('div', { class: 'mode-body' }, [
-    h('h3', {}, 'Document library'),
+    h('h2', {}, 'Document library'),
     list.children.length ? list : h('p', { class: 'empty-note' }, 'No documents available.'),
   ]);
 }
 
 const MODE_RENDERERS = { topic: renderTopicMode, results: renderResultsMode, docs: renderDocsMode };
+
+// §23 "focus returning to the trigger" — same contract as panels.js's
+// openerElement: capture whatever was focused (the Topics/Results/Documents
+// button) only on a real mode change, restore it when the mode panel closes
+// (via the Globe button or the app-level Escape handler).
+let modeOpener = null;
+let lastMode = null;
 
 export function show(mode) {
   const { container } = ctx;
@@ -182,7 +189,16 @@ export function show(mode) {
     container.innerHTML = '';
     container.classList.add('hidden');
     ctx.highlightGlobe(null);
+    lastMode = null;
+    if (modeOpener && document.body.contains(modeOpener)) {
+      modeOpener.focus({ preventScroll: true });
+    }
+    modeOpener = null;
     return;
+  }
+  if (mode !== lastMode) {
+    modeOpener = document.activeElement;
+    lastMode = mode;
   }
   container.classList.remove('hidden');
   container.innerHTML = '';

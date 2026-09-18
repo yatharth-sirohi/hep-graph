@@ -2,14 +2,28 @@
   --navy: #10283f;
   --navy-2: #183a55;
   --ink: #172b3a;
-  --muted: #5c6d78;
+  /* WCAG AA audit (docs/atlas-worklog/REVIEW_accessibility.md): the original
+     --muted (#5c6d78) failed 4.5:1 normal-text contrast against every
+     background it's used on (2.2-3.4:1 measured against --paper/--panel/
+     --panel-2/--navy-2). This value is >=4.5:1 against all four. */
+  --muted: #98a3a9;
   --paper: #0b1620;
   --panel: #132434;
   --panel-2: #17303f;
   --line: #26404f;
+  /* A stronger border for interactive controls (text input, selects, ghost
+     buttons) whose boundary is the only cue that they're a control, not just
+     decorative dividers between sections — >=3:1 against --paper/--panel
+     (WCAG 1.4.11 non-text contrast), unlike --line (~1.5:1). */
+  --line-strong: #5c6f7b;
   --teal: #54c6ba;
   --amber: #f2b441;
   --white: #f4f7f8;
+  /* Error/failure text (.error-note) had no real value here — it fell back to
+     a hardcoded #c0392b that measured 2.9:1 on --panel, illegible for text
+     that exists specifically to tell a user something failed. >=5:1 on both
+     --panel and --paper. */
+  --danger: #d4786e;
   --radius: 10px;
   --shadow: 0 5px 20px #00000040;
 }
@@ -110,7 +124,7 @@ input {
   width: 100%;
   padding: 8px 10px;
   border-radius: var(--radius);
-  border: 1px solid var(--line);
+  border: 1px solid var(--line-strong);
   background: var(--panel);
   color: var(--white);
 }
@@ -127,6 +141,9 @@ input {
   border-radius: var(--radius);
   max-height: 320px;
   overflow-y: auto;
+  /* Only needs to out-rank this dropdown's own header siblings (the brand
+     link, title, fixture banner) — .atlas-header's own z-index (see there)
+     is what keeps the whole header, including this, above the 3D scene. */
   z-index: 25;
   box-shadow: var(--shadow);
 }
@@ -214,7 +231,7 @@ input {
 .mode-toggle {
   appearance: none;
   background: transparent;
-  border: 1px solid var(--line);
+  border: 1px solid var(--line-strong);
   color: var(--white);
   border-radius: var(--radius);
   padding: 6px 10px;
@@ -261,7 +278,7 @@ input {
 .filter-chip.filter-clear-all {
   background: transparent;
   color: var(--white);
-  border-color: var(--line);
+  border-color: var(--line-strong);
 }
 .filter-chip:focus-visible {
   outline: 2px solid var(--amber);
@@ -543,7 +560,7 @@ input {
 }
 .results-filters select {
   background: var(--panel-2);
-  border: 1px solid var(--line);
+  border: 1px solid var(--line-strong);
   color: var(--white);
   border-radius: 6px;
   padding: 4px 6px;
@@ -574,7 +591,7 @@ input {
 .text-btn,
 .jump-year-btn {
   background: none;
-  border: 1px solid var(--line);
+  border: 1px solid var(--line-strong);
   color: var(--teal);
   border-radius: 6px;
   padding: 3px 8px;
@@ -731,7 +748,7 @@ input {
 }
 .role-btn {
   background: var(--panel-2);
-  border: 1px solid var(--line);
+  border: 1px solid var(--line-strong);
   color: var(--white);
   border-radius: 999px;
   padding: 3px 9px;

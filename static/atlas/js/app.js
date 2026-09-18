@@ -236,6 +236,23 @@ async function main() {
     state.navigate({ arcs: els.arcsToggle.checked }, { replace: true });
   });
 
+  // ---- Escape closes the open panel (§23) -------------------------------
+  // The detail panel and the topic/results/docs mode panel are the only two
+  // dismissible overlays; the filters panel and legend are always-visible
+  // <details> that don't need this. panels.js's own render(null, ...) branch
+  // returns focus to whatever opened the panel, so this only needs to decide
+  // *which* panel Escape should close, in "closest" order: detail panel
+  // first (it renders on top of the mode panel), then the mode panel.
+  document.addEventListener('keydown', (event) => {
+    if (event.key !== 'Escape') return;
+    const current = state.get();
+    if (current.entity) {
+      state.navigate({ entity: null });
+    } else if (current.mode && current.mode !== 'collab') {
+      state.navigate({ mode: null });
+    }
+  });
+
   // ---- share link -------------------------------------------------------
   els.shareBtn.addEventListener('click', async () => {
     try {
