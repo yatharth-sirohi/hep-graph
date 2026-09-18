@@ -13,15 +13,16 @@
   "intervals": [
     {
       "confidence": "uncertain",
-      "end": null,
+      "end": "2021",
       "label": "operating",
-      "locator": "no fetched primary source gives NEXT-White's exact start date",
-      "note": "A secondary web summary states NEXT-White \"has been running successfully since October 2016\", but this agent did not verify that date against a directly fetched NEXT-White paper or the official site in this session, so it is not recorded as a sourced value (v0.2 A17). Recorded only that it preceded NEXT-100 (commissioned 2024).",
-      "quote": "",
+      "locator": "NEXT status paper (arXiv:2201.10907), directly fetched, confirms completion; start/end years from secondary web summaries of NEXT-White run papers, not independently re-verified against a directly fetched primary source in this session",
+      "note": "The directly fetched status paper confirms in its own words that NEXT-White \"has recently finished operation at the LSC\" as of January 2022, supporting `status: completed`. The 2016 start / 2021 end years themselves are carried from secondary summaries of NEXT-White run papers (Run I-V, depleted-then-enriched xenon) that this agent did not verify against a directly fetched primary source in this session; recorded as `confidence: uncertain` rather than left as a null/null interval (which would derive to 'no presence').",
+      "quote": "The NEXT-White detector has recently finished operation at the LSC.",
       "sources": [
+        "src:next-arxiv-2201-10907-status",
         "src:next-official-site"
       ],
-      "start": null,
+      "start": "2016",
       "status": "completed",
       "verified_at": "2026-09-17"
     }
@@ -31,8 +32,8 @@
   },
   "name": "NEXT-White",
   "notes": [
-    "Placed at site:lsc-canfranc (dangling reference: owned by the 'facilities' lead, not yet created).",
-    "Start date not sourced in this session; see interval note."
+    "Placed at site:lsc-canfranc (now created by the facilities lead; no longer a dangling reference).",
+    "Start/end years are from secondary summaries, not a directly fetched primary source; see interval note. `status: completed` itself is directly sourced."
   ],
   "parent_detector_id": null,
   "placements": [
@@ -40,20 +41,22 @@
       "confidence": "uncertain",
       "end": null,
       "locator": "NEXT original proposal (arXiv:1210.4020)",
-      "note": "site:lsc-canfranc is owned by the 'facilities' Wave 3 lead and does not exist yet in this repository (dangling reference).",
+      "note": "",
       "quote": "approved to start data taking at the Laboratorio Subterráneo de Canfranc (LSC), Spain, in 2014",
       "role": "prototype",
       "site_id": "site:lsc-canfranc",
       "sources": [
         "src:next-arxiv-1210-4020-original-proposal"
       ],
-      "start": null,
+      "start": "2016",
+      "end": "2021",
       "verified_at": "2026-09-17"
     }
   ],
   "schema": "hep-atlas/0.2",
   "sources": [
-    "src:next-arxiv-1210-4020-original-proposal"
+    "src:next-arxiv-1210-4020-original-proposal",
+    "src:next-arxiv-2201-10907-status"
   ],
   "specs": {
     "isotope": {

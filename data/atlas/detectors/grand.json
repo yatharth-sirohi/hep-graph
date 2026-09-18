@@ -5,7 +5,12 @@
   "aliases": ["GP300"],
   "experiment_ids": ["experiment:grand"],
   "parent_detector_id": null,
-  "placements": [],
+  "placements": [
+    {"site_id": "site:grandproto300-dunhuang", "role": "prototype", "start": "2023-06", "end": null,
+     "sources": ["src:astro-neutrino-grandproto300-progress-icrc2025"], "verified_at": "2026-09-17", "confidence": "uncertain",
+     "quote": "200 km² in the Gobi Desert near Xiaodushan, in northern Dunhuang, China",
+     "note": "Placed at the nearest named city (Dunhuang) as a coarse regional pointer only; see site:grandproto300-dunhuang for why no precise coordinate exists."}
+  ],
   "technology": {
     "value": "Surface radio antenna array detecting the radio pulses from extensive air showers and Earth-skimming neutrino-induced showers",
     "sources": ["src:astro-neutrino-grandproto300-progress-icrc2025"],
@@ -50,13 +55,13 @@
   "document_ids": [],
   "links": {"website": null},
   "notes": [
-    "No placement: no source fetched this session gives a numeric coordinate for the Gobi Desert / Dunhuang site (only 'near Xiaodushan, in northern Dunhuang, China'); a coordinate was not invented per A17."
+    "No source fetched this session gives a numeric coordinate for the precise Gobi Desert / Dunhuang array site (only 'near Xiaodushan, in northern Dunhuang, China'); the placement above points at the nearest named city (Dunhuang) as a coarse regional pointer rather than a surveyed array position, per A17's fallback rule."
   ],
   "summary": {
     "plain": "A prototype radio antenna array in the Gobi Desert in China, testing the technology for a much bigger planned array to detect cosmic rays and neutrinos.",
     "technical": "GRANDProto300 pathfinder array in the Gobi Desert near Dunhuang, China: grew from a 13-antenna stage (deployed 2023-06) to a 65-antenna stage covering ~30 km² (2025-04), validating the radio-detection approach for the full GRAND design."
   },
   "coverage": {"researched": "partial", "tier": "B"},
-  "sources": ["src:astro-neutrino-grandproto300-progress-icrc2025"],
+  "sources": ["src:astro-neutrino-grandproto300-progress-icrc2025", "src:astro-neutrino-grand-wikipedia-dunhuang"],
   "schema": "hep-atlas/0.2"
 }

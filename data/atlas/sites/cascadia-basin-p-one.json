@@ -1,0 +1,40 @@
+{
+  "id": "site:cascadia-basin-p-one",
+  "type": "site",
+  "name": "Cascadia Basin, P-ONE site",
+  "aliases": ["NEPTUNE Cascadia Basin node"],
+  "facility_id": null,
+  "coordinates": {
+    "lat": 48.89889,
+    "lon": -125.27444,
+    "kind": "campus",
+    "precision_m": 250000,
+    "sources": ["src:astro-neutrino-p-one-wikipedia-barkley-sound", "src:astro-neutrino-p-one-straw-site-characterization-2021"],
+    "verified_at": "2026-09-17",
+    "confidence": "uncertain",
+    "quote": "An established ONC site, known as the Cascadia Basin, 2,660 m below sea level",
+    "note": "No official P-ONE/Ocean Networks Canada page, journal article or Wikipedia entry fetched this session gives numeric coordinates for the Cascadia Basin seafloor node itself; all describe it only qualitatively ('~200 km off the coast of British Columbia/Vancouver Island', 'off the west coast of Vancouver Island in Barkley Sound'). This point is Barkley Sound (from Wikipedia, rank 12), the nearest real, named coastal feature to the NEPTUNE cabled observatory that P-ONE builds on; the actual seafloor site is roughly 200 km further offshore at 2660 m depth, not at this coastal point. `kind` is 'campus' with `confidence: uncertain` and a large precision_m, per A23, precisely because this is a coarse regional pointer, not a surveyed seafloor position."
+  },
+  "setting": "sea",
+  "depth": {
+    "value": 2660, "unit": "m", "dimension": "length", "approx": false, "display": "2660 m",
+    "sources": ["src:astro-neutrino-p-one-straw-site-characterization-2021"], "verified_at": "2026-09-17", "confidence": "verified",
+    "quote": "An established ONC site, known as the Cascadia Basin, 2,660 m below sea level, provides an ideal environment for a large scale undersea neutrino telescope.", "note": ""
+  },
+  "depth_rock": null,
+  "depth_mwe": null,
+  "altitude": null,
+  "country": "CA",
+  "countries": ["CA"],
+  "place": {"city": null, "region": "Cascadia Basin, off Vancouver Island, British Columbia", "country": "CA"},
+  "document_ids": [],
+  "summary": {
+    "plain": "A deep patch of the Pacific Ocean floor off the west coast of Vancouver Island, Canada, more than 2.6 kilometres down, where a planned neutrino telescope will one day be built using an existing undersea cable network.",
+    "technical": "Cascadia Basin seafloor site on Ocean Networks Canada's NEPTUNE cabled observatory, 2660 m depth, roughly 200 km off the coast of Vancouver Island/British Columbia; coordinates recorded as the nearest named coastal feature (Barkley Sound) as a coarse regional pointer, not a surveyed seafloor position."
+  },
+  "sources": ["src:astro-neutrino-p-one-straw-site-characterization-2021"],
+  "links": {"website": null},
+  "notes": [],
+  "coverage": {"researched": "partial", "tier": "B"},
+  "schema": "hep-atlas/0.2"
+}

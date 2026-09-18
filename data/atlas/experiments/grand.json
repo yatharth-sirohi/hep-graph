@@ -19,27 +19,7 @@
       "sources": ["src:astro-neutrino-grand-white-paper-2018"],
       "verified_at": "2026-09-17", "confidence": "verified",
       "quote": "planned large-scale observatory: 20 separate, independent sub-arrays, each of 10,000 radio antennas deployed over 10,000 km^2",
-      "note": "Start is the 2018 white paper's submission date; the full 200,000-antenna GRAND array remains at the proposal stage as of the most recent prototype paper fetched (2026)."
-    },
-    {
-      "label": "GRANDProto300 13-antenna stage (GP300_s13)",
-      "status": "commissioning",
-      "start": "2023-06",
-      "end": "2025-04",
-      "sources": ["src:astro-neutrino-grandproto300-progress-icrc2025"],
-      "verified_at": "2026-09-17", "confidence": "verified",
-      "quote": "In June 2023, the deployment of the 13-antenna stage, GP300_s13, was completed.",
-      "note": "13-antenna configuration operated for nearly two years before being extended/decommissioned in April 2025; this is a prototype/pathfinder stage of the GRAND programme, not the full array."
-    },
-    {
-      "label": "GRANDProto300 65-antenna stage (GP300_s65)",
-      "status": "commissioning",
-      "start": "2025-04",
-      "end": null,
-      "sources": ["src:astro-neutrino-grandproto300-progress-icrc2025"],
-      "verified_at": "2026-09-17", "confidence": "verified",
-      "quote": "By April 2025, the array was extended to its current 65-antenna stage (GP300_s65), built south of GP13, covering an area of about 30 km².",
-      "note": "Prototype/pathfinder stage; the design GRANDProto300 target is 300 antennas over 200 km²."
+      "note": "Start is the 2018 white paper's submission date; the full 200,000-antenna GRAND array remains at the proposal stage as of the most recent prototype paper fetched (2026). The GRANDProto300 prototype's own construction/commissioning intervals are modelled on detector:grand rather than here, so that this experiment-level status continues to reflect the collaboration's own current description of the full array as 'proposed' (A10); see detector:grand for the prototype's active build-out."
     }
   ],
   "status": "proposed",
@@ -82,7 +62,7 @@
   "result_ids": [],
   "links": {"website": null},
   "notes": [
-    "No site record was created for GRAND: GRANDProto300 is located, per its collaboration's own progress paper, '200 km^2 in the Gobi Desert near Xiaodushan, in northern Dunhuang, China', but no fetched source states a numeric latitude/longitude. Per A17, a coordinate was not invented; detector:grand's placements are left empty with the same note.",
+    "detector:grand is placed at site:grandproto300-dunhuang, the nearest named city to GRANDProto300's actual location ('200 km^2 in the Gobi Desert near Xiaodushan, in northern Dunhuang, China' per the collaboration's own progress paper) -- no fetched source states a numeric latitude/longitude for the array itself, so the city point is used as a coarse regional pointer (kind: campus, confidence: uncertain) rather than a surveyed position, per A17's fallback rule.",
     "Three small-scale prototype arrays exist since 2023 per the 2026 JINST paper: GRAND@Nancay (France), GRAND@Auger (Argentina) and GRANDProto300 (China); only GRANDProto300 is modelled in any detail here since it is the collaboration's own most-covered prototype in the sources fetched.",
     "No INSPIRE experiment-registry lookup was performed for GRAND in this session; external.inspire_experiment left null.",
     "Derived fields (detector_ids, site_ids, result_ids, document_ids) are deliberately not written (v0.2 A1)."

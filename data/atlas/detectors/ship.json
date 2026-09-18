@@ -1,79 +1,91 @@
 {
-  "schema": "hep-atlas/0.2",
-  "id": "detector:ship",
-  "type": "detector",
-  "name": "SHiP detector",
   "aliases": [],
   "coverage": {
-    "tier": "B",
-    "researched": "partial"
+    "researched": "partial",
+    "tier": "B"
   },
   "experiment_ids": [
     "experiment:ship"
   ],
-  "parent_detector_id": null,
-  "placements": [
+  "id": "detector:ship",
+  "intervals": [
     {
-      "site_id": "site:cern-ecn3-north-area",
-      "role": "main",
+      "confidence": "uncertain",
+      "end": null,
+      "label": "approved, not yet built",
+      "note": "Mirrors experiment:ship's 'approved for ECN3' interval; sourced only to a Wikipedia pointer (rank 12), see experiment:ship notes.",
+      "sources": [
+        "src:ship-wikipedia-pointer"
+      ],
+      "start": "2024",
+      "status": "approved",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "planned construction/operation",
+      "note": "See experiment:ship notes on the Wikipedia-only sourcing for the 2033 start date.",
+      "sources": [
+        "src:ship-wikipedia-pointer"
+      ],
       "start": {
         "date": "2033",
         "planned": true
       },
+      "status": "approved",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "SHiP detector",
+  "notes": [
+    "Not yet constructed; all interval/placement dates are `planned: true` and rest on a Wikipedia pointer for the specific year, per experiment:ship notes."
+  ],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "uncertain",
       "end": null,
+      "note": "Not yet built; planned placement at the ECN3 cavern per the official site's reference to the 'High-Intensity ECN3 Facility'. Start date (2033) sourced only to a Wikipedia pointer (rank 12); see experiment:ship notes.",
+      "role": "main",
+      "site_id": "site:cern-ecn3-north-area",
       "sources": [
         "src:ship-official-site",
         "src:ship-wikipedia-pointer"
       ],
-      "verified_at": "2026-09-17",
-      "confidence": "uncertain",
-      "note": "Not yet built; planned placement at the ECN3 cavern per the official site's reference to the 'High-Intensity ECN3 Facility'. Start date (2033) sourced only to a Wikipedia pointer (rank 12); see experiment:ship notes."
+      "start": {
+        "date": "2033",
+        "planned": true
+      },
+      "verified_at": "2026-09-17"
     }
   ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:ship-official-site"
+  ],
+  "specs": {},
+  "status": "approved",
+  "subsystems": [],
+  "summary": {
+    "plain": "The planned SHiP detector: a beam-dump target, a muon shield, an empty decay volume, and a spectrometer, built to catch the decays of hypothetical new particles that could otherwise pass through matter unnoticed.",
+    "technical": "Planned beam-dump/decay-volume detector at ECN3: heavy target absorbing the SPS proton beam, active muon shield, large vacuum decay vessel and downstream spectrometer/calorimeter for reconstructing displaced decays of feebly interacting particles."
+  },
   "technology": {
-    "value": "High-intensity proton beam-dump on a heavy target, followed by a muon shield, a large vacuum decay volume and a downstream spectrometer/calorimeter system to reconstruct decays of feebly interacting long-lived particles",
+    "confidence": "verified",
+    "note": "",
     "sources": [
       "src:ship-official-site"
     ],
-    "verified_at": "2026-09-17",
-    "confidence": "verified",
-    "note": ""
+    "value": "High-intensity proton beam-dump on a heavy target, followed by a muon shield, a large vacuum decay volume and a downstream spectrometer/calorimeter system to reconstruct decays of feebly interacting long-lived particles",
+    "verified_at": "2026-09-17"
   },
   "technology_class": "spectrometer",
   "technology_classes": [
     "spectrometer"
   ],
-  "intervals": [
-    {
-      "label": "planned construction/operation",
-      "status": "approved",
-      "start": {
-        "date": "2033",
-        "planned": true
-      },
-      "end": null,
-      "sources": [
-        "src:ship-wikipedia-pointer"
-      ],
-      "verified_at": "2026-09-17",
-      "confidence": "uncertain",
-      "note": "See experiment:ship notes on the Wikipedia-only sourcing for the 2033 start date."
-    }
-  ],
-  "status": "approved",
-  "specs": {},
-  "subsystems": [],
-  "links": {
-    "website": null
-  },
-  "summary": {
-    "plain": "The planned SHiP detector: a beam-dump target, a muon shield, an empty decay volume, and a spectrometer, built to catch the decays of hypothetical new particles that could otherwise pass through matter unnoticed.",
-    "technical": "Planned beam-dump/decay-volume detector at ECN3: heavy target absorbing the SPS proton beam, active muon shield, large vacuum decay vessel and downstream spectrometer/calorimeter for reconstructing displaced decays of feebly interacting particles."
-  },
-  "notes": [
-    "Not yet constructed; all interval/placement dates are `planned: true` and rest on a Wikipedia pointer for the specific year, per experiment:ship notes."
-  ],
-  "sources": [
-    "src:ship-official-site"
-  ]
+  "type": "detector"
 }

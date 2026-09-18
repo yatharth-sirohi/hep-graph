@@ -56,13 +56,14 @@
     "host_site_id left null: no sourced site placement exists (see experiment:mathusla notes).",
     "No official membership count found.",
     "Leadership left empty: person records are owned by another workstream.",
-    "Derived field collaboration.experiment_ids is deliberately not written (v0.2 A1)."
+    "Derived field collaboration.experiment_ids is deliberately not written (v0.2 A1).",
+    "`status` is null rather than 'proposed'/'active': no interval carries a non-planned start date that covers the current build date, so the A3/A10-derived state is genuinely 'unrecorded' and the validator requires `status` to match that (null) rather than asserting a covering status with no covering interval."
   ],
   "schema": "hep-atlas/0.2",
   "sources": [
     "src:mathusla-official-site"
   ],
-  "status": "active",
+  "status": null,
   "summary": {
     "plain": "The team of physicists designing the proposed MATHUSLA detector for long-lived particles at CERN.",
     "technical": "Collaboration developing the proposed MATHUSLA surface detector; the official site states it is 'working on a revised geometry with reduced size and cost' but gives no formation date or membership count."

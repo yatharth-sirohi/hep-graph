@@ -1,8 +1,6 @@
 {
   "accelerator_ids": [],
-  "aliases": [
-    "Project8"
-  ],
+  "aliases": [],
   "beamline_ids": [],
   "collaboration_ids": [
     "collaboration:project-8"
@@ -52,12 +50,12 @@
       "end": null,
       "label": "Phase II: first CRES measurement of molecular tritium",
       "locator": "Project 8 Phase II apparatus paper (arXiv:2503.08807), abstract",
-      "note": "Exact start year for Phase II is not stated with day/month precision in the abstract fetched; recorded with the paper's own publication year as an upper bound on when this milestone had been achieved, not as the phase's start date.",
+      "note": "Exact start date of Phase II itself is not stated in the abstract fetched; `start` (2025-03) is the publication month of the paper describing the Phase II apparatus and its first CRES measurement of molecular tritium — an upper bound on when Phase II was already under way, not the phase's true start date. Recorded this way, rather than `start: null`, because a null start with a null end would derive to 'no presence at all' for a phase that is demonstrably active.",
       "quote": "we describe the Project 8 Phase II apparatus, used for the detection of the CRES signal from the conversion electrons of 83mKr and the first CRES measurement of the beta-decay spectrum of molecular tritium",
       "sources": [
         "src:project8-arxiv-2503-08807-phase2"
       ],
-      "start": null,
+      "start": "2025-03",
       "status": "active",
       "verified_at": "2026-09-17"
     },
@@ -101,15 +99,15 @@
         "approx": true,
         "confidence": "verified",
         "dimension": "mass_energy",
-        "display": "~40 meV",
+        "display": "~0.04 eV/c^2 (40 meV)",
         "locator": "CENPA seminar announcement (npl.washington.edu/node/1554)",
-        "note": "This is the long-term Phase IV design goal using atomic tritium, not a current achieved sensitivity.",
+        "note": "This is the long-term Phase IV design goal using atomic tritium, not a current achieved sensitivity. The ontology's `mass_energy` dimension does not define a meV unit, so value/unit are recorded in eV/c^2 (0.04) while `display` keeps the source's own wording (40 meV).",
         "quote": "Project 8 aims to reach neutrino mass sensitivity down to 40 meV",
         "sources": [
           "src:project8-cenpa-npl-node-1554"
         ],
-        "unit": "meV",
-        "value": 40,
+        "unit": "eV/c^2",
+        "value": 0.04,
         "verified_at": "2026-09-17"
       }
     }

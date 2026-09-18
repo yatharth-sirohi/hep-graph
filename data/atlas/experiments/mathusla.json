@@ -1,148 +1,149 @@
 {
-  "schema": "hep-atlas/0.2",
-  "id": "experiment:mathusla",
-  "type": "experiment",
-  "name": "MATHUSLA",
-  "aliases": [
-    "MAssive Timing Hodoscope for Ultra Stable neutraL pArticles"
-  ],
-  "coverage": {
-    "tier": "C",
-    "researched": "partial"
-  },
-  "kind": "long_lived_particle",
-  "secondary_kinds": [],
-  "collaboration_ids": [
-    "collaboration:mathusla"
-  ],
-  "facility_roles": [
-    {
-      "facility_id": "facility:cern",
-      "role": "host",
-      "start": null,
-      "end": null,
-      "sources": [
-        "src:mathusla-official-site"
-      ],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
-      "note": "Proposed surface detector at CERN; the official site does not name a specific interaction point (e.g. Point 5/CMS)."
-    }
-  ],
-  "beamline_ids": [],
   "accelerator_ids": [
     "accelerator:lhc"
   ],
+  "aliases": [
+    "MAssive Timing Hodoscope for Ultra Stable neutraL pArticles"
+  ],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:mathusla"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "energy_regime": null,
+  "external": {
+    "greybook": null,
+    "inspire_experiment": 1716435,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:cern",
+      "note": "Proposed surface detector at CERN; the official site does not name a specific interaction point (e.g. Point 5/CMS).",
+      "role": "host",
+      "sources": [
+        "src:mathusla-official-site"
+      ],
+      "start": null,
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "id": "experiment:mathusla",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "proposed",
+      "note": "No specific proposal date is stated on the fetched page; recorded as an undated `proposed` status.",
+      "quote": "proposed detector",
+      "sources": [
+        "src:mathusla-official-site"
+      ],
+      "start": null,
+      "status": "proposed",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "planned start (with HL-LHC)",
+      "note": "",
+      "quote": "go online with the HL-LHC upgrade to the Large Hadron Collider in ~2029",
+      "sources": [
+        "src:mathusla-official-site"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2029",
+        "planned": true
+      },
+      "status": "proposed",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Proposed decay-volume dimensions",
+      "quantity": {
+        "approx": true,
+        "confidence": "verified",
+        "dimension": "length",
+        "display": "11 m tall (proposed 40 m x 40 m x 11 m decay volume)",
+        "note": "Value/unit record only the height (11 m) of the proposed decay volume; the full footprint is carried in `display`. The collaboration is also reported to be revising this geometry to a smaller, cheaper design.",
+        "quote": "40 m x 40 m x 11 m",
+        "sources": [
+          "src:mathusla-official-site"
+        ],
+        "unit": "m",
+        "value": 11,
+        "verified_at": "2026-09-17"
+      }
+    }
+  ],
+  "kind": "long_lived_particle",
+  "lineage": [],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "note": "",
+      "sources": [
+        "src:mathusla-official-site"
+      ],
+      "value": "https://mathusla-experiment.web.cern.ch/",
+      "verified_at": "2026-09-17"
+    }
+  },
+  "name": "MATHUSLA",
+  "notes": [
+    "Derived fields (detector_ids, site_ids, result_ids, document_ids) are deliberately not written (v0.2 A1).",
+    "No new site created, per the brief: the official page states only that the surface location shields it from ATLAS/CMS backgrounds, without naming a specific interaction point (e.g. Point 5); no detector placement/site_id is recorded rather than guessing which LHC point.",
+    "accelerator_ids references accelerator:lhc (owned by the cern-atlas workstream) since MATHUSLA is explicitly tied to HL-LHC collisions as its particle source, not the SPS fixed-target programme; kept in this file despite being outside the classic 'fixed-target' sense because MATHUSLA is assigned to this workstream by the ID_REGISTRY.",
+    "No collaboration membership counts found on the official site.",
+    "`status` is null rather than 'proposed'/'active': no interval carries a non-planned start date that covers the current build date, so the A3/A10-derived state is genuinely 'unrecorded' and the validator requires `status` to match that (null) rather than asserting a covering status with no covering interval."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "note": "",
+      "sources": [
+        "src:mathusla-official-site"
+      ],
+      "value": "Detect neutral, weakly coupled, long-lived particles (LLPs) with masses above roughly 1 GeV and lifetimes up to the Big Bang Nucleosynthesis limit, produced in LHC proton-proton collisions",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:mathusla-official-site",
+    "src:mathusla-inspire-experiment-record"
+  ],
+  "status": null,
+  "summary": {
+    "plain": "MATHUSLA is a proposed detector that would sit on the surface at CERN, far above the LHC's underground collisions, to catch new particles so weakly interacting and long-lived that they could fly through ordinary detectors unnoticed.",
+    "technical": "Proposed large-volume (40 m x 40 m x 11 m, under revision) surface detector near the LHC, designed to reconstruct displaced decay vertices of neutral long-lived particles produced in pp collisions, with a background-free environment enabled by its surface location and distance from the interaction point; proposed to come online with the HL-LHC upgrade (~2029)."
+  },
   "topic_ids": [
     "topic:long-lived-particles",
     "topic:heavy-neutral-leptons",
     "topic:cosmic-rays"
   ],
-  "intervals": [
-    {
-      "label": "proposed",
-      "status": "proposed",
-      "start": null,
-      "end": null,
-      "sources": [
-        "src:mathusla-official-site"
-      ],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
-      "quote": "proposed detector",
-      "note": "No specific proposal date is stated on the fetched page; recorded as an undated `proposed` status."
-    },
-    {
-      "label": "planned start (with HL-LHC)",
-      "status": "proposed",
-      "start": {
-        "date": "2029",
-        "approx": true,
-        "planned": true
-      },
-      "end": null,
-      "sources": [
-        "src:mathusla-official-site"
-      ],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
-      "quote": "go online with the HL-LHC upgrade to the Large Hadron Collider in ~2029",
-      "note": ""
-    }
-  ],
-  "status": "proposed",
-  "physics_goals": [
-    {
-      "value": "Detect neutral, weakly coupled, long-lived particles (LLPs) with masses above roughly 1 GeV and lifetimes up to the Big Bang Nucleosynthesis limit, produced in LHC proton-proton collisions",
-      "sources": [
-        "src:mathusla-official-site"
-      ],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
-      "note": ""
-    }
-  ],
+  "type": "experiment",
   "unique_capabilities": [
     {
-      "value": "A large (proposed 40 m x 40 m x 11 m) surface detector, shielded from beam-related backgrounds by its distance and position above ground, giving a background-free environment with no trigger limitations for reconstructing displaced LLP decay vertices; can also function as a cosmic-ray telescope",
-      "sources": [
-        "src:mathusla-official-site"
-      ],
-      "verified_at": "2026-09-17",
       "confidence": "verified",
+      "note": "",
       "quote": "background free environment and no trigger limitations",
-      "note": ""
-    }
-  ],
-  "energy_regime": null,
-  "key_specs": [
-    {
-      "label": "Proposed decay-volume dimensions",
-      "quantity": {
-        "value": 11,
-        "unit": "m",
-        "dimension": "length",
-        "approx": true,
-        "display": "40 m x 40 m x 11 m (proposed)",
-        "sources": [
-          "src:mathusla-official-site"
-        ],
-        "verified_at": "2026-09-17",
-        "confidence": "verified",
-        "quote": "40 m x 40 m x 11 m",
-        "note": "Value/unit record only the height (11 m) of the proposed decay volume; the full footprint is carried in `display`. The collaboration is also reported to be revising this geometry to a smaller, cheaper design."
-      }
-    }
-  ],
-  "lineage": [],
-  "external": {
-    "inspire_experiment": 1716435,
-    "greybook": null,
-    "wikidata": null
-  },
-  "links": {
-    "website": {
-      "value": "https://mathusla-experiment.web.cern.ch/",
       "sources": [
         "src:mathusla-official-site"
       ],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
-      "note": ""
+      "value": "A large (proposed 40 m x 40 m x 11 m) surface detector, shielded from beam-related backgrounds by its distance and position above ground, giving a background-free environment with no trigger limitations for reconstructing displaced LLP decay vertices; can also function as a cosmic-ray telescope",
+      "verified_at": "2026-09-17"
     }
-  },
-  "summary": {
-    "plain": "MATHUSLA is a proposed detector that would sit on the surface at CERN, far above the LHC's underground collisions, to catch new particles so weakly interacting and long-lived that they could fly through ordinary detectors unnoticed.",
-    "technical": "Proposed large-volume (40 m x 40 m x 11 m, under revision) surface detector near the LHC, designed to reconstruct displaced decay vertices of neutral long-lived particles produced in pp collisions, with a background-free environment enabled by its surface location and distance from the interaction point; proposed to come online with the HL-LHC upgrade (~2029)."
-  },
-  "notes": [
-    "Derived fields (detector_ids, site_ids, result_ids, document_ids) are deliberately not written (v0.2 A1).",
-    "No new site created, per the brief: the official page states only that the surface location shields it from ATLAS/CMS backgrounds, without naming a specific interaction point (e.g. Point 5); no detector placement/site_id is recorded rather than guessing which LHC point.",
-    "accelerator_ids references accelerator:lhc (owned by the cern-atlas workstream) since MATHUSLA is explicitly tied to HL-LHC collisions as its particle source, not the SPS fixed-target programme; kept in this file despite being outside the classic 'fixed-target' sense because MATHUSLA is assigned to this workstream by the ID_REGISTRY.",
-    "No collaboration membership counts found on the official site."
-  ],
-  "sources": [
-    "src:mathusla-official-site",
-    "src:mathusla-inspire-experiment-record"
   ]
 }
