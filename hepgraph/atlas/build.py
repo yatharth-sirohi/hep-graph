@@ -189,7 +189,7 @@ class Stripper:
             # A23: the globe must be able to draw an admitted approximation
             # differently without fetching provenance.json, so the one bit of
             # confidence that changes the marker travels with the point.
-            if value.get('confidence') in ('approximate', 'uncertain'):
+            if value.get('confidence') in ('approximate', 'uncertain', 'derived'):
                 kept['approximate'] = True
             return kept
         if schema.is_interval(value):
