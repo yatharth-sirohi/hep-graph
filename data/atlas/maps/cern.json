@@ -1,0 +1,178 @@
+{
+  "aliases": [],
+  "center": {
+    "confidence": "derived",
+    "kind": "campus",
+    "lat": 46.2720455,
+    "locator": "Arithmetic mean of the 275 unique vertices of the merged LHC ring (OSM relation 9512017)",
+    "lon": 6.0663249,
+    "note": "Map centre only; not a claim about any structure. precision_m is set loosely (5 km) because this is a naive vertex-average centroid, not an area centroid.",
+    "precision_m": 5000,
+    "sources": [
+      "src:geo-cern-osm-lhc-relation"
+    ],
+    "verified_at": "2026-09-18"
+  },
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "extent_m": 9000,
+  "facility_id": "facility:cern",
+  "id": "map:cern",
+  "levels": [
+    {
+      "depth_m": null,
+      "id": "surface",
+      "kind": "surface",
+      "name": "Surface",
+      "note": ""
+    },
+    {
+      "depth_m": {
+        "confidence": "verified",
+        "dimension": "length",
+        "display": "56–100 m (varies by point)",
+        "max": 100,
+        "min": 56,
+        "note": "These are the four instrumented points' own surveyed/published depths, not the full ring's extreme range: no fetched source this session gives a whole-ring minimum/maximum depth (the often-quoted '45–170 m' figure appears only on secondary pages without an attributable primary citation, so it is not used here).",
+        "quote": "ALICE: 'The detector sits in a vast cavern 56 m below ground'; ATLAS and LHCb: 'sits in a cavern 100 m below ground' / 'sits 100 metres below ground'; CMS: '89 m below Earth's surface'; LHC ring generally: 'The accelerator sits in a tunnel 100 metres underground at CERN'.",
+        "sources": [
+          "src:cern-lhc-page",
+          "src:cern-atlas-page",
+          "src:lep-cern-alice-experiment-page",
+          "src:lep-cern-lhcb-experiment-page",
+          "src:cms-muon-charge-ratio-paper-2010"
+        ],
+        "unit": "m",
+        "verified_at": "2026-09-18"
+      },
+      "id": "lhc-lep-tunnel",
+      "kind": "underground",
+      "name": "LHC/LEP tunnel and experiment caverns",
+      "note": "Plan view; depth varies with the Jura slope. Houses geometry:lhc-tunnel-ring, geometry:lep-tunnel-ring and the Point 1/2/5/8 boundaries and the CMS cavern point."
+    },
+    {
+      "depth_m": null,
+      "id": "sps-tunnel",
+      "kind": "underground",
+      "name": "SPS tunnel",
+      "note": "No fetched source states the SPS tunnel's depth below surface this session (left null per A17 rather than guessed)."
+    },
+    {
+      "depth_m": null,
+      "id": "ps-psb-tunnel",
+      "kind": "underground",
+      "name": "PS / PSB tunnels (shallow)",
+      "note": "No fetched source states the PS or PSB tunnel depth below surface this session (left null per A17 rather than guessed); both are shallower than the LHC/SPS tunnels per general CERN accelerator-chain descriptions, but that qualitative claim is not itself independently sourced here."
+    }
+  ],
+  "linked_map_ids": [],
+  "links": {
+    "website": null
+  },
+  "name": "CERN — Meyrin, Prévessin and the LHC ring",
+  "notes": [
+    "Linked maps: map:lngs (the CNGS far site at LNGS) does not exist yet in this atlas; linked_map_ids is left empty here and the build's automatic derivation (from beamline:cngs's far_detector_site_ids) will populate it once LNGS has its own map.",
+    "site:cern-lep-point-2-l3 and site:cern-point-2-alice, and site:cern-lep-point-8-delphi and site:cern-point-8-lhcb, are drawn as separate geometry features using the SAME underlying OSM polygon (the same physical Point 2 / Point 8 enclosure hosted a LEP experiment 1989-2000 and hosts an LHC experiment today); this is expected to raise the validator's geometry-duplicate-shape warning for those two pairs, documented here and in the worklog rather than avoided by omission."
+  ],
+  "schema": "hep-atlas/0.2",
+  "schematics": [
+    {
+      "note": "Official CERN Document Server diagram; topology only, not geographic. Never drawn on the to-scale map.",
+      "source_id": "src:geo-cern-accelerator-complex-2022-diagram",
+      "title": "The CERN accelerator complex, layout in 2022 (schematic, not to scale)"
+    }
+  ],
+  "site_ids": [
+    "site:cern-meyrin",
+    "site:cern-point-1-atlas",
+    "site:cern-point-2-alice",
+    "site:cern-point-5-cms",
+    "site:cern-point-8-lhcb",
+    "site:cern-lep-point-2-l3",
+    "site:cern-lep-point-4-aleph",
+    "site:cern-lep-point-8-delphi",
+    "site:cern-sps-lss4-ua2",
+    "site:cern-sps-lss5-ua1",
+    "site:cern-ti12-faser",
+    "site:cern-ti18-snd-lhc",
+    "site:cern-cast-sr8",
+    "site:cern-ecn3-north-area",
+    "site:cern-neutrino-platform-ehn1"
+  ],
+  "sources": [
+    "src:geo-cern-osm-lhc-relation",
+    "src:cern-lhc-page"
+  ],
+  "summary": {
+    "plain": "CERN's main campus on the France-Switzerland border near Geneva: the 27-km LHC/LEP ring, the SPS, PS and PSB injector rings, and the surface sites of the ATLAS, CMS, ALICE and LHCb experiments, drawn to scale from OpenStreetMap and CERN's own published figures.",
+    "technical": "One local map for facility:cern spanning the Meyrin and Prévessin sites and the full LHC/LEP tunnel footprint. Geometry sourced from OpenStreetMap (relation 9512017 for the LHC/LEP ring; ways 66473762/174646428/309914733 for SPS/PS/PSB; named Point-N surface enclosures for ATLAS/ALICE/CMS/LHCb and their LEP-era predecessors L3/ALEPH/DELPHI) cross-checked against CERN's published circumference and depth figures, plus one CMS-paper surveyed cavern point and two ring-derived points for FASER/SND@LHC in TI12/TI18."
+  },
+  "type": "map",
+  "unlocated": [
+    {
+      "backlog": "Search CERN's historical civil-engineering archive or a 1970s ISR design report for a site plan with a scale bar; georeference against the Meyrin buildings that still exist.",
+      "entity_id": "accelerator:isr",
+      "reason": "The Intersecting Storage Rings occupied part of the Meyrin site until 1984. No OpenStreetMap trace was found this session (three Overpass name searches for 'ISR'/'Intersecting Storage' in the Meyrin bbox returned zero elements), and no other fetched source gives coordinates or a civil-engineering plan for its tunnel.",
+      "sources": [
+        "src:cern-isr-page"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    {
+      "backlog": "Locate the new HL-LHC shafts/caverns (e.g. PM18, PM15) via CERN's HL-LHC civil-engineering pages and add them as their own geometry records once sourced.",
+      "entity_id": "accelerator:hl-lhc",
+      "reason": "HL-LHC is an in-place upgrade of the existing LHC ring (drawn as geometry:lhc-tunnel-ring under accelerator:lhc), not a separate structure, so drawing a second ring would misrepresent it as a distinct tunnel. Its own new civil works (e.g. the new shafts and service caverns being added at Points 1 and 5) are not located by any source fetched this session.",
+      "sources": [
+        "src:cern-hilumi-lhc-page"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    {
+      "backlog": "Find Linac2's building number/plan via a CERN historical-photo or civil-engineering page (it stood near the current Linac4/PSB area before demolition).",
+      "entity_id": "accelerator:linac2",
+      "reason": "Linac2 (in operation 1978-2018, now decommissioned) has no OpenStreetMap building trace (a name search for 'Linac 2'/'LINAC2' in the Meyrin bbox returned zero elements this session) and no fetched CERN page gives its location or footprint.",
+      "sources": [
+        "src:cern-linac2-page"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    {
+      "backlog": "Locate LSS4 via an SPS civil-engineering drawing or the UA2 detector paper's stated azimuthal position along the SPS ring.",
+      "entity_id": "site:cern-sps-lss4-ua2",
+      "reason": "UA2's hall at SPS Long Straight Section 4. No OpenStreetMap trace was found this session (a name search for 'UA1|UA2|LSS4|LSS5' across the SPS-ring bbox returned zero elements) and the existing site record's own coordinate is an unsourced-precision Meyrin-campus fallback (precision_m 3000).",
+      "sources": [
+        "src:ua2-cern-experiment-page"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    {
+      "backlog": "Locate LSS5 via an SPS civil-engineering drawing or the UA1 detector paper's stated azimuthal position along the SPS ring.",
+      "entity_id": "site:cern-sps-lss5-ua1",
+      "reason": "UA1's hall at SPS Long Straight Section 5. Same search and sourcing gap as site:cern-sps-lss4-ua2.",
+      "sources": [
+        "src:ua1-cern-experiment-page"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    {
+      "backlog": "Ask CERN's GIS/survey group for the CAST platform's coordinates, or find an open-days site plan showing its position relative to Point 8.",
+      "entity_id": "site:cern-cast-sr8",
+      "reason": "CAST's telescope building near LHC Point 8/SR8. No OpenStreetMap trace was found this session (a name search for 'CAST' near Point 8, radius 1.5 km, returned zero elements) and the existing site record itself documents that no official page gives a coordinate more precise than the Point 8 campus point.",
+      "sources": [
+        "src:axions-cast-sr8-point8-cryo-doc"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    {
+      "backlog": "Locate ECN3 via CERN's North Area civil-engineering/BE-DEP-EA public drawings, or a detector-paper survey coordinate from NA62 or NA48.",
+      "entity_id": "site:cern-ecn3-north-area",
+      "reason": "ECN3 is an underground cavern in the North Area fed by the P42/K12 beamlines (currently housing NA62). It is not a surface building, so it has no OpenStreetMap footprint of its own; only the outer Prévessin site fence (way 23722021, drawn as geometry:prevessin-site-boundary, context only) and 77 numbered surface buildings with no 'ECN3' name were found in this session's North Area extract. Drawing the whole Prévessin boundary as if it were ECN3's own shape would misrepresent a small cavern as occupying the entire campus.",
+      "sources": [
+        "src:na62-cern-north-area-page"
+      ],
+      "verified_at": "2026-09-18"
+    }
+  ]
+}

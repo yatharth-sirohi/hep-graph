@@ -1,0 +1,57 @@
+{
+  "accuracy_m": 60,
+  "aliases": [],
+  "checks": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "depth_m": null,
+  "entity_id": "detector:snd-lhc",
+  "feature_type": "other",
+  "geometry": {
+    "confidence": "derived",
+    "locator": "480 m computed along geometry:lhc-tunnel-ring from ring index 1, opposite direction from TI12",
+    "note": "Point only; not a tracing of the TI18 tunnel.",
+    "quote": "The experiment is located 480 m downstream of the ATLAS interaction point, in the TI18 tunnel.",
+    "sources": [
+      "src:geo-cern-osm-lhc-relation",
+      "src:colliders-lhc-snd-lhc-detector-arxiv-2022"
+    ],
+    "value": {
+      "coordinates": [
+        6.061384853005667,
+        46.23494895442965
+      ],
+      "type": "Point"
+    },
+    "verified_at": "2026-09-18"
+  },
+  "id": "geometry:ti18-snd-lhc-point",
+  "level_id": "lhc-lep-tunnel",
+  "license": null,
+  "links": {
+    "website": null
+  },
+  "map_id": "map:cern",
+  "method": "Walked 480 m along geometry:lhc-tunnel-ring from the same ATLAS interaction-point reference (ring index 1) in the direction of decreasing ring index (toward the Point 8/LHCb side, the '81' sector, confirmed by insertion-8's 'LHCb' tag), per SND@LHC's sourced siting '480 m downstream of the ATLAS interaction point, in the TI18 tunnel' (arXiv:2210.02784 abstract). Same anchor-precision reasoning as geometry:ti12-faser-point.",
+  "name": "TI18 tunnel, SND@LHC location (derived point)",
+  "notes": [],
+  "osm": {
+    "elements": [
+      "relation/9512017"
+    ],
+    "timestamp": "2026-09-18T20:18:05Z"
+  },
+  "representation": "derived",
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:cern-ti18-snd-lhc",
+  "sources": [
+    "src:colliders-lhc-snd-lhc-detector-arxiv-2022"
+  ],
+  "summary": {
+    "plain": "A derived point 480 m from the ATLAS interaction point, along the LHC ring toward Point 8, marking SND@LHC's approximate location in the TI18 tunnel."
+  },
+  "type": "geometry",
+  "valid": null
+}
