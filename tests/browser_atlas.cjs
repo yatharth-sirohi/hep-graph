@@ -66,6 +66,26 @@ const atlasCavernSelector = `.atlas-marker[data-id="${atlasCavernId}"]`;
 const output = process.env.HEP_ATLAS_OUTPUT || path.join(__dirname, "../test-results/atlas");
 fs.mkdirSync(output, { recursive: true });
 
+// Workstream A1: site/detector/accelerator/beamline detail routes. Real ids
+// from each tree's own atlas.json (`name` is what the h2 and the search
+// result label must show verbatim), all four sharing one physical corner of
+// the atlas (Fermilab's short-baseline neutrino programme) so the fixtures
+// and the generated bundle exercise comparable relationships even though
+// their slugs differ.
+const DETAIL_ENTITIES = process.env.HEP_ATLAS_DATA === "generated"
+  ? {
+    site: { slug: "fermilab-main-campus", name: "Fermilab main campus, Batavia, Illinois" },
+    detector: { slug: "sbnd", name: "SBND detector" },
+    accelerator: { slug: "fermilab-pip-ii", name: "PIP-II" },
+    beamline: { slug: "bnb", name: "Booster Neutrino Beam (BNB)" },
+  }
+  : {
+    site: { slug: "fermilab-sbnd-hall", name: "SBND detector hall" },
+    detector: { slug: "sbnd", name: "SBND detector" },
+    accelerator: { slug: "fermilab-booster", name: "Booster" },
+    beamline: { slug: "bnb", name: "Booster Neutrino Beam" },
+  };
+
 const results = [];
 const errors = [];
 let browser;
@@ -235,6 +255,83 @@ async function setRangeValue(locator, value) {
     assert.doesNotMatch(subtitle, /·\s*$/, "document subtitle must not end in a dangling separator");
     assert.match(subtitle, /\d{4}/, "document subtitle should carry a real year");
   });
+
+  // Workstream A1: site/detector/accelerator/beamline routes. Before this,
+  // state.js's TYPE_PREFIX and panels.js's RENDERERS both lacked these four
+  // types — selecting one from global search showed "Unknown entity type",
+  // and parseHashEntity() returned null for a pasted `#/site/<slug>` link, so
+  // navigate() silently rewrote the URL and dropped the route on cold load.
+  for (const [type, meta] of Object.entries(DETAIL_ENTITIES)) {
+    const typeLabel = type[0].toUpperCase() + type.slice(1);
+    const resultLabel = `${meta.name} — ${typeLabel}`;
+    const hashRe = new RegExp(`#/${type}/${meta.slug}$`);
+
+    await record(`${typeLabel} panel: search finds "${meta.name}", opens its panel, and Escape returns focus to search`, async () => {
+      const ctx = await browser.newContext({ viewport: { width: 1440, height: 960 } });
+      const p = await ctx.newPage();
+      await p.goto(`${base}/atlas${dataTree}`);
+      await p.waitForFunction(() => document.querySelectorAll(".atlas-marker").length > 0, { timeout: 15000 });
+
+      await p.locator("#atlas-search").fill(meta.name);
+      const resultLocator = p.locator(".search-result", { hasText: resultLabel });
+      await resultLocator.first().waitFor({ timeout: 10000 });
+      const labelText = (await resultLocator.first().innerText()).trim();
+      assert.equal(labelText, resultLabel, `search result label must read "Name — Type", got "${labelText}"`);
+      await resultLocator.first().click();
+
+      await p.locator("#detail-panel h2", { hasText: meta.name }).waitFor({ timeout: 10000 });
+      assert.equal(await p.locator("#detail-panel").isHidden(), false);
+      assert.match(p.url(), hashRe, `selecting "${meta.name}" from search must route to #/${type}/${meta.slug}`);
+
+      // §23: focus returning to the trigger — whatever had focus when this
+      // entity was opened. A `mousedown`-level preventDefault in search.js
+      // keeps #atlas-search focused through the click, same as the keyboard
+      // path the a11y suite already covers.
+      await p.keyboard.press("Escape");
+      await p.waitForFunction(() => document.getElementById("detail-panel").classList.contains("hidden"));
+      const focusedId = await p.evaluate(() => document.activeElement && document.activeElement.id);
+      assert.equal(focusedId, "atlas-search", `expected focus back on #atlas-search after Escape, got "${focusedId}"`);
+      assert.doesNotMatch(p.url(), /#\//, "Escape must clear the entity hash from the URL");
+      await ctx.close();
+    });
+
+    await record(`${typeLabel} panel: a pasted cold link renders the panel, keeps the hash, survives reload, and keeps the timeline year`, async () => {
+      const ctx = await browser.newContext({ viewport: { width: 1440, height: 960 } });
+      const p = await ctx.newPage();
+      const sep = dataTree ? `${dataTree}&y=2020` : "?y=2020";
+      await p.goto(`${base}/atlas${sep}#/${type}/${meta.slug}`);
+      // The regression this guards against: parseHashEntity() returning null
+      // for an unrecognised type, so navigate() rewrites the URL and the
+      // cold link's route is silently dropped before the panel ever opens.
+      await p.locator("#detail-panel h2", { hasText: meta.name }).waitFor({ timeout: 15000 });
+      assert.match(p.url(), hashRe, "a cold link must keep its hash once the panel has rendered");
+      await p.waitForFunction(() => document.getElementById("timeline-readout").textContent.trim() === "2020");
+
+      await p.reload();
+      await p.locator("#detail-panel h2", { hasText: meta.name }).waitFor({ timeout: 15000 });
+      assert.match(p.url(), hashRe, "reloading a deep link must restore the same entity route");
+      await p.waitForFunction(() => document.getElementById("timeline-readout").textContent.trim() === "2020");
+      await ctx.close();
+    });
+
+    await record(`${typeLabel} panel: browser back returns to the state before the panel was opened`, async () => {
+      const ctx = await browser.newContext({ viewport: { width: 1440, height: 960 } });
+      const p = await ctx.newPage();
+      await p.goto(`${base}/atlas${dataTree}`);
+      await p.waitForFunction(() => document.querySelectorAll(".atlas-marker").length > 0, { timeout: 15000 });
+      assert.equal(await p.locator("#detail-panel").isHidden(), true);
+
+      await p.locator("#atlas-search").fill(meta.name);
+      await p.locator(".search-result", { hasText: resultLabel }).first().click();
+      await p.locator("#detail-panel h2", { hasText: meta.name }).waitFor({ timeout: 10000 });
+      assert.match(p.url(), hashRe);
+
+      await p.goBack();
+      await p.waitForFunction(() => document.getElementById("detail-panel").classList.contains("hidden"), { timeout: 10000 });
+      assert.doesNotMatch(p.url(), /#\//, "back must return to the pre-panel state (no entity hash)");
+      await ctx.close();
+    });
+  }
 
   await record("Fermilab facility panel lists under-construction DUNE as current, not historical", async () => {
     await page.goto(`${base}/atlas${dataTree}#/facility/fermilab`);
