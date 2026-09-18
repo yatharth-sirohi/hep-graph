@@ -24,6 +24,7 @@ Two properties of the source shape the result:
 from __future__ import annotations
 
 import argparse
+import re
 import os
 import sys
 from typing import Any
@@ -154,7 +155,8 @@ class GenealogyShardWorker(ShardWorker):
 #: them doctoral, and none of that was read by the profile crawl.
 THESIS_QUERY = "document_type:thesis AND supervisors.record.$ref:*"
 THESIS_FIELDS = ("control_number,authors.record,authors.inspire_roles,"
-                 "supervisors.record,supervisors.inspire_roles,thesis_info.degree_type")
+                 "supervisors.record,supervisors.inspire_roles,thesis_info.degree_type,"
+                 "thesis_info.date,thesis_info.defense_date")
 
 
 def supervisors_from_thesis(hit: dict[str, Any]) -> tuple[int, list[int], list[int], str | None]:
@@ -195,6 +197,22 @@ def supervisors_from_thesis(hit: dict[str, Any]) -> tuple[int, list[int], list[i
     return int(recid), students, supervisors, degree
 
 
+def thesis_year(hit: dict[str, Any]) -> int | None:
+    """The year a thesis was awarded, or None when the record does not say.
+
+    ``date`` is the award date and is present on most theses; ``defense_date``
+    is the fallback. Only a four-digit year in a plausible span is accepted -
+    a malformed date is left unknown rather than guessed at.
+    """
+    _, metadata = _metadata(hit)
+    info = metadata.get("thesis_info") if isinstance(metadata.get("thesis_info"), dict) else {}
+    for key in ("date", "defense_date"):
+        match = re.match(r"^\s*(\d{4})", str(info.get(key) or ""))
+        if match and 1600 <= int(match.group(1)) <= 2100:
+            return int(match.group(1))
+    return None
+
+
 class ThesisSupervisorShardWorker(GenealogyShardWorker):
     """The same shard protocol over thesis records instead of author profiles."""
 
@@ -214,7 +232,8 @@ class ThesisSupervisorShardWorker(GenealogyShardWorker):
                     if adviser != student]
             if kept:
                 theses += 1
-            rows.extend((self.overlay_id, adviser, student, str(thesis), degree, None,
+            year = thesis_year(hit)
+            rows.extend((self.overlay_id, adviser, student, str(thesis), degree, year,
                          False, "thesis") for adviser, student in kept)
         if rows:
             self._executemany(
@@ -222,6 +241,27 @@ class ThesisSupervisorShardWorker(GenealogyShardWorker):
                 "source_record,degree,year,curated,source_kind) "
                 "VALUES (%s,%s,%s,%s,%s,%s,%s,%s) ON CONFLICT DO NOTHING", rows)
         return theses, len(rows)
+
+
+class ThesisYearShardWorker(ThesisSupervisorShardWorker):
+    """Backfill thesis years onto relations already harvested without them.
+
+    It only updates: a relation this crawl sees but the overlay does not hold -
+    one withdrawn to quarantine, say - is not brought back by a date.
+    """
+
+    def persist(self, hits: list[Any]) -> tuple[int, int]:
+        rows = []
+        for hit in hits:
+            year = thesis_year(hit)
+            if year is not None:
+                thesis, *_ = supervisors_from_thesis(hit)
+                rows.append((year, self.overlay_id, str(thesis)))
+        if rows:
+            self._executemany(
+                "UPDATE graph_genealogy_edge SET year=%s WHERE overlay_id=%s "
+                "AND source_kind='thesis' AND source_record=%s", rows)
+        return len(hits), len(rows)
 
 
 def find_cycle(pairs: list[tuple[int, int]]) -> list[tuple[int, int]] | None:
@@ -385,6 +425,32 @@ def run_theses(url: str, *, import_id: str = "genealogy-theses-20260917",
         pipeline.LITERATURE_FIELDS = previous
 
 
+def run_thesis_years(url: str, *, import_id: str = "genealogy-thesis-years-20260918",
+                     overlay_id: str = "inspire-genealogy", low: int = 1,
+                     high: int = 4_000_000, workers: int = 8,
+                     rate: float = DEFAULT_RATE) -> dict[str, Any]:
+    worker = type("_ThesisYearWorker", (ThesisYearShardWorker,),
+                  {"overlay_id": overlay_id, "degrees": None})
+
+    def setup(control: Any) -> None:
+        control.execute(
+            "INSERT INTO inspire_compact_import(import_id,source_cutoff,low_recid,high_recid,status) "
+            "VALUES (%s, now(), %s, %s, 'FETCHING') ON CONFLICT DO NOTHING", (import_id, low, high))
+        control.execute(
+            "INSERT INTO inspire_compact_shard(import_id,low_recid,high_recid,status) "
+            "VALUES (%s,%s,%s,'DISCOVER') ON CONFLICT DO NOTHING", (import_id, low, high))
+
+    import hepgraph.pipeline as pipeline
+
+    previous = pipeline.LITERATURE_FIELDS
+    pipeline.LITERATURE_FIELDS = THESIS_FIELDS
+    try:
+        return run_shards(url, import_id, workers=workers, rate=rate, minimal_fields=False,
+                          worker_class=worker, setup=setup)
+    finally:
+        pipeline.LITERATURE_FIELDS = previous
+
+
 def run(url: str, *, import_id: str = "genealogy-20260917",
         overlay_id: str = "inspire-genealogy", low: int = 1, high: int = 4_000_000,
         workers: int = 8, rate: float = DEFAULT_RATE, phd_only: bool = False,
@@ -433,6 +499,8 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--rate", type=float, default=DEFAULT_RATE)
     parser.add_argument("--theses", action="store_true",
                         help="harvest supervisors named on thesis records instead of author profiles")
+    parser.add_argument("--thesis-years", action="store_true",
+                        help="backfill award years onto thesis relations already stored")
     parser.add_argument("--quarantine", action="store_true",
                         help="withdraw impossible loops and relations that are not between people")
     parser.add_argument("--phd-only", action="store_true",
@@ -442,6 +510,10 @@ def main(argv: list[str] | None = None) -> int:
     if not args.database_url:
         parser.error("a direct database URL is required")
     try:
+        if args.thesis_years:
+            run_thesis_years(args.database_url, overlay_id=args.overlay_id,
+                             workers=args.workers, rate=args.rate)
+            return 0
         if args.theses:
             run_theses(args.database_url, overlay_id=args.overlay_id,
                        workers=args.workers, rate=args.rate)

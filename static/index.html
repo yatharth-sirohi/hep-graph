@@ -27,7 +27,8 @@
           Family map
         </button>
         <button class="tab" data-tab="about" type="button">
-          About &amp; coverage
+          <span class="tab-long">About &amp; coverage</span
+          ><span class="tab-short" aria-hidden="true">About</span>
         </button>
         <a class="tab" href="/atlas">Atlas</a>
       </nav>
@@ -54,9 +55,11 @@
               Trace a documented research connection
             </h1>
             <p>
-              Search two researchers. Routes follow documented coauthorship
-              ties, with source evidence attached to results.
+              Search two researchers, or add more to see how a whole group
+              connects. Routes follow documented coauthorship ties, with source
+              evidence attached to results.
             </p>
+            <p id="last-updated" class="data-date">Last updated 09/16/2026</p>
           </div>
         </div>
         <form id="search-form" class="query-card" novalidate>
@@ -127,8 +130,18 @@
               ></div>
             </div>
           </div>
+          <div id="route-stops" class="route-stops"></div>
+          <div class="route-stops-actions">
+            <button id="add-stop" class="secondary-button" type="button">
+              <span aria-hidden="true">+</span> Add another person
+            </button>
+            <span class="subtle" id="route-stops-help">
+              Add as many people as you like to see how the whole group
+              connects: the shortest connection between every pair, drawn as
+              one web.
+            </span>
+          </div>
           <div class="query-actions">
-            <span id="last-updated" class="source-mode-label">Last updated 09/16/2026</span>
             <button id="find-connection" class="primary-button" type="submit">
               Find connection <span aria-hidden="true">→</span>
             </button>
@@ -137,7 +150,7 @@
             <summary>
               Connection filters
               <span id="filter-summary"
-                >Small-team papers (up to 10 authors) · 1 shared work · PhD excluded</span
+                >Small-team papers (up to 10 authors) · 1 shared work · adviser records excluded</span
               >
             </summary>
             <div class="filters">
@@ -183,9 +196,9 @@
               /></label>
               <label class="toggle-field"
                 ><input id="genealogy" type="checkbox" disabled /><span
-                  ><b>Include PhD records</b
+                  ><b>Include adviser records</b
                   ><small id="genealogy-note"
-                    >Checking whether an adviser-record overlay is available…</small
+                    >Checking whether adviser records are available…</small
                   ></span
                 ></label
               >
@@ -326,7 +339,8 @@
             <div class="graph-legend">
               <span><i class="legend-line coauthor"></i>Coauthorship (one hop)</span
               ><span><i class="legend-node"></i>Selected path</span
-              ><span><i class="legend-node expanded"></i>Expanded profile</span>
+              ><span><i class="legend-node expanded"></i>Expanded profile</span
+              ><span id="legend-stop" hidden><i class="legend-node stop"></i>A person you chose</span>
             </div>
           </div>
         </section>
@@ -339,9 +353,9 @@
             <h1 id="lineage-title">Follow an academic family tree</h1>
             <p>
               Trace documented adviser and student records one generation at a
-              time. Every relation states the degree recorded and whether
-              INSPIRE curators confirmed the link. A researcher may have more
-              than one adviser; all documented links are listed.
+              time. Every relation states the degree recorded and links to the
+              record it comes from. A researcher may have more than one
+              adviser; all documented links are listed.
             </p>
           </div>
         </div>
@@ -456,6 +470,48 @@
           </div>
         </div>
 
+        <form id="relate-form" class="data-card relate-card">
+          <div class="relate-head">
+            <p class="eyebrow" data-feature-name="relationship">Relationship finder</p>
+            <h2>How are two physicists related?</h2>
+            <p class="subtle">
+              Pick two people. If one is an academic ancestor of the other, or
+              the two share one, the answer is a family-tree term: adviser,
+              academic siblings, second cousins once removed. If not, the chain
+              of supervision that connects them is traced instead.
+            </p>
+          </div>
+          <div class="relate-fields">
+            <div class="identity-field relate-field">
+              <label for="relate-a">First person</label>
+              <div class="picker-wrap">
+                <input id="relate-a" name="relate-a" type="search" autocomplete="off"
+                  placeholder="Name or INSPIRE ID" aria-controls="relate-a-results"
+                  aria-expanded="false" disabled />
+              </div>
+              <div id="relate-a-results" class="result-menu" role="listbox"
+                aria-label="Suggestions for the first person"></div>
+            </div>
+            <div class="identity-field relate-field">
+              <label for="relate-b">Second person</label>
+              <div class="picker-wrap">
+                <input id="relate-b" name="relate-b" type="search" autocomplete="off"
+                  placeholder="Name or INSPIRE ID" aria-controls="relate-b-results"
+                  aria-expanded="false" disabled />
+              </div>
+              <div id="relate-b-results" class="result-menu" role="listbox"
+                aria-label="Suggestions for the second person"></div>
+            </div>
+            <div class="relate-actions">
+              <button id="relate-run" class="primary-button" type="submit" disabled>
+                Find the relationship <span aria-hidden="true">→</span>
+              </button>
+              <button id="relate-clear" class="secondary-button" type="button">Clear</button>
+            </div>
+          </div>
+          <div id="relate-result" class="relate-result" role="status" aria-live="polite"></div>
+        </form>
+
         <div class="map-shell">
           <div class="map-toolbar">
             <div class="identity-field map-search">
@@ -503,6 +559,26 @@
               </button>
             </div>
           </div>
+          <div id="map-timeline" class="map-timeline" hidden>
+            <label class="map-timeline-toggle">
+              <input id="map-time-on" type="checkbox" />
+              <span data-feature-name="timeline">Relations by thesis year</span>
+            </label>
+            <div class="map-timeline-controls">
+              <button id="map-time-play" class="secondary-button map-button" type="button"
+                aria-label="Play through the years" disabled>
+                <span aria-hidden="true">▶</span>
+              </button>
+              <input id="map-time-year" type="range" min="1900" max="2026" step="1"
+                value="2026" aria-label="Show relations up to this thesis year" disabled />
+              <output id="map-time-label" for="map-time-year">2026</output>
+              <label class="map-timeline-undated">
+                <input id="map-time-undated" type="checkbox" disabled />
+                Include relations with no recorded year
+              </label>
+            </div>
+            <p id="map-time-note" class="subtle map-timeline-note"></p>
+          </div>
           <div
             id="map-stage"
             class="map-stage"
@@ -525,6 +601,7 @@
             ><span><i class="map-key map-key-ancestor"></i>Advisers above</span
             ><span
               ><i class="map-key map-key-descendant"></i>Students below</span
+            ><span><i class="map-key map-key-route"></i>Route between two people</span
             ><span id="map-zoom-readout" class="subtle"></span>
           </div>
         </div>
@@ -596,6 +673,15 @@
               one, or pull the route toward a better-documented person.
             </li>
           </ol>
+          <p>
+            <b>More than two people.</b> Add people with
+            <i>Add another person</i> and the result is a web: the shortest
+            connection between every pair in the group, drawn as one network,
+            with a grid of how many hops apart each pair is. Every pair is an
+            ordinary two-person search with its own proof, and they run at the
+            same time. A pair with no route is marked as such rather than
+            left out.
+          </p>
           <h3>What the filters change</h3>
           <p>
             Filters do not rank results. They decide which ties exist at all, so
@@ -623,8 +709,10 @@
               bound is set.
             </li>
             <li>
-              <b>Adviser records.</b> Unavailable in the current release;
-              the disabled control cannot change route calculations.
+              <b>Adviser records.</b> Off by default. Turned on, a documented
+              adviser-to-student relation counts as a hop of its own, alongside
+              coauthorship, so a route may pass through a supervision as well
+              as a shared paper.
             </li>
           </ul>
           <h3>What a result claims</h3>
@@ -673,15 +761,27 @@
               proceedings records are excluded.
             </p>
             <p>
-              Adviser ties come from two INSPIRE sources: the adviser field on a
-              student's own profile, and the supervisors named on a thesis
-              record. They are shown as INSPIRE records them, including its
-              degree type: <b>PhD</b> where INSPIRE says so, and
-              <b>degree not recorded</b> where it does not. A relation INSPIRE
-              marks as a master's, bachelor's or diploma is a different claim
-              and is not shown here. INSPIRE lists an adviser for only a small
-              share of researchers, so a missing adviser usually means none was
-              recorded rather than none existed.
+              Adviser ties come from four sources, and every relation says which
+              one it rests on:
+            </p>
+            <ul class="about-list">
+              <li><b>INSPIRE author profiles</b> - the adviser field on a
+                student's own record.</li>
+              <li><b>INSPIRE thesis records</b> - the supervisors named on the
+                thesis itself, with its year.</li>
+              <li><b>Wikidata</b> - doctoral-advisor links where both people
+                carry an identifier that resolves to exactly one INSPIRE
+                record. Names are never matched.</li>
+              <li><b>Published pages</b> - a small number cited to a primary
+                source such as the researcher's own CV.</li>
+            </ul>
+            <p>
+              Degrees are shown as recorded: <b>PhD</b> where the source says
+              so, and <b>degree not recorded</b> where it does not. A relation
+              marked as a master's, bachelor's or diploma is a different claim
+              and is not shown. Most physicists have no adviser recorded
+              anywhere, so a missing adviser usually means none was recorded,
+              not that none existed.
             </p>
           </article>
           <article class="data-card">
@@ -692,9 +792,9 @@
               support it.
             </p>
             <p>
-              “Literature only” identifies a person resolved from literature
-              links without claiming full upstream profile or neighborhood
-              coverage.
+              Some people appear only as names on paper bylines, with no INSPIRE
+              author profile of their own. They are marked as having no profile,
+              and nothing is claimed about records they are missing.
             </p>
           </article>
           <article class="data-card">
@@ -705,8 +805,51 @@
               date bound is selected. Author caps use the original full author
               list, not just resolved authors.
             </p>
+            <p>
+              Adviser relations are dated by their thesis year. Only thesis
+              records carry one, so about half of all relations are dated, and
+              most of those are from the last fifteen years.
+            </p>
           </article>
         </div>
+        <section class="data-card about-method" aria-labelledby="about-family-title">
+          <h2 id="about-family-title">The family map</h2>
+          <p>
+            The Family map draws every documented adviser-to-student relation
+            at once: each box is a researcher, advisers sit above their
+            students, and separate groups are drawn side by side. Select anyone
+            to see their advisers, students, how far their recorded lineage
+            reaches in each direction, and their thesis years.
+          </p>
+          <ul class="about-list">
+            <li>
+              <b>How two people are related.</b> Pick two people and the map
+              names the relationship the way a family tree would - adviser,
+              academic siblings, second cousins once removed - by finding the
+              nearest ancestor they share. Where they share none, it traces the
+              chain of supervision that joins them instead, usually through
+              someone who studied under two advisers.
+            </li>
+            <li>
+              <b>Everyone between them.</b> A result can also show every person
+              on any of the shortest chains, not just one route.
+            </li>
+            <li>
+              <b>Distance from a chosen person.</b> Set anyone as a reference
+              point and every other selection shows how many supervision links
+              separate them.
+            </li>
+            <li>
+              <b>By thesis year.</b> A timeline plays the recorded relations in
+              order of thesis year. Undated relations are hidden unless you ask
+              for them.
+            </li>
+          </ul>
+          <p class="muted">
+            Every answer describes the records, not the people: no recorded
+            chain between two physicists means none is documented here.
+          </p>
+        </section>
       </section>
       <aside id="person-panel" class="person-panel hidden" aria-live="polite">
         <button
@@ -719,6 +862,14 @@
         </button>
         <div id="person-content"></div>
       </aside>
+      <p id="project-disclaimer-short" class="notice disclaimer disclaimer-short">
+        HEP-Atlas is independent research software; information may be
+        incomplete or out of date.
+        <button id="show-disclaimer" class="link-button" type="button"
+          aria-controls="project-disclaimer" aria-expanded="false">
+          Full notice and contact
+        </button>
+      </p>
       <section id="project-disclaimer" class="notice disclaimer">
         <p>
           HEP-Atlas is an independently developed research software project
@@ -750,6 +901,9 @@
     <footer>
       HEP Graph · Documented research connections
     </footer>
+    <!-- Vercel Web Analytics. Same-origin, so the script-src 'self' policy admits
+         it; locally the path is not served and nothing is recorded. -->
+    <script defer src="/_vercel/insights/script.js"></script>
     <script src="app.js"></script>
   </body>
 </html>

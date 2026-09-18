@@ -232,10 +232,13 @@ def accept(connection: Any, *, researcher: str, source_kind: str,
         "  RETURNING student_id, adviser_id, degree, evidence_url) "
         "INSERT INTO graph_genealogy_edge(overlay_id,adviser_id,student_id,source_record,"
         "degree,year,curated,source_kind) "
+        # A Wikidata relation is identified by its item; anything else keeps the
+        # address of the page that states it, so the reader lands on the source.
         "SELECT %s, adviser_id, student_id, "
-        "       regexp_replace(evidence_url, '^.*/', ''), COALESCE(degree,'phd'), NULL, FALSE, %s "
+        "       CASE WHEN %s = 'wikidata' THEN regexp_replace(evidence_url, '^.*/', '') "
+        "            ELSE evidence_url END, COALESCE(degree,'phd'), NULL, FALSE, %s "
         "  FROM taken ON CONFLICT DO NOTHING",
-        (overlay_id, researcher, overlay_id, source_kind))
+        (overlay_id, researcher, overlay_id, source_kind, source_kind))
     return {"rejected": len(reversed_rows), "promoted": promoted.rowcount}
 
 

@@ -393,7 +393,8 @@ class Handler(BaseHTTPRequestHandler):
             raise ValueError('Duplicate query parameters are not allowed.')
         args = {k: v[0] for k, v in pairs.items() if v[0] != ''}
         allowed = FILTER_KEYS | {'source', 'target', 'person', 'alternatives', 'q', 'limit',
-                                 'metric', 'direction', 'depth', 'version', 'mode', 'summary'}
+                                 'metric', 'direction', 'depth', 'version', 'mode', 'summary',
+                                 'a', 'b'}
         if set(args) - allowed:
             raise ValueError('Unknown query parameter.')
         if args.get('mode', 'database') != 'database':
@@ -444,7 +445,9 @@ class Handler(BaseHTTPRequestHandler):
             integer(args.get('alternatives'), 3, 1, 3)
             return self.respond(database.start_path(source, target, filters))
         if path.startswith('/api/person/'):
-            return self.respond(database.person(person_id(path.removeprefix('/api/person/')), filters))
+            return self.respond(database.person(
+                person_id(path.removeprefix('/api/person/')), filters,
+                summary=args.get('summary') == '1'))
         if path.startswith('/api/neighborhood/'):
             return self.respond(database.neighborhood(
                 person_id(path.removeprefix('/api/neighborhood/')), filters,
@@ -471,6 +474,12 @@ class Handler(BaseHTTPRequestHandler):
                 return None
             return self.respond(body, content_type='application/json; charset=utf-8',
                                 cache_control='no-cache', etag=etag, raw=True)
+        if path == '/api/relationship':
+            # Both people are required and both are validated the same way, so
+            # a malformed id is refused before any query runs.
+            return self.respond(database.relationship(
+                person_id(args.get('a', '')), person_id(args.get('b', '')), filters,
+                depth=integer(args.get('depth'), 12, 1, 12)))
         if path.startswith('/api/ancestry/'):
             direction = args.get('direction', 'ancestors')
             if direction not in {'ancestors', 'descendants'}:

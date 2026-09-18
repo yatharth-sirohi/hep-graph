@@ -326,3 +326,98 @@ def test_a_faculty_is_not_an_adviser_but_a_mislabelled_person_still_is(database)
         database.execute("DELETE FROM graph_genealogy_person WHERE overlay_id=%s "
                          "AND person_id IN (61,62,63)", (OVERLAY_ID,))
         database.execute("DELETE FROM graph_genealogy_quarantine WHERE overlay_id=%s", (OVERLAY_ID,))
+
+
+# --------------------------------------------------------------- relationships
+
+def test_two_students_of_one_adviser_are_academic_siblings(database):
+    """40 advised 30; give it a second student and the two become siblings."""
+    database.execute(
+        "INSERT INTO graph_genealogy_edge(overlay_id,adviser_id,student_id,source_record,degree)"
+        " VALUES (%s,40,31,'31','phd')", (OVERLAY_ID,))
+    try:
+        found = service(database).relationship("30", "31", Filters())
+        assert found["status"] == "ok"
+        assert found["label"] == "academic siblings"
+        assert found["meeting_point"] == "40"
+        assert found["distances"] == [1, 1]
+    finally:
+        database.execute("DELETE FROM graph_genealogy_edge WHERE overlay_id=%s "
+                         "AND adviser_id=40 AND student_id=31", (OVERLAY_ID,))
+
+
+def test_a_direct_line_is_named_by_generation(database):
+    found = service(database).relationship("10", "40", Filters())
+    assert found["status"] == "ok"
+    # 10 is three supervisions below 40, and the name is read from 10's side.
+    assert found["label"] == "academic great-grandstudent"
+    assert found["distances"] == [3, 0]
+    assert [step["adviser"] for step in found["chain"]] == ["20", "30", "40"]
+
+    back = service(database).relationship("40", "10", Filters())
+    assert back["label"] == "academic great-grandadviser"
+
+
+def test_cousins_meet_at_their_nearest_shared_ancestor(database):
+    """30 and 31 both descend from 40; their students are first cousins."""
+    database.execute(
+        "INSERT INTO graph_genealogy_edge(overlay_id,adviser_id,student_id,source_record,degree)"
+        " VALUES (%s,40,31,'31','phd'), (%s,31,70,'70','phd'), (%s,30,71,'71','phd')",
+        (OVERLAY_ID, OVERLAY_ID, OVERLAY_ID))
+    try:
+        found = service(database).relationship("70", "71", Filters())
+        assert found["status"] == "ok"
+        assert found["label"] == "academic first cousins"
+        assert found["meeting_point"] == "40"
+        assert {step["student"] for step in found["chain"]} == {"70", "71", "30", "31"}
+    finally:
+        database.execute("DELETE FROM graph_genealogy_edge WHERE overlay_id=%s "
+                         "AND student_id IN (70,71) OR overlay_id=%s AND student_id=31",
+                         (OVERLAY_ID, OVERLAY_ID))
+
+
+def test_unrelated_people_are_told_the_records_are_silent_not_that_they_are_strangers(database):
+    database.execute(
+        "INSERT INTO graph_genealogy_edge(overlay_id,adviser_id,student_id,source_record,degree)"
+        " VALUES (%s,80,81,'81','phd')", (OVERLAY_ID,))
+    try:
+        found = service(database).relationship("10", "81", Filters())
+        assert found["status"] == "no_relation"
+        assert found["label"] == "no recorded relation"
+        assert "describes the records" in found["explanation"]
+        assert found["chain"] == []
+    finally:
+        database.execute("DELETE FROM graph_genealogy_edge WHERE overlay_id=%s AND adviser_id=80",
+                         (OVERLAY_ID,))
+
+
+def test_a_person_with_no_adviser_record_is_unknown_not_unrelated(database):
+    found = service(database).relationship("10", "424242", Filters())
+    assert found["status"] == "not_found"
+    assert "not evidence that none exists" in found["message"]
+
+
+def test_the_chain_carries_the_evidence_for_every_step(database):
+    found = service(database).relationship("10", "40", Filters())
+    for step in found["chain"]:
+        assert step["source_url"].startswith("http")
+        assert step["source_kind"]
+
+
+
+def test_a_named_relationship_is_walked_from_the_first_person_to_the_second(database):
+    """Direction on every step: an ancestor reads downward, a student upward."""
+    down = service(database).relationship("40", "10", Filters())
+    assert [step["direction"] for step in down["chain"]] == ["down", "down", "down"]
+    assert [step["adviser"] for step in down["chain"]] == ["40", "30", "20"]
+
+    up = service(database).relationship("10", "40", Filters())
+    assert [step["direction"] for step in up["chain"]] == ["up", "up", "up"]
+    assert [step["student"] for step in up["chain"]] == ["10", "20", "30"]
+
+
+def test_a_summary_names_the_person_without_their_neighbourhood(database):
+    found = service(database).person("10", Filters(max_authors=10, genealogy=True), summary=True)
+    assert found["status"] == "ok" and found["summary"] is True
+    assert found["person"]["id"] == "10"
+    assert "collaborators" not in found and "advisers" not in found

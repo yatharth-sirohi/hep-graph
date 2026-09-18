@@ -129,3 +129,38 @@ def test_names_ride_alongside_the_nodes_in_the_same_order():
         assert payload["counts"]["relations"] == 2
     finally:
         connection.close()
+
+
+
+@pytest.mark.skipif(not URL, reason="HEPGRAPH_TEST_DATABASE_URL is not set")
+def test_a_pair_stated_twice_is_drawn_once_with_its_earliest_thesis_year():
+    """A profile and a thesis naming the same adviser are one relation."""
+    psycopg = pytest.importorskip("psycopg")
+    from hepgraph.genealogy_import import SCHEMA as OVERLAY_SCHEMA
+    from hepgraph.lineage_map import SCHEMA, read_map, store_layout
+
+    overlay = "map-years-test"
+    connection = psycopg.connect(URL, autocommit=True, row_factory=psycopg.rows.dict_row)
+    connection.execute(OVERLAY_SCHEMA)
+    connection.execute(SCHEMA)
+    connection.execute("INSERT INTO graph_genealogy_overlay(overlay_id,source_description,"
+                       "source_cutoff) VALUES (%s,'test',now()) ON CONFLICT DO NOTHING", (overlay,))
+    for table in ("graph_genealogy_edge", "graph_lineage_layout"):
+        connection.execute(f"DELETE FROM {table} WHERE overlay_id=%s", (overlay,))
+    connection.execute(
+        "INSERT INTO graph_genealogy_edge(overlay_id,adviser_id,student_id,source_record,"
+        "degree,year,source_kind) VALUES "
+        "(%s,7,8,'8','phd',NULL,'author_profile'), (%s,7,8,'t1','phd',1994,'thesis'), "
+        "(%s,7,9,'9','other',NULL,'author_profile')", (overlay, overlay, overlay))
+    nodes, _ = build_layout([(7, 8), (7, 9)])
+    store_layout(connection, overlay, nodes)
+    try:
+        payload = read_map(connection, overlay, "v-test")
+        assert payload["counts"]["relations"] == 2          # not three
+        assert len(payload["years"]) == len(payload["edges"])
+        ids = [node[0] for node in payload["nodes"]]
+        dated = {(ids[a], ids[b]): year for (a, b), year in zip(payload["edges"], payload["years"])}
+        assert dated == {(7, 8): 1994, (7, 9): None}
+        assert payload["counts"]["dated"] == 1
+    finally:
+        connection.close()

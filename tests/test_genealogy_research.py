@@ -151,3 +151,23 @@ def test_a_lead_that_reverses_inspire_is_rejected_rather_than_served(database):
     assert database.execute(
         "SELECT count(*) AS n FROM graph_genealogy_edge WHERE overlay_id=%s "
         "AND adviser_id=20 AND student_id=30", (OVERLAY,)).fetchone()["n"] == 0
+
+
+def test_a_relation_cited_to_a_published_page_keeps_that_pages_address(database):
+    """Petcov's own CV names his adviser; the reader must land on the CV."""
+    from hepgraph.genealogy_research import accept
+    from hepgraph.graph_database_mode import evidence_url
+
+    cv = "https://people.sissa.it/~petcov/PetcovCVKeep070620.pdf"
+    record(database, Lead(40, 30, evidence_url=cv,
+                          evidence_quote="Ph. D. thesis advisor Prof. S.M. Bilenky.",
+                          corroboration="The CV is published on the author's own institutional page.",
+                          confidence="high"),
+           researcher="primary-source", overlay_id=OVERLAY)
+    assert accept(database, researcher="primary-source", source_kind="published_cv",
+                  overlay_id=OVERLAY)["promoted"] == 1
+    row = database.execute(
+        "SELECT source_kind, source_record FROM graph_genealogy_edge "
+        "WHERE overlay_id=%s AND adviser_id=30 AND student_id=40", (OVERLAY,)).fetchone()
+    assert row["source_record"] == cv
+    assert evidence_url(row["source_kind"], row["source_record"]) == cv
