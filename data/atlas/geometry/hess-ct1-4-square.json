@@ -1,0 +1,91 @@
+{
+  "accuracy_m": 200,
+  "aliases": [],
+  "checks": [
+    {
+      "expected": {
+        "dimension": "length",
+        "display": "480 m",
+        "unit": "m",
+        "value": 480
+      },
+      "kind": "length",
+      "locator": "H.E.S.S. Telescopes page, array layout paragraph",
+      "quote": "square with 120 m side length",
+      "sources": [
+        "src:geo-arrays-hess-telescopes-page"
+      ],
+      "tolerance": 0.02
+    }
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "depth_m": null,
+  "entity_id": "site:khomas-highland-hess",
+  "feature_type": "array",
+  "geometry": {
+    "confidence": "derived",
+    "locator": "H.E.S.S. Telescopes page, array layout paragraph",
+    "note": "Confidence 'derived' per contract (a derived shape is derived, even with a passing check).",
+    "quote": "The initial four H.E.S.S. telescopes (Phase I) are arranged in form of a square with 120 m side length. The diagonal of the square is oriented north-south.",
+    "sources": [
+      "src:geo-arrays-hess-telescopes-page",
+      "src:cosmic-gamma-hess-official-site-page"
+    ],
+    "value": {
+      "coordinates": [
+        [
+          [
+            16.5,
+            -23.2709039
+          ],
+          [
+            16.5008307,
+            -23.271667
+          ],
+          [
+            16.5,
+            -23.2724301
+          ],
+          [
+            16.4991693,
+            -23.271667
+          ],
+          [
+            16.5,
+            -23.2709039
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    },
+    "verified_at": "2026-09-18"
+  },
+  "id": "geometry:hess-ct1-4-square",
+  "level_id": "surface",
+  "license": null,
+  "links": {
+    "website": null
+  },
+  "map_id": "map:hess-khomas-highland",
+  "method": "Square of side 120 m, diagonal oriented north-south (both facts from the H.E.S.S. Telescopes page), computed by placing one vertex at each of bearings 0/90/180/270 degrees and distance 120*sqrt(2)/2 = 84.8528 m (spherical destination-point formula, R = 6371008.8 m) from the array's own official published coordinate (site:khomas-highland-hess, precision_m 200). accuracy_m is set equal to that anchor's own precision_m (200 m), satisfying the coarse-anchor rule exactly rather than claiming a false sub-200 m accuracy for where the square sits; the square's own shape (120 m side) is exact by construction from the sourced figure. No OpenStreetMap trace of the individual CT1-CT4 telescope pads could be attempted this session (Overpass refused every connection attempt, see worklog), which would otherwise have anchored the square far more tightly.",
+  "name": "H.E.S.S. CT1-CT4 telescope square (120 m side, diagonal north-south)",
+  "notes": [
+    "Positioned at the array's own official coordinate, not at an independently surveyed square centre; the square's internal geometry (120 m side, N-S diagonal) is exact, its placement on the ground carries the site point's own 200 m uncertainty. Individual CT1-CT4 identities/positions within the square are not distinguished (no source this session assigns a specific corner to a specific telescope number)."
+  ],
+  "osm": null,
+  "representation": "derived",
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:khomas-highland-hess",
+  "sources": [
+    "src:geo-arrays-hess-telescopes-page",
+    "src:cosmic-gamma-hess-official-site-page"
+  ],
+  "summary": {
+    "plain": "The square formed by H.E.S.S.'s original four 12 m telescopes, 120 metres to a side."
+  },
+  "type": "geometry",
+  "valid": null
+}
