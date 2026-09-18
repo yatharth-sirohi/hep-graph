@@ -20,7 +20,7 @@ interface says only "coverage updated" with this date.
 | person | 12 |
 | result | 109 |
 | site | 93 |
-| source | 1485 |
+| source | 1486 |
 | topic | 42 |
 | membership rows | 659 |
 
@@ -56,7 +56,7 @@ Rows without one were verified only by their researcher and the validator.
 | cevns | 4 | yes — VERIFY_cevns.md |
 | colliders-historical | 6 | yes — VERIFY_colliders-historical.md |
 | colliders-lhc | 7 | yes — VERIFY_colliders-lhc.md |
-| cosmic-gamma | 8 | no |
+| cosmic-gamma | 8 | yes — VERIFY_cosmic-gamma.md |
 | dark-matter | 2 | yes — REVIEW_data_quality_wave1.md |
 | dm-cryogenic-low-threshold | 9 | yes — VERIFY_dm-cryogenic-low-threshold.md |
 | dm-noble-liquid | 6 | yes — VERIFY_dm-noble-liquid.md |

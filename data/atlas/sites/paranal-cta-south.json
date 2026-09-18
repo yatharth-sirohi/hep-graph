@@ -2,17 +2,18 @@
   "aliases": [],
   "altitude": null,
   "coordinates": {
-    "confidence": "approximate",
-    "kind": "campus",
-    "lat": -24.6274601,
-    "lon": -70.4041507,
-    "note": "Geocode of the general Paranal Observatory campus per A23; CTAO-South's own array is reported elsewhere to be a few kilometres from the ESO VLT site, but no source fetched this session gave the CTAO array's own distinct decimal coordinates (the ctao.org site's dedicated sites/technology subpages returned 404 on every attempt).",
-    "precision_m": 3000,
-    "quote": "Paranal Observatory, Control building access, Taltal, Provincia de Antofagasta, Región de Antofagasta, Chile",
+    "confidence": "verified",
+    "kind": "detector",
+    "lat": -24.683428,
+    "locator": "CTAO-South array-site page, coordinates block",
+    "lon": -70.316344,
+    "note": "Array-site coordinates published by CTAO; replaces the OpenStreetMap Paranal Observatory point used before 2026-09-18 verification.",
+    "precision_m": 100,
+    "quote": "Latitude: 24º 41′ 0.34″ South … Longitude: 70º 18′ 58.84″ West",
     "sources": [
-      "src:cosmic-gamma-nominatim-paranal"
+      "src:cosmic-gamma-verify-ctao-south-site-page"
     ],
-    "verified_at": "2026-09-17"
+    "verified_at": "2026-09-18"
   },
   "countries": [
     "CL"
@@ -43,7 +44,8 @@
   "schema": "hep-atlas/0.2",
   "setting": "surface",
   "sources": [
-    "src:cosmic-gamma-nominatim-paranal"
+    "src:cosmic-gamma-nominatim-paranal",
+    "src:cosmic-gamma-verify-ctao-south-site-page"
   ],
   "summary": {
     "plain": "The Atacama Desert site in Chile, near the Paranal astronomical observatory, where the southern half of the Cherenkov Telescope Array Observatory is being built.",

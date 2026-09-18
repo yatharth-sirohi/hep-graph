@@ -1,148 +1,147 @@
 [
   {
-    "name": "Pierre Auger Observatory",
+    "category": "cosmic_ray",
     "entity_id": "experiment:pierre-auger-observatory",
     "experiment_id": "experiment:pierre-auger-observatory",
-    "category": "cosmic_ray",
     "facility": "Pierre Auger Observatory, Malargue, Argentina",
-    "status": "upgrade",
-    "tier": "B",
-    "priority": 4,
-    "researched": "partial",
     "missing_fields": [
       "survey-grade coordinates for the array's own geometric centre (only the administrative campus address was geocoded)",
       "site altitude figure",
       "collaboration institution count",
       "AugerPrime upgrade completion date"
     ],
+    "name": "Pierre Auger Observatory",
+    "notes": "Facility, site, experiment, detector and collaboration written. Rich sourced interval history (1995 proposal through the ongoing AugerPrime upgrade) from the observatory's own history page. Status is 'upgrade' per the A3 state-selection rule (see experiment notes).",
     "owner": "cosmic-gamma",
-    "notes": "Facility, site, experiment, detector and collaboration written. Rich sourced interval history (1995 proposal through the ongoing AugerPrime upgrade) from the observatory's own history page. Status is 'upgrade' per the A3 state-selection rule (see experiment notes)."
-  },
-  {
-    "name": "Telescope Array",
-    "entity_id": "experiment:telescope-array",
-    "experiment_id": "experiment:telescope-array",
-    "category": "cosmic_ray",
-    "facility": "Telescope Array, Delta, Utah",
-    "status": "active",
-    "tier": "B",
     "priority": 4,
     "researched": "partial",
+    "status": "active",
+    "tier": "B"
+  },
+  {
+    "category": "cosmic_ray",
+    "entity_id": "experiment:telescope-array",
+    "experiment_id": "experiment:telescope-array",
+    "facility": "Telescope Array, Delta, Utah",
     "missing_fields": [
       "construction-start and collaboration-formation dates (official site unreachable all session)",
       "array-centre decimal coordinates (only the town of Delta was geocoded)",
       "membership/institution/country counts"
     ],
+    "name": "Telescope Array",
+    "notes": "Facility, site, experiment, detector and collaboration written from a 2026 collaboration arXiv paper (telescopearray.org and all known mirrors failed DNS/connection/502 on every attempt this session). Original array (507 SD, 38 FD telescopes, ~700 km^2) and TAx4 extension both recorded.",
     "owner": "cosmic-gamma",
-    "notes": "Facility, site, experiment, detector and collaboration written from a 2026 collaboration arXiv paper (telescopearray.org and all known mirrors failed DNS/connection/502 on every attempt this session). Original array (507 SD, 38 FD telescopes, ~700 km^2) and TAx4 extension both recorded."
-  },
-  {
-    "name": "HAWC",
-    "entity_id": "experiment:hawc",
-    "experiment_id": "experiment:hawc",
-    "category": "gamma_ray",
-    "facility": "Sierra Negra, Mexico",
-    "status": "active",
-    "tier": "B",
     "priority": 4,
     "researched": "partial",
+    "status": "active",
+    "tier": "B"
+  },
+  {
+    "category": "gamma_ray",
+    "entity_id": "experiment:hawc",
+    "experiment_id": "experiment:hawc",
+    "facility": "Sierra Negra, Mexico",
     "missing_fields": [
       "water-tank count and array footprint coordinates (design-paper PDF text extraction failed; official site TLS-blocked all session)",
       "collaboration institution/member/country counts",
       "collaboration formation date"
     ],
+    "name": "HAWC",
+    "notes": "Facility, site, experiment, detector and collaboration written from collaboration arXiv papers. Altitude (4100 m) and construction/operations-start (March 2015) sourced; hawc-observatory.org and hawc.umd.edu both failed (TLS verification / redirect-to-blocked-domain) on every attempt.",
     "owner": "cosmic-gamma",
-    "notes": "Facility, site, experiment, detector and collaboration written from collaboration arXiv papers. Altitude (4100 m) and construction/operations-start (March 2015) sourced; hawc-observatory.org and hawc.umd.edu both failed (TLS verification / redirect-to-blocked-domain) on every attempt."
-  },
-  {
-    "name": "LHAASO",
-    "entity_id": "experiment:lhaaso",
-    "experiment_id": "experiment:lhaaso",
-    "category": "gamma_ray",
-    "facility": "Haizi Mountain, Daocheng, Sichuan, China",
-    "status": "active",
-    "tier": "B",
     "priority": 4,
     "researched": "partial",
+    "status": "active",
+    "tier": "B"
+  },
+  {
+    "category": "gamma_ray",
+    "entity_id": "experiment:lhaaso",
+    "experiment_id": "experiment:lhaaso",
+    "facility": "Haizi Mountain, Daocheng, Sichuan, China",
     "missing_fields": [
       "KM2A/WCDA/WFCTA sub-array unit counts and individual specifications",
       "construction-start and full-array-completion dates",
       "array-centre decimal coordinates (only a nearby route waypoint was geocoded)",
       "collaboration institution/member/country counts and formation date"
     ],
+    "name": "LHAASO",
+    "notes": "Facility, site, experiment, detector and collaboration written. Altitude (4410 m) sourced from the LHAASO Science Book; 'currently operating' status sourced from a 2021 Nature/arXiv paper as a lower bound. The IHEP LHAASO site's Observatory/Site subpages render as empty JavaScript shells under WebFetch, so no official technical specifications were recovered.",
     "owner": "cosmic-gamma",
-    "notes": "Facility, site, experiment, detector and collaboration written. Altitude (4410 m) sourced from the LHAASO Science Book; 'currently operating' status sourced from a 2021 Nature/arXiv paper as a lower bound. The IHEP LHAASO site's Observatory/Site subpages render as empty JavaScript shells under WebFetch, so no official technical specifications were recovered."
-  },
-  {
-    "name": "CTAO",
-    "entity_id": "experiment:ctao",
-    "experiment_id": "experiment:ctao",
-    "category": "gamma_ray",
-    "facility": "Roque de los Muchachos, La Palma, Spain (North) and Paranal, Chile (South)",
-    "status": "construction",
-    "tier": "B",
     "priority": 4,
     "researched": "partial",
+    "status": "active",
+    "tier": "B"
+  },
+  {
+    "category": "gamma_ray",
+    "entity_id": "experiment:ctao",
+    "experiment_id": "experiment:ctao",
+    "facility": "Roque de los Muchachos, La Palma, Spain (North) and Paranal, Chile (South)",
     "missing_fields": [
       "precise current construction phase / per-site installed telescope counts (as opposed to design maximums)",
       "LST-1 and other individual telescope commissioning dates",
-      "array-centre decimal coordinates at both sites (only the wider host-observatory campuses were geocoded)",
       "CTAO ERIC legal-establishment date",
       "membership/institution/country counts"
     ],
+    "name": "CTAO",
+    "notes": "Two facilities (roque-de-los-muchachos-observatory, shared with MAGIC; ctao-south-paranal), one shared site under the Roque facility, one Paranal site, one experiment, one detector (two placements) and one collaboration record written. ctao.org's 'sites', 'arrays' and 'news' subpages returned 404 or empty JS shells on every attempt; only the homepage, about-us and technology pages yielded readable content.",
     "owner": "cosmic-gamma",
-    "notes": "Two facilities (roque-de-los-muchachos-observatory, shared with MAGIC; ctao-south-paranal), one shared site under the Roque facility, one Paranal site, one experiment, one detector (two placements) and one collaboration record written. ctao.org's 'sites', 'arrays' and 'news' subpages returned 404 or empty JS shells on every attempt; only the homepage, about-us and technology pages yielded readable content."
-  },
-  {
-    "name": "MAGIC",
-    "entity_id": "experiment:magic",
-    "experiment_id": "experiment:magic",
-    "category": "gamma_ray",
-    "facility": "Roque de los Muchachos, La Palma, Spain",
-    "status": "active",
-    "tier": "B",
     "priority": 4,
     "researched": "partial",
+    "status": "construction",
+    "tier": "B"
+  },
+  {
+    "category": "gamma_ray",
+    "entity_id": "experiment:magic",
+    "experiment_id": "experiment:magic",
+    "facility": "Roque de los Muchachos, La Palma, Spain",
     "missing_fields": [
       "site altitude (no source fetched this session states it)",
       "distinguishing decimal coordinates from CTAO-North's telescopes at the same shared site",
       "collaboration formation date and membership/institution/country counts"
     ],
+    "name": "MAGIC",
+    "notes": "Experiment, detector and collaboration written; facility and site are the ones shared with CTAO-North (facility:roque-de-los-muchachos-observatory, site:roque-de-los-muchachos-gamma-ray-array), created once by this same workstream. magic.mpp.mpg.de failed TLS verification on every attempt; all facts sourced from three collaboration arXiv papers (2004, 2009, 2014).",
     "owner": "cosmic-gamma",
-    "notes": "Experiment, detector and collaboration written; facility and site are the ones shared with CTAO-North (facility:roque-de-los-muchachos-observatory, site:roque-de-los-muchachos-gamma-ray-array), created once by this same workstream. magic.mpp.mpg.de failed TLS verification on every attempt; all facts sourced from three collaboration arXiv papers (2004, 2009, 2014)."
-  },
-  {
-    "name": "VERITAS",
-    "entity_id": "experiment:veritas",
-    "experiment_id": "experiment:veritas",
-    "category": "gamma_ray",
-    "facility": "Fred Lawrence Whipple Observatory, Mount Hopkins, Arizona",
-    "status": "active",
-    "tier": "B",
     "priority": 4,
     "researched": "partial",
+    "status": "active",
+    "tier": "B"
+  },
+  {
+    "category": "gamma_ray",
+    "entity_id": "experiment:veritas",
+    "experiment_id": "experiment:veritas",
+    "facility": "Fred Lawrence Whipple Observatory, Mount Hopkins, Arizona",
     "missing_fields": [
       "collaboration institution/member/country counts"
     ],
+    "name": "VERITAS",
+    "notes": "Fully sourced from VERITAS's own official site (specifications, about, and history-timeline pages): exact coordinates/altitude, full proposal-through-upgrade interval history, telescope count/mirror diameter/energy range. The most completely sourced record in this coverage file.",
     "owner": "cosmic-gamma",
-    "notes": "Fully sourced from VERITAS's own official site (specifications, about, and history-timeline pages): exact coordinates/altitude, full proposal-through-upgrade interval history, telescope count/mirror diameter/energy range. The most completely sourced record in this coverage file."
-  },
-  {
-    "name": "H.E.S.S.",
-    "entity_id": "experiment:h-e-s-s",
-    "experiment_id": "experiment:h-e-s-s",
-    "category": "gamma_ray",
-    "facility": "Khomas Highland, Namibia",
-    "status": "active",
-    "tier": "B",
     "priority": 4,
     "researched": "partial",
+    "status": "active",
+    "tier": "B"
+  },
+  {
+    "category": "gamma_ray",
+    "entity_id": "experiment:h-e-s-s",
+    "experiment_id": "experiment:h-e-s-s",
+    "facility": "Khomas Highland, Namibia",
     "missing_fields": [
       "CT5 (H.E.S.S. II, 28 m telescope) commissioning date",
       "exact country count (source says only 'more than a dozen')",
       "collaboration institution count and formation date"
     ],
+    "name": "H.E.S.S.",
+    "notes": "Facility, site, experiment, detector and collaboration written from the official hess-experiment.eu site (homepage, site and about pages): exact coordinates/altitude, first-light 2002, five-telescope (4x12m+1x28m) configuration, ~200-scientist/dozen-plus-country collaboration. CT5's own commissioning date (commonly reported elsewhere as 2012) was deliberately left null: not confirmed by a source fetched this session.",
     "owner": "cosmic-gamma",
-    "notes": "Facility, site, experiment, detector and collaboration written from the official hess-experiment.eu site (homepage, site and about pages): exact coordinates/altitude, first-light 2002, five-telescope (4x12m+1x28m) configuration, ~200-scientist/dozen-plus-country collaboration. CT5's own commissioning date (commonly reported elsewhere as 2012) was deliberately left null: not confirmed by a source fetched this session."
+    "priority": 4,
+    "researched": "partial",
+    "status": "active",
+    "tier": "B"
   }
 ]
