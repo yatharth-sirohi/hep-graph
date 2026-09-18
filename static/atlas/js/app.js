@@ -11,6 +11,7 @@ import * as modes from './modes.js';
 import * as search from './search.js';
 import * as fallback from './fallback.js';
 import * as filtersModule from './filters.js';
+import * as localmap from './localmap.js';
 import { buildIndex } from './model.js';
 
 const els = {
@@ -324,6 +325,35 @@ async function main() {
     } else {
       modes.show(null);
     }
+    // ---- local map view (docs/HEP_ATLAS_GEOMETRY.md §4) -- begin --------
+    // `#/map/<slug>` takes over #atlas-main: filters, globe stage and mode
+    // panel step aside for a three-column map layout, and panels.js is
+    // re-pointed at the map's drawer so the selected entity gets its normal
+    // detail panel there rather than in the (now hidden) side panel.
+    const mapRoute = current.entity && current.entity.type === 'map' ? current.entity : null;
+    document.getElementById('atlas-main').classList.toggle('is-map-route', !!mapRoute);
+    if (mapRoute) {
+      const mapTimeline = current.range ? { range: current.range } : { year: current.year };
+      modes.show(null);
+      els.detailPanel.classList.add('hidden');
+      els.detailPanel.innerHTML = '';
+      panels.init({
+        el: localmap.drawerPanelEl(), atlas, index, navigate: state.navigate, focusGlobe, viewOnGlobe,
+      });
+      await localmap.show(current, {
+        atlas, index, navigate: state.navigate, panels, timelineState: mapTimeline,
+        loaderBase: loader.base(),
+      });
+      return;
+    }
+    if (localmap.isOpen()) {
+      localmap.hide();
+      panels.init({
+        el: els.detailPanel, atlas, index, navigate: state.navigate, focusGlobe, viewOnGlobe,
+      });
+    }
+    // ---- local map view -- end ------------------------------------------
+
     // Same shape the timeline itself tracks: a range takes precedence over a
     // single year (matches timeline.js's own onChange payload and globe.js's
     // setYear/setRange split), so the detail panel's status badge always

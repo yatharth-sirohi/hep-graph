@@ -136,6 +136,15 @@ def atlas_dir(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
     (root / "generated" / "manifest.json").write_bytes(MANIFEST_BYTES)
     (root / "generated" / "atlas.json").write_text(json.dumps({"nodes": []}), encoding="utf-8")
     (root / "assets" / "logo.svg").write_text("<svg xmlns='http://www.w3.org/2000/svg'/>", encoding="utf-8")
+    # Local-map view (docs/HEP_ATLAS_GEOMETRY.md §4): the vendored Leaflet
+    # bundle and the lazily-fetched per-map geometry bundle.
+    (root / "vendor" / "leaflet" / "images").mkdir(parents=True)
+    (root / "vendor" / "leaflet" / "leaflet.js").write_text("/* leaflet */\n", encoding="utf-8")
+    (root / "vendor" / "leaflet" / "leaflet.css").write_text(".leaflet-container{}\n", encoding="utf-8")
+    (root / "vendor" / "leaflet" / "images" / "layers.png").write_bytes(b"\x89PNG\r\n\x1a\n")
+    (root / "generated" / "geometry").mkdir()
+    (root / "generated" / "geometry" / "cern.json").write_text(
+        json.dumps({"features": []}), encoding="utf-8")
     (root / "notes.txt").write_text("private notes", encoding="utf-8")
     monkeypatch.setattr(server_module, "ATLAS_STATIC", root)
     return root
@@ -188,6 +197,44 @@ def test_atlas_scripts_styles_and_images_have_their_content_types(service, atlas
     _assert_security_headers(headers)
 
 
+def test_local_map_assets_are_served_with_their_content_types(service, atlas_dir) -> None:
+    """The §4 local-map view needs three things served from /atlas: the
+    vendored Leaflet script and stylesheet, Leaflet's own PNG sprites, and
+    the per-map geometry bundle under generated/geometry/. A missing
+    content type here is a 404, so the map silently never opens."""
+    base, _ = service
+    expected = {
+        "/atlas/vendor/leaflet/leaflet.js": "text/javascript; charset=utf-8",
+        "/atlas/vendor/leaflet/leaflet.css": "text/css; charset=utf-8",
+        "/atlas/vendor/leaflet/images/layers.png": "image/png",
+        "/atlas/generated/geometry/cern.json": "application/json; charset=utf-8",
+    }
+    for path, content_type in expected.items():
+        status, headers, body = _request(base, path)
+        assert status == 200, path
+        assert headers["Content-Type"] == content_type, path
+        assert headers["Cache-Control"] == ATLAS_CACHE_CONTROL, path
+        assert "ETag" in headers, path
+        assert body == (atlas_dir / path[len("/atlas/"):]).read_bytes(), path
+        _assert_security_headers(headers)
+
+
+def test_csp_allows_openstreetmap_tiles_as_images_only(service, atlas_dir) -> None:
+    """The local map draws over OSM standard tiles, which are plain <img>
+    requests to a third-party origin. img-src must name those hosts, and
+    nothing else may be relaxed to reach them."""
+    base, _ = service
+    _status, headers, _body = _request(base, "/atlas/")
+    policy = headers["Content-Security-Policy"]
+    img_src = next(d.strip() for d in policy.split(";") if d.strip().startswith("img-src"))
+    assert "https://tile.openstreetmap.org" in img_src
+    assert "https://*.tile.openstreetmap.org" in img_src
+    for directive in ("default-src 'self'", "script-src 'self'", "connect-src 'self'",
+                      "object-src 'none'", "frame-ancestors 'none'"):
+        assert directive in policy, directive
+    assert "openstreetmap" not in policy.replace(img_src, "")
+
+
 def test_generated_files_are_cacheable_and_sent_byte_for_byte(service, atlas_dir) -> None:
     base, _ = service
     status, headers, body = _request(base, "/atlas/generated/manifest.json")
@@ -211,7 +258,7 @@ def test_generated_json_and_vendor_js_revalidate_with_etag(service, atlas_dir) -
     """ETag present on every response; a matching If-None-Match gets a
     304 with no body; a stale one gets a full 200 with the real bytes."""
     base, _ = service
-    (atlas_dir / "vendor").mkdir()
+    (atlas_dir / "vendor").mkdir(exist_ok=True)
     vendor_bytes = b"window.Globe = function Globe() {};\n"
     (atlas_dir / "vendor" / "globe.gl.min.js").write_bytes(vendor_bytes)
 
