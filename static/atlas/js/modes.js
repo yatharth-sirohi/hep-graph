@@ -29,14 +29,26 @@ function yearOf(record) {
   return match ? Number(match[1]) : null;
 }
 
-/** A month index usable for sort ordering: the record's own `month` field
- * when present (results carry it; it's what drives "Move timeline here"),
- * else a coarse fallback derived from the year alone so year-only records
- * still sort sensibly relative to dated ones. */
-function monthOf(record) {
-  if (typeof record.month === 'number') return record.month;
-  const year = yearOf(record);
-  return year != null ? year * 12 : -Infinity;
+/** A sortable timestamp, as precise as the record's own `date` string is:
+ * day-precision when the date carries one ("2018-08-24"), month-precision
+ * when it doesn't ("2019-07"), year-precision as a last resort. This is
+ * *not* the same thing as the record's own `month` field (a coarser month
+ * index used elsewhere only to gate "Move timeline here") — sorting by
+ * that alone ties every result within the same calendar month regardless
+ * of which day of the month it actually carries, which is not newest-first
+ * once two results share a month. Falls back to `month` only when `date`
+ * itself can't be parsed at all. */
+function timeKey(record) {
+  const raw = record.date && (record.date.date || record.date);
+  if (typeof raw === 'string') {
+    const match = /^(\d{4})(?:-(\d{2}))?(?:-(\d{2}))?/.exec(raw);
+    if (match) {
+      const parsed = Date.parse(`${match[1]}-${match[2] || '01'}-${match[3] || '01'}`);
+      if (!Number.isNaN(parsed)) return parsed;
+    }
+  }
+  if (typeof record.month === 'number') return record.month * 2629800000; // ~1 month in ms, same rough scale as Date.parse results
+  return -Infinity;
 }
 
 function nameOf(id) {
@@ -122,14 +134,14 @@ function sortResults(list, sortBy, experimentNames) {
     arr.sort((a, b) => {
       const an = experimentNames.get((a.experiment_ids || [])[0]) || '';
       const bn = experimentNames.get((b.experiment_ids || [])[0]) || '';
-      return an.localeCompare(bn) || (monthOf(b) - monthOf(a));
+      return an.localeCompare(bn) || (timeKey(b) - timeKey(a));
     });
   } else if (sortBy === 'type') {
     arr.sort((a, b) => (
-      (a.result_type || '').localeCompare(b.result_type || '') || (monthOf(b) - monthOf(a))
+      (a.result_type || '').localeCompare(b.result_type || '') || (timeKey(b) - timeKey(a))
     ));
   } else {
-    arr.sort((a, b) => monthOf(b) - monthOf(a));
+    arr.sort((a, b) => timeKey(b) - timeKey(a));
   }
   return arr;
 }
@@ -367,7 +379,7 @@ function renderDocsMode() {
     }
     const keys = [...buckets.keys()].sort((a, b) => titleCase(a).localeCompare(titleCase(b)));
     for (const key of keys) {
-      const group = buckets.get(key).slice().sort((a, b) => monthOf(b) - monthOf(a));
+      const group = buckets.get(key).slice().sort((a, b) => timeKey(b) - timeKey(a));
       list.appendChild(groupHeaderRow(titleCase(key), group.length));
       for (const doc of group) list.appendChild(buildDocRow(doc));
     }

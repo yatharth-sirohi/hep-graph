@@ -724,10 +724,15 @@ async function setRangeValue(locator, value) {
     assert.equal(Number(match[1]), rowCount, "the visible count must equal the number of rendered result rows");
     assert.ok(Number(match[2]) >= rowCount, "the total in the count must be >= the visible count");
 
-    const months = await page.evaluate(() => [...document.querySelectorAll("#results-mode-list .result-row .result-date")]
-      .map((el) => Date.parse(el.textContent.trim().length === 4 ? `${el.textContent.trim()}-06-01` : el.textContent.trim()) || 0));
-    const sortedDesc = [...months].sort((a, b) => b - a);
-    assert.deepEqual(months, sortedDesc, "results must render newest-first by default");
+    // A bare year (no month/day in the displayed date) is padded to
+    // January 1st here — matching modes.js's own timeKey(), which treats an
+    // undated-to-day record as the earliest point in its year rather than
+    // guessing a mid-year date, so it sorts after (not ahead of) dated peers
+    // from the same year.
+    const dates = await page.evaluate(() => [...document.querySelectorAll("#results-mode-list .result-row .result-date")]
+      .map((el) => Date.parse(el.textContent.trim().length === 4 ? `${el.textContent.trim()}-01-01` : el.textContent.trim()) || 0));
+    const sortedDesc = [...dates].sort((a, b) => b - a);
+    assert.deepEqual(dates, sortedDesc, "results must render newest-first by default");
   });
 
   await record("Results mode: the sort control reorders rows; the group toggles bucket them and set aria-pressed", async () => {
