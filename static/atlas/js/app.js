@@ -10,6 +10,7 @@ import * as panels from './panels.js';
 import * as modes from './modes.js';
 import * as search from './search.js';
 import * as fallback from './fallback.js';
+import * as filtersModule from './filters.js';
 import { buildIndex } from './model.js';
 
 const els = {
@@ -23,6 +24,8 @@ const els = {
   timelineBar: document.getElementById('timeline-bar'),
   modeButtons: document.getElementById('mode-buttons'),
   arcsToggle: document.getElementById('arcs-toggle'),
+  arcsAutoOffNote: document.getElementById('arcs-auto-off-note'),
+  filtersControls: document.getElementById('filters-controls'),
   legend: document.getElementById('marker-legend'),
   searchInput: document.getElementById('atlas-search'),
   searchResults: document.getElementById('search-results'),
@@ -63,6 +66,9 @@ function renderLegend() {
     <div class="legend-group"><strong>Institution dot</strong>
       <span class="legend-item"><i class="dot solid"></i>Confirmed / counted</span>
       <span class="legend-item"><i class="dot hollow"></i>Uncounted / historical</span>
+    </div>
+    <div class="legend-group"><strong>Location precision</strong>
+      <span class="legend-item"><i class="dot approximate"></i>Approximate location (campus-grade coordinate)</span>
     </div>`;
 }
 
@@ -96,8 +102,28 @@ async function main() {
   const index = buildIndex(atlas);
   renderLegend();
 
+  // ---- filters (docs/HEP_ATLAS_ARCHITECTURE.md "Clustering and filters")
+  const topicIndex = filtersModule.buildTopicIndex(atlas.topics);
+  const filterPanel = filtersModule.createFilterPanel(els.filtersControls, {
+    atlas,
+    topicIndex,
+    onChange: (nextFilters) => {
+      state.navigate(filtersModule.filtersToPatch(nextFilters), { replace: true });
+    },
+  });
+
   let globeApi = null;
+  let fallbackActive = false;
   const hasGL2 = globeModule.supportsWebGL2();
+
+  function renderFallbackIfActive(current) {
+    if (!fallbackActive) return;
+    const filters = filtersModule.filtersFromState(current);
+    const timelineState = current.range ? { range: current.range } : { year: current.year };
+    fallback.render(els.fallbackContainer, {
+      atlas, results: resultsBundle, navigate: state.navigate, filters, timelineState, topicIndex,
+    });
+  }
 
   function focusGlobe(id) {
     if (globeApi) globeApi.focus(id);
@@ -142,12 +168,14 @@ async function main() {
       window.console.error(error);
       els.globeContainer.classList.add('hidden');
       els.fallbackContainer.classList.remove('hidden');
-      fallback.render(els.fallbackContainer, { atlas, results: resultsBundle, navigate: state.navigate });
+      fallbackActive = true;
+      renderFallbackIfActive(state.get());
     }
   } else {
     els.globeContainer.classList.add('hidden');
     els.fallbackContainer.classList.remove('hidden');
-    fallback.render(els.fallbackContainer, { atlas, results: resultsBundle, navigate: state.navigate });
+    fallbackActive = true;
+    renderFallbackIfActive(state.get());
   }
 
   // ---- timeline -------------------------------------------------------
@@ -159,6 +187,8 @@ async function main() {
       if (globeApi) {
         if (t.mode === 'year') globeApi.setYear(t.year); else globeApi.setRange(t.range[0], t.range[1]);
       }
+      const timelineState = t.mode === 'year' ? { year: t.year } : { range: t.range };
+      filterPanel.updateForTimeline(timelineState);
       state.navigate(t.mode === 'year' ? { year: t.year, range: null } : { year: null, range: t.range }, { replace: true });
     },
   });
@@ -193,6 +223,11 @@ async function main() {
     els.arcsToggle.checked = !!current.arcs;
     if (globeApi) globeApi.setArcsEnabled(!!current.arcs);
 
+    const filters = filtersModule.filtersFromState(current);
+    filterPanel.setFilters(filters);
+    if (globeApi) globeApi.setFilters(filters);
+    renderFallbackIfActive(current);
+
     timeline.syncFromState(current);
 
     // A shared institution link carries its collaboration in `c`.
@@ -209,12 +244,29 @@ async function main() {
         }
         if (globeApi) {
           const membership = await loader.getMembership(collabId);
-          globeApi.setCollaboration(collabId, membership);
+          await globeApi.setCollaboration(collabId, membership);
+          // §75: default the arcs off for very large collaborations
+          // (INSTITUTION_ARC_THRESHOLD, docs/atlas-worklog/REVIEW_performance.md
+          // "Closure of P1-3"). This only resets the default on first
+          // *entering* a large collaboration — the checkbox stays a normal,
+          // bidirectional toggle afterwards (it always reflects exactly
+          // what's drawn; see globe.js's arcsData assembly).
+          const forcedOff = globeApi.isArcsForcedOff();
+          els.arcsAutoOffNote.classList.toggle('hidden', !forcedOff);
+          els.arcsAutoOffNote.textContent = forcedOff
+            ? `Institution connections are off by default for collaborations over ${globeModule.INSTITUTION_ARC_THRESHOLD} institutions. Use the checkbox above to show them anyway.`
+            : '';
+          if (forcedOff && current.arcs) {
+            state.navigate({ arcs: false }, { replace: true });
+            return;
+          }
         }
       }
     } else if (lastCollabShown) {
       lastCollabShown = null;
       if (globeApi) globeApi.clearCollaboration();
+      els.arcsAutoOffNote.classList.add('hidden');
+      els.arcsAutoOffNote.textContent = '';
     }
 
     if (current.mode && current.mode !== 'collab') {

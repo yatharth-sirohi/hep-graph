@@ -319,3 +319,82 @@ traversal, rate-limit separation, malformed-input handling, rapid
 interaction, back/forward/reload/multi-tab state, offline error handling) —
 these are called out above as positive findings so they aren't lost among
 the negative ones.
+
+---
+
+## Closure of P1-3 (2026-09-17)
+
+**A pre-existing regression found while investigating P1-3.** The real
+bundle's coordinates are nested (`{"coordinates": {"lat", "lon"}}`, A9),
+matching `docs/HEP_ATLAS_BUNDLES.md`'s own documented shape, but
+`globe.js`'s `siteCoords()` and `setCollaboration()` read a flat
+`record.lat`/`record.lon` — the same class of fixture-vs-real field-name
+mismatch as the earlier UX review's P0-1/P0-2/P0-3. Against the *current*
+generated tree this meant **every** facility/site position and **all 198+
+institution membership rows silently failed their `lat == null` guard and
+were never rendered at all** — i.e. today's real-tree collaboration mode
+showed zero institutions, not the "210 of 244 rendered" this review measured
+against an earlier build state. A visible symptom of the same bug: CERN and
+every other facility collapsed onto the same (undefined-coordinate)
+projected point, which is what let clicking the CERN marker open a
+different facility's panel (Laboratori Nazionali del Gran Sasso, LNGS) —
+whichever DOM element happened to be on top received the click. Fixed with
+one `coordsOf()` helper (reads either shape) used everywhere a coordinate is
+read; see `docs/HEP_ATLAS_ARCHITECTURE.md` §6a.
+
+**Method.** `requestAnimationFrame` counting over a 2-second scripted
+circular `mouse.move` drag (button held), matching this review's own method,
+run against a real `chromium` build via Playwright. "Before" uses the tree
+at this review's own HEAD (`e7f924c`) with *only* the coordinate fix applied
+(so institutions actually render, isolating the field-name bug from the
+clustering/arc-cap/dash-off changes below) and its matching original
+`app.js`; "after" is the full closure (clustering, arc cap, dash animation
+off, fewer DOM markers). Both were measured in the same sandboxed headless
+environment used for this session, which reports a **software rasterizer**
+(`ANGLE ... SwiftShader driver`, confirmed via `WEBGL_debug_renderer_info`)
+rather than the real GPU (`ANGLE (Apple, ... Metal Renderer: Apple M4)`) the
+original P1-3 numbers above were measured against — so the absolute fps
+figures here are not comparable to the ~60/~15-20 fps figures above; only
+the **before/after ratio within this environment** is. A plain default-view
+drag (no collaboration data at all) tops out around 11-16 fps in this
+sandbox, confirming the low absolute ceiling is an environment property, not
+a regression this session introduced or fixed.
+
+| Scenario | Before (fps) | After (fps) | Rendered institution markers |
+| --- | --- | --- | --- |
+| CMS collaboration, arcs on | 7.5–8.5 | 12.5–14 | before: 203 (unclustered) → after: 20–31 (clustered) |
+| ATLAS collaboration, arcs on | 8–9 | 15–15.5 | before: 177 (unclustered) → after: 22–29 (clustered) |
+
+Roughly a **1.5–1.9×** improvement in this sandboxed, software-rendered
+environment, driven almost entirely by the marker-count drop (177–203 →
+20–31): clustering means a drag never has to reproject more DOM nodes than
+are actually going to be visible at the current zoom, and capping arcs to
+the visible/clustered set (plus turning off dash re-animation
+unconditionally, not only under `prefers-reduced-motion`) removes the
+remaining per-frame cost that scaled with the full roster. On the real-GPU
+environment the original review used, where the *default* view holds a
+clean ~60 fps ceiling (10-20× this sandbox's ceiling), the same relative
+reduction in per-frame marker/arc work would be expected to bring
+collaboration-mode dragging from the reviewed ~15-20 fps into roughly the
+~30-40 fps range — within reach of, and plausibly over, the 60 fps target's
+"graceful degradation" bar — but that was not independently re-verified on
+real GPU hardware in this session; the numbers above are the directly
+measured evidence, not that extrapolation.
+
+**Automated regression guard.** `tests/browser_atlas.cjs`'s "FPS: dragging
+in collaboration mode with arcs on" check runs this same measurement for
+both ATLAS and CMS against whichever tree it's pointed at, asserts a floor
+(30 fps on a real/hardware-accelerated renderer, calibrated against this
+run's own default-view fps when a software rasterizer is detected — see the
+comment in the test — so the assertion isn't unpassable on a GPU-less CI box
+while still catching a real regression), and always logs the measured
+numbers and the detected renderer string.
+
+**Other changes bundled into this closure**, detailed in
+`docs/HEP_ATLAS_ARCHITECTURE.md` §6a: marker clustering for facilities and
+institutions (§17/§70), semantic zoom tiers (far = facilities only, medium+
+= sites), a 40-label visibility budget (§70), an `INSTITUTION_ARC_THRESHOLD`
+(150) that defaults arcs off for very large collaborations without ever
+letting the toggle lie about what's drawn, and the filter panel (experiment
+status, era, topic, facility/experiment kind, region) which composes with
+the timeline and shrinks the rendered set before clustering even runs.

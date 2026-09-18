@@ -23,6 +23,7 @@ function parseSearch(search) {
   const params = new URLSearchParams(search);
   const state = {
     year: null, range: null, topic: null, status: null, mode: null, arcs: false, collab: null,
+    era: null, facilityKind: null, experimentKind: null, region: null,
   };
   if (params.has('y')) {
     const y = parseInt(params.get('y'), 10);
@@ -32,8 +33,15 @@ function parseSearch(search) {
     const m = /^(\d{3,4})-(\d{3,4})$/.exec(params.get('r'));
     if (m) state.range = [parseInt(m[1], 10), parseInt(m[2], 10)];
   }
+  // Filter facets (docs/HEP_ATLAS_ARCHITECTURE.md "Filters and clustering"):
+  // `t`/`s` predate the filter panel and are kept for URL compatibility;
+  // both now carry comma-separated OR-lists rather than a single value.
   if (params.has('t')) state.topic = params.get('t');
   if (params.has('s')) state.status = params.get('s');
+  if (params.has('er')) state.era = params.get('er');
+  if (params.has('fk')) state.facilityKind = params.get('fk');
+  if (params.has('ek')) state.experimentKind = params.get('ek');
+  if (params.has('rg')) state.region = params.get('rg');
   if (params.has('m')) state.mode = params.get('m');
   if (params.has('c')) state.collab = params.get('c');
   state.arcs = params.get('arcs') === '1';
@@ -55,6 +63,10 @@ function buildURL(state) {
   if (state.range) params.set('r', `${state.range[0]}-${state.range[1]}`);
   if (state.topic) params.set('t', state.topic);
   if (state.status) params.set('s', state.status);
+  if (state.era) params.set('er', state.era);
+  if (state.facilityKind) params.set('fk', state.facilityKind);
+  if (state.experimentKind) params.set('ek', state.experimentKind);
+  if (state.region) params.set('rg', state.region);
   if (state.mode) params.set('m', state.mode);
   if (state.collab) params.set('c', state.collab);
   if (state.arcs) params.set('arcs', '1');
