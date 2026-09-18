@@ -298,8 +298,12 @@ Generated at 2026-09-18 by `scripts/atlas_validation_counts.py`. Every figure be
 | Documents | 70 |
 | Topics | 42 |
 | Sources | 1486 |
+| Local maps | 0 |
+| Geometry features | 0 |
 | Membership rosters | 3 |
 | Coverage registry rows | 131 |
+
+No local map has been researched yet (ontology A25): `data/atlas/maps/` is empty, so no facility offers a `#/map/<slug>` route.
 
 Of 1486 sources, 1485 (100%) carry a recorded link-check status (`link_check.last_checked` or `link_check.http_status` is not null); the rest have never been through `python -m hepgraph.atlas.linkcheck`.
 
@@ -369,8 +373,8 @@ Source: a local `pytest -q` log (outside the repository tree, path not recorded)
 
 | Outcome | Count |
 | --- | ---: |
-| passed | 536 |
-| skipped | 139 |
+| passed | 658 |
+| skipped | 145 |
 
 ### 8.6 Browser test results
 
