@@ -47912,6 +47912,29 @@
       "verified_at": null
     }
   },
+  "geometry:desy-campus-boundary": {
+    "/geometry": {
+      "confidence": "approximate",
+      "locator": "OSM way 276641657, timestamp_osm_base 2026-09-18T22:24:35Z",
+      "note": "OpenStreetMap alone yields at most 'approximate' confidence; no official DESY campus-boundary figure was fetched to check the perimeter/area against.",
+      "quote": null,
+      "sources": [
+        "src:geo-desy-osm-campus-boundary",
+        "src:desy-wikipedia"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-desy-osm-campus-boundary"
+      ],
+      "verified_at": null
+    }
+  },
   "geometry:ehn1-building-887": {
     "/geometry": {
       "confidence": "approximate",
@@ -48553,6 +48576,72 @@
       "quote": null,
       "sources": [
         "src:fermilab-geo-osm-buildings"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:hera-halle-nord": {
+    "/geometry": {
+      "confidence": "approximate",
+      "locator": "OSM way 131496014, timestamp_osm_base 2026-09-18T22:24:35Z; Wikipedia 'HERA (particle accelerator)', 'H1 was a universal detector ... located in the HERA Hall North.'",
+      "note": "OpenStreetMap alone yields at most 'approximate' confidence; no official hall-dimension figure was fetched to check this footprint against.",
+      "quote": null,
+      "sources": [
+        "src:geo-desy-osm-hera-halle-nord",
+        "src:hera-wikipedia"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-desy-osm-hera-halle-nord"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:hera-tunnel-ring": {
+    "/checks/0": {
+      "confidence": null,
+      "locator": "HERA storage-ring facts table",
+      "note": null,
+      "quote": "Length: 6336 metres",
+      "sources": [
+        "src:geo-desy-hera-facts-page"
+      ],
+      "verified_at": null
+    },
+    "/checks/0/expected": {
+      "confidence": "verified",
+      "locator": "HERA storage-ring facts table",
+      "note": "",
+      "quote": "Length: 6336 metres",
+      "sources": [
+        "src:geo-desy-hera-facts-page"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/geometry": {
+      "confidence": "verified",
+      "locator": "OSM way 24973326, timestamp_osm_base 2026-09-18T22:20:24Z; DESY 'H1, ZEUS, HERMES' page, 'Length: 6336 metres'",
+      "note": "Confidence 'verified' rests on the passing length check against DESY's own published figure (rank-2 official_facility_site source).",
+      "quote": null,
+      "sources": [
+        "src:geo-desy-osm-hera-tunnel",
+        "src:geo-desy-hera-facts-page"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-desy-osm-hera-tunnel"
       ],
       "verified_at": null
     }
@@ -49354,6 +49443,28 @@
       "verified_at": null
     }
   },
+  "geometry:petra-iii-tunnel": {
+    "/geometry": {
+      "confidence": "approximate",
+      "locator": "OSM way 297515305, timestamp_osm_base 2026-09-18T22:24:35Z",
+      "note": "Measured length 2296.4 m is consistent with PETRA III's commonly cited circumference of about 2304 m (0.3% residual), but no rank<=10 source was fetched this session confirming that figure, so it is reported here rather than as a checks[] row.",
+      "quote": null,
+      "sources": [
+        "src:geo-desy-osm-petra-iii-tunnel"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-desy-osm-petra-iii-tunnel"
+      ],
+      "verified_at": null
+    }
+  },
   "geometry:point1-atlas-boundary": {
     "/geometry": {
       "confidence": "approximate",
@@ -49647,6 +49758,29 @@
       "quote": null,
       "sources": [
         "src:geo-cern-osm-psb-way"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:psi-campus-boundary": {
+    "/geometry": {
+      "confidence": "approximate",
+      "locator": "OSM ways 28028409, 26680824, 26680821 (Nominatim polygon_geojson extract, accessed 2026-09-18)",
+      "note": "OpenStreetMap alone yields at most 'approximate' confidence; no official PSI campus-boundary figure was fetched to check the perimeter/area against.",
+      "quote": null,
+      "sources": [
+        "src:geo-psi-osm-campus-boundary",
+        "src:facilities-verify-psi-hipa-page"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-psi-osm-campus-boundary"
       ],
       "verified_at": null
     }
@@ -66925,6 +67059,65 @@
       "verified_at": "2026-09-18"
     }
   },
+  "map:desy": {
+    "/center": {
+      "confidence": "derived",
+      "locator": "Centroid of OSM way 276641657 ('Deutsches Elektronen-Synchrotron DESY' campus landuse polygon)",
+      "note": "Map centre only; not a claim about any structure.",
+      "quote": null,
+      "sources": [
+        "src:geo-desy-osm-campus-boundary"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/levels/1": {
+      "confidence": null,
+      "locator": null,
+      "note": "Plan view; depth varies around the ring. Houses geometry:hera-tunnel-ring.",
+      "quote": null,
+      "sources": null,
+      "verified_at": null
+    },
+    "/levels/1/depth_m": {
+      "confidence": "uncertain",
+      "locator": null,
+      "note": "Sourced to Wikipedia only (rank 12), matching accelerator:hera's own sourcing for this figure; no official DESY civil-engineering page fetched this session states the depth range directly.",
+      "quote": "The HERA tunnel runs 10 to 25 m below ground level and has a circumference of 6.3 km",
+      "sources": [
+        "src:hera-wikipedia"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/levels/2": {
+      "confidence": null,
+      "locator": null,
+      "note": "No fetched source states the PETRA III tunnel's depth below surface this session (left null per A17 rather than guessed); OSM tags it layer=-4, one layer shallower than the HERA tunnel's layer=-5, which is why it is not placed on the same level.",
+      "quote": null,
+      "sources": null,
+      "verified_at": null
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-desy-osm-campus-boundary",
+        "src:geo-desy-hera-facts-page"
+      ],
+      "verified_at": null
+    },
+    "/unlocated/0": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:zeus-wikipedia"
+      ],
+      "verified_at": "2026-09-18"
+    }
+  },
   "map:fermilab": {
     "/center": {
       "confidence": "derived",
@@ -67382,6 +67575,46 @@
         "src:astro-neutrino-km3net-loi-2016"
       ],
       "verified_at": null
+    }
+  },
+  "map:psi": {
+    "/center": {
+      "confidence": "derived",
+      "locator": "Area-weighted centroid of the combined OSM campus MultiPolygon (ways 28028409, 26680824, 26680821)",
+      "note": "Map centre only; not a claim about any structure.",
+      "quote": null,
+      "sources": [
+        "src:geo-psi-osm-campus-boundary"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/levels/0": {
+      "confidence": null,
+      "locator": null,
+      "note": "No underground level is defined this session: no sourced footprint or depth was found for the HIPA Ring Cyclotron building or the large experimental hall (see accelerator:psi-hipa in unlocated[]).",
+      "quote": null,
+      "sources": null,
+      "verified_at": null
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-psi-osm-campus-boundary"
+      ],
+      "verified_at": null
+    },
+    "/unlocated/0": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:facilities-verify-psi-hipa-page"
+      ],
+      "verified_at": "2026-09-18"
     }
   },
   "person:inspire-1005149": {

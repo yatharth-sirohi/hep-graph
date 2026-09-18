@@ -4423,6 +4423,9 @@
   "geometry:cngs-direction-line": {
     "notes": []
   },
+  "geometry:desy-campus-boundary": {
+    "notes": []
+  },
   "geometry:ehn1-building-887": {
     "notes": []
   },
@@ -4491,6 +4494,16 @@
   },
   "geometry:fermilab-wilson-hall": {
     "notes": []
+  },
+  "geometry:hera-halle-nord": {
+    "notes": [
+      "entity_id is the site (site:desy-hera-north-hall-h1), not the detector, following the same convention used on map:cern's Point-N boundaries -- the validator's map-entity-unaccounted rule scans entity_id, not site_id, and both detector:h1 and detector:alps-ii place at this one site id."
+    ]
+  },
+  "geometry:hera-tunnel-ring": {
+    "notes": [
+      "valid.start (1990-11-08) is the OSM way's own start_date tag, which predates accelerator:hera's own sourced operation interval (1992) -- the tunnel/ring structure itself predates first physics collisions, matching the contract's guidance that a shape's own lifetime may differ from its entity's."
+    ]
   },
   "geometry:j-parc-hadron-hall-building": {
     "notes": [
@@ -4623,6 +4636,9 @@
   "geometry:meyrin-site-marker": {
     "notes": []
   },
+  "geometry:petra-iii-tunnel": {
+    "notes": []
+  },
   "geometry:point1-atlas-boundary": {
     "notes": []
   },
@@ -4655,6 +4671,12 @@
   },
   "geometry:psb-tunnel-ring": {
     "notes": []
+  },
+  "geometry:psi-campus-boundary": {
+    "notes": [
+      "OSM's timestamp_osm_base is not available from Nominatim's response the way it is from a direct Overpass extract; osm.timestamp records the access date instead.",
+      "entity_id is the site (site:psi-villigen); this one feature accounts for the site and, through it, the site-hosted detector placements of detector:meg, detector:meg-ii and detector:mu3e, none of which has its own sourced hall footprint this session (see accelerator:psi-hipa's unlocated row and the worklog)."
+    ]
   },
   "geometry:south-pole-station-marker": {
     "notes": [
@@ -6895,6 +6917,13 @@
     ],
     "summary_technical": "One local map for facility:cern spanning the Meyrin and Prévessin sites and the full LHC/LEP tunnel footprint. Geometry sourced from OpenStreetMap (relation 9512017 for the LHC/LEP ring; ways 66473762/174646428/309914733 for SPS/PS/PSB; named Point-N surface enclosures for ATLAS/ALICE/CMS/LHCb and their LEP-era predecessors L3/ALEPH/DELPHI) cross-checked against CERN's published circumference and depth figures, plus one CMS-paper surveyed cavern point and two ring-derived points for FASER/SND@LHC in TI12/TI18."
   },
+  "map:desy": {
+    "notes": [
+      "Site coordinate correction (for the integrator, not applied here): site:desy-hamburg-campus, site:desy-hera-north-hall-h1 and site:desy-hera-south-hall-zeus all currently carry the same ROR-geocoded point (53.55073N, 9.99302E, precision_m 800). That point is about 10.3 km from DESY's actual Hamburg-Bahrenfeld campus. Two independent sources fetched this session agree with each other instead: (1) OSM way 276641657, the campus landuse polygon itself, tagged with DESY's own postal address (Notkestraße 85, 22607 Hamburg) and centroid 53.5771N, 9.8808E; (2) src:desy-wikipedia's own excerpt, already cited by the existing site record, states the coordinate '53 34'33''N 9 52'46''E' = 53.5758N, 9.8794E -- 150 m from (1) and nothing like the ROR point actually used. See the worklog for the full correction list.",
+      "geometry:hera-halle-nord (entity_id site:desy-hera-north-hall-h1) stands in for both detector:h1 (1992-2007) and detector:alps-ii (active, in the same former HERA tunnel straight section); it is not time-sliced because sites carry no independent state_segments in this schema version, matching map:cern's documented over-display of boundary/hall features across every year."
+    ],
+    "summary_technical": "One local map for facility:desy spanning the Hamburg-Bahrenfeld campus and the full HERA ring footprint. Geometry sourced from OpenStreetMap (way 24973326 for the HERA ring; way 276641657 for the campus boundary; way 131496014 for the North Hall/H1 building; way 297515305 for the PETRA III storage-ring tunnel, drawn as context) cross-checked against DESY's own published HERA ring length and depth figures."
+  },
   "map:fermilab": {
     "notes": [
       "Far sites (not drawn on this map; see the geometry worklog for great-circle distances and bearings computed from the sourced site:fermilab-main-campus point): site:soudan-minos-far-detector (735.4 km, bearing 336.0 degrees, historical MINOS-era NuMI beam), site:ash-river-nova-far-detector (811.7 km, bearing 335.5 degrees, current NOvA-era NuMI beam), site:surf-4850-level-dune-far-detector (1287.6 km, bearing 287.7 degrees, LBNF beam). No map:soudan, map:ash-river or map:surf record exists yet in this branch, so linked_map_ids is empty; the integrator should populate it once those maps exist."
@@ -6929,6 +6958,13 @@
       "Overpass had no bearing on the two drawn features here (a sea site has no OSM footprint, per the research brief)."
     ],
     "summary_technical": "Local map for the KM3NeT-Fr / ORCA deep-sea site (facility:km3net). One surveyed point (the collaboration's own published 42°48' N 06°02' E) and one derived ~200 m-diameter circle for the single ORCA building block, its radius estimated by scaling ARCA's sourced R=500 m by the two blocks' relative string spacing (both from the KM3NeT 2.0 Letter of Intent). ARCA and ORCA are ~900 km apart and cannot share a to-scale map; see map:km3net-arca (linked)."
+  },
+  "map:psi": {
+    "notes": [
+      "Overpass (overpass-api.de and lz4.overpass-api.de) refused every connection attempt for the entire PSI/KIT portion of this session (curl: 'Failed to connect ... Couldn't connect to server', not a 429/504 that a backoff would clear). The campus boundary was recovered through Nominatim's polygon_geojson=1 output instead (same underlying OSM way data), but Nominatim only supports name search, not Overpass's tag/bbox queries -- so the HIPA ring-cyclotron building and the large experimental hall (housing MEG-II and Mu3e in the piE5 area) could not be located by name and are not drawn. Named locality nodes 'PSI West' (47.5368N, 8.2222E) and 'PSI Ost' (47.5386N, 8.2300E) corroborate which OSM polygon is which bank, but are themselves place labels, not building footprints, so they are not drawn either.",
+      "geometry:psi-campus-boundary (entity_id site:psi-villigen) accounts for the site and, through it, the placements of detector:meg, detector:meg-ii and detector:mu3e -- none of which has its own hall footprint this session for the same Overpass-outage reason."
+    ],
+    "summary_technical": "One local map for facility:psi. Only the campus boundary (OSM ways 28028409, 26680824 on the Villigen/west bank and 26680821 on the Wurenlingen/east bank, fetched via Nominatim) is drawn; accelerator:psi-hipa is unlocated pending a working Overpass query for its unnamed building."
   },
   "person:inspire-1005149": {
     "notes": []

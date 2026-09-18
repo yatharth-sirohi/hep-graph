@@ -749,7 +749,9 @@
       "facility_id": "facility:desy",
       "fed_by_accelerator_ids": [],
       "feeds_accelerator_ids": [],
-      "geometry_map_ids": [],
+      "geometry_map_ids": [
+        "map:desy"
+      ],
       "id": "accelerator:hera",
       "intervals": [
         {
@@ -46264,7 +46266,7 @@
       "links": {
         "website": "https://www.desy.de/"
       },
-      "map_id": null,
+      "map_id": "map:desy",
       "name": "Deutsches Elektronen-Synchrotron",
       "operator_ids": [],
       "operator_text": "A publicly funded German national research centre, member of the Helmholtz Association, financed 90% by the German Federal Ministry of Research and 10% by the City of Hamburg and the Federal State of Brandenburg",
@@ -48087,7 +48089,7 @@
       "links": {
         "website": "https://www.psi.ch/en"
       },
-      "map_id": null,
+      "map_id": "map:psi",
       "name": "Paul Scherrer Institute",
       "operator_ids": [],
       "operator_text": "Part of the ETH Domain of the Swiss Confederation (the Swiss Federal Institutes of Technology system)",
@@ -49338,6 +49340,74 @@
       "to_scale_count": 20,
       "unlocated_count": 7
     },
+    "map:desy": {
+      "attribution": [
+        "© OpenStreetMap contributors (ODbL-1.0)"
+      ],
+      "bundle": "geometry/desy.json",
+      "center": {
+        "lat": 53.5770744,
+        "lon": 9.8807554
+      },
+      "coverage": {
+        "researched": "partial",
+        "tier": "B"
+      },
+      "extent_m": 2200,
+      "facility_id": "facility:desy",
+      "feature_count": 4,
+      "id": "map:desy",
+      "levels": [
+        {
+          "depth_m": null,
+          "id": "surface",
+          "kind": "surface",
+          "name": "Surface"
+        },
+        {
+          "depth_m": {
+            "dimension": "length",
+            "display": "≈17.5 m (10–25 m below ground level)",
+            "max": 25,
+            "min": 10,
+            "unit": "m"
+          },
+          "id": "hera-tunnel",
+          "kind": "underground",
+          "name": "HERA tunnel"
+        },
+        {
+          "depth_m": null,
+          "id": "petra-tunnel",
+          "kind": "underground",
+          "name": "PETRA III tunnel"
+        }
+      ],
+      "linked_map_ids": [],
+      "name": "DESY — Hamburg-Bahrenfeld campus and the HERA ring",
+      "site_ids": [
+        "site:desy-hamburg-campus",
+        "site:desy-hera-north-hall-h1",
+        "site:desy-hera-south-hall-zeus"
+      ],
+      "state_segments": [
+        [
+          119,
+          119,
+          "active",
+          "possible"
+        ],
+        [
+          120,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
+      "to_scale_count": 4,
+      "unlocated_count": 1
+    },
     "map:fermilab": {
       "attribution": [
         "© OpenStreetMap contributors (ODbL-1.0)"
@@ -49699,6 +49769,48 @@
       "status": "construction",
       "to_scale_count": 2,
       "unlocated_count": 0
+    },
+    "map:psi": {
+      "attribution": [
+        "© OpenStreetMap contributors (ODbL-1.0)"
+      ],
+      "bundle": "geometry/psi.json",
+      "center": {
+        "lat": 47.5375192,
+        "lon": 8.2250675
+      },
+      "coverage": {
+        "researched": "partial",
+        "tier": "C"
+      },
+      "extent_m": 800,
+      "facility_id": "facility:psi",
+      "feature_count": 1,
+      "id": "map:psi",
+      "levels": [
+        {
+          "depth_m": null,
+          "id": "surface",
+          "kind": "surface",
+          "name": "Surface"
+        }
+      ],
+      "linked_map_ids": [],
+      "name": "PSI — Villigen and Wurenlingen campus",
+      "site_ids": [
+        "site:psi-villigen"
+      ],
+      "state_segments": [
+        [
+          456,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
+      "to_scale_count": 1,
+      "unlocated_count": 1
     }
   },
   "schema": "hep-atlas/0.2",
@@ -52301,7 +52413,7 @@
       "links": {
         "website": null
       },
-      "map_id": null,
+      "map_id": "map:desy",
       "name": "DESY Hamburg campus",
       "place": {
         "city": "Hamburg",
@@ -52339,7 +52451,7 @@
       "links": {
         "website": null
       },
-      "map_id": null,
+      "map_id": "map:desy",
       "name": "HERA North Hall (H1)",
       "place": {
         "city": "Hamburg",
@@ -52446,7 +52558,7 @@
       "links": {
         "website": null
       },
-      "map_id": null,
+      "map_id": "map:desy",
       "name": "HERA South Hall (ZEUS)",
       "place": {
         "city": "Hamburg",
@@ -56419,7 +56531,7 @@
       "links": {
         "website": null
       },
-      "map_id": null,
+      "map_id": "map:psi",
       "name": "PSI Villigen campus",
       "place": {
         "city": "Villigen",
@@ -59110,5 +59222,5 @@
       "type": "topic"
     }
   },
-  "version": "b162a5fca77c6e8f"
+  "version": "e5f051c38b4d5932"
 }

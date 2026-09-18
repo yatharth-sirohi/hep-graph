@@ -14105,6 +14105,9 @@
         "/intervals/0",
         "/sources"
       ],
+      "geometry:desy-campus-boundary": [
+        "/geometry"
+      ],
       "site:desy-hamburg-campus": [
         "/coordinates",
         "/sources"
@@ -16644,6 +16647,12 @@
         "/sources",
         "/specs/beam_energy",
         "/specs/beam_power"
+      ],
+      "geometry:psi-campus-boundary": [
+        "/geometry"
+      ],
+      "map:psi": [
+        "/unlocated/0"
       ]
     },
     "date": null,
@@ -18230,6 +18239,122 @@
     "type": "src",
     "url": "https://www.openstreetmap.org/way/66473762"
   },
+  "src:geo-desy-hera-facts-page": {
+    "accessed": "2026-09-18",
+    "cited_by": {
+      "geometry:hera-tunnel-ring": [
+        "/checks/0",
+        "/checks/0/expected",
+        "/geometry"
+      ],
+      "map:desy": [
+        "/sources"
+      ]
+    },
+    "date": null,
+    "excerpt": "HERA storage ring: Length: 6336 metres. ...a 6.3-kilometer-long tunnel located deep below Hamburg, in which four huge detectors at the HERA storage ring recorded collisions of electrons or positrons with protons.",
+    "id": "src:geo-desy-hera-facts-page",
+    "publisher": "DESY",
+    "rank": 2,
+    "reference": {},
+    "retrieval": "full_text",
+    "source_type": "official_facility_site",
+    "title": "H1, ZEUS, HERMES -- Deutsches Elektronen-Synchrotron DESY",
+    "type": "src",
+    "url": "https://www.desy.de/e141261/e158573/e158772/index_eng.html"
+  },
+  "src:geo-desy-osm-campus-boundary": {
+    "accessed": "2026-09-18",
+    "cited_by": {
+      "geometry:desy-campus-boundary": [
+        "/geometry",
+        "/sources"
+      ],
+      "map:desy": [
+        "/center",
+        "/sources"
+      ]
+    },
+    "date": "2026-09-18",
+    "excerpt": "way/276641657 'Deutsches Elektronen-Synchrotron DESY': landuse=industrial, amenity=research_institute, research=particle_physics, short_name=DESY, addr:street=Notkestraße, addr:housenumber=85, addr:postcode=22607, addr:city=Hamburg, wikidata=Q311801.",
+    "id": "src:geo-desy-osm-campus-boundary",
+    "publisher": "OpenStreetMap contributors",
+    "rank": 11,
+    "reference": {
+      "query": "[out:json][timeout:90];(way(131496014);way(297515305);way(276641657);way[\"name\"~\"Süd|Sued|ZEUS|Doppel-Ring|Doppelring\",i](53.565,9.86,53.598,9.915);way[\"building\"][\"name\"~\"Süd|Sued|ZEUS\",i](53.565,9.86,53.598,9.915););out body geom;"
+    },
+    "retrieval": "full_text",
+    "source_type": "openstreetmap",
+    "title": "OpenStreetMap way 276641657: Deutsches Elektronen-Synchrotron DESY (campus landuse polygon)",
+    "type": "src",
+    "url": "https://www.openstreetmap.org/way/276641657"
+  },
+  "src:geo-desy-osm-hera-halle-nord": {
+    "accessed": "2026-09-18",
+    "cited_by": {
+      "geometry:hera-halle-nord": [
+        "/geometry",
+        "/sources"
+      ]
+    },
+    "date": "2026-09-18",
+    "excerpt": "way/131496014 'HERA Halle Nord': building=industrial, building:levels=3, roof:shape=round, roof:levels=1, check_date=2024-03-10.",
+    "id": "src:geo-desy-osm-hera-halle-nord",
+    "publisher": "OpenStreetMap contributors",
+    "rank": 11,
+    "reference": {
+      "query": "[out:json][timeout:90];(way(131496014);way(297515305);way(276641657);way[\"name\"~\"Süd|Sued|ZEUS|Doppel-Ring|Doppelring\",i](53.565,9.86,53.598,9.915);way[\"building\"][\"name\"~\"Süd|Sued|ZEUS\",i](53.565,9.86,53.598,9.915););out body geom;"
+    },
+    "retrieval": "full_text",
+    "source_type": "openstreetmap",
+    "title": "OpenStreetMap way 131496014: HERA Halle Nord (North Hall building, H1)",
+    "type": "src",
+    "url": "https://www.openstreetmap.org/way/131496014"
+  },
+  "src:geo-desy-osm-hera-tunnel": {
+    "accessed": "2026-09-18",
+    "cited_by": {
+      "geometry:hera-tunnel-ring": [
+        "/geometry",
+        "/sources"
+      ]
+    },
+    "date": "2026-09-18",
+    "excerpt": "way/24973326 'Hadron-Elektron-Ring-Anlage' (short_name HERA): tunnel=yes, man_made=particle_accelerator, abandoned:particle_accelerator=circular, layer=-5, depth=-25, diameter=5.2 m, length=6336, start_date=1990-11-08, end_date=2007, operator=Deutsches Elektronen-Synchrotron, wikidata=Q1054761.",
+    "id": "src:geo-desy-osm-hera-tunnel",
+    "publisher": "OpenStreetMap contributors",
+    "rank": 11,
+    "reference": {
+      "query": "[out:json][timeout:90];(way(24973326););out body geom;"
+    },
+    "retrieval": "full_text",
+    "source_type": "openstreetmap",
+    "title": "OpenStreetMap way 24973326: Hadron-Elektron-Ring-Anlage (HERA tunnel)",
+    "type": "src",
+    "url": "https://www.openstreetmap.org/way/24973326"
+  },
+  "src:geo-desy-osm-petra-iii-tunnel": {
+    "accessed": "2026-09-18",
+    "cited_by": {
+      "geometry:petra-iii-tunnel": [
+        "/geometry",
+        "/sources"
+      ]
+    },
+    "date": "2026-09-18",
+    "excerpt": "way/297515305 'PETRA III': tunnel=yes, highway=service, access=no, vehicle=no, layer=-4, check_date=2024-03-06.",
+    "id": "src:geo-desy-osm-petra-iii-tunnel",
+    "publisher": "OpenStreetMap contributors",
+    "rank": 11,
+    "reference": {
+      "query": "[out:json][timeout:90];(way(131496014);way(297515305);way(276641657);way[\"name\"~\"Süd|Sued|ZEUS|Doppel-Ring|Doppelring\",i](53.565,9.86,53.598,9.915);way[\"building\"][\"name\"~\"Süd|Sued|ZEUS\",i](53.565,9.86,53.598,9.915););out body geom;"
+    },
+    "retrieval": "full_text",
+    "source_type": "openstreetmap",
+    "title": "OpenStreetMap way 297515305: PETRA III (storage-ring tunnel)",
+    "type": "src",
+    "url": "https://www.openstreetmap.org/way/297515305"
+  },
   "src:geo-jparc-osm-hadron-hall": {
     "accessed": "2026-09-18",
     "cited_by": {
@@ -18672,6 +18797,32 @@
     "title": "OpenStreetMap: Amundsen–Scott South Pole Station (node 5314074411)",
     "type": "src",
     "url": "https://www.openstreetmap.org/node/5314074411"
+  },
+  "src:geo-psi-osm-campus-boundary": {
+    "accessed": "2026-09-18",
+    "cited_by": {
+      "geometry:psi-campus-boundary": [
+        "/geometry",
+        "/sources"
+      ],
+      "map:psi": [
+        "/center",
+        "/sources"
+      ]
+    },
+    "date": "2026-09-18",
+    "excerpt": "OSM ways 28028409, 26680824 (Villigen side, research_institute) and 26680821 (Wurenlingen side, research_institute), all named 'Paul Scherrer Institut'; fetched via Nominatim's polygon_geojson=1 output (Overpass was unreachable this session -- both overpass-api.de and lz4.overpass-api.de refused connections throughout) rather than a direct Overpass extract, but the returned geometry is the same underlying OSM way data.",
+    "id": "src:geo-psi-osm-campus-boundary",
+    "publisher": "OpenStreetMap contributors",
+    "rank": 11,
+    "reference": {
+      "query": "https://nominatim.openstreetmap.org/search?q=Paul+Scherrer+Institut&format=jsonv2&polygon_geojson=1&limit=5"
+    },
+    "retrieval": "full_text",
+    "source_type": "openstreetmap",
+    "title": "OpenStreetMap ways 28028409 / 26680824 / 26680821: Paul Scherrer Institut campus (Villigen and Wurenlingen sides)",
+    "type": "src",
+    "url": "https://www.openstreetmap.org/way/28028409"
   },
   "src:geocoder-sanford-underground-research-facility": {
     "accessed": "2026-09-17",
@@ -19456,6 +19607,12 @@
         "/specs/circumference",
         "/specs/cms_energy",
         "/specs/proton_energy"
+      ],
+      "geometry:hera-halle-nord": [
+        "/geometry"
+      ],
+      "map:desy": [
+        "/levels/1/depth_m"
       ],
       "site:desy-hera-north-hall-h1": [
         "/sources"
@@ -48765,6 +48922,9 @@
   "src:zeus-wikipedia": {
     "accessed": "2026-09-17",
     "cited_by": {
+      "map:desy": [
+        "/unlocated/0"
+      ],
       "site:desy-hera-south-hall-zeus": [
         "/sources"
       ]
