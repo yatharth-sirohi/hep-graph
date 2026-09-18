@@ -188,6 +188,35 @@ function sourcesDisclosure(entityId, { approximateSites = [] } = {}) {
   return details;
 }
 
+// ---- local map view hook (docs/HEP_ATLAS_GEOMETRY.md §4) -- begin -------
+/**
+ * The "Open local map" affordance for any record the build has linked to a
+ * to-scale local map: `map_id` on a facility or a site, `geometry_map_ids`
+ * on an accelerator, beamline or detector (the maps that draw it). Returns
+ * null when the build linked none, so a caller can append it unconditionally
+ * and nothing appears for a facility whose campus has not been mapped yet —
+ * which means "not researched", not "has no layout".
+ */
+export function localMapLinks(record) {
+  if (!record) return null;
+  const ids = record.map_id ? [record.map_id] : (record.geometry_map_ids || []);
+  const maps = (ATLAS && ATLAS.maps) || {};
+  const known = ids.filter((mapId) => maps[mapId]);
+  if (!known.length) return null;
+  const items = known.map((mapId) => {
+    const meta = maps[mapId];
+    const drawn = `${meta.to_scale_count} feature${meta.to_scale_count === 1 ? '' : 's'} drawn to scale`;
+    const unlocated = meta.unlocated_count
+      ? ` \u00b7 ${meta.unlocated_count} not drawn (geometry not verified)` : '';
+    return h('li', {}, [
+      linkTo(idRoute(mapId), `Open local map \u2014 ${meta.name}`, 'local-map-link'),
+      h('div', { class: 'source-meta' }, `${drawn}${unlocated}`),
+    ]);
+  });
+  return section('Local map', [h('ul', { class: 'entity-list' }, items)]);
+}
+// ---- local map view hook -- end ----------------------------------------
+
 // Renders the status pill from the entity's per-year `state_segments` at the
 // currently selected timeline position, never from its static build-time
 // `status` — the globe's own markers already do this (model.js's
@@ -282,6 +311,12 @@ async function renderFacility(id, timelineState) {
   frag.appendChild(section('Related facilities', related.length
     ? [h('ul', { class: 'entity-list' }, related.map((r) => h('li', {}, linkTo(idRoute(r.id), r.name))))]
     : [emptyNote('No related facilities recorded.')], { open: false }));
+
+  // ---- local map view hook (§4): only the facility renderer calls it for
+  // now; the site/accelerator/beamline/detector renderers can append the
+  // same element when they land.
+  const mapSection = localMapLinks(facility);
+  if (mapSection) frag.appendChild(mapSection);
 
   frag.appendChild(sourcesDisclosure(id));
   CALLBACKS.focusGlobe(id);
