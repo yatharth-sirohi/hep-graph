@@ -366,7 +366,7 @@ function renderDocsMode() {
     list.innerHTML = '';
     if (!filtered.length) {
       list.appendChild(h('li', { class: 'empty-note' }, (
-        documents.length ? 'No documents match this filter.' : 'No documents available.'
+        documents.length ? 'No documents match this filter.' : 'No documents curated yet.'
       )));
       return;
     }
