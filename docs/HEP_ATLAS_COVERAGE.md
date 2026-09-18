@@ -1,6 +1,6 @@
 # HEP Atlas coverage
 
-Generated 2026-09-17 by `scripts/atlas_coverage_report.py`. Every number here is
+Generated 2026-09-18 by `scripts/atlas_coverage_report.py`. Every number here is
 computed from `data/atlas/`; none of it is asserted by hand. The atlas does not
 claim to contain every experiment in experimental high-energy physics, and the
 interface says only "coverage updated" with this date.
@@ -9,18 +9,18 @@ interface says only "coverage updated" with this date.
 
 | Type | Count |
 | --- | ---: |
-| accelerator | 21 |
-| beamline | 5 |
-| collaboration | 25 |
-| detector | 32 |
-| document | 55 |
-| experiment | 30 |
-| facility | 9 |
+| accelerator | 31 |
+| beamline | 6 |
+| collaboration | 120 |
+| detector | 132 |
+| document | 70 |
+| experiment | 128 |
+| facility | 47 |
 | institution | 529 |
 | person | 12 |
-| result | 62 |
-| site | 22 |
-| source | 957 |
+| result | 104 |
+| site | 92 |
+| source | 1471 |
 | topic | 42 |
 | membership rows | 659 |
 
@@ -31,22 +31,23 @@ exists with sourced content. Gaps are computed per record, not declared.
 
 | Category | Identified | Researched | Fully complete | Missing membership | Missing history | Missing results | Missing documents |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| Accelerator neutrinos | 15 | 11 | 1 | 10 | 0 | 1 | 1 |
+| Accelerator neutrinos | 15 | 15 | 1 | 14 | 0 | 2 | 5 |
 | Atmospheric neutrinos | 3 | 3 | 0 | 3 | 0 | 2 | 0 |
-| Axions and ALPs | 7 | 0 | 0 | 0 | 0 | 0 | 0 |
-| Coherent elastic neutrino-nucleus scattering | 4 | 0 | 0 | 0 | 0 | 0 | 0 |
-| Colliders | 22 | 9 | 1 | 8 | 0 | 0 | 2 |
-| Cosmic rays, gamma rays and astroparticle | 8 | 0 | 0 | 0 | 0 | 0 | 0 |
-| Dark matter direct detection | 16 | 2 | 0 | 2 | 0 | 0 | 0 |
-| Direct neutrino mass | 2 | 0 | 0 | 0 | 0 | 0 | 0 |
-| Fixed target, rare kaons and long-lived particles | 10 | 0 | 0 | 0 | 0 | 0 | 0 |
-| Heavy ions | 3 | 0 | 0 | 0 | 0 | 0 | 0 |
-| High-energy and astrophysical neutrinos | 13 | 4 | 0 | 4 | 0 | 2 | 2 |
-| Muon precision and rare processes | 6 | 0 | 0 | 0 | 0 | 0 | 0 |
-| Neutrinoless double beta decay | 9 | 0 | 0 | 0 | 0 | 0 | 0 |
-| Reactor and low-energy neutrinos | 5 | 0 | 0 | 0 | 0 | 0 | 0 |
-| Solar and radiochemical neutrinos | 6 | 0 | 0 | 0 | 0 | 0 | 0 |
-| **All** | **129** | **29** | **2** | **27** | **0** | **5** | **5** |
+| Axions and ALPs | 7 | 7 | 0 | 7 | 1 | 7 | 7 |
+| Coherent elastic neutrino-nucleus scattering | 4 | 4 | 0 | 4 | 0 | 3 | 3 |
+| Colliders | 22 | 22 | 1 | 21 | 0 | 9 | 13 |
+| Cosmic rays, gamma rays and astroparticle | 2 | 2 | 0 | 2 | 0 | 2 | 2 |
+| Dark matter direct detection | 16 | 16 | 0 | 16 | 1 | 12 | 13 |
+| Direct neutrino mass | 2 | 2 | 0 | 2 | 1 | 1 | 2 |
+| Fixed target, rare kaons and long-lived particles | 10 | 10 | 0 | 10 | 1 | 9 | 9 |
+| Gamma rays | 6 | 6 | 0 | 6 | 2 | 6 | 6 |
+| Heavy ions | 3 | 3 | 0 | 3 | 0 | 1 | 3 |
+| High-energy and astrophysical neutrinos | 13 | 13 | 0 | 13 | 2 | 10 | 10 |
+| Muon precision and rare processes | 6 | 6 | 0 | 6 | 1 | 3 | 3 |
+| Neutrinoless double beta decay | 9 | 9 | 0 | 9 | 3 | 9 | 9 |
+| Reactor and low-energy neutrinos | 5 | 5 | 0 | 5 | 1 | 0 | 4 |
+| Solar and radiochemical neutrinos | 6 | 4 | 0 | 4 | 0 | 2 | 4 |
+| **All** | **129** | **127** | **2** | **125** | **13** | **78** | **93** |
 
 ## Per-experiment detail
 
@@ -55,19 +56,19 @@ exists with sourced content. Gaps are computed per record, not declared.
 
 | Experiment | State | Still missing |
 | --- | --- | --- |
-| DONUT | not researched | all |
+| DONUT | researched | institution membership, technical documents |
 | DUNE | researched | — |
 | ICARUS | researched | institution membership |
 | K2K | researched | institution membership, technical documents |
-| KARMEN | not researched | all |
-| LSND | not researched | all |
+| KARMEN | researched | institution membership, major results, technical documents |
+| LSND | researched | institution membership, technical documents |
 | MINERvA | researched | institution membership |
 | MINOS | researched | institution membership |
 | MINOS+ | researched | institution membership |
 | MicroBooNE | researched | institution membership |
 | MiniBooNE | researched | institution membership |
 | NOvA | researched | institution membership |
-| OPERA | not researched | all |
+| OPERA | researched | institution membership, technical documents |
 | SBND | researched | institution membership, major results |
 | T2K | researched | institution membership |
 
@@ -83,177 +84,182 @@ exists with sourced content. Gaps are computed per record, not declared.
 
 | Experiment | State | Still missing |
 | --- | --- | --- |
-| ABRACADABRA | not researched | all |
-| ADMX | not researched | all |
-| ALPS II | not researched | all |
-| CAST | not researched | all |
-| DMRadio | not researched | all |
-| HAYSTAC | not researched | all |
-| IAXO | not researched | all |
+| ABRACADABRA | researched | institution membership, major results, technical documents |
+| ADMX | researched | institution membership, major results, technical documents |
+| ALPS II | researched | institution membership, major results, technical documents |
+| CAST | researched | institution membership, major results, technical documents |
+| DMRadio | researched | institution membership, historical intervals, major results, technical documents |
+| HAYSTAC | researched | institution membership, major results, technical documents |
+| IAXO | researched | institution membership, placeable geography, major results, technical documents |
 
 ### Coherent elastic neutrino-nucleus scattering
 
 | Experiment | State | Still missing |
 | --- | --- | --- |
-| COHERENT | not researched | all |
-| CONUS+ | not researched | all |
-| NUCLEUS | not researched | all |
-| Ricochet | not researched | all |
+| COHERENT | researched | institution membership |
+| CONUS / CONUS+ | researched | institution membership, major results, technical documents |
+| NUCLEUS | researched | institution membership, major results, technical documents |
+| Ricochet | researched | institution membership, major results, technical documents |
 
 ### Colliders
 
 | Experiment | State | Still missing |
 | --- | --- | --- |
 | ALEPH | researched | institution membership, placeable geography |
-| ALICE | not researched | all |
+| ALICE | researched | institution membership |
 | ATLAS | researched | — |
-| BaBar | not researched | all |
+| BaBar | researched | institution membership, major results, technical documents |
 | Belle | researched | institution membership |
 | Belle II | researched | institution membership |
-| CDF | not researched | all |
-| D0 | not researched | all |
+| CDF | researched | institution membership, technical documents |
+| D0 | researched | institution membership, technical documents |
 | DELPHI | researched | institution membership, placeable geography |
-| FASER | not researched | all |
-| H1 | not researched | all |
+| FASER | researched | institution membership, major results, technical documents |
+| H1 | researched | institution membership, major results, technical documents |
 | L3 | researched | institution membership, placeable geography |
-| LHCb | not researched | all |
-| LHCf | not researched | all |
-| MoEDAL | not researched | all |
+| LHCb | researched | institution membership |
+| LHCf | researched | institution membership, major results, technical documents |
+| MoEDAL | researched | institution membership, major results, technical documents |
 | OPAL | researched | institution membership, placeable geography |
-| SLD | not researched | all |
-| SND@LHC | not researched | all |
-| TOTEM | not researched | all |
+| SLD | researched | institution membership, major results, technical documents |
+| SND@LHC | researched | institution membership, major results, technical documents |
+| TOTEM | researched | institution membership, major results, technical documents |
 | UA1 | researched | institution membership, placeable geography, technical documents |
 | UA2 | researched | institution membership, placeable geography, technical documents |
-| ZEUS | not researched | all |
+| ZEUS | researched | institution membership, major results, technical documents |
 
 ### Cosmic rays, gamma rays and astroparticle
 
 | Experiment | State | Still missing |
 | --- | --- | --- |
-| CTAO | not researched | all |
-| H.E.S.S. | not researched | all |
-| HAWC | not researched | all |
-| LHAASO | not researched | all |
-| MAGIC | not researched | all |
-| Pierre Auger Observatory | not researched | all |
-| Telescope Array | not researched | all |
-| VERITAS | not researched | all |
+| Pierre Auger Observatory | researched | institution membership, major results, technical documents |
+| Telescope Array | researched | institution membership, major results, technical documents |
 
 ### Dark matter direct detection
 
 | Experiment | State | Still missing |
 | --- | --- | --- |
-| CDMS II | not researched | all |
-| CRESST | not researched | all |
-| DAMIC | not researched | all |
-| DAMIC-M | not researched | all |
-| DEAP-3600 | not researched | all |
-| DarkSide-20k | not researched | all |
-| DarkSide-50 | not researched | all |
-| EDELWEISS | not researched | all |
+| CDMS II | researched | institution membership, major results, technical documents |
+| CRESST | researched | institution membership, major results, technical documents |
+| DAMIC | researched | institution membership, major results, technical documents |
+| DAMIC-M | researched | institution membership, major results, technical documents |
+| DEAP-3600 | researched | institution membership, major results, technical documents |
+| DarkSide-20k | researched | institution membership, historical intervals, major results, technical documents |
+| DarkSide-50 | researched | institution membership, major results, technical documents |
+| EDELWEISS | researched | institution membership, major results, technical documents |
 | LUX (Large Underground Xenon) | researched | collaboration, detector |
 | LZ (LUX-ZEPLIN) | researched | institution membership |
-| NEWS-G | not researched | all |
-| PandaX-4T | not researched | all |
-| SENSEI | not researched | all |
-| SuperCDMS | not researched | all |
-| XENON1T | not researched | all |
-| XENONnT | not researched | all |
+| NEWS-G | researched | institution membership, major results, technical documents |
+| PandaX-4T | researched | institution membership, major results, technical documents |
+| SENSEI | researched | institution membership, major results, technical documents |
+| SuperCDMS | researched | institution membership, major results, technical documents |
+| XENON1T | researched | institution membership, technical documents |
+| XENONnT | researched | institution membership |
 
 ### Direct neutrino mass
 
 | Experiment | State | Still missing |
 | --- | --- | --- |
-| KATRIN | not researched | all |
-| Project 8 | not researched | all |
+| KATRIN | researched | institution membership, historical intervals, technical documents |
+| Project 8 | researched | institution membership, major results, technical documents |
 
 ### Fixed target, rare kaons and long-lived particles
 
 | Experiment | State | Still missing |
 | --- | --- | --- |
-| DarkQuest | not researched | all |
-| E949 | not researched | all |
-| KOTO | not researched | all |
-| KTeV | not researched | all |
-| MATHUSLA | not researched | all |
-| NA48 | not researched | all |
-| NA62 | not researched | all |
-| NA64 | not researched | all |
-| SHiP | not researched | all |
-| SeaQuest | not researched | all |
+| DarkQuest | researched | collaboration, historical intervals, detector, major results, technical documents |
+| E949 | researched | institution membership, major results, technical documents |
+| KOTO | researched | institution membership, major results, technical documents |
+| KTeV | researched | institution membership, major results, technical documents |
+| MATHUSLA | researched | institution membership, detector, major results, technical documents |
+| NA48 | researched | institution membership, major results, technical documents |
+| NA62 | researched | institution membership |
+| NA64 | researched | institution membership, major results, technical documents |
+| SHiP | researched | institution membership, major results, technical documents |
+| SeaQuest | researched | institution membership, major results, technical documents |
+
+### Gamma rays
+
+| Experiment | State | Still missing |
+| --- | --- | --- |
+| CTAO | researched | institution membership, historical intervals, major results, technical documents |
+| H.E.S.S. | researched | institution membership, major results, technical documents |
+| HAWC | researched | institution membership, major results, technical documents |
+| LHAASO | researched | institution membership, historical intervals, major results, technical documents |
+| MAGIC | researched | institution membership, major results, technical documents |
+| VERITAS | researched | institution membership, major results, technical documents |
 
 ### Heavy ions
 
 | Experiment | State | Still missing |
 | --- | --- | --- |
-| PHENIX | not researched | all |
-| STAR | not researched | all |
-| sPHENIX | not researched | all |
+| PHENIX | researched | institution membership, technical documents |
+| STAR | researched | institution membership, technical documents |
+| sPHENIX | researched | institution membership, major results, technical documents |
 
 ### High-energy and astrophysical neutrinos
 
 | Experiment | State | Still missing |
 | --- | --- | --- |
 | AMANDA | researched | collaboration, detector, major results, technical documents |
-| ANITA | not researched | all |
-| ANTARES | not researched | all |
-| ARA | not researched | all |
-| ARIANNA | not researched | all |
-| Baikal-GVD | not researched | all |
-| GRAND | not researched | all |
+| ANITA | researched | institution membership, major results, technical documents |
+| ANTARES | researched | institution membership, major results, technical documents |
+| ARA | researched | institution membership, major results, technical documents |
+| ARIANNA | researched | institution membership, major results, technical documents |
+| Baikal-GVD | researched | institution membership, major results, technical documents |
+| GRAND | researched | institution membership, historical intervals, major results, technical documents |
 | IceCube | researched | institution membership |
 | IceCube-Gen2 | researched | institution membership, detector, major results |
-| KM3NeT | not researched | all |
+| KM3NeT | researched | institution membership |
 | Kamiokande | researched | collaboration, detector, technical documents |
-| P-ONE | not researched | all |
-| RNO-G | not researched | all |
+| P-ONE | researched | institution membership, historical intervals, major results, technical documents |
+| RNO-G | researched | institution membership, major results, technical documents |
 
 ### Muon precision and rare processes
 
 | Experiment | State | Still missing |
 | --- | --- | --- |
-| COMET | not researched | all |
-| MEG | not researched | all |
-| MEG II | not researched | all |
-| Mu2e | not researched | all |
-| Mu3e | not researched | all |
-| Muon g-2 | not researched | all |
+| COMET | researched | institution membership, historical intervals, major results |
+| MEG | researched | institution membership, technical documents |
+| MEG II | researched | institution membership, technical documents |
+| Mu2e | researched | institution membership, major results |
+| Mu3e | researched | institution membership, major results, technical documents |
+| Muon g-2 | researched | institution membership |
 
 ### Neutrinoless double beta decay
 
 | Experiment | State | Still missing |
 | --- | --- | --- |
-| CUORE | not researched | all |
-| CUPID | not researched | all |
-| EXO-200 | not researched | all |
-| GERDA | not researched | all |
-| KamLAND-Zen | not researched | all |
-| LEGEND | not researched | all |
-| Majorana Demonstrator | not researched | all |
-| NEXT | not researched | all |
-| nEXO | not researched | all |
+| CUORE | researched | institution membership, major results, technical documents |
+| CUPID | researched | institution membership, historical intervals, major results, technical documents |
+| EXO-200 | researched | institution membership, major results, technical documents |
+| GERDA | researched | institution membership, major results, technical documents |
+| KamLAND-Zen | researched | institution membership, historical intervals, detector, major results, technical documents |
+| LEGEND | researched | institution membership, major results, technical documents |
+| Majorana Demonstrator | researched | institution membership, major results, technical documents |
+| NEXT | researched | institution membership, major results, technical documents |
+| nEXO | researched | institution membership, historical intervals, major results, technical documents |
 
 ### Reactor and low-energy neutrinos
 
 | Experiment | State | Still missing |
 | --- | --- | --- |
-| Daya Bay | not researched | all |
-| Double Chooz | not researched | all |
-| JUNO | not researched | all |
-| KamLAND | not researched | all |
-| RENO | not researched | all |
+| Daya Bay | researched | institution membership, technical documents |
+| Double Chooz | researched | institution membership, technical documents |
+| JUNO | researched | institution membership |
+| KamLAND | researched | institution membership, technical documents |
+| RENO | researched | institution membership, historical intervals, technical documents |
 
 ### Solar and radiochemical neutrinos
 
 | Experiment | State | Still missing |
 | --- | --- | --- |
-| Borexino | not researched | all |
-| GALLEX/GNO | not researched | all |
+| Borexino | researched | institution membership, technical documents |
+| GALLEX/GNO | researched | institution membership, major results, technical documents |
 | Homestake | not researched | all |
 | SAGE | not researched | all |
-| SNO | not researched | all |
-| SNO+ | not researched | all |
+| SNO | researched | institution membership, technical documents |
+| SNO+ | researched | institution membership, major results, technical documents |
 
 ## What is deliberately out of scope
 

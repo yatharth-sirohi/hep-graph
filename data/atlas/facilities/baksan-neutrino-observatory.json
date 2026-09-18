@@ -1,0 +1,64 @@
+{
+  "schema": "hep-atlas/0.2",
+  "id": "facility:baksan-neutrino-observatory",
+  "type": "facility",
+  "name": "Baksan Neutrino Observatory",
+  "aliases": ["BNO"],
+  "kind": "underground_laboratory",
+  "operator": {
+    "value": "Institute for Nuclear Research of the Russian Academy of Sciences (INR RAS)",
+    "sources": ["src:sage-wikipedia"],
+    "verified_at": "2026-09-18",
+    "confidence": "uncertain",
+    "note": "Wikipedia (rank 12) names the Joint Institute for Nuclear Research (Russia) as a SAGE participant, but not explicitly as the Baksan facility's operator; INR RAS's operatorship is general knowledge of the Baksan observatory not independently confirmed by a rank<=10 source fetched this session, so recorded uncertain rather than verified."
+  },
+  "operator_ids": [],
+  "country": ["RU"],
+  "countries": ["RU"],
+  "primary_site_id": "site:baksan-sage-underground-lab",
+  "intervals": [
+    {
+      "label": "hosting SAGE",
+      "status": "active",
+      "start": "1989-12",
+      "end": null,
+      "sources": ["src:sage-wikipedia"],
+      "verified_at": "2026-09-18",
+      "confidence": "approximate",
+      "quote": "Construction/Start: December 1989",
+      "note": "Sourced from Wikipedia (rank 12) only this session; no official Baksan/INR page was reachable (inr.ru/baksan.html returned 404)."
+    }
+  ],
+  "status": "active",
+  "specs": {
+    "depth": {
+      "value": 2100,
+      "unit": "m",
+      "dimension": "length",
+      "approx": false,
+      "display": "2100 m (6900 ft)",
+      "sources": ["src:sage-wikipedia"],
+      "verified_at": "2026-09-18",
+      "confidence": "approximate",
+      "quote": "the apparatus situated 2,100 meters (6,900 feet) underground",
+      "note": "Sourced from Wikipedia (rank 12) only this session."
+    }
+  },
+  "topic_ids": ["topic:solar-neutrinos"],
+  "related_facility_ids": [],
+  "links": {
+    "website": null
+  },
+  "notes": [
+    "The Baksan/INR official site (inr.ru/baksan.html) returned 404 on the one URL guessed this session; this record relies on Wikipedia and the SAGE 1999 results paper (which does not itself state facility coordinates or depth)."
+  ],
+  "sources": ["src:sage-inspire-experiment-record", "src:sage-wikipedia"],
+  "summary": {
+    "plain": "An underground laboratory dug into a mountain in the Russian Caucasus, more than two kilometres of rock overhead, built to study neutrinos from the Sun and elsewhere.",
+    "technical": "Underground neutrino laboratory in the Caucasus Mountains, Russia, operated by INR RAS; the SAGE gallium detector sits about 2100 m (6900 ft) underground."
+  },
+  "coverage": {
+    "tier": "D",
+    "researched": "partial"
+  }
+}
