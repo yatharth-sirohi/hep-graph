@@ -1,69 +1,71 @@
 {
-  "schema": "hep-atlas/0.2",
-  "id": "collaboration:koto",
-  "type": "collaboration",
-  "name": "KOTO Collaboration",
   "aliases": [],
   "coverage": {
-    "tier": "B",
-    "researched": "partial"
+    "researched": "partial",
+    "tier": "B"
   },
   "formation": {
-    "value": null,
+    "confidence": "uncertain",
+    "locator": "src:koto-official-site (states no collaboration-formation date)",
+    "note": "No formation date stated on the official site.",
     "sources": [
       "src:koto-official-site"
     ],
-    "verified_at": "2026-09-17",
-    "confidence": "uncertain",
-    "note": "No formation date stated on the official site."
+    "value": null,
+    "verified_at": "2026-09-17"
   },
+  "host_facility_id": "facility:j-parc",
+  "host_site_id": "site:j-parc-hadron-hall",
+  "id": "collaboration:koto",
   "intervals": [
     {
-      "label": "collaboration",
-      "status": "active",
-      "start": "2013-05",
+      "confidence": "uncertain",
       "end": null,
+      "label": "collaboration",
+      "locator": "src:koto-official-site: 'First physics run for 100 hours with 24kW beam.' (May 2013)",
+      "note": "Start is a lower bound (first physics run), not a stated formation date.",
       "sources": [
         "src:koto-official-site"
       ],
-      "verified_at": "2026-09-17",
-      "confidence": "uncertain",
-      "note": "Start is a lower bound (first physics run), not a stated formation date."
+      "start": "2013-05",
+      "status": "active",
+      "verified_at": "2026-09-17"
     }
   ],
-  "status": "active",
+  "leadership": [],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "note": "",
+      "sources": [
+        "src:koto-official-site"
+      ],
+      "value": "https://koto.kek.jp/",
+      "verified_at": "2026-09-17"
+    }
+  },
   "membership": {
     "as_of": null,
+    "country_count": null,
     "evidence_class": null,
     "institution_count": null,
-    "country_count": null,
     "member_count": null,
     "roster_source_ids": []
   },
-  "leadership": [],
-  "host_facility_id": "facility:j-parc",
-  "host_site_id": "site:j-parc-hadron-hall",
-  "links": {
-    "website": {
-      "value": "https://koto.kek.jp/",
-      "sources": [
-        "src:koto-official-site"
-      ],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
-      "note": ""
-    }
-  },
-  "summary": {
-    "plain": "The international team of physicists running the KOTO rare-kaon-decay experiment at J-PARC in Japan.",
-    "technical": "Collaboration operating J-PARC E14 KOTO; the official site does not state a headline institution/country/member count."
-  },
+  "name": "KOTO Collaboration",
   "notes": [
     "No official membership count found.",
     "Leadership left empty: person records are owned by another workstream.",
     "Derived field collaboration.experiment_ids is deliberately not written (v0.2 A1)."
   ],
+  "schema": "hep-atlas/0.2",
   "sources": [
     "src:koto-official-site"
-  ]
+  ],
+  "status": "active",
+  "summary": {
+    "plain": "The international team of physicists running the KOTO rare-kaon-decay experiment at J-PARC in Japan.",
+    "technical": "Collaboration operating J-PARC E14 KOTO; the official site does not state a headline institution/country/member count."
+  },
+  "type": "collaboration"
 }

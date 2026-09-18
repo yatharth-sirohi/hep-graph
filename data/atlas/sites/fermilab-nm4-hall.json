@@ -1,56 +1,58 @@
 {
-  "schema": "hep-atlas/0.2",
-  "id": "site:fermilab-nm4-hall",
-  "type": "site",
-  "name": "NM4 hall, Fermilab",
   "aliases": [
     "NM4 Building"
   ],
-  "coverage": {
-    "tier": "C",
-    "researched": "partial"
-  },
-  "facility_id": "facility:fermilab",
+  "altitude": null,
   "coordinates": {
-    "lat": 41.8422582,
-    "lon": -88.245782,
+    "confidence": "uncertain",
     "kind": "detector",
+    "lat": 41.8422582,
+    "locator": "site:fermilab-main-campus coordinates (reused); ultimately the LBNF/DUNE official project site's Batavia, Illinois location statement",
+    "lon": -88.245782,
+    "note": "No source fetched this session gives a surveyed lat/lon for the NM4 building specifically. Following the same honest pattern already used for site:fermilab-main-campus (owned by another workstream) and site:cern-ecn3-north-area (this workstream), the campus-level OSM/Nominatim centroid for the whole Fermilab site is recorded here with a large precision_m and `confidence: uncertain`. Treat this as campus precision, not hall precision.",
     "precision_m": 3000,
     "sources": [
-      "src:fermilab-osm-nominatim",
       "src:fermilab-lbnf-dune-site"
     ],
-    "verified_at": "2026-09-17",
-    "confidence": "uncertain",
-    "note": "No source fetched this session gives a surveyed lat/lon for the NM4 building specifically. Following the same honest pattern already used for site:fermilab-main-campus (owned by another workstream) and site:cern-ecn3-north-area (this workstream), the campus-level OSM/Nominatim centroid for the whole Fermilab site is recorded here with a large precision_m and `confidence: uncertain`. Treat this as campus precision, not hall precision."
+    "verified_at": "2026-09-17"
   },
-  "setting": "surface",
+  "countries": [
+    "US"
+  ],
+  "country": "US",
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
   "depth": null,
   "depth_mwe": null,
-  "altitude": null,
-  "country": "US",
-  "countries": ["US"],
-  "place": {
-    "city": "Batavia",
-    "region": "Illinois",
-    "country": "US"
-  },
+  "facility_id": "facility:fermilab",
+  "id": "site:fermilab-nm4-hall",
   "links": {
     "website": null
   },
-  "summary": {
-    "plain": "The Fermilab hall used by the SeaQuest Drell-Yan experiment, and proposed as the home of its DarkQuest successor.",
-    "technical": "NM4 Building on the Fermilab fixed-target beamlines (Batavia, Illinois), housing the SeaQuest/E906 dimuon spectrometer on the 120 GeV Main Injector proton beam; proposed site of the DarkQuest dark-sector upgrade. No surveyed coordinate for this specific hall was found, so the Fermilab campus point is used at reduced precision."
-  },
+  "name": "NM4 hall, Fermilab",
   "notes": [
     "facility:fermilab is owned by the fermilab-dune workstream; this record only references it.",
     "Coordinates reuse the same honestly-approximate Fermilab campus point as site:fermilab-main-campus rather than duplicating a fresh geocoder lookup; see coordinates.note.",
     "Building identity ('NM4 Bldg.') sourced to a Wikipedia pointer (src:seaquest-wikipedia-pointer, rank 12); no rank <= 10 source naming the building was fetched this session."
   ],
+  "place": {
+    "city": "Batavia",
+    "country": "US",
+    "region": "Illinois"
+  },
+  "schema": "hep-atlas/0.2",
+  "setting": "surface",
   "sources": [
     "src:fermilab-osm-nominatim",
     "src:fermilab-lbnf-dune-site",
     "src:seaquest-wikipedia-pointer",
     "src:seaquest-spectrometer-arxiv-2017"
-  ]
+  ],
+  "summary": {
+    "plain": "The Fermilab hall used by the SeaQuest Drell-Yan experiment, and proposed as the home of its DarkQuest successor.",
+    "technical": "NM4 Building on the Fermilab fixed-target beamlines (Batavia, Illinois), housing the SeaQuest/E906 dimuon spectrometer on the 120 GeV Main Injector proton beam; proposed site of the DarkQuest dark-sector upgrade. No surveyed coordinate for this specific hall was found, so the Fermilab campus point is used at reduced precision."
+  },
+  "type": "site"
 }

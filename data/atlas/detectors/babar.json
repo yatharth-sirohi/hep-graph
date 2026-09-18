@@ -1,0 +1,97 @@
+{
+  "aliases": [
+    "B Factory Detector"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
+  },
+  "experiment_ids": [
+    "experiment:babar"
+  ],
+  "id": "detector:babar",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2008-04-08",
+      "label": "operating",
+      "locator": "CERN Courier, \"BaBar celebrates its 25th anniversary\" (2019)",
+      "note": "",
+      "quote": "the first collision events were collected on 26 May 1999",
+      "sources": [
+        "src:colliders-historical-babar-cerncourier-25th-anniversary-2019",
+        "src:colliders-historical-babar-symmetry-2008-pepii-end"
+      ],
+      "start": "1999-05-26",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "data-taking ended",
+      "locator": "Symmetry Magazine, \"End of PEP-II and BaBar runs at SLAC\" (2008-04-08)",
+      "note": "",
+      "quote": "Last night, the beams were dumped for the final time from the PEP-II rings and the BaBar experiment took its last data.",
+      "sources": [
+        "src:colliders-historical-babar-symmetry-2008-pepii-end"
+      ],
+      "start": "2008-04-08",
+      "status": "completed",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "BaBar detector",
+  "notes": [
+    "site:slac-pep-ii-ir2-babar is owned by the \"facilities\" lead per the wave-3 id registry and had not been created as of this session; the placement below is a dangling reference, expected until that lead lands its site record."
+  ],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": "2008-04-08",
+      "locator": "CERN Courier, \"BaBar celebrates its 25th anniversary\" (2019); end date per Symmetry Magazine (2008-04-08)",
+      "note": "",
+      "quote": "the first collision events were collected on 26 May 1999",
+      "role": "main",
+      "site_id": "site:slac-pep-ii-ir2-babar",
+      "sources": [
+        "src:colliders-historical-babar-cerncourier-25th-anniversary-2019",
+        "src:colliders-historical-babar-symmetry-2008-pepii-end"
+      ],
+      "start": "1999-05-26",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:colliders-historical-babar-detector-nim-2002",
+    "src:colliders-historical-babar-inspire-experiment-record"
+  ],
+  "specs": {},
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "A particle detector at SLAC built around the collision point of the PEP-II accelerator, layered so that it can pinpoint exactly where a B meson decayed and identify the particles it decayed into.",
+    "technical": "General-purpose PEP-II detector: multi-layer silicon vertex tracker inside a cylindrical wire drift chamber, a DIRC ring-imaging Cherenkov particle-identification detector, a CsI crystal electromagnetic calorimeter inside a superconducting solenoid, and resistive-plate-chamber muon/neutral-hadron detectors in the magnet's steel flux return."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "NIM A479 (2002) 1, abstract",
+    "note": "",
+    "quote": "Charged particle tracks are measured in a multi-layer silicon vertex tracker surrounded by a cylindrical wire drift chamber. Electromagnetic showers from electrons and photons are detected in an array of CsI crystals located just inside the solenoidal coil of a superconducting magnet. Muons and neutral hadrons are identified by arrays of resistive plate chambers inserted into gaps in the steel flux return of the magnet. Charged hadrons are identified ... in a ring-imaging Cherenkov detector surrounding the drift chamber.",
+    "sources": [
+      "src:colliders-historical-babar-detector-nim-2002"
+    ],
+    "value": "Multi-layer silicon vertex tracker, cylindrical drift chamber, DIRC Cherenkov particle-ID detector, CsI electromagnetic calorimeter and resistive-plate-chamber muon system",
+    "verified_at": "2026-09-17"
+  },
+  "technology_class": "general_purpose_collider",
+  "technology_classes": [
+    "general_purpose_collider"
+  ],
+  "type": "detector"
+}

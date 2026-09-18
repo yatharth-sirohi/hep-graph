@@ -1,61 +1,63 @@
 {
-  "schema": "hep-atlas/0.2",
-  "id": "collaboration:ktev",
-  "type": "collaboration",
-  "name": "KTeV Collaboration",
   "aliases": [],
   "coverage": {
-    "tier": "B",
-    "researched": "partial"
+    "researched": "partial",
+    "tier": "B"
   },
   "formation": {
-    "value": null,
+    "confidence": "uncertain",
+    "locator": "src:ktev-design-report-1992 (states no collaboration-formation date distinct from the design report itself)",
+    "note": "No fetched source states a collaboration-formation date distinct from the 1992 design report's publication.",
     "sources": [
       "src:ktev-design-report-1992"
     ],
-    "verified_at": "2026-09-17",
-    "confidence": "uncertain",
-    "note": "No fetched source states a collaboration-formation date distinct from the 1992 design report's publication."
+    "value": null,
+    "verified_at": "2026-09-17"
   },
+  "host_facility_id": "facility:fermilab",
+  "host_site_id": "site:fermilab-ktev-hall",
+  "id": "collaboration:ktev",
   "intervals": [
     {
-      "label": "collaboration",
-      "status": "completed",
-      "start": "1992-01",
+      "confidence": "uncertain",
       "end": null,
+      "label": "collaboration",
+      "locator": "src:ktev-design-report-1992, FERMILAB-DESIGN-1992-01, January 1992",
+      "note": "Start is a lower bound (design-report date), not a stated formation date.",
       "sources": [
         "src:ktev-design-report-1992"
       ],
-      "verified_at": "2026-09-17",
-      "confidence": "uncertain",
-      "note": "Start is a lower bound (design-report date), not a stated formation date."
+      "start": "1992-01",
+      "status": "completed",
+      "verified_at": "2026-09-17"
     }
   ],
-  "status": "completed",
-  "membership": {
-    "as_of": null,
-    "evidence_class": null,
-    "institution_count": null,
-    "country_count": null,
-    "member_count": null,
-    "roster_source_ids": []
-  },
   "leadership": [],
-  "host_facility_id": "facility:fermilab",
-  "host_site_id": "site:fermilab-ktev-hall",
   "links": {
     "website": null
   },
-  "summary": {
-    "plain": "The team of physicists who built and ran the KTeV kaon experiment at Fermilab in the 1990s.",
-    "technical": "Completed collaboration operating the KTeV (E799-II/E832) kaon programme at Fermilab; no live official collaboration page or membership count was found by a source fetched this session."
+  "membership": {
+    "as_of": null,
+    "country_count": null,
+    "evidence_class": null,
+    "institution_count": null,
+    "member_count": null,
+    "roster_source_ids": []
   },
+  "name": "KTeV Collaboration",
   "notes": [
     "No official membership count found; no live KTeV collaboration website was fetchable this session.",
     "Leadership left empty: person records are owned by another workstream.",
     "Derived field collaboration.experiment_ids is deliberately not written (v0.2 A1)."
   ],
+  "schema": "hep-atlas/0.2",
   "sources": [
     "src:ktev-design-report-1992"
-  ]
+  ],
+  "status": "completed",
+  "summary": {
+    "plain": "The team of physicists who built and ran the KTeV kaon experiment at Fermilab in the 1990s.",
+    "technical": "Completed collaboration operating the KTeV (E799-II/E832) kaon programme at Fermilab; no live official collaboration page or membership count was found by a source fetched this session."
+  },
+  "type": "collaboration"
 }

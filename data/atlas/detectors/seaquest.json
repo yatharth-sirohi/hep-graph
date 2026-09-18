@@ -1,74 +1,75 @@
 {
-  "schema": "hep-atlas/0.2",
-  "id": "detector:seaquest",
-  "type": "detector",
-  "name": "SeaQuest spectrometer",
   "aliases": [],
   "coverage": {
-    "tier": "B",
-    "researched": "partial"
+    "researched": "partial",
+    "tier": "B"
   },
   "experiment_ids": [
     "experiment:seaquest"
   ],
+  "id": "detector:seaquest",
+  "intervals": [
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "operating",
+      "locator": "src:seaquest-final-results-arxiv-2025 (December 2025 'Final SeaQuest results' paper)",
+      "note": "See experiment:seaquest notes on unconfirmed exact run years.",
+      "sources": [
+        "src:seaquest-final-results-arxiv-2025"
+      ],
+      "start": "2025-12",
+      "status": "completed",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "SeaQuest spectrometer",
+  "notes": [
+    "Placed at site:fermilab-nm4-hall, created by this same workstream."
+  ],
   "parent_detector_id": null,
   "placements": [
     {
-      "site_id": "site:fermilab-nm4-hall",
-      "role": "main",
-      "start": null,
+      "confidence": "uncertain",
       "end": "2025-12",
+      "note": "Start date not sourced; end is the date of the 'final results' paper, used as an upper bound only.",
+      "role": "main",
+      "site_id": "site:fermilab-nm4-hall",
       "sources": [
         "src:seaquest-spectrometer-arxiv-2017",
         "src:seaquest-wikipedia-pointer"
       ],
-      "verified_at": "2026-09-17",
-      "confidence": "uncertain",
-      "note": "Start date not sourced; end is the date of the 'final results' paper, used as an upper bound only."
+      "start": null,
+      "verified_at": "2026-09-17"
     }
   ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:seaquest-spectrometer-arxiv-2017"
+  ],
+  "specs": {},
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "The SeaQuest spectrometer used magnets and tracking detectors to catch pairs of muons produced when a proton beam struck hydrogen, deuterium and other targets, revealing the makeup of the proton's antiquark sea.",
+    "technical": "Dimuon spectrometer: target system, two dipole magnets, four tracking/hodoscope stations and an FPGA trigger, detecting Drell-Yan muon pairs from a 120 GeV proton beam on liquid-hydrogen, liquid-deuterium and solid nuclear targets."
+  },
   "technology": {
-    "value": "Muon spectrometer: a target system followed by two dipole magnets and four detector stations (hodoscopes and tracking chambers) with an FPGA-based trigger, identifying oppositely-charged dimuon pairs from the Drell-Yan process",
+    "confidence": "verified",
+    "note": "",
+    "quote": "a target system, two dipole magnets and four detector stations",
     "sources": [
       "src:seaquest-spectrometer-arxiv-2017"
     ],
-    "verified_at": "2026-09-17",
-    "confidence": "verified",
-    "quote": "a target system, two dipole magnets and four detector stations",
-    "note": ""
+    "value": "Muon spectrometer: a target system followed by two dipole magnets and four detector stations (hodoscopes and tracking chambers) with an FPGA-based trigger, identifying oppositely-charged dimuon pairs from the Drell-Yan process",
+    "verified_at": "2026-09-17"
   },
   "technology_class": "spectrometer",
   "technology_classes": [
     "spectrometer"
   ],
-  "intervals": [
-    {
-      "label": "operating",
-      "status": "completed",
-      "start": null,
-      "end": "2025-12",
-      "sources": [
-        "src:seaquest-final-results-arxiv-2025"
-      ],
-      "verified_at": "2026-09-17",
-      "confidence": "uncertain",
-      "note": "See experiment:seaquest notes on unconfirmed exact run years."
-    }
-  ],
-  "status": "completed",
-  "specs": {},
-  "subsystems": [],
-  "links": {
-    "website": null
-  },
-  "summary": {
-    "plain": "The SeaQuest spectrometer used magnets and tracking detectors to catch pairs of muons produced when a proton beam struck hydrogen, deuterium and other targets, revealing the makeup of the proton's antiquark sea.",
-    "technical": "Dimuon spectrometer: target system, two dipole magnets, four tracking/hodoscope stations and an FPGA trigger, detecting Drell-Yan muon pairs from a 120 GeV proton beam on liquid-hydrogen, liquid-deuterium and solid nuclear targets."
-  },
-  "notes": [
-    "Placed at site:fermilab-nm4-hall, created by this same workstream."
-  ],
-  "sources": [
-    "src:seaquest-spectrometer-arxiv-2017"
-  ]
+  "type": "detector"
 }

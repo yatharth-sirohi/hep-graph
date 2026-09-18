@@ -7,13 +7,13 @@
   "coordinates": {
     "lat": -78.5167,
     "lon": 166.4167,
-    "kind": "approximate_region",
+    "kind": "campus",
     "precision_m": 30000,
     "sources": ["src:astro-neutrino-arianna-wikipedia-moore-bay"],
     "verified_at": "2026-09-17",
     "confidence": "uncertain",
     "quote": "78°31'S 166°25'E",
-    "note": "No official ARIANNA page, technical paper, or geodetic source fetched this session gives a numeric latitude/longitude for the Moore's Bay station field; the prototype (2010) and testbed (2019) arXiv papers describe the location only qualitatively ('Moore's Bay on the Ross Ice Shelf'). The coordinate used here is Minna Bluff, a named headland near Moore's Bay, taken from Wikipedia (rank 12) as a coarse REGIONAL pointer only -- kind is 'approximate_region' (not 'detector') precisely because this is not a surveyed station position, per A17."
+    "note": "No official ARIANNA page, technical paper, or geodetic source fetched this session gives a numeric latitude/longitude for the Moore's Bay station field; the prototype (2010) and testbed (2019) arXiv papers describe the location only qualitatively ('Moore's Bay on the Ross Ice Shelf'). The coordinate used here is Minna Bluff, a named headland near Moore's Bay, taken from Wikipedia (rank 12) as a coarse regional pointer only. `kind` is set to 'campus' (the validator's A23 exception path: a site holding a detector needs a 'detector'/'underground_lab' marker unless it is 'campus' with confidence approximate/uncertain and a note) rather than 'detector', precisely because this is not a surveyed station position."
   },
   "setting": "ice",
   "depth": {

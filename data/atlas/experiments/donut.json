@@ -34,9 +34,9 @@
     {
       "confidence": "uncertain",
       "facility_id": "facility:fermilab",
-      "locator": "Wikipedia, DONUT",
-      "note": "Sole fetched source is Wikipedia (rank 12); fnal.gov returned HTTP 403 to every fetch attempt in this session.",
-      "quote": "operated at Fermilab",
+      "locator": "Wikipedia, DONUT (opening sentence)",
+      "note": "Corrected from a non-verbatim paraphrase ('operated at Fermilab') to the actual opening-sentence wording; sole fetched source is Wikipedia (rank 12), fnal.gov returned HTTP 403 to every fetch attempt.",
+      "quote": "was an experiment at Fermilab dedicated to the search for tau neutrino interactions",
       "role": "host",
       "sources": [
         "src:donut-wikipedia"
@@ -136,7 +136,8 @@
     "kind is set to 'accelerator_neutrino' with secondary_kinds 'fixed_target': DONUT is structurally a fixed-target beam-dump experiment, but its defining physics purpose -- direct detection of tau-neutrino interactions from an accelerator-produced neutrino beam -- matches the accelerator_neutrino kind used for this lead's other experiments (KARMEN, LSND, OPERA).",
     "No official DONUT/Fermilab website was reachable in this session (fnal.gov returned HTTP 403 to every fetch attempt, matching the note already on facility:fermilab); links.website left null rather than guessed.",
     "external.inspire_experiment left null: no INSPIRE experiment-registry lookup was performed in this session (the INSPIRE literature record fetched did not render usable content, and DONUT is tier D so this is not mandatory per the brief).",
-    "Detector placement site is site:fermilab-main-campus, an existing record owned by the 'fermilab-dune' lead (already used for several other Fermilab short-baseline experiments' near detectors); referenced here rather than duplicated, per A20's warning against two sites of one facility within 100 m."
+    "Detector placement site is site:fermilab-main-campus, an existing record owned by the 'fermilab-dune' lead (already used for several other Fermilab short-baseline experiments' near detectors); referenced here rather than duplicated, per A20's warning against two sites of one facility within 100 m.",
+    "summary.technical previously stated an '800 GeV-class' Tevatron beam energy; this figure was not supported by any fetched source (energy_regime deliberately carries no specific beam-energy number, confidence: uncertain, Wikipedia-only) and has been removed as an unsourced from-memory value per A17."
   ],
   "physics_goals": [
     {
@@ -162,7 +163,7 @@
   "status": "completed",
   "summary": {
     "plain": "A Fermilab experiment that ran for a few months in 1997, aiming a proton beam from the Tevatron at a target to make tau neutrinos and catching them directly for the first time in stacks of photographic emulsion, completing the direct detection of every particle the Standard Model predicts.",
-    "technical": "Fermilab fixed-target experiment (E872) using an 800 GeV-class Tevatron proton beam dump to produce tau neutrinos from charmed-meson decay, detected via nuclear-emulsion targets combined with electronic scintillator/drift-chamber tracking. Ran in 1997; its 2001 analysis of 203 neutrino interactions found four tau-neutrino candidate events (background 0.34 events), the first direct observation of tau-neutrino interactions."
+    "technical": "Fermilab fixed-target experiment (E872) using a Tevatron proton beam dump to produce tau neutrinos from charmed-meson decay, detected via nuclear-emulsion targets combined with electronic scintillator/drift-chamber tracking. Ran in 1997; its 2001 analysis of 203 neutrino interactions found four tau-neutrino candidate events (background 0.34 events), the first direct observation of tau-neutrino interactions."
   },
   "topic_ids": [
     "topic:neutrino-interactions"

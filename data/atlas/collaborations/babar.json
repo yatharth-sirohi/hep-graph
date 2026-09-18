@@ -1,0 +1,107 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
+  },
+  "formation": {
+    "confidence": "approximate",
+    "locator": "INSPIRE experiment record 1108553 (experiment proposal date; CERN Courier dates an earlier, informal organizing meeting to end of 1993, see notes)",
+    "note": "",
+    "quote": "date_proposed: 1994-06",
+    "sources": [
+      "src:colliders-historical-babar-inspire-experiment-record"
+    ],
+    "value": "1994-06",
+    "verified_at": "2026-09-17"
+  },
+  "host_facility_id": "facility:slac",
+  "host_site_id": "site:slac-pep-ii-ir2-babar",
+  "id": "collaboration:babar",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2008-04-08",
+      "label": "building and running BaBar",
+      "note": "Start is the INSPIRE proposal date, used as a lower bound (see formation note; an informal organizing meeting is dated even earlier, to end of 1993).",
+      "sources": [
+        "src:colliders-historical-babar-inspire-experiment-record",
+        "src:colliders-historical-babar-symmetry-2008-pepii-end"
+      ],
+      "start": "1994-06",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "data-taking ended",
+      "locator": "Symmetry Magazine, \"End of PEP-II and BaBar runs at SLAC\" (2008-04-08)",
+      "note": "CERN Courier (2019) states the collaboration \"continues to publish impactful results\" after 2008; no end date for the collaboration itself (as opposed to data-taking) is sourced.",
+      "quote": "Last night, the beams were dumped for the final time from the PEP-II rings and the BaBar experiment took its last data.",
+      "sources": [
+        "src:colliders-historical-babar-symmetry-2008-pepii-end"
+      ],
+      "start": "2008-04-08",
+      "status": "completed",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "leadership": [],
+  "links": {
+    "website": null
+  },
+  "membership": {
+    "as_of": "2008",
+    "country_count": {
+      "confidence": "verified",
+      "locator": "INSPIRE experiment record 1108553, description field",
+      "note": "",
+      "quote": "The collaboration consists of more than 500 scientists, engineers, and graduate students from 10 countries.",
+      "sources": [
+        "src:colliders-historical-babar-inspire-experiment-record"
+      ],
+      "value": 10,
+      "verified_at": "2026-09-17"
+    },
+    "evidence_class": "official_institution_list",
+    "institution_count": {
+      "confidence": "uncertain",
+      "note": "Not directly stated; INSPIRE gives a member and country count but not an institution count.",
+      "sources": [],
+      "value": null,
+      "verified_at": "2026-09-17"
+    },
+    "member_count": {
+      "confidence": "approximate",
+      "locator": "INSPIRE experiment record 1108553, description field",
+      "note": "INSPIRE says \"more than 500\"; recorded as the stated lower bound.",
+      "quote": "The collaboration consists of more than 500 scientists, engineers, and graduate students from 10 countries.",
+      "sources": [
+        "src:colliders-historical-babar-inspire-experiment-record"
+      ],
+      "value": 500,
+      "verified_at": "2026-09-17"
+    },
+    "roster_source_ids": [
+      "src:colliders-historical-babar-inspire-experiment-record"
+    ]
+  },
+  "name": "BaBar Collaboration",
+  "notes": [
+    "Institution-level membership rows and leadership are out of scope for this wave (person records and rosters are owned by other workstreams).",
+    "Derived field collaboration.experiment_ids is deliberately not written (v0.2 A1).",
+    "CERN Courier dates the organizing \"Detector Collaboration for the PEP-II asymmetric electron-positron collider\"'s inaugural meeting to the end of 1993, with the name \"BaBar\" adopted by May 1994; this predates the INSPIRE date_proposed field (1994-06) used for `formation` below. Both are recorded; `formation` uses the INSPIRE value as the more precisely dated of the two, with this note flagging the earlier informal start."
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:colliders-historical-babar-inspire-experiment-record",
+    "src:colliders-historical-babar-cerncourier-25th-anniversary-2019"
+  ],
+  "status": "completed",
+  "summary": {
+    "plain": "More than 500 scientists, engineers and graduate students from about 10 countries who built and ran the BaBar particle detector at SLAC from 1999 to 2008 to study why matter and antimatter behave differently.",
+    "technical": "International collaboration operating the BaBar detector at the SLAC PEP-II B-factory; per the INSPIRE experiment record, more than 500 scientists, engineers and graduate students from 10 countries."
+  },
+  "type": "collaboration"
+}

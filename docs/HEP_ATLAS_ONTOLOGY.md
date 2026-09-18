@@ -282,6 +282,14 @@ failing, the globe draws the approximate marker style and the panel says
 satisfy the validator is forbidden; `kind` describes what the coordinate is,
 `confidence` describes how well it is known.
 
+**A24. Technology classes (2026-09-17).** `technology_classes` gains
+`helioscope`, `light_shining_through_wall`, `lumped_element_resonator`,
+`cryogenic_phonon_detector`, `skipper_ccd`, `spherical_proportional_counter`,
+`radiochemical` and `magnetic_spectrometer`, so axion, low-threshold
+dark-matter, radiochemical solar-neutrino and direct neutrino-mass detectors no
+longer have to file under `other`. `other` remains for anything else, with the
+technique described in the sourced `technology` string.
+
 ## 0. Ground rules
 
 1. **Canonical data is JSON under `data/atlas/`**, one file per entity, human

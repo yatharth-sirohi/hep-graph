@@ -202,10 +202,19 @@ fetched.
   the DMRadio-m3 sub-experiment once it appeared, and updated the
   now-stale "dangling" notes on the experiment/collaboration records to
   reflect that it landed.
+- `experiment:iaxo` / `collaboration:iaxo` and `experiment:alps-ii` /
+  `collaboration:alps-ii`: `facility:desy` — **landed by the facilities lead
+  later in this session**; re-checked and the now-stale "dangling" notes
+  were updated on all four records.
 - `experiment:alps-ii` / `detector:alps-ii`: `site:desy-hera-north-hall-h1`
-  (owner: `facilities`) — deliberately **not referenced** at all (see
-  Conflicts table above); this is a scope/sourcing decision, not a landing
-  race.
+  — also landed later in this session. Once it existed I read the
+  facilities lead's own site file and found it cites `src:h1-wikipedia`
+  ("The HERA North Hall, where the H1 detector was located, is now used for
+  the new ALPS experiment") — independent corroboration of the pairing I
+  had declined to assert on my own sourcing. I added the
+  `detector:alps-ii` placement at that site, `confidence: approximate` (not
+  `verified`, since the sole supporting source is Wikipedia, rank 12, per
+  A17) rather than `verified`.
 
 ## Validator / build status
 

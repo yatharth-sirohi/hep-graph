@@ -1,0 +1,45 @@
+{
+  "id": "facility:ctao-south-paranal",
+  "type": "facility",
+  "schema": "hep-atlas/0.2",
+  "name": "CTAO-South (Paranal)",
+  "aliases": [],
+  "distinct_from": [],
+  "superseded_by": null,
+  "kind": "astroparticle_observatory",
+  "operator": null,
+  "operator_text": null,
+  "operator_ids": [],
+  "country": ["CL"],
+  "countries": ["CL"],
+  "primary_site_id": "site:paranal-cta-south",
+  "intervals": [
+    {
+      "label": "construction",
+      "status": "construction",
+      "start": "2015",
+      "end": null,
+      "sources": ["src:cosmic-gamma-ctao-official-about-us-page"],
+      "verified_at": "2026-09-17",
+      "confidence": "uncertain",
+      "locator": "ctao.org/about-us/ (describes ongoing 'construction and operation' but gives no site-specific start date)",
+      "note": "Start date 2015 is NOT independently sourced this session; it is a placeholder lower bound only in the loose sense that CTAO prototyping/site-preparation work is publicly known to date from around then. Treat this date with low confidence and re-verify against an official CTAO construction-timeline source before relying on it; no fetched source this session gives a construction-start date or phase percentage for the Paranal site specifically."
+    }
+  ],
+  "status": "construction",
+  "specs": {},
+  "topic_ids": ["topic:gamma-rays", "topic:multimessenger-astrophysics"],
+  "related_facility_ids": ["facility:roque-de-los-muchachos-observatory"],
+  "summary": {
+    "plain": "The southern-hemisphere site of the Cherenkov Telescope Array Observatory, in the Atacama Desert of Chile near ESO's Paranal Observatory.",
+    "technical": "Southern array site of the Cherenkov Telescope Array Observatory (CTAO), near Paranal, Chile."
+  },
+  "sources": ["src:cosmic-gamma-ctao-official-about-us-page"],
+  "links": {"website": {"value": "https://www.ctao.org/", "sources": ["src:cosmic-gamma-ctao-official-homepage"], "verified_at": "2026-09-17", "confidence": "verified", "note": ""}},
+  "notes": [
+    "site_ids, accelerator_ids, beamline_ids, institution_id, document_ids, experiment_ids are deliberately not written (v0.2 A1 derived fields).",
+    "status 'construction' follows CTAO's own 'construction and operation' framing and public reporting that the southern array is still being built out; no fetched source gives an explicit phase percentage or completion date for this site specifically.",
+    "No intervals (founding, construction-start dates) were sourced this session for this site specifically."
+  ],
+  "coverage": {"tier": "B", "researched": "partial"}
+}

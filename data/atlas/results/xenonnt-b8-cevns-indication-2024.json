@@ -63,7 +63,7 @@
   },
   "name": "First Indication of Solar 8B Neutrinos via Coherent Elastic Neutrino-Nucleus Scattering with XENONnT",
   "notes": [
-    "result_type is \"first_detection\", not \"evidence\" or \"observation\": the collaboration's own title and text say \"indication\" and report only 2.73 sigma, which is below the wording the A16 mechanical check requires for \"evidence\" (needs \"evidence\" in the quote) or \"observation\" (needs \"observ...\"). Never inflate this to a stronger result_type."
+    "result_type is \"measurement\", not \"first_detection\", \"evidence\" or \"observation\": the collaboration's own title says \"First Indication\" and the paper reports only a 2.73 sigma rejection of the background-only hypothesis, below the conventional ~3 sigma threshold for \"evidence\". The ontology's result_type enum has no \"indication\" tier; per the precedent already set in this atlas for an identical situation (result:t2k-electron-neutrino-indication-2011, a 2.5 sigma \"indication\" paper), the honest choice is \"measurement\", not the unconstrained \"first_detection\" type -- \"first_detection\" reads as an actual detection to a reader and is reserved elsewhere in this atlas (icecube-glashow-resonance-candidate-2021, kamiokande-sn1987a-1987) for events that were actually detected, not a sub-evidence-threshold statistical indication. Corrected during wave-3 independent verification (2026-09-17); the original record mislabeled this as first_detection."
   ],
   "official_url": null,
   "publication": {
@@ -81,7 +81,7 @@
     "value": "2024",
     "verified_at": "2026-09-17"
   },
-  "result_type": "first_detection",
+  "result_type": "measurement",
   "schema": "hep-atlas/0.2",
   "significance": {
     "confidence": "verified",

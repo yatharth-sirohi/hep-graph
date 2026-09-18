@@ -1,63 +1,65 @@
 {
-  "schema": "hep-atlas/0.2",
-  "id": "collaboration:e949",
-  "type": "collaboration",
-  "name": "E949 Collaboration",
   "aliases": [],
   "coverage": {
-    "tier": "B",
-    "researched": "partial"
+    "researched": "partial",
+    "tier": "B"
   },
   "formation": {
-    "value": null,
+    "confidence": "uncertain",
+    "locator": "src:e949-from-e787-to-e949-2001 / src:e949-e787-combined-result-arxiv-2009 (neither states a collaboration-formation date)",
+    "note": "No fetched source states a collaboration-formation date; 2001 is only the date of a paper describing the transition from E787.",
     "sources": [
       "src:e949-from-e787-to-e949-2001"
     ],
-    "verified_at": "2026-09-17",
-    "confidence": "uncertain",
-    "note": "No fetched source states a collaboration-formation date; 2001 is only the date of a paper describing the transition from E787."
+    "value": null,
+    "verified_at": "2026-09-17"
   },
+  "host_facility_id": "facility:brookhaven-national-laboratory",
+  "host_site_id": "site:bnl-upton-campus",
+  "id": "collaboration:e949",
   "intervals": [
     {
-      "label": "collaboration",
-      "status": "completed",
-      "start": "2001-02",
+      "confidence": "uncertain",
       "end": "2009-02",
+      "label": "collaboration",
+      "locator": "src:e949-from-e787-to-e949-2001 (2001-02) / src:e949-e787-combined-result-arxiv-2009 (2009-02), used as lower/upper bounds",
+      "note": "Both bounds are paper dates used as lower/upper bounds, not stated formation/dissolution dates.",
       "sources": [
         "src:e949-from-e787-to-e949-2001",
         "src:e949-e787-combined-result-arxiv-2009"
       ],
-      "verified_at": "2026-09-17",
-      "confidence": "uncertain",
-      "note": "Both bounds are paper dates used as lower/upper bounds, not stated formation/dissolution dates."
+      "start": "2001-02",
+      "status": "completed",
+      "verified_at": "2026-09-17"
     }
   ],
-  "status": "completed",
-  "membership": {
-    "as_of": null,
-    "evidence_class": null,
-    "institution_count": null,
-    "country_count": null,
-    "member_count": null,
-    "roster_source_ids": []
-  },
   "leadership": [],
-  "host_facility_id": "facility:brookhaven-national-laboratory",
-  "host_site_id": "site:bnl-upton-campus",
   "links": {
     "website": null
   },
-  "summary": {
-    "plain": "The team of physicists who ran the E949 rare-kaon-decay experiment at Brookhaven, continuing the earlier E787 collaboration.",
-    "technical": "Completed collaboration operating BNL E949, successor to E787; no official collaboration website or membership count was found by a source fetched this session."
+  "membership": {
+    "as_of": null,
+    "country_count": null,
+    "evidence_class": null,
+    "institution_count": null,
+    "member_count": null,
+    "roster_source_ids": []
   },
+  "name": "E949 Collaboration",
   "notes": [
     "No official membership count found; no live official E949 collaboration website was fetchable this session.",
     "Leadership left empty: person records are owned by another workstream.",
     "Derived field collaboration.experiment_ids is deliberately not written (v0.2 A1)."
   ],
+  "schema": "hep-atlas/0.2",
   "sources": [
     "src:e949-from-e787-to-e949-2001",
     "src:e949-e787-combined-result-arxiv-2009"
-  ]
+  ],
+  "status": "completed",
+  "summary": {
+    "plain": "The team of physicists who ran the E949 rare-kaon-decay experiment at Brookhaven, continuing the earlier E787 collaboration.",
+    "technical": "Completed collaboration operating BNL E949, successor to E787; no official collaboration website or membership count was found by a source fetched this session."
+  },
+  "type": "collaboration"
 }

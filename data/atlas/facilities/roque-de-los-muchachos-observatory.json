@@ -1,0 +1,52 @@
+{
+  "id": "facility:roque-de-los-muchachos-observatory",
+  "type": "facility",
+  "schema": "hep-atlas/0.2",
+  "name": "Roque de los Muchachos Observatory",
+  "aliases": ["Observatorio del Roque de los Muchachos", "ORM"],
+  "distinct_from": [],
+  "superseded_by": null,
+  "kind": "astroparticle_observatory",
+  "operator": {
+    "value": "Instituto de Astrofísica de Canarias (host observatory); CTAO-North hosted here per CTAO's own site listing",
+    "sources": ["src:cosmic-gamma-ctao-official-about-us-page"],
+    "verified_at": "2026-09-17",
+    "confidence": "approximate",
+    "quote": "La Palma, Spain, and Paranal, Chile",
+    "note": "CTAO's own page names La Palma, Spain as one of its two array sites without naming a local operator sentence; the Instituto de Astrofísica de Canarias is the well-known operator of the wider Roque de los Muchachos Observatory but that specific operator statement was not seen in a source fetched this session."
+  },
+  "operator_text": null,
+  "operator_ids": [],
+  "country": ["ES"],
+  "countries": ["ES"],
+  "primary_site_id": "site:roque-de-los-muchachos-gamma-ray-array",
+  "intervals": [
+    {
+      "label": "hosts gamma-ray telescopes",
+      "status": "active",
+      "start": "2003-10",
+      "end": null,
+      "sources": ["src:cosmic-gamma-magic-arxiv-2004-status"],
+      "verified_at": "2026-09-17",
+      "confidence": "approximate",
+      "quote": "started operations in its final configuration in October 2003",
+      "note": "Start date is a lower bound taken from MAGIC-I's October 2003 operational start (the earliest sourced gamma-ray-telescope activity at this site found this session), not a founding date for the wider Roque de los Muchachos Observatory itself, which predates both MAGIC and CTAO."
+    }
+  ],
+  "status": "active",
+  "specs": {},
+  "topic_ids": ["topic:gamma-rays", "topic:multimessenger-astrophysics"],
+  "related_facility_ids": ["facility:ctao-south-paranal"],
+  "summary": {
+    "plain": "A mountaintop observatory on the Spanish Canary Island of La Palma that hosts several gamma-ray telescopes, including MAGIC and the northern half of the Cherenkov Telescope Array Observatory.",
+    "technical": "Astronomical observatory on the island of La Palma, Canary Islands, Spain, hosting the MAGIC telescopes and CTAO-North (the northern array of the Cherenkov Telescope Array Observatory)."
+  },
+  "sources": ["src:cosmic-gamma-ctao-official-about-us-page", "src:cosmic-gamma-nominatim-roque-de-los-muchachos"],
+  "links": {"website": null},
+  "notes": [
+    "site_ids, accelerator_ids, beamline_ids, institution_id, document_ids, experiment_ids are deliberately not written (v0.2 A1 derived fields).",
+    "This facility is shared: created once by the cosmic-gamma workstream (owner of both experiment:ctao and experiment:magic per the wave-3 id registry), referenced by both experiment:ctao's facility_roles and experiment:magic's facility_roles. No other workstream should create a duplicate.",
+    "No founding/intervals data for the wider Roque de los Muchachos Observatory (which predates both MAGIC and CTAO) was sourced this session; intervals is left empty rather than guessed, and status 'active' reflects that both hosted experiments are currently operating."
+  ],
+  "coverage": {"tier": "B", "researched": "partial"}
+}

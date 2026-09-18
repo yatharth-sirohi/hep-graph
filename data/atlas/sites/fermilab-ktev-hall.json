@@ -1,52 +1,54 @@
 {
-  "schema": "hep-atlas/0.2",
-  "id": "site:fermilab-ktev-hall",
-  "type": "site",
-  "name": "KTeV experimental hall, Fermilab",
   "aliases": [],
-  "coverage": {
-    "tier": "C",
-    "researched": "partial"
-  },
-  "facility_id": "facility:fermilab",
+  "altitude": null,
   "coordinates": {
-    "lat": 41.8422582,
-    "lon": -88.245782,
+    "confidence": "uncertain",
     "kind": "detector",
+    "lat": 41.8422582,
+    "locator": "site:fermilab-main-campus coordinates (reused); ultimately the LBNF/DUNE official project site's Batavia, Illinois location statement",
+    "lon": -88.245782,
+    "note": "No source fetched this session gives a surveyed lat/lon for the specific KTeV hall on the Fermilab fixed-target beamlines. Following the same honest pattern already used for site:fermilab-main-campus (owned by another workstream) and site:cern-ecn3-north-area (this workstream), the campus-level OSM/Nominatim centroid for the whole Fermilab site is recorded here with a large precision_m and `confidence: uncertain`. Treat this as campus precision, not hall precision.",
     "precision_m": 3000,
     "sources": [
-      "src:fermilab-osm-nominatim",
       "src:fermilab-lbnf-dune-site"
     ],
-    "verified_at": "2026-09-17",
-    "confidence": "uncertain",
-    "note": "No source fetched this session gives a surveyed lat/lon for the specific KTeV hall on the Fermilab fixed-target beamlines. Following the same honest pattern already used for site:fermilab-main-campus (owned by another workstream) and site:cern-ecn3-north-area (this workstream), the campus-level OSM/Nominatim centroid for the whole Fermilab site is recorded here with a large precision_m and `confidence: uncertain`. Treat this as campus precision, not hall precision."
+    "verified_at": "2026-09-17"
   },
-  "setting": "surface",
+  "countries": [
+    "US"
+  ],
+  "country": "US",
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
   "depth": null,
   "depth_mwe": null,
-  "altitude": null,
-  "country": "US",
-  "countries": ["US"],
-  "place": {
-    "city": "Batavia",
-    "region": "Illinois",
-    "country": "US"
-  },
+  "facility_id": "facility:fermilab",
+  "id": "site:fermilab-ktev-hall",
   "links": {
     "website": null
   },
-  "summary": {
-    "plain": "The Fermilab experimental hall where the KTeV experiment studied rare kaon decays and CP violation in the 1990s.",
-    "technical": "Fixed-target experimental hall on the Fermilab site (Batavia, Illinois) housing the KTeV (E799-II/E832) kaon spectrometer; no surveyed coordinate for this specific hall was found, so the Fermilab campus point is used at reduced precision."
-  },
+  "name": "KTeV experimental hall, Fermilab",
   "notes": [
     "facility:fermilab is owned by the fermilab-dune workstream; this record only references it.",
     "Coordinates reuse the same honestly-approximate Fermilab campus point as site:fermilab-main-campus (a different, existing site record owned by another workstream) rather than duplicating a fresh geocoder lookup; see coordinates.note."
   ],
+  "place": {
+    "city": "Batavia",
+    "country": "US",
+    "region": "Illinois"
+  },
+  "schema": "hep-atlas/0.2",
+  "setting": "surface",
   "sources": [
     "src:fermilab-osm-nominatim",
     "src:fermilab-lbnf-dune-site",
     "src:ktev-design-report-1992"
-  ]
+  ],
+  "summary": {
+    "plain": "The Fermilab experimental hall where the KTeV experiment studied rare kaon decays and CP violation in the 1990s.",
+    "technical": "Fixed-target experimental hall on the Fermilab site (Batavia, Illinois) housing the KTeV (E799-II/E832) kaon spectrometer; no surveyed coordinate for this specific hall was found, so the Fermilab campus point is used at reduced precision."
+  },
+  "type": "site"
 }

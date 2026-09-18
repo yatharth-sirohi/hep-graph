@@ -1,72 +1,73 @@
 {
-  "schema": "hep-atlas/0.2",
-  "id": "collaboration:na64",
-  "type": "collaboration",
-  "name": "NA64 Collaboration",
   "aliases": [],
   "coverage": {
-    "tier": "B",
-    "researched": "partial"
+    "researched": "partial",
+    "tier": "B"
   },
   "formation": {
-    "value": "2014-01",
+    "confidence": "uncertain",
+    "locator": "na64.web.cern.ch, project timeline: 'Proposed January 2014'",
+    "note": "The official site's timeline starts with the January 2014 proposal; this is used as a lower bound for collaboration formation, not a stated formation date for the collaboration itself as a body.",
     "sources": [
       "src:na64-official-site"
     ],
-    "verified_at": "2026-09-17",
-    "confidence": "uncertain",
-    "locator": "na64.web.cern.ch, project timeline: 'Proposed January 2014'",
-    "note": "The official site's timeline starts with the January 2014 proposal; this is used as a lower bound for collaboration formation, not a stated formation date for the collaboration itself as a body."
+    "value": "2014-01",
+    "verified_at": "2026-09-17"
   },
+  "host_facility_id": "facility:cern",
+  "host_site_id": "site:cern-neutrino-platform-ehn1",
+  "id": "collaboration:na64",
   "intervals": [
     {
-      "label": "collaboration",
-      "status": "active",
-      "start": "2014-01",
+      "confidence": "uncertain",
       "end": null,
+      "label": "collaboration",
+      "locator": "src:na64-official-site, project timeline: 'Proposed January 2014'",
+      "note": "Same lower-bound caveat as `formation`.",
       "sources": [
         "src:na64-official-site"
       ],
-      "verified_at": "2026-09-17",
-      "confidence": "uncertain",
-      "note": "Same lower-bound caveat as `formation`."
+      "start": "2014-01",
+      "status": "active",
+      "verified_at": "2026-09-17"
     }
   ],
-  "status": "active",
+  "leadership": [],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "note": "",
+      "sources": [
+        "src:na64-official-site"
+      ],
+      "value": "https://na64.web.cern.ch/",
+      "verified_at": "2026-09-17"
+    }
+  },
   "membership": {
     "as_of": null,
+    "country_count": null,
     "evidence_class": null,
     "institution_count": null,
-    "country_count": null,
     "member_count": null,
     "roster_source_ids": [
       "src:na64-official-site"
     ]
   },
-  "leadership": [],
-  "host_facility_id": "facility:cern",
-  "host_site_id": "site:cern-neutrino-platform-ehn1",
-  "links": {
-    "website": {
-      "value": "https://na64.web.cern.ch/",
-      "sources": [
-        "src:na64-official-site"
-      ],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
-      "note": ""
-    }
-  },
-  "summary": {
-    "plain": "The team of physicists running the NA64 dark-sector search at CERN.",
-    "technical": "Collaboration operating the NA64 active beam-dump experiment at CERN; the official site links participant information to the CERN Greybook rather than stating a headline institution/country/member count itself, so membership counts are left null."
-  },
+  "name": "NA64 Collaboration",
   "notes": [
     "No official membership count found; the collaboration page links to the CERN Greybook, which is a client-rendered app not fetchable for a verbatim number this session.",
     "Leadership left empty: person records are owned by another workstream.",
     "Derived field collaboration.experiment_ids is deliberately not written (v0.2 A1)."
   ],
+  "schema": "hep-atlas/0.2",
   "sources": [
     "src:na64-official-site"
-  ]
+  ],
+  "status": "active",
+  "summary": {
+    "plain": "The team of physicists running the NA64 dark-sector search at CERN.",
+    "technical": "Collaboration operating the NA64 active beam-dump experiment at CERN; the official site links participant information to the CERN Greybook rather than stating a headline institution/country/member count itself, so membership counts are left null."
+  },
+  "type": "collaboration"
 }

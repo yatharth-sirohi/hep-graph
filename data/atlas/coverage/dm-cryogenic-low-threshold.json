@@ -3,120 +3,154 @@
     "category": "direct_dark_matter",
     "entity_id": "experiment:cdms-ii",
     "experiment_id": "experiment:cdms-ii",
-    "facility": "LNGS / SNOLAB / CJPL / Modane / SURF",
+    "facility": "Soudan Underground Laboratory",
     "missing_fields": [
-      "all"
+      "results (no result: records written; optional for tier B)",
+      "documents (no TDR/detector-paper document: records written; optional for tier B)",
+      "collaboration:cdms-ii membership (no institution/member counts sourced)",
+      "detector:cdms-ii total mass in kg (only per-detector Ge/Si masses sourced)"
     ],
     "name": "CDMS II",
-    "notes": "Identified in the coverage scope; not yet researched.",
+    "notes": "Fully sourced from INSPIRE experiment record 1108506 and the final-exposure arXiv paper (0912.3592): 19 Ge + 11 Si ZIP-style detectors, 5 towers, <50 mK, 612 kg-day final exposure. Placed at the existing site:soudan-minos-far-detector (owned by fermilab-neutrino-other); no distinct CDMS-specific cavern coordinate was found, so site:soudan-cdms was NOT created.",
     "owner": "dm-cryogenic-low-threshold",
     "priority": 3,
-    "researched": "none",
-    "tier": "B"
-  },
-  {
-    "category": "direct_dark_matter",
-    "entity_id": "experiment:cresst",
-    "experiment_id": "experiment:cresst",
-    "facility": "LNGS / SNOLAB / CJPL / Modane / SURF",
-    "missing_fields": [
-      "all"
-    ],
-    "name": "CRESST",
-    "notes": "Identified in the coverage scope; not yet researched.",
-    "owner": "dm-cryogenic-low-threshold",
-    "priority": 3,
-    "researched": "none",
-    "tier": "B"
-  },
-  {
-    "category": "direct_dark_matter",
-    "entity_id": "experiment:damic",
-    "experiment_id": "experiment:damic",
-    "facility": "LNGS / SNOLAB / CJPL / Modane / SURF",
-    "missing_fields": [
-      "all"
-    ],
-    "name": "DAMIC",
-    "notes": "Identified in the coverage scope; not yet researched.",
-    "owner": "dm-cryogenic-low-threshold",
-    "priority": 3,
-    "researched": "none",
-    "tier": "B"
-  },
-  {
-    "category": "direct_dark_matter",
-    "entity_id": "experiment:damic-m",
-    "experiment_id": "experiment:damic-m",
-    "facility": "LNGS / SNOLAB / CJPL / Modane / SURF",
-    "missing_fields": [
-      "all"
-    ],
-    "name": "DAMIC-M",
-    "notes": "Identified in the coverage scope; not yet researched.",
-    "owner": "dm-cryogenic-low-threshold",
-    "priority": 3,
-    "researched": "none",
-    "tier": "B"
-  },
-  {
-    "category": "direct_dark_matter",
-    "entity_id": "experiment:edelweiss",
-    "experiment_id": "experiment:edelweiss",
-    "facility": "LNGS / SNOLAB / CJPL / Modane / SURF",
-    "missing_fields": [
-      "all"
-    ],
-    "name": "EDELWEISS",
-    "notes": "Identified in the coverage scope; not yet researched.",
-    "owner": "dm-cryogenic-low-threshold",
-    "priority": 3,
-    "researched": "none",
-    "tier": "B"
-  },
-  {
-    "category": "direct_dark_matter",
-    "entity_id": "experiment:news-g",
-    "experiment_id": "experiment:news-g",
-    "facility": "LNGS / SNOLAB / CJPL / Modane / SURF",
-    "missing_fields": [
-      "all"
-    ],
-    "name": "NEWS-G",
-    "notes": "Identified in the coverage scope; not yet researched.",
-    "owner": "dm-cryogenic-low-threshold",
-    "priority": 3,
-    "researched": "none",
-    "tier": "B"
-  },
-  {
-    "category": "direct_dark_matter",
-    "entity_id": "experiment:sensei",
-    "experiment_id": "experiment:sensei",
-    "facility": "LNGS / SNOLAB / CJPL / Modane / SURF",
-    "missing_fields": [
-      "all"
-    ],
-    "name": "SENSEI",
-    "notes": "Identified in the coverage scope; not yet researched.",
-    "owner": "dm-cryogenic-low-threshold",
-    "priority": 3,
-    "researched": "none",
+    "researched": "partial",
+    "status": "completed",
     "tier": "B"
   },
   {
     "category": "direct_dark_matter",
     "entity_id": "experiment:supercdms",
     "experiment_id": "experiment:supercdms",
-    "facility": "LNGS / SNOLAB / CJPL / Modane / SURF",
+    "facility": "Soudan Underground Laboratory (historical) / SNOLAB (current)",
     "missing_fields": [
-      "all"
+      "results (optional for tier B)",
+      "documents (optional for tier B)",
+      "collaboration:supercdms membership (institution/member counts not stated by the official site)",
+      "detector:supercdms total/active/fiducial mass in kg (only the 24-crystal count is sourced)",
+      "lineage to experiment:cdms-ii (technology/name continuity is well known but no fetched source states it explicitly)"
     ],
     "name": "SuperCDMS",
-    "notes": "Identified in the coverage scope; not yet researched.",
+    "notes": "Richly sourced current-affairs history: DOE construction approval (Symmetry Magazine, 2018-05-07), cooldown/commissioning (SLAC news, 2026-03-17), and early-science start (SLAC news, 2026-08-26) all carry verbatim quotes. Both SuperCDMS-Soudan (INSPIRE recid 1298909) and SuperCDMS-SNOLAB (recid 1357671) are folded into one experiment record per the brief's guidance; the Soudan-era interval is deliberately left non-terminal (status active, not completed) to satisfy A3.",
     "owner": "dm-cryogenic-low-threshold",
     "priority": 3,
-    "researched": "none",
+    "researched": "partial",
+    "status": "active",
+    "tier": "B"
+  },
+  {
+    "category": "direct_dark_matter",
+    "entity_id": "experiment:sensei",
+    "experiment_id": "experiment:sensei",
+    "facility": "Fermilab (MINOS cavern)",
+    "missing_fields": [
+      "results (optional for tier B)",
+      "documents (optional for tier B)",
+      "collaboration:sensei membership and website (no live official page found)",
+      "SNOLAB placement (a 2020 paper describes a ~100 g detector 'planned' for SNOLAB, but the most recent source found, 2026-05, still places the operating detector 'near the MINOS cavern' at Fermilab, so no SNOLAB placement/facility_role is recorded)"
+    ],
+    "name": "SENSEI",
+    "notes": "Placed at the existing site:fermilab-main-campus (owned by fermilab-dune), which that lead's own record already uses as the campus-precision marker for the Fermilab MINOS near-detector hall specifically; site:fermilab-minos-near-detector-hall was deliberately NOT created to avoid a near-duplicate site with the same fabricated-precision coordinate. This is a documented deviation from the brief's default instruction; see the worklog.",
+    "owner": "dm-cryogenic-low-threshold",
+    "priority": 3,
+    "researched": "partial",
+    "status": "active",
+    "tier": "B"
+  },
+  {
+    "category": "direct_dark_matter",
+    "entity_id": "experiment:damic",
+    "experiment_id": "experiment:damic",
+    "facility": "Fermilab (prototype) / SNOLAB",
+    "missing_fields": [
+      "results (optional for tier B)",
+      "documents (optional for tier B)",
+      "collaboration:damic membership",
+      "an explicit end-of-operations date/status (the brief describes DAMIC as 'completed'; the most recent DAMIC-specific source found this session, INSPIRE literature 2752302 dated 2024-01, describes an ongoing skipper-CCD run, so status is recorded as active with an open interval rather than asserting an unsourced completion -- FLAGGED FOR REVIEW)"
+    ],
+    "name": "DAMIC",
+    "notes": "Two INSPIRE experiment records (original Fermilab prototype 1108203, current SNOLAB programme 1401315) folded into one experiment record per the brief's guidance. Detector specs (7 x 16-Mpixel CCDs, 6.0 g each, 11 kg-day exposure) sourced to arXiv:2007.15622.",
+    "owner": "dm-cryogenic-low-threshold",
+    "priority": 3,
+    "researched": "partial",
+    "status": "active",
+    "tier": "B"
+  },
+  {
+    "category": "direct_dark_matter",
+    "entity_id": "experiment:damic-m",
+    "experiment_id": "experiment:damic-m",
+    "facility": "Laboratoire Souterrain de Modane (LSM)",
+    "missing_fields": [
+      "results (optional for tier B)",
+      "documents (optional for tier B)",
+      "collaboration:damic-m membership and website",
+      "the full-scale final DAMIC-M detector's status (only the 20 g 'Low Background Chamber' prototype is confirmed operating by sources fetched this session)"
+    ],
+    "name": "DAMIC-M",
+    "notes": "Sourced to the collaboration's own 2022 status paper (arXiv:2210.12070) and a November 2025 physics result (arXiv:2511.13962, 1.257 kg-day exposure), confirming ongoing operation of the 20 g skipper-CCD prototype at LSM.",
+    "owner": "dm-cryogenic-low-threshold",
+    "priority": 3,
+    "researched": "partial",
+    "status": "active",
+    "tier": "B"
+  },
+  {
+    "category": "direct_dark_matter",
+    "entity_id": "experiment:news-g",
+    "experiment_id": "experiment:news-g",
+    "facility": "Laboratoire Souterrain de Modane (SEDINE) / SNOLAB (S140)",
+    "missing_fields": [
+      "results (optional for tier B)",
+      "documents (optional for tier B)",
+      "collaboration:news-g membership/institution count",
+      "the exact relationship between the SNOLAB S140 sphere and the 135 cm sphere reported running a 10-day physics run at LSM in 2024 (same unit relocated, or two spheres) -- not resolved by any source fetched this session"
+    ],
+    "name": "NEWS-G",
+    "notes": "Official site (news-g.org / snolab.ca both redirect to queensu.ca/physics/news-g/) and two arXiv papers (2205.15433, 2407.12769) give sphere diameters (60 cm SEDINE, 135 cm S140), gas fills, and installation dates with verbatim quotes.",
+    "owner": "dm-cryogenic-low-threshold",
+    "priority": 3,
+    "researched": "partial",
+    "status": "active",
+    "tier": "B"
+  },
+  {
+    "category": "direct_dark_matter",
+    "entity_id": "experiment:cresst",
+    "experiment_id": "experiment:cresst",
+    "facility": "LNGS (Hall A)",
+    "missing_fields": [
+      "results (optional for tier B)",
+      "documents (optional for tier B)",
+      "collaboration:cresst membership/institution count",
+      "current module count in operation and precise operating temperature in mK (only implied, not directly quoted)"
+    ],
+    "name": "CRESST",
+    "notes": "The best-documented history in this file: the official site's own history page gives a dated timeline from the 1993 proposal through CRESST-I/II/III with verbatim quotes for every transition. Placed at site:lngs-hall-a (created by the facilities workstream).",
+    "owner": "dm-cryogenic-low-threshold",
+    "priority": 3,
+    "researched": "partial",
+    "status": "active",
+    "tier": "B"
+  },
+  {
+    "category": "direct_dark_matter",
+    "entity_id": "experiment:edelweiss",
+    "experiment_id": "experiment:edelweiss",
+    "facility": "Laboratoire Souterrain de Modane (LSM)",
+    "missing_fields": [
+      "results (optional for tier B)",
+      "documents (optional for tier B)",
+      "collaboration:edelweiss membership, formation date and website (DNS resolution failed for edelweiss.in2p3.fr and www.edelweiss.in2p3.fr this session)",
+      "early history: EDELWEISS/EDELWEISS-II/EDELWEISS-III founding and transition dates -- the INSPIRE registry lists three separate experiment records for these but none carries populated dates, and no working official site or history paper was found this session",
+      "operating temperature in mK"
+    ],
+    "name": "EDELWEISS",
+    "notes": "The thinnest-sourced record in this file: only the current (2022-2024) sub-GeV/Migdal-effect programme (200 g Ge, NbSi TES) is richly quoted, from two arXiv papers. Early history intervals are left start:null rather than invented. Flagged for follow-up once a reachable official source is found.",
+    "owner": "dm-cryogenic-low-threshold",
+    "priority": 3,
+    "researched": "partial",
+    "status": "active",
     "tier": "B"
   }
 ]

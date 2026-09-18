@@ -221,7 +221,12 @@ TECHNOLOGY_CLASSES: tuple[str, ...] = (
     'noble_liquid_tpc', 'cryogenic_bolometer', 'germanium', 'scintillating_crystal',
     'general_purpose_collider', 'forward_spectrometer', 'ice_cherenkov', 'sea_cherenkov',
     'radio', 'air_shower_array', 'imaging_atmospheric_cherenkov', 'gaseous_tpc', 'emulsion',
-    'tracking_calorimeter', 'haloscope', 'spectrometer', 'other',
+    'tracking_calorimeter', 'haloscope', 'spectrometer',
+    # A24 (2026-09-17): classes the wave-3 axion, cryogenic dark-matter and
+    # CEvNS records needed and had to file under `other`.
+    'helioscope', 'light_shining_through_wall', 'lumped_element_resonator',
+    'cryogenic_phonon_detector', 'skipper_ccd', 'spherical_proportional_counter',
+    'radiochemical', 'magnetic_spectrometer', 'other',
 )
 # A9: `noble_liquid_tpc` is preferred; these stay accepted aliases.
 TECHNOLOGY_CLASS_ALIASES: dict[str, str] = {

@@ -1,0 +1,146 @@
+{
+  "schema": "hep-atlas/0.2",
+  "id": "detector:sno",
+  "type": "detector",
+  "name": "SNO detector",
+  "aliases": [],
+  "experiment_ids": ["experiment:sno"],
+  "parent_detector_id": null,
+  "technology": {
+    "value": "12 m diameter acrylic vessel holding 1000 t of heavy water (D2O), viewed by 9600 photomultiplier tubes on a geodesic support structure, submerged in ordinary water inside a 2039 m deep rock cavity",
+    "sources": ["src:sno-official-site"],
+    "verified_at": "2026-09-17",
+    "confidence": "verified",
+    "quote": "1000 tonnes of heavy water (D2O) ... 12 meter diameter acrylic vessel ... 9600 photomultiplier tubes mounted on a geodesic support structure",
+    "note": ""
+  },
+  "technology_class": "water_cherenkov",
+  "technology_classes": ["water_cherenkov"],
+  "placements": [
+    {
+      "site_id": "site:snolab-underground-lab",
+      "role": "main",
+      "start": "1999-11",
+      "end": "2006-11",
+      "sources": ["src:sno-milestones"],
+      "verified_at": "2026-09-17",
+      "confidence": "verified",
+      "quote": "Nov 1999 -- Production data taking begins ... Nov 2006 -- End of datataking for 3rd phase",
+      "note": "Placed at site:snolab-underground-lab (owned by the facilities workstream), the original SNO cavern that SNOLAB later expanded around; not created here."
+    }
+  ],
+  "intervals": [
+    {
+      "label": "phase 1: pure D2O",
+      "status": "active",
+      "start": "1999-11",
+      "end": "2001-05",
+      "sources": ["src:sno-milestones"],
+      "verified_at": "2026-09-17",
+      "confidence": "verified",
+      "quote": "Nov 1999 -- Production data taking begins ... May 2001 -- Start of 2nd phase of data taking (salt fill)",
+      "note": ""
+    },
+    {
+      "label": "phase 2: NaCl-doped D2O",
+      "status": "active",
+      "start": "2001-05",
+      "end": "2003-09",
+      "sources": ["src:sno-milestones"],
+      "verified_at": "2026-09-17",
+      "confidence": "verified",
+      "quote": "May 2001 -- Start of 2nd phase of data taking (salt fill)",
+      "note": ""
+    },
+    {
+      "label": "phase 3: NCD array",
+      "status": "active",
+      "start": "2004-02",
+      "end": "2006-11",
+      "sources": ["src:sno-milestones"],
+      "verified_at": "2026-09-17",
+      "confidence": "verified",
+      "quote": "Feb 2004 -- Start of 3rd phase of data taking (with NCD detectors) ... Nov 2006 -- End of datataking for 3rd phase",
+      "note": ""
+    },
+    {
+      "label": "drained / decommissioned as SNO",
+      "status": "completed",
+      "start": "2007-05",
+      "end": null,
+      "sources": ["src:sno-milestones"],
+      "verified_at": "2026-09-17",
+      "confidence": "verified",
+      "quote": "May 2007 -- D2O drained from acrylic vessel",
+      "note": "The same acrylic vessel and cavern were subsequently refitted for SNO+ (experiment:sno-plus)."
+    }
+  ],
+  "status": "completed",
+  "specs": {
+    "target_mass": {
+      "value": 1000,
+      "unit": "t",
+      "dimension": "mass",
+      "approx": false,
+      "display": "1000 t D2O",
+      "sources": ["src:sno-official-site"],
+      "verified_at": "2026-09-17",
+      "confidence": "verified",
+      "quote": "1000 tonnes of heavy water (D2O)",
+      "note": ""
+    },
+    "pmt_count": {
+      "value": 9600,
+      "unit": "",
+      "dimension": "count",
+      "approx": false,
+      "display": "9600",
+      "sources": ["src:sno-official-site"],
+      "verified_at": "2026-09-17",
+      "confidence": "verified",
+      "quote": "9600 photomultiplier tubes mounted on a geodesic support structure",
+      "note": ""
+    },
+    "tank_diameter": {
+      "value": 12,
+      "unit": "m",
+      "dimension": "length",
+      "approx": false,
+      "display": "12 m acrylic vessel",
+      "sources": ["src:sno-official-site"],
+      "verified_at": "2026-09-17",
+      "confidence": "verified",
+      "quote": "12 meter diameter acrylic vessel",
+      "note": ""
+    }
+  },
+  "subsystems": [
+    {
+      "name": "Neutral Current Detector (NCD) array",
+      "description": [
+        {
+          "value": "An array of proportional counters strung through the heavy water in phase 3 to independently detect the neutral-current reaction via neutron capture",
+          "sources": ["src:sno-milestones"],
+          "verified_at": "2026-09-17",
+          "confidence": "verified",
+          "quote": "Feb 2004 -- Start of 3rd phase of data taking (with NCD detectors)",
+          "note": ""
+        }
+      ]
+    }
+  ],
+  "document_ids": [],
+  "links": {
+    "website": null
+  },
+  "notes": [],
+  "sources": ["src:sno-official-site", "src:sno-milestones", "src:sno-nim-detector-paper-2000"],
+  "summary": {
+    "plain": "A 12-metre acrylic ball full of heavy water, watched by 9,600 light sensors, sitting two kilometres underground in a Canadian mine.",
+    "technical": "Water-Cherenkov detector: 1000 t D2O in a 12 m diameter acrylic vessel viewed by 9600 PMTs, run in three configurations (pure D2O; NaCl-doped; D2O plus an NCD proportional-counter array) between 1999 and 2006."
+  },
+  "coverage": {
+    "tier": "D",
+    "researched": "partial"
+  }
+}

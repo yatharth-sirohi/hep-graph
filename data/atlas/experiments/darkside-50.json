@@ -68,7 +68,7 @@
       "end": "2020",
       "label": "underground-argon run",
       "note": "Start per the collaboration site (\"filled with underground argon in April 2015\"); end year per the LNGS facility page (\"operated ... from 2013 to 2020\"), exact month not sourced.",
-      "quote": "operated from 2013 to 2020",
+      "quote": "The DarkSide collaboration operated the DarkSide-50 detector, a dual-phase argon Time Projection Chamber (TPC), developed for use in a search for direct evidence of dark matter from 2013 to 2020.",
       "sources": [
         "src:dm-noble-liquid-darkside-official-site",
         "src:dm-noble-liquid-darkside-lngs-page"
@@ -82,7 +82,7 @@
       "end": null,
       "label": "completed",
       "note": "LNGS facility page gives only the year 2020 for the end of operations; no source fetched in this session gives an exact decommissioning date. Final low-mass-WIMP analysis of the complete dataset was published in 2023 (arXiv:2207.11966).",
-      "quote": "operated from 2013 to 2020",
+      "quote": "The DarkSide collaboration operated the DarkSide-50 detector, a dual-phase argon Time Projection Chamber (TPC), developed for use in a search for direct evidence of dark matter from 2013 to 2020.",
       "sources": [
         "src:dm-noble-liquid-darkside-lngs-page"
       ],
@@ -127,6 +127,23 @@
         "value": 46.4,
         "verified_at": "2026-09-17"
       }
+    },
+    {
+      "label": "Spin-independent WIMP-nucleon cross-section limit (low-mass search, 2023)",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "cross_section",
+        "display": "6e-43 cm^2 at 3 GeV/c^2 (90% CL)",
+        "locator": "arXiv:2207.11966, abstract",
+        "note": "90% CL exclusion limit from the final analysis of the entire low-radioactivity-argon dataset (12 ton-day exposure); backs the figure already stated in this record's technical summary. The source src:dm-noble-liquid-darkside-50-lowmass-2023 existed but was not cited by any field before this fix (A22 'cited by nothing' warning).",
+        "sources": [
+          "src:dm-noble-liquid-darkside-50-lowmass-2023"
+        ],
+        "unit": "cm^2",
+        "value": 6e-43,
+        "verified_at": "2026-09-17"
+      }
     }
   ],
   "kind": "direct_dark_matter",
@@ -165,7 +182,8 @@
   "secondary_kinds": [],
   "sources": [
     "src:dm-noble-liquid-darkside-official-site",
-    "src:dm-noble-liquid-darkside-lngs-page"
+    "src:dm-noble-liquid-darkside-lngs-page",
+    "src:dm-noble-liquid-darkside-50-lowmass-2023"
   ],
   "status": "completed",
   "summary": {

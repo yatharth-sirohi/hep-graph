@@ -1,0 +1,87 @@
+{
+  "schema": "hep-atlas/0.2",
+  "id": "collaboration:sno",
+  "type": "collaboration",
+  "name": "SNO Collaboration",
+  "aliases": [],
+  "formation": {
+    "value": "1984",
+    "sources": ["src:sno-official-site"],
+    "verified_at": "2026-09-17",
+    "confidence": "verified",
+    "locator": "sno.phy.queensu.ca homepage",
+    "note": ""
+  },
+  "intervals": [
+    {
+      "label": "collaboration",
+      "status": "completed",
+      "start": "1984",
+      "end": "2007-05",
+      "sources": ["src:sno-official-site", "src:sno-milestones"],
+      "verified_at": "2026-09-17",
+      "confidence": "verified",
+      "quote": "The collaboration was established in 1984",
+      "note": "End taken as the D2O-drain date (2007-05), when the SNO experiment as such concluded and the site was refitted for SNO+."
+    }
+  ],
+  "status": "completed",
+  "membership": {
+    "as_of": "2026-09",
+    "evidence_class": "official_institution_list",
+    "institution_count": {
+      "value": 13,
+      "sources": ["src:sno-institutions-page"],
+      "verified_at": "2026-09-17",
+      "confidence": "verified",
+      "quote": "13 active institutions listed (Queen's University, Carleton University, University of Guelph, Laurentian University, University of British Columbia, University of Pennsylvania, Los Alamos National Laboratory, Lawrence Berkeley National Laboratory, University of Washington, Oxford University, Brookhaven National Laboratory, University of Texas at Austin, Massachusetts Institute of Technology)",
+      "note": "Counted directly from the official institutions page's list; the page itself gives no single summary sentence stating a count."
+    },
+    "country_count": {
+      "value": 3,
+      "sources": ["src:sno-institutions-page"],
+      "verified_at": "2026-09-17",
+      "confidence": "verified",
+      "quote": "Canada, United States, United Kingdom",
+      "note": "Counted from the countries of the 13 listed institutions."
+    },
+    "member_count": null,
+    "roster_source_ids": ["src:sno-institutions-page"]
+  },
+  "leadership": [
+    {
+      "role": "spokesperson",
+      "person_id": null,
+      "start": "1984",
+      "end": null,
+      "sources": ["src:sno-official-site"],
+      "verified_at": "2026-09-17",
+      "confidence": "uncertain",
+      "note": "The official homepage names 'Professor Herb Chen from U California, Irvine and Professor George Ewan, Queen's University' as initial co-spokesmen in 1984; `person_id` is left null per this wave's rule against creating person records."
+    }
+  ],
+  "host_facility_id": "facility:snolab",
+  "host_site_id": "site:snolab-underground-lab",
+  "links": {
+    "website": {
+      "value": "https://sno.phy.queensu.ca/",
+      "sources": ["src:sno-official-site"],
+      "verified_at": "2026-09-17",
+      "confidence": "verified",
+      "note": ""
+    }
+  },
+  "notes": [
+    "The institutions page also lists four institutions that participated only until specific earlier years (Chalk River Laboratories, National Research Council of Canada, UC Irvine, Princeton University); these are not counted in `institution_count`, which reflects only the 13 listed as 'active'.",
+    "Leadership `person_id` intentionally left null (no people/ records in this wave); named in `note` instead."
+  ],
+  "sources": ["src:sno-official-site", "src:sno-institutions-page"],
+  "summary": {
+    "plain": "The international team, formed in 1984 and based mainly at Queen's University, that built and ran the SNO experiment in a Canadian mine.",
+    "technical": "SNO Collaboration, established 1984 (initial co-spokesmen Herb Chen, UC Irvine, and George Ewan, Queen's University); 13 active member institutions across Canada, the United States and the United Kingdom per the official institutions page."
+  },
+  "coverage": {
+    "tier": "D",
+    "researched": "partial"
+  }
+}

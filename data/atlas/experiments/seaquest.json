@@ -1,120 +1,121 @@
 {
-  "schema": "hep-atlas/0.2",
-  "id": "experiment:seaquest",
-  "type": "experiment",
-  "name": "SeaQuest",
+  "accelerator_ids": [
+    "accelerator:fermilab-main-injector"
+  ],
   "aliases": [
     "E906",
     "Fermilab E-906"
   ],
-  "coverage": {
-    "tier": "B",
-    "researched": "partial"
-  },
-  "kind": "fixed_target",
-  "secondary_kinds": [],
+  "beamline_ids": [],
   "collaboration_ids": [
     "collaboration:seaquest"
   ],
-  "facility_roles": [
-    {
-      "facility_id": "facility:fermilab",
-      "role": "host",
-      "start": null,
-      "end": null,
-      "sources": [
-        "src:seaquest-spectrometer-arxiv-2017"
-      ],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
-      "note": ""
-    },
-    {
-      "facility_id": "facility:fermilab",
-      "role": "beam_source",
-      "start": null,
-      "end": null,
-      "sources": [
-        "src:seaquest-spectrometer-arxiv-2017"
-      ],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
-      "quote": "120 GeV proton beam",
-      "note": "The spectrometer paper confirms the 120 GeV proton beam; the Fermilab Main Injector as the specific source machine is corroborated by src:seaquest-wikipedia-pointer (rank 12) rather than stated verbatim in the arXiv abstract text retrieved."
-    }
-  ],
-  "beamline_ids": [],
-  "accelerator_ids": [
-    "accelerator:fermilab-main-injector"
-  ],
-  "topic_ids": [
-    "topic:qcd"
-  ],
-  "intervals": [
-    {
-      "label": "detector construction/design",
-      "status": "construction",
-      "start": null,
-      "end": "2017-06",
-      "sources": [
-        "src:seaquest-spectrometer-arxiv-2017"
-      ],
-      "verified_at": "2026-09-17",
-      "confidence": "uncertain",
-      "note": "No explicit construction-start date found; the spectrometer design/performance paper was submitted June 2017, used here only as an upper bound on when the described apparatus existed."
-    },
-    {
-      "label": "completed",
-      "status": "completed",
-      "start": "2025-12",
-      "end": null,
-      "sources": [
-        "src:seaquest-final-results-arxiv-2025"
-      ],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
-      "quote": "a combined analysis of all collected data",
-      "note": "The December 2025 'Final SeaQuest results' paper explicitly presents a combined analysis of all collected data, confirming the experiment's data-taking has concluded; no source fetched this session gives the specific start/end calendar years of the data-taking run itself, so those are left unrecorded rather than guessed (the widely repeated ~2013-2017 range was not independently confirmed by a source fetched in this session)."
-    }
-  ],
-  "status": "completed",
-  "physics_goals": [
-    {
-      "value": "Measure the antiquark flavor asymmetry (dbar/ubar) in the proton sea via the Drell-Yan process, and study how nuclear binding modifies the quark/antiquark structure of nucleons",
-      "sources": [
-        "src:seaquest-wikipedia-pointer",
-        "src:seaquest-final-results-arxiv-2025"
-      ],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
-      "note": ""
-    }
-  ],
-  "unique_capabilities": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
   "energy_regime": null,
-  "key_specs": [],
-  "lineage": [],
   "external": {
-    "inspire_experiment": 1108442,
     "greybook": null,
+    "inspire_experiment": 1108442,
     "wikidata": null
   },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:fermilab",
+      "note": "",
+      "role": "host",
+      "sources": [
+        "src:seaquest-spectrometer-arxiv-2017"
+      ],
+      "start": null,
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:fermilab",
+      "note": "The spectrometer paper confirms the 120 GeV proton beam; the Fermilab Main Injector as the specific source machine is corroborated by src:seaquest-wikipedia-pointer (rank 12) rather than stated verbatim in the arXiv abstract text retrieved.",
+      "quote": "120 GeV proton beam",
+      "role": "beam_source",
+      "sources": [
+        "src:seaquest-spectrometer-arxiv-2017"
+      ],
+      "start": null,
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "id": "experiment:seaquest",
+  "intervals": [
+    {
+      "confidence": "uncertain",
+      "end": "2017-06",
+      "label": "detector construction/design",
+      "locator": "src:seaquest-spectrometer-arxiv-2017, submitted 2017-06-30 (FERMILAB-PUB-17-209-E)",
+      "note": "No explicit construction-start date found; the spectrometer design/performance paper was submitted June 2017, used here only as an upper bound on when the described apparatus existed.",
+      "sources": [
+        "src:seaquest-spectrometer-arxiv-2017"
+      ],
+      "start": null,
+      "status": "construction",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "completed",
+      "note": "The December 2025 'Final SeaQuest results' paper explicitly presents a combined analysis of all collected data, confirming the experiment's data-taking has concluded; no source fetched this session gives the specific start/end calendar years of the data-taking run itself, so those are left unrecorded rather than guessed (the widely repeated ~2013-2017 range was not independently confirmed by a source fetched in this session).",
+      "quote": "a combined analysis of all collected data",
+      "sources": [
+        "src:seaquest-final-results-arxiv-2025"
+      ],
+      "start": "2025-12",
+      "status": "completed",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "key_specs": [],
+  "kind": "fixed_target",
+  "lineage": [],
   "links": {
     "website": null
   },
-  "summary": {
-    "plain": "SeaQuest was a Fermilab experiment that fired a proton beam at hydrogen and deuterium targets to measure how down and up antiquarks are distributed differently inside a proton, finishing its analysis in 2025.",
-    "technical": "Fixed-target Drell-Yan dimuon experiment (Fermilab E-906) in the NM4 hall, using a 120 GeV proton beam (Main Injector) on liquid-hydrogen, liquid-deuterium and solid nuclear targets to measure the proton's dbar/ubar sea-quark flavor asymmetry and nuclear modification effects; its final combined-data-set results were posted in December 2025."
-  },
+  "name": "SeaQuest",
   "notes": [
     "Derived fields (detector_ids, site_ids, result_ids, document_ids) are deliberately not written (v0.2 A1).",
     "No official seaquest/e906 Fermilab website was fetchable this session (DNS failures / connection refused on several guessed subdomains); records rely on INSPIRE, the spectrometer arXiv paper, the December 2025 final-results arXiv paper, and one Wikipedia pointer for the NM4 building name and Main Injector attribution.",
     "Exact data-taking start/end calendar years were not confirmed by a source fetched this session and are therefore not asserted (see the 'completed' interval note)."
   ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "note": "",
+      "sources": [
+        "src:seaquest-wikipedia-pointer",
+        "src:seaquest-final-results-arxiv-2025"
+      ],
+      "value": "Measure the antiquark flavor asymmetry (dbar/ubar) in the proton sea via the Drell-Yan process, and study how nuclear binding modifies the quark/antiquark structure of nucleons",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
   "sources": [
     "src:seaquest-spectrometer-arxiv-2017",
     "src:seaquest-final-results-arxiv-2025",
     "src:seaquest-inspire-experiment-record",
     "src:seaquest-wikipedia-pointer"
-  ]
+  ],
+  "status": "completed",
+  "summary": {
+    "plain": "SeaQuest was a Fermilab experiment that fired a proton beam at hydrogen and deuterium targets to measure how down and up antiquarks are distributed differently inside a proton, finishing its analysis in 2025.",
+    "technical": "Fixed-target Drell-Yan dimuon experiment (Fermilab E-906) in the NM4 hall, using a 120 GeV proton beam (Main Injector) on liquid-hydrogen, liquid-deuterium and solid nuclear targets to measure the proton's dbar/ubar sea-quark flavor asymmetry and nuclear modification effects; its final combined-data-set results were posted in December 2025."
+  },
+  "topic_ids": [
+    "topic:qcd"
+  ],
+  "type": "experiment",
+  "unique_capabilities": []
 }

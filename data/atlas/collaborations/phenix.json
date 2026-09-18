@@ -22,14 +22,27 @@
   "intervals": [
     {
       "confidence": "verified",
-      "end": null,
-      "label": "collaboration",
-      "note": "Interval status reflects the experiment's completed data-taking; the collaboration itself continues to exist for data analysis and publication.",
-      "quote": "2016: PHENIX finishes data taking.",
+      "end": "2016",
+      "label": "collaboration operating PHENIX",
+      "note": "Start is the collaboration's own sourced formation date; end is PHENIX's sourced end of data taking. This replaces a previously-collapsed single 1991-08 to present interval that had incorrectly carried status 'completed' across the entire 1991-2016 period during which PHENIX was actually forming, commissioning and actively taking data (v0.2 A3/A13; RESEARCH_AGENT_RULES rule 8: do not collapse richer sourced history into one row). Mirrors the staging already used on experiment:phenix and detector:phenix.",
+      "quote": "August 1991: PHENIX is born from the merger of proposals named TALES, SPARC, OASIS, and DIMUON.",
       "sources": [
         "src:heavy-ions-phenix-concept-history"
       ],
       "start": "1991-08",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "data taking complete",
+      "note": "The collaboration itself continues to exist for data analysis and publication; 'completed' here matches experiment:phenix/detector:phenix's own terminal status for the end of data taking, not the collaboration's dissolution.",
+      "quote": "2016: PHENIX finishes data taking.",
+      "sources": [
+        "src:heavy-ions-phenix-concept-history"
+      ],
+      "start": "2016",
       "status": "completed",
       "verified_at": "2026-09-17"
     }
