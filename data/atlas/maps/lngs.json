@@ -1,0 +1,91 @@
+{
+  "aliases": [],
+  "center": {
+    "confidence": "derived",
+    "kind": "campus",
+    "lat": 42.4359878,
+    "locator": "Midpoint between the surveyed surface complex (geometry:lngs-external-labs-point) and the derived underground hall-complex position (geometry:lngs-hall-a/-b/-c)",
+    "lon": 13.5469616,
+    "note": "Map centre only; not a claim about any structure.",
+    "precision_m": 3500,
+    "sources": [
+      "src:geo-lngs-pee-2024",
+      "src:geo-lngs-osm-tunnel-relation"
+    ],
+    "verified_at": "2026-09-18"
+  },
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "extent_m": 8000,
+  "facility_id": "facility:lngs",
+  "id": "map:lngs",
+  "levels": [
+    {
+      "depth_m": null,
+      "id": "surface",
+      "kind": "surface",
+      "name": "Surface",
+      "note": "The A24 motorway and the LNGS External Laboratories / Centro Direzionale at Assergi."
+    },
+    {
+      "depth_m": {
+        "approx": true,
+        "confidence": "approximate",
+        "dimension": "length",
+        "display": "~1400 m (average)",
+        "max": null,
+        "min": null,
+        "note": "Average rock coverage of the underground laboratory as a whole; the mountain profile is asymmetric so any single feature's own depth can differ (already the treatment used on site:lngs-hall-a/-b/-c).",
+        "quote": "The 1400 metre-rock thickness above the Laboratory represents a natural coverage that provides a cosmic ray flux reduction by one million times",
+        "sources": [
+          "src:lngs-overview"
+        ],
+        "unit": "m",
+        "value": 1400,
+        "verified_at": "2026-09-16"
+      },
+      "id": "gran-sasso-tunnel",
+      "kind": "underground",
+      "name": "Gran Sasso tunnel and underground laboratory",
+      "note": "Plan view. Houses geometry:lngs-tunnel-gran-sasso (the public A24 road tunnel), geometry:lngs-lab-access-zone (the sourced ~700 m stretch adjacent to the laboratory's doors) and the three hall markers."
+    }
+  ],
+  "linked_map_ids": [
+    "map:cern"
+  ],
+  "links": {
+    "website": "https://www.lngs.infn.it/en"
+  },
+  "name": "LNGS — Laboratori Nazionali del Gran Sasso",
+  "notes": [
+    "Linked map: map:cern, because beamline:cngs (CERN's own beamline, facility_id facility:cern) names site:lngs-hall-c as its far_detector_site_ids target (732 km baseline, 2006-2012 beam operation for OPERA/ICARUS). The CNGS direction line itself is drawn on map:cern, not here, since the beamline entity belongs to CERN's inventory, not LNGS's.",
+    "geometry:lngs-hall-a, geometry:lngs-hall-b and geometry:lngs-hall-c intentionally share one derived coordinate (the midpoint of the sourced ~700 m access-zone stretch): no source fetched this session distinguishes the three halls' order or position within that zone. This will raise the validator's geometry-duplicate-shape warning for all three pairs; documented here and in the facility worklog per the contract's 'a warning you leave must be explained' rule, and not avoided by leaving any of the three sites unlocated, since a sourced (if coarse) position is available for all three and is more informative than omission.",
+    "The Pandola 2011 overview (src:geo-euro-ug-pandola-2011) names several LNGS experiments not present in this atlas dataset (Gator, MACRO, WArP, LUNA, COBRA, DAMA/Libra, STELLA/GEMPI2); they are not listed in unlocated[] because they are not atlas entities this session may create (out of this geometry-research brief's scope) — flagged in the facility worklog as backlog for whichever lead owns LNGS's experiment roster."
+  ],
+  "schema": "hep-atlas/0.2",
+  "schematics": [
+    {
+      "note": "Official site-layout figures ('Planimetria ubicazione esperimenti e set-up Laboratori sotterranei LNGS', 'Vista assonometrica dei Laboratori sotterranei') in the laboratory's own external emergency plan; not georeferenced or copied into this dataset (an institutional PDF), cited as a link only. Would be the best source for a future, hall-differentiated position.",
+      "source_id": "src:geo-lngs-pee-2024",
+      "title": "LNGS underground laboratories site plan (Piano di Emergenza Esterna INFN-LNGS 2024, Fig. 25/28/29)"
+    }
+  ],
+  "site_ids": [
+    "site:lngs-hall-a",
+    "site:lngs-hall-b",
+    "site:lngs-hall-c"
+  ],
+  "sources": [
+    "src:geo-lngs-osm-tunnel-relation",
+    "src:geo-lngs-pee-2024",
+    "src:lngs-overview"
+  ],
+  "summary": {
+    "plain": "The Gran Sasso National Laboratory in central Italy: three underground halls dug beside the 10-kilometre Gran Sasso motorway tunnel, about six kilometres in from the Assergi end, plus the laboratory's surface offices at Assergi.",
+    "technical": "One local map for facility:lngs. The A24 Gran Sasso road tunnel (OSM relation 9617984) is drawn as context; the underground laboratory's own position is derived from the official emergency plan's motorway chainage of its entrance/exit doors (km 124.150/123.440 against the tunnel's own km 117.653-127.829), giving a ~700 m sourced zone about 5.8-6.5 km from the Assergi portal. Halls A, B and C are drawn at that zone's midpoint, undifferentiated. The surface External Laboratories / Centro Direzionale complex at Assergi carries both an OSM building footprint and the emergency plan's own surveyed WGS84 coordinate (79.6 m apart, corroborating each other)."
+  },
+  "type": "map",
+  "unlocated": []
+}

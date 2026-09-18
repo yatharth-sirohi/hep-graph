@@ -1,0 +1,51 @@
+{
+  "accuracy_m": 30,
+  "aliases": [],
+  "checks": [],
+  "coverage": {
+    "researched": "full",
+    "tier": "B"
+  },
+  "depth_m": null,
+  "entity_id": "facility:lngs",
+  "feature_type": "other",
+  "geometry": {
+    "confidence": "verified",
+    "locator": "p.9, section 1.1 'Denominazione ed ubicazione dei laboratori'",
+    "note": "'verified' because representation is 'surveyed' from a rank 9 project_document (≤ 10, A15/A25), independent of any OSM check. Coordinate given to 0.01 arcsecond in the source (implying sub-metre nominal precision); accuracy_m is nonetheless set to 30 m, a conservative honest figure for a government-published DMS coordinate of unstated survey method.",
+    "quote": "Il Centro direzionale e i Laboratori Esterni sono localizzati dalle coordinate: 42°25'13.56\"N – 13°30'59.33\"E (WGS 84)",
+    "sources": [
+      "src:geo-lngs-pee-2024"
+    ],
+    "value": {
+      "coordinates": [13.516481, 42.420433],
+      "type": "Point"
+    },
+    "verified_at": "2026-09-18"
+  },
+  "id": "geometry:lngs-external-labs-point",
+  "level_id": "surface",
+  "license": null,
+  "links": {
+    "website": "https://www.lngs.infn.it/"
+  },
+  "map_id": "map:lngs",
+  "method": "DMS coordinate from the source converted to decimal degrees: 42°25'13.56\"N = 42 + 25/60 + 13.56/3600 = 42.420433°N; 13°30'59.33\"E = 13 + 30/60 + 59.33/3600 = 13.516481°E.",
+  "name": "LNGS Centro Direzionale / External Laboratories (surveyed point)",
+  "notes": [
+    "This point is 79.6 m from the vertex-averaged centroid of the independently-georeferenced OSM building geometry:lngs-external-labs-boundary, corroborating both (see the facility worklog).",
+    "This is the surface administrative complex, not the underground halls; it should not be used to correct site:lngs-hall-a/-b/-c's own coordinates (those are 'kind: underground_lab' records and this point is 'kind: campus'-equivalent, at the surface, several kilometres from the halls by tunnel). See geometry:lngs-hall-a/-b/-c and the worklog for the underground correction instead."
+  ],
+  "osm": null,
+  "representation": "surveyed",
+  "schema": "hep-atlas/0.2",
+  "site_id": null,
+  "sources": [
+    "src:geo-lngs-pee-2024"
+  ],
+  "summary": {
+    "plain": "The government-surveyed location of LNGS's surface offices and support buildings at Assergi, from the laboratory's official external emergency plan."
+  },
+  "type": "geometry",
+  "valid": null
+}
