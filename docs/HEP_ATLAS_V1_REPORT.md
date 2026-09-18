@@ -54,7 +54,7 @@ script named next to it or taken from a report file under
 
 | Entity | Count |
 | --- | ---: |
-| Facilities | 48 (47 with a located primary site; KEK has none) |
+| Facilities | 48 (all 48 with a located primary site; KEK's was set 2026-09-18 during the release-candidate red team — see §8) |
 | Sites | 93 |
 | Accelerators | 31 |
 | Beamlines | 6 |
@@ -69,8 +69,7 @@ script named next to it or taken from a report file under
 | Membership rosters | 3 (DUNE 217, CMS 244, ATLAS 198 rows) |
 
 Every experiment named in specification §30–§41 exists, and every facility in
-the §42 seed list exists with coordinates (KEK's primary site is the one gap,
-pre-existing). Tier split (`docs/HEP_ATLAS_COVERAGE.md`): tier A 23 rows (21
+the §42 seed list exists with coordinates. Tier split (`docs/HEP_ATLAS_COVERAGE.md`): tier A 23 rows (21
 researched "full", 2 "partial"); tier B 76 (11 full, 65 partial); tier C 17
 (2 full, 15 partial); tier D 15 (4 full, 11 partial). "Partial" means the
 mandatory bar (identity, status, dated intervals, a located site, topics,
@@ -166,7 +165,16 @@ assets have their own rate-limit bucket.
   → 12.5–15.5 fps for CMS/ATLAS with arcs on (a 1.5–1.9× improvement); the
   60 fps target on real hardware was not measured this release and is not
   claimed.
-- Accessibility: [TBD-A11Y].
+- Accessibility: axe-core (WCAG 2.1 A/AA + best-practice) reports 0 violations
+  across 16 scans (8 page/mode states × 2 data trees); 30/30 manual checks
+  pass (keyboard traversal, timeline/filter live regions, Escape+focus-return,
+  reduced-motion, runtime contrast). 3 P1 found and fixed (contrast below
+  WCAG AA on muted text/borders; uncertain-certainty globe markers had no
+  non-colour encoding; Escape did not close panels or return focus); 2 P2
+  found and fixed; 1 P2 documented, not fixed (`docs/atlas-worklog/REVIEW_accessibility.md`).
+  This placeholder was still unfilled as of the release candidate even though
+  the audit had already run; filled in 2026-09-18 during the release-candidate
+  red team.
 
 ## 11. Remaining coverage
 

@@ -376,7 +376,7 @@ Source: a local `pytest -q` log (outside the repository tree, path not recorded)
 
 | File | Status | Checks passed | Uncaught errors | Checked at |
 | --- | --- | ---: | ---: | --- |
-| test-results/atlas/report.json | passed | 23/23 | 0 | 2026-09-18T17:04:18.190Z |
+| test-results/atlas/report.json | passed | 25/25 | 0 | 2026-09-18T19:17:32.188Z |
 
 ### 8.7 Manual / human-verified fields
 
@@ -384,20 +384,20 @@ From `docs/atlas-worklog/validation_counts_manual.json` — anything a script ca
 
 | Field | Value | Evidence |
 | --- | --- | --- |
-| accessibility_audit | not yet run | not yet run |
+| accessibility_audit | axe-core (WCAG 2.1 A/AA + best-practice): 0 violations of either kind across 16 scans (8 page/mode states x 2 data trees). Manual checks: 30/30 pass (keyboard traversal, timeline live region, filter live region, Escape+focus-return, reduced-motion, runtime contrast). P0 found: 0. P1 found and fixed: 3 (muted-text and border contrast below WCAG AA; uncertain-certainty globe markers had no visual encoding at all despite is-possible class; Escape did not close panels or return focus). P2 found and fixed: 2 (mode-panel heading level skip; two notices outside any landmark). P2 documented, not fixed: 1 (timeline-legend uses a dashed-dot glyph for uncertain while the globe marker itself uses a hatch fill - same meaning, different glyph family). | docs/atlas-worklog/REVIEW_accessibility.md; tests/browser_atlas_a11y.cjs; test-results/atlas/logs/a11y.log; test-results/atlas/a11y-report.json; test-results/atlas/a11y-axe-report.json (gitignored, reproduce with: node tests/browser_atlas_a11y.cjs) |
 | coverage_red_team | not run | addendum §26 agent was started and stopped by the user; see INTEGRATION_ISSUES.md row 54 |
 | experiments_independently_reviewed | 101 (wave 3) + 30 (waves 1–2, REVIEW_data_quality_wave1.md / REVIEW_scientific.md) | docs/HEP_ATLAS_COVERAGE.md "Independent verification by workstream" |
 | factual_corrections_from_qa_P0 | 14 | VERIFY_*.md finding tables: dm-noble 1, dm-cryogenic 2, fixed-target 3, neutrino-mass 5, reactor-solar 3 |
 | factual_corrections_from_qa_P1 | 51 | VERIFY_*.md finding tables (sum of P1 rows across the 15 reports), plus two orchestrator class fixes: 28 collapsed histories split, 11 sites relabelled campus under A23 |
-| firefox_manual_run | not yet run | not yet run |
+| firefox_manual_run | firefox engine via Playwright, headless - 25/25 checks pass against the generated tree, 24/24 against fixtures (same A23 guard as webkit). 0 product bugs found specific to firefox; one real cross-engine timing race in the test harness itself was found and fixed (a vendored globe.gl render/settle race that could drop one marker from the DOM under firefox's specific frame timing - the app's own filtering logic was confirmed correct via instrumentation). | docs/atlas-worklog/REVIEW_browser_matrix.md; test-results/atlas/logs/firefox-generated.log; test-results/atlas/logs/firefox-fixtures.log |
 | flagships_fully_reviewed | 19 of 19 | ATLAS, CMS, DUNE, Super-K, T2K: REVIEW_scientific.md + REVIEW_data_quality_wave1.md; Hyper-K, NOvA, IceCube, Belle II, LZ: REVIEW_data_quality_wave1.md / REVIEW_scientific.md + flagship-depth.md orchestrator check; ALICE, LHCb: VERIFY_colliders-lhc.md; KM3NeT: VERIFY_astro-neutrino.md; JUNO: VERIFY_reactor-solar-neutrino.md; XENONnT: VERIFY_dm-noble-liquid.md; Muon g-2, Mu2e: VERIFY_muons.md; NA62: VERIFY_fixed-target.md; COHERENT: VERIFY_cevns.md |
 | independent_verification_workstreams_wave3 | 15 | docs/atlas-worklog/VERIFY_*.md — 13 by separate Sonnet agents; muons and cosmic-gamma by the orchestrator after their verifiers were stopped by the user |
 | nested_subagents_spawned_by_leads | 7 | Reported in lead worklogs: facilities (BNL), colliders-lhc (ALICE), astro-neutrino (KM3NeT, ANTARES+Baikal-GVD, radio detectors), dm-noble-liquid (DEAP-3600), fixed-target (NA62+NA48); the 20-agent cap blocked the rest. |
 | qa_P2_remaining_documented | 28 | VERIFY_*.md P2 rows left as documented judgement calls; INTEGRATION_ISSUES.md rows 52–53 |
 | research_workstreams_wave3 | 16 | docs/atlas-worklog/<owner>.md for the 15 experiment domains and facilities, plus flagship-depth.md |
-| safari_manual_run | not yet run | not yet run |
+| safari_manual_run | webkit engine via Playwright (Safari's own rendering engine; not a literal Safari.app run, which Playwright cannot drive) - 25/25 checks pass against the generated tree, 24/24 against fixtures (the 25th is an A23 fixture-data guard that correctly skips where fixtures carry no approximate-coordinate site). 0 product bugs found specific to webkit. | docs/atlas-worklog/REVIEW_browser_matrix.md; test-results/atlas/logs/webkit-generated.log; test-results/atlas/logs/webkit-fixtures.log |
 | source_conflict_count | 106 | Rows in the "Conflicts" tables of the research worklogs (docs/atlas-worklog/*.md, counted by script on 2026-09-18) |
-| subagent_count_total | not yet run | not yet run |
+| subagent_count_total | 44 | 37 spawned by the orchestrator (see subagents_spawned_by_orchestrator) + 7 nested children spawned by leads |
 | subagents_spawned_by_orchestrator | 37 | Agent tool calls in the v1.0 session: W1, W3, W4; 16 wave-3 leads (15 domains + facilities); 15 domain verifiers; flagship-depth; flagship-membership and coverage red team (both stopped by the user before producing output). All Sonnet. |
 
 <!-- counts:end -->
