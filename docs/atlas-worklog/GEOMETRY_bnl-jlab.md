@@ -293,3 +293,15 @@ accelerator or beamline record was edited.
   (skips are the PostgreSQL/Neon integration tests, which skip without
   `HEPGRAPH_TEST_DATABASE_URL`/`HEPGRAPH_TEST_POSTGRES_DSN` per CLAUDE.md;
   none of this session's work touches the database layer).
+
+## Integrator follow-up (2026-09-18, after the Overpass outage)
+
+Re-ran the CEBAF backlog query against the `maps.mail.ru` Overpass mirror
+(data timestamp 2026-09-18T23:02Z) over the whole Jefferson Lab campus bbox
+(37.085–37.110 N, −76.500 to −76.465 E): 217 elements, of which the only
+laboratory features are the named buildings "CEBAF Center" (way 319579555),
+"Experimental Equipment Lab" (319579563) and "Test Lab" (319579571). No
+tunnel, ring, hall or accelerator-tagged way exists for the CEBAF racetrack
+or Halls A–D, so `accelerator:cebaf` correctly stays in `unlocated[]`; the
+backlog now needs a non-OSM source (JLab site plan georeferenced against the
+three OSM buildings, or a published survey).
