@@ -27,15 +27,27 @@
     "website": null
   },
   "name": "ALPS II apparatus",
-  "notes": [
-    "No placements[] entry recorded: a fetched source explicitly confirming ALPS II sits in the DESY 'HERA North Hall' (site:desy-hera-north-hall-h1, owned by the facilities lead) was not found this session; forcing that reference without confirmation would violate A17. See worklog."
-  ],
+  "notes": [],
   "parent_detector_id": null,
-  "placements": [],
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "note": "No source fetched directly by the axions lead this session confirmed the hall; the facilities lead's own site record (site:desy-hera-north-hall-h1) cites src:h1-wikipedia (Wikipedia, rank 12) stating 'The HERA North Hall, where the H1 detector was located, is now used for the new ALPS experiment.' Recorded as confidence: approximate (not verified) because the sole supporting source is rank 12 (A17).",
+      "quote": "The HERA North Hall, where the H1 detector was located, is now used for the new ALPS experiment.",
+      "role": "main",
+      "site_id": "site:desy-hera-north-hall-h1",
+      "sources": [
+        "src:h1-wikipedia"
+      ],
+      "start": null,
+      "verified_at": "2026-09-17"
+    }
+  ],
   "schema": "hep-atlas/0.2",
   "sources": [
-    "src:axions-alps-ii-official-site",
-    "src:axions-alps-ii-inspire-experiment"
+    "src:axions-alps-ii-inspire-experiment",
+    "src:axions-alps-ii-official-site"
   ],
   "specs": {},
   "status": "active",
