@@ -137,6 +137,11 @@ async function main() {
 
   // ---- filters (docs/HEP_ATLAS_ARCHITECTURE.md "Clustering and filters")
   const topicIndex = filtersModule.buildTopicIndex(atlas.topics);
+  // Built once and reused (mirrors topicIndex above), rather than inside the
+  // fallback's own render() on every state change — same site->experiment
+  // lookup globe.js already builds for marker visibility (filters.js's
+  // siteMatches needs it because a site carries no kind/topic_ids of its own).
+  const siteExperimentIndex = filtersModule.buildSiteExperimentIndex(atlas);
   const filterPanel = filtersModule.createFilterPanel(els.filtersControls, {
     atlas,
     topicIndex,
@@ -154,7 +159,7 @@ async function main() {
     const filters = filtersModule.filtersFromState(current);
     const timelineState = current.range ? { range: current.range } : { year: current.year };
     fallback.render(els.fallbackContainer, {
-      atlas, results: resultsBundle, navigate: state.navigate, filters, timelineState, topicIndex,
+      atlas, results: resultsBundle, navigate: state.navigate, filters, timelineState, topicIndex, siteExperimentIndex,
     });
   }
 

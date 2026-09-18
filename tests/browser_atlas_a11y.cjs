@@ -25,6 +25,12 @@ const DATA_TREES = [
   { label: "fixtures", query: "?data=fixtures" },
 ];
 
+// Workstream A1: a real site id per tree, so the new site panel (previously
+// "Unknown entity type" — state.js's TYPE_PREFIX and panels.js's RENDERERS
+// lacked site/detector/accelerator/beamline) gets its own axe scan alongside
+// the other panel states below.
+const SITE_SLUG = { generated: "fermilab-main-campus", fixtures: "fermilab-sbnd-hall" };
+
 function findAxePath() {
   const candidates = [];
   if (process.env.NODE_PATH) {
@@ -205,6 +211,13 @@ async function contrastOf(page, selector) {
       await page.goto(`${base}/atlas${dataTree}#/experiment/dune`);
       await page.locator("#detail-panel h2").waitFor();
       await runAxe(page, tree.label, "experiment panel");
+    });
+
+    await record(`[${tree.label}] axe: site panel`, async () => {
+      await page.goto(`${base}/atlas${dataTree}#/site/${SITE_SLUG[tree.label]}`);
+      await page.locator("#detail-panel h2").waitFor();
+      const { violations } = await runAxe(page, tree.label, "site panel");
+      assert.deepEqual(violations, [], `expected 0 WCAG axe violations on the site panel, got ${JSON.stringify(violations)}`);
     });
 
     await record(`[${tree.label}] axe: collaboration mode`, async () => {

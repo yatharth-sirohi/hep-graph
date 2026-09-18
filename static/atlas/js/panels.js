@@ -106,6 +106,50 @@ function siteLocationNote(site) {
     `Approximate location${kindLabel ? ` (${kindLabel} point)` : ''} — not the detector position`);
 }
 
+// site/detector/accelerator/beamline panels (below): the generated bundle
+// carries depth/depth_mwe/altitude as full Quantity objects (quantityText
+// handles those already); the dev fixtures instead flatten them to plain
+// numbers under `_m`-suffixed keys with no unit string at all (A23 predates
+// these four record types getting fixture coverage). This covers both shapes
+// without the caller needing to know which tree it's reading.
+function siteQuantity(value, unit) {
+  if (value == null) return null;
+  if (typeof value === 'object') return quantityText(value);
+  return `${value} ${unit}`;
+}
+
+// A detector's `subsystems` entries are inconsistent even within one bundle:
+// most are `{name, description}` objects, a handful (e.g. detector:alice,
+// detector:sphenix, detector:star in the generated tree) are bare strings,
+// and `description` itself is sometimes a list of strings rather than one
+// (e.g. detector:cdms-ii) rather than a single string. Render whatever shape
+// shows up instead of assuming the common case.
+function subsystemNode(sub) {
+  if (sub == null) return null;
+  if (typeof sub === 'string') return h('li', {}, sub);
+  const description = Array.isArray(sub.description) ? sub.description.join(' ') : sub.description;
+  return h('li', {}, sub.name
+    ? [h('strong', {}, sub.name), description ? `: ${description}` : '']
+    : (description || ''));
+}
+
+// Shared by the four location/instrument panels below: a document's
+// `owner_ids` lists every entity it documents, and the owning record's own
+// `document_ids` (a build-derived inverse, per docs/HEP_ATLAS_BUNDLES.md) is
+// read too so a document is found even if one side of that pair is thin.
+async function documentsFor(id, record) {
+  const { list } = await loader.getDocuments();
+  return list.filter((d) => (d.owner_ids || []).includes(id) || (record.document_ids || []).includes(d.id));
+}
+
+function intervalLine(iv) {
+  const label = iv.label ? `${titleCase(iv.label)}: ` : '';
+  const status = titleCase(iv.status);
+  const start = fmtDate(iv.start) || '?';
+  const end = fmtDate(iv.end) || 'present';
+  return `${label}${status} (${start}–${end})`;
+}
+
 // Sources are ~2.2 MB combined (provenance.json + sources.json) and the
 // disclosure they render into is collapsed by default — P1-2 in
 // docs/atlas-worklog/REVIEW_performance.md found every panel open fetching
@@ -643,6 +687,326 @@ async function renderDocument(id) {
   return frag;
 }
 
+// ---------------------------------------------------------------------- site
+async function renderSite(id, timelineState) {
+  const site = ATLAS.sites[id];
+  if (!site) return emptyNote('Unknown site.');
+  const text = await loader.getText();
+  const t = text[id] || {};
+
+  const frag = document.createDocumentFragment();
+  frag.appendChild(h('h2', {}, site.name));
+  const place = site.place ? [site.place.city, site.place.country].filter(Boolean).join(', ') : '';
+  frag.appendChild(h('p', { class: 'panel-subtitle' }, [titleCase(site.setting), place].filter(Boolean).join(' · ')));
+  frag.appendChild(experimentBadge(site, timelineState));
+
+  // A23: coordinates.approximate only exists on the generated tree's nested
+  // shape; the fixtures' flat lat/lon predate the amendment and are never
+  // approximate, so siteLocationNote() silently returns null there.
+  const locationNote = siteLocationNote(site);
+  const coordText = (site.lat != null && site.lon != null)
+    ? `${site.lat.toFixed(4)}, ${site.lon.toFixed(4)}${site.precision_m != null ? ` (±${site.precision_m} m${site.coord_kind ? `, ${titleCase(site.coord_kind)}` : ''})` : ''}`
+    : '';
+  const siteSummary = plainSummaryOf(site, t);
+  frag.appendChild(section('Overview', [
+    siteSummary ? h('p', {}, siteSummary) : emptyNote('No plain-language summary yet.'),
+    keyValueList([
+      ['Aliases', (site.aliases || []).join(', ')],
+      ['Country', (site.countries && site.countries.length ? site.countries.join(', ') : site.country) || ''],
+      ['Coordinates', coordText],
+    ]),
+    locationNote,
+  ]));
+
+  const quantRows = [
+    ['Depth', siteQuantity(site.depth != null ? site.depth : site.depth_m, 'm')],
+    ['Depth (water equivalent)', siteQuantity(site.depth_mwe, 'm.w.e.')],
+    ['Altitude', siteQuantity(site.altitude != null ? site.altitude : site.altitude_m, 'm')],
+  ].filter(([, v]) => v);
+  frag.appendChild(section('Depth and altitude', quantRows.length
+    ? [keyValueList(quantRows)]
+    : [emptyNote('No depth or altitude recorded.')], { open: false }));
+
+  const facility = site.facility_id && ATLAS.facilities[site.facility_id];
+  frag.appendChild(section('Facility', facility
+    ? [linkTo(idRoute(facility.id), facility.name)]
+    : [emptyNote('No facility recorded for this site.')]));
+
+  // Sites carry no derived `detector_ids` inverse list in the generated
+  // bundle (docs/HEP_ATLAS_BUNDLES.md's inverse-list table stops at `site:
+  // document_ids`) — derive "placed here" by scanning every detector's own
+  // `placements` for this site id, which both trees carry.
+  const detectorsHere = Object.values(ATLAS.detectors || {})
+    .map((detector) => ({ detector, placement: (detector.placements || []).find((p) => p.site_id === id) }))
+    .filter((row) => row.placement);
+  frag.appendChild(section('Detectors placed here', detectorsHere.length
+    ? [h('ul', { class: 'entity-list' }, detectorsHere.map(({ detector, placement }) => h('li', {}, [
+      linkTo(idRoute(detector.id), detector.name),
+      placement.role ? ` — ${titleCase(placement.role)}` : '',
+      (placement.start || placement.end) ? ` (${placement.start || '?'}–${placement.end || 'present'})` : '',
+    ])))]
+    : [emptyNote('No detectors recorded at this site.')]));
+
+  const experimentIds = new Set();
+  for (const { detector } of detectorsHere) {
+    for (const eid of detector.experiment_ids || []) experimentIds.add(eid);
+  }
+  const experimentsHosted = [...experimentIds].map((eid) => ATLAS.experiments[eid]).filter(Boolean);
+  frag.appendChild(section('Experiments hosted', experimentsHosted.length
+    ? [h('ul', { class: 'entity-list' }, experimentsHosted.map((e) => h('li', {}, linkTo(idRoute(e.id), e.name))))]
+    : [emptyNote('No experiments recorded at this site.')]));
+
+  const acceleratorsHere = Object.values(ATLAS.accelerators || {}).filter((a) => a.site_id === id);
+  frag.appendChild(section('Accelerators sited here', acceleratorsHere.length
+    ? [h('ul', { class: 'entity-list' }, acceleratorsHere.map((a) => h('li', {}, linkTo(idRoute(a.id), a.name))))]
+    : [emptyNote('No accelerators recorded at this site.')], { open: false }));
+
+  const beamlinesHere = Object.values(ATLAS.beamlines || {}).filter((b) => (b.near_detector_site_ids || []).includes(id)
+    || (b.far_detector_site_ids || []).includes(id));
+  frag.appendChild(section('Beamlines', beamlinesHere.length
+    ? [h('ul', { class: 'entity-list' }, beamlinesHere.map((b) => h('li', {}, linkTo(idRoute(b.id), b.name))))]
+    : [emptyNote('No beamlines recorded at this site.')], { open: false }));
+
+  const documents = await documentsFor(id, site);
+  frag.appendChild(section('Documents', documents.length
+    ? [h('ul', { class: 'entity-list' }, documents.map((d) => h('li', {},
+      h('a', { href: d.reference && d.reference.url, target: '_blank', rel: 'noopener' }, d.name))))]
+    : [emptyNote('No documents recorded.')], { open: false }));
+
+  const approximateSites = (site.coordinates && site.coordinates.approximate) ? [site] : [];
+  frag.appendChild(sourcesDisclosure(id, { approximateSites }));
+  CALLBACKS.focusGlobe(id);
+  return frag;
+}
+
+// ------------------------------------------------------------------ detector
+async function renderDetector(id, timelineState) {
+  const detector = ATLAS.detectors[id];
+  if (!detector) return emptyNote('Unknown detector.');
+  const text = await loader.getText();
+  const t = text[id] || {};
+
+  const frag = document.createDocumentFragment();
+  frag.appendChild(h('h2', {}, detector.name));
+  const techLabel = [detector.technology, (detector.technology_classes || []).map(titleCase).join(', ')]
+    .filter(Boolean).join(' · ');
+  if (techLabel) frag.appendChild(h('p', { class: 'panel-subtitle' }, techLabel));
+  frag.appendChild(experimentBadge(detector, timelineState));
+
+  const detectorSummary = plainSummaryOf(detector, t);
+  frag.appendChild(section('Overview', [
+    detectorSummary ? h('p', {}, detectorSummary) : emptyNote('No plain-language summary yet.'),
+    keyValueList([['Aliases', (detector.aliases || []).join(', ')]]),
+  ]));
+
+  const specRows = Object.entries(detector.specs || {}).map(([k, v]) => [titleCase(k), quantityText(v)]);
+  frag.appendChild(section('Specifications', specRows.length
+    ? [keyValueList(specRows)]
+    : [emptyNote('No technical specifications recorded.')], { open: false }));
+
+  const placements = detector.placements || [];
+  frag.appendChild(section('Placements', placements.length
+    ? [h('ul', { class: 'entity-list' }, placements.map((p) => {
+      const site = ATLAS.sites[p.site_id];
+      return h('li', {}, [
+        site ? linkTo(idRoute(site.id), site.name) : document.createTextNode(p.site_id),
+        p.role ? ` — ${titleCase(p.role)}` : '',
+        (p.start || p.end) ? ` (${p.start || '?'}–${p.end || 'present'})` : '',
+      ]);
+    }))]
+    : [emptyNote('No placement recorded.')]));
+
+  const experimentsHere = (detector.experiment_ids || []).map((eid) => ATLAS.experiments[eid]).filter(Boolean);
+  frag.appendChild(section('Experiments', experimentsHere.length
+    ? [h('ul', { class: 'entity-list' }, experimentsHere.map((e) => h('li', {}, linkTo(idRoute(e.id), e.name))))]
+    : [emptyNote('No experiments recorded.')]));
+
+  const parent = detector.parent_detector_id && ATLAS.detectors[detector.parent_detector_id];
+  const children = Object.values(ATLAS.detectors || {}).filter((d) => d.parent_detector_id === id);
+  frag.appendChild(section('Parent and child detectors', [
+    h('h4', {}, 'Parent'),
+    parent ? h('p', {}, linkTo(idRoute(parent.id), parent.name)) : emptyNote('No parent detector recorded.'),
+    h('h4', {}, 'Child detectors'),
+    children.length
+      ? h('ul', { class: 'entity-list' }, children.map((c) => h('li', {}, linkTo(idRoute(c.id), c.name))))
+      : emptyNote('No child detectors recorded.'),
+  ], { open: false }));
+
+  const subsystems = (detector.subsystems || []).map(subsystemNode).filter(Boolean);
+  frag.appendChild(section('Subsystems', subsystems.length
+    ? [h('ul', { class: 'entity-list' }, subsystems)]
+    : [emptyNote('No subsystems recorded.')], { open: false }));
+
+  const documents = await documentsFor(id, detector);
+  frag.appendChild(section('Documents', documents.length
+    ? [h('ul', { class: 'entity-list' }, documents.map((d) => h('li', {},
+      h('a', { href: d.reference && d.reference.url, target: '_blank', rel: 'noopener' }, d.name))))]
+    : [emptyNote('No documents recorded.')], { open: false }));
+
+  frag.appendChild(sourcesDisclosure(id));
+  const focusSite = placements.map((p) => p.site_id).find(Boolean);
+  if (focusSite) CALLBACKS.focusGlobe(focusSite);
+  return frag;
+}
+
+// --------------------------------------------------------------- accelerator
+async function renderAccelerator(id, timelineState) {
+  const accelerator = ATLAS.accelerators[id];
+  if (!accelerator) return emptyNote('Unknown accelerator.');
+  const text = await loader.getText();
+  const t = text[id] || {};
+
+  const frag = document.createDocumentFragment();
+  frag.appendChild(h('h2', {}, accelerator.name));
+  frag.appendChild(h('p', { class: 'panel-subtitle' }, titleCase(accelerator.kind)));
+  frag.appendChild(experimentBadge(accelerator, timelineState));
+
+  const acceleratorSummary = plainSummaryOf(accelerator, t);
+  frag.appendChild(section('Overview', [
+    acceleratorSummary ? h('p', {}, acceleratorSummary) : emptyNote('No plain-language summary yet.'),
+    keyValueList([
+      ['Aliases', (accelerator.aliases || []).join(', ')],
+      ['Collider', accelerator.is_collider ? 'Yes' : 'No'],
+      ['Particles', (accelerator.particles || []).join(', ')],
+    ]),
+  ]));
+
+  const specRows = Object.entries(accelerator.specs || {}).map(([k, v]) => [titleCase(k), quantityText(v)]);
+  frag.appendChild(section('Specifications', specRows.length
+    ? [keyValueList(specRows)]
+    : [emptyNote('No technical specifications recorded.')], { open: false }));
+
+  const facility = accelerator.facility_id && ATLAS.facilities[accelerator.facility_id];
+  const site = accelerator.site_id && ATLAS.sites[accelerator.site_id];
+  frag.appendChild(section('Facility and site', [
+    facility ? h('p', {}, ['Facility: ', linkTo(idRoute(facility.id), facility.name)]) : emptyNote('No facility recorded.'),
+    site ? h('p', {}, ['Site: ', linkTo(idRoute(site.id), site.name)]) : emptyNote('No site recorded.'),
+  ]));
+
+  const feeds = (accelerator.feeds_accelerator_ids || []).map((aid) => ATLAS.accelerators[aid]).filter(Boolean);
+  // `fed_by_accelerator_ids` is a generated-tree-only derived field (never
+  // present, not even empty, on the fixtures' accelerator records).
+  const fedBy = (accelerator.fed_by_accelerator_ids || []).map((aid) => ATLAS.accelerators[aid]).filter(Boolean);
+  frag.appendChild(section('Accelerator chain', [
+    h('h4', {}, 'Feeds'),
+    feeds.length ? h('ul', { class: 'entity-list' }, feeds.map((a) => h('li', {}, linkTo(idRoute(a.id), a.name)))) : emptyNote('None recorded.'),
+    h('h4', {}, 'Fed by'),
+    fedBy.length ? h('ul', { class: 'entity-list' }, fedBy.map((a) => h('li', {}, linkTo(idRoute(a.id), a.name)))) : emptyNote('None recorded.'),
+  ], { open: false }));
+
+  const beamlinesHere = (accelerator.beamline_ids || []).map((bid) => ATLAS.beamlines[bid]).filter(Boolean);
+  frag.appendChild(section('Beamlines', beamlinesHere.length
+    ? [h('ul', { class: 'entity-list' }, beamlinesHere.map((b) => h('li', {}, linkTo(idRoute(b.id), b.name))))]
+    : [emptyNote('No beamlines recorded.')]));
+
+  const servedExperiments = (accelerator.serves_experiment_ids || []).map((eid) => ATLAS.experiments[eid]).filter(Boolean);
+  frag.appendChild(section('Experiments served', servedExperiments.length
+    ? [h('ul', { class: 'entity-list' }, servedExperiments.map((e) => h('li', {}, linkTo(idRoute(e.id), e.name))))]
+    : [emptyNote('No experiments recorded.')]));
+
+  // `intervals` is absent on the fixtures' accelerator/beamline records (only
+  // the generated tree's build derives it) — state_segments still drives the
+  // status badge above either way, so this only ever loses the fixtures'
+  // human-readable timeline, not their status.
+  const intervals = accelerator.intervals || [];
+  frag.appendChild(section('Timeline', intervals.length
+    ? [h('ul', { class: 'entity-list' }, intervals.map((iv) => h('li', {}, intervalLine(iv))))]
+    : [emptyNote('No interval history recorded.')], { open: false }));
+
+  const documents = await documentsFor(id, accelerator);
+  frag.appendChild(section('Documents', documents.length
+    ? [h('ul', { class: 'entity-list' }, documents.map((d) => h('li', {},
+      h('a', { href: d.reference && d.reference.url, target: '_blank', rel: 'noopener' }, d.name))))]
+    : [emptyNote('No documents recorded.')], { open: false }));
+
+  frag.appendChild(sourcesDisclosure(id));
+  if (accelerator.site_id) CALLBACKS.focusGlobe(accelerator.site_id);
+  return frag;
+}
+
+// ------------------------------------------------------------------ beamline
+async function renderBeamline(id, timelineState) {
+  const beamline = ATLAS.beamlines[id];
+  if (!beamline) return emptyNote('Unknown beamline.');
+  const text = await loader.getText();
+  const t = text[id] || {};
+
+  const frag = document.createDocumentFragment();
+  frag.appendChild(h('h2', {}, beamline.name));
+  frag.appendChild(experimentBadge(beamline, timelineState));
+
+  const beamlineSummary = plainSummaryOf(beamline, t);
+  const primaryBeam = beamline.primary_beam || {};
+  const primaryBeamText = [primaryBeam.particle, primaryBeam.energy ? quantityText(primaryBeam.energy) : null]
+    .filter(Boolean).join(' · ');
+  frag.appendChild(section('Overview', [
+    beamlineSummary ? h('p', {}, beamlineSummary) : emptyNote('No plain-language summary yet.'),
+    keyValueList([
+      ['Aliases', (beamline.aliases || []).join(', ')],
+      ['Primary beam', primaryBeamText],
+      ['Secondary beam', beamline.secondary_beam],
+      ['Target', beamline.target],
+      ['Direction', beamline.direction],
+    ]),
+  ]));
+
+  const specRows = Object.entries(beamline.specs || {}).map(([k, v]) => [titleCase(k), quantityText(v)]);
+  frag.appendChild(section('Specifications', specRows.length
+    ? [keyValueList(specRows)]
+    : [emptyNote('No technical specifications recorded.')], { open: false }));
+
+  const facility = beamline.facility_id && ATLAS.facilities[beamline.facility_id];
+  const accelerator = beamline.accelerator_id && ATLAS.accelerators[beamline.accelerator_id];
+  frag.appendChild(section('Facility and accelerator', [
+    facility ? h('p', {}, ['Facility: ', linkTo(idRoute(facility.id), facility.name)]) : emptyNote('No facility recorded.'),
+    accelerator ? h('p', {}, ['Accelerator: ', linkTo(idRoute(accelerator.id), accelerator.name)]) : emptyNote('No accelerator recorded.'),
+  ]));
+
+  function siteLi(sid) {
+    const site = ATLAS.sites[sid];
+    return h('li', {}, site ? linkTo(idRoute(site.id), site.name) : document.createTextNode(sid));
+  }
+  const nearSites = beamline.near_detector_site_ids || [];
+  const farSites = beamline.far_detector_site_ids || [];
+  const baselines = beamline.baselines || [];
+  frag.appendChild(section('Near and far detector sites', [
+    h('h4', {}, 'Near'),
+    nearSites.length ? h('ul', { class: 'entity-list' }, nearSites.map(siteLi)) : emptyNote('None recorded.'),
+    h('h4', {}, 'Far'),
+    farSites.length ? h('ul', { class: 'entity-list' }, farSites.map(siteLi)) : emptyNote('None recorded.'),
+    baselines.length ? h('div', {}, [
+      h('h4', {}, 'Baselines'),
+      h('ul', { class: 'entity-list' }, baselines.map((b) => {
+        const from = ATLAS.sites[b.from_site_id];
+        const to = ATLAS.sites[b.to_site_id];
+        const distance = b.distance ? quantityText(b.distance) : '';
+        return h('li', {}, `${from ? from.name : b.from_site_id} → ${to ? to.name : b.to_site_id}${distance ? `: ${distance}` : ''}`);
+      })),
+    ]) : null,
+  ]));
+
+  const beamlineExperiments = (beamline.experiment_ids || []).map((eid) => ATLAS.experiments[eid]).filter(Boolean);
+  frag.appendChild(section('Experiments', beamlineExperiments.length
+    ? [h('ul', { class: 'entity-list' }, beamlineExperiments.map((e) => h('li', {}, linkTo(idRoute(e.id), e.name))))]
+    : [emptyNote('No experiments recorded.')]));
+
+  const intervals = beamline.intervals || [];
+  frag.appendChild(section('Timeline', intervals.length
+    ? [h('ul', { class: 'entity-list' }, intervals.map((iv) => h('li', {}, intervalLine(iv))))]
+    : [emptyNote('No interval history recorded.')], { open: false }));
+
+  const documents = await documentsFor(id, beamline);
+  frag.appendChild(section('Documents', documents.length
+    ? [h('ul', { class: 'entity-list' }, documents.map((d) => h('li', {},
+      h('a', { href: d.reference && d.reference.url, target: '_blank', rel: 'noopener' }, d.name))))]
+    : [emptyNote('No documents recorded.')], { open: false }));
+
+  frag.appendChild(sourcesDisclosure(id));
+  const focusSite = nearSites[0] || farSites[0];
+  if (focusSite) CALLBACKS.focusGlobe(focusSite);
+  return frag;
+}
+
 const RENDERERS = {
   facility: renderFacility,
   experiment: renderExperiment,
@@ -651,6 +1015,10 @@ const RENDERERS = {
   topic: renderTopic,
   result: renderResult,
   document: renderDocument,
+  site: renderSite,
+  detector: renderDetector,
+  accelerator: renderAccelerator,
+  beamline: renderBeamline,
 };
 
 // `timelineState` is `{ year }` or `{ range: [lo, hi] }`, the same shape

@@ -5,6 +5,7 @@
 const TYPE_PREFIX = {
   facility: 'facility', experiment: 'experiment', collaboration: 'collaboration',
   institution: 'institution', topic: 'topic', result: 'result', document: 'document',
+  site: 'site', detector: 'detector', accelerator: 'accelerator', beamline: 'beamline',
 };
 
 const subscribers = new Set();
