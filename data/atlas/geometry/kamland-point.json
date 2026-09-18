@@ -1,0 +1,51 @@
+{
+  "accuracy_m": 2000,
+  "aliases": [],
+  "checks": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "depth_m": null,
+  "entity_id": "site:kamioka-kamland",
+  "feature_type": "cavern",
+  "geometry": {
+    "confidence": "approximate",
+    "locator": "Wikipedia infobox coordinate (36 deg 25' 21'' N, 137 deg 18' 55'' E)",
+    "note": "Representation is honestly weak: the only fetched source is Wikipedia (rank 12), not a lab page or paper, so this is not `surveyed`, and it is not traced from OSM/GIS so it is not `georeferenced` either; `derived` is used here for a zero-offset reuse of the existing sourced parameter, flagged `approximate` confidence. See worklog backlog for a better source.",
+    "quote": "36°25′21″N 137°18′55″E",
+    "sources": [
+      "src:kamland-wikipedia"
+    ],
+    "value": {
+      "coordinates": [
+        137.3153,
+        36.4225
+      ],
+      "type": "Point"
+    },
+    "verified_at": "2026-09-18"
+  },
+  "id": "geometry:kamland-point",
+  "level_id": "ikenoyama-1000m",
+  "license": null,
+  "links": {
+    "website": null
+  },
+  "map_id": "map:kamioka-observatory",
+  "method": "Reuses the coordinate already recorded on site:kamioka-kamland verbatim (36.4225 N, 137.3153 E), itself the Wikipedia infobox value for KamLAND (rank 12); no additional computation is performed. No source fetched this session (the KamLAND overview arXiv:physics/0404071, the Antineutrino Science in KamLAND review arXiv:1409.4515, or the combined pre-supernova-alert paper arXiv:2404.09920) states a numeric distance-and-bearing offset from Super-Kamiokande precise enough to derive a better point; a WebSearch summary reports \"500 m\" but no fetched primary source states it, so it is not used (nothing from memory/unfetched summaries). accuracy_m matches the reused coordinate's own precision_m (2000 m) exactly, so this does not rest on a coarser anchor than its own claimed accuracy.",
+  "name": "KamLAND (point, old Kamiokande cavity)",
+  "notes": [],
+  "osm": null,
+  "representation": "derived",
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:kamioka-kamland",
+  "sources": [
+    "src:kamland-wikipedia"
+  ],
+  "summary": {
+    "plain": "KamLAND's approximate position in the Kamioka mine, reusing the same coarse Wikipedia-sourced point already on record for its site; no better public source was found this session."
+  },
+  "type": "geometry",
+  "valid": null
+}

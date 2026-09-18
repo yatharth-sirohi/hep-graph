@@ -1,0 +1,164 @@
+{
+  "accuracy_m": 25,
+  "aliases": [],
+  "checks": [
+    {
+      "expected": {
+        "approx": true,
+        "confidence": "verified",
+        "dimension": "length",
+        "display": "17.5 km",
+        "locator": "Section II",
+        "note": "",
+        "quote": "two 17.5-km-long traffic tunnels under Jinping Mountain were completed",
+        "sources": [
+          "src:cjpl-arxiv-early-science-2018"
+        ],
+        "unit": "m",
+        "value": 17500,
+        "verified_at": "2026-09-18"
+      },
+      "kind": "length",
+      "locator": "Section II",
+      "quote": "two 17.5-km-long traffic tunnels under Jinping Mountain were completed",
+      "sources": [
+        "src:cjpl-arxiv-early-science-2018"
+      ],
+      "tolerance": 0.02
+    }
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "depth_m": null,
+  "entity_id": "facility:cjpl",
+  "feature_type": "tunnel",
+  "geometry": {
+    "confidence": "approximate",
+    "locator": "OSM way 681216327, extracted via Overpass, osm3s.timestamp_osm_base 2026-09-18T22:26:31Z",
+    "note": "OpenStreetMap alone yields at most `approximate` confidence even though the independent length check below passes (A25 §1.2).",
+    "quote": "name='锦屏二级水电站交通隙洞', highway=tertiary, tunnel=yes",
+    "sources": [
+      "src:geo-kamioka-cjpl-osm-jinping-tunnel"
+    ],
+    "value": {
+      "coordinates": [
+        [
+          101.6423797,
+          28.2151356
+        ],
+        [
+          101.6437307,
+          28.2154761
+        ],
+        [
+          101.6454542,
+          28.2157967
+        ],
+        [
+          101.6470894,
+          28.2159361
+        ],
+        [
+          101.6486425,
+          28.2159996
+        ],
+        [
+          101.6498424,
+          28.2159922
+        ],
+        [
+          101.6511475,
+          28.2158683
+        ],
+        [
+          101.6522505,
+          28.2155778
+        ],
+        [
+          101.6535412,
+          28.2149691
+        ],
+        [
+          101.7833933,
+          28.1414858
+        ],
+        [
+          101.7849026,
+          28.1404993
+        ],
+        [
+          101.785538,
+          28.1399915
+        ],
+        [
+          101.7861948,
+          28.1392944
+        ],
+        [
+          101.7866342,
+          28.1387088
+        ],
+        [
+          101.7870202,
+          28.1380317
+        ],
+        [
+          101.7877549,
+          28.1365205
+        ],
+        [
+          101.7881286,
+          28.1354956
+        ],
+        [
+          101.7885151,
+          28.1341983
+        ],
+        [
+          101.7887975,
+          28.1329123
+        ],
+        [
+          101.7889765,
+          28.1317909
+        ]
+      ],
+      "type": "LineString"
+    },
+    "verified_at": "2026-09-18"
+  },
+  "id": "geometry:jinping-traffic-tunnel",
+  "level_id": "jinping-tunnel",
+  "license": {
+    "attribution": "© OpenStreetMap contributors",
+    "name": "ODbL-1.0",
+    "url": "https://www.openstreetmap.org/copyright"
+  },
+  "links": {
+    "website": null
+  },
+  "map_id": "map:cjpl",
+  "method": "OpenStreetMap way 681216327 (highway=tertiary, tunnel=yes, name '锦屏二级水电站交通隙洞', 20 nodes), kept verbatim from the west portal (28.2151356 N, 101.6423797 E) to the east portal (28.1317909 N, 101.7889765 E). A near-identical parallel bore (way 653641019, same name, 19 nodes) lies ~65-70 m away throughout and is not separately drawn (CJPL's own papers describe the pair as 'two 17.5-km-long traffic tunnels'; only one is needed to show the route to scale). accuracy_m 25 m reflects a standard OSM tunnel-line trace of a twin road-tunnel pair; the deep-mountain middle section is represented by OSM as a single long straight chord (vertices 8-9 of the 20), consistent with a bored traffic tunnel's genuinely straight alignment rather than a data-quality gap.",
+  "name": "Jinping traffic tunnel (one of the twin bores hosting CJPL)",
+  "notes": [],
+  "osm": {
+    "elements": [
+      "way/681216327"
+    ],
+    "timestamp": "2026-09-18T22:26:31Z"
+  },
+  "representation": "georeferenced",
+  "schema": "hep-atlas/0.2",
+  "site_id": null,
+  "sources": [
+    "src:geo-kamioka-cjpl-osm-jinping-tunnel",
+    "src:cjpl-arxiv-early-science-2018"
+  ],
+  "summary": {
+    "plain": "One of the twin 17.5-kilometre road tunnels drilled under Jinping Mountain for the hydropower project, along which CJPL's two underground halls are built."
+  },
+  "type": "geometry",
+  "valid": null
+}

@@ -1,0 +1,103 @@
+{
+  "aliases": [],
+  "center": {
+    "confidence": "derived",
+    "kind": "campus",
+    "lat": 36.389101,
+    "locator": "Midpoint of Super-Kamiokande's surveyed GPS point and Hyper-Kamiokande's surveyed LOI point",
+    "lon": 137.312054,
+    "note": "Map centre only; not a claim about any structure. precision_m is set loosely because this is a naive two-point midpoint spanning two separate mines 8 km apart, not an area centroid.",
+    "precision_m": 5000,
+    "sources": [
+      "src:sk-nim-2003",
+      "src:geo-kamioka-cjpl-hk-loi-2011"
+    ],
+    "verified_at": "2026-09-18"
+  },
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "extent_m": 9000,
+  "facility_id": "facility:kamioka-observatory",
+  "id": "map:kamioka-observatory",
+  "levels": [
+    {
+      "depth_m": null,
+      "id": "surface",
+      "kind": "surface",
+      "name": "Surface",
+      "note": "The Kamioka valley surface: the Mozumi and Atotsu mine entrances (the latter a 1.7 km horizontal drive-in tunnel) and the Kamioka Observatory's surface buildings. No OpenStreetMap trace of these was obtained this session (Overpass connectivity failed on both mirrors every time it was tried — see worklog); no surface feature is drawn at this level."
+    },
+    {
+      "depth_m": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "length",
+        "display": "1000 m of rock (2700 m.w.e.)",
+        "locator": "ICRR Kamioka Observatory page",
+        "note": "Reuses the depth already sourced on facility:kamioka-observatory and site:kamioka-mozumi-mine-super-kamiokande verbatim.",
+        "quote": "50,000-ton water Cherenkov detector located 1000m underground (2700m.w.e) in the Kamioka Mine",
+        "sources": [
+          "src:icrr-kamioka-observatory-page",
+          "src:sk-nim-2003"
+        ],
+        "unit": "m",
+        "value": 1000,
+        "verified_at": "2026-09-16"
+      },
+      "id": "ikenoyama-1000m",
+      "kind": "underground",
+      "name": "Mt. Ikenoyama, Mozumi mine (~1000 m level)",
+      "note": "Houses geometry:super-kamiokande-cavern and geometry:kamland-point, both under Mt. Ikenoyama in the Mozumi mine, reached via the Atotsu tunnel."
+    },
+    {
+      "depth_m": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "length",
+        "display": "650 m of rock at the detector centre",
+        "locator": "Frontiers in Physics 12:1378254 (2024)",
+        "note": "Reuses the depth already sourced on site:kamioka-hyper-kamiokande-tochibora verbatim. A separate level from ikenoyama-1000m: Tochibora is a physically distinct mine and mountain 8 km south of Mozumi, not the same plane at a different scale.",
+        "quote": "overburden at the top of the main cavern is 592m and 650 m at the center of the detector",
+        "sources": [
+          "src:hk-frontiers-2024-status"
+        ],
+        "unit": "m",
+        "value": 650,
+        "verified_at": "2026-09-16"
+      },
+      "id": "nijuugoyama-650m",
+      "kind": "underground",
+      "name": "Mt. Nijuugoyama, Tochibora mine (~650 m level)",
+      "note": "Houses geometry:hyper-kamiokande-point, under Mt. Nijuugoyama in the Tochibora mine."
+    }
+  ],
+  "linked_map_ids": [],
+  "links": {
+    "website": null
+  },
+  "name": "Kamioka Observatory — Mozumi and Tochibora mines",
+  "notes": [
+    "linked_map_ids is left empty: map:j-parc does not exist in this worktree/branch as of 2026-09-18 (a concurrent researcher's task). facility:kamioka-observatory.related_facility_ids already lists facility:j-parc, so once map:j-parc is merged the build's automatic derivation (related_facility_ids with a map, plus beamline:j-parc-neutrino's far_detector_site_ids pointing at this map's own sites) should link the two maps without any authoring change here.",
+    "facility:kamioka-observatory's own notes record that the Kamioka Observatory also hosts KAGRA, CANDLES, NEWAGE and XENONnT R&D, and that experiment:kamiokande/experiment:kamland-zen exist as atlas experiment records; none of these have their own site: record in this atlas (only the two mines already in site_ids do), so there is nothing further to draw or list in unlocated[] for them — flagged here as a completeness gap, not a map defect.",
+    "Overpass (overpass-api.de and lz4.overpass-api.de) refused every connection attempted this session (curl error 7, 'Failed to connect') for a Mozumi-area building/tunnel-entrance query; unlike the CJPL query earlier in the same session, which succeeded once. No OpenStreetMap feature for the Atotsu tunnel entrance or the Kamioka Observatory's surface buildings could be added. Backlog: retry the query `way[\"building\"](36.415,137.300,36.435,137.325); way[\"tunnel\"](36.415,137.300,36.435,137.325);` on either mirror."
+  ],
+  "schema": "hep-atlas/0.2",
+  "schematics": [],
+  "site_ids": [
+    "site:kamioka-mozumi-mine-super-kamiokande",
+    "site:kamioka-kamland",
+    "site:kamioka-hyper-kamiokande-tochibora"
+  ],
+  "sources": [
+    "src:sk-nim-2003",
+    "src:icrr-kamioka-observatory-page"
+  ],
+  "summary": {
+    "plain": "The Kamioka Observatory's two underground sites in Gifu, Japan: the Mozumi mine, home to Super-Kamiokande and KamLAND, and the Tochibora mine 8 km south, where Hyper-Kamiokande is being built. Both receive the T2K neutrino beam from J-PARC, 295 km away.",
+    "technical": "Local map for facility:kamioka-observatory spanning the Mozumi mine (site:kamioka-mozumi-mine-super-kamiokande, site:kamioka-kamland) and the Tochibora mine (site:kamioka-hyper-kamiokande-tochibora), 8 km apart. Super-Kamiokande is drawn as a derived 39.3 m circle around its own surveyed GPS centre; Hyper-Kamiokande as a surveyed point from its 2011 Letter of Intent; KamLAND as the coarse point already on record (no better source was fetched this session). An inferred_direction feature shows the T2K beam's 295 km baseline from J-PARC, cross-checked against the T2K instrumentation paper's own surveyed figure."
+  },
+  "type": "map",
+  "unlocated": []
+}
