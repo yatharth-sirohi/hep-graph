@@ -4678,6 +4678,21 @@
       "entity_id is the site (site:psi-villigen); this one feature accounts for the site and, through it, the site-hosted detector placements of detector:meg, detector:meg-ii and detector:mu3e, none of which has its own sourced hall footprint this session (see accelerator:psi-hipa's unlocated row and the worklog)."
     ]
   },
+  "geometry:snolab-cavity": {
+    "notes": []
+  },
+  "geometry:snolab-creighton-mine-boundary": {
+    "notes": []
+  },
+  "geometry:snolab-surface-office": {
+    "notes": []
+  },
+  "geometry:soudan-mine-shaft-building": {
+    "notes": []
+  },
+  "geometry:soudan-minos-far-detector-point": {
+    "notes": []
+  },
   "geometry:south-pole-station-marker": {
     "notes": [
       "This marker stands in for site:south-pole-icecube on the map, the same way geometry:meyrin-site-marker stands in for site:cern-meyrin on map:cern. site:south-pole-ara is NOT covered by this marker (it is a physically distinct site ~2 km away with no sourced position of its own this session) and is listed in map.unlocated[] instead."
@@ -4692,10 +4707,37 @@
       "Same OSM way and coordinates as geometry:kekb-tunnel-ring: intentionally triggers geometry-duplicate-shape, explained in the worklog (same pattern as CERN's LHC/LEP pair)."
     ]
   },
+  "geometry:surf-administration-building": {
+    "notes": []
+  },
+  "geometry:surf-davis-campus-cavern": {
+    "notes": []
+  },
+  "geometry:surf-ross-headframe": {
+    "notes": []
+  },
+  "geometry:surf-ross-hoist": {
+    "notes": []
+  },
+  "geometry:surf-yates-headframe": {
+    "notes": []
+  },
+  "geometry:surf-yates-hoist": {
+    "notes": []
+  },
   "geometry:ti12-faser-point": {
     "notes": []
   },
   "geometry:ti18-snd-lhc-point": {
+    "notes": []
+  },
+  "geometry:wipp-boundary": {
+    "notes": []
+  },
+  "geometry:wipp-mineshaft-building": {
+    "notes": []
+  },
+  "geometry:wipp-mineshaft-point": {
     "notes": []
   },
   "institution:a-alikhanyan-national-laboratory": {
@@ -6965,6 +7007,22 @@
       "geometry:psi-campus-boundary (entity_id site:psi-villigen) accounts for the site and, through it, the placements of detector:meg, detector:meg-ii and detector:mu3e -- none of which has its own hall footprint this session for the same Overpass-outage reason."
     ],
     "summary_technical": "One local map for facility:psi. Only the campus boundary (OSM ways 28028409, 26680824 on the Villigen/west bank and 26680821 on the Wurenlingen/east bank, fetched via Nominatim) is drawn; accelerator:psi-hipa is unlocated pending a working Overpass query for its unnamed building."
+  },
+  "map:snolab": {
+    "notes": [],
+    "summary_technical": "Local map for facility:snolab. Surface geometry from OpenStreetMap (the SNOLAB office node and the Creighton Mine industrial landuse polygon). The underground cavity is a derived 22 m circle centred on the SNO NIM detector paper's own published coordinate, cross-checked against the same paper's stated diameter. SNOLAB's other experiment halls (SNO+, DEAP-3600, DAMIC, SuperCDMS SNOLAB, nEXO, NEWS-G) share this one sourced site coordinate and have no distinct footprint located this session."
+  },
+  "map:soudan-underground-laboratory": {
+    "notes": [],
+    "summary_technical": "Local map for facility:soudan-underground-laboratory. Surface geometry is the NRHP-listed Soudan Mine shaft house from OpenStreetMap. The Level 27 laboratory is drawn as a surveyed point taken directly from the MINOS Collaboration's own published coordinate (PRD 76, 052003), reused verbatim from site:soudan-minos-far-detector; MINOS far detector, CDMS II and SuperCDMS Soudan all share this one position, having no independently sourced distinct footprint."
+  },
+  "map:surf": {
+    "notes": [],
+    "summary_technical": "Local map for facility:surf spanning the Lead, SD surface campus (OSM building footprints for the Yates and Ross shaft head-frames and hoists) and the 4850 Level (1478 m depth). The Davis Campus cavern (LZ, Majorana Demonstrator) is drawn from its own surveyed coordinate (SURF Physics Procedia Table 5); the LBNF/DUNE far-detector caverns on the same level remain unlocated for lack of a sourced offset from the Ross Shaft."
+  },
+  "map:wipp": {
+    "notes": [],
+    "summary_technical": "Local map for facility:wipp. Surface geometry is OpenStreetMap's 'Waste Isolation Pilot Plant' landuse polygon (the fenced protected/exclusive-use area) plus two unidentified shaft features. EXO-200's own underground position within the North Experimental Area is not sourced this session beyond its 655 m depth, so nothing is drawn on that level."
   },
   "person:inspire-1005149": {
     "notes": []

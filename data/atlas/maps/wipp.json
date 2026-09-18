@@ -1,0 +1,72 @@
+{
+  "aliases": [],
+  "center": {
+    "confidence": "derived",
+    "kind": "campus",
+    "lat": 32.371975,
+    "locator": "Centroid of the OSM 'Waste Isolation Pilot Plant' landuse polygon way/389288415",
+    "lon": -103.794008,
+    "note": "Map centre only; not a claim about any structure.",
+    "precision_m": 500,
+    "sources": [
+      "src:geo-wipp-osm-extract"
+    ],
+    "verified_at": "2026-09-18"
+  },
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "extent_m": 1500,
+  "facility_id": "facility:wipp",
+  "id": "map:wipp",
+  "levels": [
+    {
+      "depth_m": null,
+      "id": "surface",
+      "kind": "surface",
+      "name": "Surface",
+      "note": "The fenced protected/exclusive-use surface area near Carlsbad, New Mexico."
+    },
+    {
+      "depth_m": {
+        "confidence": "verified",
+        "dimension": "length",
+        "display": "655 m",
+        "note": "2,150 ft = 655.3 m; DOE's own figure for the depth of the disposal/experimental horizon.",
+        "quote": "2,150 feet underground",
+        "sources": [
+          "src:exo-200-doe-wipp-official-page"
+        ],
+        "unit": "m",
+        "value": 655,
+        "verified_at": "2026-09-18"
+      },
+      "id": "north-experimental-area",
+      "kind": "underground",
+      "name": "North Experimental Area (655 m)",
+      "note": "Plan view. EXO-200 operated in the North Experimental Area at this depth, but no source fetched this session gives its horizontal offset or bearing from either surface shaft, so no feature is drawn on this level; site:wipp-surface-campus (a campus-grade point) already carries this gap in its own note and is not being newly flagged as unlocated here, since the map's honesty obligation is met by drawing/accounting for the site itself (geometry:wipp-boundary) at the surface. See worklog backlog for what would resolve the underground position."
+    }
+  ],
+  "linked_map_ids": [],
+  "links": {
+    "website": null
+  },
+  "name": "WIPP — Waste Isolation Pilot Plant, Carlsbad, New Mexico",
+  "notes": [],
+  "schema": "hep-atlas/0.2",
+  "schematics": [],
+  "site_ids": [
+    "site:wipp-surface-campus"
+  ],
+  "sources": [
+    "src:geo-wipp-osm-extract",
+    "src:exo-200-doe-wipp-official-page"
+  ],
+  "summary": {
+    "plain": "The Waste Isolation Pilot Plant near Carlsbad, New Mexico: its fenced surface site and, 655 m below, the North Experimental Area that hosted the EXO-200 neutrino experiment from 2011 to 2018.",
+    "technical": "Local map for facility:wipp. Surface geometry is OpenStreetMap's 'Waste Isolation Pilot Plant' landuse polygon (the fenced protected/exclusive-use area) plus two unidentified shaft features. EXO-200's own underground position within the North Experimental Area is not sourced this session beyond its 655 m depth, so nothing is drawn on that level."
+  },
+  "type": "map",
+  "unlocated": []
+}
