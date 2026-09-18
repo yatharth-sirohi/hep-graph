@@ -1,0 +1,142 @@
+{
+  "schema": "hep-atlas/0.2",
+  "id": "experiment:double-chooz",
+  "type": "experiment",
+  "name": "Double Chooz",
+  "aliases": [],
+  "kind": "reactor_neutrino",
+  "secondary_kinds": [],
+  "collaboration_ids": ["collaboration:double-chooz"],
+  "facility_roles": [
+    {
+      "facility_id": "facility:chooz",
+      "role": "host",
+      "start": null,
+      "end": null,
+      "sources": ["src:double-chooz-2012-evidence"],
+      "verified_at": "2026-09-17",
+      "confidence": "verified",
+      "note": ""
+    }
+  ],
+  "beamline_ids": [],
+  "accelerator_ids": [],
+  "topic_ids": ["topic:reactor-neutrinos", "topic:neutrino-oscillations"],
+  "intervals": [
+    {
+      "label": "far-detector-only running (flux-model comparison)",
+      "status": "active",
+      "start": null,
+      "end": "2015",
+      "sources": ["src:double-chooz-wikipedia"],
+      "verified_at": "2026-09-17",
+      "confidence": "approximate",
+      "quote": "Previous operation: Several years with only the far detector using flux models",
+      "note": "The 2012 discovery result itself used only the far detector (10.3 m3 fiducial volume, 227.93 live days) compared to a predicted flux rather than a near-detector measurement. No exact start date for far-detector-only running was found in a fetched source."
+    },
+    {
+      "label": "near and far detectors both operating",
+      "status": "active",
+      "start": "2015",
+      "end": "2017-12",
+      "sources": ["src:double-chooz-wikipedia"],
+      "verified_at": "2026-09-17",
+      "confidence": "approximate",
+      "quote": "Data collection began: Early 2015 (both detectors) ... Data collection ended: Late December 2017",
+      "note": "Sourced from Wikipedia (rank 12) only; no official page (unreachable this session) independently confirms these dates."
+    },
+    {
+      "label": "completed",
+      "status": "completed",
+      "start": "2017-12",
+      "end": null,
+      "sources": ["src:double-chooz-wikipedia"],
+      "verified_at": "2026-09-17",
+      "confidence": "approximate",
+      "quote": "Data collection ended: Late December 2017",
+      "note": ""
+    }
+  ],
+  "physics_goals": [
+    {
+      "value": "Measure or set a limit on the theta_13 neutrino mixing angle via reactor antineutrino disappearance",
+      "sources": ["src:double-chooz-wikipedia"],
+      "verified_at": "2026-09-17",
+      "confidence": "verified",
+      "quote": "to measure or set a limit on the θ₁₃ mixing angle, a neutrino oscillation parameter responsible for changing electron neutrinos into other neutrinos",
+      "locator": "Wikipedia"
+    }
+  ],
+  "unique_capabilities": [
+    {
+      "value": "Near and far identical detectors at 400 m and 1050 m from the Chooz-B reactor cores to cancel reactor-flux systematics",
+      "sources": ["src:double-chooz-wikipedia"],
+      "verified_at": "2026-09-17",
+      "confidence": "approximate",
+      "quote": "Near detector: 400 meters from reactors ... Far detector: 1,050 meters from reactors",
+      "locator": "Wikipedia"
+    }
+  ],
+  "energy_regime": null,
+  "key_specs": [
+    {
+      "label": "Far-detector baseline",
+      "quantity": {
+        "value": 1050,
+        "unit": "m",
+        "dimension": "length",
+        "approx": false,
+        "display": "1050 m",
+        "sources": ["src:double-chooz-2012-evidence"],
+        "verified_at": "2026-09-17",
+        "confidence": "verified",
+        "quote": "located at 1050 m from the reactor cores of the Chooz nuclear power plant in France",
+        "note": ""
+      }
+    },
+    {
+      "label": "Near-detector baseline",
+      "quantity": {
+        "value": 400,
+        "unit": "m",
+        "dimension": "length",
+        "approx": true,
+        "display": "~400 m",
+        "sources": ["src:double-chooz-wikipedia"],
+        "verified_at": "2026-09-17",
+        "confidence": "approximate",
+        "quote": "Near detector: 400 meters from reactors",
+        "note": "Sourced from Wikipedia (rank 12) only; the 2012 discovery paper (far-detector-only era) does not give a near-detector baseline."
+      }
+    }
+  ],
+  "lineage": [],
+  "external": {
+    "inspire_experiment": 1108278,
+    "greybook": null,
+    "wikidata": null
+  },
+  "document_ids": [],
+  "result_ids": [],
+  "links": {
+    "website": null
+  },
+  "notes": [
+    "The official site (double-chooz.fr, doublechooz.in2p3.fr, chooz.in2p3.fr) failed DNS resolution on every domain guessed this session; `links.website` left null rather than guessed.",
+    "Derived fields (detector_ids, site_ids, result_ids, document_ids) deliberately not authored (v0.2 A1)."
+  ],
+  "sources": [
+    "src:double-chooz-inspire-experiment-record",
+    "src:double-chooz-2012-evidence",
+    "src:double-chooz-wikipedia"
+  ],
+  "status": "completed",
+  "summary": {
+    "plain": "A French experiment that watched antineutrinos from the Chooz nuclear reactors with two detectors at different distances, finding evidence that they change type on the way.",
+    "technical": "Reactor-antineutrino oscillation experiment at the Chooz nuclear power plant, France, with detectors at 400 m and 1050 m from the reactor cores; its 2012 far-detector-only result found sin²(2θ₁₃) = 0.109±0.030(stat)±0.025(syst), excluding no-oscillation at 2.9σ. Both detectors ran 2015-2017."
+  },
+  "coverage": {
+    "tier": "B",
+    "researched": "partial"
+  }
+}

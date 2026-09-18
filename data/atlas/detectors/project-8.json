@@ -29,10 +29,26 @@
   },
   "name": "Project 8 CRES apparatus",
   "notes": [
-    "Placed at facility:university-of-washington-cenpa (dangling reference: owned by the 'axions' lead, not yet created). No site_id is recorded because no site under that facility exists yet to reference either; this placement therefore omits site_id pending the axions lead creating the facility and a site (v0.2 A2 requires site_id on a placement, so a real placement row is deferred rather than pointing at a guessed, possibly-wrong site slug)."
+    "facility:university-of-washington-cenpa was a dangling reference for most of this session (owned by the 'axions' lead) but has since been created (also hosting ADMX); site:uw-cenpa-campus (a geocoder-derived campus point, kind: campus) now exists too, so the placement below references it directly rather than guessing a slug."
   ],
   "parent_detector_id": null,
-  "placements": [],
+  "placements": [
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "locator": "Project 8 official site / DOE Office of Science highlight, 2015-11",
+      "note": "site:uw-cenpa-campus is a campus-level marker (owned by the 'axions' lead); the Phase I apparatus's own building/room is not separately sourced in this session.",
+      "quote": "The prototype instrument demonstrating the new technique was built at the University of Washington",
+      "role": "prototype",
+      "site_id": "site:uw-cenpa-campus",
+      "sources": [
+        "src:project8-doe-highlight-2015",
+        "src:project8-official-site"
+      ],
+      "start": "2015",
+      "verified_at": "2026-09-17"
+    }
+  ],
   "schema": "hep-atlas/0.2",
   "sources": [
     "src:project8-doe-highlight-2015",

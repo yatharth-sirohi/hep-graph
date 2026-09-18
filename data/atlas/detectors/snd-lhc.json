@@ -12,8 +12,12 @@
   "intervals": [
     {
       "confidence": "verified",
-      "end": null,
-      "label": "approved",
+      "end": {
+        "approx": true,
+        "date": "2022",
+        "note": "Year precision only; bounded above by the sourced 2022 data-taking interval below."
+      },
+      "label": "approved / construction",
       "locator": "INSPIRE experiment record 2032474, field date_approved",
       "note": "",
       "sources": [
@@ -22,6 +26,24 @@
       "start": "2021-03-17",
       "status": "approved",
       "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "kind": "run",
+      "label": "operating (LHC Run 3)",
+      "locator": "arXiv:2305.09383 / Phys. Rev. Lett. 131, 031802 (2023), abstract",
+      "note": "VERIFIER-ADDED (2026-09-17): matches the corrected interval on experiment:snd-lhc.",
+      "quote": "A data set of proton-proton collisions at sqrt(s) = 13.6 TeV collected by SND@LHC in 2022 is used, corresponding to an integrated luminosity of 36.8 fb-1.",
+      "sources": [
+        "src:colliders-lhc-snd-lhc-2023-prl-muon-neutrino"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2022"
+      },
+      "status": "active",
+      "verified_at": "2026-09-17"
     }
   ],
   "links": {
@@ -29,18 +51,22 @@
   },
   "name": "SND@LHC detector",
   "notes": [
-    "status is left as 'approved' (matching the one sourced interval) rather than 'active', since no source fetched in this session states a first-data date for SND@LHC at the precision A3/A10 require for an 'active' interval. This likely understates the true (publicly known) operating status; flagged as a missing_field for the coverage row."
+    "VERIFIER FIX (2026-09-17): status corrected 'approved' -> 'active'. The prior record's own note already stated this likely understated SND@LHC's true operating status; this fix resolves that by sourcing the operating interval to the collaboration's own 2023 PRL (arXiv:2305.09383), which states data were collected 'in 2022', rather than leaving the contradiction unresolved.",
+    "VERIFIER-ADDED (2026-09-17): technology and the TI18/480 m placement are now independently corroborated by the SND@LHC detector-description paper (arXiv:2210.02784), which states the detector sits '480 m downstream of the ATLAS interaction point, in the TI18 tunnel' -- confirming the placement fact that the prior record could only support with 'general knowledge of the FASER/SND@LHC forward programme' (site:cern-ti18-snd-lhc notes still flag the coordinate itself, only its lat/lon, as unverified)."
   ],
   "parent_detector_id": null,
   "placements": [
     {
-      "confidence": "uncertain",
+      "confidence": "verified",
       "end": null,
-      "note": "The TI18 siting fact itself is general knowledge of the FASER/SND@LHC forward programme, not independently confirmed by an official SND@LHC source fetched in this session; see site:cern-ti18-snd-lhc notes.",
+      "locator": "arXiv:2210.02784, abstract",
+      "note": "",
+      "quote": "The experiment is located 480 m downstream of the ATLAS interaction point, in the TI18 tunnel.",
       "role": "main",
       "site_id": "site:cern-ti18-snd-lhc",
       "sources": [
-        "src:colliders-lhc-snd-lhc-inspire-experiment-record"
+        "src:colliders-lhc-snd-lhc-inspire-experiment-record",
+        "src:colliders-lhc-snd-lhc-detector-arxiv-2022"
       ],
       "start": "2021-03-17",
       "verified_at": "2026-09-17"
@@ -48,26 +74,47 @@
   ],
   "schema": "hep-atlas/0.2",
   "sources": [
-    "src:colliders-lhc-snd-lhc-inspire-experiment-record"
+    "src:colliders-lhc-snd-lhc-inspire-experiment-record",
+    "src:colliders-lhc-snd-lhc-2023-prl-muon-neutrino",
+    "src:colliders-lhc-snd-lhc-detector-arxiv-2022"
   ],
-  "specs": {},
-  "status": "approved",
+  "specs": {
+    "total_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "830 kg (tungsten target)",
+      "locator": "arXiv:2210.02784, abstract",
+      "note": "This is the tungsten target mass only, not a total detector mass (no overall detector mass figure was found in a citable sentence).",
+      "quote": "The detector is composed of a hybrid system based on an 830 kg target made of tungsten plates, interleaved with emulsion and electronic trackers.",
+      "sources": [
+        "src:colliders-lhc-snd-lhc-detector-arxiv-2022"
+      ],
+      "unit": "kg",
+      "value": 830,
+      "verified_at": "2026-09-17"
+    }
+  },
+  "status": "active",
   "subsystems": [],
   "summary": {
-    "plain": "The SND@LHC detector sits in a disused CERN tunnel opposite FASER, built to catch neutrinos and rare particles from LHC collisions.",
-    "technical": "Compact stand-alone detector in the TI18 tunnel; internal subsystem technology not sourced in this session."
+    "plain": "The SND@LHC detector sits in a disused CERN tunnel opposite FASER, built to catch neutrinos and rare particles from LHC collisions. It has been operating since 2022.",
+    "technical": "Compact stand-alone detector in the TI18 tunnel, 480 m downstream of the ATLAS interaction point: an 830 kg tungsten target interleaved with emulsion and electronic trackers (also acting as an electromagnetic calorimeter), followed by a hadronic calorimeter and a muon identification system. Operating since 2022."
   },
   "technology": {
-    "confidence": "uncertain",
-    "note": "INSPIRE experiment record 2032474 gives the experiment's physics scope but not its internal detector technology in a citable sentence; the official SND@LHC site could not be fetched this session (DNS failure). Left null but cited to the source consulted.",
+    "confidence": "verified",
+    "locator": "arXiv:2210.02784, abstract",
+    "note": "",
+    "quote": "The detector is composed of a hybrid system based on an 830 kg target made of tungsten plates, interleaved with emulsion and electronic trackers, also acting as an electromagnetic calorimeter, and followed by a hadronic calorimeter and a muon identification system.",
     "sources": [
-      "src:colliders-lhc-snd-lhc-inspire-experiment-record"
+      "src:colliders-lhc-snd-lhc-detector-arxiv-2022"
     ],
-    "value": null,
+    "value": "Hybrid emulsion/electronic-tracker target (tungsten plates) acting as an electromagnetic calorimeter, followed by a hadronic calorimeter and a muon identification system",
     "verified_at": "2026-09-17"
   },
-  "technology_class": "other",
+  "technology_class": "emulsion",
   "technology_classes": [
+    "emulsion",
     "other"
   ],
   "type": "detector"
