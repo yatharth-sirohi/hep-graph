@@ -85,6 +85,20 @@ function plainSummaryOf(record, t) {
   return (record && record.summary && record.summary.plain) || (t && t.summary_plain) || null;
 }
 
+// A23 (docs/HEP_ATLAS_ONTOLOGY.md): a site's stripped `coordinates` carry
+// `approximate: true` when the canonical confidence was `approximate` or
+// `uncertain` — a campus-grade stand-in for a detector position no fetched
+// source gives. The record must never be presented as if that point *were*
+// the detector position, so this names the coordinate's own kind instead of
+// echoing the site's `(setting)` label the way a real detector point would.
+function siteLocationNote(site) {
+  const coordinates = site && site.coordinates;
+  if (!coordinates || !coordinates.approximate) return null;
+  const kindLabel = (coordinates.kind || '').replace(/_/g, ' ');
+  return h('div', { class: 'site-location-note' },
+    `Approximate location${kindLabel ? ` (${kindLabel} point)` : ''} — not the detector position`);
+}
+
 // Sources are ~2.2 MB combined (provenance.json + sources.json) and the
 // disclosure they render into is collapsed by default — P1-2 in
 // docs/atlas-worklog/REVIEW_performance.md found every panel open fetching
@@ -94,7 +108,7 @@ function plainSummaryOf(record, t) {
 // click or the keyboard), the body shows a visible loading state while the
 // request is in flight, and a failure renders a real message plus a retry
 // button rather than leaving the disclosure silently empty.
-function sourcesDisclosure(entityId) {
+function sourcesDisclosure(entityId, { approximateSites = [] } = {}) {
   const details = h('details', { class: 'panel-section' });
   details.appendChild(h('summary', {}, 'Sources'));
   const body = h('div', { class: 'panel-section-body' }, [
@@ -127,6 +141,21 @@ function sourcesDisclosure(entityId) {
               h('div', { class: 'source-access' }, src.accessed ? `Accessed ${src.accessed}` : ''),
             ]));
           }
+        }
+      }
+      // A23: a linked site's admitted-approximate coordinate explains *why*
+      // in its own provenance note (e.g. "campus point, real hall position
+      // not yet sourced") — the visible location line only says *that* it
+      // is approximate. provenance.json is keyed by entity id, so the
+      // site's own entry is already sitting in the same object this
+      // disclosure just fetched for its own entity; no extra request.
+      for (const site of approximateSites) {
+        const siteEntry = provenance[site.id] && provenance[site.id]['/coordinates'];
+        if (siteEntry && siteEntry.note) {
+          items.push(h('li', { class: 'approximate-location-note' }, [
+            h('div', {}, `Approximate location — ${site.name}`),
+            h('div', { class: 'source-meta' }, siteEntry.note),
+          ]));
         }
       }
       body.innerHTML = '';
@@ -299,10 +328,19 @@ async function renderExperiment(id, timelineState) {
 
   const beamlines = (exp.beamline_ids || []).map((bid) => ATLAS.beamlines[bid]).filter(Boolean);
   const sites = (exp.site_ids || []).map((sid) => ATLAS.sites[sid]).filter(Boolean);
+  // A23: an admitted-approximate site coordinate (a campus point standing
+  // in for a real hall position no fetched source gives) must say so
+  // wherever it's shown, and must never read as the detector's own
+  // position — so the location line names the coordinate's kind instead of
+  // silently reusing the same "(setting)" phrasing a real detector point gets.
+  const approximateSites = sites.filter((s) => s.coordinates && s.coordinates.approximate);
   frag.appendChild(section('Beam and sites', [
     beamlines.length ? h('ul', { class: 'entity-list' }, beamlines.map((b) => h('li', {},
       `${b.name}: ${(b.baselines || []).map((base) => base.distance ? base.distance.display : '').join(', ')}`))) : emptyNote('No beamline.'),
-    sites.length ? h('ul', { class: 'entity-list' }, sites.map((s) => h('li', {}, linkTo({ type: 'facility', slug: (s.facility_id || s.id).split(':')[1] }, `${s.name} (${s.setting})`)))) : null,
+    sites.length ? h('ul', { class: 'entity-list' }, sites.map((s) => h('li', {}, [
+      linkTo({ type: 'facility', slug: (s.facility_id || s.id).split(':')[1] }, `${s.name} (${s.setting})`),
+      siteLocationNote(s),
+    ]))) : null,
   ], { open: false }));
 
   const { byId: resultById } = await loader.getResults();
@@ -340,7 +378,7 @@ async function renderExperiment(id, timelineState) {
     others.length ? h('div', {}, [h('h4', {}, 'Related programs'), lineageList(others)]) : null,
   ], { open: false }));
 
-  frag.appendChild(sourcesDisclosure(id));
+  frag.appendChild(sourcesDisclosure(id, { approximateSites }));
   CALLBACKS.focusGlobe(id);
   return frag;
 }

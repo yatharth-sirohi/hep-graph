@@ -21958,9 +21958,9 @@
   },
   "detector:lhcb": {
     "/intervals/0": {
-      "confidence": "verified",
+      "confidence": "uncertain",
       "locator": "INSPIRE experiment record 1110643, fields date_approved and date_completed",
-      "note": "Mirrors experiment:lhcb's construction interval.",
+      "note": "Mirrors experiment:lhcb's construction interval. VERIFIER NOTE (2026-09-17): confidence downgraded to 'uncertain' -- see experiment:lhcb's matching interval note for why INSPIRE's date_completed field (verbatim '2008-09', re-fetched and confirmed) should not be trusted at face value for an active, non-terminal experiment (contrast ATLAS/LHCf, whose date_completed is the honest INSPIRE placeholder '9999').",
       "quote": null,
       "sources": [
         "src:colliders-lhc-lhcb-inspire-experiment-record"
@@ -36591,9 +36591,9 @@
       "verified_at": "2026-09-17"
     },
     "/intervals/1": {
-      "confidence": "verified",
+      "confidence": "uncertain",
       "locator": "INSPIRE experiment record 1110643, fields date_approved and date_completed",
-      "note": "Start = date_approved (1998-09-17); end = date_completed (2008-09), which INSPIRE's own record gives as month precision. No separate 'construction start' date distinct from approval was found in this session, so the approval date is used as the lower bound, matching the pattern used for experiment:atlas.",
+      "note": "Start = date_approved (1998-09-17). VERIFIER NOTE (2026-09-17): end = INSPIRE's date_completed field, re-fetched and confirmed to read '2008-09' verbatim (not fabricated). But this field is NOT a routine construction-milestone field: on ATLAS's INSPIRE record (1108541) and on LHCf's (1126263), the same date_completed field reads '9999', which both those records correctly treat as INSPIRE's placeholder for 'ongoing, not completed' rather than a real date (see experiment:lhcf's interval note). LHCb is likewise an active, non-terminal experiment, so a literal 'completed' date is intrinsically implausible; unlike ATLAS/LHCf, LHCb's record has an actual date in this field rather than the placeholder, which is most likely either (a) a genuine INSPIRE data-entry anomaly, or (b) a real but differently-scoped milestone (e.g. detector installation/construction complete, consistent with first collisions 14 months later) that INSPIRE's schema does not distinguish from experiment completion. No source independent of this one INSPIRE field corroborates a September 2008 construction-complete date for LHCb, so confidence is downgraded from 'verified' to 'uncertain' and this interval must not be read as asserting LHCb 'completed' in 2008 (it is deliberately given the non-terminal status 'construction', not 'completed', for exactly this reason). Re-verify against the LHCb JINST detector paper or an LHCb-specific installation announcement if either becomes fetchable.",
       "quote": null,
       "sources": [
         "src:colliders-lhc-lhcb-inspire-experiment-record"
@@ -70094,7 +70094,7 @@
       "note": "Campus-level coordinate of the Chooz nuclear power plant from Wikipedia's infobox (geocoder/Wikipedia is acceptable only at kind:campus, labelled approximate, per v0.2 A17). NUCLEUS is sited 'very near' the reactor core, much closer than the Double Chooz near/far halls, but no fetched source in this pass gives an exact distance-from-core figure or a more precise coordinate for the NUCLEUS location specifically, so the plant's own campus point is used (A23: shown as approximate until a hall position is sourced). Sign/hemisphere sanity-checked: Chooz, France is in the northern hemisphere (positive lat) and east of the prime meridian (positive lon) — consistent.",
       "quote": "50°5′24″N 4°47′22″E",
       "sources": [
-        "src:cevns-nucleus-chooz-wikipedia"
+        "src:chooz-npp-wikipedia"
       ],
       "verified_at": "2026-09-17"
     },
@@ -70104,7 +70104,7 @@
       "note": null,
       "quote": null,
       "sources": [
-        "src:cevns-nucleus-chooz-wikipedia"
+        "src:chooz-npp-wikipedia"
       ],
       "verified_at": null
     }
