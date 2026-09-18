@@ -3,11 +3,11 @@
   "altitude": null,
   "coordinates": {
     "confidence": "approximate",
-    "kind": "detector",
+    "kind": "campus",
     "lat": 41.8422582,
     "locator": "site:fermilab-main-campus coordinates field, sourced to the LBNF/DUNE official project website (src:fermilab-lbnf-dune-site), reused here per the wave-3 brief's campus-point fallback for a detector hall with no separately published coordinate",
     "lon": -88.245782,
-    "note": "`kind` is set to `detector` (not `campus`) only because the validator requires that for any site holding a detector placement (A17/§2.5); the coordinate itself is campus precision, not a survey of this specific interaction hall.",
+    "note": "No fetched source gives a specific coordinate for the CDF (B0) interaction hall itself; this point is the Fermilab campus centroid (reused, with its existing source, from site:fermilab-main-campus per A23) and is only campus-precision, not a survey of this hall. The Tevatron ring is about 6.3 km in circumference (about 1 km radius), so the true position could be up to roughly 2 km from this point in an unknown direction.",
     "precision_m": 3000,
     "sources": [
       "src:fermilab-lbnf-dune-site"

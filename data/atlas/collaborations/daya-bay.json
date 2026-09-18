@@ -1,0 +1,71 @@
+{
+  "schema": "hep-atlas/0.2",
+  "id": "collaboration:daya-bay",
+  "type": "collaboration",
+  "name": "Daya Bay Collaboration",
+  "aliases": [],
+  "formation": {
+    "value": null,
+    "sources": ["src:daya-bay-inspire-experiment-record"],
+    "verified_at": "2026-09-17",
+    "confidence": "uncertain",
+    "locator": "INSPIRE experiment record 1108266",
+    "note": "No fetched source states an explicit collaboration formation date."
+  },
+  "intervals": [
+    {
+      "label": "collaboration",
+      "status": "completed",
+      "start": null,
+      "end": "2020",
+      "sources": ["src:daya-bay-wikipedia"],
+      "verified_at": "2026-09-17",
+      "confidence": "approximate",
+      "quote": "Operating Period: 2011–2020",
+      "locator": "Wikipedia infobox",
+      "note": "Start not sourced; end year per Wikipedia only."
+    }
+  ],
+  "status": "completed",
+  "membership": {
+    "as_of": null,
+    "evidence_class": "institutional_page",
+    "institution_count": {
+      "value": 40,
+      "sources": ["src:daya-bay-wikipedia"],
+      "verified_at": "2026-09-17",
+      "confidence": "approximate",
+      "quote": "40+ institutional collaborators",
+      "note": "Wikipedia (rank 12) states '40+', an imprecise floor; no official collaboration/institution-list page was reachable this session (dayabay.ihep.ac.cn timed out on every attempt)."
+    },
+    "country_count": {
+      "value": 6,
+      "sources": ["src:daya-bay-wikipedia"],
+      "verified_at": "2026-09-17",
+      "confidence": "uncertain",
+      "quote": "researchers from China, Chile, the United States, Taiwan (Republic of China), Russia, and the Czech Republic",
+      "note": "Counted from the six places named; Wikipedia does not itself state a country count number, and 'Taiwan (Republic of China)' may or may not be counted separately from China depending on convention."
+    },
+    "member_count": null,
+    "roster_source_ids": ["src:daya-bay-wikipedia"]
+  },
+  "leadership": [],
+  "host_facility_id": "facility:daya-bay-reactor-neutrino-lab",
+  "host_site_id": "site:daya-bay-experimental-halls",
+  "links": {
+    "website": null
+  },
+  "notes": [
+    "Membership counts here rely on Wikipedia (rank 12) because the official experiment site (dayabay.ihep.ac.cn) timed out on every WebFetch attempt this session; per this workstream's brief, membership counts should ideally come from the collaboration's own page — flagged as `missing_fields` in the coverage row.",
+    "Institution-level membership rows and leadership/person records are owned by other workstreams and are not written here."
+  ],
+  "sources": ["src:daya-bay-inspire-experiment-record", "src:daya-bay-wikipedia"],
+  "summary": {
+    "plain": "The international team of scientists from China and several other countries who built and ran the Daya Bay reactor-neutrino experiment.",
+    "technical": "International collaboration operating the Daya Bay reactor-antineutrino experiment; per Wikipedia, researchers from China, Chile, the United States, Taiwan, Russia and the Czech Republic across 40+ institutions."
+  },
+  "coverage": {
+    "tier": "B",
+    "researched": "partial"
+  }
+}
