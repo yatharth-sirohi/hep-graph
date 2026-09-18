@@ -257,3 +257,13 @@ row was added.
 | Belle II | 2/2/4 | **3**/2/4 | added 2025 |Vcb| measurement |
 | LZ | 2/3/5 | 2/3/5 | none needed; WS2024 result and TDR/CDR/detector-paper docs already present and correctly worded |
 | JUNO | (full, untouched) | (full, untouched) | not edited — owning lead's worklog is still in progress |
+
+## Orchestrator verification (2026-09-18)
+
+The three new result claims were re-fetched by the orchestrator against their
+arXiv abstract pages: NOvA–T2K joint analysis (arXiv:2510.19888, Nature 646,
+818–824, submitted 2025-10-22), Super-K DSNB search (arXiv:2511.02222, first
+abstract sentence including the 22,500 × 956.2 m³·day exposure, submitted
+2025-11-04) and Belle II |Vcb| (arXiv:2506.15256, PRD 112, 112009, value
+(39.2 ± 0.4 ± 0.6 ± 0.5) × 10⁻³). All three quotes are verbatim and the result
+types (measurement, limit, precision_measurement) match the papers' wording.
