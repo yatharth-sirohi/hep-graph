@@ -155,6 +155,26 @@ Each rebuild:
   hundred km apart can fall into different buckets purely from where the
   grid lines land, which is exactly the class of bug this feature exists to
   fix (see the CERN/LNGS example below).
+* **Cluster expansion always disables clustering for the whole tier, not
+  just the clicked pair** (`expandTargetAltitude`). A first version zoomed
+  in exactly enough to separate the *clicked* cluster's own two members by
+  their angular spread — this broke down the moment a cluster sat inside a
+  denser region than that pair alone: the wave-3 tree has a run of ~14
+  European facilities each within a few hundred km of a neighbour (CERN,
+  LNGS, Brokdorf, DESY, Leibstadt, Karlsruhe, …), so zooming in "just
+  enough" for one pair routinely landed the camera at an altitude where
+  that pair separated into two *different* clusters, each freshly
+  re-merged with other nearby facilities the click never mentioned —
+  `facility:cern` never appeared as its own marker no matter how many
+  times "CERN, Brokdorf" was clicked. The fix: every activation zooms below
+  the fixed altitude at which clustering turns off for that entire tier
+  (`FACILITY_CLUSTER_ALTITUDE` for facilities; `MIN_CLUSTER_ALTITUDE` for
+  institutions, which have no intermediate gate — see below), which is
+  local-density-independent by construction and also guarantees
+  termination: altitude strictly decreases on every activation, converging
+  to `MIN_CLUSTER_ALTITUDE` (clustering off for every tier, everywhere) in
+  a bounded number of clicks regardless of how tightly packed the region
+  is.
 * **Institutions.** In collaboration mode, institution dots cluster the
   same way, at every zoom level (not just "far"), since a single
   collaboration can have hundreds of members in a small region.

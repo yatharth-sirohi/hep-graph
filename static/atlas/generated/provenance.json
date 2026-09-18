@@ -21920,16 +21920,26 @@
   },
   "detector:juno": {
     "/intervals/0": {
-      "confidence": "approximate",
+      "confidence": "verified",
       "locator": null,
-      "note": "Start year taken from a search-summarised IHEP report, not verbatim text seen in a fetched page; recorded approximate accordingly.",
-      "quote": "Detector installation started in 2021 and completed in December 2024",
+      "note": "Closes a gap the original pass explicitly left uncovered ('no source... states an explicit approval date between the 2015 CDR and the 2021 start of detector installation'); the JUNO Collaboration's own performance paper gives this date directly. End date is the day the detector's Stainless Steel support-structure installation began, per the same source.",
+      "quote": "The civil construction of the JUNO underground lab started in January 2015.",
       "sources": [
-        "src:juno-ihep-detector-completion-2024"
+        "src:reactor-solar-verify-juno-cpc-2026-arxiv"
       ],
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-09-18"
     },
     "/intervals/1": {
+      "confidence": "verified",
+      "locator": null,
+      "note": "Replaces the earlier single 'installation' interval (2021-2024-12, confidence approximate, sourced only to a search-engine summary of an IHEP report) with day-precision dates verified directly in the JUNO Collaboration's own paper.",
+      "quote": "The installation of the Stainless Steel support structure started on 19 December 2021. The installation of the photomultiplier tube (PMT) modules and electronics boxes started on 23 October 2022 and finished on 17 December 2024.",
+      "sources": [
+        "src:reactor-solar-verify-juno-cpc-2026-arxiv"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/intervals/2": {
       "confidence": "verified",
       "locator": null,
       "note": "",
@@ -21940,7 +21950,7 @@
       ],
       "verified_at": "2026-09-17"
     },
-    "/intervals/2": {
+    "/intervals/3": {
       "confidence": "verified",
       "locator": null,
       "note": "",
@@ -21951,14 +21961,14 @@
       "verified_at": "2026-09-17"
     },
     "/placements/0": {
-      "confidence": "approximate",
+      "confidence": "verified",
       "locator": null,
-      "note": "Start year taken from a search-summarised IHEP report, not verbatim text in a fetched page.",
-      "quote": "Detector installation started in 2021 and completed in December 2024",
+      "note": "Superseded the earlier 'start 2021, approximate' value (drawn from a search-engine summary) with the day-precision date verified directly in the JUNO Collaboration's own Initial performance results paper (arXiv:2511.14590 = Chin. Phys. C 50, 043001 (2026)).",
+      "quote": "The installation of the Stainless Steel support structure started on 19 December 2021",
       "sources": [
-        "src:juno-ihep-detector-completion-2024"
+        "src:reactor-solar-verify-juno-cpc-2026-arxiv"
       ],
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-09-18"
     },
     "/sources": {
       "confidence": null,
@@ -21968,29 +21978,30 @@
       "sources": [
         "src:juno-cdr-arxiv-2015",
         "src:juno-physics-detector-arxiv-2021",
-        "src:juno-ihep-detector-completion-2024"
+        "src:juno-ihep-detector-completion-2024",
+        "src:reactor-solar-verify-juno-cpc-2026-arxiv"
       ],
       "verified_at": null
     },
     "/specs/energy_resolution": {
       "confidence": "verified",
       "locator": null,
-      "note": "This is the pre-operation design target. The first measured performance (Chin. Phys. C 50, 043001 (2026)) reports 3.4% at 0.511 MeV -- see result:juno-initial-performance-2026.",
-      "quote": "anticipated energy resolution of \"3.02%/√E (MeV)\"",
+      "note": "CORRECTED 2026-09-18: prior quote ('anticipated energy resolution of \"3.02%/√E (MeV)\"') was not verbatim -- the abstract says 'effective energy resolution', not 'anticipated'. This is the pre-operation design target. The first measured performance (Chin. Phys. C 50, 043001 (2026)) reports 3.4% at 0.511 MeV -- see result:juno-initial-performance-2026.",
+      "quote": "we expect a yield of 1345 p.e. per MeV and an effective energy resolution of 3.02%/\\sqrt{E (MeV)}$ in simulations",
       "sources": [
         "src:juno-physics-detector-arxiv-2021"
       ],
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-09-18"
     },
     "/specs/pmt_count": {
       "confidence": "verified",
       "locator": null,
-      "note": "A separate array of ~25,000 (25,600 per the 2021 design paper) 3-inch PMTs forms a complementary double-calorimeter system; recorded in `subsystems` rather than as a second `pmt_count` (not an Appendix A key for a second array).",
-      "quote": "The facility is equipped with 20,000 20-inch photomultiplier tubes and 25,000 3-inch photomultiplier tubes",
+      "note": "CORRECTED 2026-09-18: the prior value (20000) was the 2015 design target/2024 IHEP press-release rounding, not the as-built count. The JUNO Collaboration's own Initial performance results paper (arXiv:2511.14590 = Chin. Phys. C 50, 043001 (2026)) gives the actual installed count: 17596 20-inch PMTs (4939 Hamamatsu R12860-50 dynode-PMTs + 12657 NNVT GDB6201 MCP-PMTs). A separate array of 25587 3-inch PMTs (per the same source; IHEP's press release rounds this to 25,000, the 2021 design paper projected 25,600) forms a complementary double-calorimeter system; recorded in `subsystems` rather than as a second `pmt_count` (not an Appendix A key for a second array).",
+      "quote": "The main system consists of 17596 20-inch PMTs, (referred in the following as 'large PMTs') installed on the SS structure. Two types of PMTs have been employed: 4939 dynode-PMTs ... and 12657 Micro-Channel Plate photomultipliers, MCP-PMTs",
       "sources": [
-        "src:juno-ihep-detector-completion-2024"
+        "src:reactor-solar-verify-juno-cpc-2026-arxiv"
       ],
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-09-18"
     },
     "/specs/target_mass": {
       "confidence": "verified",
@@ -22005,12 +22016,12 @@
     "/subsystems/0/description/0": {
       "confidence": "verified",
       "locator": null,
-      "note": "",
-      "quote": "20,000 20-inch photomultiplier tubes and 25,000 3-inch photomultiplier tubes that work together to detect flashes of light",
+      "note": "CORRECTED 2026-09-18: the as-built count (25587) replaces the earlier IHEP press-release rounding (25,000).",
+      "quote": "In addition, 25587 3-inch PMTs (referred in the following as 'small PMTs') have been produced from Hainan Zhanchuang Photonics Technology (China) and installed in the space between the 20-inch PMTs.",
       "sources": [
-        "src:juno-ihep-detector-completion-2024"
+        "src:reactor-solar-verify-juno-cpc-2026-arxiv"
       ],
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-09-18"
     },
     "/subsystems/1/description/0": {
       "confidence": "verified",
@@ -33425,35 +33436,45 @@
       "verified_at": "2026-09-17"
     },
     "/intervals/0": {
-      "confidence": "uncertain",
-      "locator": "arXiv:1203.1669 abstract",
-      "note": "The 2012 discovery paper reports a 55-day exposure but no explicit calendar start/end date was seen verbatim in the fetched abstract; both bounds are left null rather than guessed.",
-      "quote": "This corresponds to a 43000 ton-GW_th-day exposure accumulated in 55 days",
+      "confidence": "verified",
+      "locator": "arXiv:2211.14988 = PRL 130, 161802 (2023)",
+      "note": "CORRECTED 2026-09-18: replaces the earlier null-dated interval (sourced only to a 55-day exposure figure in the 2012 discovery paper's abstract, with no calendar dates) with day-precision dates from the Daya Bay Collaboration's own final-result paper.",
+      "quote": "From 24 December 2011 to 28 July 2012 (217 days), the experiment ran in an initial six-AD configuration",
       "sources": [
-        "src:daya-bay-discovery-2012"
+        "src:reactor-solar-verify-daya-bay-final-prl-2023"
       ],
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-09-18"
     },
     "/intervals/1": {
-      "confidence": "approximate",
-      "locator": "arXiv:1309.1557 abstract (8-AD configuration); end year per Wikipedia infobox 'Operating Period: 2011–2020'",
-      "note": "Start year for the full 8-AD configuration is approximate (the 2012 discovery result used only 6 ADs; the near halls' remaining detectors were installed later in 2012 per general knowledge of the experiment, but no fetched source states the exact completion date of the 8-AD configuration).",
-      "quote": "eight, functionally identical antineutrino detectors",
+      "confidence": "verified",
+      "locator": "arXiv:2211.14988 = PRL 130, 161802 (2023)",
+      "note": "CORRECTED 2026-09-18: replaces the earlier approximate '2012'-'2020' interval (sourced to Wikipedia and a detector-assembly paper abstract, with no exact dates) with day-precision dates from the Daya Bay Collaboration's own final-result paper. The prior interval conflated the eight-AD and seven-AD configurations into one row; they are now split (next interval).",
+      "quote": "this eight-AD configuration was operated from 19 October 2012 until 20 December 2016 (1524 days)",
       "sources": [
-        "src:daya-bay-detector-paper-2013",
-        "src:daya-bay-wikipedia"
+        "src:reactor-solar-verify-daya-bay-final-prl-2023"
       ],
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-09-18"
     },
     "/intervals/2": {
-      "confidence": "approximate",
-      "locator": "Wikipedia infobox",
-      "note": "Only Wikipedia (rank 12) states an end date for the experiment; no official page or paper fetched this session confirms 2020 as the shutdown year.",
-      "quote": "Operating Period: 2011–2020",
+      "confidence": "verified",
+      "locator": "arXiv:2211.14988 = PRL 130, 161802 (2023)",
+      "note": "CORRECTED 2026-09-18: new interval, split out from the prior single '8-AD' row. Final day of data taking (12 December 2020) is the source for the 'completed' interval below.",
+      "quote": "Seven-AD operation occurred from 26 January 2017 until 12 December 2020 (1417 days) with one AD in EH1 re-purposed for liquid scintillator R&D for the JUNO experiment",
       "sources": [
+        "src:reactor-solar-verify-daya-bay-final-prl-2023"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/intervals/3": {
+      "confidence": "verified",
+      "locator": "arXiv:2211.14988 = PRL 130, 161802 (2023)",
+      "note": "CORRECTED 2026-09-18: prior value ('2020', confidence approximate) was sourced only to Wikipedia; now day-precision and verified directly against the Daya Bay Collaboration's own final-result paper, which confirms the last day of data taking was 12 December 2020.",
+      "quote": "Seven-AD operation occurred from 26 January 2017 until 12 December 2020 (1417 days)",
+      "sources": [
+        "src:reactor-solar-verify-daya-bay-final-prl-2023",
         "src:daya-bay-wikipedia"
       ],
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-09-18"
     },
     "/key_specs/0/quantity": {
       "confidence": "verified",
@@ -33504,7 +33525,8 @@
         "src:daya-bay-inspire-experiment-record",
         "src:daya-bay-discovery-2012",
         "src:daya-bay-detector-paper-2013",
-        "src:daya-bay-wikipedia"
+        "src:daya-bay-wikipedia",
+        "src:reactor-solar-verify-daya-bay-final-prl-2023"
       ],
       "verified_at": null
     },
@@ -36486,16 +36508,26 @@
       "verified_at": "2026-09-17"
     },
     "/intervals/1": {
-      "confidence": "approximate",
-      "locator": "IHEP news summary of english.ihep.cas.cn, 2024-12",
-      "note": "The 2021 start year comes from a search-engine summary of IHEP reporting, not text seen verbatim in a fetched page; flagged approximate accordingly.",
-      "quote": "Detector installation started in 2021 and completed in December 2024",
+      "confidence": "verified",
+      "locator": "arXiv:2511.14590 = Chin. Phys. C 50, 043001 (2026), Section 1",
+      "note": "CORRECTED 2026-09-18: closes the gap the original pass explicitly left uncovered. The JUNO Collaboration's own Initial performance results paper gives this date directly.",
+      "quote": "The civil construction of the JUNO underground lab started in January 2015.",
       "sources": [
-        "src:juno-ihep-detector-completion-2024"
+        "src:reactor-solar-verify-juno-cpc-2026-arxiv"
       ],
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-09-18"
     },
     "/intervals/2": {
+      "confidence": "verified",
+      "locator": "arXiv:2511.14590 = Chin. Phys. C 50, 043001 (2026), Section 1",
+      "note": "CORRECTED 2026-09-18: replaces the earlier single interval (start '2021', confidence approximate, sourced only to a search-engine summary) with day-precision dates verified directly in the JUNO Collaboration's own paper.",
+      "quote": "The installation of the Stainless Steel support structure started on 19 December 2021. The installation of the photomultiplier tube (PMT) modules and electronics boxes started on 23 October 2022 and finished on 17 December 2024.",
+      "sources": [
+        "src:reactor-solar-verify-juno-cpc-2026-arxiv"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/intervals/3": {
       "confidence": "verified",
       "locator": "IHEP news, english.ihep.cas.cn, 2024-12-17",
       "note": "",
@@ -36506,7 +36538,7 @@
       ],
       "verified_at": "2026-09-17"
     },
-    "/intervals/3": {
+    "/intervals/4": {
       "confidence": "verified",
       "locator": "IHEP news, english.ihep.cas.cn, 2025-11-19",
       "note": "",
@@ -36519,8 +36551,8 @@
     "/key_specs/0/quantity": {
       "confidence": "verified",
       "locator": null,
-      "note": "The 2015 CDR (arXiv:1508.07166) rounds this to '53 km away from both Yangjiang and Taishan Nuclear Power Plants'; the 2026 Nature paper's 52.5 km figure is used as the more precise, more recent value.",
-      "quote": "The underground facility, located 52.5 km from reactor cores",
+      "note": "CORRECTED 2026-09-18: the prior quote ('The underground facility, located 52.5 km from reactor cores') was not verbatim from the Nature abstract -- it dropped 'multiple' and paraphrased the lead clause. Verified against the fetched Nature abstract text. The 2015 CDR (arXiv:1508.07166) rounds this to '53 km away from both Yangjiang and Taishan Nuclear Power Plants'; the 2026 Nature paper's 52.5 km figure is used as the more precise, more recent value.",
+      "quote": "is a 20-ktonne liquid-scintillator detector located 52.5 km from multiple reactor cores",
       "sources": [
         "src:juno-nature-2026-oscillation"
       ],
@@ -36597,19 +36629,20 @@
         "src:juno-physics-detector-arxiv-2021",
         "src:juno-inspire-experiment-record",
         "src:juno-ihep-detector-completion-2024",
-        "src:juno-ihep-first-results-en"
+        "src:juno-ihep-first-results-en",
+        "src:reactor-solar-verify-juno-cpc-2026-arxiv"
       ],
       "verified_at": null
     },
     "/unique_capabilities/0": {
       "confidence": "verified",
-      "locator": "arXiv:2104.02565, abstract/summary",
-      "note": null,
-      "quote": "an anticipated energy resolution of 3.02%/√E (MeV)",
+      "locator": "arXiv:2104.02565, abstract",
+      "note": "CORRECTED 2026-09-18: prior quote ('an anticipated energy resolution of 3.02%/√E (MeV)') was not verbatim -- the abstract says 'effective energy resolution', not 'anticipated'. Verified against the fetched arXiv abstract text.",
+      "quote": "we expect a yield of 1345 p.e. per MeV and an effective energy resolution of 3.02%/\\sqrt{E (MeV)}$ in simulations",
       "sources": [
         "src:juno-physics-detector-arxiv-2021"
       ],
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-09-18"
     }
   },
   "experiment:k2k": {
@@ -46287,16 +46320,26 @@
       "verified_at": "2026-09-17"
     },
     "/intervals/1": {
-      "confidence": "approximate",
-      "locator": "IHEP news, 2024-12-17 (via search-summarised extract; the fetched page itself confirms the final construction/filling stage began 2024-12-18)",
-      "note": "The installation start year (2021) is drawn from a secondary IHEP-sourced search summary, not verbatim text seen in the fetched page; the fetched page (english.ihep.cas.cn, 2024-12-17) does independently confirm the final construction stage began 2024-12-18, which is used for the next interval.",
-      "quote": "Detector installation started in 2021 and completed in December 2024",
+      "confidence": "verified",
+      "locator": "arXiv:2511.14590 = Chin. Phys. C 50, 043001 (2026), Section 1",
+      "note": "CORRECTED 2026-09-18: closes the gap the original pass explicitly left uncovered ('no approval date... between the 2015 CDR and the 2021 start of detector installation'). The JUNO Collaboration's own Initial performance results paper gives this date directly. End date is the day Stainless Steel support-structure installation began, per the same source.",
+      "quote": "The civil construction of the JUNO underground lab started in January 2015.",
       "sources": [
-        "src:juno-ihep-detector-completion-2024"
+        "src:reactor-solar-verify-juno-cpc-2026-arxiv"
       ],
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-09-18"
     },
     "/intervals/2": {
+      "confidence": "verified",
+      "locator": "arXiv:2511.14590 = Chin. Phys. C 50, 043001 (2026), Section 1",
+      "note": "CORRECTED 2026-09-18: replaces the earlier single interval (start '2021', confidence approximate, sourced only to a search-engine summary) with day-precision dates verified directly in the JUNO Collaboration's own paper.",
+      "quote": "The installation of the Stainless Steel support structure started on 19 December 2021. The installation of the photomultiplier tube (PMT) modules and electronics boxes started on 23 October 2022 and finished on 17 December 2024.",
+      "sources": [
+        "src:reactor-solar-verify-juno-cpc-2026-arxiv"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/intervals/3": {
       "confidence": "verified",
       "locator": "IHEP news, english.ihep.cas.cn, 2024-12-17",
       "note": "End date is the physics data-taking start date (2025-08-26), taken as the point commissioning/filling activity concluded.",
@@ -46307,7 +46350,7 @@
       ],
       "verified_at": "2026-09-17"
     },
-    "/intervals/3": {
+    "/intervals/4": {
       "confidence": "verified",
       "locator": "IHEP news, english.ihep.cas.cn, 2025-11-19",
       "note": "",
@@ -46355,7 +46398,8 @@
       "sources": [
         "src:juno-cdr-arxiv-2015",
         "src:juno-official-site",
-        "src:juno-ihep-first-results-en"
+        "src:juno-ihep-first-results-en",
+        "src:reactor-solar-verify-juno-cpc-2026-arxiv"
       ],
       "verified_at": null
     },
@@ -68005,33 +68049,35 @@
   "result:juno-initial-performance-2026": {
     "/claim": {
       "confidence": null,
-      "locator": "Chinese Physics C 50, 043001 (2026), article title",
+      "locator": "Chinese Physics C 50, 043001 (2026), article title; confirmed verbatim against arXiv:2511.14590 and INSPIRE literature id 3084402",
       "note": null,
       "quote": "Initial performance results of the JUNO detector",
       "sources": [
-        "src:juno-cpc-initial-performance-2026"
+        "src:juno-cpc-initial-performance-2026",
+        "src:reactor-solar-verify-juno-cpc-2026-arxiv"
       ],
       "verified_at": null
     },
     "/date": {
       "confidence": "approximate",
-      "locator": "Chin. Phys. C 50, 043001 (2026), Issue 4, 2026",
-      "note": "Chinese Physics C 50, 043001 (2026), 'Issue 4, 2026'; no day/month was seen in the fetched page, so only year precision is recorded.",
+      "locator": "Chin. Phys. C 50, 043001 (2026), Issue 4, 2026; INSPIRE literature id 3084402",
+      "note": "Chinese Physics C 50, 043001 (2026), Issue 4; confirmed via INSPIRE-HEP (control_number 3084402) and the IOP article page (DOI 10.1088/1674-1137/ae3dc1), which additionally records 'Received 19 November 2025' but no day/month for the print/online-publication date itself, so only year precision is recorded here. The arXiv preprint (2511.14590) was posted 2025-11-18.",
       "quote": null,
       "sources": [
-        "src:juno-cpc-initial-performance-2026"
+        "src:juno-cpc-initial-performance-2026",
+        "src:reactor-solar-verify-juno-cpc-2026-arxiv"
       ],
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-09-18"
     },
     "/key_value_text": {
       "confidence": "verified",
       "locator": null,
-      "note": "",
-      "quote": "a light yield of 1,785 photoelectrons per MeV\" and \"energy resolution was measured at 3.4% for 0.511 MeV γ-rays\" ... \"attenuation length of 20.6 m at 430 nm",
+      "note": "CORRECTED 2026-09-18: prior quote attributed to src:juno-cpc-initial-performance-2026, whose URL renders as an empty JS shell under a plain fetch and could not be verified as seen. Replaced with text confirmed verbatim (each elided fragment individually exact) against the full text of arXiv:2511.14590, the same paper.",
+      "quote": "yielded about 1785 photoelectrons per MeV of energy deposit at the detector centre ... The reconstructed energy resolution is 3.4% for two 0.511 MeV γ at the detector centre ... attenuation length of 20.6 m at 430 nm",
       "sources": [
-        "src:juno-cpc-initial-performance-2026"
+        "src:reactor-solar-verify-juno-cpc-2026-arxiv"
       ],
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-09-18"
     },
     "/significance": {
       "confidence": "uncertain",
@@ -68049,19 +68095,20 @@
       "note": null,
       "quote": null,
       "sources": [
-        "src:juno-cpc-initial-performance-2026"
+        "src:juno-cpc-initial-performance-2026",
+        "src:reactor-solar-verify-juno-cpc-2026-arxiv"
       ],
       "verified_at": null
     },
     "/why_it_matters": {
       "confidence": "verified",
       "locator": null,
-      "note": "",
-      "quote": "attenuation length of 20.6 m at 430 nm, exceeding expectations",
+      "note": "CORRECTED 2026-09-18: the prior quote ('attenuation length of 20.6 m at 430 nm, exceeding expectations') could not be verified verbatim against any fetched source (the cited page, cpc.ihep.ac.cn, renders as a JS shell with no article text reachable by a plain fetch). Replaced with a verbatim sentence from the paper's own full text (arXiv:2511.14590) that supports the same claim.",
+      "quote": "The measured attenuation lengths are 20.6 m for the LS at 430 nm and greater than 70.0 m for water at 400 nm, outperforming the simulated values of 20.0 m and 40.0 m, respectively.",
       "sources": [
-        "src:juno-cpc-initial-performance-2026"
+        "src:reactor-solar-verify-juno-cpc-2026-arxiv"
       ],
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-09-18"
     }
   },
   "result:juno-oscillation-parameters-2026": {
@@ -73024,6 +73071,16 @@
       ],
       "verified_at": "2026-09-17"
     },
+    "/depth_mwe": {
+      "confidence": "verified",
+      "locator": null,
+      "note": "Added 2026-09-18, closing a previously missing field. Consistent with the 700 m granite-rock depth already on file (granite density ~2.6 g/cm^3 implies ~1800 m.w.e.).",
+      "quote": "The detector is located in a shallow underground laboratory with an overburden of 1800 m.w.e.",
+      "sources": [
+        "src:reactor-solar-verify-juno-cpc-2026-arxiv"
+      ],
+      "verified_at": "2026-09-18"
+    },
     "/sources": {
       "confidence": null,
       "locator": null,
@@ -73031,7 +73088,8 @@
       "quote": null,
       "sources": [
         "src:juno-cdr-arxiv-2015",
-        "src:juno-wikipedia-coordinates"
+        "src:juno-wikipedia-coordinates",
+        "src:reactor-solar-verify-juno-cpc-2026-arxiv"
       ],
       "verified_at": null
     }

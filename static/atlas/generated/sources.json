@@ -13618,7 +13618,6 @@
         "/technology"
       ],
       "experiment:daya-bay": [
-        "/intervals/1",
         "/sources",
         "/unique_capabilities/0"
       ]
@@ -13657,7 +13656,6 @@
         "/sources"
       ],
       "experiment:daya-bay": [
-        "/intervals/0",
         "/key_specs/0/quantity",
         "/key_specs/1/quantity",
         "/key_specs/2/quantity",
@@ -13756,8 +13754,7 @@
         "/specs/target_mass"
       ],
       "experiment:daya-bay": [
-        "/intervals/1",
-        "/intervals/2",
+        "/intervals/3",
         "/sources"
       ],
       "facility:daya-bay-reactor-neutrino-lab": [
@@ -21480,15 +21477,13 @@
       "result:juno-initial-performance-2026": [
         "/claim",
         "/date",
-        "/key_value_text",
         "/significance",
-        "/sources",
-        "/why_it_matters"
+        "/sources"
       ]
     },
     "content_hash": null,
     "date": "2026",
-    "excerpt": "A light yield of 1,785 photoelectrons per MeV; energy resolution was measured at 3.4% for 0.511 MeV γ-rays; attenuation length of 20.6 m at 430 nm, exceeding expectations. Chin. Phys. C 50, 043001 (2026).",
+    "excerpt": "A light yield of 1,785 photoelectrons per MeV; energy resolution was measured at 3.4% for 0.511 MeV γ-rays; attenuation length of 20.6 m at 430 nm, exceeding expectations. Chin. Phys. C 50, 043001 (2026). VERIFICATION NOTE 2026-09-18: this URL renders as a JavaScript navigation shell with no article text reachable by a plain fetch (curl -sL -A Mozilla); none of the numbers above could be independently confirmed against it this session. All are independently confirmed instead against the identical peer-reviewed paper's arXiv preprint, full text fetched directly -- see src:reactor-solar-verify-juno-cpc-2026-arxiv -- and the journal reference (Chin.Phys.C 50, 043001 (2026), DOI 10.1088/1674-1137/ae3dc1) is confirmed via INSPIRE-HEP control_number 3084402.",
     "id": "src:juno-cpc-initial-performance-2026",
     "link_check": {
       "http_status": null,
@@ -21498,7 +21493,9 @@
     "publisher": "Chinese Physics C / JUNO Collaboration",
     "publisher_id": "collaboration:juno",
     "rank": 10,
-    "reference": {},
+    "reference": {
+      "doi": "10.1088/1674-1137/ae3dc1"
+    },
     "retrieval": "partial",
     "source_type": "journal_article",
     "title": "Initial performance results of the JUNO detector",
@@ -21510,21 +21507,15 @@
     "archive_url": null,
     "cited_by": {
       "detector:juno": [
-        "/intervals/0",
-        "/intervals/1",
-        "/placements/0",
-        "/sources",
-        "/specs/pmt_count",
-        "/subsystems/0/description/0"
-      ],
-      "experiment:juno": [
-        "/intervals/1",
         "/intervals/2",
         "/sources"
       ],
+      "experiment:juno": [
+        "/intervals/3",
+        "/sources"
+      ],
       "facility:juno-jiangmen": [
-        "/intervals/1",
-        "/intervals/2"
+        "/intervals/3"
       ]
     },
     "content_hash": null,
@@ -21557,17 +21548,17 @@
         "/sources"
       ],
       "detector:juno": [
-        "/intervals/1",
-        "/intervals/2"
+        "/intervals/2",
+        "/intervals/3"
       ],
       "experiment:juno": [
-        "/intervals/2",
         "/intervals/3",
+        "/intervals/4",
         "/sources"
       ],
       "facility:juno-jiangmen": [
-        "/intervals/2",
         "/intervals/3",
+        "/intervals/4",
         "/operator",
         "/operator_text",
         "/sources"
@@ -28973,6 +28964,95 @@
     "title": "Paul Scherrer Institute — Wikipedia",
     "type": "src",
     "url": "https://en.wikipedia.org/wiki/Paul_Scherrer_Institute"
+  },
+  "src:reactor-solar-verify-daya-bay-final-prl-2023": {
+    "accessed": "2026-09-18",
+    "archive_url": null,
+    "cited_by": {
+      "experiment:daya-bay": [
+        "/intervals/0",
+        "/intervals/1",
+        "/intervals/2",
+        "/intervals/3",
+        "/sources"
+      ]
+    },
+    "content_hash": null,
+    "date": "2022-11-27",
+    "excerpt": "Final Daya Bay oscillation result (PRL 130, 161802 (2023)), using the complete 3158-day data set. Full text gives the exact AD-configuration history: six-AD configuration 24 December 2011 to 28 July 2012 (217 days); eight-AD configuration 19 October 2012 to 20 December 2016 (1524 days); seven-AD configuration (one AD re-purposed for JUNO-related liquid-scintillator R&D) 26 January 2017 to 12 December 2020 (1417 days), after which data taking ended.",
+    "id": "src:reactor-solar-verify-daya-bay-final-prl-2023",
+    "link_check": {
+      "http_status": null,
+      "last_checked": null,
+      "redirect": null
+    },
+    "publisher": "Daya Bay Collaboration",
+    "publisher_id": "collaboration:daya-bay",
+    "rank": 10,
+    "reference": {
+      "arxiv": "2211.14988",
+      "doi": "10.1103/PhysRevLett.130.161802"
+    },
+    "retrieval": "full_text",
+    "source_type": "arxiv",
+    "title": "Precision Measurement of Reactor Antineutrino Oscillation at Kilometer-Scale Baselines by Daya Bay",
+    "type": "src",
+    "url": "https://arxiv.org/abs/2211.14988"
+  },
+  "src:reactor-solar-verify-juno-cpc-2026-arxiv": {
+    "accessed": "2026-09-18",
+    "archive_url": null,
+    "cited_by": {
+      "detector:juno": [
+        "/intervals/0",
+        "/intervals/1",
+        "/placements/0",
+        "/sources",
+        "/specs/pmt_count",
+        "/subsystems/0/description/0"
+      ],
+      "experiment:juno": [
+        "/intervals/1",
+        "/intervals/2",
+        "/sources"
+      ],
+      "facility:juno-jiangmen": [
+        "/intervals/1",
+        "/intervals/2",
+        "/sources"
+      ],
+      "result:juno-initial-performance-2026": [
+        "/claim",
+        "/date",
+        "/key_value_text",
+        "/sources",
+        "/why_it_matters"
+      ],
+      "site:juno-jiangmen-underground-lab": [
+        "/depth_mwe",
+        "/sources"
+      ]
+    },
+    "content_hash": null,
+    "date": "2025-11-18",
+    "excerpt": "Same paper as published in Chin. Phys. C 50, 043001 (2026) (INSPIRE literature id 3084402, DOI 10.1088/1674-1137/ae3dc1); full text confirms the as-built PMT counts (17596 20-inch PMTs: 4939 dynode-PMTs + 12657 MCP-PMTs; 25587 3-inch PMTs), the detailed construction timeline (civil construction of the underground lab started January 2015; SS support structure installation started 19 December 2021; PMT/electronics installation 23 October 2022 to 17 December 2024; water filling 18 December 2024 to 2 February 2025; LS exchange 8 February 2025 to 22 August 2025; physics data taking started 26 August 2025), and an overburden of 1800 m.w.e.",
+    "id": "src:reactor-solar-verify-juno-cpc-2026-arxiv",
+    "link_check": {
+      "http_status": null,
+      "last_checked": null,
+      "redirect": null
+    },
+    "publisher": "JUNO Collaboration",
+    "publisher_id": "collaboration:juno",
+    "rank": 10,
+    "reference": {
+      "arxiv": "2511.14590"
+    },
+    "retrieval": "full_text",
+    "source_type": "arxiv",
+    "title": "Initial performance results of the JUNO detector",
+    "type": "src",
+    "url": "https://arxiv.org/abs/2511.14590"
   },
   "src:reno-discovery-2012": {
     "accessed": "2026-09-17",
