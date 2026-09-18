@@ -38,12 +38,13 @@
       "end": null,
       "label": "approved / preparation",
       "locator": "no fetched primary source gives an exact CUPID approval or construction-start date",
-      "note": "No source fetched in this session directly states CUPID's DOE Critical-Decision stage or a construction-start date with a quote this agent saw verbatim; a secondary web summary described CD-0 ('approval of mission need') and a prototype 'in construction' for mid-2025 data, but this agent could not re-verify that specific wording against a directly fetched primary source in this session, so status is recorded conservatively as `proposed` rather than `construction`. The official CUPID site describes the detector only in future tense ('CUPID will profit of ...').",
+      "note": "No source fetched in this session directly states CUPID's DOE Critical-Decision stage or a construction-start date with a quote this agent saw verbatim; a secondary web summary described CD-0 ('approval of mission need') and a prototype 'in construction' for mid-2025 data, but this agent could not re-verify that specific wording against a directly fetched primary source in this session, so status is recorded conservatively as `proposed` rather than `construction`. The official CUPID site describes the detector only in future tense ('CUPID will profit of ...'). `start` (2025) is the year of the earliest dated CUPID collaboration paper found in this session (a lower bound, not a true approval/construction date), chosen so a null/null interval does not derive to 'no presence'.",
       "quote": "CUPID will profit of the established CUORE cryogenic infrastructure, and deploy ~1500 Li2MoO4 crystals in place of the TeO2 ones.",
       "sources": [
-        "src:cupid-experiment-official-page"
+        "src:cupid-experiment-official-page",
+        "src:cupid-arxiv-2503-02894"
       ],
-      "start": null,
+      "start": "2025",
       "status": "proposed",
       "verified_at": "2026-09-17"
     }
@@ -64,6 +65,24 @@
         ],
         "unit": "",
         "value": 1500,
+        "verified_at": "2026-09-17"
+      }
+    },
+    {
+      "label": "Planned 100Mo isotope mass",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "mass",
+        "display": "240 kg of 100Mo",
+        "locator": "CUPID paper (arXiv:2503.02894), abstract",
+        "note": "",
+        "quote": "a planned 240 kg isotope mass of 100Mo",
+        "sources": [
+          "src:cupid-arxiv-2503-02894"
+        ],
+        "unit": "kg",
+        "value": 240,
         "verified_at": "2026-09-17"
       }
     },

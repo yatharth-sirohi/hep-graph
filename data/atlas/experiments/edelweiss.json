@@ -1,0 +1,193 @@
+{
+  "accelerator_ids": [],
+  "aliases": [
+    "Experience pour DEtecter Les WIMPs En Site Souterrain"
+  ],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:edelweiss"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "energy_regime": {
+    "confidence": "verified",
+    "note": "",
+    "quote": "an analysis threshold of 30 eV, constraining cross-sections down to 10^-29 cm^2 for masses between 32 and 100 MeV/c^2",
+    "sources": [
+      "src:edelweiss-subgev-migdal-2022-arxiv"
+    ],
+    "value": "Sub-GeV dark matter (32-100 MeV/c^2 via the Migdal effect) and traditional WIMP masses via nuclear recoils",
+    "verified_at": "2026-09-17"
+  },
+  "external": {
+    "greybook": null,
+    "inspire_experiment": 1110596,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:modane-underground-laboratory",
+      "locator": "arXiv:2211.04176, abstract",
+      "note": "No source fetched this session states when EDELWEISS began hosting at LSM; start left null (unknown), not invented.",
+      "quote": "operated underground at the Laboratoire Souterrain de Modane (LSM)",
+      "role": "host",
+      "sources": [
+        "src:edelweiss-subgev-ntl-2022-arxiv"
+      ],
+      "start": null,
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "id": "experiment:edelweiss",
+  "intervals": [
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "EDELWEISS programme (generations I-III)",
+      "note": "No source fetched this session (including the INSPIRE registry, which lists EDELWEISS, EDELWEISS-II and EDELWEISS-III as separate experiment records with no dates populated) gives a founding, approval or generation-transition date. Start is left null per A3/A17 rather than invented; only the current sub-GeV programme below carries dated, quoted evidence.",
+      "sources": [
+        "src:edelweiss-inspire-experiment",
+        "src:edelweiss-inspire-experiment-iii"
+      ],
+      "start": null,
+      "status": "active",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "sub-GeV / Migdal-effect programme (NbSi TES, NTL amplification)",
+      "locator": "arXiv:2211.04176, abstract",
+      "note": "Open interval; a January 2024 paper (INSPIRE literature 2752253) on the follow-on 'CRYOSEL' detector design confirms the programme is continuing.",
+      "quote": "a massive (200g) germanium detector instrumented with a NbSi Transition Edge Sensor (TES) operated underground at the Laboratoire Souterrain de Modane (LSM)",
+      "sources": [
+        "src:edelweiss-subgev-migdal-2022-arxiv",
+        "src:edelweiss-subgev-ntl-2022-arxiv",
+        "src:edelweiss-cryosel-2024-inspire"
+      ],
+      "start": "2022",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Germanium detector mass (sub-GeV programme)",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "mass",
+        "display": "200 g",
+        "locator": "arXiv:2211.04176, abstract",
+        "note": "",
+        "quote": "a massive (200g) germanium detector",
+        "sources": [
+          "src:edelweiss-subgev-ntl-2022-arxiv"
+        ],
+        "unit": "g",
+        "value": 200,
+        "verified_at": "2026-09-17"
+      }
+    },
+    {
+      "label": "Electron-recoil energy resolution",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "energy",
+        "display": "4.46 eV",
+        "locator": "arXiv:2203.03993, abstract",
+        "note": "",
+        "quote": "a resolution on the energy of electron recoils of 4.46 eV",
+        "sources": [
+          "src:edelweiss-subgev-migdal-2022-arxiv"
+        ],
+        "unit": "eV",
+        "value": 4.46,
+        "verified_at": "2026-09-17"
+      }
+    },
+    {
+      "label": "Analysis threshold",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "energy",
+        "display": "30 eV",
+        "locator": "arXiv:2203.03993, abstract",
+        "note": "",
+        "quote": "an analysis threshold of 30 eV",
+        "sources": [
+          "src:edelweiss-subgev-migdal-2022-arxiv"
+        ],
+        "unit": "eV",
+        "value": 30,
+        "verified_at": "2026-09-17"
+      }
+    }
+  ],
+  "kind": "direct_dark_matter",
+  "lineage": [],
+  "links": {
+    "website": {
+      "confidence": "uncertain",
+      "note": "URL from the INSPIRE record; DNS resolution failed (ENOTFOUND) for both edelweiss.in2p3.fr and www.edelweiss.in2p3.fr when checked 2026-09-17, so the site's current liveness is not confirmed.",
+      "sources": [
+        "src:edelweiss-inspire-experiment"
+      ],
+      "value": "http://edelweiss.in2p3.fr/",
+      "verified_at": "2026-09-17"
+    }
+  },
+  "name": "EDELWEISS",
+  "notes": [
+    "INSPIRE lists EDELWEISS, EDELWEISS-II (recid 1108221) and EDELWEISS-III (recid 1298911) as separate experiment records, none carrying populated proposal/approval/start/completion dates; all generations are represented as one experiment:edelweiss record per the convention used elsewhere in this file. external.inspire_experiment cites the base recid (1110596).",
+    "No official EDELWEISS website could be reached this session (DNS failure); all sourcing for this record comes from arXiv papers and the INSPIRE registry.",
+    "Early history (founding date, EDELWEISS-I/II/III transition dates, detector generations before the current 200 g NbSi-TES programme) is NOT recorded: no source fetched this session states them. This is a significant gap relative to CRESST/CDMS's richer sourced histories and should be revisited with a working official site or a detector-history paper."
+  ],
+  "physics_goals": {
+    "confidence": "verified",
+    "note": "",
+    "quote": "constraining cross-sections down to 10^-29 cm^2 for masses between 32 and 100 MeV/c^2",
+    "sources": [
+      "src:edelweiss-subgev-migdal-2022-arxiv"
+    ],
+    "value": [
+      "Search for sub-GeV dark matter via the Migdal effect and ionization/phonon signals in germanium bolometers"
+    ],
+    "verified_at": "2026-09-17"
+  },
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:edelweiss-inspire-experiment",
+    "src:edelweiss-subgev-migdal-2022-arxiv",
+    "src:edelweiss-subgev-ntl-2022-arxiv"
+  ],
+  "status": "active",
+  "summary": {
+    "plain": "EDELWEISS searches for dark matter using pure germanium crystals cooled to near absolute zero, deep under a mountain in the French Alps. Recent versions are sensitive enough to look for dark matter far lighter than a proton.",
+    "technical": "Cryogenic germanium bolometer dark matter search at the Laboratoire Souterrain de Modane; the current sub-GeV programme uses a 200 g Ge detector with an NbSi transition-edge sensor and Neganov-Trofimov-Luke phonon amplification, reaching a 4.46 eV electron-recoil resolution and a 30 eV analysis threshold, searching for WIMPs down to 32 MeV/c^2 via the Migdal effect (2022-2024 results); a follow-on 'CRYOSEL' detector design is under development. Earlier EDELWEISS/EDELWEISS-II/III generations are not richly documented in this record for lack of a reachable official source this session."
+  },
+  "topic_ids": [
+    "topic:dark-matter",
+    "topic:direct-dark-matter-detection"
+  ],
+  "type": "experiment",
+  "unique_capabilities": {
+    "confidence": "verified",
+    "note": "",
+    "quote": "a RMS resolution of 4.46 electron-hole pairs was obtained on a massive (200g) germanium detector instrumented with a NbSi Transition Edge Sensor (TES)",
+    "sources": [
+      "src:edelweiss-subgev-ntl-2022-arxiv"
+    ],
+    "value": [
+      "Germanium bolometers with simultaneous heat and ionization readout; NbSi TES with Neganov-Trofimov-Luke phonon amplification for sub-GeV sensitivity"
+    ],
+    "verified_at": "2026-09-17"
+  }
+}

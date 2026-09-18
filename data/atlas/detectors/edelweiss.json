@@ -1,0 +1,121 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "experiment_ids": [
+    "experiment:edelweiss"
+  ],
+  "id": "detector:edelweiss",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "sub-GeV / Migdal-effect programme",
+      "note": "Open interval; ongoing per the January 2024 CRYOSEL paper.",
+      "sources": [
+        "src:edelweiss-subgev-ntl-2022-arxiv",
+        "src:edelweiss-cryosel-2024-inspire"
+      ],
+      "start": "2022",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "EDELWEISS germanium bolometer array",
+  "notes": [
+    "Operating temperature (mK) not stated in any source fetched this session; earlier detector generations (Ge-NTD sensors, EDELWEISS-I/II/III arrays) not separately specified for lack of a reachable official source."
+  ],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "locator": "arXiv:2211.04176, abstract",
+      "note": "No source fetched this session gives a start date for this placement; left null (unknown) rather than invented.",
+      "quote": "operated underground at the Laboratoire Souterrain de Modane (LSM)",
+      "role": "main",
+      "site_id": "site:lsm-frejus",
+      "sources": [
+        "src:edelweiss-subgev-ntl-2022-arxiv"
+      ],
+      "start": null,
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:edelweiss-subgev-ntl-2022-arxiv",
+    "src:edelweiss-subgev-migdal-2022-arxiv"
+  ],
+  "specs": {
+    "isotope": {
+      "confidence": "verified",
+      "locator": "arXiv:2211.04176, abstract",
+      "note": "",
+      "quote": "a massive (200g) germanium detector",
+      "sources": [
+        "src:edelweiss-subgev-ntl-2022-arxiv"
+      ],
+      "value": "Germanium (Ge)",
+      "verified_at": "2026-09-17"
+    },
+    "isotope_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "200 g",
+      "locator": "arXiv:2211.04176, abstract",
+      "note": "",
+      "quote": "a massive (200g) germanium detector",
+      "sources": [
+        "src:edelweiss-subgev-ntl-2022-arxiv"
+      ],
+      "unit": "g",
+      "value": 200,
+      "verified_at": "2026-09-17"
+    },
+    "threshold": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "energy",
+      "display": "30 eV",
+      "locator": "arXiv:2203.03993, abstract",
+      "note": "",
+      "quote": "an analysis threshold of 30 eV",
+      "sources": [
+        "src:edelweiss-subgev-migdal-2022-arxiv"
+      ],
+      "unit": "eV",
+      "value": 30,
+      "verified_at": "2026-09-17"
+    }
+  },
+  "status": "active",
+  "subsystems": [],
+  "summary": {
+    "plain": "A block of ultra-pure germanium, cooled to near absolute zero deep under the French Alps, wired to catch both the tiny jolt of heat and the trickle of electric charge freed when a particle strikes an atom inside.",
+    "technical": "Germanium bolometer with combined ionization and phonon readout; the current sub-GeV programme instruments a 200 g crystal with an NbSi TES and Neganov-Trofimov-Luke phonon amplification, reaching a 30 eV analysis threshold and 4.46 eV electron-recoil resolution."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "arXiv:2211.04176, abstract",
+    "note": "",
+    "quote": "a massive (200g) germanium detector instrumented with a NbSi Transition Edge Sensor (TES)",
+    "sources": [
+      "src:edelweiss-subgev-ntl-2022-arxiv"
+    ],
+    "value": "Cryogenic germanium bolometers reading both ionization (charge) and phonon (heat) signals; the current sub-GeV programme uses NbSi transition-edge sensors with Neganov-Trofimov-Luke phonon amplification",
+    "verified_at": "2026-09-17"
+  },
+  "technology_class": "germanium",
+  "technology_classes": [
+    "germanium",
+    "cryogenic_bolometer"
+  ],
+  "type": "detector"
+}
