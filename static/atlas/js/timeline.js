@@ -7,7 +7,12 @@ function clamp(v, lo, hi) {
 
 export function createTimeline(container, { minYear, maxYear, defaultYear, onChange }) {
   container.innerHTML = '';
-  container.setAttribute('role', 'group');
+  // A landmark, not just a group: #timeline-bar sits outside <main> as its
+  // own top-level section (between the globe/panels and the footer), so
+  // role="group" left it uncontained by any landmark (axe "region"). A
+  // labelled region lets a screen-reader user jump to it directly, the way
+  // they already can for the filters aside and the main content area.
+  container.setAttribute('role', 'region');
   container.setAttribute('aria-label', 'Timeline');
 
   const modeRow = document.createElement('div');

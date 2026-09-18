@@ -33,10 +33,17 @@
       <span id="fixture-banner" class="fixture-banner hidden" role="note"></span>
     </header>
 
-    <div id="data-notice" class="notice hidden" role="status"></div>
-    <div id="atlas-error" class="notice notice-error hidden" role="alert" aria-live="assertive">
-      <p id="atlas-error-message"></p>
-      <button type="button" id="atlas-retry" class="text-btn">Retry</button>
+    <!-- axe "region" (all page content must be contained by a landmark):
+         these two live-region notices sat directly between <header> and
+         <main>, outside any landmark. role="status"/"alert" are live-region
+         roles, not landmark roles, so this wrapper — not a change to either
+         notice's own role — is what gives them one. -->
+    <div role="region" aria-label="Site notifications">
+      <div id="data-notice" class="notice hidden" role="status"></div>
+      <div id="atlas-error" class="notice notice-error hidden" role="alert" aria-live="assertive">
+        <p id="atlas-error-message"></p>
+        <button type="button" id="atlas-retry" class="text-btn">Retry</button>
+      </div>
     </div>
 
     <main id="atlas-main">

@@ -275,24 +275,28 @@ export function createGlobe(container, { atlas, index, onSelect }) {
   const siteExperimentIndex = filtersModule.buildSiteExperimentIndex(atlas);
 
   function makeInteractiveElement({
-    id, name, ariaLabel, size, shape, color, hollow, approximate, tier, extraClass, onActivate,
+    id, name, ariaLabel, size, shape, color, hollow, hatched, approximate, tier, extraClass, onActivate,
   }) {
     const el = document.createElement('div');
     el.className = `atlas-marker tier-${tier}${extraClass ? ` ${extraClass}` : ''}`;
     if (approximate) el.classList.add('is-approximate-location');
     el.setAttribute('role', 'button');
     el.setAttribute('tabindex', '0');
-    // A23: an approximate coordinate (a campus-grade stand-in, not a pin on
-    // the actual hall) says so in the accessible name, not only by shape —
-    // spec §-level rule "does not rely on colour alone" extended to shape
-    // alone, since a dashed ring is invisible to a screen reader too.
+    // A23 + §23 (non-colour-only encoding): an approximate coordinate (a
+    // campus-grade stand-in, not a pin on the actual hall) and an "uncertain"
+    // certainty (docs/HEP_ATLAS_ARCHITECTURE.md's "the globe hatches" possible
+    // segments) each say so in the accessible name, not only by shape/pattern
+    // — a dashed outline or a diagonal hatch is invisible to a screen reader.
     const label0 = ariaLabel || name;
-    const fullLabel = approximate ? `${label0} (approximate location)` : label0;
+    const suffixes = [];
+    if (hatched) suffixes.push('uncertain');
+    if (approximate) suffixes.push('approximate location');
+    const fullLabel = suffixes.length ? `${label0} (${suffixes.join(', ')})` : label0;
     el.setAttribute('aria-label', fullLabel);
     el.title = fullLabel;
     el.dataset.id = id;
     el.appendChild(buildGlyph({
-      shape, color, size, hollow, hatched: false, approximate,
+      shape, color, size, hollow, hatched, approximate,
     }));
     const label = document.createElement('span');
     label.className = 'atlas-marker-label';
@@ -309,7 +313,7 @@ export function createGlobe(container, { atlas, index, onSelect }) {
   }
 
   function makeMarkerElement({
-    id, name, route, size, shape, color, hollow, approximate, tier,
+    id, name, route, size, shape, color, hollow, hatched, approximate, tier,
   }) {
     return makeInteractiveElement({
       id,
@@ -318,6 +322,7 @@ export function createGlobe(container, { atlas, index, onSelect }) {
       shape,
       color,
       hollow,
+      hatched,
       approximate,
       tier,
       onActivate: () => onSelect && onSelect(route),
@@ -501,6 +506,12 @@ export function createGlobe(container, { atlas, index, onSelect }) {
       if (entry.kind === 'single') {
         const { record } = entry.item;
         const info = facilityShape(record.kind);
+        // §23 / docs/HEP_ATLAS_ARCHITECTURE.md "certainty ... which the globe
+        // hatches": must be known before the glyph is built, since the hatch
+        // pattern is baked into the marker's own SVG, not toggled after the
+        // fact by a CSS class the way dimming is.
+        const presence = segmentsPresence(record.state_segments);
+        const uncertain = !!(presence && presence.certainty === 'possible');
         const el = makeMarkerElement({
           id: record.id,
           name: record.name,
@@ -509,6 +520,7 @@ export function createGlobe(container, { atlas, index, onSelect }) {
           shape: info.shape,
           color: info.color,
           hollow: false,
+          hatched: uncertain,
           approximate: entry.item.approximate,
           tier: 'facility',
         });
@@ -538,6 +550,8 @@ export function createGlobe(container, { atlas, index, onSelect }) {
     }
 
     for (const site of passingSites) {
+      const sitePresence = segmentsPresence(site.record.state_segments);
+      const siteUncertain = !!(sitePresence && sitePresence.certainty === 'possible');
       const el = makeMarkerElement({
         id: site.id,
         name: site.record.name,
@@ -546,6 +560,7 @@ export function createGlobe(container, { atlas, index, onSelect }) {
         shape: 'circle',
         color: statusColor(site.record.status),
         hollow: false,
+        hatched: siteUncertain,
         approximate: site.approximate,
         tier: 'site',
       });
