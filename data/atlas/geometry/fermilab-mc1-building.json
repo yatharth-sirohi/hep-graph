@@ -1,0 +1,108 @@
+{
+  "accuracy_m": 8,
+  "aliases": [],
+  "checks": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "depth_m": {
+    "confidence": "approximate",
+    "dimension": "length",
+    "display": "3.66 m (12 ft) below grade",
+    "note": "Feet-mark OCR'd as a degree sign in the fetched PDF text; read as feet (a floor 12 degrees below grade is not physical).",
+    "quote": "The floor is 12' below grade.",
+    "sources": [
+      "src:muons-arxiv-1501-06858"
+    ],
+    "unit": "m",
+    "value": 3.66,
+    "verified_at": "2026-09-18"
+  },
+  "entity_id": "detector:muon-g-2",
+  "feature_type": "hall",
+  "geometry": {
+    "confidence": "approximate",
+    "locator": "OSM way/720556725, extract timestamp 2026-09-18T21:57:05Z; identity confirmed by src:muons-arxiv-1501-06858 Ch.6.1 'The muon storage ring will be located in the MC-1 Building on the Muon Campus'",
+    "note": "The existing site record site:fermilab-mc-1-muon-campus carries a coarse 4 km geocoder point; this OSM building position is a strictly better anchor and is flagged as a site coordinate correction in the geometry worklog. The g-2 TDR states the experimental hall floor is 12 ft (3.66 m) below grade; recorded as this feature's own depth_m rather than a separate level since no other feature shares that level.",
+    "sources": [
+      "src:fermilab-geo-osm-mc1",
+      "src:muons-arxiv-1501-06858"
+    ],
+    "value": {
+      "coordinates": [
+        [
+          [
+            -88.2652882,
+            41.8360379
+          ],
+          [
+            -88.2649423,
+            41.8356243
+          ],
+          [
+            -88.2646865,
+            41.8357326
+          ],
+          [
+            -88.264716,
+            41.8357728
+          ],
+          [
+            -88.2649712,
+            41.8360938
+          ],
+          [
+            -88.265048,
+            41.8360581
+          ],
+          [
+            -88.2651079,
+            41.8361137
+          ],
+          [
+            -88.2652882,
+            41.8360379
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    },
+    "verified_at": "2026-09-18"
+  },
+  "id": "geometry:fermilab-mc1-building",
+  "level_id": "surface",
+  "license": {
+    "attribution": "\u00a9 OpenStreetMap contributors",
+    "name": "ODbL-1.0",
+    "url": "https://www.openstreetmap.org/copyright"
+  },
+  "links": {
+    "website": null
+  },
+  "map_id": "map:fermilab",
+  "method": "OpenStreetMap way 720556725 'MC-1' footprint, traced verbatim.",
+  "name": "MC-1 Building, Fermilab Muon Campus",
+  "notes": [],
+  "osm": {
+    "elements": [
+      "way/720556725"
+    ],
+    "timestamp": "2026-09-18T21:57:05Z"
+  },
+  "representation": "georeferenced",
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:fermilab-mc-1-muon-campus",
+  "sources": [
+    "src:fermilab-geo-osm-mc1",
+    "src:muons-arxiv-1501-06858"
+  ],
+  "summary": {
+    "plain": "The existing site record site:fermilab-mc-1-muon-campus carries a coarse 4 km geocoder point; this OSM building position is a strictly better anchor and is flagged as a site coordinate correction i..."
+  },
+  "type": "geometry",
+  "valid": {
+    "end": null,
+    "start": "2013"
+  }
+}

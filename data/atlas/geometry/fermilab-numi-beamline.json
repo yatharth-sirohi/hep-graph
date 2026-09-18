@@ -1,0 +1,83 @@
+{
+  "accuracy_m": 30,
+  "aliases": [],
+  "checks": [
+    {
+      "expected": {
+        "dimension": "angle",
+        "display": "336.17 deg (bearing to Soudan)",
+        "unit": "deg",
+        "value": 336.17
+      },
+      "kind": "azimuth",
+      "locator": "great-circle bearing recomputed from site:soudan-minos-far-detector's own sourced coordinates",
+      "quote": null,
+      "sources": [
+        "src:minos-prd-2007-muon-charge-ratio",
+        "src:fermilab-numi-beam-paper-2016"
+      ]
+    }
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "depth_m": null,
+  "entity_id": "beamline:numi",
+  "feature_type": "beamline",
+  "geometry": {
+    "confidence": "derived",
+    "locator": "Derived from geometry:fermilab-numi-target's construction",
+    "note": "A plan-view axis only; the true beam also descends 58 mrad (src:fermilab-numi-beam-paper-2016) which a plan-view line cannot show. Not a survey of the beam pipe or tunnel.",
+    "sources": [
+      "src:fermilab-geo-osm-buildings",
+      "src:fermilab-numi-beam-paper-2016"
+    ],
+    "value": {
+      "coordinates": [
+        [
+          -88.2651363,
+          41.8310919
+        ],
+        [
+          -88.2705018,
+          41.8401407
+        ]
+      ],
+      "type": "LineString"
+    },
+    "verified_at": "2026-09-18"
+  },
+  "id": "geometry:fermilab-numi-beamline",
+  "level_id": "surface",
+  "license": {
+    "attribution": "\u00a9 OpenStreetMap contributors",
+    "name": "ODbL-1.0",
+    "url": "https://www.openstreetmap.org/copyright"
+  },
+  "links": {
+    "website": null
+  },
+  "map_id": "map:fermilab",
+  "method": "Straight line from the derived target (geometry:fermilab-numi-target) along the bearing to Soudan (336.17 degrees) to 1100 m, spanning the MINOS and NOvA near-detector surface buildings.",
+  "name": "NuMI primary beamline axis (derived)",
+  "notes": [],
+  "osm": {
+    "elements": [
+      "way/54794245"
+    ],
+    "timestamp": "2026-09-18T20:20:01Z"
+  },
+  "representation": "derived",
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:fermilab-main-campus",
+  "sources": [
+    "src:fermilab-geo-osm-buildings",
+    "src:fermilab-numi-beam-paper-2016"
+  ],
+  "summary": {
+    "plain": "A plan-view axis only; the true beam also descends 58 mrad (src:fermilab-numi-beam-paper-2016) which a plan-view line cannot show. Not a survey of the beam pipe or tunnel."
+  },
+  "type": "geometry",
+  "valid": null
+}

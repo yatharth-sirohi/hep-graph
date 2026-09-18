@@ -237,7 +237,9 @@
         "accelerator:fermilab-recycler",
         "accelerator:fermilab-main-injector"
       ],
-      "geometry_map_ids": [],
+      "geometry_map_ids": [
+        "map:fermilab"
+      ],
       "id": "accelerator:fermilab-booster",
       "intervals": [
         {
@@ -316,7 +318,9 @@
       "feeds_accelerator_ids": [
         "accelerator:fermilab-booster"
       ],
-      "geometry_map_ids": [],
+      "geometry_map_ids": [
+        "map:fermilab"
+      ],
       "id": "accelerator:fermilab-linac",
       "intervals": [
         {
@@ -648,7 +652,9 @@
       "facility_id": "facility:fermilab",
       "fed_by_accelerator_ids": [],
       "feeds_accelerator_ids": [],
-      "geometry_map_ids": [],
+      "geometry_map_ids": [
+        "map:fermilab"
+      ],
       "id": "accelerator:fermilab-tevatron",
       "intervals": [
         {
@@ -3334,7 +3340,9 @@
       ],
       "facility_id": "facility:fermilab",
       "far_detector_site_ids": [],
-      "geometry_map_ids": [],
+      "geometry_map_ids": [
+        "map:fermilab"
+      ],
       "id": "beamline:bnb",
       "intervals": [
         {
@@ -3965,7 +3973,9 @@
       ],
       "facility_id": "facility:fermilab",
       "far_detector_site_ids": [],
-      "geometry_map_ids": [],
+      "geometry_map_ids": [
+        "map:fermilab"
+      ],
       "id": "beamline:numi",
       "intervals": [
         {
@@ -13375,7 +13385,9 @@
       "experiment_ids": [
         "experiment:cdf"
       ],
-      "geometry_map_ids": [],
+      "geometry_map_ids": [
+        "map:fermilab"
+      ],
       "id": "detector:cdf",
       "intervals": [
         {
@@ -14740,7 +14752,9 @@
       "experiment_ids": [
         "experiment:d0"
       ],
-      "geometry_map_ids": [],
+      "geometry_map_ids": [
+        "map:fermilab"
+      ],
       "id": "detector:d0",
       "intervals": [
         {
@@ -15752,7 +15766,9 @@
       "experiment_ids": [
         "experiment:dune"
       ],
-      "geometry_map_ids": [],
+      "geometry_map_ids": [
+        "map:fermilab"
+      ],
       "id": "detector:dune-far-detector-1",
       "intervals": [
         {
@@ -17209,7 +17225,9 @@
       "experiment_ids": [
         "experiment:icarus"
       ],
-      "geometry_map_ids": [],
+      "geometry_map_ids": [
+        "map:fermilab"
+      ],
       "id": "detector:icarus-t600",
       "intervals": [
         {
@@ -19580,7 +19598,9 @@
       "experiment_ids": [
         "experiment:microboone"
       ],
-      "geometry_map_ids": [],
+      "geometry_map_ids": [
+        "map:fermilab"
+      ],
       "id": "detector:microboone",
       "intervals": [
         {
@@ -19770,7 +19790,9 @@
       "experiment_ids": [
         "experiment:miniboone"
       ],
-      "geometry_map_ids": [],
+      "geometry_map_ids": [
+        "map:fermilab"
+      ],
       "id": "detector:miniboone",
       "intervals": [
         {
@@ -20014,7 +20036,9 @@
         "experiment:minos",
         "experiment:minos-plus"
       ],
-      "geometry_map_ids": [],
+      "geometry_map_ids": [
+        "map:fermilab"
+      ],
       "id": "detector:minos-near-detector",
       "intervals": [
         {
@@ -20313,7 +20337,9 @@
       "experiment_ids": [
         "experiment:muon-g-2"
       ],
-      "geometry_map_ids": [],
+      "geometry_map_ids": [
+        "map:fermilab"
+      ],
       "id": "detector:muon-g-2",
       "intervals": [
         {
@@ -21163,7 +21189,9 @@
       "experiment_ids": [
         "experiment:nova"
       ],
-      "geometry_map_ids": [],
+      "geometry_map_ids": [
+        "map:fermilab"
+      ],
       "id": "detector:nova-far-detector",
       "intervals": [
         {
@@ -21305,7 +21333,9 @@
       "experiment_ids": [
         "experiment:nova"
       ],
-      "geometry_map_ids": [],
+      "geometry_map_ids": [
+        "map:fermilab"
+      ],
       "id": "detector:nova-near-detector",
       "intervals": [
         {
@@ -22621,7 +22651,9 @@
       "experiment_ids": [
         "experiment:sbnd"
       ],
-      "geometry_map_ids": [],
+      "geometry_map_ids": [
+        "map:fermilab"
+      ],
       "id": "detector:sbnd",
       "intervals": [
         {
@@ -46321,7 +46353,7 @@
       "links": {
         "website": "https://lbnf-dune.fnal.gov/"
       },
-      "map_id": null,
+      "map_id": "map:fermilab",
       "name": "Fermi National Accelerator Laboratory",
       "operator_ids": [],
       "operator_text": "Fermi Research Alliance, LLC for the U.S. Department of Energy",
@@ -49148,6 +49180,110 @@
       "status": "active",
       "to_scale_count": 20,
       "unlocated_count": 7
+    },
+    "map:fermilab": {
+      "attribution": [
+        "© OpenStreetMap contributors (ODbL-1.0)"
+      ],
+      "bundle": "geometry/fermilab.json",
+      "center": {
+        "lat": 41.83842428,
+        "lon": -88.26149251
+      },
+      "coverage": {
+        "researched": "partial",
+        "tier": "B"
+      },
+      "extent_m": 2500,
+      "facility_id": "facility:fermilab",
+      "feature_count": 22,
+      "id": "map:fermilab",
+      "levels": [
+        {
+          "depth_m": null,
+          "id": "surface",
+          "kind": "surface",
+          "name": "Surface"
+        },
+        {
+          "depth_m": null,
+          "id": "booster-tunnel",
+          "kind": "underground",
+          "name": "Booster ring tunnel"
+        },
+        {
+          "depth_m": {
+            "dimension": "length",
+            "display": "7.6 m (25 ft)",
+            "unit": "m",
+            "value": 7.62
+          },
+          "id": "tevatron-tunnel",
+          "kind": "underground",
+          "name": "Tevatron ring tunnel (~7.6 m below grade)"
+        },
+        {
+          "depth_m": {
+            "dimension": "length",
+            "display": "9.1 m (30 ft)",
+            "unit": "m",
+            "value": 9.14
+          },
+          "id": "mi-recycler-tunnel",
+          "kind": "underground",
+          "name": "Main Injector / Recycler enclosure (~9.1 m below grade; not drawn)"
+        },
+        {
+          "depth_m": {
+            "dimension": "length",
+            "display": "100 m",
+            "unit": "m",
+            "value": 100
+          },
+          "id": "near-detector-caverns",
+          "kind": "underground",
+          "name": "NuMI/BNB near-detector caverns (~100 m below grade; not drawn)"
+        },
+        {
+          "depth_m": {
+            "dimension": "length",
+            "display": "60 m",
+            "unit": "m",
+            "value": 60
+          },
+          "id": "dune-nd-cavern",
+          "kind": "underground",
+          "name": "DUNE near detector hall (~60 m below grade; not drawn)"
+        }
+      ],
+      "linked_map_ids": [],
+      "name": "Fermilab — Batavia, Illinois",
+      "site_ids": [
+        "site:fermilab-cdf-collision-hall-b0",
+        "site:fermilab-d0-collision-hall",
+        "site:fermilab-ktev-hall",
+        "site:fermilab-main-campus",
+        "site:fermilab-mc-1-muon-campus",
+        "site:fermilab-mu2e-hall",
+        "site:fermilab-nm4-hall"
+      ],
+      "state_segments": [
+        [
+          209,
+          209,
+          "active",
+          "possible"
+        ],
+        [
+          210,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
+      "to_scale_count": 20,
+      "unlocated_count": 19
     }
   },
   "schema": "hep-atlas/0.2",
@@ -52142,7 +52278,7 @@
       "links": {
         "website": null
       },
-      "map_id": null,
+      "map_id": "map:fermilab",
       "name": "CDF collision hall (Tevatron B0)",
       "place": {
         "city": "Batavia",
@@ -52275,7 +52411,7 @@
       "links": {
         "website": null
       },
-      "map_id": null,
+      "map_id": "map:fermilab",
       "name": "D0 collision hall (Tevatron D0)",
       "place": {
         "city": "Batavia",
@@ -52395,7 +52531,7 @@
       "links": {
         "website": null
       },
-      "map_id": null,
+      "map_id": "map:fermilab",
       "name": "KTeV experimental hall, Fermilab",
       "place": {
         "city": "Batavia",
@@ -52469,7 +52605,7 @@
       "links": {
         "website": null
       },
-      "map_id": null,
+      "map_id": "map:fermilab",
       "name": "Fermilab main campus, Batavia, Illinois",
       "place": {
         "city": "Batavia",
@@ -52640,7 +52776,7 @@
       "links": {
         "website": null
       },
-      "map_id": null,
+      "map_id": "map:fermilab",
       "name": "MC-1 building, Fermilab Muon Campus",
       "place": {
         "city": "Batavia",
@@ -52763,7 +52899,7 @@
       "links": {
         "website": null
       },
-      "map_id": null,
+      "map_id": "map:fermilab",
       "name": "Mu2e experimental hall, Fermilab",
       "place": {
         "city": "Batavia",
@@ -52843,7 +52979,7 @@
       "links": {
         "website": null
       },
-      "map_id": null,
+      "map_id": "map:fermilab",
       "name": "NM4 hall, Fermilab",
       "place": {
         "city": "Batavia",
@@ -58559,5 +58695,5 @@
       "type": "topic"
     }
   },
-  "version": "5efa371f8e36581b"
+  "version": "136e2b5b372ae241"
 }

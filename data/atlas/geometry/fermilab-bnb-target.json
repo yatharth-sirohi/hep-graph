@@ -1,0 +1,79 @@
+{
+  "accuracy_m": 15,
+  "aliases": [],
+  "checks": [
+    {
+      "expected": {
+        "dimension": "length",
+        "display": "470 m",
+        "unit": "m",
+        "value": 470
+      },
+      "kind": "distance",
+      "locator": "MicroBooNE detector paper sec 2, '470 m downstream from the neutrino production target'",
+      "quote": "470 m downstream from the neutrino production target",
+      "sources": [
+        "src:microboone-detector-paper-2017"
+      ],
+      "to_geometry_id": "geometry:fermilab-microboone-hall",
+      "tolerance": 0.03
+    }
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "depth_m": null,
+  "entity_id": "beamline:bnb",
+  "feature_type": "target_station",
+  "geometry": {
+    "confidence": "derived",
+    "locator": "OSM ways/1447176587,1447175900, extract timestamp 2026-09-18 (query 3); src:miniboone-detector-paper-2009 sec II 'total distance from the upstream face of the target to the center of the detector is 541 m'",
+    "note": "Accuracy dominated by OSM building accuracy (~8 m each) plus the assumption of exact colinearity of target-LArTF-MiniBooNE (supported to within 1.3 m by the target-to-LArTF check below). No sourced coordinate exists for the target independent of this chain.",
+    "sources": [
+      "src:fermilab-geo-osm-sbn-area",
+      "src:miniboone-detector-paper-2009"
+    ],
+    "value": {
+      "coordinates": [
+        -88.2696259,
+        41.8332275
+      ],
+      "type": "Point"
+    },
+    "verified_at": "2026-09-18"
+  },
+  "id": "geometry:fermilab-bnb-target",
+  "level_id": "surface",
+  "license": {
+    "attribution": "\u00a9 OpenStreetMap contributors",
+    "name": "ODbL-1.0",
+    "url": "https://www.openstreetmap.org/copyright"
+  },
+  "links": {
+    "website": null
+  },
+  "map_id": "map:fermilab",
+  "method": "Axis fixed by two independently-named OSM building footprints on the Booster Neutrino Beam: 'MiniBooNE Detector Building' (way 1447176587) and 'Liqud Argon Test Facility' [sic] (way 1447175900, sourced as MicroBooNE's hall by src:microboone-experiment-site's own placement note, 'The detector sits in the Liquid Argon Test Facility (LArTF)'), 72.3 m apart, bearing 181.34 degrees (MiniBooNE->LArTF, i.e. upstream toward the target). Target placed 541 m upstream of the MiniBooNE centroid along that bearing (the sourced MiniBooNE baseline, src:miniboone-detector-paper-2009). Haversine/destination-point on R=6371008.8 m.",
+  "name": "BNB target (derived)",
+  "notes": [],
+  "osm": {
+    "elements": [
+      "way/1447176587",
+      "way/1447175900"
+    ],
+    "timestamp": "2026-09-18T22:17:17Z"
+  },
+  "representation": "derived",
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:fermilab-main-campus",
+  "sources": [
+    "src:fermilab-geo-osm-sbn-area",
+    "src:miniboone-detector-paper-2009"
+  ],
+  "summary": {
+    "plain": "Accuracy dominated by OSM building accuracy (~8 m each) plus the assumption of exact colinearity of target-LArTF-MiniBooNE (supported to within 1.3 m by the target-to-LArTF check below). No sourced..."
+  },
+  "type": "geometry",
+  "valid": null
+}

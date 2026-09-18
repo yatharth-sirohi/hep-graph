@@ -4416,6 +4416,72 @@
   "geometry:ehn1-building-887": {
     "notes": []
   },
+  "geometry:fermilab-bnb-beamline": {
+    "notes": []
+  },
+  "geometry:fermilab-bnb-target": {
+    "notes": []
+  },
+  "geometry:fermilab-booster-ring": {
+    "notes": []
+  },
+  "geometry:fermilab-campus-boundary": {
+    "notes": []
+  },
+  "geometry:fermilab-cdf-hall": {
+    "notes": []
+  },
+  "geometry:fermilab-d0-hall": {
+    "notes": []
+  },
+  "geometry:fermilab-icarus-hall": {
+    "notes": []
+  },
+  "geometry:fermilab-lbnf-direction": {
+    "notes": []
+  },
+  "geometry:fermilab-linac": {
+    "notes": []
+  },
+  "geometry:fermilab-mc1-building": {
+    "notes": []
+  },
+  "geometry:fermilab-mc2-building": {
+    "notes": []
+  },
+  "geometry:fermilab-mi-infield": {
+    "notes": []
+  },
+  "geometry:fermilab-microboone-hall": {
+    "notes": []
+  },
+  "geometry:fermilab-miniboone-hall": {
+    "notes": []
+  },
+  "geometry:fermilab-minos-near-surface": {
+    "notes": []
+  },
+  "geometry:fermilab-nova-near-surface": {
+    "notes": []
+  },
+  "geometry:fermilab-numi-beamline": {
+    "notes": []
+  },
+  "geometry:fermilab-numi-direction": {
+    "notes": []
+  },
+  "geometry:fermilab-numi-target": {
+    "notes": []
+  },
+  "geometry:fermilab-sbnd-point": {
+    "notes": []
+  },
+  "geometry:fermilab-tevatron-ring": {
+    "notes": []
+  },
+  "geometry:fermilab-wilson-hall": {
+    "notes": []
+  },
   "geometry:lep-tunnel-ring": {
     "notes": []
   },
@@ -6674,6 +6740,12 @@
       "site:cern-lep-point-2-l3 and site:cern-point-2-alice, and site:cern-lep-point-8-delphi and site:cern-point-8-lhcb, are drawn as separate geometry features using the SAME underlying OSM polygon (the same physical Point 2 / Point 8 enclosure hosted a LEP experiment 1989-2000 and hosts an LHC experiment today); this is expected to raise the validator's geometry-duplicate-shape warning for those two pairs, documented here and in the worklog rather than avoided by omission."
     ],
     "summary_technical": "One local map for facility:cern spanning the Meyrin and Prévessin sites and the full LHC/LEP tunnel footprint. Geometry sourced from OpenStreetMap (relation 9512017 for the LHC/LEP ring; ways 66473762/174646428/309914733 for SPS/PS/PSB; named Point-N surface enclosures for ATLAS/ALICE/CMS/LHCb and their LEP-era predecessors L3/ALEPH/DELPHI) cross-checked against CERN's published circumference and depth figures, plus one CMS-paper surveyed cavern point and two ring-derived points for FASER/SND@LHC in TI12/TI18."
+  },
+  "map:fermilab": {
+    "notes": [
+      "Far sites (not drawn on this map; see the geometry worklog for great-circle distances and bearings computed from the sourced site:fermilab-main-campus point): site:soudan-minos-far-detector (735.4 km, bearing 336.0 degrees, historical MINOS-era NuMI beam), site:ash-river-nova-far-detector (811.7 km, bearing 335.5 degrees, current NOvA-era NuMI beam), site:surf-4850-level-dune-far-detector (1287.6 km, bearing 287.7 degrees, LBNF beam). No map:soudan, map:ash-river or map:surf record exists yet in this branch, so linked_map_ids is empty; the integrator should populate it once those maps exist."
+    ],
+    "summary_technical": "Local to-scale map of the Fermilab Batavia campus: a derived circle for the Booster ring (474 m sourced circumference, OSM-fit centre) and for the Tevatron ring (6.3 km sourced circumference, OSM ring-road-fit centre, cross-checked against the OSM-sourced CDF and D0 hall positions); georeferenced/derived OSM building footprints for the CDF Hall, D0 Assembly Building, MINOS and NOvA near-detector surface buildings, MiniBooNE Detector Building, the LArTF/MicroBooNE hall, a positionally-identified ICARUS-T600 hall and the Muon g-2 MC-1 building; derived target_station/beamline features for BNB and NuMI, each anchored on two independently-named OSM footprints rather than a coarse site point, with passing distance/azimuth checks; an approximate linac axis; context-only campus boundary, Main Injector-area grassland and MC-2 polygons; and inferred-direction lines for the NuMI and LBNF beams, now starting from the derived NuMI target. The Main Injector, Recycler, PIP-II, KTeV, Mu2e, SeaQuest/NM4, SBND (candidate footprints found but not confidently identified), MINERvA, DONUT, SENSEI, DAMIC (prototype) and the DUNE near detector are unlocated, each with a sourced reason and backlog."
   },
   "person:inspire-1005149": {
     "notes": []

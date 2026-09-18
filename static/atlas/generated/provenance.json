@@ -47880,6 +47880,629 @@
       "verified_at": null
     }
   },
+  "geometry:fermilab-bnb-beamline": {
+    "/geometry": {
+      "confidence": "derived",
+      "locator": "Derived from geometry:fermilab-bnb-target's construction",
+      "note": "A plan-view axis only; not a survey of the beam pipe.",
+      "quote": null,
+      "sources": [
+        "src:fermilab-geo-osm-sbn-area",
+        "src:miniboone-detector-paper-2009"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:fermilab-geo-osm-sbn-area",
+        "src:miniboone-detector-paper-2009"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:fermilab-bnb-target": {
+    "/checks/0": {
+      "confidence": null,
+      "locator": "MicroBooNE detector paper sec 2, '470 m downstream from the neutrino production target'",
+      "note": null,
+      "quote": "470 m downstream from the neutrino production target",
+      "sources": [
+        "src:microboone-detector-paper-2017"
+      ],
+      "verified_at": null
+    },
+    "/geometry": {
+      "confidence": "derived",
+      "locator": "OSM ways/1447176587,1447175900, extract timestamp 2026-09-18 (query 3); src:miniboone-detector-paper-2009 sec II 'total distance from the upstream face of the target to the center of the detector is 541 m'",
+      "note": "Accuracy dominated by OSM building accuracy (~8 m each) plus the assumption of exact colinearity of target-LArTF-MiniBooNE (supported to within 1.3 m by the target-to-LArTF check below). No sourced coordinate exists for the target independent of this chain.",
+      "quote": null,
+      "sources": [
+        "src:fermilab-geo-osm-sbn-area",
+        "src:miniboone-detector-paper-2009"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:fermilab-geo-osm-sbn-area",
+        "src:miniboone-detector-paper-2009"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:fermilab-booster-ring": {
+    "/checks/0": {
+      "confidence": null,
+      "locator": "§II, The Booster Neutrino Beamline",
+      "note": null,
+      "quote": "The FNAL Booster is a 474-meter-circumference synchrotron operating at 15Hz.",
+      "sources": [
+        "src:fermilab-miniboone-flux-paper-2009"
+      ],
+      "verified_at": null
+    },
+    "/geometry": {
+      "confidence": "derived",
+      "locator": "OSM way/21825283 (Booster Ring Road) and ways/272646259,272646261 (Booster Tower West/East), extract timestamps 2026-09-18T21:52:02Z and 2026-09-18T20:20:01Z; circumference quote per src:fermilab-miniboone-flux-paper-2009 sec II",
+      "note": "Drawn as a 72-vertex circle of the sourced radius about the OSM-fit centre; not a survey of the actual beam-ring wall.",
+      "quote": null,
+      "sources": [
+        "src:fermilab-geo-osm-rings-and-d0",
+        "src:fermilab-geo-osm-buildings",
+        "src:fermilab-miniboone-flux-paper-2009"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:fermilab-geo-osm-rings-and-d0",
+        "src:fermilab-geo-osm-buildings",
+        "src:fermilab-miniboone-flux-paper-2009"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:fermilab-campus-boundary": {
+    "/geometry": {
+      "confidence": "approximate",
+      "locator": "OSM way/31974155, extract timestamp 2026-09-18T20:20:01Z",
+      "note": "OpenStreetMap-alone representation; caps at 'approximate' confidence per contract rules even though the tracing itself is precise. Context feature only (entity_id null); shown for orientation, not a claim about any drawn accelerator or detector.",
+      "quote": null,
+      "sources": [
+        "src:fermilab-geo-osm-buildings"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:fermilab-geo-osm-buildings"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:fermilab-cdf-hall": {
+    "/geometry": {
+      "confidence": "approximate",
+      "locator": "OSM way/51755116, extract timestamp 2026-09-18T20:20:01Z",
+      "note": "This is the surface building footprint, not a survey of the underground collision point. Its centroid also anchors the Tevatron ring's derived centre (see geometry:fermilab-tevatron-ring checks). The existing site record site:fermilab-cdf-collision-hall-b0 still carries a coarse 3 km campus point; this OSM position is a strictly better anchor and is flagged as a site coordinate correction in the geometry worklog for the integrator to apply.",
+      "quote": null,
+      "sources": [
+        "src:fermilab-geo-osm-buildings"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:fermilab-geo-osm-buildings"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:fermilab-d0-hall": {
+    "/geometry": {
+      "confidence": "approximate",
+      "locator": "OSM way/51755107, extract timestamp 2026-09-18T21:52:02Z",
+      "note": "This is the surface building footprint, not a survey of the underground collision point. Its centroid also anchors the Tevatron ring's derived centre (see geometry:fermilab-tevatron-ring checks). The existing site record site:fermilab-d0-collision-hall still carries a coarse 3 km campus point; this OSM position is a strictly better anchor and is flagged as a site coordinate correction in the geometry worklog. This is also the first sourced coordinate found this session for the D0 hall at all -- the OSM Overpass probes the integrator ran earlier this session did not surface it (only CDF Hall); it was found by a dedicated name search for 'D0' within the campus bounding box.",
+      "quote": null,
+      "sources": [
+        "src:fermilab-geo-osm-rings-and-d0"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:fermilab-geo-osm-rings-and-d0"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:fermilab-icarus-hall": {
+    "/checks/0": {
+      "confidence": null,
+      "locator": "SBN proposal, detector locations",
+      "note": null,
+      "quote": "The far detector (the improved ICARUS-T600) will be located in a new building 600 m from the BNB target.",
+      "sources": [
+        "src:sbn-proposal-2015"
+      ],
+      "verified_at": null
+    },
+    "/geometry": {
+      "confidence": "derived",
+      "locator": "OSM way/1423112774, extract timestamp 2026-09-18; src:sbn-proposal-2015 'The far detector (the improved ICARUS-T600) will be located in a new building 600 m from the BNB target.'",
+      "note": "A QA pass should double-check this identification; no OSM tag names the building, though the positional match is strong and it is the only plausible candidate found in this area.",
+      "quote": null,
+      "sources": [
+        "src:fermilab-geo-osm-sbn-area",
+        "src:sbn-proposal-2015"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:fermilab-geo-osm-sbn-area",
+        "src:sbn-proposal-2015"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:fermilab-lbnf-direction": {
+    "/geometry": {
+      "confidence": "derived",
+      "locator": "Near point per site:fermilab-main-campus (src:fermilab-lbnf-dune-site); far point per site:surf-4850-level-dune-far-detector (src:dune-protodune-sp-performance-2020, 'a far detector located at the 4850 ft level of Sanford Underground Research Facility (SURF), in Lead, South Dakota')",
+      "note": "Not a physical structure; drawn and labelled as an inferred direction only. The true LBNF beam also points down (about 5.3 degrees below horizontal per src:dune-nd-cdr) toward SURF, which this plan-view line cannot show.",
+      "quote": null,
+      "sources": [
+        "src:fermilab-lbnf-dune-site",
+        "src:dune-protodune-sp-performance-2020",
+        "src:surf-official-site"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:fermilab-lbnf-dune-site",
+        "src:dune-protodune-sp-performance-2020",
+        "src:surf-official-site"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:fermilab-linac": {
+    "/geometry": {
+      "confidence": "approximate",
+      "locator": "OSM ways/272646258,1316753870, extract timestamp 2026-09-18T20:20:01Z",
+      "note": "No sourced length exists for this specific 400 MeV Linac (only its energy is sourced), so no length check is possible; confidence stays approximate per the contract's rule for an uncheckable shape.",
+      "quote": null,
+      "sources": [
+        "src:fermilab-geo-osm-buildings"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:fermilab-geo-osm-buildings"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:fermilab-mc1-building": {
+    "/depth_m": {
+      "confidence": "approximate",
+      "locator": null,
+      "note": "Feet-mark OCR'd as a degree sign in the fetched PDF text; read as feet (a floor 12 degrees below grade is not physical).",
+      "quote": "The floor is 12' below grade.",
+      "sources": [
+        "src:muons-arxiv-1501-06858"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/geometry": {
+      "confidence": "approximate",
+      "locator": "OSM way/720556725, extract timestamp 2026-09-18T21:57:05Z; identity confirmed by src:muons-arxiv-1501-06858 Ch.6.1 'The muon storage ring will be located in the MC-1 Building on the Muon Campus'",
+      "note": "The existing site record site:fermilab-mc-1-muon-campus carries a coarse 4 km geocoder point; this OSM building position is a strictly better anchor and is flagged as a site coordinate correction in the geometry worklog. The g-2 TDR states the experimental hall floor is 12 ft (3.66 m) below grade; recorded as this feature's own depth_m rather than a separate level since no other feature shares that level.",
+      "quote": null,
+      "sources": [
+        "src:fermilab-geo-osm-mc1",
+        "src:muons-arxiv-1501-06858"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:fermilab-geo-osm-mc1",
+        "src:muons-arxiv-1501-06858"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:fermilab-mc2-building": {
+    "/geometry": {
+      "confidence": "approximate",
+      "locator": "OSM way/720556732, extract timestamp 2026-09-18",
+      "note": "Candidate anchor for detector:mu2e's backlog (see map.unlocated), not a claim that this is confirmed to be the Mu2e hall.",
+      "quote": null,
+      "sources": [
+        "src:fermilab-geo-osm-muon-campus"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:fermilab-geo-osm-muon-campus"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:fermilab-mi-infield": {
+    "/geometry": {
+      "confidence": "approximate",
+      "locator": "OSM way/1167765305, extract timestamp 2026-09-18T20:20:01Z",
+      "note": "Context feature only (entity_id null): shown for orientation because it sits inside the undrawn Main Injector/Recycler ring, but it is explicitly NOT a representation of the ring/tunnel -- see map.unlocated for accelerator:fermilab-main-injector and accelerator:fermilab-recycler, and the geometry worklog 'Main Injector infield' section.",
+      "quote": null,
+      "sources": [
+        "src:fermilab-geo-osm-mi-infield"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:fermilab-geo-osm-mi-infield"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:fermilab-microboone-hall": {
+    "/checks/0": {
+      "confidence": null,
+      "locator": "MicroBooNE detector paper sec 2",
+      "note": null,
+      "quote": "470 m downstream from the neutrino production target",
+      "sources": [
+        "src:microboone-detector-paper-2017"
+      ],
+      "verified_at": null
+    },
+    "/geometry": {
+      "confidence": "verified",
+      "locator": "OSM way/1447175900, extract timestamp 2026-09-18",
+      "note": "Confidence 'verified' rests on the passing distance check below, which cites a rank-5 detector paper.",
+      "quote": null,
+      "sources": [
+        "src:fermilab-geo-osm-sbn-area",
+        "src:microboone-experiment-site"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:fermilab-geo-osm-sbn-area",
+        "src:microboone-experiment-site"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:fermilab-miniboone-hall": {
+    "/geometry": {
+      "confidence": "approximate",
+      "locator": "OSM way/1447176587, extract timestamp 2026-09-18T20:20:01Z",
+      "note": "MiniBooNE's sourced baseline (541 m from the BNB target, src:miniboone-detector-paper-2009) could not be used as an independent checks[] row this session because no sourced BNB target coordinate exists to check the distance against; the target/decay-pipe itself is unlocated (see map.unlocated for beamline:bnb).",
+      "quote": null,
+      "sources": [
+        "src:fermilab-geo-osm-buildings"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:fermilab-geo-osm-buildings"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:fermilab-minos-near-surface": {
+    "/geometry": {
+      "confidence": "approximate",
+      "locator": "OSM way/54794245, extract timestamp 2026-09-18T20:20:01Z",
+      "note": "This is the SURFACE access building only. The MINOS near-detector cavern itself is 100 m underground (src:minos-detector-paper-2008, 'a 100 m deep underground cavern, under a 225 mwe overburden'; see map level 'near-detector-caverns') and its horizontal offset from this surface point is not sourced this session, so the cavern is not drawn separately.",
+      "quote": null,
+      "sources": [
+        "src:fermilab-geo-osm-buildings"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:fermilab-geo-osm-buildings"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:fermilab-nova-near-surface": {
+    "/checks/0": {
+      "confidence": null,
+      "locator": "NOvA near-detector placement note, 'The 0.3 kt Near Detector is located 1 km downstream of the neutrino production target'",
+      "note": null,
+      "quote": "The 0.3 kt Near Detector is located 1 km downstream of the neutrino production target and 100 m underground at Fermilab",
+      "sources": [
+        "src:nova-arxiv-2025-monopole-search"
+      ],
+      "verified_at": null
+    },
+    "/geometry": {
+      "confidence": "verified",
+      "locator": "OSM way/272646255, extract timestamp 2026-09-18T20:20:01Z",
+      "note": "This is the SURFACE building only, per its own OSM name. The NOvA near detector is '100 m underground' (src:nova-arxiv-2025-monopole-search); its horizontal offset from this surface point is not sourced this session, so the underground detector is not drawn separately. Confidence upgraded to 'verified' (second pass, 2026-09-18): the checks[] row below (distance to the newly-derived NuMI target) passes and cites a rank-10 journal article.",
+      "quote": null,
+      "sources": [
+        "src:fermilab-geo-osm-buildings",
+        "src:nova-arxiv-2025-monopole-search"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:fermilab-geo-osm-buildings",
+        "src:nova-arxiv-2025-monopole-search"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:fermilab-numi-beamline": {
+    "/checks/0": {
+      "confidence": null,
+      "locator": "great-circle bearing recomputed from site:soudan-minos-far-detector's own sourced coordinates",
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:minos-prd-2007-muon-charge-ratio",
+        "src:fermilab-numi-beam-paper-2016"
+      ],
+      "verified_at": null
+    },
+    "/geometry": {
+      "confidence": "derived",
+      "locator": "Derived from geometry:fermilab-numi-target's construction",
+      "note": "A plan-view axis only; the true beam also descends 58 mrad (src:fermilab-numi-beam-paper-2016) which a plan-view line cannot show. Not a survey of the beam pipe or tunnel.",
+      "quote": null,
+      "sources": [
+        "src:fermilab-geo-osm-buildings",
+        "src:fermilab-numi-beam-paper-2016"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:fermilab-geo-osm-buildings",
+        "src:fermilab-numi-beam-paper-2016"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:fermilab-numi-direction": {
+    "/geometry": {
+      "confidence": "derived",
+      "locator": "Near point from geometry:fermilab-numi-target (second pass, 2026-09-18, derived from the OSM MINOS Surface Bldg footprint and the sourced 1040 m MINOS baseline -- see that feature); far point per site:ash-river-nova-far-detector (src:nova-prd-2021-seasonal-multiple-muons, 'located on the surface in Minnesota near the U.S.-Canada Border at (48.4N,92.8W)')",
+      "note": "Not a physical structure; drawn and labelled as an inferred direction only, per contract rules. The NuMI beam also served the MINOS far detector at Soudan (1985-2016) on a nearly identical bearing (336.2 degrees vs 335.6 degrees here, both computed from the same near point) -- not drawn separately to avoid clutter; see the worklog for the Soudan distance/bearing. Second pass (2026-09-18): near point upgraded from the coarse 3 km Fermilab campus point to the derived NuMI target (geometry:fermilab-numi-target, OSM-anchored, accuracy_m 30), which also makes this line start exactly where geometry:fermilab-numi-beamline ends.",
+      "quote": null,
+      "sources": [
+        "src:fermilab-geo-osm-buildings",
+        "src:minos-prl-2016-sterile-search",
+        "src:nova-prd-2021-seasonal-multiple-muons",
+        "src:nova-how-does-nova-work"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:fermilab-geo-osm-buildings",
+        "src:minos-prl-2016-sterile-search",
+        "src:nova-prd-2021-seasonal-multiple-muons",
+        "src:nova-how-does-nova-work"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:fermilab-numi-target": {
+    "/geometry": {
+      "confidence": "derived",
+      "locator": "OSM way/54794245, extract timestamp 2026-09-18; site:soudan-minos-far-detector coordinates (src:minos-prd-2007-muon-charge-ratio); src:fermilab-numi-beam-paper-2016 sec 3 'To point towards the Soudan Laboratory the proton beam had to be inclined downward'",
+      "note": "accuracy_m 30 m is dominated by the unsourced assumption that the MINOS Surface Bldg sits directly above the near-detector hall/shaft, not by the OSM footprint (~8 m) or the azimuth (negligible error over a 735 km baseline). Independent cross-check: deriving the target the same way from the OSM NOvA building + the sourced ~1 km NOvA baseline + the bearing to Ash River gives a point 38.6 m away from this one -- good agreement given both chains have their own ~15-30 m uncertainty budgets, and reported here rather than as a formal checks[] row (no independent SOURCED expected value exists for 'distance between the two derivations').",
+      "quote": null,
+      "sources": [
+        "src:fermilab-geo-osm-buildings",
+        "src:minos-prl-2016-sterile-search",
+        "src:fermilab-numi-beam-paper-2016"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:fermilab-geo-osm-buildings",
+        "src:minos-prl-2016-sterile-search",
+        "src:fermilab-numi-beam-paper-2016"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:fermilab-sbnd-point": {
+    "/geometry": {
+      "confidence": "derived",
+      "locator": "Derived from geometry:fermilab-bnb-target; candidate OSM ways/1423112777,1423112778, extract timestamp 2026-09-18",
+      "note": "accuracy_m widened to 30 m specifically to cover the ~17 m candidate-footprint scatter, on top of the usual OSM/derivation uncertainty. A QA pass or a source naming the specific building would let this become a proper 'hall' polygon.",
+      "quote": null,
+      "sources": [
+        "src:fermilab-geo-osm-sbn-area",
+        "src:sbnd-detector-paper-2025"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:fermilab-geo-osm-sbn-area",
+        "src:sbnd-detector-paper-2025"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:fermilab-tevatron-ring": {
+    "/checks/0": {
+      "confidence": null,
+      "locator": "Introduction",
+      "note": null,
+      "quote": "the (now named) Tevatron to be constructed with the same circumference of 6.3 km, and to be installed in the same tunnel as the original Main Ring proton synchrotron",
+      "sources": [
+        "src:fermilab-tevatron-shiltsev-2011"
+      ],
+      "verified_at": null
+    },
+    "/checks/1": {
+      "confidence": null,
+      "locator": "ring centre to OSM CDF Hall (way 51755116) centroid",
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:fermilab-tevatron-shiltsev-2011",
+        "src:fermilab-geo-osm-buildings"
+      ],
+      "verified_at": null
+    },
+    "/checks/2": {
+      "confidence": null,
+      "locator": "ring centre to OSM D0 Assembly building (way 51755107) centroid",
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:fermilab-tevatron-shiltsev-2011",
+        "src:fermilab-geo-osm-rings-and-d0"
+      ],
+      "verified_at": null
+    },
+    "/geometry": {
+      "confidence": "derived",
+      "locator": "OSM ways tagged 'Outer Ring Road' (20 segments; ids include 21828966,22107445,22107459,22107465,22107473,22107477,22107479,22107482,22107483,22107488,22107494,22107500,22107503,22107505,22107506,22107508,22107510,22107512,22107514,22107515,22107524), extract timestamp 2026-09-18T21:52:02Z; circumference per src:fermilab-tevatron-shiltsev-2011, Introduction",
+      "note": "Drawn as a 128-vertex circle of the sourced radius about the OSM-fit centre; the true beam-pipe wall was not itself traced (no OSM tunnel way exists for the Tevatron). depth_m for this level is sourced separately (src:fermilab-geo-tevatron-tunnel-penetron, 'Located 25 feet underground').",
+      "quote": null,
+      "sources": [
+        "src:fermilab-geo-osm-rings-and-d0",
+        "src:fermilab-tevatron-shiltsev-2011"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:fermilab-geo-osm-rings-and-d0",
+        "src:fermilab-tevatron-shiltsev-2011"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:fermilab-wilson-hall": {
+    "/geometry": {
+      "confidence": "approximate",
+      "locator": "OSM way/25473315, extract timestamp 2026-09-18T20:20:01Z",
+      "note": "Context building; entity_id null (Wilson Hall is not itself an atlas entity).",
+      "quote": null,
+      "sources": [
+        "src:fermilab-geo-osm-buildings"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:fermilab-geo-osm-buildings"
+      ],
+      "verified_at": null
+    }
+  },
   "geometry:lep-tunnel-ring": {
     "/checks/0": {
       "confidence": null,
@@ -65325,6 +65948,306 @@
       "verified_at": "2026-09-18"
     }
   },
+  "map:fermilab": {
+    "/center": {
+      "confidence": "derived",
+      "locator": "centroid of OSM way 25473315 (Wilson Hall)",
+      "note": "Map centre only; not a claim about any structure. Wilson Hall is Fermilab's best-known landmark and sits centrally among the drawn features.",
+      "quote": null,
+      "sources": [
+        "src:fermilab-geo-osm-buildings"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/levels/1": {
+      "confidence": null,
+      "locator": null,
+      "note": "No source fetched this session gives the Booster tunnel's depth below grade; the ring itself is drawn (geometry:fermilab-booster-ring) but its depth is unsourced.",
+      "quote": null,
+      "sources": null,
+      "verified_at": null
+    },
+    "/levels/2": {
+      "confidence": null,
+      "locator": null,
+      "note": "Depth from a commercial contractor case-study page (secondary source), used only for this figure; not the circumference source.",
+      "quote": null,
+      "sources": null,
+      "verified_at": null
+    },
+    "/levels/2/depth_m": {
+      "confidence": "approximate",
+      "locator": null,
+      "note": "A commercial contractor case-study page (secondary source, rank 12); used only for this depth figure, not for the ring's circumference (src:fermilab-tevatron-shiltsev-2011 is primary for that).",
+      "quote": "Located 25 feet underground with a circumference of 4 miles.",
+      "sources": [
+        "src:fermilab-geo-tevatron-tunnel-penetron"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/levels/3": {
+      "confidence": null,
+      "locator": null,
+      "note": "No feature is drawn on this level (see map.unlocated for accelerator:fermilab-main-injector and accelerator:fermilab-recycler); listed for documentation of the sourced depth only.",
+      "quote": null,
+      "sources": null,
+      "verified_at": null
+    },
+    "/levels/3/depth_m": {
+      "confidence": "verified",
+      "locator": null,
+      "note": "",
+      "quote": "Housed in a tunnel 30 feet below ground.",
+      "sources": [
+        "src:fermilab-geo-mi-dedication-1999"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/levels/4": {
+      "confidence": null,
+      "locator": null,
+      "note": "No feature is drawn at this depth (the MINOS and NOvA near-detector surface buildings are drawn on 'surface'; their caverns' horizontal offset from the surface points is not sourced this session).",
+      "quote": null,
+      "sources": null,
+      "verified_at": null
+    },
+    "/levels/4/depth_m": {
+      "confidence": "verified",
+      "locator": null,
+      "note": "",
+      "quote": "100 m deep underground cavern, under a 225 mwe overburden.",
+      "sources": [
+        "src:minos-detector-paper-2008"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/levels/5": {
+      "confidence": null,
+      "locator": null,
+      "note": "No feature is drawn at this depth; detector:dune-near-detector is in map.unlocated (no sourced target coordinate to derive its position from).",
+      "quote": null,
+      "sources": null,
+      "verified_at": null
+    },
+    "/levels/5/depth_m": {
+      "confidence": "verified",
+      "locator": null,
+      "note": "",
+      "quote": "the near detector hall will be located about 570 m from the proton beam target at an underground depth of approximately 60 m.",
+      "sources": [
+        "src:dune-nd-cdr"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:fermilab-geo-osm-buildings",
+        "src:fermilab-geo-osm-sbn-area",
+        "src:fermilab-geo-osm-muon-campus",
+        "src:fermilab-lbnf-dune-site"
+      ],
+      "verified_at": null
+    },
+    "/unlocated/0": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:fermilab-geo-mi-tdr-1994",
+        "src:fermilab-geo-osm-mi-infield"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/unlocated/1": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:fermilab-numi-beam-paper-2016",
+        "src:fermilab-geo-mi-tdr-1994"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/unlocated/10": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:damic-inspire-experiment-original"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/unlocated/11": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:dune-nd-cdr"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/unlocated/12": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:fermilab-geo-osm-buildings"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/unlocated/13": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:fermilab-geo-osm-rings-and-d0"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/unlocated/14": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:ktev-design-report-1992"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/unlocated/15": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:fermilab-geo-osm-buildings"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/unlocated/16": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:fermilab-geo-osm-mc1"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/unlocated/17": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:muons-arxiv-1501-05241",
+        "src:fermilab-geo-osm-muon-campus"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/unlocated/18": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:seaquest-spectrometer-arxiv-2017"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/unlocated/2": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:fermilab-geo-pip-ii-radiation-2018",
+        "src:fermilab-pip-ii-site"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/unlocated/3": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:dune-nd-cdr"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/unlocated/4": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:ktev-design-report-1992"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/unlocated/5": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:muons-arxiv-1501-05241",
+        "src:fermilab-geo-osm-muon-campus"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/unlocated/6": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:seaquest-spectrometer-arxiv-2017"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/unlocated/7": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:minerva-detector-paper-2014"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/unlocated/8": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:donut-wikipedia"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/unlocated/9": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:sensei-shallow-underground-2019-arxiv"
+      ],
+      "verified_at": "2026-09-18"
+    }
+  },
   "person:inspire-1005149": {
     "/affiliations/0": {
       "confidence": "verified",
@@ -73434,7 +74357,8 @@
       "note": null,
       "quote": null,
       "sources": [
-        "src:fermilab-lbnf-dune-site"
+        "src:fermilab-lbnf-dune-site",
+        "src:fermilab-geo-osm-buildings"
       ],
       "verified_at": null
     }
@@ -73456,7 +74380,8 @@
       "note": null,
       "quote": null,
       "sources": [
-        "src:fermilab-lbnf-dune-site"
+        "src:fermilab-lbnf-dune-site",
+        "src:fermilab-geo-osm-rings-and-d0"
       ],
       "verified_at": null
     }
@@ -73503,7 +74428,8 @@
       "quote": null,
       "sources": [
         "src:fermilab-osm-nominatim",
-        "src:fermilab-lbnf-dune-site"
+        "src:fermilab-lbnf-dune-site",
+        "src:fermilab-geo-osm-buildings"
       ],
       "verified_at": null
     }
@@ -73526,7 +74452,9 @@
       "quote": null,
       "sources": [
         "src:muons-nominatim-fermilab",
-        "src:muons-news-fnal-2025-final-result"
+        "src:muons-news-fnal-2025-final-result",
+        "src:fermilab-geo-osm-mc1",
+        "src:muons-arxiv-1501-06858"
       ],
       "verified_at": null
     }
@@ -75286,6 +76214,16 @@
       "confidence": null,
       "locator": null,
       "note": "Used ONLY as a pointer for the interaction-region coordinates, which no official KEK/SuperKEKB/Belle II page or technical paper reached in this session publishes. REVIEW REQUIRED: v0.2 A17 forbids relying solely on a rank-12 source for kind: detector coordinates.",
+      "quote": null,
+      "sources": null,
+      "verified_at": null
+    }
+  },
+  "src:fermilab-geo-lss-schematic-2022": {
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": "lss.fnal.gov returned an HTTP 403 Cloudflare challenge to every fetch attempt this session; the title and content could not be verified directly. Offered in map.schematics as a link only (not to scale, topology diagram), per the research brief's suggestion; if the document turns out not to match, the integrator should drop this link.",
       "quote": null,
       "sources": null,
       "verified_at": null

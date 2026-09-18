@@ -13465,6 +13465,9 @@
       "experiment:damic": [
         "/facility_roles/0",
         "/sources"
+      ],
+      "map:fermilab": [
+        "/unlocated/10"
       ]
     },
     "date": null,
@@ -15054,6 +15057,9 @@
         "/intervals/0",
         "/intervals/1",
         "/sources"
+      ],
+      "map:fermilab": [
+        "/unlocated/8"
       ]
     },
     "content_hash": null,
@@ -15908,7 +15914,7 @@
     "url": "https://arxiv.org/abs/1512.06148"
   },
   "src:dune-nd-cdr": {
-    "accessed": "2026-09-16",
+    "accessed": "2026-09-18",
     "cited_by": {
       "detector:dune-near-detector": [
         "/intervals/0",
@@ -15922,9 +15928,15 @@
       "document:dune-nd-cdr": [
         "/links/website",
         "/sources"
+      ],
+      "map:fermilab": [
+        "/levels/5/depth_m",
+        "/unlocated/11",
+        "/unlocated/3"
       ]
     },
     "date": "2021-03-25",
+    "excerpt": "Ch.8.1.1: 'the near detector hall will be located about 570 m from the proton beam target at an underground depth of approximately 60 m.' Elsewhere: '574 m from the neutrino source for the LBNF beam'. Ch.8.1.2: 'angled by 5.3 degrees with respect to the cavern horizontal plane'. Table 8.1: cavern 166 ft x 63 ft x 50 ft. Full PDF text fetched by the local-map geometry workstream (2026-09-18), upgrading retrieval from partial to full_text.",
     "id": "src:dune-nd-cdr",
     "link_check": {
       "http_status": 200,
@@ -15938,7 +15950,7 @@
       "arxiv": "2103.13910",
       "doi": "10.48550/arXiv.2103.13910"
     },
-    "retrieval": "partial",
+    "retrieval": "full_text",
     "source_type": "design_report",
     "title": "Deep Underground Neutrino Experiment (DUNE) Near Detector Conceptual Design Report",
     "type": "src",
@@ -15967,6 +15979,10 @@
       ],
       "experiment:dune": [
         "/key_specs/0/quantity"
+      ],
+      "geometry:fermilab-lbnf-direction": [
+        "/geometry",
+        "/sources"
       ],
       "result:dune-protodune-sp-performance-2020": [
         "/claim",
@@ -16677,6 +16693,334 @@
     "type": "src",
     "url": "https://www6.slac.stanford.edu"
   },
+  "src:fermilab-geo-lss-schematic-2022": {
+    "accessed": "2026-09-18",
+    "cited_by": {},
+    "date": "2022",
+    "excerpt": null,
+    "id": "src:fermilab-geo-lss-schematic-2022",
+    "publisher": "Fermilab Scientific Computing Division",
+    "rank": 9,
+    "retrieval": "failed",
+    "source_type": "project_document",
+    "title": "Fermilab accelerator complex schematic (SCD conference slides, 2022) -- not independently verified this session",
+    "type": "src",
+    "url": "https://lss.fnal.gov/archive/2022/slides/fermilab-slides-22-024-scd.pdf"
+  },
+  "src:fermilab-geo-mi-dedication-1999": {
+    "accessed": "2026-09-18",
+    "cited_by": {
+      "map:fermilab": [
+        "/levels/3/depth_m"
+      ]
+    },
+    "date": "1999-06",
+    "excerpt": "'Housed in a tunnel 30 feet below ground' ... 'the Main Injector is about two miles in circumference' ... 'the new two-mile circular tunnel'. Used here only for the 30 ft (9.1 m) depth figure; its loose use of \"circular\" is a press simplification and is NOT used to justify a circle representation, which rests instead on the Main Injector TDR's own 'oval-shaped' description (src:fermilab-geo-mi-tdr-1994) -- see geometry worklog.",
+    "id": "src:fermilab-geo-mi-dedication-1999",
+    "publisher": "Fermilab Office of Communication",
+    "rank": 9,
+    "retrieval": "partial",
+    "source_type": "press_release",
+    "title": "Energy Department's Fermilab Dedicates New Particle Accelerator",
+    "type": "src",
+    "url": "https://news.fnal.gov/1999/06/energy-departments-fermilab-dedicates-new-particle-accelerator/"
+  },
+  "src:fermilab-geo-mi-tdr-1994": {
+    "accessed": "2026-09-18",
+    "cited_by": {
+      "map:fermilab": [
+        "/unlocated/0",
+        "/unlocated/1"
+      ]
+    },
+    "date": "1994",
+    "excerpt": "Table 1-1 Main Injector Parameter List: 'Circumference 3319.419 m'; Ch.4 Ring Enclosure: 'an oval-shaped, below-grade structure approximately 10,890' in length, with a rectangular cross-section typically 10'-0\" wide by 8'-0\" high'; Ch.1: 'located south of the Antiproton Source and tangent to the Tevatron ring at the F0 straight section'.",
+    "id": "src:fermilab-geo-mi-tdr-1994",
+    "publisher": "Fermi National Accelerator Laboratory",
+    "rank": 4,
+    "reference": {
+      "report_number": "FERMILAB-DESIGN-1994-01"
+    },
+    "retrieval": "full_text",
+    "source_type": "design_report",
+    "title": "The Fermilab Main Injector Technical Design Handbook (FERMILAB-DESIGN-1994-01)",
+    "type": "src",
+    "url": "https://beamdocs.fnal.gov/AD/DocDB/0042/004294/001/fermilab-design-1994-01.pdf"
+  },
+  "src:fermilab-geo-osm-buildings": {
+    "accessed": "2026-09-18",
+    "cited_by": {
+      "geometry:fermilab-booster-ring": [
+        "/geometry",
+        "/sources"
+      ],
+      "geometry:fermilab-campus-boundary": [
+        "/geometry",
+        "/sources"
+      ],
+      "geometry:fermilab-cdf-hall": [
+        "/geometry",
+        "/sources"
+      ],
+      "geometry:fermilab-linac": [
+        "/geometry",
+        "/sources"
+      ],
+      "geometry:fermilab-miniboone-hall": [
+        "/geometry",
+        "/sources"
+      ],
+      "geometry:fermilab-minos-near-surface": [
+        "/geometry",
+        "/sources"
+      ],
+      "geometry:fermilab-nova-near-surface": [
+        "/geometry",
+        "/sources"
+      ],
+      "geometry:fermilab-numi-beamline": [
+        "/geometry",
+        "/sources"
+      ],
+      "geometry:fermilab-numi-direction": [
+        "/geometry",
+        "/sources"
+      ],
+      "geometry:fermilab-numi-target": [
+        "/geometry",
+        "/sources"
+      ],
+      "geometry:fermilab-tevatron-ring": [
+        "/checks/1"
+      ],
+      "geometry:fermilab-wilson-hall": [
+        "/geometry",
+        "/sources"
+      ],
+      "map:fermilab": [
+        "/center",
+        "/sources",
+        "/unlocated/12",
+        "/unlocated/15"
+      ],
+      "site:fermilab-cdf-collision-hall-b0": [
+        "/sources"
+      ],
+      "site:fermilab-main-campus": [
+        "/sources"
+      ]
+    },
+    "date": "2026-09-18",
+    "excerpt": "way/25473315 Wilson Hall (building=industrial); way/51755116 CDF Hall (building=yes); way/51755120 Tevatron Service Building; way/54794245 MINOS Surface Bldg; way/272646255 NOvA Near Detector on Surface (man_made=particle physics detector); way/1447176587 MiniBooNE Detector Building; way/272646258 Linac Gallery; way/1316753870 LINAC-II; way/272646259 Booster Tower West; way/272646261 Booster Tower East; way/31974155 Fermi National Accelerator Laboratory (landuse=institutional, campus boundary).",
+    "id": "src:fermilab-geo-osm-buildings",
+    "publisher": "OpenStreetMap contributors",
+    "rank": 11,
+    "reference": {
+      "overpass_query": "way(id:25473315,51755116,51755120,54794245,272646255,1447176587,272646258,1316753870,272646259,272646261,350094212,164420301,31974155); out geom;"
+    },
+    "retrieval": "full_text",
+    "source_type": "openstreetmap",
+    "title": "OpenStreetMap extract: Fermilab named buildings (Wilson Hall, CDF Hall, Tevatron Service Building, MINOS Surface Bldg, NOvA Near Detector on Surface, MiniBooNE Detector Building, Linac Gallery, LINAC-II, Booster Tower West/East, campus boundary)",
+    "type": "src",
+    "url": "https://overpass-api.de/api/interpreter?data=%5Btimeout%3A90%5D%5Bout%3Ajson%5D%3B%28way%28id%3A25473315%2C51755116%2C51755120%2C54794245%2C272646255%2C1447176587%2C272646258%2C1316753870%2C272646259%2C272646261%2C350094212%2C164420301%2C31974155%29%3B%29%3Bout%20geom%3B"
+  },
+  "src:fermilab-geo-osm-mc1": {
+    "accessed": "2026-09-18",
+    "cited_by": {
+      "geometry:fermilab-mc1-building": [
+        "/geometry",
+        "/sources"
+      ],
+      "map:fermilab": [
+        "/unlocated/16"
+      ],
+      "site:fermilab-mc-1-muon-campus": [
+        "/sources"
+      ]
+    },
+    "date": "2026-09-18",
+    "excerpt": "way/720556725, tags building=yes name=MC-1, 8 nodes (7 distinct + closing node), bounds 41.8356243,-88.2652882 to 41.8361137,-88.2646865.",
+    "id": "src:fermilab-geo-osm-mc1",
+    "publisher": "OpenStreetMap contributors",
+    "rank": 11,
+    "reference": {
+      "overpass_query": "nwr['name'~'PIP|MC-1|MC1|Muon Campus|Delivery Ring|Antiproton|Mu2e|Recycler|Main Injector',i]; out geom;"
+    },
+    "retrieval": "full_text",
+    "source_type": "openstreetmap",
+    "title": "OpenStreetMap way 720556725: MC-1 building, Fermilab Muon Campus",
+    "type": "src",
+    "url": "https://www.openstreetmap.org/way/720556725"
+  },
+  "src:fermilab-geo-osm-mi-infield": {
+    "accessed": "2026-09-18",
+    "cited_by": {
+      "geometry:fermilab-mi-infield": [
+        "/geometry",
+        "/sources"
+      ],
+      "map:fermilab": [
+        "/unlocated/0"
+      ]
+    },
+    "date": "2026-09-18",
+    "excerpt": "way/1167765305, tags natural=grassland, 116 nodes, closed ring, bounds 41.8231894,-88.2754209 to 41.8325271,-88.2650447.",
+    "id": "src:fermilab-geo-osm-mi-infield",
+    "publisher": "OpenStreetMap contributors",
+    "rank": 11,
+    "reference": {
+      "overpass_query": "way(1167765305); out geom;"
+    },
+    "retrieval": "full_text",
+    "source_type": "openstreetmap",
+    "title": "OpenStreetMap way 1167765305: grassland polygon inside the Main Injector/Recycler ring area",
+    "type": "src",
+    "url": "https://www.openstreetmap.org/way/1167765305"
+  },
+  "src:fermilab-geo-osm-muon-campus": {
+    "accessed": "2026-09-18",
+    "cited_by": {
+      "geometry:fermilab-mc2-building": [
+        "/geometry",
+        "/sources"
+      ],
+      "map:fermilab": [
+        "/sources",
+        "/unlocated/17",
+        "/unlocated/5"
+      ]
+    },
+    "date": "2026-09-18",
+    "excerpt": "60 elements. way/720556725 'MC-1' (confirmed Muon g-2 building), way/720556732 'MC-2' (84 m from MC-1, identity not confirmed this session), way/272649557 'AP-10', way/272649558 'AP-30', way/272649559 'AP-50', way/272649562 'AP-0' (former Antiproton Source service buildings, cluster centroid roughly 41.8346,-88.2656, candidate anchors for the Delivery Ring -- not drawn, see worklog), way/272649560 'MI-8', way/272649561 'MI-65'.",
+    "id": "src:fermilab-geo-osm-muon-campus",
+    "publisher": "OpenStreetMap contributors",
+    "rank": 11,
+    "reference": {
+      "overpass_query": "[timeout:60][out:json][bbox:41.8320000,-88.2700000,41.8400000,-88.2600000]; (way[\"building\"]; way[\"highway\"][\"name\"]; relation[\"name\"];); out geom;"
+    },
+    "retrieval": "full_text",
+    "source_type": "openstreetmap",
+    "title": "OpenStreetMap extract: buildings in the Fermilab Muon Campus / Antiproton Source area (MC-1, MC-2, AP-0/10/30/50, MI-8, MI-65)",
+    "type": "src",
+    "url": "https://overpass-api.de/api/interpreter?data=%5Btimeout%3A60%5D%5Bout%3Ajson%5D%5Bbbox%3A41.832%2C-88.27%2C41.84%2C-88.26%5D%3B%28way%5B%22building%22%5D%3Bway%5B%22highway%22%5D%5B%22name%22%5D%3Brelation%5B%22name%22%5D%3B%29%3Bout+geom%3B"
+  },
+  "src:fermilab-geo-osm-rings-and-d0": {
+    "accessed": "2026-09-18",
+    "cited_by": {
+      "geometry:fermilab-booster-ring": [
+        "/geometry",
+        "/sources"
+      ],
+      "geometry:fermilab-d0-hall": [
+        "/geometry",
+        "/sources"
+      ],
+      "geometry:fermilab-tevatron-ring": [
+        "/checks/2",
+        "/geometry",
+        "/sources"
+      ],
+      "map:fermilab": [
+        "/unlocated/13"
+      ],
+      "site:fermilab-d0-collision-hall": [
+        "/sources"
+      ]
+    },
+    "date": "2026-09-18",
+    "excerpt": "way/21825283 Booster Ring Road (closed loop, 25 nodes); way/22108989,22108992 Inner Ring Road; 20 ways named 'Outer Ring Road' (173 vertices total); way/51755107 D0 Assembly building (9 nodes); way/51755108 D0 Outback (5 nodes).",
+    "id": "src:fermilab-geo-osm-rings-and-d0",
+    "publisher": "OpenStreetMap contributors",
+    "rank": 11,
+    "reference": {
+      "overpass_query": "way(21825283); way(22108989); way(22108992); way['highway']['name'='Outer Ring Road']; nwr['name'~'D0|DZero|Mu2e|SBN|LArTF|MicroBooNE|ICARUS|KTeV|NM4',i]; out geom;"
+    },
+    "retrieval": "full_text",
+    "source_type": "openstreetmap",
+    "title": "OpenStreetMap extract: Booster Ring Road, Outer Ring Road, Inner Ring Road, D0 Assembly building, D0 Outback",
+    "type": "src",
+    "url": "https://overpass-api.de/api/interpreter?data=%5Btimeout%3A90%5D%5Bout%3Ajson%5D%5Bbbox%3A41.8153528%2C-88.2793878%2C41.8706210%2C-88.2106364%5D%3B%28way%2821825283%29%3Bway%2822108989%29%3Bway%2822108992%29%3Bway%5B%27highway%27%5D%5B%27name%27%3D%27Outer%20Ring%20Road%27%5D%3Bnwr%5B%27name%27~%27D0%7CDZero%7CMu2e%7CSBN%7CLArTF%7CMicroBooNE%7CICARUS%7CKTeV%7CNM4%27%2Ci%5D%3B%29%3Bout%20geom%3B"
+  },
+  "src:fermilab-geo-osm-sbn-area": {
+    "accessed": "2026-09-18",
+    "cited_by": {
+      "geometry:fermilab-bnb-beamline": [
+        "/geometry",
+        "/sources"
+      ],
+      "geometry:fermilab-bnb-target": [
+        "/geometry",
+        "/sources"
+      ],
+      "geometry:fermilab-icarus-hall": [
+        "/geometry",
+        "/sources"
+      ],
+      "geometry:fermilab-microboone-hall": [
+        "/geometry",
+        "/sources"
+      ],
+      "geometry:fermilab-sbnd-point": [
+        "/geometry",
+        "/sources"
+      ],
+      "map:fermilab": [
+        "/sources"
+      ]
+    },
+    "date": "2026-09-18",
+    "excerpt": "435 building ways. Named matches include way/1447176587 'MiniBooNE Detector Building', way/1447175900 'Liqud Argon Test Facility' [sic], way/272646255 'NOvA Near Detector on Surface', way/54794245 'MINOS Surface Bldg'. Unnamed candidates used for derived identification: way/1423112774 (62.4 m N of MiniBooNE, identified as ICARUS-T600), way/1423112777 and way/1423112778 (both ~420-440 m S of MiniBooNE, candidates for SBND, not distinguished).",
+    "id": "src:fermilab-geo-osm-sbn-area",
+    "publisher": "OpenStreetMap contributors",
+    "rank": 11,
+    "reference": {
+      "overpass_query": "[timeout:90][out:json][bbox:41.8300000,-88.2850000,41.8420000,-88.2600000]; way[\"building\"]; out geom;"
+    },
+    "retrieval": "full_text",
+    "source_type": "openstreetmap",
+    "title": "OpenStreetMap extract: all building footprints in a box covering the Booster Neutrino Beam short-baseline detector area (MiniBooNE, LArTF/MicroBooNE, and candidate SBND/ICARUS buildings)",
+    "type": "src",
+    "url": "https://overpass-api.de/api/interpreter?data=%5Btimeout%3A90%5D%5Bout%3Ajson%5D%5Bbbox%3A41.83%2C-88.285%2C41.842%2C-88.26%5D%3Bway%5B%22building%22%5D%3Bout+geom%3B"
+  },
+  "src:fermilab-geo-pip-ii-radiation-2018": {
+    "accessed": "2026-09-18",
+    "cited_by": {
+      "map:fermilab": [
+        "/unlocated/2"
+      ]
+    },
+    "date": "2018-06",
+    "excerpt": "'The heart of PIP-II is an 800-MeV superconducting linac accelerator. It will be located in a new tunnel with new service buildings and connected to the present Booster through a new transfer line.' Figure 2 caption references the site plan relative to Wilson Hall; no coordinates given.",
+    "id": "src:fermilab-geo-pip-ii-radiation-2018",
+    "publisher": "L. Lari et al. (FERMILAB-CONF-18-119-AD)",
+    "rank": 10,
+    "reference": {
+      "arxiv": "1806.05725"
+    },
+    "retrieval": "partial",
+    "source_type": "arxiv",
+    "title": "Preliminary Modelling of Radiation Levels at the Fermilab PIP-II Linac",
+    "type": "src",
+    "url": "https://arxiv.org/abs/1806.05725"
+  },
+  "src:fermilab-geo-tevatron-tunnel-penetron": {
+    "accessed": "2026-09-18",
+    "cited_by": {
+      "map:fermilab": [
+        "/levels/2/depth_m"
+      ]
+    },
+    "date": null,
+    "excerpt": "'Located 25 feet underground with a circumference of 4 miles.' A commercial contractor case-study page, used only for the depth figure (~7.6 m), corroborated in order of magnitude by the Main Injector's separately sourced 30 ft depth; not used as the circumference source (src:fermilab-tevatron-shiltsev-2011 is primary for that).",
+    "id": "src:fermilab-geo-tevatron-tunnel-penetron",
+    "publisher": "Penetron International",
+    "rank": 12,
+    "retrieval": "partial",
+    "source_type": "secondary",
+    "title": "Tevatron Tunnel (concrete waterproofing project case study)",
+    "type": "src",
+    "url": "https://www.penetron.com/projects/view/Tevatron-Tunnel"
+  },
   "src:fermilab-lbnf-dune-site": {
     "accessed": "2026-09-16",
     "cited_by": {
@@ -16695,6 +17039,13 @@
       ],
       "facility:fermilab": [
         "/links/website",
+        "/sources"
+      ],
+      "geometry:fermilab-lbnf-direction": [
+        "/geometry",
+        "/sources"
+      ],
+      "map:fermilab": [
         "/sources"
       ],
       "site:fermilab-cdf-collision-hall-b0": [
@@ -16755,6 +17106,11 @@
         "/specs/peak_neutrino_energy",
         "/specs/proton_energy",
         "/target"
+      ],
+      "geometry:fermilab-booster-ring": [
+        "/checks/0",
+        "/geometry",
+        "/sources"
       ]
     },
     "date": "2009-04",
@@ -16958,6 +17314,18 @@
       ],
       "experiment:nova": [
         "/facility_roles/1"
+      ],
+      "geometry:fermilab-numi-beamline": [
+        "/checks/0",
+        "/geometry",
+        "/sources"
+      ],
+      "geometry:fermilab-numi-target": [
+        "/geometry",
+        "/sources"
+      ],
+      "map:fermilab": [
+        "/unlocated/1"
       ]
     },
     "date": "2016",
@@ -17040,6 +17408,9 @@
       "accelerator:fermilab-pip-ii": [
         "/intervals/0",
         "/sources"
+      ],
+      "map:fermilab": [
+        "/unlocated/2"
       ]
     },
     "date": null,
@@ -17150,15 +17521,23 @@
     "url": "https://arxiv.org/abs/1510.02992"
   },
   "src:fermilab-tevatron-shiltsev-2011": {
-    "accessed": "2026-09-16",
+    "accessed": "2026-09-18",
     "cited_by": {
       "accelerator:fermilab-tevatron": [
         "/intervals/0",
         "/intervals/2",
         "/sources"
+      ],
+      "geometry:fermilab-tevatron-ring": [
+        "/checks/0",
+        "/checks/1",
+        "/checks/2",
+        "/geometry",
+        "/sources"
       ]
     },
     "date": "2011-09-09",
+    "excerpt": "'...the (now named) Tevatron to be constructed with the same circumference of 6.3 km, and to be installed in the same tunnel as the original Main Ring proton synchrotron.' (Introduction). Used by the local-map geometry workstream (2026-09-18) as the circumference source for the Tevatron ring (geometry:fermilab-tevatron-ring); full PDF text fetched this session, upgrading retrieval from partial to full_text.",
     "id": "src:fermilab-tevatron-shiltsev-2011",
     "link_check": {
       "http_status": 200,
@@ -17170,7 +17549,7 @@
     "reference": {
       "arxiv": "1109.1864"
     },
-    "retrieval": "partial",
+    "retrieval": "full_text",
     "source_type": "arxiv",
     "title": "Accelerator Science and Technology Breakthroughs, Achievements and Lessons from the Tevatron",
     "type": "src",
@@ -23383,6 +23762,10 @@
         "/physics_goals/0",
         "/sources"
       ],
+      "map:fermilab": [
+        "/unlocated/14",
+        "/unlocated/4"
+      ],
       "site:fermilab-ktev-hall": [
         "/sources"
       ]
@@ -25736,6 +26119,12 @@
         "/key_specs/2/quantity",
         "/key_specs/3/quantity",
         "/sources"
+      ],
+      "geometry:fermilab-bnb-target": [
+        "/checks/0"
+      ],
+      "geometry:fermilab-microboone-hall": [
+        "/checks/0"
       ]
     },
     "content_hash": null,
@@ -25780,6 +26169,10 @@
         "/facility_roles/0",
         "/intervals/0",
         "/key_specs/0/quantity",
+        "/sources"
+      ],
+      "geometry:fermilab-microboone-hall": [
+        "/geometry",
         "/sources"
       ]
     },
@@ -25918,6 +26311,9 @@
       ],
       "experiment:minerva": [
         "/sources"
+      ],
+      "map:fermilab": [
+        "/unlocated/7"
       ]
     },
     "content_hash": null,
@@ -26134,6 +26530,14 @@
         "/key_specs/2/quantity",
         "/key_specs/3/quantity",
         "/sources"
+      ],
+      "geometry:fermilab-bnb-beamline": [
+        "/geometry",
+        "/sources"
+      ],
+      "geometry:fermilab-bnb-target": [
+        "/geometry",
+        "/sources"
       ]
     },
     "content_hash": null,
@@ -26339,6 +26743,9 @@
         "/specs/depth",
         "/specs/overburden"
       ],
+      "map:fermilab": [
+        "/levels/4/depth_m"
+      ],
       "site:soudan-minos-far-detector": [
         "/coordinates",
         "/depth",
@@ -26437,6 +26844,9 @@
         "/physics_goals/2",
         "/sources"
       ],
+      "geometry:fermilab-numi-beamline": [
+        "/checks/0"
+      ],
       "site:soudan-minos-far-detector": [
         "/coordinates",
         "/sources"
@@ -26511,6 +26921,14 @@
       "experiment:minos": [
         "/energy_regime",
         "/physics_goals/1",
+        "/sources"
+      ],
+      "geometry:fermilab-numi-direction": [
+        "/geometry",
+        "/sources"
+      ],
+      "geometry:fermilab-numi-target": [
+        "/geometry",
         "/sources"
       ],
       "result:minos-sterile-neutrino-limit-2016": [
@@ -26654,7 +27072,7 @@
     "url": "https://arxiv.org/abs/1411.2555"
   },
   "src:muons-arxiv-1501-05241": {
-    "accessed": "2026-09-17",
+    "accessed": "2026-09-18",
     "archive_url": null,
     "cited_by": {
       "collaboration:mu2e": [
@@ -26668,11 +27086,15 @@
       ],
       "experiment:mu2e": [
         "/sources"
+      ],
+      "map:fermilab": [
+        "/unlocated/17",
+        "/unlocated/5"
       ]
     },
     "content_hash": null,
     "date": "2015-01",
-    "excerpt": "search for charged lepton flavor violation via the coherent conversion process mu- N --> e- N with a sensitivity approximately four orders of magnitude better than the current world's best limits.",
+    "excerpt": "search for charged lepton flavor violation via the coherent conversion process mu- N --> e- N with a sensitivity approximately four orders of magnitude better than the current world's best limits. Ch.2 (geometry workstream, 2026-09-18): PS 'approximately 4 m long'; TS 'total magnetic length ... about 13 m', bend radius 'about 3 m'; DS 'nearly 11 m long'. 'The Beamline Enclosure GPP provides the underground beamline enclosure and above ground berm between the Delivery Ring and both the g-2 and Mu2e buildings.' No coordinate or distance-from-Delivery-Ring figure given. Full PDF text fetched, upgrading retrieval from partial to full_text.",
     "id": "src:muons-arxiv-1501-05241",
     "link_check": {
       "http_status": 200,
@@ -26686,14 +27108,14 @@
       "arxiv": "1501.05241",
       "report_number": "Fermilab-DESIGN-2014-1"
     },
-    "retrieval": "partial",
+    "retrieval": "full_text",
     "source_type": "design_report",
     "title": "Mu2e Technical Design Report",
     "type": "src",
     "url": "https://arxiv.org/abs/1501.05241"
   },
   "src:muons-arxiv-1501-06858": {
-    "accessed": "2026-09-17",
+    "accessed": "2026-09-18",
     "archive_url": null,
     "cited_by": {
       "collaboration:muon-g-2": [
@@ -26709,11 +27131,19 @@
       "experiment:muon-g-2": [
         "/sources",
         "/unique_capabilities/0"
+      ],
+      "geometry:fermilab-mc1-building": [
+        "/depth_m",
+        "/geometry",
+        "/sources"
+      ],
+      "site:fermilab-mc-1-muon-campus": [
+        "/sources"
       ]
     },
     "content_hash": null,
     "date": "2015-01",
-    "excerpt": "will use the muon storage ring built at BNL and now relocated to Fermilab; E821 at the Brookhaven National Laboratory AGS.",
+    "excerpt": "will use the muon storage ring built at BNL and now relocated to Fermilab; E821 at the Brookhaven National Laboratory AGS. Ch.6.1 'The MC1 Building' (geometry workstream, 2026-09-18): 'The muon storage ring will be located in the MC-1 Building on the Muon Campus'. Fig.6.1 caption: 'The layout of the Muon Campus, which lies between the former Antiproton Rings and the Booster Accelerator.' 'The floor is 12 feet below grade.' 'The experimental hall is 80 feet x 80 feet.' Full PDF text fetched, upgrading retrieval from partial to full_text.",
     "id": "src:muons-arxiv-1501-06858",
     "link_check": {
       "http_status": 200,
@@ -26727,7 +27157,7 @@
       "arxiv": "1501.06858",
       "report_number": "FERMILAB-FN-0992-E"
     },
-    "retrieval": "partial",
+    "retrieval": "full_text",
     "source_type": "design_report",
     "title": "Muon (g-2) Technical Design Report",
     "type": "src",
@@ -28625,6 +29055,11 @@
         "/key_specs/0/quantity",
         "/key_specs/3/quantity"
       ],
+      "geometry:fermilab-nova-near-surface": [
+        "/checks/0",
+        "/geometry",
+        "/sources"
+      ],
       "site:ash-river-nova-far-detector": [
         "/depth_mwe",
         "/sources"
@@ -28777,6 +29212,10 @@
         "/sources",
         "/unique_capabilities/0"
       ],
+      "geometry:fermilab-numi-direction": [
+        "/geometry",
+        "/sources"
+      ],
       "site:ash-river-nova-far-detector": [
         "/coordinates",
         "/sources"
@@ -28807,6 +29246,10 @@
     "cited_by": {
       "detector:nova-far-detector": [
         "/specs/overburden"
+      ],
+      "geometry:fermilab-numi-direction": [
+        "/geometry",
+        "/sources"
       ],
       "site:ash-river-nova-far-detector": [
         "/coordinates",
@@ -42926,6 +43369,11 @@
         "/key_specs/0/quantity",
         "/lineage/0",
         "/sources"
+      ],
+      "geometry:fermilab-icarus-hall": [
+        "/checks/0",
+        "/geometry",
+        "/sources"
       ]
     },
     "content_hash": null,
@@ -42977,6 +43425,10 @@
         "/key_specs/1/quantity",
         "/sources",
         "/unique_capabilities/0"
+      ],
+      "geometry:fermilab-sbnd-point": [
+        "/geometry",
+        "/sources"
       ]
     },
     "content_hash": null,
@@ -43125,6 +43577,10 @@
         "/intervals/0",
         "/sources"
       ],
+      "map:fermilab": [
+        "/unlocated/18",
+        "/unlocated/6"
+      ],
       "site:fermilab-nm4-hall": [
         "/sources"
       ]
@@ -43263,6 +43719,9 @@
         "/key_specs/0/quantity",
         "/sources",
         "/unique_capabilities"
+      ],
+      "map:fermilab": [
+        "/unlocated/9"
       ]
     },
     "date": "2019-01",
@@ -45028,6 +45487,10 @@
       "facility:surf": [
         "/links/website",
         "/operator_text",
+        "/sources"
+      ],
+      "geometry:fermilab-lbnf-direction": [
+        "/geometry",
         "/sources"
       ],
       "institution:sanford-underground-research-facility": [
