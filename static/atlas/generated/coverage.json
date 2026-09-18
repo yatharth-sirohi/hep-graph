@@ -541,11 +541,10 @@
         "hall-specific coordinates (near/near/far) -- official site dayabay.ihep.ac.cn timed out on every fetch; one shared campus/approximate point used for all three halls",
         "overburden/depth per hall",
         "official membership counts (used Wikipedia's '40+ institutions' instead)",
-        "leadership",
-        "exact calendar dates for most intervals (only the 2012 discovery paper's day-precision submission date is solid)"
+        "leadership"
       ],
       "name": "Daya Bay",
-      "notes": "Mandatory bar written: experiment/detector/facility/site/collaboration/1 result (2012 discovery, verbatim quote) validated clean.",
+      "notes": "Mandatory bar written: experiment/detector/facility/site/collaboration/1 result (2012 discovery, verbatim quote) validated clean. VERIFIED 2026-09-18 (independent pass): 2012 discovery title/date/sigma confirmed verbatim against the arXiv preprint; coordinates confirmed against Wikipedia. P0 FIX: replaced the Wikipedia-only, year-precision AD-configuration/completion history with a day-precision six-/eight-/seven-AD timeline (ending 2020-12-12) sourced directly from the collaboration's own final-result paper (arXiv:2211.14988 = PRL 130, 161802 (2023)); the 'exact calendar dates for most intervals' gap is now closed.",
       "owner": "reactor-solar-neutrino",
       "priority": 2,
       "researched": "partial",
@@ -616,14 +615,14 @@
       "facility": "JUNO Jiangmen Underground Neutrino Observatory",
       "globe_ready": true,
       "missing_fields": [
-        "site coordinate at underground_lab precision (no rank<=7 source found; recorded as kind:campus/approximate off Wikipedia per A17, which produces one expected validator error, see worklog)",
+        "site coordinate at underground_lab precision (no rank<=7 source found; recorded as kind:campus/approximate off Wikipedia per A17/A23, warns rather than fails)",
         "collaboration formation date",
         "leadership",
         "membership counts from JUNO's own dedicated collaboration page (used IHEP host-institute press release instead)",
         "TDR (only CDR 2015 and the 2021 'JUNO Physics and Detector' review paper found; no document explicitly titled 'Technical Design Report' located)"
       ],
       "name": "JUNO",
-      "notes": "Flagship, full depth: experiment/detector/site/collaboration/2 documents/2 results written and validated (one known coordinate-kind validator error, documented in worklog).",
+      "notes": "Flagship, full depth: experiment/detector/site/collaboration/2 documents/2 results written and validated (coordinate-kind-approximate warning documented in worklog, expected). VERIFIED 2026-09-18 (independent pass): P0 FIX -- as-built PMT count corrected from 20,000 (design target/press-release rounding) to the actual installed 17,596 (4,939 dynode + 12,657 MCP) 20-inch PMTs and 25,587 3-inch PMTs, sourced to the collaboration's own Initial performance results paper (arXiv:2511.14590 = Chin. Phys. C 50, 043001 (2026)), whose full text was fetched directly (the previously-cited cpc.ihep.ac.cn URL renders as an empty JS shell under a plain fetch). Also added: civil-construction interval (started 2015-01, previously an undocumented gap), day-precision installation dates, depth_mwe=1800 (previously null), and DOI 10.1088/1674-1137/ae3dc1. Fixed two paraphrased-as-verbatim quotes (JUNO baseline 'multiple reactor cores' dropped from the Nature quote; energy-resolution quote said 'anticipated' where the source says 'effective'). Both 2026 results' titles/dates/DOIs cross-checked against Nature/IOP/INSPIRE directly. Zero unresolved factual contradictions found after fixes.",
       "owner": "reactor-solar-neutrino",
       "priority": 2,
       "researched": "partial",
@@ -886,11 +885,10 @@
         "hall-specific coordinates (official site domains all failed DNS/connection; one shared approximate point from the adjacent power plant's Wikipedia page used for both halls)",
         "detector target mass/PMT count (not found in the 2012 discovery paper's abstract)",
         "official membership counts",
-        "leadership",
-        "confirmation of continued operation or a shutdown date beyond the 2012 paper's 229-day analysis window"
+        "leadership"
       ],
       "name": "RENO",
-      "notes": "Mandatory bar written: experiment/detector/facility/2 sites/collaboration/1 result (2012 observation, verbatim quote) validated clean.",
+      "notes": "Mandatory bar written: experiment/detector/facility/2 sites/collaboration/1 result (2012 observation, verbatim quote) validated clean. VERIFIED 2026-09-18 (independent pass): 2012 title/sigma/baselines confirmed verbatim against the arXiv preprint. P0 FIX: status was incorrectly `active` with an open-ended interval; RENO's own final-dataset paper (arXiv:2412.18711, Dec 2024) states data acquisition was completed in March 2023 after 3800 live days. Status corrected to `completed` on experiment/detector/facility records; the 'confirmation of continued operation or shutdown' gap is now closed (answer: shutdown, 2023-03).",
       "owner": "reactor-solar-neutrino",
       "priority": 2,
       "researched": "partial",

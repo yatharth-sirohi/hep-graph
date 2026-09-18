@@ -20,7 +20,7 @@ interface says only "coverage updated" with this date.
 | person | 12 |
 | result | 109 |
 | site | 93 |
-| source | 1484 |
+| source | 1485 |
 | topic | 42 |
 | membership rows | 659 |
 
@@ -45,9 +45,9 @@ exists with sourced content. Gaps are computed per record, not declared.
 | High-energy and astrophysical neutrinos | 13 | 13 | 0 | 13 | 0 | 10 | 10 |
 | Muon precision and rare processes | 6 | 6 | 0 | 6 | 1 | 3 | 3 |
 | Neutrinoless double beta decay | 9 | 9 | 0 | 9 | 3 | 9 | 9 |
-| Reactor and low-energy neutrinos | 5 | 5 | 0 | 5 | 1 | 0 | 4 |
+| Reactor and low-energy neutrinos | 5 | 5 | 0 | 5 | 0 | 0 | 4 |
 | Solar and radiochemical neutrinos | 6 | 6 | 0 | 6 | 0 | 2 | 6 |
-| **All** | **131** | **131** | **3** | **128** | **11** | **79** | **96** |
+| **All** | **131** | **131** | **3** | **128** | **10** | **79** | **96** |
 
 ## Per-experiment detail
 
@@ -250,7 +250,7 @@ exists with sourced content. Gaps are computed per record, not declared.
 | Double Chooz | researched | institution membership, technical documents |
 | JUNO | researched | institution membership |
 | KamLAND | researched | institution membership, technical documents |
-| RENO | researched | institution membership, historical intervals, technical documents |
+| RENO | researched | institution membership, technical documents |
 
 ### Solar and radiochemical neutrinos
 

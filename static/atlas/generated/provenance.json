@@ -25815,14 +25815,24 @@
   },
   "detector:reno": {
     "/intervals/0": {
-      "confidence": "uncertain",
+      "confidence": "verified",
       "locator": null,
-      "note": "The cited paper's own analysis used only the 229-day window ending 26 March 2012; no source fetched this session confirms a shutdown or continued operation, so `end` is left null (ongoing at `verified_at`, §2.3).",
-      "quote": "In the 229 day data-taking period between 11 August 2011 and 26 March 2012",
+      "note": "CORRECTED 2026-09-18 (P0): RENO's own final-dataset paper (arXiv:2412.18711) confirms data acquisition ended March 2023 after 3800 live days; the detector is not still taking data.",
+      "quote": "As of March 2023, the data acquisition was completed after a total of 3800 live days of detector operation.",
       "sources": [
-        "src:reno-discovery-2012"
+        "src:reactor-solar-verify-reno-final-2024"
       ],
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-09-18"
+    },
+    "/intervals/1": {
+      "confidence": "verified",
+      "locator": null,
+      "note": "Added 2026-09-18 as the terminal event for the interval above (A3).",
+      "quote": "As of March 2023, the data acquisition was completed after a total of 3800 live days of detector operation.",
+      "sources": [
+        "src:reactor-solar-verify-reno-final-2024"
+      ],
+      "verified_at": "2026-09-18"
     },
     "/placements/0": {
       "confidence": "verified",
@@ -25850,7 +25860,8 @@
       "note": null,
       "quote": null,
       "sources": [
-        "src:reno-discovery-2012"
+        "src:reno-discovery-2012",
+        "src:reactor-solar-verify-reno-final-2024"
       ],
       "verified_at": null
     },
@@ -41895,14 +41906,24 @@
       "verified_at": "2026-09-17"
     },
     "/intervals/0": {
-      "confidence": "uncertain",
+      "confidence": "verified",
       "locator": null,
-      "note": "The cited paper's own analysis used only the 229-day window ending 26 March 2012, but no source fetched this session states that RENO stopped operating at that date, nor confirms it continued; `end` is left null (ongoing at `verified_at`, per §2.3) rather than asserting either a shutdown or continued operation from memory.",
-      "quote": "In the 229 day data-taking period between 11 August 2011 and 26 March 2012",
+      "note": "CORRECTED 2026-09-18 (P0): the original pass left `end: null` and `status: active` because it had fetched only the 2012 discovery paper, which covers a 229-day analysis window, not the experiment's full run. RENO's own 2024 final-dataset paper (arXiv:2412.18711) states data acquisition was completed in March 2023 after 3800 live days -- the experiment is NOT still running. Status corrected from `active` to `completed` accordingly.",
+      "quote": "As of March 2023, the data acquisition was completed after a total of 3800 live days of detector operation.",
       "sources": [
-        "src:reno-discovery-2012"
+        "src:reactor-solar-verify-reno-final-2024"
       ],
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-09-18"
+    },
+    "/intervals/1": {
+      "confidence": "verified",
+      "locator": null,
+      "note": "Added 2026-09-18 as the terminal event for the interval above (A3).",
+      "quote": "As of March 2023, the data acquisition was completed after a total of 3800 live days of detector operation.",
+      "sources": [
+        "src:reactor-solar-verify-reno-final-2024"
+      ],
+      "verified_at": "2026-09-18"
     },
     "/key_specs/0/quantity": {
       "confidence": "verified",
@@ -41952,7 +41973,8 @@
       "sources": [
         "src:reno-inspire-experiment-record",
         "src:reno-discovery-2012",
-        "src:hanbit-npp-wikipedia"
+        "src:hanbit-npp-wikipedia",
+        "src:reactor-solar-verify-reno-final-2024"
       ],
       "verified_at": null
     },
@@ -45876,7 +45898,8 @@
       "sources": [
         "src:daya-bay-inspire-experiment-record",
         "src:daya-bay-wikipedia",
-        "src:daya-bay-discovery-2012"
+        "src:daya-bay-discovery-2012",
+        "src:reactor-solar-verify-daya-bay-final-prl-2023"
       ],
       "verified_at": null
     }
@@ -47749,14 +47772,24 @@
   },
   "facility:yonggwang-hanbit-reactor-site": {
     "/intervals/0": {
-      "confidence": "uncertain",
+      "confidence": "verified",
       "locator": null,
-      "note": "No official facility page was reachable this session to independently source a facility-level founding/operating interval; start is RENO's own data-taking start date. `end` left null (ongoing at `verified_at`, §2.3) since no source confirms a shutdown.",
-      "quote": "In the 229 day data-taking period between 11 August 2011 and 26 March 2012",
+      "note": "CORRECTED 2026-09-18 (P0): RENO's own final-dataset paper (arXiv:2412.18711) confirms RENO data acquisition ended March 2023; this facility record's scope is specifically hosting RENO's detectors (the underlying nuclear power plant itself continues to operate independently of RENO).",
+      "quote": "As of March 2023, the data acquisition was completed after a total of 3800 live days of detector operation.",
       "sources": [
-        "src:reno-discovery-2012"
+        "src:reactor-solar-verify-reno-final-2024"
       ],
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-09-18"
+    },
+    "/intervals/1": {
+      "confidence": "verified",
+      "locator": null,
+      "note": "Added 2026-09-18 as the terminal event for the interval above (A3). Refers only to RENO's data-taking presence at the site, not the Hanbit Nuclear Power Plant itself.",
+      "quote": "As of March 2023, the data acquisition was completed after a total of 3800 live days of detector operation.",
+      "sources": [
+        "src:reactor-solar-verify-reno-final-2024"
+      ],
+      "verified_at": "2026-09-18"
     },
     "/operator": {
       "confidence": "uncertain",
@@ -47785,7 +47818,8 @@
       "quote": null,
       "sources": [
         "src:reno-inspire-experiment-record",
-        "src:reno-discovery-2012"
+        "src:reno-discovery-2012",
+        "src:reactor-solar-verify-reno-final-2024"
       ],
       "verified_at": null
     }
