@@ -1,0 +1,162 @@
+{
+  "aliases": [
+    "NOvA ND"
+  ],
+  "coverage": {
+    "researched": "full",
+    "tier": "B"
+  },
+  "experiment_ids": [
+    "experiment:nova"
+  ],
+  "id": "detector:nova-near-detector",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2014-09",
+      "label": "construction",
+      "locator": "Fermilab newsroom, 2014-10",
+      "note": "",
+      "quote": "Construction on NOvA's two massive neutrino detectors began in 2009.",
+      "sources": [
+        "src:nova-fermilab-news-2014-up-and-running"
+      ],
+      "start": "2009",
+      "status": "construction",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "operating",
+      "locator": "NOvA PRD 106, 032004, data-set description",
+      "note": "",
+      "quote": "13.6×10²⁰ POT from 555.3 s of integrated beam-pulse time recorded between February 6, 2014, to March 20, 2020",
+      "sources": [
+        "src:nova-prd-2022-oscillation-parameters"
+      ],
+      "start": "2014-02-06",
+      "status": "active",
+      "verified_at": "2026-09-16"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "NOvA near detector",
+  "notes": [
+    "Placed at site:fermilab-main-campus (owned by the fermilab-dune lead): no separately sourceable site record exists for this detector hall in this wave."
+  ],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "locator": "NOvA monopole search, detector description",
+      "note": "Placed at site:fermilab-main-campus (owned by the fermilab-dune lead): no separately sourceable site record exists for this detector hall in this wave.",
+      "quote": "The 0.3 kt Near Detector is located 1 km downstream of the neutrino production target and 100 m underground at Fermilab",
+      "role": "near",
+      "site_id": "site:fermilab-main-campus",
+      "sources": [
+        "src:nova-arxiv-2025-monopole-search",
+        "src:nova-fermilab-news-2014-up-and-running"
+      ],
+      "start": "2014-02-06",
+      "verified_at": "2026-09-16"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:nova-how-does-nova-work",
+    "src:nova-prd-2022-oscillation-parameters",
+    "src:nova-arxiv-2025-monopole-search",
+    "src:nova-fermilab-news-2014-up-and-running"
+  ],
+  "specs": {
+    "depth": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "100 m underground",
+      "locator": "NOvA monopole search, detector description",
+      "note": "",
+      "quote": "The 0.3 kt Near Detector is located 1 km downstream of the neutrino production target and 100 m underground at Fermilab",
+      "sources": [
+        "src:nova-arxiv-2025-monopole-search"
+      ],
+      "unit": "m",
+      "value": 100,
+      "verified_at": "2026-09-16"
+    },
+    "off_axis_angle": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "angle",
+      "display": "14.6 mrad",
+      "locator": "NOvA PRD 106, 032004, detector section",
+      "note": "",
+      "quote": "Both detectors are centered 14.6 mrad off the beam axis and receive a narrow-band neutrino flux peaked at 1.8 GeV.",
+      "sources": [
+        "src:nova-prd-2022-oscillation-parameters"
+      ],
+      "unit": "mrad",
+      "value": 14.6,
+      "verified_at": "2026-09-16"
+    },
+    "overburden": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "depth_mwe",
+      "display": "22 m.w.e.",
+      "locator": "NOvA multimessenger paper, detector description",
+      "note": "",
+      "quote": "underground at Fermilab, with 22 meters water equivalent overburden",
+      "sources": [
+        "src:nova-arxiv-2020-multimessenger"
+      ],
+      "unit": "m.w.e.",
+      "value": 22,
+      "verified_at": "2026-09-16"
+    },
+    "total_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "0.3 kt (300 t)",
+      "locator": "NOvA monopole search, detector description",
+      "note": "Conflict: NOvA PRD 106, 032004 describes the near detector as \"290 ton\"; the NOvA public page and the 2025 monopole paper say 300 t / 0.3 kt.",
+      "quote": "The 0.3 kt Near Detector is located 1 km downstream of the neutrino production target and 100 m underground at Fermilab",
+      "sources": [
+        "src:nova-arxiv-2025-monopole-search",
+        "src:nova-how-does-nova-work"
+      ],
+      "unit": "kt",
+      "value": 0.3,
+      "verified_at": "2026-09-16"
+    }
+  },
+  "status": "active",
+  "subsystems": [],
+  "summary": {
+    "plain": "A small copy of the NOvA far detector, about 300 tonnes, sitting underground at Fermilab a kilometre from where the neutrino beam is made. It measures the beam before the neutrinos have had time to change type.",
+    "technical": "Functionally identical 0.3 kt PVC-cell liquid-scintillator tracking calorimeter 1 km downstream of the NuMI target and 100 m underground at Fermilab, on the same 14.6 mrad off-axis line as the far detector."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "NOvA PRD 106, 032004, detector section",
+    "note": "",
+    "quote": "Charged particle tracking is accomplished via PVC cells filled with a mineral oil-based liquid scintillator.",
+    "sources": [
+      "src:nova-how-does-nova-work",
+      "src:nova-prd-2022-oscillation-parameters"
+    ],
+    "value": "segmented tracking calorimeter of extruded PVC cells filled with liquid scintillator, functionally identical to the far detector",
+    "verified_at": "2026-09-16"
+  },
+  "technology_class": "liquid_scintillator",
+  "technology_classes": [
+    "liquid_scintillator",
+    "tracking_calorimeter"
+  ],
+  "type": "detector"
+}

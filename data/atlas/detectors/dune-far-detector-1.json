@@ -1,0 +1,259 @@
+{
+  "aliases": [
+    "FD1",
+    "DUNE FD1-HD",
+    "DUNE single-phase far detector module",
+    "FD-HD"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "A"
+  },
+  "experiment_ids": [
+    "experiment:dune"
+  ],
+  "id": "detector:dune-far-detector-1",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2024-02",
+      "label": "cavern excavation and outfitting",
+      "locator": "article of 1 February 2024",
+      "note": "",
+      "quote": "Engineering, construction and excavation teams have been working 4,850 feet below the surface since 2021",
+      "sources": [
+        "src:fermilab-news-dune-excavation-completed-2024"
+      ],
+      "start": "2021",
+      "status": "construction",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "cryostat and detector installation",
+      "locator": "article of 1 February 2024",
+      "note": "Fermilab stated in February 2024 that installation of the steel cryostat structure was planned to begin later that year; no confirmation of the actual start was fetched.",
+      "quote": "Later this year, the project team plans to begin the installation of the insulated steel structure that will hold the first neutrino detector.",
+      "sources": [
+        "src:fermilab-news-dune-excavation-completed-2024"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2024",
+        "display": "from later in 2024"
+      },
+      "status": "construction",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "operational",
+      "locator": "article of 1 February 2024",
+      "note": "Project goal as stated by Fermilab in February 2024.",
+      "quote": "The goal is to have the first detector operational before the end of 2028.",
+      "sources": [
+        "src:fermilab-news-dune-excavation-completed-2024"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2028",
+        "display": "before the end of 2028",
+        "planned": true
+      },
+      "status": "planned",
+      "verified_at": "2026-09-16"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "DUNE Far Detector Module 1 (horizontal drift)",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "locator": "Vol. I, §1.3.1 Far Detector",
+      "note": "Installed in the north detector cavern on the 4850 Level at SURF; no installation start date is given in the fetched sources.",
+      "quote": "The DUNE FD will consist of four LArTPC detector modules , each with a LAr mass in the sensitive region of the cryostat (fiducial mass) of at least 10 kt , installed approximately 1.5 km underground.",
+      "role": "far",
+      "site_id": "site:surf-4850-level-dune-far-detector",
+      "sources": [
+        "src:dune-fd-tdr-vol-1"
+      ],
+      "start": null,
+      "verified_at": "2026-09-16"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:dune-fd-tdr-vol-1",
+    "src:dune-fd-tdr-vol-4",
+    "src:dune-collaboration-site"
+  ],
+  "specs": {
+    "cryostat_count": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "count",
+      "display": "1 cryostat, 15.1 m (w) x 14.0 m (h) x 62.0 m (l) internal",
+      "locator": "Vol. I, §1.3.1",
+      "note": "",
+      "quote": "Each LArTPC fits inside a cryostat of internal dimensions 15.1 m (w) × 14.0 m (h) × 62.0 m (l)",
+      "sources": [
+        "src:dune-fd-tdr-vol-1"
+      ],
+      "unit": "",
+      "value": 1,
+      "verified_at": "2026-09-16"
+    },
+    "drift_length": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "3.5 m maximum drift",
+      "locator": "Vol. I, §1.3.1",
+      "note": "",
+      "quote": "The maximum drift length is 3.5 m .",
+      "sources": [
+        "src:dune-fd-tdr-vol-1"
+      ],
+      "unit": "m",
+      "value": 3.5,
+      "verified_at": "2026-09-16"
+    },
+    "fiducial_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "at least 10 kt",
+      "locator": "Vol. I, §1.3.1",
+      "note": "",
+      "quote": "each with a LAr mass in the sensitive region of the cryostat (fiducial mass) of at least 10 kt",
+      "sources": [
+        "src:dune-fd-tdr-vol-1"
+      ],
+      "unit": "kt",
+      "value": 10,
+      "verified_at": "2026-09-16"
+    },
+    "phase": {
+      "confidence": "verified",
+      "locator": "Vol. I, abstract",
+      "note": "",
+      "quote": "the single- and dual-phase DUNE liquid argon TPC far detector modules",
+      "sources": [
+        "src:dune-fd-tdr-vol-1"
+      ],
+      "value": "single-phase",
+      "verified_at": "2026-09-16"
+    },
+    "readout": {
+      "confidence": "verified",
+      "locator": "Vol. I, §1.3.1",
+      "note": "",
+      "quote": "An SP module is instrumented with three module-length ( 58.2 m ) anode planes constructed from 6 m high by 2.3 m wide anode plane assemblies , stacked two APA s high and 25 wide, for 50 APA s per plane, and 150 total.",
+      "sources": [
+        "src:dune-fd-tdr-vol-1"
+      ],
+      "value": "three module-length anode planes built from 150 anode plane assemblies (APAs), each 6 m high by 2.3 m wide, with three layers of active wires",
+      "verified_at": "2026-09-16"
+    },
+    "target_medium": {
+      "confidence": "verified",
+      "locator": "Vol. I, §1.1.2",
+      "note": "",
+      "quote": "40 kt ) of LAr , a cryogenic liquid that must be kept at 88 K",
+      "sources": [
+        "src:dune-fd-tdr-vol-1"
+      ],
+      "value": "liquid argon",
+      "verified_at": "2026-09-16"
+    },
+    "total_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "17.5 kt of liquid argon per cryostat",
+      "locator": "Vol. I, §1.1.4",
+      "note": "",
+      "quote": "The DUNE FD cryostats will hold 17.5 kt of LAr each, for a total of nearly 70 kt",
+      "sources": [
+        "src:dune-fd-tdr-vol-1"
+      ],
+      "unit": "kt",
+      "value": 17.5,
+      "verified_at": "2026-09-16"
+    }
+  },
+  "status": "construction",
+  "subsystems": [
+    {
+      "description": {
+        "confidence": "verified",
+        "locator": "Vol. I, §1.3.1",
+        "note": "",
+        "quote": "for 50 APA s per plane, and 150 total",
+        "sources": [
+          "src:dune-fd-tdr-vol-1"
+        ],
+        "value": "150 wire-readout anode plane assemblies forming three 58.2 m long anode planes",
+        "verified_at": "2026-09-16"
+      },
+      "name": "Anode plane assemblies (APAs)"
+    },
+    {
+      "description": {
+        "confidence": "verified",
+        "locator": "Vol. I, §1.3.1 (the field unit is rendered without \"/cm\" in the HTML version)",
+        "note": "",
+        "quote": "Each of the four drift volumes of LAr is subjected to a strong E field of 500 V , corresponding to a cathode HV of 180 kV .",
+        "sources": [
+          "src:dune-fd-tdr-vol-1"
+        ],
+        "value": "Four drift volumes at a 500 V/cm field, with a cathode high voltage of 180 kV",
+        "verified_at": "2026-09-16"
+      },
+      "name": "Cathode planes and field cage"
+    },
+    {
+      "description": {
+        "confidence": "verified",
+        "locator": "Vol. IV, abstract",
+        "note": "",
+        "quote": "A photon detection system supplements the TPC, directly enhancing physics capabilities for all three DUNE physics drivers",
+        "sources": [
+          "src:dune-fd-tdr-vol-4"
+        ],
+        "value": "Photon detectors supplementing the TPC and extending the physics reach",
+        "verified_at": "2026-09-16"
+      },
+      "name": "Photon detection system"
+    }
+  ],
+  "summary": {
+    "plain": "The first of four giant tanks of liquid argon nearly a mile underground in South Dakota. Charged particles from neutrino collisions leave trails of electrons that drift sideways onto walls of wires, producing a photograph-like picture of each event.",
+    "technical": "Single-phase horizontal-drift LArTPC: 17.5 kt of liquid argon in a 15.1 x 14.0 x 62.0 m membrane cryostat, at least 10 kt fiducial, four drift volumes at 500 V/cm with a 3.5 m maximum drift and 150 APAs of wire readout, plus a photon detection system."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "Vol. IV, abstract",
+    "note": "",
+    "quote": "In the single-phase liquid argon time-projection chamber (LArTPC) technology, ionization charges drift horizontally in the liquid argon under the influence of an electric field towards a vertical anode, where they are read out with fine granularity.",
+    "sources": [
+      "src:dune-fd-tdr-vol-1",
+      "src:dune-fd-tdr-vol-4"
+    ],
+    "value": "single-phase horizontal-drift liquid argon time projection chamber with anode plane assembly wire readout",
+    "verified_at": "2026-09-16"
+  },
+  "technology_class": "lar_tpc",
+  "technology_classes": [
+    "noble_liquid_tpc",
+    "lar_tpc"
+  ],
+  "type": "detector"
+}

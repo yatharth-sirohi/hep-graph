@@ -1,0 +1,189 @@
+{
+  "accelerator_id": "accelerator:fermilab-main-injector",
+  "aliases": [
+    "NuMI",
+    "Neutrinos at the Main Injector"
+  ],
+  "baselines": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "direction": {
+    "confidence": "verified",
+    "locator": "§3",
+    "note": "",
+    "quote": "To point towards the Soudan Laboratory the proton beam had to be inclined downward by 58 mrad.",
+    "sources": [
+      "src:fermilab-numi-beam-paper-2016"
+    ],
+    "value": "north-west from Fermilab, inclined 58 mrad (3.34 degrees) downward to point at the Soudan mine in Minnesota, 734 km away",
+    "verified_at": "2026-09-16"
+  },
+  "facility_id": "facility:fermilab",
+  "far_detector_site_ids": [],
+  "id": "beamline:numi",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2012-04-30",
+      "kind": "run",
+      "label": "MINOS-era operation",
+      "locator": "§1, Introduction",
+      "note": "",
+      "quote": "Its focus is the beam configuration in place during the data taking of the MINOS experiment, from May 20, 2005 until April 30, 2012.",
+      "sources": [
+        "src:fermilab-numi-beam-paper-2016"
+      ],
+      "start": "2005-05-20",
+      "status": "active",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "verified",
+      "end": "2013-09",
+      "label": "accelerator shutdown",
+      "locator": "§5, Post-MINOS Plans and Developments",
+      "note": "Long accelerator shutdown between the end of MINOS data taking and the NuMI restart.",
+      "quote": "After a long accelerator shutdown following the completion of the MINOS experiment, the NuMI beam was restarted in September 2013",
+      "sources": [
+        "src:fermilab-numi-beam-paper-2016"
+      ],
+      "start": "2012-04-30",
+      "status": "shutdown",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "kind": "run",
+      "label": "NOvA / MINOS+ / MINERvA era",
+      "locator": "§5, Post-MINOS Plans and Developments",
+      "note": "",
+      "quote": "the NuMI beam was restarted in September 2013 for two new experiments",
+      "sources": [
+        "src:fermilab-numi-beam-paper-2016"
+      ],
+      "start": "2013-09",
+      "status": "active",
+      "verified_at": "2026-09-16"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "NuMI (Neutrinos at the Main Injector) beamline",
+  "near_detector_site_ids": [
+    "site:fermilab-main-campus"
+  ],
+  "notes": [],
+  "primary_beam": {
+    "confidence": "verified",
+    "locator": "§1, Introduction",
+    "note": "",
+    "quote": "steering a 120 GeV proton beam onto a narrow graphite target",
+    "sources": [
+      "src:fermilab-numi-beam-paper-2016"
+    ],
+    "value": {
+      "energy": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "energy",
+        "display": "120 GeV",
+        "locator": "§1, Introduction",
+        "note": "",
+        "quote": "The NuMI beam facility produces neutrinos by steering a 120 GeV proton beam onto a narrow graphite target approximately 1 m in length through a collimating baffle.",
+        "sources": [
+          "src:fermilab-numi-beam-paper-2016"
+        ],
+        "unit": "GeV",
+        "value": 120,
+        "verified_at": "2026-09-16"
+      },
+      "particle": "proton"
+    },
+    "verified_at": "2026-09-16"
+  },
+  "schema": "hep-atlas/0.2",
+  "secondary_beam": {
+    "confidence": "verified",
+    "locator": "§2",
+    "note": "",
+    "quote": "the produced hadrons are focused by two magnetic horns and then enter a 675 m long decay volume",
+    "sources": [
+      "src:fermilab-numi-beam-paper-2016",
+      "src:fermilab-nova-offaxis-dpf2017"
+    ],
+    "value": "muon neutrinos / antineutrinos from a 675 m decay volume; on-axis for MINOS/MINOS+/MINERvA, 14.6 mrad off-axis for NOvA",
+    "verified_at": "2026-09-16"
+  },
+  "sources": [
+    "src:fermilab-numi-beam-paper-2016",
+    "src:fermilab-nova-offaxis-dpf2017"
+  ],
+  "specs": {
+    "beam_power": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "power",
+      "display": "400 kW (design)",
+      "locator": "§1.1 Historical Background",
+      "note": "Original design beam power; the NOvA-era design goal quoted in the same paper is 700 kW.",
+      "quote": "The design beam power was somewhat optimistically set to 400 kW",
+      "sources": [
+        "src:fermilab-numi-beam-paper-2016"
+      ],
+      "unit": "kW",
+      "value": 400,
+      "verified_at": "2026-09-16"
+    },
+    "off_axis_angle": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "angle",
+      "display": "14.6 mrad (NOvA)",
+      "locator": "§I.1 NOvA Experiment",
+      "note": "Off-axis angle of the NOvA near and far detectors relative to the NuMI beam axis; MINOS, MINOS+ and MINERvA sit on axis.",
+      "quote": "The two detectors are placed 14.6 mrad off-axis from the center of the neutrino beam",
+      "sources": [
+        "src:fermilab-nova-offaxis-dpf2017"
+      ],
+      "unit": "mrad",
+      "value": 14.6,
+      "verified_at": "2026-09-16"
+    },
+    "proton_energy": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "energy",
+      "display": "120 GeV",
+      "locator": "§1, Introduction",
+      "note": "",
+      "quote": "the 120 GeV protons extracted from the Fermilab Main Injector",
+      "sources": [
+        "src:fermilab-numi-beam-paper-2016"
+      ],
+      "unit": "GeV",
+      "value": 120,
+      "verified_at": "2026-09-16"
+    }
+  },
+  "status": "active",
+  "summary": {
+    "plain": "Fermilab’s long-running neutrino beam. Protons hit a graphite target and the particles that come out decay into neutrinos aimed at detectors in Minnesota.",
+    "technical": "120 GeV Main Injector protons on a 1 m graphite target, two magnetic horns and a 675 m decay volume, aimed 58 mrad downward toward Soudan. Served MINOS (2005-2012) and, since September 2013, NOvA (14.6 mrad off axis), MINOS+ and MINERvA."
+  },
+  "target": {
+    "confidence": "verified",
+    "locator": "§1, Introduction",
+    "note": "",
+    "quote": "a narrow graphite target approximately 1 m in length through a collimating baffle",
+    "sources": [
+      "src:fermilab-numi-beam-paper-2016"
+    ],
+    "value": "graphite target approximately 1 m in length",
+    "verified_at": "2026-09-16"
+  },
+  "type": "beamline"
+}

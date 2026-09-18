@@ -1,0 +1,129 @@
+{
+  "aliases": [
+    "HL-LHC",
+    "HiLumi LHC"
+  ],
+  "coverage": {
+    "researched": "full",
+    "tier": "A"
+  },
+  "facility_id": "facility:cern",
+  "feeds_accelerator_ids": [],
+  "id": "accelerator:hl-lhc",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2015",
+      "label": "design and first project phase",
+      "note": "End = the start of the construction phase stated on the same page.",
+      "quote": "The first phase of the project began in 2011",
+      "sources": [
+        "src:cern-hilumi-lhc-page"
+      ],
+      "start": "2011",
+      "status": "approved",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "verified",
+      "end": "2026-06",
+      "label": "construction",
+      "note": "Quote as rendered by the fetched page, which elides part of the sentence.",
+      "quote": "The construction phase for the project then began at CERN...in 2015",
+      "sources": [
+        "src:cern-hilumi-lhc-page"
+      ],
+      "start": "2015",
+      "status": "construction",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "approximate",
+      "end": {
+        "approx": true,
+        "date": "2030",
+        "planned": true
+      },
+      "label": "installation during LS3",
+      "note": "Installation of ~1.2 km of new LHC components during Long Shutdown 3.",
+      "quote": "Most of the installation will take place during a long shutdown period of the accelerators, beginning in mid-2026.",
+      "sources": [
+        "src:cern-hilumi-lhc-page",
+        "src:cern-long-shutdown-3-page"
+      ],
+      "start": "2026-06",
+      "status": "construction",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "operation",
+      "note": "Schedule value, not a reported event (A4 planned).",
+      "quote": "The HiLumi LHC, which should be operational in mid-2030, will allow physicists to study known mechanisms in greater detail",
+      "sources": [
+        "src:cern-hilumi-lhc-page",
+        "src:cern-ls3-farewell-2026"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2030",
+        "display": "mid-2030",
+        "planned": true
+      },
+      "status": "planned",
+      "verified_at": "2026-09-16"
+    }
+  ],
+  "is_collider": true,
+  "kind": "collider",
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "note": "",
+      "sources": [
+        "src:cern-hilumi-lhc-page"
+      ],
+      "value": "https://home.cern/science/accelerators/hilumi-lhc",
+      "verified_at": "2026-09-16"
+    }
+  },
+  "name": "High-Luminosity LHC",
+  "notes": [
+    "Upgrade of accelerator:lhc. The accelerator entity has no lineage field in the v0.2 contract (lineage is an experiment field), so the relation is recorded here as a note.",
+    "CONFLICT: home.cern/science/accelerators/hilumi-lhc says the HiLumi LHC 'should be operational in mid-2030' and src:cern-ls3-farewell-2026 says it is 'scheduled to begin operation in 2030', while ATLAS's own upgrade feature says Run 4 is 'currently planned for 2029'. 2030 is recorded here (two CERN accelerator-side sources); the 2029 date is recorded on experiment:atlas, which is what that ATLAS page describes."
+  ],
+  "particles": [
+    "proton",
+    "lead ion"
+  ],
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:cern-meyrin",
+  "sources": [
+    "src:cern-hilumi-lhc-page",
+    "src:cern-ls3-farewell-2026",
+    "src:cern-long-shutdown-3-page"
+  ],
+  "specs": {
+    "circumference": {
+      "approx": false,
+      "confidence": "derived",
+      "dimension": "length",
+      "display": "26 659 m",
+      "note": "HL-LHC reuses the LHC ring; ~1.2 km of it is replaced.",
+      "quote": "Circumference 26 659 m",
+      "sources": [
+        "src:cern-lhc-page"
+      ],
+      "unit": "m",
+      "value": 26659,
+      "verified_at": "2026-09-16"
+    }
+  },
+  "status": "construction",
+  "summary": {
+    "plain": "A major upgrade of the Large Hadron Collider now being installed. By replacing about 1.2 kilometres of the ring with new magnets and equipment it will squeeze the beams harder so that many more collisions happen each second, giving the experiments roughly ten times more data.",
+    "technical": "Luminosity upgrade of accelerator:lhc: new Nb3Sn inner triplets, crab cavities, superconducting links and collimation over ~1.2 km, targeting a factor-10 increase in integrated luminosity over the LHC design value; installed during LS3 and scheduled to begin operation in 2030."
+  },
+  "type": "accelerator"
+}

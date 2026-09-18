@@ -1,0 +1,174 @@
+{
+  "aliases": [
+    "UA2"
+  ],
+  "coverage": {
+    "researched": "full",
+    "tier": "A"
+  },
+  "distinct_from": [],
+  "document_ids": [],
+  "experiment_ids": [
+    "experiment:ua2"
+  ],
+  "id": "detector:ua2",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "1981-11",
+      "label": "construction",
+      "locator": "INSPIRE experiment record 1109640, fields date_approved and date_started (construction interval bounded by these, not independently sourced)",
+      "note": "Bounded by the experiment's approval and first-collision dates; no separate detector-construction date sourced.",
+      "sources": [
+        "src:ua2-inspire-experiment-record"
+      ],
+      "start": "1978-12-14",
+      "status": "construction",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": "1990-12-21",
+      "label": "operation",
+      "locator": "INSPIRE experiment record 1109640",
+      "note": "Mirrors the experiment's SppS data-taking interval.",
+      "sources": [
+        "src:ua2-inspire-experiment-record"
+      ],
+      "start": "1981-11",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": "1987",
+      "label": "scintillating-fibre tracker upgrade",
+      "locator": "University of Cambridge HEP, UA2 page",
+      "note": "",
+      "quote": "We collaborated in the design, installation and operation of a new scintillating fibre detector (SFD) that improved the UA2 tracking and electron identification performance.",
+      "sources": [
+        "src:ua2-cern-archives-guide",
+        "src:ua2-cambridge-group-page"
+      ],
+      "start": "1985",
+      "status": "upgrade",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "completed",
+      "locator": "INSPIRE experiment record 1109640, field date_completed",
+      "note": "",
+      "quote": "\"date_completed\":\"1990-12-21\"",
+      "sources": [
+        "src:ua2-inspire-experiment-record"
+      ],
+      "start": "1990-12-21",
+      "status": "completed",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "links": {},
+  "name": "UA2 detector",
+  "notes": [
+    "Detector site placement carries the same LSS4-vs-LSS5 caveat as site:cern-sps-lss4-ua2 (see that record's notes): the specific SPS hall was not independently verified by a fetched source this session.",
+    "technology_class 'spectrometer' is used rather than 'general_purpose_collider' because UA2 explicitly had no muon detector and relied on calorimetry rather than a magnetic central tracker for its core physics case (home.cern: 'There was no muon detector')."
+  ],
+  "parent_detector_id": null,
+  "placements": [],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:ua2-cern-experiment-page",
+    "src:ua2-inspire-experiment-record"
+  ],
+  "specs": {
+    "calorimeters": {
+      "confidence": "verified",
+      "locator": "INSPIRE experiment record 1109640, field description",
+      "note": "",
+      "quote": "The apparatus has complete calorimetry, both electromagnetic and hadronic, down to about 5 degrees to the beams.",
+      "sources": [
+        "src:ua2-inspire-experiment-record"
+      ],
+      "value": "Complete electromagnetic and hadronic calorimetry down to about 5 degrees from the beam",
+      "verified_at": "2026-09-17"
+    },
+    "muon_system": {
+      "confidence": "verified",
+      "locator": "home.cern UA2 page",
+      "note": "",
+      "quote": "There was no muon detector.",
+      "sources": [
+        "src:ua2-cern-experiment-page"
+      ],
+      "value": "None: UA2 had no muon detector",
+      "verified_at": "2026-09-17"
+    },
+    "tracker": {
+      "confidence": "verified",
+      "locator": "INSPIRE experiment record 1109640, field description",
+      "note": "",
+      "quote": "A total of 6096 independent silicon counters give a precise dE/dx measurement.",
+      "sources": [
+        "src:ua2-inspire-experiment-record",
+        "src:ua2-cambridge-group-page"
+      ],
+      "value": "6,096 independent silicon dE/dx counters; scintillating-fibre tracker (SFD) added in the 1985-1987 upgrade, followed by a silicon pad detector",
+      "verified_at": "2026-09-17"
+    }
+  },
+  "status": "completed",
+  "subsystems": [
+    {
+      "description": {
+        "confidence": "verified",
+        "locator": "INSPIRE experiment record 1109640, field description",
+        "note": "",
+        "quote": "The apparatus has complete calorimetry, both electromagnetic and hadronic, down to about 5 degrees to the beams.",
+        "sources": [
+          "src:ua2-inspire-experiment-record"
+        ],
+        "value": "Complete calorimetric coverage down to about 5 degrees from the beam line, used for electron and jet identification and energy measurement.",
+        "verified_at": "2026-09-17"
+      },
+      "name": "Electromagnetic and hadronic calorimetry"
+    },
+    {
+      "description": {
+        "confidence": "verified",
+        "locator": "University of Cambridge HEP, UA2 page",
+        "note": "",
+        "quote": "a new scintillating fibre detector (SFD) that improved the UA2 tracking and electron identification performance.",
+        "sources": [
+          "src:ua2-cambridge-group-page"
+        ],
+        "value": "A scintillating-fibre tracker added in the 1985-1987 upgrade to improve tracking and electron identification.",
+        "verified_at": "2026-09-17"
+      },
+      "name": "Scintillating fibre detector (SFD)"
+    }
+  ],
+  "summary": {
+    "plain": "A detector built almost entirely from calorimeters, layered like an onion around the beam pipe, that measured energy rather than bending particle tracks in a magnet.",
+    "technical": "Non-magnetic, highly segmented calorimetric spectrometer: complete electromagnetic and hadronic calorimetry down to about 5 degrees from the beam, 6,096 independent silicon dE/dx counters, no muon detector; upgraded in 1985-1987 with a scintillating-fibre tracker (and later a silicon pad detector) to improve tracking and electron identification."
+  },
+  "superseded_by": null,
+  "technology": {
+    "confidence": "verified",
+    "locator": "home.cern UA2 page",
+    "note": "",
+    "quote": "UA2 had electromagnetic and hadronic calorimeters to detect electrons and hadrons. ... There was no muon detector.",
+    "sources": [
+      "src:ua2-cern-experiment-page",
+      "src:ua2-inspire-experiment-record"
+    ],
+    "value": "Non-magnetic, highly segmented electromagnetic and hadronic calorimeter with a scintillating-fibre tracker added in 1985-1987",
+    "verified_at": "2026-09-17"
+  },
+  "technology_class": "spectrometer",
+  "technology_classes": [
+    "spectrometer"
+  ],
+  "type": "detector"
+}

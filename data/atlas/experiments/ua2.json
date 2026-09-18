@@ -1,0 +1,232 @@
+{
+  "accelerator_ids": [
+    "accelerator:sps"
+  ],
+  "aliases": [
+    "Underground Area 2",
+    "UA2 experiment"
+  ],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:ua2"
+  ],
+  "coverage": {
+    "researched": "full",
+    "tier": "A"
+  },
+  "distinct_from": [],
+  "energy_regime": {
+    "confidence": "verified",
+    "locator": "INSPIRE experiment record 1109640, long_name; 1983 discovery papers quote 540 GeV",
+    "note": "",
+    "quote": "Study of pp-bar Interactions at 630-GeV c.m. Energy",
+    "sources": [
+      "src:ua2-inspire-experiment-record",
+      "src:ua1-inspire-w-z-discovery-papers"
+    ],
+    "value": "Proton-antiproton collisions at 540-630 GeV centre-of-mass energy",
+    "verified_at": "2026-09-17"
+  },
+  "external": {
+    "greybook": null,
+    "inspire_experiment": 1109640,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "facility_id": "facility:cern",
+      "note": "",
+      "quote": "Underground Area 2 (UA2) was a particle detector on the Super Proton Synchrotron (SPS).",
+      "role": "host",
+      "sources": [
+        "src:ua2-cern-experiment-page"
+      ],
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "id": "experiment:ua2",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "1978-12-14",
+      "label": "proposal",
+      "locator": "INSPIRE experiment record 1109640, field date_proposed",
+      "note": "",
+      "quote": "\"date_proposed\":\"1978-01-31\"",
+      "sources": [
+        "src:ua2-inspire-experiment-record"
+      ],
+      "start": "1978-01-31",
+      "status": "proposed",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": "1981-11",
+      "label": "approval",
+      "locator": "INSPIRE experiment record 1109640, field date_approved",
+      "note": "",
+      "quote": "The UA2 experiment was approved in December 1978.",
+      "sources": [
+        "src:ua2-inspire-experiment-record",
+        "src:ua2-cern-experiment-page"
+      ],
+      "start": "1978-12-14",
+      "status": "approved",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "approximate",
+      "end": "1981-11",
+      "label": "construction",
+      "locator": "INSPIRE experiment record 1109640, fields date_approved and date_started (construction interval bounded by these, not independently sourced)",
+      "note": "No explicit 'construction began' sentence was found; bounded by the sourced approval date and the sourced start of data-taking.",
+      "sources": [
+        "src:ua2-inspire-experiment-record"
+      ],
+      "start": "1978-12-14",
+      "status": "construction",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": "1990-12-21",
+      "label": "SppS data taking",
+      "locator": "University of Cambridge HEP, UA2 page",
+      "note": "INSPIRE's date_started (1981-11) is used as the sourced start; home.cern's narrative gives 'first collisions in December 1981' and the Cambridge group page dates the SppS switch-on to 1981 generally.",
+      "quote": "Soon after the new SppS proton-antiproton collider at CERN was switched on in 1981 the UA2 experiment co-discovered the W and Z bosons with the UA1 experiment.",
+      "sources": [
+        "src:ua2-inspire-experiment-record",
+        "src:ua2-cambridge-group-page"
+      ],
+      "start": "1981-11",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": "1987",
+      "label": "detector upgrade (scintillating-fibre tracker)",
+      "locator": "CERN archives guide, isaua2",
+      "note": "",
+      "quote": "Between 1985 and 1987, the UA2 detector was upgraded",
+      "sources": [
+        "src:ua2-cern-archives-guide",
+        "src:ua2-cambridge-group-page"
+      ],
+      "start": "1985",
+      "status": "upgrade",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "completed",
+      "locator": "INSPIRE experiment record 1109640, field date_completed",
+      "note": "",
+      "quote": "\"date_completed\":\"1990-12-21\"",
+      "sources": [
+        "src:ua2-inspire-experiment-record"
+      ],
+      "start": "1990-12-21",
+      "status": "completed",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Silicon dE/dx counters",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "count",
+        "display": "6,096 independent silicon counters",
+        "locator": "INSPIRE experiment record 1109640, field description",
+        "note": "",
+        "quote": "A total of 6096 independent silicon counters give a precise dE/dx measurement.",
+        "sources": [
+          "src:ua2-inspire-experiment-record"
+        ],
+        "unit": "",
+        "value": 6096,
+        "verified_at": "2026-09-17"
+      }
+    }
+  ],
+  "kind": "collider",
+  "lineage": [],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "note": "",
+      "sources": [
+        "src:ua2-cern-experiment-page"
+      ],
+      "value": "https://home.cern/science/experiments/ua2",
+      "verified_at": "2026-09-17"
+    }
+  },
+  "name": "UA2",
+  "notes": [
+    "The task brief for this workstream suggested a 1987-1988 upgrade window; the only dated upgrade sourced in this session is the CERN archives guide's 'Between 1985 and 1987, the UA2 detector was upgraded' (src:ua2-cern-archives-guide). That sourced range (1985-1987) is used instead of inventing 1987-1988.",
+    "home.cern's narrative ('UA2, which saw its first collisions in December 1981') and INSPIRE's date_started (1981-11) differ by about a month; INSPIRE (rank 3, day/month-precision field) is used as the sourced start, with the home.cern quote recorded here for completeness."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "INSPIRE experiment record 1109640, field description",
+      "note": "",
+      "quote": "The main aims are a study of the W and Z bosons and a search for the top quark.",
+      "sources": [
+        "src:ua2-inspire-experiment-record"
+      ],
+      "value": "Study the W and Z bosons and search for the top quark using complete electromagnetic and hadronic calorimetry",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "locator": "INSPIRE experiment record 1109640, field description",
+      "note": "",
+      "quote": "Other topics include the production of direct photons at high p(t), establishing new bounds on leptoquark masses, and a search for the charged Higgs from the top decay.",
+      "sources": [
+        "src:ua2-inspire-experiment-record"
+      ],
+      "value": "Measure direct-photon production at high transverse momentum, set bounds on leptoquark masses, and search for a charged Higgs boson from top-quark decay",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:ua2-cern-experiment-page",
+    "src:ua2-cern-archives-guide",
+    "src:ua2-inspire-experiment-record"
+  ],
+  "status": "completed",
+  "summary": {
+    "plain": "A particle detector built around CERN's Super Proton Synchrotron in the early 1980s, alongside UA1, when the machine was turned into a proton-antiproton collider. UA2 co-discovered the W and Z bosons using precise calorimeters rather than a magnetic spectrometer.",
+    "technical": "Collider detector at the CERN SppS, operated 1981-1990, built around complete electromagnetic and hadronic calorimetry down to about 5 degrees to the beam, without a muon system; upgraded in 1985-1987 with a scintillating-fibre tracker and later a silicon detector. Co-discovered the W (Jan 1983) and Z (1983) bosons with UA1 and searched for the top quark."
+  },
+  "superseded_by": null,
+  "topic_ids": [
+    "topic:collider-physics",
+    "topic:electroweak-physics",
+    "topic:qcd"
+  ],
+  "type": "experiment",
+  "unique_capabilities": [
+    {
+      "confidence": "verified",
+      "locator": "INSPIRE experiment record 1109640, field description",
+      "note": "",
+      "quote": "The apparatus has complete calorimetry, both electromagnetic and hadronic, down to about 5 degrees to the beams. Electron identification is achieved by means of calorimetry, preshower, and transition radiation detectors.",
+      "sources": [
+        "src:ua2-inspire-experiment-record",
+        "src:ua2-cern-experiment-page"
+      ],
+      "value": "Complete electromagnetic and hadronic calorimetry down to about 5 degrees from the beam, with no muon detector, relying on calorimetry, preshower counters and transition-radiation detectors for electron identification",
+      "verified_at": "2026-09-17"
+    }
+  ]
+}

@@ -1,0 +1,184 @@
+{
+  "accelerator_ids": [
+    "accelerator:kek-ps"
+  ],
+  "aliases": [
+    "KEK to Kamioka long-baseline neutrino oscillation experiment"
+  ],
+  "beamline_ids": [
+    "beamline:kek-neutrino"
+  ],
+  "collaboration_ids": [
+    "collaboration:k2k"
+  ],
+  "coverage": {
+    "researched": "full",
+    "tier": "B"
+  },
+  "external": {
+    "greybook": null,
+    "inspire_experiment": 1110272,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "facility_id": "facility:kek",
+      "locator": "Phys. Rev. D 74, 072003 (2006)",
+      "note": "",
+      "quote": "a 12 GeV proton synchrotron (KEK-PS)",
+      "role": "beam_source",
+      "sources": [
+        "src:k2k-prd-2006"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "facility_id": "facility:kek",
+      "note": "",
+      "quote": "",
+      "role": "host",
+      "sources": [
+        "src:k2k-faq-page"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "facility_id": "facility:kamioka-observatory",
+      "locator": "neutrino.kek.jp/k2k/ofl/tutorial/",
+      "note": "K2K used the existing Super-Kamiokande detector, owned by the separate Super-Kamiokande experiment/collaboration, as its far detector.",
+      "quote": "the neutrino beam enters the earth and emerges at Super-Kamiokande, 250 km away.",
+      "role": "detector_host",
+      "sources": [
+        "src:k2k-tutorial-page"
+      ],
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "id": "experiment:k2k",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "1999-01",
+      "kind": "lifecycle",
+      "label": "beam line and detector preparation",
+      "locator": "arXiv:hep-ex/9803014, abstract",
+      "note": "No construction-start date was found; the March-1998 conference paper describes the experiment as 'in preparation'.",
+      "quote": "A long-baseline neutrino-oscillation experiment using a well-defined neutrino beam is in preparation at KEK.",
+      "sources": [
+        "src:k2k-oyama-1998"
+      ],
+      "start": null,
+      "status": "construction",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "uncertain",
+      "end": "1999-06",
+      "kind": "lifecycle",
+      "label": "beam commissioning",
+      "locator": "neutrino.kek.jp/k2k_faq.html",
+      "note": "The KEK tutorial page (written before the event) says commissioning 'is scheduled' for January 1999; physics data taking began in June 1999 per the measurement paper. No source confirms the actual commissioning month.",
+      "quote": "The commissioning of the neutrino beam is scheduled in January, 1999.",
+      "sources": [
+        "src:k2k-tutorial-page",
+        "src:k2k-prd-2006"
+      ],
+      "start": "1999-01",
+      "status": "commissioning",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": "2004-11",
+      "kind": "lifecycle",
+      "label": "physics data taking",
+      "locator": "Phys. Rev. D 74, 072003 (2006)",
+      "note": "",
+      "quote": "June 1999 to November 2004",
+      "sources": [
+        "src:k2k-prd-2006"
+      ],
+      "start": "1999-06",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": "2004-11",
+      "kind": "lifecycle",
+      "label": "data taking ended",
+      "locator": "Phys. Rev. D 74, 072003 (2006)",
+      "note": "K2K data taking ended in November 2004; the KEK-PS itself continued operating other experiments until December 2005.",
+      "quote": "June 1999 to November 2004",
+      "sources": [
+        "src:k2k-prd-2006"
+      ],
+      "start": "2004-11",
+      "status": "completed",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "kind": "accelerator_neutrino",
+  "lineage": [],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "locator": "page URL",
+      "note": "",
+      "sources": [
+        "src:k2k-faq-page"
+      ],
+      "value": "https://neutrino.kek.jp/k2k_faq.html",
+      "verified_at": "2026-09-17"
+    }
+  },
+  "name": "K2K (KEK to Kamioka)",
+  "notes": [
+    "T2K's own lineage record (experiment:t2k) lists K2K as its predecessor; per this workstream's instructions lineage is authored once, on the later entity.",
+    "Derived fields (detector_ids, site_ids, result_ids, document_ids) are deliberately not written (v0.2 A1).",
+    "No near-detector records are created for K2K in this workstream: the task brief requested only experiment:k2k and collaboration:k2k."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "neutrino.kek.jp/k2k_faq.html",
+      "note": "",
+      "quote": "the KEK neutrino beam is directed through the earth to Super-Kamiokande, providing a controlled “laboratory” source of neutrinos, allowing us to check Super-K results obtained from atmospheric neutrinos",
+      "sources": [
+        "src:k2k-faq-page"
+      ],
+      "value": "Use a well-understood, controlled accelerator neutrino beam to check the atmospheric-neutrino oscillation interpretation from Super-Kamiokande",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "locator": "neutrino.kek.jp/k2k/ofl/tutorial/",
+      "note": "",
+      "quote": "explore the neutrino mass difference-squared Dm2~10-2 eV^2 region",
+      "sources": [
+        "src:k2k-tutorial-page"
+      ],
+      "value": "Measure muon-neutrino disappearance to probe the neutrino mass-squared difference around Delta m^2 ~ 1e-2 eV^2",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:k2k-faq-page",
+    "src:k2k-tutorial-page",
+    "src:k2k-inspire-experiment"
+  ],
+  "status": "completed",
+  "summary": {
+    "plain": "The world's first long-baseline neutrino experiment: a beam of neutrinos made at KEK's proton accelerator was sent 250 km through the Earth to the Super-Kamiokande detector, to check whether the atmospheric neutrino puzzle Super-K had already seen was really neutrino oscillation.",
+    "technical": "Accelerator neutrino oscillation experiment: 12 GeV protons from KEK-PS on an aluminium target, decay-pipe muon-neutrino beam (mean energy ~1.5 GeV) monitored by a near detector complex at KEK, observed 250 km away at Super-Kamiokande. Ran June 1999 - November 2004; reported muon-neutrino disappearance consistent with oscillation at 4.3 sigma (Phys. Rev. D 74, 072003, 2006). Direct predecessor of T2K."
+  },
+  "topic_ids": [
+    "topic:neutrino-oscillations",
+    "topic:neutrino-interactions"
+  ],
+  "type": "experiment"
+}

@@ -1,0 +1,206 @@
+{
+  "accelerator_ids": [
+    "accelerator:lep"
+  ],
+  "aliases": [
+    "L3 experiment",
+    "LEP experiment 3"
+  ],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:l3"
+  ],
+  "coverage": {
+    "researched": "full",
+    "tier": "A"
+  },
+  "distinct_from": [],
+  "energy_regime": {
+    "confidence": "verified",
+    "locator": "home.cern, The LEP story",
+    "note": "",
+    "quote": "the first beam circulated on 14 July 1989. Collisions came one month later on 13 August",
+    "sources": [
+      "src:lep-cern-the-lep-story"
+    ],
+    "value": "Electron-positron collisions at and above the Z resonance (about 91 GeV, rising to 209 GeV by 2000)",
+    "verified_at": "2026-09-17"
+  },
+  "external": {
+    "greybook": null,
+    "inspire_experiment": 1109313,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "facility_id": "facility:cern",
+      "note": "",
+      "quote": "It started up in 1989 and stopped taking data in November 2000",
+      "role": "host",
+      "sources": [
+        "src:l3-cern-experiment-page"
+      ],
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "id": "experiment:l3",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "1982-11-18",
+      "label": "proposal",
+      "locator": "INSPIRE experiments search 'LEP'",
+      "note": "INSPIRE's date_proposed is recorded at year precision '1982' for DELPHI, L3 and OPAL, and as '1982-01-01' for ALEPH; the day-of-January value for ALEPH looks like a default rather than a sourced day, so all four are treated here as year-precision 1982. (L3 experiment record 1109313 gives date_proposed '1982')",
+      "quote": "CERN-LEP-ALEPH / CERN-LEP-DELPHI / CERN-LEP-L3 / CERN-LEP-OPAL: approved 1982-11-18, started 1989-08",
+      "sources": [
+        "src:lep-inspire-experiment-search"
+      ],
+      "start": "1982",
+      "status": "proposed",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": "1989-08",
+      "label": "approval (CERN LEPC)",
+      "locator": "INSPIRE experiment record, field date_approved",
+      "note": "",
+      "quote": "\"date_approved\":\"1982-11-18\"",
+      "sources": [
+        "src:l3-inspire-experiment-record"
+      ],
+      "start": "1982-11-18",
+      "status": "approved",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "approximate",
+      "end": "1989-08",
+      "label": "construction",
+      "locator": "INSPIRE experiment record 1109313, fields date_approved and date_started (construction interval bounded by these, not independently sourced)",
+      "note": "No experiment-specific 'construction began' sentence was fetched; bounded by the sourced CERN LEPC approval date and the sourced start of data-taking. The LEP tunnel itself was excavated 1985-1988 (accelerator:lep intervals).",
+      "sources": [
+        "src:l3-inspire-experiment-record"
+      ],
+      "start": "1982-11-18",
+      "status": "construction",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": "2000-11",
+      "label": "LEP data taking",
+      "locator": "home.cern L3 page",
+      "note": "",
+      "quote": "It started up in 1989 and stopped taking data in November 2000",
+      "sources": [
+        "src:l3-cern-experiment-page",
+        "src:l3-inspire-experiment-record"
+      ],
+      "start": "1989-08",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "completed",
+      "locator": "home.cern L3 page; INSPIRE experiment record 1109313, field date_completed",
+      "note": "",
+      "quote": "Data taking ended November 2000.",
+      "sources": [
+        "src:l3-cern-experiment-page",
+        "src:l3-inspire-experiment-record"
+      ],
+      "start": "2000-11",
+      "status": "completed",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Participating institutes",
+      "quantity": {
+        "approx": false,
+        "confidence": "approximate",
+        "dimension": "count",
+        "display": "~54 institutes across 22 countries (1999 list)",
+        "locator": "L3 Collaboration Institutes page",
+        "max": 58,
+        "min": 50,
+        "note": "Counted from the collaboration's own institute list (last updated 1999-04-01), which states no single summary total; count is approximate.",
+        "sources": [
+          "src:l3-collaboration-institutes-page"
+        ],
+        "unit": "",
+        "verified_at": "2026-09-17"
+      }
+    }
+  ],
+  "kind": "collider",
+  "lineage": [],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "note": "",
+      "sources": [
+        "src:l3-cern-experiment-page"
+      ],
+      "value": "https://home.cern/science/experiments/l3",
+      "verified_at": "2026-09-17"
+    }
+  },
+  "name": "L3",
+  "notes": [
+    "INSPIRE's own long_name for this record is simply 'L3 Experiment' (src:l3-inspire-experiment-record); no fetched source gives an expansion of 'L3' as an acronym, consistent with it denoting 'the third LEP experiment' proposal rather than an acronym.",
+    "The L3+C cosmic-ray extension (recognised as a CERN experiment from April 1998, using L3's magnet and muon chambers) is mentioned by CERN Courier but is out of scope here as a separate, un-owned experiment id."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "'The Construction of the L3 Experiment', Nucl.Instrum.Meth.A 289 (1990) 35, abstract",
+      "note": "",
+      "quote": "It is the only detector that concentrates its efforts on limited goals of measuring electrons, muons and photons. By not attempting to identify hadrons, L3 has been able to provide an order of magnitude better resolution for electrons, muons and photons.",
+      "sources": [
+        "src:lep-inspire-detector-papers"
+      ],
+      "value": "Measure electrons, muons and photons with an order-of-magnitude better resolution than general-purpose detectors, by not attempting hadron identification",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:cern-lep-page",
+    "src:l3-cern-experiment-page",
+    "src:l3-collaboration-institutes-page",
+    "src:l3-inspire-experiment-record"
+  ],
+  "status": "completed",
+  "summary": {
+    "plain": "One of four giant detectors on CERN's LEP electron-positron collider from 1989 to 2000, built to measure electrons, muons and photons with exceptional precision using bismuth-germanate crystals and a huge magnet.",
+    "technical": "General-purpose LEP detector at interaction Point 2, optimised (rather than generalised) for electron, muon and photon measurements: a silicon-strip microvertex detector and time-expansion chamber for tracking, a BGO electromagnetic calorimeter, a hadron calorimeter and a muon spectrometer inside a very large solenoid. Approved by the CERN LEPC on 18 November 1982; ran from August 1989 to November 2000. Its magnet was reused as ALICE's solenoid at the same point after LEP shut down."
+  },
+  "superseded_by": null,
+  "topic_ids": [
+    "topic:collider-physics",
+    "topic:electroweak-physics",
+    "topic:higgs-physics",
+    "topic:qcd"
+  ],
+  "type": "experiment",
+  "unique_capabilities": [
+    {
+      "confidence": "verified",
+      "locator": "home.cern L3 page",
+      "note": "",
+      "quote": "electromagnetic calorimeter (called the 'BGO' - it was made of bismuth germanium oxide)",
+      "sources": [
+        "src:l3-cern-experiment-page"
+      ],
+      "value": "A bismuth-germanate (BGO) electromagnetic calorimeter for very high resolution photon and electron measurements",
+      "verified_at": "2026-09-17"
+    }
+  ]
+}

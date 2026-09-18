@@ -1,0 +1,104 @@
+{
+  "aliases": [
+    "ISR"
+  ],
+  "coverage": {
+    "researched": "full",
+    "tier": "A"
+  },
+  "facility_id": "facility:cern",
+  "feeds_accelerator_ids": [],
+  "id": "accelerator:isr",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "1984",
+      "label": "operating",
+      "note": "End from the same page: 'The ISR began operation in 1971 and ran until 1984'; year precision.",
+      "quote": "On 27 January 1971, two beams of protons collided in the Intersecting Storage Rings (ISR) for the first time.",
+      "sources": [
+        "src:cern-isr-page"
+      ],
+      "start": "1971-01-27",
+      "status": "decommissioned",
+      "verified_at": "2026-09-16"
+    }
+  ],
+  "is_collider": true,
+  "kind": "storage_ring",
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "note": "",
+      "sources": [
+        "src:cern-isr-page"
+      ],
+      "value": "https://home.cern/science/accelerators/intersecting-storage-rings",
+      "verified_at": "2026-09-16"
+    }
+  },
+  "name": "Intersecting Storage Rings",
+  "notes": [
+    "Per-ring beam energy (≈31 GeV) is recorded as a derived half of the sourced 62 GeV centre-of-mass energy; home.cern quotes only the collision energy."
+  ],
+  "particles": [
+    "proton",
+    "antiproton",
+    "deuteron",
+    "alpha particle"
+  ],
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:cern-meyrin",
+  "sources": [
+    "src:cern-isr-page"
+  ],
+  "specs": {
+    "beam_energy": {
+      "approx": true,
+      "confidence": "derived",
+      "dimension": "energy",
+      "display": "≈31 GeV per ring",
+      "note": "Half of the sourced 62 GeV maximum centre-of-mass energy; home.cern does not state the per-ring energy.",
+      "sources": [
+        "src:cern-isr-page"
+      ],
+      "unit": "GeV",
+      "value": 31,
+      "verified_at": "2026-09-16"
+    },
+    "cms_energy": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "energy",
+      "display": "62 GeV",
+      "note": "",
+      "quote": "Protons circulated in opposite directions and collided with a maximum centre-of-mass energy of 62 GeV.",
+      "sources": [
+        "src:cern-isr-page"
+      ],
+      "unit": "GeV",
+      "value": 62,
+      "verified_at": "2026-09-16"
+    },
+    "diameter": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "300 m per ring",
+      "note": "",
+      "quote": "The ISR was composed of two interlaced rings each with a diameter of 300 metres.",
+      "sources": [
+        "src:cern-isr-page"
+      ],
+      "unit": "m",
+      "value": 300,
+      "verified_at": "2026-09-16"
+    }
+  },
+  "status": "decommissioned",
+  "summary": {
+    "plain": "The world's first machine to collide two beams of protons head-on, built at CERN and running from 1971 to 1984. It convinced physicists that colliding hadrons could work, and it held the record for collision rate among hadron colliders until 2004.",
+    "technical": "Two interlaced proton storage rings, each 300 m in diameter, reaching 62 GeV centre-of-mass energy; first hadron collider, operated 1971-1984 and holder of the hadron-collider luminosity record until 2004."
+  },
+  "type": "accelerator"
+}

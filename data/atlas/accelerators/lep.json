@@ -1,0 +1,190 @@
+{
+  "aliases": [
+    "LEP",
+    "LEP1",
+    "LEP2"
+  ],
+  "coverage": {
+    "researched": "full",
+    "tier": "A"
+  },
+  "facility_id": "facility:cern",
+  "feeds_accelerator_ids": [],
+  "id": "accelerator:lep",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "1988",
+      "label": "tunnel construction",
+      "note": "End derived from 'three years later' in the same sentence; year precision.",
+      "quote": "Three tunnel-boring machines started excavating the tunnel in February 1985 and the ring was completed three years later.",
+      "sources": [
+        "src:cern-lep-page"
+      ],
+      "start": "1985-02",
+      "status": "construction",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "approximate",
+      "end": "1995",
+      "kind": "phase",
+      "label": "LEP1",
+      "note": "End = the 1995 upgrade to LEP2 ('In 1995 LEP was upgraded for a second operation phase'); year precision.",
+      "quote": "LEP was commissioned in July 1989 and the first beam circulated in the collider on 14 July.",
+      "sources": [
+        "src:cern-lep-page"
+      ],
+      "specs": {
+        "beam_energy": {
+          "approx": true,
+          "confidence": "derived",
+          "dimension": "energy",
+          "display": "≈45.5 GeV per beam",
+          "note": "Half of the sourced ~91 GeV collision energy.",
+          "sources": [
+            "src:cern-lep-page"
+          ],
+          "unit": "GeV",
+          "value": 45.5,
+          "verified_at": "2026-09-16"
+        },
+        "cms_energy": {
+          "approx": true,
+          "confidence": "verified",
+          "dimension": "energy",
+          "display": "around 91 GeV",
+          "note": "",
+          "quote": "The collider's initial energy was chosen to be around 91 GeV, so that Z bosons could be produced.",
+          "sources": [
+            "src:cern-lep-page"
+          ],
+          "unit": "GeV",
+          "value": 91,
+          "verified_at": "2026-09-16"
+        }
+      },
+      "start": "1989-07-14",
+      "status": "active",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "approximate",
+      "end": "2000-11-02",
+      "kind": "phase",
+      "label": "LEP2",
+      "note": "Start is year-precision; end is the sourced shutdown date.",
+      "quote": "In 1995 LEP was upgraded for a second operation phase",
+      "sources": [
+        "src:cern-lep-page"
+      ],
+      "specs": {
+        "beam_energy": {
+          "approx": true,
+          "confidence": "derived",
+          "dimension": "energy",
+          "display": "≈104.5 GeV per beam",
+          "note": "Half of the sourced 209 GeV collision energy.",
+          "sources": [
+            "src:cern-lep-page"
+          ],
+          "unit": "GeV",
+          "value": 104.5,
+          "verified_at": "2026-09-16"
+        },
+        "cms_energy": {
+          "approx": false,
+          "confidence": "verified",
+          "dimension": "energy",
+          "display": "209 GeV",
+          "note": "",
+          "quote": "The collider's energy eventually topped 209 GeV in 2000.",
+          "sources": [
+            "src:cern-lep-page"
+          ],
+          "unit": "GeV",
+          "value": 209,
+          "verified_at": "2026-09-16"
+        }
+      },
+      "start": "1995",
+      "status": "active",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "verified",
+      "end": "2000-11-02",
+      "label": "closed",
+      "note": "",
+      "quote": "LEP was closed down on 2 November 2000 to make way for the construction of the Large Hadron Collider in the same tunnel.",
+      "sources": [
+        "src:cern-lep-page"
+      ],
+      "start": "2000-11-02",
+      "status": "decommissioned",
+      "verified_at": "2026-09-16"
+    }
+  ],
+  "is_collider": true,
+  "kind": "collider",
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "note": "",
+      "sources": [
+        "src:cern-lep-page"
+      ],
+      "value": "https://home.cern/science/accelerators/large-electron-positron-collider",
+      "verified_at": "2026-09-16"
+    }
+  },
+  "name": "Large Electron-Positron Collider",
+  "notes": [
+    "Per-beam energies (≈45.5 GeV at LEP1, ≈104.5 GeV at LEP2) are recorded as derived halves of the sourced centre-of-mass energies; home.cern quotes only the collision energies."
+  ],
+  "particles": [
+    "electron",
+    "positron"
+  ],
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:cern-meyrin",
+  "sources": [
+    "src:cern-lep-page"
+  ],
+  "specs": {
+    "circumference": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "27 km",
+      "note": "",
+      "quote": "With its 27-kilometre circumference, the Large Electron-Positron (LEP) collider was - and still is - the largest electron-positron accelerator ever built.",
+      "sources": [
+        "src:cern-lep-page"
+      ],
+      "unit": "km",
+      "value": 27,
+      "verified_at": "2026-09-16"
+    },
+    "cms_energy": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "energy",
+      "display": "up to 209 GeV",
+      "note": "Maximum centre-of-mass energy reached, at the end of LEP2.",
+      "quote": "The collider's energy eventually topped 209 GeV in 2000.",
+      "sources": [
+        "src:cern-lep-page"
+      ],
+      "unit": "GeV",
+      "value": 209,
+      "verified_at": "2026-09-16"
+    }
+  },
+  "status": "decommissioned",
+  "summary": {
+    "plain": "The largest electron-positron collider ever built: a 27-kilometre ring under the Swiss-French border that ran from 1989 to 2000 and produced about 17 million Z particles. Its tunnel was then reused for the Large Hadron Collider.",
+    "technical": "27 km e+e- storage-ring collider with four experiments (ALEPH, DELPHI, L3, OPAL). LEP1 ran at the Z pole (~91 GeV cms); after the 1995 upgrade LEP2 reached 209 GeV cms in 2000. Closed 2 November 2000; its tunnel now houses the LHC."
+  },
+  "type": "accelerator"
+}

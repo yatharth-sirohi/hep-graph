@@ -1,0 +1,157 @@
+{
+  "aliases": [
+    "MiniBooNE"
+  ],
+  "coverage": {
+    "researched": "full",
+    "tier": "B"
+  },
+  "experiment_ids": [
+    "experiment:miniboone"
+  ],
+  "id": "detector:miniboone",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2019",
+      "label": "operating",
+      "locator": "Fermilab newsroom, 2002-09-12",
+      "note": "End year is not stated verbatim in any source fetched; the MiniBooNE 2021 PRD reports the final 18.75e20 POT neutrino-mode data set and the experiment is universally described as having run to 2019. Recorded as approximate.",
+      "quote": "Scientists of the Booster Neutrino Experiment collaboration announced this week that a new detector ... has observed its first neutrino events.",
+      "sources": [
+        "src:miniboone-fermilab-news-2002-goes-live",
+        "src:miniboone-prd-2021-updated-excess"
+      ],
+      "start": "2002-09",
+      "status": "active",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "uncertain",
+      "end": "2019",
+      "label": "end of data taking",
+      "note": "No fetched source states the end date verbatim; 2019 is taken from the final MiniBooNE data set reported in Phys. Rev. D 103, 052002 and is flagged for review.",
+      "sources": [
+        "src:miniboone-prd-2021-updated-excess"
+      ],
+      "start": "2019",
+      "status": "completed",
+      "verified_at": "2026-09-16"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "MiniBooNE detector",
+  "notes": [
+    "Placed at site:fermilab-main-campus (owned by the fermilab-dune lead): no separately sourceable site record exists for this detector hall in this wave."
+  ],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": "2019",
+      "locator": "Fermilab newsroom, 2002-09-12",
+      "note": "Placed at site:fermilab-main-campus (owned by the fermilab-dune lead): no separately sourceable site record exists for this detector hall in this wave.",
+      "quote": "Scientists of the Booster Neutrino Experiment collaboration announced this week that a new detector ... has observed its first neutrino events.",
+      "role": "main",
+      "site_id": "site:fermilab-main-campus",
+      "sources": [
+        "src:miniboone-fermilab-news-2002-goes-live",
+        "src:miniboone-prd-2021-updated-excess"
+      ],
+      "start": "2002-09",
+      "verified_at": "2026-09-16"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:miniboone-detector-paper-2009",
+    "src:miniboone-fermilab-news-2002-goes-live"
+  ],
+  "specs": {
+    "baseline": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "541 m",
+      "locator": "MiniBooNE detector paper §1.4",
+      "note": "",
+      "quote": "The total distance from the upstream face of the target to the center of the detector is 541 m",
+      "sources": [
+        "src:miniboone-detector-paper-2009"
+      ],
+      "unit": "m",
+      "value": 541,
+      "verified_at": "2026-09-16"
+    },
+    "pmt_count": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "count",
+      "display": "1520 PMTs",
+      "locator": "MiniBooNE detector paper §1.3",
+      "note": "The 2002 Fermilab announcement also states \"1,520 light-sensitive devices, called photomultiplier tubes\".",
+      "quote": "1520 after rejection of the poorest tubes",
+      "sources": [
+        "src:miniboone-detector-paper-2009",
+        "src:miniboone-fermilab-news-2002-goes-live"
+      ],
+      "unit": "",
+      "value": 1520,
+      "verified_at": "2026-09-16"
+    },
+    "tank_diameter": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "12.2 m (40 ft)",
+      "locator": "MiniBooNE detector paper §1.3",
+      "note": "",
+      "quote": "spherical tank of diameter 12.2 m (40 ft)",
+      "sources": [
+        "src:miniboone-detector-paper-2009"
+      ],
+      "unit": "m",
+      "value": 12.2,
+      "verified_at": "2026-09-16"
+    },
+    "target_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "818 t of mineral oil",
+      "locator": "MiniBooNE detector paper §1.3",
+      "note": "",
+      "quote": "818 tons of mineral oil",
+      "sources": [
+        "src:miniboone-detector-paper-2009"
+      ],
+      "unit": "t",
+      "value": 818,
+      "verified_at": "2026-09-16"
+    }
+  },
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "A 12-metre sphere holding 818 tonnes of clear mineral oil, watched by 1,520 light sensors, 541 metres from where Fermilab makes its Booster neutrino beam. Flashes of light reveal the particles a neutrino leaves behind.",
+    "technical": "Spherical 12.2 m diameter mineral-oil Cherenkov/scintillation detector with 1520 usable 8-inch photomultipliers, 818 t of mineral oil, centred 541 m from the upstream face of the Booster Neutrino Beam target."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "MiniBooNE detector paper §1.3",
+    "note": "",
+    "quote": "spherical tank of diameter 12.2 m (40 ft)",
+    "sources": [
+      "src:miniboone-detector-paper-2009"
+    ],
+    "value": "spherical mineral-oil Cherenkov and scintillation detector viewed by photomultiplier tubes",
+    "verified_at": "2026-09-16"
+  },
+  "technology_class": "other",
+  "technology_classes": [
+    "other"
+  ],
+  "type": "detector"
+}

@@ -27,9 +27,7 @@ from urllib.parse import urlencode
 from urllib.request import Request, urlopen
 
 ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_SNAPSHOT = ROOT / "data" / "current.json"
 DEFAULT_DATABASE = ROOT / "data" / "hepgraph.sqlite"
-DEFAULT_PROVENANCE = ROOT / "tests" / "fixtures" / "saved-provenance.json.gz"
 DEFAULT_OUTPUT = ROOT / "test-results" / "benchmarks.json"
 RANDOM_SEED = 1729
 
@@ -178,10 +176,12 @@ def centralities(snapshot: dict) -> dict:
     return result
 
 
-def evidence_database(database: Path, provenance: Path) -> tuple[sqlite3.Connection, str]:
-    """Open local build state when present, otherwise hydrate the public fixture."""
+def evidence_database(database: Path, provenance: Path | None) -> tuple[sqlite3.Connection, str]:
+    """Open explicitly supplied build state or source evidence."""
     if database.exists():
         return sqlite3.connect(database), "local_build_database"
+    if provenance is None:
+        raise ValueError("pass --database or --provenance for raw evidence checks")
     fixture = json.loads(gzip.decompress(provenance.read_bytes()))
     connection = sqlite3.connect(":memory:")
     for table, data in fixture["tables"].items():
@@ -192,7 +192,7 @@ def evidence_database(database: Path, provenance: Path) -> tuple[sqlite3.Connect
     return connection, "frozen_public_fixture"
 
 
-def raw_edge_checks(database: Path, provenance: Path, graph: Graph, pair: tuple[str, str]) -> dict:
+def raw_edge_checks(database: Path, provenance: Path | None, graph: Graph, pair: tuple[str, str]) -> dict:
     result = graph.find_paths(*pair)
     checked_edges = []
     connection, evidence_source = evidence_database(database, provenance)
@@ -244,7 +244,9 @@ def raw_edge_checks(database: Path, provenance: Path, graph: Graph, pair: tuple[
             "profile_phd_edges_explicit": all(item["explicit_phd_degree"] for edge in checked_edges for item in edge["phd"]) if any(edge["phd"] for edge in checked_edges) else None}
 
 
-def real_data_checks(snapshot: dict, database: Path, provenance: Path) -> dict:
+def real_data_checks(snapshot: dict, database: Path, provenance: Path | None) -> dict:
+    if not database.exists() and provenance is None:
+        return {"status": "skipped", "reason": "pass --database or --provenance for raw evidence checks"}
     graph, build = build_graph(snapshot, Filters())
     pairs = [("1621061", "1019647", "Hostert to Pascoli"), ("1010044", "983692", "Feynman to Wheeler"),
              ("983328", "1007454", "Witten to Gross"), ("1621061", "1013775", "Hostert to Cheung/Kingman")]
@@ -277,9 +279,11 @@ def http_workload(base_url: str) -> dict:
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--snapshot", type=Path, default=DEFAULT_SNAPSHOT)
+    parser.add_argument("--snapshot", type=Path, required=True,
+                        help="explicit local graph export to benchmark; no example dataset is bundled")
     parser.add_argument("--database", type=Path, default=DEFAULT_DATABASE)
-    parser.add_argument("--provenance", type=Path, default=DEFAULT_PROVENANCE)
+    parser.add_argument("--provenance", type=Path,
+                        help="optional source evidence export for independent checks")
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
     parser.add_argument("--url", help="optional already-running local HTTP service URL")
     args = parser.parse_args(argv)

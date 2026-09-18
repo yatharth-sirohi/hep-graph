@@ -1,0 +1,139 @@
+{
+  "aliases": [
+    "DUNE ND",
+    "ND complex"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "experiment_ids": [
+    "experiment:dune"
+  ],
+  "id": "detector:dune-near-detector",
+  "intervals": [
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "conceptual design",
+      "locator": "abstract",
+      "note": "Publication of the Near Detector Conceptual Design Report. No construction start date for the near detector could be sourced from any page fetched in this session.",
+      "quote": "This report describes the conceptual design of the DUNE near detector",
+      "sources": [
+        "src:dune-nd-cdr"
+      ],
+      "start": "2021-03",
+      "status": "proposed",
+      "verified_at": "2026-09-16"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "DUNE Near Detector",
+  "notes": [
+    "Status \"proposed\" reflects the evidence available: the ND CDR (2021) is the latest near-detector design document that could be fetched, and no construction milestone was sourced."
+  ],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "locator": "Vol. I, §1.1.2",
+      "note": "Located on the Fermilab site just downstream of the neutrino source. A dedicated near-detector hall site id (site:fermilab-dune-near-detector-hall) is reserved in the registry but no coordinates for it could be sourced, so the campus site is used.",
+      "quote": "a composite ND installed just downstream of the neutrino source",
+      "role": "near",
+      "site_id": "site:fermilab-main-campus",
+      "sources": [
+        "src:dune-fd-tdr-vol-1"
+      ],
+      "start": null,
+      "verified_at": "2026-09-16"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:dune-nd-cdr",
+    "src:dune-fd-tdr-vol-1"
+  ],
+  "specs": {
+    "target_medium": {
+      "confidence": "verified",
+      "locator": "ND CDR, chapter 2 heading",
+      "note": "",
+      "quote": "2 Liquid Argon TPC - ND-LAr",
+      "sources": [
+        "src:dune-nd-cdr"
+      ],
+      "value": "liquid argon (ND-LAr), plus the SAND inner tracker targets",
+      "verified_at": "2026-09-16"
+    }
+  },
+  "status": "proposed",
+  "subsystems": [
+    {
+      "description": {
+        "confidence": "verified",
+        "locator": "ND CDR, chapter 2",
+        "note": "",
+        "quote": "2 Liquid Argon TPC - ND-LAr 2.1 Introduction 2.2 Requirements 2.3 Overview of ND-LAr ArgonCube structure",
+        "sources": [
+          "src:dune-nd-cdr"
+        ],
+        "value": "Modular liquid argon TPC based on the ArgonCube design, the primary target and tracker of the near detector",
+        "verified_at": "2026-09-16"
+      },
+      "name": "ND-LAr"
+    },
+    {
+      "description": {
+        "confidence": "uncertain",
+        "locator": "ND CDR, §1.5",
+        "note": "The ND CDR explicitly does not describe the TMS in detail.",
+        "quote": "This group is also responsible for the design of a possible Day 1 detector in this location (Temporary Muon Spectrometer, TMS)",
+        "sources": [
+          "src:dune-nd-cdr"
+        ],
+        "value": "Day-1 muon spectrometer downstream of ND-LAr, to be replaced later by the gaseous argon detector ND-GAr",
+        "verified_at": "2026-09-16"
+      },
+      "name": "TMS (Temporary Muon Spectrometer)"
+    },
+    {
+      "description": {
+        "confidence": "verified",
+        "locator": "ND CDR, §1",
+        "note": "",
+        "quote": "SAND consists of an inner tracker surrounded by an ECAL inside a large solenoidal magnet.",
+        "sources": [
+          "src:dune-nd-cdr"
+        ],
+        "value": "Magnetised on-axis beam monitor with an inner tracker and electromagnetic calorimeter inside a large solenoid, reusing the KLOE magnet and calorimeter",
+        "verified_at": "2026-09-16"
+      },
+      "name": "SAND"
+    }
+  ],
+  "summary": {
+    "plain": "A set of smaller detectors on the Fermilab site, right where the neutrino beam is made. Measuring the beam before it travels lets scientists work out what changed by the time it reaches South Dakota.",
+    "technical": "Composite near detector just downstream of the LBNF target: ND-LAr (modular ArgonCube LArTPC), a downstream muon spectrometer (TMS on day one, later ND-GAr) that can move off axis for DUNE-PRISM, and SAND, a magnetised on-axis beam monitor reusing the KLOE solenoid and calorimeter."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "ND CDR, §1",
+    "note": "",
+    "quote": "The final component of the DUNE ND suite is a magnetized beam monitor called the System for on-Axis Neutrino Detection (SAND) .",
+    "sources": [
+      "src:dune-nd-cdr"
+    ],
+    "value": "composite near detector: a modular liquid argon TPC (ND-LAr), a muon spectrometer downstream of it, and a magnetised on-axis beam monitor (SAND)",
+    "verified_at": "2026-09-16"
+  },
+  "technology_class": "lar_tpc",
+  "technology_classes": [
+    "noble_liquid_tpc",
+    "lar_tpc",
+    "spectrometer"
+  ],
+  "type": "detector"
+}

@@ -1,0 +1,403 @@
+{
+  "aliases": [
+    "Compact Muon Solenoid",
+    "CMS"
+  ],
+  "coverage": {
+    "researched": "full",
+    "tier": "A"
+  },
+  "experiment_ids": [
+    "experiment:cms"
+  ],
+  "id": "detector:cms",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2008",
+      "label": "Construction",
+      "note": "Starts with the excavation of the Point 5 caverns in 1998 and ends when the last detector element was lowered in January 2008.",
+      "quote": "Between 1998 and 2005 a total of almost 250,000 m3 of soil and rock was excavated",
+      "sources": [
+        "src:cms-official-assembly-page",
+        "src:cms-official-excavation-page"
+      ],
+      "start": "1998",
+      "status": "construction",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "verified",
+      "end": "2008-01-22",
+      "label": "Detector lowering",
+      "note": "",
+      "quote": "The first lowering took place in November 2006, and the last on 22 January 2008.",
+      "sources": [
+        "src:cms-official-assembly-page"
+      ],
+      "start": "2006-11",
+      "status": "construction",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "derived",
+      "end": "2010-03-29",
+      "label": "First collisions",
+      "note": "Start from the INSPIRE experiment record field date_started (2009-11-23), corroborated by the CMS news item. The end date is derived: the day before the first 7 TeV physics collisions.",
+      "quote": "On 23rd November the LHC collided 450 GeV beams of protons for the first time...The first real period of collisions started on 6th December.",
+      "sources": [
+        "src:cms-inspire-experiment-record",
+        "src:cms-official-900-gev-news"
+      ],
+      "start": "2009-11-23",
+      "status": "commissioning",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "verified",
+      "end": "2013-02-14",
+      "label": "LHC Run 1",
+      "note": "",
+      "quote": "Beams collided at 7 TeV in the LHC at 13:06 CEST, marking the start of the LHC research programme.",
+      "sources": [
+        "src:cms-cern-lhc-research-programme-2010",
+        "src:cms-official-ls1-news"
+      ],
+      "start": "2010-03-30",
+      "status": "active",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "verified",
+      "end": "2015",
+      "label": "Long Shutdown 1",
+      "note": "CMS consolidation and repairs (pixel detector, HCAL photodetectors, muon chambers). End year derived from the start of Run 2.",
+      "quote": "In the early hours of 14 February 2013, the first period of running for the Large Hadron Collider came to an end.",
+      "sources": [
+        "src:cms-official-ls1-news"
+      ],
+      "start": "2013-02-14",
+      "status": "upgrade",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "uncertain",
+      "end": "2018-12-03",
+      "label": "LHC Run 2",
+      "note": "CERN states Run 2 ended on 3 December 2018 'after three fantastic years'; the exact 2015 restart date was not confirmed from a source fetched in this session, so the start is recorded at year precision.",
+      "quote": "On 3 December, the LHC's second run came to an end after three fantastic years.",
+      "sources": [
+        "src:cms-cern-run2-conclusion-2018"
+      ],
+      "start": "2015",
+      "status": "active",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "derived",
+      "end": "2022-07-04",
+      "label": "Long Shutdown 2 (Phase-1 upgrades)",
+      "note": "Interval between the end of Run 2 and the start of Run 3, during which CMS completed its Phase-1 upgrade programme. Both bounds are taken from the adjacent run boundaries rather than from a shutdown announcement. Start from \"On 3 December, the LHC's second run came to an end\"; end set to the day before Run 3 collisions began (\"Yesterday, 5th of July 2022, the ... LHC ... delivered proton-proton collisions ... for the first time\").",
+      "quote": "On 3 December, the LHC's second run came to an end after three fantastic years.",
+      "sources": [
+        "src:cms-cern-run2-conclusion-2018",
+        "src:cms-official-run3-start-news"
+      ],
+      "start": "2018-12-03",
+      "status": "upgrade",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "derived",
+      "end": "2026-06",
+      "label": "LHC Run 3",
+      "note": "End at month precision: CERN announced on 29 June 2026 that, following its final physics run, the accelerator had been switched off.",
+      "quote": "Yesterday, 5th of July 2022, the Large Hadron Collider (LHC) at CERN delivered proton-proton collisions ... at the energy of 13.6 trillion electron volts (TeV) for the first time",
+      "sources": [
+        "src:cern-ls3-farewell-2026",
+        "src:cms-official-run3-start-news"
+      ],
+      "start": "2022-07-05",
+      "status": "active",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "verified",
+      "end": {
+        "approx": true,
+        "date": "2030",
+        "note": "HiLumi LHC scheduled to begin operation in 2030",
+        "planned": true
+      },
+      "label": "Long Shutdown 3 — Phase-2 upgrade",
+      "note": "Phase-2 upgrade of CMS for the HL-LHC: new all-silicon tracker, new endcap calorimeter, MIP timing detector, muon and trigger/DAQ upgrades.",
+      "quote": "As of mid-2026, the accelerator complex and experimental facilities at CERN are undergoing major maintenance and upgrade work. This phase, known as 'Long Shutdown 3' or 'LS3', is expected to last up to four years.",
+      "sources": [
+        "src:cern-long-shutdown-3-page",
+        "src:cern-ls3-farewell-2026"
+      ],
+      "start": "2026-06",
+      "status": "upgrade",
+      "verified_at": "2026-09-16"
+    }
+  ],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "note": "",
+      "sources": [
+        "src:cms-official-detector-page"
+      ],
+      "value": "https://cms.cern/detector",
+      "verified_at": "2026-09-16"
+    }
+  },
+  "name": "CMS detector",
+  "notes": [
+    "Total mass is recorded as 12 500 t following the source used (2008 JINST paper). The 14 000 t figure that also circulates comes from CMS outreach pages and is recorded as a conflict rather than silently averaged.",
+    "ECAL crystal count, tracker silicon area in m^2 and the tracker |eta| acceptance were not obtained from a source fetched in this session and are therefore absent."
+  ],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "note": "Start is the first lowering of a detector element into the Point 5 cavern; assembly of those elements took place in the surface hall above the same site from 1999.",
+      "quote": "The first lowering took place in November 2006, and the last on 22 January 2008.",
+      "role": "main",
+      "site_id": "site:cern-point-5-cms",
+      "sources": [
+        "src:cms-official-assembly-page",
+        "src:cms-official-detector-page"
+      ],
+      "start": "2006-11",
+      "verified_at": "2026-09-16"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:cms-jinst-2008-detector-paper",
+    "src:cms-magnet-flux-loops-2022",
+    "src:cms-official-detector-page",
+    "src:cms-official-magnet-page",
+    "src:cms-official-muon-page",
+    "src:cms-official-tracker-page",
+    "src:cms-official-trigger-page"
+  ],
+  "specs": {
+    "calorimeters": {
+      "confidence": "verified",
+      "note": "",
+      "quote": "At the core of the CMS detector sits a high-magnetic-field and large-bore superconducting solenoid surrounding an all-silicon pixel and strip tracker, a lead-tungstate scintillating-crystals electromagnetic calorimeter, and a brass-scintillator sampling hadron calorimeter.",
+      "sources": [
+        "src:cms-jinst-2008-detector-paper"
+      ],
+      "value": "lead-tungstate (PbWO4) scintillating-crystal electromagnetic calorimeter and brass-scintillator sampling hadron calorimeter, with forward sampling calorimeters",
+      "verified_at": "2026-09-16"
+    },
+    "diameter": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "14.6 m",
+      "note": "",
+      "quote": "The overall dimensions of the CMS detector are a length of 21.6 m, a diameter of 14.6 m and a total weight of 12500 t.",
+      "sources": [
+        "src:cms-jinst-2008-detector-paper"
+      ],
+      "unit": "m",
+      "value": 14.6,
+      "verified_at": "2026-09-16"
+    },
+    "length": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "21.6 m",
+      "note": "",
+      "quote": "The overall dimensions of the CMS detector are a length of 21.6 m, a diameter of 14.6 m and a total weight of 12500 t.",
+      "sources": [
+        "src:cms-jinst-2008-detector-paper"
+      ],
+      "unit": "m",
+      "value": 21.6,
+      "verified_at": "2026-09-16"
+    },
+    "muon_system": {
+      "confidence": "verified",
+      "note": "Chamber technologies and counts from the CMS muon page: \"In total there are 1400 muon chambers: 250 drift tubes (DTs) and 540 cathode strip chambers (CSCs) ... 610 resistive plate chambers (RPCs) and 72 gas electron multiplier chambers (GEMs)\".",
+      "quote": "The iron yoke of the flux-return is instrumented with four stations of muon detectors covering most of the 4π solid angle.",
+      "sources": [
+        "src:cms-jinst-2008-detector-paper",
+        "src:cms-official-muon-page"
+      ],
+      "value": "four stations of muon detectors instrumenting the iron flux-return yoke: drift tubes and resistive plate chambers in the barrel, cathode strip chambers, resistive plate chambers and GEM chambers in the endcaps",
+      "verified_at": "2026-09-16"
+    },
+    "pseudorapidity_coverage": {
+      "confidence": "verified",
+      "note": "",
+      "quote": "Forward sampling calorimeters extend the pseudorapidity coverage to high values (|η| ≤ 5) assuring very good hermeticity.",
+      "sources": [
+        "src:cms-jinst-2008-detector-paper"
+      ],
+      "value": "|η| ≤ 5 (forward sampling calorimeters)",
+      "verified_at": "2026-09-16"
+    },
+    "solenoid_field": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "magnetic_field",
+      "display": "3.8 T",
+      "note": "Operating central flux density at the nominal 18.2 kA. The magnet was designed for and tested at 4 T, the value quoted on CMS's public pages; see worklog conflict C4.",
+      "quote": "operational current of 18.2 kA, which corresponds to a central magnetic flux density of 3.8 T",
+      "sources": [
+        "src:cms-magnet-flux-loops-2022"
+      ],
+      "unit": "T",
+      "value": 3.8,
+      "verified_at": "2026-09-16"
+    },
+    "total_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "12500 t",
+      "note": "The 2008 JINST detector paper and CERN's Point 5 page both give 12 500 t. CMS's own public detector page instead calls CMS 'The 14,000-tonne detector' while giving 12 500 t for the magnet coils plus return yoke; see worklog conflict C2.",
+      "quote": "The overall dimensions of the CMS detector are a length of 21.6 m, a diameter of 14.6 m and a total weight of 12500 t.",
+      "sources": [
+        "src:cms-cern-voisins-point-5",
+        "src:cms-jinst-2008-detector-paper"
+      ],
+      "unit": "t",
+      "value": 12500,
+      "verified_at": "2026-09-16"
+    },
+    "tracker": {
+      "confidence": "verified",
+      "note": "",
+      "quote": "At the core of the CMS detector sits a high-magnetic-field and large-bore superconducting solenoid surrounding an all-silicon pixel and strip tracker, a lead-tungstate scintillating-crystals electromagnetic calorimeter, and a brass-scintillator sampling hadron calorimeter.",
+      "sources": [
+        "src:cms-jinst-2008-detector-paper"
+      ],
+      "value": "all-silicon pixel and strip tracker",
+      "verified_at": "2026-09-16"
+    },
+    "trigger_rate": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "rate",
+      "display": "100 kHz",
+      "note": "Level-1 trigger output rate. The High-Level Trigger reduces this further: \"They select 100 events per second and the remaining 99,900 are thrown out.\"",
+      "quote": "select the best 100,000 events or 'issues' each second from the billion available",
+      "sources": [
+        "src:cms-official-trigger-page"
+      ],
+      "unit": "kHz",
+      "value": 100,
+      "verified_at": "2026-09-16"
+    }
+  },
+  "status": "upgrade",
+  "subsystems": [
+    {
+      "description": {
+        "confidence": "verified",
+        "note": "",
+        "quote": "weighs 12,000 tonnes",
+        "sources": [
+          "src:cms-official-magnet-page"
+        ],
+        "value": "The largest superconducting magnet ever built; its coils and iron return yoke dominate the detector mass and the yoke is 14 m in diameter.",
+        "verified_at": "2026-09-16"
+      },
+      "name": "Superconducting solenoid"
+    },
+    {
+      "description": {
+        "confidence": "verified",
+        "note": "",
+        "quote": "The tracker employs sensors covering an area the size of a tennis court, with 135 million separate electronic readout channels",
+        "sources": [
+          "src:cms-official-tracker-page"
+        ],
+        "value": "All-silicon pixel and strip tracker covering an area the size of a tennis court with 135 million readout channels and ~10 µm single-point accuracy.",
+        "verified_at": "2026-09-16"
+      },
+      "name": "Silicon tracker"
+    },
+    {
+      "description": {
+        "confidence": "verified",
+        "note": "",
+        "quote": "At the core of the CMS detector sits a high-magnetic-field and large-bore superconducting solenoid surrounding an all-silicon pixel and strip tracker, a lead-tungstate scintillating-crystals electromagnetic calorimeter, and a brass-scintillator sampling hadron calorimeter.",
+        "sources": [
+          "src:cms-jinst-2008-detector-paper",
+          "src:cms-official-detector-page"
+        ],
+        "value": "Lead-tungstate (PbWO4) scintillating crystals that stop electrons and photons and measure their energy.",
+        "verified_at": "2026-09-16"
+      },
+      "name": "Electromagnetic calorimeter (ECAL)"
+    },
+    {
+      "description": {
+        "confidence": "verified",
+        "note": "",
+        "quote": "At the core of the CMS detector sits a high-magnetic-field and large-bore superconducting solenoid surrounding an all-silicon pixel and strip tracker, a lead-tungstate scintillating-crystals electromagnetic calorimeter, and a brass-scintillator sampling hadron calorimeter.",
+        "sources": [
+          "src:cms-jinst-2008-detector-paper"
+        ],
+        "value": "Brass and scintillator sampling calorimeter that stops hadrons passing through the ECAL.",
+        "verified_at": "2026-09-16"
+      },
+      "name": "Hadron calorimeter (HCAL)"
+    },
+    {
+      "description": {
+        "confidence": "verified",
+        "note": "",
+        "quote": "In total there are 1400 muon chambers: 250 drift tubes (DTs) and 540 cathode strip chambers (CSCs)",
+        "sources": [
+          "src:cms-official-muon-page"
+        ],
+        "value": "1400 muon chambers embedded in the steel return yoke: drift tubes, cathode strip chambers, resistive plate chambers and GEM chambers.",
+        "verified_at": "2026-09-16"
+      },
+      "name": "Muon system"
+    },
+    {
+      "description": {
+        "confidence": "verified",
+        "note": "",
+        "quote": "They select 100 events per second and the remaining 99,900 are thrown out",
+        "sources": [
+          "src:cms-official-trigger-page"
+        ],
+        "value": "A two-level trigger reduces the 40 MHz bunch-crossing rate to about 100 kHz at Level-1 and to about 100 events per second after the High-Level Trigger.",
+        "verified_at": "2026-09-16"
+      },
+      "name": "Trigger and data acquisition"
+    }
+  ],
+  "summary": {
+    "plain": "A 21-metre-long, 14 000-tonne particle detector wrapped around one of the points where the Large Hadron Collider's proton beams cross. Its huge magnet bends the paths of the particles produced so that their momenta can be measured.",
+    "technical": "General-purpose 4π collider detector at LHC Point 5: 21.6 m long, 14.6 m in diameter, 12 500 t, built around a 3.8 T superconducting solenoid enclosing an all-silicon pixel and strip tracker, a PbWO4 crystal ECAL and a brass/scintillator HCAL, with four muon stations in the iron flux-return yoke and forward calorimetry to |η| ≤ 5."
+  },
+  "technology": {
+    "confidence": "verified",
+    "note": "",
+    "quote": "At the core of the CMS detector sits a high-magnetic-field and large-bore superconducting solenoid surrounding an all-silicon pixel and strip tracker, a lead-tungstate scintillating-crystals electromagnetic calorimeter, and a brass-scintillator sampling hadron calorimeter.",
+    "sources": [
+      "src:cms-jinst-2008-detector-paper",
+      "src:cms-magnet-flux-loops-2022"
+    ],
+    "value": "general-purpose 4π collider detector built around a 3.8 T superconducting solenoid, with an all-silicon tracker, a lead-tungstate crystal electromagnetic calorimeter, a brass/scintillator sampling hadron calorimeter and muon detectors in the iron flux-return yoke",
+    "verified_at": "2026-09-16"
+  },
+  "technology_class": "general_purpose_collider",
+  "technology_classes": [
+    "general_purpose_collider"
+  ],
+  "type": "detector"
+}

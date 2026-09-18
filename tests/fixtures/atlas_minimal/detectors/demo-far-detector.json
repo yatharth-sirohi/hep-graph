@@ -1,0 +1,168 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "full",
+    "tier": "A"
+  },
+  "experiment_ids": [
+    "experiment:demo"
+  ],
+  "id": "detector:demo-far-detector",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2010-02",
+      "kind": "lifecycle",
+      "label": "construction",
+      "locator": "Vol. I §1.4",
+      "note": "",
+      "sources": [
+        "src:demo-tdr"
+      ],
+      "start": "2008-09",
+      "status": "construction",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "kind": "lifecycle",
+      "label": "operating",
+      "locator": "Vol. I §1.4",
+      "note": "",
+      "sources": [
+        "src:demo-tdr"
+      ],
+      "start": "2010-03",
+      "status": "active",
+      "verified_at": "2026-09-16"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "Demo far detector",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "locator": "Vol. I §2.3",
+      "note": "",
+      "role": "far",
+      "site_id": "site:demo-far-cavern",
+      "sources": [
+        "src:demo-tdr"
+      ],
+      "start": "2010-03",
+      "verified_at": "2026-09-16"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:demo-tdr"
+  ],
+  "specs": {
+    "drift_length": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "3.5 m",
+      "locator": "Vol. I §2.2",
+      "note": "",
+      "sources": [
+        "src:demo-tdr"
+      ],
+      "unit": "m",
+      "value": 3.5,
+      "verified_at": "2026-09-16"
+    },
+    "module_count": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "count",
+      "display": "4 modules",
+      "locator": "Vol. I §2.1",
+      "note": "",
+      "sources": [
+        "src:demo-tdr"
+      ],
+      "unit": "",
+      "value": 4,
+      "verified_at": "2026-09-16"
+    },
+    "phase": {
+      "confidence": "verified",
+      "locator": "Vol. I §2.1",
+      "note": "",
+      "sources": [
+        "src:demo-tdr"
+      ],
+      "value": "single-phase",
+      "verified_at": "2026-09-16"
+    },
+    "target_medium": {
+      "confidence": "verified",
+      "locator": "Vol. I §2.1",
+      "note": "",
+      "sources": [
+        "src:demo-tdr"
+      ],
+      "value": "liquid argon",
+      "verified_at": "2026-09-16"
+    },
+    "total_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "10 kt",
+      "locator": "Vol. I §2.1",
+      "note": "",
+      "sources": [
+        "src:demo-tdr"
+      ],
+      "unit": "kt",
+      "value": 10,
+      "verified_at": "2026-09-16"
+    }
+  },
+  "status": "active",
+  "subsystems": [
+    {
+      "description": [
+        {
+          "confidence": "verified",
+          "locator": "Vol. I §2.2",
+          "note": "",
+          "sources": [
+            "src:demo-tdr"
+          ],
+          "value": "Wire readout planes",
+          "verified_at": "2026-09-16"
+        }
+      ],
+      "name": "Anode plane assemblies"
+    }
+  ],
+  "summary": {
+    "plain": "A giant tank of liquid argon that records neutrino interactions.",
+    "technical": "Single-phase 10 kt LArTPC, 3.5 m drift."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "Vol. I §2.1",
+    "note": "",
+    "sources": [
+      "src:demo-tdr"
+    ],
+    "value": "single-phase liquid argon TPC",
+    "verified_at": "2026-09-16"
+  },
+  "technology_class": "lar_tpc",
+  "technology_classes": [
+    "noble_liquid_tpc",
+    "lar_tpc"
+  ],
+  "type": "detector"
+}

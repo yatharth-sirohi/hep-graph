@@ -1,0 +1,143 @@
+{
+  "aliases": [
+    "MR",
+    "J-PARC MR",
+    "30 GeV main ring",
+    "J-PARC 50 GeV synchrotron"
+  ],
+  "coverage": {
+    "researched": "full",
+    "tier": "A"
+  },
+  "facility_id": "facility:j-parc",
+  "feeds_accelerator_ids": [],
+  "id": "accelerator:j-parc-main-ring",
+  "intervals": [
+    {
+      "confidence": "derived",
+      "end": "2008-12",
+      "label": "construction",
+      "note": "J-PARC facility construction started December 2001; the main ring reached its initial design energy in December 2008.",
+      "quote": "December  Construction of J-PARC facilities started.",
+      "sources": [
+        "src:jparc-history"
+      ],
+      "start": "2001-12",
+      "status": "construction",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "operating",
+      "note": "",
+      "quote": "December  Initial target energy (30 GeV) was achieved at MR.",
+      "sources": [
+        "src:jparc-history"
+      ],
+      "start": "2008-12",
+      "status": "active",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "derived",
+      "end": {
+        "date": "2011-12",
+        "planned": true
+      },
+      "label": "shutdown after the Great East Japan Earthquake",
+      "note": "The October 2011 T2K status report states the beam stopped on 11 March 2011 and that J-PARC was \"on schedule to resume operations ... in December 2011\"; no source read on 2026-09-16 confirms the actual restart date, so the end is recorded as the planned date.",
+      "quote": "The T2K data taking stopped abruptly on March 11 2011 due to the Great East Japan Earthquake.",
+      "sources": [
+        "src:t2k-status-2011-arxiv",
+        "src:jparc-what-is"
+      ],
+      "start": "2011-03-11",
+      "status": "shutdown",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "operation at 760 kW after the 2023 beamline upgrade",
+      "note": "Beam power reached about 710 kW in stable operation and a record 760 kW on 25 December 2023.",
+      "quote": "760kW",
+      "sources": [
+        "src:jparc-press-2024-t2k-new-phase"
+      ],
+      "start": "2023-12",
+      "status": "active",
+      "verified_at": "2026-09-16"
+    }
+  ],
+  "is_collider": false,
+  "kind": "synchrotron",
+  "links": {
+    "website": null
+  },
+  "name": "J-PARC Main Ring",
+  "notes": [],
+  "particles": [
+    "proton"
+  ],
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:j-parc-main-ring",
+  "sources": [
+    "src:t2k-nim-2011",
+    "src:jparc-mr-page",
+    "src:jparc-accelerators",
+    "src:jparc-history",
+    "src:jparc-press-2024-t2k-new-phase"
+  ],
+  "specs": {
+    "beam_energy": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "energy",
+      "display": "30 GeV",
+      "note": "Kinetic energy. The J-PARC MR page still describes the machine as a \"50 GeV (currently 30 GeV) main ring\"; 30 GeV is the energy actually used for the neutrino beam.",
+      "quote": "Circumference 1567 m Beam power ~750 kW Beam kinetic energy 30 GeV",
+      "sources": [
+        "src:t2k-nim-2011",
+        "src:jparc-mr-page"
+      ],
+      "unit": "GeV",
+      "value": 30,
+      "verified_at": "2026-09-16"
+    },
+    "beam_power": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "power",
+      "display": "760 kW",
+      "note": "Beam power history: ~145 kW by March 2011 (T2K Run 1-2); design ~750 kW in the T2K instrumentation paper; about 710 kW in stable operation and a record 760 kW on 25 December 2023; the upgrade programme aims at 1.3 MW.",
+      "quote": "760kW",
+      "sources": [
+        "src:jparc-press-2024-t2k-new-phase"
+      ],
+      "unit": "kW",
+      "value": 760,
+      "verified_at": "2026-09-16"
+    },
+    "circumference": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "1567 m",
+      "note": "The J-PARC accelerators page rounds this to \"about 1600 m\".",
+      "quote": "Circumference 1567 m",
+      "sources": [
+        "src:t2k-nim-2011"
+      ],
+      "unit": "m",
+      "value": 1567,
+      "verified_at": "2026-09-16"
+    }
+  },
+  "status": "active",
+  "summary": {
+    "plain": "The largest J-PARC accelerator: a 1.6-kilometre ring that accelerates protons to 30 billion electronvolts and fires them at the target that makes the neutrino beam.",
+    "technical": "30 GeV fast-extraction proton synchrotron, 1567 m circumference, design beam power ~750 kW, 760 kW reached in December 2023, with an upgrade programme towards 1.3 MW for Hyper-Kamiokande."
+  },
+  "type": "accelerator"
+}

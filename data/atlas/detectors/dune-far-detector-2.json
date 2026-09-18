@@ -1,0 +1,122 @@
+{
+  "aliases": [
+    "FD2",
+    "DUNE FD2-VD",
+    "FD-VD",
+    "vertical drift module"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "experiment_ids": [
+    "experiment:dune"
+  ],
+  "id": "detector:dune-far-detector-2",
+  "intervals": [
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "design and construction",
+      "locator": "title, submitted 5 December 2023",
+      "note": "Publication of the vertical-drift Technical Design Report is the only dated milestone that could be sourced for this module.",
+      "quote": "The DUNE Far Detector Vertical Drift Technology, Technical Design Report",
+      "sources": [
+        "src:dune-fd-vd-tdr-2023"
+      ],
+      "start": "2023-12",
+      "status": "construction",
+      "verified_at": "2026-09-16"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "DUNE Far Detector Module 2 (vertical drift)",
+  "notes": [
+    "Most quantities are unresolved: only the arXiv abstract of the vertical-drift TDR could be retrieved."
+  ],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "locator": "FD VD TDR, abstract",
+      "note": "Second far detector module, to be installed in the south detector cavern at the SURF 4850 Level; no installation dates are given in the fetched abstract.",
+      "quote": "Given its size, the far detector will be implemented as a set of modules, with LArTPC designs that differ from one another as newer technologies arise.",
+      "role": "far",
+      "site_id": "site:surf-4850-level-dune-far-detector",
+      "sources": [
+        "src:dune-fd-vd-tdr-2023"
+      ],
+      "start": null,
+      "verified_at": "2026-09-16"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:dune-fd-vd-tdr-2023",
+    "src:dune-fd-tdr-vol-1"
+  ],
+  "specs": {
+    "drift_length": null,
+    "fiducial_mass": null,
+    "phase": {
+      "confidence": "uncertain",
+      "locator": "abstract",
+      "note": "The vertical-drift module is a single-phase LArTPC with a different field and readout geometry; it replaced the earlier dual-phase concept. The fetched abstract does not use the phrase \"single-phase\" explicitly.",
+      "quote": "The DUNE far detector implements liquid argon time-projection chamber (LArTPC) technology",
+      "sources": [
+        "src:dune-fd-vd-tdr-2023"
+      ],
+      "value": "single-phase",
+      "verified_at": "2026-09-16"
+    },
+    "readout": {
+      "confidence": "uncertain",
+      "locator": "abstract",
+      "note": "The arXiv abstract is truncated before the readout is described and the full TDR text could not be fetched; the CRP terminology is not quoted from a fetched source.",
+      "quote": "creating two stacked drift volumes in which ionization charges drift towards anodes at eit",
+      "sources": [
+        "src:dune-fd-vd-tdr-2023"
+      ],
+      "value": "charge readout planes (CRPs) at the top and bottom of the two stacked drift volumes",
+      "verified_at": "2026-09-16"
+    },
+    "target_medium": {
+      "confidence": "verified",
+      "locator": "abstract",
+      "note": "",
+      "quote": "The DUNE far detector implements liquid argon time-projection chamber (LArTPC) technology",
+      "sources": [
+        "src:dune-fd-vd-tdr-2023"
+      ],
+      "value": "liquid argon",
+      "verified_at": "2026-09-16"
+    },
+    "total_mass": null
+  },
+  "status": "construction",
+  "subsystems": [],
+  "summary": {
+    "plain": "The second DUNE far detector. It uses the same liquid argon idea as the first one, but the electrons drift up and down instead of sideways, which makes the detector simpler to build.",
+    "technical": "Vertical-drift LArTPC module: a horizontal cathode bisects the volume, creating two stacked drift regions with charge readout planes at top and bottom. Technical Design Report published December 2023. Masses and drift length not sourced."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "FD VD TDR, abstract (arXiv listing truncates the abstract at this point)",
+    "note": "",
+    "quote": "In the vertical drift LArTPC design, a horizontal cathode bisects the detector, creating two stacked drift volumes in which ionization charges drift towards anodes at eit",
+    "sources": [
+      "src:dune-fd-vd-tdr-2023"
+    ],
+    "value": "vertical-drift liquid argon time projection chamber with a horizontal cathode bisecting the detector and charge readout planes above and below",
+    "verified_at": "2026-09-16"
+  },
+  "technology_class": "lar_tpc",
+  "technology_classes": [
+    "noble_liquid_tpc",
+    "lar_tpc"
+  ],
+  "type": "detector"
+}

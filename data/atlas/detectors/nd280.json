@@ -1,0 +1,193 @@
+{
+  "aliases": [
+    "T2K off-axis near detector"
+  ],
+  "coverage": {
+    "researched": "full",
+    "tier": "A"
+  },
+  "experiment_ids": [
+    "experiment:t2k"
+  ],
+  "id": "detector:nd280",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2023-10",
+      "kind": "lifecycle",
+      "label": "operating (commissioning through T2K-I)",
+      "locator": "NIM A 659 (2011) 106",
+      "note": "ND280 was operational for the beamline commissioning run beginning in 2009; the instrumentation paper does not give an exact installation date.",
+      "quote": "T2K began accumulating neutrino beam data for physics analysis in January 2010.",
+      "sources": [
+        "src:t2k-nim-2011"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2009"
+      },
+      "status": "active",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "approximate",
+      "end": "2023-10",
+      "kind": "lifecycle",
+      "label": "ND280 upgrade installed (Super-FGD, two High-Angle TPCs, TOF)",
+      "locator": "J-PARC press release, 17 Jan 2024",
+      "note": "Start year is the Technical Design Report's submission year (design/preparation start), not a stated installation-start date; only the installation-complete date (October 2023) is directly confirmed.",
+      "quote": "By October 2023, three new types of detectors have been installed.",
+      "sources": [
+        "src:t2k-nd280-upgrade-tdr-2019",
+        "src:jparc-press-2024-t2k-new-phase"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2019"
+      },
+      "status": "upgrade",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "kind": "lifecycle",
+      "label": "operating with the upgraded near detector",
+      "locator": "J-PARC press release, 17 Jan 2024",
+      "note": "",
+      "quote": "The T2K Collaboration has started data taking using the enhanced neutrino beam and new neutrino near-detectors from December 2023.",
+      "sources": [
+        "src:jparc-press-2024-t2k-new-phase"
+      ],
+      "start": "2023-10",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "ND280 (T2K off-axis near detector)",
+  "notes": [
+    "Total detector mass and per-subsystem masses were not stated in the fetched sources; the T2K ND280 Upgrade TDR (arXiv:1901.03750) was consulted only via its abstract in this session."
+  ],
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "note": "Off-axis position, 280 m from the target, in the near detector pit.",
+      "quote": "",
+      "role": "near",
+      "site_id": "site:j-parc-neutrino-near-detector-hall",
+      "sources": [
+        "src:t2k-nim-2011"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2009"
+      },
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:t2k-nim-2011",
+    "src:t2k-nd280-upgrade-tdr-2019"
+  ],
+  "specs": {
+    "magnetic_field": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "magnetic_field",
+      "display": "0.2 T",
+      "locator": "NIM A 659 (2011) 106, ND280 section",
+      "note": "",
+      "quote": "a field strength of 0.2 T",
+      "sources": [
+        "src:t2k-nim-2011"
+      ],
+      "unit": "T",
+      "value": 0.2,
+      "verified_at": "2026-09-17"
+    }
+  },
+  "status": "active",
+  "subsystems": [
+    {
+      "description": {
+        "confidence": "verified",
+        "locator": "NIM A 659 (2011) 106, ND280 section",
+        "note": "",
+        "quote": "tracking planes of scintillating bars alternating with either water target/brass foil or lead foil",
+        "sources": [
+          "src:t2k-nim-2011"
+        ],
+        "value": "Tracking planes of scintillating bars alternating with water-target/brass or lead foil, at the upstream end of the magnet.",
+        "verified_at": "2026-09-17"
+      },
+      "name": "PØD (Pi-Zero Detector)"
+    },
+    {
+      "description": {
+        "confidence": "verified",
+        "locator": "NIM A 659 (2011) 106, ND280 section",
+        "note": "",
+        "quote": "three time projection chambers (TPCs) and two fine grained detectors (FGDs) consisting of layers of finely segmented scintillating bars",
+        "sources": [
+          "src:t2k-nim-2011"
+        ],
+        "value": "Three gaseous time projection chambers interleaved with two fine-grained scintillator-bar detectors (FGDs), used to reconstruct charged-current interactions.",
+        "verified_at": "2026-09-17"
+      },
+      "name": "Tracker (TPCs and FGDs)"
+    },
+    {
+      "description": {
+        "confidence": "verified",
+        "locator": "NIM A 659 (2011) 106, ND280 section",
+        "note": "",
+        "quote": "Surrounds the PØD and the tracker",
+        "sources": [
+          "src:t2k-nim-2011"
+        ],
+        "value": "Surrounds the P0D and the tracker to detect gamma rays escaping the inner detectors.",
+        "verified_at": "2026-09-17"
+      },
+      "name": "ECal (Electromagnetic Calorimeter)"
+    },
+    {
+      "description": {
+        "confidence": "verified",
+        "locator": "NIM A 659 (2011) 106, ND280 section",
+        "note": "",
+        "quote": "return yoke of the magnet is instrumented with scintillator to measure the ranges of muons that exit the sides",
+        "sources": [
+          "src:t2k-nim-2011"
+        ],
+        "value": "Scintillator instrumenting the return yoke of the magnet, measuring the range of muons exiting through the sides.",
+        "verified_at": "2026-09-17"
+      },
+      "name": "SMRD (Side Muon Range Detector)"
+    }
+  ],
+  "summary": {
+    "plain": "A stack of detectors inside a recycled particle-physics magnet, sitting just 280 metres from where T2K's neutrino beam is made. It measures the beam before the neutrinos have had a chance to change type, so physicists know what they started with.",
+    "technical": "Off-axis near detector in the recycled UA1 0.2 T dipole magnet: P0D, three TPCs and two FGDs as the tracking/target region, an ECal shell, and SMRD scintillator in the magnet yoke. Upgraded in 2023 with a Super-FGD and two additional high-angle TPCs plus time-of-flight planes."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "NIM A 659 (2011) 106, ND280 section",
+    "note": "",
+    "quote": "the magnet recycled from the UA1 experiment at CERN",
+    "sources": [
+      "src:t2k-nim-2011"
+    ],
+    "value": "Magnetized off-axis tracking detector: a water/brass Pi-Zero Detector (P0D), three gaseous time projection chambers and two fine-grained scintillator detectors as the tracker, surrounded by an electromagnetic calorimeter, all inside the recycled UA1 dipole magnet instrumented as a side muon range detector (SMRD).",
+    "verified_at": "2026-09-17"
+  },
+  "technology_class": "spectrometer",
+  "technology_classes": [
+    "spectrometer"
+  ],
+  "type": "detector"
+}

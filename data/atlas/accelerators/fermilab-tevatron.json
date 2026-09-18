@@ -1,0 +1,113 @@
+{
+  "aliases": [
+    "Energy Doubler"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "facility_id": "facility:fermilab",
+  "feeds_accelerator_ids": [],
+  "id": "accelerator:fermilab-tevatron",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2011",
+      "label": "collider operation",
+      "locator": "abstract",
+      "note": "Shiltsev (2011) dates the start of Tevatron collider operation to December 1985 and its end to 2011.",
+      "quote": "the Tevatron proton-antiproton collider was the centerpiece of the world’s high energy physics program - beginning operation in December of 1985 until it was overtaken by LHC in 2011",
+      "sources": [
+        "src:fermilab-tevatron-shiltsev-2011"
+      ],
+      "start": "1985-12",
+      "status": "active",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "verified",
+      "end": "2011",
+      "kind": "run",
+      "label": "Run II",
+      "locator": "§1, Introduction",
+      "note": "",
+      "quote": "operated at a collision energy of 1.96 TeV (980 GeV per beam) from 2002 through 2011 (Run II)",
+      "sources": [
+        "src:fermilab-tevatron-qcd-dpf2015"
+      ],
+      "start": "2002",
+      "status": "active",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "derived",
+      "end": "2011",
+      "label": "shutdown",
+      "locator": "abstract",
+      "note": "Shiltsev (writing in September 2011) states the Tevatron \"will be shut off September 30, 2011\" — a schedule, not a report of the event — so only year precision is recorded here. Vellidis (2015) refers to the shutdown as having happened four years earlier.",
+      "quote": "Four years after the shutdown of the Tevatron proton-antiproton collider",
+      "sources": [
+        "src:fermilab-tevatron-qcd-dpf2015",
+        "src:fermilab-tevatron-shiltsev-2011"
+      ],
+      "start": "2011",
+      "status": "decommissioned",
+      "verified_at": "2026-09-16"
+    }
+  ],
+  "is_collider": true,
+  "kind": "collider",
+  "links": {
+    "website": null
+  },
+  "name": "Tevatron",
+  "notes": [],
+  "particles": [
+    "proton",
+    "antiproton"
+  ],
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:fermilab-main-campus",
+  "sources": [
+    "src:fermilab-tevatron-qcd-dpf2015",
+    "src:fermilab-tevatron-shiltsev-2011"
+  ],
+  "specs": {
+    "beam_energy": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "energy",
+      "display": "980 GeV per beam",
+      "locator": "§1, Introduction",
+      "note": "",
+      "quote": "operated at a collision energy of 1.96 TeV (980 GeV per beam) from 2002 through 2011 (Run II)",
+      "sources": [
+        "src:fermilab-tevatron-qcd-dpf2015"
+      ],
+      "unit": "GeV",
+      "value": 980,
+      "verified_at": "2026-09-16"
+    },
+    "cms_energy": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "energy",
+      "display": "1.96 TeV",
+      "locator": "§1, Introduction",
+      "note": "",
+      "quote": "The Tevatron proton-antiproton collider at the Fermi National Accelerator Laboratory (Fermilab) operated at a collision energy of 1.96 TeV (980 GeV per beam)",
+      "sources": [
+        "src:fermilab-tevatron-qcd-dpf2015"
+      ],
+      "unit": "TeV",
+      "value": 1.96,
+      "verified_at": "2026-09-16"
+    }
+  },
+  "status": "decommissioned",
+  "summary": {
+    "plain": "The proton-antiproton collider that was the most powerful in the world until the LHC. It ran at Fermilab until 2011 and was where the top quark was found.",
+    "technical": "Superconducting proton-antiproton collider, 980 GeV per beam (1.96 TeV centre of mass in Run II, 2002-2011); collider operation from December 1985 to the September 2011 shutdown. Host of CDF and DZero."
+  },
+  "type": "accelerator"
+}

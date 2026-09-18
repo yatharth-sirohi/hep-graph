@@ -1,0 +1,100 @@
+{
+  "aliases": [
+    "LNGS",
+    "Gran Sasso National Laboratory",
+    "INFN Gran Sasso"
+  ],
+  "country": [
+    "IT"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "id": "facility:lngs",
+  "intervals": [
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "laboratory operating",
+      "note": "A10: an interval with `start: null` and `end: null` covers no date at all (A3: \"start: null covers only [lo(end), hi(end)]\"), so the derived state at the build date was `unrecorded`, not `active`, though the laboratory is clearly operating today (\"Currently 1300 scientists from 30 different Countries are taking part in the experimental activities of LNGS\", src:lngs-overview). No official LNGS or INFN page reached in this session states a foundation, construction or opening date (lngs.infn.it/en/lab-history returned HTTP 404; lngs.infn.it/en gives no date). As a fallback, `start` is set to 1987 on Wikipedia's authority (\"the research center became fully operational in 1987\") — a rank-12 source, flagged for review — rather than left null, which would misrepresent the laboratory as not currently operating.",
+      "quote": "the research center became fully operational in 1987",
+      "sources": [
+        "src:lngs-overview",
+        "src:lngs-wikipedia-history"
+      ],
+      "start": "1987",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "kind": "underground_laboratory",
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "note": "",
+      "sources": [
+        "src:lngs-overview"
+      ],
+      "value": "https://www.lngs.infn.it/en",
+      "verified_at": "2026-09-16"
+    }
+  },
+  "name": "Laboratori Nazionali del Gran Sasso",
+  "notes": [
+    "LNGS is owned in this wave by the fermilab-neutrino-other lead only because ICARUS ran in Hall B; the record covers the laboratory at the level needed for that placement, not the full LNGS programme.",
+    "The commonly quoted 3800 m.w.e. overburden is NOT recorded: no page fetched in this session states a metres-water-equivalent figure, only the 1400 m rock thickness.",
+    "The foundation/construction dates of LNGS were not found on an official page fetched in this session; the operating interval's start (1987) is sourced to Wikipedia only (src:lngs-wikipedia-history) and is flagged for review."
+  ],
+  "operator": {
+    "confidence": "verified",
+    "locator": "LNGS overview page",
+    "note": "",
+    "quote": "LNGS is funded by the National Institute for Nuclear Physics (INFN), the Italian Institution in charge to coordinate and support research in elementary particles physics",
+    "sources": [
+      "src:lngs-overview"
+    ],
+    "value": "Istituto Nazionale di Fisica Nucleare (INFN)",
+    "verified_at": "2026-09-16"
+  },
+  "primary_site_id": "site:lngs-hall-b",
+  "related_facility_ids": [
+    "facility:cern"
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:lngs-overview",
+    "src:lngs-about-general",
+    "src:lngs-how-to-reach",
+    "src:lngs-wikipedia-history"
+  ],
+  "specs": {
+    "depth": {
+      "approx": true,
+      "confidence": "approximate",
+      "dimension": "length",
+      "display": "1400 m of rock",
+      "locator": "LNGS overview page",
+      "note": "Stated as an average rock coverage; the mountain profile is asymmetric. No m.w.e. figure is given on the pages fetched.",
+      "quote": "The 1400 metre-rock thickness above the Laboratory represents a natural coverage that provides a cosmic ray flux reduction by one million times",
+      "sources": [
+        "src:lngs-overview",
+        "src:lngs-about-general"
+      ],
+      "unit": "m",
+      "value": 1400,
+      "verified_at": "2026-09-16"
+    }
+  },
+  "status": "active",
+  "summary": {
+    "plain": "The largest underground research laboratory in the world, built beside a motorway tunnel under the Gran Sasso mountain in central Italy. About 1400 metres of rock overhead cut the shower of cosmic particles by a factor of a million, which lets very quiet experiments run there.",
+    "technical": "INFN national laboratory at Assergi (L'Aquila), Italy, with three underground halls of roughly 100 x 20 x 18 m under about 1400 m of rock, hosting low-background neutrino, dark matter and double-beta-decay experiments; the ICARUS T600 ran in Hall B from 2010 to 2013."
+  },
+  "topic_ids": [
+    "topic:neutrino-physics",
+    "topic:dark-matter",
+    "topic:neutrinoless-double-beta-decay"
+  ],
+  "type": "facility"
+}

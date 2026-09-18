@@ -1,0 +1,145 @@
+{
+  "aliases": [
+    "OPAL"
+  ],
+  "coverage": {
+    "researched": "full",
+    "tier": "A"
+  },
+  "distinct_from": [],
+  "document_ids": [
+    "document:opal-detector-nim-1991"
+  ],
+  "experiment_ids": [
+    "experiment:opal"
+  ],
+  "id": "detector:opal",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "1989-08",
+      "label": "construction",
+      "locator": "INSPIRE experiment record 1109310, fields date_approved and date_started (construction interval bounded by these, not independently sourced)",
+      "note": "Bounded by the CERN LEPC approval date and OPAL's data-taking start; no separate detector-construction date sourced.",
+      "sources": [
+        "src:opal-inspire-experiment-record"
+      ],
+      "start": "1982-11-18",
+      "status": "construction",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": "2000-11-02",
+      "label": "operation",
+      "locator": "OPAL collaboration welcome page",
+      "note": "",
+      "quote": "The OPAL experiment and the LEP collider started operation in August 1989. Data taking finally ended on November 2, 2000.",
+      "sources": [
+        "src:opal-collaboration-site"
+      ],
+      "start": "1989-08",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "completed",
+      "locator": "OPAL collaboration welcome page",
+      "note": "",
+      "quote": "Data taking finally ended on November 2, 2000.",
+      "sources": [
+        "src:opal-collaboration-site"
+      ],
+      "start": "2000-11-02",
+      "status": "completed",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "links": {},
+  "name": "OPAL detector",
+  "notes": [
+    "No site placement is recorded (see experiment:opal notes): no fetched source states which LEP interaction point hosted OPAL."
+  ],
+  "parent_detector_id": null,
+  "placements": [],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:opal-cern-experiment-page",
+    "src:opal-detector-tour-page"
+  ],
+  "specs": {
+    "calorimeters": {
+      "confidence": "verified",
+      "locator": "OPAL detector tour page",
+      "note": "",
+      "quote": "Calorimeters",
+      "sources": [
+        "src:opal-detector-tour-page"
+      ],
+      "value": "Calorimeters as a middle layer of the concentric detector",
+      "verified_at": "2026-09-17"
+    },
+    "muon_system": {
+      "confidence": "verified",
+      "locator": "OPAL detector tour page",
+      "note": "",
+      "quote": "Muon detectors",
+      "sources": [
+        "src:opal-detector-tour-page"
+      ],
+      "value": "Muon detectors as the outermost layer of the concentric detector",
+      "verified_at": "2026-09-17"
+    },
+    "tracker": {
+      "confidence": "verified",
+      "locator": "OPAL detector tour page",
+      "note": "",
+      "quote": "Tracking detectors",
+      "sources": [
+        "src:opal-detector-tour-page"
+      ],
+      "value": "Tracking detectors nearest the beam pipe, part of the concentric 'onion' layout",
+      "verified_at": "2026-09-17"
+    }
+  },
+  "status": "completed",
+  "subsystems": [
+    {
+      "description": {
+        "confidence": "verified",
+        "locator": "OPAL detector tour page",
+        "note": "",
+        "quote": "in a layered structure, rather like the layers of an onion.",
+        "sources": [
+          "src:opal-detector-tour-page"
+        ],
+        "value": "Tracking, calorimeter and muon-detector layers arranged concentrically around the beam pipe.",
+        "verified_at": "2026-09-17"
+      },
+      "name": "Layered ('onion') structure"
+    }
+  ],
+  "summary": {
+    "plain": "A roughly 12-metre cube built in layers like an onion, so that every kind of particle from a LEP collision was caught by the right layer: tracking near the beam, then calorimeters, then muon detectors on the outside.",
+    "technical": "General-purpose LEP detector, about 12 m x 12 m x 12 m, arranged as concentric layers of tracking detectors, calorimeters and muon detectors around the beam pipe."
+  },
+  "superseded_by": null,
+  "technology": {
+    "confidence": "verified",
+    "locator": "OPAL detector tour page",
+    "note": "",
+    "quote": "The components of the detector were arranged outside the beam pipe, in a layered structure, rather like the layers of an onion.",
+    "sources": [
+      "src:opal-detector-tour-page"
+    ],
+    "value": "General-purpose collider detector with tracking, calorimeter and muon layers arranged concentrically around the beam pipe",
+    "verified_at": "2026-09-17"
+  },
+  "technology_class": "general_purpose_collider",
+  "technology_classes": [
+    "general_purpose_collider"
+  ],
+  "type": "detector"
+}

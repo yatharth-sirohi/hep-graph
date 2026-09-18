@@ -1,0 +1,197 @@
+{
+  "aliases": [
+    "MicroBooNE",
+    "MicroBooNE LArTPC"
+  ],
+  "coverage": {
+    "researched": "full",
+    "tier": "B"
+  },
+  "experiment_ids": [
+    "experiment:microboone"
+  ],
+  "id": "detector:microboone",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2021",
+      "label": "operating",
+      "locator": "MicroBooNE official site; end year from the Fermilab newsroom item of 2025-12 (\"MicroBooNE collected data from 2015 to 2021.\")",
+      "note": "",
+      "quote": "The experiment first started collecting neutrino data in October 2015.",
+      "sources": [
+        "src:microboone-experiment-site",
+        "src:microboone-fermilab-news-2025-no-sterile"
+      ],
+      "start": "2015-10",
+      "status": "active",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "verified",
+      "end": "2021",
+      "label": "end of data taking",
+      "locator": "Fermilab newsroom, 2025-12",
+      "note": "",
+      "quote": "MicroBooNE collected data from 2015 to 2021.",
+      "sources": [
+        "src:microboone-fermilab-news-2025-no-sterile"
+      ],
+      "start": "2021",
+      "status": "completed",
+      "verified_at": "2026-09-16"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "MicroBooNE detector",
+  "notes": [
+    "Placed at site:fermilab-main-campus (owned by the fermilab-dune lead): no separately sourceable site record exists for this detector hall in this wave."
+  ],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": "2021",
+      "locator": "MicroBooNE official site",
+      "note": "Placed at site:fermilab-main-campus (owned by the fermilab-dune lead): no separately sourceable site record exists for this detector hall in this wave. The detector sits in the Liquid Argon Test Facility (LArTF) on the Booster Neutrino Beam.",
+      "quote": "The experiment first started collecting neutrino data in October 2015.",
+      "role": "main",
+      "site_id": "site:fermilab-main-campus",
+      "sources": [
+        "src:microboone-experiment-site",
+        "src:microboone-fermilab-news-2025-no-sterile"
+      ],
+      "start": "2015-10",
+      "verified_at": "2026-09-16"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:microboone-experiment-site",
+    "src:microboone-detector-paper-2017",
+    "src:microboone-fermilab-news-2025-no-sterile"
+  ],
+  "specs": {
+    "active_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "90 t",
+      "locator": "MicroBooNE detector paper, Table 2",
+      "note": "Conflict: the SBN proposal quotes \"89 ton active mass\" for MicroBooNE and many MicroBooNE papers quote 85 t; the detector paper Table 2 value for the argon mass inside the TPC is recorded here.",
+      "quote": "LArTPC argon mass: 90 tonnes",
+      "sources": [
+        "src:microboone-detector-paper-2017"
+      ],
+      "unit": "t",
+      "value": 90,
+      "verified_at": "2026-09-16"
+    },
+    "baseline": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "470 m",
+      "locator": "MicroBooNE detector paper §2",
+      "note": "",
+      "quote": "470 m downstream from the neutrino production target",
+      "sources": [
+        "src:microboone-detector-paper-2017",
+        "src:sbn-proposal-2015"
+      ],
+      "unit": "m",
+      "value": 470,
+      "verified_at": "2026-09-16"
+    },
+    "drift_length": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "2.6 m",
+      "locator": "MicroBooNE detector paper, TPC coordinate definition",
+      "note": "",
+      "quote": "x ranges from 0.0 m at the innermost anode plane to +2.6 m at the cathode",
+      "sources": [
+        "src:microboone-detector-paper-2017"
+      ],
+      "unit": "m",
+      "value": 2.6,
+      "verified_at": "2026-09-16"
+    },
+    "phase": {
+      "confidence": "derived",
+      "locator": "MicroBooNE detector paper abstract",
+      "note": "The paper describes a single-phase (liquid-only) TPC; the words \"single-phase\" are not used in the abstract.",
+      "quote": "This paper describes the design and construction of the MicroBooNE liquid argon time projection chamber and associated systems.",
+      "sources": [
+        "src:microboone-detector-paper-2017"
+      ],
+      "value": "single-phase",
+      "verified_at": "2026-09-16"
+    },
+    "readout": {
+      "confidence": "verified",
+      "locator": "MicroBooNE detector paper, Table 2",
+      "note": "",
+      "quote": "Total Number of Wires: 8256",
+      "sources": [
+        "src:microboone-detector-paper-2017"
+      ],
+      "value": "8256 sense wires on three planes",
+      "verified_at": "2026-09-16"
+    },
+    "target_medium": {
+      "confidence": "verified",
+      "locator": "MicroBooNE detector paper abstract",
+      "note": "",
+      "quote": "MicroBooNE liquid argon time projection chamber",
+      "sources": [
+        "src:microboone-detector-paper-2017"
+      ],
+      "value": "liquid argon",
+      "verified_at": "2026-09-16"
+    },
+    "total_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "170 t",
+      "locator": "MicroBooNE detector paper, Table 2",
+      "note": "",
+      "quote": "Total liquid argon mass: 170 tonnes",
+      "sources": [
+        "src:microboone-detector-paper-2017",
+        "src:microboone-experiment-site"
+      ],
+      "unit": "t",
+      "value": 170,
+      "verified_at": "2026-09-16"
+    }
+  },
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "A 170-tonne tank of liquid argon on the Booster neutrino beam at Fermilab that photographs neutrino collisions in three dimensions with wires instead of film. It was built to check a puzzling excess of events seen by an earlier experiment.",
+    "technical": "Single-phase liquid argon time projection chamber with 170 t total argon mass and 90 t inside the TPC, 2.56 x 2.325 x 10.368 m active volume, 2.6 m maximum drift, 8256 wires on three planes, 470 m from the BNB target."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "MicroBooNE official site",
+    "note": "",
+    "quote": "MicroBooNE is a large 170-ton liquid-argon time projection chamber (LArTPC) neutrino experiment",
+    "sources": [
+      "src:microboone-detector-paper-2017",
+      "src:microboone-experiment-site"
+    ],
+    "value": "single-phase liquid argon time projection chamber",
+    "verified_at": "2026-09-16"
+  },
+  "technology_class": "lar_tpc",
+  "technology_classes": [
+    "noble_liquid_tpc",
+    "lar_tpc"
+  ],
+  "type": "detector"
+}

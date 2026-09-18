@@ -1,0 +1,201 @@
+{
+  "accelerator_id": "accelerator:fermilab-main-injector",
+  "aliases": [
+    "LBNF",
+    "LBNF beamline",
+    "LBNF/DUNE beam"
+  ],
+  "baselines": [
+    {
+      "confidence": "verified",
+      "distance": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "length",
+        "display": "1285 km",
+        "locator": "§1, Introduction",
+        "note": "The DUNE FD TDR Vol. I consistently rounds this to 1300 km; the ProtoDUNE-SP paper gives 1285 km from the neutrino production target to the far detector. The great-circle distance between the two recorded site points is 1288 km.",
+        "quote": "a far detector located at the 4850 ft level of Sanford Underground Research Facility (SURF), in Lead, South Dakota, USA, 1285 km from the neutrino production target",
+        "sources": [
+          "src:dune-protodune-sp-performance-2020"
+        ],
+        "unit": "km",
+        "value": 1285,
+        "verified_at": "2026-09-16"
+      },
+      "from_site_id": "site:fermilab-main-campus",
+      "note": "Recorded from the DUNE collaboration’s own publication.",
+      "sources": [
+        "src:dune-protodune-sp-performance-2020",
+        "src:dune-fd-tdr-vol-1"
+      ],
+      "to_site_id": "site:surf-4850-level-dune-far-detector",
+      "verified_at": "2026-09-16"
+    }
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "A"
+  },
+  "direction": {
+    "confidence": "verified",
+    "locator": "section 'Construction deep underground'",
+    "note": "",
+    "quote": "It will also build structures at Fermilab to send neutrinos through stone and earth to South Dakota — no tunnel needed.",
+    "sources": [
+      "src:fermilab-lbnf-dune-site"
+    ],
+    "value": "from Fermilab (Batavia, Illinois) north-west through the Earth to SURF (Lead, South Dakota); no tunnel is required",
+    "verified_at": "2026-09-16"
+  },
+  "facility_id": "facility:fermilab",
+  "far_detector_site_ids": [
+    "site:surf-4850-level-dune-far-detector"
+  ],
+  "id": "beamline:lbnf",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "far-site groundbreaking and construction",
+      "locator": "home page",
+      "note": "",
+      "quote": "Groundbreaking for the LBNF excavation and construction at Sanford Lab occurred on July 21, 2017.",
+      "sources": [
+        "src:dune-collaboration-site"
+      ],
+      "start": "2017-07-21",
+      "status": "construction",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "verified",
+      "end": "2024-02",
+      "label": "far-site cavern excavation",
+      "locator": "article of 1 February 2024",
+      "note": "Excavation began at the 4850-foot level in 2021 and was reported complete on 1 February 2024.",
+      "quote": "Engineering, construction and excavation teams have been working 4,850 feet below the surface since 2021",
+      "sources": [
+        "src:fermilab-news-dune-excavation-completed-2024"
+      ],
+      "start": "2021",
+      "status": "construction",
+      "verified_at": "2026-09-16"
+    }
+  ],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "note": "",
+      "sources": [
+        "src:fermilab-lbnf-dune-site"
+      ],
+      "value": "https://lbnf-dune.fnal.gov/",
+      "verified_at": "2026-09-16"
+    }
+  },
+  "name": "Long-Baseline Neutrino Facility (LBNF) beamline",
+  "near_detector_site_ids": [
+    "site:fermilab-main-campus"
+  ],
+  "notes": [
+    "A dedicated LBNF beam design document could not be fetched in this session; beam parameters come from the DUNE FD TDR Vol. I."
+  ],
+  "primary_beam": {
+    "confidence": "verified",
+    "locator": "Vol. I, §1.2",
+    "note": "",
+    "quote": "protons, in a wide energy band of 60 GeV to 120 GeV",
+    "sources": [
+      "src:dune-fd-tdr-vol-1"
+    ],
+    "value": {
+      "energy": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "energy",
+        "display": "60-120 GeV",
+        "locator": "Vol. I, §1.2 The Long-Baseline Neutrino Facility (LBNF)",
+        "max": 120,
+        "min": 60,
+        "note": "",
+        "quote": "the protons, in a wide energy band of 60 GeV to 120 GeV, will collide with a high-power production target",
+        "sources": [
+          "src:dune-fd-tdr-vol-1"
+        ],
+        "unit": "GeV",
+        "verified_at": "2026-09-16"
+      },
+      "particle": "proton"
+    },
+    "verified_at": "2026-09-16"
+  },
+  "schema": "hep-atlas/0.2",
+  "secondary_beam": {
+    "confidence": "verified",
+    "locator": "Vol. I, §1.2",
+    "note": "",
+    "quote": "LBNF will deliver the world’s most intense neutrino beam to the near and far detectors in an on-axis configuration",
+    "sources": [
+      "src:dune-fd-tdr-vol-1"
+    ],
+    "value": "muon neutrinos / antineutrinos, on-axis, wide band",
+    "verified_at": "2026-09-16"
+  },
+  "sources": [
+    "src:dune-fd-tdr-vol-1",
+    "src:fermilab-lbnf-dune-site",
+    "src:dune-collaboration-site",
+    "src:dune-protodune-sp-performance-2020"
+  ],
+  "specs": {
+    "beam_power": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "power",
+      "display": "1.0-1.2 MW initially, upgradable to 2.4 MW",
+      "locator": "Vol. I, §1.2",
+      "note": "",
+      "quote": "will deliver between 1.0 and 1.2 MW of proton beam power from the Fermilab Main Injector to LBNF",
+      "sources": [
+        "src:dune-fd-tdr-vol-1"
+      ],
+      "unit": "MW",
+      "value": 1.2,
+      "verified_at": "2026-09-16"
+    },
+    "proton_energy": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "energy",
+      "display": "60-120 GeV",
+      "locator": "Vol. I, §1.2",
+      "max": 120,
+      "min": 60,
+      "note": "",
+      "quote": "in a wide energy band of 60 GeV to 120 GeV",
+      "sources": [
+        "src:dune-fd-tdr-vol-1"
+      ],
+      "unit": "GeV",
+      "verified_at": "2026-09-16"
+    }
+  },
+  "status": "construction",
+  "summary": {
+    "plain": "The facility being built at Fermilab to fire the world’s most intense beam of high-energy neutrinos 1285 kilometres through the Earth to South Dakota, plus the huge caverns that hold the detectors.",
+    "technical": "On-axis wide-band muon-neutrino beam from 60-120 GeV Main Injector protons, 1.0-1.2 MW initially and upgradable to 2.4 MW, with a 1285 km baseline from Fermilab to the SURF 4850 Level, together with the far-site conventional facilities."
+  },
+  "target": {
+    "confidence": "uncertain",
+    "locator": "Vol. I, §1.2",
+    "note": "The TDR calls it a \"high-power production target\" but the fetched volume does not name the target material.",
+    "quote": "will collide with a high-power production target, creating a secondary beam from which the intense neutrino flux will emerge",
+    "sources": [
+      "src:dune-fd-tdr-vol-1"
+    ],
+    "value": "high-power production target",
+    "verified_at": "2026-09-16"
+  },
+  "type": "beamline"
+}

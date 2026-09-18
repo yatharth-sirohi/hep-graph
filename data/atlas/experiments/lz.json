@@ -1,0 +1,321 @@
+{
+  "aliases": [
+    "LZ",
+    "LUX-ZEPLIN",
+    "LUX-ZEPLIN dark matter experiment"
+  ],
+  "collaboration_ids": [
+    "collaboration:lz"
+  ],
+  "coverage": {
+    "researched": "full",
+    "tier": "A"
+  },
+  "energy_regime": {
+    "confidence": "verified",
+    "locator": "LZ Conceptual Design Report, abstract",
+    "note": "",
+    "quote": "unprecedented sensitivity to weakly interacting massive particles (WIMPs) of masses from a few GeV/c2 to hundreds of TeV/c2",
+    "sources": [
+      "src:lz-cdr-arxiv"
+    ],
+    "value": "keV-scale nuclear recoils from WIMPs of a few GeV/c2 to hundreds of TeV/c2",
+    "verified_at": "2026-09-16"
+  },
+  "external": {
+    "greybook": null,
+    "inspire_experiment": 1262631,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:surf",
+      "locator": "lz.lbl.gov home page",
+      "note": "",
+      "quote": "Located at the 4850′ level of the Sanford Underground Research Facility in Lead, SD",
+      "role": "host",
+      "sources": [
+        "src:lz-official-site",
+        "src:lz-surf-assembly-news"
+      ],
+      "start": "2018-12",
+      "verified_at": "2026-09-16"
+    }
+  ],
+  "id": "experiment:lz",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2015",
+      "label": "proposal",
+      "locator": "INSPIRE experiment record 1262631, fields date_proposed / date_approved",
+      "note": "INSPIRE gives date_proposed 2014 and date_approved 2015. The LZ Conceptual Design Report (submitted to DOE for CD-1) appeared in September 2015.",
+      "sources": [
+        "src:lz-inspire-experiment"
+      ],
+      "start": "2014",
+      "status": "proposed",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "approximate",
+      "end": "2018-12",
+      "label": "DOE project approval",
+      "locator": "INSPIRE experiment record 1262631, field date_approved",
+      "note": "End is set where sourced underground assembly begins. No official page fetched in this session gives the DOE CD-1/CD-2/CD-3 dates, so the individual Critical Decision milestones between 2015 and 2018 are not recorded.",
+      "sources": [
+        "src:lz-inspire-experiment",
+        "src:lz-cdr-arxiv",
+        "src:lz-surf-assembly-news"
+      ],
+      "start": "2015",
+      "status": "approved",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "verified",
+      "end": "2020-09-21",
+      "label": "construction and underground assembly",
+      "locator": "Sanford Lab news, 26 October 2020",
+      "note": "Start: underground assembly of the outer cryostat vessel at the Davis Campus (Sanford Lab news, 17 December 2018). End: DOE CD-4 project completion.",
+      "quote": "U.S. Department of Energy officials on Sept. 21 formally signed off on project completion for LUX-ZEPLIN, or LZ",
+      "sources": [
+        "src:lz-surf-assembly-news",
+        "src:lz-surf-cd4-news"
+      ],
+      "start": "2018-12",
+      "status": "construction",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "approximate",
+      "end": "2021-12",
+      "label": "commissioning",
+      "locator": "Sanford Lab news, 26 October 2020",
+      "note": "Approximate bounds: commissioning was under way in October 2020 and ended when SR1 data taking began on 23 December 2021.",
+      "quote": "We are completing commissioning of the detector – the testing phase – and will be looking at LZ data next year",
+      "sources": [
+        "src:lz-surf-cd4-news",
+        "src:lz-surf-startup-press-release"
+      ],
+      "start": "2020-10",
+      "status": "commissioning",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "verified",
+      "end": "2022-05-11",
+      "kind": "run",
+      "label": "Science Run 1 (SR1)",
+      "locator": "arXiv:2207.03764 (Phys. Rev. Lett. 131, 041002), SR1 data-taking period",
+      "note": "60 live days of WIMP-search exposure.",
+      "quote": "from December 23, 2021 to May 11, 2022",
+      "sources": [
+        "src:lz-prl-first-results-2023"
+      ],
+      "start": "2021-12-23",
+      "status": "active",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "science operations",
+      "locator": "arXiv:2207.03764; lz.lbl.gov home page for continuing operations",
+      "note": "Open interval: LZ is still taking data; the WS2024 analysis used 280 live days and new results were presented in September 2026.",
+      "quote": "from December 23, 2021 to May 11, 2022",
+      "sources": [
+        "src:lz-prl-first-results-2023",
+        "src:lz-official-site"
+      ],
+      "start": "2021-12-23",
+      "status": "active",
+      "verified_at": "2026-09-16"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Active liquid xenon",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "mass",
+        "display": "7 t",
+        "locator": "NIM A 953 (2020) 163047, Sec. 1",
+        "note": "",
+        "quote": "The LZ TPC monitors 7 active tonnes (5.6 tonnes fiducial) of LXe above its cathode.",
+        "sources": [
+          "src:lz-detector-paper-nima",
+          "src:lz-official-site"
+        ],
+        "unit": "t",
+        "value": 7,
+        "verified_at": "2026-09-16"
+      }
+    },
+    {
+      "label": "Fiducial mass (SR1)",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "mass",
+        "display": "5.5 t",
+        "locator": "arXiv:2207.03764, abstract",
+        "note": "",
+        "quote": "using a fiducial mass of 5.5 t",
+        "sources": [
+          "src:lz-prl-first-results-2023"
+        ],
+        "unit": "t",
+        "value": 5.5,
+        "verified_at": "2026-09-16"
+      }
+    },
+    {
+      "label": "Total xenon inventory",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "mass",
+        "display": "10 t",
+        "locator": "NIM A 953 (2020) 163047, Sec. 3.2",
+        "note": "",
+        "quote": "A total of 10 tonne Xe inventory",
+        "sources": [
+          "src:lz-detector-paper-nima",
+          "src:lz-cdr-arxiv"
+        ],
+        "unit": "t",
+        "value": 10,
+        "verified_at": "2026-09-16"
+      }
+    },
+    {
+      "label": "Depth",
+      "quantity": {
+        "approx": true,
+        "confidence": "verified",
+        "dimension": "length",
+        "display": "~1480 m",
+        "locator": "arXiv:2602.16799",
+        "note": "",
+        "quote": "in the same cavern as LZ (vertical depth of about 1480 m)",
+        "sources": [
+          "src:lz-muon-flux-2026"
+        ],
+        "unit": "m",
+        "value": 1480,
+        "verified_at": "2026-09-16"
+      }
+    },
+    {
+      "label": "Planned exposure",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "time",
+        "display": "1000 live days",
+        "locator": "lz.lbl.gov home page",
+        "note": "Goal for the full programme, not an achieved exposure.",
+        "quote": "towards a total 1,000 live day exposure",
+        "sources": [
+          "src:lz-official-site"
+        ],
+        "unit": "d",
+        "value": 1000,
+        "verified_at": "2026-09-16"
+      }
+    }
+  ],
+  "kind": "direct_dark_matter",
+  "lineage": [
+    {
+      "confidence": "verified",
+      "experiment_id": "experiment:lux",
+      "locator": "Sanford Lab news, 26 October 2020",
+      "note": "LZ occupies the same Davis Cavern that LUX used until 2016 and carries the LUX name in its own.",
+      "quote": "LUX used about one-third of a metric ton of liquid xenon, while LZ will have 10 metric tons of liquid xenon and will be about 100 times more sensitive",
+      "relation": "predecessor",
+      "sources": [
+        "src:lz-official-site-laboratory",
+        "src:lz-surf-cd4-news"
+      ],
+      "verified_at": "2026-09-16"
+    }
+  ],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "note": "",
+      "sources": [
+        "src:lz-official-site",
+        "src:lz-inspire-experiment"
+      ],
+      "value": "https://lz.lbl.gov/",
+      "verified_at": "2026-09-16"
+    }
+  },
+  "name": "LUX-ZEPLIN (LZ)",
+  "notes": [
+    "ZEPLIN-III (Boulby Underground Laboratory, 2008-2011) is the other parent programme named in \"LUX-ZEPLIN\", but no experiment:zeplin-iii, facility:boulby-underground-laboratory or site:boulby-zeplin record is created: no source with Boulby coordinates and depth was fetched in this session, and the ID registry allows these ids only if they can be sourced.",
+    "Latest results: on 2026-09-01 the collaboration posted an EFT nuclear-recoil search at higher energies reporting one candidate event and \"tension with the background-only hypothesis at a global significance of 2.6σ\" (lz.lbl.gov home page, read 2026-09-16). It is not recorded as a result: entity because the paper was still being submitted to Phys. Rev. Lett. and no arXiv identifier was available.",
+    "DOE Critical Decision milestones CD-0 to CD-3 are not recorded: the only CD date backed by an official page in this session is CD-4 (21 September 2020, Sanford Lab). lz.lbl.gov states \"August 2020\" for CD-4 — see the conflicts section of the worklog."
+  ],
+  "physics_goals": {
+    "confidence": "verified",
+    "locator": "lz.lbl.gov home page",
+    "note": "",
+    "quote": "designed to improve on the sensitivity of the prior generation of experiment by a factor of 50 or more",
+    "sources": [
+      "src:lz-official-site",
+      "src:lz-tdr-arxiv",
+      "src:lz-official-site-publications"
+    ],
+    "value": [
+      "Detect or exclude weakly interacting massive particles (WIMPs) scattering off xenon nuclei",
+      "Improve on the previous generation of xenon dark matter experiments by a factor of 50 or more",
+      "Accumulate a 1,000 live day exposure with seven active tonnes of liquid xenon",
+      "Search for rare processes in xenon, including the neutrinoless double beta decay of 136Xe"
+    ],
+    "verified_at": "2026-09-16"
+  },
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [
+    "double_beta_decay"
+  ],
+  "sources": [
+    "src:lz-official-site",
+    "src:lz-inspire-experiment",
+    "src:lz-detector-paper-nima",
+    "src:lz-tdr-arxiv",
+    "src:lz-cdr-arxiv"
+  ],
+  "status": "active",
+  "summary": {
+    "plain": "LZ is a dark matter experiment a mile underground in South Dakota. It watches seven tonnes of liquid xenon for the tiny flash of light expected if a dark matter particle hits a xenon nucleus. It began taking data at the end of 2021 and has seen no such particle so far.",
+    "technical": "Second-generation G2 direct-detection experiment using a dual-phase xenon TPC with 7 active tonnes (5.5 t SR1 fiducial) in the Davis Cavern at SURF (~1480 m rock, ~4300 m.w.e.). SR1 (60 live days, Dec 2021 - May 2022) set a spin-independent WIMP-nucleon limit of 9.2e-48 cm2 at 36 GeV/c2; the 4.2 tonne-year WS2024 analysis reached 2.2e-48 cm2 at 40 GeV/c2. The programme targets 1,000 live days and also searches for 136Xe double beta decay."
+  },
+  "topic_ids": [
+    "topic:dark-matter",
+    "topic:direct-dark-matter-detection",
+    "topic:neutrinoless-double-beta-decay"
+  ],
+  "type": "experiment",
+  "unique_capabilities": {
+    "confidence": "verified",
+    "locator": "NIM A 953 (2020) 163047, abstract",
+    "note": "",
+    "quote": "Rejection of backgrounds is enhanced by a Xe skin veto detector and by a liquid scintillator Outer Detector loaded with gadolinium for efficient neutron capture and tagging.",
+    "sources": [
+      "src:lz-official-site",
+      "src:lz-detector-paper-nima"
+    ],
+    "value": [
+      "Seven active tonnes of liquid xenon, the largest dual-phase xenon target built when it started operating",
+      "Triple veto: instrumented xenon skin, gadolinium-loaded liquid scintillator outer detector and a water shield, under ~1480 m of rock"
+    ],
+    "verified_at": "2026-09-16"
+  }
+}

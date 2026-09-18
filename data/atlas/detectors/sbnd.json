@@ -1,0 +1,132 @@
+{
+  "aliases": [
+    "Short-Baseline Near Detector",
+    "SBND",
+    "LAr1-ND"
+  ],
+  "coverage": {
+    "researched": "full",
+    "tier": "B"
+  },
+  "experiment_ids": [
+    "experiment:sbnd"
+  ],
+  "id": "detector:sbnd",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "operating",
+      "locator": "SBND detector paper abstract",
+      "note": "Fermilab announced the first observed neutrino interactions on 2024-09-10.",
+      "quote": "SBND began operation in July 2024, and started collecting stable neutrino beam data in December 2024 with an unprecedented rate of ~7,000 neutrino events per day.",
+      "sources": [
+        "src:sbnd-detector-paper-2025",
+        "src:sbnd-fermilab-news-2024-first-neutrinos"
+      ],
+      "start": "2024-07",
+      "status": "active",
+      "verified_at": "2026-09-16"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "SBND detector",
+  "notes": [
+    "Placed at site:fermilab-main-campus (owned by the fermilab-dune lead): no separately sourceable site record exists for this detector hall in this wave.",
+    "The SBN proposal (2015) describes the same detector under its earlier name LAr1-ND, with an active volume of 4.0 x 4.0 x 5.0 m containing 112 tons of liquid argon.",
+    "Event rate is not recorded as a quantity: the SBND detector paper states \"~7,000 neutrino events per day\", and the schema's rate dimension has no per-day unit."
+  ],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "locator": "SBND detector paper abstract",
+      "note": "Placed at site:fermilab-main-campus (owned by the fermilab-dune lead): no separately sourceable site record exists for this detector hall in this wave. SBND sits in a dedicated building 110 m from the BNB target.",
+      "quote": "SBND began operation in July 2024, and started collecting stable neutrino beam data in December 2024",
+      "role": "near",
+      "site_id": "site:fermilab-main-campus",
+      "sources": [
+        "src:sbnd-detector-paper-2025"
+      ],
+      "start": "2024-07",
+      "verified_at": "2026-09-16"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:sbnd-detector-paper-2025",
+    "src:sbnd-fermilab-news-2024-first-neutrinos",
+    "src:sbn-proposal-2015"
+  ],
+  "specs": {
+    "active_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "112 t active mass",
+      "locator": "SBND detector paper abstract",
+      "note": "",
+      "quote": "SBND is a 112 ton liquid argon time projection chamber (LArTPC) neutrino detector located 110 meters from the Booster Neutrino Beam (BNB) target at Fermilab.",
+      "sources": [
+        "src:sbnd-detector-paper-2025",
+        "src:sbn-proposal-2015"
+      ],
+      "unit": "t",
+      "value": 112,
+      "verified_at": "2026-09-16"
+    },
+    "baseline": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "110 m",
+      "locator": "SBND detector paper abstract",
+      "note": "",
+      "quote": "located 110 meters from the Booster Neutrino Beam (BNB) target at Fermilab",
+      "sources": [
+        "src:sbnd-detector-paper-2025",
+        "src:sbn-proposal-2015"
+      ],
+      "unit": "m",
+      "value": 110,
+      "verified_at": "2026-09-16"
+    },
+    "target_medium": {
+      "confidence": "verified",
+      "locator": "SBND detector paper abstract",
+      "note": "",
+      "quote": "112 ton liquid argon time projection chamber (LArTPC)",
+      "sources": [
+        "src:sbnd-detector-paper-2025"
+      ],
+      "value": "liquid argon",
+      "verified_at": "2026-09-16"
+    }
+  },
+  "status": "active",
+  "subsystems": [],
+  "summary": {
+    "plain": "A 112-tonne liquid argon camera only 110 metres from where Fermilab makes its Booster neutrino beam. Being so close, it sees about 7,000 neutrinos a day, more than any similar detector.",
+    "technical": "112 t active mass single-phase liquid argon TPC 110 m from the Booster Neutrino Beam target, the near detector of the Short-Baseline Neutrino programme; 4.0 x 4.0 x 5.0 m active volume in the SBN proposal design."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "SBND detector paper abstract",
+    "note": "",
+    "quote": "SBND is a 112 ton liquid argon time projection chamber (LArTPC) neutrino detector located 110 meters from the Booster Neutrino Beam (BNB) target at Fermilab.",
+    "sources": [
+      "src:sbnd-detector-paper-2025"
+    ],
+    "value": "single-phase liquid argon time projection chamber",
+    "verified_at": "2026-09-16"
+  },
+  "technology_class": "lar_tpc",
+  "technology_classes": [
+    "noble_liquid_tpc",
+    "lar_tpc"
+  ],
+  "type": "detector"
+}

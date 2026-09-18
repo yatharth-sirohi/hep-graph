@@ -1,0 +1,98 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "formation": {
+    "confidence": "uncertain",
+    "locator": "NOvA TDR (FERMILAB-DESIGN-2007-01), OSTI 935497 (no formation date stated in the record fetched)",
+    "note": "No fetched source states an explicit collaboration formation date; left null rather than inferred from the Technical Design Report or first-run date.",
+    "sources": [
+      "src:nova-tdr-osti"
+    ],
+    "value": null,
+    "verified_at": "2026-09-17"
+  },
+  "host_facility_id": "facility:fermilab",
+  "host_site_id": "site:fermilab-main-campus",
+  "id": "collaboration:nova",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "collaboration",
+      "locator": "src:nova-tdr-osti, title/date",
+      "note": "True formation date not sourced; start is a lower bound taken from the October 2007 NOvA Technical Design Report, the earliest dated collaboration document found. The collaboration continues to operate the experiment.",
+      "quote": "The NOvA Technical Design Report",
+      "sources": [
+        "src:nova-experiment-site",
+        "src:nova-tdr-osti"
+      ],
+      "start": "2007-10",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "leadership": [],
+  "links": {
+    "website": null
+  },
+  "membership": {
+    "as_of": "2026",
+    "country_count": {
+      "confidence": "verified",
+      "locator": "NOvA Experiment — home",
+      "note": "",
+      "quote": "The international collaboration is made up of 203 scientists and engineers from 53 institutions in nine countries.",
+      "sources": [
+        "src:nova-experiment-site"
+      ],
+      "value": 9,
+      "verified_at": "2026-09-17"
+    },
+    "evidence_class": "official_institution_list",
+    "institution_count": {
+      "confidence": "verified",
+      "locator": "NOvA Experiment — home",
+      "note": "",
+      "quote": "The international collaboration is made up of 203 scientists and engineers from 53 institutions in nine countries.",
+      "sources": [
+        "src:nova-experiment-site"
+      ],
+      "value": 53,
+      "verified_at": "2026-09-17"
+    },
+    "member_count": {
+      "confidence": "verified",
+      "locator": "NOvA Experiment — home",
+      "note": "",
+      "quote": "The international collaboration is made up of 203 scientists and engineers from 53 institutions in nine countries.",
+      "sources": [
+        "src:nova-experiment-site"
+      ],
+      "value": 203,
+      "verified_at": "2026-09-17"
+    },
+    "roster_source_ids": [
+      "src:nova-experiment-site"
+    ]
+  },
+  "name": "NOvA Collaboration",
+  "notes": [
+    "Institution-level membership rows are owned by the membership-lead workstream and are not written here; only the published aggregate counts are recorded.",
+    "Leadership is left empty: person records are owned by another workstream.",
+    "Derived field collaboration.experiment_ids is deliberately not written (v0.2 A1)."
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:nova-experiment-site",
+    "src:nova-tdr-osti"
+  ],
+  "status": "active",
+  "summary": {
+    "plain": "The 203 scientists and engineers, from 53 institutions in nine countries, who built and run the NOvA neutrino experiment.",
+    "technical": "International collaboration operating the NOvA long-baseline accelerator neutrino experiment; 203 scientists and engineers at 53 institutions in 9 countries per the collaboration's own site."
+  },
+  "type": "collaboration"
+}

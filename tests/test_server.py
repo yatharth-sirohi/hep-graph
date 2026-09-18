@@ -1,116 +1,124 @@
-"""HTTP and service-boundary tests for the read-only HEP Graph service.
+"""HTTP and service-boundary tests for the graph-database service.
 
-The fixture is deliberately small and local.  No test in this module contacts
-INSPIRE; live-search tests replace the opener with a deterministic fake.
+No test here contacts INSPIRE or a database: the graph service is stubbed, so
+what is exercised is the request surface itself - parameter validation, the
+static allowlist, method handling, and that an unconfigured deployment says so
+instead of pretending to answer.
 """
 
 from __future__ import annotations
 
 import json
-import os
-from pathlib import Path
 import socket
 import threading
-import time
 
 import pytest
 
 from hepgraph import server as server_module
-from fake_https_connection import make_connection_class
-from hepgraph import remote as remote_module
-from hepgraph.graph import Filters, Graph
+from hepgraph.graph import Filters
 
 
-def _person(person_id: str, name: str | None = None) -> dict:
-    return {
-        "id": person_id,
-        "name": name or f"Person {person_id}",
-        "aliases": [],
-        "affiliations": [],
-        "orcid": None,
-        "profile_status": "profile",
-        "source_url": f"https://inspirehep.net/authors/{person_id}",
-    }
+class StubDatabase:
+    """Stands in for DatabaseGraphService with no database behind it."""
 
+    def __init__(self):
+        self.calls = []
 
-def _work(work_id: str, authors: list[str], year: int) -> dict:
-    return {
-        "id": work_id,
-        "title": f"Work {work_id}",
-        "year": year,
-        "date": f"{year}-01-01",
-        "date_source": "preprint",
-        "author_count": len(authors),
-        "authors": authors,
-        "unresolved_count": 0,
-        "document_types": ["article"],
-        "doi": [],
-        "arxiv": [],
-        "source_url": f"https://inspirehep.net/literature/{work_id}",
-        "source_ids": [],
-        "retrieved_at": "2026-09-14T00:00:00Z",
-    }
+    class _Coverage:
+        import_id = "stub-import"
 
+    def coverage(self, **kwargs):
+        return self._Coverage()
 
-def _snapshot(version: str = "fixture-v1") -> dict:
-    return {
-        "version": version,
-        "created_at": "2026-09-14T00:00:00Z",
-        "coverage": {"label": "local fixture", "description": "test data", "complete": False, "queries": [], "failures": []},
-        "people": [_person(item) for item in ("1", "2", "3", "4")],
-        "works": [_work("w1", ["1", "2"], 2010), _work("w2", ["2", "3"], 2020), _work("w3", ["3", "4"], 2021)],
-        "phd": [{
-            "adviser": "1", "student": "4", "degree": "PhD", "year": 2000,
-            "source_url": "https://inspirehep.net/literature/doctoral",
-            "source_record": "p1", "uncertainty": None,
-            "retrieved_at": "2026-09-14T00:00:00Z",
-        }],
-        "examples": [],
-    }
+    def provider(self, *args, **kwargs):
+        return self
+
+    def resolve_author(self, author_id):
+        return {"id": str(author_id)}
+
+    def dataset(self):
+        return {"version": "graph-db:stub-import", "source_mode": "database",
+                "created_at": None, "graph_snapshot": "stub-import",
+                "counts": {"people": None, "works": 3, "phd": None},
+                "coverage": {"label": "stub", "description": "stub", "complete": False,
+                             "mode": "database", "queries": [], "failures": []},
+                "capabilities": {"live_graph": False, "deep_search": True,
+                                 "global_centrality": False},
+                "policy": {}}
+
+    def start_path(self, source, target, filters):
+        self.calls.append(("start_path", source, target, filters.to_dict()))
+        return {"job_id": "a" * 32, "status": "settled", "proof_status": "verified",
+                "route_status": "verified_route_found", "paths": []}
+
+    def person(self, person_id, filters, **kwargs):
+        self.calls.append(("person", person_id))
+        return {"status": "ok", "person": {"id": person_id}}
+
+    def neighborhood(self, person_id, filters, **kwargs):
+        self.calls.append(("neighborhood", person_id))
+        return {"status": "ok", "people": [], "edges": []}
+
+    def ancestry(self, person_id, filters, **kwargs):
+        self.calls.append(("ancestry", person_id, kwargs.get("direction"), kwargs.get("depth")))
+        return {"status": "unavailable", "message": "no overlay"}
+
+    def owns_job(self, job_id):
+        return job_id == "a" * 32
+
+    def job(self, job_id):
+        return {"job_id": job_id, "status": "settled"}
+
+    def resume(self, job_id):
+        return {"job_id": job_id, "status": "searching", "resumed": True}
+
+    def cancel(self, job_id):
+        return {"job_id": job_id, "status": "cancelled"}
+
+    def lineage_map(self):
+        return {"status": "ok", "version": "v1", "nodes": [[7, 0, 0, 0, 2]] * 400,
+                "names": ["Adviser Seven"] * 400, "edges": [], "counts": {"people": 400}}
 
 
 @pytest.fixture
-def snapshot_path(tmp_path: Path) -> Path:
-    path = tmp_path / "current.json"
-    path.write_text(json.dumps(_snapshot()), encoding="utf-8")
-    return path
+def service(monkeypatch: pytest.MonkeyPatch):
+    stub = StubDatabase()
 
-
-@pytest.fixture
-def service(snapshot_path: Path):
-    # The managed test sandbox does not allow binding TCP ports. A socketpair
-    # still runs the production BaseHTTPRequestHandler request/response code,
-    # including HTTP parsing, without a listening socket or live network.
     class LocalServer:
         def __init__(self):
-            self.state = server_module.State(snapshot_path)
+            self.state = server_module.State()
 
-        def request(self, path: str, *, method: str = "GET", body: bytes | None = None):
+        def request(self, path, *, method="GET", body=None, database=stub, extra_headers=()):
+            monkeypatch.setattr(self.state, "graph_database", lambda: database)
             left, right = socket.socketpair()
+            left.settimeout(5)
             try:
-                body = body or b""
-                headers = [f"{method} {path} HTTP/1.0", "Host: localhost", "Connection: close"]
-                if body:
+                headers = [f"{method} {path} HTTP/1.1", "Host: localhost", "Connection: close",
+                           *extra_headers]
+                if body is not None:
                     headers.append(f"Content-Length: {len(body)}")
-                left.sendall(("\r\n".join(headers) + "\r\n\r\n").encode() + body)
+                payload = ("\r\n".join(headers) + "\r\n\r\n").encode() + (body or b"")
+                left.sendall(payload)
                 left.shutdown(socket.SHUT_WR)
-                # Invoke the handler concurrently so a static response larger
-                # than the socket buffer cannot deadlock while the peer reads.
+
                 def serve_one():
                     try:
                         server_module.Handler(right, ("127.0.0.1", 12345), self)
                     finally:
                         right.close()
 
-                handler_thread = threading.Thread(target=serve_one, daemon=True)
-                handler_thread.start()
+                thread = threading.Thread(target=serve_one, daemon=True)
+                thread.start()
                 chunks = []
-                while True:
-                    chunk = left.recv(65536)
-                    if not chunk:
-                        break
-                    chunks.append(chunk)
-                handler_thread.join(timeout=2)
+                try:
+                    while True:
+                        chunk = left.recv(65536)
+                        if not chunk:
+                            break
+                        chunks.append(chunk)
+                except TimeoutError:
+                    pass
+                thread.join(timeout=2)
                 raw = b"".join(chunks)
             finally:
                 left.close()
@@ -125,223 +133,184 @@ def service(snapshot_path: Path):
             return status, response_headers, response_body
 
     local = LocalServer()
-    yield local, local.state
-
-
-def _request(base, path: str, *, method: str = "GET", body: bytes | None = None) -> tuple[int, dict[str, str], bytes]:
-    return base.request(path, method=method, body=body)
+    yield local, local.state, stub
 
 
 def _json(body: bytes) -> dict:
     return json.loads(body.decode("utf-8"))
 
 
-def test_handler_state_is_created_once_when_runtime_owns_server(monkeypatch: pytest.MonkeyPatch) -> None:
-    created = []
-    sentinel = object()
+# ------------------------------------------------------------------ surface
 
-    def make_state(path, default_mode):
-        created.append((path, default_mode))
-        return sentinel
-
-    monkeypatch.setattr(server_module, "State", make_state)
-    monkeypatch.setattr(server_module, "_SERVERLESS_STATE", None)
-    first_server = type("RuntimeServer", (), {})()
-    second_server = type("RuntimeServer", (), {})()
-
-    assert server_module._state_for_handler(first_server) is sentinel
-    assert server_module._state_for_handler(first_server) is sentinel
-    assert server_module._state_for_handler(second_server) is sentinel
-    assert first_server.state is sentinel
-    assert second_server.state is sentinel
-    assert created == [(server_module.ROOT / "data" / "current.json", "live")]
-
-
-def test_health_dataset_headers_and_exact_snapshot_version(service) -> None:
-    base, state = service
-    status, headers, body = _request(base, "/api/health")
+def test_health_and_dataset_describe_the_pinned_graph(service):
+    base, _, _ = service
+    status, headers, body = base.request("/api/health")
     assert status == 200
-    health = _json(body)
-    runtime = health.pop("runtime")
-    assert health == {"status": "ok", "version": "fixture-v1", "service_version": "general-search-v3"}
-    # Forensic identity for a serverless deployment: which build answered and
-    # from which process. Never anything secret.
-    assert set(runtime) == {"git_commit", "deployment", "region", "environment",
-                            "instance", "process_started", "pid"}
-    assert len(runtime["instance"]) == 32 and headers["X-HEP-Instance"] == runtime["instance"]
-    assert headers["Content-Type"].startswith("application/json")
-    assert headers["Cache-Control"] == "no-store"
-    assert headers["X-Content-Type-Options"] == "nosniff"
-    assert headers["Content-Security-Policy"].startswith("default-src 'self'")
+    payload = _json(body)
+    assert payload["status"] == "ok"
+    assert payload["runtime"]["instance"]
+    assert headers.get("X-Content-Type-Options") == "nosniff"
 
-    status, _, body = _request(base, "/api/path?source=1&target=3&version=fixture-v1")
+    status, _, body = base.request("/api/dataset")
+    payload = _json(body)
     assert status == 200
-    result = _json(body)
-    assert result["version"] == "fixture-v1"
-    assert "version_mismatch" not in result
+    assert payload["source_mode"] == "database"
+    assert payload["version"] == "graph-db:stub-import"
+    assert payload["capabilities"]["live_graph"] is False
+    assert "examples" not in payload
 
-    status, _, body = _request(base, "/api/path?source=1&target=3&version=stale-v0")
+
+def test_an_unconfigured_deployment_refuses_instead_of_pretending(service):
+    """No database means no routes; saying so is the only honest answer."""
+    base, _, _ = service
+    status, _, body = base.request("/api/path?source=101&target=102", database=None)
+    assert status == 503
+    payload = _json(body)
+    assert payload["status"] == "unavailable"
+    assert "no published research data" in payload["message"]
+
+
+def test_route_search_reaches_the_database_with_parsed_filters(service):
+    base, _, stub = service
+    status, _, body = base.request("/api/path?source=101&target=102&max_authors=all&min_shared=2")
     assert status == 200
-    result = _json(body)
-    assert result["version"] == "fixture-v1"
-    assert result["version_mismatch"] is True
-    assert result["requested_version"] == "stale-v0"
-    assert "current version" in result["version_warning"]
+    assert _json(body)["route_status"] == "verified_route_found"
+    call = [item for item in stub.calls if item[0] == "start_path"][0]
+    assert call[1:3] == ("101", "102")
+    assert call[3]["max_authors"] is None and call[3]["min_shared"] == 2
 
-    # State.reload is driven by the published file stamp, so a newly published
-    # snapshot becomes the exact version used by subsequent graph responses.
-    state.path.write_text(json.dumps(_snapshot("fixture-v2")), encoding="utf-8")
-    os.utime(state.path, ns=(time.time_ns(), time.time_ns() + 1_000_000))
-    status, _, body = _request(base, "/api/health")
+
+def test_person_and_neighborhood_are_served_from_the_database(service):
+    base, _, stub = service
+    assert base.request("/api/person/101")[0] == 200
+    assert base.request("/api/neighborhood/101?limit=10")[0] == 200
+    assert base.request("/api/ancestry/101")[0] == 200
+    assert ("person", "101") in stub.calls
+
+
+def test_centrality_reports_unavailable_rather_than_sampling(service):
+    base, _, _ = service
+    status, _, body = base.request("/api/centrality")
+    payload = _json(body)
     assert status == 200
-    assert _json(body)["version"] == "fixture-v2"
+    assert payload["status"] == "unavailable"
+    assert payload["exact"] is False
 
 
-def test_filters_change_graph_and_identity_states_are_explicit(service) -> None:
-    base, _ = service
-    status, _, body = _request(base, "/api/path?source=1&target=3&genealogy=false")
-    assert status == 200
-    assert _json(body)["status"] == "ok"
-
-    # Only the 2020 paper remains; that leaves person 1 disconnected from 3.
-    status, _, body = _request(base, "/api/path?source=1&target=3&year_start=2020&year_end=2020&genealogy=false")
-    assert status == 200
-    filtered = _json(body)
-    assert filtered["status"] == "no_path"
-    assert filtered["paths"] == []
-    assert filtered["filters"]["year_start"] == 2020
-
-    status, _, body = _request(base, "/api/path?source=2&target=2")
-    assert status == 200
-    same = _json(body)
-    assert same["status"] == "ok"
-    assert same["paths"][0]["hops"] == 0
-    assert same["paths"][0]["edges"] == []
-
-    status, _, body = _request(base, "/api/path?source=1&target=999")
-    assert status == 200
-    assert _json(body)["status"] == "not_indexed"
-
-    # Profile/neighborhood use GraphError for the same identity state.  It must
-    # retain its typed status instead of being swallowed as generic bad input.
-    status, _, body = _request(base, "/api/person/999")
-    assert status in {404, 422}
-    assert _json(body)["status"] == "not_indexed"
-
-    status, _, body = _request(base, "/api/path?source=1&target=4&year_start=2020&year_end=2020&genealogy=false")
-    assert status == 200
-    assert _json(body)["status"] == "no_path"
+def test_search_jobs_are_polled_continued_and_cancelled(service):
+    base, _, _ = service
+    job = "a" * 32
+    assert _json(base.request(f"/api/search-jobs/{job}")[1 + 1])["status"] == "settled"
+    assert _json(base.request(f"/api/search-jobs/{job}/continue", method="POST")[2])["resumed"] is True
+    assert _json(base.request(f"/api/search-jobs/{job}/cancel", method="POST")[2])["status"] == "cancelled"
+    # A control action must not be reachable by GET.
+    assert base.request(f"/api/search-jobs/{job}/continue")[0] == 405
+    assert base.request(f"/api/search-jobs/{'b' * 32}")[0] == 404
 
 
-@pytest.mark.parametrize(
-    "path",
-    [
-        "/api/path?source=1&source=2&target=3",
-        "/api/path?source=1&target=3&unknown=1",
-        "/api/path?source=1&target=3&max_authors=0",
-        "/api/search?q=x",
-        "/api/search?q=Alice&live=2",
-        "/api/person/not-an-inspire-id",
-    ],
-)
-def test_malformed_duplicate_unknown_and_invalid_parameters_are_400(service, path: str) -> None:
-    status, _, body = _request(service[0], path)
+# ------------------------------------------------------------------ hardening
+
+@pytest.mark.parametrize("path", [
+    "/api/path?source=1&source=2&target=3",
+    "/api/path?source=1&target=3&unknown=1",
+    "/api/path?source=1&target=3&max_authors=0",
+    "/api/path?source=0&target=2",
+    "/api/path?mode=live&source=1&target=2",
+    "/api/person/not-an-inspire-id",
+    "/api/search?q=x",
+    "/api/neighborhood/101?limit=999",
+    "/api/ancestry/101?direction=sideways",
+])
+def test_malformed_duplicate_unknown_and_invalid_parameters_are_400(service, path):
+    base, _, _ = service
+    status, _, body = base.request(path)
     assert status == 400
     assert _json(body)["status"] == "invalid_input"
 
 
-def test_excessive_parameters_and_url_length_are_rejected(service) -> None:
-    base, _ = service
-    fields = "&".join(f"x{index}=1" for index in range(21))
-    status, _, body = _request(base, "/api/health?" + fields)
+def test_the_removed_live_mode_is_rejected_not_silently_ignored(service):
+    base, _, _ = service
+    status, _, body = base.request("/api/path?mode=live&source=101&target=102")
     assert status == 400
-    assert _json(body)["status"] == "invalid_input"
-
-    status, _, body = _request(base, "/api/health?x=" + ("a" * 4100))
-    assert status == 414
-    assert _json(body)["status"] == "invalid_input"
+    assert "search source is unavailable" in _json(body)["message"]
 
 
-def test_static_routes_are_allowlisted_and_traversal_cannot_expose_files(service) -> None:
-    base, _ = service
-    status, headers, body = _request(base, "/")
+def test_excessive_parameters_and_url_length_are_rejected(service):
+    base, _, _ = service
+    many = "&".join(f"p{index}=1" for index in range(40))
+    assert base.request(f"/api/dataset?{many}")[0] == 400
+    # Over the 4096 limit, but small enough that the socketpair buffer
+    # still accepts it after the handler has closed its side.
+    assert base.request("/api/path?source=1&target=" + "9" * 4200)[0] == 414
+
+
+def test_static_routes_are_allowlisted_and_traversal_cannot_expose_files(service):
+    base, _, _ = service
+    assert base.request("/")[0] == 200
+    assert base.request("/app.js")[0] == 200
+    for path in ("/../hepgraph/server.py", "/static/../pyproject.toml", "/%2e%2e/pyproject.toml",
+                 "/data/current.json", "/.env.local"):
+        status, _, body = base.request(path)
+        assert status == 404, path
+        assert b"DATABASE_URL" not in body
+
+
+def test_head_has_no_body_and_post_is_limited_to_search_controls(service):
+    base, _, _ = service
+    status, headers, body = base.request("/api/health", method="HEAD")
+    assert status == 200 and body == b""
+    assert base.request("/api/dataset", method="POST", body=b"")[0] == 501
+
+
+def test_the_map_drops_names_rather_than_exceeding_the_response_limit(service):
+    """Compressed the map fits; sent whole it does not, and a 5 MB reply is an error.
+
+    Names are the compressible bulk and the one part the map can draw without,
+    so a client that cannot take gzip gets a drawable map instead of a failure.
+    """
+    local, _, _ = service
+    status, headers, body = local.request("/api/lineage-map")
+    assert status == 200 and "Content-Encoding" not in headers
+    plain = _json(body)
+    assert plain["names"] == [] and plain["names_omitted"] is True
+    assert len(plain["nodes"]) == 400          # the map itself is untouched
+
+    status, headers, body = local.request(
+        "/api/lineage-map", extra_headers=["Accept-Encoding: gzip"])
+    assert status == 200 and headers["Content-Encoding"] == "gzip"
+    import gzip as gziplib
+
+    sent = _json(gziplib.decompress(body))
+    assert len(sent["names"]) == 400 and "names_omitted" not in sent
+
+
+def test_the_relationship_route_needs_two_valid_people(service):
+    local, _, stub = service
+
+    stub.relationship = lambda a, b, filters, **kw: {"status": "ok", "a": a, "b": b,
+                                                     "depth": kw.get("depth")}
+    status, _, body = local.request("/api/relationship?a=1621061&b=993651")
     assert status == 200
-    assert headers["Content-Type"].startswith("text/html")
-    assert b"HEP Graph" in body
+    assert _json(body)["a"] == "1621061" and _json(body)["b"] == "993651"
 
-    for path in ("/data/current.json", "/%2e%2e/%2e%2e/CONTRACT.md", "/api/../CONTRACT.md", "/static/app.js"):
-        status, _, body = _request(base, path)
-        assert status == 404
-        assert b"HEP implementation contract" not in body
+    status, _, body = local.request("/api/relationship?a=not-an-id&b=993651")
+    assert status == 400
 
-
-def test_get_only_surface_has_head_without_body_and_rejects_post(service) -> None:
-    base, _ = service
-    status, headers, body = _request(base, "/api/health", method="HEAD")
-    assert status == 200
-    assert headers["Content-Length"].isdigit()
-    assert body == b""
-
-    status, _, body = _request(base, "/api/health", method="POST", body=b"status=bad")
-    assert status == 501
-    assert b"Unsupported method" in body
+    status, _, body = local.request("/api/relationship?a=1621061")
+    assert status == 400          # a relationship needs both sides
 
 
-def test_resource_limit_is_not_returned_as_success_or_no_path(service, monkeypatch: pytest.MonkeyPatch) -> None:
-    base, _ = service
-    monkeypatch.setattr(Graph, "MAX_PATH_NODES", 0)
-    status, _, body = _request(base, "/api/path?source=1&target=3")
-    result = _json(body)
-    assert status in {422, 503}
-    assert result["status"] == "resource_limit"
-    assert result["status"] != "no_path"
+def test_a_person_summary_is_asked_for_by_name(service):
+    """Restoring a shared route needs who an id is, not their whole neighbourhood."""
+    local, _, stub = service
+    seen = {}
 
+    def person(person_id, filters, **kwargs):
+        seen.update(kwargs)
+        return {"status": "ok", "person": {"id": person_id}}
 
-def _live_payload(name: str = "<script>alert(1)</script>") -> bytes:
-    return json.dumps({"hits": {"total": 1, "hits": [{
-        "id": "77",
-        "metadata": {
-            "control_number": 77,
-            "name": {"preferred_name": name, "name_variants": []},
-            "ids": [],
-            "positions": [],
-            "untrusted_field": "must not be copied",
-        },
-    }]}}).encode()
-
-
-def test_live_search_constructs_only_fixed_upstream_urls_and_bounds_query(monkeypatch, snapshot_path: Path) -> None:
-    connections = make_connection_class(default=_live_payload())
-    monkeypatch.setattr(remote_module, "HTTPSConnection", connections)
-    state = server_module.State(snapshot_path)
-    result = state.live_search("x/y? OR attacker")
-    assert result["status"] == "ok"
-    assert result["results"][0]["id"] == "77"
-    assert result["results"][0]["name"] == "<script>alert(1)</script>"
-    assert "untrusted_field" not in result["results"][0]
-    (connection,) = connections.instances
-    method, target, _ = connection.requests[0]
-    # The transport refuses anything but https and hands TLS a real context.
-    assert isinstance(connection.context, remote_module.ssl.SSLContext)
-    assert (connection.host, connection.port, method) == ("inspirehep.net", 443, "GET")
-    parsed = server_module.urllib.parse.urlsplit(target)
-    assert parsed.path == "/api/authors"
-    assert "attacker" in server_module.urllib.parse.parse_qs(parsed.query)["q"][0]
-    assert 0 < connection.timeout <= 8
-
-
-def test_live_upstream_failure_is_explicit_and_cached_results_are_isolated(monkeypatch, snapshot_path: Path) -> None:
-    monkeypatch.setattr(remote_module, "HTTPSConnection", make_connection_class(connect_error=OSError("offline")))
-    state = server_module.State(snapshot_path)
-    unavailable = state.live_search("Offline researcher")
-    assert unavailable["status"] == "upstream_unavailable"
-    assert unavailable["results"] == []
-
-    connections = make_connection_class(default=_live_payload("Cached name"))
-    monkeypatch.setattr(remote_module, "HTTPSConnection", connections)
-    state = server_module.State(snapshot_path)
-    first = state.live_search("Cached researcher")
-    first["results"][0]["name"] = "mutated by caller"
-    second = state.live_search("Cached researcher")
-    assert second["results"][0]["name"] == "Cached name"
-    assert sum(len(connection.requests) for connection in connections.instances) == 1
+    stub.person = person
+    status, _, _ = local.request("/api/person/1621061?summary=1")
+    assert status == 200 and seen.get("summary") is True
+    local.request("/api/person/1621061")
+    assert seen.get("summary") is False

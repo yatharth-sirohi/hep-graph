@@ -1,0 +1,322 @@
+{
+  "aliases": [
+    "LHC"
+  ],
+  "coverage": {
+    "researched": "full",
+    "tier": "A"
+  },
+  "facility_id": "facility:cern",
+  "feeds_accelerator_ids": [],
+  "id": "accelerator:lhc",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2009-11-23",
+      "label": "first beam and commissioning",
+      "note": "Ends with the first proton-proton collisions; the same page states the LHC produced 'its first collisions on 23 November 2009'.",
+      "quote": "The LHC circulated its first protons on 10 September 2008.",
+      "sources": [
+        "src:cern-lhc-page"
+      ],
+      "start": "2008-09-10",
+      "status": "commissioning",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "approximate",
+      "end": {
+        "approx": true,
+        "date": "2013",
+        "note": "Run 1 ended in early 2013 with Long Shutdown 1; no CERN page fetched in this session gives the exact date, so year precision only."
+      },
+      "kind": "run",
+      "label": "Run 1",
+      "locator": "home.cern 'Key figures' table",
+      "note": "Start verified to the day; end is year-precision (see the end-date note). src:cern-lhc-prepares-new-achievements-2018 establishes that the second run covered 2015-2018, bounding Run 1's end before 2015.",
+      "quote": "first high-energy collisions (7 TeV) on 30 March 2010",
+      "sources": [
+        "src:cern-lhc-7tev-collisions-2010",
+        "src:cern-lhc-page",
+        "src:cern-lhc-prepares-new-achievements-2018"
+      ],
+      "specs": {
+        "beam_energy": {
+          "approx": false,
+          "confidence": "verified",
+          "dimension": "energy",
+          "display": "3.5 TeV per beam",
+          "note": "3.5 TeV per beam in 2010-2011; the 2012 step to 4 TeV per beam is not stated on any CERN page fetched in this session.",
+          "quote": "The first attempt for collisions at 7 TeV (3.5 TeV per beam) is scheduled for 30 March.",
+          "sources": [
+            "src:cern-lhc-7tev-collisions-2010"
+          ],
+          "unit": "TeV",
+          "value": 3.5,
+          "verified_at": "2026-09-16"
+        },
+        "cms_energy": {
+          "approx": false,
+          "confidence": "verified",
+          "dimension": "energy",
+          "display": "7 TeV",
+          "note": "",
+          "quote": "first high-energy collisions (7 TeV) on 30 March 2010",
+          "sources": [
+            "src:cern-lhc-7tev-collisions-2010",
+            "src:cern-lhc-page"
+          ],
+          "unit": "TeV",
+          "value": 7,
+          "verified_at": "2026-09-16"
+        }
+      },
+      "start": "2010-03-30",
+      "status": "active",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "uncertain",
+      "end": {
+        "approx": true,
+        "date": "2015"
+      },
+      "label": "Long Shutdown 1",
+      "note": "Bounded by the sourced facts that Run 1 ended in early 2013 and that the second run began in 2015 ('It reached 13 TeV in 2015, at the start of its second run'). The CERN press release dating the final Run 1 beam extraction could not be re-fetched (home.cern returns 404 after its own redirect), so both bounds are year-precision.",
+      "sources": [
+        "src:cern-lhc-page",
+        "src:cern-lhc-prepares-new-achievements-2018"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2013"
+      },
+      "status": "shutdown",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "verified",
+      "end": "2018-12-03",
+      "kind": "run",
+      "label": "Run 2",
+      "note": "End date from src:cern-run2-conclusion-2018 ('On 3 December, the LHC's second run came to an end after three fantastic years') and the 3 December 2018 dateline of src:cern-lhc-prepares-new-achievements-2018.",
+      "quote": "During this second run (2015-2018), the LHC performed beyond expectations",
+      "sources": [
+        "src:cern-lhc-page",
+        "src:cern-lhc-prepares-new-achievements-2018",
+        "src:cms-cern-run2-conclusion-2018"
+      ],
+      "specs": {
+        "beam_energy": {
+          "approx": false,
+          "confidence": "derived",
+          "dimension": "energy",
+          "display": "6.5 TeV per beam",
+          "note": "Half of the sourced 13 TeV centre-of-mass energy; no CERN page fetched in this session states 6.5 TeV per beam directly.",
+          "sources": [
+            "src:cern-lhc-page"
+          ],
+          "unit": "TeV",
+          "value": 6.5,
+          "verified_at": "2026-09-16"
+        },
+        "cms_energy": {
+          "approx": false,
+          "confidence": "verified",
+          "dimension": "energy",
+          "display": "13 TeV",
+          "note": "",
+          "quote": "It reached 13 TeV in 2015, at the start of its second run",
+          "sources": [
+            "src:cern-lhc-page"
+          ],
+          "unit": "TeV",
+          "value": 13,
+          "verified_at": "2026-09-16"
+        }
+      },
+      "start": "2015",
+      "status": "active",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "verified",
+      "end": "2022-07-05",
+      "label": "Long Shutdown 2",
+      "note": "Start = the 3 December 2018 dateline of the CERN article announcing LS2; end = the start of Run 3 physics collisions on 5 July 2022.",
+      "quote": "With this second long shutdown starting now, we will prepare the machine for even more collisions at the design energy of 14 TeV.",
+      "sources": [
+        "src:cern-lhc-prepares-new-achievements-2018",
+        "src:cern-run3-start-2022"
+      ],
+      "start": "2018-12-03",
+      "status": "shutdown",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "verified",
+      "end": "2026-06",
+      "kind": "run",
+      "label": "Run 3",
+      "note": "End recorded at month precision: CERN's 29 June 2026 article states 'Following its final physics run, the accelerator has been switched off to begin CERN's Long Shutdown 3 (LS3)', and home.cern/science/long-shutdown-3 puts the final collisions in late June 2026.",
+      "quote": "A round of applause broke out in the CERN Control Centre on 5 July at 4.47 p.m. CEST when the Large Hadron Collider (LHC) detectors started recording high-energy collisions",
+      "sources": [
+        "src:cern-long-shutdown-3-page",
+        "src:cern-ls3-farewell-2026",
+        "src:cern-run3-media-kit",
+        "src:cern-run3-start-2022"
+      ],
+      "specs": {
+        "beam_energy": {
+          "approx": false,
+          "confidence": "verified",
+          "dimension": "energy",
+          "display": "6.8 TeV per beam",
+          "note": "",
+          "quote": "at the record collision energy of 13.6 trillion electronvolts (TeV) - 6.8 TeV per beam",
+          "sources": [
+            "src:cern-run3-media-kit"
+          ],
+          "unit": "TeV",
+          "value": 6.8,
+          "verified_at": "2026-09-16"
+        },
+        "cms_energy": {
+          "approx": false,
+          "confidence": "verified",
+          "dimension": "energy",
+          "display": "13.6 TeV",
+          "note": "",
+          "quote": "at the record collision energy of 13.6 trillion electronvolts (TeV) - 6.8 TeV per beam",
+          "sources": [
+            "src:cern-lhc-page",
+            "src:cern-run3-media-kit"
+          ],
+          "unit": "TeV",
+          "value": 13.6,
+          "verified_at": "2026-09-16"
+        }
+      },
+      "start": "2022-07-05",
+      "status": "active",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "approximate",
+      "end": {
+        "approx": true,
+        "date": "2028",
+        "note": "'The accelerator complex and its experiment facilities will gradually resume operation from mid-2028 onwards' (home.cern/science/long-shutdown-3).",
+        "planned": true
+      },
+      "label": "Long Shutdown 3",
+      "note": "LS3 installs the High-Luminosity LHC. Start = the switch-off announced on 29 June 2026; end is a schedule value, not a reported event.",
+      "quote": "This phase, known as 'Long Shutdown 3' or 'LS3', is expected to last up to four years.",
+      "sources": [
+        "src:cern-long-shutdown-3-page",
+        "src:cern-ls3-farewell-2026"
+      ],
+      "start": "2026-06",
+      "status": "shutdown",
+      "verified_at": "2026-09-16"
+    }
+  ],
+  "is_collider": true,
+  "kind": "collider",
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "note": "",
+      "sources": [
+        "src:cern-lhc-page"
+      ],
+      "value": "https://home.cern/science/accelerators/large-hadron-collider",
+      "verified_at": "2026-09-16"
+    }
+  },
+  "name": "Large Hadron Collider",
+  "notes": [
+    "Per-run beam energies are carried on the Interval.specs of each run (A3).",
+    "The 2012 increase from 3.5 to 4 TeV per beam is not stated on any CERN page fetched in this session; the Run 1 interval therefore records 3.5 TeV/beam with a note.",
+    "The LHC occupies the 26.7 km tunnel built for LEP (src:cern-lep-page: 'Its 27-kilometre tunnel now hosts the LHC')."
+  ],
+  "particles": [
+    "proton",
+    "lead ion"
+  ],
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:cern-meyrin",
+  "sources": [
+    "src:cern-accelerator-complex",
+    "src:cern-lhc-page",
+    "src:cern-ls3-farewell-2026"
+  ],
+  "specs": {
+    "beam_energy": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "energy",
+      "display": "7 TeV per beam (design)",
+      "note": "Design beam energy. The energy actually delivered per run is on each run interval's specs; home.cern's key-figures table lists the current 'Nominal energy, protons: 6.8 TeV'.",
+      "quote": "The bypass diodes - the electrical components that protect the magnets in case of quench - will be shielded, as a prerequisite for extending the LHC beam energy to 7 TeV after the LS2",
+      "sources": [
+        "src:cern-lhc-prepares-new-achievements-2018"
+      ],
+      "unit": "TeV",
+      "value": 7,
+      "verified_at": "2026-09-16"
+    },
+    "circumference": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "26 659 m",
+      "locator": "'Key figures' table",
+      "note": "",
+      "quote": "Circumference 26 659 m",
+      "sources": [
+        "src:cern-lhc-page"
+      ],
+      "unit": "m",
+      "value": 26659,
+      "verified_at": "2026-09-16"
+    },
+    "cms_energy": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "energy",
+      "display": "14 TeV (design)",
+      "locator": "2008 JINST 3 S08003, chapter 1, opening paragraph",
+      "note": "Design centre-of-mass energy; home.cern (2018) repeats 'the design energy of 14 TeV'. Highest energy actually reached is 13.6 TeV (Run 3).",
+      "quote": "bunches of up to 10^11 protons (p) will collide 40 million times per second to provide 14 TeV proton-proton collisions at a design luminosity of 10^34 cm^-2 s^-1",
+      "sources": [
+        "src:atlas-detector-jinst-2008",
+        "src:cern-lhc-prepares-new-achievements-2018"
+      ],
+      "unit": "TeV",
+      "value": 14,
+      "verified_at": "2026-09-16"
+    },
+    "peak_luminosity": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "luminosity",
+      "display": "2 x 10^34 cm^-2 s^-1",
+      "locator": "arXiv:2305.16623, abstract",
+      "note": "Routinely achieved start-of-fill luminosity in Run 2; the design value is 1e34 cm^-2 s^-1 (2008 JINST 3 S08003, chapter 1).",
+      "quote": "During Run 2 of the LHC, a luminosity of L=2x10^34 cm^-2 s^-1 was routinely achieved at the start of fills, twice the design luminosity.",
+      "sources": [
+        "src:atlas-run3-detector-paper-2024"
+      ],
+      "unit": "cm^-2 s^-1",
+      "value": 2e+34,
+      "verified_at": "2026-09-16"
+    }
+  },
+  "status": "shutdown",
+  "summary": {
+    "plain": "The world's largest and most powerful particle accelerator: a 27-kilometre ring of superconducting magnets under the Swiss-French border that steers two beams of protons in opposite directions and smashes them together inside four large experiments, including ATLAS.",
+    "technical": "Superconducting proton-proton (and heavy-ion) collider of 26 659 m circumference in the former LEP tunnel; 1232 main dipoles at 1.9 K; design 7 TeV/beam (14 TeV cms) at 1e34 cm^-2 s^-1; ran at 3.5-4 TeV/beam in Run 1, 6.5 TeV/beam in Run 2 and 6.8 TeV/beam in Run 3."
+  },
+  "type": "accelerator"
+}

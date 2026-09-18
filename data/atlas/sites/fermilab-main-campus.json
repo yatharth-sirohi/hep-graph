@@ -1,0 +1,54 @@
+{
+  "aliases": [
+    "Fermilab site",
+    "Batavia site"
+  ],
+  "altitude": null,
+  "coordinates": {
+    "confidence": "uncertain",
+    "kind": "detector",
+    "lat": 41.8422582,
+    "locator": "LBNF/DUNE official project website",
+    "lon": -88.245782,
+    "note": "This site is used as the placement for several Fermilab short-baseline and long-baseline near detectors (DUNE near detector, ICARUS, SBND, MicroBooNE, MiniBooNE, MINOS near detector, NOvA near detector, MINERvA), none of which has its own dedicated site record. `kind` is set to `detector` only because A17/the validator requires that for any site holding a detector placement; the coordinate itself is the OpenStreetMap/Nominatim polygon centroid for the whole ~27 km^2 Fermilab campus, not a surveyed position for any one detector hall. Real effort (LBNF/DUNE's own 'excavations and structures' page, its FAQ, and the Fermilab design reports) did not turn up published lat/lon for the near detector hall itself, only that it sits near Kirk Road and Giese Road on site and 60 m underground. Treat every placement at this site as campus-precision, not detector-hall precision. No coordinate is published on a Fermilab page that could be fetched directly (fnal.gov returned HTTP 403); the LBNF/DUNE site confirms the Batavia, Illinois location only.",
+    "precision_m": 3000,
+    "sources": [
+      "src:fermilab-lbnf-dune-site"
+    ],
+    "verified_at": "2026-09-17"
+  },
+  "countries": [
+    "US"
+  ],
+  "country": "US",
+  "coverage": {
+    "researched": "partial",
+    "tier": "A"
+  },
+  "depth": null,
+  "facility_id": "facility:fermilab",
+  "id": "site:fermilab-main-campus",
+  "links": {
+    "website": null
+  },
+  "name": "Fermilab main campus, Batavia, Illinois",
+  "notes": [
+    "Coordinates are shown at campus precision; see coordinates.note. `kind: detector` is a schema requirement (this site hosts several detector placements), not a claim of survey-grade precision for any one hall."
+  ],
+  "place": {
+    "city": "Batavia",
+    "country": "US",
+    "region": "Illinois"
+  },
+  "schema": "hep-atlas/0.2",
+  "setting": "surface",
+  "sources": [
+    "src:fermilab-osm-nominatim",
+    "src:fermilab-lbnf-dune-site"
+  ],
+  "summary": {
+    "plain": "The 27-square-kilometre laboratory site west of Chicago where Fermilab accelerators, the neutrino beamlines and the DUNE near detector are located.",
+    "technical": "Surface campus in Batavia, Illinois hosting the Fermilab accelerator complex (linac, Booster, Recycler, Main Injector, PIP-II), the NuMI and BNB targets, the LBNF near site and the DUNE near detector hall."
+  },
+  "type": "site"
+}

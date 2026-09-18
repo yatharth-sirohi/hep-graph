@@ -1,0 +1,83 @@
+{
+  "aliases": [
+    "KEK-PS",
+    "KEK 12 GeV PS"
+  ],
+  "coverage": {
+    "researched": "full",
+    "tier": "B"
+  },
+  "facility_id": "facility:kek",
+  "feeds_accelerator_ids": [],
+  "id": "accelerator:kek-ps",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2005-12",
+      "label": "operating",
+      "note": "The KEK history page lists the PS reaching its design beam in 1976 and records that 12 GeV was achieved the same year.",
+      "quote": "The proton synchrotron (PS) produced an 8 GeV beam as designed.",
+      "sources": [
+        "src:kek-history-page"
+      ],
+      "start": "1976",
+      "status": "active",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "verified",
+      "end": "2005-12",
+      "label": "experiments ended",
+      "note": "The page states that experiments at the PS ended in December 2005; no source read states a formal decommissioning date.",
+      "quote": "Experiments at PS ended",
+      "sources": [
+        "src:kek-history-page"
+      ],
+      "start": "2005-12",
+      "status": "completed",
+      "verified_at": "2026-09-16"
+    }
+  ],
+  "is_collider": false,
+  "kind": "synchrotron",
+  "links": {
+    "website": null
+  },
+  "name": "KEK 12 GeV Proton Synchrotron",
+  "notes": [
+    "No site record is created for the KEK Tsukuba campus here: site ids on the KEK campus belong to the flavour workstream."
+  ],
+  "particles": [
+    "proton"
+  ],
+  "schema": "hep-atlas/0.2",
+  "site_id": null,
+  "sources": [
+    "src:kek-history-page",
+    "src:k2k-prd-2006",
+    "src:k2k-faq-page"
+  ],
+  "specs": {
+    "beam_energy": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "energy",
+      "display": "12 GeV",
+      "note": "",
+      "quote": "KEK's facilities include a proton synchrotron accelerator which can produce an intense beam of 12 GeV protons.",
+      "sources": [
+        "src:k2k-prd-2006",
+        "src:k2k-faq-page"
+      ],
+      "unit": "GeV",
+      "value": 12,
+      "verified_at": "2026-09-16"
+    }
+  },
+  "status": "completed",
+  "summary": {
+    "plain": "KEK's first big accelerator, a proton ring finished in 1976. From 1999 it produced the neutrino beam for K2K, the first experiment to send neutrinos hundreds of kilometres to a distant detector. Experiments ended in 2005.",
+    "technical": "12 GeV slow/fast-cycling proton synchrotron at Tsukuba, fed by a Cockcroft-Walton, a 20 MeV linac and a 500 MeV booster. Drove the K2K neutrino beamline from 1999 until the end of K2K data taking in November 2004; experiments ended in December 2005."
+  },
+  "type": "accelerator"
+}

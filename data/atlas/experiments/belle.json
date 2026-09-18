@@ -1,0 +1,206 @@
+{
+  "accelerator_ids": [
+    "accelerator:kekb"
+  ],
+  "aliases": [
+    "KEK-BELLE",
+    "KEK-BF-BELLE"
+  ],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:belle"
+  ],
+  "coverage": {
+    "researched": "full",
+    "tier": "A"
+  },
+  "energy_regime": {
+    "confidence": "derived",
+    "note": "The numerical √s value is not quoted in the fetched Belle sources; 10.58 GeV is the Υ(4S) mass and is marked derived.",
+    "quote": "using an asymmetric e + e − collider operating at the ϒ(4S) resonance",
+    "sources": [
+      "src:belle-detector-nima-2002"
+    ],
+    "value": "e+e- collisions at the Υ(4S) resonance, √s ≈ 10.58 GeV",
+    "verified_at": "2026-09-16"
+  },
+  "external": {
+    "greybook": null,
+    "inspire_experiment": 1108579,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "facility_id": "facility:kek",
+      "locator": "INSPIRE experiment record KEK-BF-BELLE, institutions: KEK, Tsukuba",
+      "note": "",
+      "role": "host",
+      "sources": [
+        "src:belle-inspire-experiment",
+        "src:belle-legacy-site"
+      ],
+      "verified_at": "2026-09-16"
+    }
+  ],
+  "id": "experiment:belle",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "1994-03",
+      "label": "proposal",
+      "locator": "INSPIRE experiment record KEK-BF-BELLE, date_proposed / date_approved",
+      "note": "INSPIRE records the proposal in 1994 and approval in March 1994.",
+      "sources": [
+        "src:belle-inspire-experiment"
+      ],
+      "start": "1994",
+      "status": "proposed",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "verified",
+      "end": "1999-05",
+      "label": "approved and under construction",
+      "locator": "INSPIRE experiment record KEK-BF-BELLE, date_approved 'March 1994', date_started 'May 1999'",
+      "note": "No separate construction interval is recorded: no fetched source dates the start of Belle detector construction.",
+      "sources": [
+        "src:belle-inspire-experiment"
+      ],
+      "start": "1994-03",
+      "status": "approved",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "verified",
+      "end": "2010-06-30",
+      "label": "data taking",
+      "locator": "INSPIRE experiment record KEK-BF-BELLE, date_started 'May 1999'; belle.kek.jp for the end date",
+      "note": "INSPIRE gives date_started May 1999 and notes 'Data taking began in FY 1998/99'. Secondary accounts date the first B-meson events to 1 June 1999; that was not confirmed on a source fetched in this session, so the INSPIRE month is used.",
+      "sources": [
+        "src:belle-inspire-experiment",
+        "src:belle-legacy-site"
+      ],
+      "start": "1999-05",
+      "status": "active",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "verified",
+      "end": "2010-06-30",
+      "label": "completed",
+      "note": "Terminal event; the collaboration has continued to publish analyses of the Belle data set after this date.",
+      "quote": "KEKB/Belle operation successfully ended on 30-June-2010.",
+      "sources": [
+        "src:belle-legacy-site",
+        "src:belle-inspire-experiment"
+      ],
+      "start": "2010-06-30",
+      "status": "completed",
+      "verified_at": "2026-09-16"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Beam energies",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "energy",
+        "display": "8 GeV e⁻ × 3.5 GeV e⁺",
+        "note": "",
+        "quote": "It collides 3.5 GeV positrons and 8 GeV electrons at the interaction point",
+        "sources": [
+          "src:kekb-ring-kek"
+        ],
+        "unit": "GeV",
+        "value": {
+          "max": 8.0,
+          "min": 3.5
+        },
+        "verified_at": "2026-09-16"
+      }
+    },
+    {
+      "label": "Integrated luminosity",
+      "quantity": {
+        "approx": true,
+        "confidence": "verified",
+        "dimension": "integrated_luminosity",
+        "display": "> 1000 fb⁻¹ (≈ 1 ab⁻¹)",
+        "note": "",
+        "quote": "Integrated luminosity greater than 1000 fb⁻¹",
+        "sources": [
+          "src:belle-legacy-site"
+        ],
+        "unit": "fb^-1",
+        "value": 1000,
+        "verified_at": "2026-09-16"
+      }
+    }
+  ],
+  "kind": "collider",
+  "lineage": [],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "note": "",
+      "sources": [
+        "src:belle-legacy-site"
+      ],
+      "value": "https://belle.kek.jp/",
+      "verified_at": "2026-09-16"
+    }
+  },
+  "name": "Belle",
+  "notes": [
+    "facility:kek is owned by the japan-neutrino workstream and is referenced only."
+  ],
+  "physics_goals": {
+    "confidence": "verified",
+    "note": "First goal from the INSPIRE long name 'A Study of CP Violation in B Meson Decays'; the third is derived from the experiment's published result programme.",
+    "quote": "The Belle detector was designed and constructed to carry out quantitative studies of rare B-meson decay modes with very small branching fractions using an asymmetric e + e − collider operating at the ϒ(4S) resonance, the KEK-B-factory.",
+    "sources": [
+      "src:belle-inspire-experiment",
+      "src:belle-detector-nima-2002"
+    ],
+    "value": [
+      "Study CP violation in B-meson decays and test the Kobayashi-Maskawa mechanism",
+      "Measure rare B decays with small branching fractions",
+      "Study charm and tau physics and charmonium(-like) spectroscopy"
+    ],
+    "verified_at": "2026-09-16"
+  },
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:belle-legacy-site",
+    "src:belle-inspire-experiment",
+    "src:belle-detector-nima-2002"
+  ],
+  "status": "completed",
+  "summary": {
+    "plain": "An experiment at the KEK laboratory in Japan that ran from 1999 to 2010. It watched electrons and positrons collide to make pairs of B particles, and showed that matter and antimatter behave differently — work that led to the 2008 Nobel Prize in Physics.",
+    "technical": "B-factory experiment at the asymmetric-energy KEKB e+e- collider running at the Υ(4S); >1 ab⁻¹ recorded, establishing time-dependent CP violation in B⁰ decays, evidence for D⁰-D⁰bar mixing and B⁻→τ⁻ν, and the discovery of the X(3872)."
+  },
+  "topic_ids": [
+    "topic:flavor-physics",
+    "topic:cp-violation",
+    "topic:b-physics",
+    "topic:charm-physics"
+  ],
+  "type": "experiment",
+  "unique_capabilities": {
+    "confidence": "derived",
+    "note": "Derived from the detector paper's statement of purpose; no source fetched in this session lists 'unique capabilities' in these words.",
+    "quote": "Such studies require data samples containing ~10 7 B-meson decays.",
+    "sources": [
+      "src:belle-detector-nima-2002"
+    ],
+    "value": [
+      "Asymmetric-energy e+e- collisions at the Υ(4S) giving a boosted B–Bbar system for time-dependent CP-violation measurements",
+      "Clean, kinematically constrained B-meson pair production with a known initial state"
+    ],
+    "verified_at": "2026-09-16"
+  }
+}

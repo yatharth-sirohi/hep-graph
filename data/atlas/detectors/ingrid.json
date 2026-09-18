@@ -1,0 +1,85 @@
+{
+  "aliases": [
+    "Interactive Neutrino GRID"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "experiment_ids": [
+    "experiment:t2k"
+  ],
+  "id": "detector:ingrid",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "kind": "lifecycle",
+      "label": "operating",
+      "locator": "NIM A 659 (2011) 106",
+      "note": "INGRID was operational for the beamline commissioning run beginning in 2009; the instrumentation paper does not give an exact installation date.",
+      "quote": "T2K began accumulating neutrino beam data for physics analysis in January 2010.",
+      "sources": [
+        "src:t2k-nim-2011"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2009"
+      },
+      "status": "active",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "INGRID (T2K on-axis near detector)",
+  "notes": [
+    "Module count, per-module mass and iron/scintillator layer counts were not stated in the T2K experiment paper (NIM A 659) as fetched in this session; a dedicated INGRID instrumentation paper was not retrieved. Left unrecorded rather than estimated from memory (v0.2 A17)."
+  ],
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "note": "On-axis position, 280 m from the target; horizontal modules on the Service Stage level, vertical modules on the B2 floor, per the same source.",
+      "quote": "",
+      "role": "near",
+      "site_id": "site:j-parc-neutrino-near-detector-hall",
+      "sources": [
+        "src:t2k-nim-2011"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2009"
+      },
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:t2k-nim-2011"
+  ],
+  "specs": {},
+  "status": "active",
+  "subsystems": [],
+  "summary": {
+    "plain": "A cross-shaped array of iron-and-scintillator modules sitting directly in the path of T2K's neutrino beam, 280 metres from where the beam is made. It checks that the beam is pointed the right way and has the expected shape, run after run.",
+    "technical": "On-axis near detector: iron/scintillator sandwich modules arranged horizontally and vertically around the beam axis at 280 m, monitoring the neutrino beam's direction and profile spill-by-spill. Detailed module and mass specifications not available from the sources fetched in this session."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "NIM A 659 (2011) 106, near detector section",
+    "note": "",
+    "quote": "The on-axis detector (INGRID), composed of an array of iron/scintillator sandwiches, measures the neutrino beam direction and profile.",
+    "sources": [
+      "src:t2k-nim-2011"
+    ],
+    "value": "On-axis array of iron/scintillator sandwich modules that measures the neutrino beam direction and profile.",
+    "verified_at": "2026-09-17"
+  },
+  "technology_class": "tracking_calorimeter",
+  "technology_classes": [
+    "tracking_calorimeter"
+  ],
+  "type": "detector"
+}

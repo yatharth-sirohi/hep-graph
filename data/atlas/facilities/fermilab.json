@@ -1,0 +1,100 @@
+{
+  "aliases": [
+    "Fermilab",
+    "FNAL",
+    "National Accelerator Laboratory"
+  ],
+  "countries": [
+    "US"
+  ],
+  "country": [
+    "US"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "A"
+  },
+  "id": "facility:fermilab",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "founded",
+      "locator": "article 'The birth of Fermilab', 23 January 2017",
+      "note": "Day-precision founding date from the laboratory news service.",
+      "quote": "Fermilab — originally called the National Accelerator Laboratory — began operations in Illinois on June 15, 1967.",
+      "sources": [
+        "src:fermilab-news-birth-of-fermilab-2017"
+      ],
+      "start": "1967-06-15",
+      "status": "active",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "kind": "phase",
+      "label": "first accelerator groundbreaking",
+      "locator": "article 'The birth of Fermilab'",
+      "note": "Groundbreaking for the linac, the first machine of the complex; no end date given by the source. Recorded as a phase annotation: the source gives the groundbreaking date but no completion, so it marks a milestone rather than an ongoing state.",
+      "quote": "the lab broke ground for its first accelerator on Dec. 1, 1968.",
+      "sources": [
+        "src:fermilab-news-birth-of-fermilab-2017"
+      ],
+      "start": "1968-12-01",
+      "status": "construction",
+      "verified_at": "2026-09-16"
+    }
+  ],
+  "kind": "accelerator_laboratory",
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "note": "www.fnal.gov could not be retrieved in this session (HTTP 403); the LBNF/DUNE project site is the fetched official Fermilab page.",
+      "sources": [
+        "src:fermilab-lbnf-dune-site"
+      ],
+      "value": "https://lbnf-dune.fnal.gov/",
+      "verified_at": "2026-09-16"
+    }
+  },
+  "name": "Fermi National Accelerator Laboratory",
+  "notes": [
+    "fnal.gov and history.fnal.gov returned HTTP 403 to every fetch attempt in this session; history and operator facts are taken from news.fnal.gov, lbnf-dune.fnal.gov, pip2.fnal.gov and the DUNE TDR."
+  ],
+  "operator_ids": [],
+  "operator_text": {
+    "confidence": "verified",
+    "locator": "Vol. I, acknowledgements",
+    "note": "Wording assembled from the TDR acknowledgement; the source names the DOE Office of Science as owner and FRA as manager.",
+    "quote": "Fermilab is managed by Fermi Research Alliance, LLC (FRA), acting under Contract No. DE-AC02-07CH11359.",
+    "sources": [
+      "src:dune-fd-tdr-vol-1"
+    ],
+    "value": "Fermi Research Alliance, LLC for the U.S. Department of Energy",
+    "verified_at": "2026-09-16"
+  },
+  "primary_site_id": "site:fermilab-main-campus",
+  "related_facility_ids": [
+    "facility:surf"
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:fermilab-lbnf-dune-site",
+    "src:fermilab-news-birth-of-fermilab-2017",
+    "src:dune-fd-tdr-vol-1",
+    "src:fermilab-ror-record"
+  ],
+  "specs": {},
+  "status": "active",
+  "summary": {
+    "plain": "The United States national laboratory for particle physics, near Chicago. It builds and runs the chain of machines that produce the most intense beams of neutrinos in the world, and it hosts the DUNE experiment.",
+    "technical": "US DOE accelerator laboratory (Batavia, Illinois) operating the 400 MeV linac, 8 GeV Booster, 8 GeV Recycler and 120 GeV Main Injector, the NuMI and BNB neutrino beamlines, the PIP-II superconducting linac under construction and, until 2011, the Tevatron proton-antiproton collider. Host laboratory for LBNF/DUNE."
+  },
+  "topic_ids": [
+    "topic:neutrino-physics",
+    "topic:neutrino-oscillations",
+    "topic:collider-physics"
+  ],
+  "type": "facility"
+}

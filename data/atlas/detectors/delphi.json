@@ -1,0 +1,135 @@
+{
+  "aliases": [
+    "DELPHI"
+  ],
+  "coverage": {
+    "researched": "full",
+    "tier": "A"
+  },
+  "distinct_from": [],
+  "document_ids": [
+    "document:delphi-detector-nim-1991"
+  ],
+  "experiment_ids": [
+    "experiment:delphi"
+  ],
+  "id": "detector:delphi",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "1989-08",
+      "label": "construction",
+      "locator": "INSPIRE experiment record 1109312, fields date_approved and date_started (construction interval bounded by these, not independently sourced)",
+      "note": "Bounded by the CERN LEPC approval date and DELPHI's data-taking start; no separate detector-construction date sourced.",
+      "sources": [
+        "src:delphi-inspire-experiment-record"
+      ],
+      "start": "1982-11-18",
+      "status": "construction",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": "2000-12",
+      "label": "operation",
+      "locator": "home.cern DELPHI page",
+      "note": "",
+      "quote": "it started up in 1989",
+      "sources": [
+        "src:delphi-cern-experiment-page"
+      ],
+      "start": "1989-08",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "completed",
+      "locator": "home.cern DELPHI page",
+      "note": "",
+      "quote": "In December 2000, DELPHI stopped taking data",
+      "sources": [
+        "src:delphi-cern-experiment-page"
+      ],
+      "start": "2000-12",
+      "status": "completed",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "links": {},
+  "name": "DELPHI detector",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:delphi-cern-experiment-page",
+    "src:delphi-collaboration-detector-page"
+  ],
+  "specs": {
+    "tracker": {
+      "confidence": "verified",
+      "locator": "delphi-www.web.cern.ch, pubdet2.html",
+      "note": "",
+      "quote": "It also has an advanced silicon detector providing very precise tracking, principally in order to detect very short lived particles.",
+      "sources": [
+        "src:delphi-collaboration-detector-page"
+      ],
+      "value": "Ring Imaging Cherenkov (RICH) detectors for full charged-particle identification, plus a high-precision silicon vertex detector",
+      "verified_at": "2026-09-17"
+    }
+  },
+  "status": "completed",
+  "subsystems": [
+    {
+      "description": {
+        "confidence": "verified",
+        "locator": "delphi-www.web.cern.ch, pubdet2.html",
+        "note": "",
+        "quote": "using the Ring Imaging Cherenkov technique, to differentiate between all the various secondary charged particles.",
+        "sources": [
+          "src:delphi-collaboration-detector-page"
+        ],
+        "value": "Differentiates between the various secondary charged particles using Cherenkov radiation rings.",
+        "verified_at": "2026-09-17"
+      },
+      "name": "Ring Imaging Cherenkov (RICH) system"
+    },
+    {
+      "description": {
+        "confidence": "verified",
+        "locator": "delphi-www.web.cern.ch, pubdet2.html",
+        "note": "",
+        "quote": "It also has an advanced silicon detector providing very precise tracking, principally in order to detect very short lived particles.",
+        "sources": [
+          "src:delphi-collaboration-detector-page"
+        ],
+        "value": "Advanced silicon tracking for precise detection of very short-lived particles.",
+        "verified_at": "2026-09-17"
+      },
+      "name": "Silicon vertex detector"
+    }
+  ],
+  "summary": {
+    "plain": "A roughly 10-metre cube of instruments at LEP's Point 8, famous for being able to tell exactly which kind of charged particle flew through it using rings of light (Cherenkov radiation).",
+    "technical": "General-purpose LEP detector, about 10 m in length and diameter, with roughly 20 subdetectors: a Ring Imaging Cherenkov (RICH) system for full charged-particle identification and a high-precision silicon vertex detector for short-lived-particle tracking, alongside standard tracking, calorimetry and muon systems."
+  },
+  "superseded_by": null,
+  "technology": {
+    "confidence": "verified",
+    "locator": "home.cern DELPHI page",
+    "note": "",
+    "quote": "The DELPHI detector used the ring imaging Cherenkov technique to differentiate between secondary charged particles",
+    "sources": [
+      "src:delphi-cern-experiment-page"
+    ],
+    "value": "General-purpose collider detector with Ring Imaging Cherenkov particle identification and precision silicon vertexing",
+    "verified_at": "2026-09-17"
+  },
+  "technology_class": "general_purpose_collider",
+  "technology_classes": [
+    "general_purpose_collider"
+  ],
+  "type": "detector"
+}

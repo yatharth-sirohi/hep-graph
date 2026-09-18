@@ -1,0 +1,257 @@
+{
+  "aliases": [
+    "Hyper-K detector",
+    "HK detector"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "A"
+  },
+  "experiment_ids": [
+    "experiment:hyper-kamiokande",
+    "experiment:t2k"
+  ],
+  "id": "detector:hyper-kamiokande",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "kind": "lifecycle",
+      "label": "approved",
+      "locator": "interactions.org press release, 12 Feb 2020",
+      "note": "",
+      "quote": "The supplementary budget for FY2019 which includes the first-year construction budget of 3.5 billion yen for the Hyper-Kamiokande project was approved by the Japanese Diet.",
+      "sources": [
+        "src:hk-approval-press-2020"
+      ],
+      "start": "2020-02-12",
+      "status": "approved",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "kind": "lifecycle",
+      "label": "cavern excavation and detector construction",
+      "locator": "Frontiers in Physics 12:1378254 (2024)",
+      "note": "Sub-milestones: cavern excavation expected complete 2024 per the same 2024 status article; the 2026 cavern-engineering paper (arXiv:2602.14810) reports the 69 m x 94 m cavern excavation complete; the official news page's most recent entry (4 Aug 2026, in Japanese) reports the water-tank lining work complete.",
+      "quote": "In October 2022 it was started the excavation of one of the world's largest underground caverns to suite the HK detector.",
+      "sources": [
+        "src:hk-frontiers-2024-status",
+        "src:hk-cavern-paper-2026",
+        "src:hk-news-page"
+      ],
+      "start": "2022-10",
+      "status": "construction",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "kind": "lifecycle",
+      "label": "planned start of operation",
+      "locator": "Super-Kamiokande/Hyper-Kamiokande outline page (2026)",
+      "note": "Confidence is approximate because the exact planned year differs between the two official sources cited (2027 vs. 2028); see the date object's own note for detail.",
+      "quote": "aims to start experimentation in 2028",
+      "sources": [
+        "src:hk-outline-page",
+        "src:hk-approval-press-2020"
+      ],
+      "start": {
+        "date": "2028",
+        "earliest": "2027",
+        "latest": "2028",
+        "note": "Earlier sources (2020 approval press release; T2K-and-beyond page) projected 2027; the current (2026) official outline page instead says 2028. Recorded as a range given conflicting officially-stated schedules.",
+        "planned": true
+      },
+      "status": "planned",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "locator": "page URL",
+      "note": "",
+      "sources": [
+        "src:hk-detector-page"
+      ],
+      "value": "https://www-sk.icrr.u-tokyo.ac.jp/en/hk/about/detector/",
+      "verified_at": "2026-09-17"
+    }
+  },
+  "name": "Hyper-Kamiokande detector",
+  "notes": [
+    "PMT count is unresolved between two figures on the same official site (20,000 vs 'about 40,000'); recorded transparently with both values noted rather than picking silently. See conflicts in the worklog.",
+    "experiment_ids includes experiment:t2k alongside experiment:hyper-kamiokande: Hyper-Kamiokande is sited and designed (Tochibora mine, ~295 km from J-PARC, same 2.5 degree off-axis angle) to serve as the far detector for the continuing J-PARC neutrino beam programme that T2K operates, as its successor experiment comes online; see src:hk-design-report-2018 and src:t2k-and-beyond-page."
+  ],
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "locator": "Frontiers in Physics 12:1378254 (2024)",
+      "quote": "In October 2022 it was started the excavation of one of the world's largest underground caverns to suite the HK detector.",
+      "role": "main",
+      "site_id": "site:kamioka-hyper-kamiokande-tochibora",
+      "sources": [
+        "src:hk-frontiers-2024-status"
+      ],
+      "start": {
+        "date": "2022-10",
+        "note": "Start of cavern excavation at the site."
+      },
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:hk-detector-page",
+    "src:hk-outline-page",
+    "src:hk-frontiers-2024-status",
+    "src:hk-cavern-paper-2026",
+    "src:hk-design-report-2018"
+  ],
+  "specs": {
+    "fiducial_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "188 kt",
+      "locator": "Frontiers in Physics 12:1378254 (2024)",
+      "note": "Outline-page comparison table instead rounds this to 190,000 t — see conflicts in the worklog.",
+      "quote": "0.188 million metric tons",
+      "sources": [
+        "src:hk-frontiers-2024-status"
+      ],
+      "unit": "kt",
+      "value": 188,
+      "verified_at": "2026-09-17"
+    },
+    "pmt_count": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "count",
+      "display": "~20,000 (+1,000 compound-eye)",
+      "locator": "Super-Kamiokande/Hyper-Kamiokande outline page, Hyper-Kamiokande section",
+      "note": "A separate figure of 'about 40000' 50cm PMTs appears in the same page's comparison table; not reconciled in this session — see conflicts in the worklog.",
+      "quote": "20,000 ultra high sensitivity photosensors and 1,000 compound eye photosensors",
+      "sources": [
+        "src:hk-outline-page"
+      ],
+      "unit": "",
+      "value": 20000,
+      "verified_at": "2026-09-17"
+    },
+    "tank_diameter": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "68 m",
+      "locator": "Hyper-Kamiokande detector page",
+      "note": "",
+      "quote": "68 meters in diameter and 71 meters deep",
+      "sources": [
+        "src:hk-detector-page"
+      ],
+      "unit": "m",
+      "value": 68,
+      "verified_at": "2026-09-17"
+    },
+    "tank_height": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "71 m",
+      "locator": "Hyper-Kamiokande detector page",
+      "note": "",
+      "quote": "68 meters in diameter and 71 meters deep",
+      "sources": [
+        "src:hk-detector-page"
+      ],
+      "unit": "m",
+      "value": 71,
+      "verified_at": "2026-09-17"
+    },
+    "total_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "260 kt",
+      "locator": "Frontiers in Physics 12:1378254 (2024)",
+      "note": "",
+      "quote": "0.260 million metric tons of ultra pure water",
+      "sources": [
+        "src:hk-frontiers-2024-status"
+      ],
+      "unit": "kt",
+      "value": 260,
+      "verified_at": "2026-09-17"
+    }
+  },
+  "status": "construction",
+  "subsystems": [
+    {
+      "description": {
+        "confidence": "verified",
+        "locator": "Hyper-Kamiokande detector page",
+        "note": "",
+        "quote": "40,000 max. 50cm-diameter ultrasensitive photo-sensors installed on its walls",
+        "sources": [
+          "src:hk-outline-page",
+          "src:hk-detector-page"
+        ],
+        "value": "New large-aperture, high-quantum-efficiency PMTs (up to 40,000 in the comparison-table maximum design; ~20,000 stated as the photosensor count elsewhere on the same site) viewing the main tank volume.",
+        "verified_at": "2026-09-17"
+      },
+      "name": "Inner Detector"
+    },
+    {
+      "description": {
+        "confidence": "verified",
+        "locator": "Hyper-Kamiokande detector page",
+        "note": "",
+        "quote": "10,000 max. 8cm-diameter ultrasensitive photo-sensors",
+        "sources": [
+          "src:hk-detector-page"
+        ],
+        "value": "Up to 10,000 smaller (8 cm-class) photosensors instrumenting the outer veto region.",
+        "verified_at": "2026-09-17"
+      },
+      "name": "Outer Detector"
+    },
+    {
+      "description": {
+        "confidence": "verified",
+        "locator": "Super-Kamiokande/Hyper-Kamiokande outline page",
+        "note": "",
+        "quote": "20,000 ultra high sensitivity photosensors and 1,000 compound eye photosensors",
+        "sources": [
+          "src:hk-outline-page"
+        ],
+        "value": "About 1,000 'compound eye' modules bundling multiple 8 cm PMTs for improved timing accuracy.",
+        "verified_at": "2026-09-17"
+      },
+      "name": "Compound-eye photosensors"
+    }
+  ],
+  "summary": {
+    "plain": "A huge new water tank being built underground near Kamioka: 68 metres across and 71 metres tall, more than five times the volume of Super-Kamiokande, ringed with tens of thousands of new light sensors.",
+    "technical": "Water Cherenkov detector under construction, 68 m diameter x 71 m height, 260 kt total / 188 kt fiducial mass. Inner detector design centres on new large-aperture PMTs (order 20,000-40,000 depending on which official figure is used) plus ~1,000 multi-PMT 'compound eye' modules; outer veto up to 10,000 smaller PMTs. Housed in a purpose-excavated 69 m x 94 m cavern in the Tochibora mine, about 8 km from Super-Kamiokande."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "Hyper-Kamiokande detector page",
+    "note": "",
+    "quote": "a huge cylindrical water tank, 68 meters in diameter and 71 meters deep",
+    "sources": [
+      "src:hk-detector-page"
+    ],
+    "value": "Large cylindrical water Cherenkov tank, the successor design to Super-Kamiokande, instrumented with new high-sensitivity large-aperture PMTs and multi-PMT 'compound-eye' photosensor modules.",
+    "verified_at": "2026-09-17"
+  },
+  "technology_class": "water_cherenkov",
+  "technology_classes": [
+    "water_cherenkov"
+  ],
+  "type": "detector"
+}

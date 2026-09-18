@@ -1,0 +1,109 @@
+{
+  "aliases": [
+    "Proton Improvement Plan II",
+    "PIP-II linac"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "A"
+  },
+  "facility_id": "facility:fermilab",
+  "feeds_accelerator_ids": [
+    "accelerator:fermilab-booster"
+  ],
+  "id": "accelerator:fermilab-pip-ii",
+  "intervals": [
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "development and construction",
+      "note": "The 2017 status paper calls PIP-II \"under development\"; pip2.fnal.gov and lbnf-dune.fnal.gov describe it in the present tense as being built. Neither a groundbreaking date nor a completion date could be sourced from a fetchable page.",
+      "sources": [
+        "src:fermilab-proton-complex-status-2017",
+        "src:fermilab-pip-ii-site",
+        "src:fermilab-lbnf-dune-site"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2017",
+        "display": "under development by 2017",
+        "earliest": "2015",
+        "latest": "2017"
+      },
+      "status": "construction",
+      "verified_at": "2026-09-16"
+    }
+  ],
+  "is_collider": false,
+  "kind": "linac",
+  "links": {
+    "website": null
+  },
+  "name": "PIP-II",
+  "notes": [],
+  "particles": [
+    "H-"
+  ],
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:fermilab-main-campus",
+  "sources": [
+    "src:fermilab-proton-complex-status-2017",
+    "src:fermilab-pip-ii-site",
+    "src:fermilab-lbnf-dune-site",
+    "src:fermilab-pip-ii-800-mev-linac-2015"
+  ],
+  "specs": {
+    "beam_energy": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "energy",
+      "display": "800 MeV",
+      "locator": "abstract",
+      "note": "",
+      "quote": "replacement of the existing 40-years old 400 MeV normal-conducting Linac with a modern 800 MeV superconducting RF linear accelerator",
+      "sources": [
+        "src:fermilab-proton-complex-status-2017",
+        "src:fermilab-pip-ii-800-mev-linac-2015"
+      ],
+      "unit": "MeV",
+      "value": 800,
+      "verified_at": "2026-09-16"
+    },
+    "beam_power": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "power",
+      "display": "1.2 MW on target",
+      "locator": "abstract",
+      "note": "Beam power delivered on the LBNF target by the Main Injector once PIP-II is running, not the linac beam power.",
+      "quote": "It aims at 1.2MW beam power on target at the start of the LBNF/DUNE experiment",
+      "sources": [
+        "src:fermilab-proton-complex-status-2017"
+      ],
+      "unit": "MW",
+      "value": 1.2,
+      "verified_at": "2026-09-16"
+    },
+    "length": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "215 m",
+      "locator": "section 'World record beam'",
+      "note": "",
+      "quote": "The heart of PIP-II is a 215-meter-long particle accelerator, featuring major contributions from international partners and the latest superconducting radio-frequency technology developed at Fermilab.",
+      "sources": [
+        "src:fermilab-lbnf-dune-site"
+      ],
+      "unit": "m",
+      "value": 215,
+      "verified_at": "2026-09-16"
+    }
+  },
+  "status": "construction",
+  "summary": {
+    "plain": "A new 215-metre superconducting accelerator being built at Fermilab. It will replace the old first-stage machine and let the laboratory make the most intense high-energy neutrino beam in the world.",
+    "technical": "800 MeV CW-capable superconducting RF H- linac replacing the 400 MeV normal-conducting linac, injecting into the Booster and enabling 1.2 MW of 60-120 GeV protons on the LBNF target."
+  },
+  "type": "accelerator"
+}

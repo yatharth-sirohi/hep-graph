@@ -1,0 +1,276 @@
+{
+  "accelerator_ids": [],
+  "aliases": [
+    "Main Injector Neutrino Oscillation Search"
+  ],
+  "beamline_ids": [
+    "beamline:numi"
+  ],
+  "collaboration_ids": [
+    "collaboration:minos"
+  ],
+  "coverage": {
+    "researched": "full",
+    "tier": "B"
+  },
+  "distinct_from": [
+    "experiment:minos-plus"
+  ],
+  "energy_regime": {
+    "confidence": "verified",
+    "locator": "MINOS sterile-neutrino search, PRL 117, 151803 (2016), abstract",
+    "note": "",
+    "quote": "in a νμ-dominated beam with a peak energy of 3 GeV",
+    "sources": [
+      "src:minos-prl-2016-sterile-search"
+    ],
+    "value": "On-axis NuMI νμ-dominated beam, peak energy about 3 GeV",
+    "verified_at": "2026-09-17"
+  },
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "facility_id": "facility:fermilab",
+      "locator": "MINOS detector paper §1",
+      "note": "",
+      "quote": "The near detector has been operating since January 2005.",
+      "role": "host",
+      "sources": [
+        "src:minos-detector-paper-2008"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "facility_id": "facility:fermilab",
+      "note": "MINOS ran on the on-axis NuMI beam.",
+      "role": "beam_source",
+      "sources": [
+        "src:fermilab-numi-beam-paper-2016"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "facility_id": "facility:soudan-underground-laboratory",
+      "locator": "MINOS detector paper, far detector description",
+      "note": "",
+      "quote": "located in Soudan, MN (47.8∘ N latitude, and 92.2∘ W longitude), 735.3 km from the NuMI beam production target",
+      "role": "detector_host",
+      "sources": [
+        "src:minos-detector-paper-2008"
+      ],
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "id": "experiment:minos",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2003-07",
+      "label": "commissioning",
+      "locator": "MINOS detector paper §1",
+      "note": "",
+      "quote": "The far detector started commissioning data collection in September 2002, and has been fully operational for cosmic-ray and atmospheric-neutrino data since July 2003.",
+      "sources": [
+        "src:minos-detector-paper-2008"
+      ],
+      "start": "2002-09",
+      "status": "commissioning",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": "2005-05-20",
+      "label": "cosmic-ray and atmospheric-neutrino data taking (pre-beam)",
+      "locator": "MINOS detector paper §1",
+      "note": "Bridges the gap between the end of far-detector commissioning and the start of NuMI beam data: both detectors continued recording cosmic-ray and atmospheric-neutrino data throughout this period.",
+      "quote": "has been fully operational for cosmic-ray and atmospheric-neutrino data since July 2003",
+      "sources": [
+        "src:minos-detector-paper-2008",
+        "src:minos-prd-2007-muon-charge-ratio"
+      ],
+      "start": "2003-07",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": "2012-04-30",
+      "label": "NuMI beam operation",
+      "locator": "The NuMI Neutrino Beam, §1",
+      "note": "",
+      "quote": "Its focus is the beam configuration in place during the data taking of the MINOS experiment, from May 20, 2005 until April 30, 2012.",
+      "sources": [
+        "src:fermilab-numi-beam-paper-2016"
+      ],
+      "start": "2005-05-20",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": "2012-04-30",
+      "label": "end of MINOS run",
+      "locator": "arXiv:1511.06178, abstract",
+      "note": "Superseded by MINOS+ (experiment:minos-plus) after the 2012-2013 accelerator shutdown.",
+      "quote": "The MINOS experiment took data from 2005 up until 2012. This was superseded by MINOS+",
+      "sources": [
+        "src:minos-timmons-2015-results-review",
+        "src:fermilab-numi-beam-paper-2016"
+      ],
+      "start": "2012-04-30",
+      "status": "completed",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Baseline (far detector)",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "length",
+        "display": "735.3 km",
+        "locator": "MINOS detector paper, far detector description",
+        "note": "",
+        "quote": "located in Soudan, MN (47.8∘ N latitude, and 92.2∘ W longitude), 735.3 km from the NuMI beam production target",
+        "sources": [
+          "src:minos-detector-paper-2008"
+        ],
+        "unit": "km",
+        "value": 735.3,
+        "verified_at": "2026-09-17"
+      }
+    },
+    {
+      "label": "Far detector mass",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "mass",
+        "display": "5.4 kt (5,400 t)",
+        "locator": "MINOS detector paper §1",
+        "note": "",
+        "quote": "This 5,400 metric ton detector is constructed as two 'supermodules'",
+        "sources": [
+          "src:minos-detector-paper-2008"
+        ],
+        "unit": "kt",
+        "value": 5.4,
+        "verified_at": "2026-09-17"
+      }
+    },
+    {
+      "label": "Near detector mass",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "mass",
+        "display": "0.98 kt (980 t)",
+        "locator": "MINOS detector paper §1",
+        "note": "",
+        "quote": "The 282 plane, 980 metric ton MINOS near detector",
+        "sources": [
+          "src:minos-detector-paper-2008"
+        ],
+        "unit": "kt",
+        "value": 0.98,
+        "verified_at": "2026-09-17"
+      }
+    },
+    {
+      "label": "Far detector magnetic field",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "magnetic_field",
+        "display": "1.42 T (fiducial average)",
+        "locator": "MINOS detector paper §2.1",
+        "note": "",
+        "quote": "The field strength averaged over the fiducial volume in the near detector 1.28 T, compared to 1.42 T in the far detector.",
+        "sources": [
+          "src:minos-detector-paper-2008"
+        ],
+        "unit": "T",
+        "value": 1.42,
+        "verified_at": "2026-09-17"
+      }
+    }
+  ],
+  "kind": "accelerator_neutrino",
+  "lineage": [],
+  "links": {
+    "website": null
+  },
+  "name": "MINOS",
+  "notes": [
+    "Derived fields (detector_ids, site_ids, result_ids, document_ids, and the 'successor' lineage row to MINOS+) are deliberately not written (v0.2 A1); see experiment:minos-plus.lineage for the upgrade_of relation.",
+    "No INSPIRE experiment-registry lookup was performed in this session (inspirehep.net requests are rate-limited to one per 10 s); external.inspire_experiment is left null rather than guessed."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "title",
+      "note": "",
+      "quote": "Measurement of Neutrino and Antineutrino Oscillations Using Beam and Atmospheric Data in MINOS",
+      "sources": [
+        "src:minos-prl-2013-oscillations"
+      ],
+      "value": "Measurement of neutrino and antineutrino oscillations using beam and atmospheric data",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "locator": "MINOS sterile-neutrino search, PRL 117, 151803 (2016), abstract",
+      "note": "",
+      "quote": "We report results of a search for oscillations involving a light sterile neutrino over distances of 1.04 and 735 km",
+      "sources": [
+        "src:minos-prl-2016-sterile-search"
+      ],
+      "value": "Search for oscillations involving a light sterile neutrino",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "locator": "title",
+      "note": "",
+      "quote": "Measurement of the atmospheric muon charge ratio at TeV energies with the MINOS detector",
+      "sources": [
+        "src:minos-prd-2007-muon-charge-ratio"
+      ],
+      "value": "Measurement of the atmospheric muon charge ratio at TeV energies (a cosmic-ray physics programme using the far detector)",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:minos-detector-paper-2008",
+    "src:minos-tdr-osti",
+    "src:minos-prl-2013-oscillations",
+    "src:minos-prl-2016-sterile-search",
+    "src:minos-prd-2007-muon-charge-ratio",
+    "src:minos-fermilab-news-2016-farewell",
+    "src:minos-timmons-2015-results-review",
+    "src:fermilab-numi-beam-paper-2016"
+  ],
+  "status": "completed",
+  "summary": {
+    "plain": "A neutrino experiment that sent Fermilab's beam 735 kilometres underground to an old iron mine in Minnesota, comparing what arrived to what was measured near the source, from 2005 to 2012.",
+    "technical": "On-axis NuMI accelerator neutrino oscillation experiment with magnetised steel-scintillator near (0.98 kt, Fermilab) and far (5.4 kt, Soudan) tracking calorimeters, 735.3 km baseline, ~3 GeV peak beam energy. Commissioned on cosmic rays and atmospheric neutrinos from September 2002; took NuMI beam data from 20 May 2005 to 30 April 2012, when it was superseded by MINOS+."
+  },
+  "topic_ids": [
+    "topic:neutrino-oscillations",
+    "topic:atmospheric-neutrinos",
+    "topic:sterile-neutrinos",
+    "topic:cosmic-rays"
+  ],
+  "type": "experiment",
+  "unique_capabilities": []
+}

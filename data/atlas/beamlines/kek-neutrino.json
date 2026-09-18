@@ -1,0 +1,164 @@
+{
+  "accelerator_id": "accelerator:kek-ps",
+  "aliases": [
+    "KEK-PS neutrino beamline",
+    "K2K beamline"
+  ],
+  "baselines": [],
+  "coverage": {
+    "researched": "full",
+    "tier": "B"
+  },
+  "direction": {
+    "confidence": "verified",
+    "note": "",
+    "quote": "the neutrino beam enters the earth and emerges at Super-Kamiokande, 250 km away.",
+    "sources": [
+      "src:k2k-tutorial-page",
+      "src:k2k-faq-page"
+    ],
+    "value": "Bent from the North hall towards Kamioka and into the earth, emerging at Super-Kamiokande 250 km away",
+    "verified_at": "2026-09-16"
+  },
+  "facility_id": "facility:kek",
+  "far_detector_site_ids": [
+    "site:kamioka-mozumi-mine-super-kamiokande"
+  ],
+  "id": "beamline:kek-neutrino",
+  "intervals": [
+    {
+      "confidence": "uncertain",
+      "end": "1999-06",
+      "label": "commissioning",
+      "note": "The KEK K2K page (written before the event) says the beam commissioning \"is scheduled in January, 1999\"; physics data taking began in June 1999 per the K2K measurement paper. No source read confirms the actual commissioning month.",
+      "quote": "The commissioning of the neutrino beam is scheduled in January, 1999.",
+      "sources": [
+        "src:k2k-tutorial-page",
+        "src:k2k-prd-2006"
+      ],
+      "start": "1999-01",
+      "status": "commissioning",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "verified",
+      "end": "2004-11",
+      "label": "operating",
+      "note": "",
+      "quote": "June 1999 to November 2004",
+      "sources": [
+        "src:k2k-prd-2006"
+      ],
+      "start": "1999-06",
+      "status": "active",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "verified",
+      "end": "2004-11",
+      "label": "end of operation",
+      "note": "K2K data taking ended in November 2004; the KEK-PS itself ran until December 2005.",
+      "quote": "June 1999 to November 2004",
+      "sources": [
+        "src:k2k-prd-2006"
+      ],
+      "start": "2004-11",
+      "status": "completed",
+      "verified_at": "2026-09-16"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "KEK neutrino beamline (K2K)",
+  "near_detector_site_ids": [],
+  "notes": [],
+  "primary_beam": {
+    "confidence": "verified",
+    "note": "",
+    "quote": "a 12 GeV proton synchrotron (KEK-PS)",
+    "sources": [
+      "src:k2k-prd-2006"
+    ],
+    "value": {
+      "energy": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "energy",
+        "display": "12 GeV",
+        "note": "",
+        "quote": "a 12 GeV proton synchrotron (KEK-PS)",
+        "sources": [
+          "src:k2k-prd-2006"
+        ],
+        "unit": "GeV",
+        "value": 12,
+        "verified_at": "2026-09-16"
+      },
+      "particle": "proton"
+    },
+    "verified_at": "2026-09-16"
+  },
+  "schema": "hep-atlas/0.2",
+  "secondary_beam": {
+    "confidence": "verified",
+    "note": "",
+    "quote": "a high intensity muon neutrino beam with average evergy of 1.5 GeV, produced at KEK-PS",
+    "sources": [
+      "src:k2k-tutorial-page"
+    ],
+    "value": "Muon neutrinos, on-axis, mean energy about 1.5 GeV",
+    "verified_at": "2026-09-16"
+  },
+  "sources": [
+    "src:k2k-prd-2006",
+    "src:k2k-tutorial-page",
+    "src:k2k-faq-page"
+  ],
+  "specs": {
+    "baseline": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "250 km",
+      "note": "Recorded as a spec rather than in `baselines` because no site record exists for the KEK end of the baseline (KEK campus sites belong to the flavour workstream).",
+      "quote": "a neutrino flight distance of 250 km",
+      "sources": [
+        "src:k2k-prd-2006"
+      ],
+      "unit": "km",
+      "value": 250,
+      "verified_at": "2026-09-16"
+    },
+    "proton_energy": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "energy",
+      "display": "12 GeV",
+      "note": "",
+      "quote": "a 12 GeV proton synchrotron (KEK-PS)",
+      "sources": [
+        "src:k2k-prd-2006"
+      ],
+      "unit": "GeV",
+      "value": 12,
+      "verified_at": "2026-09-16"
+    }
+  },
+  "status": "completed",
+  "summary": {
+    "plain": "The beamline at KEK that made the world's first accelerator neutrino beam aimed at a detector hundreds of kilometres away: 12 GeV protons on an aluminium rod, two magnetic horns, and a 200-metre pipe in which the particles decayed into neutrinos.",
+    "technical": "Single-turn extracted 12 GeV protons from the KEK-PS onto a 66 cm long, 3 cm diameter aluminium target inside a two-horn focusing system, followed by a 200 m decay volume and a beam dump; near detectors at about 300 m, Super-Kamiokande at 250 km. Mean neutrino energy about 1.5 GeV."
+  },
+  "target": {
+    "confidence": "verified",
+    "note": "The K2K measurement paper records that the target diameter was increased from 2 cm to 3 cm in November 1999.",
+    "quote": "aluminum rod of 66 cm in length and 3 cm in diameter",
+    "sources": [
+      "src:k2k-prd-2006"
+    ],
+    "value": "Aluminium rod, 66 cm long and 3 cm in diameter, inside the first of two focusing horns",
+    "verified_at": "2026-09-16"
+  },
+  "type": "beamline"
+}

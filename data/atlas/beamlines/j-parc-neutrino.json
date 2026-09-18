@@ -1,0 +1,275 @@
+{
+  "accelerator_id": "accelerator:j-parc-main-ring",
+  "aliases": [
+    "T2K neutrino beamline",
+    "J-PARC Neutrino Experimental Facility",
+    "NU beamline"
+  ],
+  "baselines": [
+    {
+      "confidence": "verified",
+      "distance": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "length",
+        "display": "295,335.2 +- 0.7 m",
+        "note": "Surveyed target-to-detector distance; the collaboration quotes it as \"295 km\".",
+        "quote": "The measured distance between the target and the center position of Super-Kamiokande is 295,335.2 +- 0.7 m.",
+        "sources": [
+          "src:t2k-nim-2011"
+        ],
+        "unit": "km",
+        "value": 295.3352,
+        "verified_at": "2026-09-16"
+      },
+      "from_site_id": "site:j-parc-main-ring",
+      "note": "",
+      "sources": [
+        "src:t2k-nim-2011"
+      ],
+      "to_site_id": "site:kamioka-mozumi-mine-super-kamiokande",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "verified",
+      "distance": {
+        "approx": true,
+        "confidence": "verified",
+        "dimension": "length",
+        "display": "about 295 km",
+        "note": "The Hyper-K site is about 8 km south of Super-Kamiokande and sees the same 2.5 degree off-axis angle; no surveyed baseline has been published.",
+        "quote": "The Hyper-Kamiokande detector will be hosted in the Tochibora mine, about 295 km away from the J-PARC proton accelerator research complex in Tokai, Japan",
+        "sources": [
+          "src:hk-design-report-2018",
+          "src:hk-pos-icrc2021-status"
+        ],
+        "unit": "km",
+        "value": 295,
+        "verified_at": "2026-09-16"
+      },
+      "from_site_id": "site:j-parc-main-ring",
+      "note": "",
+      "sources": [
+        "src:hk-design-report-2018",
+        "src:hk-pos-icrc2021-status"
+      ],
+      "to_site_id": "site:kamioka-hyper-kamiokande-tochibora",
+      "verified_at": "2026-09-16"
+    }
+  ],
+  "coverage": {
+    "researched": "full",
+    "tier": "A"
+  },
+  "direction": {
+    "confidence": "verified",
+    "note": "",
+    "quote": "In the arc section, the beam is bent toward the direction of Kamioka by 80.7 deg, with a 104 m radius of curvature, using 14 doublets of superconducting combined function magnets",
+    "sources": [
+      "src:t2k-nim-2011"
+    ],
+    "value": "Bent 80.7 degrees in the arc section towards the direction of Kamioka, then under the main island of Japan to Super-Kamiokande",
+    "verified_at": "2026-09-16"
+  },
+  "facility_id": "facility:j-parc",
+  "far_detector_site_ids": [
+    "site:kamioka-mozumi-mine-super-kamiokande",
+    "site:kamioka-hyper-kamiokande-tochibora"
+  ],
+  "id": "beamline:j-parc-neutrino",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2010-01",
+      "label": "commissioning",
+      "note": "",
+      "quote": "commissioned during 2009, and T2K began accumulating neutrino beam data for physics analysis in January 2010.",
+      "sources": [
+        "src:t2k-nim-2011"
+      ],
+      "start": "2009",
+      "status": "commissioning",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "operating",
+      "note": "",
+      "quote": "T2K began accumulating neutrino beam data for physics analysis in January 2010.",
+      "sources": [
+        "src:t2k-nim-2011"
+      ],
+      "start": "2010-01",
+      "status": "active",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "derived",
+      "end": {
+        "date": "2011-12",
+        "planned": true
+      },
+      "label": "shutdown after the Great East Japan Earthquake",
+      "note": "End recorded as the planned J-PARC restart date; no source read confirms the actual restart.",
+      "quote": "The T2K data taking stopped abruptly on March 11 2011 due to the Great East Japan Earthquake.",
+      "sources": [
+        "src:t2k-status-2011-arxiv"
+      ],
+      "start": "2011-03-11",
+      "status": "shutdown",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "derived",
+      "end": "2023-12",
+      "label": "beamline upgrade",
+      "note": "The T2K \"T2K and Beyond\" page describes the beamline upgrade towards 750 kW \"by 2022\" and 1.3 MW before Hyper-K; the J-PARC press release of January 2024 reports data taking with the upgraded beam from December 2023. The 2021 start is inferred from those two statements and is not stated as such by either.",
+      "quote": "The T2K Collaboration has started data taking using the enhanced neutrino beam and new neutrino near-detectors from December 2023.",
+      "sources": [
+        "src:t2k-and-beyond-page",
+        "src:jparc-press-2024-t2k-new-phase"
+      ],
+      "start": "2021",
+      "status": "upgrade",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "operating with the upgraded beam",
+      "note": "",
+      "quote": "760kW",
+      "sources": [
+        "src:jparc-press-2024-t2k-new-phase"
+      ],
+      "start": "2023-12",
+      "status": "active",
+      "verified_at": "2026-09-16"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "J-PARC neutrino beamline",
+  "near_detector_site_ids": [
+    "site:j-parc-neutrino-near-detector-hall"
+  ],
+  "notes": [],
+  "primary_beam": {
+    "confidence": "verified",
+    "note": "",
+    "quote": "Circumference 1567 m Beam power ~750 kW Beam kinetic energy 30 GeV",
+    "sources": [
+      "src:t2k-nim-2011"
+    ],
+    "value": {
+      "energy": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "energy",
+        "display": "30 GeV",
+        "note": "",
+        "quote": "Beam kinetic energy 30 GeV",
+        "sources": [
+          "src:t2k-nim-2011"
+        ],
+        "unit": "GeV",
+        "value": 30,
+        "verified_at": "2026-09-16"
+      },
+      "particle": "proton"
+    },
+    "verified_at": "2026-09-16"
+  },
+  "schema": "hep-atlas/0.2",
+  "secondary_beam": {
+    "confidence": "verified",
+    "note": "",
+    "quote": "The off-axis angle is set at 2.5 deg so that the narrow-band muon-neutrino beam generated toward the far detector has a peak energy at ~0.6 GeV",
+    "sources": [
+      "src:t2k-nim-2011"
+    ],
+    "value": "Muon neutrinos or muon antineutrinos, 2.5 degrees off-axis, peak energy about 0.6 GeV at Super-Kamiokande",
+    "verified_at": "2026-09-16"
+  },
+  "sources": [
+    "src:t2k-nim-2011",
+    "src:jparc-neutrino-facility",
+    "src:jparc-neutrino-researcher-page"
+  ],
+  "specs": {
+    "beam_power": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "power",
+      "display": "760 kW",
+      "note": "Design power ~750 kW (T2K instrumentation paper, Table 1); 760 kW record reached on 25 December 2023; 1.3 MW planned.",
+      "quote": "760kW",
+      "sources": [
+        "src:jparc-press-2024-t2k-new-phase"
+      ],
+      "unit": "kW",
+      "value": 760,
+      "verified_at": "2026-09-16"
+    },
+    "off_axis_angle": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "angle",
+      "display": "2.504 +- 0.004 deg",
+      "note": "",
+      "quote": "The measured off-axis angle is 2.504 +- 0.004 deg.",
+      "sources": [
+        "src:t2k-nim-2011"
+      ],
+      "unit": "deg",
+      "value": 2.504,
+      "verified_at": "2026-09-16"
+    },
+    "peak_neutrino_energy": {
+      "approx": true,
+      "confidence": "verified",
+      "dimension": "energy",
+      "display": "~0.6 GeV",
+      "note": "",
+      "quote": "has a peak energy at ~0.6 GeV",
+      "sources": [
+        "src:t2k-nim-2011"
+      ],
+      "unit": "GeV",
+      "value": 0.6,
+      "verified_at": "2026-09-16"
+    },
+    "proton_energy": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "energy",
+      "display": "30 GeV",
+      "note": "",
+      "quote": "Beam kinetic energy 30 GeV",
+      "sources": [
+        "src:t2k-nim-2011"
+      ],
+      "unit": "GeV",
+      "value": 30,
+      "verified_at": "2026-09-16"
+    }
+  },
+  "status": "active",
+  "summary": {
+    "plain": "The beamline that turns J-PARC's proton beam into neutrinos: protons hit a graphite rod, magnetic \"horns\" focus the particles produced, and they decay in flight into neutrinos aimed slightly off to one side of the detectors 295 km away.",
+    "technical": "Fast-extracted 30 GeV protons from the main ring are bent 80.7 degrees towards Kamioka, hit a 91.4 cm graphite target inside three pulsed magnetic horns, and the secondary pions decay in a 96 m helium-filled volume. The resulting narrow-band muon-neutrino beam is measured at 280 m (INGRID on-axis, ND280 off-axis) and at Super-Kamiokande at 2.504 degrees off-axis."
+  },
+  "target": {
+    "confidence": "verified",
+    "note": "",
+    "quote": "The target core is a 1.9 interaction length (91.4 cm long), 2.6 cm diameter and 1.8 g/cm3 graphite rod.",
+    "sources": [
+      "src:t2k-nim-2011"
+    ],
+    "value": "Graphite rod, 91.4 cm long (1.9 interaction lengths), 2.6 cm diameter, 1.8 g/cm3, helium cooled, supported inside the first horn",
+    "verified_at": "2026-09-16"
+  },
+  "type": "beamline"
+}

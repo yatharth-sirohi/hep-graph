@@ -1,0 +1,5451 @@
+{
+  "accelerators": {
+    "accelerator:fermilab-booster": {
+      "aliases": [],
+      "beamline_ids": [
+        "beamline:bnb"
+      ],
+      "document_ids": [],
+      "facility_id": "facility:fermilab",
+      "feeds_accelerator_ids": [
+        "accelerator:fermilab-main-injector"
+      ],
+      "id": "accelerator:fermilab-booster",
+      "is_collider": false,
+      "kind": "booster",
+      "name": "Booster",
+      "open_ended": true,
+      "particles": [
+        "proton"
+      ],
+      "serves_experiment_ids": [
+        "experiment:icarus",
+        "experiment:sbnd"
+      ],
+      "site_id": "site:fermilab-batavia",
+      "specs": {
+        "beam_energy": {
+          "dimension": "energy",
+          "display": "8 GeV",
+          "unit": "GeV",
+          "value": 8
+        }
+      },
+      "state_segments": [
+        [
+          248,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
+      "type": "accelerator"
+    },
+    "accelerator:fermilab-main-injector": {
+      "aliases": [
+        "MI"
+      ],
+      "beamline_ids": [
+        "beamline:lbnf",
+        "beamline:numi"
+      ],
+      "document_ids": [],
+      "facility_id": "facility:fermilab",
+      "feeds_accelerator_ids": [],
+      "id": "accelerator:fermilab-main-injector",
+      "is_collider": false,
+      "kind": "synchrotron",
+      "name": "Main Injector",
+      "open_ended": true,
+      "particles": [
+        "proton"
+      ],
+      "serves_experiment_ids": [
+        "experiment:dune",
+        "experiment:nova"
+      ],
+      "site_id": "site:fermilab-batavia",
+      "specs": {
+        "beam_energy": {
+          "dimension": "energy",
+          "display": "120 GeV",
+          "unit": "GeV",
+          "value": 120
+        },
+        "beam_power": {
+          "dimension": "power",
+          "display": "900 kW",
+          "unit": "kW",
+          "value": 900
+        }
+      },
+      "state_segments": [
+        [
+          593,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
+      "type": "accelerator"
+    },
+    "accelerator:jparc-mr": {
+      "aliases": [
+        "MR"
+      ],
+      "beamline_ids": [
+        "beamline:jparc-neutrino"
+      ],
+      "document_ids": [],
+      "facility_id": "facility:j-parc",
+      "feeds_accelerator_ids": [],
+      "id": "accelerator:jparc-mr",
+      "is_collider": false,
+      "kind": "synchrotron",
+      "name": "J-PARC Main Ring",
+      "open_ended": true,
+      "particles": [
+        "proton"
+      ],
+      "serves_experiment_ids": [
+        "experiment:t2k"
+      ],
+      "site_id": "site:jparc-tokai",
+      "specs": {
+        "beam_energy": {
+          "dimension": "energy",
+          "display": "30 GeV",
+          "unit": "GeV",
+          "value": 30
+        },
+        "beam_power": {
+          "dimension": "power",
+          "display": "760 kW",
+          "unit": "kW",
+          "value": 760
+        }
+      },
+      "state_segments": [
+        [
+          700,
+          710,
+          "commissioning",
+          "certain"
+        ],
+        [
+          711,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
+      "type": "accelerator"
+    },
+    "accelerator:lhc": {
+      "aliases": [
+        "LHC"
+      ],
+      "beamline_ids": [],
+      "document_ids": [
+        "document:lhc-design-report-2004"
+      ],
+      "facility_id": "facility:cern",
+      "feeds_accelerator_ids": [],
+      "id": "accelerator:lhc",
+      "is_collider": true,
+      "kind": "collider",
+      "name": "Large Hadron Collider",
+      "open_ended": true,
+      "particles": [
+        "proton",
+        "lead ion"
+      ],
+      "serves_experiment_ids": [
+        "experiment:atlas",
+        "experiment:cms"
+      ],
+      "site_id": "site:cern-meyrin",
+      "specs": {
+        "circumference": {
+          "dimension": "length",
+          "display": "26.659 km",
+          "unit": "m",
+          "value": 26659
+        },
+        "cms_energy": {
+          "dimension": "energy",
+          "display": "13.6 TeV",
+          "unit": "GeV",
+          "value": 13600
+        },
+        "peak_luminosity": {
+          "dimension": "luminosity",
+          "display": "2.1 × 10³⁴ cm⁻² s⁻¹",
+          "unit": "cm^-2 s^-1",
+          "value": 2.1e+34
+        }
+      },
+      "state_segments": [
+        [
+          587,
+          703,
+          "construction",
+          "certain"
+        ],
+        [
+          704,
+          721,
+          "commissioning",
+          "certain"
+        ],
+        [
+          722,
+          756,
+          "active",
+          "certain"
+        ],
+        [
+          757,
+          782,
+          "shutdown",
+          "certain"
+        ],
+        [
+          783,
+          826,
+          "active",
+          "certain"
+        ],
+        [
+          827,
+          866,
+          "shutdown",
+          "certain"
+        ],
+        [
+          867,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
+      "type": "accelerator"
+    },
+    "accelerator:sps": {
+      "aliases": [
+        "SPS",
+        "SppS"
+      ],
+      "beamline_ids": [],
+      "document_ids": [],
+      "facility_id": "facility:cern",
+      "feeds_accelerator_ids": [
+        "accelerator:lhc"
+      ],
+      "id": "accelerator:sps",
+      "is_collider": false,
+      "kind": "synchrotron",
+      "name": "Super Proton Synchrotron",
+      "open_ended": true,
+      "particles": [
+        "proton",
+        "antiproton",
+        "lead ion"
+      ],
+      "serves_experiment_ids": [
+        "experiment:ua1"
+      ],
+      "site_id": "site:cern-meyrin",
+      "specs": {
+        "beam_energy": {
+          "dimension": "energy",
+          "display": "450 GeV",
+          "unit": "GeV",
+          "value": 450
+        },
+        "circumference": {
+          "dimension": "length",
+          "display": "6.912 km",
+          "unit": "m",
+          "value": 6912
+        }
+      },
+      "state_segments": [
+        [
+          316,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
+      "type": "accelerator"
+    },
+    "accelerator:superkekb": {
+      "aliases": [],
+      "beamline_ids": [],
+      "document_ids": [],
+      "facility_id": "facility:kek",
+      "feeds_accelerator_ids": [],
+      "id": "accelerator:superkekb",
+      "is_collider": true,
+      "kind": "collider",
+      "name": "SuperKEKB",
+      "open_ended": true,
+      "particles": [
+        "electron",
+        "positron"
+      ],
+      "serves_experiment_ids": [
+        "experiment:belle-2"
+      ],
+      "site_id": "site:kek-tsukuba",
+      "specs": {
+        "circumference": {
+          "dimension": "length",
+          "display": "3.016 km",
+          "unit": "m",
+          "value": 3016
+        },
+        "cms_energy": {
+          "dimension": "energy",
+          "display": "10.58 GeV",
+          "unit": "GeV",
+          "value": 10.58
+        },
+        "peak_luminosity": {
+          "dimension": "luminosity",
+          "display": "5.1 × 10³⁴ cm⁻² s⁻¹",
+          "unit": "cm^-2 s^-1",
+          "value": 5.1e+34
+        }
+      },
+      "state_segments": [
+        [
+          732,
+          792,
+          "construction",
+          "certain"
+        ],
+        [
+          793,
+          817,
+          "commissioning",
+          "certain"
+        ],
+        [
+          818,
+          869,
+          "active",
+          "certain"
+        ],
+        [
+          870,
+          888,
+          "upgrade",
+          "certain"
+        ],
+        [
+          889,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
+      "type": "accelerator"
+    }
+  },
+  "beamlines": {
+    "beamline:bnb": {
+      "accelerator_id": "accelerator:fermilab-booster",
+      "aliases": [
+        "BNB"
+      ],
+      "baselines": [
+        {
+          "distance": {
+            "dimension": "length",
+            "display": "0.49 km",
+            "unit": "km",
+            "value": 0.49
+          },
+          "from_site_id": "site:fermilab-sbnd-hall",
+          "great_circle_km": 0.7,
+          "to_site_id": "site:fermilab-icarus-hall"
+        }
+      ],
+      "direction": "north-east along the Booster neutrino line",
+      "document_ids": [],
+      "experiment_ids": [
+        "experiment:icarus",
+        "experiment:sbnd"
+      ],
+      "facility_id": "facility:fermilab",
+      "far_detector_site_ids": [
+        "site:fermilab-icarus-hall"
+      ],
+      "id": "beamline:bnb",
+      "name": "Booster Neutrino Beam",
+      "near_detector_site_ids": [
+        "site:fermilab-sbnd-hall"
+      ],
+      "open_ended": true,
+      "primary_beam": {
+        "energy": {
+          "dimension": "energy",
+          "display": "8 GeV",
+          "unit": "GeV",
+          "value": 8
+        },
+        "particle": "proton"
+      },
+      "secondary_beam": "muon neutrinos, on-axis",
+      "specs": {
+        "peak_neutrino_energy": {
+          "dimension": "energy",
+          "display": "800 MeV",
+          "unit": "MeV",
+          "value": 800
+        }
+      },
+      "state_segments": [
+        [
+          631,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
+      "target": "beryllium target",
+      "type": "beamline"
+    },
+    "beamline:jparc-neutrino": {
+      "accelerator_id": "accelerator:jparc-mr",
+      "aliases": [
+        "T2K beamline"
+      ],
+      "baselines": [
+        {
+          "distance": {
+            "dimension": "length",
+            "display": "295 km",
+            "unit": "km",
+            "value": 295
+          },
+          "from_site_id": "site:jparc-tokai",
+          "great_circle_km": 294.9,
+          "to_site_id": "site:super-k-cavern"
+        }
+      ],
+      "direction": "west-south-west towards the Kamioka mine",
+      "document_ids": [
+        "document:t2k-experiment-2011"
+      ],
+      "experiment_ids": [
+        "experiment:t2k"
+      ],
+      "facility_id": "facility:j-parc",
+      "far_detector_site_ids": [
+        "site:super-k-cavern"
+      ],
+      "id": "beamline:jparc-neutrino",
+      "name": "J-PARC neutrino beamline",
+      "near_detector_site_ids": [
+        "site:jparc-nd280"
+      ],
+      "open_ended": true,
+      "primary_beam": {
+        "energy": {
+          "dimension": "energy",
+          "display": "30 GeV",
+          "unit": "GeV",
+          "value": 30
+        },
+        "particle": "proton"
+      },
+      "secondary_beam": "muon neutrinos / antineutrinos, 2.5° off-axis",
+      "specs": {
+        "baseline": {
+          "dimension": "length",
+          "display": "295 km",
+          "unit": "km",
+          "value": 295
+        },
+        "beam_power": {
+          "dimension": "power",
+          "display": "760 kW",
+          "unit": "kW",
+          "value": 760
+        },
+        "off_axis_angle": {
+          "dimension": "angle",
+          "display": "2.5°",
+          "unit": "deg",
+          "value": 2.5
+        }
+      },
+      "state_segments": [
+        [
+          711,
+          719,
+          "commissioning",
+          "certain"
+        ],
+        [
+          720,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
+      "target": "graphite target",
+      "type": "beamline"
+    },
+    "beamline:lbnf": {
+      "accelerator_id": "accelerator:fermilab-main-injector",
+      "aliases": [
+        "LBNF"
+      ],
+      "baselines": [
+        {
+          "distance": {
+            "dimension": "length",
+            "display": "1285 km",
+            "unit": "km",
+            "value": 1285
+          },
+          "from_site_id": "site:fermilab-batavia",
+          "great_circle_km": 1287.4,
+          "to_site_id": "site:surf-dune-caverns"
+        }
+      ],
+      "direction": "north-west, 5.8° downward towards Lead, South Dakota",
+      "document_ids": [
+        "document:dune-cdr-2015"
+      ],
+      "experiment_ids": [
+        "experiment:dune"
+      ],
+      "facility_id": "facility:fermilab",
+      "far_detector_site_ids": [
+        "site:surf-dune-caverns"
+      ],
+      "id": "beamline:lbnf",
+      "name": "LBNF neutrino beamline",
+      "near_detector_site_ids": [
+        "site:fermilab-nd-hall"
+      ],
+      "open_ended": true,
+      "primary_beam": {
+        "energy": {
+          "dimension": "energy",
+          "display": "120 GeV",
+          "unit": "GeV",
+          "value": 120
+        },
+        "particle": "proton"
+      },
+      "secondary_beam": "muon neutrinos / antineutrinos, on-axis",
+      "specs": {
+        "baseline": {
+          "dimension": "length",
+          "display": "1285 km",
+          "unit": "km",
+          "value": 1285
+        },
+        "beam_power": {
+          "dimension": "power",
+          "display": "1.2 MW at start-up",
+          "unit": "kW",
+          "value": 1200
+        }
+      },
+      "state_segments": [
+        [
+          810,
+          920,
+          "construction",
+          "certain"
+        ]
+      ],
+      "status": "construction",
+      "target": "1.5 m graphite target",
+      "type": "beamline"
+    },
+    "beamline:numi": {
+      "accelerator_id": "accelerator:fermilab-main-injector",
+      "aliases": [
+        "NuMI"
+      ],
+      "baselines": [
+        {
+          "distance": {
+            "dimension": "length",
+            "display": "810 km",
+            "unit": "km",
+            "value": 810
+          },
+          "from_site_id": "site:fermilab-batavia",
+          "great_circle_km": 811.3,
+          "to_site_id": "site:nova-ash-river"
+        }
+      ],
+      "direction": "north, 3.3° downward towards Ash River, Minnesota",
+      "document_ids": [],
+      "experiment_ids": [
+        "experiment:nova"
+      ],
+      "facility_id": "facility:fermilab",
+      "far_detector_site_ids": [
+        "site:nova-ash-river"
+      ],
+      "id": "beamline:numi",
+      "name": "NuMI neutrino beamline",
+      "near_detector_site_ids": [
+        "site:fermilab-minos-hall"
+      ],
+      "open_ended": true,
+      "primary_beam": {
+        "energy": {
+          "dimension": "energy",
+          "display": "120 GeV",
+          "unit": "GeV",
+          "value": 120
+        },
+        "particle": "proton"
+      },
+      "secondary_beam": "muon neutrinos / antineutrinos, 14.6 mrad off-axis for NOvA",
+      "specs": {
+        "baseline": {
+          "dimension": "length",
+          "display": "810 km",
+          "unit": "km",
+          "value": 810
+        },
+        "beam_power": {
+          "dimension": "power",
+          "display": "900 kW",
+          "unit": "kW",
+          "value": 900
+        },
+        "off_axis_angle": {
+          "dimension": "angle",
+          "display": "14.6 mrad",
+          "unit": "mrad",
+          "value": 14.6
+        }
+      },
+      "state_segments": [
+        [
+          660,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
+      "target": "graphite target",
+      "type": "beamline"
+    }
+  },
+  "collaborations": {
+    "collaboration:atlas": {
+      "aliases": [],
+      "experiment_ids": [
+        "experiment:atlas"
+      ],
+      "formation": "1992-10",
+      "host_facility_id": "facility:cern",
+      "host_site_id": "site:cern-lhc-point-1",
+      "id": "collaboration:atlas",
+      "leadership": [
+        {
+          "end": null,
+          "name": "M. Aubertin",
+          "person_id": "person:unresolved-atlas-cern-spokesperson",
+          "role": "spokesperson",
+          "start": "2025-03"
+        }
+      ],
+      "membership": {
+        "as_of": "2026-09",
+        "bundle": "memberships/atlas.json",
+        "confirmed_count": 10,
+        "count_label": "10 confirmed members (+0 undated)",
+        "country_count": 42,
+        "institution_count": 257,
+        "member_count": 5900,
+        "membership_history": "partial",
+        "undated_count": 0
+      },
+      "name": "ATLAS Collaboration",
+      "open_ended": true,
+      "state_segments": [
+        [
+          513,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
+      "type": "collaboration"
+    },
+    "collaboration:belle": {
+      "aliases": [],
+      "experiment_ids": [
+        "experiment:belle"
+      ],
+      "formation": "1994-04",
+      "host_facility_id": "facility:kek",
+      "host_site_id": "site:kek-tsukuba",
+      "id": "collaboration:belle",
+      "leadership": [],
+      "membership": {
+        "as_of": "2026-09",
+        "bundle": "memberships/belle.json",
+        "confirmed_count": 0,
+        "count_label": "0 confirmed members (+3 undated)",
+        "country_count": 15,
+        "institution_count": 60,
+        "member_count": 400,
+        "membership_history": "unknown",
+        "undated_count": 3
+      },
+      "name": "Belle Collaboration",
+      "open_ended": false,
+      "state_segments": [
+        [
+          531,
+          724,
+          "active",
+          "certain"
+        ],
+        [
+          725,
+          725,
+          "completed",
+          "certain"
+        ]
+      ],
+      "status": "completed",
+      "type": "collaboration"
+    },
+    "collaboration:belle-2": {
+      "aliases": [],
+      "experiment_ids": [
+        "experiment:belle-2"
+      ],
+      "formation": "2008-11",
+      "host_facility_id": "facility:kek",
+      "host_site_id": "site:kek-tsukuba",
+      "id": "collaboration:belle-2",
+      "leadership": [],
+      "membership": {
+        "as_of": "2026-09",
+        "bundle": "memberships/belle-2.json",
+        "confirmed_count": 6,
+        "count_label": "6 confirmed members (+0 undated)",
+        "country_count": 28,
+        "institution_count": 122,
+        "member_count": 1200,
+        "membership_history": "partial",
+        "undated_count": 0
+      },
+      "name": "Belle II Collaboration",
+      "open_ended": true,
+      "state_segments": [
+        [
+          706,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
+      "type": "collaboration"
+    },
+    "collaboration:cms": {
+      "aliases": [],
+      "experiment_ids": [
+        "experiment:cms"
+      ],
+      "formation": "1992-10",
+      "host_facility_id": "facility:cern",
+      "host_site_id": "site:cern-lhc-point-5",
+      "id": "collaboration:cms",
+      "leadership": [],
+      "membership": {
+        "as_of": "2026-09",
+        "bundle": "memberships/cms.json",
+        "confirmed_count": 5,
+        "count_label": "5 confirmed members (+0 undated)",
+        "country_count": 54,
+        "institution_count": 241,
+        "member_count": 5500,
+        "membership_history": "unknown",
+        "undated_count": 0
+      },
+      "name": "CMS Collaboration",
+      "open_ended": true,
+      "state_segments": [
+        [
+          513,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
+      "type": "collaboration"
+    },
+    "collaboration:dune": {
+      "aliases": [],
+      "experiment_ids": [
+        "experiment:dune"
+      ],
+      "formation": "2015-04",
+      "host_facility_id": "facility:fermilab",
+      "host_site_id": "site:surf-dune-caverns",
+      "id": "collaboration:dune",
+      "leadership": [
+        {
+          "end": null,
+          "name": "R. Okonjo",
+          "person_id": "person:unresolved-dune-fermilab-cospokesperson",
+          "role": "spokesperson",
+          "start": "2024-02"
+        },
+        {
+          "end": null,
+          "name": "H. Lindqvist",
+          "person_id": "person:unresolved-dune-imperial-college-london-deputy",
+          "role": "deputy_spokesperson",
+          "start": "2024-02"
+        }
+      ],
+      "membership": {
+        "as_of": "2026-09",
+        "bundle": "memberships/dune.json",
+        "confirmed_count": 13,
+        "count_label": "13 confirmed members (+1 undated)",
+        "country_count": 37,
+        "institution_count": 209,
+        "member_count": 1400,
+        "membership_history": "partial",
+        "undated_count": 1
+      },
+      "name": "DUNE Collaboration",
+      "open_ended": true,
+      "state_segments": [
+        [
+          783,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
+      "type": "collaboration"
+    },
+    "collaboration:icarus": {
+      "aliases": [],
+      "experiment_ids": [
+        "experiment:icarus"
+      ],
+      "formation": "1991-01",
+      "host_facility_id": "facility:fermilab",
+      "host_site_id": "site:fermilab-icarus-hall",
+      "id": "collaboration:icarus",
+      "leadership": [],
+      "membership": {
+        "as_of": "2026-09",
+        "bundle": "memberships/icarus.json",
+        "confirmed_count": 3,
+        "count_label": "3 confirmed members (+0 undated)",
+        "country_count": 6,
+        "institution_count": 25,
+        "member_count": 150,
+        "membership_history": "unknown",
+        "undated_count": 0
+      },
+      "name": "ICARUS Collaboration",
+      "open_ended": true,
+      "state_segments": [
+        [
+          492,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
+      "type": "collaboration"
+    },
+    "collaboration:icecube": {
+      "aliases": [],
+      "experiment_ids": [
+        "experiment:icecube"
+      ],
+      "formation": "1999-09",
+      "host_facility_id": "facility:amundsen-scott",
+      "host_site_id": "site:icecube-array",
+      "id": "collaboration:icecube",
+      "leadership": [
+        {
+          "end": null,
+          "name": "D. Arinze",
+          "person_id": "person:unresolved-icecube-university-of-wisconsin-madison-spokesperson",
+          "role": "spokesperson",
+          "start": "2023-05"
+        }
+      ],
+      "membership": {
+        "as_of": "2026-09",
+        "bundle": "memberships/icecube.json",
+        "confirmed_count": 7,
+        "count_label": "7 confirmed members (+1 undated)",
+        "country_count": 14,
+        "institution_count": 58,
+        "member_count": 350,
+        "membership_history": "partial",
+        "undated_count": 1
+      },
+      "name": "IceCube Collaboration",
+      "open_ended": true,
+      "state_segments": [
+        [
+          596,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
+      "type": "collaboration"
+    },
+    "collaboration:lz": {
+      "aliases": [],
+      "experiment_ids": [
+        "experiment:lz"
+      ],
+      "formation": "2012-07",
+      "host_facility_id": "facility:surf",
+      "host_site_id": "site:surf-davis-campus",
+      "id": "collaboration:lz",
+      "leadership": [],
+      "membership": {
+        "as_of": "2026-09",
+        "bundle": "memberships/lz.json",
+        "confirmed_count": 5,
+        "count_label": "5 confirmed members (+1 undated)",
+        "country_count": 5,
+        "institution_count": 38,
+        "member_count": 250,
+        "membership_history": "partial",
+        "undated_count": 1
+      },
+      "name": "LZ Collaboration",
+      "open_ended": true,
+      "state_segments": [
+        [
+          750,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
+      "type": "collaboration"
+    },
+    "collaboration:nova": {
+      "aliases": [],
+      "experiment_ids": [
+        "experiment:nova"
+      ],
+      "formation": "2004-03",
+      "host_facility_id": "facility:fermilab",
+      "host_site_id": "site:nova-ash-river",
+      "id": "collaboration:nova",
+      "leadership": [],
+      "membership": {
+        "as_of": "2026-09",
+        "bundle": "memberships/nova.json",
+        "confirmed_count": 5,
+        "count_label": "5 confirmed members (+0 undated)",
+        "country_count": 8,
+        "institution_count": 49,
+        "member_count": 250,
+        "membership_history": "partial",
+        "undated_count": 0
+      },
+      "name": "NOvA Collaboration",
+      "open_ended": true,
+      "state_segments": [
+        [
+          650,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
+      "type": "collaboration"
+    },
+    "collaboration:sbnd": {
+      "aliases": [],
+      "experiment_ids": [
+        "experiment:sbnd"
+      ],
+      "formation": "2015-02",
+      "host_facility_id": "facility:fermilab",
+      "host_site_id": "site:fermilab-sbnd-hall",
+      "id": "collaboration:sbnd",
+      "leadership": [],
+      "membership": {
+        "as_of": "2026-09",
+        "bundle": "memberships/sbnd.json",
+        "confirmed_count": 4,
+        "count_label": "4 confirmed members (+0 undated)",
+        "country_count": 7,
+        "institution_count": 40,
+        "member_count": 250,
+        "membership_history": "unknown",
+        "undated_count": 0
+      },
+      "name": "SBND Collaboration",
+      "open_ended": true,
+      "state_segments": [
+        [
+          781,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
+      "type": "collaboration"
+    },
+    "collaboration:super-kamiokande": {
+      "aliases": [],
+      "experiment_ids": [
+        "experiment:super-kamiokande"
+      ],
+      "formation": "1991-04",
+      "host_facility_id": "facility:kamioka-observatory",
+      "host_site_id": "site:super-k-cavern",
+      "id": "collaboration:super-kamiokande",
+      "leadership": [],
+      "membership": {
+        "as_of": "2026-09",
+        "bundle": "memberships/super-kamiokande.json",
+        "confirmed_count": 4,
+        "count_label": "4 confirmed members (+0 undated)",
+        "country_count": 9,
+        "institution_count": 48,
+        "member_count": 200,
+        "membership_history": "partial",
+        "undated_count": 0
+      },
+      "name": "Super-Kamiokande Collaboration",
+      "open_ended": true,
+      "state_segments": [
+        [
+          495,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
+      "type": "collaboration"
+    },
+    "collaboration:t2k": {
+      "aliases": [],
+      "experiment_ids": [
+        "experiment:t2k"
+      ],
+      "formation": "2003-01",
+      "host_facility_id": "facility:j-parc",
+      "host_site_id": "site:jparc-nd280",
+      "id": "collaboration:t2k",
+      "leadership": [],
+      "membership": {
+        "as_of": "2026-09",
+        "bundle": "memberships/t2k.json",
+        "confirmed_count": 7,
+        "count_label": "7 confirmed members (+0 undated)",
+        "country_count": 14,
+        "institution_count": 78,
+        "member_count": 560,
+        "membership_history": "partial",
+        "undated_count": 0
+      },
+      "name": "T2K Collaboration",
+      "open_ended": true,
+      "state_segments": [
+        [
+          636,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
+      "type": "collaboration"
+    },
+    "collaboration:ua1": {
+      "aliases": [],
+      "experiment_ids": [
+        "experiment:ua1"
+      ],
+      "formation": "1978-01",
+      "host_facility_id": "facility:cern",
+      "host_site_id": "site:cern-sps-lss5",
+      "id": "collaboration:ua1",
+      "leadership": [
+        {
+          "end": "1990-12",
+          "name": "A. Ferrante",
+          "person_id": "person:unresolved-ua1-cern-spokesperson",
+          "role": "spokesperson",
+          "start": "1978-01"
+        }
+      ],
+      "membership": {
+        "as_of": "2026-09",
+        "bundle": "memberships/ua1.json",
+        "confirmed_count": 5,
+        "count_label": "5 confirmed members (+0 undated)",
+        "country_count": 7,
+        "institution_count": 13,
+        "member_count": 135,
+        "membership_history": "complete",
+        "undated_count": 0
+      },
+      "name": "UA1 Collaboration",
+      "open_ended": false,
+      "state_segments": [
+        [
+          336,
+          490,
+          "active",
+          "certain"
+        ],
+        [
+          491,
+          491,
+          "completed",
+          "certain"
+        ]
+      ],
+      "status": "completed",
+      "type": "collaboration"
+    }
+  },
+  "detectors": {
+    "detector:atlas": {
+      "aliases": [],
+      "document_ids": [
+        "document:atlas-detector-paper-2008"
+      ],
+      "experiment_ids": [
+        "experiment:atlas"
+      ],
+      "id": "detector:atlas",
+      "name": "ATLAS detector",
+      "open_ended": true,
+      "parent_detector_id": null,
+      "placements": [
+        {
+          "end": null,
+          "role": "main",
+          "site_id": "site:cern-lhc-point-1",
+          "start": "2008-05"
+        }
+      ],
+      "specs": {
+        "diameter": {
+          "dimension": "length",
+          "display": "25 m",
+          "unit": "m",
+          "value": 25
+        },
+        "length": {
+          "dimension": "length",
+          "display": "46 m",
+          "unit": "m",
+          "value": 46
+        },
+        "solenoid_field": {
+          "dimension": "magnetic_field",
+          "display": "2 T",
+          "unit": "T",
+          "value": 2.0
+        },
+        "total_mass": {
+          "dimension": "mass",
+          "display": "7000 t",
+          "unit": "t",
+          "value": 7000
+        }
+      },
+      "state_segments": [
+        [
+          579,
+          699,
+          "construction",
+          "certain"
+        ],
+        [
+          700,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
+      "subsystems": [
+        {
+          "description": "Silicon pixel, silicon strip and transition-radiation tracking inside a 2 T solenoid.",
+          "name": "Inner detector"
+        },
+        {
+          "description": "Liquid-argon electromagnetic and scintillator-tile hadronic calorimetry.",
+          "name": "Calorimeters"
+        },
+        {
+          "description": "Air-core toroid magnets with precision drift tubes and trigger chambers.",
+          "name": "Muon spectrometer"
+        }
+      ],
+      "technology": "general-purpose collider detector with a toroidal muon spectrometer",
+      "technology_classes": [
+        "general_purpose_collider"
+      ],
+      "type": "detector"
+    },
+    "detector:belle-2": {
+      "aliases": [],
+      "document_ids": [
+        "document:belle2-tdr-2010"
+      ],
+      "experiment_ids": [
+        "experiment:belle-2"
+      ],
+      "id": "detector:belle-2",
+      "name": "Belle II detector",
+      "open_ended": true,
+      "parent_detector_id": null,
+      "placements": [
+        {
+          "end": null,
+          "role": "main",
+          "site_id": "site:kek-tsukuba",
+          "start": "2018-03"
+        }
+      ],
+      "specs": {
+        "solenoid_field": {
+          "dimension": "magnetic_field",
+          "display": "1.5 T",
+          "unit": "T",
+          "value": 1.5
+        }
+      },
+      "state_segments": [
+        [
+          732,
+          817,
+          "construction",
+          "certain"
+        ],
+        [
+          818,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
+      "subsystems": [
+        {
+          "description": "Two DEPFET layers within 2.2 cm of the beam pipe.",
+          "name": "Pixel detector"
+        }
+      ],
+      "technology": "hermetic collider detector with a pixel vertex detector",
+      "technology_classes": [
+        "general_purpose_collider"
+      ],
+      "type": "detector"
+    },
+    "detector:cms": {
+      "aliases": [],
+      "document_ids": [
+        "document:cms-detector-paper-2008"
+      ],
+      "experiment_ids": [
+        "experiment:cms"
+      ],
+      "id": "detector:cms",
+      "name": "CMS detector",
+      "open_ended": true,
+      "parent_detector_id": null,
+      "placements": [
+        {
+          "end": null,
+          "role": "main",
+          "site_id": "site:cern-lhc-point-5",
+          "start": "2008-05"
+        }
+      ],
+      "specs": {
+        "length": {
+          "dimension": "length",
+          "display": "21.6 m",
+          "unit": "m",
+          "value": 21.6
+        },
+        "solenoid_field": {
+          "dimension": "magnetic_field",
+          "display": "3.8 T",
+          "unit": "T",
+          "value": 3.8
+        },
+        "total_mass": {
+          "dimension": "mass",
+          "display": "14 000 t",
+          "unit": "t",
+          "value": 14000
+        }
+      },
+      "state_segments": [
+        [
+          579,
+          699,
+          "construction",
+          "certain"
+        ],
+        [
+          700,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
+      "subsystems": [
+        {
+          "description": "The largest silicon tracker built, 200 m² of active area.",
+          "name": "Silicon tracker"
+        },
+        {
+          "description": "75 848 lead-tungstate scintillating crystals.",
+          "name": "Crystal calorimeter"
+        }
+      ],
+      "technology": "general-purpose collider detector built around a 3.8 T solenoid",
+      "technology_classes": [
+        "general_purpose_collider"
+      ],
+      "type": "detector"
+    },
+    "detector:dune-fd-hd": {
+      "aliases": [],
+      "document_ids": [],
+      "experiment_ids": [
+        "experiment:dune"
+      ],
+      "id": "detector:dune-fd-hd",
+      "name": "DUNE far detector, horizontal-drift module",
+      "open_ended": true,
+      "parent_detector_id": null,
+      "placements": [
+        {
+          "end": null,
+          "role": "far",
+          "site_id": "site:surf-dune-caverns",
+          "start": "2028"
+        }
+      ],
+      "specs": {
+        "drift_field": {
+          "dimension": "electric_field",
+          "display": "500 V/cm",
+          "unit": "V/cm",
+          "value": 500
+        },
+        "fiducial_mass": {
+          "dimension": "mass",
+          "display": "10 kt fiducial",
+          "unit": "t",
+          "value": 10000
+        },
+        "target_medium": {
+          "dimension": "fraction",
+          "display": "liquid argon",
+          "unit": "",
+          "value": 0
+        },
+        "total_mass": {
+          "dimension": "mass",
+          "display": "17.5 kt of liquid argon",
+          "unit": "t",
+          "value": 17500
+        }
+      },
+      "state_segments": [
+        [
+          864,
+          920,
+          "construction",
+          "certain"
+        ]
+      ],
+      "status": "construction",
+      "subsystems": [
+        {
+          "description": "150 APAs carrying wrapped wire planes for three readout views.",
+          "name": "Anode plane assemblies"
+        },
+        {
+          "description": "Membrane cryostat holding 17.5 kt of liquid argon at 87 K.",
+          "name": "Cryostat"
+        }
+      ],
+      "technology": "single-phase liquid argon time projection chamber",
+      "technology_classes": [
+        "noble_liquid_tpc",
+        "lar_tpc"
+      ],
+      "type": "detector"
+    },
+    "detector:dune-nd-lar": {
+      "aliases": [],
+      "document_ids": [],
+      "experiment_ids": [
+        "experiment:dune"
+      ],
+      "id": "detector:dune-nd-lar",
+      "name": "DUNE near detector, ND-LAr",
+      "open_ended": true,
+      "parent_detector_id": null,
+      "placements": [
+        {
+          "end": null,
+          "role": "near",
+          "site_id": "site:fermilab-nd-hall",
+          "start": "2030"
+        }
+      ],
+      "specs": {
+        "total_mass": {
+          "dimension": "mass",
+          "display": "147 t",
+          "unit": "t",
+          "value": 147
+        }
+      },
+      "state_segments": [
+        [
+          888,
+          920,
+          "construction",
+          "certain"
+        ]
+      ],
+      "status": "construction",
+      "subsystems": [],
+      "technology": "modular pixelated liquid argon TPC",
+      "technology_classes": [
+        "noble_liquid_tpc",
+        "lar_tpc"
+      ],
+      "type": "detector"
+    },
+    "detector:icarus-t600": {
+      "aliases": [],
+      "document_ids": [],
+      "experiment_ids": [
+        "experiment:icarus"
+      ],
+      "id": "detector:icarus-t600",
+      "name": "ICARUS T600",
+      "open_ended": true,
+      "parent_detector_id": null,
+      "placements": [
+        {
+          "end": null,
+          "role": "far",
+          "site_id": "site:fermilab-icarus-hall",
+          "start": "2020-08"
+        }
+      ],
+      "specs": {
+        "total_mass": {
+          "dimension": "mass",
+          "display": "476 t active",
+          "unit": "t",
+          "value": 476
+        }
+      },
+      "state_segments": [
+        [
+          729,
+          761,
+          "active",
+          "certain"
+        ],
+        [
+          773,
+          846,
+          "upgrade",
+          "certain"
+        ],
+        [
+          847,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
+      "subsystems": [],
+      "technology": "single-phase liquid argon TPC",
+      "technology_classes": [
+        "noble_liquid_tpc",
+        "lar_tpc"
+      ],
+      "type": "detector"
+    },
+    "detector:icecube-deepcore": {
+      "aliases": [],
+      "document_ids": [],
+      "experiment_ids": [
+        "experiment:icecube"
+      ],
+      "id": "detector:icecube-deepcore",
+      "name": "DeepCore",
+      "open_ended": true,
+      "parent_detector_id": "detector:icecube-in-ice",
+      "placements": [
+        {
+          "end": null,
+          "role": "main",
+          "site_id": "site:icecube-array",
+          "start": "2010-12"
+        }
+      ],
+      "specs": {
+        "module_count": {
+          "dimension": "count",
+          "display": "480 DOMs on 8 strings",
+          "unit": "",
+          "value": 480
+        }
+      },
+      "state_segments": [
+        [
+          731,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
+      "subsystems": [],
+      "technology": "dense infill array of optical modules",
+      "technology_classes": [
+        "ice_cherenkov"
+      ],
+      "type": "detector"
+    },
+    "detector:icecube-in-ice": {
+      "aliases": [],
+      "document_ids": [
+        "document:icecube-instrumentation-2017"
+      ],
+      "experiment_ids": [
+        "experiment:icecube"
+      ],
+      "id": "detector:icecube-in-ice",
+      "name": "IceCube in-ice array",
+      "open_ended": true,
+      "parent_detector_id": null,
+      "placements": [
+        {
+          "end": null,
+          "role": "main",
+          "site_id": "site:icecube-array",
+          "start": "2010-12"
+        }
+      ],
+      "specs": {
+        "instrumented_volume": {
+          "dimension": "volume",
+          "display": "1 km³",
+          "unit": "km^3",
+          "value": 1
+        },
+        "module_count": {
+          "dimension": "count",
+          "display": "5160 DOMs",
+          "unit": "",
+          "value": 5160
+        }
+      },
+      "state_segments": [
+        [
+          658,
+          730,
+          "construction",
+          "certain"
+        ],
+        [
+          731,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
+      "subsystems": [],
+      "technology": "digital optical modules frozen into deep Antarctic ice",
+      "technology_classes": [
+        "ice_cherenkov"
+      ],
+      "type": "detector"
+    },
+    "detector:lz": {
+      "aliases": [],
+      "document_ids": [
+        "document:lz-tdr-2017"
+      ],
+      "experiment_ids": [
+        "experiment:lz"
+      ],
+      "id": "detector:lz",
+      "name": "LZ detector",
+      "open_ended": true,
+      "parent_detector_id": null,
+      "placements": [
+        {
+          "end": null,
+          "role": "main",
+          "site_id": "site:surf-davis-campus",
+          "start": "2021-12"
+        }
+      ],
+      "specs": {
+        "drift_field": {
+          "dimension": "electric_field",
+          "display": "193 V/cm",
+          "unit": "V/cm",
+          "value": 193
+        },
+        "fiducial_mass": {
+          "dimension": "mass",
+          "display": "5.5 t fiducial",
+          "unit": "t",
+          "value": 5.5
+        },
+        "total_mass": {
+          "dimension": "mass",
+          "display": "10 t of liquid xenon",
+          "unit": "t",
+          "value": 10
+        }
+      },
+      "state_segments": [
+        [
+          792,
+          862,
+          "construction",
+          "certain"
+        ],
+        [
+          863,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
+      "subsystems": [
+        {
+          "description": "Gadolinium-loaded liquid scintillator surrounding the cryostat.",
+          "name": "Outer detector"
+        }
+      ],
+      "technology": "dual-phase xenon time projection chamber",
+      "technology_classes": [
+        "noble_liquid_tpc",
+        "xenon_tpc"
+      ],
+      "type": "detector"
+    },
+    "detector:nd280": {
+      "aliases": [],
+      "document_ids": [],
+      "experiment_ids": [
+        "experiment:t2k"
+      ],
+      "id": "detector:nd280",
+      "name": "ND280",
+      "open_ended": true,
+      "parent_detector_id": null,
+      "placements": [
+        {
+          "end": null,
+          "role": "near",
+          "site_id": "site:jparc-nd280",
+          "start": "2009-11"
+        }
+      ],
+      "specs": {
+        "magnetic_field": {
+          "dimension": "magnetic_field",
+          "display": "0.2 T",
+          "unit": "T",
+          "value": 0.2
+        }
+      },
+      "state_segments": [
+        [
+          718,
+          868,
+          "active",
+          "certain"
+        ],
+        [
+          869,
+          892,
+          "upgrade",
+          "certain"
+        ],
+        [
+          893,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
+      "subsystems": [],
+      "technology": "magnetised tracker with fine-grained targets and TPCs",
+      "technology_classes": [
+        "gaseous_tpc",
+        "tracking_calorimeter"
+      ],
+      "type": "detector"
+    },
+    "detector:nova-fd": {
+      "aliases": [],
+      "document_ids": [],
+      "experiment_ids": [
+        "experiment:nova"
+      ],
+      "id": "detector:nova-fd",
+      "name": "NOvA far detector",
+      "open_ended": true,
+      "parent_detector_id": null,
+      "placements": [
+        {
+          "end": null,
+          "role": "far",
+          "site_id": "site:nova-ash-river",
+          "start": "2014-02"
+        }
+      ],
+      "specs": {
+        "total_mass": {
+          "dimension": "mass",
+          "display": "14 000 t",
+          "unit": "t",
+          "value": 14000
+        }
+      },
+      "state_segments": [
+        [
+          744,
+          768,
+          "construction",
+          "certain"
+        ],
+        [
+          769,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
+      "subsystems": [],
+      "technology": "segmented liquid scintillator tracking calorimeter",
+      "technology_classes": [
+        "tracking_calorimeter",
+        "liquid_scintillator"
+      ],
+      "type": "detector"
+    },
+    "detector:nova-nd": {
+      "aliases": [],
+      "document_ids": [],
+      "experiment_ids": [
+        "experiment:nova"
+      ],
+      "id": "detector:nova-nd",
+      "name": "NOvA near detector",
+      "open_ended": true,
+      "parent_detector_id": null,
+      "placements": [
+        {
+          "end": null,
+          "role": "near",
+          "site_id": "site:fermilab-minos-hall",
+          "start": "2013-08"
+        }
+      ],
+      "specs": {
+        "total_mass": {
+          "dimension": "mass",
+          "display": "300 t",
+          "unit": "t",
+          "value": 300
+        }
+      },
+      "state_segments": [
+        [
+          763,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
+      "subsystems": [],
+      "technology": "segmented liquid scintillator tracking calorimeter",
+      "technology_classes": [
+        "tracking_calorimeter",
+        "liquid_scintillator"
+      ],
+      "type": "detector"
+    },
+    "detector:sbnd": {
+      "aliases": [],
+      "document_ids": [],
+      "experiment_ids": [
+        "experiment:sbnd"
+      ],
+      "id": "detector:sbnd",
+      "name": "SBND detector",
+      "open_ended": true,
+      "parent_detector_id": null,
+      "placements": [
+        {
+          "end": null,
+          "role": "near",
+          "site_id": "site:fermilab-sbnd-hall",
+          "start": "2024-07"
+        }
+      ],
+      "specs": {
+        "total_mass": {
+          "dimension": "mass",
+          "display": "112 t active",
+          "unit": "t",
+          "value": 112
+        }
+      },
+      "state_segments": [
+        [
+          816,
+          893,
+          "construction",
+          "certain"
+        ],
+        [
+          894,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
+      "subsystems": [],
+      "technology": "single-phase liquid argon TPC",
+      "technology_classes": [
+        "noble_liquid_tpc",
+        "lar_tpc"
+      ],
+      "type": "detector"
+    },
+    "detector:super-kamiokande": {
+      "aliases": [],
+      "document_ids": [
+        "document:super-kamiokande-detector-2003"
+      ],
+      "experiment_ids": [
+        "experiment:super-kamiokande",
+        "experiment:t2k"
+      ],
+      "id": "detector:super-kamiokande",
+      "name": "Super-Kamiokande detector",
+      "open_ended": true,
+      "parent_detector_id": null,
+      "placements": [
+        {
+          "end": null,
+          "role": "main",
+          "site_id": "site:super-k-cavern",
+          "start": "1996-04"
+        }
+      ],
+      "specs": {
+        "fiducial_mass": {
+          "dimension": "mass",
+          "display": "22.5 kt fiducial",
+          "unit": "t",
+          "value": 22500
+        },
+        "pmt_count": {
+          "dimension": "count",
+          "display": "11 129 inner PMTs",
+          "unit": "",
+          "value": 11129
+        },
+        "total_mass": {
+          "dimension": "mass",
+          "display": "50 000 t of ultrapure water",
+          "unit": "t",
+          "value": 50000
+        }
+      },
+      "state_segments": [
+        [
+          555,
+          621,
+          "active",
+          "certain"
+        ],
+        [
+          622,
+          634,
+          "shutdown",
+          "certain"
+        ],
+        [
+          635,
+          819,
+          "active",
+          "certain"
+        ],
+        [
+          820,
+          845,
+          "upgrade",
+          "certain"
+        ],
+        [
+          846,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
+      "subsystems": [
+        {
+          "description": "32 kt of water viewed by 11 129 50 cm photomultipliers.",
+          "name": "Inner detector"
+        },
+        {
+          "description": "A 2 m veto shell with 1885 outward-facing 20 cm PMTs.",
+          "name": "Outer detector"
+        }
+      ],
+      "technology": "water Cherenkov detector",
+      "technology_classes": [
+        "water_cherenkov"
+      ],
+      "type": "detector"
+    },
+    "detector:ua1": {
+      "aliases": [],
+      "document_ids": [
+        "document:ua1-proposal-1978"
+      ],
+      "experiment_ids": [
+        "experiment:ua1"
+      ],
+      "id": "detector:ua1",
+      "name": "UA1 detector",
+      "open_ended": false,
+      "parent_detector_id": null,
+      "placements": [
+        {
+          "end": "1990-12",
+          "role": "main",
+          "site_id": "site:cern-sps-lss5",
+          "start": "1981-07"
+        }
+      ],
+      "specs": {
+        "magnetic_field": {
+          "dimension": "magnetic_field",
+          "display": "0.7 T dipole",
+          "unit": "T",
+          "value": 0.7
+        },
+        "total_mass": {
+          "dimension": "mass",
+          "display": "2000 t",
+          "unit": "t",
+          "value": 2000
+        }
+      },
+      "state_segments": [
+        [
+          348,
+          377,
+          "construction",
+          "certain"
+        ],
+        [
+          378,
+          491,
+          "active",
+          "certain"
+        ],
+        [
+          516,
+          516,
+          "decommissioned",
+          "certain"
+        ]
+      ],
+      "status": "decommissioned",
+      "subsystems": [
+        {
+          "description": "A 6 m drift chamber imaging tracks in the dipole field.",
+          "name": "Central detector"
+        }
+      ],
+      "technology": "dipole-magnet central detector with hermetic calorimetry",
+      "technology_classes": [
+        "spectrometer",
+        "tracking_calorimeter"
+      ],
+      "type": "detector"
+    }
+  },
+  "epoch": "1950-01",
+  "experiments": {
+    "experiment:atlas": {
+      "accelerator_ids": [
+        "accelerator:lhc"
+      ],
+      "aliases": [
+        "A Toroidal LHC ApparatuS"
+      ],
+      "beamline_ids": [],
+      "collaboration_ids": [
+        "collaboration:atlas"
+      ],
+      "detector_ids": [
+        "detector:atlas"
+      ],
+      "document_ids": [
+        "document:atlas-detector-paper-2008"
+      ],
+      "energy_regime": "13.6 TeV proton–proton collisions",
+      "external": {
+        "greybook": "LHC-ATLAS",
+        "inspire_experiment": 1108541
+      },
+      "facility_ids": [
+        "facility:cern"
+      ],
+      "facility_roles": [
+        {
+          "facility_id": "facility:cern",
+          "role": "host"
+        }
+      ],
+      "id": "experiment:atlas",
+      "intervals": [
+        {
+          "end": "1994-12",
+          "kind": "lifecycle",
+          "label": "letter of intent",
+          "planned": false,
+          "start": "1992-10",
+          "status": "proposed"
+        },
+        {
+          "end": "1998-04",
+          "kind": "lifecycle",
+          "label": "approved",
+          "planned": false,
+          "start": "1995-01",
+          "status": "approved"
+        },
+        {
+          "end": "2008-05",
+          "kind": "lifecycle",
+          "label": "construction",
+          "planned": false,
+          "start": "1998-04",
+          "status": "construction"
+        },
+        {
+          "end": "2009-11",
+          "kind": "lifecycle",
+          "label": "commissioning",
+          "planned": false,
+          "start": "2008-05",
+          "status": "commissioning"
+        },
+        {
+          "end": "2013-02",
+          "kind": "lifecycle",
+          "label": "active",
+          "planned": false,
+          "start": "2009-11",
+          "status": "active"
+        },
+        {
+          "end": "2015-04",
+          "kind": "lifecycle",
+          "label": "LS1",
+          "planned": false,
+          "start": "2013-02",
+          "status": "shutdown"
+        },
+        {
+          "end": "2018-12",
+          "kind": "lifecycle",
+          "label": "active",
+          "planned": false,
+          "start": "2015-04",
+          "status": "active"
+        },
+        {
+          "end": "2022-07",
+          "kind": "lifecycle",
+          "label": "LS2",
+          "planned": false,
+          "start": "2018-12",
+          "status": "shutdown"
+        },
+        {
+          "end": null,
+          "kind": "lifecycle",
+          "label": "active",
+          "planned": false,
+          "start": "2022-07",
+          "status": "active"
+        }
+      ],
+      "key_specs": [
+        {
+          "label": "Centre-of-mass energy",
+          "quantity": {
+            "dimension": "energy",
+            "display": "13.6 TeV",
+            "unit": "GeV",
+            "value": 13600
+          }
+        },
+        {
+          "label": "Detector mass",
+          "quantity": {
+            "dimension": "mass",
+            "display": "7000 t",
+            "unit": "t",
+            "value": 7000
+          }
+        },
+        {
+          "label": "Length",
+          "quantity": {
+            "dimension": "length",
+            "display": "46 m",
+            "unit": "m",
+            "value": 46
+          }
+        }
+      ],
+      "kind": "collider",
+      "lineage": [],
+      "links": {
+        "website": "https://atlas.cern/"
+      },
+      "name": "ATLAS",
+      "open_ended": true,
+      "result_ids": [
+        "result:higgs-boson-observation-2012"
+      ],
+      "secondary_kinds": [],
+      "site_ids": [
+        "site:cern-lhc-point-1"
+      ],
+      "state_segments": [
+        [
+          513,
+          539,
+          "proposed",
+          "certain"
+        ],
+        [
+          540,
+          578,
+          "approved",
+          "certain"
+        ],
+        [
+          579,
+          699,
+          "construction",
+          "certain"
+        ],
+        [
+          700,
+          717,
+          "commissioning",
+          "certain"
+        ],
+        [
+          718,
+          756,
+          "active",
+          "certain"
+        ],
+        [
+          757,
+          782,
+          "shutdown",
+          "certain"
+        ],
+        [
+          783,
+          826,
+          "active",
+          "certain"
+        ],
+        [
+          827,
+          869,
+          "shutdown",
+          "certain"
+        ],
+        [
+          870,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
+      "topic_ids": [
+        "topic:higgs-boson",
+        "topic:electroweak-symmetry-breaking",
+        "topic:qcd-and-heavy-ions"
+      ],
+      "type": "experiment"
+    },
+    "experiment:belle": {
+      "accelerator_ids": [],
+      "aliases": [],
+      "beamline_ids": [],
+      "collaboration_ids": [
+        "collaboration:belle"
+      ],
+      "detector_ids": [],
+      "document_ids": [],
+      "energy_regime": "10.58 GeV electron–positron collisions at KEKB",
+      "external": {
+        "inspire_experiment": 1108604
+      },
+      "facility_ids": [
+        "facility:kek"
+      ],
+      "facility_roles": [
+        {
+          "facility_id": "facility:kek",
+          "role": "host"
+        }
+      ],
+      "id": "experiment:belle",
+      "intervals": [
+        {
+          "end": "1999-06",
+          "kind": "lifecycle",
+          "label": "construction",
+          "planned": false,
+          "start": "1994-04",
+          "status": "construction"
+        },
+        {
+          "end": "2010-06",
+          "kind": "lifecycle",
+          "label": "active",
+          "planned": false,
+          "start": "1999-06",
+          "status": "active"
+        },
+        {
+          "end": "2010-06",
+          "kind": "lifecycle",
+          "label": "completed",
+          "planned": false,
+          "start": "2010-06",
+          "status": "completed"
+        }
+      ],
+      "key_specs": [
+        {
+          "label": "Integrated luminosity",
+          "quantity": {
+            "dimension": "luminosity",
+            "display": "1041 fb⁻¹",
+            "unit": "fb^-1",
+            "value": 1041
+          }
+        }
+      ],
+      "kind": "collider",
+      "lineage": [],
+      "links": {
+        "website": "https://belle.kek.jp/"
+      },
+      "name": "Belle",
+      "open_ended": false,
+      "result_ids": [],
+      "secondary_kinds": [],
+      "site_ids": [
+        "site:kek-tsukuba"
+      ],
+      "state_segments": [
+        [
+          531,
+          592,
+          "construction",
+          "certain"
+        ],
+        [
+          593,
+          724,
+          "active",
+          "certain"
+        ],
+        [
+          725,
+          725,
+          "completed",
+          "certain"
+        ]
+      ],
+      "status": "completed",
+      "topic_ids": [
+        "topic:b-meson-decays",
+        "topic:flavour-physics"
+      ],
+      "type": "experiment"
+    },
+    "experiment:belle-2": {
+      "accelerator_ids": [
+        "accelerator:superkekb"
+      ],
+      "aliases": [
+        "BelleII"
+      ],
+      "beamline_ids": [],
+      "collaboration_ids": [
+        "collaboration:belle-2"
+      ],
+      "detector_ids": [
+        "detector:belle-2"
+      ],
+      "document_ids": [
+        "document:belle2-tdr-2010"
+      ],
+      "energy_regime": "10.58 GeV electron–positron collisions at the Υ(4S)",
+      "external": {
+        "inspire_experiment": 1108570
+      },
+      "facility_ids": [
+        "facility:kek"
+      ],
+      "facility_roles": [
+        {
+          "facility_id": "facility:kek",
+          "role": "host"
+        }
+      ],
+      "id": "experiment:belle-2",
+      "intervals": [
+        {
+          "end": "2010-11",
+          "kind": "lifecycle",
+          "label": "proposed",
+          "planned": false,
+          "start": "2004-06",
+          "status": "proposed"
+        },
+        {
+          "end": "2011-01",
+          "kind": "lifecycle",
+          "label": "approved",
+          "planned": false,
+          "start": "2010-11",
+          "status": "approved"
+        },
+        {
+          "end": "2018-03",
+          "kind": "lifecycle",
+          "label": "construction",
+          "planned": false,
+          "start": "2011-01",
+          "status": "construction"
+        },
+        {
+          "end": "2019-03",
+          "kind": "lifecycle",
+          "label": "commissioning",
+          "planned": false,
+          "start": "2018-03",
+          "status": "commissioning"
+        },
+        {
+          "end": "2022-06",
+          "kind": "lifecycle",
+          "label": "active",
+          "planned": false,
+          "start": "2019-03",
+          "status": "active"
+        },
+        {
+          "end": "2024-01",
+          "kind": "lifecycle",
+          "label": "LS1: pixel detector completion",
+          "planned": false,
+          "start": "2022-07",
+          "status": "upgrade"
+        },
+        {
+          "end": null,
+          "kind": "lifecycle",
+          "label": "active",
+          "planned": false,
+          "start": "2024-02",
+          "status": "active"
+        }
+      ],
+      "key_specs": [
+        {
+          "label": "Centre-of-mass energy",
+          "quantity": {
+            "dimension": "energy",
+            "display": "10.58 GeV",
+            "unit": "GeV",
+            "value": 10.58
+          }
+        },
+        {
+          "label": "Target integrated luminosity",
+          "quantity": {
+            "dimension": "luminosity",
+            "display": "50 ab⁻¹",
+            "unit": "ab^-1",
+            "value": 50
+          }
+        },
+        {
+          "label": "Peak luminosity",
+          "quantity": {
+            "dimension": "luminosity",
+            "display": "5.1 × 10³⁴ cm⁻² s⁻¹",
+            "unit": "cm^-2 s^-1",
+            "value": 5.1e+34
+          }
+        }
+      ],
+      "kind": "collider",
+      "lineage": [
+        {
+          "experiment_id": "experiment:belle",
+          "relation": "upgrade_of"
+        }
+      ],
+      "links": {
+        "website": "https://www.belle2.org/"
+      },
+      "name": "Belle II",
+      "open_ended": true,
+      "result_ids": [
+        "result:belle-2-first-collisions-2018"
+      ],
+      "secondary_kinds": [],
+      "site_ids": [
+        "site:kek-tsukuba"
+      ],
+      "state_segments": [
+        [
+          653,
+          729,
+          "proposed",
+          "certain"
+        ],
+        [
+          730,
+          731,
+          "approved",
+          "certain"
+        ],
+        [
+          732,
+          817,
+          "construction",
+          "certain"
+        ],
+        [
+          818,
+          829,
+          "commissioning",
+          "certain"
+        ],
+        [
+          830,
+          869,
+          "active",
+          "certain"
+        ],
+        [
+          870,
+          888,
+          "upgrade",
+          "certain"
+        ],
+        [
+          889,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
+      "topic_ids": [
+        "topic:b-meson-decays",
+        "topic:flavour-physics"
+      ],
+      "type": "experiment"
+    },
+    "experiment:cms": {
+      "accelerator_ids": [
+        "accelerator:lhc"
+      ],
+      "aliases": [
+        "Compact Muon Solenoid"
+      ],
+      "beamline_ids": [],
+      "collaboration_ids": [
+        "collaboration:cms"
+      ],
+      "detector_ids": [
+        "detector:cms"
+      ],
+      "document_ids": [
+        "document:cms-detector-paper-2008"
+      ],
+      "energy_regime": "13.6 TeV proton–proton collisions",
+      "external": {
+        "greybook": "LHC-CMS",
+        "inspire_experiment": 1108642
+      },
+      "facility_ids": [
+        "facility:cern"
+      ],
+      "facility_roles": [
+        {
+          "facility_id": "facility:cern",
+          "role": "host"
+        }
+      ],
+      "id": "experiment:cms",
+      "intervals": [
+        {
+          "end": "1994-12",
+          "kind": "lifecycle",
+          "label": "letter of intent",
+          "planned": false,
+          "start": "1992-10",
+          "status": "proposed"
+        },
+        {
+          "end": "1998-04",
+          "kind": "lifecycle",
+          "label": "approved",
+          "planned": false,
+          "start": "1995-01",
+          "status": "approved"
+        },
+        {
+          "end": "2008-05",
+          "kind": "lifecycle",
+          "label": "construction",
+          "planned": false,
+          "start": "1998-04",
+          "status": "construction"
+        },
+        {
+          "end": "2009-11",
+          "kind": "lifecycle",
+          "label": "commissioning",
+          "planned": false,
+          "start": "2008-05",
+          "status": "commissioning"
+        },
+        {
+          "end": "2013-02",
+          "kind": "lifecycle",
+          "label": "active",
+          "planned": false,
+          "start": "2009-11",
+          "status": "active"
+        },
+        {
+          "end": "2015-04",
+          "kind": "lifecycle",
+          "label": "LS1",
+          "planned": false,
+          "start": "2013-02",
+          "status": "shutdown"
+        },
+        {
+          "end": "2018-12",
+          "kind": "lifecycle",
+          "label": "active",
+          "planned": false,
+          "start": "2015-04",
+          "status": "active"
+        },
+        {
+          "end": "2022-07",
+          "kind": "lifecycle",
+          "label": "LS2",
+          "planned": false,
+          "start": "2018-12",
+          "status": "shutdown"
+        },
+        {
+          "end": null,
+          "kind": "lifecycle",
+          "label": "active",
+          "planned": false,
+          "start": "2022-07",
+          "status": "active"
+        }
+      ],
+      "key_specs": [
+        {
+          "label": "Centre-of-mass energy",
+          "quantity": {
+            "dimension": "energy",
+            "display": "13.6 TeV",
+            "unit": "GeV",
+            "value": 13600
+          }
+        },
+        {
+          "label": "Detector mass",
+          "quantity": {
+            "dimension": "mass",
+            "display": "14 000 t",
+            "unit": "t",
+            "value": 14000
+          }
+        },
+        {
+          "label": "Solenoid field",
+          "quantity": {
+            "dimension": "magnetic_field",
+            "display": "3.8 T",
+            "unit": "T",
+            "value": 3.8
+          }
+        }
+      ],
+      "kind": "collider",
+      "lineage": [],
+      "links": {
+        "website": "https://cms.cern/"
+      },
+      "name": "CMS",
+      "open_ended": true,
+      "result_ids": [
+        "result:higgs-boson-observation-2012"
+      ],
+      "secondary_kinds": [],
+      "site_ids": [
+        "site:cern-lhc-point-5"
+      ],
+      "state_segments": [
+        [
+          513,
+          539,
+          "proposed",
+          "certain"
+        ],
+        [
+          540,
+          578,
+          "approved",
+          "certain"
+        ],
+        [
+          579,
+          699,
+          "construction",
+          "certain"
+        ],
+        [
+          700,
+          717,
+          "commissioning",
+          "certain"
+        ],
+        [
+          718,
+          756,
+          "active",
+          "certain"
+        ],
+        [
+          757,
+          782,
+          "shutdown",
+          "certain"
+        ],
+        [
+          783,
+          826,
+          "active",
+          "certain"
+        ],
+        [
+          827,
+          869,
+          "shutdown",
+          "certain"
+        ],
+        [
+          870,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
+      "topic_ids": [
+        "topic:higgs-boson",
+        "topic:electroweak-symmetry-breaking",
+        "topic:qcd-and-heavy-ions"
+      ],
+      "type": "experiment"
+    },
+    "experiment:dune": {
+      "accelerator_ids": [
+        "accelerator:fermilab-main-injector"
+      ],
+      "aliases": [
+        "Deep Underground Neutrino Experiment",
+        "LBNF/DUNE"
+      ],
+      "beamline_ids": [
+        "beamline:lbnf"
+      ],
+      "collaboration_ids": [
+        "collaboration:dune"
+      ],
+      "detector_ids": [
+        "detector:dune-fd-hd",
+        "detector:dune-nd-lar"
+      ],
+      "document_ids": [
+        "document:dune-cdr-2015",
+        "document:dune-tdr-2020"
+      ],
+      "energy_regime": "0.5–5 GeV wide-band muon neutrino beam",
+      "external": {
+        "greybook": "FNAL-E-1062",
+        "inspire_experiment": 1346843
+      },
+      "facility_ids": [
+        "facility:fermilab",
+        "facility:surf",
+        "facility:cern"
+      ],
+      "facility_roles": [
+        {
+          "facility_id": "facility:fermilab",
+          "role": "beam_source"
+        },
+        {
+          "facility_id": "facility:surf",
+          "role": "detector_host"
+        },
+        {
+          "facility_id": "facility:cern",
+          "role": "prototype_host"
+        }
+      ],
+      "id": "experiment:dune",
+      "intervals": [
+        {
+          "end": "2015-04",
+          "kind": "lifecycle",
+          "label": "proposed",
+          "planned": false,
+          "start": "2013-01",
+          "status": "proposed"
+        },
+        {
+          "end": "2017-07",
+          "kind": "lifecycle",
+          "label": "approved",
+          "planned": false,
+          "start": "2015-04",
+          "status": "approved"
+        },
+        {
+          "end": null,
+          "kind": "lifecycle",
+          "label": "construction",
+          "planned": false,
+          "start": "2017-07",
+          "status": "construction"
+        },
+        {
+          "end": null,
+          "kind": "lifecycle",
+          "label": "active",
+          "planned": true,
+          "start": "2029",
+          "status": "active"
+        }
+      ],
+      "key_specs": [
+        {
+          "label": "Baseline",
+          "quantity": {
+            "dimension": "length",
+            "display": "1285 km",
+            "unit": "km",
+            "value": 1285
+          }
+        },
+        {
+          "label": "Far detector fiducial mass",
+          "quantity": {
+            "dimension": "mass",
+            "display": "40 kt (four modules)",
+            "unit": "t",
+            "value": 40000
+          }
+        },
+        {
+          "label": "Overburden",
+          "quantity": {
+            "dimension": "depth_mwe",
+            "display": "4300 m.w.e.",
+            "unit": "m.w.e.",
+            "value": 4300
+          }
+        },
+        {
+          "label": "Beam power",
+          "quantity": {
+            "dimension": "power",
+            "display": "1.2 MW at start-up",
+            "unit": "kW",
+            "value": 1200
+          }
+        }
+      ],
+      "kind": "accelerator_neutrino",
+      "lineage": [
+        {
+          "experiment_id": "experiment:nova",
+          "relation": "same_program"
+        }
+      ],
+      "links": {
+        "website": "https://www.dunescience.org/"
+      },
+      "name": "DUNE",
+      "open_ended": true,
+      "result_ids": [
+        "result:protodune-beam-test-2018"
+      ],
+      "secondary_kinds": [],
+      "site_ids": [
+        "site:fermilab-nd-hall",
+        "site:surf-dune-caverns"
+      ],
+      "state_segments": [
+        [
+          756,
+          782,
+          "proposed",
+          "certain"
+        ],
+        [
+          783,
+          809,
+          "approved",
+          "certain"
+        ],
+        [
+          810,
+          920,
+          "construction",
+          "certain"
+        ]
+      ],
+      "status": "construction",
+      "topic_ids": [
+        "topic:leptonic-cp-violation",
+        "topic:mass-ordering",
+        "topic:neutrino-oscillations",
+        "topic:neutrino-astronomy"
+      ],
+      "type": "experiment"
+    },
+    "experiment:icarus": {
+      "accelerator_ids": [
+        "accelerator:fermilab-booster"
+      ],
+      "aliases": [
+        "ICARUS T600"
+      ],
+      "beamline_ids": [
+        "beamline:bnb"
+      ],
+      "collaboration_ids": [
+        "collaboration:icarus"
+      ],
+      "detector_ids": [
+        "detector:icarus-t600"
+      ],
+      "document_ids": [],
+      "energy_regime": "800 MeV Booster neutrino beam",
+      "external": {
+        "greybook": "FNAL-E-1118"
+      },
+      "facility_ids": [
+        "facility:fermilab"
+      ],
+      "facility_roles": [
+        {
+          "facility_id": "facility:fermilab",
+          "role": "host"
+        }
+      ],
+      "id": "experiment:icarus",
+      "intervals": [
+        {
+          "end": "2013-06",
+          "kind": "lifecycle",
+          "label": "LNGS running",
+          "planned": false,
+          "start": "2010-10",
+          "status": "active"
+        },
+        {
+          "end": "2020-08",
+          "kind": "lifecycle",
+          "label": "overhaul and move to Fermilab",
+          "planned": false,
+          "start": "2014-06",
+          "status": "upgrade"
+        },
+        {
+          "end": "2022-06",
+          "kind": "lifecycle",
+          "label": "commissioning",
+          "planned": false,
+          "start": "2020-08",
+          "status": "commissioning"
+        },
+        {
+          "end": null,
+          "kind": "lifecycle",
+          "label": "active",
+          "planned": false,
+          "start": "2022-06",
+          "status": "active"
+        }
+      ],
+      "key_specs": [
+        {
+          "label": "Baseline",
+          "quantity": {
+            "dimension": "length",
+            "display": "600 m",
+            "unit": "km",
+            "value": 0.6
+          }
+        },
+        {
+          "label": "Active LAr mass",
+          "quantity": {
+            "dimension": "mass",
+            "display": "476 t",
+            "unit": "t",
+            "value": 476
+          }
+        }
+      ],
+      "kind": "accelerator_neutrino",
+      "lineage": [],
+      "links": {
+        "website": "https://icarus.fnal.gov/"
+      },
+      "name": "ICARUS",
+      "open_ended": true,
+      "result_ids": [],
+      "secondary_kinds": [
+        "sterile_neutrino"
+      ],
+      "site_ids": [
+        "site:fermilab-icarus-hall"
+      ],
+      "state_segments": [
+        [
+          729,
+          761,
+          "active",
+          "certain"
+        ],
+        [
+          773,
+          846,
+          "upgrade",
+          "certain"
+        ],
+        [
+          847,
+          868,
+          "commissioning",
+          "certain"
+        ],
+        [
+          869,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
+      "topic_ids": [
+        "topic:sterile-neutrinos"
+      ],
+      "type": "experiment"
+    },
+    "experiment:icecube": {
+      "accelerator_ids": [],
+      "aliases": [
+        "IceCube Neutrino Observatory"
+      ],
+      "beamline_ids": [],
+      "collaboration_ids": [
+        "collaboration:icecube"
+      ],
+      "detector_ids": [
+        "detector:icecube-deepcore",
+        "detector:icecube-in-ice"
+      ],
+      "document_ids": [
+        "document:icecube-instrumentation-2017"
+      ],
+      "energy_regime": "10 GeV – 10 PeV neutrinos in Antarctic ice",
+      "external": {
+        "inspire_experiment": 1108587
+      },
+      "facility_ids": [
+        "facility:amundsen-scott"
+      ],
+      "facility_roles": [
+        {
+          "facility_id": "facility:amundsen-scott",
+          "role": "host"
+        }
+      ],
+      "id": "experiment:icecube",
+      "intervals": [
+        {
+          "end": "2010-12",
+          "kind": "lifecycle",
+          "label": "construction",
+          "planned": false,
+          "start": "2004-11",
+          "status": "construction"
+        },
+        {
+          "end": "2010-12",
+          "kind": "lifecycle",
+          "label": "partial-array running",
+          "planned": false,
+          "start": "2006-06",
+          "status": "commissioning"
+        },
+        {
+          "end": null,
+          "kind": "lifecycle",
+          "label": "active",
+          "planned": false,
+          "start": "2010-12",
+          "status": "active"
+        }
+      ],
+      "key_specs": [
+        {
+          "label": "Instrumented volume",
+          "quantity": {
+            "dimension": "volume",
+            "display": "1 km³",
+            "unit": "km^3",
+            "value": 1
+          }
+        },
+        {
+          "label": "Optical modules",
+          "quantity": {
+            "dimension": "count",
+            "display": "5160 DOMs on 86 strings",
+            "unit": "",
+            "value": 5160
+          }
+        },
+        {
+          "label": "Depth range",
+          "quantity": {
+            "dimension": "length",
+            "display": "1450–2450 m in the ice",
+            "unit": "m",
+            "value": 2450
+          }
+        }
+      ],
+      "kind": "astrophysical_neutrino",
+      "lineage": [],
+      "links": {
+        "website": "https://icecube.wisc.edu/"
+      },
+      "name": "IceCube",
+      "open_ended": true,
+      "result_ids": [
+        "result:icecube-astrophysical-neutrinos-2013",
+        "result:icecube-txs-0506-056-2018"
+      ],
+      "secondary_kinds": [
+        "cosmic_ray",
+        "atmospheric_neutrino"
+      ],
+      "site_ids": [
+        "site:icecube-array"
+      ],
+      "state_segments": [
+        [
+          658,
+          676,
+          "construction",
+          "certain"
+        ],
+        [
+          677,
+          730,
+          "commissioning",
+          "certain"
+        ],
+        [
+          731,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
+      "topic_ids": [
+        "topic:neutrino-astronomy",
+        "topic:neutrino-oscillations"
+      ],
+      "type": "experiment"
+    },
+    "experiment:lz": {
+      "accelerator_ids": [],
+      "aliases": [
+        "LUX-ZEPLIN"
+      ],
+      "beamline_ids": [],
+      "collaboration_ids": [
+        "collaboration:lz"
+      ],
+      "detector_ids": [
+        "detector:lz"
+      ],
+      "document_ids": [
+        "document:lz-tdr-2017"
+      ],
+      "energy_regime": "keV-scale nuclear recoils",
+      "external": {
+        "inspire_experiment": 1372923
+      },
+      "facility_ids": [
+        "facility:surf"
+      ],
+      "facility_roles": [
+        {
+          "facility_id": "facility:surf",
+          "role": "host"
+        }
+      ],
+      "id": "experiment:lz",
+      "intervals": [
+        {
+          "end": "2016-01",
+          "kind": "lifecycle",
+          "label": "approved",
+          "planned": false,
+          "start": "2012-07",
+          "status": "approved"
+        },
+        {
+          "end": "2021-12",
+          "kind": "lifecycle",
+          "label": "construction",
+          "planned": false,
+          "start": "2016-01",
+          "status": "construction"
+        },
+        {
+          "end": "2022-03",
+          "kind": "lifecycle",
+          "label": "commissioning",
+          "planned": false,
+          "start": "2021-12",
+          "status": "commissioning"
+        },
+        {
+          "end": null,
+          "kind": "lifecycle",
+          "label": "active",
+          "planned": false,
+          "start": "2022-03",
+          "status": "active"
+        }
+      ],
+      "key_specs": [
+        {
+          "label": "Active xenon mass",
+          "quantity": {
+            "dimension": "mass",
+            "display": "7 t",
+            "unit": "t",
+            "value": 7
+          }
+        },
+        {
+          "label": "Exposure (2024)",
+          "quantity": {
+            "dimension": "exposure",
+            "display": "4.2 t yr",
+            "unit": "t yr",
+            "value": 4.2
+          }
+        },
+        {
+          "label": "Overburden",
+          "quantity": {
+            "dimension": "depth_mwe",
+            "display": "4300 m.w.e.",
+            "unit": "m.w.e.",
+            "value": 4300
+          }
+        }
+      ],
+      "kind": "direct_dark_matter",
+      "lineage": [],
+      "links": {
+        "website": "https://lz.lbl.gov/"
+      },
+      "name": "LZ",
+      "open_ended": true,
+      "result_ids": [
+        "result:lz-wimp-limit-2024"
+      ],
+      "secondary_kinds": [],
+      "site_ids": [
+        "site:surf-davis-campus"
+      ],
+      "state_segments": [
+        [
+          750,
+          791,
+          "approved",
+          "certain"
+        ],
+        [
+          792,
+          862,
+          "construction",
+          "certain"
+        ],
+        [
+          863,
+          865,
+          "commissioning",
+          "certain"
+        ],
+        [
+          866,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
+      "topic_ids": [
+        "topic:wimp-direct-detection",
+        "topic:dark-matter"
+      ],
+      "type": "experiment"
+    },
+    "experiment:nova": {
+      "accelerator_ids": [
+        "accelerator:fermilab-main-injector"
+      ],
+      "aliases": [
+        "NuMI Off-axis ν_e Appearance"
+      ],
+      "beamline_ids": [
+        "beamline:numi"
+      ],
+      "collaboration_ids": [
+        "collaboration:nova"
+      ],
+      "detector_ids": [
+        "detector:nova-fd",
+        "detector:nova-nd"
+      ],
+      "document_ids": [
+        "document:nova-tdr-2007"
+      ],
+      "energy_regime": "2 GeV off-axis muon neutrino beam",
+      "external": {
+        "greybook": "FNAL-E-0929",
+        "inspire_experiment": 1108176
+      },
+      "facility_ids": [
+        "facility:fermilab"
+      ],
+      "facility_roles": [
+        {
+          "facility_id": "facility:fermilab",
+          "role": "host"
+        }
+      ],
+      "id": "experiment:nova",
+      "intervals": [
+        {
+          "end": "2008-01",
+          "kind": "lifecycle",
+          "label": "proposed",
+          "planned": false,
+          "start": "2004-03",
+          "status": "proposed"
+        },
+        {
+          "end": "2009-05",
+          "kind": "lifecycle",
+          "label": "approved",
+          "planned": false,
+          "start": "2008-01",
+          "status": "approved"
+        },
+        {
+          "end": "2014-02",
+          "kind": "lifecycle",
+          "label": "construction",
+          "planned": false,
+          "start": "2009-05",
+          "status": "construction"
+        },
+        {
+          "end": null,
+          "kind": "lifecycle",
+          "label": "active",
+          "planned": false,
+          "start": "2014-02",
+          "status": "active"
+        }
+      ],
+      "key_specs": [
+        {
+          "label": "Baseline",
+          "quantity": {
+            "dimension": "length",
+            "display": "810 km",
+            "unit": "km",
+            "value": 810
+          }
+        },
+        {
+          "label": "Far detector mass",
+          "quantity": {
+            "dimension": "mass",
+            "display": "14 000 t",
+            "unit": "t",
+            "value": 14000
+          }
+        },
+        {
+          "label": "Off-axis angle",
+          "quantity": {
+            "dimension": "angle",
+            "display": "14.6 mrad",
+            "unit": "mrad",
+            "value": 14.6
+          }
+        }
+      ],
+      "kind": "accelerator_neutrino",
+      "lineage": [
+        {
+          "experiment_id": "experiment:t2k",
+          "relation": "complementary"
+        }
+      ],
+      "links": {
+        "website": "https://novaexperiment.fnal.gov/"
+      },
+      "name": "NOvA",
+      "open_ended": true,
+      "result_ids": [
+        "result:nova-electron-neutrino-appearance-2016"
+      ],
+      "secondary_kinds": [],
+      "site_ids": [
+        "site:fermilab-minos-hall",
+        "site:nova-ash-river"
+      ],
+      "state_segments": [
+        [
+          650,
+          695,
+          "proposed",
+          "certain"
+        ],
+        [
+          696,
+          711,
+          "approved",
+          "certain"
+        ],
+        [
+          712,
+          768,
+          "construction",
+          "certain"
+        ],
+        [
+          769,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
+      "topic_ids": [
+        "topic:neutrino-oscillations",
+        "topic:mass-ordering",
+        "topic:leptonic-cp-violation"
+      ],
+      "type": "experiment"
+    },
+    "experiment:sbnd": {
+      "accelerator_ids": [
+        "accelerator:fermilab-booster"
+      ],
+      "aliases": [
+        "Short-Baseline Near Detector"
+      ],
+      "beamline_ids": [
+        "beamline:bnb"
+      ],
+      "collaboration_ids": [
+        "collaboration:sbnd"
+      ],
+      "detector_ids": [
+        "detector:sbnd"
+      ],
+      "document_ids": [],
+      "energy_regime": "800 MeV Booster neutrino beam",
+      "external": {
+        "greybook": "FNAL-E-1127"
+      },
+      "facility_ids": [
+        "facility:fermilab"
+      ],
+      "facility_roles": [
+        {
+          "facility_id": "facility:fermilab",
+          "role": "host"
+        }
+      ],
+      "id": "experiment:sbnd",
+      "intervals": [
+        {
+          "end": "2018-01",
+          "kind": "lifecycle",
+          "label": "approved",
+          "planned": false,
+          "start": "2015-02",
+          "status": "approved"
+        },
+        {
+          "end": "2024-07",
+          "kind": "lifecycle",
+          "label": "construction",
+          "planned": false,
+          "start": "2018-01",
+          "status": "construction"
+        },
+        {
+          "end": "2025-02",
+          "kind": "lifecycle",
+          "label": "commissioning",
+          "planned": false,
+          "start": "2024-07",
+          "status": "commissioning"
+        },
+        {
+          "end": null,
+          "kind": "lifecycle",
+          "label": "active",
+          "planned": false,
+          "start": "2025-02",
+          "status": "active"
+        }
+      ],
+      "key_specs": [
+        {
+          "label": "Baseline",
+          "quantity": {
+            "dimension": "length",
+            "display": "110 m",
+            "unit": "km",
+            "value": 0.11
+          }
+        },
+        {
+          "label": "Active LAr mass",
+          "quantity": {
+            "dimension": "mass",
+            "display": "112 t",
+            "unit": "t",
+            "value": 112
+          }
+        }
+      ],
+      "kind": "accelerator_neutrino",
+      "lineage": [
+        {
+          "experiment_id": "experiment:icarus",
+          "relation": "same_program"
+        }
+      ],
+      "links": {
+        "website": "https://sbn-nd.fnal.gov/"
+      },
+      "name": "SBND",
+      "open_ended": true,
+      "result_ids": [],
+      "secondary_kinds": [
+        "sterile_neutrino"
+      ],
+      "site_ids": [
+        "site:fermilab-sbnd-hall"
+      ],
+      "state_segments": [
+        [
+          781,
+          815,
+          "approved",
+          "certain"
+        ],
+        [
+          816,
+          893,
+          "construction",
+          "certain"
+        ],
+        [
+          894,
+          900,
+          "commissioning",
+          "certain"
+        ],
+        [
+          901,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
+      "topic_ids": [
+        "topic:sterile-neutrinos",
+        "topic:neutrino-oscillations"
+      ],
+      "type": "experiment"
+    },
+    "experiment:super-kamiokande": {
+      "accelerator_ids": [],
+      "aliases": [
+        "Super-K",
+        "SK"
+      ],
+      "beamline_ids": [],
+      "collaboration_ids": [
+        "collaboration:super-kamiokande"
+      ],
+      "detector_ids": [
+        "detector:super-kamiokande"
+      ],
+      "document_ids": [
+        "document:super-kamiokande-detector-2003"
+      ],
+      "energy_regime": "MeV–TeV atmospheric, solar and accelerator neutrinos",
+      "external": {
+        "inspire_experiment": 1110357
+      },
+      "facility_ids": [
+        "facility:kamioka-observatory"
+      ],
+      "facility_roles": [
+        {
+          "facility_id": "facility:kamioka-observatory",
+          "role": "host"
+        }
+      ],
+      "id": "experiment:super-kamiokande",
+      "intervals": [
+        {
+          "end": "1996-04",
+          "kind": "lifecycle",
+          "label": "construction",
+          "planned": false,
+          "start": "1991-12",
+          "status": "construction"
+        },
+        {
+          "end": "2001-11",
+          "kind": "lifecycle",
+          "label": "active",
+          "planned": false,
+          "start": "1996-04",
+          "status": "active"
+        },
+        {
+          "end": "2002-12",
+          "kind": "lifecycle",
+          "label": "PMT implosion repair",
+          "planned": false,
+          "start": "2001-11",
+          "status": "shutdown"
+        },
+        {
+          "end": "2018-05",
+          "kind": "lifecycle",
+          "label": "active",
+          "planned": false,
+          "start": "2002-12",
+          "status": "active"
+        },
+        {
+          "end": "2020-07",
+          "kind": "lifecycle",
+          "label": "gadolinium loading",
+          "planned": false,
+          "start": "2018-05",
+          "status": "upgrade"
+        },
+        {
+          "end": null,
+          "kind": "lifecycle",
+          "label": "active",
+          "planned": false,
+          "start": "2020-07",
+          "status": "active"
+        }
+      ],
+      "key_specs": [
+        {
+          "label": "Total water mass",
+          "quantity": {
+            "dimension": "mass",
+            "display": "50 000 t",
+            "unit": "t",
+            "value": 50000
+          }
+        },
+        {
+          "label": "Overburden",
+          "quantity": {
+            "dimension": "depth_mwe",
+            "display": "2700 m.w.e.",
+            "unit": "m.w.e.",
+            "value": 2700
+          }
+        },
+        {
+          "label": "Photomultipliers",
+          "quantity": {
+            "dimension": "count",
+            "display": "11 129 inner-detector PMTs",
+            "unit": "",
+            "value": 11129
+          }
+        }
+      ],
+      "kind": "atmospheric_neutrino",
+      "lineage": [],
+      "links": {
+        "website": "https://www-sk.icrr.u-tokyo.ac.jp/en/sk/"
+      },
+      "name": "Super-Kamiokande",
+      "open_ended": true,
+      "result_ids": [
+        "result:super-k-atmospheric-oscillation-1998",
+        "result:super-k-gadolinium-loading-2020"
+      ],
+      "secondary_kinds": [
+        "solar_neutrino",
+        "astrophysical_neutrino"
+      ],
+      "site_ids": [
+        "site:super-k-cavern"
+      ],
+      "state_segments": [
+        [
+          503,
+          554,
+          "construction",
+          "certain"
+        ],
+        [
+          555,
+          621,
+          "active",
+          "certain"
+        ],
+        [
+          622,
+          634,
+          "shutdown",
+          "certain"
+        ],
+        [
+          635,
+          819,
+          "active",
+          "certain"
+        ],
+        [
+          820,
+          845,
+          "upgrade",
+          "certain"
+        ],
+        [
+          846,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
+      "topic_ids": [
+        "topic:neutrino-oscillations",
+        "topic:neutrino-astronomy"
+      ],
+      "type": "experiment"
+    },
+    "experiment:t2k": {
+      "accelerator_ids": [
+        "accelerator:jparc-mr"
+      ],
+      "aliases": [
+        "Tokai to Kamioka"
+      ],
+      "beamline_ids": [
+        "beamline:jparc-neutrino"
+      ],
+      "collaboration_ids": [
+        "collaboration:t2k"
+      ],
+      "detector_ids": [
+        "detector:nd280"
+      ],
+      "document_ids": [
+        "document:t2k-experiment-2011"
+      ],
+      "energy_regime": "0.6 GeV off-axis muon neutrino beam",
+      "external": {
+        "greybook": "J-PARC-T2K",
+        "inspire_experiment": 1110111
+      },
+      "facility_ids": [
+        "facility:j-parc",
+        "facility:kamioka-observatory"
+      ],
+      "facility_roles": [
+        {
+          "facility_id": "facility:j-parc",
+          "role": "beam_source"
+        },
+        {
+          "facility_id": "facility:kamioka-observatory",
+          "role": "detector_host"
+        }
+      ],
+      "id": "experiment:t2k",
+      "intervals": [
+        {
+          "end": "2004-04",
+          "kind": "lifecycle",
+          "label": "proposed",
+          "planned": false,
+          "start": "2003-01",
+          "status": "proposed"
+        },
+        {
+          "end": "2009-04",
+          "kind": "lifecycle",
+          "label": "construction",
+          "planned": false,
+          "start": "2004-04",
+          "status": "construction"
+        },
+        {
+          "end": "2010-01",
+          "kind": "lifecycle",
+          "label": "commissioning",
+          "planned": false,
+          "start": "2009-04",
+          "status": "commissioning"
+        },
+        {
+          "end": null,
+          "kind": "lifecycle",
+          "label": "active",
+          "planned": false,
+          "start": "2010-01",
+          "status": "active"
+        }
+      ],
+      "key_specs": [
+        {
+          "label": "Baseline",
+          "quantity": {
+            "dimension": "length",
+            "display": "295 km",
+            "unit": "km",
+            "value": 295
+          }
+        },
+        {
+          "label": "Off-axis angle",
+          "quantity": {
+            "dimension": "angle",
+            "display": "2.5°",
+            "unit": "deg",
+            "value": 2.5
+          }
+        },
+        {
+          "label": "Far detector",
+          "quantity": {
+            "dimension": "mass",
+            "display": "Super-Kamiokande, 50 kt",
+            "unit": "t",
+            "value": 50000
+          }
+        }
+      ],
+      "kind": "accelerator_neutrino",
+      "lineage": [],
+      "links": {
+        "website": "https://t2k-experiment.org/"
+      },
+      "name": "T2K",
+      "open_ended": true,
+      "result_ids": [
+        "result:t2k-electron-neutrino-appearance-2013"
+      ],
+      "secondary_kinds": [],
+      "site_ids": [
+        "site:jparc-nd280",
+        "site:super-k-cavern"
+      ],
+      "state_segments": [
+        [
+          636,
+          650,
+          "proposed",
+          "certain"
+        ],
+        [
+          651,
+          710,
+          "construction",
+          "certain"
+        ],
+        [
+          711,
+          719,
+          "commissioning",
+          "certain"
+        ],
+        [
+          720,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
+      "topic_ids": [
+        "topic:leptonic-cp-violation",
+        "topic:neutrino-oscillations"
+      ],
+      "type": "experiment"
+    },
+    "experiment:ua1": {
+      "accelerator_ids": [
+        "accelerator:sps"
+      ],
+      "aliases": [
+        "Underground Area 1"
+      ],
+      "beamline_ids": [],
+      "collaboration_ids": [
+        "collaboration:ua1"
+      ],
+      "detector_ids": [
+        "detector:ua1"
+      ],
+      "document_ids": [
+        "document:ua1-proposal-1978"
+      ],
+      "energy_regime": "546–630 GeV proton–antiproton collisions",
+      "external": {
+        "greybook": "CERN-SPS-UA1",
+        "inspire_experiment": 1110586
+      },
+      "facility_ids": [
+        "facility:cern"
+      ],
+      "facility_roles": [
+        {
+          "facility_id": "facility:cern",
+          "role": "host"
+        }
+      ],
+      "id": "experiment:ua1",
+      "intervals": [
+        {
+          "end": "1978-06",
+          "kind": "lifecycle",
+          "label": "proposed",
+          "planned": false,
+          "start": "1978-01",
+          "status": "proposed"
+        },
+        {
+          "end": "1979-01",
+          "kind": "lifecycle",
+          "label": "approved",
+          "planned": false,
+          "start": "1978-06",
+          "status": "approved"
+        },
+        {
+          "end": "1981-07",
+          "kind": "lifecycle",
+          "label": "construction",
+          "planned": false,
+          "start": "1979-01",
+          "status": "construction"
+        },
+        {
+          "end": "1990-12",
+          "kind": "lifecycle",
+          "label": "active",
+          "planned": false,
+          "start": "1981-07",
+          "status": "active"
+        },
+        {
+          "end": "1990-12",
+          "kind": "lifecycle",
+          "label": "completed",
+          "planned": false,
+          "start": "1990-12",
+          "status": "completed"
+        },
+        {
+          "end": "1993-01",
+          "kind": "lifecycle",
+          "label": "decommissioned",
+          "planned": false,
+          "start": "1993-01",
+          "status": "decommissioned"
+        }
+      ],
+      "key_specs": [
+        {
+          "label": "Centre-of-mass energy",
+          "quantity": {
+            "dimension": "energy",
+            "display": "630 GeV",
+            "unit": "GeV",
+            "value": 630
+          }
+        },
+        {
+          "label": "Dipole field",
+          "quantity": {
+            "dimension": "magnetic_field",
+            "display": "0.7 T",
+            "unit": "T",
+            "value": 0.7
+          }
+        },
+        {
+          "label": "Detector mass",
+          "quantity": {
+            "dimension": "mass",
+            "display": "2000 t",
+            "unit": "t",
+            "value": 2000
+          }
+        }
+      ],
+      "kind": "collider",
+      "lineage": [],
+      "links": {
+        "website": "https://home.cern/science/experiments/ua1"
+      },
+      "name": "UA1",
+      "open_ended": false,
+      "result_ids": [
+        "result:w-and-z-boson-discovery-1983"
+      ],
+      "secondary_kinds": [],
+      "site_ids": [
+        "site:cern-sps-lss5"
+      ],
+      "state_segments": [
+        [
+          336,
+          340,
+          "proposed",
+          "certain"
+        ],
+        [
+          341,
+          347,
+          "approved",
+          "certain"
+        ],
+        [
+          348,
+          377,
+          "construction",
+          "certain"
+        ],
+        [
+          378,
+          490,
+          "active",
+          "certain"
+        ],
+        [
+          491,
+          491,
+          "completed",
+          "certain"
+        ],
+        [
+          516,
+          516,
+          "decommissioned",
+          "certain"
+        ]
+      ],
+      "status": "decommissioned",
+      "topic_ids": [
+        "topic:electroweak-symmetry-breaking"
+      ],
+      "type": "experiment"
+    }
+  },
+  "facilities": {
+    "facility:amundsen-scott": {
+      "accelerator_ids": [],
+      "aliases": [
+        "South Pole Station"
+      ],
+      "beamline_ids": [],
+      "country": [
+        "AQ"
+      ],
+      "document_ids": [],
+      "experiment_ids": [
+        "experiment:icecube"
+      ],
+      "id": "facility:amundsen-scott",
+      "institution_id": null,
+      "kind": "polar_station",
+      "links": {
+        "website": "https://www.nsf.gov/geo/opp/support/southp.jsp"
+      },
+      "name": "Amundsen–Scott South Pole Station",
+      "open_ended": true,
+      "operator": "U.S. Antarctic Program, National Science Foundation",
+      "primary_site_id": "site:icecube-array",
+      "related_facility_ids": [],
+      "result_ids": [
+        "result:icecube-astrophysical-neutrinos-2013",
+        "result:icecube-txs-0506-056-2018"
+      ],
+      "site_ids": [
+        "site:icecube-array"
+      ],
+      "specs": {
+        "altitude": {
+          "dimension": "length",
+          "display": "2835 m",
+          "unit": "m",
+          "value": 2835
+        }
+      },
+      "state_segments": [
+        [
+          82,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
+      "topic_ids": [
+        "topic:neutrino-astronomy"
+      ],
+      "type": "facility"
+    },
+    "facility:cern": {
+      "accelerator_ids": [
+        "accelerator:lhc",
+        "accelerator:sps"
+      ],
+      "aliases": [
+        "European Organization for Nuclear Research",
+        "Organisation européenne pour la recherche nucléaire"
+      ],
+      "beamline_ids": [],
+      "country": [
+        "CH",
+        "FR"
+      ],
+      "document_ids": [
+        "document:lhc-design-report-2004"
+      ],
+      "experiment_ids": [
+        "experiment:atlas",
+        "experiment:cms",
+        "experiment:dune",
+        "experiment:ua1"
+      ],
+      "id": "facility:cern",
+      "institution_id": "institution:cern",
+      "kind": "accelerator_laboratory",
+      "links": {
+        "website": "https://home.cern/"
+      },
+      "name": "CERN",
+      "open_ended": true,
+      "operator": "CERN Member States",
+      "primary_site_id": "site:cern-meyrin",
+      "related_facility_ids": [],
+      "result_ids": [
+        "result:higgs-boson-observation-2012",
+        "result:protodune-beam-test-2018",
+        "result:w-and-z-boson-discovery-1983"
+      ],
+      "site_ids": [
+        "site:cern-lhc-point-1",
+        "site:cern-lhc-point-5",
+        "site:cern-meyrin",
+        "site:cern-sps-lss5"
+      ],
+      "specs": {
+        "cms_energy": {
+          "dimension": "energy",
+          "display": "13.6 TeV",
+          "unit": "GeV",
+          "value": 13600
+        }
+      },
+      "state_segments": [
+        [
+          56,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
+      "topic_ids": [
+        "topic:electroweak-symmetry-breaking",
+        "topic:higgs-boson",
+        "topic:qcd-and-heavy-ions",
+        "topic:b-meson-decays"
+      ],
+      "type": "facility"
+    },
+    "facility:fermilab": {
+      "accelerator_ids": [
+        "accelerator:fermilab-booster",
+        "accelerator:fermilab-main-injector"
+      ],
+      "aliases": [
+        "Fermi National Accelerator Laboratory",
+        "FNAL"
+      ],
+      "beamline_ids": [
+        "beamline:bnb",
+        "beamline:lbnf",
+        "beamline:numi"
+      ],
+      "country": [
+        "US"
+      ],
+      "document_ids": [],
+      "experiment_ids": [
+        "experiment:dune",
+        "experiment:icarus",
+        "experiment:nova",
+        "experiment:sbnd"
+      ],
+      "id": "facility:fermilab",
+      "institution_id": "institution:fermilab",
+      "kind": "accelerator_laboratory",
+      "links": {
+        "website": "https://www.fnal.gov/"
+      },
+      "name": "Fermilab",
+      "open_ended": true,
+      "operator": "Fermi Forward Discovery Group for the U.S. Department of Energy",
+      "primary_site_id": "site:fermilab-batavia",
+      "related_facility_ids": [],
+      "result_ids": [
+        "result:nova-electron-neutrino-appearance-2016"
+      ],
+      "site_ids": [
+        "site:fermilab-batavia",
+        "site:fermilab-icarus-hall",
+        "site:fermilab-minos-hall",
+        "site:fermilab-nd-hall",
+        "site:fermilab-sbnd-hall",
+        "site:nova-ash-river"
+      ],
+      "specs": {
+        "beam_power": {
+          "dimension": "power",
+          "display": "900 kW (NuMI, 2024)",
+          "unit": "kW",
+          "value": 900
+        }
+      },
+      "state_segments": [
+        [
+          214,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
+      "topic_ids": [
+        "topic:neutrino-oscillations",
+        "topic:leptonic-cp-violation",
+        "topic:sterile-neutrinos"
+      ],
+      "type": "facility"
+    },
+    "facility:j-parc": {
+      "accelerator_ids": [
+        "accelerator:jparc-mr"
+      ],
+      "aliases": [
+        "Japan Proton Accelerator Research Complex"
+      ],
+      "beamline_ids": [
+        "beamline:jparc-neutrino"
+      ],
+      "country": [
+        "JP"
+      ],
+      "document_ids": [],
+      "experiment_ids": [
+        "experiment:t2k"
+      ],
+      "id": "facility:j-parc",
+      "institution_id": null,
+      "kind": "accelerator_laboratory",
+      "links": {
+        "website": "https://j-parc.jp/c/en/"
+      },
+      "name": "J-PARC",
+      "open_ended": true,
+      "operator": "JAEA and KEK",
+      "primary_site_id": "site:jparc-tokai",
+      "related_facility_ids": [],
+      "result_ids": [
+        "result:t2k-electron-neutrino-appearance-2013"
+      ],
+      "site_ids": [
+        "site:jparc-nd280",
+        "site:jparc-tokai"
+      ],
+      "specs": {
+        "beam_power": {
+          "dimension": "power",
+          "display": "760 kW (neutrino beam, 2023)",
+          "unit": "kW",
+          "value": 760
+        }
+      },
+      "state_segments": [
+        [
+          709,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
+      "topic_ids": [
+        "topic:neutrino-oscillations",
+        "topic:leptonic-cp-violation"
+      ],
+      "type": "facility"
+    },
+    "facility:kamioka-observatory": {
+      "accelerator_ids": [],
+      "aliases": [
+        "Kamioka",
+        "Institute for Cosmic Ray Research, Kamioka"
+      ],
+      "beamline_ids": [],
+      "country": [
+        "JP"
+      ],
+      "document_ids": [],
+      "experiment_ids": [
+        "experiment:super-kamiokande",
+        "experiment:t2k"
+      ],
+      "id": "facility:kamioka-observatory",
+      "institution_id": "institution:university-of-tokyo-icrr",
+      "kind": "underground_laboratory",
+      "links": {
+        "website": "https://www-sk.icrr.u-tokyo.ac.jp/en/"
+      },
+      "name": "Kamioka Observatory",
+      "open_ended": true,
+      "operator": "Institute for Cosmic Ray Research, University of Tokyo",
+      "primary_site_id": "site:super-k-cavern",
+      "related_facility_ids": [],
+      "result_ids": [
+        "result:super-k-atmospheric-oscillation-1998",
+        "result:super-k-gadolinium-loading-2020",
+        "result:t2k-electron-neutrino-appearance-2013"
+      ],
+      "site_ids": [
+        "site:super-k-cavern"
+      ],
+      "specs": {
+        "overburden": {
+          "dimension": "depth_mwe",
+          "display": "2700 m.w.e.",
+          "unit": "m.w.e.",
+          "value": 2700
+        }
+      },
+      "state_segments": [
+        [
+          402,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
+      "topic_ids": [
+        "topic:neutrino-oscillations",
+        "topic:neutrino-astronomy"
+      ],
+      "type": "facility"
+    },
+    "facility:kek": {
+      "accelerator_ids": [
+        "accelerator:superkekb"
+      ],
+      "aliases": [
+        "High Energy Accelerator Research Organization"
+      ],
+      "beamline_ids": [],
+      "country": [
+        "JP"
+      ],
+      "document_ids": [],
+      "experiment_ids": [
+        "experiment:belle",
+        "experiment:belle-2"
+      ],
+      "id": "facility:kek",
+      "institution_id": "institution:kek",
+      "kind": "accelerator_laboratory",
+      "links": {
+        "website": "https://www.kek.jp/en/"
+      },
+      "name": "KEK",
+      "open_ended": true,
+      "operator": "Inter-University Research Institute Corporation",
+      "primary_site_id": "site:kek-tsukuba",
+      "related_facility_ids": [],
+      "result_ids": [
+        "result:belle-2-first-collisions-2018"
+      ],
+      "site_ids": [
+        "site:kek-tsukuba"
+      ],
+      "specs": {
+        "peak_luminosity": {
+          "dimension": "luminosity",
+          "display": "5.1 × 10³⁴ cm⁻² s⁻¹",
+          "unit": "cm^-2 s^-1",
+          "value": 5.1e+34
+        }
+      },
+      "state_segments": [
+        [
+          255,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
+      "topic_ids": [
+        "topic:b-meson-decays",
+        "topic:flavour-physics"
+      ],
+      "type": "facility"
+    },
+    "facility:surf": {
+      "accelerator_ids": [],
+      "aliases": [
+        "SURF",
+        "Homestake"
+      ],
+      "beamline_ids": [],
+      "country": [
+        "US"
+      ],
+      "document_ids": [],
+      "experiment_ids": [
+        "experiment:dune",
+        "experiment:lz"
+      ],
+      "id": "facility:surf",
+      "institution_id": null,
+      "kind": "underground_laboratory",
+      "links": {
+        "website": "https://sanfordlab.org/"
+      },
+      "name": "Sanford Underground Research Facility",
+      "open_ended": true,
+      "operator": "South Dakota Science and Technology Authority",
+      "primary_site_id": "site:surf-davis-campus",
+      "related_facility_ids": [],
+      "result_ids": [
+        "result:lz-wimp-limit-2024"
+      ],
+      "site_ids": [
+        "site:surf-davis-campus",
+        "site:surf-dune-caverns"
+      ],
+      "specs": {
+        "depth": {
+          "dimension": "length",
+          "display": "1478 m (4850 ft)",
+          "unit": "m",
+          "value": 1478
+        },
+        "overburden": {
+          "dimension": "depth_mwe",
+          "display": "4300 m.w.e.",
+          "unit": "m.w.e.",
+          "value": 4300
+        }
+      },
+      "state_segments": [
+        [
+          689,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
+      "topic_ids": [
+        "topic:neutrino-oscillations",
+        "topic:wimp-direct-detection"
+      ],
+      "type": "facility"
+    }
+  },
+  "lineage": [
+    [
+      "experiment:belle-2",
+      "upgrade_of",
+      "experiment:belle"
+    ],
+    [
+      "experiment:dune",
+      "same_program",
+      "experiment:nova"
+    ],
+    [
+      "experiment:nova",
+      "complementary",
+      "experiment:t2k"
+    ],
+    [
+      "experiment:sbnd",
+      "same_program",
+      "experiment:icarus"
+    ]
+  ],
+  "schema": "hep-atlas/0.2",
+  "sites": {
+    "site:cern-lhc-point-1": {
+      "aliases": [],
+      "altitude_m": 430,
+      "coord_kind": "detector",
+      "country": "CH",
+      "depth_m": 100,
+      "depth_mwe": null,
+      "detector_ids": [
+        "detector:atlas"
+      ],
+      "experiment_ids": [
+        "experiment:atlas"
+      ],
+      "facility_id": "facility:cern",
+      "id": "site:cern-lhc-point-1",
+      "lat": 46.2352,
+      "lon": 6.0555,
+      "name": "LHC Point 1 — ATLAS cavern",
+      "open_ended": true,
+      "place": {
+        "city": "Meyrin",
+        "country": "CH",
+        "region": "Canton of Geneva"
+      },
+      "precision_m": 60,
+      "setting": "underground",
+      "state_segments": [
+        [
+          704,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
+      "type": "site"
+    },
+    "site:cern-lhc-point-5": {
+      "aliases": [],
+      "altitude_m": 490,
+      "coord_kind": "detector",
+      "country": "FR",
+      "depth_m": 100,
+      "depth_mwe": null,
+      "detector_ids": [
+        "detector:cms"
+      ],
+      "experiment_ids": [
+        "experiment:cms"
+      ],
+      "facility_id": "facility:cern",
+      "id": "site:cern-lhc-point-5",
+      "lat": 46.31,
+      "lon": 6.077,
+      "name": "LHC Point 5 — CMS cavern",
+      "open_ended": true,
+      "place": {
+        "city": "Cessy",
+        "country": "FR",
+        "region": "Ain"
+      },
+      "precision_m": 60,
+      "setting": "underground",
+      "state_segments": [
+        [
+          704,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
+      "type": "site"
+    },
+    "site:cern-meyrin": {
+      "aliases": [],
+      "altitude_m": 430,
+      "coord_kind": "campus",
+      "country": "CH",
+      "depth_m": null,
+      "depth_mwe": null,
+      "detector_ids": [],
+      "experiment_ids": [],
+      "facility_id": "facility:cern",
+      "id": "site:cern-meyrin",
+      "lat": 46.2339,
+      "lon": 6.0553,
+      "name": "CERN Meyrin site",
+      "open_ended": true,
+      "place": {
+        "city": "Meyrin",
+        "country": "CH",
+        "region": "Canton of Geneva"
+      },
+      "precision_m": 150,
+      "setting": "surface",
+      "state_segments": [],
+      "status": "active",
+      "type": "site"
+    },
+    "site:cern-sps-lss5": {
+      "aliases": [],
+      "altitude_m": 435,
+      "coord_kind": "detector",
+      "country": "CH",
+      "depth_m": 25,
+      "depth_mwe": null,
+      "detector_ids": [
+        "detector:ua1"
+      ],
+      "experiment_ids": [
+        "experiment:ua1"
+      ],
+      "facility_id": "facility:cern",
+      "id": "site:cern-sps-lss5",
+      "lat": 46.2467,
+      "lon": 6.05,
+      "name": "SPS Long Straight Section 5 — UA1 cavern",
+      "open_ended": false,
+      "place": {
+        "city": "Meyrin",
+        "country": "CH",
+        "region": "Canton of Geneva"
+      },
+      "precision_m": 120,
+      "setting": "underground",
+      "state_segments": [
+        [
+          378,
+          490,
+          "active",
+          "certain"
+        ],
+        [
+          491,
+          516,
+          "decommissioned",
+          "certain"
+        ]
+      ],
+      "status": "decommissioned",
+      "type": "site"
+    },
+    "site:fermilab-batavia": {
+      "aliases": [],
+      "altitude_m": 226,
+      "coord_kind": "campus",
+      "country": "US",
+      "depth_m": null,
+      "depth_mwe": null,
+      "detector_ids": [],
+      "experiment_ids": [],
+      "facility_id": "facility:fermilab",
+      "id": "site:fermilab-batavia",
+      "lat": 41.8319,
+      "lon": -88.2569,
+      "name": "Fermilab Batavia site",
+      "open_ended": true,
+      "place": {
+        "city": "Batavia",
+        "country": "US",
+        "region": "Illinois"
+      },
+      "precision_m": 200,
+      "setting": "surface",
+      "state_segments": [],
+      "status": "active",
+      "type": "site"
+    },
+    "site:fermilab-icarus-hall": {
+      "aliases": [],
+      "altitude_m": 226,
+      "coord_kind": "detector",
+      "country": "US",
+      "depth_m": null,
+      "depth_mwe": null,
+      "detector_ids": [
+        "detector:icarus-t600"
+      ],
+      "experiment_ids": [
+        "experiment:icarus"
+      ],
+      "facility_id": "facility:fermilab",
+      "id": "site:fermilab-icarus-hall",
+      "lat": 41.845,
+      "lon": -88.279,
+      "name": "ICARUS detector hall",
+      "open_ended": true,
+      "place": {
+        "city": "Batavia",
+        "country": "US",
+        "region": "Illinois"
+      },
+      "precision_m": 50,
+      "setting": "surface",
+      "state_segments": [
+        [
+          847,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
+      "type": "site"
+    },
+    "site:fermilab-minos-hall": {
+      "aliases": [],
+      "altitude_m": 226,
+      "coord_kind": "detector",
+      "country": "US",
+      "depth_m": 105,
+      "depth_mwe": null,
+      "detector_ids": [
+        "detector:nova-nd"
+      ],
+      "experiment_ids": [
+        "experiment:nova"
+      ],
+      "facility_id": "facility:fermilab",
+      "id": "site:fermilab-minos-hall",
+      "lat": 41.838,
+      "lon": -88.265,
+      "name": "MINOS near detector hall",
+      "open_ended": true,
+      "place": {
+        "city": "Batavia",
+        "country": "US",
+        "region": "Illinois"
+      },
+      "precision_m": 50,
+      "setting": "underground",
+      "state_segments": [
+        [
+          660,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
+      "type": "site"
+    },
+    "site:fermilab-nd-hall": {
+      "aliases": [],
+      "altitude_m": 226,
+      "coord_kind": "detector",
+      "country": "US",
+      "depth_m": 60,
+      "depth_mwe": null,
+      "detector_ids": [
+        "detector:dune-nd-lar"
+      ],
+      "experiment_ids": [
+        "experiment:dune"
+      ],
+      "facility_id": "facility:fermilab",
+      "id": "site:fermilab-nd-hall",
+      "lat": 41.832,
+      "lon": -88.262,
+      "name": "LBNF near detector hall",
+      "open_ended": true,
+      "place": {
+        "city": "Batavia",
+        "country": "US",
+        "region": "Illinois"
+      },
+      "precision_m": 50,
+      "setting": "underground",
+      "state_segments": [
+        [
+          876,
+          920,
+          "construction",
+          "certain"
+        ]
+      ],
+      "status": "construction",
+      "type": "site"
+    },
+    "site:fermilab-sbnd-hall": {
+      "aliases": [],
+      "altitude_m": 226,
+      "coord_kind": "detector",
+      "country": "US",
+      "depth_m": null,
+      "depth_mwe": null,
+      "detector_ids": [
+        "detector:sbnd"
+      ],
+      "experiment_ids": [
+        "experiment:sbnd"
+      ],
+      "facility_id": "facility:fermilab",
+      "id": "site:fermilab-sbnd-hall",
+      "lat": 41.84,
+      "lon": -88.274,
+      "name": "SBND detector hall",
+      "open_ended": true,
+      "place": {
+        "city": "Batavia",
+        "country": "US",
+        "region": "Illinois"
+      },
+      "precision_m": 50,
+      "setting": "surface",
+      "state_segments": [
+        [
+          894,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
+      "type": "site"
+    },
+    "site:icecube-array": {
+      "aliases": [],
+      "altitude_m": 2835,
+      "coord_kind": "detector",
+      "country": "AQ",
+      "depth_m": 2450,
+      "depth_mwe": null,
+      "detector_ids": [
+        "detector:icecube-deepcore",
+        "detector:icecube-in-ice"
+      ],
+      "experiment_ids": [
+        "experiment:icecube"
+      ],
+      "facility_id": "facility:amundsen-scott",
+      "id": "site:icecube-array",
+      "lat": -89.9944,
+      "lon": -63.4533,
+      "name": "IceCube in-ice array, Amundsen–Scott Station",
+      "open_ended": true,
+      "place": {
+        "city": "Amundsen–Scott South Pole Station",
+        "country": "AQ",
+        "region": "South Pole"
+      },
+      "precision_m": 500,
+      "setting": "ice",
+      "state_segments": [
+        [
+          731,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
+      "type": "site"
+    },
+    "site:jparc-nd280": {
+      "aliases": [],
+      "altitude_m": 30,
+      "coord_kind": "detector",
+      "country": "JP",
+      "depth_m": 33,
+      "depth_mwe": null,
+      "detector_ids": [
+        "detector:nd280"
+      ],
+      "experiment_ids": [
+        "experiment:t2k"
+      ],
+      "facility_id": "facility:j-parc",
+      "id": "site:jparc-nd280",
+      "lat": 36.44,
+      "lon": 140.603,
+      "name": "T2K near detector pit (ND280)",
+      "open_ended": true,
+      "place": {
+        "city": "Tokai",
+        "country": "JP",
+        "region": "Ibaraki"
+      },
+      "precision_m": 50,
+      "setting": "underground",
+      "state_segments": [
+        [
+          718,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
+      "type": "site"
+    },
+    "site:jparc-tokai": {
+      "aliases": [],
+      "altitude_m": 30,
+      "coord_kind": "campus",
+      "country": "JP",
+      "depth_m": null,
+      "depth_mwe": null,
+      "detector_ids": [],
+      "experiment_ids": [],
+      "facility_id": "facility:j-parc",
+      "id": "site:jparc-tokai",
+      "lat": 36.4425,
+      "lon": 140.607,
+      "name": "J-PARC Tokai campus",
+      "open_ended": true,
+      "place": {
+        "city": "Tokai",
+        "country": "JP",
+        "region": "Ibaraki"
+      },
+      "precision_m": 200,
+      "setting": "surface",
+      "state_segments": [],
+      "status": "active",
+      "type": "site"
+    },
+    "site:kek-tsukuba": {
+      "aliases": [],
+      "altitude_m": 30,
+      "coord_kind": "campus",
+      "country": "JP",
+      "depth_m": null,
+      "depth_mwe": null,
+      "detector_ids": [
+        "detector:belle-2"
+      ],
+      "experiment_ids": [
+        "experiment:belle",
+        "experiment:belle-2"
+      ],
+      "facility_id": "facility:kek",
+      "id": "site:kek-tsukuba",
+      "lat": 36.15,
+      "lon": 140.077,
+      "name": "KEK Tsukuba campus — SuperKEKB interaction region",
+      "open_ended": true,
+      "place": {
+        "city": "Tsukuba",
+        "country": "JP",
+        "region": "Ibaraki"
+      },
+      "precision_m": 150,
+      "setting": "surface",
+      "state_segments": [],
+      "status": "active",
+      "type": "site"
+    },
+    "site:nova-ash-river": {
+      "aliases": [],
+      "altitude_m": 400,
+      "coord_kind": "detector",
+      "country": "US",
+      "depth_m": null,
+      "depth_mwe": null,
+      "detector_ids": [
+        "detector:nova-fd"
+      ],
+      "experiment_ids": [
+        "experiment:nova"
+      ],
+      "facility_id": "facility:fermilab",
+      "id": "site:nova-ash-river",
+      "lat": 48.3786,
+      "lon": -92.8314,
+      "name": "NOvA Ash River far detector laboratory",
+      "open_ended": true,
+      "place": {
+        "city": "Ash River",
+        "country": "US",
+        "region": "Minnesota"
+      },
+      "precision_m": 100,
+      "setting": "surface",
+      "state_segments": [
+        [
+          769,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
+      "type": "site"
+    },
+    "site:super-k-cavern": {
+      "aliases": [],
+      "altitude_m": 370,
+      "coord_kind": "underground_lab",
+      "country": "JP",
+      "depth_m": 1000,
+      "depth_mwe": 2700,
+      "detector_ids": [
+        "detector:super-kamiokande"
+      ],
+      "experiment_ids": [
+        "experiment:super-kamiokande",
+        "experiment:t2k"
+      ],
+      "facility_id": "facility:kamioka-observatory",
+      "id": "site:super-k-cavern",
+      "lat": 36.4275,
+      "lon": 137.31,
+      "name": "Super-Kamiokande cavern, Mozumi mine",
+      "open_ended": true,
+      "place": {
+        "city": "Hida",
+        "country": "JP",
+        "region": "Gifu"
+      },
+      "precision_m": 100,
+      "setting": "underground",
+      "state_segments": [
+        [
+          555,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
+      "type": "site"
+    },
+    "site:surf-davis-campus": {
+      "aliases": [],
+      "altitude_m": 1600,
+      "coord_kind": "underground_lab",
+      "country": "US",
+      "depth_m": 1478,
+      "depth_mwe": 4300,
+      "detector_ids": [
+        "detector:lz"
+      ],
+      "experiment_ids": [
+        "experiment:lz"
+      ],
+      "facility_id": "facility:surf",
+      "id": "site:surf-davis-campus",
+      "lat": 44.352,
+      "lon": -103.751,
+      "name": "SURF 4850 ft level — Davis Campus",
+      "open_ended": true,
+      "place": {
+        "city": "Lead",
+        "country": "US",
+        "region": "South Dakota"
+      },
+      "precision_m": 80,
+      "setting": "underground",
+      "state_segments": [
+        [
+          748,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
+      "type": "site"
+    },
+    "site:surf-dune-caverns": {
+      "aliases": [],
+      "altitude_m": 1600,
+      "coord_kind": "underground_lab",
+      "country": "US",
+      "depth_m": 1478,
+      "depth_mwe": 4300,
+      "detector_ids": [
+        "detector:dune-fd-hd"
+      ],
+      "experiment_ids": [
+        "experiment:dune"
+      ],
+      "facility_id": "facility:surf",
+      "id": "site:surf-dune-caverns",
+      "lat": 44.351,
+      "lon": -103.758,
+      "name": "SURF 4850 ft level — DUNE caverns",
+      "open_ended": true,
+      "place": {
+        "city": "Lead",
+        "country": "US",
+        "region": "South Dakota"
+      },
+      "precision_m": 80,
+      "setting": "underground",
+      "state_segments": [
+        [
+          852,
+          920,
+          "construction",
+          "certain"
+        ]
+      ],
+      "status": "construction",
+      "type": "site"
+    }
+  },
+  "topics": {
+    "topic:b-meson-decays": {
+      "experiment_ids": [
+        "experiment:belle",
+        "experiment:belle-2"
+      ],
+      "facility_ids": [
+        "facility:cern",
+        "facility:kek"
+      ],
+      "id": "topic:b-meson-decays",
+      "name": "B meson decays",
+      "observables": [
+        "sin2φ₁",
+        "B → K*ℓℓ angular observables",
+        "R(D*)"
+      ],
+      "parent_id": "topic:flavour-physics",
+      "question": "Do rare B meson decays happen at the rate the Standard Model demands, or is something else interfering?",
+      "result_ids": [
+        "result:belle-2-first-collisions-2018"
+      ],
+      "type": "topic"
+    },
+    "topic:dark-matter": {
+      "experiment_ids": [
+        "experiment:lz"
+      ],
+      "facility_ids": [],
+      "id": "topic:dark-matter",
+      "name": "Dark matter",
+      "observables": [
+        "relic density",
+        "nuclear recoil rate"
+      ],
+      "parent_id": null,
+      "question": "Five sixths of the matter in the universe is something we have never detected in a laboratory. What is it?",
+      "result_ids": [
+        "result:lz-wimp-limit-2024"
+      ],
+      "type": "topic"
+    },
+    "topic:electroweak-symmetry-breaking": {
+      "experiment_ids": [
+        "experiment:atlas",
+        "experiment:cms",
+        "experiment:ua1"
+      ],
+      "facility_ids": [
+        "facility:cern"
+      ],
+      "id": "topic:electroweak-symmetry-breaking",
+      "name": "Electroweak symmetry breaking",
+      "observables": [
+        "m_W",
+        "m_Z",
+        "sin²θ_W"
+      ],
+      "parent_id": null,
+      "question": "Why do the W and Z bosons have mass while the photon does not?",
+      "result_ids": [
+        "result:higgs-boson-observation-2012",
+        "result:w-and-z-boson-discovery-1983"
+      ],
+      "type": "topic"
+    },
+    "topic:flavour-physics": {
+      "experiment_ids": [
+        "experiment:belle",
+        "experiment:belle-2"
+      ],
+      "facility_ids": [
+        "facility:kek"
+      ],
+      "id": "topic:flavour-physics",
+      "name": "Flavour physics",
+      "observables": [
+        "CKM matrix elements",
+        "branching fractions"
+      ],
+      "parent_id": null,
+      "question": "Why are there three copies of each matter particle, and what decides how they mix?",
+      "result_ids": [],
+      "type": "topic"
+    },
+    "topic:higgs-boson": {
+      "experiment_ids": [
+        "experiment:atlas",
+        "experiment:cms"
+      ],
+      "facility_ids": [
+        "facility:cern"
+      ],
+      "id": "topic:higgs-boson",
+      "name": "Higgs boson",
+      "observables": [
+        "m_H",
+        "signal strength μ",
+        "coupling modifiers κ"
+      ],
+      "parent_id": "topic:electroweak-symmetry-breaking",
+      "question": "Is the particle found in 2012 exactly the Higgs boson the Standard Model predicted?",
+      "result_ids": [
+        "result:higgs-boson-observation-2012"
+      ],
+      "type": "topic"
+    },
+    "topic:leptonic-cp-violation": {
+      "experiment_ids": [
+        "experiment:dune",
+        "experiment:nova",
+        "experiment:t2k"
+      ],
+      "facility_ids": [
+        "facility:fermilab",
+        "facility:j-parc"
+      ],
+      "id": "topic:leptonic-cp-violation",
+      "name": "Leptonic CP violation",
+      "observables": [
+        "δ_CP",
+        "ν_e appearance rate",
+        "ν̄_e appearance rate"
+      ],
+      "parent_id": "topic:neutrino-oscillations",
+      "question": "Do neutrinos and antineutrinos behave differently — enough to explain why the universe kept any matter at all?",
+      "result_ids": [
+        "result:t2k-electron-neutrino-appearance-2013"
+      ],
+      "type": "topic"
+    },
+    "topic:mass-ordering": {
+      "experiment_ids": [
+        "experiment:dune",
+        "experiment:nova"
+      ],
+      "facility_ids": [],
+      "id": "topic:mass-ordering",
+      "name": "Neutrino mass ordering",
+      "observables": [
+        "sign of Δm²₃₁",
+        "matter-effect asymmetry"
+      ],
+      "parent_id": "topic:neutrino-oscillations",
+      "question": "Which neutrino is heaviest?",
+      "result_ids": [
+        "result:nova-electron-neutrino-appearance-2016"
+      ],
+      "type": "topic"
+    },
+    "topic:neutrino-astronomy": {
+      "experiment_ids": [
+        "experiment:dune",
+        "experiment:icecube",
+        "experiment:super-kamiokande"
+      ],
+      "facility_ids": [
+        "facility:amundsen-scott",
+        "facility:kamioka-observatory"
+      ],
+      "id": "topic:neutrino-astronomy",
+      "name": "Neutrino astronomy",
+      "observables": [
+        "astrophysical ν flux",
+        "point-source significance",
+        "diffuse spectrum index"
+      ],
+      "parent_id": "topic:neutrino-physics",
+      "question": "Which objects in the sky are accelerating particles to energies no accelerator on Earth can reach?",
+      "result_ids": [
+        "result:icecube-astrophysical-neutrinos-2013",
+        "result:icecube-txs-0506-056-2018",
+        "result:super-k-gadolinium-loading-2020"
+      ],
+      "type": "topic"
+    },
+    "topic:neutrino-oscillations": {
+      "experiment_ids": [
+        "experiment:dune",
+        "experiment:icecube",
+        "experiment:nova",
+        "experiment:sbnd",
+        "experiment:super-kamiokande",
+        "experiment:t2k"
+      ],
+      "facility_ids": [
+        "facility:fermilab",
+        "facility:j-parc",
+        "facility:kamioka-observatory",
+        "facility:surf"
+      ],
+      "id": "topic:neutrino-oscillations",
+      "name": "Neutrino oscillations",
+      "observables": [
+        "Δm²₂₁",
+        "Δm²₃₂",
+        "sin²θ₁₂",
+        "sin²θ₂₃",
+        "sin²θ₁₃"
+      ],
+      "parent_id": "topic:neutrino-physics",
+      "question": "Neutrinos change type as they travel. What exactly sets the rhythm of that change?",
+      "result_ids": [
+        "result:nova-electron-neutrino-appearance-2016",
+        "result:protodune-beam-test-2018",
+        "result:super-k-atmospheric-oscillation-1998",
+        "result:t2k-electron-neutrino-appearance-2013"
+      ],
+      "type": "topic"
+    },
+    "topic:neutrino-physics": {
+      "experiment_ids": [],
+      "facility_ids": [],
+      "id": "topic:neutrino-physics",
+      "name": "Neutrino physics",
+      "observables": [
+        "neutrino flux",
+        "interaction cross sections"
+      ],
+      "parent_id": null,
+      "question": "What are neutrinos, and why are they so much lighter than every other particle we know?",
+      "result_ids": [
+        "result:super-k-atmospheric-oscillation-1998"
+      ],
+      "type": "topic"
+    },
+    "topic:qcd-and-heavy-ions": {
+      "experiment_ids": [
+        "experiment:atlas",
+        "experiment:cms"
+      ],
+      "facility_ids": [
+        "facility:cern"
+      ],
+      "id": "topic:qcd-and-heavy-ions",
+      "name": "QCD and heavy ions",
+      "observables": [
+        "elliptic flow v₂",
+        "jet quenching R_AA"
+      ],
+      "parent_id": null,
+      "question": "What does matter look like when it is hot and dense enough to melt protons?",
+      "result_ids": [],
+      "type": "topic"
+    },
+    "topic:sterile-neutrinos": {
+      "experiment_ids": [
+        "experiment:icarus",
+        "experiment:sbnd"
+      ],
+      "facility_ids": [
+        "facility:fermilab"
+      ],
+      "id": "topic:sterile-neutrinos",
+      "name": "Sterile neutrinos",
+      "observables": [
+        "short-baseline ν_e appearance",
+        "ν_μ disappearance",
+        "Δm²₄₁"
+      ],
+      "parent_id": "topic:neutrino-physics",
+      "question": "Is there a fourth kind of neutrino that ignores every force except gravity?",
+      "result_ids": [],
+      "type": "topic"
+    },
+    "topic:wimp-direct-detection": {
+      "experiment_ids": [
+        "experiment:lz"
+      ],
+      "facility_ids": [
+        "facility:surf"
+      ],
+      "id": "topic:wimp-direct-detection",
+      "name": "WIMP direct detection",
+      "observables": [
+        "spin-independent cross section",
+        "nuclear recoil energy spectrum"
+      ],
+      "parent_id": "topic:dark-matter",
+      "question": "If dark matter particles pass through us constantly, can we catch one recoiling off a nucleus?",
+      "result_ids": [
+        "result:lz-wimp-limit-2024"
+      ],
+      "type": "topic"
+    }
+  }
+}

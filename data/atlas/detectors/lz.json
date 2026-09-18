@@ -1,0 +1,332 @@
+{
+  "aliases": [
+    "LUX-ZEPLIN detector",
+    "LZ TPC"
+  ],
+  "coverage": {
+    "researched": "full",
+    "tier": "A"
+  },
+  "experiment_ids": [
+    "experiment:lz"
+  ],
+  "id": "detector:lz",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2020-09-21",
+      "label": "underground assembly and construction",
+      "locator": "Sanford Lab news, 26 October 2020",
+      "note": "Start: underground assembly of the outer cryostat vessel (Dec 2018). End: DOE CD-4 project completion (21 Sep 2020).",
+      "quote": "U.S. Department of Energy officials on Sept. 21 formally signed off on project completion for LUX-ZEPLIN, or LZ",
+      "sources": [
+        "src:lz-surf-assembly-news",
+        "src:lz-surf-cd4-news"
+      ],
+      "start": "2018-12",
+      "status": "construction",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "approximate",
+      "end": "2021-12",
+      "label": "commissioning",
+      "locator": "Sanford Lab news, 26 October 2020",
+      "note": "Bounds are approximate: commissioning was under way in October 2020 and ended when SR1 data taking began on 23 December 2021. No source gives exact commissioning start/end dates.",
+      "quote": "We are completing commissioning of the detector – the testing phase – and will be looking at LZ data next year",
+      "sources": [
+        "src:lz-surf-cd4-news",
+        "src:lz-surf-startup-press-release"
+      ],
+      "start": "2020-10",
+      "status": "commissioning",
+      "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "science operations",
+      "locator": "Phys. Rev. Lett. 131, 041002 (2022 preprint), SR1 data-taking period",
+      "note": "Open interval: LZ is still taking data (latest results presented September 2026).",
+      "quote": "from December 23, 2021 to May 11, 2022",
+      "sources": [
+        "src:lz-prl-first-results-2023"
+      ],
+      "start": "2021-12-23",
+      "status": "active",
+      "verified_at": "2026-09-16"
+    }
+  ],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "note": "",
+      "sources": [
+        "src:lz-official-site-detector"
+      ],
+      "value": "https://lz.lbl.gov/detector/",
+      "verified_at": "2026-09-16"
+    }
+  },
+  "name": "LZ detector",
+  "notes": [
+    "Energy threshold: not recorded. No official page or fetched paper states a single nuclear-recoil analysis threshold; the SR1 paper reports detection efficiency reaching 50% near 5.5 keV_nr, which is an efficiency point rather than a threshold. Left null.",
+    "The detector paper mentions \"Twenty-two tonnes of GdLS contained in 150 55-gallon drums\", which is the quantity procured/shipped rather than the outer detector mass, so no GdLS mass quantity is recorded."
+  ],
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "locator": "Sanford Lab news, 17 December 2018",
+      "note": "Start is the beginning of underground assembly in the Davis Cavern.",
+      "quote": "Underground assembly of the Outer Cryostat Vessel began this week at Sanford Lab’s Davis Campus on the 4850 Level.",
+      "role": "main",
+      "site_id": "site:surf-davis-campus-lz",
+      "sources": [
+        "src:lz-surf-assembly-news",
+        "src:lz-official-site-laboratory"
+      ],
+      "start": "2018-12",
+      "verified_at": "2026-09-16"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:lz-official-site",
+    "src:lz-official-site-detector",
+    "src:lz-official-site-laboratory",
+    "src:lz-detector-paper-nima",
+    "src:lz-tdr-arxiv",
+    "src:lz-prl-first-results-2023"
+  ],
+  "specs": {
+    "active_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "7 t",
+      "locator": "NIM A 953 (2020) 163047, Sec. 1",
+      "note": "Active liquid xenon mass in the TPC.",
+      "quote": "The LZ TPC monitors 7 active tonnes (5.6 tonnes fiducial) of LXe above its cathode.",
+      "sources": [
+        "src:lz-detector-paper-nima",
+        "src:lz-official-site"
+      ],
+      "unit": "t",
+      "value": 7,
+      "verified_at": "2026-09-16"
+    },
+    "depth": {
+      "approx": true,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "~1480 m",
+      "locator": "arXiv:2602.16799, site description",
+      "note": "",
+      "quote": "in the same cavern as LZ (vertical depth of about 1480 m)",
+      "sources": [
+        "src:lz-muon-flux-2026"
+      ],
+      "unit": "m",
+      "value": 1480,
+      "verified_at": "2026-09-16"
+    },
+    "fiducial_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "5.5 t",
+      "locator": "Phys. Rev. Lett. 131, 041002, abstract",
+      "note": "Fiducial mass of the SR1 WIMP search. The detector paper quotes a design fiducial of 5.6 t (NIM A 953, Sec. 1) — see conflicts in docs/atlas-worklog/dark-matter.md.",
+      "quote": "using a fiducial mass of 5.5 t",
+      "sources": [
+        "src:lz-prl-first-results-2023"
+      ],
+      "unit": "t",
+      "value": 5.5,
+      "verified_at": "2026-09-16"
+    },
+    "phase": {
+      "confidence": "verified",
+      "locator": "Phys. Rev. Lett. 131, 041002, abstract",
+      "note": "",
+      "quote": "a dual-phase xenon time projection chamber operating at the Sanford Underground Research Facility",
+      "sources": [
+        "src:lz-official-site",
+        "src:lz-prl-first-results-2023"
+      ],
+      "value": "dual-phase",
+      "verified_at": "2026-09-16"
+    },
+    "pmt_count": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "count",
+      "display": "494 PMTs",
+      "locator": "lz.lbl.gov Detector page",
+      "note": "TPC arrays only: 253 in the top array and 241 in the bottom array (NIM A 953, Sec. 2.1). The Xe skin and outer detector PMTs are extra.",
+      "quote": "LZ utilizes 494 photomultiplier tubes (PMTs) for signal detection",
+      "sources": [
+        "src:lz-official-site-detector",
+        "src:lz-detector-paper-nima"
+      ],
+      "unit": "",
+      "value": 494,
+      "verified_at": "2026-09-16"
+    },
+    "shielding": {
+      "confidence": "verified",
+      "locator": "NIM A 953 (2020) 163047, abstract",
+      "note": "",
+      "quote": "Rejection of backgrounds is enhanced by a Xe skin veto detector and by a liquid scintillator Outer Detector loaded with gadolinium for efficient neutron capture and tagging.",
+      "sources": [
+        "src:lz-detector-paper-nima",
+        "src:lz-official-site-laboratory",
+        "src:lz-official-site-detector"
+      ],
+      "value": "Liquid xenon skin veto, a gadolinium-loaded liquid scintillator outer detector, and an 8 m x 6 m tank of 70,000 gallons of ultrapure water, under ~1480 m of rock.",
+      "verified_at": "2026-09-16"
+    },
+    "tank_diameter": {
+      "approx": true,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "8 m",
+      "locator": "lz.lbl.gov Laboratory page",
+      "note": "Water shield tank. SURF's science director quotes 7.6 m diameter x 6.4 m high (arXiv:2403.13671) — see conflicts.",
+      "quote": "8 meter diameter by 6 meter high water shield containing 70,000 gallons of purified water",
+      "sources": [
+        "src:lz-official-site-laboratory"
+      ],
+      "unit": "m",
+      "value": 8,
+      "verified_at": "2026-09-16"
+    },
+    "tank_height": {
+      "approx": true,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "6 m",
+      "locator": "lz.lbl.gov Laboratory page",
+      "note": "",
+      "quote": "8 meter diameter by 6 meter high water shield containing 70,000 gallons of purified water",
+      "sources": [
+        "src:lz-official-site-laboratory"
+      ],
+      "unit": "m",
+      "value": 6,
+      "verified_at": "2026-09-16"
+    },
+    "target_medium": {
+      "confidence": "verified",
+      "locator": "lz.lbl.gov home page",
+      "note": "",
+      "quote": "containing seven active tonnes of liquid xenon",
+      "sources": [
+        "src:lz-official-site",
+        "src:lz-detector-paper-nima"
+      ],
+      "value": "liquid xenon",
+      "verified_at": "2026-09-16"
+    },
+    "total_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "10 t",
+      "locator": "NIM A 953 (2020) 163047, Sec. 3.2",
+      "note": "Total xenon inventory of the experiment.",
+      "quote": "A total of 10 tonne Xe inventory",
+      "sources": [
+        "src:lz-detector-paper-nima",
+        "src:lz-cdr-arxiv"
+      ],
+      "unit": "t",
+      "value": 10,
+      "verified_at": "2026-09-16"
+    }
+  },
+  "status": "active",
+  "subsystems": [
+    {
+      "description": {
+        "confidence": "verified",
+        "locator": "NIM A 953 (2020) 163047, Sec. 2.1 and Sec. 2.3",
+        "note": "",
+        "quote": "A downward-looking \"top\" array located in the gas phase features 253 units",
+        "sources": [
+          "src:lz-detector-paper-nima",
+          "src:lz-official-site-detector"
+        ],
+        "value": "Dual-phase xenon TPC about 1.5 m in diameter and height with a 145.6 cm drift region, read out by 253 top and 241 bottom 3-inch Hamamatsu R11410 PMTs.",
+        "verified_at": "2026-09-16"
+      },
+      "name": "Liquid xenon time projection chamber"
+    },
+    {
+      "description": {
+        "confidence": "verified",
+        "locator": "NIM A 953 (2020) 163047, Sec. 2 and Sec. 2.2",
+        "note": "The 131 figure is the sum of the 93 1-inch, 20 2-inch bottom and 18 2-inch dome PMTs listed in Sec. 2.2; the paper does not print a single total.",
+        "quote": "the Xe Skin detector contains an additional ∼2 tonnes of liquid",
+        "sources": [
+          "src:lz-detector-paper-nima",
+          "src:lz-official-site-detector"
+        ],
+        "value": "An instrumented layer of about 2 tonnes of liquid xenon outside the TPC field cage, read out by 131 1-inch and 2-inch PMTs, used to veto gamma rays that scatter in both volumes.",
+        "verified_at": "2026-09-16"
+      },
+      "name": "Xenon skin veto"
+    },
+    {
+      "description": {
+        "confidence": "verified",
+        "locator": "NIM A 953 (2020) 163047, Sec. 4.1",
+        "note": "",
+        "quote": "A total of 120 Hamamatsu R5912 8–inch PMTs view the GdLS",
+        "sources": [
+          "src:lz-detector-paper-nima"
+        ],
+        "value": "Acrylic tanks of gadolinium-loaded liquid scintillator surrounding the cryostat, viewed by 120 Hamamatsu R5912 8-inch PMTs, tagging neutrons by capture on gadolinium.",
+        "verified_at": "2026-09-16"
+      },
+      "name": "Outer detector"
+    },
+    {
+      "description": {
+        "confidence": "verified",
+        "locator": "lz.lbl.gov Laboratory page",
+        "note": "",
+        "quote": "8 meter diameter by 6 meter high water shield containing 70,000 gallons of purified water",
+        "sources": [
+          "src:lz-official-site-laboratory"
+        ],
+        "value": "A tank 8 m in diameter and 6 m high holding 70,000 gallons of purified water, which contains the outer detector and cryostat and suppresses gamma rays and neutrons from the cavern rock.",
+        "verified_at": "2026-09-16"
+      },
+      "name": "Water shield"
+    }
+  ],
+  "summary": {
+    "plain": "A tank of seven tonnes of cold liquid xenon, watched by hundreds of light sensors, that records the tiny flash and spark made if a dark matter particle bumps into a xenon atom. Layers of xenon, scintillator and water around it screen out ordinary radiation.",
+    "technical": "Dual-phase xenon TPC, ~1.5 m diameter and height, 145.6 cm drift, 7 active tonnes of a 10 t inventory, 5.5 t SR1 fiducial, 494 R11410 PMTs (253 top / 241 bottom), surrounded by a ~2 t instrumented Xe skin (131 PMTs), a gadolinium-loaded liquid scintillator outer detector (120 R5912 PMTs) and an 8 m x 6 m water shield in the Davis Cavern."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "lz.lbl.gov home page",
+    "note": "",
+    "quote": "a two-phase time projection chamber (TPC), containing seven active tonnes of liquid xenon",
+    "sources": [
+      "src:lz-official-site",
+      "src:lz-detector-paper-nima"
+    ],
+    "value": "dual-phase (two-phase) liquid xenon time projection chamber",
+    "verified_at": "2026-09-16"
+  },
+  "technology_class": "xenon_tpc",
+  "technology_classes": [
+    "noble_liquid_tpc",
+    "xenon_tpc"
+  ],
+  "type": "detector"
+}

@@ -1,0 +1,66 @@
+{
+  "aliases": [
+    "EHN1",
+    "CERN Neutrino Platform",
+    "North Area EHN1 extension"
+  ],
+  "altitude": null,
+  "coordinates": {
+    "confidence": "uncertain",
+    "kind": "detector",
+    "lat": 46.2601088,
+    "locator": "CERN Neutrino Platform page",
+    "lon": 6.0577057,
+    "note": "This site is used as the placement for ProtoDUNE-SP, ProtoDUNE-DP and the ICARUS refurbishment, none of which has its own dedicated site record. `kind` is set to `detector` only because A17/the validator requires that for any site holding a detector placement; the coordinate itself is the OpenStreetMap/Nominatim point for CERN's whole Prevessin site, not a surveyed position for the EHN1 building (also known as Building 887, ~330 m long). Real effort (CERN's Neutrino Platform page, the North Area experimental-areas pages, and open-days material) confirmed the building's identity and general siting on the Prevessin site but did not turn up a published lat/lon for EHN1 itself. Treat every placement at this site as campus-precision, not building precision. CERN publishes no coordinate for the hall on the fetched page.",
+    "precision_m": 2000,
+    "quote": "located in a test-beam hall on CERN’s Prévessin site",
+    "sources": [
+      "src:dune-cern-neutrino-platform-page"
+    ],
+    "verified_at": "2026-09-17"
+  },
+  "countries": [
+    "FR"
+  ],
+  "country": "FR",
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "depth": null,
+  "facility_id": "facility:cern",
+  "id": "site:cern-neutrino-platform-ehn1",
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "note": "",
+      "sources": [
+        "src:dune-cern-neutrino-platform-page"
+      ],
+      "value": "https://home.cern/science/experiments/cern-neutrino-platform",
+      "verified_at": "2026-09-16"
+    }
+  },
+  "name": "CERN Neutrino Platform, EHN1 (Prévessin site)",
+  "notes": [
+    "facility:cern is owned by the cern-atlas workstream; this record only references it.",
+    "Coordinates are shown at campus (Prevessin-site) precision; see coordinates.note. `kind: detector` is a schema requirement (this site hosts several detector placements), not a claim of survey-grade precision for the EHN1 building."
+  ],
+  "place": {
+    "city": "Prévessin-Moëns",
+    "country": "FR",
+    "region": "Ain"
+  },
+  "schema": "hep-atlas/0.2",
+  "setting": "surface",
+  "sources": [
+    "src:dune-cern-neutrino-platform-page",
+    "src:dune-cern-ehn1-osm-nominatim",
+    "src:dune-protodune-sp-performance-2020"
+  ],
+  "summary": {
+    "plain": "A large hall at CERN, on the French side of the laboratory, where full-size prototypes of the DUNE detectors were built and tested in a particle beam.",
+    "technical": "EHN1 extension in the CERN North Area on the Prévessin site, housing the CERN Neutrino Platform test beams and the ProtoDUNE single-phase and dual-phase cryostats, as well as ICARUS refurbishment and Baby MIND."
+  },
+  "type": "site"
+}

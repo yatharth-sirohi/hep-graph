@@ -1,0 +1,100 @@
+{
+  "aliases": [
+    "RCS",
+    "J-PARC RCS",
+    "3 GeV synchrotron"
+  ],
+  "coverage": {
+    "researched": "full",
+    "tier": "B"
+  },
+  "facility_id": "facility:j-parc",
+  "feeds_accelerator_ids": [
+    "accelerator:j-parc-main-ring"
+  ],
+  "id": "accelerator:j-parc-rcs",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "design energy reached",
+      "note": "",
+      "quote": "October  Expected energy was achieved at RCS.",
+      "sources": [
+        "src:jparc-history"
+      ],
+      "start": "2007-10",
+      "status": "active",
+      "verified_at": "2026-09-16"
+    }
+  ],
+  "kind": "synchrotron",
+  "links": {
+    "website": null
+  },
+  "name": "J-PARC 3 GeV Rapid Cycling Synchrotron",
+  "notes": [],
+  "particles": [
+    "proton"
+  ],
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:j-parc-main-ring",
+  "sources": [
+    "src:jparc-rcs-page",
+    "src:jparc-accelerators",
+    "src:jparc-facilities",
+    "src:jparc-history"
+  ],
+  "specs": {
+    "beam_energy": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "energy",
+      "display": "3 GeV",
+      "note": "",
+      "quote": "A 3 GeV rapid cycling synchrotron (RCS)",
+      "sources": [
+        "src:jparc-rcs-page",
+        "src:jparc-facilities"
+      ],
+      "unit": "GeV",
+      "value": 3,
+      "verified_at": "2026-09-16"
+    },
+    "beam_power": {
+      "approx": false,
+      "confidence": "derived",
+      "dimension": "power",
+      "display": "1 MW",
+      "note": "The J-PARC history page records that in 2018 the facility \"succeeded at continuous operation with a beam power equivalent to 1 MW\"; the facilities page states the MLF is driven by \"3 GeV protons with a current of 333 micro-amps and a repetition rate of 25 Hz\", which corresponds to 1 MW.",
+      "quote": "3 GeV protons with a current of 333 micro-amps and a repetition rate of 25 Hz",
+      "sources": [
+        "src:jparc-history",
+        "src:jparc-facilities"
+      ],
+      "unit": "MW",
+      "value": 1,
+      "verified_at": "2026-09-16"
+    },
+    "circumference": {
+      "approx": true,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "about 350 m",
+      "note": "",
+      "quote": "RCS about 350m in circumference",
+      "sources": [
+        "src:jparc-accelerators"
+      ],
+      "unit": "m",
+      "value": 350,
+      "verified_at": "2026-09-16"
+    }
+  },
+  "status": "active",
+  "summary": {
+    "plain": "A fast-cycling ring that takes protons from the linac up to 3 billion electronvolts 25 times a second, feeding both a neutron source and the main ring.",
+    "technical": "3 GeV rapid-cycling synchrotron, about 350 m circumference, 25 Hz repetition, ~1 MW beam power to the Materials and Life Science Experimental Facility; injects into the main ring."
+  },
+  "type": "accelerator"
+}
