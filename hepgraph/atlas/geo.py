@@ -41,7 +41,9 @@ __all__ = [
     'line_length_m', 'ring_perimeter_m', 'polygon_perimeter_m', 'polygon_area_m2',
     'positions', 'is_position', 'bbox', 'centroid',
     'geometry_length_m', 'geometry_area_m2', 'geometry_span_m', 'geometry_azimuth_deg',
-    'geojson_problems', 'simplify', 'round_coordinates', 'COORDINATE_DECIMALS',
+    'geojson_problems', 'simplify', 'round_coordinates', 'round_geometry', 'merge_bbox',
+    'COORDINATE_DECIMALS',
+    'measure', 'expected_magnitude', 'check_tolerance', 'evaluate_check', 'format_check',
 ]
 
 EARTH_RADIUS_M = schema.EARTH_RADIUS_M
@@ -574,3 +576,143 @@ def round_geometry(geometry: Any, decimals: int = COORDINATE_DECIMALS) -> Any:
     out = {key: value for key, value in geometry.items() if key != 'coordinates'}
     out['coordinates'] = round_coordinates(geometry.get('coordinates'), decimals)
     return out
+
+
+# ---------------------------------------------------------------------------
+# Executing a `checks[]` row (contract §1.2 / §2)
+# ---------------------------------------------------------------------------
+
+#: The dimension a check's `expected` Quantity must carry, and the base unit
+#: the comparison happens in.  `distance` and `span` are lengths; `azimuth` is
+#: an angle in degrees.
+CHECK_DIMENSIONS: dict[str, str] = {
+    'length': 'length',
+    'area': 'area',
+    'distance': 'length',
+    'span': 'length',
+    'azimuth': 'angle',
+}
+CHECK_UNITS: dict[str, str] = {
+    'length': 'm', 'area': 'm²', 'distance': 'm', 'span': 'm', 'azimuth': '°',
+}
+
+
+def measure(geometry: Any, kind: Any, other: Any = None) -> float | None:
+    """What a `checks[]` row of `kind` measures on `geometry`.
+
+    `other` is the second shape a `distance` check needs (its `to_geometry_id`).
+    Returns None when the geometry cannot answer that question at all, which
+    the validator reports as `geometry-check-unmeasurable`.
+    """
+    if kind == 'length':
+        return geometry_length_m(geometry)
+    if kind == 'area':
+        return geometry_area_m2(geometry)
+    if kind == 'span':
+        return geometry_span_m(geometry)
+    if kind == 'azimuth':
+        return geometry_azimuth_deg(geometry)
+    if kind == 'distance':
+        here, there = centroid(geometry), centroid(other)
+        if here is None or there is None:
+            return None
+        return haversine_m(here[0], here[1], there[0], there[1])
+    return None
+
+
+def expected_magnitude(check: Any) -> float | None:
+    """A check's `expected` Quantity in the base unit of its kind, or None.
+
+    None when the quantity is missing, unparseable, or of the wrong dimension
+    for the kind — an `area` check whose expected value is a length is not a
+    failing check, it is an unanswerable one.
+    """
+    if not isinstance(check, dict):
+        return None
+    expected = check.get('expected')
+    if not isinstance(expected, dict):
+        return None
+    wanted = CHECK_DIMENSIONS.get(check.get('kind'))
+    if wanted is None or expected.get('dimension') != wanted:
+        return None
+    return schema.quantity_magnitude(expected)
+
+
+def check_tolerance(check: Any) -> float:
+    """The tolerance of one check row.
+
+    A fraction of the expected value for every kind but `azimuth`, which is
+    an absolute number of **degrees**: three per cent of a bearing is a
+    quantity with no meaning (3 % of 350° is 10°, of 0.5° is nothing), and
+    A25 already fixes one degree as the figure that matters for a direction.
+    Documented in `docs/HEP_ATLAS_GEOMETRY.md` §2.
+    """
+    value = _number((check or {}).get('tolerance')) if isinstance(check, dict) else None
+    if value is not None and value >= 0:
+        return value
+    if isinstance(check, dict) and check.get('kind') == 'azimuth':
+        return schema.AZIMUTH_TOLERANCE_DEG
+    return schema.CHECK_TOLERANCE_DEFAULT
+
+
+def evaluate_check(geometry: Any, check: Any, other: Any = None) -> dict:
+    """Execute one `checks[]` row against a shape.
+
+    Returns ``{kind, measured, expected, tolerance, unit, passed, reason}``.
+    ``passed`` is ``None`` when the check could not be executed at all
+    (``reason`` says why); otherwise it is the verdict.  The validator turns
+    ``passed is None`` into `geometry-check-unmeasurable` and
+    ``passed is False`` into `geometry-check-failed`; the build copies the
+    numbers into the bundle so the browser shows the same arithmetic.
+    """
+    kind = (check or {}).get('kind') if isinstance(check, dict) else None
+    result: dict[str, Any] = {
+        'kind': kind,
+        'measured': None,
+        'expected': None,
+        'tolerance': check_tolerance(check),
+        'unit': CHECK_UNITS.get(kind, ''),
+        'passed': None,
+        'reason': None,
+    }
+    if kind not in CHECK_DIMENSIONS:
+        result['reason'] = f'check kind {kind!r} is not one of {list(CHECK_DIMENSIONS)}'
+        return result
+
+    measured = measure(geometry, kind, other)
+    expected = expected_magnitude(check)
+    result['measured'] = measured
+    result['expected'] = expected
+    if measured is None:
+        shape = (geometry or {}).get('type') if isinstance(geometry, dict) else type(geometry).__name__
+        if kind == 'distance':
+            result['reason'] = ('a `distance` check needs a resolvable `to_geometry_id` and two '
+                                'shapes with a centroid')
+        else:
+            result['reason'] = f'a {shape} geometry has no {kind} to measure'
+        return result
+    if expected is None:
+        result['reason'] = (f'`expected` must be a sourced Quantity of dimension '
+                            f'{CHECK_DIMENSIONS[kind]!r}')
+        return result
+
+    if kind == 'azimuth':
+        result['passed'] = bearing_difference_deg(measured, expected) <= result['tolerance']
+    elif expected == 0:
+        result['passed'] = measured == 0
+    else:
+        result['passed'] = abs(measured - expected) / abs(expected) <= result['tolerance']
+    return result
+
+
+def format_check(result: dict) -> str:
+    """The "expected X, measured Y, tolerance Z" phrase a finding carries."""
+    unit = result.get('unit') or ''
+    expected, measured = result.get('expected'), result.get('measured')
+    tolerance = result.get('tolerance')
+    if result.get('kind') == 'azimuth':
+        tolerance_text = f'{tolerance:g}{unit}'
+    else:
+        tolerance_text = f'{tolerance:.3g} ({tolerance * 100:.3g} %)'
+    return (f'expected {expected:,.4g}{unit}, measured {measured:,.4g}{unit}, '
+            f'tolerance {tolerance_text}')
