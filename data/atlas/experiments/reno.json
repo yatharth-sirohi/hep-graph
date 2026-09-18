@@ -1,133 +1,170 @@
 {
-  "schema": "hep-atlas/0.2",
-  "id": "experiment:reno",
-  "type": "experiment",
-  "name": "RENO",
+  "accelerator_ids": [],
   "aliases": [
     "Reactor Experiment for Neutrino Oscillation"
   ],
-  "kind": "reactor_neutrino",
-  "secondary_kinds": [],
-  "collaboration_ids": ["collaboration:reno"],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:reno"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "document_ids": [],
+  "energy_regime": null,
+  "external": {
+    "greybook": null,
+    "inspire_experiment": 1108241,
+    "wikidata": null
+  },
   "facility_roles": [
     {
-      "facility_id": "facility:yonggwang-hanbit-reactor-site",
-      "role": "host",
-      "start": null,
-      "end": null,
-      "sources": ["src:reno-discovery-2012"],
-      "verified_at": "2026-09-17",
       "confidence": "verified",
-      "note": ""
+      "end": null,
+      "facility_id": "facility:yonggwang-hanbit-reactor-site",
+      "note": "",
+      "role": "host",
+      "sources": [
+        "src:reno-discovery-2012"
+      ],
+      "start": null,
+      "verified_at": "2026-09-17"
     }
   ],
-  "beamline_ids": [],
-  "accelerator_ids": [],
-  "topic_ids": ["topic:reactor-neutrinos", "topic:neutrino-oscillations"],
+  "id": "experiment:reno",
   "intervals": [
     {
-      "label": "data-taking (analysis window used in the 2012 discovery paper)",
+      "confidence": "verified",
+      "end": "2023-03",
+      "label": "data taking",
+      "note": "CORRECTED 2026-09-18 (P0): the original pass left `end: null` and `status: active` because it had fetched only the 2012 discovery paper, which covers a 229-day analysis window, not the experiment's full run. RENO's own 2024 final-dataset paper (arXiv:2412.18711) states data acquisition was completed in March 2023 after 3800 live days -- the experiment is NOT still running. Status corrected from `active` to `completed` accordingly.",
+      "quote": "As of March 2023, the data acquisition was completed after a total of 3800 live days of detector operation.",
+      "sources": [
+        "src:reactor-solar-verify-reno-final-2024"
+      ],
+      "start": "2011-08",
       "status": "active",
-      "start": "2011-08-11",
+      "verified_at": "2026-09-18"
+    },
+    {
+      "confidence": "verified",
       "end": null,
-      "sources": ["src:reno-discovery-2012"],
-      "verified_at": "2026-09-17",
-      "confidence": "uncertain",
-      "quote": "In the 229 day data-taking period between 11 August 2011 and 26 March 2012",
-      "note": "The cited paper's own analysis used only the 229-day window ending 26 March 2012, but no source fetched this session states that RENO stopped operating at that date, nor confirms it continued; `end` is left null (ongoing at `verified_at`, per §2.3) rather than asserting either a shutdown or continued operation from memory."
+      "label": "completed",
+      "note": "Added 2026-09-18 as the terminal event for the interval above (A3).",
+      "quote": "As of March 2023, the data acquisition was completed after a total of 3800 live days of detector operation.",
+      "sources": [
+        "src:reactor-solar-verify-reno-final-2024"
+      ],
+      "start": "2023-03",
+      "status": "completed",
+      "verified_at": "2026-09-18"
     }
   ],
-  "physics_goals": [
-    {
-      "value": "Measure the neutrino mixing angle theta_13 via reactor antineutrino disappearance using near and far identical detectors",
-      "sources": ["src:reno-discovery-2012"],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
-      "quote": "The RENO experiment has observed the disappearance of reactor electron antineutrinos, consistent with neutrino oscillations, with a significance of 4.9 standard deviations.",
-      "locator": "arXiv:1204.0626, abstract"
-    }
-  ],
-  "unique_capabilities": [
-    {
-      "value": "Two identical detectors near and far from a six-reactor array to cancel reactor-flux systematics",
-      "sources": ["src:reno-discovery-2012"],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
-      "quote": "detected by two identical detectors located at 294 m and 1383 m, respectively, from the reactor array center",
-      "locator": "arXiv:1204.0626, abstract"
-    }
-  ],
-  "energy_regime": null,
   "key_specs": [
     {
       "label": "Near-detector baseline",
       "quantity": {
-        "value": 294,
-        "unit": "m",
-        "dimension": "length",
         "approx": false,
-        "display": "294 m",
-        "sources": ["src:reno-discovery-2012"],
-        "verified_at": "2026-09-17",
         "confidence": "verified",
+        "dimension": "length",
+        "display": "294 m",
+        "note": "",
         "quote": "located at 294 m and 1383 m, respectively, from the reactor array center",
-        "note": ""
+        "sources": [
+          "src:reno-discovery-2012"
+        ],
+        "unit": "m",
+        "value": 294,
+        "verified_at": "2026-09-17"
       }
     },
     {
       "label": "Far-detector baseline",
       "quantity": {
-        "value": 1383,
-        "unit": "m",
-        "dimension": "length",
         "approx": false,
-        "display": "1383 m",
-        "sources": ["src:reno-discovery-2012"],
-        "verified_at": "2026-09-17",
         "confidence": "verified",
+        "dimension": "length",
+        "display": "1383 m",
+        "note": "",
         "quote": "located at 294 m and 1383 m, respectively, from the reactor array center",
-        "note": ""
+        "sources": [
+          "src:reno-discovery-2012"
+        ],
+        "unit": "m",
+        "value": 1383,
+        "verified_at": "2026-09-17"
       }
     },
     {
       "label": "Reactor thermal power (per reactor, x6)",
       "quantity": {
-        "value": 2.8,
-        "unit": "GW",
-        "dimension": "power",
         "approx": false,
-        "display": "2.8 GW_th (x6 reactors)",
-        "sources": ["src:reno-discovery-2012"],
-        "verified_at": "2026-09-17",
         "confidence": "verified",
+        "dimension": "power",
+        "display": "2.8 GW_th (x6 reactors)",
+        "note": "",
         "quote": "Antineutrinos from six 2.8 GW_th reactors",
-        "note": ""
+        "sources": [
+          "src:reno-discovery-2012"
+        ],
+        "unit": "GW",
+        "value": 2.8,
+        "verified_at": "2026-09-17"
       }
     }
   ],
+  "kind": "reactor_neutrino",
   "lineage": [],
-  "external": {
-    "inspire_experiment": 1108241,
-    "greybook": null,
-    "wikidata": null
-  },
-  "document_ids": [],
-  "result_ids": [],
   "links": {
     "website": null
   },
+  "name": "RENO",
   "notes": [
     "Every RENO official-site domain guessed this session (reno.snu.ac.kr, home.kias.re.kr/MKG/h/reno) failed to resolve/connect; `links.website` left null rather than guessed.",
     "Derived fields (detector_ids, site_ids, result_ids, document_ids) deliberately not authored (v0.2 A1)."
   ],
-  "sources": ["src:reno-inspire-experiment-record", "src:reno-discovery-2012", "src:hanbit-npp-wikipedia"],
-  "status": "active",
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "arXiv:1204.0626, abstract",
+      "quote": "The RENO experiment has observed the disappearance of reactor electron antineutrinos, consistent with neutrino oscillations, with a significance of 4.9 standard deviations.",
+      "sources": [
+        "src:reno-discovery-2012"
+      ],
+      "value": "Measure the neutrino mixing angle theta_13 via reactor antineutrino disappearance using near and far identical detectors",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "result_ids": [],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:reno-inspire-experiment-record",
+    "src:reno-discovery-2012",
+    "src:hanbit-npp-wikipedia",
+    "src:reactor-solar-verify-reno-final-2024"
+  ],
+  "status": "completed",
   "summary": {
-    "plain": "A South Korean experiment with two identical detectors near and far from a group of six nuclear reactors, which observed antineutrinos disappearing exactly as neutrino oscillation theory predicts.",
-    "technical": "Reactor-antineutrino oscillation experiment at the Hanbit (Yonggwang) Nuclear Power Plant, Korea, with identical near (294 m) and far (1383 m) detectors from a 6 x 2.8 GW_th reactor array. Its 2012 result observed reactor antineutrino disappearance at 4.9σ, sin²(2θ₁₃)=0.113±0.013(stat)±0.019(syst)."
+    "plain": "A South Korean experiment with two identical detectors near and far from a group of six nuclear reactors, which observed antineutrinos disappearing exactly as neutrino oscillation theory predicts. Data taking ran from 2011 to 2023.",
+    "technical": "Reactor-antineutrino oscillation experiment at the Hanbit (Yonggwang) Nuclear Power Plant, Korea, with identical near (294 m) and far (1383 m) detectors from a 6 x 2.8 GW_th reactor array. Its 2012 result observed reactor antineutrino disappearance at 4.9σ, sin²(2θ₁₃)=0.113±0.013(stat)±0.019(syst). Data acquisition ran 2011-08 to 2023-03 (3800 live days); a final-dataset measurement (arXiv:2412.18711) reports sin²2θ₁₃=0.0920 and |Δm²_ee|=2.57e-3 eV²."
   },
-  "coverage": {
-    "tier": "B",
-    "researched": "partial"
-  }
+  "topic_ids": [
+    "topic:reactor-neutrinos",
+    "topic:neutrino-oscillations"
+  ],
+  "type": "experiment",
+  "unique_capabilities": [
+    {
+      "confidence": "verified",
+      "locator": "arXiv:1204.0626, abstract",
+      "quote": "detected by two identical detectors located at 294 m and 1383 m, respectively, from the reactor array center",
+      "sources": [
+        "src:reno-discovery-2012"
+      ],
+      "value": "Two identical detectors near and far from a six-reactor array to cancel reactor-flux systematics",
+      "verified_at": "2026-09-17"
+    }
+  ]
 }

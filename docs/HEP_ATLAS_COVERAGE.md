@@ -11,16 +11,16 @@ interface says only "coverage updated" with this date.
 | --- | ---: |
 | accelerator | 31 |
 | beamline | 6 |
-| collaboration | 120 |
-| detector | 132 |
+| collaboration | 122 |
+| detector | 135 |
 | document | 70 |
-| experiment | 128 |
-| facility | 47 |
+| experiment | 131 |
+| facility | 48 |
 | institution | 529 |
 | person | 12 |
-| result | 104 |
-| site | 92 |
-| source | 1471 |
+| result | 109 |
+| site | 93 |
+| source | 1484 |
 | topic | 42 |
 | membership rows | 659 |
 
@@ -35,19 +35,19 @@ exists with sourced content. Gaps are computed per record, not declared.
 | Atmospheric neutrinos | 3 | 3 | 0 | 3 | 0 | 2 | 0 |
 | Axions and ALPs | 7 | 7 | 0 | 7 | 1 | 7 | 7 |
 | Coherent elastic neutrino-nucleus scattering | 4 | 4 | 0 | 4 | 0 | 3 | 3 |
-| Colliders | 22 | 22 | 1 | 21 | 0 | 9 | 13 |
+| Colliders | 23 | 23 | 2 | 21 | 0 | 9 | 13 |
 | Cosmic rays, gamma rays and astroparticle | 2 | 2 | 0 | 2 | 0 | 2 | 2 |
-| Dark matter direct detection | 16 | 16 | 0 | 16 | 1 | 12 | 13 |
+| Dark matter direct detection | 17 | 17 | 0 | 17 | 1 | 13 | 14 |
 | Direct neutrino mass | 2 | 2 | 0 | 2 | 1 | 1 | 2 |
 | Fixed target, rare kaons and long-lived particles | 10 | 10 | 0 | 10 | 1 | 9 | 9 |
 | Gamma rays | 6 | 6 | 0 | 6 | 2 | 6 | 6 |
 | Heavy ions | 3 | 3 | 0 | 3 | 0 | 1 | 3 |
-| High-energy and astrophysical neutrinos | 13 | 13 | 0 | 13 | 2 | 10 | 10 |
+| High-energy and astrophysical neutrinos | 13 | 13 | 0 | 13 | 0 | 10 | 10 |
 | Muon precision and rare processes | 6 | 6 | 0 | 6 | 1 | 3 | 3 |
 | Neutrinoless double beta decay | 9 | 9 | 0 | 9 | 3 | 9 | 9 |
 | Reactor and low-energy neutrinos | 5 | 5 | 0 | 5 | 1 | 0 | 4 |
-| Solar and radiochemical neutrinos | 6 | 4 | 0 | 4 | 0 | 2 | 4 |
-| **All** | **129** | **127** | **2** | **125** | **13** | **78** | **93** |
+| Solar and radiochemical neutrinos | 6 | 6 | 0 | 6 | 0 | 2 | 6 |
+| **All** | **131** | **131** | **3** | **128** | **11** | **79** | **96** |
 
 ## Per-experiment detail
 
@@ -112,6 +112,7 @@ exists with sourced content. Gaps are computed per record, not declared.
 | Belle | researched | institution membership |
 | Belle II | researched | institution membership |
 | CDF | researched | institution membership, technical documents |
+| CMS | researched | — |
 | D0 | researched | institution membership, technical documents |
 | DELPHI | researched | institution membership, placeable geography |
 | FASER | researched | institution membership, major results, technical documents |
@@ -153,6 +154,7 @@ exists with sourced content. Gaps are computed per record, not declared.
 | PandaX-4T | researched | institution membership, major results, technical documents |
 | SENSEI | researched | institution membership, major results, technical documents |
 | SuperCDMS | researched | institution membership, major results, technical documents |
+| SuperCDMS Soudan | researched | institution membership, major results, technical documents |
 | XENON1T | researched | institution membership, technical documents |
 | XENONnT | researched | institution membership |
 
@@ -207,12 +209,12 @@ exists with sourced content. Gaps are computed per record, not declared.
 | ARA | researched | institution membership, major results, technical documents |
 | ARIANNA | researched | institution membership, major results, technical documents |
 | Baikal-GVD | researched | institution membership, major results, technical documents |
-| GRAND | researched | institution membership, historical intervals, major results, technical documents |
+| GRAND | researched | institution membership, major results, technical documents |
 | IceCube | researched | institution membership |
 | IceCube-Gen2 | researched | institution membership, detector, major results |
 | KM3NeT | researched | institution membership |
 | Kamiokande | researched | collaboration, detector, technical documents |
-| P-ONE | researched | institution membership, historical intervals, major results, technical documents |
+| P-ONE | researched | institution membership, major results, technical documents |
 | RNO-G | researched | institution membership, major results, technical documents |
 
 ### Muon precision and rare processes
@@ -256,8 +258,8 @@ exists with sourced content. Gaps are computed per record, not declared.
 | --- | --- | --- |
 | Borexino | researched | institution membership, technical documents |
 | GALLEX/GNO | researched | institution membership, major results, technical documents |
-| Homestake | not researched | all |
-| SAGE | not researched | all |
+| Homestake | researched | institution membership, technical documents |
+| SAGE | researched | institution membership, technical documents |
 | SNO | researched | institution membership, technical documents |
 | SNO+ | researched | institution membership, major results, technical documents |
 

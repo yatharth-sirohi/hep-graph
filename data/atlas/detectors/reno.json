@@ -1,75 +1,103 @@
 {
-  "schema": "hep-atlas/0.2",
-  "id": "detector:reno",
-  "type": "detector",
-  "name": "RENO detectors",
   "aliases": [],
-  "experiment_ids": ["experiment:reno"],
-  "parent_detector_id": null,
-  "technology": {
-    "value": "Two identical gadolinium-doped liquid-scintillator antineutrino detectors",
-    "sources": ["src:reno-discovery-2012"],
-    "verified_at": "2026-09-17",
-    "confidence": "verified",
-    "quote": "detected by two identical detectors",
-    "note": "The 2012 discovery paper does not itself state the detectors' liquid-scintillator technology in the abstract text fetched; classified as liquid_scintillator based on the well-established RENO/Daya-Bay-family detector design referenced generally across reactor-neutrino experiments in this workstream, but no per-detector target mass was found in a fetched source this session."
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
   },
-  "technology_class": "liquid_scintillator",
-  "technology_classes": ["liquid_scintillator"],
-  "placements": [
-    {
-      "site_id": "site:reno-near-detector",
-      "role": "near",
-      "start": "2011-08-11",
-      "end": null,
-      "sources": ["src:reno-discovery-2012"],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
-      "quote": "In the 229 day data-taking period between 11 August 2011 and 26 March 2012",
-      "note": ""
-    },
-    {
-      "site_id": "site:reno-far-detector",
-      "role": "far",
-      "start": "2011-08-11",
-      "end": null,
-      "sources": ["src:reno-discovery-2012"],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
-      "quote": "In the 229 day data-taking period between 11 August 2011 and 26 March 2012",
-      "note": ""
-    }
+  "document_ids": [],
+  "experiment_ids": [
+    "experiment:reno"
   ],
+  "id": "detector:reno",
   "intervals": [
     {
+      "confidence": "verified",
+      "end": "2023-03",
       "label": "data taking",
+      "note": "CORRECTED 2026-09-18 (P0): RENO's own final-dataset paper (arXiv:2412.18711) confirms data acquisition ended March 2023 after 3800 live days; the detector is not still taking data.",
+      "quote": "As of March 2023, the data acquisition was completed after a total of 3800 live days of detector operation.",
+      "sources": [
+        "src:reactor-solar-verify-reno-final-2024"
+      ],
+      "start": "2011-08",
       "status": "active",
-      "start": "2011-08-11",
+      "verified_at": "2026-09-18"
+    },
+    {
+      "confidence": "verified",
       "end": null,
-      "sources": ["src:reno-discovery-2012"],
-      "verified_at": "2026-09-17",
-      "confidence": "uncertain",
-      "quote": "In the 229 day data-taking period between 11 August 2011 and 26 March 2012",
-      "note": "The cited paper's own analysis used only the 229-day window ending 26 March 2012; no source fetched this session confirms a shutdown or continued operation, so `end` is left null (ongoing at `verified_at`, §2.3)."
+      "label": "completed",
+      "note": "Added 2026-09-18 as the terminal event for the interval above (A3).",
+      "quote": "As of March 2023, the data acquisition was completed after a total of 3800 live days of detector operation.",
+      "sources": [
+        "src:reactor-solar-verify-reno-final-2024"
+      ],
+      "start": "2023-03",
+      "status": "completed",
+      "verified_at": "2026-09-18"
     }
   ],
-  "status": "active",
-  "specs": {},
-  "subsystems": [],
-  "document_ids": [],
   "links": {
     "website": null
   },
+  "name": "RENO detectors",
   "notes": [
     "No target mass, PMT count, or other detector spec was found in a source fetched this session beyond the baselines already in key_specs; left out of `specs` rather than guessed."
   ],
-  "sources": ["src:reno-discovery-2012"],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "note": "",
+      "quote": "In the 229 day data-taking period between 11 August 2011 and 26 March 2012",
+      "role": "near",
+      "site_id": "site:reno-near-detector",
+      "sources": [
+        "src:reno-discovery-2012"
+      ],
+      "start": "2011-08-11",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "note": "",
+      "quote": "In the 229 day data-taking period between 11 August 2011 and 26 March 2012",
+      "role": "far",
+      "site_id": "site:reno-far-detector",
+      "sources": [
+        "src:reno-discovery-2012"
+      ],
+      "start": "2011-08-11",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:reno-discovery-2012",
+    "src:reactor-solar-verify-reno-final-2024"
+  ],
+  "specs": {},
+  "status": "completed",
+  "subsystems": [],
   "summary": {
-    "plain": "Two identical tank-like detectors near and far from South Korea's Hanbit nuclear reactors, watching for antineutrinos.",
-    "technical": "Two identical Gd-doped liquid-scintillator antineutrino detectors at 294 m and 1383 m from the Hanbit reactor array; per-detector target mass not found in a source fetched this session."
+    "plain": "Two identical tank-like detectors near and far from South Korea's Hanbit nuclear reactors, watching for antineutrinos. Data taking ran from 2011 to 2023.",
+    "technical": "Two identical Gd-doped liquid-scintillator antineutrino detectors at 294 m and 1383 m from the Hanbit reactor array; per-detector target mass not found in a source fetched this session. Data taking ran 2011-08 to 2023-03 (3800 live days)."
   },
-  "coverage": {
-    "tier": "B",
-    "researched": "partial"
-  }
+  "technology": {
+    "confidence": "verified",
+    "note": "The 2012 discovery paper does not itself state the detectors' liquid-scintillator technology in the abstract text fetched; classified as liquid_scintillator based on the well-established RENO/Daya-Bay-family detector design referenced generally across reactor-neutrino experiments in this workstream, but no per-detector target mass was found in a fetched source this session.",
+    "quote": "detected by two identical detectors",
+    "sources": [
+      "src:reno-discovery-2012"
+    ],
+    "value": "Two identical gadolinium-doped liquid-scintillator antineutrino detectors",
+    "verified_at": "2026-09-17"
+  },
+  "technology_class": "liquid_scintillator",
+  "technology_classes": [
+    "liquid_scintillator"
+  ],
+  "type": "detector"
 }

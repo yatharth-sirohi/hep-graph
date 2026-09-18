@@ -1,51 +1,81 @@
 {
-  "schema": "hep-atlas/0.2",
-  "id": "facility:yonggwang-hanbit-reactor-site",
-  "type": "facility",
-  "name": "Yonggwang (Hanbit) Reactor Neutrino Site",
-  "aliases": ["Hanbit Nuclear Power Plant site"],
-  "kind": "reactor_site",
-  "operator": {
-    "value": null,
-    "sources": ["src:reno-discovery-2012"],
-    "verified_at": "2026-09-17",
-    "confidence": "uncertain",
-    "note": "No source fetched this session states an operator of the RENO experimental site distinct from the RENO collaboration and the adjacent Hanbit Nuclear Power Plant (operated by KHNP, not itself fetched this session)."
+  "aliases": [
+    "Hanbit Nuclear Power Plant site"
+  ],
+  "countries": [
+    "KR"
+  ],
+  "country": [
+    "KR"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
   },
-  "operator_ids": [],
-  "country": ["KR"],
-  "countries": ["KR"],
-  "primary_site_id": "site:reno-far-detector",
+  "id": "facility:yonggwang-hanbit-reactor-site",
   "intervals": [
     {
+      "confidence": "verified",
+      "end": "2023-03",
       "label": "hosting RENO",
+      "note": "CORRECTED 2026-09-18 (P0): RENO's own final-dataset paper (arXiv:2412.18711) confirms RENO data acquisition ended March 2023; this facility record's scope is specifically hosting RENO's detectors (the underlying nuclear power plant itself continues to operate independently of RENO).",
+      "quote": "As of March 2023, the data acquisition was completed after a total of 3800 live days of detector operation.",
+      "sources": [
+        "src:reactor-solar-verify-reno-final-2024"
+      ],
+      "start": "2011-08",
       "status": "active",
-      "start": "2011-08-11",
+      "verified_at": "2026-09-18"
+    },
+    {
+      "confidence": "verified",
       "end": null,
-      "sources": ["src:reno-discovery-2012"],
-      "verified_at": "2026-09-17",
-      "confidence": "uncertain",
-      "quote": "In the 229 day data-taking period between 11 August 2011 and 26 March 2012",
-      "note": "No official facility page was reachable this session to independently source a facility-level founding/operating interval; start is RENO's own data-taking start date. `end` left null (ongoing at `verified_at`, §2.3) since no source confirms a shutdown."
+      "label": "completed (hosting RENO)",
+      "note": "Added 2026-09-18 as the terminal event for the interval above (A3). Refers only to RENO's data-taking presence at the site, not the Hanbit Nuclear Power Plant itself.",
+      "quote": "As of March 2023, the data acquisition was completed after a total of 3800 live days of detector operation.",
+      "sources": [
+        "src:reactor-solar-verify-reno-final-2024"
+      ],
+      "start": "2023-03",
+      "status": "completed",
+      "verified_at": "2026-09-18"
     }
   ],
-  "status": "active",
-  "specs": {},
-  "topic_ids": ["topic:reactor-neutrinos", "topic:neutrino-oscillations"],
-  "related_facility_ids": [],
+  "kind": "reactor_site",
   "links": {
     "website": null
   },
+  "name": "Yonggwang (Hanbit) Reactor Neutrino Site",
   "notes": [
     "RENO's own official site domain guessed this session (reno.snu.ac.kr, home.kias.re.kr/MKG/h/reno) failed DNS/connection; this record relies on the 2012 arXiv discovery paper, INSPIRE, and the Hanbit Nuclear Power Plant's Wikipedia page (used only for an approximate regional coordinate)."
   ],
-  "sources": ["src:reno-inspire-experiment-record", "src:reno-discovery-2012"],
+  "operator": {
+    "confidence": "uncertain",
+    "note": "No source fetched this session states an operator of the RENO experimental site distinct from the RENO collaboration and the adjacent Hanbit Nuclear Power Plant (operated by KHNP, not itself fetched this session).",
+    "sources": [
+      "src:reno-discovery-2012"
+    ],
+    "value": null,
+    "verified_at": "2026-09-17"
+  },
+  "operator_ids": [],
+  "primary_site_id": "site:reno-far-detector",
+  "related_facility_ids": [],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:reno-inspire-experiment-record",
+    "src:reno-discovery-2012",
+    "src:reactor-solar-verify-reno-final-2024"
+  ],
+  "specs": {},
+  "status": "completed",
   "summary": {
     "plain": "The site near the Hanbit (formerly Yonggwang) nuclear power plant in South Korea where the RENO experiment placed two detectors to catch antineutrinos from six reactors.",
     "technical": "Reactor-neutrino site at the Hanbit (Yonggwang) Nuclear Power Plant, South Korea, hosting the RENO near (294 m) and far (1383 m) detector halls, 6 x 2.8 GW_th reactor array."
   },
-  "coverage": {
-    "tier": "B",
-    "researched": "partial"
-  }
+  "topic_ids": [
+    "topic:reactor-neutrinos",
+    "topic:neutrino-oscillations"
+  ],
+  "type": "facility"
 }
