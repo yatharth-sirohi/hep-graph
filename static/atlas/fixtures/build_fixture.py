@@ -1664,7 +1664,7 @@ def build_demo_map(facilities, sites, accelerators, beamlines, detectors, prov_f
         "name": "Fermilab — Batavia campus (development fixture)",
         "aliases": [], "facility_id": "facility:fermilab", "site_ids": site_ids,
         "center": {"lat": ring_center[0], "lon": ring_center[1]},
-        "extent_m": 3000, "levels": levels,
+        "extent_m": 2200, "levels": levels,
         "unlocated": unlocated, "schematics": schematics, "linked_map_ids": [],
         "summary": {"plain": "A development-fixture local map of the Fermilab Batavia campus: "
                              "the Main Injector ring, the LBNF beamline and near-detector cavern, "
@@ -1677,17 +1677,23 @@ def build_demo_map(facilities, sites, accelerators, beamlines, detectors, prov_f
         "status": facilities["facility:fermilab"]["status"],
     }
 
-    source_titles = {}
+    # §3: the bundle carries the title/url/type of every source it cites, so
+    # the drawer can name a source without fetching the 17 KB sources bundle.
+    cited: set[str] = set()
     for f in features:
-        for sid in f["provenance"]["sources"]:
-            source_titles.setdefault(sid, None)
+        cited.update(f["provenance"]["sources"])
         for c in f["checks"]:
-            for sid in c["sources"]:
-                source_titles.setdefault(sid, None)
+            cited.update(c["sources"])
     for row in unlocated:
-        for sid in row["sources"]:
-            source_titles.setdefault(sid, None)
-    source_titles.setdefault("src:fermilab-about", None)
+        cited.update(row["sources"])
+    for sch in schematics:
+        if sch.get("source_id"):
+            cited.add(sch["source_id"])
+    by_id = {sid: (title, stype, url) for (sid, title, stype, url, _pub, _acc) in SOURCES}
+    source_titles = {}
+    for sid in sorted(cited):
+        title, stype, url = by_id.get(sid, (sid, "secondary", None))
+        source_titles[sid] = {"title": title, "url": url, "source_type": stype}
 
     entity_index = {}
     for f in features:
@@ -1704,7 +1710,7 @@ def build_demo_map(facilities, sites, accelerators, beamlines, detectors, prov_f
 
     atlas_map = {
         "id": map_id, "name": map_record["name"], "facility_id": "facility:fermilab",
-        "site_ids": site_ids, "center": map_record["center"], "extent_m": 3000,
+        "site_ids": site_ids, "center": map_record["center"], "extent_m": 2200,
         "levels": [{"id": lv["id"], "name": lv["name"], "kind": lv["kind"],
                     "depth_m": lv["depth_m"]} for lv in levels],
         "feature_count": len(features),

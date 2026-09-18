@@ -30,6 +30,7 @@ const TILE_ATTRIBUTION = '&copy; <a href="https://www.openstreetmap.org/copyrigh
 const EARTH_R = 6371008.8;
 
 let ATLAS = null;
+let INDEX = null;
 let NAVIGATE = null;
 let PANELS = null;
 let dom = null;
@@ -615,9 +616,8 @@ function renderSidebar() {
   layers.appendChild(h('p', { class: 'map-subtitle' }, [
     `${mapMeta.to_scale_count} feature${mapMeta.to_scale_count === 1 ? '' : 's'} drawn to scale`,
     mapMeta.unlocated_count
-      ? ` · ${mapMeta.unlocated_count} not verified`
+      ? ` · ${mapMeta.unlocated_count} entit${mapMeta.unlocated_count === 1 ? 'y' : 'ies'} not drawn (geometry not verified)`
       : '',
-    facility ? ' · ' : '',
   ]));
   if (facility) {
     const facLink = h('a', {
@@ -795,6 +795,16 @@ function renderDrawer() {
   }, '×');
   closeBtn.addEventListener('click', clearSelection);
   drawerHead.append(closeBtn, h('h2', { class: 'map-drawer-title', id: 'map-drawer-title', tabindex: '-1' }, name));
+  if (primary && primary.entity_type) {
+    const record = INDEX ? INDEX.get(view.sel) : null;
+    const resolved = record && record.state_segments
+      ? statusForTimeline(record.state_segments, view.timelineState) : null;
+    drawerHead.appendChild(h('p', { class: 'map-subtitle' }, [
+      titleCase(primary.entity_type),
+      record && record.kind ? ` · ${titleCase(record.kind)}` : '',
+      resolved ? ` · ${mapstyle.statusStyle(resolved.status).label} in ${whenLabel()}` : '',
+    ].join('')));
+  }
   if (!primary) {
     drawerFacts.appendChild(h('p', { class: 'empty-note' },
       `Nothing on this map depicts ${view.sel}.`));
@@ -889,13 +899,6 @@ function renderDepth() {
 
 // ------------------------------------------------------------ stage chrome
 
-function renderStageControls() {
-  dom.stageControls.innerHTML = '';
-  const back = h('button', { type: 'button', class: 'map-stage-btn', id: 'map-back-stage' }, '← Back to globe');
-  back.addEventListener('click', () => NAVIGATE({ entity: null, sel: null, levels: null, basemap: true }));
-  dom.stageControls.appendChild(back);
-}
-
 function redraw() {
   const L = window.L;
   drawFeatures(L);
@@ -923,6 +926,7 @@ function renderMessage(nodes) {
  */
 export async function show(current, ctx) {
   ATLAS = ctx.atlas;
+  INDEX = ctx.index;
   NAVIGATE = ctx.navigate;
   PANELS = ctx.panels;
   ensureDom();
@@ -981,7 +985,6 @@ export async function show(current, ctx) {
       return;
     }
     createMap(L);
-    renderStageControls();
   }
 
   mapMeta = meta;
