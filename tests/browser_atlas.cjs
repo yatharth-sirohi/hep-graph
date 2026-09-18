@@ -280,6 +280,57 @@ async function setRangeValue(locator, value) {
     await freshContext.close();
   });
 
+  // A23 (docs/HEP_ATLAS_ONTOLOGY.md): a site's stripped coordinates carry
+  // `approximate: true` when no fetched source gives the real detector
+  // position. This has no meaning against the dev fixtures (which never
+  // carry that field), so it only runs against the generated tree, and even
+  // there it is guarded on the specific site existing — a wave-3 addition
+  // that could in principle be resourced/removed later.
+  if (process.env.HEP_ATLAS_DATA === "generated") {
+    await record("A23: an approximate site coordinate shows a location note and surfaces its source note", async () => {
+      const atlas = await (await page.request.get(`${base}/atlas/generated/atlas.json`)).json();
+      const site = atlas.sites && atlas.sites["site:isis-rutherford-appleton"];
+      if (!site || !site.coordinates || !site.coordinates.approximate) {
+        console.log("SKIP: site:isis-rutherford-appleton is not present or not approximate in this build");
+        return;
+      }
+      async function detailsText(headingText) {
+        return page.evaluate((text) => {
+          const summaries = [...document.querySelectorAll("#detail-panel details.panel-section summary")];
+          const details = summaries.find((s) => s.textContent.trim() === text)?.closest("details");
+          return details ? details.innerText : null;
+        }, headingText);
+      }
+      async function clickSummary(headingText) {
+        const handle = await page.evaluateHandle((text) => {
+          const summaries = [...document.querySelectorAll("#detail-panel details.panel-section summary")];
+          return summaries.find((s) => s.textContent.trim() === text) || null;
+        }, headingText);
+        const el = handle.asElement();
+        if (el) await el.click();
+      }
+
+      await page.goto(`${base}/atlas#/experiment/karmen`);
+      await page.locator("#detail-panel h2").waitFor();
+      await clickSummary("Beam and sites");
+      const beamText = await detailsText("Beam and sites");
+      assert.match(beamText || "", /Approximate location \(campus point\) — not the detector position/,
+        `expected an approximate-location note naming the coordinate kind, got: ${beamText}`);
+      assert.doesNotMatch(beamText || "", /\(ISIS\) \(detector\)/,
+        "an approximate campus point must never be presented as the detector position");
+
+      await clickSummary("Sources");
+      await page.waitForFunction(() => {
+        const summaries = [...document.querySelectorAll("#detail-panel details.panel-section summary")];
+        const details = summaries.find((s) => s.textContent.trim() === "Sources")?.closest("details");
+        return !!details && details.open && !details.querySelector(".loading-note");
+      }, { timeout: 10000 });
+      const sourcesText = await detailsText("Sources");
+      assert.match(sourcesText || "", /Approximate location — Rutherford Appleton Laboratory/,
+        `expected the Sources disclosure to surface the coordinate's provenance note, got: ${sourcesText}`);
+    });
+  }
+
   await record("Desktop screenshot", async () => {
     await page.screenshot({ path: path.join(output, "desktop.png"), fullPage: true });
   });
