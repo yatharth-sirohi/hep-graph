@@ -99,7 +99,7 @@
   };
   const filterDescription = (f) => {
     const active = { min_authors: 1, min_shared: 1, ...f };
-    return `${teamSizeDescription(active)} · ${active.min_shared} shared work minimum · ${active.year_start || "all years"} to ${active.year_end || "all years"} · ${active.genealogy === false || active.genealogy === "false" ? "PhD excluded" : "PhD included"}`;
+    return `${teamSizeDescription(active)} · ${active.min_shared} shared work minimum · ${active.year_start || "all years"} to ${active.year_end || "all years"} · ${active.genealogy === false || active.genealogy === "false" ? "adviser records excluded" : "adviser records included"}`;
   };
   const remember = (person) => {
     if (person?.id) state.people.set(person.id, person);
@@ -329,7 +329,7 @@
     const changed = state.filterSignature !== null && nextSignature !== state.filterSignature;
     state.filterSignature = nextSignature;
     $("#filter-summary").textContent =
-      `${teamSizeDescription(f)} · ${f.min_shared} shared work${f.min_shared === "1" ? "" : "s"} · ${f.genealogy === "true" ? "PhD included" : "PhD excluded"}`;
+      `${teamSizeDescription(f)} · ${f.min_shared} shared work${f.min_shared === "1" ? "" : "s"} · ${f.genealogy === "true" ? "adviser records included" : "adviser records excluded"}`;
     if (invalidate && changed) {
       invalidateResults();
       clearPreparation();
@@ -393,6 +393,7 @@
   }
 
   function showTab(id) {
+    document.body.dataset.tab = id;
     $$(".tab").forEach((x) => {
       const active = x.dataset.tab === id;
       x.classList.toggle("is-active", active);
@@ -401,6 +402,38 @@
     $$(".view").forEach((x) => x.classList.toggle("is-active", x.id === id));
     // The forest map is fetched the first time it is actually looked at.
     if (id === "lineage-map") ensureLineageMap();
+    const active = $(`.tab[data-tab="${id}"]`);
+    if (active) active.scrollIntoView({ block: "nearest", inline: "nearest" });
+    updateNavFade();
+  }
+
+  /* On a phone the tab strip can overflow; fade whichever edge has more tabs
+     beyond it, so the strip reads as something that scrolls. */
+  function updateNavFade() {
+    const nav = $(".site-header nav");
+    if (!nav) return;
+    const more = nav.scrollWidth - nav.clientWidth;
+    nav.classList.toggle("can-scroll-left", more > 2 && nav.scrollLeft > 2);
+    nav.classList.toggle("can-scroll-right", more > 2 && nav.scrollLeft < more - 2);
+  }
+
+  function setupPageChrome() {
+    document.body.dataset.tab =
+      $(".tab.is-active")?.dataset.tab || "connections";
+    const nav = $(".site-header nav");
+    if (nav) {
+      nav.addEventListener("scroll", updateNavFade, { passive: true });
+      window.addEventListener("resize", updateNavFade);
+      updateNavFade();
+    }
+    const show = $("#show-disclaimer");
+    if (show)
+      show.addEventListener("click", () => {
+        $("#project-disclaimer").classList.add("is-open");
+        $("#project-disclaimer-short").classList.add("is-hidden");
+        show.setAttribute("aria-expanded", "true");
+        $("#project-disclaimer").scrollIntoView({ behavior: "smooth", block: "start" });
+      });
   }
 
   function renderPicker(which) {
@@ -410,11 +443,11 @@
     holder.hidden = !p;
     if (!p) return;
     remember(p);
-    const name = document.createElement("b");
-    name.textContent = personName(p);
-    holder.append(name);
+    // The name stays in the field, where the reader typed it; the line below
+    // carries the identifier and availability instead of repeating the name.
+    $(`#${which}-query`).value = personName(p);
     const sub = document.createElement("span");
-    sub.textContent = ` · ${p.id}`;
+    sub.textContent = `INSPIRE ${p.id}`;
     holder.append(sub);
     const badge = document.createElement("span");
     badge.className = `status ${p.indexed === false ? "unindexed" : "indexed"}`;
@@ -451,7 +484,6 @@
       indexed_publications:
         result.indexed_publications ?? p.indexed_publications,
     });
-    $(`#${which}-query`).value = "";
     $(`#${which}-results`).replaceChildren();
     $(`#${which}-results`).classList.remove("inline-search-notice");
     $(`#${which}-query`).setAttribute("aria-expanded", "false");
@@ -1699,6 +1731,8 @@
         $("#copy-share").hidden = true;
         $("#path-cards").replaceChildren();
         $("#path-title").textContent = "Bounded local neighborhood";
+        $("#graph-stage").classList.remove("is-compact");
+        $("#relation-crosslink")?.remove();
         $("#path-meta").textContent =
           `${lastUpdatedText()} · ${filterDescription(state.displayGraph.filters)} · neighborhood around ${personName(byId(id))} · this display does not define the path calculation.`;
         fitGraph();
@@ -1784,7 +1818,12 @@
     p.textContent = `Connections reflect source records available as of ${updateDate(state.dataset?.source_cutoff || state.dataset?.created_at)}. An absent route does not prove that no connection exists outside this release.`;
     const meta = document.createElement("p");
     meta.className = "muted";
-    meta.textContent = `Completeness: ${coverage.complete ? "declared complete" : "partial / bounded"} · queries recorded: ${(coverage.queries || []).length} · failures recorded: ${(coverage.failures || []).length}`;
+    const works = state.dataset?.counts?.works;
+    meta.textContent = coverage.complete
+      ? `This release holds the whole INSPIRE literature collection as of that date${
+          works ? `: ${Number(works).toLocaleString()} papers eligible for coauthorship` : ""
+        }.`
+      : "This release holds only part of the INSPIRE literature collection, so results may miss connections.";
     card.append(h, p, meta);
   }
   function displayCoverage(coverage) {
@@ -1802,8 +1841,14 @@
         $("#genealogy").checked = false;
         $("#genealogy").disabled = true;
         $("#genealogy-note").textContent = "Not in this release; routes use coauthorship only.";
-        updateFilterSummary({ invalidate: false });
+      } else {
+        // The control shipped disabled while availability was unknown, and
+        // nothing ever switched it on - so no one could use adviser records.
+        $("#genealogy").disabled = false;
+        $("#genealogy-note").textContent =
+          "Adds documented adviser-to-student relations as hops of their own, alongside coauthorship.";
       }
+      updateFilterSummary({ invalidate: false });
       $("#last-updated").textContent = lastUpdatedText();
       displayCoverage(d.coverage);
       clearStatus();
@@ -1942,7 +1987,91 @@
       });
       $("#path-cards").append(card);
     });
+    const people = new Set();
+    (data.paths || []).forEach((path) => (path.people || []).forEach((p) => people.add(String(p.id))));
+    $("#graph-stage").classList.toggle("is-compact", people.size > 0 && people.size <= 7);
     drawPathGraph(data);
+    showAcademicRelation(data);
+  }
+
+  /* ---------------------------------------- the other kind of connection --- */
+
+  /* Coauthorship and supervision are different questions about the same two
+     people. A route result says, in one line, how they are related through
+     advisers too, and opens the full answer on the family map. */
+  async function showAcademicRelation(data) {
+    const old = $("#relation-crosslink");
+    if (old) old.remove();
+    const route = (data.paths || [])[0];
+    if (!route || !state.source || !state.target) return;
+    const a = { id: String(state.source.id), name: personName(state.source) };
+    const b = { id: String(state.target.id), name: personName(state.target) };
+    const box = document.createElement("div");
+    box.id = "relation-crosslink";
+    box.className = "relation-crosslink is-quiet";
+    box.textContent = "Checking adviser records for these two…";
+    $("#path-cards").after(box);
+    const revision = state.revision;
+    let relation;
+    try {
+      relation = await api(`/api/relationship?a=${encodeURIComponent(a.id)}&b=${encodeURIComponent(b.id)}`);
+    } catch {
+      box.remove();
+      return;
+    }
+    if (revision !== state.revision || !box.isConnected) return;
+    box.replaceChildren();
+    if (relation.status === "ok" || relation.status === "connected") {
+      box.classList.remove("is-quiet");
+      const text = document.createElement("span");
+      const term = document.createElement("span");
+      term.className = "relate-term";
+      term.textContent = relation.label;
+      text.append(document.createTextNode("Through adviser records: "), term, document.createTextNode("."));
+      const open = document.createElement("button");
+      open.type = "button";
+      open.className = "secondary-button";
+      open.textContent = "Show on the family map";
+      open.addEventListener("click", () => openRelationshipFinder(a, b));
+      box.append(text, open);
+    } else if (relation.status === "no_relation") {
+      box.textContent = "No chain of adviser records connects these two in this release.";
+    } else {
+      box.textContent = "Adviser records do not include one of these two, so how they are related academically is unknown here.";
+    }
+  }
+
+  function waitForMap(timeout = 30000) {
+    return new Promise((resolve) => {
+      const began = Date.now();
+      const check = () => {
+        if (mapState.status === "ready") return resolve(true);
+        if (["error", "unavailable"].includes(mapState.status) || Date.now() - began > timeout)
+          return resolve(false);
+        setTimeout(check, 150);
+      };
+      check();
+    });
+  }
+
+  async function openRelationshipFinder(a, b) {
+    showTab("lineage-map");
+    $("#relate-form").scrollIntoView({ behavior: "smooth", block: "start" });
+    mapState.relate = { a: { ...a }, b: { ...b } };
+    $("#relate-a").value = a.name;
+    $("#relate-b").value = b.name;
+    $("#relate-run").disabled = false;
+    // The answer needs no map, but lighting the route on it does.
+    await waitForMap();
+    runRelationship({ preventDefault() {} });
+  }
+
+  function openCoauthorRoute(a, b) {
+    choosePerson("source", { id: a.id, name: a.name });
+    choosePerson("target", { id: b.id, name: b.name });
+    showTab("connections");
+    $("#search-form").scrollIntoView({ behavior: "smooth", block: "start" });
+    $("#search-form").requestSubmit();
   }
   function fitGraph() {
     const ns = [...state.graph.nodes.values()];
@@ -1996,7 +2125,7 @@
       title.className = "profile-title";
       h.textContent = personName(p);
       meta.className = "profile-meta";
-      meta.textContent = `${p.id}${p.profile_status === "literature_only" ? " · literature only" : ""}${p.orcid ? ` · ORCID ${p.orcid}` : ""}${p.affiliations?.length ? ` · Affiliations reported in retrieved sources: ${p.affiliations.join("; ")}` : " · Affiliations reported in retrieved sources: not supplied"}`;
+      meta.textContent = `${p.id}${p.profile_status === "literature_only" ? " · no INSPIRE author profile" : ""}${p.orcid ? ` · ORCID ${p.orcid}` : ""}${p.affiliations?.length ? ` · Affiliations reported in retrieved sources: ${p.affiliations.join("; ")}` : " · Affiliations reported in retrieved sources: not supplied"}`;
       title.append(h, meta);
       if (p.source_url)
         title.append(link("Open source profile ↗", p.source_url));
@@ -2199,18 +2328,16 @@
     holder.replaceChildren();
     holder.hidden = !state.lineage;
     if (!state.lineage) return;
-    const name = document.createElement("b");
-    name.textContent = personName(state.lineage);
+    $("#lineage-query").value = personName(state.lineage);
     const sub = document.createElement("span");
-    sub.textContent = ` · ${state.lineage.id}`;
-    holder.append(name, sub);
+    sub.textContent = `INSPIRE ${state.lineage.id}`;
+    holder.append(sub);
   }
   function setLineageRoot(person) {
     if (!person?.id) return;
     // A lineage entry without a name must not overwrite a known profile.
     const known = state.people.get(String(person.id));
     state.lineage = person.name ? remember({ ...person }) : known || person;
-    $("#lineage-query").value = "";
     $("#lineage-results").replaceChildren();
     $("#lineage-results").classList.remove("inline-search-notice");
     $("#lineage-query").setAttribute("aria-expanded", "false");
@@ -2606,12 +2733,6 @@
   state.map = mapState;
   const mapClamp = (v, lo, hi) => (v < lo ? lo : v > hi ? hi : v);
   const mapCount = (value) => Number(value || 0).toLocaleString();
-  const mapZoomText = () => {
-    const factor = mapState.view.scale / (mapState.fitScale || 1);
-    return factor >= 9.5
-      ? `${Math.round(factor)}× the whole forest`
-      : `${factor.toFixed(1)}× the whole forest`;
-  };
   const mapNodeName = (i) =>
     mapState.names && mapState.names[i]
       ? mapState.names[i]
@@ -2892,9 +3013,10 @@
     for (let k = 1; k < sample.length; k += 1)
       if (sample[k] - sample[k - 1] > 0) colGaps.push(sample[k] - sample[k - 1]);
     colGaps.sort((a, b) => a - b);
-    const colSpacing = colGaps.length
-      ? colGaps[Math.floor(colGaps.length / 2)]
-      : rowSpacing;
+    // The narrowest gap, not the typical one: neighbours one column apart are
+    // common, and a box sized to the median overlapped them wherever the map
+    // was zoomed in far enough to read.
+    const colSpacing = colGaps.length ? colGaps[0] : rowSpacing;
     m.rowSpacing = rowSpacing;
     // Boxes never grow wider than the gap to the next sibling, so they cannot
     // collide however dense or sparse the layout is.
@@ -3001,15 +3123,29 @@
   // whole extent fits the screen only as a hairline. Opening on the height
   // instead shows every generation at once, anchored at the left edge where the
   // largest tree begins, so the first thing a reader sees is a tree.
+  /* The first view is a readable piece of a tree, with names drawn: the
+     person with the most recorded students, framed from a little above them
+     so their students fill the space below. "Fit to screen" still shows the
+     whole forest at once. */
   function openMapView() {
     const m = mapState;
     fitMapView();
     if (m.status !== "ready" || !m.w || !m.h) return;
-    const spanY = Math.max(1e-6, m.maxY - m.minY + m.nodeH * 4);
-    const scale = mapClamp((m.h - 24) / spanY, m.minScale, m.maxScale);
-    m.view.scale = scale;
-    m.view.tx = 16 + m.nodeW * scale - m.minX * scale;
-    m.view.ty = m.h / 2 - ((m.minY + m.maxY) / 2) * scale;
+    let start = -1;
+    let most = 0;
+    for (let i = 0; i < m.count; i += 1) {
+      const students = m.childOff[i + 1] - m.childOff[i];
+      if (students > most) {
+        most = students;
+        start = i;
+      }
+    }
+    if (start < 0) return;
+    // Wide enough that most names fit whole, not merely wide enough to draw.
+    const readable = mapClamp(128 / Math.max(1e-6, m.nodeW), m.minScale, m.maxScale);
+    m.view.scale = readable;
+    m.view.tx = m.w / 2 - m.xs[start] * readable;
+    m.view.ty = Math.min(m.h * 0.28, 90) - m.ys[start] * readable;
     scheduleMapDraw();
   }
 
@@ -3510,6 +3646,9 @@
     const alt = $("#map-alt");
     if (!alt) return;
     if (m.status !== "ready") return;
+    // Count what is in view now: before the first frame the visible set is
+    // still empty, which read as "covers 0" over a screen full of boxes.
+    if (m.w && m.h) collectVisible();
     const people = m.counts?.people ?? m.count;
     const relations = m.counts?.relations ?? m.edgeCount;
     const components = m.counts?.components;
@@ -3519,7 +3658,7 @@
           ? `, in ${mapCount(components)} separate family trees`
           : ""
       }. Advisers sit above their students, one row per generation.`,
-      `The view is magnified ${mapZoomText()} and covers ${mapCount(m.visCount)} of them; names are ${m.labelsShown ? "drawn on the boxes" : "hidden until you zoom in further"}.`,
+      `${mapCount(m.visCount)} of them are in view; names are ${m.labelsShown ? "drawn on the boxes" : "hidden until you zoom in further"}.`,
     ];
     if (m.selection >= 0) {
       const i = m.selection;
@@ -3538,8 +3677,8 @@
   function renderMapZoomReadout() {
     const readout = $("#map-zoom-readout");
     if (readout)
-      readout.textContent = `Zoom ${mapZoomText()} · ${
-        mapState.labelsShown ? "names shown" : "names appear as you zoom in"
+      readout.textContent = `${mapCount(mapState.visCount)} people in view · ${
+        mapState.labelsShown ? "names shown" : "zoom in to read names"
       }`;
   }
 
@@ -3874,6 +4013,7 @@
     box.hidden = false;
     const enable = (on) => {
       m.time.on = on;
+      box.classList.toggle("is-on", on);
       [slider, undated, play].forEach((control) => { control.disabled = !on; });
       if (!on) stopMapPlayback();
       refreshMapTime();
@@ -4101,7 +4241,13 @@
     box.append(verdict, note);
 
     const chain = data.chain || [];
-    if (!chain.length) return;
+    if (!chain.length) {
+      // Two people with no adviser chain between them may still have written
+      // together, and that is the more useful next question.
+      const coauthor = coauthorCrosslink(a, b);
+      if (coauthor) box.append(coauthor);
+      return;
+    }
     const list = document.createElement("ol");
     list.className = "relate-chain";
     chain.forEach((step, index) => {
@@ -4151,6 +4297,8 @@
     }
 
     box.append(connectorSection());
+    const coauthor = coauthorCrosslink(a, b);
+    if (coauthor) box.append(coauthor);
 
     if (mapState.pathSpread) {
       const spread = document.createElement("p");
@@ -4223,6 +4371,20 @@
       svg.append(dot, text);
     });
     return svg;
+  }
+
+  function coauthorCrosslink(a, b) {
+    if (!a || !b || a.id === b.id) return null;
+    const other = document.createElement("div");
+    other.className = "relation-crosslink is-quiet";
+    other.append(document.createTextNode("Coauthorship is a separate question. "));
+    const go = document.createElement("button");
+    go.type = "button";
+    go.className = "secondary-button";
+    go.textContent = "Find a coauthor route between them";
+    go.addEventListener("click", () => openCoauthorRoute(a, b));
+    other.append(go);
+    return other;
   }
 
   function connectorSection() {
@@ -4490,6 +4652,7 @@
   }
 
   function init() {
+    setupPageChrome();
     restoreUrl();
     setupSearch("source");
     setupSearch("target");
@@ -4528,8 +4691,10 @@
     $("#swap-people").addEventListener("click", () => {
       invalidateResults();
       [state.source, state.target] = [state.target, state.source];
-      renderPicker("source");
-      renderPicker("target");
+      ["source", "target"].forEach((which) => {
+        if (!state[which]) $(`#${which}-query`).value = "";
+        renderPicker(which);
+      });
       syncUrl();
     });
     $("#paper-team-size").addEventListener("change", () => {

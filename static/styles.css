@@ -1611,3 +1611,119 @@ footer {
   gap: 10px;
   margin-top: 8px;
 }
+
+/* ------------------------------------------------------ review fixes */
+.data-date {
+  margin-top: 6px;
+  font-size: 13px;
+  color: var(--muted, #60737c);
+}
+.query-actions {
+  justify-content: flex-end;
+}
+
+/* The full notice belongs to the home view; elsewhere one line links to it. */
+.disclaimer-short {
+  display: none;
+  margin-top: 40px;
+  font-size: 13px;
+}
+body:not([data-tab="connections"]) #project-disclaimer:not(.is-open) {
+  display: none;
+}
+body:not([data-tab="connections"]) .disclaimer-short:not(.is-hidden) {
+  display: block;
+}
+.link-button {
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.tab-short {
+  display: none;
+}
+
+/* A picked person keeps their name in the field; the line beneath carries the
+   identifier and availability rather than repeating the name. */
+.selection {
+  font-size: 13px;
+}
+
+/* Short routes do not need a tall canvas. */
+.graph-stage.is-compact {
+  height: 260px;
+}
+
+.relation-crosslink {
+  margin-top: 14px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: #eef6f5;
+  border: 1px solid #cfe6e3;
+  font-size: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 14px;
+}
+.relation-crosslink .relate-term {
+  font-weight: 650;
+  color: #0f6f6a;
+}
+.relation-crosslink.is-quiet {
+  background: transparent;
+  border-color: var(--line, #dbe4e9);
+  color: #4a626e;
+}
+
+@media (max-width: 600px) {
+  .snapshot-label {
+    display: none;
+  }
+  .tab-long {
+    display: none;
+  }
+  .tab-short {
+    display: inline;
+  }
+  /* The tab strip can still overflow on a narrow phone; fade the edge that
+     has more tabs past it, so it reads as a strip that scrolls. */
+  .site-header nav.can-scroll-right {
+    -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 32px), transparent);
+    mask-image: linear-gradient(to right, #000 calc(100% - 32px), transparent);
+  }
+  .site-header nav.can-scroll-left {
+    -webkit-mask-image: linear-gradient(to left, #000 calc(100% - 32px), transparent);
+    mask-image: linear-gradient(to left, #000 calc(100% - 32px), transparent);
+  }
+  .site-header nav.can-scroll-left.can-scroll-right {
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 32px, #000 calc(100% - 32px), transparent);
+    mask-image: linear-gradient(to right, transparent, #000 32px, #000 calc(100% - 32px), transparent);
+  }
+
+  /* The map is the point of the tab: keep the timeline to one line until it
+     is switched on, and give the canvas most of the screen. */
+  .map-timeline:not(.is-on) .map-timeline-controls,
+  .map-timeline:not(.is-on) .map-timeline-note {
+    display: none;
+  }
+  .map-timeline {
+    padding: 8px 12px;
+  }
+  .map-stage {
+    height: 62vh;
+    min-height: 360px;
+  }
+}
+
+/* A generic input rule stretched the checkbox across half the card, leaving
+   it stranded far from its own label. */
+.toggle-field input[type="checkbox"] {
+  width: auto;
+  flex: 0 0 auto;
+}
