@@ -53,6 +53,9 @@
       "document_ids": [],
       "facility_id": "facility:fermilab",
       "feeds_accelerator_ids": [],
+      "geometry_map_ids": [
+        "map:fermilab"
+      ],
       "id": "accelerator:fermilab-main-injector",
       "is_collider": false,
       "kind": "synchrotron",
@@ -536,6 +539,9 @@
       "facility_id": "facility:fermilab",
       "far_detector_site_ids": [
         "site:surf-dune-caverns"
+      ],
+      "geometry_map_ids": [
+        "map:fermilab"
       ],
       "id": "beamline:lbnf",
       "name": "LBNF neutrino beamline",
@@ -1434,6 +1440,9 @@
       "experiment_ids": [
         "experiment:dune"
       ],
+      "geometry_map_ids": [
+        "map:fermilab"
+      ],
       "id": "detector:dune-nd-lar",
       "name": "DUNE near detector, ND-LAr",
       "open_ended": true,
@@ -1844,6 +1853,9 @@
       "document_ids": [],
       "experiment_ids": [
         "experiment:sbnd"
+      ],
+      "geometry_map_ids": [
+        "map:fermilab"
       ],
       "id": "detector:sbnd",
       "name": "SBND detector",
@@ -4265,6 +4277,7 @@
       "links": {
         "website": "https://www.fnal.gov/"
       },
+      "map_id": "map:fermilab",
       "name": "Fermilab",
       "open_ended": true,
       "operator": "Fermi Forward Discovery Group for the U.S. Department of Energy",
@@ -4561,6 +4574,88 @@
       "experiment:icarus"
     ]
   ],
+  "maps": {
+    "map:fermilab": {
+      "attribution": [
+        "© OpenStreetMap contributors (ODbL)"
+      ],
+      "bundle": "geometry/fermilab.json",
+      "center": {
+        "lat": 41.84,
+        "lon": -88.26
+      },
+      "coverage": {
+        "researched": "partial",
+        "tier": "A"
+      },
+      "extent_m": 3000,
+      "facility_id": "facility:fermilab",
+      "feature_count": 6,
+      "id": "map:fermilab",
+      "levels": [
+        {
+          "depth_m": null,
+          "id": "surface",
+          "kind": "surface",
+          "name": "Surface"
+        },
+        {
+          "depth_m": {
+            "confidence": "approximate",
+            "dimension": "length",
+            "display": "≈ 8 m",
+            "quote": "The Main Injector runs in a shallow earth-covered enclosure.",
+            "sources": [
+              "src:fermilab-about"
+            ],
+            "unit": "m",
+            "value": 8,
+            "verified_at": "2026-09-16"
+          },
+          "id": "mi-tunnel",
+          "kind": "underground",
+          "name": "Main Injector tunnel (≈ 8 m below surface)"
+        },
+        {
+          "depth_m": {
+            "confidence": "approximate",
+            "dimension": "length",
+            "display": "60 m",
+            "quote": "The near detector hall sits about 60 m below the Fermilab site.",
+            "sources": [
+              "src:fermilab-about"
+            ],
+            "unit": "m",
+            "value": 60,
+            "verified_at": "2026-09-16"
+          },
+          "id": "nd-cavern",
+          "kind": "underground",
+          "name": "LBNF near-detector cavern (60 m below surface)"
+        }
+      ],
+      "linked_map_ids": [],
+      "name": "Fermilab — Batavia campus (development fixture)",
+      "site_ids": [
+        "site:fermilab-batavia",
+        "site:fermilab-icarus-hall",
+        "site:fermilab-minos-hall",
+        "site:fermilab-nd-hall",
+        "site:fermilab-sbnd-hall"
+      ],
+      "state_segments": [
+        [
+          214,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
+      "to_scale_count": 5,
+      "unlocated_count": 1
+    }
+  },
   "schema": "hep-atlas/0.2",
   "sites": {
     "site:cern-lhc-point-1": {
@@ -4719,6 +4814,7 @@
       "id": "site:fermilab-batavia",
       "lat": 41.8319,
       "lon": -88.2569,
+      "map_id": "map:fermilab",
       "name": "Fermilab Batavia site",
       "open_ended": true,
       "place": {
@@ -4749,6 +4845,7 @@
       "id": "site:fermilab-icarus-hall",
       "lat": 41.845,
       "lon": -88.279,
+      "map_id": "map:fermilab",
       "name": "ICARUS detector hall",
       "open_ended": true,
       "place": {
@@ -4786,6 +4883,7 @@
       "id": "site:fermilab-minos-hall",
       "lat": 41.838,
       "lon": -88.265,
+      "map_id": "map:fermilab",
       "name": "MINOS near detector hall",
       "open_ended": true,
       "place": {
@@ -4823,6 +4921,7 @@
       "id": "site:fermilab-nd-hall",
       "lat": 41.832,
       "lon": -88.262,
+      "map_id": "map:fermilab",
       "name": "LBNF near detector hall",
       "open_ended": true,
       "place": {
@@ -4860,6 +4959,7 @@
       "id": "site:fermilab-sbnd-hall",
       "lat": 41.84,
       "lon": -88.274,
+      "map_id": "map:fermilab",
       "name": "SBND detector hall",
       "open_ended": true,
       "place": {
