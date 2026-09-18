@@ -373,7 +373,7 @@ Source: a local `pytest -q` log (outside the repository tree, path not recorded)
 
 | Outcome | Count |
 | --- | ---: |
-| passed | 658 |
+| passed | 659 |
 | skipped | 145 |
 
 ### 8.6 Browser test results
