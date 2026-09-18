@@ -1,71 +1,100 @@
 {
-  "id": "facility:pierre-auger-observatory",
-  "type": "facility",
-  "schema": "hep-atlas/0.2",
-  "name": "Pierre Auger Observatory",
-  "aliases": ["Auger Observatory", "Observatorio Pierre Auger"],
+  "aliases": [
+    "Auger Observatory",
+    "Observatorio Pierre Auger"
+  ],
+  "countries": [
+    "AR"
+  ],
+  "country": [
+    "AR"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
   "distinct_from": [],
-  "superseded_by": null,
-  "kind": "astroparticle_observatory",
-  "operator": null,
-  "operator_text": null,
-  "operator_ids": [],
-  "country": ["AR"],
-  "countries": ["AR"],
-  "primary_site_id": "site:malargue-auger",
+  "id": "facility:pierre-auger-observatory",
   "intervals": [
     {
-      "label": "construction",
-      "status": "construction",
-      "start": "2000",
-      "end": "2008-11",
-      "sources": ["src:cosmic-gamma-auger-official-history-page"],
-      "verified_at": "2026-09-17",
       "confidence": "verified",
+      "end": "2008-11",
+      "label": "construction",
+      "note": "",
       "quote": "Beginning of the construction of the observatory.",
-      "note": ""
+      "sources": [
+        "src:cosmic-gamma-auger-official-history-page"
+      ],
+      "start": "2000",
+      "status": "construction",
+      "verified_at": "2026-09-17"
     },
     {
-      "label": "operations",
-      "status": "active",
-      "start": "2008-11",
+      "confidence": "verified",
       "end": null,
-      "sources": ["src:cosmic-gamma-auger-official-history-page"],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
+      "label": "operations",
+      "note": "Continuously operating since the November 2008 inauguration; the AugerPrime upgrade (2015-) proceeds concurrently with data taking. See experiment:pierre-auger-observatory for the richer history (partial-array data taking began in 2004, before the full 1660-tank array was complete).",
       "quote": "Inauguration in Malargüe",
-      "note": "Continuously operating since the November 2008 inauguration; the AugerPrime upgrade (2015-) proceeds concurrently with data taking. See experiment:pierre-auger-observatory for the richer history (partial-array data taking began in 2004, before the full 1660-tank array was complete)."
+      "sources": [
+        "src:cosmic-gamma-auger-official-history-page"
+      ],
+      "start": "2008-11",
+      "status": "active",
+      "verified_at": "2026-09-17"
     }
   ],
-  "status": "active",
-  "specs": {
-    "area": {
-      "value": 3000,
-      "unit": "km^2",
-      "dimension": "area",
-      "approx": false,
-      "display": "3000 km²",
-      "sources": ["src:cosmic-gamma-auger-official-observatory-page"],
-      "verified_at": "2026-09-17",
+  "kind": "astroparticle_observatory",
+  "links": {
+    "website": {
       "confidence": "verified",
-      "quote": "3000 km2 array of 1660 particle detectors",
-      "note": ""
+      "note": "",
+      "sources": [
+        "src:cosmic-gamma-auger-official-observatory-page"
+      ],
+      "value": "https://www.auger.org/",
+      "verified_at": "2026-09-17"
     }
   },
-  "topic_ids": ["topic:cosmic-rays", "topic:multimessenger-astrophysics"],
-  "related_facility_ids": [],
-  "summary": {
-    "plain": "A giant outdoor laboratory in the Argentine pampas that catches ultra-high-energy cosmic rays: tanks of water spread over an area the size of Rhode Island, watched by telescopes that see the faint light of particle showers in the night sky.",
-    "technical": "Hybrid ultra-high-energy cosmic-ray observatory in Mendoza Province, Argentina, combining a 3000 km^2 surface array of 1660 water-Cherenkov detector stations with 27 fluorescence telescopes in four buildings overlooking the array; operated by the international Pierre Auger Collaboration since inauguration in November 2008, currently undergoing the AugerPrime upgrade."
-  },
-  "sources": [
-    "src:cosmic-gamma-auger-official-observatory-page",
-    "src:cosmic-gamma-auger-official-history-page"
-  ],
-  "links": {"website": {"value": "https://www.auger.org/", "sources": ["src:cosmic-gamma-auger-official-observatory-page"], "verified_at": "2026-09-17", "confidence": "verified", "note": ""}},
+  "name": "Pierre Auger Observatory",
   "notes": [
     "site_ids, accelerator_ids, beamline_ids, institution_id, document_ids, experiment_ids are deliberately not written (v0.2 A1 derived fields).",
     "operator/operator_text left null: no fetched source names a distinct legal operator; the Observatory is run by the international Pierre Auger Collaboration itself."
   ],
-  "coverage": {"tier": "B", "researched": "partial"}
+  "operator": null,
+  "operator_ids": [],
+  "operator_text": null,
+  "primary_site_id": "site:malargue-auger",
+  "related_facility_ids": [],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:cosmic-gamma-auger-official-observatory-page",
+    "src:cosmic-gamma-auger-official-history-page"
+  ],
+  "specs": {
+    "area": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "area",
+      "display": "3000 km²",
+      "note": "",
+      "quote": "3000 km2 array of 1660 particle detectors",
+      "sources": [
+        "src:cosmic-gamma-auger-official-observatory-page"
+      ],
+      "unit": "km^2",
+      "value": 3000,
+      "verified_at": "2026-09-17"
+    }
+  },
+  "status": "active",
+  "summary": {
+    "plain": "A giant outdoor laboratory in the Argentine pampas that catches ultra-high-energy cosmic rays: tanks of water spread over an area the size of Rhode Island, watched by telescopes that see the faint light of particle showers in the night sky.",
+    "technical": "Hybrid ultra-high-energy cosmic-ray observatory in Mendoza Province, Argentina, combining a 3000 km^2 surface array of 1660 water-Cherenkov detector stations with 27 fluorescence telescopes in four buildings overlooking the array; operated by the international Pierre Auger Collaboration since inauguration in November 2008, currently undergoing the AugerPrime upgrade."
+  },
+  "superseded_by": null,
+  "topic_ids": [
+    "topic:cosmic-rays",
+    "topic:multimessenger-astrophysics"
+  ],
+  "type": "facility"
 }

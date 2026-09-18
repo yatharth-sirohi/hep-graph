@@ -1,101 +1,151 @@
 {
-  "id": "detector:h-e-s-s",
-  "type": "detector",
-  "schema": "hep-atlas/0.2",
-  "name": "H.E.S.S. telescope array",
   "aliases": [],
-  "distinct_from": [],
-  "superseded_by": null,
-  "experiment_ids": ["experiment:h-e-s-s"],
-  "placements": [
-    {
-      "site_id": "site:khomas-highland-hess",
-      "role": "main",
-      "start": "2002",
-      "end": null,
-      "sources": ["src:cosmic-gamma-hess-official-about-page"],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
-      "quote": "Since its first light in 2002, H.E.S.S. has provided groundbreaking insights",
-      "note": ""
-    }
-  ],
-  "parent_detector_id": null,
-  "technology": {
-    "value": "Hybrid array of four 12 m and one 28 m imaging atmospheric Cherenkov telescopes.",
-    "sources": ["src:cosmic-gamma-hess-official-about-page"],
-    "verified_at": "2026-09-17",
-    "confidence": "verified",
-    "quote": "Four 12-m telescopes surround a central 28-m telescope — the largest of its kind",
-    "note": ""
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
   },
-  "technology_class": "imaging_atmospheric_cherenkov",
-  "technology_classes": ["imaging_atmospheric_cherenkov"],
+  "distinct_from": [],
+  "experiment_ids": [
+    "experiment:h-e-s-s"
+  ],
+  "id": "detector:h-e-s-s",
   "intervals": [
     {
-      "label": "four-telescope (Phase I) operations",
-      "status": "active",
-      "start": "2002",
-      "end": null,
-      "sources": ["src:cosmic-gamma-hess-official-about-page"],
-      "verified_at": "2026-09-17",
       "confidence": "verified",
+      "end": null,
+      "label": "four-telescope (Phase I) operations",
+      "note": "",
       "quote": "Since its first light in 2002, H.E.S.S. has provided groundbreaking insights",
-      "note": ""
+      "sources": [
+        "src:cosmic-gamma-hess-official-about-page"
+      ],
+      "start": "2002",
+      "status": "active",
+      "verified_at": "2026-09-17"
     },
     {
-      "label": "CT5 (28 m telescope) added",
-      "status": "upgrade",
-      "start": null,
-      "end": null,
-      "sources": ["src:cosmic-gamma-hess-official-about-page"],
-      "verified_at": "2026-09-17",
       "confidence": "uncertain",
+      "end": null,
+      "label": "CT5 (28 m telescope) added",
       "locator": "hess-experiment.eu/about-hess/ (describes the 5-telescope configuration but not a commissioning date)",
-      "note": "Commissioning date not sourced this session; publicly reported elsewhere as 2012 but not confirmed by a fetched source."
+      "note": "Commissioning date not sourced this session; publicly reported elsewhere as 2012 but not confirmed by a fetched source.",
+      "sources": [
+        "src:cosmic-gamma-hess-official-about-page"
+      ],
+      "start": null,
+      "status": "upgrade",
+      "verified_at": "2026-09-17"
     }
   ],
-  "status": "active",
-  "specs": {
-    "telescope_count": {"value": 5, "unit": "", "dimension": "count", "approx": false, "display": "5 telescopes (4 x 12 m + 1 x 28 m)", "sources": ["src:cosmic-gamma-hess-official-about-page"], "verified_at": "2026-09-17", "confidence": "verified", "quote": "Four 12-m telescopes surround a central 28-m telescope", "note": ""},
-    "altitude": {"value": 1800, "unit": "m", "dimension": "length", "approx": false, "display": "1800 m", "sources": ["src:cosmic-gamma-hess-official-site-page"], "verified_at": "2026-09-17", "confidence": "verified", "quote": "at about 1,800 m above sea level", "note": ""}
+  "links": {
+    "website": null
   },
+  "name": "H.E.S.S. telescope array",
+  "notes": [
+    "document_ids deliberately not written (v0.2 A1 derived field)."
+  ],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "note": "",
+      "quote": "Since its first light in 2002, H.E.S.S. has provided groundbreaking insights",
+      "role": "main",
+      "site_id": "site:khomas-highland-hess",
+      "sources": [
+        "src:cosmic-gamma-hess-official-about-page"
+      ],
+      "start": "2002",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:cosmic-gamma-hess-official-about-page",
+    "src:cosmic-gamma-hess-official-site-page"
+  ],
+  "specs": {
+    "altitude": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "1800 m",
+      "note": "",
+      "quote": "at about 1,800 m above sea level",
+      "sources": [
+        "src:cosmic-gamma-hess-official-site-page"
+      ],
+      "unit": "m",
+      "value": 1800,
+      "verified_at": "2026-09-17"
+    },
+    "telescope_count": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "count",
+      "display": "5 telescopes (4 x 12 m + 1 x 28 m)",
+      "note": "",
+      "quote": "Four 12-m telescopes surround a central 28-m telescope",
+      "sources": [
+        "src:cosmic-gamma-hess-official-about-page"
+      ],
+      "unit": "",
+      "value": 5,
+      "verified_at": "2026-09-17"
+    }
+  },
+  "status": "active",
   "subsystems": [
     {
-      "name": "Phase I telescopes (CT1-CT4)",
       "description": [
         {
-          "value": "Four 12 m diameter imaging atmospheric Cherenkov telescopes arranged in a square, in operation since first light in 2002.",
-          "sources": ["src:cosmic-gamma-hess-official-about-page"],
-          "verified_at": "2026-09-17",
           "confidence": "verified",
+          "note": "",
           "quote": "Four 12-m telescopes surround a central 28-m telescope",
-          "note": ""
+          "sources": [
+            "src:cosmic-gamma-hess-official-about-page"
+          ],
+          "value": "Four 12 m diameter imaging atmospheric Cherenkov telescopes arranged in a square, in operation since first light in 2002.",
+          "verified_at": "2026-09-17"
         }
-      ]
+      ],
+      "name": "Phase I telescopes (CT1-CT4)"
     },
     {
-      "name": "CT5 (28 m telescope)",
       "description": [
         {
-          "value": "A 28 m diameter telescope at the centre of the CT1-CT4 square, the largest Cherenkov telescope of its kind, lowering the array's energy threshold.",
-          "sources": ["src:cosmic-gamma-hess-official-about-page"],
-          "verified_at": "2026-09-17",
           "confidence": "verified",
+          "note": "",
           "quote": "a central 28-m telescope — the largest of its kind",
-          "note": ""
+          "sources": [
+            "src:cosmic-gamma-hess-official-about-page"
+          ],
+          "value": "A 28 m diameter telescope at the centre of the CT1-CT4 square, the largest Cherenkov telescope of its kind, lowering the array's energy threshold.",
+          "verified_at": "2026-09-17"
         }
-      ]
+      ],
+      "name": "CT5 (28 m telescope)"
     }
   ],
   "summary": {
     "plain": "Five telescopes on a Namibian farm: four medium-sized ones in a square around one giant telescope, together watching for the blue flicker of light that gamma rays make hitting the atmosphere.",
     "technical": "Hybrid imaging-atmospheric-Cherenkov array: four 12 m telescopes (since 2002) plus a central 28 m telescope (CT5, commissioning date not sourced this session) at 1800 m in the Khomas Highland, Namibia."
   },
-  "sources": ["src:cosmic-gamma-hess-official-about-page", "src:cosmic-gamma-hess-official-site-page"],
-  "links": {"website": null},
-  "notes": [
-    "document_ids deliberately not written (v0.2 A1 derived field)."
+  "superseded_by": null,
+  "technology": {
+    "confidence": "verified",
+    "note": "",
+    "quote": "Four 12-m telescopes surround a central 28-m telescope — the largest of its kind",
+    "sources": [
+      "src:cosmic-gamma-hess-official-about-page"
+    ],
+    "value": "Hybrid array of four 12 m and one 28 m imaging atmospheric Cherenkov telescopes.",
+    "verified_at": "2026-09-17"
+  },
+  "technology_class": "imaging_atmospheric_cherenkov",
+  "technology_classes": [
+    "imaging_atmospheric_cherenkov"
   ],
-  "coverage": {"tier": "B", "researched": "partial"}
+  "type": "detector"
 }

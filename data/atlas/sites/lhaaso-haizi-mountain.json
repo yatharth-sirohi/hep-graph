@@ -1,37 +1,67 @@
 {
-  "id": "site:lhaaso-haizi-mountain",
-  "type": "site",
-  "schema": "hep-atlas/0.2",
-  "name": "LHAASO array site, Haizi Mountain",
   "aliases": [],
-  "distinct_from": [],
-  "superseded_by": null,
-  "facility_id": "facility:lhaaso-daocheng",
-  "coordinates": {
-    "lat": 29.3856960,
-    "lon": 100.1483762,
-    "precision_m": 5000,
-    "kind": "campus",
-    "sources": ["src:cosmic-gamma-lhaaso-science-book-arxiv-2019", "src:cosmic-gamma-nominatim-haizi-mountain"],
-    "verified_at": "2026-09-17",
-    "confidence": "approximate",
-    "quote": "located in Daocheng, Sichuan province of China, at an altitude of 4410 meters",
-    "note": "Coordinates are a geocode of a point on the Haizi Mountain route in Daocheng County (a rest area/viewpoint near the range where LHAASO sits), used as an approximate anchor per A23, not the array's own surveyed centre. The IHEP LHAASO site's dedicated 'Site' page returned no readable content this session (JavaScript-rendered), so no official decimal coordinates were fetched."
+  "altitude": {
+    "approx": false,
+    "confidence": "verified",
+    "dimension": "length",
+    "display": "4410 m",
+    "note": "",
+    "quote": "at an altitude of 4410 meters",
+    "sources": [
+      "src:cosmic-gamma-lhaaso-science-book-arxiv-2019"
+    ],
+    "unit": "m",
+    "value": 4410,
+    "verified_at": "2026-09-17"
   },
-  "setting": "mountain",
-  "depth": null,
-  "depth_rock": null,
-  "depth_mwe": null,
-  "altitude": {"value": 4410, "unit": "m", "dimension": "length", "approx": false, "display": "4410 m", "sources": ["src:cosmic-gamma-lhaaso-science-book-arxiv-2019"], "verified_at": "2026-09-17", "confidence": "verified", "quote": "at an altitude of 4410 meters", "note": ""},
+  "coordinates": {
+    "confidence": "approximate",
+    "kind": "campus",
+    "lat": 29.385696,
+    "lon": 100.1483762,
+    "note": "Coordinates are a geocode of a point on the Haizi Mountain route in Daocheng County (a rest area/viewpoint near the range where LHAASO sits), used as an approximate anchor per A23, not the array's own surveyed centre. The IHEP LHAASO site's dedicated 'Site' page returned no readable content this session (JavaScript-rendered), so no official decimal coordinates were fetched.",
+    "precision_m": 5000,
+    "quote": "located in Daocheng, Sichuan province of China, at an altitude of 4410 meters",
+    "sources": [
+      "src:cosmic-gamma-lhaaso-science-book-arxiv-2019",
+      "src:cosmic-gamma-nominatim-haizi-mountain"
+    ],
+    "verified_at": "2026-09-17"
+  },
+  "countries": [
+    "CN"
+  ],
   "country": "CN",
-  "countries": ["CN"],
-  "place": {"city": "Daocheng", "region": "Sichuan", "country": "CN"},
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "depth": null,
+  "depth_mwe": null,
+  "depth_rock": null,
+  "distinct_from": [],
+  "facility_id": "facility:lhaaso-daocheng",
+  "id": "site:lhaaso-haizi-mountain",
+  "links": {
+    "website": null
+  },
+  "name": "LHAASO array site, Haizi Mountain",
+  "notes": [],
+  "place": {
+    "city": "Daocheng",
+    "country": "CN",
+    "region": "Sichuan"
+  },
+  "schema": "hep-atlas/0.2",
+  "setting": "mountain",
+  "sources": [
+    "src:cosmic-gamma-lhaaso-science-book-arxiv-2019",
+    "src:cosmic-gamma-nominatim-haizi-mountain"
+  ],
   "summary": {
     "plain": "The high slopes of Haizi Mountain in Daocheng County, Sichuan, China, where LHAASO's ground detectors are spread out to catch cosmic-ray and gamma-ray air showers.",
     "technical": "LHAASO array site on Haizi Mountain, Daocheng County, Sichuan, China, at 4410 m altitude."
   },
-  "sources": ["src:cosmic-gamma-lhaaso-science-book-arxiv-2019", "src:cosmic-gamma-nominatim-haizi-mountain"],
-  "links": {"website": null},
-  "notes": [],
-  "coverage": {"tier": "B", "researched": "partial"}
+  "superseded_by": null,
+  "type": "site"
 }

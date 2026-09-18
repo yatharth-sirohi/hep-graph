@@ -1,120 +1,180 @@
 {
-  "id": "detector:pierre-auger-observatory",
-  "type": "detector",
-  "schema": "hep-atlas/0.2",
-  "name": "Pierre Auger Observatory hybrid detector",
   "aliases": [],
-  "distinct_from": [],
-  "superseded_by": null,
-  "experiment_ids": ["experiment:pierre-auger-observatory"],
-  "placements": [
-    {
-      "site_id": "site:malargue-auger",
-      "role": "main",
-      "start": "2000",
-      "end": null,
-      "sources": ["src:cosmic-gamma-auger-official-history-page"],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
-      "quote": "Beginning of the construction of the observatory.",
-      "note": "Placement point is the Observatory campus; the physical array of stations is spread over the surrounding 3000 km^2 (see site:malargue-auger notes)."
-    }
-  ],
-  "parent_detector_id": null,
-  "technology": {
-    "value": "Hybrid detector: a surface array of water-Cherenkov tanks sampling air-shower particles at ground level, cross-checked by fluorescence telescopes imaging ultraviolet light from the shower's longitudinal development.",
-    "sources": ["src:cosmic-gamma-auger-official-observatory-page"],
-    "verified_at": "2026-09-17",
-    "confidence": "verified",
-    "quote": "one using water placed in surface detector tanks... another tracking the development of air showers by observing ultraviolet light emitted high in the Earth's atmosphere",
-    "note": ""
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
   },
-  "technology_class": "air_shower_array",
-  "technology_classes": ["air_shower_array"],
+  "distinct_from": [],
+  "experiment_ids": [
+    "experiment:pierre-auger-observatory"
+  ],
+  "id": "detector:pierre-auger-observatory",
   "intervals": [
     {
-      "label": "construction",
-      "status": "construction",
-      "start": "2000",
+      "confidence": "verified",
       "end": "2008-11",
-      "sources": ["src:cosmic-gamma-auger-official-history-page"],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
+      "label": "construction",
+      "note": "",
       "quote": "Beginning of the construction of the observatory.",
-      "note": ""
+      "sources": [
+        "src:cosmic-gamma-auger-official-history-page"
+      ],
+      "start": "2000",
+      "status": "construction",
+      "verified_at": "2026-09-17"
     },
     {
-      "label": "data taking (partial then full array)",
-      "status": "active",
-      "start": "2004",
-      "end": null,
-      "sources": ["src:cosmic-gamma-auger-official-history-page"],
-      "verified_at": "2026-09-17",
       "confidence": "verified",
+      "end": null,
+      "label": "data taking (partial then full array)",
+      "note": "",
       "quote": "First physics results are reported from more than 100 surface detector stations.",
-      "note": ""
+      "sources": [
+        "src:cosmic-gamma-auger-official-history-page"
+      ],
+      "start": "2004",
+      "status": "active",
+      "verified_at": "2026-09-17"
     },
     {
-      "label": "AugerPrime upgrade",
-      "status": "upgrade",
-      "start": "2015-11",
+      "confidence": "verified",
       "end": null,
+      "label": "AugerPrime upgrade",
+      "note": "Adds surface scintillator detectors (SSD), upgraded station electronics (UUB), radio antennas (RD) and underground muon counters (UMD) to each existing water-Cherenkov station; RD deployment reported complete November 2024, UMD partial as of the August 2025 status paper.",
+      "quote": "scintillator and radio detectors have been installed atop each existing water-Cherenkov detector",
       "sources": [
         "src:cosmic-gamma-auger-official-augerprime-page",
         "src:cosmic-gamma-auger-augerprime-status-arxiv-2025"
       ],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
-      "quote": "scintillator and radio detectors have been installed atop each existing water-Cherenkov detector",
-      "note": "Adds surface scintillator detectors (SSD), upgraded station electronics (UUB), radio antennas (RD) and underground muon counters (UMD) to each existing water-Cherenkov station; RD deployment reported complete November 2024, UMD partial as of the August 2025 status paper."
+      "start": "2015-11",
+      "status": "upgrade",
+      "verified_at": "2026-09-17"
     }
   ],
-  "status": "upgrade",
-  "specs": {
-    "area": {"value": 3000, "unit": "km^2", "dimension": "area", "approx": false, "display": "3000 km²", "sources": ["src:cosmic-gamma-auger-official-observatory-page"], "verified_at": "2026-09-17", "confidence": "verified", "quote": "3000 km2 array of 1660 particle detectors", "note": ""},
-    "station_count": {"value": 1660, "unit": "", "dimension": "count", "approx": false, "display": "1660 stations", "sources": ["src:cosmic-gamma-auger-official-observatory-page"], "verified_at": "2026-09-17", "confidence": "verified", "quote": "3000 km2 array of 1660 particle detectors", "note": ""},
-    "telescope_count": {"value": 27, "unit": "", "dimension": "count", "approx": false, "display": "27 fluorescence telescopes", "sources": ["src:cosmic-gamma-auger-official-observatory-page"], "verified_at": "2026-09-17", "confidence": "verified", "quote": "overlooked by 27 optical telescopes", "note": ""}
+  "links": {
+    "website": null
   },
+  "name": "Pierre Auger Observatory hybrid detector",
+  "notes": [
+    "document_ids deliberately not written (v0.2 A1 derived field).",
+    "No per-tank or per-telescope coordinates were recorded in this wave; only the single campus placement point."
+  ],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "note": "Placement point is the Observatory campus; the physical array of stations is spread over the surrounding 3000 km^2 (see site:malargue-auger notes).",
+      "quote": "Beginning of the construction of the observatory.",
+      "role": "main",
+      "site_id": "site:malargue-auger",
+      "sources": [
+        "src:cosmic-gamma-auger-official-history-page"
+      ],
+      "start": "2000",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:cosmic-gamma-auger-official-observatory-page",
+    "src:cosmic-gamma-auger-official-history-page"
+  ],
+  "specs": {
+    "area": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "area",
+      "display": "3000 km²",
+      "note": "",
+      "quote": "3000 km2 array of 1660 particle detectors",
+      "sources": [
+        "src:cosmic-gamma-auger-official-observatory-page"
+      ],
+      "unit": "km^2",
+      "value": 3000,
+      "verified_at": "2026-09-17"
+    },
+    "station_count": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "count",
+      "display": "1660 stations",
+      "note": "",
+      "quote": "3000 km2 array of 1660 particle detectors",
+      "sources": [
+        "src:cosmic-gamma-auger-official-observatory-page"
+      ],
+      "unit": "",
+      "value": 1660,
+      "verified_at": "2026-09-17"
+    },
+    "telescope_count": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "count",
+      "display": "27 fluorescence telescopes",
+      "note": "",
+      "quote": "overlooked by 27 optical telescopes",
+      "sources": [
+        "src:cosmic-gamma-auger-official-observatory-page"
+      ],
+      "unit": "",
+      "value": 27,
+      "verified_at": "2026-09-17"
+    }
+  },
+  "status": "upgrade",
   "subsystems": [
     {
-      "name": "Surface Detector (SD)",
       "description": [
         {
-          "value": "Array of 1660 water-Cherenkov detector tanks spread over 3000 km^2, sampling the particle density of extensive air showers at ground level.",
-          "sources": ["src:cosmic-gamma-auger-official-observatory-page"],
-          "verified_at": "2026-09-17",
           "confidence": "verified",
+          "note": "",
           "quote": "3000 km2 array of 1660 particle detectors",
-          "note": ""
+          "sources": [
+            "src:cosmic-gamma-auger-official-observatory-page"
+          ],
+          "value": "Array of 1660 water-Cherenkov detector tanks spread over 3000 km^2, sampling the particle density of extensive air showers at ground level.",
+          "verified_at": "2026-09-17"
         }
-      ]
+      ],
+      "name": "Surface Detector (SD)"
     },
     {
-      "name": "Fluorescence Detector (FD)",
       "description": [
         {
-          "value": "27 optical telescopes in four buildings overlooking the surface array, imaging the ultraviolet fluorescence light emitted by nitrogen molecules excited along an air shower's path through the atmosphere.",
-          "sources": ["src:cosmic-gamma-auger-official-observatory-page"],
-          "verified_at": "2026-09-17",
           "confidence": "verified",
+          "note": "",
           "quote": "overlooked by 27 optical telescopes",
-          "note": ""
+          "sources": [
+            "src:cosmic-gamma-auger-official-observatory-page"
+          ],
+          "value": "27 optical telescopes in four buildings overlooking the surface array, imaging the ultraviolet fluorescence light emitted by nitrogen molecules excited along an air shower's path through the atmosphere.",
+          "verified_at": "2026-09-17"
         }
-      ]
+      ],
+      "name": "Fluorescence Detector (FD)"
     }
   ],
   "summary": {
     "plain": "A two-in-one detector: 1660 tanks of water spread over 3000 square kilometres sense particles from cosmic-ray showers reaching the ground, while 27 telescopes watch the same showers develop as faint ultraviolet flashes in the night sky.",
     "technical": "Hybrid surface-detector/fluorescence-detector system: 1660 water-Cherenkov tanks on a 1.5 km grid across 3000 km^2, plus 27 fluorescence telescopes in four buildings; currently being upgraded (AugerPrime) with scintillator panels, radio antennas, upgraded electronics and underground muon counters on each surface station."
   },
-  "sources": [
-    "src:cosmic-gamma-auger-official-observatory-page",
-    "src:cosmic-gamma-auger-official-history-page"
+  "superseded_by": null,
+  "technology": {
+    "confidence": "verified",
+    "note": "",
+    "quote": "one using water placed in surface detector tanks... another tracking the development of air showers by observing ultraviolet light emitted high in the Earth's atmosphere",
+    "sources": [
+      "src:cosmic-gamma-auger-official-observatory-page"
+    ],
+    "value": "Hybrid detector: a surface array of water-Cherenkov tanks sampling air-shower particles at ground level, cross-checked by fluorescence telescopes imaging ultraviolet light from the shower's longitudinal development.",
+    "verified_at": "2026-09-17"
+  },
+  "technology_class": "air_shower_array",
+  "technology_classes": [
+    "air_shower_array"
   ],
-  "links": {"website": null},
-  "notes": [
-    "document_ids deliberately not written (v0.2 A1 derived field).",
-    "No per-tank or per-telescope coordinates were recorded in this wave; only the single campus placement point."
-  ],
-  "coverage": {"tier": "B", "researched": "partial"}
+  "type": "detector"
 }

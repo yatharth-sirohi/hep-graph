@@ -1,84 +1,120 @@
 {
-  "id": "detector:magic",
-  "type": "detector",
-  "schema": "hep-atlas/0.2",
-  "name": "MAGIC telescopes",
   "aliases": [],
-  "distinct_from": [],
-  "superseded_by": null,
-  "experiment_ids": ["experiment:magic"],
-  "placements": [
-    {
-      "site_id": "site:roque-de-los-muchachos-gamma-ray-array",
-      "role": "main",
-      "start": "2003-10",
-      "end": null,
-      "sources": ["src:cosmic-gamma-magic-arxiv-2004-status"],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
-      "quote": "started operations in its final configuration in October 2003",
-      "note": ""
-    }
-  ],
-  "parent_detector_id": null,
-  "technology": {
-    "value": "Two 17 m imaging atmospheric Cherenkov telescopes operated stereoscopically.",
-    "sources": ["src:cosmic-gamma-magic-arxiv-2014-upgrade"],
-    "verified_at": "2026-09-17",
-    "confidence": "verified",
-    "quote": "MAGIC is a system of two Imaging Atmospheric Cherenkov Telescopes located in the Canary island of La Palma, Spain",
-    "note": ""
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
   },
-  "technology_class": "imaging_atmospheric_cherenkov",
-  "technology_classes": ["imaging_atmospheric_cherenkov"],
+  "distinct_from": [],
+  "experiment_ids": [
+    "experiment:magic"
+  ],
+  "id": "detector:magic",
   "intervals": [
     {
+      "confidence": "verified",
+      "end": null,
       "label": "MAGIC-I operations",
-      "status": "active",
-      "start": "2003-10",
-      "end": null,
-      "sources": ["src:cosmic-gamma-magic-arxiv-2004-status"],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
+      "note": "",
       "quote": "started operations in its final configuration in October 2003",
-      "note": ""
-    },
-    {
-      "label": "MAGIC-II stereoscopic operations",
+      "sources": [
+        "src:cosmic-gamma-magic-arxiv-2004-status"
+      ],
+      "start": "2003-10",
       "status": "active",
-      "start": "2009",
-      "end": null,
-      "sources": ["src:cosmic-gamma-magic-arxiv-2009-magic-ii-status"],
-      "verified_at": "2026-09-17",
-      "confidence": "approximate",
-      "quote": "MAGIC became recently a stereoscopic Cherenkov observatory with the inauguration of its second telescope, MAGIC-II",
-      "note": "Exact month of the start of stereoscopic operations is not stated; 2009 is taken from the paper describing MAGIC-II's inauguration and near-complete commissioning."
+      "verified_at": "2026-09-17"
     },
     {
-      "label": "camera and readout upgrade",
-      "status": "upgrade",
-      "start": "2011",
-      "end": "2012",
-      "sources": ["src:cosmic-gamma-magic-arxiv-2014-upgrade"],
-      "verified_at": "2026-09-17",
+      "confidence": "approximate",
+      "end": null,
+      "label": "MAGIC-II stereoscopic operations",
+      "note": "Exact month of the start of stereoscopic operations is not stated; 2009 is taken from the paper describing MAGIC-II's inauguration and near-complete commissioning.",
+      "quote": "MAGIC became recently a stereoscopic Cherenkov observatory with the inauguration of its second telescope, MAGIC-II",
+      "sources": [
+        "src:cosmic-gamma-magic-arxiv-2009-magic-ii-status"
+      ],
+      "start": "2009",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    },
+    {
       "confidence": "verified",
+      "end": "2012",
+      "label": "camera and readout upgrade",
+      "note": "",
       "quote": "During summer 2011 and 2012 it underwent a series of upgrades",
-      "note": ""
+      "sources": [
+        "src:cosmic-gamma-magic-arxiv-2014-upgrade"
+      ],
+      "start": "2011",
+      "status": "upgrade",
+      "verified_at": "2026-09-17"
     }
   ],
-  "status": "active",
-  "specs": {
-    "telescope_count": {"value": 2, "unit": "", "dimension": "count", "approx": false, "display": "2 telescopes", "sources": ["src:cosmic-gamma-magic-arxiv-2014-upgrade"], "verified_at": "2026-09-17", "confidence": "verified", "quote": "a system of two Imaging Atmospheric Cherenkov Telescopes", "note": ""}
+  "links": {
+    "website": null
   },
+  "name": "MAGIC telescopes",
+  "notes": [
+    "document_ids deliberately not written (v0.2 A1 derived field)."
+  ],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "note": "",
+      "quote": "started operations in its final configuration in October 2003",
+      "role": "main",
+      "site_id": "site:roque-de-los-muchachos-gamma-ray-array",
+      "sources": [
+        "src:cosmic-gamma-magic-arxiv-2004-status"
+      ],
+      "start": "2003-10",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:cosmic-gamma-magic-arxiv-2004-status",
+    "src:cosmic-gamma-magic-arxiv-2009-magic-ii-status",
+    "src:cosmic-gamma-magic-arxiv-2014-upgrade"
+  ],
+  "specs": {
+    "telescope_count": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "count",
+      "display": "2 telescopes",
+      "note": "",
+      "quote": "a system of two Imaging Atmospheric Cherenkov Telescopes",
+      "sources": [
+        "src:cosmic-gamma-magic-arxiv-2014-upgrade"
+      ],
+      "unit": "",
+      "value": 2,
+      "verified_at": "2026-09-17"
+    }
+  },
+  "status": "active",
   "subsystems": [],
   "summary": {
     "plain": "Two 17-metre dish telescopes on a Spanish island mountaintop, working together to catch the flicker of blue light made by gamma rays hitting the atmosphere.",
     "technical": "Two 17 m imaging atmospheric Cherenkov telescopes at Roque de los Muchachos, La Palma; MAGIC-I active since October 2003, stereoscopic operation with MAGIC-II since around 2009, camera/readout upgrade in 2011-2012."
   },
-  "sources": ["src:cosmic-gamma-magic-arxiv-2004-status", "src:cosmic-gamma-magic-arxiv-2009-magic-ii-status", "src:cosmic-gamma-magic-arxiv-2014-upgrade"],
-  "links": {"website": null},
-  "notes": [
-    "document_ids deliberately not written (v0.2 A1 derived field)."
+  "superseded_by": null,
+  "technology": {
+    "confidence": "verified",
+    "note": "",
+    "quote": "MAGIC is a system of two Imaging Atmospheric Cherenkov Telescopes located in the Canary island of La Palma, Spain",
+    "sources": [
+      "src:cosmic-gamma-magic-arxiv-2014-upgrade"
+    ],
+    "value": "Two 17 m imaging atmospheric Cherenkov telescopes operated stereoscopically.",
+    "verified_at": "2026-09-17"
+  },
+  "technology_class": "imaging_atmospheric_cherenkov",
+  "technology_classes": [
+    "imaging_atmospheric_cherenkov"
   ],
-  "coverage": {"tier": "B", "researched": "partial"}
+  "type": "detector"
 }

@@ -1,115 +1,164 @@
 {
-  "id": "detector:ctao",
-  "type": "detector",
-  "schema": "hep-atlas/0.2",
-  "name": "CTAO telescope arrays",
   "aliases": [],
-  "distinct_from": [],
-  "superseded_by": null,
-  "experiment_ids": ["experiment:ctao"],
-  "placements": [
-    {
-      "site_id": "site:roque-de-los-muchachos-gamma-ray-array",
-      "role": "main",
-      "start": null,
-      "end": null,
-      "sources": ["src:cosmic-gamma-ctao-official-about-us-page"],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
-      "quote": "La Palma, Spain",
-      "note": "CTAO-North array."
-    },
-    {
-      "site_id": "site:paranal-cta-south",
-      "role": "main",
-      "start": null,
-      "end": null,
-      "sources": ["src:cosmic-gamma-ctao-official-about-us-page"],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
-      "quote": "Paranal, Chile",
-      "note": "CTAO-South array."
-    }
-  ],
-  "parent_detector_id": null,
-  "technology": {
-    "value": "Two ground-based arrays of imaging atmospheric Cherenkov telescopes in three size classes (Large, Medium, Small).",
-    "sources": ["src:cosmic-gamma-ctao-official-technology-page"],
-    "verified_at": "2026-09-17",
-    "confidence": "verified",
-    "quote": "four Large-Sized Telescopes... up to 23 Medium-Sized Telescopes... up to 37 Small-Sized Telescopes",
-    "note": ""
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
   },
-  "technology_class": "imaging_atmospheric_cherenkov",
-  "technology_classes": ["imaging_atmospheric_cherenkov"],
+  "distinct_from": [],
+  "experiment_ids": [
+    "experiment:ctao"
+  ],
+  "id": "detector:ctao",
   "intervals": [
     {
-      "label": "construction",
-      "status": "construction",
-      "start": "2015",
-      "end": null,
-      "sources": ["src:cosmic-gamma-ctao-official-about-us-page", "src:cosmic-gamma-inspire-cta-experiment-record"],
-      "verified_at": "2026-09-17",
       "confidence": "uncertain",
+      "end": null,
+      "label": "construction",
+      "note": "2015 is a lower bound only (the year INSPIRE's CTA experiment record was created); no fetched source this session gives a construction-start date.",
       "quote": "The construction and operation of the CTAO is a global initiative",
-      "note": "2015 is a lower bound only (the year INSPIRE's CTA experiment record was created); no fetched source this session gives a construction-start date."
+      "sources": [
+        "src:cosmic-gamma-ctao-official-about-us-page",
+        "src:cosmic-gamma-inspire-cta-experiment-record"
+      ],
+      "start": "2015",
+      "status": "construction",
+      "verified_at": "2026-09-17"
     }
   ],
-  "status": "construction",
-  "specs": {
-    "telescope_count": {"value": 64, "unit": "", "dimension": "count", "approx": true, "display": "up to ~64 telescopes total (design)", "sources": ["src:cosmic-gamma-ctao-official-technology-page"], "verified_at": "2026-09-17", "confidence": "approximate", "quote": "four Large-Sized Telescopes... up to 23 Medium-Sized Telescopes... up to 37 Small-Sized Telescopes", "note": "Sum of the design maximums (4 LST + 23 MST + 37 SST = 64) stated across CTAO's technology page; not itself a single quoted total figure."},
-    "energy_range": {"value": "20 GeV to 300 TeV", "sources": ["src:cosmic-gamma-ctao-official-technology-page"], "verified_at": "2026-09-17", "confidence": "verified", "quote": "energies between 20 GeV and 300 TeV", "note": ""}
+  "links": {
+    "website": null
   },
+  "name": "CTAO telescope arrays",
+  "notes": [
+    "document_ids deliberately not written (v0.2 A1 derived field).",
+    "Per-site current telescope counts (how many of each class are actually installed and operating today, as opposed to the design maximums) were not sourced this session."
+  ],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "note": "CTAO-North array.",
+      "quote": "La Palma, Spain",
+      "role": "main",
+      "site_id": "site:roque-de-los-muchachos-gamma-ray-array",
+      "sources": [
+        "src:cosmic-gamma-ctao-official-about-us-page"
+      ],
+      "start": null,
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "note": "CTAO-South array.",
+      "quote": "Paranal, Chile",
+      "role": "main",
+      "site_id": "site:paranal-cta-south",
+      "sources": [
+        "src:cosmic-gamma-ctao-official-about-us-page"
+      ],
+      "start": null,
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:cosmic-gamma-ctao-official-technology-page",
+    "src:cosmic-gamma-ctao-official-about-us-page"
+  ],
+  "specs": {
+    "energy_range": {
+      "confidence": "verified",
+      "note": "",
+      "quote": "energies between 20 GeV and 300 TeV",
+      "sources": [
+        "src:cosmic-gamma-ctao-official-technology-page"
+      ],
+      "value": "20 GeV to 300 TeV",
+      "verified_at": "2026-09-17"
+    },
+    "telescope_count": {
+      "approx": true,
+      "confidence": "approximate",
+      "dimension": "count",
+      "display": "up to ~64 telescopes total (design)",
+      "note": "Sum of the design maximums (4 LST + 23 MST + 37 SST = 64) stated across CTAO's technology page; not itself a single quoted total figure.",
+      "quote": "four Large-Sized Telescopes... up to 23 Medium-Sized Telescopes... up to 37 Small-Sized Telescopes",
+      "sources": [
+        "src:cosmic-gamma-ctao-official-technology-page"
+      ],
+      "unit": "",
+      "value": 64,
+      "verified_at": "2026-09-17"
+    }
+  },
+  "status": "construction",
   "subsystems": [
     {
-      "name": "Large-Sized Telescopes (LST)",
       "description": [
         {
-          "value": "Four Large-Sized Telescopes planned in the northern array (La Palma) for the lowest energies, 20 GeV to 3 TeV.",
-          "sources": ["src:cosmic-gamma-ctao-official-technology-page"],
-          "verified_at": "2026-09-17",
           "confidence": "verified",
+          "note": "",
           "quote": "four Large-Sized Telescopes in the northern hemisphere for its low-energy range... 20 GeV to 3 TeV",
-          "note": ""
+          "sources": [
+            "src:cosmic-gamma-ctao-official-technology-page"
+          ],
+          "value": "Four Large-Sized Telescopes planned in the northern array (La Palma) for the lowest energies, 20 GeV to 3 TeV.",
+          "verified_at": "2026-09-17"
         }
-      ]
+      ],
+      "name": "Large-Sized Telescopes (LST)"
     },
     {
-      "name": "Medium-Sized Telescopes (MST)",
       "description": [
         {
-          "value": "Up to 23 Medium-Sized Telescopes distributed over both array sites, covering 80 GeV to 50 TeV.",
-          "sources": ["src:cosmic-gamma-ctao-official-technology-page"],
-          "verified_at": "2026-09-17",
           "confidence": "verified",
+          "note": "",
           "quote": "up to 23 Medium-Sized Telescopes distributed over both array sites... 80 GeV to 50 TeV",
-          "note": ""
+          "sources": [
+            "src:cosmic-gamma-ctao-official-technology-page"
+          ],
+          "value": "Up to 23 Medium-Sized Telescopes distributed over both array sites, covering 80 GeV to 50 TeV.",
+          "verified_at": "2026-09-17"
         }
-      ]
+      ],
+      "name": "Medium-Sized Telescopes (MST)"
     },
     {
-      "name": "Small-Sized Telescopes (SST)",
       "description": [
         {
-          "value": "Up to 37 Small-Sized Telescopes planned in the southern array (Paranal) for the highest energies, above 2 TeV.",
-          "sources": ["src:cosmic-gamma-ctao-official-technology-page"],
-          "verified_at": "2026-09-17",
           "confidence": "verified",
+          "note": "",
           "quote": "up to 37 Small-Sized Telescopes in the southern hemisphere... above 2 TeV",
-          "note": ""
+          "sources": [
+            "src:cosmic-gamma-ctao-official-technology-page"
+          ],
+          "value": "Up to 37 Small-Sized Telescopes planned in the southern array (Paranal) for the highest energies, above 2 TeV.",
+          "verified_at": "2026-09-17"
         }
-      ]
+      ],
+      "name": "Small-Sized Telescopes (SST)"
     }
   ],
   "summary": {
     "plain": "Two big groups of gamma-ray telescopes, one in Spain and one in Chile, coming in three different sizes so together they can see the whole range of gamma-ray energies.",
     "technical": "Imaging-atmospheric-Cherenkov arrays at two sites (La Palma / Paranal), using Large-, Medium- and Small-Sized Telescope classes (design maximum 4 LST + 23 MST + 37 SST) to cover 20 GeV-300 TeV; under construction as of the sources fetched this session."
   },
-  "sources": ["src:cosmic-gamma-ctao-official-technology-page", "src:cosmic-gamma-ctao-official-about-us-page"],
-  "links": {"website": null},
-  "notes": [
-    "document_ids deliberately not written (v0.2 A1 derived field).",
-    "Per-site current telescope counts (how many of each class are actually installed and operating today, as opposed to the design maximums) were not sourced this session."
+  "superseded_by": null,
+  "technology": {
+    "confidence": "verified",
+    "note": "",
+    "quote": "four Large-Sized Telescopes... up to 23 Medium-Sized Telescopes... up to 37 Small-Sized Telescopes",
+    "sources": [
+      "src:cosmic-gamma-ctao-official-technology-page"
+    ],
+    "value": "Two ground-based arrays of imaging atmospheric Cherenkov telescopes in three size classes (Large, Medium, Small).",
+    "verified_at": "2026-09-17"
+  },
+  "technology_class": "imaging_atmospheric_cherenkov",
+  "technology_classes": [
+    "imaging_atmospheric_cherenkov"
   ],
-  "coverage": {"tier": "B", "researched": "partial"}
+  "type": "detector"
 }

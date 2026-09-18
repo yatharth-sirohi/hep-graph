@@ -1,97 +1,160 @@
 {
-  "id": "experiment:magic",
-  "type": "experiment",
-  "schema": "hep-atlas/0.2",
-  "name": "MAGIC",
-  "aliases": ["Major Atmospheric Gamma Imaging Cherenkov Telescopes"],
-  "distinct_from": [],
-  "superseded_by": null,
-  "kind": "gamma_ray",
-  "secondary_kinds": [],
-  "collaboration_ids": ["collaboration:magic"],
-  "facility_roles": [
-    {
-      "facility_id": "facility:roque-de-los-muchachos-observatory",
-      "role": "host",
-      "start": "2003-10",
-      "end": null,
-      "sources": ["src:cosmic-gamma-magic-arxiv-2004-status"],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
-      "quote": "started operations in its final configuration in October 2003",
-      "note": ""
-    }
+  "accelerator_ids": [],
+  "aliases": [
+    "Major Atmospheric Gamma Imaging Cherenkov Telescopes"
   ],
   "beamline_ids": [],
-  "accelerator_ids": [],
-  "topic_ids": ["topic:gamma-rays", "topic:multimessenger-astrophysics"],
-  "intervals": [
+  "collaboration_ids": [
+    "collaboration:magic"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "distinct_from": [],
+  "energy_regime": null,
+  "external": {
+    "greybook": null,
+    "inspire_experiment": 1110626,
+    "wikidata": null
+  },
+  "facility_roles": [
     {
-      "label": "MAGIC-I operations",
-      "status": "active",
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:roque-de-los-muchachos-observatory",
+      "note": "",
+      "quote": "started operations in its final configuration in October 2003",
+      "role": "host",
+      "sources": [
+        "src:cosmic-gamma-magic-arxiv-2004-status"
+      ],
       "start": "2003-10",
-      "end": null,
-      "sources": ["src:cosmic-gamma-magic-arxiv-2004-status"],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
-      "quote": "The 17 m MAGIC Cherenkov telescope for gamma ray astronomy between 30 and 300 GeV started operations in its final configuration in October 2003",
-      "note": ""
-    },
-    {
-      "label": "MAGIC-II inauguration / commissioning",
-      "status": "commissioning",
-      "start": "2009",
-      "end": "2009-12",
-      "sources": ["src:cosmic-gamma-magic-arxiv-2009-magic-ii-status"],
-      "verified_at": "2026-09-17",
-      "confidence": "approximate",
-      "quote": "MAGIC became recently a stereoscopic Cherenkov observatory with the inauguration of its second telescope, MAGIC-II, which is currently approaching the end of its commissioning stage.",
-      "note": "Exact inauguration month not stated; end date is the December 2009 date of the paper describing commissioning as nearly complete."
-    },
-    {
-      "label": "stereoscopic operations (MAGIC-I + MAGIC-II)",
-      "status": "active",
-      "start": "2009",
-      "end": null,
-      "sources": ["src:cosmic-gamma-magic-arxiv-2009-magic-ii-status"],
-      "verified_at": "2026-09-17",
-      "confidence": "approximate",
-      "quote": "MAGIC became recently a stereoscopic Cherenkov observatory with the inauguration of its second telescope, MAGIC-II",
-      "note": "Exact month of the start of stereoscopic operations is not stated; 2009 is taken from the paper describing MAGIC-II's inauguration and near-complete commissioning."
-    },
-    {
-      "label": "camera and readout upgrade",
-      "status": "upgrade",
-      "start": "2011",
-      "end": "2012",
-      "sources": ["src:cosmic-gamma-magic-arxiv-2014-upgrade"],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
-      "quote": "During summer 2011 and 2012 it underwent a series of upgrades, involving the exchange of the MAGIC-I camera and its trigger system, as well as the upgrade of the readout system of both telescopes.",
-      "note": ""
+      "verified_at": "2026-09-17"
     }
   ],
-  "status": "active",
-  "physics_goals": [],
-  "unique_capabilities": [],
-  "energy_regime": null,
-  "key_specs": [
-    {"label": "Telescope count", "quantity": {"value": 2, "unit": "", "dimension": "count", "approx": false, "display": "2 telescopes", "sources": ["src:cosmic-gamma-magic-arxiv-2014-upgrade"], "verified_at": "2026-09-17", "confidence": "verified", "quote": "MAGIC is a system of two Imaging Atmospheric Cherenkov Telescopes located in the Canary island of La Palma, Spain", "note": ""}},
-    {"label": "Mirror diameter", "quantity": {"value": 17, "unit": "m", "dimension": "length", "approx": false, "display": "17 m", "sources": ["src:cosmic-gamma-magic-arxiv-2004-status"], "verified_at": "2026-09-17", "confidence": "verified", "quote": "The 17 m MAGIC Cherenkov telescope", "note": ""}}
+  "id": "experiment:magic",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "MAGIC-I operations",
+      "note": "",
+      "quote": "The 17 m MAGIC Cherenkov telescope for gamma ray astronomy between 30 and 300 GeV started operations in its final configuration in October 2003",
+      "sources": [
+        "src:cosmic-gamma-magic-arxiv-2004-status"
+      ],
+      "start": "2003-10",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "approximate",
+      "end": "2009-12",
+      "label": "MAGIC-II inauguration / commissioning",
+      "note": "Exact inauguration month not stated; end date is the December 2009 date of the paper describing commissioning as nearly complete.",
+      "quote": "MAGIC became recently a stereoscopic Cherenkov observatory with the inauguration of its second telescope, MAGIC-II, which is currently approaching the end of its commissioning stage.",
+      "sources": [
+        "src:cosmic-gamma-magic-arxiv-2009-magic-ii-status"
+      ],
+      "start": "2009",
+      "status": "commissioning",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "stereoscopic operations (MAGIC-I + MAGIC-II)",
+      "note": "Exact month of the start of stereoscopic operations is not stated; 2009 is taken from the paper describing MAGIC-II's inauguration and near-complete commissioning.",
+      "quote": "MAGIC became recently a stereoscopic Cherenkov observatory with the inauguration of its second telescope, MAGIC-II",
+      "sources": [
+        "src:cosmic-gamma-magic-arxiv-2009-magic-ii-status"
+      ],
+      "start": "2009",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": "2012",
+      "label": "camera and readout upgrade",
+      "note": "",
+      "quote": "During summer 2011 and 2012 it underwent a series of upgrades, involving the exchange of the MAGIC-I camera and its trigger system, as well as the upgrade of the readout system of both telescopes.",
+      "sources": [
+        "src:cosmic-gamma-magic-arxiv-2014-upgrade"
+      ],
+      "start": "2011",
+      "status": "upgrade",
+      "verified_at": "2026-09-17"
+    }
   ],
+  "key_specs": [
+    {
+      "label": "Telescope count",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "count",
+        "display": "2 telescopes",
+        "note": "",
+        "quote": "MAGIC is a system of two Imaging Atmospheric Cherenkov Telescopes located in the Canary island of La Palma, Spain",
+        "sources": [
+          "src:cosmic-gamma-magic-arxiv-2014-upgrade"
+        ],
+        "unit": "",
+        "value": 2,
+        "verified_at": "2026-09-17"
+      }
+    },
+    {
+      "label": "Mirror diameter",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "length",
+        "display": "17 m",
+        "note": "",
+        "quote": "The 17 m MAGIC Cherenkov telescope",
+        "sources": [
+          "src:cosmic-gamma-magic-arxiv-2004-status"
+        ],
+        "unit": "m",
+        "value": 17,
+        "verified_at": "2026-09-17"
+      }
+    }
+  ],
+  "kind": "gamma_ray",
   "lineage": [],
-  "external": {"inspire_experiment": 1110626, "greybook": null, "wikidata": null},
-  "summary": {
-    "plain": "Two 17-metre telescopes on a mountain in the Canary Islands that catch the faint blue flashes gamma rays make when they hit the atmosphere.",
-    "technical": "Imaging atmospheric Cherenkov telescope system on La Palma, Canary Islands, Spain: MAGIC-I (17 m) operating since October 2003, joined by the stereoscopic MAGIC-II telescope (inaugurated, commissioning nearly complete by December 2009), with a camera/readout upgrade in summer 2011-2012."
+  "links": {
+    "website": null
   },
-  "sources": ["src:cosmic-gamma-magic-arxiv-2004-status", "src:cosmic-gamma-magic-arxiv-2009-magic-ii-status", "src:cosmic-gamma-magic-arxiv-2014-upgrade", "src:cosmic-gamma-inspire-magic-experiment-record"],
-  "links": {"website": null},
+  "name": "MAGIC",
   "notes": [
     "site_ids, detector_ids, document_ids, result_ids are deliberately not written (v0.2 A1 derived fields).",
     "links.website left null: magic.mpp.mpg.de failed TLS certificate verification on every attempt this session.",
     "Altitude for the La Palma site is not recorded on this experiment (see site:roque-de-los-muchachos-gamma-ray-array notes): no source fetched this session states it.",
     "No results or technical documents were written in this pass (non-flagship experiment; mandatory bar only per the wave-3 brief)."
   ],
-  "coverage": {"tier": "B", "researched": "partial"}
+  "physics_goals": [],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:cosmic-gamma-magic-arxiv-2004-status",
+    "src:cosmic-gamma-magic-arxiv-2009-magic-ii-status",
+    "src:cosmic-gamma-magic-arxiv-2014-upgrade",
+    "src:cosmic-gamma-inspire-magic-experiment-record"
+  ],
+  "status": "active",
+  "summary": {
+    "plain": "Two 17-metre telescopes on a mountain in the Canary Islands that catch the faint blue flashes gamma rays make when they hit the atmosphere.",
+    "technical": "Imaging atmospheric Cherenkov telescope system on La Palma, Canary Islands, Spain: MAGIC-I (17 m) operating since October 2003, joined by the stereoscopic MAGIC-II telescope (inaugurated, commissioning nearly complete by December 2009), with a camera/readout upgrade in summer 2011-2012."
+  },
+  "superseded_by": null,
+  "topic_ids": [
+    "topic:gamma-rays",
+    "topic:multimessenger-astrophysics"
+  ],
+  "type": "experiment",
+  "unique_capabilities": []
 }

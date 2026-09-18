@@ -1,37 +1,67 @@
 {
-  "id": "site:khomas-highland-hess",
-  "type": "site",
-  "schema": "hep-atlas/0.2",
-  "name": "H.E.S.S. array site, Khomas Highland",
-  "aliases": ["Farm Göllschau"],
-  "distinct_from": [],
-  "superseded_by": null,
-  "facility_id": "facility:hess-khomas-highland",
+  "aliases": [
+    "Farm Göllschau"
+  ],
+  "altitude": {
+    "approx": false,
+    "confidence": "verified",
+    "dimension": "length",
+    "display": "1800 m",
+    "note": "",
+    "quote": "at about 1,800 m above sea level",
+    "sources": [
+      "src:cosmic-gamma-hess-official-site-page"
+    ],
+    "unit": "m",
+    "value": 1800,
+    "verified_at": "2026-09-17"
+  },
   "coordinates": {
+    "confidence": "verified",
+    "kind": "detector",
     "lat": -23.271667,
     "lon": 16.5,
+    "note": "Converted from the official site's degrees-minutes-seconds statement (23 deg 16 min 18 sec S, 16 deg 30 min 00 sec E).",
     "precision_m": 200,
-    "kind": "detector",
-    "sources": ["src:cosmic-gamma-hess-official-site-page"],
-    "verified_at": "2026-09-17",
-    "confidence": "verified",
     "quote": "23°16'18\" S, 16°30'00\" E, at about 1,800 m above sea level",
-    "note": "Converted from the official site's degrees-minutes-seconds statement (23 deg 16 min 18 sec S, 16 deg 30 min 00 sec E)."
+    "sources": [
+      "src:cosmic-gamma-hess-official-site-page"
+    ],
+    "verified_at": "2026-09-17"
   },
-  "setting": "surface",
-  "depth": null,
-  "depth_rock": null,
-  "depth_mwe": null,
-  "altitude": {"value": 1800, "unit": "m", "dimension": "length", "approx": false, "display": "1800 m", "sources": ["src:cosmic-gamma-hess-official-site-page"], "verified_at": "2026-09-17", "confidence": "verified", "quote": "at about 1,800 m above sea level", "note": ""},
+  "countries": [
+    "NA"
+  ],
   "country": "NA",
-  "countries": ["NA"],
-  "place": {"city": null, "region": "Khomas", "country": "NA"},
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "depth": null,
+  "depth_mwe": null,
+  "depth_rock": null,
+  "distinct_from": [],
+  "facility_id": "facility:hess-khomas-highland",
+  "id": "site:khomas-highland-hess",
+  "links": {
+    "website": null
+  },
+  "name": "H.E.S.S. array site, Khomas Highland",
+  "notes": [],
+  "place": {
+    "city": null,
+    "country": "NA",
+    "region": "Khomas"
+  },
+  "schema": "hep-atlas/0.2",
+  "setting": "surface",
+  "sources": [
+    "src:cosmic-gamma-hess-official-site-page"
+  ],
   "summary": {
     "plain": "A farm in the highlands of Namibia where five telescopes watch the southern sky for gamma rays.",
     "technical": "H.E.S.S. array site on Farm Göllschau, Khomas Highland, Namibia, at 23.2717S, 16.5E, 1800 m altitude, about a 2-hour drive south-west of Windhoek."
   },
-  "sources": ["src:cosmic-gamma-hess-official-site-page"],
-  "links": {"website": null},
-  "notes": [],
-  "coverage": {"tier": "B", "researched": "partial"}
+  "superseded_by": null,
+  "type": "site"
 }

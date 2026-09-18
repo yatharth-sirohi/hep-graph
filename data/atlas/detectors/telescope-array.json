@@ -1,104 +1,179 @@
 {
-  "id": "detector:telescope-array",
-  "type": "detector",
-  "schema": "hep-atlas/0.2",
-  "name": "Telescope Array hybrid detector",
   "aliases": [],
-  "distinct_from": [],
-  "superseded_by": null,
-  "experiment_ids": ["experiment:telescope-array"],
-  "placements": [
-    {
-      "site_id": "site:telescope-array-utah-central-site",
-      "role": "main",
-      "start": "2008-05-11",
-      "end": null,
-      "sources": ["src:cosmic-gamma-ta-arxiv-2026-recent-findings"],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
-      "quote": "16 years of data collected from 11 May 2008 to 10 May 2024",
-      "note": "Placement point is the approximate campus/central point; the physical array is spread over ~700 km^2 (TAx4: ~3000 km^2) around Delta, Utah."
-    }
-  ],
-  "parent_detector_id": null,
-  "technology": {
-    "value": "Hybrid detector: an array of plastic scintillation surface detectors on a square grid, cross-checked by fluorescence telescopes at three sites imaging the ultraviolet light of air-shower development.",
-    "sources": ["src:cosmic-gamma-ta-arxiv-2026-recent-findings"],
-    "verified_at": "2026-09-17",
-    "confidence": "verified",
-    "quote": "The original TA surface detector (SD) array consists of 507 plastic scintillation counters deployed on a 1.2 km square grid... observed by fluorescence detectors (FDs) at three sites",
-    "note": ""
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
   },
-  "technology_class": "air_shower_array",
-  "technology_classes": ["air_shower_array"],
+  "distinct_from": [],
+  "experiment_ids": [
+    "experiment:telescope-array"
+  ],
+  "id": "detector:telescope-array",
   "intervals": [
     {
-      "label": "data taking (original array)",
-      "status": "active",
-      "start": "2008-05-11",
-      "end": null,
-      "sources": ["src:cosmic-gamma-ta-arxiv-2026-recent-findings"],
-      "verified_at": "2026-09-17",
       "confidence": "verified",
+      "end": null,
+      "label": "data taking (original array)",
+      "note": "",
       "quote": "16 years of data collected from 11 May 2008 to 10 May 2024",
-      "note": ""
+      "sources": [
+        "src:cosmic-gamma-ta-arxiv-2026-recent-findings"
+      ],
+      "start": "2008-05-11",
+      "status": "active",
+      "verified_at": "2026-09-17"
     },
     {
-      "label": "TAx4 extension data taking",
-      "status": "active",
-      "start": "2019-10",
-      "end": null,
-      "sources": ["src:cosmic-gamma-ta-arxiv-2026-recent-findings"],
-      "verified_at": "2026-09-17",
       "confidence": "verified",
+      "end": null,
+      "label": "TAx4 extension data taking",
+      "note": "",
       "quote": "three years of data collected from October 2019 to September 2022",
-      "note": ""
+      "sources": [
+        "src:cosmic-gamma-ta-arxiv-2026-recent-findings"
+      ],
+      "start": "2019-10",
+      "status": "active",
+      "verified_at": "2026-09-17"
     }
   ],
-  "status": "active",
-  "specs": {
-    "area": {"value": 700, "unit": "km^2", "dimension": "area", "approx": true, "display": "~700 km² (original array)", "sources": ["src:cosmic-gamma-ta-arxiv-2026-recent-findings"], "verified_at": "2026-09-17", "confidence": "verified", "quote": "covering an area of about 700 km^2", "note": ""},
-    "station_count": {"value": 507, "unit": "", "dimension": "count", "approx": false, "display": "507 scintillation counters", "sources": ["src:cosmic-gamma-ta-arxiv-2026-recent-findings"], "verified_at": "2026-09-17", "confidence": "verified", "quote": "507 plastic scintillation counters deployed on a 1.2 km square grid", "note": ""},
-    "telescope_count": {"value": 38, "unit": "", "dimension": "count", "approx": false, "display": "38 fluorescence telescopes at 3 sites", "sources": ["src:cosmic-gamma-ta-arxiv-2026-recent-findings"], "verified_at": "2026-09-17", "confidence": "verified", "quote": "a total of 38 telescopes for hybrid measurements", "note": ""},
-    "altitude": {"value": 1400, "unit": "m", "dimension": "length", "approx": true, "display": "~1400 m", "sources": ["src:cosmic-gamma-ta-arxiv-2026-recent-findings"], "verified_at": "2026-09-17", "confidence": "verified", "quote": "at an altitude of approximately 1400 m above sea level", "note": ""}
+  "links": {
+    "website": null
   },
+  "name": "Telescope Array hybrid detector",
+  "notes": [
+    "document_ids deliberately not written (v0.2 A1 derived field).",
+    "No per-station or per-telescope coordinates were recorded in this wave; only the single approximate campus placement point."
+  ],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "note": "Placement point is the approximate campus/central point; the physical array is spread over ~700 km^2 (TAx4: ~3000 km^2) around Delta, Utah.",
+      "quote": "16 years of data collected from 11 May 2008 to 10 May 2024",
+      "role": "main",
+      "site_id": "site:telescope-array-utah-central-site",
+      "sources": [
+        "src:cosmic-gamma-ta-arxiv-2026-recent-findings"
+      ],
+      "start": "2008-05-11",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:cosmic-gamma-ta-arxiv-2026-recent-findings"
+  ],
+  "specs": {
+    "altitude": {
+      "approx": true,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "~1400 m",
+      "note": "",
+      "quote": "at an altitude of approximately 1400 m above sea level",
+      "sources": [
+        "src:cosmic-gamma-ta-arxiv-2026-recent-findings"
+      ],
+      "unit": "m",
+      "value": 1400,
+      "verified_at": "2026-09-17"
+    },
+    "area": {
+      "approx": true,
+      "confidence": "verified",
+      "dimension": "area",
+      "display": "~700 km² (original array)",
+      "note": "",
+      "quote": "covering an area of about 700 km^2",
+      "sources": [
+        "src:cosmic-gamma-ta-arxiv-2026-recent-findings"
+      ],
+      "unit": "km^2",
+      "value": 700,
+      "verified_at": "2026-09-17"
+    },
+    "station_count": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "count",
+      "display": "507 scintillation counters",
+      "note": "",
+      "quote": "507 plastic scintillation counters deployed on a 1.2 km square grid",
+      "sources": [
+        "src:cosmic-gamma-ta-arxiv-2026-recent-findings"
+      ],
+      "unit": "",
+      "value": 507,
+      "verified_at": "2026-09-17"
+    },
+    "telescope_count": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "count",
+      "display": "38 fluorescence telescopes at 3 sites",
+      "note": "",
+      "quote": "a total of 38 telescopes for hybrid measurements",
+      "sources": [
+        "src:cosmic-gamma-ta-arxiv-2026-recent-findings"
+      ],
+      "unit": "",
+      "value": 38,
+      "verified_at": "2026-09-17"
+    }
+  },
+  "status": "active",
   "subsystems": [
     {
-      "name": "Surface Detector (SD) array",
       "description": [
         {
-          "value": "507 plastic scintillation counters on a 1.2 km square grid covering about 700 km^2; extended by 500 additional TAx4 counters on a 2.08 km grid.",
-          "sources": ["src:cosmic-gamma-ta-arxiv-2026-recent-findings"],
-          "verified_at": "2026-09-17",
           "confidence": "verified",
+          "note": "",
           "quote": "507 plastic scintillation counters deployed on a 1.2 km square grid and covering an area of about 700 km^2",
-          "note": ""
+          "sources": [
+            "src:cosmic-gamma-ta-arxiv-2026-recent-findings"
+          ],
+          "value": "507 plastic scintillation counters on a 1.2 km square grid covering about 700 km^2; extended by 500 additional TAx4 counters on a 2.08 km grid.",
+          "verified_at": "2026-09-17"
         }
-      ]
+      ],
+      "name": "Surface Detector (SD) array"
     },
     {
-      "name": "Fluorescence Detector (FD) stations",
       "description": [
         {
-          "value": "38 fluorescence telescopes at three sites (Middle Drum, Long Ridge, Black Rock Mesa) imaging the longitudinal development of air showers; TAx4 adds 12 new FD telescopes.",
-          "sources": ["src:cosmic-gamma-ta-arxiv-2026-recent-findings"],
-          "verified_at": "2026-09-17",
           "confidence": "verified",
+          "note": "",
           "quote": "fluorescence detectors (FDs) at three sites, Middle Drum, Long Ridge, and Black Rock Mesa, with a total of 38 telescopes for hybrid measurements",
-          "note": ""
+          "sources": [
+            "src:cosmic-gamma-ta-arxiv-2026-recent-findings"
+          ],
+          "value": "38 fluorescence telescopes at three sites (Middle Drum, Long Ridge, Black Rock Mesa) imaging the longitudinal development of air showers; TAx4 adds 12 new FD telescopes.",
+          "verified_at": "2026-09-17"
         }
-      ]
+      ],
+      "name": "Fluorescence Detector (FD) stations"
     }
   ],
   "summary": {
     "plain": "More than 500 ground sensors spread across the Utah desert, watched by telescopes at three stations, working together to catch and study the rarest cosmic-ray particles.",
     "technical": "Hybrid surface-detector/fluorescence-detector system: 507 scintillator counters on a 1.2 km grid over ~700 km^2, plus 38 fluorescence telescopes at three sites; extended since 2019 by TAx4 (500 further counters on a 2.08 km grid, 12 new FD telescopes, ~3000 km^2 target coverage)."
   },
-  "sources": ["src:cosmic-gamma-ta-arxiv-2026-recent-findings"],
-  "links": {"website": null},
-  "notes": [
-    "document_ids deliberately not written (v0.2 A1 derived field).",
-    "No per-station or per-telescope coordinates were recorded in this wave; only the single approximate campus placement point."
+  "superseded_by": null,
+  "technology": {
+    "confidence": "verified",
+    "note": "",
+    "quote": "The original TA surface detector (SD) array consists of 507 plastic scintillation counters deployed on a 1.2 km square grid... observed by fluorescence detectors (FDs) at three sites",
+    "sources": [
+      "src:cosmic-gamma-ta-arxiv-2026-recent-findings"
+    ],
+    "value": "Hybrid detector: an array of plastic scintillation surface detectors on a square grid, cross-checked by fluorescence telescopes at three sites imaging the ultraviolet light of air-shower development.",
+    "verified_at": "2026-09-17"
+  },
+  "technology_class": "air_shower_array",
+  "technology_classes": [
+    "air_shower_array"
   ],
-  "coverage": {"tier": "B", "researched": "partial"}
+  "type": "detector"
 }

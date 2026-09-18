@@ -1,54 +1,65 @@
 {
-  "id": "collaboration:magic",
-  "type": "collaboration",
-  "schema": "hep-atlas/0.2",
-  "name": "MAGIC Collaboration",
   "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
   "distinct_from": [],
-  "superseded_by": null,
   "formation": {
-    "value": null,
-    "sources": ["src:cosmic-gamma-magic-arxiv-2004-status"],
-    "verified_at": "2026-09-17",
     "confidence": "uncertain",
     "locator": "arXiv:astro-ph/0407475, 'Status and First Results of the MAGIC Telescope' (no formation date stated in the record fetched)",
-    "note": "No source fetched this session states a formal formation date for the MAGIC Collaboration."
+    "note": "No source fetched this session states a formal formation date for the MAGIC Collaboration.",
+    "sources": [
+      "src:cosmic-gamma-magic-arxiv-2004-status"
+    ],
+    "value": null,
+    "verified_at": "2026-09-17"
   },
-  "intervals": [
-    {
-      "label": "collaboration active",
-      "status": "active",
-      "start": "2003-10",
-      "end": null,
-      "sources": ["src:cosmic-gamma-magic-arxiv-2004-status"],
-      "verified_at": "2026-09-17",
-      "confidence": "approximate",
-      "quote": "started operations in its final configuration in October 2003",
-      "note": "Start is a lower bound (MAGIC-I's operational start), not a sourced formation date."
-    }
-  ],
-  "status": "active",
-  "membership": {
-    "as_of": null,
-    "institution_count": null,
-    "member_count": null,
-    "country_count": null,
-    "evidence_class": "derived",
-    "roster_source_ids": []
-  },
-  "leadership": [],
   "host_facility_id": "facility:roque-de-los-muchachos-observatory",
   "host_site_id": "site:roque-de-los-muchachos-gamma-ray-array",
-  "summary": {
-    "plain": "The scientists who built and run the MAGIC gamma-ray telescopes on La Palma.",
-    "technical": "Collaboration operating the MAGIC imaging-atmospheric-Cherenkov-telescope system on La Palma, Canary Islands, Spain, since MAGIC-I's operational start in October 2003; membership counts and formal formation date not confirmed by a source fetched this session."
+  "id": "collaboration:magic",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "collaboration active",
+      "note": "Start is a lower bound (MAGIC-I's operational start), not a sourced formation date.",
+      "quote": "started operations in its final configuration in October 2003",
+      "sources": [
+        "src:cosmic-gamma-magic-arxiv-2004-status"
+      ],
+      "start": "2003-10",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "leadership": [],
+  "links": {
+    "website": null
   },
-  "sources": ["src:cosmic-gamma-magic-arxiv-2004-status"],
-  "links": {"website": null},
+  "membership": {
+    "as_of": null,
+    "country_count": null,
+    "evidence_class": "derived",
+    "institution_count": null,
+    "member_count": null,
+    "roster_source_ids": []
+  },
+  "name": "MAGIC Collaboration",
   "notes": [
     "experiment_ids, document_ids deliberately not written (v0.2 A1 derived fields).",
     "membership counts left null: no fetched source states them (magic.mpp.mpg.de failed TLS verification on every attempt).",
     "Leadership left empty: person records are out of scope this wave and none was sourced."
   ],
-  "coverage": {"tier": "B", "researched": "partial"}
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:cosmic-gamma-magic-arxiv-2004-status"
+  ],
+  "status": "active",
+  "summary": {
+    "plain": "The scientists who built and run the MAGIC gamma-ray telescopes on La Palma.",
+    "technical": "Collaboration operating the MAGIC imaging-atmospheric-Cherenkov-telescope system on La Palma, Canary Islands, Spain, since MAGIC-I's operational start in October 2003; membership counts and formal formation date not confirmed by a source fetched this session."
+  },
+  "superseded_by": null,
+  "type": "collaboration"
 }

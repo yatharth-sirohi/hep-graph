@@ -1,91 +1,181 @@
 {
-  "id": "experiment:ctao",
-  "type": "experiment",
-  "schema": "hep-atlas/0.2",
-  "name": "CTAO",
-  "aliases": ["Cherenkov Telescope Array Observatory", "CTA", "Cherenkov Telescope Array"],
-  "distinct_from": [],
-  "superseded_by": null,
-  "kind": "gamma_ray",
-  "secondary_kinds": [],
-  "collaboration_ids": ["collaboration:ctao"],
-  "facility_roles": [
-    {
-      "facility_id": "facility:roque-de-los-muchachos-observatory",
-      "role": "host",
-      "start": null,
-      "end": null,
-      "sources": ["src:cosmic-gamma-ctao-official-about-us-page"],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
-      "quote": "The two array sites are in La Palma, Spain, and Paranal, Chile.",
-      "note": "CTAO-North."
-    },
-    {
-      "facility_id": "facility:ctao-south-paranal",
-      "role": "host",
-      "start": null,
-      "end": null,
-      "sources": ["src:cosmic-gamma-ctao-official-about-us-page"],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
-      "quote": "The two array sites are in La Palma, Spain, and Paranal, Chile.",
-      "note": "CTAO-South."
-    }
+  "accelerator_ids": [],
+  "aliases": [
+    "Cherenkov Telescope Array Observatory",
+    "CTA",
+    "Cherenkov Telescope Array"
   ],
   "beamline_ids": [],
-  "accelerator_ids": [],
-  "topic_ids": ["topic:gamma-rays", "topic:multimessenger-astrophysics"],
+  "collaboration_ids": [
+    "collaboration:ctao"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "distinct_from": [],
+  "energy_regime": {
+    "confidence": "verified",
+    "note": "",
+    "quote": "energies between 20 GeV and 300 TeV",
+    "sources": [
+      "src:cosmic-gamma-ctao-official-technology-page"
+    ],
+    "value": "20 GeV to 300 TeV",
+    "verified_at": "2026-09-17"
+  },
+  "external": {
+    "greybook": null,
+    "inspire_experiment": 1339486,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:roque-de-los-muchachos-observatory",
+      "note": "CTAO-North.",
+      "quote": "The two array sites are in La Palma, Spain, and Paranal, Chile.",
+      "role": "host",
+      "sources": [
+        "src:cosmic-gamma-ctao-official-about-us-page"
+      ],
+      "start": null,
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:ctao-south-paranal",
+      "note": "CTAO-South.",
+      "quote": "The two array sites are in La Palma, Spain, and Paranal, Chile.",
+      "role": "host",
+      "sources": [
+        "src:cosmic-gamma-ctao-official-about-us-page"
+      ],
+      "start": null,
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "id": "experiment:ctao",
   "intervals": [
     {
-      "label": "construction",
-      "status": "construction",
-      "start": "2015",
-      "end": null,
-      "sources": ["src:cosmic-gamma-ctao-official-about-us-page", "src:cosmic-gamma-inspire-cta-experiment-record"],
-      "verified_at": "2026-09-17",
       "confidence": "uncertain",
+      "end": null,
+      "label": "construction",
+      "note": "2015 is a lower bound only (the year INSPIRE's CTA experiment record was created); no fetched source this session gives a construction-start date, a completion date, or a per-site percentage. CTAO's own wording implies construction and (partial) operation are concurrent, similar to how LST-1 and some MSTs are already reported elsewhere to be taking data on La Palma while the observatory as a whole is not complete. Status is kept at 'construction' pending a source that states otherwise.",
       "quote": "The construction and operation of the CTAO is a global initiative",
-      "note": "2015 is a lower bound only (the year INSPIRE's CTA experiment record was created); no fetched source this session gives a construction-start date, a completion date, or a per-site percentage. CTAO's own wording implies construction and (partial) operation are concurrent, similar to how LST-1 and some MSTs are already reported elsewhere to be taking data on La Palma while the observatory as a whole is not complete. Status is kept at 'construction' pending a source that states otherwise."
+      "sources": [
+        "src:cosmic-gamma-ctao-official-about-us-page",
+        "src:cosmic-gamma-inspire-cta-experiment-record"
+      ],
+      "start": "2015",
+      "status": "construction",
+      "verified_at": "2026-09-17"
     }
   ],
-  "status": "construction",
-  "physics_goals": [],
-  "unique_capabilities": [
-    {
-      "value": "The next-generation ground-based gamma-ray observatory: two array sites (Northern and Southern Hemisphere) using three telescope size classes (Large, Medium and Small) to cover the widest energy range of any single gamma-ray facility, 20 GeV to 300 TeV.",
-      "sources": ["src:cosmic-gamma-ctao-official-technology-page"],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
-      "quote": "energies between 20 GeV and 300 TeV",
-      "note": ""
-    }
-  ],
-  "energy_regime": {
-    "value": "20 GeV to 300 TeV",
-    "sources": ["src:cosmic-gamma-ctao-official-technology-page"],
-    "verified_at": "2026-09-17",
-    "confidence": "verified",
-    "quote": "energies between 20 GeV and 300 TeV",
-    "note": ""
-  },
   "key_specs": [
-    {"label": "Large-Sized Telescopes (planned)", "quantity": {"value": 4, "unit": "", "dimension": "count", "approx": false, "display": "4 LSTs (North)", "sources": ["src:cosmic-gamma-ctao-official-technology-page"], "verified_at": "2026-09-17", "confidence": "verified", "quote": "four Large-Sized Telescopes in the northern hemisphere for its low-energy range", "note": ""}},
-    {"label": "Medium-Sized Telescopes (planned)", "quantity": {"value": 23, "unit": "", "dimension": "count", "approx": true, "display": "up to 23 MSTs (both sites)", "sources": ["src:cosmic-gamma-ctao-official-technology-page"], "verified_at": "2026-09-17", "confidence": "verified", "quote": "up to 23 Medium-Sized Telescopes distributed over both array sites", "note": ""}},
-    {"label": "Small-Sized Telescopes (planned)", "quantity": {"value": 37, "unit": "", "dimension": "count", "approx": true, "display": "up to 37 SSTs (South)", "sources": ["src:cosmic-gamma-ctao-official-technology-page"], "verified_at": "2026-09-17", "confidence": "verified", "quote": "up to 37 Small-Sized Telescopes in the southern hemisphere", "note": ""}}
+    {
+      "label": "Large-Sized Telescopes (planned)",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "count",
+        "display": "4 LSTs (North)",
+        "note": "",
+        "quote": "four Large-Sized Telescopes in the northern hemisphere for its low-energy range",
+        "sources": [
+          "src:cosmic-gamma-ctao-official-technology-page"
+        ],
+        "unit": "",
+        "value": 4,
+        "verified_at": "2026-09-17"
+      }
+    },
+    {
+      "label": "Medium-Sized Telescopes (planned)",
+      "quantity": {
+        "approx": true,
+        "confidence": "verified",
+        "dimension": "count",
+        "display": "up to 23 MSTs (both sites)",
+        "note": "",
+        "quote": "up to 23 Medium-Sized Telescopes distributed over both array sites",
+        "sources": [
+          "src:cosmic-gamma-ctao-official-technology-page"
+        ],
+        "unit": "",
+        "value": 23,
+        "verified_at": "2026-09-17"
+      }
+    },
+    {
+      "label": "Small-Sized Telescopes (planned)",
+      "quantity": {
+        "approx": true,
+        "confidence": "verified",
+        "dimension": "count",
+        "display": "up to 37 SSTs (South)",
+        "note": "",
+        "quote": "up to 37 Small-Sized Telescopes in the southern hemisphere",
+        "sources": [
+          "src:cosmic-gamma-ctao-official-technology-page"
+        ],
+        "unit": "",
+        "value": 37,
+        "verified_at": "2026-09-17"
+      }
+    }
   ],
+  "kind": "gamma_ray",
   "lineage": [],
-  "external": {"inspire_experiment": 1339486, "greybook": null, "wikidata": null},
-  "summary": {
-    "plain": "A next-generation gamma-ray observatory being built at two sites, one in Spain and one in Chile, using dozens of telescopes of three different sizes to see the whole sky and the widest range of gamma-ray energies of any single project.",
-    "technical": "Cherenkov Telescope Array Observatory: two-site (La Palma, Spain / Paranal, Chile) imaging-atmospheric-Cherenkov array using Large-, Medium- and Small-Sized Telescope classes (up to 4 LST + 23 MST north, up to 23 MST + 37 SST south, per the observatory's own technology page) to cover 20 GeV-300 TeV. Headquarters in Bologna, Italy; Science Data Management Centre in Zeuthen, Germany. Under construction as of the sources fetched this session."
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "note": "",
+      "sources": [
+        "src:cosmic-gamma-ctao-official-homepage"
+      ],
+      "value": "https://www.ctao.org/",
+      "verified_at": "2026-09-17"
+    }
   },
-  "sources": ["src:cosmic-gamma-ctao-official-homepage", "src:cosmic-gamma-ctao-official-about-us-page", "src:cosmic-gamma-ctao-official-technology-page", "src:cosmic-gamma-inspire-cta-experiment-record"],
-  "links": {"website": {"value": "https://www.ctao.org/", "sources": ["src:cosmic-gamma-ctao-official-homepage"], "verified_at": "2026-09-17", "confidence": "verified", "note": ""}},
+  "name": "CTAO",
   "notes": [
     "site_ids, detector_ids, document_ids, result_ids are deliberately not written (v0.2 A1 derived fields).",
     "ctao.org's dedicated 'sites', 'arrays' and 'news' subpages returned 404 or empty JavaScript-shell content on every attempt this session; construction-phase details (e.g. LST-1's own commissioning date, per-site telescope counts already installed) were not sourced and are listed in missing_fields.",
     "No results or technical documents were written in this pass (non-flagship experiment; mandatory bar only per the wave-3 brief)."
   ],
-  "coverage": {"tier": "B", "researched": "partial"}
+  "physics_goals": [],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:cosmic-gamma-ctao-official-homepage",
+    "src:cosmic-gamma-ctao-official-about-us-page",
+    "src:cosmic-gamma-ctao-official-technology-page",
+    "src:cosmic-gamma-inspire-cta-experiment-record"
+  ],
+  "status": "construction",
+  "summary": {
+    "plain": "A next-generation gamma-ray observatory being built at two sites, one in Spain and one in Chile, using dozens of telescopes of three different sizes to see the whole sky and the widest range of gamma-ray energies of any single project.",
+    "technical": "Cherenkov Telescope Array Observatory: two-site (La Palma, Spain / Paranal, Chile) imaging-atmospheric-Cherenkov array using Large-, Medium- and Small-Sized Telescope classes (up to 4 LST + 23 MST north, up to 23 MST + 37 SST south, per the observatory's own technology page) to cover 20 GeV-300 TeV. Headquarters in Bologna, Italy; Science Data Management Centre in Zeuthen, Germany. Under construction as of the sources fetched this session."
+  },
+  "superseded_by": null,
+  "topic_ids": [
+    "topic:gamma-rays",
+    "topic:multimessenger-astrophysics"
+  ],
+  "type": "experiment",
+  "unique_capabilities": [
+    {
+      "confidence": "verified",
+      "note": "",
+      "quote": "energies between 20 GeV and 300 TeV",
+      "sources": [
+        "src:cosmic-gamma-ctao-official-technology-page"
+      ],
+      "value": "The next-generation ground-based gamma-ray observatory: two array sites (Northern and Southern Hemisphere) using three telescope size classes (Large, Medium and Small) to cover the widest energy range of any single gamma-ray facility, 20 GeV to 300 TeV.",
+      "verified_at": "2026-09-17"
+    }
+  ]
 }

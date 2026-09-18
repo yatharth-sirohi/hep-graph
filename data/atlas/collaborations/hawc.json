@@ -1,54 +1,65 @@
 {
-  "id": "collaboration:hawc",
-  "type": "collaboration",
-  "schema": "hep-atlas/0.2",
-  "name": "HAWC Collaboration",
   "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
   "distinct_from": [],
-  "superseded_by": null,
   "formation": {
-    "value": null,
-    "sources": ["src:cosmic-gamma-hawc-design-paper-arxiv-2013"],
-    "verified_at": "2026-09-17",
     "confidence": "uncertain",
     "locator": "arXiv:1310.0074, 'The HAWC Gamma-Ray Observatory: Design, Calibration, and Operation' (no formation date stated in the record fetched)",
-    "note": "No source fetched this session states a formal formation date for the HAWC Collaboration."
+    "note": "No source fetched this session states a formal formation date for the HAWC Collaboration.",
+    "sources": [
+      "src:cosmic-gamma-hawc-design-paper-arxiv-2013"
+    ],
+    "value": null,
+    "verified_at": "2026-09-17"
   },
-  "intervals": [
-    {
-      "label": "collaboration active",
-      "status": "active",
-      "start": "2013-09",
-      "end": null,
-      "sources": ["src:cosmic-gamma-hawc-design-paper-arxiv-2013"],
-      "verified_at": "2026-09-17",
-      "confidence": "uncertain",
-      "quote": "The High-Altitude Water Cherenkov Gamma Ray Observatory (HAWC) is under construction",
-      "note": "Start is a lower bound (the date of the earliest fetched collaboration paper), not a sourced formation date."
-    }
-  ],
-  "status": "active",
-  "membership": {
-    "as_of": null,
-    "institution_count": null,
-    "member_count": null,
-    "country_count": null,
-    "evidence_class": "derived",
-    "roster_source_ids": []
-  },
-  "leadership": [],
   "host_facility_id": "facility:sierra-negra",
   "host_site_id": "site:hawc-sierra-negra",
-  "summary": {
-    "plain": "The scientists who built and run the HAWC gamma-ray observatory on a Mexican volcano.",
-    "technical": "Collaboration operating the HAWC water-Cherenkov gamma-ray observatory on Sierra Negra, Mexico, since at least September 2013 (construction); membership counts and formal formation date not confirmed by a source fetched this session."
+  "id": "collaboration:hawc",
+  "intervals": [
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "collaboration active",
+      "note": "Start is a lower bound (the date of the earliest fetched collaboration paper), not a sourced formation date.",
+      "quote": "The High-Altitude Water Cherenkov Gamma Ray Observatory (HAWC) is under construction",
+      "sources": [
+        "src:cosmic-gamma-hawc-design-paper-arxiv-2013"
+      ],
+      "start": "2013-09",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "leadership": [],
+  "links": {
+    "website": null
   },
-  "sources": ["src:cosmic-gamma-hawc-design-paper-arxiv-2013"],
-  "links": {"website": null},
+  "membership": {
+    "as_of": null,
+    "country_count": null,
+    "evidence_class": "derived",
+    "institution_count": null,
+    "member_count": null,
+    "roster_source_ids": []
+  },
+  "name": "HAWC Collaboration",
   "notes": [
     "experiment_ids, document_ids deliberately not written (v0.2 A1 derived fields).",
     "membership counts left null: no fetched source states them; the official site was unreachable this session.",
     "Leadership left empty: person records are out of scope this wave and none was sourced."
   ],
-  "coverage": {"tier": "B", "researched": "partial"}
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:cosmic-gamma-hawc-design-paper-arxiv-2013"
+  ],
+  "status": "active",
+  "summary": {
+    "plain": "The scientists who built and run the HAWC gamma-ray observatory on a Mexican volcano.",
+    "technical": "Collaboration operating the HAWC water-Cherenkov gamma-ray observatory on Sierra Negra, Mexico, since at least September 2013 (construction); membership counts and formal formation date not confirmed by a source fetched this session."
+  },
+  "superseded_by": null,
+  "type": "collaboration"
 }

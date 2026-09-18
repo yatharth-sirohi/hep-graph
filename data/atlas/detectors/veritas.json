@@ -1,75 +1,131 @@
 {
-  "id": "detector:veritas",
-  "type": "detector",
-  "schema": "hep-atlas/0.2",
-  "name": "VERITAS telescope array",
   "aliases": [],
-  "distinct_from": [],
-  "superseded_by": null,
-  "experiment_ids": ["experiment:veritas"],
-  "placements": [
-    {
-      "site_id": "site:mount-hopkins-veritas",
-      "role": "main",
-      "start": "2003-04",
-      "end": null,
-      "sources": ["src:cosmic-gamma-veritas-official-about-page"],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
-      "quote": "Installation of VERITAS prototype telescope at the FLWO Basecamp",
-      "note": ""
-    }
-  ],
-  "parent_detector_id": null,
-  "technology": {
-    "value": "Array of four 12 m imaging atmospheric Cherenkov telescopes.",
-    "sources": ["src:cosmic-gamma-veritas-official-homepage"],
-    "verified_at": "2026-09-17",
-    "confidence": "verified",
-    "quote": "an array of four 12m optical reflectors",
-    "note": ""
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
   },
-  "technology_class": "imaging_atmospheric_cherenkov",
-  "technology_classes": ["imaging_atmospheric_cherenkov"],
+  "distinct_from": [],
+  "experiment_ids": [
+    "experiment:veritas"
+  ],
+  "id": "detector:veritas",
   "intervals": [
     {
-      "label": "construction (prototype)",
-      "status": "construction",
-      "start": "2003-04",
-      "end": "2004-02",
-      "sources": ["src:cosmic-gamma-veritas-official-about-page"],
-      "verified_at": "2026-09-17",
       "confidence": "verified",
+      "end": "2004-02",
+      "label": "construction (prototype)",
+      "note": "",
       "quote": "April 2003: Installation of VERITAS prototype telescope at the FLWO Basecamp",
-      "note": ""
+      "sources": [
+        "src:cosmic-gamma-veritas-official-about-page"
+      ],
+      "start": "2003-04",
+      "status": "construction",
+      "verified_at": "2026-09-17"
     },
     {
-      "label": "full array operations",
-      "status": "active",
-      "start": "2007-01",
-      "end": null,
-      "sources": ["src:cosmic-gamma-veritas-official-about-page"],
-      "verified_at": "2026-09-17",
       "confidence": "verified",
+      "end": null,
+      "label": "full array operations",
+      "note": "",
       "quote": "January 2007: Completion of 4 telescope array",
-      "note": ""
+      "sources": [
+        "src:cosmic-gamma-veritas-official-about-page"
+      ],
+      "start": "2007-01",
+      "status": "active",
+      "verified_at": "2026-09-17"
     }
   ],
-  "status": "active",
-  "specs": {
-    "telescope_count": {"value": 4, "unit": "", "dimension": "count", "approx": false, "display": "4 telescopes", "sources": ["src:cosmic-gamma-veritas-official-homepage"], "verified_at": "2026-09-17", "confidence": "verified", "quote": "an array of four 12m optical reflectors", "note": ""},
-    "altitude": {"value": 1268, "unit": "m", "dimension": "length", "approx": false, "display": "1268 m", "sources": ["src:cosmic-gamma-veritas-official-specifications-page"], "verified_at": "2026-09-17", "confidence": "verified", "quote": "Altitude 1268 m (4159 ft)", "note": ""},
-    "energy_range": {"value": "85 GeV to >30 TeV", "sources": ["src:cosmic-gamma-veritas-official-specifications-page"], "verified_at": "2026-09-17", "confidence": "verified", "quote": "energy range: 85 GeV to >30 TeV", "note": ""}
+  "links": {
+    "website": null
   },
+  "name": "VERITAS telescope array",
+  "notes": [
+    "document_ids deliberately not written (v0.2 A1 derived field)."
+  ],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "note": "",
+      "quote": "Installation of VERITAS prototype telescope at the FLWO Basecamp",
+      "role": "main",
+      "site_id": "site:mount-hopkins-veritas",
+      "sources": [
+        "src:cosmic-gamma-veritas-official-about-page"
+      ],
+      "start": "2003-04",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:cosmic-gamma-veritas-official-homepage",
+    "src:cosmic-gamma-veritas-official-about-page",
+    "src:cosmic-gamma-veritas-official-specifications-page"
+  ],
+  "specs": {
+    "altitude": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "1268 m",
+      "note": "",
+      "quote": "Altitude 1268 m (4159 ft)",
+      "sources": [
+        "src:cosmic-gamma-veritas-official-specifications-page"
+      ],
+      "unit": "m",
+      "value": 1268,
+      "verified_at": "2026-09-17"
+    },
+    "energy_range": {
+      "confidence": "verified",
+      "note": "",
+      "quote": "energy range: 85 GeV to >30 TeV",
+      "sources": [
+        "src:cosmic-gamma-veritas-official-specifications-page"
+      ],
+      "value": "85 GeV to >30 TeV",
+      "verified_at": "2026-09-17"
+    },
+    "telescope_count": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "count",
+      "display": "4 telescopes",
+      "note": "",
+      "quote": "an array of four 12m optical reflectors",
+      "sources": [
+        "src:cosmic-gamma-veritas-official-homepage"
+      ],
+      "unit": "",
+      "value": 4,
+      "verified_at": "2026-09-17"
+    }
+  },
+  "status": "active",
   "subsystems": [],
   "summary": {
     "plain": "Four 12-metre dish telescopes on a mountaintop that catch the flicker of blue light made when gamma rays hit the upper atmosphere.",
     "technical": "Array of four 12 m imaging atmospheric Cherenkov telescopes at Mount Hopkins, Arizona; full array completed January 2007, sensitive 85 GeV to >30 TeV."
   },
-  "sources": ["src:cosmic-gamma-veritas-official-homepage", "src:cosmic-gamma-veritas-official-about-page", "src:cosmic-gamma-veritas-official-specifications-page"],
-  "links": {"website": null},
-  "notes": [
-    "document_ids deliberately not written (v0.2 A1 derived field)."
+  "superseded_by": null,
+  "technology": {
+    "confidence": "verified",
+    "note": "",
+    "quote": "an array of four 12m optical reflectors",
+    "sources": [
+      "src:cosmic-gamma-veritas-official-homepage"
+    ],
+    "value": "Array of four 12 m imaging atmospheric Cherenkov telescopes.",
+    "verified_at": "2026-09-17"
+  },
+  "technology_class": "imaging_atmospheric_cherenkov",
+  "technology_classes": [
+    "imaging_atmospheric_cherenkov"
   ],
-  "coverage": {"tier": "B", "researched": "partial"}
+  "type": "detector"
 }

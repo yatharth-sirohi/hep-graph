@@ -1,68 +1,93 @@
 {
-  "id": "collaboration:h-e-s-s",
-  "type": "collaboration",
-  "schema": "hep-atlas/0.2",
-  "name": "H.E.S.S. Collaboration",
   "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
   "distinct_from": [],
-  "superseded_by": null,
   "formation": {
-    "value": null,
-    "sources": ["src:cosmic-gamma-hess-official-about-page"],
-    "verified_at": "2026-09-17",
     "confidence": "uncertain",
     "locator": "hess-experiment.eu/about-hess/ (states first light 2002 but no explicit collaboration formation date)",
-    "note": "No source fetched this session states a formal formation date distinct from the 2002 first-light date; the collaboration presumably formed earlier, during proposal/construction, but that is not sourced."
+    "note": "No source fetched this session states a formal formation date distinct from the 2002 first-light date; the collaboration presumably formed earlier, during proposal/construction, but that is not sourced.",
+    "sources": [
+      "src:cosmic-gamma-hess-official-about-page"
+    ],
+    "value": null,
+    "verified_at": "2026-09-17"
   },
-  "intervals": [
-    {
-      "label": "collaboration active",
-      "status": "active",
-      "start": "2002",
-      "end": null,
-      "sources": ["src:cosmic-gamma-hess-official-about-page"],
-      "verified_at": "2026-09-17",
-      "confidence": "approximate",
-      "quote": "Since its first light in 2002, H.E.S.S. has provided groundbreaking insights",
-      "note": "Start reuses the experiment's first-light year as a lower bound."
-    }
-  ],
-  "status": "active",
-  "membership": {
-    "as_of": "2026",
-    "institution_count": null,
-    "member_count": {
-      "value": 200,
-      "sources": ["src:cosmic-gamma-hess-official-about-page"],
-      "verified_at": "2026-09-17",
-      "confidence": "approximate",
-      "quote": "H.E.S.S. is operated by an international collaboration of around 200 scientists, engineers, and students from more than a dozen countries.",
-      "note": "Source says 'around 200', not an exact count."
-    },
-    "country_count": {
-      "value": null,
-      "sources": ["src:cosmic-gamma-hess-official-about-page"],
-      "verified_at": "2026-09-17",
-      "confidence": "uncertain",
-      "quote": "from more than a dozen countries",
-      "note": "Source gives only 'more than a dozen', not an exact number; left null rather than guessed."
-    },
-    "evidence_class": "official_institution_list",
-    "roster_source_ids": ["src:cosmic-gamma-hess-official-about-page"]
-  },
-  "leadership": [],
   "host_facility_id": "facility:hess-khomas-highland",
   "host_site_id": "site:khomas-highland-hess",
-  "summary": {
-    "plain": "The roughly 200 scientists, engineers and students from more than a dozen countries who built and run the H.E.S.S. gamma-ray telescopes in Namibia.",
-    "technical": "International collaboration of about 200 scientists, engineers and students from more than a dozen countries, operating H.E.S.S. since first light in 2002, per the collaboration's own site."
+  "id": "collaboration:h-e-s-s",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "collaboration active",
+      "note": "Start reuses the experiment's first-light year as a lower bound.",
+      "quote": "Since its first light in 2002, H.E.S.S. has provided groundbreaking insights",
+      "sources": [
+        "src:cosmic-gamma-hess-official-about-page"
+      ],
+      "start": "2002",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "leadership": [],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "note": "",
+      "sources": [
+        "src:cosmic-gamma-hess-official-homepage"
+      ],
+      "value": "https://hess-experiment.eu/",
+      "verified_at": "2026-09-17"
+    }
   },
-  "sources": ["src:cosmic-gamma-hess-official-about-page"],
-  "links": {"website": {"value": "https://hess-experiment.eu/", "sources": ["src:cosmic-gamma-hess-official-homepage"], "verified_at": "2026-09-17", "confidence": "verified", "note": ""}},
+  "membership": {
+    "as_of": "2026",
+    "country_count": {
+      "confidence": "uncertain",
+      "note": "Source gives only 'more than a dozen', not an exact number; left null rather than guessed.",
+      "quote": "from more than a dozen countries",
+      "sources": [
+        "src:cosmic-gamma-hess-official-about-page"
+      ],
+      "value": null,
+      "verified_at": "2026-09-17"
+    },
+    "evidence_class": "official_institution_list",
+    "institution_count": null,
+    "member_count": {
+      "confidence": "approximate",
+      "note": "Source says 'around 200', not an exact count.",
+      "quote": "H.E.S.S. is operated by an international collaboration of around 200 scientists, engineers, and students from more than a dozen countries.",
+      "sources": [
+        "src:cosmic-gamma-hess-official-about-page"
+      ],
+      "value": 200,
+      "verified_at": "2026-09-17"
+    },
+    "roster_source_ids": [
+      "src:cosmic-gamma-hess-official-about-page"
+    ]
+  },
+  "name": "H.E.S.S. Collaboration",
   "notes": [
     "experiment_ids, document_ids deliberately not written (v0.2 A1 derived fields).",
     "institution_count and exact country_count left null: source gives only qualitative wording ('more than a dozen countries'), not exact figures.",
     "Leadership left empty: person records are out of scope this wave and none was sourced."
   ],
-  "coverage": {"tier": "B", "researched": "partial"}
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:cosmic-gamma-hess-official-about-page"
+  ],
+  "status": "active",
+  "summary": {
+    "plain": "The roughly 200 scientists, engineers and students from more than a dozen countries who built and run the H.E.S.S. gamma-ray telescopes in Namibia.",
+    "technical": "International collaboration of about 200 scientists, engineers and students from more than a dozen countries, operating H.E.S.S. since first light in 2002, per the collaboration's own site."
+  },
+  "superseded_by": null,
+  "type": "collaboration"
 }

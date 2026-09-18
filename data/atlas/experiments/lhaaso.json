@@ -1,80 +1,134 @@
 {
-  "id": "experiment:lhaaso",
-  "type": "experiment",
-  "schema": "hep-atlas/0.2",
-  "name": "LHAASO",
-  "aliases": ["Large High Altitude Air Shower Observatory"],
-  "distinct_from": [],
-  "superseded_by": null,
-  "kind": "gamma_ray",
-  "secondary_kinds": ["cosmic_ray"],
-  "collaboration_ids": ["collaboration:lhaaso"],
-  "facility_roles": [
-    {
-      "facility_id": "facility:lhaaso-daocheng",
-      "role": "host",
-      "start": null,
-      "end": null,
-      "sources": ["src:cosmic-gamma-lhaaso-science-book-arxiv-2019"],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
-      "note": "The facility and the experiment coincide."
-    }
+  "accelerator_ids": [],
+  "aliases": [
+    "Large High Altitude Air Shower Observatory"
   ],
   "beamline_ids": [],
-  "accelerator_ids": [],
-  "topic_ids": ["topic:gamma-rays", "topic:cosmic-rays", "topic:multimessenger-astrophysics"],
+  "collaboration_ids": [
+    "collaboration:lhaaso"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "distinct_from": [],
+  "energy_regime": null,
+  "external": {
+    "greybook": null,
+    "inspire_experiment": 1339331,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:lhaaso-daocheng",
+      "note": "The facility and the experiment coincide.",
+      "role": "host",
+      "sources": [
+        "src:cosmic-gamma-lhaaso-science-book-arxiv-2019"
+      ],
+      "start": null,
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "id": "experiment:lhaaso",
   "intervals": [
     {
-      "label": "data taking",
-      "status": "active",
-      "start": "2021-05",
-      "end": null,
-      "sources": ["src:cosmic-gamma-lhaaso-uhe-photons-arxiv-2021"],
-      "verified_at": "2026-09-17",
       "confidence": "approximate",
+      "end": null,
+      "label": "data taking",
+      "note": "2021-05 is a lower bound from the earliest fetched source describing LHAASO as operating; construction-start and full-array-completion dates were not sourced this session.",
       "quote": "one of the most sensitive gamma-ray detector arrays currently operating at TeV and PeV energies",
-      "note": "2021-05 is a lower bound from the earliest fetched source describing LHAASO as operating; construction-start and full-array-completion dates were not sourced this session."
+      "sources": [
+        "src:cosmic-gamma-lhaaso-uhe-photons-arxiv-2021"
+      ],
+      "start": "2021-05",
+      "status": "active",
+      "verified_at": "2026-09-17"
     }
   ],
-  "status": "active",
-  "physics_goals": [
-    {
-      "value": "Measure the cosmic-ray energy spectrum, composition and anisotropy from 10^12 to 10^18 eV, and survey the sky as a wide-aperture gamma-ray telescope with sensitivity to PeV-scale ('PeVatron') sources.",
-      "sources": ["src:cosmic-gamma-lhaaso-science-book-arxiv-2019"],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
-      "quote": "measures cosmic ray spectrum, composition, and anisotropy between 10^12 and 10^18 eV, while functioning as a gamma-ray telescope with 1.3% Crab Unit sensitivity above 100 TeV",
-      "note": ""
-    }
-  ],
-  "unique_capabilities": [
-    {
-      "value": "Detected ultra-high-energy photons up to 1.4 PeV from twelve Galactic gamma-ray sources, the highest-energy photons observed from astrophysical sources at the time of that 2021 report.",
-      "sources": ["src:cosmic-gamma-lhaaso-uhe-photons-arxiv-2021"],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
-      "quote": "detected ultra-high-energy (UHE; E_gamma >~ 100 TeV) photon emissions up to 1.4 PeV from twelve astrophysical gamma-ray sources",
-      "note": ""
-    }
-  ],
-  "energy_regime": null,
   "key_specs": [
-    {"label": "Altitude", "quantity": {"value": 4410, "unit": "m", "dimension": "length", "approx": false, "display": "4410 m", "sources": ["src:cosmic-gamma-lhaaso-science-book-arxiv-2019"], "verified_at": "2026-09-17", "confidence": "verified", "quote": "at an altitude of 4410 meters", "note": ""}}
+    {
+      "label": "Altitude",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "length",
+        "display": "4410 m",
+        "note": "",
+        "quote": "at an altitude of 4410 meters",
+        "sources": [
+          "src:cosmic-gamma-lhaaso-science-book-arxiv-2019"
+        ],
+        "unit": "m",
+        "value": 4410,
+        "verified_at": "2026-09-17"
+      }
+    }
   ],
+  "kind": "gamma_ray",
   "lineage": [],
-  "external": {"inspire_experiment": 1339331, "greybook": null, "wikidata": null},
-  "summary": {
-    "plain": "A high-altitude Chinese observatory that measures cosmic rays and hunts for the highest-energy gamma rays in the sky, using several kinds of detectors together on a mountain 4410 metres up.",
-    "technical": "Multi-component air-shower observatory at 4410 m on Haizi Mountain, Sichuan, China, combining water-Cherenkov, muon/electromagnetic and Cherenkov-telescope sub-arrays (per public description; individual KM2A/WCDA/WFCTA specifications not sourced this session) to cover cosmic-ray energies of 10^12-10^18 eV and gamma rays above 100 TeV. Reported as already operating by May 2021, with UHE photons up to 1.4 PeV detected from twelve Galactic sources."
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "note": "",
+      "sources": [
+        "src:cosmic-gamma-lhaaso-ihep-homepage"
+      ],
+      "value": "http://english.ihep.cas.cn/lhaaso/",
+      "verified_at": "2026-09-17"
+    }
   },
-  "sources": ["src:cosmic-gamma-lhaaso-science-book-arxiv-2019", "src:cosmic-gamma-inspire-lhaaso-experiment-record"],
-  "links": {"website": {"value": "http://english.ihep.cas.cn/lhaaso/", "sources": ["src:cosmic-gamma-lhaaso-ihep-homepage"], "verified_at": "2026-09-17", "confidence": "verified", "note": ""}},
+  "name": "LHAASO",
   "notes": [
     "site_ids, detector_ids, document_ids, result_ids are deliberately not written (v0.2 A1 derived fields).",
     "KM2A/WCDA/WFCTA sub-array specifications (unit counts, individual areas) were NOT sourced this session: the IHEP site's inner pages render as empty JavaScript shells under WebFetch. This is listed in missing_fields.",
     "Construction-start and full-array-completion dates were not sourced this session; only a 2021-05 lower bound for 'already operating' is recorded.",
     "No results or technical documents were written in this pass (non-flagship experiment; mandatory bar only per the wave-3 brief)."
   ],
-  "coverage": {"tier": "B", "researched": "partial"}
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "note": "",
+      "quote": "measures cosmic ray spectrum, composition, and anisotropy between 10^12 and 10^18 eV, while functioning as a gamma-ray telescope with 1.3% Crab Unit sensitivity above 100 TeV",
+      "sources": [
+        "src:cosmic-gamma-lhaaso-science-book-arxiv-2019"
+      ],
+      "value": "Measure the cosmic-ray energy spectrum, composition and anisotropy from 10^12 to 10^18 eV, and survey the sky as a wide-aperture gamma-ray telescope with sensitivity to PeV-scale ('PeVatron') sources.",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [
+    "cosmic_ray"
+  ],
+  "sources": [
+    "src:cosmic-gamma-lhaaso-science-book-arxiv-2019",
+    "src:cosmic-gamma-inspire-lhaaso-experiment-record"
+  ],
+  "status": "active",
+  "summary": {
+    "plain": "A high-altitude Chinese observatory that measures cosmic rays and hunts for the highest-energy gamma rays in the sky, using several kinds of detectors together on a mountain 4410 metres up.",
+    "technical": "Multi-component air-shower observatory at 4410 m on Haizi Mountain, Sichuan, China, combining water-Cherenkov, muon/electromagnetic and Cherenkov-telescope sub-arrays (per public description; individual KM2A/WCDA/WFCTA specifications not sourced this session) to cover cosmic-ray energies of 10^12-10^18 eV and gamma rays above 100 TeV. Reported as already operating by May 2021, with UHE photons up to 1.4 PeV detected from twelve Galactic sources."
+  },
+  "superseded_by": null,
+  "topic_ids": [
+    "topic:gamma-rays",
+    "topic:cosmic-rays",
+    "topic:multimessenger-astrophysics"
+  ],
+  "type": "experiment",
+  "unique_capabilities": [
+    {
+      "confidence": "verified",
+      "note": "",
+      "quote": "detected ultra-high-energy (UHE; E_gamma >~ 100 TeV) photon emissions up to 1.4 PeV from twelve astrophysical gamma-ray sources",
+      "sources": [
+        "src:cosmic-gamma-lhaaso-uhe-photons-arxiv-2021"
+      ],
+      "value": "Detected ultra-high-energy photons up to 1.4 PeV from twelve Galactic gamma-ray sources, the highest-energy photons observed from astrophysical sources at the time of that 2021 report.",
+      "verified_at": "2026-09-17"
+    }
+  ]
 }

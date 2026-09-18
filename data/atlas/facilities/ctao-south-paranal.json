@@ -1,45 +1,72 @@
 {
-  "id": "facility:ctao-south-paranal",
-  "type": "facility",
-  "schema": "hep-atlas/0.2",
-  "name": "CTAO-South (Paranal)",
   "aliases": [],
+  "countries": [
+    "CL"
+  ],
+  "country": [
+    "CL"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
   "distinct_from": [],
-  "superseded_by": null,
-  "kind": "astroparticle_observatory",
-  "operator": null,
-  "operator_text": null,
-  "operator_ids": [],
-  "country": ["CL"],
-  "countries": ["CL"],
-  "primary_site_id": "site:paranal-cta-south",
+  "id": "facility:ctao-south-paranal",
   "intervals": [
     {
-      "label": "construction",
-      "status": "construction",
-      "start": "2015",
-      "end": null,
-      "sources": ["src:cosmic-gamma-ctao-official-about-us-page", "src:cosmic-gamma-inspire-cta-experiment-record"],
-      "verified_at": "2026-09-17",
       "confidence": "uncertain",
+      "end": null,
+      "label": "construction",
       "locator": "ctao.org/about-us/ (describes ongoing 'construction and operation' but gives no site-specific start date); INSPIRE-HEP CTA experiment record created 2015-01-16",
-      "note": "2015 is a lower bound only: the year INSPIRE's CTA experiment record was created, used because no fetched source this session gives an actual construction-start date or phase percentage for the Paranal site specifically. Treat as approximate/uncertain and re-verify against an official CTAO construction timeline."
+      "note": "2015 is a lower bound only: the year INSPIRE's CTA experiment record was created, used because no fetched source this session gives an actual construction-start date or phase percentage for the Paranal site specifically. Treat as approximate/uncertain and re-verify against an official CTAO construction timeline.",
+      "sources": [
+        "src:cosmic-gamma-ctao-official-about-us-page",
+        "src:cosmic-gamma-inspire-cta-experiment-record"
+      ],
+      "start": "2015",
+      "status": "construction",
+      "verified_at": "2026-09-17"
     }
   ],
-  "status": "construction",
-  "specs": {},
-  "topic_ids": ["topic:gamma-rays", "topic:multimessenger-astrophysics"],
-  "related_facility_ids": ["facility:roque-de-los-muchachos-observatory"],
-  "summary": {
-    "plain": "The southern-hemisphere site of the Cherenkov Telescope Array Observatory, in the Atacama Desert of Chile near ESO's Paranal Observatory.",
-    "technical": "Southern array site of the Cherenkov Telescope Array Observatory (CTAO), near Paranal, Chile."
+  "kind": "astroparticle_observatory",
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "note": "",
+      "sources": [
+        "src:cosmic-gamma-ctao-official-homepage"
+      ],
+      "value": "https://www.ctao.org/",
+      "verified_at": "2026-09-17"
+    }
   },
-  "sources": ["src:cosmic-gamma-ctao-official-about-us-page"],
-  "links": {"website": {"value": "https://www.ctao.org/", "sources": ["src:cosmic-gamma-ctao-official-homepage"], "verified_at": "2026-09-17", "confidence": "verified", "note": ""}},
+  "name": "CTAO-South (Paranal)",
   "notes": [
     "site_ids, accelerator_ids, beamline_ids, institution_id, document_ids, experiment_ids are deliberately not written (v0.2 A1 derived fields).",
     "status 'construction' follows CTAO's own 'construction and operation' framing and public reporting that the southern array is still being built out; no fetched source gives an explicit phase percentage or completion date for this site specifically.",
     "No intervals (founding, construction-start dates) were sourced this session for this site specifically."
   ],
-  "coverage": {"tier": "B", "researched": "partial"}
+  "operator": null,
+  "operator_ids": [],
+  "operator_text": null,
+  "primary_site_id": "site:paranal-cta-south",
+  "related_facility_ids": [
+    "facility:roque-de-los-muchachos-observatory"
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:cosmic-gamma-ctao-official-about-us-page"
+  ],
+  "specs": {},
+  "status": "construction",
+  "summary": {
+    "plain": "The southern-hemisphere site of the Cherenkov Telescope Array Observatory, in the Atacama Desert of Chile near ESO's Paranal Observatory.",
+    "technical": "Southern array site of the Cherenkov Telescope Array Observatory (CTAO), near Paranal, Chile."
+  },
+  "superseded_by": null,
+  "topic_ids": [
+    "topic:gamma-rays",
+    "topic:multimessenger-astrophysics"
+  ],
+  "type": "facility"
 }

@@ -1,55 +1,78 @@
 {
-  "id": "collaboration:ctao",
-  "type": "collaboration",
-  "schema": "hep-atlas/0.2",
-  "name": "CTAO",
-  "aliases": ["CTAO ERIC", "CTAO Central Organisation"],
+  "aliases": [
+    "CTAO ERIC",
+    "CTAO Central Organisation"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
   "distinct_from": [],
-  "superseded_by": null,
   "formation": {
-    "value": null,
-    "sources": ["src:cosmic-gamma-ctao-official-about-us-page"],
-    "verified_at": "2026-09-17",
     "confidence": "uncertain",
     "locator": "ctao.org/about-us/ (describes the CTAO ERIC legal structure but not stated a founding/establishment date)",
-    "note": "CTAO is legally the CTAO ERIC (European Research Infrastructure Consortium), not a traditional physics 'collaboration' with a formation meeting; no fetched source states when the ERIC was legally established. No formal 'collaboration' entity distinct from the observatory organisation itself was found; this record represents the CTAO Central Organisation."
+    "note": "CTAO is legally the CTAO ERIC (European Research Infrastructure Consortium), not a traditional physics 'collaboration' with a formation meeting; no fetched source states when the ERIC was legally established. No formal 'collaboration' entity distinct from the observatory organisation itself was found; this record represents the CTAO Central Organisation.",
+    "sources": [
+      "src:cosmic-gamma-ctao-official-about-us-page"
+    ],
+    "value": null,
+    "verified_at": "2026-09-17"
   },
-  "intervals": [
-    {
-      "label": "organisation active",
-      "status": "active",
-      "start": "2026",
-      "end": null,
-      "sources": ["src:cosmic-gamma-ctao-official-homepage"],
-      "verified_at": "2026-09-17",
-      "confidence": "uncertain",
-      "quote": "A Growing International Observatory",
-      "note": "Start date is only a lower bound (the date this session's source was accessed/verified), not a sourced founding date for the CTAO Central Organisation/ERIC."
-    }
-  ],
-  "status": "active",
-  "membership": {
-    "as_of": null,
-    "institution_count": null,
-    "member_count": null,
-    "country_count": null,
-    "evidence_class": "derived",
-    "roster_source_ids": []
-  },
-  "leadership": [],
   "host_facility_id": null,
   "host_site_id": null,
-  "summary": {
-    "plain": "The international organisation of countries and institutes building and running CTAO, the next-generation gamma-ray observatory.",
-    "technical": "CTAO Central Organisation (legally the CTAO ERIC), headquartered in Bologna, Italy, with a Science Data Management Centre in Zeuthen, Germany; supported by council members from multiple countries and one intergovernmental organisation per the observatory's own site."
+  "id": "collaboration:ctao",
+  "intervals": [
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "organisation active",
+      "note": "Start date is only a lower bound (the date this session's source was accessed/verified), not a sourced founding date for the CTAO Central Organisation/ERIC.",
+      "quote": "A Growing International Observatory",
+      "sources": [
+        "src:cosmic-gamma-ctao-official-homepage"
+      ],
+      "start": "2026",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "leadership": [],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "note": "",
+      "sources": [
+        "src:cosmic-gamma-ctao-official-homepage"
+      ],
+      "value": "https://www.ctao.org/",
+      "verified_at": "2026-09-17"
+    }
   },
-  "sources": ["src:cosmic-gamma-ctao-official-about-us-page", "src:cosmic-gamma-ctao-official-homepage"],
-  "links": {"website": {"value": "https://www.ctao.org/", "sources": ["src:cosmic-gamma-ctao-official-homepage"], "verified_at": "2026-09-17", "confidence": "verified", "note": ""}},
+  "membership": {
+    "as_of": null,
+    "country_count": null,
+    "evidence_class": "derived",
+    "institution_count": null,
+    "member_count": null,
+    "roster_source_ids": []
+  },
+  "name": "CTAO",
   "notes": [
     "experiment_ids, document_ids deliberately not written (v0.2 A1 derived fields).",
     "host_facility_id/host_site_id left null: CTAO has two co-equal host facilities (Roque de los Muchachos and Paranal), not one primary host, and the schema field takes only one id.",
     "membership counts left null: no fetched source states them in the sense of institution/scientist counts (only 'countries around the globe and one intergovernmental organisation' supporting it, per the homepage).",
     "Leadership left empty: person records are out of scope this wave and none was sourced."
   ],
-  "coverage": {"tier": "B", "researched": "partial"}
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:cosmic-gamma-ctao-official-about-us-page",
+    "src:cosmic-gamma-ctao-official-homepage"
+  ],
+  "status": "active",
+  "summary": {
+    "plain": "The international organisation of countries and institutes building and running CTAO, the next-generation gamma-ray observatory.",
+    "technical": "CTAO Central Organisation (legally the CTAO ERIC), headquartered in Bologna, Italy, with a Science Data Management Centre in Zeuthen, Germany; supported by council members from multiple countries and one intergovernmental organisation per the observatory's own site."
+  },
+  "superseded_by": null,
+  "type": "collaboration"
 }

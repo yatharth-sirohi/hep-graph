@@ -5,13 +5,18 @@
     "experiment_id": "experiment:babar",
     "facility": "SLAC",
     "missing_fields": [
-      "all"
+      "collaboration institution_count (member_count and country_count sourced from INSPIRE; institution count not stated by any source fetched)",
+      "key_specs quantities (detector paper abstract gave qualitative technology description only, no numeric dimensions/fields)",
+      "official website link (no live BaBar/PEP-II URL was independently fetched and confirmed this session; left null rather than citing an unverified address)",
+      "documents (TDR/CDR) - full-depth extra, not attempted (non-flagship)",
+      "results - full-depth extra, not attempted (non-flagship)"
     ],
     "name": "BaBar",
-    "notes": "Identified in the coverage scope; not yet researched.",
+    "notes": "Mandatory bar complete: experiment/detector/collaboration with sourced intervals (proposed 1994-06 to completed 2008-04-08), facility_roles and accelerator_ids referencing facility:slac/accelerator:pep-ii (both now created by the facilities lead), placement referencing site:slac-pep-ii-ir2-babar (also now created). INSPIRE experiment recid 1108553.",
     "owner": "colliders-historical",
     "priority": 2,
-    "researched": "none",
+    "researched": "partial",
+    "status": "completed",
     "tier": "D"
   },
   {
@@ -20,13 +25,17 @@
     "experiment_id": "experiment:cdf",
     "facility": "Fermilab / Tevatron",
     "missing_fields": [
-      "all"
+      "precise B0 collision-hall coordinates (no source found this session gives a hall-specific position; recorded as an honest campus-precision point per A23)",
+      "collaboration formation date (no source states one separately from the 1981-08 INSPIRE proposal date, used as a lower bound)",
+      "full detector spec set (only total_mass and solenoid_field sourced; the two figures found for total_mass conflict by ~10% and are not reconciled)",
+      "documents (TDR/CDR) - full-depth extra, not attempted (non-flagship)"
     ],
     "name": "CDF",
-    "notes": "Identified in the coverage scope; not yet researched.",
+    "notes": "Mandatory bar complete plus the optional 1995 top-quark bonus: experiment/detector/collaboration/site (site:fermilab-cdf-collision-hall-b0, created by this owner) with a 7-interval sourced history (proposed 1981-08 to completed 2011-09-30/10) and one result (result:cdf-top-quark-observation-1995, PRL 74, 2626, result_type observation per the paper's own title). INSPIRE experiment recid 1109361. Reuses facility:fermilab and accelerator:fermilab-tevatron (fermilab-dune, pre-existing).",
     "owner": "colliders-historical",
     "priority": 2,
-    "researched": "none",
+    "researched": "partial",
+    "status": "completed",
     "tier": "D"
   },
   {
@@ -35,13 +44,17 @@
     "experiment_id": "experiment:d0",
     "facility": "Fermilab / Tevatron",
     "missing_fields": [
-      "all"
+      "precise D0 collision-hall coordinates (no source found this session gives a hall-specific position; recorded as an honest campus-precision point per A23)",
+      "collaboration formation date (no source states one separately from the 1983-09-09 INSPIRE proposal date, used as a lower bound)",
+      "key_specs quantities beyond total_mass (no numeric solenoid field or dimensions sourced this session)",
+      "documents (TDR/CDR) - full-depth extra, not attempted (non-flagship)"
     ],
     "name": "D0",
-    "notes": "Identified in the coverage scope; not yet researched.",
+    "notes": "Mandatory bar complete plus the optional 1995 top-quark bonus: experiment/detector/collaboration/site (site:fermilab-d0-collision-hall, created by this owner) with a 7-interval sourced history (proposed 1983-09-09 to completed 2011-09-30/12) and one result (result:d0-top-quark-observation-1995, PRL 74, 2632, result_type observation per the paper's own title). Flags a real conflict: INSPIRE's own date_completed=2001 field is contradicted by its own description text (\"the DZero experiment ran from 2001 to 2011\"); the 2011 date is used. INSPIRE experiment recid 1109214. Reuses facility:fermilab and accelerator:fermilab-tevatron (fermilab-dune, pre-existing).",
     "owner": "colliders-historical",
     "priority": 2,
-    "researched": "none",
+    "researched": "partial",
+    "status": "completed",
     "tier": "D"
   },
   {
@@ -50,13 +63,17 @@
     "experiment_id": "experiment:sld",
     "facility": "SLAC",
     "missing_fields": [
-      "all"
+      "collaboration membership/institution/country counts (no source fetched this session states any of them)",
+      "key_specs quantities (only a qualitative technology description sourced, no numeric dimensions/fields)",
+      "documents (TDR/CDR) - full-depth extra, not attempted (non-flagship)",
+      "results - full-depth extra, not attempted (non-flagship)"
     ],
     "name": "SLD",
-    "notes": "Identified in the coverage scope; not yet researched.",
+    "notes": "Mandatory bar complete: experiment/detector/collaboration with sourced intervals (proposed 1983 to completed 1998-06, including a first-data-run sub-interval with quoted polarization figures), facility_roles and accelerator_ids referencing facility:slac/accelerator:slc (both now created by the facilities lead), placement referencing site:slac-slc-collider-hall-sld (also now created). INSPIRE experiment recid 1109249.",
     "owner": "colliders-historical",
     "priority": 2,
-    "researched": "none",
+    "researched": "partial",
+    "status": "completed",
     "tier": "D"
   },
   {
@@ -65,13 +82,18 @@
     "experiment_id": "experiment:h1",
     "facility": "DESY / HERA",
     "missing_fields": [
-      "all"
+      "collaboration membership/institution/country counts (no source fetched this session states any of them)",
+      "day-precision shutdown date (H1's own site only says \"ended June 2007\"; ZEUS's INSPIRE record gives the shared HERA shutdown as 2007-06-30 but that is not asserted as H1's own sourced day)",
+      "key_specs / detector technical specs (no detector paper or TDR fetched this session)",
+      "documents (TDR/CDR) - full-depth extra, not attempted (non-flagship)",
+      "results - full-depth extra, not attempted (non-flagship)"
     ],
     "name": "H1",
-    "notes": "Identified in the coverage scope; not yet researched.",
+    "notes": "Mandatory bar complete: experiment/detector/collaboration with sourced intervals (proposed 1985-06 to completed 2007-06), facility_roles and accelerator_ids referencing facility:desy/accelerator:hera (both now created by the facilities lead), placement referencing site:desy-hera-north-hall-h1 (also now created). INSPIRE experiment recid 1109080.",
     "owner": "colliders-historical",
     "priority": 3,
-    "researched": "none",
+    "researched": "partial",
+    "status": "completed",
     "tier": "D"
   },
   {
@@ -80,13 +102,17 @@
     "experiment_id": "experiment:zeus",
     "facility": "DESY / HERA",
     "missing_fields": [
-      "all"
+      "collaboration institution_count/country_count (only member_count ≈450 sourced, from the collaboration's own site)",
+      "key_specs quantities (only a qualitative technology description sourced, no numeric dimensions/fields)",
+      "documents (TDR/CDR) - full-depth extra, not attempted (non-flagship)",
+      "results - full-depth extra, not attempted (non-flagship)"
     ],
     "name": "ZEUS",
-    "notes": "Identified in the coverage scope; not yet researched.",
+    "notes": "Mandatory bar complete: experiment/detector/collaboration with sourced intervals (proposed 1986-03 to completed 2007-06-30, including a polarized-beam sub-interval from 2001), facility_roles and accelerator_ids referencing facility:desy/accelerator:hera (both now created by the facilities lead), placement referencing site:desy-hera-south-hall-zeus (also now created). INSPIRE experiment recid 1109012.",
     "owner": "colliders-historical",
     "priority": 3,
-    "researched": "none",
+    "researched": "partial",
+    "status": "completed",
     "tier": "D"
   }
 ]
