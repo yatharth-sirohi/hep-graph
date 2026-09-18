@@ -403,13 +403,16 @@ async function setRangeValue(locator, value) {
       (root) => fetch(`/atlas/${root}/atlas.json`).then((r) => r.json()),
       bundleRoot,
     );
+    // Needs a facility_id too: an approximate site with no owning facility
+    // (e.g. a standalone detector array) has no panel to navigate to and
+    // would make this check assert nothing meaningful about the marker.
     const approximateSite = Object.values(atlasBundle.sites || {})
-      .find((s) => s.coordinates && s.coordinates.approximate);
+      .find((s) => s.coordinates && s.coordinates.approximate && s.facility_id);
     if (!approximateSite) {
-      console.log(`SKIP: no site with coordinates.approximate in the ${bundleRoot} bundle yet`);
+      console.log(`SKIP: no site with coordinates.approximate (and a facility_id) in the ${bundleRoot} bundle yet`);
       return;
     }
-    await page.goto(`${base}/atlas${dataTree}#/facility/${(approximateSite.facility_id || "").split(":")[1] || ""}`);
+    await page.goto(`${base}/atlas${dataTree}#/facility/${approximateSite.facility_id.split(":")[1]}`);
     await page.locator("#detail-panel h2").waitFor();
     await page.waitForFunction(
       (id) => document.querySelector(`.atlas-marker[data-id="${id}"]`),

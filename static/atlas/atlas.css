@@ -81,7 +81,15 @@ input {
   box-shadow: var(--shadow);
   position: sticky;
   top: 0;
-  z-index: 20;
+  /* Globe.gl/three-globe assigns each HTML marker its own inline z-index
+     by camera depth (observed values well past this header's old z-index
+     of 20 once zoomed in — an unbounded range the library controls, not
+     us), so a marker positioned under the search dropdown could end up
+     painted in front of it and intercept clicks meant for a search result.
+     A value comfortably above any plausible depth-sort z-index keeps the
+     header (and everything inside it, e.g. #search-results) on top
+     unconditionally, without touching the library's own marker ordering. */
+  z-index: 1000;
 }
 .brand {
   text-decoration: none;

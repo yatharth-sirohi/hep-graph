@@ -52,6 +52,16 @@ const FACILITY_CLUSTER_ALTITUDE = 0.6;
 // "medium zoom: experiments/sites"); at or above it only facility-tier
 // markers (individual or clustered) are drawn.
 const SITE_VISIBLE_ALTITUDE = 1.3;
+// At or below this altitude, clustering is disabled outright — every
+// facility/institution renders as its own marker, however close together.
+// This is what makes cluster expansion *terminate*: whatever altitude an
+// expansion's geometry math targets, it is clamped to no less than this, so
+// repeated activation always converges here instead of asymptoting forever
+// against a cluster radius floor no altitude can shrink below (see
+// `facilityClusterRadiusDeg`'s own floor of 1°/`institutionClusterRadiusDeg`'s
+// 0.4° — two points closer together than that in raw degrees can never be
+// separated by the radius formula alone, only by disabling it).
+const MIN_CLUSTER_ALTITUDE = 0.12;
 
 function clamp(v, lo, hi) {
   return Math.min(hi, Math.max(lo, v));
@@ -72,10 +82,10 @@ function angularDistDeg(aLat, aLon, bLat, bLon) {
   return Math.sqrt(dLat * dLat + dLon * dLon);
 }
 
-// Cluster radius (degrees) as a function of camera altitude. Tuned so that
-// facilities roughly a country apart (e.g. CERN and LNGS, ~730 km / ~8.4°)
-// merge at the default overview altitude, while different continents never
-// accidentally merge.
+// Cluster radius (degrees) as a function of camera altitude: clamp(altitude
+// * SCALE, FLOOR_DEG, CEIL_DEG). Tuned so that facilities roughly a country
+// apart (e.g. CERN and LNGS, ~730 km / ~8.4°) merge at the default overview
+// altitude, while different continents never accidentally merge.
 function facilityClusterRadiusDeg(altitude) {
   return clamp(altitude * 3.8, 1, 30);
 }
@@ -83,6 +93,41 @@ function facilityClusterRadiusDeg(altitude) {
 // in a small region), so their cluster radius grows faster with altitude.
 function institutionClusterRadiusDeg(altitude) {
   return clamp(altitude * 6, 0.4, 45);
+}
+
+/**
+ * The camera altitude to fly to when a cluster marker is activated.
+ *
+ * A first version derived this from just the clicked cluster's own members'
+ * pairwise spread (zoom in exactly enough to separate *those* points). That
+ * broke down in a real, densely-populated region: the wave-3 tree has a
+ * chain of ~14 European facilities each within a few hundred km of a
+ * neighbour (CERN-LNGS ~8.4°, CERN-Brokdorf ~8.3°, CERN-Leibstadt ~2.5°,
+ * Leibstadt-Karlsruhe ~1.5°, and so on). Zooming in "just enough" to split
+ * the two clicked members apart routinely lands the camera at an altitude
+ * where the clicked pair separates — into two *different* clusters, each
+ * freshly re-merged with other nearby facilities the click never
+ * mentioned — so a single activation on "CERN, Brokdorf" could still never
+ * produce a lone `facility:cern` marker.
+ *
+ * The fix is not to chase this cluster's specific neighbours; it's to
+ * guarantee that one activation disables clustering for the *entire tier*,
+ * unconditionally, by targeting an altitude below whichever fixed gate
+ * governs that tier: `FACILITY_CLUSTER_ALTITUDE` for facilities (below it,
+ * `rebuildVisibleLayer` never clusters facilities at all, dense region or
+ * not), and `MIN_CLUSTER_ALTITUDE` for institutions (which have no
+ * intermediate gate — they cluster "at every zoom" by design, so this
+ * floor is the only altitude at which they don't). This also guarantees
+ * termination in the general case: every activation strictly decreases the
+ * altitude (`currentAltitude * 0.6` bounds it above), so repeated clicks
+ * converge to MIN_CLUSTER_ALTITUDE — where clustering is off for
+ * everything, everywhere — in a bounded number of steps regardless of
+ * local density.
+ */
+function expandTargetAltitude(currentAltitude, disableClusteringBelow) {
+  const belowGate = disableClusteringBelow * 0.75;
+  const upperBound = Math.max(MIN_CLUSTER_ALTITUDE, currentAltitude * 0.6);
+  return clamp(Math.min(belowGate, upperBound), MIN_CLUSTER_ALTITUDE, upperBound);
 }
 
 /** Greedy single-pass clustering: each item joins the first existing
@@ -350,8 +395,12 @@ export function createGlobe(container, { atlas, index, onSelect }) {
     return coordsOf(index.get(siteId));
   }
 
-  function expandAt(lat, lng, altitudeDivisor) {
-    const nextAltitude = clamp(currentAltitude / altitudeDivisor, 0.15, currentAltitude);
+  /** Zooms to `lat`/`lng` at an altitude below `disableClusteringBelow`
+   * (see `expandTargetAltitude`), so activating a cluster disables
+   * clustering for its whole tier rather than just nudging its own two
+   * members apart. */
+  function expandAt(lat, lng, disableClusteringBelow) {
+    const nextAltitude = expandTargetAltitude(currentAltitude, disableClusteringBelow);
     currentAltitude = nextAltitude;
     globe.pointOfView({ lat, lng, altitude: nextAltitude }, reduced ? 0 : 700);
     rebuildVisibleLayer();
@@ -471,7 +520,11 @@ export function createGlobe(container, { atlas, index, onSelect }) {
     const passingFacilities = facilityEntities.filter(
       (f) => filtersModule.facilityMatchesWithTopics(f.record, filterState, tls, topicIndex),
     );
-    const facilityClustered = currentAltitude >= FACILITY_CLUSTER_ALTITUDE
+    // Facilities also disable clustering outright below FACILITY_CLUSTER_ALTITUDE
+    // (see `expandTargetAltitude`, which always zooms cluster-expansion below
+    // it) — the `> MIN_CLUSTER_ALTITUDE` guard is redundant here in practice
+    // but keeps this condition correct if that gate is ever lowered.
+    const facilityClustered = (currentAltitude >= FACILITY_CLUSTER_ALTITUDE && currentAltitude > MIN_CLUSTER_ALTITUDE)
       ? clusterByRadius(passingFacilities, facilityClusterRadiusDeg(currentAltitude))
       : passingFacilities.map((f) => ({ kind: 'single', lat: f.lat, lon: f.lon, item: f }));
 
@@ -490,9 +543,9 @@ export function createGlobe(container, { atlas, index, onSelect }) {
         m.record, filterState, institutionCollaborationExperiments, topicIndex,
       ),
     );
-    const institutionClustered = clusterByRadius(
-      passingInstitutions, institutionClusterRadiusDeg(currentAltitude),
-    );
+    const institutionClustered = currentAltitude > MIN_CLUSTER_ALTITUDE
+      ? clusterByRadius(passingInstitutions, institutionClusterRadiusDeg(currentAltitude))
+      : passingInstitutions.map((m) => ({ kind: 'single', lat: m.lat, lon: m.lon, item: m }));
 
     const htmlLayer = [];
     const labelCandidates = []; // { el, priority } — trimmed to LABEL_BUDGET after building
@@ -528,7 +581,7 @@ export function createGlobe(container, { atlas, index, onSelect }) {
           tier: 'facility',
           count: entry.items.length,
           names: entry.items.map((i) => i.name),
-          expand: (lat, lng) => expandAt(lat, lng, 3),
+          expand: (lat, lng) => expandAt(lat, lng, FACILITY_CLUSTER_ALTITUDE),
         });
         markerEls.set(id, marker.el);
         markerMeta.set(id, { segments: null, tier: 'facility' });
@@ -603,7 +656,7 @@ export function createGlobe(container, { atlas, index, onSelect }) {
           tier: 'institution',
           count: entry.items.length,
           names: entry.items.map((i) => i.record.name),
-          expand: (lat, lng) => expandAt(lat, lng, 4),
+          expand: (lat, lng) => expandAt(lat, lng, MIN_CLUSTER_ALTITUDE),
         });
         markerEls.set(id, marker.el);
         markerMeta.set(id, { segments: null, tier: 'institution' });
