@@ -12,15 +12,16 @@
   "id": "facility:psi",
   "intervals": [
     {
-      "confidence": "uncertain",
+      "confidence": "verified",
       "end": null,
       "label": "institute created (EIR + SIN merger)",
-      "note": "Sourced to Wikipedia only; official psi.ch pages fetched in this session did not state a founding date directly. Flagged for review.",
-      "quote": "The institute, named after the Swiss physicist Paul Scherrer, was created in 1988 when EIR was merged with SIN.",
+      "note": "Upgraded 2026-09-17: psi.ch is reachable this session (it 404'd for the prior agent); the official history page gives a day-precision date, replacing the Wikipedia-only year-precision value.",
+      "quote": "On 1 January 1988, the Swiss Federal Institute for Reactor Research (EIR) and the Swiss Institute for Nuclear Research (SIN) merged to form the Paul Scherrer Institute, PSI.",
       "sources": [
+        "src:facilities-verify-psi-history-page",
         "src:psi-wikipedia"
       ],
-      "start": "1988",
+      "start": "1988-01-01",
       "status": "active",
       "verified_at": "2026-09-17"
     }
@@ -28,18 +29,18 @@
   "kind": "accelerator_laboratory",
   "links": {
     "website": {
-      "confidence": "uncertain",
-      "note": "Sourced to Wikipedia only (rank 12); official page could not be fetched in this session.",
+      "confidence": "verified",
+      "note": "Upgraded 2026-09-17: psi.ch/en is reachable this session; prior session's 404s on every attempted psi.ch path could not be reproduced.",
       "sources": [
-        "src:psi-wikipedia"
+        "src:facilities-verify-psi-official-home"
       ],
-      "value": "https://www.psi.ch/",
+      "value": "https://www.psi.ch/en",
       "verified_at": "2026-09-17"
     }
   },
   "name": "Paul Scherrer Institute",
   "notes": [
-    "Every official psi.ch URL attempted in this session (proscan/hipa, media/our-research/the-worlds-most-powerful-proton-accelerator, about, lab-life-and-safety/facts-and-figures) returned HTTP 404; every claim on this record and on site:psi-villigen / accelerator:psi-hipa is therefore sourced to Wikipedia only (rank 12) and flagged uncertain/for review by a future agent who can reach an official page."
+    "2026-09-17 re-check: psi.ch is reachable this session (homepage, /en/about, /en/about/history-of-psi, /en/cas/hipa, and the HIPA-turns-50 news story all returned content); the prior session's blanket 404s on every attempted psi.ch URL do not reproduce. Founding date and website are upgraded to official sources accordingly; operator_text remains Wikipedia-only because none of the official pages fetched in this session states the ETH-Domain governance line verbatim."
   ],
   "operator_ids": [],
   "operator_text": {
@@ -56,7 +57,9 @@
   "related_facility_ids": [],
   "schema": "hep-atlas/0.2",
   "sources": [
-    "src:psi-wikipedia"
+    "src:psi-wikipedia",
+    "src:facilities-verify-psi-history-page",
+    "src:facilities-verify-psi-official-home"
   ],
   "specs": {},
   "status": "active",

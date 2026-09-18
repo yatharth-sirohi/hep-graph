@@ -6,12 +6,13 @@
   "coordinates": {
     "confidence": "approximate",
     "kind": "campus",
-    "lat": 47.53611,
-    "lon": 8.22278,
-    "note": "No official psi.ch page was reachable in this session (all attempted URLs returned HTTP 404); sourced to Wikipedia's infobox only, kind recorded as campus/approximate per A17.",
-    "precision_m": 1500,
-    "quote": "coordinates: 47 32'10''N 8 13'22''E / 47.53611 N 8.22278 E",
+    "lat": 47.52682,
+    "locator": "ROR v2 API record for organization 03eh3y714 (Paul Scherrer Institute), addresses[0].lat/addresses[0].lng",
+    "lon": 8.21486,
+    "note": "Upgraded 2026-09-17: ROR v2 organization record for Paul Scherrer Institute (ror.org/03eh3y714) gives a geocoded campus point, rank 8, replacing the Wikipedia-infobox-only point (rank 12). The official psi.ch/en homepage (now reachable; re-fetched 2026-09-17, unlike the prior session's 404s) confirms only the postal address 'Forschungsstrasse 111, 5232 Villigen PSI, Switzerland', no numeric coordinate. Wikipedia kept as a second, lower-rank corroborating source.",
+    "precision_m": 800,
     "sources": [
+      "src:ror-03eh3y714",
       "src:psi-wikipedia"
     ],
     "verified_at": "2026-09-17"
@@ -38,7 +39,8 @@
   "schema": "hep-atlas/0.2",
   "setting": "surface",
   "sources": [
-    "src:psi-wikipedia"
+    "src:psi-wikipedia",
+    "src:ror-03eh3y714"
   ],
   "summary": {
     "plain": "The Paul Scherrer Institute campus beside the River Aare in the Swiss canton of Aargau.",

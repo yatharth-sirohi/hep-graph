@@ -6,12 +6,13 @@
   "coordinates": {
     "confidence": "approximate",
     "kind": "campus",
-    "lat": 37.4175,
-    "lon": -122.2025,
-    "note": "No official slac.stanford.edu page fetched in this session states a numeric coordinate; sourced to Wikipedia's infobox only, kind campus/approximate per A17.",
-    "precision_m": 1500,
-    "quote": "2575 Sand Hill Rd. Menlo Park, California 94025 ... coordinates 37 25'03''N 122 12'09''W",
+    "lat": 37.45383,
+    "locator": "ROR v2 API record for organization 05gzmn429 (SLAC National Accelerator Laboratory), addresses[0].lat/addresses[0].lng",
+    "lon": -122.18219,
+    "note": "Upgraded 2026-09-17 (independent verification pass): ROR v2 organization record for SLAC National Accelerator Laboratory (ror.org/05gzmn429) gives a geocoded campus point, rank 8, better than the Wikipedia infobox this point previously rested on alone. The official site (www6.slac.stanford.edu, now reachable) confirms the postal address '2575 Sand Hill Road, Menlo Park, CA 94025-7015' but states no numeric coordinate, so kind remains campus/approximate per A17/A18. Wikipedia's infobox coordinate is kept as a second, lower-rank corroborating source.",
+    "precision_m": 1000,
     "sources": [
+      "src:ror-05gzmn429",
       "src:slac-wikipedia"
     ],
     "verified_at": "2026-09-17"
@@ -38,7 +39,8 @@
   "schema": "hep-atlas/0.2",
   "setting": "surface",
   "sources": [
-    "src:slac-wikipedia"
+    "src:slac-wikipedia",
+    "src:ror-05gzmn429"
   ],
   "summary": {
     "plain": "The SLAC National Accelerator Laboratory campus in Menlo Park, California, on the edge of the Stanford University campus.",

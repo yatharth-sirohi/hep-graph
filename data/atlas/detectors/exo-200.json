@@ -65,7 +65,8 @@
   "schema": "hep-atlas/0.2",
   "sources": [
     "src:exo-200-final-results-arxiv-1906",
-    "src:exo-200-doe-wipp-official-page"
+    "src:exo-200-doe-wipp-official-page",
+    "src:0vbb-verify-exo-200-detector-design-arxiv-1202-2192"
   ],
   "specs": {
     "isotope": {
@@ -82,14 +83,14 @@
     },
     "target_mass": {
       "approx": false,
-      "confidence": "uncertain",
+      "confidence": "verified",
       "dimension": "mass",
       "display": "110 kg liquid xenon active mass",
-      "locator": "secondary web summary, not directly fetched from a primary EXO-200 detector paper in this session",
-      "note": "The 110 kg active-mass figure is carried from a secondary summary of EXO-200 detector papers; not independently confirmed against a directly fetched primary source in this session, so confidence is set to uncertain rather than verified.",
-      "quote": "",
+      "locator": "The EXO-200 detector, part I: Detector design and construction (arXiv:1202.2192)",
+      "note": "Verification fix (2026-09-17): this agent directly fetched the EXO-200 detector design paper, which confirms the figure verbatim; confidence raised from 'uncertain' to 'verified' and the source corrected accordingly.",
+      "quote": "Of the 200 kg of enriched xenon available, 175 kg are in liquid phase, and 110 kg are in the active volume of the detector.",
       "sources": [
-        "src:exo-200-final-results-arxiv-1906"
+        "src:0vbb-verify-exo-200-detector-design-arxiv-1202-2192"
       ],
       "unit": "kg",
       "value": 110,

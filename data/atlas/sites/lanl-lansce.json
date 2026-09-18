@@ -7,12 +7,13 @@
   "coordinates": {
     "confidence": "approximate",
     "kind": "campus",
-    "lat": 35.869167,
-    "lon": -106.261944,
-    "note": "No official LANL page fetched in this session states a numeric coordinate for LANSCE/TA-53 specifically; sourced to Wikipedia's infobox only, kind recorded as campus/approximate per A17.",
+    "lat": 35.88808,
+    "locator": "ROR v2 API record for organization 01e41cf67 (Los Alamos National Laboratory), addresses[0].lat/addresses[0].lng",
+    "lon": -106.30697,
+    "note": "Upgraded 2026-09-17: ROR v2 organization record for Los Alamos National Laboratory (ror.org/01e41cf67) gives a geocoded campus point, rank 8, replacing the Wikipedia-infobox-only point (rank 12); it is LANL's general campus centroid, not Technical Area 53/LANSCE specifically. The official lanl.gov LANSCE page (re-fetched 2026-09-17, lanl.gov/science-engineering/science-facilities/lansce) gives only the mailing address 'Los Alamos, NM 87545', no numeric coordinate and no beam-energy figure. Wikipedia kept as a second, lower-rank corroborating source.",
     "precision_m": 800,
-    "quote": "Located in New Mexico at Los Alamos National Laboratory in Technical Area 53. Coordinates provided: 35 52'09''N 106 15'43''W",
     "sources": [
+      "src:ror-01e41cf67",
       "src:lansce-wikipedia"
     ],
     "verified_at": "2026-09-17"
@@ -39,7 +40,8 @@
   "schema": "hep-atlas/0.2",
   "setting": "surface",
   "sources": [
-    "src:lansce-wikipedia"
+    "src:lansce-wikipedia",
+    "src:ror-01e41cf67"
   ],
   "summary": {
     "plain": "The LANSCE particle-accelerator facility at Los Alamos National Laboratory, in the hills of northern New Mexico.",

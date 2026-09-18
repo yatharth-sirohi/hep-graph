@@ -74,7 +74,8 @@
   "schema": "hep-atlas/0.2",
   "sources": [
     "src:cresst-official-detectors-page",
-    "src:cresst-official-history-page"
+    "src:cresst-official-history-page",
+    "src:cresst-tes-optimization-2026-arxiv"
   ],
   "specs": {
     "isotope": {
@@ -102,13 +103,28 @@
       "unit": "mK",
       "value": 15,
       "verified_at": "2026-09-17"
+    },
+    "threshold": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "energy",
+      "display": "10 eV and lower",
+      "locator": "arXiv:2605.07592, abstract",
+      "note": "CRESST-III threshold; the source states 'and lower' rather than a single hard number.",
+      "quote": "The advancement in W-TES sensors allowed the CRESST detectors to reach energy thresholds of 10 eV and lower, opening the way to the exploration of dark matter masses as low as 70 MeV/c2.",
+      "sources": [
+        "src:cresst-tes-optimization-2026-arxiv"
+      ],
+      "unit": "eV",
+      "value": 10,
+      "verified_at": "2026-09-17"
     }
   },
   "status": "active",
   "subsystems": [],
   "summary": {
     "plain": "Small crystals, some no heavier than a coin, cooled colder than outer space and watched for the tiny flash of light and warmth made when a particle bumps an atom inside.",
-    "technical": "Cryogenic transition-edge-sensor calorimeters on scintillating crystal absorbers: sapphire in CRESST-I (2000-2003), 300 g CaWO4 crystals in CRESST-II (2003-2019), and ~25 g CaWO4/Al2O3/LiAlO4 crystals in CRESST-III (from 2019) optimised for sub-100 eV thresholds."
+    "technical": "Cryogenic transition-edge-sensor calorimeters on scintillating crystal absorbers: sapphire in CRESST-I (2000-2003), 300 g CaWO4 crystals in CRESST-II (2003-2019), and ~25 g CaWO4/Al2O3/LiAlO4 crystals in CRESST-III (from 2019) reaching nuclear-recoil thresholds of 10 eV and lower."
   },
   "technology": {
     "confidence": "verified",

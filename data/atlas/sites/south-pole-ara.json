@@ -1,47 +1,83 @@
 {
-  "id": "site:south-pole-ara",
-  "type": "site",
-  "name": "South Pole — ARA stations",
-  "aliases": ["Askaryan Radio Array site"],
-  "facility_id": "facility:amundsen-scott-south-pole-station",
+  "aliases": [
+    "Askaryan Radio Array site"
+  ],
+  "altitude": {
+    "approx": true,
+    "confidence": "approximate",
+    "dimension": "length",
+    "display": "~2,835 m",
+    "note": "Same ice-surface elevation as the rest of the South Pole station area (reused from the icecube workstream's facility record for consistency, not independently re-measured for ARA).",
+    "quote": "IceCube ... located near the Amundsen-Scott South Pole Station",
+    "sources": [
+      "src:icecube-official-detector-page"
+    ],
+    "unit": "m",
+    "value": 2835,
+    "verified_at": "2026-09-17"
+  },
   "coordinates": {
+    "confidence": "approximate",
+    "kind": "detector",
     "lat": -90.0,
     "lon": 0.0,
-    "kind": "detector",
+    "note": "No ARA-specific official page publishes station-level latitude/longitude; ARA's own overview paper places it only relative to IceCube ('about 2 km from the IceCube Neutrino Observatory'). Following the precedent set by the icecube workstream's own site:south-pole-icecube record (same physical station, same problem), the geographic South Pole is recorded as an approximate anchor point with a generous precision_m to cover both the IceCube array footprint and ARA's ~2 km offset from it; this is not a surveyed position. src:icecube-official-detector-page is an icecube-workstream source, cited here (not created here) because it independently establishes that IceCube -- and by the 2 km offset, ARA -- sits at the geographic South Pole.",
     "precision_m": 3000,
-    "sources": ["src:icecube-official-detector-page", "src:astro-neutrino-ara-overview-paper-2024"],
-    "verified_at": "2026-09-17",
-    "confidence": "approximate",
     "quote": "IceCube, the South Pole neutrino observatory, is a cubic-kilometer particle detector made of Antarctic ice and located near the Amundsen-Scott South Pole Station. / [ARA overview paper:] located about 2 km from the IceCube Neutrino Observatory",
-    "note": "No ARA-specific official page publishes station-level latitude/longitude; ARA's own overview paper places it only relative to IceCube ('about 2 km from the IceCube Neutrino Observatory'). Following the precedent set by the icecube workstream's own site:south-pole-icecube record (same physical station, same problem), the geographic South Pole is recorded as an approximate anchor point with a generous precision_m to cover both the IceCube array footprint and ARA's ~2 km offset from it; this is not a surveyed position. src:icecube-official-detector-page is an icecube-workstream source, cited here (not created here) because it independently establishes that IceCube -- and by the 2 km offset, ARA -- sits at the geographic South Pole."
+    "sources": [
+      "src:icecube-official-detector-page",
+      "src:astro-neutrino-ara-overview-paper-2024"
+    ],
+    "verified_at": "2026-09-17"
   },
-  "setting": "ice",
-  "depth": {
-    "value": 200, "unit": "m", "dimension": "length", "approx": true, "display": "100-200 m",
-    "max": 200, "min": 100,
-    "sources": ["src:astro-neutrino-ara-overview-paper-2024"], "verified_at": "2026-09-17", "confidence": "verified",
-    "quote": "deployed at a depth of 100-200 m over the period 2012-2018", "note": ""
-  },
-  "depth_rock": null,
-  "depth_mwe": null,
-  "altitude": {
-    "value": 2835, "unit": "m", "dimension": "length", "approx": true, "display": "~2,835 m",
-    "sources": ["src:icecube-official-detector-page"], "verified_at": "2026-09-17", "confidence": "approximate",
-    "quote": "IceCube ... located near the Amundsen-Scott South Pole Station", "note": "Same ice-surface elevation as the rest of the South Pole station area (reused from the icecube workstream's facility record for consistency, not independently re-measured for ARA)."
-  },
+  "countries": [
+    "AQ"
+  ],
   "country": "AQ",
-  "countries": ["AQ"],
-  "place": {"city": null, "region": "Antarctica (geographic South Pole)", "country": "AQ"},
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "depth": {
+    "approx": true,
+    "confidence": "verified",
+    "dimension": "length",
+    "display": "100-200 m",
+    "max": 200,
+    "min": 100,
+    "note": "",
+    "quote": "deployed at a depth of 100-200 m over the period 2012-2018",
+    "sources": [
+      "src:astro-neutrino-ara-overview-paper-2024"
+    ],
+    "unit": "m",
+    "verified_at": "2026-09-17"
+  },
+  "depth_mwe": null,
+  "depth_rock": null,
   "document_ids": [],
+  "facility_id": "facility:amundsen-scott-south-pole-station",
+  "id": "site:south-pole-ara",
+  "links": {
+    "website": null
+  },
+  "name": "South Pole — ARA stations",
+  "notes": [
+    "facility_id references facility:amundsen-scott-south-pole-station, owned by the icecube workstream; not created here, per the ID registry and this workstream's brief (ARA is explicitly scoped as 'a new site under the existing facility')."
+  ],
+  "place": {
+    "city": null,
+    "country": "AQ",
+    "region": "Antarctica (geographic South Pole)"
+  },
+  "schema": "hep-atlas/0.2",
+  "setting": "ice",
+  "sources": [
+    "src:astro-neutrino-ara-overview-paper-2024"
+  ],
   "summary": {
     "plain": "A handful of boreholes near the South Pole, about two kilometres from the IceCube observatory, each holding a small station of radio antennas listening for neutrinos.",
     "technical": "ARA station field at the geographic South Pole, ~2 km from the IceCube in-ice array, with stations deployed 100-200 m deep in the ice sheet."
   },
-  "sources": ["src:astro-neutrino-ara-overview-paper-2024"],
-  "links": {"website": null},
-  "notes": [
-    "facility_id references facility:amundsen-scott-south-pole-station, owned by the icecube workstream; not created here, per the ID registry and this workstream's brief (ARA is explicitly scoped as 'a new site under the existing facility')."
-  ],
-  "coverage": {"researched": "partial", "tier": "B"},
-  "schema": "hep-atlas/0.2"
+  "type": "site"
 }

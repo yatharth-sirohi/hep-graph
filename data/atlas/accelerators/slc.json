@@ -57,6 +57,20 @@
     "src:slc-wikipedia"
   ],
   "specs": {
+    "beam_energy": {
+      "approx": false,
+      "confidence": "uncertain",
+      "dimension": "energy",
+      "display": "up to 50 GeV (design/maximum per beam)",
+      "note": "Added 2026-09-17. This is the SLC linac's quoted maximum per-beam energy, not the energy actually used for physics: to sit on the Z resonance the collider ran at cms/2 ~ 45.5-45.6 GeV per beam (see this record's cms_energy, ~91 GeV / Z mass). Both figures come from the same Wikipedia article; sourced to Wikipedia only, confidence uncertain per A17.",
+      "quote": "an RF linear accelerator that accelerated electrons and positrons up to 50 GeV",
+      "sources": [
+        "src:slc-wikipedia"
+      ],
+      "unit": "GeV",
+      "value": 50,
+      "verified_at": "2026-09-17"
+    },
     "cms_energy": {
       "approx": true,
       "confidence": "uncertain",
@@ -74,8 +88,8 @@
   },
   "status": "completed",
   "summary": {
-    "plain": "",
-    "technical": ""
+    "plain": "A particle collider at SLAC that smashed together beams of electrons and positrons tuned to the mass of the Z boson, letting physicists study that particle's properties with the SLD detector from 1989 to 1998.",
+    "technical": "Stanford Linear Collider: SLAC's linac accelerated electrons and positrons (up to 50 GeV per beam by design) around a single-pass arc to collide at the Z resonance (~91 GeV cms, ~45.5 GeV/beam), studied by the SLD detector, 1989-1998."
   },
   "type": "accelerator"
 }

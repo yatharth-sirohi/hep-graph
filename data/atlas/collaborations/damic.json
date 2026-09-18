@@ -11,15 +11,28 @@
   "intervals": [
     {
       "confidence": "uncertain",
-      "end": null,
+      "end": "2025",
       "label": "collaboration",
       "locator": "INSPIRE experiment record 1108203, field date_approved (2008-12-15)",
-      "note": "No dedicated collaboration-formation source found; start approximated to the original Fermilab prototype's INSPIRE approval date.",
+      "note": "No dedicated collaboration-formation source found; start approximated to the original Fermilab prototype's INSPIRE approval date. Closed 2025: a 2025 SNOLAB Future Projects Workshop report (fetched during verification) states the original DAMIC detector at SNOLAB has become a test stand for background studies.",
       "sources": [
         "src:damic-inspire-experiment-original"
       ],
       "start": "2008",
       "status": "active",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "completed",
+      "note": "Terminal marker matching experiment:damic's completed status; DAMIC's dark-matter science activity ended around 2025 per a SNOLAB Future Projects Workshop community report.",
+      "quote": "The original DAMIC detector at SNOLAB has become a test stand for background studies.",
+      "sources": [
+        "src:damic-2025-snolab-workshop-status"
+      ],
+      "start": "2025",
+      "status": "completed",
       "verified_at": "2026-09-17"
     }
   ],
@@ -41,13 +54,14 @@
   ],
   "schema": "hep-atlas/0.2",
   "sources": [
-    "src:damic-inspire-experiment-snolab",
-    "src:damic-inspire-experiment-original"
+    "src:damic-2025-snolab-workshop-status",
+    "src:damic-inspire-experiment-original",
+    "src:damic-inspire-experiment-snolab"
   ],
-  "status": "active",
+  "status": "completed",
   "summary": {
-    "plain": "The team of physicists who ran the DAMIC silicon-CCD dark matter search, first at Fermilab and then at SNOLAB in Canada.",
-    "technical": "Collaboration operating the DAMIC CCD-based direct-detection programme at SNOLAB, continuous with an earlier Fermilab prototype phase and related to the DAMIC-M programme at Modane."
+    "plain": "The team of physicists who ran the DAMIC silicon-CCD dark matter search, first at Fermilab and then at SNOLAB in Canada, from 2008 until around 2025, when the SNOLAB detector was repurposed as a test stand.",
+    "technical": "Collaboration that operated the DAMIC CCD-based direct-detection programme at SNOLAB (2008-~2025), continuous with an earlier Fermilab prototype phase and related to the DAMIC-M programme at Modane; per a 2025 SNOLAB workshop report, the original detector has since been repurposed as a background test stand."
   },
   "type": "collaboration"
 }

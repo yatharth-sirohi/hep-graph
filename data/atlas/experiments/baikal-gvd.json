@@ -1,103 +1,179 @@
 {
-  "id": "experiment:baikal-gvd",
-  "type": "experiment",
-  "name": "Baikal-GVD",
-  "aliases": ["Baikal Gigaton Volume Detector"],
-  "kind": "astrophysical_neutrino",
-  "secondary_kinds": [],
-  "collaboration_ids": ["collaboration:baikal-gvd"],
-  "facility_roles": [
-    {
-      "facility_id": "facility:baikal-deep-underwater-neutrino-telescope",
-      "role": "host",
-      "sources": ["src:astro-neutrino-baikal-gvd-official-facility-page"],
-      "verified_at": "2026-09-17", "confidence": "verified",
-      "quote": "constructed to study high-energy muon and neutrino fluxes and search for new types of elementary particles", "note": ""
-    }
+  "accelerator_ids": [],
+  "aliases": [
+    "Baikal Gigaton Volume Detector"
   ],
   "beamline_ids": [],
-  "accelerator_ids": [],
-  "topic_ids": ["topic:high-energy-astrophysical-neutrinos", "topic:multimessenger-astrophysics"],
+  "collaboration_ids": [
+    "collaboration:baikal-gvd"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "document_ids": [],
+  "energy_regime": null,
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "facility_id": "facility:baikal-deep-underwater-neutrino-telescope",
+      "note": "",
+      "quote": "constructed to study high-energy muon and neutrino fluxes and search for new types of elementary particles",
+      "role": "host",
+      "sources": [
+        "src:astro-neutrino-baikal-gvd-official-facility-page"
+      ],
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "id": "experiment:baikal-gvd",
   "intervals": [
     {
-      "label": "first cluster deployed",
-      "status": "construction",
-      "start": "2015",
+      "confidence": "verified",
       "end": "2016",
-      "sources": ["src:astro-neutrino-baikal-gvd-cern-courier-2016"],
-      "verified_at": "2026-09-17", "confidence": "verified",
+      "label": "first cluster deployed",
+      "note": "Named 'Dubna'; the status paper independently confirms the first cluster's deployment year as 2016 (see next interval), so 2015-2016 is recorded as the transition; the earlier 2015 date is the press account's.",
       "quote": "the first cluster of the Gigaton Volume Detector (Baikal-GVD) was deployed in early April, named \"Dubna,\" comprising 192 optical modules",
-      "note": "Named 'Dubna'; the status paper independently confirms the first cluster's deployment year as 2016 (see next interval), so 2015-2016 is recorded as the transition; the earlier 2015 date is the press account's."
+      "sources": [
+        "src:astro-neutrino-baikal-gvd-cern-courier-2016"
+      ],
+      "start": "2015",
+      "status": "construction",
+      "verified_at": "2026-09-17"
     },
     {
-      "label": "expanding cluster array (ongoing)",
-      "status": "construction",
-      "start": "2016",
+      "confidence": "verified",
       "end": null,
-      "sources": ["src:astro-neutrino-baikal-gvd-status-2023-paper"],
-      "verified_at": "2026-09-17", "confidence": "verified",
+      "label": "expanding cluster array (ongoing)",
+      "note": "As of the winter 2023 campaign: 3456 OMs on 96 strings (per the same source). The array is explicitly still being expanded toward its planned cubic-kilometre scale.",
       "quote": "The first cluster of the Baikal-GVD neutrino telescope was deployed in 2016 with 288 OMs. Since then, there has been an annual increase of the deployed clusters.",
-      "note": "As of the winter 2023 campaign: 3456 OMs on 96 strings (per the same source). Status remains 'construction' because the array is explicitly still being expanded toward its planned cubic-kilometre scale; not recorded as 'active' for the full design array."
-    }
-  ],
-  "status": "construction",
-  "physics_goals": [
+      "sources": [
+        "src:astro-neutrino-baikal-gvd-status-2023-paper"
+      ],
+      "start": "2016",
+      "status": "construction",
+      "verified_at": "2026-09-17"
+    },
     {
-      "value": "Detect high-energy astrophysical neutrinos and search for new types of elementary particles using a large-volume underwater Cherenkov array",
-      "sources": ["src:astro-neutrino-baikal-gvd-official-facility-page"],
-      "verified_at": "2026-09-17", "confidence": "verified",
-      "quote": "constructed to study high-energy muon and neutrino fluxes and search for new types of elementary particles", "note": ""
+      "confidence": "verified",
+      "end": null,
+      "label": "deployed clusters taking physics data (ongoing)",
+      "note": "Verification fix (2026-09-17): added because the growing array has been taking physics data continuously since 2018 (astrophysical-neutrino searches published using 2018-2021/2018-2022 data) while construction continues, the same overlapping construction/commissioning pattern recorded for experiment:km3net. Corrects an omission where only a bare 'construction' status was recorded despite sourced evidence of ongoing data-taking.",
+      "quote": "The Baikal-GVD data collected in 2018-2022 indicate the presence of cosmic neutrino flux in high-energy cascade events consistent with observations by the IceCube neutrino telescope.",
+      "sources": [
+        "src:astro-neutrino-baikal-gvd-status-2023-paper"
+      ],
+      "start": "2018",
+      "status": "commissioning",
+      "verified_at": "2026-09-17"
     }
   ],
-  "unique_capabilities": [],
-  "energy_regime": null,
   "key_specs": [
     {
       "label": "Deployed optical modules (winter 2023 campaign)",
       "quantity": {
-        "value": 3456, "unit": "", "dimension": "count", "approx": false,
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "count",
         "display": "3456 OMs",
-        "sources": ["src:astro-neutrino-baikal-gvd-status-2023-paper"],
-        "verified_at": "2026-09-17", "confidence": "verified",
-        "quote": "3456 OMs attached to 96 vertical strings", "note": "Snapshot as of the 2023 status paper; the array continues to grow."
+        "note": "Snapshot as of the 2023 status paper; the array continues to grow.",
+        "quote": "3456 OMs attached to 96 vertical strings",
+        "sources": [
+          "src:astro-neutrino-baikal-gvd-status-2023-paper"
+        ],
+        "unit": "",
+        "value": 3456,
+        "verified_at": "2026-09-17"
       }
     },
     {
       "label": "Deployed strings (winter 2023 campaign)",
       "quantity": {
-        "value": 96, "unit": "", "dimension": "count", "approx": false,
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "count",
         "display": "96 strings",
-        "sources": ["src:astro-neutrino-baikal-gvd-status-2023-paper"],
-        "verified_at": "2026-09-17", "confidence": "verified",
-        "quote": "3456 OMs attached to 96 vertical strings", "note": ""
+        "note": "",
+        "quote": "3456 OMs attached to 96 vertical strings",
+        "sources": [
+          "src:astro-neutrino-baikal-gvd-status-2023-paper"
+        ],
+        "unit": "",
+        "value": 96,
+        "verified_at": "2026-09-17"
       }
     },
     {
       "label": "Lakebed depth",
       "quantity": {
-        "value": 1366, "unit": "m", "dimension": "length", "approx": false,
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "length",
         "display": "~1366 m",
-        "sources": ["src:astro-neutrino-baikal-gvd-status-2023-paper"],
-        "verified_at": "2026-09-17", "confidence": "verified",
-        "quote": "The lakebed reaches its plateau at a nearly constant depth of 1366 m", "note": ""
+        "note": "",
+        "quote": "The lakebed reaches its plateau at a nearly constant depth of 1366 m",
+        "sources": [
+          "src:astro-neutrino-baikal-gvd-status-2023-paper"
+        ],
+        "unit": "m",
+        "value": 1366,
+        "verified_at": "2026-09-17"
       }
     }
   ],
+  "kind": "astrophysical_neutrino",
   "lineage": [],
-  "external": {"greybook": null, "inspire_experiment": null, "wikidata": null},
-  "document_ids": [],
-  "result_ids": [],
-  "links": {"website": {"value": "https://www.inr.ru/eng/ebgnt.html", "sources": ["src:astro-neutrino-baikal-gvd-official-facility-page"], "verified_at": "2026-09-17", "confidence": "verified", "note": "No distinct baikalgvd.jinr.ru page could be fetched this session (persistent TLS certificate error); the INR RAS facility page is used as the official pointer."}},
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "note": "No distinct baikalgvd.jinr.ru page could be fetched this session (persistent TLS certificate error); the INR RAS facility page is used as the official pointer.",
+      "sources": [
+        "src:astro-neutrino-baikal-gvd-official-facility-page"
+      ],
+      "value": "https://www.inr.ru/eng/ebgnt.html",
+      "verified_at": "2026-09-17"
+    }
+  },
+  "name": "Baikal-GVD",
   "notes": [
     "No INSPIRE experiment-registry lookup was performed in this session; external.inspire_experiment left null.",
     "Derived fields (detector_ids, site_ids, result_ids, document_ids) are deliberately not written (v0.2 A1).",
     "baikalgvd.jinr.ru (the collaboration's dedicated site) could not be fetched this session due to a persistent TLS certificate verification error in the fetch tool; if re-attempted from a different environment it likely carries more current status and membership figures."
   ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "note": "",
+      "quote": "constructed to study high-energy muon and neutrino fluxes and search for new types of elementary particles",
+      "sources": [
+        "src:astro-neutrino-baikal-gvd-official-facility-page"
+      ],
+      "value": "Detect high-energy astrophysical neutrinos and search for new types of elementary particles using a large-volume underwater Cherenkov array",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "result_ids": [],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:astro-neutrino-baikal-gvd-official-facility-page",
+    "src:astro-neutrino-baikal-gvd-status-2023-paper",
+    "src:astro-neutrino-baikal-gvd-cern-courier-2016"
+  ],
+  "status": "commissioning",
   "summary": {
     "plain": "A growing underwater telescope in Lake Baikal, Siberia, that has been adding new clusters of light sensors every year since 2016 in search of neutrinos from deep space.",
-    "technical": "Expanding underwater Cherenkov neutrino telescope in Lake Baikal's southern basin; first Baikal-GVD cluster deployed 2016, growing to 3456 OMs on 96 strings by the winter 2023 deployment campaign; still under active annual construction toward a design cubic-kilometre-scale volume."
+    "technical": "Expanding underwater Cherenkov neutrino telescope in Lake Baikal's southern basin; first Baikal-GVD cluster deployed 2016, growing to 3456 OMs on 96 strings by the winter 2023 deployment campaign; already-deployed clusters have taken continuous physics data since 2018 (published astrophysical-neutrino searches using 2018-2022 data) while construction toward a design cubic-kilometre-scale volume continues."
   },
-  "coverage": {"researched": "partial", "tier": "B"},
-  "sources": ["src:astro-neutrino-baikal-gvd-official-facility-page", "src:astro-neutrino-baikal-gvd-status-2023-paper", "src:astro-neutrino-baikal-gvd-cern-courier-2016"],
-  "schema": "hep-atlas/0.2"
+  "topic_ids": [
+    "topic:high-energy-astrophysical-neutrinos",
+    "topic:multimessenger-astrophysics"
+  ],
+  "type": "experiment",
+  "unique_capabilities": []
 }

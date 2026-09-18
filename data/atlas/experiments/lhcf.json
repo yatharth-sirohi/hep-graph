@@ -86,15 +86,32 @@
     },
     {
       "confidence": "verified",
-      "end": null,
+      "end": {
+        "approx": true,
+        "date": "2026-06",
+        "note": "VERIFIER FIX (2026-09-17): capped at the LHC-wide Long Shutdown 3 boundary (see the added interval below); previously open-ended (end: null). LHCf only records LHC beam particles, so it cannot be 'active' while the LHC itself is off for LS3."
+      },
       "label": "operating",
       "locator": "INSPIRE experiment record 1126263, field date_started",
-      "note": "INSPIRE's date_completed field for this record is '9999' -- INSPIRE's own placeholder for 'not completed/ongoing', not a real date -- so it is not used and status remains 'active'. Public knowledge is that LHCf ran mainly in short low-luminosity periods early in each LHC run (2009-2010, 2013, 2015-2016) and does not run continuously through high-luminosity physics, but no source fetched in this session states that schedule at reviewable precision, so a single open 'active' interval is recorded instead of a richer run-by-run history.",
+      "note": "INSPIRE's date_completed field for this record is '9999' -- INSPIRE's own placeholder for 'not completed/ongoing', not a real date -- so it is not used. Public knowledge is that LHCf ran mainly in short low-luminosity periods early in each LHC run (2009-2010, 2013, 2015-2016) and does not run continuously through high-luminosity physics, but no source fetched in this session states that schedule at reviewable precision, so a single open (now LS3-capped) 'active' interval is recorded instead of a richer run-by-run history.",
       "sources": [
         "src:colliders-lhc-lhcf-inspire-experiment-record"
       ],
       "start": "2009-11-23",
       "status": "active",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "Long Shutdown 3",
+      "locator": "reused from accelerator:lhc's sourced Long Shutdown 3 interval (src:cern-ls3-farewell-2026)",
+      "note": "VERIFIER-ADDED (2026-09-17): LHCf only detects particles from LHC collisions, so it shares the LHC-wide Long Shutdown 3 interval already sourced for ALICE, LHCb and TOTEM in this partition; ongoing at verified_at.",
+      "sources": [
+        "src:cern-ls3-farewell-2026"
+      ],
+      "start": "2026-06",
+      "status": "shutdown",
       "verified_at": "2026-09-17"
     }
   ],
@@ -135,7 +152,8 @@
   "notes": [
     "Derived fields (detector_ids, site_ids, result_ids, document_ids) deliberately not written (v0.2 A1).",
     "Per the id registry, LHCf does not get a new site: its detector:lhcf record places at the existing site:cern-point-1-atlas (owned by cern-atlas), referenced only, not edited.",
-    "Mandatory-bar-only pass: no results/technical documents written (LHCf is not a wave-3 flagship)."
+    "Mandatory-bar-only pass: no results/technical documents written (LHCf is not a wave-3 flagship).",
+    "VERIFIER FIX (2026-09-17): status corrected 'active' -> 'shutdown' and a Long Shutdown 3 interval added, reusing the same LHC-wide LS3 source already cited for ALICE/LHCb/TOTEM. The prior record left LHCf's operating interval open-ended, so it derived as permanently active even though LHCf cannot record anything while its only beam source (the LHC) is off for LS3."
   ],
   "physics_goals": [
     {
@@ -155,12 +173,13 @@
   "secondary_kinds": [],
   "sources": [
     "src:colliders-lhc-lhcf-inspire-experiment-record",
-    "src:colliders-lhc-lhcf-home-cern-page"
+    "src:colliders-lhc-lhcf-home-cern-page",
+    "src:cern-ls3-farewell-2026"
   ],
-  "status": "active",
+  "status": "shutdown",
   "summary": {
     "plain": "LHCf uses two small detectors, 140 metres either side of CERN's ATLAS collision point, to study particles thrown almost exactly forward by LHC collisions -- data used to help interpret how cosmic rays create showers when they hit Earth's atmosphere.",
-    "technical": "Forward-physics/cosmic-ray-calibration experiment: two compact imaging sampling calorimeters (tungsten plates, plastic scintillator, position-sensitive sensors) at zero-degree collision angle, +-140 m from LHC interaction point 1, covering pseudo-rapidity > 8.4. Proposed and approved May 2004; operating since first collisions (23 Nov 2009), mainly during early low-luminosity periods of each LHC run."
+    "technical": "Forward-physics/cosmic-ray-calibration experiment: two compact imaging sampling calorimeters (tungsten plates, plastic scintillator, position-sensitive sensors) at zero-degree collision angle, +-140 m from LHC interaction point 1, covering pseudo-rapidity > 8.4. Proposed and approved May 2004; operated (mainly during early low-luminosity periods of each LHC run) from first collisions (23 Nov 2009) through June 2026; off since CERN's Long Shutdown 3 began."
   },
   "topic_ids": [
     "topic:cosmic-rays"

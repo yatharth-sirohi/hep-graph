@@ -15,7 +15,11 @@
   "intervals": [
     {
       "confidence": "verified",
-      "end": null,
+      "end": {
+        "approx": true,
+        "date": "2026-06",
+        "note": "VERIFIER FIX (2026-09-17): capped at the LHC-wide Long Shutdown 3 boundary; mirrors experiment:lhcf."
+      },
       "label": "operating",
       "locator": "INSPIRE experiment record 1126263, field date_started",
       "note": "",
@@ -25,6 +29,19 @@
       "start": "2009-11-23",
       "status": "active",
       "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "Long Shutdown 3",
+      "locator": "reused from experiment:lhcf's sourced Long Shutdown 3 interval (src:cern-ls3-farewell-2026)",
+      "note": "VERIFIER-ADDED (2026-09-17): mirrors experiment:lhcf so the detector-level derived status agrees with the experiment-level one.",
+      "sources": [
+        "src:cern-ls3-farewell-2026"
+      ],
+      "start": "2026-06",
+      "status": "shutdown",
+      "verified_at": "2026-09-17"
     }
   ],
   "links": {
@@ -32,7 +49,8 @@
   },
   "name": "LHCf detector",
   "notes": [
-    "home.cern gives detector mass (40 kg) and dimensions (30 cm x 80 cm x 10 cm) per arm as of a November 2012 page snapshot; recorded in specs below."
+    "home.cern gives detector mass (40 kg) and dimensions (30 cm x 80 cm x 10 cm) per arm as of a November 2012 page snapshot; recorded in specs below.",
+    "VERIFIER FIX (2026-09-17): status corrected 'active' -> 'shutdown' (see experiment:lhcf)."
   ],
   "parent_detector_id": null,
   "placements": [
@@ -55,7 +73,8 @@
   "schema": "hep-atlas/0.2",
   "sources": [
     "src:colliders-lhc-lhcf-inspire-experiment-record",
-    "src:colliders-lhc-lhcf-home-cern-page"
+    "src:colliders-lhc-lhcf-home-cern-page",
+    "src:cern-ls3-farewell-2026"
   ],
   "specs": {
     "total_mass": {
@@ -74,7 +93,7 @@
       "verified_at": "2026-09-17"
     }
   },
-  "status": "active",
+  "status": "shutdown",
   "subsystems": [],
   "summary": {
     "plain": "Two small, 40-kilogram detectors placed 140 metres either side of the ATLAS collision point, catching particles thrown almost exactly along the beam direction.",

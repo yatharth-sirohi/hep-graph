@@ -1,75 +1,130 @@
 {
-  "id": "detector:baikal-gvd",
-  "type": "detector",
-  "name": "Baikal-GVD detector",
   "aliases": [],
-  "experiment_ids": ["experiment:baikal-gvd"],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "document_ids": [],
+  "experiment_ids": [
+    "experiment:baikal-gvd"
+  ],
+  "id": "detector:baikal-gvd",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "operating and expanding",
+      "note": "Status recorded as construction to reflect the still-expanding design; see the separate commissioning interval below for concurrent data-taking.",
+      "quote": "Since then, there has been an annual increase of the deployed clusters.",
+      "sources": [
+        "src:astro-neutrino-baikal-gvd-status-2023-paper"
+      ],
+      "start": "2016",
+      "status": "construction",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "deployed clusters taking physics data (ongoing)",
+      "note": "Verification fix (2026-09-17): already-deployed clusters take data continuously while the array keeps growing (same overlapping pattern used for detector:km3net-arca/orca); a bare 'construction' status alone understated this.",
+      "quote": "The Baikal-GVD data collected in 2018-2022 indicate the presence of cosmic neutrino flux in high-energy cascade events consistent with observations by the IceCube neutrino telescope.",
+      "sources": [
+        "src:astro-neutrino-baikal-gvd-status-2023-paper"
+      ],
+      "start": "2018",
+      "status": "commissioning",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "Baikal-GVD detector",
+  "notes": [],
   "parent_detector_id": null,
   "placements": [
     {
-      "site_id": "site:baikal-gvd-lake-baikal",
-      "role": "main",
-      "start": "2016",
+      "confidence": "verified",
       "end": null,
-      "sources": ["src:astro-neutrino-baikal-gvd-status-2023-paper"],
-      "verified_at": "2026-09-17", "confidence": "verified",
+      "note": "",
       "quote": "The first cluster of the Baikal-GVD neutrino telescope was deployed in 2016 with 288 OMs.",
-      "note": ""
-    }
-  ],
-  "technology": {
-    "value": "Underwater water Cherenkov neutrino telescope: photomultiplier-equipped optical modules on vertical strings organised into clusters",
-    "sources": ["src:astro-neutrino-baikal-gvd-status-2023-paper"],
-    "verified_at": "2026-09-17", "confidence": "verified",
-    "quote": "3456 OMs attached to 96 vertical strings", "note": ""
-  },
-  "technology_class": "sea_cherenkov",
-  "technology_classes": ["sea_cherenkov"],
-  "intervals": [
-    {
-      "label": "operating and expanding",
-      "status": "construction",
+      "role": "main",
+      "site_id": "site:baikal-gvd-lake-baikal",
+      "sources": [
+        "src:astro-neutrino-baikal-gvd-status-2023-paper"
+      ],
       "start": "2016",
-      "end": null,
-      "sources": ["src:astro-neutrino-baikal-gvd-status-2023-paper"],
-      "verified_at": "2026-09-17", "confidence": "verified",
-      "quote": "Since then, there has been an annual increase of the deployed clusters.",
-      "note": "Already-deployed clusters take data continuously while the array keeps growing; status recorded as construction to reflect the still-expanding design."
+      "verified_at": "2026-09-17"
     }
   ],
-  "status": "construction",
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:astro-neutrino-baikal-gvd-status-2023-paper"
+  ],
   "specs": {
+    "depth_max": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "~1366 m",
+      "note": "",
+      "quote": "The lakebed reaches its plateau at a nearly constant depth of 1366 m",
+      "sources": [
+        "src:astro-neutrino-baikal-gvd-status-2023-paper"
+      ],
+      "unit": "m",
+      "value": 1366,
+      "verified_at": "2026-09-17"
+    },
     "sensor_count": {
-      "value": 3456, "unit": "", "dimension": "count", "approx": false,
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "count",
       "display": "3456 OMs (winter 2023)",
-      "sources": ["src:astro-neutrino-baikal-gvd-status-2023-paper"],
-      "verified_at": "2026-09-17", "confidence": "verified",
-      "quote": "3456 OMs attached to 96 vertical strings", "note": "Snapshot, still growing."
+      "note": "Snapshot, still growing.",
+      "quote": "3456 OMs attached to 96 vertical strings",
+      "sources": [
+        "src:astro-neutrino-baikal-gvd-status-2023-paper"
+      ],
+      "unit": "",
+      "value": 3456,
+      "verified_at": "2026-09-17"
     },
     "string_count": {
-      "value": 96, "unit": "", "dimension": "count", "approx": false,
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "count",
       "display": "96 strings (winter 2023)",
-      "sources": ["src:astro-neutrino-baikal-gvd-status-2023-paper"],
-      "verified_at": "2026-09-17", "confidence": "verified",
-      "quote": "3456 OMs attached to 96 vertical strings", "note": "Snapshot, still growing."
-    },
-    "depth_max": {
-      "value": 1366, "unit": "m", "dimension": "length", "approx": false,
-      "display": "~1366 m",
-      "sources": ["src:astro-neutrino-baikal-gvd-status-2023-paper"],
-      "verified_at": "2026-09-17", "confidence": "verified",
-      "quote": "The lakebed reaches its plateau at a nearly constant depth of 1366 m", "note": ""
+      "note": "Snapshot, still growing.",
+      "quote": "3456 OMs attached to 96 vertical strings",
+      "sources": [
+        "src:astro-neutrino-baikal-gvd-status-2023-paper"
+      ],
+      "unit": "",
+      "value": 96,
+      "verified_at": "2026-09-17"
     }
   },
+  "status": "commissioning",
   "subsystems": [],
-  "document_ids": [],
-  "links": {"website": null},
-  "notes": [],
   "summary": {
     "plain": "Clusters of light-sensing spheres hanging on strings deep in Lake Baikal, added year after year since 2016, that together form a growing telescope for neutrinos from space.",
-    "technical": "Modular underwater water-Cherenkov array in Lake Baikal; clusters of 8 strings x 36 OMs deployed annually since 2016; 3456 OMs on 96 strings as of the winter 2023 campaign; lakebed depth ~1366 m."
+    "technical": "Modular underwater water-Cherenkov array in Lake Baikal; clusters of 8 strings x 36 OMs deployed annually since 2016; 3456 OMs on 96 strings as of the winter 2023 campaign; lakebed depth ~1366 m; already-deployed clusters have taken continuous physics data since 2018."
   },
-  "coverage": {"researched": "partial", "tier": "B"},
-  "sources": ["src:astro-neutrino-baikal-gvd-status-2023-paper"],
-  "schema": "hep-atlas/0.2"
+  "technology": {
+    "confidence": "verified",
+    "note": "",
+    "quote": "3456 OMs attached to 96 vertical strings",
+    "sources": [
+      "src:astro-neutrino-baikal-gvd-status-2023-paper"
+    ],
+    "value": "Underwater water Cherenkov neutrino telescope: photomultiplier-equipped optical modules on vertical strings organised into clusters",
+    "verified_at": "2026-09-17"
+  },
+  "technology_class": "sea_cherenkov",
+  "technology_classes": [
+    "sea_cherenkov"
+  ],
+  "type": "detector"
 }

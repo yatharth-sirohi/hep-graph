@@ -7,12 +7,13 @@
   "coordinates": {
     "confidence": "approximate",
     "kind": "campus",
-    "lat": 37.4175,
-    "lon": -122.2025,
-    "note": "No official slac.stanford.edu page fetched in this session states a numeric coordinate; sourced to Wikipedia's infobox only, kind campus/approximate per A17.",
-    "precision_m": 1500,
-    "quote": "2575 Sand Hill Rd. Menlo Park, California 94025 ... coordinates 37 25'03''N 122 12'09''W",
+    "lat": 37.45383,
+    "locator": "ROR v2 API record for organization 05gzmn429 (SLAC National Accelerator Laboratory), addresses[0].lat/addresses[0].lng",
+    "lon": -122.18219,
+    "note": "Upgraded 2026-09-17: no IR2-specific coordinate is fetchable (official site gives only the general campus address); the general SLAC campus point is now the ROR geocode (rank 8) rather than Wikipedia (rank 12) alone. Still campus/approximate: a geocoder source cannot back a detector-kind coordinate for this hall (A17).",
+    "precision_m": 1000,
     "sources": [
+      "src:ror-05gzmn429",
       "src:slac-wikipedia"
     ],
     "verified_at": "2026-09-17"
@@ -31,7 +32,8 @@
   },
   "name": "PEP-II Interaction Region 2 (BaBar hall)",
   "notes": [
-    "No official SLAC page or the BaBar detector paper was fetched with a coordinate specific to IR2 in this session; the general SLAC campus point is reused here with a note, per A17 (a rank-12/geocoder-grade point cannot be promoted to `detector` kind)."
+    "No official SLAC page or the BaBar detector paper was fetched with a coordinate specific to IR2 in this session; the general SLAC campus point is reused here with a note, per A17 (a rank-12/geocoder-grade point cannot be promoted to `detector` kind).",
+    "2026-09-17: this record's own name/id asserts BaBar was at PEP-II's 'Interaction Region 2' (IR-2), but neither source previously cited (Wikipedia on SLAC, Wikipedia on BaBar) actually states this; the BaBar Wikipedia article was re-checked this session and does not mention IR-2 at all. Independently confirmed via a 2006 Phys.org article quoting BaBar's own control-room naming ('BaBar's Interaction Region 2 control room'); added as src:facilities-verify-babar-ir2-physorg (secondary, rank 12) so the IR-2 claim embedded in this record's name is no longer uncited."
   ],
   "place": {
     "city": "Menlo Park",
@@ -42,7 +44,9 @@
   "setting": "surface",
   "sources": [
     "src:slac-wikipedia",
-    "src:babar-wikipedia"
+    "src:babar-wikipedia",
+    "src:ror-05gzmn429",
+    "src:facilities-verify-babar-ir2-physorg"
   ],
   "summary": {
     "plain": "The experimental hall at SLAC where the BaBar detector recorded collisions from the PEP-II B-factory.",

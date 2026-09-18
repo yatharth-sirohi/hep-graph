@@ -1,0 +1,73 @@
+{
+  "schema": "hep-atlas/0.2",
+  "id": "collaboration:borexino",
+  "type": "collaboration",
+  "name": "Borexino Collaboration",
+  "aliases": [],
+  "formation": {
+    "value": null,
+    "sources": ["src:borexino-inspire-experiment-record"],
+    "verified_at": "2026-09-17",
+    "confidence": "uncertain",
+    "locator": "INSPIRE experiment record 1110446",
+    "note": "No fetched source states an explicit collaboration formation date; the official site names founders Gianpaolo Bellini and Frank Calaprice without a date."
+  },
+  "intervals": [
+    {
+      "label": "collaboration active",
+      "status": "active",
+      "start": "1990",
+      "end": "2021-10",
+      "sources": ["src:borexino-wikipedia"],
+      "verified_at": "2026-09-17",
+      "confidence": "uncertain",
+      "quote": "Research and development began in 1990",
+      "note": "Start taken as a lower bound (start of detector R&D); end taken from the detector's shutdown date."
+    },
+    {
+      "label": "collaboration completed (data taking)",
+      "status": "completed",
+      "start": "2021-10",
+      "end": null,
+      "sources": ["src:borexino-wikipedia"],
+      "verified_at": "2026-09-17",
+      "confidence": "approximate",
+      "quote": "the entire Borexino experiment was terminated in October 2021",
+      "note": "The collaboration continues final-dataset analysis and publication (e.g. a 2026 nonstandard-interactions paper per the official site) after the detector itself was shut down; this terminal event marks the end of data-taking, not necessarily of the collaboration's activity."
+    }
+  ],
+  "status": "completed",
+  "membership": {
+    "as_of": null,
+    "evidence_class": "institutional_page",
+    "institution_count": null,
+    "country_count": null,
+    "member_count": null,
+    "roster_source_ids": []
+  },
+  "leadership": [],
+  "host_facility_id": "facility:lngs",
+  "host_site_id": "site:lngs-hall-c",
+  "links": {
+    "website": {
+      "value": "https://borex.lngs.infn.it/",
+      "sources": ["src:borexino-official-site"],
+      "verified_at": "2026-09-17",
+      "confidence": "verified",
+      "note": ""
+    }
+  },
+  "notes": [
+    "No membership counts (scientists/institutions/countries) were found in a source fetched this session.",
+    "Founders Gianpaolo Bellini and Frank Calaprice named on the official site (2023 Bethe Prize citation) but not recorded as `leadership` since no person_id/role-with-source is available and this wave creates no people/ records."
+  ],
+  "sources": ["src:borexino-official-site", "src:borexino-inspire-experiment-record"],
+  "summary": {
+    "plain": "The international team of scientists, including founders Gianpaolo Bellini and Frank Calaprice, who built and ran the Borexino solar-neutrino experiment in Italy.",
+    "technical": "Collaboration operating Borexino at LNGS; membership counts not found in a source fetched this session."
+  },
+  "coverage": {
+    "tier": "D",
+    "researched": "partial"
+  }
+}

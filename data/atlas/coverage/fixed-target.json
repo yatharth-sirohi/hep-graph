@@ -10,7 +10,7 @@
       "detector full specs beyond GigaTracker (JINST PDF was bot-blocked)"
     ],
     "name": "NA62",
-    "notes": "Flagship, full depth: detector paper (JINST 12 (2017) P05025), 3 results (2021 measurement 3.4-sigma, 2025 observation >5-sigma, 2026 refined-measurement conference update), site:cern-ecn3-north-area, lineage to NA48.",
+    "notes": "Flagship, full depth: detector paper (JINST 12 (2017) P05025), 3 results (2021 measurement 3.4-sigma, 2025 observation >5-sigma, 2026 refined measurement -- now sourced to arXiv:2607.16413 rather than the CERN news press release, per A16), site:cern-ecn3-north-area, lineage to NA48.",
     "owner": "fixed-target",
     "priority": 1,
     "researched": "full",
@@ -96,10 +96,11 @@
     "missing_fields": [
       "collaboration (no distinct 'DarkQuest Collaboration' found; none created)",
       "detector record (reuses SeaQuest/SpinQuest apparatus; no separate hardware description sourced)",
-      "approval status beyond the 2021/2022 Snowmass proposal"
+      "approval status beyond the 2021/2022 Snowmass proposal",
+      "lineage to a true predecessor/upgrade target (SpinQuest, experiment:spinquest) -- out of this wave's ID_REGISTRY scope, so no lineage row is recorded rather than misattributing it to experiment:seaquest"
     ],
     "name": "DarkQuest",
-    "notes": "Proposed successor at site:fermilab-nm4-hall (referenced, not duplicated); status 'proposed' per a Snowmass 2021 contribution (arXiv:2203.08322), positioned there as an upgrade to 'SpinQuest' (out of scope) rather than directly to SeaQuest -- noted as a simplification.",
+    "notes": "Proposed successor at site:fermilab-nm4-hall (referenced, not duplicated); status 'proposed' per a Snowmass 2021 contribution (arXiv:2203.08322). The source positions DarkQuest as an upgrade to 'SpinQuest' (out of scope), not SeaQuest; a prior `upgrade_of experiment:seaquest` lineage row was removed 2026-09-17 verification as unsupported by the cited source (lineage is now empty rather than misattributed).",
     "owner": "fixed-target",
     "priority": 3,
     "researched": "partial",
@@ -112,11 +113,10 @@
     "experiment_id": "experiment:ship",
     "facility": "CERN",
     "missing_fields": [
-      "a rank <= 10 source for the 2024 approval date and 2033 start date (only a Wikipedia pointer found; WebSearch budget was exhausted before a CERN Council/SPSC document could be located)",
       "collaboration membership"
     ],
     "name": "SHiP",
-    "notes": "Placed at site:cern-ecn3-north-area (shared with NA48/NA62). Official site + a 2016 CERN Courier article confirm the SPSC review stage; the 2024 approval and 2033 start are flagged uncertain pending a better source.",
+    "notes": "Placed at site:cern-ecn3-north-area (shared with NA48/NA62). Official site + a 2016 CERN Courier article confirm the SPSC review stage. 2026-09-17 verification: the 2024 ECN3 approval is now corroborated by a rank<=10 source (arXiv:2606.11039, 'approved in 2024') and marked verified; the 2033 planned-start date remains sourced only to Wikipedia and is left uncertain (a 2024 CERN Courier article quotes an earlier internal aim of commissioning the facility by end-2030 / detector 2031).",
     "owner": "fixed-target",
     "priority": 2,
     "researched": "partial",
@@ -130,15 +130,14 @@
     "facility": "CERN",
     "missing_fields": [
       "placement/site (official page names no specific interaction point; no new site created per the brief)",
-      "proposal date",
       "collaboration membership"
     ],
     "name": "MATHUSLA",
-    "notes": "status is null (not 'proposed'): no interval has a non-planned start date, so no interval covers the present build date and the A10-derived state is genuinely unrecorded; recorded honestly rather than asserting an unsupported covering status.",
+    "notes": "2026-09-17 fixed-target verification: status corrected from null to 'proposed'. The sole 'proposed' interval previously had `start: null`, so no interval covered the build date and A3's derived state was `unrecorded`; anchoring the interval on the dated Letter of Intent (arXiv:1811.00927, 2 Nov 2018) makes the derived state -- and `status` -- honestly `proposed` instead.",
     "owner": "fixed-target",
     "priority": 3,
     "researched": "partial",
-    "status": null,
+    "status": "proposed",
     "tier": "C"
   },
   {

@@ -29,26 +29,26 @@
   "kind": "accelerator_laboratory",
   "links": {
     "website": {
-      "confidence": "uncertain",
-      "note": "Sourced to Wikipedia only (rank 12); no official slac.stanford.edu page was fetched successfully in this session.",
+      "confidence": "verified",
+      "note": "Upgraded 2026-09-17: www6.slac.stanford.edu is reachable this session (the prior session hit a TLS certificate error on slac.stanford.edu); this is SLAC's own official site.",
       "sources": [
-        "src:slac-wikipedia"
+        "src:facilities-verify-slac-official-home"
       ],
-      "value": "https://www.slac.stanford.edu/",
+      "value": "https://www6.slac.stanford.edu",
       "verified_at": "2026-09-17"
     }
   },
   "name": "SLAC National Accelerator Laboratory",
   "notes": [
-    "No official slac.stanford.edu page was successfully fetched in this session; every claim on this record and its sites/accelerators is sourced to Wikipedia only (rank 12) and flagged uncertain/for review."
+    "2026-09-17 re-check: www6.slac.stanford.edu is reachable this session (the prior session's TLS-certificate error on slac.stanford.edu does not reproduce there). Website and operator are upgraded to this official source. The founding date (1962) remains Wikipedia-only/uncertain: the official page fetched gives the address and operator but no founding year."
   ],
   "operator_ids": [],
   "operator_text": {
-    "confidence": "uncertain",
-    "note": "Sourced to Wikipedia only; no official slac.stanford.edu page was fetched in this session.",
-    "quote": "administrated by Stanford University ... sponsored by the United States Department of Energy",
+    "confidence": "verified",
+    "note": "Upgraded 2026-09-17 from an official source; matches the Wikipedia-sourced wording already on file.",
+    "quote": "SLAC National Accelerator Laboratory is a Department of Energy national lab run by Stanford ... operated by Stanford University for the U.S. Department of Energy Office of Science.",
     "sources": [
-      "src:slac-wikipedia"
+      "src:facilities-verify-slac-official-home"
     ],
     "value": "Stanford University for the U.S. Department of Energy",
     "verified_at": "2026-09-17"
@@ -57,7 +57,8 @@
   "related_facility_ids": [],
   "schema": "hep-atlas/0.2",
   "sources": [
-    "src:slac-wikipedia"
+    "src:slac-wikipedia",
+    "src:facilities-verify-slac-official-home"
   ],
   "specs": {},
   "status": "active",

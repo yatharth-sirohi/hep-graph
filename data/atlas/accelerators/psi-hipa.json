@@ -31,25 +31,29 @@
     "website": null
   },
   "name": "High Intensity Proton Accelerator",
-  "notes": [],
+  "notes": [
+    "2026-09-17 re-check: psi.ch/en/cas/hipa is reachable this session and gives an official 1.4 MW beam-power figure, correcting the prior 1.3 MW value that had been read off a different sentence in the Wikipedia article (current beam allocation to SINQ/SmuS, not the facility's own headline power). The 1974 start year is corroborated by an official PSI news story (src:facilities-verify-psi-hipa-turns-50: 'went into operation in 1974') in addition to Wikipedia."
+  ],
   "particles": [
     "proton"
   ],
   "schema": "hep-atlas/0.2",
   "site_id": "site:psi-villigen",
   "sources": [
-    "src:psi-wikipedia"
+    "src:psi-wikipedia",
+    "src:facilities-verify-psi-hipa-page",
+    "src:facilities-verify-psi-hipa-turns-50"
   ],
   "specs": {
     "beam_energy": {
       "approx": false,
-      "confidence": "uncertain",
+      "confidence": "verified",
       "dimension": "energy",
       "display": "590 MeV",
-      "note": "Sourced to Wikipedia only; official psi.ch pages attempted in this session returned HTTP 404.",
-      "quote": "Energy: 590 MeV",
+      "note": "Upgraded 2026-09-17 from Wikipedia-only to PSI's own official HIPA page.",
+      "quote": "accelerates the proton bunches up to 590 MeV (79 % of the speed of light)",
       "sources": [
-        "src:psi-wikipedia"
+        "src:facilities-verify-psi-hipa-page"
       ],
       "unit": "MeV",
       "value": 590,
@@ -57,16 +61,16 @@
     },
     "beam_power": {
       "approx": false,
-      "confidence": "uncertain",
+      "confidence": "verified",
       "dimension": "power",
-      "display": "1.3 MW",
-      "note": "Sourced to Wikipedia only; official psi.ch pages attempted in this session returned HTTP 404.",
-      "quote": "The 1.3 MW strong proton beam is directed towards the muon source (SmuS) and the spallation neutron source (SINQ).",
+      "display": "1.4 MW",
+      "note": "CORRECTED 2026-09-17: the prior value (1.3 MW) rested on a Wikipedia sentence about current beam distribution ('The 1.3 MW strong proton beam is directed towards...'); PSI's own official HIPA page states the facility's beam power as 1.4 MW.",
+      "quote": "The High Intensity Proton Accelerator Facility (HIPA) provides a 1.4 MW proton beam for the production of mesons and neutrons.",
       "sources": [
-        "src:psi-wikipedia"
+        "src:facilities-verify-psi-hipa-page"
       ],
       "unit": "MW",
-      "value": 1.3,
+      "value": 1.4,
       "verified_at": "2026-09-17"
     }
   },

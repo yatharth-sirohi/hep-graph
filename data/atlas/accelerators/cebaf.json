@@ -35,6 +35,77 @@
       "start": "2018-05-02",
       "status": "active",
       "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "first beam delivered to an experimental hall",
+      "note": "Added 2026-09-17; sourced to Wikipedia only, flagged for review.",
+      "quote": "The first beam was delivered to the experimental area on 1 July 1994.",
+      "sources": [
+        "src:jlab-wikipedia"
+      ],
+      "start": "1994-07-01",
+      "status": "commissioning",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "4 GeV design energy achieved",
+      "note": "Added 2026-09-17; sourced to Wikipedia only, flagged for review. This is CEBAF's original design energy before either the 6 GeV or 12 GeV upgrades.",
+      "quote": "The design energy of 4 GeV for the beam was achieved during the year 1995.",
+      "sources": [
+        "src:jlab-wikipedia"
+      ],
+      "specs": {
+        "beam_energy": {
+          "approx": false,
+          "confidence": "uncertain",
+          "dimension": "energy",
+          "display": "4 GeV (original design energy)",
+          "note": "Sourced to Wikipedia only, flagged for review (matches this interval's own note).",
+          "quote": "The design energy of 4 GeV for the beam was achieved during the year 1995.",
+          "sources": [
+            "src:jlab-wikipedia"
+          ],
+          "unit": "GeV",
+          "value": 4,
+          "verified_at": "2026-09-17"
+        }
+      },
+      "start": "1995",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "6 GeV enhanced design energy reached",
+      "note": "Added 2026-09-17; sourced to Wikipedia only, flagged for review. This is the '4/6 GeV before the 12 GeV upgrade' figure the verification brief names.",
+      "quote": "On August 6, 2000, the CEBAF reached 'enhanced design energy' of 6 GeV.",
+      "sources": [
+        "src:jlab-wikipedia"
+      ],
+      "specs": {
+        "beam_energy": {
+          "approx": false,
+          "confidence": "uncertain",
+          "dimension": "energy",
+          "display": "6 GeV (enhanced design energy)",
+          "note": "Sourced to Wikipedia only, flagged for review (matches this interval's own note).",
+          "quote": "On August 6, 2000, the CEBAF reached 'enhanced design energy' of 6 GeV.",
+          "sources": [
+            "src:jlab-wikipedia"
+          ],
+          "unit": "GeV",
+          "value": 6,
+          "verified_at": "2026-09-17"
+        }
+      },
+      "start": "2000-08-06",
+      "status": "active",
+      "verified_at": "2026-09-17"
     }
   ],
   "is_collider": false,
@@ -52,7 +123,8 @@
   },
   "name": "Continuous Electron Beam Accelerator Facility",
   "notes": [
-    "kind is recorded as `linac`; CEBAF is technically a recirculating (racetrack) superconducting linac, which ACCELERATOR_KINDS does not have a dedicated value for."
+    "kind is recorded as `linac`; CEBAF is technically a recirculating (racetrack) superconducting linac, which ACCELERATOR_KINDS does not have a dedicated value for.",
+    "2026-09-17: added CEBAF's original operating history (first beam 1994-07-01, 4 GeV design energy 1995, 6 GeV 'enhanced design energy' 2000-08-06) from src:jlab-wikipedia, which the prior session had already cited but had not mined beyond the 1987 construction-start and 2018 12 GeV-dedication dates (RESEARCH_AGENT_RULES.md #8: give the richest sourced history)."
   ],
   "particles": [
     "electron"
@@ -81,8 +153,8 @@
   },
   "status": "active",
   "summary": {
-    "plain": "",
-    "technical": ""
+    "plain": "Jefferson Lab's main particle accelerator, which fires a continuous beam of electrons at nuclear targets in three (now four) experimental halls. It began at 4 GeV, was raised to 6 GeV in 2000, and was upgraded again to 12 GeV in 2018.",
+    "technical": "Continuous Electron Beam Accelerator Facility: a superconducting recirculating (racetrack) electron linac at Jefferson Lab; first beam 1994-07-01, reached its 4 GeV design energy in 1995, an 'enhanced design energy' of 6 GeV in 2000, and 12 GeV after the Upgrade dedicated 2018-05-02."
   },
   "type": "accelerator"
 }

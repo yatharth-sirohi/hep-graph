@@ -17,12 +17,12 @@
       "confidence": "approximate",
       "end": null,
       "label": "operating",
-      "note": "No fetched source gives CENPA's founding date; the lab is described in the present tense as currently hosting ADMX and other experiments, so an open-ended active interval with unknown start is recorded per A3.",
+      "note": "No fetched source gives CENPA's founding date. Start is approximated to 2017 (the earliest year for which this session found direct evidence CENPA was hosting ADMX, per the CENPA page's own 'new record ... with its new results from 2017'), used as a conservative lower bound for this open-ended 'active' interval, not a claimed founding date. VERIFIER FIX (2026-09-17): the previous start:null/end:null interval covered no date under A3 (a null start covers only [lo(end),hi(end)], and end was also null), so the entity's derived state at the build date was None while status said 'active' (validator error status-not-derived-state); this bound resolves that.",
       "quote": "ADMX set a new record as the first ever axion experiment to reach the DFSZ sensitivity with its new results from 2017",
       "sources": [
         "src:axions-admx-cenpa-page"
       ],
-      "start": null,
+      "start": "2017",
       "status": "active",
       "verified_at": "2026-09-17"
     }

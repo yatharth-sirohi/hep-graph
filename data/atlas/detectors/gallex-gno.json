@@ -1,0 +1,86 @@
+{
+  "schema": "hep-atlas/0.2",
+  "id": "detector:gallex-gno",
+  "type": "detector",
+  "name": "GALLEX/GNO gallium target",
+  "aliases": [],
+  "experiment_ids": ["experiment:gallex-gno"],
+  "parent_detector_id": null,
+  "technology": {
+    "value": "Radiochemical gallium detector: solar neutrinos capture on 71Ga to produce 71Ge, which is chemically extracted and counted; the target is a gallium trichloride-hydrochloric acid solution, not an electronic real-time detector",
+    "sources": ["src:gallex-wikipedia"],
+    "verified_at": "2026-09-17",
+    "confidence": "uncertain",
+    "quote": "101 tons of gallium trichloride–hydrochloric acid solution, which contained 30.3 tons of gallium",
+    "note": "Sourced from Wikipedia (rank 12) only this session. No `radiochemical` value exists in TECHNOLOGY_CLASSES (checked hepgraph/atlas/schema.py); `technology_class` is set to `other` and the radiochemical gallium technique is described in this free-text field instead, per the domain lead's resolution of this enum gap."
+  },
+  "technology_class": "other",
+  "technology_classes": ["other"],
+  "placements": [
+    {
+      "site_id": "site:lngs-hall-a",
+      "role": "main",
+      "start": "1991",
+      "end": "2003-04",
+      "sources": ["src:gallex-wikipedia"],
+      "verified_at": "2026-09-17",
+      "confidence": "approximate",
+      "quote": "GALLEX: Operated from 1991 to 1997 at Laboratori Nazionali del Gran Sasso (LNGS) ... GNO (successor): Continued from May 1998 to April 2003",
+      "note": "Placed at site:lngs-hall-a (owned by the facilities workstream; not created here)."
+    }
+  ],
+  "intervals": [
+    {
+      "label": "GALLEX + GNO operation",
+      "status": "active",
+      "start": "1991",
+      "end": "2003-04",
+      "sources": ["src:gallex-wikipedia"],
+      "verified_at": "2026-09-17",
+      "confidence": "approximate",
+      "quote": "GALLEX: Operated from 1991 to 1997 ... GNO (successor): Continued from May 1998 to April 2003",
+      "note": "Dates sourced from Wikipedia (rank 12) only."
+    },
+    {
+      "label": "shut down",
+      "status": "completed",
+      "start": "2003-04",
+      "end": null,
+      "sources": ["src:gallex-wikipedia"],
+      "verified_at": "2026-09-17",
+      "confidence": "approximate",
+      "quote": "GNO (successor): Continued from May 1998 to April 2003",
+      "note": "Terminal event date sourced from Wikipedia (rank 12) only."
+    }
+  ],
+  "status": "completed",
+  "specs": {
+    "target_mass": {
+      "value": 30.3,
+      "unit": "t",
+      "dimension": "mass",
+      "approx": false,
+      "display": "30.3 t gallium",
+      "sources": ["src:gallex-wikipedia"],
+      "verified_at": "2026-09-17",
+      "confidence": "approximate",
+      "quote": "101 tons of gallium trichloride–hydrochloric acid solution, which contained 30.3 tons of gallium",
+      "note": "Sourced from Wikipedia (rank 12) only this session."
+    }
+  },
+  "subsystems": [],
+  "document_ids": [],
+  "links": {
+    "website": null
+  },
+  "notes": [],
+  "sources": ["src:gallex-wikipedia"],
+  "summary": {
+    "plain": "A huge tank of gallium-laced liquid buried in an Italian mountain; when a low-energy solar neutrino hits a gallium atom, it turns into a germanium atom that scientists then count.",
+    "technical": "Radiochemical gallium detector, 30.3 t Ga as 101 t GaCl3-HCl solution, at LNGS Hall A; 71Ga(nu_e,e-)71Ge reaction, chemically extracted and counted in campaigns rather than observed in real time."
+  },
+  "coverage": {
+    "tier": "D",
+    "researched": "partial"
+  }
+}

@@ -1,189 +1,156 @@
 {
-  "schema": "hep-atlas/0.2",
-  "id": "experiment:na62",
-  "type": "experiment",
-  "name": "NA62",
-  "aliases": [],
-  "coverage": {
-    "tier": "A",
-    "researched": "full"
-  },
-  "kind": "rare_kaon",
-  "secondary_kinds": [
-    "fixed_target"
-  ],
-  "collaboration_ids": [
-    "collaboration:na62"
-  ],
-  "facility_roles": [
-    {
-      "facility_id": "facility:cern",
-      "role": "host",
-      "start": null,
-      "end": null,
-      "sources": [
-        "src:na62-official-site"
-      ],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
-      "note": ""
-    },
-    {
-      "facility_id": "facility:cern",
-      "role": "beam_source",
-      "start": null,
-      "end": null,
-      "sources": [
-        "src:na62-aim-page"
-      ],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
-      "note": "400 GeV/c protons from the CERN SPS produce the secondary/tertiary kaon beam via the North Area's K12 beamline."
-    }
-  ],
-  "beamline_ids": [],
   "accelerator_ids": [
     "accelerator:sps"
   ],
-  "topic_ids": [
-    "topic:rare-kaon-physics",
-    "topic:cp-violation",
-    "topic:precision-and-rare-processes"
+  "aliases": [],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:na62"
   ],
+  "coverage": {
+    "researched": "full",
+    "tier": "A"
+  },
+  "energy_regime": null,
+  "external": {
+    "greybook": "NA62",
+    "inspire_experiment": 1275752,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:cern",
+      "note": "",
+      "role": "host",
+      "sources": [
+        "src:na62-official-site"
+      ],
+      "start": null,
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:cern",
+      "note": "400 GeV/c protons from the CERN SPS produce the secondary/tertiary kaon beam via the North Area's K12 beamline.",
+      "role": "beam_source",
+      "sources": [
+        "src:na62-aim-page"
+      ],
+      "start": null,
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "id": "experiment:na62",
   "intervals": [
     {
-      "label": "construction",
-      "status": "construction",
-      "start": "2009",
+      "confidence": "verified",
       "end": "2014",
-      "sources": [
-        "src:na62-detector-jinst-2017"
-      ],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
+      "label": "construction",
       "locator": "arXiv:1703.08501, abstract/introduction",
-      "note": ""
-    },
-    {
-      "label": "commissioning",
-      "status": "commissioning",
-      "start": "2014",
-      "end": "2015",
+      "note": "",
       "sources": [
         "src:na62-detector-jinst-2017"
       ],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
-      "locator": "arXiv:1703.08501: describes beam line and detector components together with their early performance obtained from 2014 and 2015 data",
-      "note": ""
+      "start": "2009",
+      "status": "construction",
+      "verified_at": "2026-09-17"
     },
     {
-      "label": "Run 1",
-      "kind": "run",
-      "status": "active",
-      "start": "2016",
+      "confidence": "verified",
+      "end": "2015",
+      "label": "commissioning",
+      "locator": "arXiv:1703.08501: describes beam line and detector components together with their early performance obtained from 2014 and 2015 data",
+      "note": "",
+      "sources": [
+        "src:na62-detector-jinst-2017"
+      ],
+      "start": "2014",
+      "status": "commissioning",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
       "end": "2018",
+      "kind": "run",
+      "label": "Run 1",
+      "note": "Run 1 physics data set used in the 2021 measurement (arXiv:2103.15389).",
+      "quote": "data collected at the CERN SPS during 2016-2018",
       "sources": [
         "src:na62-jhep-2021-measurement"
       ],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
-      "quote": "data collected at the CERN SPS during 2016-2018",
-      "note": "Run 1 physics data set used in the 2021 measurement (arXiv:2103.15389)."
+      "start": "2016",
+      "status": "active",
+      "verified_at": "2026-09-17"
     },
     {
-      "label": "long shutdown / detector upgrades before Run 2",
-      "status": "shutdown",
-      "start": "2019",
+      "confidence": "uncertain",
       "end": "2021",
+      "label": "long shutdown / detector upgrades before Run 2",
+      "note": "No source fetched this session gives explicit shutdown start/end dates; 2019-2021 is inferred as the gap between the end of the sourced Run 1 data set (2018) and the sourced start of the higher-intensity 2021-2022 campaign reported in arXiv:2412.12015. Left as uncertain rather than a precisely-dated interval.",
       "sources": [
         "src:na62-jhep-2025-observation"
       ],
-      "verified_at": "2026-09-17",
-      "confidence": "uncertain",
-      "note": "No source fetched this session gives explicit shutdown start/end dates; 2019-2021 is inferred as the gap between the end of the sourced Run 1 data set (2018) and the sourced start of the higher-intensity 2021-2022 campaign reported in arXiv:2412.12015. Left as uncertain rather than a precisely-dated interval."
+      "start": "2019",
+      "status": "shutdown",
+      "verified_at": "2026-09-17"
     },
     {
-      "label": "Run 2",
-      "kind": "run",
-      "status": "active",
-      "start": "2021",
+      "confidence": "verified",
       "end": null,
+      "kind": "run",
+      "label": "Run 2",
+      "note": "Ongoing as of the most recent source fetched this session, arXiv:2607.16413 (submitted 17 July 2026), reporting a combined 2016-2024 measurement that includes 2023-2024 data first previewed at the 2026 La Thuile conference (src:na62-cern-news-2026-refined-measurement).",
+      "quote": "enhanced beam intensity during the 2021-2022 campaign following detector upgrades",
       "sources": [
         "src:na62-jhep-2025-observation",
         "src:na62-cern-news-2026-refined-measurement",
         "src:fixed-target-verify-na62-refined-arxiv-2607-16413"
       ],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
-      "quote": "enhanced beam intensity during the 2021-2022 campaign following detector upgrades",
-      "note": "Ongoing as of the most recent source fetched this session, arXiv:2607.16413 (submitted 17 July 2026), reporting a combined 2016-2024 measurement that includes 2023-2024 data first previewed at the 2026 La Thuile conference (src:na62-cern-news-2026-refined-measurement)."
+      "start": "2021",
+      "status": "active",
+      "verified_at": "2026-09-17"
     }
   ],
-  "status": "active",
-  "physics_goals": [
-    {
-      "value": "Measure the branching ratio of the very rare kaon decay K+ -> pi+ nu nubar to extract a percent-level measurement of the CKM matrix element |Vtd| and test the Standard Model",
-      "sources": [
-        "src:na62-aim-page"
-      ],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
-      "locator": "na62.web.cern.ch/Home/Aim.html",
-      "quote": "Measure the very rare kaon decay K+ -> pi+ nu nubar at the CERN SPS to extract a 10% measurement of the CKM parameter |Vtd|.",
-      "note": ""
-    }
-  ],
-  "unique_capabilities": [
-    {
-      "value": "A decay-in-flight technique using a high-intensity (~750 MHz) unseparated hadron beam and precision timing (the GigaTracker beam spectrometer reaches 65 ps time resolution on tracks) to identify K+ -> pi+ nu nubar events against enormous backgrounds",
-      "sources": [
-        "src:na62-gigatracker-arxiv-2019"
-      ],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
-      "locator": "arXiv:1904.12837, abstract",
-      "quote": "65 ps time resolution on tracks",
-      "note": "The 750 MHz beam-rate figure is the widely-cited design value; it is NOT included as a key_spec because no source fetched this session states it verbatim, only the GigaTracker's flux-handling and timing figures were confirmed by direct fetch."
-    }
-  ],
-  "energy_regime": null,
   "key_specs": [
     {
       "label": "Primary proton beam momentum",
       "quantity": {
-        "value": 400,
-        "unit": "GeV",
-        "dimension": "energy",
         "approx": false,
+        "confidence": "verified",
+        "dimension": "energy",
         "display": "400 GeV/c",
+        "locator": "na62.web.cern.ch/Home/Aim.html",
+        "note": "Momentum of the SPS proton beam incident on the NA62 target; the ontology's `energy` dimension is used for this momentum value per the exemplar convention (GeV).",
         "sources": [
           "src:na62-aim-page"
         ],
-        "verified_at": "2026-09-17",
-        "confidence": "verified",
-        "locator": "na62.web.cern.ch/Home/Aim.html",
-        "note": "Momentum of the SPS proton beam incident on the NA62 target; the ontology's `energy` dimension is used for this momentum value per the exemplar convention (GeV)."
+        "unit": "GeV",
+        "value": 400,
+        "verified_at": "2026-09-17"
       }
     },
     {
       "label": "GigaTracker time resolution on tracks",
       "quantity": {
-        "value": 0.065,
-        "unit": "ns",
-        "dimension": "time",
         "approx": false,
+        "confidence": "verified",
+        "dimension": "time",
         "display": "0.065 ns (65 ps)",
+        "note": "Converted from ps (not a recognised unit in the ontology's time dimension) to ns for storage; display leads with the stored unit to satisfy the A21 display/value cross-check and keeps the source's own wording (65 ps) alongside it.",
+        "quote": "65 ps time resolution on tracks",
         "sources": [
           "src:na62-gigatracker-arxiv-2019"
         ],
-        "verified_at": "2026-09-17",
-        "confidence": "verified",
-        "quote": "65 ps time resolution on tracks",
-        "note": "Converted from ps (not a recognised unit in the ontology's time dimension) to ns for storage; display leads with the stored unit to satisfy the A21 display/value cross-check and keeps the source's own wording (65 ps) alongside it."
+        "unit": "ns",
+        "value": 0.065,
+        "verified_at": "2026-09-17"
       }
     }
   ],
+  "kind": "rare_kaon",
   "lineage": [
     {
       "experiment_id": "experiment:na48",
@@ -194,11 +161,41 @@
       ]
     }
   ],
-  "external": {
-    "inspire_experiment": 1275752,
-    "greybook": "NA62",
-    "wikidata": null
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "note": "",
+      "sources": [
+        "src:na62-official-site"
+      ],
+      "value": "https://na62.web.cern.ch/",
+      "verified_at": "2026-09-17"
+    }
   },
+  "name": "NA62",
+  "notes": [
+    "Derived fields (detector_ids, site_ids, result_ids, document_ids) are deliberately not written (v0.2 A1).",
+    "external.greybook is the CERN Greybook experiment code as used in the URL greybook.cern.ch/greybook/experiment/detail?id=NA62; the Greybook page itself is a client-rendered app and could not be fetched for a verbatim quote this session.",
+    "Membership counts (institutions/countries/participants) are deliberately left off both here and on collaboration:na62: the official collaboration page (na62.web.cern.ch/Collaboration/organisationalStructure.html) links to the Greybook for the member list but states no headline number itself, and a per-brief rule requires the collaboration's own page as the source for any membership count. A widely repeated figure (~300 participants, ~33 institutions, ~16 countries) appears in secondary aggregations but was not confirmed on a page fetched this session, so it is not recorded.",
+    "The 2026-03-04 CERN news article (src:na62-cern-news-2026-refined-measurement) first previewed a refined branching-ratio value from the 2026 La Thuile conference; a full arXiv preprint restating the identical value, arXiv:2607.16413 ('Measurement of the branching ratio of the K+ -> pi+ nu nubar decay', submitted 17 July 2026, CERN-EP-2026-214), was found during 2026-09-17 verification and is now used to source result:na62-2026-refined-measurement's claim, since A16 forbids sourcing a result claim to a press release."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "na62.web.cern.ch/Home/Aim.html",
+      "note": "2026-09-17 fixed-target verification: the previous quote dropped the page's leading 'NA62 initially proposed to' and capitalised 'measure' as if it opened the sentence, which is a spliced, non-verbatim quote (A15 requires the exact text seen). Corrected to the full sentence; note that the page itself frames the 10% figure as the *initial* proposed precision, not a claim about the precision actually achieved.",
+      "quote": "NA62 initially proposed to measure the very rare kaon decay K+ -> pi+ nu nubar at the CERN SPS to extract a 10% measurement of the CKM parameter |Vtd|.",
+      "sources": [
+        "src:na62-aim-page"
+      ],
+      "value": "Measure the branching ratio of the very rare kaon decay K+ -> pi+ nu nubar to extract a percent-level measurement of the CKM matrix element |Vtd| and test the Standard Model",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [
+    "fixed_target"
+  ],
   "sources": [
     "src:na62-official-site",
     "src:na62-aim-page",
@@ -212,25 +209,28 @@
     "src:na62-inspire-experiment-record",
     "src:na62-cern-north-area-page"
   ],
-  "links": {
-    "website": {
-      "value": "https://na62.web.cern.ch/",
-      "sources": [
-        "src:na62-official-site"
-      ],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
-      "note": ""
-    }
-  },
+  "status": "active",
   "summary": {
     "plain": "NA62 is a CERN experiment that fires a beam of charged kaons at a detector to catch one of the rarest particle decays known: a positive kaon turning into a pion and two invisible neutrinos. Catching enough of these decays tests the Standard Model.",
     "technical": "Fixed-target kaon-decay experiment in the ECN3 cavern of the CERN SPS North Area, using a 400 GeV/c primary proton beam to produce a secondary/tertiary charged-kaon beam. Measures the branching ratio of K+ -> pi+ nu nubar via a decay-in-flight technique with GigaTracker beam-timing, RICH, LKr calorimeter and veto subsystems (arXiv:1703.08501). Constructed 2009-2014, commissioned 2014-2015, Run 1 data 2016-2018 (arXiv:2103.15389, 3.4 sigma evidence-level measurement), Run 2 from 2021 with upgraded beam intensity, reaching a 5 sigma observation with 2016-2022 data (arXiv:2412.12015) and a further refined measurement including 2023-2024 data reported in 2026."
   },
-  "notes": [
-    "Derived fields (detector_ids, site_ids, result_ids, document_ids) are deliberately not written (v0.2 A1).",
-    "external.greybook is the CERN Greybook experiment code as used in the URL greybook.cern.ch/greybook/experiment/detail?id=NA62; the Greybook page itself is a client-rendered app and could not be fetched for a verbatim quote this session.",
-    "Membership counts (institutions/countries/participants) are deliberately left off both here and on collaboration:na62: the official collaboration page (na62.web.cern.ch/Collaboration/organisationalStructure.html) links to the Greybook for the member list but states no headline number itself, and a per-brief rule requires the collaboration's own page as the source for any membership count. A widely repeated figure (~300 participants, ~33 institutions, ~16 countries) appears in secondary aggregations but was not confirmed on a page fetched this session, so it is not recorded.",
-    "The 2026-03-04 CERN news article (src:na62-cern-news-2026-refined-measurement) first previewed a refined branching-ratio value from the 2026 La Thuile conference; a full arXiv preprint restating the identical value, arXiv:2607.16413 ('Measurement of the branching ratio of the K+ -> pi+ nu nubar decay', submitted 17 July 2026, CERN-EP-2026-214), was found during 2026-09-17 verification and is now used to source result:na62-2026-refined-measurement's claim, since A16 forbids sourcing a result claim to a press release."
+  "topic_ids": [
+    "topic:rare-kaon-physics",
+    "topic:cp-violation",
+    "topic:precision-and-rare-processes"
+  ],
+  "type": "experiment",
+  "unique_capabilities": [
+    {
+      "confidence": "verified",
+      "locator": "arXiv:1904.12837, abstract",
+      "note": "The 750 MHz beam-rate figure is the widely-cited design value; it is NOT included as a key_spec because no source fetched this session states it verbatim, only the GigaTracker's flux-handling and timing figures were confirmed by direct fetch.",
+      "quote": "65 ps time resolution on tracks",
+      "sources": [
+        "src:na62-gigatracker-arxiv-2019"
+      ],
+      "value": "A decay-in-flight technique using a high-intensity (~750 MHz) unseparated hadron beam and precision timing (the GigaTracker beam spectrometer reaches 65 ps time resolution on tracks) to identify K+ -> pi+ nu nubar events against enormous backgrounds",
+      "verified_at": "2026-09-17"
+    }
   ]
 }

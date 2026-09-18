@@ -41,7 +41,7 @@
   },
   "name": "CAST detector",
   "notes": [
-    "No numeric magnet field-strength or length value was found with a clean verbatim quote in a source fetched this session; left out of specs rather than guessed."
+    "VERIFIER FIX (2026-09-17): magnet field (9 T) and length (10 m) added to specs from the already-cited INSPIRE experiment record's description field (re-fetched and confirmed this session)."
   ],
   "parent_detector_id": null,
   "placements": [
@@ -64,7 +64,38 @@
     "src:axions-cern-home-cast",
     "src:axions-cast-inspire-experiment"
   ],
-  "specs": {},
+  "specs": {
+    "length": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "10 m",
+      "locator": "INSPIRE experiment record 1110249, description field",
+      "note": "VERIFIER FIX (2026-09-17): the original research pass said no clean verbatim magnet-spec quote was found and left key_specs empty; the description field of the already-cited INSPIRE experiment record (src:axions-cast-inspire-experiment) in fact gives both values in one sentence (re-fetched and confirmed this session).",
+      "quote": "In the CAST experiment an LHC prototype dipole magnet (B=9 T and L=10 m) with straight beam pipes provides a conversion efficiency exceeding that of the two earlier solar axion telescopes by almost a factor of 100.",
+      "sources": [
+        "src:axions-cast-inspire-experiment"
+      ],
+      "unit": "m",
+      "value": 10,
+      "verified_at": "2026-09-17"
+    },
+    "magnetic_field": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "magnetic_field",
+      "display": "9 T",
+      "locator": "INSPIRE experiment record 1110249, description field",
+      "note": "VERIFIER FIX (2026-09-17): the original research pass said no clean verbatim magnet-spec quote was found and left key_specs empty; the description field of the already-cited INSPIRE experiment record (src:axions-cast-inspire-experiment) in fact gives both values in one sentence (re-fetched and confirmed this session).",
+      "quote": "In the CAST experiment an LHC prototype dipole magnet (B=9 T and L=10 m) with straight beam pipes provides a conversion efficiency exceeding that of the two earlier solar axion telescopes by almost a factor of 100.",
+      "sources": [
+        "src:axions-cast-inspire-experiment"
+      ],
+      "unit": "T",
+      "value": 9,
+      "verified_at": "2026-09-17"
+    }
+  },
   "status": "completed",
   "subsystems": [],
   "summary": {
@@ -73,16 +104,16 @@
   },
   "technology": {
     "confidence": "verified",
-    "note": "No 'helioscope' value exists in the ontology's technology_classes enum; recorded as 'other' with this technology description (see worklog).",
+    "note": "VERIFIER FIX (2026-09-17): classified under `other` by the original research pass, which noted no matching technology_classes enum value existed; v0.2 amendment A24 (2026-09-17) added `helioscope`, `light_shining_through_wall` and `lumped_element_resonator` to the ontology's technology_classes for exactly this gap. Reclassified as `helioscope` with the sourced `technology` free-text description kept unchanged; no new claim is made beyond what was already sourced.",
     "sources": [
       "src:axions-cern-home-cast"
     ],
     "value": "Axion helioscope: a decommissioned LHC prototype superconducting dipole magnet, pointed at the Sun, with its hollow beam-pipe bores acting as viewing tubes for X-ray optics and X-ray detectors that look for photons produced by solar axions converting in the magnetic field.",
     "verified_at": "2026-09-17"
   },
-  "technology_class": "other",
+  "technology_class": "helioscope",
   "technology_classes": [
-    "other"
+    "helioscope"
   ],
   "type": "detector"
 }

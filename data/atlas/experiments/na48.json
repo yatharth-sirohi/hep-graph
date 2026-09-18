@@ -1,158 +1,158 @@
 {
-  "schema": "hep-atlas/0.2",
-  "id": "experiment:na48",
-  "type": "experiment",
-  "name": "NA48",
+  "accelerator_ids": [
+    "accelerator:sps"
+  ],
   "aliases": [
     "NA48/1",
     "NA48/2"
   ],
-  "coverage": {
-    "tier": "B",
-    "researched": "partial"
-  },
-  "kind": "rare_kaon",
-  "secondary_kinds": [
-    "fixed_target"
-  ],
+  "beamline_ids": [],
   "collaboration_ids": [
     "collaboration:na48"
   ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "energy_regime": null,
+  "external": {
+    "greybook": "NA48",
+    "inspire_experiment": 1108767,
+    "wikidata": null
+  },
   "facility_roles": [
     {
-      "facility_id": "facility:cern",
-      "role": "host",
-      "start": null,
+      "confidence": "approximate",
       "end": null,
+      "facility_id": "facility:cern",
+      "note": "Only source found is CERN Courier (rank 12, secondary); A17 requires rank <= 10 for `confidence: verified`, so this is recorded as approximate rather than verified.",
+      "role": "host",
       "sources": [
         "src:na48-cern-courier-fixed-target"
       ],
-      "verified_at": "2026-09-17",
-      "confidence": "approximate",
-      "note": "Only source found is CERN Courier (rank 12, secondary); A17 requires rank <= 10 for `confidence: verified`, so this is recorded as approximate rather than verified."
+      "start": null,
+      "verified_at": "2026-09-17"
     },
     {
-      "facility_id": "facility:cern",
-      "role": "beam_source",
-      "start": null,
+      "confidence": "approximate",
       "end": null,
+      "facility_id": "facility:cern",
+      "note": "NA48 ran on CERN SPS proton beams, using two nearly-collinear KS/KL beams. Only source found is CERN Courier (rank 12, secondary); A17 requires rank <= 10 for `confidence: verified`, so this is recorded as approximate rather than verified.",
+      "role": "beam_source",
       "sources": [
         "src:na48-cern-courier-fixed-target"
       ],
-      "verified_at": "2026-09-17",
-      "confidence": "approximate",
-      "note": "NA48 ran on CERN SPS proton beams, using two nearly-collinear KS/KL beams. Only source found is CERN Courier (rank 12, secondary); A17 requires rank <= 10 for `confidence: verified`, so this is recorded as approximate rather than verified."
+      "start": null,
+      "verified_at": "2026-09-17"
     }
   ],
-  "beamline_ids": [],
-  "accelerator_ids": [
-    "accelerator:sps"
-  ],
-  "topic_ids": [
-    "topic:rare-kaon-physics",
-    "topic:cp-violation"
-  ],
+  "id": "experiment:na48",
   "intervals": [
     {
-      "label": "approved",
-      "status": "approved",
-      "start": "1991",
+      "confidence": "approximate",
       "end": null,
+      "label": "approved",
+      "note": "Only source found is CERN Courier (rank 12, secondary); A17 requires rank <= 10 for `confidence: verified`, so this is recorded as approximate rather than verified.",
+      "quote": "NA48 was approved in 1991 to investigate direct CP violation in kaon decays.",
       "sources": [
         "src:na48-cern-courier-fixed-target"
       ],
-      "verified_at": "2026-09-17",
-      "confidence": "approximate",
-      "quote": "NA48 was approved in 1991 to investigate direct CP violation in kaon decays.",
-      "note": "Only source found is CERN Courier (rank 12, secondary); A17 requires rank <= 10 for `confidence: verified`, so this is recorded as approximate rather than verified."
+      "start": "1991",
+      "status": "approved",
+      "verified_at": "2026-09-17"
     },
     {
-      "label": "NA48 main run (direct CP violation, KL/KS beams)",
-      "status": "active",
-      "start": "1997",
+      "confidence": "verified",
       "end": "2001",
+      "label": "NA48 main run (direct CP violation, KL/KS beams)",
+      "locator": "arXiv:hep-ex/0209064 (final NA48 epsilon'/epsilon paper): combined data from 1997, 1998, 1999 and 2001",
+      "note": "CONFLICT: a secondary aggregation encountered during search described the run years as '1997, 1998, 1999 and 2000'; the directly-fetched NA48 collaboration paper itself (hep-ex/0209064) instead states 1997, 1998, 1999 and 2001, with 2001 data analysed separately and then combined with the earlier years. The directly-fetched primary source is used; see worklog.",
       "sources": [
         "src:na48-final-epsilon-prime-arxiv-2002"
       ],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
-      "locator": "arXiv:hep-ex/0209064 (final NA48 epsilon'/epsilon paper): combined data from 1997, 1998, 1999 and 2001",
-      "note": "CONFLICT: a secondary aggregation encountered during search described the run years as '1997, 1998, 1999 and 2000'; the directly-fetched NA48 collaboration paper itself (hep-ex/0209064) instead states 1997, 1998, 1999 and 2001, with 2001 data analysed separately and then combined with the earlier years. The directly-fetched primary source is used; see worklog."
+      "start": "1997",
+      "status": "active",
+      "verified_at": "2026-09-17"
     },
     {
-      "label": "NA48/2 (charged-kaon CP violation and rare decays)",
-      "status": "active",
-      "start": "2003",
+      "confidence": "verified",
       "end": "2004",
+      "label": "NA48/2 (charged-kaon CP violation and rare decays)",
+      "note": "NA48/2 studied properties and CP violation of charged kaons using the same ECN3 infrastructure.",
+      "quote": "An improved upper limit on the rate of the lepton number violating decay from the NA48/2 experiment (2003--2004 data set)",
       "sources": [
         "src:na48-kaon-experiments-arxiv-2011"
       ],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
-      "quote": "An improved upper limit on the rate of the lepton number violating decay from the NA48/2 experiment (2003--2004 data set)",
-      "note": "NA48/2 studied properties and CP violation of charged kaons using the same ECN3 infrastructure."
+      "start": "2003",
+      "status": "active",
+      "verified_at": "2026-09-17"
     },
     {
-      "label": "completed",
-      "status": "completed",
-      "start": "2004",
+      "confidence": "uncertain",
       "end": null,
+      "label": "completed",
+      "note": "No source fetched this session states an explicit end-of-programme date; 2004 is inferred as the end of the last sourced sub-run (NA48/2, 2003-2004). NA62 is documented as reusing the same ECN3/TCC8 infrastructure as NA62's successor programme, consistent with NA48 having ended before NA62's 2009 construction start.",
       "sources": [
         "src:na48-kaon-experiments-arxiv-2011",
         "src:na62-cern-north-area-page"
       ],
-      "verified_at": "2026-09-17",
-      "confidence": "uncertain",
-      "note": "No source fetched this session states an explicit end-of-programme date; 2004 is inferred as the end of the last sourced sub-run (NA48/2, 2003-2004). NA62 is documented as reusing the same ECN3/TCC8 infrastructure as NA62's successor programme, consistent with NA48 having ended before NA62's 2009 construction start."
+      "start": "2004",
+      "status": "completed",
+      "verified_at": "2026-09-17"
     }
   ],
-  "status": "completed",
-  "physics_goals": [
-    {
-      "value": "Measure direct CP violation in neutral kaon decays to two pions (the parameter Re(epsilon'/epsilon)) to determine whether CP violation arises directly in the decay process itself, not only in K0-K0bar mixing",
-      "sources": [
-        "src:na48-final-epsilon-prime-arxiv-2002"
-      ],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
-      "note": ""
-    }
-  ],
-  "unique_capabilities": [
-    {
-      "value": "Simultaneous, nearly-collinear KS and KL beams tagged by the protons that produced the KS component, allowing all four CP-violation-sensitive decay modes to be measured concurrently and many systematic effects to cancel",
-      "sources": [
-        "src:na48-final-epsilon-prime-arxiv-2002"
-      ],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
-      "note": ""
-    }
-  ],
-  "energy_regime": null,
   "key_specs": [],
+  "kind": "rare_kaon",
   "lineage": [],
-  "external": {
-    "inspire_experiment": 1108767,
-    "greybook": "NA48",
-    "wikidata": null
-  },
   "links": {
     "website": null
   },
+  "name": "NA48",
+  "notes": [
+    "Derived fields (detector_ids, site_ids, result_ids, document_ids, lineage 'successor' row) are deliberately not written (v0.2 A1); the predecessor/successor relation is recorded once, on experiment:na62, per A1.",
+    "NA48/1 (2002, neutral-kaon rare decays and hyperon physics) is known from secondary aggregation to have run between the main NA48 programme and NA48/2, but no source fetched this session confirms its dates directly, so it is listed only as an alias, not as its own dated interval.",
+    "Results and a technical document for NA48 are optional 'only if time' per the brief; not written in this pass so effort could go to the flagship (NA62) and the remaining mandatory-bar experiments first."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "note": "",
+      "sources": [
+        "src:na48-final-epsilon-prime-arxiv-2002"
+      ],
+      "value": "Measure direct CP violation in neutral kaon decays to two pions (the parameter Re(epsilon'/epsilon)) to determine whether CP violation arises directly in the decay process itself, not only in K0-K0bar mixing",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [
+    "fixed_target"
+  ],
   "sources": [
     "src:na48-cern-courier-fixed-target",
     "src:na48-final-epsilon-prime-arxiv-2002",
     "src:na48-kaon-experiments-arxiv-2011",
     "src:na48-inspire-experiment-record"
   ],
+  "status": "completed",
   "summary": {
     "plain": "NA48 was a CERN experiment that ran from the late 1990s to the mid-2000s, confirming that nature's matter-antimatter asymmetry (CP violation) can arise directly inside a kaon's decay, not just from how kaons mix. It was the direct predecessor of NA62 at the same underground cavern.",
     "technical": "Fixed-target kaon experiment in the ECN3 cavern of the CERN SPS North Area (approved 1991), using concurrent KS/KL beams to measure direct CP violation (Re(epsilon'/epsilon) = (14.7 +- 2.2) x 10^-4, combining 1997-1999 and 2001 data). Continued as NA48/2 (2003-2004) studying charged-kaon CP violation and rare decays before the programme's infrastructure was reused by its successor, NA62."
   },
-  "notes": [
-    "Derived fields (detector_ids, site_ids, result_ids, document_ids, lineage 'successor' row) are deliberately not written (v0.2 A1); the predecessor/successor relation is recorded once, on experiment:na62, per A1.",
-    "NA48/1 (2002, neutral-kaon rare decays and hyperon physics) is known from secondary aggregation to have run between the main NA48 programme and NA48/2, but no source fetched this session confirms its dates directly, so it is listed only as an alias, not as its own dated interval.",
-    "Results and a technical document for NA48 are optional 'only if time' per the brief; not written in this pass so effort could go to the flagship (NA62) and the remaining mandatory-bar experiments first."
+  "topic_ids": [
+    "topic:rare-kaon-physics",
+    "topic:cp-violation"
+  ],
+  "type": "experiment",
+  "unique_capabilities": [
+    {
+      "confidence": "verified",
+      "note": "",
+      "sources": [
+        "src:na48-final-epsilon-prime-arxiv-2002"
+      ],
+      "value": "Simultaneous, nearly-collinear KS and KL beams tagged by the protons that produced the KS component, allowing all four CP-violation-sensitive decay modes to be measured concurrently and many systematic effects to cancel",
+      "verified_at": "2026-09-17"
+    }
   ]
 }

@@ -29,7 +29,8 @@
   },
   "name": "KATRIN spectrometer",
   "notes": [
-    "Placed at site:kit-campus-north (a geocoder-derived campus point; no more precise coordinate sourced in this session)."
+    "Placed at site:kit-campus-north (a geocoder-derived campus point; no more precise coordinate sourced in this session).",
+    "Verification fix (2026-09-17): technology_class changed from the legacy 'spectrometer' to 'magnetic_spectrometer' per ontology amendment A24 (2026-09-17), which added `magnetic_spectrometer` specifically so KATRIN's MAC-E filter no longer needs the generic class."
   ],
   "parent_detector_id": null,
   "placements": [
@@ -71,9 +72,9 @@
     "value": "MAC-E filter electrostatic/magnetic spectrometer with a windowless gaseous tritium source",
     "verified_at": "2026-09-17"
   },
-  "technology_class": "spectrometer",
+  "technology_class": "magnetic_spectrometer",
   "technology_classes": [
-    "spectrometer"
+    "magnetic_spectrometer"
   ],
   "type": "detector"
 }

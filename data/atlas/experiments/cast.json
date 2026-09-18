@@ -70,7 +70,44 @@
       "verified_at": "2026-09-17"
     }
   ],
-  "key_specs": [],
+  "key_specs": [
+    {
+      "label": "Magnet field strength",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "magnetic_field",
+        "display": "9 T",
+        "locator": "INSPIRE experiment record 1110249, description field",
+        "note": "VERIFIER FIX (2026-09-17): the original research pass said no clean verbatim magnet-spec quote was found and left key_specs empty; the description field of the already-cited INSPIRE experiment record (src:axions-cast-inspire-experiment) in fact gives both values in one sentence (re-fetched and confirmed this session).",
+        "quote": "In the CAST experiment an LHC prototype dipole magnet (B=9 T and L=10 m) with straight beam pipes provides a conversion efficiency exceeding that of the two earlier solar axion telescopes by almost a factor of 100.",
+        "sources": [
+          "src:axions-cast-inspire-experiment"
+        ],
+        "unit": "T",
+        "value": 9,
+        "verified_at": "2026-09-17"
+      }
+    },
+    {
+      "label": "Magnet length",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "length",
+        "display": "10 m",
+        "locator": "INSPIRE experiment record 1110249, description field",
+        "note": "VERIFIER FIX (2026-09-17): the original research pass said no clean verbatim magnet-spec quote was found and left key_specs empty; the description field of the already-cited INSPIRE experiment record (src:axions-cast-inspire-experiment) in fact gives both values in one sentence (re-fetched and confirmed this session).",
+        "quote": "In the CAST experiment an LHC prototype dipole magnet (B=9 T and L=10 m) with straight beam pipes provides a conversion efficiency exceeding that of the two earlier solar axion telescopes by almost a factor of 100.",
+        "sources": [
+          "src:axions-cast-inspire-experiment"
+        ],
+        "unit": "m",
+        "value": 10,
+        "verified_at": "2026-09-17"
+      }
+    }
+  ],
   "kind": "axion",
   "lineage": [],
   "links": {
@@ -86,7 +123,7 @@
   },
   "name": "CAST",
   "notes": [
-    "No numeric magnet field-strength or length value was found with a clean verbatim quote in a source fetched this session; left out of key_specs rather than guessed."
+    "VERIFIER FIX (2026-09-17): magnet field (9 T) and length (10 m) added to key_specs from the already-cited INSPIRE experiment record's description field (re-fetched and confirmed this session); the original pass had left these out believing no clean verbatim quote existed."
   ],
   "physics_goals": [
     {

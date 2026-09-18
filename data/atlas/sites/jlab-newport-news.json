@@ -6,12 +6,13 @@
   "coordinates": {
     "confidence": "approximate",
     "kind": "campus",
-    "lat": 37.094722,
-    "lon": -76.481667,
-    "note": "No official JLab page fetched in this session states a numeric coordinate; sourced to Wikipedia's infobox only, kind recorded as campus/approximate per A17 (a rank-12 source may not back a detector/underground_lab point).",
-    "precision_m": 1000,
-    "quote": "coordinates 37 05'41''N 76 28'54''W",
+    "lat": 36.98038,
+    "locator": "ROR v2 API record for organization 02vwzrd76 (Thomas Jefferson National Accelerator Facility), addresses[0].lat/addresses[0].lng",
+    "lon": -76.42975,
+    "note": "Upgraded 2026-09-17: ROR v2 organization record for Thomas Jefferson National Accelerator Facility (ror.org/02vwzrd76) gives a geocoded campus point, rank 8, replacing the Wikipedia-infobox-only point (rank 12). The official jlab.org/about page (already cited) gives no numeric coordinate. Wikipedia kept as a second, lower-rank corroborating source.",
+    "precision_m": 800,
     "sources": [
+      "src:facilities-verify-jlab-ror",
       "src:jlab-wikipedia"
     ],
     "verified_at": "2026-09-17"
@@ -38,7 +39,8 @@
   "schema": "hep-atlas/0.2",
   "setting": "surface",
   "sources": [
-    "src:jlab-wikipedia"
+    "src:jlab-wikipedia",
+    "src:facilities-verify-jlab-ror"
   ],
   "summary": {
     "plain": "The Jefferson Lab campus in Newport News, Virginia, home to the CEBAF particle accelerator.",

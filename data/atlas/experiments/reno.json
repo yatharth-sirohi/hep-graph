@@ -26,15 +26,15 @@
   "topic_ids": ["topic:reactor-neutrinos", "topic:neutrino-oscillations"],
   "intervals": [
     {
-      "label": "data-taking period used in the 2012 discovery",
+      "label": "data-taking (analysis window used in the 2012 discovery paper)",
       "status": "active",
       "start": "2011-08-11",
-      "end": "2012-03-26",
+      "end": null,
       "sources": ["src:reno-discovery-2012"],
       "verified_at": "2026-09-17",
-      "confidence": "verified",
+      "confidence": "uncertain",
       "quote": "In the 229 day data-taking period between 11 August 2011 and 26 March 2012",
-      "note": ""
+      "note": "The cited paper's own analysis used only the 229-day window ending 26 March 2012, but no source fetched this session states that RENO stopped operating at that date, nor confirms it continued; `end` is left null (ongoing at `verified_at`, per §2.3) rather than asserting either a shutdown or continued operation from memory."
     }
   ],
   "physics_goals": [
@@ -96,7 +96,7 @@
         "unit": "GW",
         "dimension": "power",
         "approx": false,
-        "display": "6 x 2.8 GW_th",
+        "display": "2.8 GW_th (x6 reactors)",
         "sources": ["src:reno-discovery-2012"],
         "verified_at": "2026-09-17",
         "confidence": "verified",

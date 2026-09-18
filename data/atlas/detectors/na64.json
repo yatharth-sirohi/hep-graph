@@ -1,75 +1,75 @@
 {
-  "schema": "hep-atlas/0.2",
-  "id": "detector:na64",
-  "type": "detector",
-  "name": "NA64 detector",
   "aliases": [],
   "coverage": {
-    "tier": "B",
-    "researched": "partial"
+    "researched": "partial",
+    "tier": "B"
   },
   "experiment_ids": [
     "experiment:na64"
   ],
+  "id": "detector:na64",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "operating",
+      "note": "",
+      "quote": "started operations at CERN's North Area in 2016",
+      "sources": [
+        "src:na64-home-cern-experiments-page"
+      ],
+      "start": "2016",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "NA64 detector",
+  "notes": [
+    "Placed at the existing site:cern-neutrino-platform-ehn1 (owned by another workstream); see experiment:na64 notes for the H4-in-EHN1 citation."
+  ],
   "parent_detector_id": null,
   "placements": [
     {
-      "site_id": "site:cern-neutrino-platform-ehn1",
-      "role": "main",
-      "start": "2016",
+      "confidence": "verified",
       "end": null,
+      "note": "NA64 operates on the H4 beamline; CERN's Experimental Areas page confirms H4 is one of the beamlines located in EHN1, the hall this site record represents (owned by another workstream).",
+      "role": "main",
+      "site_id": "site:cern-neutrino-platform-ehn1",
       "sources": [
         "src:na64-home-cern-experiments-page",
         "src:na62-cern-north-area-page"
       ],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
-      "note": "NA64 operates on the H4 beamline; CERN's Experimental Areas page confirms H4 is one of the beamlines located in EHN1, the hall this site record represents (owned by another workstream)."
+      "start": "2016",
+      "verified_at": "2026-09-17"
     }
   ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:na64-home-cern-experiments-page",
+    "src:na64-official-site"
+  ],
+  "specs": {},
+  "status": "active",
+  "subsystems": [],
+  "summary": {
+    "plain": "The NA64 detector tags and tracks incoming electrons, absorbs their energy in a calorimeter, and watches for cases where energy simply vanishes -- a possible sign of an invisible dark-sector particle.",
+    "technical": "Active beam-dump missing-energy spectrometer on the NA64 H4 beamline (EHN1), combining an electromagnetic calorimeter with hermetic veto detectors to reject visible final states."
+  },
   "technology": {
-    "value": "Active beam-dump / missing-energy spectrometer: incoming electron tagged and tracked, its energy deposited in an electromagnetic calorimeter, with hermetic veto systems to catch any visible secondary particles so that missing energy signals an invisible decay",
+    "confidence": "verified",
+    "note": "",
     "sources": [
       "src:na64-home-cern-experiments-page"
     ],
-    "verified_at": "2026-09-17",
-    "confidence": "verified",
-    "note": ""
+    "value": "Active beam-dump / missing-energy spectrometer: incoming electron tagged and tracked, its energy deposited in an electromagnetic calorimeter, with hermetic veto systems to catch any visible secondary particles so that missing energy signals an invisible decay",
+    "verified_at": "2026-09-17"
   },
   "technology_class": "spectrometer",
   "technology_classes": [
     "spectrometer"
   ],
-  "intervals": [
-    {
-      "label": "operating",
-      "status": "active",
-      "start": "2016",
-      "end": null,
-      "sources": [
-        "src:na64-home-cern-experiments-page"
-      ],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
-      "quote": "started operations at CERN's North Area in 2016",
-      "note": ""
-    }
-  ],
-  "status": "active",
-  "specs": {},
-  "subsystems": [],
-  "links": {
-    "website": null
-  },
-  "summary": {
-    "plain": "The NA64 detector tags and tracks incoming electrons, absorbs their energy in a calorimeter, and watches for cases where energy simply vanishes -- a possible sign of an invisible dark-sector particle.",
-    "technical": "Active beam-dump missing-energy spectrometer on the NA64 H4 beamline (EHN1), combining an electromagnetic calorimeter with hermetic veto detectors to reject visible final states."
-  },
-  "notes": [
-    "Placed at the existing site:cern-neutrino-platform-ehn1 (owned by another workstream); see experiment:na64 notes for the H4-in-EHN1 citation."
-  ],
-  "sources": [
-    "src:na64-home-cern-experiments-page",
-    "src:na64-official-site"
-  ]
+  "type": "detector"
 }

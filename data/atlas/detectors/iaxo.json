@@ -48,7 +48,7 @@
   },
   "technology": {
     "confidence": "verified",
-    "note": "No 'helioscope' value exists in the ontology's technology_classes enum; recorded as 'other' (see worklog).",
+    "note": "VERIFIER FIX (2026-09-17): classified under `other` by the original research pass, which noted no matching technology_classes enum value existed; v0.2 amendment A24 (2026-09-17) added `helioscope`, `light_shining_through_wall` and `lumped_element_resonator` to the ontology's technology_classes for exactly this gap. Reclassified as `helioscope` with the sourced `technology` free-text description kept unchanged; no new claim is made beyond what was already sourced.",
     "sources": [
       "src:axions-iaxo-official-site",
       "src:axions-iaxo-strategy-2025"
@@ -56,9 +56,9 @@
     "value": "Axion helioscope: a purpose-built double-bore (IAXO) / toroidal (BabyIAXO) superconducting magnet tracking the Sun, coupled to X-ray focusing optics and low-background X-ray detectors, scaling up the CAST technique.",
     "verified_at": "2026-09-17"
   },
-  "technology_class": "other",
+  "technology_class": "helioscope",
   "technology_classes": [
-    "other"
+    "helioscope"
   ],
   "type": "detector"
 }

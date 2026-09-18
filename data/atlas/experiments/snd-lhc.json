@@ -77,7 +77,11 @@
     },
     {
       "confidence": "verified",
-      "end": null,
+      "end": {
+        "approx": true,
+        "date": "2026-06",
+        "note": "VERIFIER FIX (2026-09-17): capped at the LHC-wide Long Shutdown 3 boundary (see the added interval below). SND@LHC only detects particles from LHC collisions, so it cannot be 'active' while the LHC itself is off for LS3 (as already modelled for ALICE, LHCb, TOTEM, FASER and LHCf in this partition)."
+      },
       "kind": "run",
       "label": "data-taking (LHC Run 3)",
       "locator": "arXiv:2305.09383 / Phys. Rev. Lett. 131, 031802 (2023), abstract",
@@ -91,6 +95,19 @@
         "date": "2022"
       },
       "status": "active",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "Long Shutdown 3",
+      "locator": "reused from accelerator:lhc's sourced Long Shutdown 3 interval (src:cern-ls3-farewell-2026)",
+      "note": "VERIFIER-ADDED (2026-09-17): shares the LHC-wide Long Shutdown 3 interval already sourced for ALICE, LHCb, TOTEM, FASER and LHCf in this partition; ongoing at verified_at.",
+      "sources": [
+        "src:cern-ls3-farewell-2026"
+      ],
+      "start": "2026-06",
+      "status": "shutdown",
       "verified_at": "2026-09-17"
     }
   ],
@@ -133,12 +150,13 @@
   ],
   "sources": [
     "src:colliders-lhc-snd-lhc-inspire-experiment-record",
-    "src:colliders-lhc-snd-lhc-2023-prl-muon-neutrino"
+    "src:colliders-lhc-snd-lhc-2023-prl-muon-neutrino",
+    "src:cern-ls3-farewell-2026"
   ],
-  "status": "active",
+  "status": "shutdown",
   "summary": {
-    "plain": "SND@LHC is a compact experiment in a disused CERN tunnel that catches neutrinos produced in LHC collisions, in a direction close to the beam that no other LHC experiment can see. It has been recording collision data since 2022.",
-    "technical": "Stand-alone forward neutrino/long-lived-particle detector in the TI18 tunnel, covering the pseudo-rapidity range 7.2 < eta < 8.6, complementary to FASER. Approved 17 March 2021; has recorded LHC Run 3 pp-collision data since 2022 (arXiv:2305.09383)."
+    "plain": "SND@LHC is a compact experiment in a disused CERN tunnel that catches neutrinos produced in LHC collisions, in a direction close to the beam that no other LHC experiment can see. It recorded collision data from 2022 until the LHC's current maintenance shutdown began in 2026.",
+    "technical": "Stand-alone forward neutrino/long-lived-particle detector in the TI18 tunnel, covering the pseudo-rapidity range 7.2 < eta < 8.6, complementary to FASER. Approved 17 March 2021; recorded LHC Run 3 pp-collision data from 2022 (arXiv:2305.09383) through June 2026; off since CERN's Long Shutdown 3 began."
   },
   "topic_ids": [
     "topic:neutrino-interactions"

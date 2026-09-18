@@ -133,5 +133,101 @@ KamLAND: high confidence on the 2002 first-results paper; low confidence on
 detector structural specs and coordinates (Wikipedia-only) and the collab's
 membership.
 
-*(Log continues below as SNO, SNO+, Double Chooz, RENO, Borexino, GALLEX/GNO,
-SAGE and Homestake are completed.)*
+### SNO (mandatory bar)
+
+- `experiment:sno`, `detector:sno`, `collaboration:sno` (referencing the
+  EXISTING `facility:snolab`/`site:snolab-underground-lab`, owned by the
+  `facilities` lead — those files were not touched; reused the existing
+  `src:sno-nim-detector-paper-2000` source record after independently
+  re-fetching the same arXiv page in this session).
+- `result:sno-cc-evidence-2001` (arXiv:nucl-ex/0106015, 3.3σ evidence) and
+  `result:sno-nc-evidence-2002` (arXiv:nucl-ex/0204008, 5.3σ evidence,
+  "Direct Evidence for Neutrino Flavor Transformation..."), both verbatim
+  titles/abstracts confirmed by direct fetch.
+- A full, day/month-precision, sourced interval history (cavity excavation
+  1990-03/1993-05, construction to 1999-04, commissioning 1999-05/1999-11,
+  three data-taking phases with month precision, shutdown 2006-11, drained
+  2007-05) came directly from the official site's own "SNO Milestones" page.
+- 6 sources under `src:sno-*`.
+
+### SNO+ (mandatory bar)
+
+- `experiment:sno-plus`, `detector:sno-plus`, `collaboration:sno-plus`
+  (referencing the same existing `facility:snolab`/`site:snolab-underground-lab`).
+  `experiment:sno-plus.lineage` carries the canonical `upgrade_of`
+  `experiment:sno` row.
+- `distinct_from` added on both the `sno`/`sno-plus` collaboration and
+  detector pairs after the validator flagged a normalised-name collision
+  ("SNO+" strips to the same slug as "SNO" once punctuation is removed).
+- No results written this pass (time-boxed to the mandatory bar); the
+  official site mentions a January 2025 reactor-oscillation result and a
+  December 2024 low-background solar-scattering result, both left as
+  `missing_fields` rather than fabricated without reading the actual papers.
+- 3 sources under `src:sno-plus-*`.
+
+### Double Chooz (mandatory bar)
+
+- `facility:chooz` (EXACT id, also referenced by the cevns workstream for
+  NUCLEUS — confirmed via `grep`/`ls` that `site:chooz-very-near-nucleus`
+  already exists on disk referencing this facility id once it landed),
+  `site:double-chooz-near-detector`, `site:double-chooz-far-detector`,
+  `experiment:double-chooz`, `detector:double-chooz`,
+  `collaboration:double-chooz`.
+- `result:double-chooz-evidence-2012` ("Reactor electron antineutrino
+  disappearance in the Double Chooz experiment", arXiv:1207.6632, 2.9σ
+  evidence).
+- 4 sources under `src:double-chooz-*` plus `src:chooz-npp-wikipedia`.
+
+### RENO (mandatory bar)
+
+- `facility:yonggwang-hanbit-reactor-site`, `site:reno-near-detector`,
+  `site:reno-far-detector`, `experiment:reno`, `detector:reno`,
+  `collaboration:reno`.
+- `result:reno-observation-2012` ("Observation of Reactor Electron
+  Antineutrino Disappearance in the RENO Experiment", arXiv:1204.0626, 4.9σ
+  observation).
+- 3 sources under `src:reno-*` plus `src:hanbit-npp-wikipedia`.
+
+### Cross-lead fix: detector:kamland <-> experiment:kamland-zen
+
+Per the coordinator's request, added `experiment:kamland-zen` to
+`detector:kamland.experiment_ids` (as a sourced relationship object, not a
+bare string) after independently fetching the full text of the original
+KamLAND-Zen paper (arXiv:1211.3863) and finding the exact sentence: "The
+KamLAND-Zen ... experiment consists of 13 tons of Xe-loaded liquid
+scintillator ... suspended at the center of the KamLAND detector by film
+straps." New source `src:kamland-zen-arxiv-1211-first-phase` added.
+
+## Conflicts found (continued)
+
+- **RENO/Double Chooz/SNO/SNO+ "no confirmed shutdown or continuation"
+  intervals**: several 2012-era discovery papers report only a fixed
+  analysis-window dataset (e.g. RENO's 229-day window). Rather than either
+  fabricate a shutdown date or assert indefinite continued operation from
+  memory, these intervals were left `end: null` (which the ontology defines
+  as "ongoing at `verified_at`", not a claim of certainty) with an explicit
+  note; this produced (and then resolved) several `status-not-derived-state`
+  validator errors during this pass.
+- **SNO name collision**: "SNO Collaboration"/"SNO+ Collaboration" and "SNO
+  detector"/"SNO+ detector" normalise (per A20: lower-case, strip
+  non-alphanumerics) to the same string once the "+" is stripped. Resolved
+  with reciprocal `distinct_from` fields rather than renaming either record.
+
+## Validator posture
+
+After each pair of experiments, `hepgraph.atlas.validate` was run and every
+`[error]`-level finding attributable to this workstream's own files was
+fixed (added missing `note`/`quote`/`locator` fields, split collapsed
+terminal-status intervals into an operating interval + a terminal event per
+A3, fixed `display` strings that drifted from `value` by more than an order
+of magnitude, added `distinct_from` for the SNO/SNO+ name collision, and
+gave each of this workstream's new facilities at least one interval so its
+`status` field has something to derive against). The **one intentional
+exception** is `coordinate-kind-approximate` warnings (v0.2 A23, added
+mid-session): every site this workstream created without a rank≤ 7
+coordinate source is deliberately left `kind: campus`/`confidence:
+approximate` rather than mislabelled `detector`/`underground_lab` to pass
+validation — this now warns rather than fails, per A23.
+
+*(Log continues below as Borexino, GALLEX/GNO, SAGE and Homestake are
+completed.)*

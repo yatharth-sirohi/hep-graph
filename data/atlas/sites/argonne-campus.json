@@ -6,12 +6,13 @@
   "coordinates": {
     "confidence": "approximate",
     "kind": "campus",
-    "lat": 41.709166,
-    "lon": -87.981992,
-    "note": "No official anl.gov page was reachable in this session (HTTP 403 on every attempt); sourced to Wikipedia's infobox only, kind recorded as campus/approximate per A17.",
-    "precision_m": 1000,
-    "quote": "9700 S. Cass Avenue ... coordinates are provided as 41.709166 N 87.981992 W",
+    "lat": 41.67364,
+    "locator": "ROR v2 API record for organization 05gvnxz63 (Argonne National Laboratory), addresses[0].lat/addresses[0].lng",
+    "lon": -88.00173,
+    "note": "Upgraded 2026-09-17: ROR v2 organization record for Argonne National Laboratory (ror.org/05gvnxz63) gives a geocoded campus point, rank 8, replacing the Wikipedia-infobox-only point (rank 12). anl.gov (root, /about and /our-history paths all attempted) returned HTTP 403 again in this session; every prose claim on facility:argonne-national-laboratory therefore remains Wikipedia-only, but the coordinate itself is now backed by a rank-8 geocoder rather than Wikipedia alone.",
+    "precision_m": 800,
     "sources": [
+      "src:ror-05gvnxz63",
       "src:argonne-wikipedia"
     ],
     "verified_at": "2026-09-17"
@@ -38,7 +39,8 @@
   "schema": "hep-atlas/0.2",
   "setting": "surface",
   "sources": [
-    "src:argonne-wikipedia"
+    "src:argonne-wikipedia",
+    "src:ror-05gvnxz63"
   ],
   "summary": {
     "plain": "The main Argonne National Laboratory campus near Lemont, Illinois, southwest of Chicago.",

@@ -62,16 +62,16 @@
   },
   "technology": {
     "confidence": "verified",
-    "note": "No 'lumped-element' value exists in the ontology's technology_classes enum; recorded as 'other' (see worklog).",
+    "note": "VERIFIER FIX (2026-09-17): classified under `other` by the original research pass, which noted no matching technology_classes enum value existed; v0.2 amendment A24 (2026-09-17) added `helioscope`, `light_shining_through_wall` and `lumped_element_resonator` to the ontology's technology_classes for exactly this gap. Reclassified as `lumped_element_resonator` with the sourced `technology` free-text description kept unchanged; no new claim is made beyond what was already sourced.",
     "sources": [
       "src:axions-dmradio-status-2022"
     ],
     "value": "Lumped-element resonant LC-circuit axion dark-matter search: a toroidal (DMRadio-50L) or solenoidal (DMRadio-m3) magnet coupled to a high-Q LC oscillator and SQUID readout, sensitive to sub-microwave-frequency axion-induced currents rather than a resonant cavity.",
     "verified_at": "2026-09-17"
   },
-  "technology_class": "other",
+  "technology_class": "lumped_element_resonator",
   "technology_classes": [
-    "other"
+    "lumped_element_resonator"
   ],
   "type": "detector"
 }

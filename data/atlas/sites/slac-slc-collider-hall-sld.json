@@ -7,12 +7,13 @@
   "coordinates": {
     "confidence": "approximate",
     "kind": "campus",
-    "lat": 37.4175,
-    "lon": -122.2025,
-    "note": "No official slac.stanford.edu page fetched in this session states a numeric coordinate; sourced to Wikipedia's infobox only, kind campus/approximate per A17.",
-    "precision_m": 1500,
-    "quote": "2575 Sand Hill Rd. Menlo Park, California 94025 ... coordinates 37 25'03''N 122 12'09''W",
+    "lat": 37.45383,
+    "locator": "ROR v2 API record for organization 05gzmn429 (SLAC National Accelerator Laboratory), addresses[0].lat/addresses[0].lng",
+    "lon": -122.18219,
+    "note": "Upgraded 2026-09-17: no hall-specific coordinate is fetchable; the general SLAC campus point is now the ROR geocode (rank 8) rather than Wikipedia (rank 12) alone. Still campus/approximate per A17.",
+    "precision_m": 1000,
     "sources": [
+      "src:ror-05gzmn429",
       "src:slac-wikipedia"
     ],
     "verified_at": "2026-09-17"
@@ -42,7 +43,8 @@
   "setting": "surface",
   "sources": [
     "src:slac-wikipedia",
-    "src:slc-wikipedia"
+    "src:slc-wikipedia",
+    "src:ror-05gzmn429"
   ],
   "summary": {
     "plain": "The experimental hall at SLAC where the SLD detector recorded collisions from the SLC collider.",

@@ -2,16 +2,16 @@
   "aliases": [],
   "altitude": null,
   "coordinates": {
-    "confidence": "approximate",
+    "confidence": "uncertain",
     "kind": "campus",
-    "lat": 46.2601088,
-    "lon": 6.0577057,
-    "note": "CAST is housed in an SPS-fed experimental hall (historically referred to as SR8/West Area) on CERN's Prevessin site. No fetched source this session gives a precise SR8 building coordinate, so the CERN Prevessin campus point (OpenStreetMap/Nominatim) is used as an approximate fallback, per the wave-3 brief's explicit guidance for CAST ('a sourced point or CERN campus approximate'). This is a deliberately coarse (~3 km precision) campus-level placeholder, not a detector-precision coordinate.",
-    "precision_m": 3000,
-    "quote": "CERN - Site de Prevessin, Route des Ceytines, Pregnin, Saint-Genis-Pouilly, Gex, Ain, Auvergne-Rhone-Alpes, France metropolitaine, 01630, France",
+    "lat": 46.2417561,
+    "lon": 6.0971635,
+    "note": "VERIFIER FIX (2026-09-17): the previous coordinate was an unsourced 'CERN Prevessin campus fallback' that duplicated site:cern-ecn3-north-area and site:cern-neutrino-platform-ehn1 exactly, and its accompanying prose claimed CAST is 'historically referred to as SR8/West Area' -- a claim this session found no source for (West Area is a distinct SPS fixed-target area, not corroborated for CAST by anything fetched). A re-fetched CERN internal cryogenics alarm-configuration document (src:axions-cast-sr8-point8-cryo-doc) instead labels CAST's cryogenic coldbox 'CRYO REFRIG LHC CAST_COLDBOX /SR8' under the heading 'CERN Axion Solar Telescope (CAST) - LHC Point 8', i.e. SR8 is at/near LHC Point 8, not the Meyrin main site and not the generic Prevessin point previously used. This is a lower-rank ('secondary') source, not an official CAST/CERN page or the Greybook (which returned only an SSO redirect this session) or a CAST detector paper (none of which state a building), so the coordinate here reuses the existing OSM/Nominatim centroid already sourced for site:cern-point-8-lhcb / site:cern-lep-point-8-delphi (src:lep-point-8-osm-nominatim) as the closest available anchor for 'near Point 8', kept at kind 'campus' and confidence 'uncertain' rather than 'detector', and flagged below for a stronger official source. CAST is a surface installation (its platform must see the sky to track the Sun), unlike the underground LHCb/DELPHI cavern at the same nominal Point 8 location, so this remains a distinct site record rather than an alias of site:cern-point-8-lhcb.",
+    "precision_m": 1000,
+    "quote": "CERN Axion Solar Telescope (CAST) – LHC Point 8",
     "sources": [
-      "src:axions-cern-home-cast",
-      "src:axions-nominatim-cern-prevessin"
+      "src:axions-cast-sr8-point8-cryo-doc",
+      "src:lep-point-8-osm-nominatim"
     ],
     "verified_at": "2026-09-17"
   },
@@ -26,12 +26,12 @@
   "links": {
     "website": null
   },
-  "name": "CERN CAST site (SPS North/West Area, SR8)",
+  "name": "CERN CAST site (LHC Point 8 / SR8)",
   "notes": [
-    "Coordinate is a CERN-campus-level approximation (Prevessin site), not a sourced SR8 building point; flagged for improvement if a facilities-lead or CERN Greybook source with an exact building coordinate becomes available."
+    "VERIFIER FIX (2026-09-17): replaced an unsourced 'Prevessin campus fallback' (duplicate coordinate of two unrelated CERN sites) and an unsupported 'SPS North/West Area' claim with a sourced but still low-confidence placement near LHC Point 8 (SR8). REVIEW REQUIRED: no official CAST/CERN page, Greybook entry, or CAST detector paper found this session states the building name directly; a stronger source (official CAST/CERN page, Greybook once accessible, or a CAST detector/technical paper) should replace src:axions-cast-sr8-point8-cryo-doc if found."
   ],
   "place": {
-    "city": "Saint-Genis-Pouilly",
+    "city": "Ferney-Voltaire",
     "country": "FR",
     "region": "Ain"
   },
@@ -39,11 +39,13 @@
   "setting": "surface",
   "sources": [
     "src:axions-cern-home-cast",
-    "src:axions-nominatim-cern-prevessin"
+    "src:axions-cast-inspire-experiment",
+    "src:axions-cast-sr8-point8-cryo-doc",
+    "src:lep-point-8-osm-nominatim"
   ],
   "summary": {
-    "plain": "An experimental hall fed by CERN's SPS accelerator, on the French side of the CERN site, where the CAST experiment searched for axions from the Sun until the end of 2022.",
-    "technical": "SPS North/West Area experimental hall (SR8) on CERN's Prevessin site, housing the CAST decommissioned-LHC-test-dipole helioscope from 2003 to 2022."
+    "plain": "The building at CERN's Point 8, on the French side of the CERN site, where the CAST experiment's cryogenic equipment is sited and where CAST searched for axions from the Sun until the end of 2022.",
+    "technical": "SR8, a service building associated with LHC Point 8 (Ferney-Voltaire, Ain, France), sourced this session to an internal CERN cryogenics document identifying 'CAST_COLDBOX /SR8' under 'CERN Axion Solar Telescope (CAST) - LHC Point 8'; houses the CAST decommissioned-LHC-test-dipole helioscope from 2003 to 2022."
   },
   "type": "site"
 }

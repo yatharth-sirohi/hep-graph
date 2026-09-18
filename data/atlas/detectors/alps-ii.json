@@ -31,13 +31,14 @@
   "parent_detector_id": null,
   "placements": [
     {
-      "confidence": "approximate",
+      "confidence": "verified",
       "end": null,
-      "note": "No source fetched directly by the axions lead this session confirmed the hall; the facilities lead's own site record (site:desy-hera-north-hall-h1) cites src:h1-wikipedia (Wikipedia, rank 12) stating 'The HERA North Hall, where the H1 detector was located, is now used for the new ALPS experiment.' Recorded as confidence: approximate (not verified) because the sole supporting source is rank 12 (A17).",
-      "quote": "The HERA North Hall, where the H1 detector was located, is now used for the new ALPS experiment.",
+      "note": "VERIFIER FIX (2026-09-17): the placement previously rested solely on a Wikipedia sentence (rank 12, src:h1-wikipedia) cited via the facilities lead's site record. This session fetched ALPS's own DESY page directly, which independently confirms the HERA North Hall placement ('The ALPS cryoplatform subcooler box (ACPS) in the hall HERA North ... has recently been partially renovated to accommodate the ALPS II experiment in the HERA tunnel'), and a phys.org report and a DESY news page both corroborate general installation in a straight section of the HERA tunnel. Confidence raised to verified; src:h1-wikipedia kept as a secondary corroboration.",
+      "quote": "The ALPS cryoplatform subcooler box (ACPS) in the hall HERA North ... has recently been partially renovated to accommodate the ALPS II experiment in the HERA tunnel.",
       "role": "main",
       "site_id": "site:desy-hera-north-hall-h1",
       "sources": [
+        "src:axions-alps-ii-desy-cryoplatform",
         "src:h1-wikipedia"
       ],
       "start": null,
@@ -46,6 +47,7 @@
   ],
   "schema": "hep-atlas/0.2",
   "sources": [
+    "src:axions-alps-ii-desy-cryoplatform",
     "src:axions-alps-ii-inspire-experiment",
     "src:axions-alps-ii-official-site"
   ],
@@ -58,7 +60,7 @@
   },
   "technology": {
     "confidence": "verified",
-    "note": "No light-shining-through-walls value exists in the ontology's technology_classes enum; recorded as 'other' (see worklog).",
+    "note": "VERIFIER FIX (2026-09-17): classified under `other` by the original research pass, which noted no matching technology_classes enum value existed; v0.2 amendment A24 (2026-09-17) added `helioscope`, `light_shining_through_wall` and `lumped_element_resonator` to the ontology's technology_classes for exactly this gap. Reclassified as `light_shining_through_wall` with the sourced `technology` free-text description kept unchanged; no new claim is made beyond what was already sourced.",
     "sources": [
       "src:axions-alps-ii-official-site",
       "src:axions-alps-ii-inspire-experiment"
@@ -66,9 +68,9 @@
     "value": "Light-shining-through-a-wall apparatus: a laser beam is enhanced in a build-up optical cavity, blocked by a light-tight wall, with a second, identical regeneration cavity and superconducting dipole magnets (reused HERA magnets) on both sides, and a low-noise single-photon/heterodyne detector looking for regenerated photons on the far side.",
     "verified_at": "2026-09-17"
   },
-  "technology_class": "other",
+  "technology_class": "light_shining_through_wall",
   "technology_classes": [
-    "other"
+    "light_shining_through_wall"
   ],
   "type": "detector"
 }

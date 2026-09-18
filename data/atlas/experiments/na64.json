@@ -1,153 +1,153 @@
 {
-  "schema": "hep-atlas/0.2",
-  "id": "experiment:na64",
-  "type": "experiment",
-  "name": "NA64",
-  "aliases": [],
-  "coverage": {
-    "tier": "B",
-    "researched": "partial"
-  },
-  "kind": "other",
-  "secondary_kinds": [
-    "fixed_target"
+  "accelerator_ids": [
+    "accelerator:sps"
   ],
+  "aliases": [],
+  "beamline_ids": [],
   "collaboration_ids": [
     "collaboration:na64"
   ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "energy_regime": null,
+  "external": {
+    "greybook": "NA64",
+    "inspire_experiment": 1479798,
+    "wikidata": null
+  },
   "facility_roles": [
     {
-      "facility_id": "facility:cern",
-      "role": "host",
-      "start": null,
+      "confidence": "verified",
       "end": null,
+      "facility_id": "facility:cern",
+      "note": "",
+      "role": "host",
       "sources": [
         "src:na64-official-site"
       ],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
-      "note": ""
+      "start": null,
+      "verified_at": "2026-09-17"
     },
     {
-      "facility_id": "facility:cern",
-      "role": "beam_source",
-      "start": null,
+      "confidence": "verified",
       "end": null,
+      "facility_id": "facility:cern",
+      "note": "Beam delivered via the H4 beamline, which CERN's own Experimental Areas page confirms is located inside EHN1 in the North Area.",
+      "quote": "electron beam of 100-150 GeV energy from the Super Proton Synchrotron (SPS)",
+      "role": "beam_source",
       "sources": [
         "src:na64-official-site",
         "src:na64-home-cern-experiments-page"
       ],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
-      "quote": "electron beam of 100-150 GeV energy from the Super Proton Synchrotron (SPS)",
-      "note": "Beam delivered via the H4 beamline, which CERN's own Experimental Areas page confirms is located inside EHN1 in the North Area."
+      "start": null,
+      "verified_at": "2026-09-17"
     }
   ],
-  "beamline_ids": [],
-  "accelerator_ids": [
-    "accelerator:sps"
-  ],
-  "topic_ids": [
-    "topic:dark-photons-dark-sectors",
-    "topic:axions-alps",
-    "topic:accelerator-dark-matter-searches"
-  ],
+  "id": "experiment:na64",
   "intervals": [
     {
+      "confidence": "verified",
+      "end": null,
       "label": "proposed",
-      "status": "proposed",
-      "start": "2014-01",
-      "end": null,
-      "sources": [
-        "src:na64-official-site"
-      ],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
       "locator": "na64.web.cern.ch, project timeline",
-      "note": ""
+      "note": "",
+      "sources": [
+        "src:na64-official-site"
+      ],
+      "start": "2014-01",
+      "status": "proposed",
+      "verified_at": "2026-09-17"
     },
     {
+      "confidence": "verified",
+      "end": null,
       "label": "approved (CERN Research Board)",
-      "status": "approved",
-      "start": "2016-03-09",
-      "end": null,
+      "locator": "na64.web.cern.ch: 'Approved for A' invisible decay searches January 2016' / 'Official CERN Research Board approval: March 9, 2016'",
+      "note": "",
       "sources": [
         "src:na64-official-site"
       ],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
-      "locator": "na64.web.cern.ch: 'Approved for A' invisible decay searches January 2016' / 'Official CERN Research Board approval: March 9, 2016'",
-      "note": ""
+      "start": "2016-03-09",
+      "status": "approved",
+      "verified_at": "2026-09-17"
     },
     {
-      "label": "operating",
-      "status": "active",
-      "start": "2016",
+      "confidence": "verified",
       "end": null,
-      "sources": [
-        "src:na64-home-cern-experiments-page"
-      ],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
+      "label": "operating",
+      "note": "",
       "quote": "started operations at CERN's North Area in 2016",
-      "note": ""
-    }
-  ],
-  "status": "active",
-  "physics_goals": [
-    {
-      "value": "Search for dark photons, light dark bosons (Z') and other dark-sector particles, and for invisible decays of neutral mesons, using the active beam-dump / missing-energy technique",
-      "sources": [
-        "src:na64-official-site"
-      ],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
-      "note": ""
-    }
-  ],
-  "unique_capabilities": [
-    {
-      "value": "Active beam-dump and missing-energy technique whose sensitivity to a hidden Z' coupling scales as epsilon^2 rather than epsilon^4 as in classical beam-dump searches",
       "sources": [
         "src:na64-home-cern-experiments-page"
       ],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
-      "note": ""
+      "start": "2016",
+      "status": "active",
+      "verified_at": "2026-09-17"
     }
   ],
-  "energy_regime": null,
   "key_specs": [],
+  "kind": "other",
   "lineage": [],
-  "external": {
-    "inspire_experiment": 1479798,
-    "greybook": "NA64",
-    "wikidata": null
-  },
   "links": {
     "website": {
-      "value": "https://na64.web.cern.ch/",
+      "confidence": "verified",
+      "note": "",
       "sources": [
         "src:na64-official-site"
       ],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
-      "note": ""
+      "value": "https://na64.web.cern.ch/",
+      "verified_at": "2026-09-17"
     }
   },
-  "summary": {
-    "plain": "NA64 is a CERN experiment that fires an electron beam into a block of material and watches for missing energy -- a sign that an invisible, unknown particle escaped. It searches for dark photons and other hidden particles.",
-    "technical": "Fixed-target active beam-dump experiment on the H4 beamline in EHN1 (CERN North Area SPS beam), using 100-150 GeV electrons (with planned muon/hadron beam extensions) and the missing-energy technique to search for dark photons, dark leptonic gauge bosons and invisible meson decays. Proposed January 2014, approved by the CERN Research Board 9 March 2016, operating since 2016."
-  },
+  "name": "NA64",
   "notes": [
     "Derived fields (detector_ids, site_ids, result_ids, document_ids) are deliberately not written (v0.2 A1).",
     "Placed at the EXISTING site:cern-neutrino-platform-ehn1 (owned by the fermilab-dune workstream) rather than a new site, per the brief: CERN's own Experimental Areas page (src:na62-cern-north-area-page, already on file from this same workstream's NA62 research) states verbatim 'Four of the beamlines, H2, H4, H6, and H8, are located in EHN1', confirming H4 is inside EHN1.",
     "No membership/institution counts found on the official site in this session; left unrecorded rather than estimated."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "note": "",
+      "sources": [
+        "src:na64-official-site"
+      ],
+      "value": "Search for dark photons, light dark bosons (Z') and other dark-sector particles, and for invisible decays of neutral mesons, using the active beam-dump / missing-energy technique",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [
+    "fixed_target"
   ],
   "sources": [
     "src:na64-official-site",
     "src:na64-home-cern-experiments-page",
     "src:na64-inspire-experiment-record",
     "src:na62-cern-north-area-page"
+  ],
+  "status": "active",
+  "summary": {
+    "plain": "NA64 is a CERN experiment that fires an electron beam into a block of material and watches for missing energy -- a sign that an invisible, unknown particle escaped. It searches for dark photons and other hidden particles.",
+    "technical": "Fixed-target active beam-dump experiment on the H4 beamline in EHN1 (CERN North Area SPS beam), using 100-150 GeV electrons (with planned muon/hadron beam extensions) and the missing-energy technique to search for dark photons, dark leptonic gauge bosons and invisible meson decays. Proposed January 2014, approved by the CERN Research Board 9 March 2016, operating since 2016."
+  },
+  "topic_ids": [
+    "topic:dark-photons-dark-sectors",
+    "topic:axions-alps",
+    "topic:accelerator-dark-matter-searches"
+  ],
+  "type": "experiment",
+  "unique_capabilities": [
+    {
+      "confidence": "verified",
+      "note": "",
+      "sources": [
+        "src:na64-home-cern-experiments-page"
+      ],
+      "value": "Active beam-dump and missing-energy technique whose sensitivity to a hidden Z' coupling scales as epsilon^2 rather than epsilon^4 as in classical beam-dump searches",
+      "verified_at": "2026-09-17"
+    }
   ]
 }
