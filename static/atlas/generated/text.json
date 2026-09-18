@@ -4416,6 +4416,104 @@
   "geometry:ehn1-building-887": {
     "notes": []
   },
+  "geometry:j-parc-hadron-hall-building": {
+    "notes": [
+      "Represents site:j-parc-hadron-hall, which hosts detector:koto and detector:comet."
+    ]
+  },
+  "geometry:j-parc-linac-building": {
+    "notes": [
+      "The footprint's own measured span is about 333 m, close to the accelerator record's sourced length ('about 300 m'), but a building footprint (which includes support and access space beyond the beam line) is a different measurement from the beam's own length, so no `checks[]` row is asserted here (same reasoning CERN's geometry researcher used for geometry:linac4-building) -- reported as a residual in the worklog instead."
+    ]
+  },
+  "geometry:j-parc-main-ring-tunnel": {
+    "notes": [
+      "Tolerance widened to 4% (from the contract default 3%) because this shape is an indoor-mapped access corridor, not a survey-aligned trace; the discrepancy (1619.6 m measured vs 1567 m published, about 3.4%) is disclosed here rather than hidden by a narrower published figure."
+    ]
+  },
+  "geometry:j-parc-neutrino-beamline-tunnel": {
+    "notes": [
+      "Expected value (334 m) is this record's own sum of the paper's sub-section lengths, not a single quoted total; tolerance widened to 4% for the same indoor-corridor-tracing reason as the Main Ring tunnel.",
+      "This tunnel traces the beam's actual 'on-axis' path. It is NOT the great-circle line to Super-Kamiokande: T2K deliberately points the beam 2.5 degrees off that line (see geometry:j-parc-neutrino-direction-line, drawn separately and labelled 'inferred direction')."
+    ]
+  },
+  "geometry:j-parc-neutrino-direction-line": {
+    "notes": [
+      "Computed distance from the target-station centroid to Super-Kamiokande is 294.663 km, close to (0.23% under) the T2K NIM paper's own surveyed baseline of 295.3352 km measured target-core-to-detector-centre; reported here informationally, not as a formal checks[] row (no `distance`-kind check fits two points that are, by construction, almost exactly the sourced baseline apart).",
+      "The far site is site:kamioka-mozumi-mine-super-kamiokande (Super-Kamiokande); the Hyper-Kamiokande far site (site:kamioka-hyper-kamiokande-tochibora, about 8 km further south) sees nearly the same bearing and is not drawn as a second line."
+    ]
+  },
+  "geometry:j-parc-neutrino-muon-monitor-building": {
+    "notes": [
+      "Context feature only (entity_id null): the muon monitor just behind the beam dump (T2K NIM paper section 3.3, ionization chambers at 117.5 m and silicon PIN photodiodes at 118.7 m from the target) has no atlas accelerator/beamline/detector record of its own."
+    ]
+  },
+  "geometry:j-parc-neutrino-near-detector-hall-building": {
+    "notes": [
+      "Tolerance widened to 5%: the 280 m figure is target-to-detector-centre, while this check compares two OSM building centroids (target station building centroid to this building's centroid, measured 269.0 m) -- a different, coarser reference than the physics distance it approximates.",
+      "Houses detector:nd280 and detector:ingrid."
+    ]
+  },
+  "geometry:j-parc-neutrino-target-station": {
+    "notes": [
+      "Anchor point for geometry:j-parc-neutrino-direction-line's bearing calculation and for the near-detector-hall distance check."
+    ]
+  },
+  "geometry:j-parc-rcs-tunnel": {
+    "notes": []
+  },
+  "geometry:kek-belle2-detector-facility-boundary": {
+    "notes": [
+      "Context feature only (entity_id null), to avoid double-accounting site:kek-tsukuba-belle-ii (already drawn via geometry:kek-tsukuba-hall)."
+    ]
+  },
+  "geometry:kek-campus-boundary": {
+    "notes": [
+      "Context feature only (entity_id null): the whole-campus landuse boundary, for orientation."
+    ]
+  },
+  "geometry:kek-fuji-hall": {
+    "notes": [
+      "Context feature only (entity_id null): illustrates the SuperKEKB ring's named straight section; no separate atlas entity models an individual straight section."
+    ]
+  },
+  "geometry:kek-linac-building": {
+    "notes": [
+      "Context feature only (entity_id null): the KEK injector linac feeds both the KEKB/SuperKEKB rings and (historically) the Photon Factory; it has no separate atlas accelerator record."
+    ]
+  },
+  "geometry:kek-neutrino-direction-line": {
+    "notes": [
+      "Computed distance from the North Counter Hall centroid to Super-Kamiokande is 249.41 km, close to (0.2% under) the K2K measurement paper's own quoted 'neutrino flight distance of 250 km' -- reported informationally, not as a formal checks[] row (this near point is only circumstantially, not officially, identified with the KEK-PS North hall -- see geometry:kek-north-counter-hall)."
+    ]
+  },
+  "geometry:kek-nikko-hall": {
+    "notes": [
+      "Context feature only (entity_id null): illustrates the SuperKEKB ring's named straight section; no separate atlas entity models an individual straight section."
+    ]
+  },
+  "geometry:kek-north-counter-hall": {
+    "notes": [
+      "UNCERTAIN IDENTIFICATION, flagged for QA: no fetched source gives this building's exact role. It is linked to accelerator:kek-ps because (1) its OSM name uses accelerator-hall terminology ('counter hall', a beamline experimental hall, not a generic building), (2) src:k2k-tutorial-page / src:k2k-faq-page describe the K2K beam (driven by the KEK-PS) as bent 'from the North hall towards Kamioka', and (3) it sits on the KEK campus between the KEK injector linac and the Tsukuba/Photon-Factory halls, consistent with the historical 12 GeV PS site. No fetched source gives the PS ring's own tunnel path (two targeted Overpass searches for tunnel/man_made=particle_accelerator/landuse ways near this building found none); only this one building is drawn for accelerator:kek-ps, not the ring."
+    ]
+  },
+  "geometry:kek-oho-hall": {
+    "notes": [
+      "Context feature only (entity_id null): illustrates the SuperKEKB ring's named straight section; no separate atlas entity models an individual straight section."
+    ]
+  },
+  "geometry:kek-tsukuba-hall": {
+    "notes": [
+      "Represents site:kek-tsukuba-belle-ii, which hosts detector:belle and detector:belle-ii.",
+      "SuperKEKB's four straight sections are named Tsukuba, Oho, Fuji and Nikko in Fig. 1 of src:superkekb-collider-nima-2018 ('The electron and positron beams collide at the interaction point in the Tsukuba straight section.'); the other three are drawn as context buildings below (geometry:kek-oho-hall, geometry:kek-fuji-hall, geometry:kek-nikko-hall)."
+    ]
+  },
+  "geometry:kekb-tunnel-ring": {
+    "notes": [
+      "`valid` left null: the feature inherits accelerator:kekb's own state_segments (1998 to 2010-06-30). The ring tunnel physically predates 1998 (KEKB was built by rebuilding the earlier TRISTAN tunnel) but no source fetched this session gives a construction-start date for that reuse, so no earlier `valid.start` is asserted.",
+      "Same OSM way and coordinates as geometry:superkekb-tunnel-ring (the physically same tunnel, reused across the KEKB-to-SuperKEKB upgrade): intentionally triggers geometry-duplicate-shape, explained here and in the worklog."
+    ]
+  },
   "geometry:lep-tunnel-ring": {
     "notes": []
   },
@@ -4463,6 +4561,12 @@
   },
   "geometry:sps-tunnel-ring": {
     "notes": []
+  },
+  "geometry:superkekb-tunnel-ring": {
+    "notes": [
+      "`valid` left null: the feature inherits accelerator:superkekb's own state_segments (construction from 2011-11-18, active from 2019-03-11). The tunnel is the same KEKB tunnel, reused in place.",
+      "Same OSM way and coordinates as geometry:kekb-tunnel-ring: intentionally triggers geometry-duplicate-shape, explained in the worklog (same pattern as CERN's LHC/LEP pair)."
+    ]
   },
   "geometry:ti12-faser-point": {
     "notes": []
@@ -6674,6 +6778,20 @@
       "site:cern-lep-point-2-l3 and site:cern-point-2-alice, and site:cern-lep-point-8-delphi and site:cern-point-8-lhcb, are drawn as separate geometry features using the SAME underlying OSM polygon (the same physical Point 2 / Point 8 enclosure hosted a LEP experiment 1989-2000 and hosts an LHC experiment today); this is expected to raise the validator's geometry-duplicate-shape warning for those two pairs, documented here and in the worklog rather than avoided by omission."
     ],
     "summary_technical": "One local map for facility:cern spanning the Meyrin and Prévessin sites and the full LHC/LEP tunnel footprint. Geometry sourced from OpenStreetMap (relation 9512017 for the LHC/LEP ring; ways 66473762/174646428/309914733 for SPS/PS/PSB; named Point-N surface enclosures for ATLAS/ALICE/CMS/LHCb and their LEP-era predecessors L3/ALEPH/DELPHI) cross-checked against CERN's published circumference and depth figures, plus one CMS-paper surveyed cavern point and two ring-derived points for FASER/SND@LHC in TI12/TI18."
+  },
+  "map:j-parc": {
+    "notes": [
+      "Linked maps: no map:kamioka-observatory exists yet in this atlas; linked_map_ids is left empty here and the build's automatic derivation (from beamline:j-parc-neutrino's far_detector_site_ids) will populate it once the Kamioka campus has its own map.",
+      "facility:j-parc's notes record that the Materials and Life Science Experimental Facility (MLF, fed by the RCS) and a proposed muon g-2/EDM experiment are mentioned on official J-PARC pages, but neither has an atlas accelerator/beamline/detector/experiment record of its own (out of the HEP scope this atlas models), so neither appears in this map or in `unlocated[]` -- there is no entity id to list."
+    ],
+    "summary_technical": "One local map for facility:j-parc covering the Tokai campus: the 400 MeV linac, 3 GeV RCS and 1567 m Main Ring tunnels (OSM indoor-mapped corridors, cross-checked against the T2K NIM paper's machine table), the Hadron Experimental Facility building (KOTO, COMET), the neutrino primary+secondary beamline tunnel and target station, the near-detector hall building (ND280, INGRID), and an inferred-direction line toward Super-Kamiokande."
+  },
+  "map:kek": {
+    "notes": [
+      "Linked maps: no map:kamioka-observatory exists yet in this atlas; linked_map_ids is left empty here and the build's automatic derivation (from beamline:kek-neutrino's far_detector_site_ids) will populate it once the Kamioka campus has its own map.",
+      "accelerator:kek-ps is drawn (geometry:kek-north-counter-hall) rather than listed in `unlocated[]`, but with an explicitly flagged, circumstantial identification -- see that record's own notes and the worklog's 'Conflicts and honesty calls' section. No source found this session gives the 12 GeV PS ring's own tunnel path; two targeted Overpass searches for tunnel/particle_accelerator/landuse ways near the historic PS site found none."
+    ],
+    "summary_technical": "One local map for facility:kek covering the Tsukuba campus: the 3016 m KEKB/SuperKEKB ring tunnel (OSM way 138322704, cross-checked against the SuperKEKB accelerator paper's own machine-parameter table), the Tsukuba interaction hall (Belle, Belle II) and the ring's Oho/Fuji/Nikko straight-section halls, the KEK injector linac building, a building tentatively identified with the historic KEK-PS North Counter Hall, and an inferred-direction line for the K2K beam toward Super-Kamiokande."
   },
   "person:inspire-1005149": {
     "notes": []

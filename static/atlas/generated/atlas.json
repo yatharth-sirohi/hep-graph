@@ -1054,7 +1054,9 @@
       "feeds_accelerator_ids": [
         "accelerator:j-parc-rcs"
       ],
-      "geometry_map_ids": [],
+      "geometry_map_ids": [
+        "map:j-parc"
+      ],
       "id": "accelerator:j-parc-linac",
       "intervals": [
         {
@@ -1130,7 +1132,9 @@
         "accelerator:j-parc-rcs"
       ],
       "feeds_accelerator_ids": [],
-      "geometry_map_ids": [],
+      "geometry_map_ids": [
+        "map:j-parc"
+      ],
       "id": "accelerator:j-parc-main-ring",
       "intervals": [
         {
@@ -1286,7 +1290,9 @@
       "feeds_accelerator_ids": [
         "accelerator:j-parc-main-ring"
       ],
-      "geometry_map_ids": [],
+      "geometry_map_ids": [
+        "map:j-parc"
+      ],
       "id": "accelerator:j-parc-rcs",
       "intervals": [
         {
@@ -1365,7 +1371,9 @@
       "facility_id": "facility:kek",
       "fed_by_accelerator_ids": [],
       "feeds_accelerator_ids": [],
-      "geometry_map_ids": [],
+      "geometry_map_ids": [
+        "map:kek"
+      ],
       "id": "accelerator:kek-ps",
       "intervals": [
         {
@@ -1446,7 +1454,9 @@
       "facility_id": "facility:kek",
       "fed_by_accelerator_ids": [],
       "feeds_accelerator_ids": [],
-      "geometry_map_ids": [],
+      "geometry_map_ids": [
+        "map:kek"
+      ],
       "id": "accelerator:kekb",
       "intervals": [
         {
@@ -3093,7 +3103,9 @@
       "facility_id": "facility:kek",
       "fed_by_accelerator_ids": [],
       "feeds_accelerator_ids": [],
-      "geometry_map_ids": [],
+      "geometry_map_ids": [
+        "map:kek"
+      ],
       "id": "accelerator:superkekb",
       "intervals": [
         {
@@ -3540,7 +3552,9 @@
         "site:kamioka-mozumi-mine-super-kamiokande",
         "site:kamioka-hyper-kamiokande-tochibora"
       ],
-      "geometry_map_ids": [],
+      "geometry_map_ids": [
+        "map:j-parc"
+      ],
       "id": "beamline:j-parc-neutrino",
       "intervals": [
         {
@@ -3720,7 +3734,9 @@
       "far_detector_site_ids": [
         "site:kamioka-mozumi-mine-super-kamiokande"
       ],
-      "geometry_map_ids": [],
+      "geometry_map_ids": [
+        "map:kek"
+      ],
       "id": "beamline:kek-neutrino",
       "intervals": [
         {
@@ -46711,7 +46727,7 @@
       "links": {
         "website": "https://j-parc.jp/c/en/index.html"
       },
-      "map_id": null,
+      "map_id": "map:j-parc",
       "name": "J-PARC (Japan Proton Accelerator Research Complex)",
       "operator": "Operated jointly by the Japan Atomic Energy Agency (JAEA) and the High Energy Accelerator Research Organization (KEK)",
       "operator_ids": [],
@@ -47131,7 +47147,7 @@
       "links": {
         "website": "https://www.kek.jp/en/"
       },
-      "map_id": null,
+      "map_id": "map:kek",
       "name": "KEK (High Energy Accelerator Research Organization)",
       "operator": "Inter-University Research Institute Corporation High Energy Accelerator Research Organization",
       "operator_ids": [],
@@ -49148,6 +49164,156 @@
       "status": "active",
       "to_scale_count": 20,
       "unlocated_count": 7
+    },
+    "map:j-parc": {
+      "attribution": [
+        "© OpenStreetMap contributors (ODbL-1.0)"
+      ],
+      "bundle": "geometry/j-parc.json",
+      "center": {
+        "lat": 36.44780612051282,
+        "lon": 140.60336528205127
+      },
+      "coverage": {
+        "researched": "partial",
+        "tier": "B"
+      },
+      "extent_m": 1500,
+      "facility_id": "facility:j-parc",
+      "feature_count": 9,
+      "id": "map:j-parc",
+      "levels": [
+        {
+          "depth_m": null,
+          "id": "surface",
+          "kind": "surface",
+          "name": "Surface"
+        },
+        {
+          "depth_m": null,
+          "id": "underground",
+          "kind": "underground",
+          "name": "Accelerator and beamline tunnels"
+        }
+      ],
+      "linked_map_ids": [
+        "map:kek"
+      ],
+      "name": "J-PARC — Tokai accelerator complex",
+      "site_ids": [
+        "site:j-parc-hadron-hall",
+        "site:j-parc-main-ring",
+        "site:j-parc-neutrino-near-detector-hall"
+      ],
+      "state_segments": [
+        [
+          615,
+          615,
+          "approved",
+          "possible"
+        ],
+        [
+          616,
+          622,
+          "approved",
+          "certain"
+        ],
+        [
+          623,
+          623,
+          "construction",
+          "possible"
+        ],
+        [
+          624,
+          706,
+          "construction",
+          "certain"
+        ],
+        [
+          707,
+          707,
+          "active",
+          "possible"
+        ],
+        [
+          708,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
+      "to_scale_count": 8,
+      "unlocated_count": 0
+    },
+    "map:kek": {
+      "attribution": [
+        "© OpenStreetMap contributors (ODbL-1.0)"
+      ],
+      "bundle": "geometry/kek.json",
+      "center": {
+        "lat": 36.15468323396227,
+        "lon": 140.07183633207546
+      },
+      "coverage": {
+        "researched": "partial",
+        "tier": "B"
+      },
+      "extent_m": 1800,
+      "facility_id": "facility:kek",
+      "feature_count": 11,
+      "id": "map:kek",
+      "levels": [
+        {
+          "depth_m": null,
+          "id": "surface",
+          "kind": "surface",
+          "name": "Surface"
+        },
+        {
+          "depth_m": null,
+          "id": "underground",
+          "kind": "underground",
+          "name": "KEKB / SuperKEKB ring tunnel"
+        }
+      ],
+      "linked_map_ids": [
+        "map:j-parc"
+      ],
+      "name": "KEK — Tsukuba campus",
+      "site_ids": [
+        "site:kek-tsukuba-belle-ii"
+      ],
+      "state_segments": [
+        [
+          252,
+          263,
+          "active",
+          "possible"
+        ],
+        [
+          264,
+          563,
+          "active",
+          "certain"
+        ],
+        [
+          564,
+          575,
+          "active",
+          "possible"
+        ],
+        [
+          576,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
+      "to_scale_count": 10,
+      "unlocated_count": 0
     }
   },
   "schema": "hep-atlas/0.2",
@@ -53185,7 +53351,7 @@
       "links": {
         "website": null
       },
-      "map_id": null,
+      "map_id": "map:j-parc",
       "name": "Hadron Experimental Facility, J-PARC",
       "place": {
         "city": "Tokai-mura",
@@ -53253,7 +53419,7 @@
       "links": {
         "website": null
       },
-      "map_id": null,
+      "map_id": "map:j-parc",
       "name": "J-PARC accelerator complex, Tokai",
       "place": {
         "city": "Tokai-mura",
@@ -53301,7 +53467,7 @@
       "links": {
         "website": null
       },
-      "map_id": null,
+      "map_id": "map:j-parc",
       "name": "J-PARC neutrino near detector hall (280 m)",
       "place": {
         "city": "Tokai-mura",
@@ -54048,7 +54214,7 @@
       "links": {
         "website": "https://www-superkekb.kek.jp/"
       },
-      "map_id": null,
+      "map_id": "map:kek",
       "name": "KEK Tsukuba interaction region (Belle II)",
       "place": {
         "city": "Tsukuba",
@@ -58559,5 +58725,5 @@
       "type": "topic"
     }
   },
-  "version": "9ccd8ade710ab615"
+  "version": "36d0c70e0e8b6d0c"
 }

@@ -1,0 +1,83 @@
+{
+  "accuracy_m": 10,
+  "aliases": [],
+  "checks": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "depth_m": null,
+  "entity_id": "accelerator:kek-ps",
+  "feature_type": "building",
+  "geometry": {
+    "confidence": "approximate",
+    "locator": "OSM way 100705587, timestamp_osm_base 2026-09-18T22:22:35Z",
+    "note": "Identification with accelerator:kek-ps rests on circumstantial evidence, not a direct official coordinate; see notes.",
+    "sources": [
+      "src:geo-kek-osm-north-counter-hall",
+      "src:k2k-tutorial-page"
+    ],
+    "value": {
+      "coordinates": [
+        [
+          [
+            140.0721474,
+            36.1522654
+          ],
+          [
+            140.0719874,
+            36.1517868
+          ],
+          [
+            140.0725192,
+            36.1516709
+          ],
+          [
+            140.0726792,
+            36.1521495
+          ],
+          [
+            140.0721474,
+            36.1522654
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    },
+    "verified_at": "2026-09-18"
+  },
+  "id": "geometry:kek-north-counter-hall",
+  "level_id": "surface",
+  "license": {
+    "attribution": "© OpenStreetMap contributors",
+    "name": "ODbL-1.0",
+    "url": "https://www.openstreetmap.org/copyright"
+  },
+  "links": {
+    "website": null
+  },
+  "map_id": "map:kek",
+  "method": "OpenStreetMap building footprint way 100705587, name '北カウンターホール' (North Counter Hall), used verbatim.",
+  "name": "KEK North Counter Hall",
+  "notes": [
+    "UNCERTAIN IDENTIFICATION, flagged for QA: no fetched source gives this building's exact role. It is linked to accelerator:kek-ps because (1) its OSM name uses accelerator-hall terminology ('counter hall', a beamline experimental hall, not a generic building), (2) src:k2k-tutorial-page / src:k2k-faq-page describe the K2K beam (driven by the KEK-PS) as bent 'from the North hall towards Kamioka', and (3) it sits on the KEK campus between the KEK injector linac and the Tsukuba/Photon-Factory halls, consistent with the historical 12 GeV PS site. No fetched source gives the PS ring's own tunnel path (two targeted Overpass searches for tunnel/man_made=particle_accelerator/landuse ways near this building found none); only this one building is drawn for accelerator:kek-ps, not the ring."
+  ],
+  "osm": {
+    "elements": [
+      "way/100705587"
+    ],
+    "timestamp": "2026-09-18T22:22:35Z"
+  },
+  "representation": "georeferenced",
+  "schema": "hep-atlas/0.2",
+  "site_id": null,
+  "sources": [
+    "src:geo-kek-osm-north-counter-hall",
+    "src:k2k-tutorial-page"
+  ],
+  "summary": {
+    "plain": "A KEK building associated by name and by a K2K-era source with the 'North hall' from which the KEK-PS neutrino beam left for Kamioka; the ring itself is not drawn (no sourced trace)."
+  },
+  "type": "geometry",
+  "valid": null
+}
