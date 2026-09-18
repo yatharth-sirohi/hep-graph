@@ -121,6 +121,79 @@ text, provenance, results, documents, institutions, memberships and people
 arrive only when something asks for them. A collaboration's people are fetched
 per institution, so ATLAS-scale rosters never load at once.
 
+### 6b. Local map view
+
+The to-scale campus view (`#/map/<facility-slug>`) implements
+`docs/HEP_ATLAS_GEOMETRY.md` §4. It is a separate surface from the globe, not
+a zoom level of it: the globe is a sphere of facilities; this is a Web
+Mercator plan of one campus with a metre scale bar.
+
+**Module map.** `static/atlas/js/localmap.js` owns the whole view — layout,
+Leaflet instance, feature drawing, left-hand list, drawer and depth diagram.
+`static/atlas/js/mapstyle.js` holds the four encoding tables and the legend
+rows, as data, so nothing about how a feature looks is decided inside the
+renderer. `app.js` contributes one block: it puts `.is-map-route` on
+`#atlas-main`, points `panels.js` at the drawer's panel container, and hands
+the route to `localmap.show()`. `panels.js` contributes one exported hook,
+`localMapLinks(record)`, which renders the "Open local map" section for any
+record carrying `map_id` or `geometry_map_ids`; the facility renderer and the
+no-WebGL fallback table both offer it.
+
+**Route and state.** `state.js` knows `map` as a route type and carries three
+extra params, written only while a map route is active: `lv` (comma list of
+visible level ids; absent means all), `bm` (`0` hides the basemap), and `sel`
+(the entity id in the drawer, or a `geometry:` id for a context feature that
+depicts no entity). The existing `y`/`r` timeline state applies unchanged, so
+a link can name a campus, a level, a selection and a year at once. Everything
+round-trips through back/forward, because selections are `pushState` and the
+view is rebuilt from `popstate` like every other route.
+
+**Layout.** Three columns: the layers-and-places list, the map stage, and a
+collapsible drawer. The map holds at least 60 % of a 1280 px viewport with the
+drawer open and the rest of the stage when it is shut. At ≤ 760 px the columns
+stack (map, then list) and the drawer becomes a bottom sheet.
+
+**Styling.** Four encodings, each on its own channel so none can be read as
+another: feature **type** (line weight, fill, base hue), **status at the
+selected year** resolved from `state_segments` through
+`model.js statusForTimeline` (dash pattern; amber for construction and
+commissioning, grey for finished), **level** (a pale casing behind subsurface
+features), and **representation** (stroke opacity plus a text badge).
+Boundaries and inferred-direction lines keep their own dot pattern, because
+that pattern is what identifies them; their status reads from hue and from the
+list. A feature outside the selected year is hidden, and only comes back —
+ghosted — when "show features outside the selected year" is on. "Depth view"
+opens an explicitly labelled vertical section with a metres axis; it is never
+a second plan.
+
+**Accessibility.** The left list is the accessible equivalent of the map, not
+a summary of it: a browser test asserts the set of listed features equals the
+set of drawn ones, and every row states the feature's type, level, status,
+positional accuracy and representation class in words. Toggles are buttons
+with `aria-pressed`; selection is announced through an `aria-live` region; the
+map surface is `role="application"` with an `aria-label` that names the
+keyboard alternative; the legend explains all four encodings as text; Escape
+closes the depth diagram, then the drawer, then (through `app.js`) the route,
+returning focus to whatever opened each. Colours are the existing dark-theme
+tokens, and the a11y suite measures the rendered contrast of the view's own
+text.
+
+**Lazy loading and tiles.** Leaflet 1.9.4 is vendored at
+`static/atlas/vendor/leaflet/` and its script and stylesheet are injected on
+the first map route, never during the globe's cold load; the per-map geometry
+bundle (`geometry/<slug>.json`) is fetched at the same moment. A browser test
+asserts that loading the globe requests neither. The basemap is OpenStreetMap
+standard tiles — no key, nothing paid, the mandatory attribution always
+visible, and toggleable; on repeated tile failure the features stay on the
+dark background and a notice says the basemap is unavailable. Those tile hosts
+are the one third-party origin in the server's CSP, and only under `img-src`.
+
+**What it refuses to do.** It draws nothing the build did not emit: an entity
+with no sourced shape appears in the "Unlocated / geometry not verified" list
+with its reason and research backlog, never as an invented circle. A failed
+bundle fetch renders an error with a retry, never an empty map, because a
+campus with no structures on it reads as a claim.
+
 ## 6a. Clustering, semantic zoom and filters
 
 `static/atlas/js/globe.js` rebuilds the globe's marker/arc layer only on

@@ -470,6 +470,360 @@ async function setRangeValue(locator, value) {
     await page.screenshot({ path: path.join(output, "desktop.png"), fullPage: true });
   });
 
+  // ---- local map view (docs/HEP_ATLAS_GEOMETRY.md §4) -- begin ----------
+  // These run against whichever tree HEP_ATLAS_DATA selects. The generated
+  // tree has no `maps` until the geometry build lands, so rather than
+  // quietly passing on nothing, the suite records an explicit skip naming
+  // the reason — a green run must never be mistaken for "the map view was
+  // exercised against real data".
+  {
+    const mapTreeBase = `${base}/atlas/${dataTree ? "fixtures" : "generated"}/`;
+    let mapsMeta = {};
+    let mapsError = null;
+    try {
+      const response = await fetch(`${mapTreeBase}atlas.json`);
+      if (!response.ok) throw new Error(`atlas.json ${response.status}`);
+      mapsMeta = (await response.json()).maps || {};
+    } catch (error) {
+      mapsError = error.message;
+    }
+    const mapId = Object.keys(mapsMeta).find((id) => mapsMeta[id].feature_count > 0) || null;
+
+    if (!mapId) {
+      await record("Local map view — skipped: no maps in this tree", async () => {
+        console.log(`SKIP: local map view — ${mapsError
+          ? `could not read atlas.json (${mapsError})`
+          : "this data tree publishes no `maps`, so there is no local map to open"}.`);
+      });
+    } else {
+      const meta = mapsMeta[mapId];
+      const mapSlug = mapId.split(":")[1];
+      const geometry = await (await fetch(`${mapTreeBase}${meta.bundle}`)).json();
+      const mapURL = (extra = "") => `${base}/atlas${dataTree || "?"}${dataTree ? "&" : ""}${extra}`
+        .replace(/[?&]$/, "") + `#/map/${mapSlug}`;
+
+      // Click a point that genuinely lies on a feature's stroke. A ring's
+      // bounding-box centre is empty map, so `locator.click()` would hit the
+      // basemap and select nothing.
+      const clickFeature = async (p, geometryId) => {
+        const at = await p.evaluate((gid) => {
+          const el = document.querySelector(`path[data-geometry-id="${gid}"]`);
+          if (!el) return null;
+          const point = el.getPointAtLength(el.getTotalLength() * 0.25);
+          const q = new DOMPoint(point.x, point.y).matrixTransform(el.getScreenCTM());
+          return { x: q.x, y: q.y };
+        }, geometryId);
+        assert.ok(at, `expected a drawn path for ${geometryId}`);
+        await p.mouse.click(at.x, at.y);
+      };
+
+      const waitForSel = async (p, expected) => {
+        await p.waitForFunction((want) => {
+          const has = /[?&]sel=/.test(decodeURIComponent(window.location.search));
+          return want === null ? !has : decodeURIComponent(window.location.search).includes(`sel=${want}`);
+        }, expected, { timeout: 15000 });
+      };
+
+      const openMap = async (contextOptions, extra = "") => {
+        const mapContext = await browser.newContext({
+          viewport: { width: 1280, height: 800 }, reducedMotion: "reduce", ...contextOptions,
+        });
+        mapContext.on("page", (p) => p.on("pageerror", (e) => errors.push(`map view: ${e.message}`)));
+        mapContext.on("page", (p) => p.on("console", (msg) => {
+          if (msg.type() === "error") errors.push(`map view console.error: ${msg.text()}`);
+        }));
+        const p = await mapContext.newPage();
+        p.setDefaultTimeout(30000);
+        await p.goto(mapURL(extra), { waitUntil: "domcontentloaded" });
+        await p.locator(".leaflet-container").waitFor({ timeout: 20000 });
+        await p.locator("[data-feature-row], .map-section").first().waitFor({ timeout: 20000 });
+        return { mapContext, p };
+      };
+
+      await record("Local map: Leaflet container, scale bar, north indicator and drawn features", async () => {
+        const { mapContext, p } = await openMap();
+        assert.equal(await p.locator(".leaflet-container").count(), 1, "one Leaflet map container");
+        assert.equal(await p.locator(".leaflet-control-scale-line").count(), 1, "a metric scale control");
+        assert.match(await p.locator(".leaflet-control-scale-line").innerText(), /\b(m|km)\b/,
+          "the scale bar is labelled in metres or kilometres, not feet");
+        assert.equal(await p.locator(".leaflet-control-zoom").count(), 1, "zoom controls");
+        assert.equal(await p.locator(".map-north").count(), 1, "a north indicator");
+        assert.equal(await p.locator("#map-canvas[role='application']").count(), 1,
+          "the map surface declares role=application with its keyboard alternative in the label");
+        const paths = await p.locator(".leaflet-overlay-pane svg path").count();
+        assert.ok(paths > 0, `expected drawn features, got ${paths} SVG paths`);
+        // §4: the map itself gets at least 60 % of a 1280x800 laptop.
+        const stage = await p.locator(".map-stage").boundingBox();
+        assert.ok(stage.width / 1280 >= 0.6,
+          `map stage is ${(100 * stage.width / 1280).toFixed(1)} % of a 1280 px viewport, want >= 60 %`);
+        await mapContext.close();
+      });
+
+      await record("Local map: the scale bar agrees with Leaflet's own geodesy at the view centre", async () => {
+        const { mapContext, p } = await openMap();
+        const measured = await p.evaluate(() => {
+          const line = document.querySelector(".leaflet-control-scale-line");
+          const map = window.__hepAtlasLocalMap;
+          const label = line.textContent.trim();
+          const match = /^([\d.]+)\s*(m|km)$/.exec(label);
+          const metres = parseFloat(match[1]) * (match[2] === "km" ? 1000 : 1);
+          // The bar's own pixel width, converted back to ground metres with
+          // Leaflet's great-circle distance at the current view centre.
+          const px = line.getBoundingClientRect().width;
+          const centre = map.getCenter();
+          const origin = map.latLngToContainerPoint(centre);
+          const a = map.containerPointToLatLng([origin.x, origin.y]);
+          const b = map.containerPointToLatLng([origin.x + px, origin.y]);
+          return { label, labelMetres: metres, px, groundMetres: map.distance(a, b) };
+        });
+        const error = Math.abs(measured.groundMetres - measured.labelMetres) / measured.labelMetres;
+        console.log("scale bar:", JSON.stringify({
+          ...measured, groundMetres: Number(measured.groundMetres.toFixed(1)),
+          errorPercent: Number((100 * error).toFixed(3)),
+        }));
+        assert.ok(error <= 0.02,
+          `scale bar says ${measured.label} over ${measured.px.toFixed(1)} px, which is `
+          + `${measured.groundMetres.toFixed(1)} m on the ground — ${(100 * error).toFixed(2)} % out, want <= 2 %`);
+        await mapContext.close();
+      });
+
+      const ring = geometry.features.find((f) => f.feature_type === "ring" && (f.checks || []).length)
+        || geometry.features.find((f) => (f.checks || []).length)
+        || geometry.features[0];
+
+      await record("Local map: clicking a feature opens a drawer with its name, checks and sources", async () => {
+        const { mapContext, p } = await openMap();
+        await clickFeature(p, ring.id);
+        await p.locator("#map-drawer-title").waitFor({ timeout: 15000 });
+        const expectedSel = ring.entity_id || ring.id;
+        assert.ok(decodeURIComponent(p.url()).includes(`sel=${expectedSel}`),
+          `expected sel=${expectedSel} in ${decodeURIComponent(p.url())}`);
+        assert.equal(await p.locator("#map-drawer-title").innerText(),
+          ring.entity_name || ring.name, "the drawer names the entity the feature depicts");
+        const facts = await p.locator("#map-drawer-facts").innerText();
+        for (const fragment of [ring.representation.replace(/_/g, " "), "Cross-checks", "Sources", "Licence"]) {
+          assert.ok(facts.toLowerCase().includes(fragment.toLowerCase()),
+            `expected the shape facts to mention "${fragment}"`);
+        }
+        for (const check of ring.checks || []) {
+          assert.ok(facts.includes(check.passed ? "Passed" : "FAILED"),
+            "every cross-check states its verdict");
+          assert.ok(facts.includes(String(check.expected_m)) && facts.includes(String(check.measured_m)),
+            "every cross-check states both its expected and its measured value");
+        }
+        for (const sid of ring.provenance.sources || []) {
+          const title = (geometry.source_titles || {})[sid];
+          if (title && title.title) {
+            assert.ok(facts.includes(title.title), `expected the source title "${title.title}"`);
+          }
+        }
+        // Escape closes the drawer and hands focus back, without leaving the map.
+        await p.keyboard.press("Escape");
+        await waitForSel(p, null);
+        assert.ok(!decodeURIComponent(p.url()).includes("sel="), "Escape clears the selection");
+        assert.ok(decodeURIComponent(p.url()).includes(`#/map/${mapSlug}`), "Escape stays on the map route");
+        await mapContext.close();
+      });
+
+      const undergroundLevel = (meta.levels || []).find((level) => level.kind !== "surface"
+        && geometry.features.some((f) => f.level_id === level.id));
+
+      if (undergroundLevel) {
+        await record("Local map: turning an underground level off removes its features from map and list", async () => {
+          const { mapContext, p } = await openMap();
+          const before = await p.locator(".leaflet-overlay-pane svg path").count();
+          const beforeRows = await p.locator("[data-feature-row]").count();
+          await p.locator(`[data-level-id="${undergroundLevel.id}"]`).click();
+          await p.waitForTimeout(600);
+          const after = await p.locator(".leaflet-overlay-pane svg path").count();
+          const afterRows = await p.locator("[data-feature-row]").count();
+          assert.ok(after < before, `expected fewer drawn paths (${before} -> ${after})`);
+          assert.ok(afterRows < beforeRows, `expected fewer list rows (${beforeRows} -> ${afterRows})`);
+          assert.equal(await p.locator(`[data-level-id="${undergroundLevel.id}"]`).getAttribute("aria-pressed"), "false");
+          const url = decodeURIComponent(p.url());
+          assert.ok(url.includes("lv="), `expected the level selection in the URL: ${url}`);
+          assert.ok(!url.split("lv=")[1].split(/[&#]/)[0].split(",").includes(undergroundLevel.id),
+            "the level that was switched off is not in lv=");
+          await mapContext.close();
+        });
+      }
+
+      await record("Local map: bm=0 hides the basemap tiles and still draws the features", async () => {
+        const { mapContext, p } = await openMap({}, "bm=0");
+        await p.waitForTimeout(800);
+        assert.equal(await p.locator("img.leaflet-tile").count(), 0, "no basemap tiles are requested at all");
+        assert.ok(await p.locator(".leaflet-overlay-pane svg path").count() > 0,
+          "the atlas's own features are still drawn on the dark background");
+        assert.equal(await p.locator("#map-basemap-toggle").getAttribute("aria-pressed"), "false");
+        await mapContext.close();
+      });
+
+      await record("Local map: a deep link with sel and lv restores the drawer and the level toggles", async () => {
+        const surface = (meta.levels || [])[0];
+        const target = geometry.features.find((f) => f.level_id === surface.id && f.entity_id)
+          || geometry.features[0];
+        const sel = target.entity_id || target.id;
+        const { mapContext, p } = await openMap({},
+          `lv=${encodeURIComponent(surface.id)}&sel=${encodeURIComponent(sel)}`);
+        await p.locator("#map-drawer-title").waitFor({ timeout: 15000 });
+        assert.equal(await p.locator("#map-drawer-title").innerText(), target.entity_name || target.name);
+        assert.equal(await p.locator('[data-level-id][aria-pressed="true"]').count(), 1,
+          "exactly the one level named in lv= is on");
+        assert.equal(await p.locator(`[data-level-id="${surface.id}"]`).getAttribute("aria-pressed"), "true");
+        await mapContext.close();
+      });
+
+      await record("Local map: back and forward restore the selection", async () => {
+        const { mapContext, p } = await openMap();
+        await clickFeature(p, ring.id);
+        await p.locator("#map-drawer-title").waitFor({ timeout: 15000 });
+        const withSel = decodeURIComponent(p.url());
+        // Same-document history: the app is driven by popstate, so this is
+        // exactly the browser Back button, not a document navigation.
+        await p.evaluate(() => window.history.back());
+        await waitForSel(p, null);
+        assert.ok(!decodeURIComponent(p.url()).includes("sel="), "Back clears the selection");
+        assert.equal(await p.locator("#map-drawer-title").count(), 0, "Back closes the drawer");
+        await p.evaluate(() => window.history.forward());
+        await waitForSel(p, ring.entity_id || ring.id);
+        assert.equal(decodeURIComponent(p.url()), withSel, "Forward restores the selected entity");
+        await p.locator("#map-drawer-title").waitFor({ timeout: 15000 });
+        await mapContext.close();
+      });
+
+      await record("Local map: Tab reaches a feature button and Enter opens its drawer", async () => {
+        const { mapContext, p } = await openMap();
+        await p.locator("#map-back").focus();
+        let landed = null;
+        for (let i = 0; i < 40 && !landed; i += 1) {
+          await p.keyboard.press("Tab");
+          landed = await p.evaluate(() => {
+            const el = document.activeElement;
+            return el && el.hasAttribute("data-feature-row") ? el.getAttribute("data-feature-row") : null;
+          });
+        }
+        assert.ok(landed, "expected Tab to reach a feature button in the accessible list");
+        await p.keyboard.press("Enter");
+        await p.locator("#map-drawer-title").waitFor({ timeout: 15000 });
+        assert.ok(decodeURIComponent(p.url()).includes("sel="), "Enter on a list button selects that feature");
+        const feature = geometry.features.find((f) => f.id === landed);
+        assert.equal(await p.locator("#map-drawer-title").innerText(), feature.entity_name || feature.name);
+        await mapContext.close();
+      });
+
+      // A feature whose entity did not exist in 1990 — its hall must not be
+      // drawn at that year, while a timeless context feature still is.
+      const lateFeature = geometry.features.find((f) => Array.isArray(f.state_segments)
+        && f.state_segments.length && f.state_segments[0][0] > (1991 - 1950) * 12);
+      const timelessFeature = geometry.features.find((f) => !f.state_segments);
+
+      if (lateFeature) {
+        await record("Local map: a year before the entity existed hides its feature, and “show outside” ghosts it", async () => {
+          const { mapContext, p } = await openMap({}, "y=1990");
+          await p.waitForTimeout(600);
+          assert.equal(await p.locator(`path[data-geometry-id="${lateFeature.id}"]`).count(), 0,
+            `${lateFeature.id} must not be drawn in 1990 — its entity did not exist yet`);
+          assert.equal(await p.locator(`[data-feature-row="${lateFeature.id}"]`).count(), 0,
+            "and it is not listed either, so map and list agree");
+          if (timelessFeature) {
+            assert.equal(await p.locator(`path[data-geometry-id="${timelessFeature.id}"]`).count(), 1,
+              "a context feature with no recorded history is drawn in every year");
+          }
+          await p.locator("#map-outside-toggle").click();
+          await p.waitForTimeout(600);
+          assert.equal(await p.locator("#map-outside-toggle").getAttribute("aria-pressed"), "true");
+          assert.equal(await p.locator(`path[data-geometry-id="${lateFeature.id}"].is-ghosted`).count(), 1,
+            "with “show features outside the selected year” on it comes back, ghosted");
+          await mapContext.close();
+        });
+      }
+
+      await record("Local map: the accessible list mirrors exactly what is drawn", async () => {
+        const { mapContext, p } = await openMap();
+        const drawn = await p.evaluate(() => Array.from(
+          document.querySelectorAll(".leaflet-overlay-pane svg path[data-geometry-id]"),
+        ).map((el) => el.getAttribute("data-geometry-id")).sort());
+        const listed = await p.evaluate(() => Array.from(
+          document.querySelectorAll("[data-feature-row]"),
+        ).map((el) => el.getAttribute("data-feature-row")).sort());
+        assert.deepEqual(listed, drawn,
+          "every drawn feature is a button in the list, and nothing is listed that is not drawn");
+        // Each row states its positional accuracy and representation class.
+        const rows = await p.evaluate(() => Array.from(
+          document.querySelectorAll("[data-feature-row]"),
+        ).map((el) => el.innerText));
+        for (const row of rows) {
+          assert.match(row, /(±\s?\d+\s?m|inferred bearing|accuracy not recorded)/,
+            `a list row must state its positional accuracy: ${JSON.stringify(row)}`);
+          assert.match(row, /(surveyed|georeferenced|derived|inferred direction)/i,
+            `a list row must state its representation class: ${JSON.stringify(row)}`);
+        }
+        // The unlocated list is present and sourced: silence about an entity
+        // the map does not draw would read as "it is not there".
+        const unlocated = await p.locator(".map-unlocated-row").count();
+        assert.equal(unlocated, (geometry.map.unlocated || []).length,
+          "every unlocated entity is listed with its reason");
+        await mapContext.close();
+      });
+
+      await record("Local map: opening the globe fetches no geometry bundle or map engine (P1-2 pattern)", async () => {
+        const perfContext = await browser.newContext({ viewport: { width: 1280, height: 800 } });
+        const requested = [];
+        await perfContext.route("**/*", (route) => {
+          requested.push(route.request().url());
+          route.continue();
+        });
+        const p = await perfContext.newPage();
+        p.setDefaultTimeout(30000);
+        await p.goto(`${base}/atlas${dataTree}`, { waitUntil: "domcontentloaded" });
+        await p.waitForFunction(() => document.querySelectorAll(".atlas-marker").length > 0
+          || document.querySelector(".fallback-notice"), { timeout: 20000 });
+        await p.waitForTimeout(1200);
+        const lazy = (list) => list.filter((url) => /\/geometry\/|leaflet\.(js|css)/.test(url));
+        assert.deepEqual(lazy(requested), [],
+          `the globe's cold load must not fetch a geometry bundle or Leaflet: ${JSON.stringify(lazy(requested))}`);
+        const beforeCount = requested.length;
+        await p.evaluate((slug) => { window.location.hash = `#/map/${slug}`; }, mapSlug);
+        await p.locator(".leaflet-container").waitFor({ timeout: 20000 });
+        await p.waitForTimeout(600);
+        const after = lazy(requested.slice(beforeCount));
+        assert.ok(after.some((url) => url.includes("leaflet.js")), "Leaflet is loaded when the map route opens");
+        assert.ok(after.some((url) => url.includes("/geometry/")), "the geometry bundle is fetched then, and not before");
+        await perfContext.close();
+      });
+
+      await record("Local map: desktop and mobile screenshots", async () => {
+        const { mapContext, p } = await openMap();
+        await clickFeature(p, ring.id);
+        await p.locator("#map-drawer-title").waitFor({ timeout: 15000 });
+        await p.waitForTimeout(800);
+        await p.screenshot({ path: path.join(output, "local-map-1280x800.png") });
+        await mapContext.close();
+
+        const phoneContext = await browser.newContext({
+          viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true, reducedMotion: "reduce",
+        });
+        phoneContext.on("page", (pg) => pg.on("pageerror", (e) => errors.push(`map view (mobile): ${e.message}`)));
+        const phone = await phoneContext.newPage();
+        phone.setDefaultTimeout(30000);
+        await phone.goto(mapURL(), { waitUntil: "domcontentloaded" });
+        await phone.locator(".leaflet-container").waitFor({ timeout: 20000 });
+        await phone.waitForTimeout(1200);
+        const overflow = await phone.evaluate(() => document.documentElement.scrollWidth);
+        assert.ok(overflow <= 392, `expected no horizontal overflow at 390 px, got ${overflow}`);
+        await phone.locator("[data-feature-row]").first().click();
+        await phone.locator("#map-drawer-title").waitFor({ timeout: 15000 });
+        const sheet = await phone.locator(".map-drawer").boundingBox();
+        assert.ok(sheet.y + sheet.height >= 840,
+          "on a phone the drawer is a bottom sheet anchored to the bottom of the viewport");
+        await phone.screenshot({ path: path.join(output, "local-map-390x844.png") });
+        await phoneContext.close();
+      });
+    }
+  }
+  // ---- local map view -- end -------------------------------------------
+
+
   await record("A23: an approximate-coordinate site renders a dashed marker with an accessible suffix", async () => {
     // A fresh context, not the long-lived main `page`: this check sits late
     // in a very long single-page sequential run (15+ prior navigations, a

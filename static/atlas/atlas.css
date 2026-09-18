@@ -1088,14 +1088,14 @@ input {
   background: var(--panel-2);
   border-color: var(--teal);
 }
-/* Not colour alone: a pressed toggle also gains a leading check mark. */
-.map-toggle[aria-pressed='true'] .map-toggle-name::before,
-.map-toggle[aria-pressed='true']:not(:has(.map-toggle-name))::before {
+/* Not colour alone: a pressed toggle also gains a leading check mark, and an
+   unpressed one a cross. Every toggle's label is wrapped in .map-toggle-name
+   (see localmap.js toggleButton) so this needs no :has(). */
+.map-toggle[aria-pressed='true'] .map-toggle-name::before {
   content: '\2713\00a0';
   color: var(--teal);
 }
-.map-toggle[aria-pressed='false'] .map-toggle-name::before,
-.map-toggle[aria-pressed='false']:not(:has(.map-toggle-name))::before {
+.map-toggle[aria-pressed='false'] .map-toggle-name::before {
   content: '\2715\00a0';
   color: var(--muted);
 }

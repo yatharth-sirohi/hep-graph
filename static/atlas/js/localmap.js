@@ -418,11 +418,15 @@ function clearSelection() {
 // ------------------------------------------------------------ left column
 
 function toggleButton(label, pressed, onClick, extraClass) {
+  // A plain-text label is wrapped so the pressed/unpressed state can be
+  // shown as a leading check or cross as well as a colour — no toggle in
+  // this view is distinguishable by colour alone.
+  const body = typeof label === 'string' ? h('span', { class: 'map-toggle-name' }, label) : label;
   const btn = h('button', {
     type: 'button',
     class: `map-toggle ${extraClass || ''}`.trim(),
     'aria-pressed': pressed ? 'true' : 'false',
-  }, label);
+  }, body);
   btn.addEventListener('click', onClick);
   return btn;
 }
