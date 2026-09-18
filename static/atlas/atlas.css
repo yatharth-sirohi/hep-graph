@@ -1293,7 +1293,7 @@ input {
   position: absolute;
   top: 10px;
   right: 10px;
-  z-index: 500;
+  z-index: 1100;
   background: #0b1620d9;
   border: 1px solid var(--line-strong);
   border-radius: var(--radius);
@@ -1313,7 +1313,7 @@ input {
   left: 50px;
   right: 50px;
   top: 10px;
-  z-index: 600;
+  z-index: 1100;
   margin: 0;
   background: var(--panel);
   border: 1px solid var(--amber);
@@ -1324,14 +1324,6 @@ input {
 }
 .map-tile-notice.hidden {
   display: none;
-}
-.map-stage-controls {
-  position: absolute;
-  left: 10px;
-  bottom: 34px;
-  z-index: 500;
-  display: flex;
-  gap: 6px;
 }
 .map-status {
   position: absolute;
@@ -1344,7 +1336,7 @@ input {
   position: absolute;
   right: 10px;
   bottom: 34px;
-  z-index: 700;
+  z-index: 1100;
   width: min(340px, calc(100% - 20px));
   max-height: calc(100% - 60px);
   overflow-y: auto;
@@ -1492,12 +1484,12 @@ input {
     right: 0;
     bottom: 0;
     top: auto;
-    max-height: 70vh;
+    max-height: 55vh;
     border-left: none;
     border-top: 1px solid var(--line);
     border-radius: 14px 14px 0 0;
     box-shadow: 0 -6px 20px #00000060;
-    z-index: 900;
+    z-index: 1200;
   }
   .map-depth {
     width: calc(100% - 20px);
