@@ -1,0 +1,75 @@
+{
+  "schema": "hep-atlas/0.2",
+  "id": "detector:sage",
+  "type": "detector",
+  "name": "SAGE gallium target",
+  "aliases": [],
+  "experiment_ids": ["experiment:sage"],
+  "parent_detector_id": null,
+  "technology": {
+    "value": "Radiochemical gallium detector: solar neutrinos capture on 71Ga to produce 71Ge via inverse beta decay in liquid gallium metal, which is chemically extracted and counted in periodic campaigns",
+    "sources": ["src:sage-wikipedia"],
+    "verified_at": "2026-09-18",
+    "confidence": "uncertain",
+    "quote": "a radiochemical method based on inverse beta decay involving gallium-71 atoms and neutrinos",
+    "note": "Sourced from Wikipedia (rank 12) only this session. No `radiochemical` value exists in TECHNOLOGY_CLASSES; `technology_class` is set to `other`, matching the same resolution used for detector:gallex-gno."
+  },
+  "technology_class": "other",
+  "technology_classes": ["other"],
+  "placements": [
+    {
+      "site_id": "site:baksan-sage-underground-lab",
+      "role": "main",
+      "start": "1990-01",
+      "end": null,
+      "sources": ["src:sage-wikipedia"],
+      "verified_at": "2026-09-18",
+      "confidence": "approximate",
+      "quote": "Primary Data-Taking: January 1990 through December 2007 (168 extractions)",
+      "note": "Placed at site:baksan-sage-underground-lab (owned by this workstream, created above)."
+    }
+  ],
+  "intervals": [
+    {
+      "label": "primary data-taking",
+      "status": "active",
+      "start": "1990-01",
+      "end": null,
+      "sources": ["src:sage-wikipedia"],
+      "verified_at": "2026-09-18",
+      "confidence": "uncertain",
+      "quote": "Primary Data-Taking: January 1990 through December 2007 (168 extractions) ... End: August 2011, with continued operations thereafter",
+      "note": "Wikipedia's own wording on the end date is ambiguous; `end` left null (ongoing at `verified_at`, §2.3) rather than asserting a firm shutdown or continuation."
+    }
+  ],
+  "status": "active",
+  "specs": {
+    "target_mass": {
+      "value": 50,
+      "unit": "t",
+      "dimension": "mass",
+      "approx": true,
+      "display": "50-57 t liquid gallium",
+      "sources": ["src:sage-wikipedia"],
+      "verified_at": "2026-09-18",
+      "confidence": "approximate",
+      "quote": "Between 50–57 tonnes of liquid gallium metal served as the neutrino detection medium.",
+      "note": "Sourced from Wikipedia (rank 12) only this session."
+    }
+  },
+  "subsystems": [],
+  "document_ids": [],
+  "links": {
+    "website": null
+  },
+  "notes": [],
+  "sources": ["src:sage-wikipedia"],
+  "summary": {
+    "plain": "Tonnes of liquid gallium metal, deep in a Russian mountain, that solar neutrinos occasionally turn into germanium, which scientists then extract and count.",
+    "technical": "Radiochemical liquid-gallium-metal detector (50-57 t), 71Ga(nu_e,e-)71Ge reaction, at Baksan; chemically extracted and counted in periodic campaigns rather than observed in real time."
+  },
+  "coverage": {
+    "tier": "D",
+    "researched": "partial"
+  }
+}

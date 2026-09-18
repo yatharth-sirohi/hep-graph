@@ -9,10 +9,11 @@
       "collaboration membership/leadership counts",
       "INSPIRE experiment recid",
       "results (only key_specs recorded, no results/ file)",
-      "site:lngs-hall-a coordinates (owned by facilities lead)"
+      "site:lngs-hall-a coordinates (owned by facilities lead)",
+      "a source that states Hall A specifically for CUORE (the cited LBL press release only says 'Gran Sasso National Laboratory' generally; see detector note)"
     ],
     "name": "CUORE",
-    "notes": "experiment/detector/collaboration written. Status active since ~2019 (steady data-taking); 988 TeO2 crystals, ~0.8 t crystal mass; 2024 result T1/2>3.5e25 yr (90% C.I.), 2 tonne-yr exposure. Lineage: predecessor of CUPID.",
+    "notes": "experiment/detector/collaboration written. Began operating 2017 (commissioning), steady data-taking since 2019, status active; 988 TeO2 crystals, ~0.8 t crystal mass; 2024 result T1/2>3.5e25 yr (90% C.I., verbatim from abstract - note C.I. not C.L.), 2 tonne-yr exposure. Lineage: predecessor of CUPID. Independent verification (2026-09-17, src:0vbb-verify-*): re-fetched the arXiv abstract and LBL press release, both confirmed verbatim; the Hall A placement's confidence was downgraded from 'verified' to 'approximate' because the cited source does not itself say 'Hall A' (see detector note).",
     "owner": "neutrino-mass-0vbb",
     "priority": 3,
     "researched": "partial",
@@ -29,10 +30,11 @@
       "collaboration membership/leadership counts",
       "INSPIRE experiment recid",
       "confirmed construction-start / CD stage (only 'proposed' recorded; secondary summaries mention CD-0 and a mid-2025 prototype but were not re-verified against a primary source)",
-      "site:lngs-hall-a coordinates (owned by facilities lead)"
+      "site:lngs-hall-a coordinates (owned by facilities lead)",
+      "a source that states Hall A specifically for CUPID (only general LNGS confirmed; CUPID is expected to reuse the CUORE cryostat, which is in Hall A, but no fetched source says so directly for CUPID)"
     ],
     "name": "CUPID",
-    "notes": "experiment/detector/collaboration written. Status recorded as proposed (conservative; official site describes it only in future tense). Planned ~1500 Li2MoO4 crystals, 240 kg of 100Mo, Qbb=3034 keV. Lineage: successor of CUORE, reuses its cryostat.",
+    "notes": "experiment/detector/collaboration written. Status recorded as proposed (conservative; official site describes it only in future tense; a WebSearch in the independent-verification pass corroborated CD-0 status circa 2019 but found no fetchable primary source for a later CD stage or construction start, so 'proposed' stands). Planned ~1500 Li2MoO4 crystals, 240 kg of 100Mo, Qbb=3034 keV. Lineage: successor of CUORE, reuses its cryostat. Independent verification (2026-09-17): re-fetched official site and arXiv:2503.02894 abstract, both confirmed verbatim.",
     "owner": "neutrino-mass-0vbb",
     "priority": 3,
     "researched": "partial",
@@ -66,10 +68,11 @@
       "collaboration formation date",
       "INSPIRE experiment recid",
       "exact Phase I/Phase II day-level boundary dates",
-      "site:lngs-hall-a coordinates (owned by facilities lead)"
+      "site:lngs-hall-a coordinates (owned by facilities lead)",
+      "sourced interval for the 2013-06 to 2015-11 gap between Phase I and Phase II (upgrade/shutdown period; validator flags this as 30 months unrecorded)"
     ],
     "name": "GERDA",
-    "notes": "experiment/detector/collaboration written. Completed 2011-2019/2020; 127.2 kg·yr exposure, T1/2>1.8e26 yr (90% C.L.). Collaboration: ~120 members, 16 institutes, 6 countries. Lineage: predecessor of LEGEND.",
+    "notes": "experiment/detector/collaboration written. Completed 2011-2019/2020; 127.2 kg·yr exposure, T1/2>1.8e26 yr (90% C.L.). Collaboration: ~120 members, 16 institutes, 6 countries. Lineage: predecessor of LEGEND. Independent verification (2026-09-17, src:0vbb-verify-*): re-fetched the final-results and Phase I status papers directly; corrected two paraphrased 'quote' fields to verbatim text (total exposure and Phase I dates).",
     "owner": "neutrino-mass-0vbb",
     "priority": 3,
     "researched": "partial",
@@ -106,7 +109,7 @@
       "precise coordinate for the KATRIN spectrometer hall itself (only a geocoder campus point for KIT Campus North sourced)"
     ],
     "name": "KATRIN",
-    "notes": "facility:kit-karlsruhe and site:kit-campus-north created (new, owned by this lead). experiment/detector/collaboration written, plus results/katrin-neutrino-mass-upper-limit-2025.json (2025 Science paper, upper limit mν<0.45 eV at 90% CL). Active since ~2019.",
+    "notes": "facility:kit-karlsruhe and site:kit-campus-north created (new, owned by this lead). experiment/detector/collaboration written, plus results/katrin-neutrino-mass-upper-limit-2025.json (2025 Science paper, upper limit mν<0.45 eV at 90% CL). Active since ~2019. Independent verification (2026-09-17, src:0vbb-verify-*): re-fetched the Science paper abstract, confirmed verbatim; fixed detector:katrin technology_class from the legacy 'spectrometer' to 'magnetic_spectrometer' per ontology amendment A24 (2026-09-17), which postdates this record and specifically names KATRIN's MAC-E filter.",
     "owner": "neutrino-mass-0vbb",
     "priority": 3,
     "researched": "partial",
@@ -125,7 +128,7 @@
       "site:lngs-hall-a coordinates (owned by facilities lead)"
     ],
     "name": "LEGEND",
-    "notes": "experiment + detector:legend-200 + collaboration written. Active since 2023 (LEGEND-200); >250 researchers, ~50 institutions. First result (2025): T1/2(LEGEND-200)>0.5e26 yr, combined GERDA+MJD+LEGEND-200 T1/2>1.9e26 yr (90% CL). LEGEND-1000 recorded as proposed with no site.",
+    "notes": "experiment + detector:legend-200 + collaboration written. Active since 2023 (LEGEND-200); >250 researchers, ~50 institutions. First result (2025): T1/2(LEGEND-200)>0.5e26 yr, combined GERDA+MJD+LEGEND-200 T1/2>1.9e26 yr (90% CL). LEGEND-1000 recorded as proposed with no site. Independent verification (2026-09-17, src:0vbb-verify-*): re-fetched arXiv:2509.21166 abstract, both half-life limits confirmed verbatim. The previously cited source for the detector's Hall A placement (LEGEND official site) does not itself say 'Hall A'; added src:0vbb-verify-legend-200-hall-a-lbl (LBL Nuclear Science Division), which does, and cited it alongside.",
     "owner": "neutrino-mass-0vbb",
     "priority": 3,
     "researched": "partial",

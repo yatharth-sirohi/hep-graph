@@ -1,0 +1,128 @@
+{
+  "schema": "hep-atlas/0.2",
+  "id": "experiment:sage",
+  "type": "experiment",
+  "name": "SAGE",
+  "aliases": [
+    "Soviet-American Gallium Experiment",
+    "Russian-American Gallium Experiment"
+  ],
+  "kind": "solar_neutrino",
+  "secondary_kinds": [],
+  "collaboration_ids": ["collaboration:sage"],
+  "facility_roles": [
+    {
+      "facility_id": "facility:baksan-neutrino-observatory",
+      "role": "host",
+      "start": null,
+      "end": null,
+      "sources": ["src:sage-wikipedia"],
+      "verified_at": "2026-09-18",
+      "confidence": "uncertain",
+      "note": "Sourced from Wikipedia (rank 12) only this session."
+    }
+  ],
+  "beamline_ids": [],
+  "accelerator_ids": [],
+  "topic_ids": ["topic:solar-neutrinos"],
+  "intervals": [
+    {
+      "label": "construction / start",
+      "status": "construction",
+      "start": "1989-12",
+      "end": "1990-01",
+      "sources": ["src:sage-wikipedia"],
+      "verified_at": "2026-09-18",
+      "confidence": "approximate",
+      "quote": "Construction/Start: December 1989",
+      "note": "Sourced from Wikipedia (rank 12) only this session."
+    },
+    {
+      "label": "primary data-taking",
+      "status": "active",
+      "start": "1990-01",
+      "end": "2007-12",
+      "sources": ["src:sage-wikipedia"],
+      "verified_at": "2026-09-18",
+      "confidence": "approximate",
+      "quote": "Primary Data-Taking: January 1990 through December 2007 (168 extractions)",
+      "note": "Sourced from Wikipedia (rank 12) only this session."
+    },
+    {
+      "label": "continued operations",
+      "status": "active",
+      "start": "2007-12",
+      "end": null,
+      "sources": ["src:sage-wikipedia"],
+      "verified_at": "2026-09-18",
+      "confidence": "uncertain",
+      "quote": "End: August 2011, with continued operations thereafter",
+      "note": "Wikipedia's own wording is ambiguous/self-contradictory ('End: August 2011, with continued operations thereafter'); no source fetched this session clarifies whether SAGE stopped or continued. Left open (`end: null`, ongoing at `verified_at` per §2.3) rather than asserting either a firm shutdown or firm continuation."
+    }
+  ],
+  "physics_goals": [
+    {
+      "value": "Measure the flux of low-energy (pp-chain) solar neutrinos via the radiochemical gallium-to-germanium reaction",
+      "sources": ["src:sage-wikipedia"],
+      "verified_at": "2026-09-18",
+      "confidence": "uncertain",
+      "quote": "to measure the flux of solar neutrinos",
+      "locator": "Wikipedia",
+      "note": "Sourced from Wikipedia (rank 12) only this session."
+    }
+  ],
+  "unique_capabilities": [
+    {
+      "value": "Radiochemical liquid-gallium target sensitive to the lowest-energy (pp) solar neutrinos",
+      "sources": ["src:sage-wikipedia"],
+      "verified_at": "2026-09-18",
+      "confidence": "uncertain",
+      "quote": "Between 50–57 tonnes of liquid gallium metal served as the neutrino detection medium.",
+      "locator": "Wikipedia",
+      "note": "Sourced from Wikipedia (rank 12) only this session."
+    }
+  ],
+  "energy_regime": null,
+  "key_specs": [
+    {
+      "label": "Gallium target mass",
+      "quantity": {
+        "value": 50,
+        "unit": "t",
+        "dimension": "mass",
+        "approx": true,
+        "display": "50-57 t liquid gallium",
+        "sources": ["src:sage-wikipedia"],
+        "verified_at": "2026-09-18",
+        "confidence": "approximate",
+        "quote": "Between 50–57 tonnes of liquid gallium metal served as the neutrino detection medium.",
+        "note": "Sourced from Wikipedia (rank 12) only this session; recorded value is the lower bound of the stated range."
+      }
+    }
+  ],
+  "lineage": [],
+  "external": {
+    "inspire_experiment": 1109179,
+    "greybook": null,
+    "wikidata": null
+  },
+  "document_ids": [],
+  "result_ids": [],
+  "links": {
+    "website": null
+  },
+  "notes": [
+    "No dedicated official SAGE/Baksan website was reachable this session (inr.ru/baksan.html returned 404); `links.website` left null rather than guessed.",
+    "Derived fields (detector_ids, site_ids, result_ids, document_ids) deliberately not authored (v0.2 A1)."
+  ],
+  "sources": ["src:sage-inspire-experiment-record", "src:sage-wikipedia", "src:sage-1999-capture-rate"],
+  "status": "active",
+  "summary": {
+    "plain": "An experiment deep inside a Russian mountain that uses tonnes of liquid gallium metal to catch the Sun's lowest-energy neutrinos.",
+    "technical": "Radiochemical liquid-gallium solar-neutrino experiment at the Baksan Neutrino Observatory, Russia, ~2100 m underground; 50-57 t gallium target. Measured a solar neutrino capture rate of 67.2 (+7.2/-7.0 stat) (+3.5/-3.0 syst) SNU over 1990-1997, about half the Standard Solar Model prediction of 129 SNU."
+  },
+  "coverage": {
+    "tier": "D",
+    "researched": "partial"
+  }
+}
