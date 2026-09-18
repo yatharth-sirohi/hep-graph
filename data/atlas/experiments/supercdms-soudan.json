@@ -1,0 +1,148 @@
+{
+  "accelerator_ids": [],
+  "aliases": [
+    "SuperCDMS-Soudan",
+    "Super Cryogenic Dark Matter Search at Soudan Mine"
+  ],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:supercdms"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "distinct_from": [
+    "experiment:supercdms"
+  ],
+  "external": {
+    "greybook": null,
+    "inspire_experiment": 1298909,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "end": "2015",
+      "facility_id": "facility:soudan-underground-laboratory",
+      "locator": "INSPIRE experiment record 1298909 (date_started/date_completed); Symmetry Magazine, 2018-05-07",
+      "note": "",
+      "quote": "The most recent version, located at the Soudan Mine in Minnesota, completed operations in 2015.",
+      "role": "host",
+      "sources": [
+        "src:supercdms-inspire-experiment-soudan",
+        "src:supercdms-symmetry-2018-construction-begins"
+      ],
+      "start": "2009",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "id": "experiment:supercdms-soudan",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2006",
+      "label": "proposal",
+      "locator": "INSPIRE experiment record 1298909, field date_proposed",
+      "note": "Year-precision date from the INSPIRE experiment registry (rank 3); no independently fetched proposal document.",
+      "sources": [
+        "src:supercdms-inspire-experiment-soudan"
+      ],
+      "start": "2005",
+      "status": "proposed",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "approximate",
+      "end": "2009",
+      "label": "approval",
+      "locator": "INSPIRE experiment record 1298909, field date_approved",
+      "note": "Year-precision date from the INSPIRE experiment registry.",
+      "sources": [
+        "src:supercdms-inspire-experiment-soudan"
+      ],
+      "start": "2006",
+      "status": "approved",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": "2015",
+      "label": "data taking (iZIP detectors)",
+      "locator": "INSPIRE experiment record 1298909, field date_started; Symmetry Magazine, 2018-05-07",
+      "note": "INSPIRE gives date_started 2009-01-01 and date_completed 2015-01-01 for this experiment code (recid 1298909); Symmetry Magazine independently confirms operations at Soudan ended in 2015. Recorded honestly as a bounded, non-terminal `active` phase followed by its own terminal marker below -- this entity's timeline ends here, so there is no A3 conflict (unlike when this was folded into the SNOLAB record).",
+      "quote": "The most recent version, located at the Soudan Mine in Minnesota, completed operations in 2015.",
+      "sources": [
+        "src:supercdms-inspire-experiment-soudan",
+        "src:supercdms-symmetry-2018-construction-begins"
+      ],
+      "start": "2009",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "completed",
+      "note": "Terminal marker; INSPIRE date_completed is 2015-01-01, matching Symmetry Magazine's 'completed operations in 2015'.",
+      "quote": "The most recent version, located at the Soudan Mine in Minnesota, completed operations in 2015.",
+      "sources": [
+        "src:supercdms-inspire-experiment-soudan",
+        "src:supercdms-symmetry-2018-construction-begins"
+      ],
+      "start": "2015",
+      "status": "completed",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "key_specs": [],
+  "kind": "direct_dark_matter",
+  "lineage": [
+    {
+      "confidence": "verified",
+      "experiment_id": "experiment:cdms-ii",
+      "note": "INSPIRE's own description field for this experiment record explicitly ties the iZIP detector development to overcoming a CDMS-II limitation, naming CDMS-II directly -- this is the citable link the original research pass could not find.",
+      "quote": "A new style of detector, with interleaved Z-sensitive Ionization and Phonon sensors (iZIP), was developed and deployed in the CDMS facility at Soudan, resulting in substantially improved rejection of surface event backgrounds that had limited CDMS-II.",
+      "relation": "predecessor",
+      "sources": [
+        "src:supercdms-inspire-experiment-soudan"
+      ],
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "SuperCDMS Soudan",
+  "notes": [
+    "Split out of the combined `experiment:supercdms` record on 2026-09-18 per A3's own prescription ('a revived programme is a new experiment id with lineage'): this experiment code (INSPIRE recid 1298909, FNAL-E-0891) has an explicit terminal `date_completed` (2015-01-01) independently confirmed by Symmetry Magazine, so it is represented as its own, honestly-terminal timeline rather than a non-terminal interval papered over inside the still-active SNOLAB record."
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:supercdms-inspire-experiment-soudan",
+    "src:supercdms-symmetry-2018-construction-begins"
+  ],
+  "status": "completed",
+  "summary": {
+    "plain": "The first-generation SuperCDMS dark matter detector, which ran in the Soudan mine in Minnesota from about 2009 until 2015, using an improved version of the CDMS II crystal detectors before the experiment moved to a larger site in Canada.",
+    "technical": "SuperCDMS Soudan (INSPIRE FNAL-E-0891, recid 1298909): first-generation SuperCDMS programme at the Soudan Underground Laboratory, 2009-2015, using iZIP (interleaved Z-sensitive Ionization and Phonon) cryogenic Ge/Si detectors -- an evolution of the CDMS-II detector design with substantially improved surface-event background rejection. Superseded by SuperCDMS SNOLAB (experiment:supercdms)."
+  },
+  "topic_ids": [
+    "topic:dark-matter",
+    "topic:direct-dark-matter-detection"
+  ],
+  "type": "experiment",
+  "unique_capabilities": {
+    "confidence": "verified",
+    "note": "",
+    "quote": "A new style of detector, with interleaved Z-sensitive Ionization and Phonon sensors (iZIP), was developed and deployed in the CDMS facility at Soudan, resulting in substantially improved rejection of surface event backgrounds that had limited CDMS-II.",
+    "sources": [
+      "src:supercdms-inspire-experiment-soudan"
+    ],
+    "value": [
+      "iZIP (interleaved Z-sensitive Ionization and Phonon) sensor geometry giving substantially improved surface-event background rejection relative to CDMS-II"
+    ],
+    "verified_at": "2026-09-17"
+  }
+}

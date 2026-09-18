@@ -50,11 +50,11 @@
       "results and technical documents (not attempted; optional extra for a non-flagship)"
     ],
     "name": "Baikal-GVD",
-    "notes": "facility:baikal-deep-underwater-neutrino-telescope created per the seed list, with a lake site carrying sourced coordinates (51°46'N 104°24'E) and depth (~1366 m) from the collaboration's own 2023 status paper (arXiv:2309.16310). Status recorded as 'construction' (annual cluster expansion ongoing since 2016), not 'active', since the design cubic-kilometre array is not yet complete.",
+    "notes": "facility:baikal-deep-underwater-neutrino-telescope created per the seed list, with a lake site carrying sourced coordinates (51°46'N 104°24'E) and depth (~1366 m) from the collaboration's own 2023 status paper (arXiv:2309.16310). Verification fix (2026-09-18): status changed from 'construction' to 'commissioning' -- the same 2023 status paper states already-deployed clusters have taken continuous physics data since 2018 ('data collected in 2018-2022 indicate the presence of cosmic neutrino flux...'), the same overlapping build/operate pattern used for KM3NeT, so a bare 'construction' label understated it; the design cubic-kilometre array is still not complete.",
     "owner": "astro-neutrino",
     "priority": 2,
     "researched": "partial",
-    "status": "construction",
+    "status": "commissioning",
     "tier": "B"
   },
   {
@@ -148,11 +148,11 @@
       "unambiguous 2026 deployment status (official site's 'In 2026, the first detection line of P-ONE will be deployed' could not be resolved to already-happened vs still-upcoming)"
     ],
     "name": "P-ONE",
-    "notes": "Status classified conservatively: experiment:p-one remains 'proposed' (matching the collaboration's own current wording, 'a proposed large-volume neutrino telescope'), while the built pathfinder hardware (STRAW, deployed 2018; STRAW-b) is modelled as 'active' on detector:p-one, keeping the two levels honestly distinct per A10.",
+    "notes": "Verification fix (2026-09-18): status changed from 'proposed' to 'commissioning'. The original 'proposed' label for experiment:p-one while detector:p-one was 'active' was an internally inconsistent pair (a detector cannot be running for an experiment that is only proposed); the STRAW pathfinder has been actively deployed and taking data at Cascadia Basin since January 2019, so the experiment-level status now reflects that, while the full multi-cubic-kilometre design array (and P-ONE-1, its first production line, confirmed via a 2026-09-18 re-fetch of the official site to still be un-deployed) remains at the proposal stage.",
     "owner": "astro-neutrino",
     "priority": 3,
     "researched": "partial",
-    "status": "proposed",
+    "status": "commissioning",
     "tier": "B"
   },
   {
@@ -168,11 +168,11 @@
       "GRAND@Nançay and GRAND@Auger prototypes not modelled in detail (only named in notes)"
     ],
     "name": "GRAND",
-    "notes": "Full GRAND array status 'proposed' (200,000-antenna design, not built); the GRANDProto300 prototype's own build-out (13-antenna stage since 2023-06, 65-antenna stage since 2025-04) is modelled only on detector:grand so the experiment-level status keeps matching the collaboration's own current description of the full array, per A10.",
+    "notes": "Verification fix (2026-09-18): status changed from 'proposed' to 'commissioning'. The full 200,000-antenna GRAND design remains unbuilt/proposed, but the GRANDProto300 prototype's own build-out (13-antenna stage since 2023-06, 65-antenna stage since 2025-04) has genuinely been deployed and taking data, which is inconsistent with leaving the experiment record at 'proposed' while detector:grand was 'commissioning'; the experiment level now matches the detector.",
     "owner": "astro-neutrino",
     "priority": 3,
     "researched": "partial",
-    "status": "proposed",
+    "status": "commissioning",
     "tier": "B"
   }
 ]

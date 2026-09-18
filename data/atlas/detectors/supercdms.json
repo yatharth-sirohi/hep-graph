@@ -12,19 +12,6 @@
   "id": "detector:supercdms",
   "intervals": [
     {
-      "confidence": "approximate",
-      "end": "2015",
-      "label": "Soudan operating",
-      "locator": "INSPIRE experiment record 1298909",
-      "note": "See experiment:supercdms intervals for full sourcing detail; year-precision from the INSPIRE registry.",
-      "sources": [
-        "src:supercdms-inspire-experiment-soudan"
-      ],
-      "start": "2009",
-      "status": "active",
-      "verified_at": "2026-09-17"
-    },
-    {
       "confidence": "verified",
       "end": "2026-08",
       "label": "SNOLAB commissioning",
@@ -58,24 +45,11 @@
   },
   "name": "SuperCDMS detector",
   "notes": [
-    "Detector total/active/fiducial mass in kg was not found on any page fetched this session; only the crystal count (24) is sourced."
+    "Detector total/active/fiducial mass in kg was not found on any page fetched this session; only the crystal count (24) is sourced.",
+    "Split on 2026-09-18: this record now covers only the SNOLAB payload. The earlier Soudan-era iZIP payload is now detector:supercdms-soudan (see experiment:supercdms.lineage)."
   ],
   "parent_detector_id": null,
   "placements": [
-    {
-      "confidence": "approximate",
-      "end": "2015",
-      "note": "SuperCDMS Soudan was this detector's earlier main placement, superseded by the SNOLAB placement below; PLACEMENT_ROLES has no 'prior'/'former' value, so 'main' plus the end date is used per A2.",
-      "quote": "The most recent version, located at the Soudan Mine in Minnesota, completed operations in 2015.",
-      "role": "main",
-      "site_id": "site:soudan-minos-far-detector",
-      "sources": [
-        "src:supercdms-inspire-experiment-soudan",
-        "src:supercdms-symmetry-2018-construction-begins"
-      ],
-      "start": "2009",
-      "verified_at": "2026-09-17"
-    },
     {
       "confidence": "approximate",
       "end": null,
@@ -152,7 +126,7 @@
   ],
   "summary": {
     "plain": "Twenty-four silicon and germanium crystals, each the size of a hockey puck, cooled to a fraction of a degree above absolute zero more than a mile underground in Canada, watching for the faint vibration of a dark matter particle striking an atom.",
-    "technical": "24-crystal Si/Ge cryogenic ionization-and-phonon payload operated at 15-30 mK at SNOLAB, preceded by an earlier-generation payload that ran at the Soudan Underground Laboratory 2009-2015; multiple shielding layers (Cu, polyethylene, ultrapure Pb, radon barrier) suppress backgrounds."
+    "technical": "24-crystal Si/Ge cryogenic ionization-and-phonon payload operated at 15-30 mK at SNOLAB, succeeding an earlier-generation iZIP payload (detector:supercdms-soudan) that ran at the Soudan Underground Laboratory 2009-2015; multiple shielding layers (Cu, polyethylene, ultrapure Pb, radon barrier) suppress backgrounds."
   },
   "technology": {
     "confidence": "verified",

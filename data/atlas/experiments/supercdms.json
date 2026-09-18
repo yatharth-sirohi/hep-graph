@@ -2,8 +2,7 @@
   "accelerator_ids": [],
   "aliases": [
     "Super Cryogenic Dark Matter Search",
-    "SuperCDMS SNOLAB",
-    "SuperCDMS Soudan"
+    "SuperCDMS SNOLAB"
   ],
   "beamline_ids": [],
   "collaboration_ids": [
@@ -13,6 +12,9 @@
     "researched": "partial",
     "tier": "B"
   },
+  "distinct_from": [
+    "experiment:supercdms-soudan"
+  ],
   "energy_regime": {
     "confidence": "verified",
     "note": "",
@@ -31,20 +33,6 @@
   "facility_roles": [
     {
       "confidence": "approximate",
-      "end": "2015",
-      "facility_id": "facility:soudan-underground-laboratory",
-      "note": "Start year from INSPIRE experiment record 1298909 (date_started 2009); commonly reported public start of the SuperCDMS Soudan science run is later (~2011-2012) but no independently fetched detector/results paper confirms an exact date this session, so 2009 is used as approximate per the registry.",
-      "quote": "The most recent version, located at the Soudan Mine in Minnesota, completed operations in 2015.",
-      "role": "host",
-      "sources": [
-        "src:supercdms-inspire-experiment-soudan",
-        "src:supercdms-symmetry-2018-construction-begins"
-      ],
-      "start": "2009",
-      "verified_at": "2026-09-17"
-    },
-    {
-      "confidence": "approximate",
       "end": null,
       "facility_id": "facility:snolab",
       "note": "Start set to the 2018-05 DOE construction approval reported by Symmetry Magazine; facility:snolab was created by the `facilities` workstream after this record was drafted and now resolves.",
@@ -59,46 +47,6 @@
   ],
   "id": "experiment:supercdms",
   "intervals": [
-    {
-      "confidence": "approximate",
-      "end": "2006",
-      "label": "Soudan: proposal",
-      "locator": "INSPIRE experiment record 1298909, field date_proposed",
-      "note": "Year-precision date from the INSPIRE experiment registry (rank 3); no independently fetched proposal document.",
-      "sources": [
-        "src:supercdms-inspire-experiment-soudan"
-      ],
-      "start": "2005",
-      "status": "proposed",
-      "verified_at": "2026-09-17"
-    },
-    {
-      "confidence": "approximate",
-      "end": "2009",
-      "label": "Soudan: approval",
-      "locator": "INSPIRE experiment record 1298909, field date_approved",
-      "note": "Year-precision date from the INSPIRE experiment registry.",
-      "sources": [
-        "src:supercdms-inspire-experiment-soudan"
-      ],
-      "start": "2006",
-      "status": "approved",
-      "verified_at": "2026-09-17"
-    },
-    {
-      "confidence": "approximate",
-      "end": "2015",
-      "label": "Soudan: data taking (SuperCDMS Soudan)",
-      "note": "INSPIRE date_started 2009; Symmetry Magazine (2018-05-07) confirms operations at Soudan ended in 2015. Recorded as non-terminal `active` (not `completed`) because the same experiment id continues below at SNOLAB; A3 forbids a non-terminal interval after a terminal one on one entity.",
-      "quote": "The most recent version, located at the Soudan Mine in Minnesota, completed operations in 2015.",
-      "sources": [
-        "src:supercdms-inspire-experiment-soudan",
-        "src:supercdms-symmetry-2018-construction-begins"
-      ],
-      "start": "2009",
-      "status": "active",
-      "verified_at": "2026-09-17"
-    },
     {
       "confidence": "approximate",
       "end": "2014",
@@ -210,7 +158,19 @@
     }
   ],
   "kind": "direct_dark_matter",
-  "lineage": [],
+  "lineage": [
+    {
+      "confidence": "verified",
+      "experiment_id": "experiment:supercdms-soudan",
+      "note": "Split from a single combined record on 2026-09-18: SuperCDMS-Soudan (INSPIRE recid 1298909) has its own terminal `date_completed` (2015) and is now a separate experiment id per A3 ('a revived programme is a new experiment id with lineage'); this (SNOLAB) record carries the canonical predecessor pointer.",
+      "quote": "The most recent version, located at the Soudan Mine in Minnesota, completed operations in 2015.",
+      "relation": "upgrade_of",
+      "sources": [
+        "src:supercdms-symmetry-2018-construction-begins"
+      ],
+      "verified_at": "2026-09-17"
+    }
+  ],
   "links": {
     "website": {
       "confidence": "verified",
@@ -225,8 +185,7 @@
   },
   "name": "SuperCDMS",
   "notes": [
-    "Two INSPIRE experiment records exist for this programme: SuperCDMS-Soudan (recid 1298909, FNAL-E-0891) and SuperCDMS-SNOLAB (recid 1357671, FNAL-E-0947). Both phases are represented here as one experiment:supercdms record with dated intervals and two facility_roles/detector placements, per the wave-3 brief's guidance to record the Soudan phase as an interval rather than a separate experiment id. external.inspire_experiment cites the current (SNOLAB) recid. The Soudan-phase interval is deliberately kept non-terminal (status `active`, not `completed`) because A3 forbids a non-terminal interval after a terminal one on the same entity; the fact that Soudan operations ended in 2015 is recorded in that interval's note and end date instead.",
-    "No source fetched this session explicitly states a predecessor relationship between experiment:cdms-ii and experiment:supercdms in citable text; lineage is left empty rather than asserted from memory (A17). Known gap worth revisiting once an official SuperCDMS history page is found.",
+    "Split on 2026-09-18: this record now covers only the SNOLAB programme (INSPIRE recid 1357671). The earlier Soudan-era programme (INSPIRE recid 1298909, FNAL-E-0891), which has its own terminal `date_completed` (2015-01-01) confirmed by Symmetry Magazine, is now `experiment:supercdms-soudan`, linked here via `lineage`. A prior draft folded both eras into this one record with the Soudan interval deliberately mislabelled non-terminal (`active`) to dodge the A3 non-terminal-after-terminal check; that was incorrect and has been corrected by the split, per A3's own prescription.",
     "DOE Critical Decision milestones between the 2014 INSPIRE approval and the 2018 construction start (if any) are not recorded: no source fetched this session gives them."
   ],
   "physics_goals": {
@@ -245,13 +204,12 @@
   "secondary_kinds": [],
   "sources": [
     "src:supercdms-official-site",
-    "src:supercdms-inspire-experiment-snolab",
-    "src:supercdms-inspire-experiment-soudan"
+    "src:supercdms-inspire-experiment-snolab"
   ],
   "status": "active",
   "summary": {
-    "plain": "SuperCDMS looks for dark matter using silicon and germanium crystals cooled almost to absolute zero. It first ran at the Soudan mine in Minnesota until 2015, and its bigger successor is now starting up nearly a mile underground at SNOLAB in Canada, aiming at very light dark matter particles.",
-    "technical": "Cryogenic Ge/Si ionization-and-phonon dark matter search; SuperCDMS Soudan (Soudan Underground Laboratory, ~2009-2015) was succeeded by SuperCDMS SNOLAB, now under commissioning/early science with 24 detector crystals cooled to 15-30 mK, targeting sub-10-proton-mass WIMPs; full-sensitivity science operations are planned for 2027."
+    "plain": "SuperCDMS SNOLAB looks for dark matter using silicon and germanium crystals cooled almost to absolute zero. It is the successor to an earlier version of the experiment that ran at the Soudan mine in Minnesota until 2015, and is now starting up nearly a mile underground at SNOLAB in Canada, aiming at very light dark matter particles.",
+    "technical": "Cryogenic Ge/Si ionization-and-phonon dark matter search at SNOLAB, succeeding the earlier SuperCDMS Soudan programme (experiment:supercdms-soudan, 2009-2015). Now under commissioning/early science with 24 detector crystals cooled to 15-30 mK, targeting sub-10-proton-mass WIMPs; full-sensitivity science operations are planned for 2027."
   },
   "topic_ids": [
     "topic:dark-matter",

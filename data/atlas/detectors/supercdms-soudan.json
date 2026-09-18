@@ -1,0 +1,94 @@
+{
+  "aliases": [
+    "iZIP detector array (SuperCDMS Soudan)"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "experiment_ids": [
+    "experiment:supercdms-soudan"
+  ],
+  "id": "detector:supercdms-soudan",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2015",
+      "label": "operating",
+      "locator": "INSPIRE experiment record 1298909",
+      "note": "See experiment:supercdms-soudan intervals for full sourcing detail.",
+      "sources": [
+        "src:supercdms-inspire-experiment-soudan"
+      ],
+      "start": "2009",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "completed",
+      "note": "",
+      "sources": [
+        "src:supercdms-inspire-experiment-soudan",
+        "src:supercdms-symmetry-2018-construction-begins"
+      ],
+      "start": "2015",
+      "status": "completed",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "SuperCDMS Soudan detector (iZIP array)",
+  "notes": [
+    "No Soudan-specific crystal count or total mass was found by any source fetched this session or the original research pass; left unsourced rather than assumed from the later SNOLAB payload's 24-crystal figure."
+  ],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": "2015",
+      "note": "Placed at the existing site:soudan-minos-far-detector (owned by fermilab-neutrino-other): no source gives a coordinate for a distinct SuperCDMS-specific cavern at Soudan, so the shared Soudan Underground Laboratory site is reused.",
+      "quote": "The most recent version, located at the Soudan Mine in Minnesota, completed operations in 2015.",
+      "role": "main",
+      "site_id": "site:soudan-minos-far-detector",
+      "sources": [
+        "src:supercdms-inspire-experiment-soudan",
+        "src:supercdms-symmetry-2018-construction-begins"
+      ],
+      "start": "2009",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:supercdms-inspire-experiment-soudan",
+    "src:supercdms-symmetry-2018-construction-begins"
+  ],
+  "specs": {},
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "An array of cryogenic germanium and silicon crystal detectors, using an improved sensor design called iZIP, that ran in the Soudan mine in Minnesota from 2009 to 2015.",
+    "technical": "iZIP (interleaved Z-sensitive Ionization and Phonon) cryogenic Ge/Si detector payload operated at the Soudan Underground Laboratory, 2009-2015; an evolution of the CDMS-II detector design with substantially improved surface-event background rejection."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "INSPIRE experiment record 1298909, description field",
+    "note": "",
+    "quote": "A new style of detector, with interleaved Z-sensitive Ionization and Phonon sensors (iZIP), was developed and deployed in the CDMS facility at Soudan, resulting in substantially improved rejection of surface event backgrounds that had limited CDMS-II.",
+    "sources": [
+      "src:supercdms-inspire-experiment-soudan"
+    ],
+    "value": "iZIP (interleaved Z-sensitive Ionization and Phonon) cryogenic germanium/silicon detectors, an evolution of the CDMS-II detector design with improved surface-event background rejection",
+    "verified_at": "2026-09-17"
+  },
+  "technology_class": "germanium",
+  "technology_classes": [
+    "germanium",
+    "cryogenic_bolometer"
+  ],
+  "type": "detector"
+}

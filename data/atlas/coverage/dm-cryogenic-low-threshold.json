@@ -22,16 +22,15 @@
     "category": "direct_dark_matter",
     "entity_id": "experiment:supercdms",
     "experiment_id": "experiment:supercdms",
-    "facility": "Soudan Underground Laboratory (historical) / SNOLAB (current)",
+    "facility": "SNOLAB",
     "missing_fields": [
       "results (optional for tier B)",
       "documents (optional for tier B)",
       "collaboration:supercdms membership (institution/member counts not stated by the official site)",
-      "detector:supercdms total/active/fiducial mass in kg (only the 24-crystal count is sourced)",
-      "lineage to experiment:cdms-ii (technology/name continuity is well known but no fetched source states it explicitly)"
+      "detector:supercdms total/active/fiducial mass in kg (only the 24-crystal count is sourced)"
     ],
     "name": "SuperCDMS",
-    "notes": "Richly sourced current-affairs history: DOE construction approval (Symmetry Magazine, 2018-05-07), cooldown/commissioning (SLAC news, 2026-03-17), and early-science start (SLAC news, 2026-08-26) all carry verbatim quotes. Both SuperCDMS-Soudan (INSPIRE recid 1298909) and SuperCDMS-SNOLAB (recid 1357671) are folded into one experiment record per the brief's guidance; the Soudan-era interval is deliberately left non-terminal (status active, not completed) to satisfy A3.",
+    "notes": "Richly sourced current-affairs history: DOE construction approval (Symmetry Magazine, 2018-05-07), cooldown/commissioning (SLAC news, 2026-03-17), and early-science start (SLAC news, 2026-08-26) all carry verbatim quotes. RESOLVED by independent verification (2026-09-18): the earlier SuperCDMS-Soudan programme (INSPIRE recid 1298909) is now split out as its own record, experiment:supercdms-soudan, linked via lineage (relation upgrade_of), instead of being folded in as a deliberately-mislabelled non-terminal interval on this record. A citable predecessor link to experiment:cdms-ii was also found (INSPIRE 1298909's own description field) and recorded on the new Soudan record, resolving that previously-unresolved lineage gap.",
     "owner": "dm-cryogenic-low-threshold",
     "priority": 3,
     "researched": "partial",
@@ -150,6 +149,25 @@
     "priority": 3,
     "researched": "partial",
     "status": "active",
+    "tier": "B"
+  },
+  {
+    "category": "direct_dark_matter",
+    "entity_id": "experiment:supercdms-soudan",
+    "experiment_id": "experiment:supercdms-soudan",
+    "facility": "Soudan Underground Laboratory",
+    "missing_fields": [
+      "results (optional for tier B)",
+      "documents (optional for tier B)",
+      "detector:supercdms-soudan crystal count/total mass (no source found for the Soudan-era payload distinct from the later SNOLAB 24-crystal figure)",
+      "energy_regime / physics_goals (no Soudan-specific source distinct from the shared collaboration-level goal already on experiment:supercdms; left unauthored rather than duplicated without its own source)"
+    ],
+    "name": "SuperCDMS Soudan",
+    "notes": "Split out of experiment:supercdms on 2026-09-18 (independent-verification fix) per A3's own prescription: this experiment code (INSPIRE recid 1298909, FNAL-E-0891) has an explicit terminal `date_completed` (2015-01-01, INSPIRE + Symmetry Magazine agree) and is now represented with an honest terminal interval instead of a mislabelled non-terminal one. Carries a newly-found, sourced predecessor link to experiment:cdms-ii (INSPIRE's own description: the iZIP detector was developed 'resulting in substantially improved rejection of surface event backgrounds that had limited CDMS-II'). collaboration_ids points at the shared collaboration:supercdms.",
+    "owner": "dm-cryogenic-low-threshold",
+    "priority": 3,
+    "researched": "partial",
+    "status": "completed",
     "tier": "B"
   }
 ]
