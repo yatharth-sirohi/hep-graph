@@ -369,8 +369,8 @@ Source: a local `pytest -q` log (outside the repository tree, path not recorded)
 
 | Outcome | Count |
 | --- | ---: |
-| passed | 513 |
-| skipped | 129 |
+| passed | 536 |
+| skipped | 139 |
 
 ### 8.6 Browser test results
 
@@ -380,7 +380,7 @@ Source: a local `pytest -q` log (outside the repository tree, path not recorded)
 | --- | --- | ---: | ---: | --- |
 | test-results/atlas/a11y-axe-report.json | unknown | 0/0 | 0 | — |
 | test-results/atlas/a11y-report.json | passed | 30/30 | 0 | 2026-09-18T18:54:43.699Z |
-| test-results/atlas/report.json | passed | 25/25 | 0 | 2026-09-18T18:52:29.240Z |
+| test-results/atlas/report.json | passed | 25/25 | 0 | 2026-09-18T18:59:37.169Z |
 
 ### 8.7 Manual / human-verified fields
 

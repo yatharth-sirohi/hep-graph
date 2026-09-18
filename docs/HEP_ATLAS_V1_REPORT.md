@@ -14,7 +14,7 @@ script named next to it or taken from a report file under
   generated validation counts), `hep-atlas-v1-w3` (clustering, semantic zoom,
   filters, coordinate-reading fix) and `hep-atlas-v1-w4` (accessibility,
   browser matrix) were merged into it.
-- **Tests.** `python -m pytest -q`: 513 passed, 129 skipped (the skips are the
+- **Tests.** `python -m pytest -q`: 536 passed, 139 skipped (the skips are the
   PostgreSQL-backed HEP Graph tests that need a throwaway database). HEP
   Graph's own suite is unchanged. `python -m hepgraph.atlas.validate`: 0
   errors. Browser suite `tests/browser_atlas.cjs`: Chromium 24/24 on the fixture tree
