@@ -1,0 +1,89 @@
+{
+  "aliases": [],
+  "center": {
+    "confidence": "derived",
+    "kind": "campus",
+    "lat": 41.8325,
+    "locator": "About page, 'Visit us'",
+    "lon": -88.2525,
+    "note": "Map centre only, midway between the ring and the target hall; not a claim about any structure.",
+    "precision_m": 500,
+    "sources": [
+      "src:demo-lab-site"
+    ],
+    "verified_at": "2026-09-16"
+  },
+  "coverage": {
+    "researched": "partial",
+    "tier": "A"
+  },
+  "extent_m": 3000,
+  "facility_id": "facility:demo-lab",
+  "id": "map:demo-lab",
+  "levels": [
+    {
+      "depth_m": null,
+      "id": "surface",
+      "kind": "surface",
+      "name": "Surface",
+      "note": "Everything at grade: buildings, the target hall, the beam axis."
+    },
+    {
+      "depth_m": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "length",
+        "display": "9 m",
+        "locator": "About page, 'Accelerator complex'",
+        "note": "",
+        "sources": [
+          "src:demo-lab-site"
+        ],
+        "unit": "m",
+        "value": 9,
+        "verified_at": "2026-09-16"
+      },
+      "id": "ring-tunnel",
+      "kind": "underground",
+      "name": "Synchrotron tunnel (9 m below grade)",
+      "note": "Plan view; depth is constant around the ring."
+    }
+  ],
+  "linked_map_ids": [],
+  "links": {
+    "website": null
+  },
+  "name": "Demo Laboratory — main campus",
+  "notes": [],
+  "schema": "hep-atlas/0.2",
+  "schematics": [
+    {
+      "note": "Official schematic; topology only. Never drawn on the to-scale map.",
+      "source_id": "src:demo-lab-site",
+      "title": "Demo Laboratory accelerator complex (schematic, not to scale)",
+      "url": "https://example.org/demo-lab/complex"
+    }
+  ],
+  "site_ids": [
+    "site:demo-lab-campus"
+  ],
+  "sources": [
+    "src:demo-lab-site"
+  ],
+  "summary": {
+    "plain": "A to-scale plan of the fixture laboratory's main campus: the synchrotron ring, the target hall and the beam axis.",
+    "technical": "Campus map at 3 km half-extent with a surface level and one tunnel level."
+  },
+  "type": "map",
+  "unlocated": [
+    {
+      "backlog": "Find the near-hall civil drawing in the TDR appendix, or an official site plan with a scale bar, and georeference it against the surveyed beam axis.",
+      "entity_id": "experiment:demo",
+      "reason": "The experiment's near hall is inside the campus but no fetched public source gives its footprint or its position relative to the beam axis.",
+      "sources": [
+        "src:demo-experiment-site"
+      ],
+      "verified_at": "2026-09-16"
+    }
+  ]
+}

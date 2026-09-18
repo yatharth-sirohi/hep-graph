@@ -1978,10 +1978,19 @@ def slist_is_legacy(value: Any) -> bool:
     return not isinstance(value, list) and is_sourced_value(value)
 
 
+#: Keys that end in `_id` but name something *inside* a record rather than an
+#: entity in the atlas.  A25's `geometry.level_id` names one of its own map's
+#: `levels[].id`, which is a local label like `"surface"`, not `type:slug`;
+#: without this the dangling-reference rule would read every level name as a
+#: broken entity id.  `geometry-unknown-level` is what checks it instead.
+NON_REFERENCE_ID_KEYS: frozenset[str] = frozenset({'level_id'})
+
+
 def iter_reference_fields(record: Any, path: str = '') -> Iterable[tuple[str, str]]:
     """Yield (json_path, id) for every value under a key named `*_id` /
     `*_ids` (and `sources`, `roster_sources`, `roster_source_ids`,
-    `distinct_from`, `part_of`), recursively.
+    `distinct_from`, `part_of`), recursively, skipping
+    :data:`NON_REFERENCE_ID_KEYS`.
 
     Used by the validator for the §9 / A12 "dangling references" rule,
     independent of the per-type field tables.  A9 object entries are
@@ -1990,6 +1999,8 @@ def iter_reference_fields(record: Any, path: str = '') -> Iterable[tuple[str, st
     if isinstance(record, dict):
         for key, value in record.items():
             here = f'{path}.{key}' if path else key
+            if key in NON_REFERENCE_ID_KEYS:
+                continue
             if (key.endswith('_id') or key == 'part_of') and isinstance(value, str):
                 yield here, value
             elif key.endswith('_ids') or key in {'sources', 'roster_sources', 'distinct_from'}:

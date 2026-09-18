@@ -63,9 +63,12 @@ def test_results_are_written_back_into_the_source_files(data_dir: Path) -> None:
                                      content_hash="0123456789abcdef")
 
     report = linkcheck.run(data_dir, fetch=fetch, sleep=lambda _seconds: None, today=TODAY)
-    assert len(report.checked) == 8
+    # Counted from the fixture rather than typed: every source record is
+    # checked and rewritten, and the fixture gains sources as the atlas does.
+    source_count = len(list((data_dir / "sources").glob("*.json")))
+    assert len(report.checked) == source_count
     assert report.failures == []
-    assert len(report.written) == 8
+    assert len(report.written) == source_count
 
     record = _source(data_dir, "demo-tdr")
     assert record["link_check"] == {"last_checked": "2026-09-16", "http_status": 200,
