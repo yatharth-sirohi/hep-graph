@@ -97,12 +97,21 @@ BATCH = 25
 TITLE_BATCH = 50
 
 
-def _sparql(query: str, *, url: str = ENDPOINT, opener: Any = None) -> list[dict[str, Any]]:
+def _sparql(query: str, *, url: str = ENDPOINT, opener: Any = None,
+            tries: int = 4) -> list[dict[str, Any]]:
+    """One query, retried: the public endpoint drops long responses mid-stream."""
     request = urllib.request.Request(
         f"{url}?format=json&query={urllib.parse.quote(query)}",
         headers={"User-Agent": AGENT, "Accept": "application/sparql-results+json"})
-    with (opener or urllib.request.urlopen)(request, timeout=300) as response:
-        return json.load(response)["results"]["bindings"]
+    for attempt in range(tries):
+        try:
+            with (opener or urllib.request.urlopen)(request, timeout=300) as response:
+                return json.load(response)["results"]["bindings"]
+        except Exception:
+            if attempt == tries - 1:
+                raise
+            time.sleep(10 * (attempt + 1))
+    return []
 
 
 def _row(binding: dict[str, Any]) -> dict[str, str]:

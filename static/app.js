@@ -2581,6 +2581,9 @@
     pointers: new Map(),
     gesture: null,
     suggestions: [],
+    byId: null,
+    pathActive: false,
+    relate: { a: null, b: null },
   };
   state.map = mapState;
   const mapClamp = (v, lo, hi) => (v < lo ? lo : v > hi ? hi : v);
@@ -2813,6 +2816,12 @@
     setMapLoading("");
     mapNotice("", "hidden");
     $("#map-query").disabled = false;
+    // The relationship finder searches the same loaded index, so it opens for
+    // business at the same moment the map does.
+    ["#relate-a", "#relate-b"].forEach((id) => {
+      const field = $(id);
+      if (field) field.disabled = false;
+    });
     renderMapMeta();
     resizeMapCanvas();
     openMapView();
@@ -3097,7 +3106,7 @@
     const { scale, tx, ty } = m.view;
     const boxPx = m.nodeW * scale;
     const selected = m.selection;
-    const dimming = selected >= 0;
+    const dimming = selected >= 0 || m.pathActive;
 
     // Generation bands give the chart its rows.
     if (m.bandsUsable && m.rowSpacing * scale >= 5 && m.genTop) {
@@ -3124,6 +3133,8 @@
     if (dimming) {
       strokeMapEdges(ctx, (e) => m.edgeMark[e] === 1, "#b86c06", 2, 0.95);
       strokeMapEdges(ctx, (e) => m.edgeMark[e] === 2, "#168b85", 2, 0.95);
+      /* The route between two people is the loudest thing on the map. */
+      strokeMapEdges(ctx, (e) => m.edgeMark[e] === 3, "#c2185b", 3.2, 1);
     }
 
     const boxes = boxPx >= MAP_BOX_PX;
@@ -3167,6 +3178,8 @@
       paint((i) => m.mark[i] & 1 && !(m.mark[i] & 4), "#fff0d6", "#b86c06", 1);
       paint((i) => m.mark[i] & 2 && !(m.mark[i] & 4), "#dcf3f0", "#168b85", 1);
       paint((i) => m.mark[i] & 4, "#10283f", "#10283f", 1);
+      paint((i) => m.mark[i] & 8 && !(m.mark[i] & 16), "#ffe3ee", "#c2185b", 1);
+      paint((i) => m.mark[i] & 16, "#c2185b", "#7d1038", 1);
     }
 
     m.labelsShown = boxPx >= MAP_LABEL_PX && m.visCount <= MAP_LABEL_LIMIT;
@@ -3180,7 +3193,7 @@
         const i = m.visNodes[k];
         const flags = m.mark[i];
         ctx.globalAlpha = dimming && !flags ? 0.35 : 1;
-        ctx.fillStyle = flags & 4 ? "#ffffff" : "#1d3442";
+        ctx.fillStyle = flags & 4 || flags & 16 ? "#ffffff" : "#1d3442";
         const label = mapNodeName(i);
         const text =
           label.length > budget ? `${label.slice(0, budget - 1)}…` : label;
@@ -3420,11 +3433,85 @@
   }
 
   /* Search runs over precomputed folded names, so it stays instant. */
+  function mapIndexOf(id) {
+    const m = mapState;
+    if (m.status !== "ready") return -1;
+    if (!m.byId) {
+      m.byId = new Map();
+      for (let i = 0; i < m.count; i += 1) m.byId.set(String(m.ids[i]), i);
+    }
+    const found = m.byId.get(String(id));
+    return found === undefined ? -1 : found;
+  }
+
+  /* The edge index joining two nodes, whichever way the supervision runs. */
+  function mapEdgeBetween(a, b) {
+    const m = mapState;
+    for (let p = m.parentOff[a]; p < m.parentOff[a + 1]; p += 1)
+      if (m.parentNode[p] === b) return m.parentEdge[p];
+    for (let c = m.childOff[a]; c < m.childOff[a + 1]; c += 1)
+      if (m.childNode[c] === b) return m.childEdge[c];
+    return -1;
+  }
+
+  /* Light one route and dim the rest, then bring it into view. */
+  function highlightMapPath(ids) {
+    const m = mapState;
+    if (m.status !== "ready") return 0;
+    m.mark.fill(0);
+    m.edgeMark.fill(0);
+    m.selection = -1;
+    m.pathActive = false;
+    const indices = ids.map(mapIndexOf).filter((i) => i >= 0);
+    if (!indices.length) {
+      scheduleMapDraw();
+      return 0;
+    }
+    indices.forEach((i) => {
+      m.mark[i] |= 8;
+    });
+    m.mark[indices[0]] |= 16;
+    m.mark[indices[indices.length - 1]] |= 16;
+    for (let k = 0; k + 1 < indices.length; k += 1) {
+      const edge = mapEdgeBetween(indices[k], indices[k + 1]);
+      if (edge >= 0) m.edgeMark[edge] = 3;
+    }
+    m.pathActive = true;
+    let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
+    indices.forEach((i) => {
+      minX = Math.min(minX, m.xs[i]);
+      maxX = Math.max(maxX, m.xs[i]);
+      minY = Math.min(minY, m.ys[i]);
+      maxY = Math.max(maxY, m.ys[i]);
+    });
+    const pad = Math.max(m.nodeW * 2, 260);
+    const whole = mapClamp(
+      Math.min(m.w / (maxX - minX + pad), m.h / (maxY - minY + pad)),
+      m.minScale,
+      m.maxScale,
+    );
+    // Two people in distant families are thousands of columns apart, and the
+    // scale that fits both draws every box below a pixel. Showing one end
+    // legibly beats showing the whole route as a hairline.
+    m.pathSpread = m.nodeW * whole < 3;
+    if (m.pathSpread) {
+      mapCentreOn(indices[0], Math.max(m.fitScale * 6, whole));
+    } else {
+      m.view.scale = whole;
+      m.view.tx = m.w / 2 - ((minX + maxX) / 2) * whole;
+      m.view.ty = m.h / 2 - ((minY + maxY) / 2) * whole;
+    }
+    scheduleMapDraw();
+    renderMapZoomReadout();
+    return indices.length;
+  }
+
   function mapSearch(query) {
     const m = mapState;
     const q = foldName(query.trim());
     if (m.status !== "ready" || q.length < 2) return [];
     const digits = /^\d+$/.test(q);
+    const words = q.split(/[\s,]+/).filter((word) => word.length > 1);
     const best = [];
     const consider = (i, score) => {
       if (best.length < 8) {
@@ -3447,11 +3534,18 @@
       const name = m.lower[i];
       if (!name) continue;
       const at = name.indexOf(q);
-      if (at < 0) continue;
-      if (at === 0) consider(i, name.length === q.length ? 0 : 1);
-      else if (name.charCodeAt(at - 1) === 32 || name.charCodeAt(at - 1) === 46)
-        consider(i, 2);
-      else consider(i, 3);
+      if (at >= 0) {
+        if (at === 0) consider(i, name.length === q.length ? 0 : 1);
+        else if (name.charCodeAt(at - 1) === 32 || name.charCodeAt(at - 1) === 46)
+          consider(i, 2);
+        else consider(i, 3);
+        continue;
+      }
+      // "Sidney Coleman" should find "Sidney Richard Coleman", and surnames
+      // are stored first as often as not, so every word has to appear but
+      // their order does not matter.
+      if (words.length > 1 && words.every((word) => name.includes(word)))
+        consider(i, 4);
     }
     best.sort(
       (a, b) => a.score - b.score || mapNodeName(a.i).localeCompare(mapNodeName(b.i)),
@@ -3500,6 +3594,270 @@
       menu.append(b);
     });
     input.setAttribute("aria-expanded", "true");
+  }
+
+  /* ------------------------------------------------- relationship finder --- */
+
+  /* Each field holds a person only once one has been picked, so a half-typed
+     name can never be sent as if it were a choice. */
+  function relateField(which) {
+    const input = $(`#relate-${which}`);
+    const menu = $(`#relate-${which}-results`);
+    const choose = (index) => {
+      mapState.relate[which] = { index, id: String(mapState.ids[index]),
+                                 name: mapNodeName(index) };
+      input.value = mapNodeName(index);
+      menu.replaceChildren();
+      input.setAttribute("aria-expanded", "false");
+      $("#relate-run").disabled = !(mapState.relate.a && mapState.relate.b);
+    };
+    const suggest = () => {
+      const query = input.value;
+      mapState.relate[which] = null;
+      $("#relate-run").disabled = true;
+      menu.replaceChildren();
+      menu.classList.remove("inline-search-notice");
+      const found = mapSearch(query);
+      if (!query.trim()) {
+        input.setAttribute("aria-expanded", "false");
+        return;
+      }
+      if (!found.length) {
+        const empty = document.createElement("div");
+        empty.className = "search-result search-notice";
+        empty.textContent =
+          mapState.status === "ready"
+            ? "No one on the map matches that."
+            : "The map is still loading.";
+        menu.append(empty);
+        menu.classList.add("inline-search-notice");
+        return;
+      }
+      found.forEach((i) => {
+        const b = document.createElement("button");
+        b.type = "button";
+        b.className = "search-result";
+        b.setAttribute("role", "option");
+        const strong = document.createElement("strong");
+        strong.textContent = mapNodeName(i);
+        const small = document.createElement("small");
+        small.textContent = `INSPIRE ${mapState.ids[i]} · family tree of ${mapCount(mapState.comps[i] || 0)}`;
+        b.append(strong, small);
+        b.addEventListener("click", () => choose(i));
+        menu.append(b);
+      });
+      input.setAttribute("aria-expanded", "true");
+    };
+    input.addEventListener("input", () => {
+      clearTimeout(state.timers[`relate${which}`]);
+      state.timers[`relate${which}`] = setTimeout(suggest, 120);
+    });
+    input.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        menu.replaceChildren();
+        input.setAttribute("aria-expanded", "false");
+      }
+      if (e.key === "Enter") {
+        e.preventDefault();
+        const first = mapState.suggestions[0];
+        if (first != null && !mapState.relate[which]) choose(first);
+      }
+    });
+  }
+
+  function relateName(data, id) {
+    const person = (data.people || {})[String(id)];
+    return (person && person.name) || `INSPIRE ${id}`;
+  }
+
+  function renderRelationship(data) {
+    const box = $("#relate-result");
+    box.replaceChildren();
+    const a = mapState.relate.a;
+    const b = mapState.relate.b;
+
+    const verdict = document.createElement("p");
+    verdict.className = "relate-verdict";
+    if (data.status === "not_found" || data.status === "unavailable") {
+      verdict.textContent = data.message || "That could not be answered.";
+      box.append(verdict);
+      return;
+    }
+    const term = document.createElement("span");
+    term.className = "relate-term";
+    term.textContent = data.label;
+    verdict.append(
+      document.createTextNode(`${a.name} and ${b.name}: `),
+      term,
+    );
+    const note = document.createElement("p");
+    note.className = "relate-note";
+    note.textContent = data.explanation || "";
+    box.append(verdict, note);
+
+    const chain = data.chain || [];
+    if (!chain.length) return;
+    const list = document.createElement("ol");
+    list.className = "relate-chain";
+    chain.forEach((step, index) => {
+      const li = document.createElement("li");
+      if (data.meeting_point &&
+          (step.adviser === data.meeting_point || step.student === data.meeting_point))
+        li.className = "relate-meet";
+      const number = document.createElement("span");
+      number.className = "relate-step";
+      number.textContent = `${index + 1}.`;
+      const jump = document.createElement("button");
+      jump.type = "button";
+      jump.className = "relate-jump";
+      jump.textContent =
+        `${relateName(data, step.adviser)} advised ${relateName(data, step.student)}`;
+      jump.title = "Show this person on the map";
+      jump.addEventListener("click", () => {
+        const index = mapIndexOf(step.student);
+        if (index >= 0) {
+          mapCentreOn(index, Math.max(mapState.fitScale * 6, mapState.view.scale));
+          scheduleMapDraw();
+          $("#map-stage").scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+      });
+      li.append(
+        number,
+        jump,
+        document.createTextNode(" · "),
+        link(sourceLabel(step), step.source_url),
+      );
+      if (step.degree)
+        li.append(document.createTextNode(` · ${degreeLabel(step.degree)}`));
+      list.append(li);
+    });
+    const diagram = relationshipDiagram(data);
+    if (diagram) box.append(diagram);
+    box.append(list);
+
+    if (mapState.pathSpread) {
+      const spread = document.createElement("p");
+      spread.className = "relate-note";
+      spread.textContent =
+        "These two sit in different parts of the forest, so the map is showing the " +
+        "first of them; use the chain above to step along the route.";
+      box.append(spread);
+    }
+
+    if (data.meeting_point) {
+      const meet = document.createElement("p");
+      meet.className = "relate-note";
+      meet.textContent = `Their lines meet at ${relateName(data, data.meeting_point)}.`;
+      box.append(meet);
+    }
+  }
+
+  function relationshipDiagram(data) {
+    const chain = data.chain || [];
+    if (!chain.length) return null;
+    const people = [];
+    chain.forEach((step, index) => {
+      const from = step.direction === "down" ? step.adviser : step.student;
+      const to = step.direction === "down" ? step.student : step.adviser;
+      if (!index) people.push({ id: from, level: 0 });
+      const level = people[people.length - 1].level + (step.direction === "up" ? -1 : 1);
+      people.push({ id: to, level });
+    });
+    const levels = people.map((person) => person.level);
+    const top = Math.min(...levels);
+    const rows = Math.max(...levels) - top;
+    const stepX = 168;
+    const rowY = 62;
+    const width = Math.max(320, (people.length - 1) * stepX + 220);
+    const height = rows * rowY + 76;
+    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
+    svg.setAttribute("class", "relate-diagram");
+    svg.setAttribute("role", "img");
+    svg.setAttribute("aria-label",
+      `${data.label}: a chain of ${chain.length} supervision records.`);
+    const at = (index) => ({
+      x: 110 + index * stepX,
+      y: 38 + (people[index].level - top) * rowY,
+    });
+    people.forEach((person, index) => {
+      if (index) {
+        const from = at(index - 1);
+        const to = at(index);
+        const line = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        line.setAttribute("d",
+          `M ${from.x} ${from.y} C ${(from.x + to.x) / 2} ${from.y}, ` +
+          `${(from.x + to.x) / 2} ${to.y}, ${to.x} ${to.y}`);
+        line.setAttribute("class", "relate-diagram-link");
+        svg.append(line);
+      }
+      const spot = at(index);
+      const dot = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+      dot.setAttribute("cx", spot.x);
+      dot.setAttribute("cy", spot.y);
+      dot.setAttribute("r", index === 0 || index === people.length - 1 ? 7 : 5);
+      dot.setAttribute("class",
+        person.id === data.meeting_point ? "relate-diagram-meet" : "relate-diagram-dot");
+      const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
+      text.setAttribute("x", spot.x);
+      text.setAttribute("y", spot.y - 14);
+      text.setAttribute("text-anchor", "middle");
+      text.setAttribute("class", "relate-diagram-label");
+      const name = relateName(data, person.id);
+      text.textContent = name.length > 20 ? `${name.slice(0, 19)}…` : name;
+      svg.append(dot, text);
+    });
+    return svg;
+  }
+
+  async function runRelationship(event) {
+    event.preventDefault();
+    const a = mapState.relate.a;
+    const b = mapState.relate.b;
+    const box = $("#relate-result");
+    if (!a || !b) {
+      box.textContent = "Choose two people from the suggestions first.";
+      return;
+    }
+    $("#relate-run").disabled = true;
+    box.textContent = "Tracing the supervision records…";
+    try {
+      const data = await api(`/api/relationship?a=${encodeURIComponent(a.id)}&b=${encodeURIComponent(b.id)}`);
+      renderRelationship(data);
+      const route = data.line ||
+        (data.line_up || []).concat((data.line_down || []).slice().reverse().slice(1));
+      if (route && route.length > 1) {
+        const shown = highlightMapPath(route);
+        mapAnnounce(`${data.label}. ${shown} people highlighted on the map.`);
+      } else if (data.status === "ok" && data.label === "the same person") {
+        highlightMapPath([a.id]);
+      } else {
+        highlightMapPath([]);
+      }
+    } catch (error) {
+      box.textContent = `The relationship could not be traced: ${error.message}`;
+    } finally {
+      $("#relate-run").disabled = !(mapState.relate.a && mapState.relate.b);
+    }
+  }
+
+  function setupRelationshipFinder() {
+    const form = $("#relate-form");
+    if (!form) return;
+    relateField("a");
+    relateField("b");
+    form.addEventListener("submit", runRelationship);
+    $("#relate-clear").addEventListener("click", () => {
+      mapState.relate = { a: null, b: null };
+      ["a", "b"].forEach((which) => {
+        $(`#relate-${which}`).value = "";
+        $(`#relate-${which}-results`).replaceChildren();
+      });
+      $("#relate-result").replaceChildren();
+      $("#relate-run").disabled = true;
+      mapState.pathActive = false;
+      selectMapNode(-1);
+    });
   }
 
   function setupLineageMapSearch() {
@@ -3673,6 +4031,7 @@
     setupSearch("target");
     setupLineageSearch();
     setupLineageMapSearch();
+    setupRelationshipFinder();
     setupLineageMapInteractions();
     document.addEventListener("pointerdown", (event) => {
       ["source", "target", "lineage", "map"].forEach((which) => {

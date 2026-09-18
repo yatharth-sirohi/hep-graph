@@ -1398,3 +1398,123 @@ footer {
     margin-left: 0;
   }
 }
+
+
+/* ---------------------------------------------------------- relationship finder */
+.relate-card {
+  margin-bottom: 18px;
+}
+.relate-head h2 {
+  margin: 2px 0 6px;
+}
+.relate-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 14px;
+  align-items: end;
+  margin-top: 14px;
+}
+.relate-field label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+.relate-actions {
+  display: flex;
+  gap: 8px;
+}
+.relate-result:empty {
+  display: none;
+}
+.relate-result {
+  margin-top: 16px;
+  border-top: 1px solid var(--line, #dbe4e9);
+  padding-top: 14px;
+}
+.relate-verdict {
+  font-size: 20px;
+  font-weight: 650;
+  line-height: 1.35;
+  margin: 0 0 6px;
+}
+.relate-verdict .relate-term {
+  color: #0f6f6a;
+}
+.relate-note {
+  margin: 0 0 12px;
+  color: #4a626e;
+}
+.relate-chain {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 6px;
+}
+.relate-chain li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px;
+  padding: 7px 10px;
+  background: #f4f8f9;
+  border-radius: 8px;
+  font-size: 14px;
+}
+.relate-chain .relate-step {
+  font-variant-numeric: tabular-nums;
+  color: #6b8794;
+  min-width: 1.6em;
+}
+.relate-chain .relate-meet {
+  background: #e7f4f2;
+  box-shadow: inset 0 0 0 1px #9fd2cc;
+}
+@media (max-width: 720px) {
+  .relate-fields {
+    grid-template-columns: 1fr;
+  }
+}
+
+.relate-diagram {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  margin: 4px 0 14px;
+  overflow: visible;
+}
+.relate-diagram-link {
+  fill: none;
+  stroke: #c2185b;
+  stroke-width: 2;
+  opacity: 0.75;
+}
+.relate-diagram-dot {
+  fill: #ffffff;
+  stroke: #c2185b;
+  stroke-width: 2;
+}
+.relate-diagram-meet {
+  fill: #0f6f6a;
+  stroke: #0f6f6a;
+}
+.relate-diagram-label {
+  font-size: 12px;
+  fill: #26414e;
+}
+.relate-jump {
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  color: #10283f;
+  text-align: left;
+  cursor: pointer;
+  border-bottom: 1px dotted #9db3bd;
+}
+.relate-jump:hover,
+.relate-jump:focus-visible {
+  color: #0f6f6a;
+  border-bottom-color: #0f6f6a;
+}

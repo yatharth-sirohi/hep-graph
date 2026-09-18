@@ -344,7 +344,8 @@ class Handler(BaseHTTPRequestHandler):
             raise ValueError('Duplicate query parameters are not allowed.')
         args = {k: v[0] for k, v in pairs.items() if v[0] != ''}
         allowed = FILTER_KEYS | {'source', 'target', 'person', 'alternatives', 'q', 'limit',
-                                 'metric', 'direction', 'depth', 'version', 'mode', 'summary'}
+                                 'metric', 'direction', 'depth', 'version', 'mode', 'summary',
+                                 'a', 'b'}
         if set(args) - allowed:
             raise ValueError('Unknown query parameter.')
         if args.get('mode', 'database') != 'database':
@@ -422,6 +423,12 @@ class Handler(BaseHTTPRequestHandler):
                 return None
             return self.respond(body, content_type='application/json; charset=utf-8',
                                 cache_control='no-cache', etag=etag, raw=True)
+        if path == '/api/relationship':
+            # Both people are required and both are validated the same way, so
+            # a malformed id is refused before any query runs.
+            return self.respond(database.relationship(
+                person_id(args.get('a', '')), person_id(args.get('b', '')), filters,
+                depth=integer(args.get('depth'), 12, 1, 12)))
         if path.startswith('/api/ancestry/'):
             direction = args.get('direction', 'ancestors')
             if direction not in {'ancestors', 'descendants'}:

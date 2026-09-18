@@ -19,6 +19,7 @@ import threading
 from typing import Any
 
 from .graph import Filters
+from .kinship import best_meeting_point, describe, describe_link
 from .hlbes import SEARCH_INCOMPLETE
 from .graph_hydration import (PEOPLE, WORKS, Hydrator, HydrationBudget,
                               HydrationCache, placeholder)
@@ -414,6 +415,178 @@ class DatabaseGraphService:
                                       generation_of.items(), key=lambda item: (item[1], item[0]))
                                   if identifier in people],
                        "edges": edges}
+
+    #: A relationship is only interesting while it is a relationship. Beyond
+    #: this the two lines are so far apart that the answer is really "both are
+    #: physicists", and the walk would cost more than it says.
+    MAX_KINSHIP_DEPTH = 12
+
+    def _ancestors(self, person_id: int, depth: int) -> dict[int, list[int]]:
+        """Every ancestor of one person, with the shortest line reaching them.
+
+        The person themselves is included at distance zero, which is what makes
+        a direct line of descent fall out of the same comparison as a cousinhood.
+        """
+        rows = self.connection().execute(
+            """WITH RECURSIVE climb(person, depth, line) AS (
+                   SELECT %s::bigint, 0, ARRAY[%s::bigint]
+                   UNION ALL
+                   SELECT e.adviser_id, c.depth + 1, c.line || e.adviser_id
+                     FROM climb c
+                     JOIN graph_genealogy_edge e
+                       ON e.overlay_id = %s AND COALESCE(e.degree,'other') = ANY(%s)
+                      AND e.student_id = c.person
+                    WHERE c.depth < %s AND NOT e.adviser_id = ANY(c.line))
+               SELECT DISTINCT ON (person) person, line
+                 FROM climb ORDER BY person, depth, line""",
+            (int(person_id), int(person_id), self.config.overlay_id,
+             list(ADVISER_DEGREES), int(depth))).fetchall()
+        return {int(_at(row, 0)): [int(item) for item in _at(row, 1)] for row in rows}
+
+    #: How far each side may wander when the two share no ancestor. Four and
+    #: four meets in the middle of any eight-link route, which is already
+    #: further than a relationship worth naming.
+    MAX_LINK_DEPTH = 4
+
+    def _within_reach(self, person_id: int, depth: int) -> dict[int, list[int]]:
+        """Everyone reachable by following supervision in *either* direction.
+
+        Descent answers "are they related"; this answers "are they connected at
+        all", which for this data is the much more common case.
+        """
+        rows = self.connection().execute(
+            """WITH RECURSIVE reach(person, depth, line) AS (
+                   SELECT %s::bigint, 0, ARRAY[%s::bigint]
+                   UNION ALL
+                   SELECT step.other, r.depth + 1, r.line || step.other
+                     FROM reach r
+                     JOIN (SELECT student_id AS person, adviser_id AS other
+                             FROM graph_genealogy_edge
+                            WHERE overlay_id = %s AND COALESCE(degree,'other') = ANY(%s)
+                           UNION ALL
+                           SELECT adviser_id, student_id
+                             FROM graph_genealogy_edge
+                            WHERE overlay_id = %s AND COALESCE(degree,'other') = ANY(%s)) step
+                       ON step.person = r.person
+                    WHERE r.depth < %s AND NOT step.other = ANY(r.line))
+               SELECT DISTINCT ON (person) person, line
+                 FROM reach ORDER BY person, depth, line""",
+            (int(person_id), int(person_id), self.config.overlay_id, list(ADVISER_DEGREES),
+             self.config.overlay_id, list(ADVISER_DEGREES), int(depth))).fetchall()
+        return {int(_at(row, 0)): [int(item) for item in _at(row, 1)] for row in rows}
+
+    def _steps_along(self, line: list[int]) -> list[dict[str, Any]]:
+        """The relation behind each step of a path, in whichever direction it runs."""
+        steps: list[dict[str, Any]] = []
+        for here, there in zip(line, line[1:]):
+            for student, adviser, direction in ((here, there, "up"), (there, here, "down")):
+                row = self.connection().execute(
+                    "SELECT source_record, degree, curated, source_kind "
+                    "FROM graph_genealogy_edge WHERE overlay_id=%s AND student_id=%s "
+                    "AND adviser_id=%s AND COALESCE(degree,'other') = ANY(%s) "
+                    "ORDER BY CASE WHEN degree='phd' THEN 0 ELSE 1 END LIMIT 1",
+                    (self.config.overlay_id, student, adviser, list(ADVISER_DEGREES))).fetchone()
+                if row is not None:
+                    source_record = str(_at(row, 0))
+                    steps.append({"adviser": str(adviser), "student": str(student),
+                                  "direction": direction, "source_record": source_record,
+                                  "degree": _at(row, 1), "curated": bool(_at(row, 2)),
+                                  "source_kind": _at(row, 3),
+                                  "source_url": evidence_url(_at(row, 3), source_record)})
+                    break
+        return steps
+
+    def _relations_along(self, line: list[int]) -> list[dict[str, Any]]:
+        """The stored relation behind each step of a line, for its evidence."""
+        steps: list[dict[str, Any]] = []
+        for student, adviser in zip(line, line[1:]):
+            row = self.connection().execute(
+                "SELECT source_record, degree, curated, source_kind "
+                "FROM graph_genealogy_edge WHERE overlay_id=%s AND student_id=%s "
+                "AND adviser_id=%s AND COALESCE(degree,'other') = ANY(%s) "
+                "ORDER BY CASE WHEN degree='phd' THEN 0 ELSE 1 END LIMIT 1",
+                (self.config.overlay_id, student, adviser, list(ADVISER_DEGREES))).fetchone()
+            if row is None:
+                continue
+            source_record = str(_at(row, 0))
+            steps.append({"adviser": str(adviser), "student": str(student),
+                          "source_record": source_record, "degree": _at(row, 1),
+                          "curated": bool(_at(row, 2)), "source_kind": _at(row, 3),
+                          "source_url": evidence_url(_at(row, 3), source_record)})
+        return steps
+
+    def relationship(self, first_id: str, second_id: str, filters: Filters, *,
+                     depth: int = MAX_KINSHIP_DEPTH) -> dict[str, Any]:
+        """How two people are related in the adviser forest, in kinship terms.
+
+        Silence here is a claim about the records, never about the people: two
+        researchers with no line between them are reported as having none
+        *recorded*, which is what the overlay can actually support.
+        """
+        coverage = self.coverage()
+        base = {"mode": "database", "filters": filters.to_dict(),
+                "version": f"graph-db:{coverage.import_id}",
+                "coverage": self.dataset()["coverage"],
+                "people": {}, "chain": []}
+        if self.config.overlay_id is None:
+            return base | {"status": "unavailable",
+                           "message": "Adviser records are not part of this release."}
+        depth = max(1, min(int(depth), self.MAX_KINSHIP_DEPTH))
+        provider = self.provider()
+        for identifier in (first_id, second_id):
+            if provider.resolve_author(str(identifier)) is None:
+                return base | {"status": "not_found", "person": {"id": str(identifier)},
+                               "message": "This person has no adviser record in the pinned "
+                                          "graph, which is not evidence that none exists."}
+        if str(first_id) == str(second_id):
+            named = self._lineage_people(str(first_id), {})
+            return base | {"status": "ok", "people": named,
+                           "meeting_point": str(first_id), "distances": [0, 0],
+                           "chain": [], **describe(0, 0)}
+
+        first, second = int(first_id), int(second_id)
+        up, down = self._ancestors(first, depth), self._ancestors(second, depth)
+        meeting = best_meeting_point({person: len(line) - 1 for person, line in up.items()},
+                                     {person: len(line) - 1 for person, line in down.items()})
+        if meeting is None:
+            return self._connection_without_descent(first, second, base, depth)
+        ancestor, up_steps, down_steps = meeting
+        # The two climbs meet head to head, so the second is walked back down.
+        chain = self._relations_along(up[ancestor])
+        chain += list(reversed(self._relations_along(down[ancestor])))
+        on_show = {str(person): 0 for line in (up[ancestor], down[ancestor])
+                   for person in line}
+        named = self._lineage_people(str(first), on_show)
+        return base | {"status": "ok", "people": named, "chain": chain,
+                       "meeting_point": str(ancestor), "distances": [up_steps, down_steps],
+                       "line_up": [str(person) for person in up[ancestor]],
+                       "line_down": [str(person) for person in down[ancestor]],
+                       **describe(up_steps, down_steps)}
+
+    def _connection_without_descent(self, first: int, second: int, base: dict[str, Any],
+                                    depth: int) -> dict[str, Any]:
+        """No shared ancestor: look for any route through supervision at all."""
+        reach = min(self.MAX_LINK_DEPTH, depth)
+        outward, inward = self._within_reach(first, reach), self._within_reach(second, reach)
+        shared = set(outward) & set(inward)
+        if not shared:
+            named = self._lineage_people(str(first), {str(second): 0})
+            return base | {"status": "no_relation", "people": named,
+                           "label": "no recorded relation",
+                           "explanation": "No chain of supervision recorded in this release "
+                                          "connects them, within " f"{reach * 2} links. That "
+                                          "describes the records, not the researchers: INSPIRE "
+                                          "names an adviser for only a small share of physicists.",
+                           "searched_generations": reach * 2}
+        middle = min(shared, key=lambda person: (len(outward[person]) + len(inward[person]),
+                                                 person))
+        line = outward[middle] + list(reversed(inward[middle]))[1:]
+        steps = self._steps_along(line)
+        on_show = {str(person): index for index, person in enumerate(line)}
+        named = self._lineage_people(str(first), on_show)
+        return base | {"status": "connected", "people": named, "chain": steps,
+                       "line": [str(person) for person in line],
+                       **describe_link([step["direction"] for step in steps])}
 
     def _lineage_people(self, root: str, generation_of: dict[str, int]) -> dict[str, Any]:
         """Names for the people on show. A failure keeps the ID, never invents one."""

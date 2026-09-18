@@ -456,6 +456,48 @@
           </div>
         </div>
 
+        <form id="relate-form" class="data-card relate-card">
+          <div class="relate-head">
+            <p class="eyebrow">Relationship finder</p>
+            <h2>How are two physicists related?</h2>
+            <p class="subtle">
+              Pick two people. If one is an academic ancestor of the other, or
+              the two share one, the answer is a family-tree term: adviser,
+              academic siblings, second cousins once removed. If not, the chain
+              of supervision that connects them is traced instead.
+            </p>
+          </div>
+          <div class="relate-fields">
+            <div class="identity-field relate-field">
+              <label for="relate-a">First person</label>
+              <div class="picker-wrap">
+                <input id="relate-a" name="relate-a" type="search" autocomplete="off"
+                  placeholder="Name or INSPIRE ID" aria-controls="relate-a-results"
+                  aria-expanded="false" disabled />
+              </div>
+              <div id="relate-a-results" class="result-menu" role="listbox"
+                aria-label="Suggestions for the first person"></div>
+            </div>
+            <div class="identity-field relate-field">
+              <label for="relate-b">Second person</label>
+              <div class="picker-wrap">
+                <input id="relate-b" name="relate-b" type="search" autocomplete="off"
+                  placeholder="Name or INSPIRE ID" aria-controls="relate-b-results"
+                  aria-expanded="false" disabled />
+              </div>
+              <div id="relate-b-results" class="result-menu" role="listbox"
+                aria-label="Suggestions for the second person"></div>
+            </div>
+            <div class="relate-actions">
+              <button id="relate-run" class="primary-button" type="submit" disabled>
+                Find the relationship <span aria-hidden="true">→</span>
+              </button>
+              <button id="relate-clear" class="secondary-button" type="button">Clear</button>
+            </div>
+          </div>
+          <div id="relate-result" class="relate-result" role="status" aria-live="polite"></div>
+        </form>
+
         <div class="map-shell">
           <div class="map-toolbar">
             <div class="identity-field map-search">

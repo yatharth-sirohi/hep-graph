@@ -378,6 +378,25 @@ two record ids. The lesson is not that the agents were careless but that prose
 sources let a model produce text shaped like evidence; a source keyed on
 identifiers does not. Verify before storing, and prefer structured sources.
 
+**Relationships are named, not just found.** `/api/relationship?a=&b=` answers
+how two people are related, in the vocabulary of a family tree:
+`hepgraph/kinship.py` turns each person's distance to their nearest shared
+ancestor into "academic siblings", "second cousins once removed" or
+"great-grandadviser". The terms stay neutral - cousin and sibling are, aunt and
+nephew are not, and these are real people - so the chart's own word *removed*
+covers the rest.
+
+Kinship alone would almost always answer "not related", and the data says why:
+of 200 random pairs drawn from the largest family, **one** shared an ancestor.
+INSPIRE records an adviser for a small share of physicists, so the recorded
+lines are short and what holds a family together is people with two advisers,
+each joining two lines the way a marriage joins two families. So when there is
+no shared ancestor the route is traced through supervision in either direction
+(four links from each side) and reported as a connection rather than a descent
+- Hostert to Niels Bohr comes out as eight links through Guth and Aage Bohr.
+Silence stays a claim about the records: "no chain recorded in this release",
+never "unrelated".
+
 **Not every INSPIRE "author" is a person.** Author records built from thesis
 metadata include the form's own heading (`Advisor(s)`, 29 records), placeholders
 (`[unknown], [unknown]`) and the awarding faculty inverted like a surname
