@@ -266,7 +266,7 @@
         "detector full specs beyond GigaTracker (JINST PDF was bot-blocked)"
       ],
       "name": "NA62",
-      "notes": "Flagship, full depth: detector paper (JINST 12 (2017) P05025), 3 results (2021 measurement 3.4-sigma, 2025 observation >5-sigma, 2026 refined-measurement conference update), site:cern-ecn3-north-area, lineage to NA48.",
+      "notes": "Flagship, full depth: detector paper (JINST 12 (2017) P05025), 3 results (2021 measurement 3.4-sigma, 2025 observation >5-sigma, 2026 refined measurement -- now sourced to arXiv:2607.16413 rather than the CERN news press release, per A16), site:cern-ecn3-north-area, lineage to NA48.",
       "owner": "fixed-target",
       "priority": 1,
       "researched": "full",
@@ -534,18 +534,21 @@
     {
       "category": "reactor_neutrino",
       "entity_id": "experiment:double-chooz",
-      "facility": "various",
-      "globe_ready": false,
+      "facility": "Chooz Reactor Neutrino Site",
+      "globe_ready": true,
       "missing_fields": [
-        "all"
+        "hall-specific coordinates (official site domains all failed DNS; one shared approximate point from the adjacent power plant's Wikipedia page used for both halls)",
+        "official membership counts",
+        "leadership",
+        "far-detector-only running start date (inferred lower bound, not sourced verbatim)"
       ],
       "name": "Double Chooz",
-      "notes": "Identified in the coverage scope; not yet researched.",
+      "notes": "Mandatory bar written: experiment/detector/facility(facility:chooz, also needed by the cevns lead's NUCLEUS)/2 sites/collaboration/1 result (2012 evidence, verbatim quote) validated clean.",
       "owner": "reactor-solar-neutrino",
       "priority": 2,
-      "researched": "none",
+      "researched": "partial",
       "tier": "B",
-      "validated": false
+      "validated": true
     },
     {
       "category": "accelerator_neutrino",
@@ -855,18 +858,22 @@
     {
       "category": "reactor_neutrino",
       "entity_id": "experiment:reno",
-      "facility": "various",
-      "globe_ready": false,
+      "facility": "Yonggwang (Hanbit) Reactor Neutrino Site",
+      "globe_ready": true,
       "missing_fields": [
-        "all"
+        "hall-specific coordinates (official site domains all failed DNS/connection; one shared approximate point from the adjacent power plant's Wikipedia page used for both halls)",
+        "detector target mass/PMT count (not found in the 2012 discovery paper's abstract)",
+        "official membership counts",
+        "leadership",
+        "confirmation of continued operation or a shutdown date beyond the 2012 paper's 229-day analysis window"
       ],
       "name": "RENO",
-      "notes": "Identified in the coverage scope; not yet researched.",
+      "notes": "Mandatory bar written: experiment/detector/facility/2 sites/collaboration/1 result (2012 observation, verbatim quote) validated clean.",
       "owner": "reactor-solar-neutrino",
       "priority": 2,
-      "researched": "none",
+      "researched": "partial",
       "tier": "B",
-      "validated": false
+      "validated": true
     },
     {
       "category": "accelerator_neutrino",
@@ -912,11 +919,10 @@
       "facility": "CERN",
       "globe_ready": true,
       "missing_fields": [
-        "a rank <= 10 source for the 2024 approval date and 2033 start date (only a Wikipedia pointer found; WebSearch budget was exhausted before a CERN Council/SPSC document could be located)",
         "collaboration membership"
       ],
       "name": "SHiP",
-      "notes": "Placed at site:cern-ecn3-north-area (shared with NA48/NA62). Official site + a 2016 CERN Courier article confirm the SPSC review stage; the 2024 approval and 2033 start are flagged uncertain pending a better source.",
+      "notes": "Placed at site:cern-ecn3-north-area (shared with NA48/NA62). Official site + a 2016 CERN Courier article confirm the SPSC review stage. 2026-09-17 verification: the 2024 ECN3 approval is now corroborated by a rank<=10 source (arXiv:2606.11039, 'approved in 2024') and marked verified; the 2033 planned-start date remains sourced only to Wikipedia and is left uncertain (a 2024 CERN Courier article quotes an earlier internal aim of commissioning the facility by end-2030 / detector 2031).",
       "owner": "fixed-target",
       "priority": 2,
       "researched": "partial",
@@ -1169,17 +1175,16 @@
       "facility": "Fermilab (prototype) / SNOLAB",
       "globe_ready": true,
       "missing_fields": [
-        "results (optional for tier B)",
-        "documents (optional for tier B)",
-        "collaboration:damic membership",
-        "an explicit end-of-operations date/status (the brief describes DAMIC as 'completed'; the most recent DAMIC-specific source found this session, INSPIRE literature 2752302 dated 2024-01, describes an ongoing skipper-CCD run, so status is recorded as active with an open interval rather than asserting an unsourced completion -- FLAGGED FOR REVIEW)"
+        "results (no result: records written; optional for tier B)",
+        "documents (no TDR/detector-paper document: records written; optional for tier B)",
+        "collaboration:damic membership"
       ],
       "name": "DAMIC",
-      "notes": "Two INSPIRE experiment records (original Fermilab prototype 1108203, current SNOLAB programme 1401315) folded into one experiment record per the brief's guidance. Detector specs (7 x 16-Mpixel CCDs, 6.0 g each, 11 kg-day exposure) sourced to arXiv:2007.15622.",
+      "notes": "Two INSPIRE experiment records (original Fermilab prototype 1108203, current SNOLAB programme 1401315) folded into one experiment record per the brief's guidance. Detector specs (7 x 16-Mpixel CCDs, 6.0 g each, 11 kg-day exposure) sourced to arXiv:2007.15622. RESOLVED by independent verification (2026-09-17): status corrected from active to completed using a newly fetched source (arXiv:2507.11368, 2025 SNOLAB Future Projects Workshop report) stating the original DAMIC detector at SNOLAB has become a test stand for background studies.",
       "owner": "dm-cryogenic-low-threshold",
       "priority": 3,
       "researched": "partial",
-      "status": "active",
+      "status": "completed",
       "tier": "B",
       "validated": true
     },
@@ -1211,10 +1216,11 @@
       "missing_fields": [
         "collaboration (no distinct 'DarkQuest Collaboration' found; none created)",
         "detector record (reuses SeaQuest/SpinQuest apparatus; no separate hardware description sourced)",
-        "approval status beyond the 2021/2022 Snowmass proposal"
+        "approval status beyond the 2021/2022 Snowmass proposal",
+        "lineage to a true predecessor/upgrade target (SpinQuest, experiment:spinquest) -- out of this wave's ID_REGISTRY scope, so no lineage row is recorded rather than misattributing it to experiment:seaquest"
       ],
       "name": "DarkQuest",
-      "notes": "Proposed successor at site:fermilab-nm4-hall (referenced, not duplicated); status 'proposed' per a Snowmass 2021 contribution (arXiv:2203.08322), positioned there as an upgrade to 'SpinQuest' (out of scope) rather than directly to SeaQuest -- noted as a simplification.",
+      "notes": "Proposed successor at site:fermilab-nm4-hall (referenced, not duplicated); status 'proposed' per a Snowmass 2021 contribution (arXiv:2203.08322). The source positions DarkQuest as an upgrade to 'SpinQuest' (out of scope), not SeaQuest; a prior `upgrade_of experiment:seaquest` lineage row was removed 2026-09-17 verification as unsupported by the cited source (lineage is now empty rather than misattributed).",
       "owner": "fixed-target",
       "priority": 3,
       "researched": "partial",
@@ -1354,12 +1360,10 @@
       "missing_fields": [
         "collaboration formation date, membership/leadership counts",
         "INSPIRE experiment recid",
-        "exact Phase I/Phase II boundary dates (only overall 2011-2018 span sourced)",
-        "underground clean-room depth in m.w.e. (only the facility's 655 m rock-depth figure sourced; ~1624 m.w.e. reported in secondary summaries, not independently re-verified)",
-        "detector target_mass confidence is 'uncertain' (110 kg carried from a secondary summary, not independently re-verified against a primary EXO-200 detector paper)"
+        "exact Phase I/Phase II boundary dates (only overall 2011-2018 span sourced)"
       ],
       "name": "EXO-200",
-      "notes": "facility:wipp and site:wipp-surface-campus created (new, owned by this lead). experiment/detector/collaboration written. Completed 2011-2018; 234.1 kg·yr exposure, T1/2>3.5e25 yr (90% C.L.). Predecessor of nEXO.",
+      "notes": "facility:wipp and site:wipp-surface-campus created (new, owned by this lead). experiment/detector/collaboration written. Completed 2011-2018; 234.1 kg·yr exposure, T1/2>3.5e25 yr (90% C.L.). Predecessor of nEXO. Independent verification (2026-09-17, src:0vbb-verify-*) directly fetched the EXO-200 detector design paper (arXiv:1202.2192): site:wipp-surface-campus depth_mwe now recorded as 1585 m.w.e. (a later EXO-200 paper gives ~1624 m.w.e. instead; not reconciled), and detector target_mass (110 kg) raised from 'uncertain' to 'verified'.",
       "owner": "neutrino-mass-0vbb",
       "priority": 3,
       "researched": "partial",
@@ -1648,15 +1652,14 @@
       "globe_ready": false,
       "missing_fields": [
         "placement/site (official page names no specific interaction point; no new site created per the brief)",
-        "proposal date",
         "collaboration membership"
       ],
       "name": "MATHUSLA",
-      "notes": "status is null (not 'proposed'): no interval has a non-planned start date, so no interval covers the present build date and the A10-derived state is genuinely unrecorded; recorded honestly rather than asserting an unsupported covering status.",
+      "notes": "2026-09-17 fixed-target verification: status corrected from null to 'proposed'. The sole 'proposed' interval previously had `start: null`, so no interval covered the build date and A3's derived state was `unrecorded`; anchoring the interval on the dated Letter of Intent (arXiv:1811.00927, 2 Nov 2018) makes the derived state -- and `status` -- honestly `proposed` instead.",
       "owner": "fixed-target",
       "priority": 3,
       "researched": "partial",
-      "status": null,
+      "status": "proposed",
       "tier": "C",
       "validated": true
     },
@@ -2171,7 +2174,7 @@
         "2019-2021 interval gap (only first-run 2018 and broadband/completion 2021 sourced)"
       ],
       "name": "ABRACADABRA",
-      "notes": "Researched this session (2026-09-17): experiment, detector, collaboration records written; see docs/atlas-worklog/axions.md.",
+      "notes": "Researched this session (2026-09-17): experiment, detector, collaboration records written; see docs/atlas-worklog/axions.md. VERIFIER PASS (2026-09-17): reclassified technology_class to lumped_element_resonator per A24; see docs/atlas-worklog/VERIFY_axions.md.",
       "owner": "axions",
       "priority": 4,
       "researched": "partial",
@@ -2191,7 +2194,7 @@
         "2020-2024 run-history gap (only 2019 and 2025 runs sourced)"
       ],
       "name": "ADMX",
-      "notes": "Researched this session (2026-09-17): experiment, detector, collaboration records written; see docs/atlas-worklog/axions.md.",
+      "notes": "Researched this session (2026-09-17): experiment, detector, collaboration records written; see docs/atlas-worklog/axions.md. VERIFIER PASS (2026-09-17): dates, quotes and facility hosting re-checked against INSPIRE and official pages, no changes needed; see docs/atlas-worklog/VERIFY_axions.md.",
       "owner": "axions",
       "priority": 4,
       "researched": "partial",
@@ -2207,11 +2210,10 @@
       "missing_fields": [
         "collaboration membership counts / leadership",
         "results/documents records (non-flagship, full-depth extra, skipped)",
-        "key_specs (magnet count/field, resonator length) - no clean verbatim source found",
-        "ALPS II placement at site:desy-hera-north-hall-h1 is confidence: approximate, resting on a rank-12 Wikipedia source cited by the facilities lead's own site record, not a source fetched directly by axions"
+        "key_specs (magnet count/field, resonator length) - no clean verbatim source found"
       ],
       "name": "ALPS II",
-      "notes": "Researched this session (2026-09-17): experiment, detector, collaboration records written; see docs/atlas-worklog/axions.md.",
+      "notes": "Researched this session (2026-09-17): experiment, detector, collaboration records written; see docs/atlas-worklog/axions.md. VERIFIER PASS (2026-09-17): the HERA North Hall placement is now corroborated by DESY's own ALPS cryoplatform page (src:axions-alps-ii-desy-cryoplatform), not Wikipedia alone; confidence raised to verified; reclassified technology_class to light_shining_through_wall per A24; see docs/atlas-worklog/VERIFY_axions.md.",
       "owner": "axions",
       "priority": 4,
       "researched": "partial",
@@ -2227,11 +2229,10 @@
       "missing_fields": [
         "collaboration membership counts / leadership",
         "results/documents records (non-flagship, full-depth extra, skipped)",
-        "numeric magnet field strength/length (no clean verbatim source found)",
-        "precise SR8 hall coordinate (site uses CERN Prevessin campus approximate fallback)"
+        "precise SR8 building coordinate: VERIFIER FIX (2026-09-17) moved from an unsourced Prevessin-campus duplicate to a Point-8-area estimate sourced to a low-rank internal CERN document (src:axions-cast-sr8-point8-cryo-doc); still not an official-page/Greybook/detector-paper coordinate, flagged for a stronger source"
       ],
       "name": "CAST",
-      "notes": "Researched this session (2026-09-17): experiment, detector, collaboration records written; see docs/atlas-worklog/axions.md.",
+      "notes": "Researched this session (2026-09-17): experiment, detector, collaboration records written; see docs/atlas-worklog/axions.md. VERIFIER PASS (2026-09-17): re-fetched INSPIRE record confirmed proposed/approved/started/completed dates and added magnet key_specs (9 T, 10 m) from its description field; corrected the site coordinate (see missing_fields); reclassified technology_class to helioscope per A24; see docs/atlas-worklog/VERIFY_axions.md.",
       "owner": "axions",
       "priority": 4,
       "researched": "partial",
@@ -2312,7 +2313,7 @@
         "DMRadio-50L Stanford-campus site not created (facility:slac's own site is used for the DMRadio-m3 placement only)"
       ],
       "name": "DMRadio",
-      "notes": "Researched this session (2026-09-17): experiment, detector, collaboration records written; see docs/atlas-worklog/axions.md.",
+      "notes": "Researched this session (2026-09-17): experiment, detector, collaboration records written; see docs/atlas-worklog/axions.md. VERIFIER PASS (2026-09-17): reclassified technology_class to lumped_element_resonator per A24; see docs/atlas-worklog/VERIFY_axions.md.",
       "owner": "axions",
       "priority": 4,
       "researched": "partial",
@@ -2369,7 +2370,7 @@
         "numeric magnet field strength and cavity volume (no clean verbatim source found)"
       ],
       "name": "HAYSTAC",
-      "notes": "Researched this session (2026-09-17): experiment, detector, collaboration records written; see docs/atlas-worklog/axions.md.",
+      "notes": "Researched this session (2026-09-17): experiment, detector, collaboration records written; see docs/atlas-worklog/axions.md. VERIFIER PASS (2026-09-17): dates, quotes and facility hosting re-checked against INSPIRE and official pages, no changes needed; see docs/atlas-worklog/VERIFY_axions.md.",
       "owner": "axions",
       "priority": 4,
       "researched": "partial",
@@ -2389,7 +2390,7 @@
         "exact BabyIAXO construction-start date (only a 2025 confirmation date sourced)"
       ],
       "name": "IAXO",
-      "notes": "Researched this session (2026-09-17): experiment, detector, collaboration records written; see docs/atlas-worklog/axions.md.",
+      "notes": "Researched this session (2026-09-17): experiment, detector, collaboration records written; see docs/atlas-worklog/axions.md. VERIFIER PASS (2026-09-17): fixed two non-verbatim 'quote' fields on collaboration:iaxo (formation date value itself, 2017-07-07, was already correct); reclassified technology_class to helioscope per A24; see docs/atlas-worklog/VERIFY_axions.md.",
       "owner": "axions",
       "priority": 4,
       "researched": "partial",

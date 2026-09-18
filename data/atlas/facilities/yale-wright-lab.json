@@ -17,13 +17,13 @@
       "confidence": "approximate",
       "end": null,
       "label": "operating",
-      "note": "No fetched source gives Wright Laboratory's founding date. Start is approximated to 2018, the earliest operational milestone this session found for a hosted experiment (HAYSTAC's Phase I result accepted to Physical Review D, April 2018; see experiment:haystac intervals), used as a conservative lower bound for this open-ended 'active' interval, not a claimed founding date. VERIFIER FIX (2026-09-17): the previous start:null/end:null interval covered no date under A3, so the derived state at the build date was None while status said 'active' (validator error status-not-derived-state); this bound resolves that.",
+      "note": "No fetched source gives Wright Laboratory's founding date. Start is approximated to 2010, the earliest sourced HAYSTAC milestone (the experiment's INSPIRE date_proposed; see experiment:haystac intervals), used as a conservative lower bound for this open-ended 'active' interval (a hosted experiment cannot predate its host facility), not a claimed founding date. VERIFIER FIX (2026-09-17): an earlier fix used 2018 here, which the validator then flagged (experiment-before-facility) because HAYSTAC's own earliest interval starts in 2010; corrected to 2010 to resolve that inconsistency. The underlying issue this interval addresses is that the original start:null/end:null interval covered no date under A3, so the derived state at the build date was None while status said 'active' (validator error status-not-derived-state).",
       "quote": "Located at Yale's Wright Laboratory in New Haven, Connecticut, the HAYSTAC collaboration consists of members from Yale University, the University of California Berkeley, Lawrence Berkeley National Laboratory, and the University of Colorado at Boulder.",
       "sources": [
         "src:axions-haystac-official-page",
         "src:axions-haystac-inspire-experiment"
       ],
-      "start": "2018",
+      "start": "2010",
       "status": "active",
       "verified_at": "2026-09-17"
     }

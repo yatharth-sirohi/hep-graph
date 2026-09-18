@@ -1,5 +1,69 @@
 {
   "schema": "hep-atlas/0.2",
+  "src:0vbb-verify-exo-200-detector-design-arxiv-1202-2192": {
+    "accessed": "2026-09-17",
+    "archive_url": null,
+    "cited_by": {
+      "detector:exo-200": [
+        "/sources",
+        "/specs/target_mass"
+      ],
+      "site:wipp-surface-campus": [
+        "/depth_mwe",
+        "/sources"
+      ]
+    },
+    "content_hash": null,
+    "date": "2012-02",
+    "excerpt": "EXO-200 is located at a depth of 1585 m water equivalent in the Waste Isolation Pilot Plant (WIPP) near Carlsbad, New Mexico.",
+    "id": "src:0vbb-verify-exo-200-detector-design-arxiv-1202-2192",
+    "link_check": {
+      "http_status": null,
+      "last_checked": null,
+      "redirect": null
+    },
+    "publisher": "EXO-200 Collaboration",
+    "publisher_id": "collaboration:exo-200",
+    "rank": 5,
+    "reference": {
+      "url": "https://arxiv.org/abs/1202.2192"
+    },
+    "retrieval": "partial",
+    "source_type": "detector_paper",
+    "title": "The EXO-200 detector, part I: Detector design and construction",
+    "type": "src",
+    "url": "https://arxiv.org/abs/1202.2192"
+  },
+  "src:0vbb-verify-legend-200-hall-a-lbl": {
+    "accessed": "2026-09-17",
+    "archive_url": null,
+    "cited_by": {
+      "detector:legend-200": [
+        "/placements/0",
+        "/sources"
+      ]
+    },
+    "content_hash": null,
+    "date": "2023-07-01",
+    "excerpt": "Its first phase, LEGEND-200, reuses the GERDA cryostat in Hall A of the Laboratori Nazionali del Gran Sasso (LNGS) underground laboratory in Italy to house 200 kg of 76Ge-enriched high-purity germanium (HPGe) detectors.",
+    "id": "src:0vbb-verify-legend-200-hall-a-lbl",
+    "link_check": {
+      "http_status": null,
+      "last_checked": null,
+      "redirect": null
+    },
+    "publisher": "Lawrence Berkeley National Laboratory, Nuclear Science Division",
+    "publisher_id": null,
+    "rank": 2,
+    "reference": {
+      "url": "https://nuclearscience.lbl.gov/2023/07/01/legend-200-enters-data-production-phase/"
+    },
+    "retrieval": "partial",
+    "source_type": "official_facility_site",
+    "title": "LEGEND-200 Enters Data Production Phase",
+    "type": "src",
+    "url": "https://nuclearscience.lbl.gov/2023/07/01/legend-200-enters-data-production-phase/"
+  },
   "src:aleph-cern-courier-article": {
     "accessed": "2026-09-17",
     "cited_by": {
@@ -1353,6 +1417,7 @@
       ],
       "detector:baikal-gvd": [
         "/intervals/0",
+        "/intervals/1",
         "/placements/0",
         "/sources",
         "/specs/depth_max",
@@ -1362,6 +1427,7 @@
       ],
       "experiment:baikal-gvd": [
         "/intervals/1",
+        "/intervals/2",
         "/key_specs/0/quantity",
         "/key_specs/1/quantity",
         "/key_specs/2/quantity",
@@ -3708,7 +3774,6 @@
         "/sources"
       ],
       "facility:mit": [
-        "/intervals/0",
         "/links/website",
         "/operator_text",
         "/sources"
@@ -3746,6 +3811,9 @@
       "experiment:abracadabra": [
         "/intervals/0",
         "/sources"
+      ],
+      "facility:mit": [
+        "/intervals/0"
       ]
     },
     "date": "2018-10",
@@ -3999,6 +4067,34 @@
     "type": "src",
     "url": "https://arxiv.org/abs/2504.07279"
   },
+  "src:axions-alps-ii-desy-cryoplatform": {
+    "accessed": "2026-09-17",
+    "cited_by": {
+      "detector:alps-ii": [
+        "/placements/0",
+        "/sources"
+      ],
+      "experiment:alps-ii": [
+        "/sources"
+      ]
+    },
+    "date": null,
+    "excerpt": "The ALPS cryoplatform subcooler box (ACPS) in the hall HERA North ... has recently been partially renovated to accommodate the ALPS II experiment in the HERA tunnel.",
+    "id": "src:axions-alps-ii-desy-cryoplatform",
+    "link_check": {
+      "http_status": null,
+      "last_checked": null,
+      "redirect": null
+    },
+    "publisher": "DESY / ALPS Collaboration",
+    "rank": 1,
+    "reference": {},
+    "retrieval": "partial",
+    "source_type": "official_experiment_site",
+    "title": "DESY Cryoplatform - ALPS DESY",
+    "type": "src",
+    "url": "https://alps.desy.de/our_activities/technology/desy_cryoplatform/"
+  },
   "src:axions-alps-ii-inspire-experiment": {
     "accessed": "2026-09-17",
     "cited_by": {
@@ -4132,13 +4228,20 @@
         "/intervals/0",
         "/intervals/1",
         "/placements/0",
-        "/sources"
+        "/sources",
+        "/specs/length",
+        "/specs/magnetic_field"
       ],
       "experiment:cast": [
         "/facility_roles/0",
         "/intervals/0",
         "/intervals/1",
         "/intervals/2",
+        "/key_specs/0/quantity",
+        "/key_specs/1/quantity",
+        "/sources"
+      ],
+      "site:cern-cast-sr8": [
         "/sources"
       ]
     },
@@ -4159,6 +4262,31 @@
     "type": "src",
     "url": "https://inspirehep.net/experiments/1110249"
   },
+  "src:axions-cast-sr8-point8-cryo-doc": {
+    "accessed": "2026-09-17",
+    "cited_by": {
+      "site:cern-cast-sr8": [
+        "/coordinates",
+        "/sources"
+      ]
+    },
+    "date": null,
+    "excerpt": "CERN Axion Solar Telescope (CAST) - LHC Point 8 ... CRYO REFRIG LHC CAST_COLDBOX /SR8 2875R DEFAUT GENERAL",
+    "id": "src:axions-cast-sr8-point8-cryo-doc",
+    "link_check": {
+      "http_status": null,
+      "last_checked": null,
+      "redirect": null
+    },
+    "publisher": "CERN AT/ECR (Accelerator Technology / Electrical and Cryogenics), reposted copy",
+    "rank": 12,
+    "reference": {},
+    "retrieval": "partial",
+    "source_type": "secondary",
+    "title": "Organisation, procedures and communication with TCR (CERN AT/ECR cryogenics alarm configuration slide deck, hosted copy)",
+    "type": "src",
+    "url": "https://www.slideserve.com/reegan/organisation-procedures-and-communication-with-tcr"
+  },
   "src:axions-cern-home-cast": {
     "accessed": "2026-09-17",
     "cited_by": {
@@ -4174,7 +4302,6 @@
         "/unique_capabilities/0"
       ],
       "site:cern-cast-sr8": [
-        "/coordinates",
         "/sources"
       ]
     },
@@ -4281,6 +4408,9 @@
         "/intervals/1",
         "/intervals/2",
         "/sources"
+      ],
+      "facility:yale-wright-lab": [
+        "/intervals/0"
       ]
     },
     "date": null,
@@ -4414,7 +4544,7 @@
       ]
     },
     "date": null,
-    "excerpt": "IAXO Collaboration formally established (July 7, 2017); DESY PRC endorses the BabyIAXO proposal (July 18, 2019).",
+    "excerpt": "The IAXO collaboration was formally constituted. An initial set of 17 institutions from over the world have approved a collaboration agreement (July 7, 2017); the committee has endorsed the [BabyIAXO] proposal and encourages the collaboration to continue the preparations for the realization (July 18, 2019).",
     "id": "src:axions-iaxo-news-page",
     "link_check": {
       "http_status": null,
@@ -4499,12 +4629,7 @@
   },
   "src:axions-nominatim-cern-prevessin": {
     "accessed": "2026-09-17",
-    "cited_by": {
-      "site:cern-cast-sr8": [
-        "/coordinates",
-        "/sources"
-      ]
-    },
+    "cited_by": {},
     "date": null,
     "excerpt": "lat 46.2601088, lon 6.0577057, CERN - Site de Prevessin, Route des Ceytines, Saint-Genis-Pouilly, France",
     "id": "src:axions-nominatim-cern-prevessin",
@@ -5670,6 +5795,195 @@
     "type": "src",
     "url": "https://api.ror.org/v2/organizations/02ex6cf31"
   },
+  "src:borexino-cno-evidence-2020": {
+    "accessed": "2026-09-17",
+    "archive_url": null,
+    "cited_by": {
+      "detector:borexino": [
+        "/sources",
+        "/specs/fiducial_mass"
+      ],
+      "experiment:borexino": [
+        "/sources",
+        "/unique_capabilities/0"
+      ],
+      "result:borexino-cno-evidence-2020": [
+        "/claim",
+        "/date",
+        "/key_value_text",
+        "/significance",
+        "/sources",
+        "/why_it_matters"
+      ]
+    },
+    "content_hash": null,
+    "date": "2020-06",
+    "excerpt": "Here, we report the direct observation, with a high statistical significance, of neutrinos produced in the CNO cycle in the Sun. This is the first experimental evidence of this process obtained with the unprecedentedly radio-pure large-volume liquid-scintillator Borexino detector.",
+    "id": "src:borexino-cno-evidence-2020",
+    "link_check": {
+      "http_status": null,
+      "last_checked": null,
+      "redirect": null
+    },
+    "publisher": "Borexino Collaboration",
+    "publisher_id": "collaboration:borexino",
+    "rank": 10,
+    "reference": {
+      "arxiv": "2006.15115",
+      "doi": "10.1038/s41586-020-2934-0"
+    },
+    "retrieval": "partial",
+    "source_type": "arxiv",
+    "title": "Experimental evidence of neutrinos produced in the CNO fusion cycle in the Sun",
+    "type": "src",
+    "url": "https://arxiv.org/abs/2006.15115"
+  },
+  "src:borexino-inspire-experiment-record": {
+    "accessed": "2026-09-17",
+    "archive_url": null,
+    "cited_by": {
+      "collaboration:borexino": [
+        "/formation",
+        "/sources"
+      ],
+      "experiment:borexino": [
+        "/sources"
+      ]
+    },
+    "content_hash": null,
+    "date": null,
+    "excerpt": "control_number 1110446, legacy_name 'BOREXINO'.",
+    "id": "src:borexino-inspire-experiment-record",
+    "link_check": {
+      "http_status": null,
+      "last_checked": null,
+      "redirect": null
+    },
+    "publisher": "INSPIRE-HEP",
+    "publisher_id": null,
+    "rank": 3,
+    "reference": {},
+    "retrieval": "partial",
+    "source_type": "experiment_registry",
+    "title": "Borexino — INSPIRE experiment record",
+    "type": "src",
+    "url": "https://inspirehep.net/experiments/1110446"
+  },
+  "src:borexino-official-site": {
+    "accessed": "2026-09-17",
+    "archive_url": null,
+    "cited_by": {
+      "collaboration:borexino": [
+        "/links/website",
+        "/sources"
+      ],
+      "experiment:borexino": [
+        "/facility_roles/0",
+        "/links/website",
+        "/physics_goals/0",
+        "/sources"
+      ]
+    },
+    "content_hash": null,
+    "date": null,
+    "excerpt": "A solar neutrino detector designed to observe neutrinos produced in the Sun's nuclear fusion processes; founders Gianpaolo Bellini and Frank Calaprice (2023 Hans A. Bethe Prize); groundbreaking observation of solar neutrinos from the pp and CNO chains (EPS 2021 Cocconi Prize citation).",
+    "id": "src:borexino-official-site",
+    "link_check": {
+      "http_status": null,
+      "last_checked": null,
+      "redirect": null
+    },
+    "publisher": "Borexino Collaboration / INFN",
+    "publisher_id": "collaboration:borexino",
+    "rank": 1,
+    "reference": {},
+    "retrieval": "partial",
+    "source_type": "official_experiment_site",
+    "title": "Borexino Experiment — home",
+    "type": "src",
+    "url": "https://borex.lngs.infn.it/"
+  },
+  "src:borexino-pp-first-detection-2014": {
+    "accessed": "2026-09-17",
+    "archive_url": null,
+    "cited_by": {
+      "experiment:borexino": [
+        "/sources"
+      ],
+      "result:borexino-pp-first-detection-2014": [
+        "/claim",
+        "/date",
+        "/key_value_text",
+        "/significance",
+        "/sources",
+        "/why_it_matters"
+      ]
+    },
+    "content_hash": null,
+    "date": "2014-08",
+    "excerpt": "The first direct spectral measurement of the neutrinos from the keystone proton-proton fusion; about 99 per cent of the power of the Sun is generated by the proton-proton fusion process.",
+    "id": "src:borexino-pp-first-detection-2014",
+    "link_check": {
+      "http_status": null,
+      "last_checked": null,
+      "redirect": null
+    },
+    "publisher": "Nature / Borexino Collaboration",
+    "publisher_id": "collaboration:borexino",
+    "rank": 10,
+    "reference": {
+      "doi": "10.1038/nature13702"
+    },
+    "retrieval": "partial",
+    "source_type": "journal_article",
+    "title": "Neutrinos from the primary proton–proton fusion process in the Sun",
+    "type": "src",
+    "url": "https://doi.org/10.1038/nature13702"
+  },
+  "src:borexino-wikipedia": {
+    "accessed": "2026-09-17",
+    "archive_url": null,
+    "cited_by": {
+      "collaboration:borexino": [
+        "/intervals/0",
+        "/intervals/1"
+      ],
+      "detector:borexino": [
+        "/intervals/0",
+        "/intervals/1",
+        "/placements/0",
+        "/sources",
+        "/specs/target_mass",
+        "/technology"
+      ],
+      "experiment:borexino": [
+        "/intervals/0",
+        "/intervals/1",
+        "/intervals/2",
+        "/key_specs/0/quantity",
+        "/key_specs/1/quantity",
+        "/sources"
+      ]
+    },
+    "content_hash": null,
+    "date": null,
+    "excerpt": "278 tonnes of active mass (315 m3 volume), ~100 tonnes fiducial mass; research and development began in 1990, structure completed by 2004; started May 2007, terminated October 2021; 3,800 m.w.e. shielding; 42°28'N 13°34'E.",
+    "id": "src:borexino-wikipedia",
+    "link_check": {
+      "http_status": null,
+      "last_checked": null,
+      "redirect": null
+    },
+    "publisher": "Wikipedia",
+    "publisher_id": null,
+    "rank": 12,
+    "reference": {},
+    "retrieval": "partial",
+    "source_type": "wikipedia",
+    "title": "Borexino",
+    "type": "src",
+    "url": "https://en.wikipedia.org/wiki/Borexino"
+  },
   "src:boulby-osm-nominatim": {
     "accessed": "2026-09-17",
     "cited_by": {
@@ -6272,6 +6586,14 @@
         "/intervals/2",
         "/sources"
       ],
+      "detector:lhcf": [
+        "/intervals/1",
+        "/sources"
+      ],
+      "detector:snd-lhc": [
+        "/intervals/2",
+        "/sources"
+      ],
       "detector:totem": [
         "/intervals/1",
         "/sources"
@@ -6295,6 +6617,14 @@
       "experiment:lhcb": [
         "/intervals/7",
         "/intervals/8"
+      ],
+      "experiment:lhcf": [
+        "/intervals/3",
+        "/sources"
+      ],
+      "experiment:snd-lhc": [
+        "/intervals/2",
+        "/sources"
       ],
       "experiment:totem": [
         "/intervals/6",
@@ -12699,12 +13029,15 @@
     "cited_by": {
       "detector:cresst": [
         "/intervals/2",
-        "/specs/temperature"
+        "/sources",
+        "/specs/temperature",
+        "/specs/threshold"
       ],
       "experiment:cresst": [
         "/energy_regime",
         "/intervals/5",
-        "/physics_goals"
+        "/physics_goals",
+        "/sources"
       ]
     },
     "date": "2026-05",
@@ -12943,6 +13276,45 @@
     "type": "src",
     "url": "https://arxiv.org/abs/2007.15622"
   },
+  "src:damic-2025-snolab-workshop-status": {
+    "accessed": "2026-09-17",
+    "cited_by": {
+      "collaboration:damic": [
+        "/intervals/1",
+        "/sources"
+      ],
+      "detector:damic": [
+        "/intervals/1",
+        "/intervals/2",
+        "/placements/1",
+        "/sources"
+      ],
+      "experiment:damic": [
+        "/facility_roles/1",
+        "/intervals/2",
+        "/intervals/3",
+        "/sources"
+      ]
+    },
+    "date": "2025-07",
+    "excerpt": "",
+    "id": "src:damic-2025-snolab-workshop-status",
+    "link_check": {
+      "http_status": null,
+      "last_checked": null,
+      "redirect": null
+    },
+    "publisher": "SNOLAB Future Projects Workshop / arXiv",
+    "rank": 10,
+    "reference": {
+      "arxiv": "2507.11368"
+    },
+    "retrieval": "partial",
+    "source_type": "arxiv",
+    "title": "Community Report from the 2025 SNOLAB Future Projects Workshop",
+    "type": "src",
+    "url": "https://arxiv.org/abs/2507.11368"
+  },
   "src:damic-inspire-experiment-original": {
     "accessed": "2026-09-17",
     "cited_by": {
@@ -13174,7 +13546,6 @@
         "/facility_roles/0",
         "/facility_roles/1",
         "/intervals/0",
-        "/lineage/0",
         "/physics_goals/0",
         "/sources",
         "/unique_capabilities/0"
@@ -14592,6 +14963,7 @@
         "/sources"
       ],
       "facility:chooz": [
+        "/intervals/0",
         "/sources"
       ],
       "result:double-chooz-evidence-2012": [
@@ -14687,6 +15059,7 @@
         "/unique_capabilities/0"
       ],
       "facility:chooz": [
+        "/intervals/0",
         "/operator",
         "/operator_text",
         "/sources"
@@ -15850,7 +16223,6 @@
         "/intervals/1",
         "/sources",
         "/specs/isotope",
-        "/specs/target_mass",
         "/technology"
       ],
       "experiment:exo-200": [
@@ -15921,6 +16293,257 @@
     "title": "Waste Isolation Pilot Plant",
     "type": "src",
     "url": "https://en.wikipedia.org/wiki/Waste_Isolation_Pilot_Plant"
+  },
+  "src:facilities-verify-babar-ir2-physorg": {
+    "accessed": "2026-09-17",
+    "cited_by": {
+      "site:slac-pep-ii-ir2-babar": [
+        "/sources"
+      ]
+    },
+    "date": "2006-07",
+    "excerpt": "Day and night, weekends, weekdays, and holidays, physicists from around the world take shifts in BaBar's Interaction Region 2 control room.",
+    "id": "src:facilities-verify-babar-ir2-physorg",
+    "link_check": {
+      "http_status": null,
+      "last_checked": null,
+      "redirect": null
+    },
+    "publisher": "Phys.org",
+    "rank": 12,
+    "reference": {},
+    "retrieval": "full_text",
+    "source_type": "secondary",
+    "title": "Inside BaBar's Control Room -- Phys.org (2006)",
+    "type": "src",
+    "url": "https://phys.org/news/2006-07-babar-room.html"
+  },
+  "src:facilities-verify-hera-desy-ameyer": {
+    "accessed": "2026-09-17",
+    "cited_by": {
+      "accelerator:hera": [
+        "/sources",
+        "/specs/beam_energy",
+        "/specs/proton_energy"
+      ]
+    },
+    "date": null,
+    "excerpt": "27.5 GeV electrons or positrons with 920 GeV protons. Circumference 6.4 km. ep center-of-mass energy 320 GeV.",
+    "id": "src:facilities-verify-hera-desy-ameyer",
+    "link_check": {
+      "http_status": null,
+      "last_checked": null,
+      "redirect": null
+    },
+    "publisher": "DESY (personal/teaching page, ~ameyer)",
+    "rank": 12,
+    "reference": {},
+    "retrieval": "full_text",
+    "source_type": "secondary",
+    "title": "The Experiments H1 and ZEUS at HERA (desy.de/~ameyer lecture notes)",
+    "type": "src",
+    "url": "https://www.desy.de/~ameyer/hq/node16.html"
+  },
+  "src:facilities-verify-jlab-ror": {
+    "accessed": "2026-09-17",
+    "cited_by": {
+      "site:jlab-newport-news": [
+        "/coordinates",
+        "/sources"
+      ]
+    },
+    "date": null,
+    "excerpt": "addresses: [{lat: 36.98038, lng: -76.42975, city: Newport News, country: United States}]",
+    "id": "src:facilities-verify-jlab-ror",
+    "link_check": {
+      "http_status": null,
+      "last_checked": null,
+      "redirect": null
+    },
+    "publisher": "Research Organization Registry (ROR)",
+    "rank": 8,
+    "reference": {},
+    "retrieval": "full_text",
+    "source_type": "geocoder",
+    "title": "ROR record: Thomas Jefferson National Accelerator Facility",
+    "type": "src",
+    "url": "https://ror.org/02vwzrd76"
+  },
+  "src:facilities-verify-lsc-ror": {
+    "accessed": "2026-09-17",
+    "cited_by": {
+      "site:lsc-canfranc": [
+        "/coordinates",
+        "/sources"
+      ]
+    },
+    "date": null,
+    "excerpt": "addresses: [{latitude: 42.71628, longitude: -0.52563, city: Canfranc, country: Spain}]",
+    "id": "src:facilities-verify-lsc-ror",
+    "link_check": {
+      "http_status": null,
+      "last_checked": null,
+      "redirect": null
+    },
+    "publisher": "Research Organization Registry (ROR)",
+    "rank": 8,
+    "reference": {},
+    "retrieval": "full_text",
+    "source_type": "geocoder",
+    "title": "ROR record: Canfranc Underground Laboratory",
+    "type": "src",
+    "url": "https://ror.org/02zcam055"
+  },
+  "src:facilities-verify-ornl-ror": {
+    "accessed": "2026-09-17",
+    "cited_by": {
+      "site:ornl-sns-neutrino-alley": [
+        "/coordinates",
+        "/sources"
+      ]
+    },
+    "date": null,
+    "excerpt": "addresses: [{lat: 36.01036, lng: -84.26964, city: Oak Ridge, country: United States}]",
+    "id": "src:facilities-verify-ornl-ror",
+    "link_check": {
+      "http_status": null,
+      "last_checked": null,
+      "redirect": null
+    },
+    "publisher": "Research Organization Registry (ROR)",
+    "rank": 8,
+    "reference": {},
+    "retrieval": "full_text",
+    "source_type": "geocoder",
+    "title": "ROR record: Oak Ridge National Laboratory",
+    "type": "src",
+    "url": "https://ror.org/01qz5mb56"
+  },
+  "src:facilities-verify-psi-hipa-page": {
+    "accessed": "2026-09-17",
+    "cited_by": {
+      "accelerator:psi-hipa": [
+        "/sources",
+        "/specs/beam_energy",
+        "/specs/beam_power"
+      ]
+    },
+    "date": null,
+    "excerpt": "The High Intensity Proton Accelerator Facility (HIPA) provides a 1.4 MW proton beam for the production of mesons and neutrons. ... accelerates the proton bunches up to 590 MeV (79% of the speed of light).",
+    "id": "src:facilities-verify-psi-hipa-page",
+    "link_check": {
+      "http_status": null,
+      "last_checked": null,
+      "redirect": null
+    },
+    "publisher": "Paul Scherrer Institute",
+    "rank": 2,
+    "reference": {},
+    "retrieval": "full_text",
+    "source_type": "official_facility_site",
+    "title": "High Intensity Proton Accelerator Facility | PSI Center for Accelerator Science and Engineering -- official PSI page",
+    "type": "src",
+    "url": "https://www.psi.ch/en/cas/hipa"
+  },
+  "src:facilities-verify-psi-hipa-turns-50": {
+    "accessed": "2026-09-17",
+    "cited_by": {
+      "accelerator:psi-hipa": [
+        "/sources"
+      ]
+    },
+    "date": null,
+    "excerpt": "The facility that we know today as HIPA was called the SIN Facility when it went into operation in 1974, because it belonged to the Swiss Institute for Nuclear Research SIN.",
+    "id": "src:facilities-verify-psi-hipa-turns-50",
+    "link_check": {
+      "http_status": null,
+      "last_checked": null,
+      "redirect": null
+    },
+    "publisher": "Paul Scherrer Institute",
+    "rank": 9,
+    "reference": {},
+    "retrieval": "full_text",
+    "source_type": "press_release",
+    "title": "Protons and other particles: The HIPA facility turns 50 -- PSI news",
+    "type": "src",
+    "url": "https://www.psi.ch/en/news/psi-stories/protons-and-other-particles-the-hipa-facility-turns-50"
+  },
+  "src:facilities-verify-psi-history-page": {
+    "accessed": "2026-09-17",
+    "cited_by": {
+      "facility:psi": [
+        "/intervals/0",
+        "/sources"
+      ]
+    },
+    "date": null,
+    "excerpt": "On 1 January 1988, the Swiss Federal Institute for Reactor Research (EIR) and the Swiss Institute for Nuclear Research (SIN) merged to form the Paul Scherrer Institute, PSI.",
+    "id": "src:facilities-verify-psi-history-page",
+    "link_check": {
+      "http_status": null,
+      "last_checked": null,
+      "redirect": null
+    },
+    "publisher": "Paul Scherrer Institute",
+    "rank": 2,
+    "reference": {},
+    "retrieval": "full_text",
+    "source_type": "official_facility_site",
+    "title": "The history of PSI -- official PSI page",
+    "type": "src",
+    "url": "https://www.psi.ch/en/about/history-of-psi"
+  },
+  "src:facilities-verify-psi-official-home": {
+    "accessed": "2026-09-17",
+    "cited_by": {
+      "facility:psi": [
+        "/links/website",
+        "/sources"
+      ]
+    },
+    "date": null,
+    "excerpt": "Forschungsstrasse 111, 5232 Villigen PSI, Switzerland.",
+    "id": "src:facilities-verify-psi-official-home",
+    "link_check": {
+      "http_status": null,
+      "last_checked": null,
+      "redirect": null
+    },
+    "publisher": "Paul Scherrer Institute",
+    "rank": 2,
+    "reference": {},
+    "retrieval": "partial",
+    "source_type": "official_facility_site",
+    "title": "Paul Scherrer Institut -- official homepage",
+    "type": "src",
+    "url": "https://www.psi.ch/en"
+  },
+  "src:facilities-verify-slac-official-home": {
+    "accessed": "2026-09-17",
+    "cited_by": {
+      "facility:slac": [
+        "/links/website",
+        "/operator_text",
+        "/sources"
+      ]
+    },
+    "date": null,
+    "excerpt": "2575 Sand Hill Road, Menlo Park, CA 94025-7015. SLAC National Accelerator Laboratory is a Department of Energy national lab run by Stanford. Operated by Stanford University for the U.S. Department of Energy Office of Science.",
+    "id": "src:facilities-verify-slac-official-home",
+    "link_check": {
+      "http_status": null,
+      "last_checked": null,
+      "redirect": null
+    },
+    "publisher": "SLAC National Accelerator Laboratory",
+    "rank": 2,
+    "reference": {},
+    "retrieval": "partial",
+    "source_type": "official_facility_site",
+    "title": "SLAC National Accelerator Laboratory -- official site (www6.slac.stanford.edu)",
+    "type": "src",
+    "url": "https://www6.slac.stanford.edu"
   },
   "src:fermilab-lbnf-dune-site": {
     "accessed": "2026-09-16",
@@ -16419,6 +17042,37 @@
     "type": "src",
     "url": "https://arxiv.org/abs/1109.1864"
   },
+  "src:fixed-target-verify-mathusla-loi-arxiv-1811-00927": {
+    "accessed": "2026-09-17",
+    "cited_by": {
+      "collaboration:mathusla": [
+        "/intervals/0",
+        "/sources"
+      ],
+      "experiment:mathusla": [
+        "/intervals/0",
+        "/sources"
+      ]
+    },
+    "date": "2018-11",
+    "excerpt": "In this Letter of Intent (LOI) we propose the construction of MATHUSLA (MAssive Timing Hodoscope for Ultra-Stable neutraL pArticles), a dedicated large-volume displaced vertex detector for the HL-LHC on the surface above ATLAS or CMS.",
+    "id": "src:fixed-target-verify-mathusla-loi-arxiv-1811-00927",
+    "link_check": {
+      "http_status": null,
+      "last_checked": null,
+      "redirect": null
+    },
+    "publisher": "MATHUSLA Collaboration",
+    "rank": 10,
+    "reference": {
+      "arxiv": "1811.00927"
+    },
+    "retrieval": "partial",
+    "source_type": "arxiv",
+    "title": "A Letter of Intent for MATHUSLA: a dedicated displaced vertex detector above ATLAS or CMS",
+    "type": "src",
+    "url": "https://arxiv.org/abs/1811.00927"
+  },
   "src:fixed-target-verify-na62-refined-arxiv-2607-16413": {
     "accessed": "2026-09-17",
     "cited_by": {
@@ -16451,6 +17105,112 @@
     "title": "Measurement of the branching ratio of the K+ -> pi+ nu nubar decay",
     "type": "src",
     "url": "https://arxiv.org/abs/2607.16413"
+  },
+  "src:fixed-target-verify-ship-bdf-ecn3-arxiv-2606-11039": {
+    "accessed": "2026-09-17",
+    "cited_by": {
+      "experiment:ship": [
+        "/intervals/2",
+        "/sources"
+      ]
+    },
+    "date": "2026-06-09",
+    "excerpt": "The Search for Hidden Particles (SHiP/NA67) is a general-purpose, high-intensity beam dump experiment approved in 2024 for the future exploitation of the ECN3 experimental hall at the CERN Super-Proton-Synchrotron in conjunction with the new Beam Dump Facility (BDF). It will collect 6x10^20 protons on target over ~15 years of operation.",
+    "id": "src:fixed-target-verify-ship-bdf-ecn3-arxiv-2606-11039",
+    "link_check": {
+      "http_status": null,
+      "last_checked": null,
+      "redirect": null
+    },
+    "publisher": "SHiP Collaboration",
+    "rank": 10,
+    "reference": {
+      "arxiv": "2606.11039"
+    },
+    "retrieval": "partial",
+    "source_type": "arxiv",
+    "title": "The SHiP/NA67 experiment at the ECN3 high-intensity beam facility at the CERN SPS",
+    "type": "src",
+    "url": "https://arxiv.org/abs/2606.11039"
+  },
+  "src:gallex-inspire-experiment-record": {
+    "accessed": "2026-09-17",
+    "archive_url": null,
+    "cited_by": {
+      "collaboration:gallex-gno": [
+        "/formation",
+        "/sources"
+      ],
+      "experiment:gallex-gno": [
+        "/sources"
+      ]
+    },
+    "content_hash": null,
+    "date": null,
+    "excerpt": "control_number 1109244.",
+    "id": "src:gallex-inspire-experiment-record",
+    "link_check": {
+      "http_status": null,
+      "last_checked": null,
+      "redirect": null
+    },
+    "publisher": "INSPIRE-HEP",
+    "publisher_id": null,
+    "rank": 3,
+    "reference": {},
+    "retrieval": "partial",
+    "source_type": "experiment_registry",
+    "title": "GALLEX — INSPIRE experiment record",
+    "type": "src",
+    "url": "https://inspirehep.net/experiments/1109244"
+  },
+  "src:gallex-wikipedia": {
+    "accessed": "2026-09-17",
+    "archive_url": null,
+    "cited_by": {
+      "collaboration:gallex-gno": [
+        "/intervals/0",
+        "/intervals/1",
+        "/membership/country_count",
+        "/sources"
+      ],
+      "detector:gallex-gno": [
+        "/intervals/0",
+        "/intervals/1",
+        "/placements/0",
+        "/sources",
+        "/specs/target_mass",
+        "/technology"
+      ],
+      "experiment:gallex-gno": [
+        "/facility_roles/0",
+        "/intervals/0",
+        "/intervals/1",
+        "/intervals/2",
+        "/key_specs/0/quantity",
+        "/physics_goals/0",
+        "/sources",
+        "/unique_capabilities/0"
+      ]
+    },
+    "content_hash": null,
+    "date": null,
+    "excerpt": "101 tons of gallium trichloride-hydrochloric acid solution, containing 30.3 tons of gallium; GALLEX operated 1991-1997, GNO continued May 1998-April 2003; capture rate 73.1 SNU (GALLEX), 62.9 SNU (GNO); led by MPIK Heidelberg with French, German, Italian, Israeli, Polish and American scientists.",
+    "id": "src:gallex-wikipedia",
+    "link_check": {
+      "http_status": null,
+      "last_checked": null,
+      "redirect": null
+    },
+    "publisher": "Wikipedia",
+    "publisher_id": null,
+    "rank": 12,
+    "reference": {},
+    "retrieval": "partial",
+    "source_type": "wikipedia",
+    "title": "GALLEX",
+    "type": "src",
+    "url": "https://en.wikipedia.org/wiki/GALLEX"
   },
   "src:geocoder-sanford-underground-research-facility": {
     "accessed": "2026-09-17",
@@ -17151,8 +17911,10 @@
         "/intervals/0",
         "/intervals/1",
         "/sources",
+        "/specs/beam_energy",
         "/specs/circumference",
-        "/specs/cms_energy"
+        "/specs/cms_energy",
+        "/specs/proton_energy"
       ],
       "site:desy-hera-north-hall-h1": [
         "/sources"
@@ -19924,6 +20686,11 @@
       "accelerator:cebaf": [
         "/intervals/0",
         "/intervals/1",
+        "/intervals/2",
+        "/intervals/3",
+        "/intervals/3/specs/beam_energy",
+        "/intervals/4",
+        "/intervals/4/specs/beam_energy",
         "/sources"
       ],
       "facility:jefferson-lab": [
@@ -22773,6 +23540,10 @@
   "src:lep-point-8-osm-nominatim": {
     "accessed": "2026-09-17",
     "cited_by": {
+      "site:cern-cast-sr8": [
+        "/coordinates",
+        "/sources"
+      ],
       "site:cern-lep-point-8-delphi": [
         "/coordinates",
         "/sources"
@@ -25195,8 +25966,8 @@
     "cited_by": {
       "collaboration:meg": [
         "/formation",
-        "/intervals/0",
-        "/intervals/1",
+        "/intervals/3",
+        "/intervals/4",
         "/sources"
       ],
       "detector:meg": [
@@ -25206,8 +25977,8 @@
         "/sources"
       ],
       "experiment:meg": [
-        "/intervals/0",
-        "/intervals/1",
+        "/intervals/3",
+        "/intervals/4",
         "/sources"
       ],
       "result:meg-mu-to-e-gamma-limit-2016": [
@@ -25366,7 +26137,7 @@
     "cited_by": {
       "collaboration:meg-ii": [
         "/formation",
-        "/intervals/0",
+        "/intervals/1",
         "/sources"
       ],
       "detector:meg-ii": [
@@ -25376,8 +26147,8 @@
         "/sources"
       ],
       "experiment:meg-ii": [
-        "/intervals/0",
         "/intervals/1",
+        "/intervals/2",
         "/sources"
       ],
       "result:meg-ii-mu-to-e-gamma-limit-2024": [
@@ -25522,6 +26293,9 @@
     "archive_url": null,
     "cited_by": {
       "collaboration:meg": [
+        "/intervals/0",
+        "/intervals/1",
+        "/intervals/2",
         "/membership/country_count",
         "/membership/institution_count",
         "/membership/member_count",
@@ -25532,6 +26306,9 @@
       ],
       "experiment:meg": [
         "/facility_roles/0",
+        "/intervals/0",
+        "/intervals/1",
+        "/intervals/2",
         "/physics_goals/0",
         "/sources",
         "/unique_capabilities/0"
@@ -25562,6 +26339,7 @@
     "archive_url": null,
     "cited_by": {
       "collaboration:meg-ii": [
+        "/intervals/0",
         "/membership/country_count",
         "/membership/institution_count",
         "/membership/member_count",
@@ -25572,6 +26350,7 @@
       ],
       "experiment:meg-ii": [
         "/facility_roles/0",
+        "/intervals/0",
         "/key_specs/0/quantity",
         "/lineage/0",
         "/physics_goals/0",
@@ -25654,6 +26433,7 @@
     "cited_by": {
       "collaboration:mu3e": [
         "/formation",
+        "/intervals/0",
         "/sources"
       ],
       "detector:mu3e": [
@@ -25661,6 +26441,7 @@
         "/technology"
       ],
       "experiment:mu3e": [
+        "/intervals/0",
         "/key_specs/0/quantity",
         "/physics_goals/0",
         "/sources",
@@ -25691,7 +26472,14 @@
     "accessed": "2026-09-17",
     "archive_url": null,
     "cited_by": {
+      "collaboration:muon-g-2": [
+        "/intervals/0",
+        "/intervals/1",
+        "/sources"
+      ],
       "experiment:muon-g-2": [
+        "/intervals/0",
+        "/intervals/1",
         "/physics_goals/0",
         "/sources"
       ]
@@ -25871,7 +26659,7 @@
     "archive_url": null,
     "cited_by": {
       "collaboration:muon-g-2": [
-        "/intervals/0",
+        "/intervals/2",
         "/membership/country_count",
         "/membership/institution_count",
         "/membership/member_count",
@@ -25880,14 +26668,15 @@
       "detector:muon-g-2": [
         "/intervals/0",
         "/intervals/1",
+        "/intervals/2",
         "/placements/0",
         "/sources"
       ],
       "experiment:muon-g-2": [
         "/facility_roles/0",
-        "/intervals/0",
-        "/intervals/1",
         "/intervals/2",
+        "/intervals/3",
+        "/intervals/4",
         "/links/website",
         "/sources"
       ],
@@ -25980,7 +26769,7 @@
     "archive_url": null,
     "cited_by": {
       "collaboration:mu3e": [
-        "/intervals/0",
+        "/intervals/1",
         "/membership/country_count",
         "/membership/institution_count",
         "/membership/member_count",
@@ -25993,7 +26782,7 @@
       ],
       "experiment:mu3e": [
         "/facility_roles/0",
-        "/intervals/0",
+        "/intervals/1",
         "/links/website",
         "/sources"
       ]
@@ -27887,13 +28676,10 @@
     "cited_by": {
       "accelerator:psi-hipa": [
         "/intervals/0",
-        "/sources",
-        "/specs/beam_energy",
-        "/specs/beam_power"
+        "/sources"
       ],
       "facility:psi": [
         "/intervals/0",
-        "/links/website",
         "/operator_text",
         "/sources"
       ],
@@ -27944,6 +28730,7 @@
         "/unique_capabilities/0"
       ],
       "facility:yonggwang-hanbit-reactor-site": [
+        "/intervals/0",
         "/operator",
         "/operator_text",
         "/sources"
@@ -31197,6 +31984,10 @@
         "/coordinates",
         "/links/website",
         "/sources"
+      ],
+      "site:lanl-lansce": [
+        "/coordinates",
+        "/sources"
       ]
     },
     "date": null,
@@ -31616,6 +32407,18 @@
       "institution:desy": [
         "/coordinates",
         "/links/website",
+        "/sources"
+      ],
+      "site:desy-hamburg-campus": [
+        "/coordinates",
+        "/sources"
+      ],
+      "site:desy-hera-north-hall-h1": [
+        "/coordinates",
+        "/sources"
+      ],
+      "site:desy-hera-south-hall-zeus": [
+        "/coordinates",
         "/sources"
       ]
     },
@@ -35959,6 +36762,10 @@
         "/coordinates",
         "/links/website",
         "/sources"
+      ],
+      "site:psi-villigen": [
+        "/coordinates",
+        "/sources"
       ]
     },
     "date": null,
@@ -40144,6 +40951,10 @@
         "/coordinates",
         "/links/website",
         "/sources"
+      ],
+      "site:argonne-campus": [
+        "/coordinates",
+        "/sources"
       ]
     },
     "date": null,
@@ -40169,6 +40980,18 @@
       "institution:slac-national-accelerator-laboratory": [
         "/coordinates",
         "/links/website",
+        "/sources"
+      ],
+      "site:slac-menlo-park-campus": [
+        "/coordinates",
+        "/sources"
+      ],
+      "site:slac-pep-ii-ir2-babar": [
+        "/coordinates",
+        "/sources"
+      ],
+      "site:slac-slc-collider-hall-sld": [
+        "/coordinates",
         "/sources"
       ]
     },
@@ -41998,6 +42821,7 @@
         "/specs/circumference"
       ],
       "accelerator:slac-linac": [
+        "/intervals/0",
         "/sources",
         "/specs/beam_energy",
         "/specs/length"
@@ -42009,8 +42833,6 @@
       ],
       "facility:slac": [
         "/intervals/0",
-        "/links/website",
-        "/operator_text",
         "/sources"
       ],
       "site:slac-menlo-park-campus": [
@@ -42050,6 +42872,7 @@
         "/intervals/0",
         "/intervals/1",
         "/sources",
+        "/specs/beam_energy",
         "/specs/cms_energy"
       ],
       "site:slac-slc-collider-hall-sld": [
@@ -42614,6 +43437,7 @@
     "cited_by": {
       "accelerator:sns": [
         "/intervals/0",
+        "/intervals/2",
         "/sources",
         "/specs/beam_energy"
       ]

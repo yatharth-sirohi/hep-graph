@@ -63,6 +63,56 @@
       ],
       "verified_at": "2026-09-17"
     },
+    "/intervals/2": {
+      "confidence": "uncertain",
+      "locator": null,
+      "note": "Added 2026-09-17; sourced to Wikipedia only, flagged for review.",
+      "quote": "The first beam was delivered to the experimental area on 1 July 1994.",
+      "sources": [
+        "src:jlab-wikipedia"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/intervals/3": {
+      "confidence": "uncertain",
+      "locator": null,
+      "note": "Added 2026-09-17; sourced to Wikipedia only, flagged for review. This is CEBAF's original design energy before either the 6 GeV or 12 GeV upgrades.",
+      "quote": "The design energy of 4 GeV for the beam was achieved during the year 1995.",
+      "sources": [
+        "src:jlab-wikipedia"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/intervals/3/specs/beam_energy": {
+      "confidence": "uncertain",
+      "locator": null,
+      "note": "Sourced to Wikipedia only, flagged for review (matches this interval's own note).",
+      "quote": "The design energy of 4 GeV for the beam was achieved during the year 1995.",
+      "sources": [
+        "src:jlab-wikipedia"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/intervals/4": {
+      "confidence": "uncertain",
+      "locator": null,
+      "note": "Added 2026-09-17; sourced to Wikipedia only, flagged for review. This is the '4/6 GeV before the 12 GeV upgrade' figure the verification brief names.",
+      "quote": "On August 6, 2000, the CEBAF reached 'enhanced design energy' of 6 GeV.",
+      "sources": [
+        "src:jlab-wikipedia"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/intervals/4/specs/beam_energy": {
+      "confidence": "uncertain",
+      "locator": null,
+      "note": "Sourced to Wikipedia only, flagged for review (matches this interval's own note).",
+      "quote": "On August 6, 2000, the CEBAF reached 'enhanced design energy' of 6 GeV.",
+      "sources": [
+        "src:jlab-wikipedia"
+      ],
+      "verified_at": "2026-09-17"
+    },
     "/links/website": {
       "confidence": "verified",
       "locator": null,
@@ -418,9 +468,21 @@
       "note": null,
       "quote": null,
       "sources": [
-        "src:hera-wikipedia"
+        "src:hera-wikipedia",
+        "src:facilities-verify-hera-desy-ameyer"
       ],
       "verified_at": null
+    },
+    "/specs/beam_energy": {
+      "confidence": "uncertain",
+      "locator": null,
+      "note": "Added 2026-09-17: this and `proton_energy` are the two per-species beam energies the record previously omitted (its note incorrectly assumed no per-species spec key existed; `proton_energy` is in fact an Appendix-A dimension-energy key). Sourced to Wikipedia plus an independently-fetched DESY-hosted page; still rank-12/secondary only, so confidence stays uncertain per A17 pending an official DESY accelerator-complex page.",
+      "quote": "One accelerated electrons to energies of 27.5 GeV",
+      "sources": [
+        "src:hera-wikipedia",
+        "src:facilities-verify-hera-desy-ameyer"
+      ],
+      "verified_at": "2026-09-17"
     },
     "/specs/circumference": {
       "confidence": "uncertain",
@@ -439,6 +501,17 @@
       "quote": "electrons or positrons were brought to collision with protons at a center-of-mass energy of 320 GeV.",
       "sources": [
         "src:hera-wikipedia"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/specs/proton_energy": {
+      "confidence": "uncertain",
+      "locator": null,
+      "note": "Added 2026-09-17 (see beam_energy note on this same record).",
+      "quote": "the other one protons to energies of 920 GeV in the opposite direction",
+      "sources": [
+        "src:hera-wikipedia",
+        "src:facilities-verify-hera-desy-ameyer"
       ],
       "verified_at": "2026-09-17"
     }
@@ -1585,27 +1658,29 @@
       "note": null,
       "quote": null,
       "sources": [
-        "src:psi-wikipedia"
+        "src:psi-wikipedia",
+        "src:facilities-verify-psi-hipa-page",
+        "src:facilities-verify-psi-hipa-turns-50"
       ],
       "verified_at": null
     },
     "/specs/beam_energy": {
-      "confidence": "uncertain",
+      "confidence": "verified",
       "locator": null,
-      "note": "Sourced to Wikipedia only; official psi.ch pages attempted in this session returned HTTP 404.",
-      "quote": "Energy: 590 MeV",
+      "note": "Upgraded 2026-09-17 from Wikipedia-only to PSI's own official HIPA page.",
+      "quote": "accelerates the proton bunches up to 590 MeV (79 % of the speed of light)",
       "sources": [
-        "src:psi-wikipedia"
+        "src:facilities-verify-psi-hipa-page"
       ],
       "verified_at": "2026-09-17"
     },
     "/specs/beam_power": {
-      "confidence": "uncertain",
+      "confidence": "verified",
       "locator": null,
-      "note": "Sourced to Wikipedia only; official psi.ch pages attempted in this session returned HTTP 404.",
-      "quote": "The 1.3 MW strong proton beam is directed towards the muon source (SmuS) and the spallation neutron source (SINQ).",
+      "note": "CORRECTED 2026-09-17: the prior value (1.3 MW) rested on a Wikipedia sentence about current beam distribution ('The 1.3 MW strong proton beam is directed towards...'); PSI's own official HIPA page states the facility's beam power as 1.4 MW.",
+      "quote": "The High Intensity Proton Accelerator Facility (HIPA) provides a 1.4 MW proton beam for the production of mesons and neutrons.",
       "sources": [
-        "src:psi-wikipedia"
+        "src:facilities-verify-psi-hipa-page"
       ],
       "verified_at": "2026-09-17"
     }
@@ -1729,6 +1804,16 @@
     }
   },
   "accelerator:slac-linac": {
+    "/intervals/0": {
+      "confidence": "uncertain",
+      "locator": null,
+      "note": "Added 2026-09-17 to fix an A10 status/derived-state mismatch (status was 'active' with no interval covering the build date). Sourced to Wikipedia only; the official site fetched in this session (www6.slac.stanford.edu) gives no construction date. The linac has fed SLC, PEP-II and now LCLS; it is treated as continuously active since 1966 for lack of a sourced end/upgrade interval.",
+      "quote": "a 3.2 km (2 mi) linear accelerator constructed in 1966 ... has been operational since 1966.",
+      "sources": [
+        "src:slac-wikipedia"
+      ],
+      "verified_at": "2026-09-17"
+    },
     "/sources": {
       "confidence": null,
       "locator": null,
@@ -1794,6 +1879,16 @@
       ],
       "verified_at": null
     },
+    "/specs/beam_energy": {
+      "confidence": "uncertain",
+      "locator": null,
+      "note": "Added 2026-09-17. This is the SLC linac's quoted maximum per-beam energy, not the energy actually used for physics: to sit on the Z resonance the collider ran at cms/2 ~ 45.5-45.6 GeV per beam (see this record's cms_energy, ~91 GeV / Z mass). Both figures come from the same Wikipedia article; sourced to Wikipedia only, confidence uncertain per A17.",
+      "quote": "an RF linear accelerator that accelerated electrons and positrons up to 50 GeV",
+      "sources": [
+        "src:slc-wikipedia"
+      ],
+      "verified_at": "2026-09-17"
+    },
     "/specs/cms_energy": {
       "confidence": "uncertain",
       "locator": null,
@@ -1831,6 +1926,16 @@
       "quote": "The Proton Power Upgrade project doubled the power capability of the SNS linear accelerator, from 1.4 to 2.8 megawatts.",
       "sources": [
         "src:ornl-sns-page"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/intervals/2": {
+      "confidence": "uncertain",
+      "locator": null,
+      "note": "Added 2026-09-17 to fix an A10 status/derived-state mismatch (both existing intervals have `start: null`, so neither covers the build date). Sourced to Wikipedia only; the official neutrons.ornl.gov/sns page re-fetched this session gives no commissioning date, only current beam power.",
+      "quote": "The first three instruments began commissioning and were available to the scientific community in August 2007.",
+      "sources": [
+        "src:sns-wikipedia"
       ],
       "verified_at": "2026-09-17"
     },
@@ -5673,6 +5778,59 @@
       "verified_at": null
     }
   },
+  "collaboration:borexino": {
+    "/formation": {
+      "confidence": "uncertain",
+      "locator": "INSPIRE experiment record 1110446",
+      "note": "No fetched source states an explicit collaboration formation date; the official site names founders Gianpaolo Bellini and Frank Calaprice without a date.",
+      "quote": null,
+      "sources": [
+        "src:borexino-inspire-experiment-record"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/intervals/0": {
+      "confidence": "uncertain",
+      "locator": null,
+      "note": "Start taken as a lower bound (start of detector R&D); end taken from the detector's shutdown date.",
+      "quote": "Research and development began in 1990",
+      "sources": [
+        "src:borexino-wikipedia"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/intervals/1": {
+      "confidence": "approximate",
+      "locator": null,
+      "note": "The collaboration continues final-dataset analysis and publication (e.g. a 2026 nonstandard-interactions paper per the official site) after the detector itself was shut down; this terminal event marks the end of data-taking, not necessarily of the collaboration's activity.",
+      "quote": "the entire Borexino experiment was terminated in October 2021",
+      "sources": [
+        "src:borexino-wikipedia"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/links/website": {
+      "confidence": "verified",
+      "locator": null,
+      "note": "",
+      "quote": null,
+      "sources": [
+        "src:borexino-official-site"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:borexino-official-site",
+        "src:borexino-inspire-experiment-record"
+      ],
+      "verified_at": null
+    }
+  },
   "collaboration:cast": {
     "/intervals/0": {
       "confidence": "approximate",
@@ -8768,10 +8926,20 @@
     "/intervals/0": {
       "confidence": "uncertain",
       "locator": "INSPIRE experiment record 1108203, field date_approved (2008-12-15)",
-      "note": "No dedicated collaboration-formation source found; start approximated to the original Fermilab prototype's INSPIRE approval date.",
+      "note": "No dedicated collaboration-formation source found; start approximated to the original Fermilab prototype's INSPIRE approval date. Closed 2025: a 2025 SNOLAB Future Projects Workshop report (fetched during verification) states the original DAMIC detector at SNOLAB has become a test stand for background studies.",
       "quote": null,
       "sources": [
         "src:damic-inspire-experiment-original"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/intervals/1": {
+      "confidence": "verified",
+      "locator": null,
+      "note": "Terminal marker matching experiment:damic's completed status; DAMIC's dark-matter science activity ended around 2025 per a SNOLAB Future Projects Workshop community report.",
+      "quote": "The original DAMIC detector at SNOLAB has become a test stand for background studies.",
+      "sources": [
+        "src:damic-2025-snolab-workshop-status"
       ],
       "verified_at": "2026-09-17"
     },
@@ -8781,8 +8949,9 @@
       "note": null,
       "quote": null,
       "sources": [
-        "src:damic-inspire-experiment-snolab",
-        "src:damic-inspire-experiment-original"
+        "src:damic-2025-snolab-workshop-status",
+        "src:damic-inspire-experiment-original",
+        "src:damic-inspire-experiment-snolab"
       ],
       "verified_at": null
     }
@@ -11616,6 +11785,59 @@
       "verified_at": null
     }
   },
+  "collaboration:gallex-gno": {
+    "/formation": {
+      "confidence": "uncertain",
+      "locator": "INSPIRE experiment record 1109244",
+      "note": "No fetched source states an explicit collaboration formation date.",
+      "quote": null,
+      "sources": [
+        "src:gallex-inspire-experiment-record"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/intervals/0": {
+      "confidence": "approximate",
+      "locator": null,
+      "note": "Dates sourced from Wikipedia (rank 12) only.",
+      "quote": "GALLEX: Operated from 1991 to 1997 ... GNO (successor): Continued from May 1998 to April 2003",
+      "sources": [
+        "src:gallex-wikipedia"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/intervals/1": {
+      "confidence": "approximate",
+      "locator": null,
+      "note": "Terminal event date sourced from Wikipedia (rank 12) only.",
+      "quote": "GNO (successor): Continued from May 1998 to April 2003",
+      "sources": [
+        "src:gallex-wikipedia"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/membership/country_count": {
+      "confidence": "approximate",
+      "locator": null,
+      "note": "Counted from the six nationalities named; Wikipedia (rank 12) does not itself state a numeric count.",
+      "quote": "an international collaboration of French, German, Italian, Israeli, Polish and American scientists led by the Max-Planck-Institut für Kernphysik Heidelberg",
+      "sources": [
+        "src:gallex-wikipedia"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:gallex-inspire-experiment-record",
+        "src:gallex-wikipedia"
+      ],
+      "verified_at": null
+    }
+  },
   "collaboration:gerda": {
     "/formation": {
       "confidence": "uncertain",
@@ -11966,8 +12188,8 @@
     "/formation": {
       "confidence": "verified",
       "locator": null,
-      "note": "",
-      "quote": "IAXO Collaboration formally established",
+      "note": "VERIFIER FIX (2026-09-17): the quote field previously read 'IAXO Collaboration formally established', a paraphrase; the source's actual wording (re-fetched this session) is verbatim above.",
+      "quote": "The IAXO collaboration was formally constituted.",
       "sources": [
         "src:axions-iaxo-news-page"
       ],
@@ -11976,8 +12198,8 @@
     "/intervals/0": {
       "confidence": "verified",
       "locator": null,
-      "note": "",
-      "quote": "IAXO Collaboration formally established",
+      "note": "VERIFIER FIX (2026-09-17): the quote field previously read 'IAXO Collaboration formally established', a paraphrase; the source's actual wording (re-fetched this session) is verbatim above.",
+      "quote": "The IAXO collaboration was formally constituted.",
       "sources": [
         "src:axions-iaxo-news-page"
       ],
@@ -13102,11 +13324,12 @@
       "verified_at": "2026-09-17"
     },
     "/intervals/0": {
-      "confidence": "uncertain",
-      "locator": null,
-      "note": "Start date not stated on the fetched page; the collaboration is actively developing a revised detector design as of the page's own wording.",
+      "confidence": "verified",
+      "locator": "arXiv:1811.00927, submitted 2 Nov 2018 (MATHUSLA Letter of Intent)",
+      "note": "2026-09-17 fixed-target verification: start anchored on the MATHUSLA Letter of Intent (arXiv:1811.00927, 2 Nov 2018), the collaboration's first public proposal document, as a lower bound for collaboration activity (mirrors the fix to experiment:mathusla's 'proposed' interval, which previously had `start: null` and produced a spurious `unrecorded`/null derived state).",
       "quote": null,
       "sources": [
+        "src:fixed-target-verify-mathusla-loi-arxiv-1811-00927",
         "src:mathusla-official-site"
       ],
       "verified_at": "2026-09-17"
@@ -13127,7 +13350,8 @@
       "note": null,
       "quote": null,
       "sources": [
-        "src:mathusla-official-site"
+        "src:mathusla-official-site",
+        "src:fixed-target-verify-mathusla-loi-arxiv-1811-00927"
       ],
       "verified_at": null
     }
@@ -13145,6 +13369,36 @@
     },
     "/intervals/0": {
       "confidence": "verified",
+      "locator": "INSPIRE experiment record 1108527, metadata.date_proposed",
+      "note": "Mirrors experiment:meg's proposed interval.",
+      "quote": null,
+      "sources": [
+        "src:muons-inspire-experiment-meg"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/intervals/1": {
+      "confidence": "verified",
+      "locator": "INSPIRE experiment record 1108527, metadata.date_approved",
+      "note": "Mirrors experiment:meg's approved interval.",
+      "quote": null,
+      "sources": [
+        "src:muons-inspire-experiment-meg"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/intervals/2": {
+      "confidence": "approximate",
+      "locator": "INSPIRE experiment record 1108527, metadata.date_started",
+      "note": "Mirrors experiment:meg's construction interval.",
+      "quote": null,
+      "sources": [
+        "src:muons-inspire-experiment-meg"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/intervals/3": {
+      "confidence": "verified",
       "locator": null,
       "note": "Operating interval; the single sourced row was split from its terminal event (A3, 2026-09-17).",
       "quote": "the full dataset collected by the MEG experiment at the Paul Scherrer Institut in the period 2009--2013",
@@ -13153,7 +13407,7 @@
       ],
       "verified_at": "2026-09-17"
     },
-    "/intervals/1": {
+    "/intervals/4": {
       "confidence": "verified",
       "locator": null,
       "note": "Terminal event derived from the end of the same sourced interval (A3, 2026-09-17).",
@@ -13217,6 +13471,16 @@
       "verified_at": "2026-09-17"
     },
     "/intervals/0": {
+      "confidence": "verified",
+      "locator": "INSPIRE experiment record 1679100, metadata.date_proposed",
+      "note": "Mirrors experiment:meg-ii's proposed interval.",
+      "quote": null,
+      "sources": [
+        "src:muons-inspire-experiment-meg-ii"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/intervals/1": {
       "confidence": "verified",
       "locator": null,
       "note": "",
@@ -13578,6 +13842,16 @@
       "verified_at": "2026-09-17"
     },
     "/intervals/0": {
+      "confidence": "verified",
+      "locator": "INSPIRE experiment record 1114537, metadata.date_proposed",
+      "note": "Mirrors experiment:mu3e's proposed interval; fixes the same 14-year false-absence gap at the collaboration level. Left open-ended for the same reason (see experiment:mu3e's note).",
+      "quote": null,
+      "sources": [
+        "src:muons-inspire-experiment-mu3e"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/intervals/1": {
       "confidence": "approximate",
       "locator": null,
       "note": "Anchored to the most recent dated construction milestone found (see experiment:mu3e); start of the collaboration itself is unknown.",
@@ -13642,6 +13916,26 @@
     },
     "/intervals/0": {
       "confidence": "verified",
+      "locator": "INSPIRE experiment record 1108252, metadata.date_proposed",
+      "note": "Mirrors experiment:muon-g-2's proposed interval.",
+      "quote": null,
+      "sources": [
+        "src:muons-inspire-experiment-muon-g2"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/intervals/1": {
+      "confidence": "verified",
+      "locator": "INSPIRE experiment record 1108252, metadata.date_approved",
+      "note": "Mirrors experiment:muon-g-2's approved interval; capped at 2013 for the same reason (avoids overwriting the documented 2014-08..2017-04 gap).",
+      "quote": null,
+      "sources": [
+        "src:muons-inspire-experiment-muon-g2"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/intervals/2": {
+      "confidence": "verified",
       "locator": null,
       "note": "Lower bound taken from the 2013 ring relocation to Fermilab, the earliest dated collaboration activity found; the collaboration continued through the 2025 final-result publication.",
       "quote": "In 2013, Brookhaven's magnetic storage ring was transported from Long Island, New York, to Fermilab in Batavia, Illinois.",
@@ -13687,7 +13981,8 @@
       "quote": null,
       "sources": [
         "src:muons-news-fnal-2025-final-result",
-        "src:muons-arxiv-1501-06858"
+        "src:muons-arxiv-1501-06858",
+        "src:muons-inspire-experiment-muon-g2"
       ],
       "verified_at": null
     }
@@ -15773,7 +16068,7 @@
     "/technology": {
       "confidence": "verified",
       "locator": null,
-      "note": "No 'lumped-element' value exists in the ontology's technology_classes enum; recorded as 'other' (see worklog).",
+      "note": "VERIFIER FIX (2026-09-17): classified under `other` by the original research pass, which noted no matching technology_classes enum value existed; v0.2 amendment A24 (2026-09-17) added `helioscope`, `light_shining_through_wall` and `lumped_element_resonator` to the ontology's technology_classes for exactly this gap. Reclassified as `lumped_element_resonator` with the sourced `technology` free-text description kept unchanged; no new claim is made beyond what was already sourced.",
       "quote": null,
       "sources": [
         "src:axions-abracadabra-inspire-experiment",
@@ -16186,11 +16481,12 @@
       "verified_at": "2026-09-17"
     },
     "/placements/0": {
-      "confidence": "approximate",
+      "confidence": "verified",
       "locator": null,
-      "note": "No source fetched directly by the axions lead this session confirmed the hall; the facilities lead's own site record (site:desy-hera-north-hall-h1) cites src:h1-wikipedia (Wikipedia, rank 12) stating 'The HERA North Hall, where the H1 detector was located, is now used for the new ALPS experiment.' Recorded as confidence: approximate (not verified) because the sole supporting source is rank 12 (A17).",
-      "quote": "The HERA North Hall, where the H1 detector was located, is now used for the new ALPS experiment.",
+      "note": "VERIFIER FIX (2026-09-17): the placement previously rested solely on a Wikipedia sentence (rank 12, src:h1-wikipedia) cited via the facilities lead's site record. This session fetched ALPS's own DESY page directly, which independently confirms the HERA North Hall placement ('The ALPS cryoplatform subcooler box (ACPS) in the hall HERA North ... has recently been partially renovated to accommodate the ALPS II experiment in the HERA tunnel'), and a phys.org report and a DESY news page both corroborate general installation in a straight section of the HERA tunnel. Confidence raised to verified; src:h1-wikipedia kept as a secondary corroboration.",
+      "quote": "The ALPS cryoplatform subcooler box (ACPS) in the hall HERA North ... has recently been partially renovated to accommodate the ALPS II experiment in the HERA tunnel.",
       "sources": [
+        "src:axions-alps-ii-desy-cryoplatform",
         "src:h1-wikipedia"
       ],
       "verified_at": "2026-09-17"
@@ -16201,6 +16497,7 @@
       "note": null,
       "quote": null,
       "sources": [
+        "src:axions-alps-ii-desy-cryoplatform",
         "src:axions-alps-ii-inspire-experiment",
         "src:axions-alps-ii-official-site"
       ],
@@ -16209,7 +16506,7 @@
     "/technology": {
       "confidence": "verified",
       "locator": null,
-      "note": "No light-shining-through-walls value exists in the ontology's technology_classes enum; recorded as 'other' (see worklog).",
+      "note": "VERIFIER FIX (2026-09-17): classified under `other` by the original research pass, which noted no matching technology_classes enum value existed; v0.2 amendment A24 (2026-09-17) added `helioscope`, `light_shining_through_wall` and `lumped_element_resonator` to the ontology's technology_classes for exactly this gap. Reclassified as `light_shining_through_wall` with the sourced `technology` free-text description kept unchanged; no new claim is made beyond what was already sourced.",
       "quote": null,
       "sources": [
         "src:axions-alps-ii-official-site",
@@ -16828,9 +17125,9 @@
   },
   "detector:babar": {
     "/intervals/0": {
-      "confidence": "verified",
+      "confidence": "approximate",
       "locator": "CERN Courier, \"BaBar celebrates its 25th anniversary\" (2019)",
-      "note": "",
+      "note": "Symmetry Magazine's own dateline is 2008-04-08, but its text says the last data was taken \"last night\", so the actual last-data day could be 2008-04-07; INSPIRE's date_completed is month-precision only (2008-04). Day given as the article's dateline, not an independently confirmed event day; verification review, 2026-09-17.",
       "quote": "the first collision events were collected on 26 May 1999",
       "sources": [
         "src:colliders-historical-babar-cerncourier-25th-anniversary-2019",
@@ -16839,9 +17136,9 @@
       "verified_at": "2026-09-17"
     },
     "/intervals/1": {
-      "confidence": "verified",
+      "confidence": "approximate",
       "locator": "Symmetry Magazine, \"End of PEP-II and BaBar runs at SLAC\" (2008-04-08)",
-      "note": "",
+      "note": "Symmetry Magazine's own dateline is 2008-04-08, but its text says the last data was taken \"last night\", so the actual last-data day could be 2008-04-07; INSPIRE's date_completed is month-precision only (2008-04). Day given as the article's dateline, not an independently confirmed event day; verification review, 2026-09-17.",
       "quote": "Last night, the beams were dumped for the final time from the PEP-II rings and the BaBar experiment took its last data.",
       "sources": [
         "src:colliders-historical-babar-symmetry-2008-pepii-end"
@@ -16885,8 +17182,18 @@
     "/intervals/0": {
       "confidence": "verified",
       "locator": null,
-      "note": "Already-deployed clusters take data continuously while the array keeps growing; status recorded as construction to reflect the still-expanding design.",
+      "note": "Status recorded as construction to reflect the still-expanding design; see the separate commissioning interval below for concurrent data-taking.",
       "quote": "Since then, there has been an annual increase of the deployed clusters.",
+      "sources": [
+        "src:astro-neutrino-baikal-gvd-status-2023-paper"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/intervals/1": {
+      "confidence": "verified",
+      "locator": null,
+      "note": "Verification fix (2026-09-17): already-deployed clusters take data continuously while the array keeps growing (same overlapping pattern used for detector:km3net-arca/orca); a bare 'construction' status alone understated this.",
+      "quote": "The Baikal-GVD data collected in 2018-2022 indicate the presence of cosmic neutrino flux in high-energy cascade events consistent with observations by the IceCube neutrino telescope.",
       "sources": [
         "src:astro-neutrino-baikal-gvd-status-2023-paper"
       ],
@@ -17216,6 +17523,79 @@
       "verified_at": "2026-09-16"
     }
   },
+  "detector:borexino": {
+    "/intervals/0": {
+      "confidence": "approximate",
+      "locator": null,
+      "note": "Dates sourced from Wikipedia (rank 12) only.",
+      "quote": "Started May 2007; the entire Borexino experiment was terminated in October 2021.",
+      "sources": [
+        "src:borexino-wikipedia"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/intervals/1": {
+      "confidence": "approximate",
+      "locator": null,
+      "note": "Terminal event date sourced from Wikipedia (rank 12) only.",
+      "quote": "the entire Borexino experiment was terminated in October 2021",
+      "sources": [
+        "src:borexino-wikipedia"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/placements/0": {
+      "confidence": "approximate",
+      "locator": null,
+      "note": "Placed at site:lngs-hall-c (owned by the facilities workstream; not created here).",
+      "quote": "Started May 2007; the entire Borexino experiment was terminated in October 2021.",
+      "sources": [
+        "src:borexino-wikipedia"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:borexino-wikipedia",
+        "src:borexino-cno-evidence-2020"
+      ],
+      "verified_at": null
+    },
+    "/specs/fiducial_mass": {
+      "confidence": "verified",
+      "locator": null,
+      "note": "",
+      "quote": "few counts per day per 100 tonnes of target",
+      "sources": [
+        "src:borexino-cno-evidence-2020"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/specs/target_mass": {
+      "confidence": "approximate",
+      "locator": null,
+      "note": "Sourced from Wikipedia (rank 12) only this session.",
+      "quote": "278 tonnes of active mass (315 m³ volume)",
+      "sources": [
+        "src:borexino-wikipedia"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/technology": {
+      "confidence": "approximate",
+      "locator": null,
+      "note": "Sourced from Wikipedia (rank 12) only this session.",
+      "quote": "The scintillator is pseudocumene and PPO which is held in place by a thin nylon sphere.",
+      "sources": [
+        "src:borexino-wikipedia"
+      ],
+      "verified_at": "2026-09-17"
+    }
+  },
   "detector:cast": {
     "/intervals/0": {
       "confidence": "verified",
@@ -17258,10 +17638,30 @@
       ],
       "verified_at": null
     },
+    "/specs/length": {
+      "confidence": "verified",
+      "locator": "INSPIRE experiment record 1110249, description field",
+      "note": "VERIFIER FIX (2026-09-17): the original research pass said no clean verbatim magnet-spec quote was found and left key_specs empty; the description field of the already-cited INSPIRE experiment record (src:axions-cast-inspire-experiment) in fact gives both values in one sentence (re-fetched and confirmed this session).",
+      "quote": "In the CAST experiment an LHC prototype dipole magnet (B=9 T and L=10 m) with straight beam pipes provides a conversion efficiency exceeding that of the two earlier solar axion telescopes by almost a factor of 100.",
+      "sources": [
+        "src:axions-cast-inspire-experiment"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/specs/magnetic_field": {
+      "confidence": "verified",
+      "locator": "INSPIRE experiment record 1110249, description field",
+      "note": "VERIFIER FIX (2026-09-17): the original research pass said no clean verbatim magnet-spec quote was found and left key_specs empty; the description field of the already-cited INSPIRE experiment record (src:axions-cast-inspire-experiment) in fact gives both values in one sentence (re-fetched and confirmed this session).",
+      "quote": "In the CAST experiment an LHC prototype dipole magnet (B=9 T and L=10 m) with straight beam pipes provides a conversion efficiency exceeding that of the two earlier solar axion telescopes by almost a factor of 100.",
+      "sources": [
+        "src:axions-cast-inspire-experiment"
+      ],
+      "verified_at": "2026-09-17"
+    },
     "/technology": {
       "confidence": "verified",
       "locator": null,
-      "note": "No 'helioscope' value exists in the ontology's technology_classes enum; recorded as 'other' with this technology description (see worklog).",
+      "note": "VERIFIER FIX (2026-09-17): classified under `other` by the original research pass, which noted no matching technology_classes enum value existed; v0.2 amendment A24 (2026-09-17) added `helioscope`, `light_shining_through_wall` and `lumped_element_resonator` to the ontology's technology_classes for exactly this gap. Reclassified as `helioscope` with the sourced `technology` free-text description kept unchanged; no new claim is made beyond what was already sourced.",
       "quote": null,
       "sources": [
         "src:axions-cern-home-cast"
@@ -17285,7 +17685,7 @@
       "confidence": "verified",
       "locator": "fnal.gov Tevatron Shutdown Process page",
       "note": "",
-      "quote": "CDF will have its fluids and gases removed within a month and be completely shut down.",
+      "quote": "It took about a month to fully shut down the CDF detector, including time to remove its cooling fluids and gases.",
       "sources": [
         "src:colliders-historical-tevatron-fnal-shutdown-process",
         "src:colliders-historical-cdf-official-site"
@@ -18241,7 +18641,8 @@
       "quote": null,
       "sources": [
         "src:cresst-official-detectors-page",
-        "src:cresst-official-history-page"
+        "src:cresst-official-history-page",
+        "src:cresst-tes-optimization-2026-arxiv"
       ],
       "verified_at": null
     },
@@ -18260,6 +18661,16 @@
       "locator": "official site",
       "note": "No page fetched this session states CRESST's operating temperature directly; 15 mK is the typical mK-range figure implied by 'cryogenic calorimeter'/TES technology in the sources but is not a verbatim quoted value, so this spec is flagged uncertain rather than verified.",
       "quote": "tungsten transition-edge sensors",
+      "sources": [
+        "src:cresst-tes-optimization-2026-arxiv"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/specs/threshold": {
+      "confidence": "verified",
+      "locator": "arXiv:2605.07592, abstract",
+      "note": "CRESST-III threshold; the source states 'and lower' rather than a single hard number.",
+      "quote": "The advancement in W-TES sensors allowed the CRESST detectors to reach energy thresholds of 10 eV and lower, opening the way to the exploration of dark matter masses as low as 70 MeV/c2.",
       "sources": [
         "src:cresst-tes-optimization-2026-arxiv"
       ],
@@ -18392,9 +18803,9 @@
       "verified_at": "2026-09-17"
     },
     "/placements/0": {
-      "confidence": "verified",
+      "confidence": "approximate",
       "locator": "LBL news center article, 2025-11",
-      "note": "site:lngs-hall-a is owned by the 'facilities' Wave 3 lead and does not exist yet in this repository (dangling reference).",
+      "note": "site:lngs-hall-a is owned by the 'facilities' Wave 3 lead and does not exist yet in this repository (dangling reference). The cited source states the general LNGS location, not the Hall A designation; see record-level verification note.",
       "quote": "operated at INFN's Gran Sasso National Laboratory",
       "sources": [
         "src:cuore-lbl-newscenter-2025"
@@ -18458,7 +18869,7 @@
     "/placements/0": {
       "confidence": "uncertain",
       "locator": "CUPID Experiment official site",
-      "note": "site:lngs-hall-a is owned by the 'facilities' Wave 3 lead and does not exist yet in this repository (dangling reference).",
+      "note": "site:lngs-hall-a is owned by the 'facilities' Wave 3 lead and does not exist yet in this repository (dangling reference). The cited source states the general LNGS location, not the Hall A designation; see record-level verification note.",
       "quote": "Laboratori Nazionali del Gran Sasso (LNGS) in the Abruzzo region of central Italy",
       "sources": [
         "src:cupid-experiment-official-page"
@@ -18617,11 +19028,22 @@
     "/intervals/1": {
       "confidence": "verified",
       "locator": "INSPIRE literature record 2752302 (2024-01), abstract",
-      "note": "Open-ended: no source fetched this session states an end date for DAMIC operations; last confirmed activity is this January 2024 record. See experiment:damic notes on status.",
+      "note": "End set to 2025: a 2025 SNOLAB Future Projects Workshop report (fetched during verification) states the original DAMIC detector has become a background test stand.",
       "quote": "two 24-megapixel skipper charge-coupled devices (CCDs) deployed in the DAMIC setup at SNOLAB",
       "sources": [
-        "src:damic-skipper-excess-2023-arxiv",
-        "src:damic-inspire-literature-2024-excess"
+        "src:damic-2025-snolab-workshop-status",
+        "src:damic-inspire-literature-2024-excess",
+        "src:damic-skipper-excess-2023-arxiv"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/intervals/2": {
+      "confidence": "verified",
+      "locator": "arXiv:2507.11368 (2025-07), full text",
+      "note": "Terminal marker; see experiment:damic for full sourcing detail.",
+      "quote": "The original DAMIC detector at SNOLAB has become a test stand for background studies.",
+      "sources": [
+        "src:damic-2025-snolab-workshop-status"
       ],
       "verified_at": "2026-09-17"
     },
@@ -18638,10 +19060,11 @@
     "/placements/1": {
       "confidence": "verified",
       "locator": "arXiv:2007.15622, abstract",
-      "note": "",
+      "note": " Closed 2025 per the newly fetched 2025 SNOLAB workshop report.",
       "quote": "an 11 kg-day target exposure of the DAMIC experiment at the SNOLAB underground laboratory",
       "sources": [
-        "src:damic-11kgday-2020-arxiv"
+        "src:damic-11kgday-2020-arxiv",
+        "src:damic-2025-snolab-workshop-status"
       ],
       "verified_at": "2026-09-17"
     },
@@ -18652,6 +19075,7 @@
       "quote": null,
       "sources": [
         "src:damic-11kgday-2020-arxiv",
+        "src:damic-2025-snolab-workshop-status",
         "src:damic-skipper-excess-2023-arxiv"
       ],
       "verified_at": null
@@ -18703,7 +19127,7 @@
       "confidence": "verified",
       "locator": "arXiv:2210.12070, abstract",
       "note": "",
-      "quote": "A prototype with 20g of low-background skipper CCDs was installed at Laboratoire Souterrain de Modane",
+      "quote": "A prototype, the Low Background Chamber (LBC), with 20g of low background Skipper CCDs, has been recently installed at Laboratoire Souterrain de Modane and is currently taking data.",
       "sources": [
         "src:damic-m-status-2022-arxiv"
       ],
@@ -18723,7 +19147,7 @@
       "confidence": "verified",
       "locator": "arXiv:2210.12070, abstract",
       "note": "",
-      "quote": "A prototype with 20g of low-background skipper CCDs was installed at Laboratoire Souterrain de Modane",
+      "quote": "A prototype, the Low Background Chamber (LBC), with 20g of low background Skipper CCDs, has been recently installed at Laboratoire Souterrain de Modane and is currently taking data.",
       "sources": [
         "src:damic-m-status-2022-arxiv"
       ],
@@ -18764,7 +19188,7 @@
       "confidence": "verified",
       "locator": "arXiv:2210.12070",
       "note": "",
-      "quote": "novel skipper readout providing single electron resolution through multiple non-destructive measurements of the individual pixel charge",
+      "quote": "A novel skipper readout implemented in the CCDs provides single electron resolution through multiple non-destructive measurements of the individual pixel charge, pushing the detection threshold to the eV-scale.",
       "sources": [
         "src:damic-m-status-2022-arxiv"
       ],
@@ -19329,7 +19753,7 @@
     "/technology": {
       "confidence": "verified",
       "locator": null,
-      "note": "No 'lumped-element' value exists in the ontology's technology_classes enum; recorded as 'other' (see worklog).",
+      "note": "VERIFIER FIX (2026-09-17): classified under `other` by the original research pass, which noted no matching technology_classes enum value existed; v0.2 amendment A24 (2026-09-17) added `helioscope`, `light_shining_through_wall` and `lumped_element_resonator` to the ontology's technology_classes for exactly this gap. Reclassified as `lumped_element_resonator` with the sourced `technology` free-text description kept unchanged; no new claim is made beyond what was already sourced.",
       "quote": null,
       "sources": [
         "src:axions-dmradio-status-2022"
@@ -19950,7 +20374,8 @@
       "quote": null,
       "sources": [
         "src:exo-200-final-results-arxiv-1906",
-        "src:exo-200-doe-wipp-official-page"
+        "src:exo-200-doe-wipp-official-page",
+        "src:0vbb-verify-exo-200-detector-design-arxiv-1202-2192"
       ],
       "verified_at": null
     },
@@ -19965,12 +20390,12 @@
       "verified_at": "2026-09-17"
     },
     "/specs/target_mass": {
-      "confidence": "uncertain",
-      "locator": "secondary web summary, not directly fetched from a primary EXO-200 detector paper in this session",
-      "note": "The 110 kg active-mass figure is carried from a secondary summary of EXO-200 detector papers; not independently confirmed against a directly fetched primary source in this session, so confidence is set to uncertain rather than verified.",
-      "quote": "",
+      "confidence": "verified",
+      "locator": "The EXO-200 detector, part I: Detector design and construction (arXiv:1202.2192)",
+      "note": "Verification fix (2026-09-17): this agent directly fetched the EXO-200 detector design paper, which confirms the figure verbatim; confidence raised from 'uncertain' to 'verified' and the source corrected accordingly.",
+      "quote": "Of the 200 kg of enriched xenon available, 175 kg are in liquid phase, and 110 kg are in the active volume of the detector.",
       "sources": [
-        "src:exo-200-final-results-arxiv-1906"
+        "src:0vbb-verify-exo-200-detector-design-arxiv-1202-2192"
       ],
       "verified_at": "2026-09-17"
     },
@@ -20053,6 +20478,68 @@
       "quote": "FASERv employs emulsion films and tungsten plates to act as both the target and the detector",
       "sources": [
         "src:colliders-lhc-faser-home-cern-page"
+      ],
+      "verified_at": "2026-09-17"
+    }
+  },
+  "detector:gallex-gno": {
+    "/intervals/0": {
+      "confidence": "approximate",
+      "locator": null,
+      "note": "",
+      "quote": "GALLEX: Operated from 1991 to 1997 ... GNO (successor): Continued from May 1998 to April 2003",
+      "sources": [
+        "src:gallex-wikipedia"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/intervals/1": {
+      "confidence": "approximate",
+      "locator": null,
+      "note": "",
+      "quote": "GNO (successor): Continued from May 1998 to April 2003",
+      "sources": [
+        "src:gallex-wikipedia"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/placements/0": {
+      "confidence": "approximate",
+      "locator": null,
+      "note": "Placed at site:lngs-hall-a (owned by the facilities workstream; not created here).",
+      "quote": "GALLEX: Operated from 1991 to 1997 at Laboratori Nazionali del Gran Sasso (LNGS) ... GNO (successor): Continued from May 1998 to April 2003",
+      "sources": [
+        "src:gallex-wikipedia"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:gallex-wikipedia"
+      ],
+      "verified_at": null
+    },
+    "/specs/target_mass": {
+      "confidence": "approximate",
+      "locator": null,
+      "note": "",
+      "quote": "101 tons of gallium trichloride–hydrochloric acid solution, which contained 30.3 tons of gallium",
+      "sources": [
+        "src:gallex-wikipedia"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/technology": {
+      "confidence": "uncertain",
+      "locator": null,
+      "note": "Sourced from Wikipedia (rank 12) only this session. No `radiochemical` value exists in TECHNOLOGY_CLASSES (checked hepgraph/atlas/schema.py); `technology_class` is set to `other` and the radiochemical gallium technique is described in this free-text field instead, per the domain lead's resolution of this enum gap.",
+      "quote": "101 tons of gallium trichloride–hydrochloric acid solution, which contained 30.3 tons of gallium",
+      "sources": [
+        "src:gallex-wikipedia"
       ],
       "verified_at": "2026-09-17"
     }
@@ -20659,7 +21146,7 @@
     "/technology": {
       "confidence": "verified",
       "locator": null,
-      "note": "No 'helioscope' value exists in the ontology's technology_classes enum; recorded as 'other' (see worklog).",
+      "note": "VERIFIER FIX (2026-09-17): classified under `other` by the original research pass, which noted no matching technology_classes enum value existed; v0.2 amendment A24 (2026-09-17) added `helioscope`, `light_shining_through_wall` and `lumped_element_resonator` to the ontology's technology_classes for exactly this gap. Reclassified as `helioscope` with the sourced `technology` free-text description kept unchanged; no new claim is made beyond what was already sourced.",
       "quote": null,
       "sources": [
         "src:axions-iaxo-official-site",
@@ -21936,11 +22423,12 @@
     },
     "/placements/0": {
       "confidence": "verified",
-      "locator": "LEGEND official site",
+      "locator": "LBL Nuclear Science Division, \"LEGEND-200 Enters Data Production Phase\" (2023-07-01)",
       "note": "site:lngs-hall-a is owned by the 'facilities' Wave 3 lead and does not exist yet in this repository (dangling reference).",
-      "quote": "LEGEND-200 (Current Stage) ... Located at INFN Gran Sasso National Laboratory (LNGS) in Italy.",
+      "quote": "Its first phase, LEGEND-200, reuses the GERDA cryostat in Hall A of the Laboratori Nazionali del Gran Sasso (LNGS) underground laboratory in Italy",
       "sources": [
-        "src:legend-official-site"
+        "src:legend-official-site",
+        "src:0vbb-verify-legend-200-hall-a-lbl"
       ],
       "verified_at": "2026-09-17"
     },
@@ -21951,7 +22439,8 @@
       "quote": null,
       "sources": [
         "src:legend-official-site",
-        "src:legend-200-first-results-arxiv-2509"
+        "src:legend-200-first-results-arxiv-2509",
+        "src:0vbb-verify-legend-200-hall-a-lbl"
       ],
       "verified_at": null
     },
@@ -22156,6 +22645,24 @@
       ],
       "verified_at": "2026-09-17"
     },
+    "/intervals/0/end": {
+      "confidence": null,
+      "locator": null,
+      "note": "VERIFIER FIX (2026-09-17): capped at the LHC-wide Long Shutdown 3 boundary; mirrors experiment:lhcf.",
+      "quote": null,
+      "sources": null,
+      "verified_at": null
+    },
+    "/intervals/1": {
+      "confidence": "verified",
+      "locator": "reused from experiment:lhcf's sourced Long Shutdown 3 interval (src:cern-ls3-farewell-2026)",
+      "note": "VERIFIER-ADDED (2026-09-17): mirrors experiment:lhcf so the detector-level derived status agrees with the experiment-level one.",
+      "quote": null,
+      "sources": [
+        "src:cern-ls3-farewell-2026"
+      ],
+      "verified_at": "2026-09-17"
+    },
     "/placements/0": {
       "confidence": "verified",
       "locator": "INSPIRE experiment record 1126263, field description; home.cern LHCf page corroborates IP1",
@@ -22174,7 +22681,8 @@
       "quote": null,
       "sources": [
         "src:colliders-lhc-lhcf-inspire-experiment-record",
-        "src:colliders-lhc-lhcf-home-cern-page"
+        "src:colliders-lhc-lhcf-home-cern-page",
+        "src:cern-ls3-farewell-2026"
       ],
       "verified_at": null
     },
@@ -23446,9 +23954,9 @@
   },
   "detector:muon-g-2": {
     "/intervals/0": {
-      "confidence": "verified",
+      "confidence": "approximate",
       "locator": null,
-      "note": "",
+      "note": "Split during verification (2026-09-17) from a merged interval that ran to 2017-05 under a label including '...and commissioning', which was inaccurate: per experiment:muon-g-2's own intervals, commissioning did not begin until 2017-05-31, after this interval's original end. Start year (2013) is when the ring left Brookhaven per the cited quote; end 2014-07 is the ring's documented arrival date at MC-1 per Wikipedia's Muon g-2 article (secondary source, used only for this incidental milestone date).",
       "quote": "In 2013, Brookhaven's magnetic storage ring was transported from Long Island, New York, to Fermilab in Batavia, Illinois.",
       "sources": [
         "src:muons-news-fnal-2025-final-result"
@@ -23456,6 +23964,16 @@
       "verified_at": "2026-09-17"
     },
     "/intervals/1": {
+      "confidence": "verified",
+      "locator": null,
+      "note": "Added during verification (2026-09-17) to match experiment:muon-g-2's own commissioning interval, which this detector-level record previously omitted.",
+      "quote": "After years of significant upgrades and improvements, the Fermilab Muon g-2 experiment started up on May 31, 2017.",
+      "sources": [
+        "src:muons-news-fnal-2025-final-result"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/intervals/2": {
       "confidence": "verified",
       "locator": null,
       "note": "",
@@ -25136,9 +25654,9 @@
   },
   "detector:reno": {
     "/intervals/0": {
-      "confidence": "verified",
+      "confidence": "uncertain",
       "locator": null,
-      "note": "",
+      "note": "The cited paper's own analysis used only the 229-day window ending 26 March 2012; no source fetched this session confirms a shutdown or continued operation, so `end` is left null (ongoing at `verified_at`, §2.3).",
       "quote": "In the 229 day data-taking period between 11 August 2011 and 26 March 2012",
       "sources": [
         "src:reno-discovery-2012"
@@ -25672,6 +26190,24 @@
       ],
       "verified_at": "2026-09-17"
     },
+    "/intervals/1/end": {
+      "confidence": null,
+      "locator": null,
+      "note": "VERIFIER FIX (2026-09-17): capped at the LHC-wide Long Shutdown 3 boundary; mirrors experiment:snd-lhc.",
+      "quote": null,
+      "sources": null,
+      "verified_at": null
+    },
+    "/intervals/2": {
+      "confidence": "verified",
+      "locator": "reused from experiment:snd-lhc's sourced Long Shutdown 3 interval (src:cern-ls3-farewell-2026)",
+      "note": "VERIFIER-ADDED (2026-09-17): mirrors experiment:snd-lhc so the detector-level derived status agrees with the experiment-level one.",
+      "quote": null,
+      "sources": [
+        "src:cern-ls3-farewell-2026"
+      ],
+      "verified_at": "2026-09-17"
+    },
     "/placements/0": {
       "confidence": "verified",
       "locator": "arXiv:2210.02784, abstract",
@@ -25691,7 +26227,8 @@
       "sources": [
         "src:colliders-lhc-snd-lhc-inspire-experiment-record",
         "src:colliders-lhc-snd-lhc-2023-prl-muon-neutrino",
-        "src:colliders-lhc-snd-lhc-detector-arxiv-2022"
+        "src:colliders-lhc-snd-lhc-detector-arxiv-2022",
+        "src:cern-ls3-farewell-2026"
       ],
       "verified_at": null
     },
@@ -28951,8 +29488,9 @@
       "note": null,
       "quote": null,
       "sources": [
-        "src:axions-alps-ii-official-site",
+        "src:axions-alps-ii-desy-cryoplatform",
         "src:axions-alps-ii-inspire-experiment",
+        "src:axions-alps-ii-official-site",
         "src:axions-alps-ii-tdr-2013"
       ],
       "verified_at": null
@@ -30002,9 +30540,9 @@
       "verified_at": "2026-09-17"
     },
     "/intervals/3": {
-      "confidence": "verified",
+      "confidence": "approximate",
       "locator": "CERN Courier, \"BaBar celebrates its 25th anniversary\" (2019); end date per Symmetry Magazine, \"End of PEP-II and BaBar runs at SLAC\" (2008-04-08)",
-      "note": "",
+      "note": "Symmetry Magazine's own dateline is 2008-04-08, but its text says the beams were dumped and BaBar took its last data \"last night\" -- i.e. the calendar day of the last collisions could be 2008-04-07 by the time zone the article was written in, not the publication day itself. INSPIRE's date_completed for BaBar is month-precision only (2008-04), which does not resolve the day. Recorded here as the article's own dateline rather than an independently confirmed event day; verification review, 2026-09-17.",
       "quote": "the first collision events were collected on 26 May 1999",
       "sources": [
         "src:colliders-historical-babar-cerncourier-25th-anniversary-2019",
@@ -30014,9 +30552,9 @@
       "verified_at": "2026-09-17"
     },
     "/intervals/4": {
-      "confidence": "verified",
+      "confidence": "approximate",
       "locator": "Symmetry Magazine, \"End of PEP-II and BaBar runs at SLAC\" (2008-04-08)",
-      "note": "",
+      "note": "Symmetry Magazine's own dateline is 2008-04-08, but its text says the beams were dumped and BaBar took its last data \"last night\" -- i.e. the actual last-data day could be 2008-04-07, one day before the article's own dateline. INSPIRE's date_completed for BaBar is month-precision only (2008-04). Day given as the article's dateline, not an independently confirmed event day; verification review, 2026-09-17.",
       "quote": "Last night, the beams were dumped for the final time from the PEP-II rings and the BaBar experiment took its last data. It was the end of nine years of operation.",
       "sources": [
         "src:colliders-historical-babar-symmetry-2008-pepii-end"
@@ -30079,8 +30617,18 @@
     "/intervals/1": {
       "confidence": "verified",
       "locator": null,
-      "note": "As of the winter 2023 campaign: 3456 OMs on 96 strings (per the same source). Status remains 'construction' because the array is explicitly still being expanded toward its planned cubic-kilometre scale; not recorded as 'active' for the full design array.",
+      "note": "As of the winter 2023 campaign: 3456 OMs on 96 strings (per the same source). The array is explicitly still being expanded toward its planned cubic-kilometre scale.",
       "quote": "The first cluster of the Baikal-GVD neutrino telescope was deployed in 2016 with 288 OMs. Since then, there has been an annual increase of the deployed clusters.",
+      "sources": [
+        "src:astro-neutrino-baikal-gvd-status-2023-paper"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/intervals/2": {
+      "confidence": "verified",
+      "locator": null,
+      "note": "Verification fix (2026-09-17): added because the growing array has been taking physics data continuously since 2018 (astrophysical-neutrino searches published using 2018-2021/2018-2022 data) while construction continues, the same overlapping construction/commissioning pattern recorded for experiment:km3net. Corrects an omission where only a bare 'construction' status was recorded despite sourced evidence of ongoing data-taking.",
+      "quote": "The Baikal-GVD data collected in 2018-2022 indicate the presence of cosmic neutrino flux in high-energy cascade events consistent with observations by the IceCube neutrino telescope.",
       "sources": [
         "src:astro-neutrino-baikal-gvd-status-2023-paper"
       ],
@@ -30461,6 +31009,112 @@
       "verified_at": "2026-09-16"
     }
   },
+  "experiment:borexino": {
+    "/facility_roles/0": {
+      "confidence": "verified",
+      "locator": null,
+      "note": "facility:lngs already exists (owned by the dark-matter/facilities workstreams) and is referenced here, not edited.",
+      "quote": null,
+      "sources": [
+        "src:borexino-official-site"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/intervals/0": {
+      "confidence": "approximate",
+      "locator": null,
+      "note": "Sourced from Wikipedia (rank 12) only this session.",
+      "quote": "Research and development began in 1990; By 2004, the structure of the detector had been completed.",
+      "sources": [
+        "src:borexino-wikipedia"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/intervals/1": {
+      "confidence": "approximate",
+      "locator": null,
+      "note": "Sourced from Wikipedia (rank 12) only; the official site's own homepage this session described '35 years of operation through 2025' without giving exact start/end dates, which is not used here as it appears to describe the collaboration's overall lifetime (proposal to final analysis) rather than the detector's active data-taking window.",
+      "quote": "Started May 2007; the entire Borexino experiment was terminated in October 2021.",
+      "sources": [
+        "src:borexino-wikipedia"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/intervals/2": {
+      "confidence": "approximate",
+      "locator": null,
+      "note": "Terminal event date sourced from Wikipedia (rank 12) only.",
+      "quote": "the entire Borexino experiment was terminated in October 2021",
+      "sources": [
+        "src:borexino-wikipedia"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/key_specs/0/quantity": {
+      "confidence": "approximate",
+      "locator": null,
+      "note": "Sourced from Wikipedia (rank 12) only; corroborated by the CNO paper's own '100 tonnes of target' fiducial-mass figure.",
+      "quote": "278 tonnes of active mass (315 m³ volume), with approximately 100 tonnes fiducial mass",
+      "sources": [
+        "src:borexino-wikipedia"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/key_specs/1/quantity": {
+      "confidence": "approximate",
+      "locator": null,
+      "note": "Sourced from Wikipedia (rank 12) only; differs from the ~1400 m rock / average LNGS overburden figure already recorded on site:lngs-hall-c (owned by the facilities workstream) because m.w.e. and rock-metres are different units and per-hall shielding can differ from the site average.",
+      "quote": "Protected by 3,800 meters of water-equivalent depth",
+      "sources": [
+        "src:borexino-wikipedia"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/links/website": {
+      "confidence": "verified",
+      "locator": null,
+      "note": "The certificate-mismatched domain borexino.lngs.infn.it redirects to/matches borex.lngs.infn.it; the latter is recorded as the working URL fetched this session.",
+      "quote": null,
+      "sources": [
+        "src:borexino-official-site"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/physics_goals/0": {
+      "confidence": "verified",
+      "locator": "borex.lngs.infn.it homepage",
+      "note": null,
+      "quote": "A solar neutrino detector designed to observe neutrinos produced in the Sun's nuclear fusion processes.",
+      "sources": [
+        "src:borexino-official-site"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:borexino-official-site",
+        "src:borexino-wikipedia",
+        "src:borexino-pp-first-detection-2014",
+        "src:borexino-cno-evidence-2020",
+        "src:borexino-inspire-experiment-record"
+      ],
+      "verified_at": null
+    },
+    "/unique_capabilities/0": {
+      "confidence": "verified",
+      "locator": "arXiv:2006.15115, abstract",
+      "note": null,
+      "quote": "the unprecedentedly radio-pure large-volume liquid-scintillator Borexino detector located at the underground Laboratori Nazionali del Gran Sasso in Italy",
+      "sources": [
+        "src:borexino-cno-evidence-2020"
+      ],
+      "verified_at": "2026-09-17"
+    }
+  },
   "experiment:cast": {
     "/facility_roles/0": {
       "confidence": "verified",
@@ -30498,6 +31152,26 @@
       "locator": "INSPIRE experiment record 1110249, fields date_started / date_completed",
       "note": "Day-precision dates from the INSPIRE experiment record's date_started/date_completed fields, which mirror the CERN Greybook per the wave-3 brief's guidance ('status per CERN Greybook - data taking ended').",
       "quote": null,
+      "sources": [
+        "src:axions-cast-inspire-experiment"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/key_specs/0/quantity": {
+      "confidence": "verified",
+      "locator": "INSPIRE experiment record 1110249, description field",
+      "note": "VERIFIER FIX (2026-09-17): the original research pass said no clean verbatim magnet-spec quote was found and left key_specs empty; the description field of the already-cited INSPIRE experiment record (src:axions-cast-inspire-experiment) in fact gives both values in one sentence (re-fetched and confirmed this session).",
+      "quote": "In the CAST experiment an LHC prototype dipole magnet (B=9 T and L=10 m) with straight beam pipes provides a conversion efficiency exceeding that of the two earlier solar axion telescopes by almost a factor of 100.",
+      "sources": [
+        "src:axions-cast-inspire-experiment"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/key_specs/1/quantity": {
+      "confidence": "verified",
+      "locator": "INSPIRE experiment record 1110249, description field",
+      "note": "VERIFIER FIX (2026-09-17): the original research pass said no clean verbatim magnet-spec quote was found and left key_specs empty; the description field of the already-cited INSPIRE experiment record (src:axions-cast-inspire-experiment) in fact gives both values in one sentence (re-fetched and confirmed this session).",
+      "quote": "In the CAST experiment an LHC prototype dipole magnet (B=9 T and L=10 m) with straight beam pipes provides a conversion efficiency exceeding that of the two earlier solar axion telescopes by almost a factor of 100.",
       "sources": [
         "src:axions-cast-inspire-experiment"
       ],
@@ -30661,7 +31335,7 @@
       "confidence": "verified",
       "locator": "news.fnal.gov, \"Tevatron shuts down, but analysis continues\" (2011-09); cdf.fnal.gov home page",
       "note": "cdf.fnal.gov confirms: \"studies high energy proton-antiproton collisions from data collected through 2011.\" Status recorded as completed (data-taking over; the collaboration continues to analyze the archived dataset, e.g. its 2022 W-mass measurement).",
-      "quote": "When the Tevatron shut down on Sept. 30, 2011, scientists first stopped the CDF and DZero detectors. ... CDF will have its fluids and gases removed within a month and be completely shut down.",
+      "quote": "When the Tevatron shut down on Sept. 30, 2011, scientists first stopped the CDF and DZero detectors. ... It took about a month to fully shut down the CDF detector, including time to remove its cooling fluids and gases.",
       "sources": [
         "src:colliders-historical-tevatron-fnal-news-2011-shutdown",
         "src:colliders-historical-tevatron-fnal-shutdown-process",
@@ -31410,7 +32084,7 @@
       "confidence": "verified",
       "locator": null,
       "note": "",
-      "quote": "achieving nuclear recoil energy thresholds near 100 eV",
+      "quote": "The advancement in W-TES sensors allowed the CRESST detectors to reach energy thresholds of 10 eV and lower, opening the way to the exploration of dark matter masses as low as 70 MeV/c2.",
       "sources": [
         "src:cresst-tes-optimization-2026-arxiv"
       ],
@@ -31525,7 +32199,7 @@
       "confidence": "verified",
       "locator": null,
       "note": "",
-      "quote": "improving sensitivity for lightweight dark matter candidates below 10 GeV/c2, achieving nuclear recoil energy thresholds near 100 eV",
+      "quote": "The CRESST experiment aims at the direct detection of sub-GeV dark matter particles via elastic scattering off nuclei in different target crystals at cryogenic temperatures.",
       "sources": [
         "src:cresst-tes-optimization-2026-arxiv"
       ],
@@ -31538,8 +32212,9 @@
       "quote": null,
       "sources": [
         "src:cresst-inspire-experiment",
+        "src:cresst-official-history-page",
         "src:cresst-official-site",
-        "src:cresst-official-history-page"
+        "src:cresst-tes-optimization-2026-arxiv"
       ],
       "verified_at": null
     },
@@ -32020,10 +32695,11 @@
     "/facility_roles/1": {
       "confidence": "verified",
       "locator": "arXiv:2007.15622, abstract",
-      "note": "",
+      "note": " Closed 2025 per the newly fetched 2025 SNOLAB workshop report describing the original DAMIC detector as repurposed into a test stand.",
       "quote": "an 11 kg-day target exposure of the DAMIC experiment at the SNOLAB underground laboratory",
       "sources": [
-        "src:damic-11kgday-2020-arxiv"
+        "src:damic-11kgday-2020-arxiv",
+        "src:damic-2025-snolab-workshop-status"
       ],
       "verified_at": "2026-09-17"
     },
@@ -32050,11 +32726,22 @@
     "/intervals/2": {
       "confidence": "verified",
       "locator": "INSPIRE literature record 2752302 (2024-01), abstract",
-      "note": "Open-ended per the sources found; no source fetched this session states an explicit end date or completion of DAMIC. The wave-3 brief describes DAMIC as 'completed' (superseded by DAMIC-M); that claim is NOT independently sourced this session, so this interval is left open (status active) rather than asserting a completion date, per A17 and the instruction to under-claim rather than over-claim. Flagged for review.",
+      "note": "End set to 2025 per a newly fetched source (2026-09-17 verification pass): the 2025 SNOLAB Future Projects Workshop report states the original DAMIC detector has become a test stand, i.e. its dark-matter science run had ended by then. Exact month of cessation not given, so year precision is used.",
       "quote": "two 24-megapixel skipper charge-coupled devices (CCDs) deployed in the DAMIC setup at SNOLAB",
       "sources": [
-        "src:damic-skipper-excess-2023-arxiv",
-        "src:damic-inspire-literature-2024-excess"
+        "src:damic-2025-snolab-workshop-status",
+        "src:damic-inspire-literature-2024-excess",
+        "src:damic-skipper-excess-2023-arxiv"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/intervals/3": {
+      "confidence": "verified",
+      "locator": "arXiv:2507.11368 (2025-07), full text",
+      "note": "Terminal marker (status completed = 'data taking over' per ontology S4): the original DAMIC detector's dark-matter search at SNOLAB ended and the apparatus is now used as a test stand for background studies, per the 2025 SNOLAB Future Projects Workshop community report. This resolves the open item flagged by the original research pass, which had recorded DAMIC as active because no closure source had been found yet.",
+      "quote": "The original DAMIC detector at SNOLAB has become a test stand for background studies.",
+      "sources": [
+        "src:damic-2025-snolab-workshop-status"
       ],
       "verified_at": "2026-09-17"
     },
@@ -32082,7 +32769,7 @@
       "confidence": "verified",
       "locator": null,
       "note": "DAMIC-M's own status paper identifies itself as the follow-on programme using the DAMIC name and skipper-CCD technology at a new site (Modane); no source explicitly uses the word 'predecessor', so this relation is inferred from the shared name and collaboration continuity described in that paper, flagged confidence verified only for the site/technology facts quoted, not for the lineage label itself.",
-      "quote": "A prototype with 20g of low-background skipper CCDs was installed at Laboratoire Souterrain de Modane",
+      "quote": "A prototype, the Low Background Chamber (LBC), with 20g of low background Skipper CCDs, has been recently installed at Laboratoire Souterrain de Modane and is currently taking data.",
       "sources": [
         "src:damic-m-status-2022-arxiv"
       ],
@@ -32114,9 +32801,10 @@
       "note": null,
       "quote": null,
       "sources": [
-        "src:damic-inspire-experiment-snolab",
+        "src:damic-11kgday-2020-arxiv",
+        "src:damic-2025-snolab-workshop-status",
         "src:damic-inspire-experiment-original",
-        "src:damic-11kgday-2020-arxiv"
+        "src:damic-inspire-experiment-snolab"
       ],
       "verified_at": null
     },
@@ -32146,7 +32834,7 @@
       "confidence": "verified",
       "locator": "arXiv:2210.12070, abstract",
       "note": "",
-      "quote": "A prototype with 20g of low-background skipper CCDs was installed at Laboratoire Souterrain de Modane",
+      "quote": "A prototype, the Low Background Chamber (LBC), with 20g of low background Skipper CCDs, has been recently installed at Laboratoire Souterrain de Modane and is currently taking data.",
       "sources": [
         "src:damic-m-status-2022-arxiv"
       ],
@@ -32156,7 +32844,7 @@
       "confidence": "verified",
       "locator": "arXiv:2210.12070, abstract",
       "note": "End set to the paper's submission date (2022-10-11).",
-      "quote": "A prototype with 20g of low-background skipper CCDs was installed at Laboratoire Souterrain de Modane",
+      "quote": "A prototype, the Low Background Chamber (LBC), with 20g of low background Skipper CCDs, has been recently installed at Laboratoire Souterrain de Modane and is currently taking data.",
       "sources": [
         "src:damic-m-status-2022-arxiv"
       ],
@@ -32196,7 +32884,7 @@
       "confidence": "verified",
       "locator": null,
       "note": "Inferred from shared DAMIC name, collaboration continuity, and CCD technology described in DAMIC-M's own status paper; no source uses the literal word 'predecessor'.",
-      "quote": "A prototype with 20g of low-background skipper CCDs was installed at Laboratoire Souterrain de Modane",
+      "quote": "A prototype, the Low Background Chamber (LBC), with 20g of low background Skipper CCDs, has been recently installed at Laboratoire Souterrain de Modane and is currently taking data.",
       "sources": [
         "src:damic-m-status-2022-arxiv"
       ],
@@ -32228,7 +32916,7 @@
       "confidence": "verified",
       "locator": null,
       "note": "",
-      "quote": "advancing dark matter exploration particularly for hidden sector candidates with eV-scale detection thresholds",
+      "quote": "A novel skipper readout implemented in the CCDs provides single electron resolution through multiple non-destructive measurements of the individual pixel charge, pushing the detection threshold to the eV-scale.",
       "sources": [
         "src:damic-m-status-2022-arxiv"
       ],
@@ -32265,16 +32953,6 @@
         "src:darkquest-proposal-arxiv-2022"
       ],
       "verified_at": "2026-09-17"
-    },
-    "/lineage/0": {
-      "confidence": null,
-      "locator": null,
-      "note": null,
-      "quote": null,
-      "sources": [
-        "src:darkquest-proposal-arxiv-2022"
-      ],
-      "verified_at": null
     },
     "/physics_goals/0": {
       "confidence": "verified",
@@ -33444,7 +34122,7 @@
       "confidence": "verified",
       "locator": null,
       "note": "",
-      "quote": "an analysis threshold of 30 eV, constraining cross-sections down to 10^-29 cm^2 for masses between 32 and 100 MeV/c^2",
+      "quote": "constrains a new region of parameter space for cross-sections down to 10^{-29} cm^2 and masses between 32 and 100 MeV",
       "sources": [
         "src:edelweiss-subgev-migdal-2022-arxiv"
       ],
@@ -33801,6 +34479,89 @@
       "quote": "FASER will complement the LHC's existing physics program, extending its discovery potential to a host of new, light particles",
       "sources": [
         "src:colliders-lhc-faser-inspire-experiment-record"
+      ],
+      "verified_at": "2026-09-17"
+    }
+  },
+  "experiment:gallex-gno": {
+    "/facility_roles/0": {
+      "confidence": "verified",
+      "locator": null,
+      "note": "facility:lngs already exists (owned by the dark-matter/facilities workstreams) and is referenced here, not edited.",
+      "quote": null,
+      "sources": [
+        "src:gallex-wikipedia"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/intervals/0": {
+      "confidence": "approximate",
+      "locator": null,
+      "note": "Sourced from Wikipedia (rank 12) only this session.",
+      "quote": "GALLEX: Operated from 1991 to 1997 at Laboratori Nazionali del Gran Sasso (LNGS)",
+      "sources": [
+        "src:gallex-wikipedia"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/intervals/1": {
+      "confidence": "approximate",
+      "locator": null,
+      "note": "",
+      "quote": "GNO (successor): Continued from May 1998 to April 2003",
+      "sources": [
+        "src:gallex-wikipedia"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/intervals/2": {
+      "confidence": "approximate",
+      "locator": null,
+      "note": "",
+      "quote": "GNO (successor): Continued from May 1998 to April 2003",
+      "sources": [
+        "src:gallex-wikipedia"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/key_specs/0/quantity": {
+      "confidence": "approximate",
+      "locator": null,
+      "note": "Sourced from Wikipedia (rank 12) only this session.",
+      "quote": "101 tons of gallium trichloride–hydrochloric acid solution, which contained 30.3 tons of gallium",
+      "sources": [
+        "src:gallex-wikipedia"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/physics_goals/0": {
+      "confidence": "uncertain",
+      "locator": "Wikipedia",
+      "note": "Sourced from Wikipedia (rank 12) only this session.",
+      "quote": "It was designed to detect solar neutrinos and prove theories related to the Sun's energy creation mechanism.",
+      "sources": [
+        "src:gallex-wikipedia"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:gallex-inspire-experiment-record",
+        "src:gallex-wikipedia"
+      ],
+      "verified_at": null
+    },
+    "/unique_capabilities/0": {
+      "confidence": "uncertain",
+      "locator": "Wikipedia",
+      "note": "Sourced from Wikipedia (rank 12) only this session. Note for the ontology: there is no `radiochemical` value in the EXPERIMENT_KINDS or TECHNOLOGY_CLASSES enums (checked hepgraph/atlas/schema.py directly); `kind` is recorded as `solar_neutrino` (matching this workstream's own coverage-file category) and the detector's `technology_class` is `other`, with the radiochemical gallium technique described here and in detector:gallex-gno.technology.",
+      "quote": "101 tons of gallium trichloride–hydrochloric acid solution, which contained 30.3 tons of gallium",
+      "sources": [
+        "src:gallex-wikipedia"
       ],
       "verified_at": "2026-09-17"
     }
@@ -37014,10 +37775,28 @@
     "/intervals/2": {
       "confidence": "verified",
       "locator": "INSPIRE experiment record 1126263, field date_started",
-      "note": "INSPIRE's date_completed field for this record is '9999' -- INSPIRE's own placeholder for 'not completed/ongoing', not a real date -- so it is not used and status remains 'active'. Public knowledge is that LHCf ran mainly in short low-luminosity periods early in each LHC run (2009-2010, 2013, 2015-2016) and does not run continuously through high-luminosity physics, but no source fetched in this session states that schedule at reviewable precision, so a single open 'active' interval is recorded instead of a richer run-by-run history.",
+      "note": "INSPIRE's date_completed field for this record is '9999' -- INSPIRE's own placeholder for 'not completed/ongoing', not a real date -- so it is not used. Public knowledge is that LHCf ran mainly in short low-luminosity periods early in each LHC run (2009-2010, 2013, 2015-2016) and does not run continuously through high-luminosity physics, but no source fetched in this session states that schedule at reviewable precision, so a single open (now LS3-capped) 'active' interval is recorded instead of a richer run-by-run history.",
       "quote": null,
       "sources": [
         "src:colliders-lhc-lhcf-inspire-experiment-record"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/intervals/2/end": {
+      "confidence": null,
+      "locator": null,
+      "note": "VERIFIER FIX (2026-09-17): capped at the LHC-wide Long Shutdown 3 boundary (see the added interval below); previously open-ended (end: null). LHCf only records LHC beam particles, so it cannot be 'active' while the LHC itself is off for LS3.",
+      "quote": null,
+      "sources": null,
+      "verified_at": null
+    },
+    "/intervals/3": {
+      "confidence": "verified",
+      "locator": "reused from accelerator:lhc's sourced Long Shutdown 3 interval (src:cern-ls3-farewell-2026)",
+      "note": "VERIFIER-ADDED (2026-09-17): LHCf only detects particles from LHC collisions, so it shares the LHC-wide Long Shutdown 3 interval already sourced for ALICE, LHCb and TOTEM in this partition; ongoing at verified_at.",
+      "quote": null,
+      "sources": [
+        "src:cern-ls3-farewell-2026"
       ],
       "verified_at": "2026-09-17"
     },
@@ -37058,7 +37837,8 @@
       "quote": null,
       "sources": [
         "src:colliders-lhc-lhcf-inspire-experiment-record",
-        "src:colliders-lhc-lhcf-home-cern-page"
+        "src:colliders-lhc-lhcf-home-cern-page",
+        "src:cern-ls3-farewell-2026"
       ],
       "verified_at": null
     },
@@ -37708,10 +38488,11 @@
     },
     "/intervals/0": {
       "confidence": "verified",
-      "locator": null,
-      "note": "No specific proposal date is stated on the fetched page; recorded as an undated `proposed` status.",
-      "quote": "proposed detector",
+      "locator": "arXiv:1811.00927, abstract (submitted 2 Nov 2018)",
+      "note": "2026-09-17 fixed-target verification: anchored on the MATHUSLA Letter of Intent, arXiv:1811.00927 ('A Letter of Intent for MATHUSLA: a dedicated displaced vertex detector above ATLAS or CMS', submitted 2 Nov 2018), which is the collaboration's first public proposal document. Previously `start: null`, which made the interval cover no year at all (A3: 'start: null covers only [lo(end), hi(end))'), so the derived state at the build date was `unrecorded` (None) rather than `proposed`, and `status` was written as `null` to match -- masking that MATHUSLA has, in fact, been an actively proposed experiment since 2018.",
+      "quote": "we propose the construction of MATHUSLA",
       "sources": [
+        "src:fixed-target-verify-mathusla-loi-arxiv-1811-00927",
         "src:mathusla-official-site"
       ],
       "verified_at": "2026-09-17"
@@ -37763,7 +38544,8 @@
       "quote": null,
       "sources": [
         "src:mathusla-official-site",
-        "src:mathusla-inspire-experiment-record"
+        "src:mathusla-inspire-experiment-record",
+        "src:fixed-target-verify-mathusla-loi-arxiv-1811-00927"
       ],
       "verified_at": null
     },
@@ -37791,6 +38573,36 @@
     },
     "/intervals/0": {
       "confidence": "verified",
+      "locator": "INSPIRE experiment record 1108527, metadata.date_proposed",
+      "note": "'date_proposed' field of the INSPIRE experiment record (already cited on this entity).",
+      "quote": null,
+      "sources": [
+        "src:muons-inspire-experiment-meg"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/intervals/1": {
+      "confidence": "verified",
+      "locator": "INSPIRE experiment record 1108527, metadata.date_approved",
+      "note": "'date_approved' field of the INSPIRE experiment record.",
+      "quote": null,
+      "sources": [
+        "src:muons-inspire-experiment-meg"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/intervals/2": {
+      "confidence": "approximate",
+      "locator": "INSPIRE experiment record 1108527, metadata.date_started",
+      "note": "INSPIRE's generic 'date_started' field (2004) with no further detail on which milestone it marks; recorded as 'construction' and capped at 2009 where the sourced 'data taking' interval below begins.",
+      "quote": null,
+      "sources": [
+        "src:muons-inspire-experiment-meg"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/intervals/3": {
+      "confidence": "verified",
       "locator": null,
       "note": "Operating interval; the single sourced row was split from its terminal event (A3, 2026-09-17).",
       "quote": "the full dataset collected by the MEG experiment at the Paul Scherrer Institut in the period 2009--2013 and totalling 7.5x10^14 stopped muons on target",
@@ -37799,7 +38611,7 @@
       ],
       "verified_at": "2026-09-17"
     },
-    "/intervals/1": {
+    "/intervals/4": {
       "confidence": "verified",
       "locator": null,
       "note": "Terminal event derived from the end of the same sourced interval (A3, 2026-09-17).",
@@ -37844,8 +38656,8 @@
     "/unique_capabilities/0": {
       "confidence": "verified",
       "locator": null,
-      "note": "",
-      "quote": "Researchers employed detector elements with optimal resolution capabilities on both positron and gamma-ray sides to enable background-free signal identification at the targeted branching ratio level.",
+      "note": "Quote corrected during verification (2026-09-17): the original quote field was a paraphrase, not verbatim text from the cited INSPIRE record.",
+      "quote": "utilize detector elements with best possible resolutions both on the e+ and gamma-sides, so that the background-free identification of the signal down to this small branching ratio can be obtained hopefully with a good margin",
       "sources": [
         "src:muons-inspire-experiment-meg"
       ],
@@ -37865,6 +38677,16 @@
     },
     "/intervals/0": {
       "confidence": "verified",
+      "locator": "INSPIRE experiment record 1679100, metadata.date_proposed",
+      "note": "'date_proposed' field of the INSPIRE experiment record (already cited on this entity). Capped at the start of the sourced 'first physics run' interval below.",
+      "quote": null,
+      "sources": [
+        "src:muons-inspire-experiment-meg-ii"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/intervals/1": {
+      "confidence": "verified",
       "locator": null,
       "note": "",
       "quote": "data taken from the first physics run in 2021",
@@ -37873,7 +38695,7 @@
       ],
       "verified_at": "2026-09-17"
     },
-    "/intervals/1": {
+    "/intervals/2": {
       "confidence": "verified",
       "locator": null,
       "note": "Open interval: the source states data-taking continues in subsequent years.",
@@ -37886,8 +38708,8 @@
     "/key_specs/0/quantity": {
       "confidence": "verified",
       "locator": null,
-      "note": "",
-      "quote": "reaching a target branching ratio sensitivity of \"6 \\times 10^{-14}\" for this decay process.",
+      "note": "Quote corrected during verification (2026-09-17): the original quote field was a paraphrase, not verbatim text from the cited INSPIRE record.",
+      "quote": "In order to increase the sensitivity reach of the experiment by an order of magnitude to the level of 6 x 10^{-14} for the branching ratio, a total upgrade, involving substantial changes to the experiment, has been undertaken, known as MEG II.",
       "sources": [
         "src:muons-inspire-experiment-meg-ii"
       ],
@@ -37916,8 +38738,8 @@
     "/physics_goals/0": {
       "confidence": "verified",
       "locator": null,
-      "note": "",
-      "quote": "MEG II represents a major upgrade designed to improve sensitivity by approximately one order of magnitude, reaching a target branching ratio sensitivity of \"6 \\times 10^{-14}\"",
+      "note": "Quote corrected during verification (2026-09-17): the original quote field was a paraphrase, not verbatim text from the cited INSPIRE record.",
+      "quote": "In order to increase the sensitivity reach of the experiment by an order of magnitude to the level of 6 x 10^{-14} for the branching ratio, a total upgrade, involving substantial changes to the experiment, has been undertaken, known as MEG II.",
       "sources": [
         "src:muons-inspire-experiment-meg-ii"
       ],
@@ -38834,6 +39656,16 @@
       "verified_at": "2026-09-17"
     },
     "/intervals/0": {
+      "confidence": "verified",
+      "locator": "INSPIRE experiment record 1114537, metadata.date_proposed",
+      "note": "'date_proposed' field of the INSPIRE experiment record (already cited on this entity), independently found during verification and not used in the original research pass. Left open-ended (matching the precedent set by experiment:mu2e's own 'approved' interval spanning an undated gap): no source fetched gives a dated approved/construction-start milestone between 2012 and the 2026-09 pixel-installation evidence below, so the model's last-known-status convention will show 'proposed' for the intervening years. This is very likely stale -- Mu3e almost certainly reached approved and construction status well before 2026 -- but no dated source for that transition was fetched this session, so an invented later date is not substituted for it.",
+      "quote": null,
+      "sources": [
+        "src:muons-inspire-experiment-mu3e"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/intervals/1": {
       "confidence": "approximate",
       "locator": null,
       "note": "Dated evidence of active detector construction: the third of the tracker's pixel layers was installed on 2026-09-16. No single fetched source gives a clean overall 'construction' status statement with its own start date, so this interval is anchored to the most recent dated construction milestone found rather than an unsourced project start year.",
@@ -38907,6 +39739,26 @@
       "verified_at": "2026-09-17"
     },
     "/intervals/0": {
+      "confidence": "verified",
+      "locator": "INSPIRE experiment record 1108252, metadata.date_proposed",
+      "note": "'date_proposed' field of the INSPIRE experiment record (already cited on this entity, but not used for intervals in the original research pass). End date capped at this interval's approval so it does not bleed into the later, separately-documented 2014-08..2017-04 gap.",
+      "quote": null,
+      "sources": [
+        "src:muons-inspire-experiment-muon-g2"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/intervals/1": {
+      "confidence": "verified",
+      "locator": "INSPIRE experiment record 1108252, metadata.date_approved",
+      "note": "'date_approved' field of the INSPIRE experiment record. End date capped at the start of the ring-relocation/construction interval below so it does not bleed into the later, separately-documented 2014-08..2017-04 gap (during which the ring was known to be under physical reassembly, not merely 'approved').",
+      "quote": null,
+      "sources": [
+        "src:muons-inspire-experiment-muon-g2"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/intervals/2": {
       "confidence": "approximate",
       "locator": null,
       "note": "Start year (2013) is when the ring left Brookhaven per the cited quote; the 2014-07 end is the ring's documented arrival date at the MC-1 experimental hall on 2014-07-30 per Wikipedia's Muon g-2 article (secondary source, used only for this incidental milestone date, not a critical field on its own -- the 2013 departure and general relocation are independently confirmed by the Fermilab press release).",
@@ -38916,17 +39768,17 @@
       ],
       "verified_at": "2026-09-17"
     },
-    "/intervals/1": {
+    "/intervals/3": {
       "confidence": "verified",
       "locator": null,
-      "note": "",
+      "note": "Independent verification (2026-09-17) found that INSPIRE experiment record 1108252's own metadata.date_started field states 2017-01-31, five months before this press-release-sourced 'started up' date of 2017-05-31. Both are recorded here rather than silently reconciled: the two fields plausibly describe different milestones (e.g. a formal/administrative project start vs. the narrower first-beam 'started up' event the press release describes), and no source fetched resolves which. The more specific, narratively-dated press-release quote is kept as this interval's start.",
       "quote": "After years of significant upgrades and improvements, the Fermilab Muon g-2 experiment started up on May 31, 2017.",
       "sources": [
         "src:muons-news-fnal-2025-final-result"
       ],
       "verified_at": "2026-09-17"
     },
-    "/intervals/2": {
+    "/intervals/4": {
       "confidence": "verified",
       "locator": null,
       "note": "'Completed' marks that data-taking is over; analysis of the full dataset continued through the 2025 final result.",
@@ -39216,8 +40068,8 @@
     "/physics_goals/0": {
       "confidence": "verified",
       "locator": "na62.web.cern.ch/Home/Aim.html",
-      "note": "",
-      "quote": "Measure the very rare kaon decay K+ -> pi+ nu nubar at the CERN SPS to extract a 10% measurement of the CKM parameter |Vtd|.",
+      "note": "2026-09-17 fixed-target verification: the previous quote dropped the page's leading 'NA62 initially proposed to' and capitalised 'measure' as if it opened the sentence, which is a spliced, non-verbatim quote (A15 requires the exact text seen). Corrected to the full sentence; note that the page itself frames the 10% figure as the *initial* proposed precision, not a claim about the precision actually achieved.",
+      "quote": "NA62 initially proposed to measure the very rare kaon decay K+ -> pi+ nu nubar at the CERN SPS to extract a 10% measurement of the CKM parameter |Vtd|.",
       "sources": [
         "src:na62-aim-page"
       ],
@@ -40686,9 +41538,9 @@
       "verified_at": "2026-09-17"
     },
     "/intervals/0": {
-      "confidence": "verified",
+      "confidence": "uncertain",
       "locator": null,
-      "note": "",
+      "note": "The cited paper's own analysis used only the 229-day window ending 26 March 2012, but no source fetched this session states that RENO stopped operating at that date, nor confirms it continued; `end` is left null (ongoing at `verified_at`, per §2.3) rather than asserting either a shutdown or continued operation from memory.",
       "quote": "In the 229 day data-taking period between 11 August 2011 and 26 March 2012",
       "sources": [
         "src:reno-discovery-2012"
@@ -41189,7 +42041,7 @@
       "confidence": "verified",
       "locator": "arXiv:2004.11378, abstract",
       "note": "",
-      "quote": "an improved ~2-gram high-resistivity Skipper-CCD",
+      "quote": "a new ~2-gram high-resistivity Skipper-CCD from a dedicated fabrication batch that was optimized for dark-matter searches",
       "sources": [
         "src:sensei-new-skipper-ccd-2020-arxiv"
       ],
@@ -41221,7 +42073,7 @@
       "confidence": "verified",
       "locator": null,
       "note": "",
-      "quote": "observed no three-plus electron events and derived world-leading constraints on dark matter-electron scattering for masses between 500 keV to 5 MeV",
+      "quote": "We find zero events with three (or more) electrons in the unblinded data",
       "sources": [
         "src:sensei-shallow-underground-2019-arxiv"
       ],
@@ -41270,11 +42122,12 @@
       "verified_at": "2026-09-17"
     },
     "/intervals/2": {
-      "confidence": "uncertain",
-      "locator": null,
-      "note": "The 2024 CERN Council/Research Board approval for the ECN3 site is stated on Wikipedia (a pointer-only source, rank 12) and is consistent with the official ship.web.cern.ch page's current framing ('in preparation at the SPS', referencing the 'High-Intensity ECN3 Facility'), but no rank <= 10 source stating the exact 2024 approval date was fetched this session. Recorded as uncertain rather than verified, per A17/A18 (Wikipedia may never be the sole source of a critical value at 'verified' confidence).",
-      "quote": null,
+      "confidence": "verified",
+      "locator": "arXiv:2606.11039, abstract",
+      "note": "2026-09-17 fixed-target verification: corroborated with a rank<=10 source. arXiv:2606.11039 ('The SHiP/NA67 experiment at the ECN3 high-intensity beam facility at the CERN SPS', SHiP Collaboration, submitted 9 June 2026) states verbatim in its abstract that SHiP/BDF was 'approved in 2024' for the ECN3 hall, matching the CERN Research Board's 2024 decision reported by CERN Courier ('SHiP to chart hidden sector', published 3 May 2024, which also names the collaboration's then-current schedule aim of commissioning the facility toward the end of 2030 and the detector in 2031 -- an earlier schedule than the 2033 physics-start figure below, which remains sourced only to Wikipedia and is left `uncertain`). Satisfies A17 (a `verified` value needs a source of rank <= 10; arxiv is rank 10).",
+      "quote": "approved in 2024",
       "sources": [
+        "src:fixed-target-verify-ship-bdf-ecn3-arxiv-2606-11039",
         "src:ship-wikipedia-pointer"
       ],
       "verified_at": "2026-09-17"
@@ -41328,7 +42181,8 @@
         "src:ship-official-site",
         "src:ship-cern-courier-2016-spsc",
         "src:ship-wikipedia-pointer",
-        "src:ship-inspire-experiment-record"
+        "src:ship-inspire-experiment-record",
+        "src:fixed-target-verify-ship-bdf-ecn3-arxiv-2606-11039"
       ],
       "verified_at": null
     },
@@ -41537,6 +42391,24 @@
       ],
       "verified_at": "2026-09-17"
     },
+    "/intervals/1/end": {
+      "confidence": null,
+      "locator": null,
+      "note": "VERIFIER FIX (2026-09-17): capped at the LHC-wide Long Shutdown 3 boundary (see the added interval below). SND@LHC only detects particles from LHC collisions, so it cannot be 'active' while the LHC itself is off for LS3 (as already modelled for ALICE, LHCb, TOTEM, FASER and LHCf in this partition).",
+      "quote": null,
+      "sources": null,
+      "verified_at": null
+    },
+    "/intervals/2": {
+      "confidence": "verified",
+      "locator": "reused from accelerator:lhc's sourced Long Shutdown 3 interval (src:cern-ls3-farewell-2026)",
+      "note": "VERIFIER-ADDED (2026-09-17): shares the LHC-wide Long Shutdown 3 interval already sourced for ALICE, LHCb, TOTEM, FASER and LHCf in this partition; ongoing at verified_at.",
+      "quote": null,
+      "sources": [
+        "src:cern-ls3-farewell-2026"
+      ],
+      "verified_at": "2026-09-17"
+    },
     "/physics_goals/0": {
       "confidence": "verified",
       "locator": "INSPIRE experiment record 2032474, field description",
@@ -41554,7 +42426,8 @@
       "quote": null,
       "sources": [
         "src:colliders-lhc-snd-lhc-inspire-experiment-record",
-        "src:colliders-lhc-snd-lhc-2023-prl-muon-neutrino"
+        "src:colliders-lhc-snd-lhc-2023-prl-muon-neutrino",
+        "src:cern-ls3-farewell-2026"
       ],
       "verified_at": null
     },
@@ -42326,7 +43199,7 @@
       "confidence": "verified",
       "locator": null,
       "note": "",
-      "quote": "SuperCDMS SNOLAB seeks to detect dark matter particles with masses below ten times the proton mass.",
+      "quote": "The collaboration is searching for dark matter particles with masses smaller than ten times the mass of the proton.",
       "sources": [
         "src:supercdms-official-site"
       ],
@@ -42472,7 +43345,7 @@
       "confidence": "verified",
       "locator": null,
       "note": "",
-      "quote": "SuperCDMS SNOLAB seeks to detect dark matter particles with masses below ten times the proton mass.",
+      "quote": "The collaboration is searching for dark matter particles with masses smaller than ten times the mass of the proton.",
       "sources": [
         "src:supercdms-official-site"
       ],
@@ -44236,6 +45109,17 @@
     }
   },
   "facility:chooz": {
+    "/intervals/0": {
+      "confidence": "uncertain",
+      "locator": null,
+      "note": "No official facility page was reachable this session to independently source a facility-level founding/operating interval; start is the same inferred lower bound used for experiment:double-chooz's earliest interval. The site remains a candidate host for other reactor-neutrino work (e.g. the cevns workstream's NUCLEUS) beyond Double Chooz's own 2017 shutdown, so `end` is left null rather than closed.",
+      "quote": "located at 1050 m from the reactor cores of the Chooz nuclear power plant in France",
+      "sources": [
+        "src:double-chooz-wikipedia",
+        "src:double-chooz-2012-evidence"
+      ],
+      "verified_at": "2026-09-17"
+    },
     "/operator": {
       "confidence": "uncertain",
       "locator": null,
@@ -45424,10 +46308,10 @@
     "/intervals/0": {
       "confidence": "approximate",
       "locator": null,
-      "note": "No founding date sourced this session for MIT as a physics-host facility (MIT the university predates this scope); recorded as an open-ended active interval per A3.",
-      "quote": "demonstrated this technique with the ABRA-10cm experiment and is now working towards a larger and more sensitive experiment",
+      "note": "No founding date sourced this session for MIT as a physics-experiment-host facility (MIT the university predates this scope). Start is approximated to 2018, the earliest sourced ABRACADABRA run at MIT (see experiment:abracadabra intervals), used as a conservative lower bound for this open-ended 'active' interval, not a claimed founding date. VERIFIER FIX (2026-09-17): the previous start:null/end:null interval covered no date under A3, so the derived state at the build date was None while status said 'active' (validator error status-not-derived-state); this bound resolves that.",
+      "quote": "we present the first results from a 1 month search for axions with ABRACADABRA-10 cm",
       "sources": [
-        "src:axions-abracadabra-mit-winslow-page"
+        "src:axions-abracadabra-prl-2019-first-results"
       ],
       "verified_at": "2026-09-17"
     },
@@ -45611,22 +46495,23 @@
   },
   "facility:psi": {
     "/intervals/0": {
-      "confidence": "uncertain",
+      "confidence": "verified",
       "locator": null,
-      "note": "Sourced to Wikipedia only; official psi.ch pages fetched in this session did not state a founding date directly. Flagged for review.",
-      "quote": "The institute, named after the Swiss physicist Paul Scherrer, was created in 1988 when EIR was merged with SIN.",
+      "note": "Upgraded 2026-09-17: psi.ch is reachable this session (it 404'd for the prior agent); the official history page gives a day-precision date, replacing the Wikipedia-only year-precision value.",
+      "quote": "On 1 January 1988, the Swiss Federal Institute for Reactor Research (EIR) and the Swiss Institute for Nuclear Research (SIN) merged to form the Paul Scherrer Institute, PSI.",
       "sources": [
+        "src:facilities-verify-psi-history-page",
         "src:psi-wikipedia"
       ],
       "verified_at": "2026-09-17"
     },
     "/links/website": {
-      "confidence": "uncertain",
+      "confidence": "verified",
       "locator": null,
-      "note": "Sourced to Wikipedia only (rank 12); official page could not be fetched in this session.",
+      "note": "Upgraded 2026-09-17: psi.ch/en is reachable this session; prior session's 404s on every attempted psi.ch path could not be reproduced.",
       "quote": null,
       "sources": [
-        "src:psi-wikipedia"
+        "src:facilities-verify-psi-official-home"
       ],
       "verified_at": "2026-09-17"
     },
@@ -45646,7 +46531,9 @@
       "note": null,
       "quote": null,
       "sources": [
-        "src:psi-wikipedia"
+        "src:psi-wikipedia",
+        "src:facilities-verify-psi-history-page",
+        "src:facilities-verify-psi-official-home"
       ],
       "verified_at": null
     }
@@ -45750,22 +46637,22 @@
       "verified_at": "2026-09-17"
     },
     "/links/website": {
-      "confidence": "uncertain",
+      "confidence": "verified",
       "locator": null,
-      "note": "Sourced to Wikipedia only (rank 12); no official slac.stanford.edu page was fetched successfully in this session.",
+      "note": "Upgraded 2026-09-17: www6.slac.stanford.edu is reachable this session (the prior session hit a TLS certificate error on slac.stanford.edu); this is SLAC's own official site.",
       "quote": null,
       "sources": [
-        "src:slac-wikipedia"
+        "src:facilities-verify-slac-official-home"
       ],
       "verified_at": "2026-09-17"
     },
     "/operator_text": {
-      "confidence": "uncertain",
+      "confidence": "verified",
       "locator": null,
-      "note": "Sourced to Wikipedia only; no official slac.stanford.edu page was fetched in this session.",
-      "quote": "administrated by Stanford University ... sponsored by the United States Department of Energy",
+      "note": "Upgraded 2026-09-17 from an official source; matches the Wikipedia-sourced wording already on file.",
+      "quote": "SLAC National Accelerator Laboratory is a Department of Energy national lab run by Stanford ... operated by Stanford University for the U.S. Department of Energy Office of Science.",
       "sources": [
-        "src:slac-wikipedia"
+        "src:facilities-verify-slac-official-home"
       ],
       "verified_at": "2026-09-17"
     },
@@ -45775,7 +46662,8 @@
       "note": null,
       "quote": null,
       "sources": [
-        "src:slac-wikipedia"
+        "src:slac-wikipedia",
+        "src:facilities-verify-slac-official-home"
       ],
       "verified_at": null
     }
@@ -46125,7 +47013,7 @@
     "/intervals/0": {
       "confidence": "approximate",
       "locator": null,
-      "note": "No fetched source gives CENPA's founding date; the lab is described in the present tense as currently hosting ADMX and other experiments, so an open-ended active interval with unknown start is recorded per A3.",
+      "note": "No fetched source gives CENPA's founding date. Start is approximated to 2017 (the earliest year for which this session found direct evidence CENPA was hosting ADMX, per the CENPA page's own 'new record ... with its new results from 2017'), used as a conservative lower bound for this open-ended 'active' interval, not a claimed founding date. VERIFIER FIX (2026-09-17): the previous start:null/end:null interval covered no date under A3 (a null start covers only [lo(end),hi(end)], and end was also null), so the entity's derived state at the build date was None while status said 'active' (validator error status-not-derived-state); this bound resolves that.",
       "quote": "ADMX set a new record as the first ever axion experiment to reach the DFSZ sensitivity with its new results from 2017",
       "sources": [
         "src:axions-admx-cenpa-page"
@@ -46221,10 +47109,11 @@
     "/intervals/0": {
       "confidence": "approximate",
       "locator": null,
-      "note": "No fetched source gives Wright Laboratory's founding date; recorded as an open-ended active interval with unknown start per A3.",
+      "note": "No fetched source gives Wright Laboratory's founding date. Start is approximated to 2018, the earliest operational milestone this session found for a hosted experiment (HAYSTAC's Phase I result accepted to Physical Review D, April 2018; see experiment:haystac intervals), used as a conservative lower bound for this open-ended 'active' interval, not a claimed founding date. VERIFIER FIX (2026-09-17): the previous start:null/end:null interval covered no date under A3, so the derived state at the build date was None while status said 'active' (validator error status-not-derived-state); this bound resolves that.",
       "quote": "Located at Yale's Wright Laboratory in New Haven, Connecticut, the HAYSTAC collaboration consists of members from Yale University, the University of California Berkeley, Lawrence Berkeley National Laboratory, and the University of Colorado at Boulder.",
       "sources": [
-        "src:axions-haystac-official-page"
+        "src:axions-haystac-official-page",
+        "src:axions-haystac-inspire-experiment"
       ],
       "verified_at": "2026-09-17"
     },
@@ -46260,6 +47149,16 @@
     }
   },
   "facility:yonggwang-hanbit-reactor-site": {
+    "/intervals/0": {
+      "confidence": "uncertain",
+      "locator": null,
+      "note": "No official facility page was reachable this session to independently source a facility-level founding/operating interval; start is RENO's own data-taking start date. `end` left null (ongoing at `verified_at`, §2.3) since no source confirms a shutdown.",
+      "quote": "In the 229 day data-taking period between 11 August 2011 and 26 March 2012",
+      "sources": [
+        "src:reno-discovery-2012"
+      ],
+      "verified_at": "2026-09-17"
+    },
     "/operator": {
       "confidence": "uncertain",
       "locator": null,
@@ -64673,6 +65572,130 @@
       "verified_at": null
     }
   },
+  "result:borexino-cno-evidence-2020": {
+    "/claim": {
+      "confidence": null,
+      "locator": "Nature 587, 577-582 (2020), title",
+      "note": null,
+      "quote": "Experimental evidence of neutrinos produced in the CNO fusion cycle in the Sun",
+      "sources": [
+        "src:borexino-cno-evidence-2020"
+      ],
+      "verified_at": null
+    },
+    "/date": {
+      "confidence": "verified",
+      "locator": "arXiv:2006.15115, submitted 26 June 2020",
+      "note": "Published as Nature 587, 577-582 (2020).",
+      "quote": null,
+      "sources": [
+        "src:borexino-cno-evidence-2020"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/key_value_text": {
+      "confidence": "verified",
+      "locator": null,
+      "note": "",
+      "quote": "the excess of the few counts per day per 100 tonnes of target due to CNO neutrino interactions above the backgrounds",
+      "sources": [
+        "src:borexino-cno-evidence-2020"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/significance": {
+      "confidence": "uncertain",
+      "locator": null,
+      "note": "The abstract fetched this session states 'high statistical significance' but not a numeric sigma value.",
+      "quote": "the direct observation, with a high statistical significance, of neutrinos produced in the CNO cycle in the Sun",
+      "sources": [
+        "src:borexino-cno-evidence-2020"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:borexino-cno-evidence-2020"
+      ],
+      "verified_at": null
+    },
+    "/why_it_matters": {
+      "confidence": "verified",
+      "locator": null,
+      "note": "",
+      "quote": "This is the first experimental evidence of this process obtained with the unprecedentedly radio-pure large-volume liquid-scintillator Borexino detector",
+      "sources": [
+        "src:borexino-cno-evidence-2020"
+      ],
+      "verified_at": "2026-09-17"
+    }
+  },
+  "result:borexino-pp-first-detection-2014": {
+    "/claim": {
+      "confidence": null,
+      "locator": "Nature 512, 383-386 (2014)",
+      "note": null,
+      "quote": "the first direct spectral measurement of the neutrinos from the keystone proton-proton fusion",
+      "sources": [
+        "src:borexino-pp-first-detection-2014"
+      ],
+      "verified_at": null
+    },
+    "/date": {
+      "confidence": "verified",
+      "locator": "Nature 512, 383-386 (2014)",
+      "note": "Exact day within August 2014 not confirmed by a source fetched this session; month precision used.",
+      "quote": null,
+      "sources": [
+        "src:borexino-pp-first-detection-2014"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/key_value_text": {
+      "confidence": "uncertain",
+      "locator": null,
+      "note": "Exact flux value was not captured verbatim from a source fetched this session; left null rather than guessed.",
+      "quote": null,
+      "sources": [
+        "src:borexino-pp-first-detection-2014"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/significance": {
+      "confidence": "uncertain",
+      "locator": "Nature 512, 383-386 (2014)",
+      "note": "No single sigma/significance figure was captured verbatim from a source fetched this session for this result.",
+      "quote": null,
+      "sources": [
+        "src:borexino-pp-first-detection-2014"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:borexino-pp-first-detection-2014"
+      ],
+      "verified_at": null
+    },
+    "/why_it_matters": {
+      "confidence": "verified",
+      "locator": null,
+      "note": "",
+      "quote": "the first direct spectral measurement of the neutrinos from the keystone proton-proton fusion",
+      "sources": [
+        "src:borexino-pp-first-detection-2014"
+      ],
+      "verified_at": "2026-09-17"
+    }
+  },
   "result:cdf-top-quark-observation-1995": {
     "/claim": {
       "confidence": null,
@@ -69716,10 +70739,11 @@
   "site:argonne-campus": {
     "/coordinates": {
       "confidence": "approximate",
-      "locator": null,
-      "note": "No official anl.gov page was reachable in this session (HTTP 403 on every attempt); sourced to Wikipedia's infobox only, kind recorded as campus/approximate per A17.",
-      "quote": "9700 S. Cass Avenue ... coordinates are provided as 41.709166 N 87.981992 W",
+      "locator": "ROR v2 API record for organization 05gvnxz63 (Argonne National Laboratory), addresses[0].lat/addresses[0].lng",
+      "note": "Upgraded 2026-09-17: ROR v2 organization record for Argonne National Laboratory (ror.org/05gvnxz63) gives a geocoded campus point, rank 8, replacing the Wikipedia-infobox-only point (rank 12). anl.gov (root, /about and /our-history paths all attempted) returned HTTP 403 again in this session; every prose claim on facility:argonne-national-laboratory therefore remains Wikipedia-only, but the coordinate itself is now backed by a rank-8 geocoder rather than Wikipedia alone.",
+      "quote": null,
       "sources": [
+        "src:ror-05gvnxz63",
         "src:argonne-wikipedia"
       ],
       "verified_at": "2026-09-17"
@@ -69730,7 +70754,8 @@
       "note": null,
       "quote": null,
       "sources": [
-        "src:argonne-wikipedia"
+        "src:argonne-wikipedia",
+        "src:ror-05gvnxz63"
       ],
       "verified_at": null
     }
@@ -69967,13 +70992,13 @@
   },
   "site:cern-cast-sr8": {
     "/coordinates": {
-      "confidence": "approximate",
+      "confidence": "uncertain",
       "locator": null,
-      "note": "CAST is housed in an SPS-fed experimental hall (historically referred to as SR8/West Area) on CERN's Prevessin site. No fetched source this session gives a precise SR8 building coordinate, so the CERN Prevessin campus point (OpenStreetMap/Nominatim) is used as an approximate fallback, per the wave-3 brief's explicit guidance for CAST ('a sourced point or CERN campus approximate'). This is a deliberately coarse (~3 km precision) campus-level placeholder, not a detector-precision coordinate.",
-      "quote": "CERN - Site de Prevessin, Route des Ceytines, Pregnin, Saint-Genis-Pouilly, Gex, Ain, Auvergne-Rhone-Alpes, France metropolitaine, 01630, France",
+      "note": "VERIFIER FIX (2026-09-17): the previous coordinate was an unsourced 'CERN Prevessin campus fallback' that duplicated site:cern-ecn3-north-area and site:cern-neutrino-platform-ehn1 exactly, and its accompanying prose claimed CAST is 'historically referred to as SR8/West Area' -- a claim this session found no source for (West Area is a distinct SPS fixed-target area, not corroborated for CAST by anything fetched). A re-fetched CERN internal cryogenics alarm-configuration document (src:axions-cast-sr8-point8-cryo-doc) instead labels CAST's cryogenic coldbox 'CRYO REFRIG LHC CAST_COLDBOX /SR8' under the heading 'CERN Axion Solar Telescope (CAST) - LHC Point 8', i.e. SR8 is at/near LHC Point 8, not the Meyrin main site and not the generic Prevessin point previously used. This is a lower-rank ('secondary') source, not an official CAST/CERN page or the Greybook (which returned only an SSO redirect this session) or a CAST detector paper (none of which state a building), so the coordinate here reuses the existing OSM/Nominatim centroid already sourced for site:cern-point-8-lhcb / site:cern-lep-point-8-delphi (src:lep-point-8-osm-nominatim) as the closest available anchor for 'near Point 8', kept at kind 'campus' and confidence 'uncertain' rather than 'detector', and flagged below for a stronger official source. CAST is a surface installation (its platform must see the sky to track the Sun), unlike the underground LHCb/DELPHI cavern at the same nominal Point 8 location, so this remains a distinct site record rather than an alias of site:cern-point-8-lhcb.",
+      "quote": "CERN Axion Solar Telescope (CAST) – LHC Point 8",
       "sources": [
-        "src:axions-cern-home-cast",
-        "src:axions-nominatim-cern-prevessin"
+        "src:axions-cast-sr8-point8-cryo-doc",
+        "src:lep-point-8-osm-nominatim"
       ],
       "verified_at": "2026-09-17"
     },
@@ -69984,7 +71009,9 @@
       "quote": null,
       "sources": [
         "src:axions-cern-home-cast",
-        "src:axions-nominatim-cern-prevessin"
+        "src:axions-cast-inspire-experiment",
+        "src:axions-cast-sr8-point8-cryo-doc",
+        "src:lep-point-8-osm-nominatim"
       ],
       "verified_at": null
     }
@@ -70611,10 +71638,11 @@
   "site:desy-hamburg-campus": {
     "/coordinates": {
       "confidence": "approximate",
-      "locator": null,
-      "note": "No official desy.de page fetched in this session states a numeric coordinate; sourced to Wikipedia's infobox only, kind campus/approximate per A17.",
-      "quote": "Primary campus in Hamburg-Bahrenfeld (53 34'33''N 9 52'46''E)",
+      "locator": "ROR v2 API record for organization 01js2sh04 (Deutsches Elektronen-Synchrotron DESY), addresses[0].lat/addresses[0].lng",
+      "note": "Upgraded 2026-09-17: ROR v2 organization record for DESY (ror.org/01js2sh04) gives a geocoded campus point, rank 8, replacing the Wikipedia-infobox-only point (rank 12). No official desy.de page fetched in this or the prior session gives a numeric coordinate, so kind stays campus/approximate. Wikipedia kept as a second, lower-rank corroborating source.",
+      "quote": null,
       "sources": [
+        "src:ror-01js2sh04",
         "src:desy-wikipedia"
       ],
       "verified_at": "2026-09-17"
@@ -70625,7 +71653,8 @@
       "note": null,
       "quote": null,
       "sources": [
-        "src:desy-wikipedia"
+        "src:desy-wikipedia",
+        "src:ror-01js2sh04"
       ],
       "verified_at": null
     }
@@ -70633,10 +71662,11 @@
   "site:desy-hera-north-hall-h1": {
     "/coordinates": {
       "confidence": "approximate",
-      "locator": null,
-      "note": "No official desy.de page fetched in this session states a numeric coordinate; sourced to Wikipedia's infobox only, kind campus/approximate per A17.",
-      "quote": "Primary campus in Hamburg-Bahrenfeld (53 34'33''N 9 52'46''E)",
+      "locator": "ROR v2 API record for organization 01js2sh04 (Deutsches Elektronen-Synchrotron DESY), addresses[0].lat/addresses[0].lng",
+      "note": "Upgraded 2026-09-17: no North-Hall-specific coordinate is fetchable; the general DESY campus point is now the ROR geocode (rank 8) rather than Wikipedia (rank 12) alone. Hall/detector pairing (North Hall = H1) remains corroborated by src:h1-wikipedia. Still campus/approximate per A17 (a geocoder cannot back a detector-kind coordinate).",
+      "quote": null,
       "sources": [
+        "src:ror-01js2sh04",
         "src:desy-wikipedia"
       ],
       "verified_at": "2026-09-17"
@@ -70649,7 +71679,8 @@
       "sources": [
         "src:desy-wikipedia",
         "src:h1-wikipedia",
-        "src:hera-wikipedia"
+        "src:hera-wikipedia",
+        "src:ror-01js2sh04"
       ],
       "verified_at": null
     }
@@ -70657,10 +71688,11 @@
   "site:desy-hera-south-hall-zeus": {
     "/coordinates": {
       "confidence": "approximate",
-      "locator": null,
-      "note": "No official desy.de page fetched in this session states a numeric coordinate; sourced to Wikipedia's infobox only, kind campus/approximate per A17.",
-      "quote": "Primary campus in Hamburg-Bahrenfeld (53 34'33''N 9 52'46''E)",
+      "locator": "ROR v2 API record for organization 01js2sh04 (Deutsches Elektronen-Synchrotron DESY), addresses[0].lat/addresses[0].lng",
+      "note": "Upgraded 2026-09-17: no South-Hall-specific coordinate is fetchable; the general DESY campus point is now the ROR geocode (rank 8) rather than Wikipedia (rank 12) alone. Hall/detector pairing (South Hall = ZEUS) remains corroborated by src:zeus-wikipedia. Still campus/approximate per A17.",
+      "quote": null,
       "sources": [
+        "src:ror-01js2sh04",
         "src:desy-wikipedia"
       ],
       "verified_at": "2026-09-17"
@@ -70673,7 +71705,8 @@
       "sources": [
         "src:desy-wikipedia",
         "src:zeus-wikipedia",
-        "src:hera-wikipedia"
+        "src:hera-wikipedia",
+        "src:ror-01js2sh04"
       ],
       "verified_at": null
     }
@@ -71093,10 +72126,11 @@
   "site:jlab-newport-news": {
     "/coordinates": {
       "confidence": "approximate",
-      "locator": null,
-      "note": "No official JLab page fetched in this session states a numeric coordinate; sourced to Wikipedia's infobox only, kind recorded as campus/approximate per A17 (a rank-12 source may not back a detector/underground_lab point).",
-      "quote": "coordinates 37 05'41''N 76 28'54''W",
+      "locator": "ROR v2 API record for organization 02vwzrd76 (Thomas Jefferson National Accelerator Facility), addresses[0].lat/addresses[0].lng",
+      "note": "Upgraded 2026-09-17: ROR v2 organization record for Thomas Jefferson National Accelerator Facility (ror.org/02vwzrd76) gives a geocoded campus point, rank 8, replacing the Wikipedia-infobox-only point (rank 12). The official jlab.org/about page (already cited) gives no numeric coordinate. Wikipedia kept as a second, lower-rank corroborating source.",
+      "quote": null,
       "sources": [
+        "src:facilities-verify-jlab-ror",
         "src:jlab-wikipedia"
       ],
       "verified_at": "2026-09-17"
@@ -71107,7 +72141,8 @@
       "note": null,
       "quote": null,
       "sources": [
-        "src:jlab-wikipedia"
+        "src:jlab-wikipedia",
+        "src:facilities-verify-jlab-ror"
       ],
       "verified_at": null
     }
@@ -71429,10 +72464,11 @@
   "site:lanl-lansce": {
     "/coordinates": {
       "confidence": "approximate",
-      "locator": null,
-      "note": "No official LANL page fetched in this session states a numeric coordinate for LANSCE/TA-53 specifically; sourced to Wikipedia's infobox only, kind recorded as campus/approximate per A17.",
-      "quote": "Located in New Mexico at Los Alamos National Laboratory in Technical Area 53. Coordinates provided: 35 52'09''N 106 15'43''W",
+      "locator": "ROR v2 API record for organization 01e41cf67 (Los Alamos National Laboratory), addresses[0].lat/addresses[0].lng",
+      "note": "Upgraded 2026-09-17: ROR v2 organization record for Los Alamos National Laboratory (ror.org/01e41cf67) gives a geocoded campus point, rank 8, replacing the Wikipedia-infobox-only point (rank 12); it is LANL's general campus centroid, not Technical Area 53/LANSCE specifically. The official lanl.gov LANSCE page (re-fetched 2026-09-17, lanl.gov/science-engineering/science-facilities/lansce) gives only the mailing address 'Los Alamos, NM 87545', no numeric coordinate and no beam-energy figure. Wikipedia kept as a second, lower-rank corroborating source.",
+      "quote": null,
       "sources": [
+        "src:ror-01e41cf67",
         "src:lansce-wikipedia"
       ],
       "verified_at": "2026-09-17"
@@ -71443,7 +72479,8 @@
       "note": null,
       "quote": null,
       "sources": [
-        "src:lansce-wikipedia"
+        "src:lansce-wikipedia",
+        "src:ror-01e41cf67"
       ],
       "verified_at": null
     }
@@ -71611,10 +72648,11 @@
     "/coordinates": {
       "confidence": "approximate",
       "locator": null,
-      "note": "No official LSC page fetched in this session states a numeric coordinate; this is an OpenStreetMap/Nominatim node specifically tagged as the laboratory itself. Per A17, a geocoder source limits kind to campus/approximate rather than underground_lab.",
+      "note": "No official LSC page fetched in this session states a numeric coordinate; this is an OpenStreetMap/Nominatim node specifically tagged as the laboratory itself. Per A17, a geocoder source limits kind to campus/approximate rather than underground_lab. Cross-checked 2026-09-17 against the ROR v2 organization record for Canfranc Underground Laboratory (ror.org/02zcam055, also rank 8: geocoder): lat 42.71628, lon -0.52563, about 830 m from this OSM node. Both are institutional geocodes, not surveyed points, and the existing OSM node (tagged specifically to the laboratory building rather than a generic registered address) is kept as the primary value; the ROR point is recorded as a second source for corroboration/future reconciliation.",
       "quote": "\"name\": \"Laboratorio Subterraneo de Canfranc\", lat 42.7493154, lon -0.5162702, Paseo de los Ayerbe, Canfranc-Estacion, Huesca, Aragon, Spain",
       "sources": [
-        "src:lsc-osm-nominatim"
+        "src:lsc-osm-nominatim",
+        "src:facilities-verify-lsc-ror"
       ],
       "verified_at": "2026-09-17"
     },
@@ -71636,7 +72674,8 @@
       "sources": [
         "src:lsc-about-us",
         "src:lsc-history",
-        "src:lsc-osm-nominatim"
+        "src:lsc-osm-nominatim",
+        "src:facilities-verify-lsc-ror"
       ],
       "verified_at": null
     }
@@ -71810,10 +72849,11 @@
   "site:ornl-sns-neutrino-alley": {
     "/coordinates": {
       "confidence": "approximate",
-      "locator": null,
-      "note": "No official ORNL/SNS page fetched in this session (neutrons.ornl.gov/coherent returned HTTP 404) gives a coordinate for 'Neutrino Alley' specifically, a shielded basement corridor next to the SNS mercury target used by COHERENT and other CEvNS experiments. The point recorded is the general ORNL campus centroid from Wikipedia, kind campus/approximate per A17.",
-      "quote": "coordinates 35 56'N 84 19'W",
+      "locator": "ROR v2 API record for organization 01qz5mb56 (Oak Ridge National Laboratory), addresses[0].lat/addresses[0].lng",
+      "note": "Upgraded 2026-09-17: ROR v2 organization record for Oak Ridge National Laboratory (ror.org/01qz5mb56) gives a geocoded campus point, rank 8, replacing the Wikipedia-infobox-only point (rank 12); it is ORNL's general campus centroid, not 'Neutrino Alley' specifically. neutrons.ornl.gov/coherent again returned HTTP 404 in this session, and the reachable neutrons.ornl.gov/sns page (re-fetched 2026-09-17) states no coordinate and does not mention 'Neutrino Alley' or COHERENT. The official ornl.gov root page (re-fetched 2026-09-17) confirms only the general mailing address '1 Bethel Valley Road, Oak Ridge, TN 37830', also no coordinate. `setting: underground` for this specific corridor remains unconfirmed by any official source fetched to date; treat with the same caution as before.",
+      "quote": null,
       "sources": [
+        "src:facilities-verify-ornl-ror",
         "src:ornl-wikipedia"
       ],
       "verified_at": "2026-09-17"
@@ -71825,7 +72865,8 @@
       "quote": null,
       "sources": [
         "src:ornl-sns-page",
-        "src:ornl-wikipedia"
+        "src:ornl-wikipedia",
+        "src:facilities-verify-ornl-ror"
       ],
       "verified_at": null
     }
@@ -71855,10 +72896,11 @@
   "site:psi-villigen": {
     "/coordinates": {
       "confidence": "approximate",
-      "locator": null,
-      "note": "No official psi.ch page was reachable in this session (all attempted URLs returned HTTP 404); sourced to Wikipedia's infobox only, kind recorded as campus/approximate per A17.",
-      "quote": "coordinates: 47 32'10''N 8 13'22''E / 47.53611 N 8.22278 E",
+      "locator": "ROR v2 API record for organization 03eh3y714 (Paul Scherrer Institute), addresses[0].lat/addresses[0].lng",
+      "note": "Upgraded 2026-09-17: ROR v2 organization record for Paul Scherrer Institute (ror.org/03eh3y714) gives a geocoded campus point, rank 8, replacing the Wikipedia-infobox-only point (rank 12). The official psi.ch/en homepage (now reachable; re-fetched 2026-09-17, unlike the prior session's 404s) confirms only the postal address 'Forschungsstrasse 111, 5232 Villigen PSI, Switzerland', no numeric coordinate. Wikipedia kept as a second, lower-rank corroborating source.",
+      "quote": null,
       "sources": [
+        "src:ror-03eh3y714",
         "src:psi-wikipedia"
       ],
       "verified_at": "2026-09-17"
@@ -71869,7 +72911,8 @@
       "note": null,
       "quote": null,
       "sources": [
-        "src:psi-wikipedia"
+        "src:psi-wikipedia",
+        "src:ror-03eh3y714"
       ],
       "verified_at": null
     }
@@ -71945,10 +72988,11 @@
   "site:slac-menlo-park-campus": {
     "/coordinates": {
       "confidence": "approximate",
-      "locator": null,
-      "note": "No official slac.stanford.edu page fetched in this session states a numeric coordinate; sourced to Wikipedia's infobox only, kind campus/approximate per A17.",
-      "quote": "2575 Sand Hill Rd. Menlo Park, California 94025 ... coordinates 37 25'03''N 122 12'09''W",
+      "locator": "ROR v2 API record for organization 05gzmn429 (SLAC National Accelerator Laboratory), addresses[0].lat/addresses[0].lng",
+      "note": "Upgraded 2026-09-17 (independent verification pass): ROR v2 organization record for SLAC National Accelerator Laboratory (ror.org/05gzmn429) gives a geocoded campus point, rank 8, better than the Wikipedia infobox this point previously rested on alone. The official site (www6.slac.stanford.edu, now reachable) confirms the postal address '2575 Sand Hill Road, Menlo Park, CA 94025-7015' but states no numeric coordinate, so kind remains campus/approximate per A17/A18. Wikipedia's infobox coordinate is kept as a second, lower-rank corroborating source.",
+      "quote": null,
       "sources": [
+        "src:ror-05gzmn429",
         "src:slac-wikipedia"
       ],
       "verified_at": "2026-09-17"
@@ -71959,7 +73003,8 @@
       "note": null,
       "quote": null,
       "sources": [
-        "src:slac-wikipedia"
+        "src:slac-wikipedia",
+        "src:ror-05gzmn429"
       ],
       "verified_at": null
     }
@@ -71967,10 +73012,11 @@
   "site:slac-pep-ii-ir2-babar": {
     "/coordinates": {
       "confidence": "approximate",
-      "locator": null,
-      "note": "No official slac.stanford.edu page fetched in this session states a numeric coordinate; sourced to Wikipedia's infobox only, kind campus/approximate per A17.",
-      "quote": "2575 Sand Hill Rd. Menlo Park, California 94025 ... coordinates 37 25'03''N 122 12'09''W",
+      "locator": "ROR v2 API record for organization 05gzmn429 (SLAC National Accelerator Laboratory), addresses[0].lat/addresses[0].lng",
+      "note": "Upgraded 2026-09-17: no IR2-specific coordinate is fetchable (official site gives only the general campus address); the general SLAC campus point is now the ROR geocode (rank 8) rather than Wikipedia (rank 12) alone. Still campus/approximate: a geocoder source cannot back a detector-kind coordinate for this hall (A17).",
+      "quote": null,
       "sources": [
+        "src:ror-05gzmn429",
         "src:slac-wikipedia"
       ],
       "verified_at": "2026-09-17"
@@ -71982,7 +73028,9 @@
       "quote": null,
       "sources": [
         "src:slac-wikipedia",
-        "src:babar-wikipedia"
+        "src:babar-wikipedia",
+        "src:ror-05gzmn429",
+        "src:facilities-verify-babar-ir2-physorg"
       ],
       "verified_at": null
     }
@@ -71990,10 +73038,11 @@
   "site:slac-slc-collider-hall-sld": {
     "/coordinates": {
       "confidence": "approximate",
-      "locator": null,
-      "note": "No official slac.stanford.edu page fetched in this session states a numeric coordinate; sourced to Wikipedia's infobox only, kind campus/approximate per A17.",
-      "quote": "2575 Sand Hill Rd. Menlo Park, California 94025 ... coordinates 37 25'03''N 122 12'09''W",
+      "locator": "ROR v2 API record for organization 05gzmn429 (SLAC National Accelerator Laboratory), addresses[0].lat/addresses[0].lng",
+      "note": "Upgraded 2026-09-17: no hall-specific coordinate is fetchable; the general SLAC campus point is now the ROR geocode (rank 8) rather than Wikipedia (rank 12) alone. Still campus/approximate per A17.",
+      "quote": null,
       "sources": [
+        "src:ror-05gzmn429",
         "src:slac-wikipedia"
       ],
       "verified_at": "2026-09-17"
@@ -72005,7 +73054,8 @@
       "quote": null,
       "sources": [
         "src:slac-wikipedia",
-        "src:slc-wikipedia"
+        "src:slc-wikipedia",
+        "src:ror-05gzmn429"
       ],
       "verified_at": null
     }
@@ -72463,6 +73513,16 @@
       ],
       "verified_at": "2026-09-17"
     },
+    "/depth_mwe": {
+      "confidence": "verified",
+      "locator": "The EXO-200 detector, part I: Detector design and construction (arXiv:1202.2192), site description",
+      "note": "Verification fix (2026-09-17): this agent directly fetched the EXO-200 detector design paper, which gives this figure; a later EXO-200 paper (Searches for Double Beta Decay of 134Xe with EXO-200) instead reports ~1624 (+22/-21) m.w.e. for the underground clean room, a later re-estimate not independently re-verified against a directly fetched primary source in this session. The construction paper's 1585 m.w.e. figure is recorded here as the directly sourced value; the discrepancy with the later 1624 m.w.e. figure is noted for a future pass.",
+      "quote": "EXO-200 is located at a depth of 1585 m water equivalent ... in the Waste Isolation Pilot Plant (WIPP) near Carlsbad, New Mexico",
+      "sources": [
+        "src:0vbb-verify-exo-200-detector-design-arxiv-1202-2192"
+      ],
+      "verified_at": "2026-09-17"
+    },
     "/links/website": {
       "confidence": "verified",
       "locator": null,
@@ -72480,7 +73540,8 @@
       "quote": null,
       "sources": [
         "src:exo-200-doe-wipp-official-page",
-        "src:exo-200-wipp-wikipedia"
+        "src:exo-200-wipp-wikipedia",
+        "src:0vbb-verify-exo-200-detector-design-arxiv-1202-2192"
       ],
       "verified_at": null
     }

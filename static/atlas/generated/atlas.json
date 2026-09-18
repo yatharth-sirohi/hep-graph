@@ -12,7 +12,9 @@
       "document_ids": [],
       "facility_id": "facility:brookhaven-national-laboratory",
       "fed_by_accelerator_ids": [],
-      "feeds_accelerator_ids": [],
+      "feeds_accelerator_ids": [
+        "accelerator:rhic"
+      ],
       "id": "accelerator:ags",
       "intervals": [
         {
@@ -91,6 +93,42 @@
           "label": "12 GeV Upgrade dedication",
           "start": "2018-05-02",
           "status": "active"
+        },
+        {
+          "end": null,
+          "label": "first beam delivered to an experimental hall",
+          "start": "1994-07-01",
+          "status": "commissioning"
+        },
+        {
+          "end": null,
+          "label": "4 GeV design energy achieved",
+          "specs": {
+            "beam_energy": {
+              "approx": false,
+              "dimension": "energy",
+              "display": "4 GeV (original design energy)",
+              "unit": "GeV",
+              "value": 4
+            }
+          },
+          "start": "1995",
+          "status": "active"
+        },
+        {
+          "end": null,
+          "label": "6 GeV enhanced design energy reached",
+          "specs": {
+            "beam_energy": {
+              "approx": false,
+              "dimension": "energy",
+              "display": "6 GeV (enhanced design energy)",
+              "unit": "GeV",
+              "value": 6
+            }
+          },
+          "start": "2000-08-06",
+          "status": "active"
         }
       ],
       "is_collider": false,
@@ -122,8 +160,38 @@
         ],
         [
           446,
-          819,
+          533,
           "construction",
+          "certain"
+        ],
+        [
+          534,
+          539,
+          "commissioning",
+          "certain"
+        ],
+        [
+          540,
+          551,
+          "active",
+          "possible"
+        ],
+        [
+          552,
+          606,
+          "active",
+          "certain"
+        ],
+        [
+          607,
+          607,
+          "active",
+          "possible"
+        ],
+        [
+          608,
+          819,
+          "active",
           "certain"
         ],
         [
@@ -141,7 +209,7 @@
       ],
       "status": "active",
       "summary": {
-        "plain": ""
+        "plain": "Jefferson Lab's main particle accelerator, which fires a continuous beam of electrons at nuclear targets in three (now four) experimental halls. It began at 4 GeV, was raised to 6 GeV in 2000, and was upgraded again to 12 GeV in 2018."
       },
       "type": "accelerator"
     },
@@ -699,6 +767,13 @@
       ],
       "site_id": "site:desy-hamburg-campus",
       "specs": {
+        "beam_energy": {
+          "approx": false,
+          "dimension": "energy",
+          "display": "27.5 GeV (electrons/positrons)",
+          "unit": "GeV",
+          "value": 27.5
+        },
         "circumference": {
           "approx": false,
           "dimension": "length",
@@ -712,6 +787,13 @@
           "display": "320 GeV",
           "unit": "GeV",
           "value": 320
+        },
+        "proton_energy": {
+          "approx": false,
+          "dimension": "energy",
+          "display": "920 GeV (protons)",
+          "unit": "GeV",
+          "value": 920
         }
       },
       "state_segments": [
@@ -1500,7 +1582,7 @@
       ],
       "status": "active",
       "summary": {
-        "plain": ""
+        "plain": "A long particle accelerator at Los Alamos National Laboratory that fires protons at high energy. Originally built to study the strong nuclear force, it later produced the neutrino beam for the LSND experiment and today serves nuclear-security and materials research."
       },
       "type": "accelerator"
     },
@@ -2204,7 +2286,7 @@
       ],
       "status": "completed",
       "summary": {
-        "plain": ""
+        "plain": "A particle collider at SLAC that smashed together electrons and positrons at slightly different energies to produce large numbers of B mesons, studied by the BaBar detector from 1999 to 2008."
       },
       "type": "accelerator"
     },
@@ -2432,9 +2514,9 @@
         "beam_power": {
           "approx": false,
           "dimension": "power",
-          "display": "1.3 MW",
+          "display": "1.4 MW",
           "unit": "MW",
-          "value": 1.3
+          "value": 1.4
         }
       },
       "state_segments": [
@@ -2468,7 +2550,9 @@
       },
       "document_ids": [],
       "facility_id": "facility:brookhaven-national-laboratory",
-      "fed_by_accelerator_ids": [],
+      "fed_by_accelerator_ids": [
+        "accelerator:ags"
+      ],
       "feeds_accelerator_ids": [],
       "id": "accelerator:rhic",
       "intervals": [
@@ -2609,7 +2693,14 @@
       ],
       "feeds_accelerator_ids": [],
       "id": "accelerator:slac-linac",
-      "intervals": [],
+      "intervals": [
+        {
+          "end": null,
+          "label": "constructed / operating",
+          "start": "1966",
+          "status": "active"
+        }
+      ],
       "is_collider": false,
       "kind": "linac",
       "links": {
@@ -2638,9 +2729,23 @@
           "value": 3.2
         }
       },
+      "state_segments": [
+        [
+          192,
+          203,
+          "active",
+          "possible"
+        ],
+        [
+          204,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
       "status": "active",
       "summary": {
-        "plain": ""
+        "plain": "SLAC's two-mile-long linear accelerator, which fires electrons (and, in its early years, positrons) down a straight underground tunnel. It has fed three generations of SLAC's experiments: the original fixed-target program, the SLC and PEP-II colliders, and today the LCLS X-ray laser."
       },
       "type": "accelerator"
     },
@@ -2687,6 +2792,13 @@
       ],
       "site_id": "site:slac-slc-collider-hall-sld",
       "specs": {
+        "beam_energy": {
+          "approx": false,
+          "dimension": "energy",
+          "display": "up to 50 GeV (design/maximum per beam)",
+          "unit": "GeV",
+          "value": 50
+        },
         "cms_energy": {
           "approx": true,
           "dimension": "energy",
@@ -2717,7 +2829,7 @@
       ],
       "status": "completed",
       "summary": {
-        "plain": ""
+        "plain": "A particle collider at SLAC that smashed together beams of electrons and positrons tuned to the mass of the Z boson, letting physicists study that particle's properties with the SLD detector from 1989 to 1998."
       },
       "type": "accelerator"
     },
@@ -2747,6 +2859,12 @@
           "label": "Proton Power Upgrade (1.4 -> 2.8 MW)",
           "start": null,
           "status": "upgrade"
+        },
+        {
+          "end": null,
+          "label": "operational (first instruments commissioned)",
+          "start": "2007-08",
+          "status": "active"
         }
       ],
       "is_collider": false,
@@ -2778,10 +2896,23 @@
           "value": 1.4
         }
       },
-      "state_segments": [],
+      "state_segments": [
+        [
+          691,
+          691,
+          "active",
+          "possible"
+        ],
+        [
+          692,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
       "status": "active",
       "summary": {
-        "plain": ""
+        "plain": "A powerful particle accelerator at Oak Ridge National Laboratory that fires pulses of protons into a liquid-mercury target to produce neutrons for research. The same process also produces a very pure, well-timed source of neutrinos used by experiments such as COHERENT."
       },
       "type": "accelerator"
     },
@@ -4753,6 +4884,73 @@
       },
       "type": "collaboration"
     },
+    "collaboration:borexino": {
+      "aliases": [],
+      "coverage": {
+        "researched": "partial",
+        "tier": "D"
+      },
+      "document_ids": [],
+      "experiment_ids": [
+        "experiment:borexino"
+      ],
+      "formation": null,
+      "host_facility_id": "facility:lngs",
+      "host_site_id": "site:lngs-hall-c",
+      "id": "collaboration:borexino",
+      "intervals": [
+        {
+          "end": "2021-10",
+          "label": "collaboration active",
+          "start": "1990",
+          "status": "active"
+        },
+        {
+          "end": null,
+          "label": "collaboration completed (data taking)",
+          "start": "2021-10",
+          "status": "completed"
+        }
+      ],
+      "leadership": [],
+      "links": {
+        "website": "https://borex.lngs.infn.it/"
+      },
+      "membership": {
+        "as_of": null,
+        "country_count": null,
+        "evidence_class": "institutional_page",
+        "institution_count": null,
+        "member_count": null,
+        "roster_source_ids": []
+      },
+      "name": "Borexino Collaboration",
+      "state_segments": [
+        [
+          480,
+          491,
+          "active",
+          "possible"
+        ],
+        [
+          492,
+          860,
+          "active",
+          "certain"
+        ],
+        [
+          861,
+          861,
+          "completed",
+          "possible"
+        ]
+      ],
+      "status": "completed",
+      "summary": {
+        "plain": "The international team of scientists, including founders Gianpaolo Bellini and Frank Calaprice, who built and ran the Borexino solar-neutrino experiment in Italy."
+      },
+      "type": "collaboration"
+    },
     "collaboration:cast": {
       "aliases": [],
       "coverage": {
@@ -5505,10 +5703,16 @@
       "id": "collaboration:damic",
       "intervals": [
         {
-          "end": null,
+          "end": "2025",
           "label": "collaboration",
           "start": "2008",
           "status": "active"
+        },
+        {
+          "end": null,
+          "label": "completed",
+          "start": "2025",
+          "status": "completed"
         }
       ],
       "leadership": [],
@@ -5533,14 +5737,20 @@
         ],
         [
           708,
-          920,
+          899,
           "active",
           "certain"
+        ],
+        [
+          900,
+          900,
+          "completed",
+          "possible"
         ]
       ],
-      "status": "active",
+      "status": "completed",
       "summary": {
-        "plain": "The team of physicists who ran the DAMIC silicon-CCD dark matter search, first at Fermilab and then at SNOLAB in Canada."
+        "plain": "The team of physicists who ran the DAMIC silicon-CCD dark matter search, first at Fermilab and then at SNOLAB in Canada, from 2008 until around 2025, when the SNOLAB detector was repurposed as a test stand."
       },
       "type": "collaboration"
     },
@@ -6317,6 +6527,75 @@
       "status": "active",
       "summary": {
         "plain": "The scientists who proposed, built and run the FASER experiment at CERN."
+      },
+      "type": "collaboration"
+    },
+    "collaboration:gallex-gno": {
+      "aliases": [],
+      "coverage": {
+        "researched": "partial",
+        "tier": "D"
+      },
+      "document_ids": [],
+      "experiment_ids": [
+        "experiment:gallex-gno"
+      ],
+      "formation": null,
+      "host_facility_id": "facility:lngs",
+      "host_site_id": "site:lngs-hall-a",
+      "id": "collaboration:gallex-gno",
+      "intervals": [
+        {
+          "end": "2003-04",
+          "label": "collaboration active",
+          "start": "1991",
+          "status": "active"
+        },
+        {
+          "end": null,
+          "label": "collaboration completed",
+          "start": "2003-04",
+          "status": "completed"
+        }
+      ],
+      "leadership": [],
+      "links": {
+        "website": null
+      },
+      "membership": {
+        "as_of": null,
+        "country_count": 6,
+        "evidence_class": "institutional_page",
+        "institution_count": null,
+        "member_count": null,
+        "roster_source_ids": [
+          "src:gallex-wikipedia"
+        ]
+      },
+      "name": "GALLEX/GNO Collaboration",
+      "state_segments": [
+        [
+          492,
+          503,
+          "active",
+          "possible"
+        ],
+        [
+          504,
+          638,
+          "active",
+          "certain"
+        ],
+        [
+          639,
+          639,
+          "completed",
+          "possible"
+        ]
+      ],
+      "status": "completed",
+      "summary": {
+        "plain": "The international team, led by the Max Planck Institute for Nuclear Physics in Heidelberg, that ran the GALLEX and GNO gallium solar-neutrino experiments in Italy."
       },
       "type": "collaboration"
     },
@@ -7940,7 +8219,7 @@
         {
           "end": null,
           "label": "collaboration",
-          "start": null,
+          "start": "2018-11",
           "status": "active"
         }
       ],
@@ -7957,8 +8236,21 @@
         "roster_source_ids": []
       },
       "name": "MATHUSLA Collaboration",
-      "state_segments": [],
-      "status": null,
+      "state_segments": [
+        [
+          826,
+          826,
+          "active",
+          "possible"
+        ],
+        [
+          827,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
       "summary": {
         "plain": "The team of physicists designing the proposed MATHUSLA detector for long-lived particles at CERN."
       },
@@ -7979,6 +8271,24 @@
       "host_site_id": "site:psi-villigen",
       "id": "collaboration:meg",
       "intervals": [
+        {
+          "end": "1999-05",
+          "label": "collaboration proposed",
+          "start": "1998-05",
+          "status": "proposed"
+        },
+        {
+          "end": "2004",
+          "label": "collaboration approved",
+          "start": "1999-05",
+          "status": "approved"
+        },
+        {
+          "end": "2009",
+          "label": "collaboration active (detector construction)",
+          "start": "2004",
+          "status": "construction"
+        },
         {
           "end": "2013",
           "label": "collaboration active (data-taking period)",
@@ -8006,6 +8316,42 @@
       },
       "name": "MEG Collaboration",
       "state_segments": [
+        [
+          580,
+          580,
+          "proposed",
+          "possible"
+        ],
+        [
+          581,
+          591,
+          "proposed",
+          "certain"
+        ],
+        [
+          592,
+          592,
+          "approved",
+          "possible"
+        ],
+        [
+          593,
+          647,
+          "approved",
+          "certain"
+        ],
+        [
+          648,
+          659,
+          "construction",
+          "possible"
+        ],
+        [
+          660,
+          707,
+          "construction",
+          "certain"
+        ],
         [
           708,
           719,
@@ -8047,6 +8393,12 @@
       "id": "collaboration:meg-ii",
       "intervals": [
         {
+          "end": "2021",
+          "label": "collaboration proposed",
+          "start": "2018",
+          "status": "proposed"
+        },
+        {
           "end": null,
           "label": "collaboration active",
           "start": "2021",
@@ -8067,6 +8419,18 @@
       },
       "name": "MEG II Collaboration",
       "state_segments": [
+        [
+          816,
+          827,
+          "proposed",
+          "possible"
+        ],
+        [
+          828,
+          851,
+          "proposed",
+          "certain"
+        ],
         [
           852,
           863,
@@ -8483,6 +8847,12 @@
       "id": "collaboration:mu3e",
       "intervals": [
         {
+          "end": null,
+          "label": "collaboration proposed",
+          "start": "2012-01-23",
+          "status": "proposed"
+        },
+        {
           "end": "2026-09",
           "label": "collaboration active (construction phase)",
           "start": "2026-09",
@@ -8503,6 +8873,18 @@
       },
       "name": "Mu3e Collaboration",
       "state_segments": [
+        [
+          744,
+          744,
+          "proposed",
+          "possible"
+        ],
+        [
+          745,
+          919,
+          "proposed",
+          "certain"
+        ],
         [
           920,
           920,
@@ -8534,6 +8916,18 @@
       "id": "collaboration:muon-g-2",
       "intervals": [
         {
+          "end": "2010-01",
+          "label": "collaboration proposed",
+          "start": "2009-02",
+          "status": "proposed"
+        },
+        {
+          "end": "2013",
+          "label": "collaboration approved",
+          "start": "2010-01",
+          "status": "approved"
+        },
+        {
           "end": null,
           "label": "collaboration active",
           "start": "2013",
@@ -8556,6 +8950,30 @@
       },
       "name": "Muon g-2 Collaboration",
       "state_segments": [
+        [
+          709,
+          709,
+          "proposed",
+          "possible"
+        ],
+        [
+          710,
+          719,
+          "proposed",
+          "certain"
+        ],
+        [
+          720,
+          720,
+          "approved",
+          "possible"
+        ],
+        [
+          721,
+          755,
+          "approved",
+          "certain"
+        ],
         [
           756,
           767,
@@ -11015,9 +11433,9 @@
         "plain": "ABRACADABRA-10 cm was a small prototype detector at MIT that looked for a tiny magnetic signal that dark-matter axions would produce inside a toroidal magnet. It finished its axion search around 2021."
       },
       "technology": "Lumped-element (broadband/resonant) toroidal magnetometer: a toroidal magnet with a SQUID-based pickup at its center senses the small oscillating magnetic field an axion dark-matter background would induce, rather than using a resonant microwave cavity.",
-      "technology_class": "other",
+      "technology_class": "lumped_element_resonator",
       "technology_classes": [
-        "other"
+        "lumped_element_resonator"
       ],
       "type": "detector"
     },
@@ -11457,9 +11875,9 @@
         "plain": "ALPS II shines a laser at a wall to see if a tiny fraction of the light can sneak through as an undetectable particle and turn back into light on the far side, which would be a sign of new, very light particles."
       },
       "technology": "Light-shining-through-a-wall apparatus: a laser beam is enhanced in a build-up optical cavity, blocked by a light-tight wall, with a second, identical regeneration cavity and superconducting dipole magnets (reused HERA magnets) on both sides, and a low-noise single-photon/heterodyne detector looking for regenerated photons on the far side.",
-      "technology_class": "other",
+      "technology_class": "light_shining_through_wall",
       "technology_classes": [
-        "other"
+        "light_shining_through_wall"
       ],
       "type": "detector"
     },
@@ -11760,8 +12178,7 @@
           "display": "100-200 m",
           "max": 200,
           "min": 100,
-          "unit": "m",
-          "value": 200
+          "unit": "m"
         },
         "station_count": {
           "approx": false,
@@ -12189,6 +12606,12 @@
           "label": "operating and expanding",
           "start": "2016",
           "status": "construction"
+        },
+        {
+          "end": null,
+          "label": "deployed clusters taking physics data (ongoing)",
+          "start": "2018",
+          "status": "commissioning"
         }
       ],
       "links": {
@@ -12236,12 +12659,24 @@
         ],
         [
           804,
-          920,
+          815,
           "construction",
+          "certain"
+        ],
+        [
+          816,
+          827,
+          "commissioning",
+          "possible"
+        ],
+        [
+          828,
+          920,
+          "commissioning",
           "certain"
         ]
       ],
-      "status": "construction",
+      "status": "commissioning",
       "subsystems": [],
       "summary": {
         "plain": "Clusters of light-sensing spheres hanging on strings deep in Lake Baikal, added year after year since 2016, that together form a growing telescope for neutrinos from space."
@@ -12552,6 +12987,92 @@
       ],
       "type": "detector"
     },
+    "detector:borexino": {
+      "aliases": [],
+      "coverage": {
+        "researched": "partial",
+        "tier": "D"
+      },
+      "document_ids": [],
+      "experiment_ids": [
+        "experiment:borexino"
+      ],
+      "id": "detector:borexino",
+      "intervals": [
+        {
+          "end": "2021-10",
+          "label": "data taking",
+          "start": "2007-05",
+          "status": "active"
+        },
+        {
+          "end": null,
+          "label": "shut down",
+          "start": "2021-10",
+          "status": "completed"
+        }
+      ],
+      "links": {
+        "website": null
+      },
+      "name": "Borexino detector",
+      "parent_detector_id": null,
+      "placements": [
+        {
+          "end": "2021-10",
+          "role": "main",
+          "site_id": "site:lngs-hall-c",
+          "start": "2007-05"
+        }
+      ],
+      "specs": {
+        "fiducial_mass": {
+          "approx": true,
+          "dimension": "mass",
+          "display": "~100 t fiducial",
+          "unit": "t",
+          "value": 100
+        },
+        "target_mass": {
+          "approx": false,
+          "dimension": "mass",
+          "display": "278 t",
+          "unit": "t",
+          "value": 278
+        }
+      },
+      "state_segments": [
+        [
+          688,
+          688,
+          "active",
+          "possible"
+        ],
+        [
+          689,
+          860,
+          "active",
+          "certain"
+        ],
+        [
+          861,
+          861,
+          "completed",
+          "possible"
+        ]
+      ],
+      "status": "completed",
+      "subsystems": [],
+      "summary": {
+        "plain": "A nylon sphere full of ultra-pure liquid, watched by photomultiplier tubes, that catches the faint flashes of light neutrinos leave behind as they pass through."
+      },
+      "technology": "A nylon-sphere vessel of pseudocumene+PPO liquid scintillator viewed by photomultiplier tubes, surrounded by buffer liquid and a water-Cherenkov muon veto",
+      "technology_class": "liquid_scintillator",
+      "technology_classes": [
+        "liquid_scintillator"
+      ],
+      "type": "detector"
+    },
     "detector:cast": {
       "aliases": [],
       "coverage": {
@@ -12590,7 +13111,22 @@
           "start": "2003-06-18"
         }
       ],
-      "specs": {},
+      "specs": {
+        "length": {
+          "approx": false,
+          "dimension": "length",
+          "display": "10 m",
+          "unit": "m",
+          "value": 10
+        },
+        "magnetic_field": {
+          "approx": false,
+          "dimension": "magnetic_field",
+          "display": "9 T",
+          "unit": "T",
+          "value": 9
+        }
+      },
       "state_segments": [
         [
           641,
@@ -12617,9 +13153,9 @@
         "plain": "The CAST detector reused a retired magnet originally built for the Large Hadron Collider, pointed it at the Sun, and looked for the faint X-rays that would appear if hypothetical axion particles convert into light inside the magnet."
       },
       "technology": "Axion helioscope: a decommissioned LHC prototype superconducting dipole magnet, pointed at the Sun, with its hollow beam-pipe bores acting as viewing tubes for X-ray optics and X-ray detectors that look for photons produced by solar axions converting in the magnetic field.",
-      "technology_class": "other",
+      "technology_class": "helioscope",
       "technology_classes": [
-        "other"
+        "helioscope"
       ],
       "type": "detector"
     },
@@ -13681,6 +14217,13 @@
           "display": "15 mK",
           "unit": "mK",
           "value": 15
+        },
+        "threshold": {
+          "approx": false,
+          "dimension": "energy",
+          "display": "10 eV and lower",
+          "unit": "eV",
+          "value": 10
         }
       },
       "state_segments": [
@@ -14084,10 +14627,16 @@
           "status": "active"
         },
         {
-          "end": null,
+          "end": "2025",
           "label": "SNOLAB skipper-CCD run",
           "start": "2022",
           "status": "active"
+        },
+        {
+          "end": null,
+          "label": "repurposed as background test stand (SNOLAB)",
+          "start": "2025",
+          "status": "completed"
         }
       ],
       "links": {
@@ -14103,7 +14652,7 @@
           "start": "2008-12"
         },
         {
-          "end": null,
+          "end": "2025",
           "role": "main",
           "site_id": "site:snolab-underground-lab",
           "start": "2017"
@@ -14153,20 +14702,26 @@
         ],
         [
           876,
-          920,
+          899,
           "active",
           "certain"
+        ],
+        [
+          900,
+          900,
+          "completed",
+          "possible"
         ]
       ],
-      "status": "active",
+      "status": "completed",
       "subsystems": [],
       "summary": {
         "plain": "A stack of camera-sensor-like silicon chips, cooled and shielded two kilometres underground at SNOLAB, watching for the faint trace of a dark matter particle bumping into a silicon atom."
       },
       "technology": "Thick, fully-depleted scientific CCDs for ionization detection, later supplemented with skipper-readout CCDs for single-electron sensitivity",
-      "technology_class": "other",
+      "technology_class": "skipper_ccd",
       "technology_classes": [
-        "other"
+        "skipper_ccd"
       ],
       "type": "detector"
     },
@@ -14252,9 +14807,9 @@
         "plain": "A small, extremely quiet chamber of silicon chips deep under a mountain in France, sensitive enough to notice a single electron being knocked loose by a dark matter particle."
       },
       "technology": "Skipper-readout silicon CCDs providing single-electron ionization resolution",
-      "technology_class": "other",
+      "technology_class": "skipper_ccd",
       "technology_classes": [
-        "other"
+        "skipper_ccd"
       ],
       "type": "detector"
     },
@@ -14793,9 +15348,9 @@
         "plain": "DMRadio is a family of experiments being built at Stanford and SLAC that use a magnet and a tuned electrical circuit, instead of a microwave cavity, to search for very light dark-matter axions."
       },
       "technology": "Lumped-element resonant LC-circuit axion dark-matter search: a toroidal (DMRadio-50L) or solenoidal (DMRadio-m3) magnet coupled to a high-Q LC oscillator and SQUID readout, sensitive to sub-microwave-frequency axion-induced currents rather than a resonant cavity.",
-      "technology_class": "other",
+      "technology_class": "lumped_element_resonator",
       "technology_classes": [
-        "other"
+        "lumped_element_resonator"
       ],
       "type": "detector"
     },
@@ -15570,6 +16125,85 @@
       ],
       "type": "detector"
     },
+    "detector:gallex-gno": {
+      "aliases": [],
+      "coverage": {
+        "researched": "partial",
+        "tier": "D"
+      },
+      "document_ids": [],
+      "experiment_ids": [
+        "experiment:gallex-gno"
+      ],
+      "id": "detector:gallex-gno",
+      "intervals": [
+        {
+          "end": "2003-04",
+          "label": "GALLEX + GNO operation",
+          "start": "1991",
+          "status": "active"
+        },
+        {
+          "end": null,
+          "label": "shut down",
+          "start": "2003-04",
+          "status": "completed"
+        }
+      ],
+      "links": {
+        "website": null
+      },
+      "name": "GALLEX/GNO gallium target",
+      "parent_detector_id": null,
+      "placements": [
+        {
+          "end": "2003-04",
+          "role": "main",
+          "site_id": "site:lngs-hall-a",
+          "start": "1991"
+        }
+      ],
+      "specs": {
+        "target_mass": {
+          "approx": false,
+          "dimension": "mass",
+          "display": "30.3 t gallium",
+          "unit": "t",
+          "value": 30.3
+        }
+      },
+      "state_segments": [
+        [
+          492,
+          503,
+          "active",
+          "possible"
+        ],
+        [
+          504,
+          638,
+          "active",
+          "certain"
+        ],
+        [
+          639,
+          639,
+          "completed",
+          "possible"
+        ]
+      ],
+      "status": "completed",
+      "subsystems": [],
+      "summary": {
+        "plain": "A huge tank of gallium-laced liquid buried in an Italian mountain; when a low-energy solar neutrino hits a gallium atom, it turns into a germanium atom that scientists then count."
+      },
+      "technology": "Radiochemical gallium detector: solar neutrinos capture on 71Ga to produce 71Ge, which is chemically extracted and counted; the target is a gallium trichloride-hydrochloric acid solution, not an electronic real-time detector",
+      "technology_class": "other",
+      "technology_classes": [
+        "other"
+      ],
+      "type": "detector"
+    },
     "detector:gerda": {
       "aliases": [],
       "coverage": {
@@ -16227,9 +16861,9 @@
         "plain": "The IAXO detector design uses a large magnet aimed at the Sun to catch faint signals from hypothetical axion particles. A smaller version, BabyIAXO, is being built at DESY as a stepping stone to the full-scale instrument."
       },
       "technology": "Axion helioscope: a purpose-built double-bore (IAXO) / toroidal (BabyIAXO) superconducting magnet tracking the Sun, coupled to X-ray focusing optics and low-background X-ray detectors, scaling up the CAST technique.",
-      "technology_class": "other",
+      "technology_class": "helioscope",
       "technology_classes": [
-        "other"
+        "helioscope"
       ],
       "type": "detector"
     },
@@ -17186,9 +17820,9 @@
         "plain": "A huge tube-shaped spectrometer that sorts electrons by their energy, precisely measuring the fastest ones released when radioactive tritium gas decays, to work out how heavy the neutrino can be."
       },
       "technology": "MAC-E filter electrostatic/magnetic spectrometer with a windowless gaseous tritium source",
-      "technology_class": "spectrometer",
+      "technology_class": "magnetic_spectrometer",
       "technology_classes": [
-        "spectrometer"
+        "magnetic_spectrometer"
       ],
       "type": "detector"
     },
@@ -17905,10 +18539,19 @@
       "id": "detector:lhcf",
       "intervals": [
         {
-          "end": null,
+          "end": {
+            "approx": true,
+            "date": "2026-06"
+          },
           "label": "operating",
           "start": "2009-11-23",
           "status": "active"
+        },
+        {
+          "end": null,
+          "label": "Long Shutdown 3",
+          "start": "2026-06",
+          "status": "shutdown"
         }
       ],
       "links": {
@@ -17942,12 +18585,24 @@
         ],
         [
           719,
-          920,
+          916,
           "active",
+          "certain"
+        ],
+        [
+          917,
+          917,
+          "shutdown",
+          "possible"
+        ],
+        [
+          918,
+          920,
+          "shutdown",
           "certain"
         ]
       ],
-      "status": "active",
+      "status": "shutdown",
       "subsystems": [],
       "summary": {
         "plain": "Two small, 40-kilogram detectors placed 140 metres either side of the ATLAS collision point, catching particles thrown almost exactly along the beam direction."
@@ -19292,10 +19947,16 @@
       "id": "detector:muon-g-2",
       "intervals": [
         {
-          "end": "2017-05",
-          "label": "relocation, reassembly and commissioning at Fermilab (MC-1)",
+          "end": "2014-07",
+          "label": "storage ring relocated from BNL and reassembled at Fermilab (MC-1)",
           "start": "2013",
           "status": "construction"
+        },
+        {
+          "end": "2018-04",
+          "label": "experiment startup / commissioning",
+          "start": "2017-05-31",
+          "status": "commissioning"
         },
         {
           "end": "2023-05",
@@ -19341,21 +20002,33 @@
         ],
         [
           768,
-          807,
+          773,
           "construction",
           "certain"
         ],
         [
-          808,
-          808,
+          774,
+          774,
           "construction",
+          "possible"
+        ],
+        [
+          775,
+          807,
+          "unrecorded",
+          "possible"
+        ],
+        [
+          808,
+          808,
+          "commissioning",
           "possible"
         ],
         [
           809,
           818,
-          "unrecorded",
-          "possible"
+          "commissioning",
+          "certain"
         ],
         [
           819,
@@ -19878,9 +20551,9 @@
         "plain": "A hollow copper sphere filled with gas and a tiny sensor at its centre, sensitive enough to notice a single electron freed when a particle bumps a gas atom."
       },
       "technology": "Spherical proportional counter (SPC): a large gas-filled copper sphere with a single small sensor electrode at the centre, sensitive to single ionization electrons",
-      "technology_class": "gaseous_tpc",
+      "technology_class": "spherical_proportional_counter",
       "technology_classes": [
-        "gaseous_tpc"
+        "spherical_proportional_counter"
       ],
       "type": "detector"
     },
@@ -21231,7 +21904,7 @@
       "id": "detector:reno",
       "intervals": [
         {
-          "end": "2012-03-26",
+          "end": null,
           "label": "data taking",
           "start": "2011-08-11",
           "status": "active"
@@ -21266,24 +21939,12 @@
         ],
         [
           740,
-          745,
+          920,
           "active",
           "certain"
-        ],
-        [
-          746,
-          746,
-          "active",
-          "possible"
-        ],
-        [
-          747,
-          920,
-          "unrecorded",
-          "possible"
         ]
       ],
-      "status": "unrecorded",
+      "status": "active",
       "subsystems": [],
       "summary": {
         "plain": "Two identical tank-like detectors near and far from South Korea's Hanbit nuclear reactors, watching for antineutrinos."
@@ -21690,9 +22351,9 @@
         "plain": "A tiny silicon chip called a skipper CCD, sensitive enough to count single electrons, sitting in a shielded underground hall at Fermilab to catch the faint signal of a very light dark matter particle."
       },
       "technology": "Skipper charge-coupled device (CCD): a high-resistivity silicon CCD with sub-electron readout noise, counting individual ionization electrons",
-      "technology_class": "other",
+      "technology_class": "skipper_ccd",
       "technology_classes": [
-        "other"
+        "skipper_ccd"
       ],
       "type": "detector"
     },
@@ -21880,7 +22541,10 @@
           "status": "approved"
         },
         {
-          "end": null,
+          "end": {
+            "approx": true,
+            "date": "2026-06"
+          },
           "kind": "run",
           "label": "operating (LHC Run 3)",
           "start": {
@@ -21888,6 +22552,12 @@
             "date": "2022"
           },
           "status": "active"
+        },
+        {
+          "end": null,
+          "label": "Long Shutdown 3",
+          "start": "2026-06",
+          "status": "shutdown"
         }
       ],
       "links": {
@@ -21933,15 +22603,27 @@
         ],
         [
           876,
-          920,
+          916,
           "active",
+          "certain"
+        ],
+        [
+          917,
+          917,
+          "shutdown",
+          "possible"
+        ],
+        [
+          918,
+          920,
+          "shutdown",
           "certain"
         ]
       ],
-      "status": "active",
+      "status": "shutdown",
       "subsystems": [],
       "summary": {
-        "plain": "The SND@LHC detector sits in a disused CERN tunnel opposite FASER, built to catch neutrinos and rare particles from LHC collisions. It has been operating since 2022."
+        "plain": "The SND@LHC detector sits in a disused CERN tunnel opposite FASER, built to catch neutrinos and rare particles from LHC collisions. It operated from 2022 until the LHC's current maintenance shutdown began in 2026."
       },
       "technology": "Hybrid emulsion/electronic-tracker target (tungsten plates) acting as an electromagnetic calorimeter, followed by a hadronic calorimeter and a muon identification system",
       "technology_class": "emulsion",
@@ -25065,8 +25747,7 @@
             "display": "100-200 m",
             "max": 200,
             "min": 100,
-            "unit": "m",
-            "value": 200
+            "unit": "m"
           }
         }
       ],
@@ -25809,6 +26490,12 @@
           "label": "expanding cluster array (ongoing)",
           "start": "2016",
           "status": "construction"
+        },
+        {
+          "end": null,
+          "label": "deployed clusters taking physics data (ongoing)",
+          "start": "2018",
+          "status": "commissioning"
         }
       ],
       "key_specs": [
@@ -25863,12 +26550,24 @@
         ],
         [
           804,
-          920,
+          815,
           "construction",
+          "certain"
+        ],
+        [
+          816,
+          827,
+          "commissioning",
+          "possible"
+        ],
+        [
+          828,
+          920,
+          "commissioning",
           "certain"
         ]
       ],
-      "status": "construction",
+      "status": "commissioning",
       "summary": {
         "plain": "A growing underwater telescope in Lake Baikal, Siberia, that has been adding new clusters of light sensors every year since 2016 in search of neutrinos from deep space."
       },
@@ -26310,6 +27009,151 @@
       ],
       "type": "experiment"
     },
+    "experiment:borexino": {
+      "accelerator_ids": [],
+      "aliases": [],
+      "beamline_ids": [],
+      "collaboration_ids": [
+        "collaboration:borexino"
+      ],
+      "coverage": {
+        "globe_ready": false,
+        "researched": "partial",
+        "tier": "D",
+        "validated": false
+      },
+      "detector_ids": [
+        "detector:borexino"
+      ],
+      "document_ids": [],
+      "energy_regime": null,
+      "external": {
+        "greybook": null,
+        "inspire_experiment": 1110446,
+        "wikidata": null
+      },
+      "facility_ids": [
+        "facility:lngs"
+      ],
+      "facility_roles": [
+        {
+          "end": null,
+          "facility_id": "facility:lngs",
+          "role": "host",
+          "start": null
+        }
+      ],
+      "id": "experiment:borexino",
+      "intervals": [
+        {
+          "end": "2004",
+          "label": "construction",
+          "start": "1990",
+          "status": "construction"
+        },
+        {
+          "end": "2021-10",
+          "label": "data taking",
+          "start": "2007-05",
+          "status": "active"
+        },
+        {
+          "end": null,
+          "label": "shut down",
+          "start": "2021-10",
+          "status": "completed"
+        }
+      ],
+      "key_specs": [
+        {
+          "label": "Active (target) mass",
+          "quantity": {
+            "approx": false,
+            "dimension": "mass",
+            "display": "278 t active mass (~100 t fiducial)",
+            "unit": "t",
+            "value": 278
+          }
+        },
+        {
+          "label": "Overburden",
+          "quantity": {
+            "approx": false,
+            "dimension": "depth_mwe",
+            "display": "3800 m.w.e.",
+            "unit": "m.w.e.",
+            "value": 3800
+          }
+        }
+      ],
+      "kind": "solar_neutrino",
+      "lineage": [],
+      "links": {
+        "website": "https://borex.lngs.infn.it/"
+      },
+      "name": "Borexino",
+      "result_ids": [
+        "result:borexino-cno-evidence-2020",
+        "result:borexino-pp-first-detection-2014"
+      ],
+      "secondary_kinds": [],
+      "site_ids": [
+        "site:lngs-hall-c"
+      ],
+      "state_segments": [
+        [
+          480,
+          491,
+          "construction",
+          "possible"
+        ],
+        [
+          492,
+          647,
+          "construction",
+          "certain"
+        ],
+        [
+          648,
+          659,
+          "construction",
+          "possible"
+        ],
+        [
+          660,
+          687,
+          "unrecorded",
+          "possible"
+        ],
+        [
+          688,
+          688,
+          "active",
+          "possible"
+        ],
+        [
+          689,
+          860,
+          "active",
+          "certain"
+        ],
+        [
+          861,
+          861,
+          "completed",
+          "possible"
+        ]
+      ],
+      "status": "completed",
+      "summary": {
+        "plain": "A giant ball of ultra-pure liquid deep under the Gran Sasso mountain in Italy that directly watched low-energy neutrinos streaming from the Sun's core, including two kinds no one had ever seen before."
+      },
+      "topic_ids": [
+        "topic:solar-neutrinos",
+        "topic:neutrino-oscillations"
+      ],
+      "type": "experiment"
+    },
     "experiment:cast": {
       "aliases": [
         "CERN Axion Solar Telescope"
@@ -26363,7 +27207,28 @@
           "status": "completed"
         }
       ],
-      "key_specs": [],
+      "key_specs": [
+        {
+          "label": "Magnet field strength",
+          "quantity": {
+            "approx": false,
+            "dimension": "magnetic_field",
+            "display": "9 T",
+            "unit": "T",
+            "value": 9
+          }
+        },
+        {
+          "label": "Magnet length",
+          "quantity": {
+            "approx": false,
+            "dimension": "length",
+            "display": "10 m",
+            "unit": "m",
+            "value": 10
+          }
+        }
+      ],
       "kind": "axion",
       "lineage": [],
       "links": {
@@ -27539,7 +28404,7 @@
         "detector:cresst"
       ],
       "document_ids": [],
-      "energy_regime": "Light WIMPs below 10 GeV/c^2, nuclear-recoil thresholds near 100 eV",
+      "energy_regime": "Sub-GeV WIMPs; CRESST-III reaches nuclear-recoil thresholds of 10 eV and lower, probing masses down to ~70 MeV/c^2",
       "external": {
         "greybook": null,
         "inspire_experiment": 1401310,
@@ -28327,7 +29192,7 @@
           "start": "2008-12"
         },
         {
-          "end": null,
+          "end": "2025",
           "facility_id": "facility:snolab",
           "role": "host",
           "start": "2017"
@@ -28348,10 +29213,16 @@
           "status": "active"
         },
         {
-          "end": null,
+          "end": "2025",
           "label": "SNOLAB science run (skipper CCDs)",
           "start": "2022",
           "status": "active"
+        },
+        {
+          "end": null,
+          "label": "SNOLAB: repurposed as background test stand",
+          "start": "2025",
+          "status": "completed"
         }
       ],
       "key_specs": [
@@ -28443,14 +29314,20 @@
         ],
         [
           876,
-          920,
+          899,
           "active",
           "certain"
+        ],
+        [
+          900,
+          900,
+          "completed",
+          "possible"
         ]
       ],
-      "status": "active",
+      "status": "completed",
       "summary": {
-        "plain": "DAMIC searches for dark matter using the same kind of light-sensing chips found in digital cameras, cooled and shielded deep underground at SNOLAB in Canada. It started at Fermilab and moved to SNOLAB, later gaining even more sensitive 'skipper' chips."
+        "plain": "DAMIC searched for dark matter using the same kind of light-sensing chips found in digital cameras, cooled and shielded deep underground at SNOLAB in Canada. It started at Fermilab and moved to SNOLAB, later gaining even more sensitive 'skipper' chips, before the detector was repurposed as a background test stand around 2025."
       },
       "topic_ids": [
         "topic:dark-matter",
@@ -28631,12 +29508,7 @@
       ],
       "key_specs": [],
       "kind": "long_lived_particle",
-      "lineage": [
-        {
-          "experiment_id": "experiment:seaquest",
-          "relation": "upgrade_of"
-        }
-      ],
+      "lineage": [],
       "links": {
         "website": null
       },
@@ -29585,10 +30457,10 @@
         "collaboration:double-chooz"
       ],
       "coverage": {
-        "globe_ready": false,
+        "globe_ready": true,
         "researched": "partial",
         "tier": "B",
-        "validated": false
+        "validated": true
       },
       "detector_ids": [
         "detector:double-chooz"
@@ -30490,6 +31362,142 @@
       "topic_ids": [
         "topic:long-lived-particles",
         "topic:neutrino-interactions"
+      ],
+      "type": "experiment"
+    },
+    "experiment:gallex-gno": {
+      "accelerator_ids": [],
+      "aliases": [
+        "GALLEX/GNO",
+        "GNO",
+        "Gallium Experiment",
+        "Gallium Neutrino Observatory"
+      ],
+      "beamline_ids": [],
+      "collaboration_ids": [
+        "collaboration:gallex-gno"
+      ],
+      "coverage": {
+        "globe_ready": false,
+        "researched": "partial",
+        "tier": "D",
+        "validated": false
+      },
+      "detector_ids": [
+        "detector:gallex-gno"
+      ],
+      "document_ids": [],
+      "energy_regime": null,
+      "external": {
+        "greybook": null,
+        "inspire_experiment": 1109244,
+        "wikidata": null
+      },
+      "facility_ids": [
+        "facility:lngs"
+      ],
+      "facility_roles": [
+        {
+          "end": null,
+          "facility_id": "facility:lngs",
+          "role": "host",
+          "start": null
+        }
+      ],
+      "id": "experiment:gallex-gno",
+      "intervals": [
+        {
+          "end": "1997",
+          "label": "GALLEX operation",
+          "start": "1991",
+          "status": "active"
+        },
+        {
+          "end": "2003-04",
+          "label": "GNO operation (successor phase, same collaboration/target)",
+          "start": "1998-05",
+          "status": "active"
+        },
+        {
+          "end": null,
+          "label": "completed",
+          "start": "2003-04",
+          "status": "completed"
+        }
+      ],
+      "key_specs": [
+        {
+          "label": "Gallium target mass",
+          "quantity": {
+            "approx": false,
+            "dimension": "mass",
+            "display": "30.3 t gallium (101 t GaCl3-HCl solution)",
+            "unit": "t",
+            "value": 30.3
+          }
+        }
+      ],
+      "kind": "solar_neutrino",
+      "lineage": [],
+      "links": {
+        "website": null
+      },
+      "name": "GALLEX",
+      "result_ids": [],
+      "secondary_kinds": [],
+      "site_ids": [
+        "site:lngs-hall-a"
+      ],
+      "state_segments": [
+        [
+          492,
+          503,
+          "active",
+          "possible"
+        ],
+        [
+          504,
+          563,
+          "active",
+          "certain"
+        ],
+        [
+          564,
+          575,
+          "active",
+          "possible"
+        ],
+        [
+          576,
+          579,
+          "unrecorded",
+          "possible"
+        ],
+        [
+          580,
+          580,
+          "active",
+          "possible"
+        ],
+        [
+          581,
+          638,
+          "active",
+          "certain"
+        ],
+        [
+          639,
+          639,
+          "completed",
+          "possible"
+        ]
+      ],
+      "status": "completed",
+      "summary": {
+        "plain": "An experiment in an Italian mountain lab that used tonnes of liquid gallium to catch the Sun's lowest-energy neutrinos, the ones from its very first fusion step."
+      },
+      "topic_ids": [
+        "topic:solar-neutrinos"
       ],
       "type": "experiment"
     },
@@ -34378,10 +35386,19 @@
           "status": "approved"
         },
         {
-          "end": null,
+          "end": {
+            "approx": true,
+            "date": "2026-06"
+          },
           "label": "operating",
           "start": "2009-11-23",
           "status": "active"
+        },
+        {
+          "end": null,
+          "label": "Long Shutdown 3",
+          "start": "2026-06",
+          "status": "shutdown"
         }
       ],
       "key_specs": [
@@ -34428,12 +35445,24 @@
         ],
         [
           719,
-          920,
+          916,
           "active",
+          "certain"
+        ],
+        [
+          917,
+          917,
+          "shutdown",
+          "possible"
+        ],
+        [
+          918,
+          920,
+          "shutdown",
           "certain"
         ]
       ],
-      "status": "active",
+      "status": "shutdown",
       "summary": {
         "plain": "LHCf uses two small detectors, 140 metres either side of CERN's ATLAS collision point, to study particles thrown almost exactly forward by LHC collisions -- data used to help interpret how cosmic rays create showers when they hit Earth's atmosphere."
       },
@@ -35315,7 +36344,7 @@
         {
           "end": null,
           "label": "proposed",
-          "start": null,
+          "start": "2018-11",
           "status": "proposed"
         },
         {
@@ -35352,13 +36381,19 @@
       "site_ids": [],
       "state_segments": [
         [
-          948,
-          948,
-          "unrecorded",
+          826,
+          826,
+          "proposed",
           "possible"
+        ],
+        [
+          827,
+          920,
+          "proposed",
+          "certain"
         ]
       ],
-      "status": null,
+      "status": "proposed",
       "summary": {
         "plain": "MATHUSLA is a proposed detector that would sit on the surface at CERN, far above the LHC's underground collisions, to catch new particles so weakly interacting and long-lived that they could fly through ordinary detectors unnoticed."
       },
@@ -35405,6 +36440,24 @@
       "id": "experiment:meg",
       "intervals": [
         {
+          "end": "1999-05",
+          "label": "experiment proposed",
+          "start": "1998-05",
+          "status": "proposed"
+        },
+        {
+          "end": "2004",
+          "label": "experiment approved",
+          "start": "1999-05",
+          "status": "approved"
+        },
+        {
+          "end": "2009",
+          "label": "detector construction",
+          "start": "2004",
+          "status": "construction"
+        },
+        {
           "end": "2013",
           "label": "data taking",
           "start": "2009",
@@ -35438,6 +36491,42 @@
         "site:psi-villigen"
       ],
       "state_segments": [
+        [
+          580,
+          580,
+          "proposed",
+          "possible"
+        ],
+        [
+          581,
+          591,
+          "proposed",
+          "certain"
+        ],
+        [
+          592,
+          592,
+          "approved",
+          "possible"
+        ],
+        [
+          593,
+          647,
+          "approved",
+          "certain"
+        ],
+        [
+          648,
+          659,
+          "construction",
+          "possible"
+        ],
+        [
+          660,
+          707,
+          "construction",
+          "certain"
+        ],
         [
           708,
           719,
@@ -35501,6 +36590,12 @@
       "intervals": [
         {
           "end": "2021",
+          "label": "experiment proposed",
+          "start": "2018",
+          "status": "proposed"
+        },
+        {
+          "end": "2021",
           "label": "first physics run",
           "start": "2021",
           "status": "commissioning"
@@ -35543,6 +36638,18 @@
         "site:psi-villigen"
       ],
       "state_segments": [
+        [
+          816,
+          827,
+          "proposed",
+          "possible"
+        ],
+        [
+          828,
+          851,
+          "proposed",
+          "certain"
+        ],
         [
           852,
           863,
@@ -36635,6 +37742,12 @@
       "id": "experiment:mu3e",
       "intervals": [
         {
+          "end": null,
+          "label": "experiment proposed",
+          "start": "2012-01-23",
+          "status": "proposed"
+        },
+        {
           "end": "2026-09",
           "label": "pixel-tracker installation",
           "start": "2026-09",
@@ -36665,6 +37778,18 @@
         "site:psi-villigen"
       ],
       "state_segments": [
+        [
+          744,
+          744,
+          "proposed",
+          "possible"
+        ],
+        [
+          745,
+          919,
+          "proposed",
+          "certain"
+        ],
         [
           920,
           920,
@@ -36721,6 +37846,18 @@
       "id": "experiment:muon-g-2",
       "intervals": [
         {
+          "end": "2010-01",
+          "label": "experiment proposed",
+          "start": "2009-02",
+          "status": "proposed"
+        },
+        {
+          "end": "2013",
+          "label": "experiment approved",
+          "start": "2010-01",
+          "status": "approved"
+        },
+        {
           "end": "2014-07",
           "label": "storage ring relocated from BNL and reassembled at Fermilab (MC-1)",
           "start": "2013",
@@ -36776,6 +37913,30 @@
         "site:fermilab-mc-1-muon-campus"
       ],
       "state_segments": [
+        [
+          709,
+          709,
+          "proposed",
+          "possible"
+        ],
+        [
+          710,
+          719,
+          "proposed",
+          "certain"
+        ],
+        [
+          720,
+          720,
+          "approved",
+          "possible"
+        ],
+        [
+          721,
+          755,
+          "approved",
+          "certain"
+        ],
         [
           756,
           767,
@@ -38961,10 +40122,10 @@
         "collaboration:reno"
       ],
       "coverage": {
-        "globe_ready": false,
+        "globe_ready": true,
         "researched": "partial",
         "tier": "B",
-        "validated": false
+        "validated": true
       },
       "detector_ids": [
         "detector:reno"
@@ -38990,8 +40151,8 @@
       "id": "experiment:reno",
       "intervals": [
         {
-          "end": "2012-03-26",
-          "label": "data-taking period used in the 2012 discovery",
+          "end": null,
+          "label": "data-taking (analysis window used in the 2012 discovery paper)",
           "start": "2011-08-11",
           "status": "active"
         }
@@ -39022,7 +40183,7 @@
           "quantity": {
             "approx": false,
             "dimension": "power",
-            "display": "6 x 2.8 GW_th",
+            "display": "2.8 GW_th (x6 reactors)",
             "unit": "GW",
             "value": 2.8
           }
@@ -39051,24 +40212,12 @@
         ],
         [
           740,
-          745,
+          920,
           "active",
           "certain"
-        ],
-        [
-          746,
-          746,
-          "active",
-          "possible"
-        ],
-        [
-          747,
-          920,
-          "unrecorded",
-          "possible"
         ]
       ],
-      "status": "unrecorded",
+      "status": "active",
       "summary": {
         "plain": "A South Korean experiment with two identical detectors near and far from a group of six nuclear reactors, which observed antineutrinos disappearing exactly as neutrino oscillation theory predicts."
       },
@@ -39551,13 +40700,7 @@
       ],
       "key_specs": [],
       "kind": "fixed_target",
-      "lineage": [
-        {
-          "derived": true,
-          "experiment_id": "experiment:darkquest",
-          "relation": "upgraded_to"
-        }
-      ],
+      "lineage": [],
       "links": {
         "website": null
       },
@@ -40070,7 +41213,10 @@
           "status": "approved"
         },
         {
-          "end": null,
+          "end": {
+            "approx": true,
+            "date": "2026-06"
+          },
           "kind": "run",
           "label": "data-taking (LHC Run 3)",
           "start": {
@@ -40078,6 +41224,12 @@
             "date": "2022"
           },
           "status": "active"
+        },
+        {
+          "end": null,
+          "label": "Long Shutdown 3",
+          "start": "2026-06",
+          "status": "shutdown"
         }
       ],
       "key_specs": [
@@ -40120,14 +41272,26 @@
         ],
         [
           876,
-          920,
+          916,
           "active",
+          "certain"
+        ],
+        [
+          917,
+          917,
+          "shutdown",
+          "possible"
+        ],
+        [
+          918,
+          920,
+          "shutdown",
           "certain"
         ]
       ],
-      "status": "active",
+      "status": "shutdown",
       "summary": {
-        "plain": "SND@LHC is a compact experiment in a disused CERN tunnel that catches neutrinos produced in LHC collisions, in a direction close to the beam that no other LHC experiment can see. It has been recording collision data since 2022."
+        "plain": "SND@LHC is a compact experiment in a disused CERN tunnel that catches neutrinos produced in LHC collisions, in a direction close to the beam that no other LHC experiment can see. It recorded collision data from 2022 until the LHC's current maintenance shutdown began in 2026."
       },
       "topic_ids": [
         "topic:neutrino-interactions"
@@ -41109,7 +42273,7 @@
         "detector:supercdms"
       ],
       "document_ids": [],
-      "energy_regime": "Low-mass WIMPs, below about ten proton masses",
+      "energy_regime": "Low-mass WIMPs, smaller than about ten proton masses",
       "external": {
         "greybook": null,
         "inspire_experiment": 1357671,
@@ -43165,7 +44329,7 @@
       "document_ids": [],
       "experiment_ids": [],
       "id": "facility:argonne-national-laboratory",
-      "institution_id": null,
+      "institution_id": "institution:argonne-national-laboratory",
       "intervals": [
         {
           "end": null,
@@ -43457,7 +44621,7 @@
         "experiment:star"
       ],
       "id": "facility:brookhaven-national-laboratory",
-      "institution_id": null,
+      "institution_id": "institution:brookhaven-national-laboratory",
       "intervals": [
         {
           "end": null,
@@ -43716,7 +44880,14 @@
       ],
       "id": "facility:chooz",
       "institution_id": null,
-      "intervals": [],
+      "intervals": [
+        {
+          "end": null,
+          "label": "hosting Double Chooz",
+          "start": "2011",
+          "status": "active"
+        }
+      ],
       "kind": "reactor_site",
       "links": {
         "website": null
@@ -43733,6 +44904,20 @@
         "site:double-chooz-near-detector"
       ],
       "specs": {},
+      "state_segments": [
+        [
+          732,
+          743,
+          "active",
+          "possible"
+        ],
+        [
+          744,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
       "status": "active",
       "summary": {
         "plain": "The site near the Chooz nuclear power station in northern France where the Double Chooz experiment placed two detectors to catch antineutrinos from the reactors."
@@ -43985,7 +45170,7 @@
         "experiment:zeus"
       ],
       "id": "facility:desy",
-      "institution_id": null,
+      "institution_id": "institution:desy",
       "intervals": [
         {
           "end": null,
@@ -45254,11 +46439,13 @@
         "document:icarus-lngs-cryogenics-paper"
       ],
       "experiment_ids": [
+        "experiment:borexino",
         "experiment:cresst",
         "experiment:cuore",
         "experiment:cupid",
         "experiment:darkside-20k",
         "experiment:darkside-50",
+        "experiment:gallex-gno",
         "experiment:gerda",
         "experiment:icarus",
         "experiment:legend",
@@ -45347,7 +46534,7 @@
         "experiment:lsnd"
       ],
       "id": "facility:los-alamos-national-laboratory",
-      "institution_id": null,
+      "institution_id": "institution:los-alamos-national-laboratory",
       "intervals": [
         {
           "end": null,
@@ -45485,7 +46672,7 @@
         {
           "end": null,
           "label": "operating",
-          "start": null,
+          "start": "2018",
           "status": "active"
         }
       ],
@@ -45502,7 +46689,20 @@
         "site:mit-cambridge-campus"
       ],
       "specs": {},
-      "state_segments": [],
+      "state_segments": [
+        [
+          816,
+          827,
+          "active",
+          "possible"
+        ],
+        [
+          828,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
       "status": "active",
       "summary": {
         "plain": "MIT (Massachusetts Institute of Technology) is a university in Cambridge, Massachusetts. Its physics department built ABRACADABRA, a small experiment that searched for the axion, a hypothetical dark-matter particle."
@@ -45765,18 +46965,18 @@
         "experiment:mu3e"
       ],
       "id": "facility:psi",
-      "institution_id": null,
+      "institution_id": "institution:paul-scherrer-institute",
       "intervals": [
         {
           "end": null,
           "label": "institute created (EIR + SIN merger)",
-          "start": "1988",
+          "start": "1988-01-01",
           "status": "active"
         }
       ],
       "kind": "accelerator_laboratory",
       "links": {
-        "website": "https://www.psi.ch/"
+        "website": "https://www.psi.ch/en"
       },
       "name": "Paul Scherrer Institute",
       "operator_ids": [],
@@ -45790,12 +46990,6 @@
       "state_segments": [
         [
           456,
-          467,
-          "active",
-          "possible"
-        ],
-        [
-          468,
           920,
           "active",
           "certain"
@@ -45995,7 +47189,7 @@
         "experiment:sld"
       ],
       "id": "facility:slac",
-      "institution_id": null,
+      "institution_id": "institution:slac-national-accelerator-laboratory",
       "intervals": [
         {
           "end": null,
@@ -46006,7 +47200,7 @@
       ],
       "kind": "accelerator_laboratory",
       "links": {
-        "website": "https://www.slac.stanford.edu/"
+        "website": "https://www6.slac.stanford.edu"
       },
       "name": "SLAC National Accelerator Laboratory",
       "operator_ids": [],
@@ -46536,7 +47730,7 @@
         {
           "end": null,
           "label": "operating",
-          "start": null,
+          "start": "2017",
           "status": "active"
         }
       ],
@@ -46553,7 +47747,20 @@
         "site:uw-cenpa-campus"
       ],
       "specs": {},
-      "state_segments": [],
+      "state_segments": [
+        [
+          804,
+          815,
+          "active",
+          "possible"
+        ],
+        [
+          816,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
       "status": "active",
       "summary": {
         "plain": "CENPA is a physics research lab at the University of Washington in Seattle. It hosts ADMX, an experiment that searches for a hypothetical dark-matter particle called the axion using a large magnet and a supercooled resonant cavity."
@@ -46660,7 +47867,7 @@
         {
           "end": null,
           "label": "operating",
-          "start": null,
+          "start": "2018",
           "status": "active"
         }
       ],
@@ -46677,7 +47884,20 @@
         "site:yale-wright-lab-campus"
       ],
       "specs": {},
-      "state_segments": [],
+      "state_segments": [
+        [
+          816,
+          827,
+          "active",
+          "possible"
+        ],
+        [
+          828,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
       "status": "active",
       "summary": {
         "plain": "Wright Laboratory is a Yale University physics building in New Haven, Connecticut. It hosts several fundamental-physics experiments, including HAYSTAC, which searches for the axion, a candidate particle for dark matter."
@@ -46711,7 +47931,14 @@
       ],
       "id": "facility:yonggwang-hanbit-reactor-site",
       "institution_id": null,
-      "intervals": [],
+      "intervals": [
+        {
+          "end": null,
+          "label": "hosting RENO",
+          "start": "2011-08-11",
+          "status": "active"
+        }
+      ],
       "kind": "reactor_site",
       "links": {
         "website": null
@@ -46727,6 +47954,20 @@
         "site:reno-near-detector"
       ],
       "specs": {},
+      "state_segments": [
+        [
+          739,
+          739,
+          "active",
+          "possible"
+        ],
+        [
+          740,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
       "status": "active",
       "summary": {
         "plain": "The site near the Hanbit (formerly Yonggwang) nuclear power plant in South Korea where the RENO experiment placed two detectors to catch antineutrinos from six reactors."
@@ -46840,9 +48081,9 @@
       "coordinates": {
         "approximate": true,
         "kind": "campus",
-        "lat": 41.709166,
-        "lon": -87.981992,
-        "precision_m": 1000
+        "lat": 41.67364,
+        "lon": -88.00173,
+        "precision_m": 800
       },
       "country": "US",
       "coverage": {
@@ -47000,12 +48241,24 @@
         ],
         [
           804,
-          920,
+          815,
           "construction",
+          "certain"
+        ],
+        [
+          816,
+          827,
+          "commissioning",
+          "possible"
+        ],
+        [
+          828,
+          920,
+          "commissioning",
           "certain"
         ]
       ],
-      "status": "construction",
+      "status": "commissioning",
       "summary": {
         "plain": "A spot near the shore of the southern end of Lake Baikal in Siberia, Russia, where strings of light sensors are anchored more than a kilometre deep in the world's deepest lake."
       },
@@ -47401,9 +48654,9 @@
       "coordinates": {
         "approximate": true,
         "kind": "campus",
-        "lat": 46.2601088,
-        "lon": 6.0577057,
-        "precision_m": 3000
+        "lat": 46.2417561,
+        "lon": 6.0971635,
+        "precision_m": 1000
       },
       "country": "FR",
       "coverage": {
@@ -47417,9 +48670,9 @@
       "links": {
         "website": null
       },
-      "name": "CERN CAST site (SPS North/West Area, SR8)",
+      "name": "CERN CAST site (LHC Point 8 / SR8)",
       "place": {
-        "city": "Saint-Genis-Pouilly",
+        "city": "Ferney-Voltaire",
         "country": "FR",
         "region": "Ain"
       },
@@ -47464,7 +48717,7 @@
       ],
       "status": "completed",
       "summary": {
-        "plain": "An experimental hall fed by CERN's SPS accelerator, on the French side of the CERN site, where the CAST experiment searched for axions from the Sun until the end of 2022."
+        "plain": "The building at CERN's Point 8, on the French side of the CERN site, where the CAST experiment's cryogenic equipment is sited and where CAST searched for axions from the Sun until the end of 2022."
       },
       "type": "site"
     },
@@ -48053,17 +49306,17 @@
         [
           917,
           917,
-          "upgrade",
+          "shutdown",
           "possible"
         ],
         [
           918,
           920,
-          "upgrade",
+          "shutdown",
           "certain"
         ]
       ],
-      "status": "upgrade",
+      "status": "shutdown",
       "summary": {
         "plain": "The underground cavern at the edge of CERN's Meyrin campus where the ATLAS detector sits, about 100 metres below ground. It is one of the eight access points around the 27-kilometre Large Hadron Collider ring and the place where two of the LHC's proton beams are made to collide inside ATLAS."
       },
@@ -48895,12 +50148,24 @@
         ],
         [
           876,
-          920,
+          916,
           "active",
+          "certain"
+        ],
+        [
+          917,
+          917,
+          "shutdown",
+          "possible"
+        ],
+        [
+          918,
+          920,
+          "shutdown",
           "certain"
         ]
       ],
-      "status": "active",
+      "status": "shutdown",
       "summary": {
         "plain": "An unused service tunnel at CERN, on the opposite side of the ATLAS collision point from FASER, that houses the SND@LHC experiment, which studies neutrinos and searches for rare particles produced in LHC collisions."
       },
@@ -49154,9 +50419,9 @@
       "coordinates": {
         "approximate": true,
         "kind": "campus",
-        "lat": 53.575833,
-        "lon": 9.879444,
-        "precision_m": 1500
+        "lat": 53.55073,
+        "lon": 9.99302,
+        "precision_m": 800
       },
       "country": "DE",
       "coverage": {
@@ -49191,9 +50456,9 @@
       "coordinates": {
         "approximate": true,
         "kind": "campus",
-        "lat": 53.575833,
-        "lon": 9.879444,
-        "precision_m": 1500
+        "lat": 53.55073,
+        "lon": 9.99302,
+        "precision_m": 800
       },
       "country": "DE",
       "coverage": {
@@ -49297,9 +50562,9 @@
       "coordinates": {
         "approximate": true,
         "kind": "campus",
-        "lat": 53.575833,
-        "lon": 9.879444,
-        "precision_m": 1500
+        "lat": 53.55073,
+        "lon": 9.99302,
+        "precision_m": 800
       },
       "country": "DE",
       "coverage": {
@@ -50000,6 +51265,18 @@
         ],
         [
           876,
+          899,
+          "active",
+          "certain"
+        ],
+        [
+          900,
+          900,
+          "completed",
+          "possible"
+        ],
+        [
+          901,
           920,
           "active",
           "certain"
@@ -50048,6 +51325,30 @@
       },
       "setting": "surface",
       "state_segments": [
+        [
+          709,
+          709,
+          "proposed",
+          "possible"
+        ],
+        [
+          710,
+          719,
+          "proposed",
+          "certain"
+        ],
+        [
+          720,
+          720,
+          "approved",
+          "possible"
+        ],
+        [
+          721,
+          755,
+          "approved",
+          "certain"
+        ],
         [
           756,
           767,
@@ -50793,9 +52094,9 @@
       "coordinates": {
         "approximate": true,
         "kind": "campus",
-        "lat": 37.094722,
-        "lon": -76.481667,
-        "precision_m": 1000
+        "lat": 36.98038,
+        "lon": -76.42975,
+        "precision_m": 800
       },
       "country": "US",
       "coverage": {
@@ -51834,8 +53135,8 @@
       "coordinates": {
         "approximate": true,
         "kind": "campus",
-        "lat": 35.869167,
-        "lon": -106.261944,
+        "lat": 35.88808,
+        "lon": -106.30697,
         "precision_m": 800
       },
       "country": "US",
@@ -52049,15 +53350,15 @@
       "setting": "underground",
       "state_segments": [
         [
-          516,
-          527,
-          "proposed",
+          492,
+          503,
+          "active",
           "possible"
         ],
         [
-          528,
+          504,
           551,
-          "proposed",
+          "active",
           "certain"
         ],
         [
@@ -52086,6 +53387,18 @@
         ],
         [
           636,
+          638,
+          "active",
+          "possible"
+        ],
+        [
+          639,
+          639,
+          "completed",
+          "possible"
+        ],
+        [
+          640,
           647,
           "active",
           "possible"
@@ -52311,25 +53624,37 @@
       "setting": "underground",
       "state_segments": [
         [
-          636,
-          647,
+          480,
+          491,
           "construction",
           "possible"
         ],
         [
-          648,
-          695,
+          492,
+          647,
           "construction",
           "certain"
         ],
         [
-          696,
-          707,
+          648,
+          659,
+          "construction",
+          "possible"
+        ],
+        [
+          660,
+          687,
+          "construction",
+          "certain"
+        ],
+        [
+          688,
+          688,
           "active",
           "possible"
         ],
         [
-          708,
+          689,
           754,
           "active",
           "certain"
@@ -52342,24 +53667,6 @@
         ],
         [
           756,
-          767,
-          "active",
-          "possible"
-        ],
-        [
-          768,
-          782,
-          "active",
-          "certain"
-        ],
-        [
-          783,
-          783,
-          "active",
-          "possible"
-        ],
-        [
-          784,
           839,
           "active",
           "certain"
@@ -52367,6 +53674,18 @@
         [
           840,
           840,
+          "completed",
+          "possible"
+        ],
+        [
+          841,
+          860,
+          "active",
+          "certain"
+        ],
+        [
+          861,
+          861,
           "completed",
           "possible"
         ],
@@ -53048,8 +54367,8 @@
       "coordinates": {
         "approximate": true,
         "kind": "campus",
-        "lat": 35.93,
-        "lon": -84.31,
+        "lat": 36.01036,
+        "lon": -84.26964,
         "precision_m": 2000
       },
       "country": "US",
@@ -53168,9 +54487,9 @@
       "coordinates": {
         "approximate": true,
         "kind": "campus",
-        "lat": 47.53611,
-        "lon": 8.22278,
-        "precision_m": 1500
+        "lat": 47.52682,
+        "lon": 8.21486,
+        "precision_m": 800
       },
       "country": "CH",
       "coverage": {
@@ -53194,6 +54513,42 @@
       "setting": "surface",
       "state_segments": [
         [
+          580,
+          580,
+          "proposed",
+          "possible"
+        ],
+        [
+          581,
+          591,
+          "proposed",
+          "certain"
+        ],
+        [
+          592,
+          592,
+          "approved",
+          "possible"
+        ],
+        [
+          593,
+          647,
+          "approved",
+          "certain"
+        ],
+        [
+          648,
+          659,
+          "construction",
+          "possible"
+        ],
+        [
+          660,
+          707,
+          "construction",
+          "certain"
+        ],
+        [
           708,
           719,
           "active",
@@ -53210,6 +54565,24 @@
           756,
           "completed",
           "possible"
+        ],
+        [
+          757,
+          815,
+          "proposed",
+          "certain"
+        ],
+        [
+          816,
+          827,
+          "proposed",
+          "possible"
+        ],
+        [
+          828,
+          851,
+          "proposed",
+          "certain"
         ],
         [
           852,
@@ -53278,24 +54651,12 @@
         ],
         [
           740,
-          745,
+          920,
           "active",
           "certain"
-        ],
-        [
-          746,
-          746,
-          "active",
-          "possible"
-        ],
-        [
-          747,
-          920,
-          "unrecorded",
-          "possible"
         ]
       ],
-      "status": "unrecorded",
+      "status": "active",
       "summary": {
         "plain": "A hall over a kilometre from the Hanbit nuclear reactors in South Korea, holding RENO's far detector."
       },
@@ -53343,24 +54704,12 @@
         ],
         [
           740,
-          745,
+          920,
           "active",
           "certain"
-        ],
-        [
-          746,
-          746,
-          "active",
-          "possible"
-        ],
-        [
-          747,
-          920,
-          "unrecorded",
-          "possible"
         ]
       ],
-      "status": "unrecorded",
+      "status": "active",
       "summary": {
         "plain": "A hall close to the Hanbit nuclear reactors in South Korea, holding RENO's near detector."
       },
@@ -53454,9 +54803,9 @@
       "coordinates": {
         "approximate": true,
         "kind": "campus",
-        "lat": 37.4175,
-        "lon": -122.2025,
-        "precision_m": 1500
+        "lat": 37.45383,
+        "lon": -122.18219,
+        "precision_m": 1000
       },
       "country": "US",
       "coverage": {
@@ -53507,9 +54856,9 @@
       "coordinates": {
         "approximate": true,
         "kind": "campus",
-        "lat": 37.4175,
-        "lon": -122.2025,
-        "precision_m": 1500
+        "lat": 37.45383,
+        "lon": -122.18219,
+        "precision_m": 1000
       },
       "country": "US",
       "coverage": {
@@ -53590,9 +54939,9 @@
       "coordinates": {
         "approximate": true,
         "kind": "campus",
-        "lat": 37.4175,
-        "lon": -122.2025,
-        "precision_m": 1500
+        "lat": 37.45383,
+        "lon": -122.18219,
+        "precision_m": 1000
       },
       "country": "US",
       "coverage": {
@@ -53920,6 +55269,18 @@
         ],
         [
           876,
+          899,
+          "active",
+          "certain"
+        ],
+        [
+          900,
+          900,
+          "completed",
+          "possible"
+        ],
+        [
+          901,
           919,
           "active",
           "certain"
@@ -54159,8 +55520,7 @@
         "display": "100-200 m",
         "max": 200,
         "min": 100,
-        "unit": "m",
-        "value": 200
+        "unit": "m"
       },
       "depth_mwe": null,
       "depth_rock": null,
@@ -54847,7 +56207,13 @@
         "unit": "m",
         "value": 655
       },
-      "depth_mwe": null,
+      "depth_mwe": {
+        "approx": false,
+        "dimension": "depth_mwe",
+        "display": "1585 m.w.e.",
+        "unit": "m.w.e.",
+        "value": 1585
+      },
       "document_ids": [],
       "facility_id": "facility:wipp",
       "id": "site:wipp-surface-campus",
@@ -55843,5 +57209,5 @@
       "type": "topic"
     }
   },
-  "version": "8477e0a60516a1f7"
+  "version": "5901a7f8c235db25"
 }
