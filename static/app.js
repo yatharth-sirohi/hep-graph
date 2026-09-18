@@ -1161,15 +1161,29 @@
 
   /* A group is answered as a web: the shortest connection between every
      pair, each an ordinary two-person search with its own proof. Searches
-     spend their time waiting on the network, not working, and the server
-     scales out, so many run at once - twelve cut 28 pairs from 27 s to under
-     8 s in measurement - and the web is drawn as they arrive. */
-  const WEB_CONCURRENCY = 12;
+     spend their time waiting on the network, not working, so several run at
+     once and the web is drawn as they arrive. Six, not more: one server
+     instance admits eight searches at a time and turns the rest away as
+     busy, and a browser's parallel requests tend to land on one instance. */
+  const WEB_CONCURRENCY = 6;
   const PAIR_TIMEOUT_MS = 120000;
+
+  /* "Busy" and "rate limited" mean ask again shortly, not "no route". */
+  async function patiently(request) {
+    for (let attempt = 0; ; attempt += 1) {
+      try {
+        return await request();
+      } catch (error) {
+        if (![503, 429].includes(error.status) || attempt >= 5) throw error;
+        const wait = error.status === 429 ? 4000 : 400 * 2 ** attempt;
+        await new Promise((resolve) => setTimeout(resolve, wait + Math.random() * 300));
+      }
+    }
+  }
 
   async function runPair(source, target, current) {
     const began = performance.now();
-    let data = await api(urlWithFilters("/api/path", { source, target }));
+    let data = await patiently(() => api(urlWithFilters("/api/path", { source, target })));
     let restarts = 0;
     while (data.status === "searching" && current()) {
       if (performance.now() - began > PAIR_TIMEOUT_MS) {
@@ -1177,13 +1191,13 @@
       }
       await new Promise((resolve) => setTimeout(resolve, 300));
       try {
-        data = await api(`/api/search-jobs/${encodeURIComponent(data.job_id)}?mode=database`);
+        data = await patiently(() => api(`/api/search-jobs/${encodeURIComponent(data.job_id)}?mode=database`));
       } catch (error) {
         // The job lives in one server process and a poll can reach another;
         // start the same search again there, as the single search does.
         if (error.status === 404 && restarts < 2) {
           restarts += 1;
-          data = await api(urlWithFilters("/api/path", { source, target }));
+          data = await patiently(() => api(urlWithFilters("/api/path", { source, target })));
           continue;
         }
         throw error;
@@ -2216,15 +2230,21 @@
     const done = pairs.filter((pair) => pair.done);
     const found = done.filter((pair) => pair.data?.paths?.length);
     const missing = done.filter((pair) => !pair.data?.paths?.length);
+    // A pair the service could not search is not a pair with no route.
+    const noRoute = missing.filter((pair) => !pair.error && pair.data?.route_status === "no_path");
+    const unsearched = missing.length - noRoute.length;
     const proven = found.length === pairs.length &&
       pairs.every((pair) => pair.data?.global_shortest_proven === true);
     $("#path-title").textContent =
       `How ${people.length} people connect` +
-      (final && missing.length ? ` · ${plural(missing.length, "pair")} without a route` : "");
+      (final && noRoute.length ? ` · ${plural(noRoute.length, "pair")} without a route` : "") +
+      (final && unsearched ? ` · ${plural(unsearched, "pair")} not settled` : "");
     const claim = !final
       ? `${done.length} of ${pairs.length} connections found so far`
-      : missing.length
-        ? "some pairs have no verified route; the rest are shown"
+      : unsearched
+        ? "some pairs could not be settled - select them to see why; nothing is concluded about those"
+        : noRoute.length
+        ? "some pairs have no route in this release and filters; the rest are shown"
         : proven
           ? "every connection proven shortest in this release and filters"
           : "every connection verified; not every one is proven shortest";
