@@ -1,0 +1,277 @@
+{
+  "aliases": [
+    "A Large Ion Collider Experiment detector"
+  ],
+  "coverage": {
+    "researched": "full",
+    "tier": "A"
+  },
+  "experiment_ids": [
+    "experiment:alice"
+  ],
+  "id": "detector:alice",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": {
+        "approx": true,
+        "date": "2008-06",
+        "note": "mid 2008, per the detector paper"
+      },
+      "label": "construction",
+      "locator": "2008 JINST 3 S08002, section 1.2.2",
+      "note": "",
+      "quote": "Most detector systems will be installed and ready for data taking by mid 2008 when the LHC is scheduled to start operation",
+      "sources": [
+        "src:colliders-lhc-alice-detector-jinst-2008"
+      ],
+      "start": "1997-02-06",
+      "status": "construction",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "operating",
+      "locator": "INSPIRE experiment record 1110642, field date_started",
+      "note": "The original ITS1/MWPC-TPC configuration operated 2009-2018; the upgraded ITS2/GEM-TPC configuration (ALICE 2) operates from 2021. Both are recorded as a single 'operating' interval since the detector identity (detector:alice) persists across the upgrade; the upgrade itself is a separate interval below.",
+      "sources": [
+        "src:colliders-lhc-alice-inspire-experiment-record"
+      ],
+      "start": "2009-11-23",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": "2021",
+      "label": "ALICE 2 upgrade (new ITS2 pixel tracker, GEM-based continuous-readout TPC)",
+      "locator": "alice-collaboration.web.cern.ch",
+      "note": "",
+      "quote": "In 2021, the collaboration completed a major upgrade, denoted ALICE 2, to enhance its detector capabilities and continue its scientific journey at the LHC in Runs 3 and 4.",
+      "sources": [
+        "src:colliders-lhc-alice-collaboration-site"
+      ],
+      "start": "2018-12-03",
+      "status": "upgrade",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "ALICE detector",
+  "notes": [
+    "specs.total_mass/length/diameter reflect the as-built (2008) detector; the ALICE 2 upgrade (2021) replaced the ITS and TPC internals but no fetched source gives updated overall mass/dimension figures, so the original detector-paper values are kept with a note.",
+    "Placed at site:cern-point-2-alice, whose coordinate is an approximate geocoder-derived campus point (see that record's notes) rather than a surveyed cavern coordinate."
+  ],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "locator": "2008 JINST 3 S08002, section 2.1",
+      "note": "Start approximated to the 1997 approval, when construction/installation at Point 2 began per the same paper; no fetched source gives an exact day the detector installation itself began at the site.",
+      "quote": "The ALICE detector and area facilities are located at Point 2 of the LHC accelerator tunnel in the commune of St. Genis-Pouilly, France.",
+      "role": "main",
+      "site_id": "site:cern-point-2-alice",
+      "sources": [
+        "src:colliders-lhc-alice-detector-jinst-2008"
+      ],
+      "start": "1997-02-06",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:colliders-lhc-alice-detector-jinst-2008",
+    "src:lep-cern-alice-experiment-page"
+  ],
+  "specs": {
+    "calorimeters": {
+      "confidence": "verified",
+      "locator": "2008 JINST 3 S08002, Introduction",
+      "note": "",
+      "quote": "two electromagnetic calorimeters (PHOS and EMCal)",
+      "sources": [
+        "src:colliders-lhc-alice-detector-jinst-2008"
+      ],
+      "value": "Two electromagnetic calorimeters, PHOS and EMCal",
+      "verified_at": "2026-09-17"
+    },
+    "diameter": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "16 m (height/width)",
+      "locator": "home.cern, ALICE page",
+      "note": "",
+      "quote": "measures 26 m long, 16 m high, and 16 m wide",
+      "sources": [
+        "src:lep-cern-alice-experiment-page",
+        "src:colliders-lhc-alice-detector-jinst-2008"
+      ],
+      "unit": "m",
+      "value": 16,
+      "verified_at": "2026-09-17"
+    },
+    "length": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "26 m",
+      "locator": "home.cern, ALICE page",
+      "note": "",
+      "quote": "The ALICE detector weighs 10,000 tonnes and measures 26 m long, 16 m high, and 16 m wide.",
+      "sources": [
+        "src:lep-cern-alice-experiment-page",
+        "src:colliders-lhc-alice-detector-jinst-2008"
+      ],
+      "unit": "m",
+      "value": 26,
+      "verified_at": "2026-09-17"
+    },
+    "muon_system": {
+      "confidence": "verified",
+      "locator": "2008 JINST 3 S08002, Introduction",
+      "note": "",
+      "quote": "The forward muon arm (2 -9 ) consists of a complex arrangement of absorbers, a large dipole magnet, and fourteen planes of tracking and triggering chambers.",
+      "sources": [
+        "src:colliders-lhc-alice-detector-jinst-2008"
+      ],
+      "value": "Forward muon arm (2-9 degrees polar angle): absorbers, a large dipole magnet, and fourteen planes of tracking and triggering chambers",
+      "verified_at": "2026-09-17"
+    },
+    "pseudorapidity_coverage": {
+      "confidence": "verified",
+      "locator": "2008 JINST 3 S08002, section 1.2.2, and Table 1.1",
+      "note": "",
+      "quote": "Therefore the instrumented part is concentrated over 2 units in rapidity around mid-rapidity for the barrel detectors and covers 1.5 units in rapidity at small angles for the muon measurement.",
+      "sources": [
+        "src:colliders-lhc-alice-detector-jinst-2008"
+      ],
+      "value": "Central barrel |eta| < 0.9 (TPC/TOF; TRD |eta| < 0.84); forward muon spectrometer 2.5 < |eta| < 4.0 (polar angle 2-9 degrees)",
+      "verified_at": "2026-09-17"
+    },
+    "solenoid_field": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "magnetic_field",
+      "display": "0.5 T",
+      "locator": "2008 JINST 3 S08002, section 1.2.2",
+      "note": "",
+      "quote": "in a moderate field of 0.5 T",
+      "sources": [
+        "src:colliders-lhc-alice-detector-jinst-2008"
+      ],
+      "unit": "T",
+      "value": 0.5,
+      "verified_at": "2026-09-17"
+    },
+    "total_mass": {
+      "approx": true,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "~10000 t",
+      "locator": "2008 JINST 3 S08002, Introduction",
+      "note": "",
+      "quote": "Its overall dimensions are 16×16×26 m3 with a total weight of approximately 10 000 t.",
+      "sources": [
+        "src:colliders-lhc-alice-detector-jinst-2008",
+        "src:lep-cern-alice-experiment-page"
+      ],
+      "unit": "t",
+      "value": 10000,
+      "verified_at": "2026-09-17"
+    },
+    "tracker": {
+      "confidence": "verified",
+      "locator": "2008 JINST 3 S08002, Introduction",
+      "note": "",
+      "quote": "the barrel contains an Inner Tracking System (ITS) of six planes of high-resolution silicon pixel (SPD), drift (SDD), and strip (SSD) detectors, a cylindrical Time-Projection Chamber (TPC)",
+      "sources": [
+        "src:colliders-lhc-alice-detector-jinst-2008"
+      ],
+      "value": "Inner Tracking System (six planes: silicon pixel/SPD, drift/SDD, strip/SSD) plus a cylindrical Time-Projection Chamber (TPC); the TRD also contributes to tracking",
+      "verified_at": "2026-09-17"
+    }
+  },
+  "status": "active",
+  "subsystems": [
+    {
+      "confidence": "verified",
+      "locator": "2008 JINST 3 S08002, Introduction",
+      "note": "",
+      "quote": "an Inner Tracking System (ITS) of six planes of high-resolution silicon pixel (SPD), drift (SDD), and strip (SSD) detectors",
+      "sources": [
+        "src:colliders-lhc-alice-detector-jinst-2008"
+      ],
+      "value": "Inner Tracking System (ITS): six planes of silicon pixel (SPD), drift (SDD) and strip (SSD) detectors",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "locator": "2008 JINST 3 S08002, Introduction",
+      "note": "",
+      "quote": "a cylindrical Time-Projection Chamber (TPC)",
+      "sources": [
+        "src:colliders-lhc-alice-detector-jinst-2008"
+      ],
+      "value": "Time-Projection Chamber (TPC): main tracking and dE/dx particle-identification detector",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "locator": "2008 JINST 3 S08002, Introduction",
+      "note": "",
+      "quote": "three particle identification arrays of Time-of-Flight (TOF), Ring Imaging Cherenkov (HMPID) and Transition Radiation (TRD) detectors",
+      "sources": [
+        "src:colliders-lhc-alice-detector-jinst-2008"
+      ],
+      "value": "Time-of-Flight (TOF), Ring Imaging Cherenkov (HMPID) and Transition Radiation (TRD) arrays for particle identification",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "locator": "2008 JINST 3 S08002, Introduction",
+      "note": "",
+      "quote": "two electromagnetic calorimeters (PHOS and EMCal)",
+      "sources": [
+        "src:colliders-lhc-alice-detector-jinst-2008"
+      ],
+      "value": "PHOS and EMCal electromagnetic calorimeters",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "locator": "2008 JINST 3 S08002, Introduction",
+      "note": "",
+      "quote": "The forward muon arm (2 -9 ) consists of a complex arrangement of absorbers, a large dipole magnet, and fourteen planes of tracking and triggering chambers.",
+      "sources": [
+        "src:colliders-lhc-alice-detector-jinst-2008"
+      ],
+      "value": "Forward muon spectrometer: absorbers, dipole magnet, and fourteen tracking/triggering chamber planes",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "summary": {
+    "plain": "A 10,000-tonne detector at CERN built to study collisions of lead nuclei. Layers of tracking and identification detectors sit inside a large recycled magnet, surrounded by a forward arm that catches muons, letting physicists reconstruct the thousands of particles each collision produces.",
+    "technical": "General-purpose heavy-ion detector: six-layer silicon Inner Tracking System, cylindrical Time-Projection Chamber, TOF/HMPID/TRD particle-identification arrays and PHOS/EMCal calorimeters inside the 0.5 T L3 solenoid (reused from LEP), plus a forward muon spectrometer (2-9 degrees) with a dipole magnet and 14 tracking/trigger chamber planes. Upgraded (ALICE 2: new ITS2 pixel tracker, GEM-based continuous-readout TPC) for LHC Run 3."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "2008 JINST 3 S08002, Introduction",
+    "note": "",
+    "quote": "ALICE consists of a central barrel part, which measures hadrons, electrons, and photons, and a forward muon spectrometer.",
+    "sources": [
+      "src:colliders-lhc-alice-detector-jinst-2008"
+    ],
+    "value": "Central barrel of silicon/gas tracking, PID and calorimetry detectors inside a solenoid magnet, plus a forward muon spectrometer",
+    "verified_at": "2026-09-17"
+  },
+  "technology_class": "general_purpose_collider",
+  "technology_classes": [
+    "general_purpose_collider"
+  ],
+  "type": "detector"
+}

@@ -1,0 +1,191 @@
+{
+  "accelerator_ids": [
+    "accelerator:rhic"
+  ],
+  "aliases": [
+    "Solenoidal Tracker at RHIC"
+  ],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:star"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "distinct_from": [],
+  "energy_regime": null,
+  "external": {
+    "greybook": null,
+    "inspire_experiment": "1108784",
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "facility_id": "facility:brookhaven-national-laboratory",
+      "locator": "bnl.gov/rhic/star.php",
+      "note": "facility:brookhaven-national-laboratory and accelerator:rhic are owned by the facilities lead and did not exist in data/atlas/facilities/ or data/atlas/accelerators/ at the time this record was written (2026-09-17); referenced here as a dangling id per ID_REGISTRY.md Wave 3.",
+      "quote": "BNL | STAR Detector",
+      "role": "host",
+      "sources": [
+        "src:heavy-ions-star-bnl-facility-page"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "facility_id": "facility:brookhaven-national-laboratory",
+      "note": "RHIC (accelerator:rhic) is the beam source, owned by the facilities lead; facility:brookhaven-national-laboratory and accelerator:rhic are owned by the facilities lead and did not exist in data/atlas/facilities/ or data/atlas/accelerators/ at the time this record was written (2026-09-17); referenced here as a dangling id per ID_REGISTRY.md Wave 3.",
+      "quote": "STAR ... tracks the thousands of particles produced by ion collisions at the Relativistic Heavy Ion Collider.",
+      "role": "beam_source",
+      "sources": [
+        "src:heavy-ions-star-bnl-facility-page"
+      ],
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "id": "experiment:star",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2026-02-06",
+      "label": "operation",
+      "locator": "bnl.gov/rhic/star.php",
+      "note": "End date is the day of RHIC's 25th and final run's final collisions; see the terminal interval below. The BNL page's own '2000-2026' range appears to be generated relative to the current year rather than a fixed historical statement, so the 2026 end bound is corroborated independently via the final-collisions article rather than relied on alone.",
+      "quote": "operational from 2000-2026",
+      "sources": [
+        "src:heavy-ions-star-bnl-facility-page",
+        "src:heavy-ions-rhic-final-collisions-2026",
+        "src:heavy-ions-rhic25-timeline"
+      ],
+      "start": "2000",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "RHIC 25th and final run ends",
+      "locator": "BNL Newsroom, \"A Smashing Success: Relativistic Heavy Ion Collider Wraps up Final Collisions\", 2026-02",
+      "note": "Marks the end of RHIC operations in the 25th and final run. STAR's own future (decommissioning vs. continued data analysis only) is not detailed in fetched sources; BNL states the RHIC science mission continues 'until we analyze all the data and publish all the papers.'",
+      "quote": "crashed into one another at nearly the speed of light inside the collider's two house-sized particle detectors, STAR and sPHENIX.",
+      "sources": [
+        "src:heavy-ions-rhic-final-collisions-2026"
+      ],
+      "start": "2026-02-06",
+      "status": "completed",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Detector mass",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "mass",
+        "display": "1,200 tons",
+        "note": "",
+        "quote": "Weighing 1,200 tons and as large as a house",
+        "sources": [
+          "src:heavy-ions-star-bnl-facility-page"
+        ],
+        "unit": "t",
+        "value": 1200,
+        "verified_at": "2026-09-17"
+      }
+    },
+    {
+      "label": "TPC diameter",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "length",
+        "display": "4 m",
+        "note": "",
+        "quote": "The TPC measures 4 m in diameter by 4.2 m long, making it the largest TPC in the world.",
+        "sources": [
+          "src:heavy-ions-star-tpc-paper"
+        ],
+        "unit": "m",
+        "value": 4,
+        "verified_at": "2026-09-17"
+      }
+    },
+    {
+      "label": "TPC length",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "length",
+        "display": "4.2 m",
+        "note": "",
+        "quote": "The TPC measures 4 m in diameter by 4.2 m long, making it the largest TPC in the world.",
+        "sources": [
+          "src:heavy-ions-star-tpc-paper"
+        ],
+        "unit": "m",
+        "value": 4.2,
+        "verified_at": "2026-09-17"
+      }
+    }
+  ],
+  "kind": "heavy_ion",
+  "lineage": [],
+  "links": {
+    "website": "https://www.star.bnl.gov/"
+  },
+  "name": "STAR",
+  "notes": [
+    "Derived fields (detector_ids, site_ids, result_ids, document_ids) are deliberately not written (v0.2 A1).",
+    "facility:brookhaven-national-laboratory and accelerator:rhic are owned by the facilities lead and did not exist in data/atlas/facilities/ or data/atlas/accelerators/ at the time this record was written (2026-09-17); referenced here as a dangling id per ID_REGISTRY.md Wave 3.",
+    "The STAR detector overview paper cited at NIM A499 (2003) 624-632 (src:heavy-ions-star-detector-overview-inspire) is the paper the wave-3 brief specifically calls for; its full text was not accessible in this session (no arXiv eprint listed, journal page not fetchable), so numeric key_specs above are instead quoted from the companion STAR TPC subsystem paper in the same NIM A499 (2003) volume, which was fetched. The overview paper is retained as an identity/detector-paper citation only (locator, no quote).",
+    "STAR magnet field strength (commonly reported elsewhere as approx. 0.5 T) was not recorded: no directly-fetched source in this session gave it verbatim (the STAR magnet subsystem paper, NIM A499:633-639, returned 403/empty on every fetch attempt), so per A17 it is left out rather than sourced from a search-engine paraphrase.",
+    "Collaboration formation date is not recorded on this experiment record (see collaboration:star)."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "note": "",
+      "quote": "search for signatures of the form of matter that RHIC was designed to create: the quark-gluon plasma",
+      "sources": [
+        "src:heavy-ions-star-bnl-facility-page"
+      ],
+      "value": "Detect and characterize the quark-gluon plasma (QGP) formed in heavy-ion collisions",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:heavy-ions-star-bnl-facility-page",
+    "src:heavy-ions-star-tpc-paper",
+    "src:heavy-ions-star-detector-overview-inspire",
+    "src:heavy-ions-star-inspire-experiment",
+    "src:heavy-ions-rhic-final-collisions-2026"
+  ],
+  "status": "completed",
+  "summary": {
+    "plain": "STAR is a house-sized, 1,200-tonne particle detector at Brookhaven National Laboratory that has watched gold and other heavy atomic nuclei smash together since 2000, looking for a hot, liquid-like state of matter called the quark-gluon plasma.",
+    "technical": "Solenoidal Tracker at RHIC: a large-acceptance heavy-ion collider experiment centred on a 4 m diameter x 4.2 m long Time Projection Chamber providing full-azimuth charged-particle tracking within |eta| < 1.8, studying quark-gluon plasma formation in Au+Au and other collision systems at RHIC from 2000 through RHIC's 25th and final run, which concluded 2026-02-06."
+  },
+  "superseded_by": null,
+  "topic_ids": [
+    "topic:heavy-ion-physics-qgp",
+    "topic:qcd"
+  ],
+  "type": "experiment",
+  "unique_capabilities": [
+    {
+      "confidence": "verified",
+      "note": "",
+      "quote": "The TPC provides complete coverage around the beam-line, and provides complete tracking for charged particles within +- 1.8 units of pseudo-rapidity of the center-of-mass frame.",
+      "sources": [
+        "src:heavy-ions-star-tpc-paper"
+      ],
+      "value": "A large-acceptance Time Projection Chamber providing complete azimuthal tracking of charged particles within about 1.8 units of pseudorapidity, reconstructing thousands of tracks per collision event",
+      "verified_at": "2026-09-17"
+    }
+  ]
+}

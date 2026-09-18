@@ -1,0 +1,122 @@
+{
+  "schema": "hep-atlas/0.2",
+  "id": "detector:na62",
+  "type": "detector",
+  "name": "NA62 detector",
+  "aliases": [],
+  "coverage": {
+    "tier": "A",
+    "researched": "full"
+  },
+  "experiment_ids": [
+    "experiment:na62"
+  ],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "site_id": "site:cern-ecn3-north-area",
+      "role": "main",
+      "start": "2014",
+      "end": null,
+      "sources": [
+        "src:na62-detector-jinst-2017",
+        "src:na62-cern-north-area-page"
+      ],
+      "verified_at": "2026-09-17",
+      "confidence": "verified",
+      "locator": "arXiv:1703.08501 (commissioning from 2014); be-dep-ea.web.cern.ch/northarea (ECN3 currently houses NA62)",
+      "note": ""
+    }
+  ],
+  "technology": {
+    "value": "Decay-in-flight kaon spectrometer: beam-tracking (GigaTracker), ring-imaging Cherenkov (RICH) particle identification, liquid-krypton (LKr) electromagnetic calorimeter and photon/particle veto systems around a large vacuum vessel",
+    "sources": [
+      "src:na62-detector-jinst-2017"
+    ],
+    "verified_at": "2026-09-17",
+    "confidence": "verified",
+    "locator": "arXiv:1703.08501, abstract",
+    "note": ""
+  },
+  "technology_class": "spectrometer",
+  "technology_classes": [
+    "spectrometer"
+  ],
+  "intervals": [
+    {
+      "label": "construction",
+      "status": "construction",
+      "start": "2009",
+      "end": "2014",
+      "sources": [
+        "src:na62-detector-jinst-2017"
+      ],
+      "verified_at": "2026-09-17",
+      "confidence": "verified",
+      "locator": "arXiv:1703.08501, abstract/introduction",
+      "note": ""
+    },
+    {
+      "label": "operating",
+      "status": "active",
+      "start": "2015",
+      "end": null,
+      "sources": [
+        "src:na62-jhep-2021-measurement",
+        "src:na62-cern-news-2026-refined-measurement"
+      ],
+      "verified_at": "2026-09-17",
+      "confidence": "verified",
+      "note": "Physics data taking from Run 1 (2016-2018) through the ongoing Run 2 (2021-present); see experiment:na62 for the full run-by-run breakdown."
+    }
+  ],
+  "status": "active",
+  "specs": {
+    "gigatracker_track_time_resolution": {
+      "value": 0.065,
+      "unit": "ns",
+      "dimension": "time",
+      "approx": false,
+      "display": "0.065 ns (65 ps)",
+      "sources": [
+        "src:na62-gigatracker-arxiv-2019"
+      ],
+      "verified_at": "2026-09-17",
+      "confidence": "verified",
+      "quote": "65 ps time resolution on tracks",
+      "note": "GigaTracker beam-spectrometer timing resolution on reconstructed tracks (single-hit resolution is below 200 ps). Display leads with the stored unit (ns) to satisfy the A21 display/value cross-check, with the source's own wording (65 ps) alongside it."
+    }
+  },
+  "subsystems": [
+    {
+      "name": "GigaTracker",
+      "description": [
+        {
+          "value": "Low-mass, high-intensity silicon-pixel beam spectrometer providing 4D (position + time) tracking of individual beam particles at flux up to 2.0 MHz/mm^2, with 65 ps time resolution on tracks",
+          "sources": [
+            "src:na62-gigatracker-arxiv-2019"
+          ],
+          "verified_at": "2026-09-17",
+          "confidence": "verified",
+          "quote": "a low mass high intensity beam 4D tracker with 65 ps time resolution on tracks",
+          "note": ""
+        }
+      ]
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "summary": {
+    "plain": "The NA62 detector is a long chain of instruments in an underground hall at CERN, built to spot a positive kaon turning into a pion and two invisible neutrinos. A precise beam tracker, a ring-shaped light detector and a calorimeter work together to reject almost everything else.",
+    "technical": "Decay-in-flight spectrometer in the ECN3 cavern: GigaTracker beam-timing spectrometer (65 ps track time resolution, up to 2.0 MHz/mm^2 flux), RICH counter, LKr electromagnetic calorimeter, straw trackers and hermetic photon/particle veto systems, built 2009-2014 and operating since 2015."
+  },
+  "notes": [
+    "Placed at site:cern-ecn3-north-area, created by this same workstream.",
+    "Detector-paper PDF (cds.cern.ch mirror) was blocked by a bot-detection challenge in this session; specs beyond the GigaTracker figures confirmed via a separate arXiv subsystem paper were not independently re-verified against the full JINST text and are therefore limited to what the abstract/search-indexed text stated."
+  ],
+  "sources": [
+    "src:na62-detector-jinst-2017",
+    "src:na62-gigatracker-arxiv-2019"
+  ]
+}

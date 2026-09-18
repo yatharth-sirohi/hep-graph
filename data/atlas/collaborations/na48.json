@@ -1,0 +1,65 @@
+{
+  "schema": "hep-atlas/0.2",
+  "id": "collaboration:na48",
+  "type": "collaboration",
+  "name": "NA48 Collaboration",
+  "aliases": [],
+  "coverage": {
+    "tier": "B",
+    "researched": "partial"
+  },
+  "formation": {
+    "value": null,
+    "sources": [
+      "src:na48-cern-courier-fixed-target"
+    ],
+    "verified_at": "2026-09-17",
+    "confidence": "uncertain",
+    "locator": "CERN Courier, 'Fixed target, striking physics' (states approval, not a separate collaboration-formation date)",
+    "note": "No fetched source states a collaboration-formation date; the experiment was approved in 1991, but approval of the experiment is not necessarily the same event as collaboration formation, so it is not recorded as such."
+  },
+  "intervals": [
+    {
+      "label": "collaboration",
+      "status": "completed",
+      "start": "1991",
+      "end": "2004",
+      "sources": [
+        "src:na48-cern-courier-fixed-target",
+        "src:na48-kaon-experiments-arxiv-2011"
+      ],
+      "verified_at": "2026-09-17",
+      "confidence": "uncertain",
+      "note": "Start is the experiment's approval year (1991), used as a lower bound in the absence of a stated formation date; end is the last sourced NA48/2 data year (2004)."
+    }
+  ],
+  "status": "completed",
+  "membership": {
+    "as_of": null,
+    "evidence_class": null,
+    "institution_count": null,
+    "country_count": null,
+    "member_count": null,
+    "roster_source_ids": []
+  },
+  "leadership": [],
+  "host_facility_id": "facility:cern",
+  "host_site_id": "site:cern-ecn3-north-area",
+  "links": {
+    "website": null
+  },
+  "summary": {
+    "plain": "The international team of physicists who ran the NA48 experiment at CERN from the 1990s to the mid-2000s, studying CP violation in kaon decays.",
+    "technical": "Completed international collaboration operating the NA48 direct-CP-violation programme (and its NA48/2 continuation) at the CERN SPS ECN3 cavern; no official collaboration page (live or archived) with a headline membership count was found by a source fetched this session, so membership counts are left null rather than computed from author-affiliation lists on physics papers (per the rule that collaboration membership is never inferred from institutional affiliation)."
+  },
+  "notes": [
+    "No live official NA48 collaboration page was found (the experiment concluded in the mid-2000s); membership fields are left null rather than populated from a paper's author-affiliation list.",
+    "Leadership is left empty: person records are owned by another workstream.",
+    "Derived field collaboration.experiment_ids is deliberately not written (v0.2 A1)."
+  ],
+  "sources": [
+    "src:na48-cern-courier-fixed-target",
+    "src:na48-final-epsilon-prime-arxiv-2002",
+    "src:na48-kaon-experiments-arxiv-2011"
+  ]
+}

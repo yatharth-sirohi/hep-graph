@@ -1,0 +1,57 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
+  },
+  "formation": {
+    "confidence": "uncertain",
+    "locator": "detector/run description",
+    "note": "No fetched source states an explicit collaboration formation date. '1990' is the experiment's own sourced operational start (KARMEN 1), used here only as a lower bound, not as a formation date; the collaboration necessarily formed no later than this.",
+    "sources": [
+      "src:karmen-prd-2002-numubar-nuebar-limits"
+    ],
+    "value": null,
+    "verified_at": "2026-09-17"
+  },
+  "host_facility_id": "facility:isis-neutron-source",
+  "host_site_id": "site:isis-rutherford-appleton",
+  "id": "collaboration:karmen",
+  "intervals": [
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "collaboration",
+      "locator": "detector/run description",
+      "note": "True formation date not sourced; start is a lower bound taken from the sourced start of KARMEN 1 data taking. The collaboration is not known to still exist; no fetched source states a dissolution date, so end is left null rather than guessed (the experiment itself is 'completed' as of March 2001).",
+      "quote": "since 1990",
+      "sources": [
+        "src:karmen-prd-2002-numubar-nuebar-limits"
+      ],
+      "start": "1990",
+      "status": "completed",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "leadership": [],
+  "links": {
+    "website": null
+  },
+  "name": "KARMEN Collaboration",
+  "notes": [
+    "Membership counts are left null: no fetched source states an official institution/member count for the collaboration. The 1998 PRC paper's ~25 named authors are affiliations on one publication, not a sourced roster, and are not used to infer membership per the project's rule against deriving membership from author/institutional affiliation.",
+    "Leadership is left empty: person records are owned by another workstream (membership-lead) and out of scope for this wave.",
+    "Derived field collaboration.experiment_ids is deliberately not written (v0.2 A1)."
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:karmen-prd-2002-numubar-nuebar-limits",
+    "src:karmen-prc-1998-nue-nutau-limits"
+  ],
+  "status": "completed",
+  "summary": {
+    "plain": "The physicists from Karlsruhe, Oxford, London, Erlangen and Bonn who built and ran the KARMEN neutrino detector at the ISIS accelerator in England from 1990 to 2001.",
+    "technical": "Collaboration that built and operated the KARMEN liquid-scintillator neutrino detector at ISIS, Rutherford Appleton Laboratory, from 1990 (KARMEN 1) through the KARMEN 2 upgrade (1996-97) to the end of data taking in March 2001; publication affiliations include Karlsruhe, Oxford, London (Imperial College/QMW-area groups), Erlangen and Bonn."
+  },
+  "type": "collaboration"
+}

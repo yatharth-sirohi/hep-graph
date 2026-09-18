@@ -1,0 +1,130 @@
+{
+  "aliases": [
+    "LHCb"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "A"
+  },
+  "document_ids": [],
+  "experiment_ids": [
+    "experiment:lhcb"
+  ],
+  "id": "detector:lhcb",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2008-09",
+      "label": "construction and installation",
+      "locator": "INSPIRE experiment record 1110643, fields date_approved and date_completed",
+      "note": "Mirrors experiment:lhcb's construction interval.",
+      "sources": [
+        "src:colliders-lhc-lhcb-inspire-experiment-record"
+      ],
+      "start": "1998-09-17",
+      "status": "construction",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "operating",
+      "locator": "INSPIRE experiment record 1110643, field date_started",
+      "note": "The detector has recorded data (with the Upgrade I replacement of its tracking/trigger subsystems in 2019-2023) continuously since first collisions; see experiment:lhcb for the full run/shutdown history.",
+      "sources": [
+        "src:colliders-lhc-lhcb-inspire-experiment-record"
+      ],
+      "start": "2009-11-23",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "LHCb detector",
+  "notes": [
+    "Placed at site:cern-point-8-lhcb (created in this pass). The detector paper (2008 JINST 3 S08005) was found but its full text was blocked by CERN's document-server bot protection (cds.cern.ch) and exceeded the fetch size limit at the SISSA mirror; only its abstract (via the INSPIRE literature API) is cited. Pseudorapidity coverage, dipole bending power, RICH/VELO/calorimeter/muon-system specs are left unsourced (missing_fields) rather than guessed from memory."
+  ],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "locator": "INSPIRE experiment record 1110643, field description",
+      "note": "",
+      "quote": "sits 100 metres below ground near the village of Ferney-Voltaire, France",
+      "role": "main",
+      "site_id": "site:cern-point-8-lhcb",
+      "sources": [
+        "src:colliders-lhc-lhcb-inspire-experiment-record",
+        "src:lep-cern-lhcb-experiment-page"
+      ],
+      "start": "1998-09-17",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:colliders-lhc-lhcb-inspire-experiment-record",
+    "src:lep-cern-lhcb-experiment-page",
+    "src:colliders-lhc-lhcb-detector-jinst-2008",
+    "src:colliders-lhc-lhcb-outreach-detector-page"
+  ],
+  "specs": {
+    "length": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "21 m",
+      "locator": "INSPIRE experiment record 1110643, field description",
+      "note": "",
+      "quote": "It is 21 metres long, 10 metres high and 13 metres wide, and sits 100 metres below ground near the village of Ferney-Voltaire, France.",
+      "sources": [
+        "src:colliders-lhc-lhcb-inspire-experiment-record"
+      ],
+      "unit": "m",
+      "value": 21,
+      "verified_at": "2026-09-17"
+    },
+    "total_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "5600 t",
+      "locator": "INSPIRE experiment record 1110643, field description",
+      "note": "CONFLICT: lhcb-outreach.web.cern.ch's own detector page gives '4,500 tonne'; see experiment:lhcb key_specs note. The 5600 t figure is used here for the same reason (independent corroboration with a verbatim quote from two sources).",
+      "quote": "The 5600-tonne LHCb detector is made up of a forward spectrometer and planar detectors.",
+      "sources": [
+        "src:colliders-lhc-lhcb-inspire-experiment-record",
+        "src:lep-cern-lhcb-experiment-page"
+      ],
+      "unit": "t",
+      "value": 5600,
+      "verified_at": "2026-09-17"
+    }
+  },
+  "status": "active",
+  "subsystems": [],
+  "summary": {
+    "plain": "The LHCb detector is a single forward-pointing spectrometer, 21 metres long, 5600 tonnes, sitting 100 metres underground at CERN. Instead of surrounding the collision point on all sides like ATLAS or CMS, it stacks its sub-detectors one behind another to catch particles thrown forward by the collision.",
+    "technical": "Single-arm forward spectrometer at LHC Point 8: VELO, dipole magnet, two RICH detectors, tracking stations, calorimeters and a muon system arranged sequentially along the outgoing beam direction over ~20 m; 5600 t (per INSPIRE/home.cern; lhcb-outreach states 4500 t, unresolved conflict), 21 m x 10 m x 13 m."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "INSPIRE experiment record 1110643, field description",
+    "note": "",
+    "quote": "Instead of surrounding the entire collision point with an enclosed detector as do ATLAS and CMS, the LHCb experiment uses a series of subdetectors to detect mainly forward particles.",
+    "sources": [
+      "src:colliders-lhc-lhcb-detector-jinst-2008",
+      "src:colliders-lhc-lhcb-inspire-experiment-record"
+    ],
+    "value": "single-arm forward spectrometer with a warm dipole magnet, vertex locator (VELO), two RICH detectors, tracking stations, calorimeters and a muon system",
+    "verified_at": "2026-09-17"
+  },
+  "technology_class": "forward_spectrometer",
+  "technology_classes": [
+    "forward_spectrometer"
+  ],
+  "type": "detector"
+}

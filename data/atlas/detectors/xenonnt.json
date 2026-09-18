@@ -1,0 +1,159 @@
+{
+  "aliases": [
+    "XENONnT TPC"
+  ],
+  "coverage": {
+    "researched": "full",
+    "tier": "A"
+  },
+  "document_ids": [
+    "document:xenonnt-instrument-paper"
+  ],
+  "experiment_ids": [
+    "experiment:xenonnt"
+  ],
+  "id": "detector:xenonnt",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2020",
+      "label": "construction/upgrade",
+      "note": "",
+      "quote": "In December 2018, the experiment was stopped for its upgrade to the next-generation experiment XENONnT.",
+      "sources": [
+        "src:dm-noble-liquid-xenon-official-history"
+      ],
+      "start": "2018-12",
+      "status": "construction",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "science operations",
+      "locator": "inspirehep.net/experiments/1807876, date_started field",
+      "note": "",
+      "sources": [
+        "src:dm-noble-liquid-xenonnt-inspire-experiment"
+      ],
+      "start": "2021-07-06",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "XENONnT detector",
+  "notes": [],
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "locator": "xenonexperiment.org/history/; same Hall B location as XENON1T (LNGS Xenon page)",
+      "note": "",
+      "quote": "In December 2018, the experiment was stopped for its upgrade to the next-generation experiment XENONnT.",
+      "role": "main",
+      "site_id": "site:lngs-hall-b",
+      "sources": [
+        "src:dm-noble-liquid-xenon-official-history"
+      ],
+      "start": "2018-12",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:dm-noble-liquid-xenonnt-instrument-paper",
+    "src:dm-noble-liquid-xenon-official-history"
+  ],
+  "specs": {
+    "active_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "5.9 t",
+      "locator": "Eur. Phys. J. C 84 (2024) 8, 784, abstract",
+      "note": "",
+      "quote": "It features an active target of 5.9 tonnes of cryogenic liquid xenon (8.5 tonnes total mass in cryostat).",
+      "sources": [
+        "src:dm-noble-liquid-xenonnt-instrument-paper"
+      ],
+      "unit": "t",
+      "value": 5.9,
+      "verified_at": "2026-09-17"
+    },
+    "exposure": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "exposure",
+      "display": "1.1 t yr",
+      "locator": "arXiv:2303.14729, abstract",
+      "note": "Exposure of the first WIMP-search result (2023), not a lifetime total.",
+      "quote": "During the approximately 1.1 tonne-year exposure used for this search",
+      "sources": [
+        "src:dm-noble-liquid-xenonnt-first-nr-search-2023"
+      ],
+      "unit": "t yr",
+      "value": 1.1,
+      "verified_at": "2026-09-17"
+    },
+    "phase": {
+      "confidence": "verified",
+      "note": "",
+      "quote": "a two-phase time projection chamber with a sensitive liquid xenon mass of 5.9 t",
+      "sources": [
+        "src:dm-noble-liquid-xenonnt-first-nr-search-2023"
+      ],
+      "value": "dual-phase",
+      "verified_at": "2026-09-17"
+    },
+    "target_medium": {
+      "confidence": "verified",
+      "note": "",
+      "quote": "an active target of 5.9 tonnes of cryogenic liquid xenon",
+      "sources": [
+        "src:dm-noble-liquid-xenonnt-instrument-paper"
+      ],
+      "value": "liquid xenon",
+      "verified_at": "2026-09-17"
+    },
+    "total_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "8.5 t",
+      "locator": "Eur. Phys. J. C 84 (2024) 8, 784, abstract",
+      "note": "",
+      "quote": "It features an active target of 5.9 tonnes of cryogenic liquid xenon (8.5 tonnes total mass in cryostat).",
+      "sources": [
+        "src:dm-noble-liquid-xenonnt-instrument-paper"
+      ],
+      "unit": "t",
+      "value": 8.5,
+      "verified_at": "2026-09-17"
+    }
+  },
+  "status": "active",
+  "subsystems": [],
+  "summary": {
+    "plain": "A tank of nearly six tonnes of liquid xenon, watched by light sensors, that records the tiny flash made if a dark matter particle -- or a neutrino -- bumps into a xenon atom. It is the enlarged, cleaner successor to the XENON1T detector, in the same underground hall in Italy.",
+    "technical": "Dual-phase (two-phase) xenon TPC, 8.5 t total / 5.9 t active liquid xenon, in LNGS Hall B. Upgrade of the XENON1T detector, reusing its water shield; adds a cryogenic radon-distillation column and a dedicated neutron veto."
+  },
+  "technology": {
+    "confidence": "verified",
+    "note": "",
+    "quote": "a two-phase time projection chamber with a sensitive liquid xenon mass of 5.9 t",
+    "sources": [
+      "src:dm-noble-liquid-xenonnt-first-nr-search-2023"
+    ],
+    "value": "dual-phase (two-phase) liquid xenon time projection chamber",
+    "verified_at": "2026-09-17"
+  },
+  "technology_class": "xenon_tpc",
+  "technology_classes": [
+    "noble_liquid_tpc",
+    "xenon_tpc"
+  ],
+  "type": "detector"
+}

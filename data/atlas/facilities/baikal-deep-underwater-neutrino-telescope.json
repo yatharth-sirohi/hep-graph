@@ -1,0 +1,62 @@
+{
+  "id": "facility:baikal-deep-underwater-neutrino-telescope",
+  "type": "facility",
+  "name": "Baikal Deep Underwater Neutrino Telescope",
+  "aliases": ["Baikal Neutrino Observatory", "Baikal-GVD facility"],
+  "kind": "neutrino_observatory",
+  "operator": null,
+  "operator_text": {
+    "value": "Institute for Nuclear Research of the Russian Academy of Sciences (INR RAS)",
+    "sources": ["src:astro-neutrino-baikal-gvd-official-facility-page"],
+    "verified_at": "2026-09-17", "confidence": "verified",
+    "quote": "constructed to study high-energy muon and neutrino fluxes and search for new types of elementary particles",
+    "note": "Page is published by INR RAS, whose site describes the observatory as its own; the JINR Dubna laboratory is also a lead partner in the Baikal-GVD collaboration per the CERN Courier account, but only INR RAS is named on the official facility page fetched."
+  },
+  "operator_ids": [],
+  "country": ["RU"],
+  "countries": ["RU"],
+  "primary_site_id": "site:baikal-gvd-lake-baikal",
+  "site_ids": [],
+  "accelerator_ids": [],
+  "beamline_ids": [],
+  "intervals": [
+    {
+      "label": "project origin",
+      "status": "proposed",
+      "start": "1980",
+      "end": "2015",
+      "sources": ["src:astro-neutrino-baikal-gvd-cern-courier-2016"],
+      "verified_at": "2026-09-17", "confidence": "approximate",
+      "quote": "Project origins trace to October 1, 1980, at Moscow's Institute for Nuclear Research",
+      "note": "Covers the NT-200 predecessor era (operated 1993-1998) up to the first Baikal-GVD cluster; press-account date, day precision not independently confirmed."
+    },
+    {
+      "label": "Baikal-GVD construction",
+      "status": "construction",
+      "start": "2015",
+      "end": null,
+      "sources": ["src:astro-neutrino-baikal-gvd-cern-courier-2016", "src:astro-neutrino-baikal-gvd-status-2023-paper"],
+      "verified_at": "2026-09-17", "confidence": "verified",
+      "quote": "the first cluster of the Gigaton Volume Detector (Baikal-GVD) was deployed in early April",
+      "note": "Ongoing annual cluster deployment; facility continues to expand as of the 2023 status paper (96 strings across multiple clusters in the winter 2023 campaign)."
+    }
+  ],
+  "status": "construction",
+  "specs": {},
+  "topic_ids": ["topic:high-energy-astrophysical-neutrinos", "topic:multimessenger-astrophysics"],
+  "related_facility_ids": [],
+  "institution_id": null,
+  "document_ids": [],
+  "experiment_ids": [],
+  "links": {"website": {"value": "https://www.inr.ru/eng/ebgnt.html", "sources": ["src:astro-neutrino-baikal-gvd-official-facility-page"], "verified_at": "2026-09-17", "confidence": "verified", "note": ""}},
+  "notes": [
+    "Only one site (the lake deployment point) is modelled here; derived fields (site_ids, accelerator_ids, beamline_ids, institution_id, document_ids, experiment_ids) are deliberately not written (v0.2 A1)."
+  ],
+  "summary": {
+    "plain": "A Russian-led neutrino telescope growing year by year on the bottom of Lake Baikal, the world's deepest freshwater lake. Strings of light sensors hang beneath the ice, watching for flashes made by neutrinos from space.",
+    "technical": "Baikal-GVD (Gigaton Volume Detector): expanding underwater neutrino telescope in the southern basin of Lake Baikal, operated by INR RAS with international partners; traces to 1980s-era Baikal neutrino experiments (NT-200), first Baikal-GVD cluster deployed 2015, under continuous annual expansion since."
+  },
+  "coverage": {"researched": "partial", "tier": "B"},
+  "sources": ["src:astro-neutrino-baikal-gvd-official-facility-page", "src:astro-neutrino-baikal-gvd-cern-courier-2016"],
+  "schema": "hep-atlas/0.2"
+}

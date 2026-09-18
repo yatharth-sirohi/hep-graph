@@ -1,0 +1,91 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "full",
+    "tier": "D"
+  },
+  "experiment_ids": [
+    "experiment:karmen"
+  ],
+  "id": "detector:karmen",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2001-03",
+      "label": "operating",
+      "locator": "detector/run description",
+      "note": "Start year only precision for the KARMEN 1 phase is stated in the fetched source.",
+      "quote": "since 1990",
+      "sources": [
+        "src:karmen-prd-2002-numubar-nuebar-limits"
+      ],
+      "start": "1990",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "end of data taking",
+      "locator": "detector/run description",
+      "note": "Terminal event; no fetched source gives a day-precision decommissioning date beyond 'March 2001'.",
+      "quote": "from February 1997 until March 2001",
+      "sources": [
+        "src:karmen-prd-2002-numubar-nuebar-limits"
+      ],
+      "start": "2001-03",
+      "status": "completed",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "KARMEN detector",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": "2001-03",
+      "locator": "detector description",
+      "note": "",
+      "quote": "located at a mean distance of 17.7 m from the ISIS target at an angle 100 degrees relative to the proton beam",
+      "role": "main",
+      "site_id": "site:isis-rutherford-appleton",
+      "sources": [
+        "src:karmen-prd-2002-numubar-nuebar-limits"
+      ],
+      "start": "1990",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:karmen-prd-2002-numubar-nuebar-limits",
+    "src:karmen-prc-1998-nue-nutau-limits"
+  ],
+  "specs": {},
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "A rectangular tank holding 65 cubic metres of liquid scintillator, split into 512 separate cells and laced with gadolinium to catch neutrons, sitting 18 metres from the ISIS accelerator's beam stop.",
+    "technical": "Rectangular high-resolution liquid-scintillation calorimeter, 56 t total mass, 65 m^3 active liquid-scintillator volume (75% vol. paraffin oil, 25% vol. pseudocumene, 2 g/l PMP wavelength shifter) optically segmented into 512 independent central modules with gadolinium loading between module walls for thermal-neutron capture; located 17.7 m from the ISIS beam-stop target at 100 degrees to the proton beam."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "detector description",
+    "note": "",
+    "quote": "65 m³ of liquid scintillator ... optically separated into 512 independent central modules",
+    "sources": [
+      "src:karmen-prd-2002-numubar-nuebar-limits"
+    ],
+    "value": "Segmented liquid-scintillation calorimeter with gadolinium-loaded module walls for neutron capture",
+    "verified_at": "2026-09-17"
+  },
+  "technology_class": "liquid_scintillator",
+  "technology_classes": [
+    "liquid_scintillator"
+  ],
+  "type": "detector"
+}

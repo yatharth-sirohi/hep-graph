@@ -1,0 +1,188 @@
+{
+  "accelerator_ids": [
+    "accelerator:sps"
+  ],
+  "aliases": [
+    "Oscillation Project with Emulsion-tRacking Apparatus"
+  ],
+  "beamline_ids": [
+    "beamline:cngs"
+  ],
+  "collaboration_ids": [
+    "collaboration:opera"
+  ],
+  "coverage": {
+    "researched": "full",
+    "tier": "D"
+  },
+  "energy_regime": {
+    "confidence": "verified",
+    "locator": "CERN Neutrinos to Gran Sasso page",
+    "note": "",
+    "quote": "a beam of protons from the Super Proton Synchrotron at CERN",
+    "sources": [
+      "src:opera-cern-cngs-page"
+    ],
+    "value": "GeV-scale muon-neutrino beam from SPS protons on a graphite target (CNGS)",
+    "verified_at": "2026-09-17"
+  },
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "facility_id": "facility:lngs",
+      "locator": "§'Neutrino beam, detector, and data sample'",
+      "note": "",
+      "quote": "The OPERA detector at the LNGS underground laboratory",
+      "role": "detector_host",
+      "sources": [
+        "src:opera-prl-2015-discovery"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "facility_id": "facility:cern",
+      "locator": "CERN Neutrinos to Gran Sasso page",
+      "note": "",
+      "quote": "the CNGS project sent muon neutrinos from CERN, 732 kilometres away in Italy",
+      "role": "beam_source",
+      "sources": [
+        "src:opera-cern-cngs-page"
+      ],
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "id": "experiment:opera",
+  "intervals": [
+    {
+      "confidence": "uncertain",
+      "end": "2008",
+      "label": "construction",
+      "locator": "Wikipedia, OPERA experiment",
+      "note": "Sole fetched source for this date range is Wikipedia (rank 12); no official OPERA/LNGS/CERN page giving construction dates was reachable in this session (operaweb.lngs.infn.it did not resolve; lngs.infn.it/en/opera returned HTTP 500). Flagged for review.",
+      "quote": "OPERA, in Hall C of the Gran Sasso underground labs, was built in 2003–2008.",
+      "sources": [
+        "src:opera-wikipedia"
+      ],
+      "start": "2003",
+      "status": "construction",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": "2012-12-03",
+      "label": "data taking (CNGS beam operation)",
+      "locator": "abstract",
+      "note": "Day-precision end date corroborated by src:opera-wikipedia ('The beam from CERN was stopped on 3 December 2012, ending data taking.') and by the CERN CNGS page's 'July 2006 to December 2012' beam-operation range; year precision start/end used here is from the primary PRL paper's own stated run range.",
+      "quote": "The experiment took data from 2008 to 2012 in the CERN Neutrinos to Gran Sasso beam",
+      "sources": [
+        "src:opera-prl-2015-discovery",
+        "src:opera-wikipedia"
+      ],
+      "start": "2008",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "completed",
+      "locator": "Wikipedia, OPERA experiment",
+      "note": "Terminal event; day precision from the CERN-beam-shutdown date, which is corroborated by an official CERN page ('From July 2006 to December 2012, the CNGS project sent muon neutrinos') though CERN's own page does not give the day.",
+      "quote": "The beam from CERN was stopped on 3 December 2012, ending data taking.",
+      "sources": [
+        "src:opera-wikipedia",
+        "src:opera-cern-cngs-page"
+      ],
+      "start": "2012-12-03",
+      "status": "completed",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "CNGS beam baseline",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "length",
+        "display": "732 km",
+        "locator": "CERN Neutrinos to Gran Sasso page",
+        "note": "Matches the beamline:cngs baselines[] entry between site:cern-meyrin and site:lngs-hall-c.",
+        "quote": "732 kilometres away in Italy",
+        "sources": [
+          "src:opera-cern-cngs-page"
+        ],
+        "unit": "km",
+        "value": 732,
+        "verified_at": "2026-09-17"
+      }
+    },
+    {
+      "label": "Number of emulsion bricks",
+      "quantity": {
+        "approx": true,
+        "confidence": "verified",
+        "dimension": "count",
+        "display": "~150,000 bricks",
+        "locator": "§'Neutrino beam, detector, and data sample'",
+        "note": "",
+        "quote": "The full OPERA target is segmented in about 150 000 bricks arranged in two identical supermodules",
+        "sources": [
+          "src:opera-prl-2015-discovery"
+        ],
+        "unit": "",
+        "value": 150000,
+        "verified_at": "2026-09-17"
+      }
+    }
+  ],
+  "kind": "accelerator_neutrino",
+  "lineage": [],
+  "links": {
+    "website": null
+  },
+  "name": "OPERA",
+  "notes": [
+    "Derived fields (detector_ids, site_ids, result_ids, document_ids) are deliberately not written (v0.2 A1).",
+    "facility_roles/beamline detector-host site is site:lngs-hall-c, owned by the 'facilities' lead and not yet created in data/atlas/ when this record was written; expected dangling reference (see detector:opera and beamline:cngs).",
+    "external.inspire_experiment left null: no INSPIRE experiment-registry lookup was performed in this session; OPERA is tier D so this is not mandatory (brief §'What you are producing').",
+    "No official OPERA experiment website was reachable in this session (operaweb.lngs.infn.it did not resolve; lngs.infn.it/en/opera returned HTTP 500); links.website left null rather than guessed.",
+    "OPERA is not on the brief's flagship list, so only the mandatory-bar record plus the one historically-important result (the 2015 discovery paper) were produced; no technical-document/TDR record was written in this pass."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "abstract",
+      "note": "",
+      "quote": "the discovery of numu -> nutau oscillations in appearance mode",
+      "sources": [
+        "src:opera-prl-2015-discovery"
+      ],
+      "value": "Directly observe muon-neutrino to tau-neutrino oscillation in appearance mode over a long baseline",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:opera-prl-2015-discovery",
+    "src:opera-cern-cngs-page",
+    "src:opera-wikipedia"
+  ],
+  "status": "completed",
+  "summary": {
+    "plain": "An experiment in a mountain tunnel in Italy that caught neutrinos fired 732 kilometres through the Earth from CERN in Switzerland. Its photographic-film-and-lead detector directly caught tau neutrinos appearing from a beam that started as muon neutrinos, proving they change type over the trip.",
+    "technical": "Emulsion-cloud-chamber (lead/nuclear-emulsion 'brick') experiment in LNGS Hall C, receiving the CNGS muon-neutrino beam from the CERN SPS over a 732 km baseline. Took data 2008-2012 and reported discovery of nu_mu -> nu_tau appearance at 5.1 sigma significance from five candidate tau-neutrino interactions, confirming long-baseline neutrino oscillation in appearance mode."
+  },
+  "topic_ids": [
+    "topic:neutrino-oscillations"
+  ],
+  "type": "experiment",
+  "unique_capabilities": []
+}

@@ -1,0 +1,171 @@
+{
+  "accelerator_ids": [],
+  "aliases": [
+    "Particle and Astrophysical Xenon Detector 4 Ton"
+  ],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:pandax-4t"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "document_ids": [],
+  "energy_regime": null,
+  "external": {
+    "greybook": null,
+    "inspire_experiment": 1221671,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:cjpl",
+      "locator": "pandax.sjtu.edu.cn",
+      "note": "facility:cjpl is a dangling reference: owned by the \"facilities\" workstream, not yet created as of 2026-09-17.",
+      "quote": "the PandaX-4T detector at the PandaX Dark-Matter Laboratory, 2400 m underground at the Jinping site in Sichuan",
+      "role": "host",
+      "sources": [
+        "src:dm-noble-liquid-pandax-4t-official-site"
+      ],
+      "start": "2021",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "id": "experiment:pandax-4t",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2021",
+      "label": "commissioning run",
+      "note": "",
+      "quote": "This project has been commissioned in 2021 and started data taking since then.",
+      "sources": [
+        "src:dm-noble-liquid-pandax-4t-official-site"
+      ],
+      "start": "2021",
+      "status": "commissioning",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "science operations",
+      "note": "",
+      "quote": "This project has been commissioned in 2021 and started data taking since then.",
+      "sources": [
+        "src:dm-noble-liquid-pandax-4t-official-site"
+      ],
+      "start": "2021",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Total xenon inventory (design)",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "mass",
+        "display": "6 t",
+        "locator": "pandax.sjtu.edu.cn",
+        "note": "",
+        "quote": "With 6-ton of total Xenon and 4-ton sensitive target, PandaX-4T aims to improve the dark matter sensitivity by one order of magnitude",
+        "sources": [
+          "src:dm-noble-liquid-pandax-4t-official-site"
+        ],
+        "unit": "t",
+        "value": 6,
+        "verified_at": "2026-09-17"
+      }
+    },
+    {
+      "label": "Sensitive target mass (design)",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "mass",
+        "display": "4 t",
+        "locator": "pandax.sjtu.edu.cn",
+        "note": "",
+        "quote": "With 6-ton of total Xenon and 4-ton sensitive target, PandaX-4T aims to improve the dark matter sensitivity by one order of magnitude",
+        "sources": [
+          "src:dm-noble-liquid-pandax-4t-official-site"
+        ],
+        "unit": "t",
+        "value": 4,
+        "verified_at": "2026-09-17"
+      }
+    },
+    {
+      "label": "TPC target mass (commissioning-run analysis)",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "mass",
+        "display": "3.7 t",
+        "locator": "arXiv:2107.13438, abstract",
+        "note": "Mass of liquid xenon actually used as the target in the 2021 commissioning-run analysis; distinct from the 6 t/4 t design figures above.",
+        "quote": "Using a time projection chamber with 3.7-tonne of liquid xenon target and an exposure of 0.63 tonne-year, 1058 candidate events are identified",
+        "sources": [
+          "src:dm-noble-liquid-pandax-4t-commissioning-run-2021"
+        ],
+        "unit": "t",
+        "value": 3.7,
+        "verified_at": "2026-09-17"
+      }
+    }
+  ],
+  "kind": "direct_dark_matter",
+  "lineage": [],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "note": "",
+      "sources": [
+        "src:dm-noble-liquid-pandax-4t-official-site"
+      ],
+      "value": "https://pandax.sjtu.edu.cn/",
+      "verified_at": "2026-09-17"
+    }
+  },
+  "name": "PandaX-4T",
+  "notes": [
+    "external.inspire_experiment (1221671) is the umbrella INSPIRE experiment record for the whole PandaX programme (legacy_name \"PandaX\"); no PandaX-4T-specific INSPIRE experiment record was found via an inspirehep.net query on 2026-09-17.",
+    "The official site's \"4-ton sensitive target\" (design) and the commissioning-run paper's \"3.7-tonne of liquid xenon target\" (the actual target mass used in that specific analysis) are both recorded as separate key_specs rather than merged, since they describe different things (design capacity vs. an as-run analysis mass).",
+    "specs.phase (single-phase/dual-phase) is left null on the detector: no source fetched in this session used the words \"dual-phase\" or \"two-phase\" for PandaX-4T specifically (checked directly), even though PandaX-4T is understood elsewhere to be a dual-phase xenon TPC like its siblings LZ/XENONnT. Per A17, this is left unsourced rather than assumed."
+  ],
+  "physics_goals": {
+    "confidence": "verified",
+    "note": "",
+    "quote": "With 6-ton of total Xenon and 4-ton sensitive target, PandaX-4T aims to improve the dark matter sensitivity by one order of magnitude",
+    "sources": [
+      "src:dm-noble-liquid-pandax-4t-official-site"
+    ],
+    "value": [
+      "Detect or exclude WIMP dark matter scattering off xenon nuclei with a 4-tonne sensitive target"
+    ],
+    "verified_at": "2026-09-17"
+  },
+  "result_ids": [],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:dm-noble-liquid-pandax-4t-official-site",
+    "src:dm-noble-liquid-pandax-4t-inspire-experiment"
+  ],
+  "status": "active",
+  "summary": {
+    "plain": "PandaX-4T is a dark matter detector holding four tonnes of liquid xenon, deep under a mountain at the China Jinping Underground Laboratory. It has been taking data since 2021, searching for dark matter particles bumping into xenon nuclei.",
+    "technical": "Dual-target-scale xenon TPC (6 t total xenon inventory, 4 t sensitive target) at CJPL-II, 2400 m underground. Commissioned 2021; the commissioning-run result (3.7 t target, 0.63 t-y exposure) excluded spin-independent WIMP-nucleon cross sections above 3.8e-47 cm^2 at 30 GeV/c^2 (90% CL)."
+  },
+  "topic_ids": [
+    "topic:dark-matter",
+    "topic:direct-dark-matter-detection"
+  ],
+  "type": "experiment",
+  "unique_capabilities": null
+}

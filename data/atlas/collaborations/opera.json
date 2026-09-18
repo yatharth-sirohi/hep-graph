@@ -1,0 +1,58 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
+  },
+  "formation": {
+    "confidence": "uncertain",
+    "locator": "Wikipedia, OPERA experiment",
+    "note": "No fetched source states an explicit collaboration formation date. '2003' is used here only as a lower bound, taken from Wikipedia's construction-start year (rank 12, flagged for review); no official OPERA/CERN/LNGS approval or formation date was reachable in this session.",
+    "sources": [
+      "src:opera-wikipedia"
+    ],
+    "value": null,
+    "verified_at": "2026-09-17"
+  },
+  "host_facility_id": "facility:lngs",
+  "host_site_id": "site:lngs-hall-c",
+  "id": "collaboration:opera",
+  "intervals": [
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "collaboration",
+      "locator": "Wikipedia, OPERA experiment",
+      "note": "True formation date not sourced; start is a lower bound taken from Wikipedia's construction-start year (rank 12). No fetched source states a dissolution date, so end is left null even though the experiment itself is 'completed' as of December 2012.",
+      "quote": "OPERA, in Hall C of the Gran Sasso underground labs, was built in 2003–2008.",
+      "sources": [
+        "src:opera-wikipedia"
+      ],
+      "start": "2003",
+      "status": "completed",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "leadership": [],
+  "links": {
+    "website": null
+  },
+  "name": "OPERA Collaboration",
+  "notes": [
+    "Membership counts are left unwritten: no fetched source states an official institution/member count. The 2015 PRL discovery paper lists over 140 named authors on one publication, which is not an official roster and is not used to infer membership per the project's rule against deriving membership from author/institutional affiliation.",
+    "Leadership is left empty: person records are owned by another workstream (membership-lead) and out of scope for this wave.",
+    "host_site_id references site:lngs-hall-c, owned by the 'facilities' lead and not yet created in data/atlas/ when this record was written; expected dangling reference.",
+    "Derived field collaboration.experiment_ids is deliberately not written (v0.2 A1)."
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:opera-prl-2015-discovery",
+    "src:opera-wikipedia"
+  ],
+  "status": "completed",
+  "summary": {
+    "plain": "The international team of physicists, based at CERN and Gran Sasso, who built and ran the OPERA tau-neutrino detector from 2008 to 2012.",
+    "technical": "Collaboration (140+ authors on its 2015 discovery paper) that built and operated the OPERA emulsion detector at LNGS Hall C on the CERN-to-Gran-Sasso (CNGS) neutrino beam from 2008 to 2012, reporting discovery of nu_mu -> nu_tau appearance at 5.1 sigma."
+  },
+  "type": "collaboration"
+}

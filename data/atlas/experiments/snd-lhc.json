@@ -1,0 +1,137 @@
+{
+  "accelerator_ids": [
+    "accelerator:lhc"
+  ],
+  "aliases": [
+    "Scattering and Neutrino Detector",
+    "SND-LHC",
+    "SND at LHC"
+  ],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:snd-lhc"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "document_ids": [],
+  "energy_regime": {
+    "confidence": "approximate",
+    "note": "No SND@LHC-specific energy value distinct from the LHC-wide figures was found in this session.",
+    "sources": [
+      "src:colliders-lhc-snd-lhc-inspire-experiment-record"
+    ],
+    "value": "LHC proton-proton collisions (Run 3, 13.6 TeV), sampled via very-forward particle flux",
+    "verified_at": "2026-09-17"
+  },
+  "external": {
+    "greybook": null,
+    "inspire_experiment": 2032474,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:cern",
+      "note": "",
+      "quote": "SND-LHC is a compact and stand-alone experiment to perform measurements with neutrinos produced at the LHC",
+      "role": "host",
+      "sources": [
+        "src:colliders-lhc-snd-lhc-inspire-experiment-record"
+      ],
+      "start": "2021-03-17",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:cern",
+      "note": "",
+      "role": "beam_source",
+      "sources": [
+        "src:colliders-lhc-snd-lhc-inspire-experiment-record"
+      ],
+      "start": "2021-03-17",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "id": "experiment:snd-lhc",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "approved",
+      "locator": "INSPIRE experiment record 2032474, field date_approved",
+      "note": "No separate proposal, construction, commissioning or first-data date was found in this session; only the approval date is sourced. Status is nonetheless recorded as 'active' below since SND@LHC is publicly known to have taken data since LHC Run 3 began (2022), but no source fetched in this session states the first-data date at day/month precision, so no 'active' interval with a sourced start is written -- see missing_fields in the coverage row.",
+      "sources": [
+        "src:colliders-lhc-snd-lhc-inspire-experiment-record"
+      ],
+      "start": "2021-03-17",
+      "status": "approved",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Pseudo-rapidity coverage",
+      "quantity": null
+    }
+  ],
+  "kind": "accelerator_neutrino",
+  "lineage": [],
+  "links": {
+    "website": null
+  },
+  "name": "SND@LHC",
+  "notes": [
+    "Derived fields (detector_ids, site_ids, result_ids, document_ids) deliberately not written (v0.2 A1).",
+    "The official SND@LHC site (attempted at home.cern/science/experiments/snd-lhc [404], sndlhc.web.cern.ch and sndlhc.cern [DNS failure in this environment]) could not be fetched in this session; only the INSPIRE experiment record was used. links.website is left null rather than guessed.",
+    "key_specs pseudo-rapidity coverage value is left as a bare label with a null quantity because pseudo-rapidity_coverage is a sourced-string (S) Appendix-A key, not a quantity; the value '7.2 < eta < 8.6' is instead carried on physics_goals/unique_capabilities above with its quote.",
+    "Mandatory-bar-only pass: no results/technical documents written (SND@LHC is not a wave-3 flagship)."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "INSPIRE experiment record 2032474, field description",
+      "note": "",
+      "quote": "a hitherto unexplored pseudo-rapidity range of 7.2 < eta < 8.6 complementary to all the other experiments at the LHC, including FASER",
+      "sources": [
+        "src:colliders-lhc-snd-lhc-inspire-experiment-record"
+      ],
+      "value": "Measure neutrinos produced in LHC pp collisions in an unexplored forward pseudo-rapidity range, complementary to FASER and the other LHC experiments",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "result_ids": [],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [
+    "long_lived_particle"
+  ],
+  "sources": [
+    "src:colliders-lhc-snd-lhc-inspire-experiment-record"
+  ],
+  "status": "active",
+  "summary": {
+    "plain": "SND@LHC is a compact experiment in a disused CERN tunnel that catches neutrinos produced in LHC collisions, in a direction close to the beam that no other LHC experiment can see.",
+    "technical": "Stand-alone forward neutrino/long-lived-particle detector in the TI18 tunnel, covering the pseudo-rapidity range 7.2 < eta < 8.6, complementary to FASER. Approved 17 March 2021."
+  },
+  "topic_ids": [
+    "topic:neutrino-interactions"
+  ],
+  "type": "experiment",
+  "unique_capabilities": [
+    {
+      "confidence": "verified",
+      "locator": "INSPIRE experiment record 2032474, field description",
+      "note": "",
+      "quote": "a hitherto unexplored pseudo-rapidity range of 7.2 < eta < 8.6",
+      "sources": [
+        "src:colliders-lhc-snd-lhc-inspire-experiment-record"
+      ],
+      "value": "A compact, stand-alone detector covering a pseudo-rapidity range (7.2-8.6) not accessible to any other LHC experiment",
+      "verified_at": "2026-09-17"
+    }
+  ]
+}

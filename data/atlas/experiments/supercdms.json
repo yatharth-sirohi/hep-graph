@@ -1,0 +1,273 @@
+{
+  "accelerator_ids": [],
+  "aliases": [
+    "Super Cryogenic Dark Matter Search",
+    "SuperCDMS SNOLAB",
+    "SuperCDMS Soudan"
+  ],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:supercdms"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "energy_regime": {
+    "confidence": "verified",
+    "note": "",
+    "quote": "SuperCDMS SNOLAB seeks to detect dark matter particles with masses below ten times the proton mass.",
+    "sources": [
+      "src:supercdms-official-site"
+    ],
+    "value": "Low-mass WIMPs, below about ten proton masses",
+    "verified_at": "2026-09-17"
+  },
+  "external": {
+    "greybook": null,
+    "inspire_experiment": 1357671,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "approximate",
+      "end": "2015",
+      "facility_id": "facility:soudan-underground-laboratory",
+      "note": "Start year from INSPIRE experiment record 1298909 (date_started 2009); commonly reported public start of the SuperCDMS Soudan science run is later (~2011-2012) but no independently fetched detector/results paper confirms an exact date this session, so 2009 is used as approximate per the registry.",
+      "quote": "The most recent version, located at the Soudan Mine in Minnesota, completed operations in 2015.",
+      "role": "host",
+      "sources": [
+        "src:supercdms-inspire-experiment-soudan",
+        "src:supercdms-symmetry-2018-construction-begins"
+      ],
+      "start": "2009",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "facility_id": "facility:snolab",
+      "note": "Start set to the 2018-05 DOE construction approval reported by Symmetry Magazine; facility:snolab was created by the `facilities` workstream after this record was drafted and now resolves.",
+      "quote": "The US Department of Energy has approved funding and start of construction for the SuperCDMS SNOLAB experiment, which will begin operations in the early 2020s.",
+      "role": "host",
+      "sources": [
+        "src:supercdms-symmetry-2018-construction-begins"
+      ],
+      "start": "2018-05",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "id": "experiment:supercdms",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2006",
+      "label": "Soudan: proposal",
+      "locator": "INSPIRE experiment record 1298909, field date_proposed",
+      "note": "Year-precision date from the INSPIRE experiment registry (rank 3); no independently fetched proposal document.",
+      "sources": [
+        "src:supercdms-inspire-experiment-soudan"
+      ],
+      "start": "2005",
+      "status": "proposed",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "approximate",
+      "end": "2009",
+      "label": "Soudan: approval",
+      "locator": "INSPIRE experiment record 1298909, field date_approved",
+      "note": "Year-precision date from the INSPIRE experiment registry.",
+      "sources": [
+        "src:supercdms-inspire-experiment-soudan"
+      ],
+      "start": "2006",
+      "status": "approved",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "approximate",
+      "end": "2015",
+      "label": "Soudan: data taking (SuperCDMS Soudan)",
+      "note": "INSPIRE date_started 2009; Symmetry Magazine (2018-05-07) confirms operations at Soudan ended in 2015. Recorded as non-terminal `active` (not `completed`) because the same experiment id continues below at SNOLAB; A3 forbids a non-terminal interval after a terminal one on one entity.",
+      "quote": "The most recent version, located at the Soudan Mine in Minnesota, completed operations in 2015.",
+      "sources": [
+        "src:supercdms-inspire-experiment-soudan",
+        "src:supercdms-symmetry-2018-construction-begins"
+      ],
+      "start": "2009",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "approximate",
+      "end": "2014",
+      "label": "SNOLAB: proposal",
+      "locator": "INSPIRE experiment record 1357671, field date_proposed",
+      "note": "Year-precision date from the INSPIRE experiment registry.",
+      "sources": [
+        "src:supercdms-inspire-experiment-snolab"
+      ],
+      "start": "2013",
+      "status": "proposed",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "approximate",
+      "end": "2018-05",
+      "label": "SNOLAB: project approval",
+      "locator": "INSPIRE experiment record 1357671, field date_approved",
+      "note": "Year-precision date from the INSPIRE experiment registry; end set where the sourced DOE construction-approval interval below begins.",
+      "sources": [
+        "src:supercdms-inspire-experiment-snolab"
+      ],
+      "start": "2014",
+      "status": "approved",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "approximate",
+      "end": "2026-03",
+      "label": "SNOLAB: construction (DOE-approved)",
+      "note": "Start: Symmetry Magazine article dated 2018-05-07 announcing DOE construction approval. End: approximate, set where the collaboration's own materials describe installation as complete and cooldown/commissioning beginning (Fermilab CPC page: 'Installation was completed late last year'; SLAC news 2026-03-17: base temperature reached, moving into detector commissioning).",
+      "quote": "The US Department of Energy has approved funding and start of construction for the SuperCDMS SNOLAB experiment, which will begin operations in the early 2020s.",
+      "sources": [
+        "src:supercdms-symmetry-2018-construction-begins",
+        "src:supercdms-slac-news-2026-03-17-cooldown",
+        "src:supercdms-fnal-installation-commissioning"
+      ],
+      "start": "2018-05",
+      "status": "construction",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": "2026-08",
+      "label": "SNOLAB: commissioning",
+      "locator": "SLAC news, 2026-03-17",
+      "note": "End set where the 2026-08-26 SLAC article reports the start of the early-science data-collection phase.",
+      "quote": "With base temperature achieved, the collaboration has now moved into detector commissioning, a months-long process of turning on, calibrating and optimizing each detector channel.",
+      "sources": [
+        "src:supercdms-slac-news-2026-03-17-cooldown",
+        "src:supercdms-slac-news-2026-08-26-early-science"
+      ],
+      "start": "2026-03",
+      "status": "commissioning",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "SNOLAB: early-science operations",
+      "locator": "SLAC news, 2026-08-26",
+      "note": "Open interval. The same source states the early-science phase continues through fall 2026, followed by a warm-up/optimization period, then a full-sensitivity science run planned to start in 2027; those future phases are not separately recorded as they had not begun as of verified_at.",
+      "quote": "has begun collecting its very first scientific data",
+      "sources": [
+        "src:supercdms-slac-news-2026-08-26-early-science"
+      ],
+      "start": "2026-08",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "SNOLAB detector crystals",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "count",
+        "display": "24",
+        "locator": "SLAC news, 2026-08-26",
+        "note": "",
+        "quote": "24 ultra-pure silicon and germanium crystals, each about the size of a hockey puck",
+        "sources": [
+          "src:supercdms-slac-news-2026-08-26-early-science"
+        ],
+        "unit": "",
+        "value": 24,
+        "verified_at": "2026-09-17"
+      }
+    },
+    {
+      "label": "Operating temperature",
+      "quantity": {
+        "approx": true,
+        "confidence": "verified",
+        "dimension": "temperature",
+        "display": "15-30 mK",
+        "locator": "SLAC news, 2026-03-17",
+        "max": 30,
+        "min": 15,
+        "note": "",
+        "quote": "roughly 15 to 30 millikelvins",
+        "sources": [
+          "src:supercdms-slac-news-2026-03-17-cooldown"
+        ],
+        "unit": "mK",
+        "verified_at": "2026-09-17"
+      }
+    }
+  ],
+  "kind": "direct_dark_matter",
+  "lineage": [],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "note": "",
+      "sources": [
+        "src:supercdms-official-site",
+        "src:supercdms-inspire-experiment-snolab"
+      ],
+      "value": "https://supercdms.slac.stanford.edu/",
+      "verified_at": "2026-09-17"
+    }
+  },
+  "name": "SuperCDMS",
+  "notes": [
+    "Two INSPIRE experiment records exist for this programme: SuperCDMS-Soudan (recid 1298909, FNAL-E-0891) and SuperCDMS-SNOLAB (recid 1357671, FNAL-E-0947). Both phases are represented here as one experiment:supercdms record with dated intervals and two facility_roles/detector placements, per the wave-3 brief's guidance to record the Soudan phase as an interval rather than a separate experiment id. external.inspire_experiment cites the current (SNOLAB) recid. The Soudan-phase interval is deliberately kept non-terminal (status `active`, not `completed`) because A3 forbids a non-terminal interval after a terminal one on the same entity; the fact that Soudan operations ended in 2015 is recorded in that interval's note and end date instead.",
+    "No source fetched this session explicitly states a predecessor relationship between experiment:cdms-ii and experiment:supercdms in citable text; lineage is left empty rather than asserted from memory (A17). Known gap worth revisiting once an official SuperCDMS history page is found.",
+    "DOE Critical Decision milestones between the 2014 INSPIRE approval and the 2018 construction start (if any) are not recorded: no source fetched this session gives them."
+  ],
+  "physics_goals": {
+    "confidence": "verified",
+    "note": "",
+    "quote": "SuperCDMS SNOLAB seeks to detect dark matter particles with masses below ten times the proton mass.",
+    "sources": [
+      "src:supercdms-official-site"
+    ],
+    "value": [
+      "Detect dark matter particles with masses below about ten times the proton mass via nuclear recoils in cryogenic silicon and germanium crystals"
+    ],
+    "verified_at": "2026-09-17"
+  },
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:supercdms-official-site",
+    "src:supercdms-inspire-experiment-snolab",
+    "src:supercdms-inspire-experiment-soudan"
+  ],
+  "status": "active",
+  "summary": {
+    "plain": "SuperCDMS looks for dark matter using silicon and germanium crystals cooled almost to absolute zero. It first ran at the Soudan mine in Minnesota until 2015, and its bigger successor is now starting up nearly a mile underground at SNOLAB in Canada, aiming at very light dark matter particles.",
+    "technical": "Cryogenic Ge/Si ionization-and-phonon dark matter search; SuperCDMS Soudan (Soudan Underground Laboratory, ~2009-2015) was succeeded by SuperCDMS SNOLAB, now under commissioning/early science with 24 detector crystals cooled to 15-30 mK, targeting sub-10-proton-mass WIMPs; full-sensitivity science operations are planned for 2027."
+  },
+  "topic_ids": [
+    "topic:dark-matter",
+    "topic:direct-dark-matter-detection"
+  ],
+  "type": "experiment",
+  "unique_capabilities": {
+    "confidence": "verified",
+    "note": "",
+    "quote": "For SuperCDMS, that temperature is just tens of millikelvins, or thousandths of a degree above absolute zero.",
+    "sources": [
+      "src:supercdms-slac-news-2026-03-17-cooldown"
+    ],
+    "value": [
+      "Phonon- and ionization-sensing cryogenic crystal detectors optimized for very low-mass WIMP nuclear recoils, operated near 15-30 mK"
+    ],
+    "verified_at": "2026-09-17"
+  }
+}

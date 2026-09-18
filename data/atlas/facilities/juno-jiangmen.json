@@ -1,0 +1,110 @@
+{
+  "schema": "hep-atlas/0.2",
+  "id": "facility:juno-jiangmen",
+  "type": "facility",
+  "name": "Jiangmen Underground Neutrino Observatory",
+  "aliases": [
+    "JUNO underground laboratory"
+  ],
+  "kind": "underground_laboratory",
+  "operator": {
+    "value": "Institute of High Energy Physics (IHEP), Chinese Academy of Sciences",
+    "sources": ["src:juno-ihep-first-results-en"],
+    "verified_at": "2026-09-17",
+    "confidence": "verified",
+    "note": "IHEP's press release identifies itself (as publisher) as the host institute for the JUNO experiment; no separate 'facility operator' statement was found distinct from the experiment/collaboration announcements."
+  },
+  "operator_ids": [],
+  "country": ["CN"],
+  "countries": ["CN"],
+  "primary_site_id": "site:juno-jiangmen-underground-lab",
+  "intervals": [
+    {
+      "label": "conceptual design",
+      "status": "proposed",
+      "start": "2015-08",
+      "end": null,
+      "sources": ["src:juno-cdr-arxiv-2015"],
+      "verified_at": "2026-09-17",
+      "confidence": "verified",
+      "quote": "The Jiangmen Underground Neutrino Observatory (JUNO) is proposed to determine the neutrino mass hierarchy using an underground liquid scintillator detector.",
+      "locator": "arXiv:1508.07166, abstract; submitted 28 Aug 2015",
+      "note": ""
+    },
+    {
+      "label": "underground laboratory and detector installation",
+      "status": "construction",
+      "start": "2021",
+      "end": "2024-12",
+      "sources": ["src:juno-ihep-detector-completion-2024"],
+      "verified_at": "2026-09-17",
+      "confidence": "approximate",
+      "quote": "Detector installation started in 2021 and completed in December 2024",
+      "locator": "IHEP news, 2024-12-17 (via search-summarised extract; the fetched page itself confirms the final construction/filling stage began 2024-12-18)",
+      "note": "The installation start year (2021) is drawn from a secondary IHEP-sourced search summary, not verbatim text seen in the fetched page; the fetched page (english.ihep.cas.cn, 2024-12-17) does independently confirm the final construction stage began 2024-12-18, which is used for the next interval."
+    },
+    {
+      "label": "final construction stage: water and liquid-scintillator filling",
+      "status": "commissioning",
+      "start": "2024-12-18",
+      "end": "2025-08-26",
+      "sources": ["src:juno-ihep-detector-completion-2024", "src:juno-ihep-first-results-en"],
+      "verified_at": "2026-09-17",
+      "confidence": "verified",
+      "quote": "The final stage of the construction of the Jiangmen Underground Neutrino Observatory (JUNO) began on Dec. 18",
+      "locator": "IHEP news, english.ihep.cas.cn, 2024-12-17",
+      "note": "End date is the physics data-taking start date (2025-08-26), taken as the point commissioning/filling activity concluded."
+    },
+    {
+      "label": "operating as an underground laboratory",
+      "status": "active",
+      "start": "2025-08-26",
+      "end": null,
+      "sources": ["src:juno-ihep-first-results-en"],
+      "verified_at": "2026-09-17",
+      "confidence": "verified",
+      "quote": "JUNO began physics data taking on August 26, 2025",
+      "locator": "IHEP news, english.ihep.cas.cn, 2025-11-19",
+      "note": ""
+    }
+  ],
+  "status": "active",
+  "specs": {
+    "overburden": {
+      "value": 700,
+      "unit": "m",
+      "dimension": "length",
+      "approx": false,
+      "display": "700 m granite overburden",
+      "sources": ["src:juno-cdr-arxiv-2015"],
+      "verified_at": "2026-09-17",
+      "confidence": "verified",
+      "quote": "The experimental hall, spanning more than 50 meters, is under a granite mountain of over 700 m overburden.",
+      "note": ""
+    }
+  },
+  "topic_ids": ["topic:reactor-neutrinos", "topic:neutrino-oscillations", "topic:solar-neutrinos"],
+  "related_facility_ids": [],
+  "links": {
+    "website": {
+      "value": "https://juno.ihep.cas.cn/",
+      "sources": ["src:juno-official-site"],
+      "verified_at": "2026-09-17",
+      "confidence": "verified",
+      "note": ""
+    }
+  },
+  "notes": [
+    "This facility (the excavated underground laboratory beneath Dashi Hill, Kaiping, Jiangmen) is distinct from IHEP itself, which is the operating national laboratory; IHEP is recorded only via `operator` (S string), not as a separate facility record, per this wave's scope.",
+    "No approval date (between the 2015 CDR proposal and the 2021 start of detector installation) was found in a source fetched this session; the intervening years are not covered by a sourced interval."
+  ],
+  "sources": ["src:juno-cdr-arxiv-2015", "src:juno-official-site", "src:juno-ihep-first-results-en"],
+  "summary": {
+    "plain": "A giant underground hall in southern China, dug into a hill near Jiangmen, that holds the JUNO neutrino detector deep beneath the rock so cosmic rays cannot swamp its measurements.",
+    "technical": "Underground laboratory beneath Dashi Hill, Kaiping, Jiangmen, Guangdong, China, with roughly 700 m of granite overburden, purpose-built to host the JUNO liquid-scintillator reactor-antineutrino detector 52.5 km from the Yangjiang and Taishan nuclear power plants."
+  },
+  "coverage": {
+    "tier": "A",
+    "researched": "partial"
+  }
+}

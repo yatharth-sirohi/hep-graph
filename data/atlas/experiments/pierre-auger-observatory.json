@@ -1,0 +1,152 @@
+{
+  "id": "experiment:pierre-auger-observatory",
+  "type": "experiment",
+  "schema": "hep-atlas/0.2",
+  "name": "Pierre Auger Observatory",
+  "aliases": ["Auger", "AUGER", "Pierre Auger Cosmic Ray Observatory"],
+  "distinct_from": [],
+  "superseded_by": null,
+  "kind": "cosmic_ray",
+  "secondary_kinds": [],
+  "collaboration_ids": ["collaboration:pierre-auger-observatory"],
+  "facility_roles": [
+    {
+      "facility_id": "facility:pierre-auger-observatory",
+      "role": "host",
+      "start": null,
+      "end": null,
+      "sources": ["src:cosmic-gamma-auger-official-observatory-page"],
+      "verified_at": "2026-09-17",
+      "confidence": "verified",
+      "note": "The Observatory facility and the experiment coincide; the observatory hosts and is the detector for this experiment."
+    }
+  ],
+  "beamline_ids": [],
+  "accelerator_ids": [],
+  "topic_ids": ["topic:cosmic-rays", "topic:multimessenger-astrophysics"],
+  "intervals": [
+    {
+      "label": "collaboration formed / site selection",
+      "status": "proposed",
+      "start": "1995-11",
+      "end": null,
+      "sources": ["src:cosmic-gamma-auger-official-history-page"],
+      "verified_at": "2026-09-17",
+      "confidence": "verified",
+      "quote": "A meeting is held in Paris to form the collaboration. It chooses the site of Mendoza, Argentina in the Southern Hemisphere.",
+      "note": ""
+    },
+    {
+      "label": "international agreement signed",
+      "status": "approved",
+      "start": "1999-03",
+      "end": null,
+      "sources": ["src:cosmic-gamma-auger-official-history-page"],
+      "verified_at": "2026-09-17",
+      "confidence": "verified",
+      "quote": "Signature of the International Agreement in Mendoza.",
+      "note": ""
+    },
+    {
+      "label": "construction",
+      "status": "construction",
+      "start": "2000",
+      "end": "2008-11",
+      "sources": ["src:cosmic-gamma-auger-official-history-page"],
+      "verified_at": "2026-09-17",
+      "confidence": "verified",
+      "quote": "Beginning of the construction of the observatory.",
+      "note": ""
+    },
+    {
+      "label": "Engineering Array prototype",
+      "status": "commissioning",
+      "start": "2001",
+      "end": "2001",
+      "sources": ["src:cosmic-gamma-auger-official-history-page"],
+      "verified_at": "2026-09-17",
+      "confidence": "approximate",
+      "quote": "The Engineering Array – a full-scale prototype of the first 32 SD stations and a single fluorescence telescope – is operated for 6 months.",
+      "note": "Only the year is stated; the 6-month operating period's exact start/end months are not given."
+    },
+    {
+      "label": "data taking (partial then full array)",
+      "status": "active",
+      "start": "2004",
+      "end": null,
+      "sources": ["src:cosmic-gamma-auger-official-history-page"],
+      "verified_at": "2026-09-17",
+      "confidence": "verified",
+      "quote": "First physics results are reported from more than 100 surface detector stations.",
+      "note": "Physics data-taking began in 2004 with a partial array, years before the full 1660-station array and 27 fluorescence telescopes were completed (inaugurated November 2008); data taking has continued since."
+    },
+    {
+      "label": "AugerPrime upgrade",
+      "status": "upgrade",
+      "start": "2015-11",
+      "end": null,
+      "sources": [
+        "src:cosmic-gamma-auger-official-augerprime-page",
+        "src:cosmic-gamma-auger-official-history-page",
+        "src:cosmic-gamma-auger-augerprime-status-arxiv-2025"
+      ],
+      "verified_at": "2026-09-17",
+      "confidence": "verified",
+      "quote": "As the commissioning of the final components of AugerPrime reaches its conclusion and the enhanced array comes fully online.",
+      "note": "AugerPrime adds scintillator and radio detectors atop each existing water-Cherenkov station plus underground muon counters; the official history page dates the inaugurating symposium to November 2015, first SSD stations to September 2016, first radio-upgrade antenna to April 2019 and 'final completion of the RD deployment' to November 2024. The August 2025 status paper (arXiv:2508.08056) describes commissioning of the final components as 'reaching its conclusion' as of that writing; no fetched source gives an exact upgrade-complete date, so end is left open. Existing-array data taking continues throughout."
+    }
+  ],
+  "status": "upgrade",
+  "physics_goals": [
+    {
+      "value": "Determine the origin, mechanism and composition of the highest-energy cosmic rays, above 10^18 eV, using a hybrid surface-detector and fluorescence-telescope array too large for a single detector type to catch enough events.",
+      "sources": ["src:cosmic-gamma-auger-official-observatory-page"],
+      "verified_at": "2026-09-17",
+      "confidence": "verified",
+      "quote": "Cosmic rays with energies above 10^19 eV arrive on Earth at a rate of only 1 particle per square kilometer per year",
+      "note": ""
+    },
+    {
+      "value": "Measure the ultra-high-energy cosmic-ray spectrum and search for the predicted GZK suppression of the flux above about 4x10^19 eV.",
+      "sources": ["src:cosmic-gamma-auger-official-history-page"],
+      "verified_at": "2026-09-17",
+      "confidence": "verified",
+      "quote": "Observation of the energy spectrum of cosmic rays confirmes that the flux is strongly suppressed above 4.10^19 eV as predicted by the GZK theory.",
+      "note": ""
+    }
+  ],
+  "unique_capabilities": [
+    {
+      "value": "Hybrid detection: a 3000 km^2 surface array of water-Cherenkov tanks sampling shower particles at ground level, cross-calibrated against 27 fluorescence telescopes that image the longitudinal development of air showers on clear, dark nights.",
+      "sources": ["src:cosmic-gamma-auger-official-observatory-page"],
+      "verified_at": "2026-09-17",
+      "confidence": "verified",
+      "quote": "3000 km2 array of 1660 particle detectors... overlooked by 27 optical telescopes",
+      "note": ""
+    }
+  ],
+  "energy_regime": null,
+  "key_specs": [
+    {"label": "Surface array area", "quantity": {"value": 3000, "unit": "km^2", "dimension": "area", "approx": false, "display": "3000 km²", "sources": ["src:cosmic-gamma-auger-official-observatory-page"], "verified_at": "2026-09-17", "confidence": "verified", "quote": "3000 km2 array of 1660 particle detectors", "note": ""}},
+    {"label": "Surface detector stations", "quantity": {"value": 1660, "unit": "", "dimension": "count", "approx": false, "display": "1660 water-Cherenkov stations", "sources": ["src:cosmic-gamma-auger-official-observatory-page"], "verified_at": "2026-09-17", "confidence": "verified", "quote": "3000 km2 array of 1660 particle detectors", "note": ""}},
+    {"label": "Fluorescence telescopes", "quantity": {"value": 27, "unit": "", "dimension": "count", "approx": false, "display": "27 telescopes", "sources": ["src:cosmic-gamma-auger-official-observatory-page"], "verified_at": "2026-09-17", "confidence": "verified", "quote": "overlooked by 27 optical telescopes", "note": ""}}
+  ],
+  "lineage": [],
+  "external": {"inspire_experiment": 1110614, "greybook": null, "wikidata": null},
+  "summary": {
+    "plain": "A giant hybrid detector in Argentina that catches the rarest, most energetic cosmic rays known: water tanks spread over 3000 square kilometres sense particle showers at ground level while telescopes watch the sky for their faint ultraviolet glow.",
+    "technical": "Hybrid ultra-high-energy cosmic-ray observatory combining a 3000 km^2 surface array of 1660 water-Cherenkov detector stations with 27 fluorescence telescopes in Mendoza Province, Argentina. Proposed 1995, construction from 2000, partial-array data taking from 2004, full array inaugurated November 2008; currently undergoing the AugerPrime upgrade (scintillator, radio and underground-muon detectors added atop the existing water-Cherenkov stations) begun November 2015."
+  },
+  "sources": [
+    "src:cosmic-gamma-auger-official-observatory-page",
+    "src:cosmic-gamma-auger-official-history-page",
+    "src:cosmic-gamma-inspire-auger-experiment-record"
+  ],
+  "links": {"website": {"value": "https://www.auger.org/", "sources": ["src:cosmic-gamma-auger-official-observatory-page"], "verified_at": "2026-09-17", "confidence": "verified", "note": ""}},
+  "notes": [
+    "site_ids, detector_ids, document_ids, result_ids are deliberately not written (v0.2 A1 derived fields).",
+    "status is 'upgrade' rather than 'active' because the AugerPrime upgrade interval (start 2015-11, open) is the most recently started interval covering the present per the A3 state-selection rule, even though existing-array data taking (interval started 2004) continues uninterrupted throughout the upgrade.",
+    "No results or technical documents were written in this pass (non-flagship experiment; mandatory bar only per the wave-3 brief)."
+  ],
+  "coverage": {"tier": "B", "researched": "partial"}
+}

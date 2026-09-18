@@ -1,47 +1,62 @@
 [
   {
     "category": "heavy_ion",
-    "entity_id": "experiment:phenix",
-    "experiment_id": "experiment:phenix",
-    "facility": "Brookhaven / RHIC",
+    "entity_id": "experiment:star",
+    "experiment_id": "experiment:star",
+    "facility": "Brookhaven National Laboratory / RHIC",
     "missing_fields": [
-      "all"
+      "collaboration formation date (not independently verified)",
+      "magnet field strength (source fetch attempts returned 403/empty)",
+      "STAR detector-overview paper (NIM A499:624-632) full-text specs (bibliographic only)",
+      "collaboration leadership (person records owned elsewhere)",
+      "site coordinates (site:bnl-rhic-ip6-star owned by facilities lead, dangling)"
     ],
-    "name": "PHENIX",
-    "notes": "Identified in the coverage scope; not yet researched.",
+    "name": "STAR",
+    "notes": "Solenoidal Tracker at RHIC. Status/intervals sourced to the BNL STAR page and the BNL 'RHIC Wraps up Final Collisions' article (2026-02-06, RHIC's 25th and final run); TPC specs sourced to the STAR TPC subsystem paper (NIM A499:659-678). Collaboration membership counts (609 collaborators / 55 institutions / 12 countries) sourced. One 1991 extra: the STAR 2005 'perfect liquid' white paper recorded as result_type 'measurement' (never discovery), collaboration's own title wording.",
     "owner": "heavy-ions",
     "priority": 3,
-    "researched": "none",
+    "researched": "partial",
+    "status": "completed",
+    "tier": "B"
+  },
+  {
+    "category": "heavy_ion",
+    "entity_id": "experiment:phenix",
+    "experiment_id": "experiment:phenix",
+    "facility": "Brookhaven National Laboratory / RHIC",
+    "missing_fields": [
+      "central/muon arm acceptance and magnet key_specs (only found via unverified secondary compilations; primary NIM A499 papers not fetchable as text this session)",
+      "collaboration membership counts (institutions/countries/collaborators)",
+      "collaboration leadership (person records owned elsewhere)",
+      "site coordinates (site:bnl-rhic-ip8-phenix-sphenix owned by facilities lead, dangling)"
+    ],
+    "name": "PHENIX",
+    "notes": "Pioneering High Energy Nuclear Interaction eXperiment. Formation (1991-08), first collision (2000-06-15) and end of data taking (2016) all sourced verbatim to the PHENIX collaboration's own concept/history page. Lineage to sPHENIX is recorded on experiment:sphenix (upgrade_of), not here, per v0.2 A1 (derived inverse not authored). One extra: the PHENIX 2005 'perfect liquid' white paper recorded as result_type 'measurement' (never discovery), collaboration's own title wording.",
+    "owner": "heavy-ions",
+    "priority": 3,
+    "researched": "partial",
+    "status": "completed",
     "tier": "B"
   },
   {
     "category": "heavy_ion",
     "entity_id": "experiment:sphenix",
     "experiment_id": "experiment:sphenix",
-    "facility": "Brookhaven / RHIC",
+    "facility": "Brookhaven National Laboratory / RHIC",
     "missing_fields": [
-      "all"
+      "collaboration formation date (only the DOE CD-0 project-approval milestone is sourced)",
+      "collaboration membership counts",
+      "collaboration leadership (person records owned elsewhere)",
+      "site coordinates (site:bnl-rhic-ip8-phenix-sphenix owned by facilities lead, dangling)",
+      "sPHENIX TDR/design-report document record (not reached this wave)",
+      "first-physics-results (2025-07-18) results/ record (not reached this wave)"
     ],
     "name": "sPHENIX",
-    "notes": "Identified in the coverage scope; not yet researched.",
+    "notes": "Successor detector to PHENIX at the same RHIC interaction point (IP8), built around a reused 20-ton BaBar solenoid. DOE CD-0 (2017-01-13), construction complete (2023-04), commissioning/first Au+Au data (2023) and RHIC's final-run closure (2026-02-06) all sourced. lineage.relation 'upgrade_of' -> experiment:phenix recorded here (canonical direction per v0.2 A1); 'successor' is deliberately not written on experiment:phenix.",
     "owner": "heavy-ions",
     "priority": 3,
-    "researched": "none",
-    "tier": "B"
-  },
-  {
-    "category": "heavy_ion",
-    "entity_id": "experiment:star",
-    "experiment_id": "experiment:star",
-    "facility": "Brookhaven / RHIC",
-    "missing_fields": [
-      "all"
-    ],
-    "name": "STAR",
-    "notes": "Identified in the coverage scope; not yet researched.",
-    "owner": "heavy-ions",
-    "priority": 3,
-    "researched": "none",
+    "researched": "partial",
+    "status": "completed",
     "tier": "B"
   }
 ]

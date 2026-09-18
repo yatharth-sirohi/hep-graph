@@ -1,0 +1,181 @@
+{
+  "accelerator_ids": [],
+  "aliases": [
+    "Sub-Electron-Noise Skipper-CCD Experimental Instrument"
+  ],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:sensei"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "energy_regime": {
+    "confidence": "verified",
+    "note": "",
+    "quote": "world-leading constraints on dark matter-electron scattering for masses between 500 keV to 5 MeV",
+    "sources": [
+      "src:sensei-shallow-underground-2019-arxiv"
+    ],
+    "value": "Sub-GeV dark matter via electron recoils (roughly 500 keV to a few GeV in mass)",
+    "verified_at": "2026-09-17"
+  },
+  "external": {
+    "greybook": null,
+    "inspire_experiment": 1662255,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:fermilab",
+      "locator": "arXiv:2605.30281 (2026-05)",
+      "note": "A 2026-05 SENSEI paper still places the detector 'near the MINOS cavern' at Fermilab; a 2020 SENSEI paper described a ~100-gram detector 'planned' for SNOLAB, but no source fetched this session confirms that move has happened, so no SNOLAB facility_role/placement is recorded.",
+      "quote": "Using the SENSEI detector near the MINOS cavern",
+      "role": "host",
+      "sources": [
+        "src:sensei-shallow-underground-2019-arxiv",
+        "src:sensei-spurious-charge-2026-arxiv"
+      ],
+      "start": "2017",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "id": "experiment:sensei",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2018",
+      "label": "proposal",
+      "locator": "INSPIRE experiment record 1662255, field date_proposed",
+      "note": "Year-precision date from the INSPIRE experiment registry (rank 3); no independently fetched proposal document.",
+      "sources": [
+        "src:sensei-inspire-experiment"
+      ],
+      "start": "2017",
+      "status": "proposed",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": "2019-01",
+      "label": "protoSENSEI shallow underground run",
+      "locator": "arXiv:1901.10478",
+      "note": "End set to the paper's submission date (2019-01-29); the run itself may have started earlier in 2018, not independently pinned down by a fetched source.",
+      "quote": "We present here results from a prototype Skipper-CCD placed in the MINOS cavern... at the Fermi National Accelerator Laboratory (FNAL).",
+      "sources": [
+        "src:sensei-shallow-underground-2019-arxiv"
+      ],
+      "start": "2018",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "science operations at Fermilab MINOS cavern",
+      "locator": "arXiv:2605.30281 (2026-05)",
+      "note": "Open interval; a 2026-05 paper confirms operation is still ongoing at the same Fermilab location. Detector generation changed over this span (from a ~0.1 g prototype to a ~2 g Skipper-CCD in 2020); see key_specs and detector record.",
+      "quote": "Using the SENSEI detector near the MINOS cavern",
+      "sources": [
+        "src:sensei-new-skipper-ccd-2020-arxiv",
+        "src:sensei-spurious-charge-2026-arxiv"
+      ],
+      "start": "2019-01",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "protoSENSEI active mass (2019)",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "mass",
+        "display": "0.0947 g",
+        "locator": "arXiv:1901.10478 (ar5iv)",
+        "note": "",
+        "quote": "a total active mass (before masking) of 0.0947 gram",
+        "sources": [
+          "src:sensei-shallow-underground-2019-arxiv"
+        ],
+        "unit": "g",
+        "value": 0.0947,
+        "verified_at": "2026-09-17"
+      }
+    },
+    {
+      "label": "New Skipper-CCD mass (2020)",
+      "quantity": {
+        "approx": true,
+        "confidence": "verified",
+        "dimension": "mass",
+        "display": "2 g",
+        "locator": "arXiv:2004.11378, abstract",
+        "note": "",
+        "quote": "an improved ~2-gram high-resistivity Skipper-CCD",
+        "sources": [
+          "src:sensei-new-skipper-ccd-2020-arxiv"
+        ],
+        "unit": "g",
+        "value": 2,
+        "verified_at": "2026-09-17"
+      }
+    }
+  ],
+  "kind": "direct_dark_matter",
+  "lineage": [],
+  "links": {
+    "website": null
+  },
+  "name": "SENSEI",
+  "notes": [
+    "No live official SENSEI website was found: the INSPIRE record's listed homepage (http://home.fnal.gov/~javiert/sensei) returned HTTP 403 when fetched 2026-09-17. links.website is left null rather than guessed.",
+    "A ~100-gram SENSEI detector at SNOLAB is described as 'planned' in a 2020 SENSEI paper, but the most recent SENSEI paper found this session (2026-05) still describes the operating detector as being 'near the MINOS cavern' at Fermilab, so no SNOLAB placement is recorded. This should be revisited if a more recent, explicit SNOLAB-operations source is found.",
+    "site:fermilab-minos-near-detector-hall was not created: the existing site:fermilab-main-campus (owned by fermilab-dune) is already used as the campus-precision placement point for the MINOS near detector hall specifically (see its notes), and no source fetched this session gives a more precise, distinct coordinate for the hall. Reusing the existing site avoids a near-duplicate site with the same fabricated-precision coordinate."
+  ],
+  "physics_goals": {
+    "confidence": "verified",
+    "note": "",
+    "quote": "we measure the lowest rates in silicon detectors of events containing one, two, three, or four electrons, and achieve world-leading sensitivity for a large range of sub-GeV dark matter masses",
+    "sources": [
+      "src:sensei-new-skipper-ccd-2020-arxiv"
+    ],
+    "value": [
+      "Detect sub-GeV dark matter via electron-recoil ionization signals in skipper-CCD silicon detectors"
+    ],
+    "verified_at": "2026-09-17"
+  },
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:sensei-inspire-experiment",
+    "src:sensei-shallow-underground-2019-arxiv",
+    "src:sensei-new-skipper-ccd-2020-arxiv"
+  ],
+  "status": "active",
+  "summary": {
+    "plain": "SENSEI uses ultra-sensitive silicon chips called skipper CCDs to hunt for very light dark matter particles, so light that they would only knock loose a handful of electrons. It has run in a shielded underground hall at Fermilab near Chicago since 2018.",
+    "technical": "Skipper-CCD dark matter search sensitive to electron recoils from sub-GeV dark matter, operating in the MINOS cavern at Fermilab; began with a ~0.1 g prototype device (2018-2019 shallow-underground run) and progressed to an improved ~2 g Skipper-CCD (2020 results), with operations continuing as of a 2026 backgrounds-characterization paper. A ~100 g detector at SNOLAB was described as planned in 2020 but not confirmed as realized by any source fetched this session."
+  },
+  "topic_ids": [
+    "topic:dark-matter",
+    "topic:direct-dark-matter-detection"
+  ],
+  "type": "experiment",
+  "unique_capabilities": {
+    "confidence": "verified",
+    "note": "",
+    "quote": "observed no three-plus electron events and derived world-leading constraints on dark matter-electron scattering for masses between 500 keV to 5 MeV",
+    "sources": [
+      "src:sensei-shallow-underground-2019-arxiv"
+    ],
+    "value": [
+      "Skipper-CCD readout allows sub-electron noise, enabling counting of individual ionization electrons"
+    ],
+    "verified_at": "2026-09-17"
+  }
+}

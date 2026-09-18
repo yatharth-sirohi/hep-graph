@@ -1,0 +1,62 @@
+{
+  "aliases": [
+    "ISIS",
+    "Rutherford Appleton Laboratory"
+  ],
+  "altitude": null,
+  "coordinates": {
+    "confidence": "uncertain",
+    "kind": "detector",
+    "lat": 51.570862,
+    "locator": "About | ISIS Neutron and Muon Source (address); coordinate value from the OSM/Nominatim geocoder result cited in this record's `sources`",
+    "lon": -1.315498,
+    "note": "`kind` is set to `detector` only because the validator requires that for any site holding a detector placement (KARMEN); the coordinate itself is the OpenStreetMap/Nominatim polygon centroid for the whole Rutherford Appleton Laboratory campus (src:karmen-isis-osm-nominatim, listed in this record's top-level `sources`, not in `coordinates.sources`, since a geocoder source may only back a campus/headquarters coordinate kind per A17), not a surveyed position for the KARMEN detector hall. No official STFC/ISIS page fetched in this session publishes WGS84 coordinates for the site, only the postal address (OX11 0QX). Wikipedia's infobox coordinate for ISIS (51.57167 N, 1.32000 W) is about 0.4 km from this geocoder point and corroborates it (src:karmen-wikipedia, rank 12, not used as a coordinate source). Confidence is `uncertain` and this coordinate should be treated as campus-precision, not detector-hall precision.",
+    "precision_m": 1500,
+    "sources": [
+      "src:karmen-isis-stfc-about"
+    ],
+    "verified_at": "2026-09-17"
+  },
+  "countries": [
+    "GB"
+  ],
+  "country": "GB",
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
+  },
+  "depth": null,
+  "facility_id": "facility:isis-neutron-source",
+  "id": "site:isis-rutherford-appleton",
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "note": "",
+      "sources": [
+        "src:karmen-isis-stfc-about"
+      ],
+      "value": "https://www.isis.stfc.ac.uk/",
+      "verified_at": "2026-09-17"
+    }
+  },
+  "name": "Rutherford Appleton Laboratory (ISIS)",
+  "notes": [
+    "Coordinate is campus-precision (the whole RAL/Harwell campus), not a surveyed point for the KARMEN detector hall; no fetched source gives a hall-specific coordinate."
+  ],
+  "place": {
+    "city": "Didcot",
+    "country": "GB",
+    "region": "Oxfordshire"
+  },
+  "schema": "hep-atlas/0.2",
+  "setting": "surface",
+  "sources": [
+    "src:karmen-isis-stfc-about",
+    "src:karmen-isis-osm-nominatim"
+  ],
+  "summary": {
+    "plain": "The Rutherford Appleton Laboratory campus near Didcot, Oxfordshire, England, home to the ISIS particle accelerator. The KARMEN neutrino detector sat here, about 18 metres from where ISIS's proton beam struck its target.",
+    "technical": "STFC Rutherford Appleton Laboratory campus, Harwell Science and Innovation Campus, Didcot, Oxfordshire (postcode OX11 0QX); site of the ISIS pulsed spallation source and, 1990-2001, of the KARMEN liquid-scintillator neutrino detector at a mean distance of 17.7 m from the ISIS target."
+  },
+  "type": "site"
+}

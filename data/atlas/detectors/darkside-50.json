@@ -1,0 +1,138 @@
+{
+  "aliases": [
+    "DS-50 TPC"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "document_ids": [],
+  "experiment_ids": [
+    "experiment:darkside-50"
+  ],
+  "id": "detector:darkside-50",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2020",
+      "label": "science operations",
+      "note": "\"2013 to 2020\" per the LNGS facility page gives only years, not exact months.",
+      "quote": "operated from 2013 to 2020",
+      "sources": [
+        "src:dm-noble-liquid-darkside-official-site",
+        "src:dm-noble-liquid-darkside-lngs-page"
+      ],
+      "start": "2013",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "completed",
+      "note": "LNGS facility page gives only the year 2020 for the end of operations; no exact decommissioning date was found in a fetched source.",
+      "quote": "operated from 2013 to 2020",
+      "sources": [
+        "src:dm-noble-liquid-darkside-lngs-page"
+      ],
+      "start": "2020",
+      "status": "completed",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "DarkSide-50 detector",
+  "notes": [],
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": "2020",
+      "locator": "lngs.infn.it/en/darkside",
+      "note": "site:lngs-hall-c is a dangling reference: owned by the \"facilities\" workstream, not yet created as of 2026-09-17.",
+      "quote": "The experiment was hosted in Hall C of the Laboratori Nazionali del Gran Sasso",
+      "role": "main",
+      "site_id": "site:lngs-hall-c",
+      "sources": [
+        "src:dm-noble-liquid-darkside-lngs-page"
+      ],
+      "start": "2012",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:dm-noble-liquid-darkside-lngs-page",
+    "src:dm-noble-liquid-darkside-50-first-results-2015"
+  ],
+  "specs": {
+    "active_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "50 kg",
+      "locator": "lngs.infn.it/en/darkside",
+      "note": "Nominal/design value; the first-results paper measured (46.4+-0.7) kg (arXiv:1410.0653).",
+      "quote": "The DarkSide-50 detector, a dual-phase argon Time Projection Chamber (TPC)",
+      "sources": [
+        "src:dm-noble-liquid-darkside-lngs-page"
+      ],
+      "unit": "kg",
+      "value": 50,
+      "verified_at": "2026-09-17"
+    },
+    "phase": {
+      "confidence": "verified",
+      "note": "",
+      "quote": "The DarkSide-50 detector, a dual-phase argon Time Projection Chamber (TPC)",
+      "sources": [
+        "src:dm-noble-liquid-darkside-lngs-page"
+      ],
+      "value": "dual-phase",
+      "verified_at": "2026-09-17"
+    },
+    "shielding": {
+      "confidence": "verified",
+      "note": "",
+      "quote": "operated inside a 30 t organic liquid scintillator neutron veto, which is in turn installed at the center of a 1 kt water Cherenkov veto",
+      "sources": [
+        "src:dm-noble-liquid-darkside-50-first-results-2015"
+      ],
+      "value": "30 t organic liquid scintillator neutron veto inside a 1 kt water-Cherenkov muon veto",
+      "verified_at": "2026-09-17"
+    },
+    "target_medium": {
+      "confidence": "verified",
+      "note": "",
+      "quote": "dual-phase argon Time Projection Chamber",
+      "sources": [
+        "src:dm-noble-liquid-darkside-lngs-page"
+      ],
+      "value": "liquid argon",
+      "verified_at": "2026-09-17"
+    }
+  },
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "A small tank of liquid argon, about fifty kilograms of it, that watched for dark matter particles bumping into argon atoms deep under an Italian mountain.",
+    "technical": "Dual-phase argon TPC, ~50 kg nominal active mass (46.4+-0.7 kg measured), surrounded by a 30 t liquid-scintillator neutron veto inside a 1 kt water-Cherenkov muon veto, in LNGS Hall C."
+  },
+  "technology": {
+    "confidence": "verified",
+    "note": "",
+    "quote": "The DarkSide-50 detector, a dual-phase argon Time Projection Chamber (TPC)",
+    "sources": [
+      "src:dm-noble-liquid-darkside-lngs-page"
+    ],
+    "value": "dual-phase argon time projection chamber",
+    "verified_at": "2026-09-17"
+  },
+  "technology_class": "argon_tpc",
+  "technology_classes": [
+    "noble_liquid_tpc",
+    "argon_tpc"
+  ],
+  "type": "detector"
+}

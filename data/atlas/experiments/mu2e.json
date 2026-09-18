@@ -1,0 +1,190 @@
+{
+  "aliases": [
+    "Muon-to-Electron Conversion Experiment",
+    "FNAL-E-0973"
+  ],
+  "collaboration_ids": [
+    "collaboration:mu2e"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "energy_regime": "",
+  "external": {
+    "greybook": null,
+    "inspire_experiment": 1108209,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "facility_id": "facility:fermilab",
+      "note": "",
+      "quote": "The Mu2e experiment will utilize an intense muon beam produced by the accelerator complex at the Fermi National Accelerator Lab, located in the far west suburbs of Chicago, Illinois in the USA.",
+      "role": "host",
+      "sources": [
+        "src:muons-inspire-experiment-mu2e"
+      ],
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "id": "experiment:mu2e",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "experiment proposed (FNAL-E-0973)",
+      "locator": "INSPIRE experiment record 1108209, metadata.date_proposed",
+      "note": "'date_proposed' field of the INSPIRE experiment record.",
+      "sources": [
+        "src:muons-inspire-experiment-mu2e"
+      ],
+      "start": "2008-10-18",
+      "status": "proposed",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "experiment approved",
+      "locator": "INSPIRE experiment record 1108209, metadata.date_approved",
+      "note": "'date_approved' field of the INSPIRE experiment record.",
+      "sources": [
+        "src:muons-inspire-experiment-mu2e"
+      ],
+      "start": "2010-08",
+      "status": "approved",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "DOE CD-3 construction approval and construction",
+      "note": "Ongoing as of the most recent fetched status report (2026-07): subsystem installation (tracker, calorimeter, solenoids, cosmic ray veto) is described as in progress, with data collection not yet started.",
+      "quote": "The experiment received DOE CD-3 approval for construction in June 2016 and construction activities have begun.",
+      "sources": [
+        "src:muons-inspire-experiment-mu2e",
+        "src:muons-inspire-lit-mu2e-status-2022",
+        "src:muons-inspire-lit-mu2e-status-2026"
+      ],
+      "start": "2016-06",
+      "status": "construction",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "initial data collection (Run 1)",
+      "note": "Most recent fetched status source (dated 2026-07-20); earlier sources projected commissioning in 2020 (INSPIRE experiment record, now outdated) and data collection in 2025 (2022 status paper, also superseded). Recorded per A21: a planned-start interval may not carry an active/commissioning/completed/decommissioned status, hence 'planned'.",
+      "quote": "Initial data collection scheduled to begin in 2027.",
+      "sources": [
+        "src:muons-inspire-lit-mu2e-status-2026"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2027",
+        "planned": true
+      },
+      "status": "planned",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Single-event sensitivity goal (muon-to-electron conversion rate)",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "fraction",
+        "display": "~2.5x10^-17",
+        "note": "A 2022 Mu2e status proceedings paper (src:muons-inspire-lit-mu2e-status-2022) quotes a close but distinct figure, 'an unprecedented single event sensitivity of 3x10^-17', for a staged Run-1/Run-2 plan; both figures are the collaboration's own, from different points in the project's history, and are not treated as contradictory (see worklog conflicts).",
+        "quote": "in the Coulomb field of a nucleus with a single event sensitivity of about $2.5 \\times 10^{-17}$.",
+        "sources": [
+          "src:muons-inspire-experiment-mu2e"
+        ],
+        "unit": "",
+        "value": 2.5e-17,
+        "verified_at": "2026-09-17"
+      }
+    },
+    {
+      "label": "Superconducting solenoid system length",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "length",
+        "note": "",
+        "quote": "the design and realization of a unique 25 m long superconducting solenoidal system.",
+        "sources": [
+          "src:muons-inspire-lit-mu2e-status-2026"
+        ],
+        "unit": "m",
+        "value": 25,
+        "verified_at": "2026-09-17"
+      }
+    }
+  ],
+  "kind": "muon_precision",
+  "lineage": [],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "note": "mu2e.fnal.gov itself returned HTTP 403 to every fetch in this session; the URL is confirmed as the experiment's own domain by the INSPIRE experiment record ('More information is available at the Mu2e website') and by the collaboration's own status papers, both of which were fetched.",
+      "sources": [
+        "src:muons-inspire-experiment-mu2e"
+      ],
+      "value": "https://mu2e.fnal.gov/",
+      "verified_at": "2026-09-17"
+    }
+  },
+  "name": "Mu2e",
+  "notes": [
+    "No physics results exist yet: every fetched status source describes Mu2e as still under construction/installation, with data collection not yet begun (most recently planned for 2027). This is stated explicitly rather than left to silence, per the correctness rule that an incomplete/no-results state must never be implied by omission.",
+    "Sensitivity-goal conflict: the INSPIRE experiment record (rank 3, closer to the original approved proposal) states 2.5x10^-17; a 2022 Mu2e collaboration status proceedings paper (rank 10) states 3x10^-17 for a staged Run-1+Run-2 plan. Both are recorded (primary value 2.5x10^-17, the other noted) rather than silently picking one; see the muons.md worklog Conflicts section.",
+    "A documented lineage exists to the cancelled Brookhaven proposal MECO (Muon-to-Electron COnversion); no source describing this lineage was fetched in this session (a BNL-owned MECO experiment id is not in scope for the 'muons' workstream in any case), so it is not recorded here at all rather than asserted from memory.",
+    "external.inspire_experiment (1108209) is sourced from https://inspirehep.net/api/experiments?q=mu2e, confirmed at https://inspirehep.net/experiments/1108209."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "note": "",
+      "quote": "The muon-to-electron conversion experiment (Mu2e) is designed to search for the coherent, neutrino-less conversion of a muon to an electron, in the Coulomb field of a nucleus with a single event sensitivity of about 2.5 x 10^-17.",
+      "sources": [
+        "src:muons-inspire-experiment-mu2e"
+      ],
+      "value": "Search for charged-lepton-flavor-violating, neutrino-less conversion of a muon to an electron in the field of an aluminum nucleus (mu- N -> e- N), a process forbidden in the Standard Model",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:muons-inspire-experiment-mu2e",
+    "src:muons-inspire-lit-mu2e-status-2022",
+    "src:muons-inspire-lit-mu2e-status-2026",
+    "src:muons-arxiv-1501-05241"
+  ],
+  "status": "construction",
+  "summary": {
+    "plain": "An experiment being built at Fermilab that will look for a muon turning directly into an electron without any neutrinos -- something the standard laws of particle physics say should never happen. Construction is under way; no data has been taken yet.",
+    "technical": "Fermilab E973 (Mu2e): searches for coherent, neutrino-less mu- N -> e- N conversion in the field of an aluminum nucleus using a pulsed muon beam and a 25 m chain of three superconducting solenoids (production, transport, detector) feeding a straw-tube tracker, crystal calorimeter and cosmic-ray veto. Proposed 2008, approved 2010, CD-3 construction approval June 2016; as of the most recently fetched status report (2026-07) construction/installation is ongoing across all subsystems with initial data collection planned for 2027. No physics results have been produced yet."
+  },
+  "topic_ids": [
+    "topic:lepton-flavor-violation",
+    "topic:muon-precision-physics"
+  ],
+  "type": "experiment",
+  "unique_capabilities": [
+    {
+      "confidence": "verified",
+      "note": "",
+      "quote": "The system comprises production, transport, and detector solenoids, with downstream straw tracker and crystal calorimeter.",
+      "sources": [
+        "src:muons-inspire-lit-mu2e-status-2026"
+      ],
+      "value": "A 25-metre chain of three superconducting solenoids (production, transport, detector) that curves and momentum-selects the muon beam to suppress prompt background before the electrons reach the tracker and calorimeter",
+      "verified_at": "2026-09-17"
+    }
+  ]
+}

@@ -1,0 +1,166 @@
+{
+  "accelerator_ids": [],
+  "aliases": [
+    "Enriched Xenon Observatory 200"
+  ],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:exo-200"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "energy_regime": null,
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "facility_id": "facility:wipp",
+      "locator": "EXO-200 final-results paper synthesis / WIPP official page",
+      "note": "",
+      "quote": "2,150 feet underground",
+      "role": "host",
+      "sources": [
+        "src:exo-200-doe-wipp-official-page"
+      ],
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "id": "experiment:exo-200",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2018-11",
+      "label": "data taking",
+      "locator": "no fetched primary source gives day/month-level Phase I/Phase II boundary dates",
+      "note": "Overall operating span (2011-2018) is well established by the collaboration's own final-results paper (234.1 kg·yr total exposure over the full run); the internal Phase I (2011-2014) / pause / Phase II (2016-2018) structure, and the reason for the pause (a WIPP underground incident unrelated to the experiment), come from secondary web summaries this agent did not verify against a directly fetched primary EXO-200 paper, so the finer phase boundaries are not recorded as separate sourced intervals. Flagged for review.",
+      "quote": "",
+      "sources": [
+        "src:exo-200-final-results-arxiv-1906"
+      ],
+      "start": "2011",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "completed",
+      "locator": "EXO-200 final-results paper, title and abstract",
+      "note": "",
+      "quote": "Search for Neutrinoless Double-Beta Decay with the Complete EXO-200 Dataset",
+      "sources": [
+        "src:exo-200-final-results-arxiv-1906"
+      ],
+      "start": "2018-11",
+      "status": "completed",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Total exposure",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "mass",
+        "display": "234.1 kg·yr (136Xe)",
+        "locator": "EXO-200 final-results paper, abstract",
+        "note": "",
+        "quote": "total 136Xe exposure of 234.1 kg·yr",
+        "sources": [
+          "src:exo-200-final-results-arxiv-1906"
+        ],
+        "unit": "kg",
+        "value": 234.1,
+        "verified_at": "2026-09-17"
+      }
+    },
+    {
+      "label": "0νββ half-life lower limit",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "time",
+        "display": "T₁/₂ > 3.5×10²⁵ yr (90% C.L.)",
+        "locator": "EXO-200 final-results paper, abstract",
+        "note": "",
+        "quote": "a lower limit on the 0νββ half-life of 3.5x10^25 yr at the 90% confidence level",
+        "sources": [
+          "src:exo-200-final-results-arxiv-1906"
+        ],
+        "unit": "yr",
+        "value": 3.5e+25,
+        "verified_at": "2026-09-17"
+      }
+    }
+  ],
+  "kind": "double_beta_decay",
+  "lineage": [
+    {
+      "experiment_id": "experiment:nexo",
+      "relation": "predecessor",
+      "sources": [
+        "src:exo-200-final-results-arxiv-1906"
+      ]
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "EXO-200",
+  "notes": [
+    "Located underground at WIPP (Waste Isolation Pilot Plant), a DOE nuclear-waste repository near Carlsbad, New Mexico; facility:wipp and its site are created by this workstream (owned ids). No official/geodetic source fetched in this session gives an underground coordinate distinct from the WIPP surface campus point (Wikipedia-sourced, kind: campus, approximate); see site:wipp-surface-campus.",
+    "No INSPIRE experiment-registry lookup was performed in this session; external.inspire_experiment is left null with this note rather than guessed.",
+    "Collaboration formation date not sourced in this session.",
+    "Phase I/Phase II internal boundary dates are not sourced to a directly fetched primary source; see the 'data taking' interval note."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "EXO-200 final-results paper, title",
+      "note": "",
+      "quote": "Search for Neutrinoless Double-Beta Decay with the Complete EXO-200 Dataset",
+      "sources": [
+        "src:exo-200-final-results-arxiv-1906"
+      ],
+      "value": "Search for neutrinoless double-beta decay of 136Xe",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:exo-200-doe-wipp-official-page",
+    "src:exo-200-wipp-wikipedia",
+    "src:exo-200-final-results-arxiv-1906"
+  ],
+  "status": "completed",
+  "summary": {
+    "plain": "A liquid-xenon detector buried deep in a New Mexico salt mine that also stores nuclear waste. EXO-200 searched for a rare radioactive process in xenon atoms from 2011 to 2018 and found no signal.",
+    "technical": "EXO-200 (Enriched Xenon Observatory): cylindrical liquid-xenon time projection chamber (136Xe-enriched to 80.6%) at WIPP, ~655 m underground. Operated 2011-2018 with a pause for a WIPP underground incident unrelated to the experiment; final dataset totalled 234.1 kg·yr exposure, setting T1/2 0ν > 3.5x10^25 yr (90% C.L.). Predecessor to nEXO."
+  },
+  "topic_ids": [
+    "topic:neutrinoless-double-beta-decay",
+    "topic:neutrino-physics"
+  ],
+  "type": "experiment",
+  "unique_capabilities": [
+    {
+      "confidence": "verified",
+      "locator": "EXO-200 final-results paper, abstract",
+      "note": "",
+      "quote": "a deep neural network to discriminate between 0νββ and background events",
+      "sources": [
+        "src:exo-200-final-results-arxiv-1906"
+      ],
+      "value": "Combined ionization and scintillation readout in a liquid-xenon TPC, with deep-neural-network background discrimination",
+      "verified_at": "2026-09-17"
+    }
+  ]
+}

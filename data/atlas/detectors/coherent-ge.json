@@ -1,0 +1,128 @@
+{
+  "aliases": [
+    "Ge-Mini",
+    "COHERENT germanium array"
+  ],
+  "coverage": {
+    "researched": "full",
+    "tier": "A"
+  },
+  "experiment_ids": [
+    "experiment:coherent"
+  ],
+  "id": "detector:coherent-ge",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "earlier ~10 kg Ge array announced",
+      "locator": "The COHERENT Detector Suite page",
+      "note": "The official detector-suite page describes an earlier, smaller planned array; it is not clear from fetched sources whether this is the same physical array later reported as Ge-Mini (8 x 2.2 kg = 17.6 kg) in the 2024 evidence paper, or a distinct earlier generation. Recorded as a separate, lower-confidence interval rather than merged with the sourced Ge-Mini figures.",
+      "quote": "A 10kg array of p-type point contact Ge detectors ... scheduled to be deployed later in 2020.",
+      "sources": [
+        "src:cevns-coherent-detector-suite-page"
+      ],
+      "start": "2020",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": "2023-08",
+      "label": "Ge-Mini operation, evidence of CEvNS on germanium",
+      "locator": "arXiv:2406.13806",
+      "note": "",
+      "quote": "deployed at the SNS and operated during the SNS neutron production period from June - August 2023",
+      "sources": [
+        "src:cevns-coherent-germanium-2024-evidence"
+      ],
+      "start": "2023-06",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "COHERENT germanium array (Ge-Mini)",
+  "notes": [
+    "Placed at site:ornl-sns-neutrino-alley (owned by the facilities workstream, dangling reference — not created here).",
+    "Mass conflict: the official detector-suite page (undated, accessed 2026) describes a planned 10 kg array for 2020; the 2024 evidence paper (arXiv:2406.13806) describes an 8 x 2.2 kg = 17.6 kg array (Ge-Mini) operated June-August 2023, of which 5-7 detectors were stable enough for analysis. specs.target_mass below uses the Ge-Mini figure, which is the one that actually produced the sourced physics result; the 10 kg figure is recorded only in the interval note above."
+  ],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": "2023-08",
+      "locator": "arXiv:2406.13806",
+      "note": "Site is a dangling reference (owned by facilities).",
+      "quote": "deployed at the SNS and operated during the SNS neutron production period from June - August 2023",
+      "role": "main",
+      "site_id": "site:ornl-sns-neutrino-alley",
+      "sources": [
+        "src:cevns-coherent-germanium-2024-evidence"
+      ],
+      "start": "2023-06",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:cevns-coherent-detector-suite-page",
+    "src:cevns-coherent-germanium-2024-evidence"
+  ],
+  "specs": {
+    "module_count": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "count",
+      "display": "8 ICPC detectors",
+      "locator": "arXiv:2406.13806",
+      "note": "5-7 of the 8 detectors were stable enough to be used in the analysis at any given time.",
+      "quote": "an array of eight 2.2 kg ICPC detectors",
+      "sources": [
+        "src:cevns-coherent-germanium-2024-evidence"
+      ],
+      "unit": "",
+      "value": 8,
+      "verified_at": "2026-09-17"
+    },
+    "target_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "17.6 kg (8 x 2.2 kg)",
+      "locator": "arXiv:2406.13806",
+      "note": "Total nominal array mass; not all 8 detectors were live throughout the run (see notes).",
+      "quote": "an array of eight 2.2 kg ICPC detectors",
+      "sources": [
+        "src:cevns-coherent-germanium-2024-evidence"
+      ],
+      "unit": "kg",
+      "value": 17.6,
+      "verified_at": "2026-09-17"
+    }
+  },
+  "status": "active",
+  "subsystems": [],
+  "summary": {
+    "plain": "An array of eight ultra-pure germanium crystals, together weighing about 17.6 kilograms, that in 2024 became the third type of atomic nucleus on which COHERENT caught neutrinos bouncing off gently.",
+    "technical": "Ge-Mini: array of eight 2.2 kg inverted-coaxial point-contact (ICPC) high-purity germanium detectors, 1.5 keVee analysis threshold, operated at the SNS June-August 2023; yielded a 3.9-sigma rejection of the no-CEvNS hypothesis on natural germanium (2024)."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "arXiv:2406.13806",
+    "note": "",
+    "quote": "The Ge-Mini detector of the COHERENT collaboration employs large-mass, low-noise, high-purity germanium spectrometers",
+    "sources": [
+      "src:cevns-coherent-germanium-2024-evidence"
+    ],
+    "value": "array of high-purity, p-type point-contact (inverted-coaxial) germanium spectrometers",
+    "verified_at": "2026-09-17"
+  },
+  "technology_class": "germanium",
+  "technology_classes": [
+    "germanium"
+  ],
+  "type": "detector"
+}

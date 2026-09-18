@@ -1,0 +1,56 @@
+{
+  "schema": "hep-atlas/0.2",
+  "id": "site:juno-jiangmen-underground-lab",
+  "type": "site",
+  "name": "JUNO underground experimental hall, Dashi Hill, Kaiping",
+  "aliases": [],
+  "facility_id": "facility:juno-jiangmen",
+  "coordinates": {
+    "lat": 22.11827,
+    "lon": 112.51867,
+    "kind": "campus",
+    "precision_m": 2000,
+    "sources": ["src:juno-wikipedia-coordinates"],
+    "verified_at": "2026-09-17",
+    "confidence": "approximate",
+    "locator": "Wikipedia infobox, 'Jiangmen Underground Neutrino Observatory', citing He, Miao (2014), NOW workshop presentation, p.9 (topographical map, no printed coordinate text)",
+    "note": "No rank<=7 source fetched this session states explicit numeric coordinates for the underground hall (the JUNO CDR and 'JUNO Physics and Detector' papers give only the qualitative location -- 52.5-53 km from the Yangjiang/Taishan nuclear plants, under >700 m of granite, near Kaiping/Jiangmen, Guangdong -- with no lat/lon). This value is Wikipedia's infobox coordinate, itself derived (per Wikipedia's own citation) from a 2014 conference presentation slide, not a stated numeric coordinate; per A17 it is recorded as `kind: campus`, `confidence: approximate`, not `kind: underground_lab`, and precision is set coarse (2 km) to reflect that uncertainty."
+  },
+  "setting": "underground",
+  "depth": {
+    "value": 700,
+    "unit": "m",
+    "dimension": "length",
+    "approx": false,
+    "display": "700 m of granite overburden",
+    "sources": ["src:juno-cdr-arxiv-2015"],
+    "verified_at": "2026-09-17",
+    "confidence": "verified",
+    "quote": "The experimental hall, spanning more than 50 meters, is under a granite mountain of over 700 m overburden.",
+    "note": ""
+  },
+  "depth_mwe": null,
+  "altitude": null,
+  "country": "CN",
+  "countries": ["CN"],
+  "place": {
+    "city": "Kaiping",
+    "region": "Jiangmen, Guangdong",
+    "country": "CN"
+  },
+  "links": {
+    "website": null
+  },
+  "notes": [
+    "The underground experimental hall itself is reported as 'spanning more than 50 meters' (CDR) with a total civil-construction volume around 300,000 m^3 and a main hall of about 120,000 m^3 (per a secondary IHEP-related search summary, not independently verified against a fetched primary source in this session)."
+  ],
+  "sources": ["src:juno-cdr-arxiv-2015", "src:juno-wikipedia-coordinates"],
+  "summary": {
+    "plain": "The rock cavern under Dashi Hill near Kaiping, in Jiangmen, southern China, where the JUNO neutrino detector sits, shielded by more than 700 metres of granite.",
+    "technical": "Underground experimental hall of facility:juno-jiangmen, excavated beneath Dashi Hill near Kaiping, Jiangmen, Guangdong, with over 700 m of granite overburden, 52.5-53 km from the Yangjiang and Taishan nuclear power plants."
+  },
+  "coverage": {
+    "tier": "A",
+    "researched": "partial"
+  }
+}

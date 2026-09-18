@@ -1,0 +1,181 @@
+{
+  "accelerator_ids": [],
+  "aliases": [
+    "DS-50"
+  ],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:darkside"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "document_ids": [],
+  "energy_regime": null,
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "approximate",
+      "end": "2020",
+      "facility_id": "facility:lngs",
+      "locator": "lngs.infn.it/en/darkside",
+      "note": "End year (2020) per the LNGS facility page; start year (2012) per the collaboration site's \"construction was completed in late 2012\".",
+      "quote": "The experiment was hosted in Hall C of the Laboratori Nazionali del Gran Sasso",
+      "role": "host",
+      "sources": [
+        "src:dm-noble-liquid-darkside-official-site",
+        "src:dm-noble-liquid-darkside-lngs-page"
+      ],
+      "start": "2012",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "id": "experiment:darkside-50",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2012",
+      "label": "construction",
+      "note": "Start of construction not sourced; \"late 2012\" completion date is imprecise.",
+      "quote": "DarkSide-50 construction was completed in late 2012, with physics data collection beginning in late 2013, using atmospheric argon (AAr).",
+      "sources": [
+        "src:dm-noble-liquid-darkside-official-site"
+      ],
+      "start": null,
+      "status": "construction",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "approximate",
+      "end": "2015-04",
+      "label": "atmospheric-argon run",
+      "note": "\"late 2013\" recorded as 2013; end is when the detector was refilled with underground argon.",
+      "quote": "DarkSide-50 construction was completed in late 2012, with physics data collection beginning in late 2013, using atmospheric argon (AAr).",
+      "sources": [
+        "src:dm-noble-liquid-darkside-official-site"
+      ],
+      "start": "2013",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "approximate",
+      "end": "2020",
+      "label": "underground-argon run",
+      "note": "Start per the collaboration site (\"filled with underground argon in April 2015\"); end year per the LNGS facility page (\"operated ... from 2013 to 2020\"), exact month not sourced.",
+      "quote": "operated from 2013 to 2020",
+      "sources": [
+        "src:dm-noble-liquid-darkside-official-site",
+        "src:dm-noble-liquid-darkside-lngs-page"
+      ],
+      "start": "2015-04",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "completed",
+      "note": "LNGS facility page gives only the year 2020 for the end of operations; no source fetched in this session gives an exact decommissioning date. Final low-mass-WIMP analysis of the complete dataset was published in 2023 (arXiv:2207.11966).",
+      "quote": "operated from 2013 to 2020",
+      "sources": [
+        "src:dm-noble-liquid-darkside-lngs-page"
+      ],
+      "start": "2020",
+      "status": "completed",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Active argon mass (nominal)",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "mass",
+        "display": "50 kg",
+        "locator": "lngs.infn.it/en/darkside",
+        "note": "\"50 kg\" is the nominal/design active mass used in the experiment's own name and the LNGS/collaboration pages. The first-results paper measured a more precise active mass of (46.4+-0.7) kg (arXiv:1410.0653, abstract).",
+        "quote": "The DarkSide-50 detector, a dual-phase argon Time Projection Chamber (TPC)",
+        "sources": [
+          "src:dm-noble-liquid-darkside-lngs-page"
+        ],
+        "unit": "kg",
+        "value": 50,
+        "verified_at": "2026-09-17"
+      }
+    },
+    {
+      "label": "Active argon mass (measured, first results)",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "mass",
+        "display": "46.4 kg",
+        "locator": "arXiv:1410.0653, abstract",
+        "note": "",
+        "quote": "a Liquid Argon Time Projection Chamber with a (46.4+-0.7) kg active mass",
+        "sources": [
+          "src:dm-noble-liquid-darkside-50-first-results-2015"
+        ],
+        "unit": "kg",
+        "value": 46.4,
+        "verified_at": "2026-09-17"
+      }
+    }
+  ],
+  "kind": "direct_dark_matter",
+  "lineage": [],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "note": "",
+      "sources": [
+        "src:dm-noble-liquid-darkside-official-site"
+      ],
+      "value": "https://darkside.lngs.infn.it/",
+      "verified_at": "2026-09-17"
+    }
+  },
+  "name": "DarkSide-50",
+  "notes": [
+    "No dedicated INSPIRE experiments-collection record exists for DarkSide-50 (only DarkSide-20k has one, recid 1830577): confirmed via an inspirehep.net/api/experiments query for \"legacy_name DarkSide-50\" on 2026-09-17, which returned zero hits. external.inspire_experiment is therefore null, not a P0 omission.",
+    "Sources disagree on the exact end of operations: the official LNGS facility page states the experiment \"operated from 2013 to 2020\"; the DarkSide collaboration's own site describes only the construction/first-fill history up to April 2015 without stating an end date; a 2023 paper analyzes \"the entire dataset\" without giving its end date either. 2020 (the LNGS facility page's figure) is used as the best-sourced end year, flagged approximate."
+  ],
+  "physics_goals": {
+    "confidence": "verified",
+    "note": "",
+    "quote": "a Liquid Argon Time Projection Chamber with a (46.4+-0.7) kg active mass",
+    "sources": [
+      "src:dm-noble-liquid-darkside-50-first-results-2015"
+    ],
+    "value": [
+      "Detect or exclude WIMP dark matter scattering off argon nuclei using pulse-shape discrimination to reject electron-recoil backgrounds",
+      "Demonstrate the use of low-radioactivity underground argon at scale for the larger DarkSide-20k detector"
+    ],
+    "verified_at": "2026-09-17"
+  },
+  "result_ids": [],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:dm-noble-liquid-darkside-official-site",
+    "src:dm-noble-liquid-darkside-lngs-page"
+  ],
+  "status": "completed",
+  "summary": {
+    "plain": "DarkSide-50 was a dark matter detector holding fifty kilograms of liquid argon, deep under a mountain in Italy. It ran from 2013 to 2020, testing techniques later scaled up for its successor, DarkSide-20k.",
+    "technical": "Dual-phase liquid argon TPC, ~50 kg active mass, in LNGS Hall C. First physics data (atmospheric argon) from late 2013; refilled with low-radioactivity underground argon in April 2015. Operated overall from 2013 to 2020 per LNGS's own page. Its final published analysis (2023) used the entire low-radioactivity-argon dataset to set a 90% CL limit of 6e-43 cm^2 for a 3 GeV/c^2 WIMP."
+  },
+  "topic_ids": [
+    "topic:dark-matter",
+    "topic:direct-dark-matter-detection"
+  ],
+  "type": "experiment",
+  "unique_capabilities": null
+}

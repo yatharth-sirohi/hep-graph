@@ -1,0 +1,83 @@
+{
+  "aliases": [
+    "SNOLAB 6800 level"
+  ],
+  "altitude": null,
+  "coordinates": {
+    "confidence": "verified",
+    "kind": "underground_lab",
+    "lat": 46.475,
+    "locator": "Section 1 (Introduction)",
+    "lon": -81.201111,
+    "note": "Coordinate is the original SNO detector's own published position (converted from 46 deg 28' 30'' N, 81 deg 12' 04'' W); SNOLAB is the expansion of that same cavern/site, so this is used as the SNOLAB underground-lab marker. This supersedes the earlier OpenStreetMap-only campus-level point (which is kept as an additional, lower-rank source for the surface/general area).",
+    "precision_m": 300,
+    "quote": "The SNO detector is located at 46 28' 30'' N, 81 12' 04'' W in the INCO, Ltd., Creighton mine near Sudbury, Ontario, Canada.",
+    "sources": [
+      "src:sno-nim-detector-paper-2000"
+    ],
+    "verified_at": "2026-09-17"
+  },
+  "country": "CA",
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "depth": {
+    "approx": false,
+    "confidence": "verified",
+    "dimension": "length",
+    "display": "2039 m (detector vessel centre)",
+    "note": "The SNO paper gives 2039 m to the detector-vessel centre; the SNOLAB facility page separately states a 2070 m rock overburden at the 6800 ft level. Both are kept: this field records the more precise, sourced vessel-depth figure.",
+    "quote": "The center of the detector vessel is 2039 m below the surface in a cavity excavated from the \"6800-foot\" level of the mine.",
+    "sources": [
+      "src:sno-nim-detector-paper-2000",
+      "src:snolab-underground-facilities"
+    ],
+    "unit": "m",
+    "value": 2039,
+    "verified_at": "2026-09-17"
+  },
+  "depth_mwe": {
+    "approx": true,
+    "confidence": "verified",
+    "dimension": "depth_mwe",
+    "display": "~6000 m water equivalent",
+    "note": "",
+    "quote": "The granitic rock overburden (mainly norite) corresponds to approximately 6000 m water equivalent.",
+    "sources": [
+      "src:sno-nim-detector-paper-2000"
+    ],
+    "unit": "m.w.e.",
+    "value": 6000,
+    "verified_at": "2026-09-17"
+  },
+  "facility_id": "facility:snolab",
+  "id": "site:snolab-underground-lab",
+  "links": {
+    "website": null
+  },
+  "name": "SNOLAB underground laboratory",
+  "notes": [
+    "depth_mwe and the underground_lab-kind coordinate are now sourced to the original SNO detector paper (Nucl. Instrum. Meth. A449 (2000) 172), a rank-5 detector_paper source, rather than the earlier Wikipedia figure; the Wikipedia source is left in data/atlas/sources/ but no longer cited here."
+  ],
+  "place": {
+    "city": "Sudbury",
+    "country": "CA",
+    "region": "Ontario"
+  },
+  "schema": "hep-atlas/0.2",
+  "setting": "underground",
+  "sources": [
+    "src:sno-nim-detector-paper-2000",
+    "src:snolab-about-snolab",
+    "src:snolab-facility-page",
+    "src:snolab-osm-nominatim",
+    "src:snolab-underground-facilities",
+    "src:snolab-wikipedia"
+  ],
+  "summary": {
+    "plain": "The underground part of SNOLAB, reached through an active nickel mine two kilometres below the surface near Sudbury, Canada.",
+    "technical": "Underground laboratory complex at the 6800 ft level of Vale's Creighton mine (~2070 m norite rock overburden), 1.8 km from the 9 Shaft entrance; an expansion of the original SNO cavern into a Class-2000 clean-room facility."
+  },
+  "type": "site"
+}

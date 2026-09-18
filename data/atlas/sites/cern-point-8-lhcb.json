@@ -1,0 +1,83 @@
+{
+  "aliases": [
+    "Point 8",
+    "IP8",
+    "LHCb cavern",
+    "CERN Point 8"
+  ],
+  "altitude": null,
+  "coordinates": {
+    "confidence": "uncertain",
+    "kind": "detector",
+    "lat": 46.2417561,
+    "locator": "home.cern LHCb experiment page (src:lep-cern-lhcb-experiment-page); no literal coordinates given",
+    "lon": 6.0971635,
+    "note": "REVIEW REQUIRED (A17), after real effort: no CERN geodetic-survey or metrology publication giving WGS84 coordinates for the underground LHCb cavern was found in this session (JINST detector paper blocked by bot-detection/size limit; LHCb Upgrade Framework TDR only checked for bibliographic metadata; home.cern and lhcb-outreach.web.cern.ch state only the depth and nearby village, not coordinates). The numeric lat/lon value is inherited from an OpenStreetMap/Nominatim centroid for \"CERN Point 8\" (kept as src:lep-point-8-osm-nominatim in this record's top-level sources for provenance, matching the pattern used at site:cern-point-1-atlas); that geocoder source is not cited on this coordinate field because A17 forbids a geocoder backing a detector-kind point. kind is kept as \"detector\" (not \"campus\") because the structural validator requires kind in [detector, underground_lab] for any site holding a detector placement; confidence is set to \"uncertain\" and this note flags the value for geographic review, exactly as site:cern-point-1-atlas does.",
+    "precision_m": 300,
+    "quote": "sits 100 metres below ground near the town of Ferney-Voltaire, France",
+    "sources": [
+      "src:lep-cern-lhcb-experiment-page"
+    ],
+    "verified_at": "2026-09-17"
+  },
+  "countries": [
+    "FR"
+  ],
+  "country": "FR",
+  "coverage": {
+    "researched": "partial",
+    "tier": "A"
+  },
+  "depth": {
+    "approx": false,
+    "confidence": "verified",
+    "dimension": "length",
+    "display": "100 m below ground",
+    "locator": "home.cern, LHCb experiment page",
+    "note": "",
+    "quote": "It is situated 100 metres below ground near the village of Ferney-Voltaire, France.",
+    "sources": [
+      "src:lep-cern-lhcb-experiment-page"
+    ],
+    "unit": "m",
+    "value": 100,
+    "verified_at": "2026-09-17"
+  },
+  "depth_mwe": null,
+  "depth_rock": null,
+  "facility_id": "facility:cern",
+  "id": "site:cern-point-8-lhcb",
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "note": "",
+      "sources": [
+        "src:colliders-lhc-lhcb-outreach-detector-page"
+      ],
+      "value": "https://lhcb-outreach.web.cern.ch/",
+      "verified_at": "2026-09-17"
+    }
+  },
+  "name": "LHC Point 8 (LHCb cavern)",
+  "notes": [
+    "This is a NEW record, distinct from site:cern-lep-point-8-delphi (owned by historic-cern), which documents the same physical point during the LEP/DELPHI era. The two coexist and are not duplicates: they describe the same cavern at different eras with independently sourced facts.",
+    "REVIEW REQUIRED (A17): coordinate is a geocoder value (kind: campus, confidence: approximate); no rank<=7 detector-kind coordinate was found after real effort in this session. See coordinates.note."
+  ],
+  "place": {
+    "city": "Ferney-Voltaire",
+    "country": "FR",
+    "region": "Ain"
+  },
+  "schema": "hep-atlas/0.2",
+  "setting": "underground",
+  "sources": [
+    "src:lep-cern-lhcb-experiment-page",
+    "src:lep-point-8-osm-nominatim",
+    "src:colliders-lhc-lhcb-outreach-detector-page"
+  ],
+  "summary": {
+    "plain": "The underground cavern at Point 8 of the LHC ring, near the French town of Ferney-Voltaire, where the LHCb detector sits about 100 metres below ground.",
+    "technical": "LHC interaction point 8, Ferney-Voltaire (Ain, France); houses the LHCb forward-spectrometer detector approximately 100 m below the surface. Previously the site of the LEP-era DELPHI detector (see site:cern-lep-point-8-delphi)."
+  },
+  "type": "site"
+}

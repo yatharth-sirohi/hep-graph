@@ -1,0 +1,181 @@
+{
+  "accelerator_ids": [],
+  "aliases": [
+    "Majorana",
+    "MJD"
+  ],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:majorana-demonstrator"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "energy_regime": null,
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "facility_id": "facility:surf",
+      "locator": "SURF news, \"The MAJORANA Demonstrator Project at the 4850 Level Davis Campus\"",
+      "note": "",
+      "quote": "The entire experiment will be located at the 4850 Level (1478 m) Davis Campus at the Sanford Lab Underground Research Facility (SURF).",
+      "role": "host",
+      "sources": [
+        "src:majorana-demonstrator-surf-news"
+      ],
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "id": "experiment:majorana-demonstrator",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "detector installation begins",
+      "locator": "SURF news, \"The MAJORANA Demonstrator Project at the 4850 Level Davis Campus\"",
+      "note": "",
+      "quote": "The collaboration began installing the detector at the 4850 Level Davis Campus underground in March 2012.",
+      "sources": [
+        "src:majorana-demonstrator-surf-news"
+      ],
+      "start": "2012-03",
+      "status": "construction",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "uncertain",
+      "end": "2022",
+      "label": "data taking",
+      "locator": "no fetched primary source gives exact data-taking start/end dates",
+      "note": "No source fetched in this session directly states the data-taking start/end years; 2015-2022 is carried over from a secondary web summary of MAJORANA DEMONSTRATOR status/results reporting and is flagged uncertain pending re-verification against the final-results paper's own text (only the abstract, not the full introduction/methods, was fetched in this session).",
+      "quote": "",
+      "sources": [
+        "src:majorana-demonstrator-final-results-arxiv-2207"
+      ],
+      "start": "2015",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "completed",
+      "locator": "MAJORANA final-results paper (arXiv:2207.07638), abstract",
+      "note": "The collaboration's own final-results paper reports the accumulated exposure and final half-life limit; day-level shutdown date not found in a fetched source.",
+      "quote": "the DEMONSTRATOR has accumulated 64.5 kg yr of enriched active exposure ... T1/2>8.3x10^25 yr (90% C.L.)",
+      "sources": [
+        "src:majorana-demonstrator-final-results-arxiv-2207"
+      ],
+      "start": "2022",
+      "status": "completed",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Total exposure",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "mass",
+        "display": "64.5 kg·yr (enriched active exposure)",
+        "locator": "MAJORANA final-results paper, abstract",
+        "note": "",
+        "quote": "the DEMONSTRATOR has accumulated 64.5 kg yr of enriched active exposure",
+        "sources": [
+          "src:majorana-demonstrator-final-results-arxiv-2207"
+        ],
+        "unit": "kg",
+        "value": 64.5,
+        "verified_at": "2026-09-17"
+      }
+    },
+    {
+      "label": "0νββ half-life lower limit",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "time",
+        "display": "T₁/₂ > 8.3×10²⁵ yr (90% C.L.)",
+        "locator": "MAJORANA final-results paper, abstract",
+        "note": "",
+        "quote": "we set a half-life limit of 0νββ in 76Ge at T1/2>8.3×10^25 yr (90% C.L.)",
+        "sources": [
+          "src:majorana-demonstrator-final-results-arxiv-2207"
+        ],
+        "unit": "yr",
+        "value": 8.3e+25,
+        "verified_at": "2026-09-17"
+      }
+    }
+  ],
+  "kind": "double_beta_decay",
+  "lineage": [
+    {
+      "experiment_id": "experiment:legend",
+      "relation": "predecessor",
+      "sources": [
+        "src:majorana-demonstrator-sdsmt-news"
+      ]
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "Majorana Demonstrator",
+  "notes": [
+    "Detector placement uses the EXISTING site:surf-davis-campus-lz (owned by the dark-matter workstream) rather than a new site record: no source fetched in this session gives the Majorana Demonstrator a coordinate distinct from LZ's point in the same Davis Campus / 4850 Level. The SURF news page states the Majorana depth as 1478 m, essentially identical to the ~1480 m depth already sourced on site:surf-davis-campus-lz for LZ; both experiments are described as being in the Davis Campus at SURF's 4850 Level. No site:surf-4850-davis-campus-majorana file was created, per the domain lead's instruction to reuse the existing point unless a genuinely distinct one is sourced.",
+    "facility:surf already exists (owned by the fermilab-dune lead) and is referenced here, not edited.",
+    "No INSPIRE experiment-registry lookup was performed in this session; external.inspire_experiment is left null with this note rather than guessed.",
+    "Exact data-taking start/end dates (interval labelled 'data taking') are flagged uncertain: see that interval's note."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "MAJORANA final-results paper, abstract",
+      "note": "",
+      "quote": "The MAJORANA DEMONSTRATOR searched for neutrinoless double-β decay (0νββ) of 76Ge",
+      "sources": [
+        "src:majorana-demonstrator-final-results-arxiv-2207"
+      ],
+      "value": "Search for neutrinoless double-beta decay of 76Ge and demonstrate the technology needed for a future tonne-scale germanium experiment (LEGEND)",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:majorana-demonstrator-surf-news",
+    "src:majorana-demonstrator-final-results-arxiv-2207",
+    "src:majorana-demonstrator-sdsmt-news"
+  ],
+  "status": "completed",
+  "summary": {
+    "plain": "A demonstration experiment nearly a mile underground in a former South Dakota gold mine, using germanium crystals to search for a rare radioactive process. It proved the low-background techniques later scaled up in the LEGEND experiment.",
+    "technical": "MAJORANA DEMONSTRATOR: array of modular p-type point-contact HPGe detector arrays (up to 40.4 kg total, 27.2 kg enriched to ~88% in 76Ge) in vacuum cryostats, located in the Davis Campus at the 4850 Level (1478 m) of SURF. Installation began March 2012; final result accumulated 64.5 kg·yr of enriched exposure and set T1/2 0ν > 8.3x10^25 yr (90% C.L.). Its techniques and personnel carried into LEGEND."
+  },
+  "topic_ids": [
+    "topic:neutrinoless-double-beta-decay",
+    "topic:neutrino-physics"
+  ],
+  "type": "experiment",
+  "unique_capabilities": [
+    {
+      "confidence": "verified",
+      "locator": "MAJORANA final-results paper, abstract",
+      "note": "",
+      "quote": "modular arrays of high-purity Ge detectors operated in vacuum cryostats in a low-background shield",
+      "sources": [
+        "src:majorana-demonstrator-final-results-arxiv-2207"
+      ],
+      "value": "World-leading energy resolution among 0νββ experiments, achieved with p-type point-contact HPGe detectors in electroformed-copper vacuum cryostats",
+      "verified_at": "2026-09-17"
+    }
+  ]
+}

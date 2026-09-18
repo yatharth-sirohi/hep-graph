@@ -1,0 +1,74 @@
+{
+  "schema": "hep-atlas/0.2",
+  "id": "collaboration:na62",
+  "type": "collaboration",
+  "name": "NA62 Collaboration",
+  "aliases": [],
+  "coverage": {
+    "tier": "A",
+    "researched": "partial"
+  },
+  "formation": {
+    "value": null,
+    "sources": [
+      "src:na62-inspire-experiment-record"
+    ],
+    "verified_at": "2026-09-17",
+    "confidence": "uncertain",
+    "locator": "inspirehep.net/experiments/1275752 (long_name field, undated)",
+    "note": "No fetched source states an explicit collaboration-formation date. The INSPIRE experiment record's long_name records NA62 as a 'Proposal to measure the very rare kaon decay K+ -> pi+ nu nubar', which is undated in the fields retrieved. Left null rather than inferred from the construction start (2009) or first data (2015)."
+  },
+  "intervals": [
+    {
+      "label": "collaboration",
+      "status": "active",
+      "start": "2009",
+      "end": null,
+      "sources": [
+        "src:na62-detector-jinst-2017"
+      ],
+      "verified_at": "2026-09-17",
+      "confidence": "uncertain",
+      "note": "Start is a lower bound taken from the detector construction start (2009), the earliest dated collaboration activity found; not a stated formation date."
+    }
+  ],
+  "status": "active",
+  "membership": {
+    "as_of": null,
+    "evidence_class": null,
+    "institution_count": null,
+    "country_count": null,
+    "member_count": null,
+    "roster_source_ids": [
+      "src:na62-collaboration-organisational-structure"
+    ]
+  },
+  "leadership": [],
+  "host_facility_id": "facility:cern",
+  "host_site_id": "site:cern-ecn3-north-area",
+  "links": {
+    "website": {
+      "value": "https://na62.web.cern.ch/",
+      "sources": [
+        "src:na62-official-site"
+      ],
+      "verified_at": "2026-09-17",
+      "confidence": "verified",
+      "note": ""
+    }
+  },
+  "summary": {
+    "plain": "The international team of physicists who built and run the NA62 experiment at CERN, searching for an extremely rare kaon decay.",
+    "technical": "International collaboration operating the NA62 rare-kaon-decay experiment at the CERN SPS; its own organisational-structure page links to the CERN Greybook for the institute/member list rather than stating a headline count."
+  },
+  "notes": [
+    "Per the brief's rule that membership counts come ONLY from the collaboration's own page: na62.web.cern.ch/Collaboration/organisationalStructure.html was fetched and states no numeric institution/country/member count itself (it links out to the CERN Greybook, a client-rendered app that could not be fetched for a verbatim number this session). All membership fields are therefore left null rather than populated from a secondary aggregation (a commonly repeated ~300-participant/~33-institution/~16-country figure was found in search results but not confirmed on any page fetched this session, so it is not recorded).",
+    "Leadership is left empty: person records are owned by another workstream.",
+    "Derived field collaboration.experiment_ids is deliberately not written (v0.2 A1)."
+  ],
+  "sources": [
+    "src:na62-official-site",
+    "src:na62-collaboration-organisational-structure",
+    "src:na62-inspire-experiment-record"
+  ]
+}

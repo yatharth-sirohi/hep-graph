@@ -1,0 +1,105 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "distinct_from": [],
+  "document_ids": [],
+  "experiment_ids": [
+    "experiment:phenix"
+  ],
+  "id": "detector:phenix",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2000-06-15",
+      "label": "first collision",
+      "note": "",
+      "quote": "June 15, 2000 at 6:28 am EDT: PHENIX records its first relativistic heavy ion collision.",
+      "sources": [
+        "src:heavy-ions-phenix-concept-history"
+      ],
+      "start": "2000-06-15",
+      "status": "commissioning",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": "2016",
+      "label": "data taking",
+      "note": "",
+      "quote": "2016: PHENIX finishes data taking.",
+      "sources": [
+        "src:heavy-ions-phenix-concept-history"
+      ],
+      "start": "2000-06-15",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "data taking complete",
+      "note": "",
+      "quote": "2016: PHENIX finishes data taking.",
+      "sources": [
+        "src:heavy-ions-phenix-concept-history"
+      ],
+      "start": "2016",
+      "status": "completed",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "links": {
+    "website": "https://www.phenix.bnl.gov/"
+  },
+  "name": "PHENIX detector",
+  "notes": [
+    "site:bnl-rhic-ip8-phenix-sphenix is owned by the facilities lead and did not exist in data/atlas/sites/ at the time this record was written (2026-09-17); referenced here as a dangling id. This interaction point (IP8) was used first by PHENIX, then by sPHENIX.",
+    "technology_class 'spectrometer' chosen over the more collider-specific classes because PHENIX is described as a multi-arm spectrometer rather than a single hermetic general-purpose detector; no closer TECHNOLOGY_CLASSES enum value exists.",
+    "specs left empty: see experiment:phenix notes on unverifiable secondary-source numbers."
+  ],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": "2016",
+      "note": "site:bnl-rhic-ip8-phenix-sphenix is owned by the facilities lead and did not exist in data/atlas/sites/ at the time this record was written (2026-09-17); referenced here as a dangling id. This interaction point (IP8) was used first by PHENIX, then by sPHENIX.",
+      "quote": "2016: PHENIX finishes data taking.",
+      "role": "main",
+      "site_id": "site:bnl-rhic-ip8-phenix-sphenix",
+      "sources": [
+        "src:heavy-ions-phenix-concept-history"
+      ],
+      "start": "2000-06-15",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:heavy-ions-phenix-concept-history"
+  ],
+  "specs": {},
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "A multi-armed particle detector at Brookhaven's RHIC collider that tracked and identified particles from nuclear collisions between 2000 and 2016.",
+    "technical": "PHENIX: a multi-arm heavy-ion spectrometer at RHIC IP8 combining central-arm and muon-arm subdetectors, operational 2000-06-15 to 2016."
+  },
+  "superseded_by": null,
+  "technology": {
+    "confidence": "uncertain",
+    "note": "General description; detailed subsystem specs not independently verified this session (see experiment:phenix notes).",
+    "sources": [
+      "src:heavy-ions-phenix-concept-history"
+    ],
+    "value": "Multi-arm spectrometer combining central-arm tracking/calorimetry at midrapidity with forward/backward muon-arm spectrometers, each with its own magnet",
+    "verified_at": "2026-09-17"
+  },
+  "technology_class": "spectrometer",
+  "technology_classes": [
+    "spectrometer"
+  ],
+  "type": "detector"
+}

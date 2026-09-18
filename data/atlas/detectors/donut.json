@@ -1,0 +1,93 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "full",
+    "tier": "D"
+  },
+  "experiment_ids": [
+    "experiment:donut"
+  ],
+  "id": "detector:donut",
+  "intervals": [
+    {
+      "confidence": "uncertain",
+      "end": "1997",
+      "label": "operating",
+      "locator": "Wikipedia, DONUT",
+      "note": "Sole fetched source is Wikipedia (rank 12); year-only precision.",
+      "quote": "operated at Fermilab in summer 1997",
+      "sources": [
+        "src:donut-wikipedia"
+      ],
+      "start": "1997",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "completed",
+      "locator": "abstract",
+      "note": "Terminal event.",
+      "quote": "The DONUT experiment has analyzed 203 neutrino interactions recorded in nuclear emulsion targets.",
+      "sources": [
+        "src:donut-plb-2001-observation"
+      ],
+      "start": "2000-12",
+      "status": "completed",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "DONUT detector",
+  "notes": [
+    "Placed at site:fermilab-main-campus, an existing site record owned by the 'fermilab-dune' lead, referenced here rather than duplicated (see experiment:donut notes)."
+  ],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "uncertain",
+      "end": "1997",
+      "locator": "Wikipedia, DONUT",
+      "note": "site:fermilab-main-campus is an existing record owned by another lead, already used for several other Fermilab short-baseline detector placements without a hall-specific coordinate; referenced here, not created.",
+      "quote": "operated at Fermilab in summer 1997",
+      "role": "main",
+      "site_id": "site:fermilab-main-campus",
+      "sources": [
+        "src:donut-wikipedia"
+      ],
+      "start": "1997",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:donut-plb-2001-observation",
+    "src:donut-wikipedia"
+  ],
+  "specs": {},
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "A stack of nuclear-emulsion sheets and iron plates, backed by electronic trackers, that caught tau neutrinos as they interacted -- the first detector ever to do so directly.",
+    "technical": "Hybrid emulsion-target (nuclear-emulsion sheets interspersed with steel/iron sheets, an emulsion-cloud-chamber-style target) followed by electronic scintillator counters and drift-chamber spectrometers, at a Tevatron fixed-target beam dump."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "Wikipedia, DONUT",
+    "note": "Sole fetched source is Wikipedia (rank 12); the primary 2001 publication's own detector-section text could not be extracted from its PDF in this session.",
+    "quote": "sheets of nuclear emulsion ... along with scintillators and drift chambers",
+    "sources": [
+      "src:donut-wikipedia"
+    ],
+    "value": "Nuclear-emulsion target with interspersed steel sheets, combined with electronic scintillator counters and drift chambers",
+    "verified_at": "2026-09-17"
+  },
+  "technology_class": "emulsion",
+  "technology_classes": [
+    "emulsion"
+  ],
+  "type": "detector"
+}

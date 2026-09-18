@@ -1,0 +1,75 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "distinct_from": [],
+  "document_ids": [],
+  "formation": {
+    "confidence": "uncertain",
+    "note": "No source fetched this session states an explicit collaboration-formation date. The earliest sourced institutional milestone is the DOE CD-0 'mission need' grant on 2017-01-13 (a project-approval milestone, not a collaboration-formation date); left null rather than inferred, per A17.",
+    "sources": [
+      "src:heavy-ions-sphenix-cd0-news-2017"
+    ],
+    "value": null,
+    "verified_at": "2026-09-17"
+  },
+  "host_facility_id": "facility:brookhaven-national-laboratory",
+  "host_site_id": "site:bnl-rhic-ip8-phenix-sphenix",
+  "id": "collaboration:sphenix",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2026-02-06",
+      "label": "collaboration",
+      "note": "Start date is the DOE CD-0 grant, the earliest sourced milestone, not necessarily the true collaboration-formation date.",
+      "quote": "The U.S. Department of Energy (DOE) has granted \"Critical Decision-Zero\" (CD-0) status to the sPHENIX project",
+      "sources": [
+        "src:heavy-ions-sphenix-cd0-news-2017"
+      ],
+      "start": "2017-01-13",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "RHIC 25th and final run ends",
+      "locator": "BNL Newsroom, \"A Smashing Success: Relativistic Heavy Ion Collider Wraps up Final Collisions\", 2026-02",
+      "note": "",
+      "quote": "crashed into one another at nearly the speed of light inside the collider's two house-sized particle detectors, STAR and sPHENIX.",
+      "sources": [
+        "src:heavy-ions-rhic-final-collisions-2026"
+      ],
+      "start": "2026-02-06",
+      "status": "completed",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "leadership": [],
+  "links": {
+    "website": "https://www.sphenix.bnl.gov/"
+  },
+  "name": "sPHENIX Collaboration",
+  "notes": [
+    "facility:brookhaven-national-laboratory and accelerator:rhic are owned by the facilities lead and did not exist in data/atlas/facilities/ or data/atlas/accelerators/ at the time this record was written (2026-09-17); referenced here as a dangling id per ID_REGISTRY.md Wave 3.",
+    "site:bnl-rhic-ip8-phenix-sphenix is owned by the facilities lead and did not exist in data/atlas/sites/ at the time this record was written (2026-09-17); referenced here as a dangling id. This interaction point (IP8) was used first by PHENIX, then by sPHENIX.",
+    "membership counts (institutions/countries/collaborators) not recorded: no directly-fetched source in this session stated them.",
+    "Leadership left empty: person records are owned by another workstream; no people/ files created.",
+    "collaboration.status set to 'completed' to match the experiment's terminal RHIC-closure interval, even though the collaboration continues to exist for data analysis; matches the PHENIX precedent in this same file set.",
+    "Derived field collaboration.experiment_ids is deliberately not written (v0.2 A1)."
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:heavy-ions-sphenix-bnl-facility-page",
+    "src:heavy-ions-sphenix-cd0-news-2017"
+  ],
+  "status": "completed",
+  "summary": {
+    "plain": "The scientists and engineers who built and now run sPHENIX, the newest detector at Brookhaven's RHIC collider.",
+    "technical": "Collaboration operating the sPHENIX heavy-ion detector at RHIC IP8; DOE granted the project's CD-0 'mission need' milestone 2017-01-13."
+  },
+  "superseded_by": null,
+  "type": "collaboration"
+}

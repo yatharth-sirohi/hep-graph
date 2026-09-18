@@ -1,0 +1,144 @@
+{
+  "accelerator_ids": [
+    "accelerator:rhic"
+  ],
+  "aliases": [
+    "Pioneering High Energy Nuclear Interaction eXperiment"
+  ],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:phenix"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "distinct_from": [],
+  "energy_regime": null,
+  "external": {
+    "greybook": null,
+    "inspire_experiment": "1108852",
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "facility_id": "facility:brookhaven-national-laboratory",
+      "note": "facility:brookhaven-national-laboratory and accelerator:rhic are owned by the facilities lead and did not exist in data/atlas/facilities/ or data/atlas/accelerators/ at the time this record was written (2026-09-17); referenced here as a dangling id per ID_REGISTRY.md Wave 3.",
+      "quote": "June 15, 2000 at 6:28 am EDT: PHENIX records its first relativistic heavy ion collision.",
+      "role": "host",
+      "sources": [
+        "src:heavy-ions-phenix-concept-history"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "facility_id": "facility:brookhaven-national-laboratory",
+      "note": "RHIC (accelerator:rhic) is the beam source. facility:brookhaven-national-laboratory and accelerator:rhic are owned by the facilities lead and did not exist in data/atlas/facilities/ or data/atlas/accelerators/ at the time this record was written (2026-09-17); referenced here as a dangling id per ID_REGISTRY.md Wave 3.",
+      "role": "beam_source",
+      "sources": [
+        "src:heavy-ions-phenix-concept-history"
+      ],
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "id": "experiment:phenix",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2000-06-15",
+      "label": "first collision",
+      "locator": "phenix.bnl.gov/experiment/concept.html",
+      "note": "",
+      "quote": "June 15, 2000 at 6:28 am EDT: PHENIX records its first relativistic heavy ion collision.",
+      "sources": [
+        "src:heavy-ions-phenix-concept-history"
+      ],
+      "start": "2000-06-15",
+      "status": "commissioning",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": "2016",
+      "label": "data taking",
+      "locator": "phenix.bnl.gov/experiment/concept.html",
+      "note": "",
+      "quote": "2016: PHENIX finishes data taking.",
+      "sources": [
+        "src:heavy-ions-phenix-concept-history"
+      ],
+      "start": "2000-06-15",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "data taking complete",
+      "locator": "phenix.bnl.gov/experiment/concept.html",
+      "note": "",
+      "quote": "2016: PHENIX finishes data taking.",
+      "sources": [
+        "src:heavy-ions-phenix-concept-history"
+      ],
+      "start": "2016",
+      "status": "completed",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "key_specs": [],
+  "kind": "heavy_ion",
+  "lineage": [],
+  "links": {
+    "website": "https://www.phenix.bnl.gov/"
+  },
+  "name": "PHENIX",
+  "notes": [
+    "Derived fields (detector_ids, site_ids, result_ids, document_ids) are deliberately not written (v0.2 A1).",
+    "facility:brookhaven-national-laboratory and accelerator:rhic are owned by the facilities lead and did not exist in data/atlas/facilities/ or data/atlas/accelerators/ at the time this record was written (2026-09-17); referenced here as a dangling id per ID_REGISTRY.md Wave 3.",
+    "key_specs left empty: central-arm/muon-arm acceptance and magnet field figures found via search (e.g. |eta|<0.35 central arms, 0.72 T*m muon magnet) come only from secondary characterisations of the PHENIX detector-overview and muon-arm NIM A499 (2003) papers; the primary papers themselves (ScienceDirect, and a PDF at phenix.bnl.gov) could not be retrieved as readable text in this session, so per A17 these numbers are omitted rather than sourced from an unverified paraphrase. Recorded as a missing_field in coverage.",
+    "Succeeded at the same interaction point (RHIC IP8) by sPHENIX; the upgrade_of lineage row is recorded on experiment:sphenix (owned by a sibling child agent), not here, per A1 (successor/upgraded_to are derived, never authored)."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "note": "Phrased from the concept-history page's own framing of PHENIX's research objectives; see worklog for exact secondary confirmation.",
+      "sources": [
+        "src:heavy-ions-phenix-concept-history"
+      ],
+      "value": "Search for and characterize the quark-gluon plasma formed in heavy-ion collisions, and map the QCD phase diagram",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:heavy-ions-phenix-concept-history",
+    "src:heavy-ions-phenix-inspire-experiment"
+  ],
+  "status": "completed",
+  "summary": {
+    "plain": "PHENIX was one of the two large experiments at Brookhaven's RHIC collider, built from four merged detector proposals to study hot nuclear matter. It recorded its first collision in 2000 and stopped taking data in 2016.",
+    "technical": "Pioneering High Energy Nuclear Interaction eXperiment: a multi-arm heavy-ion collider spectrometer at RHIC IP8, formed in 1991 from the TALES/SPARC/OASIS/DIMUON proposal merger, combining central-arm and muon-arm detection to study quark-gluon plasma formation and the QCD phase diagram; recorded first collisions 2000-06-15 and completed data taking in 2016."
+  },
+  "superseded_by": null,
+  "topic_ids": [
+    "topic:heavy-ion-physics-qgp",
+    "topic:qcd"
+  ],
+  "type": "experiment",
+  "unique_capabilities": [
+    {
+      "confidence": "verified",
+      "note": "",
+      "quote": "August 1991: PHENIX is born from the merger of proposals named TALES, SPARC, OASIS, and DIMUON.",
+      "sources": [
+        "src:heavy-ions-phenix-concept-history"
+      ],
+      "value": "Formed from the 1991 merger of four separate detector proposals (TALES, SPARC, OASIS, DIMUON) into a single multi-arm spectrometer combining central-arm and forward muon-arm detection",
+      "verified_at": "2026-09-17"
+    }
+  ]
+}

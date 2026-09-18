@@ -1,0 +1,135 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "experiment_ids": [
+    "experiment:majorana-demonstrator"
+  ],
+  "id": "detector:majorana-demonstrator",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2022",
+      "label": "operating",
+      "locator": "SURF news / MAJORANA final-results paper",
+      "note": "",
+      "quote": "The collaboration began installing the detector at the 4850 Level Davis Campus underground in March 2012.",
+      "sources": [
+        "src:majorana-demonstrator-surf-news",
+        "src:majorana-demonstrator-final-results-arxiv-2207"
+      ],
+      "start": "2012-03",
+      "status": "completed",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "Majorana Demonstrator detector",
+  "notes": [
+    "Placed at the EXISTING site:surf-davis-campus-lz (owned by the dark-matter workstream), not a new Majorana-specific site: no source fetched in this session gives a coordinate distinct from LZ's point in the Davis Campus. See experiment:majorana-demonstrator notes for detail."
+  ],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": "2022",
+      "locator": "SURF news, \"The MAJORANA Demonstrator Project at the 4850 Level Davis Campus\"",
+      "note": "Placed at site:surf-davis-campus-lz (LZ's sourced point in the same Davis Campus / 4850 Level) because no source fetched in this session gives Majorana a distinct coordinate; the SURF page states the Majorana depth as 1478 m, close to the ~1480 m already sourced for LZ at that site, consistent with (but not proof of) the same cavern complex.",
+      "quote": "The entire experiment will be located at the 4850 Level (1478 m) Davis Campus at the Sanford Lab Underground Research Facility (SURF).",
+      "role": "main",
+      "site_id": "site:surf-davis-campus-lz",
+      "sources": [
+        "src:majorana-demonstrator-surf-news"
+      ],
+      "start": "2012-03",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:majorana-demonstrator-surf-news",
+    "src:majorana-demonstrator-final-results-arxiv-2207"
+  ],
+  "specs": {
+    "isotope": {
+      "confidence": "verified",
+      "locator": "MAJORANA final-results paper, abstract",
+      "note": "",
+      "quote": "The MAJORANA DEMONSTRATOR searched for neutrinoless double-β decay (0νββ) of 76Ge",
+      "sources": [
+        "src:majorana-demonstrator-final-results-arxiv-2207"
+      ],
+      "unit": "",
+      "value": "76Ge",
+      "verified_at": "2026-09-17"
+    },
+    "isotope_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "40.4 kg total (27.2 kg enriched to ~88% in 76Ge)",
+      "locator": "MAJORANA final-results paper, abstract",
+      "note": "",
+      "quote": "The arrays operated with up to 40.4 kg of detectors (27.2 kg enriched to ~88% in 76Ge).",
+      "sources": [
+        "src:majorana-demonstrator-final-results-arxiv-2207"
+      ],
+      "unit": "kg",
+      "value": 40.4,
+      "verified_at": "2026-09-17"
+    },
+    "enrichment": {
+      "confidence": "verified",
+      "locator": "MAJORANA final-results paper, abstract",
+      "note": "",
+      "quote": "27.2 kg enriched to ~88% in 76Ge",
+      "sources": [
+        "src:majorana-demonstrator-final-results-arxiv-2207"
+      ],
+      "unit": "%",
+      "value": "~88",
+      "verified_at": "2026-09-17"
+    },
+    "depth": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "1478 m (4850 Level)",
+      "locator": "SURF news, \"The MAJORANA Demonstrator Project at the 4850 Level Davis Campus\"",
+      "note": "",
+      "quote": "The entire experiment will be located at the 4850 Level (1478 m) Davis Campus at the Sanford Lab Underground Research Facility (SURF).",
+      "sources": [
+        "src:majorana-demonstrator-surf-news"
+      ],
+      "unit": "m",
+      "value": 1478,
+      "verified_at": "2026-09-17"
+    }
+  },
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "Two modular arrays of ultra-pure germanium crystal detectors, kept in vacuum cryostats almost a mile underground in South Dakota, listening for a rare radioactive decay.",
+    "technical": "Two modules of p-type point-contact HPGe detectors (40.4 kg total, 27.2 kg enriched to ~88% 76Ge) in electroformed-copper vacuum cryostats with a low-background passive/active shield, at the Davis Campus, 4850 Level (1478 m), SURF."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "MAJORANA final-results paper, abstract",
+    "note": "",
+    "quote": "modular arrays of high-purity Ge detectors operated in vacuum cryostats in a low-background shield",
+    "sources": [
+      "src:majorana-demonstrator-final-results-arxiv-2207"
+    ],
+    "value": "Modular arrays of high-purity germanium point-contact detectors in vacuum cryostats",
+    "verified_at": "2026-09-17"
+  },
+  "technology_class": "germanium",
+  "technology_classes": [
+    "germanium"
+  ],
+  "type": "detector"
+}

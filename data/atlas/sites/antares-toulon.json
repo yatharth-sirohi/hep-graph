@@ -1,0 +1,56 @@
+{
+  "id": "site:antares-toulon",
+  "type": "site",
+  "name": "ANTARES site (Mediterranean Sea, off Toulon)",
+  "aliases": ["ANTARES undersea site"],
+  "facility_id": null,
+  "coordinates": {
+    "lat": 42.8,
+    "lon": 6.17,
+    "kind": "detector",
+    "precision_m": 15000,
+    "sources": [
+      "src:astro-neutrino-antares-official-detection-principle",
+      "src:astro-neutrino-antares-two-decades-detector-paper",
+      "src:astro-neutrino-antares-wikipedia"
+    ],
+    "verified_at": "2026-09-17",
+    "confidence": "uncertain",
+    "quote": "At about 40 km off the coast of Toulon (France), anchored at 2475 m deep in the Mediterranean Sea, there is ANTARES.",
+    "note": "The official ANTARES site states only \"a latitude of 43° North\"; the collaboration's own 2025 detector paper (arXiv:2504.09473) states the depth (2475 m) and offshore distance (40 km from Toulon) but does not give explicit degrees anywhere in the text (checked for every degree symbol and N/E pattern). The precise decimal value used here, 42.8°N 6.17°E (42°48'N 6°10'E), is corroborated by secondary literature (Wikipedia, rank 12) only; it is consistent with the official site's coarse latitude statement but is not independently confirmed by a rank<=7 source. Flagged for review."
+  },
+  "setting": "sea",
+  "depth": {
+    "value": 2475,
+    "unit": "m",
+    "dimension": "length",
+    "approx": false,
+    "display": "2475 m",
+    "sources": ["src:astro-neutrino-antares-two-decades-detector-paper"],
+    "verified_at": "2026-09-17",
+    "confidence": "verified",
+    "quote": "anchored at 2475 m deep in the Mediterranean Sea",
+    "note": ""
+  },
+  "depth_rock": null,
+  "depth_mwe": null,
+  "altitude": null,
+  "country": "FR",
+  "countries": ["FR"],
+  "place": {"city": "Toulon", "region": "Provence-Alpes-Côte d'Azur", "country": "FR"},
+  "document_ids": [],
+  "summary": {
+    "plain": "A patch of seabed in the Mediterranean Sea, about 40 kilometres off the coast of Toulon, France, nearly 2.5 kilometres below the surface. Here the ANTARES neutrino telescope hung its cables of light sensors from 2006 until it was switched off in 2022.",
+    "technical": "Deep-sea site 40 km offshore from Toulon, France, at 2475 m depth in the Mediterranean Sea, hosting the ANTARES 12-line neutrino telescope from first-line deployment (2006) to shutdown (2022)."
+  },
+  "sources": [
+    "src:astro-neutrino-antares-official-detection-principle",
+    "src:astro-neutrino-antares-two-decades-detector-paper"
+  ],
+  "links": {"website": null},
+  "notes": [
+    "facility_id is null: no distinct facility record (e.g. a specific operating institute building) was created for ANTARES in this wave; the onshore control building was at the Institut Michel Pacha, La Seyne-sur-Mer, per the two-decades paper, but this is not modelled as a separate facility here."
+  ],
+  "coverage": {"researched": "partial", "tier": "B"},
+  "schema": "hep-atlas/0.2"
+}

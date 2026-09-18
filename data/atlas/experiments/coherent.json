@@ -1,0 +1,155 @@
+{
+  "accelerator_ids": [
+    "accelerator:sns"
+  ],
+  "aliases": [],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:coherent"
+  ],
+  "coverage": {
+    "researched": "full",
+    "tier": "A"
+  },
+  "external": {
+    "greybook": null,
+    "inspire_experiment": "1486780",
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "facility_id": "facility:oak-ridge-national-laboratory",
+      "locator": "official site, home page",
+      "note": "facility:oak-ridge-national-laboratory and accelerator:sns are owned by the facilities workstream and do not exist yet in this repo as of 2026-09-17; this is a dangling reference until that lead lands.",
+      "quote": "The COHERENT collaboration measures coherent elastic neutrino-nucleus scattering (CEvNS) using the high-quality pion-decay-at-rest neutrino source at the Spallation Neutron Source in Oak Ridge, Tennessee.",
+      "role": "host",
+      "sources": [
+        "src:cevns-coherent-official-site"
+      ],
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "id": "experiment:coherent",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2016",
+      "label": "proposal",
+      "locator": "abstract",
+      "note": "Proposal submitted Sept. 2015; end year is approximated as 2016, the year the first detectors (CENNS-10, NaI array) are documented as deployed at the SNS, since no fetched source states an exact date the proposal phase ended.",
+      "quote": "This document describes concisely the COHERENT physics motivations, sensitivity and plans for measurements at the SNS to be accomplished on a four-year timescale.",
+      "sources": [
+        "src:cevns-coherent-proposal-2015"
+      ],
+      "start": "2015-09",
+      "status": "proposed",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "detector deployment and physics operation",
+      "locator": "The COHERENT Detector Suite page",
+      "note": "Start year approximated from the earliest sourced detector deployment dates (CENNS-10 argon detector operating since October 2016; initial 185 kg NaI[Tl] array installed June 2016). The CsI[Na] detector that produced the first 2017 CEvNS observation was very likely operating earlier than this, but no fetched source states its exact installation date, so the more conservative, sourced 2016 date is used and flagged approximate. The experiment continues to operate as of the most recent sourced publication (2024 germanium evidence paper).",
+      "quote": "CENNS-10, a 22kg liquid argon calorimeter, has been operating at the SNS since October 2016.",
+      "sources": [
+        "src:cevns-coherent-detector-suite-page"
+      ],
+      "start": "2016",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "CsI[Na] detector baseline (distance from neutrino source)",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "length",
+        "display": "19.3 m",
+        "locator": "arXiv:2110.07730, detector description",
+        "note": "",
+        "quote": "CEvNS was first observed in NaI, 19.3 m from the neutrino source using a 14.6 kg CsI[Na] scintillating detector",
+        "sources": [
+          "src:cevns-coherent-csi-2022-full-dataset"
+        ],
+        "unit": "m",
+        "value": 19.3,
+        "verified_at": "2026-09-17"
+      }
+    }
+  ],
+  "kind": "cevns",
+  "lineage": [],
+  "links": {
+    "website": "https://coherent.ornl.gov/"
+  },
+  "name": "COHERENT",
+  "notes": [
+    "Derived fields (detector_ids, site_ids, result_ids, document_ids) are deliberately not written (v0.2 A1).",
+    "facility:oak-ridge-national-laboratory, site:ornl-sns-neutrino-alley and accelerator:sns are owned by the facilities workstream (ID_REGISTRY Wave 3) and are referenced here without being created; dangling until that lead lands.",
+    "The 2110.07730 quote transcribes the source's typo 'CEvNS was first observed in NaI' as printed by the WebFetch extraction; the paper's actual first-observation detector was CsI[Na] (per the 2017 Science paper), so this locator is used only to source the 19.3 m baseline figure, not the detector identity."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "abstract",
+      "note": "",
+      "quote": "The CEvNS cross section is cleanly predicted in the standard model; hence its measurement provides a standard model test.",
+      "sources": [
+        "src:cevns-coherent-proposal-2015"
+      ],
+      "value": "Test the Standard Model prediction for the coherent elastic neutrino-nucleus scattering (CEvNS) cross section across multiple target nuclei",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "locator": "abstract",
+      "note": "",
+      "quote": "It is relevant for supernova physics and supernova-neutrino detection, and enables validation of dark-matter detector background and detector-response models.",
+      "sources": [
+        "src:cevns-coherent-proposal-2015"
+      ],
+      "value": "Validate CEvNS as a background and detector-response model for supernova-neutrino and dark-matter detectors",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:cevns-coherent-official-site",
+    "src:cevns-coherent-collaboration-page",
+    "src:cevns-coherent-detector-suite-page",
+    "src:cevns-coherent-proposal-2015",
+    "src:cevns-coherent-inspire-experiment-record",
+    "src:topic-coherent-2017-cevns-observation",
+    "src:cevns-coherent-argon-2021",
+    "src:cevns-coherent-csi-2022-full-dataset",
+    "src:cevns-coherent-germanium-2024-evidence"
+  ],
+  "status": "active",
+  "summary": {
+    "plain": "An experiment at a US national laboratory that catches neutrinos from a neutron-making machine and watches them bounce gently off whole atomic nuclei, a process predicted for decades but only directly seen for the first time in 2017.",
+    "technical": "Multi-target CEvNS program in Neutrino Alley at the Spallation Neutron Source (Oak Ridge National Laboratory), using pion-decay-at-rest neutrinos. Deployed detector suite includes a 14.6 kg CsI[Na] scintillator (first CEvNS observation, 2017), a 22 kg CENNS-10 liquid argon calorimeter (first argon CEvNS measurement, 2021), an array of high-purity germanium point-contact detectors (evidence of CEvNS on germanium, 2024), and NaI[Tl] arrays (initially 185 kg, later ton-scale) for charged-current and CEvNS-on-sodium studies."
+  },
+  "topic_ids": [
+    "topic:cevns",
+    "topic:neutrino-interactions"
+  ],
+  "type": "experiment",
+  "unique_capabilities": [
+    {
+      "confidence": "verified",
+      "locator": "abstract",
+      "note": "",
+      "quote": "The simultaneous deployment of the three COHERENT detector subsystems will test the N^2 dependence of the cross section and ensure an unambiguous discovery of CEvNS.",
+      "sources": [
+        "src:cevns-coherent-proposal-2015"
+      ],
+      "value": "Simultaneous deployment of multiple target nuclei (CsI, Ar, Ge, NaI) at one neutrino source to test the predicted N^2 (neutron-number-squared) dependence of the CEvNS cross section",
+      "verified_at": "2026-09-17"
+    }
+  ]
+}

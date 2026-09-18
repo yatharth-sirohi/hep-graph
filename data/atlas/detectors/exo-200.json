@@ -1,0 +1,107 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "experiment_ids": [
+    "experiment:exo-200"
+  ],
+  "id": "detector:exo-200",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2018-11",
+      "label": "operating",
+      "locator": "EXO-200 final-results paper, abstract",
+      "note": "",
+      "quote": "total 136Xe exposure of 234.1 kg·yr",
+      "sources": [
+        "src:exo-200-final-results-arxiv-1906"
+      ],
+      "start": "2011",
+      "status": "completed",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "EXO-200 detector",
+  "notes": [
+    "Placed at site:wipp-surface-campus (kind: campus, approximate); no rank<=7 source gives an underground coordinate distinct from the WIPP campus point."
+  ],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": "2018-11",
+      "locator": "WIPP official DOE page",
+      "note": "site:wipp-surface-campus is a campus-level marker; the detector itself sat ~655 m underground within WIPP per the DOE page's stated depth.",
+      "quote": "2,150 feet underground",
+      "role": "main",
+      "site_id": "site:wipp-surface-campus",
+      "sources": [
+        "src:exo-200-doe-wipp-official-page"
+      ],
+      "start": "2011",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:exo-200-final-results-arxiv-1906",
+    "src:exo-200-doe-wipp-official-page"
+  ],
+  "specs": {
+    "isotope": {
+      "confidence": "verified",
+      "locator": "EXO-200 final-results paper, abstract",
+      "note": "",
+      "quote": "total 136Xe exposure of 234.1 kg·yr",
+      "sources": [
+        "src:exo-200-final-results-arxiv-1906"
+      ],
+      "unit": "",
+      "value": "136Xe",
+      "verified_at": "2026-09-17"
+    },
+    "target_mass": {
+      "approx": false,
+      "confidence": "uncertain",
+      "dimension": "mass",
+      "display": "110 kg liquid xenon active mass",
+      "locator": "secondary web summary, not directly fetched from a primary EXO-200 detector paper in this session",
+      "note": "The 110 kg active-mass figure is carried from a secondary summary of EXO-200 detector papers; not independently confirmed against a directly fetched primary source in this session, so confidence is set to uncertain rather than verified.",
+      "quote": "",
+      "sources": [
+        "src:exo-200-final-results-arxiv-1906"
+      ],
+      "unit": "kg",
+      "value": 110,
+      "verified_at": "2026-09-17"
+    }
+  },
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "A cylindrical tank of liquid xenon, chilled and shielded deep in a New Mexico salt mine, that watched for a rare radioactive decay by tracking both light and electric charge from each event.",
+    "technical": "Cylindrical liquid-xenon time projection chamber, xenon enriched to 80.6% in 136Xe, with combined ionization and scintillation readout; located ~655 m underground at WIPP."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "EXO-200 final-results paper, abstract",
+    "note": "",
+    "quote": "a deep neural network to discriminate between 0νββ and background events",
+    "sources": [
+      "src:exo-200-final-results-arxiv-1906"
+    ],
+    "value": "Liquid-xenon time projection chamber with combined charge/light readout",
+    "verified_at": "2026-09-17"
+  },
+  "technology_class": "xenon_tpc",
+  "technology_classes": [
+    "xenon_tpc"
+  ],
+  "type": "detector"
+}

@@ -1,0 +1,140 @@
+{
+  "accelerator_ids": [],
+  "aliases": [
+    "next-generation Enriched Xenon Observatory"
+  ],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:nexo"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "energy_regime": null,
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "uncertain",
+      "facility_id": "facility:snolab",
+      "locator": "nEXO official site",
+      "note": "facility:snolab is owned by the 'facilities' Wave 3 lead and does not exist yet in this repository (dangling reference).",
+      "quote": "nEXO is a next-generation neutrinoless double beta decay experiment planned for SNOLAB, a deep mine two kilometers underground",
+      "role": "host",
+      "sources": [
+        "src:nexo-llnl-official-page"
+      ],
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "id": "experiment:nexo",
+  "intervals": [
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "design and construction preparation",
+      "locator": "nEXO official site (LLNL)",
+      "note": "No fetched source gives a start date for this phase or confirms the detector itself is physically under construction; the collaboration describes itself as contributing to 'design and construction' of the eventual detector, but a secondary (non-fetched-with-quote) summary describes an anticipated construction start around 2026 and commissioning around 2032-2033, which this agent did not verify against a directly fetched primary source, so it is not recorded as a dated interval. Status is recorded as `proposed` rather than `construction` pending a clearer sourced statement.",
+      "quote": "A consortium of over 150 scientists and technologists from 31 institutions and eight countries are contributing to the design and construction of nEXO.",
+      "sources": [
+        "src:nexo-llnl-official-page"
+      ],
+      "start": null,
+      "status": "proposed",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Planned xenon mass",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "mass",
+        "display": "5,000 kg (5 t) of 136Xe, enriched to ~90%",
+        "locator": "nEXO official site",
+        "note": "",
+        "quote": "using 5,000 kg of the xenon-136 (136Xe) isotope",
+        "sources": [
+          "src:nexo-llnl-official-page"
+        ],
+        "unit": "kg",
+        "value": 5000,
+        "verified_at": "2026-09-17"
+      }
+    }
+  ],
+  "kind": "double_beta_decay",
+  "lineage": [
+    {
+      "experiment_id": "experiment:exo-200",
+      "relation": "successor",
+      "sources": [
+        "src:nexo-llnl-official-page"
+      ]
+    }
+  ],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "note": "",
+      "sources": [
+        "src:nexo-llnl-official-page"
+      ],
+      "value": "https://nexo.llnl.gov/",
+      "verified_at": "2026-09-17"
+    }
+  },
+  "name": "nEXO",
+  "notes": [
+    "Planned for SNOLAB: this record references facility:snolab and site:snolab-underground-lab, both owned by the 'facilities' Wave 3 lead, neither of which exists yet in this repository as of 2026-09-17 (dangling references, ID_REGISTRY row 49).",
+    "Status is recorded as 'proposed': no source fetched in this session confirms physical construction has begun. A secondary web summary described a phased 'nEXO 2.0' plan (construction start ~2026, commissioning ~2032-2033) that this agent could not verify against a directly fetched primary source in this session; it is reported here for the domain lead's awareness but not encoded as a sourced value.",
+    "No INSPIRE experiment-registry lookup was performed in this session; external.inspire_experiment is left null with this note rather than guessed.",
+    "Collaboration formation date not sourced in this session."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "nEXO official site",
+      "note": "",
+      "quote": "nEXO is a next-generation neutrinoless double beta decay experiment ... whose main goal is to determine whether a neutrino is its own antiparticle.",
+      "sources": [
+        "src:nexo-llnl-official-page"
+      ],
+      "value": "Search for neutrinoless double-beta decay of 136Xe at the tonne scale to determine whether the neutrino is its own antiparticle",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:nexo-llnl-official-page"
+  ],
+  "status": "proposed",
+  "summary": {
+    "plain": "A planned successor to EXO-200: a much bigger liquid-xenon detector, holding five tonnes of xenon, proposed for the SNOLAB underground laboratory in Canada. It would search for the same rare radioactive process, with far greater sensitivity.",
+    "technical": "nEXO: proposed tonne-scale (5 t, 136Xe enriched to ~90%) single-phase liquid-xenon TPC, successor to EXO-200, planned for SNOLAB (2 km depth). International consortium of >150 scientists from 31 institutions in 8 countries; no confirmed construction start date in sources fetched in this session."
+  },
+  "topic_ids": [
+    "topic:neutrinoless-double-beta-decay",
+    "topic:neutrino-physics"
+  ],
+  "type": "experiment",
+  "unique_capabilities": [
+    {
+      "confidence": "verified",
+      "locator": "nEXO official site",
+      "note": "",
+      "quote": "a total xenon mass of about 5 tons enriched to approximately 90% of 136Xe",
+      "sources": [
+        "src:nexo-llnl-official-page"
+      ],
+      "value": "Tonne-scale single-phase liquid-xenon TPC, the largest planned 0νββ xenon detector, scaling up the EXO-200 technique",
+      "verified_at": "2026-09-17"
+    }
+  ]
+}

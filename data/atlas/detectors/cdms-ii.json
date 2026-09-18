@@ -1,0 +1,195 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "experiment_ids": [
+    "experiment:cdms-ii"
+  ],
+  "id": "detector:cdms-ii",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2009",
+      "label": "operating",
+      "note": "See experiment:cdms-ii intervals for sourcing detail.",
+      "sources": [
+        "src:cdms-ii-inspire-experiment",
+        "src:cdms-ii-final-results-2009-arxiv"
+      ],
+      "start": "2005",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "label": "completed",
+      "note": "",
+      "sources": [
+        "src:cdms-ii-final-results-2009-arxiv"
+      ],
+      "start": "2009",
+      "status": "completed",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "CDMS II detector",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": "2009",
+      "note": "Placed at the existing site:soudan-minos-far-detector (owned by fermilab-neutrino-other): no source fetched this session gives a coordinate for a distinct CDMS-specific cavern at Soudan, so the shared Soudan Underground Laboratory site is reused rather than inventing site:soudan-cdms. Start year (2003, the commonly cited year CDMS moved to Soudan) is not independently confirmed by a source fetched this session; only the 2005 (INSPIRE date_started) to 2009 (completed) span is directly sourced.",
+      "quote": "The Cryogenic Dark Matter Search (CDMS II) experiment, located at the Soudan Underground Laboratory",
+      "role": "main",
+      "site_id": "site:soudan-minos-far-detector",
+      "sources": [
+        "src:cdms-ii-final-results-2009-arxiv"
+      ],
+      "start": "2003",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:cdms-ii-final-results-2009-arxiv",
+    "src:cdms-ii-inspire-experiment"
+  ],
+  "specs": {
+    "exposure": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "exposure",
+      "display": "612 kg d",
+      "locator": "arXiv:0912.3592, abstract",
+      "note": "",
+      "quote": "A total raw exposure of 612 kg-days was analyzed for this work.",
+      "sources": [
+        "src:cdms-ii-final-results-2009-arxiv"
+      ],
+      "unit": "kg d",
+      "value": 612,
+      "verified_at": "2026-09-17"
+    },
+    "ge_detector_count": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "count",
+      "display": "19",
+      "locator": "arXiv:0912.3592, introduction",
+      "note": "",
+      "quote": "uses 19 Ge (~230 g) and 11 Si (~100 g) particle detectors",
+      "sources": [
+        "src:cdms-ii-final-results-2009-arxiv"
+      ],
+      "unit": "",
+      "value": 19,
+      "verified_at": "2026-09-17"
+    },
+    "ge_detector_mass": {
+      "approx": true,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "~230 g per Ge detector",
+      "locator": "arXiv:0912.3592, introduction",
+      "note": "",
+      "quote": "19 Ge (~230 g)",
+      "sources": [
+        "src:cdms-ii-final-results-2009-arxiv"
+      ],
+      "unit": "g",
+      "value": 230,
+      "verified_at": "2026-09-17"
+    },
+    "si_detector_count": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "count",
+      "display": "11",
+      "locator": "arXiv:0912.3592, introduction",
+      "note": "",
+      "quote": "uses 19 Ge (~230 g) and 11 Si (~100 g) particle detectors",
+      "sources": [
+        "src:cdms-ii-final-results-2009-arxiv"
+      ],
+      "unit": "",
+      "value": 11,
+      "verified_at": "2026-09-17"
+    },
+    "si_detector_mass": {
+      "approx": true,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "~100 g per Si detector",
+      "locator": "arXiv:0912.3592, introduction",
+      "note": "",
+      "quote": "11 Si (~100 g)",
+      "sources": [
+        "src:cdms-ii-final-results-2009-arxiv"
+      ],
+      "unit": "g",
+      "value": 100,
+      "verified_at": "2026-09-17"
+    },
+    "temperature": {
+      "approx": true,
+      "confidence": "verified",
+      "dimension": "temperature",
+      "display": "<50 mK",
+      "locator": "arXiv:0912.3592, introduction",
+      "note": "",
+      "quote": "operated at cryogenic temperatures (<50 mK)",
+      "sources": [
+        "src:cdms-ii-final-results-2009-arxiv"
+      ],
+      "unit": "mK",
+      "value": 50,
+      "verified_at": "2026-09-17"
+    }
+  },
+  "status": "completed",
+  "subsystems": [
+    {
+      "description": [
+        {
+          "confidence": "verified",
+          "locator": "arXiv:0912.3592, introduction",
+          "note": "",
+          "quote": "The detectors are grouped into five towers, each tower containing six detectors.",
+          "sources": [
+            "src:cdms-ii-final-results-2009-arxiv"
+          ],
+          "value": "Five towers, each containing six detectors (disks ~10 mm thick, 76 mm in diameter)",
+          "verified_at": "2026-09-17"
+        }
+      ],
+      "name": "Towers"
+    }
+  ],
+  "summary": {
+    "plain": "Thirty disk-shaped crystals of germanium and silicon, each about the size of a hockey puck, cooled to below one-twentieth of a degree above absolute zero to catch the faint recoil of a dark matter particle hitting an atom.",
+    "technical": "19 Ge (~230 g) and 11 Si (~100 g) ionization-and-phonon detectors, 76 mm diameter x ~10 mm thick disks, grouped into five 6-detector towers, operated below 50 mK at Soudan."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "arXiv:0912.3592, introduction",
+    "note": "",
+    "quote": "Particle interactions in the detectors deposit energy in the form of phonons and ionization.",
+    "sources": [
+      "src:cdms-ii-final-results-2009-arxiv"
+    ],
+    "value": "Cryogenic germanium and silicon detectors reading both ionization and phonon (heat) signals from particle recoils, arranged in towers",
+    "verified_at": "2026-09-17"
+  },
+  "technology_class": "germanium",
+  "technology_classes": [
+    "germanium",
+    "cryogenic_bolometer"
+  ],
+  "type": "detector"
+}

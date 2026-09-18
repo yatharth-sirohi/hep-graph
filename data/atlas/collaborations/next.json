@@ -1,0 +1,121 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "formation": {
+    "confidence": "uncertain",
+    "locator": "no fetched source states an explicit NEXT collaboration formation date",
+    "note": "No source fetched in this session states an explicit formation date; left null rather than inferred from the 2012 original-proposal date (v0.2 A17).",
+    "sources": [
+      "src:next-arxiv-1210-4020-original-proposal"
+    ],
+    "value": null,
+    "verified_at": "2026-09-17"
+  },
+  "host_facility_id": "facility:canfranc-underground-laboratory",
+  "host_site_id": "site:lsc-canfranc",
+  "id": "collaboration:next",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "collaboration",
+      "locator": "NEXT original proposal (arXiv:1210.4020)",
+      "note": "Lower bound is the earliest dated NEXT document found (the 2012 proposal); true formation date not sourced.",
+      "quote": "The experiment is approved to start data taking at the Laboratorio Subterráneo de Canfranc (LSC), Spain, in 2014.",
+      "sources": [
+        "src:next-arxiv-1210-4020-original-proposal"
+      ],
+      "start": "2012",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "leadership": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "locator": "NEXT official site",
+      "note": "",
+      "person_id": "person:unresolved-next-lsc-gomez-cadenas",
+      "quote": "Spokesperson: Juan José Gómez Cadenas",
+      "role": "spokesperson",
+      "sources": [
+        "src:next-official-site"
+      ],
+      "start": null,
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "note": "",
+      "sources": [
+        "src:next-official-site"
+      ],
+      "value": "https://next-experiment.org/",
+      "verified_at": "2026-09-17"
+    }
+  },
+  "membership": {
+    "as_of": "2026",
+    "country_count": {
+      "confidence": "verified",
+      "locator": "NEXT — Collaboration page",
+      "note": "",
+      "quote": "United States, Spain, Portugal, United Kingdom, Israel and Germany",
+      "sources": [
+        "src:next-collaboration-page"
+      ],
+      "value": 6,
+      "verified_at": "2026-09-17"
+    },
+    "evidence_class": "official_institution_list",
+    "institution_count": {
+      "confidence": "approximate",
+      "locator": "NEXT official site (\"+20 institutions\")",
+      "note": "Rounded figure from the official home page (\"+20 institutions\"); the collaboration page fetched separately lists approximately 22 named institutions, consistent within rounding, so the exact count is approximate.",
+      "quote": "+20 institutions",
+      "sources": [
+        "src:next-official-site"
+      ],
+      "value": 20,
+      "verified_at": "2026-09-17"
+    },
+    "member_count": {
+      "confidence": "approximate",
+      "locator": "NEXT official site",
+      "note": "Rounded figure from the official home page (\"+100 collaborators\"); no exact headcount given.",
+      "quote": "+100 collaborators",
+      "sources": [
+        "src:next-official-site"
+      ],
+      "value": 100,
+      "verified_at": "2026-09-17"
+    },
+    "roster_source_ids": [
+      "src:next-official-site",
+      "src:next-collaboration-page"
+    ]
+  },
+  "name": "NEXT Collaboration",
+  "notes": [
+    "Leadership: person_id uses the unresolved-person convention (person:unresolved-<collab>-<institution>-<name>) per v0.2 A6; person records are not created in this wave (people/ files are out of scope), this row exists only to carry the sourced role/name in the collaboration record's own leadership list.",
+    "Institution-level membership rows and person records are owned by the membership-lead workstream and are not written here.",
+    "Derived field collaboration.experiment_ids is deliberately not written (v0.2 A1)."
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:next-official-site",
+    "src:next-collaboration-page"
+  ],
+  "status": "active",
+  "summary": {
+    "plain": "About 100 scientists from more than 20 institutions in six countries who built and run the NEXT xenon-gas neutrino experiment in Spain.",
+    "technical": "NEXT Collaboration: >20 institutions, ~100 collaborators, 6 countries (US, Spain, Portugal, UK, Israel, Germany) per the collaboration's own site; spokesperson Juan José Gómez Cadenas."
+  },
+  "type": "collaboration"
+}

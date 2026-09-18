@@ -1,0 +1,175 @@
+{
+  "aliases": [
+    "SuperCDMS SNOLAB detector payload"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "experiment_ids": [
+    "experiment:supercdms"
+  ],
+  "id": "detector:supercdms",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2015",
+      "label": "Soudan operating",
+      "locator": "INSPIRE experiment record 1298909",
+      "note": "See experiment:supercdms intervals for full sourcing detail; year-precision from the INSPIRE registry.",
+      "sources": [
+        "src:supercdms-inspire-experiment-soudan"
+      ],
+      "start": "2009",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": "2026-08",
+      "label": "SNOLAB commissioning",
+      "locator": "SLAC news, 2026-03-17",
+      "note": "",
+      "quote": "With base temperature achieved, the collaboration has now moved into detector commissioning, a months-long process of turning on, calibrating and optimizing each detector channel.",
+      "sources": [
+        "src:supercdms-slac-news-2026-03-17-cooldown"
+      ],
+      "start": "2026-03",
+      "status": "commissioning",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "SNOLAB early science",
+      "locator": "SLAC news, 2026-08-26",
+      "note": "",
+      "quote": "has begun collecting its very first scientific data",
+      "sources": [
+        "src:supercdms-slac-news-2026-08-26-early-science"
+      ],
+      "start": "2026-08",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "SuperCDMS detector",
+  "notes": [
+    "Detector total/active/fiducial mass in kg was not found on any page fetched this session; only the crystal count (24) is sourced."
+  ],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": "2015",
+      "note": "SuperCDMS Soudan was this detector's earlier main placement, superseded by the SNOLAB placement below; PLACEMENT_ROLES has no 'prior'/'former' value, so 'main' plus the end date is used per A2.",
+      "quote": "The most recent version, located at the Soudan Mine in Minnesota, completed operations in 2015.",
+      "role": "main",
+      "site_id": "site:soudan-minos-far-detector",
+      "sources": [
+        "src:supercdms-inspire-experiment-soudan",
+        "src:supercdms-symmetry-2018-construction-begins"
+      ],
+      "start": "2009",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "locator": "SLAC news, 2026-08-26",
+      "note": "Start date approximated to the 2018-05 DOE construction approval; installation/cooldown completed by early 2026 per src:supercdms-fnal-installation-commissioning and src:supercdms-slac-news-2026-03-17-cooldown.",
+      "quote": "more than a mile beneath Earth's surface, in SNOLAB, a deep underground laboratory located in the Vale Creighton mine near Sudbury, Ontario",
+      "role": "main",
+      "site_id": "site:snolab-underground-lab",
+      "sources": [
+        "src:supercdms-symmetry-2018-construction-begins",
+        "src:supercdms-slac-news-2026-08-26-early-science"
+      ],
+      "start": "2018-05",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:supercdms-slac-news-2026-08-26-early-science",
+    "src:supercdms-slac-news-2026-03-17-cooldown",
+    "src:supercdms-official-site"
+  ],
+  "specs": {
+    "detector_count": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "count",
+      "display": "24",
+      "locator": "SLAC news, 2026-08-26",
+      "note": "",
+      "quote": "24 ultra-pure silicon and germanium crystals, each about the size of a hockey puck",
+      "sources": [
+        "src:supercdms-slac-news-2026-08-26-early-science"
+      ],
+      "unit": "",
+      "value": 24,
+      "verified_at": "2026-09-17"
+    },
+    "temperature": {
+      "approx": true,
+      "confidence": "verified",
+      "dimension": "temperature",
+      "display": "15-30 mK",
+      "locator": "SLAC news, 2026-03-17",
+      "max": 30,
+      "min": 15,
+      "note": "",
+      "quote": "roughly 15 to 30 millikelvins",
+      "sources": [
+        "src:supercdms-slac-news-2026-03-17-cooldown"
+      ],
+      "unit": "mK",
+      "verified_at": "2026-09-17"
+    }
+  },
+  "status": "active",
+  "subsystems": [
+    {
+      "description": [
+        {
+          "confidence": "verified",
+          "locator": "SLAC news, 2026-08-26",
+          "note": "",
+          "quote": "Multiple shielding layers (copper, polyethylene, ultrapure lead, and radon barriers) reduce background radiation.",
+          "sources": [
+            "src:supercdms-slac-news-2026-08-26-early-science"
+          ],
+          "value": "Multiple shielding layers of copper, polyethylene, ultrapure lead, and radon barriers to reduce background radiation",
+          "verified_at": "2026-09-17"
+        }
+      ],
+      "name": "Shielding"
+    }
+  ],
+  "summary": {
+    "plain": "Twenty-four silicon and germanium crystals, each the size of a hockey puck, cooled to a fraction of a degree above absolute zero more than a mile underground in Canada, watching for the faint vibration of a dark matter particle striking an atom.",
+    "technical": "24-crystal Si/Ge cryogenic ionization-and-phonon payload operated at 15-30 mK at SNOLAB, preceded by an earlier-generation payload that ran at the Soudan Underground Laboratory 2009-2015; multiple shielding layers (Cu, polyethylene, ultrapure Pb, radon barrier) suppress backgrounds."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "SLAC news, 2026-08-26",
+    "note": "",
+    "quote": "24 ultra-pure silicon and germanium crystals, each about the size of a hockey puck",
+    "sources": [
+      "src:supercdms-slac-news-2026-08-26-early-science",
+      "src:supercdms-slac-news-2026-03-17-cooldown"
+    ],
+    "value": "Cryogenic silicon and germanium crystal detectors (iZIP/HV-style ionization-and-phonon sensing), operated at 15-30 mK",
+    "verified_at": "2026-09-17"
+  },
+  "technology_class": "germanium",
+  "technology_classes": [
+    "germanium",
+    "cryogenic_bolometer"
+  ],
+  "type": "detector"
+}

@@ -1,0 +1,94 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "full",
+    "tier": "D"
+  },
+  "experiment_ids": [
+    "experiment:lsnd"
+  ],
+  "id": "detector:lsnd",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "1998",
+      "label": "operating",
+      "locator": "§1.2; Introduction §I",
+      "note": "Year precision only.",
+      "quote": "first operated in 1993 ... took data over six calendar years (1993-1998)",
+      "sources": [
+        "src:lsnd-nim-1997-detector-paper",
+        "src:lsnd-prd-2001-antineutrino-evidence"
+      ],
+      "start": "1993",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "end of data taking",
+      "locator": "Introduction §I",
+      "note": "Terminal event; no fetched source gives a month/day precision decommissioning date.",
+      "quote": "The LSND experiment took data over six calendar years (1993-1998).",
+      "sources": [
+        "src:lsnd-prd-2001-antineutrino-evidence"
+      ],
+      "start": "1998",
+      "status": "completed",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "LSND detector",
+  "notes": [
+    "Placed at site:lanl-lansce, owned by the 'facilities' lead and not yet created in data/atlas/ when this record was written; expected dangling reference until that lead lands."
+  ],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": "1998",
+      "locator": "§II.5",
+      "note": "site:lanl-lansce is owned by the 'facilities' lead; this is an expected dangling reference until that record is created.",
+      "quote": "The center of the detector was 30 m from the A6 neutrino source.",
+      "role": "main",
+      "site_id": "site:lanl-lansce",
+      "sources": [
+        "src:lsnd-nim-1997-detector-paper"
+      ],
+      "start": "1993",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:lsnd-nim-1997-detector-paper",
+    "src:lsnd-prd-2001-antineutrino-evidence"
+  ],
+  "specs": {},
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "A cylindrical tank about 8 metres long holding 167 tonnes of mineral-oil scintillator, watched by more than a thousand light sensors, 30 metres from where the Los Alamos accelerator's beam produced neutrinos.",
+    "technical": "Approximately cylindrical tank (8.3 m long, 5.7 m diameter) filled with 167 t of mineral-oil-based liquid scintillator (0.031 g/l b-PBD wavelength shifter), instrumented with 1220 photomultiplier tubes detecting both Cherenkov and scintillation light; centred 30 m from the LAMPF/LANSCE A6 beam-stop neutrino source."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "§II.5",
+    "note": "",
+    "quote": "The tank was filled with 167 metric tons of liquid scintillator consisting of mineral oil and 0.031 g/l of b-PBD.",
+    "sources": [
+      "src:lsnd-nim-1997-detector-paper"
+    ],
+    "value": "Mineral-oil liquid scintillator detecting both Cherenkov and scintillation light, viewed by photomultiplier tubes",
+    "verified_at": "2026-09-17"
+  },
+  "technology_class": "liquid_scintillator",
+  "technology_classes": [
+    "liquid_scintillator"
+  ],
+  "type": "detector"
+}

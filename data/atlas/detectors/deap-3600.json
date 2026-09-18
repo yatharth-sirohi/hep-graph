@@ -1,0 +1,242 @@
+{
+  "aliases": [
+    "DEAP-3600"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "experiment_ids": [
+    "experiment:deap-3600"
+  ],
+  "id": "detector:deap-3600",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2016-11",
+      "label": "commissioning",
+      "locator": "phys.org, 4 February 2015; Astropart. Phys. 108 (2019) 1-23, Sec. 3.2",
+      "note": "See experiment:deap-3600 intervals for the same reasoning: the planned spring 2015 switch-on slipped; the detector paper documents the first fill (Aug 2016, contamination incident) and second fill completing November 2016.",
+      "planned": true,
+      "quote": "This spring, scientists at SNOLAB will switch on a dark-matter detector that was designed and built at the University of Alberta.",
+      "sources": [
+        "src:dm-noble-liquid-deap-3600-phys-org-2015",
+        "src:dm-noble-liquid-deap-3600-detector-paper"
+      ],
+      "start": "2015",
+      "status": "commissioning",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "science operations",
+      "locator": "Astropart. Phys. 108 (2019) 1-23, Sec. 3.2",
+      "note": "Open interval; see experiment:deap-3600 for the corresponding 'detector upgrade (third fill)' interval describing the current hardware phase.",
+      "quote": "has been stably maintained since completing the second fill in November 2016",
+      "sources": [
+        "src:dm-noble-liquid-deap-3600-detector-paper",
+        "src:dm-noble-liquid-deap-3600-official-site",
+        "src:dm-noble-liquid-deap-3600-status-2026"
+      ],
+      "start": "2016-11",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "detector upgrade (third fill)",
+      "locator": "snolab.ca, DEAP-3600 experiment page, status field",
+      "note": "SNOLAB's own experiment page (accessed 2026-09-17) states current status 'Upgrading'; no source fetched this session gives the true start date of this phase. Start is set to 2026-09, the month this status was confirmed, as the earliest defensible anchor rather than an invented date; see experiment:deap-3600 for the same reasoning.",
+      "quote": "Upgrading",
+      "sources": [
+        "src:dm-noble-liquid-deap-3600-snolab-page",
+        "src:dm-noble-liquid-deap-3600-status-2026"
+      ],
+      "start": "2026-09",
+      "status": "upgrade",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "links": {},
+  "name": "DEAP-3600 detector",
+  "notes": [
+    "DEAP-3600 is a single-phase liquid argon scintillation detector, not a two-phase TPC: it has no drift field and no ionization/charge readout, and detects only scintillation light via its 255 PMTs (see the sourced 'technology' field above). technology_classes carries 'noble_liquid_tpc'/'argon_tpc' only because the ontology enum has no dedicated scintillator-only class, following the convention set by docs/atlas-worklog/dark-matter.md for LZ; this is a taxonomy accommodation, not a claim that DEAP-3600 has TPC charge readout.",
+    "Energy threshold: not recorded. No source fetched this session states a single nuclear-recoil analysis energy threshold for DEAP-3600."
+  ],
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "locator": "Astropart. Phys. 108 (2019) 1-23, Sec. 3.2",
+      "note": "site:snolab-underground-lab is owned by the 'facilities' workstream and had not been created in this session; dangling reference, expected per the Wave 3 brief and ID registry.",
+      "quote": "has been stably maintained since completing the second fill in November 2016",
+      "role": "main",
+      "site_id": "site:snolab-underground-lab",
+      "sources": [
+        "src:dm-noble-liquid-deap-3600-detector-paper",
+        "src:dm-noble-liquid-deap-3600-official-site"
+      ],
+      "start": "2016-11",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:dm-noble-liquid-deap-3600-official-site",
+    "src:dm-noble-liquid-deap-3600-snolab-page",
+    "src:dm-noble-liquid-deap-3600-detector-paper"
+  ],
+  "specs": {
+    "active_mass": {
+      "approx": true,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "~3300 kg",
+      "locator": "Astropart. Phys. 108 (2019) 1-23, Sec. 3.2",
+      "note": "This matches the 'approximately 3.3 tonne' figure quoted in the 2026 status paper (arXiv:2603.27372); consistent, not a conflict, with the 3600 kg design total_mass.",
+      "quote": "A final fill level corresponding to approximately 3300 kg LAr was chosen and has been stably maintained since completing the second fill in November 2016.",
+      "sources": [
+        "src:dm-noble-liquid-deap-3600-detector-paper",
+        "src:dm-noble-liquid-deap-3600-status-2026"
+      ],
+      "unit": "t",
+      "value": 3.3,
+      "verified_at": "2026-09-17"
+    },
+    "depth": {
+      "confidence": "verified",
+      "dimension": "depth_mwe",
+      "display": "6000 m.w.e.",
+      "locator": "Astropart. Phys. 108 (2019) 1-23, Sec. 1",
+      "note": "The same source also describes this depth as approximately 2 km of rock.",
+      "quote": "2 km underground (6000 meters water equivalent overburden) at SNOLAB in Sudbury, Ontario",
+      "sources": [
+        "src:dm-noble-liquid-deap-3600-detector-paper",
+        "src:dm-noble-liquid-deap-3600-official-site"
+      ],
+      "unit": "m.w.e.",
+      "value": 6000,
+      "verified_at": "2026-09-17"
+    },
+    "fiducial_mass": {
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "1000 kg (55 cm radius)",
+      "locator": "Astropart. Phys. 108 (2019) 1-23, Table 1",
+      "note": "",
+      "quote": "Fiducial mass, radius: 1000 kg, 55 cm",
+      "sources": [
+        "src:dm-noble-liquid-deap-3600-detector-paper"
+      ],
+      "unit": "t",
+      "value": 1.0,
+      "verified_at": "2026-09-17"
+    },
+    "phase": {
+      "confidence": "verified",
+      "locator": "Astropart. Phys. 108 (2019) 1-23, Abstract",
+      "note": "",
+      "quote": "The Dark matter Experiment using Argon Pulse-shape discrimination (DEAP) has been designed for a direct detection search for particle dark matter using a single-phase liquid argon target.",
+      "sources": [
+        "src:dm-noble-liquid-deap-3600-official-site",
+        "src:dm-noble-liquid-deap-3600-detector-paper"
+      ],
+      "value": "single-phase",
+      "verified_at": "2026-09-17"
+    },
+    "pmt_count": {
+      "confidence": "verified",
+      "dimension": "count",
+      "display": "255 PMTs",
+      "locator": "Astropart. Phys. 108 (2019) 1-23, Sec. 1.1",
+      "note": "",
+      "quote": "The target volume is viewed by 255 8-inch-diameter Hamamatsu R5912-HQE high quantum efficiency (HQE) PMTs",
+      "sources": [
+        "src:dm-noble-liquid-deap-3600-detector-paper",
+        "src:dm-noble-liquid-deap-3600-official-site"
+      ],
+      "unit": "",
+      "value": 255,
+      "verified_at": "2026-09-17"
+    },
+    "shielding": {
+      "confidence": "verified",
+      "locator": "deap3600.ca, experiment description",
+      "note": "",
+      "quote": "a deep underground laboratory which uses the 2 km of rock overburden to filter out cosmic-ray muons",
+      "sources": [
+        "src:dm-noble-liquid-deap-3600-official-site"
+      ],
+      "value": "2 km of rock overburden (6000 m.w.e.) at SNOLAB; no additional water or scintillator veto shield is described for DEAP-3600 in the sources fetched this session.",
+      "verified_at": "2026-09-17"
+    },
+    "target_medium": {
+      "confidence": "verified",
+      "locator": "Astropart. Phys. 108 (2019) 1-23, Introduction",
+      "note": "",
+      "quote": "using 3600 kg of liquid argon (LAr) as a target",
+      "sources": [
+        "src:dm-noble-liquid-deap-3600-official-site",
+        "src:dm-noble-liquid-deap-3600-detector-paper"
+      ],
+      "value": "liquid argon",
+      "verified_at": "2026-09-17"
+    },
+    "total_mass": {
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "3600 kg",
+      "locator": "Astropart. Phys. 108 (2019) 1-23, Sec. 1.1 and Table 1",
+      "note": "Design capacity; gives the experiment its name.",
+      "quote": "The cryostat consists of a 5-cm-thick spherical acrylic vessel (AV), 85 cm in inner radius which can contain 3600 kg of LAr.",
+      "sources": [
+        "src:dm-noble-liquid-deap-3600-detector-paper"
+      ],
+      "unit": "t",
+      "value": 3.6,
+      "verified_at": "2026-09-17"
+    }
+  },
+  "status": "upgrade",
+  "subsystems": [
+    {
+      "description": {
+        "confidence": "verified",
+        "locator": "Astropart. Phys. 108 (2019) 1-23, Sec. 1.1",
+        "note": "TPB wavelength-shifter description from deap3600.ca ('tetraphenyl butadiene wavelength shifter to shift the ultraviolet (UV) light generated by argon scintillation to the visible region').",
+        "quote": "The cryostat consists of a 5-cm-thick spherical acrylic vessel (AV), 85 cm in inner radius which can contain 3600 kg of LAr.",
+        "sources": [
+          "src:dm-noble-liquid-deap-3600-detector-paper",
+          "src:dm-noble-liquid-deap-3600-official-site"
+        ],
+        "value": "A 5-cm-thick spherical acrylic vessel, 85 cm inner radius, holding up to 3600 kg of liquid argon (fiducial volume 1000 kg within 55 cm radius), viewed by 255 8-inch Hamamatsu R5912-HQE PMTs that detect the 128 nm argon scintillation light after it is wavelength-shifted to the visible band by a tetraphenyl butadiene (TPB) coating.",
+        "verified_at": "2026-09-17"
+      },
+      "name": "Acrylic vessel and PMT array"
+    }
+  ],
+  "summary": {
+    "plain": "A sphere of 3.6 tonnes of liquid argon watched by 255 light sensors, 2 km underground in Canada. It looks for the faint flash of light a dark matter particle would make if it bumped into an argon atom, using only that light (no electric charge signal) to tell signal from background.",
+    "technical": "Single-phase LAr scintillation detector: 85 cm radius, 5 cm thick acrylic vessel, TPB-coated for VUV-to-visible wavelength shifting, holding a 3600 kg design/~3300 kg maintained fill (1000 kg, 55 cm-radius fiducial volume), read out by 255 8-inch Hamamatsu R5912-HQE PMTs. No drift field or charge readout; particle identification relies entirely on pulse-shape discrimination of the scintillation pulse. Located 2 km underground (6000 m.w.e.) at SNOLAB."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "Astropart. Phys. 108 (2019) 1-23, Introduction; corroborated by deap3600.ca's description of a 'Single-phase liquid argon scintillation detector'",
+    "note": "",
+    "quote": "Particle energy deposition in the single phase LAr produces scintillation photons. The LAr scintillation time structure provides discrimination between WIMP-induced nuclear recoil events and electromagnetic background events.",
+    "sources": [
+      "src:dm-noble-liquid-deap-3600-official-site",
+      "src:dm-noble-liquid-deap-3600-detector-paper"
+    ],
+    "value": "Single-phase liquid argon scintillation detector; unlike a two-phase argon or xenon TPC, DEAP-3600 has no drift field and no ionization/charge readout. It detects only scintillation light, collected by 255 PMTs, and uses the pulse shape of that scintillation signal (pulse-shape discrimination) to separate nuclear-recoil candidates from electromagnetic backgrounds.",
+    "verified_at": "2026-09-17"
+  },
+  "technology_class": "argon_tpc",
+  "technology_classes": [
+    "noble_liquid_tpc",
+    "argon_tpc"
+  ],
+  "type": "detector"
+}

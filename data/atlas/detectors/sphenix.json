@@ -1,0 +1,157 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "distinct_from": [],
+  "document_ids": [],
+  "experiment_ids": [
+    "experiment:sphenix"
+  ],
+  "id": "detector:sphenix",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2023-04",
+      "label": "construction",
+      "note": "",
+      "quote": "sPHENIX construction was completed in April 2023.",
+      "sources": [
+        "src:heavy-ions-sphenix-construction-commissioning-2024"
+      ],
+      "start": null,
+      "status": "construction",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": "2023",
+      "label": "commissioning / first Au+Au data",
+      "note": "",
+      "quote": "It was commissioned and took first Au+Au data in the RHIC 2023 Run.",
+      "sources": [
+        "src:heavy-ions-sphenix-construction-commissioning-2024"
+      ],
+      "start": "2023",
+      "status": "commissioning",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": "2026-02-06",
+      "label": "physics operation",
+      "note": "",
+      "quote": "For Run 25, the sPHENIX detector, which began operations in 2023, will be using all its capabilities for the first time to study the QGP produced in gold-gold collisions.",
+      "sources": [
+        "src:heavy-ions-rhic-run25-start-2025"
+      ],
+      "start": "2023",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "RHIC 25th and final run ends",
+      "locator": "BNL Newsroom, \"A Smashing Success: Relativistic Heavy Ion Collider Wraps up Final Collisions\", 2026-02",
+      "note": "",
+      "quote": "crashed into one another at nearly the speed of light inside the collider's two house-sized particle detectors, STAR and sPHENIX.",
+      "sources": [
+        "src:heavy-ions-rhic-final-collisions-2026"
+      ],
+      "start": "2026-02-06",
+      "status": "completed",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "links": {
+    "website": "https://www.sphenix.bnl.gov/"
+  },
+  "name": "sPHENIX detector",
+  "notes": [
+    "site:bnl-rhic-ip8-phenix-sphenix is owned by the facilities lead and did not exist in data/atlas/sites/ at the time this record was written (2026-09-17); referenced here as a dangling id. This interaction point (IP8) was used first by PHENIX, then by sPHENIX.",
+    "technology_class 'general_purpose_collider' chosen as the closest enum match for a hermetic, calorimeter+tracking collider detector; sPHENIX is not itself a collider, the class describes the detector design pattern."
+  ],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": "2026-02-06",
+      "note": "site:bnl-rhic-ip8-phenix-sphenix is owned by the facilities lead and did not exist in data/atlas/sites/ at the time this record was written (2026-09-17); referenced here as a dangling id. This interaction point (IP8) was used first by PHENIX, then by sPHENIX.",
+      "quote": "It was commissioned and took first Au+Au data in the RHIC 2023 Run.",
+      "role": "main",
+      "site_id": "site:bnl-rhic-ip8-phenix-sphenix",
+      "sources": [
+        "src:heavy-ions-sphenix-construction-commissioning-2024",
+        "src:heavy-ions-rhic-final-collisions-2026"
+      ],
+      "start": "2023",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:heavy-ions-sphenix-bnl-facility-page",
+    "src:heavy-ions-sphenix-construction-commissioning-2024"
+  ],
+  "specs": {
+    "total_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "1,000 tons",
+      "note": "",
+      "quote": "The sPHENIX detector is about the size of a two-story house and weighs 1,000 tons.",
+      "sources": [
+        "src:heavy-ions-sphenix-bnl-facility-page"
+      ],
+      "unit": "t",
+      "value": 1000,
+      "verified_at": "2026-09-17"
+    }
+  },
+  "status": "completed",
+  "subsystems": [
+    {
+      "confidence": "verified",
+      "note": "",
+      "quote": "A 20-ton cylindrical solenoid originally from the BaBar experiment at SLAC. It operates at 4 degrees Kelvin (-452 F)",
+      "sources": [
+        "src:heavy-ions-sphenix-bnl-facility-page"
+      ],
+      "value": "Superconducting solenoid magnet (reused from BaBar at SLAC), operating at 4 K",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "note": "",
+      "quote": "The electromagnetic calorimeter uses tungsten bricks with scintillating fibers to track electrons and photons.",
+      "sources": [
+        "src:heavy-ions-sphenix-bnl-facility-page"
+      ],
+      "value": "Electromagnetic calorimeter using tungsten bricks with embedded scintillating fibers",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "summary": {
+    "plain": "A new, house-sized particle detector at Brookhaven, built with a recycled magnet from the BaBar experiment, that records energetic jets and rare particles from nuclear collisions.",
+    "technical": "sPHENIX: a 1,000 t hermetic collider detector at RHIC IP8 built around a reused 20-ton BaBar solenoid (4 K) with tungsten-scintillating-fiber electromagnetic calorimetry; construction completed April 2023, commissioned with first Au+Au data in 2023."
+  },
+  "superseded_by": null,
+  "technology": {
+    "confidence": "verified",
+    "note": "",
+    "quote": "A 20-ton cylindrical solenoid originally from the BaBar experiment at SLAC. It operates at 4 degrees Kelvin (-452 F) and bends charged particle trajectories to identify particle masses and interactions.",
+    "sources": [
+      "src:heavy-ions-sphenix-bnl-facility-page"
+    ],
+    "value": "Hermetic, solenoidal collider detector with electromagnetic and hadronic calorimetry around a central tracking system, built inside a 20-ton reused BaBar solenoid magnet",
+    "verified_at": "2026-09-17"
+  },
+  "technology_class": "general_purpose_collider",
+  "technology_classes": [
+    "general_purpose_collider"
+  ],
+  "type": "detector"
+}

@@ -1,0 +1,216 @@
+{
+  "accelerator_ids": [
+    "accelerator:rhic"
+  ],
+  "aliases": [],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:sphenix"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "distinct_from": [],
+  "energy_regime": null,
+  "external": {
+    "greybook": null,
+    "inspire_experiment": "1500624",
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "facility_id": "facility:brookhaven-national-laboratory",
+      "note": "facility:brookhaven-national-laboratory and accelerator:rhic are owned by the facilities lead and did not exist in data/atlas/facilities/ or data/atlas/accelerators/ at the time this record was written (2026-09-17); referenced here as a dangling id per ID_REGISTRY.md Wave 3.",
+      "quote": "The sPHENIX detector is about the size of a two-story house and weighs 1,000 tons.",
+      "role": "host",
+      "sources": [
+        "src:heavy-ions-sphenix-bnl-facility-page"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "facility_id": "facility:brookhaven-national-laboratory",
+      "note": "RHIC (accelerator:rhic) is the beam source. facility:brookhaven-national-laboratory and accelerator:rhic are owned by the facilities lead and did not exist in data/atlas/facilities/ or data/atlas/accelerators/ at the time this record was written (2026-09-17); referenced here as a dangling id per ID_REGISTRY.md Wave 3.",
+      "role": "beam_source",
+      "sources": [
+        "src:heavy-ions-sphenix-bnl-facility-page"
+      ],
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "id": "experiment:sphenix",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2017-01-13",
+      "label": "DOE mission need (CD-0)",
+      "locator": "bnl.gov/newsroom/news.php?a=26793, 2017-01-13",
+      "note": "",
+      "quote": "The U.S. Department of Energy (DOE) has granted \"Critical Decision-Zero\" (CD-0) status to the sPHENIX project",
+      "sources": [
+        "src:heavy-ions-sphenix-cd0-news-2017"
+      ],
+      "start": "2017-01-13",
+      "status": "proposed",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": "2023-04",
+      "label": "construction",
+      "note": "Start date not recorded: no directly-fetched source in this session states a construction-start date; BNL's own page states the superconducting solenoid magnet was installed in 2021, corroborating construction was well underway by then.",
+      "quote": "sPHENIX construction was completed in April 2023.",
+      "sources": [
+        "src:heavy-ions-sphenix-construction-commissioning-2024",
+        "src:heavy-ions-sphenix-bnl-facility-page"
+      ],
+      "start": null,
+      "status": "construction",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": "2023",
+      "label": "commissioning / first Au+Au data",
+      "locator": "OSTI 2338139, abstract",
+      "note": "",
+      "quote": "It was commissioned and took first Au+Au data in the RHIC 2023 Run.",
+      "sources": [
+        "src:heavy-ions-sphenix-construction-commissioning-2024"
+      ],
+      "start": "2023",
+      "status": "commissioning",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": "2026-02-06",
+      "label": "physics operation",
+      "locator": "bnl.gov/newsroom/news.php?a=122346, 2025-03-24",
+      "note": "",
+      "quote": "For Run 25, the sPHENIX detector, which began operations in 2023, will be using all its capabilities for the first time to study the QGP produced in gold-gold collisions.",
+      "sources": [
+        "src:heavy-ions-rhic-run25-start-2025",
+        "src:heavy-ions-sphenix-first-physics-results-2025"
+      ],
+      "start": "2023",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "RHIC 25th and final run ends",
+      "locator": "BNL Newsroom, \"A Smashing Success: Relativistic Heavy Ion Collider Wraps up Final Collisions\", 2026-02",
+      "note": "",
+      "quote": "crashed into one another at nearly the speed of light inside the collider's two house-sized particle detectors, STAR and sPHENIX.",
+      "sources": [
+        "src:heavy-ions-rhic-final-collisions-2026"
+      ],
+      "start": "2026-02-06",
+      "status": "completed",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Detector mass",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "mass",
+        "display": "1,000 tons",
+        "note": "",
+        "quote": "The sPHENIX detector is about the size of a two-story house and weighs 1,000 tons.",
+        "sources": [
+          "src:heavy-ions-sphenix-bnl-facility-page"
+        ],
+        "unit": "t",
+        "value": 1000,
+        "verified_at": "2026-09-17"
+      }
+    },
+    {
+      "label": "Solenoid magnet mass",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "mass",
+        "display": "20 tons",
+        "note": "",
+        "quote": "A 20-ton cylindrical solenoid originally from the BaBar experiment at SLAC",
+        "sources": [
+          "src:heavy-ions-sphenix-bnl-facility-page"
+        ],
+        "unit": "t",
+        "value": 20,
+        "verified_at": "2026-09-17"
+      }
+    }
+  ],
+  "kind": "heavy_ion",
+  "lineage": [
+    {
+      "experiment_id": "experiment:phenix",
+      "note": "BNL's own description calls sPHENIX 'a radical makeover of the PHENIX experiment' built at the same interaction point (IP8) rather than an incremental upgrade retaining PHENIX subdetectors; 'upgrade_of' is used because the facility page frames it as a successor built on/replacing PHENIX's infrastructure at the same hall, not as an unrelated new experiment. 'successor'/'upgraded_to' on experiment:phenix is a derived inverse and is deliberately not written there (v0.2 A1).",
+      "quote": "sPHENIX is a radical makeover of the PHENIX experiment, one of the original detectors",
+      "relation": "upgrade_of",
+      "sources": [
+        "src:heavy-ions-sphenix-bnl-facility-page"
+      ]
+    }
+  ],
+  "links": {
+    "website": "https://www.sphenix.bnl.gov/"
+  },
+  "name": "sPHENIX",
+  "notes": [
+    "Derived fields (detector_ids, site_ids, result_ids, document_ids) are deliberately not written (v0.2 A1).",
+    "facility:brookhaven-national-laboratory and accelerator:rhic are owned by the facilities lead and did not exist in data/atlas/facilities/ or data/atlas/accelerators/ at the time this record was written (2026-09-17); referenced here as a dangling id per ID_REGISTRY.md Wave 3.",
+    "First physics results were released 2025-07-18 (src:heavy-ions-sphenix-first-physics-results-2025) but no results/ record is written this wave (non-flagship, time-boxed); listed as a missing field.",
+    "No document record written for the sPHENIX TDR/design report this wave despite the brief inviting it 'if time permits' -- not reached; listed as a missing field."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "approximate",
+      "note": "Paraphrased from the BNL facility page's general description; no single verbatim physics-goals sentence was extracted this session.",
+      "sources": [
+        "src:heavy-ions-sphenix-bnl-facility-page"
+      ],
+      "value": "Precisely quantify quark-gluon plasma properties via jet, heavy-flavor and quarkonium measurements in heavy-ion collisions",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:heavy-ions-sphenix-bnl-facility-page",
+    "src:heavy-ions-sphenix-inspire-experiment"
+  ],
+  "status": "completed",
+  "summary": {
+    "plain": "sPHENIX is a new, house-sized detector at Brookhaven's RHIC collider, built where PHENIX used to be, using a recycled magnet from the BaBar experiment to study the hot soup of quarks and gluons made in nuclear collisions.",
+    "technical": "sPHENIX: a 1,000 t hermetic heavy-ion collider detector at RHIC IP8, built as a successor to PHENIX around a reused 20-ton BaBar solenoid; received DOE CD-0 mission-need approval 2017-01-13, completed construction April 2023, commissioned with first Au+Au data in the 2023 RHIC run, released its first physics results 2025-07-18, and operated through RHIC's 25th and final run, which concluded 2026-02-06."
+  },
+  "superseded_by": null,
+  "topic_ids": [
+    "topic:heavy-ion-physics-qgp",
+    "topic:qcd"
+  ],
+  "type": "experiment",
+  "unique_capabilities": [
+    {
+      "confidence": "verified",
+      "note": "",
+      "quote": "A 20-ton cylindrical solenoid originally from the BaBar experiment at SLAC",
+      "sources": [
+        "src:heavy-ions-sphenix-bnl-facility-page"
+      ],
+      "value": "Reuses the 20-ton superconducting solenoid magnet originally built for the BaBar experiment at SLAC",
+      "verified_at": "2026-09-17"
+    }
+  ]
+}

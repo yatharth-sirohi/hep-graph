@@ -1,0 +1,96 @@
+{
+  "id": "detector:antares",
+  "type": "detector",
+  "name": "ANTARES detector",
+  "aliases": [],
+  "experiment_ids": ["experiment:antares"],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "site_id": "site:antares-toulon",
+      "role": "main",
+      "start": "2006-02-14",
+      "end": "2022-02-12",
+      "sources": ["src:astro-neutrino-antares-two-decades-detector-paper"],
+      "verified_at": "2026-09-17",
+      "confidence": "verified",
+      "quote": "the first ANTARES line was deployed on February 14th, 2006 ... On February 12th, 2022 the detector was definitively switched off",
+      "note": ""
+    }
+  ],
+  "technology": {
+    "value": "Deep-sea water Cherenkov neutrino telescope: photomultiplier tubes in pressure-resistant glass spheres (optical modules) on vertical mooring lines",
+    "sources": ["src:astro-neutrino-antares-two-decades-detector-paper"],
+    "verified_at": "2026-09-17", "confidence": "verified",
+    "quote": "The telescope infrastructure consisted of 12 flexible detector lines, holding photomultiplier tubes in glass spheres.",
+    "note": ""
+  },
+  "technology_class": "sea_cherenkov",
+  "technology_classes": ["sea_cherenkov"],
+  "intervals": [
+    {
+      "label": "operating",
+      "status": "active",
+      "start": "2006-02-14",
+      "end": "2022-02-12",
+      "sources": ["src:astro-neutrino-antares-two-decades-detector-paper"],
+      "verified_at": "2026-09-17", "confidence": "verified",
+      "quote": "the first ANTARES line was deployed on February 14th, 2006",
+      "note": "Partial-line data taking from 2006; full 12-line configuration from 2008-05-29."
+    },
+    {
+      "label": "switched off",
+      "status": "completed",
+      "start": "2022-02-12",
+      "end": null,
+      "sources": ["src:astro-neutrino-antares-two-decades-detector-paper"],
+      "verified_at": "2026-09-17", "confidence": "verified",
+      "quote": "On February 12th, 2022 the detector was definitively switched off",
+      "note": ""
+    }
+  ],
+  "status": "completed",
+  "specs": {
+    "instrumented_volume": {
+      "value": 0.02, "unit": "km^3", "dimension": "volume", "approx": true,
+      "display": "~0.02 km³",
+      "sources": ["src:astro-neutrino-antares-two-decades-detector-paper"],
+      "verified_at": "2026-09-17", "confidence": "verified",
+      "quote": "The construction for the 0.02 km³-scale detector started in 2006 and was completed in 2008.",
+      "note": ""
+    },
+    "sensor_count": {
+      "value": 885, "unit": "", "dimension": "count", "approx": false,
+      "display": "885 OMs",
+      "sources": ["src:astro-neutrino-antares-two-decades-detector-paper"],
+      "verified_at": "2026-09-17", "confidence": "verified",
+      "quote": "In total, 885 OMs were installed.", "note": ""
+    },
+    "string_count": {
+      "value": 12, "unit": "", "dimension": "count", "approx": false,
+      "display": "12 lines",
+      "sources": ["src:astro-neutrino-antares-two-decades-detector-paper"],
+      "verified_at": "2026-09-17", "confidence": "verified",
+      "quote": "The telescope infrastructure consisted of 12 flexible detector lines, holding photomultiplier tubes in glass spheres.",
+      "note": ""
+    },
+    "depth_min": {
+      "value": 2475, "unit": "m", "dimension": "length", "approx": false,
+      "display": "2475 m",
+      "sources": ["src:astro-neutrino-antares-two-decades-detector-paper"],
+      "verified_at": "2026-09-17", "confidence": "verified",
+      "quote": "anchored at 2475 m deep in the Mediterranean Sea", "note": "Single mooring depth (not a range) is reported."
+    }
+  },
+  "subsystems": [],
+  "document_ids": [],
+  "links": {"website": null},
+  "notes": [],
+  "summary": {
+    "plain": "Twelve long cables strung with light-sensing glass spheres, anchored to the Mediterranean seabed off Toulon, France. Together they watched a huge volume of seawater for the faint blue light that a neutrino leaves behind.",
+    "technical": "12-line, 885-OM deep-sea water-Cherenkov neutrino telescope, ~0.02 km³ instrumented volume, at 2475 m depth off Toulon, France. Operated from first-line deployment (2006-02-14) to switch-off (2022-02-12)."
+  },
+  "coverage": {"researched": "partial", "tier": "B"},
+  "sources": ["src:astro-neutrino-antares-two-decades-detector-paper"],
+  "schema": "hep-atlas/0.2"
+}

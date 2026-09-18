@@ -30,9 +30,11 @@ set that meets the **mandatory bar** (addendum §25):
   when sourced). A **membership roster file is a full-depth extra: do not write
   one** unless the collaboration's own public member list is fetchable and
   small; never build rosters from author lists in this wave.
-- `sites/<slug>.json` with **verified coordinates**: `coordinates` is a sourced
-  value `{value: {lat, lon, kind, precision_m}, sources, verified_at, confidence,
-  quote|locator}`. Detector/underground-lab coordinates need an official page,
+- `sites/<slug>.json` with **verified coordinates**: `coordinates` is a FLAT
+  sourced object exactly as `hepgraph/atlas/schema.py` and the existing site
+  files define it: `{lat, lon, kind, precision_m, sources, verified_at,
+  confidence, quote|locator, note}` (no `value` wrapper). When the ontology
+  prose and `schema.py`/existing files disagree, the validator is the truth. Detector/underground-lab coordinates need an official page,
   a technical/geodetic paper or the facility's own site page stating them (rank
   ≤ 7); geocoder/Wikipedia/Wikidata coordinates are allowed only for
   `kind: campus|headquarters` and must be labelled `confidence: approximate`.
@@ -93,8 +95,15 @@ only if you have time after every mandatory record is done.
 
 ## Delegation
 
-Spawn children with the Agent tool, `subagent_type: "general-purpose"`,
-**`model: "sonnet"`** (mandatory — never opus), in waves of at most 4 at a time,
+**Concurrency cap:** the whole session shares a limit of 20 concurrent
+subagents across all leads. If `Agent` fails with "Concurrent subagent limit
+reached", do NOT stop and do NOT retry in a loop: research the experiments
+yourself, sequentially, in this same agent, and try one child again later
+only if you still have several experiments left. Stopping with nothing
+written is the one unacceptable outcome.
+
+Spawn children (when capacity allows) with the Agent tool, `subagent_type:
+"general-purpose"`, **`model: "sonnet"`** (mandatory — never opus), at most 2 at a time,
 each owning 1–3 experiments and given (a) this file path, (b) the exact ids it
 owns, (c) the exemplar files below. When a child returns, **you re-open the
 cited source yourself for every coordinate, every interval bound at month/day

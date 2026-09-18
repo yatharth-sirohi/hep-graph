@@ -1,0 +1,86 @@
+{
+  "aliases": [
+    "CJPL"
+  ],
+  "country": [
+    "CN"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "id": "facility:cjpl",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "CJPL-I inaugurated",
+      "locator": "abstract, arXiv:1801.00587 (\"The China Jinping Underground Laboratory and its Early Science\")",
+      "note": "",
+      "sources": [
+        "src:cjpl-arxiv-early-science-2018"
+      ],
+      "start": "2010",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "CJPL-II under construction",
+      "locator": "abstract, arXiv:1801.00587 (\"The China Jinping Underground Laboratory and its Early Science\")",
+      "note": "The 2018 arXiv overview states 'Phase II of the facility is being constructed' with no start date given in the excerpt fetched; a completion date for CJPL-II civil engineering (reported elsewhere as December 2023) was not confirmed on an official page fetched in this session, so it is not recorded.",
+      "sources": [
+        "src:cjpl-arxiv-early-science-2018"
+      ],
+      "start": null,
+      "status": "construction",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "kind": "underground_laboratory",
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "note": "",
+      "sources": [
+        "src:cjpl-tsinghua-home"
+      ],
+      "value": "https://cjpl.tsinghua.edu.cn/",
+      "verified_at": "2026-09-17"
+    }
+  },
+  "name": "China Jinping Underground Laboratory",
+  "notes": [
+    "primary_site_id points at site:cjpl-i (the original, longer-operating facility); site:cjpl-ii is a separate site record for the newer extension, ~500 m away along the same tunnel per the second-phase development paper (src:cjpl-arxiv-phase2-2014)."
+  ],
+  "operator_ids": [],
+  "operator_text": {
+    "confidence": "verified",
+    "locator": "CJPL homepage (cjpl.tsinghua.edu.cn), main text",
+    "note": "The CJPL homepage names Tsinghua University and an agreement with Yalong River Hydropower Development Company; the precise legal operator/manager wording was not found verbatim on an official page fetched in this session.",
+    "sources": [
+      "src:cjpl-tsinghua-home"
+    ],
+    "value": "Tsinghua University, together with Yalong River Hydropower Development Company",
+    "verified_at": "2026-09-17"
+  },
+  "primary_site_id": "site:cjpl-i",
+  "related_facility_ids": [],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:cjpl-tsinghua-home",
+    "src:cjpl-tsinghua-about-overview"
+  ],
+  "specs": {},
+  "status": "active",
+  "summary": {
+    "plain": "The world's deepest underground physics laboratory, built beside a hydropower tunnel under the Jinping mountains in southwest China. Over two kilometres of rock overhead make it an extremely quiet place to search for dark matter.",
+    "technical": "Underground laboratory complex at the Jinping-II hydropower station traffic tunnel, Sichuan Province, China; CJPL-I (inaugurated 2010) has ~2400 m rock overburden; CJPL-II, a westward extension built by Tsinghua University, adds four large caverns."
+  },
+  "topic_ids": [
+    "topic:dark-matter",
+    "topic:direct-dark-matter-detection"
+  ],
+  "type": "facility"
+}

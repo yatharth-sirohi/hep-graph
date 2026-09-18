@@ -1,0 +1,42 @@
+{
+  "id": "site:telescope-array-utah-central-site",
+  "type": "site",
+  "schema": "hep-atlas/0.2",
+  "name": "Telescope Array central site, near Delta, Utah",
+  "aliases": [],
+  "distinct_from": [],
+  "superseded_by": null,
+  "facility_id": "facility:telescope-array-utah",
+  "coordinates": {
+    "lat": 39.3521777,
+    "lon": -112.5771700,
+    "precision_m": 15000,
+    "kind": "campus",
+    "sources": [
+      "src:cosmic-gamma-ta-arxiv-2026-recent-findings",
+      "src:cosmic-gamma-nominatim-delta-utah"
+    ],
+    "verified_at": "2026-09-17",
+    "confidence": "approximate",
+    "quote": "located near Delta, Utah, USA, at an altitude of approximately 1400 m above sea level",
+    "note": "Coordinates are a geocode of the town of Delta, Utah, near which the array and its visitor/operations centre are located per the collaboration's own description; this is NOT a survey point for the ~700 km^2 (TAx4: ~3000 km^2) array itself, whose 507+500 stations and three (soon 5) fluorescence-detector sites are spread across the surrounding desert. No official/technical source with decimal array-centre coordinates was reachable this session (telescopearray.org and known mirrors all failed to load)."
+  },
+  "setting": "surface",
+  "depth": null,
+  "depth_rock": null,
+  "depth_mwe": null,
+  "altitude": {"value": 1400, "unit": "m", "dimension": "length", "approx": true, "display": "~1400 m", "sources": ["src:cosmic-gamma-ta-arxiv-2026-recent-findings"], "verified_at": "2026-09-17", "confidence": "verified", "quote": "at an altitude of approximately 1400 m above sea level", "note": ""},
+  "country": "US",
+  "countries": ["US"],
+  "place": {"city": "Delta", "region": "Utah", "country": "US"},
+  "summary": {
+    "plain": "The high desert near Delta, Utah, where the Telescope Array's hundreds of ground detectors and telescope stations are spread out to catch ultra-high-energy cosmic rays.",
+    "technical": "Approximate central/campus point (Delta, Utah, Millard County) for the Telescope Array observatory, at about 1400 m altitude; the actual detector footprint (507 scintillation counters over ~700 km^2, extended to ~3000 km^2 by TAx4, plus fluorescence stations at Middle Drum, Long Ridge and Black Rock Mesa) is spread around this point."
+  },
+  "sources": ["src:cosmic-gamma-ta-arxiv-2026-recent-findings", "src:cosmic-gamma-nominatim-delta-utah"],
+  "links": {"website": null},
+  "notes": [
+    "No per-station or per-fluorescence-site coordinates were recorded in this wave; only this single approximate campus point."
+  ],
+  "coverage": {"tier": "B", "researched": "partial"}
+}

@@ -1,0 +1,182 @@
+{
+  "aliases": [
+    "RHIC"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "A"
+  },
+  "facility_id": "facility:brookhaven-national-laboratory",
+  "feeds_accelerator_ids": [],
+  "id": "accelerator:rhic",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "construction",
+      "note": "No explicit end date for construction is given by any source fetched in this session; the commissioning/dedication interval below covers the period immediately before first collisions.",
+      "quote": "Brookhaven received funding to proceed with the construction of RHIC in 1991 and physics operations began in 2000.",
+      "sources": [
+        "src:bnl-about-history-accelerators-page"
+      ],
+      "start": "1991",
+      "status": "construction",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": "1999-10-04",
+      "label": "commissioning and dedication",
+      "note": "Commissioning start date is not stated by any source fetched in this session; the dedication (marking the end of successful commissioning) was 1999-10-04.",
+      "quote": "On Monday, Oct. 4, 1999, the RHIC was dedicated following successful commissioning.",
+      "sources": [
+        "src:heavy-ions-rhic25-timeline"
+      ],
+      "start": null,
+      "status": "commissioning",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "first collisions / physics operations begin",
+      "note": "",
+      "quote": "On the evening of Monday, June 12, 2000, operators in the main control room of RHIC anxiously watched control displays as the beams circulating in the collider's twin rings appeared to be colliding.",
+      "sources": [
+        "src:heavy-ions-rhic25-timeline"
+      ],
+      "start": "2000-06-12",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "kind": "run",
+      "label": "full design energy reached (100 GeV/nucleon, Au+Au)",
+      "note": "Marks the first announced run at RHIC's full per-nucleon design energy for gold-gold collisions.",
+      "quote": "The new collisions, at 100 GeV per nucleon, will deposit more energy into the collisions, raising the temperature higher.",
+      "sources": [
+        "src:bnl-newsroom-full-energy-2001"
+      ],
+      "start": "2001-07-18",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "kind": "run",
+      "label": "Run 22: highest polarized proton-proton collision energy",
+      "note": "Start date is this BNL press release's own dateline (2021-12-13), announcing the start of Run 22; not the exact day polarized-proton physics collisions began within that run.",
+      "quote": "This year's run will take place at the highest collision energy: 500 billion electron volts (GeV) per colliding proton pair.",
+      "sources": [
+        "src:bnl-newsroom-run22-2021"
+      ],
+      "specs": {
+        "cms_energy": {
+          "approx": false,
+          "confidence": "verified",
+          "dimension": "energy",
+          "display": "500 GeV per colliding polarized proton pair",
+          "note": "Some RHIC spin-physics literature found via search (not independently re-fetched and confirmed with an official BNL quote in this session) refers to a maximum of up to 510 GeV for polarized p+p; the only official BNL press material actually fetched in this session states 500 GeV as 'the highest collision energy' reached, so 500 GeV (verified) is recorded here rather than 510 GeV.",
+          "quote": "This year's run will take place at the highest collision energy: 500 billion electron volts (GeV) per colliding proton pair.",
+          "sources": [
+            "src:bnl-newsroom-run22-2021"
+          ],
+          "unit": "GeV",
+          "value": 500,
+          "verified_at": "2026-09-17"
+        }
+      },
+      "start": "2021-12-13",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "final run and end of RHIC operations",
+      "note": "RHIC's 25th and final run ended 2026-02-06; per A10, because this terminal interval has already started by the build date, the accelerator's own `status` field is set to `completed` rather than the pre-terminal state. DOE and BNL are now converting the machine into the Electron-Ion Collider, reusing the tunnel, one ion storage ring, the pre-accelerator chain and part of the sPHENIX detector hall (src:bnl-newsroom-eic-transformation-2026, dated 2026-04-13). No `accelerator:eic` record is created in this wave.",
+      "quote": "Just after 9 a.m. on Friday, Feb. 6, 2026, final beams of oxygen ions ... circulated through the twin 2.4-mile-circumference rings ... and crashed into one another at nearly the speed of light.",
+      "sources": [
+        "src:heavy-ions-rhic-final-collisions-2026",
+        "src:heavy-ions-rhic25-timeline",
+        "src:bnl-newsroom-eic-transformation-2026"
+      ],
+      "start": "2026-02-06",
+      "status": "completed",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "is_collider": true,
+  "kind": "collider",
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "note": "",
+      "sources": [
+        "src:bnl-rhic-page"
+      ],
+      "value": "https://www.bnl.gov/rhic/",
+      "verified_at": "2026-09-17"
+    }
+  },
+  "name": "Relativistic Heavy Ion Collider",
+  "notes": [
+    "site_id is set to site:bnl-upton-campus (the general BNL campus) rather than either IP-specific site, because RHIC is a ring machine spanning both interaction points and the tunnel between them, not a single point; the campus site is the most representative single location, matching the accelerator's own facility-level coordinate anchor.",
+    "accelerator:ags (this record's injector) is created in this same wave.",
+    "accelerator:bnl-linac and accelerator:bnl-booster (the earlier stages of RHIC's injector chain) were not created in this session for lack of time; their existence is referenced only in prose (src:bnl-rhic-ags-page) and not as separate entities."
+  ],
+  "particles": [
+    "gold ion (Au)",
+    "polarized proton",
+    "other ion species (deuteron to uranium)",
+    "oxygen ion (final run, 2026)"
+  ],
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:bnl-upton-campus",
+  "sources": [
+    "src:bnl-rhic-page",
+    "src:heavy-ions-rhic25-timeline",
+    "src:bnl-about-history-accelerators-page"
+  ],
+  "specs": {
+    "circumference": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "3.86 km (2.4 mi)",
+      "note": "Both sources state the ring diameter in miles only ('2.4 miles in circumference'); the km value is a direct unit conversion (2.4 mi x 1.609344 km/mi = 3.86 km), not an independent measurement.",
+      "quote": "scientists, engineers, and technicians began building two separate accelerator rings, each 2.4 miles in circumference",
+      "sources": [
+        "src:heavy-ions-rhic25-timeline",
+        "src:rhic-osti-facility-page"
+      ],
+      "unit": "km",
+      "value": 3.86,
+      "verified_at": "2026-09-17"
+    },
+    "cms_energy": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "energy",
+      "display": "200 GeV per colliding gold-gold nucleon pair (design/typical top energy)",
+      "note": "This is RHIC's top heavy-ion (Au+Au) centre-of-mass energy per colliding nucleon pair, consistent with the independently sourced per-beam figure of 100 GeV/nucleon (src:bnl-newsroom-full-energy-2001, dated 2001-07-18). RHIC also ran heavy-ion beam-energy-scan collisions down to a few GeV per nucleon pair; those lower energies are not itemised here.",
+      "quote": "200 billion electron volts, or GeV, per colliding pair of nuclei",
+      "sources": [
+        "src:bnl-newsroom-run23-2023",
+        "src:bnl-newsroom-full-energy-2001"
+      ],
+      "unit": "GeV",
+      "value": 200,
+      "verified_at": "2026-09-17"
+    }
+  },
+  "status": "completed",
+  "summary": {
+    "plain": "A giant underground ring at Brookhaven National Laboratory that collided beams of gold atomic nuclei and of protons with aligned spins at nearly the speed of light, recreating conditions from just after the Big Bang. It ran from 2000 to 2026 and is now being rebuilt into a new machine, the Electron-Ion Collider.",
+    "technical": "Two intersecting 3.86 km (2.4 mi) superconducting storage rings at Brookhaven National Laboratory; the world's first heavy-ion collider and only polarized-proton collider, reaching 200 GeV per colliding gold-gold nucleon pair and up to 500 GeV in polarized proton-proton collisions. Operated 2000-2026 across 25 runs; its final run ended 2026-02-06, after which the machine began conversion into the Electron-Ion Collider (EIC)."
+  },
+  "type": "accelerator"
+}

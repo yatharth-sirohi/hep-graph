@@ -1,0 +1,93 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "full",
+    "tier": "D"
+  },
+  "experiment_ids": [
+    "experiment:opera"
+  ],
+  "id": "detector:opera",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2012-12-03",
+      "label": "operating",
+      "locator": "abstract; Wikipedia (day precision)",
+      "note": "",
+      "quote": "The experiment took data from 2008 to 2012 in the CERN Neutrinos to Gran Sasso beam",
+      "sources": [
+        "src:opera-prl-2015-discovery",
+        "src:opera-wikipedia"
+      ],
+      "start": "2008",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "end of data taking",
+      "locator": "Wikipedia, OPERA experiment",
+      "note": "Terminal event, day precision from the CNGS beam shutdown date; sole source is Wikipedia (rank 12), so confidence cannot be 'verified' per A17. Corroborated at month precision by the official CERN CNGS page ('July 2006 to December 2012').",
+      "quote": "The beam from CERN was stopped on 3 December 2012, ending data taking.",
+      "sources": [
+        "src:opera-wikipedia"
+      ],
+      "start": "2012-12-03",
+      "status": "completed",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "OPERA detector",
+  "notes": [
+    "Placed at site:lngs-hall-c, owned by the 'facilities' lead and not yet created in data/atlas/ when this record was written; expected dangling reference until that lead lands."
+  ],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": "2012-12-03",
+      "locator": "§'Neutrino beam, detector, and data sample'",
+      "note": "site:lngs-hall-c is owned by the 'facilities' lead; expected dangling reference until that record is created.",
+      "quote": "The OPERA detector at the LNGS underground laboratory",
+      "role": "main",
+      "site_id": "site:lngs-hall-c",
+      "sources": [
+        "src:opera-prl-2015-discovery"
+      ],
+      "start": "2008",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:opera-prl-2015-discovery"
+  ],
+  "specs": {},
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "A wall of about 150,000 bricks, each a stack of photographic film and lead sheets, arranged with electronic trackers and magnets, deep under Italy's Gran Sasso mountain.",
+    "technical": "Hybrid emulsion-cloud-chamber detector: about 150,000 emulsion/lead 'bricks' (8.3 kg each) arranged in two supermodules interleaved with plastic-scintillator trigger planes, followed by muon spectrometers, at LNGS Hall C on the CNGS beam line."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "§'Neutrino beam, detector, and data sample'",
+    "note": "",
+    "quote": "The full OPERA target is segmented in about 150 000 bricks arranged in two identical supermodules",
+    "sources": [
+      "src:opera-prl-2015-discovery"
+    ],
+    "value": "Lead/nuclear-emulsion 'brick' target-tracker (emulsion cloud chamber) with electronic scintillator trackers and magnetic muon spectrometers",
+    "verified_at": "2026-09-17"
+  },
+  "technology_class": "emulsion",
+  "technology_classes": [
+    "emulsion"
+  ],
+  "type": "detector"
+}

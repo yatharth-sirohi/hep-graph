@@ -1,0 +1,156 @@
+{
+  "aliases": [
+    "Solenoidal Tracker at RHIC"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "distinct_from": [],
+  "document_ids": [],
+  "experiment_ids": [
+    "experiment:star"
+  ],
+  "id": "detector:star",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2026-02-06",
+      "label": "operation",
+      "locator": "bnl.gov/rhic/star.php",
+      "note": "",
+      "quote": "operational from 2000-2026",
+      "sources": [
+        "src:heavy-ions-star-bnl-facility-page",
+        "src:heavy-ions-rhic-final-collisions-2026"
+      ],
+      "start": "2000",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "RHIC 25th and final run ends",
+      "locator": "BNL Newsroom, \"A Smashing Success: Relativistic Heavy Ion Collider Wraps up Final Collisions\", 2026-02",
+      "note": "",
+      "quote": "crashed into one another at nearly the speed of light inside the collider's two house-sized particle detectors, STAR and sPHENIX.",
+      "sources": [
+        "src:heavy-ions-rhic-final-collisions-2026"
+      ],
+      "start": "2026-02-06",
+      "status": "completed",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "links": {
+    "website": "https://www.star.bnl.gov/"
+  },
+  "name": "STAR detector",
+  "notes": [
+    "site:bnl-rhic-ip6-star is owned by the facilities lead and did not exist in data/atlas/sites/ at the time this record was written (2026-09-17); referenced here as a dangling id.",
+    "Magnet field strength not recorded this session (see experiment:star notes); technology_class 'gaseous_tpc' chosen because the TPC is described as the detector's central/defining subsystem."
+  ],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": "2026-02-06",
+      "locator": "BNL Newsroom, \"A Smashing Success: Relativistic Heavy Ion Collider Wraps up Final Collisions\", 2026-02",
+      "note": "site:bnl-rhic-ip6-star is owned by the facilities lead and did not exist in data/atlas/sites/ at the time this record was written (2026-09-17); referenced here as a dangling id.",
+      "quote": "crashed into one another at nearly the speed of light inside the collider's two house-sized particle detectors, STAR and sPHENIX.",
+      "role": "main",
+      "site_id": "site:bnl-rhic-ip6-star",
+      "sources": [
+        "src:heavy-ions-star-bnl-facility-page",
+        "src:heavy-ions-rhic-final-collisions-2026"
+      ],
+      "start": "2000",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:heavy-ions-star-bnl-facility-page",
+    "src:heavy-ions-star-tpc-paper",
+    "src:heavy-ions-star-detector-overview-inspire"
+  ],
+  "specs": {
+    "diameter": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "4 m",
+      "note": "TPC diameter (the detector's central subsystem).",
+      "quote": "The TPC measures 4 m in diameter by 4.2 m long, making it the largest TPC in the world.",
+      "sources": [
+        "src:heavy-ions-star-tpc-paper"
+      ],
+      "unit": "m",
+      "value": 4,
+      "verified_at": "2026-09-17"
+    },
+    "length": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "4.2 m",
+      "note": "TPC length (the detector's central subsystem).",
+      "quote": "The TPC measures 4 m in diameter by 4.2 m long, making it the largest TPC in the world.",
+      "sources": [
+        "src:heavy-ions-star-tpc-paper"
+      ],
+      "unit": "m",
+      "value": 4.2,
+      "verified_at": "2026-09-17"
+    },
+    "total_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "1,200 tons",
+      "note": "",
+      "quote": "Weighing 1,200 tons and as large as a house",
+      "sources": [
+        "src:heavy-ions-star-bnl-facility-page"
+      ],
+      "unit": "t",
+      "value": 1200,
+      "verified_at": "2026-09-17"
+    }
+  },
+  "status": "completed",
+  "subsystems": [
+    {
+      "confidence": "verified",
+      "note": "",
+      "quote": "The TPC measures 4 m in diameter by 4.2 m long, making it the largest TPC in the world.",
+      "sources": [
+        "src:heavy-ions-star-tpc-paper"
+      ],
+      "value": "Time Projection Chamber (TPC): the central tracking detector, 4 m diameter x 4.2 m long, providing complete azimuthal charged-particle tracking within about |eta| < 1.8",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "summary": {
+    "plain": "A house-sized detector built around a giant gas-filled chamber that photographs the tracks of thousands of particles flying out of each collision at RHIC.",
+    "technical": "STAR: a 1,200 t heavy-ion collider detector at RHIC IP6, built around a 4 m diameter x 4.2 m long gaseous Time Projection Chamber inside a solenoidal magnet, providing full-azimuth charged-particle tracking within |eta| < 1.8."
+  },
+  "superseded_by": null,
+  "technology": {
+    "confidence": "verified",
+    "note": "",
+    "quote": "The TPC is the heart of a house-sized experiment called STAR",
+    "sources": [
+      "src:heavy-ions-star-tpc-paper",
+      "src:heavy-ions-star-bnl-facility-page"
+    ],
+    "value": "Large-acceptance gaseous Time Projection Chamber surrounded by a solenoidal magnet, with additional trigger, particle-identification and event-characterization detectors",
+    "verified_at": "2026-09-17"
+  },
+  "technology_class": "gaseous_tpc",
+  "technology_classes": [
+    "gaseous_tpc"
+  ],
+  "type": "detector"
+}

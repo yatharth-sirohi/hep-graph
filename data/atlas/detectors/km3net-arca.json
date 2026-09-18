@@ -1,0 +1,157 @@
+{
+  "aliases": [
+    "Astroparticle Research with Cosmics in the Abyss"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "experiment_ids": [
+    "experiment:km3net"
+  ],
+  "id": "detector:km3net-arca",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "seafloor installation begins",
+      "locator": "km3net.org, 8 December 2015 news item",
+      "note": "Site-wide KM3NeT installation start; ARCA-specific first-string date not separately sourced this session.",
+      "quote": "In the early morning of 3 December 2015, scientists and engineers started the installation of KM3NeT",
+      "sources": [
+        "src:astro-neutrino-km3net-construction-begins-2015"
+      ],
+      "start": "2015-12-03",
+      "status": "construction",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "initial core operational (6 detection units)",
+      "locator": "km3net.org, 15 April 2021 news item",
+      "note": "Marks the point at which ARCA is described by the collaboration as having an operating 'initial core'. Physics data-taking with partial arrays (ARCA6, ARCA8, ARCA19, ARCA21, etc.) has continued and grown since; this interval is left open (end: null) because ARCA is still being extended, not because the 6-DU configuration itself persists.",
+      "quote": "six detection units are now in operation, representing the initial core of the KM3NeT/ARCA neutrino telescope",
+      "sources": [
+        "src:astro-neutrino-km3net-arca-six-dus-2021"
+      ],
+      "start": "2021-04-15",
+      "status": "commissioning",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "51 detection units operating (current, undated official statement)",
+      "locator": "Astroparticle physics with ARCA (km3net.org)",
+      "note": "The source page carries no publication or last-updated date; 'start' is set to the year this agent accessed the page (2026) as a lower bound only, not a claim that 51 DUs were reached exactly in 2026. Recorded to give the richest available snapshot of current construction progress; the lead should treat the precise date as uncertain.",
+      "quote": "Currently the ARCA detector is operated with 51 detection units.",
+      "sources": [
+        "src:astro-neutrino-km3net-astronomy-with-arca-page"
+      ],
+      "start": "2026",
+      "status": "commissioning",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "KM3NeT/ARCA",
+  "notes": [
+    "sensor_count (total optical-module or PMT count) is left unset: the LoI states 18 optical modules per string and 31 PMTs per optical module, but no fetched source states a total ARCA-wide optical-module or PMT count directly, and multiplying per-string figures by the design string count would be an unsourced derived computation on a critical field, which A17 forbids.",
+    "depth_min (top of the instrumented array) is left unset for the same reason: the LoI states a ~700 m detection-unit height but no source states the resulting top-of-array depth directly."
+  ],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "locator": "km3net.org, 8 December 2015 news item",
+      "note": "This 2015-12-03 news item describes the start of KM3NeT seafloor installation generally; it is used here as the start of ARCA's placement at Capo Passero because the KM3NeT-It / Capo Passero site is where the described installation infrastructure was laid. No official page fetched this session names a distinct 'first ARCA detection unit online' date; the earliest ARCA-specific operational milestone actually sourced is the six-detection-unit announcement of 2021-04-15 (see intervals).",
+      "quote": "In the early morning of 3 December 2015, scientists and engineers started the installation of KM3NeT, which once completed, will be largest detector of neutrinos in the Northern Hemisphere.",
+      "role": "main",
+      "site_id": "site:km3net-arca-capo-passero",
+      "sources": [
+        "src:astro-neutrino-km3net-construction-begins-2015"
+      ],
+      "start": "2015-12-03",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:astro-neutrino-km3net-arca-orca-detector-page",
+    "src:astro-neutrino-km3net-loi-2016"
+  ],
+  "specs": {
+    "depth_max": {
+      "approx": true,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "~3500 m (seabed)",
+      "locator": "KM3NeT-It research-infrastructure page",
+      "note": "Seabed anchor depth of the ARCA site, i.e. the maximum depth of the detector.",
+      "quote": "At a depth of about 3500 m",
+      "sources": [
+        "src:astro-neutrino-km3net-it-site-page"
+      ],
+      "unit": "m",
+      "value": 3500,
+      "verified_at": "2026-09-17"
+    },
+    "instrumented_volume": {
+      "approx": true,
+      "confidence": "verified",
+      "dimension": "volume",
+      "display": "~1 km3 (design, two building blocks of 115 detection units each)",
+      "locator": "The ARCA and ORCA detectors (km3net.org)",
+      "note": "Design (final) instrumented volume when both building blocks (230 detection units total) are complete; only a fraction of the detection units are deployed as of 2026 (see intervals).",
+      "quote": "instrumented volume of ARCA is about 1 cubic kilometer in two 'building blocks' of 115 detection units each",
+      "sources": [
+        "src:astro-neutrino-km3net-arca-orca-detector-page"
+      ],
+      "unit": "km^3",
+      "value": 1,
+      "verified_at": "2026-09-17"
+    },
+    "string_count": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "count",
+      "display": "230 detection units (design: two building blocks of 115 each)",
+      "locator": "The ARCA and ORCA detectors (km3net.org)",
+      "note": "Design total. As of the 2026 access date, the official 'Astroparticle physics with ARCA' page states 51 detection units are actually operating (see intervals); that as-built figure is not repeated here as the spec value to avoid conflating design capacity with current construction state.",
+      "quote": "instrumented volume of ARCA is about 1 cubic kilometer in two 'building blocks' of 115 detection units each",
+      "sources": [
+        "src:astro-neutrino-km3net-arca-orca-detector-page"
+      ],
+      "unit": "",
+      "value": 230,
+      "verified_at": "2026-09-17"
+    }
+  },
+  "status": "commissioning",
+  "subsystems": [],
+  "summary": {
+    "plain": "The bigger of the two KM3NeT telescopes, built for spotting very high-energy neutrinos from deep space. It sits 3500 metres down on the seabed off Sicily and, when finished, will fill about a cubic kilometre of seawater with light sensors.",
+    "technical": "KM3NeT/ARCA (Astroparticle Research with Cosmics in the Abyss): sea-water Cherenkov neutrino telescope at the KM3NeT-It site off Capo Passero, Sicily (3500 m depth), designed as two building blocks of 115 detection units each (~1 km3 instrumented volume) for high-energy astrophysical neutrino detection; 51 detection units were operating as of the 2026 access date, with construction ongoing."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "Letter of Intent for KM3NeT 2.0, abstract",
+    "note": "",
+    "quote": "A building block thus constitutes a 3-dimensional array of photo sensors that can be used to detect the Cherenkov light produced by relativistic particles emerging from neutrino interactions.",
+    "sources": [
+      "src:astro-neutrino-km3net-arca-orca-detector-page",
+      "src:astro-neutrino-km3net-loi-2016"
+    ],
+    "value": "Sea-water Cherenkov neutrino telescope: vertical strings of digital optical modules, each housing photomultiplier tubes, anchored to the Mediterranean seabed",
+    "verified_at": "2026-09-17"
+  },
+  "technology_class": "sea_cherenkov",
+  "technology_classes": [
+    "sea_cherenkov"
+  ],
+  "type": "detector"
+}

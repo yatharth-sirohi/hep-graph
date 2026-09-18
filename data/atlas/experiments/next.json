@@ -1,0 +1,149 @@
+{
+  "accelerator_ids": [],
+  "aliases": [
+    "Neutrino Experiment with a Xenon TPC"
+  ],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:next"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "energy_regime": null,
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "uncertain",
+      "facility_id": "facility:canfranc-underground-laboratory",
+      "locator": "NEXT original proposal (arXiv:1210.4020)",
+      "note": "facility:canfranc-underground-laboratory (LSC) is owned by the 'facilities' Wave 3 lead and does not exist yet in this repository (dangling reference).",
+      "quote": "approved to start data taking at the Laboratorio Subterráneo de Canfranc (LSC), Spain, in 2014",
+      "role": "host",
+      "sources": [
+        "src:next-arxiv-1210-4020-original-proposal"
+      ],
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "id": "experiment:next",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "approved",
+      "locator": "NEXT original proposal (arXiv:1210.4020), abstract",
+      "note": "",
+      "quote": "The experiment is approved to start data taking at the Laboratorio Subterráneo de Canfranc (LSC), Spain, in 2014.",
+      "sources": [
+        "src:next-arxiv-1210-4020-original-proposal"
+      ],
+      "start": "2012-10",
+      "status": "approved",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "NEXT-100 operating",
+      "locator": "NEXT official site",
+      "note": "Covers the current main-phase detector (NEXT-100); the earlier NEXT-White prototype phase is recorded on its own detector record with its own interval.",
+      "quote": "NEXT-100: commissioned May 2024, operational at LSC since May 2024, producing first physics results as of December 2025",
+      "sources": [
+        "src:next-official-site"
+      ],
+      "start": "2024-05",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "NEXT-100 xenon mass",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "mass",
+        "display": "100 kg of Xe enriched in 136Xe",
+        "locator": "NEXT original proposal, abstract",
+        "note": "",
+        "quote": "filled with 100 kg of Xe enriched in Xe-136",
+        "sources": [
+          "src:next-arxiv-1210-4020-original-proposal"
+        ],
+        "unit": "kg",
+        "value": 100,
+        "verified_at": "2026-09-17"
+      }
+    }
+  ],
+  "kind": "double_beta_decay",
+  "lineage": [],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "note": "",
+      "sources": [
+        "src:next-official-site"
+      ],
+      "value": "https://next-experiment.org/",
+      "verified_at": "2026-09-17"
+    }
+  },
+  "name": "NEXT",
+  "notes": [
+    "Located at LSC (Canfranc Underground Laboratory), Spain: this record references facility:canfranc-underground-laboratory and site:lsc-canfranc, both owned by the 'facilities' Wave 3 lead, neither of which exists yet in this repository as of 2026-09-17 (dangling references, ID_REGISTRY row 51).",
+    "Modelled as two detector phases (detector:next-white, a smaller prototype; detector:next-100, the current main detector) sharing this experiment and collaboration record, per the brief's instruction not to collapse distinct phases into one undated blob.",
+    "NEXT-White's precise start date (October 2016, per secondary web summaries of NEXT publications) was NOT verified against a directly fetched primary source in this session and is therefore not recorded as a sourced interval bound; see detector:next-white notes.",
+    "No INSPIRE experiment-registry lookup was performed in this session; external.inspire_experiment is left null with this note rather than guessed.",
+    "Collaboration formation date not sourced in this session; the NEXT collaboration page (fetched) does not state one."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "NEXT original proposal, abstract",
+      "note": "",
+      "quote": "an unambiguous observation would establish a Majorana nature for the neutrino and prove the violation of lepton number",
+      "sources": [
+        "src:next-arxiv-1210-4020-original-proposal"
+      ],
+      "value": "Search for neutrinoless double-beta decay of 136Xe using a high-pressure xenon gas TPC with electroluminescence readout",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:next-official-site",
+    "src:next-collaboration-page",
+    "src:next-arxiv-1210-4020-original-proposal"
+  ],
+  "status": "active",
+  "summary": {
+    "plain": "A detector at an underground laboratory in the Spanish Pyrenees that uses high-pressure xenon gas, rather than liquid, to search for a rare radioactive process. Its main detector, NEXT-100, started running in 2024.",
+    "technical": "NEXT: radiopure high-pressure xenon gas TPC (136Xe-enriched) with electroluminescence (SOFT) readout at LSC, Canfranc, Spain. Original NEXT-100 concept (100 kg Xe) approved in 2012 for 2014 data taking; the smaller NEXT-White prototype ran first, and the full NEXT-100 detector was commissioned in May 2024 and is now taking physics data."
+  },
+  "topic_ids": [
+    "topic:neutrinoless-double-beta-decay",
+    "topic:neutrino-physics"
+  ],
+  "type": "experiment",
+  "unique_capabilities": [
+    {
+      "confidence": "verified",
+      "locator": "NEXT original proposal, abstract",
+      "note": "",
+      "quote": "NEXT will be the first large high-pressure gas TPC to use electroluminescence readout with SOFT (Separated, Optimized FuncTions) technology.",
+      "sources": [
+        "src:next-arxiv-1210-4020-original-proposal"
+      ],
+      "value": "High-pressure gaseous (not liquid) xenon TPC with electroluminescence amplification, giving excellent energy resolution and topological background rejection",
+      "verified_at": "2026-09-17"
+    }
+  ]
+}

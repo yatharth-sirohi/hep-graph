@@ -1,0 +1,78 @@
+{
+  "aliases": [
+    "AGS"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "facility_id": "facility:brookhaven-national-laboratory",
+  "feeds_accelerator_ids": [],
+  "id": "accelerator:ags",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "commissioning and first operation at design energy",
+      "note": "Month precision from 'in July of 1960'; the AGS has operated continuously since (src:bnl-rhic-ags-page, fetched 2026-09-17, describes it in the present tense as an active part of RHIC's injector chain).",
+      "quote": "The AGS became the world's premiere accelerator when it reached its design energy of 33 billion electron volts (GeV) in July of 1960.",
+      "sources": [
+        "src:bnl-about-history-accelerators-page"
+      ],
+      "start": "1960-07",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "is_collider": false,
+  "kind": "synchrotron",
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "note": "",
+      "sources": [
+        "src:bnl-rhic-ags-page"
+      ],
+      "value": "https://www.bnl.gov/rhic/ags.php",
+      "verified_at": "2026-09-17"
+    }
+  },
+  "name": "Alternating Gradient Synchrotron",
+  "notes": [
+    "Now operates as part of the injector chain for RHIC: 'The AGS receives protons and other ions from the AGS Booster and delivers them to the Relativistic Heavy Ion Collider after acceleration' (src:bnl-rhic-ags-page). No injection-energy figure (e.g. GeV/nucleon delivered to RHIC) is stated on that page, so none is recorded here; a figure seen only in an unfetched search-engine summary was deliberately not used (A17).",
+    "RHIC (this accelerator's main current downstream user) completed its final run on 2026-02-06 and is being converted into the Electron-Ion Collider (src:bnl-newsroom-eic-transformation-2026). No source fetched in this session states whether or how AGS operations themselves have changed after that date; `status: active` is carried forward from the present-tense official page fetched on 2026-09-17 rather than assumed unchanged — flagged here for a future agent to re-check once BNL publishes AGS's post-RHIC operating plan.",
+    "circumference was not found in any source fetched in this session and is left out of `specs` rather than guessed."
+  ],
+  "particles": [
+    "proton",
+    "heavy ion (as RHIC injector)"
+  ],
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:bnl-upton-campus",
+  "sources": [
+    "src:bnl-rhic-ags-page",
+    "src:bnl-about-history-accelerators-page"
+  ],
+  "specs": {
+    "beam_energy": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "energy",
+      "display": "33 GeV (design energy)",
+      "note": "",
+      "quote": "The AGS became the world's premiere accelerator when it reached its design energy of 33 billion electron volts (GeV) in July of 1960.",
+      "sources": [
+        "src:bnl-about-history-accelerators-page"
+      ],
+      "unit": "GeV",
+      "value": 33,
+      "verified_at": "2026-09-17"
+    }
+  },
+  "status": "active",
+  "summary": {
+    "plain": "A ring-shaped particle accelerator at Brookhaven National Laboratory, running since 1960. It once held the world speed record for protons and its experiments won three Nobel Prizes; today it accelerates particles before feeding them into other machines, including the RHIC collider.",
+    "technical": "Brookhaven's Alternating Gradient Synchrotron, commissioned in 1960 using the strong-focusing (alternating-gradient) principle invented there; reached a design energy of 33 GeV for protons. Now serves as part of the injector chain that accelerates protons and heavy ions before delivery to the Relativistic Heavy Ion Collider."
+  },
+  "type": "accelerator"
+}

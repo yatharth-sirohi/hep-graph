@@ -1,0 +1,173 @@
+{
+  "aliases": [
+    "E989",
+    "Muon g-2 Experiment",
+    "Fermilab Muon g-2"
+  ],
+  "collaboration_ids": [
+    "collaboration:muon-g-2"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "energy_regime": "",
+  "external": {
+    "greybook": null,
+    "inspire_experiment": 1108252,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "facility_id": "facility:fermilab",
+      "note": "",
+      "quote": "In 2013, Brookhaven's magnetic storage ring was transported from Long Island, New York, to Fermilab in Batavia, Illinois.",
+      "role": "host",
+      "sources": [
+        "src:muons-news-fnal-2025-final-result"
+      ],
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "id": "experiment:muon-g-2",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2014-07",
+      "label": "storage ring relocated from BNL and reassembled at Fermilab (MC-1)",
+      "note": "Start year (2013) is when the ring left Brookhaven per the cited quote; the 2014-07 end is the ring's documented arrival date at the MC-1 experimental hall on 2014-07-30 per Wikipedia's Muon g-2 article (secondary source, used only for this incidental milestone date, not a critical field on its own -- the 2013 departure and general relocation are independently confirmed by the Fermilab press release).",
+      "quote": "In 2013, Brookhaven's magnetic storage ring was transported from Long Island, New York, to Fermilab in Batavia, Illinois.",
+      "sources": [
+        "src:muons-news-fnal-2025-final-result"
+      ],
+      "start": "2013",
+      "status": "construction",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": "2018-04",
+      "label": "experiment startup / commissioning",
+      "note": "",
+      "quote": "After years of significant upgrades and improvements, the Fermilab Muon g-2 experiment started up on May 31, 2017.",
+      "sources": [
+        "src:muons-news-fnal-2025-final-result"
+      ],
+      "start": "2017-05-31",
+      "status": "commissioning",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": "2023-05",
+      "label": "Run-1 through Run-6 data taking",
+      "note": "'Completed' marks that data-taking is over; analysis of the full dataset continued through the 2025 final result.",
+      "quote": "over the six data-taking periods, or runs, from April 2018 to May 2023",
+      "sources": [
+        "src:muons-news-fnal-2025-final-result"
+      ],
+      "start": "2018-04",
+      "status": "completed",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Storage ring diameter",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "length",
+        "display": "14.2 m (7.112 m orbit radius)",
+        "note": "",
+        "quote": "The resulting ring had a central orbit radius of 7.112 m, and 24 detector stations were placed symmetrically around the inner radius of the storage ring.",
+        "sources": [
+          "src:muons-arxiv-1411-2555"
+        ],
+        "unit": "m",
+        "value": 14.224,
+        "verified_at": "2026-09-17"
+      }
+    },
+    {
+      "label": "Storage ring magnetic field",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "magnetic_field",
+        "note": "",
+        "quote": "B0 needed to be well below saturation and was chosen to be 1.45 T.",
+        "sources": [
+          "src:muons-arxiv-1411-2555"
+        ],
+        "unit": "T",
+        "value": 1.45,
+        "verified_at": "2026-09-17"
+      }
+    }
+  ],
+  "kind": "muon_precision",
+  "lineage": [],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "note": "muon-g-2.fnal.gov itself returned HTTP 403 to every fetch in this session; the URL is confirmed as the experiment's own domain by Fermilab's own press coverage and the INSPIRE experiment record, both of which were fetched.",
+      "sources": [
+        "src:muons-news-fnal-2025-final-result"
+      ],
+      "value": "https://muon-g-2.fnal.gov/",
+      "verified_at": "2026-09-17"
+    }
+  },
+  "name": "Muon g-2",
+  "notes": [
+    "Lineage: Muon g-2 (Fermilab E989) is the direct scientific and instrumental successor to the Brookhaven National Laboratory E821 experiment -- it reuses E821's actual storage ring magnet, moved from BNL to Fermilab in 2013 (src:muons-news-fnal-2025-final-result; src:muons-arxiv-1501-06858, TDR abstract: 'a factor-of-four more precisely than was done in E821 at the Brookhaven National Laboratory AGS ... using the muon storage ring built at BNL and now relocated to Fermilab'). No experiment:bnl-e821 record was created: Brookhaven-owned ids belong to the 'facilities' Wave-3 workstream, not to 'muons', so this lineage is recorded here as a sourced prose note rather than a structured lineage row referencing a nonexistent id.",
+    "Collaboration membership counts (nearly 176 scientists, 34 institutions, seven countries) are recorded on collaboration:muon-g-2 from the same 2025 Fermilab press release used for the final-result quotes; they are dated to that release (2025-06), not a live figure.",
+    "external.inspire_experiment (1108252) is sourced from the INSPIRE experiments API record (legacy_name FNAL-E-0989), fetched directly at https://inspirehep.net/api/experiments?q=muon%20g-2%20fermilab and confirmed at https://inspirehep.net/api/experiments/1108252."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "note": "",
+      "quote": "The goal of the E-989 muon g-2 experiment is to measure the muon anomalous magnetic moment to 0.14 ppm, a fourfold improvement over the previous Brookhaven E821 experiment.",
+      "sources": [
+        "src:muons-inspire-experiment-muon-g2"
+      ],
+      "value": "Measure the muon's anomalous magnetic moment (g-2) to unprecedented precision and compare it with the Standard Model prediction",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:muons-inspire-experiment-muon-g2",
+    "src:muons-arxiv-2104-03281",
+    "src:muons-arxiv-2308-06230",
+    "src:muons-arxiv-2506-03069",
+    "src:muons-arxiv-1501-06858",
+    "src:muons-arxiv-1411-2555",
+    "src:muons-news-fnal-2025-final-result"
+  ],
+  "status": "completed",
+  "summary": {
+    "plain": "An experiment at Fermilab that stores muons in a 14-metre magnetic ring and watches them wobble, to measure one of their properties (called g-2) more precisely than ever and test whether unknown particles are secretly tugging on it.",
+    "technical": "Fermilab E989: reuses the BNL E821 superconducting muon storage ring (7.112 m orbit radius, 1.45 T superferric field), relocated from Brookhaven in 2013, to remeasure the muon anomalous magnetic moment a_mu with higher statistics and reduced systematics than E821. Data-taking ran Runs 1-6, April 2018 to May 2023; the final combined result reached 127 ppb precision."
+  },
+  "topic_ids": [
+    "topic:muon-precision-physics"
+  ],
+  "type": "experiment",
+  "unique_capabilities": [
+    {
+      "confidence": "verified",
+      "note": "",
+      "quote": "using the muon storage ring built at BNL and now relocated to Fermilab",
+      "sources": [
+        "src:muons-arxiv-1501-06858"
+      ],
+      "value": "Reuses the actual BNL E821 superconducting storage ring magnet, relocated intact to Fermilab, combined with Fermilab's higher-intensity muon beam for a large statistics increase",
+      "verified_at": "2026-09-17"
+    }
+  ]
+}

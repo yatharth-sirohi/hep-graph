@@ -1,0 +1,100 @@
+{
+  "aliases": [
+    "Point 2",
+    "IP2",
+    "UX25 cavern",
+    "ALICE cavern"
+  ],
+  "altitude": null,
+  "coordinates": {
+    "confidence": "approximate",
+    "kind": "campus",
+    "lat": 46.2514448,
+    "lon": 6.0202234,
+    "note": "REVIEW REQUIRED (A17), after real effort: no CERN geodetic-survey, metrology paper or official ALICE/CERN page giving WGS84 coordinates for the underground ALICE (UX25) cavern was found this session. Checked: the ALICE detector paper (2008 JINST 3 S08002, chapters 1-2, which give the location in prose - 'Point 2 of the LHC accelerator tunnel in the commune of St. Genis-Pouilly, France' - and depths, but no lat/lon), alice.cern, home.cern's ALICE page, the ALICE Collaboration's own site (alice-collaboration.web.cern.ch), and the ITS2/TPC upgrade TDR abstracts. None states a coordinate. The numeric value is re-fetched this session (2026-09-17) from the same OpenStreetMap/Nominatim query already recorded as src:lep-point-2-osm-nominatim (reused per ID_REGISTRY/worklog instructions rather than duplicated) for the surface-area feature named 'CERN - Point 2 (Alice)'. Per A17, a geocoder source may only back a campus/headquarters kind coordinate, so this is recorded as kind 'campus', not 'detector' - it should be read as 'the general area this marker names', not a surveyed cavern location. precision_m is widened to 300 m accordingly. This is the same physical LHC point as site:cern-lep-point-2-l3 (owned by historic-cern, the LEP-era L3 record); this is a separate, current-era record for ALICE, not a duplicate (Point 2 hosted L3 during LEP and now hosts ALICE, which reuses the L3 solenoid magnet in place - src:colliders-lhc-alice-detector-jinst-2008).",
+    "precision_m": 300,
+    "quote": "lat 46.2514448, lon 6.0202234, display_name 'CERN - Point 2 (Alice), Sergy, Gex, Ain, Auvergne-Rhone-Alpes, France', osm_type way, osm_id 253791392",
+    "sources": [
+      "src:lep-point-2-osm-nominatim"
+    ],
+    "verified_at": "2026-09-17"
+  },
+  "countries": [
+    "FR"
+  ],
+  "country": "FR",
+  "coverage": {
+    "researched": "full",
+    "tier": "A"
+  },
+  "depth": {
+    "approx": false,
+    "confidence": "verified",
+    "dimension": "length",
+    "display": "52 m (cavern floor)",
+    "locator": "2008 JINST 3 S08002, section 2.1",
+    "note": "The ALICE detector paper's own figure for the UX25 cavern floor depth. home.cern separately states ALICE 'sits in a vast cavern 56 m below ground' (src:lep-cern-alice-experiment-page); the two are not necessarily in conflict (52 m to the cavern floor vs. a ~56 m figure that may describe the average depth of the detector volume or overburden-plus-cavern-height), but no fetched source reconciles them explicitly, so both are recorded: this field uses the detector paper's cavern-floor figure since it is the collaboration's own technical publication (rank 5 vs rank 2).",
+    "quote": "The beam line is situated 44 m underground as shown in figure 2.1. The floor of the UX25 cavern is 52 m underground and there is 28 m of overburden above the detector.",
+    "sources": [
+      "src:colliders-lhc-alice-detector-jinst-2008"
+    ],
+    "unit": "m",
+    "value": 52,
+    "verified_at": "2026-09-17"
+  },
+  "depth_mwe": null,
+  "depth_rock": {
+    "approx": false,
+    "confidence": "verified",
+    "dimension": "length",
+    "display": "28 m overburden",
+    "locator": "2008 JINST 3 S08002, section 2.1",
+    "note": "",
+    "quote": "there is 28 m of overburden above the detector",
+    "sources": [
+      "src:colliders-lhc-alice-detector-jinst-2008"
+    ],
+    "unit": "m",
+    "value": 28,
+    "verified_at": "2026-09-17"
+  },
+  "distinct_from": [],
+  "facility_id": "facility:cern",
+  "id": "site:cern-point-2-alice",
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "note": "",
+      "sources": [
+        "src:colliders-lhc-alice-official-site"
+      ],
+      "value": "https://alice.cern/",
+      "verified_at": "2026-09-17"
+    }
+  },
+  "name": "LHC Point 2 (ALICE cavern)",
+  "notes": [
+    "Coordinate kind is 'campus' rather than 'detector'/'underground_lab' because the only coordinate source available in this session is an OpenStreetMap/Nominatim geocoder lookup, and A17 restricts geocoder-backed coordinates to campus/headquarters kind. See coordinates.note for the full account of sources checked.",
+    "This is a separate record from site:cern-lep-point-2-l3 (owned by historic-cern), which documents the same physical LHC point during the earlier LEP/L3 era. The two coexist deliberately per the Wave 3 brief: same point, different eras, cross-referenced in prose rather than merged.",
+    "detector:alice's placements[] cites this site with role 'main' despite the campus-kind coordinate, following the same pattern used at site:cern-point-1-atlas (an uncertain/approximate coordinate that is still the best available point for the marker)."
+  ],
+  "place": {
+    "city": "St. Genis-Pouilly",
+    "country": "FR",
+    "region": "Ain"
+  },
+  "schema": "hep-atlas/0.2",
+  "setting": "underground",
+  "sources": [
+    "src:lep-point-2-osm-nominatim",
+    "src:colliders-lhc-alice-detector-jinst-2008",
+    "src:colliders-lhc-alice-official-site",
+    "src:lep-cern-alice-experiment-page"
+  ],
+  "summary": {
+    "plain": "The underground cavern at Point 2 of the Large Hadron Collider, near the French village of St Genis-Pouilly, where the ALICE experiment records lead-ion and proton collisions. The cavern previously housed the L3 experiment during CERN's earlier LEP collider.",
+    "technical": "LHC interaction point 2, in the commune of St. Genis-Pouilly (Ain, France): the UX25 experimental cavern, whose floor is 52 m underground with 28 m of rock overburden, houses the ALICE detector inside the L3 solenoid magnet reused from LEP."
+  },
+  "superseded_by": null,
+  "type": "site"
+}

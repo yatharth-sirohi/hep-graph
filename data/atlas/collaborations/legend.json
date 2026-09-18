@@ -1,0 +1,96 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "formation": {
+    "confidence": "uncertain",
+    "locator": "no fetched source states an explicit LEGEND collaboration formation year",
+    "note": "The only source found describing LEGEND's formation is a Wikipedia summary (rank 12, pointer only), which does not itself give a year (\"combines the expertise and technology of the MAJORANA and GERDA experiments\"); left null rather than guessed (v0.2 A17).",
+    "sources": [
+      "src:legend-wikipedia-overview"
+    ],
+    "value": null,
+    "verified_at": "2026-09-17"
+  },
+  "host_facility_id": "facility:lngs",
+  "host_site_id": null,
+  "id": "collaboration:legend",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "collaboration",
+      "locator": "LEGEND-200 first-results paper",
+      "note": "Lower bound is the earliest dated LEGEND-200 data-taking (2023); true formation date not sourced.",
+      "quote": "LEGEND-200 started taking data in 2023 at Laboratori Nazionali del Gran Sasso (LNGS)",
+      "sources": [
+        "src:legend-200-first-results-arxiv-2509"
+      ],
+      "start": "2023",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "leadership": [],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "note": "",
+      "sources": [
+        "src:legend-official-site"
+      ],
+      "value": "https://legend-exp.org/",
+      "verified_at": "2026-09-17"
+    }
+  },
+  "membership": {
+    "as_of": "2026",
+    "country_count": null,
+    "evidence_class": "official_institution_list",
+    "institution_count": {
+      "confidence": "verified",
+      "locator": "LEGEND — Find out more about our collaboration",
+      "note": "",
+      "quote": "The LEGEND collaboration is comprised of over 250 researchers from about 50 institutions from around the world",
+      "sources": [
+        "src:legend-collaboration-page"
+      ],
+      "value": 50,
+      "verified_at": "2026-09-17"
+    },
+    "member_count": {
+      "confidence": "verified",
+      "locator": "LEGEND — Find out more about our collaboration",
+      "note": "",
+      "quote": "The LEGEND collaboration is comprised of over 250 researchers from about 50 institutions from around the world",
+      "sources": [
+        "src:legend-collaboration-page"
+      ],
+      "value": 250,
+      "verified_at": "2026-09-17"
+    },
+    "roster_source_ids": [
+      "src:legend-collaboration-page"
+    ]
+  },
+  "name": "LEGEND Collaboration",
+  "notes": [
+    "country_count is left null: the collaboration page fetched in this session gives institution and researcher counts but not a country count.",
+    "Institution-level membership rows and person records are owned by the membership-lead workstream and are not written here.",
+    "Leadership is left empty: no source fetched in this session names spokespeople with dates.",
+    "Derived field collaboration.experiment_ids is deliberately not written (v0.2 A1)."
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:legend-official-site",
+    "src:legend-collaboration-page"
+  ],
+  "status": "active",
+  "summary": {
+    "plain": "Over 250 researchers from about 50 institutions worldwide, combining the expertise of the earlier GERDA and Majorana Demonstrator teams, who run the LEGEND germanium neutrino experiment.",
+    "technical": "International collaboration (>250 researchers, ~50 institutions per the collaboration's own page) formed from the GERDA and MAJORANA DEMONSTRATOR teams to operate the staged LEGEND-200/LEGEND-1000 germanium 0νββ programme at LNGS."
+  },
+  "type": "collaboration"
+}

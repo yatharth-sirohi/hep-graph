@@ -1,0 +1,443 @@
+{
+  "accelerator_ids": [
+    "accelerator:lhc"
+  ],
+  "aliases": [
+    "A Large Ion Collider Experiment",
+    "CERN-LHC-ALICE"
+  ],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:alice"
+  ],
+  "coverage": {
+    "researched": "full",
+    "tier": "A"
+  },
+  "energy_regime": {
+    "confidence": "verified",
+    "locator": "arXiv:1907.06906, abstract; home.cern Run 3 media kit for the pp figure",
+    "note": "",
+    "quote": "Pb-Pb collisions at sqrt(s_NN) = 5.02 TeV collected by the ALICE experiment at the LHC",
+    "sources": [
+      "src:colliders-lhc-alice-hypertriton-lifetime-arxiv-2019",
+      "src:cern-run3-media-kit"
+    ],
+    "value": "Pb-Pb (and other heavy-ion) collisions at up to 5.02 TeV per nucleon pair; p-Pb collisions; pp reference collisions at LHC energies (up to 13.6 TeV in Run 3)",
+    "verified_at": "2026-09-17"
+  },
+  "external": {
+    "greybook": null,
+    "inspire_experiment": 1110642,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:cern",
+      "locator": "2008 JINST 3 S08002, Introduction; INSPIRE experiment record 1110642, field date_approved",
+      "note": "CERN hosts ALICE at LHC Point 2 on French territory of the Meyrin/St. Genis-Pouilly site complex.",
+      "quote": "The experiment was approved in 1997",
+      "role": "host",
+      "sources": [
+        "src:colliders-lhc-alice-detector-jinst-2008",
+        "src:colliders-lhc-alice-inspire-experiment-record"
+      ],
+      "start": "1997-02-06",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:cern",
+      "locator": "2008 JINST 3 S08002, Introduction",
+      "note": "ALICE runs on beams (pp, p-Pb, Pb-Pb and other ions) from CERN's LHC (accelerator:lhc).",
+      "quote": "ALICE (A Large Ion Collider Experiment) is a general-purpose, heavy-ion detector at the CERN LHC",
+      "role": "beam_source",
+      "sources": [
+        "src:colliders-lhc-alice-detector-jinst-2008"
+      ],
+      "start": null,
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "id": "experiment:alice",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "1997-02-06",
+      "label": "Letter of Intent",
+      "note": "INSPIRE experiment record 1110642 gives the same date in date_proposed (1993-03-01). End = the approval date recorded in the same INSPIRE record (date_approved).",
+      "quote": "On 1 March 1993, ALICE collaboration submitted a letter of intent to the CERN LHC Committee, proposing the construction of a heavy-ion experiment dedicated to the study of the physics of strongly interacting matter produced in nucleus-nucleus collisions.",
+      "sources": [
+        "src:colliders-lhc-alice-30-years",
+        "src:colliders-lhc-alice-inspire-experiment-record"
+      ],
+      "start": "1993-03-01",
+      "status": "proposed",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "approximate",
+      "end": "1997-02-06",
+      "label": "Technical Proposal and addenda",
+      "locator": "2008 JINST 3 S08002, Introduction",
+      "note": "Year precision only: the detector paper confirms the sequence (Expression of Interest -> Letter of Intent -> Technical Proposal -> Addenda -> 1997 approval) but does not give the Technical Proposal's exact date within this fetched text. CERN Courier ('New kid on the block') independently dates the forward-muon-spectrometer addendum to 1995 ('included as an addendum to the Letter of Intent in 1995'); the Technical Proposal itself (CERN/LHCC/95-71) is widely cited as 1995 but that exact report was not fetched this session, so this interval is marked approximate rather than verified.",
+      "quote": "The ALICE concept evolved via the Expression of Interest [2] and a Letter of Intent [3] towards the Technical Proposal [4] and its Addenda [5-7]. The experiment was approved in 1997",
+      "sources": [
+        "src:colliders-lhc-alice-detector-jinst-2008",
+        "src:colliders-lhc-alice-courier-new-kid"
+      ],
+      "start": "1995",
+      "status": "proposed",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": "1997-02-06",
+      "label": "approval",
+      "locator": "INSPIRE experiment record 1110642, field date_approved",
+      "note": "INSPIRE's experiment record gives date_approved = 1997-02-06. CERN Courier's account (an extract dated April 1997) reports the same approval in less precise terms ('has received the green light'); the ~2-month gap between the INSPIRE date and the Courier's April 1997 publication date is most likely just publication lag and is not treated as a conflict.",
+      "quote": "ALICE has received the green light to proceed towards final design and construction.",
+      "sources": [
+        "src:colliders-lhc-alice-inspire-experiment-record",
+        "src:colliders-lhc-alice-courier-new-kid"
+      ],
+      "start": "1997-02-06",
+      "status": "approved",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": {
+        "approx": true,
+        "date": "2008-06",
+        "note": "mid 2008, per the detector paper"
+      },
+      "label": "construction",
+      "locator": "2008 JINST 3 S08002, section 1.2.2",
+      "note": "Some subdetectors (PHOS, TRD, PMD, EMCal) were only partially installed by the paper's mid-2008 press date and were completed for the high-luminosity ion runs from 2010; this partial-completion detail is not separately modelled as its own interval.",
+      "quote": "Most detector systems will be installed and ready for data taking by mid 2008 when the LHC is scheduled to start operation, with the exception of parts of PHOS (1 out of 5 modules installed), TRD (4 out of 18), PMD, and EMCal (construction started in 2008).",
+      "sources": [
+        "src:colliders-lhc-alice-detector-jinst-2008"
+      ],
+      "start": "1997-02-06",
+      "status": "construction",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": "2009-11-23",
+      "label": "commissioning and first collisions",
+      "locator": "INSPIRE experiment record 1110642, field date_started",
+      "note": "date_started in the INSPIRE experiment record (2009-11-23) matches the well-documented date of the LHC's first collisions, which every LHC detector recorded the same day.",
+      "quote": "date_started: 2009-11-23",
+      "sources": [
+        "src:colliders-lhc-alice-detector-jinst-2008",
+        "src:colliders-lhc-alice-inspire-experiment-record"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2008-06"
+      },
+      "status": "commissioning",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "approximate",
+      "end": {
+        "approx": true,
+        "date": "2013",
+        "note": "Run 1 ended in early 2013 with Long Shutdown 1; no ALICE-specific or CERN page fetched this session gives the exact end date."
+      },
+      "kind": "run",
+      "label": "Run 1",
+      "note": "This is an LHC machine-wide schedule fact (all four main LHC experiments, including ALICE, took data through the same run); no ALICE-specific start/end announcement was found in this session beyond the general LHC schedule pages already fetched by the cern-atlas partition.",
+      "quote": "The first attempt for collisions at 7 TeV (3.5 TeV per beam) is scheduled for 30 March.",
+      "sources": [
+        "src:cern-lhc-7tev-collisions-2010",
+        "src:cern-lhc-page"
+      ],
+      "start": "2010-03-30",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "uncertain",
+      "end": {
+        "approx": true,
+        "date": "2015"
+      },
+      "label": "Long Shutdown 1",
+      "note": "Bounded by the sourced facts that Run 1 ended in early 2013 and the LHC's second run covered 2015-2018 (machine-wide fact, not ALICE-specific).",
+      "sources": [
+        "src:cern-lhc-page"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2013"
+      },
+      "status": "shutdown",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": "2018-12-03",
+      "kind": "run",
+      "label": "Run 2",
+      "note": "Machine-wide LHC fact applied to ALICE, which recorded pp, p-Pb and Pb-Pb collisions throughout Run 2.",
+      "quote": "On 3 December, the LHC's second run came to an end after three fantastic years.",
+      "sources": [
+        "src:cms-cern-run2-conclusion-2018",
+        "src:cern-lhc-page"
+      ],
+      "start": "2015",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": "2021",
+      "label": "Long Shutdown 2 / ALICE 2 upgrade",
+      "note": "ALICE's own upgrade (new ITS2 pixel tracker, GEM-based continuous-readout TPC) was completed in 2021, ahead of the LHC-wide Long Shutdown 2 beam restart in July 2022; both dates are recorded (see Run 3 interval for the beam-restart date).",
+      "quote": "In 2021, the collaboration completed a major upgrade, denoted ALICE 2, to enhance its detector capabilities and continue its scientific journey at the LHC in Runs 3 and 4.",
+      "sources": [
+        "src:cern-lhc-prepares-new-achievements-2018",
+        "src:colliders-lhc-alice-collaboration-site"
+      ],
+      "start": "2018-12-03",
+      "status": "upgrade",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": {
+        "approx": true,
+        "date": "2026-06"
+      },
+      "kind": "run",
+      "label": "Run 3",
+      "note": "Machine-wide LHC fact applied to ALICE, now running with the upgraded ITS2/TPC (ALICE 2).",
+      "quote": "A round of applause broke out in the CERN Control Centre on 5 July at 4.47 p.m. CEST when the Large Hadron Collider (LHC) detectors started recording high-energy collisions.",
+      "sources": [
+        "src:cern-run3-start-2022",
+        "src:cern-run3-media-kit",
+        "src:cern-ls3-farewell-2026"
+      ],
+      "start": "2022-07-05",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "approximate",
+      "end": {
+        "approx": true,
+        "date": "2029",
+        "planned": true
+      },
+      "label": "Long Shutdown 3",
+      "note": "Machine-wide LHC fact. ALICE's own collaboration site separately states further ALICE detector upgrades continue 'for Run 4 until the end of 2033' and that R&D is underway for a next-generation 'ALICE 3' experiment for HL-LHC Run 5 (src:colliders-lhc-alice-collaboration-site) - recorded here as a note rather than a further dated interval since no specific ALICE 3 approval/construction date has been sourced.",
+      "quote": "Following its final physics run, the accelerator has been switched off to begin CERN's Long Shutdown 3 (LS3).",
+      "sources": [
+        "src:cern-ls3-farewell-2026",
+        "src:cern-long-shutdown-3-page"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2026-06"
+      },
+      "status": "shutdown",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Detector mass",
+      "quantity": {
+        "confidence": "verified",
+        "locator": "2008 JINST 3 S08002, Introduction",
+        "note": "",
+        "quote": "Its overall dimensions are 16×16×26 m3 with a total weight of approximately 10 000 t.",
+        "sources": [
+          "src:colliders-lhc-alice-detector-jinst-2008",
+          "src:lep-cern-alice-experiment-page"
+        ],
+        "value": 10000,
+        "verified_at": "2026-09-17"
+      }
+    },
+    {
+      "label": "Detector length",
+      "quantity": {
+        "confidence": "verified",
+        "locator": "home.cern, ALICE page",
+        "note": "",
+        "quote": "The ALICE detector weighs 10,000 tonnes and measures 26 m long, 16 m high, and 16 m wide.",
+        "sources": [
+          "src:lep-cern-alice-experiment-page",
+          "src:colliders-lhc-alice-detector-jinst-2008"
+        ],
+        "value": 26,
+        "verified_at": "2026-09-17"
+      }
+    },
+    {
+      "label": "Central-barrel solenoid field",
+      "quantity": {
+        "confidence": "verified",
+        "locator": "2008 JINST 3 S08002, section 1.2.2",
+        "note": "",
+        "quote": "The tracking was made particularly safe and robust by using mostly three-dimensional hit information with many points (up to 150) in a moderate field of 0.5 T.",
+        "sources": [
+          "src:colliders-lhc-alice-detector-jinst-2008"
+        ],
+        "value": 0.5,
+        "verified_at": "2026-09-17"
+      }
+    },
+    {
+      "label": "Pb-Pb collision energy (Run 2 onward)",
+      "quantity": {
+        "confidence": "verified",
+        "locator": "arXiv:1907.06906, abstract",
+        "note": "",
+        "quote": "using the data sample of Pb-Pb collisions at sqrt(s_NN) = 5.02 TeV collected by the ALICE experiment at the LHC",
+        "sources": [
+          "src:colliders-lhc-alice-hypertriton-lifetime-arxiv-2019"
+        ],
+        "value": 5.02,
+        "verified_at": "2026-09-17"
+      }
+    },
+    {
+      "label": "Cavern depth (UX25 floor)",
+      "quantity": {
+        "confidence": "verified",
+        "locator": "2008 JINST 3 S08002, section 2.1",
+        "note": "",
+        "quote": "The floor of the UX25 cavern is 52 m underground and there is 28 m of overburden above the detector.",
+        "sources": [
+          "src:colliders-lhc-alice-detector-jinst-2008"
+        ],
+        "value": 52,
+        "verified_at": "2026-09-17"
+      }
+    }
+  ],
+  "kind": "collider",
+  "lineage": [],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "locator": "alice.cern",
+      "note": "",
+      "sources": [
+        "src:colliders-lhc-alice-official-site"
+      ],
+      "value": "https://alice.cern/",
+      "verified_at": "2026-09-17"
+    }
+  },
+  "name": "ALICE",
+  "notes": [
+    "Derived fields (detector_ids, site_ids, result_ids, document_ids) are deliberately not written (v0.2 A1).",
+    "CONFLICT on ALICE's overall depth: the detector paper (2008 JINST 3 S08002) gives the UX25 cavern floor as 52 m underground with 28 m of overburden; home.cern separately states the detector 'sits in a vast cavern 56 m below ground'. Both are recorded (see site:cern-point-2-alice); no fetched source reconciles the two figures.",
+    "The Technical Proposal's exact submission date (commonly cited elsewhere as CERN/LHCC/95-71, 1995) was not confirmed from a page fetched in this session; the 'Technical Proposal and addenda' interval is therefore year-precision and marked approximate rather than verified.",
+    "No spokesperson or other leadership figure is named on any page fetched this session; collaboration.leadership is left empty rather than guessed."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "home.cern, ALICE page",
+      "note": "",
+      "quote": "quark-gluon plasma, a state of matter thought to have formed just after the Big Bang",
+      "sources": [
+        "src:lep-cern-alice-experiment-page"
+      ],
+      "value": "Study the quark-gluon plasma, a state of matter thought to have formed just after the Big Bang",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "locator": "2008 JINST 3 S08002, section 1.2.1",
+      "note": "",
+      "quote": "Elliptic flow is sensitive to plasma properties like shear viscosity and equation of state.",
+      "sources": [
+        "src:colliders-lhc-alice-detector-jinst-2008"
+      ],
+      "value": "Measure collective (elliptic) flow to determine the shear viscosity and equation of state of the quark-gluon plasma",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "locator": "2008 JINST 3 S08002, section 1.2.1",
+      "note": "",
+      "quote": "Quarkonia production probes deconfinement and parton recombination whereas resonance parameters (masses, branching ratios) is sensitive to chiral symmetry restoration.",
+      "sources": [
+        "src:colliders-lhc-alice-detector-jinst-2008"
+      ],
+      "value": "Use quarkonium production to probe deconfinement and parton recombination in the plasma phase",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "locator": "2008 JINST 3 S08002, section 1.2.1",
+      "note": "",
+      "quote": "Heavy flavour production, and jet fragmentation will probe parton kinematics and energy loss in the plasma phase.",
+      "sources": [
+        "src:colliders-lhc-alice-detector-jinst-2008"
+      ],
+      "value": "Study heavy-flavour production and jet fragmentation to probe parton energy loss in the quark-gluon plasma",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [
+    "heavy_ion"
+  ],
+  "sources": [
+    "src:colliders-lhc-alice-detector-jinst-2008",
+    "src:colliders-lhc-alice-30-years",
+    "src:colliders-lhc-alice-inspire-experiment-record",
+    "src:lep-cern-alice-experiment-page",
+    "src:colliders-lhc-alice-official-site",
+    "src:colliders-lhc-alice-collaboration-site"
+  ],
+  "status": "active",
+  "summary": {
+    "plain": "ALICE is CERN's dedicated heavy-ion experiment at the Large Hadron Collider. By colliding lead nuclei instead of protons, it recreates the quark-gluon plasma, an extremely hot and dense state of matter thought to have filled the universe microseconds after the Big Bang, and studies how ordinary matter freezes out of it.",
+    "technical": "General-purpose heavy-ion experiment at CERN LHC Point 2, optimised for the physics of strongly interacting matter and the quark-gluon plasma in Pb-Pb, p-Pb and pp collisions. Central barrel (ITS, TPC, TRD, TOF, HMPID, PHOS, EMCal) inside the L3 solenoid (0.5 T, reused from LEP) plus a forward muon spectrometer; approved 1997, first LHC collisions recorded November 2009, ALICE 2 upgrade (new ITS2 pixel tracker, GEM-based continuous-readout TPC) completed 2021 for LHC Run 3."
+  },
+  "topic_ids": [
+    "topic:heavy-ion-physics-qgp",
+    "topic:qcd",
+    "topic:nuclear-and-heavy-ion",
+    "topic:collider-physics"
+  ],
+  "type": "experiment",
+  "unique_capabilities": [
+    {
+      "confidence": "verified",
+      "locator": "2008 JINST 3 S08002, section 1.2.2",
+      "note": "",
+      "quote": "ALICE employs essentially all known PID techniques: specific ionization energy loss dE/dx, time-of-flight, transition and Cherenkov radiation, electromagnetic calorimetry, muon filters, and topological decay reconstruction.",
+      "sources": [
+        "src:colliders-lhc-alice-detector-jinst-2008"
+      ],
+      "value": "Comprehensive particle identification across a wide momentum range, combining specific-ionisation dE/dx, time-of-flight, transition and Cherenkov radiation, electromagnetic calorimetry, muon filters and topological decay reconstruction",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "locator": "2008 JINST 3 S08002, Introduction",
+      "note": "",
+      "quote": "The central part covers polar angles from 45 to 135 and is embedded in a large solenoid magnet reused from the L3 experiment at LEP.",
+      "sources": [
+        "src:colliders-lhc-alice-detector-jinst-2008"
+      ],
+      "value": "Reuses the L3 experiment's LEP-era solenoid magnet as its central magnet",
+      "verified_at": "2026-09-17"
+    }
+  ]
+}

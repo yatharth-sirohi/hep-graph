@@ -1,0 +1,112 @@
+{
+  "aliases": [
+    "LHCb"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "A"
+  },
+  "experiment_ids": [
+    "experiment:lhcb"
+  ],
+  "formation": {
+    "confidence": "verified",
+    "locator": "lhcb-outreach.web.cern.ch, 'The LHCb collaboration turns 30!'; INSPIRE experiment record 1110643 field date_proposed",
+    "note": "Uses the Letter of Intent submission date as the formation date, matching the pattern used for collaboration:atlas.",
+    "quote": "In August 1995 a Letter of Intent was submitted for the LHCb experiment, the world's first dedicated B-physics experiment exploiting the unique potential of high-energy hadron-hadron collisions.",
+    "sources": [
+      "src:colliders-lhc-lhcb-inspire-experiment-record",
+      "src:colliders-lhc-lhcb-collaboration-30-years"
+    ],
+    "value": "1995-08-25",
+    "verified_at": "2026-09-17"
+  },
+  "host_facility_id": "facility:cern",
+  "host_site_id": "site:cern-point-8-lhcb",
+  "id": "collaboration:lhcb",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "collaboration",
+      "locator": "lhcb-outreach.web.cern.ch, article title and dateline (2025-10-29)",
+      "note": "",
+      "quote": "The LHCb collaboration turns 30!",
+      "sources": [
+        "src:colliders-lhc-lhcb-inspire-experiment-record",
+        "src:colliders-lhc-lhcb-collaboration-30-years"
+      ],
+      "start": "1995-08-25",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "leadership": [],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "note": "",
+      "sources": [
+        "src:colliders-lhc-lhcb-collaboration-30-years"
+      ],
+      "value": "https://lhcb-outreach.web.cern.ch/",
+      "verified_at": "2026-09-17"
+    }
+  },
+  "membership": {
+    "as_of": "2022-03",
+    "country_count": {
+      "confidence": "verified",
+      "locator": "home.cern, LHCb experiment page (as of March 2022)",
+      "note": "",
+      "quote": "about 1565 scientists, engineers and technicians from 20 countries",
+      "sources": [
+        "src:lep-cern-lhcb-experiment-page"
+      ],
+      "value": 20,
+      "verified_at": "2026-09-17"
+    },
+    "evidence_class": "official_institution_list",
+    "institution_count": {
+      "confidence": "uncertain",
+      "note": "home.cern's LHCb page gives scientist and country counts but does not state an institution count; left null rather than guessed.",
+      "sources": [
+        "src:lep-cern-lhcb-experiment-page"
+      ],
+      "value": null,
+      "verified_at": "2026-09-17"
+    },
+    "member_count": {
+      "confidence": "verified",
+      "locator": "home.cern, LHCb experiment page (as of March 2022)",
+      "note": "",
+      "quote": "about 1565 scientists, engineers and technicians from 20 countries",
+      "sources": [
+        "src:lep-cern-lhcb-experiment-page"
+      ],
+      "value": 1565,
+      "verified_at": "2026-09-17"
+    },
+    "roster_source_ids": [
+      "src:lep-cern-lhcb-experiment-page"
+    ]
+  },
+  "name": "LHCb Collaboration",
+  "notes": [
+    "Institution-level membership rows are owned by the membership-lead workstream and are not written here; only the published aggregate counts (from home.cern, dated March 2022 on the page) are recorded.",
+    "Leadership is left empty: no fetched source names the current spokesperson.",
+    "Derived field collaboration.experiment_ids handling: experiment_ids is listed per the shape used by other collaboration exemplars (e.g. collaboration:nova), though A1 lists it among fields not to author on the EXPERIMENT side (experiment.collaboration_ids is canonical); this mirrors the existing collaboration:atlas/collaboration:nova convention of listing experiment_ids on the collaboration record itself."
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:colliders-lhc-lhcb-inspire-experiment-record",
+    "src:lep-cern-lhcb-experiment-page",
+    "src:colliders-lhc-lhcb-collaboration-30-years"
+  ],
+  "status": "active",
+  "summary": {
+    "plain": "The roughly 1,565 scientists, engineers and technicians, from 20 countries, who built and run the LHCb experiment at CERN.",
+    "technical": "International collaboration operating the LHCb forward-spectrometer experiment at LHC Point 8; approximately 1565 members from 20 countries as of March 2022, per home.cern."
+  },
+  "type": "collaboration"
+}

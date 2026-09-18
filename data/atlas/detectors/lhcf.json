@@ -1,0 +1,99 @@
+{
+  "aliases": [
+    "Arm1",
+    "Arm2"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "document_ids": [],
+  "experiment_ids": [
+    "experiment:lhcf"
+  ],
+  "id": "detector:lhcf",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "operating",
+      "locator": "INSPIRE experiment record 1126263, field date_started",
+      "note": "",
+      "sources": [
+        "src:colliders-lhc-lhcf-inspire-experiment-record"
+      ],
+      "start": "2009-11-23",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "LHCf detector",
+  "notes": [
+    "home.cern gives detector mass (40 kg) and dimensions (30 cm x 80 cm x 10 cm) per arm as of a November 2012 page snapshot; recorded in specs below."
+  ],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "locator": "INSPIRE experiment record 1126263, field description; home.cern LHCf page corroborates IP1",
+      "note": "LHCf's two arms are physically in the TAN neutral-particle absorbers +-140 m from IP1, not in the ATLAS cavern itself; placed at site:cern-point-1-atlas (owned by cern-atlas, referenced only) per the id registry's explicit instruction that LHCf places at this existing site.",
+      "quote": "installed at zero degree collision angle +-140m from an interaction point (IP)",
+      "role": "main",
+      "site_id": "site:cern-point-1-atlas",
+      "sources": [
+        "src:colliders-lhc-lhcf-inspire-experiment-record",
+        "src:colliders-lhc-lhcf-home-cern-page"
+      ],
+      "start": "2009-11-23",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:colliders-lhc-lhcf-inspire-experiment-record",
+    "src:colliders-lhc-lhcf-home-cern-page"
+  ],
+  "specs": {
+    "total_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "40 kg (per arm)",
+      "locator": "home.cern LHCf page (as of a November 2012 snapshot)",
+      "note": "",
+      "quote": "Each of the two detectors is compact, weighing only 40 kilograms with dimensions of 30 cm long by 80 cm high and 10 cm wide.",
+      "sources": [
+        "src:colliders-lhc-lhcf-home-cern-page"
+      ],
+      "unit": "kg",
+      "value": 40,
+      "verified_at": "2026-09-17"
+    }
+  },
+  "status": "active",
+  "subsystems": [],
+  "summary": {
+    "plain": "Two small, 40-kilogram detectors placed 140 metres either side of the ATLAS collision point, catching particles thrown almost exactly along the beam direction.",
+    "technical": "Two identical imaging sampling calorimeters (Arm1, Arm2), tungsten/scintillator/position-sensitive-sensor construction, each ~40 kg, 30 cm x 80 cm x 10 cm, at zero-degree collision angle +-140 m from IP1."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "INSPIRE experiment record 1126263, field description",
+    "note": "",
+    "quote": "Two LHCf detectors, consisting of imaging calorimeters made of tungsten plates, plastic scintillator and position sensitive sensors, are installed at zero degree collision angle +-140m from an interaction point (IP).",
+    "sources": [
+      "src:colliders-lhc-lhcf-inspire-experiment-record"
+    ],
+    "value": "two compact imaging sampling calorimeters (tungsten plates, plastic scintillator, position-sensitive sensors)",
+    "verified_at": "2026-09-17"
+  },
+  "technology_class": "other",
+  "technology_classes": [
+    "other"
+  ],
+  "type": "detector"
+}

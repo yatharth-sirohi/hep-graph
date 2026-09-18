@@ -1,0 +1,125 @@
+{
+  "aliases": [
+    "protoSENSEI"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "experiment_ids": [
+    "experiment:sensei"
+  ],
+  "id": "detector:sensei",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2019-01",
+      "label": "protoSENSEI operating",
+      "note": "",
+      "sources": [
+        "src:sensei-shallow-underground-2019-arxiv"
+      ],
+      "start": "2018",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "science operations",
+      "note": "Open interval; ongoing per the 2026-05 characterization paper.",
+      "sources": [
+        "src:sensei-new-skipper-ccd-2020-arxiv",
+        "src:sensei-spurious-charge-2026-arxiv"
+      ],
+      "start": "2019-01",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "SENSEI Skipper-CCD detector",
+  "notes": [
+    "The device changed generations over the experiment's history (0.0947 g protoSENSEI in 2019 to a ~2 g Skipper-CCD from 2020); no single 'current' mass/pixel count as of 2026 was found in the sources fetched."
+  ],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "locator": "arXiv:1901.10478 (ar5iv)",
+      "note": "Placed at the existing site:fermilab-main-campus (owned by fermilab-dune), which that lead's own notes already use as the campus-precision placement for the Fermilab MINOS near-detector hall (kind: detector, precision_m 3000); no source fetched this session gives a more precise coordinate for this specific cavern.",
+      "quote": "a prototype Skipper-CCD placed in the MINOS cavern, ... at the Fermi National Accelerator Laboratory (FNAL)",
+      "role": "main",
+      "site_id": "site:fermilab-main-campus",
+      "sources": [
+        "src:sensei-shallow-underground-2019-arxiv",
+        "src:sensei-spurious-charge-2026-arxiv"
+      ],
+      "start": "2018",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:sensei-shallow-underground-2019-arxiv",
+    "src:sensei-new-skipper-ccd-2020-arxiv"
+  ],
+  "specs": {
+    "active_mass": {
+      "approx": false,
+      "confidence": "approximate",
+      "dimension": "mass",
+      "display": "0.0947 g",
+      "locator": "arXiv:1901.10478 (ar5iv)",
+      "note": "This is the protoSENSEI (2019) device's mass; the 2020 device was ~2 g (see notes). No mass figure for the current (2026) detector was found in the papers fetched this session.",
+      "quote": "a total active mass (before masking) of 0.0947 gram",
+      "sources": [
+        "src:sensei-shallow-underground-2019-arxiv"
+      ],
+      "unit": "g",
+      "value": 0.0947,
+      "verified_at": "2026-09-17"
+    },
+    "pixel_count": {
+      "approx": true,
+      "confidence": "verified",
+      "dimension": "count",
+      "display": "~898,000 pixels (4 x 624 x 362)",
+      "locator": "arXiv:1901.10478 (ar5iv)",
+      "note": "Computed from the quoted quadrant geometry (4 quadrants x 624 rows x 362 pixels), not stated as a single total in the source.",
+      "quote": "each consisting of 624 rows of 362 pixels",
+      "sources": [
+        "src:sensei-shallow-underground-2019-arxiv"
+      ],
+      "unit": "",
+      "value": 898048,
+      "verified_at": "2026-09-17"
+    }
+  },
+  "status": "active",
+  "subsystems": [],
+  "summary": {
+    "plain": "A tiny silicon chip called a skipper CCD, sensitive enough to count single electrons, sitting in a shielded underground hall at Fermilab to catch the faint signal of a very light dark matter particle.",
+    "technical": "Skipper-CCD detector operated in the MINOS cavern at Fermilab; protoSENSEI (2018-2019) had 0.0947 g active mass across ~898,000 pixels in four amplifier quadrants, superseded by a ~2 g high-resistivity Skipper-CCD from 2020, with operations continuing as of 2026."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "arXiv:2605.30281, abstract",
+    "note": "",
+    "quote": "Skipper Charge-Coupled Devices (Skipper-CCDs) are a leading technology in the search for sub-GeV dark matter",
+    "sources": [
+      "src:sensei-shallow-underground-2019-arxiv",
+      "src:sensei-spurious-charge-2026-arxiv"
+    ],
+    "value": "Skipper charge-coupled device (CCD): a high-resistivity silicon CCD with sub-electron readout noise, counting individual ionization electrons",
+    "verified_at": "2026-09-17"
+  },
+  "technology_class": "other",
+  "technology_classes": [
+    "other"
+  ],
+  "type": "detector"
+}

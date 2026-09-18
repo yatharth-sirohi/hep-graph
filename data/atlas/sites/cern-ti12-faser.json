@@ -1,0 +1,67 @@
+{
+  "aliases": [
+    "TI12",
+    "FASER cavern"
+  ],
+  "altitude": null,
+  "coordinates": {
+    "confidence": "uncertain",
+    "kind": "detector",
+    "lat": 46.2355606,
+    "locator": "voisins.cern, Meyrin Site - Point 1 (reused anchor; does not itself describe TI12)",
+    "lon": 6.0546968,
+    "note": "REVIEW REQUIRED (A17), after real effort: no CERN geodetic/survey publication giving WGS84 coordinates for the FASER/TI12 tunnel location was found in this session (home.cern and the INSPIRE experiment record state only the distance/direction from ATLAS IP1, not coordinates; a Nominatim/OpenStreetMap search for the tunnel name returned only generic CERN-campus results, not a point specific to this tunnel). FASER is stated to be 480 m downstream of the ATLAS interaction point in the unused service tunnel TI12 (src:colliders-lhc-faser-inspire-experiment-record). As a placeholder, this record reuses the numeric coordinate value already sourced for site:cern-point-1-atlas (46.2355606, 6.0546968), the nearest existing sourced CERN point, since the detector is only ~480 m from that point -- well inside this record's widened precision_m. kind is kept as 'detector' (not 'campus') because the structural validator requires kind in [detector, underground_lab] for any site holding a detector placement; confidence is 'uncertain' and this note flags the value for geographic review, exactly as site:cern-point-1-atlas and site:cern-point-8-lhcb do.",
+    "precision_m": 1500,
+    "quote": "80 hectares in the Swiss communes of Meyrin and Satigny and the French communes of Prevessin-Moens and Saint-Genis-Pouilly.",
+    "sources": [
+      "src:cern-meyrin-site-point-1"
+    ],
+    "verified_at": "2026-09-17"
+  },
+  "countries": [
+    "CH"
+  ],
+  "country": "CH",
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "depth": null,
+  "depth_mwe": null,
+  "depth_rock": null,
+  "facility_id": "facility:cern",
+  "id": "site:cern-ti12-faser",
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "note": "",
+      "sources": [
+        "src:colliders-lhc-faser-home-cern-page"
+      ],
+      "value": "https://home.cern/science/experiments/faser",
+      "verified_at": "2026-09-17"
+    }
+  },
+  "name": "TI12 tunnel (FASER)",
+  "notes": [
+    "TI12 is a former LEP-era transfer tunnel, 480 m downstream of ATLAS interaction point 1, reused to house the FASER detector.",
+    "REVIEW REQUIRED (A17): coordinate is a reused neighbouring-point placeholder (kind: detector, confidence: uncertain); see coordinates.note."
+  ],
+  "place": {
+    "city": "Meyrin",
+    "country": "CH",
+    "region": "Geneva"
+  },
+  "schema": "hep-atlas/0.2",
+  "setting": "underground",
+  "sources": [
+    "src:colliders-lhc-faser-inspire-experiment-record",
+    "src:colliders-lhc-faser-home-cern-page",
+    "src:cern-meyrin-site-point-1"
+  ],
+  "summary": {
+    "plain": "An unused service tunnel at CERN, 480 metres from the ATLAS collision point, that now holds the FASER experiment, searching for rare particles thrown straight down the beamline.",
+    "technical": "TI12, a former LEP transfer tunnel 480 m downstream of LHC interaction point 1 along the beam collision axis; houses the FASER detector, installed during Long Shutdown 2 (2019-2021)."
+  },
+  "type": "site"
+}

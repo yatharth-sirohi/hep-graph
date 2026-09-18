@@ -1,0 +1,76 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "formation": {
+    "confidence": "uncertain",
+    "locator": "KM3NeT Design Study (km3net.org); About KM3NeT / Organisation (km3net.org) (no formation date stated in either record fetched)",
+    "note": "No fetched source states an explicit collaboration-formation date. The earliest dated organised activity found is the EU-funded KM3NeT Design Study, 'From February 2006 to December 2009' (design-study page), which pre-dates the KM3NeT Collaboration's later Letter of Intent (2016) and AISBL legal incorporation (operational 2026). Left null rather than inferred.",
+    "sources": [
+      "src:astro-neutrino-km3net-design-study-page"
+    ],
+    "value": null,
+    "verified_at": "2026-09-17"
+  },
+  "host_facility_id": "facility:km3net",
+  "host_site_id": null,
+  "id": "collaboration:km3net",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "collaboration active (lower bound from Design Study)",
+      "locator": "KM3NeT Design Study (km3net.org)",
+      "note": "Start is a lower bound taken from the earliest dated organised KM3NeT activity found (the EU Design Study), not a stated formation date for the Collaboration itself. The Collaboration continues to operate KM3NeT as of 2026.",
+      "quote": "From February 2006 to December 2009, the KM3NeT Experiment benefitted from the support",
+      "sources": [
+        "src:astro-neutrino-km3net-design-study-page"
+      ],
+      "start": "2006-02",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "leadership": [],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "note": "",
+      "sources": [
+        "src:astro-neutrino-km3net-official-site"
+      ],
+      "value": "https://www.km3net.org/",
+      "verified_at": "2026-09-17"
+    }
+  },
+  "membership": {
+    "as_of": null,
+    "country_count": null,
+    "evidence_class": null,
+    "institution_count": null,
+    "member_count": null,
+    "roster_source_ids": []
+  },
+  "name": "KM3NeT Collaboration",
+  "notes": [
+    "Membership counts intentionally left null: the only number this agent could locate via WebFetch of the collaboration's own pages (about-km3net/, about-km3net/collaboration/, about-km3net/collaboration/members/, about-km3net/collaboration/organization/, about-km3net/impact/) is the qualitative phrase 'hundreds of scientists, engineers, technicians worldwide' (About KM3NeT — Collaboration page), with no precise institute/country/scientist counts and no as-of date on any of those pages as fetched this session. Widely circulated figures such as '68 institutions from 21 countries' / '~360 scientists' appeared only in search-engine summaries (apparently drawing on Wikipedia/CORDIS) and were never confirmed on a page this agent actually fetched from km3net.org, so per the brief (collaboration counts from the collaboration's own page only) they are not recorded.",
+    "Institution-level membership rows are out of scope for this wave (owned by the membership-lead workstream) and are not written here.",
+    "Leadership is left empty: person records are owned by another workstream, and no leadership names/dates were sourced this session.",
+    "Derived field collaboration.experiment_ids is deliberately not written (v0.2 A1)."
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:astro-neutrino-km3net-official-site",
+    "src:astro-neutrino-km3net-collaboration-page",
+    "src:astro-neutrino-km3net-organization-page",
+    "src:astro-neutrino-km3net-design-study-page"
+  ],
+  "status": "active",
+  "summary": {
+    "plain": "The international group of scientists and engineers who build and run the KM3NeT neutrino telescopes in the Mediterranean Sea.",
+    "technical": "KM3NeT Collaboration: international collaboration operating the KM3NeT deep-sea neutrino research infrastructure (ARCA and ORCA); described on its own site only as 'hundreds of scientists, engineers, technicians worldwide', with no precise, dated institute/country/member counts found on an official page this session. Its legal entity, KM3NeT AISBL, became operational in 2026."
+  },
+  "type": "collaboration"
+}

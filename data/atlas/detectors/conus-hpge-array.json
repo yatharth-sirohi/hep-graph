@@ -1,0 +1,129 @@
+{
+  "aliases": [
+    "CONUS HPGe array",
+    "CONUS+ HPGe array"
+  ],
+  "coverage": {
+    "researched": "full",
+    "tier": "C"
+  },
+  "experiment_ids": [
+    "experiment:conus"
+  ],
+  "id": "detector:conus-hpge-array",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2024-01",
+      "label": "operating at Brokdorf",
+      "locator": "abstract",
+      "note": "End bounded by the 'final CONUS results at Brokdorf' paper's submission (2024-01-15); the physical move to Leibstadt is stated to have happened 'in 2023' by the CONUS+ observation paper.",
+      "quote": "operated inside an optimized shield at the Brokdorf nuclear power plant",
+      "sources": [
+        "src:cevns-conus-prl-2024-final-brokdorf",
+        "src:cevns-conus-plus-observation-2025"
+      ],
+      "start": null,
+      "status": "active",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "operating at Leibstadt (CONUS+)",
+      "locator": "full text, data-taking period",
+      "note": "Ongoing as of the most recent sourced publication (2601... i.e. May 2026 'New constraints on physics ... from the latest CONUS datasets', arXiv:2605.22815, referenced but not separately fetched/cited as a source in this pass).",
+      "quote": "data collection between November 2023 and July 2024",
+      "sources": [
+        "src:cevns-conus-plus-observation-2025"
+      ],
+      "start": "2023-11",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "CONUS / CONUS+ HPGe detector array",
+  "notes": [
+    "One detector record covers both phases: the CONUS+ overview paper (arXiv:2407.11912) states the CEvNS signature 'will be measured with the same four point-contact high-purity germanium (HPGe) detectors produced for the former experiment, however refurbished'."
+  ],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": "2024-01",
+      "locator": "abstract",
+      "note": "",
+      "quote": "positioned at 17.1m from the 3.9GWth reactor core of the nuclear power plant in Brokdorf, Germany",
+      "role": "main",
+      "site_id": "site:brokdorf-nuclear-power-plant-campus",
+      "sources": [
+        "src:cevns-conus-prl-2021-first-limit"
+      ],
+      "start": null,
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "locator": "abstract",
+      "note": "",
+      "quote": "installed in the nuclear power plant in Leibstadt, Switzerland, at a distance of 20.7 m from the 3.6 GW thermal power reactor core",
+      "role": "main",
+      "site_id": "site:leibstadt-nuclear-power-plant-campus",
+      "sources": [
+        "src:cevns-conus-plus-overview-2024"
+      ],
+      "start": "2023-11",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:cevns-conus-prl-2021-first-limit",
+    "src:cevns-conus-prl-2024-final-brokdorf",
+    "src:cevns-conus-plus-overview-2024",
+    "src:cevns-conus-plus-observation-2025"
+  ],
+  "specs": {
+    "target_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "4 kg (4 x 1 kg) nominal; 2.83 +/- 0.02 kg active at Leibstadt",
+      "locator": "arXiv:2401.07684, abstract; arXiv:2501.05206, full text",
+      "note": "Nominal array is four 1 kg point-contact HPGe detectors, reused at both sites. At Leibstadt only three of the four refurbished detectors were used in the Nov 2023-Jul 2024 analysis, giving an active mass of 2.83+/-0.02 kg; value/unit below record the original 4-detector nominal array mass.",
+      "quote": "four 1 kg germanium spectrometers",
+      "sources": [
+        "src:cevns-conus-prl-2024-final-brokdorf"
+      ],
+      "unit": "kg",
+      "value": 4,
+      "verified_at": "2026-09-17"
+    }
+  },
+  "status": "active",
+  "subsystems": [],
+  "summary": {
+    "plain": "Four one-kilogram blocks of ultra-pure germanium, first used at a German nuclear plant and later moved to a Swiss one, sensitive enough to feel the tiny nudge of a reactor antineutrino bouncing off a whole atomic nucleus.",
+    "technical": "Array of four 1 kg point-contact high-purity germanium (HPGe) spectrometers with sub-300 eV ionization thresholds; operated at Brokdorf (2018-2023, 17.1 m from a 3.9 GWth reactor core) and, refurbished, at Leibstadt from November 2023 (20.7 m from a 3.6 GWth reactor core; 2.83 kg active mass from 3 of 4 detectors in the first CONUS+ analysis)."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "arXiv:2011.00210, abstract",
+    "note": "",
+    "quote": "coherent elastic scattering of electron antineutrinos emitted from a nuclear reactor off germanium nuclei",
+    "sources": [
+      "src:cevns-conus-prl-2021-first-limit"
+    ],
+    "value": "point-contact high-purity germanium (HPGe) semiconductor spectrometers",
+    "verified_at": "2026-09-17"
+  },
+  "technology_class": "germanium",
+  "technology_classes": [
+    "germanium"
+  ],
+  "type": "detector"
+}

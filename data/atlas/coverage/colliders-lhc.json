@@ -5,13 +5,19 @@
     "experiment_id": "experiment:alice",
     "facility": "CERN / LHC",
     "missing_fields": [
-      "all"
+      "verified detector-kind coordinate for site:cern-point-2-alice (geocoder campus fallback used; no CERN survey/geodetic source found)",
+      "Technical Proposal exact date (CERN/LHCC/95-71 report not directly fetched; year-precision only)",
+      "ALICE TPC upgrade TDR full text (cds.cern.ch blocked by bot protection; corroborated via a related arXiv paper only, confidence uncertain)",
+      "collaboration leadership (spokesperson) - not named on any page fetched",
+      "membership roster file (explicitly out of scope for this wave)",
+      "updated overall detector mass/dimensions after the ALICE 2 (ITS2/TPC) upgrade"
     ],
     "name": "ALICE",
-    "notes": "Identified in the coverage scope; not yet researched.",
+    "notes": "Full flagship treatment: experiment, detector, collaboration, new site:cern-point-2-alice, 3 major results (2012 J/psi suppression in Pb-Pb, 2017 first observation of strangeness enhancement in high-multiplicity pp, 2019 hypertriton lifetime measurement), 3 key documents (2008 JINST detector paper, 2014 ITS2 upgrade TDR, 2013 TPC upgrade TDR). Coordinates are a reused geocoder fallback (kind campus, confidence approximate), consistent with the site:cern-point-1-atlas and site:cern-lep-point-2-l3 precedent. Depth has a minor unresolved conflict (detector paper: 52 m cavern floor / 28 m overburden; home.cern: \"56 m below ground\") - see worklog.",
     "owner": "colliders-lhc",
     "priority": 2,
-    "researched": "none",
+    "researched": "full",
+    "status": "active",
     "tier": "A"
   },
   {
@@ -20,13 +26,19 @@
     "experiment_id": "experiment:lhcb",
     "facility": "CERN / LHC",
     "missing_fields": [
-      "all"
+      "verified detector-kind coordinate for site:cern-point-8-lhcb (geocoder fallback used)",
+      "pseudorapidity coverage / dipole magnet field / RICH,VELO,calorimeter,muon-system specs (JINST paper full text blocked)",
+      "CERN Greybook code (external.greybook)",
+      "collaboration leadership (spokesperson) and institution_count",
+      "exact construction-start date distinct from approval date",
+      "resolution of the 5600t vs 4500t detector-mass conflict"
     ],
     "name": "LHCb",
-    "notes": "Identified in the coverage scope; not yet researched.",
+    "notes": "Full flagship treatment: experiment, detector, collaboration, new site:cern-point-8-lhcb, 3 major results (2015 pentaquark, 2017 doubly-charmed-baryon, 2019 CP violation in charm), 2 key documents (2008 JINST detector paper, 2012 Upgrade Framework TDR). Coordinates are a geocoder fallback (kind campus, confidence approximate); detector mass has an unresolved 5600t vs 4500t conflict (see worklog).",
     "owner": "colliders-lhc",
     "priority": 2,
-    "researched": "none",
+    "researched": "partial",
+    "status": "shutdown",
     "tier": "A"
   },
   {

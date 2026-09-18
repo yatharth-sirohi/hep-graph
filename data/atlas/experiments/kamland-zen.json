@@ -1,0 +1,164 @@
+{
+  "accelerator_ids": [],
+  "aliases": [
+    "KamLAND-Zen 800",
+    "Kamioka Liquid-scintillator Anti-Neutrino Detector Zero-neutrino double-beta decay search"
+  ],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:kamland-zen"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "energy_regime": null,
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "facility_id": "facility:kamioka-observatory",
+      "locator": "KamLAND-Zen 2024 paper (arXiv:2406.11438), abstract",
+      "note": "facility:kamioka-observatory already exists (owned by the japan-neutrino Wave 3 lead) and is referenced here, not edited.",
+      "quote": "745 kg of enriched xenon, corresponding to an exposure of 2.1 ton·yr of 136Xe",
+      "role": "host",
+      "sources": [
+        "src:kamland-zen-arxiv-2406-complete-dataset"
+      ],
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "id": "experiment:kamland-zen",
+  "intervals": [
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "KamLAND-Zen 800 data taking",
+      "locator": "no fetched primary source states an exact KamLAND-Zen 800 start date",
+      "note": "No source fetched in this session states an exact start date for the upgraded KamLAND-Zen 800 phase; the two dated results below (2022-03 submission, exposure 970 kg·yr; 2024-06 submission, exposure 2.1 ton·yr) bound the phase from below. Left as a single open interval with year-only precision rather than an invented month/day.",
+      "quote": "an upgraded detector with almost double the amount of xenon and an ultralow radioactivity container, corresponding to an exposure of 970 kg yr of 136Xe",
+      "sources": [
+        "src:kamland-zen-arxiv-2203-inverted-ordering",
+        "src:kamland-zen-arxiv-2406-complete-dataset"
+      ],
+      "start": null,
+      "status": "active",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Enriched xenon mass (KamLAND-Zen 800)",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "mass",
+        "display": "745 kg enriched xenon",
+        "locator": "KamLAND-Zen 2024 paper, abstract",
+        "note": "",
+        "quote": "745 kg of enriched xenon",
+        "sources": [
+          "src:kamland-zen-arxiv-2406-complete-dataset"
+        ],
+        "unit": "kg",
+        "value": 745,
+        "verified_at": "2026-09-17"
+      }
+    },
+    {
+      "label": "Total exposure (complete dataset)",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "mass",
+        "display": "2.1 ton·yr (136Xe)",
+        "locator": "KamLAND-Zen 2024 paper, abstract",
+        "note": "",
+        "quote": "an exposure of 2.1 ton·yr of 136Xe",
+        "sources": [
+          "src:kamland-zen-arxiv-2406-complete-dataset"
+        ],
+        "unit": "t",
+        "value": 2.1,
+        "verified_at": "2026-09-17"
+      }
+    },
+    {
+      "label": "0νββ half-life lower limit (complete dataset)",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "time",
+        "display": "T₁/₂ > 3.8×10²⁶ yr (90% C.L.)",
+        "locator": "KamLAND-Zen 2024 paper, abstract",
+        "note": "",
+        "quote": "we obtain a lower limit for the 0νββ decay half-life of T1/2 0ν > 3.8 x 10^26 yr at 90% C.L.",
+        "sources": [
+          "src:kamland-zen-arxiv-2406-complete-dataset"
+        ],
+        "unit": "yr",
+        "value": 3.8e+26,
+        "verified_at": "2026-09-17"
+      }
+    }
+  ],
+  "kind": "double_beta_decay",
+  "lineage": [],
+  "links": {
+    "website": null
+  },
+  "name": "KamLAND-Zen",
+  "notes": [
+    "Uses detector:kamland (shared apparatus with an inner Xe-loaded liquid-scintillator balloon suspended inside the KamLAND outer detector); this experiment record does NOT own a separate detector file, per ID_REGISTRY: detector:kamland is owned by the reactor-solar-neutrino lead and does not exist yet in this repository as of 2026-09-17 (dangling reference). Isotope/technology-specific specs are recorded in this experiment's key_specs instead of on a detector record.",
+    "Also references site:kamioka-kamland (owned by the reactor-solar-neutrino lead), which does not exist yet (dangling reference).",
+    "facility:kamioka-observatory already exists (owned by the japan-neutrino lead) and is referenced here, not edited.",
+    "No INSPIRE experiment-registry lookup was performed in this session; external.inspire_experiment is left null with this note rather than guessed.",
+    "Collaboration formation date and exact KamLAND-Zen 800 start date are not sourced in this session; see interval note."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "KamLAND-Zen 2022 paper (arXiv:2203.02139), title",
+      "note": "",
+      "quote": "Search for the Majorana Nature of Neutrinos in the Inverted Mass Ordering Region with KamLAND-Zen",
+      "sources": [
+        "src:kamland-zen-arxiv-2203-inverted-ordering"
+      ],
+      "value": "Search for neutrinoless double-beta decay of 136Xe dissolved in liquid scintillator, probing the inverted neutrino-mass-ordering region",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:kamland-zen-arxiv-2406-complete-dataset",
+    "src:kamland-zen-arxiv-2203-inverted-ordering"
+  ],
+  "status": "active",
+  "summary": {
+    "plain": "A xenon-loaded balloon of liquid suspended inside the KamLAND detector deep under a Japanese mountain, searching for a rare radioactive process in xenon atoms. Its latest result sets one of the strongest limits yet on the process.",
+    "technical": "KamLAND-Zen: 745 kg of xenon (enriched in 136Xe) dissolved in liquid scintillator inside a balloon suspended within the KamLAND detector at Kamioka. The KamLAND-Zen 800 phase's complete dataset (2.1 t·yr exposure) sets T1/2 0ν > 3.8x10^26 yr (90% C.L.), improving on the prior phase's 970 kg·yr / 2.3x10^26 yr limit."
+  },
+  "topic_ids": [
+    "topic:neutrinoless-double-beta-decay",
+    "topic:neutrino-physics"
+  ],
+  "type": "experiment",
+  "unique_capabilities": [
+    {
+      "confidence": "verified",
+      "locator": "KamLAND-Zen 2022 paper, abstract",
+      "note": "",
+      "quote": "The KamLAND-Zen experiment has provided stringent constraints on the neutrinoless double-beta (0νββ) decay half-life in 136Xe using a xenon-loaded liquid scintillator.",
+      "sources": [
+        "src:kamland-zen-arxiv-2203-inverted-ordering"
+      ],
+      "value": "Reuses an existing large liquid-scintillator detector (KamLAND) as an ultra-low-background outer veto for an inner xenon-loaded balloon, avoiding the cost of a dedicated new detector",
+      "verified_at": "2026-09-17"
+    }
+  ]
+}

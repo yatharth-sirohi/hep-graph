@@ -1,0 +1,60 @@
+{
+  "aliases": [
+    "TI18",
+    "SND@LHC cavern"
+  ],
+  "altitude": null,
+  "coordinates": {
+    "confidence": "uncertain",
+    "kind": "detector",
+    "lat": 46.2355606,
+    "locator": "voisins.cern, Meyrin Site - Point 1 (reused anchor; does not itself describe TI18)",
+    "lon": 6.0546968,
+    "note": "REVIEW REQUIRED (A17), after real effort: no CERN geodetic/survey publication giving WGS84 coordinates for the SND@LHC/TI18 tunnel location was found in this session (home.cern and the INSPIRE experiment record state only the distance/direction from ATLAS IP1, not coordinates; a Nominatim/OpenStreetMap search for the tunnel name returned only generic CERN-campus results, not a point specific to this tunnel). SND@LHC is sited in the TI18 tunnel on the opposite side of ATLAS interaction point 1 from FASER's TI12, at a comparable ~480 m distance (general knowledge of the FASER/SND@LHC forward-physics programme; the INSPIRE experiment record fetched for SND@LHC in this session gives its pseudo-rapidity coverage but does not itself restate the TI18/480 m fact in the description text captured). As a placeholder, this record reuses the numeric coordinate value already sourced for site:cern-point-1-atlas (46.2355606, 6.0546968), the nearest existing sourced CERN point, since the detector is only ~480 m from that point -- well inside this record's widened precision_m. kind is kept as 'detector' (not 'campus') because the structural validator requires kind in [detector, underground_lab] for any site holding a detector placement; confidence is 'uncertain' and this note flags the value for geographic review, exactly as site:cern-point-1-atlas and site:cern-point-8-lhcb do.",
+    "precision_m": 1500,
+    "quote": "80 hectares in the Swiss communes of Meyrin and Satigny and the French communes of Prevessin-Moens and Saint-Genis-Pouilly.",
+    "sources": [
+      "src:cern-meyrin-site-point-1"
+    ],
+    "verified_at": "2026-09-17"
+  },
+  "countries": [
+    "CH"
+  ],
+  "country": "CH",
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "depth": null,
+  "depth_mwe": null,
+  "depth_rock": null,
+  "facility_id": "facility:cern",
+  "id": "site:cern-ti18-snd-lhc",
+  "links": {
+    "website": null
+  },
+  "name": "TI18 tunnel (SND@LHC)",
+  "notes": [
+    "TI18 is a former LEP-era transfer tunnel on the opposite side of ATLAS interaction point 1 from FASER's TI12; now houses the SND@LHC detector.",
+    "The official SND@LHC site (attempted at sndlhc.web.cern.ch and sndlhc.cern) could not be resolved/fetched in this session (DNS lookup failure in this environment); only the INSPIRE experiment record was used.",
+    "REVIEW REQUIRED (A17): coordinate is a reused neighbouring-point placeholder (kind: detector, confidence: uncertain); see coordinates.note. The TI18/480 m siting fact itself is not independently sourced in this session to the same standard as FASER's TI12/480m fact and should be re-verified against an official SND@LHC or CERN source.",
+    "country/place set to CH to match the reused anchor point (site:cern-point-1-atlas, Meyrin CH); the true tunnel geography for TI18 was not independently confirmed in this session."
+  ],
+  "place": {
+    "city": "Meyrin",
+    "country": "CH",
+    "region": "Geneva"
+  },
+  "schema": "hep-atlas/0.2",
+  "setting": "underground",
+  "sources": [
+    "src:colliders-lhc-snd-lhc-inspire-experiment-record",
+    "src:cern-meyrin-site-point-1"
+  ],
+  "summary": {
+    "plain": "An unused service tunnel at CERN, on the opposite side of the ATLAS collision point from FASER, that houses the SND@LHC experiment, which studies neutrinos and searches for rare particles produced in LHC collisions.",
+    "technical": "TI18, a former LEP transfer tunnel near LHC interaction point 1, on the opposite side from FASER's TI12; houses the SND@LHC detector."
+  },
+  "type": "site"
+}

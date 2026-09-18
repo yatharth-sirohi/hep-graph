@@ -1,0 +1,201 @@
+{
+  "accelerator_ids": [],
+  "aliases": [
+    "Liquid Scintillator Neutrino Detector"
+  ],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:lsnd"
+  ],
+  "coverage": {
+    "researched": "full",
+    "tier": "D"
+  },
+  "energy_regime": {
+    "confidence": "verified",
+    "locator": "§2.1.1",
+    "note": "",
+    "quote": "Protons were accelerated ... to a nominal energy of 800 MeV.",
+    "sources": [
+      "src:lsnd-nim-1997-detector-paper"
+    ],
+    "value": "Stopped-pion/muon-decay neutrinos from an 800 MeV LAMPF/LANSCE proton beam",
+    "verified_at": "2026-09-17"
+  },
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "facility_id": "facility:los-alamos-national-laboratory",
+      "locator": "title",
+      "note": "facility:los-alamos-national-laboratory is owned by a different lead ('facilities') and did not exist in data/atlas/ at the time this record was written; this is an expected dangling reference until that lead lands.",
+      "quote": "The Liquid Scintillator Neutrino Detector and LAMPF Neutrino Source",
+      "role": "host",
+      "sources": [
+        "src:lsnd-nim-1997-detector-paper"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "facility_id": "facility:los-alamos-national-laboratory",
+      "locator": "title / §2.1.1",
+      "note": "Same dangling-reference note as the host role above.",
+      "quote": "The Liquid Scintillator Neutrino Detector and LAMPF Neutrino Source",
+      "role": "beam_source",
+      "sources": [
+        "src:lsnd-nim-1997-detector-paper"
+      ],
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "id": "experiment:lsnd",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "1993",
+      "label": "proposed",
+      "locator": "§1.2",
+      "note": "Year precision only; the source does not give a month.",
+      "quote": "The LSND experiment was proposed for this purpose in 1989 and first operated in 1993.",
+      "sources": [
+        "src:lsnd-nim-1997-detector-paper"
+      ],
+      "start": "1989",
+      "status": "proposed",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": "1998",
+      "label": "data taking",
+      "locator": "§1.2 (first operation); Introduction §I (run length)",
+      "note": "Year precision only.",
+      "quote": "first operated in 1993 ... The LSND experiment took data over six calendar years (1993-1998).",
+      "sources": [
+        "src:lsnd-nim-1997-detector-paper",
+        "src:lsnd-prd-2001-antineutrino-evidence"
+      ],
+      "start": "1993",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "completed",
+      "locator": "Introduction §I",
+      "note": "Terminal event; no fetched source gives a month/day precision end date beyond the year 1998.",
+      "quote": "The LSND experiment took data over six calendar years (1993-1998).",
+      "sources": [
+        "src:lsnd-prd-2001-antineutrino-evidence"
+      ],
+      "start": "1998",
+      "status": "completed",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Distance from neutrino source",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "length",
+        "display": "30 m",
+        "locator": "§II.5",
+        "note": "",
+        "quote": "The center of the detector was 30 m from the A6 neutrino source.",
+        "sources": [
+          "src:lsnd-nim-1997-detector-paper"
+        ],
+        "unit": "m",
+        "value": 30,
+        "verified_at": "2026-09-17"
+      }
+    },
+    {
+      "label": "Detector mass",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "mass",
+        "display": "167 t of liquid scintillator",
+        "locator": "§II.5",
+        "note": "",
+        "quote": "The tank was filled with 167 metric tons of liquid scintillator consisting of mineral oil and 0.031 g/l of b-PBD.",
+        "sources": [
+          "src:lsnd-nim-1997-detector-paper"
+        ],
+        "unit": "t",
+        "value": 167,
+        "verified_at": "2026-09-17"
+      }
+    },
+    {
+      "label": "Proton beam energy",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "energy",
+        "display": "800 MeV",
+        "locator": "§2.1.1",
+        "note": "",
+        "quote": "Protons were accelerated in this section to 50 MeV and then injected directly into a side-coupled linac structure operating at 805 MHz for acceleration to a nominal energy of 800 MeV.",
+        "sources": [
+          "src:lsnd-nim-1997-detector-paper"
+        ],
+        "unit": "MeV",
+        "value": 800,
+        "verified_at": "2026-09-17"
+      }
+    }
+  ],
+  "kind": "accelerator_neutrino",
+  "lineage": [],
+  "links": {
+    "website": null
+  },
+  "name": "LSND",
+  "notes": [
+    "Derived fields (detector_ids, site_ids, result_ids, document_ids) are deliberately not written (v0.2 A1).",
+    "facility_id facility:los-alamos-national-laboratory is owned by the 'facilities' lead and did not exist in data/atlas/ when this record was written; it is referenced, not created, and the reference is expected to be dangling until that lead lands.",
+    "external.inspire_experiment left null: no INSPIRE experiment-registry lookup was performed in this session (etiquette limits inspirehep.net requests); LSND is tier D so this is not mandatory (brief §'What you are producing').",
+    "No official LSND experiment website was found reachable/current in this session; links.website left null rather than guessed."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "title",
+      "note": "",
+      "quote": "A search for muon anti-neutrino to electron anti-neutrino oscillations",
+      "sources": [
+        "src:lsnd-prd-2001-antineutrino-evidence"
+      ],
+      "value": "Search for muon-antineutrino to electron-antineutrino oscillations from muon decay at rest",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:lsnd-nim-1997-detector-paper",
+    "src:lsnd-prd-2001-antineutrino-evidence",
+    "src:lsnd-wikipedia"
+  ],
+  "status": "completed",
+  "summary": {
+    "plain": "A tank of mineral oil at Los Alamos National Laboratory, New Mexico, that watched for neutrinos changing type just 30 metres from where an accelerator beam produced them. From 1993 to 1998 it reported more electron-antineutrinos than expected, a puzzling result that later experiments tried to confirm or rule out.",
+    "technical": "167 t mineral-oil/scintillator (Cherenkov + scintillation) detector at LAMPF/LANSCE, Los Alamos, 30 m from the A6 beam-stop neutrino source, using an 800 MeV proton beam. Took data 1993-1998 and reported a statistically significant excess of nu_e_bar candidate events consistent with nu_mu_bar -> nu_e_bar oscillation at short baseline, a result in tension with standard three-flavour oscillation and a long-standing driver of sterile-neutrino searches."
+  },
+  "topic_ids": [
+    "topic:neutrino-oscillations",
+    "topic:sterile-neutrinos"
+  ],
+  "type": "experiment",
+  "unique_capabilities": []
+}

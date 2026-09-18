@@ -1,0 +1,161 @@
+{
+  "accelerator_ids": [],
+  "aliases": [
+    "CONUS+"
+  ],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:conus"
+  ],
+  "coverage": {
+    "researched": "full",
+    "tier": "C"
+  },
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "facility_id": "facility:brokdorf-nuclear-power-plant",
+      "locator": "abstract",
+      "note": "Original host, 2018-2023 (experiment referred to simply as 'CONUS' in this phase).",
+      "quote": "the CONUS detectors positioned at 17.1m from the 3.9GWth reactor core of the nuclear power plant in Brokdorf, Germany",
+      "role": "host",
+      "sources": [
+        "src:cevns-conus-prl-2021-first-limit"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "facility_id": "facility:leibstadt-nuclear-power-plant",
+      "locator": "abstract",
+      "note": "Current host since the 2023 relocation (experiment referred to as 'CONUS+' in this phase).",
+      "quote": "The CONUS+ setup is installed in the nuclear power plant in Leibstadt, Switzerland, at a distance of 20.7 m from the 3.6 GW thermal power reactor core.",
+      "role": "host",
+      "sources": [
+        "src:cevns-conus-plus-overview-2024"
+      ],
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "id": "experiment:conus",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2024-01",
+      "label": "operation at Brokdorf (CONUS)",
+      "locator": "abstract",
+      "note": "Start date not confirmed against a primary source in this pass (Wikipedia, a rank-12 pointer only, states data collection began 2018-04-01, but per the source hierarchy Wikipedia may not be the sole source of a critical value, so start is left null rather than asserted). End is bounded by the 'final CONUS results at Brokdorf' paper (submitted 2024-01-15).",
+      "quote": "In the final phase of data collection at this site, the constraints on the neutrino interaction rate were improved by an order of magnitude",
+      "sources": [
+        "src:cevns-conus-prl-2024-final-brokdorf"
+      ],
+      "start": null,
+      "status": "active",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "operation at Leibstadt (CONUS+)",
+      "locator": "full text",
+      "note": "Ongoing at verified_at; a later paper (arXiv:2605.22815, 'New constraints on physics within and beyond the standard model from the latest CONUS datasets', submitted 2026-05-21) indicates the program continues, though it was not independently fetched/cited as a source in this pass.",
+      "quote": "In 2023, the Conus setup moved to another power plant in Leibstadt, Switzerland (KKL), since the reactor at KBR stopped operation",
+      "sources": [
+        "src:cevns-conus-plus-observation-2025"
+      ],
+      "start": "2023",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Distance from reactor core (Brokdorf phase)",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "length",
+        "display": "17.1 m",
+        "locator": "arXiv:2011.00210, abstract",
+        "note": "",
+        "quote": "positioned at 17.1m from the 3.9GWth reactor core",
+        "sources": [
+          "src:cevns-conus-prl-2021-first-limit"
+        ],
+        "unit": "m",
+        "value": 17.1,
+        "verified_at": "2026-09-17"
+      }
+    },
+    {
+      "label": "Distance from reactor core (Leibstadt / CONUS+ phase)",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "length",
+        "display": "20.7 m",
+        "locator": "arXiv:2407.11912, abstract",
+        "note": "",
+        "quote": "at a distance of 20.7 m from the 3.6 GW thermal power reactor core",
+        "sources": [
+          "src:cevns-conus-plus-overview-2024"
+        ],
+        "unit": "m",
+        "value": 20.7,
+        "verified_at": "2026-09-17"
+      }
+    }
+  ],
+  "kind": "cevns",
+  "lineage": [],
+  "links": {
+    "website": null
+  },
+  "name": "CONUS",
+  "notes": [
+    "One-experiment-record decision (per WAVE3_LEAD_BRIEF.md): the CONUS+ overview paper (arXiv:2407.11912) states CONUS+ is 'continuing on this way the CONUS physics program started at the Brokdorf nuclear power plant' using 'the same four point-contact high-purity germanium (HPGe) detectors produced for the former experiment, however refurbished'. This is the same collaboration, same detector array, relocated to a new reactor site under a new name; recorded as one experiment:conus record with alias 'CONUS+', not two lineage-linked records.",
+    "No INSPIRE experiment-registry record was found for CONUS/CONUS+ (searched inspirehep.net/api/experiments this session; zero results); external.inspire_experiment left null rather than guessed.",
+    "links.website is null: no official CONUS/CONUS+ website was found reachable in this pass (attempts at plausible MPIK URLs returned 404); this is a gap, not a considered absence.",
+    "Derived fields (detector_ids, site_ids, result_ids, document_ids) are deliberately not written (v0.2 A1)."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "abstract",
+      "note": "",
+      "quote": "The CONUS+ experiment aims to detect coherent elastic neutrino-nucleus scattering (CEvNS) of reactor antineutrinos on germanium nuclei in the fully coherent regime",
+      "sources": [
+        "src:cevns-conus-plus-overview-2024"
+      ],
+      "value": "Detect and precisely measure CEvNS of reactor antineutrinos on germanium nuclei in the fully coherent regime",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [
+    "reactor_neutrino"
+  ],
+  "sources": [
+    "src:cevns-conus-wikipedia",
+    "src:cevns-conus-prl-2021-first-limit",
+    "src:cevns-conus-prl-2024-final-brokdorf",
+    "src:cevns-conus-plus-overview-2024",
+    "src:cevns-conus-plus-observation-2025"
+  ],
+  "status": "active",
+  "summary": {
+    "plain": "A small, sensitive detector using ultra-pure germanium crystals to catch reactor antineutrinos gently bouncing off whole atomic nuclei, first run at a German nuclear plant and, after it closed, moved to a Swiss one under the name CONUS+.",
+    "technical": "Reactor CEvNS experiment using an array of four 1 kg point-contact HPGe spectrometers; ran as CONUS at the Brokdorf nuclear power plant, Germany (17.1 m baseline, 3.9 GWth core, 2018-2023), then relocated as CONUS+ to the Leibstadt nuclear power plant, Switzerland (20.7 m baseline, 3.6 GWth core, from November 2023), reporting a first direct 3.7-sigma observation of reactor CEvNS in January 2025."
+  },
+  "topic_ids": [
+    "topic:cevns",
+    "topic:reactor-neutrinos"
+  ],
+  "type": "experiment",
+  "unique_capabilities": []
+}

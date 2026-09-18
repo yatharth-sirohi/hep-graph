@@ -1,0 +1,142 @@
+{
+  "aliases": [
+    "Oscillation Research with Cosmics in the Abyss"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "experiment_ids": [
+    "experiment:km3net"
+  ],
+  "id": "detector:km3net-orca",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "first detection unit online",
+      "locator": "km3net.org, 27 October 2017 news item",
+      "note": "Start of ORCA data-taking with a single detection unit; the array has been extended in successive sea campaigns since.",
+      "quote": "the first detection unit of the ORCA neutrino telescope came online",
+      "sources": [
+        "src:astro-neutrino-km3net-orca-first-du-online-2017"
+      ],
+      "start": "2017-09-22",
+      "status": "commissioning",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "42 detection units installed",
+      "locator": "Welcome, ORCA-42! (km3net.org, 8 July 2026)",
+      "note": "Most recent sourced detection-unit count for ORCA; construction continues towards the planned 115 detection units.",
+      "quote": "At the end of the operation, the apparatus comprises 42 detection units.",
+      "sources": [
+        "src:astro-neutrino-km3net-welcome-orca-42-2026"
+      ],
+      "start": "2026-07-08",
+      "status": "commissioning",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "KM3NeT/ORCA",
+  "notes": [
+    "sensor_count and depth_min left unset for the same reason given on detector:km3net-arca: no fetched source states a total ORCA-wide optical-module/PMT count or top-of-array depth directly."
+  ],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "locator": "km3net.org, 27 October 2017 news item",
+      "note": "Date of the first ORCA detection unit coming online at the Toulon site.",
+      "quote": "On 22 September 2017, after a two day long sea operation, the first detection unit of the ORCA neutrino telescope came online.",
+      "role": "main",
+      "site_id": "site:km3net-orca-toulon",
+      "sources": [
+        "src:astro-neutrino-km3net-orca-first-du-online-2017"
+      ],
+      "start": "2017-09-22",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:astro-neutrino-km3net-arca-orca-detector-page",
+    "src:astro-neutrino-km3net-loi-2016"
+  ],
+  "specs": {
+    "depth_max": {
+      "approx": true,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "~2450 m (seabed)",
+      "locator": "KM3NeT-Fr research-infrastructure page",
+      "note": "Seabed anchor depth of the ORCA site.",
+      "quote": "about 2450 m",
+      "sources": [
+        "src:astro-neutrino-km3net-fr-site-page"
+      ],
+      "unit": "m",
+      "value": 2450,
+      "verified_at": "2026-09-17"
+    },
+    "instrumented_volume": {
+      "approx": true,
+      "confidence": "verified",
+      "dimension": "volume",
+      "display": "~0.007 km3 (~7 Mt of seawater; design, one building block of 115 detection units)",
+      "locator": "The ARCA and ORCA detectors (km3net.org)",
+      "note": "Source states the design instrumented quantity as '7 Megatonnes of seawater'; converted to volume assuming seawater density approx. 1000 kg/m3 (1 t approx. 1 m3) to populate the schema's volume-dimension 'instrumented_volume' key. Design (final) figure for the completed 115-detection-unit building block; 42 detection units were actually installed as of 2026-07-08 (see intervals).",
+      "quote": "about 7 Megatonnes of seawater will be instrumented",
+      "sources": [
+        "src:astro-neutrino-km3net-arca-orca-detector-page"
+      ],
+      "unit": "km^3",
+      "value": 0.007,
+      "verified_at": "2026-09-17"
+    },
+    "string_count": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "count",
+      "display": "115 detection units (design: one building block)",
+      "locator": "The ARCA and ORCA detectors (km3net.org)",
+      "note": "Design total. 42 detection units were installed as of 2026-07-08 per the most recent sourced sea-campaign report (see intervals).",
+      "quote": "one building block of 115 detection units",
+      "sources": [
+        "src:astro-neutrino-km3net-arca-orca-detector-page"
+      ],
+      "unit": "",
+      "value": 115,
+      "verified_at": "2026-09-17"
+    }
+  },
+  "status": "commissioning",
+  "subsystems": [],
+  "summary": {
+    "plain": "The smaller, more tightly packed of the two KM3NeT telescopes, built to study neutrinos made in Earth's atmosphere and work out how the three kinds of neutrino are ordered by mass. It sits 2450 metres down on the seabed off Toulon, France.",
+    "technical": "KM3NeT/ORCA (Oscillation Research with Cosmics in the Abyss): sea-water Cherenkov neutrino telescope at the KM3NeT-Fr site off Toulon, France (2450 m depth), designed as one building block of 115 detection units (~7 Mt instrumented seawater) for atmospheric neutrino oscillation measurements and neutrino mass ordering; 42 detection units were installed as of July 2026, with construction ongoing."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "Letter of Intent for KM3NeT 2.0, abstract",
+    "note": "",
+    "quote": "One building block will be configured to precisely measure atmospheric neutrino oscillations.",
+    "sources": [
+      "src:astro-neutrino-km3net-arca-orca-detector-page",
+      "src:astro-neutrino-km3net-loi-2016"
+    ],
+    "value": "Sea-water Cherenkov neutrino telescope: vertical strings of digital optical modules with closer sensor spacing than ARCA, optimised for lower-energy atmospheric neutrinos",
+    "verified_at": "2026-09-17"
+  },
+  "technology_class": "sea_cherenkov",
+  "technology_classes": [
+    "sea_cherenkov"
+  ],
+  "type": "detector"
+}

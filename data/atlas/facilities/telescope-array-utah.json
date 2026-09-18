@@ -1,0 +1,48 @@
+{
+  "id": "facility:telescope-array-utah",
+  "type": "facility",
+  "schema": "hep-atlas/0.2",
+  "name": "Telescope Array (Utah)",
+  "aliases": ["TA"],
+  "distinct_from": [],
+  "superseded_by": null,
+  "kind": "astroparticle_observatory",
+  "operator": null,
+  "operator_text": null,
+  "operator_ids": [],
+  "country": ["US"],
+  "countries": ["US"],
+  "primary_site_id": "site:telescope-array-utah-central-site",
+  "intervals": [
+    {
+      "label": "operations",
+      "status": "active",
+      "start": "2008-05-11",
+      "end": null,
+      "sources": ["src:cosmic-gamma-ta-arxiv-2026-recent-findings"],
+      "verified_at": "2026-09-17",
+      "confidence": "verified",
+      "quote": "16 years of data collected from 11 May 2008 to 10 May 2024",
+      "note": "The 10 May 2024 date is the end of a 16-year analysis dataset window used in a 2026 paper, not a stated end of operations; no fetched source says the array has stopped taking data."
+    }
+  ],
+  "status": "active",
+  "specs": {
+    "area": {"value": 700, "unit": "km^2", "dimension": "area", "approx": true, "display": "~700 km² (original array)", "sources": ["src:cosmic-gamma-ta-arxiv-2026-recent-findings"], "verified_at": "2026-09-17", "confidence": "verified", "quote": "covering an area of about 700 km^2", "note": ""},
+    "altitude": {"value": 1400, "unit": "m", "dimension": "length", "approx": true, "display": "~1400 m", "sources": ["src:cosmic-gamma-ta-arxiv-2026-recent-findings"], "verified_at": "2026-09-17", "confidence": "verified", "quote": "at an altitude of approximately 1400 m above sea level", "note": ""}
+  },
+  "topic_ids": ["topic:cosmic-rays", "topic:multimessenger-astrophysics"],
+  "related_facility_ids": [],
+  "summary": {
+    "plain": "A cosmic-ray observatory in the Utah desert, near Delta: 507 detector stations spread across about 700 square kilometres, watched by three telescope stations, to catch the rarest and most energetic particles from space.",
+    "technical": "Hybrid ultra-high-energy cosmic-ray observatory near Delta, Utah, USA, at about 1400 m altitude, comprising a 507-counter surface-detector array over ~700 km^2 and three fluorescence-detector stations; operating since 11 May 2008 and extended since 2019 by the four-times-larger TAx4 array."
+  },
+  "sources": ["src:cosmic-gamma-ta-arxiv-2026-recent-findings"],
+  "links": {"website": {"value": "http://www.telescopearray.org/", "sources": ["src:cosmic-gamma-inspire-telescope-array-experiment-record"], "verified_at": "2026-09-17", "confidence": "uncertain", "note": "URL taken from the INSPIRE-HEP experiment record; the site itself could not be fetched this session (DNS/connection errors on every attempt), so its current availability/content is not confirmed."}},
+  "notes": [
+    "site_ids, accelerator_ids, beamline_ids, institution_id, document_ids, experiment_ids are deliberately not written (v0.2 A1 derived fields).",
+    "telescopearray.org and its known mirrors could not be reached this session (DNS failures, connection refused, or 502 errors on every attempt); all quantitative facts here come from a 2026 collaboration arXiv paper instead of the official site.",
+    "operator/operator_text left null: no fetched source names a distinct legal operator; the observatory is run by the international Telescope Array Collaboration."
+  ],
+  "coverage": {"tier": "B", "researched": "partial"}
+}

@@ -1,0 +1,205 @@
+{
+  "accelerator_ids": [],
+  "aliases": [
+    "XENONnT Dark Matter Experiment"
+  ],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:xenon"
+  ],
+  "coverage": {
+    "researched": "full",
+    "tier": "A"
+  },
+  "document_ids": [],
+  "energy_regime": null,
+  "external": {
+    "greybook": null,
+    "inspire_experiment": 1807876,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:lngs",
+      "locator": "xenonexperiment.org/history/",
+      "note": "",
+      "quote": "In December 2018, the experiment was stopped for its upgrade to the next-generation experiment XENONnT.",
+      "role": "host",
+      "sources": [
+        "src:dm-noble-liquid-xenon-official-history"
+      ],
+      "start": "2018-12",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "id": "experiment:xenonnt",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2020",
+      "label": "construction/upgrade",
+      "note": "",
+      "quote": "In December 2018, the experiment was stopped for its upgrade to the next-generation experiment XENONnT.",
+      "sources": [
+        "src:dm-noble-liquid-xenon-official-history"
+      ],
+      "start": "2018-12",
+      "status": "construction",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "approximate",
+      "end": "2021-07-06",
+      "label": "start of operation / commissioning",
+      "note": "Official site says operation started in 2020; INSPIRE experiment record gives date_started 2021-07-06, which is treated here as the end of commissioning / start of the sourced science-run interval below.",
+      "quote": "XENONnT started its operation with about 8.6 tonnes of xenon in 2020.",
+      "sources": [
+        "src:dm-noble-liquid-xenon-official-history",
+        "src:dm-noble-liquid-xenonnt-inspire-experiment"
+      ],
+      "start": "2020",
+      "status": "commissioning",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "science operations",
+      "locator": "inspirehep.net/experiments/1807876, date_started field",
+      "note": "Start date per the INSPIRE experiment record date_started field. Exact SR0/SR1 run boundaries were not confirmed by a source fetched in this session.",
+      "sources": [
+        "src:dm-noble-liquid-xenonnt-inspire-experiment"
+      ],
+      "start": "2021-07-06",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Total liquid xenon mass",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "mass",
+        "display": "8.5 t",
+        "locator": "Eur. Phys. J. C 84 (2024) 8, 784, abstract",
+        "note": "The collaboration's own site rounds this to \"about 8.6 tonnes\" (xenonexperiment.org/history/); the peer-reviewed instrument paper's figure (8.5 t) is used as the primary value.",
+        "quote": "It features an active target of 5.9 tonnes of cryogenic liquid xenon (8.5 tonnes total mass in cryostat).",
+        "sources": [
+          "src:dm-noble-liquid-xenonnt-instrument-paper"
+        ],
+        "unit": "t",
+        "value": 8.5,
+        "verified_at": "2026-09-17"
+      }
+    },
+    {
+      "label": "Active liquid xenon mass",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "mass",
+        "display": "5.9 t",
+        "locator": "Eur. Phys. J. C 84 (2024) 8, 784, abstract",
+        "note": "",
+        "quote": "It features an active target of 5.9 tonnes of cryogenic liquid xenon (8.5 tonnes total mass in cryostat).",
+        "sources": [
+          "src:dm-noble-liquid-xenonnt-instrument-paper"
+        ],
+        "unit": "t",
+        "value": 5.9,
+        "verified_at": "2026-09-17"
+      }
+    }
+  ],
+  "kind": "direct_dark_matter",
+  "lineage": [
+    {
+      "confidence": "verified",
+      "experiment_id": "experiment:xenon1t",
+      "note": "",
+      "quote": "In December 2018, the experiment was stopped for its upgrade to the next-generation experiment XENONnT.",
+      "relation": "predecessor",
+      "sources": [
+        "src:dm-noble-liquid-xenon-official-history"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "experiment_id": "experiment:xenon1t",
+      "note": "XENONnT reuses XENON1T's water-Cherenkov shield and much of its infrastructure at the same Hall B location.",
+      "quote": "In December 2018, the experiment was stopped for its upgrade to the next-generation experiment XENONnT.",
+      "relation": "upgrade_of",
+      "sources": [
+        "src:dm-noble-liquid-xenon-official-history"
+      ],
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "note": "",
+      "sources": [
+        "src:dm-noble-liquid-xenon-official-history"
+      ],
+      "value": "https://xenonexperiment.org/",
+      "verified_at": "2026-09-17"
+    }
+  },
+  "name": "XENONnT",
+  "notes": [],
+  "physics_goals": {
+    "confidence": "verified",
+    "note": "",
+    "quote": "is expected to extend the sensitivity to WIMP dark matter by more than an order of magnitude compared to XENON1T",
+    "sources": [
+      "src:dm-noble-liquid-xenonnt-instrument-paper"
+    ],
+    "value": [
+      "Detect or exclude WIMP dark matter scattering off xenon nuclei with more than an order of magnitude better sensitivity than XENON1T",
+      "Measure coherent elastic neutrino-nucleus scattering (CEvNS) from solar 8B neutrinos",
+      "Search for neutrinoless double beta decay of 136Xe and other rare processes"
+    ],
+    "verified_at": "2026-09-17"
+  },
+  "result_ids": [],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [
+    "cevns"
+  ],
+  "sources": [
+    "src:dm-noble-liquid-xenonnt-inspire-experiment",
+    "src:dm-noble-liquid-xenon-official-history",
+    "src:dm-noble-liquid-xenonnt-instrument-paper"
+  ],
+  "status": "active",
+  "summary": {
+    "plain": "XENONnT is a tank of nearly six tonnes of liquid xenon deep under a mountain in Italy, watching for dark matter particles and other rare signals. It is the upgraded successor of XENON1T, has been running since 2020, and has set new dark matter limits and reported the first hint of solar neutrinos bouncing off xenon nuclei.",
+    "technical": "Dual-phase xenon TPC upgrade of XENON1T: 8.5 t total / 5.9 t active liquid xenon in LNGS Hall B (INFN, ~1400 m rock). Construction began Dec 2018; operation began 2020. The first WIMP-search result (2023, 1.1 t-y exposure) set a spin-independent limit of 2.58e-47 cm^2 at 28 GeV/c^2. A 2024 analysis reported the first indication (2.73 sigma) of solar 8B neutrinos via coherent elastic neutrino-nucleus scattering."
+  },
+  "topic_ids": [
+    "topic:dark-matter",
+    "topic:direct-dark-matter-detection",
+    "topic:cevns",
+    "topic:solar-neutrinos"
+  ],
+  "type": "experiment",
+  "unique_capabilities": {
+    "confidence": "verified",
+    "note": "",
+    "quote": "It features an active target of 5.9 tonnes of cryogenic liquid xenon (8.5 tonnes total mass in cryostat).",
+    "sources": [
+      "src:dm-noble-liquid-xenonnt-instrument-paper"
+    ],
+    "value": [
+      "Radon removal (cryogenic distillation) and a dedicated neutron veto for background reduction",
+      "Largest active xenon target of the XENON series to date"
+    ],
+    "verified_at": "2026-09-17"
+  }
+}

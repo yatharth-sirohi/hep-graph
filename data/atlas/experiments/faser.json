@@ -1,0 +1,212 @@
+{
+  "accelerator_ids": [
+    "accelerator:lhc"
+  ],
+  "aliases": [
+    "ForwArd Search ExpeRiment"
+  ],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:faser"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "document_ids": [],
+  "energy_regime": {
+    "confidence": "approximate",
+    "note": "No FASER-specific energy value distinct from the LHC-wide Run 3 energy was found in this session.",
+    "sources": [
+      "src:colliders-lhc-faser-home-cern-page"
+    ],
+    "value": "LHC Run 3 proton-proton collisions at 13.6 TeV, sampled via forward particle flux along the beam axis",
+    "verified_at": "2026-09-17"
+  },
+  "external": {
+    "greybook": null,
+    "inspire_experiment": 1711193,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:cern",
+      "note": "",
+      "quote": "FASER will be located 480 m downstream of the ATLAS IP in the unused service tunnel TI12",
+      "role": "host",
+      "sources": [
+        "src:colliders-lhc-faser-inspire-experiment-record"
+      ],
+      "start": "2019-03-05",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:cern",
+      "note": "FASER detects particles produced in LHC pp collisions travelling along the beam collision axis.",
+      "role": "beam_source",
+      "sources": [
+        "src:colliders-lhc-faser-inspire-experiment-record"
+      ],
+      "start": "2019-03-05",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "id": "experiment:faser",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2019-03-05",
+      "label": "proposed",
+      "locator": "INSPIRE experiment record 1711193, field date_proposed",
+      "note": "End = date_approved.",
+      "sources": [
+        "src:colliders-lhc-faser-inspire-experiment-record"
+      ],
+      "start": "2018-09-12",
+      "status": "proposed",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "approximate",
+      "end": "2021",
+      "label": "approved / construction",
+      "locator": "home.cern FASER page",
+      "note": "End is year-precision, from home.cern's LS2 installation window.",
+      "quote": "Installation occurred during the second long shutdown (2019-2021)",
+      "sources": [
+        "src:colliders-lhc-faser-inspire-experiment-record",
+        "src:colliders-lhc-faser-home-cern-page"
+      ],
+      "start": "2019-03-05",
+      "status": "approved",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "approximate",
+      "end": "2022-07",
+      "label": "commissioning",
+      "note": "Start is year-precision (end of LS2 installation window).",
+      "quote": "Data collection began in July 2022 at the start of LHC Run 3",
+      "sources": [
+        "src:colliders-lhc-faser-home-cern-page"
+      ],
+      "start": "2021",
+      "status": "commissioning",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "kind": "run",
+      "label": "Run 3 (data-taking)",
+      "note": "",
+      "quote": "Data collection began in July 2022 at the start of LHC Run 3",
+      "sources": [
+        "src:colliders-lhc-faser-home-cern-page"
+      ],
+      "start": "2022-07",
+      "status": "active",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Distance from ATLAS IP1",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "length",
+        "display": "480 m",
+        "locator": "INSPIRE experiment record 1711193, field description",
+        "note": "",
+        "quote": "FASER will be located 480 m downstream of the ATLAS IP in the unused service tunnel TI12",
+        "sources": [
+          "src:colliders-lhc-faser-inspire-experiment-record",
+          "src:colliders-lhc-faser-home-cern-page"
+        ],
+        "unit": "m",
+        "value": 480,
+        "verified_at": "2026-09-17"
+      }
+    }
+  ],
+  "kind": "long_lived_particle",
+  "lineage": [],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "note": "",
+      "sources": [
+        "src:colliders-lhc-faser-home-cern-page"
+      ],
+      "value": "https://home.cern/science/experiments/faser",
+      "verified_at": "2026-09-17"
+    }
+  },
+  "name": "FASER",
+  "notes": [
+    "Derived fields (detector_ids, site_ids, result_ids, document_ids) deliberately not written (v0.2 A1).",
+    "Mandatory-bar-only pass: no results/technical documents written (FASER is not a wave-3 flagship)."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "INSPIRE experiment record 1711193, field description",
+      "note": "",
+      "quote": "Such particles may be produced in large numbers along the beam collision axis, travel for hundreds of meters without interacting, and then decay to standard model particles.",
+      "sources": [
+        "src:colliders-lhc-faser-inspire-experiment-record",
+        "src:colliders-lhc-faser-home-cern-page"
+      ],
+      "value": "Search for light, extremely weakly-interacting particles (e.g. dark photons, ALPs, heavy neutral leptons) produced along the beam collision axis that would decay far from the interaction point",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "locator": "home.cern FASER page",
+      "note": "",
+      "quote": "A subdetector called FASERv specifically aims to detect neutrinos from collisions -- a first for particle collider experiments -- enabling study of high-energy neutrino interactions.",
+      "sources": [
+        "src:colliders-lhc-faser-home-cern-page"
+      ],
+      "value": "Detect and study high-energy neutrinos produced in LHC collisions via the FASERv subdetector, a first for a particle collider experiment",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "result_ids": [],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [
+    "accelerator_neutrino"
+  ],
+  "sources": [
+    "src:colliders-lhc-faser-inspire-experiment-record",
+    "src:colliders-lhc-faser-home-cern-page"
+  ],
+  "status": "active",
+  "summary": {
+    "plain": "FASER is a small experiment placed in an unused tunnel 480 metres from CERN's ATLAS detector, watching for rare, long-lived particles and neutrinos that fly straight down the LHC's beamline.",
+    "technical": "Forward, long-lived-particle search experiment sited in the TI12 tunnel, 480 m downstream of ATLAS interaction point 1 along the beam collision axis; includes the FASERv emulsion/tungsten neutrino subdetector. Proposed September 2018, approved March 2019, installed during LS2 (2019-2021), data-taking since July 2022 (LHC Run 3)."
+  },
+  "topic_ids": [
+    "topic:long-lived-particles",
+    "topic:neutrino-interactions"
+  ],
+  "type": "experiment",
+  "unique_capabilities": [
+    {
+      "confidence": "verified",
+      "locator": "INSPIRE experiment record 1711193, field description",
+      "note": "",
+      "quote": "FASER will complement the LHC's existing physics program, extending its discovery potential to a host of new, light particles",
+      "sources": [
+        "src:colliders-lhc-faser-inspire-experiment-record"
+      ],
+      "value": "Located in an unused service tunnel directly along the beam collision axis, 480 m from ATLAS, exploiting a gap in the LHC's main-detector coverage to catch forward, long-lived and weakly-interacting particles",
+      "verified_at": "2026-09-17"
+    }
+  ]
+}

@@ -1,0 +1,143 @@
+{
+  "accelerator_ids": [],
+  "aliases": [],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:darkside"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "document_ids": [],
+  "energy_regime": null,
+  "external": {
+    "greybook": null,
+    "inspire_experiment": 1830577,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:lngs",
+      "locator": "lngs.infn.it/en/darkside",
+      "note": "Construction start date not sourced.",
+      "quote": "GADMC is currently building inside the LNGS Hall-C DarkSide-20k, a two-phase LAr detector with a 50 tonnes active mass",
+      "role": "host",
+      "sources": [
+        "src:dm-noble-liquid-darkside-lngs-page"
+      ],
+      "start": null,
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "id": "experiment:darkside-20k",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "construction",
+      "note": "\"2024\" is when arXiv:2402.07566 (submitted Feb 2024) confirms construction was already under way (\"has entered the construction phase\"); used as a lower-bound start since no fetched source gives the true construction-start date. Still described as \"currently under construction\" on the LNGS facility page checked 2026-09-17. Planned data-taking start: \"late 2026\" per arXiv:2402.07566 or \"2027\" per the LNGS page -- recorded here as a note, not as a `planned` interval, to avoid conflicting with A21's restriction on `planned` starts paired with an active-like status.",
+      "quote": "Currently, the experiment has entered the construction phase and the external cryostat is being put in place at Laboratori Nazionali del Gran Sasso (LNGS), Italy.",
+      "sources": [
+        "src:dm-noble-liquid-darkside-20k-jinst-2024",
+        "src:dm-noble-liquid-darkside-lngs-page"
+      ],
+      "start": "2024",
+      "status": "construction",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Active argon mass (design)",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "mass",
+        "display": "50 t",
+        "locator": "lngs.infn.it/en/darkside",
+        "note": "",
+        "quote": "DarkSide-20k, a two-phase LAr detector with a 50 tonnes active mass",
+        "sources": [
+          "src:dm-noble-liquid-darkside-lngs-page"
+        ],
+        "unit": "t",
+        "value": 50,
+        "verified_at": "2026-09-17"
+      }
+    }
+  ],
+  "kind": "direct_dark_matter",
+  "lineage": [
+    {
+      "confidence": "approximate",
+      "experiment_id": "experiment:darkside-50",
+      "locator": "arXiv:2402.07566, introduction (\"Bringing together the experience from previous argon-based detectors\")",
+      "note": "No source fetched in this session names DarkSide-50 specifically as DarkSide-20k's predecessor in so many words; this relation is inferred from the collaboration's own framing of DarkSide-20k as the continuation of \"previous argon-based detectors\" in the same DarkSide/GADMC programme, which DarkSide-50 is the most direct example of. Flagged as approximate confidence for that reason.",
+      "relation": "predecessor",
+      "sources": [
+        "src:dm-noble-liquid-darkside-20k-jinst-2024"
+      ],
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "note": "",
+      "sources": [
+        "src:dm-noble-liquid-darkside-official-site"
+      ],
+      "value": "https://darkside.lngs.infn.it/",
+      "verified_at": "2026-09-17"
+    }
+  },
+  "name": "DarkSide-20k",
+  "notes": [
+    "Schedule conflict: arXiv:2402.07566 (Feb 2024) says \"data taking is expected to start in late 2026\"; the LNGS facility page (fetched 2026-09-17) says operations are \"expected to begin in 2027\". Both are recorded as planned schedules, not treated as a resolved interval bound, to avoid asserting a specific date neither source agrees on precisely."
+  ],
+  "physics_goals": {
+    "confidence": "verified",
+    "note": "",
+    "quote": "The main goal of the experiment is to discover or to extend the current sensitivity limits on the search for dark matter WIMP-like particles.",
+    "sources": [
+      "src:dm-noble-liquid-darkside-20k-jinst-2024"
+    ],
+    "value": [
+      "Discover or extend current sensitivity limits on WIMP-like dark matter particles using a 50-tonne liquid argon target"
+    ],
+    "verified_at": "2026-09-17"
+  },
+  "result_ids": [],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:dm-noble-liquid-darkside-20k-inspire-experiment",
+    "src:dm-noble-liquid-darkside-20k-jinst-2024",
+    "src:dm-noble-liquid-darkside-lngs-page"
+  ],
+  "status": "construction",
+  "summary": {
+    "plain": "DarkSide-20k will be a much bigger dark matter detector, holding fifty tonnes of liquid argon, being built deep under a mountain in Italy. It is the successor of the smaller DarkSide-50 experiment and is still under construction, with data taking expected around 2026-2027.",
+    "technical": "Dual-phase liquid argon TPC with SiPM light readout, 50 t active mass, under construction in LNGS Hall C as the flagship detector of the Global Argon Dark Matter Collaboration (GADMC). As of the source fetched (arXiv:2402.07566, 2024), the external cryostat was being installed; data taking was expected to start in late 2026. The LNGS facility page (checked 2026-09-17) instead gives 2027 for the start of operations -- a schedule discrepancy noted, not resolved."
+  },
+  "topic_ids": [
+    "topic:dark-matter",
+    "topic:direct-dark-matter-detection"
+  ],
+  "type": "experiment",
+  "unique_capabilities": {
+    "confidence": "verified",
+    "note": "",
+    "quote": "the community is now building a dual-phase LAr-TPC equipped with SiPM arrays for light readout",
+    "sources": [
+      "src:dm-noble-liquid-darkside-20k-jinst-2024"
+    ],
+    "value": [
+      "Large-area cryogenic SiPM light readout arrays (tens of square metres)"
+    ],
+    "verified_at": "2026-09-17"
+  }
+}

@@ -1,0 +1,123 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "document_ids": [],
+  "experiment_ids": [
+    "experiment:darkside-20k"
+  ],
+  "id": "detector:darkside-20k",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "construction",
+      "note": "See experiment:darkside-20k for the sourcing of \"2024\" as a lower-bound start and the schedule-conflict note (late 2026 vs 2027).",
+      "quote": "Currently, the experiment has entered the construction phase and the external cryostat is being put in place at Laboratori Nazionali del Gran Sasso (LNGS), Italy.",
+      "sources": [
+        "src:dm-noble-liquid-darkside-20k-jinst-2024",
+        "src:dm-noble-liquid-darkside-lngs-page"
+      ],
+      "start": "2024",
+      "status": "construction",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "DarkSide-20k detector",
+  "notes": [],
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "locator": "lngs.infn.it/en/darkside",
+      "note": "site:lngs-hall-c is a dangling reference: owned by the \"facilities\" workstream, not yet created as of 2026-09-17.",
+      "quote": "GADMC is currently building inside the LNGS Hall-C DarkSide-20k, a two-phase LAr detector with a 50 tonnes active mass",
+      "role": "main",
+      "site_id": "site:lngs-hall-c",
+      "sources": [
+        "src:dm-noble-liquid-darkside-lngs-page"
+      ],
+      "start": null,
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:dm-noble-liquid-darkside-20k-jinst-2024",
+    "src:dm-noble-liquid-darkside-lngs-page"
+  ],
+  "specs": {
+    "active_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "50 t",
+      "locator": "lngs.infn.it/en/darkside",
+      "note": "",
+      "quote": "DarkSide-20k, a two-phase LAr detector with a 50 tonnes active mass",
+      "sources": [
+        "src:dm-noble-liquid-darkside-lngs-page"
+      ],
+      "unit": "t",
+      "value": 50,
+      "verified_at": "2026-09-17"
+    },
+    "phase": {
+      "confidence": "verified",
+      "note": "",
+      "quote": "the community is now building a dual-phase LAr-TPC equipped with SiPM arrays for light readout",
+      "sources": [
+        "src:dm-noble-liquid-darkside-20k-jinst-2024"
+      ],
+      "value": "dual-phase",
+      "verified_at": "2026-09-17"
+    },
+    "readout": {
+      "confidence": "verified",
+      "note": "",
+      "quote": "the community is now building a dual-phase LAr-TPC equipped with SiPM arrays for light readout",
+      "sources": [
+        "src:dm-noble-liquid-darkside-20k-jinst-2024"
+      ],
+      "value": "Large-area cryogenic silicon photomultiplier (SiPM) arrays",
+      "verified_at": "2026-09-17"
+    },
+    "target_medium": {
+      "confidence": "verified",
+      "note": "",
+      "quote": "dual-phase LAr-TPC",
+      "sources": [
+        "src:dm-noble-liquid-darkside-20k-jinst-2024"
+      ],
+      "value": "liquid argon",
+      "verified_at": "2026-09-17"
+    }
+  },
+  "status": "construction",
+  "subsystems": [],
+  "summary": {
+    "plain": "A much larger tank of liquid argon than its predecessor DarkSide-50, holding fifty tonnes, being built deep under an Italian mountain to hunt for dark matter with thousands of tiny light sensors.",
+    "technical": "Dual-phase (two-phase) liquid argon TPC, 50 t active mass, SiPM-based light readout, in LNGS Hall C. Under construction as of the sources fetched (2024)."
+  },
+  "technology": {
+    "confidence": "verified",
+    "note": "",
+    "quote": "the community is now building a dual-phase LAr-TPC equipped with SiPM arrays for light readout",
+    "sources": [
+      "src:dm-noble-liquid-darkside-20k-jinst-2024"
+    ],
+    "value": "dual-phase (two-phase) liquid argon TPC with SiPM light readout",
+    "verified_at": "2026-09-17"
+  },
+  "technology_class": "argon_tpc",
+  "technology_classes": [
+    "noble_liquid_tpc",
+    "argon_tpc"
+  ],
+  "type": "detector"
+}

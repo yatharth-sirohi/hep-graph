@@ -1,0 +1,58 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
+  },
+  "formation": {
+    "confidence": "uncertain",
+    "locator": "§1.2",
+    "note": "No fetched source states an explicit collaboration formation date distinct from the experiment's own proposal date. '1989' is used here only as a lower bound (the year the experiment was proposed), not as a stated collaboration formation date.",
+    "sources": [
+      "src:lsnd-nim-1997-detector-paper"
+    ],
+    "value": null,
+    "verified_at": "2026-09-17"
+  },
+  "host_facility_id": "facility:los-alamos-national-laboratory",
+  "host_site_id": "site:lanl-lansce",
+  "id": "collaboration:lsnd",
+  "intervals": [
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "collaboration",
+      "locator": "§1.2",
+      "note": "True formation date not sourced; start is a lower bound taken from the sourced 1989 proposal date. No fetched source states a dissolution date, so end is left null even though the experiment itself is 'completed' as of 1998.",
+      "quote": "The LSND experiment was proposed for this purpose in 1989",
+      "sources": [
+        "src:lsnd-nim-1997-detector-paper"
+      ],
+      "start": "1989",
+      "status": "completed",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "leadership": [],
+  "links": {
+    "website": null
+  },
+  "name": "LSND Collaboration",
+  "notes": [
+    "Membership counts are left unwritten: no fetched source states an official institution/member count for the collaboration. The 1997 NIM detector paper lists roughly 32 named authors across 13 institutional addresses on one publication, which is not an official roster and is not used to infer membership per the project's rule against deriving membership from author/institutional affiliation.",
+    "Leadership is left empty: person records are owned by another workstream (membership-lead) and out of scope for this wave.",
+    "host_facility_id/host_site_id reference ids owned by the 'facilities' lead and not yet created in data/atlas/ when this record was written; expected dangling references.",
+    "Derived field collaboration.experiment_ids is deliberately not written (v0.2 A1)."
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:lsnd-nim-1997-detector-paper",
+    "src:lsnd-prd-2001-antineutrino-evidence"
+  ],
+  "status": "completed",
+  "summary": {
+    "plain": "The physicists who built and ran the LSND neutrino detector at Los Alamos National Laboratory from 1993 to 1998.",
+    "technical": "Collaboration (approximately 32 authors across 13 institutions on its main detector paper) that proposed the LSND experiment in 1989, built the 167 t liquid-scintillator detector at LAMPF/LANSCE, and operated it from 1993 to 1998, reporting evidence for muon-antineutrino to electron-antineutrino oscillation."
+  },
+  "type": "collaboration"
+}
