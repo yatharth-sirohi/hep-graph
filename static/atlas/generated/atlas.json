@@ -12798,7 +12798,9 @@
       "experiment_ids": [
         "experiment:baikal-gvd"
       ],
-      "geometry_map_ids": [],
+      "geometry_map_ids": [
+        "map:baikal-deep-underwater-neutrino-telescope"
+      ],
       "id": "detector:baikal-gvd",
       "intervals": [
         {
@@ -18193,7 +18195,9 @@
       "experiment_ids": [
         "experiment:km3net"
       ],
-      "geometry_map_ids": [],
+      "geometry_map_ids": [
+        "map:km3net-arca"
+      ],
       "id": "detector:km3net-arca",
       "intervals": [
         {
@@ -18309,7 +18313,9 @@
       "experiment_ids": [
         "experiment:km3net"
       ],
-      "geometry_map_ids": [],
+      "geometry_map_ids": [
+        "map:km3net-orca"
+      ],
       "id": "detector:km3net-orca",
       "intervals": [
         {
@@ -45211,7 +45217,7 @@
       "links": {
         "website": "https://www.nsf.gov/geo/opp/ail/amundson-scott-south-pole-station"
       },
-      "map_id": null,
+      "map_id": "map:amundsen-scott-south-pole-station",
       "name": "Amundsen-Scott South Pole Station",
       "operator_ids": [],
       "operator_text": "U.S. National Science Foundation / U.S. Antarctic Program",
@@ -45350,7 +45356,7 @@
       "links": {
         "website": "https://www.inr.ru/eng/ebgnt.html"
       },
-      "map_id": null,
+      "map_id": "map:baikal-deep-underwater-neutrino-telescope",
       "name": "Baikal Deep Underwater Neutrino Telescope",
       "operator": null,
       "operator_ids": [],
@@ -47284,7 +47290,7 @@
       "links": {
         "website": "https://www.km3net.org/"
       },
-      "map_id": null,
+      "map_id": "map:km3net-arca",
       "name": "KM3NeT",
       "operator": "KM3NeT Collaboration",
       "operator_ids": [],
@@ -49063,6 +49069,143 @@
     }
   },
   "maps": {
+    "map:amundsen-scott-south-pole-station": {
+      "attribution": [
+        "© OpenStreetMap contributors (ODbL-1.0)"
+      ],
+      "bundle": "geometry/amundsen-scott-south-pole-station.json",
+      "center": {
+        "lat": -89.998,
+        "lon": -139.2728
+      },
+      "coverage": {
+        "researched": "partial",
+        "tier": "C"
+      },
+      "extent_m": 3000,
+      "facility_id": "facility:amundsen-scott-south-pole-station",
+      "feature_count": 1,
+      "id": "map:amundsen-scott-south-pole-station",
+      "levels": [
+        {
+          "depth_m": null,
+          "id": "surface",
+          "kind": "surface",
+          "name": "Ice surface"
+        },
+        {
+          "depth_m": {
+            "dimension": "length",
+            "display": "≈1950 m (1,450–2,450 m instrumented range)",
+            "max": 2450,
+            "min": 1450,
+            "unit": "m"
+          },
+          "id": "icecube-ice",
+          "kind": "ice",
+          "name": "IceCube in-ice array depth (1,450–2,450 m)"
+        },
+        {
+          "depth_m": {
+            "dimension": "length",
+            "display": "≈150 m (100–200 m instrumented range)",
+            "max": 200,
+            "min": 100,
+            "unit": "m"
+          },
+          "id": "ara-ice",
+          "kind": "ice",
+          "name": "ARA station depth (100–200 m)"
+        }
+      ],
+      "linked_map_ids": [],
+      "name": "Amundsen-Scott South Pole Station — IceCube and ARA",
+      "site_ids": [
+        "site:south-pole-ara",
+        "site:south-pole-icecube"
+      ],
+      "state_segments": [
+        [
+          72,
+          83,
+          "active",
+          "possible"
+        ],
+        [
+          84,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
+      "to_scale_count": 1,
+      "unlocated_count": 8
+    },
+    "map:baikal-deep-underwater-neutrino-telescope": {
+      "attribution": [],
+      "bundle": "geometry/baikal-deep-underwater-neutrino-telescope.json",
+      "center": {
+        "lat": 51.7667,
+        "lon": 104.4
+      },
+      "coverage": {
+        "researched": "partial",
+        "tier": "C"
+      },
+      "extent_m": 5000,
+      "facility_id": "facility:baikal-deep-underwater-neutrino-telescope",
+      "feature_count": 2,
+      "id": "map:baikal-deep-underwater-neutrino-telescope",
+      "levels": [
+        {
+          "depth_m": {
+            "approx": false,
+            "dimension": "length",
+            "display": "~1366 m",
+            "unit": "m",
+            "value": 1366
+          },
+          "id": "lakebed",
+          "kind": "lake",
+          "name": "Lakebed (~1366 m)"
+        }
+      ],
+      "linked_map_ids": [],
+      "name": "Baikal-GVD — southern Lake Baikal site",
+      "site_ids": [
+        "site:baikal-gvd-lake-baikal"
+      ],
+      "state_segments": [
+        [
+          360,
+          371,
+          "proposed",
+          "possible"
+        ],
+        [
+          372,
+          779,
+          "proposed",
+          "certain"
+        ],
+        [
+          780,
+          791,
+          "construction",
+          "possible"
+        ],
+        [
+          792,
+          920,
+          "construction",
+          "certain"
+        ]
+      ],
+      "status": "construction",
+      "to_scale_count": 2,
+      "unlocated_count": 0
+    },
     "map:cern": {
       "attribution": [
         "© OpenStreetMap contributors (ODbL-1.0)"
@@ -49148,6 +49291,114 @@
       "status": "active",
       "to_scale_count": 20,
       "unlocated_count": 7
+    },
+    "map:km3net-arca": {
+      "attribution": [],
+      "bundle": "geometry/km3net-arca.json",
+      "center": {
+        "lat": 36.2667,
+        "lon": 16.1
+      },
+      "coverage": {
+        "researched": "partial",
+        "tier": "C"
+      },
+      "extent_m": 5000,
+      "facility_id": "facility:km3net",
+      "feature_count": 2,
+      "id": "map:km3net-arca",
+      "levels": [
+        {
+          "depth_m": {
+            "approx": true,
+            "dimension": "length",
+            "display": "~3500 m",
+            "unit": "m",
+            "value": 3500
+          },
+          "id": "seabed",
+          "kind": "sea",
+          "name": "Seabed (≈3500 m)"
+        }
+      ],
+      "linked_map_ids": [
+        "map:km3net-orca"
+      ],
+      "name": "KM3NeT/ARCA — Capo Passero deep-sea site",
+      "site_ids": [
+        "site:km3net-arca-capo-passero"
+      ],
+      "state_segments": [
+        [
+          791,
+          791,
+          "construction",
+          "possible"
+        ],
+        [
+          792,
+          920,
+          "construction",
+          "certain"
+        ]
+      ],
+      "status": "construction",
+      "to_scale_count": 2,
+      "unlocated_count": 0
+    },
+    "map:km3net-orca": {
+      "attribution": [],
+      "bundle": "geometry/km3net-orca.json",
+      "center": {
+        "lat": 42.8,
+        "lon": 6.0333
+      },
+      "coverage": {
+        "researched": "partial",
+        "tier": "C"
+      },
+      "extent_m": 5000,
+      "facility_id": "facility:km3net",
+      "feature_count": 2,
+      "id": "map:km3net-orca",
+      "levels": [
+        {
+          "depth_m": {
+            "approx": true,
+            "dimension": "length",
+            "display": "~2450 m",
+            "unit": "m",
+            "value": 2450
+          },
+          "id": "seabed",
+          "kind": "sea",
+          "name": "Seabed (≈2450 m)"
+        }
+      ],
+      "linked_map_ids": [
+        "map:km3net-arca"
+      ],
+      "name": "KM3NeT/ORCA — Toulon deep-sea site",
+      "site_ids": [
+        "site:km3net-orca-toulon"
+      ],
+      "state_segments": [
+        [
+          791,
+          791,
+          "construction",
+          "possible"
+        ],
+        [
+          792,
+          920,
+          "construction",
+          "certain"
+        ]
+      ],
+      "status": "construction",
+      "to_scale_count": 2,
+      "unlocated_count": 0
     }
   },
   "schema": "hep-atlas/0.2",
@@ -49399,7 +49650,7 @@
       "links": {
         "website": null
       },
-      "map_id": null,
+      "map_id": "map:baikal-deep-underwater-neutrino-telescope",
       "name": "Baikal-GVD site, Lake Baikal",
       "place": {
         "city": null,
@@ -54349,7 +54600,7 @@
       "links": {
         "website": null
       },
-      "map_id": null,
+      "map_id": "map:km3net-arca",
       "name": "KM3NeT-It / ARCA site (Capo Passero)",
       "place": {
         "city": "Portopalo di Capo Passero",
@@ -54436,7 +54687,7 @@
       "links": {
         "website": null
       },
-      "map_id": null,
+      "map_id": "map:km3net-orca",
       "name": "KM3NeT-Fr / ORCA site (Toulon)",
       "place": {
         "city": "Toulon",
@@ -56849,7 +57100,7 @@
       "links": {
         "website": null
       },
-      "map_id": null,
+      "map_id": "map:amundsen-scott-south-pole-station",
       "name": "South Pole — ARA stations",
       "place": {
         "city": null,
@@ -56932,7 +57183,7 @@
       "links": {
         "website": "https://icecube.wisc.edu/science/icecube/"
       },
-      "map_id": null,
+      "map_id": "map:amundsen-scott-south-pole-station",
       "name": "South Pole — IceCube array",
       "place": {
         "city": null,
@@ -58559,5 +58810,5 @@
       "type": "topic"
     }
   },
-  "version": "9ccd8ade710ab615"
+  "version": "dbfe564b99281e12"
 }

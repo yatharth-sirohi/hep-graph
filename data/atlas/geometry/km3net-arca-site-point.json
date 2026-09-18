@@ -1,0 +1,69 @@
+{
+  "accuracy_m": 2000,
+  "aliases": [],
+  "checks": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "depth_m": {
+    "approx": true,
+    "confidence": "verified",
+    "dimension": "length",
+    "display": "~3500 m",
+    "note": "Reused verbatim from site:km3net-arca-capo-passero.",
+    "quote": "At a depth of about 3500 m",
+    "sources": [
+      "src:astro-neutrino-km3net-it-site-page",
+      "src:astro-neutrino-km3net-loi-2016"
+    ],
+    "unit": "m",
+    "value": 3500,
+    "verified_at": "2026-09-18"
+  },
+  "entity_id": "site:km3net-arca-capo-passero",
+  "feature_type": "other",
+  "geometry": {
+    "confidence": "verified",
+    "locator": "KM3NeT-It research-infrastructure page, opening paragraph",
+    "note": "'verified' because representation is 'surveyed' from a rank <=10 official source (KM3NeT-It site page, rank 1), corroborated by an independent rank-4 design report (the Letter of Intent) giving the same figure.",
+    "quote": "36°16' N 16°06' E",
+    "sources": [
+      "src:astro-neutrino-km3net-it-site-page",
+      "src:astro-neutrino-km3net-loi-2016"
+    ],
+    "value": {
+      "coordinates": [
+        16.1,
+        36.2667
+      ],
+      "type": "Point"
+    },
+    "verified_at": "2026-09-18"
+  },
+  "id": "geometry:km3net-arca-site-point",
+  "level_id": "seabed",
+  "license": null,
+  "links": {
+    "website": null
+  },
+  "map_id": "map:km3net-arca",
+  "method": "Point coordinate taken directly from the KM3NeT-It research-infrastructure page's published '36°16' N 16°06' E', corroborated verbatim by the Letter of Intent for KM3NeT 2.0 (arXiv:1601.07459). Same value already recorded on site:km3net-arca-capo-passero. accuracy_m matches that record's own precision_m (2000 m), reflecting the arc-minute precision of the published coordinate.",
+  "name": "KM3NeT/ARCA site (surveyed point)",
+  "notes": [
+    "No checks[] row: a Point has no length/area/span to cross-check independently; the coordinate itself is corroborated by two independent official sources (site page + Letter of Intent), which is why confidence is 'verified' rather than 'approximate'."
+  ],
+  "osm": null,
+  "representation": "surveyed",
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:km3net-arca-capo-passero",
+  "sources": [
+    "src:astro-neutrino-km3net-it-site-page",
+    "src:astro-neutrino-km3net-loi-2016"
+  ],
+  "summary": {
+    "plain": "The published seabed location of the KM3NeT/ARCA neutrino telescope, about 100 km off Sicily and 3500 m down."
+  },
+  "type": "geometry",
+  "valid": null
+}

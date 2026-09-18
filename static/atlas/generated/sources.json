@@ -1016,6 +1016,11 @@
         "/key_specs/1/quantity",
         "/sources"
       ],
+      "map:amundsen-scott-south-pole-station": [
+        "/levels/2/depth_m",
+        "/unlocated/0",
+        "/unlocated/4"
+      ],
       "site:south-pole-ara": [
         "/coordinates",
         "/depth",
@@ -1472,6 +1477,20 @@
       "facility:baikal-deep-underwater-neutrino-telescope": [
         "/intervals/1"
       ],
+      "geometry:baikal-gvd-cluster-footprint": [
+        "/geometry",
+        "/sources"
+      ],
+      "geometry:baikal-gvd-site-point": [
+        "/depth_m",
+        "/geometry",
+        "/sources"
+      ],
+      "map:baikal-deep-underwater-neutrino-telescope": [
+        "/center",
+        "/levels/0/depth_m",
+        "/sources"
+      ],
       "site:baikal-gvd-lake-baikal": [
         "/coordinates",
         "/depth",
@@ -1855,6 +1874,16 @@
       "experiment:km3net": [
         "/key_specs/2/quantity"
       ],
+      "geometry:km3net-orca-site-point": [
+        "/depth_m",
+        "/geometry",
+        "/sources"
+      ],
+      "map:km3net-orca": [
+        "/center",
+        "/levels/0/depth_m",
+        "/sources"
+      ],
       "site:km3net-orca-toulon": [
         "/coordinates",
         "/depth",
@@ -1912,6 +1941,19 @@
       "experiment:km3net": [
         "/key_specs/1/quantity"
       ],
+      "geometry:km3net-arca-footprint": [
+        "/geometry"
+      ],
+      "geometry:km3net-arca-site-point": [
+        "/depth_m",
+        "/geometry",
+        "/sources"
+      ],
+      "map:km3net-arca": [
+        "/center",
+        "/levels/0/depth_m",
+        "/sources"
+      ],
       "site:km3net-arca-capo-passero": [
         "/coordinates",
         "/depth",
@@ -1959,6 +2001,34 @@
         "/sources"
       ],
       "facility:km3net": [
+        "/sources"
+      ],
+      "geometry:km3net-arca-footprint": [
+        "/geometry",
+        "/sources"
+      ],
+      "geometry:km3net-arca-site-point": [
+        "/depth_m",
+        "/geometry",
+        "/sources"
+      ],
+      "geometry:km3net-orca-footprint": [
+        "/geometry",
+        "/sources"
+      ],
+      "geometry:km3net-orca-site-point": [
+        "/depth_m",
+        "/geometry",
+        "/sources"
+      ],
+      "map:km3net-arca": [
+        "/center",
+        "/levels/0/depth_m",
+        "/sources"
+      ],
+      "map:km3net-orca": [
+        "/center",
+        "/levels/0/depth_m",
         "/sources"
       ],
       "site:antares-toulon": [
@@ -17780,6 +17850,94 @@
     "type": "src",
     "url": "https://www.openstreetmap.org/way/66473762"
   },
+  "src:geo-polar-ara-design-2011": {
+    "accessed": "2026-09-18",
+    "archive_url": null,
+    "cited_by": {
+      "map:amundsen-scott-south-pole-station": [
+        "/unlocated/0",
+        "/unlocated/4"
+      ]
+    },
+    "content_hash": null,
+    "date": "2011-05",
+    "excerpt": "ARA-37, the 200 km2 array now under construction... 37 stations at a baseline spacing of 2 km. The ARA testbed installation was completed in the third week of January 2011, at a location approximately 1.8 km grid East of the IceCube detector.",
+    "id": "src:geo-polar-ara-design-2011",
+    "link_check": {
+      "http_status": 200,
+      "last_checked": "2026-09-18",
+      "redirect": null
+    },
+    "publisher": "ARA Collaboration / Astroparticle Physics",
+    "rank": 5,
+    "reference": {
+      "arxiv": "1105.2854"
+    },
+    "retrieval": "full_text",
+    "source_type": "detector_paper",
+    "title": "Design and Initial Performance of the Askaryan Radio Array Prototype EeV Neutrino Detector at the South Pole",
+    "type": "src",
+    "url": "https://arxiv.org/abs/1105.2854"
+  },
+  "src:geo-polar-icetop-detector-paper-2013": {
+    "accessed": "2026-09-18",
+    "archive_url": null,
+    "cited_by": {
+      "map:amundsen-scott-south-pole-station": [
+        "/unlocated/3"
+      ]
+    },
+    "content_hash": null,
+    "date": "2012-07",
+    "excerpt": "IceTop tanks lie roughly on a tilted plane with the top of the tanks at z=1944.54 m for the lowest point (tank 18A) and at z=1950.08 m for the highest (tank 74A) where z=0 is defined in the center of IceCube. Fig. 2: Locations of IceCube string holes and IceTop tanks with the IceCube Lab (ICL) in the center.",
+    "id": "src:geo-polar-icetop-detector-paper-2013",
+    "link_check": {
+      "http_status": 200,
+      "last_checked": "2026-09-18",
+      "redirect": null
+    },
+    "publisher": "IceCube Collaboration / Nuclear Instruments and Methods A",
+    "rank": 5,
+    "reference": {
+      "arxiv": "1207.6326"
+    },
+    "retrieval": "full_text",
+    "source_type": "detector_paper",
+    "title": "IceTop: The surface component of IceCube",
+    "type": "src",
+    "url": "https://arxiv.org/abs/1207.6326"
+  },
+  "src:geo-polar-osm-south-pole-station": {
+    "accessed": "2026-09-18",
+    "archive_url": null,
+    "cited_by": {
+      "geometry:south-pole-station-marker": [
+        "/geometry",
+        "/sources"
+      ],
+      "map:amundsen-scott-south-pole-station": [
+        "/center",
+        "/sources"
+      ]
+    },
+    "content_hash": null,
+    "date": "2026-09-18",
+    "excerpt": "name=Amundsen–Scott South Pole Station; place=village; ele=2835; start_date=1956; operator=United States Antarctic Program; Overpass query out geom; bbox (-90,-180,-89.98,180); osm3s timestamp_osm_base 2026-09-18T22:27:36Z.",
+    "id": "src:geo-polar-osm-south-pole-station",
+    "link_check": {
+      "http_status": 200,
+      "last_checked": "2026-09-18",
+      "redirect": null
+    },
+    "publisher": "OpenStreetMap contributors",
+    "rank": 11,
+    "reference": {},
+    "retrieval": "full_text",
+    "source_type": "openstreetmap",
+    "title": "OpenStreetMap: Amundsen–Scott South Pole Station (node 5314074411)",
+    "type": "src",
+    "url": "https://www.openstreetmap.org/node/5314074411"
+  },
   "src:geocoder-sanford-underground-research-facility": {
     "accessed": "2026-09-17",
     "cited_by": {
@@ -19356,6 +19514,9 @@
       "experiment:icecube": [
         "/intervals/3",
         "/sources"
+      ],
+      "map:amundsen-scott-south-pole-station": [
+        "/unlocated/1"
       ]
     },
     "content_hash": null,
@@ -19424,6 +19585,9 @@
         "/links/website",
         "/sources",
         "/unique_capabilities/1"
+      ],
+      "map:amundsen-scott-south-pole-station": [
+        "/unlocated/7"
       ]
     },
     "content_hash": null,
@@ -19525,6 +19689,9 @@
         "/operator_text",
         "/sources",
         "/specs/altitude"
+      ],
+      "map:amundsen-scott-south-pole-station": [
+        "/sources"
       ],
       "site:south-pole-icecube": [
         "/altitude",
@@ -19717,6 +19884,10 @@
       "facility:amundsen-scott-south-pole-station": [
         "/sources"
       ],
+      "map:amundsen-scott-south-pole-station": [
+        "/levels/1/depth_m",
+        "/unlocated/2"
+      ],
       "site:south-pole-ara": [
         "/altitude",
         "/coordinates"
@@ -19811,6 +19982,9 @@
         "/key_specs/3/quantity",
         "/sources"
       ],
+      "map:amundsen-scott-south-pole-station": [
+        "/levels/1/depth_m"
+      ],
       "site:south-pole-icecube": [
         "/depth",
         "/sources"
@@ -19873,6 +20047,9 @@
         "/intervals/4",
         "/lineage/0",
         "/sources"
+      ],
+      "map:amundsen-scott-south-pole-station": [
+        "/unlocated/5"
       ]
     },
     "content_hash": null,
@@ -20241,6 +20418,9 @@
       ],
       "facility:amundsen-scott-south-pole-station": [
         "/sources"
+      ],
+      "map:amundsen-scott-south-pole-station": [
+        "/unlocated/6"
       ]
     },
     "content_hash": null,
