@@ -120,7 +120,13 @@ async function main() {
   // clear it now that the cold load has actually finished.
   setNotice(notice);
 
-  els.versionLabel.textContent = `Atlas data version ${manifest.data_version || manifest.version || ''} · coverage updated ${manifest.coverage_updated || manifest.build_date || ''}`;
+  // Coverage is partial and the footer says so: the atlas holds what its
+  // registry has researched, not every experiment in the field (spec §104).
+  const counts = manifest.counts || {};
+  const coverageNote = counts.experiments
+    ? ` · ${counts.experiments} experiments researched — partial coverage of the field, see the coverage report`
+    : ' · partial coverage of the field';
+  els.versionLabel.textContent = `Atlas data version ${manifest.data_version || manifest.version || ''} · coverage updated ${manifest.coverage_updated || manifest.build_date || ''}${coverageNote}`;
   if (manifest.fixture && manifest.banner) {
     els.bannerLabel.textContent = manifest.banner;
     els.bannerLabel.classList.remove('hidden');

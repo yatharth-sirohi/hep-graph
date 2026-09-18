@@ -108,3 +108,32 @@ measured bytes and evidence behind each state below.
 | 35 | P1 | Collaboration-mode drag with a large roster's institutions + arcs drops FPS to ~15-20, well under the ~60 fps target. | performance review | open — out of this workstream's scope (`globe.js`, owned separately) |
 | 36 | P1 | On a slow or offline connection the interface sat blank with no spinner and no text; no `online`/`offline` handling anywhere. | performance review | fixed: visible loading text in the existing `role="status"` notice for the whole cold load, plus a new `role="alert"` error banner with a retry button |
 | 37 | P2 | No `ETag`/compression-aware caching on any atlas asset; every reload re-downloaded the full ~4.9 MB of bundles. | performance review | fixed: `respond_atlas` sends a strong content-hash `ETag` + `Cache-Control: public, max-age=0, must-revalidate` and honours `If-None-Match` with a `304`; see `HEP_ATLAS_BUNDLES.md`'s "Caching" section for the design and its one open caveat (browser `fetch()` calls did not visibly revalidate in this project's automated-test Chrome, though the protocol-level 304 is proven by both `curl` and a dedicated unit test) |
+
+## Wave 3 — v1.0 coverage expansion (2026-09-17/18)
+
+Fifteen domain leads and a facilities lead researched 99 new experiments and 39
+new facilities; a different agent verified each domain by re-fetching its cited
+sources (`VERIFY_<owner>.md`). The orchestrator verified the muons domain
+itself after its verifier was stopped. Findings are recorded by the class of
+defect, with the validator rule or amendment that now catches it where one
+exists.
+
+| # | Severity | Issue (class) | Instances found by verifiers | State |
+| --- | --- | --- | --- | --- |
+| 38 | P0 | "Verbatim" quotes that were paraphrased, spliced from non-adjacent sentences, or absent from the cited page (values themselves mostly right). | CRESST thresholds (values wrong by an order of magnitude); GERDA exposure and Phase I; NEXT-100 status; CUPID isotope; Majorana installation; LSND distance/mass; KARMEN energy; DONUT; DarkSide-50/20k; SuperCDMS/SENSEI/DAMIC-M/EDELWEISS; JUNO baseline and resolution; NA62 goals; CDF shutdown; IAXO formation; Mu2e solenoid length | fixed in every verified domain; no mechanical check exists — the release note lists it as the main residual risk for unverified fields |
+| 39 | P0 | A result typed above its wording: a 2.73σ XENONnT "first indication" recorded as `first_detection`. | 1 | fixed; A16 keyword check extended to `first_detection` (requires "detect"); Kamiokande SN1987A relabelled `observation` to match its title |
+| 40 | P0 | A result claim sourced from a press release (A16 forbids). | NA62 2026 refined measurement | fixed: re-sourced to arXiv:2607.16413 |
+| 41 | P0 | Stale or wrong status/timeline state: DAMIC recorded active after becoming a test stand; RENO active after data taking ended 2023-03; SND@LHC "approved" while taking Run 3 data since 2022; JUNO PMT count 20 000 vs 17 596 as built. | 4 | fixed from the collaborations' own papers |
+| 42 | P1 | Lifetime folded into a single terminal interval, deriving "completed" for every operating year (PHENIX read completed in 2005). | 28 records across waves 1–3 | fixed mechanically; new warning `collapsed-history` |
+| 43 | P1 | Campus-grade coordinates relabelled `kind: detector` to satisfy the validator. | ISIS, CDF/D0 halls, ECN3, KTeV and NM4 halls, four CERN LHC sites, BNL IP6/IP8 | fixed; amendment A23 lets an admitted approximation warn (`coordinate-kind-approximate`), the bundle carries `approximate: true`, the globe draws it dashed and the panel says "Approximate location" |
+| 44 | P1 | Detector and experiment records disagreeing on status (P-ONE, GRAND, Baikal-GVD, ALICE/LHCb/TOTEM/FASER/LHCf during LS3, PHENIX collaboration). | 9 | fixed; MoEDAL (`upgrade` vs `active`) remains a documented P2 |
+| 45 | P1 | Facility records with `start: null` intervals deriving no state while `status` said active (MIT, Yale Wright Lab, CENPA; SLAC linac, SNS). | 5 | fixed with sourced intervals |
+| 46 | P1 | Accelerator specs wrong or missing: HIPA 1.3 → 1.4 MW; HERA beam energies absent; CEBAF history absent. | 3 | fixed |
+| 47 | P1 | Wikipedia-only campus coordinates for §42 seed laboratories. | 11 sites | upgraded to ROR geocoder points (rank 8); Boulby, CJPL, LSM keep OSM points with notes |
+| 48 | P1 | Multi-generation programme kept under one id with a non-terminal earlier phase to dodge the A3 ordering rule (SuperCDMS Soudan). | 1 | split into `experiment:supercdms-soudan` with lineage; validator's terminal-ordering check now ignores `run`/`phase` intervals, as A3 intends |
+| 49 | P1 | Unsupported numbers in `summary.technical` with no sourced field behind them (WIMP limits; NaI expansion stated as built; Tevatron 800 GeV). | 5 | fixed: sourced `key_specs` added or the claim removed |
+| 50 | P2 | Technology classes filed as `other` for helioscopes, LSW, lumped-element, skipper CCDs, spherical proportional counters, radiochemical detectors. | 12 | fixed; amendment A24 adds the classes |
+| 51 | P2 | Duplicate source records created concurrently for the same URL (RHIC timeline, Chooz Wikipedia, CERN Courier ALICE). | 4 | fixed by repointing; validator `duplicate-source-url` caught each |
+| 52 | P2 | MoEDAL experiment `upgrade` while its detector is `active`; no source resolved it this wave. | 1 | open |
+| 53 | P2 | Hall-specific coordinates unavailable for Daya Bay, RENO, Double Chooz, most LHC caverns, Fermilab halls, RHIC interaction points; recorded as admitted campus points. | ~30 sites | open by design (A23) |
+| 54 | info | Coverage red team (addendum §26) and flagship rosters beyond DUNE, ATLAS and CMS were started and then stopped by the user; neither was completed. | — | not done; stated in the release report |

@@ -91,6 +91,20 @@ def missing_fields(atlas, experiment_id: str) -> list[str]:
     return gaps
 
 
+# Wave-1 and wave-2 workstreams were independently reviewed before the
+# per-domain VERIFY_ reports existed; these are the reports that covered them.
+EARLIER_REVIEWS: dict[str, str] = {
+    'dark-matter': 'REVIEW_data_quality_wave1.md',
+    'icecube': 'REVIEW_data_quality_wave1.md',
+    'flavor': 'REVIEW_data_quality_wave1.md',
+    'cern-cms': 'REVIEW_data_quality_wave1.md',
+    'dune-atlas-completion': 'REVIEW_scientific.md',
+    'fermilab-neutrino-other': 'REVIEW_scientific.md',
+    'japan-neutrino': 'REVIEW_scientific.md',
+    'historic-cern': 'REVIEW_scientific.md',
+}
+
+
 def render(atlas) -> str:
     rows = list(atlas.coverage)
     by_category: dict[str, list[dict]] = {}
@@ -118,6 +132,51 @@ def render(atlas) -> str:
         out.append(f'| {entity_type} | {counts[entity_type]} |')
     out += [
         f'| membership rows | {member_rows} |',
+        '',
+        '## Coverage by tier',
+        '',
+        'Tier A experiments are flagships researched to full depth (results, technical',
+        'documents, key specifications); tiers B–D are researched to the mandatory bar',
+        '(identity, status, dated intervals, a located site, topics, summaries, an',
+        'official site, at least one authoritative source, a collaboration where one',
+        'exists) unless the row says otherwise. "Full" and "partial" are the',
+        'researcher\'s own claim in the registry row; the per-experiment table below',
+        'lists what each record still lacks regardless of that claim.',
+        '',
+        '| Tier | Rows | Researched: full | Researched: partial | Not researched |',
+        '| --- | ---: | ---: | ---: | ---: |',
+    ]
+    tiers: dict[str, dict[str, int]] = {}
+    for row in rows:
+        bucket = tiers.setdefault(str(row.get('tier') or '?'), {'full': 0, 'partial': 0, 'none': 0})
+        state = row.get('researched') or 'none'
+        bucket[state if state in bucket else 'none'] += 1
+    for tier in sorted(tiers):
+        bucket = tiers[tier]
+        out.append(f'| {tier} | {sum(bucket.values())} | {bucket["full"]} | {bucket["partial"]} | {bucket["none"]} |')
+    out += [
+        '',
+        '## Independent verification by workstream',
+        '',
+        'A workstream is independently verified when a different agent re-fetched its',
+        'cited sources and left a report at `docs/atlas-worklog/VERIFY_<owner>.md`.',
+        'Rows without one were verified only by their researcher and the validator.',
+        '',
+        '| Workstream (owner) | Experiments | Independently verified |',
+        '| --- | ---: | --- |',
+    ]
+    owners: dict[str, int] = {}
+    for row in rows:
+        owners[str(row.get('owner') or 'unassigned')] = owners.get(str(row.get('owner') or 'unassigned'), 0) + 1
+    worklog_dir = Path(__file__).resolve().parents[1] / 'docs' / 'atlas-worklog'
+    for owner in sorted(owners):
+        report = None
+        if (worklog_dir / f'VERIFY_{owner}.md').is_file():
+            report = f'VERIFY_{owner}.md'
+        elif owner in EARLIER_REVIEWS and (worklog_dir / EARLIER_REVIEWS[owner]).is_file():
+            report = EARLIER_REVIEWS[owner]
+        out.append(f'| {owner} | {owners[owner]} | {"yes — " + report if report else "no"} |')
+    out += [
         '',
         '## Coverage by category',
         '',

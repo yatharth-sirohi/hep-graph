@@ -24,6 +24,54 @@ interface says only "coverage updated" with this date.
 | topic | 42 |
 | membership rows | 659 |
 
+## Coverage by tier
+
+Tier A experiments are flagships researched to full depth (results, technical
+documents, key specifications); tiers B–D are researched to the mandatory bar
+(identity, status, dated intervals, a located site, topics, summaries, an
+official site, at least one authoritative source, a collaboration where one
+exists) unless the row says otherwise. "Full" and "partial" are the
+researcher's own claim in the registry row; the per-experiment table below
+lists what each record still lacks regardless of that claim.
+
+| Tier | Rows | Researched: full | Researched: partial | Not researched |
+| --- | ---: | ---: | ---: | ---: |
+| A | 23 | 21 | 2 | 0 |
+| B | 76 | 11 | 65 | 0 |
+| C | 17 | 2 | 15 | 0 |
+| D | 15 | 4 | 11 | 0 |
+
+## Independent verification by workstream
+
+A workstream is independently verified when a different agent re-fetched its
+cited sources and left a report at `docs/atlas-worklog/VERIFY_<owner>.md`.
+Rows without one were verified only by their researcher and the validator.
+
+| Workstream (owner) | Experiments | Independently verified |
+| --- | ---: | --- |
+| accelerator-neutrino-historical | 4 | yes — VERIFY_accelerator-neutrino-historical.md |
+| astro-neutrino | 9 | yes — VERIFY_astro-neutrino.md |
+| axions | 7 | yes — VERIFY_axions.md |
+| cern-cms | 1 | yes — REVIEW_data_quality_wave1.md |
+| cevns | 4 | yes — VERIFY_cevns.md |
+| colliders-historical | 6 | yes — VERIFY_colliders-historical.md |
+| colliders-lhc | 7 | yes — VERIFY_colliders-lhc.md |
+| cosmic-gamma | 8 | no |
+| dark-matter | 2 | yes — REVIEW_data_quality_wave1.md |
+| dm-cryogenic-low-threshold | 9 | yes — VERIFY_dm-cryogenic-low-threshold.md |
+| dm-noble-liquid | 6 | yes — VERIFY_dm-noble-liquid.md |
+| dune-atlas-completion | 2 | yes — REVIEW_scientific.md |
+| fermilab-neutrino-other | 8 | yes — REVIEW_scientific.md |
+| fixed-target | 10 | yes — VERIFY_fixed-target.md |
+| flavor | 2 | yes — REVIEW_data_quality_wave1.md |
+| heavy-ions | 3 | yes — VERIFY_heavy-ions.md |
+| historic-cern | 6 | yes — REVIEW_scientific.md |
+| icecube | 4 | yes — REVIEW_data_quality_wave1.md |
+| japan-neutrino | 5 | yes — REVIEW_scientific.md |
+| muons | 6 | yes — VERIFY_muons.md |
+| neutrino-mass-0vbb | 11 | yes — VERIFY_neutrino-mass-0vbb.md |
+| reactor-solar-neutrino | 11 | yes — VERIFY_reactor-solar-neutrino.md |
+
 ## Coverage by category
 
 Identified means the experiment is in the registry. Researched means a record
