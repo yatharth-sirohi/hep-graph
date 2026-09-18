@@ -1310,6 +1310,23 @@ def _attributions(records: Iterable[dict]) -> list[str]:
     return sorted(found)
 
 
+def _maps_by_facility(ctx: _Context) -> dict[str, str]:
+    """`facility_id -> the first of its maps`, by sorted map id.
+
+    A facility with separate campuses has one map per campus (§1.1), so this
+    is genuinely lossy — it answers "which map stands for this facility when
+    another map links to it", and the lowest-sorting id is an arbitrary but
+    *stable* answer.  Both callers must use the same one or the maps table
+    and the geometry bundle would disagree about `linked_map_ids`.
+    """
+    by_facility: dict[str, str] = {}
+    for map_id in sorted(ctx.atlas.by_type('map')):
+        facility_id = schema.canonical_id(ctx.atlas.by_type('map')[map_id].get('facility_id'))
+        if isinstance(facility_id, str):
+            by_facility.setdefault(facility_id, map_id)
+    return by_facility
+
+
 def derive_linked_maps(ctx: _Context, map_id: str, record: dict,
                        by_facility: dict[str, str]) -> list[str]:
     """Authored `linked_map_ids` plus the off-campus destinations (contract §3).
@@ -1345,11 +1362,7 @@ def derive_linked_maps(ctx: _Context, map_id: str, record: dict,
 def build_maps_table(ctx: _Context) -> dict:
     """The `maps` object of `atlas.json` (contract §3)."""
     by_map = _geometry_by_map(ctx)
-    by_facility: dict[str, str] = {}
-    for map_id in sorted(ctx.atlas.by_type('map')):
-        facility_id = schema.canonical_id(ctx.atlas.by_type('map')[map_id].get('facility_id'))
-        if isinstance(facility_id, str):
-            by_facility.setdefault(facility_id, map_id)
+    by_facility = _maps_by_facility(ctx)
 
     table: dict[str, dict] = {}
     for map_id in sorted(ctx.atlas.by_type('map')):
@@ -1438,9 +1451,7 @@ def build_geometry_bundles(ctx: _Context) -> tuple[dict[str, dict], list[str]]:
         map_section['unlocated'] = unlocated
         map_section['schematics'] = schematics
         map_section['linked_map_ids'] = derive_linked_maps(
-            ctx, map_id, record,
-            {schema.canonical_id(other.get('facility_id')): other_id
-             for other_id, other in sorted(ctx.atlas.by_type('map').items())})
+            ctx, map_id, record, _maps_by_facility(ctx))
 
         entity_index: dict[str, list[str]] = {}
         for feature in features:

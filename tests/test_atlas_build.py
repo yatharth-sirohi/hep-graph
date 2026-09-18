@@ -671,3 +671,46 @@ def test_a_geometry_bundle_over_two_megabytes_fails_the_build(tmp_path: Path,
     result = build(root, tmp_path / "out", build_date=BUILD_DATE)
     assert any("over the 4096 byte limit" in error for error in result.errors), result.errors
     assert any(GEOMETRY_BUNDLE in error for error in result.errors)
+
+
+def test_linked_maps_agree_between_the_table_and_the_bundle(tmp_path: Path) -> None:
+    """A facility with two campus maps must not get two different answers.
+
+    `linked_map_ids` is derived twice — once for `atlas.json.maps` and once
+    for the per-map bundle — and a facility with more than one map is exactly
+    where a first-wins and a last-wins index would disagree.
+    """
+    import shutil
+
+    root = tmp_path / "atlas"
+    shutil.copytree(FIXTURE, root)
+
+    # A second map of the same facility, covering no site of its own, and a
+    # far-site map so there is something real to link to.
+    annex = json.loads((root / "maps" / "demo-lab.json").read_text(encoding="utf-8"))
+    annex["id"] = "map:demo-lab-annex"
+    annex["name"] = "Demo Laboratory — annex campus"
+    annex["site_ids"] = []
+    annex["unlocated"] = []
+    (root / "maps" / "demo-lab-annex.json").write_text(json.dumps(annex), encoding="utf-8")
+
+    far = json.loads((root / "maps" / "demo-lab.json").read_text(encoding="utf-8"))
+    far["id"] = "map:demo-far"
+    far["name"] = "Demo far detector campus"
+    far["facility_id"] = "facility:demo-lab"
+    far["site_ids"] = ["site:demo-far-cavern"]
+    far["unlocated"] = []
+    far["center"] = dict(far["center"], lat=44.352, lon=-103.751)
+    (root / "maps" / "demo-far.json").write_text(json.dumps(far), encoding="utf-8")
+
+    result = build(root, tmp_path / "out", build_date=BUILD_DATE)
+    table = json.loads(result.files["atlas.json"])["maps"]
+    for map_id, entry in table.items():
+        bundle = json.loads(result.files[entry["bundle"]])
+        assert bundle["map"]["linked_map_ids"] == entry["linked_map_ids"], map_id
+
+    # The beamline's far site is on map:demo-far, so the campus map links to it.
+    assert "map:demo-far" in table["map:demo-lab"]["linked_map_ids"]
+    # A map never links to itself.
+    for map_id, entry in table.items():
+        assert map_id not in entry["linked_map_ids"]

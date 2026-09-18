@@ -2490,7 +2490,7 @@ def check_geometry(ctx: _Context) -> Iterator[Finding]:
             if points:
                 furthest = max(geo.haversine_m(lon, lat, center[1], center[0])
                                for lon, lat in points)
-                extent = record and map_record.get('extent_m')
+                extent = map_record.get('extent_m')
                 if furthest > schema.MAX_FEATURE_DISTANCE_M:
                     yield Finding(ERROR, 'geometry-out-of-extent', path, entity_id,
                                   _pointer('geometry', 'value'),
