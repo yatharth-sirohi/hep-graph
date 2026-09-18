@@ -16,13 +16,13 @@ interface says only "coverage updated" with this date.
 | document | 70 |
 | experiment | 131 |
 | facility | 48 |
-| geometry | 0 |
+| geometry | 34 |
 | institution | 529 |
-| map | 0 |
+| map | 3 |
 | person | 12 |
 | result | 109 |
 | site | 93 |
-| source | 1486 |
+| source | 1515 |
 | topic | 42 |
 | membership rows | 659 |
 
@@ -321,14 +321,17 @@ imagery or an official plan, `derived` when it was computed from sourced numbers
 and `inferred_direction` when it is a neutrino direction rather than a structure.
 Checks are independent official figures the validator re-measures on every run.
 
-No campus has been mapped yet. `data/atlas/maps/` is empty; the local map
-route is not offered for any facility.
+| Map | Facility | Features | Surveyed | Georeferenced | Derived | Inferred direction | Unlocated | Checks passed | Checks failed |
+| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| Brookhaven National Laboratory — Upton campus, RHIC and AGS rings | Brookhaven National Laboratory | 11 | 0 | 11 | 0 | 0 | 0 | 2 | 0 |
+| CERN — Meyrin, Prévessin and the LHC ring | CERN | 21 | 1 | 17 | 2 | 1 | 7 | 5 | 0 |
+| Jefferson Lab — Newport News campus | Thomas Jefferson National Accelerator Facility | 2 | 0 | 2 | 0 | 0 | 1 | 0 | 0 |
 
-### Facilities without a local map (48)
+### Facilities without a local map (45)
 
 Named rather than counted, so the gap cannot be read as coverage:
 
-Amundsen-Scott South Pole Station, Argonne National Laboratory, Baikal Deep Underwater Neutrino Telescope, Baksan Neutrino Observatory, Boulby Underground Laboratory, Brokdorf Nuclear Power Plant, Brookhaven National Laboratory, CERN, CTAO-South (Paranal), Center for Experimental Nuclear Physics and Astrophysics (CENPA), China Jinping Underground Laboratory, Chooz Reactor Neutrino Site, Daya Bay Reactor Neutrino Laboratory, Deutsches Elektronen-Synchrotron, Fermi National Accelerator Laboratory, Fred Lawrence Whipple Observatory, H.E.S.S. site, Khomas Highland, ISIS Neutron and Muon Source, Institut Laue-Langevin, J-PARC (Japan Proton Accelerator Research Complex), Jiangmen Underground Neutrino Observatory, KEK (High Energy Accelerator Research Organization), KM3NeT, Kamioka Observatory (ICRR, University of Tokyo), Karlsruhe Institute of Technology, Campus North, LHAASO (Daocheng), Laboratoire Souterrain de Modane, Laboratori Nazionali del Gran Sasso, Laboratorio Subterraneo de Canfranc, Leibstadt Nuclear Power Plant, Los Alamos National Laboratory, Massachusetts Institute of Technology, McMurdo Long Duration Balloon Facility, Oak Ridge National Laboratory, Paul Scherrer Institute, Pierre Auger Observatory, Roque de los Muchachos Observatory, SLAC National Accelerator Laboratory, SNOLAB, Sanford Underground Research Facility, Sierra Negra (HAWC site), Soudan Underground Laboratory, Summit Station, Greenland, Telescope Array (Utah), Thomas Jefferson National Accelerator Facility, Waste Isolation Pilot Plant, Yale Wright Laboratory, Yonggwang (Hanbit) Reactor Neutrino Site.
+Amundsen-Scott South Pole Station, Argonne National Laboratory, Baikal Deep Underwater Neutrino Telescope, Baksan Neutrino Observatory, Boulby Underground Laboratory, Brokdorf Nuclear Power Plant, CTAO-South (Paranal), Center for Experimental Nuclear Physics and Astrophysics (CENPA), China Jinping Underground Laboratory, Chooz Reactor Neutrino Site, Daya Bay Reactor Neutrino Laboratory, Deutsches Elektronen-Synchrotron, Fermi National Accelerator Laboratory, Fred Lawrence Whipple Observatory, H.E.S.S. site, Khomas Highland, ISIS Neutron and Muon Source, Institut Laue-Langevin, J-PARC (Japan Proton Accelerator Research Complex), Jiangmen Underground Neutrino Observatory, KEK (High Energy Accelerator Research Organization), KM3NeT, Kamioka Observatory (ICRR, University of Tokyo), Karlsruhe Institute of Technology, Campus North, LHAASO (Daocheng), Laboratoire Souterrain de Modane, Laboratori Nazionali del Gran Sasso, Laboratorio Subterraneo de Canfranc, Leibstadt Nuclear Power Plant, Los Alamos National Laboratory, Massachusetts Institute of Technology, McMurdo Long Duration Balloon Facility, Oak Ridge National Laboratory, Paul Scherrer Institute, Pierre Auger Observatory, Roque de los Muchachos Observatory, SLAC National Accelerator Laboratory, SNOLAB, Sanford Underground Research Facility, Sierra Negra (HAWC site), Soudan Underground Laboratory, Summit Station, Greenland, Telescope Array (Utah), Waste Isolation Pilot Plant, Yale Wright Laboratory, Yonggwang (Hanbit) Reactor Neutrino Site.
 
 
 ## What is deliberately out of scope
