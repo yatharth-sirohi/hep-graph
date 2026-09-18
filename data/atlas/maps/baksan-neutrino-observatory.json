@@ -1,0 +1,88 @@
+{
+  "aliases": [],
+  "center": {
+    "confidence": "derived",
+    "kind": "campus",
+    "lat": 43.2765597,
+    "locator": "Midpoint between geometry:baksan-bno-building and the centroid of geometry:baksan-neutrino-village-boundary",
+    "lon": 42.6899842,
+    "note": "Map centre only; not a claim about any structure.",
+    "precision_m": 500,
+    "sources": [
+      "src:geo-baksan-osm-bno-building",
+      "src:geo-baksan-osm-neutrino-village"
+    ],
+    "verified_at": "2026-09-18"
+  },
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
+  },
+  "extent_m": 800,
+  "facility_id": "facility:baksan-neutrino-observatory",
+  "id": "map:baksan-neutrino-observatory",
+  "levels": [
+    {
+      "depth_m": null,
+      "id": "surface",
+      "kind": "surface",
+      "name": "Surface",
+      "note": "The BNO administrative building and the Neutrino settlement."
+    },
+    {
+      "depth_m": {
+        "approx": true,
+        "confidence": "approximate",
+        "dimension": "length",
+        "display": "up to ~2100 m (SAGE hall, vertical)",
+        "note": "SAGE's own paper states 4700 m water-equivalent overburden and a horizontal distance of 3.5 km from the tunnel entrance, not a linear vertical depth; the 2100 m figure is the linear depth already recorded on site:baksan-sage-underground-lab, sourced only to Wikipedia (rank 12) this session. Left as an approximate range rather than reconciled further.",
+        "quote": "It is located 3.5 km from the entrance of a horizontal adit excavated into the side of Mount Andyrchi and has an overhead shielding of 4700 meters of water equivalent.",
+        "sources": [
+          "src:sage-1999-capture-rate"
+        ],
+        "unit": "m",
+        "value": 2100,
+        "verified_at": "2026-09-18"
+      },
+      "id": "andyrchi-tunnels",
+      "kind": "underground",
+      "name": "Mount Andyrchi tunnels and underground halls",
+      "note": "No geometry feature is drawn at this level: no fetched source this session gives the tunnel's own path or bearing into the mountain (Overpass, which might show it as a mapped way, was unreachable throughout), so no sourced walk from the portal to SAGE's stated 3.5 km position was possible. See map.unlocated."
+    }
+  ],
+  "linked_map_ids": [],
+  "links": {
+    "website": "https://www.inr.ru/bno/"
+  },
+  "name": "BNO — Baksan Neutrino Observatory",
+  "notes": [
+    "This map is honestly thin: the surface administrative building and the Neutrino settlement are drawn from OpenStreetMap, but the tunnels themselves and the SAGE underground hall are not, because no fetched source this session gives the tunnel's path/bearing and OpenStreetMap does not appear to trace it (no way was found via Nominatim name search for 'Baksan tunnel' or Cyrillic equivalents, and a bounding-box tag search that Overpass would have allowed was not possible — Overpass was unreachable throughout this session, see the facility worklog).",
+    "SAGE's own 1999 paper (src:sage-1999-capture-rate) states the laboratory is '3.5 km from the entrance of a horizontal adit excavated into the side of Mount Andyrchi' with a 60x10x12 m chamber (src:geo-euro-ug-pandola-2011); this is recorded here and in the facility worklog as backlog for a future pass with Overpass access or a topographic source giving the tunnel's bearing."
+  ],
+  "schema": "hep-atlas/0.2",
+  "schematics": [],
+  "site_ids": [
+    "site:baksan-sage-underground-lab"
+  ],
+  "sources": [
+    "src:geo-baksan-osm-bno-building",
+    "src:geo-baksan-osm-neutrino-village",
+    "src:sage-1999-capture-rate"
+  ],
+  "summary": {
+    "plain": "The Baksan Neutrino Observatory in the Russian Caucasus: the surface administrative building and the purpose-built village of Neutrino are drawn to scale; the SAGE gallium detector, 3.5 kilometres inside the mountain, has a sourced distance but no sourced path to draw it by.",
+    "technical": "One local map for facility:baksan-neutrino-observatory. Only surface features (OSM: the BNO administrative building, way 1504181774; the Neutrino settlement, way 206835293) are drawn. site:baksan-sage-underground-lab is left unlocated: SAGE's own 1999 paper gives its distance from the adit entrance (3.5 km) but not the tunnel's bearing, and Overpass, which could have supplied the tunnel's own OSM trace, was unreachable throughout this session."
+  },
+  "type": "map",
+  "unlocated": [
+    {
+      "backlog": "Once Overpass is reachable, search a bounding box around the BNO building (way 1504181774) for tunnel=yes or man_made=adit ways; failing that, find a published topographic map or paper figure (e.g. an INR technical report) giving the tunnel's compass bearing so its line can be sourced rather than guessed, then walk 3.5 km along it per src:sage-1999-capture-rate.",
+      "entity_id": "site:baksan-sage-underground-lab",
+      "reason": "SAGE's own paper states the laboratory is 3.5 km from the tunnel/adit entrance, but no source fetched this session gives the tunnel's path or compass bearing into Mount Andyrchi, and OpenStreetMap does not appear to trace the tunnel (no matching way was found by name search, and a tag-based bounding-box search was not possible because Overpass was unreachable throughout this session). Deriving a position without a sourced bearing would be a guess, not a measurement.",
+      "sources": [
+        "src:sage-1999-capture-rate"
+      ],
+      "verified_at": "2026-09-18"
+    }
+  ]
+}
