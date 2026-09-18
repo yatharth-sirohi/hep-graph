@@ -1,0 +1,73 @@
+{
+  "aliases": [],
+  "center": {
+    "confidence": "derived",
+    "kind": "campus",
+    "lat": 46.4734391,
+    "locator": "Midpoint of the SNOLAB surface office (OSM node/5403432442) and the SNO NIM paper's underground cavity coordinate",
+    "lon": -81.1939864,
+    "note": "Map centre only; not a claim about any structure.",
+    "precision_m": 1000,
+    "sources": [
+      "src:geo-snolab-osm-context",
+      "src:sno-nim-detector-paper-2000"
+    ],
+    "verified_at": "2026-09-18"
+  },
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "extent_m": 1500,
+  "facility_id": "facility:snolab",
+  "id": "map:snolab",
+  "levels": [
+    {
+      "depth_m": null,
+      "id": "surface",
+      "kind": "surface",
+      "name": "Surface",
+      "note": "Vale's Creighton Mine industrial site, Sudbury, Ontario."
+    },
+    {
+      "depth_m": {
+        "confidence": "verified",
+        "dimension": "length",
+        "display": "2039 m",
+        "note": "SNOLAB's own pages round this to '2070 m' of rock overburden (a water-equivalent/overburden figure along the access route, not the same quantity as the SNO paper's vertical depth to the vessel centre); the more precise, directly-quoted vertical depth is used here. See worklog conflicts.",
+        "quote": "The center of the detector vessel is 2039 m below the surface in a cavity excavated from the '6800-foot' level of the mine.",
+        "sources": [
+          "src:sno-nim-detector-paper-2000"
+        ],
+        "unit": "m",
+        "value": 2039,
+        "verified_at": "2026-09-18"
+      },
+      "id": "snolab-level",
+      "kind": "underground",
+      "name": "SNOLAB level (6800 ft, 2039 m)",
+      "note": "Plan view; houses geometry:snolab-cavity. Reached from the surface via 9 Shaft, about 1.8 km away per snolab.ca."
+    }
+  ],
+  "linked_map_ids": [],
+  "links": {
+    "website": null
+  },
+  "name": "SNOLAB — Vale Creighton Mine, Sudbury, Ontario",
+  "notes": [],
+  "schema": "hep-atlas/0.2",
+  "schematics": [],
+  "site_ids": [
+    "site:snolab-underground-lab"
+  ],
+  "sources": [
+    "src:geo-snolab-osm-context",
+    "src:sno-nim-detector-paper-2000"
+  ],
+  "summary": {
+    "plain": "SNOLAB, two kilometres underground in Vale's Creighton nickel mine near Sudbury, Ontario: the surface site at 9 Shaft and the original SNO cavity that anchors the underground laboratory.",
+    "technical": "Local map for facility:snolab. Surface geometry from OpenStreetMap (the SNOLAB office node and the Creighton Mine industrial landuse polygon). The underground cavity is a derived 22 m circle centred on the SNO NIM detector paper's own published coordinate, cross-checked against the same paper's stated diameter. SNOLAB's other experiment halls (SNO+, DEAP-3600, DAMIC, SuperCDMS SNOLAB, nEXO, NEWS-G) share this one sourced site coordinate and have no distinct footprint located this session."
+  },
+  "type": "map",
+  "unlocated": []
+}

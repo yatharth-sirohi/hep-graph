@@ -4461,13 +4461,55 @@
   "geometry:psb-tunnel-ring": {
     "notes": []
   },
+  "geometry:snolab-cavity": {
+    "notes": []
+  },
+  "geometry:snolab-creighton-mine-boundary": {
+    "notes": []
+  },
+  "geometry:snolab-surface-office": {
+    "notes": []
+  },
+  "geometry:soudan-mine-shaft-building": {
+    "notes": []
+  },
+  "geometry:soudan-minos-far-detector-point": {
+    "notes": []
+  },
   "geometry:sps-tunnel-ring": {
+    "notes": []
+  },
+  "geometry:surf-administration-building": {
+    "notes": []
+  },
+  "geometry:surf-davis-campus-cavern": {
+    "notes": []
+  },
+  "geometry:surf-ross-headframe": {
+    "notes": []
+  },
+  "geometry:surf-ross-hoist": {
+    "notes": []
+  },
+  "geometry:surf-yates-headframe": {
+    "notes": []
+  },
+  "geometry:surf-yates-hoist": {
     "notes": []
   },
   "geometry:ti12-faser-point": {
     "notes": []
   },
   "geometry:ti18-snd-lhc-point": {
+    "notes": []
+  },
+  "geometry:wipp-boundary": {
+    "notes": []
+  },
+  "geometry:wipp-mineshaft-building": {
+    "notes": []
+  },
+  "geometry:wipp-mineshaft-point": {
     "notes": []
   },
   "institution:a-alikhanyan-national-laboratory": {
@@ -6674,6 +6716,22 @@
       "site:cern-lep-point-2-l3 and site:cern-point-2-alice, and site:cern-lep-point-8-delphi and site:cern-point-8-lhcb, are drawn as separate geometry features using the SAME underlying OSM polygon (the same physical Point 2 / Point 8 enclosure hosted a LEP experiment 1989-2000 and hosts an LHC experiment today); this is expected to raise the validator's geometry-duplicate-shape warning for those two pairs, documented here and in the worklog rather than avoided by omission."
     ],
     "summary_technical": "One local map for facility:cern spanning the Meyrin and Prévessin sites and the full LHC/LEP tunnel footprint. Geometry sourced from OpenStreetMap (relation 9512017 for the LHC/LEP ring; ways 66473762/174646428/309914733 for SPS/PS/PSB; named Point-N surface enclosures for ATLAS/ALICE/CMS/LHCb and their LEP-era predecessors L3/ALEPH/DELPHI) cross-checked against CERN's published circumference and depth figures, plus one CMS-paper surveyed cavern point and two ring-derived points for FASER/SND@LHC in TI12/TI18."
+  },
+  "map:snolab": {
+    "notes": [],
+    "summary_technical": "Local map for facility:snolab. Surface geometry from OpenStreetMap (the SNOLAB office node and the Creighton Mine industrial landuse polygon). The underground cavity is a derived 22 m circle centred on the SNO NIM detector paper's own published coordinate, cross-checked against the same paper's stated diameter. SNOLAB's other experiment halls (SNO+, DEAP-3600, DAMIC, SuperCDMS SNOLAB, nEXO, NEWS-G) share this one sourced site coordinate and have no distinct footprint located this session."
+  },
+  "map:soudan-underground-laboratory": {
+    "notes": [],
+    "summary_technical": "Local map for facility:soudan-underground-laboratory. Surface geometry is the NRHP-listed Soudan Mine shaft house from OpenStreetMap. The Level 27 laboratory is drawn as a surveyed point taken directly from the MINOS Collaboration's own published coordinate (PRD 76, 052003), reused verbatim from site:soudan-minos-far-detector; MINOS far detector, CDMS II and SuperCDMS Soudan all share this one position, having no independently sourced distinct footprint."
+  },
+  "map:surf": {
+    "notes": [],
+    "summary_technical": "Local map for facility:surf spanning the Lead, SD surface campus (OSM building footprints for the Yates and Ross shaft head-frames and hoists) and the 4850 Level (1478 m depth). The Davis Campus cavern (LZ, Majorana Demonstrator) is drawn from its own surveyed coordinate (SURF Physics Procedia Table 5); the LBNF/DUNE far-detector caverns on the same level remain unlocated for lack of a sourced offset from the Ross Shaft."
+  },
+  "map:wipp": {
+    "notes": [],
+    "summary_technical": "Local map for facility:wipp. Surface geometry is OpenStreetMap's 'Waste Isolation Pilot Plant' landuse polygon (the fenced protected/exclusive-use area) plus two unidentified shaft features. EXO-200's own underground position within the North Experimental Area is not sourced this session beyond its 655 m depth, so nothing is drawn on that level."
   },
   "person:inspire-1005149": {
     "notes": []

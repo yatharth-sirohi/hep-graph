@@ -48336,7 +48336,7 @@
       "links": {
         "website": "https://www.snolab.ca/"
       },
-      "map_id": null,
+      "map_id": "map:snolab",
       "name": "SNOLAB",
       "operator_ids": [],
       "operator_text": "SNOLAB Institute (governed by a Board of Directors whose member institutions are Carleton University, Laurentian University, Queen's University, University of Alberta and the Universite de Montreal)",
@@ -48413,7 +48413,7 @@
       "links": {
         "website": "https://www.soudan.umn.edu/"
       },
-      "map_id": null,
+      "map_id": "map:soudan-underground-laboratory",
       "name": "Soudan Underground Laboratory",
       "operator": "University of Minnesota",
       "operator_ids": [],
@@ -48608,7 +48608,7 @@
       "links": {
         "website": "https://sanfordlab.org/"
       },
-      "map_id": null,
+      "map_id": "map:surf",
       "name": "Sanford Underground Research Facility",
       "operator_ids": [],
       "operator_text": "South Dakota Science and Technology Authority",
@@ -48871,7 +48871,7 @@
       "links": {
         "website": "https://www.energy.gov/em/waste-isolation-pilot-plant-wipp"
       },
-      "map_id": null,
+      "map_id": "map:wipp",
       "name": "Waste Isolation Pilot Plant",
       "operator_ids": [],
       "operator_text": "U.S. Department of Energy, Office of Environmental Management (operating contractor: Salado Isolation Mining Contractors, LLC)",
@@ -49148,6 +49148,274 @@
       "status": "active",
       "to_scale_count": 20,
       "unlocated_count": 7
+    },
+    "map:snolab": {
+      "attribution": [
+        "© OpenStreetMap contributors (ODbL-1.0)"
+      ],
+      "bundle": "geometry/snolab.json",
+      "center": {
+        "lat": 46.4734391,
+        "lon": -81.1939864
+      },
+      "coverage": {
+        "researched": "partial",
+        "tier": "B"
+      },
+      "extent_m": 1500,
+      "facility_id": "facility:snolab",
+      "feature_count": 3,
+      "id": "map:snolab",
+      "levels": [
+        {
+          "depth_m": null,
+          "id": "surface",
+          "kind": "surface",
+          "name": "Surface"
+        },
+        {
+          "depth_m": {
+            "dimension": "length",
+            "display": "2039 m",
+            "unit": "m",
+            "value": 2039
+          },
+          "id": "snolab-level",
+          "kind": "underground",
+          "name": "SNOLAB level (6800 ft, 2039 m)"
+        }
+      ],
+      "linked_map_ids": [],
+      "name": "SNOLAB — Vale Creighton Mine, Sudbury, Ontario",
+      "site_ids": [
+        "site:snolab-underground-lab"
+      ],
+      "state_segments": [
+        [
+          734,
+          734,
+          "active",
+          "possible"
+        ],
+        [
+          735,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
+      "to_scale_count": 3,
+      "unlocated_count": 0
+    },
+    "map:soudan-underground-laboratory": {
+      "attribution": [
+        "© OpenStreetMap contributors (ODbL-1.0)"
+      ],
+      "bundle": "geometry/soudan-underground-laboratory.json",
+      "center": {
+        "lat": 47.8197,
+        "lon": -92.24148
+      },
+      "coverage": {
+        "researched": "partial",
+        "tier": "B"
+      },
+      "extent_m": 600,
+      "facility_id": "facility:soudan-underground-laboratory",
+      "feature_count": 2,
+      "id": "map:soudan-underground-laboratory",
+      "levels": [
+        {
+          "depth_m": null,
+          "id": "surface",
+          "kind": "surface",
+          "name": "Surface"
+        },
+        {
+          "depth_m": {
+            "dimension": "length",
+            "display": "705 m",
+            "unit": "m",
+            "value": 705
+          },
+          "id": "level-27",
+          "kind": "underground",
+          "name": "Level 27 (705 m)"
+        }
+      ],
+      "linked_map_ids": [],
+      "name": "Soudan Underground Laboratory, Soudan, Minnesota",
+      "site_ids": [
+        "site:soudan-minos-far-detector"
+      ],
+      "state_segments": [
+        [
+          642,
+          642,
+          "active",
+          "possible"
+        ],
+        [
+          643,
+          791,
+          "active",
+          "certain"
+        ],
+        [
+          792,
+          792,
+          "decommissioned",
+          "possible"
+        ]
+      ],
+      "status": "decommissioned",
+      "to_scale_count": 2,
+      "unlocated_count": 0
+    },
+    "map:surf": {
+      "attribution": [
+        "© OpenStreetMap contributors (ODbL-1.0)"
+      ],
+      "bundle": "geometry/surf.json",
+      "center": {
+        "lat": 44.349356,
+        "lon": -103.754282
+      },
+      "coverage": {
+        "researched": "partial",
+        "tier": "B"
+      },
+      "extent_m": 1300,
+      "facility_id": "facility:surf",
+      "feature_count": 6,
+      "id": "map:surf",
+      "levels": [
+        {
+          "depth_m": null,
+          "id": "surface",
+          "kind": "surface",
+          "name": "Surface"
+        },
+        {
+          "depth_m": {
+            "dimension": "length",
+            "display": "1478 m",
+            "unit": "m",
+            "value": 1478
+          },
+          "id": "4850-level",
+          "kind": "underground",
+          "name": "4850 Level (1478 m)"
+        }
+      ],
+      "linked_map_ids": [],
+      "name": "SURF — Sanford Underground Research Facility, Lead, South Dakota",
+      "site_ids": [
+        "site:surf-4850-level-dune-far-detector",
+        "site:surf-davis-campus-lz",
+        "site:surf-surface-campus"
+      ],
+      "state_segments": [
+        [
+          648,
+          659,
+          "approved",
+          "possible"
+        ],
+        [
+          660,
+          683,
+          "approved",
+          "certain"
+        ],
+        [
+          684,
+          695,
+          "active",
+          "possible"
+        ],
+        [
+          696,
+          707,
+          "active",
+          "certain"
+        ],
+        [
+          708,
+          719,
+          "commissioning",
+          "possible"
+        ],
+        [
+          720,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
+      "to_scale_count": 6,
+      "unlocated_count": 1
+    },
+    "map:wipp": {
+      "attribution": [
+        "© OpenStreetMap contributors (ODbL-1.0)"
+      ],
+      "bundle": "geometry/wipp.json",
+      "center": {
+        "lat": 32.371975,
+        "lon": -103.794008
+      },
+      "coverage": {
+        "researched": "partial",
+        "tier": "C"
+      },
+      "extent_m": 1500,
+      "facility_id": "facility:wipp",
+      "feature_count": 3,
+      "id": "map:wipp",
+      "levels": [
+        {
+          "depth_m": null,
+          "id": "surface",
+          "kind": "surface",
+          "name": "Surface"
+        },
+        {
+          "depth_m": {
+            "dimension": "length",
+            "display": "655 m",
+            "unit": "m",
+            "value": 655
+          },
+          "id": "north-experimental-area",
+          "kind": "underground",
+          "name": "North Experimental Area (655 m)"
+        }
+      ],
+      "linked_map_ids": [],
+      "name": "WIPP — Waste Isolation Pilot Plant, Carlsbad, New Mexico",
+      "site_ids": [
+        "site:wipp-surface-campus"
+      ],
+      "state_segments": [
+        [
+          732,
+          743,
+          "active",
+          "possible"
+        ],
+        [
+          744,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
+      "to_scale_count": 3,
+      "unlocated_count": 0
     }
   },
   "schema": "hep-atlas/0.2",
@@ -56444,7 +56712,7 @@
       "links": {
         "website": null
       },
-      "map_id": null,
+      "map_id": "map:snolab",
       "name": "SNOLAB underground laboratory",
       "place": {
         "city": "Sudbury",
@@ -56683,7 +56951,7 @@
       "links": {
         "website": null
       },
-      "map_id": null,
+      "map_id": "map:soudan-underground-laboratory",
       "name": "Soudan MINOS far detector cavern",
       "place": {
         "city": "Soudan",
@@ -57147,7 +57415,7 @@
       "links": {
         "website": null
       },
-      "map_id": null,
+      "map_id": "map:surf",
       "name": "SURF 4850 Level — LBNF/DUNE far detector caverns",
       "place": {
         "city": "Lead",
@@ -57265,7 +57533,7 @@
       "links": {
         "website": "https://sanfordlab.org/features/davis-campus"
       },
-      "map_id": null,
+      "map_id": "map:surf",
       "name": "Davis Campus, 4850 Level, Sanford Underground Research Facility",
       "place": {
         "city": "Lead",
@@ -57350,7 +57618,7 @@
       "links": {
         "website": "https://sanfordlab.org/"
       },
-      "map_id": null,
+      "map_id": "map:surf",
       "name": "SURF Surface Campus, Lead, South Dakota",
       "place": {
         "city": "Lead",
@@ -57568,7 +57836,7 @@
       "links": {
         "website": "https://www.energy.gov/em/waste-isolation-pilot-plant-wipp"
       },
-      "map_id": null,
+      "map_id": "map:wipp",
       "name": "WIPP surface campus, Carlsbad, New Mexico",
       "place": {
         "city": "Carlsbad",
@@ -58559,5 +58827,5 @@
       "type": "topic"
     }
   },
-  "version": "9ccd8ade710ab615"
+  "version": "d4ee6a20f5c93285"
 }

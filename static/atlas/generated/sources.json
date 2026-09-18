@@ -15457,6 +15457,9 @@
         "/operator_text",
         "/sources"
       ],
+      "map:surf": [
+        "/unlocated/0"
+      ],
       "site:surf-4850-level-dune-far-detector": [
         "/sources"
       ]
@@ -16313,6 +16316,10 @@
         "/sources",
         "/specs/depth"
       ],
+      "map:wipp": [
+        "/levels/1/depth_m",
+        "/sources"
+      ],
       "site:wipp-surface-campus": [
         "/coordinates",
         "/depth",
@@ -16696,6 +16703,9 @@
       "facility:fermilab": [
         "/links/website",
         "/sources"
+      ],
+      "map:surf": [
+        "/unlocated/0"
       ],
       "site:fermilab-cdf-collision-hall-b0": [
         "/coordinates",
@@ -17779,6 +17789,130 @@
     "title": "OpenStreetMap way 66473762: Super Proton Synchrotron",
     "type": "src",
     "url": "https://www.openstreetmap.org/way/66473762"
+  },
+  "src:geo-snolab-osm-context": {
+    "accessed": "2026-09-18",
+    "cited_by": {
+      "geometry:snolab-creighton-mine-boundary": [
+        "/geometry",
+        "/sources"
+      ],
+      "geometry:snolab-surface-office": [
+        "/geometry",
+        "/sources"
+      ],
+      "map:snolab": [
+        "/center",
+        "/sources"
+      ]
+    },
+    "date": "2026-09-18",
+    "excerpt": "Overpass bbox(46.460,-81.215,46.485,-81.180), filter nwr[\"name\"~\"SNOLAB|Shaft|Creighton\",i]; node/5403432442 name='SNOLAB' office=research (the SNOLAB surface office, a few hundred metres from 9 Shaft per snolab.ca); way/1434942339 name='Creighton Mine' landuse=industrial description='Mine Shaft' (Vale's Creighton Mine surface site, where 9 Shaft is located). timestamp_osm_base 2026-09-18T22:27:36Z.",
+    "id": "src:geo-snolab-osm-context",
+    "publisher": "OpenStreetMap contributors",
+    "rank": 11,
+    "reference": {},
+    "retrieval": "full_text",
+    "source_type": "openstreetmap",
+    "title": "OpenStreetMap extract: SNOLAB surface office and the Vale Creighton Mine industrial site, Sudbury, Ontario",
+    "type": "src",
+    "url": "https://www.openstreetmap.org/node/5403432442"
+  },
+  "src:geo-soudan-osm-shaft": {
+    "accessed": "2026-09-18",
+    "cited_by": {
+      "geometry:soudan-mine-shaft-building": [
+        "/geometry",
+        "/sources"
+      ],
+      "map:soudan-underground-laboratory": [
+        "/center",
+        "/sources"
+      ]
+    },
+    "date": "2026-09-18",
+    "excerpt": "Overpass bbox(47.812,-92.255,47.830,-92.225), filter nwr[\"name\"~\"Soudan|Shaft|MINOS|Tower\",i]; way/722791010 name='Soudan Mine' man_made=mineshaft mineshaft_type=winding building=yes heritage=2 heritage:operator=nrhp ref:nrhp=66000905 (the historic Soudan Mine shaft house, NRHP-listed, the surface access point to Level 27 where MINOS and CDMS/SuperCDMS Soudan were installed). A separate, smaller way/1293533760 'Shaft #8' (man_made=mineshaft) 70 m away was not drawn (ambiguous relation to the named shaft house; see worklog). timestamp_osm_base 2026-09-18T22:27:36Z.",
+    "id": "src:geo-soudan-osm-shaft",
+    "publisher": "OpenStreetMap contributors",
+    "rank": 11,
+    "reference": {},
+    "retrieval": "full_text",
+    "source_type": "openstreetmap",
+    "title": "OpenStreetMap extract: Soudan Mine shaft building, Soudan, Minnesota",
+    "type": "src",
+    "url": "https://www.openstreetmap.org/way/722791010"
+  },
+  "src:geo-surf-osm-campus-buildings": {
+    "accessed": "2026-09-18",
+    "cited_by": {
+      "geometry:surf-administration-building": [
+        "/geometry",
+        "/sources"
+      ],
+      "geometry:surf-ross-headframe": [
+        "/geometry",
+        "/sources"
+      ],
+      "geometry:surf-ross-hoist": [
+        "/geometry",
+        "/sources"
+      ],
+      "geometry:surf-yates-headframe": [
+        "/geometry",
+        "/sources"
+      ],
+      "geometry:surf-yates-hoist": [
+        "/geometry",
+        "/sources"
+      ],
+      "map:surf": [
+        "/center",
+        "/sources"
+      ]
+    },
+    "date": "2026-09-18",
+    "excerpt": "Overpass bbox(44.340,-103.775,44.365,-103.745), filter way[\"building\"][\"name\"]; way/512969103 'Yates Headframe', way/512969104 'Yates Hoist', way/512969097 'Yates Compressor', way/512969102 'Administration Building', way/792209493 'Ross Headframe', way/792209491 'Ross Hoist', way/502495652 'Sanford Lab Homestake Visitor Center' among 24 named buildings returned in the bbox (non-SURF town buildings such as the Post Office and Black Hills Mining Museum excluded from the map). timestamp_osm_base 2026-09-18T22:22:35Z.",
+    "id": "src:geo-surf-osm-campus-buildings",
+    "publisher": "OpenStreetMap contributors",
+    "rank": 11,
+    "reference": {},
+    "retrieval": "full_text",
+    "source_type": "openstreetmap",
+    "title": "OpenStreetMap building extract: SURF surface campus, Lead, South Dakota (Yates and Ross shaft areas)",
+    "type": "src",
+    "url": "https://www.openstreetmap.org/way/512969103"
+  },
+  "src:geo-wipp-osm-extract": {
+    "accessed": "2026-09-18",
+    "cited_by": {
+      "geometry:wipp-boundary": [
+        "/geometry",
+        "/sources"
+      ],
+      "geometry:wipp-mineshaft-building": [
+        "/geometry",
+        "/sources"
+      ],
+      "geometry:wipp-mineshaft-point": [
+        "/geometry",
+        "/sources"
+      ],
+      "map:wipp": [
+        "/center",
+        "/sources"
+      ]
+    },
+    "date": "2026-09-18",
+    "excerpt": "Overpass bbox(32.355,-103.810,32.390,-103.775), filter nwr[\"name\"~\"WIPP|Waste Isolation|Shaft\",i] plus man_made=mineshaft node/way; way/389288415 name='Waste Isolation Pilot Plant' landuse=landfill hazard=nuclear (the fenced protected/exclusive-use area, perimeter 4616 m, area 1,187,824 m²); way/296041156 building=yes man_made=mineshaft (an unnamed shaft building); node/8684374640 man_made=mineshaft (a second, unnamed shaft point, 191 m from the building). Fetched via the overpass.kumi.systems mirror after overpass-api.de returned HTTP 504 then 429 and lz4.overpass-api.de refused the connection outright; timestamp_osm_base 2026-06-01T08:52:28Z (this mirror's dataset lagged the session date by roughly 3.5 months).",
+    "id": "src:geo-wipp-osm-extract",
+    "publisher": "OpenStreetMap contributors",
+    "rank": 11,
+    "reference": {},
+    "retrieval": "full_text",
+    "source_type": "openstreetmap",
+    "title": "OpenStreetMap extract: Waste Isolation Pilot Plant boundary and shaft buildings, Carlsbad, New Mexico",
+    "type": "src",
+    "url": "https://www.openstreetmap.org/way/389288415"
   },
   "src:geocoder-sanford-underground-research-facility": {
     "accessed": "2026-09-17",
@@ -25345,6 +25479,10 @@
   "src:lz-surf-davis-campus": {
     "accessed": "2026-09-16",
     "cited_by": {
+      "geometry:surf-davis-campus-cavern": [
+        "/geometry",
+        "/sources"
+      ],
       "site:surf-davis-campus-lz": [
         "/coordinates",
         "/links/website",
@@ -25371,6 +25509,10 @@
     "accessed": "2026-09-16",
     "archive_url": "https://arxiv.org/html/1503.01112",
     "cited_by": {
+      "geometry:surf-davis-campus-cavern": [
+        "/geometry",
+        "/sources"
+      ],
       "site:surf-davis-campus-lz": [
         "/coordinates",
         "/depth_mwe",
@@ -25588,6 +25730,9 @@
         "/facility_roles/0",
         "/intervals/0",
         "/sources"
+      ],
+      "map:surf": [
+        "/levels/1/depth_m"
       ]
     },
     "content_hash": null,
@@ -26339,6 +26484,9 @@
         "/specs/depth",
         "/specs/overburden"
       ],
+      "map:soudan-underground-laboratory": [
+        "/levels/1/depth_m"
+      ],
       "site:soudan-minos-far-detector": [
         "/coordinates",
         "/depth",
@@ -26435,6 +26583,14 @@
       "experiment:minos": [
         "/intervals/1",
         "/physics_goals/2",
+        "/sources"
+      ],
+      "geometry:soudan-minos-far-detector-point": [
+        "/geometry",
+        "/sources"
+      ],
+      "map:soudan-underground-laboratory": [
+        "/center",
         "/sources"
       ],
       "site:soudan-minos-far-detector": [
@@ -44129,6 +44285,17 @@
         "/physics_goals/0",
         "/sources"
       ],
+      "geometry:snolab-cavity": [
+        "/checks/0",
+        "/checks/0/expected",
+        "/geometry",
+        "/sources"
+      ],
+      "map:snolab": [
+        "/center",
+        "/levels/1/depth_m",
+        "/sources"
+      ],
       "site:snolab-underground-lab": [
         "/coordinates",
         "/depth",
@@ -45032,6 +45199,9 @@
       ],
       "institution:sanford-underground-research-facility": [
         "/links/website",
+        "/sources"
+      ],
+      "map:surf": [
         "/sources"
       ],
       "site:surf-4850-level-dune-far-detector": [
