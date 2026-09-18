@@ -2583,7 +2583,25 @@
     suggestions: [],
     byId: null,
     pathActive: false,
+    pathSpread: false,
     relate: { a: null, b: null },
+    // Distances from a person the reader picked, over every recorded relation.
+    anchor: null,
+    edgeYear: null,
+    yearMin: 0,
+    yearMax: 0,
+    time: { on: false, year: 0, undated: false, playing: 0 },
+    timeNode: null,
+  };
+
+  /* Working titles for the family-map features. Every visible name for them
+     is read from here, so renaming a feature is a single edit. */
+  const FEATURE_NAMES = {
+    relationship: "Relationship finder",
+    distance: "Distance from a chosen person",
+    summary: "Lineage summary",
+    connectors: "Everyone on the shortest chains",
+    timeline: "Relations by thesis year",
   };
   state.map = mapState;
   const mapClamp = (v, lo, hi) => (v < lo ? lo : v > hi ? hi : v);
@@ -2722,6 +2740,12 @@
     const edgeTotal = rawEdges.length;
     const edgeA = new Int32Array(edgeTotal);
     const edgeB = new Int32Array(edgeTotal);
+    // Thesis year per relation, 0 where none is recorded. Only thesis records
+    // carry a date, so roughly half the relations have one.
+    const rawYears = Array.isArray(data.years) ? data.years : [];
+    const edgeYear = new Int16Array(edgeTotal);
+    let yearMin = 0;
+    let yearMax = 0;
     let kept = 0;
     ok = await mapChunks(edgeTotal, "Reading relations", request, (from, to) => {
       for (let e = from; e < to; e += 1) {
@@ -2732,12 +2756,21 @@
         if (a < 0 || b < 0 || a >= n || b >= n || a === b) continue;
         edgeA[kept] = a;
         edgeB[kept] = b;
+        const year = Number(rawYears[e]);
+        if (Number.isInteger(year) && year >= 1600 && year <= 2100) {
+          edgeYear[kept] = year;
+          if (!yearMin || year < yearMin) yearMin = year;
+          if (year > yearMax) yearMax = year;
+        }
         kept += 1;
       }
     });
     if (!ok) return;
     m.edgeA = edgeA.subarray(0, kept);
     m.edgeB = edgeB.subarray(0, kept);
+    m.edgeYear = edgeYear.subarray(0, kept);
+    m.yearMin = yearMin;
+    m.yearMax = yearMax;
     m.edgeCount = kept;
 
     // Compressed adjacency: children (adviser to student) and parents.
@@ -2822,6 +2855,7 @@
       const field = $(id);
       if (field) field.disabled = false;
     });
+    setupMapTimeline();
     renderMapMeta();
     resizeMapCanvas();
     openMapView();
@@ -3066,6 +3100,7 @@
     ctx.beginPath();
     for (let k = 0; k < m.visEdgeCount; k += 1) {
       const e = m.visEdges[k];
+      if (m.time.on && !mapEdgeInTime(e)) continue;
       if (!filter(e)) continue;
       const a = m.edgeA[e];
       const b = m.edgeB[e];
@@ -3146,6 +3181,7 @@
       ctx.fillStyle = fill;
       for (let k = 0; k < m.visCount; k += 1) {
         const i = m.visNodes[k];
+        if (m.time.on && !m.timeNode[i]) continue;
         if (!filter(i)) continue;
         const x = m.xs[i] * scale + tx;
         const y = m.ys[i] * scale + ty;
@@ -3158,6 +3194,7 @@
         ctx.beginPath();
         for (let k = 0; k < m.visCount; k += 1) {
           const i = m.visNodes[k];
+          if (m.time.on && !m.timeNode[i]) continue;
           if (!filter(i)) continue;
           const x = m.xs[i] * scale + tx;
           const y = m.ys[i] * scale + ty;
@@ -3191,6 +3228,7 @@
       const budget = Math.max(3, Math.floor((w - 6) / (fontSize * 0.53)));
       for (let k = 0; k < m.visCount; k += 1) {
         const i = m.visNodes[k];
+        if (m.time.on && !m.timeNode[i]) continue;
         const flags = m.mark[i];
         ctx.globalAlpha = dimming && !flags ? 0.35 : 1;
         ctx.fillStyle = flags & 4 || flags & 16 ? "#ffffff" : "#1d3442";
@@ -3243,6 +3281,7 @@
       const row = cy * m.gridW;
       for (let k = m.gridOff[row + cx0]; k < m.gridOff[row + cx1 + 1]; k += 1) {
         const i = m.gridIdx[k];
+        if (m.time.on && !m.timeNode[i]) continue;
         const dx = Math.abs(m.xs[i] - x);
         const dy = Math.abs(m.ys[i] - y);
         if (dx > tolerance || dy > toleranceY) continue;
@@ -3342,10 +3381,6 @@
       "Generation",
       m.gens[i] === 0 ? "0 (no recorded adviser)" : String(m.gens[i]),
     );
-    add("Advisers recorded", mapCount(mapAdviserCount(i)));
-    add("Students recorded", mapCount(mapStudentCount(i)));
-    add("Lineage shown", `${mapCount(m.ancestors)} up · ${mapCount(m.descendants)} down`);
-    if (m.comps[i]) add("Family tree size", mapCount(m.comps[i]));
     body.append(facts);
     const href = inspireAuthorUrl(id);
     if (href && safeHref(href)) body.append(link("Profile ↗", href));
@@ -3365,6 +3400,109 @@
         "No name accompanied this person in the map data; the INSPIRE identifier is shown instead.";
       body.append(note);
     }
+    body.append(mapSummarySection(i), mapDistanceSection(i));
+  }
+
+  function mapDetailSection(key) {
+    const section = document.createElement("section");
+    section.className = "map-detail-section";
+    const heading = document.createElement("h3");
+    heading.dataset.featureName = key;
+    heading.textContent = FEATURE_NAMES[key];
+    section.append(heading);
+    return section;
+  }
+
+  function mapSummarySection(i) {
+    const m = mapState;
+    const section = mapDetailSection("summary");
+    const facts = document.createElement("dl");
+    const add = (label, value) => {
+      const dt = document.createElement("dt");
+      dt.textContent = label;
+      const dd = document.createElement("dd");
+      dd.textContent = value;
+      facts.append(dt, dd);
+    };
+    const up = mapLineageReach(i, true);
+    const down = mapLineageReach(i, false);
+    const years = mapThesisYears(i);
+    const across = (reach) =>
+      reach.people
+        ? `${mapCount(reach.people)} across ${reach.generations} generation${reach.generations === 1 ? "" : "s"}`
+        : "none recorded";
+    add("Advisers", mapCount(mapAdviserCount(i)));
+    add("Students", mapCount(mapStudentCount(i)));
+    add("Academic ancestors", across(up));
+    add("Academic descendants", across(down));
+    add("Own thesis year", years.own ? String(years.own) : "not recorded");
+    if (years.first)
+      add("Students' thesis years",
+        years.first === years.last ? String(years.first) : `${years.first}–${years.last}`);
+    if (m.comps[i]) add("Connected group", `${mapCount(m.comps[i])} people`);
+    section.append(facts);
+    return section;
+  }
+
+  function mapDistanceSection(i) {
+    const m = mapState;
+    const section = mapDetailSection("distance");
+    const text = document.createElement("p");
+    text.className = "relate-note";
+    const actions = document.createElement("div");
+    actions.className = "relate-actions";
+    const button = (label, primary, action) => {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.className = primary ? "primary-button" : "secondary-button";
+      b.textContent = label;
+      b.addEventListener("click", action);
+      actions.append(b);
+    };
+    const setAnchor = (index) => {
+      m.anchor = index < 0 ? null : { index, dist: mapDistancesFrom(index) };
+      renderMapDetail();
+    };
+    const anchor = m.anchor;
+    if (!anchor) {
+      text.textContent =
+        "Set this person as the reference point, then select anyone else on the map " +
+        "to see how many supervision links separate them.";
+      button("Set as reference point", true, () => setAnchor(i));
+    } else if (anchor.index === i) {
+      let reached = 0;
+      let furthest = 0;
+      for (let k = 0; k < m.count; k += 1) {
+        const d = anchor.dist[k];
+        if (d > 0) { reached += 1; if (d > furthest) furthest = d; }
+      }
+      text.textContent =
+        `This is the reference point. ${mapCount(reached)} people are connected to them ` +
+        `through recorded supervision; the furthest is ${furthest} links away.`;
+      button("Clear reference point", false, () => setAnchor(-1));
+    } else {
+      const d = anchor.dist[i];
+      const other = mapNodeName(anchor.index);
+      text.textContent = d < 0
+        ? `No chain of recorded supervision connects them to ${other}.`
+        : `${d} supervision link${d === 1 ? "" : "s"} from ${other}, following relations in either direction.`;
+      if (d > 0)
+        button("Show how they are related", true, () => {
+          mapState.relate = {
+            a: { index: anchor.index, id: String(m.ids[anchor.index]), name: other },
+            b: { index: i, id: String(m.ids[i]), name: mapNodeName(i) },
+          };
+          $("#relate-a").value = other;
+          $("#relate-b").value = mapNodeName(i);
+          $("#relate-run").disabled = false;
+          $("#relate-form").scrollIntoView({ behavior: "smooth", block: "start" });
+          runRelationship({ preventDefault() {} });
+        });
+      button("Make this the reference point", false, () => setAnchor(i));
+      button("Clear", false, () => setAnchor(-1));
+    }
+    section.append(text, actions);
+    return section;
   }
 
   function updateMapAlt() {
@@ -3477,6 +3615,14 @@
       if (edge >= 0) m.edgeMark[edge] = 3;
     }
     m.pathActive = true;
+    frameMapIndices(indices);
+    return indices.length;
+  }
+
+  /* Bring a group of people into view - or, when they are spread so far
+     apart that every box would be under a pixel, the first of them. */
+  function frameMapIndices(indices) {
+    const m = mapState;
     let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
     indices.forEach((i) => {
       minX = Math.min(minX, m.xs[i]);
@@ -3503,7 +3649,6 @@
     }
     scheduleMapDraw();
     renderMapZoomReadout();
-    return indices.length;
   }
 
   function mapSearch(query) {
@@ -3583,7 +3728,7 @@
       const strong = document.createElement("strong");
       strong.textContent = mapNodeName(i);
       const small = document.createElement("small");
-      small.textContent = `INSPIRE ${mapState.ids[i]} · generation ${mapState.gens[i]} · family tree of ${mapCount(mapState.comps[i] || 0)}`;
+      small.textContent = `INSPIRE ${mapState.ids[i]} · generation ${mapState.gens[i]} · connected group of ${mapCount(mapState.comps[i] || 0)}`;
       b.append(strong, small);
       b.addEventListener("click", () => {
         menu.replaceChildren();
@@ -3596,6 +3741,265 @@
     input.setAttribute("aria-expanded", "true");
   }
 
+  /* ------------------------------------------------ shared graph walks --- */
+
+  /* Supervision links between one person and everyone else, following each
+     relation in either direction. -1 means no recorded chain reaches them. */
+  function mapDistancesFrom(start) {
+    const m = mapState;
+    const dist = new Int32Array(m.count).fill(-1);
+    const queue = new Int32Array(m.count);
+    let head = 0;
+    let tail = 0;
+    dist[start] = 0;
+    queue[tail++] = start;
+    while (head < tail) {
+      const node = queue[head++];
+      const next = dist[node] + 1;
+      for (let p = m.parentOff[node]; p < m.parentOff[node + 1]; p += 1) {
+        const other = m.parentNode[p];
+        if (dist[other] < 0) { dist[other] = next; queue[tail++] = other; }
+      }
+      for (let c = m.childOff[node]; c < m.childOff[node + 1]; c += 1) {
+        const other = m.childNode[c];
+        if (dist[other] < 0) { dist[other] = next; queue[tail++] = other; }
+      }
+    }
+    return dist;
+  }
+
+  /* How many academic ancestors or descendants a person has, and how many
+     generations those records reach. */
+  function mapLineageReach(start, upward) {
+    const m = mapState;
+    const off = upward ? m.parentOff : m.childOff;
+    const nodes = upward ? m.parentNode : m.childNode;
+    const seen = new Set([start]);
+    let frontier = [start];
+    let generations = 0;
+    while (frontier.length) {
+      const next = [];
+      frontier.forEach((node) => {
+        for (let k = off[node]; k < off[node + 1]; k += 1) {
+          const other = nodes[k];
+          if (!seen.has(other)) { seen.add(other); next.push(other); }
+        }
+      });
+      if (next.length) generations += 1;
+      frontier = next;
+    }
+    return { people: seen.size - 1, generations };
+  }
+
+  /* Thesis years on the relations where a person is the student, and where
+     they are the adviser. */
+  function mapThesisYears(i) {
+    const m = mapState;
+    let own = 0;
+    for (let p = m.parentOff[i]; p < m.parentOff[i + 1]; p += 1) {
+      const year = m.edgeYear[m.parentEdge[p]];
+      if (year && (!own || year < own)) own = year;
+    }
+    let first = 0;
+    let last = 0;
+    for (let c = m.childOff[i]; c < m.childOff[i + 1]; c += 1) {
+      const year = m.edgeYear[m.childEdge[c]];
+      if (!year) continue;
+      if (!first || year < first) first = year;
+      if (year > last) last = year;
+    }
+    return { own, first, last };
+  }
+
+  /* ------------------------------------------------------------ timeline --- */
+
+  function mapEdgeInTime(e) {
+    const m = mapState;
+    const year = m.edgeYear[e];
+    return year ? year <= m.time.year : m.time.undated;
+  }
+
+  /* A person is on the map at a given year when one of their relations is. */
+  function refreshMapTime() {
+    const m = mapState;
+    if (m.status !== "ready") return;
+    if (!m.timeNode) m.timeNode = new Uint8Array(m.count);
+    m.timeNode.fill(0);
+    let relations = 0;
+    let undated = 0;
+    for (let e = 0; e < m.edgeCount; e += 1) {
+      if (!m.edgeYear[e]) undated += 1;
+      if (!mapEdgeInTime(e)) continue;
+      relations += 1;
+      m.timeNode[m.edgeA[e]] = 1;
+      m.timeNode[m.edgeB[e]] = 1;
+    }
+    let people = 0;
+    for (let i = 0; i < m.count; i += 1) people += m.timeNode[i];
+    $("#map-time-label").textContent = String(m.time.year);
+    const note = $("#map-time-note");
+    const dated = m.edgeCount - undated;
+    note.textContent = m.time.on
+      ? `Up to ${m.time.year}: ${mapCount(relations)} relations and ${mapCount(people)} people. ` +
+        `${mapCount(dated)} of ${mapCount(m.edgeCount)} relations carry a thesis year; ` +
+        `the other ${mapCount(undated)} are ${m.time.undated ? "shown throughout" : "hidden"}.`
+      : `${mapCount(dated)} of ${mapCount(m.edgeCount)} relations carry a thesis year, ` +
+        `from ${m.yearMin} to ${m.yearMax}. Only thesis records are dated.`;
+    scheduleMapDraw();
+  }
+
+  function stopMapPlayback() {
+    const m = mapState;
+    clearInterval(m.time.playing);
+    m.time.playing = 0;
+    const play = $("#map-time-play");
+    if (play) {
+      play.firstElementChild.textContent = "▶";
+      play.setAttribute("aria-label", "Play through the years");
+    }
+  }
+
+  function setupMapTimeline() {
+    const m = mapState;
+    const box = $("#map-timeline");
+    if (!box || !m.yearMin) return;
+    const toggle = $("#map-time-on");
+    const slider = $("#map-time-year");
+    const undated = $("#map-time-undated");
+    const play = $("#map-time-play");
+    slider.min = String(m.yearMin);
+    slider.max = String(m.yearMax);
+    slider.value = String(m.yearMax);
+    m.time.year = m.yearMax;
+    box.hidden = false;
+    const enable = (on) => {
+      m.time.on = on;
+      [slider, undated, play].forEach((control) => { control.disabled = !on; });
+      if (!on) stopMapPlayback();
+      refreshMapTime();
+    };
+    toggle.addEventListener("change", () => enable(toggle.checked));
+    slider.addEventListener("input", () => {
+      m.time.year = Number(slider.value);
+      refreshMapTime();
+    });
+    undated.addEventListener("change", () => {
+      m.time.undated = undated.checked;
+      refreshMapTime();
+    });
+    play.addEventListener("click", () => {
+      if (m.time.playing) { stopMapPlayback(); return; }
+      if (m.time.year >= m.yearMax) m.time.year = m.yearMin;
+      play.firstElementChild.textContent = "❚❚";
+      play.setAttribute("aria-label", "Pause");
+      m.time.playing = setInterval(() => {
+        m.time.year = Math.min(m.yearMax, m.time.year + 1);
+        slider.value = String(m.time.year);
+        refreshMapTime();
+        if (m.time.year >= m.yearMax) stopMapPlayback();
+      }, 110);
+    });
+    refreshMapTime();
+  }
+
+  /* ---------------------------------------------- people on the chains --- */
+
+  /* Everyone whose distance to the first person plus distance to the second
+     is at most the shortest chain plus some slack. With no slack that is
+     exactly the people on some shortest chain. */
+  function mapChainMembers(a, b, slack) {
+    const fromA = mapDistancesFrom(a);
+    const shortest = fromA[b];
+    if (shortest < 0) return { shortest: -1, members: [], fromA, fromB: null };
+    const fromB = mapDistancesFrom(b);
+    const limit = shortest + slack;
+    const members = [];
+    for (let i = 0; i < mapState.count; i += 1)
+      if (fromA[i] >= 0 && fromB[i] >= 0 && fromA[i] + fromB[i] <= limit) members.push(i);
+    return { shortest, limit, members, fromA, fromB };
+  }
+
+  function highlightMapChains(found, a, b) {
+    const m = mapState;
+    m.mark.fill(0);
+    m.edgeMark.fill(0);
+    m.selection = -1;
+    const inside = new Uint8Array(m.count);
+    found.members.forEach((i) => { inside[i] = 1; m.mark[i] |= 8; });
+    m.mark[a] |= 16;
+    m.mark[b] |= 16;
+    const { fromA, fromB, limit } = found;
+    found.members.forEach((u) => {
+      const step = (other, edge) => {
+        if (inside[other] && fromA[other] === fromA[u] + 1 &&
+            fromA[u] + 1 + fromB[other] <= limit) m.edgeMark[edge] = 3;
+      };
+      for (let p = m.parentOff[u]; p < m.parentOff[u + 1]; p += 1)
+        step(m.parentNode[p], m.parentEdge[p]);
+      for (let c = m.childOff[u]; c < m.childOff[u + 1]; c += 1)
+        step(m.childNode[c], m.childEdge[c]);
+    });
+    m.pathActive = true;
+    frameMapIndices(found.members);
+  }
+
+  function renderChainMembers(target, a, b, slack) {
+    target.replaceChildren();
+    const found = mapChainMembers(a, b, slack);
+    if (found.shortest < 0) {
+      target.textContent = "No chain of recorded supervision connects these two on the map.";
+      return;
+    }
+    highlightMapChains(found, a, b);
+    const summary = document.createElement("p");
+    summary.className = "relate-note";
+    const between = found.members.length - 2;
+    summary.textContent =
+      `The shortest chains are ${found.shortest} link${found.shortest === 1 ? "" : "s"} long, ` +
+      `following supervision in either direction. ` +
+      (slack
+        ? `Allowing up to ${found.limit} links, ${mapCount(between)} people sit between them.`
+        : `${mapCount(between)} ${between === 1 ? "person sits" : "people sit"} on at least one of them.`);
+    target.append(summary);
+    const layers = new Map();
+    found.members.forEach((i) => {
+      if (i === a || i === b) return;
+      const k = found.fromA[i];
+      if (!layers.has(k)) layers.set(k, []);
+      layers.get(k).push(i);
+    });
+    const list = document.createElement("ol");
+    list.className = "connector-layers";
+    [...layers.keys()].sort((x, y) => x - y).forEach((k) => {
+      const people = layers.get(k).sort((x, y) => mapNodeName(x).localeCompare(mapNodeName(y)));
+      const li = document.createElement("li");
+      const step = document.createElement("span");
+      step.className = "connector-step";
+      step.textContent = `${k} link${k === 1 ? "" : "s"} out`;
+      const names = document.createElement("span");
+      const shown = people.slice(0, 14);
+      shown.forEach((i, index) => {
+        const jump = document.createElement("button");
+        jump.type = "button";
+        jump.className = "relate-jump";
+        jump.textContent = mapNodeName(i);
+        jump.addEventListener("click", () => {
+          mapCentreOn(i, Math.max(mapState.fitScale * 6, mapState.view.scale));
+          scheduleMapDraw();
+          $("#map-stage").scrollIntoView({ behavior: "smooth", block: "center" });
+        });
+        names.append(jump);
+        if (index < shown.length - 1) names.append(document.createTextNode(", "));
+      });
+      if (people.length > shown.length)
+        names.append(document.createTextNode(` and ${mapCount(people.length - shown.length)} more`));
+      li.append(step, names);
+      list.append(li);
+    });
+    target.append(list);
+    mapAnnounce(`${mapCount(between)} people highlighted between them on the map.`);
+  }
+
   /* ------------------------------------------------- relationship finder --- */
 
   /* Each field holds a person only once one has been picked, so a half-typed
@@ -3603,6 +4007,7 @@
   function relateField(which) {
     const input = $(`#relate-${which}`);
     const menu = $(`#relate-${which}-results`);
+    let offered = [];
     const choose = (index) => {
       mapState.relate[which] = { index, id: String(mapState.ids[index]),
                                  name: mapNodeName(index) };
@@ -3618,6 +4023,7 @@
       menu.replaceChildren();
       menu.classList.remove("inline-search-notice");
       const found = mapSearch(query);
+      offered = found;
       if (!query.trim()) {
         input.setAttribute("aria-expanded", "false");
         return;
@@ -3641,7 +4047,7 @@
         const strong = document.createElement("strong");
         strong.textContent = mapNodeName(i);
         const small = document.createElement("small");
-        small.textContent = `INSPIRE ${mapState.ids[i]} · family tree of ${mapCount(mapState.comps[i] || 0)}`;
+        small.textContent = `INSPIRE ${mapState.ids[i]} · connected group of ${mapCount(mapState.comps[i] || 0)}`;
         b.append(strong, small);
         b.addEventListener("click", () => choose(i));
         menu.append(b);
@@ -3659,8 +4065,7 @@
       }
       if (e.key === "Enter") {
         e.preventDefault();
-        const first = mapState.suggestions[0];
-        if (first != null && !mapState.relate[which]) choose(first);
+        if (offered.length && !mapState.relate[which]) choose(offered[0]);
       }
     });
   }
@@ -3735,6 +4140,18 @@
     if (diagram) box.append(diagram);
     box.append(list);
 
+    // Only a shared ancestor is a meeting point; on a direct line of descent
+    // one of the two people is the ancestor, and saying so again adds nothing.
+    const [up, down] = data.distances || [0, 0];
+    if (data.meeting_point && up > 0 && down > 0) {
+      const meet = document.createElement("p");
+      meet.className = "relate-note";
+      meet.textContent = `Their lines meet at ${relateName(data, data.meeting_point)}.`;
+      box.append(meet);
+    }
+
+    box.append(connectorSection());
+
     if (mapState.pathSpread) {
       const spread = document.createElement("p");
       spread.className = "relate-note";
@@ -3744,12 +4161,7 @@
       box.append(spread);
     }
 
-    if (data.meeting_point) {
-      const meet = document.createElement("p");
-      meet.className = "relate-note";
-      meet.textContent = `Their lines meet at ${relateName(data, data.meeting_point)}.`;
-      box.append(meet);
-    }
+
   }
 
   function relationshipDiagram(data) {
@@ -3773,6 +4185,9 @@
     const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
     svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
     svg.setAttribute("class", "relate-diagram");
+    // Draw at natural size: a three-person chain stretched to full width
+    // turns its labels into headlines.
+    svg.style.maxWidth = `${width}px`;
     svg.setAttribute("role", "img");
     svg.setAttribute("aria-label",
       `${data.label}: a chain of ${chain.length} supervision records.`);
@@ -3810,6 +4225,47 @@
     return svg;
   }
 
+  function connectorSection() {
+    const section = document.createElement("section");
+    section.className = "map-detail-section";
+    const heading = document.createElement("h3");
+    heading.dataset.featureName = "connectors";
+    heading.textContent = FEATURE_NAMES.connectors;
+    const note = document.createElement("p");
+    note.className = "relate-note";
+    note.textContent =
+      "The chain above is one route. Show every person on any of the shortest routes " +
+      "between them, or on routes up to one link longer.";
+    const controls = document.createElement("div");
+    controls.className = "connector-controls";
+    const slack = document.createElement("select");
+    slack.setAttribute("aria-label", "How long a route to include");
+    [["0", "Shortest routes only"], ["1", "Up to one link longer"]].forEach(([value, label]) => {
+      const option = document.createElement("option");
+      option.value = value;
+      option.textContent = label;
+      slack.append(option);
+    });
+    const run = document.createElement("button");
+    run.type = "button";
+    run.className = "secondary-button";
+    run.textContent = "Show them";
+    const out = document.createElement("div");
+    run.addEventListener("click", () => {
+      const { a, b } = mapState.relate;
+      const ia = a ? mapIndexOf(a.id) : -1;
+      const ib = b ? mapIndexOf(b.id) : -1;
+      if (ia < 0 || ib < 0) {
+        out.textContent = "Both people need to be on the map for this.";
+        return;
+      }
+      renderChainMembers(out, ia, ib, Number(slack.value));
+    });
+    controls.append(slack, run);
+    section.append(heading, note, controls, out);
+    return section;
+  }
+
   async function runRelationship(event) {
     event.preventDefault();
     const a = mapState.relate.a;
@@ -3841,7 +4297,15 @@
     }
   }
 
+  function applyFeatureNames(root = document) {
+    $$("[data-feature-name]", root).forEach((element) => {
+      const name = FEATURE_NAMES[element.dataset.featureName];
+      if (name) element.textContent = name;
+    });
+  }
+
   function setupRelationshipFinder() {
+    applyFeatureNames();
     const form = $("#relate-form");
     if (!form) return;
     relateField("a");

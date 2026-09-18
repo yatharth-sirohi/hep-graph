@@ -402,3 +402,15 @@ def test_the_chain_carries_the_evidence_for_every_step(database):
     for step in found["chain"]:
         assert step["source_url"].startswith("http")
         assert step["source_kind"]
+
+
+
+def test_a_named_relationship_is_walked_from_the_first_person_to_the_second(database):
+    """Direction on every step: an ancestor reads downward, a student upward."""
+    down = service(database).relationship("40", "10", Filters())
+    assert [step["direction"] for step in down["chain"]] == ["down", "down", "down"]
+    assert [step["adviser"] for step in down["chain"]] == ["40", "30", "20"]
+
+    up = service(database).relationship("10", "40", Filters())
+    assert [step["direction"] for step in up["chain"]] == ["up", "up", "up"]
+    assert [step["student"] for step in up["chain"]] == ["10", "20", "30"]

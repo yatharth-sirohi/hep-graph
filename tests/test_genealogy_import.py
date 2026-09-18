@@ -189,3 +189,17 @@ def test_a_long_loop_is_found_too():
     from hepgraph.genealogy_import import find_cycle
     chain = [(i, i + 1) for i in range(1, 40)] + [(40, 1)]
     assert len(find_cycle(chain)) == 40
+
+
+def test_a_thesis_year_comes_from_the_award_date_then_the_defence():
+    from hepgraph.genealogy_import import thesis_year
+    dated = {"metadata": {"control_number": 1, "thesis_info": {"date": "2017-05-12"}}}
+    defended = {"metadata": {"control_number": 2, "thesis_info": {"defense_date": "1998"}}}
+    assert thesis_year(dated) == 2017 and thesis_year(defended) == 1998
+
+
+def test_an_undated_or_malformed_thesis_is_left_unknown():
+    from hepgraph.genealogy_import import thesis_year
+    assert thesis_year({"metadata": {"control_number": 3}}) is None
+    assert thesis_year({"metadata": {"control_number": 4, "thesis_info": {"date": "n.d."}}}) is None
+    assert thesis_year({"metadata": {"control_number": 5, "thesis_info": {"date": "0199"}}}) is None

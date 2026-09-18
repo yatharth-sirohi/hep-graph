@@ -397,6 +397,23 @@ no shared ancestor the route is traced through supervision in either direction
 Silence stays a claim about the records: "no chain recorded in this release",
 never "unrelated".
 
+**Thesis years.** Thesis records carry an award date, which the first harvest
+never read; `python -m hepgraph.genealogy_import --thesis-years` backfills it
+(35,053 of 36,496 thesis relations), and new harvests store it directly. Only
+thesis records are dated, so about half the relations on the map carry a year,
+spanning 1935-2027 and weighted heavily towards the last fifteen years. The map
+payload sends one relation per adviser-student pair with its earliest thesis
+year; a pair stated by both a profile and a thesis is drawn once, which is why
+the map's relation count fell from 69,295 to 65,888.
+
+**Family-map features.** The map computes several things in the browser from
+the loaded relations: a summary for a selected person (advisers, students,
+ancestors and descendants with how many generations they reach, thesis years),
+the number of supervision links between any person and a chosen reference
+point, everyone on the shortest chains between two people (optionally one link
+longer), and a thesis-year timeline that hides undated relations unless asked.
+Their visible names live in `FEATURE_NAMES` in `static/app.js`.
+
 **Not every INSPIRE "author" is a person.** Author records built from thesis
 metadata include the form's own heading (`Advisor(s)`, 29 records), placeholders
 (`[unknown], [unknown]`) and the awarding faculty inverted like a surname

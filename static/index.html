@@ -458,7 +458,7 @@
 
         <form id="relate-form" class="data-card relate-card">
           <div class="relate-head">
-            <p class="eyebrow">Relationship finder</p>
+            <p class="eyebrow" data-feature-name="relationship">Relationship finder</p>
             <h2>How are two physicists related?</h2>
             <p class="subtle">
               Pick two people. If one is an academic ancestor of the other, or
@@ -545,6 +545,26 @@
               </button>
             </div>
           </div>
+          <div id="map-timeline" class="map-timeline" hidden>
+            <label class="map-timeline-toggle">
+              <input id="map-time-on" type="checkbox" />
+              <span data-feature-name="timeline">Relations by thesis year</span>
+            </label>
+            <div class="map-timeline-controls">
+              <button id="map-time-play" class="secondary-button map-button" type="button"
+                aria-label="Play through the years" disabled>
+                <span aria-hidden="true">▶</span>
+              </button>
+              <input id="map-time-year" type="range" min="1900" max="2026" step="1"
+                value="2026" aria-label="Show relations up to this thesis year" disabled />
+              <output id="map-time-label" for="map-time-year">2026</output>
+              <label class="map-timeline-undated">
+                <input id="map-time-undated" type="checkbox" disabled />
+                Include relations with no recorded year
+              </label>
+            </div>
+            <p id="map-time-note" class="subtle map-timeline-note"></p>
+          </div>
           <div
             id="map-stage"
             class="map-stage"
@@ -567,6 +587,7 @@
             ><span><i class="map-key map-key-ancestor"></i>Advisers above</span
             ><span
               ><i class="map-key map-key-descendant"></i>Students below</span
+            ><span><i class="map-key map-key-route"></i>Route between two people</span
             ><span id="map-zoom-readout" class="subtle"></span>
           </div>
         </div>

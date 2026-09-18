@@ -72,10 +72,23 @@ SCHEMA = (
 
 
 def read_edges(connection: Any, overlay_id: str) -> list[tuple[int, int]]:
-    return [(int(_at(row, 0)), int(_at(row, 1))) for row in connection.execute(
-        "SELECT adviser_id, student_id FROM graph_genealogy_edge "
-        "WHERE overlay_id=%s AND COALESCE(degree,'other')=ANY(%s) ORDER BY adviser_id, student_id",
-        (overlay_id, DEGREES)).fetchall()]
+    return [(adviser, student) for adviser, student, _ in read_dated_edges(connection, overlay_id)]
+
+
+def read_dated_edges(connection: Any, overlay_id: str) -> list[tuple[int, int, int | None]]:
+    """One row per adviser-student pair, with the earliest thesis year recorded.
+
+    A relation stated by both an author profile and a thesis is one relation,
+    so it is drawn once. Only thesis records carry a date; a pair known only
+    from a profile has none, and that is reported rather than invented.
+    """
+    return [(int(_at(row, 0)), int(_at(row, 1)),
+             int(_at(row, 2)) if _at(row, 2) is not None else None)
+            for row in connection.execute(
+                "SELECT adviser_id, student_id, min(year) FROM graph_genealogy_edge "
+                "WHERE overlay_id=%s AND COALESCE(degree,'other')=ANY(%s) "
+                "GROUP BY adviser_id, student_id ORDER BY adviser_id, student_id",
+                (overlay_id, DEGREES)).fetchall()]
 
 
 def _components(edges: list[tuple[int, int]]) -> dict[int, int]:
@@ -299,16 +312,21 @@ def read_map(connection: Any, overlay_id: str, version: str) -> dict[str, Any]:
         nodes.append([person, x, y, int(_at(row, 3)), int(_at(row, 4))])
         names.append(_at(row, 5) or "")
         width, height = max(width, x), max(height, y)
-    edges = [[index[adviser], index[student]]
-             for adviser, student in read_edges(connection, overlay_id)
-             if adviser in index and student in index]
+    edges, years = [], []
+    for adviser, student, year in read_dated_edges(connection, overlay_id):
+        if adviser in index and student in index:
+            edges.append([index[adviser], index[student]])
+            years.append(year)
     components = len({_at(row, 6) for row in rows})
     return {"status": "ok", "version": version, "overlay": overlay_id,
             "counts": {"people": len(nodes), "relations": len(edges),
                        "components": components,
-                       "named": sum(1 for name in names if name)},
+                       "named": sum(1 for name in names if name),
+                       "dated": sum(1 for year in years if year is not None)},
             "bounds": {"width": width + 200, "height": height + 200},
-            "nodes": nodes, "names": names, "edges": edges}
+            "nodes": nodes, "names": names, "edges": edges,
+            # Aligned with ``edges``: the thesis year, or null where none is recorded.
+            "years": years}
 
 
 def main(argv: list[str] | None = None) -> int:

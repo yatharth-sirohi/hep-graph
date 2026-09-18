@@ -1518,3 +1518,96 @@ footer {
   color: #0f6f6a;
   border-bottom-color: #0f6f6a;
 }
+
+/* ------------------------------------------------------------ map timeline */
+.map-timeline {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 18px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--line, #dbe4e9);
+  font-size: 14px;
+}
+.map-timeline[hidden] {
+  display: none;
+}
+.map-timeline-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+}
+.map-timeline-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  flex: 1 1 320px;
+}
+.map-timeline-controls input[type="range"] {
+  flex: 1 1 180px;
+  min-width: 140px;
+}
+.map-timeline-controls output {
+  font-variant-numeric: tabular-nums;
+  font-weight: 650;
+  min-width: 3.2em;
+}
+.map-timeline-undated {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #4a626e;
+}
+.map-timeline-note {
+  flex-basis: 100%;
+  margin: 0;
+}
+.map-key-route {
+  background: #c2185b;
+  border-color: #c2185b;
+}
+
+/* ------------------------------------------------- selected-person sections */
+.map-detail-section {
+  flex: 1 1 100%;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line, #dbe4e9);
+}
+.map-detail-section h3 {
+  font-size: 13px;
+  letter-spacing: 0.02em;
+  margin: 0 0 8px;
+}
+.map-detail-section .relate-actions {
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+
+/* ---------------------------------------------------- people on the chains */
+.connector-layers {
+  display: grid;
+  gap: 8px;
+  margin: 10px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.connector-layers li {
+  display: grid;
+  grid-template-columns: 5.5em 1fr;
+  gap: 10px;
+  font-size: 14px;
+}
+.connector-layers .connector-step {
+  color: #6b8794;
+  font-variant-numeric: tabular-nums;
+}
+.connector-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-top: 8px;
+}

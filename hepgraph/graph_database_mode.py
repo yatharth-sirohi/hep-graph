@@ -552,8 +552,12 @@ class DatabaseGraphService:
             return self._connection_without_descent(first, second, base, depth)
         ancestor, up_steps, down_steps = meeting
         # The two climbs meet head to head, so the second is walked back down.
-        chain = self._relations_along(up[ancestor])
-        chain += list(reversed(self._relations_along(down[ancestor])))
+        # Every step says which way it runs, so a reader - or a drawing - can
+        # follow the chain from the first person to the second without
+        # inferring direction from who advised whom.
+        chain = [step | {"direction": "up"} for step in self._relations_along(up[ancestor])]
+        chain += [step | {"direction": "down"}
+                  for step in reversed(self._relations_along(down[ancestor]))]
         on_show = {str(person): 0 for line in (up[ancestor], down[ancestor])
                    for person in line}
         named = self._lineage_people(str(first), on_show)
