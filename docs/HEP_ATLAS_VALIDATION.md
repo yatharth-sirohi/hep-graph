@@ -17,37 +17,31 @@ the principle that the agent that researches a record never certifies it.
 | Membership | 1 | Institution rosters, institution records and people |
 | Independent reviewers | 4 | Data quality (wave 1), scientific and historical, user experience, performance and adversarial |
 | Cleanup and integration | 2 | Source-backed defect closure; orchestrator integration |
+| Wave 3 (v1.0) research leads | 16 | Fifteen experiment domains (LHC colliders; historical colliders; historical accelerator neutrinos; reactor, solar and radiochemical neutrinos; neutrino mass and 0νββ; astrophysical neutrinos; noble-liquid and cryogenic dark matter; axions; muons; fixed target and kaons; CEvNS; cosmic rays and gamma rays; heavy ions) and one facilities lead for the shared laboratories |
+| Wave 3 independent verifiers | 15 | One per domain, re-fetching cited sources; thirteen were separate Sonnet agents, two (muons, cosmic-gamma) were done by the orchestrator after their agents were stopped — `docs/atlas-worklog/VERIFY_*.md` |
+| Wave 3 engineering | 3 | W1 caching, lazy provenance, loading and error states, generated validation counts; W3 clustering, semantic zoom, filters and the coordinate-reading fix; W4 accessibility audit and the Chromium/Firefox/WebKit matrix |
+| Wave 3 flagship depth | 1 | Results, documents and key specifications for the pre-existing flagships |
 
 Nested delegation was used where it helped and abandoned when it did not: the
 first wave of research leads spawned children, but rate limits made deep trees
 unreliable, so later waves were single-agent workstreams with separate
-verification. Every workstream left a log under `docs/atlas-worklog/`.
+verification. In wave 3 the session-wide cap of 20 concurrent agents meant
+that only seven nested children ran; every lead otherwise researched its
+domain itself, and a different agent verified it afterwards. Two stoppages of
+the Sonnet session limit interrupted the wave; work resumed from disk each
+time. Every workstream left a log under `docs/atlas-worklog/`; the agent and
+verification counts are in §8.7.
 
 ## 2. What the atlas contains
 
-| Entity | Count |
-| --- | ---: |
-| Experiments | 30 |
-| Collaborations | 25 |
-| Detectors | 32 |
-| Accelerators | 21 |
-| Sites | 22 |
-| Facilities | 9 |
-| Beamlines | 5 |
-| Institutions | 529 |
-| People | 12 (all resolved to INSPIRE author records) |
-| Major results | 62 |
-| Technical documents | 55 |
-| Research topics | 42 |
-| Sources | 956, of which 952 are cited by at least one record |
-| Membership rosters | 3 collaborations, 659 institution rows |
-| Coverage registry rows | 128 |
-| Canonical data files | 1,770 |
-
-Results carry the type their publication used: 19 observations, 11 limits, 10
-precision measurements, 8 evidence, 8 measurements, 2 first detections, 3
-technology milestones and 1 anomaly. No result is recorded as a discovery,
-because none of the cited publications uses that word of itself.
+The entity counts, the coverage registry by tier, the result-type
+distribution and the link-check outcomes are generated in §8 by
+`scripts/atlas_validation_counts.py` and checked against the data by
+`--check`; this section deliberately carries no typed number. Two properties
+of the result set are worth stating in words: every result carries the type
+its own publication used, and no result is recorded as a discovery unless the
+paper's title or abstract uses that word (A16 checks the keyword
+mechanically for discovery, observation, evidence and first detection).
 
 ## 3. Automated checks
 
@@ -201,26 +195,59 @@ have made one facility's coordinates appear to be sourced from a lookup for
 somewhere else. The rule was wrong, not the data; the genuine duplicate count
 was nine.
 
+### Wave 3 independent verification (`VERIFY_*.md`, 2026-09-17/18)
+
+Each of the fifteen wave-3 domains was verified by an agent that had not
+researched it, by re-opening the cited sources. Across the fifteen reports the
+verifiers re-fetched roughly 330 sources and recorded 14 P0, 51 P1 and 28 P2
+findings; every P0 and P1 was fixed in place and logged, the P2s are documented
+judgement calls (§8.7 gives the per-field counts and evidence;
+`INTEGRATION_ISSUES.md` rows 38–54 give the classes). The dominant defect
+class was not wrong numbers but **paraphrased or spliced "verbatim" quotes**:
+values were usually right while the quote presented as evidence was not the
+text on the page. Two quotes carried wrong values (CRESST thresholds an order
+of magnitude off; a Mu2e solenoid length absent from its source); one 2.7σ
+indication had been typed as a first detection; one result claim rested on a
+press release; four statuses were stale against the collaborations' own papers
+(DAMIC, RENO, SND@LHC, the JUNO PMT count). Two class-level fixes followed:
+28 records whose whole lifetime sat in one terminal interval now carry an
+operating interval and a terminal event (`collapsed-history` warns on the
+class), and eleven sites that had been relabelled `detector` to satisfy the
+validator are honest campus points under amendment A23.
+
+The muons and cosmic-gamma verifiers were stopped before reporting; the
+orchestrator verified those two domains itself and the reports say so. The
+addendum §26 coverage red team and the flagship rosters beyond DUNE, ATLAS and
+CMS were started and stopped by the user and were not completed.
+
 ## 6. Known limitations
 
-- **Coverage is partial and says so.** 128 experiments are identified, 29 are
-  researched, 2 are complete on every axis. `docs/HEP_ATLAS_COVERAGE.md` is
-  generated from the data and lists what each researched record still lacks.
-- **Membership is three collaborations deep.** DUNE's roster is effectively
-  complete from the collaboration's own page; ATLAS captured 198 rows; CMS
-  rests on a recent paper's author affiliations because the collaboration's
-  roster requires a login, and is labelled as publication affiliation rather
-  than an official list.
+- **Coverage is partial and says so.** Every experiment named in the
+  specification's §30–§41 lists and every §42 seed facility exists, but the
+  registry's own tier table (§8.2, and `docs/HEP_ATLAS_COVERAGE.md`) shows most
+  tier B–D rows as `partial`: mandatory bar met, results and documents absent.
+  The footer of the application states that coverage is partial. No coverage
+  red team ran, so programmes outside the specification's lists are known to be
+  missing (BESIII, KLOE, NA61/SHINE, PICO, DAMA/LIBRA, SuperNEMO, AMoRE, AMS-02
+  and others); the coverage report's scope section is the place to look.
+- **Membership is three collaborations deep.** DUNE, ATLAS and CMS only; the
+  roster workstream for the other flagships was stopped before it produced
+  anything. Collaboration records elsewhere carry counts only where the
+  collaboration's own page states them.
 - **People are a deliberate sample.** Twelve, each resolved to an INSPIRE
-  author record and attached only on its own evidence. No person is attached to
-  a collaboration because their institution belongs to it.
-- **Some geography is at campus precision.** Where no authoritative source
-  gives a hall position, the record says so rather than inventing one; the
-  interaction points of two LEP experiments are inferred and OPAL's is absent,
-  because no fetched source states it.
-- **Link checking is manual.** `python -m hepgraph.atlas.linkcheck` records
-  status back into source records; it is not run in the build and a dead link
-  never fails it.
+  author record and attached only on its own evidence.
+- **Much geography is at campus precision and labelled so.** Amendment A23 lets
+  a detector site rest on a campus-grade point when the record says so; the
+  globe draws those markers dashed and the panel says "Approximate location".
+  Around 76 sites carry the flag, including most LHC caverns, the RHIC
+  interaction points, the reactor halls and the Fermilab experimental halls.
+- **Verification depth varies.** Wave-3 domains were verified by re-fetching
+  sources; the verifiers sampled rather than re-opened every one of ~1,500
+  sources, and the paraphrased-quote class they found in every domain is the
+  main residual risk for fields nobody re-fetched.
+- **Link checking is a one-off run**, recorded in each source's `link_check`
+  block (§8.1); a dead link never fails the build, and a 404 on the sole source
+  of a `verified` value is listed for review rather than fixed automatically.
 
 ## 7. Reproducing this
 

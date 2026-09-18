@@ -227,6 +227,27 @@ def render(*, pytest_counts: dict[str, int] | None, pytest_source: str | None,
                 '`python -m hepgraph.atlas.linkcheck`.')
     out.append('')
 
+    # Result types and link-check outcomes, so the doc's prose never has to
+    # carry a typed number for either.
+    result_types: dict[str, int] = {}
+    for record in atlas.by_type('result').values():
+        key = str(record.get('result_type') or 'unknown')
+        result_types[key] = result_types.get(key, 0) + 1
+    out.append('Results by the type their publication used: '
+               + ', '.join(f'{n} {t.replace("_", " ")}' for t, n in sorted(result_types.items(), key=lambda kv: -kv[1]))
+               + '.')
+    out.append('')
+    statuses: dict[str, int] = {}
+    for record in atlas.by_type('source').values():
+        check = record.get('link_check') or {}
+        if check.get('last_checked'):
+            code = check.get('http_status')
+            statuses[str(code) if code is not None else 'no response'] = statuses.get(str(code) if code is not None else 'no response', 0) + 1
+    if statuses:
+        out.append('Link-check outcomes by HTTP status: '
+                   + ', '.join(f'{n} × {code}' for code, n in sorted(statuses.items(), key=lambda kv: -kv[1])) + '.')
+        out.append('')
+
     out.append('### 8.2 Coverage registry, by tier and researched state')
     out.append('')
     out.append('| Tier | Researched | Rows |')

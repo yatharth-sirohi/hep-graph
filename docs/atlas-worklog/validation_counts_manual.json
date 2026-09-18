@@ -12,11 +12,51 @@
     "evidence": "not yet run"
   },
   "source_conflict_count": {
-    "value": null,
-    "evidence": "not yet run"
+    "value": 106,
+    "evidence": "Rows in the \"Conflicts\" tables of the research worklogs (docs/atlas-worklog/*.md, counted by script on 2026-09-18)"
   },
   "subagent_count_total": {
     "value": null,
     "evidence": "not yet run"
+  },
+  "subagents_spawned_by_orchestrator": {
+    "value": 37,
+    "evidence": "Agent tool calls in the v1.0 session: W1, W3, W4; 16 wave-3 leads (15 domains + facilities); 15 domain verifiers; flagship-depth; flagship-membership and coverage red team (both stopped by the user before producing output). All Sonnet."
+  },
+  "nested_subagents_spawned_by_leads": {
+    "value": 7,
+    "evidence": "Reported in lead worklogs: facilities (BNL), colliders-lhc (ALICE), astro-neutrino (KM3NeT, ANTARES+Baikal-GVD, radio detectors), dm-noble-liquid (DEAP-3600), fixed-target (NA62+NA48); the 20-agent cap blocked the rest."
+  },
+  "research_workstreams_wave3": {
+    "value": 16,
+    "evidence": "docs/atlas-worklog/<owner>.md for the 15 experiment domains and facilities, plus flagship-depth.md"
+  },
+  "independent_verification_workstreams_wave3": {
+    "value": 15,
+    "evidence": "docs/atlas-worklog/VERIFY_*.md — 13 by separate Sonnet agents; muons and cosmic-gamma by the orchestrator after their verifiers were stopped by the user"
+  },
+  "experiments_independently_reviewed": {
+    "value": "101 (wave 3) + 30 (waves 1–2, REVIEW_data_quality_wave1.md / REVIEW_scientific.md)",
+    "evidence": "docs/HEP_ATLAS_COVERAGE.md \"Independent verification by workstream\""
+  },
+  "flagships_fully_reviewed": {
+    "value": "19 of 19",
+    "evidence": "ATLAS, CMS, DUNE, Super-K, T2K: REVIEW_scientific.md + REVIEW_data_quality_wave1.md; Hyper-K, NOvA, IceCube, Belle II, LZ: REVIEW_data_quality_wave1.md / REVIEW_scientific.md + flagship-depth.md orchestrator check; ALICE, LHCb: VERIFY_colliders-lhc.md; KM3NeT: VERIFY_astro-neutrino.md; JUNO: VERIFY_reactor-solar-neutrino.md; XENONnT: VERIFY_dm-noble-liquid.md; Muon g-2, Mu2e: VERIFY_muons.md; NA62: VERIFY_fixed-target.md; COHERENT: VERIFY_cevns.md"
+  },
+  "factual_corrections_from_qa_P0": {
+    "value": 14,
+    "evidence": "VERIFY_*.md finding tables: dm-noble 1, dm-cryogenic 2, fixed-target 3, neutrino-mass 5, reactor-solar 3"
+  },
+  "factual_corrections_from_qa_P1": {
+    "value": 51,
+    "evidence": "VERIFY_*.md finding tables (sum of P1 rows across the 15 reports), plus two orchestrator class fixes: 28 collapsed histories split, 11 sites relabelled campus under A23"
+  },
+  "qa_P2_remaining_documented": {
+    "value": 28,
+    "evidence": "VERIFY_*.md P2 rows left as documented judgement calls; INTEGRATION_ISSUES.md rows 52–53"
+  },
+  "coverage_red_team": {
+    "value": "not run",
+    "evidence": "addendum §26 agent was started and stopped by the user; see INTEGRATION_ISSUES.md row 54"
   }
 }
