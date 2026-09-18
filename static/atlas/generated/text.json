@@ -4407,6 +4407,69 @@
     ],
     "summary_technical": "Reactor-neutrino site at the Hanbit (Yonggwang) Nuclear Power Plant, South Korea, hosting the RENO near (294 m) and far (1383 m) detector halls, 6 x 2.8 GW_th reactor array."
   },
+  "geometry:antiproton-decelerator-hall": {
+    "notes": []
+  },
+  "geometry:cngs-direction-line": {
+    "notes": []
+  },
+  "geometry:ehn1-building-887": {
+    "notes": []
+  },
+  "geometry:lep-tunnel-ring": {
+    "notes": []
+  },
+  "geometry:lhc-tunnel-ring": {
+    "notes": []
+  },
+  "geometry:linac4-building": {
+    "notes": []
+  },
+  "geometry:meyrin-site-marker": {
+    "notes": []
+  },
+  "geometry:point1-atlas-boundary": {
+    "notes": []
+  },
+  "geometry:point2-alice-boundary": {
+    "notes": []
+  },
+  "geometry:point2-l3-boundary": {
+    "notes": []
+  },
+  "geometry:point4-aleph-boundary": {
+    "notes": []
+  },
+  "geometry:point5-cms-boundary": {
+    "notes": []
+  },
+  "geometry:point5-cms-cavern": {
+    "notes": []
+  },
+  "geometry:point8-delphi-boundary": {
+    "notes": []
+  },
+  "geometry:point8-lhcb-boundary": {
+    "notes": []
+  },
+  "geometry:prevessin-site-boundary": {
+    "notes": []
+  },
+  "geometry:ps-tunnel-ring": {
+    "notes": []
+  },
+  "geometry:psb-tunnel-ring": {
+    "notes": []
+  },
+  "geometry:sps-tunnel-ring": {
+    "notes": []
+  },
+  "geometry:ti12-faser-point": {
+    "notes": []
+  },
+  "geometry:ti18-snd-lhc-point": {
+    "notes": []
+  },
   "institution:a-alikhanyan-national-laboratory": {
     "notes": [],
     "summary_technical": "national_laboratory (ROR https://ror.org/00ad27c73); established 1944."
@@ -6604,6 +6667,13 @@
   "institution:zhengzhou-university": {
     "notes": [],
     "summary_technical": "university (ROR https://ror.org/04ypx8c21); established 1956."
+  },
+  "map:cern": {
+    "notes": [
+      "Linked maps: map:lngs (the CNGS far site at LNGS) does not exist yet in this atlas; linked_map_ids is left empty here and the build's automatic derivation (from beamline:cngs's far_detector_site_ids) will populate it once LNGS has its own map.",
+      "site:cern-lep-point-2-l3 and site:cern-point-2-alice, and site:cern-lep-point-8-delphi and site:cern-point-8-lhcb, are drawn as separate geometry features using the SAME underlying OSM polygon (the same physical Point 2 / Point 8 enclosure hosted a LEP experiment 1989-2000 and hosts an LHC experiment today); this is expected to raise the validator's geometry-duplicate-shape warning for those two pairs, documented here and in the worklog rather than avoided by omission."
+    ],
+    "summary_technical": "One local map for facility:cern spanning the Meyrin and Prévessin sites and the full LHC/LEP tunnel footprint. Geometry sourced from OpenStreetMap (relation 9512017 for the LHC/LEP ring; ways 66473762/174646428/309914733 for SPS/PS/PSB; named Point-N surface enclosures for ATLAS/ALICE/CMS/LHCb and their LEP-era predecessors L3/ALEPH/DELPHI) cross-checked against CERN's published circumference and depth figures, plus one CMS-paper surveyed cavern point and two ring-derived points for FASER/SND@LHC in TI12/TI18."
   },
   "person:inspire-1005149": {
     "notes": []

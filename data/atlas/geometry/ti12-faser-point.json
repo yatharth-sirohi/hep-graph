@@ -7,7 +7,7 @@
     "tier": "C"
   },
   "depth_m": null,
-  "entity_id": "detector:faser",
+  "entity_id": "site:cern-ti12-faser",
   "feature_type": "other",
   "geometry": {
     "confidence": "derived",
@@ -29,12 +29,16 @@
   },
   "id": "geometry:ti12-faser-point",
   "level_id": "lhc-lep-tunnel",
-  "license": null,
+  "license": {
+    "attribution": "© OpenStreetMap contributors",
+    "name": "ODbL-1.0",
+    "url": "https://www.openstreetmap.org/copyright"
+  },
   "links": {
     "website": null
   },
   "map_id": "map:cern",
-  "method": "Walked 480 m along geometry:lhc-tunnel-ring (the merged OSM ring, accuracy_m 20) from the ATLAS interaction point -- taken as the middle node of LHC relation 9512017's insertion-1 segment (way 685422600), i.e. ring coordinate index 1 -- in the direction of increasing ring index (toward the Point 2/ALICE side, which OSM's own member order and insertion-2's 'ALICE' tag confirm is the '12' sector), per FASER's sourced siting '480 m downstream of the ATLAS IP in the unused service tunnel TI12' (src:colliders-lhc-faser-inspire-experiment-record). This anchors the derivation on the OSM ring (accuracy_m 20), not on the coarse site:cern-point-1-atlas campus point (precision_m 500), so it does not violate the coarse-anchor rule. accuracy_m 60 m combines the ring's own accuracy with the straight-ring-arc-vs-actual-tunnel-path uncertainty; this is a single point, not a trace of the TI12 tunnel itself, since no source gives that tunnel's own path.",
+  "method": "Walked 480 m along geometry:lhc-tunnel-ring (the merged OSM ring, accuracy_m 20) from the ATLAS interaction point -- taken as the middle node of LHC relation 9512017's insertion-1 segment (way 685422600), i.e. ring coordinate index 1 -- in the direction of increasing ring index (toward the Point 2/ALICE side, which OSM's own member order and insertion-2's 'ALICE' tag confirm is the '12' sector), per FASER's sourced siting '480 m downstream of the ATLAS IP in the unused service tunnel TI12' (src:colliders-lhc-faser-inspire-experiment-record). This anchors the derivation on the OSM ring (accuracy_m 20), not on the coarse campus-grade point recorded for LHC Point 1 (precision 500 m), so it does not violate the coarse-anchor rule. accuracy_m 60 m combines the ring's own accuracy with the straight-ring-arc-vs-actual-tunnel-path uncertainty; this is a single point, not a trace of the TI12 tunnel itself, since no source gives that tunnel's own path.",
   "name": "TI12 tunnel, FASER location (derived point)",
   "notes": [],
   "osm": {
