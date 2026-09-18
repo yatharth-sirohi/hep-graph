@@ -829,7 +829,7 @@ async function renderSite(id, timelineState) {
     : [emptyNote('No documents recorded.')], { open: false }));
 
   const approximateSites = (site.coordinates && site.coordinates.approximate) ? [site] : [];
-  frag.appendChild(sourcesDisclosure(id, { approximateSites }));
+  frag.appendChild(sourcesDisclosure(id, site, { approximateSites }));
   CALLBACKS.focusGlobe(id);
   return frag;
 }
@@ -898,7 +898,7 @@ async function renderDetector(id, timelineState) {
       h('a', { href: d.reference && d.reference.url, target: '_blank', rel: 'noopener' }, d.name))))]
     : [emptyNote('No documents recorded.')], { open: false }));
 
-  frag.appendChild(sourcesDisclosure(id));
+  frag.appendChild(sourcesDisclosure(id, detector));
   const focusSite = placements.map((p) => p.site_id).find(Boolean);
   if (focusSite) CALLBACKS.focusGlobe(focusSite);
   return frag;
@@ -974,7 +974,7 @@ async function renderAccelerator(id, timelineState) {
       h('a', { href: d.reference && d.reference.url, target: '_blank', rel: 'noopener' }, d.name))))]
     : [emptyNote('No documents recorded.')], { open: false }));
 
-  frag.appendChild(sourcesDisclosure(id));
+  frag.appendChild(sourcesDisclosure(id, accelerator));
   if (accelerator.site_id) CALLBACKS.focusGlobe(accelerator.site_id);
   return frag;
 }
@@ -1056,7 +1056,7 @@ async function renderBeamline(id, timelineState) {
       h('a', { href: d.reference && d.reference.url, target: '_blank', rel: 'noopener' }, d.name))))]
     : [emptyNote('No documents recorded.')], { open: false }));
 
-  frag.appendChild(sourcesDisclosure(id));
+  frag.appendChild(sourcesDisclosure(id, beamline));
   const focusSite = nearSites[0] || farSites[0];
   if (focusSite) CALLBACKS.focusGlobe(focusSite);
   return frag;
