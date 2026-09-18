@@ -130,7 +130,7 @@ def test_every_map_record_is_canonical_json_and_matches_its_filename() -> None:
 
 @requires_maps
 def test_every_openstreetmap_shape_carries_its_odbl_attribution(atlas) -> None:
-    """§6: OSM data may be used, and must be credited wherever it is drawn."""
+    """§7: OSM data may be used, and must be credited wherever it is drawn."""
     for entity_id, record in sorted(atlas.by_type("geometry").items()):
         osm = record.get("osm")
         if not isinstance(osm, dict) or not (osm.get("elements") or []):
@@ -142,7 +142,7 @@ def test_every_openstreetmap_shape_carries_its_odbl_attribution(atlas) -> None:
 
 @requires_maps
 def test_the_geometry_licence_note_exists() -> None:
-    """§6: the ODbL statement covering the OSM-derived records."""
+    """§7: the ODbL statement covering the OSM-derived records."""
     assert (GEOMETRY_DIR / "LICENSE.md").is_file()
 
 

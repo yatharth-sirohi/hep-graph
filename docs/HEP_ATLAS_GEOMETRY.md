@@ -272,7 +272,68 @@ Field rules:
 | `map-extent` | error | `extent_m` outside 500–60 000 |
 
 Distances are great-circle on the WGS 84 mean sphere (`schema.great_circle_m`);
-polygon areas use the spherical excess formula (`schema.polygon_area_m2`).
+polygon areas use the spherical excess formula. Both, and every other
+measurement the validator makes, live in **`hepgraph/atlas/geo.py`** —
+`polygon_area_m2`, `line_length_m`, `polygon_perimeter_m`, `centroid`,
+`geometry_span_m`, `geometry_azimuth_deg`, `initial_bearing_deg`, `bbox`,
+`geojson_problems` and a metre-tolerance Douglas-Peucker `simplify`.
+(Contract v1 named `schema.polygon_area_m2`; the area function needs the
+GeoJSON ring conventions `geo.py` defines, and `schema.py` stays the
+vocabulary module holding only the scalar `great_circle_m`. Everything else
+in the layer imports it from `geo`.) `geo.py` speaks GeoJSON `[lon, lat]`
+order throughout and flips the arguments for `schema.great_circle_m` itself.
+
+### 2.1 Decisions this contract left open
+
+Implementation resolved these; they are normative from here on.
+
+* **`azimuth` tolerance is in degrees, not a fraction.** §1.2 says
+  `tolerance` is a fraction defaulting to 0.03, which is meaningless for a
+  bearing (3 % of 350° is 10°, of 0.5° is nothing). An `azimuth` check reads
+  its `tolerance` as absolute degrees and defaults to
+  `schema.AZIMUTH_TOLERANCE_DEG` (1°), the same figure A25 fixes for a
+  direction line. Every other kind keeps the fraction.
+* **A `length` check on a polygon measures its outer ring(s) only.** A
+  courtyard is not fence, so an `area` check and a `length` check on the same
+  record stay comparable with the same published plan.
+* **`geometry-out-of-extent` does not apply to a `direction_line` at all**,
+  neither the 60 km error nor the 3 × `extent_m` warning: a far site is
+  1 300 km away and clipping to the view is the browser's job (§4), not a
+  data defect.
+* **"Drawn or unlocated" (`map-entity-unaccounted`) is answered across every
+  map of the same facility.** Fermilab's campus map and its Ash River map are
+  two views of one inventory; an entity drawn on either is accounted for on
+  both.
+* **`map-site-elsewhere` also fires when a map lists a site whose
+  `facility_id` names a different facility.** A site with no recorded
+  facility is unknown, not misplaced, and is left alone.
+* **`map-unlocated-unsourced` also requires a non-empty `reason`**, not only
+  `sources` and `backlog`: a row that does not say why is not an admission.
+* **A15 (quote or locator) applies to the `geometry` value and to every
+  `checks[]` row.** The shape must name its OSM element and timestamp or its
+  drawing reference, and a cross-check must say where its official figure is
+  printed.
+* **`geometry.level_id` is not an entity reference.** It names one of its own
+  map's `levels[].id` (a local label such as `"surface"`), so it is in
+  `schema.NON_REFERENCE_ID_KEYS` and `geometry-unknown-level` is what checks
+  it; the generic dangling-reference rule skips it.
+* **Where an A25 rule says something more specific than a generic rule, the
+  generic rule steps aside** (validate.py's "one defect, one rule"):
+  `geometry-unknown-map` owns `map_id` resolution, `map-unknown-facility` and
+  `map-unknown-site` own theirs, `geometry-entity-type` owns the entity type,
+  `geometry-representation` owns the representation enum, and
+  `geometry-confidence` owns the whole `verified` test including the rank
+  half that `verified-source-rank` would otherwise report twice.
+* **`map.center` is range-checked but its `kind` is free.** It is a camera
+  position, not a marker: the globe's kind-vs-entity rules would be
+  meaningless for it. The GeoJSON arrays of a `geometry` record are not
+  Coordinates and are never walked by the coordinate rules;
+  `geometry-geojson-invalid` owns them.
+* **A `checks[]` row the validator cannot execute is an error**
+  (`geometry-check-unmeasurable`), never a silent pass. A check nobody can
+  answer is not evidence.
+* **`checks[].expected_m` / `measured_m` in the bundle are in the base unit
+  of the check kind** — metres, square metres, or degrees for an `azimuth`.
 
 ## 3. Build outputs
 
@@ -398,7 +459,111 @@ polygon areas use the spherical excess formula (`schema.polygon_area_m2`).
    worklog; a QA pass other than the researcher challenges coordinates,
    licences, shapes and status.
 
-## 6. Licensing
+### 5.1 `scripts/atlas_osm_extract.py`
+
+Step 2 has a helper for the OpenStreetMap case. It is a **maintainer tool**,
+not part of the pipeline: it fetches shapes from Overpass, measures them and
+writes *draft* records you then finish by hand.
+
+```bash
+# every building in a bounding box, plus the ring relation
+python scripts/atlas_osm_extract.py --map cern \
+    --bbox 46.22,6.03,46.26,6.08 \
+    --filter 'way["building"]' --filter 'relation["railway"="rail"]'
+
+# named elements, when you already know them
+python scripts/atlas_osm_extract.py --map cern --ids relation/9512017,way/123456
+
+# see the query without issuing it, or re-process a saved response
+python scripts/atlas_osm_extract.py --map cern --ids way/123 --query-only
+python scripts/atlas_osm_extract.py --map cern --ids way/123 --from-json raw.json
+```
+
+What it does, and what it deliberately does not:
+
+* **One request per run**, 90-second timeout, `User-Agent
+  HEP-Atlas-research/1.0`. Overpass is a donated public service and the
+  script never retries in a loop.
+* It **prints the measured length or perimeter, area and span of every
+  shape** so you can compare each with the official published figure. It
+  never writes the `checks[]` row for you — that row is a claim about a
+  source, and only a person who read the source may make it.
+* Every draft is `representation: georeferenced`, `confidence: approximate`,
+  carries `license: ODbL-1.0` with the attribution, `osm.elements` and the
+  extract timestamp, and a `notes` entry listing what is still missing. The
+  matching `src:` record is `source_type: openstreetmap` (rank 11), which is
+  why no draft it writes can be `verified`.
+* Output goes to a scratch directory (printed on exit) unless you pass
+  `--out DIR`; `--write-data` writes into `data/atlas/` and never overwrites
+  an existing file. The raw Overpass response is saved beside the drafts so a
+  reviewer can see the input.
+* `feature_type` and `accuracy_m` are *guesses* from the OSM tags, floored at
+  the §1.2 figures. Check both. A wrong guess left in a committed record is
+  worse than `other`.
+
+## 6. Adding a campus
+
+The whole path from nothing to a working `#/map/<slug>`, for a maintainer.
+
+**Files to create**, all under `data/atlas/`:
+
+| File | What it is |
+| --- | --- |
+| `maps/<facility-slug>.json` | the map: centre, `extent_m`, `levels[]`, `unlocated[]`, `schematics[]` |
+| `geometry/<slug>.json` | one per drawable feature |
+| `sources/<slug>.json` | one per source the map or a feature cites |
+
+**Commands, in order:**
+
+```bash
+# 1. inventory — what must end up drawn or unlocated
+python -c "from hepgraph.atlas.load import load_atlas; a=load_atlas(); \
+  print([i for i,r in a.by_type('accelerator').items() if r['facility_id']=='facility:<slug>'])"
+
+# 2. draft the OSM shapes into a scratch directory (optional, see §5.1)
+python scripts/atlas_osm_extract.py --map <slug> --bbox S,W,N,E --filter 'way["building"]'
+
+# 3. write maps/<slug>.json by hand, then move the finished drafts into
+#    data/atlas/geometry/ and data/atlas/sources/
+
+# 4. validate — this must reach 0 errors before anything is committed
+python -m hepgraph.atlas.validate
+
+# 5. build and look at it
+python -m hepgraph.atlas.build
+#    then open #/map/<slug> and compare the scale bar with a known baseline
+
+# 6. the two reports that must not drift
+python scripts/atlas_coverage_report.py
+python scripts/atlas_validation_counts.py
+
+# 7. the full suite, including the real-data geometry test
+.venv/bin/python -m pytest -q
+```
+
+**Checks before you commit:**
+
+* `python -m hepgraph.atlas.validate` reports **0 errors**. Warnings are
+  advice; `map-entity-unaccounted` in particular means you have not yet said
+  what you could not place, and the honest fix is an `unlocated[]` row, not
+  a deleted entity.
+* `tests/test_atlas_geometry_data.py` stops skipping the moment your map
+  lands, and then requires that every check you wrote **passes** against the
+  real shapes. A check that cannot be executed counts as a failure.
+* Every feature's `accuracy_m` is one you would defend out loud. §1.2 gives
+  the floors: OSM footprints 3–10 m, OSM tunnel lines 10–30 m, a ring road
+  used as a tunnel proxy ≥ 30 m, minute-precision published coordinates
+  ≥ 20 m.
+* Anything you could not place is in `unlocated[]` with a sourced `reason`
+  and a `backlog` naming the document that would fix it.
+* No OSM-derived shape claims `verified`, and every one carries its ODbL
+  attribution.
+* `python -m hepgraph.atlas.build --check` is clean after you commit the
+  generated bundles, and the map's `geometry/<slug>.json` is under 2 MB. If
+  it is not, simplify with `hepgraph.atlas.geo.simplify` (record the
+  tolerance in `method`) or split the campus into two maps.
+
+## 7. Licensing
 
 OpenStreetMap data is © OpenStreetMap contributors under the ODbL 1.0.
 Geometry records that copy or derive from it carry

@@ -1298,7 +1298,7 @@ def _feature_entry(ctx: _Context, record: dict, by_id: dict[str, dict]) -> dict:
 
 
 def _attributions(records: Iterable[dict]) -> list[str]:
-    """Sorted unique attribution strings of a map's features (contract §6)."""
+    """Sorted unique attribution strings of a map's features (contract §7)."""
     found: set[str] = set()
     for record in records:
         licence = record.get('license')

@@ -21,17 +21,30 @@ HEP Atlas
 | --- | --- | --- |
 | Canonical data | `data/atlas/**/*.json` | Human-reviewed, one file per entity, diffable, provenance-carrying |
 | Schema and rules | `hepgraph/atlas/schema.py` | Enums, units, date/interval semantics, derived-state rules |
+| Geometry | `hepgraph/atlas/geo.py` | Geodesy and GeoJSON for the local-map layer: lengths, perimeters, spherical areas, centroids, azimuths, bbox, validation, simplification (A25) |
 | Loader | `hepgraph/atlas/load.py` | Reads the canonical tree into a typed in-memory model |
 | Validator | `hepgraph/atlas/validate.py` | Structural, referential, temporal, provenance, geometric and unit checks |
 | Build | `hepgraph/atlas/build.py` | Generates the browser bundles under `static/atlas/generated/` |
 | Link checker | `hepgraph/atlas/linkcheck.py` | Manual, polite; records link status back into source records |
+| OSM extractor | `scripts/atlas_osm_extract.py` | Manual, one Overpass request; writes *draft* geometry records a researcher finishes by hand (A25) |
 | Scaffold | `hepgraph/atlas/scaffold.py` | Creates skeleton files so adding an experiment is one command |
 | Server | `hepgraph/server.py` | Additive routes `/atlas` and `/atlas/<file>`; no change to HEP Graph routes |
 | Browser app | `static/atlas/` | Vanilla HTML/CSS/JS, vendored WebGL library, no build step |
 
 The canonical data is never read by the browser. The browser reads only
-generated bundles, so runtime browsing makes no external requests at all — in
-deliberate contrast to HEP Graph, whose pathfinding is live against INSPIRE.
+generated bundles, so runtime browsing makes essentially no external requests
+— in deliberate contrast to HEP Graph, whose pathfinding is live against
+INSPIRE.
+
+**One exception, added with the local-map layer (A25):** a local map route
+(`#/map/<slug>`) offers OpenStreetMap standard basemap tiles behind the
+to-scale geometry, which are fetched from `openstreetmap.org` while that
+route is open. They are optional and toggleable (`bm=0` hides them), need no
+API key and cost nothing; on tile failure the features still render on the
+dark background and a notice says the basemap is unavailable. Nothing else in
+the application fetches anything at runtime, and no other route loads tiles.
+The geometry itself is atlas data and is never fetched from a third party at
+runtime — it is built into `geometry/<slug>.json` like every other bundle.
 
 ## 2. Ontology
 
