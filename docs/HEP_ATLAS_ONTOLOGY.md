@@ -290,6 +290,35 @@ dark-matter, radiochemical solar-neutrino and direct neutrino-mass detectors no
 longer have to file under `other`. `other` remains for anything else, with the
 technique described in the sourced `technology` string.
 
+**A25. Local-map geometry layer (2026-09-18).** Two entity types are added:
+`map` (`data/atlas/maps/<facility-slug>.json`, id `map:<slug>`) and
+`geometry` (`data/atlas/geometry/<slug>.json`, id `geometry:<slug>`). A map is
+one to-scale local map of a facility campus: `facility_id`, `site_ids`,
+`center` (Coordinates, any kind), `extent_m`, `levels[]` (`id`, `name`,
+`kind` ∈ surface|underground|sea|lake|ice|mountain, sourced `depth_m`
+positive downwards), `unlocated[]` (`entity_id`, sourced `reason`,
+`backlog`), `schematics[]` (links only, "not to scale"), `linked_map_ids`.
+A geometry record is one drawable feature: `map_id`, `level_id`,
+`entity_id` (accelerator|beamline|detector|site|experiment|facility, or
+null for context), `feature_type`, `geometry` = Sourced<GeoJSON geometry>
+(`[lon, lat]`, WGS 84; Point/LineString/MultiLineString/Polygon/
+MultiPolygon), `representation` ∈ surveyed|georeferenced|derived|
+inferred_direction (no schematic class exists), `accuracy_m`, `method`,
+`checks[]` (length/area/distance/azimuth/span against a sourced expected
+Quantity, validator-executed, failure is an error), optional `valid`
+{start,end}, `depth_m`, `license` (ODbL attribution for OpenStreetMap-derived
+shapes), `osm` (element ids + timestamp), `site_id`. A `verified` shape
+needs a rank ≤ 10 source and either `surveyed` representation or a passing
+check citing such a source; OpenStreetMap alone (`source_type:
+openstreetmap`, rank 11) gives at most `approximate`. A `derived` shape may
+not rest on an anchor coarser than its own accuracy (no footprint from a
+campus point). Every accelerator, beamline and detector-hosting site of a
+mapped facility is either drawn or listed in `unlocated[]` (warning
+otherwise). Build: `atlas.json.maps`, derived `facility.map_id`,
+`site.map_id`, `{accelerator,beamline,detector}.geometry_map_ids`, and a
+lazy `geometry/<slug>.json` per map. Full contract, validator rule table and
+bundle shapes: `docs/HEP_ATLAS_GEOMETRY.md`.
+
 ## 0. Ground rules
 
 1. **Canonical data is JSON under `data/atlas/`**, one file per entity, human
