@@ -7,8 +7,9 @@ script named next to it or taken from a report file under
 
 ## 1. Repository
 
-- **Branch and commits.** `hep-atlas-v1`, 50+ commits on top of `main`
-  (`1018119`), merged as a single merge commit. Engineering branches
+- **Branch and commits.** `hep-atlas-v1`, 60+ commits on top of `main`
+  (`1018119`), with `origin/main`'s 13 intervening commits merged in before
+  the final merge to `main`. Engineering branches
   `hep-atlas-v1-w1` (caching, lazy provenance, loading and error states,
   generated validation counts), `hep-atlas-v1-w3` (clustering, semantic zoom,
   filters, coordinate-reading fix) and `hep-atlas-v1-w4` (accessibility,
@@ -16,8 +17,8 @@ script named next to it or taken from a report file under
 - **Tests.** `python -m pytest -q`: 513 passed, 129 skipped (the skips are the
   PostgreSQL-backed HEP Graph tests that need a throwaway database). HEP
   Graph's own suite is unchanged. `python -m hepgraph.atlas.validate`: 0
-  errors. Browser suite `tests/browser_atlas.cjs`: 22/22 on the fixture tree,
-  23/23 on the generated tree in Chromium; Firefox 24/24 and 25/25, WebKit 24/24 and 25/25 on the same two trees (147/147 across the three engines, `docs/atlas-worklog/REVIEW_browser_matrix.md`); WebKit is Safari's engine driven by Playwright, not Safari.app. Accessibility suite `tests/browser_atlas_a11y.cjs`: 30/30, 0 axe WCAG violations over 16 scanned states.
+  errors. Browser suite `tests/browser_atlas.cjs`: Chromium 24/24 on the fixture tree
+  and 25/25 on the generated tree; Firefox 24/24 and 25/25, WebKit 24/24 and 25/25 on the same two trees (147/147 across the three engines, `docs/atlas-worklog/REVIEW_browser_matrix.md`); WebKit is Safari's engine driven by Playwright, not Safari.app. Accessibility suite `tests/browser_atlas_a11y.cjs`: 30/30, 0 axe WCAG violations over 16 scanned states.
   `scripts/atlas_coverage_report.py --check` and
   `scripts/atlas_validation_counts.py --check`: current.
 - **Deployment.** [TBD-DEPLOY].
