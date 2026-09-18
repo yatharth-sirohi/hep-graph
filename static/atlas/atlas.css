@@ -916,12 +916,15 @@ input {
 }
 .footer-link {
   color: var(--teal);
-  text-decoration: none;
-  white-space: nowrap;
-}
-.footer-link:hover,
-.footer-link:focus-visible {
+  /* WCAG 1.4.1 / axe "link-in-text-block": the "see the coverage report"
+     link sits inline inside the version-label sentence, so it must be
+     distinguishable from the surrounding text by more than color alone
+     (found by the a11y suite's axe scan against test-results/atlas/
+     a11y-axe-report.json). Underlining every .footer-link, not just this
+     one, keeps the standalone "Methodology"/"Report an error" links
+     visually consistent with it. */
   text-decoration: underline;
+  white-space: nowrap;
 }
 .share-status {
   color: var(--teal);

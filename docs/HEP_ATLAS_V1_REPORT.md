@@ -14,11 +14,24 @@ script named next to it or taken from a report file under
   generated validation counts), `hep-atlas-v1-w3` (clustering, semantic zoom,
   filters, coordinate-reading fix) and `hep-atlas-v1-w4` (accessibility,
   browser matrix) were merged into it.
-- **Tests.** `python -m pytest -q`: 536 passed, 139 skipped (the skips are the
-  PostgreSQL-backed HEP Graph tests that need a throwaway database). HEP
-  Graph's own suite is unchanged. `python -m hepgraph.atlas.validate`: 0
-  errors. Browser suite `tests/browser_atlas.cjs`: Chromium 24/24 on the fixture tree
-  and 25/25 on the generated tree; Firefox 24/24 and 25/25, WebKit 24/24 and 25/25 on the same two trees (147/147 across the three engines, `docs/atlas-worklog/REVIEW_browser_matrix.md`); WebKit is Safari's engine driven by Playwright, not Safari.app. Accessibility suite `tests/browser_atlas_a11y.cjs`: 30/30, 0 axe WCAG violations over 16 scanned states.
+- **Tests.** `python -m pytest -q`: 538 passed, 139 skipped as of the
+  2026-09-18 post-release pass below (§12; was 536/139 at release — two new
+  `tests/test_atlas_server.py` cases for `/atlas/about.html`, no other
+  change). The skips are the PostgreSQL-backed HEP Graph tests that need a
+  throwaway database; HEP Graph's own suite is unchanged.
+  `python -m hepgraph.atlas.validate`: 0 errors. Browser suite
+  `tests/browser_atlas.cjs`: at release, Chromium 24/24 on the fixture tree
+  and 25/25 on the generated tree; Firefox 24/24 and 25/25, WebKit 24/24 and
+  25/25 on the same two trees (147/147 across the three engines,
+  `docs/atlas-worklog/REVIEW_browser_matrix.md`); WebKit is Safari's engine
+  driven by Playwright, not Safari.app. Chromium re-verified 2026-09-18 at
+  27/27 (fixtures) and 28/28 (generated) after three checks were added for
+  the methodology page and the hardened fallback path (§12); Firefox and
+  WebKit were not re-run this pass, so their post-addition counts are not
+  claimed here. Accessibility suite `tests/browser_atlas_a11y.cjs`: 30/30, 0
+  axe WCAG violations over 16 scanned states at release; 31/31, 0 violations
+  over 17 states as of 2026-09-18 (§12) after adding and then fixing one
+  `about.html` axe finding.
   `scripts/atlas_coverage_report.py --check` and
   `scripts/atlas_validation_counts.py --check`: current.
 - **Deployment.** `hep-atlas-v1` was pushed to `origin/main` as a fast-forward
@@ -160,10 +173,12 @@ assets have their own rate-limit bucket.
 
 ## 10. Performance
 
-- Bundles: `atlas.json` 1.42 MB (over the 400 KB pilot budget, which predates
-  wave 3), `provenance.json` 2.67 MB and `sources.json` 1.38 MB loaded lazily
-  on first disclosure open, `institutions.json` 538 KB, total generated
-  8.5 MB uncompressed; compression and ETag revalidation on every asset.
+- Bundles (measured 2026-09-18, `os.path.getsize` over `static/atlas/generated/`,
+  decimal MB — see §12): `atlas.json` 1.42 MB (over the 400 KB pilot budget,
+  which predates wave 3), `provenance.json` 2.67 MB and `sources.json`
+  1.40 MB (was 1.38 MB at release; §12) loaded lazily on first disclosure
+  open, `institutions.json` 538 KB, total generated 8.57 MB uncompressed
+  (was "8.5 MB"; §12); compression and ETag revalidation on every asset.
 - Panel open with Sources collapsed: 0 provenance/sources requests (was 2.2 MB
   eager); warm reload: 12 of 20 requests answered 304 (`REVIEW_performance.md`
   closure section).
@@ -179,8 +194,74 @@ assets have their own rate-limit bucket.
 
 ## 11. Remaining coverage
 
-Per `docs/HEP_ATLAS_COVERAGE.md`: 125 of 131 experiments lack institution
-membership; 78 lack any result; 93 lack a technical document; 13 lack a dated
-history on some axis. The next release should start with the coverage red
-team, the flagship rosters, and re-fetching every quote in the domains where
-verifiers sampled rather than exhausted the sources.
+Per `docs/HEP_ATLAS_COVERAGE.md` ("Coverage by category", the "All" row,
+regenerated 2026-09-18 by `scripts/atlas_coverage_report.py` — see §12 for
+the reconciliation from this section's original, now-stale figures): 128 of
+131 experiments lack institution membership; 79 lack any result; 96 lack a
+technical document; 10 lack a dated history on some axis. The next release
+should start with the coverage red team, the flagship rosters, and
+re-fetching every quote in the domains where verifiers sampled rather than
+exhausted the sources.
+
+## 12. Post-release reconciliation (2026-09-18)
+
+Workstream A5/A6 (`static/atlas/about.html`, footer links, the hardened
+fixture-fallback path) regenerated this report's two source scripts —
+`scripts/atlas_coverage_report.py` and `scripts/atlas_validation_counts.py
+--pytest-log <log> --browser-results <dir>` — against the current
+`hep-atlas-local-maps-a4` worktree and found the numbers below had drifted
+from what this report stated at release. `scripts/atlas_coverage_report.py
+--check` reported the committed `docs/HEP_ATLAS_COVERAGE.md` itself as
+already current against `data/atlas/` — the drift is entirely between that
+document and the prose copied into this report, not between the document and
+the data. Every number below is cited to the script or test run that
+produced it; nothing here is invented, and entries this pass could not
+regenerate say so rather than guessing.
+
+### What changed, and why
+
+| # | Number | At release | Now (2026-09-18) | Why | Source |
+| --- | --- | ---: | ---: | --- | --- |
+| 1 | §11 experiments lacking institution membership | 125 of 131 | 128 of 131 | §11's prose was not regenerated from `docs/HEP_ATLAS_COVERAGE.md` after data changed on intervening commits (this branch's parent history includes the A25 geometry-contract work); the coverage document's own "All" row was already correct, only this report's copy of it was stale | `scripts/atlas_coverage_report.py` → `docs/HEP_ATLAS_COVERAGE.md`, "Coverage by category", "All" row |
+| 2 | §11 experiments lacking any result | 78 | 79 | Same cause as #1 | Same |
+| 3 | §11 experiments lacking a technical document | 93 | 96 | Same cause as #1 | Same |
+| 4 | §11 experiments lacking a dated history | 13 | 10 | Same cause as #1 | Same |
+| 5 | §1/§8 `python -m pytest -q` | 536 passed, 139 skipped | 538 passed, 139 skipped | This workstream added two tests (`test_atlas_serves_html_under_subpaths`, `test_about_page_is_served_at_its_real_path` in `tests/test_atlas_server.py`) proving `/atlas/about.html` is reachable; no other test file changed and no existing test's outcome changed | `python -m pytest -q`, logged to a local file and fed to `scripts/atlas_validation_counts.py --pytest-log` |
+| 6 | §1 Chromium browser-suite count | 24/24 fixtures, 25/25 generated | 27/27 fixtures, 28/28 generated | Three checks were added to `tests/browser_atlas.cjs` for this workstream (footer-link resolution, `about.html`'s live counts, and the non-localhost failure-path test); the third runs only under Chromium (a `--host-resolver-rules` launch flag with no Firefox/WebKit equivalent — see the comment above it in the test file) | `HEP_URL=http://127.0.0.1:8816 node tests/browser_atlas.cjs` (fixtures) and the same with `HEP_ATLAS_DATA=generated`, both Chromium; `test-results/atlas/report.json` |
+| 7 | §1 Firefox/WebKit browser-suite count | 24/24 and 25/25 each | **not regenerated this pass** | The full three-engine matrix (`docs/atlas-worklog/REVIEW_browser_matrix.md`'s process) was not re-run; only Chromium was, so this report does not claim a Firefox/WebKit count against the now-larger test file. The old 24/24 and 25/25 figures describe the *test file at release*, not the current one, and are no longer accurate counts of what running those engines today would show | Not regenerated — recorded here as a known gap, not silently left implying the old figures still hold |
+| 8 | §1/§8 accessibility suite | 30/30, 0 violations, 16 scanned states | 31/31, 0 violations, 17 scanned states | One check was added (`axe: about.html (methodology/coverage page)` in `tests/browser_atlas_a11y.cjs`). Its first run found one real WCAG 1.4.1 violation (`link-in-text-block`, the new inline "the coverage report" link in the footer's version label was not distinguishable from surrounding text by anything but color) repeated across every state that renders the footer — 16 violation entries in `test-results/atlas/a11y-axe-report.json`, all the same underlying defect. Fixed in `static/atlas/atlas.css` (`.footer-link` now underlines by default); the suite was re-run clean | `HEP_URL=http://127.0.0.1:8816 node tests/browser_atlas_a11y.cjs`; `test-results/atlas/a11y-report.json`, `a11y-axe-report.json` |
+| 9 | §10 `sources.json` size | 1.38 MB | 1.40 MB | Real growth in the file between release and this pass; this workstream did not touch `data/atlas/sources/` or the build pipeline, so the cause is intervening data changes on this branch's parent history, not something introduced here. Not independently attributed further — stated as measured, not explained away | `os.path.getsize('static/atlas/generated/sources.json')`, decimal MB |
+| 10 | §10 total generated bundle size | "8.5 MB" | 8.57 MB | Follows from #9 plus normal rounding; the other bundle files (`atlas.json`, `provenance.json`, `institutions.json`) are unchanged in size | Same measurement, summed over `static/atlas/generated/` |
+
+### What did not change (checked, not assumed)
+
+- §3's entity-count table (facilities 48, sites 93, … sources 1,486,
+  membership rosters 3 — DUNE 217, CMS 244, ATLAS 198 rows) and its tier
+  split (A 23 rows: 21 full/2 partial; B 76: 11/65; C 17: 2/15; D 15: 4/11)
+  match `scripts/atlas_validation_counts.py`'s regenerated §8.1/§8.2 exactly
+  — confirmed by reading `static/atlas/generated/manifest.json`'s `counts`,
+  each roster file's member-row count, and `docs/HEP_ATLAS_COVERAGE.md`'s
+  tier table directly, not assumed unchanged.
+- `python -m hepgraph.atlas.validate`: still 0 errors (validator findings in
+  `docs/HEP_ATLAS_VALIDATION.md` §8.3 are unchanged: 0 error, 1,589 warning,
+  4 info).
+- The link-check figures in §8 and §10 (1,485 of 1,486 checked, 0 dead) are
+  unchanged — no `linkcheck` run happened in this pass.
+
+### What this pass did not attempt to reconcile
+
+- §5's timeline status distribution (54 completed, 43 active, …) is not
+  produced by either regenerated script; recomputing it would need a
+  separate one-off query against `state_at(build_date)` for every
+  experiment, which was out of this workstream's scope. Not claimed to be
+  current or stale — simply not checked this pass.
+- §10's marker counts and FPS figures are single-run, environment-specific
+  measurements (explicitly caveated in that section as software-rasteriser
+  numbers), not deterministic figures either script recomputes; re-measuring
+  them was out of scope for a documentation-reconciliation pass and they are
+  left as originally recorded.
+- §8's independent-verification and defect-finding counts (source
+  re-fetches, P0/P1/P2 tallies) come from `docs/atlas-worklog/
+  validation_counts_manual.json`, a human-maintained file this pass did not
+  touch; they are unchanged because nothing regenerated them, not because
+  they were re-verified.

@@ -443,6 +443,22 @@ async function contrastOf(page, selector) {
     });
   }
 
+  // ---- about.html: one axe scan, after its live coverage numbers render
+  // (not just the "Loading…" status), so the scan covers the real rendered
+  // tables the same way the globe-view scans above wait for markers first.
+  // One state is enough here: unlike the globe, about.html's structure does
+  // not vary by data tree or route — only the numbers inside the tables do.
+  {
+    const aboutContext = await browser.newContext({ viewport: { width: 1280, height: 960 } });
+    const aboutPage = await aboutContext.newPage();
+    await record("axe: about.html (methodology/coverage page)", async () => {
+      await aboutPage.goto(`${base}/atlas/about.html`);
+      await aboutPage.locator("#coverage-entities table").waitFor({ timeout: 15000 });
+      await runAxe(aboutPage, "about", "about.html");
+    });
+    await aboutContext.close();
+  }
+
   await browser.close();
 
   // Wrapped in an object, not a bare array: scripts/atlas_validation_counts.py's

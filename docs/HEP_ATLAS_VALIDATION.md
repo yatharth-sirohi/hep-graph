@@ -369,7 +369,7 @@ Source: a local `pytest -q` log (outside the repository tree, path not recorded)
 
 | Outcome | Count |
 | --- | ---: |
-| passed | 536 |
+| passed | 538 |
 | skipped | 139 |
 
 ### 8.6 Browser test results
@@ -379,8 +379,8 @@ Source: a local `pytest -q` log (outside the repository tree, path not recorded)
 | File | Status | Checks passed | Uncaught errors | Checked at |
 | --- | --- | ---: | ---: | --- |
 | test-results/atlas/a11y-axe-report.json | unknown | 0/0 | 0 | — |
-| test-results/atlas/a11y-report.json | passed | 30/30 | 0 | 2026-09-18T18:54:43.699Z |
-| test-results/atlas/report.json | passed | 25/25 | 0 | 2026-09-18T18:59:37.169Z |
+| test-results/atlas/a11y-report.json | passed | 31/31 | 0 | 2026-09-18T22:03:11.383Z |
+| test-results/atlas/report.json | passed | 28/28 | 0 | 2026-09-18T21:55:45.247Z |
 
 ### 8.7 Manual / human-verified fields
 
@@ -406,6 +406,8 @@ From `docs/atlas-worklog/validation_counts_manual.json` — anything a script ca
 | source_conflict_count | 106 | Rows in the "Conflicts" tables of the research worklogs (docs/atlas-worklog/*.md, counted by script on 2026-09-18) |
 | subagent_count_total | 44 | 37 spawned by the orchestrator (see subagents_spawned_by_orchestrator) + 7 nested children spawned by leads |
 | subagents_spawned_by_orchestrator | 37 | Agent tool calls in the v1.0 session: W1, W3, W4; 16 wave-3 leads (15 domains + facilities); 15 domain verifiers; flagship-depth; flagship-membership and coverage red team (both stopped by the user before producing output). All Sonnet. |
+
+<!-- counts:end -->
 
 <!-- counts:end -->
 
