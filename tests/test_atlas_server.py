@@ -147,13 +147,17 @@ def _assert_security_headers(headers: dict[str, str]) -> None:
     assert "X-HEP-Instance" in headers
 
 
+ATLAS_CACHE_CONTROL = "public, max-age=0, must-revalidate"
+
+
 def test_atlas_index_is_served_with_and_without_trailing_slash(service, atlas_dir) -> None:
     base, _ = service
     for path in ("/atlas", "/atlas/"):
         status, headers, body = _request(base, path)
         assert status == 200, path
         assert headers["Content-Type"] == "text/html; charset=utf-8"
-        assert headers["Cache-Control"] == "no-cache"
+        assert headers["Cache-Control"] == ATLAS_CACHE_CONTROL
+        assert "ETag" in headers
         assert b"HEP Atlas" in body
         _assert_security_headers(headers)
 
@@ -163,20 +167,23 @@ def test_atlas_scripts_styles_and_images_have_their_content_types(service, atlas
     status, headers, body = _request(base, "/atlas/atlas.js")
     assert status == 200
     assert headers["Content-Type"] == "text/javascript; charset=utf-8"
-    assert headers["Cache-Control"] == "no-cache"
+    assert headers["Cache-Control"] == ATLAS_CACHE_CONTROL
+    assert "ETag" in headers
     assert body == (atlas_dir / "atlas.js").read_bytes()
     _assert_security_headers(headers)
 
     status, headers, body = _request(base, "/atlas/atlas.css")
     assert status == 200
     assert headers["Content-Type"] == "text/css; charset=utf-8"
-    assert headers["Cache-Control"] == "no-cache"
+    assert headers["Cache-Control"] == ATLAS_CACHE_CONTROL
+    assert "ETag" in headers
     assert body == (atlas_dir / "atlas.css").read_bytes()
 
     status, headers, body = _request(base, "/atlas/assets/logo.svg")
     assert status == 200
     assert headers["Content-Type"] == "image/svg+xml"
-    assert headers["Cache-Control"] == "no-cache"
+    assert headers["Cache-Control"] == ATLAS_CACHE_CONTROL
+    assert "ETag" in headers
     assert body == (atlas_dir / "assets" / "logo.svg").read_bytes()
     _assert_security_headers(headers)
 
@@ -186,16 +193,95 @@ def test_generated_files_are_cacheable_and_sent_byte_for_byte(service, atlas_dir
     status, headers, body = _request(base, "/atlas/generated/manifest.json")
     assert status == 200
     assert headers["Content-Type"] == "application/json; charset=utf-8"
-    assert headers["Cache-Control"] == "public, max-age=300"
+    assert headers["Cache-Control"] == ATLAS_CACHE_CONTROL
     assert headers["Content-Length"] == str(len(MANIFEST_BYTES))
+    assert "ETag" in headers
     # Raw bytes, not a json.dumps re-encoding of the parsed document.
     assert body == MANIFEST_BYTES
     _assert_security_headers(headers)
 
     status, headers, body = _request(base, "/atlas/generated/atlas.json")
     assert status == 200
-    assert headers["Cache-Control"] == "public, max-age=300"
+    assert headers["Cache-Control"] == ATLAS_CACHE_CONTROL
+    assert "ETag" in headers
     assert body == (atlas_dir / "generated" / "atlas.json").read_bytes()
+
+
+def test_generated_json_and_vendor_js_revalidate_with_etag(service, atlas_dir) -> None:
+    """ETag present on every response; a matching If-None-Match gets a
+    304 with no body; a stale one gets a full 200 with the real bytes."""
+    base, _ = service
+    (atlas_dir / "vendor").mkdir()
+    vendor_bytes = b"window.Globe = function Globe() {};\n"
+    (atlas_dir / "vendor" / "globe.gl.min.js").write_bytes(vendor_bytes)
+
+    for path, expected_body in (
+        ("/atlas/generated/manifest.json", MANIFEST_BYTES),
+        ("/atlas/generated/atlas.json", (atlas_dir / "generated" / "atlas.json").read_bytes()),
+        ("/atlas/vendor/globe.gl.min.js", vendor_bytes),
+    ):
+        status, headers, body = _request(base, path)
+        assert status == 200, path
+        etag = headers["ETag"]
+        assert etag, path
+        assert body == expected_body, path
+
+        status2, headers2, body2 = base.request(path, method="GET")
+        assert status2 == 200
+        assert headers2["ETag"] == etag, "the same unchanged file must hash to the same ETag"
+
+        # A matching If-None-Match: a 304 with no body.
+        status3, headers3, body3 = _conditional_request(base, path, if_none_match=etag)
+        assert status3 == 304, path
+        assert body3 == b""
+        assert headers3.get("ETag") == etag
+        assert headers3["Cache-Control"] == ATLAS_CACHE_CONTROL
+        assert "Content-Type" not in headers3
+
+        # A stale/unknown ETag: a full 200 with the real bytes again.
+        status4, headers4, body4 = _conditional_request(base, path, if_none_match='"stale-etag-value"')
+        assert status4 == 200, path
+        assert body4 == expected_body, path
+        assert headers4["ETag"] == etag
+
+
+def _conditional_request(base, path: str, *, if_none_match: str):
+    left, right = socket.socketpair()
+    try:
+        headers = [
+            f"GET {path} HTTP/1.0", "Host: localhost", "Connection: close",
+            f"If-None-Match: {if_none_match}",
+        ]
+        left.sendall(("\r\n".join(headers) + "\r\n\r\n").encode())
+        left.shutdown(socket.SHUT_WR)
+
+        def serve_one():
+            try:
+                server_module.Handler(right, ("127.0.0.1", 12345), base)
+            finally:
+                right.close()
+
+        handler_thread = threading.Thread(target=serve_one, daemon=True)
+        handler_thread.start()
+        chunks = []
+        while True:
+            chunk = left.recv(65536)
+            if not chunk:
+                break
+            chunks.append(chunk)
+        handler_thread.join(timeout=2)
+        raw = b"".join(chunks)
+    finally:
+        left.close()
+        right.close()
+    head, _, response_body = raw.partition(b"\r\n\r\n")
+    lines = head.decode("iso-8859-1").split("\r\n")
+    status = int(lines[0].split()[1])
+    response_headers = {}
+    for line in lines[1:]:
+        key, _, value = line.partition(":")
+        response_headers[key] = value.strip()
+    return status, response_headers, response_body
 
 
 def test_disallowed_extensions_directories_and_missing_files_are_not_found(service, atlas_dir) -> None:
@@ -239,7 +325,8 @@ def test_head_returns_headers_without_body(service, atlas_dir) -> None:
     assert status == 200
     assert headers["Content-Type"] == "application/json; charset=utf-8"
     assert headers["Content-Length"] == str(len(MANIFEST_BYTES))
-    assert headers["Cache-Control"] == "public, max-age=300"
+    assert headers["Cache-Control"] == ATLAS_CACHE_CONTROL
+    assert "ETag" in headers
     assert body == b""
     _assert_security_headers(headers)
 

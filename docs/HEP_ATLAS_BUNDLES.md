@@ -24,6 +24,56 @@ Rules that hold for every bundle:
   prints a per-type size table; the pilot budget is 400 KB for
   `atlas.json` + `manifest.json` together.
 
+## Caching (closes P2-2 / part of P1-2 in `REVIEW_performance.md`)
+
+Every response under `/atlas/**` — the app shell, vendored JS, and every
+generated bundle — is served by one Python handler,
+`hepgraph.server.Handler.respond_atlas`, in both places this runs:
+
+* locally, via `python -m hepgraph.server`;
+* in production, because `pyproject.toml` names `hepgraph.server:Handler` as
+  the entry point Vercel's Python runtime loads (see
+  `docs/VERCEL_SEARCH_EXECUTION_AUDIT.md` §"Runtime"). `vercel.json` carries
+  no `routes`/`headers`/static-build config of its own, so there is no
+  separate static-hosting layer with independent caching rules to keep in
+  sync with the Python one.
+
+Because both environments are the same code path, the bundle-versioning
+question (revalidation vs. immutable content-hashed URLs) has one answer
+instead of two designs to keep aligned. This build picked **ETag
+revalidation over content-hashed URLs**:
+
+* `respond_atlas` computes a strong ETag (`"` + first 32 hex chars of the
+  SHA-256 of the file's bytes + `"`) for every file it serves, cached
+  in-process keyed by `(path, mtime_ns, size)` so an unchanged file is not
+  re-hashed on every request.
+* Every response carries `Cache-Control: public, max-age=0, must-revalidate`
+  — always revalidate, never serve a bundle that is more than one round
+  trip stale.
+* A request with a matching `If-None-Match` gets a bodyless `304`; a stale
+  or absent one gets the normal `200` with the full bytes and a fresh ETag.
+
+This was chosen over content-hashed, immutably-cached URLs
+(`atlas.<hash>.json`, `Cache-Control: max-age=31536000, immutable`) because
+that design needs `build.py` (owned by another workstream during this pass)
+to rewrite every bundle reference in `manifest.json`/`index.html`/`loader.js`
+to a hashed path, and needs a second, unhashed manifest URL to bootstrap the
+lookup — real value once the build genuinely never touches an old path
+byte-for-byte, but more moving parts than this pass's scope of
+`loader.js`/`server.py` justified. Revalidation gets the same practical
+result for this app (an unchanged reload costs one small request instead of
+re-downloading ~4.9 MB of bundles) with a change contained to the server and
+the loader's fetch options. Revisit content-hashed URLs if the entity that
+owns `build.py` wants immutable, CDN-cacheable bundle URLs independent of a
+live round trip.
+
+`static/atlas/js/loader.js` fetches every bundle without `cache: 'no-store'`
+now (default browser cache mode), so the conditional-GET machinery above is
+actually used; `manifest.json` is fetched the same way — "revalidated", per
+the product requirement, means the browser always asks the server whether
+its copy is current, which `max-age=0, must-revalidate` guarantees regardless
+of cache mode.
+
 ## Stripping rules
 
 | input shape | shape in `atlas.json` |

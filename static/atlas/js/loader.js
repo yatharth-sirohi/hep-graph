@@ -22,7 +22,13 @@ function paramsBase() {
 
 async function probe(base) {
   try {
-    const response = await fetch(`${base}manifest.json`, { cache: 'no-store' });
+    // Not `no-store`: the server sends a strong ETag plus
+    // `Cache-Control: public, max-age=0, must-revalidate` on every atlas
+    // asset (see hepgraph/server.py's respond_atlas), so the default cache
+    // mode already revalidates with the server on every request via
+    // If-None-Match — manifest.json is never served stale, it just avoids
+    // re-downloading identical bytes when nothing changed.
+    const response = await fetch(`${base}manifest.json`);
     return response.ok;
   } catch (error) {
     return false;
@@ -42,7 +48,11 @@ async function resolveBase() {
 async function fetchJSON(relativePath) {
   const key = `${BASE}${relativePath}`;
   if (cache.has(key)) return cache.get(key);
-  const promise = fetch(key, { cache: 'no-store' }).then((response) => {
+  // Default cache mode, not `no-store`: every bundle is served with a
+  // strong ETag and `max-age=0, must-revalidate`, so the browser always
+  // asks the server whether its cached copy is still good and only pays
+  // for the bytes again when the content actually changed (a 304 otherwise).
+  const promise = fetch(key).then((response) => {
     if (!response.ok) {
       throw new Error(`HEP Atlas: failed to load ${key} (${response.status})`);
     }

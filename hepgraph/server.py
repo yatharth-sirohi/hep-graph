@@ -33,6 +33,44 @@ ATLAS_CONTENT_TYPES = {
     '.svg': 'image/svg+xml', '.png': 'image/png', '.webp': 'image/webp',
     '.woff2': 'font/woff2', '.glb': 'model/gltf-binary',
 }
+# Content-hash ETags for every file under /atlas, so a browser's conditional
+# GET gets a 304 instead of re-downloading a bundle that has not changed.
+# Vercel serves this exact handler for /atlas too (see
+# docs/VERCEL_SEARCH_EXECUTION_AUDIT.md: `pyproject.toml` names
+# `hepgraph.server:Handler` as the Python runtime's entry point, so there is
+# no separate static-hosting layer in front of it) — one cache-control design
+# covers local dev and production. Keyed by resolved path plus (mtime, size)
+# so a rebuilt file gets a fresh hash without re-hashing unchanged bytes on
+# every request; see docs/HEP_ATLAS_BUNDLES.md for the design writeup.
+_ATLAS_ETAG_CACHE: dict[Path, tuple[int, int, str]] = {}
+_ATLAS_ETAG_LOCK = threading.Lock()
+ATLAS_CACHE_CONTROL = 'public, max-age=0, must-revalidate'
+
+
+def _atlas_etag(target, body):
+    try:
+        stat = target.stat()
+        stat_key = (stat.st_mtime_ns, stat.st_size)
+    except OSError:
+        stat_key = None
+    if stat_key is not None:
+        with _ATLAS_ETAG_LOCK:
+            cached = _ATLAS_ETAG_CACHE.get(target)
+            if cached is not None and cached[:2] == stat_key:
+                return cached[2]
+    etag = '"' + hashlib.sha256(body).hexdigest()[:32] + '"'
+    if stat_key is not None:
+        with _ATLAS_ETAG_LOCK:
+            _ATLAS_ETAG_CACHE[target] = (stat_key[0], stat_key[1], etag)
+    return etag
+
+
+def _etag_matches(header_value, etag):
+    if not header_value:
+        return False
+    return any(candidate.strip() in (etag, '*') for candidate in header_value.split(','))
+
+
 FILTER_KEYS = {'max_authors', 'min_authors', 'min_shared', 'year_start', 'year_end', 'genealogy'}
 SERVICE_VERSION = 'general-search-v3'
 LOG = logging.getLogger('hepgraph')
@@ -320,8 +358,19 @@ class Handler(BaseHTTPRequestHandler):
             body = target.read_bytes()
         except OSError:
             return self.respond(not_found, 404)
-        cache = 'public, max-age=300' if decoded.startswith('generated/') else 'no-cache'
-        return self.respond(body, content_type=content_type, cache_control=cache, raw=True)
+        etag = _atlas_etag(target, body)
+        if _etag_matches(self.headers.get('If-None-Match'), etag):
+            # Same minimal-headers shape as the /api/lineage-map 304 below:
+            # no Content-Type or Content-Length on a body-less revalidation.
+            self.send_response(304)
+            self.send_header('ETag', etag)
+            self.send_header('Cache-Control', ATLAS_CACHE_CONTROL)
+            self.send_header('X-Content-Type-Options', 'nosniff')
+            self.send_header('X-HEP-Instance', PROCESS_INSTANCE)
+            self.end_headers()
+            return None
+        return self.respond(body, content_type=content_type, cache_control=ATLAS_CACHE_CONTROL,
+                            etag=etag, raw=True)
 
     def route(self, state):
         parsed = urllib.parse.urlsplit(self.path)
