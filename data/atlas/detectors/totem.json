@@ -15,7 +15,11 @@
   "intervals": [
     {
       "confidence": "verified",
-      "end": null,
+      "end": {
+        "approx": true,
+        "date": "2026-06",
+        "note": "VERIFIER FIX (2026-09-17): capped at the LHC-wide Long Shutdown 3 boundary (see the added interval below); previously open-ended (end: null), which made detector:totem derive as permanently 'active' during LS3, contradicting experiment:totem's own 'shutdown' status at the same date."
+      },
       "label": "operating",
       "locator": "INSPIRE experiment record 1110567, field date_started",
       "note": "",
@@ -25,13 +29,28 @@
       "start": "2009-11-28",
       "status": "active",
       "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "Long Shutdown 3",
+      "locator": "reused from experiment:totem's sourced Long Shutdown 3 interval (src:cern-ls3-farewell-2026)",
+      "note": "VERIFIER-ADDED (2026-09-17): mirrors experiment:totem's Long Shutdown 3 interval so the detector-level derived status agrees with the experiment-level one; ongoing at verified_at.",
+      "sources": [
+        "src:cern-ls3-farewell-2026"
+      ],
+      "start": "2026-06",
+      "status": "shutdown",
+      "verified_at": "2026-09-17"
     }
   ],
   "links": {
     "website": null
   },
   "name": "TOTEM detector",
-  "notes": [],
+  "notes": [
+    "VERIFIER FIX (2026-09-17): status corrected 'active' -> 'shutdown' and a Long Shutdown 3 interval added (mirroring experiment:totem), because the prior record's open-ended 'operating' interval made the detector derive as permanently active even while CERN's LHC -- TOTEM's only beam source -- is in Long Shutdown 3, contradicting experiment:totem's own status."
+  ],
   "parent_detector_id": null,
   "placements": [
     {
@@ -52,7 +71,8 @@
   "schema": "hep-atlas/0.2",
   "sources": [
     "src:colliders-lhc-totem-home-cern-page",
-    "src:colliders-lhc-totem-inspire-experiment-record"
+    "src:colliders-lhc-totem-inspire-experiment-record",
+    "src:cern-ls3-farewell-2026"
   ],
   "specs": {
     "total_mass": {
@@ -71,7 +91,7 @@
       "verified_at": "2026-09-17"
     }
   },
-  "status": "active",
+  "status": "shutdown",
   "subsystems": [],
   "summary": {
     "plain": "TOTEM's detectors: 26 Roman Pots that creep to within a millimetre of the LHC beam to catch protons scattered at tiny angles, plus two tracking telescopes covering the forward direction around the CMS collision point.",

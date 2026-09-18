@@ -1,67 +1,68 @@
 {
-  "schema": "hep-atlas/0.2",
-  "id": "site:cern-ecn3-north-area",
-  "type": "site",
-  "name": "ECN3 cavern, CERN North Area",
   "aliases": [
     "ECN3",
     "TCC8 + ECN3"
   ],
-  "coverage": {
-    "tier": "A",
-    "researched": "partial"
-  },
-  "facility_id": "facility:cern",
+  "altitude": null,
   "coordinates": {
+    "confidence": "uncertain",
+    "kind": "campus",
     "lat": 46.2601088,
     "lon": 6.0577057,
-    "kind": "detector",
+    "note": "No fetched source publishes a surveyed lat/lon for the ECN3 cavern itself. CERN's own Experimental Areas page (be-dep-ea.web.cern.ch/northarea) confirms ECN3 is an underground cavern on the North Area / Prevessin site fed by the P42 and K12 beamlines, currently housing NA62; it gives no coordinate. The point recorded here is the same CERN Prevessin-site campus point already used for the existing site:cern-neutrino-platform-ehn1 record (owned by another workstream) for the same reason: it is the closest sourced approximation, not a building-level survey. Treat this as campus precision, not cavern precision.",
     "precision_m": 2000,
+    "quote": "The P42 and the K12 beamlines lead to the underground cavern ECN3, where the NA62 experiment is currently located that receives a tertiary kaon beam.",
     "sources": [
       "src:na62-cern-north-area-page",
       "src:na62-official-site"
     ],
-    "verified_at": "2026-09-17",
-    "confidence": "uncertain",
-    "note": "No fetched source publishes a surveyed lat/lon for the ECN3 cavern itself. CERN's own Experimental Areas page (be-dep-ea.web.cern.ch/northarea) confirms ECN3 is an underground cavern on the North Area / Prevessin site fed by the P42 and K12 beamlines, currently housing NA62; it gives no coordinate. The point recorded here is the same CERN Prevessin-site campus point already used for the existing site:cern-neutrino-platform-ehn1 record (owned by another workstream) for the same reason: it is the closest sourced approximation, not a building-level survey. Treat this as campus precision, not cavern precision.",
-    "quote": "The P42 and the K12 beamlines lead to the underground cavern ECN3, where the NA62 experiment is currently located that receives a tertiary kaon beam."
+    "verified_at": "2026-09-17"
   },
-  "setting": "underground",
-  "depth": null,
-  "depth_mwe": null,
-  "altitude": null,
-  "country": "FR",
   "countries": [
     "FR"
   ],
-  "place": {
-    "city": "Prévessin-Moëns",
-    "region": "Ain",
-    "country": "FR"
+  "country": "FR",
+  "coverage": {
+    "researched": "partial",
+    "tier": "A"
   },
+  "depth": null,
+  "depth_mwe": null,
+  "facility_id": "facility:cern",
+  "id": "site:cern-ecn3-north-area",
   "links": {
     "website": {
-      "value": "https://be-dep-ea.web.cern.ch/northarea",
+      "confidence": "verified",
+      "note": "",
       "sources": [
         "src:na62-cern-north-area-page"
       ],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
-      "note": ""
+      "value": "https://be-dep-ea.web.cern.ch/northarea",
+      "verified_at": "2026-09-17"
     }
   },
-  "summary": {
-    "plain": "An underground cavern in CERN's North Area, on the French side of the laboratory, that has held a succession of kaon-decay experiments: NA48, then NA62, and reserved for the future SHiP experiment.",
-    "technical": "ECN3 underground cavern (with its TCC8 target/beam area) in the CERN SPS North Area on the Prevessin site, fed by the P42 and K12 beamlines; successive home of NA48 (1997-2001), NA62 (2015-present) and the planned SHiP experiment."
-  },
+  "name": "ECN3 cavern, CERN North Area",
   "notes": [
     "facility:cern is owned by the cern-atlas workstream; this record only references it.",
     "Coordinates are the CERN Prevessin campus point, at the same precision and for the same reason as the existing site:cern-neutrino-platform-ehn1 record: no fetched source gives a surveyed point for this specific cavern.",
-    "Shared by experiment:na48, experiment:na62 and (planned) experiment:ship."
+    "Shared by experiment:na48, experiment:na62 and (planned) experiment:ship.",
+    "2026-09-17 fixed-target verification: `coordinates.kind` was `detector`, which is dishonest under A23 (a campus-grade point relabelled `detector` to satisfy the validator, which then passes silently instead of emitting the honest `coordinate-kind-approximate` warning). Corrected to `campus`, matching this record's own note that the point is campus precision, not hall/cavern precision."
   ],
+  "place": {
+    "city": "Prévessin-Moëns",
+    "country": "FR",
+    "region": "Ain"
+  },
+  "schema": "hep-atlas/0.2",
+  "setting": "underground",
   "sources": [
     "src:na62-cern-north-area-page",
     "src:na62-official-site",
     "src:na48-cern-courier-fixed-target"
-  ]
+  ],
+  "summary": {
+    "plain": "An underground cavern in CERN's North Area, on the French side of the laboratory, that has held a succession of kaon-decay experiments: NA48, then NA62, and reserved for the future SHiP experiment.",
+    "technical": "ECN3 underground cavern (with its TCC8 target/beam area) in the CERN SPS North Area on the Prevessin site, fed by the P42 and K12 beamlines; successive home of NA48 (1997-2001), NA62 (2015-present) and the planned SHiP experiment."
+  },
+  "type": "site"
 }

@@ -9424,6 +9424,61 @@
       },
       "type": "collaboration"
     },
+    "collaboration:reno": {
+      "aliases": [],
+      "coverage": {
+        "researched": "partial",
+        "tier": "B"
+      },
+      "document_ids": [],
+      "experiment_ids": [
+        "experiment:reno"
+      ],
+      "formation": null,
+      "host_facility_id": "facility:yonggwang-hanbit-reactor-site",
+      "host_site_id": "site:reno-far-detector",
+      "id": "collaboration:reno",
+      "intervals": [
+        {
+          "end": null,
+          "label": "collaboration",
+          "start": "2011-08",
+          "status": "active"
+        }
+      ],
+      "leadership": [],
+      "links": {
+        "website": null
+      },
+      "membership": {
+        "as_of": null,
+        "country_count": null,
+        "evidence_class": "institutional_page",
+        "institution_count": null,
+        "member_count": null,
+        "roster_source_ids": []
+      },
+      "name": "RENO Collaboration",
+      "state_segments": [
+        [
+          739,
+          739,
+          "active",
+          "possible"
+        ],
+        [
+          740,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
+      "summary": {
+        "plain": "The team of South Korean and international scientists who built and run the RENO reactor-neutrino experiment."
+      },
+      "type": "collaboration"
+    },
     "collaboration:ricochet": {
       "aliases": [],
       "coverage": {
@@ -21067,6 +21122,83 @@
       "technology_classes": [
         "noble_liquid_tpc",
         "lar_tpc"
+      ],
+      "type": "detector"
+    },
+    "detector:reno": {
+      "aliases": [],
+      "coverage": {
+        "researched": "partial",
+        "tier": "B"
+      },
+      "document_ids": [],
+      "experiment_ids": [
+        "experiment:reno"
+      ],
+      "id": "detector:reno",
+      "intervals": [
+        {
+          "end": "2012-03-26",
+          "label": "data taking",
+          "start": "2011-08-11",
+          "status": "active"
+        }
+      ],
+      "links": {
+        "website": null
+      },
+      "name": "RENO detectors",
+      "parent_detector_id": null,
+      "placements": [
+        {
+          "end": null,
+          "role": "near",
+          "site_id": "site:reno-near-detector",
+          "start": "2011-08-11"
+        },
+        {
+          "end": null,
+          "role": "far",
+          "site_id": "site:reno-far-detector",
+          "start": "2011-08-11"
+        }
+      ],
+      "specs": {},
+      "state_segments": [
+        [
+          739,
+          739,
+          "active",
+          "possible"
+        ],
+        [
+          740,
+          745,
+          "active",
+          "certain"
+        ],
+        [
+          746,
+          746,
+          "active",
+          "possible"
+        ],
+        [
+          747,
+          920,
+          "unrecorded",
+          "possible"
+        ]
+      ],
+      "status": "unrecorded",
+      "subsystems": [],
+      "summary": {
+        "plain": "Two identical tank-like detectors near and far from South Korea's Hanbit nuclear reactors, watching for antineutrinos."
+      },
+      "technology": "Two identical gadolinium-doped liquid-scintillator antineutrino detectors",
+      "technology_class": "liquid_scintillator",
+      "technology_classes": [
+        "liquid_scintillator"
       ],
       "type": "detector"
     },
@@ -38668,6 +38800,131 @@
       ],
       "type": "experiment"
     },
+    "experiment:reno": {
+      "accelerator_ids": [],
+      "aliases": [
+        "Reactor Experiment for Neutrino Oscillation"
+      ],
+      "beamline_ids": [],
+      "collaboration_ids": [
+        "collaboration:reno"
+      ],
+      "coverage": {
+        "globe_ready": false,
+        "researched": "partial",
+        "tier": "B",
+        "validated": false
+      },
+      "detector_ids": [
+        "detector:reno"
+      ],
+      "document_ids": [],
+      "energy_regime": null,
+      "external": {
+        "greybook": null,
+        "inspire_experiment": 1108241,
+        "wikidata": null
+      },
+      "facility_ids": [
+        "facility:yonggwang-hanbit-reactor-site"
+      ],
+      "facility_roles": [
+        {
+          "end": null,
+          "facility_id": "facility:yonggwang-hanbit-reactor-site",
+          "role": "host",
+          "start": null
+        }
+      ],
+      "id": "experiment:reno",
+      "intervals": [
+        {
+          "end": "2012-03-26",
+          "label": "data-taking period used in the 2012 discovery",
+          "start": "2011-08-11",
+          "status": "active"
+        }
+      ],
+      "key_specs": [
+        {
+          "label": "Near-detector baseline",
+          "quantity": {
+            "approx": false,
+            "dimension": "length",
+            "display": "294 m",
+            "unit": "m",
+            "value": 294
+          }
+        },
+        {
+          "label": "Far-detector baseline",
+          "quantity": {
+            "approx": false,
+            "dimension": "length",
+            "display": "1383 m",
+            "unit": "m",
+            "value": 1383
+          }
+        },
+        {
+          "label": "Reactor thermal power (per reactor, x6)",
+          "quantity": {
+            "approx": false,
+            "dimension": "power",
+            "display": "6 x 2.8 GW_th",
+            "unit": "GW",
+            "value": 2.8
+          }
+        }
+      ],
+      "kind": "reactor_neutrino",
+      "lineage": [],
+      "links": {
+        "website": null
+      },
+      "name": "RENO",
+      "result_ids": [],
+      "secondary_kinds": [],
+      "site_ids": [
+        "site:reno-far-detector",
+        "site:reno-near-detector"
+      ],
+      "state_segments": [
+        [
+          739,
+          739,
+          "active",
+          "possible"
+        ],
+        [
+          740,
+          745,
+          "active",
+          "certain"
+        ],
+        [
+          746,
+          746,
+          "active",
+          "possible"
+        ],
+        [
+          747,
+          920,
+          "unrecorded",
+          "possible"
+        ]
+      ],
+      "status": "unrecorded",
+      "summary": {
+        "plain": "A South Korean experiment with two identical detectors near and far from a group of six nuclear reactors, which observed antineutrinos disappearing exactly as neutrino oscillation theory predicts."
+      },
+      "topic_ids": [
+        "topic:reactor-neutrinos",
+        "topic:neutrino-oscillations"
+      ],
+      "type": "experiment"
+    },
     "experiment:ricochet": {
       "accelerator_ids": [],
       "aliases": [],
@@ -46278,6 +46535,54 @@
         "topic:neutrino-physics"
       ],
       "type": "facility"
+    },
+    "facility:yonggwang-hanbit-reactor-site": {
+      "accelerator_ids": [],
+      "aliases": [
+        "Hanbit Nuclear Power Plant site"
+      ],
+      "beamline_ids": [],
+      "countries": [
+        "KR"
+      ],
+      "country": [
+        "KR"
+      ],
+      "coverage": {
+        "researched": "partial",
+        "tier": "B"
+      },
+      "document_ids": [],
+      "experiment_ids": [
+        "experiment:reno"
+      ],
+      "id": "facility:yonggwang-hanbit-reactor-site",
+      "institution_id": null,
+      "intervals": [],
+      "kind": "reactor_site",
+      "links": {
+        "website": null
+      },
+      "name": "Yonggwang (Hanbit) Reactor Neutrino Site",
+      "operator": null,
+      "operator_ids": [],
+      "operator_text": null,
+      "primary_site_id": "site:reno-far-detector",
+      "related_facility_ids": [],
+      "site_ids": [
+        "site:reno-far-detector",
+        "site:reno-near-detector"
+      ],
+      "specs": {},
+      "status": "active",
+      "summary": {
+        "plain": "The site near the Hanbit (formerly Yonggwang) nuclear power plant in South Korea where the RENO experiment placed two detectors to catch antineutrinos from six reactors."
+      },
+      "topic_ids": [
+        "topic:reactor-neutrinos",
+        "topic:neutrino-oscillations"
+      ],
+      "type": "facility"
     }
   },
   "schema": "hep-atlas/0.2",
@@ -52742,6 +53047,136 @@
       },
       "type": "site"
     },
+    "site:reno-far-detector": {
+      "aliases": [],
+      "altitude": null,
+      "coordinates": {
+        "approximate": true,
+        "kind": "campus",
+        "lat": 35.415,
+        "lon": 126.42389,
+        "precision_m": 3000
+      },
+      "countries": [
+        "KR"
+      ],
+      "country": "KR",
+      "coverage": {
+        "researched": "partial",
+        "tier": "B"
+      },
+      "depth": null,
+      "depth_mwe": null,
+      "document_ids": [],
+      "facility_id": "facility:yonggwang-hanbit-reactor-site",
+      "id": "site:reno-far-detector",
+      "links": {
+        "website": null
+      },
+      "name": "RENO far detector site",
+      "place": {
+        "city": "Yeonggwang",
+        "country": "KR",
+        "region": "South Jeolla"
+      },
+      "setting": "underground",
+      "state_segments": [
+        [
+          739,
+          739,
+          "active",
+          "possible"
+        ],
+        [
+          740,
+          745,
+          "active",
+          "certain"
+        ],
+        [
+          746,
+          746,
+          "active",
+          "possible"
+        ],
+        [
+          747,
+          920,
+          "unrecorded",
+          "possible"
+        ]
+      ],
+      "status": "unrecorded",
+      "summary": {
+        "plain": "A hall over a kilometre from the Hanbit nuclear reactors in South Korea, holding RENO's far detector."
+      },
+      "type": "site"
+    },
+    "site:reno-near-detector": {
+      "aliases": [],
+      "altitude": null,
+      "coordinates": {
+        "approximate": true,
+        "kind": "campus",
+        "lat": 35.415,
+        "lon": 126.42389,
+        "precision_m": 3000
+      },
+      "countries": [
+        "KR"
+      ],
+      "country": "KR",
+      "coverage": {
+        "researched": "partial",
+        "tier": "B"
+      },
+      "depth": null,
+      "depth_mwe": null,
+      "document_ids": [],
+      "facility_id": "facility:yonggwang-hanbit-reactor-site",
+      "id": "site:reno-near-detector",
+      "links": {
+        "website": null
+      },
+      "name": "RENO near detector site",
+      "place": {
+        "city": "Yeonggwang",
+        "country": "KR",
+        "region": "South Jeolla"
+      },
+      "setting": "underground",
+      "state_segments": [
+        [
+          739,
+          739,
+          "active",
+          "possible"
+        ],
+        [
+          740,
+          745,
+          "active",
+          "certain"
+        ],
+        [
+          746,
+          746,
+          "active",
+          "possible"
+        ],
+        [
+          747,
+          920,
+          "unrecorded",
+          "possible"
+        ]
+      ],
+      "status": "unrecorded",
+      "summary": {
+        "plain": "A hall close to the Hanbit nuclear reactors in South Korea, holding RENO's near detector."
+      },
+      "type": "site"
+    },
     "site:roque-de-los-muchachos-gamma-ray-array": {
       "aliases": [],
       "altitude": null,
@@ -55219,5 +55654,5 @@
       "type": "topic"
     }
   },
-  "version": "45228099e575f1ae"
+  "version": "64fea9943b69d26d"
 }

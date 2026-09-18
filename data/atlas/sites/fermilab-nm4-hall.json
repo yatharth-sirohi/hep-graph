@@ -5,7 +5,7 @@
   "altitude": null,
   "coordinates": {
     "confidence": "uncertain",
-    "kind": "detector",
+    "kind": "campus",
     "lat": 41.8422582,
     "locator": "site:fermilab-main-campus coordinates (reused); ultimately the LBNF/DUNE official project site's Batavia, Illinois location statement",
     "lon": -88.245782,
@@ -35,7 +35,8 @@
   "notes": [
     "facility:fermilab is owned by the fermilab-dune workstream; this record only references it.",
     "Coordinates reuse the same honestly-approximate Fermilab campus point as site:fermilab-main-campus rather than duplicating a fresh geocoder lookup; see coordinates.note.",
-    "Building identity ('NM4 Bldg.') sourced to a Wikipedia pointer (src:seaquest-wikipedia-pointer, rank 12); no rank <= 10 source naming the building was fetched this session."
+    "Building identity ('NM4 Bldg.') sourced to a Wikipedia pointer (src:seaquest-wikipedia-pointer, rank 12); no rank <= 10 source naming the building was fetched this session.",
+    "2026-09-17 fixed-target verification: `coordinates.kind` was `detector`, which is dishonest under A23 (a campus-grade point relabelled `detector` to satisfy the validator, which then passes silently instead of emitting the honest `coordinate-kind-approximate` warning). Corrected to `campus`, matching this record's own note that the point is campus precision, not hall/cavern precision."
   ],
   "place": {
     "city": "Batavia",

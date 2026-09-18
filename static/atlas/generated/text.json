@@ -898,6 +898,12 @@
     ],
     "summary_technical": "Project 8 Collaboration: multi-institution team (MIT, University of Washington, UC Santa Barbara, PNNL, Yale, and others per the collaboration's own site) developing the phased CRES-based neutrino-mass programme."
   },
+  "collaboration:reno": {
+    "notes": [
+      "No membership counts or official site were reachable this session (every guessed domain failed DNS/connection); left null rather than guessed."
+    ],
+    "summary_technical": "Collaboration operating RENO at the Hanbit Nuclear Power Plant, Korea; membership counts not found in a source fetched this session."
+  },
   "collaboration:ricochet": {
     "notes": [
       "No official collaboration page with an institution/member count was found/fetched in this pass; membership fields left null per A17 rather than estimated from paper author lists.",
@@ -1694,6 +1700,12 @@
       "The liquid argon mass (about 0.8 kt in the cryostat) could not be sourced from any page fetched in this session and is left null."
     ],
     "summary_technical": "Single-phase LArTPC prototype at the CERN Neutrino Platform (EHN1) with a 7.2 x 6.0 x 6.9 m^3 active volume, 3.6 m drift at 500 V/cm, full-size DUNE APAs, photon detectors and a cosmic-ray tagger, in a 0.3-7 GeV/c tagged charged-particle beam from 2018."
+  },
+  "detector:reno": {
+    "notes": [
+      "No target mass, PMT count, or other detector spec was found in a source fetched this session beyond the baselines already in key_specs; left out of `specs` rather than guessed."
+    ],
+    "summary_technical": "Two identical Gd-doped liquid-scintillator antineutrino detectors at 294 m and 1383 m from the Hanbit reactor array; per-detector target mass not found in a source fetched this session."
   },
   "detector:ricochet-cryocube": {
     "notes": [
@@ -2500,7 +2512,8 @@
       "No INSPIRE experiment-registry record was found for CONUS/CONUS+ (searched inspirehep.net/api/experiments this session; zero results); external.inspire_experiment left null rather than guessed.",
       "links.website is null: no official CONUS/CONUS+ website was found reachable in this pass (attempts at plausible MPIK URLs returned 404); this is a gap, not a considered absence.",
       "Derived fields (detector_ids, site_ids, result_ids, document_ids) are deliberately not written (v0.2 A1).",
-      "Record name is 'CONUS / CONUS+' (not just 'CONUS') so that the in-app search, which matches only `name`/`aliases` (never `summary`), surfaces this experiment when a user searches 'CONUS+'. 'CONUS+' cannot be a formal alias (A20 rejects it as equal to the name modulo punctuation), and the collaboration/detector records already use this same 'X / X+' convention, so the experiment record is changed to match them for consistency and discoverability. [verifier fix, 2026-09-17]"
+      "Record name is 'CONUS / CONUS+' (not just 'CONUS') so that the in-app search, which matches only `name`/`aliases` (never `summary`), surfaces this experiment when a user searches 'CONUS+'. 'CONUS+' cannot be a formal alias (A20 rejects it as equal to the name modulo punctuation), and the collaboration/detector records already use this same 'X / X+' convention, so the experiment record is changed to match them for consistency and discoverability. [verifier fix, 2026-09-17]",
+      "facility_roles[0] (Brokdorf)'s note now says 'historic' so build.py's _principal_facility() deprioritises it; without that keyword the search-result subtitle named the closed Brokdorf plant instead of the current Leibstadt host, since both facility_roles carry role:host and the tie broke on list order. [verifier fix, 2026-09-17]"
     ],
     "physics_goals": [
       "Detect and precisely measure CEvNS of reactor antineutrinos on germanium nuclei in the fully coherent regime"
@@ -3620,6 +3633,19 @@
       "Frequency-based (not energy-based) single-electron spectroscopy, measuring the cyclotron radiation of individual beta-decay electrons in a magnetic field rather than their energy directly"
     ]
   },
+  "experiment:reno": {
+    "notes": [
+      "Every RENO official-site domain guessed this session (reno.snu.ac.kr, home.kias.re.kr/MKG/h/reno) failed to resolve/connect; `links.website` left null rather than guessed.",
+      "Derived fields (detector_ids, site_ids, result_ids, document_ids) deliberately not authored (v0.2 A1)."
+    ],
+    "physics_goals": [
+      "Measure the neutrino mixing angle theta_13 via reactor antineutrino disappearance using near and far identical detectors"
+    ],
+    "summary_technical": "Reactor-antineutrino oscillation experiment at the Hanbit (Yonggwang) Nuclear Power Plant, Korea, with identical near (294 m) and far (1383 m) detectors from a 6 x 2.8 GW_th reactor array. Its 2012 result observed reactor antineutrino disappearance at 4.9σ, sin²(2θ₁₃)=0.113±0.013(stat)±0.019(syst).",
+    "unique_capabilities": [
+      "Two identical detectors near and far from a six-reactor array to cancel reactor-flux systematics"
+    ]
+  },
   "experiment:ricochet": {
     "notes": [
       "No INSPIRE experiment-registry search turned up a dedicated Ricochet experiment record (a literature search found many Ricochet papers but no `experiments` collection record) in this pass; external.inspire_experiment left null rather than guessed.",
@@ -4239,6 +4265,12 @@
       "No founding date for Wright Laboratory itself was sourced this session."
     ],
     "summary_technical": "Yale University's nuclear/particle/astrophysics research building at 272 Whitney Avenue, New Haven, CT, host site of the HAYSTAC axion haloscope and other precision experiments."
+  },
+  "facility:yonggwang-hanbit-reactor-site": {
+    "notes": [
+      "RENO's own official site domain guessed this session (reno.snu.ac.kr, home.kias.re.kr/MKG/h/reno) failed DNS/connection; this record relies on the 2012 arXiv discovery paper, INSPIRE, and the Hanbit Nuclear Power Plant's Wikipedia page (used only for an approximate regional coordinate)."
+    ],
+    "summary_technical": "Reactor-neutrino site at the Hanbit (Yonggwang) Nuclear Power Plant, South Korea, hosting the RENO near (294 m) and far (1383 m) detector halls, 6 x 2.8 GW_th reactor array."
   },
   "institution:a-alikhanyan-national-laboratory": {
     "notes": [],
@@ -7247,11 +7279,13 @@
   },
   "result:na62-2026-refined-measurement": {
     "claim": {
-      "locator": "home.cern news article, headline/lede, 4 March 2026",
-      "quote": "The NA62 Collaboration refines the measurement of an extremely rare process"
+      "locator": "arXiv:2607.16413, abstract",
+      "quote": "the analysis gives B_2016-2024(K+ -> pi+ nu nubar) = (9.6+1.9-1.8) x 10^-11, corresponding to a relative precision of 20%"
     },
     "notes": [
-      "Bonus (non-mandatory) third NA62 result, included because a source was available; sourced only to a CERN news article about a conference talk, not a peer-reviewed publication -- flagged accordingly in confidence/notes throughout."
+      "Originally sourced only to a CERN news article about a conference talk (press_release), which left claim.quote in violation of A16 (claim must come from the publication title/abstract or the collaboration's own result page, never a press release). Fixed 2026-09-17 during fixed-target wave-3 verification: claim, key_value corroboration, publication and publication_source_id now cite arXiv:2607.16413 (CERN-EP-2026-214, submitted 17 July 2026), 'Measurement of the branching ratio of the K+ -> pi+ nu nubar decay', which restates the identical (9.6+1.9-1.8) x 10^-11 central value first announced at the 2026 La Thuile conference.",
+      "An intermediate conference-proceedings preprint, arXiv:2604.12649 ('New measurement of K+ -> pi+ nu nubar branching ratio at the NA62 experiment', submitted 14 April 2026), also restates this value from a preliminary analysis; the later, full measurement paper arXiv:2607.16413 is used instead as the primary claim source.",
+      "As of 2026-09-17 arXiv:2607.16413 has no journal DOI yet (CERN preprint report number CERN-EP-2026-214); publication.doi is left null rather than guessed."
     ],
     "summary_technical": "Refined B(K+ -> pi+ nu nubar) = (9.6+1.9-1.8) x 10^-11, combining all NA62 data recorded since the experiment began (including newly added 2023-2024 data), with about 40% smaller uncertainty than the previously published (2025) result; presented at the 2026 La Thuile conference.",
     "why_it_matters": "Tracks NA62's continuing improvement in precision on one of the cleanest Standard Model tests in kaon physics as more data (2023-2024) is added beyond the 2025 observation paper."
@@ -7912,6 +7946,14 @@
   "site:psi-villigen": {
     "notes": [],
     "summary_technical": "PSI's main site, spanning the municipalities of Villigen and Wurenlingen on either bank of the River Aare, Canton of Aargau, Switzerland."
+  },
+  "site:reno-far-detector": {
+    "notes": [],
+    "summary_technical": "RENO far-detector hall, 1383 m from the Hanbit reactor-array center."
+  },
+  "site:reno-near-detector": {
+    "notes": [],
+    "summary_technical": "RENO near-detector hall, 294 m from the Hanbit reactor-array center."
   },
   "site:roque-de-los-muchachos-gamma-ray-array": {
     "notes": [

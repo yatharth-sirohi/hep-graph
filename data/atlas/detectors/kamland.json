@@ -4,7 +4,16 @@
   "type": "detector",
   "name": "KamLAND detector",
   "aliases": [],
-  "experiment_ids": ["experiment:kamland"],
+  "experiment_ids": [
+    "experiment:kamland",
+    {
+      "id": "experiment:kamland-zen",
+      "start": null,
+      "end": null,
+      "sources": ["src:kamland-zen-arxiv-1211-first-phase"],
+      "note": "KamLAND-Zen suspends a xenon-loaded inner balloon 'at the center of the KamLAND detector' (arXiv:1211.3863); it does not have its own separate detector: record (owned by the neutrino-mass-0vbb workstream, which references this detector:kamland id directly per ID_REGISTRY)."
+    }
+  ],
   "parent_detector_id": null,
   "technology": {
     "value": "Liquid-scintillator antineutrino detector: an 18-m-diameter spherical balloon of liquid scintillator viewed by photomultiplier tubes, surrounded by a mineral-oil buffer and an outer water-Cherenkov muon veto",
@@ -78,9 +87,9 @@
     "IMPORTANT for downstream reference: `detector:kamland` is the id the neutrino-mass-0vbb workstream references for KamLAND-Zen, which loads a xenon-doped mini-balloon inside this same liquid-scintillator volume. This detector record describes KamLAND's own reactor-antineutrino configuration only; KamLAND-Zen's own specs/intervals are owned and written by that workstream.",
     "All structural specs here (containment vessel, PMT count, veto mass) come from Wikipedia only; no official KamLAND page (the 'About KamLAND' sub-page returned 404 on every URL guessed) or detector paper was reached this session to independently confirm them. Flagged in coverage `missing_fields`."
   ],
-  "sources": ["src:kamland-wikipedia"],
+  "sources": ["src:kamland-wikipedia", "src:kamland-zen-arxiv-1211-first-phase"],
   "summary": {
-    "plain": "A giant balloon of clear liquid inside a mine in Japan, watched by nearly 1,900 light sensors, that catches antineutrinos from nuclear reactors across the country.",
+    "plain": "A giant balloon of clear liquid inside a mine in Japan, watched by nearly 1,900 light sensors, that catches antineutrinos from nuclear reactors across the country. A xenon-loaded inner balloon suspended at its centre (KamLAND-Zen) uses the same detector to search for a different rare process.",
     "technical": "~1000 t liquid-scintillator antineutrino detector in an 18 m diameter vessel with 1,879 PMTs, surrounded by a water-Cherenkov muon veto, in the old Kamiokande cavity of the Kamioka mine; operating since 2002-01-17."
   },
   "coverage": {

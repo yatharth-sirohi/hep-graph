@@ -3,7 +3,7 @@
   "altitude": null,
   "coordinates": {
     "confidence": "uncertain",
-    "kind": "detector",
+    "kind": "campus",
     "lat": 41.8422582,
     "locator": "site:fermilab-main-campus coordinates (reused); ultimately the LBNF/DUNE official project site's Batavia, Illinois location statement",
     "lon": -88.245782,
@@ -32,7 +32,8 @@
   "name": "KTeV experimental hall, Fermilab",
   "notes": [
     "facility:fermilab is owned by the fermilab-dune workstream; this record only references it.",
-    "Coordinates reuse the same honestly-approximate Fermilab campus point as site:fermilab-main-campus (a different, existing site record owned by another workstream) rather than duplicating a fresh geocoder lookup; see coordinates.note."
+    "Coordinates reuse the same honestly-approximate Fermilab campus point as site:fermilab-main-campus (a different, existing site record owned by another workstream) rather than duplicating a fresh geocoder lookup; see coordinates.note.",
+    "2026-09-17 fixed-target verification: `coordinates.kind` was `detector`, which is dishonest under A23 (a campus-grade point relabelled `detector` to satisfy the validator, which then passes silently instead of emitting the honest `coordinate-kind-approximate` warning). Corrected to `campus`, matching this record's own note that the point is campus precision, not hall/cavern precision."
   ],
   "place": {
     "city": "Batavia",

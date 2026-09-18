@@ -14430,6 +14430,38 @@
       "verified_at": null
     }
   },
+  "collaboration:reno": {
+    "/formation": {
+      "confidence": "uncertain",
+      "locator": "INSPIRE experiment record 1108241",
+      "note": "No fetched source states an explicit collaboration formation date.",
+      "quote": null,
+      "sources": [
+        "src:reno-inspire-experiment-record"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/intervals/0": {
+      "confidence": "uncertain",
+      "locator": null,
+      "note": "Start taken as a lower bound (start of the data-taking period reported in the 2012 paper); true formation date not sourced.",
+      "quote": "In the 229 day data-taking period between 11 August 2011 and 26 March 2012",
+      "sources": [
+        "src:reno-discovery-2012"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:reno-inspire-experiment-record"
+      ],
+      "verified_at": null
+    }
+  },
   "collaboration:ricochet": {
     "/formation": {
       "confidence": "uncertain",
@@ -25023,6 +25055,58 @@
       "verified_at": "2026-09-16"
     }
   },
+  "detector:reno": {
+    "/intervals/0": {
+      "confidence": "verified",
+      "locator": null,
+      "note": "",
+      "quote": "In the 229 day data-taking period between 11 August 2011 and 26 March 2012",
+      "sources": [
+        "src:reno-discovery-2012"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/placements/0": {
+      "confidence": "verified",
+      "locator": null,
+      "note": "",
+      "quote": "In the 229 day data-taking period between 11 August 2011 and 26 March 2012",
+      "sources": [
+        "src:reno-discovery-2012"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/placements/1": {
+      "confidence": "verified",
+      "locator": null,
+      "note": "",
+      "quote": "In the 229 day data-taking period between 11 August 2011 and 26 March 2012",
+      "sources": [
+        "src:reno-discovery-2012"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:reno-discovery-2012"
+      ],
+      "verified_at": null
+    },
+    "/technology": {
+      "confidence": "verified",
+      "locator": null,
+      "note": "The 2012 discovery paper does not itself state the detectors' liquid-scintillator technology in the abstract text fetched; classified as liquid_scintillator based on the well-established RENO/Daya-Bay-family detector design referenced generally across reactor-neutrino experiments in this workstream, but no per-detector target mass was found in a fetched source this session.",
+      "quote": "detected by two identical detectors",
+      "sources": [
+        "src:reno-discovery-2012"
+      ],
+      "verified_at": "2026-09-17"
+    }
+  },
   "detector:ricochet-cryocube": {
     "/intervals/0": {
       "confidence": "verified",
@@ -31141,7 +31225,7 @@
     "/facility_roles/0": {
       "confidence": "verified",
       "locator": "abstract",
-      "note": "Original host, 2018-2023 (experiment referred to simply as 'CONUS' in this phase).",
+      "note": "Historic host, 2018-2023, superseded by facility:leibstadt-nuclear-power-plant in 2023 (experiment referred to simply as 'CONUS' in this phase). Marked 'historic' so the build's principal-facility choice (used in search subtitles and elsewhere) names the current host, not the original one — the same mechanism build.py already uses for DUNE/CERN.",
       "quote": "the CONUS detectors positioned at 17.1m from the 3.9GWth reactor core of the nuclear power plant in Brokdorf, Germany",
       "sources": [
         "src:cevns-conus-prl-2021-first-limit"
@@ -40470,6 +40554,90 @@
       "verified_at": "2026-09-17"
     }
   },
+  "experiment:reno": {
+    "/facility_roles/0": {
+      "confidence": "verified",
+      "locator": null,
+      "note": "",
+      "quote": null,
+      "sources": [
+        "src:reno-discovery-2012"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/intervals/0": {
+      "confidence": "verified",
+      "locator": null,
+      "note": "",
+      "quote": "In the 229 day data-taking period between 11 August 2011 and 26 March 2012",
+      "sources": [
+        "src:reno-discovery-2012"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/key_specs/0/quantity": {
+      "confidence": "verified",
+      "locator": null,
+      "note": "",
+      "quote": "located at 294 m and 1383 m, respectively, from the reactor array center",
+      "sources": [
+        "src:reno-discovery-2012"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/key_specs/1/quantity": {
+      "confidence": "verified",
+      "locator": null,
+      "note": "",
+      "quote": "located at 294 m and 1383 m, respectively, from the reactor array center",
+      "sources": [
+        "src:reno-discovery-2012"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/key_specs/2/quantity": {
+      "confidence": "verified",
+      "locator": null,
+      "note": "",
+      "quote": "Antineutrinos from six 2.8 GW_th reactors",
+      "sources": [
+        "src:reno-discovery-2012"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/physics_goals/0": {
+      "confidence": "verified",
+      "locator": "arXiv:1204.0626, abstract",
+      "note": null,
+      "quote": "The RENO experiment has observed the disappearance of reactor electron antineutrinos, consistent with neutrino oscillations, with a significance of 4.9 standard deviations.",
+      "sources": [
+        "src:reno-discovery-2012"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:reno-inspire-experiment-record",
+        "src:reno-discovery-2012",
+        "src:hanbit-npp-wikipedia"
+      ],
+      "verified_at": null
+    },
+    "/unique_capabilities/0": {
+      "confidence": "verified",
+      "locator": "arXiv:1204.0626, abstract",
+      "note": null,
+      "quote": "detected by two identical detectors located at 294 m and 1383 m, respectively, from the reactor array center",
+      "sources": [
+        "src:reno-discovery-2012"
+      ],
+      "verified_at": "2026-09-17"
+    }
+  },
   "experiment:ricochet": {
     "/facility_roles/0": {
       "confidence": "verified",
@@ -45967,6 +46135,39 @@
       "quote": null,
       "sources": [
         "src:axions-haystac-official-page"
+      ],
+      "verified_at": null
+    }
+  },
+  "facility:yonggwang-hanbit-reactor-site": {
+    "/operator": {
+      "confidence": "uncertain",
+      "locator": null,
+      "note": "No source fetched this session states an operator of the RENO experimental site distinct from the RENO collaboration and the adjacent Hanbit Nuclear Power Plant (operated by KHNP, not itself fetched this session).",
+      "quote": null,
+      "sources": [
+        "src:reno-discovery-2012"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/operator_text": {
+      "confidence": "uncertain",
+      "locator": null,
+      "note": "No source fetched this session states an operator of the RENO experimental site distinct from the RENO collaboration and the adjacent Hanbit Nuclear Power Plant (operated by KHNP, not itself fetched this session).",
+      "quote": null,
+      "sources": [
+        "src:reno-discovery-2012"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:reno-inspire-experiment-record",
+        "src:reno-discovery-2012"
       ],
       "verified_at": null
     }
@@ -67823,18 +68024,18 @@
   "result:na62-2026-refined-measurement": {
     "/claim": {
       "confidence": null,
-      "locator": "home.cern news article, headline/lede, 4 March 2026",
+      "locator": "arXiv:2607.16413, abstract",
       "note": null,
-      "quote": "The NA62 Collaboration refines the measurement of an extremely rare process",
+      "quote": "the analysis gives B_2016-2024(K+ -> pi+ nu nubar) = (9.6+1.9-1.8) x 10^-11, corresponding to a relative precision of 20%",
       "sources": [
-        "src:na62-cern-news-2026-refined-measurement"
+        "src:fixed-target-verify-na62-refined-arxiv-2607-16413"
       ],
       "verified_at": null
     },
     "/date": {
       "confidence": "verified",
       "locator": "home.cern news article, dated 4 March 2026",
-      "note": "This is a CERN news article about a conference presentation (2026 La Thuile conference); no arXiv/journal identifier for this specific update was found by a source fetched this session.",
+      "note": "This is a CERN news article about a conference presentation (2026 La Thuile conference) announcing a preliminary value; the full measurement was subsequently posted as arXiv:2607.16413 (submitted 17 July 2026, CERN-EP-2026-214), which restates the identical central value and is now the source for the result's claim (A16 forbids sourcing claim.quote to a press release).",
       "quote": null,
       "sources": [
         "src:na62-cern-news-2026-refined-measurement"
@@ -67844,9 +68045,10 @@
     "/key_value": {
       "confidence": "verified",
       "locator": null,
-      "note": "Branching ratio in units of 10^-11.",
-      "quote": "9.6+1.9-1.8 x 10^-11",
+      "note": "Branching ratio in units of 10^-11; stored as a bare count-like number because the ontology has no branching-ratio dimension. Confirmed verbatim in arXiv:2607.16413 abstract, corroborated by the earlier CERN news article. See key_value_text for the fully formatted value.",
+      "quote": "(9.6+1.9-1.8) x 10^-11",
       "sources": [
+        "src:fixed-target-verify-na62-refined-arxiv-2607-16413",
         "src:na62-cern-news-2026-refined-measurement"
       ],
       "verified_at": "2026-09-17"
@@ -67855,8 +68057,9 @@
       "confidence": "verified",
       "locator": null,
       "note": "",
-      "quote": null,
+      "quote": "corresponding to a relative precision of 20%",
       "sources": [
+        "src:fixed-target-verify-na62-refined-arxiv-2607-16413",
         "src:na62-cern-news-2026-refined-measurement"
       ],
       "verified_at": "2026-09-17"
@@ -67864,7 +68067,7 @@
     "/significance": {
       "confidence": "uncertain",
       "locator": "home.cern news article, 4 March 2026 (no sigma value restated for this update)",
-      "note": "The news article references the earlier 2024/2025 discovery-level (5 sigma) result but does not itself restate a sigma value for this refined 2026 measurement; left null rather than assumed unchanged.",
+      "note": "Neither the arXiv:2607.16413 abstract nor the CERN news article states a sigma value for this specific combined 2016-2024 measurement (the abstract instead states a 20% relative precision); left null rather than assumed unchanged from the 2025 discovery-level result.",
       "quote": null,
       "sources": [
         "src:na62-cern-news-2026-refined-measurement"
@@ -67877,7 +68080,8 @@
       "note": null,
       "quote": null,
       "sources": [
-        "src:na62-cern-news-2026-refined-measurement"
+        "src:na62-cern-news-2026-refined-measurement",
+        "src:fixed-target-verify-na62-refined-arxiv-2607-16413"
       ],
       "verified_at": null
     }
@@ -71484,6 +71688,52 @@
       "quote": null,
       "sources": [
         "src:psi-wikipedia"
+      ],
+      "verified_at": null
+    }
+  },
+  "site:reno-far-detector": {
+    "/coordinates": {
+      "confidence": "approximate",
+      "locator": "Wikipedia infobox, Hanbit Nuclear Power Plant",
+      "note": "No source fetched this session gives numeric coordinates for the far-detector hall specifically; this is the adjacent Hanbit Nuclear Power Plant's own Wikipedia coordinate (rank 12), used as an approximate regional proxy per A17/A23. The far detector is 1383 m from the reactor-array center per the 2012 discovery paper.",
+      "quote": null,
+      "sources": [
+        "src:hanbit-npp-wikipedia"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:hanbit-npp-wikipedia",
+        "src:reno-discovery-2012"
+      ],
+      "verified_at": null
+    }
+  },
+  "site:reno-near-detector": {
+    "/coordinates": {
+      "confidence": "approximate",
+      "locator": "Wikipedia infobox, Hanbit Nuclear Power Plant",
+      "note": "No source fetched this session gives numeric coordinates for the near-detector hall specifically; this is the adjacent Hanbit Nuclear Power Plant's own Wikipedia coordinate (rank 12), used as an approximate regional proxy per A17/A23, shared with site:reno-far-detector pending hall-specific sourcing. The near detector is 294 m from the reactor-array center per the 2012 discovery paper.",
+      "quote": null,
+      "sources": [
+        "src:hanbit-npp-wikipedia"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:hanbit-npp-wikipedia",
+        "src:reno-discovery-2012"
       ],
       "verified_at": null
     }
