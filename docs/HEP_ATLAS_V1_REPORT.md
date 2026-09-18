@@ -55,7 +55,7 @@ script named next to it or taken from a report file under
 
 | Entity | Count |
 | --- | ---: |
-| Facilities | 48 (47 with a located primary site; KEK has none) |
+| Facilities | 48 (all 48 with a located primary site; KEK's was set 2026-09-18 during the release-candidate red team — see §8) |
 | Sites | 93 |
 | Accelerators | 31 |
 | Beamlines | 6 |
@@ -70,8 +70,7 @@ script named next to it or taken from a report file under
 | Membership rosters | 3 (DUNE 217, CMS 244, ATLAS 198 rows) |
 
 Every experiment named in specification §30–§41 exists, and every facility in
-the §42 seed list exists with coordinates (KEK's primary site is the one gap,
-pre-existing). Tier split (`docs/HEP_ATLAS_COVERAGE.md`): tier A 23 rows (21
+the §42 seed list exists with coordinates. Tier split (`docs/HEP_ATLAS_COVERAGE.md`): tier A 23 rows (21
 researched "full", 2 "partial"); tier B 76 (11 full, 65 partial); tier C 17
 (2 full, 15 partial); tier D 15 (4 full, 11 partial). "Partial" means the
 mandatory bar (identity, status, dated intervals, a located site, topics,

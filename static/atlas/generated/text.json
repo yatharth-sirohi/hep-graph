@@ -4245,7 +4245,7 @@
   },
   "facility:kek": {
     "notes": [
-      "Sites and accelerators of the Tsukuba campus other than the 12 GeV proton synchrotron (SuperKEKB, KEKB, site:kek-tsukuba-belle-ii) belong to the flavour workstream; primary_site_id is left null here so that this record does not create a dangling reference."
+      "primary_site_id was left null by the facilities workstream pending site:kek-tsukuba-belle-ii being authored by the flavour workstream (see docs/atlas-worklog/facilities.md § KEK note); that site now exists with facility_id facility:kek and a sourced coordinate, and it is KEK's only authored site, so the dangling-reference risk no longer applies. Set 2026-09-18 during the v1.0 release-candidate red team after confirming globe.js/fallback.js both key off primary_site_id and a null value left this §42 seed facility without a marker or fallback-list entry."
     ],
     "summary_technical": "Inter-University Research Institute Corporation High Energy Accelerator Research Organization, Tsukuba, Ibaraki. Founded 1971 as the National Laboratory for High Energy Physics; reorganised in 1997. Host of the 12 GeV proton synchrotron (KEK-PS) that drove K2K, and co-operator of J-PARC."
   },

@@ -164,6 +164,11 @@ def parse_junit_xml(path: Path) -> dict[str, int]:
 def load_browser_results(directory: Path) -> list[dict[str, Any]]:
     if not directory.exists():
         return []
+    # A relative --browser-results (as the default value and --help's own
+    # usage both show) globs to relative Path objects; relative_to(ROOT)
+    # below then raises ValueError unless the input is resolved first,
+    # crashing every invocation that doesn't pass an absolute directory.
+    directory = directory.resolve()
     reports = []
     for path in sorted(directory.rglob('*.json')):
         try:
