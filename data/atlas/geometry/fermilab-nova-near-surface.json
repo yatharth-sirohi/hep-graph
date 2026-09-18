@@ -1,7 +1,24 @@
 {
   "accuracy_m": 8,
   "aliases": [],
-  "checks": [],
+  "checks": [
+    {
+      "expected": {
+        "dimension": "length",
+        "display": "1 km",
+        "unit": "m",
+        "value": 1000
+      },
+      "kind": "distance",
+      "locator": "NOvA near-detector placement note, 'The 0.3 kt Near Detector is located 1 km downstream of the neutrino production target'",
+      "quote": "The 0.3 kt Near Detector is located 1 km downstream of the neutrino production target and 100 m underground at Fermilab",
+      "sources": [
+        "src:nova-arxiv-2025-monopole-search"
+      ],
+      "to_geometry_id": "geometry:fermilab-numi-target",
+      "tolerance": 0.08
+    }
+  ],
   "coverage": {
     "researched": "partial",
     "tier": "B"
@@ -10,11 +27,12 @@
   "entity_id": "detector:nova-near-detector",
   "feature_type": "hall",
   "geometry": {
-    "confidence": "approximate",
+    "confidence": "verified",
     "locator": "OSM way/272646255, extract timestamp 2026-09-18T20:20:01Z",
-    "note": "This is the SURFACE building only, per its own OSM name. The NOvA near detector is '100 m underground' (src:nova-arxiv-2025-monopole-search); its horizontal offset from this surface point is not sourced this session, so the underground detector is not drawn separately.",
+    "note": "This is the SURFACE building only, per its own OSM name. The NOvA near detector is '100 m underground' (src:nova-arxiv-2025-monopole-search); its horizontal offset from this surface point is not sourced this session, so the underground detector is not drawn separately. Confidence upgraded to 'verified' (second pass, 2026-09-18): the checks[] row below (distance to the newly-derived NuMI target) passes and cites a rank-10 journal article.",
     "sources": [
-      "src:fermilab-geo-osm-buildings"
+      "src:fermilab-geo-osm-buildings",
+      "src:nova-arxiv-2025-monopole-search"
     ],
     "value": {
       "coordinates": [
@@ -85,7 +103,8 @@
   "schema": "hep-atlas/0.2",
   "site_id": "site:fermilab-main-campus",
   "sources": [
-    "src:fermilab-geo-osm-buildings"
+    "src:fermilab-geo-osm-buildings",
+    "src:nova-arxiv-2025-monopole-search"
   ],
   "summary": {
     "plain": "This is the SURFACE building only, per its own OSM name. The NOvA near detector is '100 m underground' (src:nova-arxiv-2025-monopole-search); its horizontal offset from this surface point is not so..."

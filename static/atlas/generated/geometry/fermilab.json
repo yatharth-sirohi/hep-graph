@@ -19,6 +19,14 @@
     "accelerator:fermilab-tevatron": [
       "geometry:fermilab-tevatron-ring"
     ],
+    "beamline:bnb": [
+      "geometry:fermilab-bnb-beamline",
+      "geometry:fermilab-bnb-target"
+    ],
+    "beamline:numi": [
+      "geometry:fermilab-numi-beamline",
+      "geometry:fermilab-numi-target"
+    ],
     "detector:cdf": [
       "geometry:fermilab-cdf-hall"
     ],
@@ -27,6 +35,12 @@
     ],
     "detector:dune-far-detector-1": [
       "geometry:fermilab-lbnf-direction"
+    ],
+    "detector:icarus-t600": [
+      "geometry:fermilab-icarus-hall"
+    ],
+    "detector:microboone": [
+      "geometry:fermilab-microboone-hall"
     ],
     "detector:miniboone": [
       "geometry:fermilab-miniboone-hall"
@@ -42,9 +56,166 @@
     ],
     "detector:nova-near-detector": [
       "geometry:fermilab-nova-near-surface"
+    ],
+    "detector:sbnd": [
+      "geometry:fermilab-sbnd-point"
     ]
   },
   "features": [
+    {
+      "accuracy_m": 15,
+      "checks": [],
+      "depth_m": null,
+      "entity_id": "beamline:bnb",
+      "entity_name": "Booster Neutrino Beam (BNB)",
+      "entity_type": "beamline",
+      "feature_type": "beamline",
+      "geometry": {
+        "coordinates": [
+          [
+            -88.2696259,
+            41.8332275
+          ],
+          [
+            -88.2694515,
+            41.8388017
+          ]
+        ],
+        "type": "LineString"
+      },
+      "id": "geometry:fermilab-bnb-beamline",
+      "level_id": "surface",
+      "license": {
+        "attribution": "© OpenStreetMap contributors",
+        "name": "ODbL-1.0",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "measured": {
+        "area_m2": null,
+        "centroid": [
+          -88.2695387,
+          41.8360146
+        ],
+        "length_m": 619.9919944418098
+      },
+      "method": "Straight line along the same derived axis as geometry:fermilab-bnb-target (bearing 1.34 degrees downstream), from the derived target to 620 m downstream (just past the derived ICARUS position) so the line visibly spans MicroBooNE, MiniBooNE and ICARUS.",
+      "name": "Booster Neutrino Beamline axis (derived)",
+      "osm": {
+        "elements": [
+          "way/1447176587",
+          "way/1447175900"
+        ],
+        "timestamp": "2026-09-18T22:17:17Z"
+      },
+      "provenance": {
+        "confidence": "derived",
+        "locator": "Derived from geometry:fermilab-bnb-target's construction",
+        "note": "A plan-view axis only; not a survey of the beam pipe.",
+        "quote": null,
+        "sources": [
+          "src:fermilab-geo-osm-sbn-area",
+          "src:miniboone-detector-paper-2009"
+        ],
+        "verified_at": "2026-09-18"
+      },
+      "representation": "derived",
+      "site_id": "site:fermilab-main-campus",
+      "state_segments": [
+        [
+          588,
+          707,
+          "active",
+          "possible"
+        ],
+        [
+          708,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active"
+    },
+    {
+      "accuracy_m": 15,
+      "checks": [
+        {
+          "expected_m": 470.0,
+          "kind": "distance",
+          "measured_m": 469.71695993180913,
+          "passed": true,
+          "sources": [
+            "src:microboone-detector-paper-2017"
+          ],
+          "tolerance": 0.03,
+          "unit": "m"
+        }
+      ],
+      "depth_m": null,
+      "entity_id": "beamline:bnb",
+      "entity_name": "Booster Neutrino Beam (BNB)",
+      "entity_type": "beamline",
+      "feature_type": "target_station",
+      "geometry": {
+        "coordinates": [
+          -88.2696259,
+          41.8332275
+        ],
+        "type": "Point"
+      },
+      "id": "geometry:fermilab-bnb-target",
+      "level_id": "surface",
+      "license": {
+        "attribution": "© OpenStreetMap contributors",
+        "name": "ODbL-1.0",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "measured": {
+        "area_m2": null,
+        "centroid": [
+          -88.2696259,
+          41.8332275
+        ],
+        "length_m": null
+      },
+      "method": "Axis fixed by two independently-named OSM building footprints on the Booster Neutrino Beam: 'MiniBooNE Detector Building' (way 1447176587) and 'Liqud Argon Test Facility' [sic] (way 1447175900, sourced as MicroBooNE's hall by src:microboone-experiment-site's own placement note, 'The detector sits in the Liquid Argon Test Facility (LArTF)'), 72.3 m apart, bearing 181.34 degrees (MiniBooNE->LArTF, i.e. upstream toward the target). Target placed 541 m upstream of the MiniBooNE centroid along that bearing (the sourced MiniBooNE baseline, src:miniboone-detector-paper-2009). Haversine/destination-point on R=6371008.8 m.",
+      "name": "BNB target (derived)",
+      "osm": {
+        "elements": [
+          "way/1447176587",
+          "way/1447175900"
+        ],
+        "timestamp": "2026-09-18T22:17:17Z"
+      },
+      "provenance": {
+        "confidence": "derived",
+        "locator": "OSM ways/1447176587,1447175900, extract timestamp 2026-09-18 (query 3); src:miniboone-detector-paper-2009 sec II 'total distance from the upstream face of the target to the center of the detector is 541 m'",
+        "note": "Accuracy dominated by OSM building accuracy (~8 m each) plus the assumption of exact colinearity of target-LArTF-MiniBooNE (supported to within 1.3 m by the target-to-LArTF check below). No sourced coordinate exists for the target independent of this chain.",
+        "quote": null,
+        "sources": [
+          "src:fermilab-geo-osm-sbn-area",
+          "src:miniboone-detector-paper-2009"
+        ],
+        "verified_at": "2026-09-18"
+      },
+      "representation": "derived",
+      "site_id": "site:fermilab-main-campus",
+      "state_segments": [
+        [
+          588,
+          707,
+          "active",
+          "possible"
+        ],
+        [
+          708,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active"
+    },
     {
       "accuracy_m": 30,
       "checks": [
@@ -879,6 +1050,99 @@
       "status": "completed"
     },
     {
+      "accuracy_m": 20,
+      "checks": [
+        {
+          "expected_m": 600.0,
+          "kind": "distance",
+          "measured_m": 603.626484108971,
+          "passed": true,
+          "sources": [
+            "src:sbn-proposal-2015"
+          ],
+          "tolerance": 0.03,
+          "unit": "m"
+        }
+      ],
+      "depth_m": null,
+      "entity_id": "detector:icarus-t600",
+      "entity_name": "ICARUS T600",
+      "entity_type": "detector",
+      "feature_type": "hall",
+      "geometry": {
+        "coordinates": [
+          [
+            [
+              -88.2696301,
+              41.8387778
+            ],
+            [
+              -88.2694101,
+              41.8387802
+            ],
+            [
+              -88.269404,
+              41.8384604
+            ],
+            [
+              -88.269624,
+              41.8384581
+            ],
+            [
+              -88.2696301,
+              41.8387778
+            ]
+          ]
+        ],
+        "type": "Polygon"
+      },
+      "id": "geometry:fermilab-icarus-hall",
+      "level_id": "surface",
+      "license": {
+        "attribution": "© OpenStreetMap contributors",
+        "name": "ODbL-1.0",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "measured": {
+        "area_m2": 648.1337408389608,
+        "centroid": [
+          -88.2695948,
+          41.838656
+        ],
+        "length_m": 107.57123111168488
+      },
+      "method": "OSM way 1423112774 (unnamed building=yes footprint, 62.4 m from the MiniBooNE building at bearing 355.0 degrees -- i.e. on the far side of MiniBooNE from the BNB target) identified as the ICARUS-T600 (SBN far detector) hall by POSITION, not by an OSM name tag: it is 603.1 m from geometry:fermilab-bnb-target at an axis deviation of only 0.7 degrees, matching the sourced 600 m SBN far-detector baseline (src:sbn-proposal-2015) within 0.5%, and it is the only building anywhere near that expected distance/bearing in a wide-area search. Representation is 'derived' rather than 'georeferenced' because the identity attribution, not just the shape, rests on this positional match.",
+      "name": "ICARUS-T600 hall (identity derived from position)",
+      "osm": {
+        "elements": [
+          "way/1423112774"
+        ],
+        "timestamp": "2026-09-18T22:17:17Z"
+      },
+      "provenance": {
+        "confidence": "derived",
+        "locator": "OSM way/1423112774, extract timestamp 2026-09-18; src:sbn-proposal-2015 'The far detector (the improved ICARUS-T600) will be located in a new building 600 m from the BNB target.'",
+        "note": "A QA pass should double-check this identification; no OSM tag names the building, though the positional match is strong and it is the only plausible candidate found in this area.",
+        "quote": null,
+        "sources": [
+          "src:fermilab-geo-osm-sbn-area",
+          "src:sbn-proposal-2015"
+        ],
+        "verified_at": "2026-09-18"
+      },
+      "representation": "derived",
+      "site_id": "site:fermilab-main-campus",
+      "state_segments": [
+        [
+          810,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active"
+    },
+    {
       "accuracy_m": null,
       "checks": [],
       "depth_m": null,
@@ -1133,6 +1397,95 @@
         ]
       ],
       "status": "active"
+    },
+    {
+      "accuracy_m": 8,
+      "checks": [],
+      "depth_m": null,
+      "entity_id": null,
+      "entity_name": null,
+      "entity_type": null,
+      "feature_type": "building",
+      "geometry": {
+        "coordinates": [
+          [
+            [
+              -88.2658971,
+              41.8366075
+            ],
+            [
+              -88.2661944,
+              41.836509
+            ],
+            [
+              -88.2660354,
+              41.836154
+            ],
+            [
+              -88.2659565,
+              41.8361764
+            ],
+            [
+              -88.2659279,
+              41.8361065
+            ],
+            [
+              -88.2658127,
+              41.8361399
+            ],
+            [
+              -88.2657957,
+              41.8361043
+            ],
+            [
+              -88.2656407,
+              41.8361391
+            ],
+            [
+              -88.2658971,
+              41.8366075
+            ]
+          ]
+        ],
+        "type": "Polygon"
+      },
+      "id": "geometry:fermilab-mc2-building",
+      "level_id": "surface",
+      "license": {
+        "attribution": "© OpenStreetMap contributors",
+        "name": "ODbL-1.0",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "measured": {
+        "area_m2": 1444.103557489176,
+        "centroid": [
+          -88.2659814,
+          41.8363676
+        ],
+        "length_m": 167.7935287022457
+      },
+      "method": "OpenStreetMap way 720556732 'MC-2' footprint, traced verbatim, 84 m from MC-1 (way 720556725, confirmed as the Muon g-2 building). Drawn as a context feature (entity_id null, not detector:mu2e) because no source fetched this session confirms MC-2 is specifically the Mu2e hall -- the MC-1/MC-2 naming pattern and Muon Campus adjacency are suggestive but not sourced; a WebSearch and two WebFetch attempts (arXiv:2208.02889 'Muon Campus at Fermilab', both HTML and PDF) found no fetchable text naming MC-2.",
+      "name": "MC-2 building, Fermilab Muon Campus (identity not confirmed)",
+      "osm": {
+        "elements": [
+          "way/720556732"
+        ],
+        "timestamp": "2026-09-18T22:21:31Z"
+      },
+      "provenance": {
+        "confidence": "approximate",
+        "locator": "OSM way/720556732, extract timestamp 2026-09-18",
+        "note": "Candidate anchor for detector:mu2e's backlog (see map.unlocated), not a claim that this is confirmed to be the Mu2e hall.",
+        "quote": null,
+        "sources": [
+          "src:fermilab-geo-osm-muon-campus"
+        ],
+        "verified_at": "2026-09-18"
+      },
+      "representation": "georeferenced",
+      "site_id": "site:fermilab-mu2e-hall",
+      "state_segments": null,
+      "status": null
     },
     {
       "accuracy_m": 15,
@@ -1653,6 +2006,175 @@
     },
     {
       "accuracy_m": 8,
+      "checks": [
+        {
+          "expected_m": 470.0,
+          "kind": "distance",
+          "measured_m": 469.71695993180913,
+          "passed": true,
+          "sources": [
+            "src:microboone-detector-paper-2017"
+          ],
+          "tolerance": 0.03,
+          "unit": "m"
+        }
+      ],
+      "depth_m": null,
+      "entity_id": "detector:microboone",
+      "entity_name": "MicroBooNE detector",
+      "entity_type": "detector",
+      "feature_type": "hall",
+      "geometry": {
+        "coordinates": [
+          [
+            [
+              -88.2694385,
+              41.8375411
+            ],
+            [
+              -88.269359,
+              41.8374967
+            ],
+            [
+              -88.2693909,
+              41.8374702
+            ],
+            [
+              -88.2693845,
+              41.8374591
+            ],
+            [
+              -88.2693959,
+              41.8374486
+            ],
+            [
+              -88.2693945,
+              41.8374168
+            ],
+            [
+              -88.2694143,
+              41.8373867
+            ],
+            [
+              -88.2694491,
+              41.8373708
+            ],
+            [
+              -88.2694882,
+              41.8373629
+            ],
+            [
+              -88.2694938,
+              41.8373576
+            ],
+            [
+              -88.2695052,
+              41.837365
+            ],
+            [
+              -88.2695655,
+              41.8373042
+            ],
+            [
+              -88.2696422,
+              41.8373481
+            ],
+            [
+              -88.2695804,
+              41.8374073
+            ],
+            [
+              -88.2695932,
+              41.83741
+            ],
+            [
+              -88.2695819,
+              41.83742
+            ],
+            [
+              -88.269584,
+              41.8374486
+            ],
+            [
+              -88.2696273,
+              41.8374702
+            ],
+            [
+              -88.2695634,
+              41.8375295
+            ],
+            [
+              -88.2695173,
+              41.8375062
+            ],
+            [
+              -88.2694931,
+              41.8375046
+            ],
+            [
+              -88.2694839,
+              41.8375147
+            ],
+            [
+              -88.2694726,
+              41.8375094
+            ],
+            [
+              -88.2694385,
+              41.8375411
+            ]
+          ]
+        ],
+        "type": "Polygon"
+      },
+      "id": "geometry:fermilab-microboone-hall",
+      "level_id": "surface",
+      "license": {
+        "attribution": "© OpenStreetMap contributors",
+        "name": "ODbL-1.0",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "measured": {
+        "area_m2": 330.3276822595163,
+        "centroid": [
+          -88.2695443,
+          41.8374513
+        ],
+        "length_m": 87.92059918468024
+      },
+      "method": "OpenStreetMap way 1447175900 'Liqud Argon Test Facility' [sic] footprint, traced verbatim. Identified as MicroBooNE's hall by the existing placement record's own sourced note ('The detector sits in the Liquid Argon Test Facility (LArTF) on the Booster Neutrino Beam', src:microboone-experiment-site).",
+      "name": "Liquid Argon Test Facility (LArTF) -- MicroBooNE hall",
+      "osm": {
+        "elements": [
+          "way/1447175900"
+        ],
+        "timestamp": "2026-09-18T22:17:17Z"
+      },
+      "provenance": {
+        "confidence": "verified",
+        "locator": "OSM way/1447175900, extract timestamp 2026-09-18",
+        "note": "Confidence 'verified' rests on the passing distance check below, which cites a rank-5 detector paper.",
+        "quote": null,
+        "sources": [
+          "src:fermilab-geo-osm-sbn-area",
+          "src:microboone-experiment-site"
+        ],
+        "verified_at": "2026-09-18"
+      },
+      "representation": "georeferenced",
+      "site_id": "site:fermilab-main-campus",
+      "state_segments": [
+        [
+          789,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active"
+    },
+    {
+      "accuracy_m": 8,
       "checks": [],
       "depth_m": null,
       "entity_id": "detector:miniboone",
@@ -1909,7 +2431,19 @@
     },
     {
       "accuracy_m": 8,
-      "checks": [],
+      "checks": [
+        {
+          "expected_m": 1000.0,
+          "kind": "distance",
+          "measured_m": 977.4711430033241,
+          "passed": true,
+          "sources": [
+            "src:nova-arxiv-2025-monopole-search"
+          ],
+          "tolerance": 0.08,
+          "unit": "m"
+        }
+      ],
       "depth_m": null,
       "entity_id": "detector:nova-near-detector",
       "entity_name": "NOvA near detector",
@@ -1982,12 +2516,13 @@
         "timestamp": "2026-09-18T20:20:01Z"
       },
       "provenance": {
-        "confidence": "approximate",
+        "confidence": "verified",
         "locator": "OSM way/272646255, extract timestamp 2026-09-18T20:20:01Z",
-        "note": "This is the SURFACE building only, per its own OSM name. The NOvA near detector is '100 m underground' (src:nova-arxiv-2025-monopole-search); its horizontal offset from this surface point is not sourced this session, so the underground detector is not drawn separately.",
+        "note": "This is the SURFACE building only, per its own OSM name. The NOvA near detector is '100 m underground' (src:nova-arxiv-2025-monopole-search); its horizontal offset from this surface point is not sourced this session, so the underground detector is not drawn separately. Confidence upgraded to 'verified' (second pass, 2026-09-18): the checks[] row below (distance to the newly-derived NuMI target) passes and cites a rank-10 journal article.",
         "quote": null,
         "sources": [
-          "src:fermilab-geo-osm-buildings"
+          "src:fermilab-geo-osm-buildings",
+          "src:nova-arxiv-2025-monopole-search"
         ],
         "verified_at": "2026-09-18"
       },
@@ -1996,6 +2531,116 @@
       "state_segments": [
         [
           769,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active"
+    },
+    {
+      "accuracy_m": 30,
+      "checks": [
+        {
+          "expected_m": 336.17,
+          "kind": "azimuth",
+          "measured_m": 336.1666482492658,
+          "passed": true,
+          "sources": [
+            "src:fermilab-numi-beam-paper-2016",
+            "src:minos-prd-2007-muon-charge-ratio"
+          ],
+          "tolerance": 1.0,
+          "unit": "°"
+        }
+      ],
+      "depth_m": null,
+      "entity_id": "beamline:numi",
+      "entity_name": "NuMI (Neutrinos at the Main Injector) beamline",
+      "entity_type": "beamline",
+      "feature_type": "beamline",
+      "geometry": {
+        "coordinates": [
+          [
+            -88.2651363,
+            41.8310919
+          ],
+          [
+            -88.2705018,
+            41.8401407
+          ]
+        ],
+        "type": "LineString"
+      },
+      "id": "geometry:fermilab-numi-beamline",
+      "level_id": "surface",
+      "license": {
+        "attribution": "© OpenStreetMap contributors",
+        "name": "ODbL-1.0",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "measured": {
+        "area_m2": null,
+        "centroid": [
+          -88.267819,
+          41.8356163
+        ],
+        "length_m": 1099.9987451496645
+      },
+      "method": "Straight line from the derived target (geometry:fermilab-numi-target) along the bearing to Soudan (336.17 degrees) to 1100 m, spanning the MINOS and NOvA near-detector surface buildings.",
+      "name": "NuMI primary beamline axis (derived)",
+      "osm": {
+        "elements": [
+          "way/54794245"
+        ],
+        "timestamp": "2026-09-18T20:20:01Z"
+      },
+      "provenance": {
+        "confidence": "derived",
+        "locator": "Derived from geometry:fermilab-numi-target's construction",
+        "note": "A plan-view axis only; the true beam also descends 58 mrad (src:fermilab-numi-beam-paper-2016) which a plan-view line cannot show. Not a survey of the beam pipe or tunnel.",
+        "quote": null,
+        "sources": [
+          "src:fermilab-geo-osm-buildings",
+          "src:fermilab-numi-beam-paper-2016"
+        ],
+        "verified_at": "2026-09-18"
+      },
+      "representation": "derived",
+      "site_id": "site:fermilab-main-campus",
+      "state_segments": [
+        [
+          664,
+          664,
+          "active",
+          "possible"
+        ],
+        [
+          665,
+          746,
+          "active",
+          "certain"
+        ],
+        [
+          747,
+          747,
+          "shutdown",
+          "possible"
+        ],
+        [
+          748,
+          763,
+          "shutdown",
+          "certain"
+        ],
+        [
+          764,
+          764,
+          "shutdown",
+          "possible"
+        ],
+        [
+          765,
           920,
           "active",
           "certain"
@@ -2014,12 +2659,12 @@
       "geometry": {
         "coordinates": [
           [
-            -88.245782,
-            41.8422582
+            -88.2651363,
+            41.8310919
           ],
           [
-            -88.2608139,
-            41.8668049
+            -88.2800933,
+            41.8556631
           ]
         ],
         "type": "LineString"
@@ -2030,21 +2675,22 @@
       "measured": {
         "area_m2": null,
         "centroid": [
-          -88.253298,
-          41.8545316
+          -88.2726148,
+          41.8433775
         ],
-        "length_m": 2999.999975756705
+        "length_m": 3000.001063616311
       },
-      "method": "Great-circle bearing (335.5 degrees) from the sourced Fermilab main-campus point (site:fermilab-main-campus, 41.8422582,-88.245782, precision_m 3000 -- used only for its bearing, not as a positional claim about the NuMI target, whose own coordinate is not sourced this session) to the sourced Ash River far-site coordinate (site:ash-river-nova-far-detector, 48.4,-92.8), clipped to the first 3000 m so it stays within the map extent (map extent_m 2500). Haversine/initial-bearing on R=6371008.8 m.",
+      "method": "Great-circle bearing (335.6 degrees) from the derived NuMI target (geometry:fermilab-numi-target) to the sourced Ash River far-site coordinate (site:ash-river-nova-far-detector, 48.4,-92.8), clipped to the first 3000 m so it stays within the map extent (map extent_m 2500). Haversine/initial-bearing on R=6371008.8 m. Second pass (2026-09-18): near point upgraded from the coarse Fermilab campus point to the OSM-anchored derived target.",
       "name": "NuMI beam direction toward Ash River (NOvA far detector) -- inferred",
       "osm": null,
       "provenance": {
         "confidence": "derived",
-        "locator": "Near point per site:fermilab-main-campus (src:fermilab-lbnf-dune-site); far point per site:ash-river-nova-far-detector (src:nova-prd-2021-seasonal-multiple-muons, 'located on the surface in Minnesota near the U.S.-Canada Border at (48.4N,92.8W)')",
-        "note": "Not a physical structure; drawn and labelled as an inferred direction only, per contract rules. The NuMI beam also served the MINOS far detector at Soudan (1985-2016) on a nearly identical bearing (336.0 degrees vs 335.5 degrees here, both computed from the same near point) -- not drawn separately to avoid clutter; see the worklog for the Soudan distance/bearing.",
+        "locator": "Near point from geometry:fermilab-numi-target (second pass, 2026-09-18, derived from the OSM MINOS Surface Bldg footprint and the sourced 1040 m MINOS baseline -- see that feature); far point per site:ash-river-nova-far-detector (src:nova-prd-2021-seasonal-multiple-muons, 'located on the surface in Minnesota near the U.S.-Canada Border at (48.4N,92.8W)')",
+        "note": "Not a physical structure; drawn and labelled as an inferred direction only, per contract rules. The NuMI beam also served the MINOS far detector at Soudan (1985-2016) on a nearly identical bearing (336.2 degrees vs 335.6 degrees here, both computed from the same near point) -- not drawn separately to avoid clutter; see the worklog for the Soudan distance/bearing. Second pass (2026-09-18): near point upgraded from the coarse 3 km Fermilab campus point to the derived NuMI target (geometry:fermilab-numi-target, OSM-anchored, accuracy_m 30), which also makes this line start exactly where geometry:fermilab-numi-beamline ends.",
         "quote": null,
         "sources": [
-          "src:fermilab-lbnf-dune-site",
+          "src:fermilab-geo-osm-buildings",
+          "src:minos-prl-2016-sterile-search",
           "src:nova-how-does-nova-work",
           "src:nova-prd-2021-seasonal-multiple-muons"
         ],
@@ -2085,6 +2731,160 @@
         ],
         [
           770,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active"
+    },
+    {
+      "accuracy_m": 30,
+      "checks": [],
+      "depth_m": null,
+      "entity_id": "beamline:numi",
+      "entity_name": "NuMI (Neutrinos at the Main Injector) beamline",
+      "entity_type": "beamline",
+      "feature_type": "target_station",
+      "geometry": {
+        "coordinates": [
+          -88.2651363,
+          41.8310919
+        ],
+        "type": "Point"
+      },
+      "id": "geometry:fermilab-numi-target",
+      "level_id": "surface",
+      "license": {
+        "attribution": "© OpenStreetMap contributors",
+        "name": "ODbL-1.0",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "measured": {
+        "area_m2": null,
+        "centroid": [
+          -88.2651363,
+          41.8310919
+        ],
+        "length_m": null
+      },
+      "method": "Great-circle bearing (336.17 degrees) computed from the OSM 'MINOS Surface Bldg' footprint centroid (way 54794245) to the Soudan far site's own sourced coordinates (47.82027 N, 92.24141 W; cited below), per the NuMI beam paper's statement that the beam points at Soudan. Target placed 1040 m upstream (bearing+180) of that centroid, the sourced MINOS near-detector baseline (src:minos-prl-2016-sterile-search, '1.04 ... km'). Cross-checked (see note) against an independent derivation using the OSM NOvA surface building and the Ash River far site. Note: the far site's own precision (100 m) affects only the bearing here, not a position directly used by this derivation -- at a 735 km baseline a 100 m lateral offset changes the bearing by under 0.01 degrees, negligible next to the 30 m accuracy_m set below (dominated by the unsourced shaft/hall-offset assumption, not by the far-site bearing).",
+      "name": "NuMI target (derived)",
+      "osm": {
+        "elements": [
+          "way/54794245"
+        ],
+        "timestamp": "2026-09-18T20:20:01Z"
+      },
+      "provenance": {
+        "confidence": "derived",
+        "locator": "OSM way/54794245, extract timestamp 2026-09-18; site:soudan-minos-far-detector coordinates (src:minos-prd-2007-muon-charge-ratio); src:fermilab-numi-beam-paper-2016 sec 3 'To point towards the Soudan Laboratory the proton beam had to be inclined downward'",
+        "note": "accuracy_m 30 m is dominated by the unsourced assumption that the MINOS Surface Bldg sits directly above the near-detector hall/shaft, not by the OSM footprint (~8 m) or the azimuth (negligible error over a 735 km baseline). Independent cross-check: deriving the target the same way from the OSM NOvA building + the sourced ~1 km NOvA baseline + the bearing to Ash River gives a point 38.6 m away from this one -- good agreement given both chains have their own ~15-30 m uncertainty budgets, and reported here rather than as a formal checks[] row (no independent SOURCED expected value exists for 'distance between the two derivations').",
+        "quote": null,
+        "sources": [
+          "src:fermilab-geo-osm-buildings",
+          "src:fermilab-numi-beam-paper-2016",
+          "src:minos-prl-2016-sterile-search"
+        ],
+        "verified_at": "2026-09-18"
+      },
+      "representation": "derived",
+      "site_id": "site:fermilab-main-campus",
+      "state_segments": [
+        [
+          664,
+          664,
+          "active",
+          "possible"
+        ],
+        [
+          665,
+          746,
+          "active",
+          "certain"
+        ],
+        [
+          747,
+          747,
+          "shutdown",
+          "possible"
+        ],
+        [
+          748,
+          763,
+          "shutdown",
+          "certain"
+        ],
+        [
+          764,
+          764,
+          "shutdown",
+          "possible"
+        ],
+        [
+          765,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active"
+    },
+    {
+      "accuracy_m": 30,
+      "checks": [],
+      "depth_m": null,
+      "entity_id": "detector:sbnd",
+      "entity_name": "SBND detector",
+      "entity_type": "detector",
+      "feature_type": "target_station",
+      "geometry": {
+        "coordinates": [
+          -88.269595,
+          41.8342164
+        ],
+        "type": "Point"
+      },
+      "id": "geometry:fermilab-sbnd-point",
+      "level_id": "surface",
+      "license": {
+        "attribution": "© OpenStreetMap contributors",
+        "name": "ODbL-1.0",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "measured": {
+        "area_m2": null,
+        "centroid": [
+          -88.269595,
+          41.8342164
+        ],
+        "length_m": null
+      },
+      "method": "Point placed 110 m upstream of geometry:fermilab-bnb-target's downstream bearing continuation, i.e. at the sourced 110 m SBND baseline (src:sbnd-detector-paper-2025) along the derived BNB axis. Two OSM building footprints sit near this ideal point but neither is confidently identified as SBND specifically: way 1423112777 (span ~34 m, 17.2 m from the ideal point) and way 1423112778 (span ~10 m, 17.7 m from the ideal point) -- almost equally good positional matches, no OSM tag names either, and no source fetched this session distinguishes them. `feature_type` is `target_station` (a labelled point) rather than the real building footprint because the specific footprint is not confidently identified; drawing either candidate polygon as 'SBND' would overstate certainty.",
+      "name": "SBND (derived position; candidate footprint not confirmed)",
+      "osm": {
+        "elements": [
+          "way/1423112777",
+          "way/1423112778"
+        ],
+        "timestamp": "2026-09-18T22:17:17Z"
+      },
+      "provenance": {
+        "confidence": "derived",
+        "locator": "Derived from geometry:fermilab-bnb-target; candidate OSM ways/1423112777,1423112778, extract timestamp 2026-09-18",
+        "note": "accuracy_m widened to 30 m specifically to cover the ~17 m candidate-footprint scatter, on top of the usual OSM/derivation uncertainty. A QA pass or a source naming the specific building would let this become a proper 'hall' polygon.",
+        "quote": null,
+        "sources": [
+          "src:fermilab-geo-osm-sbn-area",
+          "src:sbnd-detector-paper-2025"
+        ],
+        "verified_at": "2026-09-18"
+      },
+      "representation": "derived",
+      "site_id": "site:fermilab-main-campus",
+      "state_segments": [
+        [
+          894,
           920,
           "active",
           "certain"
@@ -2961,12 +3761,12 @@
       "site:fermilab-nm4-hall"
     ],
     "summary": {
-      "plain": "Fermilab's main campus near Chicago, where the Booster and (until 2011) the Tevatron ring are drawn to scale from OpenStreetMap and their sourced sizes, along with the CDF, D0, MINOS, NOvA and MiniBooNE detector buildings and the Muon g-2 MC-1 building. The Main Injector, Recycler, PIP-II and most fixed-target and short-baseline detector halls could not be located precisely this session and are listed as unlocated. Arrows show the inferred direction of the NuMI and LBNF neutrino beams toward their far detectors in Minnesota and South Dakota, which are shown on separate maps."
+      "plain": "Fermilab's main campus near Chicago, where the Booster and (until 2011) the Tevatron ring are drawn to scale from OpenStreetMap and their sourced sizes, along with the CDF, D0, MINOS, NOvA, MiniBooNE, MicroBooNE and ICARUS detector buildings and the Muon g-2 MC-1 building. Derived target points and beamline axes for the BNB and NuMI beams are reconstructed from OpenStreetMap building positions and sourced beam distances, not from a coarse campus point. The Main Injector, Recycler, PIP-II, Mu2e and a few fixed-target detector halls could not be located precisely this session and are listed as unlocated. Arrows show the inferred direction of the NuMI and LBNF neutrino beams toward their far detectors in Minnesota and South Dakota, which are shown on separate maps."
     },
     "type": "map",
     "unlocated": [
       {
-        "backlog": "Obtain the MI TDR's Figure 1-1 site plan or the Chapter 4 ring-enclosure geometry table (arc radius, straight-section lengths) from a fetchable mirror, or a georeferenced tunnel centerline from Fermilab's ArcGIS 'Fermilab Facilities' service (fessappprd.fnal.gov:6443, unreachable from outside this session).",
+        "backlog": "Obtain the MI TDR's Figure 1-1 site plan or the Chapter 4 ring-enclosure geometry table (arc radius, straight-section lengths) from a fetchable mirror, or a georeferenced tunnel centerline from Fermilab's ArcGIS 'Fermilab Facilities' service (fessappprd.fnal.gov:6443, unreachable from outside this session). Second pass (2026-09-18): tried beamdocs.fnal.gov's Main Injector notes index (fetchable) and found two specifically relevant notes -- MI-0088 'Study of the Fermilab Main Injector Lattice' (Mishra & Harfoush) and MI-0274 'Determining the Radius and Energy of the Recycler Ring' (Chase & Kourbanis, most promising, since the Recycler shares the MI's shape) -- but MI-0274's actual document (docid=367) redirects to a Fermilab SSO/Shibboleth login and could not be fetched; MI-0088 was not attempted due to time. A WebSearch also surfaced an unverified figure of a ~509.3 m dipole bending radius, but no page I could actually fetch stated it, so it is not used here. The OSM way 272649560 'MI-8' (a Main Injector/Antiproton-source straight-section building, centroid 41.832743,-88.265865) may be useful as a future orientation anchor if the lattice parameters are ever sourced.",
         "entity_id": "accelerator:fermilab-main-injector",
         "entity_name": "Fermilab Main Injector",
         "entity_type": "accelerator",
@@ -2999,16 +3799,6 @@
         ]
       },
       {
-        "backlog": "Find a BNB civil/technical drawing (a Beams-doc note) or a paper giving the target enclosure's lat/lon, so the target and downstream detectors can be cross-checked by sourced distance (541 m to MiniBooNE, 470 m to MicroBooNE, 110 m to SBND, 600 m to ICARUS are all already sourced in the respective detector records).",
-        "entity_id": "beamline:bnb",
-        "entity_name": "Booster Neutrino Beam (BNB)",
-        "entity_type": "beamline",
-        "reason": "No sourced coordinate exists for the BNB target/decay-pipe itself (only its downstream detector halls, drawn separately from OSM building footprints: geometry:fermilab-miniboone-hall and the unlocated SBND/MicroBooNE/ICARUS entries below).",
-        "sources": [
-          "src:fermilab-miniboone-flux-paper-2009"
-        ]
-      },
-      {
         "backlog": "Same backlog as beamline:numi (LBNF shares the same target-hall area); once a target coordinate is sourced, the DUNE near detector can be placed at the already-sourced 570-574 m / 60 m depth / 5.3 degrees down.",
         "entity_id": "beamline:lbnf",
         "entity_name": "Long-Baseline Neutrino Facility (LBNF) beamline",
@@ -3016,16 +3806,6 @@
         "reason": "No sourced coordinate exists for the LBNF target itself (only the direction toward SURF, drawn as geometry:fermilab-lbnf-direction, and the DUNE near detector hall's sourced distance/depth/angle relative to the unsourced target, recorded in map.levels['dune-nd-cavern'] but not usable to place a footprint).",
         "sources": [
           "src:dune-nd-cdr"
-        ]
-      },
-      {
-        "backlog": "Fetch beams-doc-1148 (Fermilab Site Coordinate System) from an internal mirror if one becomes reachable, or find a NuMI civil-engineering drawing with a dimensioned target-hall position, to place both the target and, via 1040 m along the sourced axis, the already-sourced MINOS/NOvA near-detector baseline.",
-        "entity_id": "beamline:numi",
-        "entity_name": "NuMI (Neutrinos at the Main Injector) beamline",
-        "entity_type": "beamline",
-        "reason": "No sourced coordinate exists for the NuMI target/MI-60 extraction point itself. The beam direction is instead shown as an inferred_direction line from the entities it points at (geometry:fermilab-numi-direction, entity_id detector:nova-far-detector). A geodetic-survey paper for the NuMI project (Bocean, SLAC eConf C9910183, fetched this session) confirms Fermilab uses a local 'Main Injector Local Tunnel Coordinate System' tied to geodetic coordinates by GPS survey, but gives no public numeric conversion constants.",
-        "sources": [
-          "src:fermilab-numi-beam-paper-2016"
         ]
       },
       {
@@ -3059,16 +3839,6 @@
         ]
       },
       {
-        "backlog": "Search OSM again for the SBN far-detector building by other names, or fetch an SBN proposal site-plan figure.",
-        "entity_id": "detector:icarus-t600",
-        "entity_name": "ICARUS T600",
-        "entity_type": "detector",
-        "reason": "The SBN far detector building is 600 m from the BNB target (src:sbn-proposal-2015), but no OpenStreetMap footprint (a targeted search for 'ICARUS' returned no results) or other sourced coordinate for that building was found this session, and the BNB target itself is also unlocated (see beamline:bnb).",
-        "sources": [
-          "src:sbn-proposal-2015"
-        ]
-      },
-      {
         "backlog": "Search the KTeV design report (INSPIRE literature 345348) for a hall/beamline number that could be matched to a Fermilab fixed-target-area site plan.",
         "entity_id": "detector:ktev",
         "entity_name": "KTeV detector",
@@ -3076,16 +3846,6 @@
         "reason": "No OpenStreetMap footprint or other sourced coordinate for the KTeV hall was found this session (a targeted OSM name search for 'KTeV' returned no results).",
         "sources": [
           "src:ktev-design-report-1992"
-        ]
-      },
-      {
-        "backlog": "Same backlog as detector:sbnd (shares LArTF).",
-        "entity_id": "detector:microboone",
-        "entity_name": "MicroBooNE detector",
-        "entity_type": "detector",
-        "reason": "MicroBooNE is in the Liquid Argon Test Facility (LArTF), 470 m from the BNB target (src:microboone-detector-paper-2017), but no OpenStreetMap footprint (a targeted search for 'MicroBooNE' and 'LArTF' returned no results) or other sourced coordinate for that building was found this session.",
-        "sources": [
-          "src:microboone-detector-paper-2017"
         ]
       },
       {
@@ -3099,23 +3859,14 @@
         ]
       },
       {
-        "backlog": "Search OSM again once the Mu2e building (distinct from the newly-found MC-1/g-2 building) is more likely to be individually tagged, or fetch the Mu2e TDR's civil-engineering site-plan figure (not captured in the fetchable text this session).",
+        "backlog": "Second pass (2026-09-18): found a candidate building, OSM way 720556732 'MC-2' (drawn as context only, geometry:fermilab-mc2-building), 84 m from the confirmed MC-1/g-2 building -- plausible given the MC-1/MC-2 naming pattern, but a WebSearch and two WebFetch attempts (arXiv:2208.02889 'Muon Campus at Fermilab', HTML and PDF) found no fetchable text confirming MC-2 is specifically the Mu2e hall. Also found the former Antiproton Source buildings AP-0/AP-10/AP-30/AP-50 (OSM, src:fermilab-geo-osm-muon-campus) clustered near 41.8346,-88.2656, candidate anchors for the adjacent Delivery Ring (ex-Debuncher, sourced as roughly triangular and ~505 m in circumference by the task brief, but no source fetched this session states its shape/circumference directly, and three building centroids are not enough to justify drawing a triangle without a sourced vertex/side correspondence) -- not drawn, but useful context for whoever resolves MC-2. Confirming either would let Mu2e become a drawn `hall`.",
         "entity_id": "detector:mu2e",
         "entity_name": "Mu2e detector",
         "entity_type": "detector",
-        "reason": "No OpenStreetMap footprint exists for a distinct 'Mu2e' building (a targeted OSM name search found none); the Mu2e TDR (src:muons-arxiv-1501-05241) describes the production/transport/detector solenoid dimensions and states the Mu2e building shares a berm/enclosure with the Delivery Ring extraction beamline (the M4 beamline), but gives no single coordinate or scalar distance from a fixed point.",
+        "reason": "No OpenStreetMap footprint is confirmed for the Mu2e building specifically (a targeted OSM name search for 'Mu2e' found none); the Mu2e TDR (src:muons-arxiv-1501-05241) describes the production/transport/detector solenoid dimensions and states the Mu2e building shares a berm/enclosure with the Delivery Ring extraction beamline (the M4 beamline), but gives no single coordinate or scalar distance from a fixed point.",
         "sources": [
+          "src:fermilab-geo-osm-muon-campus",
           "src:muons-arxiv-1501-05241"
-        ]
-      },
-      {
-        "backlog": "Search OSM again for the Liquid Argon Test Facility (LArTF) building by other names, or fetch an SBN proposal site-plan figure.",
-        "entity_id": "detector:sbnd",
-        "entity_name": "SBND detector",
-        "entity_type": "detector",
-        "reason": "SBND sits in a dedicated building 110 m from the BNB target (src:sbnd-detector-paper-2025), but no OpenStreetMap footprint (a targeted search for 'SBN' and 'LArTF' returned no results) or other sourced coordinate for that building was found this session, and the BNB target itself is also unlocated (see beamline:bnb).",
-        "sources": [
-          "src:sbnd-detector-paper-2025"
         ]
       },
       {
@@ -3169,11 +3920,11 @@
         ]
       },
       {
-        "backlog": "See the backlog rows above for detector:sbnd, detector:icarus-t600, detector:microboone, detector:minerva, detector:donut, detector:sensei, detector:damic and detector:dune-near-detector, each of which shares this site.",
+        "backlog": "See the backlog rows above for detector:minerva, detector:donut, detector:sensei, detector:damic and detector:dune-near-detector, each of which shares this site.",
         "entity_id": "site:fermilab-main-campus",
         "entity_name": "Fermilab main campus, Batavia, Illinois",
         "entity_type": "site",
-        "reason": "This coarse 3 km campus point hosts many detector placements. Several detectors placed here ARE drawn, from their own OSM building footprints with `site_id` set to this site (geometry:fermilab-minos-near-surface, geometry:fermilab-nova-near-surface, geometry:fermilab-miniboone-hall, geometry:fermilab-linac's context), but the site record itself is never the `entity_id` of a geometry feature (a single point cannot represent a 27 km^2 campus as one 'drawn' feature), so it is named here too. The detectors placed here that are NOT drawn are individually listed above (detector:sbnd, detector:icarus-t600, detector:microboone, detector:minerva, detector:donut, detector:sensei, detector:damic, detector:dune-near-detector).",
+        "reason": "This coarse 3 km campus point hosts many detector placements. Most detectors placed here ARE now drawn, from their own OSM building footprints with `site_id` set to this site (geometry:fermilab-minos-near-surface, geometry:fermilab-nova-near-surface, geometry:fermilab-miniboone-hall, geometry:fermilab-microboone-hall, geometry:fermilab-icarus-hall, geometry:fermilab-sbnd-point, plus the derived geometry:fermilab-bnb-target/beamline and geometry:fermilab-numi-target/beamline, and geometry:fermilab-linac's context), but the site record itself is never the `entity_id` of a geometry feature (a single point cannot represent a 27 km^2 campus as one 'drawn' feature), so it is named here too. The detectors placed here that remain undrawn are individually listed above (detector:minerva, detector:donut, detector:sensei, detector:damic, detector:dune-near-detector).",
         "sources": [
           "src:fermilab-geo-osm-buildings"
         ]
@@ -3195,6 +3946,7 @@
         "entity_type": "site",
         "reason": "detector:mu2e, the only detector placed at this site, is unlocated (see above); the site itself is not drawn either.",
         "sources": [
+          "src:fermilab-geo-osm-muon-campus",
           "src:muons-arxiv-1501-05241"
         ]
       },
@@ -3257,10 +4009,20 @@
       "title": "OpenStreetMap way 1167765305: grassland polygon inside the Main Injector/Recycler ring area",
       "url": "https://www.openstreetmap.org/way/1167765305"
     },
+    "src:fermilab-geo-osm-muon-campus": {
+      "source_type": "openstreetmap",
+      "title": "OpenStreetMap extract: buildings in the Fermilab Muon Campus / Antiproton Source area (MC-1, MC-2, AP-0/10/30/50, MI-8, MI-65)",
+      "url": "https://overpass-api.de/api/interpreter?data=%5Btimeout%3A60%5D%5Bout%3Ajson%5D%5Bbbox%3A41.832%2C-88.27%2C41.84%2C-88.26%5D%3B%28way%5B%22building%22%5D%3Bway%5B%22highway%22%5D%5B%22name%22%5D%3Brelation%5B%22name%22%5D%3B%29%3Bout+geom%3B"
+    },
     "src:fermilab-geo-osm-rings-and-d0": {
       "source_type": "openstreetmap",
       "title": "OpenStreetMap extract: Booster Ring Road, Outer Ring Road, Inner Ring Road, D0 Assembly building, D0 Outback",
       "url": "https://overpass-api.de/api/interpreter?data=%5Btimeout%3A90%5D%5Bout%3Ajson%5D%5Bbbox%3A41.8153528%2C-88.2793878%2C41.8706210%2C-88.2106364%5D%3B%28way%2821825283%29%3Bway%2822108989%29%3Bway%2822108992%29%3Bway%5B%27highway%27%5D%5B%27name%27%3D%27Outer%20Ring%20Road%27%5D%3Bnwr%5B%27name%27~%27D0%7CDZero%7CMu2e%7CSBN%7CLArTF%7CMicroBooNE%7CICARUS%7CKTeV%7CNM4%27%2Ci%5D%3B%29%3Bout%20geom%3B"
+    },
+    "src:fermilab-geo-osm-sbn-area": {
+      "source_type": "openstreetmap",
+      "title": "OpenStreetMap extract: all building footprints in a box covering the Booster Neutrino Beam short-baseline detector area (MiniBooNE, LArTF/MicroBooNE, and candidate SBND/ICARUS buildings)",
+      "url": "https://overpass-api.de/api/interpreter?data=%5Btimeout%3A90%5D%5Bout%3Ajson%5D%5Bbbox%3A41.83%2C-88.285%2C41.842%2C-88.26%5D%3Bway%5B%22building%22%5D%3Bout+geom%3B"
     },
     "src:fermilab-geo-pip-ii-radiation-2018": {
       "source_type": "arxiv",
@@ -3307,15 +4069,35 @@
       "title": "Design and Construction of the MicroBooNE Detector",
       "url": "https://arxiv.org/abs/1612.05824"
     },
+    "src:microboone-experiment-site": {
+      "source_type": "official_experiment_site",
+      "title": "MicroBooNE — home",
+      "url": "https://microboone.fnal.gov/"
+    },
     "src:minerva-detector-paper-2014": {
       "source_type": "detector_paper",
       "title": "Design, Calibration, and Performance of the MINERvA Detector",
       "url": "https://arxiv.org/abs/1305.5199"
     },
+    "src:miniboone-detector-paper-2009": {
+      "source_type": "detector_paper",
+      "title": "The MiniBooNE Detector",
+      "url": "https://arxiv.org/abs/0806.4201"
+    },
     "src:minos-detector-paper-2008": {
       "source_type": "detector_paper",
       "title": "The magnetized steel and scintillator calorimeters of the MINOS experiment",
       "url": "https://arxiv.org/abs/0805.3170"
+    },
+    "src:minos-prd-2007-muon-charge-ratio": {
+      "source_type": "journal_article",
+      "title": "Measurement of the atmospheric muon charge ratio at TeV energies with the MINOS detector",
+      "url": "https://arxiv.org/abs/0705.3815"
+    },
+    "src:minos-prl-2016-sterile-search": {
+      "source_type": "journal_article",
+      "title": "Search for Sterile Neutrinos Mixing with Muon Neutrinos in MINOS",
+      "url": "https://arxiv.org/abs/1607.01176"
     },
     "src:muons-arxiv-1501-05241": {
       "source_type": "design_report",
@@ -3326,6 +4108,11 @@
       "source_type": "design_report",
       "title": "Muon (g-2) Technical Design Report",
       "url": "https://arxiv.org/abs/1501.06858"
+    },
+    "src:nova-arxiv-2025-monopole-search": {
+      "source_type": "journal_article",
+      "title": "Ionization-based search for magnetic monopoles using the NOvA Far Detector",
+      "url": "https://arxiv.org/html/2512.20294"
     },
     "src:nova-how-does-nova-work": {
       "source_type": "official_experiment_site",
@@ -3363,5 +4150,5 @@
       "url": "https://sanfordlab.org/"
     }
   },
-  "version": "c4b17dc547408138"
+  "version": "161cb295ed07a8e5"
 }

@@ -135,16 +135,18 @@
   ],
   "sources": [
     "src:fermilab-geo-osm-buildings",
+    "src:fermilab-geo-osm-sbn-area",
+    "src:fermilab-geo-osm-muon-campus",
     "src:fermilab-lbnf-dune-site"
   ],
   "summary": {
-    "plain": "Fermilab's main campus near Chicago, where the Booster and (until 2011) the Tevatron ring are drawn to scale from OpenStreetMap and their sourced sizes, along with the CDF, D0, MINOS, NOvA and MiniBooNE detector buildings and the Muon g-2 MC-1 building. The Main Injector, Recycler, PIP-II and most fixed-target and short-baseline detector halls could not be located precisely this session and are listed as unlocated. Arrows show the inferred direction of the NuMI and LBNF neutrino beams toward their far detectors in Minnesota and South Dakota, which are shown on separate maps.",
-    "technical": "Local to-scale map of the Fermilab Batavia campus: a derived circle for the Booster ring (474 m sourced circumference, OSM-fit centre) and for the Tevatron ring (6.3 km sourced circumference, OSM ring-road-fit centre, cross-checked against the OSM-sourced CDF and D0 hall positions); georeferenced OSM building footprints for the CDF Hall, D0 Assembly Building, MINOS and NOvA near-detector surface buildings, MiniBooNE Detector Building and the Muon g-2 MC-1 building; an approximate linac axis; a context-only campus boundary and Main Injector-area grassland polygon (explicitly not a ring proxy); and inferred-direction lines for the NuMI and LBNF beams. The Main Injector, Recycler, PIP-II, KTeV, Mu2e, SeaQuest/NM4, SBND, ICARUS-T600, MicroBooNE, MINERvA, DONUT, SENSEI, DAMIC (prototype) and the DUNE near detector are unlocated, each with a sourced reason and backlog."
+    "plain": "Fermilab's main campus near Chicago, where the Booster and (until 2011) the Tevatron ring are drawn to scale from OpenStreetMap and their sourced sizes, along with the CDF, D0, MINOS, NOvA, MiniBooNE, MicroBooNE and ICARUS detector buildings and the Muon g-2 MC-1 building. Derived target points and beamline axes for the BNB and NuMI beams are reconstructed from OpenStreetMap building positions and sourced beam distances, not from a coarse campus point. The Main Injector, Recycler, PIP-II, Mu2e and a few fixed-target detector halls could not be located precisely this session and are listed as unlocated. Arrows show the inferred direction of the NuMI and LBNF neutrino beams toward their far detectors in Minnesota and South Dakota, which are shown on separate maps.",
+    "technical": "Local to-scale map of the Fermilab Batavia campus: a derived circle for the Booster ring (474 m sourced circumference, OSM-fit centre) and for the Tevatron ring (6.3 km sourced circumference, OSM ring-road-fit centre, cross-checked against the OSM-sourced CDF and D0 hall positions); georeferenced/derived OSM building footprints for the CDF Hall, D0 Assembly Building, MINOS and NOvA near-detector surface buildings, MiniBooNE Detector Building, the LArTF/MicroBooNE hall, a positionally-identified ICARUS-T600 hall and the Muon g-2 MC-1 building; derived target_station/beamline features for BNB and NuMI, each anchored on two independently-named OSM footprints rather than a coarse site point, with passing distance/azimuth checks; an approximate linac axis; context-only campus boundary, Main Injector-area grassland and MC-2 polygons; and inferred-direction lines for the NuMI and LBNF beams, now starting from the derived NuMI target. The Main Injector, Recycler, PIP-II, KTeV, Mu2e, SeaQuest/NM4, SBND (candidate footprints found but not confidently identified), MINERvA, DONUT, SENSEI, DAMIC (prototype) and the DUNE near detector are unlocated, each with a sourced reason and backlog."
   },
   "type": "map",
   "unlocated": [
     {
-      "backlog": "Obtain the MI TDR's Figure 1-1 site plan or the Chapter 4 ring-enclosure geometry table (arc radius, straight-section lengths) from a fetchable mirror, or a georeferenced tunnel centerline from Fermilab's ArcGIS 'Fermilab Facilities' service (fessappprd.fnal.gov:6443, unreachable from outside this session).",
+      "backlog": "Obtain the MI TDR's Figure 1-1 site plan or the Chapter 4 ring-enclosure geometry table (arc radius, straight-section lengths) from a fetchable mirror, or a georeferenced tunnel centerline from Fermilab's ArcGIS 'Fermilab Facilities' service (fessappprd.fnal.gov:6443, unreachable from outside this session). Second pass (2026-09-18): tried beamdocs.fnal.gov's Main Injector notes index (fetchable) and found two specifically relevant notes -- MI-0088 'Study of the Fermilab Main Injector Lattice' (Mishra & Harfoush) and MI-0274 'Determining the Radius and Energy of the Recycler Ring' (Chase & Kourbanis, most promising, since the Recycler shares the MI's shape) -- but MI-0274's actual document (docid=367) redirects to a Fermilab SSO/Shibboleth login and could not be fetched; MI-0088 was not attempted due to time. A WebSearch also surfaced an unverified figure of a ~509.3 m dipole bending radius, but no page I could actually fetch stated it, so it is not used here. The OSM way 272649560 'MI-8' (a Main Injector/Antiproton-source straight-section building, centroid 41.832743,-88.265865) may be useful as a future orientation anchor if the lattice parameters are ever sourced.",
       "entity_id": "accelerator:fermilab-main-injector",
       "reason": "No OpenStreetMap tunnel way exists for the Main Injector, and its own TDR (src:fermilab-geo-mi-tdr-1994) describes it as an 'oval-shaped' enclosure with 8 straight sections and superperiodicity 2, without giving the individual arc radius or straight-section lengths needed to construct a validated racetrack shape (a circle is explicitly forbidden for this machine by the contract). The nearby OSM grassland polygon (drawn as context only, geometry:fermilab-mi-infield) was investigated as a possible infield proxy and rejected: its perimeter (5548 m) is 67% longer than the sourced 3319.4 m circumference, showing it traces natural terrain, not the enclosure.",
       "sources": [
@@ -174,24 +176,6 @@
       "verified_at": "2026-09-18"
     },
     {
-      "backlog": "Find a BNB civil/technical drawing (a Beams-doc note) or a paper giving the target enclosure's lat/lon, so the target and downstream detectors can be cross-checked by sourced distance (541 m to MiniBooNE, 470 m to MicroBooNE, 110 m to SBND, 600 m to ICARUS are all already sourced in the respective detector records).",
-      "entity_id": "beamline:bnb",
-      "reason": "No sourced coordinate exists for the BNB target/decay-pipe itself (only its downstream detector halls, drawn separately from OSM building footprints: geometry:fermilab-miniboone-hall and the unlocated SBND/MicroBooNE/ICARUS entries below).",
-      "sources": [
-        "src:fermilab-miniboone-flux-paper-2009"
-      ],
-      "verified_at": "2026-09-18"
-    },
-    {
-      "backlog": "Fetch beams-doc-1148 (Fermilab Site Coordinate System) from an internal mirror if one becomes reachable, or find a NuMI civil-engineering drawing with a dimensioned target-hall position, to place both the target and, via 1040 m along the sourced axis, the already-sourced MINOS/NOvA near-detector baseline.",
-      "entity_id": "beamline:numi",
-      "reason": "No sourced coordinate exists for the NuMI target/MI-60 extraction point itself. The beam direction is instead shown as an inferred_direction line from the entities it points at (geometry:fermilab-numi-direction, entity_id detector:nova-far-detector). A geodetic-survey paper for the NuMI project (Bocean, SLAC eConf C9910183, fetched this session) confirms Fermilab uses a local 'Main Injector Local Tunnel Coordinate System' tied to geodetic coordinates by GPS survey, but gives no public numeric conversion constants.",
-      "sources": [
-        "src:fermilab-numi-beam-paper-2016"
-      ],
-      "verified_at": "2026-09-18"
-    },
-    {
       "backlog": "Same backlog as beamline:numi (LBNF shares the same target-hall area); once a target coordinate is sourced, the DUNE near detector can be placed at the already-sourced 570-574 m / 60 m depth / 5.3 degrees down.",
       "entity_id": "beamline:lbnf",
       "reason": "No sourced coordinate exists for the LBNF target itself (only the direction toward SURF, drawn as geometry:fermilab-lbnf-direction, and the DUNE near detector hall's sourced distance/depth/angle relative to the unsourced target, recorded in map.levels['dune-nd-cavern'] but not usable to place a footprint).",
@@ -210,11 +194,12 @@
       "verified_at": "2026-09-18"
     },
     {
-      "backlog": "Search OSM again once the Mu2e building (distinct from the newly-found MC-1/g-2 building) is more likely to be individually tagged, or fetch the Mu2e TDR's civil-engineering site-plan figure (not captured in the fetchable text this session).",
+      "backlog": "Second pass (2026-09-18): found a candidate building, OSM way 720556732 'MC-2' (drawn as context only, geometry:fermilab-mc2-building), 84 m from the confirmed MC-1/g-2 building -- plausible given the MC-1/MC-2 naming pattern, but a WebSearch and two WebFetch attempts (arXiv:2208.02889 'Muon Campus at Fermilab', HTML and PDF) found no fetchable text confirming MC-2 is specifically the Mu2e hall. Also found the former Antiproton Source buildings AP-0/AP-10/AP-30/AP-50 (OSM, src:fermilab-geo-osm-muon-campus) clustered near 41.8346,-88.2656, candidate anchors for the adjacent Delivery Ring (ex-Debuncher, sourced as roughly triangular and ~505 m in circumference by the task brief, but no source fetched this session states its shape/circumference directly, and three building centroids are not enough to justify drawing a triangle without a sourced vertex/side correspondence) -- not drawn, but useful context for whoever resolves MC-2. Confirming either would let Mu2e become a drawn `hall`.",
       "entity_id": "detector:mu2e",
-      "reason": "No OpenStreetMap footprint exists for a distinct 'Mu2e' building (a targeted OSM name search found none); the Mu2e TDR (src:muons-arxiv-1501-05241) describes the production/transport/detector solenoid dimensions and states the Mu2e building shares a berm/enclosure with the Delivery Ring extraction beamline (the M4 beamline), but gives no single coordinate or scalar distance from a fixed point.",
+      "reason": "No OpenStreetMap footprint is confirmed for the Mu2e building specifically (a targeted OSM name search for 'Mu2e' found none); the Mu2e TDR (src:muons-arxiv-1501-05241) describes the production/transport/detector solenoid dimensions and states the Mu2e building shares a berm/enclosure with the Delivery Ring extraction beamline (the M4 beamline), but gives no single coordinate or scalar distance from a fixed point.",
       "sources": [
-        "src:muons-arxiv-1501-05241"
+        "src:muons-arxiv-1501-05241",
+        "src:fermilab-geo-osm-muon-campus"
       ],
       "verified_at": "2026-09-18"
     },
@@ -224,33 +209,6 @@
       "reason": "No OpenStreetMap footprint or other sourced coordinate for the NM4 building was found this session (a targeted OSM name search for 'NM4' returned no results).",
       "sources": [
         "src:seaquest-spectrometer-arxiv-2017"
-      ],
-      "verified_at": "2026-09-18"
-    },
-    {
-      "backlog": "Search OSM again for the Liquid Argon Test Facility (LArTF) building by other names, or fetch an SBN proposal site-plan figure.",
-      "entity_id": "detector:sbnd",
-      "reason": "SBND sits in a dedicated building 110 m from the BNB target (src:sbnd-detector-paper-2025), but no OpenStreetMap footprint (a targeted search for 'SBN' and 'LArTF' returned no results) or other sourced coordinate for that building was found this session, and the BNB target itself is also unlocated (see beamline:bnb).",
-      "sources": [
-        "src:sbnd-detector-paper-2025"
-      ],
-      "verified_at": "2026-09-18"
-    },
-    {
-      "backlog": "Search OSM again for the SBN far-detector building by other names, or fetch an SBN proposal site-plan figure.",
-      "entity_id": "detector:icarus-t600",
-      "reason": "The SBN far detector building is 600 m from the BNB target (src:sbn-proposal-2015), but no OpenStreetMap footprint (a targeted search for 'ICARUS' returned no results) or other sourced coordinate for that building was found this session, and the BNB target itself is also unlocated (see beamline:bnb).",
-      "sources": [
-        "src:sbn-proposal-2015"
-      ],
-      "verified_at": "2026-09-18"
-    },
-    {
-      "backlog": "Same backlog as detector:sbnd (shares LArTF).",
-      "entity_id": "detector:microboone",
-      "reason": "MicroBooNE is in the Liquid Argon Test Facility (LArTF), 470 m from the BNB target (src:microboone-detector-paper-2017), but no OpenStreetMap footprint (a targeted search for 'MicroBooNE' and 'LArTF' returned no results) or other sourced coordinate for that building was found this session.",
-      "sources": [
-        "src:microboone-detector-paper-2017"
       ],
       "verified_at": "2026-09-18"
     },
@@ -327,9 +285,9 @@
       "verified_at": "2026-09-18"
     },
     {
-      "backlog": "See the backlog rows above for detector:sbnd, detector:icarus-t600, detector:microboone, detector:minerva, detector:donut, detector:sensei, detector:damic and detector:dune-near-detector, each of which shares this site.",
+      "backlog": "See the backlog rows above for detector:minerva, detector:donut, detector:sensei, detector:damic and detector:dune-near-detector, each of which shares this site.",
       "entity_id": "site:fermilab-main-campus",
-      "reason": "This coarse 3 km campus point hosts many detector placements. Several detectors placed here ARE drawn, from their own OSM building footprints with `site_id` set to this site (geometry:fermilab-minos-near-surface, geometry:fermilab-nova-near-surface, geometry:fermilab-miniboone-hall, geometry:fermilab-linac's context), but the site record itself is never the `entity_id` of a geometry feature (a single point cannot represent a 27 km^2 campus as one 'drawn' feature), so it is named here too. The detectors placed here that are NOT drawn are individually listed above (detector:sbnd, detector:icarus-t600, detector:microboone, detector:minerva, detector:donut, detector:sensei, detector:damic, detector:dune-near-detector).",
+      "reason": "This coarse 3 km campus point hosts many detector placements. Most detectors placed here ARE now drawn, from their own OSM building footprints with `site_id` set to this site (geometry:fermilab-minos-near-surface, geometry:fermilab-nova-near-surface, geometry:fermilab-miniboone-hall, geometry:fermilab-microboone-hall, geometry:fermilab-icarus-hall, geometry:fermilab-sbnd-point, plus the derived geometry:fermilab-bnb-target/beamline and geometry:fermilab-numi-target/beamline, and geometry:fermilab-linac's context), but the site record itself is never the `entity_id` of a geometry feature (a single point cannot represent a 27 km^2 campus as one 'drawn' feature), so it is named here too. The detectors placed here that remain undrawn are individually listed above (detector:minerva, detector:donut, detector:sensei, detector:damic, detector:dune-near-detector).",
       "sources": [
         "src:fermilab-geo-osm-buildings"
       ],
@@ -349,7 +307,8 @@
       "entity_id": "site:fermilab-mu2e-hall",
       "reason": "detector:mu2e, the only detector placed at this site, is unlocated (see above); the site itself is not drawn either.",
       "sources": [
-        "src:muons-arxiv-1501-05241"
+        "src:muons-arxiv-1501-05241",
+        "src:fermilab-geo-osm-muon-campus"
       ],
       "verified_at": "2026-09-18"
     },

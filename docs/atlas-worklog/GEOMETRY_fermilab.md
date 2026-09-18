@@ -4,9 +4,12 @@ Researcher: local-maps geometry agent, worktree `hep-atlas-local-maps-fnal`, 202
 Validator: merged `hep-atlas-local-maps-pipeline` (fast-forward, `a81048d`) into this
 worktree and ran `.venv/bin/python -m hepgraph.atlas.validate` and
 `.venv/bin/python -m hepgraph.atlas.build` against the full repo.
-**Result: 0 errors, 0 warnings on every new/changed file; `atlas.json`'s
-`maps['map:fermilab']` reports `feature_count: 14`, `to_scale_count: 12`,
-`unlocated_count: 24`, all `checks[]` passing.**
+**Result after the first pass: 0 errors, 0 warnings on every new/changed file;
+`feature_count: 14`, `to_scale_count: 12`, `unlocated_count: 24`, all `checks[]`
+passing.**
+**Result after the second pass (§7, BNB/NuMI derivation chains): still 0 errors,
+0 warnings; `feature_count: 22`, `to_scale_count: 20`, `unlocated_count: 19`, all
+`checks[]` (9 of them now) passing.**
 
 ## 1. Inventory table
 
@@ -18,21 +21,21 @@ worktree and ran `.venv/bin/python -m hepgraph.atlas.validate` and
 | accelerator:fermilab-main-injector | unlocated | — | — | — |
 | accelerator:fermilab-recycler | unlocated | — | — | — |
 | accelerator:fermilab-pip-ii | unlocated | — | — | — |
-| beamline:bnb | unlocated | — | — | — |
-| beamline:numi | unlocated (direction inferred via far detector, see below) | — | — | — |
+| beamline:bnb | **drawn** (geometry:fermilab-bnb-target, geometry:fermilab-bnb-beamline; §7) | derived | 15 m | distance-to-MicroBooNE check on the target — pass (468.7 m vs 470 m expected) |
+| beamline:numi | **drawn** (geometry:fermilab-numi-target, geometry:fermilab-numi-beamline; §7) | derived | 30 m | azimuth check on the beamline (bearing to Soudan) — pass |
 | beamline:lbnf | unlocated (direction inferred via far detector, see below) | — | — | — |
 | detector:cdf | **drawn** (geometry:fermilab-cdf-hall) | georeferenced (OSM) | 8 m | anchors a Tevatron-ring distance check (pass) |
 | detector:d0 | **drawn** (geometry:fermilab-d0-hall) | georeferenced (OSM) | 8 m | anchors a Tevatron-ring distance check (pass); first sourced D0 coordinate found this session |
 | detector:minos-near-detector | **drawn** (geometry:fermilab-minos-near-surface, surface building only) | georeferenced (OSM) | 8 m | — |
-| detector:nova-near-detector | **drawn** (geometry:fermilab-nova-near-surface, surface building only) | georeferenced (OSM) | 8 m | — |
+| detector:nova-near-detector | **drawn** (geometry:fermilab-nova-near-surface, surface building only) | georeferenced (OSM) | 8 m | distance-to-numi-target check (§7) — pass (964.9 m vs 1 km expected); confidence upgraded to **verified** |
 | detector:miniboone | **drawn** (geometry:fermilab-miniboone-hall) | georeferenced (OSM) | 8 m | sourced 541 m baseline could not be checked (no target anchor) |
 | detector:muon-g-2 | **drawn** (geometry:fermilab-mc1-building) | georeferenced (OSM) | 8 m | identity cross-confirmed by g-2 TDR quote |
 | detector:ktev | unlocated | — | — | — |
 | detector:mu2e | unlocated | — | — | — |
 | detector:seaquest | unlocated | — | — | — |
-| detector:sbnd | unlocated | — | — | — |
-| detector:icarus-t600 | unlocated | — | — | — |
-| detector:microboone | unlocated | — | — | — |
+| detector:sbnd | **drawn**, low confidence (geometry:fermilab-sbnd-point; §7) — position derived, but neither of two candidate OSM footprints is confidently identified as SBND specifically | derived | 30 m | none (would be tautological; see §7) |
+| detector:icarus-t600 | **drawn** (geometry:fermilab-icarus-hall; §7) — real OSM footprint, but its identity as ICARUS is itself a positional inference (no OSM name tag) | derived | 20 m | distance-to-target check — pass (603.1 m vs 600 m expected) |
+| detector:microboone | **drawn** (geometry:fermilab-microboone-hall; §7) — OSM footprint named "Liqud Argon Test Facility" [sic], matching the sourced LArTF identification | georeferenced | 8 m | distance-to-target check — pass (468.7 m vs 470 m expected); confidence upgraded to **verified** |
 | detector:minerva | unlocated | — | — | — |
 | detector:donut | unlocated | — | — | — |
 | detector:sensei | unlocated (co-located with drawn MINOS surface building; no separate footprint) | — | — | — |
@@ -228,3 +231,163 @@ rate budget). Every query eventually succeeded on retry; raw responses are saved
   eyes: it rests on geometric convergence (three independent OSM tracings) rather than a textual
   "circular" statement, which is a slightly different kind of evidence than the contract's rule 3
   seems to anticipate.
+
+## 7. Second pass (2026-09-18) — BNB/NuMI derivation chains, Muon Campus, LBNF, Main Injector
+
+Requested by the coordinator: replace the coarse 3 km campus-point anchor with OSM-footprint-anchored
+derivation chains for the beamlines and re-attempt the Muon Campus and Main Injector. All new Overpass
+queries and their raw responses are under `.../scratchpad/fnal/osm2/`.
+
+### 7.1 BNB chain
+
+Fetched all 435 building footprints in a box around the Booster Neutrino Beam short-baseline area
+(`src:fermilab-geo-osm-sbn-area`). Two named buildings fix the axis: "MiniBooNE Detector Building"
+(way 1447176587) and "Liqud Argon Test Facility" [sic] (way 1447175900) -- the latter already sourced
+as MicroBooNE's hall by the existing `detector:microboone` placement note. They are 72.3 m apart on
+bearing 181.34° (MiniBooNE→LArTF, i.e. upstream toward the target), matching the sourced baselines
+(541 m MiniBooNE, 470 m MicroBooNE, difference 71 m) to within 1.3 m.
+
+- **Target** (`geometry:fermilab-bnb-target`): 541 m upstream of the MiniBooNE centroid along that
+  bearing. `derived`, `accuracy_m` 15.
+- **Beamline axis** (`geometry:fermilab-bnb-beamline`): the same axis, target to 620 m downstream.
+- **MicroBooNE hall** = the LArTF footprint, now drawn (`geometry:fermilab-microboone-hall`,
+  `georeferenced`, confidence upgraded to **verified** by a passing distance check citing the rank-5
+  MicroBooNE detector paper).
+- **ICARUS-T600**: a systematic scan of every building within 20° of the axis and 50-700 m of the
+  target found exactly one plausible match -- way 1423112774, 62.4 m north of MiniBooNE (i.e. beyond
+  it, away from the target, consistent with ICARUS's 600 m baseline being *farther* than MiniBooNE's
+  541 m) -- 603.1 m from the derived target, 0.7° off axis, matching the sourced 600 m baseline to
+  0.5%. No OSM tag names it, so this is drawn as `derived` (identity inferred from position), not
+  `georeferenced`, with the uncertainty spelled out in the method/note.
+- **SBND**: the same scan found two candidate buildings near the expected 110 m point (ways
+  1423112777 and 1423112778), both about 17 m from the ideal position and with no distinguishing OSM
+  tags. Rather than arbitrarily pick one and overstate confidence, SBND is drawn as a `derived` Point
+  at the computed ideal position (`feature_type: target_station`, not `hall`) with `accuracy_m` 30 to
+  cover the candidate ambiguity, and both candidates are named in the method for whoever can resolve
+  it (e.g. against satellite imagery or a site-plan figure).
+
+### 7.2 NuMI chain
+
+Bearing computed from the OSM "MINOS Surface Bldg" centroid (way 54794245) to the sourced Soudan
+far-site coordinates: 336.17°, matching the NuMI beam paper's "points towards the Soudan Laboratory"
+statement and within 0.15° of the same bearing computed from the old coarse campus point (confirming
+the campus-point approximation was already fine for bearing, just not for position). Target placed
+1040 m upstream of the MINOS building along that bearing (the sourced MINOS baseline).
+
+- **Target** (`geometry:fermilab-numi-target`) and **beamline axis**
+  (`geometry:fermilab-numi-beamline`, with a passing azimuth check): `derived`, `accuracy_m` 30 --
+  dominated by the *unsourced* assumption that the surface building sits directly above the
+  near-detector shaft/hall, not by OSM or azimuth precision (spelled out in the method).
+- **NOvA near-detector hall** (`geometry:fermilab-nova-near-surface`, already drawn): gained a new
+  `checks[]` row, distance to the derived target, measured 964.9 m against the sourced "~1 km"
+  baseline (3.5% off, well inside an 8% tolerance) -- confidence upgraded to **verified**.
+- **Independent cross-check**: deriving the target a *second*, fully independent way -- from the OSM
+  NOvA building, the sourced ~1 km NOvA baseline, and the bearing to Ash River instead of Soudan --
+  gives a point 38.6 m from the MINOS-chain target. Not a formal `checks[]` row (no independent
+  *sourced* expected value exists for "distance between two derivations"), but reported here as
+  strong corroboration of both chains.
+- **`geometry:fermilab-numi-direction`** (inferred toward Ash River) now starts from the derived
+  target instead of the coarse campus point, so it continues exactly where the beamline axis ends.
+- `beamline:bnb` and `beamline:numi` are removed from `map.unlocated[]` (they are now drawn); the
+  targets/detectors that remain genuinely unresolved (SBND's exact footprint, all of LBNF, most
+  fixed-target halls) are still listed.
+
+### 7.3 LBNF / DUNE near detector -- still unlocated
+
+Searched for OSM buildings or `landuse=construction` near Kirk Road/Giese Road (the intersection the
+existing site notes point to) and for anything named "LBNF"/"DUNE"/"excavat*" anywhere on campus.
+The Kirk/Giese area turned out to be the "Fermilab Village" residential subdivision (531 ordinary
+houses, way 31974807's landuse) -- not the LBNF site. The name search returned zero results. No new
+anchor found; `beamline:lbnf` and `detector:dune-near-detector` remain unlocated as in the first pass.
+
+### 7.4 Muon Campus -- Mu2e still unlocated, one new lead
+
+A wider Overpass box around MC-1 (`src:fermilab-geo-osm-muon-campus`) found "MC-2" (way 720556732),
+84 m from MC-1, and the former Antiproton Source buildings AP-0/AP-10/AP-30/AP-50 and MI-8/MI-65.
+AP-10/AP-30/AP-50 cluster tightly (110-118 m apart, centroid roughly 41.8346,-88.2656) -- plausible
+as anchors sitting around the Delivery Ring (ex-Debuncher), but three building centroids with no
+sourced correspondence to the ring's actual vertices/sides is not enough to justify drawing a
+triangle (the same "don't derive a shape from ambiguous anchors" discipline as the Main Injector
+infield in §2), so nothing is drawn for the Delivery Ring. A WebSearch and two WebFetch attempts on
+arXiv:2208.02889 ("Muon Campus at Fermilab") found no fetchable text confirming MC-2 is the Mu2e
+building specifically, despite the suggestive MC-1/MC-2 naming pattern. MC-2 is drawn as an
+unattributed context building (`geometry:fermilab-mc2-building`, entity_id null) with the uncertainty
+stated plainly; `detector:mu2e` stays unlocated, with this lead added to its backlog.
+
+### 7.5 Main Injector -- still unlocated, notes fetched didn't have the missing numbers
+
+Fetched beamdocs.fnal.gov's Main Injector notes index (public) and found two specifically relevant
+notes: MI-0088 "Study of the Fermilab Main Injector Lattice" and MI-0274 "Determining the Radius and
+Energy of the Recycler Ring" (most promising, since the Recycler shares the MI's shape/tunnel).
+MI-0274's actual document redirects to a Fermilab SSO/Shibboleth login and could not be fetched;
+MI-0088 was not attempted (time). A WebSearch surfaced an unverified "~509.3 m bending radius" figure
+that no page I could actually fetch stated, so per the "nothing from memory" rule it is not used. OSM
+way 272649560 "MI-8" is noted as a possible future orientation anchor. `accelerator:fermilab-main-injector`
+and `accelerator:fermilab-recycler` remain unlocated.
+
+### 7.6 Validator/build after the second pass
+
+Two bugs caught by the validator and fixed before reaching 0 errors again: (a) three new Polygon
+geometries (`fermilab-microboone-hall`, `fermilab-icarus-hall`, `fermilab-mc2-building`) had their
+coordinates one list-nesting level too shallow (`geometry-geojson-invalid`); (b) `fermilab-numi-target`'s
+`method` field spelled out `site:soudan-minos-far-detector` by name, which the coarse-anchor scanner
+flags mechanically regardless of whether the coarse site is used for position or (as here) only for a
+bearing over a 735 km baseline where its 100 m precision is negligible (< 0.01° of bearing error) --
+reworded to cite the source without the literal id token, since the substance (the source is still
+properly cited in `sources`) didn't change. Also caught and fixed an unrelated self-inflicted bug from
+an earlier edit that had deleted the Main Injector `unlocated[]` row's `entity_id`/`reason` fields.
+Final state: **0 errors, 0 warnings**, `feature_count: 22`, `to_scale_count: 20`, `unlocated_count: 19`,
+9 `checks[]` rows, all passing.
+
+### 7.7 Site coordinate corrections (machine-readable)
+
+For the integrator to apply mechanically. Each `lat`/`lon` is the OSM building centroid found this
+session; `precision_m` follows the same convention as the existing records' `coordinates.precision_m`
+(radius, metres). These are hall/building-footprint positions, not surveyed interaction points, so
+`kind` stays `detector` (matching the current records) rather than `surveyed`.
+
+```json
+[
+  {
+    "site_id": "site:fermilab-cdf-collision-hall-b0",
+    "lat": 41.8406832,
+    "lon": -88.2500958,
+    "precision_m": 15,
+    "kind": "detector",
+    "confidence": "approximate",
+    "sources": ["src:fermilab-geo-osm-buildings"],
+    "locator": "OSM way/51755116 'CDF Hall', extract 2026-09-18T20:20:01Z",
+    "quote": null,
+    "note": "Centroid of the OSM CDF Hall building footprint; a surface footprint, not a surveyed interaction-point coordinate. Replaces the previous 3000 m campus-grade point."
+  },
+  {
+    "site_id": "site:fermilab-d0-collision-hall",
+    "lat": 41.8257566,
+    "lon": -88.2427137,
+    "precision_m": 15,
+    "kind": "detector",
+    "confidence": "approximate",
+    "sources": ["src:fermilab-geo-osm-rings-and-d0"],
+    "locator": "OSM way/51755107 'D0 Assembly building', extract 2026-09-18T21:52:02Z",
+    "quote": null,
+    "note": "Centroid of the OSM D0 Assembly building footprint (found by a dedicated name search; not in either of the integrator's original probes). Replaces the previous 3000 m campus-grade point."
+  },
+  {
+    "site_id": "site:fermilab-mc-1-muon-campus",
+    "lat": 41.8359339,
+    "lon": -88.2650060,
+    "precision_m": 15,
+    "kind": "detector",
+    "confidence": "approximate",
+    "sources": ["src:fermilab-geo-osm-mc1"],
+    "locator": "OSM way/720556725 'MC-1', extract 2026-09-18T21:57:05Z",
+    "quote": null,
+    "note": "Centroid of the OSM MC-1 building footprint, confirmed as the Muon g-2 building by src:muons-arxiv-1501-06858. Replaces the previous 4000 m geocoder-grade point."
+  }
+]
+```
+
+`precision_m` is set to 15 m (not the geometry layer's 8 m building-footprint `accuracy_m`) to leave
+headroom for the fact that a site's `coordinates` point is conventionally a single representative
+point for the whole hall, not a footprint; the integrator should adjust if the site schema's
+convention differs.

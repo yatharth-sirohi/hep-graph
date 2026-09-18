@@ -1,0 +1,63 @@
+{
+  "accuracy_m": 30,
+  "aliases": [],
+  "checks": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "depth_m": null,
+  "entity_id": "beamline:numi",
+  "feature_type": "target_station",
+  "geometry": {
+    "confidence": "derived",
+    "locator": "OSM way/54794245, extract timestamp 2026-09-18; site:soudan-minos-far-detector coordinates (src:minos-prd-2007-muon-charge-ratio); src:fermilab-numi-beam-paper-2016 sec 3 'To point towards the Soudan Laboratory the proton beam had to be inclined downward'",
+    "note": "accuracy_m 30 m is dominated by the unsourced assumption that the MINOS Surface Bldg sits directly above the near-detector hall/shaft, not by the OSM footprint (~8 m) or the azimuth (negligible error over a 735 km baseline). Independent cross-check: deriving the target the same way from the OSM NOvA building + the sourced ~1 km NOvA baseline + the bearing to Ash River gives a point 38.6 m away from this one -- good agreement given both chains have their own ~15-30 m uncertainty budgets, and reported here rather than as a formal checks[] row (no independent SOURCED expected value exists for 'distance between the two derivations').",
+    "sources": [
+      "src:fermilab-geo-osm-buildings",
+      "src:minos-prl-2016-sterile-search",
+      "src:fermilab-numi-beam-paper-2016"
+    ],
+    "value": {
+      "coordinates": [
+        -88.2651363,
+        41.8310919
+      ],
+      "type": "Point"
+    },
+    "verified_at": "2026-09-18"
+  },
+  "id": "geometry:fermilab-numi-target",
+  "level_id": "surface",
+  "license": {
+    "attribution": "\u00a9 OpenStreetMap contributors",
+    "name": "ODbL-1.0",
+    "url": "https://www.openstreetmap.org/copyright"
+  },
+  "links": {
+    "website": null
+  },
+  "map_id": "map:fermilab",
+  "method": "Great-circle bearing (336.17 degrees) computed from the OSM 'MINOS Surface Bldg' footprint centroid (way 54794245) to the Soudan far site's own sourced coordinates (47.82027 N, 92.24141 W; cited below), per the NuMI beam paper's statement that the beam points at Soudan. Target placed 1040 m upstream (bearing+180) of that centroid, the sourced MINOS near-detector baseline (src:minos-prl-2016-sterile-search, '1.04 ... km'). Cross-checked (see note) against an independent derivation using the OSM NOvA surface building and the Ash River far site. Note: the far site's own precision (100 m) affects only the bearing here, not a position directly used by this derivation -- at a 735 km baseline a 100 m lateral offset changes the bearing by under 0.01 degrees, negligible next to the 30 m accuracy_m set below (dominated by the unsourced shaft/hall-offset assumption, not by the far-site bearing).",
+  "name": "NuMI target (derived)",
+  "notes": [],
+  "osm": {
+    "elements": [
+      "way/54794245"
+    ],
+    "timestamp": "2026-09-18T20:20:01Z"
+  },
+  "representation": "derived",
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:fermilab-main-campus",
+  "sources": [
+    "src:fermilab-geo-osm-buildings",
+    "src:minos-prl-2016-sterile-search",
+    "src:fermilab-numi-beam-paper-2016"
+  ],
+  "summary": {
+    "plain": "accuracy_m 30 m is dominated by the unsourced assumption that the MINOS Surface Bldg sits directly above the near-detector hall/shaft, not by the OSM footprint (~8 m) or the azimuth (negligible err..."
+  },
+  "type": "geometry",
+  "valid": null
+}

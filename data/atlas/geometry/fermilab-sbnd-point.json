@@ -1,0 +1,65 @@
+{
+  "accuracy_m": 30,
+  "aliases": [],
+  "checks": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "depth_m": null,
+  "entity_id": "detector:sbnd",
+  "feature_type": "target_station",
+  "geometry": {
+    "confidence": "derived",
+    "locator": "Derived from geometry:fermilab-bnb-target; candidate OSM ways/1423112777,1423112778, extract timestamp 2026-09-18",
+    "note": "accuracy_m widened to 30 m specifically to cover the ~17 m candidate-footprint scatter, on top of the usual OSM/derivation uncertainty. A QA pass or a source naming the specific building would let this become a proper 'hall' polygon.",
+    "sources": [
+      "src:fermilab-geo-osm-sbn-area",
+      "src:sbnd-detector-paper-2025"
+    ],
+    "value": {
+      "coordinates": [
+        -88.269595,
+        41.8342164
+      ],
+      "type": "Point"
+    },
+    "verified_at": "2026-09-18"
+  },
+  "id": "geometry:fermilab-sbnd-point",
+  "level_id": "surface",
+  "license": {
+    "attribution": "\u00a9 OpenStreetMap contributors",
+    "name": "ODbL-1.0",
+    "url": "https://www.openstreetmap.org/copyright"
+  },
+  "links": {
+    "website": null
+  },
+  "map_id": "map:fermilab",
+  "method": "Point placed 110 m upstream of geometry:fermilab-bnb-target's downstream bearing continuation, i.e. at the sourced 110 m SBND baseline (src:sbnd-detector-paper-2025) along the derived BNB axis. Two OSM building footprints sit near this ideal point but neither is confidently identified as SBND specifically: way 1423112777 (span ~34 m, 17.2 m from the ideal point) and way 1423112778 (span ~10 m, 17.7 m from the ideal point) -- almost equally good positional matches, no OSM tag names either, and no source fetched this session distinguishes them. `feature_type` is `target_station` (a labelled point) rather than the real building footprint because the specific footprint is not confidently identified; drawing either candidate polygon as 'SBND' would overstate certainty.",
+  "name": "SBND (derived position; candidate footprint not confirmed)",
+  "notes": [],
+  "osm": {
+    "elements": [
+      "way/1423112777",
+      "way/1423112778"
+    ],
+    "timestamp": "2026-09-18T22:17:17Z"
+  },
+  "representation": "derived",
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:fermilab-main-campus",
+  "sources": [
+    "src:fermilab-geo-osm-sbn-area",
+    "src:sbnd-detector-paper-2025"
+  ],
+  "summary": {
+    "plain": "accuracy_m widened to 30 m specifically to cover the ~17 m candidate-footprint scatter, on top of the usual OSM/derivation uncertainty. A QA pass or a source naming the specific building would let ..."
+  },
+  "type": "geometry",
+  "valid": {
+    "end": null,
+    "start": "2024-07"
+  }
+}
