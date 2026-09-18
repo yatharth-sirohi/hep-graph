@@ -185,7 +185,13 @@ class Stripper:
         if schema.is_quantity(value):
             return {key: rest[key] for key in schema.QUANTITY_KEYS if key in rest}
         if schema.is_coordinates(value):
-            return {key: rest.get(key) for key in ('lat', 'lon', 'precision_m', 'kind')}
+            kept = {key: rest.get(key) for key in ('lat', 'lon', 'precision_m', 'kind')}
+            # A23: the globe must be able to draw an admitted approximation
+            # differently without fetching provenance.json, so the one bit of
+            # confidence that changes the marker travels with the point.
+            if value.get('confidence') in ('approximate', 'uncertain'):
+                kept['approximate'] = True
+            return kept
         if schema.is_interval(value):
             kept = {key: rest[key] for key in ('label', 'status', 'kind') if key in rest}
             # `start`/`end` may themselves be date *objects* carrying a `note`
@@ -1119,7 +1125,10 @@ def _is_globe_ready(ctx: _Context, entity_id: Any) -> bool:
         site = ctx.atlas.get(site_id) or {}
         coordinates = site.get('coordinates')
         if isinstance(coordinates, dict) and schema.coordinates_of(site) is not None \
-                and coordinates.get('kind') in schema.DETECTOR_COORDINATE_KINDS:
+                and (coordinates.get('kind') in schema.DETECTOR_COORDINATE_KINDS
+                     or (coordinates.get('kind') == 'campus'
+                         and coordinates.get('confidence') in ('approximate', 'uncertain'))):
+            # A23: an admitted campus-grade placement is drawable, as approximate.
             has_site = True
             break
     has_start = any(isinstance(row, dict) and schema.try_parse_date(row.get('start')) is not None

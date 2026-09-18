@@ -31,7 +31,7 @@ Rules that hold for every bundle:
 | Sourced value `{"value": V, "sources": …}` | `V` |
 | SList `[Sourced<T>, …]` | `[T, …]` |
 | Quantity | `{"value", "unit", "dimension", "display", "approx"}` (`min`/`max` instead of `value` for a range) |
-| Coordinates | `{"lat", "lon", "precision_m", "kind"}` |
+| Coordinates | `{"lat", "lon", "precision_m", "kind"}` plus `"approximate": true` when the canonical confidence is approximate/uncertain (A23); the globe draws such points in the approximate style and the panel says "Approximate location" |
 | Interval | `{"label", "status", "start", "end", "kind"}` (`specs` kept when present) |
 | Date object `{"date": D, …}` | `D` when it carries no qualifier, else `{"date", "approx", "planned", "display"}` |
 | Placement / facility role / leadership / lineage / membership row | its non-provenance keys |
