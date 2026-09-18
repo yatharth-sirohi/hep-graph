@@ -1,15 +1,15 @@
 {
   "accessibility_audit": {
-    "value": null,
-    "evidence": "not yet run"
+    "value": "axe-core (WCAG 2.1 A/AA + best-practice): 0 violations of either kind across 16 scans (8 page/mode states x 2 data trees). Manual checks: 30/30 pass (keyboard traversal, timeline live region, filter live region, Escape+focus-return, reduced-motion, runtime contrast). P0 found: 0. P1 found and fixed: 3 (muted-text and border contrast below WCAG AA; uncertain-certainty globe markers had no visual encoding at all despite is-possible class; Escape did not close panels or return focus). P2 found and fixed: 2 (mode-panel heading level skip; two notices outside any landmark). P2 documented, not fixed: 1 (timeline-legend uses a dashed-dot glyph for uncertain while the globe marker itself uses a hatch fill - same meaning, different glyph family).",
+    "evidence": "docs/atlas-worklog/REVIEW_accessibility.md; tests/browser_atlas_a11y.cjs; test-results/atlas/logs/a11y.log; test-results/atlas/a11y-report.json; test-results/atlas/a11y-axe-report.json (gitignored, reproduce with: node tests/browser_atlas_a11y.cjs)"
   },
   "safari_manual_run": {
-    "value": null,
-    "evidence": "not yet run"
+    "value": "webkit engine via Playwright (Safari's own rendering engine; not a literal Safari.app run, which Playwright cannot drive) - 25/25 checks pass against the generated tree, 24/24 against fixtures (the 25th is an A23 fixture-data guard that correctly skips where fixtures carry no approximate-coordinate site). 0 product bugs found specific to webkit.",
+    "evidence": "docs/atlas-worklog/REVIEW_browser_matrix.md; test-results/atlas/logs/webkit-generated.log; test-results/atlas/logs/webkit-fixtures.log"
   },
   "firefox_manual_run": {
-    "value": null,
-    "evidence": "not yet run"
+    "value": "firefox engine via Playwright, headless - 25/25 checks pass against the generated tree, 24/24 against fixtures (same A23 guard as webkit). 0 product bugs found specific to firefox; one real cross-engine timing race in the test harness itself was found and fixed (a vendored globe.gl render/settle race that could drop one marker from the DOM under firefox's specific frame timing - the app's own filtering logic was confirmed correct via instrumentation).",
+    "evidence": "docs/atlas-worklog/REVIEW_browser_matrix.md; test-results/atlas/logs/firefox-generated.log; test-results/atlas/logs/firefox-fixtures.log"
   },
   "source_conflict_count": {
     "value": null,
