@@ -356,8 +356,9 @@
     if (state.target) u.searchParams.set("target", state.target.id);
     else u.searchParams.delete("target");
     const via = (state.stopKeys || []).map((key) => state[key]?.id).filter(Boolean);
-    if (via.length) u.searchParams.set("then", via.join(","));
-    else u.searchParams.delete("then");
+    u.searchParams.delete("then");
+    if (via.length) u.searchParams.set("with", via.join(","));
+    else u.searchParams.delete("with");
     history.replaceState(null, "", u);
   }
   function setFilterFromUrl(base, value) {
@@ -385,7 +386,8 @@
     state.restore = {
       source: u.searchParams.get("source"),
       target: u.searchParams.get("target"),
-      then: (u.searchParams.get("then") || "").split(",").map((id) => id.trim())
+      // "then" is the name the parameter had while groups were ordered routes.
+      then: (u.searchParams.get("with") || u.searchParams.get("then") || "").split(",").map((id) => id.trim())
         .filter((id) => /^\d{1,12}$/.test(id)),
     };
     state.mode = "database";
@@ -1151,33 +1153,34 @@
         setStatus("One of the added researchers is not included in this release. Choose another result.", "warning");
         return;
       }
-      findRouteThrough(routePeople(), { revision, request, key });
+      findWeb(groupPeople(), { revision, request, key });
       return;
     }
     startDeepSearch({ source: state.source.id, target: state.target.id, revision, request, key });
   }
 
-  /* Each leg is an ordinary two-person search, asked of the same engine, so
-     every leg carries the same proof it would on its own. Legs run a few at a
-     time: they are independent, and serial legs would make a long route slow
-     for no reason. */
-  const LEG_CONCURRENCY = 4;
-  const LEG_TIMEOUT_MS = 120000;
+  /* A group is answered as a web: the shortest connection between every
+     pair, each an ordinary two-person search with its own proof. Searches
+     spend their time waiting on the network, not working, and the server
+     scales out, so many run at once - twelve cut 28 pairs from 27 s to under
+     8 s in measurement - and the web is drawn as they arrive. */
+  const WEB_CONCURRENCY = 12;
+  const PAIR_TIMEOUT_MS = 120000;
 
-  async function runLeg(source, target, current) {
+  async function runPair(source, target, current) {
     const began = performance.now();
     let data = await api(urlWithFilters("/api/path", { source, target }));
     let restarts = 0;
     while (data.status === "searching" && current()) {
-      if (performance.now() - began > LEG_TIMEOUT_MS) {
-        return { ...data, status: "search_incomplete", leg_timed_out: true };
+      if (performance.now() - began > PAIR_TIMEOUT_MS) {
+        return { ...data, status: "search_incomplete", pair_timed_out: true };
       }
       await new Promise((resolve) => setTimeout(resolve, 300));
       try {
         data = await api(`/api/search-jobs/${encodeURIComponent(data.job_id)}?mode=database`);
       } catch (error) {
         // The job lives in one server process and a poll can reach another;
-        // start the same leg again there, as the single search does.
+        // start the same search again there, as the single search does.
         if (error.status === 404 && restarts < 2) {
           restarts += 1;
           data = await api(urlWithFilters("/api/path", { source, target }));
@@ -1189,16 +1192,22 @@
     return data;
   }
 
-  async function findRouteThrough(people, { revision, request, key }) {
+  async function findWeb(people, { revision, request, key }) {
     const current = () =>
       revision === state.revision && request === state.pathRequest && key === queryKey();
-    const legs = people.slice(0, -1).map((person, index) => ({
-      index, from: person, to: people[index + 1], data: null, error: null }));
-    const repeated = legs.find((leg) => String(leg.from.id) === String(leg.to.id));
-    if (repeated) {
-      setStatus(`${personName(repeated.from)} appears twice in a row. Remove one of them or put someone between.`, "warning");
-      return;
+    const seen = new Set();
+    for (const person of people) {
+      const id = String(person.id);
+      if (seen.has(id)) {
+        setStatus(`${personName(person)} is in the list twice. Remove one of them.`, "warning");
+        return;
+      }
+      seen.add(id);
     }
+    const pairs = [];
+    for (let i = 0; i < people.length; i += 1)
+      for (let k = i + 1; k < people.length; k += 1)
+        pairs.push({ a: people[i], b: people[k], data: null, error: null, done: false });
     hideRouteOffer();
     $("#relation-crosslink")?.remove();
     setLoading($("#find-connection"), true, "Exploring…");
@@ -1206,60 +1215,76 @@
     $("#connection-results").classList.remove("hidden");
     $("#path-message").className = "notice hidden";
     $("#path-cards").replaceChildren();
-    $("#path-title").textContent = `Route through ${people.length} people`;
-    const progress = $("#deep-progress");
-    progress.classList.remove("hidden");
+    $("#deep-progress").classList.remove("hidden");
     $("#deep-stop").classList.add("hidden");
     $("#deep-continue").classList.add("hidden");
-    $("#deep-title").textContent = "Finding each step of the route…";
+    $("#deep-title").textContent = `Connecting ${people.length} people…`;
+    const web = { people, pairs, selected: 0, began: performance.now() };
+    state.web = web;
     let finished = 0;
+    let drawTimer = null;
     const report = () => {
       $("#deep-summary").textContent =
-        `${finished} of ${legs.length} steps found. Steps run at the same time, each as its own shortest-connection search.`;
+        `${finished} of ${pairs.length} connections found. Every pair is its own shortest-connection search.`;
+    };
+    // Redraw as pairs arrive, but not on every one: a burst of twelve would
+    // otherwise re-lay the graph twelve times in a few milliseconds.
+    const redraw = () => {
+      if (drawTimer) return;
+      drawTimer = setTimeout(() => {
+        drawTimer = null;
+        if (current() && state.web === web) renderWeb(web, false);
+      }, 350);
     };
     report();
-    const began = performance.now();
     let next = 0;
     const worker = async () => {
-      while (next < legs.length && current()) {
-        const leg = legs[next++];
+      while (next < pairs.length && current()) {
+        const pair = pairs[next++];
         try {
-          leg.data = await runLeg(leg.from.id, leg.to.id, current);
+          pair.data = await runPair(pair.a.id, pair.b.id, current);
         } catch (error) {
-          leg.error = error;
+          pair.error = error;
         }
+        pair.done = true;
         finished += 1;
-        if (current()) report();
+        if (current()) { report(); redraw(); }
       }
     };
-    await Promise.all(Array.from({ length: Math.min(LEG_CONCURRENCY, legs.length) }, worker));
+    await Promise.all(Array.from({ length: Math.min(WEB_CONCURRENCY, pairs.length) }, worker));
+    if (drawTimer) clearTimeout(drawTimer);
     if (!current()) return;
-    progress.classList.add("hidden");
+    $("#deep-progress").classList.add("hidden");
     setLoading($("#find-connection"), false);
-    renderRouteThrough(people, legs, performance.now() - began);
+    renderWeb(web, true);
   }
 
   /* ------------------------------------------- more than two people --- */
 
-  /* People after "To" are extra stops: the route goes From, To, then each of
-     them in the order listed. Each field reuses the ordinary picker - its key
-     ("stop1", "stop2", ...) is the same handle "source" and "target" are. */
+  /* Added people join the group; order does not matter. Each field reuses the
+     ordinary picker - its key ("stop1", "stop2", ...) is the same handle
+     "source" and "target" are. */
   state.stopKeys = [];
   let nextStop = 1;
 
-  const routePeople = () =>
+  const groupPeople = () =>
     [state.source, state.target, ...state.stopKeys.map((key) => state[key])];
 
   function renumberStops() {
+    const group = state.stopKeys.length > 0;
     state.stopKeys.forEach((key, index) => {
-      const field = $(`[data-stop="${key}"]`);
-      if (!field) return;
-      field.querySelector(".stop-number").textContent = String(index + 3);
-      field.querySelector('[data-move="up"]').disabled = index === 0;
-      field.querySelector('[data-move="down"]').disabled = index === state.stopKeys.length - 1;
+      const number = $(`[data-stop="${key}"] .stop-number`);
+      if (number) number.textContent = String(index + 3);
     });
-    $("#swap-people").title = state.stopKeys.length ? "Reverse the route" : "Swap researchers";
-    $("#swap-people").setAttribute("aria-label", $("#swap-people").title);
+    // "From" and "To" read as a direction; a group has none.
+    $('label[for="source-query"]').textContent = group ? "Person 1" : "From researcher";
+    $('label[for="target-query"]').textContent = group ? "Person 2" : "To researcher";
+    $("#swap-people").hidden = group;
+    $(".identity-grid").classList.toggle("is-group", group);
+    // setLoading restores the label it cached, so the cache is what changes.
+    const find = $("#find-connection");
+    find.dataset.label = group ? "Connect everyone →" : "Find connection →";
+    if (!find.disabled) find.textContent = find.dataset.label;
   }
 
   function addStop(person = null) {
@@ -1270,7 +1295,7 @@
     field.className = "identity-field route-stop";
     field.dataset.stop = key;
     field.innerHTML = `
-      <label for="${key}-query"><span class="stop-number"></span>Then to</label>
+      <label for="${key}-query">Person <span class="stop-number"></span></label>
       <div class="picker-wrap">
         <input id="${key}-query" name="${key}-query" type="search" autocomplete="off"
           placeholder="Name, INSPIRE ID, or ORCID" aria-controls="${key}-results"
@@ -1281,18 +1306,12 @@
       <div id="${key}-results" class="result-menu" role="listbox"
         aria-label="Suggestions for this person"></div>
       <div class="route-stop-tools">
-        <button class="secondary-button" type="button" data-move="up"
-          aria-label="Move earlier in the route" title="Move earlier">↑</button>
-        <button class="secondary-button" type="button" data-move="down"
-          aria-label="Move later in the route" title="Move later">↓</button>
         <button class="secondary-button" type="button" data-remove
-          aria-label="Remove this person from the route" title="Remove">✕</button>
+          aria-label="Remove this person" title="Remove">✕</button>
       </div>`;
     $("#route-stops").append(field);
     setupSearch(key);
     field.querySelector(".clear-picker").addEventListener("click", () => clearPicker(key));
-    field.querySelectorAll("[data-move]").forEach((button) =>
-      button.addEventListener("click", () => moveStop(key, button.dataset.move === "up" ? -1 : 1)));
     field.querySelector("[data-remove]").addEventListener("click", () => removeStop(key));
     renumberStops();
     if (person) {
@@ -1308,33 +1327,6 @@
     delete state[key];
     $(`[data-stop="${key}"]`)?.remove();
     renumberStops();
-    syncUrl();
-  }
-
-  function moveStop(key, step) {
-    const at = state.stopKeys.indexOf(key);
-    const to = at + step;
-    if (at < 0 || to < 0 || to >= state.stopKeys.length) return;
-    invalidateResults();
-    [state.stopKeys[at], state.stopKeys[to]] = [state.stopKeys[to], state.stopKeys[at]];
-    const field = $(`[data-stop="${key}"]`);
-    const other = $(`[data-stop="${state.stopKeys[at]}"]`);
-    if (step < 0) other.before(field); else other.after(field);
-    renumberStops();
-    syncUrl();
-    field.querySelector("input").focus();
-  }
-
-  /* Reverse every person's place, keeping the fields where they are. */
-  function reverseRoute() {
-    const people = routePeople().reverse();
-    state.source = people[0] || null;
-    state.target = people[1] || null;
-    state.stopKeys.forEach((key, index) => { state[key] = people[index + 2] || null; });
-    ["source", "target", ...state.stopKeys].forEach((which) => {
-      if (!state[which]) $(`#${which}-query`).value = "";
-      renderPicker(which);
-    });
     syncUrl();
   }
 
@@ -2154,6 +2146,7 @@
     renderPathHeading(data);
     $("#path-cards").replaceChildren();
     $("#legend-stop").hidden = true;
+    $("#graph-stage").classList.remove("is-tall");
     (data.paths || []).forEach((path, index) => {
       $("#path-cards").append(pathCard(path, `Route ${index + 1}`));
     });
@@ -2215,87 +2208,253 @@
       return card;
   }
 
-  /* One result for the whole route: a card per step, the steps joined into
-     a single chain on the graph, and a claim no stronger than its weakest
-     step. */
-  function renderRouteThrough(people, legs, elapsedMs) {
-    const found = legs.filter((leg) => leg.data?.paths?.length);
-    const broken = legs.filter((leg) => !leg.data?.paths?.length);
-    const proven = legs.every((leg) => leg.data?.global_shortest_proven === true);
-    const hops = found.reduce((total, leg) => total + leg.data.paths[0].hops, 0);
+  /* The web: a grid of how far apart every pair is, the route for the pair
+     the reader picks, and one network drawn from every pair's route. */
+  function renderWeb(web, final) {
+    const { people, pairs } = web;
     const plural = (n, word) => `${n} ${word}${n === 1 ? "" : "s"}`;
-    $("#path-title").textContent = broken.length
-      ? `Route through ${people.length} people · ${plural(broken.length, "step")} without a route`
-      : `Route through ${people.length} people · ${plural(hops, "hop")}`;
-    const claim = broken.length
-      ? "route incomplete: at least one step has no verified route"
-      : proven
-        ? "every step proven shortest in this release and filters, so this is the shortest route that visits them in this order"
-        : "every step verified; not every step is proven shortest";
+    const done = pairs.filter((pair) => pair.done);
+    const found = done.filter((pair) => pair.data?.paths?.length);
+    const missing = done.filter((pair) => !pair.data?.paths?.length);
+    const proven = found.length === pairs.length &&
+      pairs.every((pair) => pair.data?.global_shortest_proven === true);
+    $("#path-title").textContent =
+      `How ${people.length} people connect` +
+      (final && missing.length ? ` · ${plural(missing.length, "pair")} without a route` : "");
+    const claim = !final
+      ? `${done.length} of ${pairs.length} connections found so far`
+      : missing.length
+        ? "some pairs have no verified route; the rest are shown"
+        : proven
+          ? "every connection proven shortest in this release and filters"
+          : "every connection verified; not every one is proven shortest";
     $("#path-meta").textContent =
-      `${lastUpdatedText()} · ${claim} · ${filterDescription(legs[0]?.data?.filters || filters())} · ` +
-      `${plural(legs.length, "step")} found in ${(elapsedMs / 1000).toFixed(1)} s`;
-    const cards = $("#path-cards");
-    cards.replaceChildren();
-    legs.forEach((leg) => {
-      const label = `Step ${leg.index + 1}: ${personName(leg.from)} → ${personName(leg.to)}`;
-      const path = leg.data?.paths?.[0];
-      if (path) {
-        const card = pathCard(path, `Step ${leg.index + 1}`, label);
-        if (leg.data.global_shortest_proven !== true) {
-          const note = document.createElement("p");
-          note.className = "edge-summary";
-          note.textContent = "This step is verified; a shorter one was not ruled out.";
-          card.append(note);
-        }
-        cards.append(card);
-        return;
-      }
-      const card = document.createElement("article");
-      card.className = "path-card leg-broken";
-      const title = document.createElement("p");
-      title.className = "leg-label";
-      title.textContent = label;
-      const why = document.createElement("p");
-      why.className = "edge-summary";
-      why.textContent = leg.error
-        ? `This step could not be searched: ${leg.error.message}`
-        : leg.data?.route_status === "no_path"
-          ? "No route connects these two in this release and filters."
-          : "The search for this step did not finish, so nothing is concluded about it.";
-      card.append(title, why);
-      cards.append(card);
+      `${lastUpdatedText()} · ${claim} · ${filterDescription(found[0]?.data?.filters || filters())}` +
+      (final ? ` · ${plural(pairs.length, "pair")} in ${((performance.now() - web.began) / 1000).toFixed(1)} s` : "");
+
+    $("#path-cards").replaceChildren(webMatrix(web), webPairCard(web));
+
+    // One network from every pair's route. The selected pair's route goes
+    // first, so it is the one drawn as the highlighted path.
+    const routes = found.map((pair) => pair.data.paths[0]);
+    const selectedRoute = pairs[web.selected]?.data?.paths?.[0];
+    drawPathGraph({
+      paths: selectedRoute ? [selectedRoute, ...routes.filter((route) => route !== selectedRoute)] : routes,
     });
-    // Join the steps into one chain for the graph; each step starts where the
-    // last one ended, so that person is not repeated.
-    const chain = { hops, people: [], edges: [] };
-    found.forEach((leg) => {
-      const path = leg.data.paths[0];
-      (path.people || []).forEach((person, index) => {
-        const last = chain.people[chain.people.length - 1];
-        if (index === 0 && last && String(last.id) === String(person.id)) return;
-        chain.people.push(person);
-      });
-      chain.edges.push(...(path.edges || []));
-    });
-    const combined = { ...(found[0]?.data || {}), paths: chain.people.length ? [chain] : [],
-                       route_through: people.map((person) => String(person.id)),
-                       steps: legs.map((leg) => ({ from: String(leg.from.id), to: String(leg.to.id),
-                                                   route_status: leg.data?.route_status || null,
-                                                   proven_shortest: leg.data?.global_shortest_proven === true,
-                                                   path: leg.data?.paths?.[0] || null })) };
-    state.lastPath = combined;
-    const distinct = new Set(chain.people.map((person) => String(person.id)));
-    $("#graph-stage").classList.toggle("is-compact", distinct.size > 0 && distinct.size <= 7);
-    drawPathGraph(combined);
-    const stops = new Set(people.map((person) => String(person.id)));
-    // The people the reader chose are drawn apart from those the route found.
-    state.graph.nodes.forEach((node, id) => { if (stops.has(String(id))) node.kind = "path stop"; });
-    fitGraph();
-    renderGraph();
+    const ids = people.map((person) => String(person.id));
+    const group = new Set(ids);
+    state.graph.nodes.forEach((node, id) => { if (group.has(String(id))) node.kind = "path stop"; });
+    layoutWeb(ids);
+    $("#graph-stage").classList.toggle("is-compact", state.graph.nodes.size <= 7);
+    $("#graph-stage").classList.toggle("is-tall", state.graph.nodes.size > 16);
     $("#legend-stop").hidden = false;
-    $("#copy-share").hidden = false;
-    syncUrl();
+    state.lastPath = {
+      ...(found[0]?.data || {}), paths: routes, group: ids,
+      pairs: pairs.map((pair) => ({
+        a: String(pair.a.id), b: String(pair.b.id),
+        route_status: pair.data?.route_status || null,
+        proven_shortest: pair.data?.global_shortest_proven === true,
+        hops: pair.data?.paths?.[0]?.hops ?? null,
+        path: pair.data?.paths?.[0] || null })),
+    };
+    if (final) {
+      $("#copy-share").hidden = false;
+      syncUrl();
+    }
+  }
+
+  const shortName = (person) => {
+    const name = personName(person);
+    return name.length > 18 ? `${name.slice(0, 17)}…` : name;
+  };
+
+  /* Hops between every pair; a cell opens that pair's route. */
+  function webMatrix(web) {
+    const { people, pairs } = web;
+    const wrap = document.createElement("div");
+    wrap.className = "web-matrix-wrap";
+    const table = document.createElement("table");
+    table.className = "web-matrix";
+    const caption = document.createElement("caption");
+    caption.textContent = "Hops between each pair. Select a number to see that route and its evidence.";
+    table.append(caption);
+    const head = document.createElement("tr");
+    head.append(document.createElement("th"));
+    people.forEach((person) => {
+      const th = document.createElement("th");
+      th.scope = "col";
+      th.textContent = shortName(person);
+      th.title = personName(person);
+      head.append(th);
+    });
+    table.append(head);
+    const pairIndex = (i, k) => pairs.findIndex((pair) =>
+      (pair.a === people[i] && pair.b === people[k]) || (pair.a === people[k] && pair.b === people[i]));
+    people.forEach((person, i) => {
+      const row = document.createElement("tr");
+      const th = document.createElement("th");
+      th.scope = "row";
+      th.textContent = shortName(person);
+      th.title = personName(person);
+      row.append(th);
+      people.forEach((_, k) => {
+        const td = document.createElement("td");
+        if (i === k) {
+          td.className = "web-self";
+          td.textContent = "–";
+        } else {
+          const index = pairIndex(i, k);
+          const pair = pairs[index];
+          const cell = document.createElement("button");
+          cell.type = "button";
+          const hops = pair.data?.paths?.[0]?.hops;
+          cell.textContent = !pair.done ? "…" : hops != null ? String(hops)
+            : pair.data?.route_status === "no_path" ? "none" : "?";
+          cell.title = `${personName(pair.a)} and ${personName(pair.b)}`;
+          if (index === web.selected) cell.classList.add("is-selected");
+          cell.disabled = !pair.done;
+          cell.addEventListener("click", () => {
+            web.selected = index;
+            renderWeb(web, pairs.every((item) => item.done));
+          });
+          td.append(cell);
+        }
+        row.append(td);
+      });
+      table.append(row);
+    });
+    wrap.append(table);
+    return wrap;
+  }
+
+  function webPairCard(web) {
+    const pair = web.pairs[web.selected];
+    const label = pair ? `${personName(pair.a)} and ${personName(pair.b)}` : "";
+    if (!pair?.done) {
+      const card = document.createElement("article");
+      card.className = "path-card";
+      card.textContent = `Finding the connection between ${label}…`;
+      return card;
+    }
+    const path = pair.data?.paths?.[0];
+    if (path) {
+      const card = pathCard(path, "This connection", label);
+      if (pair.data.global_shortest_proven !== true) {
+        const note = document.createElement("p");
+        note.className = "edge-summary";
+        note.textContent = "This connection is verified; a shorter one was not ruled out.";
+        card.append(note);
+      }
+      return card;
+    }
+    const card = document.createElement("article");
+    card.className = "path-card leg-broken";
+    const title = document.createElement("p");
+    title.className = "leg-label";
+    title.textContent = label;
+    const why = document.createElement("p");
+    why.className = "edge-summary";
+    why.textContent = pair.error
+      ? `This pair could not be searched: ${pair.error.message}`
+      : pair.data?.route_status === "no_path"
+        ? "No route connects these two in this release and filters."
+        : "The search for this pair did not finish, so nothing is concluded about it.";
+    card.append(title, why);
+    return card;
+  }
+
+  /* A small force layout: the chosen people start on a ring, everyone else
+     starts between the people they link, then springs along edges and a
+     gentle push between all nodes settle it. Deterministic, so the same web
+     is drawn the same way twice. */
+  function layoutWeb(anchorIds) {
+    const nodes = [...state.graph.nodes.values()];
+    const index = new Map(nodes.map((node, i) => [String(node.person.id), i]));
+    const n = nodes.length;
+    if (!n) return;
+    const radius = Math.max(170, 45 * anchorIds.length);
+    const cx = 480;
+    const cy = 320;
+    const px = new Float64Array(n);
+    const py = new Float64Array(n);
+    const placed = new Uint8Array(n);
+    anchorIds.forEach((id, k) => {
+      const i = index.get(id);
+      if (i == null) return;
+      const angle = (2 * Math.PI * k) / anchorIds.length - Math.PI / 2;
+      px[i] = cx + radius * Math.cos(angle);
+      py[i] = cy + radius * Math.sin(angle);
+      placed[i] = 1;
+    });
+    const links = state.graph.edges
+      .map((edge) => [index.get(String(edge.source)), index.get(String(edge.target))])
+      .filter(([a, b]) => a != null && b != null);
+    // Seed each unplaced node at the average of its placed neighbours,
+    // repeating so chains fill in from both ends; the rest start central.
+    for (let round = 0; round < n; round += 1) {
+      let changed = false;
+      for (let i = 0; i < n; i += 1) {
+        if (placed[i]) continue;
+        let sx = 0, sy = 0, count = 0;
+        links.forEach(([a, b]) => {
+          const other = a === i ? b : b === i ? a : -1;
+          if (other >= 0 && placed[other]) { sx += px[other]; sy += py[other]; count += 1; }
+        });
+        if (count) {
+          px[i] = sx / count + ((i * 37) % 23) - 11;
+          py[i] = sy / count + ((i * 53) % 23) - 11;
+          placed[i] = 2;
+          changed = true;
+        }
+      }
+      if (!changed) break;
+    }
+    for (let i = 0; i < n; i += 1) if (!placed[i]) { px[i] = cx; py[i] = cy; }
+    const ideal = 150;
+    const steps = 260;
+    for (let step = 0; step < steps; step += 1) {
+      const fx = new Float64Array(n);
+      const fy = new Float64Array(n);
+      for (let i = 0; i < n; i += 1)
+        for (let k = i + 1; k < n; k += 1) {
+          let dx = px[i] - px[k];
+          let dy = py[i] - py[k];
+          let d2 = dx * dx + dy * dy;
+          if (d2 < 1) { dx = 1; dy = 0; d2 = 1; }
+          const push = ((ideal * ideal) / d2) * 0.05;
+          fx[i] += dx * push; fy[i] += dy * push;
+          fx[k] -= dx * push; fy[k] -= dy * push;
+        }
+      links.forEach(([a, b]) => {
+        const dx = px[b] - px[a];
+        const dy = py[b] - py[a];
+        const d = Math.max(1, Math.hypot(dx, dy));
+        const pull = (d - ideal) * 0.06;
+        fx[a] += (dx / d) * pull; fy[a] += (dy / d) * pull;
+        fx[b] -= (dx / d) * pull; fy[b] -= (dy / d) * pull;
+      });
+      const cool = 1 - step / steps;
+      for (let i = 0; i < n; i += 1) {
+        // The chosen people give the web its shape; they move far less.
+        const weight = placed[i] === 1 ? 0.15 : 1;
+        px[i] += Math.max(-30, Math.min(30, fx[i])) * cool * weight;
+        py[i] += Math.max(-30, Math.min(30, fy[i])) * cool * weight;
+      }
+    }
+    // The panel is far wider than tall and a force layout comes out round,
+    // so flatten it towards the panel's shape - never so far that rows merge.
+    const stage = $("#graph-stage");
+    const aspect = stage.clientHeight / Math.max(1, stage.clientWidth);
+    let minY = Infinity, maxY = -Infinity, minX = Infinity, maxX = -Infinity;
+    for (let i = 0; i < n; i += 1) {
+      minX = Math.min(minX, px[i]); maxX = Math.max(maxX, px[i]);
+      minY = Math.min(minY, py[i]); maxY = Math.max(maxY, py[i]);
+    }
+    const spanX = Math.max(1, maxX - minX);
+    const spanY = Math.max(1, maxY - minY);
+    const squash = spanY / spanX > aspect ? Math.max(0.5, (aspect * spanX) / spanY) : 1;
+    const midY = (minY + maxY) / 2;
+    nodes.forEach((node, i) => { node.x = px[i]; node.y = midY + (py[i] - midY) * squash; });
   }
 
   /* ---------------------------------------- the other kind of connection --- */
@@ -2391,7 +2550,7 @@
       maxY = Math.max(...ys) + ($("#show-labels").checked ? 88 : 60);
     state.graph.scale = Math.min(
       1.6,
-      Math.max(0.3, Math.min(width / (maxX - minX), height / (maxY - minY))),
+      Math.max(0.15, Math.min(width / (maxX - minX), height / (maxY - minY))),
     );
     state.graph.tx = width / 2 - (state.graph.scale * (minX + maxX)) / 2;
     state.graph.ty = height / 2 - (state.graph.scale * (minY + maxY)) / 2;
@@ -4999,10 +5158,6 @@
     });
     $("#swap-people").addEventListener("click", () => {
       invalidateResults();
-      if ((state.stopKeys || []).length) {
-        reverseRoute();
-        return;
-      }
       [state.source, state.target] = [state.target, state.source];
       ["source", "target"].forEach((which) => {
         if (!state[which]) $(`#${which}-query`).value = "";

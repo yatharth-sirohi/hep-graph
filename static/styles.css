@@ -1752,6 +1752,7 @@ body:not([data-tab="connections"]) .disclaimer-short:not(.is-hidden) {
 .route-stop-tools {
   grid-column: 2;
   grid-row: 2;
+  align-self: center;
   display: flex;
   gap: 6px;
 }
@@ -1801,4 +1802,86 @@ body:not([data-tab="connections"]) .disclaimer-short:not(.is-hidden) {
 .legend-node.stop {
   background: #0f6f6a;
   border-color: #0b4f4b;
+}
+
+/* ------------------------------------------------------- web of a group */
+.web-matrix-wrap {
+  overflow-x: auto;
+  margin-bottom: 12px;
+  border: 1px solid var(--line, #dbe4e9);
+  border-radius: 10px;
+  background: #fff;
+}
+.web-matrix {
+  border-collapse: collapse;
+  font-size: 13px;
+  min-width: 100%;
+}
+.web-matrix caption {
+  caption-side: top;
+  text-align: left;
+  padding: 10px 12px 4px;
+  color: var(--muted, #60737c);
+  font-size: 13px;
+}
+.web-matrix th {
+  font-weight: 600;
+  padding: 6px 10px;
+  white-space: nowrap;
+  text-align: left;
+  color: #26414e;
+}
+.web-matrix thead th,
+.web-matrix tr:first-child th {
+  text-align: center;
+}
+.web-matrix td {
+  padding: 4px;
+  text-align: center;
+  border-top: 1px solid #eef2f4;
+}
+.web-matrix td button {
+  min-width: 44px;
+  min-height: 32px;
+  border-radius: 7px;
+  border: 1px solid #cfe6e3;
+  background: #f1f8f7;
+  color: #0f6f6a;
+  font: inherit;
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+  cursor: pointer;
+}
+.web-matrix td button:hover,
+.web-matrix td button:focus-visible {
+  border-color: #0f6f6a;
+}
+.web-matrix td button.is-selected {
+  background: #0f6f6a;
+  border-color: #0f6f6a;
+  color: #fff;
+}
+.web-matrix td button:disabled {
+  cursor: progress;
+  opacity: 0.6;
+}
+.web-matrix .web-self {
+  color: #b7c6cd;
+}
+
+/* In a group there is no direction, so no swap button between the first two. */
+.identity-grid.is-group {
+  grid-template-columns: 1fr 1fr;
+}
+.graph-stage.is-tall {
+  height: 640px;
+}
+@media (max-width: 600px) {
+  .identity-grid.is-group {
+    grid-template-columns: 1fr;
+    grid-template-rows: none;
+  }
+  .graph-stage.is-tall {
+    height: 480px;
+  }
 }
