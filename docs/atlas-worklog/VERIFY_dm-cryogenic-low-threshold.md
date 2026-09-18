@@ -191,3 +191,106 @@ date, and placement I independently re-fetched and did not list as a finding
 matched its cited source exactly. With the eight fixes applied (Findings 1-4),
 this domain's records are accurate to their sources; Finding 5 is unresolved
 and needs a coordinator decision, not a verifier's unilateral restructuring.
+
+## Addendum (2026-09-18): Finding 5 resolved per coordinator instruction
+
+The coordinator asked for Finding 5 to be resolved the way A3 prescribes,
+rather than left as a documented dodge. Two different fixes for the two
+records, since the coordinator drew a real distinction between them:
+
+**SuperCDMS — split into two experiment ids.** SuperCDMS-Soudan
+(2009-2015) has its own independent INSPIRE experiment code (recid
+1298909, FNAL-E-0891) with an explicit terminal `date_completed`
+(2015-01-01, independently re-confirmed via `inspirehep.net/api/experiments/1298909`
+and matching the Symmetry Magazine quote already in the record), so per
+A3's own text ("a revived programme is a new experiment id with lineage")
+it is now `experiment:supercdms-soudan` / `detector:supercdms-soudan`,
+each with an honest terminal `completed` interval (no more non-terminal
+mislabelling). `experiment:supercdms` (SNOLAB) now carries only its own
+SNOLAB-era history and a canonical `lineage: [{"experiment_id":
+"experiment:supercdms-soudan", "relation": "upgrade_of", ...}]` row (A1:
+canonical direction on the newer id only). `collaboration:supercdms` was
+left unchanged and now covers both experiment ids via the *derived*
+`collaboration.experiment_ids` (never authored directly — A1), since both
+experiment records list `collaboration_ids: ["collaboration:supercdms"]`.
+Added `distinct_from` on both experiment records (A20 belt-and-suspenders;
+one real near-collision was caught and fixed: an initial `SuperCDMS-Soudan`
+alias on the new record normalised to the same string as its own name and
+was removed). Coverage file gained a new row for `experiment:supercdms-soudan`
+and the `experiment:supercdms` row's notes were updated.
+
+Bonus find made while re-reading the Soudan INSPIRE record's own
+`description` field (fetched fresh via `inspirehep.net/api/experiments/1298909`,
+not previously pulled by the original research pass, which had only read
+the date fields): "A new style of detector, with interleaved Z-sensitive
+Ionization and Phonon sensors (iZIP), was developed and deployed in the
+CDMS facility at Soudan, resulting in substantially improved rejection of
+surface event backgrounds **that had limited CDMS-II**." This is a citable
+predecessor link from SuperCDMS to CDMS-II that neither the original lead
+nor my first verification pass had found (both had explicitly logged it as
+an unresolved gap). Added as `experiment:supercdms-soudan.lineage ->
+experiment:cdms-ii (predecessor)`, sourced to the same INSPIRE record
+already cited elsewhere in the file, and also used as the new record's
+`technology`/`unique_capabilities` quote (a real technical fact — iZIP
+sensors — that was previously missing from the atlas entirely).
+
+**DAMIC — kept as one experiment id; the Fermilab run is a placement fact,
+not a lifecycle interval.** The coordinator distinguished this from
+SuperCDMS: DAMIC's 2008-2012 Fermilab run was a small-scale R&D prototype,
+not an independent science campaign, so it should not become its own
+experiment id — instead `kind: "phase"` on the interval, or a placement-only
+representation. I tested the `kind: "phase"` route directly against the
+real validator before committing to it: setting the Fermilab prototype
+interval's `status` to the honest `completed` (INSPIRE date_completed
+2012-04-09) with `kind: "phase"` still produced two
+`non-terminal-after-terminal` **errors** against the later SNOLAB
+intervals. Reading `hepgraph/atlas/validate.py`'s `check_intervals`/`_intervals`
+confirmed why: that check does not filter by `kind` at all (`kind` only
+affects state *derivation* in `schema.py`'s `_entity_intervals(lifecycle_only=True)`,
+a different code path) — so `kind: "phase"` alone cannot exempt an
+interval from this check as currently implemented. I reverted that test
+and used the coordinator's other offered option instead: removed the
+"Fermilab prototype" row from `experiment:damic.intervals` entirely and
+kept the fact (2008-12 to 2012-04, Fermilab, INSPIRE date_completed
+2012-04-09 cited) solely in the already-existing, dated `facility_roles`
+row — exactly how `detector:damic.json` already represented this same
+fact (it never had a Fermilab lifecycle interval to begin with, only a
+`placements` row). The lifecycle `intervals` array for `experiment:damic`
+now honestly reads SNOLAB active (2017) → active (2022) → completed
+(2025), with no non-terminal-after-terminal conflict and no relabelled
+status. Documented the reasoning and the validator behaviour in the
+record's own `notes` for future editors, since `kind: "phase"` looking
+like it should work but not currently doing so is a non-obvious trap.
+
+### Validation after the addendum
+
+`.venv/bin/python -m hepgraph.atlas.validate`: repo-wide error count is 17
+as of this run (all in `results/belle-ii-vcb-measurement-2025.json`,
+`results/nova-t2k-joint-oscillation-analysis-2025.json`,
+`results/sk-dsnb-limit-2025.json` — other concurrent workstreams' new
+files; confirmed by grep against this domain's entity names: zero matches).
+**0 errors attributable to any file in this domain**, including the two new
+files (`experiments/supercdms-soudan.json`, `detectors/supercdms-soudan.json`)
+and the modified `experiments/supercdms.json`, `detectors/supercdms.json`,
+`experiments/damic.json`, `data/atlas/coverage/dm-cryogenic-low-threshold.json`.
+One real error was caught and fixed mid-process (`alias-equals-name` on the
+new Soudan record, before I removed the colliding alias). `python -m
+hepgraph.atlas.build` succeeds (31 files); spot-checked the built
+`atlas.json` and confirmed the derived `status` is `active` for
+`experiment:supercdms`, `completed` for `experiment:supercdms-soudan`, and
+`completed` for `experiment:damic` — all three now derive the state their
+sources actually support, with no mislabelling anywhere in this domain.
+
+### Verdict (updated)
+
+Finding 5 is resolved: SuperCDMS is split per A3's own prescription (with a
+bonus, newly-sourced CDMS-II predecessor link), and DAMIC's prototype phase
+is now represented honestly as a dated fact outside the lifecycle timeline
+rather than a relabelled interval — and, notably, the `kind: "phase"`
+mechanism the ontology text implies should handle exactly this case does
+not yet work in the shipped validator, which is itself worth flagging to
+whoever owns `hepgraph/atlas/validate.py` (`check_intervals` should
+probably drop `run`/`phase`-kind rows before computing `terminal_starts`,
+mirroring what `schema._entity_intervals(lifecycle_only=True)` already does
+for state derivation). No new findings from this pass; all prior findings
+and fixes stand.

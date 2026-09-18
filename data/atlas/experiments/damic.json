@@ -32,7 +32,7 @@
       "end": "2012-04",
       "facility_id": "facility:fermilab",
       "locator": "INSPIRE experiment record 1108203 (FNAL-T-0987), fields date_approved / date_completed",
-      "note": "Original shallow-depth Fermilab prototype phase, before the SNOLAB deployment; year/month precision from the INSPIRE registry only.",
+      "note": "Original shallow-depth Fermilab prototype phase, before the SNOLAB deployment. INSPIRE experiment record 1108203 gives date_approved 2008-12-15 and an explicit terminal date_completed 2012-04-09. This phase is deliberately represented only here (a dated facility_roles/placement row) and not as a lifecycle `intervals` row: it was a small-scale R&D prototype, not a revived full science programme (contrast experiment:supercdms-soudan, which WAS split into its own experiment id because it ran a multi-year science campaign with its own terminal INSPIRE record). Keeping a terminal-status `intervals` row for this phase would conflict with the later, still-active/completed SNOLAB intervals under A3's non-terminal-after-terminal check regardless of `Interval.kind`, since the current validator does not filter that check by kind.",
       "role": "prototype_host",
       "sources": [
         "src:damic-inspire-experiment-original"
@@ -58,19 +58,6 @@
   ],
   "id": "experiment:damic",
   "intervals": [
-    {
-      "confidence": "approximate",
-      "end": "2012-04",
-      "label": "Fermilab prototype",
-      "locator": "INSPIRE experiment record 1108203, fields date_approved (2008-12-15) / date_completed (2012-04-09)",
-      "note": "Recorded as non-terminal `active` (not `completed`) because the same experiment id continues below at SNOLAB; A3 forbids a non-terminal interval after a terminal one on one entity. Original CCD prototype run, precision from the INSPIRE registry only.",
-      "sources": [
-        "src:damic-inspire-experiment-original"
-      ],
-      "start": "2008-12",
-      "status": "active",
-      "verified_at": "2026-09-17"
-    },
     {
       "confidence": "verified",
       "end": "2018",
@@ -181,8 +168,9 @@
   },
   "name": "DAMIC",
   "notes": [
-    "Two INSPIRE experiment records exist: the original Fermilab prototype (recid 1108203, FNAL-T-0987, approved 2008-12-15, completed 2012-04-09) and the current SNOLAB programme (recid 1401315). Both are represented as one experiment:damic record with dated intervals, per the same reasoning used for CDMS-II/SuperCDMS. external.inspire_experiment cites the current (SNOLAB) recid.",
-    "RESOLVED by independent verification (2026-09-17): the original research pass recorded status `active` because no source it had fetched stated an end date. A 2025 SNOLAB Future Projects Workshop report (arXiv:2507.11368), fetched during verification, states the original DAMIC detector at SNOLAB has become a test stand for background studies -- i.e. its dark-matter science run is over. Status is now recorded as `completed` with a sourced terminal interval."
+    "Two INSPIRE experiment records exist: the original Fermilab prototype (recid 1108203, FNAL-T-0987, approved 2008-12-15, completed 2012-04-09) and the current SNOLAB programme (recid 1401315). Unlike SuperCDMS-Soudan/SNOLAB (see experiment:supercdms-soudan), the Fermilab prototype is not represented as its own experiment id or as a lifecycle `intervals` row: it was a small-scale R&D device establishing feasibility, not an independent science campaign, so it is recorded only via the dated `facility_roles` row above. `external.inspire_experiment` cites the current (SNOLAB) recid.",
+    "RESOLVED by independent verification (2026-09-17 pass): the original research pass recorded status `active` because no source it had fetched stated an end date. A 2025 SNOLAB Future Projects Workshop report (arXiv:2507.11368), fetched during verification, states the original DAMIC detector at SNOLAB has become a test stand for background studies -- i.e. its dark-matter science run is over. Status is now recorded as `completed` with a sourced terminal interval.",
+    "2026-09-18 fix: the Fermilab prototype's lifecycle `intervals` row was removed (previously labelled non-terminal `active` through 2012-04 specifically to avoid an A3 non-terminal-after-terminal conflict with the later SNOLAB intervals, despite INSPIRE giving an explicit date_completed for that phase). The underlying fact (2008-12 to 2012-04, at Fermilab) is unchanged and remains fully sourced via `facility_roles`; only its representation moved, per the coordinator's instruction that a prototype phase belongs in a dated placement/facility_role row rather than a mislabelled lifecycle interval."
   ],
   "physics_goals": {
     "confidence": "verified",
