@@ -1581,6 +1581,7 @@ ENTITY_FIELDS: dict[str, dict[str, FieldSpec]] = {
         'institution_id': _f('id', ref_type='institution', derived=True),
         'document_ids': _f('ids', ref_type='document', derived=True),
         'experiment_ids': _f('ids', ref_type='experiment', derived=True),
+        'map_id': _f('id', ref_type='map', derived=True),               # A25
     },
     'site': {
         **COMMON_FIELDS,
@@ -1595,6 +1596,7 @@ ENTITY_FIELDS: dict[str, dict[str, FieldSpec]] = {
         'countries': _f('country_list'),
         'place': _f('place', True),
         'document_ids': _f('ids', ref_type='document', derived=True),
+        'map_id': _f('id', ref_type='map', derived=True),               # A25
     },
     'accelerator': {
         **COMMON_FIELDS,
@@ -1611,6 +1613,7 @@ ENTITY_FIELDS: dict[str, dict[str, FieldSpec]] = {
         'serves_experiment_ids': _f('ids', ref_type='experiment', derived=True),
         'beamline_ids': _f('ids', ref_type='beamline', derived=True),
         'document_ids': _f('ids', ref_type='document', derived=True),
+        'geometry_map_ids': _f('ids', ref_type='map', derived=True),    # A25
     },
     'beamline': {
         **COMMON_FIELDS,
@@ -1628,6 +1631,7 @@ ENTITY_FIELDS: dict[str, dict[str, FieldSpec]] = {
         'status': _f('enum', True, enum=STATUSES),
         'experiment_ids': _f('ids', ref_type='experiment', derived=True),
         'document_ids': _f('ids', ref_type='document', derived=True),
+        'geometry_map_ids': _f('ids', ref_type='map', derived=True),    # A25
     },
     'experiment': {
         **COMMON_FIELDS,
@@ -1664,6 +1668,7 @@ ENTITY_FIELDS: dict[str, dict[str, FieldSpec]] = {
         'specs': _f('quantity_map'),
         'subsystems': _f('subsystems'),
         'document_ids': _f('ids', ref_type='document', derived=True),
+        'geometry_map_ids': _f('ids', ref_type='map', derived=True),    # A25
     },
     'collaboration': {
         **COMMON_FIELDS,
