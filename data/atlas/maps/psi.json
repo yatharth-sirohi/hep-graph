@@ -1,0 +1,65 @@
+{
+  "aliases": [],
+  "center": {
+    "confidence": "derived",
+    "kind": "campus",
+    "lat": 47.5375192,
+    "locator": "Area-weighted centroid of the combined OSM campus MultiPolygon (ways 28028409, 26680824, 26680821)",
+    "lon": 8.2250675,
+    "note": "Map centre only; not a claim about any structure.",
+    "precision_m": 300,
+    "sources": [
+      "src:geo-psi-osm-campus-boundary"
+    ],
+    "verified_at": "2026-09-18"
+  },
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "extent_m": 800,
+  "facility_id": "facility:psi",
+  "id": "map:psi",
+  "levels": [
+    {
+      "depth_m": null,
+      "id": "surface",
+      "kind": "surface",
+      "name": "Surface",
+      "note": "No underground level is defined this session: no sourced footprint or depth was found for the HIPA Ring Cyclotron building or the large experimental hall (see accelerator:psi-hipa in unlocated[])."
+    }
+  ],
+  "linked_map_ids": [],
+  "links": {
+    "website": null
+  },
+  "name": "PSI — Villigen and Wurenlingen campus",
+  "notes": [
+    "Overpass (overpass-api.de and lz4.overpass-api.de) refused every connection attempt for the entire PSI/KIT portion of this session (curl: 'Failed to connect ... Couldn't connect to server', not a 429/504 that a backoff would clear). The campus boundary was recovered through Nominatim's polygon_geojson=1 output instead (same underlying OSM way data), but Nominatim only supports name search, not Overpass's tag/bbox queries -- so the HIPA ring-cyclotron building and the large experimental hall (housing MEG-II and Mu3e in the piE5 area) could not be located by name and are not drawn. Named locality nodes 'PSI West' (47.5368N, 8.2222E) and 'PSI Ost' (47.5386N, 8.2300E) corroborate which OSM polygon is which bank, but are themselves place labels, not building footprints, so they are not drawn either.",
+    "geometry:psi-campus-boundary (entity_id site:psi-villigen) accounts for the site and, through it, the placements of detector:meg, detector:meg-ii and detector:mu3e -- none of which has its own hall footprint this session for the same Overpass-outage reason."
+  ],
+  "schema": "hep-atlas/0.2",
+  "schematics": [],
+  "site_ids": [
+    "site:psi-villigen"
+  ],
+  "sources": [
+    "src:geo-psi-osm-campus-boundary"
+  ],
+  "summary": {
+    "plain": "The Paul Scherrer Institute's two-bank campus beside the River Aare in Aargau, Switzerland, drawn to scale from OpenStreetMap as a campus boundary; the HIPA ring cyclotron and its experimental halls could not be located to scale this session because OpenStreetMap's Overpass query service was unreachable throughout.",
+    "technical": "One local map for facility:psi. Only the campus boundary (OSM ways 28028409, 26680824 on the Villigen/west bank and 26680821 on the Wurenlingen/east bank, fetched via Nominatim) is drawn; accelerator:psi-hipa is unlocated pending a working Overpass query for its unnamed building."
+  },
+  "type": "map",
+  "unlocated": [
+    {
+      "backlog": "Retry Overpass once it is reachable again: a tag search (way[\"building\"] or way[\"man_made\"]) inside the 'PSI West' sub-area (near 47.5368N, 8.2222E, inside OSM way 28028409) should find the Ring Cyclotron building even without a name tag, the way DESY's unnamed halls were found by proximity to the HERA ring. Alternatively, request PSI's own site-plan/GIS layer.",
+      "entity_id": "accelerator:psi-hipa",
+      "reason": "The HIPA Ring Cyclotron's own building has no distinctly-named OpenStreetMap element: Nominatim name searches for 'Ringzyklotron PSI', 'Ring Cyclotron PSI Villigen', 'Zyklotron' and 'Cyclotron' (bounded to the PSI campus) all returned zero results, and the tag/bbox-based Overpass search that would find an unnamed building near the accelerator could not run -- both overpass-api.de and lz4.overpass-api.de refused every connection attempt for the entire PSI/KIT portion of this session. site:psi-villigen's own coordinate (precision_m 800) is too coarse to derive a 48 m-circumference ring's position from.",
+      "sources": [
+        "src:facilities-verify-psi-hipa-page"
+      ],
+      "verified_at": "2026-09-18"
+    }
+  ]
+}
