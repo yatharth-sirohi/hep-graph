@@ -146,6 +146,16 @@ def _detector_site_at_admitted_campus_point(root: Path) -> None:
     _mutate(root, "sites/demo-far-cavern.json", edit)
 
 
+def _completed_phase_is_not_terminal(root: Path) -> None:
+    # A3: a completed prototype *phase* before an active lifecycle interval is
+    # not a revival; this mutation must NOT trigger non-terminal-after-terminal.
+    def edit(r: dict) -> None:
+        phase = dict(r["intervals"][0], status="completed", kind="phase",
+                     label="prototype phase", start="2005", end="2007")
+        r["intervals"] = [phase] + r["intervals"]
+    _mutate(root, "experiments/demo.json", edit)
+
+
 def _collapsed_history(root: Path) -> None:
     # A3: one terminal row spanning a lifetime derives "completed" for every year.
     def edit(r: dict) -> None:
@@ -224,6 +234,13 @@ def test_one_mutation_is_caught_under_its_rule(root: Path, name: str,
     assert matches, f'{name!r}: expected rule {rule!r} to fire; got {[str(f) for f in findings]}'
     assert all(finding.level == level for finding in matches), \
         f'{name!r}: expected every {rule!r} finding at level {level!r}, got {[f.level for f in matches]}'
+
+
+def test_completed_phase_does_not_read_as_terminal(root: Path) -> None:
+    _completed_phase_is_not_terminal(root)
+    findings = _validate(root)
+    assert not _findings(findings, "non-terminal-after-terminal"), \
+        [str(f) for f in _findings(findings, "non-terminal-after-terminal")]
 
 
 def test_mutations_are_independent_of_each_other(root: Path) -> None:

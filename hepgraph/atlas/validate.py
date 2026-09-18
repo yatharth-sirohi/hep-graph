@@ -776,12 +776,17 @@ def check_intervals(ctx: _Context) -> Iterator[Finding]:
                                   _pointer('intervals', second),
                                   f'intervals {first} and {second} share the label '
                                   f'{a.get("label")!r} and overlap (§2.3)')
-        terminal_starts = [schema.lo(row.get('start')) for row in rows
+        # A3: only lifecycle intervals set the entity's state, so a completed
+        # run or phase (`kind: run|phase`) is not the end of the programme and
+        # must not make every later lifecycle row look like a revival.
+        lifecycle = [(index, row) for index, row in enumerate(rows)
+                     if (row.get('kind') or 'lifecycle') == 'lifecycle']
+        terminal_starts = [schema.lo(row.get('start')) for _index, row in lifecycle
                            if row.get('status') in schema.TERMINAL_STATUSES]
         terminal_starts = [day for day in terminal_starts if day is not None]
         if terminal_starts:
             earliest_terminal = min(terminal_starts)
-            for index, row in enumerate(rows):
+            for index, row in lifecycle:
                 if row.get('status') in schema.TERMINAL_STATUSES:
                     continue
                 start = schema.lo(row.get('start'))
