@@ -128,6 +128,24 @@ def _detector_at_headquarters_coordinates(root: Path) -> None:
             lambda r: r["coordinates"].__setitem__("kind", "headquarters"))
 
 
+def _detector_site_at_bare_campus_point(root: Path) -> None:
+    # A23: a campus point with no admission of approximation is still an error.
+    def edit(r: dict) -> None:
+        r["coordinates"]["kind"] = "campus"
+        r["coordinates"]["confidence"] = "verified"
+        r["coordinates"]["note"] = ""
+    _mutate(root, "sites/demo-far-cavern.json", edit)
+
+
+def _detector_site_at_admitted_campus_point(root: Path) -> None:
+    # A23: the same point, honestly labelled approximate with a note, only warns.
+    def edit(r: dict) -> None:
+        r["coordinates"]["kind"] = "campus"
+        r["coordinates"]["confidence"] = "approximate"
+        r["coordinates"]["note"] = "hall position not published; campus centroid"
+    _mutate(root, "sites/demo-far-cavern.json", edit)
+
+
 def _baseline_disagrees_with_great_circle(root: Path) -> None:
     def edit(r: dict) -> None:
         r["baselines"][0]["distance"]["value"] = 1
@@ -171,6 +189,10 @@ MUTATION_CASES: tuple[tuple[str, Callable[[Path], None], str, str], ...] = (
      "non-terminal-after-terminal", v.ERROR),
     ("detector at headquarters coordinates", _detector_at_headquarters_coordinates,
      "coordinate-kind", v.ERROR),
+    ("detector site at a bare campus point", _detector_site_at_bare_campus_point,
+     "coordinate-kind", v.ERROR),
+    ("detector site at an admitted campus point", _detector_site_at_admitted_campus_point,
+     "coordinate-kind-approximate", v.WARNING),
     ("baseline disagrees with the great-circle distance", _baseline_disagrees_with_great_circle,
      "baseline-distance", v.ERROR),
     ("display string ten times its value", _display_ten_times_the_value,

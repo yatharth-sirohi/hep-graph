@@ -272,6 +272,16 @@ value or sourced row. `hep_graph` is never authored. A source cited by nothing
 warns. Link-check failures never fail the build; a 404/410 that is the sole
 source of a `verified` value is listed as "review required".
 
+**A23. Approximate detector placement (2026-09-17).** A site that holds a
+detector placement should carry a `detector`/`underground_lab` point. When no
+fetched source gives the hall position, the honest record is a `campus` point
+with `confidence: approximate` (or `uncertain`) and a `note` saying what is
+missing; the validator then warns (`coordinate-kind-approximate`) instead of
+failing, the globe draws the approximate marker style and the panel says
+"approximate location". Relabelling a campus-grade point as `detector` to
+satisfy the validator is forbidden; `kind` describes what the coordinate is,
+`confidence` describes how well it is known.
+
 ## 0. Ground rules
 
 1. **Canonical data is JSON under `data/atlas/`**, one file per entity, human

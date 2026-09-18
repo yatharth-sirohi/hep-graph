@@ -713,9 +713,25 @@ def check_coordinates(ctx: _Context) -> Iterator[Finding]:
                     yield Finding(ERROR, 'coordinate-kind', path, entity_id, pointer,
                                   'a `headquarters` point may only be used for institutions (§2.5)')
                 if entity_id in detector_sites and kind not in schema.DETECTOR_COORDINATE_KINDS:
-                    yield Finding(ERROR, 'coordinate-kind', path, entity_id, pointer,
-                                  f'a site holding a detector needs a globe marker of kind '
-                                  f'{sorted(schema.DETECTOR_COORDINATE_KINDS)}, got {kind!r}')
+                    # A23: a campus-grade point may stand in for a detector
+                    # hall only when the record says so — `confidence`
+                    # approximate/uncertain and a note. Then the globe draws
+                    # an approximate marker and the panel says "approximate
+                    # location"; the alternative (relabelling a campus point
+                    # `detector`) is the dishonest one.
+                    admitted = (kind == 'campus'
+                                and coordinates.get('confidence') in ('approximate', 'uncertain')
+                                and _text(coordinates.get('note')))
+                    if admitted:
+                        yield Finding(WARNING, 'coordinate-kind-approximate', path, entity_id, pointer,
+                                      'A23: a site holding a detector is placed at a campus-grade '
+                                      'point; shown as approximate until a hall position is sourced')
+                    else:
+                        yield Finding(ERROR, 'coordinate-kind', path, entity_id, pointer,
+                                      f'a site holding a detector needs a globe marker of kind '
+                                      f'{sorted(schema.DETECTOR_COORDINATE_KINDS)}, got {kind!r} '
+                                      f'(A23: `campus` is allowed only with `confidence` '
+                                      f'approximate/uncertain and a `note`)')
 
 
 def check_intervals(ctx: _Context) -> Iterator[Finding]:
