@@ -2036,8 +2036,18 @@
       : "This release holds only part of the INSPIRE literature collection, so results may miss connections.";
     card.append(h, p, meta);
   }
+  /* About describes the release, so it reads the release's own coverage. A
+     result payload carries a coverage block too, but that one describes the
+     search and spells completeness `certified_complete` - read as a release
+     block it has no `complete` key, so every finished search rewrote About to
+     say this release holds only part of INSPIRE. */
   function displayCoverage(coverage) {
-    populateAbout(coverage);
+    const release = state.dataset?.coverage || coverage;
+    if (!release) return;
+    populateAbout({
+      ...release,
+      complete: release.complete ?? release.certified_complete ?? false,
+    });
   }
   async function loadDataset({ restoreQuery = true } = {}) {
     const revision = state.revision;

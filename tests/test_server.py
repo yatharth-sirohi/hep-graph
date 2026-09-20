@@ -314,3 +314,32 @@ def test_a_person_summary_is_asked_for_by_name(service):
     assert status == 200 and seen.get("summary") is True
     local.request("/api/person/1621061")
     assert seen.get("summary") is False
+
+
+def test_the_page_and_its_files_are_cacheable_by_a_shared_cache_and_revalidate(service):
+    """Every visit used to re-run this server for the page, its script and its
+    stylesheet, because each was served `no-cache`. They now carry a shared-cache
+    lifetime and a content ETag, so a CDN answers repeat visitors and a browser's
+    conditional request costs a 304 instead of the file."""
+    base, _, _ = service
+    status, headers, body = base.request("/app.js")
+    assert status == 200
+    assert "s-maxage=86400" in headers["Cache-Control"]
+    etag = headers["ETag"]
+    assert etag and body
+
+    status, headers, body = base.request(
+        "/app.js", extra_headers=(f"If-None-Match: {etag}",))
+    assert status == 304 and body == b""
+    assert headers["ETag"] == etag
+
+    # A different file must not answer another file's ETag.
+    assert base.request("/styles.css", extra_headers=(f"If-None-Match: {etag}",))[0] == 200
+
+    # The shell turns over quickly, so a new release is picked up without
+    # waiting a day for the scripts it names.
+    shell = base.request("/")[1]["Cache-Control"]
+    assert "s-maxage=60" in shell and "public" in shell
+
+    # An answer about the data is never held by a shared cache.
+    assert base.request("/api/dataset")[1]["Cache-Control"] == "no-store"

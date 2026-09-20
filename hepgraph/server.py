@@ -338,6 +338,30 @@ class Handler(BaseHTTPRequestHandler):
             if not asset:
                 state.workers.release()
 
+    #: How long a CDN in front of this server may reuse the page shell and the
+    #: files it names.  The browser is asked to revalidate every time
+    #: (`max-age=0`) and gets a cheap 304, while the shared cache answers for
+    #: everyone else - on Vercel these four files were a serverless invocation
+    #: per visit each.  A deployment starts with an empty edge cache, so a
+    #: release is never served the previous build's scripts.
+    SHELL_CACHE_CONTROL = 'public, max-age=0, s-maxage=60, stale-while-revalidate=600'
+    ASSET_CACHE_CONTROL = 'public, max-age=0, s-maxage=86400, stale-while-revalidate=604800'
+
+    def respond_static(self, filename, mime):
+        """Serve one file from static/, revalidated by content hash."""
+        body = (ROOT / 'static' / filename).read_bytes()
+        etag = '"' + hashlib.sha256(body).hexdigest()[:32] + '"'
+        cache_control = (self.SHELL_CACHE_CONTROL if filename.endswith('.html')
+                         else self.ASSET_CACHE_CONTROL)
+        if _etag_matches(self.headers.get('If-None-Match'), etag):
+            self.send_response(304)
+            self.send_header('ETag', etag)
+            self.send_header('Cache-Control', cache_control)
+            self.end_headers()
+            return None
+        return self.respond(body, content_type=mime + '; charset=utf-8',
+                            cache_control=cache_control, etag=etag)
+
     def respond_atlas(self, path):
         """Serve one file of the HEP Atlas tree; anything doubtful is not_found."""
         not_found = {'status': 'not_found'}
@@ -386,8 +410,7 @@ class Handler(BaseHTTPRequestHandler):
             if path not in assets:
                 return self.respond({'status': 'not_found'}, 404)
             filename, mime = assets[path]
-            return self.respond((ROOT / 'static' / filename).read_bytes(),
-                                content_type=mime + '; charset=utf-8')
+            return self.respond_static(filename, mime)
         pairs = urllib.parse.parse_qs(parsed.query, keep_blank_values=True, max_num_fields=20)
         if any(len(v) != 1 for v in pairs.values()):
             raise ValueError('Duplicate query parameters are not allowed.')

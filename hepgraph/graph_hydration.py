@@ -45,6 +45,10 @@ MAX_CACHE_BYTES = 4 * 1024 * 1024
 
 PEOPLE, WORKS = "people", "works"
 _COLLECTION = {PEOPLE: "authors", WORKS: "literature"}
+#: Cache namespace for a work's byline, stored beside the work itself so a
+#: cached paper can still be checked against the source.  It is never fetched
+#: or hydrated on its own, so it is not a hydration kind.
+MEMBERS = "work-members"
 
 
 class InspireLike(Protocol):
@@ -272,6 +276,15 @@ class Hydrator:
             if cached is not None:
                 self.cache_hits += 1
                 results[ident] = cached
+                # A cached paper must still be able to confirm or contradict the
+                # edge that cites it.  Without its byline the route would be
+                # reported unverified purely because the paper was fetched
+                # recently, which reads as missing evidence rather than what it
+                # is: evidence already in hand.
+                if kind == WORKS:
+                    members = self._cache.get(MEMBERS, ident)
+                    if members is not None:
+                        self.work_members[ident] = frozenset(members["ids"])
                 continue
             pending.append(ident)
         for start in range(0, len(pending), BATCH_SIZE):
@@ -282,6 +295,13 @@ class Hydrator:
                 if payload is not None:
                     entry = (_person_entry if kind == PEOPLE else _work_entry)(ident, payload)
                     self._cache.put(kind, ident, entry)
+                    # Kept for exactly as long as the entry it belongs to.  An
+                    # unlinked byline is stored as nothing, which is how the
+                    # edge check already reads a record that can confirm
+                    # nothing.
+                    members = self.work_members.get(ident)
+                    if kind == WORKS and members:
+                        self._cache.put(MEMBERS, ident, {"ids": sorted(members)})
                     results[ident] = entry
                 else:
                     self._fail(results, kind, ident, failure or reasons.get(ident, "not_found"))

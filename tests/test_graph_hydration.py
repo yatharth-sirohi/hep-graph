@@ -284,3 +284,33 @@ def test_budget_validation_rejects_unbounded_allowances() -> None:
         Hydrator(FakeInspire(), budget=HydrationBudget(deadline_seconds=0.0))
     with pytest.raises(ValueError):
         Hydrator(FakeInspire(), budget=HydrationBudget(max_works=10_000))
+
+
+def test_a_cached_work_still_carries_the_byline_that_checks_its_edge() -> None:
+    """The byline is what confirms an edge against INSPIRE.
+
+    It used to be kept only for a work fetched in this process, so a route
+    whose papers were still in the cache reported every edge unverified - not
+    because INSPIRE disagreed, but because the paper had been fetched recently.
+    """
+    clock = Clock()
+    cache = HydrationCache(ttl_seconds=60.0, clock=clock)
+    client = FakeInspire(works("11"))
+
+    first = Hydrator(client, cache=cache, clock=clock, sleep=clock.sleep)
+    first.hydrate_works(("11",))
+    assert first.requests_made == 1
+    assert first.work_members["11"] == frozenset({"900"})
+
+    second = Hydrator(client, cache=cache, clock=clock, sleep=clock.sleep)
+    second.hydrate_works(("11",))
+    assert second.requests_made == 0 and second.cache_hits == 1
+    assert second.work_members["11"] == frozenset({"900"})
+
+    # The byline expires with the entry it belongs to: a refetched work is
+    # checked against a freshly read byline, never a remembered one.
+    clock.now += 61.0
+    third = Hydrator(client, cache=cache, clock=clock, sleep=clock.sleep)
+    third.hydrate_works(("11",))
+    assert third.requests_made == 1
+    assert third.work_members["11"] == frozenset({"900"})

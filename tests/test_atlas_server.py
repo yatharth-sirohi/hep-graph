@@ -354,7 +354,9 @@ def test_hep_graph_routes_are_unchanged(service, atlas_dir) -> None:
     status, headers, body = _request(base, "/")
     assert status == 200
     assert headers["Content-Type"] == "text/html; charset=utf-8"
-    assert headers["Cache-Control"] == "no-cache"
+    # The shell is cacheable by a shared cache and revalidated by ETag; what
+    # this test guards is that serving the atlas did not change these routes.
+    assert headers["Cache-Control"] == server_module.Handler.SHELL_CACHE_CONTROL
     assert b"HEP Graph" in body
     _assert_security_headers(headers)
 
@@ -368,7 +370,9 @@ def test_hep_graph_routes_are_unchanged(service, atlas_dir) -> None:
         status, headers, body = _request(base, path)
         assert status == 200, path
         assert headers["Content-Type"] == content_type
-        assert headers["Cache-Control"] == "no-cache"
+        assert headers["Cache-Control"] == (
+            server_module.Handler.SHELL_CACHE_CONTROL if path.endswith(".html")
+            else server_module.Handler.ASSET_CACHE_CONTROL)
         assert body
 
     status, headers, body = _request(base, "/api/health")
