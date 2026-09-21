@@ -180,6 +180,9 @@ export function legendGroups(levels) {
   ]);
   const representationRows = ['surveyed', 'georeferenced', 'derived', 'inferred_direction']
     .map((key) => [`legend-rep-${key}`, REPRESENTATION_STYLES[key].label, REPRESENTATION_STYLES[key].hint]);
+  representationRows.push(['legend-rep-point', 'Position only (a circle with a centre mark)',
+    'no source gives this feature a footprint, so what is drawn is its position and a circle of '
+    + 'its positional accuracy — the circle is the uncertainty, not the building']);
   return [
     { title: 'Feature type', note: 'What kind of thing the shape is.', rows: typeRows },
     { title: 'Status in the selected year', note: 'Read from the entity’s recorded history at the year on the timeline, not from a fixed label.', rows: statusRows },

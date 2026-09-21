@@ -45,6 +45,8 @@ let tileLayer = null;
 let featureGroup = null;
 let layersByFeature = new Map();
 let view = { levels: null, basemap: true, sel: null, timelineState: { year: null } };
+let polarProjection = false;
+let framed = false;
 let showOutside = false;
 let depthOpen = false;
 let selOpener = null;
@@ -182,8 +184,8 @@ function ensureDom() {
       + 'buttons under “Features on this map” in the panel to its left, which is the '
       + 'keyboard and screen-reader equivalent.',
   });
-  const north = h('div', { class: 'map-north', 'aria-hidden': 'true' }, [
-    h('span', { class: 'map-north-arrow' }, '↑'),
+  const north = h('div', { class: 'map-north' }, [
+    h('span', { class: 'map-north-arrow', 'aria-hidden': 'true' }, '↑'),
     h('span', { class: 'map-north-label' }, 'N'),
   ]);
   const tileNotice = h('p', { class: 'map-tile-notice hidden', id: 'map-tile-notice', role: 'status' });
@@ -267,36 +269,145 @@ function destroyMap() {
     mapInstance.remove();
     mapInstance = null;
   }
+  polarProjection = false;
+  framed = false;
   if (window.__hepAtlasLocalMap) delete window.__hepAtlasLocalMap;
   tileLayer = null;
   featureGroup = null;
   layersByFeature = new Map();
 }
 
+// Web Mercator cannot draw a pole: Leaflet's EPSG3857 clamps latitude to
+// ±85.0511, so a map centred at −89.998° would be framed 550 km away from
+// the thing it depicts, and projecting the view corners produces NaN. Any
+// map whose centre is inside either polar cap therefore gets a local
+// azimuthal-equidistant projection in metres instead, with the 0° meridian
+// as *grid* north (the convention used at Amundsen–Scott, and the axis
+// convention of EPSG:3031 for the southern cap).
+const POLAR_LAT = 85;
+
+export function isPolar(centre) {
+  return Math.abs(centre.lat) > POLAR_LAT;
+}
+
+function polarCRS(L, centre) {
+  const south = centre.lat < 0;
+  const projection = {
+    // Distance from the pole is the true great-circle distance, so a metre
+    // on this map is a metre on the ground in every direction from the
+    // pole — which is the whole point of an equidistant projection here.
+    project(latLng) {
+      const colatitude = toRad(south ? 90 + latLng.lat : 90 - latLng.lat);
+      const rho = colatitude * EARTH_R;
+      const lambda = toRad(latLng.lng);
+      return new L.Point(rho * Math.sin(lambda),
+        (south ? 1 : -1) * rho * Math.cos(lambda));
+    },
+    unproject(point) {
+      const rho = Math.sqrt(point.x * point.x + point.y * point.y);
+      const colatitude = toDeg(rho / EARTH_R);
+      const lambda = Math.atan2(point.x, (south ? 1 : -1) * point.y);
+      return new L.LatLng(south ? colatitude - 90 : 90 - colatitude, toDeg(lambda));
+    },
+    bounds: L.bounds([-Math.PI * EARTH_R, -Math.PI * EARTH_R],
+      [Math.PI * EARTH_R, Math.PI * EARTH_R]),
+  };
+  return L.extend({}, L.CRS, {
+    code: south ? 'HEP:SouthPolarAzimuthalEquidistant' : 'HEP:NorthPolarAzimuthalEquidistant',
+    projection,
+    // One projected unit is one metre, and scale(0) = 1 px per metre, so
+    // zoom is a plain power of two on a metre grid (negative zooms are
+    // normal here — see minZoom below).
+    transformation: new L.Transformation(1, 0, -1, 0),
+    scale: (zoom) => 2 ** zoom,
+    zoom: (scale) => Math.log(scale) / Math.LN2,
+    infinite: true,
+    wrapLng: undefined,
+    wrapLat: undefined,
+    // The scale bar and every measurement must read true ground metres, the
+    // same great-circle metres the geometry bundle's `measured` values use.
+    distance: (a, b) => greatCircleM([a.lat, a.lng], [b.lat, b.lng]),
+  });
+}
+
+/** Metres per pixel the current view would need to span 2 × extent_m across
+ *  its shorter side, expressed as a zoom for whichever CRS is in use. */
+function zoomForExtent() {
+  const size = mapInstance.getSize();
+  const shorter = Math.min(size.x, size.y);
+  if (!shorter) return null;
+  const span = 2 * (mapMeta.extent_m || 3000);
+  const metresPerPixel = span / shorter;
+  if (polarProjection) return -Math.log2(metresPerPixel);
+  // Web Mercator: 156543.03392 m/px at zoom 0 on the equator, scaled by
+  // cos(latitude) — evaluated at this map's own centre.
+  const atEquator = 156543.033928 * Math.cos(toRad(mapMeta.center.lat));
+  return Math.log2(atEquator / metresPerPixel);
+}
+
+/**
+ * Frame the view from the map record's own `center` and `extent_m` — never
+ * from the drawn features' bounding box. Several maps carry an
+ * `inferred_direction` line hundreds of kilometres long (T2K's 295 km to
+ * Kamioka, CNGS's 730 km to Gran Sasso); fitting the features would zoom
+ * the campus out to nothing to accommodate a line that is not a structure.
+ */
+function frameToExtent() {
+  const zoom = zoomForExtent();
+  if (zoom == null) return false;
+  mapInstance.setView([mapMeta.center.lat, mapMeta.center.lon], zoom, { animate: false });
+  return true;
+}
+
 function createMap(L) {
   const { lat, lon } = mapMeta.center;
-  mapInstance = L.map(dom.canvas, {
+  polarProjection = isPolar(mapMeta.center);
+  const options = {
     center: [lat, lon],
     zoom: 14,
     zoomControl: true,
     keyboard: true,
     attributionControl: true,
     preferCanvas: false,
-  });
+    // Fractional zoom, so the opening view is exactly the extent the record
+    // declares rather than the nearest whole power of two.
+    zoomSnap: 0,
+    zoomDelta: 0.5,
+  };
+  if (polarProjection) {
+    options.crs = polarCRS(L, mapMeta.center);
+    // A metre grid needs negative zooms: at zoom 0 one pixel is one metre,
+    // so a 6 km-wide view of the pole sits near zoom −3.
+    options.minZoom = -24;
+    options.maxZoom = 14;
+    options.zoom = 0;
+  }
+  mapInstance = L.map(dom.canvas, options);
   L.control.scale({ imperial: false, metric: true, position: 'bottomleft' }).addTo(mapInstance);
-  // Fit the map to the extent the map record declares, so what opens is the
-  // campus the record describes rather than an arbitrary zoom.
-  const half = mapMeta.extent_m || 3000;
-  const sw = destination(lat, lon, 225, half * Math.SQRT2);
-  const ne = destination(lat, lon, 45, half * Math.SQRT2);
-  mapInstance.fitBounds([sw, ne]);
   featureGroup = L.layerGroup().addTo(mapInstance);
+  // The container was display:none until the route's layout class landed on
+  // #atlas-main, so it can still measure 0 × 0 here; framing then collapses
+  // to zoom 0 (the whole world). Try now, and again from show() once the
+  // browser has laid the stage out.
+  framed = frameToExtent();
   // A test/debug handle: the browser suite reads the scale control's label
   // and pixel width and checks it against map.distance() at the view centre.
   window.__hepAtlasLocalMap = mapInstance;
 }
 
 function applyBasemap(L) {
+  if (polarProjection) {
+    // OpenStreetMap ships no tiles in this projection — and Web Mercator
+    // raster tiles do not exist for the pole at all — so the basemap is not
+    // merely off here, it is unavailable, and the notice says which.
+    dom.tileNotice.textContent = 'No basemap at the pole: the OpenStreetMap tile set is Web '
+      + 'Mercator, which cannot represent latitude 90°. This map uses a local azimuthal '
+      + 'projection in metres, so the atlas’s own to-scale features are drawn on a plain '
+      + 'background. The scale bar and the grid-north indicator are unaffected.';
+    dom.tileNotice.classList.remove('hidden');
+    mapInstance.getContainer().classList.add('basemap-off');
+    return;
+  }
   if (view.basemap) {
     if (!tileLayer) {
       tileLayer = L.tileLayer(TILE_URL, {
@@ -340,6 +451,11 @@ function tooltipFor(feature) {
   if (feature.feature_type === 'direction_line' || feature.representation === 'inferred_direction') {
     lines.push('inferred direction — not a structure');
   }
+  if (feature.geometry.type === 'Point' || feature.geometry.type === 'MultiPoint') {
+    lines.push(feature.accuracy_m != null
+      ? `position only — the circle is its ±${feature.accuracy_m} m accuracy, not a footprint`
+      : 'position only — no footprint is sourced for this feature');
+  }
   return lines.join('\n');
 }
 
@@ -361,6 +477,24 @@ function lineCoords(geometry) {
   return null;
 }
 
+/** Leaflet's default for a GeoJSON Point is a pin marker, which is exactly
+ *  what §4 rules out: a pin asserts a position and says nothing about what
+ *  is known. A quarter of the real features are Points — a cavern, an
+ *  instrument, an array whose footprint no source gives — and what *is*
+ *  known about each is a position plus a positional accuracy. So each is
+ *  drawn to scale as a circle of radius `accuracy_m` (the uncertainty
+ *  itself, as a real ground distance) with a small screen-sized centre
+ *  mark so it stays findable when zoomed out. Both are SVG paths, both
+ *  carry the same four encodings as every other feature. */
+function pointLayers(L, feature, options) {
+  const radius = feature.accuracy_m != null && feature.accuracy_m > 0 ? feature.accuracy_m : 25;
+  return {
+    pointToLayer: (_geoJsonPoint, latlng) => L.circle(latlng, {
+      ...options, radius, fill: true, fillColor: options.color, fillOpacity: options.fillOpacity || 0.12,
+    }),
+  };
+}
+
 function drawFeatures(L) {
   featureGroup.clearLayers();
   layersByFeature = new Map();
@@ -370,12 +504,24 @@ function drawFeatures(L) {
     const s = featureStatus(feature);
     const ghost = !s.timeless && !s.status;
     const options = mapstyle.pathOptions(feature, { level, status: s.status, ghost });
+    const isPoint = feature.geometry.type === 'Point' || feature.geometry.type === 'MultiPoint';
     const parts = [];
-    if (mapstyle.levelIsSubsurface(level)) {
+    if (mapstyle.levelIsSubsurface(level) && !isPoint) {
       parts.push(L.geoJSON(feature.geometry, { style: () => mapstyle.casingOptions(feature, { ghost }) }));
     }
-    const main = L.geoJSON(feature.geometry, { style: () => options });
+    const main = L.geoJSON(feature.geometry, {
+      style: () => options,
+      ...(isPoint ? pointLayers(L, feature, options) : {}),
+    });
     parts.push(main);
+    if (isPoint) {
+      parts.push(L.geoJSON(feature.geometry, {
+        pointToLayer: (_p, latlng) => L.circleMarker(latlng, {
+          ...options, radius: 4, fill: true, fillColor: options.color, fillOpacity: 0.9,
+          dashArray: null, weight: 1.5,
+        }),
+      }));
+    }
     const t = mapstyle.typeStyle(feature.feature_type);
     const coords = t.arrow ? lineCoords(feature.geometry) : null;
     if (coords && coords.length >= 2) {
@@ -448,6 +594,7 @@ function featureRow(feature) {
         not_yet: 'not yet built', ended: 'no longer present', gap: 'no recorded status',
         no_history: 'no recorded history',
       }[timelineAbsenceReason(feature.state_segments, view.timelineState || {})] || 'not present'} in ${whenLabel()}`);
+  const isPoint = feature.geometry.type === 'Point' || feature.geometry.type === 'MultiPoint';
   const btn = h('button', {
     type: 'button',
     class: `map-feature-row${ghost ? ' is-ghosted' : ''}${selected ? ' is-selected' : ''}`,
@@ -459,6 +606,7 @@ function featureRow(feature) {
       `${t.label} · ${level ? level.name : feature.level_id}`),
     h('span', { class: 'map-feature-meta' },
       `${statusText} · ${mapstyle.accuracyText(feature)}`),
+    isPoint ? h('span', { class: 'map-feature-meta' }, 'position only — no sourced footprint') : null,
   ]);
   btn.addEventListener('click', () => selectFrom(feature, btn));
   return btn;
@@ -635,10 +783,16 @@ function renderSidebar() {
     lastAnnouncedSel || ''));
 
   // ---- view controls
-  const basemapBtn = toggleButton('OpenStreetMap basemap', view.basemap, () => {
+  const basemapBtn = toggleButton('OpenStreetMap basemap', view.basemap && !polarProjection, () => {
+    if (polarProjection) return;
     NAVIGATE({ basemap: !view.basemap });
   }, 'map-basemap-toggle');
   basemapBtn.id = 'map-basemap-toggle';
+  if (polarProjection) {
+    basemapBtn.disabled = true;
+    basemapBtn.setAttribute('aria-disabled', 'true');
+    basemapBtn.setAttribute('aria-describedby', 'map-basemap-unavailable');
+  }
   const outsideBtn = toggleButton('Show features outside the selected year', showOutside, () => {
     showOutside = !showOutside;
     redraw();
@@ -649,7 +803,17 @@ function renderSidebar() {
     'aria-expanded': depthOpen ? 'true' : 'false', 'aria-controls': 'map-depth',
   }, 'Depth view — vertical section diagram');
   depthBtn.addEventListener('click', () => { depthOpen = !depthOpen; renderDepth(); renderSidebar(); });
-  layers.appendChild(panelSection('View', [basemapBtn, outsideBtn, depthBtn]));
+  layers.appendChild(panelSection('View', [
+    basemapBtn,
+    polarProjection
+      ? h('p', { class: 'map-note', id: 'map-basemap-unavailable' },
+        'No basemap at the pole: OpenStreetMap\u2019s tiles are Web Mercator, which cannot '
+        + 'represent latitude 90\u00b0. This map uses a local azimuthal projection in metres '
+        + 'instead, so there is no basemap to turn on.')
+      : null,
+    outsideBtn,
+    depthBtn,
+  ]));
 
   layers.appendChild(panelSection('Levels', [
     h('p', { class: 'map-note' },
@@ -900,6 +1064,29 @@ function renderDepth() {
 
 // ------------------------------------------------------------ stage chrome
 
+/** At a pole every direction is north, so the arrow cannot mean true north.
+ *  It means grid north: the 0° meridian, which is the convention used at
+ *  Amundsen–Scott and the +Y axis of this map's projection. */
+function renderNorthIndicator() {
+  const arrow = dom.stage.querySelector('.map-north-arrow');
+  const label = dom.stage.querySelector('.map-north-label');
+  const box = dom.stage.querySelector('.map-north');
+  if (!arrow || !label || !box) return;
+  if (polarProjection) {
+    label.textContent = 'grid north (0° meridian)';
+    box.classList.add('is-grid-north');
+    box.setAttribute('role', 'note');
+    box.setAttribute('aria-label',
+      'Up on this map is grid north: the 0° meridian. True north is not a direction here — '
+      + 'every direction from the pole is north.');
+  } else {
+    label.textContent = 'N';
+    box.classList.remove('is-grid-north');
+    box.setAttribute('role', 'note');
+    box.setAttribute('aria-label', 'Up on this map is true north.');
+  }
+}
+
 function redraw() {
   const L = window.L;
   drawFeatures(L);
@@ -967,6 +1154,7 @@ export async function show(current, ctx) {
     let L;
     try {
       [L, bundle] = await Promise.all([loadLeaflet(), fetchBundle(ctx.loaderBase, meta.bundle)]);
+      createMap(L);
     } catch (error) {
       currentMapId = null;
       // §"Correctness rules": an upstream failure is an error, never an
@@ -983,16 +1171,40 @@ export async function show(current, ctx) {
           return retry;
         })(),
       ]);
+      destroyMap();
+      currentMapId = null;
+      renderMessage([
+        h('h2', { class: 'map-title', tabindex: '-1' }, meta.name),
+        h('p', { class: 'error-note', role: 'alert' },
+          `The local map for ${meta.name} could not be opened: ${error.message}. `
+          + 'Nothing is drawn, because a blank map would look like a laboratory with no '
+          + 'structures rather than a failed request.'),
+        (() => {
+          const retry = h('button', { type: 'button', class: 'text-btn' }, 'Retry');
+          retry.addEventListener('click', () => { currentMapId = null; show(current, ctx); });
+          return retry;
+        })(),
+      ]);
       return;
     }
-    createMap(L);
   }
 
   mapMeta = meta;
   const L = window.L;
-  applyBasemap(L);
-  drawFeatures(L);
+  try {
+    applyBasemap(L);
+    drawFeatures(L);
+  } catch (error) {
+    window.console.error('HEP Atlas local map: could not draw', error);
+    renderMessage([
+      h('h2', { class: 'map-title', tabindex: '-1' }, meta.name),
+      h('p', { class: 'error-note', role: 'alert' },
+        `The local map for ${meta.name} could not be drawn: ${error.message}.`),
+    ]);
+    return;
+  }
   renderSidebar();
+  renderNorthIndicator();
   renderDepth();
   renderDrawer();
 
@@ -1014,8 +1226,17 @@ export async function show(current, ctx) {
   }
 
   // Leaflet sizes itself from the container, which was display:none until
-  // the map route's layout class landed on #atlas-main.
-  if (mapInstance) window.requestAnimationFrame(() => mapInstance.invalidateSize());
+  // the map route's layout class landed on #atlas-main — so the map was very
+  // likely built against a 0 × 0 box, where framing collapses to zoom 0 (the
+  // whole world). Measure again on the next frame and, if the opening view
+  // was never framed, frame it now from center/extent_m.
+  if (mapInstance) {
+    window.requestAnimationFrame(() => {
+      if (!mapInstance) return;
+      mapInstance.invalidateSize({ animate: false });
+      if (!framed) framed = frameToExtent();
+    });
+  }
 }
 
 export function hide() {

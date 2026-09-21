@@ -1316,6 +1316,9 @@ body.about-page {
   }
   .about-toc {
     position: static;
+  }
+}
+
 /* ---- local map ----------------------------------------------------------
    The 2D, to-scale local-map view (docs/HEP_ATLAS_GEOMETRY.md §4). Everything
    below belongs to `#/map/<slug>`; the route puts `.is-map-route` on
@@ -1574,6 +1577,13 @@ body.about-page {
 .map-swatch.legend-rep-georeferenced { border-top-color: #cdd7dc; }
 .map-swatch.legend-rep-derived { border-top-color: #8d9aa2; }
 .map-swatch.legend-rep-inferred_direction { border-top-style: dotted; border-top-color: #c98bd6; }
+.map-swatch.legend-rep-point {
+  height: 12px;
+  width: 12px;
+  border: 2px solid var(--white);
+  border-radius: 50%;
+  background: #f4f7f833;
+}
 
 /* ---- centre: the map stage */
 .map-stage {
@@ -1652,11 +1662,18 @@ body.about-page {
   display: block;
   font-size: 15px;
 }
+/* At a pole the arrow means grid north, not true north, and the label says
+   so in full — so it needs room the single "N" does not. */
+.map-north.is-grid-north {
+  max-width: 190px;
+  text-align: center;
+  border-color: var(--amber);
+}
 .map-tile-notice {
   position: absolute;
   left: 50px;
-  right: 50px;
-  top: 10px;
+  right: 10px;
+  top: 58px;
   z-index: 1100;
   margin: 0;
   background: var(--panel);
@@ -1794,6 +1811,12 @@ body.about-page {
 }
 .fallback-nomap {
   color: var(--muted);
+}
+.local-map-chip-row {
+  margin: 0 0 8px;
+}
+a.local-map-chip {
+  color: var(--teal);
 }
 
 /* ---- mobile: stacked, with the drawer as a bottom sheet */

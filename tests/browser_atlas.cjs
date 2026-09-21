@@ -593,7 +593,15 @@ async function setRangeValue(locator, value) {
     } catch (error) {
       mapsError = error.message;
     }
-    const mapId = Object.keys(mapsMeta).find((id) => mapsMeta[id].feature_count > 0) || null;
+    // The richest map, not the alphabetically first: the generated tree's
+    // first map is the South Pole, which has one feature and cannot
+    // exercise level toggles, rings or year filtering at all.
+    const mapId = Object.keys(mapsMeta)
+      .filter((id) => mapsMeta[id].feature_count > 0)
+      .sort((a, b) => mapsMeta[b].feature_count - mapsMeta[a].feature_count)[0] || null;
+    // Any map inside a polar cap, which cannot use Web Mercator at all.
+    const polarMapId = Object.keys(mapsMeta)
+      .find((id) => Math.abs(mapsMeta[id].center.lat) > 85) || null;
 
     if (!mapId) {
       await record("Local map view — skipped: no maps in this tree", async () => {
@@ -692,6 +700,189 @@ async function setRangeValue(locator, value) {
           + `${measured.groundMetres.toFixed(1)} m on the ground — ${(100 * error).toFixed(2)} % out, want <= 2 %`);
         await mapContext.close();
       });
+
+      await record("Local map: the opening view is framed by center/extent_m, not by the features", async () => {
+        const { mapContext, p } = await openMap();
+        const framing = await p.evaluate(() => {
+          const m = window.__hepAtlasLocalMap;
+          const size = m.getSize();
+          const mid = size.y / 2;
+          return {
+            centre: [m.getCenter().lat, m.getCenter().lng],
+            widthM: m.distance(m.containerPointToLatLng([0, mid]), m.containerPointToLatLng([size.x, mid])),
+            heightM: m.distance(m.containerPointToLatLng([size.x / 2, 0]), m.containerPointToLatLng([size.x / 2, size.y])),
+            sx: size.x, sy: size.y,
+          };
+        });
+        // The record's own extent_m spans the shorter side of the stage.
+        const expectedShorter = 2 * meta.extent_m;
+        const measuredShorter = Math.min(framing.widthM, framing.heightM);
+        const error = Math.abs(measuredShorter - expectedShorter) / expectedShorter;
+        console.log("framing:", JSON.stringify({
+          map: mapId, extent_m: meta.extent_m, expectedShorter,
+          measuredShorter: Math.round(measuredShorter), errorPercent: Number((100 * error).toFixed(2)),
+        }));
+        assert.ok(error <= 0.02,
+          `opening view spans ${Math.round(measuredShorter)} m across its shorter side, but the map `
+          + `record declares extent_m ${meta.extent_m} (so ${expectedShorter} m) — ${(100 * error).toFixed(1)} % out`);
+        assert.ok(Math.abs(framing.centre[0] - meta.center.lat) < 0.01
+          && Math.abs(framing.centre[1] - meta.center.lon) < 0.01,
+        "the opening view is centred on the record's own centre");
+
+        // And the decisive case: a map carrying a feature far outside its
+        // extent must still open at its extent. Fitting the features would
+        // zoom a campus out to nothing to accommodate an inferred-direction
+        // line that is not a structure (T2K's is 295 km, CNGS's 730 km).
+        const far = geometry.features.reduce((acc, f) => {
+          const c = f.measured && f.measured.centroid;
+          if (!c) return acc;
+          const dx = (c[0] - meta.center.lon) * 111320 * Math.cos(meta.center.lat * Math.PI / 180);
+          const dy = (c[1] - meta.center.lat) * 110540;
+          return Math.max(acc, Math.hypot(dx, dy));
+        }, 0);
+        console.log(`farthest feature centroid on ${mapId}: ${Math.round(far)} m from the centre`);
+        assert.ok(measuredShorter < 4 * expectedShorter,
+          "the opening view must not have been widened to fit the features");
+        await mapContext.close();
+      });
+
+      // A ring's drawn size on screen, converted back to ground metres, must
+      // agree with the circumference the bundle measured for it. This is the
+      // end-to-end scale check on real geometry: bundle -> projection ->
+      // pixels -> scale bar.
+      const ringFeature = geometry.features.find((f) => f.feature_type === "ring"
+        && f.measured && f.measured.length_m > 0);
+      if (ringFeature) {
+        await record("Local map: a drawn ring measures its sourced circumference on the ground", async () => {
+          const { mapContext, p } = await openMap();
+          const measured = await p.evaluate((gid) => {
+            const el = document.querySelector(`path[data-geometry-id="${gid}"]`);
+            if (!el) return null;
+            const m = window.__hepAtlasLocalMap;
+            const box = el.getBoundingClientRect();
+            const host = document.getElementById("map-canvas").getBoundingClientRect();
+            const left = box.left - host.left;
+            const top = box.top - host.top;
+            // Ground width and height of the ring's own bounding box.
+            const w = m.distance(m.containerPointToLatLng([left, top + box.height / 2]),
+              m.containerPointToLatLng([left + box.width, top + box.height / 2]));
+            const h = m.distance(m.containerPointToLatLng([left + box.width / 2, top]),
+              m.containerPointToLatLng([left + box.width / 2, top + box.height]));
+            return { widthM: w, heightM: h, px: [box.width, box.height] };
+          }, ringFeature.id);
+          assert.ok(measured, `expected the ring ${ringFeature.id} to be drawn`);
+          // A closed ring of circumference C has a diameter of about C/π; a
+          // real tunnel is not a perfect circle, so allow 12 % on the mean
+          // of its two bounding-box axes.
+          const expectedDiameter = ringFeature.measured.length_m / Math.PI;
+          const drawnDiameter = (measured.widthM + measured.heightM) / 2;
+          const error = Math.abs(drawnDiameter - expectedDiameter) / expectedDiameter;
+          console.log("ring scale:", JSON.stringify({
+            id: ringFeature.id,
+            circumference_m: Math.round(ringFeature.measured.length_m),
+            expectedDiameter_m: Math.round(expectedDiameter),
+            drawnDiameter_m: Math.round(drawnDiameter),
+            errorPercent: Number((100 * error).toFixed(2)),
+          }));
+          assert.ok(error <= 0.12,
+            `${ringFeature.id} measures ${Math.round(ringFeature.measured.length_m)} m round, so about `
+            + `${Math.round(expectedDiameter)} m across, but it is drawn ${Math.round(drawnDiameter)} m across `
+            + `— ${(100 * error).toFixed(1)} % out`);
+          await mapContext.close();
+        });
+      }
+
+      // Point features are a quarter of the real geometry. Leaflet's default
+      // would be a pin marker, which asserts a footprint that no source
+      // gives; they must be SVG paths carrying the same encodings, and they
+      // must say in words that only the position is known.
+      const pointFeature = geometry.features.find((f) => f.geometry.type === "Point");
+      if (pointFeature) {
+        await record("Local map: a Point feature is drawn as its accuracy circle, not a pin", async () => {
+          const { mapContext, p } = await openMap();
+          const row = p.locator(`[data-feature-row="${pointFeature.id}"]`);
+          if (await row.count() === 0) {
+            console.log(`SKIP: ${pointFeature.id} is not visible in the default year/levels`);
+            await mapContext.close();
+            return;
+          }
+          assert.equal(await p.locator(`path[data-geometry-id="${pointFeature.id}"]`).count(), 1,
+            "a Point feature is an SVG path, so it carries the same four encodings as every other feature");
+          assert.equal(await p.locator(".leaflet-marker-icon").count(), 0,
+            "no default Leaflet pin markers anywhere: a pin would assert a footprint no source gives");
+          assert.match(await row.innerText(), /position only/i,
+            "the list row says only the position is known");
+          if (pointFeature.accuracy_m) {
+            const drawn = await p.evaluate((gid) => {
+              const el = document.querySelector(`path[data-geometry-id="${gid}"]`);
+              const m = window.__hepAtlasLocalMap;
+              const box = el.getBoundingClientRect();
+              const host = document.getElementById("map-canvas").getBoundingClientRect();
+              const top = box.top - host.top;
+              return m.distance(
+                m.containerPointToLatLng([box.left - host.left, top + box.height / 2]),
+                m.containerPointToLatLng([box.left - host.left + box.width, top + box.height / 2]),
+              );
+            }, pointFeature.id);
+            const expected = 2 * pointFeature.accuracy_m;
+            assert.ok(Math.abs(drawn - expected) / expected <= 0.15,
+              `the circle should be ${expected} m across (±${pointFeature.accuracy_m} m accuracy), drawn ${Math.round(drawn)} m`);
+          }
+          await mapContext.close();
+        });
+      }
+
+      if (polarMapId) {
+        await record("Local map: a polar map uses a metre projection, grid north and no basemap", async () => {
+          const polarMeta = mapsMeta[polarMapId];
+          const slug = polarMapId.split(":")[1];
+          const mapContext = await browser.newContext({
+            viewport: { width: 1280, height: 800 }, reducedMotion: "reduce",
+          });
+          const polarErrors = [];
+          mapContext.on("page", (pg) => pg.on("pageerror", (e) => polarErrors.push(e.message)));
+          const p = await mapContext.newPage();
+          p.setDefaultTimeout(30000);
+          await p.goto(`${base}/atlas${dataTree}#/map/${slug}`, { waitUntil: "domcontentloaded" });
+          await p.locator(".leaflet-container").waitFor({ timeout: 20000 });
+          await p.waitForTimeout(1200);
+          const info = await p.evaluate(() => {
+            const m = window.__hepAtlasLocalMap;
+            const size = m.getSize();
+            const mid = size.y / 2;
+            const line = document.querySelector(".leaflet-control-scale-line");
+            return {
+              crs: m.options.crs.code,
+              centre: [m.getCenter().lat, m.getCenter().lng],
+              widthM: m.distance(m.containerPointToLatLng([0, mid]), m.containerPointToLatLng([size.x, mid])),
+              heightM: m.distance(m.containerPointToLatLng([size.x / 2, 0]), m.containerPointToLatLng([size.x / 2, size.y])),
+              scaleLabel: line ? line.textContent.trim() : null,
+              northLabel: (document.querySelector(".map-north-label") || {}).textContent,
+              tiles: document.querySelectorAll("img.leaflet-tile").length,
+              basemapDisabled: document.getElementById("map-basemap-toggle").disabled,
+              paths: document.querySelectorAll(".leaflet-overlay-pane svg path").length,
+            };
+          });
+          console.log("polar map:", polarMapId, JSON.stringify(info));
+          assert.match(info.crs || "", /AzimuthalEquidistant/,
+            "a map inside a polar cap must not use Web Mercator, which clamps latitude at ±85°");
+          assert.ok(Math.abs(info.centre[0] - polarMeta.center.lat) < 0.001,
+            `the view is centred on the real pole latitude (${polarMeta.center.lat}), not a clamped one`);
+          assert.match(info.scaleLabel || "", /\b(m|km)\b/, "the scale bar reads in metres");
+          assert.match(info.northLabel || "", /grid north/i,
+            "at a pole the arrow is grid north (the 0° meridian), never true north");
+          assert.equal(info.tiles, 0, "no Web Mercator basemap tiles are requested at a pole");
+          assert.equal(info.basemapDisabled, true, "the basemap toggle is disabled, not merely off");
+          assert.match(await p.locator("#map-basemap-unavailable").innerText(), /No basemap at the pole/i);
+          const expectedShorter = 2 * polarMeta.extent_m;
+          const measuredShorter = Math.min(info.widthM, info.heightM);
+          assert.ok(Math.abs(measuredShorter - expectedShorter) / expectedShorter <= 0.02,
+            `polar opening view spans ${Math.round(measuredShorter)} m, want ${expectedShorter} m`);
+          assert.ok(info.paths > 0, "the features are drawn on the plain background");
+          assert.deepEqual(polarErrors, [], "no uncaught errors on a polar map");
+          await mapContext.close();
+        });
+      }
 
       const ring = geometry.features.find((f) => f.feature_type === "ring" && (f.checks || []).length)
         || geometry.features.find((f) => (f.checks || []).length)
