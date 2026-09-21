@@ -93,7 +93,9 @@ Field rules:
   both drawn and unlocated (error). Every accelerator and beamline whose
   `facility_id` is this facility, and every site in `site_ids` holding a
   detector placement, must be either drawn or unlocated (warning
-  `map-entity-unaccounted`): honesty is enforced, completeness is not.
+  `map-entity-unaccounted`): honesty is enforced, completeness is not. A
+  site counts as drawn when a feature names it as `entity_id` **or** as
+  `site_id` (a detector footprint drawn at the hall accounts for the hall).
 * `schematics[]`: official diagrams offered as **links only**, labelled "not
   to scale". Schematic geometry is never a `geometry` record (see §1.2).
 

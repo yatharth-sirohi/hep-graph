@@ -1147,3 +1147,12 @@ def test_a_direction_line_may_leave_the_map_extent(root: Path) -> None:
         record["geometry"]["value"]["coordinates"][1] = [-103.751, 44.352]
     _mutate(root, DIRECTION, edit)
     assert _findings(_validate(root), "geometry-out-of-extent") == []
+
+
+def test_a_feature_standing_at_a_site_accounts_for_it(tmp_path):
+    """A25: a detector footprint drawn with `site_id` set accounts for that
+    site in the map-entity-unaccounted check; the site must not have to be
+    listed as unlocated to silence a warning about something that is drawn."""
+    from hepgraph.atlas import validate as _validate
+    rows = [('geometry:x', {'entity_id': 'detector:demo-far-detector', 'site_id': 'site:demo-far-cavern'})]
+    assert _validate._drawn_entities(rows) == {'detector:demo-far-detector', 'site:demo-far-cavern'}
