@@ -1,0 +1,69 @@
+{
+  "aliases": [],
+  "center": {
+    "confidence": "derived",
+    "kind": "campus",
+    "lat": 37.41656745086245,
+    "locator": "Arithmetic centroid of OpenStreetMap way 634083231 (SLAC's property boundary)",
+    "lon": -122.20998802597693,
+    "note": "Map centre only; not a claim about any structure.",
+    "precision_m": 2000,
+    "sources": [
+      "src:geo-slac-osm-property-boundary"
+    ],
+    "verified_at": "2026-09-18"
+  },
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "extent_m": 3000,
+  "facility_id": "facility:slac",
+  "id": "map:slac",
+  "levels": [
+    {
+      "depth_m": null,
+      "id": "surface",
+      "kind": "surface",
+      "name": "Surface",
+      "note": "All drawn SLAC features are surface buildings, halls or roads. The buried linac beam tunnel itself is not separately drawn (see geometry:slac-linac-klystron-gallery's method): no fetched source this session gives its depth below grade, so no underground level is asserted."
+    }
+  ],
+  "linked_map_ids": [],
+  "links": {
+    "website": null
+  },
+  "name": "SLAC National Accelerator Laboratory, Menlo Park campus",
+  "notes": [
+    "geometry:slac-collider-experimental-hall-sld and geometry:slac-collider-experimental-hall-dmradio are drawn over the SAME OpenStreetMap polygon (way 232494549, Building 750): the SLD detector occupied this hall 1991-1998, and the DMRadio-m3 axion search is independently sourced (src:geo-slac-dmradio-prd-2022) to occupy the same building today. This is an intentional geometry-duplicate-shape pair, not an error: two different, independently sourced entities in the same physical hall at different times.",
+    "PEP-II's ring is drawn only partially (geometry:slac-pep-ii-partial-ring): the two 'PEP Ring Road' ways found in OpenStreetMap do not close into a loop and together cover only about 2,019 m of the collider's official 2,200 m circumference (src:geo-slac-pepii-cdr-osti), so no ring length check is asserted. See the worklog for the residual and backlog.",
+    "Overpass (overpass-api.de / lz4.overpass-api.de) accepted one extract for this campus and then refused further connections for the remainder of the session (HTTP 429, then outright TCP connection refusals); a lower-load alternate mirror was tried but returned zero results even for a query that overpass-api.de had already answered, so it was not used further. All SLAC geometry in this map comes from that single extract plus the sources cited above."
+  ],
+  "schema": "hep-atlas/0.2",
+  "schematics": [],
+  "site_ids": [
+    "site:slac-menlo-park-campus",
+    "site:slac-pep-ii-ir2-babar",
+    "site:slac-slc-collider-hall-sld"
+  ],
+  "sources": [
+    "src:geo-slac-osm-property-boundary",
+    "src:geo-slac-at-a-glance"
+  ],
+  "summary": {
+    "plain": "SLAC's main campus in Menlo Park, California: the 3.2-kilometre linear accelerator (drawn as its above-ground Klystron Gallery), the partially-traced PEP-II collider ring, the BaBar detector's hall, and the hall that hosted the SLD detector and now hosts the DMRadio-m3 axion search.",
+    "technical": "One local map for facility:slac. Geometry sourced from a single OpenStreetMap Overpass extract (the SLAC property boundary way 634083231; the Klystron Gallery building way 162058026, checked against SLAC's own '3,073.72 m' figure for that structure; the two 'PEP Ring Road' ways; the PEP Interaction Region 2 / BaBar hall and Collider Experimental Hall / SLD-DMRadio-m3 hall buildings; and nine other campus buildings drawn as context), cross-referenced against the official SLAC Area Map building-number table and the PEP-II Conceptual Design Report's circumference figure."
+  },
+  "type": "map",
+  "unlocated": [
+    {
+      "backlog": "Find the SLC Design Handbook (SLAC-R-714, December 1984) or a civil-engineering site plan showing the arc paths from the end of the linac to the Collider Experimental Hall; georeference against the linac and hall footprints already drawn.",
+      "entity_id": "accelerator:slc",
+      "reason": "The Stanford Linear Collider's north and south collider arcs and final-focus system, which curve from the end of the linac around to the Collider Experimental Hall, have no OpenStreetMap trace in this session's extract (only named buildings matched; no way named for the arcs or final focus was found) and no fetched source gives their path in coordinates. The interaction point itself is drawn: see geometry:slac-collider-experimental-hall-sld, entity_id site:slac-slc-collider-hall-sld.",
+      "sources": [
+        "src:slc-wikipedia"
+      ],
+      "verified_at": "2026-09-18"
+    }
+  ]
+}
