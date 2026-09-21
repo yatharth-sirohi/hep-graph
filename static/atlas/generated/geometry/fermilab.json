@@ -1483,7 +1483,7 @@
         "verified_at": "2026-09-18"
       },
       "representation": "georeferenced",
-      "site_id": "site:fermilab-mu2e-hall",
+      "site_id": null,
       "state_segments": null,
       "status": null
     },
@@ -2837,7 +2837,7 @@
       "entity_id": "detector:sbnd",
       "entity_name": "SBND detector",
       "entity_type": "detector",
-      "feature_type": "target_station",
+      "feature_type": "other",
       "geometry": {
         "coordinates": [
           -88.269595,
@@ -3892,26 +3892,6 @@
         ]
       },
       {
-        "backlog": "None beyond the site coordinate correction already noted in the geometry worklog (the OSM CDF Hall footprint is a strictly better anchor than this site's own 3 km campus point).",
-        "entity_id": "site:fermilab-cdf-collision-hall-b0",
-        "entity_name": "CDF collision hall (Tevatron B0)",
-        "entity_type": "site",
-        "reason": "detector:cdf is drawn at this site from an OpenStreetMap building footprint (geometry:fermilab-cdf-hall, site_id set), but the site record itself is not the `entity_id` of any geometry feature, so it is named here too to satisfy the honesty check explicitly.",
-        "sources": [
-          "src:fermilab-geo-osm-buildings"
-        ]
-      },
-      {
-        "backlog": "None beyond the site coordinate correction already noted in the geometry worklog (the OSM D0 Assembly building footprint is a strictly better anchor than this site's own 3 km campus point).",
-        "entity_id": "site:fermilab-d0-collision-hall",
-        "entity_name": "D0 collision hall (Tevatron D0)",
-        "entity_type": "site",
-        "reason": "detector:d0 is drawn at this site from an OpenStreetMap building footprint (geometry:fermilab-d0-hall, site_id set), but the site record itself is not the `entity_id` of any geometry feature, so it is named here too to satisfy the honesty check explicitly.",
-        "sources": [
-          "src:fermilab-geo-osm-rings-and-d0"
-        ]
-      },
-      {
         "backlog": "Same backlog as detector:ktev above.",
         "entity_id": "site:fermilab-ktev-hall",
         "entity_name": "KTeV experimental hall, Fermilab",
@@ -3919,26 +3899,6 @@
         "reason": "detector:ktev, the only detector placed at this site, is unlocated (see above); the site itself is not drawn either.",
         "sources": [
           "src:ktev-design-report-1992"
-        ]
-      },
-      {
-        "backlog": "See the backlog rows above for detector:minerva, detector:donut, detector:sensei, detector:damic and detector:dune-near-detector, each of which shares this site.",
-        "entity_id": "site:fermilab-main-campus",
-        "entity_name": "Fermilab main campus, Batavia, Illinois",
-        "entity_type": "site",
-        "reason": "This coarse 3 km campus point hosts many detector placements. Most detectors placed here ARE now drawn, from their own OSM building footprints with `site_id` set to this site (geometry:fermilab-minos-near-surface, geometry:fermilab-nova-near-surface, geometry:fermilab-miniboone-hall, geometry:fermilab-microboone-hall, geometry:fermilab-icarus-hall, geometry:fermilab-sbnd-point, plus the derived geometry:fermilab-bnb-target/beamline and geometry:fermilab-numi-target/beamline, and geometry:fermilab-linac's context), but the site record itself is never the `entity_id` of a geometry feature (a single point cannot represent a 27 km^2 campus as one 'drawn' feature), so it is named here too. The detectors placed here that remain undrawn are individually listed above (detector:minerva, detector:donut, detector:sensei, detector:damic, detector:dune-near-detector).",
-        "sources": [
-          "src:fermilab-geo-osm-buildings"
-        ]
-      },
-      {
-        "backlog": "None beyond the site coordinate correction already noted in the geometry worklog (the OSM MC-1 building footprint is a strictly better anchor than this site's own 4 km geocoder point).",
-        "entity_id": "site:fermilab-mc-1-muon-campus",
-        "entity_name": "MC-1 building, Fermilab Muon Campus",
-        "entity_type": "site",
-        "reason": "detector:muon-g-2 is drawn at this site from an OpenStreetMap building footprint (geometry:fermilab-mc1-building, site_id set), but the site record itself is not the `entity_id` of any geometry feature, so it is named here too to satisfy the honesty check explicitly.",
-        "sources": [
-          "src:fermilab-geo-osm-mc1"
         ]
       },
       {
@@ -4152,5 +4112,5 @@
       "url": "https://sanfordlab.org/"
     }
   },
-  "version": "fcbca7d2999ac806"
+  "version": "25780415e75b785b"
 }

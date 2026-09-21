@@ -7,16 +7,15 @@
   "coordinates": {
     "confidence": "approximate",
     "kind": "campus",
-    "lat": 35.88808,
-    "locator": "ROR v2 API record for organization 01e41cf67 (Los Alamos National Laboratory), addresses[0].lat/addresses[0].lng",
-    "lon": -106.30697,
-    "note": "Upgraded 2026-09-17: ROR v2 organization record for Los Alamos National Laboratory (ror.org/01e41cf67) gives a geocoded campus point, rank 8, replacing the Wikipedia-infobox-only point (rank 12); it is LANL's general campus centroid, not Technical Area 53/LANSCE specifically. The official lanl.gov LANSCE page (re-fetched 2026-09-17, lanl.gov/science-engineering/science-facilities/lansce) gives only the mailing address 'Los Alamos, NM 87545', no numeric coordinate and no beam-energy figure. Wikipedia kept as a second, lower-rank corroborating source.",
-    "precision_m": 800,
+    "lat": 35.8725644,
+    "locator": "OSM node 8041862150 named \"LANSCE\"",
+    "lon": -106.2890098,
+    "note": "Correction: the previous ROR point for the laboratory as a whole is 2.4 km from the LANSCE accelerator area (TA-53). Previous record: campus point 35.88808, -106.30697 at 800 m precision, sources ['src:ror-01e41cf67', 'src:lansce-wikipedia']; moved 2055 m (integrator, 2026-09-21, per docs/atlas-worklog/GEOMETRY_*.md).",
+    "precision_m": 150,
     "sources": [
-      "src:ror-01e41cf67",
-      "src:lansce-wikipedia"
+      "src:geo-lanl-osm-lansce-node"
     ],
-    "verified_at": "2026-09-17"
+    "verified_at": "2026-09-21"
   },
   "country": "US",
   "coverage": {
@@ -41,7 +40,8 @@
   "setting": "surface",
   "sources": [
     "src:lansce-wikipedia",
-    "src:ror-01e41cf67"
+    "src:ror-01e41cf67",
+    "src:geo-lanl-osm-lansce-node"
   ],
   "summary": {
     "plain": "The LANSCE particle-accelerator facility at Los Alamos National Laboratory, in the hills of northern New Mexico.",

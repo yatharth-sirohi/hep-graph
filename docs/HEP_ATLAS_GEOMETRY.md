@@ -93,7 +93,9 @@ Field rules:
   both drawn and unlocated (error). Every accelerator and beamline whose
   `facility_id` is this facility, and every site in `site_ids` holding a
   detector placement, must be either drawn or unlocated (warning
-  `map-entity-unaccounted`): honesty is enforced, completeness is not.
+  `map-entity-unaccounted`): honesty is enforced, completeness is not. A
+  site counts as drawn when a feature names it as `entity_id` **or** as
+  `site_id` (a detector footprint drawn at the hall accounts for the hall).
 * `schematics[]`: official diagrams offered as **links only**, labelled "not
   to scale". Schematic geometry is never a `geometry` record (see §1.2).
 
@@ -252,6 +254,7 @@ Field rules:
 | `geometry-entity-type` | error | `entity_id` type not allowed, or missing for a feature type that requires one |
 | `geometry-out-of-extent` | error / warning | any position > 60 km from the map centre (error), > 3 × `extent_m` (warning) unless `direction_line` |
 | `geometry-representation` | error | unknown class; `schematic`; `derived` without `method`; `georeferenced` from OSM without `osm.elements` or `license` |
+| `geometry-license` | error | any non-direction shape citing OpenStreetMap-derived data (an `openstreetmap` source, or a `geocoder` source published by OpenStreetMap/Nominatim) without an ODbL-1.0 `license` and attribution — derived shapes included |
 | `geometry-accuracy` | error | `accuracy_m` missing / non-positive where required |
 | `geometry-confidence` | error | `verified` without the required evidence (see §1.2) |
 | `geometry-derived-from-coarse-anchor` | error | `derived` whose `method` names an anchor site whose `precision_m` > `accuracy_m` (the validator checks every `site:` id mentioned in `method` and `note`) |

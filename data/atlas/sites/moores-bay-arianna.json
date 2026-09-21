@@ -1,40 +1,66 @@
 {
-  "id": "site:moores-bay-arianna",
-  "type": "site",
-  "name": "Moore's Bay, Ross Ice Shelf (ARIANNA)",
-  "aliases": ["Moore Bay"],
-  "facility_id": null,
+  "aliases": [
+    "Moore Bay"
+  ],
+  "altitude": null,
   "coordinates": {
+    "confidence": "uncertain",
+    "kind": "campus",
     "lat": -78.5167,
     "lon": 166.4167,
-    "kind": "campus",
+    "note": "No official ARIANNA page, technical paper, or geodetic source fetched this session gives a numeric latitude/longitude for the Moore's Bay station field; the prototype (2010) and testbed (2019) arXiv papers describe the location only qualitatively ('Moore's Bay on the Ross Ice Shelf'). The coordinate used here is Minna Bluff, a named headland near Moore's Bay, taken from Wikipedia (rank 12) as a coarse regional pointer only. `kind` is set to 'campus' (the validator's A23 exception path: a site holding a detector needs a 'detector'/'underground_lab' marker unless it is 'campus' with confidence approximate/uncertain and a note) rather than 'detector', precisely because this is not a surveyed station position.",
     "precision_m": 30000,
-    "sources": ["src:astro-neutrino-arianna-wikipedia-moore-bay"],
-    "verified_at": "2026-09-17",
-    "confidence": "uncertain",
     "quote": "78°31'S 166°25'E",
-    "note": "No official ARIANNA page, technical paper, or geodetic source fetched this session gives a numeric latitude/longitude for the Moore's Bay station field; the prototype (2010) and testbed (2019) arXiv papers describe the location only qualitatively ('Moore's Bay on the Ross Ice Shelf'). The coordinate used here is Minna Bluff, a named headland near Moore's Bay, taken from Wikipedia (rank 12) as a coarse regional pointer only. `kind` is set to 'campus' (the validator's A23 exception path: a site holding a detector needs a 'detector'/'underground_lab' marker unless it is 'campus' with confidence approximate/uncertain and a note) rather than 'detector', precisely because this is not a surveyed station position."
+    "sources": [
+      "src:astro-neutrino-arianna-wikipedia-moore-bay"
+    ],
+    "verified_at": "2026-09-17"
   },
-  "setting": "ice",
-  "depth": {
-    "value": 572, "unit": "m", "dimension": "length", "approx": false, "display": "572 ± 6 m (ice shelf thickness)",
-    "sources": ["src:astro-neutrino-arianna-arxiv-prototype-2010"], "verified_at": "2026-09-17", "confidence": "verified",
-    "quote": "The ice shelf thickness was measured to be 572 +/- 6 m at the deployment site.", "note": "This is the Ross Ice Shelf thickness at the prototype deployment point, not a detector burial depth (ARIANNA stations sit on/near the ice surface)."
-  },
-  "depth_rock": null,
-  "depth_mwe": null,
-  "altitude": null,
+  "countries": [
+    "AQ"
+  ],
   "country": "AQ",
-  "countries": ["AQ"],
-  "place": {"city": null, "region": "Ross Ice Shelf, Antarctica", "country": "AQ"},
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "depth": {
+    "approx": false,
+    "confidence": "verified",
+    "dimension": "length",
+    "display": "572 ± 6 m (ice shelf thickness)",
+    "note": "This is the Ross Ice Shelf thickness at the prototype deployment point, not a detector burial depth (ARIANNA stations sit on/near the ice surface).",
+    "quote": "The ice shelf thickness was measured to be 572 +/- 6 m at the deployment site.",
+    "sources": [
+      "src:astro-neutrino-arianna-arxiv-prototype-2010"
+    ],
+    "unit": "m",
+    "value": 572,
+    "verified_at": "2026-09-17"
+  },
+  "depth_mwe": null,
+  "depth_rock": null,
   "document_ids": [],
+  "facility_id": null,
+  "id": "site:moores-bay-arianna",
+  "links": {
+    "website": null
+  },
+  "name": "Moore's Bay, Ross Ice Shelf (ARIANNA)",
+  "notes": [],
+  "place": {
+    "city": null,
+    "country": "AQ",
+    "region": "Ross Ice Shelf, Antarctica"
+  },
+  "schema": "hep-atlas/0.2",
+  "setting": "ice",
+  "sources": [
+    "src:astro-neutrino-arianna-arxiv-prototype-2010"
+  ],
   "summary": {
     "plain": "A patch of the vast floating Ross Ice Shelf in Antarctica, more than half a kilometre thick, where a small array of surface radio antennas once listened for neutrinos.",
     "technical": "Moore's Bay station field on the Ross Ice Shelf, Antarctica; ice shelf thickness measured at 572±6 m at the original 2009 prototype deployment point. No surveyed lat/lon for the array found this session; coordinates recorded only as a coarse regional pointer."
   },
-  "sources": ["src:astro-neutrino-arianna-arxiv-prototype-2010"],
-  "links": {"website": null},
-  "notes": [],
-  "coverage": {"researched": "partial", "tier": "B"},
-  "schema": "hep-atlas/0.2"
+  "type": "site"
 }

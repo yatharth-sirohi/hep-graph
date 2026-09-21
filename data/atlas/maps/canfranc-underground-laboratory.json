@@ -1,0 +1,78 @@
+{
+  "aliases": [],
+  "center": {
+    "confidence": "derived",
+    "kind": "campus",
+    "lat": 42.7620163,
+    "locator": "Midpoint between geometry:canfranc-surface-building and geometry:canfranc-lab-underground",
+    "lon": -0.522686,
+    "note": "Map centre only; not a claim about any structure.",
+    "precision_m": 3000,
+    "sources": [
+      "src:geo-canfranc-osm-surface-building",
+      "src:geo-canfranc-osm-lab-underground"
+    ],
+    "verified_at": "2026-09-18"
+  },
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "extent_m": 7500,
+  "facility_id": "facility:canfranc-underground-laboratory",
+  "id": "map:canfranc-underground-laboratory",
+  "levels": [
+    {
+      "depth_m": null,
+      "id": "surface",
+      "kind": "surface",
+      "name": "Surface",
+      "note": "Canfranc-Estación and the LSC administrative building."
+    },
+    {
+      "depth_m": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "length",
+        "display": "800 m under Mount Tobazo",
+        "note": "",
+        "quote": "It has a depth of 800 m under Mount Tobazo.",
+        "sources": [
+          "src:lsc-history"
+        ],
+        "unit": "m",
+        "value": 800,
+        "verified_at": "2026-09-17"
+      },
+      "id": "somport-tunnels",
+      "kind": "underground",
+      "name": "Somport tunnels and underground laboratory",
+      "note": "Plan view. Houses the Somport road tunnel (geometry:canfranc-tunnel-somport-road), the partially-mapped historic rail tunnel (geometry:canfranc-tunnel-rail-somport-stub) and the laboratory itself (geometry:canfranc-lab-underground), between them under Mount Tobazo."
+    }
+  ],
+  "linked_map_ids": [],
+  "links": {
+    "website": "https://lsc-canfranc.es/en/"
+  },
+  "name": "LSC — Laboratorio Subterráneo de Canfranc",
+  "notes": [
+    "The pre-existing site:lsc-canfranc coordinate (42.7493154, -0.5162702, kind campus, precision_m 500) is the same OSM feature as geometry:canfranc-surface-building, the laboratory's administrative offices at Canfranc-Estación, about 3.0 km from the underground laboratory itself (geometry:canfranc-lab-underground, an independently OSM-tagged feature 'Galería de evacuación 12', Aía). See the facility worklog for a proposed site coordinate correction and a proposed `kind` change to underground_lab.",
+    "The historic Canfranc railway tunnel is only partially traced in OpenStreetMap (about 1.28 km of a tunnel usually cited at ~7.8 km); geometry:canfranc-tunnel-rail-somport-stub is drawn honestly as a partial trace rather than extended by guesswork. See the facility worklog backlog."
+  ],
+  "schema": "hep-atlas/0.2",
+  "schematics": [],
+  "site_ids": [
+    "site:lsc-canfranc"
+  ],
+  "sources": [
+    "src:geo-canfranc-osm-somport-road-tunnel",
+    "src:geo-canfranc-osm-lab-underground",
+    "src:lsc-history"
+  ],
+  "summary": {
+    "plain": "The Canfranc Underground Laboratory in the Spanish Pyrenees: a laboratory dug beneath Mount Tobazo between the historic (1928) railway tunnel and the modern (2003) Somport road tunnel, under about 800 metres of rock.",
+    "technical": "One local map for facility:canfranc-underground-laboratory. The Somport road tunnel (OSM ways 29050143 + 76450688 + 1356486837, length-checked at 0.34% against a civil-engineering journal article) is drawn as context, alongside a partial trace of the historic rail tunnel. The laboratory itself is a separately OSM-tagged feature (way 1075274236) about 3.0 km from the surface administrative building at Canfranc-Estación (way 711426145)."
+  },
+  "type": "map",
+  "unlocated": []
+}

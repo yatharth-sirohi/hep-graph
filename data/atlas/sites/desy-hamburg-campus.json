@@ -6,16 +6,16 @@
   "coordinates": {
     "confidence": "approximate",
     "kind": "campus",
-    "lat": 53.55073,
-    "locator": "ROR v2 API record for organization 01js2sh04 (Deutsches Elektronen-Synchrotron DESY), addresses[0].lat/addresses[0].lng",
-    "lon": 9.99302,
-    "note": "Upgraded 2026-09-17: ROR v2 organization record for DESY (ror.org/01js2sh04) gives a geocoded campus point, rank 8, replacing the Wikipedia-infobox-only point (rank 12). No official desy.de page fetched in this or the prior session gives a numeric coordinate, so kind stays campus/approximate. Wikipedia kept as a second, lower-rank corroborating source.",
-    "precision_m": 800,
+    "lat": 53.5770744,
+    "locator": "OSM way 276641657 \"Deutsches Elektronen-Synchrotron DESY\" (address Notkestraße 85, 22607 Hamburg), area centroid",
+    "lon": 9.8807554,
+    "note": "Correction: the previous point (53.55073, 9.99302, from the ROR record) lies about 8 km east of the Hamburg-Bahrenfeld campus; the OSM campus polygon centroid and the Wikipedia infobox coordinate already cited by this record (53°34′33″N 9°52′46″E) agree with each other to 150 m. Previous record: campus point 53.55073, 9.99302 at 800 m precision, sources ['src:ror-01js2sh04', 'src:desy-wikipedia']; moved 12812 m (integrator, 2026-09-21, per docs/atlas-worklog/GEOMETRY_*.md).",
+    "precision_m": 300,
     "sources": [
-      "src:ror-01js2sh04",
+      "src:geo-desy-osm-campus-boundary",
       "src:desy-wikipedia"
     ],
-    "verified_at": "2026-09-17"
+    "verified_at": "2026-09-21"
   },
   "country": "DE",
   "coverage": {
@@ -40,7 +40,8 @@
   "setting": "surface",
   "sources": [
     "src:desy-wikipedia",
-    "src:ror-01js2sh04"
+    "src:ror-01js2sh04",
+    "src:geo-desy-osm-campus-boundary"
   ],
   "summary": {
     "plain": "DESY's main campus in the Bahrenfeld district of Hamburg, Germany.",

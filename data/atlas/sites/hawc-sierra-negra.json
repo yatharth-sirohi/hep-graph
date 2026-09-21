@@ -15,18 +15,17 @@
     "verified_at": "2026-09-17"
   },
   "coordinates": {
-    "confidence": "approximate",
-    "kind": "campus",
-    "lat": 18.9862137,
-    "lon": -97.3151017,
-    "note": "Coordinates are a geocode of the Sierra Negra peak itself, used as an approximate anchor per A23; the HAWC array's own compact footprint (a few hundred metres across, on the volcano's flank) has its own decimal coordinates in the collaboration's technical papers, but none of those papers' full text was readable via WebFetch this session (PDF text extraction failed) and the official site (hawc-observatory.org) failed TLS verification on every attempt. Kept as kind: campus / confidence: approximate rather than kind: detector until a rank<=7 source with decimal coordinates is fetched.",
-    "precision_m": 3000,
-    "quote": "under construction 4100 meters above sea level at Sierra Negra, Mexico",
+    "confidence": "verified",
+    "kind": "detector",
+    "lat": 18.99,
+    "locator": "HAWC design/calibration/operation paper, site-description section: \"The geographical latitude of the site is 18.99 … The geographical longitude of the HAWC site, 97.31 W.\"",
+    "lon": -97.31,
+    "note": "Published site coordinate at 0.01° precision (about 1 km), replacing a Nominatim geocode of the Sierra Negra peak 3 km wide; precision_m set to half the rounding step. Previous record: campus point 18.9862137, -97.3151017 at 3000 m precision, sources ['src:cosmic-gamma-hawc-design-paper-arxiv-2013', 'src:cosmic-gamma-nominatim-sierra-negra']; moved 570 m (integrator, 2026-09-21, per docs/atlas-worklog/GEOMETRY_*.md).",
+    "precision_m": 600,
     "sources": [
-      "src:cosmic-gamma-hawc-design-paper-arxiv-2013",
-      "src:cosmic-gamma-nominatim-sierra-negra"
+      "src:cosmic-gamma-hawc-design-paper-arxiv-2013"
     ],
-    "verified_at": "2026-09-17"
+    "verified_at": "2026-09-21"
   },
   "countries": [
     "MX"

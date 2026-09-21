@@ -1,0 +1,99 @@
+{
+  "accuracy_m": 10,
+  "aliases": [],
+  "checks": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "depth_m": null,
+  "entity_id": "detector:dmradio",
+  "feature_type": "hall",
+  "geometry": {
+    "confidence": "approximate",
+    "locator": "OpenStreetMap way/232494549, timestamp_osm_base 2026-09-18T22:23:35Z",
+    "note": "OpenStreetMap alone (source type openstreetmap, rank 11) yields at most `approximate` confidence (contract Sec1.2); no numeric checks[] figure is available to test this building's footprint against.",
+    "sources": [
+      "src:geo-slac-osm-collider-hall",
+      "src:geo-slac-dmradio-prd-2022"
+    ],
+    "value": {
+      "coordinates": [
+        [
+          [
+            -122.1951253,
+            37.4184058
+          ],
+          [
+            -122.1951427,
+            37.4184701
+          ],
+          [
+            -122.1945268,
+            37.418575
+          ],
+          [
+            -122.1945094,
+            37.4185107
+          ],
+          [
+            -122.1943968,
+            37.4185299
+          ],
+          [
+            -122.1943255,
+            37.4182659
+          ],
+          [
+            -122.1953619,
+            37.4180893
+          ],
+          [
+            -122.1954332,
+            37.4183533
+          ],
+          [
+            -122.1951253,
+            37.4184058
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    },
+    "verified_at": "2026-09-18"
+  },
+  "id": "geometry:slac-collider-experimental-hall-dmradio",
+  "level_id": "surface",
+  "license": {
+    "attribution": "© OpenStreetMap contributors",
+    "name": "ODbL-1.0",
+    "url": "https://www.openstreetmap.org/copyright"
+  },
+  "links": {
+    "website": null
+  },
+  "map_id": "map:slac",
+  "method": "Same OpenStreetMap way 232494549 as geometry:slac-collider-experimental-hall-sld: the DMRadio-m3 axion search now occupies the same building that formerly housed SLD. Drawn as a second, entity-linked feature over the identical shape (intentional geometry-duplicate-shape, explained in the worklog), because a different sourced occupant now uses this hall.",
+  "name": "Collider Experimental Hall (CEH), Building 750 (DMRadio-m3)",
+  "notes": [
+    "Location is sourced to the DMRadio-m3 detector paper ('DMRadio-m3 will be located in Building 750 at SLAC National Accelerator Laboratory, the former site of the SLD detector', src:geo-slac-dmradio-prd-2022), independent of and more specific than detector:dmradio's own currently-sourced placement (site:slac-menlo-park-campus, the general campus point). See the worklog's site coordinate corrections."
+  ],
+  "osm": {
+    "elements": [
+      "way/232494549"
+    ],
+    "timestamp": "2026-09-18T22:23:35Z"
+  },
+  "representation": "georeferenced",
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:slac-slc-collider-hall-sld",
+  "sources": [
+    "src:geo-slac-osm-collider-hall",
+    "src:geo-slac-dmradio-prd-2022"
+  ],
+  "summary": {
+    "plain": "Building 750, the former SLD collider hall, now housing the DMRadio-m3 axion dark-matter search."
+  },
+  "type": "geometry",
+  "valid": null
+}

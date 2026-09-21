@@ -6,15 +6,16 @@
   "coordinates": {
     "confidence": "approximate",
     "kind": "campus",
-    "lat": 28.1763431,
-    "lon": 101.720304,
-    "note": "No official CJPL page fetched in this session gives a numeric coordinate (only 'located in the Jinping tunnel in Sichuan Province'); this is an OpenStreetMap/Nominatim node tagged specifically for the laboratory. Per A17 a geocoder source limits kind to campus/approximate rather than underground_lab.",
-    "precision_m": 2000,
-    "quote": "name (Chinese): China Jinping Underground Laboratory, lat 28.1763431, lon 101.7203040, Jinping II hydropower station traffic tunnel, Sichuan, China",
+    "lat": 28.1774296,
+    "locator": "Position walked along the OSM Jinping traffic-tunnel line by the sourced portal-to-hall distance (see geometry:cjpl-i-point method)",
+    "lon": 101.7193113,
+    "note": "`kind: campus` under A23: the position is derived along an OpenStreetMap tunnel trace (rank 11) from a distance published in an arXiv paper (rank 10); A17 admits neither as the sole backing of an underground_lab-grade point. Upgrade from a 2 km geocoder point: derived along the traffic tunnel from the published distance to the CJPL-I hall; 124 m from the previous point. Previous record: campus point 28.1763431, 101.720304 at 2000 m precision, sources ['src:cjpl-osm-nominatim']; moved 113 m (integrator, 2026-09-21, per docs/atlas-worklog/GEOMETRY_*.md).",
+    "precision_m": 100,
     "sources": [
-      "src:cjpl-osm-nominatim"
+      "src:geo-kamioka-cjpl-osm-jinping-tunnel",
+      "src:cjpl-arxiv-early-science-2018"
     ],
-    "verified_at": "2026-09-17"
+    "verified_at": "2026-09-21"
   },
   "country": "CN",
   "coverage": {
@@ -67,7 +68,8 @@
     "src:cjpl-tsinghua-home",
     "src:cjpl-tsinghua-about-overview",
     "src:cjpl-arxiv-early-science-2018",
-    "src:cjpl-osm-nominatim"
+    "src:cjpl-osm-nominatim",
+    "src:geo-kamioka-cjpl-osm-jinping-tunnel"
   ],
   "summary": {
     "plain": "The original hall of the China Jinping Underground Laboratory, reached from a hydropower station tunnel under more than two kilometres of mountain rock in Sichuan, China.",
