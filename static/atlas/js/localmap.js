@@ -496,6 +496,12 @@ function tooltipFor(feature) {
   if (feature.feature_type === 'direction_line' || feature.representation === 'inferred_direction') {
     lines.push('inferred direction — not a structure');
   }
+  const clipped = clippedGeometry(feature);
+  if (clipped) {
+    lines.push(clipped.fullLength_m
+      ? `drawn cut off at the edge of this map — the full bearing runs ${formatDistance(clipped.fullLength_m)}`
+      : 'drawn cut off at the edge of this map');
+  }
   if (feature.geometry.type === 'Point' || feature.geometry.type === 'MultiPoint') {
     lines.push(feature.accuracy_m != null
       ? `position only — the circle is its ±${feature.accuracy_m} m accuracy, not a footprint`
@@ -514,6 +520,75 @@ function arrowheadCoords(coords) {
   const a = destination(tip[0], tip[1], (back - 22 + 360) % 360, len);
   const b = destination(tip[0], tip[1], (back + 22) % 360, len);
   return [a, tip, b];
+}
+
+/**
+ * §4 draws an inferred direction "clipped to the map extent". Some records
+ * carry the full baseline instead — T2K's line runs 295 km to Kamioka,
+ * CNGS's 731 km to Gran Sasso — so the arrowhead would be computed hundreds
+ * of kilometres off screen and its legs would streak across the view. This
+ * trims the line where it leaves a generous multiple of the map's own
+ * extent, which is also where the reader stops being able to see it.
+ *
+ * It changes nothing about the claim: the bearing is the bearing, the facts
+ * panel still gives the method and the full length, and the drawer says the
+ * line is cut off rather than pretending it ends here.
+ */
+const DIRECTION_CLIP_FACTOR = 1.4;
+
+function clipToExtent(coords) {
+  const limit = DIRECTION_CLIP_FACTOR * (mapMeta.extent_m || 3000);
+  const centre = [mapMeta.center.lat, mapMeta.center.lon];
+  const inside = (pt) => greatCircleM(centre, [pt[1], pt[0]]) <= limit;
+  // Bisect the crossing segment: 24 halvings puts the cut well under a metre
+  // at any campus scale, with no projection maths. `from` is the end inside.
+  const boundary = (from, to) => {
+    let lo = 0;
+    let hi = 1;
+    for (let k = 0; k < 24; k += 1) {
+      const mid = (lo + hi) / 2;
+      const at = [from[0] + (to[0] - from[0]) * mid, from[1] + (to[1] - from[1]) * mid];
+      if (inside(at)) lo = mid; else hi = mid;
+    }
+    return [from[0] + (to[0] - from[0]) * lo, from[1] + (to[1] - from[1]) * lo];
+  };
+  // A direction line may start at the far site and end on this campus
+  // (T2K's runs J-PARC -> Kamioka), so both ends have to be considered.
+  // A line that leaves and re-enters would need multi-part output; no
+  // direction line does, since it is a single great-circle segment.
+  const out = [];
+  let clipped = false;
+  for (let i = 0; i < coords.length; i += 1) {
+    const cur = coords[i];
+    const curIn = inside(cur);
+    if (i > 0) {
+      const prev = coords[i - 1];
+      const prevIn = inside(prev);
+      if (prevIn !== curIn) {
+        out.push(prevIn ? boundary(prev, cur) : boundary(cur, prev));
+        clipped = true;
+      }
+    }
+    if (curIn) out.push(cur); else clipped = true;
+  }
+  // Nothing of it reaches this map: draw the record's own shape rather than
+  // silently dropping a feature the list still names.
+  if (out.length < 2) return { coords, clipped: false };
+  return { coords: out, clipped };
+}
+
+/** True when this feature's shape runs beyond the map's own extent and is
+ *  drawn cut off. Only inferred directions are trimmed. */
+function clippedGeometry(feature) {
+  if (feature.representation !== 'inferred_direction') return null;
+  const line = lineCoords(feature.geometry);
+  if (!line || line.length < 2) return null;
+  const result = clipToExtent(line);
+  if (!result.clipped) return null;
+  return {
+    geometry: { type: 'LineString', coordinates: result.coords },
+    fullLength_m: feature.measured && feature.measured.length_m,
+  };
 }
 
 function lineCoords(geometry) {
@@ -550,11 +625,13 @@ function drawFeatures(L) {
     const ghost = !s.timeless && !s.status;
     const options = mapstyle.pathOptions(feature, { level, status: s.status, ghost });
     const isPoint = feature.geometry.type === 'Point' || feature.geometry.type === 'MultiPoint';
+    const clip = clippedGeometry(feature);
+    const shape = clip ? clip.geometry : feature.geometry;
     const parts = [];
     if (mapstyle.levelIsSubsurface(level) && !isPoint) {
-      parts.push(L.geoJSON(feature.geometry, { style: () => mapstyle.casingOptions(feature, { ghost }) }));
+      parts.push(L.geoJSON(shape, { style: () => mapstyle.casingOptions(feature, { ghost }) }));
     }
-    const main = L.geoJSON(feature.geometry, {
+    const main = L.geoJSON(shape, {
       style: () => options,
       ...(isPoint ? pointLayers(L, feature, options) : {}),
     });
@@ -568,7 +645,7 @@ function drawFeatures(L) {
       }));
     }
     const t = mapstyle.typeStyle(feature.feature_type);
-    const coords = t.arrow ? lineCoords(feature.geometry) : null;
+    const coords = t.arrow ? lineCoords(shape) : null;
     if (coords && coords.length >= 2) {
       const head = arrowheadCoords(coords);
       if (head) parts.push(L.polyline(head, { ...options, fill: false, fillOpacity: 0, dashArray: null }));
@@ -943,9 +1020,15 @@ function factsFor(feature) {
 
   const nodes = [h('h3', {}, 'Shape facts'), dl];
   if (feature.representation === 'inferred_direction') {
+    const clipped = clippedGeometry(feature);
     nodes.push(h('p', { class: 'map-inferred-warning' },
       'This line is an inferred direction — not a structure. Nothing is built along it; '
-      + 'it is the great-circle bearing towards the far site, clipped to the map extent.'));
+      + 'it is the great-circle bearing towards the far site.'
+      + (clipped
+        ? ` It is drawn cut off at the edge of this map: the bearing continues for ${
+          clipped.fullLength_m ? formatDistance(clipped.fullLength_m) : 'the full baseline'
+        }, which no campus map can show at this scale.`
+        : ' It is clipped to the map extent.')));
   }
   nodes.push(h('h3', {}, 'Cross-checks'));
   nodes.push((feature.checks || []).length
