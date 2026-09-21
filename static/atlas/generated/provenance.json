@@ -47944,6 +47944,51 @@
       "verified_at": null
     }
   },
+  "geometry:baksan-bno-building": {
+    "/geometry": {
+      "confidence": "approximate",
+      "locator": "OSM way 1504181774, as of 2026-09-18T23:30:00Z",
+      "note": "OpenStreetMap alone (rank 11) caps this shape at 'approximate'; 156 m from the pre-existing Wikipedia-sourced coordinate on site:baksan-sage-underground-lab (a village-level geocode, precision_m 3000), which this point corroborates and could tighten.",
+      "quote": null,
+      "sources": [
+        "src:geo-baksan-osm-bno-building"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-baksan-osm-bno-building"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:baksan-neutrino-village-boundary": {
+    "/geometry": {
+      "confidence": "approximate",
+      "locator": "OSM way 206835293, as of 2026-09-18T23:30:00Z",
+      "note": "OpenStreetMap alone (rank 11) caps this shape at 'approximate'.",
+      "quote": null,
+      "sources": [
+        "src:geo-baksan-osm-neutrino-village"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-baksan-osm-neutrino-village",
+        "src:geo-euro-ug-pandola-2011"
+      ],
+      "verified_at": null
+    }
+  },
   "geometry:bnl-accelerator-test-facility-building": {
     "/geometry": {
       "confidence": "approximate",
@@ -48232,6 +48277,138 @@
       "quote": null,
       "sources": [
         "src:geo-bnl-nominatim-campus-boundary"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:boulby-mine-boundary": {
+    "/geometry": {
+      "confidence": "approximate",
+      "locator": "OSM way 29230185, as of 2026-09-18T23:15:00Z",
+      "note": "This is the mine's surface works site (traced from Bing aerial imagery), not the shaft head or the underground laboratory 1.1 km below. No fetched source this session gives a shaft-specific coordinate (the two named shafts described in secondary sources as behind the surface buildings are visible in imagery but not separately tagged in OpenStreetMap); accuracy_m reflects the boundary trace itself, not a claim about the shaft's exact position. 'approximate' because OpenStreetMap alone is rank 11.",
+      "quote": null,
+      "sources": [
+        "src:geo-boulby-osm-mine-boundary"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-boulby-osm-mine-boundary"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:canfranc-lab-underground": {
+    "/depth_m": {
+      "confidence": "verified",
+      "locator": null,
+      "note": "Same figure already recorded on site:lsc-canfranc.",
+      "quote": "It has a depth of 800 m under Mount Tobazo.",
+      "sources": [
+        "src:lsc-history"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/geometry": {
+      "confidence": "approximate",
+      "locator": "OSM way 1075274236, as of 2026-09-18T23:05:00Z",
+      "note": "'other', not 'hall': the mapper's own 'fixme: shape, details' tag says this 4-node area is not a surveyed footprint, and no fetched source this session positions the new laboratory's own Hall A (40x15x12 m) and Hall B (15x10x8 m, both src:geo-euro-ug-pandola-2011) individually in space. 'approximate' because OpenStreetMap alone is rank 11.",
+      "quote": null,
+      "sources": [
+        "src:geo-canfranc-osm-lab-underground"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-canfranc-osm-lab-underground"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:canfranc-surface-building": {
+    "/geometry": {
+      "confidence": "approximate",
+      "locator": "OSM way 711426145, as of 2026-09-18T23:05:00Z",
+      "note": "OpenStreetMap alone (rank 11) caps this shape at 'approximate'.",
+      "quote": null,
+      "sources": [
+        "src:geo-canfranc-osm-surface-building"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-canfranc-osm-surface-building"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:canfranc-tunnel-rail-somport-stub": {
+    "/geometry": {
+      "confidence": "approximate",
+      "locator": "OSM way 1081204524, as of 2026-09-18T23:05:00Z",
+      "note": "This way has only 3 nodes and traces roughly 1.28 km; the historic Canfranc railway tunnel is commonly cited at about 7.8 km, so this is a partial trace of one portal area only, not the whole tunnel. No other OSM way for the rest of the tunnel was found this session (Nominatim name searches for 'Pau-Canfranc tunnel' and 'Somport railway tunnel' both returned zero results, and Overpass — which could have found it by bbox or relation membership — was unreachable throughout). Drawn as-is rather than omitted, clearly labelled as partial; see the facility worklog backlog.",
+      "quote": null,
+      "sources": [
+        "src:geo-canfranc-osm-rail-tunnel-stub"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-canfranc-osm-rail-tunnel-stub"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:canfranc-tunnel-somport-road": {
+    "/checks/0": {
+      "confidence": null,
+      "locator": "abstract/body text",
+      "note": null,
+      "quote": "Su longitud total es de 8600 m.",
+      "sources": [
+        "src:geo-canfranc-somport-length-dialnet"
+      ],
+      "verified_at": null
+    },
+    "/geometry": {
+      "confidence": "verified",
+      "locator": "OSM way 29050143 + way 76450688 + way 1356486837, as of 2026-09-18T23:05:00Z",
+      "note": "'verified' rests on the passing length check against a civil-engineering journal article (rank 10, ≤ 10), independent of OSM.",
+      "quote": null,
+      "sources": [
+        "src:geo-canfranc-osm-somport-road-tunnel",
+        "src:geo-canfranc-somport-length-dialnet"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-canfranc-osm-somport-road-tunnel",
+        "src:geo-canfranc-somport-length-dialnet"
       ],
       "verified_at": null
     }
@@ -50200,6 +50377,180 @@
       "verified_at": null
     }
   },
+  "geometry:lngs-external-labs-boundary": {
+    "/geometry": {
+      "confidence": "approximate",
+      "locator": "OSM way 79401619, as of 2026-09-18T22:28:36Z",
+      "note": "OpenStreetMap alone (rank 11) caps this shape at 'approximate' even though its centroid sits close to the surveyed point in geometry:lngs-external-labs-point (79.6 m residual, well inside a research-institute campus footprint; see the facility worklog).",
+      "quote": null,
+      "sources": [
+        "src:geo-lngs-osm-external-labs-building"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-lngs-osm-external-labs-building"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:lngs-external-labs-point": {
+    "/geometry": {
+      "confidence": "verified",
+      "locator": "p.9, section 1.1 'Denominazione ed ubicazione dei laboratori'",
+      "note": "'verified' because representation is 'surveyed' from a rank 9 project_document (≤ 10, A15/A25), independent of any OSM check. Coordinate given to 0.01 arcsecond in the source (implying sub-metre nominal precision); accuracy_m is nonetheless set to 30 m, a conservative honest figure for a government-published DMS coordinate of unstated survey method.",
+      "quote": "Il Centro direzionale e i Laboratori Esterni sono localizzati dalle coordinate: 42°25'13.56\"N – 13°30'59.33\"E (WGS 84)",
+      "sources": [
+        "src:geo-lngs-pee-2024"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-lngs-pee-2024"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:lngs-hall-a": {
+    "/geometry": {
+      "confidence": "derived",
+      "locator": "midpoint of geometry:lngs-lab-access-zone",
+      "note": "'other', not 'hall', because this is a single undifferentiated position for the whole underground complex, not this hall's own surveyed footprint (which is not sourced this session, feature_type='hall' would imply a footprint polygon this record does not have).",
+      "quote": null,
+      "sources": [
+        "src:geo-lngs-pee-2024",
+        "src:geo-lngs-osm-tunnel-relation"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-lngs-pee-2024",
+        "src:geo-lngs-osm-tunnel-relation"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:lngs-hall-b": {
+    "/geometry": {
+      "confidence": "derived",
+      "locator": "midpoint of geometry:lngs-lab-access-zone",
+      "note": "'other', not 'hall', because this is a single undifferentiated position for the whole underground complex, not this hall's own surveyed footprint (which is not sourced this session, feature_type='hall' would imply a footprint polygon this record does not have).",
+      "quote": null,
+      "sources": [
+        "src:geo-lngs-pee-2024",
+        "src:geo-lngs-osm-tunnel-relation"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-lngs-pee-2024",
+        "src:geo-lngs-osm-tunnel-relation"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:lngs-hall-c": {
+    "/geometry": {
+      "confidence": "derived",
+      "locator": "midpoint of geometry:lngs-lab-access-zone",
+      "note": "'other', not 'hall', because this is a single undifferentiated position for the whole underground complex, not this hall's own surveyed footprint (which is not sourced this session, feature_type='hall' would imply a footprint polygon this record does not have).",
+      "quote": null,
+      "sources": [
+        "src:geo-lngs-pee-2024",
+        "src:geo-lngs-osm-tunnel-relation"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-lngs-pee-2024",
+        "src:geo-lngs-osm-tunnel-relation"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:lngs-lab-access-zone": {
+    "/geometry": {
+      "confidence": "derived",
+      "locator": "src:geo-lngs-pee-2024 p.27-28 (chainage); walked along geometry:lngs-tunnel-gran-sasso's own OSM line",
+      "note": "The straight-line distance between the two endpoints below (710.0 m by haversine) matches the official chainage delta (124.150 - 123.440 = 0.710 km) to within 4 m, which corroborates that A24 motorway chainage and this OSM way's own cumulative length correspond closely over this stretch (the whole-tunnel length check on geometry:lngs-tunnel-gran-sasso passes at 0.10%). A different part of the same source states the door-to-door distance is 'ca. 500 m' rather than the 710 m implied by its own two km markers; both figures are reported here (see the facility worklog) rather than silently reconciled.",
+      "quote": null,
+      "sources": [
+        "src:geo-lngs-pee-2024",
+        "src:geo-lngs-osm-tunnel-relation"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-lngs-pee-2024",
+        "src:geo-lngs-osm-tunnel-relation"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:lngs-tunnel-gran-sasso": {
+    "/checks/0": {
+      "confidence": null,
+      "locator": "p.28, section on the A24 tunnel civil engineering",
+      "note": null,
+      "quote": "La galleria in esame è ubicata nel tratto compreso tra le uscite di Assergi e San Gabriele – Colledara e si estende tra il km 117,653 ed il km 127,829 dell'autostrada A24.",
+      "sources": [
+        "src:geo-lngs-pee-2024"
+      ],
+      "verified_at": null
+    },
+    "/geometry": {
+      "confidence": "verified",
+      "locator": "OSM relation 9617984, member way 24389234 (Assergi/west → Teramo/east), as of 2026-09-18T22:22:35Z",
+      "note": "'verified' rests on the passing length check against the Prefettura/INFN emergency-plan chainage (a rank 9 project_document, ≤ 10), independent of OSM.",
+      "quote": null,
+      "sources": [
+        "src:geo-lngs-osm-tunnel-relation",
+        "src:geo-lngs-pee-2024"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-lngs-osm-tunnel-relation",
+        "src:geo-lngs-pee-2024"
+      ],
+      "verified_at": null
+    }
+  },
   "geometry:magic-array-point": {
     "/geometry": {
       "confidence": "approximate",
@@ -50240,6 +50591,96 @@
       "quote": null,
       "sources": [
         "src:cern-meyrin-osm-nominatim"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:modane-carre-sciences-point": {
+    "/geometry": {
+      "confidence": "approximate",
+      "locator": "OSM node 9143256861, as of 2026-09-18T22:47:00Z",
+      "note": "OpenStreetMap alone (rank 11) caps this point at 'approximate'.",
+      "quote": null,
+      "sources": [
+        "src:geo-modane-osm-carre-sciences"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-modane-osm-carre-sciences"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:modane-lsm-underground": {
+    "/depth_m": {
+      "confidence": "verified",
+      "locator": null,
+      "note": "Same figure already recorded on site:lsm-frejus.",
+      "quote": "Protege par 1700 m de roches",
+      "sources": [
+        "src:lsm-official-site"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/geometry": {
+      "confidence": "approximate",
+      "locator": "OSM way 235115147, as of 2026-09-18T22:47:00Z",
+      "note": "'other', not 'hall', because this OSM area is tagged 'source: extrapolation ... cadastre ... mise à jour 2015' (extrapolated from French cadastral parcel data, not a surveyed hall footprint), and no fetched source gives the actual hall/gallery dimensions positioned in space (only the undifferentiated totals in src:geo-euro-ug-pandola-2011: a 30x10x11 m Main Hall, a 70 m2 Gamma Spectrometry Hall, and two secondary halls of 18 and 21 m2). 'approximate' rather than 'verified': OpenStreetMap alone is rank 11.",
+      "quote": null,
+      "sources": [
+        "src:geo-modane-osm-lsm-way"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-modane-osm-lsm-way",
+        "src:geo-modane-cnrs-images-shelter6"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:modane-tunnel-frejus": {
+    "/checks/0": {
+      "confidence": null,
+      "locator": "sftrf.fr, 'Le tunnel du Fréjus' page",
+      "note": null,
+      "quote": "12,87 km de long",
+      "sources": [
+        "src:geo-modane-sftrf-tunnel-page"
+      ],
+      "verified_at": null
+    },
+    "/geometry": {
+      "confidence": "approximate",
+      "locator": "OSM way 101986702 (French section) + way 317397424 (Italian section), joined at the border (35 m gap between their nearest endpoints), as of 2026-09-18T22:47:00Z",
+      "note": "Kept 'approximate' rather than pushed to 'verified' even though the length check passes at 0.06%: as of 28 July 2025 the Fréjus road tunnel has TWO parallel tubes (the original 1980 bore and a new one built 2019-2025, each ~12.9 km, one-way in opposite directions per src:geo-modane-sftrf-second-tube-pr), and the two OSM ways used here carry inconsistent tags (the Italian way is tagged opening_date=2023-10, suggesting it may already describe the new tube rather than the 1980 original that the laboratory was actually excavated beside). Since both tubes run closely parallel over their whole length and this session could not fetch Overpass to disambiguate cleanly, the traced line is treated as approximate for either tube. See the facility worklog.",
+      "quote": null,
+      "sources": [
+        "src:geo-modane-osm-tunnel",
+        "src:geo-modane-sftrf-tunnel-page"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-modane-osm-tunnel",
+        "src:geo-modane-sftrf-tunnel-page",
+        "src:geo-modane-sftrf-second-tube-pr"
       ],
       "verified_at": null
     }
@@ -68392,6 +68833,116 @@
       "verified_at": null
     }
   },
+  "map:baksan-neutrino-observatory": {
+    "/center": {
+      "confidence": "derived",
+      "locator": "Midpoint between geometry:baksan-bno-building and the centroid of geometry:baksan-neutrino-village-boundary",
+      "note": "Map centre only; not a claim about any structure.",
+      "quote": null,
+      "sources": [
+        "src:geo-baksan-osm-bno-building",
+        "src:geo-baksan-osm-neutrino-village"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/levels/0": {
+      "confidence": null,
+      "locator": null,
+      "note": "The BNO administrative building and the Neutrino settlement.",
+      "quote": null,
+      "sources": null,
+      "verified_at": null
+    },
+    "/levels/1": {
+      "confidence": null,
+      "locator": null,
+      "note": "No geometry feature is drawn at this level: no fetched source this session gives the tunnel's own path or bearing into the mountain (Overpass, which might show it as a mapped way, was unreachable throughout), so no sourced walk from the portal to SAGE's stated 3.5 km position was possible. See map.unlocated.",
+      "quote": null,
+      "sources": null,
+      "verified_at": null
+    },
+    "/levels/1/depth_m": {
+      "confidence": "approximate",
+      "locator": null,
+      "note": "SAGE's own paper states 4700 m water-equivalent overburden and a horizontal distance of 3.5 km from the tunnel entrance, not a linear vertical depth; the 2100 m figure is the linear depth already recorded on site:baksan-sage-underground-lab, sourced only to Wikipedia (rank 12) this session. Left as an approximate range rather than reconciled further.",
+      "quote": "It is located 3.5 km from the entrance of a horizontal adit excavated into the side of Mount Andyrchi and has an overhead shielding of 4700 meters of water equivalent.",
+      "sources": [
+        "src:sage-1999-capture-rate"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-baksan-osm-bno-building",
+        "src:geo-baksan-osm-neutrino-village",
+        "src:sage-1999-capture-rate"
+      ],
+      "verified_at": null
+    },
+    "/unlocated/0": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:sage-1999-capture-rate"
+      ],
+      "verified_at": "2026-09-18"
+    }
+  },
+  "map:boulby-underground-laboratory": {
+    "/center": {
+      "confidence": "derived",
+      "locator": "Vertex-average centroid of geometry:boulby-mine-boundary",
+      "note": "Map centre only; not a claim about any structure.",
+      "quote": null,
+      "sources": [
+        "src:geo-boulby-osm-mine-boundary"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/levels/0": {
+      "confidence": null,
+      "locator": null,
+      "note": "The mine's surface works site (geometry:boulby-mine-boundary).",
+      "quote": null,
+      "sources": null,
+      "verified_at": null
+    },
+    "/levels/1": {
+      "confidence": null,
+      "locator": null,
+      "note": "No geometry feature is drawn at this level this session: no fetched source gives a shaft-head or underground-workings position more precise than the surface boundary above it.",
+      "quote": null,
+      "sources": null,
+      "verified_at": null
+    },
+    "/levels/1/depth_m": {
+      "confidence": "verified",
+      "locator": null,
+      "note": "Same figure already recorded on site:boulby-mine.",
+      "quote": "1.1 km beneath the North York Moors",
+      "sources": [
+        "src:boulby-stfc-about"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-boulby-osm-mine-boundary",
+        "src:boulby-stfc-about"
+      ],
+      "verified_at": null
+    }
+  },
   "map:brookhaven-national-laboratory": {
     "/center": {
       "confidence": "derived",
@@ -68435,6 +68986,57 @@
       "sources": [
         "src:bnl-about-page",
         "src:geo-bnl-central-campus-map"
+      ],
+      "verified_at": null
+    }
+  },
+  "map:canfranc-underground-laboratory": {
+    "/center": {
+      "confidence": "derived",
+      "locator": "Midpoint between geometry:canfranc-surface-building and geometry:canfranc-lab-underground",
+      "note": "Map centre only; not a claim about any structure.",
+      "quote": null,
+      "sources": [
+        "src:geo-canfranc-osm-surface-building",
+        "src:geo-canfranc-osm-lab-underground"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/levels/0": {
+      "confidence": null,
+      "locator": null,
+      "note": "Canfranc-Estación and the LSC administrative building.",
+      "quote": null,
+      "sources": null,
+      "verified_at": null
+    },
+    "/levels/1": {
+      "confidence": null,
+      "locator": null,
+      "note": "Plan view. Houses the Somport road tunnel (geometry:canfranc-tunnel-somport-road), the partially-mapped historic rail tunnel (geometry:canfranc-tunnel-rail-somport-stub) and the laboratory itself (geometry:canfranc-lab-underground), between them under Mount Tobazo.",
+      "quote": null,
+      "sources": null,
+      "verified_at": null
+    },
+    "/levels/1/depth_m": {
+      "confidence": "verified",
+      "locator": null,
+      "note": "",
+      "quote": "It has a depth of 800 m under Mount Tobazo.",
+      "sources": [
+        "src:lsc-history"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-canfranc-osm-somport-road-tunnel",
+        "src:geo-canfranc-osm-lab-underground",
+        "src:lsc-history"
       ],
       "verified_at": null
     }
@@ -69389,6 +69991,65 @@
       "verified_at": null
     }
   },
+  "map:lngs": {
+    "/center": {
+      "confidence": "derived",
+      "locator": "Midpoint between the surveyed surface complex (geometry:lngs-external-labs-point) and the derived underground hall-complex position (geometry:lngs-hall-a/-b/-c)",
+      "note": "Map centre only; not a claim about any structure.",
+      "quote": null,
+      "sources": [
+        "src:geo-lngs-pee-2024",
+        "src:geo-lngs-osm-tunnel-relation"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/levels/0": {
+      "confidence": null,
+      "locator": null,
+      "note": "The A24 motorway and the LNGS External Laboratories / Centro Direzionale at Assergi.",
+      "quote": null,
+      "sources": null,
+      "verified_at": null
+    },
+    "/levels/1": {
+      "confidence": null,
+      "locator": null,
+      "note": "Plan view. Houses geometry:lngs-tunnel-gran-sasso (the public A24 road tunnel), geometry:lngs-lab-access-zone (the sourced ~700 m stretch adjacent to the laboratory's doors) and the three hall markers.",
+      "quote": null,
+      "sources": null,
+      "verified_at": null
+    },
+    "/levels/1/depth_m": {
+      "confidence": "approximate",
+      "locator": null,
+      "note": "Average rock coverage of the underground laboratory as a whole; the mountain profile is asymmetric so any single feature's own depth can differ (already the treatment used on site:lngs-hall-a/-b/-c).",
+      "quote": "The 1400 metre-rock thickness above the Laboratory represents a natural coverage that provides a cosmic ray flux reduction by one million times",
+      "sources": [
+        "src:lngs-overview"
+      ],
+      "verified_at": "2026-09-16"
+    },
+    "/schematics/0": {
+      "confidence": null,
+      "locator": null,
+      "note": "Official site-layout figures ('Planimetria ubicazione esperimenti e set-up Laboratori sotterranei LNGS', 'Vista assonometrica dei Laboratori sotterranei') in the laboratory's own external emergency plan; not georeferenced or copied into this dataset (an institutional PDF), cited as a link only. Would be the best source for a future, hall-differentiated position.",
+      "quote": null,
+      "sources": null,
+      "verified_at": null
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-lngs-osm-tunnel-relation",
+        "src:geo-lngs-pee-2024",
+        "src:lngs-overview"
+      ],
+      "verified_at": null
+    }
+  },
   "map:los-alamos-national-laboratory": {
     "/center": {
       "confidence": "derived",
@@ -69438,6 +70099,57 @@
         "src:geo-lanl-fpns-area-a-nim-2020"
       ],
       "verified_at": "2026-09-18"
+    }
+  },
+  "map:modane-underground-laboratory": {
+    "/center": {
+      "confidence": "derived",
+      "locator": "Midpoint between geometry:modane-carre-sciences-point (surface) and geometry:modane-lsm-underground (underground)",
+      "note": "Map centre only; not a claim about any structure.",
+      "quote": null,
+      "sources": [
+        "src:geo-modane-osm-carre-sciences",
+        "src:geo-modane-osm-lsm-way"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/levels/0": {
+      "confidence": null,
+      "locator": null,
+      "note": "Modane and Bardonecchia, the tunnel portals, and the Carré Science outreach building.",
+      "quote": null,
+      "sources": null,
+      "verified_at": null
+    },
+    "/levels/1": {
+      "confidence": null,
+      "locator": null,
+      "note": "Plan view. Houses geometry:modane-tunnel-frejus (the road tunnel) and geometry:modane-lsm-underground (the laboratory itself, near the tunnel's midpoint).",
+      "quote": null,
+      "sources": null,
+      "verified_at": null
+    },
+    "/levels/1/depth_m": {
+      "confidence": "verified",
+      "locator": null,
+      "note": "",
+      "quote": "Protege par 1700 m de roches",
+      "sources": [
+        "src:lsm-official-site"
+      ],
+      "verified_at": "2026-09-17"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-modane-osm-tunnel",
+        "src:geo-modane-osm-lsm-way",
+        "src:lsm-official-site"
+      ],
+      "verified_at": null
     }
   },
   "map:oak-ridge-national-laboratory": {

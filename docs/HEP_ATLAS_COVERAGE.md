@@ -16,13 +16,13 @@ interface says only "coverage updated" with this date.
 | document | 70 |
 | experiment | 131 |
 | facility | 48 |
-| geometry | 131 |
+| geometry | 148 |
 | institution | 529 |
-| map | 29 |
+| map | 34 |
 | person | 12 |
 | result | 109 |
 | site | 93 |
-| source | 1579 |
+| source | 1597 |
 | topic | 42 |
 | membership rows | 659 |
 
@@ -325,7 +325,10 @@ Checks are independent official figures the validator re-measures on every run.
 | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
 | Amundsen-Scott South Pole Station — IceCube and ARA | Amundsen-Scott South Pole Station | 1 | 0 | 1 | 0 | 0 | 8 | 0 | 0 |
 | Baikal-GVD — southern Lake Baikal site | Baikal Deep Underwater Neutrino Telescope | 2 | 1 | 0 | 1 | 0 | 0 | 0 | 0 |
+| BNO — Baksan Neutrino Observatory | Baksan Neutrino Observatory | 2 | 0 | 2 | 0 | 0 | 1 | 0 | 0 |
+| Boulby Underground Laboratory | Boulby Underground Laboratory | 1 | 0 | 1 | 0 | 0 | 0 | 0 | 0 |
 | Brookhaven National Laboratory — Upton campus, RHIC and AGS rings | Brookhaven National Laboratory | 11 | 0 | 11 | 0 | 0 | 0 | 2 | 0 |
+| LSC — Laboratorio Subterráneo de Canfranc | Laboratorio Subterraneo de Canfranc | 4 | 0 | 4 | 0 | 0 | 0 | 1 | 0 |
 | CERN — Meyrin, Prévessin and the LHC ring | CERN | 21 | 1 | 17 | 2 | 1 | 7 | 5 | 0 |
 | China Jinping Underground Laboratory (CJPL) | China Jinping Underground Laboratory | 3 | 0 | 1 | 2 | 0 | 0 | 1 | 0 |
 | CTAO-South — Paranal | CTAO-South (Paranal) | 1 | 1 | 0 | 0 | 0 | 0 | 0 | 0 |
@@ -340,7 +343,9 @@ Checks are independent official figures the validator re-measures on every run.
 | KM3NeT/ARCA — Capo Passero deep-sea site | KM3NeT | 2 | 1 | 0 | 1 | 0 | 0 | 0 | 0 |
 | KM3NeT/ORCA — Toulon deep-sea site | KM3NeT | 2 | 1 | 0 | 1 | 0 | 0 | 0 | 0 |
 | LHAASO — Haizi Mountain, Daocheng | LHAASO (Daocheng) | 1 | 0 | 1 | 0 | 0 | 0 | 0 | 0 |
+| LNGS — Laboratori Nazionali del Gran Sasso | Laboratori Nazionali del Gran Sasso | 7 | 1 | 2 | 4 | 0 | 0 | 1 | 0 |
 | Los Alamos National Laboratory, LANSCE (Technical Area 53) | Los Alamos National Laboratory | 1 | 0 | 1 | 0 | 0 | 2 | 0 | 0 |
+| LSM — Laboratoire Souterrain de Modane | Laboratoire Souterrain de Modane | 3 | 0 | 3 | 0 | 0 | 0 | 1 | 0 |
 | Oak Ridge National Laboratory, Spallation Neutron Source | Oak Ridge National Laboratory | 1 | 0 | 1 | 0 | 0 | 1 | 0 | 0 |
 | Pierre Auger Observatory — Malargüe array | Pierre Auger Observatory | 2 | 0 | 0 | 2 | 0 | 0 | 1 | 0 |
 | PSI — Villigen and Wurenlingen campus | Paul Scherrer Institute | 1 | 0 | 1 | 0 | 0 | 1 | 0 | 0 |
@@ -353,11 +358,11 @@ Checks are independent official figures the validator re-measures on every run.
 | Telescope Array — Utah | Telescope Array (Utah) | 1 | 1 | 0 | 0 | 0 | 0 | 0 | 0 |
 | WIPP — Waste Isolation Pilot Plant, Carlsbad, New Mexico | Waste Isolation Pilot Plant | 3 | 0 | 3 | 0 | 0 | 0 | 0 | 0 |
 
-### Facilities without a local map (20)
+### Facilities without a local map (15)
 
 Named rather than counted, so the gap cannot be read as coverage:
 
-Argonne National Laboratory, Baksan Neutrino Observatory, Boulby Underground Laboratory, Brokdorf Nuclear Power Plant, Center for Experimental Nuclear Physics and Astrophysics (CENPA), Chooz Reactor Neutrino Site, Daya Bay Reactor Neutrino Laboratory, ISIS Neutron and Muon Source, Institut Laue-Langevin, Jiangmen Underground Neutrino Observatory, Karlsruhe Institute of Technology, Campus North, Laboratoire Souterrain de Modane, Laboratori Nazionali del Gran Sasso, Laboratorio Subterraneo de Canfranc, Leibstadt Nuclear Power Plant, Massachusetts Institute of Technology, McMurdo Long Duration Balloon Facility, Summit Station, Greenland, Yale Wright Laboratory, Yonggwang (Hanbit) Reactor Neutrino Site.
+Argonne National Laboratory, Brokdorf Nuclear Power Plant, Center for Experimental Nuclear Physics and Astrophysics (CENPA), Chooz Reactor Neutrino Site, Daya Bay Reactor Neutrino Laboratory, ISIS Neutron and Muon Source, Institut Laue-Langevin, Jiangmen Underground Neutrino Observatory, Karlsruhe Institute of Technology, Campus North, Leibstadt Nuclear Power Plant, Massachusetts Institute of Technology, McMurdo Long Duration Balloon Facility, Summit Station, Greenland, Yale Wright Laboratory, Yonggwang (Hanbit) Reactor Neutrino Site.
 
 
 ## What is deliberately out of scope
