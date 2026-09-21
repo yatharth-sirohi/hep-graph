@@ -1,0 +1,55 @@
+{
+  "aliases": [],
+  "center": {
+    "confidence": "derived",
+    "kind": "campus",
+    "lat": 53.850766,
+    "locator": "reactor-building centroid",
+    "lon": 9.345687,
+    "note": "Map centre only: mean of the drawn features' centroids; not a claim about any structure.",
+    "precision_m": 500,
+    "sources": [
+      "src:geo-reactors-osm-brokdorf-leibstadt-reactors"
+    ],
+    "verified_at": "2026-09-21"
+  },
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "extent_m": 800,
+  "facility_id": "facility:brokdorf-nuclear-power-plant",
+  "id": "map:brokdorf-nuclear-power-plant",
+  "levels": [
+    {
+      "depth_m": null,
+      "id": "surface",
+      "kind": "surface",
+      "name": "Surface (reactor building; CONUS stood inside it)",
+      "note": ""
+    }
+  ],
+  "linked_map_ids": [
+    "map:leibstadt-nuclear-power-plant"
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "Brokdorf — reactor building and the CONUS position",
+  "notes": [],
+  "schema": "hep-atlas/0.2",
+  "schematics": [],
+  "site_ids": [
+    "site:brokdorf-nuclear-power-plant-campus"
+  ],
+  "sources": [
+    "src:geo-reactors-osm-brokdorf-leibstadt-reactors",
+    "src:cevns-conus-prl-2024-final-brokdorf"
+  ],
+  "summary": {
+    "plain": "The Brokdorf reactor building, inside which the CONUS germanium detectors sat 17.1 m from the core until the plant closed at the end of 2021.",
+    "technical": "Reactor-building footprint from OpenStreetMap (georeferenced); CONUS drawn as a derived point at the building centroid with accuracy widened for the unresolved 17.1 m offset (arXiv:2401.07684)."
+  },
+  "type": "map",
+  "unlocated": []
+}

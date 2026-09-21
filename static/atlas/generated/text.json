@@ -4410,11 +4410,79 @@
   "geometry:antiproton-decelerator-hall": {
     "notes": []
   },
+  "geometry:brokdorf-conus-detector": {
+    "notes": []
+  },
+  "geometry:brokdorf-core": {
+    "notes": [
+      "Integrator (2026-09-21): entity_id set to the plant campus site so the map accounts for the detector-hosting site; the reactor building is the structure the CONUS detectors sat in."
+    ]
+  },
+  "geometry:chooz-core-a": {
+    "notes": [
+      "Chooz-A (310 MW, shut down 1991) is a different, older reactor than the Chooz-B1/B2 units Double Chooz and NUCLEUS baselines are measured from; included for campus context only."
+    ]
+  },
+  "geometry:chooz-core-b1": {
+    "notes": []
+  },
+  "geometry:chooz-core-b2": {
+    "notes": []
+  },
   "geometry:cngs-direction-line": {
+    "notes": []
+  },
+  "geometry:daya-bay-core-d1": {
+    "notes": []
+  },
+  "geometry:daya-bay-core-d2": {
+    "notes": []
+  },
+  "geometry:daya-bay-eh1-hall": {
+    "notes": []
+  },
+  "geometry:daya-bay-eh2-hall": {
+    "notes": [
+      "Integrator (2026-09-21): the distance check to the sixth core measures 472.7 m against 500.1 m expected (5.5 %); the other five cores agree within 3 %. The 27 m residual is attributed to the reactor-building centroid standing in for that core's centre; tolerance on that one check is 6 % and accuracy_m is 30 m."
+    ]
+  },
+  "geometry:daya-bay-eh3-hall": {
     "notes": []
   },
   "geometry:ehn1-building-887": {
     "notes": []
+  },
+  "geometry:hanbit-core-r1": {
+    "notes": []
+  },
+  "geometry:hanbit-core-r2": {
+    "notes": []
+  },
+  "geometry:hanbit-core-r3": {
+    "notes": []
+  },
+  "geometry:hanbit-core-r4": {
+    "notes": []
+  },
+  "geometry:hanbit-core-r5": {
+    "notes": []
+  },
+  "geometry:hanbit-core-r6": {
+    "notes": []
+  },
+  "geometry:hanbit-plant-boundary": {
+    "notes": [
+      "Context feature only (entity_id null); site-level accounting for site:reno-near-detector and site:reno-far-detector comes from their own derived hall-point features (geometry:reno-near-detector, geometry:reno-far-detector), not this campus boundary."
+    ]
+  },
+  "geometry:leibstadt-conus-detector": {
+    "notes": []
+  },
+  "geometry:leibstadt-core": {
+    "notes": [
+      "Not independently confirmed as the reactor containment building by an OSM name/tag; see geometry note.",
+      "Integrator (2026-09-21): entity_id set to the plant campus site so the map accounts for the detector-hosting site; the reactor building is the structure the CONUS detectors sat in."
+    ]
   },
   "geometry:lep-tunnel-ring": {
     "notes": []
@@ -4423,6 +4491,18 @@
     "notes": []
   },
   "geometry:linac4-building": {
+    "notes": []
+  },
+  "geometry:lingao-core-l1": {
+    "notes": []
+  },
+  "geometry:lingao-core-l2": {
+    "notes": []
+  },
+  "geometry:lingao-ii-core-l3": {
+    "notes": []
+  },
+  "geometry:lingao-ii-core-l4": {
     "notes": []
   },
   "geometry:meyrin-site-marker": {
@@ -4460,6 +4540,14 @@
   },
   "geometry:psb-tunnel-ring": {
     "notes": []
+  },
+  "geometry:reno-far-detector": {
+    "notes": []
+  },
+  "geometry:reno-near-detector": {
+    "notes": [
+      "Integrator (2026-09-21): checks against units 3–6 sit 3.3–3.8 % (10–28 m) from the TDR distances; over 300–740 m baselines that is the expected size of the offset between a reactor-building centroid and the core centre, so the tolerance is 5 % and accuracy_m 30 m rather than the fit residual alone."
+    ]
   },
   "geometry:sps-tunnel-ring": {
     "notes": []
@@ -6668,12 +6756,38 @@
     "notes": [],
     "summary_technical": "university (ROR https://ror.org/04ypx8c21); established 1956."
   },
+  "map:brokdorf-nuclear-power-plant": {
+    "notes": [],
+    "summary_technical": "Reactor-building footprint from OpenStreetMap (georeferenced); CONUS drawn as a derived point at the building centroid with accuracy widened for the unresolved 17.1 m offset (arXiv:2401.07684)."
+  },
   "map:cern": {
     "notes": [
       "Linked maps: map:lngs (the CNGS far site at LNGS) does not exist yet in this atlas; linked_map_ids is left empty here and the build's automatic derivation (from beamline:cngs's far_detector_site_ids) will populate it once LNGS has its own map.",
       "site:cern-lep-point-2-l3 and site:cern-point-2-alice, and site:cern-lep-point-8-delphi and site:cern-point-8-lhcb, are drawn as separate geometry features using the SAME underlying OSM polygon (the same physical Point 2 / Point 8 enclosure hosted a LEP experiment 1989-2000 and hosts an LHC experiment today); this is expected to raise the validator's geometry-duplicate-shape warning for those two pairs, documented here and in the worklog rather than avoided by omission."
     ],
     "summary_technical": "One local map for facility:cern spanning the Meyrin and Prévessin sites and the full LHC/LEP tunnel footprint. Geometry sourced from OpenStreetMap (relation 9512017 for the LHC/LEP ring; ways 66473762/174646428/309914733 for SPS/PS/PSB; named Point-N surface enclosures for ATLAS/ALICE/CMS/LHCb and their LEP-era predecessors L3/ALEPH/DELPHI) cross-checked against CERN's published circumference and depth figures, plus one CMS-paper surveyed cavern point and two ring-derived points for FASER/SND@LHC in TI12/TI18."
+  },
+  "map:chooz": {
+    "notes": [
+      "Chooz A (shut down 1991) is drawn for campus context only; the Double Chooz and NUCLEUS baselines refer to B1/B2."
+    ],
+    "summary_technical": "Reactor-building footprints from OpenStreetMap; no laboratory position drawn because two cores alone leave a mirror ambiguity."
+  },
+  "map:daya-bay-reactor-neutrino-lab": {
+    "notes": [
+      "The three halls are drawn as derived points (not footprints): their positions come from multilateration, not from a survey or a tracing; accuracy_m on each hall covers the fit residual and the use of reactor-building centroids as proxies for the core centres."
+    ],
+    "summary_technical": "Reactor-building footprints from OpenStreetMap (georeferenced); EH1–EH3 positions derived by least-squares multilateration from the six cores using the AD-to-core baselines of arXiv:1508.03943 Table 2 (survey uncertainty < 18 mm); overburdens from §2.2/Table 1 of the same paper."
+  },
+  "map:leibstadt-nuclear-power-plant": {
+    "notes": [],
+    "summary_technical": "Reactor-building footprint from OpenStreetMap (georeferenced); CONUS+ drawn as a derived point at the building centroid with widened accuracy for the unresolved offset."
+  },
+  "map:yonggwang-hanbit-reactor-site": {
+    "notes": [
+      "The near hall's distance checks to units 3–6 sit 3–4 % from the TDR figures (10–28 m), consistent with using reactor-building centroids as proxies for core centres over 300–740 m baselines; the tolerance on those checks is widened to 5 % with that reason and accuracy_m raised accordingly — see the geometry record."
+    ],
+    "summary_technical": "Reactor-unit footprints and plant boundary from OpenStreetMap; near/far hall positions derived by multilateration from the six units using Table 1.2 of the RENO TDR (arXiv:1003.1391); the assignment of reactor numbers to buildings is the only one of the 720 permutations that fits."
   },
   "person:inspire-1005149": {
     "notes": []
