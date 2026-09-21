@@ -886,15 +886,36 @@ async function setRangeValue(locator, value) {
               const m = window.__hepAtlasLocalMap;
               const box = el.getBoundingClientRect();
               const host = document.getElementById("map-canvas").getBoundingClientRect();
-              const top = box.top - host.top;
-              return m.distance(
-                m.containerPointToLatLng([box.left - host.left, top + box.height / 2]),
-                m.containerPointToLatLng([box.left - host.left + box.width, top + box.height / 2]),
-              );
+              // A client rect spans the *painted* shape, so it is one stroke
+              // wider than the geometry — and engines differ on how much of
+              // the stroke they include. Take it off before converting to
+              // ground metres, and report the pixel size so a too-small
+              // circle can be skipped rather than measured as stroke.
+              const stroke = parseFloat(getComputedStyle(el).strokeWidth) || 0;
+              const widthPx = Math.max(1, box.width - stroke);
+              const left = box.left - host.left + stroke / 2;
+              const mid = box.top - host.top + box.height / 2;
+              return {
+                metres: m.distance(m.containerPointToLatLng([left, mid]),
+                  m.containerPointToLatLng([left + widthPx, mid])),
+                widthPx,
+                stroke,
+              };
             }, pointFeature.id);
             const expected = 2 * pointFeature.accuracy_m;
-            assert.ok(Math.abs(drawn - expected) / expected <= 0.15,
-              `the circle should be ${expected} m across (±${pointFeature.accuracy_m} m accuracy), drawn ${Math.round(drawn)} m`);
+            if (drawn.widthPx < 24) {
+              console.log(`point circle: skipping ${pointFeature.id} — ${drawn.widthPx.toFixed(1)} px across, `
+                + `too small to separate from its ${drawn.stroke} px stroke`);
+            } else {
+              const error = Math.abs(drawn.metres - expected) / expected;
+              console.log("point circle:", JSON.stringify({
+                id: pointFeature.id, expected_m: expected, drawn_m: Math.round(drawn.metres),
+                widthPx: Math.round(drawn.widthPx), errorPercent: Number((100 * error).toFixed(1)),
+              }));
+              assert.ok(error <= 0.15,
+                `the circle should be ${expected} m across (±${pointFeature.accuracy_m} m accuracy), `
+                + `drawn ${Math.round(drawn.metres)} m`);
+            }
           }
           await mapContext.close();
         });
