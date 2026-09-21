@@ -4717,6 +4717,11 @@
       "No checks[] row: a Point has no length/area/span to cross-check independently; the coordinate is corroborated by two independent official sources."
     ]
   },
+  "geometry:lansce-site-marker": {
+    "notes": [
+      "LANL/TA-53 is security-sensitive; per the research brief only accelerator/experimental areas on public LANSCE maps may be depicted, never fences or gates. Given the sparse public OSM coverage of TA-53 (a broad Overpass building search inside a 2 km box around this node returned zero ways even when Overpass was briefly reachable), a single named point is the most that can be honestly drawn this session."
+    ]
+  },
   "geometry:lep-tunnel-ring": {
     "notes": []
   },
@@ -4781,6 +4786,37 @@
       "entity_id is the site (site:psi-villigen); this one feature accounts for the site and, through it, the site-hosted detector placements of detector:meg, detector:meg-ii and detector:mu3e, none of which has its own sourced hall footprint this session (see accelerator:psi-hipa's unlocated row and the worklog)."
     ]
   },
+  "geometry:slac-collider-experimental-hall-dmradio": {
+    "notes": [
+      "Location is sourced to the DMRadio-m3 detector paper ('DMRadio-m3 will be located in Building 750 at SLAC National Accelerator Laboratory, the former site of the SLD detector', src:geo-slac-dmradio-prd-2022), independent of and more specific than detector:dmradio's own currently-sourced placement (site:slac-menlo-park-campus, the general campus point). See the worklog's site coordinate corrections."
+    ]
+  },
+  "geometry:slac-collider-experimental-hall-sld": {
+    "notes": []
+  },
+  "geometry:slac-linac-klystron-gallery": {
+    "notes": [
+      "Confidence verified rests on the passing span check against SLAC's own official figure for the length of this exact structure (not a proxy figure): the official page states the linear accelerator structure (i.e. the Klystron Gallery building measured here) is 3,073.72 m long."
+    ]
+  },
+  "geometry:slac-other-pep-and-end-station-buildings": {
+    "notes": [
+      "End Station A (building 61) is SLAC's historic fixed-target hall where the 1969-1973 SLAC-MIT deep-inelastic-scattering experiments found the first direct evidence of quarks; it hosts the modern End Station Test Beam (ESTB) facility today. Neither ESA nor ESB corresponds to a detector/experiment entity in this atlas wave, so both are drawn only as context buildings.",
+      "The four other PEP-II interaction regions (IR-4/6/8/12) and the PEP Control Room / PEP Beam Facility (which serves the Stanford Synchrotron Radiation Lab, SSRL, a separate light-source facility not modeled in HEP Atlas) have no atlas accelerator/detector/experiment entity either; drawn as context for campus completeness only."
+    ]
+  },
+  "geometry:slac-pep-ii-partial-ring": {
+    "notes": [
+      "PEP-II's circumference is officially 2,200 m (src:geo-slac-pepii-cdr-osti, the PEP-II Conceptual Design Report: 'each with a circumference of 2200 m'), but the two mapped road segments together measure only 1,320.2 m + 699.0 m = 2,019.2 m and do not close into a loop, so no `checks[]` length row is asserted here (a check against an incomplete, unclosed shape would not be a meaningful circumference measurement). See the worklog for this residual.",
+      "This ring-road proxy stands in the SLAC Research Yard around which the PEP-II (and originally PEP) storage rings ran; the five 'PEP Interaction Region' buildings (620, 640, 660, 680, 720) sit along its inferred path, of which IR-2 (620) is drawn separately as the BaBar hall."
+    ]
+  },
+  "geometry:slac-pep-ir2-babar-hall": {
+    "notes": []
+  },
+  "geometry:slac-property-boundary": {
+    "notes": []
+  },
   "geometry:snolab-cavity": {
     "notes": []
   },
@@ -4789,6 +4825,11 @@
   },
   "geometry:snolab-surface-office": {
     "notes": []
+  },
+  "geometry:sns-complex-boundary": {
+    "notes": [
+      "Neutrino Alley itself is officially described as a '164-foot, or 50-meter, long hallway' in the basement of the SNS target building, with its closest point 'about 20 meters from the SNS target' (src:geo-ornl-neutrino-alley-qa), but no coordinate, OSM element or published site plan locating this corridor within the complex was found this session; see the worklog backlog."
+    ]
   },
   "geometry:soudan-mine-shaft-building": {
     "notes": []
@@ -7175,6 +7216,20 @@
     ],
     "summary_technical": "One local map for facility:lhaaso-daocheng. Drawn as a single approximate reference point; KM2A (circular, ~575-635 m radius) and WCDA (78,000 m2, three pools) are described with enough shape detail to draw but could not be anchored to a precise-enough coordinate this session (see geometry record and worklog backlog)."
   },
+  "map:los-alamos-national-laboratory": {
+    "notes": [
+      "Overpass (overpass-api.de and lz4.overpass-api.de) refused essentially every connection attempt for LANL/ORNL after the SLAC extract succeeded (TCP connection refused, then HTTP 429, then connection refused again); overpass.kumi.systems and overpass.osm.ch both answered but returned zero elements even for known-good queries and were dropped as likely partial/regional mirrors. maps.mail.ru/osm/tools/overpass/api/interpreter, suggested mid-session, did return real, complete data: a 1,817-element extract of the wider Los Alamos townsite (streets, apartments, generic industrial buildings, none named or tagged in any way suggesting LANSCE), and a tight 700 m box directly around the LANSCE node itself came back with zero building ways. TA-53's accelerator/experimental core is therefore genuinely almost unmapped in OpenStreetMap, not merely unreached this session. Nominatim's /search and /lookup endpoints were reachable throughout and are the source of the one point drawn on this map.",
+      "TA-53 is a security-sensitive area of Los Alamos National Laboratory: per the research brief, only accelerator/experimental areas shown on public LANSCE maps may be depicted, never fences or gates. No fence, gate or access-control feature is drawn or was found."
+    ],
+    "summary_technical": "One local map for facility:los-alamos-national-laboratory. Only OpenStreetMap node 8041862150 ('LANSCE') was locatable this session; the 800 m side-coupled-cavity linac (accelerator:lansce) and the LSND detector's position are both unlocated, for lack of a public, sufficiently precise source."
+  },
+  "map:oak-ridge-national-laboratory": {
+    "notes": [
+      "Overpass (overpass-api.de and lz4.overpass-api.de) refused essentially every connection attempt for LANL/ORNL after the SLAC extract succeeded (TCP connection refused, then HTTP 429, then connection refused again); overpass.kumi.systems accepted queries but appears to serve only a partial/regional dataset (zero elements even for a query overpass-api.de had already answered for the same SLAC bbox) and was not trusted; overpass.osm.ch answered but likewise returned zero elements for known-good queries and was dropped for the same reason. maps.mail.ru/osm/tools/overpass/api/interpreter, suggested mid-session, did return real data (25 buildings inside the SNS complex boundary, see the unlocated row below and the worklog) but timed out (HTTP 504) on anything larger than a single 'building' filter over a sub-1 km box, so the ring/linac search itself could not complete. Nominatim's /search and /lookup endpoints (a separate, lighter-weight OSM service) were reachable throughout and are the source of the complex boundary drawn on this map.",
+      "COHERENT's four operating sub-detectors (CENNS-10, CsI, Ge, NaI) all sit in Neutrino Alley, officially 'about 20 meters from the SNS target' at its closest point and 50 m long overall (src:geo-ornl-neutrino-alley-qa); none is drawn individually, since no source this session gives any one detector's position along the alley or a coordinate/heading for the alley itself, only its overall length and closest-approach distance. See the worklog."
+    ],
+    "summary_technical": "One local map for facility:oak-ridge-national-laboratory. Only OpenStreetMap way 907808191 ('ORNL Spallation Neutron Source'), the complex's outer property boundary, was locatable this session; the SNS linac and accumulator ring (accelerator:sns) are unlocated, and Neutrino Alley's own position within the complex (site:ornl-sns-neutrino-alley) is represented only by that outer boundary, honestly widened in accuracy_m."
+  },
   "map:pierre-auger-observatory": {
     "notes": [
       "map-center-far warning is expected and accepted: the map centre is the array's own geometric centroid (~40 km from site:malargue-auger, which is the Observatory's administrative HQ address in the town of Malargüe, not the array's centre -- that site record already documents this distinction).",
@@ -7203,6 +7258,14 @@
       "site:hawc-sierra-negra currently carries a coarser (precision_m 3000) Nominatim geocode of the Sierra Negra peak; the array's own coordinate found this session is reported as a site coordinate correction candidate in the worklog."
     ],
     "summary_technical": "One local map for facility:sierra-negra. Drawn as a single reference point at the array's own published coordinate (18.99N, 97.31W), tighter than the existing site record's Nominatim peak-geocode point; the 300-tank footprint has no sourced overall outline shape this session."
+  },
+  "map:slac": {
+    "notes": [
+      "geometry:slac-collider-experimental-hall-sld and geometry:slac-collider-experimental-hall-dmradio are drawn over the SAME OpenStreetMap polygon (way 232494549, Building 750): the SLD detector occupied this hall 1991-1998, and the DMRadio-m3 axion search is independently sourced (src:geo-slac-dmradio-prd-2022) to occupy the same building today. This is an intentional geometry-duplicate-shape pair, not an error: two different, independently sourced entities in the same physical hall at different times.",
+      "PEP-II's ring is drawn only partially (geometry:slac-pep-ii-partial-ring): the two 'PEP Ring Road' ways found in OpenStreetMap do not close into a loop and together cover only about 2,019 m of the collider's official 2,200 m circumference (src:geo-slac-pepii-cdr-osti), so no ring length check is asserted. See the worklog for the residual and backlog.",
+      "Overpass (overpass-api.de / lz4.overpass-api.de) accepted one extract for this campus and then refused further connections for the remainder of the session (HTTP 429, then outright TCP connection refusals); a lower-load alternate mirror was tried but returned zero results even for a query that overpass-api.de had already answered, so it was not used further. All SLAC geometry in this map comes from that single extract plus the sources cited above."
+    ],
+    "summary_technical": "One local map for facility:slac. Geometry sourced from a single OpenStreetMap Overpass extract (the SLAC property boundary way 634083231; the Klystron Gallery building way 162058026, checked against SLAC's own '3,073.72 m' figure for that structure; the two 'PEP Ring Road' ways; the PEP Interaction Region 2 / BaBar hall and Collider Experimental Hall / SLD-DMRadio-m3 hall buildings; and nine other campus buildings drawn as context), cross-referenced against the official SLAC Area Map building-number table and the PEP-II Conceptual Design Report's circumference figure."
   },
   "map:snolab": {
     "notes": [],

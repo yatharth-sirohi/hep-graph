@@ -2264,7 +2264,9 @@
       "feeds_accelerator_ids": [
         "accelerator:slac-linac"
       ],
-      "geometry_map_ids": [],
+      "geometry_map_ids": [
+        "map:slac"
+      ],
       "id": "accelerator:pep-ii",
       "intervals": [
         {
@@ -2748,7 +2750,9 @@
         "accelerator:pep-ii"
       ],
       "feeds_accelerator_ids": [],
-      "geometry_map_ids": [],
+      "geometry_map_ids": [
+        "map:slac"
+      ],
       "id": "accelerator:slac-linac",
       "intervals": [
         {
@@ -15569,7 +15573,9 @@
       "experiment_ids": [
         "experiment:dmradio"
       ],
-      "geometry_map_ids": [],
+      "geometry_map_ids": [
+        "map:slac"
+      ],
       "id": "detector:dmradio",
       "intervals": [
         {
@@ -47657,7 +47663,7 @@
       "links": {
         "website": "https://www.lanl.gov/"
       },
-      "map_id": null,
+      "map_id": "map:los-alamos-national-laboratory",
       "name": "Los Alamos National Laboratory",
       "operator_ids": [],
       "operator_text": "Triad National Security, LLC for the U.S. Department of Energy's National Nuclear Security Administration (NNSA)",
@@ -47928,7 +47934,7 @@
       "links": {
         "website": "https://neutrons.ornl.gov/sns"
       },
-      "map_id": null,
+      "map_id": "map:oak-ridge-national-laboratory",
       "name": "Oak Ridge National Laboratory",
       "operator_ids": [],
       "operator_text": "UT-Battelle, LLC (a partnership of the University of Tennessee and Battelle Memorial Institute) for the U.S. Department of Energy",
@@ -48321,7 +48327,7 @@
       "links": {
         "website": "https://www6.slac.stanford.edu"
       },
-      "map_id": null,
+      "map_id": "map:slac",
       "name": "SLAC National Accelerator Laboratory",
       "operator_ids": [],
       "operator_text": "Stanford University for the U.S. Department of Energy",
@@ -50225,6 +50231,108 @@
       "to_scale_count": 1,
       "unlocated_count": 0
     },
+    "map:los-alamos-national-laboratory": {
+      "attribution": [
+        "© OpenStreetMap contributors (ODbL-1.0)"
+      ],
+      "bundle": "geometry/los-alamos-national-laboratory.json",
+      "center": {
+        "lat": 35.8725644,
+        "lon": -106.2890098
+      },
+      "coverage": {
+        "researched": "partial",
+        "tier": "C"
+      },
+      "extent_m": 1500,
+      "facility_id": "facility:los-alamos-national-laboratory",
+      "feature_count": 1,
+      "id": "map:los-alamos-national-laboratory",
+      "levels": [
+        {
+          "depth_m": null,
+          "id": "surface",
+          "kind": "surface",
+          "name": "Surface"
+        }
+      ],
+      "linked_map_ids": [],
+      "name": "Los Alamos National Laboratory, LANSCE (Technical Area 53)",
+      "site_ids": [
+        "site:lanl-lansce"
+      ],
+      "state_segments": [
+        [
+          -84,
+          -73,
+          "active",
+          "possible"
+        ],
+        [
+          -72,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
+      "to_scale_count": 1,
+      "unlocated_count": 2
+    },
+    "map:oak-ridge-national-laboratory": {
+      "attribution": [
+        "© OpenStreetMap contributors (ODbL-1.0)"
+      ],
+      "bundle": "geometry/oak-ridge-national-laboratory.json",
+      "center": {
+        "lat": 35.95268192792727,
+        "lon": -84.30044038845206
+      },
+      "coverage": {
+        "researched": "partial",
+        "tier": "C"
+      },
+      "extent_m": 1200,
+      "facility_id": "facility:oak-ridge-national-laboratory",
+      "feature_count": 1,
+      "id": "map:oak-ridge-national-laboratory",
+      "levels": [
+        {
+          "depth_m": null,
+          "id": "surface",
+          "kind": "surface",
+          "name": "Surface"
+        },
+        {
+          "depth_m": null,
+          "id": "neutrino-alley",
+          "kind": "underground",
+          "name": "Neutrino Alley (basement corridor)"
+        }
+      ],
+      "linked_map_ids": [],
+      "name": "Oak Ridge National Laboratory, Spallation Neutron Source",
+      "site_ids": [
+        "site:ornl-sns-neutrino-alley"
+      ],
+      "state_segments": [
+        [
+          -84,
+          -73,
+          "active",
+          "possible"
+        ],
+        [
+          -72,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
+      "to_scale_count": 1,
+      "unlocated_count": 1
+    },
     "map:pierre-auger-observatory": {
       "attribution": [],
       "bundle": "geometry/pierre-auger-observatory.json",
@@ -50418,6 +50526,56 @@
       "status": "active",
       "to_scale_count": 1,
       "unlocated_count": 0
+    },
+    "map:slac": {
+      "attribution": [
+        "© OpenStreetMap contributors (ODbL-1.0)"
+      ],
+      "bundle": "geometry/slac.json",
+      "center": {
+        "lat": 37.41656745086245,
+        "lon": -122.20998802597693
+      },
+      "coverage": {
+        "researched": "partial",
+        "tier": "B"
+      },
+      "extent_m": 3000,
+      "facility_id": "facility:slac",
+      "feature_count": 7,
+      "id": "map:slac",
+      "levels": [
+        {
+          "depth_m": null,
+          "id": "surface",
+          "kind": "surface",
+          "name": "Surface"
+        }
+      ],
+      "linked_map_ids": [],
+      "name": "SLAC National Accelerator Laboratory, Menlo Park campus",
+      "site_ids": [
+        "site:slac-menlo-park-campus",
+        "site:slac-pep-ii-ir2-babar",
+        "site:slac-slc-collider-hall-sld"
+      ],
+      "state_segments": [
+        [
+          144,
+          155,
+          "active",
+          "possible"
+        ],
+        [
+          156,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
+      "to_scale_count": 7,
+      "unlocated_count": 1
     },
     "map:snolab": {
       "attribution": [
@@ -56102,7 +56260,7 @@
       "links": {
         "website": null
       },
-      "map_id": null,
+      "map_id": "map:los-alamos-national-laboratory",
       "name": "LANSCE (Technical Area 53)",
       "place": {
         "city": "Los Alamos",
@@ -57335,7 +57493,7 @@
       "links": {
         "website": null
       },
-      "map_id": null,
+      "map_id": "map:oak-ridge-national-laboratory",
       "name": "SNS Neutrino Alley",
       "place": {
         "city": "Oak Ridge",
@@ -57788,7 +57946,7 @@
       "links": {
         "website": null
       },
-      "map_id": null,
+      "map_id": "map:slac",
       "name": "SLAC Menlo Park campus",
       "place": {
         "city": "Menlo Park",
@@ -57842,7 +58000,7 @@
       "links": {
         "website": null
       },
-      "map_id": null,
+      "map_id": "map:slac",
       "name": "PEP-II Interaction Region 2 (BaBar hall)",
       "place": {
         "city": "Menlo Park",
@@ -57926,7 +58084,7 @@
       "links": {
         "website": null
       },
-      "map_id": null,
+      "map_id": "map:slac",
       "name": "SLC Collider Hall (SLD)",
       "place": {
         "city": "Menlo Park",
@@ -60147,5 +60305,5 @@
       "type": "topic"
     }
   },
-  "version": "fcbca7d2999ac806"
+  "version": "09312ebd3724d562"
 }
