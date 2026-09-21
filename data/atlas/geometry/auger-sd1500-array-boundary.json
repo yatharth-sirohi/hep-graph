@@ -1,0 +1,200 @@
+{
+  "accuracy_m": 50,
+  "aliases": [],
+  "checks": [
+    {
+      "expected": {
+        "dimension": "area",
+        "display": "3000 km²",
+        "unit": "km^2",
+        "value": 3000
+      },
+      "kind": "area",
+      "locator": "auger.org observatory overview page",
+      "quote": "3000 km2 array of 1660 particle detectors",
+      "sources": [
+        "src:cosmic-gamma-auger-official-observatory-page"
+      ],
+      "tolerance": 0.08
+    }
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "depth_m": null,
+  "entity_id": "site:malargue-auger",
+  "feature_type": "array",
+  "geometry": {
+    "confidence": "derived",
+    "locator": "sdMap.csv, rows with sd1500=1 (1640 of 1690)",
+    "note": "Confidence 'derived': the vertices are real surveyed station positions, but the hull itself is this session's computation, not a published boundary.",
+    "sources": [
+      "src:geo-arrays-auger-opendata-sdmap"
+    ],
+    "value": {
+      "coordinates": [
+        [
+          [
+            -69.6578321,
+            -35.2212311
+          ],
+          [
+            -69.5928517,
+            -35.3152955
+          ],
+          [
+            -69.4946277,
+            -35.4561432
+          ],
+          [
+            -69.4781563,
+            -35.479667
+          ],
+          [
+            -69.45341,
+            -35.4914936
+          ],
+          [
+            -69.4038943,
+            -35.5150357
+          ],
+          [
+            -69.3873569,
+            -35.5150121
+          ],
+          [
+            -69.2136147,
+            -35.5036832
+          ],
+          [
+            -69.1886923,
+            -35.4922559
+          ],
+          [
+            -69.1308249,
+            -35.4571268
+          ],
+          [
+            -68.9821242,
+            -35.2465334
+          ],
+          [
+            -68.9162547,
+            -35.1525925
+          ],
+          [
+            -68.908044,
+            -35.1408543
+          ],
+          [
+            -68.9081421,
+            -35.0707382
+          ],
+          [
+            -68.9082369,
+            -35.0471753
+          ],
+          [
+            -68.9163817,
+            -35.0355439
+          ],
+          [
+            -68.9410577,
+            -35.000347
+          ],
+          [
+            -68.9492881,
+            -34.9886484
+          ],
+          [
+            -68.9575245,
+            -34.9769463
+          ],
+          [
+            -69.01508,
+            -34.9416861
+          ],
+          [
+            -69.0560084,
+            -34.9300121
+          ],
+          [
+            -69.0890069,
+            -34.9300657
+          ],
+          [
+            -69.1217041,
+            -34.9301227
+          ],
+          [
+            -69.1382315,
+            -34.9301886
+          ],
+          [
+            -69.2450039,
+            -34.9416161
+          ],
+          [
+            -69.3025423,
+            -34.9532095
+          ],
+          [
+            -69.4424212,
+            -34.987911
+          ],
+          [
+            -69.5245859,
+            -35.0111528
+          ],
+          [
+            -69.5331249,
+            -35.0228081
+          ],
+          [
+            -69.5413699,
+            -35.0340706
+          ],
+          [
+            -69.5579536,
+            -35.0574145
+          ],
+          [
+            -69.5830657,
+            -35.0934975
+          ],
+          [
+            -69.6578321,
+            -35.2212311
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    },
+    "verified_at": "2026-09-18"
+  },
+  "id": "geometry:auger-sd1500-array-boundary",
+  "level_id": "surface",
+  "license": null,
+  "links": {
+    "website": null
+  },
+  "map_id": "map:pierre-auger-observatory",
+  "method": "Convex hull (planar monotone-chain algorithm) of the 1640 stations flagged sd1500=1 in the Observatory's own public sdMap.csv (Auger Open Data, Zenodo record 10488964; 1690 rows total, 1618 sd1500-only + 22 dual-flagged sd1500/sd750). Station UTM zone 19S northing/easting converted to WGS84 lat/lon by the standard Snyder inverse-UTM series (this session's own computation of a public official coordinate list, not itself a claim from the source). A convex hull necessarily overestimates the true, non-convex array footprint (computed area 3160.6 km^2 vs. the collaboration's own round '3000 km2' figure, +5.35%, still within the 8% check tolerance below); accuracy_m 50 covers this plus the dataset's own unstated per-station GPS precision. Includes every station ever flagged sd1500 in the release regardless of its own start/stop activity window, i.e. the maximal historical footprint, not a snapshot of only currently active stations (some of the 1660 nominal stations are decommissioned/replaced; 1640 rows carried the flag in this release).",
+  "name": "Pierre Auger Observatory surface-detector array (1500 m spacing), convex hull",
+  "notes": [
+    "This is a convex hull, not the true (slightly concave/irregular) instrumented boundary; see method for the resulting +5.35% area overestimate against the collaboration's own '3000 km2' figure, still inside the 8% check tolerance used here."
+  ],
+  "osm": null,
+  "representation": "derived",
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:malargue-auger",
+  "sources": [
+    "src:geo-arrays-auger-opendata-sdmap"
+  ],
+  "summary": {
+    "plain": "The outer boundary of the Pierre Auger Observatory's main array of water-tank detectors, drawn by connecting the outermost of the array's own surveyed station positions."
+  },
+  "type": "geometry",
+  "valid": null
+}

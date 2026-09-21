@@ -47836,6 +47836,60 @@
       "verified_at": null
     }
   },
+  "geometry:auger-sd1500-array-boundary": {
+    "/checks/0": {
+      "confidence": null,
+      "locator": "auger.org observatory overview page",
+      "note": null,
+      "quote": "3000 km2 array of 1660 particle detectors",
+      "sources": [
+        "src:cosmic-gamma-auger-official-observatory-page"
+      ],
+      "verified_at": null
+    },
+    "/geometry": {
+      "confidence": "derived",
+      "locator": "sdMap.csv, rows with sd1500=1 (1640 of 1690)",
+      "note": "Confidence 'derived': the vertices are real surveyed station positions, but the hull itself is this session's computation, not a published boundary.",
+      "quote": null,
+      "sources": [
+        "src:geo-arrays-auger-opendata-sdmap"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-arrays-auger-opendata-sdmap"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:auger-sd750-infill-boundary": {
+    "/geometry": {
+      "confidence": "derived",
+      "locator": "sdMap.csv, rows with sd750=1 (71 of 1690)",
+      "note": "No checks[] row: the 71-station sd750 flag and the collaboration's own quoted '61-detector, 23.5 km2' infill figure do not obviously describe the same set (see method); asserting a check against a figure that may not match this shape would be dishonest, not merely imprecise.",
+      "quote": null,
+      "sources": [
+        "src:geo-arrays-auger-opendata-sdmap"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-arrays-auger-opendata-sdmap"
+      ],
+      "verified_at": null
+    }
+  },
   "geometry:baikal-gvd-cluster-footprint": {
     "/geometry": {
       "confidence": "derived",
@@ -48268,6 +48322,50 @@
       "quote": null,
       "sources": [
         "src:opera-cern-cngs-page"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:ctao-north-lst1-point": {
+    "/geometry": {
+      "confidence": "approximate",
+      "locator": "Nominatim search result for 'Observatorio del Roque de los Muchachos'",
+      "note": "OpenStreetMap/Nominatim geocoder source (source_type 'geocoder', not 'openstreetmap'); representation 'georeferenced', confidence stays 'approximate'.",
+      "quote": "\"name\":\"Observatorio del Roque de los Muchachos\",\"lat\":\"28.7570690\",\"lon\":\"-17.8888436\"",
+      "sources": [
+        "src:cosmic-gamma-nominatim-roque-de-los-muchachos"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:cosmic-gamma-nominatim-roque-de-los-muchachos"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:ctao-south-array-point": {
+    "/geometry": {
+      "confidence": "verified",
+      "locator": "CTAO-South array-site page, coordinates block",
+      "note": "'verified': representation is 'surveyed' from a rank<=10 official source.",
+      "quote": "Latitude: 24º 41′ 0.34″ South … Longitude: 70º 18′ 58.84″ West",
+      "sources": [
+        "src:cosmic-gamma-verify-ctao-south-site-page"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:cosmic-gamma-verify-ctao-south-site-page"
       ],
       "verified_at": null
     }
@@ -48940,6 +49038,28 @@
       "verified_at": null
     }
   },
+  "geometry:hawc-array-point": {
+    "/geometry": {
+      "confidence": "verified",
+      "locator": "The HAWC Gamma-Ray Observatory: Design, Calibration, and Operation, site-description section",
+      "note": "'verified': representation is 'surveyed' from a rank<=10 (design_report) source.",
+      "quote": "The geographical latitude of the site is 18.99 ... The geographical longitude of the HAWC site, 97.31 W.",
+      "sources": [
+        "src:cosmic-gamma-hawc-design-paper-arxiv-2013"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:cosmic-gamma-hawc-design-paper-arxiv-2013"
+      ],
+      "verified_at": null
+    }
+  },
   "geometry:hera-halle-nord": {
     "/geometry": {
       "confidence": "approximate",
@@ -49002,6 +49122,64 @@
       "quote": null,
       "sources": [
         "src:geo-desy-osm-hera-tunnel"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:hess-ct1-4-square": {
+    "/checks/0": {
+      "confidence": null,
+      "locator": "H.E.S.S. Telescopes page, array layout paragraph",
+      "note": null,
+      "quote": "square with 120 m side length",
+      "sources": [
+        "src:geo-arrays-hess-telescopes-page"
+      ],
+      "verified_at": null
+    },
+    "/geometry": {
+      "confidence": "derived",
+      "locator": "H.E.S.S. Telescopes page, array layout paragraph",
+      "note": "Confidence 'derived' per contract (a derived shape is derived, even with a passing check).",
+      "quote": "The initial four H.E.S.S. telescopes (Phase I) are arranged in form of a square with 120 m side length. The diagonal of the square is oriented north-south.",
+      "sources": [
+        "src:geo-arrays-hess-telescopes-page",
+        "src:cosmic-gamma-hess-official-site-page"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-arrays-hess-telescopes-page",
+        "src:cosmic-gamma-hess-official-site-page"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:hess-ct5-point": {
+    "/geometry": {
+      "confidence": "verified",
+      "locator": "H.E.S.S. Telescopes page; H.E.S.S. Site page",
+      "note": "'verified': representation is 'surveyed' from a rank<=10 official source.",
+      "quote": "an single huge dish with about 600 m2 mirror area was added at the center of the array",
+      "sources": [
+        "src:cosmic-gamma-hess-official-site-page",
+        "src:geo-arrays-hess-telescopes-page"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:cosmic-gamma-hess-official-site-page",
+        "src:geo-arrays-hess-telescopes-page"
       ],
       "verified_at": null
     }
@@ -49913,6 +50091,28 @@
       "verified_at": null
     }
   },
+  "geometry:lhaaso-array-point": {
+    "/geometry": {
+      "confidence": "approximate",
+      "locator": "Nominatim search result for a rest area on the Haizi Mountain route, Daocheng County",
+      "note": "OpenStreetMap/Nominatim geocoder source (source_type 'geocoder'); representation 'georeferenced', confidence 'approximate'.",
+      "quote": "\"lat\":\"29.3856960\",\"lon\":\"100.1483762\"",
+      "sources": [
+        "src:cosmic-gamma-nominatim-haizi-mountain"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:cosmic-gamma-nominatim-haizi-mountain"
+      ],
+      "verified_at": null
+    }
+  },
   "geometry:lhc-tunnel-ring": {
     "/checks/0": {
       "confidence": null,
@@ -49974,6 +50174,28 @@
       "quote": null,
       "sources": [
         "src:geo-cern-osm-linac4-building"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:magic-array-point": {
+    "/geometry": {
+      "confidence": "approximate",
+      "locator": "Nominatim search result for 'Observatorio del Roque de los Muchachos'",
+      "note": "OpenStreetMap/Nominatim geocoder source (source_type 'geocoder', not 'openstreetmap'); representation 'georeferenced', confidence stays 'approximate' per contract (OSM/geocoder alone never yields 'verified').",
+      "quote": "\"name\":\"Observatorio del Roque de los Muchachos\",\"lat\":\"28.7570690\",\"lon\":\"-17.8888436\"",
+      "sources": [
+        "src:cosmic-gamma-nominatim-roque-de-los-muchachos"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:cosmic-gamma-nominatim-roque-de-los-muchachos"
       ],
       "verified_at": null
     }
@@ -50803,6 +51025,28 @@
       "verified_at": null
     }
   },
+  "geometry:ta-array-point": {
+    "/geometry": {
+      "confidence": "verified",
+      "locator": "The surface detector array of the Telescope Array experiment, site-description section",
+      "note": "'verified': representation is 'surveyed' from a rank<=10 (detector_paper) source.",
+      "quote": "The TA site is located in the desert about 1400 m above sea level centered at 39.3 N and 112.9 W in Millard County, Utah, USA",
+      "sources": [
+        "src:geo-arrays-ta-site-paper"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-arrays-ta-site-paper"
+      ],
+      "verified_at": null
+    }
+  },
   "geometry:ti12-faser-point": {
     "/geometry": {
       "confidence": "derived",
@@ -50845,6 +51089,28 @@
       "quote": null,
       "sources": [
         "src:colliders-lhc-snd-lhc-detector-arxiv-2022"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:veritas-array-point": {
+    "/geometry": {
+      "confidence": "verified",
+      "locator": "VERITAS Specifications page",
+      "note": "'verified': representation is 'surveyed' from a rank<=10 official source.",
+      "quote": "VERITAS is located near Tucson, Arizona: at +31 40' 30.21\", -110 57' 7.77\"",
+      "sources": [
+        "src:cosmic-gamma-veritas-official-specifications-page"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:cosmic-gamma-veritas-official-specifications-page"
       ],
       "verified_at": null
     }
@@ -68131,6 +68397,36 @@
       "verified_at": null
     }
   },
+  "map:ctao-south-paranal": {
+    "/center": {
+      "confidence": "verified",
+      "locator": "CTAO-South array-site page, coordinates block",
+      "note": "Map centre only; not a claim about any structure. Uses the array's own published coordinate.",
+      "quote": "Latitude: 24º 41′ 0.34″ South … Longitude: 70º 18′ 58.84″ West",
+      "sources": [
+        "src:cosmic-gamma-verify-ctao-south-site-page"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/levels/0": {
+      "confidence": null,
+      "locator": null,
+      "note": "The planned array is at the surface.",
+      "quote": null,
+      "sources": null,
+      "verified_at": null
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:cosmic-gamma-verify-ctao-south-site-page"
+      ],
+      "verified_at": null
+    }
+  },
   "map:desy": {
     "/center": {
       "confidence": "derived",
@@ -68490,6 +68786,67 @@
       "verified_at": "2026-09-18"
     }
   },
+  "map:fred-lawrence-whipple-observatory": {
+    "/center": {
+      "confidence": "verified",
+      "locator": "VERITAS Specifications page",
+      "note": "Map centre only; not a claim about any structure. Uses the array's own published coordinate.",
+      "quote": "VERITAS is located near Tucson, Arizona: at +31 40' 30.21\", -110 57' 7.77\"",
+      "sources": [
+        "src:cosmic-gamma-veritas-official-specifications-page"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/levels/0": {
+      "confidence": null,
+      "locator": null,
+      "note": "The array is entirely at the surface.",
+      "quote": null,
+      "sources": null,
+      "verified_at": null
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:cosmic-gamma-veritas-official-specifications-page"
+      ],
+      "verified_at": null
+    }
+  },
+  "map:hess-khomas-highland": {
+    "/center": {
+      "confidence": "verified",
+      "locator": "H.E.S.S. Site page",
+      "note": "Map centre only; not a claim about any structure. Uses the array's own published coordinate.",
+      "quote": "23°16'18\" S, 16°30'00\" E, at about 1,800 m above sea level",
+      "sources": [
+        "src:cosmic-gamma-hess-official-site-page"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/levels/0": {
+      "confidence": null,
+      "locator": null,
+      "note": "The array is entirely at the surface.",
+      "quote": null,
+      "sources": null,
+      "verified_at": null
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:cosmic-gamma-hess-official-site-page",
+        "src:geo-arrays-hess-telescopes-page"
+      ],
+      "verified_at": null
+    }
+  },
   "map:j-parc": {
     "/center": {
       "confidence": "derived",
@@ -68771,6 +69128,67 @@
       "verified_at": null
     }
   },
+  "map:lhaaso-daocheng": {
+    "/center": {
+      "confidence": "approximate",
+      "locator": "Nominatim search result for a rest area on the Haizi Mountain route",
+      "note": "Map centre only; not a claim about any structure.",
+      "quote": null,
+      "sources": [
+        "src:cosmic-gamma-nominatim-haizi-mountain"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/levels/0": {
+      "confidence": null,
+      "locator": null,
+      "note": "The array is entirely at the surface.",
+      "quote": null,
+      "sources": null,
+      "verified_at": null
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:cosmic-gamma-nominatim-haizi-mountain"
+      ],
+      "verified_at": null
+    }
+  },
+  "map:pierre-auger-observatory": {
+    "/center": {
+      "confidence": "derived",
+      "locator": "Arithmetic centroid of the 32-vertex convex hull of the sd1500 surface-detector stations (this session's own computation)",
+      "note": "Map centre only; not a claim about any structure. precision_m is set loosely because this is a naive hull-vertex centroid, not a claim about a physical point.",
+      "quote": null,
+      "sources": [
+        "src:geo-arrays-auger-opendata-sdmap"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/levels/0": {
+      "confidence": null,
+      "locator": null,
+      "note": "The entire array is at the surface; there is no underground level.",
+      "quote": null,
+      "sources": null,
+      "verified_at": null
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-arrays-auger-opendata-sdmap",
+        "src:cosmic-gamma-auger-official-observatory-page"
+      ],
+      "verified_at": null
+    }
+  },
   "map:psi": {
     "/center": {
       "confidence": "derived",
@@ -68809,6 +69227,66 @@
         "src:facilities-verify-psi-hipa-page"
       ],
       "verified_at": "2026-09-18"
+    }
+  },
+  "map:roque-de-los-muchachos-observatory": {
+    "/center": {
+      "confidence": "approximate",
+      "locator": "Nominatim search result for 'Observatorio del Roque de los Muchachos'",
+      "note": "Map centre only; not a claim about any structure.",
+      "quote": null,
+      "sources": [
+        "src:cosmic-gamma-nominatim-roque-de-los-muchachos"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/levels/0": {
+      "confidence": null,
+      "locator": null,
+      "note": "Both experiments' telescopes are at the surface.",
+      "quote": null,
+      "sources": null,
+      "verified_at": null
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:cosmic-gamma-nominatim-roque-de-los-muchachos"
+      ],
+      "verified_at": null
+    }
+  },
+  "map:sierra-negra": {
+    "/center": {
+      "confidence": "verified",
+      "locator": "The HAWC Gamma-Ray Observatory: Design, Calibration, and Operation, site-description section",
+      "note": "Map centre only; not a claim about any structure. Uses the array's own published coordinate.",
+      "quote": "The geographical latitude of the site is 18.99 ... The geographical longitude of the HAWC site, 97.31 W.",
+      "sources": [
+        "src:cosmic-gamma-hawc-design-paper-arxiv-2013"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/levels/0": {
+      "confidence": null,
+      "locator": null,
+      "note": "The array is entirely at the surface, on a levelled platform.",
+      "quote": null,
+      "sources": null,
+      "verified_at": null
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:cosmic-gamma-hawc-design-paper-arxiv-2013"
+      ],
+      "verified_at": null
     }
   },
   "map:snolab": {
@@ -68969,6 +69447,36 @@
         "src:fermilab-lbnf-dune-site"
       ],
       "verified_at": "2026-09-18"
+    }
+  },
+  "map:telescope-array-utah": {
+    "/center": {
+      "confidence": "verified",
+      "locator": "The surface detector array of the Telescope Array experiment, site-description section",
+      "note": "Map centre only; not a claim about any structure. Uses the array's own published coordinate.",
+      "quote": "The TA site is located in the desert about 1400 m above sea level centered at 39.3 N and 112.9 W in Millard County, Utah, USA",
+      "sources": [
+        "src:geo-arrays-ta-site-paper"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/levels/0": {
+      "confidence": null,
+      "locator": null,
+      "note": "The array is entirely at the surface.",
+      "quote": null,
+      "sources": null,
+      "verified_at": null
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-arrays-ta-site-paper"
+      ],
+      "verified_at": null
     }
   },
   "map:wipp": {

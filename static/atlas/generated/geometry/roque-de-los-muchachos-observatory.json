@@ -1,0 +1,208 @@
+{
+  "attribution": [],
+  "bbox": [
+    -17.8888436,
+    28.757069,
+    -17.8888436,
+    28.757069
+  ],
+  "build_date": "2026-09-21",
+  "entity_index": {
+    "experiment:ctao": [
+      "geometry:ctao-north-lst1-point"
+    ],
+    "site:roque-de-los-muchachos-gamma-ray-array": [
+      "geometry:magic-array-point"
+    ]
+  },
+  "features": [
+    {
+      "accuracy_m": 500,
+      "checks": [],
+      "depth_m": null,
+      "entity_id": "experiment:ctao",
+      "entity_name": "CTAO",
+      "entity_type": "experiment",
+      "feature_type": "array",
+      "geometry": {
+        "coordinates": [
+          -17.8888436,
+          28.757069
+        ],
+        "type": "Point"
+      },
+      "id": "geometry:ctao-north-lst1-point",
+      "level_id": "surface",
+      "license": null,
+      "measured": {
+        "area_m2": null,
+        "centroid": [
+          -17.8888436,
+          28.757069
+        ],
+        "length_m": null
+      },
+      "method": "Reuses the same already-sourced approximate campus point as geometry:magic-array-point (see that record); LST-1 is published as roughly 100 m from the MAGIC telescopes (multiple secondary/collaboration sources give ~28.8N/17.8W for LST-1 itself, the same precision as the shared campus point, so no independent offset could be honestly derived this session). No OpenStreetMap trace of LST-1's own pad could be attempted (Overpass refused every connection attempt).",
+      "name": "CTAO-North / LST-1 (reference point, shared with MAGIC)",
+      "osm": null,
+      "provenance": {
+        "confidence": "approximate",
+        "locator": "Nominatim search result for 'Observatorio del Roque de los Muchachos'",
+        "note": "OpenStreetMap/Nominatim geocoder source (source_type 'geocoder', not 'openstreetmap'); representation 'georeferenced', confidence stays 'approximate'.",
+        "quote": "\"name\":\"Observatorio del Roque de los Muchachos\",\"lat\":\"28.7570690\",\"lon\":\"-17.8888436\"",
+        "sources": [
+          "src:cosmic-gamma-nominatim-roque-de-los-muchachos"
+        ],
+        "verified_at": "2026-09-18"
+      },
+      "representation": "georeferenced",
+      "site_id": "site:roque-de-los-muchachos-gamma-ray-array",
+      "state_segments": [
+        [
+          780,
+          791,
+          "construction",
+          "possible"
+        ],
+        [
+          792,
+          920,
+          "construction",
+          "certain"
+        ]
+      ],
+      "status": "construction"
+    },
+    {
+      "accuracy_m": 500,
+      "checks": [],
+      "depth_m": null,
+      "entity_id": "site:roque-de-los-muchachos-gamma-ray-array",
+      "entity_name": "Roque de los Muchachos gamma-ray telescope area",
+      "entity_type": "site",
+      "feature_type": "array",
+      "geometry": {
+        "coordinates": [
+          -17.8888436,
+          28.757069
+        ],
+        "type": "Point"
+      },
+      "id": "geometry:magic-array-point",
+      "level_id": "surface",
+      "license": null,
+      "measured": {
+        "area_m2": null,
+        "centroid": [
+          -17.8888436,
+          28.757069
+        ],
+        "length_m": null
+      },
+      "method": "Reuses the already-sourced approximate campus point for site:roque-de-los-muchachos-gamma-ray-array (OpenStreetMap/Nominatim geocode of 'Observatorio del Roque de los Muchachos') verbatim as MAGIC's own reference point; no new coordinate is derived. MAGIC-I and MAGIC-II are published as 85 m apart (Wikipedia/public sources, not independently confirmed by a rank<=10 fetch this session) but this session could not fetch a primary source stating MAGIC's own precise coordinate or an OSM trace of the two dishes (Overpass refused every connection attempt), so the two telescopes are not resolved separately.",
+      "name": "MAGIC telescopes (reference point, shared with CTAO-North)",
+      "osm": null,
+      "provenance": {
+        "confidence": "approximate",
+        "locator": "Nominatim search result for 'Observatorio del Roque de los Muchachos'",
+        "note": "OpenStreetMap/Nominatim geocoder source (source_type 'geocoder', not 'openstreetmap'); representation 'georeferenced', confidence stays 'approximate' per contract (OSM/geocoder alone never yields 'verified').",
+        "quote": "\"name\":\"Observatorio del Roque de los Muchachos\",\"lat\":\"28.7570690\",\"lon\":\"-17.8888436\"",
+        "sources": [
+          "src:cosmic-gamma-nominatim-roque-de-los-muchachos"
+        ],
+        "verified_at": "2026-09-18"
+      },
+      "representation": "georeferenced",
+      "site_id": "site:roque-de-los-muchachos-gamma-ray-array",
+      "state_segments": [
+        [
+          645,
+          645,
+          "active",
+          "possible"
+        ],
+        [
+          646,
+          707,
+          "active",
+          "certain"
+        ],
+        [
+          708,
+          719,
+          "active",
+          "possible"
+        ],
+        [
+          720,
+          731,
+          "active",
+          "certain"
+        ],
+        [
+          732,
+          755,
+          "upgrade",
+          "possible"
+        ],
+        [
+          756,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": null
+    }
+  ],
+  "map": {
+    "aliases": [],
+    "center": {
+      "approximate": true,
+      "kind": "campus",
+      "lat": 28.757069,
+      "lon": -17.8888436,
+      "precision_m": 500
+    },
+    "coverage": {
+      "researched": "partial",
+      "tier": "B"
+    },
+    "extent_m": 1500,
+    "facility_id": "facility:roque-de-los-muchachos-observatory",
+    "id": "map:roque-de-los-muchachos-observatory",
+    "levels": [
+      {
+        "depth_m": null,
+        "id": "surface",
+        "kind": "surface",
+        "name": "Surface"
+      }
+    ],
+    "linked_map_ids": [
+      "map:ctao-south-paranal"
+    ],
+    "links": {
+      "website": null
+    },
+    "name": "Roque de los Muchachos — MAGIC and CTAO-North",
+    "schematics": [],
+    "site_ids": [
+      "site:roque-de-los-muchachos-gamma-ray-array"
+    ],
+    "summary": {
+      "plain": "The mountaintop observatory on La Palma, Canary Islands, hosting the MAGIC gamma-ray telescopes and the CTAO-North site (including the LST-1 prototype)."
+    },
+    "type": "map",
+    "unlocated": []
+  },
+  "schema": "hep-atlas/0.2",
+  "source_titles": {
+    "src:cosmic-gamma-nominatim-roque-de-los-muchachos": {
+      "source_type": "geocoder",
+      "title": "OpenStreetMap Nominatim geocode: Observatorio del Roque de los Muchachos",
+      "url": "https://nominatim.openstreetmap.org/search?q=Observatorio+del+Roque+de+los+Muchachos&format=jsonv2"
+    }
+  },
+  "version": "fcbca7d2999ac806"
+}

@@ -1,0 +1,53 @@
+{
+  "accuracy_m": 600,
+  "aliases": [],
+  "checks": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "depth_m": null,
+  "entity_id": "site:hawc-sierra-negra",
+  "feature_type": "array",
+  "geometry": {
+    "confidence": "verified",
+    "locator": "The HAWC Gamma-Ray Observatory: Design, Calibration, and Operation, site-description section",
+    "note": "'verified': representation is 'surveyed' from a rank<=10 (design_report) source.",
+    "quote": "The geographical latitude of the site is 18.99 ... The geographical longitude of the HAWC site, 97.31 W.",
+    "sources": [
+      "src:cosmic-gamma-hawc-design-paper-arxiv-2013"
+    ],
+    "value": {
+      "coordinates": [
+        -97.31,
+        18.99
+      ],
+      "type": "Point"
+    },
+    "verified_at": "2026-09-18"
+  },
+  "id": "geometry:hawc-array-point",
+  "level_id": "surface",
+  "license": null,
+  "links": {
+    "website": null
+  },
+  "map_id": "map:sierra-negra",
+  "method": "Coordinate taken directly from the HAWC design/operation paper's own stated site latitude and longitude (18.99 N, 97.31 W), fetched via a text-extraction proxy (r.jina.ai) after WebFetch could not parse the paper's PDF binary directly. accuracy_m 600 covers the two-decimal-degree rounding (+-0.005 degrees ~ 550 m at this latitude). This is a tighter, more directly relevant coordinate than the site record's current one (a Nominatim geocode of the Sierra Negra peak, precision_m 3000) -- reported as a site coordinate correction candidate in the worklog. The array's own footprint (300 tanks, ~20,000-22,500 m2, 'placed in joint pairs of rows' on a platform levelled from an 8% to a 1% slope) has no stated overall outline shape (circular/hexagonal/irregular) in the fetched text, so it is not drawn as a polygon this session.",
+  "name": "HAWC array (reference point)",
+  "notes": [
+    "300-tank footprint (~20,000-22,500 m2) has no sourced overall outline shape this session; drawn as a point only. Backlog: a HAWC layout diagram or GIS file with tank-by-tank or corner coordinates."
+  ],
+  "osm": null,
+  "representation": "surveyed",
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:hawc-sierra-negra",
+  "sources": [
+    "src:cosmic-gamma-hawc-design-paper-arxiv-2013"
+  ],
+  "summary": {
+    "plain": "The HAWC water-Cherenkov gamma-ray observatory on the Sierra Negra volcano, Mexico, shown here as a single reference point at the array's own published coordinate."
+  },
+  "type": "geometry",
+  "valid": null
+}

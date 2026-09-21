@@ -1,0 +1,53 @@
+{
+  "accuracy_m": 5000,
+  "aliases": [],
+  "checks": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "depth_m": null,
+  "entity_id": "site:lhaaso-haizi-mountain",
+  "feature_type": "array",
+  "geometry": {
+    "confidence": "approximate",
+    "locator": "Nominatim search result for a rest area on the Haizi Mountain route, Daocheng County",
+    "note": "OpenStreetMap/Nominatim geocoder source (source_type 'geocoder'); representation 'georeferenced', confidence 'approximate'.",
+    "quote": "\"lat\":\"29.3856960\",\"lon\":\"100.1483762\"",
+    "sources": [
+      "src:cosmic-gamma-nominatim-haizi-mountain"
+    ],
+    "value": {
+      "coordinates": [
+        100.1483762,
+        29.385696
+      ],
+      "type": "Point"
+    },
+    "verified_at": "2026-09-18"
+  },
+  "id": "geometry:lhaaso-array-point",
+  "level_id": "surface",
+  "license": null,
+  "links": {
+    "website": null
+  },
+  "map_id": "map:lhaaso-daocheng",
+  "method": "Reuses the already-sourced approximate campus point for site:lhaaso-haizi-mountain (OpenStreetMap/Nominatim geocode of a rest area on the Haizi Mountain route, precision_m 5000) verbatim; no new coordinate is derived. A tighter value (29d21'27.6\"N, 100d08'19.6\"E) is repeatedly attributed to the LHAASO Science Book (arXiv:1905.02773) by independent web-search text extracts, but every attempt this session to fetch that PDF/HTML directly (WebFetch, ar5iv, arxiv.org/html, and an r.jina.ai text-extraction proxy) returned only binary/garbled content or a 404 -- the value could not be seen verbatim in a fetched page this session and is NOT used here (see worklog candidate-correction list, flagged unverified). KM2A is independently sourced as circular (radius ~575 m core, ~635 m outer guard ring) and WCDA as 78,000 m2 (two 150x150 m pools + one 300x110 m pool), but neither can be drawn: both would need to be centred on a coordinate precise to well under the shapes' own size, and the only coordinate available this session (precision_m 5000) is far too coarse (geometry-derived-from-coarse-anchor) -- see worklog backlog.",
+  "name": "LHAASO (reference point)",
+  "notes": [
+    "KM2A (circular, ~575-635 m radius) and WCDA (78,000 m2, two 150x150 m pools plus one 300x110 m pool) are described with enough shape/size detail to draw, but not with a coordinate precise enough to anchor them honestly this session; see method and worklog backlog."
+  ],
+  "osm": null,
+  "representation": "georeferenced",
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:lhaaso-haizi-mountain",
+  "sources": [
+    "src:cosmic-gamma-nominatim-haizi-mountain"
+  ],
+  "summary": {
+    "plain": "The high-altitude LHAASO cosmic-ray and gamma-ray observatory on Haizi Mountain, Sichuan, shown here as a single approximate reference point."
+  },
+  "type": "geometry",
+  "valid": null
+}

@@ -1,0 +1,122 @@
+{
+  "attribution": [],
+  "bbox": [
+    100.1483762,
+    29.385696,
+    100.1483762,
+    29.385696
+  ],
+  "build_date": "2026-09-21",
+  "entity_index": {
+    "site:lhaaso-haizi-mountain": [
+      "geometry:lhaaso-array-point"
+    ]
+  },
+  "features": [
+    {
+      "accuracy_m": 5000,
+      "checks": [],
+      "depth_m": null,
+      "entity_id": "site:lhaaso-haizi-mountain",
+      "entity_name": "LHAASO array site, Haizi Mountain",
+      "entity_type": "site",
+      "feature_type": "array",
+      "geometry": {
+        "coordinates": [
+          100.1483762,
+          29.385696
+        ],
+        "type": "Point"
+      },
+      "id": "geometry:lhaaso-array-point",
+      "level_id": "surface",
+      "license": null,
+      "measured": {
+        "area_m2": null,
+        "centroid": [
+          100.1483762,
+          29.385696
+        ],
+        "length_m": null
+      },
+      "method": "Reuses the already-sourced approximate campus point for site:lhaaso-haizi-mountain (OpenStreetMap/Nominatim geocode of a rest area on the Haizi Mountain route, precision_m 5000) verbatim; no new coordinate is derived. A tighter value (29d21'27.6\"N, 100d08'19.6\"E) is repeatedly attributed to the LHAASO Science Book (arXiv:1905.02773) by independent web-search text extracts, but every attempt this session to fetch that PDF/HTML directly (WebFetch, ar5iv, arxiv.org/html, and an r.jina.ai text-extraction proxy) returned only binary/garbled content or a 404 -- the value could not be seen verbatim in a fetched page this session and is NOT used here (see worklog candidate-correction list, flagged unverified). KM2A is independently sourced as circular (radius ~575 m core, ~635 m outer guard ring) and WCDA as 78,000 m2 (two 150x150 m pools + one 300x110 m pool), but neither can be drawn: both would need to be centred on a coordinate precise to well under the shapes' own size, and the only coordinate available this session (precision_m 5000) is far too coarse (geometry-derived-from-coarse-anchor) -- see worklog backlog.",
+      "name": "LHAASO (reference point)",
+      "osm": null,
+      "provenance": {
+        "confidence": "approximate",
+        "locator": "Nominatim search result for a rest area on the Haizi Mountain route, Daocheng County",
+        "note": "OpenStreetMap/Nominatim geocoder source (source_type 'geocoder'); representation 'georeferenced', confidence 'approximate'.",
+        "quote": "\"lat\":\"29.3856960\",\"lon\":\"100.1483762\"",
+        "sources": [
+          "src:cosmic-gamma-nominatim-haizi-mountain"
+        ],
+        "verified_at": "2026-09-18"
+      },
+      "representation": "georeferenced",
+      "site_id": "site:lhaaso-haizi-mountain",
+      "state_segments": [
+        [
+          856,
+          856,
+          "active",
+          "possible"
+        ],
+        [
+          857,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": null
+    }
+  ],
+  "map": {
+    "aliases": [],
+    "center": {
+      "approximate": true,
+      "kind": "campus",
+      "lat": 29.385696,
+      "lon": 100.1483762,
+      "precision_m": 5000
+    },
+    "coverage": {
+      "researched": "partial",
+      "tier": "B"
+    },
+    "extent_m": 3000,
+    "facility_id": "facility:lhaaso-daocheng",
+    "id": "map:lhaaso-daocheng",
+    "levels": [
+      {
+        "depth_m": null,
+        "id": "surface",
+        "kind": "surface",
+        "name": "Surface"
+      }
+    ],
+    "linked_map_ids": [],
+    "links": {
+      "website": null
+    },
+    "name": "LHAASO — Haizi Mountain, Daocheng",
+    "schematics": [],
+    "site_ids": [
+      "site:lhaaso-haizi-mountain"
+    ],
+    "summary": {
+      "plain": "The LHAASO cosmic-ray and gamma-ray observatory on Haizi Mountain, Daocheng County, Sichuan, China."
+    },
+    "type": "map",
+    "unlocated": []
+  },
+  "schema": "hep-atlas/0.2",
+  "source_titles": {
+    "src:cosmic-gamma-nominatim-haizi-mountain": {
+      "source_type": "geocoder",
+      "title": "OpenStreetMap Nominatim geocode: Haizi Mountain route, Daocheng County, Sichuan",
+      "url": "https://nominatim.openstreetmap.org/search?q=%E6%B5%B7%E5%AD%90%E5%B1%B1+%E7%A8%BB%E5%9F%8E&format=jsonv2"
+    }
+  },
+  "version": "fcbca7d2999ac806"
+}

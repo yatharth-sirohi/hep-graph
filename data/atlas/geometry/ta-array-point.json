@@ -1,0 +1,53 @@
+{
+  "accuracy_m": 6000,
+  "aliases": [],
+  "checks": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "depth_m": null,
+  "entity_id": "site:telescope-array-utah-central-site",
+  "feature_type": "array",
+  "geometry": {
+    "confidence": "verified",
+    "locator": "The surface detector array of the Telescope Array experiment, site-description section",
+    "note": "'verified': representation is 'surveyed' from a rank<=10 (detector_paper) source.",
+    "quote": "The TA site is located in the desert about 1400 m above sea level centered at 39.3 N and 112.9 W in Millard County, Utah, USA",
+    "sources": [
+      "src:geo-arrays-ta-site-paper"
+    ],
+    "value": {
+      "coordinates": [
+        -112.9,
+        39.3
+      ],
+      "type": "Point"
+    },
+    "verified_at": "2026-09-18"
+  },
+  "id": "geometry:ta-array-point",
+  "level_id": "surface",
+  "license": null,
+  "links": {
+    "website": null
+  },
+  "map_id": "map:telescope-array-utah",
+  "method": "Coordinate taken from the TA surface-detector array paper's own description of the site centre (39.3 N, 112.9 W, one-decimal-degree precision), fetched via the ar5iv HTML mirror. This is a description of the array itself, unlike the site record's current coordinate (a Nominatim geocode of the town of Delta, Utah, 60+ km away in places, precision_m 15000, explicitly documented there as 'NOT a survey point for the array') -- reported as a site coordinate correction candidate in the worklog. accuracy_m 6000 covers the one-decimal-degree rounding (+-0.05 degrees ~ 5.5 km at this latitude). The 507-station 1.2 km SD grid and the three fluorescence-detector sites (Black Rock Mesa, Long Ridge, Middle Drum) have widely repeated coordinates online, but every instance traces to a secondary/amateur-astronomy source (cleardarksky.com, itself Wikipedia's own citation for these values) rather than an official TA page or paper fetched this session, so they are not drawn (see worklog backlog).",
+  "name": "Telescope Array (reference point)",
+  "notes": [
+    "507-counter 1.2 km grid and the three fluorescence-detector sites (Black Rock Mesa, Long Ridge, Middle Drum) are not drawn: their widely repeated coordinates trace only to a hobbyist astronomy site (cleardarksky.com), not to an official TA page or paper fetched this session (telescopearray.org and known mirrors were unreachable). Backlog: fetch the TA NIM/detector papers' own station tables, or an official site plan."
+  ],
+  "osm": null,
+  "representation": "surveyed",
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:telescope-array-utah-central-site",
+  "sources": [
+    "src:geo-arrays-ta-site-paper"
+  ],
+  "summary": {
+    "plain": "The Telescope Array ultra-high-energy cosmic-ray observatory near Delta, Utah, shown here as a single reference point at the array's own published centre."
+  },
+  "type": "geometry",
+  "valid": null
+}

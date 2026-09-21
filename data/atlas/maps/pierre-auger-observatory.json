@@ -1,0 +1,57 @@
+{
+  "aliases": [],
+  "center": {
+    "confidence": "derived",
+    "kind": "campus",
+    "lat": -35.205201,
+    "locator": "Arithmetic centroid of the 32-vertex convex hull of the sd1500 surface-detector stations (this session's own computation)",
+    "lon": -69.2751962,
+    "note": "Map centre only; not a claim about any structure. precision_m is set loosely because this is a naive hull-vertex centroid, not a claim about a physical point.",
+    "precision_m": 5000,
+    "sources": [
+      "src:geo-arrays-auger-opendata-sdmap"
+    ],
+    "verified_at": "2026-09-18"
+  },
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "extent_m": 45000,
+  "facility_id": "facility:pierre-auger-observatory",
+  "id": "map:pierre-auger-observatory",
+  "levels": [
+    {
+      "depth_m": null,
+      "id": "surface",
+      "kind": "surface",
+      "name": "Surface",
+      "note": "The entire array is at the surface; there is no underground level."
+    }
+  ],
+  "linked_map_ids": [],
+  "links": {
+    "website": null
+  },
+  "name": "Pierre Auger Observatory — Malargüe array",
+  "notes": [
+    "map-center-far warning is expected and accepted: the map centre is the array's own geometric centroid (~40 km from site:malargue-auger, which is the Observatory's administrative HQ address in the town of Malargüe, not the array's centre -- that site record already documents this distinction).",
+    "The four fluorescence-detector buildings (Los Leones, Los Morados, Loma Amarilla, Coihueco) are not drawn: despite many fetch attempts (arXiv 1502.01323, 0907.4282, 1011.6523 via WebFetch and an r.jina.ai text-extraction proxy; the Auger Open Data portal; several web searches), no coordinate for any individual FD site could be seen verbatim in a fetched source this session, and Overpass (which might have found them as named OSM buildings) refused every connection attempt. See worklog backlog.",
+    "geometry:auger-sd750-infill-boundary's computed area (29.3 km^2) does not closely match the collaboration's own quoted '23.5 km^2, 61-detector' infill figure; no checks[] row is asserted for it (see that record's own note)."
+  ],
+  "schema": "hep-atlas/0.2",
+  "schematics": [],
+  "site_ids": [
+    "site:malargue-auger"
+  ],
+  "sources": [
+    "src:geo-arrays-auger-opendata-sdmap",
+    "src:cosmic-gamma-auger-official-observatory-page"
+  ],
+  "summary": {
+    "plain": "The Pierre Auger Observatory's 3000 km² surface array of water-Cherenkov detector stations on the Pampa Amarilla near Malargüe, Argentina, drawn from the Observatory's own published station-position data.",
+    "technical": "One local map for facility:pierre-auger-observatory. The main (1500 m spacing) and infill (750 m spacing) surface-detector array boundaries are convex hulls computed this session from the 1690-row station position table in the Observatory's own public Open Data release (sdMap.csv, Zenodo record 10488964), UTM zone 19S converted to WGS84. The four fluorescence-detector buildings (Los Leones, Los Morados, Loma Amarilla, Coihueco) could not be individually located this session (see notes) and are not drawn."
+  },
+  "type": "map",
+  "unlocated": []
+}

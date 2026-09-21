@@ -4410,6 +4410,16 @@
   "geometry:antiproton-decelerator-hall": {
     "notes": []
   },
+  "geometry:auger-sd1500-array-boundary": {
+    "notes": [
+      "This is a convex hull, not the true (slightly concave/irregular) instrumented boundary; see method for the resulting +5.35% area overestimate against the collaboration's own '3000 km2' figure, still inside the 8% check tolerance used here."
+    ]
+  },
+  "geometry:auger-sd750-infill-boundary": {
+    "notes": [
+      "Area (29.3 km^2) does not match the collaboration's own quoted '23.5 km^2, 61-detector' infill figure closely enough to assert a checks[] row; the sd750 flag likely covers a superset (e.g. including AMIGA/HEAT-related stations) of the specific infill array that figure describes. Flagged as backlog."
+    ]
+  },
   "geometry:baikal-gvd-cluster-footprint": {
     "notes": [
       "No checks[] row: the circle's radius IS the sourced figure (60 m string distance), so a span check against that same number would be tautological, not an independent cross-check (same reasoning as the KM3NeT/ARCA footprint, geometry:km3net-arca-footprint)."
@@ -4461,6 +4471,16 @@
   },
   "geometry:cngs-direction-line": {
     "notes": []
+  },
+  "geometry:ctao-north-lst1-point": {
+    "notes": [
+      "Identical coordinate to geometry:magic-array-point -- see that record's note and the map's own notes for the expected geometry-duplicate-shape warning."
+    ]
+  },
+  "geometry:ctao-south-array-point": {
+    "notes": [
+      "Individual telescope pad positions are not yet sourced (planned/under construction); backlog: CTAO's own construction-progress or layout pages once individual pads are surveyed and published."
+    ]
   },
   "geometry:desy-campus-boundary": {
     "notes": []
@@ -4534,6 +4554,11 @@
   "geometry:fermilab-wilson-hall": {
     "notes": []
   },
+  "geometry:hawc-array-point": {
+    "notes": [
+      "300-tank footprint (~20,000-22,500 m2) has no sourced overall outline shape this session; drawn as a point only. Backlog: a HAWC layout diagram or GIS file with tank-by-tank or corner coordinates."
+    ]
+  },
   "geometry:hera-halle-nord": {
     "notes": [
       "entity_id is the site (site:desy-hera-north-hall-h1), not the detector, following the same convention used on map:cern's Point-N boundaries -- the validator's map-entity-unaccounted rule scans entity_id, not site_id, and both detector:h1 and detector:alps-ii place at this one site id."
@@ -4543,6 +4568,14 @@
     "notes": [
       "valid.start (1990-11-08) is the OSM way's own start_date tag, which predates accelerator:hera's own sourced operation interval (1992) -- the tunnel/ring structure itself predates first physics collisions, matching the contract's guidance that a shape's own lifetime may differ from its entity's."
     ]
+  },
+  "geometry:hess-ct1-4-square": {
+    "notes": [
+      "Positioned at the array's own official coordinate, not at an independently surveyed square centre; the square's internal geometry (120 m side, N-S diagonal) is exact, its placement on the ground carries the site point's own 200 m uncertainty. Individual CT1-CT4 identities/positions within the square are not distinguished (no source this session assigns a specific corner to a specific telescope number)."
+    ]
+  },
+  "geometry:hess-ct5-point": {
+    "notes": []
   },
   "geometry:hyper-kamiokande-point": {
     "notes": []
@@ -4687,11 +4720,21 @@
   "geometry:lep-tunnel-ring": {
     "notes": []
   },
+  "geometry:lhaaso-array-point": {
+    "notes": [
+      "KM2A (circular, ~575-635 m radius) and WCDA (78,000 m2, two 150x150 m pools plus one 300x110 m pool) are described with enough shape/size detail to draw, but not with a coordinate precise enough to anchor them honestly this session; see method and worklog backlog."
+    ]
+  },
   "geometry:lhc-tunnel-ring": {
     "notes": []
   },
   "geometry:linac4-building": {
     "notes": []
+  },
+  "geometry:magic-array-point": {
+    "notes": [
+      "Identical coordinate to geometry:ctao-north-lst1-point -- expected to raise the validator's geometry-duplicate-shape warning; both experiments genuinely occupy this same approximate 500 m patch of the observatory and are not resolved to finer precision this session (see map notes and worklog)."
+    ]
   },
   "geometry:meyrin-site-marker": {
     "notes": []
@@ -4791,11 +4834,21 @@
   "geometry:t2k-beam-direction-kamioka": {
     "notes": []
   },
+  "geometry:ta-array-point": {
+    "notes": [
+      "507-counter 1.2 km grid and the three fluorescence-detector sites (Black Rock Mesa, Long Ridge, Middle Drum) are not drawn: their widely repeated coordinates trace only to a hobbyist astronomy site (cleardarksky.com), not to an official TA page or paper fetched this session (telescopearray.org and known mirrors were unreachable). Backlog: fetch the TA NIM/detector papers' own station tables, or an official site plan."
+    ]
+  },
   "geometry:ti12-faser-point": {
     "notes": []
   },
   "geometry:ti18-snd-lhc-point": {
     "notes": []
+  },
+  "geometry:veritas-array-point": {
+    "notes": [
+      "Individual T1-T4 positions not resolved this session; only pairwise inter-telescope distances are published (35-127 m). Backlog: an OSM trace of the telescope pads, or a paper/diagram with absolute coordinates or bearings."
+    ]
   },
   "geometry:wipp-boundary": {
     "notes": []
@@ -7040,6 +7093,12 @@
     ],
     "summary_technical": "Local map for facility:cjpl. Both halls are drawn as points derived by walking the sourced portal-to-hall distances (8.7-9.2 km) along an OpenStreetMap trace of the Jinping traffic tunnel (two near-identical parallel bores; one is drawn). The tunnel's own OSM-measured length (17.5 km) is cross-checked against the facility's published '17.5-km-long traffic tunnels' figure."
   },
+  "map:ctao-south-paranal": {
+    "notes": [
+      "Facility status is 'construction'; individual telescope positions are planned, not yet built/surveyed, per CTAO's own site description."
+    ],
+    "summary_technical": "One local map for facility:ctao-south-paranal. Drawn as a single reference point at CTAO's own official published array-site coordinate; the planned telescope grid (eventually 2 LST + 14 MST + 37 SST) has no published individual pad coordinates this session."
+  },
   "map:desy": {
     "notes": [
       "Site coordinate correction (for the integrator, not applied here): site:desy-hamburg-campus, site:desy-hera-north-hall-h1 and site:desy-hera-south-hall-zeus all currently carry the same ROR-geocoded point (53.55073N, 9.99302E, precision_m 800). That point is about 10.3 km from DESY's actual Hamburg-Bahrenfeld campus. Two independent sources fetched this session agree with each other instead: (1) OSM way 276641657, the campus landuse polygon itself, tagged with DESY's own postal address (Notkestraße 85, 22607 Hamburg) and centroid 53.5771N, 9.8808E; (2) src:desy-wikipedia's own excerpt, already cited by the existing site record, states the coordinate '53 34'33''N 9 52'46''E' = 53.5758N, 9.8794E -- 150 m from (1) and nothing like the ROR point actually used. See the worklog for the full correction list.",
@@ -7052,6 +7111,19 @@
       "Far sites (not drawn on this map; see the geometry worklog for great-circle distances and bearings computed from the sourced site:fermilab-main-campus point): site:soudan-minos-far-detector (735.4 km, bearing 336.0 degrees, historical MINOS-era NuMI beam), site:ash-river-nova-far-detector (811.7 km, bearing 335.5 degrees, current NOvA-era NuMI beam), site:surf-4850-level-dune-far-detector (1287.6 km, bearing 287.7 degrees, LBNF beam). No map:soudan, map:ash-river or map:surf record exists yet in this branch, so linked_map_ids is empty; the integrator should populate it once those maps exist."
     ],
     "summary_technical": "Local to-scale map of the Fermilab Batavia campus: a derived circle for the Booster ring (474 m sourced circumference, OSM-fit centre) and for the Tevatron ring (6.3 km sourced circumference, OSM ring-road-fit centre, cross-checked against the OSM-sourced CDF and D0 hall positions); georeferenced/derived OSM building footprints for the CDF Hall, D0 Assembly Building, MINOS and NOvA near-detector surface buildings, MiniBooNE Detector Building, the LArTF/MicroBooNE hall, a positionally-identified ICARUS-T600 hall and the Muon g-2 MC-1 building; derived target_station/beamline features for BNB and NuMI, each anchored on two independently-named OSM footprints rather than a coarse site point, with passing distance/azimuth checks; an approximate linac axis; context-only campus boundary, Main Injector-area grassland and MC-2 polygons; and inferred-direction lines for the NuMI and LBNF beams, now starting from the derived NuMI target. The Main Injector, Recycler, PIP-II, KTeV, Mu2e, SeaQuest/NM4, SBND (candidate footprints found but not confidently identified), MINERvA, DONUT, SENSEI, DAMIC (prototype) and the DUNE near detector are unlocated, each with a sourced reason and backlog."
+  },
+  "map:fred-lawrence-whipple-observatory": {
+    "notes": [
+      "Overpass (OpenStreetMap) was unreachable for the whole of this research session -- an OSM trace of the individual telescope pads (which the brief's own leads suggested, noting Whipple is 'often mapped') could not be attempted. See worklog."
+    ],
+    "summary_technical": "One local map for facility:fred-lawrence-whipple-observatory. VERITAS is drawn as a single reference point at its own official published coordinate; the four individual telescopes (T1-T4, ~35-127 m apart) are not resolved separately this session (see geometry record notes)."
+  },
+  "map:hess-khomas-highland": {
+    "notes": [
+      "Individual CT1-CT4 telescope positions within the square (which corner is which) are not distinguished; no source fetched this session assigns telescope numbers to corners.",
+      "Overpass (OpenStreetMap) was unreachable for the whole of this research session (connection refused on every attempt, from multiple mirrors) -- an OSM trace of the individual telescope pads, which the brief's own leads suggested as a cross-check, could not be attempted. See worklog."
+    ],
+    "summary_technical": "One local map for facility:hess-khomas-highland. The CT1-CT4 square (120 m side, diagonal oriented north-south) is derived from the collaboration's own stated array geometry, centred on the array's official published coordinate; CT5 reuses that same coordinate as its own position ('centre of the array' per the same source)."
   },
   "map:j-parc": {
     "notes": [
@@ -7097,12 +7169,40 @@
     ],
     "summary_technical": "Local map for the KM3NeT-Fr / ORCA deep-sea site (facility:km3net). One surveyed point (the collaboration's own published 42°48' N 06°02' E) and one derived ~200 m-diameter circle for the single ORCA building block, its radius estimated by scaling ARCA's sourced R=500 m by the two blocks' relative string spacing (both from the KM3NeT 2.0 Letter of Intent). ARCA and ORCA are ~900 km apart and cannot share a to-scale map; see map:km3net-arca (linked)."
   },
+  "map:lhaaso-daocheng": {
+    "notes": [
+      "A tighter coordinate (29°21'27.6\"N, 100°08'19.6\"E) is repeatedly attributed to the LHAASO Science Book (arXiv:1905.02773) by independent web-search text extracts, but could not be verified by a direct fetch this session (WebFetch, ar5iv, arxiv.org/html and an r.jina.ai proxy all failed to render this specific PDF as readable text) -- not used; flagged as an unverified candidate correction in the worklog."
+    ],
+    "summary_technical": "One local map for facility:lhaaso-daocheng. Drawn as a single approximate reference point; KM2A (circular, ~575-635 m radius) and WCDA (78,000 m2, three pools) are described with enough shape detail to draw but could not be anchored to a precise-enough coordinate this session (see geometry record and worklog backlog)."
+  },
+  "map:pierre-auger-observatory": {
+    "notes": [
+      "map-center-far warning is expected and accepted: the map centre is the array's own geometric centroid (~40 km from site:malargue-auger, which is the Observatory's administrative HQ address in the town of Malargüe, not the array's centre -- that site record already documents this distinction).",
+      "The four fluorescence-detector buildings (Los Leones, Los Morados, Loma Amarilla, Coihueco) are not drawn: despite many fetch attempts (arXiv 1502.01323, 0907.4282, 1011.6523 via WebFetch and an r.jina.ai text-extraction proxy; the Auger Open Data portal; several web searches), no coordinate for any individual FD site could be seen verbatim in a fetched source this session, and Overpass (which might have found them as named OSM buildings) refused every connection attempt. See worklog backlog.",
+      "geometry:auger-sd750-infill-boundary's computed area (29.3 km^2) does not closely match the collaboration's own quoted '23.5 km^2, 61-detector' infill figure; no checks[] row is asserted for it (see that record's own note)."
+    ],
+    "summary_technical": "One local map for facility:pierre-auger-observatory. The main (1500 m spacing) and infill (750 m spacing) surface-detector array boundaries are convex hulls computed this session from the 1690-row station position table in the Observatory's own public Open Data release (sdMap.csv, Zenodo record 10488964), UTM zone 19S converted to WGS84. The four fluorescence-detector buildings (Los Leones, Los Morados, Loma Amarilla, Coihueco) could not be individually located this session (see notes) and are not drawn."
+  },
   "map:psi": {
     "notes": [
       "Overpass (overpass-api.de and lz4.overpass-api.de) refused every connection attempt for the entire PSI/KIT portion of this session (curl: 'Failed to connect ... Couldn't connect to server', not a 429/504 that a backoff would clear). The campus boundary was recovered through Nominatim's polygon_geojson=1 output instead (same underlying OSM way data), but Nominatim only supports name search, not Overpass's tag/bbox queries -- so the HIPA ring-cyclotron building and the large experimental hall (housing MEG-II and Mu3e in the piE5 area) could not be located by name and are not drawn. Named locality nodes 'PSI West' (47.5368N, 8.2222E) and 'PSI Ost' (47.5386N, 8.2300E) corroborate which OSM polygon is which bank, but are themselves place labels, not building footprints, so they are not drawn either.",
       "geometry:psi-campus-boundary (entity_id site:psi-villigen) accounts for the site and, through it, the placements of detector:meg, detector:meg-ii and detector:mu3e -- none of which has its own hall footprint this session for the same Overpass-outage reason."
     ],
     "summary_technical": "One local map for facility:psi. Only the campus boundary (OSM ways 28028409, 26680824 on the Villigen/west bank and 26680821 on the Wurenlingen/east bank, fetched via Nominatim) is drawn; accelerator:psi-hipa is unlocated pending a working Overpass query for its unnamed building."
+  },
+  "map:roque-de-los-muchachos-observatory": {
+    "notes": [
+      "geometry:magic-array-point and geometry:ctao-north-lst1-point share the exact same coordinate -- expected to raise the validator's geometry-duplicate-shape warning; both experiments genuinely occupy this same approximate patch and are not resolved to finer precision this session.",
+      "Overpass (OpenStreetMap) was unreachable for the whole of this research session -- an OSM trace distinguishing the MAGIC-I/MAGIC-II/LST-1 pads (which the brief's own leads suggested, noting Roque is 'often mapped') could not be attempted. See worklog.",
+      "The commonly cited value 28°45'43\"N 17°53'24\"W for MAGIC and ~100 m for LST-1's distance from it were found via multiple secondary sources this session but could not be confirmed against a primary source fetched directly (every attempt to fetch a MAGIC/LST technical paper returned no coordinate text) -- not used, flagged as an unverified candidate in the worklog."
+    ],
+    "summary_technical": "One local map for facility:roque-de-los-muchachos-observatory, shared by experiment:magic and experiment:ctao (CTAO-North). Both are drawn at the same approximate campus point (precision_m 500) because no source fetched this session gives separate decimal coordinates for the MAGIC pads versus the CTAO-North/LST-1 site, matching the existing site record's own documented limitation."
+  },
+  "map:sierra-negra": {
+    "notes": [
+      "site:hawc-sierra-negra currently carries a coarser (precision_m 3000) Nominatim geocode of the Sierra Negra peak; the array's own coordinate found this session is reported as a site coordinate correction candidate in the worklog."
+    ],
+    "summary_technical": "One local map for facility:sierra-negra. Drawn as a single reference point at the array's own published coordinate (18.99N, 97.31W), tighter than the existing site record's Nominatim peak-geocode point; the 300-tank footprint has no sourced overall outline shape this session."
   },
   "map:snolab": {
     "notes": [],
@@ -7115,6 +7215,13 @@
   "map:surf": {
     "notes": [],
     "summary_technical": "Local map for facility:surf spanning the Lead, SD surface campus (OSM building footprints for the Yates and Ross shaft head-frames and hoists) and the 4850 Level (1478 m depth). The Davis Campus cavern (LZ, Majorana Demonstrator) is drawn from its own surveyed coordinate (SURF Physics Procedia Table 5); the LBNF/DUNE far-detector caverns on the same level remain unlocated for lack of a sourced offset from the Ross Shaft."
+  },
+  "map:telescope-array-utah": {
+    "notes": [
+      "site:telescope-array-utah-central-site currently carries a coarser (precision_m 15000) Nominatim geocode of the town of Delta, explicitly documented there as not a survey point for the array; the array's own descriptive centre found this session is reported as a site coordinate correction candidate in the worklog.",
+      "The 507-station 1.2 km SD grid and the three fluorescence-detector sites (Black Rock Mesa, Long Ridge, Middle Drum) are not drawn: their widely repeated coordinates trace only to a hobbyist astronomy site (cleardarksky.com, also Wikipedia's own citation), not to an official TA page or paper fetched this session (telescopearray.org and known mirrors were unreachable). See worklog backlog."
+    ],
+    "summary_technical": "One local map for facility:telescope-array-utah. Drawn as a single reference point at the array's own published centre (39.3N, 112.9W), tighter than the existing site record's Delta-Utah town geocode; extent_m set large (20 km) to reflect the array's true ~700 km2 scale even though only the centre point is drawn this session."
   },
   "map:wipp": {
     "notes": [],

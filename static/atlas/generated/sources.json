@@ -11792,6 +11792,12 @@
         "/sources",
         "/specs/area"
       ],
+      "geometry:auger-sd1500-array-boundary": [
+        "/checks/0"
+      ],
+      "map:pierre-auger-observatory": [
+        "/sources"
+      ],
       "site:malargue-auger": [
         "/coordinates",
         "/sources"
@@ -12040,6 +12046,14 @@
         "/sources",
         "/specs/altitude"
       ],
+      "geometry:hawc-array-point": [
+        "/geometry",
+        "/sources"
+      ],
+      "map:sierra-negra": [
+        "/center",
+        "/sources"
+      ],
       "site:hawc-sierra-negra": [
         "/altitude",
         "/coordinates",
@@ -12169,6 +12183,18 @@
       "facility:hess-khomas-highland": [
         "/sources",
         "/specs/altitude"
+      ],
+      "geometry:hess-ct1-4-square": [
+        "/geometry",
+        "/sources"
+      ],
+      "geometry:hess-ct5-point": [
+        "/geometry",
+        "/sources"
+      ],
+      "map:hess-khomas-highland": [
+        "/center",
+        "/sources"
       ],
       "site:khomas-highland-hess": [
         "/altitude",
@@ -12727,6 +12753,14 @@
     "accessed": "2026-09-17",
     "archive_url": null,
     "cited_by": {
+      "geometry:lhaaso-array-point": [
+        "/geometry",
+        "/sources"
+      ],
+      "map:lhaaso-daocheng": [
+        "/center",
+        "/sources"
+      ],
       "site:lhaaso-haizi-mountain": [
         "/coordinates",
         "/sources"
@@ -12783,6 +12817,18 @@
     "archive_url": null,
     "cited_by": {
       "facility:roque-de-los-muchachos-observatory": [
+        "/sources"
+      ],
+      "geometry:ctao-north-lst1-point": [
+        "/geometry",
+        "/sources"
+      ],
+      "geometry:magic-array-point": [
+        "/geometry",
+        "/sources"
+      ],
+      "map:roque-de-los-muchachos-observatory": [
+        "/center",
         "/sources"
       ],
       "site:roque-de-los-muchachos-gamma-ray-array": [
@@ -12907,6 +12953,14 @@
   "src:cosmic-gamma-verify-ctao-south-site-page": {
     "accessed": "2026-09-18",
     "cited_by": {
+      "geometry:ctao-south-array-point": [
+        "/geometry",
+        "/sources"
+      ],
+      "map:ctao-south-paranal": [
+        "/center",
+        "/sources"
+      ],
       "site:paranal-cta-south": [
         "/coordinates",
         "/sources"
@@ -13069,6 +13123,14 @@
       "facility:fred-lawrence-whipple-observatory": [
         "/sources",
         "/specs/altitude"
+      ],
+      "geometry:veritas-array-point": [
+        "/geometry",
+        "/sources"
+      ],
+      "map:fred-lawrence-whipple-observatory": [
+        "/center",
+        "/sources"
       ],
       "site:mount-hopkins-veritas": [
         "/altitude",
@@ -17953,6 +18015,114 @@
     "title": "GALLEX",
     "type": "src",
     "url": "https://en.wikipedia.org/wiki/GALLEX"
+  },
+  "src:geo-arrays-auger-opendata-sdmap": {
+    "accessed": "2026-09-18",
+    "archive_url": null,
+    "cited_by": {
+      "geometry:auger-sd1500-array-boundary": [
+        "/geometry",
+        "/sources"
+      ],
+      "geometry:auger-sd750-infill-boundary": [
+        "/geometry",
+        "/sources"
+      ],
+      "map:pierre-auger-observatory": [
+        "/center",
+        "/sources"
+      ]
+    },
+    "content_hash": null,
+    "date": null,
+    "excerpt": "id,northing,easting,altitude,start,stop,sd1500,sd750 -- UTM zone 19S position and sd1500/sd750 sub-array membership of every Auger surface-detector station, from the Observatory's own public Open Data release (1690 rows).",
+    "id": "src:geo-arrays-auger-opendata-sdmap",
+    "link_check": {
+      "http_status": null,
+      "last_checked": null,
+      "redirect": null
+    },
+    "publisher": "Pierre Auger Collaboration",
+    "publisher_id": "collaboration:pierre-auger-observatory",
+    "rank": 1,
+    "reference": {
+      "doi": "10.5281/zenodo.10488964"
+    },
+    "retrieval": "full_text",
+    "source_type": "official_experiment_site",
+    "title": "Pierre Auger Observatory Open Data — sdMap.csv (surface-detector station positions)",
+    "type": "src",
+    "url": "https://opendata.auger.org/releases/3/auxiliary/sdMap.csv"
+  },
+  "src:geo-arrays-hess-telescopes-page": {
+    "accessed": "2026-09-18",
+    "archive_url": null,
+    "cited_by": {
+      "geometry:hess-ct1-4-square": [
+        "/checks/0",
+        "/geometry",
+        "/sources"
+      ],
+      "geometry:hess-ct5-point": [
+        "/geometry",
+        "/sources"
+      ],
+      "map:hess-khomas-highland": [
+        "/sources"
+      ]
+    },
+    "content_hash": null,
+    "date": null,
+    "excerpt": "The initial four H.E.S.S. telescopes (Phase I) are arranged in form of a square with 120 m side length. The diagonal of the square is oriented north-south. ... a single huge dish ... was added at the center of the array.",
+    "id": "src:geo-arrays-hess-telescopes-page",
+    "link_check": {
+      "http_status": null,
+      "last_checked": null,
+      "redirect": null
+    },
+    "publisher": "H.E.S.S. Collaboration / Max Planck Institute for Nuclear Physics",
+    "publisher_id": null,
+    "rank": 1,
+    "reference": {},
+    "retrieval": "partial",
+    "source_type": "official_experiment_site",
+    "title": "H.E.S.S. Telescopes",
+    "type": "src",
+    "url": "https://www.mpi-hd.mpg.de/HESS/pages/about/telescopes/"
+  },
+  "src:geo-arrays-ta-site-paper": {
+    "accessed": "2026-09-18",
+    "archive_url": null,
+    "cited_by": {
+      "geometry:ta-array-point": [
+        "/geometry",
+        "/sources"
+      ],
+      "map:telescope-array-utah": [
+        "/center",
+        "/sources"
+      ]
+    },
+    "content_hash": null,
+    "date": null,
+    "excerpt": "The TA site is located in the desert about 1400 m above sea level centered at 39.3 N and 112.9 W in Millard County, Utah, USA ... deployed in a square grid with 1.2 km spacing to cover a total area of approximately 700 km^2.",
+    "id": "src:geo-arrays-ta-site-paper",
+    "link_check": {
+      "http_status": null,
+      "last_checked": null,
+      "redirect": null
+    },
+    "publisher": "Telescope Array Collaboration",
+    "publisher_id": "collaboration:telescope-array",
+    "rank": 5,
+    "reference": {
+      "arxiv": "1201.4964"
+    },
+    "retrieval": "partial",
+    "source_type": "detector_paper",
+    "title": "The surface detector array of the Telescope Array experiment (site coordinates and grid)",
+    "type": "src",
+    "url": "https://arxiv.org/abs/1201.4964"
   },
   "src:geo-bnl-ags-1960-bulletin": {
     "accessed": "2026-09-18",

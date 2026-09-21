@@ -1,0 +1,53 @@
+{
+  "accuracy_m": 500,
+  "aliases": [],
+  "checks": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "depth_m": null,
+  "entity_id": "experiment:ctao",
+  "feature_type": "array",
+  "geometry": {
+    "confidence": "approximate",
+    "locator": "Nominatim search result for 'Observatorio del Roque de los Muchachos'",
+    "note": "OpenStreetMap/Nominatim geocoder source (source_type 'geocoder', not 'openstreetmap'); representation 'georeferenced', confidence stays 'approximate'.",
+    "quote": "\"name\":\"Observatorio del Roque de los Muchachos\",\"lat\":\"28.7570690\",\"lon\":\"-17.8888436\"",
+    "sources": [
+      "src:cosmic-gamma-nominatim-roque-de-los-muchachos"
+    ],
+    "value": {
+      "coordinates": [
+        -17.8888436,
+        28.757069
+      ],
+      "type": "Point"
+    },
+    "verified_at": "2026-09-18"
+  },
+  "id": "geometry:ctao-north-lst1-point",
+  "level_id": "surface",
+  "license": null,
+  "links": {
+    "website": null
+  },
+  "map_id": "map:roque-de-los-muchachos-observatory",
+  "method": "Reuses the same already-sourced approximate campus point as geometry:magic-array-point (see that record); LST-1 is published as roughly 100 m from the MAGIC telescopes (multiple secondary/collaboration sources give ~28.8N/17.8W for LST-1 itself, the same precision as the shared campus point, so no independent offset could be honestly derived this session). No OpenStreetMap trace of LST-1's own pad could be attempted (Overpass refused every connection attempt).",
+  "name": "CTAO-North / LST-1 (reference point, shared with MAGIC)",
+  "notes": [
+    "Identical coordinate to geometry:magic-array-point -- see that record's note and the map's own notes for the expected geometry-duplicate-shape warning."
+  ],
+  "osm": null,
+  "representation": "georeferenced",
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:roque-de-los-muchachos-gamma-ray-array",
+  "sources": [
+    "src:cosmic-gamma-nominatim-roque-de-los-muchachos"
+  ],
+  "summary": {
+    "plain": "The CTAO-North site on La Palma, whose first Large-Sized Telescope prototype (LST-1) stands about 100 metres from the MAGIC telescopes; shown here at the same approximate reference point as MAGIC."
+  },
+  "type": "geometry",
+  "valid": null
+}

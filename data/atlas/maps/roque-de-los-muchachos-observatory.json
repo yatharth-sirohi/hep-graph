@@ -1,0 +1,56 @@
+{
+  "aliases": [],
+  "center": {
+    "confidence": "approximate",
+    "kind": "campus",
+    "lat": 28.757069,
+    "locator": "Nominatim search result for 'Observatorio del Roque de los Muchachos'",
+    "lon": -17.8888436,
+    "note": "Map centre only; not a claim about any structure.",
+    "precision_m": 500,
+    "sources": [
+      "src:cosmic-gamma-nominatim-roque-de-los-muchachos"
+    ],
+    "verified_at": "2026-09-18"
+  },
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "extent_m": 1500,
+  "facility_id": "facility:roque-de-los-muchachos-observatory",
+  "id": "map:roque-de-los-muchachos-observatory",
+  "levels": [
+    {
+      "depth_m": null,
+      "id": "surface",
+      "kind": "surface",
+      "name": "Surface",
+      "note": "Both experiments' telescopes are at the surface."
+    }
+  ],
+  "linked_map_ids": [],
+  "links": {
+    "website": null
+  },
+  "name": "Roque de los Muchachos — MAGIC and CTAO-North",
+  "notes": [
+    "geometry:magic-array-point and geometry:ctao-north-lst1-point share the exact same coordinate -- expected to raise the validator's geometry-duplicate-shape warning; both experiments genuinely occupy this same approximate patch and are not resolved to finer precision this session.",
+    "Overpass (OpenStreetMap) was unreachable for the whole of this research session -- an OSM trace distinguishing the MAGIC-I/MAGIC-II/LST-1 pads (which the brief's own leads suggested, noting Roque is 'often mapped') could not be attempted. See worklog.",
+    "The commonly cited value 28°45'43\"N 17°53'24\"W for MAGIC and ~100 m for LST-1's distance from it were found via multiple secondary sources this session but could not be confirmed against a primary source fetched directly (every attempt to fetch a MAGIC/LST technical paper returned no coordinate text) -- not used, flagged as an unverified candidate in the worklog."
+  ],
+  "schema": "hep-atlas/0.2",
+  "schematics": [],
+  "site_ids": [
+    "site:roque-de-los-muchachos-gamma-ray-array"
+  ],
+  "sources": [
+    "src:cosmic-gamma-nominatim-roque-de-los-muchachos"
+  ],
+  "summary": {
+    "plain": "The mountaintop observatory on La Palma, Canary Islands, hosting the MAGIC gamma-ray telescopes and the CTAO-North site (including the LST-1 prototype).",
+    "technical": "One local map for facility:roque-de-los-muchachos-observatory, shared by experiment:magic and experiment:ctao (CTAO-North). Both are drawn at the same approximate campus point (precision_m 500) because no source fetched this session gives separate decimal coordinates for the MAGIC pads versus the CTAO-North/LST-1 site, matching the existing site record's own documented limitation."
+  },
+  "type": "map",
+  "unlocated": []
+}
