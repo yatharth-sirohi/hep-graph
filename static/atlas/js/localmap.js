@@ -19,7 +19,7 @@
 // globe's cold load must not pay for a map engine nobody has opened yet.
 
 import {
-  titleCase, quantityText, statusForTimeline, timelineAbsenceReason,
+  titleCase, quantityText, statusForTimeline, timelineAbsenceReason, monthToYear,
 } from './model.js';
 import * as mapstyle from './mapstyle.js';
 
@@ -243,10 +243,55 @@ function inSelectedYear(feature) {
   return s.timeless || !!s.status;
 }
 
+/**
+ * The selected entity is a special case. Opening
+ * `sel=accelerator:fermilab-tevatron` at 2026 used to show the Tevatron's
+ * panel beside a map with no Tevatron on it, and nothing said why — the
+ * reader is left to guess whether the ring is missing from the data or
+ * missing from the year. So a selected entity whose features are hidden
+ * *only* by the timeline is drawn anyway, ghosted, and the drawer says what
+ * happened and offers the years in which it existed.
+ *
+ * This overrides the timeline filter and nothing else: a level the reader
+ * switched off stays off, and unselected features are unaffected.
+ */
+function isSelectionGhost(feature) {
+  if (!view.sel) return false;
+  if (view.sel !== feature.entity_id && view.sel !== feature.id) return false;
+  return !inSelectedYear(feature);
+}
+
 function featureVisible(feature) {
   if (!visibleLevelIds().includes(feature.level_id)) return false;
   if (inSelectedYear(feature)) return true;
-  return showOutside;
+  return showOutside || isSelectionGhost(feature);
+}
+
+/** When the selection is only on screen because of the rule above, this
+ *  describes the gap: which years its features do cover, and why now is not
+ *  one of them. Returns null when the selection is genuinely in-year, has no
+ *  features on this map, or is hidden by a level toggle instead. */
+function selectionTimelineGap() {
+  if (!view.sel || showOutside) return null;
+  const features = selectedFeatures().filter((f) => visibleLevelIds().includes(f.level_id));
+  if (!features.length || features.some((f) => inSelectedYear(f))) return null;
+  let first = Infinity;
+  let last = -Infinity;
+  const reasons = new Set();
+  for (const feature of features) {
+    const segments = feature.state_segments;
+    if (!segments || !segments.length) continue;
+    first = Math.min(first, segments[0][0]);
+    last = Math.max(last, segments[segments.length - 1][1]);
+    reasons.add(timelineAbsenceReason(segments, view.timelineState || {}));
+  }
+  if (!Number.isFinite(first)) return { features, reason: 'no_history', from: null, to: null };
+  return {
+    features,
+    reason: reasons.has('ended') ? 'ended' : (reasons.has('not_yet') ? 'not_yet' : 'gap'),
+    from: monthToYear(first),
+    to: monthToYear(last),
+  };
 }
 
 function selectedFeatures() {
@@ -827,7 +872,9 @@ function renderSidebar() {
     const rows = bundle.features
       .filter((f) => f.level_id === level.id)
       .filter((f) => visibleLevelIds().includes(f.level_id))
-      .filter((f) => showOutside || inSelectedYear(f));
+      // Same predicate as the map, so the list and the map never disagree
+      // about what is on screen (a browser test asserts set equality).
+      .filter((f) => showOutside || inSelectedYear(f) || isSelectionGhost(f));
     if (!rows.length) continue;
     featureNodes.push(h('h4', { class: 'map-feature-group' }, level.name));
     featureNodes.push(h('div', { class: 'map-feature-rows' }, rows.map(featureRow)));
@@ -941,6 +988,45 @@ function factsFor(feature) {
   return h('section', { class: 'map-facts' }, nodes);
 }
 
+/** The notice §4's honesty rule needs: the shape is on screen only because
+ *  it is selected, it is not what the map shows for this year, and here are
+ *  the years in which it was. `variant` only changes the class. */
+function timelineGapNotice(gap, variant) {
+  const name = gap.features[0] ? (gap.features[0].entity_name || gap.features[0].name) : view.sel;
+  const when = whenLabel();
+  const span = gap.from != null && gap.to != null
+    ? (gap.from === gap.to ? `${gap.from}` : `${gap.from}\u2013${gap.to}`)
+    : null;
+  const lead = {
+    ended: span ? `${name} was there in ${span}, not in ${when}.` : `${name} is no longer there in ${when}.`,
+    not_yet: span ? `${name} is recorded for ${span}, not yet in ${when}.` : `${name} does not exist yet in ${when}.`,
+    gap: span ? `${name} has no recorded state in ${when}; its shapes cover ${span}.` : `${name} has no recorded state in ${when}.`,
+    no_history: `${name} carries no recorded history, so no year can place it.`,
+  }[gap.reason] || `${name} is not present in ${when}.`;
+  const box = h('div', { class: `map-gap-notice ${variant || ''}`.trim(), role: 'status' }, [
+    h('p', {}, `${lead} It is drawn ghosted because you selected it \u2014 it is not what this map `
+      + `shows for ${when}.`),
+  ]);
+  if (span && gap.from != null) {
+    const btn = h('button', { type: 'button', class: 'text-btn map-gap-btn' },
+      gap.from === gap.to ? `Show ${gap.from}` : `Show ${gap.from}\u2013${gap.to}`);
+    btn.addEventListener('click', () => {
+      if (gap.from === gap.to) NAVIGATE({ year: gap.from, range: null });
+      else NAVIGATE({ year: null, range: [gap.from, gap.to] });
+    });
+    box.appendChild(btn);
+  }
+  return box;
+}
+
+function renderSelectionNotice() {
+  const existing = dom.stage.querySelector('.map-gap-notice');
+  if (existing) existing.remove();
+  const gap = selectionTimelineGap();
+  if (!gap) return;
+  dom.stage.appendChild(timelineGapNotice(gap, 'on-stage'));
+}
+
 function renderDrawer() {
   const { drawer, drawerHead, drawerFacts, root } = dom;
   const features = selectedFeatures();
@@ -960,6 +1046,10 @@ function renderDrawer() {
   }, '×');
   closeBtn.addEventListener('click', clearSelection);
   drawerHead.append(closeBtn, h('h2', { class: 'map-drawer-title', id: 'map-drawer-title', tabindex: '-1' }, name));
+  // Directly under the title, not below the entity's panel: "why is this not
+  // on the map" has to be answered before the reader starts scrolling.
+  const gap = selectionTimelineGap();
+  if (gap) drawerHead.appendChild(timelineGapNotice(gap, 'in-drawer'));
   if (primary && primary.entity_type) {
     const record = INDEX ? INDEX.get(view.sel) : null;
     const resolved = record && record.state_segments
@@ -1092,6 +1182,7 @@ function redraw() {
   drawFeatures(L);
   renderSidebar();
   renderDepth();
+  renderSelectionNotice();
 }
 
 // ------------------------------------------------------------------ show
@@ -1207,6 +1298,7 @@ export async function show(current, ctx) {
   renderNorthIndicator();
   renderDepth();
   renderDrawer();
+  renderSelectionNotice();
 
   // The selected entity's normal detail panel, rendered by panels.js into
   // the drawer (app.js has already pointed panels at drawerPanelEl()).

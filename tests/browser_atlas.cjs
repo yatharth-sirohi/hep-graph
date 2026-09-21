@@ -631,6 +631,12 @@ async function setRangeValue(locator, value) {
         await p.mouse.click(at.x, at.y);
       };
 
+      // Does a feature's recorded history cover mid-2026? The model indexes
+      // months from 1950-01 and reads a single year at its July (model.js
+      // monthIndex), so that is (2026 - 1950) * 12 + 6 = 918.
+      const inYear2026 = (f) => !f.state_segments
+        || f.state_segments.some(([m0, m1]) => m0 <= 918 && 918 <= m1);
+
       const waitForSel = async (p, expected) => {
         await p.waitForFunction((want) => {
           const has = /[?&]sel=/.test(decodeURIComponent(window.location.search));
@@ -1099,6 +1105,54 @@ async function setRangeValue(locator, value) {
           assert.equal(await p.locator("#map-outside-toggle").getAttribute("aria-pressed"), "true");
           assert.equal(await p.locator(`path[data-geometry-id="${lateFeature.id}"].is-ghosted`).count(), 1,
             "with “show features outside the selected year” on it comes back, ghosted");
+          await mapContext.close();
+        });
+      }
+
+      // An entity selected at a year it did not exist in: its panel opens but
+      // its shape is filtered out, and a reader cannot tell whether it is
+      // missing from the data or from the year. It must be drawn ghosted with
+      // an explicit explanation and a way to reach the years it covers.
+      const endedFeature = geometry.features.find((f) => f.entity_id
+        && Array.isArray(f.state_segments) && f.state_segments.length
+        && f.state_segments[f.state_segments.length - 1][1] < (2020 - 1950) * 12);
+      if (endedFeature) {
+        await record("Local map: selecting an entity absent from the selected year ghosts it and says why", async () => {
+          const sel = endedFeature.entity_id;
+          const { mapContext, p } = await openMap({}, `y=2026&sel=${encodeURIComponent(sel)}`);
+          await p.locator("#map-drawer-title").waitFor({ timeout: 15000 });
+          await p.waitForTimeout(600);
+          // Drawn, ghosted, and listed — map and list still agree.
+          assert.equal(await p.locator(`path[data-geometry-id="${endedFeature.id}"].is-ghosted`).count(), 1,
+            "the selected entity's shape is drawn ghosted even though the year excludes it");
+          assert.equal(await p.locator(`[data-feature-row="${endedFeature.id}"]`).count(), 1,
+            "and it is listed, so the accessible list still mirrors the map");
+          // Said in words, in both places, with the years it does cover.
+          for (const where of [".map-gap-notice.in-drawer", ".map-gap-notice.on-stage"]) {
+            const text = await p.locator(where).innerText();
+            assert.match(text, /ghosted because you selected it/i, `${where} explains why it is on screen`);
+            assert.match(text, /\d{4}/, `${where} names the years it covers`);
+          }
+          // An unselected feature that the year excludes stays hidden: this
+          // rule is about the selection, not a global override.
+          const otherHidden = geometry.features.find((f) => f.id !== endedFeature.id
+            && f.entity_id !== sel && !inYear2026(f));
+          if (otherHidden) {
+            assert.equal(await p.locator(`path[data-geometry-id="${otherHidden.id}"]`).count(), 0,
+              "an unselected out-of-year feature is still hidden");
+          }
+          assert.equal(await p.locator("#map-outside-toggle").getAttribute("aria-pressed"), "false",
+            "the global \u201cshow features outside the selected year\u201d toggle is untouched");
+          // The button moves the timeline to those years, and then the shape
+          // is solid and the notice is gone.
+          await p.locator(".map-gap-notice.on-stage .map-gap-btn").click();
+          await p.waitForFunction(() => !document.querySelector(".map-gap-notice"), { timeout: 15000 });
+          assert.match(decodeURIComponent(p.url()), /[?&](y|r)=/, "the button set the timeline");
+          assert.equal(await p.locator(`path[data-geometry-id="${endedFeature.id}"]`).count(), 1,
+            "the shape is now drawn for real");
+          assert.equal(await p.locator(`path[data-geometry-id="${endedFeature.id}"].is-ghosted`).count(), 0,
+            "and no longer ghosted");
+          await p.screenshot({ path: path.join(output, "local-map-timeline-gap.png") });
           await mapContext.close();
         });
       }

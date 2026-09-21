@@ -1802,6 +1802,36 @@ body.about-page {
 .map-check.is-failed .map-check-verdict {
   color: var(--danger);
 }
+/* The selected entity is on screen only because it is selected, and its
+   absence from the chosen year is a fact about the year, not the data. Amber,
+   the same colour the rest of the app uses for "attend to this". */
+.map-gap-notice {
+  border-left: 3px solid var(--amber);
+  background: var(--panel-2);
+  padding: 8px 10px;
+  border-radius: 0 var(--radius) var(--radius) 0;
+  font-size: 12px;
+}
+.map-gap-notice p {
+  margin: 0 0 6px;
+}
+.map-gap-notice.on-stage {
+  position: absolute;
+  left: 50px;
+  bottom: 34px;
+  z-index: 1100;
+  max-width: min(420px, calc(100% - 120px));
+  box-shadow: var(--shadow);
+  border: 1px solid var(--amber);
+  border-left-width: 3px;
+}
+.map-gap-notice.in-drawer {
+  margin: 0 0 10px;
+}
+.map-gap-btn {
+  font-weight: 600;
+}
+
 .map-inferred-warning {
   margin: 6px 0;
   padding: 6px 8px;
