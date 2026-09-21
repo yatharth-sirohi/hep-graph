@@ -329,11 +329,14 @@ async function contrastOf(page, selector) {
       for (const check of [
         { selector: ".map-feature-row .map-feature-meta", min: 4.5, label: "feature row metadata" },
         { selector: ".map-subtitle", min: 4.5, label: "map subtitle" },
-        { selector: ".map-data-note", min: 4.5, label: "synthetic-data note" },
+        // Only maps whose record carries `notes` render this one, which on
+        // the real tree is none of them — measured when present.
+        { selector: ".map-data-note", min: 4.5, label: "data note", optional: true },
         { selector: ".map-drawer-title", min: 4.5, label: "drawer title" },
         { selector: ".leaflet-control-scale-line", min: 4.5, label: "scale bar label" },
       ]) {
         const measured = await contrastOf(mapPage, check.selector);
+        if (!measured && check.optional) continue;
         assert.ok(measured, `could not measure contrast for ${check.label} (${check.selector})`);
         assert.ok(measured.ratio >= check.min,
           `${check.label} contrast ${measured.ratio.toFixed(2)}:1 is below ${check.min}:1`);

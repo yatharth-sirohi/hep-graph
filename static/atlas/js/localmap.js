@@ -681,7 +681,7 @@ function renderLevels() {
 
 function renderUnlocated() {
   const rows = (bundle.map.unlocated || []).map((row) => h('li', { class: 'map-unlocated-row' }, [
-    h('div', { class: 'map-unlocated-name' },
+    h('div', { class: 'map-unlocated-name entity-link-with-meta' },
       row.entity_id ? [
         h('a', {
           href: `#/${idRoute(row.entity_id).type}/${idRoute(row.entity_id).slug}`,
@@ -755,7 +755,7 @@ function renderLinked() {
         class: 'entity-link',
         onclick: (event) => { event.preventDefault(); NAVIGATE({ entity: target, sel: null, levels: null }); },
       }, row.mapId ? `${row.name} — open its local map` : row.name);
-      return h('li', {}, [
+      return h('li', { class: 'entity-link-with-meta' }, [
         link,
         h('div', { class: 'map-feature-meta' },
           `${formatDistance(row.metres)} · bearing ${row.bearing.toFixed(0)}° (${compassPoint(row.bearing)})`
@@ -771,7 +771,7 @@ function renderSchematics() {
   return [
     h('p', { class: 'map-note' },
       'Schematics are offered as links only. They are not to scale and are never drawn on this map.'),
-    h('ul', { class: 'map-schematic-list' }, items.map((s) => h('li', {}, [
+    h('ul', { class: 'map-schematic-list' }, items.map((s) => h('li', { class: 'entity-link-with-meta' }, [
       h('a', { href: s.url || '#', target: '_blank', rel: 'noopener' }, s.title),
       h('div', { class: 'map-feature-meta' }, 'not to scale'),
       s.note ? h('div', { class: 'source-meta' }, s.note) : null,
@@ -818,7 +818,7 @@ function renderSidebar() {
       href: `#/facility/${facility.id.split(':')[1]}`, class: 'entity-link',
       onclick: (event) => { event.preventDefault(); NAVIGATE({ entity: idRoute(facility.id), sel: null, levels: null }); },
     }, `Open the ${facility.name} record`);
-    layers.appendChild(h('p', { class: 'map-subtitle' }, facLink));
+    layers.appendChild(h('p', { class: 'map-subtitle entity-link-with-meta' }, facLink));
   }
   for (const note of (bundle.map.notes || [])) {
     layers.appendChild(h('p', { class: 'map-data-note', role: 'note' }, note));

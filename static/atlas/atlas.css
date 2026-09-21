@@ -829,7 +829,9 @@ input {
    since the link colour alone doesn't reach 3:1 contrast against the
    panel's own body text. A link that is the sole content of its <li>/<p>
    (the common case elsewhere in these panels) doesn't need this. */
-.entity-link-with-meta .entity-link {
+.entity-link-with-meta .entity-link,
+.entity-link-with-meta > a,
+.map-schematic-list a {
   text-decoration: underline;
 }
 .empty-note {
@@ -1847,6 +1849,7 @@ body.about-page {
 }
 a.local-map-chip {
   color: var(--teal);
+  text-decoration: underline;
 }
 
 /* ---- mobile: stacked, with the drawer as a bottom sheet */

@@ -259,7 +259,7 @@ export function localMapLinks(record) {
     const drawn = `${meta.to_scale_count} feature${meta.to_scale_count === 1 ? '' : 's'} drawn to scale`;
     const unlocated = meta.unlocated_count
       ? ` \u00b7 ${meta.unlocated_count} not drawn (geometry not verified)` : '';
-    return h('li', {}, [
+    return h('li', { class: 'entity-link-with-meta' }, [
       linkTo(idRoute(mapId), `Open local map \u2014 ${meta.name}`, 'local-map-link'),
       h('div', { class: 'source-meta' }, `${drawn}${unlocated}`),
     ]);
