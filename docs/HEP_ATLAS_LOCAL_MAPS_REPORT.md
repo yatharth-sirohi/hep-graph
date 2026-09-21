@@ -124,7 +124,29 @@ _To be filled from the gate run on the final integration commit._
 
 ## 5. Independent QA
 
-_To be filled from `docs/atlas-worklog/REVIEW_geometry_qa.md`._
+`docs/atlas-worklog/REVIEW_geometry_qa.md` — a reviewer other than any
+researcher, with six sub-reviewers, re-fetched OpenStreetMap elements and
+primary papers and recomputed residuals for 14 flagship maps (CERN, Fermilab,
+J-PARC, KEK, BNL, DESY, SURF, SNOLAB, Kamioka, South Pole, KM3NeT-ARCA,
+Auger, H.E.S.S., LHAASO). Every principal ring reproduced bit-exact or within
+its check tolerance (LHC 0.30 %, HERA 0.30 %, RHIC < 1 m, KEKB 53/53
+vertices, TI12/TI18 0.0 m, CNGS azimuth 0.00°). Verdict: all 14 fit for
+production, South Pole "as an honest placeholder" (one feature, eight
+entities unlocated for a reproduced blocker).
+
+Defects found: one **P0 class** — the build asserted `active` over any open
+`valid` window, so the LHC tunnel read as running during Long Shutdown 3 and
+HERA's tunnel after decommissioning (10 records; root cause fixed in
+`build.py`, commit 072d506); one **P1** — SeaQuest/NM4 was listed "no OSM
+trace" while a tagged OSM node exists (now drawn); **P2s** — 20 non-canonical
+JSON files, 5 OSM-derived records without the ODbL licence (validator rule
+`geometry-license` added, 11 records fixed), 2 direction lines with a stray
+licence, 7 records without `osm.timestamp`; LHAASO's coordinate upgraded from
+a 5 km geocode to the peer-reviewed figure. Licensing verdict: no official
+figure, plan or image copied anywhere; every OSM-derived shape now carries
+the attribution. Security: nothing beyond the laboratories' own public maps.
+Open items (documented in §8 of the review): SPS representation class,
+H.E.S.S. CT5 label, the IceCube array footprint, Auger's citation.
 
 ## 6. Fit for production?
 

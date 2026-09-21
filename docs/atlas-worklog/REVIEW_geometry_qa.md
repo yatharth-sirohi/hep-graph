@@ -395,3 +395,42 @@ addition; a documentation-only Tevatron note.
 No coordinate, source, or claim was invented anywhere in this review. Every
 fix above cites a source this reviewer or a dispatched subagent
 independently fetched and confirmed.
+
+
+## 8. Integrator closure of the open ledger (2026-09-21)
+
+Applied on the integration branch `hep-atlas-local-maps` after this review
+was merged:
+
+1. **Fixed** — `hepgraph/atlas/build.py::_feature_segments` (commit 072d506):
+   a `valid` window now clips the entity's own `state_segments`; months of
+   the window the entity has no state for read `unrecorded` (styled grey,
+   finely dashed, with a legend row); a feature with `valid` and no entity is
+   `unrecorded` for the whole window. `active` is never fabricated. Verified
+   on the rebuilt bundles: LHC tunnel → `shutdown`, HERA tunnel →
+   `completed`, LEP tunnel → `decommissioned` at the build date. The
+   build test `test_a_shape_with_its_own_valid_window_clips_its_entitys_timeline`
+   locks it in; the contract (§3) and the bundles document were reworded.
+2. **Fixed** — validator rule `geometry-license` (commit 037d5dd): any
+   non-direction shape citing OpenStreetMap-derived data — an
+   `openstreetmap` source **or** a `geocoder`/other source whose publisher
+   or URL names OpenStreetMap/Nominatim — must carry the ODbL licence and
+   attribution, `derived` shapes included. A full-atlas scan found and fixed
+   11 records; the rule now fires 0 times.
+3. **Open** — `geometry:sps-tunnel-ring` representation class: kept
+   `georeferenced`/`approximate` with the 30 m accuracy, as this review
+   judged; the record's note explains the mapper-fitted origin of the OSM way.
+4. **Open** — `geometry:hess-ct5-point` labels: unchanged this pass.
+5. **Open** — IceCube array footprint from the `icetray-public`
+   coordinate-system documentation: new geometry work, listed as backlog in
+   `map:amundsen-scott-south-pole-station`.
+6. **Open** — Auger official-page citation no longer renders the quoted text:
+   the figure stands (corroborated elsewhere); a re-sourced citation is backlog.
+7. **Applied** — the site-record corrections (25 sites, commit 6198ef1; RENO
+   halls, 1ee5641; LHAASO, 072d506) under A17/A23: OpenStreetMap-derived
+   points are `campus`-kind approximate points with a note; published
+   coordinates keep `detector`/`underground_lab`. Jefferson Lab moved 6.5 km,
+   DESY's three sites 12.8 km, Telescope Array 36 km, LHAASO 1.2 km.
+8. **Noted** — the Fermilab worklog's stated CDF/D0/MC-1 centroids differ
+   from the true area-weighted centroids by 10–19 m; the applied site points
+   carry `precision_m: 40`, which covers that difference. Not re-derived.
