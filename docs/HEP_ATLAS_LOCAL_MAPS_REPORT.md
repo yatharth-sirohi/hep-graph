@@ -39,8 +39,8 @@ from a file named next to it; what was not done is stated as not done.
   depth diagram, four visual encodings (type, status-at-year, level,
   representation), accessible feature list, drawer with the entity panel and
   shape facts, linked maps/far sites, OSM basemap with attribution (toggleable).
-- Data: 39 maps, 174 geometry records, all 23 accuracy checks passing at
-  build time, 47 unlocated entries with sourced reasons and backlog. Coverage
+- Data: 39 maps, 174 geometry records (168 to-scale features), all 64 accuracy checks passing at
+  build time, 41 unlocated entries with sourced reasons and backlog. Coverage
   by facility with honest grades: `docs/atlas-worklog/GEOMETRY_COVERAGE_STATE.md`.
 - Site coordinates: 25 site records corrected from the geometry worklogs
   (DESY ×3 by 12.8 km, Jefferson Lab 6.5 km, Telescope Array 36 km, SLAC halls,
@@ -56,7 +56,7 @@ Summary: layout to scale 18 · partial (footprints or sourced points only) 15 ·
 marker only 5 (PSI, SNS, LANSCE, Boulby, South Pole) · no map 1 (JUNO).
 Nine facilities are outside the set by definition and have no map.
 
-## 3. Known unverifiable or not-yet-located shapes (47 entries)
+## 3. Known unverifiable or not-yet-located shapes (41 entries)
 
 Each row is an `unlocated[]` entry with its sourced reason and a concrete
 backlog in the map record; the browser lists them under "Unlocated / geometry
