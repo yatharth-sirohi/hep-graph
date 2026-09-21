@@ -1156,3 +1156,14 @@ def test_a_feature_standing_at_a_site_accounts_for_it(tmp_path):
     from hepgraph.atlas import validate as _validate
     rows = [('geometry:x', {'entity_id': 'detector:demo-far-detector', 'site_id': 'site:demo-far-cavern'})]
     assert _validate._drawn_entities(rows) == {'detector:demo-far-detector', 'site:demo-far-cavern'}
+
+
+def test_osm_derived_shape_needs_a_licence():
+    """A25: a `derived` shape whose inputs are OpenStreetMap data (including a
+    pre-A25 `geocoder` source published by OpenStreetMap) must carry the ODbL
+    licence; the georeferenced-only check left a hole for those."""
+    from hepgraph.atlas import validate as _validate
+    assert _validate._is_osm_source({'source_type': 'openstreetmap'})
+    assert _validate._is_osm_source({'source_type': 'geocoder', 'publisher': 'OpenStreetMap contributors / Nominatim', 'url': 'https://nominatim.openstreetmap.org/search'})
+    assert not _validate._is_osm_source({'source_type': 'geocoder', 'publisher': 'Google', 'url': 'https://maps.example.com'})
+    assert not _validate._is_osm_source(None)

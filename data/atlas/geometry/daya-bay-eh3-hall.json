@@ -175,14 +175,20 @@
   },
   "id": "geometry:daya-bay-eh3-hall",
   "level_id": "eh3-hall",
-  "license": null,
+  "license": {
+    "attribution": "© OpenStreetMap contributors",
+    "name": "ODbL-1.0",
+    "url": "https://www.openstreetmap.org/copyright"
+  },
   "links": {
     "website": null
   },
   "map_id": "map:daya-bay-reactor-neutrino-lab",
   "method": "Nonlinear least-squares multilateration (scipy.optimize.least_squares on raw Euclidean centre-to-centre distance residuals, local equirectangular projection) of this hall's position from the six Daya Bay/Ling Ao/Ling Ao-II reactor-core buildings (geometry:daya-bay-core-d1/d2, geometry:lingao-core-l1/l2, geometry:lingao-ii-core-l3/l4; accuracy_m 8 each), using the mean of this hall's antineutrino-detector(AD)-to-core-centre baselines from arXiv:1508.03943 Table 2 (survey uncertainty stated as < 18 mm) as the target distance to each core. Fit residual (measured centre-to-centre distance vs. the Table-2 mean) is under 5 m on every one of the six cores (max 0.4% of the baseline); accuracy_m is set well above that residual to also cover the buildings' own ~8 m footprint accuracy and the approximation of using each hall's own AD-mean baseline rather than a single physically-located point within the hall.",
   "name": "Far hall (EH3)",
-  "notes": [],
+  "notes": [
+    "Integrator (2026-09-21): ODbL-1.0 licence added — the shape is derived from or copied from OpenStreetMap data (src:geo-reactors-osm-dayabay-reactors), which makes it a derivative database under the ODbL regardless of the derivation step in between."
+  ],
   "osm": null,
   "representation": "derived",
   "schema": "hep-atlas/0.2",

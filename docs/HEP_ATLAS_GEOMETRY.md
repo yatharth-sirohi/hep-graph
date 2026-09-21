@@ -254,6 +254,7 @@ Field rules:
 | `geometry-entity-type` | error | `entity_id` type not allowed, or missing for a feature type that requires one |
 | `geometry-out-of-extent` | error / warning | any position > 60 km from the map centre (error), > 3 × `extent_m` (warning) unless `direction_line` |
 | `geometry-representation` | error | unknown class; `schematic`; `derived` without `method`; `georeferenced` from OSM without `osm.elements` or `license` |
+| `geometry-license` | error | any non-direction shape citing OpenStreetMap-derived data (an `openstreetmap` source, or a `geocoder` source published by OpenStreetMap/Nominatim) without an ODbL-1.0 `license` and attribution — derived shapes included |
 | `geometry-accuracy` | error | `accuracy_m` missing / non-positive where required |
 | `geometry-confidence` | error | `verified` without the required evidence (see §1.2) |
 | `geometry-derived-from-coarse-anchor` | error | `derived` whose `method` names an anchor site whose `precision_m` > `accuracy_m` (the validator checks every `site:` id mentioned in `method` and `note`) |

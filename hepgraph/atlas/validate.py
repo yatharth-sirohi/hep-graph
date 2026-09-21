@@ -2210,6 +2210,18 @@ def _geometry_by_map(ctx: _Context) -> dict[str, list[tuple[str, dict]]]:
     return grouped
 
 
+def _is_osm_source(source: Any) -> bool:
+    """A source record that carries OpenStreetMap data: the A25 `openstreetmap`
+    type, or an older `geocoder`/other record whose publisher or URL names
+    OpenStreetMap or Nominatim."""
+    if not isinstance(source, dict):
+        return False
+    if source.get('source_type') == 'openstreetmap':
+        return True
+    text = f"{source.get('publisher') or ''} {source.get('url') or ''}".lower()
+    return 'openstreetmap' in text or 'nominatim' in text
+
+
 def _drawn_entities(rows: Iterable[tuple[str, dict]]) -> set[str]:
     """Every entity id a set of geometry records depicts or stands at.
 
@@ -2540,6 +2552,25 @@ def check_geometry(ctx: _Context) -> Iterator[Finding]:
                                   f'OpenStreetMap geometry is {schema.ODBL_LICENSE_NAME} data: '
                                   f'`license` must carry the name and the attribution string '
                                   f'"{schema.OSM_ATTRIBUTION}"')
+
+        # -- licence (A25 §1.3 / §6) -----------------------------------------
+        # Any shape copied from *or derived from* OpenStreetMap data is a
+        # derivative database under the ODbL, whatever the derivation step in
+        # between (a hall trilaterated from OSM reactor buildings, a point
+        # taken from a Nominatim geocode). Pre-A25 source records typed
+        # `geocoder` with an OpenStreetMap publisher must count too, or the
+        # licence check has a hole exactly where the older data sits.
+        if representation != 'inferred_direction':
+            sourced = record.get('geometry') if isinstance(record.get('geometry'), dict) else {}
+            cited = list(sourced.get('sources') or []) + list(record.get('sources') or [])
+            osm_cited = [source_id for source_id in cited if _is_osm_source(ctx.source(source_id))]
+            licence = record.get('license') if isinstance(record.get('license'), dict) else {}
+            if osm_cited and (licence.get('name') != schema.ODBL_LICENSE_NAME
+                              or not _text(licence.get('attribution'))):
+                yield Finding(ERROR, 'geometry-license', path, entity_id, _pointer('license'),
+                              f'the shape cites OpenStreetMap-derived data ({", ".join(sorted(osm_cited))}) '
+                              f'so `license` must be {schema.ODBL_LICENSE_NAME} with the attribution '
+                              f'"{schema.OSM_ATTRIBUTION}", whatever the representation class')
 
         # -- accuracy --------------------------------------------------------
         accuracy = record.get('accuracy_m')
