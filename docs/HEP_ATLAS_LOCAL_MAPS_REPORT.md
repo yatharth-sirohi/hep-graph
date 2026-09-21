@@ -100,15 +100,9 @@ far-detector caverns; SLC arcs; LANSCE and SNS linacs; HIPA.
 | fermilab | `detector:ktev` | No OpenStreetMap footprint or other sourced coordinate for the KTeV hall was found this session (a targeted OSM name search for 'KTeV' returned no res |
 | fermilab | `detector:minerva` | No dedicated OpenStreetMap footprint or other sourced coordinate for the MINERvA hall was found this session; no source fetched this session states it |
 | fermilab | `detector:mu2e` | No OpenStreetMap footprint is confirmed for the Mu2e building specifically (a targeted OSM name search for 'Mu2e' found none); the Mu2e TDR (src:muons |
-| fermilab | `detector:seaquest` | No OpenStreetMap footprint or other sourced coordinate for the NM4 building was found this session (a targeted OSM name search for 'NM4' returned no r |
 | fermilab | `detector:sensei` | SENSEI's prototype was 'placed in the MINOS cavern' at Fermilab (existing placement record, src:sensei-shallow-underground-2019-arxiv), i.e. co-locate |
-| fermilab | `site:fermilab-cdf-collision-hall-b0` | detector:cdf is drawn at this site from an OpenStreetMap building footprint (geometry:fermilab-cdf-hall, site_id set), but the site record itself is n |
-| fermilab | `site:fermilab-d0-collision-hall` | detector:d0 is drawn at this site from an OpenStreetMap building footprint (geometry:fermilab-d0-hall, site_id set), but the site record itself is not |
 | fermilab | `site:fermilab-ktev-hall` | detector:ktev, the only detector placed at this site, is unlocated (see above); the site itself is not drawn either. |
-| fermilab | `site:fermilab-main-campus` | This coarse 3 km campus point hosts many detector placements. Most detectors placed here ARE now drawn, from their own OSM building footprints with `s |
-| fermilab | `site:fermilab-mc-1-muon-campus` | detector:muon-g-2 is drawn at this site from an OpenStreetMap building footprint (geometry:fermilab-mc1-building, site_id set), but the site record it |
 | fermilab | `site:fermilab-mu2e-hall` | detector:mu2e, the only detector placed at this site, is unlocated (see above); the site itself is not drawn either. |
-| fermilab | `site:fermilab-nm4-hall` | detector:seaquest, the only detector placed at this site, is unlocated (see above); the site itself is not drawn either. |
 | jefferson-lab | `accelerator:cebaf` | Both permitted Overpass mirrors (overpass-api.de and lz4.overpass-api.de) became unreachable ('Connection refused' on every attempt, including a 10-mi |
 | kek | `accelerator:kek-ps` | No OpenStreetMap trace of the 12 GeV proton synchrotron ring was found in two targeted Overpass queries; the "North Counter Hall" building near the ri |
 | los-alamos-national-laboratory | `accelerator:lansce` | LANSCE's 800 m side-coupled-cavity linac (src:geo-lanl-linac-page: 'The third and longest stage of the accelerator (800m) is the side-coupled-cavity l |
