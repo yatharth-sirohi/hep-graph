@@ -1256,30 +1256,43 @@ def _geometry_by_map(ctx: _Context) -> dict[str, list[dict]]:
 def _feature_segments(ctx: _Context, record: dict) -> tuple[list | None, Any]:
     """`(state_segments, status)` of one feature (contract §3).
 
-    A shape with its own `valid` window has that window and nothing else: a
-    hall that was rebuilt is not on the map in the years before the rebuild,
-    whatever its entity was doing.  Otherwise it inherits the entity's
-    timeline.  A context feature with neither is timeless — `null`, drawn in
-    every year — because a road has no lifecycle the atlas has researched and
-    inventing one would be a claim nobody sourced.
+    A shape's `valid` window says when the *structure* exists; it is never an
+    operating state. So a feature with `valid` shows its entity's own
+    lifecycle clipped to that window, and the months of the window the entity
+    has no recorded state for (a tunnel dug before its machine existed, a
+    hall that outlived its experiment) read `unrecorded`, not `active`. A
+    hall rebuilt in 1999 is therefore not on the map before 1999 whatever its
+    entity was doing, and a decommissioned machine's tunnel never reads as
+    running. A feature with `valid` and no entity (a dated context building)
+    is `unrecorded` for the whole window. A context feature with neither is
+    timeless — `null`, drawn in every year — because a road has no lifecycle
+    the atlas has researched and inventing one would be a claim nobody sourced.
     """
+    entity_id = record.get('entity_id')
+    entity = ctx.atlas.get(entity_id) if isinstance(entity_id, str) else None
+    entity_segments = ctx.segments.get(schema.canonical_id(entity_id)) if entity is not None else None
+
     valid = record.get('valid')
     if isinstance(valid, dict) and (valid.get('start') is not None or valid.get('end') is not None):
         start = schema.month_index(schema.lo(valid.get('start')))
         end = schema.month_index(schema.hi(valid.get('end')))
+        build_month = schema.month_index(ctx.build_day)
         if start is None:
-            start = schema.month_index(ctx.build_day)
+            start = build_month
         if end is None:
-            end = schema.month_index(ctx.build_day)
-        if end >= start:
-            return [[start, end, 'active', 'certain']], 'active'
-    entity_id = record.get('entity_id')
-    if isinstance(entity_id, str):
-        entity = ctx.atlas.get(entity_id)
-        if entity is not None:
-            segments = ctx.segments.get(schema.canonical_id(entity_id))
-            if segments:
-                return segments, ctx.status_at_build(entity)
+            end = build_month
+        if end < start:
+            return None, None
+        months: dict[int, tuple[str, str]] = {m: (schema.UNRECORDED, 'certain') for m in range(start, end + 1)}
+        for m0, m1, status, certainty in entity_segments or []:
+            for month in range(max(m0, start), min(m1, end) + 1):
+                months[month] = (status, certainty)
+        segments = _run_length(months)
+        status = _status_from_segments(segments, ctx.build_day)
+        return segments, status
+
+    if entity_segments:
+        return entity_segments, ctx.status_at_build(entity)
     return None, None
 
 

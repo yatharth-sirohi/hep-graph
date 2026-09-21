@@ -4853,7 +4853,8 @@
   },
   "geometry:leibstadt-conus-detector": {
     "notes": [
-      "QA pass (2026-09-21): removed the `valid: {start: '2023-11', end: null}` window a previous pass set -- a preventive fix for a latent bug in hepgraph.atlas.build._feature_segments(): any `valid` dict with a non-null `start` and `end: null` hard-codes `status: 'active'` through build day regardless of the entity's real status, bypassing state_segments entirely. Currently harmless because detector:conus-hpge-array genuinely is 'active' today, but this pattern produced a live false-'active' claim on three other records (geometry:lhc-tunnel-ring, geometry:fermilab-mc1-building, geometry:fermilab-microboone-hall) fixed the same way in this pass -- see docs/atlas-worklog/REVIEW_geometry_qa.md."
+      "QA pass (2026-09-21): removed the `valid: {start: '2023-11', end: null}` window a previous pass set -- a preventive fix for a latent bug in hepgraph.atlas.build._feature_segments(): any `valid` dict with a non-null `start` and `end: null` hard-codes `status: 'active'` through build day regardless of the entity's real status, bypassing state_segments entirely. Currently harmless because detector:conus-hpge-array genuinely is 'active' today, but this pattern produced a live false-'active' claim on three other records (geometry:lhc-tunnel-ring, geometry:fermilab-mc1-building, geometry:fermilab-microboone-hall) fixed the same way in this pass -- see docs/atlas-worklog/REVIEW_geometry_qa.md.",
+      "Integrator (2026-09-21): ODbL-1.0 licence — the point is derived from the OpenStreetMap reactor-building footprint."
     ]
   },
   "geometry:leibstadt-core": {
