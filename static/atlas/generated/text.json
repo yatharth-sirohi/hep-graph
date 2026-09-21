@@ -4637,7 +4637,9 @@
     ]
   },
   "geometry:fermilab-tevatron-ring": {
-    "notes": []
+    "notes": [
+      "QA pass (2026-09-21): this record's own worklog (docs/atlas-worklog/GEOMETRY_fermilab.md SS2/SS5) flagged the Tevatron-as-circle judgement call as the single item most needing independent scrutiny, since no rank<=10 primary source it fetched uses the word 'circular' or states a numeric radius. Two independently dispatched QA reviewers re-derived this from scratch: both reproduced this record's own OSM circle fit (same centre/radius/vertex count, from a fresh Overpass fetch) and its CDF/D0 distance cross-checks to within a few metres; both also independently found lower-rank secondary sources (a Wikipedia statement that the Tevatron 'was a circular particle accelerator ... in a 6.28 km circumference ring', and independent descriptions of the same-tunnel, same-circumference predecessor Main Ring as 'a large (1000 m radius) synchrotron') that satisfy the research brief's rule 3 by its plain text, even though no fetched rank<=10 paper phrases it that way. Per 'nothing from memory', those secondary quotes are recorded here as a review finding, not cited as a new `sources` entry, since this reviewer did not independently re-fetch them. Confidence stays `derived` (not upgraded) and the shape stays drawn: the reviewers' conclusion is that the existing derived-circle representation is honest and, if anything, under-claimed its own justification -- not that it should be weakened or removed. See docs/atlas-worklog/REVIEW_geometry_qa.md for the full independent re-derivation."
+    ]
   },
   "geometry:fermilab-wilson-hall": {
     "notes": []
@@ -4719,7 +4721,8 @@
   "geometry:j-parc-neutrino-direction-line": {
     "notes": [
       "Computed distance from the target-station centroid to Super-Kamiokande is 294.663 km, close to (0.23% under) the T2K NIM paper's own surveyed baseline of 295.3352 km measured target-core-to-detector-centre; reported here informationally, not as a formal checks[] row (no `distance`-kind check fits two points that are, by construction, almost exactly the sourced baseline apart).",
-      "The far site is site:kamioka-mozumi-mine-super-kamiokande (Super-Kamiokande); the Hyper-Kamiokande far site (site:kamioka-hyper-kamiokande-tochibora, about 8 km further south) sees nearly the same bearing and is not drawn as a second line."
+      "The far site is site:kamioka-mozumi-mine-super-kamiokande (Super-Kamiokande); the Hyper-Kamiokande far site (site:kamioka-hyper-kamiokande-tochibora, about 8 km further south) sees nearly the same bearing and is not drawn as a second line.",
+      "QA pass (2026-09-21): cleared an ODbL license block this inferred_direction record carried despite `osm: null` and no OSM element ever being traced -- this feature is computed entirely from two independently-sourced points (a target-station centroid and Super-Kamiokande's own surveyed coordinate), not copied/traced third-party geodata. Every sibling inferred_direction record in the atlas (geometry:cngs-direction-line, geometry:t2k-beam-direction-kamioka, geometry:fermilab-numi-direction, geometry:fermilab-lbnf-direction) correctly carries `license: null`; this one and geometry:kek-neutrino-direction-line were the only two inconsistent with that pattern."
     ]
   },
   "geometry:j-parc-neutrino-muon-monitor-building": {
@@ -4778,7 +4781,8 @@
   },
   "geometry:kek-neutrino-direction-line": {
     "notes": [
-      "Computed distance from the North Counter Hall centroid to Super-Kamiokande is 249.41 km, close to (0.2% under) the K2K measurement paper's own quoted 'neutrino flight distance of 250 km' -- reported informationally, not as a formal checks[] row (this near point is only circumstantially, not officially, identified with the KEK-PS North hall -- see geometry:kek-north-counter-hall)."
+      "Computed distance from the North Counter Hall centroid to Super-Kamiokande is 249.41 km, close to (0.2% under) the K2K measurement paper's own quoted 'neutrino flight distance of 250 km' -- reported informationally, not as a formal checks[] row (this near point is only circumstantially, not officially, identified with the KEK-PS North hall -- see geometry:kek-north-counter-hall).",
+      "QA pass (2026-09-21): cleared an ODbL license block this inferred_direction record carried despite `osm: null` and no OSM element ever being traced -- see the identical fix and reasoning on geometry:j-parc-neutrino-direction-line."
     ]
   },
   "geometry:kek-nikko-hall": {
@@ -4850,8 +4854,8 @@
   },
   "geometry:lhaaso-array-point": {
     "notes": [
-      "KM2A (circular, ~575-635 m radius) and WCDA (78,000 m2, two 150x150 m pools plus one 300x110 m pool) are described with enough shape/size detail to draw, but not with a coordinate precise enough to anchor them honestly this session; see method and worklog backlog.",
-      "QA pass (2026-09-21): added the ODbL-1.0 licence this record omitted despite its own `method`/`geometry.note` stating the coordinate is a verbatim Nominatim (OpenStreetMap) geocode; the underlying `src:cosmic-gamma-nominatim-haizi-mountain` source predates the A25 `openstreetmap` source_type convention (it is typed `geocoder`) and its Nominatim response did not record a specific osm_id, so `osm.elements` is left null rather than invented. No coordinate or claim changed."
+      "KM2A (circular, ~575-635 m radius) and WCDA (78,000 m2, two 150x150 m pools plus one 300x110 m pool) are described with enough shape/size detail to draw, and are now anchorable (this point's accuracy_m is well under either shape's own size), but no source found in this review states their offset/orientation from this reference point, so neither is drawn; see method and backlog in docs/atlas-worklog/REVIEW_geometry_qa.md.",
+      "QA pass (2026-09-21): this record previously reused an OSM/Nominatim geocode verbatim (representation `georeferenced`, confidence `approximate`, accuracy_m 5000) and briefly carried an ODbL-1.0 licence added earlier the same pass to correct that omission; both are superseded by the coordinate/source swap above, which replaces the OSM-derived point entirely with a published journal figure, so `license` reverts to null (this is now the atlas's own citation of a published number, not third-party geodata)."
     ]
   },
   "geometry:lhc-tunnel-ring": {
@@ -4940,28 +4944,42 @@
     "notes": []
   },
   "geometry:point1-atlas-boundary": {
-    "notes": []
+    "notes": [
+      "QA pass (2026-09-21): populated `osm.timestamp` (2026-09-18T20:22:14Z) from the extract timestamp already recorded in its own cited source's excerpt (src:geo-cern-osm-point1-atlas-boundary) -- the contract requires the geometry record's own `osm` field to carry the extract's timestamp_osm_base, which was present in the source record but had not been copied into this geometry record."
+    ]
   },
   "geometry:point2-alice-boundary": {
-    "notes": []
+    "notes": [
+      "QA pass (2026-09-21): populated `osm.timestamp` (2026-09-18T20:24:21Z) from the extract timestamp already recorded in its own cited source's excerpt (src:geo-cern-osm-point2-alice-boundary) -- the contract requires the geometry record's own `osm` field to carry the extract's timestamp_osm_base, which was present in the source record but had not been copied into this geometry record."
+    ]
   },
   "geometry:point2-l3-boundary": {
-    "notes": []
+    "notes": [
+      "QA pass (2026-09-21): populated `osm.timestamp` (2026-09-18T20:24:21Z) from the extract timestamp already recorded in its own cited source's excerpt (src:geo-cern-osm-point2-alice-boundary) -- the contract requires the geometry record's own `osm` field to carry the extract's timestamp_osm_base, which was present in the source record but had not been copied into this geometry record."
+    ]
   },
   "geometry:point4-aleph-boundary": {
-    "notes": []
+    "notes": [
+      "QA pass (2026-09-21): populated `osm.timestamp` (2026-09-18T21:49:58Z) from the extract timestamp already recorded in its own cited source's excerpt (src:geo-cern-osm-point4-boundary) -- the contract requires the geometry record's own `osm` field to carry the extract's timestamp_osm_base, which was present in the source record but had not been copied into this geometry record."
+    ]
   },
   "geometry:point5-cms-boundary": {
-    "notes": []
+    "notes": [
+      "QA pass (2026-09-21): populated `osm.timestamp` (2026-09-18T20:23:18Z) from the extract timestamp already recorded in its own cited source's excerpt (src:geo-cern-osm-point5-cms-boundary) -- the contract requires the geometry record's own `osm` field to carry the extract's timestamp_osm_base, which was present in the source record but had not been copied into this geometry record."
+    ]
   },
   "geometry:point5-cms-cavern": {
     "notes": []
   },
   "geometry:point8-delphi-boundary": {
-    "notes": []
+    "notes": [
+      "QA pass (2026-09-21): populated `osm.timestamp` (2026-09-18T21:49:58Z) from the extract timestamp already recorded in its own cited source's excerpt (src:geo-cern-osm-point8-lhcb-boundary) -- the contract requires the geometry record's own `osm` field to carry the extract's timestamp_osm_base, which was present in the source record but had not been copied into this geometry record."
+    ]
   },
   "geometry:point8-lhcb-boundary": {
-    "notes": []
+    "notes": [
+      "QA pass (2026-09-21): populated `osm.timestamp` (2026-09-18T21:49:58Z) from the extract timestamp already recorded in its own cited source's excerpt (src:geo-cern-osm-point8-lhcb-boundary) -- the contract requires the geometry record's own `osm` field to carry the extract's timestamp_osm_base, which was present in the source record but had not been copied into this geometry record."
+    ]
   },
   "geometry:prevessin-site-boundary": {
     "notes": []
@@ -7454,9 +7472,9 @@
   },
   "map:lhaaso-daocheng": {
     "notes": [
-      "A tighter coordinate (29°21'27.6\"N, 100°08'19.6\"E) is repeatedly attributed to the LHAASO Science Book (arXiv:1905.02773) by independent web-search text extracts, but could not be verified by a direct fetch this session (WebFetch, ar5iv, arxiv.org/html and an r.jina.ai proxy all failed to render this specific PDF as readable text) -- not used; flagged as an unverified candidate correction in the worklog."
+      "QA pass (2026-09-21): the LHAASO Science Book (arXiv:1905.02773) coordinate this note used to flag as an unverified candidate remains unfetchable, but an independent QA re-derivation found and fetched (on two separate mirrors) a different, peer-reviewed paper stating the same figure to the hundredth of an arcsecond -- Chinese Physics C 46, 030001 (2022), doi:10.1088/1674-1137/ac3fa6. That figure now backs `center` and geometry:lhaaso-array-point directly; see docs/atlas-worklog/REVIEW_geometry_qa.md."
     ],
-    "summary_technical": "One local map for facility:lhaaso-daocheng. Drawn as a single approximate reference point; KM2A (circular, ~575-635 m radius) and WCDA (78,000 m2, three pools) are described with enough shape detail to draw but could not be anchored to a precise-enough coordinate this session (see geometry record and worklog backlog)."
+    "summary_technical": "One local map for facility:lhaaso-daocheng. Drawn as a single published reference point (Chinese Physics C 46, 030001 (2022)); KM2A (circular, ~575-635 m radius) and WCDA (78,000 m2, three pools) are described with enough shape detail to draw and are now anchorable to this tighter point, but no source states their offset/orientation from it, so neither is drawn (see geometry record and REVIEW_geometry_qa.md backlog)."
   },
   "map:lngs": {
     "notes": [

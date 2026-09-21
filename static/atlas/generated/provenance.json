@@ -51105,14 +51105,14 @@
   },
   "geometry:lhaaso-array-point": {
     "/geometry": {
-      "confidence": "approximate",
-      "locator": "Nominatim search result for a rest area on the Haizi Mountain route, Daocheng County",
-      "note": "OpenStreetMap/Nominatim geocoder source (source_type 'geocoder'); representation 'georeferenced', confidence 'approximate'.",
-      "quote": "\"lat\":\"29.3856960\",\"lon\":\"100.1483762\"",
+      "confidence": "verified",
+      "locator": "Chinese Physics C 46, 030001 (2022), Chapter 1 'LHAASO Instruments and Detector technology', DOI 10.1088/1674-1137/ac3fa6",
+      "note": "QA pass (2026-09-21): replaced the previous OSM/Nominatim rest-area geocode (precision_m 5000) with this peer-reviewed, collaboration-authored published coordinate, independently fetched and confirmed verbatim on two separate mirrors (iopscience.iop.org and cpc.ihep.ac.cn) during this review -- see docs/atlas-worklog/REVIEW_geometry_qa.md. Haversine distance from the old point: 3253 m, inside the old record's own claimed 5000 m accuracy_m, so the previous point was not dishonest, just far coarser than necessary now that a survey-grade figure is available. representation upgraded georeferenced -> surveyed and confidence approximate -> verified (rank-10 journal_article source, per contract SS1.2). accuracy_m tightened 5000 -> 50: the quoted arc-second figure implies sub-metre nominal precision, but 50 m is kept as an honest allowance since the quote describes the observatory's general Mt. Haizi location, not a specific surveyed structure corner.",
+      "quote": "The Large High Altitude Air Shower Observatory (LHAASO) (Fig. 1) is located at Mt. Haizi (4410 m a.s.l., 600 g/cm2, 29°21'27.56\"N, 100°08'19.66\"E) in Daocheng, Sichuan province, P.R. China.",
       "sources": [
-        "src:cosmic-gamma-nominatim-haizi-mountain"
+        "src:geo-lhaaso-cpc-2022-instruments"
       ],
-      "verified_at": "2026-09-18"
+      "verified_at": "2026-09-21"
     },
     "/sources": {
       "confidence": null,
@@ -51120,7 +51120,7 @@
       "note": null,
       "quote": null,
       "sources": [
-        "src:cosmic-gamma-nominatim-haizi-mountain"
+        "src:geo-lhaaso-cpc-2022-instruments"
       ],
       "verified_at": null
     }
@@ -71288,14 +71288,14 @@
   },
   "map:lhaaso-daocheng": {
     "/center": {
-      "confidence": "approximate",
-      "locator": "Nominatim search result for a rest area on the Haizi Mountain route",
-      "note": "Map centre only; not a claim about any structure.",
+      "confidence": "verified",
+      "locator": "Chinese Physics C 46, 030001 (2022), Chapter 1 'LHAASO Instruments and Detector technology', DOI 10.1088/1674-1137/ac3fa6",
+      "note": "Map centre only; not a claim about any structure. QA pass (2026-09-21): replaced the previous OSM/Nominatim rest-area geocode (precision_m 5000) with the published coordinate now used by geometry:lhaaso-array-point; see that record and docs/atlas-worklog/REVIEW_geometry_qa.md.",
       "quote": null,
       "sources": [
-        "src:cosmic-gamma-nominatim-haizi-mountain"
+        "src:geo-lhaaso-cpc-2022-instruments"
       ],
-      "verified_at": "2026-09-18"
+      "verified_at": "2026-09-21"
     },
     "/levels/0": {
       "confidence": null,
@@ -71311,7 +71311,7 @@
       "note": null,
       "quote": null,
       "sources": [
-        "src:cosmic-gamma-nominatim-haizi-mountain"
+        "src:geo-lhaaso-cpc-2022-instruments"
       ],
       "verified_at": null
     }
