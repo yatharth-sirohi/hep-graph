@@ -28,7 +28,11 @@
   },
   "id": "geometry:ctao-north-lst1-point",
   "level_id": "surface",
-  "license": null,
+  "license": {
+    "attribution": "© OpenStreetMap contributors",
+    "name": "ODbL-1.0",
+    "url": "https://www.openstreetmap.org/copyright"
+  },
   "links": {
     "website": null
   },
@@ -36,7 +40,8 @@
   "method": "Reuses the same already-sourced approximate campus point as geometry:magic-array-point (see that record); LST-1 is published as roughly 100 m from the MAGIC telescopes (multiple secondary/collaboration sources give ~28.8N/17.8W for LST-1 itself, the same precision as the shared campus point, so no independent offset could be honestly derived this session). No OpenStreetMap trace of LST-1's own pad could be attempted (Overpass refused every connection attempt).",
   "name": "CTAO-North / LST-1 (reference point, shared with MAGIC)",
   "notes": [
-    "Identical coordinate to geometry:magic-array-point -- see that record's note and the map's own notes for the expected geometry-duplicate-shape warning."
+    "Identical coordinate to geometry:magic-array-point -- see that record's note and the map's own notes for the expected geometry-duplicate-shape warning.",
+    "QA pass (2026-09-21): added the ODbL-1.0 licence this record omitted despite its own `method`/`geometry.note` stating the coordinate is a verbatim Nominatim (OpenStreetMap) geocode; the underlying `src:cosmic-gamma-nominatim-roque-de-los-muchachos` source predates the A25 `openstreetmap` source_type convention (it is typed `geocoder`) and its Nominatim response did not record a specific osm_id, so `osm.elements` is left null rather than invented. No coordinate or claim changed. Same fix applied to the identical case on geometry:magic-array-point."
   ],
   "osm": null,
   "representation": "georeferenced",

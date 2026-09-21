@@ -59,6 +59,9 @@
     ],
     "detector:sbnd": [
       "geometry:fermilab-sbnd-point"
+    ],
+    "detector:seaquest": [
+      "geometry:fermilab-seaquest-point"
     ]
   },
   "features": [
@@ -3043,6 +3046,66 @@
       "status": "active"
     },
     {
+      "accuracy_m": 10,
+      "checks": [],
+      "depth_m": null,
+      "entity_id": "detector:seaquest",
+      "entity_name": "SeaQuest spectrometer",
+      "entity_type": "detector",
+      "feature_type": "other",
+      "geometry": {
+        "coordinates": [
+          -88.2510341,
+          41.846765
+        ],
+        "type": "Point"
+      },
+      "id": "geometry:fermilab-seaquest-point",
+      "level_id": "surface",
+      "license": {
+        "attribution": "© OpenStreetMap contributors",
+        "name": "ODbL-1.0",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "measured": {
+        "area_m2": null,
+        "centroid": [
+          -88.2510341,
+          41.846765
+        ],
+        "length_m": null
+      },
+      "method": "OpenStreetMap node 4425992583, used verbatim (a POI node, not a building footprint). Independently found during a QA re-derivation pass: the geometry worklog (docs/atlas-worklog/GEOMETRY_fermilab.md) reported that 'a targeted OSM name search for NM4 returned no results' and left detector:seaquest / site:fermilab-nm4-hall unlocated on that basis; that specific narrow search was true, but a search for the experiment's own name ('SeaQuest') -- never tried in that session -- finds this node directly, independently confirmed by this reviewer with a direct fetch of https://api.openstreetmap.org/api/0.6/node/4425992583.json (not just trusting a subagent's report of it). accuracy_m 10 m follows the contract's floor for an OSM point/building-scale feature; feature_type 'other' (not 'hall') because this is a single address-point node, not a traced building footprint.",
+      "name": "SeaQuest / DarkQuest spectrometer (NM4 building)",
+      "osm": {
+        "elements": [
+          "node/4425992583"
+        ],
+        "timestamp": "2026-09-21"
+      },
+      "provenance": {
+        "confidence": "approximate",
+        "locator": "OpenStreetMap node 4425992583, fetched 2026-09-21",
+        "note": "OSM node explicitly named and tagged for this experiment; confidence stays 'approximate' per the OSM-alone ceiling (no rank <=10 source independently confirms this exact point).",
+        "quote": "name=SeaQuest, addr:housenumber=NM4, office=research, description=\"High energy physics experiment studying anti quark distribution\", website=https://www.fnal.gov/",
+        "sources": [
+          "src:geo-fermilab-osm-seaquest-node"
+        ],
+        "verified_at": "2026-09-21"
+      },
+      "representation": "georeferenced",
+      "site_id": "site:fermilab-nm4-hall",
+      "state_segments": [
+        [
+          911,
+          911,
+          "completed",
+          "possible"
+        ]
+      ],
+      "status": "completed"
+    },
+    {
       "accuracy_m": 60,
       "checks": [
         {
@@ -4022,16 +4085,6 @@
         ]
       },
       {
-        "backlog": "Search a SeaQuest/DarkQuest civil-engineering note or the Fermilab fixed-target beamline map for the NM4 building's position relative to the Main Injector extraction line.",
-        "entity_id": "detector:seaquest",
-        "entity_name": "SeaQuest spectrometer",
-        "entity_type": "detector",
-        "reason": "No OpenStreetMap footprint or other sourced coordinate for the NM4 building was found this session (a targeted OSM name search for 'NM4' returned no results).",
-        "sources": [
-          "src:seaquest-spectrometer-arxiv-2017"
-        ]
-      },
-      {
         "backlog": "No further backlog beyond locating the MINOS cavern itself (see map.levels['near-detector-caverns']).",
         "entity_id": "detector:sensei",
         "entity_name": "SENSEI Skipper-CCD detector",
@@ -4060,16 +4113,6 @@
         "sources": [
           "src:fermilab-geo-osm-muon-campus",
           "src:muons-arxiv-1501-05241"
-        ]
-      },
-      {
-        "backlog": "Same backlog as detector:seaquest above.",
-        "entity_id": "site:fermilab-nm4-hall",
-        "entity_name": "NM4 hall, Fermilab",
-        "entity_type": "site",
-        "reason": "detector:seaquest, the only detector placed at this site, is unlocated (see above); the site itself is not drawn either.",
-        "sources": [
-          "src:seaquest-spectrometer-arxiv-2017"
         ]
       }
     ]
@@ -4171,6 +4214,11 @@
       "title": "Accelerator Science and Technology Breakthroughs, Achievements and Lessons from the Tevatron",
       "url": "https://arxiv.org/abs/1109.1864"
     },
+    "src:geo-fermilab-osm-seaquest-node": {
+      "source_type": "openstreetmap",
+      "title": "OpenStreetMap node 4425992583, 'SeaQuest' (NM4 building, Fermilab)",
+      "url": "https://www.openstreetmap.org/node/4425992583"
+    },
     "src:ktev-design-report-1992": {
       "source_type": "design_report",
       "title": "KTeV Design Report: Physics Goals, Technical Components, and Detector Costs (aka 'Kaons at the Tevatron design report')",
@@ -4246,11 +4294,6 @@
       "title": "The Short-Baseline Near Detector at Fermilab",
       "url": "https://arxiv.org/abs/2504.00245"
     },
-    "src:seaquest-spectrometer-arxiv-2017": {
-      "source_type": "detector_paper",
-      "title": "The SeaQuest Spectrometer at Fermilab",
-      "url": "https://arxiv.org/abs/1706.09990"
-    },
     "src:sensei-shallow-underground-2019-arxiv": {
       "source_type": "arxiv",
       "title": "SENSEI: Direct-Detection Constraints on Sub-GeV Dark Matter from a Shallow Underground Run Using a Prototype Skipper-CCD",
@@ -4262,5 +4305,5 @@
       "url": "https://sanfordlab.org/"
     }
   },
-  "version": "9ff12305c9234238"
+  "version": "8e001a97d08b009c"
 }

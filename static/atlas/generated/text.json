@@ -4532,7 +4532,8 @@
   },
   "geometry:ctao-north-lst1-point": {
     "notes": [
-      "Identical coordinate to geometry:magic-array-point -- see that record's note and the map's own notes for the expected geometry-duplicate-shape warning."
+      "Identical coordinate to geometry:magic-array-point -- see that record's note and the map's own notes for the expected geometry-duplicate-shape warning.",
+      "QA pass (2026-09-21): added the ODbL-1.0 licence this record omitted despite its own `method`/`geometry.note` stating the coordinate is a verbatim Nominatim (OpenStreetMap) geocode; the underlying `src:cosmic-gamma-nominatim-roque-de-los-muchachos` source predates the A25 `openstreetmap` source_type convention (it is typed `geocoder`) and its Nominatim response did not record a specific osm_id, so `osm.elements` is left null rather than invented. No coordinate or claim changed. Same fix applied to the identical case on geometry:magic-array-point."
     ]
   },
   "geometry:ctao-south-array-point": {
@@ -4634,6 +4635,11 @@
     "notes": [
       "Integrator (2026-09-21): feature_type corrected from target_station to other; this is a derived detector position, not a beam target.",
       "QA pass (2026-09-21): removed the `valid: {start: '2024-07', end: null}` window a previous pass set -- a preventive fix for a latent bug in hepgraph.atlas.build._feature_segments(): any `valid` dict with a non-null `start` and `end: null` hard-codes `status: 'active'` through build day regardless of the entity's real status, bypassing state_segments entirely. Currently harmless because detector:sbnd genuinely is 'active' today, but this pattern produced a live false-'active' claim on three other records (geometry:lhc-tunnel-ring, geometry:fermilab-mc1-building, geometry:fermilab-microboone-hall) fixed the same way in this pass -- see docs/atlas-worklog/REVIEW_geometry_qa.md."
+    ]
+  },
+  "geometry:fermilab-seaquest-point": {
+    "notes": [
+      "QA pass (2026-09-21): removes detector:seaquest and site:fermilab-nm4-hall from map:fermilab.unlocated[] (see that map's own notes for the prior, now-superseded reason text)."
     ]
   },
   "geometry:fermilab-tevatron-ring": {
@@ -4917,7 +4923,8 @@
   },
   "geometry:magic-array-point": {
     "notes": [
-      "Identical coordinate to geometry:ctao-north-lst1-point -- expected to raise the validator's geometry-duplicate-shape warning; both experiments genuinely occupy this same approximate 500 m patch of the observatory and are not resolved to finer precision this session (see map notes and worklog)."
+      "Identical coordinate to geometry:ctao-north-lst1-point -- expected to raise the validator's geometry-duplicate-shape warning; both experiments genuinely occupy this same approximate 500 m patch of the observatory and are not resolved to finer precision this session (see map notes and worklog).",
+      "QA pass (2026-09-21): added the ODbL-1.0 licence this record omitted despite its own `method`/`geometry.note` stating the coordinate is a verbatim Nominatim (OpenStreetMap) geocode; the underlying `src:cosmic-gamma-nominatim-roque-de-los-muchachos` source predates the A25 `openstreetmap` source_type convention (it is typed `geocoder`) and its Nominatim response did not record a specific osm_id, so `osm.elements` is left null rather than invented. No coordinate or claim changed. Same fix applied to the identical case on geometry:ctao-north-lst1-point."
     ]
   },
   "geometry:meyrin-site-marker": {
@@ -7405,9 +7412,10 @@
   "map:fermilab": {
     "notes": [
       "Far sites (not drawn on this map; see the geometry worklog for great-circle distances and bearings computed from the sourced site:fermilab-main-campus point): site:soudan-minos-far-detector (735.4 km, bearing 336.0 degrees, historical MINOS-era NuMI beam), site:ash-river-nova-far-detector (811.7 km, bearing 335.5 degrees, current NOvA-era NuMI beam), site:surf-4850-level-dune-far-detector (1287.6 km, bearing 287.7 degrees, LBNF beam). No map:soudan, map:ash-river or map:surf record exists yet in this branch, so linked_map_ids is empty; the integrator should populate it once those maps exist.",
-      "The campus site (site:fermilab-main-campus, a 3 km point) is represented by the campus boundary and by the halls/points drawn at it with `site_id`; detectors placed there that could not be located are listed individually in `unlocated[]`."
+      "The campus site (site:fermilab-main-campus, a 3 km point) is represented by the campus boundary and by the halls/points drawn at it with `site_id`; detectors placed there that could not be located are listed individually in `unlocated[]`.",
+      "QA pass (2026-09-21): detector:seaquest and site:fermilab-nm4-hall are no longer unlocated. An independent QA re-derivation found (and this reviewer independently re-confirmed with a direct fetch) OpenStreetMap node 4425992583, tagged name=SeaQuest, addr:housenumber=NM4, in the campus bbox -- the prior 'no OSM trace' reason was narrowly true (a search for the literal string 'NM4' finds nothing) but gave a false overall impression, since a search for the experiment's own name finds it directly. Now drawn as geometry:fermilab-seaquest-point."
     ],
-    "summary_technical": "Local to-scale map of the Fermilab Batavia campus: a derived circle for the Booster ring (474 m sourced circumference, OSM-fit centre) and for the Tevatron ring (6.3 km sourced circumference, OSM ring-road-fit centre, cross-checked against the OSM-sourced CDF and D0 hall positions); georeferenced/derived OSM building footprints for the CDF Hall, D0 Assembly Building, MINOS and NOvA near-detector surface buildings, MiniBooNE Detector Building, the LArTF/MicroBooNE hall, a positionally-identified ICARUS-T600 hall and the Muon g-2 MC-1 building; derived target_station/beamline features for BNB and NuMI, each anchored on two independently-named OSM footprints rather than a coarse site point, with passing distance/azimuth checks; an approximate linac axis; context-only campus boundary, Main Injector-area grassland and MC-2 polygons; and inferred-direction lines for the NuMI and LBNF beams, now starting from the derived NuMI target. The Main Injector, Recycler, PIP-II, KTeV, Mu2e, SeaQuest/NM4, SBND (candidate footprints found but not confidently identified), MINERvA, DONUT, SENSEI, DAMIC (prototype) and the DUNE near detector are unlocated, each with a sourced reason and backlog."
+    "summary_technical": "Local to-scale map of the Fermilab Batavia campus: a derived circle for the Booster ring (474 m sourced circumference, OSM-fit centre) and for the Tevatron ring (6.3 km sourced circumference, OSM ring-road-fit centre, cross-checked against the OSM-sourced CDF and D0 hall positions); georeferenced/derived OSM building footprints for the CDF Hall, D0 Assembly Building, MINOS and NOvA near-detector surface buildings, MiniBooNE Detector Building, the LArTF/MicroBooNE hall, a positionally-identified ICARUS-T600 hall and the Muon g-2 MC-1 building; derived target_station/beamline features for BNB and NuMI, each anchored on two independently-named OSM footprints rather than a coarse site point, with passing distance/azimuth checks; an approximate linac axis; context-only campus boundary, Main Injector-area grassland and MC-2 polygons; and inferred-direction lines for the NuMI and LBNF beams, now starting from the derived NuMI target. The Main Injector, Recycler, PIP-II, KTeV, Mu2e, SBND (candidate footprints found but not confidently identified), MINERvA, DONUT, SENSEI, DAMIC (prototype) and the DUNE near detector are unlocated, each with a sourced reason and backlog. SeaQuest/NM4 was added by a QA pass (2026-09-21) as an OSM-tagged point (geometry:fermilab-seaquest-point)."
   },
   "map:fred-lawrence-whipple-observatory": {
     "notes": [

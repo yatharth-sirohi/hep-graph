@@ -28,7 +28,11 @@
   },
   "id": "geometry:magic-array-point",
   "level_id": "surface",
-  "license": null,
+  "license": {
+    "attribution": "© OpenStreetMap contributors",
+    "name": "ODbL-1.0",
+    "url": "https://www.openstreetmap.org/copyright"
+  },
   "links": {
     "website": null
   },
@@ -36,7 +40,8 @@
   "method": "Reuses the already-sourced approximate campus point for site:roque-de-los-muchachos-gamma-ray-array (OpenStreetMap/Nominatim geocode of 'Observatorio del Roque de los Muchachos') verbatim as MAGIC's own reference point; no new coordinate is derived. MAGIC-I and MAGIC-II are published as 85 m apart (Wikipedia/public sources, not independently confirmed by a rank<=10 fetch this session) but this session could not fetch a primary source stating MAGIC's own precise coordinate or an OSM trace of the two dishes (Overpass refused every connection attempt), so the two telescopes are not resolved separately.",
   "name": "MAGIC telescopes (reference point, shared with CTAO-North)",
   "notes": [
-    "Identical coordinate to geometry:ctao-north-lst1-point -- expected to raise the validator's geometry-duplicate-shape warning; both experiments genuinely occupy this same approximate 500 m patch of the observatory and are not resolved to finer precision this session (see map notes and worklog)."
+    "Identical coordinate to geometry:ctao-north-lst1-point -- expected to raise the validator's geometry-duplicate-shape warning; both experiments genuinely occupy this same approximate 500 m patch of the observatory and are not resolved to finer precision this session (see map notes and worklog).",
+    "QA pass (2026-09-21): added the ODbL-1.0 licence this record omitted despite its own `method`/`geometry.note` stating the coordinate is a verbatim Nominatim (OpenStreetMap) geocode; the underlying `src:cosmic-gamma-nominatim-roque-de-los-muchachos` source predates the A25 `openstreetmap` source_type convention (it is typed `geocoder`) and its Nominatim response did not record a specific osm_id, so `osm.elements` is left null rather than invented. No coordinate or claim changed. Same fix applied to the identical case on geometry:ctao-north-lst1-point."
   ],
   "osm": null,
   "representation": "georeferenced",
