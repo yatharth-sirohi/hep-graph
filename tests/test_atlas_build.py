@@ -546,15 +546,33 @@ def test_coordinates_are_rounded_to_seven_decimals(built: BuildResult) -> None:
             assert round(lon, 7) == lon and round(lat, 7) == lat
 
 
-def test_a_shape_with_its_own_valid_window_uses_it(built: BuildResult) -> None:
-    """The ODbL building is valid from 1999; the feature's timeline says so."""
+def test_a_shape_with_its_own_valid_window_clips_its_entitys_timeline(built: BuildResult) -> None:
+    """A `valid` window is the structure's lifetime, never an operating state:
+    the feature shows its entity's lifecycle clipped to the window, and the
+    months the entity has no recorded state for read `unrecorded`. It must
+    never fabricate `active` — that made a decommissioned collider's tunnel
+    render as running (QA finding, 2026-09-21)."""
     from hepgraph.atlas import schema
 
+    atlas = _json(built, "atlas.json")
     feature = next(f for f in _json(built, GEOMETRY_BUNDLE)["features"]
                    if f["id"] == "geometry:demo-target-hall")
-    assert feature["state_segments"] == [[schema.month_index("1999-01"),
-                                          schema.month_index(BUILD_DATE.isoformat()),
-                                          "active", "certain"]]
+    start = schema.month_index("1999-01")
+    end = schema.month_index(BUILD_DATE.isoformat())
+    segments = feature["state_segments"]
+    assert segments[0][0] == start and segments[-1][1] == end
+    statuses = {row[2] for row in segments}
+    entity_id = feature["entity_id"]
+    if entity_id and atlas.get(entity_id.split(":")[0] + "s", {}).get(entity_id, {}).get("state_segments"):
+        entity_segments = atlas[entity_id.split(":")[0] + "s"][entity_id]["state_segments"]
+        # every month inside the window that the entity covers keeps the entity's status
+        for m0, m1, status, _c in entity_segments:
+            for month in range(max(m0, start), min(m1, end) + 1):
+                assert any(a <= month <= b and s == status for a, b, s, _ in segments), (month, status)
+    else:
+        assert statuses == {"unrecorded"}, statuses
+    assert "active" not in statuses or (entity_id and any(
+        row[2] == "active" for row in atlas[entity_id.split(":")[0] + "s"][entity_id]["state_segments"]))
 
 
 def test_a_shape_without_valid_inherits_its_entitys_timeline(built: BuildResult) -> None:

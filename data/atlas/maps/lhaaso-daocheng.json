@@ -1,17 +1,17 @@
 {
   "aliases": [],
   "center": {
-    "confidence": "approximate",
+    "confidence": "verified",
     "kind": "campus",
-    "lat": 29.385696,
-    "locator": "Nominatim search result for a rest area on the Haizi Mountain route",
-    "lon": 100.1483762,
-    "note": "Map centre only; not a claim about any structure.",
-    "precision_m": 5000,
+    "lat": 29.3576556,
+    "locator": "Chinese Physics C 46, 030001 (2022), Chapter 1 'LHAASO Instruments and Detector technology', DOI 10.1088/1674-1137/ac3fa6",
+    "lon": 100.1387944,
+    "note": "Map centre only; not a claim about any structure. QA pass (2026-09-21): replaced the previous OSM/Nominatim rest-area geocode (precision_m 5000) with the published coordinate now used by geometry:lhaaso-array-point; see that record and docs/atlas-worklog/REVIEW_geometry_qa.md.",
+    "precision_m": 50,
     "sources": [
-      "src:cosmic-gamma-nominatim-haizi-mountain"
+      "src:geo-lhaaso-cpc-2022-instruments"
     ],
-    "verified_at": "2026-09-18"
+    "verified_at": "2026-09-21"
   },
   "coverage": {
     "researched": "partial",
@@ -35,7 +35,7 @@
   },
   "name": "LHAASO — Haizi Mountain, Daocheng",
   "notes": [
-    "A tighter coordinate (29°21'27.6\"N, 100°08'19.6\"E) is repeatedly attributed to the LHAASO Science Book (arXiv:1905.02773) by independent web-search text extracts, but could not be verified by a direct fetch this session (WebFetch, ar5iv, arxiv.org/html and an r.jina.ai proxy all failed to render this specific PDF as readable text) -- not used; flagged as an unverified candidate correction in the worklog."
+    "QA pass (2026-09-21): the LHAASO Science Book (arXiv:1905.02773) coordinate this note used to flag as an unverified candidate remains unfetchable, but an independent QA re-derivation found and fetched (on two separate mirrors) a different, peer-reviewed paper stating the same figure to the hundredth of an arcsecond -- Chinese Physics C 46, 030001 (2022), doi:10.1088/1674-1137/ac3fa6. That figure now backs `center` and geometry:lhaaso-array-point directly; see docs/atlas-worklog/REVIEW_geometry_qa.md."
   ],
   "schema": "hep-atlas/0.2",
   "schematics": [],
@@ -43,11 +43,11 @@
     "site:lhaaso-haizi-mountain"
   ],
   "sources": [
-    "src:cosmic-gamma-nominatim-haizi-mountain"
+    "src:geo-lhaaso-cpc-2022-instruments"
   ],
   "summary": {
     "plain": "The LHAASO cosmic-ray and gamma-ray observatory on Haizi Mountain, Daocheng County, Sichuan, China.",
-    "technical": "One local map for facility:lhaaso-daocheng. Drawn as a single approximate reference point; KM2A (circular, ~575-635 m radius) and WCDA (78,000 m2, three pools) are described with enough shape detail to draw but could not be anchored to a precise-enough coordinate this session (see geometry record and worklog backlog)."
+    "technical": "One local map for facility:lhaaso-daocheng. Drawn as a single published reference point (Chinese Physics C 46, 030001 (2022)); KM2A (circular, ~575-635 m radius) and WCDA (78,000 m2, three pools) are described with enough shape detail to draw and are now anchorable to this tighter point, but no source states their offset/orientation from it, so neither is drawn (see geometry record and REVIEW_geometry_qa.md backlog)."
   },
   "type": "map",
   "unlocated": []

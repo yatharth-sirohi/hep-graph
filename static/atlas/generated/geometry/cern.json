@@ -236,12 +236,24 @@
       "state_segments": [
         [
           678,
-          755,
+          678,
+          "active",
+          "possible"
+        ],
+        [
+          679,
+          754,
           "active",
           "certain"
+        ],
+        [
+          755,
+          755,
+          "completed",
+          "possible"
         ]
       ],
-      "status": "active"
+      "status": "completed"
     },
     {
       "accuracy_m": 10,
@@ -1539,12 +1551,36 @@
       "state_segments": [
         [
           474,
-          610,
+          474,
+          "active",
+          "possible"
+        ],
+        [
+          475,
+          539,
           "active",
           "certain"
+        ],
+        [
+          540,
+          551,
+          "active",
+          "possible"
+        ],
+        [
+          552,
+          609,
+          "active",
+          "certain"
+        ],
+        [
+          610,
+          610,
+          "decommissioned",
+          "possible"
         ]
       ],
-      "status": "active"
+      "status": "decommissioned"
     },
     {
       "accuracy_m": 20,
@@ -2713,13 +2749,103 @@
       "site_id": null,
       "state_segments": [
         [
-          421,
-          920,
+          704,
+          704,
+          "commissioning",
+          "possible"
+        ],
+        [
+          705,
+          717,
+          "commissioning",
+          "certain"
+        ],
+        [
+          718,
+          718,
+          "commissioning",
+          "possible"
+        ],
+        [
+          719,
+          721,
+          "unrecorded",
+          "possible"
+        ],
+        [
+          722,
+          722,
           "active",
+          "possible"
+        ],
+        [
+          723,
+          755,
+          "active",
+          "certain"
+        ],
+        [
+          756,
+          767,
+          "shutdown",
+          "possible"
+        ],
+        [
+          768,
+          779,
+          "shutdown",
+          "certain"
+        ],
+        [
+          780,
+          791,
+          "shutdown",
+          "possible"
+        ],
+        [
+          792,
+          826,
+          "active",
+          "certain"
+        ],
+        [
+          827,
+          827,
+          "shutdown",
+          "possible"
+        ],
+        [
+          828,
+          869,
+          "shutdown",
+          "certain"
+        ],
+        [
+          870,
+          870,
+          "shutdown",
+          "possible"
+        ],
+        [
+          871,
+          916,
+          "active",
+          "certain"
+        ],
+        [
+          917,
+          917,
+          "shutdown",
+          "possible"
+        ],
+        [
+          918,
+          920,
+          "shutdown",
           "certain"
         ]
       ],
-      "status": "active"
+      "status": "shutdown"
     },
     {
       "accuracy_m": 8,
@@ -2895,7 +3021,12 @@
       },
       "method": "Visualises the already-sourced campus-grade coordinate on site:cern-meyrin (OpenStreetMap/Nominatim result for 'CERN - Site de Meyrin', osm_id 27005) as a single point; no new coordinate is derived here. accuracy_m matches that record's own precision_m (500 m). No Overpass search this session ('Meyrin' landuse, bboxes 46.18-46.29 / 5.99-6.12) found a distinct Meyrin-site boundary polygon comparable to way 23722021 for Prévessin, so this marker -- not a boundary -- is what stands in for the Meyrin site on the map.",
       "name": "CERN Meyrin site (reference marker)",
-      "osm": null,
+      "osm": {
+        "elements": [
+          "relation/27005"
+        ],
+        "timestamp": "2026-09-16"
+      },
       "provenance": {
         "confidence": "approximate",
         "locator": "Nominatim search result 1",
@@ -3103,7 +3234,7 @@
         "elements": [
           "way/340213340"
         ],
-        "timestamp": null
+        "timestamp": "2026-09-18T20:22:14Z"
       },
       "provenance": {
         "confidence": "approximate",
@@ -3391,7 +3522,7 @@
         "elements": [
           "way/253791392"
         ],
-        "timestamp": null
+        "timestamp": "2026-09-18T20:24:21Z"
       },
       "provenance": {
         "confidence": "approximate",
@@ -3697,7 +3828,7 @@
         "elements": [
           "way/253791392"
         ],
-        "timestamp": null
+        "timestamp": "2026-09-18T20:24:21Z"
       },
       "provenance": {
         "confidence": "approximate",
@@ -3716,11 +3847,11 @@
         [
           474,
           610,
-          "active",
+          "unrecorded",
           "certain"
         ]
       ],
-      "status": "active"
+      "status": "unrecorded"
     },
     {
       "accuracy_m": 65,
@@ -3830,7 +3961,7 @@
         "elements": [
           "way/26966721"
         ],
-        "timestamp": null
+        "timestamp": "2026-09-18T21:49:58Z"
       },
       "provenance": {
         "confidence": "approximate",
@@ -3849,11 +3980,11 @@
         [
           474,
           610,
-          "active",
+          "unrecorded",
           "certain"
         ]
       ],
-      "status": "active"
+      "status": "unrecorded"
     },
     {
       "accuracy_m": 50,
@@ -3971,7 +4102,7 @@
         "elements": [
           "way/26966729"
         ],
-        "timestamp": null
+        "timestamp": "2026-09-18T20:23:18Z"
       },
       "provenance": {
         "confidence": "approximate",
@@ -4442,7 +4573,7 @@
         "elements": [
           "way/26099050"
         ],
-        "timestamp": null
+        "timestamp": "2026-09-18T21:49:58Z"
       },
       "provenance": {
         "confidence": "approximate",
@@ -4461,11 +4592,11 @@
         [
           474,
           610,
-          "active",
+          "unrecorded",
           "certain"
         ]
       ],
-      "status": "active"
+      "status": "unrecorded"
     },
     {
       "accuracy_m": 45,
@@ -4611,7 +4742,7 @@
         "elements": [
           "way/26099050"
         ],
-        "timestamp": null
+        "timestamp": "2026-09-18T21:49:58Z"
       },
       "provenance": {
         "confidence": "approximate",
@@ -6612,5 +6743,5 @@
       "url": "https://home.cern/science/experiments/ua2"
     }
   },
-  "version": "25780415e75b785b"
+  "version": "a687f2dca262da73"
 }

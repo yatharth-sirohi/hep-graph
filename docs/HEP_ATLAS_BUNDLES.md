@@ -494,7 +494,7 @@ fails when one exceeds 2 MB.
   executed (which the validator reports as an error, so it should never
   reach a committed bundle).
 * `state_segments` come from the feature's own `valid` window when it has one
-  (a single `active` segment), otherwise from the entity it depicts.  A
+  (the entity's segments clipped to the window; uncovered months are `unrecorded` — a window is a structure's lifetime, never an operating state), otherwise from the entity it depicts.  A
   context feature with neither is `null` and is drawn in every year.
 * `bbox` is `[minLon, minLat, maxLon, maxLat]` over every feature, `null`
   when the map draws nothing yet.

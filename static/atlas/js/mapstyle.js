@@ -62,6 +62,10 @@ const STATUS_STYLES = {
   proposed: { dash: '2 5', label: 'Proposed', hint: 'dotted' },
   approved: { dash: '2 5', label: 'Approved', hint: 'dotted' },
   planned: { dash: '2 5', label: 'Planned', hint: 'dotted' },
+  // A structure that exists in this year while its entity has no recorded
+  // operating state (a tunnel before its machine, a hall after its
+  // experiment): drawn grey and finely dashed so it can never be read as running.
+  unrecorded: { dash: '4 4', color: '#98a3a9', label: 'Structure present, no operating status recorded', hint: 'grey, finely dashed' },
 };
 
 export function statusStyle(status) {
@@ -168,6 +172,7 @@ export function legendGroups(levels) {
     ['legend-status-construction', 'Under construction / commissioning', 'dashed, amber'],
     ['legend-status-completed', 'Completed / decommissioned / shut down', 'grey'],
     ['legend-status-proposed', 'Proposed / approved', 'dotted'],
+    ['legend-status-unrecorded', 'Structure present, no operating status recorded for the year', 'grey, finely dashed'],
     ['legend-status-outside', 'Not yet built, or already ended, in the selected year',
       'hidden — or ghosted, when “show features outside the selected year” is on'],
   ];

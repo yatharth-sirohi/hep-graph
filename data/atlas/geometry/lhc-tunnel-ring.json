@@ -1166,7 +1166,9 @@
   "map_id": "map:cern",
   "method": "OpenStreetMap relation 9512017 (16 member ways: 8 arcs + 8 straight 'insertion N' segments, tunnel=yes, layer=-5) merged in ring order (each way's last node equals the next way's first node; ring closes back to its start); nodes kept verbatim, no simplification. OSM's own 'source' tag states this relation is 'Geometry from technical data, aligned on IP2, IP5 and IP8', i.e. aligned to real survey/technical data at three interaction points, not a freehand trace.",
   "name": "LHC tunnel (former LEP tunnel), full ring",
-  "notes": [],
+  "notes": [
+    "QA pass (2026-09-21): removed the `valid: {start: '1985-02', end: null}` window a previous pass set. hepgraph.atlas.build._feature_segments() treats any `valid` dict with a non-null `start` as an open-ended 'active' window through build day whenever `end` is null, overriding the entity's own state_segments entirely -- so this feature was rendering `status: 'active'` in the built bundle today even though accelerator:lhc's own sourced timeline says otherwise (status 'shutdown' at build day 2026-09-21, confirmed by directly testing hepgraph.atlas.build._Context.status_at_build/segments). Removing `valid` restores the intended fallback (contract SS3: 'without it the feature inherits the entity's timeline'). This is a pipeline-code gap (hepgraph/atlas/build.py `_feature_segments`), not unique to this record -- see docs/atlas-worklog/REVIEW_geometry_qa.md."
+  ],
   "osm": {
     "elements": [
       "relation/9512017"
@@ -1183,8 +1185,5 @@
     "plain": "The 27-kilometre ring tunnel under the France-Switzerland border that housed LEP from 1989 to 2000 and has housed the LHC since 2008."
   },
   "type": "geometry",
-  "valid": {
-    "end": null,
-    "start": "1985-02"
-  }
+  "valid": null
 }

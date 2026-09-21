@@ -376,10 +376,7 @@ Implementation resolved these; they are normative from here on.
 }
 ```
 
-  `state_segments` come from `valid` when present (a single `active`
-  segment over `[lo(start), hi(end) or build date]`), otherwise from the
-  entity; a context feature with neither has `null` and is drawn in every
-  year. Coordinates are emitted with 7 decimals. The build fails when a
+  `state_segments` come from the entity clipped to `valid` when present: a `valid` window is the structure's lifetime, never an operating state, so months of the window the entity has no recorded state for read `unrecorded` (a tunnel dug before its machine; a hall that outlived its experiment), and a feature with `valid` and no entity is `unrecorded` for the whole window Coordinates are emitted with 7 decimals. The build fails when a
   map bundle exceeds 2 MB.
 * `search.json` gains `map` entries (`["map", "map:cern", "CERN — …", [], "Local map · CERN"]`).
 * `coverage.json` and `scripts/atlas_coverage_report.py` gain a "Local map

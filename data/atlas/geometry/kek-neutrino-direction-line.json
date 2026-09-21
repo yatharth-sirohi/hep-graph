@@ -34,11 +34,7 @@
   },
   "id": "geometry:kek-neutrino-direction-line",
   "level_id": "surface",
-  "license": {
-    "attribution": "© OpenStreetMap contributors",
-    "name": "ODbL-1.0",
-    "url": "https://www.openstreetmap.org/copyright"
-  },
+  "license": null,
   "links": {
     "website": null
   },
@@ -46,7 +42,8 @@
   "method": "Great-circle initial bearing from geometry:kek-north-counter-hall's own centroid (36.1520276, 140.0722961) toward site:kamioka-mozumi-mine-super-kamiokande's sourced coordinate (36.425722, 137.310306): 277.825 degrees, computed on R = 6 371 008.8 m. Clipped to the map's extent_m (1800 m). site_id left null: no atlas `site:` record exists for the KEK-PS/North-hall location itself (see geometry:kek-north-counter-hall's own notes on that uncertainty).",
   "name": "K2K neutrino beam direction toward Super-Kamiokande (inferred)",
   "notes": [
-    "Computed distance from the North Counter Hall centroid to Super-Kamiokande is 249.41 km, close to (0.2% under) the K2K measurement paper's own quoted 'neutrino flight distance of 250 km' -- reported informationally, not as a formal checks[] row (this near point is only circumstantially, not officially, identified with the KEK-PS North hall -- see geometry:kek-north-counter-hall)."
+    "Computed distance from the North Counter Hall centroid to Super-Kamiokande is 249.41 km, close to (0.2% under) the K2K measurement paper's own quoted 'neutrino flight distance of 250 km' -- reported informationally, not as a formal checks[] row (this near point is only circumstantially, not officially, identified with the KEK-PS North hall -- see geometry:kek-north-counter-hall).",
+    "QA pass (2026-09-21): cleared an ODbL license block this inferred_direction record carried despite `osm: null` and no OSM element ever being traced -- see the identical fix and reasoning on geometry:j-parc-neutrino-direction-line."
   ],
   "osm": null,
   "representation": "inferred_direction",
