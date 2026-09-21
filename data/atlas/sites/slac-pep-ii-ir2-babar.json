@@ -6,17 +6,17 @@
   "altitude": null,
   "coordinates": {
     "confidence": "approximate",
-    "kind": "campus",
-    "lat": 37.45383,
-    "locator": "ROR v2 API record for organization 05gzmn429 (SLAC National Accelerator Laboratory), addresses[0].lat/addresses[0].lng",
-    "lon": -122.18219,
-    "note": "Upgraded 2026-09-17: no IR2-specific coordinate is fetchable (official site gives only the general campus address); the general SLAC campus point is now the ROR geocode (rank 8) rather than Wikipedia (rank 12) alone. Still campus/approximate: a geocoder source cannot back a detector-kind coordinate for this hall (A17).",
-    "precision_m": 1000,
+    "kind": "detector",
+    "lat": 37.419143,
+    "locator": "Centroid of OSM way 232494155 \"PEP Interation Region 2\" [sic], corroborated by building 620 on the official SLAC area map",
+    "lon": -122.1967364,
+    "note": "Correction from the campus-wide ROR point (5 km away) to the IR-2 hall footprint that housed BaBar; the footprint is an OpenStreetMap tracing, the building identity is corroborated by the official area map. Previous record: campus point 37.45383, -122.18219 at 1000 m precision, sources ['src:ror-05gzmn429', 'src:slac-wikipedia']; moved 2615 m (integrator, 2026-09-21, per docs/atlas-worklog/GEOMETRY_*.md). The official SLAC area map is cited as the source identifying the building; the footprint itself is the OSM tracing.",
+    "precision_m": 30,
     "sources": [
-      "src:ror-05gzmn429",
-      "src:slac-wikipedia"
+      "src:geo-slac-osm-ir2-babar",
+      "src:geo-slac-area-map-pdf"
     ],
-    "verified_at": "2026-09-17"
+    "verified_at": "2026-09-21"
   },
   "country": "US",
   "coverage": {
@@ -46,7 +46,9 @@
     "src:slac-wikipedia",
     "src:babar-wikipedia",
     "src:ror-05gzmn429",
-    "src:facilities-verify-babar-ir2-physorg"
+    "src:facilities-verify-babar-ir2-physorg",
+    "src:geo-slac-osm-ir2-babar",
+    "src:geo-slac-area-map-pdf"
   ],
   "summary": {
     "plain": "The experimental hall at SLAC where the BaBar detector recorded collisions from the PEP-II B-factory.",

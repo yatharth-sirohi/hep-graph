@@ -7,15 +7,15 @@
   "coordinates": {
     "confidence": "approximate",
     "kind": "campus",
-    "lat": 36.4587536,
-    "lon": 140.599175,
-    "note": "No official J-PARC page fetchable this session gave a coordinate specific to the Hadron Experimental Facility building (only a postal address and a facility floor-plan image were found on j-parc.jp/c/en/for-researchers/hadron.html). This is the OpenStreetMap Nominatim centroid of the whole J-PARC industrial-landuse polygon (the same value the japan-neutrino workstream's site:j-parc-main-ring record uses for the same reason), not a survey point for the Hadron Hall specifically, which is a separate building south of the Main Ring within the J-PARC site. Recorded as a campus-level approximate point per the ontology's fallback rule. The fixed-target workstream, which references this id for KOTO, should treat this coordinate as coarse.",
-    "precision_m": 2500,
-    "quote": "JPARC, kokudo 245-go, Oaza Shirakata, Tokai-mura, Naka-gun, Ibaraki, 319-1192, Japan -- lat 36.4587536, lon 140.5991750 (landuse/industrial polygon centroid)",
+    "lat": 36.4445437,
+    "locator": "OSM building footprint centroid, Hadron Experimental Facility",
+    "lon": 140.6048467,
+    "note": "Correction: replaces the J-PARC campus-wide geocoder point (1.66 km away) with the Hadron Experimental Facility building footprint centroid. `kind: campus` under A23: an OpenStreetMap tracing (rank 11) cannot stand as a detector-grade point on its own. Previous record: campus point 36.4587536, 140.599175 at 2500 m precision, sources ['src:muons-nominatim-jparc']; moved 1374 m (integrator, 2026-09-21, per docs/atlas-worklog/GEOMETRY_*.md).",
+    "precision_m": 15,
     "sources": [
-      "src:muons-nominatim-jparc"
+      "src:geo-jparc-osm-hadron-hall"
     ],
-    "verified_at": "2026-09-17"
+    "verified_at": "2026-09-21"
   },
   "countries": [
     "JP"
@@ -45,7 +45,8 @@
   "setting": "surface",
   "sources": [
     "src:muons-nominatim-jparc",
-    "src:muons-jparc-hadron-facility-page"
+    "src:muons-jparc-hadron-facility-page",
+    "src:geo-jparc-osm-hadron-hall"
   ],
   "summary": {
     "plain": "The building at the J-PARC laboratory in Japan where COMET (and other experiments) search for a muon turning directly into an electron, using an intense beam of muons from J-PARC's 50 GeV proton synchrotron.",

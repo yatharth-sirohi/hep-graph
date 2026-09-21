@@ -77768,13 +77768,14 @@
   "site:bnl-rhic-ip6-star": {
     "/coordinates": {
       "confidence": "approximate",
-      "locator": "src:bnl-rhic-complex-page states the ring has six interaction points and that detectors remain at two of them; coordinate value is the ROR campus geocode (src:bnl-ror-record, listed in this record's top-level `sources`, not `coordinates.sources`, since a geocoder source may only back a campus/headquarters coordinate kind per A17) used as a fallback anchor.",
-      "note": "Per amendment A23, this site is honestly recorded as a campus-grade point (kind: campus, confidence: approximate) because no rank<=7 source with an explicit geodetic coordinate for the STAR interaction-region hall specifically was found and fetched in this session: two technical PDFs (agsrhichome.bnl.gov/RHIC/RAP/rhic_notes/AD-RHIC-1-142/RHIC_OVERVIEW.pdf and .../RHIC/Spin/design/chap4.pdf) and a DOE NEPA document (energy.gov/sites/default/files/2021-04/fonsi-ea-2138-electron-ion-collider-bnl-2021-03-25.pdf) returned only unreadable/corrupted binary content; the official experiment sites star.bnl.gov and phenix.bnl.gov returned HTTP 403; and the official bnl.gov RHIC pages describe the ring's six interaction points and confirm detectors remain at two of them in prose only, without coordinates or a clock position. The lat/lon recorded is the BNL campus centroid (ROR geocode, src:bnl-ror-record, cited in this record's top-level `sources` only, not in `coordinates.sources`, since a geocoder may back only campus/headquarters kinds per A17); `precision_m` is widened to bound the RHIC ring's own ~0.6 km radius (from the sourced 2.4 mi / 3.86 km circumference). The PHENIX detector's Wikipedia infobox gives 40.8831 N, 72.8817 W (src:bnl-rhic-phenix-wikipedia, rank 12, corroboration only, not a coordinate source), about 1.6 km from this point, consistent with a campus-grade estimate. A future agent with a surveyed or technical-document coordinate for this interaction point should replace this value.",
+      "locator": "OSM building footprint centroid for the STAR hall (buildings 1006/1006A), identified against BNL's central campus map",
+      "note": "Refinement from the campus-wide ROR point (1.5 km precision) to the STAR experimental hall footprint at RHIC interaction point 6; the footprint is an OpenStreetMap tracing, the building identity comes from the laboratory's campus map. Previous record: campus point 40.86954, -72.88677 at 1500 m precision, sources ['src:bnl-rhic-complex-page']; moved 1026 m (integrator, 2026-09-21, per docs/atlas-worklog/GEOMETRY_*.md).",
       "quote": null,
       "sources": [
-        "src:bnl-rhic-complex-page"
+        "src:geo-bnl-osm-star-hall",
+        "src:geo-bnl-central-campus-map"
       ],
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-09-21"
     },
     "/sources": {
       "confidence": null,
@@ -77785,7 +77786,9 @@
         "src:bnl-rhic-complex-page",
         "src:heavy-ions-rhic-final-collisions-2026",
         "src:bnl-ror-record",
-        "src:bnl-rhic-phenix-wikipedia"
+        "src:bnl-rhic-phenix-wikipedia",
+        "src:geo-bnl-osm-star-hall",
+        "src:geo-bnl-central-campus-map"
       ],
       "verified_at": null
     }
@@ -77793,13 +77796,14 @@
   "site:bnl-rhic-ip8-phenix-sphenix": {
     "/coordinates": {
       "confidence": "approximate",
-      "locator": "src:bnl-rhic-complex-page states the ring has six interaction points and that detectors remain at two of them; coordinate value is the ROR campus geocode (src:bnl-ror-record, listed in this record's top-level `sources`, not `coordinates.sources`, since a geocoder source may only back a campus/headquarters coordinate kind per A17) used as a fallback anchor.",
-      "note": "Per amendment A23, this site is honestly recorded as a campus-grade point (kind: campus, confidence: approximate) because no rank<=7 source with an explicit geodetic coordinate for the PHENIX/sPHENIX interaction-region hall specifically was found and fetched in this session: two technical PDFs (agsrhichome.bnl.gov/RHIC/RAP/rhic_notes/AD-RHIC-1-142/RHIC_OVERVIEW.pdf and .../RHIC/Spin/design/chap4.pdf) and a DOE NEPA document (energy.gov/sites/default/files/2021-04/fonsi-ea-2138-electron-ion-collider-bnl-2021-03-25.pdf) returned only unreadable/corrupted binary content; the official experiment sites star.bnl.gov and phenix.bnl.gov returned HTTP 403; and the official bnl.gov RHIC pages describe the ring's six interaction points and confirm detectors remain at two of them in prose only, without coordinates or a clock position. The lat/lon recorded is the BNL campus centroid (ROR geocode, src:bnl-ror-record, cited in this record's top-level `sources` only, not in `coordinates.sources`, since a geocoder may back only campus/headquarters kinds per A17); `precision_m` is widened to bound the RHIC ring's own ~0.6 km radius (from the sourced 2.4 mi / 3.86 km circumference). The PHENIX detector's Wikipedia infobox gives 40.8831 N, 72.8817 W (src:bnl-rhic-phenix-wikipedia, rank 12, corroboration only, not a coordinate source), about 1.6 km from this point, consistent with a campus-grade estimate. A future agent with a surveyed or technical-document coordinate for this interaction point should replace this value.",
+      "locator": "OSM building footprint centroid for the PHENIX/sPHENIX hall (buildings 1008/1008A), identified against BNL's central campus map",
+      "note": "Refinement from the campus-wide ROR point (1.5 km precision) to the PHENIX/sPHENIX experimental hall footprint at RHIC interaction point 8. Previous record: campus point 40.86954, -72.88677 at 1500 m precision, sources ['src:bnl-rhic-complex-page']; moved 670 m (integrator, 2026-09-21, per docs/atlas-worklog/GEOMETRY_*.md).",
       "quote": null,
       "sources": [
-        "src:bnl-rhic-complex-page"
+        "src:geo-bnl-osm-phenix-sphenix-hall",
+        "src:geo-bnl-central-campus-map"
       ],
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-09-21"
     },
     "/sources": {
       "confidence": null,
@@ -77810,7 +77814,9 @@
         "src:bnl-rhic-complex-page",
         "src:heavy-ions-rhic-final-collisions-2026",
         "src:bnl-ror-record",
-        "src:bnl-rhic-phenix-wikipedia"
+        "src:bnl-rhic-phenix-wikipedia",
+        "src:geo-bnl-osm-phenix-sphenix-hall",
+        "src:geo-bnl-central-campus-map"
       ],
       "verified_at": null
     }
@@ -78461,13 +78467,14 @@
   "site:cjpl-i": {
     "/coordinates": {
       "confidence": "approximate",
-      "locator": null,
-      "note": "No official CJPL page fetched in this session gives a numeric coordinate (only 'located in the Jinping tunnel in Sichuan Province'); this is an OpenStreetMap/Nominatim node tagged specifically for the laboratory. Per A17 a geocoder source limits kind to campus/approximate rather than underground_lab.",
-      "quote": "name (Chinese): China Jinping Underground Laboratory, lat 28.1763431, lon 101.7203040, Jinping II hydropower station traffic tunnel, Sichuan, China",
+      "locator": "Position walked along the OSM Jinping traffic-tunnel line by the sourced portal-to-hall distance (see geometry:cjpl-i-point method)",
+      "note": "`kind: campus` under A23: the position is derived along an OpenStreetMap tunnel trace (rank 11) from a distance published in an arXiv paper (rank 10); A17 admits neither as the sole backing of an underground_lab-grade point. Upgrade from a 2 km geocoder point: derived along the traffic tunnel from the published distance to the CJPL-I hall; 124 m from the previous point. Previous record: campus point 28.1763431, 101.720304 at 2000 m precision, sources ['src:cjpl-osm-nominatim']; moved 113 m (integrator, 2026-09-21, per docs/atlas-worklog/GEOMETRY_*.md).",
+      "quote": null,
       "sources": [
-        "src:cjpl-osm-nominatim"
+        "src:geo-kamioka-cjpl-osm-jinping-tunnel",
+        "src:cjpl-arxiv-early-science-2018"
       ],
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-09-21"
     },
     "/depth": {
       "confidence": "verified",
@@ -78498,7 +78505,8 @@
         "src:cjpl-tsinghua-home",
         "src:cjpl-tsinghua-about-overview",
         "src:cjpl-arxiv-early-science-2018",
-        "src:cjpl-osm-nominatim"
+        "src:cjpl-osm-nominatim",
+        "src:geo-kamioka-cjpl-osm-jinping-tunnel"
       ],
       "verified_at": null
     }
@@ -78506,14 +78514,14 @@
   "site:cjpl-ii": {
     "/coordinates": {
       "confidence": "approximate",
-      "locator": "arXiv:1404.2651: CJPL-II located ~500 m west of CJPL-I along the same road tunnel",
-      "note": "CJPL-II is described as being 500 m west of CJPL-I along the same tunnel (arXiv:1404.2651), but no official page fetched in this session gives it a separate numeric coordinate; the CJPL-I geocoder point is reused with a larger precision_m to honestly reflect that offset, and kind is campus/approximate since the source is a geocoder plus a paper's qualitative distance statement, not a surveyed coordinate.",
+      "locator": "Position walked along the OSM Jinping traffic-tunnel line by the sourced portal-to-hall distance (see geometry:cjpl-ii-point method)",
+      "note": "`kind: campus` under A23: the position is derived along an OpenStreetMap tunnel trace (rank 11) from a distance published in an arXiv paper (rank 10); A17 admits neither as the sole backing of an underground_lab-grade point. Upgrade from a 2.5 km geocoder point: derived along the traffic tunnel from the published distance to the CJPL-II halls; 622 m from the previous point. Previous record: campus point 28.1763431, 101.720304 at 2500 m precision, sources ['src:cjpl-osm-nominatim', 'src:cjpl-arxiv-phase2-2014']; moved 593 m (integrator, 2026-09-21, per docs/atlas-worklog/GEOMETRY_*.md).",
       "quote": null,
       "sources": [
-        "src:cjpl-osm-nominatim",
-        "src:cjpl-arxiv-phase2-2014"
+        "src:geo-kamioka-cjpl-osm-jinping-tunnel",
+        "src:cjpl-arxiv-early-science-2018"
       ],
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-09-21"
     },
     "/depth": {
       "confidence": "approximate",
@@ -78543,7 +78551,9 @@
       "sources": [
         "src:cjpl-arxiv-phase2-2014",
         "src:cjpl-tsinghua-home",
-        "src:cjpl-osm-nominatim"
+        "src:cjpl-osm-nominatim",
+        "src:geo-kamioka-cjpl-osm-jinping-tunnel",
+        "src:cjpl-arxiv-early-science-2018"
       ],
       "verified_at": null
     }
@@ -78574,14 +78584,14 @@
   "site:desy-hamburg-campus": {
     "/coordinates": {
       "confidence": "approximate",
-      "locator": "ROR v2 API record for organization 01js2sh04 (Deutsches Elektronen-Synchrotron DESY), addresses[0].lat/addresses[0].lng",
-      "note": "Upgraded 2026-09-17: ROR v2 organization record for DESY (ror.org/01js2sh04) gives a geocoded campus point, rank 8, replacing the Wikipedia-infobox-only point (rank 12). No official desy.de page fetched in this or the prior session gives a numeric coordinate, so kind stays campus/approximate. Wikipedia kept as a second, lower-rank corroborating source.",
+      "locator": "OSM way 276641657 \"Deutsches Elektronen-Synchrotron DESY\" (address Notkestraße 85, 22607 Hamburg), area centroid",
+      "note": "Correction: the previous point (53.55073, 9.99302, from the ROR record) lies about 8 km east of the Hamburg-Bahrenfeld campus; the OSM campus polygon centroid and the Wikipedia infobox coordinate already cited by this record (53°34′33″N 9°52′46″E) agree with each other to 150 m. Previous record: campus point 53.55073, 9.99302 at 800 m precision, sources ['src:ror-01js2sh04', 'src:desy-wikipedia']; moved 12812 m (integrator, 2026-09-21, per docs/atlas-worklog/GEOMETRY_*.md).",
       "quote": null,
       "sources": [
-        "src:ror-01js2sh04",
+        "src:geo-desy-osm-campus-boundary",
         "src:desy-wikipedia"
       ],
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-09-21"
     },
     "/sources": {
       "confidence": null,
@@ -78590,7 +78600,8 @@
       "quote": null,
       "sources": [
         "src:desy-wikipedia",
-        "src:ror-01js2sh04"
+        "src:ror-01js2sh04",
+        "src:geo-desy-osm-campus-boundary"
       ],
       "verified_at": null
     }
@@ -78598,14 +78609,13 @@
   "site:desy-hera-north-hall-h1": {
     "/coordinates": {
       "confidence": "approximate",
-      "locator": "ROR v2 API record for organization 01js2sh04 (Deutsches Elektronen-Synchrotron DESY), addresses[0].lat/addresses[0].lng",
-      "note": "Upgraded 2026-09-17: no North-Hall-specific coordinate is fetchable; the general DESY campus point is now the ROR geocode (rank 8) rather than Wikipedia (rank 12) alone. Hall/detector pairing (North Hall = H1) remains corroborated by src:h1-wikipedia. Still campus/approximate per A17 (a geocoder cannot back a detector-kind coordinate).",
+      "locator": "OSM way 131496014 \"HERA Halle Nord\" building centroid, 37.7 m from the north end of the OSM HERA tunnel ring",
+      "note": "Correction: replaces a ROR campus point 8.4 km away with the HERA North Hall building footprint centroid. `kind: campus` under A23 because the position rests on an OpenStreetMap tracing (rank 11), which A17 does not admit as a detector-grade point on its own; the H1 detector stood inside this hall. Previous record: campus point 53.55073, 9.99302 at 800 m precision, sources ['src:ror-01js2sh04', 'src:desy-wikipedia']; moved 12821 m (integrator, 2026-09-21, per docs/atlas-worklog/GEOMETRY_*.md).",
       "quote": null,
       "sources": [
-        "src:ror-01js2sh04",
-        "src:desy-wikipedia"
+        "src:geo-desy-osm-hera-halle-nord"
       ],
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-09-21"
     },
     "/sources": {
       "confidence": null,
@@ -78616,7 +78626,8 @@
         "src:desy-wikipedia",
         "src:h1-wikipedia",
         "src:hera-wikipedia",
-        "src:ror-01js2sh04"
+        "src:ror-01js2sh04",
+        "src:geo-desy-osm-hera-halle-nord"
       ],
       "verified_at": null
     }
@@ -78624,14 +78635,13 @@
   "site:desy-hera-south-hall-zeus": {
     "/coordinates": {
       "confidence": "approximate",
-      "locator": "ROR v2 API record for organization 01js2sh04 (Deutsches Elektronen-Synchrotron DESY), addresses[0].lat/addresses[0].lng",
-      "note": "Upgraded 2026-09-17: no South-Hall-specific coordinate is fetchable; the general DESY campus point is now the ROR geocode (rank 8) rather than Wikipedia (rank 12) alone. Hall/detector pairing (South Hall = ZEUS) remains corroborated by src:zeus-wikipedia. Still campus/approximate per A17.",
+      "locator": "OSM way 276641657 campus polygon centroid (interim stand-in; hall not identified in OSM)",
+      "note": "Interim correction: the previous ROR point was 8 km off the campus; this is the campus centroid, not the South Hall. The ZEUS hall building has not been identified in OpenStreetMap (see docs/atlas-worklog/GEOMETRY_desy-psi-kit.md backlog). Previous record: campus point 53.55073, 9.99302 at 800 m precision, sources ['src:ror-01js2sh04', 'src:desy-wikipedia']; moved 12812 m (integrator, 2026-09-21, per docs/atlas-worklog/GEOMETRY_*.md).",
       "quote": null,
       "sources": [
-        "src:ror-01js2sh04",
-        "src:desy-wikipedia"
+        "src:geo-desy-osm-campus-boundary"
       ],
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-09-21"
     },
     "/sources": {
       "confidence": null,
@@ -78642,7 +78652,8 @@
         "src:desy-wikipedia",
         "src:zeus-wikipedia",
         "src:hera-wikipedia",
-        "src:ror-01js2sh04"
+        "src:ror-01js2sh04",
+        "src:geo-desy-osm-campus-boundary"
       ],
       "verified_at": null
     }
@@ -78906,15 +78917,14 @@
       "verified_at": "2026-09-17"
     },
     "/coordinates": {
-      "confidence": "approximate",
-      "locator": null,
-      "note": "Coordinates are a geocode of the Sierra Negra peak itself, used as an approximate anchor per A23; the HAWC array's own compact footprint (a few hundred metres across, on the volcano's flank) has its own decimal coordinates in the collaboration's technical papers, but none of those papers' full text was readable via WebFetch this session (PDF text extraction failed) and the official site (hawc-observatory.org) failed TLS verification on every attempt. Kept as kind: campus / confidence: approximate rather than kind: detector until a rank<=7 source with decimal coordinates is fetched.",
-      "quote": "under construction 4100 meters above sea level at Sierra Negra, Mexico",
+      "confidence": "verified",
+      "locator": "HAWC design/calibration/operation paper, site-description section: \"The geographical latitude of the site is 18.99 … The geographical longitude of the HAWC site, 97.31 W.\"",
+      "note": "Published site coordinate at 0.01° precision (about 1 km), replacing a Nominatim geocode of the Sierra Negra peak 3 km wide; precision_m set to half the rounding step. Previous record: campus point 18.9862137, -97.3151017 at 3000 m precision, sources ['src:cosmic-gamma-hawc-design-paper-arxiv-2013', 'src:cosmic-gamma-nominatim-sierra-negra']; moved 570 m (integrator, 2026-09-21, per docs/atlas-worklog/GEOMETRY_*.md).",
+      "quote": null,
       "sources": [
-        "src:cosmic-gamma-hawc-design-paper-arxiv-2013",
-        "src:cosmic-gamma-nominatim-sierra-negra"
+        "src:cosmic-gamma-hawc-design-paper-arxiv-2013"
       ],
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-09-21"
     },
     "/sources": {
       "confidence": null,
@@ -78986,13 +78996,13 @@
   "site:j-parc-hadron-hall": {
     "/coordinates": {
       "confidence": "approximate",
-      "locator": null,
-      "note": "No official J-PARC page fetchable this session gave a coordinate specific to the Hadron Experimental Facility building (only a postal address and a facility floor-plan image were found on j-parc.jp/c/en/for-researchers/hadron.html). This is the OpenStreetMap Nominatim centroid of the whole J-PARC industrial-landuse polygon (the same value the japan-neutrino workstream's site:j-parc-main-ring record uses for the same reason), not a survey point for the Hadron Hall specifically, which is a separate building south of the Main Ring within the J-PARC site. Recorded as a campus-level approximate point per the ontology's fallback rule. The fixed-target workstream, which references this id for KOTO, should treat this coordinate as coarse.",
-      "quote": "JPARC, kokudo 245-go, Oaza Shirakata, Tokai-mura, Naka-gun, Ibaraki, 319-1192, Japan -- lat 36.4587536, lon 140.5991750 (landuse/industrial polygon centroid)",
+      "locator": "OSM building footprint centroid, Hadron Experimental Facility",
+      "note": "Correction: replaces the J-PARC campus-wide geocoder point (1.66 km away) with the Hadron Experimental Facility building footprint centroid. `kind: campus` under A23: an OpenStreetMap tracing (rank 11) cannot stand as a detector-grade point on its own. Previous record: campus point 36.4587536, 140.599175 at 2500 m precision, sources ['src:muons-nominatim-jparc']; moved 1374 m (integrator, 2026-09-21, per docs/atlas-worklog/GEOMETRY_*.md).",
+      "quote": null,
       "sources": [
-        "src:muons-nominatim-jparc"
+        "src:geo-jparc-osm-hadron-hall"
       ],
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-09-21"
     },
     "/sources": {
       "confidence": null,
@@ -79001,7 +79011,8 @@
       "quote": null,
       "sources": [
         "src:muons-nominatim-jparc",
-        "src:muons-jparc-hadron-facility-page"
+        "src:muons-jparc-hadron-facility-page",
+        "src:geo-jparc-osm-hadron-hall"
       ],
       "verified_at": null
     }
@@ -79033,13 +79044,14 @@
   "site:j-parc-neutrino-near-detector-hall": {
     "/coordinates": {
       "confidence": "approximate",
-      "locator": null,
-      "note": "Position inherited from the J-PARC site geocoder point (kept as src:jparc-osm-nominatim in the record's top-level sources for provenance, but not cited on this coordinate because A17 forbids a geocoder backing a `detector`-kind point); the T2K instrumentation paper places the hall 280 m downstream of the production target on the same site, which is inside the stated precision. Not a surveyed detector coordinate.",
-      "quote": "The near detector site at ~280 m from the production target houses on-axis and off-axis detectors.",
+      "locator": "OSM building footprint centroid for the Neutrino Monitor Building (tagged \"Contains T2K ND280 Detectors\"); the T2K NIM paper places ND280 280 m from the target in this building's pit",
+      "note": "Correction: replaces the campus-wide geocoder point (1.09 km away) with the surface building over the ND280/INGRID pit; a surface proxy for the underground pit, not a survey of the pit itself. Previous record: detector point 36.4587536, 140.599175 at 1500 m precision, sources ['src:t2k-nim-2011']; moved 859 m (integrator, 2026-09-21, per docs/atlas-worklog/GEOMETRY_*.md).",
+      "quote": null,
       "sources": [
+        "src:geo-jparc-osm-neutrino-monitor-building",
         "src:t2k-nim-2011"
       ],
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-09-21"
     },
     "/depth": {
       "confidence": "verified",
@@ -79059,7 +79071,8 @@
       "sources": [
         "src:t2k-nim-2011",
         "src:kek-neutrino-group-nd-page",
-        "src:jparc-osm-nominatim"
+        "src:jparc-osm-nominatim",
+        "src:geo-jparc-osm-neutrino-monitor-building"
       ],
       "verified_at": null
     }
@@ -79067,14 +79080,14 @@
   "site:jlab-newport-news": {
     "/coordinates": {
       "confidence": "approximate",
-      "locator": "ROR v2 API record for organization 02vwzrd76 (Thomas Jefferson National Accelerator Facility), addresses[0].lat/addresses[0].lng",
-      "note": "Upgraded 2026-09-17: ROR v2 organization record for Thomas Jefferson National Accelerator Facility (ror.org/02vwzrd76) gives a geocoded campus point, rank 8, replacing the Wikipedia-infobox-only point (rank 12). The official jlab.org/about page (already cited) gives no numeric coordinate. Wikipedia kept as a second, lower-rank corroborating source.",
+      "locator": "OSM/Nominatim polygon for \"Thomas Jefferson National Accelerator Facility\" (12000 Jefferson Avenue), centroid; JLab site-plan address agrees",
+      "note": "Correction: the previous ROR-geocoded point (36.98038, -76.42975) was about 13 km from the laboratory; the OSM campus polygon and Jefferson Lab's own site plan both place the campus at 12000 Jefferson Avenue, Newport News. Previous record: campus point 36.98038, -76.42975 at 800 m precision, sources ['src:facilities-verify-jlab-ror', 'src:jlab-wikipedia']; moved 6537 m (integrator, 2026-09-21, per docs/atlas-worklog/GEOMETRY_*.md).",
       "quote": null,
       "sources": [
-        "src:facilities-verify-jlab-ror",
-        "src:jlab-wikipedia"
+        "src:geo-jlab-nominatim-campus-boundary",
+        "src:geo-jlab-site-plan-detail"
       ],
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-09-21"
     },
     "/sources": {
       "confidence": null,
@@ -79083,7 +79096,9 @@
       "quote": null,
       "sources": [
         "src:jlab-wikipedia",
-        "src:facilities-verify-jlab-ror"
+        "src:facilities-verify-jlab-ror",
+        "src:geo-jlab-nominatim-campus-boundary",
+        "src:geo-jlab-site-plan-detail"
       ],
       "verified_at": null
     }
@@ -79134,15 +79149,14 @@
   },
   "site:kamioka-hyper-kamiokande-tochibora": {
     "/coordinates": {
-      "confidence": "derived",
-      "locator": "PoS(ICRC2021)1192, detector-site paragraph (text extracted from the PDF; the PDF font encoding garbles a verbatim quote)",
-      "note": "Derived, not surveyed: Super-Kamiokande at 36.425722 N, 137.310306 E (SK detector paper GPS survey) displaced 8 km south per the Hyper-K status proceedings (\"the far detector site is located at Mt. Nijuugo-yama in the Tochibora mine at Kamioka ... approximately 8 km south of the Super-Kamiokande site\"). Replace with a surveyed position when Hyper-K publishes one.",
+      "confidence": "verified",
+      "locator": "Hyper-Kamiokande Letter of Intent (arXiv:1109.3262), Section II.1: \"Lat. 36°21′08.928″N, Long. 137°18′49.688″E\"",
+      "note": "Directly published site coordinate from the 2011 Letter of Intent (pre-excavation), replacing an offset-derived estimate 346 m away; precision reflects the possibility that the final cavern position differs from the LoI candidate site. Previous record: underground_lab point 36.3538, 137.3103 at 3000 m precision, sources ['src:sk-nim-2003', 'src:hk-pos-icrc2021-status']; moved 404 m (integrator, 2026-09-21, per docs/atlas-worklog/GEOMETRY_*.md).",
       "quote": null,
       "sources": [
-        "src:sk-nim-2003",
-        "src:hk-pos-icrc2021-status"
+        "src:geo-kamioka-cjpl-hk-loi-2011"
       ],
-      "verified_at": "2026-09-16"
+      "verified_at": "2026-09-21"
     },
     "/depth": {
       "confidence": "verified",
@@ -79163,7 +79177,8 @@
         "src:hk-cavern-paper-2026",
         "src:hk-frontiers-2024-status",
         "src:hk-pos-icrc2021-status",
-        "src:hk-detector-page"
+        "src:hk-detector-page",
+        "src:geo-kamioka-cjpl-hk-loi-2011"
       ],
       "verified_at": null
     }
@@ -79246,14 +79261,16 @@
   },
   "site:kek-tsukuba-belle-ii": {
     "/coordinates": {
-      "confidence": "uncertain",
-      "locator": "www-superkekb.kek.jp, footer address",
-      "note": "REVIEW REQUIRED (A17), after real effort: no official KEK, SuperKEKB or Belle II page, and no technical paper (including the Belle II TDR abstract and the Belle NIM detector paper) reached in this session, publishes latitude/longitude for the Tsukuba interaction region; en.wikipedia's own infobox coordinate for Belle II carries no citation for its number either. The numeric value is inherited from that uncited Wikipedia coordinate (kept as src:belle2-wikipedia-coordinates in the record's top-level sources for provenance); it is not cited on this coordinate because A17 rejects a rank-12 source as the sole backing for a `detector`-kind point. KEK's own SuperKEKB site gives only the postal address (1-1 Oho, Tsukuba, Ibaraki 305-0801), confirming the campus but not a precise point. precision_m widened from 300 to 400 m to reflect that this is an unsurveyed estimate.",
-      "quote": "1-1 Oho, Tsukuba, Ibaraki 305-0801 Japan",
+      "confidence": "approximate",
+      "locator": "OSM building footprint centroid for 筑波実験棟 (Tsukuba experimental hall); the SuperKEKB NIM A paper names Tsukuba as the interaction-region straight section",
+      "note": "Corroboration: the OSM Tsukuba hall footprint centroid lies 4.8 m from the previous uncited value, so the coordinate is kept and its sourcing upgraded from uncertain to approximate. Previous record: detector point 36.15778, 140.075 at 400 m precision, sources ['src:superkekb-project-site']; moved 4 m (integrator, 2026-09-21, per docs/atlas-worklog/GEOMETRY_*.md). The official SuperKEKB project site (previously the sole source) still backs the Tsukuba interaction-region location; the OSM footprint refines it by 4.8 m.",
+      "quote": null,
       "sources": [
+        "src:geo-kek-osm-tsukuba-hall",
+        "src:superkekb-collider-nima-2018",
         "src:superkekb-project-site"
       ],
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-09-21"
     },
     "/links/website": {
       "confidence": "verified",
@@ -79273,7 +79290,9 @@
       "sources": [
         "src:superkekb-project-site",
         "src:belle-detector-nima-2002",
-        "src:belle2-wikipedia-coordinates"
+        "src:belle2-wikipedia-coordinates",
+        "src:geo-kek-osm-tsukuba-hall",
+        "src:superkekb-collider-nima-2018"
       ],
       "verified_at": null
     }
@@ -79416,14 +79435,13 @@
   "site:lanl-lansce": {
     "/coordinates": {
       "confidence": "approximate",
-      "locator": "ROR v2 API record for organization 01e41cf67 (Los Alamos National Laboratory), addresses[0].lat/addresses[0].lng",
-      "note": "Upgraded 2026-09-17: ROR v2 organization record for Los Alamos National Laboratory (ror.org/01e41cf67) gives a geocoded campus point, rank 8, replacing the Wikipedia-infobox-only point (rank 12); it is LANL's general campus centroid, not Technical Area 53/LANSCE specifically. The official lanl.gov LANSCE page (re-fetched 2026-09-17, lanl.gov/science-engineering/science-facilities/lansce) gives only the mailing address 'Los Alamos, NM 87545', no numeric coordinate and no beam-energy figure. Wikipedia kept as a second, lower-rank corroborating source.",
+      "locator": "OSM node 8041862150 named \"LANSCE\"",
+      "note": "Correction: the previous ROR point for the laboratory as a whole is 2.4 km from the LANSCE accelerator area (TA-53). Previous record: campus point 35.88808, -106.30697 at 800 m precision, sources ['src:ror-01e41cf67', 'src:lansce-wikipedia']; moved 2055 m (integrator, 2026-09-21, per docs/atlas-worklog/GEOMETRY_*.md).",
       "quote": null,
       "sources": [
-        "src:ror-01e41cf67",
-        "src:lansce-wikipedia"
+        "src:geo-lanl-osm-lansce-node"
       ],
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-09-21"
     },
     "/sources": {
       "confidence": null,
@@ -79432,7 +79450,8 @@
       "quote": null,
       "sources": [
         "src:lansce-wikipedia",
-        "src:ror-01e41cf67"
+        "src:ror-01e41cf67",
+        "src:geo-lanl-osm-lansce-node"
       ],
       "verified_at": null
     }
@@ -79599,14 +79618,13 @@
   "site:lsc-canfranc": {
     "/coordinates": {
       "confidence": "approximate",
-      "locator": null,
-      "note": "No official LSC page fetched in this session states a numeric coordinate; this is an OpenStreetMap/Nominatim node specifically tagged as the laboratory itself. Per A17, a geocoder source limits kind to campus/approximate rather than underground_lab. Cross-checked 2026-09-17 against the ROR v2 organization record for Canfranc Underground Laboratory (ror.org/02zcam055, also rank 8: geocoder): lat 42.71628, lon -0.52563, about 830 m from this OSM node. Both are institutional geocodes, not surveyed points, and the existing OSM node (tagged specifically to the laboratory building rather than a generic registered address) is kept as the primary value; the ROR point is recorded as a second source for corroboration/future reconciliation.",
-      "quote": "\"name\": \"Laboratorio Subterraneo de Canfranc\", lat 42.7493154, lon -0.5162702, Paseo de los Ayerbe, Canfranc-Estacion, Huesca, Aragon, Spain",
+      "locator": "geometry:canfranc-lab-underground (OpenStreetMap-georeferenced underground laboratory point, accuracy 150 m)",
+      "note": "Correction: the previous point was the laboratory's administrative building at Canfranc-Estación, 3.0 km from the underground halls between the Somport tunnels; `kind: campus` under A23 because the position is an OpenStreetMap tracing (rank 11). Previous record: campus point 42.7493154, -0.5162702 at 500 m precision, sources ['src:lsc-osm-nominatim', 'src:facilities-verify-lsc-ror']; moved 3159 m (integrator, 2026-09-21, per docs/atlas-worklog/GEOMETRY_*.md).",
+      "quote": null,
       "sources": [
-        "src:lsc-osm-nominatim",
-        "src:facilities-verify-lsc-ror"
+        "src:geo-canfranc-osm-lab-underground"
       ],
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-09-21"
     },
     "/depth": {
       "confidence": "verified",
@@ -79627,7 +79645,8 @@
         "src:lsc-about-us",
         "src:lsc-history",
         "src:lsc-osm-nominatim",
-        "src:facilities-verify-lsc-ror"
+        "src:facilities-verify-lsc-ror",
+        "src:geo-canfranc-osm-lab-underground"
       ],
       "verified_at": null
     }
@@ -79635,13 +79654,13 @@
   "site:lsm-frejus": {
     "/coordinates": {
       "confidence": "approximate",
-      "locator": null,
-      "note": "No official LSM page fetched in this session states a numeric coordinate; this is an OpenStreetMap/Nominatim node specifically tagged as the laboratory itself (not a generic address geocode), but per A17 a geocoder source still limits kind to campus/approximate rather than underground_lab.",
-      "quote": "\"name\": \"Laboratoire Souterrain de Modane (LSM)\", lat 45.1962509, lon 6.6667021, 1125 Route de Bardonneche, Modane, Savoie, France",
+      "locator": "geometry:modane-lsm-underground (OpenStreetMap-georeferenced underground laboratory point, accuracy 100 m)",
+      "note": "Correction: the previous point was the Carré Sciences surface outreach building in Modane, 6.4 km from the laboratory inside the Fréjus tunnel; `kind: campus` under A23 because the position is an OpenStreetMap tracing (rank 11). Previous record: campus point 45.1962509, 6.6667021 at 500 m precision, sources ['src:lsm-osm-nominatim']; moved 6648 m (integrator, 2026-09-21, per docs/atlas-worklog/GEOMETRY_*.md).",
+      "quote": null,
       "sources": [
-        "src:lsm-osm-nominatim"
+        "src:geo-modane-osm-lsm-way"
       ],
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-09-21"
     },
     "/depth": {
       "confidence": "verified",
@@ -79660,7 +79679,8 @@
       "quote": null,
       "sources": [
         "src:lsm-official-site",
-        "src:lsm-osm-nominatim"
+        "src:lsm-osm-nominatim",
+        "src:geo-modane-osm-lsm-way"
       ],
       "verified_at": null
     }
@@ -79801,14 +79821,13 @@
   "site:ornl-sns-neutrino-alley": {
     "/coordinates": {
       "confidence": "approximate",
-      "locator": "ROR v2 API record for organization 01qz5mb56 (Oak Ridge National Laboratory), addresses[0].lat/addresses[0].lng",
-      "note": "Upgraded 2026-09-17: ROR v2 organization record for Oak Ridge National Laboratory (ror.org/01qz5mb56) gives a geocoded campus point, rank 8, replacing the Wikipedia-infobox-only point (rank 12); it is ORNL's general campus centroid, not 'Neutrino Alley' specifically. neutrons.ornl.gov/coherent again returned HTTP 404 in this session, and the reachable neutrons.ornl.gov/sns page (re-fetched 2026-09-17) states no coordinate and does not mention 'Neutrino Alley' or COHERENT. The official ornl.gov root page (re-fetched 2026-09-17) confirms only the general mailing address '1 Bethel Valley Road, Oak Ridge, TN 37830', also no coordinate. `setting: underground` for this specific corridor remains unconfirmed by any official source fetched to date; treat with the same caution as before.",
+      "locator": "Centroid of OSM way 907808191 \"ORNL Spallation Neutron Source\" complex boundary",
+      "note": "Correction: the previous ORNL-wide ROR point is 7 km from the SNS complex; this is the complex boundary centroid, not the Neutrino Alley basement itself. Previous record: campus point 36.01036, -84.26964 at 2000 m precision, sources ['src:facilities-verify-ornl-ror', 'src:ornl-wikipedia']; moved 3484 m (integrator, 2026-09-21, per docs/atlas-worklog/GEOMETRY_*.md).",
       "quote": null,
       "sources": [
-        "src:facilities-verify-ornl-ror",
-        "src:ornl-wikipedia"
+        "src:geo-ornl-osm-sns-boundary"
       ],
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-09-21"
     },
     "/sources": {
       "confidence": null,
@@ -79818,7 +79837,8 @@
       "sources": [
         "src:ornl-sns-page",
         "src:ornl-wikipedia",
-        "src:facilities-verify-ornl-ror"
+        "src:facilities-verify-ornl-ror",
+        "src:geo-ornl-osm-sns-boundary"
       ],
       "verified_at": null
     }
@@ -79849,14 +79869,13 @@
   "site:psi-villigen": {
     "/coordinates": {
       "confidence": "approximate",
-      "locator": "ROR v2 API record for organization 03eh3y714 (Paul Scherrer Institute), addresses[0].lat/addresses[0].lng",
-      "note": "Upgraded 2026-09-17: ROR v2 organization record for Paul Scherrer Institute (ror.org/03eh3y714) gives a geocoded campus point, rank 8, replacing the Wikipedia-infobox-only point (rank 12). The official psi.ch/en homepage (now reachable; re-fetched 2026-09-17, unlike the prior session's 404s) confirms only the postal address 'Forschungsstrasse 111, 5232 Villigen PSI, Switzerland', no numeric coordinate. Wikipedia kept as a second, lower-rank corroborating source.",
+      "locator": "Area-weighted centroid of OSM ways 28028409/26680824/26680821 \"Paul Scherrer Institut\"",
+      "note": "Correction: the previous ROR point (47.52682, 8.21486) sits 1.4 km from the campus polygons on both banks of the Aare; the OSM locality nodes \"PSI West\" and \"PSI Ost\" fall inside the new polygon. Previous record: campus point 47.52682, 8.21486 at 800 m precision, sources ['src:ror-03eh3y714', 'src:psi-wikipedia']; moved 1635 m (integrator, 2026-09-21, per docs/atlas-worklog/GEOMETRY_*.md).",
       "quote": null,
       "sources": [
-        "src:ror-03eh3y714",
-        "src:psi-wikipedia"
+        "src:geo-psi-osm-campus-boundary"
       ],
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-09-21"
     },
     "/sources": {
       "confidence": null,
@@ -79865,7 +79884,8 @@
       "quote": null,
       "sources": [
         "src:psi-wikipedia",
-        "src:ror-03eh3y714"
+        "src:ror-03eh3y714",
+        "src:geo-psi-osm-campus-boundary"
       ],
       "verified_at": null
     }
@@ -79941,14 +79961,13 @@
   "site:slac-menlo-park-campus": {
     "/coordinates": {
       "confidence": "approximate",
-      "locator": "ROR v2 API record for organization 05gzmn429 (SLAC National Accelerator Laboratory), addresses[0].lat/addresses[0].lng",
-      "note": "Upgraded 2026-09-17 (independent verification pass): ROR v2 organization record for SLAC National Accelerator Laboratory (ror.org/05gzmn429) gives a geocoded campus point, rank 8, better than the Wikipedia infobox this point previously rested on alone. The official site (www6.slac.stanford.edu, now reachable) confirms the postal address '2575 Sand Hill Road, Menlo Park, CA 94025-7015' but states no numeric coordinate, so kind remains campus/approximate per A17/A18. Wikipedia's infobox coordinate is kept as a second, lower-rank corroborating source.",
+      "locator": "Centroid of OSM way 634083231 \"SLAC National Accelerator Laboratory\" property boundary",
+      "note": "Correction: the previous ROR point (37.45383, -122.18219) lies 4.6 km from the property centroid, outside its own 1 km precision; the property is 3 km long, hence the wide precision. Previous record: campus point 37.45383, -122.18219 at 1000 m precision, sources ['src:ror-05gzmn429', 'src:slac-wikipedia']; moved 3798 m (integrator, 2026-09-21, per docs/atlas-worklog/GEOMETRY_*.md).",
       "quote": null,
       "sources": [
-        "src:ror-05gzmn429",
-        "src:slac-wikipedia"
+        "src:geo-slac-osm-property-boundary"
       ],
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-09-21"
     },
     "/sources": {
       "confidence": null,
@@ -79957,7 +79976,8 @@
       "quote": null,
       "sources": [
         "src:slac-wikipedia",
-        "src:ror-05gzmn429"
+        "src:ror-05gzmn429",
+        "src:geo-slac-osm-property-boundary"
       ],
       "verified_at": null
     }
@@ -79965,14 +79985,14 @@
   "site:slac-pep-ii-ir2-babar": {
     "/coordinates": {
       "confidence": "approximate",
-      "locator": "ROR v2 API record for organization 05gzmn429 (SLAC National Accelerator Laboratory), addresses[0].lat/addresses[0].lng",
-      "note": "Upgraded 2026-09-17: no IR2-specific coordinate is fetchable (official site gives only the general campus address); the general SLAC campus point is now the ROR geocode (rank 8) rather than Wikipedia (rank 12) alone. Still campus/approximate: a geocoder source cannot back a detector-kind coordinate for this hall (A17).",
+      "locator": "Centroid of OSM way 232494155 \"PEP Interation Region 2\" [sic], corroborated by building 620 on the official SLAC area map",
+      "note": "Correction from the campus-wide ROR point (5 km away) to the IR-2 hall footprint that housed BaBar; the footprint is an OpenStreetMap tracing, the building identity is corroborated by the official area map. Previous record: campus point 37.45383, -122.18219 at 1000 m precision, sources ['src:ror-05gzmn429', 'src:slac-wikipedia']; moved 2615 m (integrator, 2026-09-21, per docs/atlas-worklog/GEOMETRY_*.md). The official SLAC area map is cited as the source identifying the building; the footprint itself is the OSM tracing.",
       "quote": null,
       "sources": [
-        "src:ror-05gzmn429",
-        "src:slac-wikipedia"
+        "src:geo-slac-osm-ir2-babar",
+        "src:geo-slac-area-map-pdf"
       ],
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-09-21"
     },
     "/sources": {
       "confidence": null,
@@ -79983,7 +80003,9 @@
         "src:slac-wikipedia",
         "src:babar-wikipedia",
         "src:ror-05gzmn429",
-        "src:facilities-verify-babar-ir2-physorg"
+        "src:facilities-verify-babar-ir2-physorg",
+        "src:geo-slac-osm-ir2-babar",
+        "src:geo-slac-area-map-pdf"
       ],
       "verified_at": null
     }
@@ -79991,14 +80013,14 @@
   "site:slac-slc-collider-hall-sld": {
     "/coordinates": {
       "confidence": "approximate",
-      "locator": "ROR v2 API record for organization 05gzmn429 (SLAC National Accelerator Laboratory), addresses[0].lat/addresses[0].lng",
-      "note": "Upgraded 2026-09-17: no hall-specific coordinate is fetchable; the general SLAC campus point is now the ROR geocode (rank 8) rather than Wikipedia (rank 12) alone. Still campus/approximate per A17.",
+      "locator": "Centroid of OSM way 232494549 \"Collider Experimental Hall (CEH)\", corroborated by building 750 on the official SLAC area map",
+      "note": "Correction from the campus-wide ROR point (4.8 km away) to the SLC Collider Experimental Hall footprint that housed SLD. Previous record: campus point 37.45383, -122.18219 at 1000 m precision, sources ['src:ror-05gzmn429', 'src:slac-wikipedia']; moved 2532 m (integrator, 2026-09-21, per docs/atlas-worklog/GEOMETRY_*.md). The official SLAC area map is cited as the source identifying the building; the footprint itself is the OSM tracing.",
       "quote": null,
       "sources": [
-        "src:ror-05gzmn429",
-        "src:slac-wikipedia"
+        "src:geo-slac-osm-collider-hall",
+        "src:geo-slac-area-map-pdf"
       ],
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-09-21"
     },
     "/sources": {
       "confidence": null,
@@ -80008,7 +80030,9 @@
       "sources": [
         "src:slac-wikipedia",
         "src:slc-wikipedia",
-        "src:ror-05gzmn429"
+        "src:ror-05gzmn429",
+        "src:geo-slac-osm-collider-hall",
+        "src:geo-slac-area-map-pdf"
       ],
       "verified_at": null
     }
@@ -80355,14 +80379,13 @@
   "site:surf-surface-campus": {
     "/coordinates": {
       "confidence": "approximate",
-      "locator": "Nominatim jsonv2 result for \"Sanford Underground Research Facility, Lead, South Dakota\"",
-      "note": "OpenStreetMap/Nominatim landuse polygon for the Sanford Underground Research Facility. sanfordlab.org gives the street address (630 E. Summit St., Lead, SD 57754) but publishes no coordinate.",
+      "locator": "OSM way 512969103 \"Administration Building\" footprint centroid",
+      "note": "Refinement: replaces a Nominatim search centroid 550 m from any SURF building with the named administration building footprint. Previous record: campus point 44.3474397, -103.7548247 at 1000 m precision, sources ['src:surf-osm-nominatim', 'src:surf-official-site']; moved 396 m (integrator, 2026-09-21, per docs/atlas-worklog/GEOMETRY_*.md).",
       "quote": null,
       "sources": [
-        "src:surf-osm-nominatim",
-        "src:surf-official-site"
+        "src:geo-surf-osm-campus-buildings"
       ],
-      "verified_at": "2026-09-16"
+      "verified_at": "2026-09-21"
     },
     "/links/website": {
       "confidence": "verified",
@@ -80381,7 +80404,8 @@
       "quote": null,
       "sources": [
         "src:surf-official-site",
-        "src:surf-osm-nominatim"
+        "src:surf-osm-nominatim",
+        "src:geo-surf-osm-campus-buildings"
       ],
       "verified_at": null
     }
@@ -80398,15 +80422,14 @@
       "verified_at": "2026-09-17"
     },
     "/coordinates": {
-      "confidence": "approximate",
-      "locator": null,
-      "note": "Coordinates are a geocode of the town of Delta, Utah, near which the array and its visitor/operations centre are located per the collaboration's own description; this is NOT a survey point for the ~700 km^2 (TAx4: ~3000 km^2) array itself, whose 507+500 stations and three (soon 5) fluorescence-detector sites are spread across the surrounding desert. No official/technical source with decimal array-centre coordinates was reachable this session (telescopearray.org and known mirrors all failed to load).",
-      "quote": "located near Delta, Utah, USA, at an altitude of approximately 1400 m above sea level",
+      "confidence": "verified",
+      "locator": "Telescope Array surface detector paper (arXiv:1201.4964), site description: \"centered at 39.3 N and 112.9 W in Millard County, Utah\"",
+      "note": "Published array centre at 0.1° precision, replacing a Nominatim geocode of the town of Delta 15 km wide; the array spans ~700 km², so 6 km precision is the honest figure. Previous record: campus point 39.3521777, -112.57717 at 15000 m precision, sources ['src:cosmic-gamma-ta-arxiv-2026-recent-findings', 'src:cosmic-gamma-nominatim-delta-utah']; moved 35967 m (integrator, 2026-09-21, per docs/atlas-worklog/GEOMETRY_*.md).",
+      "quote": null,
       "sources": [
-        "src:cosmic-gamma-ta-arxiv-2026-recent-findings",
-        "src:cosmic-gamma-nominatim-delta-utah"
+        "src:geo-arrays-ta-site-paper"
       ],
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-09-21"
     },
     "/sources": {
       "confidence": null,
@@ -80415,7 +80438,8 @@
       "quote": null,
       "sources": [
         "src:cosmic-gamma-ta-arxiv-2026-recent-findings",
-        "src:cosmic-gamma-nominatim-delta-utah"
+        "src:cosmic-gamma-nominatim-delta-utah",
+        "src:geo-arrays-ta-site-paper"
       ],
       "verified_at": null
     }

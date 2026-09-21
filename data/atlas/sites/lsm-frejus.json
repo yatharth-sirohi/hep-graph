@@ -6,15 +6,15 @@
   "coordinates": {
     "confidence": "approximate",
     "kind": "campus",
-    "lat": 45.1962509,
-    "lon": 6.6667021,
-    "note": "No official LSM page fetched in this session states a numeric coordinate; this is an OpenStreetMap/Nominatim node specifically tagged as the laboratory itself (not a generic address geocode), but per A17 a geocoder source still limits kind to campus/approximate rather than underground_lab.",
-    "precision_m": 500,
-    "quote": "\"name\": \"Laboratoire Souterrain de Modane (LSM)\", lat 45.1962509, lon 6.6667021, 1125 Route de Bardonneche, Modane, Savoie, France",
+    "lat": 45.1400808,
+    "locator": "geometry:modane-lsm-underground (OpenStreetMap-georeferenced underground laboratory point, accuracy 100 m)",
+    "lon": 6.688208,
+    "note": "Correction: the previous point was the Carré Sciences surface outreach building in Modane, 6.4 km from the laboratory inside the Fréjus tunnel; `kind: campus` under A23 because the position is an OpenStreetMap tracing (rank 11). Previous record: campus point 45.1962509, 6.6667021 at 500 m precision, sources ['src:lsm-osm-nominatim']; moved 6648 m (integrator, 2026-09-21, per docs/atlas-worklog/GEOMETRY_*.md).",
+    "precision_m": 100,
     "sources": [
-      "src:lsm-osm-nominatim"
+      "src:geo-modane-osm-lsm-way"
     ],
-    "verified_at": "2026-09-17"
+    "verified_at": "2026-09-21"
   },
   "country": "FR",
   "coverage": {
@@ -52,7 +52,8 @@
   "setting": "underground",
   "sources": [
     "src:lsm-official-site",
-    "src:lsm-osm-nominatim"
+    "src:lsm-osm-nominatim",
+    "src:geo-modane-osm-lsm-way"
   ],
   "summary": {
     "plain": "A laboratory carved into the rock in the middle of a road tunnel through the Alps, under 1700 metres of mountain, near Modane, France.",
