@@ -1,0 +1,184 @@
+{
+  "accuracy_m": 15,
+  "aliases": [],
+  "checks": [
+    {
+      "expected": {
+        "confidence": "verified",
+        "dimension": "length",
+        "display": "1556.5 m",
+        "locator": "Table 1.2",
+        "note": "",
+        "quote": "Table 1.2: Distances of the reactor cores from the near and far detectors.",
+        "sources": [
+          "src:geo-reactors-reno-proposal-2010"
+        ],
+        "unit": "m",
+        "value": 1556.5,
+        "verified_at": "2026-09-18"
+      },
+      "kind": "distance",
+      "locator": "Table 1.2",
+      "sources": [
+        "src:geo-reactors-reno-proposal-2010"
+      ],
+      "to_geometry_id": "geometry:hanbit-core-r1"
+    },
+    {
+      "expected": {
+        "confidence": "verified",
+        "dimension": "length",
+        "display": "1456.2 m",
+        "locator": "Table 1.2",
+        "note": "",
+        "quote": "Table 1.2: Distances of the reactor cores from the near and far detectors.",
+        "sources": [
+          "src:geo-reactors-reno-proposal-2010"
+        ],
+        "unit": "m",
+        "value": 1456.2,
+        "verified_at": "2026-09-18"
+      },
+      "kind": "distance",
+      "locator": "Table 1.2",
+      "sources": [
+        "src:geo-reactors-reno-proposal-2010"
+      ],
+      "to_geometry_id": "geometry:hanbit-core-r2"
+    },
+    {
+      "expected": {
+        "confidence": "verified",
+        "dimension": "length",
+        "display": "1395.9 m",
+        "locator": "Table 1.2",
+        "note": "",
+        "quote": "Table 1.2: Distances of the reactor cores from the near and far detectors.",
+        "sources": [
+          "src:geo-reactors-reno-proposal-2010"
+        ],
+        "unit": "m",
+        "value": 1395.9,
+        "verified_at": "2026-09-18"
+      },
+      "kind": "distance",
+      "locator": "Table 1.2",
+      "sources": [
+        "src:geo-reactors-reno-proposal-2010"
+      ],
+      "to_geometry_id": "geometry:hanbit-core-r3"
+    },
+    {
+      "expected": {
+        "confidence": "verified",
+        "dimension": "length",
+        "display": "1381.3 m",
+        "locator": "Table 1.2",
+        "note": "",
+        "quote": "Table 1.2: Distances of the reactor cores from the near and far detectors.",
+        "sources": [
+          "src:geo-reactors-reno-proposal-2010"
+        ],
+        "unit": "m",
+        "value": 1381.3,
+        "verified_at": "2026-09-18"
+      },
+      "kind": "distance",
+      "locator": "Table 1.2",
+      "sources": [
+        "src:geo-reactors-reno-proposal-2010"
+      ],
+      "to_geometry_id": "geometry:hanbit-core-r4"
+    },
+    {
+      "expected": {
+        "confidence": "verified",
+        "dimension": "length",
+        "display": "1413.8 m",
+        "locator": "Table 1.2",
+        "note": "",
+        "quote": "Table 1.2: Distances of the reactor cores from the near and far detectors.",
+        "sources": [
+          "src:geo-reactors-reno-proposal-2010"
+        ],
+        "unit": "m",
+        "value": 1413.8,
+        "verified_at": "2026-09-18"
+      },
+      "kind": "distance",
+      "locator": "Table 1.2",
+      "sources": [
+        "src:geo-reactors-reno-proposal-2010"
+      ],
+      "to_geometry_id": "geometry:hanbit-core-r5"
+    },
+    {
+      "expected": {
+        "confidence": "verified",
+        "dimension": "length",
+        "display": "1490.1 m",
+        "locator": "Table 1.2",
+        "note": "",
+        "quote": "Table 1.2: Distances of the reactor cores from the near and far detectors.",
+        "sources": [
+          "src:geo-reactors-reno-proposal-2010"
+        ],
+        "unit": "m",
+        "value": 1490.1,
+        "verified_at": "2026-09-18"
+      },
+      "kind": "distance",
+      "locator": "Table 1.2",
+      "sources": [
+        "src:geo-reactors-reno-proposal-2010"
+      ],
+      "to_geometry_id": "geometry:hanbit-core-r6"
+    }
+  ],
+  "coverage": {
+    "researched": "full",
+    "tier": "A"
+  },
+  "depth_m": null,
+  "entity_id": "site:reno-far-detector",
+  "feature_type": "hall",
+  "geometry": {
+    "confidence": "derived",
+    "locator": "arXiv:1003.1391 Table 1.2 (per-reactor near/far baselines); OSM reactor-building positions",
+    "note": "Nonlinear least-squares multilateration (scipy.optimize.least_squares on raw Euclidean centre-to-centre distance residuals, local equirectangular projection) of this detector hall's position from the six Hanbit reactor-core buildings (geometry:hanbit-core-r1..r6; accuracy_m 8 each), using the per-reactor near/far distances published in the RENO proposal (arXiv:1003.1391, Table 1.2, 'Distances of the reactor cores from the near and far detectors'). Of all 6! possible assignments of the table's R1-R6 labels to the six OSM buildings (and the reflection of the whole line), only the natural southwest-to-northeast geographic numbering converges to a good fit (residual root-mean-square 3-5 m on baselines of 300-1560 m, i.e. well under 2%); every other assignment leaves a residual of hundreds of metres, so this numbering (not independently sourced -- the proposal gives no reactor coordinates) is adopted on that self-consistency alone. accuracy_m is set above the fit residual to also cover the OSM buildings' own ~8 m footprint accuracy and this table being the experiment's 2010 design/proposal figure rather than an as-built survey (the collaboration's own later papers confirm the same overall geometry only as flux-weighted averages: 294 m / 1383 m from the array centre, arXiv:1204.0626).",
+    "sources": [
+      "src:geo-reactors-reno-proposal-2010",
+      "src:geo-reactors-osm-hanbit-reactors"
+    ],
+    "value": {
+      "coordinates": [
+        126.408097,
+        35.421557
+      ],
+      "type": "Point"
+    },
+    "verified_at": "2026-09-18"
+  },
+  "id": "geometry:reno-far-detector",
+  "level_id": "reno-far-hall",
+  "license": null,
+  "links": {
+    "website": null
+  },
+  "map_id": "map:yonggwang-hanbit-reactor-site",
+  "method": "Nonlinear least-squares multilateration (scipy.optimize.least_squares on raw Euclidean centre-to-centre distance residuals, local equirectangular projection) of this detector hall's position from the six Hanbit reactor-core buildings (geometry:hanbit-core-r1..r6; accuracy_m 8 each), using the per-reactor near/far distances published in the RENO proposal (arXiv:1003.1391, Table 1.2, 'Distances of the reactor cores from the near and far detectors'). Of all 6! possible assignments of the table's R1-R6 labels to the six OSM buildings (and the reflection of the whole line), only the natural southwest-to-northeast geographic numbering converges to a good fit (residual root-mean-square 3-5 m on baselines of 300-1560 m, i.e. well under 2%); every other assignment leaves a residual of hundreds of metres, so this numbering (not independently sourced -- the proposal gives no reactor coordinates) is adopted on that self-consistency alone. accuracy_m is set above the fit residual to also cover the OSM buildings' own ~8 m footprint accuracy and this table being the experiment's 2010 design/proposal figure rather than an as-built survey (the collaboration's own later papers confirm the same overall geometry only as flux-weighted averages: 294 m / 1383 m from the array centre, arXiv:1204.0626).",
+  "name": "RENO far detector hall",
+  "notes": [],
+  "osm": null,
+  "representation": "derived",
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:reno-far-detector",
+  "sources": [
+    "src:geo-reactors-reno-proposal-2010"
+  ],
+  "summary": {
+    "plain": "RENO far detector hall, positioned by trilateration from the RENO proposal's published reactor-to-detector distances and the reactor buildings' OpenStreetMap positions."
+  },
+  "type": "geometry",
+  "valid": null
+}

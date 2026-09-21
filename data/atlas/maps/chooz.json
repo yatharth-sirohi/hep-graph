@@ -1,0 +1,87 @@
+{
+  "aliases": [],
+  "center": {
+    "confidence": "derived",
+    "kind": "campus",
+    "lat": 50.08859,
+    "locator": "mean of the three reactor-building centroids",
+    "lon": 4.793657,
+    "note": "Map centre only: mean of the drawn features' centroids; not a claim about any structure.",
+    "precision_m": 500,
+    "sources": [
+      "src:geo-reactors-osm-chooz-reactors"
+    ],
+    "verified_at": "2026-09-21"
+  },
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "extent_m": 1500,
+  "facility_id": "facility:chooz",
+  "id": "map:chooz",
+  "levels": [
+    {
+      "depth_m": null,
+      "id": "surface",
+      "kind": "surface",
+      "name": "Surface (reactor buildings)",
+      "note": ""
+    }
+  ],
+  "linked_map_ids": [],
+  "links": {
+    "website": null
+  },
+  "name": "Chooz — reactor cores (Double Chooz / NUCLEUS site)",
+  "notes": [
+    "Chooz A (shut down 1991) is drawn for campus context only; the Double Chooz and NUCLEUS baselines refer to B1/B2."
+  ],
+  "schema": "hep-atlas/0.2",
+  "schematics": [],
+  "site_ids": [
+    "site:double-chooz-far-detector",
+    "site:double-chooz-near-detector",
+    "site:chooz-very-near-nucleus"
+  ],
+  "sources": [
+    "src:geo-reactors-osm-chooz-reactors",
+    "src:double-chooz-2012-evidence"
+  ],
+  "summary": {
+    "plain": "The Chooz nuclear power plant's reactor buildings — the old Chooz A unit and the two Chooz B units whose antineutrinos Double Chooz and NUCLEUS measure. The detector laboratories are not yet located.",
+    "technical": "Reactor-building footprints from OpenStreetMap; no laboratory position drawn because two cores alone leave a mirror ambiguity."
+  },
+  "type": "map",
+  "unlocated": [
+    {
+      "backlog": "Find the Double Chooz far-lab position (Double Chooz detector paper or the original CHOOZ NIM paper give the hill laboratory's relation to the plant) or an OSM/IGN feature for the laboratory entrance; then derive with both cores.",
+      "entity_id": "site:double-chooz-far-detector",
+      "reason": "Only two operating cores (B1, B2) are mapped, so trilateration from the published far-detector baselines has a two-fold mirror ambiguity that no fetched source resolves; the far laboratory (the former CHOOZ hill laboratory) is not identified in OpenStreetMap.",
+      "sources": [
+        "src:geo-reactors-osm-chooz-reactors",
+        "src:double-chooz-2012-evidence"
+      ],
+      "verified_at": "2026-09-21"
+    },
+    {
+      "backlog": "Double Chooz near-detector paper (2015) or the site plan in the near-lab civil-engineering documents; derive with both cores once the side is sourced.",
+      "entity_id": "site:double-chooz-near-detector",
+      "reason": "Two mapped cores give a two-fold ambiguity for the ~400 m near-lab position and no fetched source gives the side of the plant it lies on.",
+      "sources": [
+        "src:geo-reactors-osm-chooz-reactors",
+        "src:double-chooz-2012-evidence"
+      ],
+      "verified_at": "2026-09-21"
+    },
+    {
+      "backlog": "NUCLEUS site papers give the two core distances; with the B1/B2 footprints that is a well-conditioned two-circle intersection with a known side (between the cores) — derive once the distances are re-fetched and quoted.",
+      "entity_id": "site:chooz-very-near-nucleus",
+      "reason": "NUCLEUS sits in the Very-Near-Site building between the two cores (72 m and 102 m); the building is not identified in OpenStreetMap and no fetched source gives its coordinates.",
+      "sources": [
+        "src:geo-reactors-osm-chooz-reactors"
+      ],
+      "verified_at": "2026-09-21"
+    }
+  ]
+}

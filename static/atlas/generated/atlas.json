@@ -14349,7 +14349,10 @@
       "experiment_ids": [
         "experiment:conus"
       ],
-      "geometry_map_ids": [],
+      "geometry_map_ids": [
+        "map:brokdorf-nuclear-power-plant",
+        "map:leibstadt-nuclear-power-plant"
+      ],
       "id": "detector:conus-hpge-array",
       "intervals": [
         {
@@ -45639,7 +45642,7 @@
       "links": {
         "website": null
       },
-      "map_id": null,
+      "map_id": "map:brokdorf-nuclear-power-plant",
       "name": "Brokdorf Nuclear Power Plant",
       "operator": "PreussenElektra GmbH",
       "operator_ids": [],
@@ -45982,7 +45985,7 @@
       "links": {
         "website": null
       },
-      "map_id": null,
+      "map_id": "map:chooz",
       "name": "Chooz Reactor Neutrino Site",
       "operator": null,
       "operator_ids": [],
@@ -46200,7 +46203,7 @@
       "links": {
         "website": null
       },
-      "map_id": null,
+      "map_id": "map:daya-bay-reactor-neutrino-lab",
       "name": "Daya Bay Reactor Neutrino Laboratory",
       "operator": "Institute of High Energy Physics (IHEP), Chinese Academy of Sciences",
       "operator_ids": [],
@@ -47420,7 +47423,7 @@
       "links": {
         "website": null
       },
-      "map_id": null,
+      "map_id": "map:leibstadt-nuclear-power-plant",
       "name": "Leibstadt Nuclear Power Plant",
       "operator": "Kernkraftwerk Leibstadt AG",
       "operator_ids": [],
@@ -49084,7 +49087,7 @@
       "links": {
         "website": null
       },
-      "map_id": null,
+      "map_id": "map:yonggwang-hanbit-reactor-site",
       "name": "Yonggwang (Hanbit) Reactor Neutrino Site",
       "operator": null,
       "operator_ids": [],
@@ -49385,6 +49388,62 @@
       "to_scale_count": 1,
       "unlocated_count": 0
     },
+    "map:brokdorf-nuclear-power-plant": {
+      "attribution": [
+        "© OpenStreetMap contributors (ODbL-1.0)"
+      ],
+      "bundle": "geometry/brokdorf-nuclear-power-plant.json",
+      "center": {
+        "lat": 53.850766,
+        "lon": 9.345687
+      },
+      "coverage": {
+        "researched": "partial",
+        "tier": "B"
+      },
+      "extent_m": 800,
+      "facility_id": "facility:brokdorf-nuclear-power-plant",
+      "feature_count": 2,
+      "id": "map:brokdorf-nuclear-power-plant",
+      "levels": [
+        {
+          "depth_m": null,
+          "id": "surface",
+          "kind": "surface",
+          "name": "Surface (reactor building; CONUS stood inside it)"
+        }
+      ],
+      "linked_map_ids": [
+        "map:leibstadt-nuclear-power-plant"
+      ],
+      "name": "Brokdorf — reactor building and the CONUS position",
+      "site_ids": [
+        "site:brokdorf-nuclear-power-plant-campus"
+      ],
+      "state_segments": [
+        [
+          441,
+          441,
+          "active",
+          "possible"
+        ],
+        [
+          442,
+          862,
+          "active",
+          "certain"
+        ],
+        [
+          863,
+          863,
+          "decommissioned",
+          "possible"
+        ]
+      ],
+      "status": "decommissioned",
+      "to_scale_count": 2,
+      "unlocated_count": 0
+    },
     "map:brookhaven-national-laboratory": {
       "attribution": [
         "© OpenStreetMap contributors (ODbL-1.0)"
@@ -49595,6 +49654,56 @@
       "to_scale_count": 20,
       "unlocated_count": 7
     },
+    "map:chooz": {
+      "attribution": [
+        "© OpenStreetMap contributors (ODbL-1.0)"
+      ],
+      "bundle": "geometry/chooz.json",
+      "center": {
+        "lat": 50.08859,
+        "lon": 4.793657
+      },
+      "coverage": {
+        "researched": "partial",
+        "tier": "B"
+      },
+      "extent_m": 1500,
+      "facility_id": "facility:chooz",
+      "feature_count": 3,
+      "id": "map:chooz",
+      "levels": [
+        {
+          "depth_m": null,
+          "id": "surface",
+          "kind": "surface",
+          "name": "Surface (reactor buildings)"
+        }
+      ],
+      "linked_map_ids": [],
+      "name": "Chooz — reactor cores (Double Chooz / NUCLEUS site)",
+      "site_ids": [
+        "site:chooz-very-near-nucleus",
+        "site:double-chooz-far-detector",
+        "site:double-chooz-near-detector"
+      ],
+      "state_segments": [
+        [
+          732,
+          743,
+          "active",
+          "possible"
+        ],
+        [
+          744,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
+      "to_scale_count": 3,
+      "unlocated_count": 3
+    },
     "map:cjpl": {
       "attribution": [
         "© OpenStreetMap contributors (ODbL-1.0)"
@@ -49702,6 +49811,96 @@
       ],
       "status": "construction",
       "to_scale_count": 1,
+      "unlocated_count": 0
+    },
+    "map:daya-bay-reactor-neutrino-lab": {
+      "attribution": [
+        "© OpenStreetMap contributors (ODbL-1.0)"
+      ],
+      "bundle": "geometry/daya-bay-reactor-neutrino-lab.json",
+      "center": {
+        "lat": 22.605333,
+        "lon": 114.547935
+      },
+      "coverage": {
+        "researched": "partial",
+        "tier": "A"
+      },
+      "extent_m": 2500,
+      "facility_id": "facility:daya-bay-reactor-neutrino-lab",
+      "feature_count": 9,
+      "id": "map:daya-bay-reactor-neutrino-lab",
+      "levels": [
+        {
+          "depth_m": null,
+          "id": "surface",
+          "kind": "surface",
+          "name": "Surface (reactor buildings)"
+        },
+        {
+          "depth_m": {
+            "approx": false,
+            "dimension": "length",
+            "display": "93 m",
+            "unit": "m",
+            "value": 93
+          },
+          "id": "eh1-hall",
+          "kind": "underground",
+          "name": "Experimental Hall 1 (93 m of rock, 250 m.w.e.)"
+        },
+        {
+          "depth_m": {
+            "approx": false,
+            "dimension": "length",
+            "display": "100 m",
+            "unit": "m",
+            "value": 100
+          },
+          "id": "eh2-hall",
+          "kind": "underground",
+          "name": "Experimental Hall 2 (100 m of rock, 265 m.w.e.)"
+        },
+        {
+          "depth_m": {
+            "approx": false,
+            "dimension": "length",
+            "display": "324 m",
+            "unit": "m",
+            "value": 324
+          },
+          "id": "eh3-hall",
+          "kind": "underground",
+          "name": "Experimental Hall 3 (324 m of rock, 860 m.w.e.)"
+        }
+      ],
+      "linked_map_ids": [],
+      "name": "Daya Bay — reactor cores and experimental halls",
+      "site_ids": [
+        "site:daya-bay-experimental-halls"
+      ],
+      "state_segments": [
+        [
+          743,
+          743,
+          "active",
+          "possible"
+        ],
+        [
+          744,
+          850,
+          "active",
+          "certain"
+        ],
+        [
+          851,
+          851,
+          "completed",
+          "possible"
+        ]
+      ],
+      "status": "completed",
+      "to_scale_count": 9,
       "unlocated_count": 0
     },
     "map:desy": {
@@ -50364,6 +50563,56 @@
         ]
       ],
       "status": "construction",
+      "to_scale_count": 2,
+      "unlocated_count": 0
+    },
+    "map:leibstadt-nuclear-power-plant": {
+      "attribution": [
+        "© OpenStreetMap contributors (ODbL-1.0)"
+      ],
+      "bundle": "geometry/leibstadt-nuclear-power-plant.json",
+      "center": {
+        "lat": 47.599578,
+        "lon": 8.181803
+      },
+      "coverage": {
+        "researched": "partial",
+        "tier": "B"
+      },
+      "extent_m": 800,
+      "facility_id": "facility:leibstadt-nuclear-power-plant",
+      "feature_count": 2,
+      "id": "map:leibstadt-nuclear-power-plant",
+      "levels": [
+        {
+          "depth_m": null,
+          "id": "surface",
+          "kind": "surface",
+          "name": "Surface (reactor building; CONUS+ inside it)"
+        }
+      ],
+      "linked_map_ids": [
+        "map:brokdorf-nuclear-power-plant"
+      ],
+      "name": "Leibstadt — reactor building and the CONUS+ position",
+      "site_ids": [
+        "site:leibstadt-nuclear-power-plant-campus"
+      ],
+      "state_segments": [
+        [
+          412,
+          412,
+          "active",
+          "possible"
+        ],
+        [
+          413,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
       "to_scale_count": 2,
       "unlocated_count": 0
     },
@@ -51202,6 +51451,73 @@
       "status": "active",
       "to_scale_count": 3,
       "unlocated_count": 0
+    },
+    "map:yonggwang-hanbit-reactor-site": {
+      "attribution": [
+        "© OpenStreetMap contributors (ODbL-1.0)"
+      ],
+      "bundle": "geometry/yonggwang-hanbit-reactor-site.json",
+      "center": {
+        "lat": 35.412443,
+        "lon": 126.415438
+      },
+      "coverage": {
+        "researched": "partial",
+        "tier": "B"
+      },
+      "extent_m": 2000,
+      "facility_id": "facility:yonggwang-hanbit-reactor-site",
+      "feature_count": 9,
+      "id": "map:yonggwang-hanbit-reactor-site",
+      "levels": [
+        {
+          "depth_m": null,
+          "id": "surface",
+          "kind": "surface",
+          "name": "Surface (reactor units, plant boundary)"
+        },
+        {
+          "depth_m": null,
+          "id": "reno-near-hall",
+          "kind": "underground",
+          "name": "RENO near detector hall (~110 m.w.e. under a ridge)"
+        },
+        {
+          "depth_m": null,
+          "id": "reno-far-hall",
+          "kind": "underground",
+          "name": "RENO far detector hall (~450 m.w.e. under a 260 m mountain)"
+        }
+      ],
+      "linked_map_ids": [],
+      "name": "Hanbit (Yonggwang) — reactor units and the RENO detector halls",
+      "site_ids": [
+        "site:reno-far-detector",
+        "site:reno-near-detector"
+      ],
+      "state_segments": [
+        [
+          739,
+          739,
+          "active",
+          "possible"
+        ],
+        [
+          740,
+          877,
+          "active",
+          "certain"
+        ],
+        [
+          878,
+          878,
+          "completed",
+          "possible"
+        ]
+      ],
+      "status": "completed",
+      "to_scale_count": 9,
+      "unlocated_count": 0
     }
   },
   "schema": "hep-atlas/0.2",
@@ -51870,7 +52186,7 @@
       "links": {
         "website": null
       },
-      "map_id": null,
+      "map_id": "map:brokdorf-nuclear-power-plant",
       "name": "Brokdorf Nuclear Power Plant campus",
       "place": {
         "city": "Brokdorf",
@@ -53522,7 +53838,7 @@
       "links": {
         "website": null
       },
-      "map_id": null,
+      "map_id": "map:chooz",
       "name": "Chooz very-near site (NUCLEUS)",
       "place": {
         "city": "Chooz",
@@ -53709,7 +54025,7 @@
       "links": {
         "website": null
       },
-      "map_id": null,
+      "map_id": "map:daya-bay-reactor-neutrino-lab",
       "name": "Daya Bay underground experimental halls",
       "place": {
         "city": "Shenzhen",
@@ -54051,7 +54367,7 @@
       "links": {
         "website": null
       },
-      "map_id": null,
+      "map_id": "map:chooz",
       "name": "Double Chooz far detector site",
       "place": {
         "city": "Chooz",
@@ -54123,7 +54439,7 @@
       "links": {
         "website": null
       },
-      "map_id": null,
+      "map_id": "map:chooz",
       "name": "Double Chooz near detector site",
       "place": {
         "city": "Chooz",
@@ -56635,7 +56951,7 @@
       "links": {
         "website": null
       },
-      "map_id": null,
+      "map_id": "map:leibstadt-nuclear-power-plant",
       "name": "Leibstadt Nuclear Power Plant campus",
       "place": {
         "city": "Leibstadt",
@@ -58052,7 +58368,7 @@
       "links": {
         "website": null
       },
-      "map_id": null,
+      "map_id": "map:yonggwang-hanbit-reactor-site",
       "name": "RENO far detector site",
       "place": {
         "city": "Yeonggwang",
@@ -58112,7 +58428,7 @@
       "links": {
         "website": null
       },
-      "map_id": null,
+      "map_id": "map:yonggwang-hanbit-reactor-site",
       "name": "RENO near detector site",
       "place": {
         "city": "Yeonggwang",
@@ -60610,5 +60926,5 @@
       "type": "topic"
     }
   },
-  "version": "3d3398a3448ee1b4"
+  "version": "2e9d487414866625"
 }

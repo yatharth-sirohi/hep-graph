@@ -48303,6 +48303,51 @@
       "verified_at": null
     }
   },
+  "geometry:brokdorf-conus-detector": {
+    "/geometry": {
+      "confidence": "derived",
+      "locator": "arXiv:2401.07684, 'positioned at 17.1 m from the reactor core center'",
+      "note": "CONUS's own paper (arXiv:2401.07684) states the detector sat 17.1 m from the reactor core center at Brokdorf, inside the reactor building itself (not a separate structure). No fetched source gives the azimuth of that 17.1 m offset from the core, so this point is the OSM 'Reaktorgebäude' building's own centroid (geometry:brokdorf-core), used directly as the detector's position; accuracy_m is widened to 20 m to cover the unresolved 17.1 m offset plus the building footprint's own ~15 m accuracy.",
+      "quote": null,
+      "sources": [
+        "src:cevns-conus-prl-2024-final-brokdorf",
+        "src:geo-reactors-osm-brokdorf-leibstadt-reactors"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:cevns-conus-prl-2024-final-brokdorf"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:brokdorf-core": {
+    "/geometry": {
+      "confidence": "approximate",
+      "locator": "OSM way 87723028 as of 2026-06-01T08:52:28Z",
+      "note": "Building explicitly named 'Reaktorgebäude' (German: reactor building) in OpenStreetMap, within the Brokdorf Nuclear Power Plant grounds.",
+      "quote": null,
+      "sources": [
+        "src:geo-reactors-osm-brokdorf-leibstadt-reactors"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-reactors-osm-brokdorf-leibstadt-reactors"
+      ],
+      "verified_at": null
+    }
+  },
   "geometry:canfranc-lab-underground": {
     "/depth_m": {
       "confidence": "verified",
@@ -48409,6 +48454,72 @@
       "sources": [
         "src:geo-canfranc-osm-somport-road-tunnel",
         "src:geo-canfranc-somport-length-dialnet"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:chooz-core-a": {
+    "/geometry": {
+      "confidence": "approximate",
+      "locator": "OSM way 331248511 as of 2026-06-01T08:52:28Z",
+      "note": "The original, now-decommissioned Chooz-A reactor building (distinct from the Chooz-B1/B2 units the Double Chooz and NUCLEUS experiments measure); drawn for context only.",
+      "quote": null,
+      "sources": [
+        "src:geo-reactors-osm-chooz-reactors"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-reactors-osm-chooz-reactors"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:chooz-core-b1": {
+    "/geometry": {
+      "confidence": "approximate",
+      "locator": "OSM way 331249625 as of 2026-06-01T08:52:28Z",
+      "note": "Reactor containment building, named directly in OSM (building=yes, power=generator, generator:source=nuclear, generator:output:electricity=1500 MW).",
+      "quote": null,
+      "sources": [
+        "src:geo-reactors-osm-chooz-reactors"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-reactors-osm-chooz-reactors"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:chooz-core-b2": {
+    "/geometry": {
+      "confidence": "approximate",
+      "locator": "OSM way 331249628 as of 2026-06-01T08:52:28Z",
+      "note": "Reactor containment building, named directly in OSM (building=yes, power=generator, generator:source=nuclear, generator:output:electricity=1500 MW).",
+      "quote": null,
+      "sources": [
+        "src:geo-reactors-osm-chooz-reactors"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-reactors-osm-chooz-reactors"
       ],
       "verified_at": null
     }
@@ -48543,6 +48654,509 @@
       "quote": null,
       "sources": [
         "src:cosmic-gamma-verify-ctao-south-site-page"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:daya-bay-core-d1": {
+    "/geometry": {
+      "confidence": "approximate",
+      "locator": "OSM way 704274591 as of 2026-09-18T22:27:36Z",
+      "note": "Reactor containment building, identified in OSM by power=generator, generator:source=nuclear, generator:output:electricity=944 MW, manufacturer:type consistent with a M310 PWR. Assignment to the Daya Bay NIM paper's reactor-core label (D1/D2/L1/L2/L3/L4, Table 2) is inferred from which self-consistent multilateration fit of the three experimental halls' surveyed AD-to-core baselines gives the smallest residual against this building's OSM position (see geometry:daya-bay-eh1-hall method and the worklog); the paper itself does not name which physical unit is D1 vs D2 (or L1 vs L2, L3 vs L4), so this specific half of the label pair is not independently sourced, only the pair (this plant's two units) is.",
+      "quote": null,
+      "sources": [
+        "src:geo-reactors-osm-dayabay-reactors"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-reactors-osm-dayabay-reactors"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:daya-bay-core-d2": {
+    "/geometry": {
+      "confidence": "approximate",
+      "locator": "OSM way 704274592 as of 2026-09-18T22:27:36Z",
+      "note": "Reactor containment building, identified in OSM by power=generator, generator:source=nuclear, generator:output:electricity=944 MW, manufacturer:type consistent with a M310 PWR. Assignment to the Daya Bay NIM paper's reactor-core label (D1/D2/L1/L2/L3/L4, Table 2) is inferred from which self-consistent multilateration fit of the three experimental halls' surveyed AD-to-core baselines gives the smallest residual against this building's OSM position (see geometry:daya-bay-eh1-hall method and the worklog); the paper itself does not name which physical unit is D1 vs D2 (or L1 vs L2, L3 vs L4), so this specific half of the label pair is not independently sourced, only the pair (this plant's two units) is.",
+      "quote": null,
+      "sources": [
+        "src:geo-reactors-osm-dayabay-reactors"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-reactors-osm-dayabay-reactors"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:daya-bay-eh1-hall": {
+    "/checks/0": {
+      "confidence": null,
+      "locator": "Table 2",
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-reactors-daya-bay-nim-2016"
+      ],
+      "verified_at": null
+    },
+    "/checks/0/expected": {
+      "confidence": "verified",
+      "locator": "Table 2",
+      "note": "",
+      "quote": "Baselines from the antineutrino detector centers to the reactor core centers in the Daya Bay (D1, D2), Ling Ao (L1-2) and Ling Ao-II (L3-4) Nuclear Power Plants is given in meters.",
+      "sources": [
+        "src:geo-reactors-daya-bay-nim-2016"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/checks/1": {
+      "confidence": null,
+      "locator": "Table 2",
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-reactors-daya-bay-nim-2016"
+      ],
+      "verified_at": null
+    },
+    "/checks/1/expected": {
+      "confidence": "verified",
+      "locator": "Table 2",
+      "note": "",
+      "quote": "Baselines from the antineutrino detector centers to the reactor core centers in the Daya Bay (D1, D2), Ling Ao (L1-2) and Ling Ao-II (L3-4) Nuclear Power Plants is given in meters.",
+      "sources": [
+        "src:geo-reactors-daya-bay-nim-2016"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/checks/2": {
+      "confidence": null,
+      "locator": "Table 2",
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-reactors-daya-bay-nim-2016"
+      ],
+      "verified_at": null
+    },
+    "/checks/2/expected": {
+      "confidence": "verified",
+      "locator": "Table 2",
+      "note": "",
+      "quote": "Baselines from the antineutrino detector centers to the reactor core centers in the Daya Bay (D1, D2), Ling Ao (L1-2) and Ling Ao-II (L3-4) Nuclear Power Plants is given in meters.",
+      "sources": [
+        "src:geo-reactors-daya-bay-nim-2016"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/checks/3": {
+      "confidence": null,
+      "locator": "Table 2",
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-reactors-daya-bay-nim-2016"
+      ],
+      "verified_at": null
+    },
+    "/checks/3/expected": {
+      "confidence": "verified",
+      "locator": "Table 2",
+      "note": "",
+      "quote": "Baselines from the antineutrino detector centers to the reactor core centers in the Daya Bay (D1, D2), Ling Ao (L1-2) and Ling Ao-II (L3-4) Nuclear Power Plants is given in meters.",
+      "sources": [
+        "src:geo-reactors-daya-bay-nim-2016"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/checks/4": {
+      "confidence": null,
+      "locator": "Table 2",
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-reactors-daya-bay-nim-2016"
+      ],
+      "verified_at": null
+    },
+    "/checks/4/expected": {
+      "confidence": "verified",
+      "locator": "Table 2",
+      "note": "",
+      "quote": "Baselines from the antineutrino detector centers to the reactor core centers in the Daya Bay (D1, D2), Ling Ao (L1-2) and Ling Ao-II (L3-4) Nuclear Power Plants is given in meters.",
+      "sources": [
+        "src:geo-reactors-daya-bay-nim-2016"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/checks/5": {
+      "confidence": null,
+      "locator": "Table 2",
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-reactors-daya-bay-nim-2016"
+      ],
+      "verified_at": null
+    },
+    "/checks/5/expected": {
+      "confidence": "verified",
+      "locator": "Table 2",
+      "note": "",
+      "quote": "Baselines from the antineutrino detector centers to the reactor core centers in the Daya Bay (D1, D2), Ling Ao (L1-2) and Ling Ao-II (L3-4) Nuclear Power Plants is given in meters.",
+      "sources": [
+        "src:geo-reactors-daya-bay-nim-2016"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/depth_m": {
+      "confidence": "verified",
+      "locator": "text, hall descriptions",
+      "note": "",
+      "quote": "The rock overburden is 93 m at EH1, 100 m at EH2 and 324 m at EH3.",
+      "sources": [
+        "src:geo-reactors-daya-bay-nim-2016"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/geometry": {
+      "confidence": "derived",
+      "locator": "arXiv:1508.03943 Table 2 (AD-to-core baselines); OSM reactor-building positions",
+      "note": "Nonlinear least-squares multilateration (scipy.optimize.least_squares on raw Euclidean centre-to-centre distance residuals, local equirectangular projection) of this hall's position from the six Daya Bay/Ling Ao/Ling Ao-II reactor-core buildings (geometry:daya-bay-core-d1/d2, geometry:lingao-core-l1/l2, geometry:lingao-ii-core-l3/l4; accuracy_m 8 each), using the mean of this hall's antineutrino-detector(AD)-to-core-centre baselines from arXiv:1508.03943 Table 2 (survey uncertainty stated as < 18 mm) as the target distance to each core. Fit residual (measured centre-to-centre distance vs. the Table-2 mean) is under 5 m on every one of the six cores (max 0.4% of the baseline); accuracy_m is set well above that residual to also cover the buildings' own ~8 m footprint accuracy and the approximation of using each hall's own AD-mean baseline rather than a single physically-located point within the hall.",
+      "quote": null,
+      "sources": [
+        "src:geo-reactors-daya-bay-nim-2016",
+        "src:geo-reactors-osm-dayabay-reactors"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-reactors-daya-bay-nim-2016"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:daya-bay-eh2-hall": {
+    "/checks/0": {
+      "confidence": null,
+      "locator": "Table 2",
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-reactors-daya-bay-nim-2016"
+      ],
+      "verified_at": null
+    },
+    "/checks/0/expected": {
+      "confidence": "verified",
+      "locator": "Table 2",
+      "note": "",
+      "quote": "Baselines from the antineutrino detector centers to the reactor core centers in the Daya Bay (D1, D2), Ling Ao (L1-2) and Ling Ao-II (L3-4) Nuclear Power Plants is given in meters.",
+      "sources": [
+        "src:geo-reactors-daya-bay-nim-2016"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/checks/1": {
+      "confidence": null,
+      "locator": "Table 2",
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-reactors-daya-bay-nim-2016"
+      ],
+      "verified_at": null
+    },
+    "/checks/1/expected": {
+      "confidence": "verified",
+      "locator": "Table 2",
+      "note": "",
+      "quote": "Baselines from the antineutrino detector centers to the reactor core centers in the Daya Bay (D1, D2), Ling Ao (L1-2) and Ling Ao-II (L3-4) Nuclear Power Plants is given in meters.",
+      "sources": [
+        "src:geo-reactors-daya-bay-nim-2016"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/checks/2": {
+      "confidence": null,
+      "locator": "Table 2",
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-reactors-daya-bay-nim-2016"
+      ],
+      "verified_at": null
+    },
+    "/checks/2/expected": {
+      "confidence": "verified",
+      "locator": "Table 2",
+      "note": "",
+      "quote": "Baselines from the antineutrino detector centers to the reactor core centers in the Daya Bay (D1, D2), Ling Ao (L1-2) and Ling Ao-II (L3-4) Nuclear Power Plants is given in meters.",
+      "sources": [
+        "src:geo-reactors-daya-bay-nim-2016"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/checks/3": {
+      "confidence": null,
+      "locator": "Table 2",
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-reactors-daya-bay-nim-2016"
+      ],
+      "verified_at": null
+    },
+    "/checks/3/expected": {
+      "confidence": "verified",
+      "locator": "Table 2",
+      "note": "",
+      "quote": "Baselines from the antineutrino detector centers to the reactor core centers in the Daya Bay (D1, D2), Ling Ao (L1-2) and Ling Ao-II (L3-4) Nuclear Power Plants is given in meters.",
+      "sources": [
+        "src:geo-reactors-daya-bay-nim-2016"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/checks/4": {
+      "confidence": null,
+      "locator": "Table 2",
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-reactors-daya-bay-nim-2016"
+      ],
+      "verified_at": null
+    },
+    "/checks/4/expected": {
+      "confidence": "verified",
+      "locator": "Table 2",
+      "note": "",
+      "quote": "Baselines from the antineutrino detector centers to the reactor core centers in the Daya Bay (D1, D2), Ling Ao (L1-2) and Ling Ao-II (L3-4) Nuclear Power Plants is given in meters.",
+      "sources": [
+        "src:geo-reactors-daya-bay-nim-2016"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/checks/5": {
+      "confidence": null,
+      "locator": "Table 2",
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-reactors-daya-bay-nim-2016"
+      ],
+      "verified_at": null
+    },
+    "/checks/5/expected": {
+      "confidence": "verified",
+      "locator": "Table 2",
+      "note": "",
+      "quote": "Baselines from the antineutrino detector centers to the reactor core centers in the Daya Bay (D1, D2), Ling Ao (L1-2) and Ling Ao-II (L3-4) Nuclear Power Plants is given in meters.",
+      "sources": [
+        "src:geo-reactors-daya-bay-nim-2016"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/depth_m": {
+      "confidence": "verified",
+      "locator": "text, hall descriptions",
+      "note": "",
+      "quote": "The rock overburden is 93 m at EH1, 100 m at EH2 and 324 m at EH3.",
+      "sources": [
+        "src:geo-reactors-daya-bay-nim-2016"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/geometry": {
+      "confidence": "derived",
+      "locator": "arXiv:1508.03943 Table 2 (AD-to-core baselines); OSM reactor-building positions",
+      "note": "Nonlinear least-squares multilateration (scipy.optimize.least_squares on raw Euclidean centre-to-centre distance residuals, local equirectangular projection) of this hall's position from the six Daya Bay/Ling Ao/Ling Ao-II reactor-core buildings (geometry:daya-bay-core-d1/d2, geometry:lingao-core-l1/l2, geometry:lingao-ii-core-l3/l4; accuracy_m 8 each), using the mean of this hall's antineutrino-detector(AD)-to-core-centre baselines from arXiv:1508.03943 Table 2 (survey uncertainty stated as < 18 mm) as the target distance to each core. Fit residual (measured centre-to-centre distance vs. the Table-2 mean) is under 5 m on every one of the six cores (max 0.4% of the baseline); accuracy_m is set well above that residual to also cover the buildings' own ~8 m footprint accuracy and the approximation of using each hall's own AD-mean baseline rather than a single physically-located point within the hall.",
+      "quote": null,
+      "sources": [
+        "src:geo-reactors-daya-bay-nim-2016",
+        "src:geo-reactors-osm-dayabay-reactors"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-reactors-daya-bay-nim-2016"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:daya-bay-eh3-hall": {
+    "/checks/0": {
+      "confidence": null,
+      "locator": "Table 2",
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-reactors-daya-bay-nim-2016"
+      ],
+      "verified_at": null
+    },
+    "/checks/0/expected": {
+      "confidence": "verified",
+      "locator": "Table 2",
+      "note": "",
+      "quote": "Baselines from the antineutrino detector centers to the reactor core centers in the Daya Bay (D1, D2), Ling Ao (L1-2) and Ling Ao-II (L3-4) Nuclear Power Plants is given in meters.",
+      "sources": [
+        "src:geo-reactors-daya-bay-nim-2016"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/checks/1": {
+      "confidence": null,
+      "locator": "Table 2",
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-reactors-daya-bay-nim-2016"
+      ],
+      "verified_at": null
+    },
+    "/checks/1/expected": {
+      "confidence": "verified",
+      "locator": "Table 2",
+      "note": "",
+      "quote": "Baselines from the antineutrino detector centers to the reactor core centers in the Daya Bay (D1, D2), Ling Ao (L1-2) and Ling Ao-II (L3-4) Nuclear Power Plants is given in meters.",
+      "sources": [
+        "src:geo-reactors-daya-bay-nim-2016"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/checks/2": {
+      "confidence": null,
+      "locator": "Table 2",
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-reactors-daya-bay-nim-2016"
+      ],
+      "verified_at": null
+    },
+    "/checks/2/expected": {
+      "confidence": "verified",
+      "locator": "Table 2",
+      "note": "",
+      "quote": "Baselines from the antineutrino detector centers to the reactor core centers in the Daya Bay (D1, D2), Ling Ao (L1-2) and Ling Ao-II (L3-4) Nuclear Power Plants is given in meters.",
+      "sources": [
+        "src:geo-reactors-daya-bay-nim-2016"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/checks/3": {
+      "confidence": null,
+      "locator": "Table 2",
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-reactors-daya-bay-nim-2016"
+      ],
+      "verified_at": null
+    },
+    "/checks/3/expected": {
+      "confidence": "verified",
+      "locator": "Table 2",
+      "note": "",
+      "quote": "Baselines from the antineutrino detector centers to the reactor core centers in the Daya Bay (D1, D2), Ling Ao (L1-2) and Ling Ao-II (L3-4) Nuclear Power Plants is given in meters.",
+      "sources": [
+        "src:geo-reactors-daya-bay-nim-2016"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/checks/4": {
+      "confidence": null,
+      "locator": "Table 2",
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-reactors-daya-bay-nim-2016"
+      ],
+      "verified_at": null
+    },
+    "/checks/4/expected": {
+      "confidence": "verified",
+      "locator": "Table 2",
+      "note": "",
+      "quote": "Baselines from the antineutrino detector centers to the reactor core centers in the Daya Bay (D1, D2), Ling Ao (L1-2) and Ling Ao-II (L3-4) Nuclear Power Plants is given in meters.",
+      "sources": [
+        "src:geo-reactors-daya-bay-nim-2016"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/checks/5": {
+      "confidence": null,
+      "locator": "Table 2",
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-reactors-daya-bay-nim-2016"
+      ],
+      "verified_at": null
+    },
+    "/checks/5/expected": {
+      "confidence": "verified",
+      "locator": "Table 2",
+      "note": "",
+      "quote": "Baselines from the antineutrino detector centers to the reactor core centers in the Daya Bay (D1, D2), Ling Ao (L1-2) and Ling Ao-II (L3-4) Nuclear Power Plants is given in meters.",
+      "sources": [
+        "src:geo-reactors-daya-bay-nim-2016"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/depth_m": {
+      "confidence": "verified",
+      "locator": "text, hall descriptions",
+      "note": "",
+      "quote": "The rock overburden is 93 m at EH1, 100 m at EH2 and 324 m at EH3.",
+      "sources": [
+        "src:geo-reactors-daya-bay-nim-2016"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/geometry": {
+      "confidence": "derived",
+      "locator": "arXiv:1508.03943 Table 2 (AD-to-core baselines); OSM reactor-building positions",
+      "note": "Nonlinear least-squares multilateration (scipy.optimize.least_squares on raw Euclidean centre-to-centre distance residuals, local equirectangular projection) of this hall's position from the six Daya Bay/Ling Ao/Ling Ao-II reactor-core buildings (geometry:daya-bay-core-d1/d2, geometry:lingao-core-l1/l2, geometry:lingao-ii-core-l3/l4; accuracy_m 8 each), using the mean of this hall's antineutrino-detector(AD)-to-core-centre baselines from arXiv:1508.03943 Table 2 (survey uncertainty stated as < 18 mm) as the target distance to each core. Fit residual (measured centre-to-centre distance vs. the Table-2 mean) is under 5 m on every one of the six cores (max 0.4% of the baseline); accuracy_m is set well above that residual to also cover the buildings' own ~8 m footprint accuracy and the approximation of using each hall's own AD-mean baseline rather than a single physically-located point within the hall.",
+      "quote": null,
+      "sources": [
+        "src:geo-reactors-daya-bay-nim-2016",
+        "src:geo-reactors-osm-dayabay-reactors"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-reactors-daya-bay-nim-2016"
       ],
       "verified_at": null
     }
@@ -49211,6 +49825,160 @@
       "quote": null,
       "sources": [
         "src:fermilab-geo-osm-buildings"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:hanbit-core-r1": {
+    "/geometry": {
+      "confidence": "approximate",
+      "locator": "OSM way 143990765 as of 2026-06-01T08:52:28Z",
+      "note": "Reactor containment building at the Hanbit (Yonggwang) Nuclear Power Plant, identified in OSM by power=generator, generator:source=nuclear. Assignment to reactor number R1 (of 6, numbered geographically southwest to northeast) is inferred from which numbering direction gives the best nonlinear least-squares fit of the RENO proposal's own per-reactor near/far detector distances (arXiv:1003.1391 Table 1.2) against these six OSM building positions (residuals under 6 m on distances of 300-1560 m for this SW-to-NE numbering, versus hundreds of metres for the reverse numbering or any other reactor-to-building permutation); see geometry:reno-near-detector method and the worklog. The table itself does not give reactor coordinates, only the SW-NE physical order of the six buildings is used, not a claim about which specific numbered unit (Hanbit's own operator-assigned Unit 1-6 numbering) each is.",
+      "quote": null,
+      "sources": [
+        "src:geo-reactors-osm-hanbit-reactors"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-reactors-osm-hanbit-reactors"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:hanbit-core-r2": {
+    "/geometry": {
+      "confidence": "approximate",
+      "locator": "OSM way 143990766 as of 2026-06-01T08:52:28Z",
+      "note": "Reactor containment building at the Hanbit (Yonggwang) Nuclear Power Plant, identified in OSM by power=generator, generator:source=nuclear. Assignment to reactor number R2 (of 6, numbered geographically southwest to northeast) is inferred from which numbering direction gives the best nonlinear least-squares fit of the RENO proposal's own per-reactor near/far detector distances (arXiv:1003.1391 Table 1.2) against these six OSM building positions (residuals under 6 m on distances of 300-1560 m for this SW-to-NE numbering, versus hundreds of metres for the reverse numbering or any other reactor-to-building permutation); see geometry:reno-near-detector method and the worklog. The table itself does not give reactor coordinates, only the SW-NE physical order of the six buildings is used, not a claim about which specific numbered unit (Hanbit's own operator-assigned Unit 1-6 numbering) each is.",
+      "quote": null,
+      "sources": [
+        "src:geo-reactors-osm-hanbit-reactors"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-reactors-osm-hanbit-reactors"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:hanbit-core-r3": {
+    "/geometry": {
+      "confidence": "approximate",
+      "locator": "OSM way 143990768 as of 2026-06-01T08:52:28Z",
+      "note": "Reactor containment building at the Hanbit (Yonggwang) Nuclear Power Plant, identified in OSM by power=generator, generator:source=nuclear. Assignment to reactor number R3 (of 6, numbered geographically southwest to northeast) is inferred from which numbering direction gives the best nonlinear least-squares fit of the RENO proposal's own per-reactor near/far detector distances (arXiv:1003.1391 Table 1.2) against these six OSM building positions (residuals under 6 m on distances of 300-1560 m for this SW-to-NE numbering, versus hundreds of metres for the reverse numbering or any other reactor-to-building permutation); see geometry:reno-near-detector method and the worklog. The table itself does not give reactor coordinates, only the SW-NE physical order of the six buildings is used, not a claim about which specific numbered unit (Hanbit's own operator-assigned Unit 1-6 numbering) each is.",
+      "quote": null,
+      "sources": [
+        "src:geo-reactors-osm-hanbit-reactors"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-reactors-osm-hanbit-reactors"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:hanbit-core-r4": {
+    "/geometry": {
+      "confidence": "approximate",
+      "locator": "OSM way 143990767 as of 2026-06-01T08:52:28Z",
+      "note": "Reactor containment building at the Hanbit (Yonggwang) Nuclear Power Plant, identified in OSM by power=generator, generator:source=nuclear. Assignment to reactor number R4 (of 6, numbered geographically southwest to northeast) is inferred from which numbering direction gives the best nonlinear least-squares fit of the RENO proposal's own per-reactor near/far detector distances (arXiv:1003.1391 Table 1.2) against these six OSM building positions (residuals under 6 m on distances of 300-1560 m for this SW-to-NE numbering, versus hundreds of metres for the reverse numbering or any other reactor-to-building permutation); see geometry:reno-near-detector method and the worklog. The table itself does not give reactor coordinates, only the SW-NE physical order of the six buildings is used, not a claim about which specific numbered unit (Hanbit's own operator-assigned Unit 1-6 numbering) each is.",
+      "quote": null,
+      "sources": [
+        "src:geo-reactors-osm-hanbit-reactors"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-reactors-osm-hanbit-reactors"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:hanbit-core-r5": {
+    "/geometry": {
+      "confidence": "approximate",
+      "locator": "OSM way 143990770 as of 2026-06-01T08:52:28Z",
+      "note": "Reactor containment building at the Hanbit (Yonggwang) Nuclear Power Plant, identified in OSM by power=generator, generator:source=nuclear. Assignment to reactor number R5 (of 6, numbered geographically southwest to northeast) is inferred from which numbering direction gives the best nonlinear least-squares fit of the RENO proposal's own per-reactor near/far detector distances (arXiv:1003.1391 Table 1.2) against these six OSM building positions (residuals under 6 m on distances of 300-1560 m for this SW-to-NE numbering, versus hundreds of metres for the reverse numbering or any other reactor-to-building permutation); see geometry:reno-near-detector method and the worklog. The table itself does not give reactor coordinates, only the SW-NE physical order of the six buildings is used, not a claim about which specific numbered unit (Hanbit's own operator-assigned Unit 1-6 numbering) each is.",
+      "quote": null,
+      "sources": [
+        "src:geo-reactors-osm-hanbit-reactors"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-reactors-osm-hanbit-reactors"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:hanbit-core-r6": {
+    "/geometry": {
+      "confidence": "approximate",
+      "locator": "OSM way 143990771 as of 2026-06-01T08:52:28Z",
+      "note": "Reactor containment building at the Hanbit (Yonggwang) Nuclear Power Plant, identified in OSM by power=generator, generator:source=nuclear. Assignment to reactor number R6 (of 6, numbered geographically southwest to northeast) is inferred from which numbering direction gives the best nonlinear least-squares fit of the RENO proposal's own per-reactor near/far detector distances (arXiv:1003.1391 Table 1.2) against these six OSM building positions (residuals under 6 m on distances of 300-1560 m for this SW-to-NE numbering, versus hundreds of metres for the reverse numbering or any other reactor-to-building permutation); see geometry:reno-near-detector method and the worklog. The table itself does not give reactor coordinates, only the SW-NE physical order of the six buildings is used, not a claim about which specific numbered unit (Hanbit's own operator-assigned Unit 1-6 numbering) each is.",
+      "quote": null,
+      "sources": [
+        "src:geo-reactors-osm-hanbit-reactors"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-reactors-osm-hanbit-reactors"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:hanbit-plant-boundary": {
+    "/geometry": {
+      "confidence": "approximate",
+      "locator": "OSM way 387266330 as of 2026-06-01T08:52:28Z",
+      "note": "OSM's power=plant boundary polygon for the Hanbit Nuclear Power Plant campus, drawn for surface context only; it is not a claim about either RENO detector hall (both are underground, offset from this boundary -- see geometry:reno-near-detector and geometry:reno-far-detector).",
+      "quote": null,
+      "sources": [
+        "src:geo-reactors-osm-hanbit-reactors"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-reactors-osm-hanbit-reactors"
       ],
       "verified_at": null
     }
@@ -50247,6 +51015,51 @@
       "verified_at": null
     }
   },
+  "geometry:leibstadt-conus-detector": {
+    "/geometry": {
+      "confidence": "derived",
+      "locator": "arXiv:2407.11912, 'positioned at (20.7 +/- 0.1) m from the reactor core center'",
+      "note": "CONUS+'s own paper (arXiv:2407.11912) states the detector sits 20.7 m from the reactor core center, 12.45 m horizontal distance from the reactor central axis, inside room ZA28R027 of the KKL containment building -- i.e. inside the reactor building itself, not a separate structure. No fetched source gives the azimuth of that horizontal offset, so this point is the candidate reactor-building's own centroid (geometry:leibstadt-core), used directly as the detector's position; accuracy_m is widened to 35 m to cover both the unresolved ~12-21 m offset and the building's own 30 m identification accuracy (see geometry:leibstadt-core note).",
+      "quote": null,
+      "sources": [
+        "src:cevns-conus-plus-overview-2024",
+        "src:geo-reactors-osm-brokdorf-leibstadt-reactors"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:cevns-conus-plus-overview-2024"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:leibstadt-core": {
+    "/geometry": {
+      "confidence": "approximate",
+      "locator": "OSM way 567961020 as of 2026-06-01T08:52:28Z",
+      "note": "Unlike Brokdorf's explicitly-named 'Reaktorgebäude', no building near the Leibstadt plant is named or tagged as the reactor building in OpenStreetMap. This is the largest building (51 x 37 m footprint) closest (32 m) to the OSM node explicitly named 'Leibstadt Kernkraftwerk' (node/984029288); accuracy_m is set wide (30 m) to reflect that this identification is inferred from proximity and size, not a name match.",
+      "quote": null,
+      "sources": [
+        "src:geo-reactors-osm-brokdorf-leibstadt-reactors"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-reactors-osm-brokdorf-leibstadt-reactors"
+      ],
+      "verified_at": null
+    }
+  },
   "geometry:lep-tunnel-ring": {
     "/checks/0": {
       "confidence": null,
@@ -50373,6 +51186,94 @@
       "quote": null,
       "sources": [
         "src:geo-cern-osm-linac4-building"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:lingao-core-l1": {
+    "/geometry": {
+      "confidence": "approximate",
+      "locator": "OSM way 704274586 as of 2026-09-18T22:27:36Z",
+      "note": "Reactor containment building, identified in OSM by power=generator, generator:source=nuclear, generator:output:electricity=950 MW, manufacturer:type consistent with a M310-derivative PWR. Assignment to the Daya Bay NIM paper's reactor-core label (D1/D2/L1/L2/L3/L4, Table 2) is inferred from which self-consistent multilateration fit of the three experimental halls' surveyed AD-to-core baselines gives the smallest residual against this building's OSM position (see geometry:daya-bay-eh1-hall method and the worklog); the paper itself does not name which physical unit is D1 vs D2 (or L1 vs L2, L3 vs L4), so this specific half of the label pair is not independently sourced, only the pair (this plant's two units) is.",
+      "quote": null,
+      "sources": [
+        "src:geo-reactors-osm-dayabay-reactors"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-reactors-osm-dayabay-reactors"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:lingao-core-l2": {
+    "/geometry": {
+      "confidence": "approximate",
+      "locator": "OSM way 704274587 as of 2026-09-18T22:27:36Z",
+      "note": "Reactor containment building, identified in OSM by power=generator, generator:source=nuclear, generator:output:electricity=950 MW, manufacturer:type consistent with a M310-derivative PWR. Assignment to the Daya Bay NIM paper's reactor-core label (D1/D2/L1/L2/L3/L4, Table 2) is inferred from which self-consistent multilateration fit of the three experimental halls' surveyed AD-to-core baselines gives the smallest residual against this building's OSM position (see geometry:daya-bay-eh1-hall method and the worklog); the paper itself does not name which physical unit is D1 vs D2 (or L1 vs L2, L3 vs L4), so this specific half of the label pair is not independently sourced, only the pair (this plant's two units) is.",
+      "quote": null,
+      "sources": [
+        "src:geo-reactors-osm-dayabay-reactors"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-reactors-osm-dayabay-reactors"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:lingao-ii-core-l3": {
+    "/geometry": {
+      "confidence": "approximate",
+      "locator": "OSM way 704274585 as of 2026-09-18T22:27:36Z",
+      "note": "Reactor containment building, identified in OSM by power=generator, generator:source=nuclear, generator:output:electricity=1007 MW, manufacturer:type consistent with a CPR-1000 PWR. Assignment to the Daya Bay NIM paper's reactor-core label (D1/D2/L1/L2/L3/L4, Table 2) is inferred from which self-consistent multilateration fit of the three experimental halls' surveyed AD-to-core baselines gives the smallest residual against this building's OSM position (see geometry:daya-bay-eh1-hall method and the worklog); the paper itself does not name which physical unit is D1 vs D2 (or L1 vs L2, L3 vs L4), so this specific half of the label pair is not independently sourced, only the pair (this plant's two units) is.",
+      "quote": null,
+      "sources": [
+        "src:geo-reactors-osm-dayabay-reactors"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-reactors-osm-dayabay-reactors"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:lingao-ii-core-l4": {
+    "/geometry": {
+      "confidence": "approximate",
+      "locator": "OSM way 704274584 as of 2026-09-18T22:27:36Z",
+      "note": "Reactor containment building, identified in OSM by power=generator, generator:source=nuclear, generator:output:electricity=1007 MW, manufacturer:type consistent with a CPR-1000 PWR. Assignment to the Daya Bay NIM paper's reactor-core label (D1/D2/L1/L2/L3/L4, Table 2) is inferred from which self-consistent multilateration fit of the three experimental halls' surveyed AD-to-core baselines gives the smallest residual against this building's OSM position (see geometry:daya-bay-eh1-hall method and the worklog); the paper itself does not name which physical unit is D1 vs D2 (or L1 vs L2, L3 vs L4), so this specific half of the label pair is not independently sourced, only the pair (this plant's two units) is.",
+      "quote": null,
+      "sources": [
+        "src:geo-reactors-osm-dayabay-reactors"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-reactors-osm-dayabay-reactors"
       ],
       "verified_at": null
     }
@@ -51023,6 +51924,292 @@
       "quote": null,
       "sources": [
         "src:geo-psi-osm-campus-boundary"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:reno-far-detector": {
+    "/checks/0": {
+      "confidence": null,
+      "locator": "Table 1.2",
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-reactors-reno-proposal-2010"
+      ],
+      "verified_at": null
+    },
+    "/checks/0/expected": {
+      "confidence": "verified",
+      "locator": "Table 1.2",
+      "note": "",
+      "quote": "Table 1.2: Distances of the reactor cores from the near and far detectors.",
+      "sources": [
+        "src:geo-reactors-reno-proposal-2010"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/checks/1": {
+      "confidence": null,
+      "locator": "Table 1.2",
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-reactors-reno-proposal-2010"
+      ],
+      "verified_at": null
+    },
+    "/checks/1/expected": {
+      "confidence": "verified",
+      "locator": "Table 1.2",
+      "note": "",
+      "quote": "Table 1.2: Distances of the reactor cores from the near and far detectors.",
+      "sources": [
+        "src:geo-reactors-reno-proposal-2010"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/checks/2": {
+      "confidence": null,
+      "locator": "Table 1.2",
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-reactors-reno-proposal-2010"
+      ],
+      "verified_at": null
+    },
+    "/checks/2/expected": {
+      "confidence": "verified",
+      "locator": "Table 1.2",
+      "note": "",
+      "quote": "Table 1.2: Distances of the reactor cores from the near and far detectors.",
+      "sources": [
+        "src:geo-reactors-reno-proposal-2010"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/checks/3": {
+      "confidence": null,
+      "locator": "Table 1.2",
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-reactors-reno-proposal-2010"
+      ],
+      "verified_at": null
+    },
+    "/checks/3/expected": {
+      "confidence": "verified",
+      "locator": "Table 1.2",
+      "note": "",
+      "quote": "Table 1.2: Distances of the reactor cores from the near and far detectors.",
+      "sources": [
+        "src:geo-reactors-reno-proposal-2010"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/checks/4": {
+      "confidence": null,
+      "locator": "Table 1.2",
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-reactors-reno-proposal-2010"
+      ],
+      "verified_at": null
+    },
+    "/checks/4/expected": {
+      "confidence": "verified",
+      "locator": "Table 1.2",
+      "note": "",
+      "quote": "Table 1.2: Distances of the reactor cores from the near and far detectors.",
+      "sources": [
+        "src:geo-reactors-reno-proposal-2010"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/checks/5": {
+      "confidence": null,
+      "locator": "Table 1.2",
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-reactors-reno-proposal-2010"
+      ],
+      "verified_at": null
+    },
+    "/checks/5/expected": {
+      "confidence": "verified",
+      "locator": "Table 1.2",
+      "note": "",
+      "quote": "Table 1.2: Distances of the reactor cores from the near and far detectors.",
+      "sources": [
+        "src:geo-reactors-reno-proposal-2010"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/geometry": {
+      "confidence": "derived",
+      "locator": "arXiv:1003.1391 Table 1.2 (per-reactor near/far baselines); OSM reactor-building positions",
+      "note": "Nonlinear least-squares multilateration (scipy.optimize.least_squares on raw Euclidean centre-to-centre distance residuals, local equirectangular projection) of this detector hall's position from the six Hanbit reactor-core buildings (geometry:hanbit-core-r1..r6; accuracy_m 8 each), using the per-reactor near/far distances published in the RENO proposal (arXiv:1003.1391, Table 1.2, 'Distances of the reactor cores from the near and far detectors'). Of all 6! possible assignments of the table's R1-R6 labels to the six OSM buildings (and the reflection of the whole line), only the natural southwest-to-northeast geographic numbering converges to a good fit (residual root-mean-square 3-5 m on baselines of 300-1560 m, i.e. well under 2%); every other assignment leaves a residual of hundreds of metres, so this numbering (not independently sourced -- the proposal gives no reactor coordinates) is adopted on that self-consistency alone. accuracy_m is set above the fit residual to also cover the OSM buildings' own ~8 m footprint accuracy and this table being the experiment's 2010 design/proposal figure rather than an as-built survey (the collaboration's own later papers confirm the same overall geometry only as flux-weighted averages: 294 m / 1383 m from the array centre, arXiv:1204.0626).",
+      "quote": null,
+      "sources": [
+        "src:geo-reactors-reno-proposal-2010",
+        "src:geo-reactors-osm-hanbit-reactors"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-reactors-reno-proposal-2010"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:reno-near-detector": {
+    "/checks/0": {
+      "confidence": null,
+      "locator": "Table 1.2",
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-reactors-reno-proposal-2010"
+      ],
+      "verified_at": null
+    },
+    "/checks/0/expected": {
+      "confidence": "verified",
+      "locator": "Table 1.2",
+      "note": "",
+      "quote": "Table 1.2: Distances of the reactor cores from the near and far detectors.",
+      "sources": [
+        "src:geo-reactors-reno-proposal-2010"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/checks/1": {
+      "confidence": null,
+      "locator": "Table 1.2",
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-reactors-reno-proposal-2010"
+      ],
+      "verified_at": null
+    },
+    "/checks/1/expected": {
+      "confidence": "verified",
+      "locator": "Table 1.2",
+      "note": "",
+      "quote": "Table 1.2: Distances of the reactor cores from the near and far detectors.",
+      "sources": [
+        "src:geo-reactors-reno-proposal-2010"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/checks/2": {
+      "confidence": null,
+      "locator": "Table 1.2",
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-reactors-reno-proposal-2010"
+      ],
+      "verified_at": null
+    },
+    "/checks/2/expected": {
+      "confidence": "verified",
+      "locator": "Table 1.2",
+      "note": "",
+      "quote": "Table 1.2: Distances of the reactor cores from the near and far detectors.",
+      "sources": [
+        "src:geo-reactors-reno-proposal-2010"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/checks/3": {
+      "confidence": null,
+      "locator": "Table 1.2",
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-reactors-reno-proposal-2010"
+      ],
+      "verified_at": null
+    },
+    "/checks/3/expected": {
+      "confidence": "verified",
+      "locator": "Table 1.2",
+      "note": "",
+      "quote": "Table 1.2: Distances of the reactor cores from the near and far detectors.",
+      "sources": [
+        "src:geo-reactors-reno-proposal-2010"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/checks/4": {
+      "confidence": null,
+      "locator": "Table 1.2",
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-reactors-reno-proposal-2010"
+      ],
+      "verified_at": null
+    },
+    "/checks/4/expected": {
+      "confidence": "verified",
+      "locator": "Table 1.2",
+      "note": "",
+      "quote": "Table 1.2: Distances of the reactor cores from the near and far detectors.",
+      "sources": [
+        "src:geo-reactors-reno-proposal-2010"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/checks/5": {
+      "confidence": null,
+      "locator": "Table 1.2",
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-reactors-reno-proposal-2010"
+      ],
+      "verified_at": null
+    },
+    "/checks/5/expected": {
+      "confidence": "verified",
+      "locator": "Table 1.2",
+      "note": "",
+      "quote": "Table 1.2: Distances of the reactor cores from the near and far detectors.",
+      "sources": [
+        "src:geo-reactors-reno-proposal-2010"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/geometry": {
+      "confidence": "derived",
+      "locator": "arXiv:1003.1391 Table 1.2 (per-reactor near/far baselines); OSM reactor-building positions",
+      "note": "Nonlinear least-squares multilateration (scipy.optimize.least_squares on raw Euclidean centre-to-centre distance residuals, local equirectangular projection) of this detector hall's position from the six Hanbit reactor-core buildings (geometry:hanbit-core-r1..r6; accuracy_m 8 each), using the per-reactor near/far distances published in the RENO proposal (arXiv:1003.1391, Table 1.2, 'Distances of the reactor cores from the near and far detectors'). Of all 6! possible assignments of the table's R1-R6 labels to the six OSM buildings (and the reflection of the whole line), only the natural southwest-to-northeast geographic numbering converges to a good fit (residual root-mean-square 3-5 m on baselines of 300-1560 m, i.e. well under 2%); every other assignment leaves a residual of hundreds of metres, so this numbering (not independently sourced -- the proposal gives no reactor coordinates) is adopted on that self-consistency alone. accuracy_m is set above the fit residual to also cover the OSM buildings' own ~8 m footprint accuracy and this table being the experiment's 2010 design/proposal figure rather than an as-built survey (the collaboration's own later papers confirm the same overall geometry only as flux-weighted averages: 294 m / 1383 m from the array centre, arXiv:1204.0626).",
+      "quote": null,
+      "sources": [
+        "src:geo-reactors-reno-proposal-2010",
+        "src:geo-reactors-osm-hanbit-reactors"
+      ],
+      "verified_at": "2026-09-18"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-reactors-reno-proposal-2010"
       ],
       "verified_at": null
     }
@@ -68943,6 +70130,29 @@
       "verified_at": null
     }
   },
+  "map:brokdorf-nuclear-power-plant": {
+    "/center": {
+      "confidence": "derived",
+      "locator": "reactor-building centroid",
+      "note": "Map centre only: mean of the drawn features' centroids; not a claim about any structure.",
+      "quote": null,
+      "sources": [
+        "src:geo-reactors-osm-brokdorf-leibstadt-reactors"
+      ],
+      "verified_at": "2026-09-21"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-reactors-osm-brokdorf-leibstadt-reactors",
+        "src:cevns-conus-prl-2024-final-brokdorf"
+      ],
+      "verified_at": null
+    }
+  },
   "map:brookhaven-national-laboratory": {
     "/center": {
       "confidence": "derived",
@@ -69180,6 +70390,61 @@
       "verified_at": "2026-09-18"
     }
   },
+  "map:chooz": {
+    "/center": {
+      "confidence": "derived",
+      "locator": "mean of the three reactor-building centroids",
+      "note": "Map centre only: mean of the drawn features' centroids; not a claim about any structure.",
+      "quote": null,
+      "sources": [
+        "src:geo-reactors-osm-chooz-reactors"
+      ],
+      "verified_at": "2026-09-21"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-reactors-osm-chooz-reactors",
+        "src:double-chooz-2012-evidence"
+      ],
+      "verified_at": null
+    },
+    "/unlocated/0": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-reactors-osm-chooz-reactors",
+        "src:double-chooz-2012-evidence"
+      ],
+      "verified_at": "2026-09-21"
+    },
+    "/unlocated/1": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-reactors-osm-chooz-reactors",
+        "src:double-chooz-2012-evidence"
+      ],
+      "verified_at": "2026-09-21"
+    },
+    "/unlocated/2": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-reactors-osm-chooz-reactors"
+      ],
+      "verified_at": "2026-09-21"
+    }
+  },
   "map:cjpl": {
     "/center": {
       "confidence": "derived",
@@ -69256,6 +70521,83 @@
       "quote": null,
       "sources": [
         "src:cosmic-gamma-verify-ctao-south-site-page"
+      ],
+      "verified_at": null
+    }
+  },
+  "map:daya-bay-reactor-neutrino-lab": {
+    "/center": {
+      "confidence": "derived",
+      "locator": "mean of the six reactor-building centroids and three derived hall positions",
+      "note": "Map centre only: mean of the drawn features' centroids; not a claim about any structure.",
+      "quote": null,
+      "sources": [
+        "src:geo-reactors-osm-dayabay-reactors"
+      ],
+      "verified_at": "2026-09-21"
+    },
+    "/levels/1": {
+      "confidence": null,
+      "locator": null,
+      "note": "Near hall; two antineutrino detectors.",
+      "quote": null,
+      "sources": null,
+      "verified_at": null
+    },
+    "/levels/1/depth_m": {
+      "confidence": "verified",
+      "locator": "arXiv:1508.03943 §2.2; Table 1 gives 250 m.w.e.",
+      "note": "",
+      "quote": "The rock overburden is 93 m at EH1, 100 m at EH2 and 324 m at EH3.",
+      "sources": [
+        "src:geo-reactors-daya-bay-nim-2016"
+      ],
+      "verified_at": "2026-09-21"
+    },
+    "/levels/2": {
+      "confidence": null,
+      "locator": null,
+      "note": "Near hall; two antineutrino detectors.",
+      "quote": null,
+      "sources": null,
+      "verified_at": null
+    },
+    "/levels/2/depth_m": {
+      "confidence": "verified",
+      "locator": "arXiv:1508.03943 §2.2; Table 1 gives 265 m.w.e.",
+      "note": "",
+      "quote": "The rock overburden is 93 m at EH1, 100 m at EH2 and 324 m at EH3.",
+      "sources": [
+        "src:geo-reactors-daya-bay-nim-2016"
+      ],
+      "verified_at": "2026-09-21"
+    },
+    "/levels/3": {
+      "confidence": null,
+      "locator": null,
+      "note": "Far hall; four antineutrino detectors.",
+      "quote": null,
+      "sources": null,
+      "verified_at": null
+    },
+    "/levels/3/depth_m": {
+      "confidence": "verified",
+      "locator": "arXiv:1508.03943 §2.2; Table 1 gives 860 m.w.e.",
+      "note": "",
+      "quote": "The rock overburden is 93 m at EH1, 100 m at EH2 and 324 m at EH3.",
+      "sources": [
+        "src:geo-reactors-daya-bay-nim-2016"
+      ],
+      "verified_at": "2026-09-21"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-reactors-osm-dayabay-reactors",
+        "src:geo-reactors-daya-bay-nim-2016"
       ],
       "verified_at": null
     }
@@ -69961,6 +71303,29 @@
       "verified_at": null
     }
   },
+  "map:leibstadt-nuclear-power-plant": {
+    "/center": {
+      "confidence": "derived",
+      "locator": "reactor-building centroid",
+      "note": "Map centre only: mean of the drawn features' centroids; not a claim about any structure.",
+      "quote": null,
+      "sources": [
+        "src:geo-reactors-osm-brokdorf-leibstadt-reactors"
+      ],
+      "verified_at": "2026-09-21"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-reactors-osm-brokdorf-leibstadt-reactors",
+        "src:cevns-conus-plus-overview-2024"
+      ],
+      "verified_at": null
+    }
+  },
   "map:lhaaso-daocheng": {
     "/center": {
       "confidence": "approximate",
@@ -70608,6 +71973,45 @@
       "sources": [
         "src:geo-wipp-osm-extract",
         "src:exo-200-doe-wipp-official-page"
+      ],
+      "verified_at": null
+    }
+  },
+  "map:yonggwang-hanbit-reactor-site": {
+    "/center": {
+      "confidence": "derived",
+      "locator": "mean of the six reactor-building centroids, the plant boundary and the two derived hall positions",
+      "note": "Map centre only: mean of the drawn features' centroids; not a claim about any structure.",
+      "quote": null,
+      "sources": [
+        "src:geo-reactors-osm-hanbit-reactors"
+      ],
+      "verified_at": "2026-09-21"
+    },
+    "/levels/1": {
+      "confidence": null,
+      "locator": null,
+      "note": "RENO TDR (arXiv:1003.1391) §1.2.2: \"The near detector will be located at underground of a 70 m (AMSL) ridge with an overburden of ∼110 mwe\". Rock depth in metres is not published, so depth_m is left null.",
+      "quote": null,
+      "sources": null,
+      "verified_at": null
+    },
+    "/levels/2": {
+      "confidence": null,
+      "locator": null,
+      "note": "RENO TDR (arXiv:1003.1391) §1.2.2: \"the far detector is to be located under a 260 m mountain with the overburden of ∼450 mwe\". Rock depth in metres is not published, so depth_m is left null.",
+      "quote": null,
+      "sources": null,
+      "verified_at": null
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-reactors-osm-hanbit-reactors",
+        "src:geo-reactors-reno-proposal-2010"
       ],
       "verified_at": null
     }
