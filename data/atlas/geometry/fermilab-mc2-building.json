@@ -74,7 +74,9 @@
   "map_id": "map:fermilab",
   "method": "OpenStreetMap way 720556732 'MC-2' footprint, traced verbatim, 84 m from MC-1 (way 720556725, confirmed as the Muon g-2 building). Drawn as a context feature (entity_id null, not detector:mu2e) because no source fetched this session confirms MC-2 is specifically the Mu2e hall -- the MC-1/MC-2 naming pattern and Muon Campus adjacency are suggestive but not sourced; a WebSearch and two WebFetch attempts (arXiv:2208.02889 'Muon Campus at Fermilab', both HTML and PDF) found no fetchable text naming MC-2.",
   "name": "MC-2 building, Fermilab Muon Campus (identity not confirmed)",
-  "notes": [],
+  "notes": [
+    "Integrator (2026-09-21): `site_id` cleared — the identification of MC-2 with the Mu2e hall is unconfirmed (see the map's unlocated row for detector:mu2e), so this context building must not stand for site:fermilab-mu2e-hall."
+  ],
   "osm": {
     "elements": [
       "way/720556732"
@@ -83,7 +85,7 @@
   },
   "representation": "georeferenced",
   "schema": "hep-atlas/0.2",
-  "site_id": "site:fermilab-mu2e-hall",
+  "site_id": null,
   "sources": [
     "src:fermilab-geo-osm-muon-campus"
   ],

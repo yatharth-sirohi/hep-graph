@@ -1483,7 +1483,7 @@
         "verified_at": "2026-09-18"
       },
       "representation": "georeferenced",
-      "site_id": "site:fermilab-mu2e-hall",
+      "site_id": null,
       "state_segments": null,
       "status": null
     },
@@ -2837,7 +2837,7 @@
       "entity_id": "detector:sbnd",
       "entity_name": "SBND detector",
       "entity_type": "detector",
-      "feature_type": "target_station",
+      "feature_type": "other",
       "geometry": {
         "coordinates": [
           -88.269595,
@@ -3902,16 +3902,6 @@
         ]
       },
       {
-        "backlog": "See the backlog rows above for detector:minerva, detector:donut, detector:sensei, detector:damic and detector:dune-near-detector, each of which shares this site.",
-        "entity_id": "site:fermilab-main-campus",
-        "entity_name": "Fermilab main campus, Batavia, Illinois",
-        "entity_type": "site",
-        "reason": "This coarse 3 km campus point hosts many detector placements. Most detectors placed here ARE now drawn, from their own OSM building footprints with `site_id` set to this site (geometry:fermilab-minos-near-surface, geometry:fermilab-nova-near-surface, geometry:fermilab-miniboone-hall, geometry:fermilab-microboone-hall, geometry:fermilab-icarus-hall, geometry:fermilab-sbnd-point, plus the derived geometry:fermilab-bnb-target/beamline and geometry:fermilab-numi-target/beamline, and geometry:fermilab-linac's context), but the site record itself is never the `entity_id` of a geometry feature (a single point cannot represent a 27 km^2 campus as one 'drawn' feature), so it is named here too. The detectors placed here that remain undrawn are individually listed above (detector:minerva, detector:donut, detector:sensei, detector:damic, detector:dune-near-detector).",
-        "sources": [
-          "src:fermilab-geo-osm-buildings"
-        ]
-      },
-      {
         "backlog": "Same backlog as detector:mu2e above.",
         "entity_id": "site:fermilab-mu2e-hall",
         "entity_name": "Mu2e experimental hall, Fermilab",
@@ -4122,5 +4112,5 @@
       "url": "https://sanfordlab.org/"
     }
   },
-  "version": "5b4b19c7ccd1b39b"
+  "version": "7bf2ca97a9db695d"
 }
