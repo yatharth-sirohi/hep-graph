@@ -152,7 +152,9 @@
   "map_id": "map:fermilab",
   "method": "OpenStreetMap way 1447175900 'Liqud Argon Test Facility' [sic] footprint, traced verbatim. Identified as MicroBooNE's hall by the existing placement record's own sourced note ('The detector sits in the Liquid Argon Test Facility (LArTF) on the Booster Neutrino Beam', src:microboone-experiment-site).",
   "name": "Liquid Argon Test Facility (LArTF) -- MicroBooNE hall",
-  "notes": [],
+  "notes": [
+    "QA pass (2026-09-21): removed the `valid: {start: '2015-10', end: null}` window a previous pass set. hepgraph.atlas.build._feature_segments() treats any `valid` dict with a non-null `start` as an open-ended 'active' window through build day whenever `end` is null, overriding the entity's own state_segments entirely -- so this feature was rendering `status: 'active'` in the built bundle today even though detector:microboone's own sourced timeline says otherwise (status 'completed' at build day 2026-09-21, confirmed by directly testing hepgraph.atlas.build._Context.status_at_build/segments). Removing `valid` restores the intended fallback (contract SS3: 'without it the feature inherits the entity's timeline'). This is a pipeline-code gap (hepgraph/atlas/build.py `_feature_segments`), not unique to this record -- see docs/atlas-worklog/REVIEW_geometry_qa.md."
+  ],
   "osm": {
     "elements": [
       "way/1447175900"
@@ -170,8 +172,5 @@
     "plain": "Confidence 'verified' rests on the passing distance check below, which cites a rank-5 detector paper."
   },
   "type": "geometry",
-  "valid": {
-    "end": null,
-    "start": "2015-10"
-  }
+  "valid": null
 }

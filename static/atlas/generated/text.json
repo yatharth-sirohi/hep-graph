@@ -4450,7 +4450,9 @@
     "notes": []
   },
   "geometry:bnl-ags-ring": {
-    "notes": []
+    "notes": [
+      "QA pass (2026-09-21): removed the `valid: {start: '1960-07', end: null}` window a previous pass set (1960-07 is AGS's own operational start, already `accelerator:ags`'s sourced interval start -- `valid` here was redundant with the entity's own timeline, not a case of the shape's lifetime differing from it). Removing it is a preventive fix for a latent bug in hepgraph.atlas.build._feature_segments(): any `valid` dict with a non-null `start` and `end: null` hard-codes `status: 'active'` through build day regardless of the entity's real status, bypassing state_segments entirely. Currently harmless only because AGS genuinely is still active; the same pattern produced a live false-'active' claim on geometry:hera-tunnel-ring and geometry:bnl-rhic-ring (both decommissioned machines), fixed the same way in this pass -- see docs/atlas-worklog/REVIEW_geometry_qa.md. Confirmed via hepgraph.atlas.build._Context.status_at_build on accelerator:ags at build day 2026-09-21: 'active', matching accelerator:ags.status."
+    ]
   },
   "geometry:bnl-berkner-hall-building": {
     "notes": []
@@ -4462,7 +4464,9 @@
     "notes": []
   },
   "geometry:bnl-rhic-ring": {
-    "notes": []
+    "notes": [
+      "QA pass (2026-09-21): removed the `valid: {start: '1991', end: null}` window a previous pass set (1991 is when BNL received funding to proceed with RHIC's construction, per accelerator:rhic's own sourced interval). hepgraph.atlas.build._feature_segments() treats any `valid` dict with a non-null `start` as an open-ended 'active' window through build day whenever `end` is null, overriding the entity's own state_segments entirely -- so this feature was rendering `status: 'active'` in the built bundle today, even though RHIC's final run ended 2026-02-06 (accelerator:rhic.status is `completed`, sourced to BNL's own dedication/shutdown reporting). Removing `valid` restores the intended fallback (contract SS3: 'without it the feature inherits the entity's timeline'), confirmed by directly testing hepgraph.atlas.build._Context.status_at_build/segments on accelerator:rhic at build day 2026-09-21: now correctly 'completed'. This is a pipeline-code gap (hepgraph/atlas/build.py `_feature_segments`), not unique to this record -- see docs/atlas-worklog/REVIEW_geometry_qa.md."
+    ]
   },
   "geometry:bnl-star-hall": {
     "notes": []
@@ -4578,7 +4582,9 @@
     "notes": []
   },
   "geometry:fermilab-icarus-hall": {
-    "notes": []
+    "notes": [
+      "QA pass (2026-09-21): removed the `valid: {start: '2017-07', end: null}` window a previous pass set -- a preventive fix for a latent bug in hepgraph.atlas.build._feature_segments(): any `valid` dict with a non-null `start` and `end: null` hard-codes `status: 'active'` through build day regardless of the entity's real status, bypassing state_segments entirely. Currently harmless because detector:icarus-t600 genuinely is 'active' today, but this pattern produced a live false-'active' claim on three other records (geometry:lhc-tunnel-ring, geometry:fermilab-mc1-building, geometry:fermilab-microboone-hall) fixed the same way in this pass -- see docs/atlas-worklog/REVIEW_geometry_qa.md."
+    ]
   },
   "geometry:fermilab-lbnf-direction": {
     "notes": []
@@ -4587,7 +4593,9 @@
     "notes": []
   },
   "geometry:fermilab-mc1-building": {
-    "notes": []
+    "notes": [
+      "QA pass (2026-09-21): removed the `valid: {start: '2013', end: null}` window a previous pass set. hepgraph.atlas.build._feature_segments() treats any `valid` dict with a non-null `start` as an open-ended 'active' window through build day whenever `end` is null, overriding the entity's own state_segments entirely -- so this feature was rendering `status: 'active'` in the built bundle today even though detector:muon-g-2's own sourced timeline says otherwise (status 'completed' at build day 2026-09-21, confirmed by directly testing hepgraph.atlas.build._Context.status_at_build/segments). Removing `valid` restores the intended fallback (contract SS3: 'without it the feature inherits the entity's timeline'). This is a pipeline-code gap (hepgraph/atlas/build.py `_feature_segments`), not unique to this record -- see docs/atlas-worklog/REVIEW_geometry_qa.md."
+    ]
   },
   "geometry:fermilab-mc2-building": {
     "notes": [
@@ -4598,7 +4606,9 @@
     "notes": []
   },
   "geometry:fermilab-microboone-hall": {
-    "notes": []
+    "notes": [
+      "QA pass (2026-09-21): removed the `valid: {start: '2015-10', end: null}` window a previous pass set. hepgraph.atlas.build._feature_segments() treats any `valid` dict with a non-null `start` as an open-ended 'active' window through build day whenever `end` is null, overriding the entity's own state_segments entirely -- so this feature was rendering `status: 'active'` in the built bundle today even though detector:microboone's own sourced timeline says otherwise (status 'completed' at build day 2026-09-21, confirmed by directly testing hepgraph.atlas.build._Context.status_at_build/segments). Removing `valid` restores the intended fallback (contract SS3: 'without it the feature inherits the entity's timeline'). This is a pipeline-code gap (hepgraph/atlas/build.py `_feature_segments`), not unique to this record -- see docs/atlas-worklog/REVIEW_geometry_qa.md."
+    ]
   },
   "geometry:fermilab-miniboone-hall": {
     "notes": []
@@ -4607,7 +4617,9 @@
     "notes": []
   },
   "geometry:fermilab-nova-near-surface": {
-    "notes": []
+    "notes": [
+      "QA pass (2026-09-21): removed the `valid: {start: '2014-02-06', end: null}` window a previous pass set -- a preventive fix for a latent bug in hepgraph.atlas.build._feature_segments(): any `valid` dict with a non-null `start` and `end: null` hard-codes `status: 'active'` through build day regardless of the entity's real status, bypassing state_segments entirely. Currently harmless because detector:nova-near-detector genuinely is 'active' today, but this pattern produced a live false-'active' claim on three other records (geometry:lhc-tunnel-ring, geometry:fermilab-mc1-building, geometry:fermilab-microboone-hall) fixed the same way in this pass -- see docs/atlas-worklog/REVIEW_geometry_qa.md."
+    ]
   },
   "geometry:fermilab-numi-beamline": {
     "notes": []
@@ -4620,7 +4632,8 @@
   },
   "geometry:fermilab-sbnd-point": {
     "notes": [
-      "Integrator (2026-09-21): feature_type corrected from target_station to other; this is a derived detector position, not a beam target."
+      "Integrator (2026-09-21): feature_type corrected from target_station to other; this is a derived detector position, not a beam target.",
+      "QA pass (2026-09-21): removed the `valid: {start: '2024-07', end: null}` window a previous pass set -- a preventive fix for a latent bug in hepgraph.atlas.build._feature_segments(): any `valid` dict with a non-null `start` and `end: null` hard-codes `status: 'active'` through build day regardless of the entity's real status, bypassing state_segments entirely. Currently harmless because detector:sbnd genuinely is 'active' today, but this pattern produced a live false-'active' claim on three other records (geometry:lhc-tunnel-ring, geometry:fermilab-mc1-building, geometry:fermilab-microboone-hall) fixed the same way in this pass -- see docs/atlas-worklog/REVIEW_geometry_qa.md."
     ]
   },
   "geometry:fermilab-tevatron-ring": {
@@ -4664,7 +4677,8 @@
   },
   "geometry:hera-tunnel-ring": {
     "notes": [
-      "valid.start (1990-11-08) is the OSM way's own start_date tag, which predates accelerator:hera's own sourced operation interval (1992) -- the tunnel/ring structure itself predates first physics collisions, matching the contract's guidance that a shape's own lifetime may differ from its entity's."
+      "The OSM way's own start_date tag reads 1990-11-08, predating accelerator:hera's own sourced operation interval (1992) -- the tunnel/ring structure itself predates first physics collisions.",
+      "QA pass (2026-09-21): removed the `valid: {start: '1990-11-08', end: null}` window a previous pass set for the fact above. hepgraph.atlas.build._feature_segments() treats ANY `valid` dict with a non-null `start` as an open-ended 'active' window through build day whenever `end` is null, overriding the entity's own state_segments entirely -- so this feature was rendering `status: 'active'` in the built bundle today, 19 years after HERA's real 2007-06-30 shutdown (accelerator:hera.status is `completed`). Removing `valid` restores the intended fallback (contract SS3: 'without it the feature inherits the entity's timeline'), confirmed by directly testing hepgraph.atlas.build._Context.status_at_build/segments on accelerator:hera at build day 2026-09-21: now correctly 'completed'. The ~1.5-year tunnel-predates-operation nuance is preserved in the note above, just no longer encoded as a `valid` window. This is a pipeline-code gap (hepgraph/atlas/build.py `_feature_segments`, not caught by any validator rule), not unique to this record -- see docs/atlas-worklog/REVIEW_geometry_qa.md."
     ]
   },
   "geometry:hess-ct1-4-square": {
@@ -4821,7 +4835,9 @@
     ]
   },
   "geometry:leibstadt-conus-detector": {
-    "notes": []
+    "notes": [
+      "QA pass (2026-09-21): removed the `valid: {start: '2023-11', end: null}` window a previous pass set -- a preventive fix for a latent bug in hepgraph.atlas.build._feature_segments(): any `valid` dict with a non-null `start` and `end: null` hard-codes `status: 'active'` through build day regardless of the entity's real status, bypassing state_segments entirely. Currently harmless because detector:conus-hpge-array genuinely is 'active' today, but this pattern produced a live false-'active' claim on three other records (geometry:lhc-tunnel-ring, geometry:fermilab-mc1-building, geometry:fermilab-microboone-hall) fixed the same way in this pass -- see docs/atlas-worklog/REVIEW_geometry_qa.md."
+    ]
   },
   "geometry:leibstadt-core": {
     "notes": [
@@ -4834,11 +4850,14 @@
   },
   "geometry:lhaaso-array-point": {
     "notes": [
-      "KM2A (circular, ~575-635 m radius) and WCDA (78,000 m2, two 150x150 m pools plus one 300x110 m pool) are described with enough shape/size detail to draw, but not with a coordinate precise enough to anchor them honestly this session; see method and worklog backlog."
+      "KM2A (circular, ~575-635 m radius) and WCDA (78,000 m2, two 150x150 m pools plus one 300x110 m pool) are described with enough shape/size detail to draw, but not with a coordinate precise enough to anchor them honestly this session; see method and worklog backlog.",
+      "QA pass (2026-09-21): added the ODbL-1.0 licence this record omitted despite its own `method`/`geometry.note` stating the coordinate is a verbatim Nominatim (OpenStreetMap) geocode; the underlying `src:cosmic-gamma-nominatim-haizi-mountain` source predates the A25 `openstreetmap` source_type convention (it is typed `geocoder`) and its Nominatim response did not record a specific osm_id, so `osm.elements` is left null rather than invented. No coordinate or claim changed."
     ]
   },
   "geometry:lhc-tunnel-ring": {
-    "notes": []
+    "notes": [
+      "QA pass (2026-09-21): removed the `valid: {start: '1985-02', end: null}` window a previous pass set. hepgraph.atlas.build._feature_segments() treats any `valid` dict with a non-null `start` as an open-ended 'active' window through build day whenever `end` is null, overriding the entity's own state_segments entirely -- so this feature was rendering `status: 'active'` in the built bundle today even though accelerator:lhc's own sourced timeline says otherwise (status 'shutdown' at build day 2026-09-21, confirmed by directly testing hepgraph.atlas.build._Context.status_at_build/segments). Removing `valid` restores the intended fallback (contract SS3: 'without it the feature inherits the entity's timeline'). This is a pipeline-code gap (hepgraph/atlas/build.py `_feature_segments`), not unique to this record -- see docs/atlas-worklog/REVIEW_geometry_qa.md."
+    ]
   },
   "geometry:linac4-building": {
     "notes": []
@@ -4898,7 +4917,9 @@
     ]
   },
   "geometry:meyrin-site-marker": {
-    "notes": []
+    "notes": [
+      "QA pass (2026-09-21): added the ODbL-1.0 licence and `osm.elements` this record omitted despite naming OSM relation 27005 (Nominatim) as its coordinate source in `method`; the underlying `src:cern-meyrin-osm-nominatim` source predates the A25 `openstreetmap` source_type convention (it is typed `geocoder`), so the validator's automatic OSM-license check did not catch the omission. No coordinate or claim changed."
+    ]
   },
   "geometry:modane-carre-sciences-point": {
     "notes": [

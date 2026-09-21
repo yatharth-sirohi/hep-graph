@@ -2713,13 +2713,103 @@
       "site_id": null,
       "state_segments": [
         [
-          421,
-          920,
+          704,
+          704,
+          "commissioning",
+          "possible"
+        ],
+        [
+          705,
+          717,
+          "commissioning",
+          "certain"
+        ],
+        [
+          718,
+          718,
+          "commissioning",
+          "possible"
+        ],
+        [
+          719,
+          721,
+          "unrecorded",
+          "possible"
+        ],
+        [
+          722,
+          722,
           "active",
+          "possible"
+        ],
+        [
+          723,
+          755,
+          "active",
+          "certain"
+        ],
+        [
+          756,
+          767,
+          "shutdown",
+          "possible"
+        ],
+        [
+          768,
+          779,
+          "shutdown",
+          "certain"
+        ],
+        [
+          780,
+          791,
+          "shutdown",
+          "possible"
+        ],
+        [
+          792,
+          826,
+          "active",
+          "certain"
+        ],
+        [
+          827,
+          827,
+          "shutdown",
+          "possible"
+        ],
+        [
+          828,
+          869,
+          "shutdown",
+          "certain"
+        ],
+        [
+          870,
+          870,
+          "shutdown",
+          "possible"
+        ],
+        [
+          871,
+          916,
+          "active",
+          "certain"
+        ],
+        [
+          917,
+          917,
+          "shutdown",
+          "possible"
+        ],
+        [
+          918,
+          920,
+          "shutdown",
           "certain"
         ]
       ],
-      "status": "active"
+      "status": "shutdown"
     },
     {
       "accuracy_m": 8,
@@ -2880,7 +2970,11 @@
       },
       "id": "geometry:meyrin-site-marker",
       "level_id": "surface",
-      "license": null,
+      "license": {
+        "attribution": "© OpenStreetMap contributors",
+        "name": "ODbL-1.0",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
       "measured": {
         "area_m2": null,
         "centroid": [
@@ -2891,7 +2985,12 @@
       },
       "method": "Visualises the already-sourced campus-grade coordinate on site:cern-meyrin (OpenStreetMap/Nominatim result for 'CERN - Site de Meyrin', osm_id 27005) as a single point; no new coordinate is derived here. accuracy_m matches that record's own precision_m (500 m). No Overpass search this session ('Meyrin' landuse, bboxes 46.18-46.29 / 5.99-6.12) found a distinct Meyrin-site boundary polygon comparable to way 23722021 for Prévessin, so this marker -- not a boundary -- is what stands in for the Meyrin site on the map.",
       "name": "CERN Meyrin site (reference marker)",
-      "osm": null,
+      "osm": {
+        "elements": [
+          "relation/27005"
+        ],
+        "timestamp": "2026-09-16"
+      },
       "provenance": {
         "confidence": "approximate",
         "locator": "Nominatim search result 1",
@@ -6608,5 +6707,5 @@
       "url": "https://home.cern/science/experiments/ua2"
     }
   },
-  "version": "7bf2ca97a9db695d"
+  "version": "13d02db6951f2ebe"
 }
