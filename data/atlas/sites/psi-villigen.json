@@ -6,16 +6,15 @@
   "coordinates": {
     "confidence": "approximate",
     "kind": "campus",
-    "lat": 47.52682,
-    "locator": "ROR v2 API record for organization 03eh3y714 (Paul Scherrer Institute), addresses[0].lat/addresses[0].lng",
-    "lon": 8.21486,
-    "note": "Upgraded 2026-09-17: ROR v2 organization record for Paul Scherrer Institute (ror.org/03eh3y714) gives a geocoded campus point, rank 8, replacing the Wikipedia-infobox-only point (rank 12). The official psi.ch/en homepage (now reachable; re-fetched 2026-09-17, unlike the prior session's 404s) confirms only the postal address 'Forschungsstrasse 111, 5232 Villigen PSI, Switzerland', no numeric coordinate. Wikipedia kept as a second, lower-rank corroborating source.",
-    "precision_m": 800,
+    "lat": 47.5375192,
+    "locator": "Area-weighted centroid of OSM ways 28028409/26680824/26680821 \"Paul Scherrer Institut\"",
+    "lon": 8.2250675,
+    "note": "Correction: the previous ROR point (47.52682, 8.21486) sits 1.4 km from the campus polygons on both banks of the Aare; the OSM locality nodes \"PSI West\" and \"PSI Ost\" fall inside the new polygon. Previous record: campus point 47.52682, 8.21486 at 800 m precision, sources ['src:ror-03eh3y714', 'src:psi-wikipedia']; moved 1635 m (integrator, 2026-09-21, per docs/atlas-worklog/GEOMETRY_*.md).",
+    "precision_m": 300,
     "sources": [
-      "src:ror-03eh3y714",
-      "src:psi-wikipedia"
+      "src:geo-psi-osm-campus-boundary"
     ],
-    "verified_at": "2026-09-17"
+    "verified_at": "2026-09-21"
   },
   "country": "CH",
   "coverage": {
@@ -40,7 +39,8 @@
   "setting": "surface",
   "sources": [
     "src:psi-wikipedia",
-    "src:ror-03eh3y714"
+    "src:ror-03eh3y714",
+    "src:geo-psi-osm-campus-boundary"
   ],
   "summary": {
     "plain": "The Paul Scherrer Institute campus beside the River Aare in the Swiss canton of Aargau.",

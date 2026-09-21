@@ -8,7 +8,7 @@
   },
   "depth_m": null,
   "entity_id": "detector:sbnd",
-  "feature_type": "target_station",
+  "feature_type": "other",
   "geometry": {
     "confidence": "derived",
     "locator": "Derived from geometry:fermilab-bnb-target; candidate OSM ways/1423112777,1423112778, extract timestamp 2026-09-18",
@@ -39,7 +39,9 @@
   "map_id": "map:fermilab",
   "method": "Point placed 110 m upstream of geometry:fermilab-bnb-target's downstream bearing continuation, i.e. at the sourced 110 m SBND baseline (src:sbnd-detector-paper-2025) along the derived BNB axis. Two OSM building footprints sit near this ideal point but neither is confidently identified as SBND specifically: way 1423112777 (span ~34 m, 17.2 m from the ideal point) and way 1423112778 (span ~10 m, 17.7 m from the ideal point) -- almost equally good positional matches, no OSM tag names either, and no source fetched this session distinguishes them. `feature_type` is `target_station` (a labelled point) rather than the real building footprint because the specific footprint is not confidently identified; drawing either candidate polygon as 'SBND' would overstate certainty.",
   "name": "SBND (derived position; candidate footprint not confirmed)",
-  "notes": [],
+  "notes": [
+    "Integrator (2026-09-21): feature_type corrected from target_station to other; this is a derived detector position, not a beam target."
+  ],
   "osm": {
     "elements": [
       "way/1423112777",

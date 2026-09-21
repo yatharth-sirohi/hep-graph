@@ -1,0 +1,127 @@
+{
+  "accuracy_m": 100,
+  "aliases": [
+    "LSM",
+    "Laboratoire Souterrain de Modane"
+  ],
+  "checks": [],
+  "coverage": {
+    "researched": "full",
+    "tier": "B"
+  },
+  "depth_m": {
+    "approx": false,
+    "confidence": "verified",
+    "dimension": "length",
+    "display": "1700 m of rock",
+    "note": "Same figure already recorded on site:lsm-frejus.",
+    "quote": "Protege par 1700 m de roches",
+    "sources": [
+      "src:lsm-official-site"
+    ],
+    "unit": "m",
+    "value": 1700,
+    "verified_at": "2026-09-17"
+  },
+  "entity_id": "site:lsm-frejus",
+  "feature_type": "other",
+  "geometry": {
+    "confidence": "approximate",
+    "locator": "OSM way 235115147, as of 2026-09-18T22:47:00Z",
+    "note": "'other', not 'hall', because this OSM area is tagged 'source: extrapolation ... cadastre ... mise à jour 2015' (extrapolated from French cadastral parcel data, not a surveyed hall footprint), and no fetched source gives the actual hall/gallery dimensions positioned in space (only the undifferentiated totals in src:geo-euro-ug-pandola-2011: a 30x10x11 m Main Hall, a 70 m2 Gamma Spectrometry Hall, and two secondary halls of 18 and 21 m2). 'approximate' rather than 'verified': OpenStreetMap alone is rank 11.",
+    "quote": null,
+    "sources": [
+      "src:geo-modane-osm-lsm-way"
+    ],
+    "value": {
+      "coordinates": [
+        [
+          [
+            6.6881193,
+            45.1400627
+          ],
+          [
+            6.688193,
+            45.1400713
+          ],
+          [
+            6.6881914,
+            45.1400824
+          ],
+          [
+            6.6882255,
+            45.140088
+          ],
+          [
+            6.6882181,
+            45.140107
+          ],
+          [
+            6.6882414,
+            45.1401094
+          ],
+          [
+            6.6882475,
+            45.1400926
+          ],
+          [
+            6.688298,
+            45.1401008
+          ],
+          [
+            6.688305,
+            45.1400778
+          ],
+          [
+            6.6882133,
+            45.140064
+          ],
+          [
+            6.6881241,
+            45.1400506
+          ],
+          [
+            6.6881193,
+            45.1400627
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    },
+    "verified_at": "2026-09-18"
+  },
+  "id": "geometry:modane-lsm-underground",
+  "level_id": "frejus-tunnel",
+  "license": {
+    "attribution": "© OpenStreetMap contributors",
+    "name": "ODbL-1.0",
+    "url": "https://www.openstreetmap.org/copyright"
+  },
+  "links": {
+    "website": "https://www.lsm.in2p3.fr/"
+  },
+  "map_id": "map:modane-underground-laboratory",
+  "method": "OpenStreetMap way 235115147 (office=research, name='Laboratoire souterrain de Modane', addr:housename='PK 6.5, Tunnel du Fréjus'), taken verbatim. Independently cross-checked (not a formal checks[] row, no external official figure to test against) by walking geometry:modane-tunnel-frejus's own line to its geometric midpoint (6431 m from the Modane portal, of a 12 862 m total): the two positions are 148 m apart, consistent with both the OSM way's own 'PK 6.5' (kilometre 6.5) address tag and with src:geo-modane-cnrs-images-shelter6's qualitative claim that the laboratory sits 'exactement au centre' of the tunnel.",
+  "name": "Laboratoire Souterrain de Modane (underground laboratory)",
+  "notes": [
+    "This is the underground laboratory itself (inside the mountain), not the Carré Science surface outreach building in Modane village (see geometry:modane-carre-sciences-point) which the pre-existing site:lsm-frejus coordinate (an OSM/Nominatim point 6.4 km away, precision_m 500) actually reflects; see the facility worklog for a proposed site coordinate correction."
+  ],
+  "osm": {
+    "elements": [
+      "way/235115147"
+    ],
+    "timestamp": "2026-09-18T22:47:00Z"
+  },
+  "representation": "georeferenced",
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:lsm-frejus",
+  "sources": [
+    "src:geo-modane-osm-lsm-way",
+    "src:geo-modane-cnrs-images-shelter6"
+  ],
+  "summary": {
+    "plain": "The Modane underground laboratory itself, roughly at the midpoint of the Fréjus road tunnel between France and Italy, under about 1700 m of rock."
+  },
+  "type": "geometry",
+  "valid": null
+}

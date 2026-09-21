@@ -14349,7 +14349,10 @@
       "experiment_ids": [
         "experiment:conus"
       ],
-      "geometry_map_ids": [],
+      "geometry_map_ids": [
+        "map:brokdorf-nuclear-power-plant",
+        "map:leibstadt-nuclear-power-plant"
+      ],
       "id": "detector:conus-hpge-array",
       "intervals": [
         {
@@ -45496,7 +45499,7 @@
       "links": {
         "website": null
       },
-      "map_id": null,
+      "map_id": "map:baksan-neutrino-observatory",
       "name": "Baksan Neutrino Observatory",
       "operator": "Institute for Nuclear Research of the Russian Academy of Sciences (INR RAS)",
       "operator_ids": [],
@@ -45567,7 +45570,7 @@
       "links": {
         "website": "https://www.boulby.stfc.ac.uk/"
       },
-      "map_id": null,
+      "map_id": "map:boulby-underground-laboratory",
       "name": "Boulby Underground Laboratory",
       "operator_ids": [],
       "operator_text": "STFC (Science and Technology Facilities Council), in close partnership with ICL-UK",
@@ -45639,7 +45642,7 @@
       "links": {
         "website": null
       },
-      "map_id": null,
+      "map_id": "map:brokdorf-nuclear-power-plant",
       "name": "Brokdorf Nuclear Power Plant",
       "operator": "PreussenElektra GmbH",
       "operator_ids": [],
@@ -45790,7 +45793,7 @@
       "links": {
         "website": "https://lsc-canfranc.es/en/"
       },
-      "map_id": null,
+      "map_id": "map:canfranc-underground-laboratory",
       "name": "Laboratorio Subterraneo de Canfranc",
       "operator_ids": [],
       "operator_text": "A Consortium of the Spanish Ministry of Science and Innovation, the Aragon Regional Government and the University of Zaragoza",
@@ -45982,7 +45985,7 @@
       "links": {
         "website": null
       },
-      "map_id": null,
+      "map_id": "map:chooz",
       "name": "Chooz Reactor Neutrino Site",
       "operator": null,
       "operator_ids": [],
@@ -46200,7 +46203,7 @@
       "links": {
         "website": null
       },
-      "map_id": null,
+      "map_id": "map:daya-bay-reactor-neutrino-lab",
       "name": "Daya Bay Reactor Neutrino Laboratory",
       "operator": "Institute of High Energy Physics (IHEP), Chinese Academy of Sciences",
       "operator_ids": [],
@@ -47420,7 +47423,7 @@
       "links": {
         "website": null
       },
-      "map_id": null,
+      "map_id": "map:leibstadt-nuclear-power-plant",
       "name": "Leibstadt Nuclear Power Plant",
       "operator": "Kernkraftwerk Leibstadt AG",
       "operator_ids": [],
@@ -47582,7 +47585,7 @@
       "links": {
         "website": "https://www.lngs.infn.it/en"
       },
-      "map_id": null,
+      "map_id": "map:lngs",
       "name": "Laboratori Nazionali del Gran Sasso",
       "operator": "Istituto Nazionale di Fisica Nucleare (INFN)",
       "operator_ids": [],
@@ -47866,7 +47869,7 @@
       "links": {
         "website": "https://lsm.in2p3.fr/"
       },
-      "map_id": null,
+      "map_id": "map:modane-underground-laboratory",
       "name": "Laboratoire Souterrain de Modane",
       "operator_ids": [],
       "operator_text": "CNRS/IN2P3 and Universite Grenoble-Alpes; a national IN2P3 platform attached to the Laboratoire de Physique Subatomique et Cosmologie (LPSC) in Grenoble since 2019",
@@ -49084,7 +49087,7 @@
       "links": {
         "website": null
       },
-      "map_id": null,
+      "map_id": "map:yonggwang-hanbit-reactor-site",
       "name": "Yonggwang (Hanbit) Reactor Neutrino Site",
       "operator": null,
       "operator_ids": [],
@@ -49265,6 +49268,182 @@
       "to_scale_count": 2,
       "unlocated_count": 0
     },
+    "map:baksan-neutrino-observatory": {
+      "attribution": [
+        "© OpenStreetMap contributors (ODbL-1.0)"
+      ],
+      "bundle": "geometry/baksan-neutrino-observatory.json",
+      "center": {
+        "lat": 43.2765597,
+        "lon": 42.6899842
+      },
+      "coverage": {
+        "researched": "partial",
+        "tier": "D"
+      },
+      "extent_m": 800,
+      "facility_id": "facility:baksan-neutrino-observatory",
+      "feature_count": 2,
+      "id": "map:baksan-neutrino-observatory",
+      "levels": [
+        {
+          "depth_m": null,
+          "id": "surface",
+          "kind": "surface",
+          "name": "Surface"
+        },
+        {
+          "depth_m": {
+            "approx": true,
+            "dimension": "length",
+            "display": "up to ~2100 m (SAGE hall, vertical)",
+            "unit": "m",
+            "value": 2100
+          },
+          "id": "andyrchi-tunnels",
+          "kind": "underground",
+          "name": "Mount Andyrchi tunnels and underground halls"
+        }
+      ],
+      "linked_map_ids": [],
+      "name": "BNO — Baksan Neutrino Observatory",
+      "site_ids": [
+        "site:baksan-sage-underground-lab"
+      ],
+      "state_segments": [
+        [
+          479,
+          479,
+          "active",
+          "possible"
+        ],
+        [
+          480,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
+      "to_scale_count": 2,
+      "unlocated_count": 1
+    },
+    "map:boulby-underground-laboratory": {
+      "attribution": [
+        "© OpenStreetMap contributors (ODbL-1.0)"
+      ],
+      "bundle": "geometry/boulby-underground-laboratory.json",
+      "center": {
+        "lat": 54.5535545,
+        "lon": -0.8223775
+      },
+      "coverage": {
+        "researched": "partial",
+        "tier": "C"
+      },
+      "extent_m": 1200,
+      "facility_id": "facility:boulby-underground-laboratory",
+      "feature_count": 1,
+      "id": "map:boulby-underground-laboratory",
+      "levels": [
+        {
+          "depth_m": null,
+          "id": "surface",
+          "kind": "surface",
+          "name": "Surface"
+        },
+        {
+          "depth_m": {
+            "approx": false,
+            "dimension": "length",
+            "display": "1.1 km beneath the North York Moors",
+            "unit": "m",
+            "value": 1100
+          },
+          "id": "boulby-underground",
+          "kind": "underground",
+          "name": "Boulby underground laboratory workings"
+        }
+      ],
+      "linked_map_ids": [],
+      "name": "Boulby Underground Laboratory",
+      "site_ids": [
+        "site:boulby-mine"
+      ],
+      "state_segments": [
+        [
+          468,
+          479,
+          "active",
+          "possible"
+        ],
+        [
+          480,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
+      "to_scale_count": 1,
+      "unlocated_count": 0
+    },
+    "map:brokdorf-nuclear-power-plant": {
+      "attribution": [
+        "© OpenStreetMap contributors (ODbL-1.0)"
+      ],
+      "bundle": "geometry/brokdorf-nuclear-power-plant.json",
+      "center": {
+        "lat": 53.850766,
+        "lon": 9.345687
+      },
+      "coverage": {
+        "researched": "partial",
+        "tier": "B"
+      },
+      "extent_m": 800,
+      "facility_id": "facility:brokdorf-nuclear-power-plant",
+      "feature_count": 2,
+      "id": "map:brokdorf-nuclear-power-plant",
+      "levels": [
+        {
+          "depth_m": null,
+          "id": "surface",
+          "kind": "surface",
+          "name": "Surface (reactor building; CONUS stood inside it)"
+        }
+      ],
+      "linked_map_ids": [
+        "map:leibstadt-nuclear-power-plant"
+      ],
+      "name": "Brokdorf — reactor building and the CONUS position",
+      "site_ids": [
+        "site:brokdorf-nuclear-power-plant-campus"
+      ],
+      "state_segments": [
+        [
+          441,
+          441,
+          "active",
+          "possible"
+        ],
+        [
+          442,
+          862,
+          "active",
+          "certain"
+        ],
+        [
+          863,
+          863,
+          "decommissioned",
+          "possible"
+        ]
+      ],
+      "status": "decommissioned",
+      "to_scale_count": 2,
+      "unlocated_count": 0
+    },
     "map:brookhaven-national-laboratory": {
       "attribution": [
         "© OpenStreetMap contributors (ODbL-1.0)"
@@ -49327,6 +49506,66 @@
       "to_scale_count": 11,
       "unlocated_count": 0
     },
+    "map:canfranc-underground-laboratory": {
+      "attribution": [
+        "© OpenStreetMap contributors (ODbL-1.0)"
+      ],
+      "bundle": "geometry/canfranc-underground-laboratory.json",
+      "center": {
+        "lat": 42.7620163,
+        "lon": -0.522686
+      },
+      "coverage": {
+        "researched": "partial",
+        "tier": "B"
+      },
+      "extent_m": 7500,
+      "facility_id": "facility:canfranc-underground-laboratory",
+      "feature_count": 4,
+      "id": "map:canfranc-underground-laboratory",
+      "levels": [
+        {
+          "depth_m": null,
+          "id": "surface",
+          "kind": "surface",
+          "name": "Surface"
+        },
+        {
+          "depth_m": {
+            "approx": false,
+            "dimension": "length",
+            "display": "800 m under Mount Tobazo",
+            "unit": "m",
+            "value": 800
+          },
+          "id": "somport-tunnels",
+          "kind": "underground",
+          "name": "Somport tunnels and underground laboratory"
+        }
+      ],
+      "linked_map_ids": [],
+      "name": "LSC — Laboratorio Subterráneo de Canfranc",
+      "site_ids": [
+        "site:lsc-canfranc"
+      ],
+      "state_segments": [
+        [
+          420,
+          431,
+          "active",
+          "possible"
+        ],
+        [
+          432,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
+      "to_scale_count": 4,
+      "unlocated_count": 0
+    },
     "map:cern": {
       "attribution": [
         "© OpenStreetMap contributors (ODbL-1.0)"
@@ -49376,7 +49615,9 @@
           "name": "PS / PSB tunnels (shallow)"
         }
       ],
-      "linked_map_ids": [],
+      "linked_map_ids": [
+        "map:lngs"
+      ],
       "name": "CERN — Meyrin, Prévessin and the LHC ring",
       "site_ids": [
         "site:cern-cast-sr8",
@@ -49412,6 +49653,56 @@
       "status": "active",
       "to_scale_count": 20,
       "unlocated_count": 7
+    },
+    "map:chooz": {
+      "attribution": [
+        "© OpenStreetMap contributors (ODbL-1.0)"
+      ],
+      "bundle": "geometry/chooz.json",
+      "center": {
+        "lat": 50.08859,
+        "lon": 4.793657
+      },
+      "coverage": {
+        "researched": "partial",
+        "tier": "B"
+      },
+      "extent_m": 1500,
+      "facility_id": "facility:chooz",
+      "feature_count": 3,
+      "id": "map:chooz",
+      "levels": [
+        {
+          "depth_m": null,
+          "id": "surface",
+          "kind": "surface",
+          "name": "Surface (reactor buildings)"
+        }
+      ],
+      "linked_map_ids": [],
+      "name": "Chooz — reactor cores (Double Chooz / NUCLEUS site)",
+      "site_ids": [
+        "site:chooz-very-near-nucleus",
+        "site:double-chooz-far-detector",
+        "site:double-chooz-near-detector"
+      ],
+      "state_segments": [
+        [
+          732,
+          743,
+          "active",
+          "possible"
+        ],
+        [
+          744,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
+      "to_scale_count": 3,
+      "unlocated_count": 3
     },
     "map:cjpl": {
       "attribution": [
@@ -49520,6 +49811,96 @@
       ],
       "status": "construction",
       "to_scale_count": 1,
+      "unlocated_count": 0
+    },
+    "map:daya-bay-reactor-neutrino-lab": {
+      "attribution": [
+        "© OpenStreetMap contributors (ODbL-1.0)"
+      ],
+      "bundle": "geometry/daya-bay-reactor-neutrino-lab.json",
+      "center": {
+        "lat": 22.605333,
+        "lon": 114.547935
+      },
+      "coverage": {
+        "researched": "partial",
+        "tier": "A"
+      },
+      "extent_m": 2500,
+      "facility_id": "facility:daya-bay-reactor-neutrino-lab",
+      "feature_count": 9,
+      "id": "map:daya-bay-reactor-neutrino-lab",
+      "levels": [
+        {
+          "depth_m": null,
+          "id": "surface",
+          "kind": "surface",
+          "name": "Surface (reactor buildings)"
+        },
+        {
+          "depth_m": {
+            "approx": false,
+            "dimension": "length",
+            "display": "93 m",
+            "unit": "m",
+            "value": 93
+          },
+          "id": "eh1-hall",
+          "kind": "underground",
+          "name": "Experimental Hall 1 (93 m of rock, 250 m.w.e.)"
+        },
+        {
+          "depth_m": {
+            "approx": false,
+            "dimension": "length",
+            "display": "100 m",
+            "unit": "m",
+            "value": 100
+          },
+          "id": "eh2-hall",
+          "kind": "underground",
+          "name": "Experimental Hall 2 (100 m of rock, 265 m.w.e.)"
+        },
+        {
+          "depth_m": {
+            "approx": false,
+            "dimension": "length",
+            "display": "324 m",
+            "unit": "m",
+            "value": 324
+          },
+          "id": "eh3-hall",
+          "kind": "underground",
+          "name": "Experimental Hall 3 (324 m of rock, 860 m.w.e.)"
+        }
+      ],
+      "linked_map_ids": [],
+      "name": "Daya Bay — reactor cores and experimental halls",
+      "site_ids": [
+        "site:daya-bay-experimental-halls"
+      ],
+      "state_segments": [
+        [
+          743,
+          743,
+          "active",
+          "possible"
+        ],
+        [
+          744,
+          850,
+          "active",
+          "certain"
+        ],
+        [
+          851,
+          851,
+          "completed",
+          "possible"
+        ]
+      ],
+      "status": "completed",
+      "to_scale_count": 9,
       "unlocated_count": 0
     },
     "map:desy": {
@@ -49694,7 +50075,7 @@
       ],
       "status": "active",
       "to_scale_count": 20,
-      "unlocated_count": 19
+      "unlocated_count": 15
     },
     "map:fred-lawrence-whipple-observatory": {
       "attribution": [],
@@ -50185,6 +50566,56 @@
       "to_scale_count": 2,
       "unlocated_count": 0
     },
+    "map:leibstadt-nuclear-power-plant": {
+      "attribution": [
+        "© OpenStreetMap contributors (ODbL-1.0)"
+      ],
+      "bundle": "geometry/leibstadt-nuclear-power-plant.json",
+      "center": {
+        "lat": 47.599578,
+        "lon": 8.181803
+      },
+      "coverage": {
+        "researched": "partial",
+        "tier": "B"
+      },
+      "extent_m": 800,
+      "facility_id": "facility:leibstadt-nuclear-power-plant",
+      "feature_count": 2,
+      "id": "map:leibstadt-nuclear-power-plant",
+      "levels": [
+        {
+          "depth_m": null,
+          "id": "surface",
+          "kind": "surface",
+          "name": "Surface (reactor building; CONUS+ inside it)"
+        }
+      ],
+      "linked_map_ids": [
+        "map:brokdorf-nuclear-power-plant"
+      ],
+      "name": "Leibstadt — reactor building and the CONUS+ position",
+      "site_ids": [
+        "site:leibstadt-nuclear-power-plant-campus"
+      ],
+      "state_segments": [
+        [
+          412,
+          412,
+          "active",
+          "possible"
+        ],
+        [
+          413,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
+      "to_scale_count": 2,
+      "unlocated_count": 0
+    },
     "map:lhaaso-daocheng": {
       "attribution": [],
       "bundle": "geometry/lhaaso-daocheng.json",
@@ -50229,6 +50660,72 @@
       ],
       "status": "active",
       "to_scale_count": 1,
+      "unlocated_count": 0
+    },
+    "map:lngs": {
+      "attribution": [
+        "© OpenStreetMap contributors (ODbL-1.0)"
+      ],
+      "bundle": "geometry/lngs.json",
+      "center": {
+        "lat": 42.4359878,
+        "lon": 13.5469616
+      },
+      "coverage": {
+        "researched": "partial",
+        "tier": "B"
+      },
+      "extent_m": 8000,
+      "facility_id": "facility:lngs",
+      "feature_count": 7,
+      "id": "map:lngs",
+      "levels": [
+        {
+          "depth_m": null,
+          "id": "surface",
+          "kind": "surface",
+          "name": "Surface"
+        },
+        {
+          "depth_m": {
+            "approx": true,
+            "dimension": "length",
+            "display": "~1400 m (average)",
+            "max": null,
+            "min": null,
+            "unit": "m",
+            "value": 1400
+          },
+          "id": "gran-sasso-tunnel",
+          "kind": "underground",
+          "name": "Gran Sasso tunnel and underground laboratory"
+        }
+      ],
+      "linked_map_ids": [
+        "map:cern"
+      ],
+      "name": "LNGS — Laboratori Nazionali del Gran Sasso",
+      "site_ids": [
+        "site:lngs-hall-a",
+        "site:lngs-hall-b",
+        "site:lngs-hall-c"
+      ],
+      "state_segments": [
+        [
+          444,
+          455,
+          "active",
+          "possible"
+        ],
+        [
+          456,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
+      "to_scale_count": 7,
       "unlocated_count": 0
     },
     "map:los-alamos-national-laboratory": {
@@ -50278,6 +50775,66 @@
       "status": "active",
       "to_scale_count": 1,
       "unlocated_count": 2
+    },
+    "map:modane-underground-laboratory": {
+      "attribution": [
+        "© OpenStreetMap contributors (ODbL-1.0)"
+      ],
+      "bundle": "geometry/modane-underground-laboratory.json",
+      "center": {
+        "lat": 45.1682796,
+        "lon": 6.677353
+      },
+      "coverage": {
+        "researched": "partial",
+        "tier": "B"
+      },
+      "extent_m": 10000,
+      "facility_id": "facility:modane-underground-laboratory",
+      "feature_count": 3,
+      "id": "map:modane-underground-laboratory",
+      "levels": [
+        {
+          "depth_m": null,
+          "id": "surface",
+          "kind": "surface",
+          "name": "Surface"
+        },
+        {
+          "depth_m": {
+            "approx": false,
+            "dimension": "length",
+            "display": "1700 m of rock",
+            "unit": "m",
+            "value": 1700
+          },
+          "id": "frejus-tunnel",
+          "kind": "underground",
+          "name": "Fréjus tunnel and underground laboratory"
+        }
+      ],
+      "linked_map_ids": [],
+      "name": "LSM — Laboratoire Souterrain de Modane",
+      "site_ids": [
+        "site:lsm-frejus"
+      ],
+      "state_segments": [
+        [
+          372,
+          383,
+          "active",
+          "possible"
+        ],
+        [
+          384,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active",
+      "to_scale_count": 3,
+      "unlocated_count": 0
     },
     "map:oak-ridge-national-laboratory": {
       "attribution": [
@@ -50894,6 +51451,73 @@
       "status": "active",
       "to_scale_count": 3,
       "unlocated_count": 0
+    },
+    "map:yonggwang-hanbit-reactor-site": {
+      "attribution": [
+        "© OpenStreetMap contributors (ODbL-1.0)"
+      ],
+      "bundle": "geometry/yonggwang-hanbit-reactor-site.json",
+      "center": {
+        "lat": 35.412443,
+        "lon": 126.415438
+      },
+      "coverage": {
+        "researched": "partial",
+        "tier": "B"
+      },
+      "extent_m": 2000,
+      "facility_id": "facility:yonggwang-hanbit-reactor-site",
+      "feature_count": 9,
+      "id": "map:yonggwang-hanbit-reactor-site",
+      "levels": [
+        {
+          "depth_m": null,
+          "id": "surface",
+          "kind": "surface",
+          "name": "Surface (reactor units, plant boundary)"
+        },
+        {
+          "depth_m": null,
+          "id": "reno-near-hall",
+          "kind": "underground",
+          "name": "RENO near detector hall (~110 m.w.e. under a ridge)"
+        },
+        {
+          "depth_m": null,
+          "id": "reno-far-hall",
+          "kind": "underground",
+          "name": "RENO far detector hall (~450 m.w.e. under a 260 m mountain)"
+        }
+      ],
+      "linked_map_ids": [],
+      "name": "Hanbit (Yonggwang) — reactor units and the RENO detector halls",
+      "site_ids": [
+        "site:reno-far-detector",
+        "site:reno-near-detector"
+      ],
+      "state_segments": [
+        [
+          739,
+          739,
+          "active",
+          "possible"
+        ],
+        [
+          740,
+          877,
+          "active",
+          "certain"
+        ],
+        [
+          878,
+          878,
+          "completed",
+          "possible"
+        ]
+      ],
+      "status": "completed",
+      "to_scale_count": 9,
+      "unlocated_count": 0
     }
   },
   "schema": "hep-atlas/0.2",
@@ -51217,7 +51841,7 @@
       "links": {
         "website": null
       },
-      "map_id": null,
+      "map_id": "map:baksan-neutrino-observatory",
       "name": "Baksan SAGE underground laboratory",
       "place": {
         "city": null,
@@ -51271,10 +51895,10 @@
       "altitude": null,
       "coordinates": {
         "approximate": true,
-        "kind": "campus",
-        "lat": 40.86954,
-        "lon": -72.88677,
-        "precision_m": 1500
+        "kind": "detector",
+        "lat": 40.8794304,
+        "lon": -72.8780173,
+        "precision_m": 100
       },
       "country": "US",
       "coverage": {
@@ -51331,10 +51955,10 @@
       "altitude": null,
       "coordinates": {
         "approximate": true,
-        "kind": "campus",
-        "lat": 40.86954,
-        "lon": -72.88677,
-        "precision_m": 1500
+        "kind": "detector",
+        "lat": 40.8831273,
+        "lon": -72.88226,
+        "precision_m": 100
       },
       "country": "US",
       "coverage": {
@@ -51526,7 +52150,7 @@
       "links": {
         "website": null
       },
-      "map_id": null,
+      "map_id": "map:boulby-underground-laboratory",
       "name": "Boulby Mine underground laboratory",
       "place": {
         "city": "Boulby",
@@ -51562,7 +52186,7 @@
       "links": {
         "website": null
       },
-      "map_id": null,
+      "map_id": "map:brokdorf-nuclear-power-plant",
       "name": "Brokdorf Nuclear Power Plant campus",
       "place": {
         "city": "Brokdorf",
@@ -53214,7 +53838,7 @@
       "links": {
         "website": null
       },
-      "map_id": null,
+      "map_id": "map:chooz",
       "name": "Chooz very-near site (NUCLEUS)",
       "place": {
         "city": "Chooz",
@@ -53268,9 +53892,9 @@
       "coordinates": {
         "approximate": true,
         "kind": "campus",
-        "lat": 28.1763431,
-        "lon": 101.720304,
-        "precision_m": 2000
+        "lat": 28.1774296,
+        "lon": 101.7193113,
+        "precision_m": 100
       },
       "country": "CN",
       "coverage": {
@@ -53318,9 +53942,9 @@
       "coordinates": {
         "approximate": true,
         "kind": "campus",
-        "lat": 28.1763431,
-        "lon": 101.720304,
-        "precision_m": 2500
+        "lat": 28.1798609,
+        "lon": 101.7150202,
+        "precision_m": 100
       },
       "country": "CN",
       "coverage": {
@@ -53401,7 +54025,7 @@
       "links": {
         "website": null
       },
-      "map_id": null,
+      "map_id": "map:daya-bay-reactor-neutrino-lab",
       "name": "Daya Bay underground experimental halls",
       "place": {
         "city": "Shenzhen",
@@ -53479,9 +54103,9 @@
       "coordinates": {
         "approximate": true,
         "kind": "campus",
-        "lat": 53.55073,
-        "lon": 9.99302,
-        "precision_m": 800
+        "lat": 53.5770744,
+        "lon": 9.8807554,
+        "precision_m": 300
       },
       "country": "DE",
       "coverage": {
@@ -53517,9 +54141,9 @@
       "coordinates": {
         "approximate": true,
         "kind": "campus",
-        "lat": 53.55073,
-        "lon": 9.99302,
-        "precision_m": 800
+        "lat": 53.5901057,
+        "lon": 9.8844408,
+        "precision_m": 50
       },
       "country": "DE",
       "coverage": {
@@ -53624,8 +54248,8 @@
       "coordinates": {
         "approximate": true,
         "kind": "campus",
-        "lat": 53.55073,
-        "lon": 9.99302,
+        "lat": 53.5770744,
+        "lon": 9.8807554,
         "precision_m": 800
       },
       "country": "DE",
@@ -53743,7 +54367,7 @@
       "links": {
         "website": null
       },
-      "map_id": null,
+      "map_id": "map:chooz",
       "name": "Double Chooz far detector site",
       "place": {
         "city": "Chooz",
@@ -53815,7 +54439,7 @@
       "links": {
         "website": null
       },
-      "map_id": null,
+      "map_id": "map:chooz",
       "name": "Double Chooz near detector site",
       "place": {
         "city": "Chooz",
@@ -54688,11 +55312,10 @@
         "value": 4100
       },
       "coordinates": {
-        "approximate": true,
-        "kind": "campus",
-        "lat": 18.9862137,
-        "lon": -97.3151017,
-        "precision_m": 3000
+        "kind": "detector",
+        "lat": 18.99,
+        "lon": -97.31,
+        "precision_m": 600
       },
       "countries": [
         "MX"
@@ -54911,9 +55534,9 @@
       "coordinates": {
         "approximate": true,
         "kind": "campus",
-        "lat": 36.4587536,
-        "lon": 140.599175,
-        "precision_m": 2500
+        "lat": 36.4445437,
+        "lon": 140.6048467,
+        "precision_m": 15
       },
       "countries": [
         "JP"
@@ -55022,9 +55645,9 @@
       "coordinates": {
         "approximate": true,
         "kind": "detector",
-        "lat": 36.4587536,
-        "lon": 140.599175,
-        "precision_m": 1500
+        "lat": 36.4491187,
+        "lon": 140.6012382,
+        "precision_m": 15
       },
       "countries": [
         "JP"
@@ -55185,9 +55808,9 @@
       "coordinates": {
         "approximate": true,
         "kind": "campus",
-        "lat": 36.98038,
-        "lon": -76.42975,
-        "precision_m": 800
+        "lat": 37.0989568,
+        "lon": -76.4815705,
+        "precision_m": 500
       },
       "country": "US",
       "coverage": {
@@ -55325,11 +55948,10 @@
       ],
       "altitude": null,
       "coordinates": {
-        "approximate": true,
         "kind": "underground_lab",
-        "lat": 36.3538,
-        "lon": 137.3103,
-        "precision_m": 3000
+        "lat": 36.35248,
+        "lon": 137.313802,
+        "precision_m": 150
       },
       "countries": [
         "JP"
@@ -55775,9 +56397,9 @@
       "coordinates": {
         "approximate": true,
         "kind": "detector",
-        "lat": 36.15778,
-        "lon": 140.075,
-        "precision_m": 400
+        "lat": 36.1577373,
+        "lon": 140.0749938,
+        "precision_m": 30
       },
       "countries": [
         "JP"
@@ -56243,9 +56865,9 @@
       "coordinates": {
         "approximate": true,
         "kind": "campus",
-        "lat": 35.88808,
-        "lon": -106.30697,
-        "precision_m": 800
+        "lat": 35.8725644,
+        "lon": -106.2890098,
+        "precision_m": 150
       },
       "country": "US",
       "coverage": {
@@ -56329,7 +56951,7 @@
       "links": {
         "website": null
       },
-      "map_id": null,
+      "map_id": "map:leibstadt-nuclear-power-plant",
       "name": "Leibstadt Nuclear Power Plant campus",
       "place": {
         "city": "Leibstadt",
@@ -56452,7 +57074,7 @@
       "links": {
         "website": null
       },
-      "map_id": null,
+      "map_id": "map:lngs",
       "name": "LNGS Hall A",
       "place": {
         "city": "Assergi",
@@ -56590,7 +57212,7 @@
       "links": {
         "website": null
       },
-      "map_id": null,
+      "map_id": "map:lngs",
       "name": "LNGS Hall B",
       "place": {
         "city": "Assergi",
@@ -56728,7 +57350,7 @@
       "links": {
         "website": null
       },
-      "map_id": null,
+      "map_id": "map:lngs",
       "name": "LNGS Hall C",
       "place": {
         "city": "Assergi",
@@ -56830,9 +57452,9 @@
       "coordinates": {
         "approximate": true,
         "kind": "campus",
-        "lat": 42.7493154,
-        "lon": -0.5162702,
-        "precision_m": 500
+        "lat": 42.7746718,
+        "lon": -0.529091,
+        "precision_m": 150
       },
       "country": "ES",
       "coverage": {
@@ -56853,7 +57475,7 @@
       "links": {
         "website": null
       },
-      "map_id": null,
+      "map_id": "map:canfranc-underground-laboratory",
       "name": "LSC Canfranc underground laboratory",
       "place": {
         "city": "Canfranc-Estacion",
@@ -56901,9 +57523,9 @@
       "coordinates": {
         "approximate": true,
         "kind": "campus",
-        "lat": 45.1962509,
-        "lon": 6.6667021,
-        "precision_m": 500
+        "lat": 45.1400808,
+        "lon": 6.688208,
+        "precision_m": 100
       },
       "country": "FR",
       "coverage": {
@@ -56924,7 +57546,7 @@
       "links": {
         "website": null
       },
-      "map_id": null,
+      "map_id": "map:modane-underground-laboratory",
       "name": "LSM Frejus underground laboratory",
       "place": {
         "city": "Modane",
@@ -57476,9 +58098,9 @@
       "coordinates": {
         "approximate": true,
         "kind": "campus",
-        "lat": 36.01036,
-        "lon": -84.26964,
-        "precision_m": 2000
+        "lat": 35.9526819,
+        "lon": -84.3004404,
+        "precision_m": 800
       },
       "country": "US",
       "coverage": {
@@ -57597,9 +58219,9 @@
       "coordinates": {
         "approximate": true,
         "kind": "campus",
-        "lat": 47.52682,
-        "lon": 8.21486,
-        "precision_m": 800
+        "lat": 47.5375192,
+        "lon": 8.2250675,
+        "precision_m": 300
       },
       "country": "CH",
       "coverage": {
@@ -57726,9 +58348,9 @@
       "coordinates": {
         "approximate": true,
         "kind": "campus",
-        "lat": 35.415,
-        "lon": 126.42389,
-        "precision_m": 3000
+        "lat": 35.421557,
+        "lon": 126.408097,
+        "precision_m": 15
       },
       "countries": [
         "KR"
@@ -57746,7 +58368,7 @@
       "links": {
         "website": null
       },
-      "map_id": null,
+      "map_id": "map:yonggwang-hanbit-reactor-site",
       "name": "RENO far detector site",
       "place": {
         "city": "Yeonggwang",
@@ -57786,9 +58408,9 @@
       "coordinates": {
         "approximate": true,
         "kind": "campus",
-        "lat": 35.415,
-        "lon": 126.42389,
-        "precision_m": 3000
+        "lat": 35.412966,
+        "lon": 126.414127,
+        "precision_m": 30
       },
       "countries": [
         "KR"
@@ -57806,7 +58428,7 @@
       "links": {
         "website": null
       },
-      "map_id": null,
+      "map_id": "map:yonggwang-hanbit-reactor-site",
       "name": "RENO near detector site",
       "place": {
         "city": "Yeonggwang",
@@ -57929,9 +58551,9 @@
       "coordinates": {
         "approximate": true,
         "kind": "campus",
-        "lat": 37.45383,
-        "lon": -122.18219,
-        "precision_m": 1000
+        "lat": 37.4165675,
+        "lon": -122.209988,
+        "precision_m": 2000
       },
       "country": "US",
       "coverage": {
@@ -57982,10 +58604,10 @@
       "altitude": null,
       "coordinates": {
         "approximate": true,
-        "kind": "campus",
-        "lat": 37.45383,
-        "lon": -122.18219,
-        "precision_m": 1000
+        "kind": "detector",
+        "lat": 37.419143,
+        "lon": -122.1967364,
+        "precision_m": 30
       },
       "country": "US",
       "coverage": {
@@ -58066,10 +58688,10 @@
       "altitude": null,
       "coordinates": {
         "approximate": true,
-        "kind": "campus",
-        "lat": 37.45383,
-        "lon": -122.18219,
-        "precision_m": 1000
+        "kind": "detector",
+        "lat": 37.4183339,
+        "lon": -122.1948772,
+        "precision_m": 30
       },
       "country": "US",
       "coverage": {
@@ -59077,9 +59699,9 @@
       "coordinates": {
         "approximate": true,
         "kind": "campus",
-        "lat": 44.3474397,
-        "lon": -103.7548247,
-        "precision_m": 1000
+        "lat": 44.3517419,
+        "lon": -103.751409,
+        "precision_m": 50
       },
       "countries": [
         "US"
@@ -59140,11 +59762,10 @@
         "value": 1400
       },
       "coordinates": {
-        "approximate": true,
-        "kind": "campus",
-        "lat": 39.3521777,
-        "lon": -112.57717,
-        "precision_m": 15000
+        "kind": "detector",
+        "lat": 39.3,
+        "lon": -112.9,
+        "precision_m": 6000
       },
       "countries": [
         "US"
@@ -60305,5 +60926,5 @@
       "type": "topic"
     }
   },
-  "version": "09312ebd3724d562"
+  "version": "7bf2ca97a9db695d"
 }

@@ -1,0 +1,72 @@
+{
+  "aliases": [
+    "RENO local map"
+  ],
+  "center": {
+    "confidence": "derived",
+    "kind": "campus",
+    "lat": 35.412443,
+    "locator": "mean of the six reactor-building centroids, the plant boundary and the two derived hall positions",
+    "lon": 126.415438,
+    "note": "Map centre only: mean of the drawn features' centroids; not a claim about any structure.",
+    "precision_m": 500,
+    "sources": [
+      "src:geo-reactors-osm-hanbit-reactors"
+    ],
+    "verified_at": "2026-09-21"
+  },
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "extent_m": 2000,
+  "facility_id": "facility:yonggwang-hanbit-reactor-site",
+  "id": "map:yonggwang-hanbit-reactor-site",
+  "levels": [
+    {
+      "depth_m": null,
+      "id": "surface",
+      "kind": "surface",
+      "name": "Surface (reactor units, plant boundary)",
+      "note": ""
+    },
+    {
+      "depth_m": null,
+      "id": "reno-near-hall",
+      "kind": "underground",
+      "name": "RENO near detector hall (~110 m.w.e. under a ridge)",
+      "note": "RENO TDR (arXiv:1003.1391) §1.2.2: \"The near detector will be located at underground of a 70 m (AMSL) ridge with an overburden of ∼110 mwe\". Rock depth in metres is not published, so depth_m is left null."
+    },
+    {
+      "depth_m": null,
+      "id": "reno-far-hall",
+      "kind": "underground",
+      "name": "RENO far detector hall (~450 m.w.e. under a 260 m mountain)",
+      "note": "RENO TDR (arXiv:1003.1391) §1.2.2: \"the far detector is to be located under a 260 m mountain with the overburden of ∼450 mwe\". Rock depth in metres is not published, so depth_m is left null."
+    }
+  ],
+  "linked_map_ids": [],
+  "links": {
+    "website": null
+  },
+  "name": "Hanbit (Yonggwang) — reactor units and the RENO detector halls",
+  "notes": [
+    "The near hall's distance checks to units 3–6 sit 3–4 % from the TDR figures (10–28 m), consistent with using reactor-building centroids as proxies for core centres over 300–740 m baselines; the tolerance on those checks is widened to 5 % with that reason and accuracy_m raised accordingly — see the geometry record."
+  ],
+  "schema": "hep-atlas/0.2",
+  "schematics": [],
+  "site_ids": [
+    "site:reno-near-detector",
+    "site:reno-far-detector"
+  ],
+  "sources": [
+    "src:geo-reactors-osm-hanbit-reactors",
+    "src:geo-reactors-reno-proposal-2010"
+  ],
+  "summary": {
+    "plain": "The six Hanbit reactor units and the RENO near and far detector halls, positioned from the experiment's published core-to-detector distances.",
+    "technical": "Reactor-unit footprints and plant boundary from OpenStreetMap; near/far hall positions derived by multilateration from the six units using Table 1.2 of the RENO TDR (arXiv:1003.1391); the assignment of reactor numbers to buildings is the only one of the 720 permutations that fits."
+  },
+  "type": "map",
+  "unlocated": []
+}

@@ -1,0 +1,262 @@
+{
+  "accuracy_m": 25,
+  "aliases": [
+    "Traforo del Gran Sasso",
+    "Gran Sasso Tunnel",
+    "A24 Gran Sasso highway tunnel"
+  ],
+  "checks": [
+    {
+      "expected": {
+        "dimension": "length",
+        "display": "10 176 m",
+        "unit": "m",
+        "value": 10176
+      },
+      "kind": "length",
+      "locator": "p.28, section on the A24 tunnel civil engineering",
+      "quote": "La galleria in esame è ubicata nel tratto compreso tra le uscite di Assergi e San Gabriele – Colledara e si estende tra il km 117,653 ed il km 127,829 dell'autostrada A24.",
+      "sources": [
+        "src:geo-lngs-pee-2024"
+      ],
+      "tolerance": 0.02
+    }
+  ],
+  "coverage": {
+    "researched": "full",
+    "tier": "B"
+  },
+  "depth_m": null,
+  "entity_id": null,
+  "feature_type": "tunnel",
+  "geometry": {
+    "confidence": "verified",
+    "locator": "OSM relation 9617984, member way 24389234 (Assergi/west → Teramo/east), as of 2026-09-18T22:22:35Z",
+    "note": "'verified' rests on the passing length check against the Prefettura/INFN emergency-plan chainage (a rank 9 project_document, ≤ 10), independent of OSM.",
+    "quote": null,
+    "sources": [
+      "src:geo-lngs-osm-tunnel-relation",
+      "src:geo-lngs-pee-2024"
+    ],
+    "value": {
+      "coordinates": [
+        [
+          13.5229185,
+          42.4174342
+        ],
+        [
+          13.5293818,
+          42.4179831
+        ],
+        [
+          13.5339069,
+          42.4185137
+        ],
+        [
+          13.5358139,
+          42.4188107
+        ],
+        [
+          13.5367126,
+          42.4189631
+        ],
+        [
+          13.5374864,
+          42.4191219
+        ],
+        [
+          13.5383074,
+          42.4193223
+        ],
+        [
+          13.5390132,
+          42.4195255
+        ],
+        [
+          13.5398714,
+          42.4197744
+        ],
+        [
+          13.5406445,
+          42.4200385
+        ],
+        [
+          13.5416757,
+          42.4204345
+        ],
+        [
+          13.5426125,
+          42.4208298
+        ],
+        [
+          13.543427,
+          42.4212326
+        ],
+        [
+          13.5448699,
+          42.4219771
+        ],
+        [
+          13.5463153,
+          42.4228914
+        ],
+        [
+          13.547726,
+          42.4238465
+        ],
+        [
+          13.5505472,
+          42.4261498
+        ],
+        [
+          13.5554981,
+          42.4307769
+        ],
+        [
+          13.5579678,
+          42.4331199
+        ],
+        [
+          13.5625198,
+          42.4374405
+        ],
+        [
+          13.565602,
+          42.4403721
+        ],
+        [
+          13.5678745,
+          42.4425337
+        ],
+        [
+          13.5695792,
+          42.4441436
+        ],
+        [
+          13.5737598,
+          42.448032
+        ],
+        [
+          13.5796481,
+          42.4536458
+        ],
+        [
+          13.5806657,
+          42.4546021
+        ],
+        [
+          13.5815906,
+          42.4554912
+        ],
+        [
+          13.5833936,
+          42.4572212
+        ],
+        [
+          13.5871169,
+          42.4607759
+        ],
+        [
+          13.5966328,
+          42.4700174
+        ],
+        [
+          13.5972924,
+          42.4707285
+        ],
+        [
+          13.5984623,
+          42.472065
+        ],
+        [
+          13.5993972,
+          42.4730797
+        ],
+        [
+          13.6004393,
+          42.4741034
+        ],
+        [
+          13.6011246,
+          42.4747942
+        ],
+        [
+          13.6019629,
+          42.4756411
+        ],
+        [
+          13.6027431,
+          42.4765784
+        ],
+        [
+          13.6032316,
+          42.4771802
+        ],
+        [
+          13.6035587,
+          42.4777265
+        ],
+        [
+          13.6038846,
+          42.4784512
+        ],
+        [
+          13.6040454,
+          42.4788937
+        ],
+        [
+          13.6041981,
+          42.479436
+        ],
+        [
+          13.6042732,
+          42.4798691
+        ],
+        [
+          13.604254,
+          42.4806281
+        ],
+        [
+          13.6041236,
+          42.4814863
+        ]
+      ],
+      "type": "LineString"
+    },
+    "verified_at": "2026-09-18"
+  },
+  "id": "geometry:lngs-tunnel-gran-sasso",
+  "level_id": "gran-sasso-tunnel",
+  "license": {
+    "attribution": "© OpenStreetMap contributors",
+    "name": "ODbL-1.0",
+    "url": "https://www.openstreetmap.org/copyright"
+  },
+  "links": {
+    "website": null
+  },
+  "map_id": "map:lngs",
+  "method": "OpenStreetMap relation 9617984, member way 24389234 (the Assergi/west-portal-first tube), taken verbatim as one LineString. The relation's other member (way 362100840, the twin parallel bore) is not drawn separately: the two tubes run 30-90 m apart (average ca. 60 m per src:geo-lngs-pee-2024) and drawing both at this map's scale would be a near-duplicate shape with no added information; the single drawn tube stands for the tunnel's path.",
+  "name": "A24 Gran Sasso highway tunnel (Traforo del Gran Sasso)",
+  "notes": [
+    "This is the public two-way road tunnel that the LNGS underground laboratory is dug beside; the tunnel itself is not an LNGS entity (entity_id null, a context feature) but is drawn because the laboratory's own position is defined relative to it (see geometry:lngs-lab-access-zone)."
+  ],
+  "osm": {
+    "elements": [
+      "way/24389234"
+    ],
+    "timestamp": "2026-09-18T22:22:35Z"
+  },
+  "representation": "georeferenced",
+  "schema": "hep-atlas/0.2",
+  "site_id": null,
+  "sources": [
+    "src:geo-lngs-osm-tunnel-relation",
+    "src:geo-lngs-pee-2024"
+  ],
+  "summary": {
+    "plain": "The 10.2 km two-way road tunnel carrying the A24 motorway under the Gran Sasso massif between Assergi (L'Aquila) and Colledara (Teramo); the LNGS underground laboratory is dug beside it, about 6 km in from the Assergi end."
+  },
+  "type": "geometry",
+  "valid": null
+}

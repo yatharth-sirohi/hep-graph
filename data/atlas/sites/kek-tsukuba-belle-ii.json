@@ -7,18 +7,19 @@
   ],
   "altitude": null,
   "coordinates": {
-    "confidence": "uncertain",
+    "confidence": "approximate",
     "kind": "detector",
-    "lat": 36.15778,
-    "lon": 140.075,
-    "locator": "www-superkekb.kek.jp, footer address",
-    "note": "REVIEW REQUIRED (A17), after real effort: no official KEK, SuperKEKB or Belle II page, and no technical paper (including the Belle II TDR abstract and the Belle NIM detector paper) reached in this session, publishes latitude/longitude for the Tsukuba interaction region; en.wikipedia's own infobox coordinate for Belle II carries no citation for its number either. The numeric value is inherited from that uncited Wikipedia coordinate (kept as src:belle2-wikipedia-coordinates in the record's top-level sources for provenance); it is not cited on this coordinate because A17 rejects a rank-12 source as the sole backing for a `detector`-kind point. KEK's own SuperKEKB site gives only the postal address (1-1 Oho, Tsukuba, Ibaraki 305-0801), confirming the campus but not a precise point. precision_m widened from 300 to 400 m to reflect that this is an unsurveyed estimate.",
-    "precision_m": 400,
-    "quote": "1-1 Oho, Tsukuba, Ibaraki 305-0801 Japan",
+    "lat": 36.1577373,
+    "locator": "OSM building footprint centroid for 筑波実験棟 (Tsukuba experimental hall); the SuperKEKB NIM A paper names Tsukuba as the interaction-region straight section",
+    "lon": 140.0749938,
+    "note": "Corroboration: the OSM Tsukuba hall footprint centroid lies 4.8 m from the previous uncited value, so the coordinate is kept and its sourcing upgraded from uncertain to approximate. Previous record: detector point 36.15778, 140.075 at 400 m precision, sources ['src:superkekb-project-site']; moved 4 m (integrator, 2026-09-21, per docs/atlas-worklog/GEOMETRY_*.md). The official SuperKEKB project site (previously the sole source) still backs the Tsukuba interaction-region location; the OSM footprint refines it by 4.8 m.",
+    "precision_m": 30,
     "sources": [
+      "src:geo-kek-osm-tsukuba-hall",
+      "src:superkekb-collider-nima-2018",
       "src:superkekb-project-site"
     ],
-    "verified_at": "2026-09-17"
+    "verified_at": "2026-09-21"
   },
   "countries": [
     "JP"
@@ -57,7 +58,9 @@
   "sources": [
     "src:superkekb-project-site",
     "src:belle-detector-nima-2002",
-    "src:belle2-wikipedia-coordinates"
+    "src:belle2-wikipedia-coordinates",
+    "src:geo-kek-osm-tsukuba-hall",
+    "src:superkekb-collider-nima-2018"
   ],
   "summary": {
     "plain": "The collision hall on the KEK laboratory campus in Tsukuba, Japan, where the electron and positron beams of the KEKB and SuperKEKB rings are brought together and where the Belle and Belle II detectors have stood.",

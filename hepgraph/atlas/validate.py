@@ -2211,12 +2211,19 @@ def _geometry_by_map(ctx: _Context) -> dict[str, list[tuple[str, dict]]]:
 
 
 def _drawn_entities(rows: Iterable[tuple[str, dict]]) -> set[str]:
-    """Every entity id a set of geometry records depicts."""
+    """Every entity id a set of geometry records depicts or stands at.
+
+    A feature accounts for its `entity_id` and, when it carries one, for the
+    `site_id` it stands at: a detector footprint drawn at a hall site is the
+    hall, so the site must not have to be listed as "unlocated" to satisfy the
+    honesty check (that listing would contradict the drawing).
+    """
     drawn: set[str] = set()
     for _geometry_id, record in rows:
-        entity_id = record.get('entity_id')
-        if isinstance(entity_id, str):
-            drawn.add(schema.canonical_id(entity_id))
+        for key in ('entity_id', 'site_id'):
+            value = record.get(key)
+            if isinstance(value, str):
+                drawn.add(schema.canonical_id(value))
     return drawn
 
 

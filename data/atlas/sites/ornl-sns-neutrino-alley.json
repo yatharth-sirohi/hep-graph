@@ -6,16 +6,15 @@
   "coordinates": {
     "confidence": "approximate",
     "kind": "campus",
-    "lat": 36.01036,
-    "locator": "ROR v2 API record for organization 01qz5mb56 (Oak Ridge National Laboratory), addresses[0].lat/addresses[0].lng",
-    "lon": -84.26964,
-    "note": "Upgraded 2026-09-17: ROR v2 organization record for Oak Ridge National Laboratory (ror.org/01qz5mb56) gives a geocoded campus point, rank 8, replacing the Wikipedia-infobox-only point (rank 12); it is ORNL's general campus centroid, not 'Neutrino Alley' specifically. neutrons.ornl.gov/coherent again returned HTTP 404 in this session, and the reachable neutrons.ornl.gov/sns page (re-fetched 2026-09-17) states no coordinate and does not mention 'Neutrino Alley' or COHERENT. The official ornl.gov root page (re-fetched 2026-09-17) confirms only the general mailing address '1 Bethel Valley Road, Oak Ridge, TN 37830', also no coordinate. `setting: underground` for this specific corridor remains unconfirmed by any official source fetched to date; treat with the same caution as before.",
-    "precision_m": 2000,
+    "lat": 35.9526819,
+    "locator": "Centroid of OSM way 907808191 \"ORNL Spallation Neutron Source\" complex boundary",
+    "lon": -84.3004404,
+    "note": "Correction: the previous ORNL-wide ROR point is 7 km from the SNS complex; this is the complex boundary centroid, not the Neutrino Alley basement itself. Previous record: campus point 36.01036, -84.26964 at 2000 m precision, sources ['src:facilities-verify-ornl-ror', 'src:ornl-wikipedia']; moved 3484 m (integrator, 2026-09-21, per docs/atlas-worklog/GEOMETRY_*.md).",
+    "precision_m": 800,
     "sources": [
-      "src:facilities-verify-ornl-ror",
-      "src:ornl-wikipedia"
+      "src:geo-ornl-osm-sns-boundary"
     ],
-    "verified_at": "2026-09-17"
+    "verified_at": "2026-09-21"
   },
   "country": "US",
   "coverage": {
@@ -43,7 +42,8 @@
   "sources": [
     "src:ornl-sns-page",
     "src:ornl-wikipedia",
-    "src:facilities-verify-ornl-ror"
+    "src:facilities-verify-ornl-ror",
+    "src:geo-ornl-osm-sns-boundary"
   ],
   "summary": {
     "plain": "A shielded corridor next to the neutron-producing target of the Spallation Neutron Source at Oak Ridge, Tennessee, used to detect neutrinos produced as a byproduct of the neutron beam.",

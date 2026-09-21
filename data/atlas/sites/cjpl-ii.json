@@ -6,16 +6,16 @@
   "coordinates": {
     "confidence": "approximate",
     "kind": "campus",
-    "lat": 28.1763431,
-    "locator": "arXiv:1404.2651: CJPL-II located ~500 m west of CJPL-I along the same road tunnel",
-    "lon": 101.720304,
-    "note": "CJPL-II is described as being 500 m west of CJPL-I along the same tunnel (arXiv:1404.2651), but no official page fetched in this session gives it a separate numeric coordinate; the CJPL-I geocoder point is reused with a larger precision_m to honestly reflect that offset, and kind is campus/approximate since the source is a geocoder plus a paper's qualitative distance statement, not a surveyed coordinate.",
-    "precision_m": 2500,
+    "lat": 28.1798609,
+    "locator": "Position walked along the OSM Jinping traffic-tunnel line by the sourced portal-to-hall distance (see geometry:cjpl-ii-point method)",
+    "lon": 101.7150202,
+    "note": "`kind: campus` under A23: the position is derived along an OpenStreetMap tunnel trace (rank 11) from a distance published in an arXiv paper (rank 10); A17 admits neither as the sole backing of an underground_lab-grade point. Upgrade from a 2.5 km geocoder point: derived along the traffic tunnel from the published distance to the CJPL-II halls; 622 m from the previous point. Previous record: campus point 28.1763431, 101.720304 at 2500 m precision, sources ['src:cjpl-osm-nominatim', 'src:cjpl-arxiv-phase2-2014']; moved 593 m (integrator, 2026-09-21, per docs/atlas-worklog/GEOMETRY_*.md).",
+    "precision_m": 100,
     "sources": [
-      "src:cjpl-osm-nominatim",
-      "src:cjpl-arxiv-phase2-2014"
+      "src:geo-kamioka-cjpl-osm-jinping-tunnel",
+      "src:cjpl-arxiv-early-science-2018"
     ],
-    "verified_at": "2026-09-17"
+    "verified_at": "2026-09-21"
   },
   "country": "CN",
   "coverage": {
@@ -69,7 +69,9 @@
   "sources": [
     "src:cjpl-arxiv-phase2-2014",
     "src:cjpl-tsinghua-home",
-    "src:cjpl-osm-nominatim"
+    "src:cjpl-osm-nominatim",
+    "src:geo-kamioka-cjpl-osm-jinping-tunnel",
+    "src:cjpl-arxiv-early-science-2018"
   ],
   "summary": {
     "plain": "A newer, larger extension of the Jinping underground laboratory, about half a kilometre from the original hall along the same tunnel, also under more than two kilometres of rock.",

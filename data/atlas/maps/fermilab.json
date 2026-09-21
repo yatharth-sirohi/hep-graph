@@ -120,7 +120,8 @@
   },
   "name": "Fermilab — Batavia, Illinois",
   "notes": [
-    "Far sites (not drawn on this map; see the geometry worklog for great-circle distances and bearings computed from the sourced site:fermilab-main-campus point): site:soudan-minos-far-detector (735.4 km, bearing 336.0 degrees, historical MINOS-era NuMI beam), site:ash-river-nova-far-detector (811.7 km, bearing 335.5 degrees, current NOvA-era NuMI beam), site:surf-4850-level-dune-far-detector (1287.6 km, bearing 287.7 degrees, LBNF beam). No map:soudan, map:ash-river or map:surf record exists yet in this branch, so linked_map_ids is empty; the integrator should populate it once those maps exist."
+    "Far sites (not drawn on this map; see the geometry worklog for great-circle distances and bearings computed from the sourced site:fermilab-main-campus point): site:soudan-minos-far-detector (735.4 km, bearing 336.0 degrees, historical MINOS-era NuMI beam), site:ash-river-nova-far-detector (811.7 km, bearing 335.5 degrees, current NOvA-era NuMI beam), site:surf-4850-level-dune-far-detector (1287.6 km, bearing 287.7 degrees, LBNF beam). No map:soudan, map:ash-river or map:surf record exists yet in this branch, so linked_map_ids is empty; the integrator should populate it once those maps exist.",
+    "The campus site (site:fermilab-main-campus, a 3 km point) is represented by the campus boundary and by the halls/points drawn at it with `site_id`; detectors placed there that could not be located are listed individually in `unlocated[]`."
   ],
   "schema": "hep-atlas/0.2",
   "schematics": [],
@@ -258,47 +259,11 @@
       "verified_at": "2026-09-18"
     },
     {
-      "backlog": "None beyond the site coordinate correction already noted in the geometry worklog (the OSM CDF Hall footprint is a strictly better anchor than this site's own 3 km campus point).",
-      "entity_id": "site:fermilab-cdf-collision-hall-b0",
-      "reason": "detector:cdf is drawn at this site from an OpenStreetMap building footprint (geometry:fermilab-cdf-hall, site_id set), but the site record itself is not the `entity_id` of any geometry feature, so it is named here too to satisfy the honesty check explicitly.",
-      "sources": [
-        "src:fermilab-geo-osm-buildings"
-      ],
-      "verified_at": "2026-09-18"
-    },
-    {
-      "backlog": "None beyond the site coordinate correction already noted in the geometry worklog (the OSM D0 Assembly building footprint is a strictly better anchor than this site's own 3 km campus point).",
-      "entity_id": "site:fermilab-d0-collision-hall",
-      "reason": "detector:d0 is drawn at this site from an OpenStreetMap building footprint (geometry:fermilab-d0-hall, site_id set), but the site record itself is not the `entity_id` of any geometry feature, so it is named here too to satisfy the honesty check explicitly.",
-      "sources": [
-        "src:fermilab-geo-osm-rings-and-d0"
-      ],
-      "verified_at": "2026-09-18"
-    },
-    {
       "backlog": "Same backlog as detector:ktev above.",
       "entity_id": "site:fermilab-ktev-hall",
       "reason": "detector:ktev, the only detector placed at this site, is unlocated (see above); the site itself is not drawn either.",
       "sources": [
         "src:ktev-design-report-1992"
-      ],
-      "verified_at": "2026-09-18"
-    },
-    {
-      "backlog": "See the backlog rows above for detector:minerva, detector:donut, detector:sensei, detector:damic and detector:dune-near-detector, each of which shares this site.",
-      "entity_id": "site:fermilab-main-campus",
-      "reason": "This coarse 3 km campus point hosts many detector placements. Most detectors placed here ARE now drawn, from their own OSM building footprints with `site_id` set to this site (geometry:fermilab-minos-near-surface, geometry:fermilab-nova-near-surface, geometry:fermilab-miniboone-hall, geometry:fermilab-microboone-hall, geometry:fermilab-icarus-hall, geometry:fermilab-sbnd-point, plus the derived geometry:fermilab-bnb-target/beamline and geometry:fermilab-numi-target/beamline, and geometry:fermilab-linac's context), but the site record itself is never the `entity_id` of a geometry feature (a single point cannot represent a 27 km^2 campus as one 'drawn' feature), so it is named here too. The detectors placed here that remain undrawn are individually listed above (detector:minerva, detector:donut, detector:sensei, detector:damic, detector:dune-near-detector).",
-      "sources": [
-        "src:fermilab-geo-osm-buildings"
-      ],
-      "verified_at": "2026-09-18"
-    },
-    {
-      "backlog": "None beyond the site coordinate correction already noted in the geometry worklog (the OSM MC-1 building footprint is a strictly better anchor than this site's own 4 km geocoder point).",
-      "entity_id": "site:fermilab-mc-1-muon-campus",
-      "reason": "detector:muon-g-2 is drawn at this site from an OpenStreetMap building footprint (geometry:fermilab-mc1-building, site_id set), but the site record itself is not the `entity_id` of any geometry feature, so it is named here too to satisfy the honesty check explicitly.",
-      "sources": [
-        "src:fermilab-geo-osm-mc1"
       ],
       "verified_at": "2026-09-18"
     },

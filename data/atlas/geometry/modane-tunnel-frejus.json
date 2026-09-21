@@ -1,0 +1,388 @@
+{
+  "accuracy_m": 35,
+  "aliases": [
+    "Tunnel Routier du Fréjus",
+    "Traforo Stradale del Frejus",
+    "Fréjus Road Tunnel"
+  ],
+  "checks": [
+    {
+      "expected": {
+        "dimension": "length",
+        "display": "12 870 m",
+        "unit": "m",
+        "value": 12870
+      },
+      "kind": "length",
+      "locator": "sftrf.fr, 'Le tunnel du Fréjus' page",
+      "quote": "12,87 km de long",
+      "sources": [
+        "src:geo-modane-sftrf-tunnel-page"
+      ],
+      "tolerance": 0.02
+    }
+  ],
+  "coverage": {
+    "researched": "full",
+    "tier": "B"
+  },
+  "depth_m": null,
+  "entity_id": null,
+  "feature_type": "tunnel",
+  "geometry": {
+    "confidence": "approximate",
+    "locator": "OSM way 101986702 (French section) + way 317397424 (Italian section), joined at the border (35 m gap between their nearest endpoints), as of 2026-09-18T22:47:00Z",
+    "note": "Kept 'approximate' rather than pushed to 'verified' even though the length check passes at 0.06%: as of 28 July 2025 the Fréjus road tunnel has TWO parallel tubes (the original 1980 bore and a new one built 2019-2025, each ~12.9 km, one-way in opposite directions per src:geo-modane-sftrf-second-tube-pr), and the two OSM ways used here carry inconsistent tags (the Italian way is tagged opening_date=2023-10, suggesting it may already describe the new tube rather than the 1980 original that the laboratory was actually excavated beside). Since both tubes run closely parallel over their whole length and this session could not fetch Overpass to disambiguate cleanly, the traced line is treated as approximate for either tube. See the facility worklog.",
+    "quote": null,
+    "sources": [
+      "src:geo-modane-osm-tunnel",
+      "src:geo-modane-sftrf-tunnel-page"
+    ],
+    "value": {
+      "coordinates": [
+        [
+          6.6774594,
+          45.1958178
+        ],
+        [
+          6.6780622,
+          45.1957871
+        ],
+        [
+          6.6783437,
+          45.1957551
+        ],
+        [
+          6.6785828,
+          45.1957172
+        ],
+        [
+          6.6790033,
+          45.1956188
+        ],
+        [
+          6.6793441,
+          45.1954881
+        ],
+        [
+          6.6796463,
+          45.195361
+        ],
+        [
+          6.679973,
+          45.1952031
+        ],
+        [
+          6.6803113,
+          45.1950446
+        ],
+        [
+          6.6807716,
+          45.1947959
+        ],
+        [
+          6.6811746,
+          45.1945555
+        ],
+        [
+          6.6816633,
+          45.1942481
+        ],
+        [
+          6.6821161,
+          45.1939108
+        ],
+        [
+          6.6824814,
+          45.1935991
+        ],
+        [
+          6.6828841,
+          45.1932447
+        ],
+        [
+          6.6832401,
+          45.1928409
+        ],
+        [
+          6.6834817,
+          45.1925159
+        ],
+        [
+          6.6837592,
+          45.1920681
+        ],
+        [
+          6.6839764,
+          45.1916624
+        ],
+        [
+          6.6842622,
+          45.190977
+        ],
+        [
+          6.6843693,
+          45.1905179
+        ],
+        [
+          6.6844653,
+          45.1897754
+        ],
+        [
+          6.684734,
+          45.1860356
+        ],
+        [
+          6.684891,
+          45.1822713
+        ],
+        [
+          6.6849232,
+          45.1803353
+        ],
+        [
+          6.6849393,
+          45.1784193
+        ],
+        [
+          6.6848343,
+          45.1774715
+        ],
+        [
+          6.6846118,
+          45.1764358
+        ],
+        [
+          6.6839684,
+          45.1732664
+        ],
+        [
+          6.6830456,
+          45.1680071
+        ],
+        [
+          6.6827559,
+          45.1666909
+        ],
+        [
+          6.6824984,
+          45.1653558
+        ],
+        [
+          6.6819592,
+          45.1628508
+        ],
+        [
+          6.6817012,
+          45.1616827
+        ],
+        [
+          6.6815436,
+          45.1609479
+        ],
+        [
+          6.6813424,
+          45.1597939
+        ],
+        [
+          6.6812467,
+          45.1586616
+        ],
+        [
+          6.6812588,
+          45.1574709
+        ],
+        [
+          6.6814031,
+          45.1562418
+        ],
+        [
+          6.6816482,
+          45.1550758
+        ],
+        [
+          6.6819973,
+          45.1539077
+        ],
+        [
+          6.6832418,
+          45.1505746
+        ],
+        [
+          6.6845906,
+          45.1470581
+        ],
+        [
+          6.685245,
+          45.1452495
+        ],
+        [
+          6.6859766,
+          45.1433903
+        ],
+        [
+          6.6874651,
+          45.1402616
+        ],
+        [
+          6.6875246,
+          45.1401466
+        ],
+        [
+          6.6875594,
+          45.1400724
+        ],
+        [
+          6.6883939,
+          45.1390403
+        ],
+        [
+          6.6888285,
+          45.1379278
+        ],
+        [
+          6.6895196,
+          45.1359797
+        ],
+        [
+          6.6901416,
+          45.134076
+        ],
+        [
+          6.6909394,
+          45.1317641
+        ],
+        [
+          6.6915284,
+          45.130241
+        ],
+        [
+          6.6924231,
+          45.1280608
+        ],
+        [
+          6.6934045,
+          45.1252112
+        ],
+        [
+          6.6936217,
+          45.1246802
+        ],
+        [
+          6.6938536,
+          45.1241699
+        ],
+        [
+          6.6969466,
+          45.1184368
+        ],
+        [
+          6.6985544,
+          45.1155063
+        ],
+        [
+          6.7137229,
+          45.0888997
+        ],
+        [
+          6.7138023,
+          45.0887492
+        ],
+        [
+          6.7138749,
+          45.0886131
+        ],
+        [
+          6.714014,
+          45.0883354
+        ],
+        [
+          6.714058,
+          45.0882491
+        ],
+        [
+          6.7141049,
+          45.0881385
+        ],
+        [
+          6.7141337,
+          45.0880447
+        ],
+        [
+          6.7141443,
+          45.0879704
+        ],
+        [
+          6.7141652,
+          45.0878464
+        ],
+        [
+          6.7141658,
+          45.0877392
+        ],
+        [
+          6.7141479,
+          45.0875306
+        ],
+        [
+          6.7141032,
+          45.0873356
+        ],
+        [
+          6.7140468,
+          45.0871792
+        ],
+        [
+          6.7139835,
+          45.0870515
+        ],
+        [
+          6.7138441,
+          45.086836
+        ],
+        [
+          6.7137974,
+          45.0867651
+        ]
+      ],
+      "type": "LineString"
+    },
+    "verified_at": "2026-09-18"
+  },
+  "id": "geometry:modane-tunnel-frejus",
+  "level_id": "frejus-tunnel",
+  "license": {
+    "attribution": "© OpenStreetMap contributors",
+    "name": "ODbL-1.0",
+    "url": "https://www.openstreetmap.org/copyright"
+  },
+  "links": {
+    "website": "https://www.sftrf.fr/"
+  },
+  "map_id": "map:modane-underground-laboratory",
+  "method": "OpenStreetMap way 101986702 (Modane/French portal to the France-Italy border, 48 nodes) concatenated with way 317397424 reversed (border to Bardonecchia/Italian portal, 29 nodes); the two ways' nearest endpoints are 35 m apart at the border and are not otherwise joined by a shared node or relation. Fetched node-by-node via the standard OpenStreetMap read API (api.openstreetmap.org/api/0.6), not Overpass, because Overpass (overpass-api.de, its lz4 mirror, and overpass.kumi.systems) refused every connection attempt this session; see the facility worklog.",
+  "name": "Fréjus Road Tunnel (Tunnel Routier du Fréjus / Traforo Stradale del Frejus)",
+  "notes": [
+    "This is the public two-way (historically) / now-split-direction road tunnel that LSM is excavated beside, between Modane (France) and Bardonecchia (Italy); the tunnel itself is not an LSM entity (entity_id null, context feature)."
+  ],
+  "osm": {
+    "elements": [
+      "way/101986702",
+      "way/317397424"
+    ],
+    "timestamp": "2026-09-18T22:47:00Z"
+  },
+  "representation": "georeferenced",
+  "schema": "hep-atlas/0.2",
+  "site_id": null,
+  "sources": [
+    "src:geo-modane-osm-tunnel",
+    "src:geo-modane-sftrf-tunnel-page",
+    "src:geo-modane-sftrf-second-tube-pr"
+  ],
+  "summary": {
+    "plain": "The 12.9 km road tunnel under the Alps between Modane (France) and Bardonecchia (Italy); the Modane underground laboratory is dug into the rock beside it, close to its midpoint."
+  },
+  "type": "geometry",
+  "valid": null
+}

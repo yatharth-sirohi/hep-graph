@@ -6,16 +6,15 @@
   "coordinates": {
     "confidence": "approximate",
     "kind": "campus",
-    "lat": 53.55073,
-    "locator": "ROR v2 API record for organization 01js2sh04 (Deutsches Elektronen-Synchrotron DESY), addresses[0].lat/addresses[0].lng",
-    "lon": 9.99302,
-    "note": "Upgraded 2026-09-17: no North-Hall-specific coordinate is fetchable; the general DESY campus point is now the ROR geocode (rank 8) rather than Wikipedia (rank 12) alone. Hall/detector pairing (North Hall = H1) remains corroborated by src:h1-wikipedia. Still campus/approximate per A17 (a geocoder cannot back a detector-kind coordinate).",
-    "precision_m": 800,
+    "lat": 53.5901057,
+    "locator": "OSM way 131496014 \"HERA Halle Nord\" building centroid, 37.7 m from the north end of the OSM HERA tunnel ring",
+    "lon": 9.8844408,
+    "note": "Correction: replaces a ROR campus point 8.4 km away with the HERA North Hall building footprint centroid. `kind: campus` under A23 because the position rests on an OpenStreetMap tracing (rank 11), which A17 does not admit as a detector-grade point on its own; the H1 detector stood inside this hall. Previous record: campus point 53.55073, 9.99302 at 800 m precision, sources ['src:ror-01js2sh04', 'src:desy-wikipedia']; moved 12821 m (integrator, 2026-09-21, per docs/atlas-worklog/GEOMETRY_*.md).",
+    "precision_m": 50,
     "sources": [
-      "src:ror-01js2sh04",
-      "src:desy-wikipedia"
+      "src:geo-desy-osm-hera-halle-nord"
     ],
-    "verified_at": "2026-09-17"
+    "verified_at": "2026-09-21"
   },
   "country": "DE",
   "coverage": {
@@ -45,7 +44,8 @@
     "src:desy-wikipedia",
     "src:h1-wikipedia",
     "src:hera-wikipedia",
-    "src:ror-01js2sh04"
+    "src:ror-01js2sh04",
+    "src:geo-desy-osm-hera-halle-nord"
   ],
   "summary": {
     "plain": "The experimental hall on the HERA ring at DESY where the H1 detector recorded electron-proton collisions.",
