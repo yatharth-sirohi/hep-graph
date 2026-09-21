@@ -28,15 +28,26 @@
   },
   "id": "geometry:meyrin-site-marker",
   "level_id": "surface",
-  "license": null,
+  "license": {
+    "attribution": "© OpenStreetMap contributors",
+    "name": "ODbL-1.0",
+    "url": "https://www.openstreetmap.org/copyright"
+  },
   "links": {
     "website": null
   },
   "map_id": "map:cern",
   "method": "Visualises the already-sourced campus-grade coordinate on site:cern-meyrin (OpenStreetMap/Nominatim result for 'CERN - Site de Meyrin', osm_id 27005) as a single point; no new coordinate is derived here. accuracy_m matches that record's own precision_m (500 m). No Overpass search this session ('Meyrin' landuse, bboxes 46.18-46.29 / 5.99-6.12) found a distinct Meyrin-site boundary polygon comparable to way 23722021 for Prévessin, so this marker -- not a boundary -- is what stands in for the Meyrin site on the map.",
   "name": "CERN Meyrin site (reference marker)",
-  "notes": [],
-  "osm": null,
+  "notes": [
+    "QA pass (2026-09-21): added the ODbL-1.0 licence and `osm.elements` this record omitted despite naming OSM relation 27005 (Nominatim) as its coordinate source in `method`; the underlying `src:cern-meyrin-osm-nominatim` source predates the A25 `openstreetmap` source_type convention (it is typed `geocoder`), so the validator's automatic OSM-license check did not catch the omission. No coordinate or claim changed."
+  ],
+  "osm": {
+    "elements": [
+      "relation/27005"
+    ],
+    "timestamp": "2026-09-16"
+  },
   "representation": "georeferenced",
   "schema": "hep-atlas/0.2",
   "site_id": "site:cern-meyrin",
