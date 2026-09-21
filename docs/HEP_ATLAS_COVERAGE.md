@@ -16,13 +16,13 @@ interface says only "coverage updated" with this date.
 | document | 70 |
 | experiment | 131 |
 | facility | 48 |
-| geometry | 148 |
+| geometry | 173 |
 | institution | 529 |
-| map | 34 |
+| map | 39 |
 | person | 12 |
 | result | 109 |
 | site | 93 |
-| source | 1597 |
+| source | 1603 |
 | topic | 42 |
 | membership rows | 659 |
 
@@ -327,11 +327,14 @@ Checks are independent official figures the validator re-measures on every run.
 | Baikal-GVD — southern Lake Baikal site | Baikal Deep Underwater Neutrino Telescope | 2 | 1 | 0 | 1 | 0 | 0 | 0 | 0 |
 | BNO — Baksan Neutrino Observatory | Baksan Neutrino Observatory | 2 | 0 | 2 | 0 | 0 | 1 | 0 | 0 |
 | Boulby Underground Laboratory | Boulby Underground Laboratory | 1 | 0 | 1 | 0 | 0 | 0 | 0 | 0 |
+| Brokdorf — reactor building and the CONUS position | Brokdorf Nuclear Power Plant | 2 | 0 | 1 | 1 | 0 | 0 | 0 | 0 |
 | Brookhaven National Laboratory — Upton campus, RHIC and AGS rings | Brookhaven National Laboratory | 11 | 0 | 11 | 0 | 0 | 0 | 2 | 0 |
 | LSC — Laboratorio Subterráneo de Canfranc | Laboratorio Subterraneo de Canfranc | 4 | 0 | 4 | 0 | 0 | 0 | 1 | 0 |
 | CERN — Meyrin, Prévessin and the LHC ring | CERN | 21 | 1 | 17 | 2 | 1 | 7 | 5 | 0 |
+| Chooz — reactor cores (Double Chooz / NUCLEUS site) | Chooz Reactor Neutrino Site | 3 | 0 | 3 | 0 | 0 | 3 | 0 | 0 |
 | China Jinping Underground Laboratory (CJPL) | China Jinping Underground Laboratory | 3 | 0 | 1 | 2 | 0 | 0 | 1 | 0 |
 | CTAO-South — Paranal | CTAO-South (Paranal) | 1 | 1 | 0 | 0 | 0 | 0 | 0 | 0 |
+| Daya Bay — reactor cores and experimental halls | Daya Bay Reactor Neutrino Laboratory | 9 | 0 | 6 | 3 | 0 | 0 | 18 | 0 |
 | DESY — Hamburg-Bahrenfeld campus and the HERA ring | Deutsches Elektronen-Synchrotron | 4 | 0 | 4 | 0 | 0 | 1 | 1 | 0 |
 | Fermilab — Batavia, Illinois | Fermi National Accelerator Laboratory | 22 | 0 | 12 | 8 | 2 | 19 | 9 | 0 |
 | VERITAS — Fred Lawrence Whipple Observatory | Fred Lawrence Whipple Observatory | 1 | 1 | 0 | 0 | 0 | 0 | 0 | 0 |
@@ -342,6 +345,7 @@ Checks are independent official figures the validator re-measures on every run.
 | KEK — Tsukuba campus | KEK (High Energy Accelerator Research Organization) | 11 | 0 | 10 | 0 | 1 | 1 | 2 | 0 |
 | KM3NeT/ARCA — Capo Passero deep-sea site | KM3NeT | 2 | 1 | 0 | 1 | 0 | 0 | 0 | 0 |
 | KM3NeT/ORCA — Toulon deep-sea site | KM3NeT | 2 | 1 | 0 | 1 | 0 | 0 | 0 | 0 |
+| Leibstadt — reactor building and the CONUS+ position | Leibstadt Nuclear Power Plant | 2 | 0 | 1 | 1 | 0 | 0 | 0 | 0 |
 | LHAASO — Haizi Mountain, Daocheng | LHAASO (Daocheng) | 1 | 0 | 1 | 0 | 0 | 0 | 0 | 0 |
 | LNGS — Laboratori Nazionali del Gran Sasso | Laboratori Nazionali del Gran Sasso | 7 | 1 | 2 | 4 | 0 | 0 | 1 | 0 |
 | Los Alamos National Laboratory, LANSCE (Technical Area 53) | Los Alamos National Laboratory | 1 | 0 | 1 | 0 | 0 | 2 | 0 | 0 |
@@ -357,12 +361,13 @@ Checks are independent official figures the validator re-measures on every run.
 | SURF — Sanford Underground Research Facility, Lead, South Dakota | Sanford Underground Research Facility | 6 | 1 | 5 | 0 | 0 | 1 | 0 | 0 |
 | Telescope Array — Utah | Telescope Array (Utah) | 1 | 1 | 0 | 0 | 0 | 0 | 0 | 0 |
 | WIPP — Waste Isolation Pilot Plant, Carlsbad, New Mexico | Waste Isolation Pilot Plant | 3 | 0 | 3 | 0 | 0 | 0 | 0 | 0 |
+| Hanbit (Yonggwang) — reactor units and the RENO detector halls | Yonggwang (Hanbit) Reactor Neutrino Site | 9 | 0 | 7 | 2 | 0 | 0 | 12 | 0 |
 
-### Facilities without a local map (15)
+### Facilities without a local map (10)
 
 Named rather than counted, so the gap cannot be read as coverage:
 
-Argonne National Laboratory, Brokdorf Nuclear Power Plant, Center for Experimental Nuclear Physics and Astrophysics (CENPA), Chooz Reactor Neutrino Site, Daya Bay Reactor Neutrino Laboratory, ISIS Neutron and Muon Source, Institut Laue-Langevin, Jiangmen Underground Neutrino Observatory, Karlsruhe Institute of Technology, Campus North, Leibstadt Nuclear Power Plant, Massachusetts Institute of Technology, McMurdo Long Duration Balloon Facility, Summit Station, Greenland, Yale Wright Laboratory, Yonggwang (Hanbit) Reactor Neutrino Site.
+Argonne National Laboratory, Center for Experimental Nuclear Physics and Astrophysics (CENPA), ISIS Neutron and Muon Source, Institut Laue-Langevin, Jiangmen Underground Neutrino Observatory, Karlsruhe Institute of Technology, Campus North, Massachusetts Institute of Technology, McMurdo Long Duration Balloon Facility, Summit Station, Greenland, Yale Wright Laboratory.
 
 
 ## What is deliberately out of scope

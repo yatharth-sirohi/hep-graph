@@ -1,56 +1,66 @@
 {
-  "schema": "hep-atlas/0.2",
-  "id": "site:double-chooz-far-detector",
-  "type": "site",
-  "name": "Double Chooz far detector site",
   "aliases": [],
-  "facility_id": "facility:chooz",
+  "altitude": null,
   "coordinates": {
-    "lat": 50.09,
-    "lon": 4.78944,
-    "kind": "campus",
-    "precision_m": 2000,
-    "sources": ["src:chooz-npp-wikipedia"],
-    "verified_at": "2026-09-17",
     "confidence": "approximate",
+    "kind": "campus",
+    "lat": 50.09,
     "locator": "Wikipedia infobox, Chooz Nuclear Power Plant",
-    "note": "No source fetched this session gives numeric coordinates for the far-detector hall specifically; this is the adjacent Chooz Nuclear Power Plant's own Wikipedia coordinate (rank 12), used as an approximate regional proxy per A17/A23. The far detector is known (2012 discovery paper) to be 1050 m from the reactor cores, inside a hill under 300 m.w.e. of shielding (Wikipedia)."
+    "lon": 4.78944,
+    "note": "No source fetched this session gives numeric coordinates for the far-detector hall specifically; this is the adjacent Chooz Nuclear Power Plant's own Wikipedia coordinate (rank 12), used as an approximate regional proxy per A17/A23. The far detector is known (2012 discovery paper) to be 1050 m from the reactor cores, inside a hill under 300 m.w.e. of shielding (Wikipedia).",
+    "precision_m": 2000,
+    "sources": [
+      "src:chooz-npp-wikipedia"
+    ],
+    "verified_at": "2026-09-17"
   },
-  "setting": "underground",
+  "countries": [
+    "FR"
+  ],
+  "country": "FR",
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
   "depth": null,
   "depth_mwe": {
-    "value": 300,
-    "unit": "m.w.e.",
-    "dimension": "depth_mwe",
     "approx": false,
-    "display": "300 m.w.e.",
-    "sources": ["src:double-chooz-wikipedia"],
-    "verified_at": "2026-09-17",
     "confidence": "approximate",
+    "dimension": "depth_mwe",
+    "display": "300 m.w.e.",
+    "note": "Sourced from Wikipedia (rank 12) only this session.",
     "quote": "300 meters of water equivalent of shielding from cosmic muons",
-    "note": "Sourced from Wikipedia (rank 12) only this session."
+    "sources": [
+      "src:double-chooz-wikipedia"
+    ],
+    "unit": "m.w.e.",
+    "value": 300,
+    "verified_at": "2026-09-17"
   },
-  "altitude": null,
-  "country": "FR",
-  "countries": ["FR"],
-  "place": {
-    "city": "Chooz",
-    "region": "Ardennes",
-    "country": "FR"
-  },
+  "facility_id": "facility:chooz",
+  "id": "site:double-chooz-far-detector",
   "links": {
     "website": null
   },
+  "name": "Double Chooz far detector site",
   "notes": [
     "The Double Chooz far detector was placed inside a hill (former site of the CHOOZ experiment's own far detector) at 1050 m from the reactor cores, per the 2012 discovery paper's abstract."
   ],
-  "sources": ["src:chooz-npp-wikipedia", "src:double-chooz-2012-evidence", "src:double-chooz-wikipedia"],
+  "place": {
+    "city": "Chooz",
+    "country": "FR",
+    "region": "Ardennes"
+  },
+  "schema": "hep-atlas/0.2",
+  "setting": "underground",
+  "sources": [
+    "src:chooz-npp-wikipedia",
+    "src:double-chooz-2012-evidence",
+    "src:double-chooz-wikipedia"
+  ],
   "summary": {
     "plain": "A hall inside a hill near the Chooz nuclear plant in France, over a kilometre from the reactors, shielded by rock from cosmic rays.",
     "technical": "Double Chooz far-detector hall, 1050 m from the Chooz-B reactor cores, under ~300 m.w.e. of rock shielding."
   },
-  "coverage": {
-    "tier": "B",
-    "researched": "partial"
-  }
+  "type": "site"
 }

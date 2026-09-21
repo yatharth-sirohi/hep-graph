@@ -1,43 +1,53 @@
 {
-  "schema": "hep-atlas/0.2",
-  "id": "site:reno-near-detector",
-  "type": "site",
-  "name": "RENO near detector site",
   "aliases": [],
-  "facility_id": "facility:yonggwang-hanbit-reactor-site",
+  "altitude": null,
   "coordinates": {
-    "lat": 35.415,
-    "lon": 126.42389,
-    "kind": "campus",
-    "precision_m": 3000,
-    "sources": ["src:hanbit-npp-wikipedia"],
-    "verified_at": "2026-09-17",
     "confidence": "approximate",
-    "locator": "Wikipedia infobox, Hanbit Nuclear Power Plant",
-    "note": "No source fetched this session gives numeric coordinates for the near-detector hall specifically; this is the adjacent Hanbit Nuclear Power Plant's own Wikipedia coordinate (rank 12), used as an approximate regional proxy per A17/A23, shared with site:reno-far-detector pending hall-specific sourcing. The near detector is 294 m from the reactor-array center per the 2012 discovery paper."
+    "kind": "campus",
+    "lat": 35.412966,
+    "locator": "geometry:reno-near-detector multilateration (see record method)",
+    "lon": 126.414127,
+    "note": "`kind: campus` under A23: the hall position is derived by multilateration from OpenStreetMap reactor-building footprints (rank 11) and the RENO TDR baselines (rank 4 design report) — see the geometry record's method; recorded as approximate rather than a surveyed hall point. Previous record: campus point 35.415, 126.42389 at 3000 m precision; moved 1094 m (integrator, 2026-09-21, per docs/atlas-worklog/GEOMETRY_reactors.md).",
+    "precision_m": 30,
+    "sources": [
+      "src:geo-reactors-osm-hanbit-reactors",
+      "src:geo-reactors-reno-proposal-2010"
+    ],
+    "verified_at": "2026-09-21"
   },
-  "setting": "underground",
+  "countries": [
+    "KR"
+  ],
+  "country": "KR",
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
   "depth": null,
   "depth_mwe": null,
-  "altitude": null,
-  "country": "KR",
-  "countries": ["KR"],
-  "place": {
-    "city": "Yeonggwang",
-    "region": "South Jeolla",
-    "country": "KR"
-  },
+  "facility_id": "facility:yonggwang-hanbit-reactor-site",
+  "id": "site:reno-near-detector",
   "links": {
     "website": null
   },
+  "name": "RENO near detector site",
   "notes": [],
-  "sources": ["src:hanbit-npp-wikipedia", "src:reno-discovery-2012"],
+  "place": {
+    "city": "Yeonggwang",
+    "country": "KR",
+    "region": "South Jeolla"
+  },
+  "schema": "hep-atlas/0.2",
+  "setting": "underground",
+  "sources": [
+    "src:hanbit-npp-wikipedia",
+    "src:reno-discovery-2012",
+    "src:geo-reactors-osm-hanbit-reactors",
+    "src:geo-reactors-reno-proposal-2010"
+  ],
   "summary": {
     "plain": "A hall close to the Hanbit nuclear reactors in South Korea, holding RENO's near detector.",
     "technical": "RENO near-detector hall, 294 m from the Hanbit reactor-array center."
   },
-  "coverage": {
-    "tier": "B",
-    "researched": "partial"
-  }
+  "type": "site"
 }
