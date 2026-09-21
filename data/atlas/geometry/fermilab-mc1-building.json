@@ -83,7 +83,9 @@
   "map_id": "map:fermilab",
   "method": "OpenStreetMap way 720556725 'MC-1' footprint, traced verbatim.",
   "name": "MC-1 Building, Fermilab Muon Campus",
-  "notes": [],
+  "notes": [
+    "QA pass (2026-09-21): removed the `valid: {start: '2013', end: null}` window a previous pass set. hepgraph.atlas.build._feature_segments() treats any `valid` dict with a non-null `start` as an open-ended 'active' window through build day whenever `end` is null, overriding the entity's own state_segments entirely -- so this feature was rendering `status: 'active'` in the built bundle today even though detector:muon-g-2's own sourced timeline says otherwise (status 'completed' at build day 2026-09-21, confirmed by directly testing hepgraph.atlas.build._Context.status_at_build/segments). Removing `valid` restores the intended fallback (contract SS3: 'without it the feature inherits the entity's timeline'). This is a pipeline-code gap (hepgraph/atlas/build.py `_feature_segments`), not unique to this record -- see docs/atlas-worklog/REVIEW_geometry_qa.md."
+  ],
   "osm": {
     "elements": [
       "way/720556725"
@@ -101,8 +103,5 @@
     "plain": "The existing site record site:fermilab-mc-1-muon-campus carries a coarse 4 km geocoder point; this OSM building position is a strictly better anchor and is flagged as a site coordinate correction i..."
   },
   "type": "geometry",
-  "valid": {
-    "end": null,
-    "start": "2013"
-  }
+  "valid": null
 }

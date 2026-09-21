@@ -4450,7 +4450,9 @@
     "notes": []
   },
   "geometry:bnl-ags-ring": {
-    "notes": []
+    "notes": [
+      "QA pass (2026-09-21): removed the `valid: {start: '1960-07', end: null}` window a previous pass set (1960-07 is AGS's own operational start, already `accelerator:ags`'s sourced interval start -- `valid` here was redundant with the entity's own timeline, not a case of the shape's lifetime differing from it). Removing it is a preventive fix for a latent bug in hepgraph.atlas.build._feature_segments(): any `valid` dict with a non-null `start` and `end: null` hard-codes `status: 'active'` through build day regardless of the entity's real status, bypassing state_segments entirely. Currently harmless only because AGS genuinely is still active; the same pattern produced a live false-'active' claim on geometry:hera-tunnel-ring and geometry:bnl-rhic-ring (both decommissioned machines), fixed the same way in this pass -- see docs/atlas-worklog/REVIEW_geometry_qa.md. Confirmed via hepgraph.atlas.build._Context.status_at_build on accelerator:ags at build day 2026-09-21: 'active', matching accelerator:ags.status."
+    ]
   },
   "geometry:bnl-berkner-hall-building": {
     "notes": []
@@ -4462,7 +4464,9 @@
     "notes": []
   },
   "geometry:bnl-rhic-ring": {
-    "notes": []
+    "notes": [
+      "QA pass (2026-09-21): removed the `valid: {start: '1991', end: null}` window a previous pass set (1991 is when BNL received funding to proceed with RHIC's construction, per accelerator:rhic's own sourced interval). hepgraph.atlas.build._feature_segments() treats any `valid` dict with a non-null `start` as an open-ended 'active' window through build day whenever `end` is null, overriding the entity's own state_segments entirely -- so this feature was rendering `status: 'active'` in the built bundle today, even though RHIC's final run ended 2026-02-06 (accelerator:rhic.status is `completed`, sourced to BNL's own dedication/shutdown reporting). Removing `valid` restores the intended fallback (contract SS3: 'without it the feature inherits the entity's timeline'), confirmed by directly testing hepgraph.atlas.build._Context.status_at_build/segments on accelerator:rhic at build day 2026-09-21: now correctly 'completed'. This is a pipeline-code gap (hepgraph/atlas/build.py `_feature_segments`), not unique to this record -- see docs/atlas-worklog/REVIEW_geometry_qa.md."
+    ]
   },
   "geometry:bnl-star-hall": {
     "notes": []
@@ -4531,7 +4535,7 @@
   "geometry:ctao-north-lst1-point": {
     "notes": [
       "Identical coordinate to geometry:magic-array-point -- see that record's note and the map's own notes for the expected geometry-duplicate-shape warning.",
-      "Integrator (2026-09-21): ODbL-1.0 licence added — the shape is derived from or copied from OpenStreetMap data (src:cosmic-gamma-nominatim-roque-de-los-muchachos), which makes it a derivative database under the ODbL regardless of the derivation step in between."
+      "QA pass (2026-09-21): added the ODbL-1.0 licence this record omitted despite its own `method`/`geometry.note` stating the coordinate is a verbatim Nominatim (OpenStreetMap) geocode; the underlying `src:cosmic-gamma-nominatim-roque-de-los-muchachos` source predates the A25 `openstreetmap` source_type convention (it is typed `geocoder`) and its Nominatim response did not record a specific osm_id, so `osm.elements` is left null rather than invented. No coordinate or claim changed. Same fix applied to the identical case on geometry:magic-array-point."
     ]
   },
   "geometry:ctao-south-array-point": {
@@ -4586,7 +4590,9 @@
     "notes": []
   },
   "geometry:fermilab-icarus-hall": {
-    "notes": []
+    "notes": [
+      "QA pass (2026-09-21): removed the `valid: {start: '2017-07', end: null}` window a previous pass set -- a preventive fix for a latent bug in hepgraph.atlas.build._feature_segments(): any `valid` dict with a non-null `start` and `end: null` hard-codes `status: 'active'` through build day regardless of the entity's real status, bypassing state_segments entirely. Currently harmless because detector:icarus-t600 genuinely is 'active' today, but this pattern produced a live false-'active' claim on three other records (geometry:lhc-tunnel-ring, geometry:fermilab-mc1-building, geometry:fermilab-microboone-hall) fixed the same way in this pass -- see docs/atlas-worklog/REVIEW_geometry_qa.md."
+    ]
   },
   "geometry:fermilab-lbnf-direction": {
     "notes": []
@@ -4595,7 +4601,9 @@
     "notes": []
   },
   "geometry:fermilab-mc1-building": {
-    "notes": []
+    "notes": [
+      "QA pass (2026-09-21): removed the `valid: {start: '2013', end: null}` window a previous pass set. hepgraph.atlas.build._feature_segments() treats any `valid` dict with a non-null `start` as an open-ended 'active' window through build day whenever `end` is null, overriding the entity's own state_segments entirely -- so this feature was rendering `status: 'active'` in the built bundle today even though detector:muon-g-2's own sourced timeline says otherwise (status 'completed' at build day 2026-09-21, confirmed by directly testing hepgraph.atlas.build._Context.status_at_build/segments). Removing `valid` restores the intended fallback (contract SS3: 'without it the feature inherits the entity's timeline'). This is a pipeline-code gap (hepgraph/atlas/build.py `_feature_segments`), not unique to this record -- see docs/atlas-worklog/REVIEW_geometry_qa.md."
+    ]
   },
   "geometry:fermilab-mc2-building": {
     "notes": [
@@ -4606,7 +4614,9 @@
     "notes": []
   },
   "geometry:fermilab-microboone-hall": {
-    "notes": []
+    "notes": [
+      "QA pass (2026-09-21): removed the `valid: {start: '2015-10', end: null}` window a previous pass set. hepgraph.atlas.build._feature_segments() treats any `valid` dict with a non-null `start` as an open-ended 'active' window through build day whenever `end` is null, overriding the entity's own state_segments entirely -- so this feature was rendering `status: 'active'` in the built bundle today even though detector:microboone's own sourced timeline says otherwise (status 'completed' at build day 2026-09-21, confirmed by directly testing hepgraph.atlas.build._Context.status_at_build/segments). Removing `valid` restores the intended fallback (contract SS3: 'without it the feature inherits the entity's timeline'). This is a pipeline-code gap (hepgraph/atlas/build.py `_feature_segments`), not unique to this record -- see docs/atlas-worklog/REVIEW_geometry_qa.md."
+    ]
   },
   "geometry:fermilab-miniboone-hall": {
     "notes": []
@@ -4615,7 +4625,9 @@
     "notes": []
   },
   "geometry:fermilab-nova-near-surface": {
-    "notes": []
+    "notes": [
+      "QA pass (2026-09-21): removed the `valid: {start: '2014-02-06', end: null}` window a previous pass set -- a preventive fix for a latent bug in hepgraph.atlas.build._feature_segments(): any `valid` dict with a non-null `start` and `end: null` hard-codes `status: 'active'` through build day regardless of the entity's real status, bypassing state_segments entirely. Currently harmless because detector:nova-near-detector genuinely is 'active' today, but this pattern produced a live false-'active' claim on three other records (geometry:lhc-tunnel-ring, geometry:fermilab-mc1-building, geometry:fermilab-microboone-hall) fixed the same way in this pass -- see docs/atlas-worklog/REVIEW_geometry_qa.md."
+    ]
   },
   "geometry:fermilab-numi-beamline": {
     "notes": []
@@ -4628,11 +4640,19 @@
   },
   "geometry:fermilab-sbnd-point": {
     "notes": [
-      "Integrator (2026-09-21): feature_type corrected from target_station to other; this is a derived detector position, not a beam target."
+      "Integrator (2026-09-21): feature_type corrected from target_station to other; this is a derived detector position, not a beam target.",
+      "QA pass (2026-09-21): removed the `valid: {start: '2024-07', end: null}` window a previous pass set -- a preventive fix for a latent bug in hepgraph.atlas.build._feature_segments(): any `valid` dict with a non-null `start` and `end: null` hard-codes `status: 'active'` through build day regardless of the entity's real status, bypassing state_segments entirely. Currently harmless because detector:sbnd genuinely is 'active' today, but this pattern produced a live false-'active' claim on three other records (geometry:lhc-tunnel-ring, geometry:fermilab-mc1-building, geometry:fermilab-microboone-hall) fixed the same way in this pass -- see docs/atlas-worklog/REVIEW_geometry_qa.md."
+    ]
+  },
+  "geometry:fermilab-seaquest-point": {
+    "notes": [
+      "QA pass (2026-09-21): removes detector:seaquest and site:fermilab-nm4-hall from map:fermilab.unlocated[] (see that map's own notes for the prior, now-superseded reason text)."
     ]
   },
   "geometry:fermilab-tevatron-ring": {
-    "notes": []
+    "notes": [
+      "QA pass (2026-09-21): this record's own worklog (docs/atlas-worklog/GEOMETRY_fermilab.md SS2/SS5) flagged the Tevatron-as-circle judgement call as the single item most needing independent scrutiny, since no rank<=10 primary source it fetched uses the word 'circular' or states a numeric radius. Two independently dispatched QA reviewers re-derived this from scratch: both reproduced this record's own OSM circle fit (same centre/radius/vertex count, from a fresh Overpass fetch) and its CDF/D0 distance cross-checks to within a few metres; both also independently found lower-rank secondary sources (a Wikipedia statement that the Tevatron 'was a circular particle accelerator ... in a 6.28 km circumference ring', and independent descriptions of the same-tunnel, same-circumference predecessor Main Ring as 'a large (1000 m radius) synchrotron') that satisfy the research brief's rule 3 by its plain text, even though no fetched rank<=10 paper phrases it that way. Per 'nothing from memory', those secondary quotes are recorded here as a review finding, not cited as a new `sources` entry, since this reviewer did not independently re-fetch them. Confidence stays `derived` (not upgraded) and the shape stays drawn: the reviewers' conclusion is that the existing derived-circle representation is honest and, if anything, under-claimed its own justification -- not that it should be weakened or removed. See docs/atlas-worklog/REVIEW_geometry_qa.md for the full independent re-derivation."
+    ]
   },
   "geometry:fermilab-wilson-hall": {
     "notes": []
@@ -4672,7 +4692,8 @@
   },
   "geometry:hera-tunnel-ring": {
     "notes": [
-      "valid.start (1990-11-08) is the OSM way's own start_date tag, which predates accelerator:hera's own sourced operation interval (1992) -- the tunnel/ring structure itself predates first physics collisions, matching the contract's guidance that a shape's own lifetime may differ from its entity's."
+      "The OSM way's own start_date tag reads 1990-11-08, predating accelerator:hera's own sourced operation interval (1992) -- the tunnel/ring structure itself predates first physics collisions.",
+      "QA pass (2026-09-21): removed the `valid: {start: '1990-11-08', end: null}` window a previous pass set for the fact above. hepgraph.atlas.build._feature_segments() treats ANY `valid` dict with a non-null `start` as an open-ended 'active' window through build day whenever `end` is null, overriding the entity's own state_segments entirely -- so this feature was rendering `status: 'active'` in the built bundle today, 19 years after HERA's real 2007-06-30 shutdown (accelerator:hera.status is `completed`). Removing `valid` restores the intended fallback (contract SS3: 'without it the feature inherits the entity's timeline'), confirmed by directly testing hepgraph.atlas.build._Context.status_at_build/segments on accelerator:hera at build day 2026-09-21: now correctly 'completed'. The ~1.5-year tunnel-predates-operation nuance is preserved in the note above, just no longer encoded as a `valid` window. This is a pipeline-code gap (hepgraph/atlas/build.py `_feature_segments`, not caught by any validator rule), not unique to this record -- see docs/atlas-worklog/REVIEW_geometry_qa.md."
     ]
   },
   "geometry:hess-ct1-4-square": {
@@ -4713,7 +4734,8 @@
   "geometry:j-parc-neutrino-direction-line": {
     "notes": [
       "Computed distance from the target-station centroid to Super-Kamiokande is 294.663 km, close to (0.23% under) the T2K NIM paper's own surveyed baseline of 295.3352 km measured target-core-to-detector-centre; reported here informationally, not as a formal checks[] row (no `distance`-kind check fits two points that are, by construction, almost exactly the sourced baseline apart).",
-      "The far site is site:kamioka-mozumi-mine-super-kamiokande (Super-Kamiokande); the Hyper-Kamiokande far site (site:kamioka-hyper-kamiokande-tochibora, about 8 km further south) sees nearly the same bearing and is not drawn as a second line."
+      "The far site is site:kamioka-mozumi-mine-super-kamiokande (Super-Kamiokande); the Hyper-Kamiokande far site (site:kamioka-hyper-kamiokande-tochibora, about 8 km further south) sees nearly the same bearing and is not drawn as a second line.",
+      "QA pass (2026-09-21): cleared an ODbL license block this inferred_direction record carried despite `osm: null` and no OSM element ever being traced -- this feature is computed entirely from two independently-sourced points (a target-station centroid and Super-Kamiokande's own surveyed coordinate), not copied/traced third-party geodata. Every sibling inferred_direction record in the atlas (geometry:cngs-direction-line, geometry:t2k-beam-direction-kamioka, geometry:fermilab-numi-direction, geometry:fermilab-lbnf-direction) correctly carries `license: null`; this one and geometry:kek-neutrino-direction-line were the only two inconsistent with that pattern."
     ]
   },
   "geometry:j-parc-neutrino-muon-monitor-building": {
@@ -4772,7 +4794,8 @@
   },
   "geometry:kek-neutrino-direction-line": {
     "notes": [
-      "Computed distance from the North Counter Hall centroid to Super-Kamiokande is 249.41 km, close to (0.2% under) the K2K measurement paper's own quoted 'neutrino flight distance of 250 km' -- reported informationally, not as a formal checks[] row (this near point is only circumstantially, not officially, identified with the KEK-PS North hall -- see geometry:kek-north-counter-hall)."
+      "Computed distance from the North Counter Hall centroid to Super-Kamiokande is 249.41 km, close to (0.2% under) the K2K measurement paper's own quoted 'neutrino flight distance of 250 km' -- reported informationally, not as a formal checks[] row (this near point is only circumstantially, not officially, identified with the KEK-PS North hall -- see geometry:kek-north-counter-hall).",
+      "QA pass (2026-09-21): cleared an ODbL license block this inferred_direction record carried despite `osm: null` and no OSM element ever being traced -- see the identical fix and reasoning on geometry:j-parc-neutrino-direction-line."
     ]
   },
   "geometry:kek-nikko-hall": {
@@ -4830,7 +4853,7 @@
   },
   "geometry:leibstadt-conus-detector": {
     "notes": [
-      "Integrator (2026-09-21): ODbL-1.0 licence added — the shape is derived from or copied from OpenStreetMap data (src:geo-reactors-osm-brokdorf-leibstadt-reactors), which makes it a derivative database under the ODbL regardless of the derivation step in between."
+      "QA pass (2026-09-21): removed the `valid: {start: '2023-11', end: null}` window a previous pass set -- a preventive fix for a latent bug in hepgraph.atlas.build._feature_segments(): any `valid` dict with a non-null `start` and `end: null` hard-codes `status: 'active'` through build day regardless of the entity's real status, bypassing state_segments entirely. Currently harmless because detector:conus-hpge-array genuinely is 'active' today, but this pattern produced a live false-'active' claim on three other records (geometry:lhc-tunnel-ring, geometry:fermilab-mc1-building, geometry:fermilab-microboone-hall) fixed the same way in this pass -- see docs/atlas-worklog/REVIEW_geometry_qa.md."
     ]
   },
   "geometry:leibstadt-core": {
@@ -4844,12 +4867,14 @@
   },
   "geometry:lhaaso-array-point": {
     "notes": [
-      "KM2A (circular, ~575-635 m radius) and WCDA (78,000 m2, two 150x150 m pools plus one 300x110 m pool) are described with enough shape/size detail to draw, but not with a coordinate precise enough to anchor them honestly this session; see method and worklog backlog.",
-      "Integrator (2026-09-21): ODbL-1.0 licence added — the shape is derived from or copied from OpenStreetMap data (src:cosmic-gamma-nominatim-haizi-mountain), which makes it a derivative database under the ODbL regardless of the derivation step in between."
+      "KM2A (circular, ~575-635 m radius) and WCDA (78,000 m2, two 150x150 m pools plus one 300x110 m pool) are described with enough shape/size detail to draw, and are now anchorable (this point's accuracy_m is well under either shape's own size), but no source found in this review states their offset/orientation from this reference point, so neither is drawn; see method and backlog in docs/atlas-worklog/REVIEW_geometry_qa.md.",
+      "QA pass (2026-09-21): this record previously reused an OSM/Nominatim geocode verbatim (representation `georeferenced`, confidence `approximate`, accuracy_m 5000) and briefly carried an ODbL-1.0 licence added earlier the same pass to correct that omission; both are superseded by the coordinate/source swap above, which replaces the OSM-derived point entirely with a published journal figure, so `license` reverts to null (this is now the atlas's own citation of a published number, not third-party geodata)."
     ]
   },
   "geometry:lhc-tunnel-ring": {
-    "notes": []
+    "notes": [
+      "QA pass (2026-09-21): removed the `valid: {start: '1985-02', end: null}` window a previous pass set. hepgraph.atlas.build._feature_segments() treats any `valid` dict with a non-null `start` as an open-ended 'active' window through build day whenever `end` is null, overriding the entity's own state_segments entirely -- so this feature was rendering `status: 'active'` in the built bundle today even though accelerator:lhc's own sourced timeline says otherwise (status 'shutdown' at build day 2026-09-21, confirmed by directly testing hepgraph.atlas.build._Context.status_at_build/segments). Removing `valid` restores the intended fallback (contract SS3: 'without it the feature inherits the entity's timeline'). This is a pipeline-code gap (hepgraph/atlas/build.py `_feature_segments`), not unique to this record -- see docs/atlas-worklog/REVIEW_geometry_qa.md."
+    ]
   },
   "geometry:linac4-building": {
     "notes": []
@@ -4906,12 +4931,12 @@
   "geometry:magic-array-point": {
     "notes": [
       "Identical coordinate to geometry:ctao-north-lst1-point -- expected to raise the validator's geometry-duplicate-shape warning; both experiments genuinely occupy this same approximate 500 m patch of the observatory and are not resolved to finer precision this session (see map notes and worklog).",
-      "Integrator (2026-09-21): ODbL-1.0 licence added — the shape is derived from or copied from OpenStreetMap data (src:cosmic-gamma-nominatim-roque-de-los-muchachos), which makes it a derivative database under the ODbL regardless of the derivation step in between."
+      "QA pass (2026-09-21): added the ODbL-1.0 licence this record omitted despite its own `method`/`geometry.note` stating the coordinate is a verbatim Nominatim (OpenStreetMap) geocode; the underlying `src:cosmic-gamma-nominatim-roque-de-los-muchachos` source predates the A25 `openstreetmap` source_type convention (it is typed `geocoder`) and its Nominatim response did not record a specific osm_id, so `osm.elements` is left null rather than invented. No coordinate or claim changed. Same fix applied to the identical case on geometry:ctao-north-lst1-point."
     ]
   },
   "geometry:meyrin-site-marker": {
     "notes": [
-      "Integrator (2026-09-21): ODbL-1.0 licence added — the shape is derived from or copied from OpenStreetMap data (src:cern-meyrin-osm-nominatim), which makes it a derivative database under the ODbL regardless of the derivation step in between."
+      "QA pass (2026-09-21): added the ODbL-1.0 licence and `osm.elements` this record omitted despite naming OSM relation 27005 (Nominatim) as its coordinate source in `method`; the underlying `src:cern-meyrin-osm-nominatim` source predates the A25 `openstreetmap` source_type convention (it is typed `geocoder`), so the validator's automatic OSM-license check did not catch the omission. No coordinate or claim changed."
     ]
   },
   "geometry:modane-carre-sciences-point": {
@@ -4933,28 +4958,42 @@
     "notes": []
   },
   "geometry:point1-atlas-boundary": {
-    "notes": []
+    "notes": [
+      "QA pass (2026-09-21): populated `osm.timestamp` (2026-09-18T20:22:14Z) from the extract timestamp already recorded in its own cited source's excerpt (src:geo-cern-osm-point1-atlas-boundary) -- the contract requires the geometry record's own `osm` field to carry the extract's timestamp_osm_base, which was present in the source record but had not been copied into this geometry record."
+    ]
   },
   "geometry:point2-alice-boundary": {
-    "notes": []
+    "notes": [
+      "QA pass (2026-09-21): populated `osm.timestamp` (2026-09-18T20:24:21Z) from the extract timestamp already recorded in its own cited source's excerpt (src:geo-cern-osm-point2-alice-boundary) -- the contract requires the geometry record's own `osm` field to carry the extract's timestamp_osm_base, which was present in the source record but had not been copied into this geometry record."
+    ]
   },
   "geometry:point2-l3-boundary": {
-    "notes": []
+    "notes": [
+      "QA pass (2026-09-21): populated `osm.timestamp` (2026-09-18T20:24:21Z) from the extract timestamp already recorded in its own cited source's excerpt (src:geo-cern-osm-point2-alice-boundary) -- the contract requires the geometry record's own `osm` field to carry the extract's timestamp_osm_base, which was present in the source record but had not been copied into this geometry record."
+    ]
   },
   "geometry:point4-aleph-boundary": {
-    "notes": []
+    "notes": [
+      "QA pass (2026-09-21): populated `osm.timestamp` (2026-09-18T21:49:58Z) from the extract timestamp already recorded in its own cited source's excerpt (src:geo-cern-osm-point4-boundary) -- the contract requires the geometry record's own `osm` field to carry the extract's timestamp_osm_base, which was present in the source record but had not been copied into this geometry record."
+    ]
   },
   "geometry:point5-cms-boundary": {
-    "notes": []
+    "notes": [
+      "QA pass (2026-09-21): populated `osm.timestamp` (2026-09-18T20:23:18Z) from the extract timestamp already recorded in its own cited source's excerpt (src:geo-cern-osm-point5-cms-boundary) -- the contract requires the geometry record's own `osm` field to carry the extract's timestamp_osm_base, which was present in the source record but had not been copied into this geometry record."
+    ]
   },
   "geometry:point5-cms-cavern": {
     "notes": []
   },
   "geometry:point8-delphi-boundary": {
-    "notes": []
+    "notes": [
+      "QA pass (2026-09-21): populated `osm.timestamp` (2026-09-18T21:49:58Z) from the extract timestamp already recorded in its own cited source's excerpt (src:geo-cern-osm-point8-lhcb-boundary) -- the contract requires the geometry record's own `osm` field to carry the extract's timestamp_osm_base, which was present in the source record but had not been copied into this geometry record."
+    ]
   },
   "geometry:point8-lhcb-boundary": {
-    "notes": []
+    "notes": [
+      "QA pass (2026-09-21): populated `osm.timestamp` (2026-09-18T21:49:58Z) from the extract timestamp already recorded in its own cited source's excerpt (src:geo-cern-osm-point8-lhcb-boundary) -- the contract requires the geometry record's own `osm` field to carry the extract's timestamp_osm_base, which was present in the source record but had not been copied into this geometry record."
+    ]
   },
   "geometry:prevessin-site-boundary": {
     "notes": []
@@ -7383,9 +7422,10 @@
   "map:fermilab": {
     "notes": [
       "Far sites (not drawn on this map; see the geometry worklog for great-circle distances and bearings computed from the sourced site:fermilab-main-campus point): site:soudan-minos-far-detector (735.4 km, bearing 336.0 degrees, historical MINOS-era NuMI beam), site:ash-river-nova-far-detector (811.7 km, bearing 335.5 degrees, current NOvA-era NuMI beam), site:surf-4850-level-dune-far-detector (1287.6 km, bearing 287.7 degrees, LBNF beam). No map:soudan, map:ash-river or map:surf record exists yet in this branch, so linked_map_ids is empty; the integrator should populate it once those maps exist.",
-      "The campus site (site:fermilab-main-campus, a 3 km point) is represented by the campus boundary and by the halls/points drawn at it with `site_id`; detectors placed there that could not be located are listed individually in `unlocated[]`."
+      "The campus site (site:fermilab-main-campus, a 3 km point) is represented by the campus boundary and by the halls/points drawn at it with `site_id`; detectors placed there that could not be located are listed individually in `unlocated[]`.",
+      "QA pass (2026-09-21): detector:seaquest and site:fermilab-nm4-hall are no longer unlocated. An independent QA re-derivation found (and this reviewer independently re-confirmed with a direct fetch) OpenStreetMap node 4425992583, tagged name=SeaQuest, addr:housenumber=NM4, in the campus bbox -- the prior 'no OSM trace' reason was narrowly true (a search for the literal string 'NM4' finds nothing) but gave a false overall impression, since a search for the experiment's own name finds it directly. Now drawn as geometry:fermilab-seaquest-point."
     ],
-    "summary_technical": "Local to-scale map of the Fermilab Batavia campus: a derived circle for the Booster ring (474 m sourced circumference, OSM-fit centre) and for the Tevatron ring (6.3 km sourced circumference, OSM ring-road-fit centre, cross-checked against the OSM-sourced CDF and D0 hall positions); georeferenced/derived OSM building footprints for the CDF Hall, D0 Assembly Building, MINOS and NOvA near-detector surface buildings, MiniBooNE Detector Building, the LArTF/MicroBooNE hall, a positionally-identified ICARUS-T600 hall and the Muon g-2 MC-1 building; derived target_station/beamline features for BNB and NuMI, each anchored on two independently-named OSM footprints rather than a coarse site point, with passing distance/azimuth checks; an approximate linac axis; context-only campus boundary, Main Injector-area grassland and MC-2 polygons; and inferred-direction lines for the NuMI and LBNF beams, now starting from the derived NuMI target. The Main Injector, Recycler, PIP-II, KTeV, Mu2e, SeaQuest/NM4, SBND (candidate footprints found but not confidently identified), MINERvA, DONUT, SENSEI, DAMIC (prototype) and the DUNE near detector are unlocated, each with a sourced reason and backlog."
+    "summary_technical": "Local to-scale map of the Fermilab Batavia campus: a derived circle for the Booster ring (474 m sourced circumference, OSM-fit centre) and for the Tevatron ring (6.3 km sourced circumference, OSM ring-road-fit centre, cross-checked against the OSM-sourced CDF and D0 hall positions); georeferenced/derived OSM building footprints for the CDF Hall, D0 Assembly Building, MINOS and NOvA near-detector surface buildings, MiniBooNE Detector Building, the LArTF/MicroBooNE hall, a positionally-identified ICARUS-T600 hall and the Muon g-2 MC-1 building; derived target_station/beamline features for BNB and NuMI, each anchored on two independently-named OSM footprints rather than a coarse site point, with passing distance/azimuth checks; an approximate linac axis; context-only campus boundary, Main Injector-area grassland and MC-2 polygons; and inferred-direction lines for the NuMI and LBNF beams, now starting from the derived NuMI target. The Main Injector, Recycler, PIP-II, KTeV, Mu2e, SBND (candidate footprints found but not confidently identified), MINERvA, DONUT, SENSEI, DAMIC (prototype) and the DUNE near detector are unlocated, each with a sourced reason and backlog. SeaQuest/NM4 was added by a QA pass (2026-09-21) as an OSM-tagged point (geometry:fermilab-seaquest-point)."
   },
   "map:fred-lawrence-whipple-observatory": {
     "notes": [
@@ -7450,9 +7490,9 @@
   },
   "map:lhaaso-daocheng": {
     "notes": [
-      "A tighter coordinate (29°21'27.6\"N, 100°08'19.6\"E) is repeatedly attributed to the LHAASO Science Book (arXiv:1905.02773) by independent web-search text extracts, but could not be verified by a direct fetch this session (WebFetch, ar5iv, arxiv.org/html and an r.jina.ai proxy all failed to render this specific PDF as readable text) -- not used; flagged as an unverified candidate correction in the worklog."
+      "QA pass (2026-09-21): the LHAASO Science Book (arXiv:1905.02773) coordinate this note used to flag as an unverified candidate remains unfetchable, but an independent QA re-derivation found and fetched (on two separate mirrors) a different, peer-reviewed paper stating the same figure to the hundredth of an arcsecond -- Chinese Physics C 46, 030001 (2022), doi:10.1088/1674-1137/ac3fa6. That figure now backs `center` and geometry:lhaaso-array-point directly; see docs/atlas-worklog/REVIEW_geometry_qa.md."
     ],
-    "summary_technical": "One local map for facility:lhaaso-daocheng. Drawn as a single approximate reference point; KM2A (circular, ~575-635 m radius) and WCDA (78,000 m2, three pools) are described with enough shape detail to draw but could not be anchored to a precise-enough coordinate this session (see geometry record and worklog backlog)."
+    "summary_technical": "One local map for facility:lhaaso-daocheng. Drawn as a single published reference point (Chinese Physics C 46, 030001 (2022)); KM2A (circular, ~575-635 m radius) and WCDA (78,000 m2, three pools) are described with enough shape detail to draw and are now anchorable to this tighter point, but no source states their offset/orientation from it, so neither is drawn (see geometry record and REVIEW_geometry_qa.md backlog)."
   },
   "map:lngs": {
     "notes": [

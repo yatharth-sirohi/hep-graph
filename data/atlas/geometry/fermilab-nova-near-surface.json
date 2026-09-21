@@ -92,7 +92,9 @@
   "map_id": "map:fermilab",
   "method": "OpenStreetMap way 272646255 'NOvA Near Detector on Surface' footprint, traced verbatim (tagged man_made=particle physics detector).",
   "name": "NOvA near-detector surface building",
-  "notes": [],
+  "notes": [
+    "QA pass (2026-09-21): removed the `valid: {start: '2014-02-06', end: null}` window a previous pass set -- a preventive fix for a latent bug in hepgraph.atlas.build._feature_segments(): any `valid` dict with a non-null `start` and `end: null` hard-codes `status: 'active'` through build day regardless of the entity's real status, bypassing state_segments entirely. Currently harmless because detector:nova-near-detector genuinely is 'active' today, but this pattern produced a live false-'active' claim on three other records (geometry:lhc-tunnel-ring, geometry:fermilab-mc1-building, geometry:fermilab-microboone-hall) fixed the same way in this pass -- see docs/atlas-worklog/REVIEW_geometry_qa.md."
+  ],
   "osm": {
     "elements": [
       "way/272646255"
@@ -110,8 +112,5 @@
     "plain": "This is the SURFACE building only, per its own OSM name. The NOvA near detector is '100 m underground' (src:nova-arxiv-2025-monopole-search); its horizontal offset from this surface point is not so..."
   },
   "type": "geometry",
-  "valid": {
-    "end": null,
-    "start": "2014-02-06"
-  }
+  "valid": null
 }

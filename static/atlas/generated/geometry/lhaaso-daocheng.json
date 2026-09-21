@@ -1,12 +1,10 @@
 {
-  "attribution": [
-    "© OpenStreetMap contributors (ODbL-1.0)"
-  ],
+  "attribution": [],
   "bbox": [
-    100.1483762,
-    29.385696,
-    100.1483762,
-    29.385696
+    100.1387944,
+    29.3576556,
+    100.1387944,
+    29.3576556
   ],
   "build_date": "2026-09-21",
   "entity_index": {
@@ -16,7 +14,7 @@
   },
   "features": [
     {
-      "accuracy_m": 5000,
+      "accuracy_m": 50,
       "checks": [],
       "depth_m": null,
       "entity_id": "site:lhaaso-haizi-mountain",
@@ -25,40 +23,36 @@
       "feature_type": "array",
       "geometry": {
         "coordinates": [
-          100.1483762,
-          29.385696
+          100.1387944,
+          29.3576556
         ],
         "type": "Point"
       },
       "id": "geometry:lhaaso-array-point",
       "level_id": "surface",
-      "license": {
-        "attribution": "© OpenStreetMap contributors",
-        "name": "ODbL-1.0",
-        "url": "https://www.openstreetmap.org/copyright"
-      },
+      "license": null,
       "measured": {
         "area_m2": null,
         "centroid": [
-          100.1483762,
-          29.385696
+          100.1387944,
+          29.3576556
         ],
         "length_m": null
       },
-      "method": "Reuses the already-sourced approximate campus point for site:lhaaso-haizi-mountain (OpenStreetMap/Nominatim geocode of a rest area on the Haizi Mountain route, precision_m 5000) verbatim; no new coordinate is derived. A tighter value (29d21'27.6\"N, 100d08'19.6\"E) is repeatedly attributed to the LHAASO Science Book (arXiv:1905.02773) by independent web-search text extracts, but every attempt this session to fetch that PDF/HTML directly (WebFetch, ar5iv, arxiv.org/html, and an r.jina.ai text-extraction proxy) returned only binary/garbled content or a 404 -- the value could not be seen verbatim in a fetched page this session and is NOT used here (see worklog candidate-correction list, flagged unverified). KM2A is independently sourced as circular (radius ~575 m core, ~635 m outer guard ring) and WCDA as 78,000 m2 (two 150x150 m pools + one 300x110 m pool), but neither can be drawn: both would need to be centred on a coordinate precise to well under the shapes' own size, and the only coordinate available this session (precision_m 5000) is far too coarse (geometry-derived-from-coarse-anchor) -- see worklog backlog.",
+      "method": "Published coordinate (29d21'27.56\"N, 100d08'19.66\"E) from the LHAASO Collaboration's own Chinese Physics C paper (doi:10.1088/1674-1137/ac3fa6), converted from DMS to decimal degrees. Supersedes the prior OSM/Nominatim rest-area geocode reused verbatim from site:lhaaso-haizi-mountain (precision_m 5000): that point sat 3253 m away, inside its own claimed accuracy but far coarser than this published figure. The previously-attempted LHAASO Science Book source (arXiv:1905.02773) remains unfetchable by any means tried across two research sessions (WebFetch, ar5iv, arxiv.org/html, r.jina.ai) -- this independent Chinese Physics C paper was found and fetched instead. KM2A is independently sourced as circular (radius ~575 m core, ~635 m outer guard ring) and WCDA as 78,000 m2 (two 150x150 m pools plus one 300x110 m pool); drawing them is now unblocked by this tighter anchor (50 m, well under either shape's own size) but is left as backlog for a future pass, since it requires deciding each shape's own orientation/offset from this point, which no source fetched in this review states.",
       "name": "LHAASO (reference point)",
       "osm": null,
       "provenance": {
-        "confidence": "approximate",
-        "locator": "Nominatim search result for a rest area on the Haizi Mountain route, Daocheng County",
-        "note": "OpenStreetMap/Nominatim geocoder source (source_type 'geocoder'); representation 'georeferenced', confidence 'approximate'.",
-        "quote": "\"lat\":\"29.3856960\",\"lon\":\"100.1483762\"",
+        "confidence": "verified",
+        "locator": "Chinese Physics C 46, 030001 (2022), Chapter 1 'LHAASO Instruments and Detector technology', DOI 10.1088/1674-1137/ac3fa6",
+        "note": "QA pass (2026-09-21): replaced the previous OSM/Nominatim rest-area geocode (precision_m 5000) with this peer-reviewed, collaboration-authored published coordinate, independently fetched and confirmed verbatim on two separate mirrors (iopscience.iop.org and cpc.ihep.ac.cn) during this review -- see docs/atlas-worklog/REVIEW_geometry_qa.md. Haversine distance from the old point: 3253 m, inside the old record's own claimed 5000 m accuracy_m, so the previous point was not dishonest, just far coarser than necessary now that a survey-grade figure is available. representation upgraded georeferenced -> surveyed and confidence approximate -> verified (rank-10 journal_article source, per contract SS1.2). accuracy_m tightened 5000 -> 50: the quoted arc-second figure implies sub-metre nominal precision, but 50 m is kept as an honest allowance since the quote describes the observatory's general Mt. Haizi location, not a specific surveyed structure corner.",
+        "quote": "The Large High Altitude Air Shower Observatory (LHAASO) (Fig. 1) is located at Mt. Haizi (4410 m a.s.l., 600 g/cm2, 29°21'27.56\"N, 100°08'19.66\"E) in Daocheng, Sichuan province, P.R. China.",
         "sources": [
-          "src:cosmic-gamma-nominatim-haizi-mountain"
+          "src:geo-lhaaso-cpc-2022-instruments"
         ],
-        "verified_at": "2026-09-18"
+        "verified_at": "2026-09-21"
       },
-      "representation": "georeferenced",
+      "representation": "surveyed",
       "site_id": "site:lhaaso-haizi-mountain",
       "state_segments": [
         [
@@ -80,11 +74,10 @@
   "map": {
     "aliases": [],
     "center": {
-      "approximate": true,
       "kind": "campus",
-      "lat": 29.385696,
-      "lon": 100.1483762,
-      "precision_m": 5000
+      "lat": 29.3576556,
+      "lon": 100.1387944,
+      "precision_m": 50
     },
     "coverage": {
       "researched": "partial",
@@ -118,11 +111,11 @@
   },
   "schema": "hep-atlas/0.2",
   "source_titles": {
-    "src:cosmic-gamma-nominatim-haizi-mountain": {
-      "source_type": "geocoder",
-      "title": "OpenStreetMap Nominatim geocode: Haizi Mountain route, Daocheng County, Sichuan",
-      "url": "https://nominatim.openstreetmap.org/search?q=%E6%B5%B7%E5%AD%90%E5%B1%B1+%E7%A8%BB%E5%9F%8E&format=jsonv2"
+    "src:geo-lhaaso-cpc-2022-instruments": {
+      "source_type": "journal_article",
+      "title": "Chapter 1: LHAASO Instruments and Detector technology",
+      "url": "https://doi.org/10.1088/1674-1137/ac3fa6"
     }
   },
-  "version": "25780415e75b785b"
+  "version": "01e0b29325bfded3"
 }
