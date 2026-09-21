@@ -749,13 +749,64 @@ async function setRangeValue(locator, value) {
       // A ring's drawn size on screen, converted back to ground metres, must
       // agree with the circumference the bundle measured for it. This is the
       // end-to-end scale check on real geometry: bundle -> projection ->
-      // pixels -> scale bar.
-      const ringFeature = geometry.features.find((f) => f.feature_type === "ring"
+      // pixels -> scale bar. Checked for every ring on the richest map and,
+      // if it lives elsewhere, the largest ring in the whole tree — which on
+      // the real data is the LHC/LEP tunnel, the one baseline a reader is
+      // most likely to know (26.66 km round, so about 8.5 km across).
+      const ringsHere = geometry.features.filter((f) => f.feature_type === "ring"
         && f.measured && f.measured.length_m > 0);
-      if (ringFeature) {
-        await record("Local map: a drawn ring measures its sourced circumference on the ground", async () => {
-          const { mapContext, p } = await openMap();
-          const measured = await p.evaluate((gid) => {
+      const ringTargets = [{ slug: mapSlug, features: ringsHere }];
+      let biggest = { length: Math.max(0, ...ringsHere.map((f) => f.measured.length_m)), id: null, mapId };
+      for (const [id, m] of Object.entries(mapsMeta)) {
+        if (id === mapId || !m.bundle) continue;
+        try {
+          const other = await (await fetch(`${mapTreeBase}${m.bundle}`)).json();
+          for (const f of other.features) {
+            if (f.feature_type === "ring" && f.measured && f.measured.length_m > biggest.length) {
+              biggest = { length: f.measured.length_m, id: id.split(":")[1], mapId: id, features: other.features };
+            }
+          }
+        } catch (error) { /* a bundle that will not load is the fetch test's business, not this one */ }
+      }
+      if (biggest.id) {
+        ringTargets.push({
+          slug: biggest.id,
+          features: biggest.features.filter((f) => f.feature_type === "ring"
+            && f.measured && f.measured.length_m > 0),
+        });
+      }
+
+      for (const target of ringTargets) {
+        if (!target.features.length) continue;
+        await record(`Local map: every drawn ring on ${target.slug} measures its sourced circumference`, async () => {
+          const mapContext = await browser.newContext({
+            viewport: { width: 1280, height: 800 }, reducedMotion: "reduce",
+          });
+          const p = await mapContext.newPage();
+          p.setDefaultTimeout(30000);
+          await p.goto(`${base}/atlas${dataTree}#/map/${target.slug}`, { waitUntil: "domcontentloaded" });
+          await p.locator(".leaflet-container").waitFor({ timeout: 20000 });
+          await p.waitForTimeout(1200);
+          const metresPerPixel = await p.evaluate(() => {
+            const m = window.__hepAtlasLocalMap;
+            const size = m.getSize();
+            return m.distance(m.containerPointToLatLng([0, size.y / 2]),
+              m.containerPointToLatLng([size.x, size.y / 2])) / size.x;
+          });
+          let checked = 0;
+          for (const ringFeature of target.features) {
+            if (await p.locator(`path[data-geometry-id="${ringFeature.id}"]`).count() === 0) continue;
+            // A ring only a couple of pixels wide cannot be measured from its
+            // bounding box, which at that size is all stroke width and
+            // rounding — CERN's PS Booster is 159 m round on a 30 km view,
+            // i.e. under 2 px. Skipping it is honest; asserting on it would
+            // be measuring the stroke, not the geometry.
+            const spanPx = (ringFeature.measured.length_m / Math.PI) / metresPerPixel;
+            if (spanPx < 40) {
+              console.log(`ring scale: skipping ${ringFeature.id} — ${spanPx.toFixed(1)} px across at this view`);
+              continue;
+            }
+            const measured = await p.evaluate((gid) => {
             const el = document.querySelector(`path[data-geometry-id="${gid}"]`);
             if (!el) return null;
             const m = window.__hepAtlasLocalMap;
@@ -768,26 +819,30 @@ async function setRangeValue(locator, value) {
               m.containerPointToLatLng([left + box.width, top + box.height / 2]));
             const h = m.distance(m.containerPointToLatLng([left + box.width / 2, top]),
               m.containerPointToLatLng([left + box.width / 2, top + box.height]));
-            return { widthM: w, heightM: h, px: [box.width, box.height] };
-          }, ringFeature.id);
-          assert.ok(measured, `expected the ring ${ringFeature.id} to be drawn`);
-          // A closed ring of circumference C has a diameter of about C/π; a
-          // real tunnel is not a perfect circle, so allow 12 % on the mean
-          // of its two bounding-box axes.
-          const expectedDiameter = ringFeature.measured.length_m / Math.PI;
-          const drawnDiameter = (measured.widthM + measured.heightM) / 2;
-          const error = Math.abs(drawnDiameter - expectedDiameter) / expectedDiameter;
-          console.log("ring scale:", JSON.stringify({
-            id: ringFeature.id,
-            circumference_m: Math.round(ringFeature.measured.length_m),
-            expectedDiameter_m: Math.round(expectedDiameter),
-            drawnDiameter_m: Math.round(drawnDiameter),
-            errorPercent: Number((100 * error).toFixed(2)),
-          }));
-          assert.ok(error <= 0.12,
-            `${ringFeature.id} measures ${Math.round(ringFeature.measured.length_m)} m round, so about `
-            + `${Math.round(expectedDiameter)} m across, but it is drawn ${Math.round(drawnDiameter)} m across `
-            + `— ${(100 * error).toFixed(1)} % out`);
+              return { widthM: w, heightM: h, px: [box.width, box.height] };
+            }, ringFeature.id);
+            assert.ok(measured, `expected the ring ${ringFeature.id} to be drawn`);
+            // A closed ring of circumference C is about C/π across; a real
+            // tunnel is not a perfect circle, so this allows 12 % on the
+            // mean of its two bounding-box axes.
+            const expectedDiameter = ringFeature.measured.length_m / Math.PI;
+            const drawnDiameter = (measured.widthM + measured.heightM) / 2;
+            const error = Math.abs(drawnDiameter - expectedDiameter) / expectedDiameter;
+            console.log("ring scale:", JSON.stringify({
+              map: target.slug,
+              id: ringFeature.id,
+              circumference_m: Math.round(ringFeature.measured.length_m),
+              expectedDiameter_m: Math.round(expectedDiameter),
+              drawnDiameter_m: Math.round(drawnDiameter),
+              errorPercent: Number((100 * error).toFixed(2)),
+            }));
+            assert.ok(error <= 0.12,
+              `${ringFeature.id} measures ${Math.round(ringFeature.measured.length_m)} m round, so about `
+              + `${Math.round(expectedDiameter)} m across, but it is drawn ${Math.round(drawnDiameter)} m across `
+              + `— ${(100 * error).toFixed(1)} % out`);
+            checked += 1;
+          }
+          assert.ok(checked > 0, `expected at least one ring drawn on ${target.slug}`);
           await mapContext.close();
         });
       }
