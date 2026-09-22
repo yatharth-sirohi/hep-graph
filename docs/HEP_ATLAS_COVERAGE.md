@@ -16,13 +16,13 @@ interface says only "coverage updated" with this date.
 | document | 70 |
 | experiment | 131 |
 | facility | 48 |
-| geometry | 173 |
+| geometry | 174 |
 | institution | 529 |
 | map | 39 |
 | person | 12 |
 | result | 109 |
 | site | 93 |
-| source | 1603 |
+| source | 1606 |
 | topic | 42 |
 | membership rows | 659 |
 
@@ -336,7 +336,7 @@ Checks are independent official figures the validator re-measures on every run.
 | CTAO-South — Paranal | CTAO-South (Paranal) | 1 | 1 | 0 | 0 | 0 | 0 | 0 | 0 |
 | Daya Bay — reactor cores and experimental halls | Daya Bay Reactor Neutrino Laboratory | 9 | 0 | 6 | 3 | 0 | 0 | 18 | 0 |
 | DESY — Hamburg-Bahrenfeld campus and the HERA ring | Deutsches Elektronen-Synchrotron | 4 | 0 | 4 | 0 | 0 | 1 | 1 | 0 |
-| Fermilab — Batavia, Illinois | Fermi National Accelerator Laboratory | 22 | 0 | 12 | 8 | 2 | 15 | 9 | 0 |
+| Fermilab — Batavia, Illinois | Fermi National Accelerator Laboratory | 23 | 0 | 13 | 8 | 2 | 13 | 9 | 0 |
 | VERITAS — Fred Lawrence Whipple Observatory | Fred Lawrence Whipple Observatory | 1 | 1 | 0 | 0 | 0 | 0 | 0 | 0 |
 | H.E.S.S. — Khomas Highland | H.E.S.S. site, Khomas Highland | 2 | 1 | 0 | 1 | 0 | 0 | 1 | 0 |
 | J-PARC — Tokai accelerator complex | J-PARC (Japan Proton Accelerator Research Complex) | 9 | 0 | 8 | 0 | 1 | 0 | 4 | 0 |
@@ -346,7 +346,7 @@ Checks are independent official figures the validator re-measures on every run.
 | KM3NeT/ARCA — Capo Passero deep-sea site | KM3NeT | 2 | 1 | 0 | 1 | 0 | 0 | 0 | 0 |
 | KM3NeT/ORCA — Toulon deep-sea site | KM3NeT | 2 | 1 | 0 | 1 | 0 | 0 | 0 | 0 |
 | Leibstadt — reactor building and the CONUS+ position | Leibstadt Nuclear Power Plant | 2 | 0 | 1 | 1 | 0 | 0 | 0 | 0 |
-| LHAASO — Haizi Mountain, Daocheng | LHAASO (Daocheng) | 1 | 0 | 1 | 0 | 0 | 0 | 0 | 0 |
+| LHAASO — Haizi Mountain, Daocheng | LHAASO (Daocheng) | 1 | 1 | 0 | 0 | 0 | 0 | 0 | 0 |
 | LNGS — Laboratori Nazionali del Gran Sasso | Laboratori Nazionali del Gran Sasso | 7 | 1 | 2 | 4 | 0 | 0 | 1 | 0 |
 | Los Alamos National Laboratory, LANSCE (Technical Area 53) | Los Alamos National Laboratory | 1 | 0 | 1 | 0 | 0 | 2 | 0 | 0 |
 | LSM — Laboratoire Souterrain de Modane | Laboratoire Souterrain de Modane | 3 | 0 | 3 | 0 | 0 | 0 | 1 | 0 |

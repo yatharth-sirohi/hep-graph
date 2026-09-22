@@ -168,7 +168,9 @@ Caveats that hold regardless of the gate results:
 - **Performance** was measured only under Chromium's software rasteriser
   (SwiftShader) on a loaded machine; no frame-rate target on real hardware is
   claimed. Initial globe load does not fetch Leaflet or any geometry bundle;
-  each map bundle is lazy (largest: CERN ≈ 0.1 MB).
+  each map bundle is fetched only when its map opens (largest: CERN 147 KB,
+  Fermilab 123 KB; all 39 bundles together 1.07 MB; Leaflet 144 KB, loaded
+  only on a map route).
 - **Deployment.** The branch is pushed and Vercel builds a preview per push,
   but the preview is behind deployment protection (HTTP 302 to login), so it
   was not verified from here; production `main` is untouched. Deploying is
