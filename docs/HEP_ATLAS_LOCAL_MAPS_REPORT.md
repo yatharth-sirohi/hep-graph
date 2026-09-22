@@ -114,7 +114,26 @@ far-detector caverns; SLC arcs; LANSCE and SNS linacs; HIPA.
 
 ## 4. Gates
 
-_To be filled from the gate run on the final integration commit._
+Run on the final integration commit (2026-09-21/22) from
+`../HEP-Graph-atlas-maps`, server `python -m hepgraph.server --port 8793`,
+Playwright 1.63 with the project's Chromium/Firefox/WebKit builds.
+
+| Gate | Result |
+| --- | --- |
+| `python -m hepgraph.atlas.validate` | 0 errors, 1 588 warnings (all pre-existing classes: derived-field notes, A23 approximate points, display drift), 4 informational |
+| `python -m hepgraph.atlas.build --check` | 70 generated files up to date |
+| `scripts/atlas_coverage_report.py --check` | current |
+| `scripts/atlas_validation_counts.py --check` | current (block regenerated with the pytest log and the generated-tree browser results) |
+| `python -m pytest -q` | 679 passed, 139 skipped (the skips are the PostgreSQL-backed HEP Graph tests, unchanged); HEP Graph's own tests untouched |
+| `node tests/browser_atlas.cjs` generated tree, Chromium | 76 passed, 0 skipped (includes the real-data local-map tests: container, scale-bar geodesy ≤ 2 %, drawn features, level toggles, deep links, back/forward, keyboard, ghosted selected entity, polar map) |
+| same, fixture tree, Chromium | 70 passed, 1 expected skip |
+| fixture tree, Firefox / WebKit | 67 passed + 1 skip each (run earlier the same day on the same frontend code) |
+| generated tree, Firefox / WebKit | **not completed**: the final runs were starved by unrelated compute jobs on the machine (load average 180–210; two page loads exceeded 30 s while the server answered in milliseconds). Firefox reached 29 passes with no failures before the then-unfixed map test earlier in the day; the map-view branch's own runs before merge reported WebKit 75 passed, 0 errors. A rerun is queued to start automatically when the load average drops below 12 |
+| `node tests/browser_atlas_a11y.cjs` | **not completed** on the final commit for the same reason (8 passed, then timeouts). The last complete run on this frontend code (map-view branch, pre-merge) was 0 axe WCAG violations; the merged branch's only later frontend change is the `unrecorded` map style row. Queued with the reruns above |
+| Stylesheet brace balance (`tests/test_atlas_static_css.py`) | passes — added after a merge truncated a CSS block and silently swallowed the local-map layout |
+
+Not measured: frame rate on real hardware (only SwiftShader under load); the
+Vercel preview (deployment protection).
 
 ## 5. Independent QA
 
@@ -144,7 +163,13 @@ H.E.S.S. CT5 label, the IceCube array footprint, Auger's citation.
 
 ## 6. Fit for production?
 
-_Verdict line filled from §4 below._
+**Verdict: fit to merge and review; deploy only after the queued Firefox,
+WebKit and accessibility reruns complete clean on an idle machine.** Data,
+validator, build and the Chromium suites on both trees are green; the
+independent QA judged all 14 flagship maps fit for production (South Pole as
+an honest placeholder). What blocks a same-day production push is the two
+engine runs and the accessibility scan that could not finish under the
+machine load, not a known defect.
 
 Caveats that hold regardless of the gate results:
 
