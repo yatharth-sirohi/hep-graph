@@ -275,7 +275,11 @@ async function contrastOf(page, selector) {
       } catch (error) {
         maps = {};
       }
-      const mapId = Object.keys(maps).find((id) => maps[id].feature_count > 0);
+      // The richest map, not the alphabetically first (which on the real
+      // tree is the South Pole, with a single feature).
+      const mapId = Object.keys(maps)
+        .filter((id) => maps[id].feature_count > 0)
+        .sort((a, b) => maps[b].feature_count - maps[a].feature_count)[0];
       if (!mapId) {
         axeReport.push({
           tree: tree.label, state: "local map view", skipped: true,
@@ -325,11 +329,14 @@ async function contrastOf(page, selector) {
       for (const check of [
         { selector: ".map-feature-row .map-feature-meta", min: 4.5, label: "feature row metadata" },
         { selector: ".map-subtitle", min: 4.5, label: "map subtitle" },
-        { selector: ".map-data-note", min: 4.5, label: "synthetic-data note" },
+        // Only maps whose record carries `notes` render this one, which on
+        // the real tree is none of them — measured when present.
+        { selector: ".map-data-note", min: 4.5, label: "data note", optional: true },
         { selector: ".map-drawer-title", min: 4.5, label: "drawer title" },
         { selector: ".leaflet-control-scale-line", min: 4.5, label: "scale bar label" },
       ]) {
         const measured = await contrastOf(mapPage, check.selector);
+        if (!measured && check.optional) continue;
         assert.ok(measured, `could not measure contrast for ${check.label} (${check.selector})`);
         assert.ok(measured.ratio >= check.min,
           `${check.label} contrast ${measured.ratio.toFixed(2)}:1 is below ${check.min}:1`);
@@ -342,7 +349,43 @@ async function contrastOf(page, selector) {
         assert.ok(pressed === "true" || pressed === "false", `level toggle ${levelId} exposes aria-pressed`);
       }
       assert.ok(geometry.features.length > 0, "the bundle this scan exercised actually has features");
+      console.log(`[${tree.label}] axe scanned local map ${mapId} (${geometry.features.length} features)`);
       await mapContext.close();
+
+      // A polar map is a different projection, a different north label and a
+      // disabled control, so it is its own accessible state.
+      const polarId = Object.keys(maps).find((id) => Math.abs(maps[id].center.lat) > 85);
+      if (!polarId) return;
+      const polarContext = await browser.newContext({ viewport: { width: 1440, height: 960 } });
+      const polarPage = await polarContext.newPage();
+      polarPage.setDefaultTimeout(30000);
+      await polarPage.goto(`${base}/atlas${dataTree}#/map/${polarId.split(":")[1]}`,
+        { waitUntil: "domcontentloaded" });
+      await polarPage.locator(".leaflet-container").waitFor({ timeout: 20000 });
+      await polarPage.waitForTimeout(1200);
+      await polarPage.evaluate(() => document.querySelectorAll("#map-layers details")
+        .forEach((d) => { d.open = true; }));
+      await runAxe(polarPage, tree.label, "local map view, polar projection");
+      // A disabled control must still explain itself, and the grid-north
+      // note must be readable text rather than an unexplained arrow.
+      const disabled = polarPage.locator("#map-basemap-toggle");
+      assert.equal(await disabled.getAttribute("aria-disabled"), "true");
+      assert.equal(await disabled.getAttribute("aria-describedby"), "map-basemap-unavailable");
+      assert.match(await polarPage.locator("#map-basemap-unavailable").innerText(), /No basemap at the pole/i);
+      assert.match(await polarPage.locator(".map-north").getAttribute("aria-label"),
+        /grid north/i, "the north indicator explains in words that up is grid north");
+      for (const check of [
+        { selector: ".map-north-label", min: 4.5, label: "grid-north label" },
+        { selector: "#map-basemap-unavailable", min: 4.5, label: "no-basemap note" },
+        { selector: ".map-tile-notice", min: 4.5, label: "tile notice" },
+      ]) {
+        const measured = await contrastOf(polarPage, check.selector);
+        assert.ok(measured, `could not measure contrast for ${check.label}`);
+        assert.ok(measured.ratio >= check.min,
+          `${check.label} contrast ${measured.ratio.toFixed(2)}:1 is below ${check.min}:1`);
+      }
+      console.log(`[${tree.label}] axe scanned polar local map ${polarId}`);
+      await polarContext.close();
     });
     // ---- local map view -- end -------------------------------------------
 

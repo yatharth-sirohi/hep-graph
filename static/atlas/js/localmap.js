@@ -19,7 +19,7 @@
 // globe's cold load must not pay for a map engine nobody has opened yet.
 
 import {
-  titleCase, quantityText, statusForTimeline, timelineAbsenceReason,
+  titleCase, quantityText, statusForTimeline, timelineAbsenceReason, monthToYear,
 } from './model.js';
 import * as mapstyle from './mapstyle.js';
 
@@ -45,6 +45,8 @@ let tileLayer = null;
 let featureGroup = null;
 let layersByFeature = new Map();
 let view = { levels: null, basemap: true, sel: null, timelineState: { year: null } };
+let polarProjection = false;
+let framed = false;
 let showOutside = false;
 let depthOpen = false;
 let selOpener = null;
@@ -182,8 +184,8 @@ function ensureDom() {
       + 'buttons under “Features on this map” in the panel to its left, which is the '
       + 'keyboard and screen-reader equivalent.',
   });
-  const north = h('div', { class: 'map-north', 'aria-hidden': 'true' }, [
-    h('span', { class: 'map-north-arrow' }, '↑'),
+  const north = h('div', { class: 'map-north' }, [
+    h('span', { class: 'map-north-arrow', 'aria-hidden': 'true' }, '↑'),
     h('span', { class: 'map-north-label' }, 'N'),
   ]);
   const tileNotice = h('p', { class: 'map-tile-notice hidden', id: 'map-tile-notice', role: 'status' });
@@ -241,10 +243,55 @@ function inSelectedYear(feature) {
   return s.timeless || !!s.status;
 }
 
+/**
+ * The selected entity is a special case. Opening
+ * `sel=accelerator:fermilab-tevatron` at 2026 used to show the Tevatron's
+ * panel beside a map with no Tevatron on it, and nothing said why — the
+ * reader is left to guess whether the ring is missing from the data or
+ * missing from the year. So a selected entity whose features are hidden
+ * *only* by the timeline is drawn anyway, ghosted, and the drawer says what
+ * happened and offers the years in which it existed.
+ *
+ * This overrides the timeline filter and nothing else: a level the reader
+ * switched off stays off, and unselected features are unaffected.
+ */
+function isSelectionGhost(feature) {
+  if (!view.sel) return false;
+  if (view.sel !== feature.entity_id && view.sel !== feature.id) return false;
+  return !inSelectedYear(feature);
+}
+
 function featureVisible(feature) {
   if (!visibleLevelIds().includes(feature.level_id)) return false;
   if (inSelectedYear(feature)) return true;
-  return showOutside;
+  return showOutside || isSelectionGhost(feature);
+}
+
+/** When the selection is only on screen because of the rule above, this
+ *  describes the gap: which years its features do cover, and why now is not
+ *  one of them. Returns null when the selection is genuinely in-year, has no
+ *  features on this map, or is hidden by a level toggle instead. */
+function selectionTimelineGap() {
+  if (!view.sel || showOutside) return null;
+  const features = selectedFeatures().filter((f) => visibleLevelIds().includes(f.level_id));
+  if (!features.length || features.some((f) => inSelectedYear(f))) return null;
+  let first = Infinity;
+  let last = -Infinity;
+  const reasons = new Set();
+  for (const feature of features) {
+    const segments = feature.state_segments;
+    if (!segments || !segments.length) continue;
+    first = Math.min(first, segments[0][0]);
+    last = Math.max(last, segments[segments.length - 1][1]);
+    reasons.add(timelineAbsenceReason(segments, view.timelineState || {}));
+  }
+  if (!Number.isFinite(first)) return { features, reason: 'no_history', from: null, to: null };
+  return {
+    features,
+    reason: reasons.has('ended') ? 'ended' : (reasons.has('not_yet') ? 'not_yet' : 'gap'),
+    from: monthToYear(first),
+    to: monthToYear(last),
+  };
 }
 
 function selectedFeatures() {
@@ -267,36 +314,145 @@ function destroyMap() {
     mapInstance.remove();
     mapInstance = null;
   }
+  polarProjection = false;
+  framed = false;
   if (window.__hepAtlasLocalMap) delete window.__hepAtlasLocalMap;
   tileLayer = null;
   featureGroup = null;
   layersByFeature = new Map();
 }
 
+// Web Mercator cannot draw a pole: Leaflet's EPSG3857 clamps latitude to
+// ±85.0511, so a map centred at −89.998° would be framed 550 km away from
+// the thing it depicts, and projecting the view corners produces NaN. Any
+// map whose centre is inside either polar cap therefore gets a local
+// azimuthal-equidistant projection in metres instead, with the 0° meridian
+// as *grid* north (the convention used at Amundsen–Scott, and the axis
+// convention of EPSG:3031 for the southern cap).
+const POLAR_LAT = 85;
+
+export function isPolar(centre) {
+  return Math.abs(centre.lat) > POLAR_LAT;
+}
+
+function polarCRS(L, centre) {
+  const south = centre.lat < 0;
+  const projection = {
+    // Distance from the pole is the true great-circle distance, so a metre
+    // on this map is a metre on the ground in every direction from the
+    // pole — which is the whole point of an equidistant projection here.
+    project(latLng) {
+      const colatitude = toRad(south ? 90 + latLng.lat : 90 - latLng.lat);
+      const rho = colatitude * EARTH_R;
+      const lambda = toRad(latLng.lng);
+      return new L.Point(rho * Math.sin(lambda),
+        (south ? 1 : -1) * rho * Math.cos(lambda));
+    },
+    unproject(point) {
+      const rho = Math.sqrt(point.x * point.x + point.y * point.y);
+      const colatitude = toDeg(rho / EARTH_R);
+      const lambda = Math.atan2(point.x, (south ? 1 : -1) * point.y);
+      return new L.LatLng(south ? colatitude - 90 : 90 - colatitude, toDeg(lambda));
+    },
+    bounds: L.bounds([-Math.PI * EARTH_R, -Math.PI * EARTH_R],
+      [Math.PI * EARTH_R, Math.PI * EARTH_R]),
+  };
+  return L.extend({}, L.CRS, {
+    code: south ? 'HEP:SouthPolarAzimuthalEquidistant' : 'HEP:NorthPolarAzimuthalEquidistant',
+    projection,
+    // One projected unit is one metre, and scale(0) = 1 px per metre, so
+    // zoom is a plain power of two on a metre grid (negative zooms are
+    // normal here — see minZoom below).
+    transformation: new L.Transformation(1, 0, -1, 0),
+    scale: (zoom) => 2 ** zoom,
+    zoom: (scale) => Math.log(scale) / Math.LN2,
+    infinite: true,
+    wrapLng: undefined,
+    wrapLat: undefined,
+    // The scale bar and every measurement must read true ground metres, the
+    // same great-circle metres the geometry bundle's `measured` values use.
+    distance: (a, b) => greatCircleM([a.lat, a.lng], [b.lat, b.lng]),
+  });
+}
+
+/** Metres per pixel the current view would need to span 2 × extent_m across
+ *  its shorter side, expressed as a zoom for whichever CRS is in use. */
+function zoomForExtent() {
+  const size = mapInstance.getSize();
+  const shorter = Math.min(size.x, size.y);
+  if (!shorter) return null;
+  const span = 2 * (mapMeta.extent_m || 3000);
+  const metresPerPixel = span / shorter;
+  if (polarProjection) return -Math.log2(metresPerPixel);
+  // Web Mercator: 156543.03392 m/px at zoom 0 on the equator, scaled by
+  // cos(latitude) — evaluated at this map's own centre.
+  const atEquator = 156543.033928 * Math.cos(toRad(mapMeta.center.lat));
+  return Math.log2(atEquator / metresPerPixel);
+}
+
+/**
+ * Frame the view from the map record's own `center` and `extent_m` — never
+ * from the drawn features' bounding box. Several maps carry an
+ * `inferred_direction` line hundreds of kilometres long (T2K's 295 km to
+ * Kamioka, CNGS's 730 km to Gran Sasso); fitting the features would zoom
+ * the campus out to nothing to accommodate a line that is not a structure.
+ */
+function frameToExtent() {
+  const zoom = zoomForExtent();
+  if (zoom == null) return false;
+  mapInstance.setView([mapMeta.center.lat, mapMeta.center.lon], zoom, { animate: false });
+  return true;
+}
+
 function createMap(L) {
   const { lat, lon } = mapMeta.center;
-  mapInstance = L.map(dom.canvas, {
+  polarProjection = isPolar(mapMeta.center);
+  const options = {
     center: [lat, lon],
     zoom: 14,
     zoomControl: true,
     keyboard: true,
     attributionControl: true,
     preferCanvas: false,
-  });
+    // Fractional zoom, so the opening view is exactly the extent the record
+    // declares rather than the nearest whole power of two.
+    zoomSnap: 0,
+    zoomDelta: 0.5,
+  };
+  if (polarProjection) {
+    options.crs = polarCRS(L, mapMeta.center);
+    // A metre grid needs negative zooms: at zoom 0 one pixel is one metre,
+    // so a 6 km-wide view of the pole sits near zoom −3.
+    options.minZoom = -24;
+    options.maxZoom = 14;
+    options.zoom = 0;
+  }
+  mapInstance = L.map(dom.canvas, options);
   L.control.scale({ imperial: false, metric: true, position: 'bottomleft' }).addTo(mapInstance);
-  // Fit the map to the extent the map record declares, so what opens is the
-  // campus the record describes rather than an arbitrary zoom.
-  const half = mapMeta.extent_m || 3000;
-  const sw = destination(lat, lon, 225, half * Math.SQRT2);
-  const ne = destination(lat, lon, 45, half * Math.SQRT2);
-  mapInstance.fitBounds([sw, ne]);
   featureGroup = L.layerGroup().addTo(mapInstance);
+  // The container was display:none until the route's layout class landed on
+  // #atlas-main, so it can still measure 0 × 0 here; framing then collapses
+  // to zoom 0 (the whole world). Try now, and again from show() once the
+  // browser has laid the stage out.
+  framed = frameToExtent();
   // A test/debug handle: the browser suite reads the scale control's label
   // and pixel width and checks it against map.distance() at the view centre.
   window.__hepAtlasLocalMap = mapInstance;
 }
 
 function applyBasemap(L) {
+  if (polarProjection) {
+    // OpenStreetMap ships no tiles in this projection — and Web Mercator
+    // raster tiles do not exist for the pole at all — so the basemap is not
+    // merely off here, it is unavailable, and the notice says which.
+    dom.tileNotice.textContent = 'No basemap at the pole: the OpenStreetMap tile set is Web '
+      + 'Mercator, which cannot represent latitude 90°. This map uses a local azimuthal '
+      + 'projection in metres, so the atlas’s own to-scale features are drawn on a plain '
+      + 'background. The scale bar and the grid-north indicator are unaffected.';
+    dom.tileNotice.classList.remove('hidden');
+    mapInstance.getContainer().classList.add('basemap-off');
+    return;
+  }
   if (view.basemap) {
     if (!tileLayer) {
       tileLayer = L.tileLayer(TILE_URL, {
@@ -340,6 +496,17 @@ function tooltipFor(feature) {
   if (feature.feature_type === 'direction_line' || feature.representation === 'inferred_direction') {
     lines.push('inferred direction — not a structure');
   }
+  const clipped = clippedGeometry(feature);
+  if (clipped) {
+    lines.push(clipped.fullLength_m
+      ? `drawn cut off at the edge of this map — the full bearing runs ${formatDistance(clipped.fullLength_m)}`
+      : 'drawn cut off at the edge of this map');
+  }
+  if (feature.geometry.type === 'Point' || feature.geometry.type === 'MultiPoint') {
+    lines.push(feature.accuracy_m != null
+      ? `position only — the circle is its ±${feature.accuracy_m} m accuracy, not a footprint`
+      : 'position only — no footprint is sourced for this feature');
+  }
   return lines.join('\n');
 }
 
@@ -355,10 +522,97 @@ function arrowheadCoords(coords) {
   return [a, tip, b];
 }
 
+/**
+ * §4 draws an inferred direction "clipped to the map extent". Some records
+ * carry the full baseline instead — T2K's line runs 295 km to Kamioka,
+ * CNGS's 731 km to Gran Sasso — so the arrowhead would be computed hundreds
+ * of kilometres off screen and its legs would streak across the view. This
+ * trims the line where it leaves a generous multiple of the map's own
+ * extent, which is also where the reader stops being able to see it.
+ *
+ * It changes nothing about the claim: the bearing is the bearing, the facts
+ * panel still gives the method and the full length, and the drawer says the
+ * line is cut off rather than pretending it ends here.
+ */
+const DIRECTION_CLIP_FACTOR = 1.4;
+
+function clipToExtent(coords) {
+  const limit = DIRECTION_CLIP_FACTOR * (mapMeta.extent_m || 3000);
+  const centre = [mapMeta.center.lat, mapMeta.center.lon];
+  const inside = (pt) => greatCircleM(centre, [pt[1], pt[0]]) <= limit;
+  // Bisect the crossing segment: 24 halvings puts the cut well under a metre
+  // at any campus scale, with no projection maths. `from` is the end inside.
+  const boundary = (from, to) => {
+    let lo = 0;
+    let hi = 1;
+    for (let k = 0; k < 24; k += 1) {
+      const mid = (lo + hi) / 2;
+      const at = [from[0] + (to[0] - from[0]) * mid, from[1] + (to[1] - from[1]) * mid];
+      if (inside(at)) lo = mid; else hi = mid;
+    }
+    return [from[0] + (to[0] - from[0]) * lo, from[1] + (to[1] - from[1]) * lo];
+  };
+  // A direction line may start at the far site and end on this campus
+  // (T2K's runs J-PARC -> Kamioka), so both ends have to be considered.
+  // A line that leaves and re-enters would need multi-part output; no
+  // direction line does, since it is a single great-circle segment.
+  const out = [];
+  let clipped = false;
+  for (let i = 0; i < coords.length; i += 1) {
+    const cur = coords[i];
+    const curIn = inside(cur);
+    if (i > 0) {
+      const prev = coords[i - 1];
+      const prevIn = inside(prev);
+      if (prevIn !== curIn) {
+        out.push(prevIn ? boundary(prev, cur) : boundary(cur, prev));
+        clipped = true;
+      }
+    }
+    if (curIn) out.push(cur); else clipped = true;
+  }
+  // Nothing of it reaches this map: draw the record's own shape rather than
+  // silently dropping a feature the list still names.
+  if (out.length < 2) return { coords, clipped: false };
+  return { coords: out, clipped };
+}
+
+/** True when this feature's shape runs beyond the map's own extent and is
+ *  drawn cut off. Only inferred directions are trimmed. */
+function clippedGeometry(feature) {
+  if (feature.representation !== 'inferred_direction') return null;
+  const line = lineCoords(feature.geometry);
+  if (!line || line.length < 2) return null;
+  const result = clipToExtent(line);
+  if (!result.clipped) return null;
+  return {
+    geometry: { type: 'LineString', coordinates: result.coords },
+    fullLength_m: feature.measured && feature.measured.length_m,
+  };
+}
+
 function lineCoords(geometry) {
   if (geometry.type === 'LineString') return geometry.coordinates;
   if (geometry.type === 'MultiLineString') return geometry.coordinates[geometry.coordinates.length - 1];
   return null;
+}
+
+/** Leaflet's default for a GeoJSON Point is a pin marker, which is exactly
+ *  what §4 rules out: a pin asserts a position and says nothing about what
+ *  is known. A quarter of the real features are Points — a cavern, an
+ *  instrument, an array whose footprint no source gives — and what *is*
+ *  known about each is a position plus a positional accuracy. So each is
+ *  drawn to scale as a circle of radius `accuracy_m` (the uncertainty
+ *  itself, as a real ground distance) with a small screen-sized centre
+ *  mark so it stays findable when zoomed out. Both are SVG paths, both
+ *  carry the same four encodings as every other feature. */
+function pointLayers(L, feature, options) {
+  const radius = feature.accuracy_m != null && feature.accuracy_m > 0 ? feature.accuracy_m : 25;
+  return {
+    pointToLayer: (_geoJsonPoint, latlng) => L.circle(latlng, {
+      ...options, radius, fill: true, fillColor: options.color, fillOpacity: options.fillOpacity || 0.12,
+    }),
+  };
 }
 
 function drawFeatures(L) {
@@ -370,14 +624,28 @@ function drawFeatures(L) {
     const s = featureStatus(feature);
     const ghost = !s.timeless && !s.status;
     const options = mapstyle.pathOptions(feature, { level, status: s.status, ghost });
+    const isPoint = feature.geometry.type === 'Point' || feature.geometry.type === 'MultiPoint';
+    const clip = clippedGeometry(feature);
+    const shape = clip ? clip.geometry : feature.geometry;
     const parts = [];
-    if (mapstyle.levelIsSubsurface(level)) {
-      parts.push(L.geoJSON(feature.geometry, { style: () => mapstyle.casingOptions(feature, { ghost }) }));
+    if (mapstyle.levelIsSubsurface(level) && !isPoint) {
+      parts.push(L.geoJSON(shape, { style: () => mapstyle.casingOptions(feature, { ghost }) }));
     }
-    const main = L.geoJSON(feature.geometry, { style: () => options });
+    const main = L.geoJSON(shape, {
+      style: () => options,
+      ...(isPoint ? pointLayers(L, feature, options) : {}),
+    });
     parts.push(main);
+    if (isPoint) {
+      parts.push(L.geoJSON(feature.geometry, {
+        pointToLayer: (_p, latlng) => L.circleMarker(latlng, {
+          ...options, radius: 4, fill: true, fillColor: options.color, fillOpacity: 0.9,
+          dashArray: null, weight: 1.5,
+        }),
+      }));
+    }
     const t = mapstyle.typeStyle(feature.feature_type);
-    const coords = t.arrow ? lineCoords(feature.geometry) : null;
+    const coords = t.arrow ? lineCoords(shape) : null;
     if (coords && coords.length >= 2) {
       const head = arrowheadCoords(coords);
       if (head) parts.push(L.polyline(head, { ...options, fill: false, fillOpacity: 0, dashArray: null }));
@@ -448,6 +716,7 @@ function featureRow(feature) {
         not_yet: 'not yet built', ended: 'no longer present', gap: 'no recorded status',
         no_history: 'no recorded history',
       }[timelineAbsenceReason(feature.state_segments, view.timelineState || {})] || 'not present'} in ${whenLabel()}`);
+  const isPoint = feature.geometry.type === 'Point' || feature.geometry.type === 'MultiPoint';
   const btn = h('button', {
     type: 'button',
     class: `map-feature-row${ghost ? ' is-ghosted' : ''}${selected ? ' is-selected' : ''}`,
@@ -459,6 +728,7 @@ function featureRow(feature) {
       `${t.label} · ${level ? level.name : feature.level_id}`),
     h('span', { class: 'map-feature-meta' },
       `${statusText} · ${mapstyle.accuracyText(feature)}`),
+    isPoint ? h('span', { class: 'map-feature-meta' }, 'position only — no sourced footprint') : null,
   ]);
   btn.addEventListener('click', () => selectFrom(feature, btn));
   return btn;
@@ -488,7 +758,7 @@ function renderLevels() {
 
 function renderUnlocated() {
   const rows = (bundle.map.unlocated || []).map((row) => h('li', { class: 'map-unlocated-row' }, [
-    h('div', { class: 'map-unlocated-name' },
+    h('div', { class: 'map-unlocated-name entity-link-with-meta' },
       row.entity_id ? [
         h('a', {
           href: `#/${idRoute(row.entity_id).type}/${idRoute(row.entity_id).slug}`,
@@ -562,7 +832,7 @@ function renderLinked() {
         class: 'entity-link',
         onclick: (event) => { event.preventDefault(); NAVIGATE({ entity: target, sel: null, levels: null }); },
       }, row.mapId ? `${row.name} — open its local map` : row.name);
-      return h('li', {}, [
+      return h('li', { class: 'entity-link-with-meta' }, [
         link,
         h('div', { class: 'map-feature-meta' },
           `${formatDistance(row.metres)} · bearing ${row.bearing.toFixed(0)}° (${compassPoint(row.bearing)})`
@@ -578,7 +848,7 @@ function renderSchematics() {
   return [
     h('p', { class: 'map-note' },
       'Schematics are offered as links only. They are not to scale and are never drawn on this map.'),
-    h('ul', { class: 'map-schematic-list' }, items.map((s) => h('li', {}, [
+    h('ul', { class: 'map-schematic-list' }, items.map((s) => h('li', { class: 'entity-link-with-meta' }, [
       h('a', { href: s.url || '#', target: '_blank', rel: 'noopener' }, s.title),
       h('div', { class: 'map-feature-meta' }, 'not to scale'),
       s.note ? h('div', { class: 'source-meta' }, s.note) : null,
@@ -625,7 +895,7 @@ function renderSidebar() {
       href: `#/facility/${facility.id.split(':')[1]}`, class: 'entity-link',
       onclick: (event) => { event.preventDefault(); NAVIGATE({ entity: idRoute(facility.id), sel: null, levels: null }); },
     }, `Open the ${facility.name} record`);
-    layers.appendChild(h('p', { class: 'map-subtitle' }, facLink));
+    layers.appendChild(h('p', { class: 'map-subtitle entity-link-with-meta' }, facLink));
   }
   for (const note of (bundle.map.notes || [])) {
     layers.appendChild(h('p', { class: 'map-data-note', role: 'note' }, note));
@@ -635,10 +905,16 @@ function renderSidebar() {
     lastAnnouncedSel || ''));
 
   // ---- view controls
-  const basemapBtn = toggleButton('OpenStreetMap basemap', view.basemap, () => {
+  const basemapBtn = toggleButton('OpenStreetMap basemap', view.basemap && !polarProjection, () => {
+    if (polarProjection) return;
     NAVIGATE({ basemap: !view.basemap });
   }, 'map-basemap-toggle');
   basemapBtn.id = 'map-basemap-toggle';
+  if (polarProjection) {
+    basemapBtn.disabled = true;
+    basemapBtn.setAttribute('aria-disabled', 'true');
+    basemapBtn.setAttribute('aria-describedby', 'map-basemap-unavailable');
+  }
   const outsideBtn = toggleButton('Show features outside the selected year', showOutside, () => {
     showOutside = !showOutside;
     redraw();
@@ -649,7 +925,17 @@ function renderSidebar() {
     'aria-expanded': depthOpen ? 'true' : 'false', 'aria-controls': 'map-depth',
   }, 'Depth view — vertical section diagram');
   depthBtn.addEventListener('click', () => { depthOpen = !depthOpen; renderDepth(); renderSidebar(); });
-  layers.appendChild(panelSection('View', [basemapBtn, outsideBtn, depthBtn]));
+  layers.appendChild(panelSection('View', [
+    basemapBtn,
+    polarProjection
+      ? h('p', { class: 'map-note', id: 'map-basemap-unavailable' },
+        'No basemap at the pole: OpenStreetMap\u2019s tiles are Web Mercator, which cannot '
+        + 'represent latitude 90\u00b0. This map uses a local azimuthal projection in metres '
+        + 'instead, so there is no basemap to turn on.')
+      : null,
+    outsideBtn,
+    depthBtn,
+  ]));
 
   layers.appendChild(panelSection('Levels', [
     h('p', { class: 'map-note' },
@@ -663,7 +949,9 @@ function renderSidebar() {
     const rows = bundle.features
       .filter((f) => f.level_id === level.id)
       .filter((f) => visibleLevelIds().includes(f.level_id))
-      .filter((f) => showOutside || inSelectedYear(f));
+      // Same predicate as the map, so the list and the map never disagree
+      // about what is on screen (a browser test asserts set equality).
+      .filter((f) => showOutside || inSelectedYear(f) || isSelectionGhost(f));
     if (!rows.length) continue;
     featureNodes.push(h('h4', { class: 'map-feature-group' }, level.name));
     featureNodes.push(h('div', { class: 'map-feature-rows' }, rows.map(featureRow)));
@@ -732,9 +1020,15 @@ function factsFor(feature) {
 
   const nodes = [h('h3', {}, 'Shape facts'), dl];
   if (feature.representation === 'inferred_direction') {
+    const clipped = clippedGeometry(feature);
     nodes.push(h('p', { class: 'map-inferred-warning' },
       'This line is an inferred direction — not a structure. Nothing is built along it; '
-      + 'it is the great-circle bearing towards the far site, clipped to the map extent.'));
+      + 'it is the great-circle bearing towards the far site.'
+      + (clipped
+        ? ` It is drawn cut off at the edge of this map: the bearing continues for ${
+          clipped.fullLength_m ? formatDistance(clipped.fullLength_m) : 'the full baseline'
+        }, which no campus map can show at this scale.`
+        : ' It is clipped to the map extent.')));
   }
   nodes.push(h('h3', {}, 'Cross-checks'));
   nodes.push((feature.checks || []).length
@@ -777,6 +1071,45 @@ function factsFor(feature) {
   return h('section', { class: 'map-facts' }, nodes);
 }
 
+/** The notice §4's honesty rule needs: the shape is on screen only because
+ *  it is selected, it is not what the map shows for this year, and here are
+ *  the years in which it was. `variant` only changes the class. */
+function timelineGapNotice(gap, variant) {
+  const name = gap.features[0] ? (gap.features[0].entity_name || gap.features[0].name) : view.sel;
+  const when = whenLabel();
+  const span = gap.from != null && gap.to != null
+    ? (gap.from === gap.to ? `${gap.from}` : `${gap.from}\u2013${gap.to}`)
+    : null;
+  const lead = {
+    ended: span ? `${name} was there in ${span}, not in ${when}.` : `${name} is no longer there in ${when}.`,
+    not_yet: span ? `${name} is recorded for ${span}, not yet in ${when}.` : `${name} does not exist yet in ${when}.`,
+    gap: span ? `${name} has no recorded state in ${when}; its shapes cover ${span}.` : `${name} has no recorded state in ${when}.`,
+    no_history: `${name} carries no recorded history, so no year can place it.`,
+  }[gap.reason] || `${name} is not present in ${when}.`;
+  const box = h('div', { class: `map-gap-notice ${variant || ''}`.trim(), role: 'status' }, [
+    h('p', {}, `${lead} It is drawn ghosted because you selected it \u2014 it is not what this map `
+      + `shows for ${when}.`),
+  ]);
+  if (span && gap.from != null) {
+    const btn = h('button', { type: 'button', class: 'text-btn map-gap-btn' },
+      gap.from === gap.to ? `Show ${gap.from}` : `Show ${gap.from}\u2013${gap.to}`);
+    btn.addEventListener('click', () => {
+      if (gap.from === gap.to) NAVIGATE({ year: gap.from, range: null });
+      else NAVIGATE({ year: null, range: [gap.from, gap.to] });
+    });
+    box.appendChild(btn);
+  }
+  return box;
+}
+
+function renderSelectionNotice() {
+  const existing = dom.stage.querySelector('.map-gap-notice');
+  if (existing) existing.remove();
+  const gap = selectionTimelineGap();
+  if (!gap) return;
+  dom.stage.appendChild(timelineGapNotice(gap, 'on-stage'));
+}
+
 function renderDrawer() {
   const { drawer, drawerHead, drawerFacts, root } = dom;
   const features = selectedFeatures();
@@ -796,6 +1129,10 @@ function renderDrawer() {
   }, '×');
   closeBtn.addEventListener('click', clearSelection);
   drawerHead.append(closeBtn, h('h2', { class: 'map-drawer-title', id: 'map-drawer-title', tabindex: '-1' }, name));
+  // Directly under the title, not below the entity's panel: "why is this not
+  // on the map" has to be answered before the reader starts scrolling.
+  const gap = selectionTimelineGap();
+  if (gap) drawerHead.appendChild(timelineGapNotice(gap, 'in-drawer'));
   if (primary && primary.entity_type) {
     const record = INDEX ? INDEX.get(view.sel) : null;
     const resolved = record && record.state_segments
@@ -900,11 +1237,35 @@ function renderDepth() {
 
 // ------------------------------------------------------------ stage chrome
 
+/** At a pole every direction is north, so the arrow cannot mean true north.
+ *  It means grid north: the 0° meridian, which is the convention used at
+ *  Amundsen–Scott and the +Y axis of this map's projection. */
+function renderNorthIndicator() {
+  const arrow = dom.stage.querySelector('.map-north-arrow');
+  const label = dom.stage.querySelector('.map-north-label');
+  const box = dom.stage.querySelector('.map-north');
+  if (!arrow || !label || !box) return;
+  if (polarProjection) {
+    label.textContent = 'grid north (0° meridian)';
+    box.classList.add('is-grid-north');
+    box.setAttribute('role', 'note');
+    box.setAttribute('aria-label',
+      'Up on this map is grid north: the 0° meridian. True north is not a direction here — '
+      + 'every direction from the pole is north.');
+  } else {
+    label.textContent = 'N';
+    box.classList.remove('is-grid-north');
+    box.setAttribute('role', 'note');
+    box.setAttribute('aria-label', 'Up on this map is true north.');
+  }
+}
+
 function redraw() {
   const L = window.L;
   drawFeatures(L);
   renderSidebar();
   renderDepth();
+  renderSelectionNotice();
 }
 
 // ------------------------------------------------------------------ show
@@ -967,6 +1328,7 @@ export async function show(current, ctx) {
     let L;
     try {
       [L, bundle] = await Promise.all([loadLeaflet(), fetchBundle(ctx.loaderBase, meta.bundle)]);
+      createMap(L);
     } catch (error) {
       currentMapId = null;
       // §"Correctness rules": an upstream failure is an error, never an
@@ -983,18 +1345,43 @@ export async function show(current, ctx) {
           return retry;
         })(),
       ]);
+      destroyMap();
+      currentMapId = null;
+      renderMessage([
+        h('h2', { class: 'map-title', tabindex: '-1' }, meta.name),
+        h('p', { class: 'error-note', role: 'alert' },
+          `The local map for ${meta.name} could not be opened: ${error.message}. `
+          + 'Nothing is drawn, because a blank map would look like a laboratory with no '
+          + 'structures rather than a failed request.'),
+        (() => {
+          const retry = h('button', { type: 'button', class: 'text-btn' }, 'Retry');
+          retry.addEventListener('click', () => { currentMapId = null; show(current, ctx); });
+          return retry;
+        })(),
+      ]);
       return;
     }
-    createMap(L);
   }
 
   mapMeta = meta;
   const L = window.L;
-  applyBasemap(L);
-  drawFeatures(L);
+  try {
+    applyBasemap(L);
+    drawFeatures(L);
+  } catch (error) {
+    window.console.error('HEP Atlas local map: could not draw', error);
+    renderMessage([
+      h('h2', { class: 'map-title', tabindex: '-1' }, meta.name),
+      h('p', { class: 'error-note', role: 'alert' },
+        `The local map for ${meta.name} could not be drawn: ${error.message}.`),
+    ]);
+    return;
+  }
   renderSidebar();
+  renderNorthIndicator();
   renderDepth();
   renderDrawer();
+  renderSelectionNotice();
 
   // The selected entity's normal detail panel, rendered by panels.js into
   // the drawer (app.js has already pointed panels at drawerPanelEl()).
@@ -1014,8 +1401,17 @@ export async function show(current, ctx) {
   }
 
   // Leaflet sizes itself from the container, which was display:none until
-  // the map route's layout class landed on #atlas-main.
-  if (mapInstance) window.requestAnimationFrame(() => mapInstance.invalidateSize());
+  // the map route's layout class landed on #atlas-main — so the map was very
+  // likely built against a 0 × 0 box, where framing collapses to zoom 0 (the
+  // whole world). Measure again on the next frame and, if the opening view
+  // was never framed, frame it now from center/extent_m.
+  if (mapInstance) {
+    window.requestAnimationFrame(() => {
+      if (!mapInstance) return;
+      mapInstance.invalidateSize({ animate: false });
+      if (!framed) framed = frameToExtent();
+    });
+  }
 }
 
 export function hide() {

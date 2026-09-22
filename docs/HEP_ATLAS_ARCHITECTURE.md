@@ -201,6 +201,36 @@ visible, and toggleable; on repeated tile failure the features stay on the
 dark background and a notice says the basemap is unavailable. Those tile hosts
 are the one third-party origin in the server's CSP, and only under `img-src`.
 
+**Projection.** Web Mercator, with the opening view computed analytically
+from the record's own `center` and `extent_m` — never `fitBounds` over the
+features, because several maps carry an `inferred_direction` line hundreds of
+kilometres long (T2K 295 km, CNGS 731 km) and fitting those would zoom the
+campus out to nothing for a line that is not a structure. Those lines are
+themselves trimmed where they leave 1.4 × the map's extent, and the tooltip
+and shape facts say the line is drawn cut off and give its full length.
+A map whose centre lies inside a polar cap (|lat| > 85°) cannot use Web
+Mercator at all — Leaflet clamps latitude at ±85.0511 and projecting the view
+corners yields NaN — so it gets a local azimuthal-equidistant projection in
+metres (the axis convention of EPSG:3031 for the southern cap). There the
+arrow is labelled "grid north (0° meridian)", because true north is not a
+direction at the pole, and the basemap toggle is disabled with a notice
+saying OpenStreetMap's tiles cannot represent latitude 90°.
+
+**Point features.** About a quarter of the real geometry is `Point`: a
+cavern, an instrument or an array whose footprint no source gives. Leaflet's
+default would be a pin marker, which asserts a footprint; instead each is
+drawn to scale as a circle of its own `accuracy_m` with a screen-sized centre
+mark, and its row, tooltip and the legend all say "position only — no sourced
+footprint".
+
+**The selected entity.** If the reader selects an entity whose shapes the
+timeline excludes, the map would otherwise be silent about why its panel is
+open and its shape absent. That entity's shapes are drawn ghosted anyway,
+with a notice in the drawer and on the map naming the years its own
+`state_segments` cover and a button that sets the timeline to them. The
+override is narrow: it does not touch level toggles, unselected features, or
+the global "show features outside the selected year" switch.
+
 **What it refuses to do.** It draws nothing the build did not emit: an entity
 with no sourced shape appears in the "Unlocated / geometry not verified" list
 with its reason and research backlog, never as an invented circle. A failed

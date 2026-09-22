@@ -593,7 +593,15 @@ async function setRangeValue(locator, value) {
     } catch (error) {
       mapsError = error.message;
     }
-    const mapId = Object.keys(mapsMeta).find((id) => mapsMeta[id].feature_count > 0) || null;
+    // The richest map, not the alphabetically first: the generated tree's
+    // first map is the South Pole, which has one feature and cannot
+    // exercise level toggles, rings or year filtering at all.
+    const mapId = Object.keys(mapsMeta)
+      .filter((id) => mapsMeta[id].feature_count > 0)
+      .sort((a, b) => mapsMeta[b].feature_count - mapsMeta[a].feature_count)[0] || null;
+    // Any map inside a polar cap, which cannot use Web Mercator at all.
+    const polarMapId = Object.keys(mapsMeta)
+      .find((id) => Math.abs(mapsMeta[id].center.lat) > 85) || null;
 
     if (!mapId) {
       await record("Local map view — skipped: no maps in this tree", async () => {
@@ -622,6 +630,12 @@ async function setRangeValue(locator, value) {
         assert.ok(at, `expected a drawn path for ${geometryId}`);
         await p.mouse.click(at.x, at.y);
       };
+
+      // Does a feature's recorded history cover mid-2026? The model indexes
+      // months from 1950-01 and reads a single year at its July (model.js
+      // monthIndex), so that is (2026 - 1950) * 12 + 6 = 918.
+      const inYear2026 = (f) => !f.state_segments
+        || f.state_segments.some(([m0, m1]) => m0 <= 918 && 918 <= m1);
 
       const waitForSel = async (p, expected) => {
         await p.waitForFunction((want) => {
@@ -692,6 +706,272 @@ async function setRangeValue(locator, value) {
           + `${measured.groundMetres.toFixed(1)} m on the ground — ${(100 * error).toFixed(2)} % out, want <= 2 %`);
         await mapContext.close();
       });
+
+      await record("Local map: the opening view is framed by center/extent_m, not by the features", async () => {
+        const { mapContext, p } = await openMap();
+        const framing = await p.evaluate(() => {
+          const m = window.__hepAtlasLocalMap;
+          const size = m.getSize();
+          const mid = size.y / 2;
+          return {
+            centre: [m.getCenter().lat, m.getCenter().lng],
+            widthM: m.distance(m.containerPointToLatLng([0, mid]), m.containerPointToLatLng([size.x, mid])),
+            heightM: m.distance(m.containerPointToLatLng([size.x / 2, 0]), m.containerPointToLatLng([size.x / 2, size.y])),
+            sx: size.x, sy: size.y,
+          };
+        });
+        // The record's own extent_m spans the shorter side of the stage.
+        const expectedShorter = 2 * meta.extent_m;
+        const measuredShorter = Math.min(framing.widthM, framing.heightM);
+        const error = Math.abs(measuredShorter - expectedShorter) / expectedShorter;
+        console.log("framing:", JSON.stringify({
+          map: mapId, extent_m: meta.extent_m, expectedShorter,
+          measuredShorter: Math.round(measuredShorter), errorPercent: Number((100 * error).toFixed(2)),
+        }));
+        assert.ok(error <= 0.02,
+          `opening view spans ${Math.round(measuredShorter)} m across its shorter side, but the map `
+          + `record declares extent_m ${meta.extent_m} (so ${expectedShorter} m) — ${(100 * error).toFixed(1)} % out`);
+        assert.ok(Math.abs(framing.centre[0] - meta.center.lat) < 0.01
+          && Math.abs(framing.centre[1] - meta.center.lon) < 0.01,
+        "the opening view is centred on the record's own centre");
+
+        // And the decisive case: a map carrying a feature far outside its
+        // extent must still open at its extent. Fitting the features would
+        // zoom a campus out to nothing to accommodate an inferred-direction
+        // line that is not a structure (T2K's is 295 km, CNGS's 730 km).
+        const far = geometry.features.reduce((acc, f) => {
+          const c = f.measured && f.measured.centroid;
+          if (!c) return acc;
+          const dx = (c[0] - meta.center.lon) * 111320 * Math.cos(meta.center.lat * Math.PI / 180);
+          const dy = (c[1] - meta.center.lat) * 110540;
+          return Math.max(acc, Math.hypot(dx, dy));
+        }, 0);
+        console.log(`farthest feature centroid on ${mapId}: ${Math.round(far)} m from the centre`);
+        assert.ok(measuredShorter < 4 * expectedShorter,
+          "the opening view must not have been widened to fit the features");
+        await mapContext.close();
+      });
+
+      // A ring's drawn size on screen, converted back to ground metres, must
+      // agree with the circumference the bundle measured for it. This is the
+      // end-to-end scale check on real geometry: bundle -> projection ->
+      // pixels -> scale bar. Checked for every ring on the richest map and,
+      // if it lives elsewhere, the largest ring in the whole tree — which on
+      // the real data is the LHC/LEP tunnel, the one baseline a reader is
+      // most likely to know (26.66 km round, so about 8.5 km across).
+      const ringsHere = geometry.features.filter((f) => f.feature_type === "ring"
+        && f.measured && f.measured.length_m > 0);
+      const ringTargets = [{ slug: mapSlug, features: ringsHere }];
+      let biggest = { length: Math.max(0, ...ringsHere.map((f) => f.measured.length_m)), id: null, mapId };
+      for (const [id, m] of Object.entries(mapsMeta)) {
+        if (id === mapId || !m.bundle) continue;
+        try {
+          const other = await (await fetch(`${mapTreeBase}${m.bundle}`)).json();
+          for (const f of other.features) {
+            if (f.feature_type === "ring" && f.measured && f.measured.length_m > biggest.length) {
+              biggest = { length: f.measured.length_m, id: id.split(":")[1], mapId: id, features: other.features };
+            }
+          }
+        } catch (error) { /* a bundle that will not load is the fetch test's business, not this one */ }
+      }
+      if (biggest.id) {
+        ringTargets.push({
+          slug: biggest.id,
+          features: biggest.features.filter((f) => f.feature_type === "ring"
+            && f.measured && f.measured.length_m > 0),
+        });
+      }
+
+      await record("Local map: every drawn ring measures its sourced circumference on the ground", async () => {
+        let measuredAnywhere = 0;
+        for (const target of ringTargets) {
+          if (!target.features.length) continue;
+          const mapContext = await browser.newContext({
+            viewport: { width: 1280, height: 800 }, reducedMotion: "reduce",
+          });
+          const p = await mapContext.newPage();
+          p.setDefaultTimeout(30000);
+          await p.goto(`${base}/atlas${dataTree}#/map/${target.slug}`, { waitUntil: "domcontentloaded" });
+          await p.locator(".leaflet-container").waitFor({ timeout: 20000 });
+          await p.waitForTimeout(1200);
+          const metresPerPixel = await p.evaluate(() => {
+            const m = window.__hepAtlasLocalMap;
+            const size = m.getSize();
+            return m.distance(m.containerPointToLatLng([0, size.y / 2]),
+              m.containerPointToLatLng([size.x, size.y / 2])) / size.x;
+          });
+          let checked = 0;
+          for (const ringFeature of target.features) {
+            if (await p.locator(`path[data-geometry-id="${ringFeature.id}"]`).count() === 0) continue;
+            // A ring only a couple of pixels wide cannot be measured from its
+            // bounding box, which at that size is all stroke width and
+            // rounding — CERN's PS Booster is 159 m round on a 30 km view,
+            // i.e. under 2 px. Skipping it is honest; asserting on it would
+            // be measuring the stroke, not the geometry.
+            const spanPx = (ringFeature.measured.length_m / Math.PI) / metresPerPixel;
+            if (spanPx < 40) {
+              console.log(`ring scale: skipping ${ringFeature.id} — ${spanPx.toFixed(1)} px across at this view`);
+              continue;
+            }
+            const measured = await p.evaluate((gid) => {
+            const el = document.querySelector(`path[data-geometry-id="${gid}"]`);
+            if (!el) return null;
+            const m = window.__hepAtlasLocalMap;
+            const box = el.getBoundingClientRect();
+            const host = document.getElementById("map-canvas").getBoundingClientRect();
+            const left = box.left - host.left;
+            const top = box.top - host.top;
+            // Ground width and height of the ring's own bounding box.
+            const w = m.distance(m.containerPointToLatLng([left, top + box.height / 2]),
+              m.containerPointToLatLng([left + box.width, top + box.height / 2]));
+            const h = m.distance(m.containerPointToLatLng([left + box.width / 2, top]),
+              m.containerPointToLatLng([left + box.width / 2, top + box.height]));
+              return { widthM: w, heightM: h, px: [box.width, box.height] };
+            }, ringFeature.id);
+            assert.ok(measured, `expected the ring ${ringFeature.id} to be drawn`);
+            // A closed ring of circumference C is about C/π across; a real
+            // tunnel is not a perfect circle, so this allows 12 % on the
+            // mean of its two bounding-box axes.
+            const expectedDiameter = ringFeature.measured.length_m / Math.PI;
+            const drawnDiameter = (measured.widthM + measured.heightM) / 2;
+            const error = Math.abs(drawnDiameter - expectedDiameter) / expectedDiameter;
+            console.log("ring scale:", JSON.stringify({
+              map: target.slug,
+              id: ringFeature.id,
+              circumference_m: Math.round(ringFeature.measured.length_m),
+              expectedDiameter_m: Math.round(expectedDiameter),
+              drawnDiameter_m: Math.round(drawnDiameter),
+              errorPercent: Number((100 * error).toFixed(2)),
+            }));
+            assert.ok(error <= 0.12,
+              `${ringFeature.id} measures ${Math.round(ringFeature.measured.length_m)} m round, so about `
+              + `${Math.round(expectedDiameter)} m across, but it is drawn ${Math.round(drawnDiameter)} m across `
+              + `— ${(100 * error).toFixed(1)} % out`);
+            checked += 1;
+          }
+          console.log(`ring scale: measured ${checked} ring(s) on ${target.slug}`);
+          measuredAnywhere += checked;
+          await mapContext.close();
+        }
+        // A map may legitimately have no ring big enough to measure at its
+        // own opening view (Fermilab at 2026 draws only the 151 m Booster,
+        // under 20 px), but the tree as a whole must have at least one.
+        assert.ok(measuredAnywhere > 0,
+          "expected at least one ring large enough on screen to measure across the checked maps");
+      });
+
+      // Point features are a quarter of the real geometry. Leaflet's default
+      // would be a pin marker, which asserts a footprint that no source
+      // gives; they must be SVG paths carrying the same encodings, and they
+      // must say in words that only the position is known.
+      const pointFeature = geometry.features.find((f) => f.geometry.type === "Point");
+      if (pointFeature) {
+        await record("Local map: a Point feature is drawn as its accuracy circle, not a pin", async () => {
+          const { mapContext, p } = await openMap();
+          const row = p.locator(`[data-feature-row="${pointFeature.id}"]`);
+          if (await row.count() === 0) {
+            console.log(`SKIP: ${pointFeature.id} is not visible in the default year/levels`);
+            await mapContext.close();
+            return;
+          }
+          assert.equal(await p.locator(`path[data-geometry-id="${pointFeature.id}"]`).count(), 1,
+            "a Point feature is an SVG path, so it carries the same four encodings as every other feature");
+          assert.equal(await p.locator(".leaflet-marker-icon").count(), 0,
+            "no default Leaflet pin markers anywhere: a pin would assert a footprint no source gives");
+          assert.match(await row.innerText(), /position only/i,
+            "the list row says only the position is known");
+          if (pointFeature.accuracy_m) {
+            const drawn = await p.evaluate((gid) => {
+              const el = document.querySelector(`path[data-geometry-id="${gid}"]`);
+              const m = window.__hepAtlasLocalMap;
+              const box = el.getBoundingClientRect();
+              const host = document.getElementById("map-canvas").getBoundingClientRect();
+              // A client rect spans the *painted* shape, so it is one stroke
+              // wider than the geometry — and engines differ on how much of
+              // the stroke they include. Take it off before converting to
+              // ground metres, and report the pixel size so a too-small
+              // circle can be skipped rather than measured as stroke.
+              const stroke = parseFloat(getComputedStyle(el).strokeWidth) || 0;
+              const widthPx = Math.max(1, box.width - stroke);
+              const left = box.left - host.left + stroke / 2;
+              const mid = box.top - host.top + box.height / 2;
+              return {
+                metres: m.distance(m.containerPointToLatLng([left, mid]),
+                  m.containerPointToLatLng([left + widthPx, mid])),
+                widthPx,
+                stroke,
+              };
+            }, pointFeature.id);
+            const expected = 2 * pointFeature.accuracy_m;
+            if (drawn.widthPx < 24) {
+              console.log(`point circle: skipping ${pointFeature.id} — ${drawn.widthPx.toFixed(1)} px across, `
+                + `too small to separate from its ${drawn.stroke} px stroke`);
+            } else {
+              const error = Math.abs(drawn.metres - expected) / expected;
+              console.log("point circle:", JSON.stringify({
+                id: pointFeature.id, expected_m: expected, drawn_m: Math.round(drawn.metres),
+                widthPx: Math.round(drawn.widthPx), errorPercent: Number((100 * error).toFixed(1)),
+              }));
+              assert.ok(error <= 0.15,
+                `the circle should be ${expected} m across (±${pointFeature.accuracy_m} m accuracy), `
+                + `drawn ${Math.round(drawn.metres)} m`);
+            }
+          }
+          await mapContext.close();
+        });
+      }
+
+      if (polarMapId) {
+        await record("Local map: a polar map uses a metre projection, grid north and no basemap", async () => {
+          const polarMeta = mapsMeta[polarMapId];
+          const slug = polarMapId.split(":")[1];
+          const mapContext = await browser.newContext({
+            viewport: { width: 1280, height: 800 }, reducedMotion: "reduce",
+          });
+          const polarErrors = [];
+          mapContext.on("page", (pg) => pg.on("pageerror", (e) => polarErrors.push(e.message)));
+          const p = await mapContext.newPage();
+          p.setDefaultTimeout(30000);
+          await p.goto(`${base}/atlas${dataTree}#/map/${slug}`, { waitUntil: "domcontentloaded" });
+          await p.locator(".leaflet-container").waitFor({ timeout: 20000 });
+          await p.waitForTimeout(1200);
+          const info = await p.evaluate(() => {
+            const m = window.__hepAtlasLocalMap;
+            const size = m.getSize();
+            const mid = size.y / 2;
+            const line = document.querySelector(".leaflet-control-scale-line");
+            return {
+              crs: m.options.crs.code,
+              centre: [m.getCenter().lat, m.getCenter().lng],
+              widthM: m.distance(m.containerPointToLatLng([0, mid]), m.containerPointToLatLng([size.x, mid])),
+              heightM: m.distance(m.containerPointToLatLng([size.x / 2, 0]), m.containerPointToLatLng([size.x / 2, size.y])),
+              scaleLabel: line ? line.textContent.trim() : null,
+              northLabel: (document.querySelector(".map-north-label") || {}).textContent,
+              tiles: document.querySelectorAll("img.leaflet-tile").length,
+              basemapDisabled: document.getElementById("map-basemap-toggle").disabled,
+              paths: document.querySelectorAll(".leaflet-overlay-pane svg path").length,
+            };
+          });
+          console.log("polar map:", polarMapId, JSON.stringify(info));
+          assert.match(info.crs || "", /AzimuthalEquidistant/,
+            "a map inside a polar cap must not use Web Mercator, which clamps latitude at ±85°");
+          assert.ok(Math.abs(info.centre[0] - polarMeta.center.lat) < 0.001,
+            `the view is centred on the real pole latitude (${polarMeta.center.lat}), not a clamped one`);
+          assert.match(info.scaleLabel || "", /\b(m|km)\b/, "the scale bar reads in metres");
+          assert.match(info.northLabel || "", /grid north/i,
+            "at a pole the arrow is grid north (the 0° meridian), never true north");
+          assert.equal(info.tiles, 0, "no Web Mercator basemap tiles are requested at a pole");
+          assert.equal(info.basemapDisabled, true, "the basemap toggle is disabled, not merely off");
+          assert.match(await p.locator("#map-basemap-unavailable").innerText(), /No basemap at the pole/i);
+          const expectedShorter = 2 * polarMeta.extent_m;
+          const measuredShorter = Math.min(info.widthM, info.heightM);
+          assert.ok(Math.abs(measuredShorter - expectedShorter) / expectedShorter <= 0.02,
+            `polar opening view spans ${Math.round(measuredShorter)} m, want ${expectedShorter} m`);
+          assert.ok(info.paths > 0, "the features are drawn on the plain background");
+          assert.deepEqual(polarErrors, [], "no uncaught errors on a polar map");
+          await mapContext.close();
+        });
+      }
 
       const ring = geometry.features.find((f) => f.feature_type === "ring" && (f.checks || []).length)
         || geometry.features.find((f) => (f.checks || []).length)
@@ -853,6 +1133,54 @@ async function setRangeValue(locator, value) {
           assert.equal(await p.locator("#map-outside-toggle").getAttribute("aria-pressed"), "true");
           assert.equal(await p.locator(`path[data-geometry-id="${lateFeature.id}"].is-ghosted`).count(), 1,
             "with “show features outside the selected year” on it comes back, ghosted");
+          await mapContext.close();
+        });
+      }
+
+      // An entity selected at a year it did not exist in: its panel opens but
+      // its shape is filtered out, and a reader cannot tell whether it is
+      // missing from the data or from the year. It must be drawn ghosted with
+      // an explicit explanation and a way to reach the years it covers.
+      const endedFeature = geometry.features.find((f) => f.entity_id
+        && Array.isArray(f.state_segments) && f.state_segments.length
+        && f.state_segments[f.state_segments.length - 1][1] < (2020 - 1950) * 12);
+      if (endedFeature) {
+        await record("Local map: selecting an entity absent from the selected year ghosts it and says why", async () => {
+          const sel = endedFeature.entity_id;
+          const { mapContext, p } = await openMap({}, `y=2026&sel=${encodeURIComponent(sel)}`);
+          await p.locator("#map-drawer-title").waitFor({ timeout: 15000 });
+          await p.waitForTimeout(600);
+          // Drawn, ghosted, and listed — map and list still agree.
+          assert.equal(await p.locator(`path[data-geometry-id="${endedFeature.id}"].is-ghosted`).count(), 1,
+            "the selected entity's shape is drawn ghosted even though the year excludes it");
+          assert.equal(await p.locator(`[data-feature-row="${endedFeature.id}"]`).count(), 1,
+            "and it is listed, so the accessible list still mirrors the map");
+          // Said in words, in both places, with the years it does cover.
+          for (const where of [".map-gap-notice.in-drawer", ".map-gap-notice.on-stage"]) {
+            const text = await p.locator(where).innerText();
+            assert.match(text, /ghosted because you selected it/i, `${where} explains why it is on screen`);
+            assert.match(text, /\d{4}/, `${where} names the years it covers`);
+          }
+          // An unselected feature that the year excludes stays hidden: this
+          // rule is about the selection, not a global override.
+          const otherHidden = geometry.features.find((f) => f.id !== endedFeature.id
+            && f.entity_id !== sel && !inYear2026(f));
+          if (otherHidden) {
+            assert.equal(await p.locator(`path[data-geometry-id="${otherHidden.id}"]`).count(), 0,
+              "an unselected out-of-year feature is still hidden");
+          }
+          assert.equal(await p.locator("#map-outside-toggle").getAttribute("aria-pressed"), "false",
+            "the global \u201cshow features outside the selected year\u201d toggle is untouched");
+          // The button moves the timeline to those years, and then the shape
+          // is solid and the notice is gone.
+          await p.locator(".map-gap-notice.on-stage .map-gap-btn").click();
+          await p.waitForFunction(() => !document.querySelector(".map-gap-notice"), { timeout: 15000 });
+          assert.match(decodeURIComponent(p.url()), /[?&](y|r)=/, "the button set the timeline");
+          assert.equal(await p.locator(`path[data-geometry-id="${endedFeature.id}"]`).count(), 1,
+            "the shape is now drawn for real");
+          assert.equal(await p.locator(`path[data-geometry-id="${endedFeature.id}"].is-ghosted`).count(), 0,
+            "and no longer ghosted");
+          await p.screenshot({ path: path.join(output, "local-map-timeline-gap.png") });
           await mapContext.close();
         });
       }

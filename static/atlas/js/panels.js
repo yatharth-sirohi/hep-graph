@@ -259,12 +259,32 @@ export function localMapLinks(record) {
     const drawn = `${meta.to_scale_count} feature${meta.to_scale_count === 1 ? '' : 's'} drawn to scale`;
     const unlocated = meta.unlocated_count
       ? ` \u00b7 ${meta.unlocated_count} not drawn (geometry not verified)` : '';
-    return h('li', {}, [
+    return h('li', { class: 'entity-link-with-meta' }, [
       linkTo(idRoute(mapId), `Open local map \u2014 ${meta.name}`, 'local-map-link'),
       h('div', { class: 'source-meta' }, `${drawn}${unlocated}`),
     ]);
   });
   return section('Local map', [h('ul', { class: 'entity-list' }, items)]);
+}
+
+/**
+ * The same affordance as one compact line for a panel's subtitle area, so a
+ * reader looking at a site, accelerator, beamline or detector sees "shown on
+ * a local map" before scrolling. Returns null when the build linked none.
+ */
+export function localMapChip(record) {
+  if (!record) return null;
+  const ids = record.map_id ? [record.map_id] : (record.geometry_map_ids || []);
+  const maps = (ATLAS && ATLAS.maps) || {};
+  const known = ids.filter((mapId) => maps[mapId]);
+  if (!known.length) return null;
+  const wrap = h('p', { class: 'panel-subtitle local-map-chip-row' });
+  known.forEach((mapId, i) => {
+    if (i) wrap.appendChild(document.createTextNode(' \u00b7 '));
+    wrap.appendChild(linkTo(idRoute(mapId), `\u25ce Shown to scale on the ${maps[mapId].name} local map`,
+      'local-map-chip'));
+  });
+  return wrap;
 }
 // ---- local map view hook -- end ----------------------------------------
 
@@ -789,6 +809,9 @@ async function renderSite(id, timelineState) {
   const place = site.place ? [site.place.city, site.place.country].filter(Boolean).join(', ') : '';
   frag.appendChild(h('p', { class: 'panel-subtitle' }, [titleCase(site.setting), place].filter(Boolean).join(' · ')));
   frag.appendChild(experimentBadge(site, timelineState));
+  // ---- local map view hook (§4): the compact subtitle-area affordance
+  const mapChip = localMapChip(site);
+  if (mapChip) frag.appendChild(mapChip);
 
   // A23: coordinates.approximate only exists on the generated tree's nested
   // shape; the fixtures' flat lat/lon predate the amendment and are never
@@ -863,6 +886,10 @@ async function renderSite(id, timelineState) {
       h('a', { href: d.reference && d.reference.url, target: '_blank', rel: 'noopener' }, d.name))))]
     : [emptyNote('No documents recorded.')], { open: false }));
 
+  // ---- local map view hook (§4)
+  const mapSection = localMapLinks(site);
+  if (mapSection) frag.appendChild(mapSection);
+
   const approximateSites = (site.coordinates && site.coordinates.approximate) ? [site] : [];
   frag.appendChild(sourcesDisclosure(id, site, { approximateSites }));
   CALLBACKS.focusGlobe(id);
@@ -882,6 +909,9 @@ async function renderDetector(id, timelineState) {
     .filter(Boolean).join(' · ');
   if (techLabel) frag.appendChild(h('p', { class: 'panel-subtitle' }, techLabel));
   frag.appendChild(experimentBadge(detector, timelineState));
+  // ---- local map view hook (§4): the compact subtitle-area affordance
+  const mapChip = localMapChip(detector);
+  if (mapChip) frag.appendChild(mapChip);
 
   const detectorSummary = plainSummaryOf(detector, t);
   frag.appendChild(section('Overview', [
@@ -933,6 +963,10 @@ async function renderDetector(id, timelineState) {
       h('a', { href: d.reference && d.reference.url, target: '_blank', rel: 'noopener' }, d.name))))]
     : [emptyNote('No documents recorded.')], { open: false }));
 
+  // ---- local map view hook (§4)
+  const mapSection = localMapLinks(detector);
+  if (mapSection) frag.appendChild(mapSection);
+
   frag.appendChild(sourcesDisclosure(id, detector));
   const focusSite = placements.map((p) => p.site_id).find(Boolean);
   if (focusSite) CALLBACKS.focusGlobe(focusSite);
@@ -950,6 +984,9 @@ async function renderAccelerator(id, timelineState) {
   frag.appendChild(h('h2', {}, accelerator.name));
   frag.appendChild(h('p', { class: 'panel-subtitle' }, titleCase(accelerator.kind)));
   frag.appendChild(experimentBadge(accelerator, timelineState));
+  // ---- local map view hook (§4): the compact subtitle-area affordance
+  const mapChip = localMapChip(accelerator);
+  if (mapChip) frag.appendChild(mapChip);
 
   const acceleratorSummary = plainSummaryOf(accelerator, t);
   frag.appendChild(section('Overview', [
@@ -1009,6 +1046,10 @@ async function renderAccelerator(id, timelineState) {
       h('a', { href: d.reference && d.reference.url, target: '_blank', rel: 'noopener' }, d.name))))]
     : [emptyNote('No documents recorded.')], { open: false }));
 
+  // ---- local map view hook (§4)
+  const mapSection = localMapLinks(accelerator);
+  if (mapSection) frag.appendChild(mapSection);
+
   frag.appendChild(sourcesDisclosure(id, accelerator));
   if (accelerator.site_id) CALLBACKS.focusGlobe(accelerator.site_id);
   return frag;
@@ -1024,6 +1065,9 @@ async function renderBeamline(id, timelineState) {
   const frag = document.createDocumentFragment();
   frag.appendChild(h('h2', {}, beamline.name));
   frag.appendChild(experimentBadge(beamline, timelineState));
+  // ---- local map view hook (§4): the compact subtitle-area affordance
+  const mapChip = localMapChip(beamline);
+  if (mapChip) frag.appendChild(mapChip);
 
   const beamlineSummary = plainSummaryOf(beamline, t);
   const primaryBeam = beamline.primary_beam || {};
@@ -1090,6 +1134,10 @@ async function renderBeamline(id, timelineState) {
     ? [h('ul', { class: 'entity-list' }, documents.map((d) => h('li', {},
       h('a', { href: d.reference && d.reference.url, target: '_blank', rel: 'noopener' }, d.name))))]
     : [emptyNote('No documents recorded.')], { open: false }));
+
+  // ---- local map view hook (§4)
+  const mapSection = localMapLinks(beamline);
+  if (mapSection) frag.appendChild(mapSection);
 
   frag.appendChild(sourcesDisclosure(id, beamline));
   const focusSite = nearSites[0] || farSites[0];

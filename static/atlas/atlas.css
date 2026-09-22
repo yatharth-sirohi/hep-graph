@@ -829,7 +829,9 @@ input {
    since the link colour alone doesn't reach 3:1 contrast against the
    panel's own body text. A link that is the sole content of its <li>/<p>
    (the common case elsewhere in these panels) doesn't need this. */
-.entity-link-with-meta .entity-link {
+.entity-link-with-meta .entity-link,
+.entity-link-with-meta > a,
+.map-schematic-list a {
   text-decoration: underline;
 }
 .empty-note {
@@ -1577,6 +1579,13 @@ body.about-page {
 .map-swatch.legend-rep-georeferenced { border-top-color: #cdd7dc; }
 .map-swatch.legend-rep-derived { border-top-color: #8d9aa2; }
 .map-swatch.legend-rep-inferred_direction { border-top-style: dotted; border-top-color: #c98bd6; }
+.map-swatch.legend-rep-point {
+  height: 12px;
+  width: 12px;
+  border: 2px solid var(--white);
+  border-radius: 50%;
+  background: #f4f7f833;
+}
 
 /* ---- centre: the map stage */
 .map-stage {
@@ -1655,11 +1664,18 @@ body.about-page {
   display: block;
   font-size: 15px;
 }
+/* At a pole the arrow means grid north, not true north, and the label says
+   so in full — so it needs room the single "N" does not. */
+.map-north.is-grid-north {
+  max-width: 190px;
+  text-align: center;
+  border-color: var(--amber);
+}
 .map-tile-notice {
   position: absolute;
   left: 50px;
-  right: 50px;
-  top: 10px;
+  right: 10px;
+  top: 58px;
   z-index: 1100;
   margin: 0;
   background: var(--panel);
@@ -1788,6 +1804,36 @@ body.about-page {
 .map-check.is-failed .map-check-verdict {
   color: var(--danger);
 }
+/* The selected entity is on screen only because it is selected, and its
+   absence from the chosen year is a fact about the year, not the data. Amber,
+   the same colour the rest of the app uses for "attend to this". */
+.map-gap-notice {
+  border-left: 3px solid var(--amber);
+  background: var(--panel-2);
+  padding: 8px 10px;
+  border-radius: 0 var(--radius) var(--radius) 0;
+  font-size: 12px;
+}
+.map-gap-notice p {
+  margin: 0 0 6px;
+}
+.map-gap-notice.on-stage {
+  position: absolute;
+  left: 50px;
+  bottom: 34px;
+  z-index: 1100;
+  max-width: min(420px, calc(100% - 120px));
+  box-shadow: var(--shadow);
+  border: 1px solid var(--amber);
+  border-left-width: 3px;
+}
+.map-gap-notice.in-drawer {
+  margin: 0 0 10px;
+}
+.map-gap-btn {
+  font-weight: 600;
+}
+
 .map-inferred-warning {
   margin: 6px 0;
   padding: 6px 8px;
@@ -1797,6 +1843,13 @@ body.about-page {
 }
 .fallback-nomap {
   color: var(--muted);
+}
+.local-map-chip-row {
+  margin: 0 0 8px;
+}
+a.local-map-chip {
+  color: var(--teal);
+  text-decoration: underline;
 }
 
 /* ---- mobile: stacked, with the drawer as a bottom sheet */
