@@ -144,4 +144,35 @@ H.E.S.S. CT5 label, the IceCube array footprint, Auger's citation.
 
 ## 6. Fit for production?
 
-_To be filled after §4 and §5._
+_Verdict line filled from §4 below._
+
+Caveats that hold regardless of the gate results:
+
+- **Coverage is honest, not complete.** Of the 39-facility set, 18 maps show
+  a layout to scale, 15 show footprints or sourced points only, 5 draw a
+  single reference point (PSI, SNS, LANSCE, Boulby, South Pole) and JUNO has
+  no map. Every gap is an `unlocated[]` entry with a sourced reason and a
+  backlog; the UI lists them under "Unlocated / geometry not verified" and
+  the coverage report counts to-scale features, not map shells.
+- **Not drawn because no public source supports the shape**: the Fermilab
+  Main Injector, Recycler and PIP-II; the LBNF target and DUNE near-detector
+  hall; CEBAF (not in OpenStreetMap, re-checked); the KEK 12 GeV PS; the
+  Chooz laboratories; the IceCube string array (grid orientation not in a
+  fetchable source — a documented unblock exists); the DUNE far-detector
+  caverns; HIPA; the LANSCE and SNS linacs; the SLC arcs.
+- **Derived shapes are labelled as such.** The Tevatron and Booster rings are
+  fitted circles anchored on three convergent OpenStreetMap tracings (the QA
+  review reproduced the fit twice); the Daya Bay and RENO halls are
+  multilaterated from published baselines, two checks widened to 5–6 % with
+  the reason stated in the records.
+- **Performance** was measured only under Chromium's software rasteriser
+  (SwiftShader) on a loaded machine; no frame-rate target on real hardware is
+  claimed. Initial globe load does not fetch Leaflet or any geometry bundle;
+  each map bundle is lazy (largest: CERN ≈ 0.1 MB).
+- **Deployment.** The branch is pushed and Vercel builds a preview per push,
+  but the preview is behind deployment protection (HTTP 302 to login), so it
+  was not verified from here; production `main` is untouched. Deploying is
+  the reviewer's call after this PR.
+- **Site records** were corrected where the geometry research found the
+  recorded point wrong by more than its precision (26 sites); the remaining
+  campus-grade points are still labelled approximate in the UI.
