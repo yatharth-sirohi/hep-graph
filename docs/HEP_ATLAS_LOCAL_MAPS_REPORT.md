@@ -129,7 +129,7 @@ Playwright 1.63 with the project's Chromium/Firefox/WebKit builds.
 | same, fixture tree, Chromium | 70 passed, 1 expected skip |
 | fixture tree, Firefox / WebKit | 67 passed + 1 skip each (run earlier the same day on the same frontend code) |
 | generated tree, Firefox / WebKit | 75 passed, 0 skipped each (rerun on the same commit once the load average fell below 12; the earlier attempt was starved by unrelated compute jobs at load 180–210 while the server answered in milliseconds) |
-| `node tests/browser_atlas_a11y.cjs` | **not completed** on the final commit for the same reason (8 passed, then timeouts). The last complete run on this frontend code (map-view branch, pre-merge) was 0 axe WCAG violations; the merged branch's only later frontend change is the `unrecorded` map style row. Queued with the reruns above |
+| `node tests/browser_atlas_a11y.cjs` | 35 passed, 1 expected skip, **0 axe WCAG violations over 24 scanned states** (both data trees, including the real-data local map with the drawer and depth diagram open, and about.html); rerun on the same commit once the machine was idle |
 | Stylesheet brace balance (`tests/test_atlas_static_css.py`) | passes — added after a merge truncated a CSS block and silently swallowed the local-map layout |
 
 Not measured: frame rate on real hardware (only SwiftShader under load); the
