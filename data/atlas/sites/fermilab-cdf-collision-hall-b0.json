@@ -4,15 +4,15 @@
   "coordinates": {
     "confidence": "approximate",
     "kind": "campus",
-    "lat": 41.8422582,
-    "locator": "site:fermilab-main-campus coordinates field, sourced to the LBNF/DUNE official project website (src:fermilab-lbnf-dune-site), reused here per the wave-3 brief's campus-point fallback for a detector hall with no separately published coordinate",
-    "lon": -88.245782,
-    "note": "No fetched source gives a specific coordinate for the CDF (B0) interaction hall itself; this point is the Fermilab campus centroid (reused, with its existing source, from site:fermilab-main-campus per A23) and is only campus-precision, not a survey of this hall. The Tevatron ring is about 6.3 km in circumference (about 1 km radius), so the true position could be up to roughly 2 km from this point in an unknown direction.",
-    "precision_m": 3000,
+    "lat": 41.840683,
+    "locator": "OSM way 51755116 \"CDF Hall\" building centroid (extract of 2026-09-18)",
+    "lon": -88.250096,
+    "note": "`kind: campus` under A23: the point is an OpenStreetMap building centroid (rank-11 source), which A17 does not admit as a detector-grade point on its own; it is nevertheless within ~40 m of the hall. The CDF collision hall (B0) footprint is mapped in OpenStreetMap as the named building \"CDF Hall\"; the coordinate is its centroid. OpenStreetMap is a rank-11 source, so the point is recorded as approximate rather than verified; precision_m is the half-size of the footprint. Previous record: campus point 41.8422582, -88.245782 at 3000 m precision.",
+    "precision_m": 40,
     "sources": [
-      "src:fermilab-lbnf-dune-site"
+      "src:fermilab-geo-osm-buildings"
     ],
-    "verified_at": "2026-09-17"
+    "verified_at": "2026-09-18"
   },
   "countries": [
     "US"
@@ -43,7 +43,8 @@
   "schema": "hep-atlas/0.2",
   "setting": "surface",
   "sources": [
-    "src:fermilab-lbnf-dune-site"
+    "src:fermilab-lbnf-dune-site",
+    "src:fermilab-geo-osm-buildings"
   ],
   "summary": {
     "plain": "The interaction hall on the Fermilab Tevatron ring where the CDF detector sat, in Batavia, Illinois. Its own precise position is not published in a source found this session, so it is shown at the precision of the wider Fermilab site.",

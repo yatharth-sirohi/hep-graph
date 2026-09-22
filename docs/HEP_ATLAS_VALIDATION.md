@@ -279,7 +279,7 @@ so `--check` can find the block again.
 
 ## 8. Final validation counts (addendum §41)
 
-Generated at 2026-09-18 by `scripts/atlas_validation_counts.py`. Every figure below is computed directly from the repository at the moment this ran; nothing here is typed by hand. Run with `--check` to confirm this block still matches the current data.
+Generated at 2026-09-22 by `scripts/atlas_validation_counts.py`. Every figure below is computed directly from the repository at the moment this ran; nothing here is typed by hand. Run with `--check` to confirm this block still matches the current data.
 
 ### 8.1 Entities
 
@@ -297,15 +297,19 @@ Generated at 2026-09-18 by `scripts/atlas_validation_counts.py`. Every figure be
 | Results | 109 |
 | Documents | 70 |
 | Topics | 42 |
-| Sources | 1486 |
+| Sources | 1606 |
+| Local maps | 39 |
+| Geometry features | 174 |
 | Membership rosters | 3 |
 | Coverage registry rows | 131 |
 
-Of 1486 sources, 1485 (100%) carry a recorded link-check status (`link_check.last_checked` or `link_check.http_status` is not null); the rest have never been through `python -m hepgraph.atlas.linkcheck`.
+39 local map(s) drawing 174 feature(s): 122 georeferenced, 32 derived, 14 surveyed, 6 inferred direction. 64 cross-check(s) are re-measured by the validator on every run, 41 entit(y/ies) are admitted as unlocated, and 10 facilit(y/ies) have no local map at all.
+
+Of 1606 sources, 1499 (93%) carry a recorded link-check status (`link_check.last_checked` or `link_check.http_status` is not null); the rest have never been through `python -m hepgraph.atlas.linkcheck`.
 
 Results by the type their publication used: 32 observation, 22 measurement, 17 limit, 15 precision measurement, 15 evidence, 4 technology milestone, 2 anomaly, 1 first detection, 1 discovery.
 
-Link-check outcomes by HTTP status: 1467 × 200, 11 × 403, 6 × 406, 1 × no response.
+Link-check outcomes by HTTP status: 1481 × 200, 11 × 403, 6 × 406, 1 × no response.
 
 ### 8.2 Coverage registry, by tier and researched state
 
@@ -325,7 +329,7 @@ Link-check outcomes by HTTP status: 1467 × 200, 11 × 403, 6 × 406, 1 × no re
 | Level | Count |
 | --- | ---: |
 | error | 0 |
-| warning | 1589 |
+| warning | 1588 |
 | info | 4 |
 
 ### 8.4 Integration issues (`docs/atlas-worklog/INTEGRATION_ISSUES.md`)
@@ -369,18 +373,12 @@ Source: a local `pytest -q` log (outside the repository tree, path not recorded)
 
 | Outcome | Count |
 | --- | ---: |
-| passed | 536 |
+| passed | 679 |
 | skipped | 139 |
 
 ### 8.6 Browser test results
 
-3 result file(s) found under `test-results/atlas`.
-
-| File | Status | Checks passed | Uncaught errors | Checked at |
-| --- | --- | ---: | ---: | --- |
-| test-results/atlas/a11y-axe-report.json | unknown | 0/0 | 0 | — |
-| test-results/atlas/a11y-report.json | passed | 30/30 | 0 | 2026-09-18T18:54:43.699Z |
-| test-results/atlas/report.json | passed | 25/25 | 0 | 2026-09-18T18:59:37.169Z |
+No `*.json` result files found under `/private/tmp/claude-501/-Users-yatharthsirohi-Desktop-HEP-Graph/08c0f269-77b4-4133-8c45-16f53453c149/scratchpad/final_browser_generated.json`. Run `node tests/browser_atlas.cjs` (and again with `HEP_ATLAS_DATA=generated`) first.
 
 ### 8.7 Manual / human-verified fields
 

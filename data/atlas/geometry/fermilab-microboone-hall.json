@@ -1,0 +1,176 @@
+{
+  "accuracy_m": 8,
+  "aliases": [],
+  "checks": [
+    {
+      "expected": {
+        "dimension": "length",
+        "display": "470 m",
+        "unit": "m",
+        "value": 470
+      },
+      "kind": "distance",
+      "locator": "MicroBooNE detector paper sec 2",
+      "quote": "470 m downstream from the neutrino production target",
+      "sources": [
+        "src:microboone-detector-paper-2017"
+      ],
+      "to_geometry_id": "geometry:fermilab-bnb-target",
+      "tolerance": 0.03
+    }
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "depth_m": null,
+  "entity_id": "detector:microboone",
+  "feature_type": "hall",
+  "geometry": {
+    "confidence": "verified",
+    "locator": "OSM way/1447175900, extract timestamp 2026-09-18",
+    "note": "Confidence 'verified' rests on the passing distance check below, which cites a rank-5 detector paper.",
+    "sources": [
+      "src:fermilab-geo-osm-sbn-area",
+      "src:microboone-experiment-site"
+    ],
+    "value": {
+      "coordinates": [
+        [
+          [
+            -88.2694385,
+            41.8375411
+          ],
+          [
+            -88.269359,
+            41.8374967
+          ],
+          [
+            -88.2693909,
+            41.8374702
+          ],
+          [
+            -88.2693845,
+            41.8374591
+          ],
+          [
+            -88.2693959,
+            41.8374486
+          ],
+          [
+            -88.2693945,
+            41.8374168
+          ],
+          [
+            -88.2694143,
+            41.8373867
+          ],
+          [
+            -88.2694491,
+            41.8373708
+          ],
+          [
+            -88.2694882,
+            41.8373629
+          ],
+          [
+            -88.2694938,
+            41.8373576
+          ],
+          [
+            -88.2695052,
+            41.837365
+          ],
+          [
+            -88.2695655,
+            41.8373042
+          ],
+          [
+            -88.2696422,
+            41.8373481
+          ],
+          [
+            -88.2695804,
+            41.8374073
+          ],
+          [
+            -88.2695932,
+            41.83741
+          ],
+          [
+            -88.2695819,
+            41.83742
+          ],
+          [
+            -88.269584,
+            41.8374486
+          ],
+          [
+            -88.2696273,
+            41.8374702
+          ],
+          [
+            -88.2695634,
+            41.8375295
+          ],
+          [
+            -88.2695173,
+            41.8375062
+          ],
+          [
+            -88.2694931,
+            41.8375046
+          ],
+          [
+            -88.2694839,
+            41.8375147
+          ],
+          [
+            -88.2694726,
+            41.8375094
+          ],
+          [
+            -88.2694385,
+            41.8375411
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    },
+    "verified_at": "2026-09-18"
+  },
+  "id": "geometry:fermilab-microboone-hall",
+  "level_id": "surface",
+  "license": {
+    "attribution": "© OpenStreetMap contributors",
+    "name": "ODbL-1.0",
+    "url": "https://www.openstreetmap.org/copyright"
+  },
+  "links": {
+    "website": null
+  },
+  "map_id": "map:fermilab",
+  "method": "OpenStreetMap way 1447175900 'Liqud Argon Test Facility' [sic] footprint, traced verbatim. Identified as MicroBooNE's hall by the existing placement record's own sourced note ('The detector sits in the Liquid Argon Test Facility (LArTF) on the Booster Neutrino Beam', src:microboone-experiment-site).",
+  "name": "Liquid Argon Test Facility (LArTF) -- MicroBooNE hall",
+  "notes": [
+    "QA pass (2026-09-21): removed the `valid: {start: '2015-10', end: null}` window a previous pass set. hepgraph.atlas.build._feature_segments() treats any `valid` dict with a non-null `start` as an open-ended 'active' window through build day whenever `end` is null, overriding the entity's own state_segments entirely -- so this feature was rendering `status: 'active'` in the built bundle today even though detector:microboone's own sourced timeline says otherwise (status 'completed' at build day 2026-09-21, confirmed by directly testing hepgraph.atlas.build._Context.status_at_build/segments). Removing `valid` restores the intended fallback (contract SS3: 'without it the feature inherits the entity's timeline'). This is a pipeline-code gap (hepgraph/atlas/build.py `_feature_segments`), not unique to this record -- see docs/atlas-worklog/REVIEW_geometry_qa.md."
+  ],
+  "osm": {
+    "elements": [
+      "way/1447175900"
+    ],
+    "timestamp": "2026-09-18T22:17:17Z"
+  },
+  "representation": "georeferenced",
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:fermilab-main-campus",
+  "sources": [
+    "src:fermilab-geo-osm-sbn-area",
+    "src:microboone-experiment-site"
+  ],
+  "summary": {
+    "plain": "Confidence 'verified' rests on the passing distance check below, which cites a rank-5 detector paper."
+  },
+  "type": "geometry",
+  "valid": null
+}

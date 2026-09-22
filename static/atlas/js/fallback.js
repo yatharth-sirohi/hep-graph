@@ -45,11 +45,12 @@ function table(caption, headers, rows) {
  * sees the same filtered set a WebGL visitor would.
  */
 export function render(container, {
-  atlas, results, navigate, filters, timelineState, topicIndex,
+  atlas, results, navigate, filters, timelineState, topicIndex, siteExperimentIndex,
 }) {
   const activeFilters = filters || filtersModule.emptyFilterState();
   const tls = timelineState || null;
   const topics = topicIndex || filtersModule.buildTopicIndex(atlas.topics || {});
+  const siteExperiments = siteExperimentIndex || filtersModule.buildSiteExperimentIndex(atlas);
 
   container.innerHTML = '';
   container.setAttribute('role', 'region');
@@ -88,9 +89,22 @@ export function render(container, {
         h('td', {}, (f.country || []).join(', ')),
         h('td', {}, isApproximateFacility(f) ? 'Approximate' : 'Precise'),
       );
+      // ---- local map view (docs/HEP_ATLAS_GEOMETRY.md §4) -- begin ------
+      // Leaflet needs no WebGL, so the to-scale local map is reachable from
+      // the no-WebGL fallback too. A facility with no map cell says "not
+      // mapped yet", never nothing at all — the blank would read as "this
+      // laboratory has no layout".
+      const mapId = f.map_id && atlas.maps && atlas.maps[f.map_id] ? f.map_id : null;
+      if (mapId) {
+        tr.appendChild(linkCell({ type: 'map', slug: mapId.split(':')[1] }, 'Local map', navigate));
+      } else {
+        tr.appendChild(h('td', { class: 'fallback-nomap' }, 'Not mapped yet'));
+      }
+      // ---- local map view -- end ----------------------------------------
       return tr;
     });
-  container.appendChild(table('Facilities', ['Name', 'Kind', 'Status', 'Country', 'Location'], facilityRows));
+  container.appendChild(table('Facilities',
+    ['Name', 'Kind', 'Status', 'Country', 'Location', 'Local map'], facilityRows));
 
   const experimentRows = Object.values(atlas.experiments)
     .filter((e) => filtersModule.experimentMatches(e, activeFilters, tls, topics))
@@ -115,6 +129,54 @@ export function render(container, {
       return tr;
     });
   container.appendChild(table('Collaborations', ['Name', 'Host facility', 'Membership'], collabRows));
+
+  // Same predicate globe.js's own marker visibility uses (filters.js's
+  // siteMatches, via the same buildSiteExperimentIndex a site carries no
+  // kind/topic_ids of its own to filter by directly), so the no-WebGL table
+  // narrows under exactly the filters a WebGL visitor's markers would.
+  const siteRows = Object.values(atlas.sites || {})
+    .filter((s) => filtersModule.siteMatches(s, activeFilters, tls, siteExperiments, topics))
+    .sort((a, b) => a.name.localeCompare(b.name))
+    .map((s) => {
+      const tr = h('tr', {});
+      tr.appendChild(linkCell({ type: 'site', slug: s.id.split(':')[1] }, s.name, navigate));
+      const facility = atlas.facilities && atlas.facilities[s.facility_id];
+      const c = s.coordinates;
+      tr.append(
+        h('td', {}, titleCase(s.setting)),
+        h('td', {}, facility ? facility.name : ''),
+        h('td', {}, (s.countries && s.countries.length ? s.countries.join(', ') : s.country) || ''),
+        h('td', {}, (c && c.approximate) ? 'Approximate' : 'Precise'),
+      );
+      return tr;
+    });
+  container.appendChild(table('Sites', ['Name', 'Setting', 'Facility', 'Country', 'Location'], siteRows));
+
+  // Accelerators/beamlines carry no `kind`/`topic_ids`/region facets of their
+  // own that the filter panel exposes, so (unlike the tables above) this
+  // isn't wired to `activeFilters` — every accelerator/beamline is listed,
+  // same as it would be with every filter cleared.
+  const acceleratorRows = Object.values(atlas.accelerators || {})
+    .sort((a, b) => a.name.localeCompare(b.name))
+    .map((a) => {
+      const tr = h('tr', {});
+      tr.appendChild(linkCell({ type: 'accelerator', slug: a.id.split(':')[1] }, a.name, navigate));
+      const facility = atlas.facilities && atlas.facilities[a.facility_id];
+      tr.append(h('td', {}, titleCase(a.kind)), h('td', {}, facility ? facility.name : ''), h('td', {}, titleCase(a.status)));
+      return tr;
+    });
+  container.appendChild(table('Accelerators', ['Name', 'Kind', 'Facility', 'Status'], acceleratorRows));
+
+  const beamlineRows = Object.values(atlas.beamlines || {})
+    .sort((a, b) => a.name.localeCompare(b.name))
+    .map((b) => {
+      const tr = h('tr', {});
+      tr.appendChild(linkCell({ type: 'beamline', slug: b.id.split(':')[1] }, b.name, navigate));
+      const facility = atlas.facilities && atlas.facilities[b.facility_id];
+      tr.append(h('td', {}, facility ? facility.name : ''), h('td', {}, titleCase(b.status)));
+      return tr;
+    });
+  container.appendChild(table('Beamlines', ['Name', 'Facility', 'Status'], beamlineRows));
 
   const resultRows = results.list
     .filter((r) => (!activeFilters.topic || !activeFilters.topic.length

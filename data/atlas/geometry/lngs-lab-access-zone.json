@@ -1,0 +1,70 @@
+{
+  "accuracy_m": 50,
+  "aliases": [],
+  "checks": [],
+  "coverage": {
+    "researched": "full",
+    "tier": "B"
+  },
+  "depth_m": null,
+  "entity_id": "facility:lngs",
+  "feature_type": "tunnel",
+  "geometry": {
+    "confidence": "derived",
+    "locator": "src:geo-lngs-pee-2024 p.27-28 (chainage); walked along geometry:lngs-tunnel-gran-sasso's own OSM line",
+    "note": "The straight-line distance between the two endpoints below (710.0 m by haversine) matches the official chainage delta (124.150 - 123.440 = 0.710 km) to within 4 m, which corroborates that A24 motorway chainage and this OSM way's own cumulative length correspond closely over this stretch (the whole-tunnel length check on geometry:lngs-tunnel-gran-sasso passes at 0.10%). A different part of the same source states the door-to-door distance is 'ca. 500 m' rather than the 710 m implied by its own two km markers; both figures are reported here (see the facility worklog) rather than silently reconciled.",
+    "quote": null,
+    "sources": [
+      "src:geo-lngs-pee-2024",
+      "src:geo-lngs-osm-tunnel-relation"
+    ],
+    "value": {
+      "coordinates": [
+        [
+          13.5747938,
+          42.4490178
+        ],
+        [
+          13.5800943,
+          42.4540651
+        ]
+      ],
+      "type": "LineString"
+    },
+    "verified_at": "2026-09-18"
+  },
+  "id": "geometry:lngs-lab-access-zone",
+  "level_id": "gran-sasso-tunnel",
+  "license": {
+    "attribution": "© OpenStreetMap contributors",
+    "name": "ODbL-1.0",
+    "url": "https://www.openstreetmap.org/copyright"
+  },
+  "links": {
+    "website": null
+  },
+  "map_id": "map:lngs",
+  "method": "Walked along geometry:lngs-tunnel-gran-sasso's line from its Assergi (west) end, cumulatively (haversine, 45 vertices): 5787 m (the laboratory's exit doors) to 6497 m (its entrance doors). The two distances come from the official emergency plan's A24 motorway chainage: the tunnel bore runs km 117.653 (Assergi portal) to km 127.829 (Teramo portal); the laboratory's own doors are stated at km 124.150 (entrance) and km 123.440 (exit); subtracting the portal chainage (117.653 km) from each gives the distance-from-Assergi-portal used here. Both target distances fell on the same original OSM segment, so the drawn line is a straight 2-point sub-segment of the tunnel line, not a freehand shape.",
+  "name": "LNGS underground laboratory access zone (Gran Sasso tunnel, km 123.440-124.150)",
+  "notes": [
+    "This is the sourced stretch of the highway tunnel adjacent to the laboratory's entrance and exit doors, not a hall footprint: no fetched source this session gives the perpendicular offset, orientation or footprint of Halls A/B/C from the highway tunnel centreline, only their combined dimensions (about 100 x 20 x 18 m each, src:geo-euro-ug-pandola-2011) and this along-tunnel span. See geometry:lngs-hall-a/-b/-c for the (undifferentiated) hall markers derived from this zone's midpoint."
+  ],
+  "osm": {
+    "elements": [
+      "way/24389234"
+    ],
+    "timestamp": "2026-09-18T22:22:35Z"
+  },
+  "representation": "derived",
+  "schema": "hep-atlas/0.2",
+  "site_id": null,
+  "sources": [
+    "src:geo-lngs-pee-2024",
+    "src:geo-lngs-osm-tunnel-relation"
+  ],
+  "summary": {
+    "plain": "The roughly 700-metre stretch of the Gran Sasso highway tunnel next to the LNGS underground laboratory's own entrance and exit doors, about 6 km in from the Assergi end."
+  },
+  "type": "geometry",
+  "valid": null
+}

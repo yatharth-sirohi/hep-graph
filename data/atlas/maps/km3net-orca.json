@@ -1,0 +1,74 @@
+{
+  "aliases": [],
+  "center": {
+    "confidence": "verified",
+    "kind": "detector",
+    "lat": 42.8,
+    "locator": "KM3NeT-Fr research-infrastructure page; Letter of Intent for KM3NeT 2.0",
+    "lon": 6.0333,
+    "note": "Reuses site:km3net-orca-toulon's own published coordinate as the map centre.",
+    "precision_m": 2000,
+    "sources": [
+      "src:astro-neutrino-km3net-fr-site-page",
+      "src:astro-neutrino-km3net-loi-2016"
+    ],
+    "verified_at": "2026-09-18"
+  },
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "extent_m": 5000,
+  "facility_id": "facility:km3net",
+  "id": "map:km3net-orca",
+  "levels": [
+    {
+      "depth_m": {
+        "approx": true,
+        "confidence": "verified",
+        "dimension": "length",
+        "display": "~2450 m",
+        "note": "",
+        "quote": "about 2450 m",
+        "sources": [
+          "src:astro-neutrino-km3net-fr-site-page",
+          "src:astro-neutrino-km3net-loi-2016"
+        ],
+        "unit": "m",
+        "value": 2450,
+        "verified_at": "2026-09-18"
+      },
+      "id": "seabed",
+      "kind": "sea",
+      "name": "Seabed (≈2450 m)",
+      "note": "The ORCA detection-unit strings rise from the seabed anchor point; there is no surface structure to show separately."
+    }
+  ],
+  "linked_map_ids": [
+    "map:km3net-arca"
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "KM3NeT/ORCA — Toulon deep-sea site",
+  "notes": [
+    "ANTARES (site:antares-toulon, detector:antares) sits about 10 km east of this site per the Letter of Intent ('ORCA ... approximately 10 kilometers west of the existing ANTARES telescope site'), but site:antares-toulon carries facility_id: null -- it does not belong to any atlas facility, so per this workstream's scope it is out of map:km3net-orca's inventory (not drawn, and not listed in unlocated[] either, since unlocated[] is for this facility's own entities). Its own coordinate is separately only 'approximate' with precision_m 12000 (a corroborated estimate, not a directly published lat/lon), which is too coarse to add a defensibly-placed context point here anyway. Left as a backlog item in the worklog rather than drawn.",
+    "The ORCA shore control station has moved between buildings during this session's research window (Institut Michel Pacha, La Seyne-sur-Mer originally; the Brégaillon/Ifremer site since January 2024; the MEUST building once ready), so no single building was confidently identified as 'the' current shore station to draw as OSM context this session; Overpass access was also unreachable for most of this session (see map:amundsen-scott-south-pole-station's notes). Left as a backlog item.",
+    "Overpass had no bearing on the two drawn features here (a sea site has no OSM footprint, per the research brief)."
+  ],
+  "schema": "hep-atlas/0.2",
+  "schematics": [],
+  "site_ids": [
+    "site:km3net-orca-toulon"
+  ],
+  "sources": [
+    "src:astro-neutrino-km3net-fr-site-page",
+    "src:astro-neutrino-km3net-loi-2016"
+  ],
+  "summary": {
+    "plain": "The Mediterranean seabed site off Toulon, France, where the KM3NeT/ORCA neutrino telescope is being built, about 40 km offshore and 2450 m down.",
+    "technical": "Local map for the KM3NeT-Fr / ORCA deep-sea site (facility:km3net). One surveyed point (the collaboration's own published 42°48' N 06°02' E) and one derived ~200 m-diameter circle for the single ORCA building block, its radius estimated by scaling ARCA's sourced R=500 m by the two blocks' relative string spacing (both from the KM3NeT 2.0 Letter of Intent). ARCA and ORCA are ~900 km apart and cannot share a to-scale map; see map:km3net-arca (linked)."
+  },
+  "type": "map",
+  "unlocated": []
+}

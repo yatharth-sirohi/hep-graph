@@ -1,0 +1,130 @@
+{
+  "accuracy_m": 40,
+  "aliases": [],
+  "checks": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "depth_m": null,
+  "entity_id": null,
+  "feature_type": "other",
+  "geometry": {
+    "confidence": "approximate",
+    "locator": "OSM way/996525504, timestamp_osm_base 2026-09-18T22:22:35Z; BNL central-campus-map building key, 'Booster (AGS) 942 G3'",
+    "note": "Approximate area label only; not a verified structure outline (see method).",
+    "sources": [
+      "src:geo-bnl-osm-context-buildings",
+      "src:geo-bnl-central-campus-map"
+    ],
+    "value": {
+      "coordinates": [
+        [
+          -72.8811228,
+          40.8757391
+        ],
+        [
+          -72.8816978,
+          40.8757894
+        ],
+        [
+          -72.8818416,
+          40.8756872
+        ],
+        [
+          -72.8819038,
+          40.8755622
+        ],
+        [
+          -72.8819403,
+          40.8753854
+        ],
+        [
+          -72.8818824,
+          40.8753156
+        ],
+        [
+          -72.8818158,
+          40.8753643
+        ],
+        [
+          -72.8817429,
+          40.8753578
+        ],
+        [
+          -72.8817322,
+          40.8752572
+        ],
+        [
+          -72.8816721,
+          40.8751647
+        ],
+        [
+          -72.8815455,
+          40.8751096
+        ],
+        [
+          -72.881421,
+          40.8750901
+        ],
+        [
+          -72.8812386,
+          40.8751225
+        ],
+        [
+          -72.8811313,
+          40.8752101
+        ],
+        [
+          -72.8810455,
+          40.8753756
+        ],
+        [
+          -72.8810412,
+          40.8754957
+        ],
+        [
+          -72.8811549,
+          40.8756644
+        ],
+        [
+          -72.8811228,
+          40.8757391
+        ]
+      ],
+      "type": "LineString"
+    },
+    "verified_at": "2026-09-18"
+  },
+  "id": "geometry:bnl-ags-booster-area",
+  "level_id": "surface",
+  "license": {
+    "attribution": "© OpenStreetMap contributors",
+    "name": "ODbL-1.0",
+    "url": "https://www.openstreetmap.org/copyright"
+  },
+  "links": {
+    "website": null
+  },
+  "map_id": "map:brookhaven-national-laboratory",
+  "method": "OpenStreetMap way 996525504, tagged place=locality with name '942 - AGS Booster' (not a building/man_made/tunnel tag), used verbatim. BNL's own central-campus-map key confirms 'Booster (AGS)' as Building 942, map coordinate G3 (src:geo-bnl-central-campus-map), independently corroborating the identification, but the OSM shape itself is only a hand-labelled locality boundary around the AGS Booster synchrotron's approximate footprint, not a surveyed or technically-aligned trace of its actual ring (contrast geometry:bnl-ags-ring, which at least has a place=locality tag directly matching a named BNL building). No atlas accelerator:bnl-booster entity exists in this wave (the 'facilities' partition left it optional and unmade; see ID_REGISTRY.md), so this is drawn as an unlinked context feature (entity_id null, feature_type 'other') for orientation only — not a claim about the Booster's true ring geometry.",
+  "name": "AGS Booster (Building 942), approximate area",
+  "notes": [],
+  "osm": {
+    "elements": [
+      "way/996525504"
+    ],
+    "timestamp": "2026-09-18T22:22:35Z"
+  },
+  "representation": "georeferenced",
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:bnl-upton-campus",
+  "sources": [
+    "src:geo-bnl-osm-context-buildings"
+  ],
+  "summary": {
+    "plain": "The approximate location of Building 942, home of the AGS Booster synchrotron, BNL's injector into the AGS."
+  },
+  "type": "geometry",
+  "valid": null
+}

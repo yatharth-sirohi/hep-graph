@@ -1,0 +1,104 @@
+{
+  "accuracy_m": 50,
+  "aliases": [],
+  "checks": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "depth_m": null,
+  "entity_id": "experiment:pierre-auger-observatory",
+  "feature_type": "array",
+  "geometry": {
+    "confidence": "derived",
+    "locator": "sdMap.csv, rows with sd750=1 (71 of 1690)",
+    "note": "No checks[] row: the 71-station sd750 flag and the collaboration's own quoted '61-detector, 23.5 km2' infill figure do not obviously describe the same set (see method); asserting a check against a figure that may not match this shape would be dishonest, not merely imprecise.",
+    "sources": [
+      "src:geo-arrays-auger-opendata-sdmap"
+    ],
+    "value": {
+      "coordinates": [
+        [
+          [
+            -69.5830036,
+            -35.1161066
+          ],
+          [
+            -69.574868,
+            -35.1278477
+          ],
+          [
+            -69.5502162,
+            -35.1396655
+          ],
+          [
+            -69.5419765,
+            -35.1398332
+          ],
+          [
+            -69.5174146,
+            -35.1400159
+          ],
+          [
+            -69.5130542,
+            -35.1340015
+          ],
+          [
+            -69.500652,
+            -35.116443
+          ],
+          [
+            -69.5087599,
+            -35.1047297
+          ],
+          [
+            -69.5170018,
+            -35.0930245
+          ],
+          [
+            -69.5334839,
+            -35.0928744
+          ],
+          [
+            -69.549895,
+            -35.0928344
+          ],
+          [
+            -69.5747378,
+            -35.10442
+          ],
+          [
+            -69.5830036,
+            -35.1161066
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    },
+    "verified_at": "2026-09-18"
+  },
+  "id": "geometry:auger-sd750-infill-boundary",
+  "level_id": "surface",
+  "license": null,
+  "links": {
+    "website": null
+  },
+  "map_id": "map:pierre-auger-observatory",
+  "method": "Convex hull of the 71 stations flagged sd750=1 in sdMap.csv (49 sd750-only + 22 dual-flagged sd1500/sd750), same UTM-to-WGS84 conversion and hull algorithm as geometry:auger-sd1500-array-boundary. Computed area is 29.3 km^2, 24.7% above the 23.5 km^2 figure quoted for the '61-detector infilled array' in a 2026 collaboration paper (src:cosmic-gamma-ta-arxiv-2026-recent-findings is the wrong facility -- see notes for the actual infill source used); the 71-station sd750 flag count itself does not match the quoted 61-detector figure, so this is very likely a different (looser) definition of 'infill station' than the one behind the quoted 23.5 km^2 number. No checks[] row is asserted for this reason -- see worklog residual.",
+  "name": "Pierre Auger Observatory infill surface-detector array (750 m spacing), convex hull",
+  "notes": [
+    "Area (29.3 km^2) does not match the collaboration's own quoted '23.5 km^2, 61-detector' infill figure closely enough to assert a checks[] row; the sd750 flag likely covers a superset (e.g. including AMIGA/HEAT-related stations) of the specific infill array that figure describes. Flagged as backlog."
+  ],
+  "osm": null,
+  "representation": "derived",
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:malargue-auger",
+  "sources": [
+    "src:geo-arrays-auger-opendata-sdmap"
+  ],
+  "summary": {
+    "plain": "A smaller, more closely packed patch of detector tanks near the centre of the Auger array, added to catch lower-energy cosmic rays."
+  },
+  "type": "geometry",
+  "valid": null
+}

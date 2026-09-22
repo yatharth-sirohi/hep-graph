@@ -1,0 +1,221 @@
+{
+  "accuracy_m": 20,
+  "aliases": [],
+  "checks": [
+    {
+      "expected": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "length",
+        "display": "3,862 m (2.4 mi)",
+        "locator": "'RHIC by the Numbers' fact sheet, first bullet (2.4 mi × 1.609344 km/mi = 3.862 km, a direct unit conversion)",
+        "note": "",
+        "quote": "The Relativistic Heavy Ion Collider (RHIC) at Brookhaven Lab ring is 2.4 miles in circumference",
+        "sources": [
+          "src:geo-bnl-rhic-by-the-numbers"
+        ],
+        "unit": "m",
+        "value": 3862,
+        "verified_at": "2026-09-18"
+      },
+      "kind": "length",
+      "locator": "'RHIC by the Numbers' fact sheet, first bullet",
+      "quote": "The Relativistic Heavy Ion Collider (RHIC) at Brookhaven Lab ring is 2.4 miles in circumference",
+      "sources": [
+        "src:geo-bnl-rhic-by-the-numbers"
+      ],
+      "tolerance": 0.02
+    }
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "depth_m": null,
+  "entity_id": "accelerator:rhic",
+  "feature_type": "ring",
+  "geometry": {
+    "confidence": "verified",
+    "locator": "OSM way/50074088, timestamp_osm_base 2026-09-18T22:22:35Z; BNL 'RHIC by the Numbers' fact sheet (04-14)",
+    "note": "Confidence 'verified' rests on the passing circumference check against BNL's own published figure.",
+    "sources": [
+      "src:geo-bnl-osm-rhic-ring",
+      "src:geo-bnl-rhic-by-the-numbers"
+    ],
+    "value": {
+      "coordinates": [
+        [
+          -72.8802983,
+          40.8796608
+        ],
+        [
+          -72.8791138,
+          40.8791058
+        ],
+        [
+          -72.877811,
+          40.8787319
+        ],
+        [
+          -72.8764378,
+          40.8785528
+        ],
+        [
+          -72.8750445,
+          40.8785751
+        ],
+        [
+          -72.8736826,
+          40.8787981
+        ],
+        [
+          -72.8724019,
+          40.8792134
+        ],
+        [
+          -72.8712496,
+          40.8798059
+        ],
+        [
+          -72.870268,
+          40.8805538
+        ],
+        [
+          -72.8694932,
+          40.8814295
+        ],
+        [
+          -72.8689537,
+          40.8824009
+        ],
+        [
+          -72.8686693,
+          40.8834323
+        ],
+        [
+          -72.8686504,
+          40.8844858
+        ],
+        [
+          -72.8688977,
+          40.8855226
+        ],
+        [
+          -72.8694022,
+          40.8865046
+        ],
+        [
+          -72.8701453,
+          40.8873958
+        ],
+        [
+          -72.8710997,
+          40.8881635
+        ],
+        [
+          -72.8722108,
+          40.8887706
+        ],
+        [
+          -72.873453,
+          40.8892093
+        ],
+        [
+          -72.874782,
+          40.8894638
+        ],
+        [
+          -72.8761506,
+          40.8895251
+        ],
+        [
+          -72.87751,
+          40.8893911
+        ],
+        [
+          -72.8788121,
+          40.8890665
+        ],
+        [
+          -72.8800103,
+          40.8885629
+        ],
+        [
+          -72.8810621,
+          40.8878981
+        ],
+        [
+          -72.8819301,
+          40.8870958
+        ],
+        [
+          -72.8825834,
+          40.8861846
+        ],
+        [
+          -72.8829987,
+          40.8851968
+        ],
+        [
+          -72.8831614,
+          40.8841676
+        ],
+        [
+          -72.8830655,
+          40.8831336
+        ],
+        [
+          -72.8827145,
+          40.8821316
+        ],
+        [
+          -72.8821209,
+          40.8811972
+        ],
+        [
+          -72.8813059,
+          40.8803638
+        ],
+        [
+          -72.8802983,
+          40.8796608
+        ]
+      ],
+      "type": "LineString"
+    },
+    "verified_at": "2026-09-18"
+  },
+  "id": "geometry:bnl-rhic-ring",
+  "level_id": "rhic-tunnel",
+  "license": {
+    "attribution": "© OpenStreetMap contributors",
+    "name": "ODbL-1.0",
+    "url": "https://www.openstreetmap.org/copyright"
+  },
+  "links": {
+    "website": null
+  },
+  "map_id": "map:brookhaven-national-laboratory",
+  "method": "OpenStreetMap way 50074088 (tagged highway=corridor, indoor=yes, tunnel=yes, layer=-5, short_name=RHIC, wikidata=Q1076995), a single closed way of 34 nodes, used verbatim (no simplification). The way is tagged as an actual underground corridor/tunnel, not a surface proxy.",
+  "name": "Relativistic Heavy Ion Collider ring, full ring",
+  "notes": [
+    "QA pass (2026-09-21): removed the `valid: {start: '1991', end: null}` window a previous pass set (1991 is when BNL received funding to proceed with RHIC's construction, per accelerator:rhic's own sourced interval). hepgraph.atlas.build._feature_segments() treats any `valid` dict with a non-null `start` as an open-ended 'active' window through build day whenever `end` is null, overriding the entity's own state_segments entirely -- so this feature was rendering `status: 'active'` in the built bundle today, even though RHIC's final run ended 2026-02-06 (accelerator:rhic.status is `completed`, sourced to BNL's own dedication/shutdown reporting). Removing `valid` restores the intended fallback (contract SS3: 'without it the feature inherits the entity's timeline'), confirmed by directly testing hepgraph.atlas.build._Context.status_at_build/segments on accelerator:rhic at build day 2026-09-21: now correctly 'completed'. This is a pipeline-code gap (hepgraph/atlas/build.py `_feature_segments`), not unique to this record -- see docs/atlas-worklog/REVIEW_geometry_qa.md."
+  ],
+  "osm": {
+    "elements": [
+      "way/50074088"
+    ],
+    "timestamp": "2026-09-18T22:22:35Z"
+  },
+  "representation": "georeferenced",
+  "schema": "hep-atlas/0.2",
+  "site_id": null,
+  "sources": [
+    "src:geo-bnl-osm-rhic-ring"
+  ],
+  "summary": {
+    "plain": "The 3.8-km underground ring at Brookhaven National Laboratory that collided beams of gold atomic nuclei and polarized protons from 2000 to 2026."
+  },
+  "type": "geometry",
+  "valid": null
+}

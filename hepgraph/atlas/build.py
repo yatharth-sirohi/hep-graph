@@ -31,11 +31,12 @@ from __future__ import annotations
 import argparse
 import datetime as _dt
 import hashlib
+import re as _re
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Iterable
 
-from . import load, schema
+from . import geo, load, schema
 
 # ---------------------------------------------------------------------------
 # What goes where
@@ -50,25 +51,25 @@ ATLAS_TYPES: tuple[str, ...] = (
 
 #: Entity types that appear in `search.json`.  People are never in it (A14)
 #: and sources are not user-facing search targets.
-SEARCH_TYPES: tuple[str, ...] = ATLAS_TYPES + ('institution', 'result', 'document')
+SEARCH_TYPES: tuple[str, ...] = ATLAS_TYPES + ('institution', 'result', 'document', 'map')
 
 #: A1 inverse relations the build recomputes and writes, per entity type.
 #: Everything listed here is emitted even when it is empty, so the frontend can
 #: rely on the key existing.
 DERIVED_LINKS: dict[str, tuple[str, ...]] = {
     'facility': ('site_ids', 'accelerator_ids', 'beamline_ids', 'institution_id',
-                 'experiment_ids', 'document_ids'),
-    'site': ('document_ids',),
+                 'experiment_ids', 'document_ids', 'map_id'),
+    'site': ('document_ids', 'map_id'),
     'accelerator': ('beamline_ids', 'serves_experiment_ids', 'fed_by_accelerator_ids',
-                    'document_ids'),
-    'beamline': ('experiment_ids', 'document_ids'),
+                    'document_ids', 'geometry_map_ids'),
+    'beamline': ('experiment_ids', 'document_ids', 'geometry_map_ids'),
     'experiment': ('facility_ids', 'site_ids', 'detector_ids', 'result_ids', 'document_ids'),
-    'detector': ('document_ids',),
+    'detector': ('document_ids', 'geometry_map_ids'),
     'collaboration': ('experiment_ids', 'document_ids'),
     'institution': ('collaboration_ids',),
 }
 #: Derived link fields that hold a single id rather than a list.
-SCALAR_DERIVED_LINKS: frozenset[str] = frozenset({'institution_id'})
+SCALAR_DERIVED_LINKS: frozenset[str] = frozenset({'institution_id', 'map_id'})
 
 #: Ontology §7 relation names, plus the four additions this build emits
 #: (documented in docs/HEP_ATLAS_BUNDLES.md).
@@ -301,6 +302,23 @@ def derive_links(atlas: load.Atlas) -> Links:
         for row in atlas.memberships[collaboration_id].get('members') or []:
             if isinstance(row, dict):
                 links.add(row.get('institution_id'), 'collaboration_ids', collaboration_id)
+
+    # A25: a facility and each of a map's sites point at the map that covers
+    # them, so the globe's panels can offer "Open local map" without loading
+    # the maps table first.
+    for local_map in _sorted_records(atlas, 'map'):
+        links.add(local_map.get('facility_id'), 'map_id', local_map['id'])
+        for site_id in schema.ref_ids(local_map.get('site_ids')):
+            links.add(site_id, 'map_id', local_map['id'])
+
+    # A25: an accelerator, beamline or detector points back at every map that
+    # draws it.  A list, not a scalar: one machine can appear on two campus
+    # maps (a transfer line that leaves the site) and the panel links to both.
+    for feature in _sorted_records(atlas, 'geometry'):
+        entity_id = feature.get('entity_id')
+        map_id = feature.get('map_id')
+        if schema.id_type(entity_id or '') in ('accelerator', 'beamline', 'detector'):
+            links.add(entity_id, 'geometry_map_ids', map_id)
 
     return links
 
@@ -550,6 +568,12 @@ def build_atlas_bundle(ctx: _Context, coverage_flags: dict[str, dict]) -> tuple[
             table[entity_id] = _atlas_record(ctx, entity_type, entity_id, coverage_flags)
         bundle[plural] = table
         sizes[plural] = len(load.dump_json(table).encode('utf-8'))
+    # A25: the maps table is built from its own shape (contract §3), not by
+    # stripping a record, so it is not one of ATLAS_TYPES.  It is emitted even
+    # when it is empty, so the browser can rely on the key existing.
+    maps = build_maps_table(ctx)
+    bundle['maps'] = maps
+    sizes['maps'] = len(load.dump_json(maps).encode('utf-8'))
     return bundle, sizes
 
 
@@ -619,8 +643,57 @@ def build_results_bundle(ctx: _Context) -> dict:
         record = dict(ctx.stripped[entity_id])
         record.pop('schema', None)
         record['month'] = schema.month_index(schema.lo(record.get('date')))
+        official_url = record.get('official_url')
+        record['official_url_kind'] = (
+            _official_url_kind(official_url, record.get('publication')) if official_url else None)
         bundle[entity_id] = record
     return bundle
+
+
+_ARXIV_ID_RE = _re.compile(r'^([0-9]{4}\.[0-9]{4,5}|[a-z-]+(?:\.[A-Za-z-]+)?/[0-9]{7})(?:v\d+)?$')
+_ARXIV_URL_RE = _re.compile(
+    r'^(?:https?://)?(?:www\.)?arxiv\.org/(?:abs|pdf)/([^\s?#]+?)(?:\.pdf)?/?$', _re.IGNORECASE)
+_DOI_URL_RE = _re.compile(r'^(?:https?://)?(?:dx\.)?doi\.org/(.+)$', _re.IGNORECASE)
+
+
+def _normalize_arxiv_id(value: Any) -> str | None:
+    """The bare arXiv id (no version) a URL or id string names, or None."""
+    if not isinstance(value, str) or not value.strip():
+        return None
+    text = value.strip()
+    m = _ARXIV_URL_RE.match(text)
+    if m:
+        text = m.group(1)
+    m = _ARXIV_ID_RE.match(text)
+    return m.group(1) if m else None
+
+
+def _normalize_doi(value: Any) -> str | None:
+    """A DOI target, case- and doi.org-prefix-folded, or None."""
+    if not isinstance(value, str) or not value.strip():
+        return None
+    text = value.strip()
+    m = _DOI_URL_RE.match(text)
+    if m:
+        text = m.group(1)
+    text = text.strip('/')
+    return text.lower() or None
+
+
+def _official_url_kind(official_url: str, publication: Any) -> str:
+    """A4: whether `official_url` is really a distinct link, or a restated
+    arXiv/DOI reference the panel would otherwise show a second time under a
+    misleading "Official page" label (37 of 109 generated results did, all of
+    them arXiv). `publication` is the result's `{"doi", "arxiv", "inspire"}`
+    external-reference dict, unSourced (A9/§9)."""
+    publication = publication if isinstance(publication, dict) else {}
+    official_arxiv = _normalize_arxiv_id(official_url)
+    if official_arxiv and official_arxiv == _normalize_arxiv_id(publication.get('arxiv')):
+        return 'arxiv'
+    official_doi = _normalize_doi(official_url)
+    if official_doi and official_doi == _normalize_doi(publication.get('doi')):
+        return 'doi'
+    return 'official'
 
 
 def build_documents_bundle(ctx: _Context) -> dict:
@@ -671,7 +744,15 @@ def build_membership_bundles(ctx: _Context) -> dict[str, dict]:
         render_kwargs = dict(formation=formation, as_of=as_of, build_date=ctx.build_day,
                              membership_history=history)
 
-        members = [_membership_row(ctx, row, collaboration, as_of, render_kwargs) for row in rows]
+        # `source_index` records each row's position in the *authored* file,
+        # before the display sort below reorders it — the panel's provenance
+        # pointers (`/members/3`) index into that authored order (they are
+        # RFC 6901 pointers into the record as written, per
+        # docs/HEP_ATLAS_BUNDLES.md), so a client resolving one of those
+        # pointers into an institution name needs this to find the right row
+        # rather than the row that happens to land at position 3 once sorted.
+        members = [dict(_membership_row(ctx, row, collaboration, as_of, render_kwargs), source_index=i)
+                   for i, row in enumerate(rows)]
         members.sort(key=lambda row: (str(row.get('name') or ''), str(row.get('institution_id') or '')))
 
         snapshots = [ctx.stripper.strip(snapshot, collaboration_id, '')
@@ -922,6 +1003,8 @@ def _subtitle(ctx: _Context, entity_type: str, record: dict, stripped: dict) -> 
         return _join([humanise(record.get('result_type')), _year_of(stripped.get('date'))])
     if entity_type == 'document':
         return _join([humanise(record.get('doc_type')), _year_of(stripped.get('date'))])
+    if entity_type == 'map':
+        return _join(['Local map', ctx.name_of(record.get('facility_id'))])
     return ''
 
 
@@ -1079,7 +1162,9 @@ def build_coverage_bundle(ctx: _Context) -> tuple[dict, dict[str, dict]]:
                                 'globe_ready': clean['globe_ready']}
     rows.sort(key=lambda row: (row.get('priority') if isinstance(row.get('priority'), int) else 1 << 30,
                                str(row.get('entity_id') or '')))
-    return {'schema': schema.SCHEMA_TAG, 'rows': rows}, flags
+    bundle = {'schema': schema.SCHEMA_TAG, 'rows': rows}
+    bundle.update(build_maps_coverage(ctx))     # A25: `maps`, `facilities_without_a_map`
+    return bundle, flags
 
 
 def _validated_entities(ctx: _Context) -> set[str]:
@@ -1134,6 +1219,420 @@ def _is_globe_ready(ctx: _Context, entity_id: Any) -> bool:
     has_start = any(isinstance(row, dict) and schema.try_parse_date(row.get('start')) is not None
                     for row in record.get('intervals') or [])
     return has_site and has_start
+
+
+# ---------------------------------------------------------------------------
+# A25 — the local-map geometry layer (docs/HEP_ATLAS_GEOMETRY.md §3)
+# ---------------------------------------------------------------------------
+
+def _map_slug(map_id: str) -> str:
+    return schema.filename_for(map_id)
+
+
+def geometry_bundle_path(map_id: str) -> str:
+    """The lazy bundle one map's features live in."""
+    return f'geometry/{_map_slug(map_id)}.json'
+
+
+def _geometry_value(record: Any) -> Any:
+    """The GeoJSON object inside a geometry record's sourced `geometry`."""
+    sourced = (record or {}).get('geometry') if isinstance(record, dict) else None
+    if isinstance(sourced, dict) and 'value' in sourced:
+        return sourced.get('value')
+    return sourced
+
+
+def _geometry_by_map(ctx: _Context) -> dict[str, list[dict]]:
+    """`map_id -> [geometry record, …]`, sorted by geometry id."""
+    grouped: dict[str, list[dict]] = {}
+    for entity_id in sorted(ctx.atlas.by_type('geometry')):
+        record = ctx.atlas.by_type('geometry')[entity_id]
+        map_id = schema.canonical_id(record.get('map_id'))
+        if isinstance(map_id, str):
+            grouped.setdefault(map_id, []).append(record)
+    return grouped
+
+
+def _feature_segments(ctx: _Context, record: dict) -> tuple[list | None, Any]:
+    """`(state_segments, status)` of one feature (contract §3).
+
+    A shape's `valid` window says when the *structure* exists; it is never an
+    operating state. So a feature with `valid` shows its entity's own
+    lifecycle clipped to that window, and the months of the window the entity
+    has no recorded state for (a tunnel dug before its machine existed, a
+    hall that outlived its experiment) read `unrecorded`, not `active`. A
+    hall rebuilt in 1999 is therefore not on the map before 1999 whatever its
+    entity was doing, and a decommissioned machine's tunnel never reads as
+    running. A feature with `valid` and no entity (a dated context building)
+    is `unrecorded` for the whole window. A context feature with neither is
+    timeless — `null`, drawn in every year — because a road has no lifecycle
+    the atlas has researched and inventing one would be a claim nobody sourced.
+    """
+    entity_id = record.get('entity_id')
+    entity = ctx.atlas.get(entity_id) if isinstance(entity_id, str) else None
+    entity_segments = ctx.segments.get(schema.canonical_id(entity_id)) if entity is not None else None
+
+    valid = record.get('valid')
+    if isinstance(valid, dict) and (valid.get('start') is not None or valid.get('end') is not None):
+        start = schema.month_index(schema.lo(valid.get('start')))
+        end = schema.month_index(schema.hi(valid.get('end')))
+        build_month = schema.month_index(ctx.build_day)
+        if start is None:
+            start = build_month
+        if end is None:
+            end = build_month
+        if end < start:
+            return None, None
+        months: dict[int, tuple[str, str]] = {m: (schema.UNRECORDED, 'certain') for m in range(start, end + 1)}
+        for m0, m1, status, certainty in entity_segments or []:
+            for month in range(max(m0, start), min(m1, end) + 1):
+                months[month] = (status, certainty)
+        segments = _run_length(months)
+        status = _status_from_segments(segments, ctx.build_day)
+        return segments, status
+
+    if entity_segments:
+        return entity_segments, ctx.status_at_build(entity)
+    return None, None
+
+
+def _check_rows(ctx: _Context, record: dict, by_id: dict[str, dict]) -> list[dict]:
+    """One feature's executed cross-checks, in the bundle's shape.
+
+    `expected_m` / `measured_m` are in the base unit of the check kind —
+    metres, square metres, or degrees for an `azimuth` — so the browser
+    prints one number against another without unit bookkeeping.
+    """
+    value = _geometry_value(record)
+    rows: list[dict] = []
+    for row in record.get('checks') or []:
+        if not isinstance(row, dict):
+            continue
+        other = None
+        if row.get('kind') == 'distance':
+            other = _geometry_value(by_id.get(schema.canonical_id(row.get('to_geometry_id')) or ''))
+        result = geo.evaluate_check(value, row, other)
+        rows.append({
+            'kind': row.get('kind'),
+            'expected_m': result['expected'],
+            'measured_m': result['measured'],
+            'unit': result['unit'],
+            'tolerance': result['tolerance'],
+            'passed': result['passed'],
+            'sources': sorted(row.get('sources') or []),
+        })
+    return rows
+
+
+def _feature_entry(ctx: _Context, record: dict, by_id: dict[str, dict]) -> dict:
+    """One feature of a `geometry/<slug>.json` bundle (contract §3)."""
+    entity_id = record.get('entity_id')
+    entity = ctx.atlas.get(entity_id) if isinstance(entity_id, str) else None
+    value = _geometry_value(record)
+    stripped = ctx.stripped.get(record['id'], {})
+    segments, status = _feature_segments(ctx, record)
+    sourced = record.get('geometry') if isinstance(record.get('geometry'), dict) else {}
+    centre = geo.centroid(value)
+    return {
+        'id': record['id'],
+        'name': record.get('name'),
+        'feature_type': record.get('feature_type'),
+        'level_id': record.get('level_id'),
+        'entity_id': entity_id,
+        'entity_type': schema.id_type(entity_id) if isinstance(entity_id, str) else None,
+        'entity_name': (entity or {}).get('name'),
+        'site_id': record.get('site_id'),
+        'representation': record.get('representation'),
+        'accuracy_m': record.get('accuracy_m'),
+        'method': record.get('method') or '',
+        'depth_m': stripped.get('depth_m'),
+        'geometry': geo.round_geometry(value),
+        'measured': {
+            'length_m': geo.geometry_length_m(value),
+            'area_m2': geo.geometry_area_m2(value),
+            'centroid': geo.round_coordinates(centre) if centre is not None else None,
+        },
+        'checks': _check_rows(ctx, record, by_id),
+        'state_segments': segments,
+        'status': status,
+        'provenance': {
+            'sources': sorted(sourced.get('sources') or []),
+            'verified_at': sourced.get('verified_at'),
+            'confidence': sourced.get('confidence'),
+            'locator': sourced.get('locator') or None,
+            'quote': sourced.get('quote') or None,
+            'note': sourced.get('note') or None,
+        },
+        'license': record.get('license'),
+        'osm': record.get('osm'),
+    }
+
+
+def _attributions(records: Iterable[dict]) -> list[str]:
+    """Sorted unique attribution strings of a map's features (contract §7)."""
+    found: set[str] = set()
+    for record in records:
+        licence = record.get('license')
+        if isinstance(licence, dict):
+            attribution = str(licence.get('attribution') or '').strip()
+            name = str(licence.get('name') or '').strip()
+            if attribution:
+                found.add(f'{attribution} ({name})' if name else attribution)
+    return sorted(found)
+
+
+def _maps_by_facility(ctx: _Context) -> dict[str, str]:
+    """`facility_id -> the first of its maps`, by sorted map id.
+
+    A facility with separate campuses has one map per campus (§1.1), so this
+    is genuinely lossy — it answers "which map stands for this facility when
+    another map links to it", and the lowest-sorting id is an arbitrary but
+    *stable* answer.  Both callers must use the same one or the maps table
+    and the geometry bundle would disagree about `linked_map_ids`.
+    """
+    by_facility: dict[str, str] = {}
+    for map_id in sorted(ctx.atlas.by_type('map')):
+        facility_id = schema.canonical_id(ctx.atlas.by_type('map')[map_id].get('facility_id'))
+        if isinstance(facility_id, str):
+            by_facility.setdefault(facility_id, map_id)
+    return by_facility
+
+
+def derive_linked_maps(ctx: _Context, map_id: str, record: dict,
+                       by_facility: dict[str, str]) -> list[str]:
+    """Authored `linked_map_ids` plus the off-campus destinations (contract §3).
+
+    A far site that has its own map, and any `related_facility_ids` of this
+    map's facility that has one, are linked maps: the destination is never
+    drawn inside the source campus, so the only honest way to show it is a
+    link that says how far away it is.
+    """
+    linked = {schema.canonical_id(other) for other in schema.ref_ids(record.get('linked_map_ids'))}
+    facility_id = schema.canonical_id(record.get('facility_id'))
+    site_maps = {}
+    for other_id, other in sorted(ctx.atlas.by_type('map').items()):
+        for site_id in schema.ref_ids(other.get('site_ids')):
+            site_maps.setdefault(schema.canonical_id(site_id), other_id)
+
+    for beamline in _sorted_records(ctx.atlas, 'beamline'):
+        if schema.canonical_id(beamline.get('facility_id')) != facility_id:
+            continue
+        for site_id in schema.ref_ids(beamline.get('far_detector_site_ids')):
+            other = site_maps.get(schema.canonical_id(site_id))
+            if other:
+                linked.add(other)
+    facility = ctx.atlas.get(facility_id) if isinstance(facility_id, str) else None
+    for related_id in schema.ref_ids((facility or {}).get('related_facility_ids')):
+        other = by_facility.get(schema.canonical_id(related_id))
+        if other:
+            linked.add(other)
+    linked.discard(map_id)
+    return sorted(linked)
+
+
+def build_maps_table(ctx: _Context) -> dict:
+    """The `maps` object of `atlas.json` (contract §3)."""
+    by_map = _geometry_by_map(ctx)
+    by_facility = _maps_by_facility(ctx)
+
+    table: dict[str, dict] = {}
+    for map_id in sorted(ctx.atlas.by_type('map')):
+        record = ctx.atlas.by_type('map')[map_id]
+        stripped = ctx.stripped[map_id]
+        features = by_map.get(map_id, [])
+        facility = ctx.atlas.get(record.get('facility_id'))
+        centre = stripped.get('center') or {}
+        entry = {
+            'id': map_id,
+            'name': record.get('name'),
+            'facility_id': record.get('facility_id'),
+            'site_ids': sorted(schema.ref_ids(record.get('site_ids'))),
+            'center': {'lat': centre.get('lat'), 'lon': centre.get('lon')},
+            'extent_m': record.get('extent_m'),
+            'levels': stripped.get('levels') or [],
+            'feature_count': len(features),
+            'to_scale_count': sum(1 for feature in features
+                                  if feature.get('representation') in schema.TO_SCALE_REPRESENTATIONS),
+            'unlocated_count': len([row for row in record.get('unlocated') or []
+                                    if isinstance(row, dict)]),
+            'linked_map_ids': derive_linked_maps(ctx, map_id, record, by_facility),
+            'attribution': _attributions(features),
+            'bundle': geometry_bundle_path(map_id),
+            'coverage': stripped.get('coverage') or {},
+        }
+        # A map is a view of a facility, so it is on the timeline the facility
+        # is on; it never claims a history of its own.
+        if facility is not None:
+            entry['state_segments'] = ctx.segments.get(schema.canonical_id(facility['id']), [])
+            entry['status'] = ctx.status_at_build(facility)
+        else:
+            entry['state_segments'] = []
+            entry['status'] = None
+        table[map_id] = entry
+    return table
+
+
+def build_geometry_bundles(ctx: _Context) -> tuple[dict[str, dict], list[str]]:
+    """`geometry/<map-slug>.json`, one per map (contract §3).
+
+    Returns the bundles and any errors (a bundle over the 2 MB budget).
+    """
+    by_map = _geometry_by_map(ctx)
+    by_id = {entity_id: record for entity_id, record in ctx.atlas.by_type('geometry').items()}
+    bundles: dict[str, dict] = {}
+    errors: list[str] = []
+
+    for map_id in sorted(ctx.atlas.by_type('map')):
+        record = ctx.atlas.by_type('map')[map_id]
+        stripped = dict(ctx.stripped[map_id])
+        stripped.pop('schema', None)
+        features = [_feature_entry(ctx, feature, by_id) for feature in by_map.get(map_id, [])]
+        features.sort(key=lambda feature: feature['id'])
+
+        unlocated = []
+        for row in record.get('unlocated') or []:
+            if not isinstance(row, dict):
+                continue
+            entity_id = row.get('entity_id')
+            entity = ctx.atlas.get(entity_id) if isinstance(entity_id, str) else None
+            unlocated.append({
+                'entity_id': entity_id,
+                'entity_name': (entity or {}).get('name'),
+                'entity_type': schema.id_type(entity_id) if isinstance(entity_id, str) else None,
+                'reason': row.get('reason') or '',
+                'backlog': row.get('backlog') or '',
+                'sources': sorted(row.get('sources') or []),
+            })
+        unlocated.sort(key=lambda row: str(row.get('entity_id') or ''))
+
+        schematics = []
+        for row in record.get('schematics') or []:
+            if not isinstance(row, dict):
+                continue
+            source = ctx.atlas.get(row.get('source_id'))
+            schematics.append({
+                'title': row.get('title') or '',
+                'url': row.get('url') or (source or {}).get('url'),
+                'source_id': row.get('source_id'),
+                'note': row.get('note') or '',
+            })
+        schematics.sort(key=lambda row: (str(row.get('title') or ''), str(row.get('source_id') or '')))
+
+        map_section = dict(stripped)
+        map_section['unlocated'] = unlocated
+        map_section['schematics'] = schematics
+        map_section['linked_map_ids'] = derive_linked_maps(
+            ctx, map_id, record, _maps_by_facility(ctx))
+
+        entity_index: dict[str, list[str]] = {}
+        for feature in features:
+            entity_id = feature.get('entity_id')
+            if isinstance(entity_id, str):
+                entity_index.setdefault(entity_id, []).append(feature['id'])
+        for rows in entity_index.values():
+            rows.sort()
+
+        cited: set[str] = set(record.get('sources') or [])
+        for row in unlocated:
+            cited.update(row['sources'])
+        for feature in features:
+            cited.update(feature['provenance']['sources'])
+            for check in feature['checks']:
+                cited.update(check['sources'])
+        for level in map_section.get('levels') or []:
+            depth = level.get('depth_m') if isinstance(level, dict) else None
+            if isinstance(depth, dict):
+                cited.update(depth.get('sources') or [])
+        for row in record.get('levels') or []:
+            depth = row.get('depth_m') if isinstance(row, dict) else None
+            if isinstance(depth, dict):
+                cited.update(depth.get('sources') or [])
+        for row in schematics:
+            if isinstance(row.get('source_id'), str):
+                cited.add(row['source_id'])
+        source_titles = {}
+        for source_id in sorted(cited):
+            source = ctx.atlas.get(source_id)
+            if source is not None:
+                source_titles[source_id] = {
+                    'title': source.get('title'),
+                    'url': source.get('url'),
+                    'source_type': source.get('source_type'),
+                }
+
+        boxes = [geo.bbox(feature['geometry']) for feature in features]
+        bundle = {
+            'schema': schema.SCHEMA_TAG,
+            'version': '',            # filled in once the content version is known
+            'build_date': ctx.build_date,
+            'map': map_section,
+            'bbox': geo.merge_bbox(box for box in boxes if box is not None),
+            'attribution': _attributions(by_map.get(map_id, [])),
+            'features': features,
+            'source_titles': source_titles,
+            'entity_index': {key: entity_index[key] for key in sorted(entity_index)},
+        }
+        path = geometry_bundle_path(map_id)
+        size = len(load.dump_json(bundle).encode('utf-8'))
+        if size > schema.GEOMETRY_BUNDLE_MAX_BYTES:
+            errors.append(
+                f'{path} is {size} bytes, over the {schema.GEOMETRY_BUNDLE_MAX_BYTES} byte limit; '
+                f'simplify the shapes (hepgraph.atlas.geo.simplify) or split the campus into '
+                f'two maps')
+        bundles[path] = bundle
+    return bundles, errors
+
+
+def build_maps_coverage(ctx: _Context) -> dict:
+    """The `maps` section of `coverage.json` (contract §3).
+
+    Per map: how many features of each representation class, how many
+    entities are admitted as unlocated, and how many cross-checks pass and
+    fail — plus every facility that has no map at all, by name.  A facility
+    without a map is not a defect; it is the honest statement that nobody has
+    drawn it yet, and it is what the coverage report lists.
+    """
+    by_map = _geometry_by_map(ctx)
+    by_id = {entity_id: record for entity_id, record in ctx.atlas.by_type('geometry').items()}
+    rows: list[dict] = []
+    mapped_facilities: set[str] = set()
+
+    for map_id in sorted(ctx.atlas.by_type('map')):
+        record = ctx.atlas.by_type('map')[map_id]
+        facility_id = schema.canonical_id(record.get('facility_id'))
+        if isinstance(facility_id, str):
+            mapped_facilities.add(facility_id)
+        features = by_map.get(map_id, [])
+        representations = {name: 0 for name in schema.REPRESENTATIONS}
+        passed = failed = 0
+        for feature in features:
+            name = feature.get('representation')
+            if name in representations:
+                representations[name] += 1
+            for row in _check_rows(ctx, feature, by_id):
+                if row['passed'] is True:
+                    passed += 1
+                elif row['passed'] is False:
+                    failed += 1
+        rows.append({
+            'map_id': map_id,
+            'name': record.get('name'),
+            'facility_id': record.get('facility_id'),
+            'feature_count': len(features),
+            'representations': representations,
+            'unlocated_count': len([row for row in record.get('unlocated') or []
+                                    if isinstance(row, dict)]),
+            'checks_passed': passed,
+            'checks_failed': failed,
+        })
+
+    without: list[dict] = []
+    for facility_id in sorted(ctx.atlas.by_type('facility')):
+        if facility_id in mapped_facilities:
+            continue
+        without.append({'facility_id': facility_id,
+                        'name': ctx.atlas.by_type('facility')[facility_id].get('name')})
+    return {'maps': rows, 'facilities_without_a_map': without}
 
 
 def build_manifest(ctx: _Context, files: dict[str, str], sizes: dict[str, int]) -> dict:
@@ -1218,6 +1717,9 @@ def build(data_dir: Path | str | None = None, out_dir: Path | str | None = None,
     people_bundles = build_people_bundles(ctx)
     files.update(people_bundles)
     _link_people_bundles(files, people_bundles)
+    geometry_bundles, geometry_errors = build_geometry_bundles(ctx)   # A25
+    files.update(geometry_bundles)
+    result.errors.extend(geometry_errors)
 
     # `atlas.json` repeats the data version, so the version must be computed
     # from the bundle text with the field blanked, then written back.
@@ -1225,6 +1727,12 @@ def build(data_dir: Path | str | None = None, out_dir: Path | str | None = None,
     version = content_version(texts)
     atlas_bundle['version'] = version
     texts['atlas.json'] = load.dump_json(atlas_bundle)
+    # A geometry bundle loads on its own, long after atlas.json, so it repeats
+    # the version the rest of the data was built at: a stale cached bundle is
+    # then visibly stale rather than silently mixed with fresh records.
+    for path, bundle in geometry_bundles.items():
+        bundle['version'] = version
+        texts[path] = load.dump_json(bundle)
 
     manifest = build_manifest(ctx, texts, sizes)
     manifest['version'] = version

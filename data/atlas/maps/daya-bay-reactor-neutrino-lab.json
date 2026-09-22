@@ -1,0 +1,120 @@
+{
+  "aliases": [
+    "Daya Bay local map"
+  ],
+  "center": {
+    "confidence": "derived",
+    "kind": "campus",
+    "lat": 22.605333,
+    "locator": "mean of the six reactor-building centroids and three derived hall positions",
+    "lon": 114.547935,
+    "note": "Map centre only: mean of the drawn features' centroids; not a claim about any structure.",
+    "precision_m": 500,
+    "sources": [
+      "src:geo-reactors-osm-dayabay-reactors"
+    ],
+    "verified_at": "2026-09-21"
+  },
+  "coverage": {
+    "researched": "partial",
+    "tier": "A"
+  },
+  "extent_m": 2500,
+  "facility_id": "facility:daya-bay-reactor-neutrino-lab",
+  "id": "map:daya-bay-reactor-neutrino-lab",
+  "levels": [
+    {
+      "depth_m": null,
+      "id": "surface",
+      "kind": "surface",
+      "name": "Surface (reactor buildings)",
+      "note": ""
+    },
+    {
+      "depth_m": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "length",
+        "display": "93 m",
+        "locator": "arXiv:1508.03943 §2.2; Table 1 gives 250 m.w.e.",
+        "note": "",
+        "quote": "The rock overburden is 93 m at EH1, 100 m at EH2 and 324 m at EH3.",
+        "sources": [
+          "src:geo-reactors-daya-bay-nim-2016"
+        ],
+        "unit": "m",
+        "value": 93,
+        "verified_at": "2026-09-21"
+      },
+      "id": "eh1-hall",
+      "kind": "underground",
+      "name": "Experimental Hall 1 (93 m of rock, 250 m.w.e.)",
+      "note": "Near hall; two antineutrino detectors."
+    },
+    {
+      "depth_m": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "length",
+        "display": "100 m",
+        "locator": "arXiv:1508.03943 §2.2; Table 1 gives 265 m.w.e.",
+        "note": "",
+        "quote": "The rock overburden is 93 m at EH1, 100 m at EH2 and 324 m at EH3.",
+        "sources": [
+          "src:geo-reactors-daya-bay-nim-2016"
+        ],
+        "unit": "m",
+        "value": 100,
+        "verified_at": "2026-09-21"
+      },
+      "id": "eh2-hall",
+      "kind": "underground",
+      "name": "Experimental Hall 2 (100 m of rock, 265 m.w.e.)",
+      "note": "Near hall; two antineutrino detectors."
+    },
+    {
+      "depth_m": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "length",
+        "display": "324 m",
+        "locator": "arXiv:1508.03943 §2.2; Table 1 gives 860 m.w.e.",
+        "note": "",
+        "quote": "The rock overburden is 93 m at EH1, 100 m at EH2 and 324 m at EH3.",
+        "sources": [
+          "src:geo-reactors-daya-bay-nim-2016"
+        ],
+        "unit": "m",
+        "value": 324,
+        "verified_at": "2026-09-21"
+      },
+      "id": "eh3-hall",
+      "kind": "underground",
+      "name": "Experimental Hall 3 (324 m of rock, 860 m.w.e.)",
+      "note": "Far hall; four antineutrino detectors."
+    }
+  ],
+  "linked_map_ids": [],
+  "links": {
+    "website": null
+  },
+  "name": "Daya Bay — reactor cores and experimental halls",
+  "notes": [
+    "The three halls are drawn as derived points (not footprints): their positions come from multilateration, not from a survey or a tracing; accuracy_m on each hall covers the fit residual and the use of reactor-building centroids as proxies for the core centres."
+  ],
+  "schema": "hep-atlas/0.2",
+  "schematics": [],
+  "site_ids": [
+    "site:daya-bay-experimental-halls"
+  ],
+  "sources": [
+    "src:geo-reactors-osm-dayabay-reactors",
+    "src:geo-reactors-daya-bay-nim-2016"
+  ],
+  "summary": {
+    "plain": "The six reactor cores of the Daya Bay, Ling Ao and Ling Ao II plants and the three underground halls of the Daya Bay experiment, whose positions are trilaterated from the experiment's own published baselines.",
+    "technical": "Reactor-building footprints from OpenStreetMap (georeferenced); EH1–EH3 positions derived by least-squares multilateration from the six cores using the AD-to-core baselines of arXiv:1508.03943 Table 2 (survey uncertainty < 18 mm); overburdens from §2.2/Table 1 of the same paper."
+  },
+  "type": "map",
+  "unlocated": []
+}

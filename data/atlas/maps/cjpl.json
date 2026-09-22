@@ -1,0 +1,79 @@
+{
+  "aliases": [],
+  "center": {
+    "confidence": "derived",
+    "kind": "campus",
+    "lat": 28.1786453,
+    "locator": "Midpoint of the tunnel-walked CJPL-I and CJPL-II points",
+    "lon": 101.7171657,
+    "note": "Map centre only; not a claim about any structure.",
+    "precision_m": 300,
+    "sources": [
+      "src:geo-kamioka-cjpl-osm-jinping-tunnel",
+      "src:cjpl-arxiv-early-science-2018"
+    ],
+    "verified_at": "2026-09-18"
+  },
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "extent_m": 3000,
+  "facility_id": "facility:cjpl",
+  "id": "map:cjpl",
+  "levels": [
+    {
+      "depth_m": null,
+      "id": "surface",
+      "kind": "surface",
+      "name": "Surface",
+      "note": "Jinping Mountain's surface above the tunnel; the two portal areas (west, near the Yalong River bend, and east) are about 8.4-8.8 km from the map centre. No feature is drawn at this level."
+    },
+    {
+      "depth_m": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "length",
+        "display": "2400 m of rock",
+        "locator": "Section II / Table I",
+        "note": "Table I of this 2018 review gives BOTH CJPL-I and CJPL-II the same 2,400 m rock-burden/depth figure. The existing site:cjpl-ii record (not edited here) instead carries 2100 m from an earlier 2014 paper; see the worklog conflicts section.",
+        "quote": "CJPL-I was built under Jinping Mountain with 2,400 m of rock overburden.",
+        "sources": [
+          "src:cjpl-arxiv-early-science-2018"
+        ],
+        "unit": "m",
+        "value": 2400,
+        "verified_at": "2026-09-18"
+      },
+      "id": "jinping-tunnel",
+      "kind": "underground",
+      "name": "Jinping traffic tunnel (~2400 m level)",
+      "note": "Houses geometry:jinping-traffic-tunnel, geometry:cjpl-i-point and geometry:cjpl-ii-point, all beside the same twin road-tunnel pair."
+    }
+  ],
+  "linked_map_ids": [],
+  "links": {
+    "website": null
+  },
+  "name": "China Jinping Underground Laboratory (CJPL)",
+  "notes": [
+    "No accelerator or beamline entity has facility_id: facility:cjpl (it is a passive underground laboratory, not an accelerator complex), so unlocated[] has nothing to list on that front; both of the facility's sites (site:cjpl-i, site:cjpl-ii) are drawn.",
+    "detector:pandax-4t's placement site_id is site:cjpl-ii; no independently sourced sub-position for PandaX-4T within the CJPL-II hall complex was found this session, so it shares geometry:cjpl-ii-point rather than getting its own feature (unlike CERN's CMS cavern point, which had its own published coordinate)."
+  ],
+  "schema": "hep-atlas/0.2",
+  "schematics": [],
+  "site_ids": [
+    "site:cjpl-i",
+    "site:cjpl-ii"
+  ],
+  "sources": [
+    "src:cjpl-arxiv-early-science-2018",
+    "src:geo-kamioka-cjpl-osm-jinping-tunnel"
+  ],
+  "summary": {
+    "plain": "China's deepest underground physics laboratory, built beside a hydropower traffic tunnel more than two kilometres under Jinping Mountain in Sichuan. CJPL-I and the newer, larger CJPL-II sit half a kilometre apart along the same tunnel.",
+    "technical": "Local map for facility:cjpl. Both halls are drawn as points derived by walking the sourced portal-to-hall distances (8.7-9.2 km) along an OpenStreetMap trace of the Jinping traffic tunnel (two near-identical parallel bores; one is drawn). The tunnel's own OSM-measured length (17.5 km) is cross-checked against the facility's published '17.5-km-long traffic tunnels' figure."
+  },
+  "type": "map",
+  "unlocated": []
+}

@@ -6,16 +6,15 @@
   "coordinates": {
     "confidence": "approximate",
     "kind": "campus",
-    "lat": 42.7493154,
-    "lon": -0.5162702,
-    "note": "No official LSC page fetched in this session states a numeric coordinate; this is an OpenStreetMap/Nominatim node specifically tagged as the laboratory itself. Per A17, a geocoder source limits kind to campus/approximate rather than underground_lab. Cross-checked 2026-09-17 against the ROR v2 organization record for Canfranc Underground Laboratory (ror.org/02zcam055, also rank 8: geocoder): lat 42.71628, lon -0.52563, about 830 m from this OSM node. Both are institutional geocodes, not surveyed points, and the existing OSM node (tagged specifically to the laboratory building rather than a generic registered address) is kept as the primary value; the ROR point is recorded as a second source for corroboration/future reconciliation.",
-    "precision_m": 500,
-    "quote": "\"name\": \"Laboratorio Subterraneo de Canfranc\", lat 42.7493154, lon -0.5162702, Paseo de los Ayerbe, Canfranc-Estacion, Huesca, Aragon, Spain",
+    "lat": 42.7746718,
+    "locator": "geometry:canfranc-lab-underground (OpenStreetMap-georeferenced underground laboratory point, accuracy 150 m)",
+    "lon": -0.529091,
+    "note": "Correction: the previous point was the laboratory's administrative building at Canfranc-Estación, 3.0 km from the underground halls between the Somport tunnels; `kind: campus` under A23 because the position is an OpenStreetMap tracing (rank 11). Previous record: campus point 42.7493154, -0.5162702 at 500 m precision, sources ['src:lsc-osm-nominatim', 'src:facilities-verify-lsc-ror']; moved 3159 m (integrator, 2026-09-21, per docs/atlas-worklog/GEOMETRY_*.md).",
+    "precision_m": 150,
     "sources": [
-      "src:lsc-osm-nominatim",
-      "src:facilities-verify-lsc-ror"
+      "src:geo-canfranc-osm-lab-underground"
     ],
-    "verified_at": "2026-09-17"
+    "verified_at": "2026-09-21"
   },
   "country": "ES",
   "coverage": {
@@ -55,7 +54,8 @@
     "src:lsc-about-us",
     "src:lsc-history",
     "src:lsc-osm-nominatim",
-    "src:facilities-verify-lsc-ror"
+    "src:facilities-verify-lsc-ror",
+    "src:geo-canfranc-osm-lab-underground"
   ],
   "summary": {
     "plain": "An underground physics laboratory under Mount Tobazo in the Spanish Pyrenees, reached via a former railway tunnel near the village of Canfranc.",

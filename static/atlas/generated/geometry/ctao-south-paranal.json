@@ -1,0 +1,123 @@
+{
+  "attribution": [],
+  "bbox": [
+    -70.316344,
+    -24.683428,
+    -70.316344,
+    -24.683428
+  ],
+  "build_date": "2026-09-21",
+  "entity_index": {
+    "site:paranal-cta-south": [
+      "geometry:ctao-south-array-point"
+    ]
+  },
+  "features": [
+    {
+      "accuracy_m": 100,
+      "checks": [],
+      "depth_m": null,
+      "entity_id": "site:paranal-cta-south",
+      "entity_name": "CTAO-South array site, Paranal",
+      "entity_type": "site",
+      "feature_type": "array",
+      "geometry": {
+        "coordinates": [
+          -70.316344,
+          -24.683428
+        ],
+        "type": "Point"
+      },
+      "id": "geometry:ctao-south-array-point",
+      "level_id": "surface",
+      "license": null,
+      "measured": {
+        "area_m2": null,
+        "centroid": [
+          -70.316344,
+          -24.683428
+        ],
+        "length_m": null
+      },
+      "method": "Single reference point at CTAO's own official published array-site coordinate for Paranal (site:paranal-cta-south, precision_m 100). CTAO-South's planned telescope grid (2 LST + 14 MST + 37 SST in the eventual configuration, per arXiv:2410.21199 and CTAO status reports) has no published individual pad coordinates this session; construction was still in an early phase at the time of research (site page: 'construction and operation' ongoing).",
+      "name": "CTAO-South array site (reference point)",
+      "osm": null,
+      "provenance": {
+        "confidence": "verified",
+        "locator": "CTAO-South array-site page, coordinates block",
+        "note": "'verified': representation is 'surveyed' from a rank<=10 official source.",
+        "quote": "Latitude: 24º 41′ 0.34″ South … Longitude: 70º 18′ 58.84″ West",
+        "sources": [
+          "src:cosmic-gamma-verify-ctao-south-site-page"
+        ],
+        "verified_at": "2026-09-18"
+      },
+      "representation": "surveyed",
+      "site_id": "site:paranal-cta-south",
+      "state_segments": [
+        [
+          780,
+          791,
+          "construction",
+          "possible"
+        ],
+        [
+          792,
+          920,
+          "construction",
+          "certain"
+        ]
+      ],
+      "status": null
+    }
+  ],
+  "map": {
+    "aliases": [],
+    "center": {
+      "kind": "campus",
+      "lat": -24.683428,
+      "lon": -70.316344,
+      "precision_m": 100
+    },
+    "coverage": {
+      "researched": "partial",
+      "tier": "B"
+    },
+    "extent_m": 3000,
+    "facility_id": "facility:ctao-south-paranal",
+    "id": "map:ctao-south-paranal",
+    "levels": [
+      {
+        "depth_m": null,
+        "id": "surface",
+        "kind": "surface",
+        "name": "Surface"
+      }
+    ],
+    "linked_map_ids": [
+      "map:roque-de-los-muchachos-observatory"
+    ],
+    "links": {
+      "website": null
+    },
+    "name": "CTAO-South — Paranal",
+    "schematics": [],
+    "site_ids": [
+      "site:paranal-cta-south"
+    ],
+    "summary": {
+      "plain": "The Atacama Desert site near Paranal, Chile, where the southern half of the Cherenkov Telescope Array Observatory is under construction."
+    },
+    "type": "map",
+    "unlocated": []
+  },
+  "schema": "hep-atlas/0.2",
+  "source_titles": {
+    "src:cosmic-gamma-verify-ctao-south-site-page": {
+      "source_type": "official_experiment_site",
+      "title": "CTAO-South — Array Sites (CTAO official site)",
+      "url": "https://www.ctao.org/emission-to-discovery/array-sites/ctao-south/"
+    }
+  },
+  "version": "2d9d4c1bef36a3f7"
+}

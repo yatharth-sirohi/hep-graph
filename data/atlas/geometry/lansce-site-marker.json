@@ -1,0 +1,61 @@
+{
+  "accuracy_m": 150,
+  "aliases": [],
+  "checks": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "depth_m": null,
+  "entity_id": "site:lanl-lansce",
+  "feature_type": "other",
+  "geometry": {
+    "confidence": "approximate",
+    "locator": "OpenStreetMap node/8041862150",
+    "note": "OpenStreetMap alone (source type openstreetmap, rank 11) yields at most `approximate` confidence; a single named point is not a claim about any building's exact position, only the general LANSCE facility area.",
+    "sources": [
+      "src:geo-lanl-osm-lansce-node"
+    ],
+    "value": {
+      "coordinates": [
+        -106.2890098,
+        35.8725644
+      ],
+      "type": "Point"
+    },
+    "verified_at": "2026-09-18"
+  },
+  "id": "geometry:lansce-site-marker",
+  "level_id": "surface",
+  "license": {
+    "attribution": "© OpenStreetMap contributors",
+    "name": "ODbL-1.0",
+    "url": "https://www.openstreetmap.org/copyright"
+  },
+  "links": {
+    "website": null
+  },
+  "map_id": "map:los-alamos-national-laboratory",
+  "method": "OpenStreetMap node 8041862150, named 'LANSCE' (amenity=research_institute), reused verbatim as a point marker for the facility. This is the only named LANSCE element found via Nominatim search or Overpass in this session (Overpass itself refused every connection attempt for most of the session; see the worklog's method note): no building footprint, linac path, or named sub-area (Area A, Lujan Center, WNR, switchyard) is drawn, deliberately, given both the data gap and TA-53's security-sensitive status.",
+  "name": "LANSCE (Technical Area 53) site marker",
+  "notes": [
+    "LANL/TA-53 is security-sensitive; per the research brief only accelerator/experimental areas on public LANSCE maps may be depicted, never fences or gates. Given the sparse public OSM coverage of TA-53 (a broad Overpass building search inside a 2 km box around this node returned zero ways even when Overpass was briefly reachable), a single named point is the most that can be honestly drawn this session."
+  ],
+  "osm": {
+    "elements": [
+      "node/8041862150"
+    ],
+    "timestamp": "2026-09-18"
+  },
+  "representation": "georeferenced",
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:lanl-lansce",
+  "sources": [
+    "src:geo-lanl-osm-lansce-node"
+  ],
+  "summary": {
+    "plain": "A single named OpenStreetMap point marking the general area of LANSCE (Technical Area 53) at Los Alamos National Laboratory; no more precise public footprint was available this session."
+  },
+  "type": "geometry",
+  "valid": null
+}

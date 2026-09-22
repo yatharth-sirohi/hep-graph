@@ -274,7 +274,13 @@ class Handler(BaseHTTPRequestHandler):
         # search all reached the same instance; carries nothing sensitive.
         self.send_header('X-HEP-Instance', PROCESS_INSTANCE)
         self.send_header('Referrer-Policy', 'strict-origin-when-cross-origin')
-        self.send_header('Content-Security-Policy', "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'")
+        # img-src also names the OpenStreetMap tile hosts: the HEP Atlas
+        # local-map view (docs/HEP_ATLAS_GEOMETRY.md §4) draws its to-scale
+        # features over the OSM standard basemap, which is fetched as plain
+        # <img> tiles with the mandatory attribution shown. This is the only
+        # third-party origin the policy allows, and only for images —
+        # script-src, connect-src and default-src stay 'self'.
+        self.send_header('Content-Security-Policy', "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://tile.openstreetmap.org https://*.tile.openstreetmap.org; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'")
         self.send_header('Permissions-Policy', 'camera=(), microphone=(), geolocation=()')
         self.end_headers()
         if self.command != 'HEAD':

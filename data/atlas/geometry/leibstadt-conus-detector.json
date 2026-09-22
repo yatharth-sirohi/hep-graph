@@ -1,0 +1,58 @@
+{
+  "accuracy_m": 35,
+  "aliases": [],
+  "checks": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "depth_m": null,
+  "entity_id": "detector:conus-hpge-array",
+  "feature_type": "other",
+  "geometry": {
+    "confidence": "derived",
+    "locator": "arXiv:2407.11912, 'positioned at (20.7 +/- 0.1) m from the reactor core center'",
+    "note": "CONUS+'s own paper (arXiv:2407.11912) states the detector sits 20.7 m from the reactor core center, 12.45 m horizontal distance from the reactor central axis, inside room ZA28R027 of the KKL containment building -- i.e. inside the reactor building itself, not a separate structure. No fetched source gives the azimuth of that horizontal offset, so this point is the candidate reactor-building's own centroid (geometry:leibstadt-core), used directly as the detector's position; accuracy_m is widened to 35 m to cover both the unresolved ~12-21 m offset and the building's own 30 m identification accuracy (see geometry:leibstadt-core note).",
+    "sources": [
+      "src:cevns-conus-plus-overview-2024",
+      "src:geo-reactors-osm-brokdorf-leibstadt-reactors"
+    ],
+    "value": {
+      "coordinates": [
+        8.181802805882354,
+        47.59957785294118
+      ],
+      "type": "Point"
+    },
+    "verified_at": "2026-09-18"
+  },
+  "id": "geometry:leibstadt-conus-detector",
+  "level_id": "surface",
+  "license": {
+    "attribution": "© OpenStreetMap contributors",
+    "name": "ODbL-1.0",
+    "url": "https://www.openstreetmap.org/copyright"
+  },
+  "links": {
+    "website": null
+  },
+  "map_id": "map:leibstadt-nuclear-power-plant",
+  "method": "CONUS+'s own paper (arXiv:2407.11912) states the detector sits 20.7 m from the reactor core center, 12.45 m horizontal distance from the reactor central axis, inside room ZA28R027 of the KKL containment building -- i.e. inside the reactor building itself, not a separate structure. No fetched source gives the azimuth of that horizontal offset, so this point is the candidate reactor-building's own centroid (geometry:leibstadt-core), used directly as the detector's position; accuracy_m is widened to 35 m to cover both the unresolved ~12-21 m offset and the building's own 30 m identification accuracy (see geometry:leibstadt-core note).",
+  "name": "CONUS+ detector position (inside the Leibstadt reactor building)",
+  "notes": [
+    "QA pass (2026-09-21): removed the `valid: {start: '2023-11', end: null}` window a previous pass set -- a preventive fix for a latent bug in hepgraph.atlas.build._feature_segments(): any `valid` dict with a non-null `start` and `end: null` hard-codes `status: 'active'` through build day regardless of the entity's real status, bypassing state_segments entirely. Currently harmless because detector:conus-hpge-array genuinely is 'active' today, but this pattern produced a live false-'active' claim on three other records (geometry:lhc-tunnel-ring, geometry:fermilab-mc1-building, geometry:fermilab-microboone-hall) fixed the same way in this pass -- see docs/atlas-worklog/REVIEW_geometry_qa.md.",
+    "Integrator (2026-09-21): ODbL-1.0 licence — the point is derived from the OpenStreetMap reactor-building footprint."
+  ],
+  "osm": null,
+  "representation": "derived",
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:leibstadt-nuclear-power-plant-campus",
+  "sources": [
+    "src:cevns-conus-plus-overview-2024"
+  ],
+  "summary": {
+    "plain": "The approximate position of the CONUS+ coherent-neutrino-scattering detector, which sits inside the Leibstadt reactor building about 20.7 m from the reactor core, since late 2023."
+  },
+  "type": "geometry",
+  "valid": null
+}

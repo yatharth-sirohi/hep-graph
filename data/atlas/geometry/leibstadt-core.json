@@ -1,0 +1,131 @@
+{
+  "accuracy_m": 30,
+  "aliases": [],
+  "checks": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "depth_m": null,
+  "entity_id": "site:leibstadt-nuclear-power-plant-campus",
+  "feature_type": "building",
+  "geometry": {
+    "confidence": "approximate",
+    "locator": "OSM way 567961020 as of 2026-06-01T08:52:28Z",
+    "note": "Unlike Brokdorf's explicitly-named 'Reaktorgebäude', no building near the Leibstadt plant is named or tagged as the reactor building in OpenStreetMap. This is the largest building (51 x 37 m footprint) closest (32 m) to the OSM node explicitly named 'Leibstadt Kernkraftwerk' (node/984029288); accuracy_m is set wide (30 m) to reflect that this identification is inferred from proximity and size, not a name match.",
+    "sources": [
+      "src:geo-reactors-osm-brokdorf-leibstadt-reactors"
+    ],
+    "value": {
+      "coordinates": [
+        [
+          [
+            8.1815668,
+            47.5994598
+          ],
+          [
+            8.1815485,
+            47.5995243
+          ],
+          [
+            8.1815352,
+            47.5995743
+          ],
+          [
+            8.1814991,
+            47.5997018
+          ],
+          [
+            8.1817452,
+            47.5997303
+          ],
+          [
+            8.1817644,
+            47.5996605
+          ],
+          [
+            8.1818268,
+            47.5996683
+          ],
+          [
+            8.1818122,
+            47.5997215
+          ],
+          [
+            8.1821331,
+            47.5997615
+          ],
+          [
+            8.1821802,
+            47.5995825
+          ],
+          [
+            8.1821548,
+            47.5995788
+          ],
+          [
+            8.1821702,
+            47.5995322
+          ],
+          [
+            8.1819453,
+            47.5995036
+          ],
+          [
+            8.1819547,
+            47.5994696
+          ],
+          [
+            8.1816261,
+            47.5994285
+          ],
+          [
+            8.1816183,
+            47.5994662
+          ],
+          [
+            8.1815668,
+            47.5994598
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    },
+    "verified_at": "2026-09-18"
+  },
+  "id": "geometry:leibstadt-core",
+  "level_id": "surface",
+  "license": {
+    "attribution": "© OpenStreetMap contributors",
+    "name": "ODbL-1.0",
+    "url": "https://www.openstreetmap.org/copyright"
+  },
+  "links": {
+    "website": null
+  },
+  "map_id": "map:leibstadt-nuclear-power-plant",
+  "method": "OpenStreetMap way 567961020 (building=yes, unnamed), the largest building closest to node/984029288 'Leibstadt Kernkraftwerk'; nodes kept verbatim from an Overpass extract.",
+  "name": "Leibstadt Nuclear Power Plant reactor building (identified by proximity, not name)",
+  "notes": [
+    "Not independently confirmed as the reactor containment building by an OSM name/tag; see geometry note.",
+    "Integrator (2026-09-21): entity_id set to the plant campus site so the map accounts for the detector-hosting site; the reactor building is the structure the CONUS detectors sat in."
+  ],
+  "osm": {
+    "elements": [
+      "way/567961020",
+      "node/984029288"
+    ],
+    "timestamp": "2026-06-01T08:52:28Z"
+  },
+  "representation": "georeferenced",
+  "schema": "hep-atlas/0.2",
+  "site_id": null,
+  "sources": [
+    "src:geo-reactors-osm-brokdorf-leibstadt-reactors"
+  ],
+  "summary": {
+    "plain": "A large building at the Leibstadt Nuclear Power Plant, close to the plant's own named location point, used as an approximate reactor-building position for the CONUS+ experiment."
+  },
+  "type": "geometry",
+  "valid": null
+}

@@ -1,4 +1,633 @@
 {
+  "facilities_without_a_map": [
+    {
+      "facility_id": "facility:argonne-national-laboratory",
+      "name": "Argonne National Laboratory"
+    },
+    {
+      "facility_id": "facility:ill-grenoble",
+      "name": "Institut Laue-Langevin"
+    },
+    {
+      "facility_id": "facility:isis-neutron-source",
+      "name": "ISIS Neutron and Muon Source"
+    },
+    {
+      "facility_id": "facility:juno-jiangmen",
+      "name": "Jiangmen Underground Neutrino Observatory"
+    },
+    {
+      "facility_id": "facility:kit-karlsruhe",
+      "name": "Karlsruhe Institute of Technology, Campus North"
+    },
+    {
+      "facility_id": "facility:mcmurdo-ldb",
+      "name": "McMurdo Long Duration Balloon Facility"
+    },
+    {
+      "facility_id": "facility:mit",
+      "name": "Massachusetts Institute of Technology"
+    },
+    {
+      "facility_id": "facility:summit-station-greenland",
+      "name": "Summit Station, Greenland"
+    },
+    {
+      "facility_id": "facility:university-of-washington-cenpa",
+      "name": "Center for Experimental Nuclear Physics and Astrophysics (CENPA)"
+    },
+    {
+      "facility_id": "facility:yale-wright-lab",
+      "name": "Yale Wright Laboratory"
+    }
+  ],
+  "maps": [
+    {
+      "checks_failed": 0,
+      "checks_passed": 0,
+      "facility_id": "facility:amundsen-scott-south-pole-station",
+      "feature_count": 1,
+      "map_id": "map:amundsen-scott-south-pole-station",
+      "name": "Amundsen-Scott South Pole Station — IceCube and ARA",
+      "representations": {
+        "derived": 0,
+        "georeferenced": 1,
+        "inferred_direction": 0,
+        "surveyed": 0
+      },
+      "unlocated_count": 8
+    },
+    {
+      "checks_failed": 0,
+      "checks_passed": 0,
+      "facility_id": "facility:baikal-deep-underwater-neutrino-telescope",
+      "feature_count": 2,
+      "map_id": "map:baikal-deep-underwater-neutrino-telescope",
+      "name": "Baikal-GVD — southern Lake Baikal site",
+      "representations": {
+        "derived": 1,
+        "georeferenced": 0,
+        "inferred_direction": 0,
+        "surveyed": 1
+      },
+      "unlocated_count": 0
+    },
+    {
+      "checks_failed": 0,
+      "checks_passed": 0,
+      "facility_id": "facility:baksan-neutrino-observatory",
+      "feature_count": 2,
+      "map_id": "map:baksan-neutrino-observatory",
+      "name": "BNO — Baksan Neutrino Observatory",
+      "representations": {
+        "derived": 0,
+        "georeferenced": 2,
+        "inferred_direction": 0,
+        "surveyed": 0
+      },
+      "unlocated_count": 1
+    },
+    {
+      "checks_failed": 0,
+      "checks_passed": 0,
+      "facility_id": "facility:boulby-underground-laboratory",
+      "feature_count": 1,
+      "map_id": "map:boulby-underground-laboratory",
+      "name": "Boulby Underground Laboratory",
+      "representations": {
+        "derived": 0,
+        "georeferenced": 1,
+        "inferred_direction": 0,
+        "surveyed": 0
+      },
+      "unlocated_count": 0
+    },
+    {
+      "checks_failed": 0,
+      "checks_passed": 0,
+      "facility_id": "facility:brokdorf-nuclear-power-plant",
+      "feature_count": 2,
+      "map_id": "map:brokdorf-nuclear-power-plant",
+      "name": "Brokdorf — reactor building and the CONUS position",
+      "representations": {
+        "derived": 1,
+        "georeferenced": 1,
+        "inferred_direction": 0,
+        "surveyed": 0
+      },
+      "unlocated_count": 0
+    },
+    {
+      "checks_failed": 0,
+      "checks_passed": 2,
+      "facility_id": "facility:brookhaven-national-laboratory",
+      "feature_count": 11,
+      "map_id": "map:brookhaven-national-laboratory",
+      "name": "Brookhaven National Laboratory — Upton campus, RHIC and AGS rings",
+      "representations": {
+        "derived": 0,
+        "georeferenced": 11,
+        "inferred_direction": 0,
+        "surveyed": 0
+      },
+      "unlocated_count": 0
+    },
+    {
+      "checks_failed": 0,
+      "checks_passed": 1,
+      "facility_id": "facility:canfranc-underground-laboratory",
+      "feature_count": 4,
+      "map_id": "map:canfranc-underground-laboratory",
+      "name": "LSC — Laboratorio Subterráneo de Canfranc",
+      "representations": {
+        "derived": 0,
+        "georeferenced": 4,
+        "inferred_direction": 0,
+        "surveyed": 0
+      },
+      "unlocated_count": 0
+    },
+    {
+      "checks_failed": 0,
+      "checks_passed": 5,
+      "facility_id": "facility:cern",
+      "feature_count": 21,
+      "map_id": "map:cern",
+      "name": "CERN — Meyrin, Prévessin and the LHC ring",
+      "representations": {
+        "derived": 2,
+        "georeferenced": 17,
+        "inferred_direction": 1,
+        "surveyed": 1
+      },
+      "unlocated_count": 7
+    },
+    {
+      "checks_failed": 0,
+      "checks_passed": 0,
+      "facility_id": "facility:chooz",
+      "feature_count": 3,
+      "map_id": "map:chooz",
+      "name": "Chooz — reactor cores (Double Chooz / NUCLEUS site)",
+      "representations": {
+        "derived": 0,
+        "georeferenced": 3,
+        "inferred_direction": 0,
+        "surveyed": 0
+      },
+      "unlocated_count": 3
+    },
+    {
+      "checks_failed": 0,
+      "checks_passed": 1,
+      "facility_id": "facility:cjpl",
+      "feature_count": 3,
+      "map_id": "map:cjpl",
+      "name": "China Jinping Underground Laboratory (CJPL)",
+      "representations": {
+        "derived": 2,
+        "georeferenced": 1,
+        "inferred_direction": 0,
+        "surveyed": 0
+      },
+      "unlocated_count": 0
+    },
+    {
+      "checks_failed": 0,
+      "checks_passed": 0,
+      "facility_id": "facility:ctao-south-paranal",
+      "feature_count": 1,
+      "map_id": "map:ctao-south-paranal",
+      "name": "CTAO-South — Paranal",
+      "representations": {
+        "derived": 0,
+        "georeferenced": 0,
+        "inferred_direction": 0,
+        "surveyed": 1
+      },
+      "unlocated_count": 0
+    },
+    {
+      "checks_failed": 0,
+      "checks_passed": 18,
+      "facility_id": "facility:daya-bay-reactor-neutrino-lab",
+      "feature_count": 9,
+      "map_id": "map:daya-bay-reactor-neutrino-lab",
+      "name": "Daya Bay — reactor cores and experimental halls",
+      "representations": {
+        "derived": 3,
+        "georeferenced": 6,
+        "inferred_direction": 0,
+        "surveyed": 0
+      },
+      "unlocated_count": 0
+    },
+    {
+      "checks_failed": 0,
+      "checks_passed": 1,
+      "facility_id": "facility:desy",
+      "feature_count": 4,
+      "map_id": "map:desy",
+      "name": "DESY — Hamburg-Bahrenfeld campus and the HERA ring",
+      "representations": {
+        "derived": 0,
+        "georeferenced": 4,
+        "inferred_direction": 0,
+        "surveyed": 0
+      },
+      "unlocated_count": 1
+    },
+    {
+      "checks_failed": 0,
+      "checks_passed": 9,
+      "facility_id": "facility:fermilab",
+      "feature_count": 23,
+      "map_id": "map:fermilab",
+      "name": "Fermilab — Batavia, Illinois",
+      "representations": {
+        "derived": 8,
+        "georeferenced": 13,
+        "inferred_direction": 2,
+        "surveyed": 0
+      },
+      "unlocated_count": 13
+    },
+    {
+      "checks_failed": 0,
+      "checks_passed": 0,
+      "facility_id": "facility:fred-lawrence-whipple-observatory",
+      "feature_count": 1,
+      "map_id": "map:fred-lawrence-whipple-observatory",
+      "name": "VERITAS — Fred Lawrence Whipple Observatory",
+      "representations": {
+        "derived": 0,
+        "georeferenced": 0,
+        "inferred_direction": 0,
+        "surveyed": 1
+      },
+      "unlocated_count": 0
+    },
+    {
+      "checks_failed": 0,
+      "checks_passed": 1,
+      "facility_id": "facility:hess-khomas-highland",
+      "feature_count": 2,
+      "map_id": "map:hess-khomas-highland",
+      "name": "H.E.S.S. — Khomas Highland",
+      "representations": {
+        "derived": 1,
+        "georeferenced": 0,
+        "inferred_direction": 0,
+        "surveyed": 1
+      },
+      "unlocated_count": 0
+    },
+    {
+      "checks_failed": 0,
+      "checks_passed": 4,
+      "facility_id": "facility:j-parc",
+      "feature_count": 9,
+      "map_id": "map:j-parc",
+      "name": "J-PARC — Tokai accelerator complex",
+      "representations": {
+        "derived": 0,
+        "georeferenced": 8,
+        "inferred_direction": 1,
+        "surveyed": 0
+      },
+      "unlocated_count": 0
+    },
+    {
+      "checks_failed": 0,
+      "checks_passed": 0,
+      "facility_id": "facility:jefferson-lab",
+      "feature_count": 2,
+      "map_id": "map:jefferson-lab",
+      "name": "Jefferson Lab — Newport News campus",
+      "representations": {
+        "derived": 0,
+        "georeferenced": 2,
+        "inferred_direction": 0,
+        "surveyed": 0
+      },
+      "unlocated_count": 1
+    },
+    {
+      "checks_failed": 0,
+      "checks_passed": 3,
+      "facility_id": "facility:kamioka-observatory",
+      "feature_count": 6,
+      "map_id": "map:kamioka-observatory",
+      "name": "Kamioka Observatory — Mozumi and Tochibora mines",
+      "representations": {
+        "derived": 2,
+        "georeferenced": 2,
+        "inferred_direction": 1,
+        "surveyed": 1
+      },
+      "unlocated_count": 0
+    },
+    {
+      "checks_failed": 0,
+      "checks_passed": 2,
+      "facility_id": "facility:kek",
+      "feature_count": 11,
+      "map_id": "map:kek",
+      "name": "KEK — Tsukuba campus",
+      "representations": {
+        "derived": 0,
+        "georeferenced": 10,
+        "inferred_direction": 1,
+        "surveyed": 0
+      },
+      "unlocated_count": 1
+    },
+    {
+      "checks_failed": 0,
+      "checks_passed": 0,
+      "facility_id": "facility:km3net",
+      "feature_count": 2,
+      "map_id": "map:km3net-arca",
+      "name": "KM3NeT/ARCA — Capo Passero deep-sea site",
+      "representations": {
+        "derived": 1,
+        "georeferenced": 0,
+        "inferred_direction": 0,
+        "surveyed": 1
+      },
+      "unlocated_count": 0
+    },
+    {
+      "checks_failed": 0,
+      "checks_passed": 0,
+      "facility_id": "facility:km3net",
+      "feature_count": 2,
+      "map_id": "map:km3net-orca",
+      "name": "KM3NeT/ORCA — Toulon deep-sea site",
+      "representations": {
+        "derived": 1,
+        "georeferenced": 0,
+        "inferred_direction": 0,
+        "surveyed": 1
+      },
+      "unlocated_count": 0
+    },
+    {
+      "checks_failed": 0,
+      "checks_passed": 0,
+      "facility_id": "facility:leibstadt-nuclear-power-plant",
+      "feature_count": 2,
+      "map_id": "map:leibstadt-nuclear-power-plant",
+      "name": "Leibstadt — reactor building and the CONUS+ position",
+      "representations": {
+        "derived": 1,
+        "georeferenced": 1,
+        "inferred_direction": 0,
+        "surveyed": 0
+      },
+      "unlocated_count": 0
+    },
+    {
+      "checks_failed": 0,
+      "checks_passed": 0,
+      "facility_id": "facility:lhaaso-daocheng",
+      "feature_count": 1,
+      "map_id": "map:lhaaso-daocheng",
+      "name": "LHAASO — Haizi Mountain, Daocheng",
+      "representations": {
+        "derived": 0,
+        "georeferenced": 0,
+        "inferred_direction": 0,
+        "surveyed": 1
+      },
+      "unlocated_count": 0
+    },
+    {
+      "checks_failed": 0,
+      "checks_passed": 1,
+      "facility_id": "facility:lngs",
+      "feature_count": 7,
+      "map_id": "map:lngs",
+      "name": "LNGS — Laboratori Nazionali del Gran Sasso",
+      "representations": {
+        "derived": 4,
+        "georeferenced": 2,
+        "inferred_direction": 0,
+        "surveyed": 1
+      },
+      "unlocated_count": 0
+    },
+    {
+      "checks_failed": 0,
+      "checks_passed": 0,
+      "facility_id": "facility:los-alamos-national-laboratory",
+      "feature_count": 1,
+      "map_id": "map:los-alamos-national-laboratory",
+      "name": "Los Alamos National Laboratory, LANSCE (Technical Area 53)",
+      "representations": {
+        "derived": 0,
+        "georeferenced": 1,
+        "inferred_direction": 0,
+        "surveyed": 0
+      },
+      "unlocated_count": 2
+    },
+    {
+      "checks_failed": 0,
+      "checks_passed": 1,
+      "facility_id": "facility:modane-underground-laboratory",
+      "feature_count": 3,
+      "map_id": "map:modane-underground-laboratory",
+      "name": "LSM — Laboratoire Souterrain de Modane",
+      "representations": {
+        "derived": 0,
+        "georeferenced": 3,
+        "inferred_direction": 0,
+        "surveyed": 0
+      },
+      "unlocated_count": 0
+    },
+    {
+      "checks_failed": 0,
+      "checks_passed": 0,
+      "facility_id": "facility:oak-ridge-national-laboratory",
+      "feature_count": 1,
+      "map_id": "map:oak-ridge-national-laboratory",
+      "name": "Oak Ridge National Laboratory, Spallation Neutron Source",
+      "representations": {
+        "derived": 0,
+        "georeferenced": 1,
+        "inferred_direction": 0,
+        "surveyed": 0
+      },
+      "unlocated_count": 1
+    },
+    {
+      "checks_failed": 0,
+      "checks_passed": 1,
+      "facility_id": "facility:pierre-auger-observatory",
+      "feature_count": 2,
+      "map_id": "map:pierre-auger-observatory",
+      "name": "Pierre Auger Observatory — Malargüe array",
+      "representations": {
+        "derived": 2,
+        "georeferenced": 0,
+        "inferred_direction": 0,
+        "surveyed": 0
+      },
+      "unlocated_count": 0
+    },
+    {
+      "checks_failed": 0,
+      "checks_passed": 0,
+      "facility_id": "facility:psi",
+      "feature_count": 1,
+      "map_id": "map:psi",
+      "name": "PSI — Villigen and Wurenlingen campus",
+      "representations": {
+        "derived": 0,
+        "georeferenced": 1,
+        "inferred_direction": 0,
+        "surveyed": 0
+      },
+      "unlocated_count": 1
+    },
+    {
+      "checks_failed": 0,
+      "checks_passed": 0,
+      "facility_id": "facility:roque-de-los-muchachos-observatory",
+      "feature_count": 2,
+      "map_id": "map:roque-de-los-muchachos-observatory",
+      "name": "Roque de los Muchachos — MAGIC and CTAO-North",
+      "representations": {
+        "derived": 0,
+        "georeferenced": 2,
+        "inferred_direction": 0,
+        "surveyed": 0
+      },
+      "unlocated_count": 0
+    },
+    {
+      "checks_failed": 0,
+      "checks_passed": 0,
+      "facility_id": "facility:sierra-negra",
+      "feature_count": 1,
+      "map_id": "map:sierra-negra",
+      "name": "HAWC — Sierra Negra",
+      "representations": {
+        "derived": 0,
+        "georeferenced": 0,
+        "inferred_direction": 0,
+        "surveyed": 1
+      },
+      "unlocated_count": 0
+    },
+    {
+      "checks_failed": 0,
+      "checks_passed": 1,
+      "facility_id": "facility:slac",
+      "feature_count": 7,
+      "map_id": "map:slac",
+      "name": "SLAC National Accelerator Laboratory, Menlo Park campus",
+      "representations": {
+        "derived": 0,
+        "georeferenced": 7,
+        "inferred_direction": 0,
+        "surveyed": 0
+      },
+      "unlocated_count": 1
+    },
+    {
+      "checks_failed": 0,
+      "checks_passed": 1,
+      "facility_id": "facility:snolab",
+      "feature_count": 3,
+      "map_id": "map:snolab",
+      "name": "SNOLAB — Vale Creighton Mine, Sudbury, Ontario",
+      "representations": {
+        "derived": 1,
+        "georeferenced": 2,
+        "inferred_direction": 0,
+        "surveyed": 0
+      },
+      "unlocated_count": 0
+    },
+    {
+      "checks_failed": 0,
+      "checks_passed": 0,
+      "facility_id": "facility:soudan-underground-laboratory",
+      "feature_count": 2,
+      "map_id": "map:soudan-underground-laboratory",
+      "name": "Soudan Underground Laboratory, Soudan, Minnesota",
+      "representations": {
+        "derived": 0,
+        "georeferenced": 1,
+        "inferred_direction": 0,
+        "surveyed": 1
+      },
+      "unlocated_count": 0
+    },
+    {
+      "checks_failed": 0,
+      "checks_passed": 0,
+      "facility_id": "facility:surf",
+      "feature_count": 6,
+      "map_id": "map:surf",
+      "name": "SURF — Sanford Underground Research Facility, Lead, South Dakota",
+      "representations": {
+        "derived": 0,
+        "georeferenced": 5,
+        "inferred_direction": 0,
+        "surveyed": 1
+      },
+      "unlocated_count": 1
+    },
+    {
+      "checks_failed": 0,
+      "checks_passed": 0,
+      "facility_id": "facility:telescope-array-utah",
+      "feature_count": 1,
+      "map_id": "map:telescope-array-utah",
+      "name": "Telescope Array — Utah",
+      "representations": {
+        "derived": 0,
+        "georeferenced": 0,
+        "inferred_direction": 0,
+        "surveyed": 1
+      },
+      "unlocated_count": 0
+    },
+    {
+      "checks_failed": 0,
+      "checks_passed": 0,
+      "facility_id": "facility:wipp",
+      "feature_count": 3,
+      "map_id": "map:wipp",
+      "name": "WIPP — Waste Isolation Pilot Plant, Carlsbad, New Mexico",
+      "representations": {
+        "derived": 0,
+        "georeferenced": 3,
+        "inferred_direction": 0,
+        "surveyed": 0
+      },
+      "unlocated_count": 0
+    },
+    {
+      "checks_failed": 0,
+      "checks_passed": 12,
+      "facility_id": "facility:yonggwang-hanbit-reactor-site",
+      "feature_count": 9,
+      "map_id": "map:yonggwang-hanbit-reactor-site",
+      "name": "Hanbit (Yonggwang) — reactor units and the RENO detector halls",
+      "representations": {
+        "derived": 2,
+        "georeferenced": 7,
+        "inferred_direction": 0,
+        "surveyed": 0
+      },
+      "unlocated_count": 0
+    }
+  ],
   "rows": [
     {
       "category": "collider",

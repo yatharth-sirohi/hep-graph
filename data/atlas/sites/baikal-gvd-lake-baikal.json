@@ -1,43 +1,65 @@
 {
-  "id": "site:baikal-gvd-lake-baikal",
-  "type": "site",
-  "name": "Baikal-GVD site, Lake Baikal",
   "aliases": [],
-  "facility_id": "facility:baikal-deep-underwater-neutrino-telescope",
+  "altitude": null,
   "coordinates": {
+    "confidence": "verified",
+    "kind": "detector",
     "lat": 51.7667,
     "lon": 104.4,
-    "kind": "detector",
+    "note": "51°46'N, 104°24'E converted to decimal degrees.",
     "precision_m": 2000,
-    "sources": ["src:astro-neutrino-baikal-gvd-status-2023-paper"],
-    "verified_at": "2026-09-17",
-    "confidence": "verified",
     "quote": "located about 3.6 km offshore at 51∘ 46'N and 104∘ 24'E coordinates",
-    "note": "51°46'N, 104°24'E converted to decimal degrees."
+    "sources": [
+      "src:astro-neutrino-baikal-gvd-status-2023-paper"
+    ],
+    "verified_at": "2026-09-17"
   },
-  "setting": "lake",
-  "depth": {
-    "value": 1366, "unit": "m", "dimension": "length", "approx": false,
-    "display": "~1366 m",
-    "sources": ["src:astro-neutrino-baikal-gvd-status-2023-paper"],
-    "verified_at": "2026-09-17", "confidence": "verified",
-    "quote": "The lakebed reaches its plateau at a nearly constant depth of 1366 m",
-    "note": "The official INR RAS facility page states a broader '1100-1300 m' range for the historical Baikal neutrino experiment site; the 2023 status paper's 1366 m lakebed figure is used as the more specific, more recent value for the current Baikal-GVD clusters."
-  },
-  "depth_rock": null,
-  "depth_mwe": null,
-  "altitude": null,
+  "countries": [
+    "RU"
+  ],
   "country": "RU",
-  "countries": ["RU"],
-  "place": {"city": null, "region": "Irkutsk Oblast / Buryatia (southern Lake Baikal)", "country": "RU"},
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "depth": {
+    "approx": false,
+    "confidence": "verified",
+    "dimension": "length",
+    "display": "~1366 m",
+    "note": "The official INR RAS facility page states a broader '1100-1300 m' range for the historical Baikal neutrino experiment site; the 2023 status paper's 1366 m lakebed figure is used as the more specific, more recent value for the current Baikal-GVD clusters.",
+    "quote": "The lakebed reaches its plateau at a nearly constant depth of 1366 m",
+    "sources": [
+      "src:astro-neutrino-baikal-gvd-status-2023-paper"
+    ],
+    "unit": "m",
+    "value": 1366,
+    "verified_at": "2026-09-17"
+  },
+  "depth_mwe": null,
+  "depth_rock": null,
   "document_ids": [],
+  "facility_id": "facility:baikal-deep-underwater-neutrino-telescope",
+  "id": "site:baikal-gvd-lake-baikal",
+  "links": {
+    "website": null
+  },
+  "name": "Baikal-GVD site, Lake Baikal",
+  "notes": [],
+  "place": {
+    "city": null,
+    "country": "RU",
+    "region": "Irkutsk Oblast / Buryatia (southern Lake Baikal)"
+  },
+  "schema": "hep-atlas/0.2",
+  "setting": "lake",
+  "sources": [
+    "src:astro-neutrino-baikal-gvd-status-2023-paper",
+    "src:astro-neutrino-baikal-gvd-official-facility-page"
+  ],
   "summary": {
     "plain": "A spot near the shore of the southern end of Lake Baikal in Siberia, Russia, where strings of light sensors are anchored more than a kilometre deep in the world's deepest lake.",
     "technical": "Southern basin of Lake Baikal, ~3.6 km offshore at 51°46'N 104°24'E, lakebed depth ~1366 m; site of the expanding Baikal-GVD neutrino telescope's clusters."
   },
-  "sources": ["src:astro-neutrino-baikal-gvd-status-2023-paper", "src:astro-neutrino-baikal-gvd-official-facility-page"],
-  "links": {"website": null},
-  "notes": [],
-  "coverage": {"researched": "partial", "tier": "B"},
-  "schema": "hep-atlas/0.2"
+  "type": "site"
 }

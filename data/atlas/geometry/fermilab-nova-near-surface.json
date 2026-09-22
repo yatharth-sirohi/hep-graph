@@ -1,0 +1,116 @@
+{
+  "accuracy_m": 8,
+  "aliases": [],
+  "checks": [
+    {
+      "expected": {
+        "dimension": "length",
+        "display": "1 km",
+        "unit": "m",
+        "value": 1000
+      },
+      "kind": "distance",
+      "locator": "NOvA near-detector placement note, 'The 0.3 kt Near Detector is located 1 km downstream of the neutrino production target'",
+      "quote": "The 0.3 kt Near Detector is located 1 km downstream of the neutrino production target and 100 m underground at Fermilab",
+      "sources": [
+        "src:nova-arxiv-2025-monopole-search"
+      ],
+      "to_geometry_id": "geometry:fermilab-numi-target",
+      "tolerance": 0.08
+    }
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "depth_m": null,
+  "entity_id": "detector:nova-near-detector",
+  "feature_type": "hall",
+  "geometry": {
+    "confidence": "verified",
+    "locator": "OSM way/272646255, extract timestamp 2026-09-18T20:20:01Z",
+    "note": "This is the SURFACE building only, per its own OSM name. The NOvA near detector is '100 m underground' (src:nova-arxiv-2025-monopole-search); its horizontal offset from this surface point is not sourced this session, so the underground detector is not drawn separately. Confidence upgraded to 'verified' (second pass, 2026-09-18): the checks[] row below (distance to the newly-derived NuMI target) passes and cites a rank-10 journal article.",
+    "sources": [
+      "src:fermilab-geo-osm-buildings",
+      "src:nova-arxiv-2025-monopole-search"
+    ],
+    "value": {
+      "coordinates": [
+        [
+          [
+            -88.2698396,
+            41.8391277
+          ],
+          [
+            -88.2698292,
+            41.8391099
+          ],
+          [
+            -88.2698425,
+            41.8391056
+          ],
+          [
+            -88.2697553,
+            41.8389568
+          ],
+          [
+            -88.2697379,
+            41.8389625
+          ],
+          [
+            -88.269729,
+            41.8389472
+          ],
+          [
+            -88.2696252,
+            41.838981
+          ],
+          [
+            -88.2697317,
+            41.8391628
+          ],
+          [
+            -88.2698396,
+            41.8391277
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    },
+    "verified_at": "2026-09-18"
+  },
+  "id": "geometry:fermilab-nova-near-surface",
+  "level_id": "surface",
+  "license": {
+    "attribution": "© OpenStreetMap contributors",
+    "name": "ODbL-1.0",
+    "url": "https://www.openstreetmap.org/copyright"
+  },
+  "links": {
+    "website": null
+  },
+  "map_id": "map:fermilab",
+  "method": "OpenStreetMap way 272646255 'NOvA Near Detector on Surface' footprint, traced verbatim (tagged man_made=particle physics detector).",
+  "name": "NOvA near-detector surface building",
+  "notes": [
+    "QA pass (2026-09-21): removed the `valid: {start: '2014-02-06', end: null}` window a previous pass set -- a preventive fix for a latent bug in hepgraph.atlas.build._feature_segments(): any `valid` dict with a non-null `start` and `end: null` hard-codes `status: 'active'` through build day regardless of the entity's real status, bypassing state_segments entirely. Currently harmless because detector:nova-near-detector genuinely is 'active' today, but this pattern produced a live false-'active' claim on three other records (geometry:lhc-tunnel-ring, geometry:fermilab-mc1-building, geometry:fermilab-microboone-hall) fixed the same way in this pass -- see docs/atlas-worklog/REVIEW_geometry_qa.md."
+  ],
+  "osm": {
+    "elements": [
+      "way/272646255"
+    ],
+    "timestamp": "2026-09-18T20:20:01Z"
+  },
+  "representation": "georeferenced",
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:fermilab-main-campus",
+  "sources": [
+    "src:fermilab-geo-osm-buildings",
+    "src:nova-arxiv-2025-monopole-search"
+  ],
+  "summary": {
+    "plain": "This is the SURFACE building only, per its own OSM name. The NOvA near detector is '100 m underground' (src:nova-arxiv-2025-monopole-search); its horizontal offset from this surface point is not so..."
+  },
+  "type": "geometry",
+  "valid": null
+}

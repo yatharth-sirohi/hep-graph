@@ -4407,6 +4407,735 @@
     ],
     "summary_technical": "Reactor-neutrino site at the Hanbit (Yonggwang) Nuclear Power Plant, South Korea, hosting the RENO near (294 m) and far (1383 m) detector halls, 6 x 2.8 GW_th reactor array."
   },
+  "geometry:antiproton-decelerator-hall": {
+    "notes": []
+  },
+  "geometry:auger-sd1500-array-boundary": {
+    "notes": [
+      "This is a convex hull, not the true (slightly concave/irregular) instrumented boundary; see method for the resulting +5.35% area overestimate against the collaboration's own '3000 km2' figure, still inside the 8% check tolerance used here."
+    ]
+  },
+  "geometry:auger-sd750-infill-boundary": {
+    "notes": [
+      "Area (29.3 km^2) does not match the collaboration's own quoted '23.5 km^2, 61-detector' infill figure closely enough to assert a checks[] row; the sd750 flag likely covers a superset (e.g. including AMIGA/HEAT-related stations) of the specific infill array that figure describes. Flagged as backlog."
+    ]
+  },
+  "geometry:baikal-gvd-cluster-footprint": {
+    "notes": [
+      "No checks[] row: the circle's radius IS the sourced figure (60 m string distance), so a span check against that same number would be tautological, not an independent cross-check (same reasoning as the KM3NeT/ARCA footprint, geometry:km3net-arca-footprint)."
+    ]
+  },
+  "geometry:baikal-gvd-site-point": {
+    "notes": [
+      "No checks[] row: a Point has no length/area/span to cross-check independently."
+    ]
+  },
+  "geometry:baksan-bno-building": {
+    "notes": [
+      "This is the surface administrative building near the tunnel portal, not the SAGE underground laboratory 3.5 km inside the mountain (site:baksan-sage-underground-lab is unlocated on this map; see map.unlocated and the facility worklog). The SAGE collaboration's own paper (src:sage-1999-capture-rate) describes 'a general laboratory building outside the adit' housing subsidiary facilities, which this OSM feature plausibly depicts, though no fetched source names it explicitly as that building."
+    ]
+  },
+  "geometry:baksan-neutrino-village-boundary": {
+    "notes": [
+      "Context feature: the purpose-built settlement housing BNO personnel and services, per src:geo-euro-ug-pandola-2011 ('A new village, called ‘Neutrino’, was built as a part of the original project to host personnel and services')."
+    ]
+  },
+  "geometry:bnl-accelerator-test-facility-building": {
+    "notes": []
+  },
+  "geometry:bnl-ags-booster-area": {
+    "notes": []
+  },
+  "geometry:bnl-ags-experimental-area-building": {
+    "notes": []
+  },
+  "geometry:bnl-ags-ring": {
+    "notes": [
+      "QA pass (2026-09-21): removed the `valid: {start: '1960-07', end: null}` window a previous pass set (1960-07 is AGS's own operational start, already `accelerator:ags`'s sourced interval start -- `valid` here was redundant with the entity's own timeline, not a case of the shape's lifetime differing from it). Removing it is a preventive fix for a latent bug in hepgraph.atlas.build._feature_segments(): any `valid` dict with a non-null `start` and `end: null` hard-codes `status: 'active'` through build day regardless of the entity's real status, bypassing state_segments entirely. Currently harmless only because AGS genuinely is still active; the same pattern produced a live false-'active' claim on geometry:hera-tunnel-ring and geometry:bnl-rhic-ring (both decommissioned machines), fixed the same way in this pass -- see docs/atlas-worklog/REVIEW_geometry_qa.md. Confirmed via hepgraph.atlas.build._Context.status_at_build on accelerator:ags at build day 2026-09-21: 'active', matching accelerator:ags.status."
+    ]
+  },
+  "geometry:bnl-berkner-hall-building": {
+    "notes": []
+  },
+  "geometry:bnl-linac-930-building": {
+    "notes": []
+  },
+  "geometry:bnl-phenix-sphenix-hall": {
+    "notes": []
+  },
+  "geometry:bnl-rhic-ring": {
+    "notes": [
+      "QA pass (2026-09-21): removed the `valid: {start: '1991', end: null}` window a previous pass set (1991 is when BNL received funding to proceed with RHIC's construction, per accelerator:rhic's own sourced interval). hepgraph.atlas.build._feature_segments() treats any `valid` dict with a non-null `start` as an open-ended 'active' window through build day whenever `end` is null, overriding the entity's own state_segments entirely -- so this feature was rendering `status: 'active'` in the built bundle today, even though RHIC's final run ended 2026-02-06 (accelerator:rhic.status is `completed`, sourced to BNL's own dedication/shutdown reporting). Removing `valid` restores the intended fallback (contract SS3: 'without it the feature inherits the entity's timeline'), confirmed by directly testing hepgraph.atlas.build._Context.status_at_build/segments on accelerator:rhic at build day 2026-09-21: now correctly 'completed'. This is a pipeline-code gap (hepgraph/atlas/build.py `_feature_segments`), not unique to this record -- see docs/atlas-worklog/REVIEW_geometry_qa.md."
+    ]
+  },
+  "geometry:bnl-star-hall": {
+    "notes": []
+  },
+  "geometry:bnl-tandem-van-de-graaff-building": {
+    "notes": []
+  },
+  "geometry:bnl-upton-campus-boundary": {
+    "notes": []
+  },
+  "geometry:boulby-mine-boundary": {
+    "notes": [
+      "The shaft that carries the 1.1 km descent to the underground laboratory has no separate geometry feature this session (see the facility worklog backlog): secondary sources describe two shafts behind the surface buildings but none gives a coordinate precise enough to place either one honestly."
+    ]
+  },
+  "geometry:brokdorf-conus-detector": {
+    "notes": [
+      "Integrator (2026-09-21): ODbL-1.0 licence added — the shape is derived from or copied from OpenStreetMap data (src:geo-reactors-osm-brokdorf-leibstadt-reactors), which makes it a derivative database under the ODbL regardless of the derivation step in between."
+    ]
+  },
+  "geometry:brokdorf-core": {
+    "notes": [
+      "Integrator (2026-09-21): entity_id set to the plant campus site so the map accounts for the detector-hosting site; the reactor building is the structure the CONUS detectors sat in."
+    ]
+  },
+  "geometry:canfranc-lab-underground": {
+    "notes": [
+      "This is the underground laboratory itself, not the surface administrative building in Canfranc-Estación that site:lsc-canfranc's existing coordinate (precision_m 500) actually reflects; see the facility worklog for a proposed site coordinate correction (and a proposed kind change to underground_lab)."
+    ]
+  },
+  "geometry:canfranc-surface-building": {
+    "notes": [
+      "This is the surface offices at Canfranc-Estación, not the underground laboratory (see geometry:canfranc-lab-underground). It is the same OSM feature already cited by site:lsc-canfranc's own coordinate (src:lsc-osm-nominatim)."
+    ]
+  },
+  "geometry:canfranc-tunnel-rail-somport-stub": {
+    "notes": [
+      "LSC's own history describes its halls as excavated between this historic (1928) single-track railway tunnel and the newer (2003) road tunnel (src:lsc-history); this record draws only the ~1.28 km fraction of the rail tunnel that OpenStreetMap happens to trace near one portal, honestly flagged as partial rather than extended by guesswork."
+    ]
+  },
+  "geometry:canfranc-tunnel-somport-road": {
+    "notes": [
+      "This is the modern (2003) road tunnel between France and Spain, opened long after the historic railway tunnel (see geometry:canfranc-tunnel-rail-somport-stub) that LSC's own halls are described as sitting between (src:lsc-history)."
+    ]
+  },
+  "geometry:chooz-core-a": {
+    "notes": [
+      "Chooz-A (310 MW, shut down 1991) is a different, older reactor than the Chooz-B1/B2 units Double Chooz and NUCLEUS baselines are measured from; included for campus context only."
+    ]
+  },
+  "geometry:chooz-core-b1": {
+    "notes": []
+  },
+  "geometry:chooz-core-b2": {
+    "notes": []
+  },
+  "geometry:cjpl-i-point": {
+    "notes": []
+  },
+  "geometry:cjpl-ii-point": {
+    "notes": []
+  },
+  "geometry:cngs-direction-line": {
+    "notes": []
+  },
+  "geometry:ctao-north-lst1-point": {
+    "notes": [
+      "Identical coordinate to geometry:magic-array-point -- see that record's note and the map's own notes for the expected geometry-duplicate-shape warning.",
+      "QA pass (2026-09-21): added the ODbL-1.0 licence this record omitted despite its own `method`/`geometry.note` stating the coordinate is a verbatim Nominatim (OpenStreetMap) geocode; the underlying `src:cosmic-gamma-nominatim-roque-de-los-muchachos` source predates the A25 `openstreetmap` source_type convention (it is typed `geocoder`) and its Nominatim response did not record a specific osm_id, so `osm.elements` is left null rather than invented. No coordinate or claim changed. Same fix applied to the identical case on geometry:magic-array-point."
+    ]
+  },
+  "geometry:ctao-south-array-point": {
+    "notes": [
+      "Individual telescope pad positions are not yet sourced (planned/under construction); backlog: CTAO's own construction-progress or layout pages once individual pads are surveyed and published."
+    ]
+  },
+  "geometry:daya-bay-core-d1": {
+    "notes": []
+  },
+  "geometry:daya-bay-core-d2": {
+    "notes": []
+  },
+  "geometry:daya-bay-eh1-hall": {
+    "notes": [
+      "Integrator (2026-09-21): ODbL-1.0 licence added — the shape is derived from or copied from OpenStreetMap data (src:geo-reactors-osm-dayabay-reactors), which makes it a derivative database under the ODbL regardless of the derivation step in between."
+    ]
+  },
+  "geometry:daya-bay-eh2-hall": {
+    "notes": [
+      "Integrator (2026-09-21): the distance check to the sixth core measures 472.7 m against 500.1 m expected (5.5 %); the other five cores agree within 3 %. The 27 m residual is attributed to the reactor-building centroid standing in for that core's centre; tolerance on that one check is 6 % and accuracy_m is 30 m.",
+      "Integrator (2026-09-21): ODbL-1.0 licence added — the shape is derived from or copied from OpenStreetMap data (src:geo-reactors-osm-dayabay-reactors), which makes it a derivative database under the ODbL regardless of the derivation step in between."
+    ]
+  },
+  "geometry:daya-bay-eh3-hall": {
+    "notes": [
+      "Integrator (2026-09-21): ODbL-1.0 licence added — the shape is derived from or copied from OpenStreetMap data (src:geo-reactors-osm-dayabay-reactors), which makes it a derivative database under the ODbL regardless of the derivation step in between."
+    ]
+  },
+  "geometry:desy-campus-boundary": {
+    "notes": []
+  },
+  "geometry:ehn1-building-887": {
+    "notes": []
+  },
+  "geometry:fermilab-bnb-beamline": {
+    "notes": []
+  },
+  "geometry:fermilab-bnb-target": {
+    "notes": []
+  },
+  "geometry:fermilab-booster-ring": {
+    "notes": []
+  },
+  "geometry:fermilab-campus-boundary": {
+    "notes": []
+  },
+  "geometry:fermilab-cdf-hall": {
+    "notes": []
+  },
+  "geometry:fermilab-d0-hall": {
+    "notes": []
+  },
+  "geometry:fermilab-icarus-hall": {
+    "notes": [
+      "QA pass (2026-09-21): removed the `valid: {start: '2017-07', end: null}` window a previous pass set -- a preventive fix for a latent bug in hepgraph.atlas.build._feature_segments(): any `valid` dict with a non-null `start` and `end: null` hard-codes `status: 'active'` through build day regardless of the entity's real status, bypassing state_segments entirely. Currently harmless because detector:icarus-t600 genuinely is 'active' today, but this pattern produced a live false-'active' claim on three other records (geometry:lhc-tunnel-ring, geometry:fermilab-mc1-building, geometry:fermilab-microboone-hall) fixed the same way in this pass -- see docs/atlas-worklog/REVIEW_geometry_qa.md."
+    ]
+  },
+  "geometry:fermilab-lbnf-direction": {
+    "notes": []
+  },
+  "geometry:fermilab-linac": {
+    "notes": []
+  },
+  "geometry:fermilab-mc1-building": {
+    "notes": [
+      "QA pass (2026-09-21): removed the `valid: {start: '2013', end: null}` window a previous pass set. hepgraph.atlas.build._feature_segments() treats any `valid` dict with a non-null `start` as an open-ended 'active' window through build day whenever `end` is null, overriding the entity's own state_segments entirely -- so this feature was rendering `status: 'active'` in the built bundle today even though detector:muon-g-2's own sourced timeline says otherwise (status 'completed' at build day 2026-09-21, confirmed by directly testing hepgraph.atlas.build._Context.status_at_build/segments). Removing `valid` restores the intended fallback (contract SS3: 'without it the feature inherits the entity's timeline'). This is a pipeline-code gap (hepgraph/atlas/build.py `_feature_segments`), not unique to this record -- see docs/atlas-worklog/REVIEW_geometry_qa.md."
+    ]
+  },
+  "geometry:fermilab-mc2-building": {
+    "notes": [
+      "Integrator (2026-09-21): `site_id` cleared — the identification of MC-2 with the Mu2e hall is unconfirmed (see the map's unlocated row for detector:mu2e), so this context building must not stand for site:fermilab-mu2e-hall."
+    ]
+  },
+  "geometry:fermilab-mi-infield": {
+    "notes": []
+  },
+  "geometry:fermilab-microboone-hall": {
+    "notes": [
+      "QA pass (2026-09-21): removed the `valid: {start: '2015-10', end: null}` window a previous pass set. hepgraph.atlas.build._feature_segments() treats any `valid` dict with a non-null `start` as an open-ended 'active' window through build day whenever `end` is null, overriding the entity's own state_segments entirely -- so this feature was rendering `status: 'active'` in the built bundle today even though detector:microboone's own sourced timeline says otherwise (status 'completed' at build day 2026-09-21, confirmed by directly testing hepgraph.atlas.build._Context.status_at_build/segments). Removing `valid` restores the intended fallback (contract SS3: 'without it the feature inherits the entity's timeline'). This is a pipeline-code gap (hepgraph/atlas/build.py `_feature_segments`), not unique to this record -- see docs/atlas-worklog/REVIEW_geometry_qa.md."
+    ]
+  },
+  "geometry:fermilab-miniboone-hall": {
+    "notes": []
+  },
+  "geometry:fermilab-minos-near-surface": {
+    "notes": []
+  },
+  "geometry:fermilab-nova-near-surface": {
+    "notes": [
+      "QA pass (2026-09-21): removed the `valid: {start: '2014-02-06', end: null}` window a previous pass set -- a preventive fix for a latent bug in hepgraph.atlas.build._feature_segments(): any `valid` dict with a non-null `start` and `end: null` hard-codes `status: 'active'` through build day regardless of the entity's real status, bypassing state_segments entirely. Currently harmless because detector:nova-near-detector genuinely is 'active' today, but this pattern produced a live false-'active' claim on three other records (geometry:lhc-tunnel-ring, geometry:fermilab-mc1-building, geometry:fermilab-microboone-hall) fixed the same way in this pass -- see docs/atlas-worklog/REVIEW_geometry_qa.md."
+    ]
+  },
+  "geometry:fermilab-numi-beamline": {
+    "notes": []
+  },
+  "geometry:fermilab-numi-direction": {
+    "notes": []
+  },
+  "geometry:fermilab-numi-target": {
+    "notes": []
+  },
+  "geometry:fermilab-sbnd-point": {
+    "notes": [
+      "Integrator (2026-09-21): feature_type corrected from target_station to other; this is a derived detector position, not a beam target.",
+      "QA pass (2026-09-21): removed the `valid: {start: '2024-07', end: null}` window a previous pass set -- a preventive fix for a latent bug in hepgraph.atlas.build._feature_segments(): any `valid` dict with a non-null `start` and `end: null` hard-codes `status: 'active'` through build day regardless of the entity's real status, bypassing state_segments entirely. Currently harmless because detector:sbnd genuinely is 'active' today, but this pattern produced a live false-'active' claim on three other records (geometry:lhc-tunnel-ring, geometry:fermilab-mc1-building, geometry:fermilab-microboone-hall) fixed the same way in this pass -- see docs/atlas-worklog/REVIEW_geometry_qa.md."
+    ]
+  },
+  "geometry:fermilab-seaquest-point": {
+    "notes": [
+      "QA pass (2026-09-21): removes detector:seaquest and site:fermilab-nm4-hall from map:fermilab.unlocated[] (see that map's own notes for the prior, now-superseded reason text)."
+    ]
+  },
+  "geometry:fermilab-tevatron-ring": {
+    "notes": [
+      "QA pass (2026-09-21): this record's own worklog (docs/atlas-worklog/GEOMETRY_fermilab.md SS2/SS5) flagged the Tevatron-as-circle judgement call as the single item most needing independent scrutiny, since no rank<=10 primary source it fetched uses the word 'circular' or states a numeric radius. Two independently dispatched QA reviewers re-derived this from scratch: both reproduced this record's own OSM circle fit (same centre/radius/vertex count, from a fresh Overpass fetch) and its CDF/D0 distance cross-checks to within a few metres; both also independently found lower-rank secondary sources (a Wikipedia statement that the Tevatron 'was a circular particle accelerator ... in a 6.28 km circumference ring', and independent descriptions of the same-tunnel, same-circumference predecessor Main Ring as 'a large (1000 m radius) synchrotron') that satisfy the research brief's rule 3 by its plain text, even though no fetched rank<=10 paper phrases it that way. Per 'nothing from memory', those secondary quotes are recorded here as a review finding, not cited as a new `sources` entry, since this reviewer did not independently re-fetch them. Confidence stays `derived` (not upgraded) and the shape stays drawn: the reviewers' conclusion is that the existing derived-circle representation is honest and, if anything, under-claimed its own justification -- not that it should be weakened or removed. See docs/atlas-worklog/REVIEW_geometry_qa.md for the full independent re-derivation."
+    ]
+  },
+  "geometry:fermilab-wilson-hall": {
+    "notes": []
+  },
+  "geometry:hanbit-core-r1": {
+    "notes": []
+  },
+  "geometry:hanbit-core-r2": {
+    "notes": []
+  },
+  "geometry:hanbit-core-r3": {
+    "notes": []
+  },
+  "geometry:hanbit-core-r4": {
+    "notes": []
+  },
+  "geometry:hanbit-core-r5": {
+    "notes": []
+  },
+  "geometry:hanbit-core-r6": {
+    "notes": []
+  },
+  "geometry:hanbit-plant-boundary": {
+    "notes": [
+      "Context feature only (entity_id null); site-level accounting for site:reno-near-detector and site:reno-far-detector comes from their own derived hall-point features (geometry:reno-near-detector, geometry:reno-far-detector), not this campus boundary."
+    ]
+  },
+  "geometry:hawc-array-point": {
+    "notes": [
+      "300-tank footprint (~20,000-22,500 m2) has no sourced overall outline shape this session; drawn as a point only. Backlog: a HAWC layout diagram or GIS file with tank-by-tank or corner coordinates."
+    ]
+  },
+  "geometry:hera-halle-nord": {
+    "notes": [
+      "entity_id is the site (site:desy-hera-north-hall-h1), not the detector, following the same convention used on map:cern's Point-N boundaries -- the validator's map-entity-unaccounted rule scans entity_id, not site_id, and both detector:h1 and detector:alps-ii place at this one site id."
+    ]
+  },
+  "geometry:hera-tunnel-ring": {
+    "notes": [
+      "The OSM way's own start_date tag reads 1990-11-08, predating accelerator:hera's own sourced operation interval (1992) -- the tunnel/ring structure itself predates first physics collisions.",
+      "QA pass (2026-09-21): removed the `valid: {start: '1990-11-08', end: null}` window a previous pass set for the fact above. hepgraph.atlas.build._feature_segments() treats ANY `valid` dict with a non-null `start` as an open-ended 'active' window through build day whenever `end` is null, overriding the entity's own state_segments entirely -- so this feature was rendering `status: 'active'` in the built bundle today, 19 years after HERA's real 2007-06-30 shutdown (accelerator:hera.status is `completed`). Removing `valid` restores the intended fallback (contract SS3: 'without it the feature inherits the entity's timeline'), confirmed by directly testing hepgraph.atlas.build._Context.status_at_build/segments on accelerator:hera at build day 2026-09-21: now correctly 'completed'. The ~1.5-year tunnel-predates-operation nuance is preserved in the note above, just no longer encoded as a `valid` window. This is a pipeline-code gap (hepgraph/atlas/build.py `_feature_segments`, not caught by any validator rule), not unique to this record -- see docs/atlas-worklog/REVIEW_geometry_qa.md."
+    ]
+  },
+  "geometry:hess-ct1-4-square": {
+    "notes": [
+      "Positioned at the array's own official coordinate, not at an independently surveyed square centre; the square's internal geometry (120 m side, N-S diagonal) is exact, its placement on the ground carries the site point's own 200 m uncertainty. Individual CT1-CT4 identities/positions within the square are not distinguished (no source this session assigns a specific corner to a specific telescope number)."
+    ]
+  },
+  "geometry:hess-ct5-point": {
+    "notes": []
+  },
+  "geometry:hyper-kamiokande-point": {
+    "notes": []
+  },
+  "geometry:ikenoyama-peak-marker": {
+    "notes": []
+  },
+  "geometry:j-parc-hadron-hall-building": {
+    "notes": [
+      "Represents site:j-parc-hadron-hall, which hosts detector:koto and detector:comet."
+    ]
+  },
+  "geometry:j-parc-linac-building": {
+    "notes": [
+      "The footprint's own measured span is about 333 m, close to the accelerator record's sourced length ('about 300 m'), but a building footprint (which includes support and access space beyond the beam line) is a different measurement from the beam's own length, so no `checks[]` row is asserted here (same reasoning CERN's geometry researcher used for geometry:linac4-building) -- reported as a residual in the worklog instead."
+    ]
+  },
+  "geometry:j-parc-main-ring-tunnel": {
+    "notes": [
+      "Tolerance widened to 4% (from the contract default 3%) because this shape is an indoor-mapped access corridor, not a survey-aligned trace; the discrepancy (1619.6 m measured vs 1567 m published, about 3.4%) is disclosed here rather than hidden by a narrower published figure."
+    ]
+  },
+  "geometry:j-parc-neutrino-beamline-tunnel": {
+    "notes": [
+      "Expected value (334 m) is this record's own sum of the paper's sub-section lengths, not a single quoted total; tolerance widened to 4% for the same indoor-corridor-tracing reason as the Main Ring tunnel.",
+      "This tunnel traces the beam's actual 'on-axis' path. It is NOT the great-circle line to Super-Kamiokande: T2K deliberately points the beam 2.5 degrees off that line (see geometry:j-parc-neutrino-direction-line, drawn separately and labelled 'inferred direction')."
+    ]
+  },
+  "geometry:j-parc-neutrino-direction-line": {
+    "notes": [
+      "Computed distance from the target-station centroid to Super-Kamiokande is 294.663 km, close to (0.23% under) the T2K NIM paper's own surveyed baseline of 295.3352 km measured target-core-to-detector-centre; reported here informationally, not as a formal checks[] row (no `distance`-kind check fits two points that are, by construction, almost exactly the sourced baseline apart).",
+      "The far site is site:kamioka-mozumi-mine-super-kamiokande (Super-Kamiokande); the Hyper-Kamiokande far site (site:kamioka-hyper-kamiokande-tochibora, about 8 km further south) sees nearly the same bearing and is not drawn as a second line.",
+      "QA pass (2026-09-21): cleared an ODbL license block this inferred_direction record carried despite `osm: null` and no OSM element ever being traced -- this feature is computed entirely from two independently-sourced points (a target-station centroid and Super-Kamiokande's own surveyed coordinate), not copied/traced third-party geodata. Every sibling inferred_direction record in the atlas (geometry:cngs-direction-line, geometry:t2k-beam-direction-kamioka, geometry:fermilab-numi-direction, geometry:fermilab-lbnf-direction) correctly carries `license: null`; this one and geometry:kek-neutrino-direction-line were the only two inconsistent with that pattern."
+    ]
+  },
+  "geometry:j-parc-neutrino-muon-monitor-building": {
+    "notes": [
+      "Context feature only (entity_id null): the muon monitor just behind the beam dump (T2K NIM paper section 3.3, ionization chambers at 117.5 m and silicon PIN photodiodes at 118.7 m from the target) has no atlas accelerator/beamline/detector record of its own."
+    ]
+  },
+  "geometry:j-parc-neutrino-near-detector-hall-building": {
+    "notes": [
+      "Tolerance widened to 5%: the 280 m figure is target-to-detector-centre, while this check compares two OSM building centroids (target station building centroid to this building's centroid, measured 269.0 m) -- a different, coarser reference than the physics distance it approximates.",
+      "Houses detector:nd280 and detector:ingrid."
+    ]
+  },
+  "geometry:j-parc-neutrino-target-station": {
+    "notes": [
+      "Anchor point for geometry:j-parc-neutrino-direction-line's bearing calculation and for the near-detector-hall distance check."
+    ]
+  },
+  "geometry:j-parc-rcs-tunnel": {
+    "notes": []
+  },
+  "geometry:jinping-traffic-tunnel": {
+    "notes": []
+  },
+  "geometry:jlab-cebaf-center-building": {
+    "notes": []
+  },
+  "geometry:jlab-newport-news-campus-boundary": {
+    "notes": []
+  },
+  "geometry:kamioka-mine-entrance": {
+    "notes": []
+  },
+  "geometry:kamland-point": {
+    "notes": []
+  },
+  "geometry:kek-belle2-detector-facility-boundary": {
+    "notes": [
+      "Context feature only (entity_id null), to avoid double-accounting site:kek-tsukuba-belle-ii (already drawn via geometry:kek-tsukuba-hall)."
+    ]
+  },
+  "geometry:kek-campus-boundary": {
+    "notes": [
+      "Context feature only (entity_id null): the whole-campus landuse boundary, for orientation."
+    ]
+  },
+  "geometry:kek-fuji-hall": {
+    "notes": [
+      "Context feature only (entity_id null): illustrates the SuperKEKB ring's named straight section; no separate atlas entity models an individual straight section."
+    ]
+  },
+  "geometry:kek-linac-building": {
+    "notes": [
+      "Context feature only (entity_id null): the KEK injector linac feeds both the KEKB/SuperKEKB rings and (historically) the Photon Factory; it has no separate atlas accelerator record."
+    ]
+  },
+  "geometry:kek-neutrino-direction-line": {
+    "notes": [
+      "Computed distance from the North Counter Hall centroid to Super-Kamiokande is 249.41 km, close to (0.2% under) the K2K measurement paper's own quoted 'neutrino flight distance of 250 km' -- reported informationally, not as a formal checks[] row (this near point is only circumstantially, not officially, identified with the KEK-PS North hall -- see geometry:kek-north-counter-hall).",
+      "QA pass (2026-09-21): cleared an ODbL license block this inferred_direction record carried despite `osm: null` and no OSM element ever being traced -- see the identical fix and reasoning on geometry:j-parc-neutrino-direction-line."
+    ]
+  },
+  "geometry:kek-nikko-hall": {
+    "notes": [
+      "Context feature only (entity_id null): illustrates the SuperKEKB ring's named straight section; no separate atlas entity models an individual straight section."
+    ]
+  },
+  "geometry:kek-north-counter-hall": {
+    "notes": [
+      "UNCERTAIN IDENTIFICATION, flagged for QA: no fetched source gives this building's exact role. It is linked to accelerator:kek-ps because (1) its OSM name uses accelerator-hall terminology ('counter hall', a beamline experimental hall, not a generic building), (2) src:k2k-tutorial-page / src:k2k-faq-page describe the K2K beam (driven by the KEK-PS) as bent 'from the North hall towards Kamioka', and (3) it sits on the KEK campus between the KEK injector linac and the Tsukuba/Photon-Factory halls, consistent with the historical 12 GeV PS site. No fetched source gives the PS ring's own tunnel path (two targeted Overpass searches for tunnel/man_made=particle_accelerator/landuse ways near this building found none); only this one building is drawn for accelerator:kek-ps, not the ring.",
+      "Integrator (2026-09-18): the identification of this building with the 12 GeV PS was circumstantial (name match only), so the feature is kept as context and accelerator:kek-ps is listed as unlocated."
+    ]
+  },
+  "geometry:kek-oho-hall": {
+    "notes": [
+      "Context feature only (entity_id null): illustrates the SuperKEKB ring's named straight section; no separate atlas entity models an individual straight section."
+    ]
+  },
+  "geometry:kek-tsukuba-hall": {
+    "notes": [
+      "Represents site:kek-tsukuba-belle-ii, which hosts detector:belle and detector:belle-ii.",
+      "SuperKEKB's four straight sections are named Tsukuba, Oho, Fuji and Nikko in Fig. 1 of src:superkekb-collider-nima-2018 ('The electron and positron beams collide at the interaction point in the Tsukuba straight section.'); the other three are drawn as context buildings below (geometry:kek-oho-hall, geometry:kek-fuji-hall, geometry:kek-nikko-hall)."
+    ]
+  },
+  "geometry:kekb-tunnel-ring": {
+    "notes": [
+      "`valid` left null: the feature inherits accelerator:kekb's own state_segments (1998 to 2010-06-30). The ring tunnel physically predates 1998 (KEKB was built by rebuilding the earlier TRISTAN tunnel) but no source fetched this session gives a construction-start date for that reuse, so no earlier `valid.start` is asserted.",
+      "Same OSM way and coordinates as geometry:superkekb-tunnel-ring (the physically same tunnel, reused across the KEKB-to-SuperKEKB upgrade): intentionally triggers geometry-duplicate-shape, explained here and in the worklog."
+    ]
+  },
+  "geometry:km3net-arca-footprint": {
+    "notes": [
+      "No checks[] row: the circle's radius IS the sourced LoI figure (R=500 m), so a span check against that same number would be tautological (draw exactly R, then check that R measures R), not an independent cross-check -- the same reasoning docs/atlas-worklog/GEOMETRY_cern.md gives for the TI12/TI18 derived points. A genuine independent check would need a second, different official figure for ARCA's footprint (e.g. a horizontal span stated in an unrelated paper); none was fetched this session."
+    ]
+  },
+  "geometry:km3net-arca-site-point": {
+    "notes": [
+      "No checks[] row: a Point has no length/area/span to cross-check independently; the coordinate itself is corroborated by two independent official sources (site page + Letter of Intent), which is why confidence is 'verified' rather than 'approximate'."
+    ]
+  },
+  "geometry:km3net-orca-footprint": {
+    "notes": [
+      "No checks[] row: no independently-published ORCA footprint figure was found this session to check this estimate against (three fetched papers -- arXiv:2408.07015, arXiv:1701.05849, and the km3net.org ARCA-and-ORCA detector page -- give string spacing but not an overall radius/diameter for ORCA). Web-search summaries suggested a ~100 m radius / ~200 m diameter figure consistent with this estimate, but no primary source stating it could be directly fetched and quoted this session, so it is not cited as a source or used as a checks[] row (see the worklog)."
+    ]
+  },
+  "geometry:km3net-orca-site-point": {
+    "notes": [
+      "No checks[] row: a Point has no length/area/span to cross-check independently; the coordinate is corroborated by two independent official sources."
+    ]
+  },
+  "geometry:lansce-site-marker": {
+    "notes": [
+      "LANL/TA-53 is security-sensitive; per the research brief only accelerator/experimental areas on public LANSCE maps may be depicted, never fences or gates. Given the sparse public OSM coverage of TA-53 (a broad Overpass building search inside a 2 km box around this node returned zero ways even when Overpass was briefly reachable), a single named point is the most that can be honestly drawn this session."
+    ]
+  },
+  "geometry:leibstadt-conus-detector": {
+    "notes": [
+      "QA pass (2026-09-21): removed the `valid: {start: '2023-11', end: null}` window a previous pass set -- a preventive fix for a latent bug in hepgraph.atlas.build._feature_segments(): any `valid` dict with a non-null `start` and `end: null` hard-codes `status: 'active'` through build day regardless of the entity's real status, bypassing state_segments entirely. Currently harmless because detector:conus-hpge-array genuinely is 'active' today, but this pattern produced a live false-'active' claim on three other records (geometry:lhc-tunnel-ring, geometry:fermilab-mc1-building, geometry:fermilab-microboone-hall) fixed the same way in this pass -- see docs/atlas-worklog/REVIEW_geometry_qa.md.",
+      "Integrator (2026-09-21): ODbL-1.0 licence — the point is derived from the OpenStreetMap reactor-building footprint."
+    ]
+  },
+  "geometry:leibstadt-core": {
+    "notes": [
+      "Not independently confirmed as the reactor containment building by an OSM name/tag; see geometry note.",
+      "Integrator (2026-09-21): entity_id set to the plant campus site so the map accounts for the detector-hosting site; the reactor building is the structure the CONUS detectors sat in."
+    ]
+  },
+  "geometry:lep-tunnel-ring": {
+    "notes": []
+  },
+  "geometry:lhaaso-array-point": {
+    "notes": [
+      "KM2A (circular, ~575-635 m radius) and WCDA (78,000 m2, two 150x150 m pools plus one 300x110 m pool) are described with enough shape/size detail to draw, and are now anchorable (this point's accuracy_m is well under either shape's own size), but no source found in this review states their offset/orientation from this reference point, so neither is drawn; see method and backlog in docs/atlas-worklog/REVIEW_geometry_qa.md.",
+      "QA pass (2026-09-21): this record previously reused an OSM/Nominatim geocode verbatim (representation `georeferenced`, confidence `approximate`, accuracy_m 5000) and briefly carried an ODbL-1.0 licence added earlier the same pass to correct that omission; both are superseded by the coordinate/source swap above, which replaces the OSM-derived point entirely with a published journal figure, so `license` reverts to null (this is now the atlas's own citation of a published number, not third-party geodata)."
+    ]
+  },
+  "geometry:lhc-tunnel-ring": {
+    "notes": [
+      "QA pass (2026-09-21): removed the `valid: {start: '1985-02', end: null}` window a previous pass set. hepgraph.atlas.build._feature_segments() treats any `valid` dict with a non-null `start` as an open-ended 'active' window through build day whenever `end` is null, overriding the entity's own state_segments entirely -- so this feature was rendering `status: 'active'` in the built bundle today even though accelerator:lhc's own sourced timeline says otherwise (status 'shutdown' at build day 2026-09-21, confirmed by directly testing hepgraph.atlas.build._Context.status_at_build/segments). Removing `valid` restores the intended fallback (contract SS3: 'without it the feature inherits the entity's timeline'). This is a pipeline-code gap (hepgraph/atlas/build.py `_feature_segments`), not unique to this record -- see docs/atlas-worklog/REVIEW_geometry_qa.md."
+    ]
+  },
+  "geometry:linac4-building": {
+    "notes": []
+  },
+  "geometry:lingao-core-l1": {
+    "notes": []
+  },
+  "geometry:lingao-core-l2": {
+    "notes": []
+  },
+  "geometry:lingao-ii-core-l3": {
+    "notes": []
+  },
+  "geometry:lingao-ii-core-l4": {
+    "notes": []
+  },
+  "geometry:lngs-external-labs-boundary": {
+    "notes": [
+      "This is the surface administrative and office complex at Assergi, not the underground halls (see geometry:lngs-hall-a/-b/-c for those)."
+    ]
+  },
+  "geometry:lngs-external-labs-point": {
+    "notes": [
+      "This point is 79.6 m from the vertex-averaged centroid of the independently-georeferenced OSM building geometry:lngs-external-labs-boundary, corroborating both (see the facility worklog).",
+      "This is the surface administrative complex, not the underground halls; it should not be used to correct site:lngs-hall-a/-b/-c's own coordinates (those are 'kind: underground_lab' records and this point is 'kind: campus'-equivalent, at the surface, several kilometres from the halls by tunnel). See geometry:lngs-hall-a/-b/-c and the worklog for the underground correction instead."
+    ]
+  },
+  "geometry:lngs-hall-a": {
+    "notes": [
+      "Duplicate coordinates with geometry:lngs-hall-b and geometry:lngs-hall-c are intentional: the three halls are known to lie within the same sourced ~700 m zone, but nothing fetched this session orders them along it. See the facility worklog and map.unlocated-style note; not placed in map.unlocated because a sourced, if coarse, position is available and is more informative than omission."
+    ]
+  },
+  "geometry:lngs-hall-b": {
+    "notes": [
+      "Duplicate coordinates with geometry:lngs-hall-a and geometry:lngs-hall-c are intentional: the three halls are known to lie within the same sourced ~700 m zone, but nothing fetched this session orders them along it. See the facility worklog.",
+      "site:lngs-hall-b is facility:lngs's primary_site_id and currently carries the same 8 km-precision Assergi address coordinate as the other two halls; this derived point (400 m accuracy) is offered as a site coordinate correction in the worklog."
+    ]
+  },
+  "geometry:lngs-hall-c": {
+    "notes": [
+      "Duplicate coordinates with geometry:lngs-hall-a and geometry:lngs-hall-b are intentional: the three halls are known to lie within the same sourced ~700 m zone, but nothing fetched this session orders them along it. See the facility worklog. This point also stands in for the historic ICARUS T600 placement (2010-2013) at Hall B and the CERN-to-Gran-Sasso far end for OPERA and Borexino at Hall C, per their existing detector placements."
+    ]
+  },
+  "geometry:lngs-lab-access-zone": {
+    "notes": [
+      "This is the sourced stretch of the highway tunnel adjacent to the laboratory's entrance and exit doors, not a hall footprint: no fetched source this session gives the perpendicular offset, orientation or footprint of Halls A/B/C from the highway tunnel centreline, only their combined dimensions (about 100 x 20 x 18 m each, src:geo-euro-ug-pandola-2011) and this along-tunnel span. See geometry:lngs-hall-a/-b/-c for the (undifferentiated) hall markers derived from this zone's midpoint."
+    ]
+  },
+  "geometry:lngs-tunnel-gran-sasso": {
+    "notes": [
+      "This is the public two-way road tunnel that the LNGS underground laboratory is dug beside; the tunnel itself is not an LNGS entity (entity_id null, a context feature) but is drawn because the laboratory's own position is defined relative to it (see geometry:lngs-lab-access-zone)."
+    ]
+  },
+  "geometry:magic-array-point": {
+    "notes": [
+      "Identical coordinate to geometry:ctao-north-lst1-point -- expected to raise the validator's geometry-duplicate-shape warning; both experiments genuinely occupy this same approximate 500 m patch of the observatory and are not resolved to finer precision this session (see map notes and worklog).",
+      "QA pass (2026-09-21): added the ODbL-1.0 licence this record omitted despite its own `method`/`geometry.note` stating the coordinate is a verbatim Nominatim (OpenStreetMap) geocode; the underlying `src:cosmic-gamma-nominatim-roque-de-los-muchachos` source predates the A25 `openstreetmap` source_type convention (it is typed `geocoder`) and its Nominatim response did not record a specific osm_id, so `osm.elements` is left null rather than invented. No coordinate or claim changed. Same fix applied to the identical case on geometry:ctao-north-lst1-point."
+    ]
+  },
+  "geometry:meyrin-site-marker": {
+    "notes": [
+      "QA pass (2026-09-21): added the ODbL-1.0 licence and `osm.elements` this record omitted despite naming OSM relation 27005 (Nominatim) as its coordinate source in `method`; the underlying `src:cern-meyrin-osm-nominatim` source predates the A25 `openstreetmap` source_type convention (it is typed `geocoder`), so the validator's automatic OSM-license check did not catch the omission. No coordinate or claim changed."
+    ]
+  },
+  "geometry:modane-carre-sciences-point": {
+    "notes": [
+      "This is a public-outreach building in Modane village, at the surface, about 6.4 km from the underground laboratory (geometry:modane-lsm-underground) by tunnel. It is drawn separately precisely because the pre-existing site:lsm-frejus coordinate (precision_m 500) is this point's near-neighbour, not the underground laboratory's own position; see the facility worklog's site coordinate correction."
+    ]
+  },
+  "geometry:modane-lsm-underground": {
+    "notes": [
+      "This is the underground laboratory itself (inside the mountain), not the Carré Science surface outreach building in Modane village (see geometry:modane-carre-sciences-point) which the pre-existing site:lsm-frejus coordinate (an OSM/Nominatim point 6.4 km away, precision_m 500) actually reflects; see the facility worklog for a proposed site coordinate correction."
+    ]
+  },
+  "geometry:modane-tunnel-frejus": {
+    "notes": [
+      "This is the public two-way (historically) / now-split-direction road tunnel that LSM is excavated beside, between Modane (France) and Bardonecchia (Italy); the tunnel itself is not an LSM entity (entity_id null, context feature)."
+    ]
+  },
+  "geometry:petra-iii-tunnel": {
+    "notes": []
+  },
+  "geometry:point1-atlas-boundary": {
+    "notes": [
+      "QA pass (2026-09-21): populated `osm.timestamp` (2026-09-18T20:22:14Z) from the extract timestamp already recorded in its own cited source's excerpt (src:geo-cern-osm-point1-atlas-boundary) -- the contract requires the geometry record's own `osm` field to carry the extract's timestamp_osm_base, which was present in the source record but had not been copied into this geometry record."
+    ]
+  },
+  "geometry:point2-alice-boundary": {
+    "notes": [
+      "QA pass (2026-09-21): populated `osm.timestamp` (2026-09-18T20:24:21Z) from the extract timestamp already recorded in its own cited source's excerpt (src:geo-cern-osm-point2-alice-boundary) -- the contract requires the geometry record's own `osm` field to carry the extract's timestamp_osm_base, which was present in the source record but had not been copied into this geometry record."
+    ]
+  },
+  "geometry:point2-l3-boundary": {
+    "notes": [
+      "QA pass (2026-09-21): populated `osm.timestamp` (2026-09-18T20:24:21Z) from the extract timestamp already recorded in its own cited source's excerpt (src:geo-cern-osm-point2-alice-boundary) -- the contract requires the geometry record's own `osm` field to carry the extract's timestamp_osm_base, which was present in the source record but had not been copied into this geometry record."
+    ]
+  },
+  "geometry:point4-aleph-boundary": {
+    "notes": [
+      "QA pass (2026-09-21): populated `osm.timestamp` (2026-09-18T21:49:58Z) from the extract timestamp already recorded in its own cited source's excerpt (src:geo-cern-osm-point4-boundary) -- the contract requires the geometry record's own `osm` field to carry the extract's timestamp_osm_base, which was present in the source record but had not been copied into this geometry record."
+    ]
+  },
+  "geometry:point5-cms-boundary": {
+    "notes": [
+      "QA pass (2026-09-21): populated `osm.timestamp` (2026-09-18T20:23:18Z) from the extract timestamp already recorded in its own cited source's excerpt (src:geo-cern-osm-point5-cms-boundary) -- the contract requires the geometry record's own `osm` field to carry the extract's timestamp_osm_base, which was present in the source record but had not been copied into this geometry record."
+    ]
+  },
+  "geometry:point5-cms-cavern": {
+    "notes": []
+  },
+  "geometry:point8-delphi-boundary": {
+    "notes": [
+      "QA pass (2026-09-21): populated `osm.timestamp` (2026-09-18T21:49:58Z) from the extract timestamp already recorded in its own cited source's excerpt (src:geo-cern-osm-point8-lhcb-boundary) -- the contract requires the geometry record's own `osm` field to carry the extract's timestamp_osm_base, which was present in the source record but had not been copied into this geometry record."
+    ]
+  },
+  "geometry:point8-lhcb-boundary": {
+    "notes": [
+      "QA pass (2026-09-21): populated `osm.timestamp` (2026-09-18T21:49:58Z) from the extract timestamp already recorded in its own cited source's excerpt (src:geo-cern-osm-point8-lhcb-boundary) -- the contract requires the geometry record's own `osm` field to carry the extract's timestamp_osm_base, which was present in the source record but had not been copied into this geometry record."
+    ]
+  },
+  "geometry:prevessin-site-boundary": {
+    "notes": []
+  },
+  "geometry:ps-tunnel-ring": {
+    "notes": []
+  },
+  "geometry:psb-tunnel-ring": {
+    "notes": []
+  },
+  "geometry:psi-campus-boundary": {
+    "notes": [
+      "OSM's timestamp_osm_base is not available from Nominatim's response the way it is from a direct Overpass extract; osm.timestamp records the access date instead.",
+      "entity_id is the site (site:psi-villigen); this one feature accounts for the site and, through it, the site-hosted detector placements of detector:meg, detector:meg-ii and detector:mu3e, none of which has its own sourced hall footprint this session (see accelerator:psi-hipa's unlocated row and the worklog)."
+    ]
+  },
+  "geometry:reno-far-detector": {
+    "notes": [
+      "Integrator (2026-09-21): ODbL-1.0 licence added — the shape is derived from or copied from OpenStreetMap data (src:geo-reactors-osm-hanbit-reactors), which makes it a derivative database under the ODbL regardless of the derivation step in between."
+    ]
+  },
+  "geometry:reno-near-detector": {
+    "notes": [
+      "Integrator (2026-09-21): checks against units 3–6 sit 3.3–3.8 % (10–28 m) from the TDR distances; over 300–740 m baselines that is the expected size of the offset between a reactor-building centroid and the core centre, so the tolerance is 5 % and accuracy_m 30 m rather than the fit residual alone.",
+      "Integrator (2026-09-21): ODbL-1.0 licence added — the shape is derived from or copied from OpenStreetMap data (src:geo-reactors-osm-hanbit-reactors), which makes it a derivative database under the ODbL regardless of the derivation step in between."
+    ]
+  },
+  "geometry:slac-collider-experimental-hall-dmradio": {
+    "notes": [
+      "Location is sourced to the DMRadio-m3 detector paper ('DMRadio-m3 will be located in Building 750 at SLAC National Accelerator Laboratory, the former site of the SLD detector', src:geo-slac-dmradio-prd-2022), independent of and more specific than detector:dmradio's own currently-sourced placement (site:slac-menlo-park-campus, the general campus point). See the worklog's site coordinate corrections."
+    ]
+  },
+  "geometry:slac-collider-experimental-hall-sld": {
+    "notes": []
+  },
+  "geometry:slac-linac-klystron-gallery": {
+    "notes": [
+      "Confidence verified rests on the passing span check against SLAC's own official figure for the length of this exact structure (not a proxy figure): the official page states the linear accelerator structure (i.e. the Klystron Gallery building measured here) is 3,073.72 m long."
+    ]
+  },
+  "geometry:slac-other-pep-and-end-station-buildings": {
+    "notes": [
+      "End Station A (building 61) is SLAC's historic fixed-target hall where the 1969-1973 SLAC-MIT deep-inelastic-scattering experiments found the first direct evidence of quarks; it hosts the modern End Station Test Beam (ESTB) facility today. Neither ESA nor ESB corresponds to a detector/experiment entity in this atlas wave, so both are drawn only as context buildings.",
+      "The four other PEP-II interaction regions (IR-4/6/8/12) and the PEP Control Room / PEP Beam Facility (which serves the Stanford Synchrotron Radiation Lab, SSRL, a separate light-source facility not modeled in HEP Atlas) have no atlas accelerator/detector/experiment entity either; drawn as context for campus completeness only."
+    ]
+  },
+  "geometry:slac-pep-ii-partial-ring": {
+    "notes": [
+      "PEP-II's circumference is officially 2,200 m (src:geo-slac-pepii-cdr-osti, the PEP-II Conceptual Design Report: 'each with a circumference of 2200 m'), but the two mapped road segments together measure only 1,320.2 m + 699.0 m = 2,019.2 m and do not close into a loop, so no `checks[]` length row is asserted here (a check against an incomplete, unclosed shape would not be a meaningful circumference measurement). See the worklog for this residual.",
+      "This ring-road proxy stands in the SLAC Research Yard around which the PEP-II (and originally PEP) storage rings ran; the five 'PEP Interaction Region' buildings (620, 640, 660, 680, 720) sit along its inferred path, of which IR-2 (620) is drawn separately as the BaBar hall."
+    ]
+  },
+  "geometry:slac-pep-ir2-babar-hall": {
+    "notes": []
+  },
+  "geometry:slac-property-boundary": {
+    "notes": []
+  },
+  "geometry:snolab-cavity": {
+    "notes": []
+  },
+  "geometry:snolab-creighton-mine-boundary": {
+    "notes": []
+  },
+  "geometry:snolab-surface-office": {
+    "notes": []
+  },
+  "geometry:sns-complex-boundary": {
+    "notes": [
+      "Neutrino Alley itself is officially described as a '164-foot, or 50-meter, long hallway' in the basement of the SNS target building, with its closest point 'about 20 meters from the SNS target' (src:geo-ornl-neutrino-alley-qa), but no coordinate, OSM element or published site plan locating this corridor within the complex was found this session; see the worklog backlog."
+    ]
+  },
+  "geometry:soudan-mine-shaft-building": {
+    "notes": []
+  },
+  "geometry:soudan-minos-far-detector-point": {
+    "notes": []
+  },
+  "geometry:south-pole-station-marker": {
+    "notes": [
+      "This marker stands in for site:south-pole-icecube on the map, the same way geometry:meyrin-site-marker stands in for site:cern-meyrin on map:cern. site:south-pole-ara is NOT covered by this marker (it is a physically distinct site ~2 km away with no sourced position of its own this session) and is listed in map.unlocated[] instead."
+    ]
+  },
+  "geometry:sps-tunnel-ring": {
+    "notes": []
+  },
+  "geometry:super-kamiokande-cavern": {
+    "notes": []
+  },
+  "geometry:superkekb-tunnel-ring": {
+    "notes": [
+      "`valid` left null: the feature inherits accelerator:superkekb's own state_segments (construction from 2011-11-18, active from 2019-03-11). The tunnel is the same KEKB tunnel, reused in place.",
+      "Same OSM way and coordinates as geometry:kekb-tunnel-ring: intentionally triggers geometry-duplicate-shape, explained in the worklog (same pattern as CERN's LHC/LEP pair)."
+    ]
+  },
+  "geometry:surf-administration-building": {
+    "notes": []
+  },
+  "geometry:surf-davis-campus-cavern": {
+    "notes": []
+  },
+  "geometry:surf-ross-headframe": {
+    "notes": []
+  },
+  "geometry:surf-ross-hoist": {
+    "notes": []
+  },
+  "geometry:surf-yates-headframe": {
+    "notes": []
+  },
+  "geometry:surf-yates-hoist": {
+    "notes": []
+  },
+  "geometry:t2k-beam-direction-kamioka": {
+    "notes": []
+  },
+  "geometry:ta-array-point": {
+    "notes": [
+      "507-counter 1.2 km grid and the three fluorescence-detector sites (Black Rock Mesa, Long Ridge, Middle Drum) are not drawn: their widely repeated coordinates trace only to a hobbyist astronomy site (cleardarksky.com), not to an official TA page or paper fetched this session (telescopearray.org and known mirrors were unreachable). Backlog: fetch the TA NIM/detector papers' own station tables, or an official site plan."
+    ]
+  },
+  "geometry:ti12-faser-point": {
+    "notes": []
+  },
+  "geometry:ti18-snd-lhc-point": {
+    "notes": []
+  },
+  "geometry:veritas-array-point": {
+    "notes": [
+      "Individual T1-T4 positions not resolved this session; only pairwise inter-telescope distances are published (35-127 m). Backlog: an OSM trace of the telescope pads, or a paper/diagram with absolute coordinates or bearings."
+    ]
+  },
+  "geometry:wipp-boundary": {
+    "notes": []
+  },
+  "geometry:wipp-mineshaft-building": {
+    "notes": []
+  },
+  "geometry:wipp-mineshaft-point": {
+    "notes": []
+  },
   "institution:a-alikhanyan-national-laboratory": {
     "notes": [],
     "summary_technical": "national_laboratory (ROR https://ror.org/00ad27c73); established 1944."
@@ -6604,6 +7333,262 @@
   "institution:zhengzhou-university": {
     "notes": [],
     "summary_technical": "university (ROR https://ror.org/04ypx8c21); established 1956."
+  },
+  "map:amundsen-scott-south-pole-station": {
+    "notes": [
+      "Overpass (overpass-api.de and lz4.overpass-api.de) was refusing all connections for a long stretch of this session (curl exit 7 'Failed to connect', even to /api/status) after one successful query; this matches the shared-load pattern documented in docs/atlas-worklog/GEOMETRY_cern.md. Only one South Pole query succeeded before the outage (the station node used for geometry:south-pole-station-marker); a follow-up unrestricted building/man_made query and a search for the IceCube Laboratory (ICL) building did not complete this session. See the worklog for the retry outcome.",
+      "The 86-string IceCube in-ice array, IceTop, DeepCore, the ARA stations, AMANDA, the IceCube Upgrade and IceCube-Gen2 are all deliberately left unlocated: IceCube's own coordinate system is a local South Pole grid (Northings/Eastings) documented on docs.icecube.aq, which returned HTTP 401 Unauthorized to every fetch attempt this session and so could not be read or quoted; no other fetched source states how that grid's axes relate to true geographic north. Nothing in this record is derived from that unreachable page."
+    ],
+    "summary_technical": "Local map for facility:amundsen-scott-south-pole-station. A single OpenStreetMap reference point stands in for site:south-pole-icecube; site:south-pole-ara and every South Pole detector/experiment entity (detector:icecube, detector:icecube-deepcore, detector:icetop, detector:ara, experiment:amanda, experiment:icecube-upgrade, experiment:icecube-gen2) are unlocated pending a citable statement of the IceCube local (x,y) coordinate system's orientation relative to true north (docs.icecube.aq's Coordinate Systems page states this but returned 401 Unauthorized to every fetch attempt this session)."
+  },
+  "map:baikal-deep-underwater-neutrino-telescope": {
+    "notes": [
+      "The array is described as growing annually (12 clusters implied by 96 strings / 8 strings-per-cluster as of the winter 2023 season cited here; web search indicates further growth to 14-15 clusters by 2024-2025, but that could not be independently fetched and quoted this session, so only the 2023 status paper's own directly-quoted numbers are used in the data records). Only one representative cluster's footprint is drawn (geometry:baikal-gvd-cluster-footprint); the full multi-cluster array footprint is not stated by any source fetched this session and is not derived here (drawing a hexagonal-packing guess for 12+ clusters at 300 m spacing would assume a specific packing shape that is not itself sourced).",
+      "The onshore 'shore station' housing the control/DAQ systems is mentioned in secondary sources (~4 km from the lake site, near the Ivanovka river outfall) but no source fetched this session gives it a citable building-level position, and Overpass access was unreachable for most of this session (see map:amundsen-scott-south-pole-station's notes) so no OSM search for it could be completed. Left as a backlog item rather than drawn or guessed."
+    ],
+    "summary_technical": "Local map for facility:baikal-deep-underwater-neutrino-telescope. One surveyed point (the collaboration's own published 51 46'N 104 24'E) and one derived ~120 m-diameter circle for a single cluster's string layout (per the 2023 status paper, arXiv:2309.16310); the full multi-cluster array footprint is not sourced and not drawn."
+  },
+  "map:baksan-neutrino-observatory": {
+    "notes": [
+      "This map is honestly thin: the surface administrative building and the Neutrino settlement are drawn from OpenStreetMap, but the tunnels themselves and the SAGE underground hall are not, because no fetched source this session gives the tunnel's path/bearing and OpenStreetMap does not appear to trace it (no way was found via Nominatim name search for 'Baksan tunnel' or Cyrillic equivalents, and a bounding-box tag search that Overpass would have allowed was not possible — Overpass was unreachable throughout this session, see the facility worklog).",
+      "SAGE's own 1999 paper (src:sage-1999-capture-rate) states the laboratory is '3.5 km from the entrance of a horizontal adit excavated into the side of Mount Andyrchi' with a 60x10x12 m chamber (src:geo-euro-ug-pandola-2011); this is recorded here and in the facility worklog as backlog for a future pass with Overpass access or a topographic source giving the tunnel's bearing."
+    ],
+    "summary_technical": "One local map for facility:baksan-neutrino-observatory. Only surface features (OSM: the BNO administrative building, way 1504181774; the Neutrino settlement, way 206835293) are drawn. site:baksan-sage-underground-lab is left unlocated: SAGE's own 1999 paper gives its distance from the adit entrance (3.5 km) but not the tunnel's bearing, and Overpass, which could have supplied the tunnel's own OSM trace, was unreachable throughout this session."
+  },
+  "map:boulby-underground-laboratory": {
+    "notes": [
+      "This map is honestly thin: it can draw the mine's surface works site (traced from aerial imagery) and a sourced depth for the underground level, but no fetched source this session locates the specific shaft or the underground laboratory workings within that surface footprint. No detector is placed at site:boulby-mine in this atlas dataset (ZEPLIN and DRIFT, which the laboratory has hosted, are not yet atlas entities), so no entity besides the site itself needs accounting here.",
+      "Overpass (which could plausibly find shaft-head buildings or man_made=mineshaft nodes by a bounding-box tag query) was unreachable throughout this session; see the facility worklog."
+    ],
+    "summary_technical": "One local map for facility:boulby-underground-laboratory. The mine's surface works site (OSM way 29230185, traced from Bing imagery) is the only drawn geometry; the underground level carries a sourced depth (1.1 km, STFC) but no feature, since no fetched source this session positions the shaft or the underground laboratory workings more precisely than the surface footprint above them."
+  },
+  "map:brokdorf-nuclear-power-plant": {
+    "notes": [],
+    "summary_technical": "Reactor-building footprint from OpenStreetMap (georeferenced); CONUS drawn as a derived point at the building centroid with accuracy widened for the unresolved 17.1 m offset (arXiv:2401.07684)."
+  },
+  "map:brookhaven-national-laboratory": {
+    "notes": [
+      "All three of this facility's atlas sites (site:bnl-upton-campus, site:bnl-rhic-ip6-star, site:bnl-rhic-ip8-phenix-sphenix) and both of its atlas accelerators (accelerator:rhic, accelerator:ags) are drawn; map.unlocated is empty. accelerator:bnl-linac and accelerator:bnl-booster (optional ids reserved for the 'facilities' partition in ID_REGISTRY.md) were never created in this atlas, so Buildings 930 (Linear Accelerator), 901 (Tandem Van de Graaff) and 942 (AGS Booster) are drawn as unlinked context features (entity_id null) rather than being listed in unlocated[], which only covers entities that actually exist as atlas records.",
+      "An Overpass query for a BNL campus-boundary polygon (comparable to CERN's Meyrin/Prévessin fence lines) was queued but overpass-api.de and its lz4 mirror both became unreachable ('Connection refused') for the remainder of this session; the boundary (geometry:bnl-upton-campus-boundary) was instead fetched via the Nominatim search API (OSM relation 18896697), a separate OSM service that remained reachable. See the worklog's 'Method note' section.",
+      "E949 (Brookhaven AGS experiment, K+ -> pi+ nu nu-bar) has no atlas site or detector record of its own (its facility_roles reference facility:brookhaven-national-laboratory only), so nothing about it is drawn or listed in unlocated[]; a candidate location (Building 912, 'AGS Exp. Area', drawn here as geometry:bnl-ags-experimental-area-building) is flagged in the worklog as a lead for whoever creates that site record."
+    ],
+    "summary_technical": "One local map for facility:brookhaven-national-laboratory spanning the RHIC and AGS ring footprints and the adjoining accelerator-complex buildings on the Upton campus. Geometry sourced from OpenStreetMap (way 50074088 for the RHIC ring, tagged tunnel=yes/indoor=yes; way 289305285 for the AGS ring, tagged place=locality) cross-checked against BNL's published RHIC circumference (2.4 mi) and the AGS's 1960 design-specification mean radius (421.5 ft), plus OSM building footprints for the STAR (1006/1006A) and PHENIX/sPHENIX (1008/1008A) halls corroborated against BNL's own central-campus-map building-number key."
+  },
+  "map:canfranc-underground-laboratory": {
+    "notes": [
+      "The pre-existing site:lsc-canfranc coordinate (42.7493154, -0.5162702, kind campus, precision_m 500) is the same OSM feature as geometry:canfranc-surface-building, the laboratory's administrative offices at Canfranc-Estación, about 3.0 km from the underground laboratory itself (geometry:canfranc-lab-underground, an independently OSM-tagged feature 'Galería de evacuación 12', Aía). See the facility worklog for a proposed site coordinate correction and a proposed `kind` change to underground_lab.",
+      "The historic Canfranc railway tunnel is only partially traced in OpenStreetMap (about 1.28 km of a tunnel usually cited at ~7.8 km); geometry:canfranc-tunnel-rail-somport-stub is drawn honestly as a partial trace rather than extended by guesswork. See the facility worklog backlog."
+    ],
+    "summary_technical": "One local map for facility:canfranc-underground-laboratory. The Somport road tunnel (OSM ways 29050143 + 76450688 + 1356486837, length-checked at 0.34% against a civil-engineering journal article) is drawn as context, alongside a partial trace of the historic rail tunnel. The laboratory itself is a separately OSM-tagged feature (way 1075274236) about 3.0 km from the surface administrative building at Canfranc-Estación (way 711426145)."
+  },
+  "map:cern": {
+    "notes": [
+      "Linked maps: map:lngs (the CNGS far site at LNGS) does not exist yet in this atlas; linked_map_ids is left empty here and the build's automatic derivation (from beamline:cngs's far_detector_site_ids) will populate it once LNGS has its own map.",
+      "site:cern-lep-point-2-l3 and site:cern-point-2-alice, and site:cern-lep-point-8-delphi and site:cern-point-8-lhcb, are drawn as separate geometry features using the SAME underlying OSM polygon (the same physical Point 2 / Point 8 enclosure hosted a LEP experiment 1989-2000 and hosts an LHC experiment today); this is expected to raise the validator's geometry-duplicate-shape warning for those two pairs, documented here and in the worklog rather than avoided by omission."
+    ],
+    "summary_technical": "One local map for facility:cern spanning the Meyrin and Prévessin sites and the full LHC/LEP tunnel footprint. Geometry sourced from OpenStreetMap (relation 9512017 for the LHC/LEP ring; ways 66473762/174646428/309914733 for SPS/PS/PSB; named Point-N surface enclosures for ATLAS/ALICE/CMS/LHCb and their LEP-era predecessors L3/ALEPH/DELPHI) cross-checked against CERN's published circumference and depth figures, plus one CMS-paper surveyed cavern point and two ring-derived points for FASER/SND@LHC in TI12/TI18."
+  },
+  "map:chooz": {
+    "notes": [
+      "Chooz A (shut down 1991) is drawn for campus context only; the Double Chooz and NUCLEUS baselines refer to B1/B2."
+    ],
+    "summary_technical": "Reactor-building footprints from OpenStreetMap; no laboratory position drawn because two cores alone leave a mirror ambiguity."
+  },
+  "map:cjpl": {
+    "notes": [
+      "No accelerator or beamline entity has facility_id: facility:cjpl (it is a passive underground laboratory, not an accelerator complex), so unlocated[] has nothing to list on that front; both of the facility's sites (site:cjpl-i, site:cjpl-ii) are drawn.",
+      "detector:pandax-4t's placement site_id is site:cjpl-ii; no independently sourced sub-position for PandaX-4T within the CJPL-II hall complex was found this session, so it shares geometry:cjpl-ii-point rather than getting its own feature (unlike CERN's CMS cavern point, which had its own published coordinate)."
+    ],
+    "summary_technical": "Local map for facility:cjpl. Both halls are drawn as points derived by walking the sourced portal-to-hall distances (8.7-9.2 km) along an OpenStreetMap trace of the Jinping traffic tunnel (two near-identical parallel bores; one is drawn). The tunnel's own OSM-measured length (17.5 km) is cross-checked against the facility's published '17.5-km-long traffic tunnels' figure."
+  },
+  "map:ctao-south-paranal": {
+    "notes": [
+      "Facility status is 'construction'; individual telescope positions are planned, not yet built/surveyed, per CTAO's own site description."
+    ],
+    "summary_technical": "One local map for facility:ctao-south-paranal. Drawn as a single reference point at CTAO's own official published array-site coordinate; the planned telescope grid (eventually 2 LST + 14 MST + 37 SST) has no published individual pad coordinates this session."
+  },
+  "map:daya-bay-reactor-neutrino-lab": {
+    "notes": [
+      "The three halls are drawn as derived points (not footprints): their positions come from multilateration, not from a survey or a tracing; accuracy_m on each hall covers the fit residual and the use of reactor-building centroids as proxies for the core centres."
+    ],
+    "summary_technical": "Reactor-building footprints from OpenStreetMap (georeferenced); EH1–EH3 positions derived by least-squares multilateration from the six cores using the AD-to-core baselines of arXiv:1508.03943 Table 2 (survey uncertainty < 18 mm); overburdens from §2.2/Table 1 of the same paper."
+  },
+  "map:desy": {
+    "notes": [
+      "Site coordinate correction (for the integrator, not applied here): site:desy-hamburg-campus, site:desy-hera-north-hall-h1 and site:desy-hera-south-hall-zeus all currently carry the same ROR-geocoded point (53.55073N, 9.99302E, precision_m 800). That point is about 10.3 km from DESY's actual Hamburg-Bahrenfeld campus. Two independent sources fetched this session agree with each other instead: (1) OSM way 276641657, the campus landuse polygon itself, tagged with DESY's own postal address (Notkestraße 85, 22607 Hamburg) and centroid 53.5771N, 9.8808E; (2) src:desy-wikipedia's own excerpt, already cited by the existing site record, states the coordinate '53 34'33''N 9 52'46''E' = 53.5758N, 9.8794E -- 150 m from (1) and nothing like the ROR point actually used. See the worklog for the full correction list.",
+      "geometry:hera-halle-nord (entity_id site:desy-hera-north-hall-h1) stands in for both detector:h1 (1992-2007) and detector:alps-ii (active, in the same former HERA tunnel straight section); it is not time-sliced because sites carry no independent state_segments in this schema version, matching map:cern's documented over-display of boundary/hall features across every year."
+    ],
+    "summary_technical": "One local map for facility:desy spanning the Hamburg-Bahrenfeld campus and the full HERA ring footprint. Geometry sourced from OpenStreetMap (way 24973326 for the HERA ring; way 276641657 for the campus boundary; way 131496014 for the North Hall/H1 building; way 297515305 for the PETRA III storage-ring tunnel, drawn as context) cross-checked against DESY's own published HERA ring length and depth figures."
+  },
+  "map:fermilab": {
+    "notes": [
+      "Far sites (not drawn on this map; see the geometry worklog for great-circle distances and bearings computed from the sourced site:fermilab-main-campus point): site:soudan-minos-far-detector (735.4 km, bearing 336.0 degrees, historical MINOS-era NuMI beam), site:ash-river-nova-far-detector (811.7 km, bearing 335.5 degrees, current NOvA-era NuMI beam), site:surf-4850-level-dune-far-detector (1287.6 km, bearing 287.7 degrees, LBNF beam). No map:soudan, map:ash-river or map:surf record exists yet in this branch, so linked_map_ids is empty; the integrator should populate it once those maps exist.",
+      "The campus site (site:fermilab-main-campus, a 3 km point) is represented by the campus boundary and by the halls/points drawn at it with `site_id`; detectors placed there that could not be located are listed individually in `unlocated[]`.",
+      "QA pass (2026-09-21): detector:seaquest and site:fermilab-nm4-hall are no longer unlocated. An independent QA re-derivation found (and this reviewer independently re-confirmed with a direct fetch) OpenStreetMap node 4425992583, tagged name=SeaQuest, addr:housenumber=NM4, in the campus bbox -- the prior 'no OSM trace' reason was narrowly true (a search for the literal string 'NM4' finds nothing) but gave a false overall impression, since a search for the experiment's own name finds it directly. Now drawn as geometry:fermilab-seaquest-point."
+    ],
+    "summary_technical": "Local to-scale map of the Fermilab Batavia campus: a derived circle for the Booster ring (474 m sourced circumference, OSM-fit centre) and for the Tevatron ring (6.3 km sourced circumference, OSM ring-road-fit centre, cross-checked against the OSM-sourced CDF and D0 hall positions); georeferenced/derived OSM building footprints for the CDF Hall, D0 Assembly Building, MINOS and NOvA near-detector surface buildings, MiniBooNE Detector Building, the LArTF/MicroBooNE hall, a positionally-identified ICARUS-T600 hall and the Muon g-2 MC-1 building; derived target_station/beamline features for BNB and NuMI, each anchored on two independently-named OSM footprints rather than a coarse site point, with passing distance/azimuth checks; an approximate linac axis; context-only campus boundary, Main Injector-area grassland and MC-2 polygons; and inferred-direction lines for the NuMI and LBNF beams, now starting from the derived NuMI target. The Main Injector, Recycler, PIP-II, KTeV, Mu2e, SBND (candidate footprints found but not confidently identified), MINERvA, DONUT, SENSEI, DAMIC (prototype) and the DUNE near detector are unlocated, each with a sourced reason and backlog. SeaQuest/NM4 was added by a QA pass (2026-09-21) as an OSM-tagged point (geometry:fermilab-seaquest-point)."
+  },
+  "map:fred-lawrence-whipple-observatory": {
+    "notes": [
+      "Overpass (OpenStreetMap) was unreachable for the whole of this research session -- an OSM trace of the individual telescope pads (which the brief's own leads suggested, noting Whipple is 'often mapped') could not be attempted. See worklog."
+    ],
+    "summary_technical": "One local map for facility:fred-lawrence-whipple-observatory. VERITAS is drawn as a single reference point at its own official published coordinate; the four individual telescopes (T1-T4, ~35-127 m apart) are not resolved separately this session (see geometry record notes)."
+  },
+  "map:hess-khomas-highland": {
+    "notes": [
+      "Individual CT1-CT4 telescope positions within the square (which corner is which) are not distinguished; no source fetched this session assigns telescope numbers to corners.",
+      "Overpass (OpenStreetMap) was unreachable for the whole of this research session (connection refused on every attempt, from multiple mirrors) -- an OSM trace of the individual telescope pads, which the brief's own leads suggested as a cross-check, could not be attempted. See worklog."
+    ],
+    "summary_technical": "One local map for facility:hess-khomas-highland. The CT1-CT4 square (120 m side, diagonal oriented north-south) is derived from the collaboration's own stated array geometry, centred on the array's official published coordinate; CT5 reuses that same coordinate as its own position ('centre of the array' per the same source)."
+  },
+  "map:j-parc": {
+    "notes": [
+      "Linked maps: no map:kamioka-observatory exists yet in this atlas; linked_map_ids is left empty here and the build's automatic derivation (from beamline:j-parc-neutrino's far_detector_site_ids) will populate it once the Kamioka campus has its own map.",
+      "facility:j-parc's notes record that the Materials and Life Science Experimental Facility (MLF, fed by the RCS) and a proposed muon g-2/EDM experiment are mentioned on official J-PARC pages, but neither has an atlas accelerator/beamline/detector/experiment record of its own (out of the HEP scope this atlas models), so neither appears in this map or in `unlocated[]` -- there is no entity id to list."
+    ],
+    "summary_technical": "One local map for facility:j-parc covering the Tokai campus: the 400 MeV linac, 3 GeV RCS and 1567 m Main Ring tunnels (OSM indoor-mapped corridors, cross-checked against the T2K NIM paper's machine table), the Hadron Experimental Facility building (KOTO, COMET), the neutrino primary+secondary beamline tunnel and target station, the near-detector hall building (ND280, INGRID), and an inferred-direction line toward Super-Kamiokande."
+  },
+  "map:jefferson-lab": {
+    "notes": [
+      "Only one atlas accelerator (accelerator:cebaf) and one atlas site (site:jlab-newport-news) exist for this facility in this wave (see docs/atlas-worklog/ID_REGISTRY.md); no beamline or detector-hosting site records exist for JLab's experimental halls, so nothing beyond CEBAF itself needs to be drawn or unlocated.",
+      "Site coordinate correction: site:jlab-newport-news's existing coordinate (36.98038, -76.42975, a ROR-geocoded point, precision_m 800) is about 13 km south-southeast of this session's independently-corroborated Nominatim/site-plan location for the actual campus (centroid 37.0989568, -76.4815705; the campus-boundary way's own Nominatim point is 37.0961464, -76.4815621; both match Jefferson Lab's own site-plan address '12000 Jefferson Ave.'). See the worklog's site coordinate corrections list; not applied here (a geometry researcher may not edit existing site records)."
+    ],
+    "summary_technical": "One local map for facility:jefferson-lab. The campus boundary (OSM/Nominatim way 246018258) and the CEBAF Center administration building (way 319579555) are drawn as georeferenced OpenStreetMap shapes, corroborated by Jefferson Lab's own site-plan building-number key. accelerator:cebaf (the racetrack tunnel and its four experimental halls) is listed in unlocated[] because both permitted Overpass mirrors were unreachable for the remainder of the session."
+  },
+  "map:kamioka-observatory": {
+    "notes": [
+      "linked_map_ids is left empty: map:j-parc does not exist in this worktree/branch as of 2026-09-18 (a concurrent researcher's task). facility:kamioka-observatory.related_facility_ids already lists facility:j-parc, so once map:j-parc is merged the build's automatic derivation (related_facility_ids with a map, plus beamline:j-parc-neutrino's far_detector_site_ids pointing at this map's own sites) should link the two maps without any authoring change here.",
+      "facility:kamioka-observatory's own notes record that the Kamioka Observatory also hosts KAGRA, CANDLES, NEWAGE and XENONnT R&D, and that experiment:kamiokande/experiment:kamland-zen exist as atlas experiment records; none of these have their own site: record in this atlas (only the two mines already in site_ids do), so there is nothing further to draw or list in unlocated[] for them — flagged here as a completeness gap, not a map defect.",
+      "Overpass (overpass-api.de and lz4.overpass-api.de) refused every connection attempted for a Mozumi-area building/tunnel-entrance query for most of this session (curl error 7, 'Failed to connect'), same as the kumi mirror; the fallback mirror maps.mail.ru eventually answered and yielded one named mine-entrance node and one mountain-summit survey point (see the surface level's own note and geometry:kamioka-mine-entrance/geometry:ikenoyama-peak-marker), but still no ICRR surface-building footprints or a way to tell the Atotsu entrance apart from the Mozumi entrance. Backlog: retry a named-building query (`way[\"building\"][\"name\"]`) over a wider bbox on maps.mail.ru or overpass.private.coffee, or fetch a known building/way id directly via https://api.openstreetmap.org/api/0.6/way/<id>/full.json once one is identified."
+    ],
+    "summary_technical": "Local map for facility:kamioka-observatory spanning the Mozumi mine (site:kamioka-mozumi-mine-super-kamiokande, site:kamioka-kamland) and the Tochibora mine (site:kamioka-hyper-kamiokande-tochibora), 8 km apart. Super-Kamiokande is drawn as a derived 39.3 m circle around its own surveyed GPS centre; Hyper-Kamiokande as a surveyed point from its 2011 Letter of Intent; KamLAND as the coarse point already on record (no better source was fetched this session). An inferred_direction feature shows the T2K beam's 295 km baseline from J-PARC, cross-checked against the T2K instrumentation paper's own surveyed figure."
+  },
+  "map:kek": {
+    "notes": [
+      "Linked maps: no map:kamioka-observatory exists yet in this atlas; linked_map_ids is left empty here and the build's automatic derivation (from beamline:kek-neutrino's far_detector_site_ids) will populate it once the Kamioka campus has its own map.",
+      "accelerator:kek-ps is drawn (geometry:kek-north-counter-hall) rather than listed in `unlocated[]`, but with an explicitly flagged, circumstantial identification -- see that record's own notes and the worklog's 'Conflicts and honesty calls' section. No source found this session gives the 12 GeV PS ring's own tunnel path; two targeted Overpass searches for tunnel/particle_accelerator/landuse ways near the historic PS site found none."
+    ],
+    "summary_technical": "One local map for facility:kek covering the Tsukuba campus: the 3016 m KEKB/SuperKEKB ring tunnel (OSM way 138322704, cross-checked against the SuperKEKB accelerator paper's own machine-parameter table), the Tsukuba interaction hall (Belle, Belle II) and the ring's Oho/Fuji/Nikko straight-section halls, the KEK injector linac building, a building tentatively identified with the historic KEK-PS North Counter Hall, and an inferred-direction line for the K2K beam toward Super-Kamiokande."
+  },
+  "map:km3net-arca": {
+    "notes": [
+      "Portopalo di Capo Passero, the nearest shore town, is ~100 km from this site (per the KM3NeT-It page and the Letter of Intent) -- more than the 60 km limit for drawing a shore feature as context on the same map (and more than the validator's own 60 km hard error on feature position). It is not drawn here and there is no separate facility/site record for it to anchor a linked map either; noted in the worklog as a backlog item only.",
+      "Overpass access was unreachable for most of this session (see map:amundsen-scott-south-pole-station's notes); a sea site has no OSM features to fetch in any case, per the research brief, so this did not block this map."
+    ],
+    "summary_technical": "Local map for the KM3NeT-It / ARCA deep-sea site (facility:km3net). One surveyed point (the collaboration's own published 36°16' N 16°06' E) and one derived ~1 km-diameter circle for a single ARCA building block (R=500 m per the KM3NeT 2.0 Letter of Intent). ARCA and ORCA are ~900 km apart and cannot share a to-scale map; see map:km3net-orca (linked)."
+  },
+  "map:km3net-orca": {
+    "notes": [
+      "ANTARES (site:antares-toulon, detector:antares) sits about 10 km east of this site per the Letter of Intent ('ORCA ... approximately 10 kilometers west of the existing ANTARES telescope site'), but site:antares-toulon carries facility_id: null -- it does not belong to any atlas facility, so per this workstream's scope it is out of map:km3net-orca's inventory (not drawn, and not listed in unlocated[] either, since unlocated[] is for this facility's own entities). Its own coordinate is separately only 'approximate' with precision_m 12000 (a corroborated estimate, not a directly published lat/lon), which is too coarse to add a defensibly-placed context point here anyway. Left as a backlog item in the worklog rather than drawn.",
+      "The ORCA shore control station has moved between buildings during this session's research window (Institut Michel Pacha, La Seyne-sur-Mer originally; the Brégaillon/Ifremer site since January 2024; the MEUST building once ready), so no single building was confidently identified as 'the' current shore station to draw as OSM context this session; Overpass access was also unreachable for most of this session (see map:amundsen-scott-south-pole-station's notes). Left as a backlog item.",
+      "Overpass had no bearing on the two drawn features here (a sea site has no OSM footprint, per the research brief)."
+    ],
+    "summary_technical": "Local map for the KM3NeT-Fr / ORCA deep-sea site (facility:km3net). One surveyed point (the collaboration's own published 42°48' N 06°02' E) and one derived ~200 m-diameter circle for the single ORCA building block, its radius estimated by scaling ARCA's sourced R=500 m by the two blocks' relative string spacing (both from the KM3NeT 2.0 Letter of Intent). ARCA and ORCA are ~900 km apart and cannot share a to-scale map; see map:km3net-arca (linked)."
+  },
+  "map:leibstadt-nuclear-power-plant": {
+    "notes": [],
+    "summary_technical": "Reactor-building footprint from OpenStreetMap (georeferenced); CONUS+ drawn as a derived point at the building centroid with widened accuracy for the unresolved offset."
+  },
+  "map:lhaaso-daocheng": {
+    "notes": [
+      "QA pass (2026-09-21): the LHAASO Science Book (arXiv:1905.02773) coordinate this note used to flag as an unverified candidate remains unfetchable, but an independent QA re-derivation found and fetched (on two separate mirrors) a different, peer-reviewed paper stating the same figure to the hundredth of an arcsecond -- Chinese Physics C 46, 030001 (2022), doi:10.1088/1674-1137/ac3fa6. That figure now backs `center` and geometry:lhaaso-array-point directly; see docs/atlas-worklog/REVIEW_geometry_qa.md."
+    ],
+    "summary_technical": "One local map for facility:lhaaso-daocheng. Drawn as a single published reference point (Chinese Physics C 46, 030001 (2022)); KM2A (circular, ~575-635 m radius) and WCDA (78,000 m2, three pools) are described with enough shape detail to draw and are now anchorable to this tighter point, but no source states their offset/orientation from it, so neither is drawn (see geometry record and REVIEW_geometry_qa.md backlog)."
+  },
+  "map:lngs": {
+    "notes": [
+      "Linked map: map:cern, because beamline:cngs (CERN's own beamline, facility_id facility:cern) names site:lngs-hall-c as its far_detector_site_ids target (732 km baseline, 2006-2012 beam operation for OPERA/ICARUS). The CNGS direction line itself is drawn on map:cern, not here, since the beamline entity belongs to CERN's inventory, not LNGS's.",
+      "geometry:lngs-hall-a, geometry:lngs-hall-b and geometry:lngs-hall-c intentionally share one derived coordinate (the midpoint of the sourced ~700 m access-zone stretch): no source fetched this session distinguishes the three halls' order or position within that zone. This will raise the validator's geometry-duplicate-shape warning for all three pairs; documented here and in the facility worklog per the contract's 'a warning you leave must be explained' rule, and not avoided by leaving any of the three sites unlocated, since a sourced (if coarse) position is available for all three and is more informative than omission.",
+      "The Pandola 2011 overview (src:geo-euro-ug-pandola-2011) names several LNGS experiments not present in this atlas dataset (Gator, MACRO, WArP, LUNA, COBRA, DAMA/Libra, STELLA/GEMPI2); they are not listed in unlocated[] because they are not atlas entities this session may create (out of this geometry-research brief's scope) — flagged in the facility worklog as backlog for whichever lead owns LNGS's experiment roster."
+    ],
+    "summary_technical": "One local map for facility:lngs. The A24 Gran Sasso road tunnel (OSM relation 9617984) is drawn as context; the underground laboratory's own position is derived from the official emergency plan's motorway chainage of its entrance/exit doors (km 124.150/123.440 against the tunnel's own km 117.653-127.829), giving a ~700 m sourced zone about 5.8-6.5 km from the Assergi portal. Halls A, B and C are drawn at that zone's midpoint, undifferentiated. The surface External Laboratories / Centro Direzionale complex at Assergi carries both an OSM building footprint and the emergency plan's own surveyed WGS84 coordinate (79.6 m apart, corroborating each other)."
+  },
+  "map:los-alamos-national-laboratory": {
+    "notes": [
+      "Overpass (overpass-api.de and lz4.overpass-api.de) refused essentially every connection attempt for LANL/ORNL after the SLAC extract succeeded (TCP connection refused, then HTTP 429, then connection refused again); overpass.kumi.systems and overpass.osm.ch both answered but returned zero elements even for known-good queries and were dropped as likely partial/regional mirrors. maps.mail.ru/osm/tools/overpass/api/interpreter, suggested mid-session, did return real, complete data: a 1,817-element extract of the wider Los Alamos townsite (streets, apartments, generic industrial buildings, none named or tagged in any way suggesting LANSCE), and a tight 700 m box directly around the LANSCE node itself came back with zero building ways. TA-53's accelerator/experimental core is therefore genuinely almost unmapped in OpenStreetMap, not merely unreached this session. Nominatim's /search and /lookup endpoints were reachable throughout and are the source of the one point drawn on this map.",
+      "TA-53 is a security-sensitive area of Los Alamos National Laboratory: per the research brief, only accelerator/experimental areas shown on public LANSCE maps may be depicted, never fences or gates. No fence, gate or access-control feature is drawn or was found."
+    ],
+    "summary_technical": "One local map for facility:los-alamos-national-laboratory. Only OpenStreetMap node 8041862150 ('LANSCE') was locatable this session; the 800 m side-coupled-cavity linac (accelerator:lansce) and the LSND detector's position are both unlocated, for lack of a public, sufficiently precise source."
+  },
+  "map:modane-underground-laboratory": {
+    "notes": [
+      "The pre-existing site:lsm-frejus coordinate (45.1962509, 6.6667021, precision_m 500, src:lsm-osm-nominatim) is an OSM/Nominatim point essentially co-located with the Carré Science surface outreach building (geometry:modane-carre-sciences-point), about 6.4 km from the underground laboratory itself by tunnel. See the facility worklog for a proposed correction using geometry:modane-lsm-underground's own coordinate.",
+      "The Fréjus road tunnel gained a second, parallel tube in July 2025 (src:geo-modane-sftrf-second-tube-pr); geometry:modane-tunnel-frejus's representation is kept 'approximate' because this session could not confirm from OSM tags alone which of the two tubes its traced line follows over its full length (Overpass, which would have let this be resolved by relation membership, was unreachable). Both tubes run closely parallel and are the same length, so the practical effect on the laboratory's derived position is small."
+    ],
+    "summary_technical": "One local map for facility:modane-underground-laboratory. The Fréjus road tunnel (OSM ways 101986702 + 317397424) is drawn as context; the laboratory itself is OSM's own tagged area (way 235115147, addr:housename 'PK 6.5, Tunnel du Fréjus'), independently corroborated by this session's own geometric midpoint of the tunnel line (148 m apart) and by a 2009 CNRS Images caption describing the access point as exactly at the tunnel's centre."
+  },
+  "map:oak-ridge-national-laboratory": {
+    "notes": [
+      "Overpass (overpass-api.de and lz4.overpass-api.de) refused essentially every connection attempt for LANL/ORNL after the SLAC extract succeeded (TCP connection refused, then HTTP 429, then connection refused again); overpass.kumi.systems accepted queries but appears to serve only a partial/regional dataset (zero elements even for a query overpass-api.de had already answered for the same SLAC bbox) and was not trusted; overpass.osm.ch answered but likewise returned zero elements for known-good queries and was dropped for the same reason. maps.mail.ru/osm/tools/overpass/api/interpreter, suggested mid-session, did return real data (25 buildings inside the SNS complex boundary, see the unlocated row below and the worklog) but timed out (HTTP 504) on anything larger than a single 'building' filter over a sub-1 km box, so the ring/linac search itself could not complete. Nominatim's /search and /lookup endpoints (a separate, lighter-weight OSM service) were reachable throughout and are the source of the complex boundary drawn on this map.",
+      "COHERENT's four operating sub-detectors (CENNS-10, CsI, Ge, NaI) all sit in Neutrino Alley, officially 'about 20 meters from the SNS target' at its closest point and 50 m long overall (src:geo-ornl-neutrino-alley-qa); none is drawn individually, since no source this session gives any one detector's position along the alley or a coordinate/heading for the alley itself, only its overall length and closest-approach distance. See the worklog."
+    ],
+    "summary_technical": "One local map for facility:oak-ridge-national-laboratory. Only OpenStreetMap way 907808191 ('ORNL Spallation Neutron Source'), the complex's outer property boundary, was locatable this session; the SNS linac and accumulator ring (accelerator:sns) are unlocated, and Neutrino Alley's own position within the complex (site:ornl-sns-neutrino-alley) is represented only by that outer boundary, honestly widened in accuracy_m."
+  },
+  "map:pierre-auger-observatory": {
+    "notes": [
+      "map-center-far warning is expected and accepted: the map centre is the array's own geometric centroid (~40 km from site:malargue-auger, which is the Observatory's administrative HQ address in the town of Malargüe, not the array's centre -- that site record already documents this distinction).",
+      "The four fluorescence-detector buildings (Los Leones, Los Morados, Loma Amarilla, Coihueco) are not drawn: despite many fetch attempts (arXiv 1502.01323, 0907.4282, 1011.6523 via WebFetch and an r.jina.ai text-extraction proxy; the Auger Open Data portal; several web searches), no coordinate for any individual FD site could be seen verbatim in a fetched source this session, and Overpass (which might have found them as named OSM buildings) refused every connection attempt. See worklog backlog.",
+      "geometry:auger-sd750-infill-boundary's computed area (29.3 km^2) does not closely match the collaboration's own quoted '23.5 km^2, 61-detector' infill figure; no checks[] row is asserted for it (see that record's own note)."
+    ],
+    "summary_technical": "One local map for facility:pierre-auger-observatory. The main (1500 m spacing) and infill (750 m spacing) surface-detector array boundaries are convex hulls computed this session from the 1690-row station position table in the Observatory's own public Open Data release (sdMap.csv, Zenodo record 10488964), UTM zone 19S converted to WGS84. The four fluorescence-detector buildings (Los Leones, Los Morados, Loma Amarilla, Coihueco) could not be individually located this session (see notes) and are not drawn."
+  },
+  "map:psi": {
+    "notes": [
+      "Overpass (overpass-api.de and lz4.overpass-api.de) refused every connection attempt for the entire PSI/KIT portion of this session (curl: 'Failed to connect ... Couldn't connect to server', not a 429/504 that a backoff would clear). The campus boundary was recovered through Nominatim's polygon_geojson=1 output instead (same underlying OSM way data), but Nominatim only supports name search, not Overpass's tag/bbox queries -- so the HIPA ring-cyclotron building and the large experimental hall (housing MEG-II and Mu3e in the piE5 area) could not be located by name and are not drawn. Named locality nodes 'PSI West' (47.5368N, 8.2222E) and 'PSI Ost' (47.5386N, 8.2300E) corroborate which OSM polygon is which bank, but are themselves place labels, not building footprints, so they are not drawn either.",
+      "geometry:psi-campus-boundary (entity_id site:psi-villigen) accounts for the site and, through it, the placements of detector:meg, detector:meg-ii and detector:mu3e -- none of which has its own hall footprint this session for the same Overpass-outage reason."
+    ],
+    "summary_technical": "One local map for facility:psi. Only the campus boundary (OSM ways 28028409, 26680824 on the Villigen/west bank and 26680821 on the Wurenlingen/east bank, fetched via Nominatim) is drawn; accelerator:psi-hipa is unlocated pending a working Overpass query for its unnamed building."
+  },
+  "map:roque-de-los-muchachos-observatory": {
+    "notes": [
+      "geometry:magic-array-point and geometry:ctao-north-lst1-point share the exact same coordinate -- expected to raise the validator's geometry-duplicate-shape warning; both experiments genuinely occupy this same approximate patch and are not resolved to finer precision this session.",
+      "Overpass (OpenStreetMap) was unreachable for the whole of this research session -- an OSM trace distinguishing the MAGIC-I/MAGIC-II/LST-1 pads (which the brief's own leads suggested, noting Roque is 'often mapped') could not be attempted. See worklog.",
+      "The commonly cited value 28°45'43\"N 17°53'24\"W for MAGIC and ~100 m for LST-1's distance from it were found via multiple secondary sources this session but could not be confirmed against a primary source fetched directly (every attempt to fetch a MAGIC/LST technical paper returned no coordinate text) -- not used, flagged as an unverified candidate in the worklog."
+    ],
+    "summary_technical": "One local map for facility:roque-de-los-muchachos-observatory, shared by experiment:magic and experiment:ctao (CTAO-North). Both are drawn at the same approximate campus point (precision_m 500) because no source fetched this session gives separate decimal coordinates for the MAGIC pads versus the CTAO-North/LST-1 site, matching the existing site record's own documented limitation."
+  },
+  "map:sierra-negra": {
+    "notes": [
+      "site:hawc-sierra-negra currently carries a coarser (precision_m 3000) Nominatim geocode of the Sierra Negra peak; the array's own coordinate found this session is reported as a site coordinate correction candidate in the worklog."
+    ],
+    "summary_technical": "One local map for facility:sierra-negra. Drawn as a single reference point at the array's own published coordinate (18.99N, 97.31W), tighter than the existing site record's Nominatim peak-geocode point; the 300-tank footprint has no sourced overall outline shape this session."
+  },
+  "map:slac": {
+    "notes": [
+      "geometry:slac-collider-experimental-hall-sld and geometry:slac-collider-experimental-hall-dmradio are drawn over the SAME OpenStreetMap polygon (way 232494549, Building 750): the SLD detector occupied this hall 1991-1998, and the DMRadio-m3 axion search is independently sourced (src:geo-slac-dmradio-prd-2022) to occupy the same building today. This is an intentional geometry-duplicate-shape pair, not an error: two different, independently sourced entities in the same physical hall at different times.",
+      "PEP-II's ring is drawn only partially (geometry:slac-pep-ii-partial-ring): the two 'PEP Ring Road' ways found in OpenStreetMap do not close into a loop and together cover only about 2,019 m of the collider's official 2,200 m circumference (src:geo-slac-pepii-cdr-osti), so no ring length check is asserted. See the worklog for the residual and backlog.",
+      "Overpass (overpass-api.de / lz4.overpass-api.de) accepted one extract for this campus and then refused further connections for the remainder of the session (HTTP 429, then outright TCP connection refusals); a lower-load alternate mirror was tried but returned zero results even for a query that overpass-api.de had already answered, so it was not used further. All SLAC geometry in this map comes from that single extract plus the sources cited above."
+    ],
+    "summary_technical": "One local map for facility:slac. Geometry sourced from a single OpenStreetMap Overpass extract (the SLAC property boundary way 634083231; the Klystron Gallery building way 162058026, checked against SLAC's own '3,073.72 m' figure for that structure; the two 'PEP Ring Road' ways; the PEP Interaction Region 2 / BaBar hall and Collider Experimental Hall / SLD-DMRadio-m3 hall buildings; and nine other campus buildings drawn as context), cross-referenced against the official SLAC Area Map building-number table and the PEP-II Conceptual Design Report's circumference figure."
+  },
+  "map:snolab": {
+    "notes": [],
+    "summary_technical": "Local map for facility:snolab. Surface geometry from OpenStreetMap (the SNOLAB office node and the Creighton Mine industrial landuse polygon). The underground cavity is a derived 22 m circle centred on the SNO NIM detector paper's own published coordinate, cross-checked against the same paper's stated diameter. SNOLAB's other experiment halls (SNO+, DEAP-3600, DAMIC, SuperCDMS SNOLAB, nEXO, NEWS-G) share this one sourced site coordinate and have no distinct footprint located this session."
+  },
+  "map:soudan-underground-laboratory": {
+    "notes": [],
+    "summary_technical": "Local map for facility:soudan-underground-laboratory. Surface geometry is the NRHP-listed Soudan Mine shaft house from OpenStreetMap. The Level 27 laboratory is drawn as a surveyed point taken directly from the MINOS Collaboration's own published coordinate (PRD 76, 052003), reused verbatim from site:soudan-minos-far-detector; MINOS far detector, CDMS II and SuperCDMS Soudan all share this one position, having no independently sourced distinct footprint."
+  },
+  "map:surf": {
+    "notes": [],
+    "summary_technical": "Local map for facility:surf spanning the Lead, SD surface campus (OSM building footprints for the Yates and Ross shaft head-frames and hoists) and the 4850 Level (1478 m depth). The Davis Campus cavern (LZ, Majorana Demonstrator) is drawn from its own surveyed coordinate (SURF Physics Procedia Table 5); the LBNF/DUNE far-detector caverns on the same level remain unlocated for lack of a sourced offset from the Ross Shaft."
+  },
+  "map:telescope-array-utah": {
+    "notes": [
+      "site:telescope-array-utah-central-site currently carries a coarser (precision_m 15000) Nominatim geocode of the town of Delta, explicitly documented there as not a survey point for the array; the array's own descriptive centre found this session is reported as a site coordinate correction candidate in the worklog.",
+      "The 507-station 1.2 km SD grid and the three fluorescence-detector sites (Black Rock Mesa, Long Ridge, Middle Drum) are not drawn: their widely repeated coordinates trace only to a hobbyist astronomy site (cleardarksky.com, also Wikipedia's own citation), not to an official TA page or paper fetched this session (telescopearray.org and known mirrors were unreachable). See worklog backlog."
+    ],
+    "summary_technical": "One local map for facility:telescope-array-utah. Drawn as a single reference point at the array's own published centre (39.3N, 112.9W), tighter than the existing site record's Delta-Utah town geocode; extent_m set large (20 km) to reflect the array's true ~700 km2 scale even though only the centre point is drawn this session."
+  },
+  "map:wipp": {
+    "notes": [],
+    "summary_technical": "Local map for facility:wipp. Surface geometry is OpenStreetMap's 'Waste Isolation Pilot Plant' landuse polygon (the fenced protected/exclusive-use area) plus two unidentified shaft features. EXO-200's own underground position within the North Experimental Area is not sourced this session beyond its 655 m depth, so nothing is drawn on that level."
+  },
+  "map:yonggwang-hanbit-reactor-site": {
+    "notes": [
+      "The near hall's distance checks to units 3–6 sit 3–4 % from the TDR figures (10–28 m), consistent with using reactor-building centroids as proxies for core centres over 300–740 m baselines; the tolerance on those checks is widened to 5 % with that reason and accuracy_m raised accordingly — see the geometry record."
+    ],
+    "summary_technical": "Reactor-unit footprints and plant boundary from OpenStreetMap; near/far hall positions derived by multilateration from the six units using Table 1.2 of the RENO TDR (arXiv:1003.1391); the assignment of reactor numbers to buildings is the only one of the 720 permutations that fits."
   },
   "person:inspire-1005149": {
     "notes": []

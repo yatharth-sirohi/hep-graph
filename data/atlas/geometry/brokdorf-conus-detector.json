@@ -1,0 +1,60 @@
+{
+  "accuracy_m": 20,
+  "aliases": [],
+  "checks": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "depth_m": null,
+  "entity_id": "detector:conus-hpge-array",
+  "feature_type": "other",
+  "geometry": {
+    "confidence": "derived",
+    "locator": "arXiv:2401.07684, 'positioned at 17.1 m from the reactor core center'",
+    "note": "CONUS's own paper (arXiv:2401.07684) states the detector sat 17.1 m from the reactor core center at Brokdorf, inside the reactor building itself (not a separate structure). No fetched source gives the azimuth of that 17.1 m offset from the core, so this point is the OSM 'Reaktorgebäude' building's own centroid (geometry:brokdorf-core), used directly as the detector's position; accuracy_m is widened to 20 m to cover the unresolved 17.1 m offset plus the building footprint's own ~15 m accuracy.",
+    "sources": [
+      "src:cevns-conus-prl-2024-final-brokdorf",
+      "src:geo-reactors-osm-brokdorf-leibstadt-reactors"
+    ],
+    "value": {
+      "coordinates": [
+        9.345687096296295,
+        53.85076605925926
+      ],
+      "type": "Point"
+    },
+    "verified_at": "2026-09-18"
+  },
+  "id": "geometry:brokdorf-conus-detector",
+  "level_id": "surface",
+  "license": {
+    "attribution": "© OpenStreetMap contributors",
+    "name": "ODbL-1.0",
+    "url": "https://www.openstreetmap.org/copyright"
+  },
+  "links": {
+    "website": null
+  },
+  "map_id": "map:brokdorf-nuclear-power-plant",
+  "method": "CONUS's own paper (arXiv:2401.07684) states the detector sat 17.1 m from the reactor core center at Brokdorf, inside the reactor building itself (not a separate structure). No fetched source gives the azimuth of that 17.1 m offset from the core, so this point is the OSM 'Reaktorgebäude' building's own centroid (geometry:brokdorf-core), used directly as the detector's position; accuracy_m is widened to 20 m to cover the unresolved 17.1 m offset plus the building footprint's own ~15 m accuracy.",
+  "name": "CONUS detector position (inside the Brokdorf reactor building)",
+  "notes": [
+    "Integrator (2026-09-21): ODbL-1.0 licence added — the shape is derived from or copied from OpenStreetMap data (src:geo-reactors-osm-brokdorf-leibstadt-reactors), which makes it a derivative database under the ODbL regardless of the derivation step in between."
+  ],
+  "osm": null,
+  "representation": "derived",
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:brokdorf-nuclear-power-plant-campus",
+  "sources": [
+    "src:cevns-conus-prl-2024-final-brokdorf"
+  ],
+  "summary": {
+    "plain": "The approximate position of the CONUS coherent-neutrino-scattering detector, which sat inside the Brokdorf reactor building 17.1 m from the reactor core, 2018-2023."
+  },
+  "type": "geometry",
+  "valid": {
+    "end": "2024-01",
+    "start": null
+  }
+}

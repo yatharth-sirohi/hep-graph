@@ -1,0 +1,333 @@
+{
+  "attribution": [
+    "© OpenStreetMap contributors (ODbL-1.0)"
+  ],
+  "bbox": [
+    -139.2728,
+    -89.998,
+    -139.2728,
+    -89.998
+  ],
+  "build_date": "2026-09-21",
+  "entity_index": {
+    "site:south-pole-icecube": [
+      "geometry:south-pole-station-marker"
+    ]
+  },
+  "features": [
+    {
+      "accuracy_m": 300,
+      "checks": [],
+      "depth_m": null,
+      "entity_id": "site:south-pole-icecube",
+      "entity_name": "South Pole — IceCube array",
+      "entity_type": "site",
+      "feature_type": "other",
+      "geometry": {
+        "coordinates": [
+          -139.2728,
+          -89.998
+        ],
+        "type": "Point"
+      },
+      "id": "geometry:south-pole-station-marker",
+      "level_id": "surface",
+      "license": {
+        "attribution": "© OpenStreetMap contributors",
+        "name": "ODbL-1.0",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "measured": {
+        "area_m2": null,
+        "centroid": [
+          -139.2728,
+          -89.998
+        ],
+        "length_m": null
+      },
+      "method": "Single OpenStreetMap node (place=village, name='Amundsen–Scott South Pole Station'), Overpass extract with out geom; using the near-pole bbox form (-90,-180,-89.98,180) as instructed, mirrors overpass-api.de then lz4.overpass-api.de. No OSM building footprint for the station or a separate IceCube Laboratory (ICL) feature was found in this query (a name-pattern search for 'Amundsen|South Pole Station' on building ways, and for 'IceCube Laboratory|ICL' on any way, returned zero elements; only this one place node matched). Used as a visible reference marker for site:south-pole-icecube's approximate location, not a claim about the true surveyed position of the array, the ICL building, or any structure; accuracy_m is set generously (300 m) because a single untagged-building 'place' node is not a survey. The node sits about 223 m from the geometric South Pole (90 - 89.998 degrees of latitude), plausible for the station's real offset from the pole marker.",
+      "name": "Amundsen-Scott South Pole Station (reference marker)",
+      "osm": {
+        "elements": [
+          "node/5314074411"
+        ],
+        "timestamp": "2026-09-18T22:27:36Z"
+      },
+      "provenance": {
+        "confidence": "approximate",
+        "locator": "OSM node 5314074411, tags name='Amundsen–Scott South Pole Station', place=village, ele=2835, start_date=1956",
+        "note": "representation georeferenced from OpenStreetMap alone yields at most 'approximate' confidence per the contract (A25); no independent check is possible for a single reference point.",
+        "quote": "name=Amundsen–Scott South Pole Station; place=village; ele=2835",
+        "sources": [
+          "src:geo-polar-osm-south-pole-station"
+        ],
+        "verified_at": "2026-09-18"
+      },
+      "representation": "georeferenced",
+      "site_id": "site:south-pole-icecube",
+      "state_segments": [
+        [
+          598,
+          598,
+          "proposed",
+          "possible"
+        ],
+        [
+          599,
+          625,
+          "proposed",
+          "certain"
+        ],
+        [
+          626,
+          626,
+          "approved",
+          "possible"
+        ],
+        [
+          627,
+          647,
+          "approved",
+          "certain"
+        ],
+        [
+          648,
+          659,
+          "construction",
+          "possible"
+        ],
+        [
+          660,
+          671,
+          "commissioning",
+          "possible"
+        ],
+        [
+          672,
+          735,
+          "commissioning",
+          "certain"
+        ],
+        [
+          736,
+          736,
+          "active",
+          "possible"
+        ],
+        [
+          737,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": null
+    }
+  ],
+  "map": {
+    "aliases": [],
+    "center": {
+      "approximate": true,
+      "kind": "campus",
+      "lat": -89.998,
+      "lon": -139.2728,
+      "precision_m": 300
+    },
+    "coverage": {
+      "researched": "partial",
+      "tier": "C"
+    },
+    "extent_m": 3000,
+    "facility_id": "facility:amundsen-scott-south-pole-station",
+    "id": "map:amundsen-scott-south-pole-station",
+    "levels": [
+      {
+        "depth_m": null,
+        "id": "surface",
+        "kind": "surface",
+        "name": "Ice surface"
+      },
+      {
+        "depth_m": {
+          "dimension": "length",
+          "display": "≈1950 m (1,450–2,450 m instrumented range)",
+          "max": 2450,
+          "min": 1450,
+          "unit": "m"
+        },
+        "id": "icecube-ice",
+        "kind": "ice",
+        "name": "IceCube in-ice array depth (1,450–2,450 m)"
+      },
+      {
+        "depth_m": {
+          "dimension": "length",
+          "display": "≈150 m (100–200 m instrumented range)",
+          "max": 200,
+          "min": 100,
+          "unit": "m"
+        },
+        "id": "ara-ice",
+        "kind": "ice",
+        "name": "ARA station depth (100–200 m)"
+      }
+    ],
+    "linked_map_ids": [],
+    "links": {
+      "website": null
+    },
+    "name": "Amundsen-Scott South Pole Station — IceCube and ARA",
+    "schematics": [],
+    "site_ids": [
+      "site:south-pole-icecube",
+      "site:south-pole-ara"
+    ],
+    "summary": {
+      "plain": "The U.S. research station at the geographic South Pole, and the giant IceCube neutrino telescope frozen into the ice beside it. This map currently shows only the station's approximate location: IceCube's 86 strings, IceTop, DeepCore, the ARA radio stations, AMANDA and the planned IceCube Upgrade/Gen2 are all listed as not-yet-located because no source fetched this session ties IceCube's own local coordinate grid to true geographic directions."
+    },
+    "type": "map",
+    "unlocated": [
+      {
+        "backlog": "Same as site:south-pole-ara.",
+        "entity_id": "detector:ara",
+        "entity_name": "ARA stations",
+        "entity_type": "detector",
+        "reason": "No source fetched this session gives the five ARA stations' individual positions; see site:south-pole-ara's unlocated reason above, which this detector shares.",
+        "sources": [
+          "src:astro-neutrino-ara-overview-paper-2024",
+          "src:geo-polar-ara-design-2011"
+        ]
+      },
+      {
+        "backlog": "Get public/authenticated access to docs.icecube.aq's Coordinate Systems page (or an equivalent published statement, e.g. in an IceCube-Gen2 TDR appendix) that states the local grid's true-north orientation with a citable locator, then convert the 86 strings' local (x,y) positions -- or the sourced hexagonal-footprint parameters -- to WGS 84 around a surveyed anchor point.",
+        "entity_id": "detector:icecube",
+        "entity_name": "IceCube in-ice array",
+        "entity_type": "detector",
+        "reason": "IceCube's 86 strings are surveyed only in the detector's own local (x,y) coordinate system, not in lat/lon. The detector paper (arXiv:1612.05093, fetched in full this session) states the hexagonal 125 m string grid but does not define how its axes relate to true geographic north or the Prime Meridian. IceCube's own technical documentation of that coordinate system (docs.icecube.aq, 'Coordinate Systems' page) returned HTTP 401 Unauthorized to every fetch attempt this session (both WebFetch and an authenticated-style curl with a descriptive User-Agent), so its claimed grid-to-true-north convention could not be independently read or quoted. Per the 'nothing from memory' standard, the array is left unlocated rather than georeferenced from an unverifiable page.",
+        "sources": [
+          "src:icecube-detector-paper-jinst-2017"
+        ]
+      },
+      {
+        "backlog": "Same as detector:icecube.",
+        "entity_id": "detector:icecube-deepcore",
+        "entity_name": "DeepCore",
+        "entity_type": "detector",
+        "reason": "DeepCore's eight strings sit at the bottom centre of the same 86-string array at site:south-pole-icecube; it shares the exact georeferencing gap described for detector:icecube above and is not drawn for the same reason.",
+        "sources": [
+          "src:icecube-official-detector-page"
+        ]
+      },
+      {
+        "backlog": "Same as detector:icecube.",
+        "entity_id": "detector:icetop",
+        "entity_name": "IceTop",
+        "entity_type": "detector",
+        "reason": "IceTop's 81 surface stations are given in the same local IceCube (x,y) system. The IceTop paper (arXiv:1207.6326, fetched in full this session) gives per-tank surface elevations and a figure of tank/string locations 'with the IceCube Lab (ICL) in the center', but states no orientation relative to true north and its layout figure carries no compass indicator. Same georeferencing gap as detector:icecube.",
+        "sources": [
+          "src:geo-polar-icetop-detector-paper-2013"
+        ]
+      },
+      {
+        "backlog": "Once the IceCube grid's true-north orientation is sourced, AMANDA's ~200 m circle can be placed at the bottom centre of the IceCube array footprint using the collaboration's own statement of its position there.",
+        "entity_id": "experiment:amanda",
+        "entity_name": "AMANDA",
+        "entity_type": "experiment",
+        "reason": "AMANDA's 19 strings were 'spread out in a rough circle with a diameter of 200 meters' near the IceCube array's centre (IceCube timeline, already cited on experiment:amanda), but no fetched source gives AMANDA's own lat/lon or an offset from IceCube's coordinate-system origin convertible to true geographic coordinates; it shares IceCube's unresolved grid-orientation gap.",
+        "sources": [
+          "src:icecube-official-timeline"
+        ]
+      },
+      {
+        "backlog": "Revisit once IceCube-Gen2 publishes sited civil-engineering plans and once the underlying IceCube grid-orientation gap (see detector:icecube) is resolved.",
+        "entity_id": "experiment:icecube-gen2",
+        "entity_name": "IceCube-Gen2",
+        "entity_type": "experiment",
+        "reason": "IceCube-Gen2 is a proposed, not-yet-built expansion 'surrounding the existing IceCube array' (its own facility_roles note, already cited) with no published string coordinates; even its optical array's planned footprint is described only in aggregate specs (120 holes, ~500 km2 radio array), not as a sited polygon, and it inherits the same unresolved georeferencing gap as the array it surrounds.",
+        "sources": [
+          "src:icecube-gen2-tdr-page"
+        ]
+      },
+      {
+        "backlog": "Same as detector:icecube.",
+        "entity_id": "experiment:icecube-upgrade",
+        "entity_name": "IceCube Upgrade",
+        "entity_type": "experiment",
+        "reason": "The Upgrade's five new strings were deployed 'at the bottom center of the 86 existing strings' (already cited on experiment:icecube-upgrade); it is a dense infill of the already-unlocated main array and is not drawn for the same georeferencing-gap reason.",
+        "sources": [
+          "src:icecube-upgrade-press-release-2026"
+        ]
+      },
+      {
+        "backlog": "Find an ARA station-siting table or map (e.g. a station-specific deployment paper for A1-A5, or a GPS log) giving each station's coordinates, or IceCube-grid offsets together with a source for the grid's true-north orientation.",
+        "entity_id": "site:south-pole-ara",
+        "entity_name": "South Pole — ARA stations",
+        "entity_type": "site",
+        "reason": "ARA's five stations (A1–A5) sit about 2 km from the IceCube array, but no source fetched this session gives their individual coordinates, spacing or bearings. The ARA overview paper (arXiv:2411.01761) states only the ~2 km distance from IceCube, no map or per-station layout. The original ARA design paper (arXiv:1105.2854) describes the baseline 37-station, 2 km hexagonal-grid CONCEPT (not the 5 as-built station positions) and places the 2011 testbed 'approximately 1.8 km grid East of the IceCube detector' -- a South Pole grid direction that cannot be converted to a true bearing without a source for the grid's orientation (see detector:icecube's reason below, which this shares).",
+        "sources": [
+          "src:astro-neutrino-ara-overview-paper-2024",
+          "src:geo-polar-ara-design-2011"
+        ]
+      }
+    ]
+  },
+  "schema": "hep-atlas/0.2",
+  "source_titles": {
+    "src:astro-neutrino-ara-overview-paper-2024": {
+      "source_type": "journal_article",
+      "title": "Askaryan Radio Array: searching for the highest energy neutrinos",
+      "url": "https://arxiv.org/abs/2411.01761"
+    },
+    "src:geo-polar-ara-design-2011": {
+      "source_type": "detector_paper",
+      "title": "Design and Initial Performance of the Askaryan Radio Array Prototype EeV Neutrino Detector at the South Pole",
+      "url": "https://arxiv.org/abs/1105.2854"
+    },
+    "src:geo-polar-icetop-detector-paper-2013": {
+      "source_type": "detector_paper",
+      "title": "IceTop: The surface component of IceCube",
+      "url": "https://arxiv.org/abs/1207.6326"
+    },
+    "src:geo-polar-osm-south-pole-station": {
+      "source_type": "openstreetmap",
+      "title": "OpenStreetMap: Amundsen–Scott South Pole Station (node 5314074411)",
+      "url": "https://www.openstreetmap.org/node/5314074411"
+    },
+    "src:icecube-detector-paper-jinst-2017": {
+      "source_type": "detector_paper",
+      "title": "The IceCube Neutrino Observatory: Instrumentation and Online Systems",
+      "url": "https://arxiv.org/abs/1612.05093"
+    },
+    "src:icecube-gen2-tdr-page": {
+      "source_type": "official_experiment_site",
+      "title": "IceCube-Gen2 Publications — Technical Design Report (TDR)",
+      "url": "https://icecube-gen2.wisc.edu/science/publications/TDR/"
+    },
+    "src:icecube-nsf-south-pole-station": {
+      "source_type": "official_facility_site",
+      "title": "NSF Amundsen-Scott South Pole Station",
+      "url": "https://www.nsf.gov/geo/opp/ail/amundson-scott-south-pole-station"
+    },
+    "src:icecube-official-detector-page": {
+      "source_type": "official_experiment_site",
+      "title": "IceCube — Detector",
+      "url": "https://icecube.wisc.edu/science/icecube/"
+    },
+    "src:icecube-official-quick-facts": {
+      "source_type": "official_experiment_site",
+      "title": "IceCube Quick Facts",
+      "url": "https://icecube.wisc.edu/about-us/facts/"
+    },
+    "src:icecube-official-timeline": {
+      "source_type": "official_experiment_site",
+      "title": "Timeline — History of the IceCube Neutrino Observatory",
+      "url": "https://icecube.wisc.edu/about-us/icecube10/timeline/"
+    },
+    "src:icecube-upgrade-press-release-2026": {
+      "source_type": "press_release",
+      "title": "The IceCube Neutrino Observatory gets a major upgrade beneath the ice",
+      "url": "https://icecube.wisc.edu/news/press-releases/2026/02/the-icecube-neutrino-observatory-gets-a-major-upgrade-beneath-the-ice/"
+    }
+  },
+  "version": "2d9d4c1bef36a3f7"
+}

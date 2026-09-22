@@ -1,0 +1,105 @@
+{
+  "accuracy_m": 2000,
+  "aliases": [],
+  "checks": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "depth_m": null,
+  "entity_id": "detector:km3net-orca",
+  "feature_type": "array",
+  "geometry": {
+    "confidence": "derived",
+    "locator": "Letter of Intent for KM3NeT 2.0 (arXiv:1601.07459): 'the average horizontal spacing between detection strings is about 95 m' (ARCA) and 'about 20 m' (ORCA); Figure 15 caption 'R=500 m' (ARCA)",
+    "note": "12-vertex geodesic circle approximation, radius 105 m computed on R=6371008.8 m from the centre (6.0333000, 42.8000000).",
+    "quote": "For the ARCA configuration, the average horizontal spacing between detection strings is about 95 m ... For the ORCA configuration, the average horizontal spacing between detection strings is about 20 m.",
+    "sources": [
+      "src:astro-neutrino-km3net-loi-2016"
+    ],
+    "value": {
+      "coordinates": [
+        [
+          [
+            6.0333,
+            42.8009443
+          ],
+          [
+            6.0339435,
+            42.8008178
+          ],
+          [
+            6.0344146,
+            42.8004721
+          ],
+          [
+            6.034587,
+            42.8
+          ],
+          [
+            6.0344145,
+            42.7995279
+          ],
+          [
+            6.0339435,
+            42.7991822
+          ],
+          [
+            6.0333,
+            42.7990557
+          ],
+          [
+            6.0326565,
+            42.7991822
+          ],
+          [
+            6.0321855,
+            42.7995279
+          ],
+          [
+            6.032013,
+            42.8
+          ],
+          [
+            6.0321854,
+            42.8004721
+          ],
+          [
+            6.0326565,
+            42.8008178
+          ],
+          [
+            6.0333,
+            42.8009443
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    },
+    "verified_at": "2026-09-18"
+  },
+  "id": "geometry:km3net-orca-footprint",
+  "level_id": "seabed",
+  "license": null,
+  "links": {
+    "website": null
+  },
+  "map_id": "map:km3net-orca",
+  "method": "A ~105 m radius circle centred on the surveyed ORCA site coordinate (geometry:km3net-orca-site-point). No fetched source this session states ORCA's own footprint radius directly (unlike ARCA's Letter-of-Intent Figure 15, which gives R=500 m explicitly); this radius is instead MY OWN computation, scaling ARCA's sourced R=500 m by the ratio of the two building blocks' sourced average horizontal detection-unit spacing, both given in the same Letter of Intent (arXiv:1601.07459): 'the average horizontal spacing between detection strings is about 95 m' for ARCA and 'about 20 m' for ORCA. 500 m * (20/95) = ~105 m, on the assumption that ARCA and ORCA use the same 115-string layout pattern at different scale (both are stated to be one 115-detection-unit building block). This is a two-input derived estimate, not a published figure: treat the circle as illustrative of relative scale, not a survey. accuracy_m is set to 2000 m to match the coarser accuracy of the anchor point (the site's own arc-minute-precision coordinate), which dominates over the footprint-radius uncertainty in any case.",
+  "name": "KM3NeT/ORCA building-block footprint (derived circle)",
+  "notes": [
+    "No checks[] row: no independently-published ORCA footprint figure was found this session to check this estimate against (three fetched papers -- arXiv:2408.07015, arXiv:1701.05849, and the km3net.org ARCA-and-ORCA detector page -- give string spacing but not an overall radius/diameter for ORCA). Web-search summaries suggested a ~100 m radius / ~200 m diameter figure consistent with this estimate, but no primary source stating it could be directly fetched and quoted this session, so it is not cited as a source or used as a checks[] row (see the worklog)."
+  ],
+  "osm": null,
+  "representation": "derived",
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:km3net-orca-toulon",
+  "sources": [
+    "src:astro-neutrino-km3net-loi-2016"
+  ],
+  "summary": {
+    "plain": "A schematic circle showing the roughly 200 m design width of the KM3NeT/ORCA building block, estimated by scaling ARCA's sourced footprint by the two detectors' relative string spacing; not itself a published measurement."
+  },
+  "type": "geometry",
+  "valid": null
+}

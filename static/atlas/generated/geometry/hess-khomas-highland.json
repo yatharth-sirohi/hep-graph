@@ -1,0 +1,220 @@
+{
+  "attribution": [],
+  "bbox": [
+    16.4991693,
+    -23.2724301,
+    16.5008307,
+    -23.2709039
+  ],
+  "build_date": "2026-09-21",
+  "entity_index": {
+    "experiment:h-e-s-s": [
+      "geometry:hess-ct5-point"
+    ],
+    "site:khomas-highland-hess": [
+      "geometry:hess-ct1-4-square"
+    ]
+  },
+  "features": [
+    {
+      "accuracy_m": 200,
+      "checks": [
+        {
+          "expected_m": 480.0,
+          "kind": "length",
+          "measured_m": 480.005828883399,
+          "passed": true,
+          "sources": [
+            "src:geo-arrays-hess-telescopes-page"
+          ],
+          "tolerance": 0.02,
+          "unit": "m"
+        }
+      ],
+      "depth_m": null,
+      "entity_id": "site:khomas-highland-hess",
+      "entity_name": "H.E.S.S. array site, Khomas Highland",
+      "entity_type": "site",
+      "feature_type": "array",
+      "geometry": {
+        "coordinates": [
+          [
+            [
+              16.5,
+              -23.2709039
+            ],
+            [
+              16.5008307,
+              -23.271667
+            ],
+            [
+              16.5,
+              -23.2724301
+            ],
+            [
+              16.4991693,
+              -23.271667
+            ],
+            [
+              16.5,
+              -23.2709039
+            ]
+          ]
+        ],
+        "type": "Polygon"
+      },
+      "id": "geometry:hess-ct1-4-square",
+      "level_id": "surface",
+      "license": null,
+      "measured": {
+        "area_m2": 14400.349732307623,
+        "centroid": [
+          16.5000001,
+          -23.2716671
+        ],
+        "length_m": 480.005828883399
+      },
+      "method": "Square of side 120 m, diagonal oriented north-south (both facts from the H.E.S.S. Telescopes page), computed by placing one vertex at each of bearings 0/90/180/270 degrees and distance 120*sqrt(2)/2 = 84.8528 m (spherical destination-point formula, R = 6371008.8 m) from the array's own official published coordinate (site:khomas-highland-hess, precision_m 200). accuracy_m is set equal to that anchor's own precision_m (200 m), satisfying the coarse-anchor rule exactly rather than claiming a false sub-200 m accuracy for where the square sits; the square's own shape (120 m side) is exact by construction from the sourced figure. No OpenStreetMap trace of the individual CT1-CT4 telescope pads could be attempted this session (Overpass refused every connection attempt, see worklog), which would otherwise have anchored the square far more tightly.",
+      "name": "H.E.S.S. CT1-CT4 telescope square (120 m side, diagonal north-south)",
+      "osm": null,
+      "provenance": {
+        "confidence": "derived",
+        "locator": "H.E.S.S. Telescopes page, array layout paragraph",
+        "note": "Confidence 'derived' per contract (a derived shape is derived, even with a passing check).",
+        "quote": "The initial four H.E.S.S. telescopes (Phase I) are arranged in form of a square with 120 m side length. The diagonal of the square is oriented north-south.",
+        "sources": [
+          "src:cosmic-gamma-hess-official-site-page",
+          "src:geo-arrays-hess-telescopes-page"
+        ],
+        "verified_at": "2026-09-18"
+      },
+      "representation": "derived",
+      "site_id": "site:khomas-highland-hess",
+      "state_segments": [
+        [
+          624,
+          635,
+          "active",
+          "possible"
+        ],
+        [
+          636,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": null
+    },
+    {
+      "accuracy_m": 200,
+      "checks": [],
+      "depth_m": null,
+      "entity_id": "experiment:h-e-s-s",
+      "entity_name": "H.E.S.S.",
+      "entity_type": "experiment",
+      "feature_type": "other",
+      "geometry": {
+        "coordinates": [
+          16.5,
+          -23.271667
+        ],
+        "type": "Point"
+      },
+      "id": "geometry:hess-ct5-point",
+      "level_id": "surface",
+      "license": null,
+      "measured": {
+        "area_m2": null,
+        "centroid": [
+          16.5,
+          -23.271667
+        ],
+        "length_m": null
+      },
+      "method": "CT5 (the 28 m dish added in 2012) stands 'at the center of the array' per the H.E.S.S. Telescopes page; reuses the array's own published coordinate (23d16'18\"S 16d30'00\"E, site:khomas-highland-hess) verbatim as CT5's own position rather than computing/guessing an offset. No CT5-specific coordinate distinct from the array's own point was published this session.",
+      "name": "H.E.S.S. CT5 telescope (centre of the array)",
+      "osm": null,
+      "provenance": {
+        "confidence": "verified",
+        "locator": "H.E.S.S. Telescopes page; H.E.S.S. Site page",
+        "note": "'verified': representation is 'surveyed' from a rank<=10 official source.",
+        "quote": "an single huge dish with about 600 m2 mirror area was added at the center of the array",
+        "sources": [
+          "src:cosmic-gamma-hess-official-site-page",
+          "src:geo-arrays-hess-telescopes-page"
+        ],
+        "verified_at": "2026-09-18"
+      },
+      "representation": "surveyed",
+      "site_id": "site:khomas-highland-hess",
+      "state_segments": [
+        [
+          624,
+          635,
+          "active",
+          "possible"
+        ],
+        [
+          636,
+          920,
+          "active",
+          "certain"
+        ]
+      ],
+      "status": "active"
+    }
+  ],
+  "map": {
+    "aliases": [],
+    "center": {
+      "kind": "campus",
+      "lat": -23.271667,
+      "lon": 16.5,
+      "precision_m": 200
+    },
+    "coverage": {
+      "researched": "partial",
+      "tier": "B"
+    },
+    "extent_m": 900,
+    "facility_id": "facility:hess-khomas-highland",
+    "id": "map:hess-khomas-highland",
+    "levels": [
+      {
+        "depth_m": null,
+        "id": "surface",
+        "kind": "surface",
+        "name": "Surface"
+      }
+    ],
+    "linked_map_ids": [],
+    "links": {
+      "website": null
+    },
+    "name": "H.E.S.S. — Khomas Highland",
+    "schematics": [],
+    "site_ids": [
+      "site:khomas-highland-hess"
+    ],
+    "summary": {
+      "plain": "The H.E.S.S. gamma-ray telescope array on Farm Göllschau in the Khomas Highland of Namibia: four 12 m telescopes on a 120 m square plus the large central CT5 dish."
+    },
+    "type": "map",
+    "unlocated": []
+  },
+  "schema": "hep-atlas/0.2",
+  "source_titles": {
+    "src:cosmic-gamma-hess-official-site-page": {
+      "source_type": "official_experiment_site",
+      "title": "H.E.S.S. Site",
+      "url": "https://hess-experiment.eu/h-e-s-s-site/"
+    },
+    "src:geo-arrays-hess-telescopes-page": {
+      "source_type": "official_experiment_site",
+      "title": "H.E.S.S. Telescopes",
+      "url": "https://www.mpi-hd.mpg.de/HESS/pages/about/telescopes/"
+    }
+  },
+  "version": "2d9d4c1bef36a3f7"
+}

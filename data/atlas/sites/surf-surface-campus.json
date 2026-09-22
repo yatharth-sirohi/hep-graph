@@ -6,16 +6,15 @@
   "coordinates": {
     "confidence": "approximate",
     "kind": "campus",
-    "lat": 44.3474397,
-    "locator": "Nominatim jsonv2 result for \"Sanford Underground Research Facility, Lead, South Dakota\"",
-    "lon": -103.7548247,
-    "note": "OpenStreetMap/Nominatim landuse polygon for the Sanford Underground Research Facility. sanfordlab.org gives the street address (630 E. Summit St., Lead, SD 57754) but publishes no coordinate.",
-    "precision_m": 1000,
+    "lat": 44.3517419,
+    "locator": "OSM way 512969103 \"Administration Building\" footprint centroid",
+    "lon": -103.751409,
+    "note": "Refinement: replaces a Nominatim search centroid 550 m from any SURF building with the named administration building footprint. Previous record: campus point 44.3474397, -103.7548247 at 1000 m precision, sources ['src:surf-osm-nominatim', 'src:surf-official-site']; moved 396 m (integrator, 2026-09-21, per docs/atlas-worklog/GEOMETRY_*.md).",
+    "precision_m": 50,
     "sources": [
-      "src:surf-osm-nominatim",
-      "src:surf-official-site"
+      "src:geo-surf-osm-campus-buildings"
     ],
-    "verified_at": "2026-09-16"
+    "verified_at": "2026-09-21"
   },
   "countries": [
     "US"
@@ -50,7 +49,8 @@
   "setting": "surface",
   "sources": [
     "src:surf-official-site",
-    "src:surf-osm-nominatim"
+    "src:surf-osm-nominatim",
+    "src:geo-surf-osm-campus-buildings"
   ],
   "summary": {
     "plain": "The above-ground part of the Sanford laboratory in Lead, South Dakota, with the shafts, offices and assembly buildings that serve the experiments a mile below.",

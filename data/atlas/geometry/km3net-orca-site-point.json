@@ -1,0 +1,69 @@
+{
+  "accuracy_m": 2000,
+  "aliases": [],
+  "checks": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "depth_m": {
+    "approx": true,
+    "confidence": "verified",
+    "dimension": "length",
+    "display": "~2450 m",
+    "note": "Reused verbatim from site:km3net-orca-toulon.",
+    "quote": "about 2450 m",
+    "sources": [
+      "src:astro-neutrino-km3net-fr-site-page",
+      "src:astro-neutrino-km3net-loi-2016"
+    ],
+    "unit": "m",
+    "value": 2450,
+    "verified_at": "2026-09-18"
+  },
+  "entity_id": "site:km3net-orca-toulon",
+  "feature_type": "other",
+  "geometry": {
+    "confidence": "verified",
+    "locator": "KM3NeT-Fr research-infrastructure page, opening paragraph",
+    "note": "'verified' because representation is 'surveyed' from a rank <=10 official source (KM3NeT-Fr site page, rank 1), corroborated by an independent rank-4 design report (the Letter of Intent) giving the same figure, which itself also states ORCA sits 'approximately 10 kilometers west of the existing ANTARES telescope site'.",
+    "quote": "42°48' N 06°02' E",
+    "sources": [
+      "src:astro-neutrino-km3net-fr-site-page",
+      "src:astro-neutrino-km3net-loi-2016"
+    ],
+    "value": {
+      "coordinates": [
+        6.0333,
+        42.8
+      ],
+      "type": "Point"
+    },
+    "verified_at": "2026-09-18"
+  },
+  "id": "geometry:km3net-orca-site-point",
+  "level_id": "seabed",
+  "license": null,
+  "links": {
+    "website": null
+  },
+  "map_id": "map:km3net-orca",
+  "method": "Point coordinate taken directly from the KM3NeT-Fr research-infrastructure page's published '42°48' N 06°02' E', corroborated verbatim by the Letter of Intent for KM3NeT 2.0 (arXiv:1601.07459). Same value already recorded on site:km3net-orca-toulon. accuracy_m matches that record's own precision_m (2000 m), reflecting the arc-minute precision of the published coordinate.",
+  "name": "KM3NeT/ORCA site (surveyed point)",
+  "notes": [
+    "No checks[] row: a Point has no length/area/span to cross-check independently; the coordinate is corroborated by two independent official sources."
+  ],
+  "osm": null,
+  "representation": "surveyed",
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:km3net-orca-toulon",
+  "sources": [
+    "src:astro-neutrino-km3net-fr-site-page",
+    "src:astro-neutrino-km3net-loi-2016"
+  ],
+  "summary": {
+    "plain": "The published seabed location of the KM3NeT/ORCA neutrino telescope, about 40 km off Toulon, France, and 2450 m down."
+  },
+  "type": "geometry",
+  "valid": null
+}

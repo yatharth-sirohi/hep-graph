@@ -1,8 +1,10 @@
-"""Tests for the two manual HEP Atlas tools: the link checker and the scaffold.
+"""Tests for the manual HEP Atlas tools: the link checker, the scaffold and
+the OpenStreetMap extractor.
 
-Neither test touches the network: `linkcheck.run` takes injectable `fetch`
+No test here touches the network: `linkcheck.run` takes injectable `fetch`
 and `sleep` callables precisely so this suite can drive the whole pipeline
-offline and instantly.
+offline and instantly, and `atlas_osm_extract` is driven from a saved
+Overpass response.
 """
 
 from __future__ import annotations
@@ -63,9 +65,12 @@ def test_results_are_written_back_into_the_source_files(data_dir: Path) -> None:
                                      content_hash="0123456789abcdef")
 
     report = linkcheck.run(data_dir, fetch=fetch, sleep=lambda _seconds: None, today=TODAY)
-    assert len(report.checked) == 8
+    # Counted from the fixture rather than typed: every source record is
+    # checked and rewritten, and the fixture gains sources as the atlas does.
+    source_count = len(list((data_dir / "sources").glob("*.json")))
+    assert len(report.checked) == source_count
     assert report.failures == []
-    assert len(report.written) == 8
+    assert len(report.written) == source_count
 
     record = _source(data_dir, "demo-tdr")
     assert record["link_check"] == {"last_checked": "2026-09-16", "http_status": 200,
@@ -259,3 +264,160 @@ def test_scaffold_cli(tmp_path: Path, capsys) -> None:
 
     assert scaffold.main(["--data", str(root), "experiment", "Not A Slug",
                           "--facility", "f", "--collaboration", "c"]) == 2
+
+
+# ---------------------------------------------------------------------------
+# scripts/atlas_osm_extract.py — the A25 maintainer helper
+#
+# Driven from a saved Overpass response: the script issues exactly one network
+# request in real use and none at all here.
+# ---------------------------------------------------------------------------
+
+import importlib.util
+import sys as _sys
+
+_SPEC = importlib.util.spec_from_file_location(
+    "atlas_osm_extract",
+    Path(__file__).resolve().parents[1] / "scripts" / "atlas_osm_extract.py")
+osm_extract = importlib.util.module_from_spec(_SPEC)
+_sys.modules["atlas_osm_extract"] = osm_extract
+_SPEC.loader.exec_module(osm_extract)
+
+
+OVERPASS_RESPONSE = {
+    "version": 0.6,
+    "generator": "Overpass API",
+    "osm3s": {"timestamp_osm_base": "2026-09-18T12:00:00Z"},
+    "elements": [
+        {"type": "way", "id": 123456789,
+         "tags": {"building": "industrial", "name": "Target Hall"},
+         "geometry": [{"lat": 41.8310, "lon": -88.2530}, {"lat": 41.8310, "lon": -88.2523},
+                      {"lat": 41.8314, "lon": -88.2523}, {"lat": 41.8314, "lon": -88.2530},
+                      {"lat": 41.8310, "lon": -88.2530}]},
+        {"type": "way", "id": 987654321, "tags": {"highway": "service", "name": "Ring Road"},
+         "geometry": [{"lat": 41.8300, "lon": -88.2540}, {"lat": 41.8340, "lon": -88.2500}]},
+        {"type": "way", "id": 7, "tags": {}, "geometry": [{"lat": 41.8, "lon": -88.2}]},
+    ],
+}
+
+
+def _drafts(tmp_path: Path) -> tuple[list[dict], list[dict], list[str]]:
+    return osm_extract.process(OVERPASS_RESPONSE, map_slug="demo-lab",
+                               level_id="surface", today="2026-09-18")
+
+
+def test_the_query_is_one_request_with_a_timeout() -> None:
+    query = osm_extract.build_query(bbox="41.82,-88.27,41.85,-88.23",
+                                    filters=['way["building"]'], ids=[])
+    assert query.count("out ") == 1
+    assert f"timeout:{osm_extract.TIMEOUT_S}" in query
+    assert 'way["building"](41.82,-88.27,41.85,-88.23);' in query
+
+
+def test_explicit_ids_replace_the_bounding_box() -> None:
+    query = osm_extract.build_query(bbox=None, filters=[],
+                                    ids=["relation/9512017", "way/123"])
+    assert "relation(9512017);" in query and "way(123);" in query
+
+
+def test_the_user_agent_identifies_the_project() -> None:
+    assert osm_extract.USER_AGENT == "HEP-Atlas-research/1.0"
+
+
+def test_a_closed_building_way_becomes_a_polygon(tmp_path: Path) -> None:
+    geometries, _sources, _lines = _drafts(tmp_path)
+    hall = next(record for record in geometries if "123456789" in record["id"])
+    assert hall["geometry"]["value"]["type"] == "Polygon"
+    assert hall["feature_type"] == "building"
+
+
+def test_an_open_way_becomes_a_line(tmp_path: Path) -> None:
+    geometries, _sources, _lines = _drafts(tmp_path)
+    road = next(record for record in geometries if "987654321" in record["id"])
+    assert road["geometry"]["value"]["type"] == "LineString"
+    assert road["feature_type"] == "road"
+
+
+def test_an_element_without_usable_geometry_is_skipped_not_invented(tmp_path: Path) -> None:
+    geometries, _sources, lines = _drafts(tmp_path)
+    assert not any("way/7" in record["id"] for record in geometries)
+    assert any("skipped way/7" in line for line in lines)
+
+
+def test_every_draft_carries_the_odbl_licence_and_its_elements(tmp_path: Path) -> None:
+    geometries, _sources, _lines = _drafts(tmp_path)
+    for record in geometries:
+        assert record["license"]["name"] == schema.ODBL_LICENSE_NAME
+        assert record["license"]["attribution"] == schema.OSM_ATTRIBUTION
+        assert record["osm"]["elements"]
+        assert record["osm"]["timestamp"] == "2026-09-18T12:00:00Z"
+        assert record["geometry"]["locator"].startswith("OSM ")
+
+
+def test_no_draft_can_claim_to_be_verified(tmp_path: Path) -> None:
+    """OpenStreetMap is rank 11; a draft that said `verified` would be a lie."""
+    geometries, sources, _lines = _drafts(tmp_path)
+    for record in geometries:
+        assert record["geometry"]["confidence"] == "approximate"
+        assert record["checks"] == []
+    for source in sources:
+        assert source["source_type"] == "openstreetmap"
+        assert schema.source_rank(source["source_type"]) > schema.VERIFIED_MAX_RANK
+
+
+def test_every_draft_says_what_is_still_missing(tmp_path: Path) -> None:
+    geometries, _sources, _lines = _drafts(tmp_path)
+    for record in geometries:
+        assert any("DRAFT" in note for note in record["notes"])
+        assert "TODO" in record["summary"]["plain"] or "TODO" in record["method"]
+
+
+def test_the_report_prints_a_measurement_per_shape(tmp_path: Path) -> None:
+    """The researcher compares these with the official figure; the script never
+    writes the `checks[]` row itself."""
+    _geometries, _sources, lines = _drafts(tmp_path)
+    hall = next(line for line in lines if "way/123456789" in line)
+    assert "perimeter" in hall and "area" in hall
+    road = next(line for line in lines if "way/987654321" in line)
+    assert "length" in road
+
+
+def test_the_drafts_are_valid_records_the_validator_can_read(tmp_path: Path) -> None:
+    """A draft is incomplete, not malformed: it loads and validates as written."""
+    from hepgraph.atlas import validate as v
+
+    root = tmp_path / "atlas"
+    shutil.copytree(FIXTURE, root)
+    geometries, sources, _lines = _drafts(tmp_path)
+    # The fixture already cites OSM way/123456789; a second source record for
+    # the same URL is a real A20 duplicate, so that one draft source is dropped
+    # and its feature is pointed at the source the fixture already has.
+    duplicate = "src:osm-demo-lab-way-123456789"
+    for record in geometries:
+        if duplicate in record["sources"]:
+            record["sources"] = ["src:demo-osm-extract"]
+            record["geometry"]["sources"] = ["src:demo-osm-extract"]
+        (root / "geometry" / f'{schema.filename_for(record["id"])}.json').write_text(
+            dump_json(record), encoding="utf-8")
+    for record in sources:
+        if record["id"] == duplicate:
+            continue
+        (root / "sources" / f'{schema.filename_for(record["id"])}.json').write_text(
+            dump_json(record), encoding="utf-8")
+
+    atlas = load_atlas(root)
+    assert atlas.problems == [], [str(problem) for problem in atlas.problems]
+    errors = v.errors(v.validate_atlas(atlas, build_date="2026-09-18"))
+    assert errors == [], [str(error) for error in errors]
+
+
+def test_the_script_never_writes_into_data_atlas_by_default(tmp_path: Path) -> None:
+    """`--write-data` is opt-in; a run with no destination uses a scratch dir."""
+    response = tmp_path / "overpass.json"
+    response.write_text(json.dumps(OVERPASS_RESPONSE), encoding="utf-8")
+    out_dir = tmp_path / "scratch"
+    assert osm_extract.main(["--map", "demo-lab", "--ids", "way/1",
+                             "--from-json", str(response), "--out", str(out_dir)]) == 0
+    assert sorted(path.name for path in (out_dir / "geometry").glob("*.json"))
+    # The raw response is kept next to the drafts so a reviewer sees the input.
+    assert (out_dir / "overpass-response.json").is_file()

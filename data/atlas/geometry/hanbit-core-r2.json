@@ -1,0 +1,115 @@
+{
+  "accuracy_m": 8,
+  "aliases": [],
+  "checks": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "depth_m": null,
+  "entity_id": null,
+  "feature_type": "building",
+  "geometry": {
+    "confidence": "approximate",
+    "locator": "OSM way 143990766 as of 2026-06-01T08:52:28Z",
+    "note": "Reactor containment building at the Hanbit (Yonggwang) Nuclear Power Plant, identified in OSM by power=generator, generator:source=nuclear. Assignment to reactor number R2 (of 6, numbered geographically southwest to northeast) is inferred from which numbering direction gives the best nonlinear least-squares fit of the RENO proposal's own per-reactor near/far detector distances (arXiv:1003.1391 Table 1.2) against these six OSM building positions (residuals under 6 m on distances of 300-1560 m for this SW-to-NE numbering, versus hundreds of metres for the reverse numbering or any other reactor-to-building permutation); see geometry:reno-near-detector method and the worklog. The table itself does not give reactor coordinates, only the SW-NE physical order of the six buildings is used, not a claim about which specific numbered unit (Hanbit's own operator-assigned Unit 1-6 numbering) each is.",
+    "sources": [
+      "src:geo-reactors-osm-hanbit-reactors"
+    ],
+    "value": {
+      "coordinates": [
+        [
+          [
+            126.413087,
+            35.4083318
+          ],
+          [
+            126.4138811,
+            35.4088188
+          ],
+          [
+            126.413529,
+            35.4092346
+          ],
+          [
+            126.4141134,
+            35.4095942
+          ],
+          [
+            126.4137762,
+            35.4099838
+          ],
+          [
+            126.413514,
+            35.4098077
+          ],
+          [
+            126.4123416,
+            35.409111
+          ],
+          [
+            126.4123153,
+            35.4090323
+          ],
+          [
+            126.4121955,
+            35.4089686
+          ],
+          [
+            126.4119557,
+            35.4088357
+          ],
+          [
+            126.4120681,
+            35.4086914
+          ],
+          [
+            126.4122854,
+            35.4083693
+          ],
+          [
+            126.4127686,
+            35.408624
+          ],
+          [
+            126.413087,
+            35.4083318
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    },
+    "verified_at": "2026-09-18"
+  },
+  "id": "geometry:hanbit-core-r2",
+  "level_id": "surface",
+  "license": {
+    "attribution": "© OpenStreetMap contributors",
+    "name": "ODbL-1.0",
+    "url": "https://www.openstreetmap.org/copyright"
+  },
+  "links": {
+    "website": null
+  },
+  "map_id": "map:yonggwang-hanbit-reactor-site",
+  "method": "OpenStreetMap way 143990766 (power=generator, generator:source=nuclear), nodes kept verbatim from an Overpass extract.",
+  "name": "Hanbit Nuclear Power Plant reactor building (R2)",
+  "notes": [],
+  "osm": {
+    "elements": [
+      "way/143990766"
+    ],
+    "timestamp": "2026-06-01T08:52:28Z"
+  },
+  "representation": "georeferenced",
+  "schema": "hep-atlas/0.2",
+  "site_id": null,
+  "sources": [
+    "src:geo-reactors-osm-hanbit-reactors"
+  ],
+  "summary": {
+    "plain": "The reactor containment building at Hanbit Nuclear Power Plant used as reactor R2's position anchor for the RENO near/far detector baselines."
+  },
+  "type": "geometry",
+  "valid": null
+}

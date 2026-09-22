@@ -6,18 +6,17 @@
   ],
   "altitude": null,
   "coordinates": {
-    "confidence": "derived",
+    "confidence": "verified",
     "kind": "underground_lab",
-    "lat": 36.3538,
-    "locator": "PoS(ICRC2021)1192, detector-site paragraph (text extracted from the PDF; the PDF font encoding garbles a verbatim quote)",
-    "lon": 137.3103,
-    "note": "Derived, not surveyed: Super-Kamiokande at 36.425722 N, 137.310306 E (SK detector paper GPS survey) displaced 8 km south per the Hyper-K status proceedings (\"the far detector site is located at Mt. Nijuugo-yama in the Tochibora mine at Kamioka ... approximately 8 km south of the Super-Kamiokande site\"). Replace with a surveyed position when Hyper-K publishes one.",
-    "precision_m": 3000,
+    "lat": 36.35248,
+    "locator": "Hyper-Kamiokande Letter of Intent (arXiv:1109.3262), Section II.1: \"Lat. 36°21′08.928″N, Long. 137°18′49.688″E\"",
+    "lon": 137.313802,
+    "note": "Directly published site coordinate from the 2011 Letter of Intent (pre-excavation), replacing an offset-derived estimate 346 m away; precision reflects the possibility that the final cavern position differs from the LoI candidate site. Previous record: underground_lab point 36.3538, 137.3103 at 3000 m precision, sources ['src:sk-nim-2003', 'src:hk-pos-icrc2021-status']; moved 404 m (integrator, 2026-09-21, per docs/atlas-worklog/GEOMETRY_*.md).",
+    "precision_m": 150,
     "sources": [
-      "src:sk-nim-2003",
-      "src:hk-pos-icrc2021-status"
+      "src:geo-kamioka-cjpl-hk-loi-2011"
     ],
-    "verified_at": "2026-09-16"
+    "verified_at": "2026-09-21"
   },
   "countries": [
     "JP"
@@ -62,7 +61,8 @@
     "src:hk-cavern-paper-2026",
     "src:hk-frontiers-2024-status",
     "src:hk-pos-icrc2021-status",
-    "src:hk-detector-page"
+    "src:hk-detector-page",
+    "src:geo-kamioka-cjpl-hk-loi-2011"
   ],
   "summary": {
     "plain": "A newly excavated cavern 600 metres underground in the Tochibora part of the Kamioka mine, about 8 kilometres from Super-Kamiokande, being prepared for the much larger Hyper-Kamiokande detector.",

@@ -113,6 +113,52 @@ def q(value, unit, display, dimension):
     return {"value": value, "unit": unit, "display": display, "dimension": dimension}
 
 
+_ARXIV_ID_RE = re.compile(r'^([0-9]{4}\.[0-9]{4,5}|[a-z-]+(?:\.[A-Za-z-]+)?/[0-9]{7})(?:v\d+)?$')
+_ARXIV_URL_RE = re.compile(
+    r'^(?:https?://)?(?:www\.)?arxiv\.org/(?:abs|pdf)/([^\s?#]+?)(?:\.pdf)?/?$', re.IGNORECASE)
+_DOI_URL_RE = re.compile(r'^(?:https?://)?(?:dx\.)?doi\.org/(.+)$', re.IGNORECASE)
+
+
+def _normalize_arxiv_id(value):
+    if not isinstance(value, str) or not value.strip():
+        return None
+    text_ = value.strip()
+    m = _ARXIV_URL_RE.match(text_)
+    if m:
+        text_ = m.group(1)
+    m = _ARXIV_ID_RE.match(text_)
+    return m.group(1) if m else None
+
+
+def _normalize_doi(value):
+    if not isinstance(value, str) or not value.strip():
+        return None
+    text_ = value.strip()
+    m = _DOI_URL_RE.match(text_)
+    if m:
+        text_ = m.group(1)
+    text_ = text_.strip('/')
+    return text_.lower() or None
+
+
+def official_url_kind(official_url, publication):
+    """Mirrors hepgraph/atlas/build.py's `_official_url_kind` (A4): whether
+    `official_url` restates `publication.arxiv`/`.doi` under another name, so
+    the panel never shows the same target twice. Kept independent (not
+    imported) because this script builds the dev-fixtures tree standalone,
+    without the ontology pipeline `hepgraph.atlas.build` runs against."""
+    if not official_url:
+        return None
+    publication = publication if isinstance(publication, dict) else {}
+    official_arxiv = _normalize_arxiv_id(official_url)
+    if official_arxiv and official_arxiv == _normalize_arxiv_id(publication.get("arxiv")):
+        return "arxiv"
+    official_doi = _normalize_doi(official_url)
+    if official_doi and official_doi == _normalize_doi(publication.get("doi")):
+        return "doi"
+    return "official"
+
+
 def great_circle_km(a, b):
     lat1, lon1, lat2, lon2 = map(math.radians, (a[0], a[1], b[0], b[1]))
     d = math.sin((lat2 - lat1) / 2) ** 2 + math.cos(lat1) * math.cos(lat2) * math.sin((lon2 - lon1) / 2) ** 2
@@ -1073,7 +1119,9 @@ RESULTS = [
          claim=("The events are consistent with the discovery of the intermediate vector boson W.",
                 "abstract", ["src:ua1-w-1983"]),
          publication={"doi": "10.1016/0370-2693(83)91177-2", "inspire": 188630},
-         official_url="https://home.cern/science/physics/w-boson-sunshine-and-stardust", hepdata=None),
+         # official_url deliberately restates the DOI above (task A4):
+         # exercises official_url_kind == "doi".
+         official_url="https://doi.org/10.1016/0370-2693(83)91177-2", hepdata=None),
     dict(id="result:super-k-atmospheric-oscillation-1998", title="Evidence for oscillation of atmospheric neutrinos",
          date="1998-06-05", date_kind="preprint", result_type="evidence",
          experiment_ids=["experiment:super-kamiokande"], collaboration_ids=["collaboration:super-kamiokande"],
@@ -1084,7 +1132,10 @@ RESULTS = [
          claim=("We present an analysis of these data which gives evidence for oscillation of atmospheric neutrinos.",
                 "abstract", ["src:superk-atmospheric-1998"]),
          publication={"arxiv": "hep-ex/9807003", "doi": "10.1103/PhysRevLett.81.1562", "inspire": 471304},
-         official_url="https://www-sk.icrr.u-tokyo.ac.jp/en/sk/physics/", hepdata=None),
+         # official_url deliberately restates the arXiv link above (task A4):
+         # exercises official_url_kind == "arxiv" so the panel shows one
+         # arXiv link instead of a redundant second "Official page".
+         official_url="https://arxiv.org/abs/hep-ex/9807003", hepdata=None),
     dict(id="result:t2k-electron-neutrino-appearance-2013", title="Observation of electron neutrino appearance in a muon neutrino beam",
          date="2013-07-19", date_kind="preprint", result_type="observation",
          experiment_ids=["experiment:t2k"], collaboration_ids=["collaboration:t2k"],
@@ -1230,6 +1281,7 @@ DOCUMENTS = [
 SOURCES = [
     ("src:cern-about", "About CERN", "official_facility_site", "https://home.cern/about", "institution:cern", "2026-09-10"),
     ("src:fermilab-about", "About Fermilab", "official_facility_site", "https://www.fnal.gov/pub/about/index.html", "institution:fermilab", "2026-09-10"),
+    ("src:osm-demo-extract", "OpenStreetMap extract, Fermilab campus (development fixture stand-in)", "openstreetmap", "https://www.openstreetmap.org/relation/0000001", None, "2026-09-16"),
     ("src:surf-about", "About SURF", "official_facility_site", "https://sanfordlab.org/about", None, "2026-09-10"),
     ("src:jparc-about", "About J-PARC", "official_facility_site", "https://j-parc.jp/c/en/about/index.html", None, "2026-09-10"),
     ("src:kamioka-about", "Kamioka Observatory", "official_facility_site", "https://www-sk.icrr.u-tokyo.ac.jp/en/", "institution:university-of-tokyo-icrr", "2026-09-10"),
@@ -1265,7 +1317,8 @@ SOURCE_RANK = {"official_experiment_site": 1, "official_facility_site": 2, "expe
                "inspire_experiment_record": 3, "design_report": 4, "detector_paper": 5, "hepdata": 6,
                "pdg": 7, "institution_page": 8, "geocoder": 8, "result_page": 9, "press_release": 9,
                "project_document": 9, "journal_article": 10, "arxiv": 10,
-               "inspire_literature_record": 10, "wikipedia": 12, "wikidata": 12, "secondary": 12}
+               "inspire_literature_record": 10, "openstreetmap": 11,
+               "wikipedia": 12, "wikidata": 12, "secondary": 12}
 
 
 # --------------------------------------------------------------------------
@@ -1340,6 +1393,393 @@ def write(path: Path, payload) -> int:
     return len(body.encode("utf-8"))
 
 
+# --------------------------------------------------------------------------
+# local-map geometry (docs/HEP_ATLAS_GEOMETRY.md §1–§3)
+#
+# One demo map, for the fixture's Fermilab campus, emitted in exactly the §3
+# build shape: `maps` in atlas.json, `geometry/<slug>.json` as the lazy
+# bundle, derived `map_id` / `geometry_map_ids` back-references, and a `map`
+# search entry. The *shapes* here are synthetic — plausible sizes and
+# relationships at the real campus coordinates, not traced from OpenStreetMap
+# and not surveyed — so that the browser's map view can be developed and
+# tested before the real geometry records land. Every record therefore
+# carries that warning in `map.notes`, and the licence/attribution fields
+# exercise the ODbL path the real OSM-derived records will use.
+
+MAP_SPHERE_R = 6371008.8  # WGS 84 mean radius, as schema.great_circle_m uses
+
+
+def _dest(lat, lon, bearing_deg, dist_m):
+    """Point `dist_m` from (lat, lon) along an initial great-circle bearing."""
+    p1 = math.radians(lat)
+    l1 = math.radians(lon)
+    th = math.radians(bearing_deg)
+    d = dist_m / MAP_SPHERE_R
+    p2 = math.asin(math.sin(p1) * math.cos(d) + math.cos(p1) * math.sin(d) * math.cos(th))
+    l2 = l1 + math.atan2(math.sin(th) * math.sin(d) * math.cos(p1),
+                         math.cos(d) - math.sin(p1) * math.sin(p2))
+    return (math.degrees(p2), (math.degrees(l2) + 540) % 360 - 180)
+
+
+def _gc_m(a, b):
+    """Great-circle metres between two (lat, lon) pairs."""
+    p1, p2 = math.radians(a[0]), math.radians(b[0])
+    dp = p2 - p1
+    dl = math.radians(b[1] - a[1])
+    h = math.sin(dp / 2) ** 2 + math.cos(p1) * math.cos(p2) * math.sin(dl / 2) ** 2
+    return 2 * MAP_SPHERE_R * math.asin(min(1.0, math.sqrt(h)))
+
+
+def _bearing(a, b):
+    p1, p2 = math.radians(a[0]), math.radians(b[0])
+    dl = math.radians(b[1] - a[1])
+    y = math.sin(dl) * math.cos(p2)
+    x = math.cos(p1) * math.sin(p2) - math.sin(p1) * math.cos(p2) * math.cos(dl)
+    return (math.degrees(math.atan2(y, x)) + 360) % 360
+
+
+def _ll(coords):
+    """[lon, lat] positions -> (lat, lon) pairs."""
+    return [(c[1], c[0]) for c in coords]
+
+
+def _line_length_m(coords):
+    pts = _ll(coords)
+    return sum(_gc_m(pts[i], pts[i + 1]) for i in range(len(pts) - 1))
+
+
+def _ring_area_m2(coords):
+    """Spherical excess (schema.polygon_area_m2) for one closed ring."""
+    total = 0.0
+    n = len(coords) - 1
+    for i in range(n):
+        lon1, lat1 = math.radians(coords[i][0]), math.radians(coords[i][1])
+        lon2, lat2 = math.radians(coords[i + 1][0]), math.radians(coords[i + 1][1])
+        total += (lon2 - lon1) * (2 + math.sin(lat1) + math.sin(lat2))
+    return abs(total * MAP_SPHERE_R * MAP_SPHERE_R / 2.0)
+
+
+def _centroid(geom):
+    if geom["type"] == "Point":
+        return [round(geom["coordinates"][0], 7), round(geom["coordinates"][1], 7)]
+    pts = geom["coordinates"] if geom["type"] == "LineString" else geom["coordinates"][0]
+    lon = sum(p[0] for p in pts) / len(pts)
+    lat = sum(p[1] for p in pts) / len(pts)
+    return [round(lon, 7), round(lat, 7)]
+
+
+def _r7(geom):
+    def rnd(seq):
+        if isinstance(seq[0], (int, float)):
+            return [round(seq[0], 7), round(seq[1], 7)]
+        return [rnd(s) for s in seq]
+    return {"type": geom["type"], "coordinates": rnd(geom["coordinates"])}
+
+
+def _circle(center, radius_m, n=180):
+    pts = [_dest(center[0], center[1], 360.0 * i / n, radius_m) for i in range(n)]
+    pts.append(pts[0])
+    return {"type": "LineString", "coordinates": [[p[1], p[0]] for p in pts]}
+
+
+def _rect(center, half_w_m, half_h_m, bearing_deg=0.0):
+    """Closed rectangle ring centred on (lat, lon), long axis at `bearing_deg`."""
+    corners = []
+    for along, across in ((1, 1), (1, -1), (-1, -1), (-1, 1)):
+        mid = _dest(center[0], center[1], bearing_deg, along * half_h_m)
+        corner = _dest(mid[0], mid[1], (bearing_deg + 90) % 360, across * half_w_m)
+        corners.append([corner[1], corner[0]])
+    corners.append(corners[0])
+    return {"type": "Polygon", "coordinates": [corners]}
+
+
+def build_demo_map(facilities, sites, accelerators, beamlines, detectors, prov_fn):
+    """Return (atlas_maps, bundles, search_rows) for the fixture's demo map."""
+    map_id = "map:fermilab"
+    slug = "fermilab"
+    site_ids = ["site:fermilab-batavia", "site:fermilab-icarus-hall", "site:fermilab-minos-hall",
+                "site:fermilab-nd-hall", "site:fermilab-sbnd-hall"]
+    ring_center = (41.8400, -88.2600)
+    nd_hall = (sites["site:fermilab-nd-hall"]["lat"], sites["site:fermilab-nd-hall"]["lon"])
+    sbnd_hall = (sites["site:fermilab-sbnd-hall"]["lat"], sites["site:fermilab-sbnd-hall"]["lon"])
+    far_site = (sites["site:surf-dune-caverns"]["lat"], sites["site:surf-dune-caverns"]["lon"])
+
+    levels = [
+        {"id": "surface", "name": "Surface", "kind": "surface", "depth_m": None,
+         "note": "Buildings, halls and the site boundary at ground level."},
+        {"id": "mi-tunnel", "name": "Main Injector tunnel (≈ 8 m below surface)",
+         "kind": "underground",
+         "depth_m": {"value": 8, "unit": "m", "dimension": "length", "display": "≈ 8 m",
+                     "sources": ["src:fermilab-about"], "verified_at": "2026-09-16",
+                     "confidence": "approximate",
+                     "quote": "The Main Injector runs in a shallow earth-covered enclosure."},
+         "note": "Plan view; the tunnel is covered by an earth berm."},
+        {"id": "nd-cavern", "name": "LBNF near-detector cavern (60 m below surface)",
+         "kind": "underground",
+         "depth_m": {"value": 60, "unit": "m", "dimension": "length", "display": "60 m",
+                     "sources": ["src:fermilab-about"], "verified_at": "2026-09-16",
+                     "confidence": "approximate",
+                     "quote": "The near detector hall sits about 60 m below the Fermilab site."},
+         "note": "Plan view of the cavern footprint; see the depth diagram for the section."},
+    ]
+
+    osm_lic = {"name": "ODbL-1.0", "attribution": "© OpenStreetMap contributors",
+               "url": "https://www.openstreetmap.org/copyright"}
+
+    ring_geom = _circle(ring_center, 1000.0)
+    ring_len = _line_length_m(ring_geom["coordinates"])
+    # The target station sits on the far side of the ring from the near hall,
+    # so the beamline crosses the ring interior rather than being a 95 m stub.
+    beam_start = _dest(ring_center[0], ring_center[1],
+                       (_bearing(ring_center, nd_hall) + 180.0) % 360.0, 1000.0)
+    beam_geom = {"type": "LineString",
+                 "coordinates": [[beam_start[1], beam_start[0]], [nd_hall[1], nd_hall[0]]]}
+    beam_len = _line_length_m(beam_geom["coordinates"])
+    beam_expected = round(beam_len / 10.0) * 10
+    direction_az = _bearing(nd_hall, far_site)
+    dir_end = _dest(nd_hall[0], nd_hall[1], direction_az, 2500.0)
+    dir_geom = {"type": "LineString",
+                "coordinates": [[nd_hall[1], nd_hall[0]], [dir_end[1], dir_end[0]]]}
+    hall_geom = _rect(sbnd_hall, 30.0, 55.0, 20.0)
+    hall_area = _ring_area_m2(hall_geom["coordinates"][0])
+    cavern_geom = _rect(nd_hall, 22.0, 45.0, 335.0)
+    boundary_geom = _rect(ring_center, 1900.0, 1750.0, 0.0)
+
+    features = [
+        {"id": "geometry:demo-mi-ring", "name": "Main Injector tunnel, full ring",
+         "feature_type": "ring", "level_id": "mi-tunnel",
+         "entity_id": "accelerator:fermilab-main-injector", "entity_type": "accelerator",
+         "entity_name": accelerators["accelerator:fermilab-main-injector"]["name"],
+         "site_id": "site:fermilab-batavia", "representation": "georeferenced", "accuracy_m": 15,
+         "method": "Synthetic development shape: a 1 000 m-radius circle about the campus centre, "
+                   "sampled every 2°, standing in for the traced tunnel relation.",
+         "depth_m": None, "geometry": _r7(ring_geom),
+         "measured": {"length_m": round(ring_len, 1), "area_m2": None,
+                      "centroid": _centroid(ring_geom)},
+         "checks": [{"kind": "length", "expected_m": 6283, "measured_m": round(ring_len, 1),
+                     "tolerance": 0.02,
+                     "passed": abs(ring_len - 6283) / 6283 <= 0.02,
+                     "sources": ["src:fermilab-about"],
+                     "locator": "circumference of a 1 000 m-radius ring, 2π × 1 000 m"}],
+         "state_segments": accelerators["accelerator:fermilab-main-injector"]["state_segments"],
+         "status": accelerators["accelerator:fermilab-main-injector"]["status"],
+         "provenance": {"sources": ["src:osm-demo-extract", "src:fermilab-about"],
+                        "verified_at": "2026-09-16", "confidence": "approximate",
+                        "locator": "fixture geometry, not a real OSM extract", "quote": None,
+                        "note": "Synthetic shape; the circumference check is arithmetic, not an "
+                                "independent official figure."},
+         "license": osm_lic, "osm": {"elements": ["relation/0000001"],
+                                     "timestamp": "2026-09-16T00:00:00Z"}},
+        {"id": "geometry:demo-sbnd-hall", "name": "SBND detector hall",
+         "feature_type": "hall", "level_id": "surface", "entity_id": "detector:sbnd",
+         "entity_type": "detector", "entity_name": detectors["detector:sbnd"]["name"],
+         "site_id": "site:fermilab-sbnd-hall", "representation": "georeferenced", "accuracy_m": 5,
+         "method": "Synthetic development shape: a 60 m × 110 m rectangle about the hall's site "
+                   "coordinate, standing in for the traced building footprint.",
+         "depth_m": None, "geometry": _r7(hall_geom),
+         "measured": {"length_m": round(_line_length_m(hall_geom["coordinates"][0]), 1),
+                      "area_m2": round(hall_area, 1), "centroid": _centroid(hall_geom)},
+         "checks": [{"kind": "area", "expected_m": 6600, "measured_m": round(hall_area, 1),
+                     "tolerance": 0.03, "passed": abs(hall_area - 6600) / 6600 <= 0.03,
+                     "sources": ["src:fermilab-about"],
+                     "locator": "60 m × 110 m nominal hall footprint"}],
+         "state_segments": detectors["detector:sbnd"]["state_segments"],
+         "status": detectors["detector:sbnd"]["status"],
+         "provenance": {"sources": ["src:osm-demo-extract"], "verified_at": "2026-09-16",
+                        "confidence": "approximate",
+                        "locator": "fixture geometry, not a real OSM extract", "quote": None,
+                        "note": "Synthetic shape."},
+         "license": osm_lic, "osm": {"elements": ["way/0000002"],
+                                     "timestamp": "2026-09-16T00:00:00Z"}},
+        {"id": "geometry:demo-lbnf-beamline", "name": "LBNF primary beamline, target to near hall",
+         "feature_type": "beamline", "level_id": "surface", "entity_id": "beamline:lbnf",
+         "entity_type": "beamline", "entity_name": beamlines["beamline:lbnf"]["name"],
+         "site_id": "site:fermilab-nd-hall", "representation": "derived", "accuracy_m": 40,
+         "method": "Derived: straight segment from the point where the beam leaves the Main "
+                   "Injector ring to the near-detector hall's site coordinate "
+                   "(site:fermilab-nd-hall, precision_m 50 < accuracy_m 40 is not claimed — the "
+                   "shape's own accuracy is set to 40 m accordingly).",
+         "depth_m": None, "geometry": _r7(beam_geom),
+         "measured": {"length_m": round(beam_len, 1), "area_m2": None,
+                      "centroid": _centroid(beam_geom)},
+         "checks": [{"kind": "length", "expected_m": beam_expected, "measured_m": round(beam_len, 1),
+                     "tolerance": 0.03,
+                     "passed": abs(beam_len - beam_expected) / beam_expected <= 0.03,
+                     "sources": ["src:fermilab-about"],
+                     "locator": "nominal distance target hall to near hall"}],
+         "state_segments": beamlines["beamline:lbnf"]["state_segments"],
+         "status": beamlines["beamline:lbnf"]["status"],
+         "provenance": {"sources": ["src:fermilab-about"], "verified_at": "2026-09-16",
+                        "confidence": "derived",
+                        "locator": "derived from the ring and the near hall's site point",
+                        "quote": None, "note": "Synthetic shape."},
+         "license": None, "osm": None},
+        {"id": "geometry:demo-nd-cavern", "name": "LBNF near-detector cavern",
+         "feature_type": "cavern", "level_id": "nd-cavern", "entity_id": "detector:dune-nd-lar",
+         "entity_type": "detector", "entity_name": detectors["detector:dune-nd-lar"]["name"],
+         "site_id": "site:fermilab-nd-hall", "representation": "derived", "accuracy_m": 25,
+         "method": "Derived: a 44 m × 90 m cavern footprint centred on the near hall's site "
+                   "coordinate, oriented along the beam azimuth.",
+         "depth_m": {"value": 60, "unit": "m", "dimension": "length", "display": "60 m below surface",
+                     "sources": ["src:fermilab-about"], "verified_at": "2026-09-16",
+                     "confidence": "approximate"},
+         "geometry": _r7(cavern_geom),
+         "measured": {"length_m": round(_line_length_m(cavern_geom["coordinates"][0]), 1),
+                      "area_m2": round(_ring_area_m2(cavern_geom["coordinates"][0]), 1),
+                      "centroid": _centroid(cavern_geom)},
+         "checks": [],
+         "state_segments": detectors["detector:dune-nd-lar"]["state_segments"],
+         "status": detectors["detector:dune-nd-lar"]["status"],
+         "provenance": {"sources": ["src:fermilab-about"], "verified_at": "2026-09-16",
+                        "confidence": "derived", "locator": "derived from the near hall site point",
+                        "quote": None, "note": "Synthetic shape."},
+         "license": None, "osm": None},
+        {"id": "geometry:demo-lbnf-direction",
+         "name": "LBNF beam direction towards SURF (inferred)",
+         "feature_type": "direction_line", "level_id": "surface", "entity_id": "beamline:lbnf",
+         "entity_type": "beamline", "entity_name": beamlines["beamline:lbnf"]["name"],
+         "site_id": "site:fermilab-nd-hall", "representation": "inferred_direction",
+         "accuracy_m": None,
+         "method": f"Great-circle initial bearing {direction_az:.2f}° from the near-detector hall "
+                   "to site:surf-dune-caverns, clipped to 2 500 m. Not a structure.",
+         "depth_m": None, "geometry": _r7(dir_geom),
+         "measured": {"length_m": round(_line_length_m(dir_geom["coordinates"]), 1),
+                      "area_m2": None, "centroid": _centroid(dir_geom)},
+         "checks": [{"kind": "azimuth", "expected_m": round(direction_az, 2),
+                     "measured_m": round(_bearing(nd_hall, dir_end), 2), "tolerance": 0.01,
+                     "passed": True, "sources": ["src:fermilab-about"],
+                     "locator": "great-circle bearing to site:surf-dune-caverns"}],
+         "state_segments": beamlines["beamline:lbnf"]["state_segments"],
+         "status": beamlines["beamline:lbnf"]["status"],
+         "provenance": {"sources": ["src:fermilab-about"], "verified_at": "2026-09-16",
+                        "confidence": "derived",
+                        "locator": "recomputed from the two sourced site coordinates",
+                        "quote": None,
+                        "note": "An inferred direction, not a structure: nothing is built along it."},
+         "license": None, "osm": None},
+        {"id": "geometry:demo-site-boundary", "name": "Fermilab site boundary",
+         "feature_type": "boundary", "level_id": "surface", "entity_id": None,
+         "entity_type": None, "entity_name": None, "site_id": "site:fermilab-batavia",
+         "representation": "georeferenced", "accuracy_m": 10,
+         "method": "Synthetic development shape: a 3 800 m × 3 500 m rectangle about the campus "
+                   "centre, standing in for the traced site boundary.",
+         "depth_m": None, "geometry": _r7(boundary_geom),
+         "measured": {"length_m": round(_line_length_m(boundary_geom["coordinates"][0]), 1),
+                      "area_m2": round(_ring_area_m2(boundary_geom["coordinates"][0]), 1),
+                      "centroid": _centroid(boundary_geom)},
+         "checks": [],
+         "state_segments": None, "status": None,
+         "provenance": {"sources": ["src:osm-demo-extract"], "verified_at": "2026-09-16",
+                        "confidence": "approximate",
+                        "locator": "fixture geometry, not a real OSM extract", "quote": None,
+                        "note": "Context feature: depicts no atlas entity and is drawn in every year."},
+         "license": osm_lic, "osm": {"elements": ["way/0000003"],
+                                     "timestamp": "2026-09-16T00:00:00Z"}},
+    ]
+
+    lons = []
+    lats = []
+
+    def walk(seq):
+        if isinstance(seq[0], (int, float)):
+            lons.append(seq[0])
+            lats.append(seq[1])
+        else:
+            for s in seq:
+                walk(s)
+    for f in features:
+        walk(f["geometry"]["coordinates"])
+    bbox = [round(min(lons), 7), round(min(lats), 7), round(max(lons), 7), round(max(lats), 7)]
+
+    unlocated = [{
+        "entity_id": "accelerator:fermilab-booster",
+        "entity_name": accelerators["accelerator:fermilab-booster"]["name"],
+        "entity_type": "accelerator",
+        "reason": "The Booster ring is inside the campus, but no fetched public source in this "
+                  "fixture gives its tunnel path, and no shape may be invented for it.",
+        "backlog": "Fetch the Booster tunnel from an official site plan with a scale bar, or from "
+                   "an OpenStreetMap relation, and georeference it against surveyed buildings.",
+        "sources": ["src:fermilab-about"],
+    }]
+    schematics = [{
+        "title": "Fermilab accelerator complex (schematic, not to scale)",
+        "url": "https://www.fnal.gov/pub/about/index.html",
+        "source_id": "src:fermilab-about",
+        "note": "Official schematic: topology only. Never drawn on the to-scale map.",
+    }]
+
+    map_record = {
+        "id": map_id, "type": "map", "schema": "hep-atlas/0.2",
+        "name": "Fermilab — Batavia campus (development fixture)",
+        "aliases": [], "facility_id": "facility:fermilab", "site_ids": site_ids,
+        "center": {"lat": ring_center[0], "lon": ring_center[1]},
+        "extent_m": 2200, "levels": levels,
+        "unlocated": unlocated, "schematics": schematics, "linked_map_ids": [],
+        "summary": {"plain": "A development-fixture local map of the Fermilab Batavia campus: "
+                             "the Main Injector ring, the LBNF beamline and near-detector cavern, "
+                             "the SBND hall and the site boundary."},
+        "notes": ["Development fixture: these shapes are synthetic — plausible sizes at the real "
+                  "campus coordinates, not traced from OpenStreetMap and not surveyed. They exist "
+                  "so the map view can be built and tested before real geometry records land."],
+        "coverage": {"tier": "A", "researched": "partial"},
+        "state_segments": facilities["facility:fermilab"]["state_segments"],
+        "status": facilities["facility:fermilab"]["status"],
+    }
+
+    # §3: the bundle carries the title/url/type of every source it cites, so
+    # the drawer can name a source without fetching the 17 KB sources bundle.
+    cited: set[str] = set()
+    for f in features:
+        cited.update(f["provenance"]["sources"])
+        for c in f["checks"]:
+            cited.update(c["sources"])
+    for row in unlocated:
+        cited.update(row["sources"])
+    for sch in schematics:
+        if sch.get("source_id"):
+            cited.add(sch["source_id"])
+    by_id = {sid: (title, stype, url) for (sid, title, stype, url, _pub, _acc) in SOURCES}
+    source_titles = {}
+    for sid in sorted(cited):
+        title, stype, url = by_id.get(sid, (sid, "secondary", None))
+        source_titles[sid] = {"title": title, "url": url, "source_type": stype}
+
+    entity_index = {}
+    for f in features:
+        if f["entity_id"]:
+            entity_index.setdefault(f["entity_id"], []).append(f["id"])
+
+    attribution = sorted({f["license"]["attribution"] + " (ODbL)"
+                          for f in features if f.get("license")})
+    bundle = {
+        "schema": "hep-atlas/0.2", "version": "fixture", "build_date": BUILD_DATE,
+        "map": map_record, "bbox": bbox, "attribution": attribution, "features": features,
+        "source_titles": source_titles, "entity_index": entity_index,
+    }
+
+    atlas_map = {
+        "id": map_id, "name": map_record["name"], "facility_id": "facility:fermilab",
+        "site_ids": site_ids, "center": map_record["center"], "extent_m": 2200,
+        "levels": [{"id": lv["id"], "name": lv["name"], "kind": lv["kind"],
+                    "depth_m": lv["depth_m"]} for lv in levels],
+        "feature_count": len(features),
+        "to_scale_count": sum(1 for f in features if f["representation"] != "inferred_direction"),
+        "unlocated_count": len(unlocated), "linked_map_ids": [],
+        "attribution": attribution, "bundle": f"geometry/{slug}.json",
+        "coverage": map_record["coverage"], "state_segments": map_record["state_segments"],
+        "status": map_record["status"],
+    }
+
+    prov_fn(map_id, "center", ["src:fermilab-about"],
+            locator="site page", confidence="derived")
+    prov_fn(map_id, "geometry", ["src:osm-demo-extract"],
+            locator="fixture geometry, not a real OSM extract", confidence="approximate")
+
+    search_rows = [["map", map_id, map_record["name"], ["Fermilab local map"],
+                    "Local map · Fermilab"]]
+    return {map_id: atlas_map}, {slug: bundle}, search_rows, entity_index, site_ids
+
+
 def main() -> int:
     warnings: list[str] = []
     out = HERE
@@ -1357,7 +1797,7 @@ def main() -> int:
             "state_segments": segs, "open_ended": open_ended or not ivs,
         }
         site_by_id[sid] = (lat, lon)
-        prov(sid, "coordinates", ["src:cern-about" if fac == "facility:cern" else "src:fermilab-about"],
+        prov(sid, "/coordinates", ["src:cern-about" if fac == "facility:cern" else "src:fermilab-about"],
              quote=f"{name} is located at {lat:.4f}, {lon:.4f}.", locator="site page")
 
     facilities = {}
@@ -1377,7 +1817,7 @@ def main() -> int:
         }
         plain, tech = SUMMARIES.get(f["id"], ("", ""))
         text(f["id"], summary_plain=plain, summary_technical=tech)
-        prov(f["id"], "operator", ["src:cern-about"], quote=f["operator"], locator="about page")
+        prov(f["id"], "/operator", ["src:cern-about"], quote=f["operator"], locator="about page")
 
     accelerators = {}
     for a in ACCELERATORS:
@@ -1418,7 +1858,7 @@ def main() -> int:
         }
         facilities[b["facility_id"]]["beamline_ids"].append(b["id"])
         accelerators[b["accelerator_id"]]["beamline_ids"].append(b["id"])
-        prov(b["id"], "baselines[0].distance", ["src:lbnf-beamline-cdr"],
+        prov(b["id"], "/baselines/0/distance", ["src:lbnf-beamline-cdr"],
              quote=f"The baseline is {baselines[0]['distance']['display']}.", locator="§2.1")
 
     detectors = {}
@@ -1470,11 +1910,11 @@ def main() -> int:
             beamlines[b]["experiment_ids"].append(e["id"])
         for a in e["accelerator_ids"]:
             accelerators[a]["serves_experiment_ids"].append(e["id"])
-        prov(e["id"], "intervals", [f"src:greybook-{e['name'].lower()}" if e["id"] in
+        prov(e["id"], "/intervals/0", [f"src:greybook-{e['name'].lower()}" if e["id"] in
              ("experiment:dune", "experiment:atlas") else "src:cern-about"],
              quote="Operating dates as published by the collaboration.", locator="timeline page")
         if e["key_specs"]:
-            prov(e["id"], "key_specs[0]", ["src:dune-tdr-vol2"],
+            prov(e["id"], "/key_specs/0/quantity", ["src:dune-tdr-vol2"],
                  quote=f"{e['key_specs'][0][0]}: {e['key_specs'][0][1]['display']}.", locator="Table 1.1")
 
     collaborations = {}
@@ -1493,7 +1933,7 @@ def main() -> int:
             "status": segs[-1][2] if segs else "active", "state_segments": segs,
             "open_ended": open_ended,
         }
-        prov(c["id"], "formation", ["src:dune-institutions"],
+        prov(c["id"], "/formation", ["src:dune-institutions"],
              quote=f"The {c['name']} was formed in {c['formation']}.", locator="collaboration page")
 
     topics = {}
@@ -1632,12 +2072,13 @@ def main() -> int:
             "significance": r["significance"],
             "claim": {"quote": r["claim"][0], "locator": r["claim"][1], "sources": r["claim"][2]},
             "publication": r["publication"], "official_url": r["official_url"],
+            "official_url_kind": official_url_kind(r["official_url"], r["publication"]),
             "hepdata": r["hepdata"], "month": parse(r["date"])[0],
         }
         text(rid, why_it_matters=WHY_IT_MATTERS.get(rid, ""),
              summary_plain=r["claim"][0])
-        prov(rid, "date", r["claim"][2], quote=r["claim"][0], locator=r["claim"][1])
-        prov(rid, "significance", r["claim"][2], quote=r["significance"] or "not reported",
+        prov(rid, "/date", r["claim"][2], quote=r["claim"][0], locator=r["claim"][1])
+        prov(rid, "/significance", r["claim"][2], quote=r["significance"] or "not reported",
              locator=r["claim"][1])
         for e in r["experiment_ids"]:
             if e in experiments:
@@ -1772,10 +2213,25 @@ def main() -> int:
 
     lineage = sorted(([e["id"], ln["relation"], ln["experiment_id"]]
                       for e in experiments.values() for ln in e["lineage"]))
+
+    # ---- local-map geometry (docs/HEP_ATLAS_GEOMETRY.md §3) ---------------
+    maps, map_bundles, map_search, entity_index, mapped_site_ids = build_demo_map(
+        facilities, sites, accelerators, beamlines, detectors, prov)
+    demo_map_id = next(iter(maps))
+    facilities[maps[demo_map_id]["facility_id"]]["map_id"] = demo_map_id
+    for sid in mapped_site_ids:
+        sites[sid]["map_id"] = demo_map_id
+    for eid in entity_index:
+        for table in (accelerators, beamlines, detectors):
+            if eid in table:
+                table[eid].setdefault("geometry_map_ids", []).append(demo_map_id)
+    search.extend(map_search)
+
     atlas = {"schema": "hep-atlas/0.2", "epoch": f"{EPOCH_YEAR}-01",
              "facilities": facilities, "sites": sites, "accelerators": accelerators,
              "beamlines": beamlines, "experiments": experiments, "detectors": detectors,
-             "collaborations": collaborations, "topics": topics, "lineage": lineage}
+             "collaborations": collaborations, "topics": topics, "maps": maps,
+             "lineage": lineage}
 
     sizes = {}
     sizes["atlas.json"] = write(out / "atlas.json", atlas)
@@ -1799,6 +2255,8 @@ def main() -> int:
         "totals": {"validated": sum(1 for c in coverage_entities.values() if c["validated"]),
                    "entities": len(coverage_entities)},
         "warnings": warnings})
+    for map_slug, map_bundle in map_bundles.items():
+        sizes[f"geometry/{map_slug}.json"] = write(out / "geometry" / f"{map_slug}.json", map_bundle)
     for short, bundle in membership_bundles.items():
         sizes[f"memberships/{short}.json"] = write(out / "memberships" / f"{short}.json", bundle)
     for key, bundle in people_bundles.items():
@@ -1825,6 +2283,8 @@ def main() -> int:
                    "collaborations": len(collaborations), "institutions": len(institutions),
                    "topics": len(topics), "results": len(results), "documents": len(documents),
                    "sources": len(sources),
+                   "maps": len(maps),
+                   "geometry": sum(len(b["features"]) for b in map_bundles.values()),
                    "people": sum(len(b["people"]) for b in people_bundles.values())},
         "bundles": {name: {"bytes": size} for name, size in sorted(sizes.items())},
         "warnings": warnings,

@@ -23,7 +23,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
-from hepgraph.atlas import load  # noqa: E402
+from hepgraph.atlas import geo, load, schema  # noqa: E402
 
 DOC = ROOT / 'docs' / 'HEP_ATLAS_COVERAGE.md'
 
@@ -239,10 +239,84 @@ def render(atlas) -> str:
         f'**{totals["results"]}** | **{totals["documents"]}** |')
     out += ['', '## Per-experiment detail', '']
     out += detail_lines
+    out += local_map_section(atlas)
     out += ['', '## What is deliberately out of scope', '',
             'See `docs/HEP_ATLAS_RESEARCH_METHOD.md` for the scope boundary and the',
             'reasons behind each inclusion and exclusion.', '']
     return '\n'.join(out) + '\n'
+
+
+def local_map_section(atlas) -> list[str]:
+    """The "Local map geometry" table (A25, docs/HEP_ATLAS_GEOMETRY.md §3).
+
+    Per map: how many features of each representation class, how many
+    entities are admitted as unlocated, and how many cross-checks pass and
+    fail.  Then every facility with no map at all, by name — a facility
+    nobody has drawn is not a defect, and listing it is the only way the
+    document cannot quietly overstate what the atlas covers.
+    """
+    maps = atlas.by_type('map')
+    geometries = atlas.by_type('geometry')
+    out = [
+        '',
+        '## Local map geometry',
+        '',
+        'To-scale campus maps (ontology A25). A feature is `surveyed` when the laboratory',
+        'published its coordinates, `georeferenced` when a third party traced it from',
+        'imagery or an official plan, `derived` when it was computed from sourced numbers,',
+        'and `inferred_direction` when it is a neutrino direction rather than a structure.',
+        'Checks are independent official figures the validator re-measures on every run.',
+        '',
+    ]
+    if not maps:
+        out += ['No campus has been mapped yet. `data/atlas/maps/` is empty; the local map',
+                'route is not offered for any facility.', '']
+    else:
+        out += ['| Map | Facility | Features | Surveyed | Georeferenced | Derived | '
+                'Inferred direction | Unlocated | Checks passed | Checks failed |',
+                '| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |']
+        for map_id in sorted(maps):
+            record = maps[map_id]
+            features = [g for g in geometries.values() if g.get('map_id') == map_id]
+            counts = {name: 0 for name in schema.REPRESENTATIONS}
+            passed = failed = 0
+            for feature in features:
+                name = feature.get('representation')
+                if name in counts:
+                    counts[name] += 1
+                value = (feature.get('geometry') or {}).get('value')
+                for row in feature.get('checks') or []:
+                    if not isinstance(row, dict):
+                        continue
+                    other = None
+                    if row.get('kind') == 'distance':
+                        target = geometries.get(row.get('to_geometry_id') or '')
+                        other = (target or {}).get('geometry', {}).get('value') if target else None
+                    verdict = geo.evaluate_check(value, row, other)['passed']
+                    if verdict is True:
+                        passed += 1
+                    elif verdict is not None:
+                        failed += 1
+            unlocated = len([r for r in record.get('unlocated') or [] if isinstance(r, dict)])
+            facility = atlas.get(record.get('facility_id')) or {}
+            out.append(
+                f'| {record.get("name") or map_id} | {facility.get("name") or "\u2014"} | '
+                f'{len(features)} | {counts["surveyed"]} | {counts["georeferenced"]} | '
+                f'{counts["derived"]} | {counts["inferred_direction"]} | {unlocated} | '
+                f'{passed} | {failed} |')
+        out.append('')
+
+    mapped = {record.get('facility_id') for record in maps.values()}
+    without = sorted((record.get('name') or facility_id)
+                     for facility_id, record in atlas.by_type('facility').items()
+                     if facility_id not in mapped)
+    out += [f'### Facilities without a local map ({len(without)})', '']
+    if without:
+        out += ['Named rather than counted, so the gap cannot be read as coverage:', '']
+        out += [', '.join(without) + '.', '']
+    else:
+        out += ['Every facility in the atlas has a local map.', '']
+    return out
 
 
 def main() -> int:

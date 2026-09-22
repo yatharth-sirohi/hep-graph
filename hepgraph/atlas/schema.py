@@ -48,6 +48,11 @@ ENTITY_DIRS: dict[str, str] = {
     'document': 'documents',
     'topic': 'topics',
     'source': 'sources',
+    # A25 (2026-09-18): the local-map geometry layer.  Appended last so that
+    # `iter_entities` keeps the order every existing bundle and report was
+    # built in, and so a map may reference anything that loads before it.
+    'map': 'maps',
+    'geometry': 'geometry',
 }
 DIR_TO_TYPE: dict[str, str] = {v: k for k, v in ENTITY_DIRS.items()}
 ENTITY_TYPES: tuple[str, ...] = tuple(ENTITY_DIRS)
@@ -339,6 +344,11 @@ SOURCE_TYPES: tuple[str, ...] = (
     'institution_page', 'geocoder', 'result_page', 'press_release', 'project_document',
     'journal_article', 'arxiv', 'inspire_literature_record', 'wikipedia', 'wikidata',
     'secondary',
+    # A25: OpenStreetMap, rank 11 — below `journal_article` (10), so a shape
+    # traced by OSM contributors can never on its own make a value `verified`
+    # (A17 needs rank <= VERIFIED_MAX_RANK = 10).  That is the whole point of
+    # the rank: OSM is excellent geodata and is nobody's official record.
+    'openstreetmap',
 )
 LEGACY_SOURCE_TYPES: dict[str, str] = {'inspire_record': 'inspire_literature_record'}
 # A18 derived rank mapping.  Never authored; the build and the validator
@@ -360,6 +370,7 @@ SOURCE_RANKS: dict[str, int] = {
     'journal_article': 10,
     'arxiv': 10,
     'inspire_literature_record': 10,
+    'openstreetmap': 11,     # A25
     'wikipedia': 12,
     'wikidata': 12,
     'secondary': 12,
@@ -387,6 +398,65 @@ def source_rank(source_type: Any) -> int | None:
     if not isinstance(source_type, str):
         return None
     return SOURCE_RANKS.get(LEGACY_SOURCE_TYPES.get(source_type, source_type))
+
+
+# ---------------------------------------------------------------------------
+# Local-map geometry vocabulary (A25)
+# ---------------------------------------------------------------------------
+
+#: Contract §1.2.  Rings and tunnels are lines, halls and buildings polygons,
+#: strings and shafts may be points; `other` is the honest escape hatch.
+FEATURE_TYPES: tuple[str, ...] = (
+    'ring', 'linac', 'transfer_line', 'beamline', 'tunnel', 'shaft', 'cavern',
+    'hall', 'experimental_area', 'target_station', 'building', 'boundary',
+    'array', 'string', 'direction_line', 'level_outline', 'road', 'water', 'other',
+)
+#: Feature types that depict a named atlas entity and may not be context-only.
+FEATURE_TYPES_REQUIRING_ENTITY: frozenset[str] = frozenset({
+    'ring', 'linac', 'beamline', 'transfer_line', 'cavern', 'hall',
+    'target_station', 'array', 'string', 'direction_line',
+})
+#: Entity types a geometry feature may depict (contract §1.2).
+GEOMETRY_ENTITY_TYPES: tuple[str, ...] = (
+    'accelerator', 'beamline', 'detector', 'site', 'experiment', 'facility',
+)
+
+#: What kind of evidence a shape is.  There is deliberately no `schematic`:
+#: a tracing of an unscaled diagram is a `map.schematics` link, not geometry.
+REPRESENTATIONS: tuple[str, ...] = ('surveyed', 'georeferenced', 'derived', 'inferred_direction')
+#: The one representation that is not a physical structure and needs no accuracy.
+DIRECTION_REPRESENTATION = 'inferred_direction'
+#: Representations counted as "to scale" in the build's `to_scale_count`.
+TO_SCALE_REPRESENTATIONS: frozenset[str] = frozenset({'surveyed', 'georeferenced', 'derived'})
+
+#: A map level's physical plane (contract §1.1).
+LEVEL_KINDS: tuple[str, ...] = ('surface', 'underground', 'sea', 'lake', 'ice', 'mountain')
+
+#: Independent cross-checks the validator executes against a shape (§1.2).
+CHECK_KINDS: tuple[str, ...] = ('length', 'area', 'distance', 'azimuth', 'span')
+#: Default fractional tolerance of a `checks[]` row when it states none.
+CHECK_TOLERANCE_DEFAULT = 0.03
+#: `azimuth` is compared in degrees, not as a fraction: 1 degree, per A25.
+AZIMUTH_TOLERANCE_DEG = 1.0
+
+#: `extent_m` bounds (contract §1.1): a half-width smaller than 500 m is a
+#: building plan, larger than 60 km is a region, and neither is a campus map.
+MIN_EXTENT_M, MAX_EXTENT_M = 500.0, 60_000.0
+#: Hard limit on how far any position may sit from the map centre (§2).
+MAX_FEATURE_DISTANCE_M = 60_000.0
+#: A map centre further than this from the facility's primary site warns (§2).
+MAX_MAP_CENTER_DISTANCE_M = 30_000.0
+#: §1.2: a feature's centroid must sit within `max(3 x precision_m, this)` of
+#: a precise site point, and a site point coarser than this never checks anything.
+SITE_MATCH_MAX_PRECISION_M = 100.0
+SITE_MATCH_FLOOR_M = 150.0
+#: §3: the build fails when one map's geometry bundle exceeds this.
+GEOMETRY_BUNDLE_MAX_BYTES = 2_000_000
+
+#: Licence names the geometry layer expects to see (free text is still allowed;
+#: this is what the ODbL attribution rule keys on).
+ODBL_LICENSE_NAME = 'ODbL-1.0'
+OSM_ATTRIBUTION = '\u00a9 OpenStreetMap contributors'
 
 
 COVERAGE_TIERS: tuple[str, ...] = ('A', 'B', 'C', 'D', 'E')
@@ -1455,7 +1525,8 @@ class FieldSpec:
       lineage, key_specs, membership_summary, leadership, affiliations,
       memberships, hep_graph, link_check, baselines, subsystems, volumes,
       country_list, placements, facility_roles, claim, identity_evidence,
-      quantity_or_sourced, primary_beam
+      quantity_or_sourced, primary_beam,
+      levels, unlocated, schematics, checks, validity, license, osm (A25)
     """
 
     kind: str
@@ -1510,6 +1581,7 @@ ENTITY_FIELDS: dict[str, dict[str, FieldSpec]] = {
         'institution_id': _f('id', ref_type='institution', derived=True),
         'document_ids': _f('ids', ref_type='document', derived=True),
         'experiment_ids': _f('ids', ref_type='experiment', derived=True),
+        'map_id': _f('id', ref_type='map', derived=True),               # A25
     },
     'site': {
         **COMMON_FIELDS,
@@ -1524,6 +1596,7 @@ ENTITY_FIELDS: dict[str, dict[str, FieldSpec]] = {
         'countries': _f('country_list'),
         'place': _f('place', True),
         'document_ids': _f('ids', ref_type='document', derived=True),
+        'map_id': _f('id', ref_type='map', derived=True),               # A25
     },
     'accelerator': {
         **COMMON_FIELDS,
@@ -1540,6 +1613,7 @@ ENTITY_FIELDS: dict[str, dict[str, FieldSpec]] = {
         'serves_experiment_ids': _f('ids', ref_type='experiment', derived=True),
         'beamline_ids': _f('ids', ref_type='beamline', derived=True),
         'document_ids': _f('ids', ref_type='document', derived=True),
+        'geometry_map_ids': _f('ids', ref_type='map', derived=True),    # A25
     },
     'beamline': {
         **COMMON_FIELDS,
@@ -1557,6 +1631,7 @@ ENTITY_FIELDS: dict[str, dict[str, FieldSpec]] = {
         'status': _f('enum', True, enum=STATUSES),
         'experiment_ids': _f('ids', ref_type='experiment', derived=True),
         'document_ids': _f('ids', ref_type='document', derived=True),
+        'geometry_map_ids': _f('ids', ref_type='map', derived=True),    # A25
     },
     'experiment': {
         **COMMON_FIELDS,
@@ -1593,6 +1668,7 @@ ENTITY_FIELDS: dict[str, dict[str, FieldSpec]] = {
         'specs': _f('quantity_map'),
         'subsystems': _f('subsystems'),
         'document_ids': _f('ids', ref_type='document', derived=True),
+        'geometry_map_ids': _f('ids', ref_type='map', derived=True),    # A25
     },
     'collaboration': {
         **COMMON_FIELDS,
@@ -1677,6 +1753,35 @@ ENTITY_FIELDS: dict[str, dict[str, FieldSpec]] = {
         'overview': _f('str', True),
         'observables': _f('list', True),
         'sources': _f('ids', True, ref_type='source'),
+    },
+    # A25 — the local-map geometry layer (docs/HEP_ATLAS_GEOMETRY.md §1).
+    'map': {
+        **COMMON_FIELDS,
+        'facility_id': _f('id', True, ref_type='facility', nullable=False),
+        'site_ids': _f('ids', ref_type='site'),
+        'center': _f('coordinates', True, nullable=False),
+        'extent_m': _f('int', True, nullable=False),     # half-width, 500-60 000 m
+        'levels': _f('levels', True),
+        'unlocated': _f('unlocated', True),
+        'schematics': _f('schematics'),
+        'linked_map_ids': _f('ids', ref_type='map'),     # authored; the build adds derived ones
+    },
+    'geometry': {
+        **COMMON_FIELDS,
+        'map_id': _f('id', True, ref_type='map', nullable=False),
+        'entity_id': _f('id', True, ref_type=GEOMETRY_ENTITY_TYPES),   # null for context features
+        'site_id': _f('id', ref_type='site'),
+        'feature_type': _f('enum', True, enum=FEATURE_TYPES, nullable=False),
+        'level_id': _f('str', True, nullable=False),     # one of the map's levels[].id
+        'depth_m': _f('quantity', dimension='length'),
+        'representation': _f('enum', True, enum=REPRESENTATIONS, nullable=False),
+        'accuracy_m': _f('int'),                         # required except inferred_direction
+        'method': _f('str'),
+        'geometry': _f('sourced', True, nullable=False),  # value is a GeoJSON geometry object
+        'checks': _f('checks'),
+        'valid': _f('validity'),
+        'license': _f('license'),
+        'osm': _f('osm'),
     },
     'source': {
         'id': _f('str', True, nullable=False),
@@ -1878,10 +1983,19 @@ def slist_is_legacy(value: Any) -> bool:
     return not isinstance(value, list) and is_sourced_value(value)
 
 
+#: Keys that end in `_id` but name something *inside* a record rather than an
+#: entity in the atlas.  A25's `geometry.level_id` names one of its own map's
+#: `levels[].id`, which is a local label like `"surface"`, not `type:slug`;
+#: without this the dangling-reference rule would read every level name as a
+#: broken entity id.  `geometry-unknown-level` is what checks it instead.
+NON_REFERENCE_ID_KEYS: frozenset[str] = frozenset({'level_id'})
+
+
 def iter_reference_fields(record: Any, path: str = '') -> Iterable[tuple[str, str]]:
     """Yield (json_path, id) for every value under a key named `*_id` /
     `*_ids` (and `sources`, `roster_sources`, `roster_source_ids`,
-    `distinct_from`, `part_of`), recursively.
+    `distinct_from`, `part_of`), recursively, skipping
+    :data:`NON_REFERENCE_ID_KEYS`.
 
     Used by the validator for the §9 / A12 "dangling references" rule,
     independent of the per-type field tables.  A9 object entries are
@@ -1890,6 +2004,8 @@ def iter_reference_fields(record: Any, path: str = '') -> Iterable[tuple[str, st
     if isinstance(record, dict):
         for key, value in record.items():
             here = f'{path}.{key}' if path else key
+            if key in NON_REFERENCE_ID_KEYS:
+                continue
             if (key.endswith('_id') or key == 'part_of') and isinstance(value, str):
                 yield here, value
             elif key.endswith('_ids') or key in {'sources', 'roster_sources', 'distinct_from'}:

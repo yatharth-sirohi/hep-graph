@@ -21,17 +21,30 @@ HEP Atlas
 | --- | --- | --- |
 | Canonical data | `data/atlas/**/*.json` | Human-reviewed, one file per entity, diffable, provenance-carrying |
 | Schema and rules | `hepgraph/atlas/schema.py` | Enums, units, date/interval semantics, derived-state rules |
+| Geometry | `hepgraph/atlas/geo.py` | Geodesy and GeoJSON for the local-map layer: lengths, perimeters, spherical areas, centroids, azimuths, bbox, validation, simplification (A25) |
 | Loader | `hepgraph/atlas/load.py` | Reads the canonical tree into a typed in-memory model |
 | Validator | `hepgraph/atlas/validate.py` | Structural, referential, temporal, provenance, geometric and unit checks |
 | Build | `hepgraph/atlas/build.py` | Generates the browser bundles under `static/atlas/generated/` |
 | Link checker | `hepgraph/atlas/linkcheck.py` | Manual, polite; records link status back into source records |
+| OSM extractor | `scripts/atlas_osm_extract.py` | Manual, one Overpass request; writes *draft* geometry records a researcher finishes by hand (A25) |
 | Scaffold | `hepgraph/atlas/scaffold.py` | Creates skeleton files so adding an experiment is one command |
 | Server | `hepgraph/server.py` | Additive routes `/atlas` and `/atlas/<file>`; no change to HEP Graph routes |
 | Browser app | `static/atlas/` | Vanilla HTML/CSS/JS, vendored WebGL library, no build step |
 
 The canonical data is never read by the browser. The browser reads only
-generated bundles, so runtime browsing makes no external requests at all — in
-deliberate contrast to HEP Graph, whose pathfinding is live against INSPIRE.
+generated bundles, so runtime browsing makes essentially no external requests
+— in deliberate contrast to HEP Graph, whose pathfinding is live against
+INSPIRE.
+
+**One exception, added with the local-map layer (A25):** a local map route
+(`#/map/<slug>`) offers OpenStreetMap standard basemap tiles behind the
+to-scale geometry, which are fetched from `openstreetmap.org` while that
+route is open. They are optional and toggleable (`bm=0` hides them), need no
+API key and cost nothing; on tile failure the features still render on the
+dark background and a notice says the basemap is unavailable. Nothing else in
+the application fetches anything at runtime, and no other route loads tiles.
+The geometry itself is atlas data and is never fetched from a third party at
+runtime — it is built into `geometry/<slug>.json` like every other bundle.
 
 ## 2. Ontology
 
@@ -120,6 +133,109 @@ tables. Bundles load lazily: the globe needs the manifest and `atlas.json`;
 text, provenance, results, documents, institutions, memberships and people
 arrive only when something asks for them. A collaboration's people are fetched
 per institution, so ATLAS-scale rosters never load at once.
+
+### 6b. Local map view
+
+The to-scale campus view (`#/map/<facility-slug>`) implements
+`docs/HEP_ATLAS_GEOMETRY.md` §4. It is a separate surface from the globe, not
+a zoom level of it: the globe is a sphere of facilities; this is a Web
+Mercator plan of one campus with a metre scale bar.
+
+**Module map.** `static/atlas/js/localmap.js` owns the whole view — layout,
+Leaflet instance, feature drawing, left-hand list, drawer and depth diagram.
+`static/atlas/js/mapstyle.js` holds the four encoding tables and the legend
+rows, as data, so nothing about how a feature looks is decided inside the
+renderer. `app.js` contributes one block: it puts `.is-map-route` on
+`#atlas-main`, points `panels.js` at the drawer's panel container, and hands
+the route to `localmap.show()`. `panels.js` contributes one exported hook,
+`localMapLinks(record)`, which renders the "Open local map" section for any
+record carrying `map_id` or `geometry_map_ids`; the facility renderer and the
+no-WebGL fallback table both offer it.
+
+**Route and state.** `state.js` knows `map` as a route type and carries three
+extra params, written only while a map route is active: `lv` (comma list of
+visible level ids; absent means all), `bm` (`0` hides the basemap), and `sel`
+(the entity id in the drawer, or a `geometry:` id for a context feature that
+depicts no entity). The existing `y`/`r` timeline state applies unchanged, so
+a link can name a campus, a level, a selection and a year at once. Everything
+round-trips through back/forward, because selections are `pushState` and the
+view is rebuilt from `popstate` like every other route.
+
+**Layout.** Three columns: the layers-and-places list, the map stage, and a
+collapsible drawer. The map holds at least 60 % of a 1280 px viewport with the
+drawer open and the rest of the stage when it is shut. At ≤ 760 px the columns
+stack (map, then list) and the drawer becomes a bottom sheet.
+
+**Styling.** Four encodings, each on its own channel so none can be read as
+another: feature **type** (line weight, fill, base hue), **status at the
+selected year** resolved from `state_segments` through
+`model.js statusForTimeline` (dash pattern; amber for construction and
+commissioning, grey for finished), **level** (a pale casing behind subsurface
+features), and **representation** (stroke opacity plus a text badge).
+Boundaries and inferred-direction lines keep their own dot pattern, because
+that pattern is what identifies them; their status reads from hue and from the
+list. A feature outside the selected year is hidden, and only comes back —
+ghosted — when "show features outside the selected year" is on. "Depth view"
+opens an explicitly labelled vertical section with a metres axis; it is never
+a second plan.
+
+**Accessibility.** The left list is the accessible equivalent of the map, not
+a summary of it: a browser test asserts the set of listed features equals the
+set of drawn ones, and every row states the feature's type, level, status,
+positional accuracy and representation class in words. Toggles are buttons
+with `aria-pressed`; selection is announced through an `aria-live` region; the
+map surface is `role="application"` with an `aria-label` that names the
+keyboard alternative; the legend explains all four encodings as text; Escape
+closes the depth diagram, then the drawer, then (through `app.js`) the route,
+returning focus to whatever opened each. Colours are the existing dark-theme
+tokens, and the a11y suite measures the rendered contrast of the view's own
+text.
+
+**Lazy loading and tiles.** Leaflet 1.9.4 is vendored at
+`static/atlas/vendor/leaflet/` and its script and stylesheet are injected on
+the first map route, never during the globe's cold load; the per-map geometry
+bundle (`geometry/<slug>.json`) is fetched at the same moment. A browser test
+asserts that loading the globe requests neither. The basemap is OpenStreetMap
+standard tiles — no key, nothing paid, the mandatory attribution always
+visible, and toggleable; on repeated tile failure the features stay on the
+dark background and a notice says the basemap is unavailable. Those tile hosts
+are the one third-party origin in the server's CSP, and only under `img-src`.
+
+**Projection.** Web Mercator, with the opening view computed analytically
+from the record's own `center` and `extent_m` — never `fitBounds` over the
+features, because several maps carry an `inferred_direction` line hundreds of
+kilometres long (T2K 295 km, CNGS 731 km) and fitting those would zoom the
+campus out to nothing for a line that is not a structure. Those lines are
+themselves trimmed where they leave 1.4 × the map's extent, and the tooltip
+and shape facts say the line is drawn cut off and give its full length.
+A map whose centre lies inside a polar cap (|lat| > 85°) cannot use Web
+Mercator at all — Leaflet clamps latitude at ±85.0511 and projecting the view
+corners yields NaN — so it gets a local azimuthal-equidistant projection in
+metres (the axis convention of EPSG:3031 for the southern cap). There the
+arrow is labelled "grid north (0° meridian)", because true north is not a
+direction at the pole, and the basemap toggle is disabled with a notice
+saying OpenStreetMap's tiles cannot represent latitude 90°.
+
+**Point features.** About a quarter of the real geometry is `Point`: a
+cavern, an instrument or an array whose footprint no source gives. Leaflet's
+default would be a pin marker, which asserts a footprint; instead each is
+drawn to scale as a circle of its own `accuracy_m` with a screen-sized centre
+mark, and its row, tooltip and the legend all say "position only — no sourced
+footprint".
+
+**The selected entity.** If the reader selects an entity whose shapes the
+timeline excludes, the map would otherwise be silent about why its panel is
+open and its shape absent. That entity's shapes are drawn ghosted anyway,
+with a notice in the drawer and on the map naming the years its own
+`state_segments` cover and a button that sets the timeline to them. The
+override is narrow: it does not touch level toggles, unselected features, or
+the global "show features outside the selected year" switch.
+
+**What it refuses to do.** It draws nothing the build did not emit: an entity
+with no sourced shape appears in the "Unlocated / geometry not verified" list
+with its reason and research backlog, never as an invented circle. A failed
+bundle fetch renders an error with a retry, never an empty map, because a
+campus with no structures on it reads as a claim.
 
 ## 6a. Clustering, semantic zoom and filters
 

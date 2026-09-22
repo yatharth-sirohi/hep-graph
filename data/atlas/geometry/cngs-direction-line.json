@@ -1,0 +1,59 @@
+{
+  "accuracy_m": null,
+  "aliases": [],
+  "checks": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "depth_m": null,
+  "entity_id": "beamline:cngs",
+  "feature_type": "direction_line",
+  "geometry": {
+    "confidence": "derived",
+    "locator": "bearing computed by this record's author from the beamline's own sourced from_site_id / far_detector_site_ids coordinates",
+    "note": "Not a physical structure: CNGS sent neutrinos through the Earth's crust to Gran Sasso, 732 km away, from 2006 to 2012 (now decommissioned). Drawn only as the first 9 km of the beam direction, labelled 'inferred direction'.",
+    "sources": [
+      "src:opera-cern-cngs-page"
+    ],
+    "value": {
+      "coordinates": [
+        [
+          6.0469869,
+          46.2338702
+        ],
+        [
+          6.145196826253451,
+          46.18991055305472
+        ]
+      ],
+      "type": "LineString"
+    },
+    "verified_at": "2026-09-18"
+  },
+  "id": "geometry:cngs-direction-line",
+  "level_id": "surface",
+  "license": null,
+  "links": {
+    "website": null
+  },
+  "map_id": "map:cern",
+  "method": "Great-circle initial bearing from site:cern-meyrin (46.2338702, 6.0469869, the beamline's own recorded from_site_id) toward site:lngs-hall-c (42.4189343, 13.5183438, the far_detector_site_ids far site), computed on R = 6 371 008.8 m: 122.86 degrees. Clipped to the map's extent_m (9000 m).",
+  "name": "CNGS beam direction toward Gran Sasso (inferred)",
+  "notes": [],
+  "osm": null,
+  "representation": "inferred_direction",
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:cern-meyrin",
+  "sources": [
+    "src:opera-cern-cngs-page"
+  ],
+  "summary": {
+    "plain": "The initial direction of the CNGS neutrino beam CERN sent toward the Gran Sasso laboratory in Italy, 2006-2012."
+  },
+  "type": "geometry",
+  "valid": {
+    "end": "2012-12",
+    "start": "2006-07"
+  }
+}

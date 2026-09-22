@@ -11,6 +11,7 @@ import * as modes from './modes.js';
 import * as search from './search.js';
 import * as fallback from './fallback.js';
 import * as filtersModule from './filters.js';
+import * as localmap from './localmap.js';
 import { buildIndex } from './model.js';
 
 const els = {
@@ -104,7 +105,16 @@ async function main() {
   // with no explanation (P1-4).
   setNotice('Loading HEP Atlas… this can take a few seconds on a slow connection.');
 
-  const { notice } = await loader.init();
+  const { notice, error } = await loader.init();
+  // On a non-dev host with no generated bundle, loader.init() reports an
+  // error instead of a base path (see loader.js's resolveBase): showing the
+  // fixture tree there would masquerade development data as the real atlas.
+  // Stop before any get*() call, which would otherwise fail against a null
+  // base with a confusing "nullmanifest.json" message.
+  if (error) {
+    showError(error);
+    return;
+  }
 
   // Only what the first view needs. institutions.json is half a megabyte and
   // is not read until a collaboration or an institution is opened; results and
@@ -122,11 +132,27 @@ async function main() {
 
   // Coverage is partial and the footer says so: the atlas holds what its
   // registry has researched, not every experiment in the field (spec §104).
+  // "the coverage report" is a real link to the methodology page's live
+  // Coverage section (about.html reads the same manifest/coverage bundles,
+  // so it can never drift from these numbers) — built with DOM calls rather
+  // than an HTML string so nothing here depends on escaping manifest text.
   const counts = manifest.counts || {};
-  const coverageNote = counts.experiments
-    ? ` · ${counts.experiments} experiments researched — partial coverage of the field, see the coverage report`
-    : ' · partial coverage of the field';
-  els.versionLabel.textContent = `Atlas data version ${manifest.data_version || manifest.version || ''} · coverage updated ${manifest.coverage_updated || manifest.build_date || ''}${coverageNote}`;
+  els.versionLabel.textContent = '';
+  els.versionLabel.appendChild(document.createTextNode(
+    `Atlas data version ${manifest.data_version || manifest.version || ''} · coverage updated ${manifest.coverage_updated || manifest.build_date || ''}`
+  ));
+  if (counts.experiments) {
+    els.versionLabel.appendChild(document.createTextNode(
+      ` · ${counts.experiments} experiments researched — partial coverage of the field, see `
+    ));
+    const coverageLink = document.createElement('a');
+    coverageLink.href = '/atlas/about.html#coverage';
+    coverageLink.className = 'footer-link';
+    coverageLink.textContent = 'the coverage report';
+    els.versionLabel.appendChild(coverageLink);
+  } else {
+    els.versionLabel.appendChild(document.createTextNode(' · partial coverage of the field'));
+  }
   if (manifest.fixture && manifest.banner) {
     els.bannerLabel.textContent = manifest.banner;
     els.bannerLabel.classList.remove('hidden');
@@ -137,6 +163,11 @@ async function main() {
 
   // ---- filters (docs/HEP_ATLAS_ARCHITECTURE.md "Clustering and filters")
   const topicIndex = filtersModule.buildTopicIndex(atlas.topics);
+  // Built once and reused (mirrors topicIndex above), rather than inside the
+  // fallback's own render() on every state change — same site->experiment
+  // lookup globe.js already builds for marker visibility (filters.js's
+  // siteMatches needs it because a site carries no kind/topic_ids of its own).
+  const siteExperimentIndex = filtersModule.buildSiteExperimentIndex(atlas);
   const filterPanel = filtersModule.createFilterPanel(els.filtersControls, {
     atlas,
     topicIndex,
@@ -154,7 +185,7 @@ async function main() {
     const filters = filtersModule.filtersFromState(current);
     const timelineState = current.range ? { range: current.range } : { year: current.year };
     fallback.render(els.fallbackContainer, {
-      atlas, results: resultsBundle, navigate: state.navigate, filters, timelineState, topicIndex,
+      atlas, results: resultsBundle, navigate: state.navigate, filters, timelineState, topicIndex, siteExperimentIndex,
     });
   }
 
@@ -324,6 +355,35 @@ async function main() {
     } else {
       modes.show(null);
     }
+    // ---- local map view (docs/HEP_ATLAS_GEOMETRY.md §4) -- begin --------
+    // `#/map/<slug>` takes over #atlas-main: filters, globe stage and mode
+    // panel step aside for a three-column map layout, and panels.js is
+    // re-pointed at the map's drawer so the selected entity gets its normal
+    // detail panel there rather than in the (now hidden) side panel.
+    const mapRoute = current.entity && current.entity.type === 'map' ? current.entity : null;
+    document.getElementById('atlas-main').classList.toggle('is-map-route', !!mapRoute);
+    if (mapRoute) {
+      const mapTimeline = current.range ? { range: current.range } : { year: current.year };
+      modes.show(null);
+      els.detailPanel.classList.add('hidden');
+      els.detailPanel.innerHTML = '';
+      panels.init({
+        el: localmap.drawerPanelEl(), atlas, index, navigate: state.navigate, focusGlobe, viewOnGlobe,
+      });
+      await localmap.show(current, {
+        atlas, index, navigate: state.navigate, panels, timelineState: mapTimeline,
+        loaderBase: loader.base(),
+      });
+      return;
+    }
+    if (localmap.isOpen()) {
+      localmap.hide();
+      panels.init({
+        el: els.detailPanel, atlas, index, navigate: state.navigate, focusGlobe, viewOnGlobe,
+      });
+    }
+    // ---- local map view -- end ------------------------------------------
+
     // Same shape the timeline itself tracks: a range takes precedence over a
     // single year (matches timeline.js's own onChange payload and globe.js's
     // setYear/setRange split), so the detail panel's status badge always

@@ -7,6 +7,7 @@ import * as loader from './loader.js';
 import {
   quantityText, fmtDate, titleCase, statusEra, statusForTimeline, timelineAbsenceReason,
 } from './model.js';
+import * as provenance from './provenance.js';
 
 let ATLAS = null;
 let INDEX = null;
@@ -26,6 +27,7 @@ export function init({ el, atlas, index, navigate, focusGlobe, viewOnGlobe }) {
   ATLAS = atlas;
   INDEX = index;
   CALLBACKS = { navigate, focusGlobe, viewOnGlobe };
+  provenance.configure(index);
 }
 
 export function setCollaborationContext(id) {
@@ -83,6 +85,21 @@ function emptyNote(text) {
   return h('p', { class: 'empty-note' }, text);
 }
 
+// Task A4/A5: an empty "Results" section must say whether that is because
+// curation hasn't reached this entity yet or the atlas is simply small —
+// never read as if the atlas had checked and found none (CLAUDE.md: "an
+// empty 'complete' neighborhood reads as proof a person has no
+// collaborators" is exactly the failure mode this avoids). The counts come
+// from the results bundle the caller already loaded, never hardcoded, so
+// they can't drift from what the atlas actually holds.
+function noResultsCurated(list, scopeLabel) {
+  const experimentIds = new Set();
+  for (const r of list) for (const eid of r.experiment_ids || []) experimentIds.add(eid);
+  return emptyNote(
+    `No results curated for this ${scopeLabel} yet (the atlas records ${list.length} results `
+    + `across ${experimentIds.size} experiments; see coverage)`);
+}
+
 // The generated bundle puts an entity's plain-language summary right on its
 // atlas.json record (`record.summary.plain`); the fixtures instead only put
 // it in the lazily-loaded text bundle (`t.summary_plain`, no `summary` key
@@ -106,6 +123,50 @@ function siteLocationNote(site) {
     `Approximate location${kindLabel ? ` (${kindLabel} point)` : ''} — not the detector position`);
 }
 
+// site/detector/accelerator/beamline panels (below): the generated bundle
+// carries depth/depth_mwe/altitude as full Quantity objects (quantityText
+// handles those already); the dev fixtures instead flatten them to plain
+// numbers under `_m`-suffixed keys with no unit string at all (A23 predates
+// these four record types getting fixture coverage). This covers both shapes
+// without the caller needing to know which tree it's reading.
+function siteQuantity(value, unit) {
+  if (value == null) return null;
+  if (typeof value === 'object') return quantityText(value);
+  return `${value} ${unit}`;
+}
+
+// A detector's `subsystems` entries are inconsistent even within one bundle:
+// most are `{name, description}` objects, a handful (e.g. detector:alice,
+// detector:sphenix, detector:star in the generated tree) are bare strings,
+// and `description` itself is sometimes a list of strings rather than one
+// (e.g. detector:cdms-ii) rather than a single string. Render whatever shape
+// shows up instead of assuming the common case.
+function subsystemNode(sub) {
+  if (sub == null) return null;
+  if (typeof sub === 'string') return h('li', {}, sub);
+  const description = Array.isArray(sub.description) ? sub.description.join(' ') : sub.description;
+  return h('li', {}, sub.name
+    ? [h('strong', {}, sub.name), description ? `: ${description}` : '']
+    : (description || ''));
+}
+
+// Shared by the four location/instrument panels below: a document's
+// `owner_ids` lists every entity it documents, and the owning record's own
+// `document_ids` (a build-derived inverse, per docs/HEP_ATLAS_BUNDLES.md) is
+// read too so a document is found even if one side of that pair is thin.
+async function documentsFor(id, record) {
+  const { list } = await loader.getDocuments();
+  return list.filter((d) => (d.owner_ids || []).includes(id) || (record.document_ids || []).includes(d.id));
+}
+
+function intervalLine(iv) {
+  const label = iv.label ? `${titleCase(iv.label)}: ` : '';
+  const status = titleCase(iv.status);
+  const start = fmtDate(iv.start) || '?';
+  const end = fmtDate(iv.end) || 'present';
+  return `${label}${status} (${start}–${end})`;
+}
+
 // Sources are ~2.2 MB combined (provenance.json + sources.json) and the
 // disclosure they render into is collapsed by default — P1-2 in
 // docs/atlas-worklog/REVIEW_performance.md found every panel open fetching
@@ -115,7 +176,14 @@ function siteLocationNote(site) {
 // click or the keyboard), the body shows a visible loading state while the
 // request is in flight, and a failure renders a real message plus a retry
 // button rather than leaving the disclosure silently empty.
-function sourcesDisclosure(entityId, { approximateSites = [] } = {}) {
+// `record` is the entity's own already-loaded record (facility/experiment/
+// collaboration/result/…, whatever the caller is rendering) — claimLabel()
+// reads it to turn a pointer like `/key_specs/0/quantity` into "Baseline:
+// ~1300 km" using the record's own content, instead of showing the pointer
+// itself. For a collaboration, pass `membershipMembers` (the loaded roster,
+// reordered to each row's authored `source_index`) so `/members/N` resolves
+// to the right institution's name.
+function sourcesDisclosure(entityId, record, { approximateSites = [], membershipMembers = null } = {}) {
   const details = h('details', { class: 'panel-section' });
   details.appendChild(h('summary', {}, 'Sources'));
   const body = h('div', { class: 'panel-section-body' }, [
@@ -132,24 +200,10 @@ function sourcesDisclosure(entityId, { approximateSites = [] } = {}) {
     body.innerHTML = '';
     body.appendChild(h('p', { class: 'loading-note', role: 'status' }, 'Loading sources…'));
     try {
-      const [provenance, sourcesBundle] = await Promise.all([loader.getProvenance(), loader.getSources()]);
-      const entries = provenance[entityId];
-      const items = [];
-      if (entries) {
-        for (const [pointer, record] of Object.entries(entries)) {
-          const srcIds = record.sources || [];
-          for (const srcId of srcIds) {
-            const src = sourcesBundle.byId[srcId];
-            if (!src) continue;
-            const locatorOrQuote = record.quote ? `“${record.quote}”` : (record.locator || '');
-            items.push(h('li', {}, [
-              h('a', { href: src.url || '#', target: '_blank', rel: 'noopener' }, src.title || srcId),
-              h('div', { class: 'source-meta' }, `${pointer}${locatorOrQuote ? ` — ${locatorOrQuote}` : ''}`),
-              h('div', { class: 'source-access' }, src.accessed ? `Accessed ${src.accessed}` : ''),
-            ]));
-          }
-        }
-      }
+      const [provenanceBundle, sourcesBundle] = await Promise.all([loader.getProvenance(), loader.getSources()]);
+      const entries = provenanceBundle[entityId];
+      const labelRecord = membershipMembers ? { ...record, members: membershipMembers } : record;
+      const items = provenance.renderClaimItems(entries, sourcesBundle, labelRecord);
       // A23: a linked site's admitted-approximate coordinate explains *why*
       // in its own provenance note (e.g. "campus point, real hall position
       // not yet sourced") — the visible location line only says *that* it
@@ -157,12 +211,9 @@ function sourcesDisclosure(entityId, { approximateSites = [] } = {}) {
       // site's own entry is already sitting in the same object this
       // disclosure just fetched for its own entity; no extra request.
       for (const site of approximateSites) {
-        const siteEntry = provenance[site.id] && provenance[site.id]['/coordinates'];
+        const siteEntry = provenanceBundle[site.id] && provenanceBundle[site.id]['/coordinates'];
         if (siteEntry && siteEntry.note) {
-          items.push(h('li', { class: 'approximate-location-note' }, [
-            h('div', {}, `Approximate location — ${site.name}`),
-            h('div', { class: 'source-meta' }, siteEntry.note),
-          ]));
+          items.push(provenance.renderApproximateLocationNote(site, siteEntry.note));
         }
       }
       body.innerHTML = '';
@@ -187,6 +238,55 @@ function sourcesDisclosure(entityId, { approximateSites = [] } = {}) {
   });
   return details;
 }
+
+// ---- local map view hook (docs/HEP_ATLAS_GEOMETRY.md §4) -- begin -------
+/**
+ * The "Open local map" affordance for any record the build has linked to a
+ * to-scale local map: `map_id` on a facility or a site, `geometry_map_ids`
+ * on an accelerator, beamline or detector (the maps that draw it). Returns
+ * null when the build linked none, so a caller can append it unconditionally
+ * and nothing appears for a facility whose campus has not been mapped yet —
+ * which means "not researched", not "has no layout".
+ */
+export function localMapLinks(record) {
+  if (!record) return null;
+  const ids = record.map_id ? [record.map_id] : (record.geometry_map_ids || []);
+  const maps = (ATLAS && ATLAS.maps) || {};
+  const known = ids.filter((mapId) => maps[mapId]);
+  if (!known.length) return null;
+  const items = known.map((mapId) => {
+    const meta = maps[mapId];
+    const drawn = `${meta.to_scale_count} feature${meta.to_scale_count === 1 ? '' : 's'} drawn to scale`;
+    const unlocated = meta.unlocated_count
+      ? ` \u00b7 ${meta.unlocated_count} not drawn (geometry not verified)` : '';
+    return h('li', { class: 'entity-link-with-meta' }, [
+      linkTo(idRoute(mapId), `Open local map \u2014 ${meta.name}`, 'local-map-link'),
+      h('div', { class: 'source-meta' }, `${drawn}${unlocated}`),
+    ]);
+  });
+  return section('Local map', [h('ul', { class: 'entity-list' }, items)]);
+}
+
+/**
+ * The same affordance as one compact line for a panel's subtitle area, so a
+ * reader looking at a site, accelerator, beamline or detector sees "shown on
+ * a local map" before scrolling. Returns null when the build linked none.
+ */
+export function localMapChip(record) {
+  if (!record) return null;
+  const ids = record.map_id ? [record.map_id] : (record.geometry_map_ids || []);
+  const maps = (ATLAS && ATLAS.maps) || {};
+  const known = ids.filter((mapId) => maps[mapId]);
+  if (!known.length) return null;
+  const wrap = h('p', { class: 'panel-subtitle local-map-chip-row' });
+  known.forEach((mapId, i) => {
+    if (i) wrap.appendChild(document.createTextNode(' \u00b7 '));
+    wrap.appendChild(linkTo(idRoute(mapId), `\u25ce Shown to scale on the ${maps[mapId].name} local map`,
+      'local-map-chip'));
+  });
+  return wrap;
+}
+// ---- local map view hook -- end ----------------------------------------
 
 // Renders the status pill from the entity's per-year `state_segments` at the
 // currently selected timeline position, never from its static build-time
@@ -259,19 +359,19 @@ async function renderFacility(id, timelineState) {
     : [emptyNote('No experiments currently active here.')]));
   frag.appendChild(section('Historical experiments', historical.length
     ? [h('ul', { class: 'entity-list' }, historical.map((e) => h('li', {}, linkTo(idRoute(e.id), e.name))))]
-    : [emptyNote('No historical experiments recorded.')], { open: false }));
+    : [emptyNote('No historical experiments recorded in the atlas (coverage is partial).')], { open: false }));
   frag.appendChild(section('Future / planned experiments', future.length
     ? [h('ul', { class: 'entity-list' }, future.map((e) => h('li', {}, linkTo(idRoute(e.id), e.name))))]
-    : [emptyNote('No future or planned experiments recorded.')], { open: false }));
+    : [emptyNote('No future or planned experiments recorded in the atlas (coverage is partial).')], { open: false }));
 
   frag.appendChild(section('Results', results.length
     ? [h('ul', { class: 'entity-list' }, results.map((r) => h('li', {}, linkTo(idRoute(r.id), r.title))))]
-    : [emptyNote('No results attributed directly to this facility.')], { open: false }));
+    : [noResultsCurated(allResults, 'facility')], { open: false }));
 
   frag.appendChild(section('Documents', documents.length
     ? [h('ul', { class: 'entity-list' }, documents.map((d) => h('li', {},
       h('a', { href: d.reference && d.reference.url, target: '_blank', rel: 'noopener' }, d.name))))]
-    : [emptyNote('No documents recorded.')], { open: false }));
+    : [emptyNote('No documents curated yet.')], { open: false }));
 
   const links = Object.entries(facility.links || {}).filter(([, v]) => v);
   frag.appendChild(section('Official links', links.length
@@ -283,7 +383,13 @@ async function renderFacility(id, timelineState) {
     ? [h('ul', { class: 'entity-list' }, related.map((r) => h('li', {}, linkTo(idRoute(r.id), r.name))))]
     : [emptyNote('No related facilities recorded.')], { open: false }));
 
-  frag.appendChild(sourcesDisclosure(id));
+  // ---- local map view hook (§4): only the facility renderer calls it for
+  // now; the site/accelerator/beamline/detector renderers can append the
+  // same element when they land.
+  const mapSection = localMapLinks(facility);
+  if (mapSection) frag.appendChild(mapSection);
+
+  frag.appendChild(sourcesDisclosure(id, facility));
   CALLBACKS.focusGlobe(id);
   return frag;
 }
@@ -350,23 +456,30 @@ async function renderExperiment(id, timelineState) {
     ]))) : null,
   ], { open: false }));
 
-  const { byId: resultById } = await loader.getResults();
+  const { byId: resultById, list: allResults } = await loader.getResults();
   const results = (exp.result_ids || []).map((rid) => resultById.get(rid)).filter(Boolean)
     .sort((a, b) => (a.month || 0) - (b.month || 0));
+  // Task A5: an experiment that hasn't started operating yet has no results
+  // *because there is nothing to report yet* — a scientifically meaningful
+  // absence, not a curation gap — so it gets its own wording instead of the
+  // "not yet curated" note every other empty Results section uses.
+  const notYetOperating = statusEra(exp.status) === 'future';
   frag.appendChild(section('Results timeline', results.length
     ? [h('ol', { class: 'entity-list timeline-list' }, results.map((r) => h('li', {}, [
       h('span', { class: 'result-date' }, r.date || String(r.year || '')),
       ' ',
       linkTo(idRoute(r.id), r.title),
     ])))]
-    : [emptyNote('No results recorded yet.')], { open: false }));
+    : [notYetOperating
+      ? emptyNote('Not yet operating — no results expected.')
+      : noResultsCurated(allResults, 'experiment')], { open: false }));
 
   const { byId: docById } = await loader.getDocuments();
   const documents = (exp.document_ids || []).map((did) => docById.get(did)).filter(Boolean);
   frag.appendChild(section('Documents', documents.length
     ? [h('ul', { class: 'entity-list' }, documents.map((d) => h('li', {},
       h('a', { href: d.reference && d.reference.url, target: '_blank', rel: 'noopener' }, d.name))))]
-    : [emptyNote('No documents recorded.')], { open: false }));
+    : [emptyNote('No documents curated yet.')], { open: false }));
 
   const predecessors = (exp.lineage || []).filter((l) => ['predecessor', 'upgrade_of'].includes(l.relation));
   const successors = (exp.lineage || []).filter((l) => ['successor', 'upgraded_to'].includes(l.relation));
@@ -385,7 +498,7 @@ async function renderExperiment(id, timelineState) {
     others.length ? h('div', {}, [h('h4', {}, 'Related programs'), lineageList(others)]) : null,
   ], { open: false }));
 
-  frag.appendChild(sourcesDisclosure(id, { approximateSites }));
+  frag.appendChild(sourcesDisclosure(id, exp, { approximateSites }));
   CALLBACKS.focusGlobe(id);
   return frag;
 }
@@ -410,35 +523,62 @@ async function renderCollaboration(id, timelineState) {
     ? [linkTo(idRoute(host.id), host.name)]
     : [emptyNote('No host facility recorded.')]));
 
-  const viewBtn = h('button', { type: 'button', id: 'view-on-globe', class: 'primary-btn' }, 'View collaboration on globe');
-  viewBtn.addEventListener('click', () => CALLBACKS.viewOnGlobe(id));
-  frag.appendChild(h('div', { class: 'panel-actions' }, viewBtn));
-
   // The collaboration record's own `membership` block does not carry a
   // confirmed-member count (only institution_count / country_count / as_of
   // headline stats) — the actual roster counts, split into confirmed and
   // undated per ontology amendment A5, live in the membership bundle itself.
-  let countLabel = 'Membership counts not yet available.';
+  // A missing bundle (no roster curated at all) is not the same absence as
+  // one that exists but is only partially researched — §TASK3 keeps those
+  // two honest instead of collapsing both into "0 members" or a stale count.
+  let membership = null;
   try {
-    const membership = await loader.getMembership(id);
+    membership = await loader.getMembership(id);
+  } catch (error) {
+    membership = null;
+  }
+
+  const viewBtn = h('button', { type: 'button', id: 'view-on-globe', class: 'primary-btn' }, 'View collaboration on globe');
+  if (membership && (membership.members || []).length) {
+    viewBtn.addEventListener('click', () => CALLBACKS.viewOnGlobe(id));
+  } else {
+    viewBtn.disabled = true;
+    viewBtn.setAttribute('aria-disabled', 'true');
+    viewBtn.title = 'No institution roster curated yet for this collaboration.';
+  }
+  frag.appendChild(h('div', { class: 'panel-actions' }, viewBtn));
+
+  let membershipBody;
+  let membershipMembers = null;
+  if (!membership) {
+    membershipBody = [emptyNote('Institution roster not yet curated for this collaboration.')];
+  } else {
     const counts = membership.counts || {};
     const confirmed = counts.confirmed || 0;
     const undated = counts.undated || 0;
-    countLabel = `${confirmed} confirmed members (+${undated} undated)`;
-  } catch (error) {
-    // Leave the fallback text in place; the Membership section below still
-    // shows whatever headline stats the collaboration record itself has.
+    const asOf = membership.as_of ? ` as of ${membership.as_of}` : '';
+    const history = membership.membership_history;
+    const countLabel = (history === 'partial' || history === 'unknown')
+      ? `Partial roster: ${confirmed} confirmed institutions (+${undated} undated)${asOf}; the full membership is larger`
+      : `${confirmed} confirmed institutions (+${undated} undated)${asOf}`;
+    membershipBody = [
+      h('p', { class: 'membership-count' }, countLabel),
+      keyValueList([
+        ['Institutions', collab.membership && collab.membership.institution_count],
+        ['Countries', collab.membership && collab.membership.country_count],
+        ['As of', collab.membership && collab.membership.as_of],
+      ]),
+    ];
+    // `/members/N` provenance pointers index the roster's *authored* file
+    // order (`source_index`), not this display-sorted `members` array — see
+    // build.py's `_membership_row` and docs/HEP_ATLAS_BUNDLES.md.
+    membershipMembers = [];
+    for (const row of membership.members || []) {
+      if (typeof row.source_index === 'number') membershipMembers[row.source_index] = row;
+    }
   }
-  frag.appendChild(section('Membership', [
-    h('p', { class: 'membership-count' }, countLabel),
-    keyValueList([
-      ['Institutions', collab.membership && collab.membership.institution_count],
-      ['Countries', collab.membership && collab.membership.country_count],
-      ['As of', collab.membership && collab.membership.as_of],
-    ]),
-  ]));
+  frag.appendChild(section('Membership', membershipBody));
 
-  frag.appendChild(sourcesDisclosure(id));
+  frag.appendChild(sourcesDisclosure(id, collab, { membershipMembers }));
   return frag;
 }
 
@@ -567,19 +707,24 @@ async function renderTopic(id) {
   const historical = experiments.filter((e) => statusEra(e.status) === 'historical');
   const future = experiments.filter((e) => statusEra(e.status) === 'future');
   function expList(list) {
+    // "None." here means none *of this era specifically* — only meaningful
+    // once the section as a whole has at least one tagged experiment; the
+    // all-eras-empty case below gets its own honest wording instead.
     return list.length ? h('ul', { class: 'entity-list' }, list.map((e) => h('li', {}, linkTo(idRoute(e.id), e.name)))) : emptyNote('None.');
   }
-  frag.appendChild(section('Experiments', [
-    h('h4', {}, 'Current'), expList(current),
-    h('h4', {}, 'Historical'), expList(historical),
-    h('h4', {}, 'Future / planned'), expList(future),
-  ]));
+  frag.appendChild(section('Experiments', experiments.length
+    ? [
+      h('h4', {}, 'Current'), expList(current),
+      h('h4', {}, 'Historical'), expList(historical),
+      h('h4', {}, 'Future / planned'), expList(future),
+    ]
+    : [emptyNote('No experiments in the atlas tagged with this topic yet.')]));
 
   const { list: allResults } = await loader.getResults();
   const results = allResults.filter((r) => (r.topic_ids || []).includes(id));
   frag.appendChild(section('Related results', results.length
     ? [h('ul', { class: 'entity-list' }, results.map((r) => h('li', {}, linkTo(idRoute(r.id), r.title))))]
-    : [emptyNote('No results recorded yet.')], { open: false }));
+    : [noResultsCurated(allResults, 'topic')], { open: false }));
 
   return frag;
 }
@@ -611,12 +756,21 @@ async function renderResult(id) {
   }
   const pub = result.publication || {};
   const pubLinks = [];
-  if (pub.doi) pubLinks.push(h('li', {}, h('a', { href: `https://doi.org/${pub.doi}`, target: '_blank', rel: 'noopener' }, `DOI ${pub.doi}`)));
-  if (pub.arxiv) pubLinks.push(h('li', {}, h('a', { href: `https://arxiv.org/abs/${pub.arxiv}`, target: '_blank', rel: 'noopener' }, `arXiv ${pub.arxiv}`)));
-  if (result.official_url) pubLinks.push(h('li', {}, h('a', { href: result.official_url, target: '_blank', rel: 'noopener' }, 'Official page')));
+  if (pub.doi) pubLinks.push(h('li', {}, h('a', { href: `https://doi.org/${pub.doi}`, target: '_blank', rel: 'noopener' }, `DOI ${pub.doi} (journal)`)));
+  if (pub.arxiv) pubLinks.push(h('li', {}, h('a', { href: `https://arxiv.org/abs/${pub.arxiv}`, target: '_blank', rel: 'noopener' }, `arXiv ${pub.arxiv} (preprint)`)));
+  // A4: `official_url_kind` (build-derived) says whether `official_url`
+  // just restates the arXiv/DOI link already shown above under another
+  // name — in that case it is not a second link, so showing a redundant
+  // "Official page" pointed at the same target is never correct. Only a
+  // `kind` the build could not match to either (`"official"`, or the field
+  // absent from a bundle the build hasn't run against — never silently
+  // dropped) gets its own row.
+  if (result.official_url && result.official_url_kind !== 'arxiv' && result.official_url_kind !== 'doi') {
+    pubLinks.push(h('li', {}, h('a', { href: result.official_url, target: '_blank', rel: 'noopener' }, 'Collaboration result page')));
+  }
   frag.appendChild(section('Publication', pubLinks.length ? [h('ul', { class: 'entity-list' }, pubLinks)] : [emptyNote('No publication links recorded.')], { open: false }));
 
-  frag.appendChild(sourcesDisclosure(id));
+  frag.appendChild(sourcesDisclosure(id, result));
   return frag;
 }
 
@@ -643,6 +797,354 @@ async function renderDocument(id) {
   return frag;
 }
 
+// ---------------------------------------------------------------------- site
+async function renderSite(id, timelineState) {
+  const site = ATLAS.sites[id];
+  if (!site) return emptyNote('Unknown site.');
+  const text = await loader.getText();
+  const t = text[id] || {};
+
+  const frag = document.createDocumentFragment();
+  frag.appendChild(h('h2', {}, site.name));
+  const place = site.place ? [site.place.city, site.place.country].filter(Boolean).join(', ') : '';
+  frag.appendChild(h('p', { class: 'panel-subtitle' }, [titleCase(site.setting), place].filter(Boolean).join(' · ')));
+  frag.appendChild(experimentBadge(site, timelineState));
+  // ---- local map view hook (§4): the compact subtitle-area affordance
+  const mapChip = localMapChip(site);
+  if (mapChip) frag.appendChild(mapChip);
+
+  // A23: coordinates.approximate only exists on the generated tree's nested
+  // shape; the fixtures' flat lat/lon predate the amendment and are never
+  // approximate, so siteLocationNote() silently returns null there.
+  const locationNote = siteLocationNote(site);
+  const coordText = (site.lat != null && site.lon != null)
+    ? `${site.lat.toFixed(4)}, ${site.lon.toFixed(4)}${site.precision_m != null ? ` (±${site.precision_m} m${site.coord_kind ? `, ${titleCase(site.coord_kind)}` : ''})` : ''}`
+    : '';
+  const siteSummary = plainSummaryOf(site, t);
+  frag.appendChild(section('Overview', [
+    siteSummary ? h('p', {}, siteSummary) : emptyNote('No plain-language summary yet.'),
+    keyValueList([
+      ['Aliases', (site.aliases || []).join(', ')],
+      ['Country', (site.countries && site.countries.length ? site.countries.join(', ') : site.country) || ''],
+      ['Coordinates', coordText],
+    ]),
+    locationNote,
+  ]));
+
+  const quantRows = [
+    ['Depth', siteQuantity(site.depth != null ? site.depth : site.depth_m, 'm')],
+    ['Depth (water equivalent)', siteQuantity(site.depth_mwe, 'm.w.e.')],
+    ['Altitude', siteQuantity(site.altitude != null ? site.altitude : site.altitude_m, 'm')],
+  ].filter(([, v]) => v);
+  frag.appendChild(section('Depth and altitude', quantRows.length
+    ? [keyValueList(quantRows)]
+    : [emptyNote('No depth or altitude recorded.')], { open: false }));
+
+  const facility = site.facility_id && ATLAS.facilities[site.facility_id];
+  frag.appendChild(section('Facility', facility
+    ? [linkTo(idRoute(facility.id), facility.name)]
+    : [emptyNote('No facility recorded for this site.')]));
+
+  // Sites carry no derived `detector_ids` inverse list in the generated
+  // bundle (docs/HEP_ATLAS_BUNDLES.md's inverse-list table stops at `site:
+  // document_ids`) — derive "placed here" by scanning every detector's own
+  // `placements` for this site id, which both trees carry.
+  const detectorsHere = Object.values(ATLAS.detectors || {})
+    .map((detector) => ({ detector, placement: (detector.placements || []).find((p) => p.site_id === id) }))
+    .filter((row) => row.placement);
+  frag.appendChild(section('Detectors placed here', detectorsHere.length
+    ? [h('ul', { class: 'entity-list' }, detectorsHere.map(({ detector, placement }) => h('li', { class: 'entity-link-with-meta' }, [
+      linkTo(idRoute(detector.id), detector.name),
+      placement.role ? ` — ${titleCase(placement.role)}` : '',
+      (placement.start || placement.end) ? ` (${placement.start || '?'}–${placement.end || 'present'})` : '',
+    ])))]
+    : [emptyNote('No detectors recorded at this site.')]));
+
+  const experimentIds = new Set();
+  for (const { detector } of detectorsHere) {
+    for (const eid of detector.experiment_ids || []) experimentIds.add(eid);
+  }
+  const experimentsHosted = [...experimentIds].map((eid) => ATLAS.experiments[eid]).filter(Boolean);
+  frag.appendChild(section('Experiments hosted', experimentsHosted.length
+    ? [h('ul', { class: 'entity-list' }, experimentsHosted.map((e) => h('li', {}, linkTo(idRoute(e.id), e.name))))]
+    : [emptyNote('No experiments recorded at this site.')]));
+
+  const acceleratorsHere = Object.values(ATLAS.accelerators || {}).filter((a) => a.site_id === id);
+  frag.appendChild(section('Accelerators sited here', acceleratorsHere.length
+    ? [h('ul', { class: 'entity-list' }, acceleratorsHere.map((a) => h('li', {}, linkTo(idRoute(a.id), a.name))))]
+    : [emptyNote('No accelerators recorded at this site.')], { open: false }));
+
+  const beamlinesHere = Object.values(ATLAS.beamlines || {}).filter((b) => (b.near_detector_site_ids || []).includes(id)
+    || (b.far_detector_site_ids || []).includes(id));
+  frag.appendChild(section('Beamlines', beamlinesHere.length
+    ? [h('ul', { class: 'entity-list' }, beamlinesHere.map((b) => h('li', {}, linkTo(idRoute(b.id), b.name))))]
+    : [emptyNote('No beamlines recorded at this site.')], { open: false }));
+
+  const documents = await documentsFor(id, site);
+  frag.appendChild(section('Documents', documents.length
+    ? [h('ul', { class: 'entity-list' }, documents.map((d) => h('li', {},
+      h('a', { href: d.reference && d.reference.url, target: '_blank', rel: 'noopener' }, d.name))))]
+    : [emptyNote('No documents recorded.')], { open: false }));
+
+  // ---- local map view hook (§4)
+  const mapSection = localMapLinks(site);
+  if (mapSection) frag.appendChild(mapSection);
+
+  const approximateSites = (site.coordinates && site.coordinates.approximate) ? [site] : [];
+  frag.appendChild(sourcesDisclosure(id, site, { approximateSites }));
+  CALLBACKS.focusGlobe(id);
+  return frag;
+}
+
+// ------------------------------------------------------------------ detector
+async function renderDetector(id, timelineState) {
+  const detector = ATLAS.detectors[id];
+  if (!detector) return emptyNote('Unknown detector.');
+  const text = await loader.getText();
+  const t = text[id] || {};
+
+  const frag = document.createDocumentFragment();
+  frag.appendChild(h('h2', {}, detector.name));
+  const techLabel = [detector.technology, (detector.technology_classes || []).map(titleCase).join(', ')]
+    .filter(Boolean).join(' · ');
+  if (techLabel) frag.appendChild(h('p', { class: 'panel-subtitle' }, techLabel));
+  frag.appendChild(experimentBadge(detector, timelineState));
+  // ---- local map view hook (§4): the compact subtitle-area affordance
+  const mapChip = localMapChip(detector);
+  if (mapChip) frag.appendChild(mapChip);
+
+  const detectorSummary = plainSummaryOf(detector, t);
+  frag.appendChild(section('Overview', [
+    detectorSummary ? h('p', {}, detectorSummary) : emptyNote('No plain-language summary yet.'),
+    keyValueList([['Aliases', (detector.aliases || []).join(', ')]]),
+  ]));
+
+  const specRows = Object.entries(detector.specs || {}).map(([k, v]) => [titleCase(k), quantityText(v)]);
+  frag.appendChild(section('Specifications', specRows.length
+    ? [keyValueList(specRows)]
+    : [emptyNote('No technical specifications recorded.')], { open: false }));
+
+  const placements = detector.placements || [];
+  frag.appendChild(section('Placements', placements.length
+    ? [h('ul', { class: 'entity-list' }, placements.map((p) => {
+      const site = ATLAS.sites[p.site_id];
+      return h('li', { class: 'entity-link-with-meta' }, [
+        site ? linkTo(idRoute(site.id), site.name) : document.createTextNode(p.site_id),
+        p.role ? ` — ${titleCase(p.role)}` : '',
+        (p.start || p.end) ? ` (${p.start || '?'}–${p.end || 'present'})` : '',
+      ]);
+    }))]
+    : [emptyNote('No placement recorded.')]));
+
+  const experimentsHere = (detector.experiment_ids || []).map((eid) => ATLAS.experiments[eid]).filter(Boolean);
+  frag.appendChild(section('Experiments', experimentsHere.length
+    ? [h('ul', { class: 'entity-list' }, experimentsHere.map((e) => h('li', {}, linkTo(idRoute(e.id), e.name))))]
+    : [emptyNote('No experiments recorded.')]));
+
+  const parent = detector.parent_detector_id && ATLAS.detectors[detector.parent_detector_id];
+  const children = Object.values(ATLAS.detectors || {}).filter((d) => d.parent_detector_id === id);
+  frag.appendChild(section('Parent and child detectors', [
+    h('h4', {}, 'Parent'),
+    parent ? h('p', {}, linkTo(idRoute(parent.id), parent.name)) : emptyNote('No parent detector recorded.'),
+    h('h4', {}, 'Child detectors'),
+    children.length
+      ? h('ul', { class: 'entity-list' }, children.map((c) => h('li', {}, linkTo(idRoute(c.id), c.name))))
+      : emptyNote('No child detectors recorded.'),
+  ], { open: false }));
+
+  const subsystems = (detector.subsystems || []).map(subsystemNode).filter(Boolean);
+  frag.appendChild(section('Subsystems', subsystems.length
+    ? [h('ul', { class: 'entity-list' }, subsystems)]
+    : [emptyNote('No subsystems recorded.')], { open: false }));
+
+  const documents = await documentsFor(id, detector);
+  frag.appendChild(section('Documents', documents.length
+    ? [h('ul', { class: 'entity-list' }, documents.map((d) => h('li', {},
+      h('a', { href: d.reference && d.reference.url, target: '_blank', rel: 'noopener' }, d.name))))]
+    : [emptyNote('No documents recorded.')], { open: false }));
+
+  // ---- local map view hook (§4)
+  const mapSection = localMapLinks(detector);
+  if (mapSection) frag.appendChild(mapSection);
+
+  frag.appendChild(sourcesDisclosure(id, detector));
+  const focusSite = placements.map((p) => p.site_id).find(Boolean);
+  if (focusSite) CALLBACKS.focusGlobe(focusSite);
+  return frag;
+}
+
+// --------------------------------------------------------------- accelerator
+async function renderAccelerator(id, timelineState) {
+  const accelerator = ATLAS.accelerators[id];
+  if (!accelerator) return emptyNote('Unknown accelerator.');
+  const text = await loader.getText();
+  const t = text[id] || {};
+
+  const frag = document.createDocumentFragment();
+  frag.appendChild(h('h2', {}, accelerator.name));
+  frag.appendChild(h('p', { class: 'panel-subtitle' }, titleCase(accelerator.kind)));
+  frag.appendChild(experimentBadge(accelerator, timelineState));
+  // ---- local map view hook (§4): the compact subtitle-area affordance
+  const mapChip = localMapChip(accelerator);
+  if (mapChip) frag.appendChild(mapChip);
+
+  const acceleratorSummary = plainSummaryOf(accelerator, t);
+  frag.appendChild(section('Overview', [
+    acceleratorSummary ? h('p', {}, acceleratorSummary) : emptyNote('No plain-language summary yet.'),
+    keyValueList([
+      ['Aliases', (accelerator.aliases || []).join(', ')],
+      ['Collider', accelerator.is_collider ? 'Yes' : 'No'],
+      ['Particles', (accelerator.particles || []).join(', ')],
+    ]),
+  ]));
+
+  const specRows = Object.entries(accelerator.specs || {}).map(([k, v]) => [titleCase(k), quantityText(v)]);
+  frag.appendChild(section('Specifications', specRows.length
+    ? [keyValueList(specRows)]
+    : [emptyNote('No technical specifications recorded.')], { open: false }));
+
+  const facility = accelerator.facility_id && ATLAS.facilities[accelerator.facility_id];
+  const site = accelerator.site_id && ATLAS.sites[accelerator.site_id];
+  frag.appendChild(section('Facility and site', [
+    facility ? h('p', { class: 'entity-link-with-meta' }, ['Facility: ', linkTo(idRoute(facility.id), facility.name)]) : emptyNote('No facility recorded.'),
+    site ? h('p', { class: 'entity-link-with-meta' }, ['Site: ', linkTo(idRoute(site.id), site.name)]) : emptyNote('No site recorded.'),
+  ]));
+
+  const feeds = (accelerator.feeds_accelerator_ids || []).map((aid) => ATLAS.accelerators[aid]).filter(Boolean);
+  // `fed_by_accelerator_ids` is a generated-tree-only derived field (never
+  // present, not even empty, on the fixtures' accelerator records).
+  const fedBy = (accelerator.fed_by_accelerator_ids || []).map((aid) => ATLAS.accelerators[aid]).filter(Boolean);
+  frag.appendChild(section('Accelerator chain', [
+    h('h4', {}, 'Feeds'),
+    feeds.length ? h('ul', { class: 'entity-list' }, feeds.map((a) => h('li', {}, linkTo(idRoute(a.id), a.name)))) : emptyNote('None recorded.'),
+    h('h4', {}, 'Fed by'),
+    fedBy.length ? h('ul', { class: 'entity-list' }, fedBy.map((a) => h('li', {}, linkTo(idRoute(a.id), a.name)))) : emptyNote('None recorded.'),
+  ], { open: false }));
+
+  const beamlinesHere = (accelerator.beamline_ids || []).map((bid) => ATLAS.beamlines[bid]).filter(Boolean);
+  frag.appendChild(section('Beamlines', beamlinesHere.length
+    ? [h('ul', { class: 'entity-list' }, beamlinesHere.map((b) => h('li', {}, linkTo(idRoute(b.id), b.name))))]
+    : [emptyNote('No beamlines recorded.')]));
+
+  const servedExperiments = (accelerator.serves_experiment_ids || []).map((eid) => ATLAS.experiments[eid]).filter(Boolean);
+  frag.appendChild(section('Experiments served', servedExperiments.length
+    ? [h('ul', { class: 'entity-list' }, servedExperiments.map((e) => h('li', {}, linkTo(idRoute(e.id), e.name))))]
+    : [emptyNote('No experiments recorded.')]));
+
+  // `intervals` is absent on the fixtures' accelerator/beamline records (only
+  // the generated tree's build derives it) — state_segments still drives the
+  // status badge above either way, so this only ever loses the fixtures'
+  // human-readable timeline, not their status.
+  const intervals = accelerator.intervals || [];
+  frag.appendChild(section('Timeline', intervals.length
+    ? [h('ul', { class: 'entity-list' }, intervals.map((iv) => h('li', {}, intervalLine(iv))))]
+    : [emptyNote('No interval history recorded.')], { open: false }));
+
+  const documents = await documentsFor(id, accelerator);
+  frag.appendChild(section('Documents', documents.length
+    ? [h('ul', { class: 'entity-list' }, documents.map((d) => h('li', {},
+      h('a', { href: d.reference && d.reference.url, target: '_blank', rel: 'noopener' }, d.name))))]
+    : [emptyNote('No documents recorded.')], { open: false }));
+
+  // ---- local map view hook (§4)
+  const mapSection = localMapLinks(accelerator);
+  if (mapSection) frag.appendChild(mapSection);
+
+  frag.appendChild(sourcesDisclosure(id, accelerator));
+  if (accelerator.site_id) CALLBACKS.focusGlobe(accelerator.site_id);
+  return frag;
+}
+
+// ------------------------------------------------------------------ beamline
+async function renderBeamline(id, timelineState) {
+  const beamline = ATLAS.beamlines[id];
+  if (!beamline) return emptyNote('Unknown beamline.');
+  const text = await loader.getText();
+  const t = text[id] || {};
+
+  const frag = document.createDocumentFragment();
+  frag.appendChild(h('h2', {}, beamline.name));
+  frag.appendChild(experimentBadge(beamline, timelineState));
+  // ---- local map view hook (§4): the compact subtitle-area affordance
+  const mapChip = localMapChip(beamline);
+  if (mapChip) frag.appendChild(mapChip);
+
+  const beamlineSummary = plainSummaryOf(beamline, t);
+  const primaryBeam = beamline.primary_beam || {};
+  const primaryBeamText = [primaryBeam.particle, primaryBeam.energy ? quantityText(primaryBeam.energy) : null]
+    .filter(Boolean).join(' · ');
+  frag.appendChild(section('Overview', [
+    beamlineSummary ? h('p', {}, beamlineSummary) : emptyNote('No plain-language summary yet.'),
+    keyValueList([
+      ['Aliases', (beamline.aliases || []).join(', ')],
+      ['Primary beam', primaryBeamText],
+      ['Secondary beam', beamline.secondary_beam],
+      ['Target', beamline.target],
+      ['Direction', beamline.direction],
+    ]),
+  ]));
+
+  const specRows = Object.entries(beamline.specs || {}).map(([k, v]) => [titleCase(k), quantityText(v)]);
+  frag.appendChild(section('Specifications', specRows.length
+    ? [keyValueList(specRows)]
+    : [emptyNote('No technical specifications recorded.')], { open: false }));
+
+  const facility = beamline.facility_id && ATLAS.facilities[beamline.facility_id];
+  const accelerator = beamline.accelerator_id && ATLAS.accelerators[beamline.accelerator_id];
+  frag.appendChild(section('Facility and accelerator', [
+    facility ? h('p', { class: 'entity-link-with-meta' }, ['Facility: ', linkTo(idRoute(facility.id), facility.name)]) : emptyNote('No facility recorded.'),
+    accelerator ? h('p', { class: 'entity-link-with-meta' }, ['Accelerator: ', linkTo(idRoute(accelerator.id), accelerator.name)]) : emptyNote('No accelerator recorded.'),
+  ]));
+
+  function siteLi(sid) {
+    const site = ATLAS.sites[sid];
+    return h('li', {}, site ? linkTo(idRoute(site.id), site.name) : document.createTextNode(sid));
+  }
+  const nearSites = beamline.near_detector_site_ids || [];
+  const farSites = beamline.far_detector_site_ids || [];
+  const baselines = beamline.baselines || [];
+  frag.appendChild(section('Near and far detector sites', [
+    h('h4', {}, 'Near'),
+    nearSites.length ? h('ul', { class: 'entity-list' }, nearSites.map(siteLi)) : emptyNote('None recorded.'),
+    h('h4', {}, 'Far'),
+    farSites.length ? h('ul', { class: 'entity-list' }, farSites.map(siteLi)) : emptyNote('None recorded.'),
+    baselines.length ? h('div', {}, [
+      h('h4', {}, 'Baselines'),
+      h('ul', { class: 'entity-list' }, baselines.map((b) => {
+        const from = ATLAS.sites[b.from_site_id];
+        const to = ATLAS.sites[b.to_site_id];
+        const distance = b.distance ? quantityText(b.distance) : '';
+        return h('li', {}, `${from ? from.name : b.from_site_id} → ${to ? to.name : b.to_site_id}${distance ? `: ${distance}` : ''}`);
+      })),
+    ]) : null,
+  ]));
+
+  const beamlineExperiments = (beamline.experiment_ids || []).map((eid) => ATLAS.experiments[eid]).filter(Boolean);
+  frag.appendChild(section('Experiments', beamlineExperiments.length
+    ? [h('ul', { class: 'entity-list' }, beamlineExperiments.map((e) => h('li', {}, linkTo(idRoute(e.id), e.name))))]
+    : [emptyNote('No experiments recorded.')]));
+
+  const intervals = beamline.intervals || [];
+  frag.appendChild(section('Timeline', intervals.length
+    ? [h('ul', { class: 'entity-list' }, intervals.map((iv) => h('li', {}, intervalLine(iv))))]
+    : [emptyNote('No interval history recorded.')], { open: false }));
+
+  const documents = await documentsFor(id, beamline);
+  frag.appendChild(section('Documents', documents.length
+    ? [h('ul', { class: 'entity-list' }, documents.map((d) => h('li', {},
+      h('a', { href: d.reference && d.reference.url, target: '_blank', rel: 'noopener' }, d.name))))]
+    : [emptyNote('No documents recorded.')], { open: false }));
+
+  // ---- local map view hook (§4)
+  const mapSection = localMapLinks(beamline);
+  if (mapSection) frag.appendChild(mapSection);
+
+  frag.appendChild(sourcesDisclosure(id, beamline));
+  const focusSite = nearSites[0] || farSites[0];
+  if (focusSite) CALLBACKS.focusGlobe(focusSite);
+  return frag;
+}
+
 const RENDERERS = {
   facility: renderFacility,
   experiment: renderExperiment,
@@ -651,6 +1153,10 @@ const RENDERERS = {
   topic: renderTopic,
   result: renderResult,
   document: renderDocument,
+  site: renderSite,
+  detector: renderDetector,
+  accelerator: renderAccelerator,
+  beamline: renderBeamline,
 };
 
 // `timelineState` is `{ year }` or `{ range: [lo, hi] }`, the same shape

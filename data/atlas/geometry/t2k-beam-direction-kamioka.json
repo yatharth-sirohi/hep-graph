@@ -1,0 +1,84 @@
+{
+  "accuracy_m": null,
+  "aliases": [],
+  "checks": [
+    {
+      "expected": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "length",
+        "display": "295,335.2 ± 0.7 m",
+        "locator": "src:t2k-nim-2011",
+        "note": "",
+        "quote": "The measured distance between the target and the center position of Super-Kamiokande is 295,335.2 +- 0.7 m.",
+        "sources": [
+          "src:t2k-nim-2011"
+        ],
+        "unit": "m",
+        "value": 295335.2,
+        "verified_at": "2026-09-16"
+      },
+      "kind": "length",
+      "locator": "src:t2k-nim-2011",
+      "quote": "The measured distance between the target and the center position of Super-Kamiokande is 295,335.2 +- 0.7 m.",
+      "sources": [
+        "src:t2k-nim-2011"
+      ],
+      "tolerance": 0.01
+    }
+  ],
+  "coverage": {
+    "researched": "full",
+    "tier": "A"
+  },
+  "depth_m": null,
+  "entity_id": "beamline:j-parc-neutrino",
+  "feature_type": "direction_line",
+  "geometry": {
+    "confidence": "derived",
+    "locator": "site:j-parc-main-ring's own sourced coordinate; SK NIM paper's GPS survey of the Super-Kamiokande centre",
+    "note": "Not a physical structure: this is the T2K neutrino beam's direction, drawn on the far (Kamioka) end to show the direction from which it arrives. The validator recomputes the bearing from this line's first vertex (J-PARC) to beamline:j-parc-neutrino's far site (Super-Kamiokande, this line's own second vertex) and checks it matches.",
+    "quote": "at geographic coordinates 36 25' 32.6\" N, 137 18' 37.1\" E, and altitude 370 m above the conventional (WGS-84) geodetic ellipsoid, as determined by a GPS survey",
+    "sources": [
+      "src:jparc-osm-nominatim",
+      "src:sk-nim-2003"
+    ],
+    "value": {
+      "coordinates": [
+        [
+          140.599175,
+          36.4587536
+        ],
+        [
+          137.310306,
+          36.425722
+        ]
+      ],
+      "type": "LineString"
+    },
+    "verified_at": "2026-09-18"
+  },
+  "id": "geometry:t2k-beam-direction-kamioka",
+  "level_id": "surface",
+  "license": null,
+  "links": {
+    "website": null
+  },
+  "map_id": "map:kamioka-observatory",
+  "method": "Great-circle line from the J-PARC accelerator complex's own surveyed/geocoder site coordinate (36.4587536 N, 140.5991750 E) to Super-Kamiokande's surveyed GPS coordinate (36.425722 N, 137.310306 E, the beamline's own far_detector_site_ids[0]), on R = 6 371 008.8 m. Drawn as the full baseline rather than truncated to a few kilometres (contrast geometry:cngs-direction-line) because both endpoints are themselves independently sourced site coordinates, which lets the geodesic length of this exact line be checked against the T2K instrumentation paper's own surveyed target-to-detector baseline (295,335.2 m) — not itself a physical structure, and clipped to the visible map extent by the browser like any other direction_line.",
+  "name": "T2K neutrino beam, arriving from J-PARC (inferred direction)",
+  "notes": [],
+  "osm": null,
+  "representation": "inferred_direction",
+  "schema": "hep-atlas/0.2",
+  "site_id": null,
+  "sources": [
+    "src:t2k-nim-2011",
+    "src:jparc-osm-nominatim"
+  ],
+  "summary": {
+    "plain": "The direction the T2K neutrino beam arrives from at Kamioka: a straight line back to J-PARC, 295 km away, where the beam is produced."
+  },
+  "type": "geometry",
+  "valid": null
+}

@@ -1,0 +1,60 @@
+{
+  "accuracy_m": null,
+  "aliases": [],
+  "checks": [],
+  "coverage": {
+    "researched": "full",
+    "tier": "A"
+  },
+  "depth_m": null,
+  "entity_id": "beamline:j-parc-neutrino",
+  "feature_type": "direction_line",
+  "geometry": {
+    "confidence": "derived",
+    "locator": "T2K NIM paper (arXiv:1106.1238), section 3.6.1 (GPS baseline survey) and site:kamioka-mozumi-mine-super-kamiokande's own sourced coordinate",
+    "note": "Not a physical structure: the beam's actual on-axis tunnel (geometry:j-parc-neutrino-beamline-tunnel) points 2.5 degrees away from this line by design, so that Super-K sees an off-axis, narrow-band neutrino spectrum. Drawn only as the first kilometres of the direction toward Super-Kamiokande, labelled 'inferred direction'.",
+    "sources": [
+      "src:t2k-nim-2011"
+    ],
+    "value": {
+      "coordinates": [
+        [
+          140.60424536,
+          36.44915426
+        ],
+        [
+          140.57517767349776,
+          36.449343317837354
+        ]
+      ],
+      "type": "LineString"
+    },
+    "verified_at": "2026-09-18"
+  },
+  "id": "geometry:j-parc-neutrino-direction-line",
+  "level_id": "surface",
+  "license": null,
+  "links": {
+    "website": null
+  },
+  "map_id": "map:j-parc",
+  "method": "Great-circle initial bearing from geometry:j-parc-neutrino-target-station's own centroid (36.4491543, 140.6042454) toward site:kamioka-mozumi-mine-super-kamiokande's sourced coordinate (36.425722, 137.310306): 270.472 degrees, computed on R = 6 371 008.8 m. Clipped to the map's extent_m (2600 m). site_id is set to site:j-parc-main-ring (the beamline's own from_site_id for its sourced baseline row) because the target station is not itself an atlas `site:` record; it sits within that same site.",
+  "name": "J-PARC neutrino beam direction toward Super-Kamiokande (inferred)",
+  "notes": [
+    "Computed distance from the target-station centroid to Super-Kamiokande is 294.663 km, close to (0.23% under) the T2K NIM paper's own surveyed baseline of 295.3352 km measured target-core-to-detector-centre; reported here informationally, not as a formal checks[] row (no `distance`-kind check fits two points that are, by construction, almost exactly the sourced baseline apart).",
+    "The far site is site:kamioka-mozumi-mine-super-kamiokande (Super-Kamiokande); the Hyper-Kamiokande far site (site:kamioka-hyper-kamiokande-tochibora, about 8 km further south) sees nearly the same bearing and is not drawn as a second line.",
+    "QA pass (2026-09-21): cleared an ODbL license block this inferred_direction record carried despite `osm: null` and no OSM element ever being traced -- this feature is computed entirely from two independently-sourced points (a target-station centroid and Super-Kamiokande's own surveyed coordinate), not copied/traced third-party geodata. Every sibling inferred_direction record in the atlas (geometry:cngs-direction-line, geometry:t2k-beam-direction-kamioka, geometry:fermilab-numi-direction, geometry:fermilab-lbnf-direction) correctly carries `license: null`; this one and geometry:kek-neutrino-direction-line were the only two inconsistent with that pattern."
+  ],
+  "osm": null,
+  "representation": "inferred_direction",
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:j-parc-main-ring",
+  "sources": [
+    "src:t2k-nim-2011"
+  ],
+  "summary": {
+    "plain": "The great-circle direction from J-PARC toward Super-Kamiokande, 295 km away, along which the T2K neutrino beam travels."
+  },
+  "type": "geometry",
+  "valid": null
+}

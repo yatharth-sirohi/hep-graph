@@ -1,0 +1,73 @@
+{
+  "aliases": [],
+  "center": {
+    "confidence": "derived",
+    "kind": "campus",
+    "lat": 35.95268192792727,
+    "locator": "Arithmetic centroid of OpenStreetMap way 907808191 ('ORNL Spallation Neutron Source')",
+    "lon": -84.30044038845206,
+    "note": "Map centre only; not a claim about any structure.",
+    "precision_m": 800,
+    "sources": [
+      "src:geo-ornl-osm-sns-boundary"
+    ],
+    "verified_at": "2026-09-18"
+  },
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "extent_m": 1200,
+  "facility_id": "facility:oak-ridge-national-laboratory",
+  "id": "map:oak-ridge-national-laboratory",
+  "levels": [
+    {
+      "depth_m": null,
+      "id": "surface",
+      "kind": "surface",
+      "name": "Surface",
+      "note": "The only drawn feature is the SNS complex's surface property boundary."
+    },
+    {
+      "depth_m": null,
+      "id": "neutrino-alley",
+      "kind": "underground",
+      "name": "Neutrino Alley (basement corridor)",
+      "note": "Named for reference only: no feature is drawn on this level this session. Neutrino Alley is a basement hallway under the SNS target building (src:geo-ornl-neutrino-alley-qa), but no source fetched this session gives its depth below grade."
+    }
+  ],
+  "linked_map_ids": [],
+  "links": {
+    "website": null
+  },
+  "name": "Oak Ridge National Laboratory, Spallation Neutron Source",
+  "notes": [
+    "Overpass (overpass-api.de and lz4.overpass-api.de) refused essentially every connection attempt for LANL/ORNL after the SLAC extract succeeded (TCP connection refused, then HTTP 429, then connection refused again); overpass.kumi.systems accepted queries but appears to serve only a partial/regional dataset (zero elements even for a query overpass-api.de had already answered for the same SLAC bbox) and was not trusted; overpass.osm.ch answered but likewise returned zero elements for known-good queries and was dropped for the same reason. maps.mail.ru/osm/tools/overpass/api/interpreter, suggested mid-session, did return real data (25 buildings inside the SNS complex boundary, see the unlocated row below and the worklog) but timed out (HTTP 504) on anything larger than a single 'building' filter over a sub-1 km box, so the ring/linac search itself could not complete. Nominatim's /search and /lookup endpoints (a separate, lighter-weight OSM service) were reachable throughout and are the source of the complex boundary drawn on this map.",
+    "COHERENT's four operating sub-detectors (CENNS-10, CsI, Ge, NaI) all sit in Neutrino Alley, officially 'about 20 meters from the SNS target' at its closest point and 50 m long overall (src:geo-ornl-neutrino-alley-qa); none is drawn individually, since no source this session gives any one detector's position along the alley or a coordinate/heading for the alley itself, only its overall length and closest-approach distance. See the worklog."
+  ],
+  "schema": "hep-atlas/0.2",
+  "schematics": [],
+  "site_ids": [
+    "site:ornl-sns-neutrino-alley"
+  ],
+  "sources": [
+    "src:geo-ornl-osm-sns-boundary"
+  ],
+  "summary": {
+    "plain": "The Spallation Neutron Source at Oak Ridge National Laboratory, Tennessee, shown here as its outer accelerator/target complex boundary: the linac, accumulator ring and the COHERENT experiment's Neutrino Alley all lie somewhere within this footprint, but none has its own separately-sourced path or position this session.",
+    "technical": "One local map for facility:oak-ridge-national-laboratory. Only OpenStreetMap way 907808191 ('ORNL Spallation Neutron Source'), the complex's outer property boundary, was locatable this session; the SNS linac and accumulator ring (accelerator:sns) are unlocated, and Neutrino Alley's own position within the complex (site:ornl-sns-neutrino-alley) is represented only by that outer boundary, honestly widened in accuracy_m."
+  },
+  "type": "map",
+  "unlocated": [
+    {
+      "backlog": "A candidate for the linac building was found and deliberately NOT drawn: unlabeled OpenStreetMap way 892578460 inside the SNS complex is an unusually long, thin rectangle (measured span 370 m, area 5,294 sq m, implied width approx 14 m) geometrically consistent with the published linac-length range, but it carries no name or other identifying tag, so identifying it as the linac would be this researcher's inference, not a sourced claim. A future pass should confirm it (or find the actual linac/ring building) via an official annotated aerial photo, a civil-engineering site plan, or by retrying a fuller Overpass query (name/landuse tags, the accumulator ring's characteristic near-circular shape) once a mirror answers reliably within its timeout.",
+      "entity_id": "accelerator:sns",
+      "reason": "The SNS's ~305-330 m linac (sources disagree across eras: '1,000-foot linac' [305 m] per src:geo-ornl-sns-cold-linac-2005, a 2005 pre-completion article; other official pages describe a '355-yard' [~325 m] linac; a 493 m post-Proton-Power-Upgrade total appears only in unfetched secondary summaries and is not used here) and its 271-yard (~248 m) accumulator ring (src:geo-ornl-sns-ppu-ring) are both inside the complex boundary drawn as geometry:sns-complex-boundary. A later Overpass mirror (maps.mail.ru) did return the complex's 25 individual building footprints, none named or tagged beyond generic 'building=yes'/'service' (one unrelated 'ORNL Guest House'), so no building can be honestly identified as the linac or ring without guessing from shape alone; see the backlog for the one shape-only candidate found.",
+      "sources": [
+        "src:geo-ornl-sns-ppu-ring",
+        "src:geo-ornl-sns-cold-linac-2005"
+      ],
+      "verified_at": "2026-09-18"
+    }
+  ]
+}

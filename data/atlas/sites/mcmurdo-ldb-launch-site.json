@@ -1,36 +1,55 @@
 {
-  "id": "site:mcmurdo-ldb-launch-site",
-  "type": "site",
-  "name": "McMurdo LDB launch site",
-  "aliases": ["Williams Field balloon launch strip", "LDB Camp"],
-  "facility_id": "facility:mcmurdo-ldb",
+  "aliases": [
+    "Williams Field balloon launch strip",
+    "LDB Camp"
+  ],
+  "altitude": null,
   "coordinates": {
+    "confidence": "approximate",
+    "kind": "campus",
     "lat": -77.8675,
     "lon": 167.05667,
-    "kind": "campus",
+    "note": "This point is Williams Field (the specific launch strip named on ANITA's own campaign pages for the ANITA-II flight); the exact launch pad varied slightly by flight/year (LDB Camp vs Williams Field, both near McMurdo Station). The numeric coordinate itself comes from Wikipedia (rank 12); it is used here only for a campus-kind marker (per A17, geocoder/Wikipedia points are acceptable for campus|headquarters kinds), not as a precise detector position -- ANITA does not detect at this location anyway (see notes on detector:anita).",
     "precision_m": 20000,
-    "sources": ["src:astro-neutrino-anita-csbf-nasa-antarctica-payloads", "src:astro-neutrino-anita-wikipedia-williams-field"],
-    "verified_at": "2026-09-17",
-    "confidence": "approximate",
     "quote": "77°52'03\"S 167°03'24\"E / 77.86750°S 167.05667°E",
-    "note": "This point is Williams Field (the specific launch strip named on ANITA's own campaign pages for the ANITA-II flight); the exact launch pad varied slightly by flight/year (LDB Camp vs Williams Field, both near McMurdo Station). The numeric coordinate itself comes from Wikipedia (rank 12); it is used here only for a campus-kind marker (per A17, geocoder/Wikipedia points are acceptable for campus|headquarters kinds), not as a precise detector position -- ANITA does not detect at this location anyway (see notes on detector:anita)."
+    "sources": [
+      "src:astro-neutrino-anita-csbf-nasa-antarctica-payloads",
+      "src:astro-neutrino-anita-wikipedia-williams-field"
+    ],
+    "verified_at": "2026-09-17"
   },
-  "setting": "balloon",
-  "depth": null,
-  "depth_rock": null,
-  "depth_mwe": null,
-  "altitude": null,
+  "countries": [
+    "AQ"
+  ],
   "country": "AQ",
-  "countries": ["AQ"],
-  "place": {"city": null, "region": "Ross Island / McMurdo Sound, Antarctica", "country": "AQ"},
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "depth": null,
+  "depth_mwe": null,
+  "depth_rock": null,
   "document_ids": [],
+  "facility_id": "facility:mcmurdo-ldb",
+  "id": "site:mcmurdo-ldb-launch-site",
+  "links": {
+    "website": null
+  },
+  "name": "McMurdo LDB launch site",
+  "notes": [],
+  "place": {
+    "city": null,
+    "country": "AQ",
+    "region": "Ross Island / McMurdo Sound, Antarctica"
+  },
+  "schema": "hep-atlas/0.2",
+  "setting": "balloon",
+  "sources": [
+    "src:astro-neutrino-anita-csbf-nasa-antarctica-payloads"
+  ],
   "summary": {
     "plain": "The icy airstrip near McMurdo Station, Antarctica, where giant NASA balloons carrying instruments like ANITA are launched.",
     "technical": "NASA long-duration-balloon launch site (LDB Camp / Williams Field) near McMurdo Station, Antarctica, used for the ANITA balloon flights; a launch point, not a detection location."
   },
-  "sources": ["src:astro-neutrino-anita-csbf-nasa-antarctica-payloads"],
-  "links": {"website": null},
-  "notes": [],
-  "coverage": {"researched": "partial", "tier": "B"},
-  "schema": "hep-atlas/0.2"
+  "type": "site"
 }

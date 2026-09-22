@@ -63,6 +63,8 @@ ENTITY_LABELS = {
     'collaborations': 'Collaborations', 'institutions': 'Institutions', 'people': 'People',
     'results': 'Results', 'documents': 'Documents', 'topics': 'Topics', 'sources': 'Sources',
     'memberships': 'Membership rosters', 'coverage': 'Coverage registry rows',
+    # A25 — the local-map geometry layer.
+    'maps': 'Local maps', 'geometry': 'Geometry features',
 }
 
 
@@ -81,6 +83,35 @@ def source_link_check_counts(atlas: load.Atlas) -> tuple[int, int]:
         if link_check.get('last_checked') is not None or link_check.get('http_status') is not None:
             checked += 1
     return len(sources), checked
+
+
+def geometry_lines(atlas: load.Atlas) -> list[str]:
+    """A25: what the local-map layer actually contains, counted from the data.
+
+    When no campus has been mapped the block says so in words rather than
+    printing a row of zeros that reads like a measurement.
+    """
+    maps = atlas.by_type('map')
+    geometries = atlas.by_type('geometry')
+    if not maps and not geometries:
+        return ['No local map has been researched yet (ontology A25): `data/atlas/maps/` is '
+                'empty, so no facility offers a `#/map/<slug>` route.', '']
+    representations = Counter(str(record.get('representation') or 'unknown')
+                              for record in geometries.values())
+    checks = sum(len(record.get('checks') or []) for record in geometries.values())
+    unlocated = sum(len([row for row in record.get('unlocated') or [] if isinstance(row, dict)])
+                    for record in maps.values())
+    mapped = {record.get('facility_id') for record in maps.values()}
+    without = len([fid for fid in atlas.by_type('facility') if fid not in mapped])
+    return [
+        f'{len(maps)} local map(s) drawing {len(geometries)} feature(s): '
+        + ', '.join(f'{n} {name.replace("_", " ")}'
+                    for name, n in sorted(representations.items(), key=lambda kv: (-kv[1], kv[0])))
+        + f'. {checks} cross-check(s) are re-measured by the validator on every run, '
+        + f'{unlocated} entit(y/ies) are admitted as unlocated, and {without} facilit(y/ies) '
+        + 'have no local map at all.',
+        '',
+    ]
 
 
 def coverage_tally(atlas: load.Atlas) -> Counter:
@@ -222,9 +253,10 @@ def render(*, pytest_counts: dict[str, int] | None, pytest_source: str | None,
     out.append('| --- | ---: |')
     for key in ('facilities', 'sites', 'accelerators', 'beamlines', 'experiments', 'detectors',
                 'collaborations', 'institutions', 'people', 'results', 'documents', 'topics',
-                'sources', 'memberships', 'coverage'):
+                'sources', 'maps', 'geometry', 'memberships', 'coverage'):
         out.append(f'| {ENTITY_LABELS.get(key, key)} | {counts.get(key, 0)} |')
     out.append('')
+    out.extend(geometry_lines(atlas))
     pct = f'{checked_sources / total_sources:.0%}' if total_sources else 'n/a'
     out.append(f'Of {total_sources} sources, {checked_sources} ({pct}) carry a recorded '
                 'link-check status (`link_check.last_checked` or `link_check.http_status` '

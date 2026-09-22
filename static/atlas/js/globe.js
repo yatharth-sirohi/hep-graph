@@ -608,7 +608,9 @@ export function createGlobe(container, { atlas, index, onSelect }) {
       const el = makeMarkerElement({
         id: site.id,
         name: site.record.name,
-        route: { type: 'facility', slug: (site.record.facility_id || site.id).split(':')[1] },
+        // Sites have their own detail panel (routes added with the local-map
+        // release), so a site marker opens the site, not its parent facility.
+        route: { type: 'site', slug: site.id.split(':')[1] },
         size: 12,
         shape: 'circle',
         color: statusColor(site.record.status),

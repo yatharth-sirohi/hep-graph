@@ -1,45 +1,52 @@
 {
-  "schema": "hep-atlas/0.2",
-  "id": "site:double-chooz-near-detector",
-  "type": "site",
-  "name": "Double Chooz near detector site",
   "aliases": [],
-  "facility_id": "facility:chooz",
+  "altitude": null,
   "coordinates": {
-    "lat": 50.09,
-    "lon": 4.78944,
-    "kind": "campus",
-    "precision_m": 2000,
-    "sources": ["src:chooz-npp-wikipedia"],
-    "verified_at": "2026-09-17",
     "confidence": "approximate",
+    "kind": "campus",
+    "lat": 50.09,
     "locator": "Wikipedia infobox, Chooz Nuclear Power Plant",
-    "note": "No source fetched this session gives numeric coordinates for the near-detector hall specifically; this is the adjacent Chooz Nuclear Power Plant's own Wikipedia coordinate (rank 12), used as an approximate regional proxy per A17/A23, shared with site:double-chooz-far-detector pending hall-specific sourcing. The near detector is ~400 m from the reactor cores per Wikipedia."
+    "lon": 4.78944,
+    "note": "No source fetched this session gives numeric coordinates for the near-detector hall specifically; this is the adjacent Chooz Nuclear Power Plant's own Wikipedia coordinate (rank 12), used as an approximate regional proxy per A17/A23, shared with site:double-chooz-far-detector pending hall-specific sourcing. The near detector is ~400 m from the reactor cores per Wikipedia.",
+    "precision_m": 2000,
+    "sources": [
+      "src:chooz-npp-wikipedia"
+    ],
+    "verified_at": "2026-09-17"
   },
-  "setting": "underground",
+  "countries": [
+    "FR"
+  ],
+  "country": "FR",
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
   "depth": null,
   "depth_mwe": null,
-  "altitude": null,
-  "country": "FR",
-  "countries": ["FR"],
-  "place": {
-    "city": "Chooz",
-    "region": "Ardennes",
-    "country": "FR"
-  },
+  "facility_id": "facility:chooz",
+  "id": "site:double-chooz-near-detector",
   "links": {
     "website": null
   },
+  "name": "Double Chooz near detector site",
   "notes": [
     "No overburden/depth figure for the near-detector hall was found in a source fetched this session."
   ],
-  "sources": ["src:chooz-npp-wikipedia", "src:double-chooz-wikipedia"],
+  "place": {
+    "city": "Chooz",
+    "country": "FR",
+    "region": "Ardennes"
+  },
+  "schema": "hep-atlas/0.2",
+  "setting": "underground",
+  "sources": [
+    "src:chooz-npp-wikipedia",
+    "src:double-chooz-wikipedia"
+  ],
   "summary": {
     "plain": "The hall close to the Chooz nuclear reactors in France where Double Chooz placed its near detector.",
     "technical": "Double Chooz near-detector hall, approximately 400 m from the Chooz-B reactor cores."
   },
-  "coverage": {
-    "tier": "B",
-    "researched": "partial"
-  }
+  "type": "site"
 }

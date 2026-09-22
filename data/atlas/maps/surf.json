@@ -1,0 +1,85 @@
+{
+  "aliases": [],
+  "center": {
+    "confidence": "derived",
+    "kind": "campus",
+    "lat": 44.349356,
+    "locator": "Midpoint of the Yates Headframe (way/512969103) and Ross Headframe (way/792209493) OSM centroids",
+    "lon": -103.754282,
+    "note": "Map centre only; not a claim about any structure.",
+    "precision_m": 800,
+    "sources": [
+      "src:geo-surf-osm-campus-buildings"
+    ],
+    "verified_at": "2026-09-18"
+  },
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "extent_m": 1300,
+  "facility_id": "facility:surf",
+  "id": "map:surf",
+  "levels": [
+    {
+      "depth_m": null,
+      "id": "surface",
+      "kind": "surface",
+      "name": "Surface",
+      "note": "Lead, South Dakota; Yates and Ross shaft surface complexes."
+    },
+    {
+      "depth_m": {
+        "confidence": "verified",
+        "dimension": "length",
+        "display": "1478 m",
+        "note": "Houses the Davis Campus (LZ, Majorana Demonstrator) accessed via the Yates Shaft, and the LBNF/DUNE far-detector caverns accessed via the Ross Shaft; plan view only.",
+        "quote": "The entire experiment will be located at the 4850 Level (1478 m) Davis Campus at the Sanford Lab Underground Research Facility (SURF).",
+        "sources": [
+          "src:majorana-demonstrator-surf-news"
+        ],
+        "unit": "m",
+        "value": 1478,
+        "verified_at": "2026-09-18"
+      },
+      "id": "4850-level",
+      "kind": "underground",
+      "name": "4850 Level (1478 m)",
+      "note": "Plan view; the DUNE far-detector caverns (site:surf-4850-level-dune-far-detector) are on this same level but their position relative to the Ross Shaft is not sourced this session (see map.unlocated)."
+    }
+  ],
+  "linked_map_ids": [],
+  "links": {
+    "website": null
+  },
+  "name": "SURF — Sanford Underground Research Facility, Lead, South Dakota",
+  "notes": [],
+  "schema": "hep-atlas/0.2",
+  "schematics": [],
+  "site_ids": [
+    "site:surf-surface-campus",
+    "site:surf-davis-campus-lz",
+    "site:surf-4850-level-dune-far-detector"
+  ],
+  "sources": [
+    "src:geo-surf-osm-campus-buildings",
+    "src:surf-official-site"
+  ],
+  "summary": {
+    "plain": "SURF's surface campus in Lead, South Dakota (Yates and Ross shaft areas) and the 4850 Level 1478 m below, home to the Davis Campus (LZ, Majorana Demonstrator) and the LBNF/DUNE far-detector excavation.",
+    "technical": "Local map for facility:surf spanning the Lead, SD surface campus (OSM building footprints for the Yates and Ross shaft head-frames and hoists) and the 4850 Level (1478 m depth). The Davis Campus cavern (LZ, Majorana Demonstrator) is drawn from its own surveyed coordinate (SURF Physics Procedia Table 5); the LBNF/DUNE far-detector caverns on the same level remain unlocated for lack of a sourced offset from the Ross Shaft."
+  },
+  "type": "map",
+  "unlocated": [
+    {
+      "backlog": "Fetch Fermilab's 'Volume 3: Long-Baseline Neutrino Facility for DUNE' design report (lss.fnal.gov/archive/design/fermilab-design-2016-03.pdf, returned HTTP 403 to both WebFetch and curl this session) or the DUNE FD TDR's civil-engineering chapter for a cavern layout figure with a stated offset from the Ross Shaft or a Homestake-mine-coordinate-system plan; failing that, ask SURF's engineering group directly for a georeferenced site plan.",
+      "entity_id": "site:surf-4850-level-dune-far-detector",
+      "reason": "The LBNF/DUNE far-detector caverns (two 145 m long detector caverns plus the Central Utility Cavern, per LBNF's own public excavation page) are on the 4850 Level, reached via the Ross Shaft, but no source fetched this session states their horizontal offset or bearing from the Ross Shaft, a survey coordinate for the caverns, or a Homestake-mine-coordinate-system plan converted to lat/lon. The existing site record's own coordinate is an explicit surface-proxy fallback (precision_m 2000) and is not treated as an anchor for a derived shape here.",
+      "sources": [
+        "src:dune-fd-tdr-vol-1",
+        "src:fermilab-lbnf-dune-site"
+      ],
+      "verified_at": "2026-09-18"
+    }
+  ]
+}

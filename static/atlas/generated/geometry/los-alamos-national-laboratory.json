@@ -1,0 +1,188 @@
+{
+  "attribution": [
+    "© OpenStreetMap contributors (ODbL-1.0)"
+  ],
+  "bbox": [
+    -106.2890098,
+    35.8725644,
+    -106.2890098,
+    35.8725644
+  ],
+  "build_date": "2026-09-21",
+  "entity_index": {
+    "site:lanl-lansce": [
+      "geometry:lansce-site-marker"
+    ]
+  },
+  "features": [
+    {
+      "accuracy_m": 150,
+      "checks": [],
+      "depth_m": null,
+      "entity_id": "site:lanl-lansce",
+      "entity_name": "LANSCE (Technical Area 53)",
+      "entity_type": "site",
+      "feature_type": "other",
+      "geometry": {
+        "coordinates": [
+          -106.2890098,
+          35.8725644
+        ],
+        "type": "Point"
+      },
+      "id": "geometry:lansce-site-marker",
+      "level_id": "surface",
+      "license": {
+        "attribution": "© OpenStreetMap contributors",
+        "name": "ODbL-1.0",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "measured": {
+        "area_m2": null,
+        "centroid": [
+          -106.2890098,
+          35.8725644
+        ],
+        "length_m": null
+      },
+      "method": "OpenStreetMap node 8041862150, named 'LANSCE' (amenity=research_institute), reused verbatim as a point marker for the facility. This is the only named LANSCE element found via Nominatim search or Overpass in this session (Overpass itself refused every connection attempt for most of the session; see the worklog's method note): no building footprint, linac path, or named sub-area (Area A, Lujan Center, WNR, switchyard) is drawn, deliberately, given both the data gap and TA-53's security-sensitive status.",
+      "name": "LANSCE (Technical Area 53) site marker",
+      "osm": {
+        "elements": [
+          "node/8041862150"
+        ],
+        "timestamp": "2026-09-18"
+      },
+      "provenance": {
+        "confidence": "approximate",
+        "locator": "OpenStreetMap node/8041862150",
+        "note": "OpenStreetMap alone (source type openstreetmap, rank 11) yields at most `approximate` confidence; a single named point is not a claim about any building's exact position, only the general LANSCE facility area.",
+        "quote": null,
+        "sources": [
+          "src:geo-lanl-osm-lansce-node"
+        ],
+        "verified_at": "2026-09-18"
+      },
+      "representation": "georeferenced",
+      "site_id": "site:lanl-lansce",
+      "state_segments": [
+        [
+          468,
+          479,
+          "proposed",
+          "possible"
+        ],
+        [
+          480,
+          515,
+          "proposed",
+          "certain"
+        ],
+        [
+          516,
+          527,
+          "active",
+          "possible"
+        ],
+        [
+          528,
+          575,
+          "active",
+          "certain"
+        ],
+        [
+          576,
+          576,
+          "completed",
+          "possible"
+        ]
+      ],
+      "status": null
+    }
+  ],
+  "map": {
+    "aliases": [],
+    "center": {
+      "approximate": true,
+      "kind": "campus",
+      "lat": 35.8725644,
+      "lon": -106.2890098,
+      "precision_m": 150
+    },
+    "coverage": {
+      "researched": "partial",
+      "tier": "C"
+    },
+    "extent_m": 1500,
+    "facility_id": "facility:los-alamos-national-laboratory",
+    "id": "map:los-alamos-national-laboratory",
+    "levels": [
+      {
+        "depth_m": null,
+        "id": "surface",
+        "kind": "surface",
+        "name": "Surface"
+      }
+    ],
+    "linked_map_ids": [],
+    "links": {
+      "website": null
+    },
+    "name": "Los Alamos National Laboratory, LANSCE (Technical Area 53)",
+    "schematics": [],
+    "site_ids": [
+      "site:lanl-lansce"
+    ],
+    "summary": {
+      "plain": "Los Alamos National Laboratory's LANSCE accelerator area (Technical Area 53) in the hills of northern New Mexico, shown here as a single located point: public geodata for the 800-metre linac and its experimental areas was not available this session."
+    },
+    "type": "map",
+    "unlocated": [
+      {
+        "backlog": "Look for a public LANSCE facilities brochure or environmental-assessment site plan with a scale bar and at least three identifiable surveyed control points to georeference against; OpenStreetMap itself is confirmed (via maps.mail.ru's working mirror) to carry no building footprints at all within 700 m of the LANSCE point, so a further Overpass retry alone will not help without new contributed OSM data.",
+        "entity_id": "accelerator:lansce",
+        "entity_name": "Los Alamos Neutron Science Center (linac)",
+        "entity_type": "accelerator",
+        "reason": "LANSCE's 800 m side-coupled-cavity linac (src:geo-lanl-linac-page: 'The third and longest stage of the accelerator (800m) is the side-coupled-cavity linac') has no OpenStreetMap trace: a 700 m box directly around the LANSCE point returned zero building ways via a working Overpass mirror, and Nominatim search for 'LANSCE Linac', 'Area A', 'Lujan Neutron Scattering Center' and 'Weapons Neutron Research' each returned zero results. TA-53 is also security-sensitive, so only a public, officially-shown accelerator path would be drawn even if found. The general facility area is drawn via geometry:lansce-site-marker.",
+        "sources": [
+          "src:geo-lanl-linac-page"
+        ]
+      },
+      {
+        "backlog": "Find a LANSCE/LAMPF-era civil-engineering drawing or the original LSND proposal's site plan giving Line A's/Area A's beamline heading and the A6 beam stop's coordinates or its distance and bearing from a surveyed LANSCE control point.",
+        "entity_id": "detector:lsnd",
+        "entity_name": "LSND detector",
+        "entity_type": "detector",
+        "reason": "LSND's own NIM paper places it about 30 m from the A6 proton beam stop (src:lsnd-nim-1997-detector-paper), and a separate 2020 paper on LANSCE's Area A places a (different, later-proposed) target 'near the center of Area A, some 100 m downstream of the end of the 800-MeV accelerator' (src:geo-lanl-fpns-area-a-nim-2020) -- but the 800-MeV accelerator's own end point is not itself located this session (see accelerator:lansce, above), and no source gives the switchyard/Line-A bend's heading, so a derived point would rest on an unsourced direction, not a sourced one. LSND is therefore left undrawn rather than guessed; the detector-hosting site itself (site:lanl-lansce) is drawn.",
+        "sources": [
+          "src:geo-lanl-fpns-area-a-nim-2020",
+          "src:lsnd-nim-1997-detector-paper"
+        ]
+      }
+    ]
+  },
+  "schema": "hep-atlas/0.2",
+  "source_titles": {
+    "src:geo-lanl-fpns-area-a-nim-2020": {
+      "source_type": "journal_article",
+      "title": "Batygin and Pitcher, \"Advancement of LANSCE Accelerator Facility as a 1-MW Fusion Prototypic Neutron Source\"",
+      "url": "https://arxiv.org/abs/2002.08864"
+    },
+    "src:geo-lanl-linac-page": {
+      "source_type": "official_facility_site",
+      "title": "LANL's Linear Accelerator (LINAC)",
+      "url": "https://www.lanl.gov/science-engineering/science-facilities/lansce/facilities/linac"
+    },
+    "src:geo-lanl-osm-lansce-node": {
+      "source_type": "openstreetmap",
+      "title": "OpenStreetMap node 8041862150: LANSCE",
+      "url": "https://www.openstreetmap.org/node/8041862150"
+    },
+    "src:lsnd-nim-1997-detector-paper": {
+      "source_type": "detector_paper",
+      "title": "The Liquid Scintillator Neutrino Detector and LAMPF Neutrino Source",
+      "url": "https://arxiv.org/html/nucl-ex/9605002"
+    }
+  },
+  "version": "2d9d4c1bef36a3f7"
+}

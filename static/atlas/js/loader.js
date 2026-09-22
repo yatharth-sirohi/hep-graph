@@ -2,13 +2,20 @@
 // shapes that differ between the shipped fixtures and the bundle contract in
 // docs/HEP_ATLAS_BUNDLES.md (edges as [from,type,to] triples, results/documents
 // wrapped in {order, results|documents}, sources split into {sources, cited_by}).
-// `?data=fixtures` forces the fixtures/ tree; otherwise generated/ is tried
-// first and we fall back to fixtures/ with a visible notice if generated/
-// manifest.json is missing.
+// `?data=fixtures` forces the fixtures/ tree. Otherwise generated/ is tried
+// first. If generated/manifest.json is missing: on a dev host (localhost /
+// 127.0.0.1) we fall back to fixtures/ with a visible notice, same as always;
+// on any other host — a real deployment — falling back would silently show
+// development fixture data in place of the real atlas, so resolveBase()
+// instead reports an error and app.js shows the existing accessible error
+// state (docs/atlas-worklog/REVIEW_performance.md P1-4) rather than a
+// fixture banner. See `--browser-results`-driven test in browser_atlas.cjs
+// ("A non-localhost host with no generated bundle...").
 
 const cache = new Map();
 let BASE = null;
 let FALLBACK_NOTICE = null;
+let LOAD_ERROR = null;
 
 // Absolute (not page-relative) so this works whether the page was reached
 // as /atlas or /atlas/ — the handler serves both, but relative URLs would
@@ -35,13 +42,31 @@ async function probe(base) {
   }
 }
 
+// A dev host is one where showing fixtures in place of missing real data is
+// a convenience, not a misrepresentation: a developer running the server
+// locally knows the generated tree may not exist yet. Anywhere else (a
+// staging or production hostname), the same silent fallback would masquerade
+// development data as the real atlas, so it is not offered there.
+function isDevHost() {
+  const host = window.location.hostname;
+  return host === 'localhost' || host === '127.0.0.1' || host === '';
+}
+
 async function resolveBase() {
   const forced = paramsBase();
-  if (forced) return { base: forced, notice: null };
-  if (await probe(`${ROOT}generated/`)) return { base: `${ROOT}generated/`, notice: null };
+  if (forced) return { base: forced, notice: null, error: null };
+  if (await probe(`${ROOT}generated/`)) return { base: `${ROOT}generated/`, notice: null, error: null };
+  if (isDevHost()) {
+    return {
+      base: `${ROOT}fixtures/`,
+      notice: 'generated/manifest.json is not available yet — showing development fixture data instead.',
+      error: null,
+    };
+  }
   return {
-    base: `${ROOT}fixtures/`,
-    notice: 'generated/manifest.json is not available yet — showing development fixture data instead.',
+    base: null,
+    notice: null,
+    error: 'The atlas data bundle is missing from this deployment.',
   };
 }
 
@@ -67,12 +92,17 @@ async function fetchJSON(relativePath) {
   }
 }
 
-/** Initialize the loader: pick the base path. Must run before any get*(). */
+/** Initialize the loader: pick the base path. Must run before any get*().
+ *
+ * When `error` is set, `base` is null and no get*() call should be made —
+ * the caller must show the error state instead (see app.js's main()).
+ */
 export async function init() {
   const resolved = await resolveBase();
   BASE = resolved.base;
   FALLBACK_NOTICE = resolved.notice;
-  return { base: BASE, notice: FALLBACK_NOTICE };
+  LOAD_ERROR = resolved.error;
+  return { base: BASE, notice: FALLBACK_NOTICE, error: LOAD_ERROR };
 }
 
 export function base() {
@@ -81,6 +111,10 @@ export function base() {
 
 export function fallbackNotice() {
   return FALLBACK_NOTICE;
+}
+
+export function loadError() {
+  return LOAD_ERROR;
 }
 
 export async function getManifest() {
@@ -185,8 +219,29 @@ export async function getGraph() {
   return graphCache;
 }
 
+/** Returns `{ rows: [{entity_id, tier, researched}, ...] }`, one row per
+ * experiment in the coverage registry (docs/HEP_ATLAS_COVERAGE.md).
+ *
+ * The generated bundle's `coverage.json` already carries exactly this: a
+ * flat `rows` array scoped to the registry (one row per experiment,
+ * `scripts/atlas_coverage_report.py`'s source of truth). The fixture bundle
+ * predates that shape and instead carries an `entities` map keyed by id,
+ * covering every entity type (facilities, sites, accelerators, ...) with
+ * `tier`/`researched` attached to all of them, not just the registry —
+ * this is a known fixture/generated drift (see the "Integration defects"
+ * section of docs/HEP_ATLAS_VALIDATION.md). Filtering to `experiment:` keys
+ * recovers the same registry rows from the fixture tree, so a page like
+ * about.html that renders live coverage numbers reads one shape regardless
+ * of which tree is loaded.
+ */
 export async function getCoverage() {
-  return fetchJSON('coverage.json');
+  const raw = await fetchJSON('coverage.json');
+  if (Array.isArray(raw.rows)) return { rows: raw.rows };
+  const entities = raw.entities || {};
+  const rows = Object.entries(entities)
+    .filter(([id]) => id.startsWith('experiment:'))
+    .map(([entity_id, row]) => ({ entity_id, tier: row.tier, researched: row.researched }));
+  return { rows };
 }
 
 export async function getMembership(collaborationId) {

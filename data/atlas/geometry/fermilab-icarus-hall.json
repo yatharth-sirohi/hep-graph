@@ -1,0 +1,100 @@
+{
+  "accuracy_m": 20,
+  "aliases": [],
+  "checks": [
+    {
+      "expected": {
+        "dimension": "length",
+        "display": "600 m",
+        "unit": "m",
+        "value": 600
+      },
+      "kind": "distance",
+      "locator": "SBN proposal, detector locations",
+      "quote": "The far detector (the improved ICARUS-T600) will be located in a new building 600 m from the BNB target.",
+      "sources": [
+        "src:sbn-proposal-2015"
+      ],
+      "to_geometry_id": "geometry:fermilab-bnb-target",
+      "tolerance": 0.03
+    }
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "depth_m": null,
+  "entity_id": "detector:icarus-t600",
+  "feature_type": "hall",
+  "geometry": {
+    "confidence": "derived",
+    "locator": "OSM way/1423112774, extract timestamp 2026-09-18; src:sbn-proposal-2015 'The far detector (the improved ICARUS-T600) will be located in a new building 600 m from the BNB target.'",
+    "note": "A QA pass should double-check this identification; no OSM tag names the building, though the positional match is strong and it is the only plausible candidate found in this area.",
+    "sources": [
+      "src:fermilab-geo-osm-sbn-area",
+      "src:sbn-proposal-2015"
+    ],
+    "value": {
+      "coordinates": [
+        [
+          [
+            -88.2696301,
+            41.8387778
+          ],
+          [
+            -88.2694101,
+            41.8387802
+          ],
+          [
+            -88.269404,
+            41.8384604
+          ],
+          [
+            -88.269624,
+            41.8384581
+          ],
+          [
+            -88.2696301,
+            41.8387778
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    },
+    "verified_at": "2026-09-18"
+  },
+  "id": "geometry:fermilab-icarus-hall",
+  "level_id": "surface",
+  "license": {
+    "attribution": "© OpenStreetMap contributors",
+    "name": "ODbL-1.0",
+    "url": "https://www.openstreetmap.org/copyright"
+  },
+  "links": {
+    "website": null
+  },
+  "map_id": "map:fermilab",
+  "method": "OSM way 1423112774 (unnamed building=yes footprint, 62.4 m from the MiniBooNE building at bearing 355.0 degrees -- i.e. on the far side of MiniBooNE from the BNB target) identified as the ICARUS-T600 (SBN far detector) hall by POSITION, not by an OSM name tag: it is 603.1 m from geometry:fermilab-bnb-target at an axis deviation of only 0.7 degrees, matching the sourced 600 m SBN far-detector baseline (src:sbn-proposal-2015) within 0.5%, and it is the only building anywhere near that expected distance/bearing in a wide-area search. Representation is 'derived' rather than 'georeferenced' because the identity attribution, not just the shape, rests on this positional match.",
+  "name": "ICARUS-T600 hall (identity derived from position)",
+  "notes": [
+    "QA pass (2026-09-21): removed the `valid: {start: '2017-07', end: null}` window a previous pass set -- a preventive fix for a latent bug in hepgraph.atlas.build._feature_segments(): any `valid` dict with a non-null `start` and `end: null` hard-codes `status: 'active'` through build day regardless of the entity's real status, bypassing state_segments entirely. Currently harmless because detector:icarus-t600 genuinely is 'active' today, but this pattern produced a live false-'active' claim on three other records (geometry:lhc-tunnel-ring, geometry:fermilab-mc1-building, geometry:fermilab-microboone-hall) fixed the same way in this pass -- see docs/atlas-worklog/REVIEW_geometry_qa.md."
+  ],
+  "osm": {
+    "elements": [
+      "way/1423112774"
+    ],
+    "timestamp": "2026-09-18T22:17:17Z"
+  },
+  "representation": "derived",
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:fermilab-main-campus",
+  "sources": [
+    "src:fermilab-geo-osm-sbn-area",
+    "src:sbn-proposal-2015"
+  ],
+  "summary": {
+    "plain": "A QA pass should double-check this identification; no OSM tag names the building, though the positional match is strong and it is the only plausible candidate found in this area."
+  },
+  "type": "geometry",
+  "valid": null
+}

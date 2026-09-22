@@ -816,3 +816,354 @@ def test_a12_a_single_placement_detector_is_not_exempted(root: Path) -> None:
     findings = _validate(root)
     matches = _findings(findings, "active-before-construction")
     assert matches and all(finding.level == v.WARNING for finding in matches)
+
+
+# ---------------------------------------------------------------------------
+# A25 — the local-map geometry layer (docs/HEP_ATLAS_GEOMETRY.md §2)
+#
+# One mutation per rule, against the fixture map (`maps/demo-lab.json`) and its
+# four features: a derived ring with a passing length check, an ODbL building
+# footprint traced from OpenStreetMap, a surveyed beam axis and an inferred
+# direction line aimed at the fixture far site.
+# ---------------------------------------------------------------------------
+
+RING = "geometry/demo-synchrotron-ring.json"
+HALL = "geometry/demo-target-hall.json"
+AXIS = "geometry/demo-beam-axis.json"
+DIRECTION = "geometry/demo-beam-direction.json"
+MAP = "maps/demo-lab.json"
+
+
+def _geojson_ring_not_closed(root: Path) -> None:
+    """Drop the repeated first position of a polygon ring."""
+    _mutate(root, HALL, lambda r: r["geometry"]["value"]["coordinates"][0].pop())
+
+
+def _geojson_unknown_type(root: Path) -> None:
+    _mutate(root, RING, lambda r: r["geometry"]["value"].__setitem__("type", "GeometryCollection"))
+
+
+def _geojson_coordinate_out_of_range(root: Path) -> None:
+    _mutate(root, AXIS, lambda r: r["geometry"]["value"]["coordinates"][0].__setitem__(0, 999.0))
+
+
+def _unknown_level(root: Path) -> None:
+    _mutate(root, RING, lambda r: r.__setitem__("level_id", "mezzanine"))
+
+
+def _unknown_map(root: Path) -> None:
+    _mutate(root, RING, lambda r: r.__setitem__("map_id", "map:does-not-exist"))
+
+
+def _out_of_extent(root: Path) -> None:
+    """Move one vertex 300 km away: past the 60 km a local map may cover."""
+    def edit(record: dict) -> None:
+        record["geometry"]["value"]["coordinates"][0] = [-91.5, 44.5]
+    _mutate(root, AXIS, edit)
+
+
+def _out_of_extent_warning(root: Path) -> None:
+    """Move one vertex past 3 x extent_m (9 km) but inside the 60 km limit."""
+    def edit(record: dict) -> None:
+        record["geometry"]["value"]["coordinates"][0] = [-88.252, 41.95]
+    _mutate(root, AXIS, edit)
+
+
+def _failing_length_check(root: Path) -> None:
+    """Claim a 5 km circumference for a ring that measures 3.3 km."""
+    _mutate(root, RING, lambda r: r["checks"][0]["expected"].update(
+        {"value": 5.0, "display": "5 km"}))
+
+
+def _unmeasurable_check(root: Path) -> None:
+    """Ask a LineString for its area."""
+    def edit(record: dict) -> None:
+        record["checks"][0]["kind"] = "area"
+        record["checks"][0]["expected"] = {
+            "value": 1.0, "unit": "km^2", "dimension": "area", "display": "1 km^2",
+            "approx": False}
+    _mutate(root, RING, edit)
+
+
+def _ring_without_length_check(root: Path) -> None:
+    _mutate(root, RING, lambda r: r.__setitem__("checks", []))
+
+
+def _verified_without_evidence(root: Path) -> None:
+    """A georeferenced shape calling itself verified with no passing check."""
+    def edit(record: dict) -> None:
+        record["representation"] = "georeferenced"
+        record["method"] = "Traced from the laboratory's own GIS export, georeferenced " \
+                           "against three surveyed control points."
+    _mutate(root, AXIS, edit)
+
+
+def _verified_on_openstreetmap_alone(root: Path) -> None:
+    """OpenStreetMap is rank 11; on its own it can never reach `verified`."""
+    def edit(record: dict) -> None:
+        record["geometry"]["confidence"] = "verified"
+        record["geometry"]["note"] = ""
+    _mutate(root, HALL, edit)
+
+
+def _derived_from_a_coarse_anchor(root: Path) -> None:
+    """Claim 50 m accuracy for a shape derived from a 100 m campus point."""
+    _mutate(root, RING, lambda r: r.__setitem__("accuracy_m", 50))
+
+
+def _representation_schematic(root: Path) -> None:
+    _mutate(root, RING, lambda r: r.__setitem__("representation", "schematic"))
+
+
+def _derived_without_method(root: Path) -> None:
+    _mutate(root, RING, lambda r: r.__setitem__("method", ""))
+
+
+def _osm_shape_without_its_elements(root: Path) -> None:
+    _mutate(root, HALL, lambda r: r.__setitem__("osm", None))
+
+
+def _osm_shape_without_its_licence(root: Path) -> None:
+    _mutate(root, HALL, lambda r: r.__setitem__("license", None))
+
+
+def _missing_accuracy(root: Path) -> None:
+    _mutate(root, HALL, lambda r: r.__setitem__("accuracy_m", None))
+
+
+def _entity_type_not_allowed(root: Path) -> None:
+    _mutate(root, RING, lambda r: r.__setitem__("entity_id", "collaboration:demo"))
+
+
+def _feature_that_needs_an_entity_has_none(root: Path) -> None:
+    _mutate(root, RING, lambda r: r.__setitem__("entity_id", None))
+
+
+def _azimuth_mismatch(root: Path) -> None:
+    """Swing the inferred direction line 20 degrees off the far site."""
+    def edit(record: dict) -> None:
+        start = record["geometry"]["value"]["coordinates"][0]
+        record["geometry"]["value"]["coordinates"][1] = [start[0] - 0.02, start[1] - 0.02]
+    _mutate(root, DIRECTION, edit)
+
+
+def _valid_end_before_start(root: Path) -> None:
+    _mutate(root, HALL, lambda r: r.__setitem__("valid", {"start": "1999", "end": "1990"}))
+
+
+def _duplicate_shape(root: Path) -> None:
+    """Give the beam axis the direction line's exact coordinates."""
+    def edit(root_path: Path) -> None:
+        direction = _read(root_path, DIRECTION)
+        axis = _read(root_path, AXIS)
+        axis["geometry"]["value"] = direction["geometry"]["value"]
+        _write(root_path, AXIS, axis)
+    edit(root)
+
+
+def _unlocated_and_drawn(root: Path) -> None:
+    """The building depicts the very experiment the map lists as unlocated."""
+    _mutate(root, HALL, lambda r: r.__setitem__("entity_id", "experiment:demo"))
+
+
+def _unlocated_without_a_backlog(root: Path) -> None:
+    _mutate(root, MAP, lambda r: r["unlocated"][0].__setitem__("backlog", ""))
+
+
+def _unlocated_without_sources(root: Path) -> None:
+    _mutate(root, MAP, lambda r: r["unlocated"][0].__setitem__("sources", []))
+
+
+def _extent_out_of_bounds(root: Path) -> None:
+    _mutate(root, MAP, lambda r: r.__setitem__("extent_m", 120_000))
+
+
+def _duplicate_level_id(root: Path) -> None:
+    def edit(record: dict) -> None:
+        record["levels"].append({"id": "surface", "name": "Surface again",
+                                 "kind": "surface", "depth_m": None, "note": ""})
+    _mutate(root, MAP, edit)
+
+
+def _unknown_level_kind(root: Path) -> None:
+    _mutate(root, MAP, lambda r: r["levels"][1].__setitem__("kind", "basement"))
+
+
+def _map_facility_does_not_resolve(root: Path) -> None:
+    _mutate(root, MAP, lambda r: r.__setitem__("facility_id", "facility:does-not-exist"))
+
+
+def _map_site_does_not_resolve(root: Path) -> None:
+    _mutate(root, MAP, lambda r: r.__setitem__("site_ids", ["site:does-not-exist"]))
+
+
+def _site_listed_on_two_maps(root: Path) -> None:
+    """A second map of the same campus claiming a site the first already covers."""
+    annex = _read(root, MAP)
+    annex["id"] = "map:demo-lab-annex"
+    annex["name"] = "Demo Laboratory \u2014 annex campus"
+    annex["unlocated"] = []
+    _write(root, "maps/demo-lab-annex.json", annex)
+
+
+def _map_centre_far_from_the_primary_site(root: Path) -> None:
+    _mutate(root, MAP, lambda r: r["center"].__setitem__("lat", 42.5))
+
+
+def _accelerator_neither_drawn_nor_unlocated(root: Path) -> None:
+    """Delete the ring: the synchrotron is then unaccounted for."""
+    (root / RING).unlink()
+
+
+def _geometry_value_without_a_locator(root: Path) -> None:
+    def edit(record: dict) -> None:
+        record["geometry"]["locator"] = ""
+        record["geometry"]["quote"] = ""
+    _mutate(root, AXIS, edit)
+
+
+GEOMETRY_MUTATION_CASES: tuple[tuple[str, Callable[[Path], None], str, str], ...] = (
+    ("polygon ring not closed", _geojson_ring_not_closed, "geometry-geojson-invalid", v.ERROR),
+    ("geometry type not allowed", _geojson_unknown_type, "geometry-geojson-invalid", v.ERROR),
+    ("coordinate out of range", _geojson_coordinate_out_of_range,
+     "geometry-geojson-invalid", v.ERROR),
+    ("level the map does not have", _unknown_level, "geometry-unknown-level", v.ERROR),
+    ("map that does not exist", _unknown_map, "geometry-unknown-map", v.ERROR),
+    ("vertex beyond the 60 km limit", _out_of_extent, "geometry-out-of-extent", v.ERROR),
+    ("vertex beyond 3x the extent", _out_of_extent_warning,
+     "geometry-out-of-extent", v.WARNING),
+    ("length check disagrees with the shape", _failing_length_check,
+     "geometry-check-failed", v.ERROR),
+    ("area check on a line", _unmeasurable_check, "geometry-check-unmeasurable", v.ERROR),
+    ("ring with no length check", _ring_without_length_check,
+     "ring-without-length-check", v.WARNING),
+    ("verified without surveyed or a passing check", _verified_without_evidence,
+     "geometry-confidence", v.ERROR),
+    ("verified on OpenStreetMap alone", _verified_on_openstreetmap_alone,
+     "geometry-confidence", v.ERROR),
+    ("derived from a coarser anchor", _derived_from_a_coarse_anchor,
+     "geometry-derived-from-coarse-anchor", v.ERROR),
+    ("representation schematic", _representation_schematic,
+     "geometry-representation", v.ERROR),
+    ("derived without a method", _derived_without_method, "geometry-representation", v.ERROR),
+    ("OSM shape without its element ids", _osm_shape_without_its_elements,
+     "geometry-representation", v.ERROR),
+    ("OSM shape without its licence", _osm_shape_without_its_licence,
+     "geometry-representation", v.ERROR),
+    ("accuracy missing", _missing_accuracy, "geometry-accuracy", v.ERROR),
+    ("entity type a feature may not depict", _entity_type_not_allowed,
+     "geometry-entity-type", v.ERROR),
+    ("ring with no entity", _feature_that_needs_an_entity_has_none,
+     "geometry-entity-type", v.ERROR),
+    ("direction line off the far site", _azimuth_mismatch,
+     "geometry-direction-azimuth", v.ERROR),
+    ("shape valid end before start", _valid_end_before_start, "geometry-valid-order", v.ERROR),
+    ("two features with identical coordinates", _duplicate_shape,
+     "geometry-duplicate-shape", v.WARNING),
+    ("geometry value without a quote or locator", _geometry_value_without_a_locator,
+     "claim-evidence-required", v.ERROR),
+    ("unlocated entity also drawn", _unlocated_and_drawn, "map-unlocated-drawn", v.ERROR),
+    ("unlocated without a backlog", _unlocated_without_a_backlog,
+     "map-unlocated-unsourced", v.ERROR),
+    ("unlocated without sources", _unlocated_without_sources,
+     "map-unlocated-unsourced", v.ERROR),
+    ("extent outside 500-60000 m", _extent_out_of_bounds, "map-extent", v.ERROR),
+    ("duplicate level id", _duplicate_level_id, "map-level-duplicate", v.ERROR),
+    ("level kind not in the vocabulary", _unknown_level_kind, "unknown-enum-value", v.ERROR),
+    ("map facility does not resolve", _map_facility_does_not_resolve,
+     "map-unknown-facility", v.ERROR),
+    ("map site does not resolve", _map_site_does_not_resolve, "map-unknown-site", v.ERROR),
+    ("site listed on two maps", _site_listed_on_two_maps, "map-site-elsewhere", v.ERROR),
+    ("map centre far from the primary site", _map_centre_far_from_the_primary_site,
+     "map-center-far", v.WARNING),
+    ("accelerator neither drawn nor unlocated", _accelerator_neither_drawn_nor_unlocated,
+     "map-entity-unaccounted", v.WARNING),
+)
+
+
+@pytest.mark.parametrize("name, mutate, rule, level", GEOMETRY_MUTATION_CASES,
+                         ids=[case[0] for case in GEOMETRY_MUTATION_CASES])
+def test_one_geometry_mutation_is_caught_under_its_rule(root: Path, name: str,
+                                                        mutate: Callable[[Path], None],
+                                                        rule: str, level: str) -> None:
+    mutate(root)
+    findings = _validate(root)
+    matches = _findings(findings, rule)
+    assert matches, f'{name!r}: expected rule {rule!r} to fire; got {[str(f) for f in findings]}'
+    assert all(finding.level == level for finding in matches), \
+        f'{name!r}: expected every {rule!r} finding at level {level!r}, got {[f.level for f in matches]}'
+
+
+def test_the_failing_check_message_states_expected_measured_and_tolerance(root: Path) -> None:
+    """A failing cross-check has to show its arithmetic, not just its verdict."""
+    _failing_length_check(root)
+    message = _findings(_validate(root), "geometry-check-failed")[0].message
+    assert "expected" in message and "measured" in message and "tolerance" in message
+    assert "5,000" in message or "5000" in message
+    assert "3,300" in message or "3300" in message
+
+
+def test_a_passing_check_is_silent(root: Path) -> None:
+    """The fixture ring's 3.3 km circumference agrees with the shape."""
+    assert _findings(_validate(root), "geometry-check-failed") == []
+
+
+def test_openstreetmap_ranks_below_the_verified_bar() -> None:
+    """A25: rank 11 is what stops OSM alone from making a value verified."""
+    from hepgraph.atlas import schema
+
+    assert schema.source_rank("openstreetmap") == 11
+    assert schema.source_rank("openstreetmap") > schema.VERIFIED_MAX_RANK
+
+
+def test_a_level_id_is_not_read_as_a_dangling_entity_reference(root: Path) -> None:
+    """`geometry.level_id` names a level of its own map, not an atlas entity."""
+    findings = _validate(root)
+    assert _findings(findings, "unknown-id-prefix") == []
+    assert _findings(findings, "dangling-reference") == []
+
+
+def test_map_center_range_is_checked_but_its_kind_is_free(root: Path) -> None:
+    """A map centre is a camera position: any Coordinates kind, in range."""
+    _mutate(root, MAP, lambda r: r["center"].__setitem__("lat", 991.0))
+    assert _findings(_validate(root), "coordinates-out-of-range")
+
+    fresh = _read(root, MAP)
+    fresh["center"]["lat"] = 41.8325
+    fresh["center"]["kind"] = "approximate_region"
+    _write(root, MAP, fresh)
+    assert _findings(_validate(root), "unknown-enum-value") == []
+
+
+def test_an_inferred_direction_needs_no_accuracy(root: Path) -> None:
+    """A direction is not a structure; `accuracy_m` would be a fiction."""
+    assert _read(root, DIRECTION)["accuracy_m"] is None
+    assert _findings(_validate(root), "geometry-accuracy") == []
+
+
+def test_a_direction_line_may_leave_the_map_extent(root: Path) -> None:
+    """A far site is 1 300 km away; clipping is the browser's job, not a defect."""
+    def edit(record: dict) -> None:
+        record["geometry"]["value"]["coordinates"][1] = [-103.751, 44.352]
+    _mutate(root, DIRECTION, edit)
+    assert _findings(_validate(root), "geometry-out-of-extent") == []
+
+
+def test_a_feature_standing_at_a_site_accounts_for_it(tmp_path):
+    """A25: a detector footprint drawn with `site_id` set accounts for that
+    site in the map-entity-unaccounted check; the site must not have to be
+    listed as unlocated to silence a warning about something that is drawn."""
+    from hepgraph.atlas import validate as _validate
+    rows = [('geometry:x', {'entity_id': 'detector:demo-far-detector', 'site_id': 'site:demo-far-cavern'})]
+    assert _validate._drawn_entities(rows) == {'detector:demo-far-detector', 'site:demo-far-cavern'}
+
+
+def test_osm_derived_shape_needs_a_licence():
+    """A25: a `derived` shape whose inputs are OpenStreetMap data (including a
+    pre-A25 `geocoder` source published by OpenStreetMap) must carry the ODbL
+    licence; the georeferenced-only check left a hole for those."""
+    from hepgraph.atlas import validate as _validate
+    assert _validate._is_osm_source({'source_type': 'openstreetmap'})
+    assert _validate._is_osm_source({'source_type': 'geocoder', 'publisher': 'OpenStreetMap contributors / Nominatim', 'url': 'https://nominatim.openstreetmap.org/search'})
+    assert not _validate._is_osm_source({'source_type': 'geocoder', 'publisher': 'Google', 'url': 'https://maps.example.com'})
+    assert not _validate._is_osm_source(None)

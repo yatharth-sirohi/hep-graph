@@ -1,0 +1,74 @@
+{
+  "aliases": [],
+  "center": {
+    "confidence": "derived",
+    "kind": "campus",
+    "lat": 36.15468323396227,
+    "locator": "Arithmetic mean of the 53 vertices of the merged KEKB/SuperKEKB ring (OSM way 138322704)",
+    "lon": 140.07183633207546,
+    "note": "Map centre only; not a claim about any structure. precision_m is set loosely because this is a naive vertex-average centroid, not an area centroid.",
+    "precision_m": 1500,
+    "sources": [
+      "src:geo-kek-osm-kekb-ring"
+    ],
+    "verified_at": "2026-09-18"
+  },
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "extent_m": 1800,
+  "facility_id": "facility:kek",
+  "id": "map:kek",
+  "levels": [
+    {
+      "depth_m": null,
+      "id": "surface",
+      "kind": "surface",
+      "name": "Surface",
+      "note": ""
+    },
+    {
+      "depth_m": null,
+      "id": "underground",
+      "kind": "underground",
+      "name": "KEKB / SuperKEKB ring tunnel",
+      "note": "The ring is commonly described as roughly 11 m underground, but no official page fetched this session states a metre figure, so depth_m is left null per A17 rather than guessed."
+    }
+  ],
+  "linked_map_ids": [],
+  "links": {
+    "website": null
+  },
+  "name": "KEK — Tsukuba campus",
+  "notes": [
+    "Linked maps: no map:kamioka-observatory exists yet in this atlas; linked_map_ids is left empty here and the build's automatic derivation (from beamline:kek-neutrino's far_detector_site_ids) will populate it once the Kamioka campus has its own map.",
+    "accelerator:kek-ps is drawn (geometry:kek-north-counter-hall) rather than listed in `unlocated[]`, but with an explicitly flagged, circumstantial identification -- see that record's own notes and the worklog's 'Conflicts and honesty calls' section. No source found this session gives the 12 GeV PS ring's own tunnel path; two targeted Overpass searches for tunnel/particle_accelerator/landuse ways near the historic PS site found none."
+  ],
+  "schema": "hep-atlas/0.2",
+  "schematics": [],
+  "site_ids": [
+    "site:kek-tsukuba-belle-ii"
+  ],
+  "sources": [
+    "src:geo-kek-osm-kekb-ring",
+    "src:superkekb-collider-nima-2018"
+  ],
+  "summary": {
+    "plain": "KEK's Tsukuba campus, Japan's oldest national particle-physics laboratory: the three-kilometre KEKB/SuperKEKB collider ring that has driven the Belle and Belle II experiments since 1998, and the site of the historic 12 GeV proton synchrotron that drove the world's first long-baseline accelerator neutrino beam, K2K.",
+    "technical": "One local map for facility:kek covering the Tsukuba campus: the 3016 m KEKB/SuperKEKB ring tunnel (OSM way 138322704, cross-checked against the SuperKEKB accelerator paper's own machine-parameter table), the Tsukuba interaction hall (Belle, Belle II) and the ring's Oho/Fuji/Nikko straight-section halls, the KEK injector linac building, a building tentatively identified with the historic KEK-PS North Counter Hall, and an inferred-direction line for the K2K beam toward Super-Kamiokande."
+  },
+  "type": "map",
+  "unlocated": [
+    {
+      "backlog": "Find a KEK publication or site plan giving the 12 GeV PS ring position (339 m circumference) or its counter-hall layout, then digitise the ring against surveyed buildings.",
+      "entity_id": "accelerator:kek-ps",
+      "reason": "No OpenStreetMap trace of the 12 GeV proton synchrotron ring was found in two targeted Overpass queries; the \"North Counter Hall\" building near the ring is drawn as context only, because its link to the PS rests on a name match and the K2K sources' wording (\"bent from the North hall\"), not on a published position.",
+      "sources": [
+        "src:geo-kek-osm-north-counter-hall",
+        "src:k2k-tutorial-page"
+      ],
+      "verified_at": "2026-09-18"
+    }
+  ]
+}

@@ -25,6 +25,12 @@ const DATA_TREES = [
   { label: "fixtures", query: "?data=fixtures" },
 ];
 
+// Workstream A1: a real site id per tree, so the new site panel (previously
+// "Unknown entity type" — state.js's TYPE_PREFIX and panels.js's RENDERERS
+// lacked site/detector/accelerator/beamline) gets its own axe scan alongside
+// the other panel states below.
+const SITE_SLUG = { generated: "fermilab-main-campus", fixtures: "fermilab-sbnd-hall" };
+
 function findAxePath() {
   const candidates = [];
   if (process.env.NODE_PATH) {
@@ -207,6 +213,13 @@ async function contrastOf(page, selector) {
       await runAxe(page, tree.label, "experiment panel");
     });
 
+    await record(`[${tree.label}] axe: site panel`, async () => {
+      await page.goto(`${base}/atlas${dataTree}#/site/${SITE_SLUG[tree.label]}`);
+      await page.locator("#detail-panel h2").waitFor();
+      const { violations } = await runAxe(page, tree.label, "site panel");
+      assert.deepEqual(violations, [], `expected 0 WCAG axe violations on the site panel, got ${JSON.stringify(violations)}`);
+    });
+
     await record(`[${tree.label}] axe: collaboration mode`, async () => {
       const sep = dataTree ? `${dataTree}&m=collab` : "?m=collab";
       await page.goto(`${base}/atlas${sep}#/collaboration/dune`);
@@ -246,6 +259,135 @@ async function contrastOf(page, selector) {
       await page.locator(".document-library").waitFor();
       await runAxe(page, tree.label, "document library");
     });
+
+    // ---- local map view (docs/HEP_ATLAS_GEOMETRY.md §4) -- begin --------
+    // Two states, both of which have to be clean: the map with nothing
+    // selected, and the map with the drawer open (which is where panels.js's
+    // detail panel, the shape facts, the checks and the sources all land).
+    // The generated tree has no `maps` yet, so this skips explicitly rather
+    // than reporting a scan it never ran.
+    await record(`[${tree.label}] axe: local map view`, async () => {
+      const mapTreeBase = `${base}/atlas/${dataTree ? "fixtures" : "generated"}/`;
+      let maps = {};
+      try {
+        const response = await fetch(`${mapTreeBase}atlas.json`);
+        if (response.ok) maps = (await response.json()).maps || {};
+      } catch (error) {
+        maps = {};
+      }
+      // The richest map, not the alphabetically first (which on the real
+      // tree is the South Pole, with a single feature).
+      const mapId = Object.keys(maps)
+        .filter((id) => maps[id].feature_count > 0)
+        .sort((a, b) => maps[b].feature_count - maps[a].feature_count)[0];
+      if (!mapId) {
+        axeReport.push({
+          tree: tree.label, state: "local map view", skipped: true,
+          reason: "no maps in this tree",
+        });
+        console.log(`SKIP [${tree.label}]: local map view — this data tree publishes no \`maps\``);
+        return;
+      }
+      const slug = mapId.split(":")[1];
+      const geometry = await (await fetch(`${mapTreeBase}${maps[mapId].bundle}`)).json();
+      const mapContext = await browser.newContext({ viewport: { width: 1440, height: 960 } });
+      const mapPage = await mapContext.newPage();
+      mapPage.setDefaultTimeout(30000);
+      await mapPage.goto(`${base}/atlas${dataTree}#/map/${slug}`, { waitUntil: "domcontentloaded" });
+      await mapPage.locator(".leaflet-container").waitFor({ timeout: 20000 });
+      await mapPage.locator("[data-feature-row]").first().waitFor({ timeout: 20000 });
+      await runAxe(mapPage, tree.label, "local map view");
+
+      await mapPage.locator("[data-feature-row]").first().click();
+      await mapPage.locator("#map-drawer-title").waitFor({ timeout: 15000 });
+      await mapPage.locator("#map-depth-toggle").click();
+      await mapPage.locator(".map-depth-svg").waitFor({ timeout: 15000 });
+      // Open every disclosure in the left column *after* the clicks: axe
+      // cannot see into a closed <details>, and each click re-renders the
+      // list (so opening them first would not survive to the scan).
+      await mapPage.evaluate(() => document.querySelectorAll("#map-layers details")
+        .forEach((d) => { d.open = true; }));
+      await runAxe(mapPage, tree.label, "local map view, drawer and depth diagram open");
+
+      // The four §4 encodings must each be readable as text, not colour
+      // alone: the legend names them, every list row states its accuracy and
+      // representation, and the map surface says how to use it without one.
+      const legendText = await mapPage.locator("#map-layers").innerText();
+      for (const term of ["Feature type", "Status in the selected year", "Level", "Representation"]) {
+        assert.ok(legendText.includes(term), `the legend must explain "${term}" in words`);
+      }
+      const application = mapPage.locator("#map-canvas[role='application']");
+      assert.equal(await application.count(), 1, "the map surface declares role=application");
+      const label = await application.getAttribute("aria-label");
+      assert.match(label, /arrow keys/i, "role=application must describe its keyboard alternative");
+      assert.match(label, /listed|list/i, "…and point at the accessible list that mirrors it");
+      const live = mapPage.locator("#map-selection-live");
+      assert.equal(await live.getAttribute("aria-live"), "polite", "selection is announced in a live region");
+      assert.match(await live.innerText(), /Selected /, "…and the live region names what was selected");
+
+      // Contrast of the map view's own text, measured on the rendered DOM.
+      for (const check of [
+        { selector: ".map-feature-row .map-feature-meta", min: 4.5, label: "feature row metadata" },
+        { selector: ".map-subtitle", min: 4.5, label: "map subtitle" },
+        // Only maps whose record carries `notes` render this one, which on
+        // the real tree is none of them — measured when present.
+        { selector: ".map-data-note", min: 4.5, label: "data note", optional: true },
+        { selector: ".map-drawer-title", min: 4.5, label: "drawer title" },
+        { selector: ".leaflet-control-scale-line", min: 4.5, label: "scale bar label" },
+      ]) {
+        const measured = await contrastOf(mapPage, check.selector);
+        if (!measured && check.optional) continue;
+        assert.ok(measured, `could not measure contrast for ${check.label} (${check.selector})`);
+        assert.ok(measured.ratio >= check.min,
+          `${check.label} contrast ${measured.ratio.toFixed(2)}:1 is below ${check.min}:1`);
+      }
+
+      // Toggles are buttons with aria-pressed, not colour-only chips.
+      const levelIds = (maps[mapId].levels || []).map((level) => level.id);
+      for (const levelId of levelIds) {
+        const pressed = await mapPage.locator(`[data-level-id="${levelId}"]`).getAttribute("aria-pressed");
+        assert.ok(pressed === "true" || pressed === "false", `level toggle ${levelId} exposes aria-pressed`);
+      }
+      assert.ok(geometry.features.length > 0, "the bundle this scan exercised actually has features");
+      console.log(`[${tree.label}] axe scanned local map ${mapId} (${geometry.features.length} features)`);
+      await mapContext.close();
+
+      // A polar map is a different projection, a different north label and a
+      // disabled control, so it is its own accessible state.
+      const polarId = Object.keys(maps).find((id) => Math.abs(maps[id].center.lat) > 85);
+      if (!polarId) return;
+      const polarContext = await browser.newContext({ viewport: { width: 1440, height: 960 } });
+      const polarPage = await polarContext.newPage();
+      polarPage.setDefaultTimeout(30000);
+      await polarPage.goto(`${base}/atlas${dataTree}#/map/${polarId.split(":")[1]}`,
+        { waitUntil: "domcontentloaded" });
+      await polarPage.locator(".leaflet-container").waitFor({ timeout: 20000 });
+      await polarPage.waitForTimeout(1200);
+      await polarPage.evaluate(() => document.querySelectorAll("#map-layers details")
+        .forEach((d) => { d.open = true; }));
+      await runAxe(polarPage, tree.label, "local map view, polar projection");
+      // A disabled control must still explain itself, and the grid-north
+      // note must be readable text rather than an unexplained arrow.
+      const disabled = polarPage.locator("#map-basemap-toggle");
+      assert.equal(await disabled.getAttribute("aria-disabled"), "true");
+      assert.equal(await disabled.getAttribute("aria-describedby"), "map-basemap-unavailable");
+      assert.match(await polarPage.locator("#map-basemap-unavailable").innerText(), /No basemap at the pole/i);
+      assert.match(await polarPage.locator(".map-north").getAttribute("aria-label"),
+        /grid north/i, "the north indicator explains in words that up is grid north");
+      for (const check of [
+        { selector: ".map-north-label", min: 4.5, label: "grid-north label" },
+        { selector: "#map-basemap-unavailable", min: 4.5, label: "no-basemap note" },
+        { selector: ".map-tile-notice", min: 4.5, label: "tile notice" },
+      ]) {
+        const measured = await contrastOf(polarPage, check.selector);
+        assert.ok(measured, `could not measure contrast for ${check.label}`);
+        assert.ok(measured.ratio >= check.min,
+          `${check.label} contrast ${measured.ratio.toFixed(2)}:1 is below ${check.min}:1`);
+      }
+      console.log(`[${tree.label}] axe scanned polar local map ${polarId}`);
+      await polarContext.close();
+    });
+    // ---- local map view -- end -------------------------------------------
 
     await context.close();
 
@@ -441,6 +583,22 @@ async function contrastOf(page, selector) {
       assert.equal(hasUncertainMarker.hasPattern, true, "an uncertain-certainty marker must render a hatch pattern (not just a class with no visual effect)");
       await ncContext.close();
     });
+  }
+
+  // ---- about.html: one axe scan, after its live coverage numbers render
+  // (not just the "Loading…" status), so the scan covers the real rendered
+  // tables the same way the globe-view scans above wait for markers first.
+  // One state is enough here: unlike the globe, about.html's structure does
+  // not vary by data tree or route — only the numbers inside the tables do.
+  {
+    const aboutContext = await browser.newContext({ viewport: { width: 1280, height: 960 } });
+    const aboutPage = await aboutContext.newPage();
+    await record("axe: about.html (methodology/coverage page)", async () => {
+      await aboutPage.goto(`${base}/atlas/about.html`);
+      await aboutPage.locator("#coverage-entities table").waitFor({ timeout: 15000 });
+      await runAxe(aboutPage, "about", "about.html");
+    });
+    await aboutContext.close();
   }
 
   await browser.close();

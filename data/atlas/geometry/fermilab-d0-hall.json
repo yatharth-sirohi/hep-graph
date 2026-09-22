@@ -1,0 +1,98 @@
+{
+  "accuracy_m": 8,
+  "aliases": [],
+  "checks": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "depth_m": null,
+  "entity_id": "detector:d0",
+  "feature_type": "hall",
+  "geometry": {
+    "confidence": "approximate",
+    "locator": "OSM way/51755107, extract timestamp 2026-09-18T21:52:02Z",
+    "note": "This is the surface building footprint, not a survey of the underground collision point. Its centroid also anchors the Tevatron ring's derived centre (see geometry:fermilab-tevatron-ring checks). The existing site record site:fermilab-d0-collision-hall still carries a coarse 3 km campus point; this OSM position is a strictly better anchor and is flagged as a site coordinate correction in the geometry worklog. This is also the first sourced coordinate found this session for the D0 hall at all -- the OSM Overpass probes the integrator ran earlier this session did not surface it (only CDF Hall); it was found by a dedicated name search for 'D0' within the campus bounding box.",
+    "sources": [
+      "src:fermilab-geo-osm-rings-and-d0"
+    ],
+    "value": {
+      "coordinates": [
+        [
+          [
+            -88.2429892,
+            41.8258582
+          ],
+          [
+            -88.2429173,
+            41.8258143
+          ],
+          [
+            -88.2429624,
+            41.8257733
+          ],
+          [
+            -88.2428439,
+            41.8257011
+          ],
+          [
+            -88.2427957,
+            41.825745
+          ],
+          [
+            -88.2422051,
+            41.8253849
+          ],
+          [
+            -88.2419697,
+            41.8255993
+          ],
+          [
+            -88.2427509,
+            41.8260754
+          ],
+          [
+            -88.2429892,
+            41.8258582
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    },
+    "verified_at": "2026-09-18"
+  },
+  "id": "geometry:fermilab-d0-hall",
+  "level_id": "surface",
+  "license": {
+    "attribution": "© OpenStreetMap contributors",
+    "name": "ODbL-1.0",
+    "url": "https://www.openstreetmap.org/copyright"
+  },
+  "links": {
+    "website": null
+  },
+  "map_id": "map:fermilab",
+  "method": "OpenStreetMap way 51755107 'D0 Assembly building' footprint, traced verbatim (way 51755108 'D0 Outback', a small adjacent structure, was also fetched but not included in this footprint).",
+  "name": "D0 Assembly Building (Tevatron D0)",
+  "notes": [],
+  "osm": {
+    "elements": [
+      "way/51755107"
+    ],
+    "timestamp": "2026-09-18T21:52:02Z"
+  },
+  "representation": "georeferenced",
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:fermilab-d0-collision-hall",
+  "sources": [
+    "src:fermilab-geo-osm-rings-and-d0"
+  ],
+  "summary": {
+    "plain": "This is the surface building footprint, not a survey of the underground collision point. Its centroid also anchors the Tevatron ring's derived centre (see geometry:fermilab-tevatron-ring checks). T..."
+  },
+  "type": "geometry",
+  "valid": {
+    "end": "2011-12",
+    "start": null
+  }
+}

@@ -420,6 +420,22 @@ input {
 .globe-container {
   position: absolute;
   inset: 0;
+  /* Layering bug fix (reproduced at 1084x786, /atlas?m=results, generated
+     data: marker facility:roque-de-los-muchachos-observatory got inline
+     z-index:14 from three-globe and elementFromPoint over #mode-panel
+     returned the marker's own <polygon>, not the panel). Neither this
+     element nor .globe-stage previously had a z-index other than `auto`, so
+     they created no stacking context of their own — three-globe's per-marker
+     inline z-index (see .atlas-header's comment above) was then compared
+     directly against .mode-panel's z-index:10 in the *root* stacking
+     context, and any marker sorted deeper than 10 painted over the panel and
+     ate its clicks. `isolation: isolate` makes this element its own
+     stacking context, so every marker z-index three-globe assigns is scoped
+     inside it and can never again be compared against .mode-panel's (or
+     anything else outside this element) — fixing the cause structurally
+     instead of raising .mode-panel's z-index to out-guess a library-
+     controlled, unbounded range. */
+  isolation: isolate;
 }
 .globe-container.hidden {
   display: none;
@@ -525,20 +541,67 @@ input {
   width: min(420px, 92%);
   margin: 12px;
   max-height: calc(100% - 24px);
-  overflow-y: auto;
   background: var(--panel);
   border: 1px solid var(--line);
   border-radius: var(--radius);
   padding: 14px;
   box-shadow: var(--shadow);
   z-index: 10;
+  /* A3 dense browsing: the panel itself no longer scrolls as a whole
+     (overflow: hidden) — instead .mode-scroll, a flex child of .mode-body,
+     owns the scrollbar, so the heading/count/sort/filter controls above it
+     stay put (out of the scroll region) while a long results or document
+     list scrolls underneath them. */
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 .mode-panel.hidden {
   display: none;
 }
+/* A3: on a laptop-or-wider viewport there is room to show a genuinely
+   dense list without covering the whole globe. A percentage width on a
+   grid item resolves against its own grid area (here, the "globe" track,
+   not the full viewport — #atlas-main's side columns are fixed px), so
+   92% here means the same thing the base rule's 92% already means: at
+   least an 8% sliver of the globe track stays visible. The only change
+   from the base rule is the pixel ceiling, 420px -> 560px, which is what
+   actually makes the panel wider on real screens (the globe track is
+   comfortably past 609px — 560 / 0.92 — at any width this query matches).
+   Left as-is below 1084px and under the phone breakpoint further down,
+   which overrides width separately. */
+@media (min-width: 1084px) {
+  .mode-panel {
+    width: min(560px, 92%);
+  }
+}
 .mode-hint {
   color: var(--muted);
   font-size: 13px;
+}
+/* The scrollable region inside a mode panel (topic tree / results list /
+   document library) — flexes to fill whatever space the panel's own
+   heading and controls don't use, and is the only thing that scrolls. */
+.mode-scroll {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+}
+.mode-count {
+  color: var(--muted);
+  font-size: 12px;
+  margin: 0 0 8px;
+}
+.mode-toolbar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.group-toggle-row {
+  display: flex;
+  gap: 4px;
 }
 .topic-tree,
 .topic-tree-children {
@@ -558,12 +621,17 @@ input {
   gap: 6px;
   margin-bottom: 10px;
 }
-.results-filters select {
+.results-filters select,
+.results-filters input[type="search"] {
   background: var(--panel-2);
   border: 1px solid var(--line-strong);
   color: var(--white);
   border-radius: 6px;
   padding: 4px 6px;
+}
+.results-filters input[type="search"] {
+  flex: 1;
+  min-width: 160px;
 }
 .results-list {
   list-style: none;
@@ -573,9 +641,23 @@ input {
   flex-direction: column;
   gap: 6px;
 }
+.result-group-header {
+  padding: 10px 0 2px;
+}
+.result-group-header:first-child {
+  padding-top: 0;
+}
+.result-group-header h3 {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
 .result-row {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 8px;
   font-size: 13px;
   border-bottom: 1px solid var(--line);
@@ -584,9 +666,34 @@ input {
 .result-date {
   color: var(--muted);
   min-width: 70px;
+  padding-top: 1px;
+}
+.result-main {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  flex: 1;
+  min-width: 0;
+}
+.result-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+.result-tag {
+  font-size: 11px;
+  color: var(--muted);
+  background: var(--panel-2);
+  border-radius: 4px;
+  padding: 1px 6px;
+  white-space: nowrap;
+}
+.result-significance {
+  color: var(--amber);
 }
 .jump-year-btn {
   margin-left: auto;
+  flex: none;
 }
 .text-btn,
 .jump-year-btn {
@@ -598,13 +705,30 @@ input {
   cursor: pointer;
   font-size: 12px;
 }
+.text-btn.is-active {
+  background: var(--teal);
+  color: #06201d;
+  border-color: var(--teal);
+}
 .document-library {
   list-style: none;
   padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.document-row {
+  padding: 4px 0 8px;
+  border-bottom: 1px solid var(--line);
 }
 .document-meta {
   color: var(--muted);
   font-size: 12px;
+}
+.document-owners {
+  color: var(--muted);
+  font-size: 12px;
+  margin-top: 2px;
 }
 
 /* ------------------------------------------------------------- detail */
@@ -699,6 +823,17 @@ input {
 .entity-link {
   text-decoration: none;
 }
+/* A link sharing a block with plain text (e.g. "Facility: <link>", or a
+   relationship link followed by its role/date) needs a non-colour way to
+   tell it apart from that surrounding text (WCAG 1.4.1) — an underline,
+   since the link colour alone doesn't reach 3:1 contrast against the
+   panel's own body text. A link that is the sole content of its <li>/<p>
+   (the common case elsewhere in these panels) doesn't need this. */
+.entity-link-with-meta .entity-link,
+.entity-link-with-meta > a,
+.map-schematic-list a {
+  text-decoration: underline;
+}
 .empty-note {
   color: var(--muted);
   font-style: italic;
@@ -716,7 +851,7 @@ input {
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 12px;
 }
 .source-meta {
   font-size: 12px;
@@ -725,6 +860,49 @@ input {
 .source-access {
   font-size: 11px;
   color: var(--muted);
+}
+/* provenance.js's grouped-by-claim Sources disclosure (task A4): one claim
+   label, its quote/locator and confidence, then the sources that back it —
+   the raw JSON pointer stays available (title attribute + this small line)
+   but is no longer the headline. */
+.claim-group {
+  border-left: 2px solid var(--line-strong);
+  padding-left: 10px;
+}
+.claim-label {
+  font-weight: 600;
+}
+.claim-evidence {
+  font-size: 13px;
+  color: var(--muted);
+  font-style: italic;
+}
+.claim-confidence {
+  font-size: 12px;
+  color: var(--muted);
+}
+.claim-sources {
+  list-style: none;
+  padding: 0;
+  margin: 4px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.claim-source {
+  font-size: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: baseline;
+}
+.source-type {
+  color: var(--muted);
+}
+.claim-field {
+  font-size: 10px;
+  color: var(--muted);
+  opacity: 0.7;
 }
 .site-location-note {
   font-size: 12px;
@@ -785,6 +963,11 @@ input {
   padding: 7px 14px;
   cursor: pointer;
   font-weight: 600;
+}
+.primary-btn:disabled {
+  background: var(--panel-2);
+  color: var(--muted);
+  cursor: not-allowed;
 }
 .loading-note {
   color: var(--muted);
@@ -914,6 +1097,18 @@ input {
 .data-version-label {
   color: var(--muted);
 }
+.footer-link {
+  color: var(--teal);
+  /* WCAG 1.4.1 / axe "link-in-text-block": the "see the coverage report"
+     link sits inline inside the version-label sentence, so it must be
+     distinguishable from the surrounding text by more than color alone
+     (found by the a11y suite's axe scan against test-results/atlas/
+     a11y-axe-report.json). Underlining every .footer-link, not just this
+     one, keeps the standalone "Methodology"/"Report an error" links
+     visually consistent with it. */
+  text-decoration: underline;
+  white-space: nowrap;
+}
 .share-status {
   color: var(--teal);
 }
@@ -967,5 +1162,730 @@ input {
     order: 3;
     flex-basis: 100%;
     max-width: none;
+  }
+}
+
+/* ---- about page ---- */
+/* static/atlas/about.html only. Reuses the tokens and header/footer rules
+   above; everything below is scoped under body.about-page so it can't leak
+   into the main app's layout. */
+body.about-page {
+  display: block;
+  min-height: 100vh;
+}
+.about-header {
+  gap: 12px;
+}
+.about-title {
+  font-size: 17px;
+  margin: 0;
+}
+.about-main {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 28px 20px 60px;
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 32px;
+  align-items: start;
+}
+.about-toc {
+  position: sticky;
+  top: 76px;
+  font-size: 13px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 14px;
+}
+.about-toc h2 {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  margin: 0 0 8px;
+}
+.about-toc ol {
+  margin: 0;
+  padding-left: 18px;
+}
+.about-toc li {
+  margin-bottom: 6px;
+}
+.about-toc a {
+  color: var(--white);
+  text-decoration: none;
+}
+.about-toc a:hover,
+.about-toc a:focus-visible {
+  color: var(--teal);
+  text-decoration: underline;
+}
+.about-article section {
+  margin-bottom: 34px;
+  scroll-margin-top: 76px;
+}
+.about-article h2 {
+  font-size: 19px;
+  margin: 0 0 10px;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 8px;
+}
+.about-article h3 {
+  font-size: 15px;
+  margin: 18px 0 6px;
+}
+.about-article p {
+  margin: 0 0 12px;
+  max-width: 68ch;
+}
+.about-article ul,
+.about-article ol {
+  margin: 0 0 12px;
+  padding-left: 22px;
+  max-width: 68ch;
+}
+.about-article li {
+  margin-bottom: 4px;
+}
+.about-lede {
+  font-size: 16px;
+  color: var(--white);
+  max-width: 68ch;
+}
+.about-table-wrap {
+  overflow-x: auto;
+  margin: 0 0 16px;
+}
+.about-table {
+  border-collapse: collapse;
+  font-size: 13px;
+  min-width: 320px;
+}
+.about-table caption {
+  caption-side: top;
+  text-align: left;
+  color: var(--muted);
+  font-size: 12px;
+  margin-bottom: 6px;
+}
+.about-table th,
+.about-table td {
+  border: 1px solid var(--line);
+  padding: 6px 10px;
+  text-align: left;
+  vertical-align: top;
+}
+.about-table th {
+  background: var(--panel-2);
+}
+.about-table td.num,
+.about-table th.num {
+  text-align: right;
+}
+.confidence-term {
+  font-weight: 600;
+  color: var(--amber);
+}
+.about-status {
+  font-size: 13px;
+  color: var(--muted);
+  margin: 0 0 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.about-status.hidden {
+  display: none;
+}
+.about-status[data-state="error"] {
+  color: var(--danger);
+}
+#coverage-retry.hidden {
+  display: none;
+}
+.about-data-version {
+  font-size: 13px;
+  color: var(--muted);
+  margin: -4px 0 16px;
+}
+.about-footer {
+  justify-content: center;
+}
+@media (max-width: 760px) {
+  .about-main {
+    grid-template-columns: 1fr;
+  }
+  .about-toc {
+    position: static;
+  }
+}
+
+/* ---- local map ----------------------------------------------------------
+   The 2D, to-scale local-map view (docs/HEP_ATLAS_GEOMETRY.md §4). Everything
+   below belongs to `#/map/<slug>`; the route puts `.is-map-route` on
+   #atlas-main, which stands the globe layout down and gives the map view the
+   whole grid. Colours come from the existing tokens so the dark theme's
+   measured contrast still holds.
+   ------------------------------------------------------------------------ */
+#atlas-main.is-map-route {
+  grid-template-columns: 1fr;
+  grid-template-areas: none;
+}
+#atlas-main.is-map-route > :not(.map-view) {
+  display: none !important;
+}
+.map-view {
+  grid-column: 1 / -1;
+  grid-row: 1;
+  display: grid;
+  /* With the drawer shut the map has the stage to itself; with it open the
+     map still holds >= 60 % of a 1280 px laptop viewport (17 % + 22 % of
+     chrome leaves 61 %), which is the §4 floor for a to-scale view. */
+  grid-template-columns: minmax(200px, 17%) minmax(0, 1fr) 0;
+  min-height: 0;
+  overflow: hidden;
+}
+.map-view.drawer-open {
+  grid-template-columns: minmax(200px, 17%) minmax(0, 1fr) minmax(240px, 22%);
+}
+.map-view.hidden {
+  display: none;
+}
+
+/* ---- left column: layers, places, legend */
+.map-layers {
+  background: var(--panel);
+  border-right: 1px solid var(--line);
+  padding: 10px;
+  overflow-y: auto;
+  min-height: 0;
+}
+.map-back-btn {
+  appearance: none;
+  background: var(--panel-2);
+  border: 1px solid var(--line-strong);
+  color: var(--white);
+  border-radius: var(--radius);
+  padding: 6px 10px;
+  cursor: pointer;
+  font: inherit;
+}
+.map-back-btn {
+  display: block;
+  width: 100%;
+  text-align: left;
+  margin-bottom: 10px;
+}
+.map-back-btn:hover,
+.map-toggle:hover {
+  border-color: var(--teal);
+}
+.map-title {
+  margin: 0 0 2px;
+  font-size: 17px;
+}
+.map-subtitle {
+  margin: 0 0 6px;
+  color: var(--muted);
+  font-size: 12px;
+}
+.map-data-note {
+  margin: 0 0 8px;
+  padding: 6px 8px;
+  border-left: 3px solid var(--amber);
+  background: var(--panel-2);
+  color: var(--white);
+  font-size: 12px;
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+.map-section {
+  margin-bottom: 8px;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 6px;
+}
+.map-section > summary {
+  cursor: pointer;
+  font-weight: 600;
+  padding: 4px 0;
+}
+.map-section-body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.map-note {
+  color: var(--muted);
+  font-size: 12px;
+  margin: 0;
+}
+.map-toggle {
+  appearance: none;
+  background: transparent;
+  border: 1px solid var(--line-strong);
+  color: var(--white);
+  border-radius: var(--radius);
+  padding: 6px 8px;
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.map-toggle[aria-pressed='true'] {
+  background: var(--panel-2);
+  border-color: var(--teal);
+}
+/* Not colour alone: a pressed toggle also gains a leading check mark, and an
+   unpressed one a cross. Every toggle's label is wrapped in .map-toggle-name
+   (see localmap.js toggleButton) so this needs no :has(). */
+.map-toggle[aria-pressed='true'] .map-toggle-name::before {
+  content: '\2713\00a0';
+  color: var(--teal);
+}
+.map-toggle[aria-pressed='false'] .map-toggle-name::before {
+  content: '\2715\00a0';
+  color: var(--muted);
+}
+.map-toggle-meta {
+  color: var(--muted);
+  font-size: 11px;
+}
+.map-feature-group {
+  margin: 8px 0 2px;
+  font-size: 12px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.map-feature-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.map-feature-row {
+  appearance: none;
+  background: transparent;
+  border: 1px solid var(--line-strong);
+  border-left-width: 4px;
+  color: var(--white);
+  border-radius: var(--radius);
+  padding: 6px 8px;
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.map-feature-row.is-selected {
+  background: var(--panel-2);
+  border-color: var(--teal);
+}
+.map-feature-row.is-ghosted .map-feature-name::after {
+  content: ' \2014 outside the selected year';
+  color: var(--amber);
+  font-size: 11px;
+}
+.map-feature-name {
+  font-weight: 600;
+  font-size: 13px;
+}
+.map-feature-meta {
+  color: var(--muted);
+  font-size: 11px;
+}
+.map-unlocated-list,
+.map-linked-list,
+.map-schematic-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.map-unlocated-row {
+  border-left: 3px solid var(--amber);
+  padding-left: 8px;
+}
+.map-unlocated-name {
+  font-weight: 600;
+  font-size: 13px;
+}
+.map-unlocated-reason,
+.map-unlocated-backlog {
+  margin: 2px 0;
+  font-size: 12px;
+  color: var(--white);
+}
+.map-unlocated-backlog {
+  color: var(--muted);
+}
+.map-attribution {
+  color: var(--muted);
+  font-size: 11px;
+  margin: 10px 0 0;
+}
+.map-legend-group h4 {
+  margin: 8px 0 2px;
+  font-size: 13px;
+}
+.map-legend-list {
+  margin: 4px 0 0;
+  font-size: 12px;
+}
+.map-legend-list dt {
+  font-weight: 600;
+  margin-top: 4px;
+}
+.map-legend-list dd {
+  margin: 0 0 2px;
+  color: var(--muted);
+}
+.map-swatch {
+  display: inline-block;
+  width: 22px;
+  height: 0;
+  margin-right: 6px;
+  vertical-align: middle;
+  border-top-style: solid;
+  border-top-width: 3px;
+  border-top-color: #9aa7b0;
+}
+.map-swatch.legend-type-ring { border-top-width: 5px; border-top-color: #54c6ba; }
+.map-swatch.legend-type-linac { border-top-width: 4px; border-top-color: #54c6ba; }
+.map-swatch.legend-type-beamline { border-top-color: #7fd1e6; }
+.map-swatch.legend-type-hall {
+  height: 12px;
+  border: 2px solid #f2b441;
+  background: #f2b44140;
+}
+.map-swatch.legend-type-boundary { border-top-style: dashed; border-top-color: #98a3a9; }
+.map-swatch.legend-type-direction_line { border-top-style: dotted; border-top-color: #c98bd6; }
+.map-swatch.legend-status-active { border-top-color: var(--white); }
+.map-swatch.legend-status-construction { border-top-style: dashed; border-top-color: #f2b441; }
+.map-swatch.legend-status-completed { border-top-color: #98a3a9; }
+.map-swatch.legend-status-proposed { border-top-style: dotted; border-top-color: var(--white); }
+.map-swatch.legend-status-outside { border-top-color: #5a636b; }
+.map-swatch.legend-level-under {
+  border-top-style: double;
+  border-top-width: 5px;
+  border-top-color: #f4f7f8;
+}
+.map-swatch.legend-level-surface { border-top-color: var(--white); }
+.map-swatch.legend-rep-surveyed { border-top-color: var(--white); }
+.map-swatch.legend-rep-georeferenced { border-top-color: #cdd7dc; }
+.map-swatch.legend-rep-derived { border-top-color: #8d9aa2; }
+.map-swatch.legend-rep-inferred_direction { border-top-style: dotted; border-top-color: #c98bd6; }
+.map-swatch.legend-rep-point {
+  height: 12px;
+  width: 12px;
+  border: 2px solid var(--white);
+  border-radius: 50%;
+  background: #f4f7f833;
+}
+
+/* ---- centre: the map stage */
+.map-stage {
+  position: relative;
+  min-height: 0;
+  min-width: 0;
+  background: var(--paper);
+}
+.map-canvas {
+  position: absolute;
+  inset: 0;
+}
+/* Leaflet's own default is a light grey; with the basemap off the features
+   must sit on the atlas's dark background, not on a white sheet. */
+.map-canvas.leaflet-container,
+.map-canvas .leaflet-container {
+  background: #0b1620;
+  font: inherit;
+  outline-offset: -3px;
+}
+.map-canvas .leaflet-control-attribution {
+  background: #0b1620d9;
+  color: var(--white);
+  font-size: 11px;
+}
+.map-canvas .leaflet-control-attribution a {
+  color: var(--teal);
+}
+.map-canvas .leaflet-control-scale-line {
+  background: #0b1620d9;
+  border: 2px solid var(--white);
+  border-top: none;
+  color: var(--white);
+  font-size: 12px;
+  line-height: 1.2;
+  padding: 2px 6px 1px;
+  text-shadow: none;
+}
+.map-canvas .leaflet-bar a {
+  background: var(--panel);
+  color: var(--white);
+  border-bottom-color: var(--line-strong);
+}
+.map-canvas .leaflet-bar a:hover {
+  background: var(--panel-2);
+  color: var(--white);
+}
+.map-canvas path.is-ghosted {
+  stroke-opacity: 0.3;
+}
+.map-tooltip.leaflet-tooltip {
+  background: var(--panel);
+  color: var(--white);
+  border: 1px solid var(--line-strong);
+  box-shadow: var(--shadow);
+  white-space: pre-line;
+  font-size: 12px;
+  max-width: 280px;
+}
+.map-north {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 1100;
+  background: #0b1620d9;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  padding: 4px 8px;
+  color: var(--white);
+  text-align: center;
+  line-height: 1.1;
+  font-size: 12px;
+  pointer-events: none;
+}
+.map-north-arrow {
+  display: block;
+  font-size: 15px;
+}
+/* At a pole the arrow means grid north, not true north, and the label says
+   so in full — so it needs room the single "N" does not. */
+.map-north.is-grid-north {
+  max-width: 190px;
+  text-align: center;
+  border-color: var(--amber);
+}
+.map-tile-notice {
+  position: absolute;
+  left: 50px;
+  right: 10px;
+  top: 58px;
+  z-index: 1100;
+  margin: 0;
+  background: var(--panel);
+  border: 1px solid var(--amber);
+  border-radius: var(--radius);
+  padding: 6px 10px;
+  color: var(--white);
+  font-size: 12px;
+}
+.map-tile-notice.hidden {
+  display: none;
+}
+/* ---- depth diagram: a vertical section, never a plan */
+.map-depth {
+  position: absolute;
+  right: 10px;
+  bottom: 34px;
+  z-index: 1100;
+  width: min(340px, calc(100% - 20px));
+  max-height: calc(100% - 60px);
+  overflow-y: auto;
+  background: var(--panel);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 10px;
+}
+.map-depth.hidden {
+  display: none;
+}
+.map-depth h3 {
+  margin: 0 0 4px;
+  font-size: 14px;
+}
+.map-depth-svg {
+  width: 100%;
+  height: auto;
+  margin: 6px 0;
+}
+.map-depth-axis {
+  stroke: var(--line-strong);
+  stroke-width: 1;
+}
+.map-depth-axis-label,
+.map-depth-tick {
+  fill: var(--muted);
+  font-size: 9px;
+}
+.map-depth-bar.is-level {
+  fill: #54c6ba59;
+  stroke: #54c6ba;
+  stroke-width: 1;
+}
+.map-depth-bar.is-feature {
+  fill: #f2b44159;
+  stroke: #f2b441;
+  stroke-width: 1;
+}
+.map-depth-floor {
+  stroke: var(--white);
+  stroke-width: 1.5;
+}
+.map-depth-key {
+  list-style: none;
+  margin: 4px 0 8px;
+  padding: 0;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+/* ---- right: the selection drawer */
+.map-drawer {
+  background: var(--panel);
+  border-left: 1px solid var(--line);
+  padding: 14px;
+  overflow-y: auto;
+  min-height: 0;
+  position: relative;
+}
+.map-drawer.hidden {
+  display: none;
+}
+.map-drawer-title {
+  margin: 0 0 8px;
+  padding-right: 28px;
+  font-size: 16px;
+}
+.map-drawer .close-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+}
+.map-facts h3 {
+  margin: 12px 0 4px;
+  font-size: 13px;
+  border-top: 1px solid var(--line);
+  padding-top: 8px;
+}
+.map-check-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.map-check {
+  font-size: 12px;
+  border-left: 3px solid var(--line-strong);
+  padding-left: 8px;
+}
+.map-check.is-passed {
+  border-left-color: var(--teal);
+}
+.map-check.is-failed {
+  border-left-color: var(--danger);
+}
+.map-check-verdict {
+  display: inline-block;
+  font-weight: 700;
+  margin-right: 6px;
+}
+.map-check.is-passed .map-check-verdict {
+  color: var(--teal);
+}
+.map-check.is-failed .map-check-verdict {
+  color: var(--danger);
+}
+/* The selected entity is on screen only because it is selected, and its
+   absence from the chosen year is a fact about the year, not the data. Amber,
+   the same colour the rest of the app uses for "attend to this". */
+.map-gap-notice {
+  border-left: 3px solid var(--amber);
+  background: var(--panel-2);
+  padding: 8px 10px;
+  border-radius: 0 var(--radius) var(--radius) 0;
+  font-size: 12px;
+}
+.map-gap-notice p {
+  margin: 0 0 6px;
+}
+.map-gap-notice.on-stage {
+  position: absolute;
+  left: 50px;
+  bottom: 34px;
+  z-index: 1100;
+  max-width: min(420px, calc(100% - 120px));
+  box-shadow: var(--shadow);
+  border: 1px solid var(--amber);
+  border-left-width: 3px;
+}
+.map-gap-notice.in-drawer {
+  margin: 0 0 10px;
+}
+.map-gap-btn {
+  font-weight: 600;
+}
+
+.map-inferred-warning {
+  margin: 6px 0;
+  padding: 6px 8px;
+  border-left: 3px solid #c98bd6;
+  background: var(--panel-2);
+  font-size: 12px;
+}
+.fallback-nomap {
+  color: var(--muted);
+}
+.local-map-chip-row {
+  margin: 0 0 8px;
+}
+a.local-map-chip {
+  color: var(--teal);
+  text-decoration: underline;
+}
+
+/* ---- mobile: stacked, with the drawer as a bottom sheet */
+@media (max-width: 760px) {
+  .map-view,
+  .map-view.drawer-open {
+    grid-template-columns: 1fr;
+    grid-template-rows: minmax(45vh, 1fr) auto;
+    grid-template-areas:
+      'mapstage'
+      'maplayers';
+    overflow-y: auto;
+  }
+  .map-stage {
+    grid-area: mapstage;
+    min-height: 45vh;
+  }
+  .map-layers {
+    grid-area: maplayers;
+    border-right: none;
+    border-top: 1px solid var(--line);
+  }
+  .map-drawer {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: auto;
+    max-height: 55vh;
+    border-left: none;
+    border-top: 1px solid var(--line);
+    border-radius: 14px 14px 0 0;
+    box-shadow: 0 -6px 20px #00000060;
+    z-index: 1200;
+  }
+  .map-depth {
+    width: calc(100% - 20px);
   }
 }

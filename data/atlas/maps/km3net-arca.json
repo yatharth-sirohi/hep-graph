@@ -1,0 +1,73 @@
+{
+  "aliases": [],
+  "center": {
+    "confidence": "verified",
+    "kind": "detector",
+    "lat": 36.2667,
+    "locator": "KM3NeT-It research-infrastructure page; Letter of Intent for KM3NeT 2.0",
+    "lon": 16.1,
+    "note": "Reuses site:km3net-arca-capo-passero's own published coordinate as the map centre.",
+    "precision_m": 2000,
+    "sources": [
+      "src:astro-neutrino-km3net-it-site-page",
+      "src:astro-neutrino-km3net-loi-2016"
+    ],
+    "verified_at": "2026-09-18"
+  },
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "extent_m": 5000,
+  "facility_id": "facility:km3net",
+  "id": "map:km3net-arca",
+  "levels": [
+    {
+      "depth_m": {
+        "approx": true,
+        "confidence": "verified",
+        "dimension": "length",
+        "display": "~3500 m",
+        "note": "",
+        "quote": "At a depth of about 3500 m",
+        "sources": [
+          "src:astro-neutrino-km3net-it-site-page",
+          "src:astro-neutrino-km3net-loi-2016"
+        ],
+        "unit": "m",
+        "value": 3500,
+        "verified_at": "2026-09-18"
+      },
+      "id": "seabed",
+      "kind": "sea",
+      "name": "Seabed (≈3500 m)",
+      "note": "The ARCA detection-unit strings rise from the seabed anchor point; there is no surface structure to show separately."
+    }
+  ],
+  "linked_map_ids": [
+    "map:km3net-orca"
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "KM3NeT/ARCA — Capo Passero deep-sea site",
+  "notes": [
+    "Portopalo di Capo Passero, the nearest shore town, is ~100 km from this site (per the KM3NeT-It page and the Letter of Intent) -- more than the 60 km limit for drawing a shore feature as context on the same map (and more than the validator's own 60 km hard error on feature position). It is not drawn here and there is no separate facility/site record for it to anchor a linked map either; noted in the worklog as a backlog item only.",
+    "Overpass access was unreachable for most of this session (see map:amundsen-scott-south-pole-station's notes); a sea site has no OSM features to fetch in any case, per the research brief, so this did not block this map."
+  ],
+  "schema": "hep-atlas/0.2",
+  "schematics": [],
+  "site_ids": [
+    "site:km3net-arca-capo-passero"
+  ],
+  "sources": [
+    "src:astro-neutrino-km3net-it-site-page",
+    "src:astro-neutrino-km3net-loi-2016"
+  ],
+  "summary": {
+    "plain": "The Mediterranean seabed site off Sicily, Italy, where the KM3NeT/ARCA neutrino telescope is being built, about 100 km offshore and 3500 m down.",
+    "technical": "Local map for the KM3NeT-It / ARCA deep-sea site (facility:km3net). One surveyed point (the collaboration's own published 36°16' N 16°06' E) and one derived ~1 km-diameter circle for a single ARCA building block (R=500 m per the KM3NeT 2.0 Letter of Intent). ARCA and ORCA are ~900 km apart and cannot share a to-scale map; see map:km3net-orca (linked)."
+  },
+  "type": "map",
+  "unlocated": []
+}

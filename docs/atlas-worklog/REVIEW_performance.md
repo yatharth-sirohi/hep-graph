@@ -516,3 +516,99 @@ institutions (§17/§70), semantic zoom tiers (far = facilities only, medium+
 letting the toggle lie about what's drawn, and the filter panel (experiment
 status, era, topic, facility/experiment kind, region) which composes with
 the timeline and shrinks the rendered set before clustering even runs.
+
+---
+
+## Methodology page, footer links, and the fixture-fallback failure path (2026-09-18, workstream A5/A6)
+
+This pass added `static/atlas/about.html` (+`js/about.js`), two footer links
+and a real link in the version label (`app.js`, `index.html`), and changed
+`loader.js`'s `resolveBase()` so a non-dev host with a missing generated
+bundle shows the accessible error state instead of silently serving fixture
+data. This section measures the globe route's (`/atlas/`) initial-load
+request list and bytes before and after those changes, on the generated
+tree, and confirms no local-map geometry/Leaflet bytes load on that route.
+
+### Method
+
+Two servers, isolated so neither could be confused with a concurrent
+session's worktree (this repository has several `HEP-Graph-maps-*`
+worktrees checked out at once, and an earlier attempt in this same pass
+picked up another session's already-running process on a colliding port —
+caught by checking each server's `cwd` via `lsof -p <pid>` before trusting
+it, not by port number alone):
+
+- **Before**: a detached `git worktree` checked out at `3608c28` (this
+  branch's parent commit, i.e. every change in this section reverted),
+  served on its own port.
+- **After**: this worktree (`hep-atlas-local-maps-a4`), served on port 8816
+  as instructed.
+
+A real headless Chromium (Playwright, not `chrome-headless-shell`) loaded
+`${base}/atlas/` with a fresh browser context each time, waited for
+`networkidle` twice (once before and once after the marker-presence check,
+so lazy `import()`s and any post-render fetch are captured) and recorded
+every response under `/atlas/` with its actual decoded body length
+(`response.body().length`, not the `Content-Length` header — the first
+attempt at this measurement used the header and produced a spurious extra
+request and mismatched sizes between runs that traced back to the wrong-cwd
+server, not to any real difference; body length sidesteps that class of
+measurement error entirely).
+
+### Result: request list and bytes, generated tree, `/atlas/`
+
+Identical request set both before and after — 21 requests, same 17
+unchanged files (`atlas.json`, `documents.json`, `manifest.json` ×2 [see
+P2-1 above, unrelated to this pass and still open], `results.json`,
+`search.json`, `globe.js`, `filters.js`, `model.js`, `modes.js`,
+`panels.js`, `search.js`, `state.js`, `timeline.js`, `fallback.js`,
+`vendor/globe.gl.min.js`, `vendor/land-110m.json`). Only the files this pass
+actually touched changed size:
+
+| File | Before | After | Δ bytes | Why |
+| --- | ---: | ---: | ---: | --- |
+| `/atlas/` (index.html) | 4,308 | 4,589 | +281 | Footer: "Methodology" and "Report an error" links; meta description reworded |
+| `/atlas/atlas.css` | 20,480 | 23,807 | +3,327 | The `/* ---- about page ---- */` CSS section (about.html's own layout; nothing on the globe route uses these classes, they are simply served as part of the one stylesheet) |
+| `/atlas/js/app.js` | 15,264 | 16,397 | +1,133 | The `error` branch from `loader.init()` and the DOM-built version-label link |
+| `/atlas/js/loader.js` | 7,466 | 10,162 | +2,696 | `resolveBase()`'s dev-host branch, `getCoverage()`'s fixture/generated normalization, comments |
+| **Total (21 requests)** | **3,947,590** | **3,955,027** | **+7,437** | — |
+
++7,437 bytes on a 3.95 MB initial load is a 0.19% increase, entirely
+accounted for by the four files above (3,327+1,133+2,696+281 = 7,437,
+matching exactly). `about.html` and `about.js` are not requested by the
+globe route at all — they load only when a visitor follows the new footer
+links to `/atlas/about.html`, at which point that page makes its own
+separate request list (measured in the browser-test run above: `atlas.json`,
+`coverage.json`, `results.json`, `documents.json`, `manifest.json`, mostly
+already warm from the globe page's own cache if the visitor came from
+there).
+
+**No geometry or Leaflet bytes load on the globe route** in either
+measurement (`grep`-style filter for `leaflet`, `geometry`, `/maps/` in the
+captured request list: 0 matches, both before and after). The local-map
+geometry layer (A25, `docs/HEP_ATLAS_GEOMETRY.md`) is being built on
+sibling branches (`hep-atlas-local-maps-*`) not merged into this one at the
+time of this measurement, so this confirms only the current tree's
+behaviour, not a guarantee about the merged product — the next merge to
+`main` should re-run this same before/after comparison once those branches
+land, to confirm the geometry/Leaflet assets stay lazy on the globe route
+the way `docs/HEP_ATLAS_GEOMETRY.md` intends.
+
+### Caching headers: unchanged
+
+`hepgraph/server.py`'s `respond_atlas` was not touched by this pass (see
+the pytest addition in `tests/test_atlas_server.py`,
+`test_about_page_is_served_at_its_real_path`, which asserts the same
+`Cache-Control: public, max-age=0, must-revalidate` and a present `ETag` for
+`/atlas/about.html` as every other atlas asset). `tests/test_atlas_server.py
+-k "etag or cacheable"` (2 tests) passes unchanged.
+
+### Failure-path change: no bytes added to the success path
+
+`resolveBase()`'s new branch only executes when the `generated/manifest.json`
+probe already failed (a 404, in the test in `tests/browser_atlas.cjs`) — on
+the ordinary success path measured above it is not reached at all, so it
+adds code size (part of the +2,696 bytes on `loader.js` above) but zero
+extra requests or bytes at runtime. Confirmed by browser test: "A
+non-localhost host with a missing generated bundle shows the accessible
+error state, not the fixture banner" (`tests/browser_atlas.cjs`, Chromium).
