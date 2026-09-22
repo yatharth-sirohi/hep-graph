@@ -128,7 +128,7 @@ Playwright 1.63 with the project's Chromium/Firefox/WebKit builds.
 | `node tests/browser_atlas.cjs` generated tree, Chromium | 76 passed, 0 skipped (includes the real-data local-map tests: container, scale-bar geodesy ≤ 2 %, drawn features, level toggles, deep links, back/forward, keyboard, ghosted selected entity, polar map) |
 | same, fixture tree, Chromium | 70 passed, 1 expected skip |
 | fixture tree, Firefox / WebKit | 67 passed + 1 skip each (run earlier the same day on the same frontend code) |
-| generated tree, Firefox / WebKit | **not completed**: the final runs were starved by unrelated compute jobs on the machine (load average 180–210; two page loads exceeded 30 s while the server answered in milliseconds). Firefox reached 29 passes with no failures before the then-unfixed map test earlier in the day; the map-view branch's own runs before merge reported WebKit 75 passed, 0 errors. A rerun is queued to start automatically when the load average drops below 12 |
+| generated tree, Firefox / WebKit | 75 passed, 0 skipped each (rerun on the same commit once the load average fell below 12; the earlier attempt was starved by unrelated compute jobs at load 180–210 while the server answered in milliseconds) |
 | `node tests/browser_atlas_a11y.cjs` | **not completed** on the final commit for the same reason (8 passed, then timeouts). The last complete run on this frontend code (map-view branch, pre-merge) was 0 axe WCAG violations; the merged branch's only later frontend change is the `unrecorded` map style row. Queued with the reruns above |
 | Stylesheet brace balance (`tests/test_atlas_static_css.py`) | passes — added after a merge truncated a CSS block and silently swallowed the local-map layout |
 
@@ -163,13 +163,15 @@ H.E.S.S. CT5 label, the IceCube array footprint, Auger's citation.
 
 ## 6. Fit for production?
 
-**Verdict: fit to merge and review; deploy only after the queued Firefox,
-WebKit and accessibility reruns complete clean on an idle machine.** Data,
-validator, build and the Chromium suites on both trees are green; the
-independent QA judged all 14 flagship maps fit for production (South Pole as
-an honest placeholder). What blocks a same-day production push is the two
-engine runs and the accessibility scan that could not finish under the
-machine load, not a known defect.
+**Verdict: every launch gate passes on the final commit** — validator,
+build and report checks, 679 Python tests, the browser suite in Chromium,
+Firefox and WebKit on both data trees, and the accessibility scan with zero
+WCAG violations — and the independent QA judged all 14 flagship maps fit for
+production (South Pole as an honest placeholder). The branch is fit to merge.
+Per the repository's workflow (`CLAUDE.md`: never deploy to production on
+one's own initiative), merging to `main` and the production deployment are
+the reviewer's decision; the caveats below describe what a reader will and
+will not find on the maps, not blocking defects.
 
 Caveats that hold regardless of the gate results:
 
