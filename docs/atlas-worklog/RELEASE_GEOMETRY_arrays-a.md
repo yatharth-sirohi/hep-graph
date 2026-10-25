@@ -15,7 +15,7 @@ Previous worklogs: `GEOMETRY_arrays.md`, `GEOMETRY_polar-sea.md`.
 | LHAASO (Daocheng) | partial | layout to scale | 1188 MDs (15 records), 3 WCDA pools, ED-array outline | 4911/305 ED split, 635 m radius, pool areas, outline span 1270 m |
 | Baikal-GVD | partial | layout to scale (relative); 1500 m absolute | 11 clusters, 88 strings, with deployment years | cluster chord 117-120 m vs 117 m (R = 60 m heptagon) |
 
-New records: 63 geometry (data/atlas/geometry), 17 sources (data/atlas/sources), 5 maps edited; 2 geometry records removed (superseded):
+Changes in data/atlas: 69 geometry records and 14 sources added; the two Auger outlines updated; 5 maps edited; 2 geometry records removed (superseded):
 `ta-array-point`, `baikal-gvd-cluster-footprint`; ED markers of LHAASO not drawn (2 MB bundle limit). The geometry LICENSE note gained a paragraph on the non-OSM licences.
 
 ## Method notes common to all five
