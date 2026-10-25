@@ -189,3 +189,76 @@ None (`site:malargue-auger` is the Observatory's address in the town, already do
   (-35.1143142, -69.6000234), but no building footprints. Needs an Auger GAP note, the Offline detector configuration, or a mapped footprint.
 * An explicit statement of the UTM zone and datum of `sdMap.csv`.
 * AERA radio antennas, HEAT, AMIGA unitary cell and AugerPrime surface scintillator positions; stopped stations with their date windows.
+
+## 3. Telescope Array (Utah)
+
+Grade: **partial (one 6 km point) -> layout to scale** (507 stations on their grid, array outline with area
+check, central laser, three fluorescence stations with distance checks). TAx4 not drawn.
+
+### Sources and what was verified here
+
+* **Station table.** TA Collaboration data release on Zenodo, DOI 10.5281/zenodo.8405760 ("Data of an extremely energetic cosmic ray
+  observed by a surface detector array of Telescope Array experiment", T. Fujii, 2023-10-04, "Shared by the Telescope Array
+  Collaboration"), licence cc-by-4.0 per the Zenodo API. Re-fetched: `Data_Release_TASD.zip` (800 716 bytes, md5
+  15ebbb190709ddfb724ced94de8670f2), `1_event_display/TASDPosition.dat` = 507 rows `id x y z` in km; the release's `00memo` says only
+  "TASDPosition.dat : The position information of TA SD". No origin, orientation or units are stated (units km per the
+  event-display code in the same release).
+* **Frame, by registration (this work).** Fig. 5 of arXiv:2103.01086 ("Surface detectors of the TAx4 experiment", NIM A 1019
+  (2021) 165726) is a vector plot on latitude and longitude axes with 507 red markers for the TA SDs. A first agent read the 507 markers
+  from the vector graphic; I re-ran the extraction and fit from a freshly fetched copy and reproduced every number: axis calibration residual 1.4e-5 deg
+  (lon) and 1.1e-4 deg (lat), all 507 matched one-to-one, rotation -0.0012 deg, scale 1.00038, the CLF at table (0.006, 0.005) km,
+  residuals after a 6 m mean shift median 14 m, 90th percentile 26 m, 99th percentile 40 m. Origin = the CLF, 39.296918 N 112.908733 W (arXiv:1410.3151
+  section 5.1, verified in a fresh copy: "Surface Impact Position: Uniform, random distribution inside a circle of radius 25 km, centered at the CLF
+  (39.296918 N Lat, 112.908733 W Long)"). Axes are true east and north (a UTM 12 grid would be rotated about 1.2 deg).
+* **Three stations disagree with the figure** by 443 m (1806), 142 m (2212) and 133 m (1713). In the table 1806 and 2212 are 1.20 km from their grid
+  neighbours while the figure positions would break the square grid; the table is used and the figure is blamed.
+* **Projection choice matters at the 60 m level.** An ellipsoidal azimuthal-equidistant projection about the CLF (equal to a tangent-plane ENU within 1 m at
+  25 km) fits the figure; a spherical equirectangular conversion would differ by up to 60 m at the corners. `accuracy_m` is 100 for the stations.
+* **Fluorescence stations are figure readings.** No document fetched gives their coordinates. Fig. 1 of arXiv:1410.3151 is a to-scale layout
+  (507 squares, 3 triangles, a circle for the CLF); its 505 drawn squares register one-to-one onto the table (scale 4.777 pt/km east-west,
+  4.867 pt/km north-south, rms 0.27 pt, stations 1327 and 1428 not drawn). The triangle bounding-box centres give (x, y) km from the CLF
+  of Middle Drum (-7.034, 19.621), Black Rock Mesa (17.037, -11.989), Long Ridge (-18.386, -9.806): 20.84, 20.83 and 20.84 km from the CLF, matching "equidistant" and the official "about 21 km"
+  (arXiv:1801.09784 section 2, verified in a fresh copy). Using the triangle centroid instead would move each marker 0.3 km and spoil the equidistance, so the box centre is used.
+  `accuracy_m` 500, `derived`.
+
+### Inventory
+
+| Entity | Drawn / unlocated | Record | Representation | accuracy_m | Check |
+| --- | --- | --- | --- | ---: | --- |
+| detector:telescope-array (507 SD stations) | drawn | geometry:ta-sd-stations-strip-01 .. -07 | derived | 100 | 507 stations (official 507), median nearest-neighbour 1.197 km vs 1.2 km grid (worklog only) |
+| site:telescope-array-utah-central-site (array outline) | drawn | geometry:ta-sd-array-boundary | derived | 100 | area 691.5 km2 vs ~700 km2 (-1.2%, tol 5%): pass |
+| Central Laser Facility | drawn | geometry:ta-clf | surveyed (published lat/lon) | 20 | rounded 39.30 N 112.91 W in arXiv:2103.01086 agrees |
+| Black Rock Mesa, Long Ridge, Middle Drum FD stations | drawn | geometry:ta-fd-black-rock-mesa, -long-ridge, -middle-drum | derived (figure reading) | 500 | distance to the CLF 20.81, 20.81, 20.87 km vs "about 21 km" (tol 3%): pass |
+| TAx4 (500 stations, 2.08 km) | not drawn | n/a | n/a | n/a | positions only in a figure |
+| geometry:ta-array-point (6 km marker) | removed | superseded | n/a | n/a | n/a |
+
+### Source conflicts
+
+1. **Array area:** "approximately 700 km2" (arXiv:1201.4964 section 3, most papers) versus "about 730 km2" (arXiv:1110.0133, = 507 x 1.2 x 1.2). The hull is 691.5 km2. 700 is used.
+2. **FD-FD separation:** "~35 km" (arXiv:1201.0002 Fig. 1 caption), "about 30 km" (arXiv:1801.09784); the figure readings give 31.5 to 39.7 km. Not used as a check.
+3. **Middle Drum to the array:** arXiv:1801.09784 says the three FD are 3 km (Black Rock), 4 km (Long Ridge), 8 km (Middle Drum) from the SD border; the figure readings give 3.5, 4.9, 9.9 km to the nearest station centre. Middle Drum is about 1.3 km further than stated (mild mismatch, within the figure-reading slack plus the border definition).
+4. **Frame origin:** inferred (registration), not stated by the release.
+5. **Licence:** CC BY 4.0 requires attribution; carried in each record's `license` and shown under the map.
+
+### Site coordinate corrections
+
+```json
+[
+  {
+    "site_id": "site:telescope-array-utah-central-site",
+    "current": {"lat": 39.3, "lon": -112.9, "precision_m": 6000, "kind": "detector"},
+    "proposed": {"lat": 39.296918, "lon": -112.908733, "precision_m": 100, "kind": "detector"},
+    "source": "src:geo-arrays-ta-hybrid-spectrum-2014",
+    "locator": "arXiv:1410.3151 section 5.1, MC thrown-event parameters, Surface Impact Position",
+    "quote": "Surface Impact Position: Uniform, random distribution inside a circle of radius 25 km, centered at the CLF (39.296918 N Lat, 112.908733 W Long).",
+    "note": "The CLF, which the papers call the centre of the SD array and equidistant from the three telescope stations. The centroid of the 507 stations is 4.0 km south of it (x +0.45 km, y -3.97 km from the CLF)."
+  }
+]
+```
+
+### Backlog
+
+* Official latitude and longitude of Black Rock Mesa, Long Ridge and Middle Drum (a TA document). A research sub-agent reported that `telescopearray.org` redirected (HTTP 301) to a
+  dynamic-DNS host, which it did not follow, and that the Rutgers (Ivanov) and Utah (Mallen) theses linked from older papers returned 404 (not re-checked here).
+* A statement of the origin and orientation of the `TASDPosition.dat` frame, and its z datum (the sub-agent found the z column 12-16 m above the raw event dump's `POS` z; not re-checked; z is unused here).
+* TAx4 station coordinates (only a figure) and the TALE infill; communication towers.
