@@ -54,12 +54,12 @@
   "key_value_text": {
     "confidence": "verified",
     "locator": "arXiv:1910.03887, abstract",
-    "note": "",
+    "note": "The intervals are quoted verbatim; which CP-conserving values they exclude follows from them (−π ≡ π lies inside the normal-ordering interval). Corrected 2026-10-25: an earlier wording said both 0 and ±π were excluded at 3σ, which the cited abstract does not support.",
     "quote": "The 3 sigma confidence level interval for dCP, which is cyclic and repeats every 2pi, is [-3.41,-0.03] for the so-called normal mass ordering, and [-2.54,-0.32] for the inverted mass ordering.",
     "sources": [
       "src:t2k-nature-2020-cp"
     ],
-    "value": "delta_CP 3-sigma confidence interval [-3.41,-0.03] (normal mass ordering) or [-2.54,-0.32] (inverted mass ordering); CP-conserving values (0, +/- pi) excluded at 3 sigma.",
+    "value": "δCP 3σ confidence interval [−3.41, −0.03] (normal mass ordering) or [−2.54, −0.32] (inverted mass ordering): δCP = 0 lies outside both intervals; π is outside the inverted-ordering interval but inside the normal-ordering one (−π ≈ −3.14)",
     "verified_at": "2026-09-17"
   },
   "links": {
@@ -104,13 +104,13 @@
   },
   "result_type": "measurement",
   "schema": "hep-atlas/0.2",
-  "significance": "3 sigma exclusion of CP-conserving values",
+  "significance": "3σ (δCP = 0 excluded; an indication of CP violation, not a discovery)",
   "sources": [
     "src:t2k-nature-2020-cp"
   ],
   "summary": {
-    "plain": "T2K compared how often neutrinos and antineutrinos change type on their way across Japan, and found a difference large enough to exclude, at 3-sigma confidence, the possibility that they behave exactly the same. Worded carefully by the collaboration as 'an indication of CP violation' - not yet a discovery.",
-    "technical": "Combined neutrino- and antineutrino-mode appearance/disappearance data exclude CP-conserving delta_CP values (0, +/-pi) at 3 sigma; 3-sigma interval [-3.41,-0.03] (normal ordering) or [-2.54,-0.32] (inverted ordering). The collaboration's own wording is 'an indication of CP violation in the lepton sector', reproduced verbatim in the claim quote; not classified as 'evidence' or 'discovery' to avoid inflating beyond the paper's own language (v0.2 rule 7 / A16)."
+    "plain": "T2K compared how often neutrinos and antineutrinos change type on their way across Japan and found a difference that excludes, at 3-sigma confidence, the CP-conserving value δCP = 0. The collaboration words it carefully as 'an indication of CP violation' — not yet a discovery.",
+    "technical": "Combined neutrino- and antineutrino-mode appearance and disappearance data give 3σ intervals for δCP of [−3.41, −0.03] (normal ordering) and [−2.54, −0.32] (inverted ordering): δCP = 0 is excluded at 3σ in both orderings, π only for the inverted ordering. The collaboration reports 'an indication of CP violation in the lepton sector'."
   },
   "title": "Constraint on the Matter-Antimatter Symmetry-Violating Phase in Neutrino Oscillations",
   "topic_ids": [
@@ -118,5 +118,5 @@
     "topic:neutrino-oscillations"
   ],
   "type": "result",
-  "why_it_matters": "The first constraint on the leptonic CP-violating phase delta_CP from any single experiment, disfavouring CP conservation at 3 sigma and pointing towards a possible explanation (leptogenesis) for the universe's matter-antimatter asymmetry; the physics case for Hyper-Kamiokande's more sensitive CP search."
+  "why_it_matters": "It excludes the CP-conserving value δCP = 0 at 3σ — an indication that neutrinos and antineutrinos oscillate differently (CP violation in the lepton sector), a possible ingredient of the matter-antimatter asymmetry of the universe (leptogenesis), and part of the physics case for Hyper-Kamiokande's more sensitive search."
 }
