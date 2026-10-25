@@ -1,0 +1,132 @@
+{
+  "accuracy_m": 10,
+  "aliases": [],
+  "checks": [
+    {
+      "expected": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "length",
+        "display": "72 m",
+        "locator": "arXiv:1905.10258 Sec. 2.1",
+        "note": "",
+        "quote": "The baseline of the VNS to the two reactor cores is 72 m to B-1, and 102 m to B-2 respectively.",
+        "sources": [
+          "src:geo-chooz-nucleus-2019"
+        ],
+        "unit": "m",
+        "value": 72,
+        "verified_at": "2026-10-25"
+      },
+      "kind": "distance",
+      "locator": "arXiv:1905.10258 Sec. 2.1",
+      "sources": [
+        "src:geo-chooz-nucleus-2019"
+      ],
+      "to_geometry_id": "geometry:chooz-core-b1",
+      "tolerance": 0.15
+    },
+    {
+      "expected": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "length",
+        "display": "102 m",
+        "locator": "arXiv:1905.10258 Sec. 2.1",
+        "note": "",
+        "quote": "The baseline of the VNS to the two reactor cores is 72 m to B-1, and 102 m to B-2 respectively.",
+        "sources": [
+          "src:geo-chooz-nucleus-2019"
+        ],
+        "unit": "m",
+        "value": 102,
+        "verified_at": "2026-10-25"
+      },
+      "kind": "distance",
+      "locator": "arXiv:1905.10258 Sec. 2.1",
+      "sources": [
+        "src:geo-chooz-nucleus-2019"
+      ],
+      "to_geometry_id": "geometry:chooz-core-b2",
+      "tolerance": 0.15
+    }
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "depth_m": null,
+  "entity_id": null,
+  "feature_type": "building",
+  "geometry": {
+    "confidence": "approximate",
+    "locator": "OSM way 331249709 as of 2026-10-25T10:54:21Z",
+    "note": "OpenStreetMap alone yields at most 'approximate'. The identification of this building as the VNS host is inferred, not stated by a source.",
+    "sources": [
+      "src:geo-chooz-osm-extract-2026-10",
+      "src:geo-chooz-nucleus-2019"
+    ],
+    "value": {
+      "coordinates": [
+        [
+          [
+            4.790291,
+            50.089428
+          ],
+          [
+            4.789903,
+            50.089373
+          ],
+          [
+            4.789955,
+            50.089208
+          ],
+          [
+            4.790345,
+            50.089256
+          ],
+          [
+            4.790291,
+            50.089428
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    },
+    "verified_at": "2026-10-25"
+  },
+  "id": "geometry:chooz-vns-host-building",
+  "level_id": "surface",
+  "license": {
+    "attribution": "© OpenStreetMap contributors",
+    "name": "ODbL-1.0",
+    "url": "https://www.openstreetmap.org/copyright"
+  },
+  "links": {
+    "website": null
+  },
+  "map_id": "map:chooz",
+  "method": "OpenStreetMap way 331249709 (building=yes, 542 m2) kept verbatim. Identified as the building that hosts the VNS only by position: it is the only OSM building that contains the trilateration solution of the NUCLEUS baselines (see geometry:chooz-vns-position); no source names or outlines the building. The two checks compare its centroid distances to the B1/B2 centroids with the VNS-to-core baselines at 15 % tolerance, because the room is not centred in the building and the centroids are not core axes.",
+  "name": "Office building between the two Chooz B units (OSM), host of the derived VNS position",
+  "notes": [
+    "Centroid distance to B1 79.8 m (published VNS baseline 72 m) and to B2 99.5 m (102 m)."
+  ],
+  "osm": {
+    "elements": [
+      "way/331249709"
+    ],
+    "timestamp": "2026-10-25T10:54:21Z"
+  },
+  "representation": "georeferenced",
+  "schema": "hep-atlas/0.2",
+  "site_id": null,
+  "sources": [
+    "src:geo-chooz-osm-extract-2026-10",
+    "src:geo-chooz-nucleus-2019"
+  ],
+  "summary": {
+    "plain": "An office building standing between the two Chooz B reactor units, which the NUCLEUS paper says hosts the very-near-site room. Identified by position only."
+  },
+  "type": "geometry",
+  "valid": null
+}

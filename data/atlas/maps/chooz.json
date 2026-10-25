@@ -25,8 +25,15 @@
       "depth_m": null,
       "id": "surface",
       "kind": "surface",
-      "name": "Surface (reactor buildings)",
+      "name": "Surface (reactor buildings, NUCLEUS very-near site)",
       "note": ""
+    },
+    {
+      "depth_m": null,
+      "id": "far-lab",
+      "kind": "underground",
+      "name": "Far laboratory in the hill (about 300 m.w.e.)",
+      "note": "Plan view; depth is quoted in water equivalent only: 'The Double Chooz-far site is shielded by about 300 m.w.e. of 2.8 g/cm3 rock.' (TDR Sec. 1.2). No depth in metres was found, so depth_m is null."
     }
   ],
   "linked_map_ids": [],
@@ -35,7 +42,10 @@
   },
   "name": "Chooz — reactor cores (Double Chooz / NUCLEUS site)",
   "notes": [
-    "Chooz A (shut down 1991) is drawn for campus context only; the Double Chooz and NUCLEUS baselines refer to B1/B2."
+    "Chooz A (shut down 1991) is drawn for campus context only; the Double Chooz and NUCLEUS baselines refer to B1/B2.",
+    "Chooz A (shut down 1991) is drawn for campus context only; the Double Chooz and NUCLEUS baselines refer to B1/B2.",
+    "Source conflicts: B1-B2 separation 140 m (TDR 2006 map caption), 160 m (NUCLEUS 2019), 165 m (Double Chooz 2021), 163.3 m (OSM centroids). Far baselines 1114.6/997.9 m (TDR) vs 1115/998 m (2021); near-lab baselines 290.7/260.3 m (TDR preliminary) vs 469/355 m (2021).",
+    "The two derived positions rest on building centroids, not reactor axes, and the far-lab construction is ill-conditioned (163 m between circle centres for ~1 km radii); see the geometry records' method text."
   ],
   "schema": "hep-atlas/0.2",
   "schematics": [],
@@ -45,43 +55,29 @@
     "site:chooz-very-near-nucleus"
   ],
   "sources": [
-    "src:geo-reactors-osm-chooz-reactors",
-    "src:double-chooz-2012-evidence"
+    "src:double-chooz-2012-evidence",
+    "src:geo-chooz-dc-sterile-2021",
+    "src:geo-chooz-dc-tdr-2006",
+    "src:geo-chooz-ign-alti-api",
+    "src:geo-chooz-nucleus-2019",
+    "src:geo-chooz-osm-extract-2026-10",
+    "src:geo-reactors-osm-chooz-reactors"
   ],
   "summary": {
-    "plain": "The Chooz nuclear power plant's reactor buildings — the old Chooz A unit and the two Chooz B units whose antineutrinos Double Chooz and NUCLEUS measure. The detector laboratories are not yet located.",
-    "technical": "Reactor-building footprints from OpenStreetMap; no laboratory position drawn because two cores alone leave a mirror ambiguity."
+    "plain": "The Chooz nuclear power plant's reactor buildings (the old Chooz A unit and the two Chooz B units), the computed positions of the Double Chooz far laboratory in the hill and of the NUCLEUS very-near-site room between the two Chooz B units. The Double Chooz near laboratory is not located.",
+    "technical": "OSM reactor-unit footprints; far laboratory and NUCLEUS VNS as derived points (two-circle intersections from published baselines with the side fixed by terrain, a neutrino-rate ratio and an OSM building); near laboratory unlocated."
   },
   "type": "map",
   "unlocated": [
     {
-      "backlog": "Find the Double Chooz far-lab position (Double Chooz detector paper or the original CHOOZ NIM paper give the hill laboratory's relation to the plant) or an OSM/IGN feature for the laboratory entrance; then derive with both cores.",
-      "entity_id": "site:double-chooz-far-detector",
-      "reason": "Only two operating cores (B1, B2) are mapped, so trilateration from the published far-detector baselines has a two-fold mirror ambiguity that no fetched source resolves; the far laboratory (the former CHOOZ hill laboratory) is not identified in OpenStreetMap.",
-      "sources": [
-        "src:geo-reactors-osm-chooz-reactors",
-        "src:double-chooz-2012-evidence"
-      ],
-      "verified_at": "2026-09-21"
-    },
-    {
-      "backlog": "Double Chooz near-detector paper (2015) or the site plan in the near-lab civil-engineering documents; derive with both cores once the side is sourced.",
+      "backlog": "A Double Chooz near-detector civil-engineering plan or paper figure with a scale, the EDF CNPE de Chooz site plan that the NUCLEUS paper credits for its Fig. 2 (which marks the near and far sites), or an OSM/IGN feature for the near-lab shaft building. The four candidate points are listed in docs/atlas-worklog/RELEASE_GEOMETRY_underground.md.",
       "entity_id": "site:double-chooz-near-detector",
-      "reason": "Two mapped cores give a two-fold ambiguity for the ~400 m near-lab position and no fetched source gives the side of the plant it lies on.",
+      "reason": "The near laboratory (~400 m from the cores; 469 m and 355 m to the two cores per arXiv:2009.05515, 120 m.w.e.) has two mirror solutions for each of the two ways the two distances could be paired with B1/B2, and none of the four is selected by a fetched source: the terrain test that settles the far laboratory does not separate them (IGN ground elevations at the four candidates are 114.8 and 105.7 m on the west side of the plant and 132.2 and 107.9 m on the east side, against a plant ground level of 114.7 m, so none sits under a clear hill), and the shaft-depth and overburden figures differ between the TDR (shaft 30-45 m) and later papers (120 m.w.e.).",
       "sources": [
-        "src:geo-reactors-osm-chooz-reactors",
-        "src:double-chooz-2012-evidence"
+        "src:geo-chooz-dc-sterile-2021",
+        "src:geo-chooz-dc-tdr-2006"
       ],
-      "verified_at": "2026-09-21"
-    },
-    {
-      "backlog": "NUCLEUS site papers give the two core distances; with the B1/B2 footprints that is a well-conditioned two-circle intersection with a known side (between the cores) — derive once the distances are re-fetched and quoted.",
-      "entity_id": "site:chooz-very-near-nucleus",
-      "reason": "NUCLEUS sits in the Very-Near-Site building between the two cores (72 m and 102 m); the building is not identified in OpenStreetMap and no fetched source gives its coordinates.",
-      "sources": [
-        "src:geo-reactors-osm-chooz-reactors"
-      ],
-      "verified_at": "2026-09-21"
+      "verified_at": "2026-10-25"
     }
   ]
 }

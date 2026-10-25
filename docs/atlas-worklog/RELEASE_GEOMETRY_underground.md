@@ -61,3 +61,53 @@ Principal sources (the integrator can re-open these):
 * Portal and vertical-shaft coordinates (JUNO civil drawings, TDR / construction paper civil chapter, or an OSM feature for the Dongkeng quarry shaft). With the portal the inclined shaft can be drawn from its horizontal run, 1266 m x cos(atan 0.425).
 * Resolve the ~100 m Yangjiang residual: an independently surveyed Yangjiang core coordinate, or a JUNO survey document giving the detector position in a stated datum.
 * Hall outline (the final-design hall dimensions with an orientation).
+
+## 2. Chooz (facility:chooz, `map:chooz`)
+
+Grade before: partial (three OSM unit footprints; far, near and very-near sites all unlocated). After: partial, now with two derived laboratory positions (far lab, NUCLEUS very-near-site room) and cross-checks on the unit footprints; the near laboratory stays unlocated.
+
+### Inventory
+
+| Entity | Drawn / unlocated | Representation | accuracy_m | Check result |
+| --- | --- | --- | ---: | --- |
+| Chooz B1, B2 unit footprints (OSM ways 331249625, 331249628) | drawn (existing records) | georeferenced | 8 | B1 to B2 centroid separation 163.3 m vs 160 m (arXiv:1905.10258) and 165 m (arXiv:2009.05515): both pass at 3 % |
+| Chooz A (way 331248511) | drawn (existing) | georeferenced | 8 | none |
+| site:double-chooz-far-detector (far laboratory in the hill) | drawn: `geometry:chooz-far-laboratory`, level `far-lab` | derived | 200 | none (circular if taken against the baselines it was computed from) |
+| site:chooz-very-near-nucleus (NUCLEUS VNS room) | drawn: `geometry:chooz-vns-position` | derived | 40 | none |
+| office building hosting the VNS (way 331249709, context) | drawn: `geometry:chooz-vns-host-building` | georeferenced | 10 | distances to B1/B2 centroids 79.8 m / 99.5 m vs 72 m / 102 m (15 % tolerance): pass |
+| site:double-chooz-near-detector | unlocated | n/a | n/a | n/a |
+
+### How the far laboratory was placed (derived, accuracy 200 m)
+
+* Inputs: Double Chooz TDR https://arxiv.org/pdf/hep-ex/0606025 Sec. 2.1: "The far detector is located at a distance of 1114.6 ± 0.1 m from RE, and at 997.9 ± 0.1 m from RW" (1115 m / 998 m in https://arxiv.org/pdf/2009.05515 Sec. 2); the two OSM unit centroids (163.3 m apart).
+* Which core is nearer: the TDR labels cores RE/RW (east/west) but the OSM east unit is B2 and the TDR's own Fig. 2/3 and its "close to the old Chooz A" caption are figure-based. Decision: the nearer core is B2, because Double Chooz PRD 86, 052008 (https://arxiv.org/pdf/1207.6632) Table V predicts 3422.4 far-detector events from B2 against 2910.9 from B1 with both reactors on (equal nominal power, flux ~ 1/L²; the distance ratio would give 1.25, the table 1.18). This contradicts reading the TDR's RW as the geographic west unit B1 (see conflicts).
+* Mirror choice: the two circles meet at (4.7983695 E, 50.0975524 N) and (4.8026622 E, 50.0845921 N). IGN RGE ALTI elevations (Géoplateforme altimetry API, queried 2026-10-25): plant ground 114.7 m; northern solution 138.1 m (23 m rise, cannot give the ~300 m.w.e. ≈ 107 m of rock the TDR quotes), southern solution 239.4 m on a hill. The southern solution is also 209 m from the OSM "Chooz A" building (TDR Fig. 3 caption: hall "located close the old Chooz A underground power plant").
+* Sensitivity (why accuracy_m is 200): circle centres 163 m apart, radii ~1 km: 5 m of error in the core separation moves the point ~25 m, a 20-30 m perpendicular offset of one core from its footprint centroid rotates the pair and moves it ~100-170 m.
+* Not used: any bearing from a figure; imagery.
+
+### How the VNS was placed (derived, accuracy 40 m)
+
+NUCLEUS (https://arxiv.org/pdf/1905.10258 Sec. 2.1): "The baseline of the VNS to the two reactor cores is 72 m to B-1, and 102 m to B-2 respectively"; the room is in "the basement of a five-story office building" between the units. Circle intersection about the B1 and B2 centroids: a thin lens (two solutions 59 m apart). The southern solution lies inside OSM way 331249709 (8.9 m from its centroid); the northern is in no building (66 m from the nearest). The opposite assignment (72 m to B2) would put the solutions 20-30 m from the building's centroid distances; the adopted one agrees within 8 m. The building is identified by position only; no source outlines it.
+
+### Source conflicts
+
+1. Unit separation: 140 m (TDR 2006 map caption), 160 m (NUCLEUS), 165 m (Double Chooz 2021), 163.3 m (OSM centroids). The 140 m value is not used (16 % off).
+2. Far baselines assigned to cores: TDR RW 997.9 m vs the Table V neutrino-yield ratio (B2, the east unit, is nearer). Resolved in favour of the measured yields; the TDR's RE/RW naming may refer to the figure's orientation. Not independently verified: the far-lab position would move ~1.6 km (to the south-west mirror pair at 4.7820 E, 50.0818 N, 214 m a.s.l.) if the TDR labels were geographic and Table V mislabelled.
+3. Near-lab baselines: 290.7/260.3 m (TDR 2006 preliminary, "good estimates within 30%") vs 469/355 m (arXiv:2009.05515, built lab) vs ~400 m average (several papers).
+4. Reactor building outline: the OSM units are whole nuclear-island footprints (~15 000 m², ~228 m span), so the centroids are only proxies for the core axes.
+
+### Near-laboratory candidates (not drawn; backlog)
+
+With 355 m to B1 and 469 m to B2 (pairing implied by the iso-flux design, the farther core of the far lab being also the farther core of the near lab): 4.7932676 E 50.0927424 N (132.2 m a.s.l.) and 4.7949525 E 50.0876553 N (107.9 m). With the opposite pairing: 4.7853808 E 50.0916671 N (114.8 m) and 4.7870657 E 50.0865800 N (105.7 m). None sits under a clear hill; nothing in the fetched sources selects one.
+
+### Site coordinate corrections (for the integrator)
+
+* `site:double-chooz-far-detector`: current 50.09, 4.78944, campus, precision 2000 m (Wikipedia). Proposed: lat 50.0845921, lon 4.8026622, kind campus, precision_m 200, confidence approximate (derived), sources `src:geo-chooz-dc-tdr-2006`, `src:double-chooz-2012-evidence`, `src:geo-chooz-osm-extract-2026-10`, `src:geo-chooz-ign-alti-api`; locator `geometry:chooz-far-laboratory`.
+* `site:chooz-very-near-nucleus`: current 50.09, 4.78944 (Wikipedia, precision 300 m). Proposed: lat 50.0893716, lon 4.7900335, precision_m 40, derived, sources `src:geo-chooz-nucleus-2019`, `src:geo-chooz-osm-extract-2026-10`; locator `geometry:chooz-vns-position`.
+* `site:double-chooz-near-detector`: unchanged (unlocated).
+
+### Backlog
+
+* The EDF CNPE de Chooz site plan behind NUCLEUS Fig. 2 (marks near and far sites) or any civil plan with a scale; an IGN/OSM feature for the far-lab entrance (the "Marinière" gallery of the TDR) would replace the derived far-lab point and settle conflict 2.
+* Reactor-building (containment) centres for B1/B2 instead of whole-unit centroids.
+* Near laboratory: see candidates above.
