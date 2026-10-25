@@ -1,5 +1,5 @@
 {
-  "accuracy_m": 20,
+  "accuracy_m": 40,
   "aliases": [],
   "checks": [],
   "coverage": {
@@ -12,7 +12,7 @@
   "geometry": {
     "confidence": "derived",
     "locator": "arXiv:2401.07684, 'positioned at 17.1 m from the reactor core center'",
-    "note": "CONUS's own paper (arXiv:2401.07684) states the detector sat 17.1 m from the reactor core center at Brokdorf, inside the reactor building itself (not a separate structure). No fetched source gives the azimuth of that 17.1 m offset from the core, so this point is the OSM 'Reaktorgebäude' building's own centroid (geometry:brokdorf-core), used directly as the detector's position; accuracy_m is widened to 20 m to cover the unresolved 17.1 m offset plus the building footprint's own ~15 m accuracy.",
+    "note": "CONUS's own paper (arXiv:2401.07684) states the detector sat 17.1 m from the reactor core center at Brokdorf, inside the reactor building itself (not a separate structure). No fetched source gives the azimuth of that 17.1 m offset from the core, so this point is the OSM 'Reaktorgebäude' building's own centroid (geometry:brokdorf-core), used directly as the detector's position; accuracy_m is 40 m (release geometry, underground stream): the unresolved 17.1 m offset plus up to ~21 m between the polygon centroid and the reactor axis (a circle fitted to the 13 vertices of the polygon's circular arc, radius 40.2 m, residual <= 2.7 m, is centred 20.7 m SSW of the centroid, at 9.3457897 E 53.8505931 N; whether that arc is concentric with the core is not stated by any source).",
     "sources": [
       "src:cevns-conus-prl-2024-final-brokdorf",
       "src:geo-reactors-osm-brokdorf-leibstadt-reactors"
@@ -37,10 +37,11 @@
     "website": null
   },
   "map_id": "map:brokdorf-nuclear-power-plant",
-  "method": "CONUS's own paper (arXiv:2401.07684) states the detector sat 17.1 m from the reactor core center at Brokdorf, inside the reactor building itself (not a separate structure). No fetched source gives the azimuth of that 17.1 m offset from the core, so this point is the OSM 'Reaktorgebäude' building's own centroid (geometry:brokdorf-core), used directly as the detector's position; accuracy_m is widened to 20 m to cover the unresolved 17.1 m offset plus the building footprint's own ~15 m accuracy.",
+  "method": "CONUS's own paper (arXiv:2401.07684) states the detector sat 17.1 m from the reactor core center at Brokdorf, inside the reactor building itself (not a separate structure). No fetched source gives the azimuth of that 17.1 m offset from the core, so this point is the OSM 'Reaktorgebäude' building's own centroid (geometry:brokdorf-core), used directly as the detector's position; accuracy_m is 40 m (release geometry, underground stream): the unresolved 17.1 m offset plus up to ~21 m between the polygon centroid and the reactor axis (a circle fitted to the 13 vertices of the polygon's circular arc, radius 40.2 m, residual <= 2.7 m, is centred 20.7 m SSW of the centroid, at 9.3457897 E 53.8505931 N; whether that arc is concentric with the core is not stated by any source).",
   "name": "CONUS detector position (inside the Brokdorf reactor building)",
   "notes": [
-    "Integrator (2026-09-21): ODbL-1.0 licence added — the shape is derived from or copied from OpenStreetMap data (src:geo-reactors-osm-brokdorf-leibstadt-reactors), which makes it a derivative database under the ODbL regardless of the derivation step in between."
+    "Integrator (2026-09-21): ODbL-1.0 licence added — the shape is derived from or copied from OpenStreetMap data (src:geo-reactors-osm-brokdorf-leibstadt-reactors), which makes it a derivative database under the ODbL regardless of the derivation step in between.",
+    "Release geometry (underground): accuracy_m raised from 20 to 40 m; see method."
   ],
   "osm": null,
   "representation": "derived",

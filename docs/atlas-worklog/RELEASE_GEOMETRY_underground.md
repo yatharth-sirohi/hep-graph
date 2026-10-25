@@ -111,3 +111,42 @@ With 355 m to B1 and 469 m to B2 (pairing implied by the iso-flux design, the fa
 * The EDF CNPE de Chooz site plan behind NUCLEUS Fig. 2 (marks near and far sites) or any civil plan with a scale; an IGN/OSM feature for the far-lab entrance (the "Marinière" gallery of the TDR) would replace the derived far-lab point and settle conflict 2.
 * Reactor-building (containment) centres for B1/B2 instead of whole-unit centroids.
 * Near laboratory: see candidates above.
+
+## 3. Brokdorf (`map:brokdorf-nuclear-power-plant`) and Leibstadt (`map:leibstadt-nuclear-power-plant`)
+
+Grade before: partial / partial. After: partial / partial, with one wrong building identification corrected (Leibstadt), one official-dimension check added (Brokdorf), accuracy of the Brokdorf detector point widened to the honest value, and context buildings added. Neither facility has an accelerator or beamline; both stay "partial" because no source publishes the reactor-core or reactor-building outline.
+
+### Inventory
+
+| Entity | Map | Drawn / unlocated | Representation | accuracy_m | Check result |
+| --- | --- | --- | --- | ---: | --- |
+| site:brokdorf-nuclear-power-plant-campus (reactor-building complex, OSM way 87723028 "Reaktorgebäude") | Brokdorf | drawn (existing `geometry:brokdorf-core`) | georeferenced | 15 | none (no official outline) |
+| detector:conus-hpge-array (CONUS, 17.1 m from the core) | Brokdorf | drawn (existing point, accuracy widened 20 to 40 m) | derived | 40 | none |
+| on-site interim fuel store (OSM way 87722984) | Brokdorf | drawn (new `geometry:brokdorf-fuel-store`) | georeferenced | 8 | perimeter 250.3 m vs 240 m = 2 x (93 + 27): +4.3 %, pass at 6 % |
+| Maschinenhaus / turbine hall (way 87722992), context | Brokdorf | drawn (new) | georeferenced | 8 | none |
+| site:leibstadt-nuclear-power-plant-campus (reactor building, OSM way 608881797, dome) | Leibstadt | drawn (existing id `geometry:leibstadt-core`, content replaced) | georeferenced | 10 | none |
+| detector:conus-hpge-array (CONUS+, 20.7 m from the core, 12.45 m from the axis) | Leibstadt | drawn (existing point moved ~190 m, accuracy 35 to 30 m) | derived | 30 | none |
+| main building complex (way 31487680), context | Leibstadt | drawn (new) | georeferenced | 10 | none |
+
+### What changed and why
+
+* Leibstadt reactor building. The earlier record drew OSM way 567961020 (a 1319 m² building) because it was the largest building nearest the plant's bus-stop node, and said so. The OSM data of 2026-10-25 contain a dome-roofed `building:part` (way 608881797, 1719 m², circular part radius 23.0 m, residual <= 1.4 m) whose polygon contains the plant's `power=generator` node (BWR-1, 1220 MW, node 257712288) 7 m from its centroid. That is the reactor building; the old building is 190 m SSW of it and is no longer drawn. Both CONUS+ and the map centre followed. Identification is by tags, not by name, so confidence stays `approximate`.
+* Leibstadt CONUS+ point = centre of the circle fitted to the dome (2.1 m from the polygon centroid), taken as the reactor axis; the detector is within 12.45 m of the axis (arXiv:2407.11912: "12.45 m horizontal distance from the reactor central axis", azimuth not published); accuracy 30 m.
+* Brokdorf. The "Reaktorgebäude" polygon is the whole reactor-building complex (130 m span, 9227 m²), not the containment cylinder. A circle fitted to its 13 arc vertices has radius 40.2 m (residual <= 2.7 m) and is centred 20.7 m SSW of the polygon centroid (9.3457897 E, 53.8505931 N); whether that arc is concentric with the core is not stated, so the CONUS point keeps the centroid and its accuracy is raised from 20 m to 40 m (17.1 m published offset + up to ~21 m centroid-to-axis).
+* Brokdorf interim fuel store: BASE's "Allgemeine Vorprüfung zur Feststellung der UVP-Pflicht" for SZL Brokdorf (https://www.uvp-portal.de/sites/default/files/2023-12/UVP-Vorpr%C3%BCfung%20SZL%20KBR%20R%C3%BCckf%C3%BChrung%20Abschluss%20Vorpr%C3%BCfung%20Stand%2027.11.2023%20zur%20Ver%C3%B6ffentlichung_Barrierefrei.pdf, Sec. 3): "Das Lagergebäude mit Empfangsbereich und Lagerhalle ist ca. 93 m lang, 27 m breit und 24 m hoch (inklusive Aufbauten)." The OSM outline is 93.8 m x 31.8 m (area 2980 m² vs 2511 m² for 93 x 27, so it includes the annex); only the perimeter is used as a check, at 6 %.
+
+### Source conflicts and failed leads
+
+* BGZ site flyer gives the store as 93 m x 27 m x 23 m, the BASE document 24 m high including superstructures: height is not drawn, so no impact.
+* No official reactor-building diameter was found for either plant: the Brokdorf decommissioning UVP annex (schleswig-holstein.de `uvpBericht_TBH_Anhang_V.pdf`, 21 MB) and the KKL construction reportage (bewehrungstechnik.ch) contain none; further web searches were not possible (the session's search budget was exhausted). The CONUS and CONUS+ papers give detector offsets only.
+* Overpass: primary mirror returned 502/504 repeatedly; the Leibstadt "all features" extract came from lz4.overpass-api.de.
+
+### Site coordinate corrections (for the integrator)
+
+* `site:leibstadt-nuclear-power-plant-campus`: current 47.60306, 8.18472 (Wikipedia, campus, precision 200 m) is 221 m from the reactor building, outside its own precision. Proposed: lat 47.601617, lon 8.182700, kind campus, precision_m 100, approximate, source `src:geo-leibstadt-osm-extract-2026-10`, locator OSM way 608881797 (dome-roofed building part).
+* `site:brokdorf-nuclear-power-plant-campus`: 53.85083, 9.34472 is 74 m from the reactor-building polygon centroid: consistent with its 200 m precision, no change.
+
+### Backlog
+
+* An official reactor-building (containment) diameter and an outline or core coordinate for Brokdorf and Leibstadt, to replace OSM complex polygons and the fitted axes.
+* The azimuth of the detector offsets (CONUS 17.1 m, CONUS+ 12.45 m) from the CONUS papers' figures, which would turn the two points into positions good to a few metres.
