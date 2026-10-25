@@ -783,7 +783,12 @@ function pointLayers(L, feature, options) {
 function drawFeatures(L) {
   featureGroup.clearLayers();
   layersByFeature = new Map();
+  // Leaflet fades a removed tooltip out over 200 ms before dropping its node;
+  // drop the old labels now so the DOM never holds two sets of names.
+  const stale = [];
+  labelLayer.eachLayer((tooltip) => stale.push(tooltip.getElement()));
   labelLayer.clearLayers();
+  stale.forEach((el) => { if (el) el.remove(); });
   labelRecords = new Map();
   for (const feature of bundle.features) {
     if (!featureVisible(feature)) continue;
