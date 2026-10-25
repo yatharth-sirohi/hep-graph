@@ -199,3 +199,153 @@ export function legendGroups(levels) {
     },
   ];
 }
+
+// --- permanent labels -------------------------------------------------
+// A shape that only names itself in a hover tooltip leaves a reader unable to
+// tell the LHC from the SPS without hovering each one, so every drawn feature
+// also carries a short permanent label. Which labels survive at a given zoom
+// is decided in localmap.js (declutter, by `labelRank` and then size); what a
+// label *says* is decided here, from the record's own names, never invented.
+
+// Lower is more important. Rings and linacs are what the map is for, then the
+// detector halls, caverns and tunnels that sit on them, then plain buildings,
+// reference markers and the inferred bearings (which run long, so they come
+// first among those), then the context outlines (campus boundaries, roads,
+// water) that only get a label when nothing more important wants the room.
+const LABEL_RANK = {
+  ring: 0,
+  linac: 1, beamline: 1, transfer_line: 1, array: 1,
+  tunnel: 2, cavern: 2, hall: 2, experimental_area: 2, target_station: 2, string: 2, shaft: 2,
+  building: 3, other: 3, direction_line: 3,
+  boundary: 5,
+  level_outline: 6,
+  road: 7, water: 7,
+};
+
+export function labelRank(featureType) {
+  return LABEL_RANK[featureType] != null ? LABEL_RANK[featureType] : 5;
+}
+
+// Past this many characters a label wraps onto a second line (the CSS caps its
+// width) rather than being cut short: a truncated "Hanbit Nuclear Power…" is
+// the same on six different reactor buildings.
+const LABEL_MAX = 36;
+const DIRECTION_LABEL_MAX = 44;
+const LABEL_HARD_MAX = 64;
+// Words that describe how well a shape is known, not what it is. They belong
+// in the tooltip and the list row (which carry the representation class), not
+// on a label that has a few dozen characters to name a building.
+const EVIDENCE_QUALIFIER = new RegExp([
+  'derived', 'approximate', 'reference', 'surveyed', 'undifferentiated', 'unidentified',
+  'identified', 'identity', 'candidate', 'partial', 'partially', 'context only', 'same tunnel',
+  'former', 'decommissioned', 'OSM', 'map centre', 'walked', 'footprint', 'survey', 'marker',
+  'inferred', 'point', 'centre of', 'shared with', 'second shaft', 'not confirmed', 'surface',
+].map((word) => `\\b${word}\\b`).join('|'), 'i');
+
+const NAME_SUFFIX = /,\s*(full ring|tunnel|building|convex hull)\s*$/i;
+
+function tidy(text) {
+  return text.replace(/\s+/g, ' ').replace(/\s+,/g, ',').trim();
+}
+
+function dropQualifiers(text) {
+  return tidy(text
+    .replace(/\s*--\s*inferred\b.*$/i, '')
+    .replace(/\s*\(([^()]*)\)/g, (whole, inner) => (EVIDENCE_QUALIFIER.test(inner) ? '' : whole))
+    .replace(NAME_SUFFIX, ''));
+}
+
+/** A trailing "(R1)"-style tag is what tells the six Hanbit reactor buildings
+ *  apart, so it survives shortening; a long trailing parenthetical does not. */
+function splitTag(text) {
+  const match = /^(.*?)\s*(\([^()]{1,8}\))$/.exec(text);
+  return match ? { head: match[1], tag: match[2] } : { head: text, tag: '' };
+}
+
+function withoutParens(text) {
+  return tidy(text.replace(/\s*\([^()]*\)/g, ''));
+}
+
+/** Shorten by dropping parentheticals and then everything after the first
+ *  comma. Never cuts mid-name: if nothing fits `max`, the longest option under
+ *  LABEL_HARD_MAX is returned and the label wraps. */
+function shortened(text, max) {
+  const { head, tag } = splitTag(text);
+  const room = max - (tag ? tag.length + 1 : 0);
+  const bare = withoutParens(head);
+  const first = tidy(bare.split(',')[0]);
+  const join = (option) => (tag ? `${option} ${tag}` : option);
+  if (first && first.length <= room) return join(first);
+  if (bare && bare.length <= room) return join(bare);
+  if (join(bare).length <= LABEL_HARD_MAX) return join(bare);
+  if (bare.length <= LABEL_HARD_MAX) return bare;
+  let cut = bare.slice(0, LABEL_HARD_MAX - 1);
+  const space = cut.lastIndexOf(' ');
+  if (space > 20) cut = cut.slice(0, space);
+  return `${cut.replace(/[\s,;:-]+$/, '')}\u2026`;
+}
+
+/** An entity name labels a feature well only when it picks out that one
+ *  feature (three Daya Bay halls share one entity name) and names the thing
+ *  itself rather than the laboratory or campus around it. */
+function usableEntityName(feature, entityNameCounts) {
+  if (!feature.entity_name || entityNameCounts.get(feature.entity_name) !== 1) return '';
+  if (feature.entity_type === 'facility') return '';
+  if (feature.feature_type !== 'boundary' && /\bcampus\b/i.test(feature.entity_name)) return '';
+  const name = dropQualifiers(feature.entity_name);
+  return name.length <= LABEL_MAX ? name : '';
+}
+
+/**
+ * The text of one feature's permanent label.
+ *
+ * `entityNameCounts` maps an entity name to how many features of the map carry
+ * it. Returns `{ text, sub }` — `sub` is the second line, used only for an
+ * inferred direction, which §4 requires to say it is not a structure.
+ */
+export function labelText(feature, entityNameCounts = new Map()) {
+  const own = dropQualifiers(feature.name || feature.entity_name || feature.id);
+  if (feature.feature_type === 'direction_line') {
+    const split = /^(.*?)\s*(?:beam\s+)?direction\s+toward\s+(.+)$/i.exec(own);
+    let text = own;
+    if (split) {
+      const where = withoutParens(split[2]);
+      const what = tidy(split[1]).replace(/\s*beam$/i, '');
+      text = `${what} beam \u2192 ${where}`;
+      if (text.length > DIRECTION_LABEL_MAX) text = `\u2192 ${where}`;
+    } else if (text.length > DIRECTION_LABEL_MAX) {
+      text = shortened(text, DIRECTION_LABEL_MAX);
+    }
+    return { text, sub: 'inferred direction \u2014 not a structure' };
+  }
+  if (own.length <= LABEL_MAX) return { text: own, sub: '' };
+  const entity = usableEntityName(feature, entityNameCounts);
+  return { text: entity || shortened(own, LABEL_MAX), sub: '' };
+}
+
+/** Labels for a whole map. Two features that would read identically after
+ *  shortening (Pierre Auger's two arrays) fall back to their longer,
+ *  qualifier-free names, which the label is allowed to wrap. */
+export function labelsFor(features) {
+  const counts = new Map();
+  for (const f of features) {
+    if (f.entity_name) counts.set(f.entity_name, (counts.get(f.entity_name) || 0) + 1);
+  }
+  const labels = new Map(features.map((f) => [f.id, labelText(f, counts)]));
+  const seen = new Map();
+  for (const f of features) {
+    const key = labels.get(f.id).text.toLowerCase();
+    seen.set(key, (seen.get(key) || []).concat(f));
+  }
+  for (const group of seen.values()) {
+    if (group.length < 2) continue;
+    for (const f of group) {
+      const full = dropQualifiers(f.name || f.entity_name || f.id);
+      const current = labels.get(f.id);
+      if (f.feature_type !== 'direction_line' && full.length > current.text.length) {
+        labels.set(f.id, { text: full, sub: current.sub });
+      }
+    }
+  }
+  return labels;
+}

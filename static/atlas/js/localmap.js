@@ -44,6 +44,11 @@ let mapInstance = null;
 let tileLayer = null;
 let featureGroup = null;
 let layersByFeature = new Map();
+let labelLayer = null;
+let labelRecords = new Map();
+let labelTexts = new Map();
+let labelFrame = 0;
+let forcedLabelId = null;
 let view = { levels: null, basemap: true, sel: null, timelineState: { year: null } };
 let polarProjection = false;
 let framed = false;
@@ -326,9 +331,14 @@ function destroyMap() {
   userMoved = false;
   framing = false;
   frameKey = null;
+  if (labelFrame) window.cancelAnimationFrame(labelFrame);
+  labelFrame = 0;
+  forcedLabelId = null;
   if (window.__hepAtlasLocalMap) delete window.__hepAtlasLocalMap;
   tileLayer = null;
   featureGroup = null;
+  labelLayer = null;
+  labelRecords = new Map();
   layersByFeature = new Map();
 }
 
@@ -549,9 +559,15 @@ function createMap(L) {
   L.control.scale({ imperial: false, metric: true, position: 'bottomleft' }).addTo(mapInstance);
   resetViewControl(L).addTo(mapInstance);
   featureGroup = L.layerGroup().addTo(mapInstance);
+  labelLayer = L.layerGroup().addTo(mapInstance);
   // Anything that moves the view that this module did not do itself means the
   // reader has taken the camera (see refreshFrame).
   mapInstance.on('movestart zoomstart', () => { if (!framing) userMoved = true; });
+  // Labels are laid out against the view, so they are re-laid out when it
+  // changes; during a zoom animation they are hidden rather than left
+  // sliding over the wrong shapes.
+  mapInstance.on('zoomstart', () => mapInstance.getContainer().classList.add('map-labels-busy'));
+  mapInstance.on('moveend resize', scheduleLabelLayout);
   // A stage that changes size (the drawer opening, a rotated phone) frames a
   // view the reader has not touched again.
   mapInstance.on('resize', () => { if (!framing) refreshFrame(); });
@@ -767,6 +783,8 @@ function pointLayers(L, feature, options) {
 function drawFeatures(L) {
   featureGroup.clearLayers();
   layersByFeature = new Map();
+  labelLayer.clearLayers();
+  labelRecords = new Map();
   for (const feature of bundle.features) {
     if (!featureVisible(feature)) continue;
     const level = levelById(feature.level_id);
@@ -811,7 +829,9 @@ function drawFeatures(L) {
       if (ghost) el.classList.add('is-ghosted');
     }
     layersByFeature.set(feature.id, group);
+    addLabel(L, feature, shape, { options, ghost });
   }
+  scheduleLabelLayout();
 }
 
 
@@ -841,6 +861,405 @@ function resetViewControl(L) {
     },
   });
   return new ResetView();
+}
+
+// ----------------------------------------------------------------- labels
+//
+// Every drawn feature carries a permanent label, because a shape that names
+// itself only in a hover tooltip leaves a reader unable to tell the LHC from
+// the SPS without hovering each one. Labels are Leaflet tooltips, not map
+// features: they take no clicks (the shape under them does), they are hidden
+// from assistive technology (the feature list is the equivalent, and carries
+// the same names), and which of them show is decided per view by
+// layoutLabels(): in priority order, each label takes the first position that
+// fits on screen without covering a more important label.
+
+const LABEL_GAP_PX = 10;
+const POINT_LABEL_GAPS_PX = [LABEL_GAP_PX, 40, 80];
+const LABEL_PAD_PX = 3;
+const LABEL_EDGE_PX = 4;
+const OUTLINE_SAMPLES = 48;
+// An open line is sampled this many times along its length; the label tries
+// the middle of whatever part of the line is on screen first, then fans out.
+const LINE_SAMPLES = 41;
+// Their interior is context for the features inside them, so a label sits on
+// the outline instead of on top of what is inside.
+const OUTLINE_LABEL_TYPES = new Set(['boundary', 'level_outline']);
+
+function coordBox(coords) {
+  let w = Infinity;
+  let s = Infinity;
+  let e = -Infinity;
+  let n = -Infinity;
+  for (const [lon, lat] of coords) {
+    w = Math.min(w, lon);
+    e = Math.max(e, lon);
+    s = Math.min(s, lat);
+    n = Math.max(n, lat);
+  }
+  return { w, s, e, n };
+}
+
+function planarLength(coords) {
+  const k = Math.cos(toRad(coords[0][1]));
+  let total = 0;
+  for (let i = 1; i < coords.length; i += 1) {
+    total += Math.hypot((coords[i][0] - coords[i - 1][0]) * k, coords[i][1] - coords[i - 1][1]);
+  }
+  return total;
+}
+
+function isClosedLine(coords) {
+  const a = coords[0];
+  const b = coords[coords.length - 1];
+  return coords.length > 3 && a[0] === b[0] && a[1] === b[1];
+}
+
+/** The [lon, lat] a given fraction of the way along a polyline. */
+function pointAlong(coords, fraction) {
+  const k = Math.cos(toRad(coords[0][1]));
+  const lengths = [];
+  let total = 0;
+  for (let i = 1; i < coords.length; i += 1) {
+    const d = Math.hypot((coords[i][0] - coords[i - 1][0]) * k, coords[i][1] - coords[i - 1][1]);
+    lengths.push(d);
+    total += d;
+  }
+  let remaining = total * fraction;
+  for (let i = 0; i < lengths.length; i += 1) {
+    if (remaining <= lengths[i] || i === lengths.length - 1) {
+      const u = lengths[i] ? Math.min(1, remaining / lengths[i]) : 0;
+      return [
+        coords[i][0] + (coords[i + 1][0] - coords[i][0]) * u,
+        coords[i][1] + (coords[i + 1][1] - coords[i][1]) * u,
+      ];
+    }
+    remaining -= lengths[i];
+  }
+  return coords[0];
+}
+
+/** Area centroid of a ring; falls back to the box centre for a degenerate one. */
+function ringCentroid(ring) {
+  const k = Math.cos(toRad(ring[0][1]));
+  let area = 0;
+  let cx = 0;
+  let cy = 0;
+  for (let i = 0; i < ring.length - 1; i += 1) {
+    const x0 = ring[i][0] * k;
+    const y0 = ring[i][1];
+    const x1 = ring[i + 1][0] * k;
+    const y1 = ring[i + 1][1];
+    const cross = x0 * y1 - x1 * y0;
+    area += cross;
+    cx += (x0 + x1) * cross;
+    cy += (y0 + y1) * cross;
+  }
+  if (Math.abs(area) < 1e-18) {
+    const box = coordBox(ring);
+    return [(box.w + box.e) / 2, (box.s + box.n) / 2];
+  }
+  return [cx / (3 * area) / k, cy / (3 * area)];
+}
+
+/** The part of a multi-part shape a label is attached to: the biggest by
+ *  bounding box (for areas) or the longest (for lines). */
+function principalPart(parts, byArea) {
+  let best = parts[0];
+  let bestScore = -1;
+  for (const part of parts) {
+    const box = coordBox(part);
+    const score = byArea ? (box.e - box.w) * (box.n - box.s) : planarLength(part);
+    if (score > bestScore) {
+      best = part;
+      bestScore = score;
+    }
+  }
+  return best;
+}
+
+/** Candidate anchors for a feature's label, as lat/lng with the placements to
+ *  try at each. `kind` says how layoutLabels() should order them. */
+function labelPlan(L, feature, shape) {
+  const ll = ([lon, lat]) => L.latLng(lat, lon);
+  const points = pointParts(shape);
+  if (points.length) {
+    return {
+      kind: 'point',
+      // A position can sit inside a building whose own label is centred on it,
+      // so the label may stand a little further off, on any side.
+      anchors: [{
+        ll: ll(points[0]), places: ['above', 'right', 'left', 'below'], gap: LABEL_GAP_PX, gaps: POINT_LABEL_GAPS_PX,
+      }],
+    };
+  }
+  const parts = lineParts(shape);
+  if (!parts.length) return null;
+  const isArea = shape.type === 'Polygon' || shape.type === 'MultiPolygon';
+  const part = principalPart(parts, isArea);
+  const outline = () => ({
+    kind: 'outline',
+    anchors: Array.from({ length: OUTLINE_SAMPLES }, (_, i) => ({
+      ll: ll(pointAlong(part, i / OUTLINE_SAMPLES)), places: ['center'], gap: 0,
+    })),
+  });
+  if (isArea) {
+    if (OUTLINE_LABEL_TYPES.has(feature.feature_type)) return outline();
+    const box = coordBox(part);
+    const midLon = (box.w + box.e) / 2;
+    const midLat = (box.s + box.n) / 2;
+    return {
+      kind: 'area',
+      box,
+      anchors: [
+        { id: 'centre', ll: ll(ringCentroid(part)), places: ['center'], gap: 0 },
+        { id: 'above', ll: ll([midLon, box.n]), places: ['above'], gap: LABEL_PAD_PX + 1 },
+        { id: 'below', ll: ll([midLon, box.s]), places: ['below'], gap: LABEL_PAD_PX + 1 },
+        { id: 'right', ll: ll([box.e, midLat]), places: ['right'], gap: LABEL_PAD_PX + 1 },
+        { id: 'left', ll: ll([box.w, midLat]), places: ['left'], gap: LABEL_PAD_PX + 1 },
+      ],
+    };
+  }
+  if (isClosedLine(part)) return outline();
+  return {
+    kind: 'line',
+    anchors: Array.from({ length: LINE_SAMPLES }, (_, i) => ({
+      ll: ll(pointAlong(part, i / (LINE_SAMPLES - 1))), places: ['center'], gap: LABEL_GAP_PX,
+    })),
+  };
+}
+
+/** Rough size of a feature in metres (its bounding-box diagonal, or the
+ *  accuracy circle of a point): the tie-break after feature type. */
+function featureSizeM(feature) {
+  const points = pointParts(feature.geometry);
+  if (points.length) return 2 * pointRadius(feature);
+  const parts = lineParts(feature.geometry);
+  if (!parts.length) return 0;
+  let w = Infinity;
+  let s = Infinity;
+  let e = -Infinity;
+  let n = -Infinity;
+  for (const part of parts) {
+    const box = coordBox(part);
+    w = Math.min(w, box.w);
+    e = Math.max(e, box.e);
+    s = Math.min(s, box.s);
+    n = Math.max(n, box.n);
+  }
+  return greatCircleM([s, w], [n, e]);
+}
+
+function addLabel(L, feature, shape, { options, ghost }) {
+  const plan = labelPlan(L, feature, shape);
+  if (!plan) return;
+  const spec = labelTexts.get(feature.id) || { text: feature.entity_name || feature.name, sub: '' };
+  const rank = mapstyle.labelRank(feature.feature_type);
+  const selected = !!view.sel && (view.sel === feature.entity_id || view.sel === feature.id);
+  const content = h('span', { class: 'map-label-text' }, [
+    h('span', { class: 'map-label-name' }, spec.text),
+    spec.sub ? h('span', { class: 'map-label-sub' }, spec.sub) : null,
+  ]);
+  const classes = ['map-label', 'is-hidden'];
+  if (ghost) classes.push('is-ghosted');
+  if (selected) classes.push('is-selected');
+  if (rank <= 1) classes.push('is-principal');
+  const tooltip = L.tooltip({
+    permanent: true, direction: 'center', opacity: 1, interactive: false, className: classes.join(' '),
+  }).setLatLng(plan.anchors[0].ll).setContent(content);
+  labelLayer.addLayer(tooltip);
+  const el = tooltip.getElement();
+  if (el) {
+    // The feature list carries every name; the map's copy is decoration for a
+    // screen reader, and would otherwise read as a stray "tooltip".
+    el.removeAttribute('role');
+    el.setAttribute('aria-hidden', 'true');
+    el.setAttribute('data-label-for', feature.id);
+    el.style.setProperty('--label-accent', options.color);
+  }
+  labelRecords.set(feature.id, {
+    id: feature.id,
+    tooltip,
+    plan,
+    rank,
+    selected,
+    sizeM: featureSizeM(feature),
+    box: { w: 0, h: 0 },
+    lastKey: null,
+  });
+}
+
+function scheduleLabelLayout() {
+  if (labelFrame || !mapInstance) return;
+  labelFrame = window.requestAnimationFrame(() => {
+    labelFrame = 0;
+    layoutLabels();
+  });
+}
+
+/** Show a feature's label whatever the declutter says: its list row is being
+ *  hovered or focused, so the reader is asking which shape it is. */
+function revealLabel(featureId) {
+  if (forcedLabelId === featureId) return;
+  forcedLabelId = featureId;
+  scheduleLabelLayout();
+}
+
+function labelPriority(a, b) {
+  const forced = (rec) => (rec.id === forcedLabelId ? 0 : 1);
+  if (forced(a) !== forced(b)) return forced(a) - forced(b);
+  if (a.selected !== b.selected) return a.selected ? -1 : 1;
+  if (a.rank !== b.rank) return a.rank - b.rank;
+  if (a.sizeM !== b.sizeM) return b.sizeM - a.sizeM;
+  return a.id < b.id ? -1 : 1;
+}
+
+/** Screen boxes the labels must keep clear of: the map's own controls and the
+ *  notices laid over it, which sit above the tooltip pane. */
+function obstacleBoxes() {
+  const container = mapInstance.getContainer();
+  const origin = container.getBoundingClientRect();
+  const nodes = [...container.querySelectorAll('.leaflet-control')];
+  nodes.push(...dom.stage.querySelectorAll(
+    '.map-north, .map-tile-notice:not(.hidden), .map-gap-notice.on-stage, .map-depth:not(.hidden)',
+  ));
+  const boxes = [];
+  for (const node of nodes) {
+    const r = node.getBoundingClientRect();
+    if (!r.width || !r.height) continue;
+    boxes.push({
+      x: r.left - origin.left - LABEL_PAD_PX,
+      y: r.top - origin.top - LABEL_PAD_PX,
+      w: r.width + 2 * LABEL_PAD_PX,
+      h: r.height + 2 * LABEL_PAD_PX,
+    });
+  }
+  return boxes;
+}
+
+function boxesOverlap(a, b) {
+  return a.x < b.x + b.w && b.x < a.x + a.w && a.y < b.y + b.h && b.y < a.y + a.h;
+}
+
+function labelBox(candidate, size) {
+  const { x, y } = candidate.point;
+  const { w, h } = size;
+  switch (candidate.place) {
+    case 'above': return { x: x - w / 2, y: y - candidate.gap - h, w, h };
+    case 'below': return { x: x - w / 2, y: y + candidate.gap, w, h };
+    case 'right': return { x: x + candidate.gap, y: y - h / 2, w, h };
+    case 'left': return { x: x - candidate.gap - w, y: y - h / 2, w, h };
+    default: return { x: x - w / 2, y: y - h / 2, w, h };
+  }
+}
+
+/** The positions a label may take in the current view, best first. */
+function labelCandidates(rec) {
+  const { plan } = rec;
+  const project = (anchor) => mapInstance.latLngToContainerPoint(anchor.ll);
+  let anchors = plan.anchors.map((anchor, index) => ({ anchor, index, point: project(anchor) }));
+  if (plan.kind === 'outline') {
+    // On a ring or an outline the label sits on the line, topmost first: the
+    // 12 o'clock of a ring reads as its name plate and rarely covers another.
+    anchors = anchors.slice().sort((a, b) => a.point.y - b.point.y || a.index - b.index);
+  } else if (plan.kind === 'line') {
+    // At a line's midpoint — or, when the view shows only part of it, the
+    // midpoint of the part that is shown — then outwards from there.
+    const size = mapInstance.getSize();
+    const visible = anchors.filter(({ point }) => point.x >= 0 && point.y >= 0
+      && point.x <= size.x && point.y <= size.y);
+    if (visible.length) {
+      const middle = visible[Math.floor(visible.length / 2)].index;
+      anchors = visible.slice().sort((a, b) => Math.abs(a.index - middle) - Math.abs(b.index - middle)
+        || a.index - b.index);
+      // The first few also try just above and below, so a label can sit beside
+      // a line that a more important label is crossing.
+      anchors = anchors.map((entry, i) => (i < 3
+        ? { ...entry, anchor: { ...entry.anchor, places: ['center', 'above', 'below'] } } : entry));
+    } else {
+      anchors = [];
+    }
+  } else if (plan.kind === 'area') {
+    // A footprint smaller than its own label would be hidden by it, so the
+    // label goes beside it instead.
+    const sw = mapInstance.latLngToContainerPoint([plan.box.s, plan.box.w]);
+    const ne = mapInstance.latLngToContainerPoint([plan.box.n, plan.box.e]);
+    const small = Math.abs(ne.x - sw.x) < rec.box.w || Math.abs(sw.y - ne.y) < rec.box.h;
+    if (small) anchors = anchors.slice(1).concat(anchors[0]);
+  }
+  const out = [];
+  for (const { anchor, index, point } of anchors) {
+    for (const gap of anchor.gaps || [anchor.gap]) {
+      for (const place of anchor.places) {
+        out.push({ key: `${index}:${place}:${gap}`, point, place, gap });
+      }
+    }
+  }
+  // A label that has a working position keeps it, so panning does not make
+  // names skate around their ring.
+  const kept = out.findIndex((c) => c.key === rec.lastKey);
+  if (kept > 0) out.unshift(out.splice(kept, 1)[0]);
+  return out;
+}
+
+/**
+ * Decide which labels show, and where, for the current view. Highest priority
+ * first (the selected feature, then by feature type, then by size); each
+ * takes the first candidate position that is on screen and clear of every
+ * label already placed and of the map's controls. A label with no such
+ * position is hidden — its name is still in the hover tooltip and the list.
+ */
+function layoutLabels() {
+  if (!mapInstance) return;
+  const container = mapInstance.getContainer();
+  const mapSize = mapInstance.getSize();
+  if (!mapSize.x || !mapSize.y || !labelRecords.size) {
+    container.classList.remove('map-labels-busy');
+    return;
+  }
+  const blocked = obstacleBoxes();
+  const placed = [];
+  const inView = (box) => box.x >= LABEL_EDGE_PX && box.y >= LABEL_EDGE_PX
+    && box.x + box.w <= mapSize.x - LABEL_EDGE_PX && box.y + box.h <= mapSize.y - LABEL_EDGE_PX;
+  const order = [...labelRecords.values()].sort(labelPriority);
+  for (const rec of order) {
+    const el = rec.tooltip.getElement();
+    if (!el) continue;
+    if (!rec.box.w || !rec.box.h) rec.box = { w: el.offsetWidth, h: el.offsetHeight };
+    if (!rec.box.w || !rec.box.h) continue;
+    const forced = rec.id === forcedLabelId;
+    let chosen = null;
+    let fallback = null;
+    for (const candidate of labelCandidates(rec)) {
+      const box = labelBox(candidate, rec.box);
+      if (!inView(box)) continue;
+      if (!fallback) fallback = { candidate, box };
+      const clear = !placed.some((other) => boxesOverlap(box, other))
+        && !blocked.some((other) => boxesOverlap(box, other));
+      if (clear) {
+        chosen = { candidate, box };
+        break;
+      }
+    }
+    if (!chosen && forced) chosen = fallback;
+    el.classList.toggle('is-forced', forced);
+    if (!chosen) {
+      el.classList.add('is-hidden');
+      continue;
+    }
+    placed.push({
+      x: chosen.box.x - LABEL_PAD_PX,
+      y: chosen.box.y - LABEL_PAD_PX,
+      w: chosen.box.w + 2 * LABEL_PAD_PX,
+      h: chosen.box.h + 2 * LABEL_PAD_PX,
+    });
+    rec.lastKey = chosen.candidate.key;
+    rec.tooltip.setLatLng(mapInstance.containerPointToLatLng([
+      chosen.box.x + chosen.box.w / 2, chosen.box.y + chosen.box.h / 2,
+    ]));
+    el.classList.remove('is-hidden');
+  }
+  container.classList.remove('map-labels-busy');
 }
 
 // ------------------------------------------------------------- selection
@@ -909,6 +1328,12 @@ function featureRow(feature) {
     isPoint ? h('span', { class: 'map-feature-meta' }, 'position only — no sourced footprint') : null,
   ]);
   btn.addEventListener('click', () => selectFrom(feature, btn));
+  // Hovering or focusing a row shows that feature's map label even if the
+  // declutter has hidden it, so the list and the map can be read together.
+  btn.addEventListener('mouseenter', () => revealLabel(feature.id));
+  btn.addEventListener('focus', () => revealLabel(feature.id));
+  btn.addEventListener('mouseleave', () => revealLabel(null));
+  btn.addEventListener('blur', () => revealLabel(null));
   return btn;
 }
 
@@ -1055,6 +1480,8 @@ function sourceTitle(sid) {
 function renderSidebar() {
   const { layers } = dom;
   layers.innerHTML = '';
+  // The rows are rebuilt, so a hovered or focused one is gone without a blur.
+  if (forcedLabelId) revealLabel(null);
 
   const back = h('button', { type: 'button', class: 'map-back-btn', id: 'map-back' }, '← Back to globe');
   back.addEventListener('click', () => NAVIGATE({ entity: null, sel: null, levels: null, basemap: true }));
@@ -1442,6 +1869,7 @@ function redraw() {
   const L = window.L;
   drawFeatures(L);
   refreshFrame();
+  layoutLabels();
   renderSidebar();
   renderDepth();
   renderSelectionNotice();
@@ -1507,6 +1935,7 @@ export async function show(current, ctx) {
     let L;
     try {
       [L, bundle] = await Promise.all([loadLeaflet(), fetchBundle(ctx.loaderBase, meta.bundle)]);
+      labelTexts = mapstyle.labelsFor(bundle.features);
       createMap(L);
     } catch (error) {
       currentMapId = null;
@@ -1550,6 +1979,7 @@ export async function show(current, ctx) {
     // view the reader will see, and not for a first guess at it.
     refreshFrame();
     applyBasemap(L);
+    layoutLabels();
   } catch (error) {
     window.console.error('HEP Atlas local map: could not draw', error);
     renderMessage([
@@ -1592,6 +2022,7 @@ export async function show(current, ctx) {
       if (!mapInstance) return;
       mapInstance.invalidateSize({ animate: false });
       refreshFrame();
+      layoutLabels();
     });
   }
 }

@@ -1890,9 +1890,73 @@ a.local-map-chip {
   }
 }
 
-/* local map view ------------------------------------------------------------
-   The reset-view button (localmap.js, "reset-view button").
+/* local map labels ---------------------------------------------------------
+   Permanent names on the local map (localmap.js, "labels"), the on-map empty
+   notice, and the reset-view button. Labels are Leaflet tooltips: a dark chip
+   with light text is legible on the OpenStreetMap tiles and on the plain
+   background alike, and the chip's left edge carries the shape's own colour
+   (the name is never colour-coded alone).
    ------------------------------------------------------------------------ */
+.map-label.leaflet-tooltip {
+  width: max-content;
+  max-width: 17em;
+  padding: 1px 6px 2px;
+  background: #0b1620ee;
+  color: var(--white);
+  border: 1px solid var(--line-strong);
+  border-left: 3px solid var(--label-accent, var(--teal));
+  border-radius: 3px;
+  box-shadow: 0 1px 3px #00000099;
+  font-size: 12px;
+  line-height: 1.3;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  text-wrap: balance;
+  text-align: left;
+  pointer-events: none;
+}
+.map-label.is-principal {
+  font-weight: 600;
+}
+.map-label .map-label-name,
+.map-label .map-label-sub {
+  display: block;
+}
+.map-label .map-label-sub {
+  white-space: nowrap;
+  color: var(--muted);
+  font-size: 10.5px;
+  font-style: italic;
+  font-weight: 400;
+}
+/* A feature drawn only because "show features outside the selected year" is
+   on: its label is as faint as its shape is, but kept legible. */
+.map-label.is-ghosted {
+  color: var(--muted);
+  border-style: dashed;
+  border-left-style: dashed;
+  font-style: italic;
+  font-weight: 400;
+}
+.map-label.is-selected {
+  border-color: var(--amber);
+  border-left-color: var(--amber);
+  box-shadow: 0 0 0 1px var(--amber), 0 1px 3px #000000cc;
+}
+.map-label.is-forced {
+  z-index: 2;
+  border-color: var(--white);
+}
+/* Hidden by the declutter (or not yet placed, or mid zoom animation): kept in
+   layout so its size can be measured, but not painted. */
+.map-label.leaflet-tooltip.is-hidden,
+.map-labels-busy .map-label.leaflet-tooltip {
+  visibility: hidden !important;
+}
+.leaflet-fade-anim .map-label.leaflet-tooltip {
+  transition: none;
+}
+
 .map-reset-control .map-reset-btn {
   display: block;
   width: 30px;
@@ -1912,4 +1976,14 @@ a.local-map-chip {
 .map-reset-control .map-reset-btn svg {
   display: inline-block;
   vertical-align: middle;
+}
+
+@media (max-width: 760px) {
+  .map-label.leaflet-tooltip {
+    font-size: 11px;
+    max-width: 13em;
+  }
+  .map-label .map-label-sub {
+    white-space: normal;
+  }
 }
