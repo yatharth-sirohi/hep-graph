@@ -12,16 +12,36 @@
   "intervals": [
     {
       "confidence": "uncertain",
-      "end": null,
+      "end": {
+        "approx": true,
+        "date": "2026-06"
+      },
       "label": "operating",
       "locator": "INSPIRE experiment record 1110581, field date_approved",
-      "note": "Uses the approval date as a lower bound; no explicit installation/first-data date for the detector was found in this session (distinct from the experiment's own approval).",
+      "note": "Uses the approval date as a lower bound; no explicit installation/first-data date for the detector was found in this session (distinct from the experiment's own approval). End capped at the LHC switch-off for LS3 (2026-06).",
       "sources": [
         "src:colliders-lhc-moedal-inspire-experiment-record"
       ],
       "start": "2009-12-02",
       "status": "active",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-25"
+    },
+    {
+      "confidence": "derived",
+      "end": null,
+      "label": "Long Shutdown 3",
+      "note": "Derived from the LHC-wide shutdown, as for the other LHC experiments in this atlas; no MoEDAL-specific announcement was fetched. Source for the shutdown: \"On Saturday 27 June at 6 am, the LHC’s Page 1 — the accelerator’s dashboard — said “goodbye” to collisions. The LHC operators dumped the last beams before the accelerator’s metamorphosis.\" (home.cern, item dated 29 June 2026).",
+      "quote": "On Saturday 27 June at 6 am, the LHC’s Page 1 — the accelerator’s dashboard — said “goodbye” to collisions. The LHC operators dumped the last beams before the accelerator’s metamorphosis.",
+      "sources": [
+        "src:cern-long-shutdown-3-page",
+        "src:cern-ls3-farewell-2026"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2026-06"
+      },
+      "status": "shutdown",
+      "verified_at": "2026-10-25"
     }
   ],
   "links": {
@@ -83,7 +103,7 @@
       "verified_at": "2026-09-17"
     }
   },
-  "status": "active",
+  "status": "shutdown",
   "subsystems": [],
   "summary": {
     "plain": "MoEDAL's detector is mostly passive: 125 stacks of special plastic sheets that record the tracks of heavily-charged particles, plus about a tonne of metal to trap and hold onto anything unusual.",

@@ -15,16 +15,38 @@
   "intervals": [
     {
       "confidence": "verified",
-      "end": null,
+      "end": "2026-08-31",
       "label": "operating",
-      "note": "",
+      "locator": "end: home.cern, \"All CERN accelerators now on the road to HiLumi\", 31 August 2026",
+      "note": "End = 31 August 2026, when \"CERN’s injector complex and Antimatter Factory took their final steps towards Long Shutdown 3 (LS3) this morning, as the last particle beams were extracted and the machines fell silent.\" The 20 August 2026 accelerator report had scheduled the switch-off of all machines for 6.00 a.m. on Monday, 31 August. Previously open-ended.",
       "quote": "The PS first accelerated protons on 24 November 1959, becoming for a brief period the world's highest energy particle accelerator.",
       "sources": [
-        "src:cern-ps-page"
+        "src:cern-ps-page",
+        "src:currency-cern-all-accelerators-2026-08-31",
+        "src:currency-cern-accelerator-report-2026-08-20"
       ],
       "start": "1959-11-24",
       "status": "active",
-      "verified_at": "2026-09-16"
+      "verified_at": "2026-10-25"
+    },
+    {
+      "confidence": "verified",
+      "end": {
+        "approx": true,
+        "date": "2028",
+        "display": "staged restart from 2028 onwards",
+        "planned": true
+      },
+      "label": "Long Shutdown 3 (injector complex)",
+      "note": "Start = 31 August 2026 (CERN news item of that date). End is a schedule value: \"Following the long shutdown, CERN’s accelerator complex will gradually come back to life, beginning with Linac4, the PS Booster and ISOLDE at the start of 2028.\" (20 August 2026) and \"The complex will progressively return to operation from 2028 onwards, with the different injectors and facilities restarting in stages.\" (31 August 2026).",
+      "quote": "CERN’s injector complex and Antimatter Factory took their final steps towards Long Shutdown 3 (LS3) this morning, as the last particle beams were extracted and the machines fell silent.",
+      "sources": [
+        "src:currency-cern-all-accelerators-2026-08-31",
+        "src:currency-cern-accelerator-report-2026-08-20"
+      ],
+      "start": "2026-08-31",
+      "status": "shutdown",
+      "verified_at": "2026-10-25"
     }
   ],
   "is_collider": false,
@@ -87,7 +109,7 @@
       "verified_at": "2026-09-16"
     }
   },
-  "status": "active",
+  "status": "shutdown",
   "summary": {
     "plain": "CERN's oldest working accelerator, a 628-metre ring that first accelerated protons in 1959. For a short time it was the most powerful accelerator in the world, and it still feeds every beam that ends up in the Large Hadron Collider.",
     "technical": "628 m proton synchrotron, 277 room-temperature magnets (100 dipoles), top energy 26 GeV; accepts 2 GeV protons from the PS Booster or ions from LEIR and injects into the SPS."
