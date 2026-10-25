@@ -12064,12 +12064,16 @@
         "/sources",
         "/specs/altitude"
       ],
-      "geometry:hawc-array-point": [
-        "/geometry",
-        "/sources"
+      "geometry:hawc-tank-field-hull": [
+        "/checks/0",
+        "/checks/1",
+        "/geometry"
+      ],
+      "geometry:hawc-tanks": [
+        "/checks/0",
+        "/geometry"
       ],
       "map:sierra-negra": [
-        "/center",
         "/sources"
       ],
       "site:hawc-sierra-negra": [
@@ -12201,14 +12205,6 @@
       "facility:hess-khomas-highland": [
         "/sources",
         "/specs/altitude"
-      ],
-      "geometry:hess-ct1-4-square": [
-        "/geometry",
-        "/sources"
-      ],
-      "geometry:hess-ct5-point": [
-        "/geometry",
-        "/sources"
       ],
       "map:hess-khomas-highland": [
         "/center",
@@ -12826,20 +12822,10 @@
       "facility:roque-de-los-muchachos-observatory": [
         "/sources"
       ],
-      "geometry:ctao-north-lst1-point": [
-        "/geometry",
-        "/sources"
-      ],
-      "geometry:magic-array-point": [
-        "/geometry",
-        "/sources"
-      ],
       "map:roque-de-los-muchachos-observatory": [
-        "/center",
         "/sources"
       ],
       "site:roque-de-los-muchachos-gamma-ray-array": [
-        "/coordinates",
         "/sources"
       ]
     },
@@ -13128,10 +13114,6 @@
       "facility:fred-lawrence-whipple-observatory": [
         "/sources",
         "/specs/altitude"
-      ],
-      "geometry:veritas-array-point": [
-        "/geometry",
-        "/sources"
       ],
       "map:fred-lawrence-whipple-observatory": [
         "/center",
@@ -18086,14 +18068,32 @@
     "accessed": "2026-09-18",
     "archive_url": null,
     "cited_by": {
+      "geometry:hess-ct-east": [
+        "/checks/0",
+        "/geometry"
+      ],
+      "geometry:hess-ct-north": [
+        "/checks/0",
+        "/geometry"
+      ],
+      "geometry:hess-ct-south": [
+        "/checks/0",
+        "/geometry"
+      ],
+      "geometry:hess-ct-west": [
+        "/checks/0",
+        "/geometry"
+      ],
       "geometry:hess-ct1-4-square": [
         "/checks/0",
-        "/geometry",
-        "/sources"
+        "/geometry"
       ],
-      "geometry:hess-ct5-point": [
-        "/geometry",
-        "/sources"
+      "geometry:hess-ct5": [
+        "/checks/0",
+        "/checks/1",
+        "/checks/2",
+        "/checks/3",
+        "/geometry"
       ],
       "map:hess-khomas-highland": [
         "/sources"
@@ -18155,6 +18155,821 @@
     "title": "The surface detector array of the Telescope Array experiment (site coordinates and grid)",
     "type": "src",
     "url": "https://arxiv.org/abs/1201.4964"
+  },
+  "src:geo-arrays2-ctao-alpha-layouts-news": {
+    "accessed": "2026-10-25",
+    "archive_url": null,
+    "cited_by": {
+      "map:ctao-south-paranal": [
+        "/sources"
+      ],
+      "map:roque-de-los-muchachos-observatory": [
+        "/sources"
+      ]
+    },
+    "content_hash": null,
+    "date": null,
+    "excerpt": "The released layout coordinates correspond to the so-called 'as-requested coordinates' ... any shift in the final positions would be limited to less than ten metres. [Figures 1 and 2 show the northern and southern Alpha layouts; no coordinate table is printed.]",
+    "id": "src:geo-arrays2-ctao-alpha-layouts-news",
+    "link_check": {
+      "http_status": null,
+      "last_checked": null,
+      "redirect": null
+    },
+    "publisher": "CTAO gGmbH",
+    "publisher_id": null,
+    "rank": 1,
+    "reference": {},
+    "retrieval": "full_text",
+    "source_type": "official_experiment_site",
+    "title": "CTAO Releases the Layout of its Arrays for the Alpha Configuration",
+    "type": "src",
+    "url": "https://www.ctao.org/news/ctao-releases-layouts-for-alpha-configuration/"
+  },
+  "src:geo-arrays2-ctao-lst-inauguration-2026": {
+    "accessed": "2026-10-25",
+    "archive_url": null,
+    "cited_by": {
+      "geometry:roque-lst-new-a": [
+        "/geometry"
+      ],
+      "geometry:roque-lst-new-b": [
+        "/geometry"
+      ],
+      "geometry:roque-lst-new-c": [
+        "/geometry"
+      ],
+      "map:roque-de-los-muchachos-observatory": [
+        "/sources"
+      ]
+    },
+    "content_hash": null,
+    "date": "2026-10-15",
+    "excerpt": "La Palma, Spain, 15 October 2026 - ... celebrated the inauguration of the Large-Sized Telescope (LST) sub-array at the CTAO-North site ... The completion of the four telescopes marks a significant milestone ... Over the coming years, the LSTs will undergo commissioning and integration into CTAO oper",
+    "id": "src:geo-arrays2-ctao-lst-inauguration-2026",
+    "link_check": {
+      "http_status": null,
+      "last_checked": null,
+      "redirect": null
+    },
+    "publisher": "CTAO gGmbH / LST Collaboration",
+    "publisher_id": null,
+    "rank": 1,
+    "reference": {},
+    "retrieval": "full_text",
+    "source_type": "official_experiment_site",
+    "title": "The Large-Sized Telescope sub-array is inaugurated on CTAO-North",
+    "type": "src",
+    "url": "https://www.ctao.org/news/the-large-sized-telescope-sub-array-is-inaugurated-on-ctao-north/"
+  },
+  "src:geo-arrays2-ctao-north-array-page": {
+    "accessed": "2026-10-25",
+    "archive_url": null,
+    "cited_by": {
+      "map:roque-de-los-muchachos-observatory": [
+        "/center",
+        "/sources"
+      ],
+      "site:roque-de-los-muchachos-gamma-ray-array": [
+        "/coordinates",
+        "/sources"
+      ]
+    },
+    "content_hash": null,
+    "date": null,
+    "excerpt": "The layout of the CTAO Northern array includes the geographical location of 13 telescopes distributed over an area of about 0.5 km2: four Large-Sized Telescopes (LSTs) and nine Medium-Sized Telescopes (MSTs). Array Coordinates Latitude: 28º 45′ 43.7904″ North Longitude: 17º 53′ 31.218″ West",
+    "id": "src:geo-arrays2-ctao-north-array-page",
+    "link_check": {
+      "http_status": null,
+      "last_checked": null,
+      "redirect": null
+    },
+    "publisher": "CTAO gGmbH",
+    "publisher_id": null,
+    "rank": 1,
+    "reference": {},
+    "retrieval": "full_text",
+    "source_type": "official_experiment_site",
+    "title": "CTAO-North (CTAO official site, array site page)",
+    "type": "src",
+    "url": "https://www.ctao.org/emission-to-discovery/array-sites/ctao-north/"
+  },
+  "src:geo-arrays2-hawc-osm-observatory": {
+    "accessed": "2026-10-25",
+    "cited_by": {
+      "geometry:hawc-observatory-polygon": [
+        "/geometry",
+        "/sources"
+      ]
+    },
+    "date": "2026-10-25",
+    "excerpt": "man_made=observatory, amenity=research_institute, name=HAWC Gamma-Ray Observatory, short_name=HAWC. Way version 1, last edited 2026-09-30T06:45:17Z; fetched with the OSM API map call 2026-10-25T10:38:54Z.",
+    "id": "src:geo-arrays2-hawc-osm-observatory",
+    "publisher": "OpenStreetMap contributors",
+    "rank": 11,
+    "reference": {},
+    "retrieval": "full_text",
+    "source_type": "openstreetmap",
+    "title": "OpenStreetMap way 1563711916: HAWC Gamma-Ray Observatory (observatory polygon)",
+    "type": "src",
+    "url": "https://www.openstreetmap.org/way/1563711916"
+  },
+  "src:geo-arrays2-hawc-osm-tank-field": {
+    "accessed": "2026-10-25",
+    "cited_by": {
+      "geometry:hawc-tank-field-hull": [
+        "/geometry",
+        "/sources"
+      ],
+      "geometry:hawc-tanks": [
+        "/geometry",
+        "/sources"
+      ],
+      "map:sierra-negra": [
+        "/center",
+        "/sources"
+      ]
+    },
+    "date": "2026-10-25",
+    "excerpt": "300 closed ways, building=storage_tank, man_made=storage_tank, content=water, height=5, ids 541455344..541455690, all version 1, edited 2017-11-18T02:50:47Z..2017-11-18T02:51:36Z; fetched with the OSM API map call 2026-10-25T10:38:54Z, bbox -97.325,18.980,-97.295,19.005.",
+    "id": "src:geo-arrays2-hawc-osm-tank-field",
+    "publisher": "OpenStreetMap contributors",
+    "rank": 11,
+    "reference": {},
+    "retrieval": "full_text",
+    "source_type": "openstreetmap",
+    "title": "OpenStreetMap extract: 300 water tanks of the HAWC array (ways tagged man_made=storage_tank)",
+    "type": "src",
+    "url": "https://api.openstreetmap.org/api/0.6/map?bbox=-97.325,18.980,-97.295,19.005"
+  },
+  "src:geo-arrays2-hawc-outrigger-2019": {
+    "accessed": "2026-10-25",
+    "archive_url": null,
+    "cited_by": {
+      "map:sierra-negra": [
+        "/sources"
+      ]
+    },
+    "content_hash": null,
+    "date": "2019-08",
+    "excerpt": "HAWC outrigger array consists of 345 cylindrical tanks of diameter 1.55 m and height 1.65 m. ... in a concentric circular symmetric way around the main array ... mutually separated from each other by 12 to 18 m.",
+    "id": "src:geo-arrays2-hawc-outrigger-2019",
+    "link_check": {
+      "http_status": null,
+      "last_checked": null,
+      "redirect": null
+    },
+    "publisher": "V. Joshi, H. Schoorlemmer for the HAWC Collaboration (ICRC 2019)",
+    "publisher_id": "collaboration:hawc",
+    "rank": 10,
+    "reference": {
+      "arxiv": "1908.06650"
+    },
+    "retrieval": "full_text",
+    "source_type": "arxiv",
+    "title": "Air shower reconstruction using HAWC and the Outrigger array",
+    "type": "src",
+    "url": "https://arxiv.org/abs/1908.06650"
+  },
+  "src:geo-arrays2-hess-crab-2006": {
+    "accessed": "2026-10-25",
+    "archive_url": null,
+    "cited_by": {
+      "geometry:hess-ct-east": [
+        "/checks/0",
+        "/geometry"
+      ],
+      "geometry:hess-ct-north": [
+        "/checks/0",
+        "/geometry"
+      ],
+      "geometry:hess-ct-south": [
+        "/checks/0",
+        "/geometry"
+      ],
+      "geometry:hess-ct-west": [
+        "/checks/0",
+        "/geometry"
+      ],
+      "geometry:hess-ct1-4-square": [
+        "/checks/0",
+        "/geometry"
+      ],
+      "geometry:hess-ct5": [
+        "/checks/0",
+        "/checks/1",
+        "/checks/2",
+        "/checks/3"
+      ],
+      "map:hess-khomas-highland": [
+        "/sources"
+      ]
+    },
+    "content_hash": null,
+    "date": "2006-09",
+    "excerpt": "H.E.S.S. is situated in the Khomas highlands of Namibia (23° 16'18\" South, 16° 30'00\" East), at an elevation of 1800 metres above sea level. The four H.E.S.S. telescopes are placed in a square formation with a side length of 120 metres.",
+    "id": "src:geo-arrays2-hess-crab-2006",
+    "link_check": {
+      "http_status": null,
+      "last_checked": null,
+      "redirect": null
+    },
+    "publisher": "H.E.S.S. Collaboration (Astronomy & Astrophysics 457 (2006) 899)",
+    "publisher_id": "collaboration:h-e-s-s",
+    "rank": 10,
+    "reference": {
+      "arxiv": "astro-ph/0607333",
+      "doi": "10.1051/0004-6361:20065351"
+    },
+    "retrieval": "full_text",
+    "source_type": "journal_article",
+    "title": "Observations of the Crab Nebula with H.E.S.S.",
+    "type": "src",
+    "url": "https://arxiv.org/abs/astro-ph/0607333"
+  },
+  "src:geo-arrays2-hess-osm-control-room": {
+    "accessed": "2026-10-25",
+    "cited_by": {
+      "geometry:hess-control-building": [
+        "/geometry",
+        "/sources"
+      ]
+    },
+    "date": "2026-10-25",
+    "excerpt": "building=yes; name=H.E.S.S. Control room; operator=H.E.S.S.. Way version 2, last edited 2016-02-13T13:37:48Z; fetched with the OSM API map call 2026-10-25T10:35:43Z.",
+    "id": "src:geo-arrays2-hess-osm-control-room",
+    "publisher": "OpenStreetMap contributors",
+    "rank": 11,
+    "reference": {},
+    "retrieval": "full_text",
+    "source_type": "openstreetmap",
+    "title": "OpenStreetMap way 171900949: H.E.S.S. Control room",
+    "type": "src",
+    "url": "https://www.openstreetmap.org/way/171900949"
+  },
+  "src:geo-arrays2-hess-osm-ct-east": {
+    "accessed": "2026-10-25",
+    "cited_by": {
+      "geometry:hess-ct-east": [
+        "/geometry",
+        "/sources"
+      ],
+      "geometry:hess-ct1-4-square": [
+        "/geometry",
+        "/sources"
+      ]
+    },
+    "date": "2026-10-25",
+    "excerpt": "building=yes; man_made=telescope; name=H.E.S.S.; operator=H.E.S.S.; telescope:diameter=12m. Way version 5, last edited 2026-10-08T06:07:50Z; fetched with the OSM API map call 2026-10-25T10:35:43Z.",
+    "id": "src:geo-arrays2-hess-osm-ct-east",
+    "publisher": "OpenStreetMap contributors",
+    "rank": 11,
+    "reference": {},
+    "retrieval": "full_text",
+    "source_type": "openstreetmap",
+    "title": "OpenStreetMap way 171900954: H.E.S.S. telescope (east corner of the CT1-CT4 square)",
+    "type": "src",
+    "url": "https://www.openstreetmap.org/way/171900954"
+  },
+  "src:geo-arrays2-hess-osm-ct-north": {
+    "accessed": "2026-10-25",
+    "cited_by": {
+      "geometry:hess-ct-north": [
+        "/geometry",
+        "/sources"
+      ],
+      "geometry:hess-ct1-4-square": [
+        "/geometry",
+        "/sources"
+      ]
+    },
+    "date": "2026-10-25",
+    "excerpt": "building=yes; man_made=telescope; name=H.E.S.S.; operator=H.E.S.S.; telescope:diameter=12m. Way version 5, last edited 2026-10-08T06:07:50Z; fetched with the OSM API map call 2026-10-25T10:35:43Z.",
+    "id": "src:geo-arrays2-hess-osm-ct-north",
+    "publisher": "OpenStreetMap contributors",
+    "rank": 11,
+    "reference": {},
+    "retrieval": "full_text",
+    "source_type": "openstreetmap",
+    "title": "OpenStreetMap way 171900951: H.E.S.S. telescope (north corner of the CT1-CT4 square)",
+    "type": "src",
+    "url": "https://www.openstreetmap.org/way/171900951"
+  },
+  "src:geo-arrays2-hess-osm-ct-south": {
+    "accessed": "2026-10-25",
+    "cited_by": {
+      "geometry:hess-ct-south": [
+        "/geometry",
+        "/sources"
+      ],
+      "geometry:hess-ct1-4-square": [
+        "/geometry",
+        "/sources"
+      ]
+    },
+    "date": "2026-10-25",
+    "excerpt": "building=yes; man_made=telescope; name=H.E.S.S.; operator=H.E.S.S.; telescope:diameter=12m. Way version 5, last edited 2026-10-08T06:07:50Z; fetched with the OSM API map call 2026-10-25T10:35:43Z.",
+    "id": "src:geo-arrays2-hess-osm-ct-south",
+    "publisher": "OpenStreetMap contributors",
+    "rank": 11,
+    "reference": {},
+    "retrieval": "full_text",
+    "source_type": "openstreetmap",
+    "title": "OpenStreetMap way 171900955: H.E.S.S. telescope (south corner of the CT1-CT4 square)",
+    "type": "src",
+    "url": "https://www.openstreetmap.org/way/171900955"
+  },
+  "src:geo-arrays2-hess-osm-ct-west": {
+    "accessed": "2026-10-25",
+    "cited_by": {
+      "geometry:hess-ct-west": [
+        "/geometry",
+        "/sources"
+      ],
+      "geometry:hess-ct1-4-square": [
+        "/geometry",
+        "/sources"
+      ]
+    },
+    "date": "2026-10-25",
+    "excerpt": "building=yes; man_made=telescope; name=H.E.S.S.; operator=H.E.S.S.; telescope:diameter=12m. Way version 5, last edited 2026-10-08T06:07:50Z; fetched with the OSM API map call 2026-10-25T10:35:43Z.",
+    "id": "src:geo-arrays2-hess-osm-ct-west",
+    "publisher": "OpenStreetMap contributors",
+    "rank": 11,
+    "reference": {},
+    "retrieval": "full_text",
+    "source_type": "openstreetmap",
+    "title": "OpenStreetMap way 171900956: H.E.S.S. telescope (west corner of the CT1-CT4 square)",
+    "type": "src",
+    "url": "https://www.openstreetmap.org/way/171900956"
+  },
+  "src:geo-arrays2-hess-osm-ct5": {
+    "accessed": "2026-10-25",
+    "cited_by": {
+      "geometry:hess-ct5": [
+        "/geometry",
+        "/sources"
+      ]
+    },
+    "date": "2026-10-25",
+    "excerpt": "building=yes; man_made=telescope; name=H.E.S.S. 2; operator=H.E.S.S. phase II; telescope:diameter=25m. Way version 5, last edited 2026-10-08T06:07:50Z; fetched with the OSM API map call 2026-10-25T10:35:43Z.",
+    "id": "src:geo-arrays2-hess-osm-ct5",
+    "publisher": "OpenStreetMap contributors",
+    "rank": 11,
+    "reference": {},
+    "retrieval": "full_text",
+    "source_type": "openstreetmap",
+    "title": "OpenStreetMap way 171900953: H.E.S.S. 2 (CT5) telescope",
+    "type": "src",
+    "url": "https://www.openstreetmap.org/way/171900953"
+  },
+  "src:geo-arrays2-hess-osm-residence": {
+    "accessed": "2026-10-25",
+    "cited_by": {
+      "geometry:hess-residence-building": [
+        "/geometry",
+        "/sources"
+      ]
+    },
+    "date": "2026-10-25",
+    "excerpt": "building=yes; name=HESS Residence. Way version 2, last edited 2016-02-13T13:37:48Z; fetched with the OSM API map call 2026-10-25T10:35:43Z.",
+    "id": "src:geo-arrays2-hess-osm-residence",
+    "publisher": "OpenStreetMap contributors",
+    "rank": 11,
+    "reference": {},
+    "retrieval": "full_text",
+    "source_type": "openstreetmap",
+    "title": "OpenStreetMap way 171900957: HESS Residence",
+    "type": "src",
+    "url": "https://www.openstreetmap.org/way/171900957"
+  },
+  "src:geo-arrays2-hess-osm-site-compound": {
+    "accessed": "2026-10-25",
+    "cited_by": {
+      "geometry:hess-site-compound": [
+        "/geometry",
+        "/sources"
+      ]
+    },
+    "date": "2026-10-25",
+    "excerpt": "amenity=research_institute; landuse=observatory; man_made=observatory; name=High Energy Stereoscopic System. Way version 5, last edited 2026-09-30T06:56:07Z; fetched with the OSM API map call 2026-10-25T10:35:43Z.",
+    "id": "src:geo-arrays2-hess-osm-site-compound",
+    "publisher": "OpenStreetMap contributors",
+    "rank": 11,
+    "reference": {},
+    "retrieval": "full_text",
+    "source_type": "openstreetmap",
+    "title": "OpenStreetMap way 171900958: High Energy Stereoscopic System (observatory compound)",
+    "type": "src",
+    "url": "https://www.openstreetmap.org/way/171900958"
+  },
+  "src:geo-arrays2-hess-puhlhofer-2024": {
+    "accessed": "2026-10-25",
+    "archive_url": null,
+    "cited_by": {
+      "geometry:hess-control-building": [
+        "/geometry"
+      ],
+      "geometry:hess-ct5": [
+        "/geometry"
+      ],
+      "geometry:hess-residence-building": [
+        "/geometry"
+      ],
+      "map:hess-khomas-highland": [
+        "/sources"
+      ]
+    },
+    "content_hash": null,
+    "date": "2024-05",
+    "excerpt": "a single, very large telescope in the center of the array, the CT5 telescope. ... The telescope site offers a control building and multiple halls for the storage of spare parts and technical equipment.",
+    "id": "src:geo-arrays2-hess-puhlhofer-2024",
+    "link_check": {
+      "http_status": null,
+      "last_checked": null,
+      "redirect": null
+    },
+    "publisher": "G. Puhlhofer, F. Leuschner, H. Salzmann (arXiv:2405.11104)",
+    "publisher_id": null,
+    "rank": 10,
+    "reference": {
+      "arxiv": "2405.11104"
+    },
+    "retrieval": "full_text",
+    "source_type": "journal_article",
+    "title": "H.E.S.S.: The High Energy Stereoscopic System",
+    "type": "src",
+    "url": "https://arxiv.org/abs/2405.11104"
+  },
+  "src:geo-arrays2-lst1-magic-joint-2023": {
+    "accessed": "2026-10-25",
+    "archive_url": null,
+    "cited_by": {
+      "geometry:roque-lst-1": [
+        "/checks/0",
+        "/geometry"
+      ],
+      "geometry:roque-magic-i": [
+        "/geometry"
+      ],
+      "geometry:roque-magic-ii": [
+        "/checks/0",
+        "/geometry"
+      ],
+      "map:roque-de-los-muchachos-observatory": [
+        "/sources"
+      ]
+    },
+    "content_hash": null,
+    "date": "2023-10",
+    "excerpt": "MAGIC is a system of two IACTs, separated by a distance of 85 m. ... LST-1 ... is located in Observatorio Roque de los Muchachos, La Palma (Spain), at the altitude of 2200 m a.s.l.. It is placed at a distance of only ~100 m from the MAGIC telescopes.",
+    "id": "src:geo-arrays2-lst1-magic-joint-2023",
+    "link_check": {
+      "http_status": null,
+      "last_checked": null,
+      "redirect": null
+    },
+    "publisher": "LST Collaboration and MAGIC Collaboration (Astronomy & Astrophysics, 2023)",
+    "publisher_id": null,
+    "rank": 10,
+    "reference": {
+      "arxiv": "2310.01954"
+    },
+    "retrieval": "full_text",
+    "source_type": "journal_article",
+    "title": "Performance of the joint LST-1 and MAGIC observations evaluated with Crab Nebula data",
+    "type": "src",
+    "url": "https://arxiv.org/abs/2310.01954"
+  },
+  "src:geo-arrays2-roque-osm-lst-1": {
+    "accessed": "2026-10-25",
+    "cited_by": {
+      "geometry:roque-gamma-ray-telescope-cluster": [
+        "/geometry",
+        "/sources"
+      ],
+      "geometry:roque-lst-1": [
+        "/geometry",
+        "/sources"
+      ]
+    },
+    "date": "2026-10-25",
+    "excerpt": "building=yes; height=45; man_made=telescope; name=Large-Sized-Teleskop LST-1; short_name=LST-1; telescope:diameter=23. Way version 5, last edited 2026-10-08T06:00:37Z; fetched with the OSM API map call 2026-10-25T10:38:47Z.",
+    "id": "src:geo-arrays2-roque-osm-lst-1",
+    "publisher": "OpenStreetMap contributors",
+    "rank": 11,
+    "reference": {},
+    "retrieval": "full_text",
+    "source_type": "openstreetmap",
+    "title": "OpenStreetMap way 685521693: Large-Sized Telescope LST-1",
+    "type": "src",
+    "url": "https://www.openstreetmap.org/way/685521693"
+  },
+  "src:geo-arrays2-roque-osm-lst-new-a": {
+    "accessed": "2026-10-25",
+    "cited_by": {
+      "geometry:roque-gamma-ray-telescope-cluster": [
+        "/geometry",
+        "/sources"
+      ],
+      "geometry:roque-lst-new-a": [
+        "/geometry",
+        "/sources"
+      ]
+    },
+    "date": "2026-10-25",
+    "excerpt": "building=yes; height=45; man_made=telescope; name=Large-Sized-Teleskop; note=In Construction (3-24); telescope:diameter=23. Way version 3, last edited 2026-10-08T06:00:37Z; fetched with the OSM API map call 2026-10-25T10:38:47Z.",
+    "id": "src:geo-arrays2-roque-osm-lst-new-a",
+    "publisher": "OpenStreetMap contributors",
+    "rank": 11,
+    "reference": {},
+    "retrieval": "full_text",
+    "source_type": "openstreetmap",
+    "title": "OpenStreetMap way 1263216283: Large-Sized Telescope (new LST, unnumbered in OSM)",
+    "type": "src",
+    "url": "https://www.openstreetmap.org/way/1263216283"
+  },
+  "src:geo-arrays2-roque-osm-lst-new-b": {
+    "accessed": "2026-10-25",
+    "cited_by": {
+      "geometry:roque-gamma-ray-telescope-cluster": [
+        "/geometry",
+        "/sources"
+      ],
+      "geometry:roque-lst-new-b": [
+        "/geometry",
+        "/sources"
+      ]
+    },
+    "date": "2026-10-25",
+    "excerpt": "building=yes; height=45; man_made=telescope; name=Large-Sized-Teleskop; note=In Construction (3-24); telescope:diameter=23. Way version 3, last edited 2026-10-08T06:00:37Z; fetched with the OSM API map call 2026-10-25T10:38:47Z.",
+    "id": "src:geo-arrays2-roque-osm-lst-new-b",
+    "publisher": "OpenStreetMap contributors",
+    "rank": 11,
+    "reference": {},
+    "retrieval": "full_text",
+    "source_type": "openstreetmap",
+    "title": "OpenStreetMap way 1263216284: Large-Sized Telescope (new LST, unnumbered in OSM)",
+    "type": "src",
+    "url": "https://www.openstreetmap.org/way/1263216284"
+  },
+  "src:geo-arrays2-roque-osm-lst-new-c": {
+    "accessed": "2026-10-25",
+    "cited_by": {
+      "geometry:roque-gamma-ray-telescope-cluster": [
+        "/geometry",
+        "/sources"
+      ],
+      "geometry:roque-lst-new-c": [
+        "/geometry",
+        "/sources"
+      ]
+    },
+    "date": "2026-10-25",
+    "excerpt": "building=yes; height=45; man_made=telescope; name=Large-Sized-Teleskop; note=In Construction (3-24); telescope:diameter=23. Way version 3, last edited 2026-10-08T06:00:37Z; fetched with the OSM API map call 2026-10-25T10:38:47Z.",
+    "id": "src:geo-arrays2-roque-osm-lst-new-c",
+    "publisher": "OpenStreetMap contributors",
+    "rank": 11,
+    "reference": {},
+    "retrieval": "full_text",
+    "source_type": "openstreetmap",
+    "title": "OpenStreetMap way 1263216285: Large-Sized Telescope (new LST, unnumbered in OSM)",
+    "type": "src",
+    "url": "https://www.openstreetmap.org/way/1263216285"
+  },
+  "src:geo-arrays2-roque-osm-magic-counting-house": {
+    "accessed": "2026-10-25",
+    "cited_by": {
+      "geometry:roque-magic-counting-house": [
+        "/geometry",
+        "/sources"
+      ]
+    },
+    "date": "2026-10-25",
+    "excerpt": "building=yes; name=MAGIC counting house. Way version 2, last edited 2021-04-03T17:47:57Z; fetched with the OSM API map call 2026-10-25T10:38:47Z.",
+    "id": "src:geo-arrays2-roque-osm-magic-counting-house",
+    "publisher": "OpenStreetMap contributors",
+    "rank": 11,
+    "reference": {},
+    "retrieval": "full_text",
+    "source_type": "openstreetmap",
+    "title": "OpenStreetMap way 288988538: MAGIC counting house",
+    "type": "src",
+    "url": "https://www.openstreetmap.org/way/288988538"
+  },
+  "src:geo-arrays2-roque-osm-magic-i": {
+    "accessed": "2026-10-25",
+    "cited_by": {
+      "geometry:roque-gamma-ray-telescope-cluster": [
+        "/geometry",
+        "/sources"
+      ],
+      "geometry:roque-magic-i": [
+        "/geometry",
+        "/sources"
+      ]
+    },
+    "date": "2026-10-25",
+    "excerpt": "building=yes; man_made=telescope; name=Major Atmospheric Gamma-Ray Imaging Cherenkov Telescope I; short_name=MAGIC I; telescope:diameter=17. Way version 11, last edited 2026-10-08T06:00:37Z; fetched with the OSM API map call 2026-10-25T10:38:47Z.",
+    "id": "src:geo-arrays2-roque-osm-magic-i",
+    "publisher": "OpenStreetMap contributors",
+    "rank": 11,
+    "reference": {},
+    "retrieval": "full_text",
+    "source_type": "openstreetmap",
+    "title": "OpenStreetMap way 288251657: MAGIC I telescope",
+    "type": "src",
+    "url": "https://www.openstreetmap.org/way/288251657"
+  },
+  "src:geo-arrays2-roque-osm-magic-ii": {
+    "accessed": "2026-10-25",
+    "cited_by": {
+      "geometry:roque-gamma-ray-telescope-cluster": [
+        "/geometry",
+        "/sources"
+      ],
+      "geometry:roque-magic-ii": [
+        "/geometry",
+        "/sources"
+      ]
+    },
+    "date": "2026-10-25",
+    "excerpt": "building=yes; man_made=telescope; name=Major Atmospheric Gamma-Ray Imaging Cherenkov Telescope II; short_name=MAGIC II; telescope:diameter=17. Way version 9, last edited 2026-10-08T06:00:37Z; fetched with the OSM API map call 2026-10-25T10:38:47Z.",
+    "id": "src:geo-arrays2-roque-osm-magic-ii",
+    "publisher": "OpenStreetMap contributors",
+    "rank": 11,
+    "reference": {},
+    "retrieval": "full_text",
+    "source_type": "openstreetmap",
+    "title": "OpenStreetMap way 288251656: MAGIC II telescope",
+    "type": "src",
+    "url": "https://www.openstreetmap.org/way/288251656"
+  },
+  "src:geo-arrays2-veritas-osm-flwo-landuse": {
+    "accessed": "2026-10-25",
+    "cited_by": {
+      "geometry:veritas-basecamp-landuse": [
+        "/geometry",
+        "/sources"
+      ]
+    },
+    "date": "2026-10-25",
+    "excerpt": "landuse=observatory, name=Fred Lawrence Whipple Observatory, observatory:type=astronomical. Way version 1, last edited 2010-03-13T00:30:32Z; fetched with the OSM API map call 2026-10-25T10:39:02Z.",
+    "id": "src:geo-arrays2-veritas-osm-flwo-landuse",
+    "publisher": "OpenStreetMap contributors",
+    "rank": 11,
+    "reference": {},
+    "retrieval": "full_text",
+    "source_type": "openstreetmap",
+    "title": "OpenStreetMap way 52218708: Fred Lawrence Whipple Observatory (landuse polygon at the basecamp)",
+    "type": "src",
+    "url": "https://www.openstreetmap.org/way/52218708"
+  },
+  "src:geo-arrays2-veritas-osm-t1": {
+    "accessed": "2026-10-25",
+    "cited_by": {
+      "geometry:veritas-array-quadrilateral": [
+        "/geometry",
+        "/sources"
+      ],
+      "geometry:veritas-t1": [
+        "/geometry",
+        "/sources"
+      ]
+    },
+    "date": "2026-10-25",
+    "excerpt": "man_made=telescope, name=VERITAS, ref=1, telescope:diameter=12, telescope:type=gamma, source=yahoo. Node version 3, last edited 2026-10-08T06:05:59Z; fetched with the OSM API map call 2026-10-25T10:39:02Z.",
+    "id": "src:geo-arrays2-veritas-osm-t1",
+    "publisher": "OpenStreetMap contributors",
+    "rank": 11,
+    "reference": {},
+    "retrieval": "full_text",
+    "source_type": "openstreetmap",
+    "title": "OpenStreetMap node 664910895: VERITAS telescope T1",
+    "type": "src",
+    "url": "https://www.openstreetmap.org/node/664910895"
+  },
+  "src:geo-arrays2-veritas-osm-t2": {
+    "accessed": "2026-10-25",
+    "cited_by": {
+      "geometry:veritas-array-quadrilateral": [
+        "/geometry",
+        "/sources"
+      ],
+      "geometry:veritas-t2": [
+        "/geometry",
+        "/sources"
+      ]
+    },
+    "date": "2026-10-25",
+    "excerpt": "man_made=telescope, name=VERITAS, ref=2, telescope:diameter=12, telescope:type=gamma, source=yahoo. Node version 3, last edited 2026-10-08T06:05:59Z; fetched with the OSM API map call 2026-10-25T10:39:02Z.",
+    "id": "src:geo-arrays2-veritas-osm-t2",
+    "publisher": "OpenStreetMap contributors",
+    "rank": 11,
+    "reference": {},
+    "retrieval": "full_text",
+    "source_type": "openstreetmap",
+    "title": "OpenStreetMap node 664910802: VERITAS telescope T2",
+    "type": "src",
+    "url": "https://www.openstreetmap.org/node/664910802"
+  },
+  "src:geo-arrays2-veritas-osm-t3": {
+    "accessed": "2026-10-25",
+    "cited_by": {
+      "geometry:veritas-array-quadrilateral": [
+        "/geometry",
+        "/sources"
+      ],
+      "geometry:veritas-t3": [
+        "/geometry",
+        "/sources"
+      ]
+    },
+    "date": "2026-10-25",
+    "excerpt": "man_made=telescope, name=VERITAS, ref=3, telescope:diameter=12, telescope:type=gamma, source=yahoo. Node version 3, last edited 2026-10-08T06:05:59Z; fetched with the OSM API map call 2026-10-25T10:39:02Z.",
+    "id": "src:geo-arrays2-veritas-osm-t3",
+    "publisher": "OpenStreetMap contributors",
+    "rank": 11,
+    "reference": {},
+    "retrieval": "full_text",
+    "source_type": "openstreetmap",
+    "title": "OpenStreetMap node 664910876: VERITAS telescope T3",
+    "type": "src",
+    "url": "https://www.openstreetmap.org/node/664910876"
+  },
+  "src:geo-arrays2-veritas-osm-t4": {
+    "accessed": "2026-10-25",
+    "cited_by": {
+      "geometry:veritas-array-quadrilateral": [
+        "/geometry",
+        "/sources"
+      ],
+      "geometry:veritas-t4": [
+        "/geometry",
+        "/sources"
+      ]
+    },
+    "date": "2026-10-25",
+    "excerpt": "man_made=telescope, name=VERITAS, ref=4, telescope:diameter=12, telescope:type=gamma, source=yahoo. Node version 3, last edited 2026-10-08T06:05:59Z; fetched with the OSM API map call 2026-10-25T10:39:02Z.",
+    "id": "src:geo-arrays2-veritas-osm-t4",
+    "publisher": "OpenStreetMap contributors",
+    "rank": 11,
+    "reference": {},
+    "retrieval": "full_text",
+    "source_type": "openstreetmap",
+    "title": "OpenStreetMap node 664910849: VERITAS telescope T4",
+    "type": "src",
+    "url": "https://www.openstreetmap.org/node/664910849"
+  },
+  "src:geo-arrays2-veritas-perkins-2009": {
+    "accessed": "2026-10-25",
+    "archive_url": null,
+    "cited_by": {
+      "geometry:veritas-array-quadrilateral": [
+        "/checks/0",
+        "/geometry"
+      ],
+      "geometry:veritas-t1": [
+        "/checks/0",
+        "/geometry"
+      ],
+      "geometry:veritas-t2": [
+        "/checks/0",
+        "/geometry"
+      ],
+      "geometry:veritas-t3": [
+        "/checks/0",
+        "/checks/1",
+        "/geometry"
+      ],
+      "geometry:veritas-t4": [
+        "/checks/0",
+        "/geometry"
+      ],
+      "map:fred-lawrence-whipple-observatory": [
+        "/sources"
+      ]
+    },
+    "content_hash": null,
+    "date": "2009-12",
+    "excerpt": "While the old layout had inter-telescope distances ranging from 35 m to 127 m, the new layout distances range from 81 m to 127 m. Figure 1 labels the new-layout spacings 81m, 102m, 99m, 127m and the T2-T3 diagonal 111m.",
+    "id": "src:geo-arrays2-veritas-perkins-2009",
+    "link_check": {
+      "http_status": null,
+      "last_checked": null,
+      "redirect": null
+    },
+    "publisher": "J. S. Perkins, G. Maier for the VERITAS Collaboration (2009 Fermi Symposium, eConf C091122)",
+    "publisher_id": "collaboration:veritas",
+    "rank": 10,
+    "reference": {
+      "arxiv": "0912.3841"
+    },
+    "retrieval": "full_text",
+    "source_type": "arxiv",
+    "title": "VERITAS Telescope 1 Relocation: Details and Improvements",
+    "type": "src",
+    "url": "https://arxiv.org/abs/0912.3841"
   },
   "src:geo-baksan-osm-bno-building": {
     "accessed": "2026-09-18",

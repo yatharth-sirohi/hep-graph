@@ -374,10 +374,13 @@ def _ring_centroid(ring: Sequence[Any], scale: float) -> tuple[float, float, flo
         return 0.0, 0.0, 0.0
     if points[0] != points[-1]:
         points = points + [points[0]]
+    # Accumulate relative to the first vertex: a tank a few metres wide at
+    # lon -97 otherwise loses its centroid to cancellation (hundreds of metres).
+    x0, y0 = points[0][0] * scale, points[0][1]
     area = cx = cy = 0.0
     for index in range(len(points) - 1):
-        x1, y1 = points[index][0] * scale, points[index][1]
-        x2, y2 = points[index + 1][0] * scale, points[index + 1][1]
+        x1, y1 = points[index][0] * scale - x0, points[index][1] - y0
+        x2, y2 = points[index + 1][0] * scale - x0, points[index + 1][1] - y0
         cross = x1 * y2 - x2 * y1
         area += cross
         cx += (x1 + x2) * cross
@@ -385,7 +388,7 @@ def _ring_centroid(ring: Sequence[Any], scale: float) -> tuple[float, float, flo
     area /= 2.0
     if area == 0.0:
         return 0.0, 0.0, 0.0
-    return area, cx / 6.0, cy / 6.0
+    return area, cx / 6.0 + area * x0, cy / 6.0 + area * y0
 
 
 # ---------------------------------------------------------------------------

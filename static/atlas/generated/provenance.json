@@ -48616,28 +48616,6 @@
       "verified_at": null
     }
   },
-  "geometry:ctao-north-lst1-point": {
-    "/geometry": {
-      "confidence": "approximate",
-      "locator": "Nominatim search result for 'Observatorio del Roque de los Muchachos'",
-      "note": "OpenStreetMap/Nominatim geocoder source (source_type 'geocoder', not 'openstreetmap'); representation 'georeferenced', confidence stays 'approximate'.",
-      "quote": "\"name\":\"Observatorio del Roque de los Muchachos\",\"lat\":\"28.7570690\",\"lon\":\"-17.8888436\"",
-      "sources": [
-        "src:cosmic-gamma-nominatim-roque-de-los-muchachos"
-      ],
-      "verified_at": "2026-09-18"
-    },
-    "/sources": {
-      "confidence": null,
-      "locator": null,
-      "note": null,
-      "quote": null,
-      "sources": [
-        "src:cosmic-gamma-nominatim-roque-de-los-muchachos"
-      ],
-      "verified_at": null
-    }
-  },
   "geometry:ctao-south-array-point": {
     "/geometry": {
       "confidence": "verified",
@@ -50007,16 +49985,16 @@
       "verified_at": null
     }
   },
-  "geometry:hawc-array-point": {
+  "geometry:hawc-observatory-polygon": {
     "/geometry": {
-      "confidence": "verified",
-      "locator": "The HAWC Gamma-Ray Observatory: Design, Calibration, and Operation, site-description section",
-      "note": "'verified': representation is 'surveyed' from a rank<=10 (design_report) source.",
-      "quote": "The geographical latitude of the site is 18.99 ... The geographical longitude of the HAWC site, 97.31 W.",
+      "confidence": "approximate",
+      "locator": "OSM way/1563711916 v1 (2026-09-30T06:45:17Z); extract: OSM API map call, bbox -97.325,18.980,-97.295,19.005, fetched 2026-10-25T10:38:54Z",
+      "note": "Single-version polygon created 2026-09-30; no official figure to check against.",
+      "quote": null,
       "sources": [
-        "src:cosmic-gamma-hawc-design-paper-arxiv-2013"
+        "src:geo-arrays2-hawc-osm-observatory"
       ],
-      "verified_at": "2026-09-18"
+      "verified_at": "2026-10-25"
     },
     "/sources": {
       "confidence": null,
@@ -50024,7 +50002,83 @@
       "note": null,
       "quote": null,
       "sources": [
+        "src:geo-arrays2-hawc-osm-observatory"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:hawc-tank-field-hull": {
+    "/checks/0": {
+      "confidence": null,
+      "locator": "HAWC paper: 'HAWC is composed of 300 water Cherenkov detectors built over an area of 22,000 m2' (HAWC deployment/design contributions, ICRC 2013 bundle)",
+      "note": null,
+      "quote": "HAWC is composed of 300 water Cherenkov detectors built over an area of 22,000 m2",
+      "sources": [
         "src:cosmic-gamma-hawc-design-paper-arxiv-2013"
+      ],
+      "verified_at": null
+    },
+    "/checks/1": {
+      "confidence": null,
+      "locator": "'Site infrastructure, layout and platform' (Deployment of the HAWC gamma-ray observatory in Sierra Negra, ICRC 2013): the flattened HAWC platform",
+      "note": null,
+      "quote": "During 2011 an area of about 22,395 m2 , corresponding to the HAWC platform, was flattened",
+      "sources": [
+        "src:cosmic-gamma-hawc-design-paper-arxiv-2013"
+      ],
+      "verified_at": null
+    },
+    "/geometry": {
+      "confidence": "derived",
+      "locator": "convex hull of the vertices of OSM ways 541455344..541455690 (extract 2026-10-25T10:38:54Z); HAWC ICRC 2013 contributions",
+      "note": "Confidence 'derived' per contract: a derived shape is derived, even with passing checks. The 22,000, 22,500 and 22,395 m2 figures all appear in the HAWC ICRC 2013 contributions for the array or the platform.",
+      "quote": "HAWC is composed of 300 water Cherenkov detectors built over an area of 22,000 m2",
+      "sources": [
+        "src:geo-arrays2-hawc-osm-tank-field",
+        "src:cosmic-gamma-hawc-design-paper-arxiv-2013"
+      ],
+      "verified_at": "2026-10-25"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-arrays2-hawc-osm-tank-field"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:hawc-tanks": {
+    "/checks/0": {
+      "confidence": null,
+      "locator": "derived: 300 tanks (HAWC paper, 'HAWC is composed of 300 water Cherenkov detectors') each of 7.3 m diameter ('The HAWC observatory consists of individual metallic tanks of 7.3 m diameter and 5 m height'): 300 x pi x 3.65^2 = 12,556 m2",
+      "note": null,
+      "quote": "Each tank is a cylinder of 7.3m in diameter and 5m in height filled with water",
+      "sources": [
+        "src:cosmic-gamma-hawc-design-paper-arxiv-2013"
+      ],
+      "verified_at": null
+    },
+    "/geometry": {
+      "confidence": "approximate",
+      "locator": "OSM ways 541455344..541455690 (300 ways, version 1, 2017-11-18T02:50:47Z..2017-11-18T02:51:36Z); extract: OSM API map call, bbox -97.325,18.980,-97.295,19.005, fetched 2026-10-25T10:38:54Z",
+      "note": "OpenStreetMap tracing (rank 11), so confidence is capped at approximate even though the area check passes. The area check is on the sum of the 300 polygons against 300 circles of the published diameter.",
+      "quote": "Each tank is a cylinder of 7.3m in diameter and 5m in height filled with water",
+      "sources": [
+        "src:geo-arrays2-hawc-osm-tank-field",
+        "src:cosmic-gamma-hawc-design-paper-arxiv-2013"
+      ],
+      "verified_at": "2026-10-25"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-arrays2-hawc-osm-tank-field"
       ],
       "verified_at": null
     }
@@ -50095,27 +50149,195 @@
       "verified_at": null
     }
   },
+  "geometry:hess-control-building": {
+    "/geometry": {
+      "confidence": "approximate",
+      "locator": "OSM way/171900949 v2 (2016-02-13T13:37:48Z); extract: OSM API map call, bbox 16.485,-23.285,16.515,-23.258, fetched 2026-10-25T10:35:43Z",
+      "note": "OpenStreetMap footprint; the Puhlhofer 2024 review confirms the control building exists but gives no dimension to check the footprint against.",
+      "quote": "The telescope site offers a control building and multiple halls for the storage of spare parts and technical equipment.",
+      "sources": [
+        "src:geo-arrays2-hess-osm-control-room",
+        "src:geo-arrays2-hess-puhlhofer-2024"
+      ],
+      "verified_at": "2026-10-25"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-arrays2-hess-osm-control-room"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:hess-ct-east": {
+    "/checks/0": {
+      "confidence": null,
+      "locator": "H.E.S.S. Telescopes page, 'Arrangement of the telescopes'; Crab paper (A&A 457, 899) section 2",
+      "note": null,
+      "quote": "The initial four H.E.S.S. telescopes (Phase I) are arranged in form of a square with 120 m side length",
+      "sources": [
+        "src:geo-arrays-hess-telescopes-page",
+        "src:geo-arrays2-hess-crab-2006"
+      ],
+      "verified_at": null
+    },
+    "/geometry": {
+      "confidence": "approximate",
+      "locator": "OSM way/171900954 v5 (2026-10-08T06:07:50Z); extract: OSM API map call, bbox 16.485,-23.285,16.515,-23.258, fetched 2026-10-25T10:35:43Z",
+      "note": "OpenStreetMap trace (rank 11), so confidence is capped at approximate even though the neighbour-distance check passes: that check confirms the telescopes' relative placement, not the outline of this polygon.",
+      "quote": null,
+      "sources": [
+        "src:geo-arrays2-hess-osm-ct-east",
+        "src:geo-arrays-hess-telescopes-page",
+        "src:geo-arrays2-hess-crab-2006"
+      ],
+      "verified_at": "2026-10-25"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-arrays2-hess-osm-ct-east"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:hess-ct-north": {
+    "/checks/0": {
+      "confidence": null,
+      "locator": "H.E.S.S. Telescopes page, 'Arrangement of the telescopes'; Crab paper (A&A 457, 899) section 2",
+      "note": null,
+      "quote": "The initial four H.E.S.S. telescopes (Phase I) are arranged in form of a square with 120 m side length",
+      "sources": [
+        "src:geo-arrays-hess-telescopes-page",
+        "src:geo-arrays2-hess-crab-2006"
+      ],
+      "verified_at": null
+    },
+    "/geometry": {
+      "confidence": "approximate",
+      "locator": "OSM way/171900951 v5 (2026-10-08T06:07:50Z); extract: OSM API map call, bbox 16.485,-23.285,16.515,-23.258, fetched 2026-10-25T10:35:43Z",
+      "note": "OpenStreetMap trace (rank 11), so confidence is capped at approximate even though the neighbour-distance check passes: that check confirms the telescopes' relative placement, not the outline of this polygon.",
+      "quote": null,
+      "sources": [
+        "src:geo-arrays2-hess-osm-ct-north",
+        "src:geo-arrays-hess-telescopes-page",
+        "src:geo-arrays2-hess-crab-2006"
+      ],
+      "verified_at": "2026-10-25"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-arrays2-hess-osm-ct-north"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:hess-ct-south": {
+    "/checks/0": {
+      "confidence": null,
+      "locator": "H.E.S.S. Telescopes page, 'Arrangement of the telescopes'; Crab paper (A&A 457, 899) section 2",
+      "note": null,
+      "quote": "The initial four H.E.S.S. telescopes (Phase I) are arranged in form of a square with 120 m side length",
+      "sources": [
+        "src:geo-arrays-hess-telescopes-page",
+        "src:geo-arrays2-hess-crab-2006"
+      ],
+      "verified_at": null
+    },
+    "/geometry": {
+      "confidence": "approximate",
+      "locator": "OSM way/171900955 v5 (2026-10-08T06:07:50Z); extract: OSM API map call, bbox 16.485,-23.285,16.515,-23.258, fetched 2026-10-25T10:35:43Z",
+      "note": "OpenStreetMap trace (rank 11), so confidence is capped at approximate even though the neighbour-distance check passes: that check confirms the telescopes' relative placement, not the outline of this polygon.",
+      "quote": null,
+      "sources": [
+        "src:geo-arrays2-hess-osm-ct-south",
+        "src:geo-arrays-hess-telescopes-page",
+        "src:geo-arrays2-hess-crab-2006"
+      ],
+      "verified_at": "2026-10-25"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-arrays2-hess-osm-ct-south"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:hess-ct-west": {
+    "/checks/0": {
+      "confidence": null,
+      "locator": "H.E.S.S. Telescopes page, 'Arrangement of the telescopes'; Crab paper (A&A 457, 899) section 2",
+      "note": null,
+      "quote": "The initial four H.E.S.S. telescopes (Phase I) are arranged in form of a square with 120 m side length",
+      "sources": [
+        "src:geo-arrays-hess-telescopes-page",
+        "src:geo-arrays2-hess-crab-2006"
+      ],
+      "verified_at": null
+    },
+    "/geometry": {
+      "confidence": "approximate",
+      "locator": "OSM way/171900956 v5 (2026-10-08T06:07:50Z); extract: OSM API map call, bbox 16.485,-23.285,16.515,-23.258, fetched 2026-10-25T10:35:43Z",
+      "note": "OpenStreetMap trace (rank 11), so confidence is capped at approximate even though the neighbour-distance check passes: that check confirms the telescopes' relative placement, not the outline of this polygon.",
+      "quote": null,
+      "sources": [
+        "src:geo-arrays2-hess-osm-ct-west",
+        "src:geo-arrays-hess-telescopes-page",
+        "src:geo-arrays2-hess-crab-2006"
+      ],
+      "verified_at": "2026-10-25"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-arrays2-hess-osm-ct-west"
+      ],
+      "verified_at": null
+    }
+  },
   "geometry:hess-ct1-4-square": {
     "/checks/0": {
       "confidence": null,
-      "locator": "H.E.S.S. Telescopes page, array layout paragraph",
+      "locator": "H.E.S.S. Telescopes page, 'Arrangement of the telescopes' (4 x 120 m = 480 m); Crab paper (A&A 457, 899) section 2",
       "note": null,
-      "quote": "square with 120 m side length",
+      "quote": "placed in a square formation with a side length of 120 metres",
       "sources": [
-        "src:geo-arrays-hess-telescopes-page"
+        "src:geo-arrays-hess-telescopes-page",
+        "src:geo-arrays2-hess-crab-2006"
       ],
       "verified_at": null
     },
     "/geometry": {
       "confidence": "derived",
-      "locator": "H.E.S.S. Telescopes page, array layout paragraph",
-      "note": "Confidence 'derived' per contract (a derived shape is derived, even with a passing check).",
-      "quote": "The initial four H.E.S.S. telescopes (Phase I) are arranged in form of a square with 120 m side length. The diagonal of the square is oriented north-south.",
+      "locator": "centroids of OSM way/171900951, way/171900954, way/171900955, way/171900956 as of the 2026-10-25T10:35:43Z OSM API extract; H.E.S.S. Telescopes page 'Arrangement of the telescopes'",
+      "note": "Confidence 'derived' per contract: a derived shape is derived, even with a passing check.",
+      "quote": "The initial four H.E.S.S. telescopes (Phase I) are arranged in form of a square with 120 m side length ... The diagonal of the square is oriented north-south.",
       "sources": [
+        "src:geo-arrays2-hess-osm-ct-north",
+        "src:geo-arrays2-hess-osm-ct-east",
+        "src:geo-arrays2-hess-osm-ct-south",
+        "src:geo-arrays2-hess-osm-ct-west",
         "src:geo-arrays-hess-telescopes-page",
-        "src:cosmic-gamma-hess-official-site-page"
+        "src:geo-arrays2-hess-crab-2006"
       ],
-      "verified_at": "2026-09-18"
+      "verified_at": "2026-10-25"
     },
     "/sources": {
       "confidence": null,
@@ -50123,23 +50345,70 @@
       "note": null,
       "quote": null,
       "sources": [
-        "src:geo-arrays-hess-telescopes-page",
-        "src:cosmic-gamma-hess-official-site-page"
+        "src:geo-arrays2-hess-osm-ct-north",
+        "src:geo-arrays2-hess-osm-ct-east",
+        "src:geo-arrays2-hess-osm-ct-south",
+        "src:geo-arrays2-hess-osm-ct-west"
       ],
       "verified_at": null
     }
   },
-  "geometry:hess-ct5-point": {
+  "geometry:hess-ct5": {
+    "/checks/0": {
+      "confidence": null,
+      "locator": "derived from 'square with 120 m side length' (H.E.S.S. Telescopes page) and CT5 'at the center of the array' (same page): half the square's 169.7 m diagonal = 120 m / sqrt(2) = 84.85 m, to the north corner telescope",
+      "note": null,
+      "quote": "arranged in form of a square with 120 m side length ... an single huge dish with about 600 m2 mirror area was added at the center of the array",
+      "sources": [
+        "src:geo-arrays-hess-telescopes-page",
+        "src:geo-arrays2-hess-crab-2006"
+      ],
+      "verified_at": null
+    },
+    "/checks/1": {
+      "confidence": null,
+      "locator": "derived from 'square with 120 m side length' (H.E.S.S. Telescopes page) and CT5 'at the center of the array' (same page): half the square's 169.7 m diagonal = 120 m / sqrt(2) = 84.85 m, to the east corner telescope",
+      "note": null,
+      "quote": "arranged in form of a square with 120 m side length ... an single huge dish with about 600 m2 mirror area was added at the center of the array",
+      "sources": [
+        "src:geo-arrays-hess-telescopes-page",
+        "src:geo-arrays2-hess-crab-2006"
+      ],
+      "verified_at": null
+    },
+    "/checks/2": {
+      "confidence": null,
+      "locator": "derived from 'square with 120 m side length' (H.E.S.S. Telescopes page) and CT5 'at the center of the array' (same page): half the square's 169.7 m diagonal = 120 m / sqrt(2) = 84.85 m, to the south corner telescope",
+      "note": null,
+      "quote": "arranged in form of a square with 120 m side length ... an single huge dish with about 600 m2 mirror area was added at the center of the array",
+      "sources": [
+        "src:geo-arrays-hess-telescopes-page",
+        "src:geo-arrays2-hess-crab-2006"
+      ],
+      "verified_at": null
+    },
+    "/checks/3": {
+      "confidence": null,
+      "locator": "derived from 'square with 120 m side length' (H.E.S.S. Telescopes page) and CT5 'at the center of the array' (same page): half the square's 169.7 m diagonal = 120 m / sqrt(2) = 84.85 m, to the west corner telescope",
+      "note": null,
+      "quote": "arranged in form of a square with 120 m side length ... an single huge dish with about 600 m2 mirror area was added at the center of the array",
+      "sources": [
+        "src:geo-arrays-hess-telescopes-page",
+        "src:geo-arrays2-hess-crab-2006"
+      ],
+      "verified_at": null
+    },
     "/geometry": {
-      "confidence": "verified",
-      "locator": "H.E.S.S. Telescopes page; H.E.S.S. Site page",
-      "note": "'verified': representation is 'surveyed' from a rank<=10 official source.",
+      "confidence": "approximate",
+      "locator": "OSM way/171900953 v5 (2026-10-08T06:07:50Z); extract: OSM API map call, bbox 16.485,-23.285,16.515,-23.258, fetched 2026-10-25T10:35:43Z",
+      "note": "OpenStreetMap trace (rank 11) caps confidence at approximate. The footprint's span is 29.7 m against a 24 m x 32 m reflector (28 m circular equivalent, Puhlhofer 2024), so it is the telescope structure, not a surveyed mirror outline.",
       "quote": "an single huge dish with about 600 m2 mirror area was added at the center of the array",
       "sources": [
-        "src:cosmic-gamma-hess-official-site-page",
-        "src:geo-arrays-hess-telescopes-page"
+        "src:geo-arrays2-hess-osm-ct5",
+        "src:geo-arrays-hess-telescopes-page",
+        "src:geo-arrays2-hess-puhlhofer-2024"
       ],
-      "verified_at": "2026-09-18"
+      "verified_at": "2026-10-25"
     },
     "/sources": {
       "confidence": null,
@@ -50147,8 +50416,52 @@
       "note": null,
       "quote": null,
       "sources": [
-        "src:cosmic-gamma-hess-official-site-page",
-        "src:geo-arrays-hess-telescopes-page"
+        "src:geo-arrays2-hess-osm-ct5"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:hess-residence-building": {
+    "/geometry": {
+      "confidence": "approximate",
+      "locator": "OSM way/171900957 v2 (2016-02-13T13:37:48Z); extract: OSM API map call, bbox 16.485,-23.285,16.515,-23.258, fetched 2026-10-25T10:35:43Z",
+      "note": "OpenStreetMap footprint. Its centroid is about 810 m from the telescope square, a little more than the review's 'few hundred meters', so no distance check is asserted.",
+      "quote": "A few hundred meters away from the telescope site the residence building is located.",
+      "sources": [
+        "src:geo-arrays2-hess-osm-residence",
+        "src:geo-arrays2-hess-puhlhofer-2024"
+      ],
+      "verified_at": "2026-10-25"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-arrays2-hess-osm-residence"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:hess-site-compound": {
+    "/geometry": {
+      "confidence": "approximate",
+      "locator": "OSM way/171900958 v5 (2026-09-30T06:56:07Z); extract: OSM API map call, bbox 16.485,-23.285,16.515,-23.258, fetched 2026-10-25T10:35:43Z",
+      "note": "Land-use polygon, not a fence or a surveyed boundary; no official figure to check against.",
+      "quote": null,
+      "sources": [
+        "src:geo-arrays2-hess-osm-site-compound"
+      ],
+      "verified_at": "2026-10-25"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-arrays2-hess-osm-site-compound"
       ],
       "verified_at": null
     }
@@ -51476,28 +51789,6 @@
       "verified_at": null
     }
   },
-  "geometry:magic-array-point": {
-    "/geometry": {
-      "confidence": "approximate",
-      "locator": "Nominatim search result for 'Observatorio del Roque de los Muchachos'",
-      "note": "OpenStreetMap/Nominatim geocoder source (source_type 'geocoder', not 'openstreetmap'); representation 'georeferenced', confidence stays 'approximate' per contract (OSM/geocoder alone never yields 'verified').",
-      "quote": "\"name\":\"Observatorio del Roque de los Muchachos\",\"lat\":\"28.7570690\",\"lon\":\"-17.8888436\"",
-      "sources": [
-        "src:cosmic-gamma-nominatim-roque-de-los-muchachos"
-      ],
-      "verified_at": "2026-09-18"
-    },
-    "/sources": {
-      "confidence": null,
-      "locator": null,
-      "note": null,
-      "quote": null,
-      "sources": [
-        "src:cosmic-gamma-nominatim-roque-de-los-muchachos"
-      ],
-      "verified_at": null
-    }
-  },
   "geometry:meyrin-site-marker": {
     "/geometry": {
       "confidence": "approximate",
@@ -52234,6 +52525,218 @@
       "quote": null,
       "sources": [
         "src:geo-reactors-reno-proposal-2010"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:roque-gamma-ray-telescope-cluster": {
+    "/geometry": {
+      "confidence": "derived",
+      "locator": "convex hull of the six telescope footprints (OSM way/288251657, 288251656, 685521693, 1263216283, 1263216284, 1263216285), extract 2026-10-25T10:38:47Z",
+      "note": "Derived outline with no official figure to check against; the official 0.5 km2 refers to the 13-telescope planned array.",
+      "quote": null,
+      "sources": [
+        "src:geo-arrays2-roque-osm-magic-i",
+        "src:geo-arrays2-roque-osm-magic-ii",
+        "src:geo-arrays2-roque-osm-lst-1",
+        "src:geo-arrays2-roque-osm-lst-new-a",
+        "src:geo-arrays2-roque-osm-lst-new-b",
+        "src:geo-arrays2-roque-osm-lst-new-c"
+      ],
+      "verified_at": "2026-10-25"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-arrays2-roque-osm-magic-i",
+        "src:geo-arrays2-roque-osm-magic-ii",
+        "src:geo-arrays2-roque-osm-lst-1",
+        "src:geo-arrays2-roque-osm-lst-new-a",
+        "src:geo-arrays2-roque-osm-lst-new-b",
+        "src:geo-arrays2-roque-osm-lst-new-c"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:roque-lst-1": {
+    "/checks/0": {
+      "confidence": null,
+      "locator": "Performance of the joint LST-1 and MAGIC observations (A&A 2023), section 1: LST-1 'is placed at a distance of only ~100 m from the MAGIC telescopes'",
+      "note": null,
+      "quote": "It is placed at a distance of only ∼ 100 m from the MAGIC",
+      "sources": [
+        "src:geo-arrays2-lst1-magic-joint-2023"
+      ],
+      "verified_at": null
+    },
+    "/geometry": {
+      "confidence": "approximate",
+      "locator": "OSM way/685521693 v5 (2026-10-08T06:00:37Z); extract: OSM API map call, bbox -17.915,28.745,-17.875,28.775, fetched 2026-10-25T10:38:47Z",
+      "note": "OpenStreetMap trace (rank 11), so confidence is capped at approximate even where the distance check passes. The 10 % tolerance reflects that '~100 m' is an approximate figure in the source.",
+      "quote": null,
+      "sources": [
+        "src:geo-arrays2-roque-osm-lst-1",
+        "src:geo-arrays2-lst1-magic-joint-2023"
+      ],
+      "verified_at": "2026-10-25"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-arrays2-roque-osm-lst-1"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:roque-lst-new-a": {
+    "/geometry": {
+      "confidence": "approximate",
+      "locator": "OSM way/1263216283 v3 (2026-10-08T06:00:37Z); extract: OSM API map call, bbox -17.915,28.745,-17.875,28.775, fetched 2026-10-25T10:38:47Z",
+      "note": "OpenStreetMap trace (rank 11), so confidence is capped at approximate even where the distance check passes. No numeric official figure for the LST-2/3/4 positions was found, so there is no check.",
+      "quote": "The completion of the four telescopes marks a significant milestone",
+      "sources": [
+        "src:geo-arrays2-roque-osm-lst-new-a",
+        "src:geo-arrays2-ctao-lst-inauguration-2026"
+      ],
+      "verified_at": "2026-10-25"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-arrays2-roque-osm-lst-new-a"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:roque-lst-new-b": {
+    "/geometry": {
+      "confidence": "approximate",
+      "locator": "OSM way/1263216284 v3 (2026-10-08T06:00:37Z); extract: OSM API map call, bbox -17.915,28.745,-17.875,28.775, fetched 2026-10-25T10:38:47Z",
+      "note": "OpenStreetMap trace (rank 11), so confidence is capped at approximate even where the distance check passes. No numeric official figure for the LST-2/3/4 positions was found, so there is no check.",
+      "quote": "The completion of the four telescopes marks a significant milestone",
+      "sources": [
+        "src:geo-arrays2-roque-osm-lst-new-b",
+        "src:geo-arrays2-ctao-lst-inauguration-2026"
+      ],
+      "verified_at": "2026-10-25"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-arrays2-roque-osm-lst-new-b"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:roque-lst-new-c": {
+    "/geometry": {
+      "confidence": "approximate",
+      "locator": "OSM way/1263216285 v3 (2026-10-08T06:00:37Z); extract: OSM API map call, bbox -17.915,28.745,-17.875,28.775, fetched 2026-10-25T10:38:47Z",
+      "note": "OpenStreetMap trace (rank 11), so confidence is capped at approximate even where the distance check passes. No numeric official figure for the LST-2/3/4 positions was found, so there is no check.",
+      "quote": "The completion of the four telescopes marks a significant milestone",
+      "sources": [
+        "src:geo-arrays2-roque-osm-lst-new-c",
+        "src:geo-arrays2-ctao-lst-inauguration-2026"
+      ],
+      "verified_at": "2026-10-25"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-arrays2-roque-osm-lst-new-c"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:roque-magic-counting-house": {
+    "/geometry": {
+      "confidence": "approximate",
+      "locator": "OSM way/288988538 v2 (2021-04-03T17:47:57Z); extract: OSM API map call, bbox -17.915,28.745,-17.875,28.775, fetched 2026-10-25T10:38:47Z",
+      "note": "OpenStreetMap footprint; no official dimension was found to check it against.",
+      "quote": null,
+      "sources": [
+        "src:geo-arrays2-roque-osm-magic-counting-house"
+      ],
+      "verified_at": "2026-10-25"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-arrays2-roque-osm-magic-counting-house"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:roque-magic-i": {
+    "/geometry": {
+      "confidence": "approximate",
+      "locator": "OSM way/288251657 v11 (2026-10-08T06:00:37Z); extract: OSM API map call, bbox -17.915,28.745,-17.875,28.775, fetched 2026-10-25T10:38:47Z",
+      "note": "OpenStreetMap trace (rank 11), so confidence is capped at approximate even where the distance check passes.",
+      "quote": null,
+      "sources": [
+        "src:geo-arrays2-roque-osm-magic-i",
+        "src:geo-arrays2-lst1-magic-joint-2023"
+      ],
+      "verified_at": "2026-10-25"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-arrays2-roque-osm-magic-i"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:roque-magic-ii": {
+    "/checks/0": {
+      "confidence": null,
+      "locator": "Performance of the joint LST-1 and MAGIC observations (A&A 2023), section 2.1 'MAGIC'",
+      "note": null,
+      "quote": "MAGIC is a system of two IACTs, separated by a distance of 85 m.",
+      "sources": [
+        "src:geo-arrays2-lst1-magic-joint-2023"
+      ],
+      "verified_at": null
+    },
+    "/geometry": {
+      "confidence": "approximate",
+      "locator": "OSM way/288251656 v9 (2026-10-08T06:00:37Z); extract: OSM API map call, bbox -17.915,28.745,-17.875,28.775, fetched 2026-10-25T10:38:47Z",
+      "note": "OpenStreetMap trace (rank 11), so confidence is capped at approximate even where the distance check passes.",
+      "quote": null,
+      "sources": [
+        "src:geo-arrays2-roque-osm-magic-ii",
+        "src:geo-arrays2-lst1-magic-joint-2023"
+      ],
+      "verified_at": "2026-10-25"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-arrays2-roque-osm-magic-ii"
       ],
       "verified_at": null
     }
@@ -52976,16 +53479,30 @@
       "verified_at": null
     }
   },
-  "geometry:veritas-array-point": {
-    "/geometry": {
-      "confidence": "verified",
-      "locator": "VERITAS Specifications page",
-      "note": "'verified': representation is 'surveyed' from a rank<=10 official source.",
-      "quote": "VERITAS is located near Tucson, Arizona: at +31 40' 30.21\", -110 57' 7.77\"",
+  "geometry:veritas-array-quadrilateral": {
+    "/checks/0": {
+      "confidence": null,
+      "locator": "Perkins and Maier 2009, Figure 1: new-layout side labels 99m (T1-T2), 102m (T2-T4), 81m (T4-T3), 127m (T3-T1), summed",
+      "note": null,
+      "quote": "the new layout distances range from 81 m to 127 m",
       "sources": [
-        "src:cosmic-gamma-veritas-official-specifications-page"
+        "src:geo-arrays2-veritas-perkins-2009"
       ],
-      "verified_at": "2026-09-18"
+      "verified_at": null
+    },
+    "/geometry": {
+      "confidence": "derived",
+      "locator": "vertices: OSM node/664910895 (T1), node/664910802 (T2), node/664910849 (T4), node/664910876 (T3), as of the 2026-10-25T10:39:02Z OSM API extract; Perkins and Maier 2009 Figure 1",
+      "note": "Confidence 'derived' per contract: a derived shape is derived, even with a passing check.",
+      "quote": "the new layout distances range from 81 m to 127 m",
+      "sources": [
+        "src:geo-arrays2-veritas-osm-t1",
+        "src:geo-arrays2-veritas-osm-t2",
+        "src:geo-arrays2-veritas-osm-t3",
+        "src:geo-arrays2-veritas-osm-t4",
+        "src:geo-arrays2-veritas-perkins-2009"
+      ],
+      "verified_at": "2026-10-25"
     },
     "/sources": {
       "confidence": null,
@@ -52993,7 +53510,174 @@
       "note": null,
       "quote": null,
       "sources": [
-        "src:cosmic-gamma-veritas-official-specifications-page"
+        "src:geo-arrays2-veritas-osm-t1",
+        "src:geo-arrays2-veritas-osm-t2",
+        "src:geo-arrays2-veritas-osm-t3",
+        "src:geo-arrays2-veritas-osm-t4"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:veritas-basecamp-landuse": {
+    "/geometry": {
+      "confidence": "approximate",
+      "locator": "OSM way/52218708 v1 (2010-03-13T00:30:32Z); extract: OSM API map call, bbox -110.970,31.662,-110.935,31.690, fetched 2026-10-25T10:39:02Z",
+      "note": "Land-use outline from 2010 (version 1), no official figure to check against.",
+      "quote": null,
+      "sources": [
+        "src:geo-arrays2-veritas-osm-flwo-landuse"
+      ],
+      "verified_at": "2026-10-25"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-arrays2-veritas-osm-flwo-landuse"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:veritas-t1": {
+    "/checks/0": {
+      "confidence": null,
+      "locator": "Perkins and Maier 2009, Figure 1 (aerial view of the new array layout): the arrow between T1 and T2 is labelled '99m'; text on page 2: new-layout distances 81 m to 127 m",
+      "note": null,
+      "quote": "the new layout distances range from 81 m to 127 m",
+      "sources": [
+        "src:geo-arrays2-veritas-perkins-2009"
+      ],
+      "verified_at": null
+    },
+    "/geometry": {
+      "confidence": "approximate",
+      "locator": "OSM node/664910895 v3 (2026-10-08T06:05:59Z); extract: OSM API map call, bbox -110.970,31.662,-110.935,31.690, fetched 2026-10-25T10:39:02Z",
+      "note": "OpenStreetMap point (rank 11), so confidence is capped at approximate. The distance checks use a 7 % tolerance, which is what a 10-15 m placement error on a 100 m spacing amounts to; the published spacings are integers read from labels on an aerial photograph.",
+      "quote": null,
+      "sources": [
+        "src:geo-arrays2-veritas-osm-t1",
+        "src:geo-arrays2-veritas-perkins-2009"
+      ],
+      "verified_at": "2026-10-25"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-arrays2-veritas-osm-t1"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:veritas-t2": {
+    "/checks/0": {
+      "confidence": null,
+      "locator": "Perkins and Maier 2009, Figure 1 (aerial view of the new array layout): the arrow between T2 and T4 is labelled '102m'; text on page 2: new-layout distances 81 m to 127 m",
+      "note": null,
+      "quote": "the new layout distances range from 81 m to 127 m",
+      "sources": [
+        "src:geo-arrays2-veritas-perkins-2009"
+      ],
+      "verified_at": null
+    },
+    "/geometry": {
+      "confidence": "approximate",
+      "locator": "OSM node/664910802 v3 (2026-10-08T06:05:59Z); extract: OSM API map call, bbox -110.970,31.662,-110.935,31.690, fetched 2026-10-25T10:39:02Z",
+      "note": "OpenStreetMap point (rank 11), so confidence is capped at approximate. The distance checks use a 7 % tolerance, which is what a 10-15 m placement error on a 100 m spacing amounts to; the published spacings are integers read from labels on an aerial photograph.",
+      "quote": null,
+      "sources": [
+        "src:geo-arrays2-veritas-osm-t2",
+        "src:geo-arrays2-veritas-perkins-2009"
+      ],
+      "verified_at": "2026-10-25"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-arrays2-veritas-osm-t2"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:veritas-t3": {
+    "/checks/0": {
+      "confidence": null,
+      "locator": "Perkins and Maier 2009, Figure 1 (aerial view of the new array layout): the arrow between T3 and T1 is labelled '127m'; text on page 2: new-layout distances 81 m to 127 m",
+      "note": null,
+      "quote": "the new layout distances range from 81 m to 127 m",
+      "sources": [
+        "src:geo-arrays2-veritas-perkins-2009"
+      ],
+      "verified_at": null
+    },
+    "/checks/1": {
+      "confidence": null,
+      "locator": "Perkins and Maier 2009, Figure 1 (aerial view of the new array layout): the arrow between T3 and T2 is labelled '111m'; text on page 2: new-layout distances 81 m to 127 m",
+      "note": null,
+      "quote": "the new layout distances range from 81 m to 127 m",
+      "sources": [
+        "src:geo-arrays2-veritas-perkins-2009"
+      ],
+      "verified_at": null
+    },
+    "/geometry": {
+      "confidence": "approximate",
+      "locator": "OSM node/664910876 v3 (2026-10-08T06:05:59Z); extract: OSM API map call, bbox -110.970,31.662,-110.935,31.690, fetched 2026-10-25T10:39:02Z",
+      "note": "OpenStreetMap point (rank 11), so confidence is capped at approximate. The distance checks use a 7 % tolerance, which is what a 10-15 m placement error on a 100 m spacing amounts to; the published spacings are integers read from labels on an aerial photograph.",
+      "quote": null,
+      "sources": [
+        "src:geo-arrays2-veritas-osm-t3",
+        "src:geo-arrays2-veritas-perkins-2009"
+      ],
+      "verified_at": "2026-10-25"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-arrays2-veritas-osm-t3"
+      ],
+      "verified_at": null
+    }
+  },
+  "geometry:veritas-t4": {
+    "/checks/0": {
+      "confidence": null,
+      "locator": "Perkins and Maier 2009, Figure 1 (aerial view of the new array layout): the arrow between T4 and T3 is labelled '81m'; text on page 2: new-layout distances 81 m to 127 m",
+      "note": null,
+      "quote": "the new layout distances range from 81 m to 127 m",
+      "sources": [
+        "src:geo-arrays2-veritas-perkins-2009"
+      ],
+      "verified_at": null
+    },
+    "/geometry": {
+      "confidence": "approximate",
+      "locator": "OSM node/664910849 v3 (2026-10-08T06:05:59Z); extract: OSM API map call, bbox -110.970,31.662,-110.935,31.690, fetched 2026-10-25T10:39:02Z",
+      "note": "OpenStreetMap point (rank 11), so confidence is capped at approximate. The distance checks use a 7 % tolerance, which is what a 10-15 m placement error on a 100 m spacing amounts to; the published spacings are integers read from labels on an aerial photograph.",
+      "quote": null,
+      "sources": [
+        "src:geo-arrays2-veritas-osm-t4",
+        "src:geo-arrays2-veritas-perkins-2009"
+      ],
+      "verified_at": "2026-10-25"
+    },
+    "/sources": {
+      "confidence": null,
+      "locator": null,
+      "note": null,
+      "quote": null,
+      "sources": [
+        "src:geo-arrays2-veritas-osm-t4"
       ],
       "verified_at": null
     }
@@ -70538,13 +71222,22 @@
       "sources": null,
       "verified_at": null
     },
+    "/schematics/0": {
+      "confidence": null,
+      "locator": null,
+      "note": "Official CTAO layout figure with no scale bar or coordinate axes; shows 14 MSTs, 37 SSTs, foundations for 4 LSTs and 3 SSTs, and calibration devices. Topology only. Never drawn on the to-scale map.",
+      "quote": null,
+      "sources": null,
+      "verified_at": null
+    },
     "/sources": {
       "confidence": null,
       "locator": null,
       "note": null,
       "quote": null,
       "sources": [
-        "src:cosmic-gamma-verify-ctao-south-site-page"
+        "src:cosmic-gamma-verify-ctao-south-site-page",
+        "src:geo-arrays2-ctao-alpha-layouts-news"
       ],
       "verified_at": null
     }
@@ -70950,7 +71643,8 @@
       "note": null,
       "quote": null,
       "sources": [
-        "src:cosmic-gamma-veritas-official-specifications-page"
+        "src:cosmic-gamma-veritas-official-specifications-page",
+        "src:geo-arrays2-veritas-perkins-2009"
       ],
       "verified_at": null
     }
@@ -70981,7 +71675,9 @@
       "quote": null,
       "sources": [
         "src:cosmic-gamma-hess-official-site-page",
-        "src:geo-arrays-hess-telescopes-page"
+        "src:geo-arrays-hess-telescopes-page",
+        "src:geo-arrays2-hess-crab-2006",
+        "src:geo-arrays2-hess-puhlhofer-2024"
       ],
       "verified_at": null
     }
@@ -71603,19 +72299,27 @@
   },
   "map:roque-de-los-muchachos-observatory": {
     "/center": {
-      "confidence": "approximate",
-      "locator": "Nominatim search result for 'Observatorio del Roque de los Muchachos'",
-      "note": "Map centre only; not a claim about any structure.",
-      "quote": null,
+      "confidence": "verified",
+      "locator": "CTAO-North array page, 'Array Coordinates' block (28 45 43.7904 N, 17 53 31.218 W converted to decimal degrees)",
+      "note": "Map centre only; not a claim about any structure. The published array coordinate is a reference point of the planned 13-telescope array: the six built telescopes lie 70 to 200 m from it.",
+      "quote": "Latitude: 28º 45′ 43.7904″ North Longitude: 17º 53′ 31.218″ West",
       "sources": [
-        "src:cosmic-gamma-nominatim-roque-de-los-muchachos"
+        "src:geo-arrays2-ctao-north-array-page"
       ],
-      "verified_at": "2026-09-18"
+      "verified_at": "2026-10-25"
     },
     "/levels/0": {
       "confidence": null,
       "locator": null,
       "note": "Both experiments' telescopes are at the surface.",
+      "quote": null,
+      "sources": null,
+      "verified_at": null
+    },
+    "/schematics/0": {
+      "confidence": null,
+      "locator": null,
+      "note": "Official CTAO layout figure with no scale bar or coordinate axes; shows the four LSTs, nine MSTs and the MAGIC telescopes. Topology only. Never drawn on the to-scale map.",
       "quote": null,
       "sources": null,
       "verified_at": null
@@ -71626,21 +72330,25 @@
       "note": null,
       "quote": null,
       "sources": [
-        "src:cosmic-gamma-nominatim-roque-de-los-muchachos"
+        "src:cosmic-gamma-nominatim-roque-de-los-muchachos",
+        "src:geo-arrays2-ctao-alpha-layouts-news",
+        "src:geo-arrays2-ctao-lst-inauguration-2026",
+        "src:geo-arrays2-ctao-north-array-page",
+        "src:geo-arrays2-lst1-magic-joint-2023"
       ],
       "verified_at": null
     }
   },
   "map:sierra-negra": {
     "/center": {
-      "confidence": "verified",
-      "locator": "The HAWC Gamma-Ray Observatory: Design, Calibration, and Operation, site-description section",
-      "note": "Map centre only; not a claim about any structure. Uses the array's own published coordinate.",
-      "quote": "The geographical latitude of the site is 18.99 ... The geographical longitude of the HAWC site, 97.31 W.",
+      "confidence": "derived",
+      "locator": "centroid of the convex hull of the 300 OSM tank footprints (geometry:hawc-tank-field-hull)",
+      "note": "Map centre only; not a claim about any structure. Lies 0.6 km from the HAWC paper's rounded site coordinate (18.99 N, 97.31 W, good to 0.01 degree), as it should.",
+      "quote": null,
       "sources": [
-        "src:cosmic-gamma-hawc-design-paper-arxiv-2013"
+        "src:geo-arrays2-hawc-osm-tank-field"
       ],
-      "verified_at": "2026-09-18"
+      "verified_at": "2026-10-25"
     },
     "/levels/0": {
       "confidence": null,
@@ -71656,7 +72364,9 @@
       "note": null,
       "quote": null,
       "sources": [
-        "src:cosmic-gamma-hawc-design-paper-arxiv-2013"
+        "src:cosmic-gamma-hawc-design-paper-arxiv-2013",
+        "src:geo-arrays2-hawc-osm-tank-field",
+        "src:geo-arrays2-hawc-outrigger-2019"
       ],
       "verified_at": null
     }
@@ -81312,14 +82022,14 @@
   },
   "site:roque-de-los-muchachos-gamma-ray-array": {
     "/coordinates": {
-      "confidence": "approximate",
-      "locator": null,
-      "note": "Geocode of the general ORM campus area per A23; both the MAGIC telescopes and CTAO-North's telescopes (including the LST-1 prototype) sit within this observatory but at their own distinct points a few hundred metres apart. No source fetched this session gave separate decimal coordinates for the MAGIC pads versus the CTAO-North array, so both experiments' detector records place at this single shared, approximate point rather than inventing a distinction.",
-      "quote": "Observatorio del Roque de los Muchachos, Garafía, Santa Cruz de Tenerife, Canarias, España",
+      "confidence": "verified",
+      "locator": "CTAO-North array-site page, 'Array Coordinates'",
+      "note": "CTAO's published array coordinate for CTAO-North (28°45′43.7904″N, 17°53′31.218″W), converted to decimal degrees. The MAGIC telescopes and the four LSTs stand within about 200 m of it (OpenStreetMap footprints on the local map), hence a 250 m precision for the shared telescope area.",
+      "quote": "Latitude: 28º 45′ 43.7904″ North Longitude: 17º 53′ 31.218″ West",
       "sources": [
-        "src:cosmic-gamma-nominatim-roque-de-los-muchachos"
+        "src:geo-arrays2-ctao-north-array-page"
       ],
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-25"
     },
     "/sources": {
       "confidence": null,
@@ -81327,7 +82037,8 @@
       "note": null,
       "quote": null,
       "sources": [
-        "src:cosmic-gamma-nominatim-roque-de-los-muchachos"
+        "src:cosmic-gamma-nominatim-roque-de-los-muchachos",
+        "src:geo-arrays2-ctao-north-array-page"
       ],
       "verified_at": null
     }

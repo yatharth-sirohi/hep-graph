@@ -4532,12 +4532,6 @@
   "geometry:cngs-direction-line": {
     "notes": []
   },
-  "geometry:ctao-north-lst1-point": {
-    "notes": [
-      "Identical coordinate to geometry:magic-array-point -- see that record's note and the map's own notes for the expected geometry-duplicate-shape warning.",
-      "QA pass (2026-09-21): added the ODbL-1.0 licence this record omitted despite its own `method`/`geometry.note` stating the coordinate is a verbatim Nominatim (OpenStreetMap) geocode; the underlying `src:cosmic-gamma-nominatim-roque-de-los-muchachos` source predates the A25 `openstreetmap` source_type convention (it is typed `geocoder`) and its Nominatim response did not record a specific osm_id, so `osm.elements` is left null rather than invented. No coordinate or claim changed. Same fix applied to the identical case on geometry:magic-array-point."
-    ]
-  },
   "geometry:ctao-south-array-point": {
     "notes": [
       "Individual telescope pad positions are not yet sourced (planned/under construction); backlog: CTAO's own construction-progress or layout pages once individual pads are surveyed and published."
@@ -4680,9 +4674,15 @@
       "Context feature only (entity_id null); site-level accounting for site:reno-near-detector and site:reno-far-detector comes from their own derived hall-point features (geometry:reno-near-detector, geometry:reno-far-detector), not this campus boundary."
     ]
   },
-  "geometry:hawc-array-point": {
+  "geometry:hawc-observatory-polygon": {
+    "notes": []
+  },
+  "geometry:hawc-tank-field-hull": {
+    "notes": []
+  },
+  "geometry:hawc-tanks": {
     "notes": [
-      "300-tank footprint (~20,000-22,500 m2) has no sourced overall outline shape this session; drawn as a point only. Backlog: a HAWC layout diagram or GIS file with tank-by-tank or corner coordinates."
+      "Tanks are drawn as OSM footprints; individual tanks are not named or numbered by any source."
     ]
   },
   "geometry:hera-halle-nord": {
@@ -4696,12 +4696,43 @@
       "QA pass (2026-09-21): removed the `valid: {start: '1990-11-08', end: null}` window a previous pass set for the fact above. hepgraph.atlas.build._feature_segments() treats ANY `valid` dict with a non-null `start` as an open-ended 'active' window through build day whenever `end` is null, overriding the entity's own state_segments entirely -- so this feature was rendering `status: 'active'` in the built bundle today, 19 years after HERA's real 2007-06-30 shutdown (accelerator:hera.status is `completed`). Removing `valid` restores the intended fallback (contract SS3: 'without it the feature inherits the entity's timeline'), confirmed by directly testing hepgraph.atlas.build._Context.status_at_build/segments on accelerator:hera at build day 2026-09-21: now correctly 'completed'. The ~1.5-year tunnel-predates-operation nuance is preserved in the note above, just no longer encoded as a `valid` window. This is a pipeline-code gap (hepgraph/atlas/build.py `_feature_segments`, not caught by any validator rule), not unique to this record -- see docs/atlas-worklog/REVIEW_geometry_qa.md."
     ]
   },
-  "geometry:hess-ct1-4-square": {
+  "geometry:hess-control-building": {
+    "notes": []
+  },
+  "geometry:hess-ct-east": {
     "notes": [
-      "Positioned at the array's own official coordinate, not at an independently surveyed square centre; the square's internal geometry (120 m side, N-S diagonal) is exact, its placement on the ground carries the site point's own 200 m uncertainty. Individual CT1-CT4 identities/positions within the square are not distinguished (no source this session assigns a specific corner to a specific telescope number)."
+      "Which of CT1-CT4 stands at this corner is not stated by any fetched source (the H.E.S.S. Telescopes page says only that the square's diagonal runs north-south). Backlog: a H.E.S.S. instrument paper or array-layout table that numbers the telescopes."
     ]
   },
-  "geometry:hess-ct5-point": {
+  "geometry:hess-ct-north": {
+    "notes": [
+      "Which of CT1-CT4 stands at this corner is not stated by any fetched source (the H.E.S.S. Telescopes page says only that the square's diagonal runs north-south). Backlog: a H.E.S.S. instrument paper or array-layout table that numbers the telescopes."
+    ]
+  },
+  "geometry:hess-ct-south": {
+    "notes": [
+      "Which of CT1-CT4 stands at this corner is not stated by any fetched source (the H.E.S.S. Telescopes page says only that the square's diagonal runs north-south). Backlog: a H.E.S.S. instrument paper or array-layout table that numbers the telescopes."
+    ]
+  },
+  "geometry:hess-ct-west": {
+    "notes": [
+      "Which of CT1-CT4 stands at this corner is not stated by any fetched source (the H.E.S.S. Telescopes page says only that the square's diagonal runs north-south). Backlog: a H.E.S.S. instrument paper or array-layout table that numbers the telescopes."
+    ]
+  },
+  "geometry:hess-ct1-4-square": {
+    "notes": [
+      "The vertices are telescope centres traced by OpenStreetMap mappers; the polygon is the geometric outline of the four telescope positions, not a structure on the ground."
+    ]
+  },
+  "geometry:hess-ct5": {
+    "notes": [
+      "The OSM tag on this way gives telescope:diameter=25m, but the Puhlhofer 2024 review states a reflector diameter of 28 m; the OSM tag is not used."
+    ]
+  },
+  "geometry:hess-residence-building": {
+    "notes": []
+  },
+  "geometry:hess-site-compound": {
     "notes": []
   },
   "geometry:hyper-kamiokande-point": {
@@ -4929,12 +4960,6 @@
       "This is the public two-way road tunnel that the LNGS underground laboratory is dug beside; the tunnel itself is not an LNGS entity (entity_id null, a context feature) but is drawn because the laboratory's own position is defined relative to it (see geometry:lngs-lab-access-zone)."
     ]
   },
-  "geometry:magic-array-point": {
-    "notes": [
-      "Identical coordinate to geometry:ctao-north-lst1-point -- expected to raise the validator's geometry-duplicate-shape warning; both experiments genuinely occupy this same approximate 500 m patch of the observatory and are not resolved to finer precision this session (see map notes and worklog).",
-      "QA pass (2026-09-21): added the ODbL-1.0 licence this record omitted despite its own `method`/`geometry.note` stating the coordinate is a verbatim Nominatim (OpenStreetMap) geocode; the underlying `src:cosmic-gamma-nominatim-roque-de-los-muchachos` source predates the A25 `openstreetmap` source_type convention (it is typed `geocoder`) and its Nominatim response did not record a specific osm_id, so `osm.elements` is left null rather than invented. No coordinate or claim changed. Same fix applied to the identical case on geometry:ctao-north-lst1-point."
-    ]
-  },
   "geometry:meyrin-site-marker": {
     "notes": [
       "QA pass (2026-09-21): added the ODbL-1.0 licence and `osm.elements` this record omitted despite naming OSM relation 27005 (Nominatim) as its coordinate source in `method`; the underlying `src:cern-meyrin-osm-nominatim` source predates the A25 `openstreetmap` source_type convention (it is typed `geocoder`), so the validator's automatic OSM-license check did not catch the omission. No coordinate or claim changed."
@@ -5021,6 +5046,38 @@
       "Integrator (2026-09-21): checks against units 3–6 sit 3.3–3.8 % (10–28 m) from the TDR distances; over 300–740 m baselines that is the expected size of the offset between a reactor-building centroid and the core centre, so the tolerance is 5 % and accuracy_m 30 m rather than the fit residual alone.",
       "Integrator (2026-09-21): ODbL-1.0 licence added — the shape is derived from or copied from OpenStreetMap data (src:geo-reactors-osm-hanbit-reactors), which makes it a derivative database under the ODbL regardless of the derivation step in between."
     ]
+  },
+  "geometry:roque-gamma-ray-telescope-cluster": {
+    "notes": []
+  },
+  "geometry:roque-lst-1": {
+    "notes": [
+      "Drawn with its entity's status (CTAO is under construction). Per the CTAO-North page, LST-1 'was completed on site in October 2018 and is foreseen to become the CTAO’s first telescope once it has completed its commissioning and is accepted by the CTAO'."
+    ]
+  },
+  "geometry:roque-lst-new-a": {
+    "notes": [
+      "Drawn with its entity's status (CTAO is under construction). Per CTAO (2026-10-15) the four LSTs will now undergo commissioning and integration into CTAO operations. Backlog: the CTAO layout coordinates (as-requested, < 10 m shift) to number the three telescopes and check these footprints."
+    ]
+  },
+  "geometry:roque-lst-new-b": {
+    "notes": [
+      "Drawn with its entity's status (CTAO is under construction). Per CTAO (2026-10-15) the four LSTs will now undergo commissioning and integration into CTAO operations. Backlog: the CTAO layout coordinates (as-requested, < 10 m shift) to number the three telescopes and check these footprints."
+    ]
+  },
+  "geometry:roque-lst-new-c": {
+    "notes": [
+      "Drawn with its entity's status (CTAO is under construction). Per CTAO (2026-10-15) the four LSTs will now undergo commissioning and integration into CTAO operations. Backlog: the CTAO layout coordinates (as-requested, < 10 m shift) to number the three telescopes and check these footprints."
+    ]
+  },
+  "geometry:roque-magic-counting-house": {
+    "notes": []
+  },
+  "geometry:roque-magic-i": {
+    "notes": []
+  },
+  "geometry:roque-magic-ii": {
+    "notes": []
   },
   "geometry:slac-collider-experimental-hall-dmradio": {
     "notes": [
@@ -5122,10 +5179,27 @@
   "geometry:ti18-snd-lhc-point": {
     "notes": []
   },
-  "geometry:veritas-array-point": {
+  "geometry:veritas-array-quadrilateral": {
     "notes": [
-      "Individual T1-T4 positions not resolved this session; only pairwise inter-telescope distances are published (35-127 m). Backlog: an OSM trace of the telescope pads, or a paper/diagram with absolute coordinates or bearings."
+      "Not drawn as a parallelogram or rectangle: the layout is 'not entirely symmetric' (Perkins and Maier 2009). The diagonal T1-T4 (172 m in OSM) is not a published figure and is not checked."
     ]
+  },
+  "geometry:veritas-basecamp-landuse": {
+    "notes": []
+  },
+  "geometry:veritas-t1": {
+    "notes": [
+      "T1 was relocated in summer 2009 (Perkins and Maier 2009); this point is its position after the move."
+    ]
+  },
+  "geometry:veritas-t2": {
+    "notes": []
+  },
+  "geometry:veritas-t3": {
+    "notes": []
+  },
+  "geometry:veritas-t4": {
+    "notes": []
   },
   "geometry:wipp-boundary": {
     "notes": []
@@ -7403,7 +7477,9 @@
   },
   "map:ctao-south-paranal": {
     "notes": [
-      "Facility status is 'construction'; individual telescope positions are planned, not yet built/surveyed, per CTAO's own site description."
+      "Facility status is 'construction'. The approved Alpha Configuration (14 MSTs and 37 SSTs over about 3 km2, plus foundations for four LSTs and three more SSTs) defines the position of every telescope, but CTAO publishes the layout only as an unscaled figure (no scale bar, no coordinate axes) and says the released coordinates are 'as-requested', with final positions shifting by less than ten metres. No coordinate table was found on the CTAO site, the news page or the press coverage fetched on 2026-10-25, so no telescope pad is drawn.",
+      "OpenStreetMap way 939135727 ('Cherenkov Telescope Array - Southern Hemisphere Site', landuse=construction, 20 nodes, version 2, 2025-02-25; read with the OSM API map call at 2026-10-25T10:38:39Z) was considered and not drawn: it is a near-elliptical outline of 2.04 km2, 32 % smaller than the 3 km2 the array is published to cover, with its centroid 374 m from the published array coordinate, so it can be neither the array footprint nor a site boundary that contains it.",
+      "The only to-scale feature is the array's published coordinate (24d41'0.34\"S, 70d18'58.84\"W), good to metres as printed but a reference point of the layout, not a structure."
     ],
     "summary_technical": "One local map for facility:ctao-south-paranal. Drawn as a single reference point at CTAO's own official published array-site coordinate; the planned telescope grid (eventually 2 LST + 14 MST + 37 SST) has no published individual pad coordinates this session."
   },
@@ -7430,16 +7506,18 @@
   },
   "map:fred-lawrence-whipple-observatory": {
     "notes": [
-      "Overpass (OpenStreetMap) was unreachable for the whole of this research session -- an OSM trace of the individual telescope pads (which the brief's own leads suggested, noting Whipple is 'often mapped') could not be attempted. See worklog."
+      "Telescope positions are OpenStreetMap nodes (telescopes T1-T4, source=yahoo, edited 2026-10-08), read with the OSM API map call on 2026-10-25 because Overpass answered 502 at capacity. Their spacings agree with the labels of Figure 1 of Perkins and Maier 2009 to within 7 % (four of five labels within 4 %), and T1 is at its post-2009 position.",
+      "Buildings of the basecamp (the OSM polygons of the administrative complex and car parks) are unnamed and are not drawn; no fetched source identifies them.",
+      "Distance T1-T4 (172 m in OSM) is not in any fetched text; Figure 4 of the 2025 VERITAS overview (arXiv:2507.09813; y axis north) shows T1 about 170 m east of T4 by eye, consistent with OSM, but a figure read by eye is not cited as a source."
     ],
-    "summary_technical": "One local map for facility:fred-lawrence-whipple-observatory. VERITAS is drawn as a single reference point at its own official published coordinate; the four individual telescopes (T1-T4, ~35-127 m apart) are not resolved separately this session (see geometry record notes)."
+    "summary_technical": "Four telescope points from OpenStreetMap nodes, each checked by centroid-to-centroid distance against the spacings labelled in Figure 1 of Perkins and Maier 2009 (7 % tolerance); the array outline is the quadrilateral through them with a perimeter check of 409 m (sum of the four labelled sides). Map centre is the collaboration's published array coordinate (31d40'30.21\"N, 110d57'7.77\"W), 24 m from the OSM quadrilateral's centroid."
   },
   "map:hess-khomas-highland": {
     "notes": [
-      "Individual CT1-CT4 telescope positions within the square (which corner is which) are not distinguished; no source fetched this session assigns telescope numbers to corners.",
-      "Overpass (OpenStreetMap) was unreachable for the whole of this research session (connection refused on every attempt, from multiple mirrors) -- an OSM trace of the individual telescope pads, which the brief's own leads suggested as a cross-check, could not be attempted. See worklog."
+      "Telescope positions are OpenStreetMap traces (ways 171900951, 171900954, 171900955, 171900956 for the four 12 m telescopes, 171900953 for CT5), read with the OSM API map call on 2026-10-25 because Overpass answered 502 at capacity. The corner telescopes are not numbered: no fetched source says which of CT1-CT4 stands at which corner.",
+      "Other unnamed OpenStreetMap buildings stand in and around the compound; the Puhlhofer 2024 review says the site has 'multiple halls for the storage of spare parts and technical equipment' but none of these polygons is identified as such, so they are not drawn."
     ],
-    "summary_technical": "One local map for facility:hess-khomas-highland. The CT1-CT4 square (120 m side, diagonal oriented north-south) is derived from the collaboration's own stated array geometry, centred on the array's official published coordinate; CT5 reuses that same coordinate as its own position ('centre of the array' per the same source)."
+    "summary_technical": "Telescope footprints from OpenStreetMap (five ways, centroid-to-centroid distances checked against the published 120 m square side and the 120 m/sqrt(2) centre-to-corner distance); the array outline is the quadrilateral through the four corner centroids, with a perimeter check of 480 m. Map centre is the collaboration's published array coordinate (23d16'18\"S 16d30'00\"E, good to one arc-second), which lies 21 m from the OSM CT5 centroid."
   },
   "map:j-parc": {
     "notes": [
@@ -7541,17 +7619,20 @@
   },
   "map:roque-de-los-muchachos-observatory": {
     "notes": [
-      "geometry:magic-array-point and geometry:ctao-north-lst1-point share the exact same coordinate -- expected to raise the validator's geometry-duplicate-shape warning; both experiments genuinely occupy this same approximate patch and are not resolved to finer precision this session.",
-      "Overpass (OpenStreetMap) was unreachable for the whole of this research session -- an OSM trace distinguishing the MAGIC-I/MAGIC-II/LST-1 pads (which the brief's own leads suggested, noting Roque is 'often mapped') could not be attempted. See worklog.",
-      "The commonly cited value 28°45'43\"N 17°53'24\"W for MAGIC and ~100 m for LST-1's distance from it were found via multiple secondary sources this session but could not be confirmed against a primary source fetched directly (every attempt to fetch a MAGIC/LST technical paper returned no coordinate text) -- not used, flagged as an unverified candidate in the worklog."
+      "Telescope footprints are OpenStreetMap ways (MAGIC I and II, LST-1, three newer LSTs), read with the OSM API map call on 2026-10-25 because Overpass answered 502 at capacity. The MAGIC separation (85 m) and the LST-1 distance from MAGIC ('~100 m') come from the joint LST-1/MAGIC paper (arXiv:2310.01954).",
+      "The three newer LSTs are not numbered in OSM or in any fetched source; they are named by OSM way. CTAO announced the inauguration of the four-LST sub-array on 2026-10-15 and says the telescopes will now be commissioned. All CTAO features inherit experiment:ctao's 'construction' status, so LST-1 (observing since 2018) is drawn with the same status as the new LSTs.",
+      "The planned CTAO-North layout (four LSTs and nine MSTs over about 0.5 km2) is published only as an unscaled figure; the nine MSTs are not drawn. OSM also maps FACT (a small Cherenkov telescope that is not an atlas entity) and many optical telescopes, which are not part of this facility's inventory."
     ],
-    "summary_technical": "One local map for facility:roque-de-los-muchachos-observatory, shared by experiment:magic and experiment:ctao (CTAO-North). Both are drawn at the same approximate campus point (precision_m 500) because no source fetched this session gives separate decimal coordinates for the MAGIC pads versus the CTAO-North/LST-1 site, matching the existing site record's own documented limitation."
+    "summary_technical": "Six telescope footprints and the MAGIC counting house from OpenStreetMap; the MAGIC-I to MAGIC-II distance is checked against the published 85 m, LST-1 against the published ~100 m from MAGIC. The outline is the convex hull of the six footprints. Map centre is CTAO-North's published array coordinate."
   },
   "map:sierra-negra": {
     "notes": [
-      "site:hawc-sierra-negra currently carries a coarser (precision_m 3000) Nominatim geocode of the Sierra Negra peak; the array's own coordinate found this session is reported as a site coordinate correction candidate in the worklog."
+      "Tank positions are OpenStreetMap footprints (300 ways traced together in 2017), read with the OSM API map call on 2026-10-25 because Overpass answered 502 at capacity. The tank count (300), the field area (hull 22.4 thousand m2 against the paper's 22,000 and 22,395 m2) and the summed tank area (13.1 thousand m2 against 12.6 thousand m2 for 300 circles of 7.3 m) all match the HAWC paper.",
+      "The 345 outrigger tanks (1.55 m diameter, 'concentric circular symmetric' around the main array, 12 to 18 m apart; arXiv:1908.06650) are not drawn: no fetched source gives their positions and OSM has none of them. Backlog: the outrigger layout table or GIS from the HAWC collaboration.",
+      "The HAWC Utility Building ('installed East to the tank array platform') and the counting house have no named OSM polygon; the LMT on the Sierra Negra summit is a separate facility about 1.3 km to the south-west and is not drawn.",
+      "site:hawc-sierra-negra carries the paper's coordinate rounded to 0.01 degree (precision_m 600); a tighter proposal from the tank field is in the worklog."
     ],
-    "summary_technical": "One local map for facility:sierra-negra. Drawn as a single reference point at the array's own published coordinate (18.99N, 97.31W), tighter than the existing site record's Nominatim peak-geocode point; the 300-tank footprint has no sourced overall outline shape this session."
+    "summary_technical": "The 300 tank footprints come from OpenStreetMap and are checked by summed area against 300 circles of the published 7.3 m diameter; the tank-field outline is their convex hull, checked against the published 22,000 m2 array area and the 22,395 m2 platform. Map centre is the hull centroid."
   },
   "map:slac": {
     "notes": [
