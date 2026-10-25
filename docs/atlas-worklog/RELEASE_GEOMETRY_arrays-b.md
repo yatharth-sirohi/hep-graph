@@ -102,3 +102,64 @@ Not drawn and why (backlog):
    none is identified as a hall, so none is drawn.
 3. The 36 m / 13.6 m azimuth rails: stated as rail diameters in the review but
    not mapped.
+
+---
+
+## 2. VERITAS at the Whipple Observatory basecamp (`map:fred-lawrence-whipple-observatory`)
+
+Grade before: **partial** (1 feature: a single reference point). Grade after:
+**layout to scale** (6 features: array outline, four telescopes, basecamp
+landuse outline).
+
+| Entity / feature | Drawn? | Representation | accuracy_m | Check (expected vs measured) |
+| --- | --- | --- | ---: | --- |
+| `geometry:veritas-t1` .. `-t4` (experiment:veritas; four 12 m telescopes) | drawn | georeferenced (OSM nodes 664910895 T1, 664910802 T2, 664910876 T3, 664910849 T4) | 15 | spacings from Perkins and Maier 2009 Figure 1 labels, tolerance 7 %: T1-T2 99 m vs 105.3 (+6.4 %); T2-T4 102 vs 98.1 (-3.8 %); T4-T3 81 vs 81.6 (+0.7 %); T3-T1 127 vs 125.1 (-1.5 %); T3-T2 111 vs 112.2 (+1.1 %): all pass |
+| `geometry:veritas-array-quadrilateral` (site:mount-hopkins-veritas) | drawn | derived (quadrilateral T1-T2-T4-T3 through the OSM nodes) | 15 | perimeter, expected 409 m (99+102+81+127): measured 410.1 m, pass at 3 % (0.27 %) |
+| `geometry:veritas-basecamp-landuse` | drawn | georeferenced (OSM way 52218708, landuse polygon named FLWO) | 20 | none |
+| basecamp buildings | not drawn | | | unnamed OSM polygons, no fetched source identifies them |
+| `map.unlocated[]` | empty | | | nothing of this facility's inventory is unplaced |
+
+The previous single point `geometry:veritas-array-point` is removed (the array
+outline carries the site id).
+
+Principal sources: OSM nodes `https://www.openstreetmap.org/node/664910895`
+(T1), `/node/664910802` (T2), `/node/664910876` (T3), `/node/664910849` (T4);
+OSM way `https://www.openstreetmap.org/way/52218708`; Perkins and Maier 2009,
+`https://arxiv.org/abs/0912.3841` (text: "the new layout distances range from
+81 m to 127 m"; the five spacings are labels on Figure 1, an aerial photograph
+of the new layout, and are quoted from there in each check's `locator`).
+
+Source conflicts and judgement calls:
+
+* **The published "81 m to 127 m" is not the full range of the array.** Figure 1
+  of Perkins and Maier labels the four sides of the new quadrilateral and the
+  T2-T3 diagonal, and omits the other diagonal, T1-T4. OSM puts T1-T4 at
+  171.7 m. The official layout diagram in Hanna and Mukherjee 2025
+  (`https://arxiv.org/abs/2507.09813`, Figure 4, axes in metres, y north) shows
+  T1 (new) at roughly x = 136 m and T4 at x = -35 m, i.e. about 170 m apart by
+  eye, agreeing with OSM; the same figure places the old T1 about 35 m from T4,
+  agreeing with Perkins' 35 m. A figure read by eye is not cited as a source or
+  used in a check.
+* **OSM T1-T2 is 105.3 m against the 99 m label (+6.4 %).** Within the 10-15 m
+  tracing accuracy of a point on a 12 m dish for a 100 m baseline, but it is
+  the reason the distance checks carry a 7 % tolerance rather than 3 %. The
+  perimeter check (sum of four sides) is at 0.27 %, because the over- and
+  under-estimates cancel.
+* The published array coordinate on the existing map centre
+  (31d40'30.21"N, 110d57'7.77"W) lies 24 m from the centroid of the OSM
+  quadrilateral. Not a check.
+
+Site coordinate corrections: none required (`site:mount-hopkins-veritas`,
+precision_m 100, is consistent with the OSM positions to 24 m).
+
+Not drawn and why (backlog):
+
+1. Absolute telescope coordinates: no fetched text gives them. The VERITAS
+   Eventdisplay software (GitHub `VERITAS-Observatory/Eventdisplay_v4`,
+   Zenodo 18592127) is the likely place to find a telescope-position table and
+   could replace the OSM points with a `surveyed` layout.
+2. The T1-T4 diagonal as a published figure.
+3. Basecamp buildings (administrative complex, control room): not identified
+   in OSM.
+4. The Whipple 10 m telescope on the Mount Hopkins summit, not part of this
+   facility's inventory and out of the basecamp map's extent.
