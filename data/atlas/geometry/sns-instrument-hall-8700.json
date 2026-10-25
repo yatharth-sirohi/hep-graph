@@ -1,0 +1,187 @@
+{
+  "accuracy_m": 10,
+  "aliases": [],
+  "checks": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "depth_m": null,
+  "entity_id": null,
+  "feature_type": "building",
+  "geometry": {
+    "confidence": "approximate",
+    "locator": "OSM way/443660319 version 5 (2023-10-28T17:33:16Z) read 2026-10-25T11:43:00Z; ORNL map CL_ornl.xml POLY_2015071748086 '8700 Instrument Hall'",
+    "note": "Context feature: no atlas entity depicts the hall itself. Identity rests on georeferencing ORNL's map polygon onto the OSM footprint (30 m centroid offset with 8700 left out of the fit), not on a source that names the OSM building.",
+    "sources": [
+      "src:geo-ornl-osm-sns-instrument-hall",
+      "src:geo-ornl-interactive-map"
+    ],
+    "value": {
+      "coordinates": [
+        [
+          [
+            -84.3007856,
+            35.9530047
+          ],
+          [
+            -84.3006262,
+            35.9529347
+          ],
+          [
+            -84.3006892,
+            35.9528408
+          ],
+          [
+            -84.300583,
+            35.9527942
+          ],
+          [
+            -84.3005194,
+            35.9528892
+          ],
+          [
+            -84.2998997,
+            35.9526172
+          ],
+          [
+            -84.2998537,
+            35.9526858
+          ],
+          [
+            -84.2997789,
+            35.9527974
+          ],
+          [
+            -84.2996933,
+            35.9527598
+          ],
+          [
+            -84.2996666,
+            35.9527996
+          ],
+          [
+            -84.299592,
+            35.952911
+          ],
+          [
+            -84.2996806,
+            35.9529498
+          ],
+          [
+            -84.2996294,
+            35.953028
+          ],
+          [
+            -84.2995726,
+            35.9531148
+          ],
+          [
+            -84.2997597,
+            35.9531916
+          ],
+          [
+            -84.2997372,
+            35.9532114
+          ],
+          [
+            -84.2995799,
+            35.9532561
+          ],
+          [
+            -84.2996494,
+            35.9534264
+          ],
+          [
+            -84.2998639,
+            35.9533685
+          ],
+          [
+            -84.2998516,
+            35.9533305
+          ],
+          [
+            -84.2999966,
+            35.9532957
+          ],
+          [
+            -84.3000457,
+            35.9533205
+          ],
+          [
+            -84.2999558,
+            35.9534561
+          ],
+          [
+            -84.3000824,
+            35.9535173
+          ],
+          [
+            -84.3001764,
+            35.9533801
+          ],
+          [
+            -84.3002254,
+            35.9533983
+          ],
+          [
+            -84.3001539,
+            35.953509
+          ],
+          [
+            -84.3002744,
+            35.9535619
+          ],
+          [
+            -84.300348,
+            35.9534561
+          ],
+          [
+            -84.3004509,
+            35.9535038
+          ],
+          [
+            -84.3007856,
+            35.9530047
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    },
+    "verified_at": "2026-10-25"
+  },
+  "id": "geometry:sns-instrument-hall-8700",
+  "level_id": "surface",
+  "license": {
+    "attribution": "© OpenStreetMap contributors",
+    "name": "ODbL-1.0",
+    "url": "https://www.openstreetmap.org/copyright"
+  },
+  "links": {
+    "website": null
+  },
+  "map_id": "map:oak-ridge-national-laboratory",
+  "method": "OpenStreetMap way 443660319 (building=yes, no name, 31 nodes, version 5, 2023-10-28T17:33:16Z) used verbatim: 6866 m2, largest extent 114 m. It is identified with ORNL building 8700 'Instrument Hall' by the same georeferencing as the linac record: ORNL's map polygon '8700 Instrument Hall' (92 vertices) transforms onto this footprint's position with a centroid offset of 30 m when 8700 is left out of the four-anchor fit (11 m when it is included), and its area transforms to about 5900 m2 against 6866 m2. ORNL's building text says 'Instrument Hall contains the SNS back-end system including the heavy-metal target, a vessel of liquid mercury, and 20 active beam lines'; so the target and the instruments are inside this footprint, but the target's own position within it is not sourced. Fit details: ORNL's interactive map (src:geo-ornl-interactive-map) has one map, 'Chestnut Ridge' (UMAP_2015071721664, 7000 x 4000 px), with seven labelled polygons: 8600 CLO, 8610 CNMS, 8630 JINS, 8640 Guest House, 8700 Instrument Hall, Second Target Station and 'SNS LINEAR Accelerator and Klystron Gallery'. The polygons are in the map's image units (x and y both scaled to the half-width). A similarity transform (rotation, uniform scale, translation, one mirror) from those units to metres was fitted by least squares to four pairs whose OSM footprints are identifiable by name or by size: the Guest House (OSM way 892578468, named 'ORNL Guest House', addr:housenumber 8640) and, by matching size and position, CLO to way 892578439, 8700 to way 443660319 and JINS to way 892578446. Fit: scale 673 m per image unit, rotation 18 deg, residual of the four anchors 9-13 m; leave-one-out predictions of an omitted anchor are 15-30 m off. Transforming the linac polygon with that fit puts its centroid 37 m (leave-one-out range 37-66 m) from the centroid of OSM way 892578460, with long axes at 20 and 28 deg and lengths along the axis of 403 m (ORNL polygon, hand-drawn, includes the klystron-gallery offsets) and 369 m (OSM). Way 892578460 is the only long thin building of the 25 in the SNS complex (the next longest, way 892578439, is 269 m in span but 8042 m2 in area, i.e. 30 m wide on average, and lies about 550 m east of where the ORNL polygon falls). The ORNL polygons were not copied; they only identify the OSM footprint. ",
+  "name": "SNS Instrument Hall, building 8700 (target and neutron beam lines)",
+  "notes": [
+    "The Neutrino Alley basement corridor is described by ORNL as lying about 20 m from the target, but no fetched source states that it lies under building 8700, so it is not drawn."
+  ],
+  "osm": {
+    "elements": [
+      "way/443660319"
+    ],
+    "timestamp": "2026-10-25T11:43:00Z"
+  },
+  "representation": "georeferenced",
+  "schema": "hep-atlas/0.2",
+  "site_id": null,
+  "sources": [
+    "src:geo-ornl-osm-sns-instrument-hall",
+    "src:geo-ornl-interactive-map"
+  ],
+  "summary": {
+    "plain": "The large building at the east end of the Spallation Neutron Source accelerator complex that holds the mercury target and the neutron instruments."
+  },
+  "type": "geometry",
+  "valid": null
+}

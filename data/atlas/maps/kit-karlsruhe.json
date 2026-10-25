@@ -36,7 +36,8 @@
   "name": "KIT Campus North — KATRIN experiment and Tritium Laboratory",
   "notes": [
     "No accelerator or beamline record exists for KIT in the atlas, so the KATRIN setup is represented by detector:katrin (outline) and the beamline is listed as unlocated against the facility.",
-    "The previous KIT worklog (GEOMETRY_desy-psi-kit.md) found no building for KATRIN because Overpass was down and Nominatim cannot search by tag. The element used here, way 394890935, was found through the OSM API bounding-box read."
+    "The previous KIT worklog (GEOMETRY_desy-psi-kit.md) found no building for KATRIN because Overpass was down and Nominatim cannot search by tag. The element used here, way 394890935, was found through the OSM API bounding-box read.",
+    "Release pass 2 (2026-10-25): the beam axis and the main spectrometer vessel were added as derived shapes; their direction and spacing are sourced, their position inside the hall is bounded by constraints (accuracy 20 m), as described in each record."
   ],
   "schema": "hep-atlas/0.2",
   "schematics": [],
@@ -48,21 +49,25 @@
     "src:geo-kit-osm-campus-north",
     "src:geo-kit-katrin-design-paper",
     "src:geo-kit-katrin-experimental-setup-page",
-    "src:geo-kit-tlk-handout"
+    "src:geo-kit-tlk-handout",
+    "src:geo-kit-katrin-lorentz-2022",
+    "src:geo-kit-katrin-aircoil-2013",
+    "src:geo-kit-katrin-tdr-2004"
   ],
   "summary": {
-    "plain": "KIT Campus North near Karlsruhe, drawn to scale with the footprint of the KATRIN neutrino-mass experiment and the two buildings of the Tritium Laboratory that hosts it. The experiment's roughly 70-metre beamline is not drawn as a line because no source gives its axis.",
-    "technical": "One local map for facility:kit-karlsruhe. OpenStreetMap: campus polygon (way 155843597, source=estimate), the KATRIN outline (way 394890935; 55.6 m long, bearing 16 degrees, 879 m2) typed experimental_area on detector:katrin, and TLK buildings 451 and 452 (ways 99082515, 99082477; 'Building 451/452' per the KIT TLK handout). The beamline (about 70 m, KATRIN paper arXiv:2103.04755) is unlocated: no sourced axis or end points."
+    "plain": "The KIT Campus North site near Karlsruhe, drawn to scale with the building outline around the KATRIN spectrometer hall, the Tritium Laboratory buildings, and the KATRIN beam axis and main spectrometer placed inside the hall along the published direction (about 16 degrees east of north). The axis is positioned to within about 20 m.",
+    "technical": "Local map for facility:kit-karlsruhe. Drawn from OpenStreetMap: the campus polygon (way 155843597), the KATRIN outline (way 394890935) and Tritium Laboratory buildings 451 and 452. Derived (accuracy 20 m): the KATRIN beam axis from the WGTS coil centre (z = -38.87 m) to the detector coil centre (+13.78 m) at bearing 16 deg, and the main spectrometer vessel footprint (23.23 m x 9.8 m), using Table 1 of Glueck et al. 2013, the 16 deg orientation of the KATRIN Collaboration and the constraint that the vessel and detector lie in the outline and the WGTS in building 452. Not drawn: the rear section, the detector end, the monitor spectrometer."
   },
   "type": "map",
   "unlocated": [
     {
-      "backlog": "Find the as-built KATRIN site plan (the Technical Design Report update, or a KIT/KATRIN geodetic survey of the beam axis with coordinates of the WGTS and the detector end) and place the axis; or a KIT Campus North GIS layer with a stated licence that gives the spectrometer hall footprint. A line may be drawn only with a sourced azimuth and sourced end points, then checked against the 70 m figure.",
+      "backlog": "A surveyed KATRIN coordinate (the centre of the main spectrometer or of the WGTS in the KIT north-campus system, from a geodetic or alignment paper), or a dimensioned plan of the spectrometer hall that fixes where the vessel stands in it; then re-anchor both derived shapes and tighten accuracy_m. The monitor-spectrometer hall also needs a source.",
       "entity_id": "facility:kit-karlsruhe",
-      "reason": "KATRIN beamline axis and its component positions (windowless gaseous tritium source, transport section, pre-spectrometer, main spectrometer 23.23 m long, detector; overall length about 70 m). KATRIN states the orientation only as upstream south, downstream north, and no fetched source gives coordinates for the source, spectrometers or detector. The OSM outline drawn is 55.6 m long at a bearing near 16 degrees and shorter than the 70 m setup, so a beam line cannot be taken from it without inventing its end points.",
+      "reason": "The rest of the KATRIN beamline: the rear control-and-monitor section upstream of the WGTS, the detector system downstream of the detector coil (together they make up the 'about 70 m' overall length, against the 52.65 m between the WGTS and detector coil centres that is drawn), the pre-spectrometer, the DPS and CPS as individual elements, and the 5 m monitor beam line with its own monitor-spectrometer hall ('the two setups are separated into two different buildings', design report p. 53). No fetched source gives their coordinates or a surveyed axis; the drawn axis is positioned only to within about 20 m inside the hall by the constraints in its record.",
       "sources": [
+        "src:geo-kit-katrin-tdr-2004",
         "src:geo-kit-katrin-design-paper",
-        "src:geo-kit-katrin-experimental-setup-page"
+        "src:geo-kit-katrin-aircoil-2013"
       ],
       "verified_at": "2026-10-25"
     }
