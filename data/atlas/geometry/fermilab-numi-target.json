@@ -1,62 +1,81 @@
 {
-  "accuracy_m": 30,
+  "accuracy_m": 5,
   "aliases": [],
-  "checks": [],
+  "checks": [
+    {
+      "expected": {
+        "dimension": "length",
+        "display": "1040 m",
+        "unit": "m",
+        "value": 1040
+      },
+      "kind": "distance",
+      "locator": "MINOS NIM paper (arXiv:0805.3170) section 6.1",
+      "quote": "The near detector is 1040 m from the primary target",
+      "sources": [
+        "src:minos-detector-paper-2008"
+      ],
+      "to_geometry_id": "geometry:fermilab-minos-near-detector-position",
+      "tolerance": 0.01
+    }
+  ],
   "coverage": {
     "researched": "partial",
-    "tier": "B"
+    "tier": "A"
   },
-  "depth_m": null,
+  "depth_m": {
+    "approx": false,
+    "confidence": "verified",
+    "dimension": "length",
+    "display": "34.7 m (114 ft)",
+    "note": "Beam height at the target, TDR section 5.2.4; the NuMI NIM paper puts the Target Hall about 41 m underground.",
+    "quote": "Beam elevation at the target location is 626.8 ft. M.S.L., approximately 114 ft. below surface grade level.",
+    "sources": [
+      "src:fermilab-geo-numi-tdr-1998"
+    ],
+    "unit": "m",
+    "value": 34.7,
+    "verified_at": "2026-10-25"
+  },
   "entity_id": "beamline:numi",
   "feature_type": "target_station",
   "geometry": {
-    "confidence": "derived",
-    "locator": "OSM way/54794245, extract timestamp 2026-09-18; site:soudan-minos-far-detector coordinates (src:minos-prd-2007-muon-charge-ratio); src:fermilab-numi-beam-paper-2016 sec 3 'To point towards the Soudan Laboratory the proton beam had to be inclined downward'",
-    "note": "accuracy_m 30 m is dominated by the unsourced assumption that the MINOS Surface Bldg sits directly above the near-detector hall/shaft, not by the OSM footprint (~8 m) or the azimuth (negligible error over a 735 km baseline). Independent cross-check: deriving the target the same way from the OSM NOvA building + the sourced ~1 km NOvA baseline + the bearing to Ash River gives a point 38.6 m away from this one -- good agreement given both chains have their own ~15-30 m uncertainty budgets, and reported here rather than as a formal checks[] row (no independent SOURCED expected value exists for 'distance between the two derivations').",
+    "confidence": "verified",
+    "locator": "NuMI Facility TDR (FERMILAB-DESIGN-1998-01) Appendix A, beam sheet 'Site coordinates for beamline: horn2.ces' (DUSAF x, y in ft; station along the beam in ft)",
+    "note": "Three independent tests of the conversion: A0 maps back to its own published coordinate; the bearing from this point to the published MINOS far-detector coordinate (47.820267 N, 92.241412 W) is 336.169 deg against 336.177 deg for the sheet's own beam axis; the 8 GeV line start in the MI TDR converts to within 1 m of the Booster ring radius.",
     "sources": [
-      "src:fermilab-geo-osm-buildings",
-      "src:minos-prl-2016-sterile-search",
-      "src:fermilab-numi-beam-paper-2016"
+      "src:fermilab-geo-numi-tdr-1998",
+      "src:fermilab-geo-oshinowo-coordinate-systems-1997"
     ],
     "value": {
       "coordinates": [
-        -88.2651363,
-        41.8310919
+        -88.2655305,
+        41.83197
       ],
       "type": "Point"
     },
-    "verified_at": "2026-09-18"
+    "verified_at": "2026-10-25"
   },
   "id": "geometry:fermilab-numi-target",
-  "level_id": "surface",
-  "license": {
-    "attribution": "© OpenStreetMap contributors",
-    "name": "ODbL-1.0",
-    "url": "https://www.openstreetmap.org/copyright"
-  },
+  "level_id": "near-detector-caverns",
+  "license": null,
   "links": {
     "website": null
   },
   "map_id": "map:fermilab",
-  "method": "Great-circle bearing (336.17 degrees) computed from the OSM 'MINOS Surface Bldg' footprint centroid (way 54794245) to the Soudan far site's own sourced coordinates (47.82027 N, 92.24141 W; cited below), per the NuMI beam paper's statement that the beam points at Soudan. Target placed 1040 m upstream (bearing+180) of that centroid, the sourced MINOS near-detector baseline (src:minos-prl-2016-sterile-search, '1.04 ... km'). Cross-checked (see note) against an independent derivation using the OSM NOvA surface building and the Ash River far site. Note: the far site's own precision (100 m) affects only the bearing here, not a position directly used by this derivation -- at a 735 km baseline a 100 m lateral offset changes the bearing by under 0.01 degrees, negligible next to the 30 m accuracy_m set below (dominated by the unsourced shaft/hall-offset assumption, not by the far-site bearing).",
-  "name": "NuMI target (derived)",
+  "method": "Published coordinates converted to WGS 84. The NuMI TDR beam sheet lists the target (type TAR-2, location HALTA, station 1146.09958 ft) at DUSAF x = 100327.838 ft, y = 97780.188 ft. Conversion of DUSAF to WGS 84: DUSAF x, y (ft) are the FSCS coordinates of Beams-doc-1148 (origin A0 = 41°50′14.312704″ N, 88°15′41.143123″ W, false x = y = 100000 ft, +y axis at geodetic azimuth 38°16′48.01429″, scale 1.000029251 at A0), applied as a rotated tangent plane on the GRS80 ellipsoid (difference to the double stereographic projection below 0.2 m within 1.5 km of A0). NAD83 and WGS 84 are taken as equal. Replaces the earlier derived point (41.8310919, -88.2651363), which placed the target 1040 m upstream of the OSM MINOS surface building and was 103 m from this position because the MINOS shaft building stands 79 m south-east of the hall (MINOS NIM paper: the cart is pulled about 80 m from the shaft base into the hall).",
+  "name": "NuMI target (target hall, 35 m below grade)",
   "notes": [],
-  "osm": {
-    "elements": [
-      "way/54794245"
-    ],
-    "timestamp": "2026-09-18T20:20:01Z"
-  },
-  "representation": "derived",
+  "osm": null,
+  "representation": "surveyed",
   "schema": "hep-atlas/0.2",
-  "site_id": "site:fermilab-main-campus",
+  "site_id": null,
   "sources": [
-    "src:fermilab-geo-osm-buildings",
-    "src:minos-prl-2016-sterile-search",
-    "src:fermilab-numi-beam-paper-2016"
+    "src:fermilab-geo-numi-tdr-1998",
+    "src:fermilab-geo-oshinowo-coordinate-systems-1997"
   ],
   "summary": {
-    "plain": "accuracy_m 30 m is dominated by the unsourced assumption that the MINOS Surface Bldg sits directly above the near-detector hall/shaft, not by the OSM footprint (~8 m) or the azimuth (negligible err..."
+    "plain": "The graphite target of the NuMI neutrino beam, about 35 m underground, at its surveyed position."
   },
   "type": "geometry",
   "valid": null

@@ -1,0 +1,133 @@
+{
+  "accuracy_m": 8,
+  "aliases": [],
+  "checks": [
+    {
+      "expected": {
+        "dimension": "area",
+        "display": "936 m²",
+        "unit": "m^2",
+        "value": 936.0
+      },
+      "kind": "area",
+      "locator": "MapCERN Facilities layer, feature numero 918: area of its outer ring, measured here from the service geometry",
+      "note": "The official GIS outline of the same building, measured with the same spherical-excess formula as the check; an independent tracing, not a published area figure.",
+      "quote": "numero 918",
+      "sources": [
+        "src:geo-cern-mapcern-facilities"
+      ],
+      "tolerance": 0.05
+    }
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "depth_m": null,
+  "entity_id": "site:cern-ecn3-north-area",
+  "feature_type": "building",
+  "geometry": {
+    "confidence": "approximate",
+    "locator": "OSM way/44413083 as of 2026-10-25T21:12:33Z; NACONS North Area Infrastructure table",
+    "note": "Surface building only; the cavern (building 900) lies underground at an unpublished offset.",
+    "quote": "BX83 b.918 Counting rooms for ECN3 experimental cavern",
+    "sources": [
+      "src:geo-cern-osm-ecn3-access-buildings",
+      "src:geo-cern-mapcern-facilities",
+      "src:geo-cern-north-area-infrastructure"
+    ],
+    "value": {
+      "coordinates": [
+        [
+          [
+            6.061165,
+            46.2643073
+          ],
+          [
+            6.0618822,
+            46.2648918
+          ],
+          [
+            6.0619694,
+            46.2648406
+          ],
+          [
+            6.0617899,
+            46.2646943
+          ],
+          [
+            6.0618506,
+            46.2646588
+          ],
+          [
+            6.0617547,
+            46.2645806
+          ],
+          [
+            6.0617149,
+            46.264604
+          ],
+          [
+            6.0615052,
+            46.2644332
+          ],
+          [
+            6.0615447,
+            46.26441
+          ],
+          [
+            6.0614528,
+            46.2643351
+          ],
+          [
+            6.0613835,
+            46.2643757
+          ],
+          [
+            6.0612432,
+            46.2642614
+          ],
+          [
+            6.061165,
+            46.2643073
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    },
+    "verified_at": "2026-10-25"
+  },
+  "id": "geometry:ecn3-building-918",
+  "level_id": "surface",
+  "license": {
+    "attribution": "© OpenStreetMap contributors",
+    "name": "ODbL-1.0",
+    "url": "https://www.openstreetmap.org/copyright"
+  },
+  "links": {
+    "website": null
+  },
+  "map_id": "map:cern",
+  "method": "OpenStreetMap way 44413083 (name 918) used verbatim. The North Area Consolidation page lists \"PA852 b.911 Access point for ECN3 underground cavern\" and \"BX83 b.918 Counting rooms for ECN3 experimental cavern\", and MapCERN lists building 918 as BX83. The cavern itself (the page calls it \"Underground Experimental Cavern 3 (900)\", 1887 m2) is underground and its outline is not published; these surface buildings mark where it is served.",
+  "name": "ECN3 counting rooms (building 918, BX83)",
+  "notes": [],
+  "osm": {
+    "elements": [
+      "way/44413083"
+    ],
+    "timestamp": "2026-10-25T21:12:33Z"
+  },
+  "representation": "georeferenced",
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:cern-ecn3-north-area",
+  "sources": [
+    "src:geo-cern-osm-ecn3-access-buildings",
+    "src:geo-cern-mapcern-facilities",
+    "src:geo-cern-north-area-infrastructure"
+  ],
+  "summary": {
+    "plain": "The surface counting-room building of the ECN3 experimental cavern in the CERN North Area."
+  },
+  "type": "geometry",
+  "valid": null
+}
