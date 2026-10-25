@@ -168,7 +168,12 @@ export function init({ inputEl, listEl, entries, navigate }) {
       }
     }
   });
-  inputEl.addEventListener('blur', () => setTimeout(close, 120));
+  // Closing on blur waits a moment so a click on an option still lands; coming
+  // back into the box cancels it, or a stale timer from leaving it a moment ago
+  // would shut the list the reader is typing into.
+  let blurTimer = 0;
+  inputEl.addEventListener('blur', () => { blurTimer = setTimeout(close, 120); });
+  inputEl.addEventListener('focus', () => clearTimeout(blurTimer));
   document.addEventListener('click', (event) => {
     if (!listEl.contains(event.target) && event.target !== inputEl) close();
   });

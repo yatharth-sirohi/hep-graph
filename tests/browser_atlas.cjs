@@ -15,6 +15,9 @@ if (!ENGINES[BROWSER_NAME]) {
   throw new Error(`Unknown HEP_BROWSER "${BROWSER_NAME}" — expected chromium, firefox or webkit`);
 }
 const engine = ENGINES[BROWSER_NAME];
+// Firefox has no mobile emulation (`isMobile` throws); it still gets the touch
+// flag and the phone-sized viewport.
+const MOBILE = BROWSER_NAME === "firefox" ? { hasTouch: true } : { isMobile: true, hasTouch: true };
 
 function launchOptions(extra = {}) {
   const opts = { headless: true, ...extra };
@@ -812,13 +815,17 @@ async function setRangeValue(locator, value) {
       await record("Local map: the opening view is framed to the features it draws", async () => {
         const { mapContext, p } = await openMap();
         await p.waitForTimeout(1500);
-        const framing = await p.evaluate(() => {
+        // A campus boundary is context, not framed when structures are drawn.
+        const boundaryIds = geometry.features.filter((f) => f.feature_type === "boundary").map((f) => f.id);
+        const framing = await p.evaluate((boundaries) => {
           const m = window.__hepAtlasLocalMap;
           const c = document.querySelector(".leaflet-container").getBoundingClientRect();
           // The drawn structures, not the inferred-direction lines (bearings
           // that run hundreds of km and are clipped at the map edge).
-          const boxes = [...document.querySelectorAll(".leaflet-overlay-pane path[data-geometry-id]")]
-            .filter((el) => el.getAttribute("data-representation") !== "inferred_direction")
+          const drawnPaths = [...document.querySelectorAll(".leaflet-overlay-pane path[data-geometry-id]")]
+            .filter((el) => el.getAttribute("data-representation") !== "inferred_direction");
+          const structures = drawnPaths.filter((el) => !boundaries.includes(el.getAttribute("data-geometry-id")));
+          const boxes = (structures.length ? structures : drawnPaths)
             .map((el) => el.getBoundingClientRect())
             .filter((r) => r.width || r.height);
           const left = Math.min(...boxes.map((r) => r.left)) - c.left;
@@ -831,7 +838,7 @@ async function setRangeValue(locator, value) {
             widthM: m.distance(m.containerPointToLatLng([0, size.y / 2]), m.containerPointToLatLng([size.x, size.y / 2])),
             heightM: m.distance(m.containerPointToLatLng([size.x / 2, 0]), m.containerPointToLatLng([size.x / 2, size.y])),
           };
-        });
+        }, boundaryIds);
         console.log("framing:", JSON.stringify({ map: mapId, extent_m: meta.extent_m,
           drawn: framing.drawn, margins: [framing.left, framing.right, framing.top, framing.bottom].map(Math.round) }));
         assert.ok(framing.drawn > 0, "the map draws features");
@@ -1394,7 +1401,7 @@ async function setRangeValue(locator, value) {
         await mapContext.close();
 
         const phoneContext = await browser.newContext({
-          viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true, reducedMotion: "reduce",
+          viewport: { width: 390, height: 844 }, ...MOBILE, reducedMotion: "reduce",
         });
         phoneContext.on("page", (pg) => pg.on("pageerror", (e) => errors.push(`map view (mobile): ${e.message}`)));
         const phone = await phoneContext.newPage();
@@ -1695,7 +1702,8 @@ async function setRangeValue(locator, value) {
     const before = await scroller.evaluate((el) => el.scrollTop);
     assert.ok(before > 0, "the results list must be tall enough to scroll in this check");
     const year = await jump.evaluate((button) => button.closest("li").querySelector(".result-date").textContent.trim().slice(0, 4));
-    await jump.click();
+    // The keyboard path (a click does not focus a button in WebKit on macOS).
+    await jump.press("Enter");
     await page.waitForFunction((y) => document.querySelector("#timeline-readout").textContent.trim() === y, year);
     assert.equal(await page.locator("#results-sort").inputValue(), "experiment", "a timeline move must not reset the sort control");
     assert.ok(Math.abs(await scroller.evaluate((el) => el.scrollTop) - before) < 40, "a timeline move must not scroll the list back to the top");
@@ -1836,7 +1844,7 @@ async function setRangeValue(locator, value) {
   ]) {
     await record(`Mobile viewport ${viewport.name} avoids overflow and stays usable`, async () => {
       const mobile = await browser.newContext({
-        viewport: { width: viewport.width, height: viewport.height }, isMobile: true, hasTouch: true,
+        viewport: { width: viewport.width, height: viewport.height }, ...MOBILE,
       });
       mobile.on("page", (p) => p.on("pageerror", (e) => errors.push(e.message)));
       const p = await mobile.newPage();
