@@ -6,7 +6,7 @@
     "lat": 51.7667,
     "locator": "Large neutrino telescope Baikal-GVD: recent status (arXiv:2309.16310)",
     "lon": 104.4,
-    "note": "Reuses site:baikal-gvd-lake-baikal's own published coordinate as the map centre.",
+    "note": "Reuses site:baikal-gvd-lake-baikal's published coordinate (51 46' N, 104 24' E, rounded to a minute) as the map centre; the cluster pattern is centred on it. A camera position, not a survey.",
     "precision_m": 2000,
     "sources": [
       "src:astro-neutrino-baikal-gvd-status-2023-paper"
@@ -17,7 +17,7 @@
     "researched": "partial",
     "tier": "C"
   },
-  "extent_m": 5000,
+  "extent_m": 800,
   "facility_id": "facility:baikal-deep-underwater-neutrino-telescope",
   "id": "map:baikal-deep-underwater-neutrino-telescope",
   "levels": [
@@ -46,10 +46,13 @@
   "links": {
     "website": null
   },
-  "name": "Baikal-GVD — southern Lake Baikal site",
+  "name": "Baikal-GVD: clusters of strings in southern Lake Baikal",
   "notes": [
-    "The array is described as growing annually (12 clusters implied by 96 strings / 8 strings-per-cluster as of the winter 2023 season cited here; web search indicates further growth to 14-15 clusters by 2024-2025, but that could not be independently fetched and quoted this session, so only the 2023 status paper's own directly-quoted numbers are used in the data records). Only one representative cluster's footprint is drawn (geometry:baikal-gvd-cluster-footprint); the full multi-cluster array footprint is not stated by any source fetched this session and is not derived here (drawing a hexagonal-packing guess for 12+ clusters at 300 m spacing would assume a specific packing shape that is not itself sourced).",
-    "The onshore 'shore station' housing the control/DAQ systems is mentioned in secondary sources (~4 km from the lake site, near the Ivanovka river outfall) but no source fetched this session gives it a citable building-level position, and Overpass access was unreachable for most of this session (see map:amundsen-scott-south-pole-station's notes) so no OSM search for it could be completed. Left as a backlog item rather than drawn or guessed."
+    "Eleven clusters (88 strings) are drawn, one record each, with the year of deployment as the record's own validity start so the timeline shows the array growing (1: 2016 ... 11: 2023). Positions are read from the to-scale top view of arXiv:2309.16310 (ICRC 2023, Fig. 1 right panel) registered to the measured string positions of arXiv:2108.00212 (Fig. 2, X east, Y north): 63 of 64 dots within 8 m, rms 3.1 m. Relative layout about 5 m; neither source states the frame origin.",
+    "The absolute position of the whole pattern is only good to about 1500 m: the published site coordinate is rounded to a minute (1.85 km in latitude, 1.15 km in longitude) and does not say which part of the field it marks; the pattern's centroid is placed on it. The 2013 early-construction paper (arXiv:1308.1833) gives 51 50' N, 104 20' E, 8.7 km away; the 2020-2025 papers (arXiv:2011.09209, 2309.16310, 2412.00164, 2507.01893) all give 51 46' N, 104 24' E, which is used. Shore distance: \"about 3.6 km offshore\" (2023, 2024) versus \"about 4 km from the shore\" (2025).",
+    "Not drawn: clusters 12 and 13 (incomplete in the 2023 figure), clusters 14 to 16 (no top view; the telescope had 14 clusters, 117 strings and 4212 optical modules by April 2025 per arXiv:2507.01893, 16 clusters by 2026 per the JINR site), the inter-cluster and laser strings, and the shore station (no source gives a coordinate for it; arXiv:1308.1833 says only that the site is near the outfall of the Ivanovka river).",
+    "The previous single 60 m circle at the site point (geometry:baikal-gvd-cluster-footprint, a cluster placed at the coordinate by assumption) is removed: the clusters now carry their real arrangement. The site point (geometry:baikal-gvd-site-point) is kept as the anchor marker.",
+    "The cluster spacing is not a uniform lattice: the nearest-neighbour distance of a cluster centre runs from 201 m to 266 m on this layout (the papers say \"approximately 300 m\", reduced to 250 m in 2022); the figures were not forced onto a lattice."
   ],
   "schema": "hep-atlas/0.2",
   "schematics": [],
@@ -57,11 +60,14 @@
     "site:baikal-gvd-lake-baikal"
   ],
   "sources": [
-    "src:astro-neutrino-baikal-gvd-status-2023-paper"
+    "src:astro-neutrino-baikal-gvd-status-2023-paper",
+    "src:geo-arrays-baikal-gvd-2013",
+    "src:geo-arrays-baikal-gvd-cascades-2025",
+    "src:geo-arrays-baikal-positioning-2021"
   ],
   "summary": {
-    "plain": "The southern basin of Lake Baikal, Siberia, where the growing Baikal-GVD neutrino telescope hangs its strings of light sensors about 3.6 km offshore and 1366 m down.",
-    "technical": "Local map for facility:baikal-deep-underwater-neutrino-telescope. One surveyed point (the collaboration's own published 51 46'N 104 24'E) and one derived ~120 m-diameter circle for a single cluster's string layout (per the 2023 status paper, arXiv:2309.16310); the full multi-cluster array footprint is not sourced and not drawn."
+    "plain": "The Baikal-GVD neutrino telescope in southern Lake Baikal: eleven clusters of eight light-sensor strings each on the lake bed, drawn at their published layout and deployment year. The pattern is accurate to a few metres internally, but its place on the lake is only known to about a kilometre and a half.",
+    "technical": "Local map for facility:baikal-deep-underwater-neutrino-telescope. Clusters 1-11 (8 strings each) are read from the top view of arXiv:2309.16310, registered to the measured positions of arXiv:2108.00212 (63 dots within 8 m, rms 3.1 m), and centred on the published 51 46' N, 104 24' E (accuracy 1500 m). Deployment years from the figure legend are each record's validity start. Clusters 12-16, inter-cluster strings and the shore station are not drawn."
   },
   "type": "map",
   "unlocated": []

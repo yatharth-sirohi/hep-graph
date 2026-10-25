@@ -10,14 +10,13 @@
         "value": 3000
       },
       "kind": "area",
-      "locator": "arXiv:1502.01323, abstract",
-      "note": " Citation re-sourced 2026-09-21: the official observatory page no longer renders the array figures (QA review §7.6); the detector paper abstract states them verbatim.",
+      "locator": "arXiv:1502.01323 (NIM A 798 (2015) 172), abstract",
+      "note": "3000 km² is the paper's round figure for the area; the convex hull of the active stations over-counts a concave boundary, so a few percent over is expected.",
       "quote": "The Auger design features an array of 1660 water-Cherenkov particle detector stations spread over 3000 km² overlooked by 24 air fluorescence telescopes.",
       "sources": [
-        "src:cosmic-gamma-auger-official-observatory-page",
         "src:geo-arrays-auger-nim-2015"
       ],
-      "tolerance": 0.08
+      "tolerance": 0.05
     }
   ],
   "coverage": {
@@ -29,10 +28,11 @@
   "feature_type": "array",
   "geometry": {
     "confidence": "derived",
-    "locator": "sdMap.csv, rows with sd1500=1 (1640 of 1690)",
-    "note": "Confidence 'derived': the vertices are real surveyed station positions, but the hull itself is this session's computation, not a published boundary.",
+    "locator": "sdMap.csv (release 3), rows with sd1500 = 1 and stop = 1 (1587 of 1689 rows); hull computed in the UTM plane then converted",
+    "note": "Confidence derived: the vertices are published station positions, the hull and the UTM 19S/WGS 84 reading are this work.",
     "sources": [
-      "src:geo-arrays-auger-opendata-sdmap"
+      "src:geo-arrays-auger-opendata-sdmap",
+      "src:geo-arrays-auger-opendata-data-page"
     ],
     "value": {
       "coordinates": [
@@ -58,24 +58,20 @@
             -35.4914936
           ],
           [
-            -69.4038943,
-            -35.5150357
+            -69.3707083,
+            -35.4917968
           ],
           [
-            -69.3873569,
-            -35.5150121
+            -69.2053765,
+            -35.4922143
           ],
           [
-            -69.2136147,
-            -35.5036832
+            -69.1474015,
+            -35.4571075
           ],
           [
-            -69.1886923,
-            -35.4922559
-          ],
-          [
-            -69.1308249,
-            -35.4571268
+            -69.0316372,
+            -35.3165269
           ],
           [
             -68.9821242,
@@ -114,8 +110,8 @@
             -34.9769463
           ],
           [
-            -69.01508,
-            -34.9416861
+            -69.0067245,
+            -34.9533562
           ],
           [
             -69.0560084,
@@ -173,19 +169,25 @@
       ],
       "type": "Polygon"
     },
-    "verified_at": "2026-09-18"
+    "verified_at": "2026-10-25"
   },
   "id": "geometry:auger-sd1500-array-boundary",
   "level_id": "surface",
-  "license": null,
+  "license": {
+    "attribution": "Pierre Auger Collaboration, Auger Open Data release 2024 (DOI 10.5281/zenodo.10488964)",
+    "name": "CC-BY-SA-4.0",
+    "url": "https://creativecommons.org/licenses/by-sa/4.0/"
+  },
   "links": {
     "website": null
   },
   "map_id": "map:pierre-auger-observatory",
-  "method": "Convex hull (planar monotone-chain algorithm) of the 1640 stations flagged sd1500=1 in the Observatory's own public sdMap.csv (Auger Open Data, Zenodo record 10488964; 1690 rows total, 1618 sd1500-only + 22 dual-flagged sd1500/sd750). Station UTM zone 19S northing/easting converted to WGS84 lat/lon by the standard Snyder inverse-UTM series (this session's own computation of a public official coordinate list, not itself a claim from the source). A convex hull necessarily overestimates the true, non-convex array footprint (computed area 3160.6 km^2 vs. the collaboration's own round '3000 km2' figure, +5.35%, still within the 8% check tolerance below); accuracy_m 50 covers this plus the dataset's own unstated per-station GPS precision. Includes every station ever flagged sd1500 in the release regardless of its own start/stop activity window, i.e. the maximal historical footprint, not a snapshot of only currently active stations (some of the 1660 nominal stations are decommissioned/replaced; 1640 rows carried the flag in this release).",
-  "name": "Pierre Auger Observatory surface-detector array (1500 m spacing), convex hull",
+  "method": "Convex hull, computed in the UTM plane, of the 1587 stations that sdMap.csv flags sd1500 = 1 and that the release marks as still operating (31 hull vertices), converted to latitude and longitude. Earlier version of this record used every station ever flagged (1640 rows, 32 vertices, 3158 km2); stations that have since stopped are now left out. Station positions are the northing and easting columns of sdMap.csv in the Pierre Auger Collaboration Open Data release 3 (20 March 2024, DOI 10.5281/zenodo.10488964), which the Collaboration describes as \"UTC\" [sic] coordinates in metres (the data page does not state the zone or datum). They are read as UTM zone 19 south (central meridian 69 deg W) on the WGS 84 ellipsoid (EPSG:32719) because only zone 19 puts the numbers at Malargue (the converted stations span latitude 34.93 to 35.52 S and longitude 68.91 to 69.66 W), and WGS 84 is the GPS datum; this reading is this work's assumption, hence confidence approximate and accuracy_m 50. The hull is a computed outline, not a published boundary, and a convex hull slightly over-states a concave array.",
+  "name": "Pierre Auger Observatory surface-detector array (1500 m spacing), convex hull of active stations",
   "notes": [
-    "This is a convex hull, not the true (slightly concave/irregular) instrumented boundary; see method for the resulting +5.35% area overestimate against the collaboration's own '3000 km2' figure, still inside the 8% check tolerance used here."
+    "Area of the hull 3098 km2 against the Collaboration's round \"3000 km2\" (+3.3%).",
+    "The Observatory paper (arXiv:1502.01323 section 1) says the array lies \"between latitudes 35.0 and 35.3 S and between longitudes 69.0 and 69.4 W\"; the converted stations span 34.93 to 35.52 S and 68.91 to 69.66 W, so that sentence is a rough statement, not the extent of the stations.",
+    "Licence: sdMap.csv is released under CC BY-SA 4.0; the derived geometry carries the attribution and the same licence name (share-alike)."
   ],
   "osm": null,
   "representation": "derived",
@@ -193,10 +195,12 @@
   "site_id": "site:malargue-auger",
   "sources": [
     "src:geo-arrays-auger-opendata-sdmap",
+    "src:geo-arrays-auger-opendata-data-page",
+    "src:geo-arrays-auger-opendata-home",
     "src:geo-arrays-auger-nim-2015"
   ],
   "summary": {
-    "plain": "The outer boundary of the Pierre Auger Observatory's main array of water-tank detectors, drawn by connecting the outermost of the array's own surveyed station positions."
+    "plain": "The outline of the main Auger array of detector tanks, about 3100 square kilometres of Argentine plain, drawn from the Observatory's own published station positions."
   },
   "type": "geometry",
   "valid": null
