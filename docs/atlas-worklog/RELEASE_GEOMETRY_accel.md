@@ -326,3 +326,40 @@ structure of that length. No fetched source says "building 53-3 holds the linac"
 ### Time check
 
 Linac wing: accelerator:lansce timeline (active in 2026-10). All other features are timeless. Built bundle: all nine features present in 2026.
+
+## Oak Ridge / SNS (map:oak-ridge-national-laboratory)
+
+Grade before: marker only (complex boundary; accelerator:sns unlocated).
+Grade after: unchanged (marker only). **Nothing could be sourced beyond the boundary**; this is stated plainly.
+
+### What was tried on 2026-10-25
+
+* OSM API extract of the area (bbox -84.320..-84.285 x 35.940..35.965): the complex boundary (way 907808191, version of
+  2023-10-28) and 53 ways inside it, all unnamed or generic (`building=yes`, `service`, parking, woodland, a substation, a
+  basin); no `ref`, `name` or tag identifies a linac, ring or target building. The largest candidates are the same
+  unlabeled thin rectangle noted by the earlier pass (way 892578460, 369 m x 17.5 m, area 5 294 m^2) and a
+  105.6 m x 92.6 m building (way 443660319, 6 866 m^2); neither is drawn, because nothing in any source says which
+  structure is which.
+* Nominatim name searches in the Oak Ridge box ("Spallation Neutron Source linac", "SNS Target Building", ...) return only the boundary.
+* Tennessee state GIS (`tnmap.tn.gov`): the STRUCTURES folder is empty; the Oak Ridge open-data catalog answered HTTP 401.
+* `neutrons.ornl.gov/sns`, `neutrons.ornl.gov/sns/accelerator` and `ornl.gov/facility/sns` hold no dimensions or coordinates
+  (the only numeric statement is about 3 000 square feet of added tunnel).
+* The approach that worked at LANL and Jefferson Lab (a municipal or county footprint layer that carries the lab's own
+  building numbers) was not available: SNS is in Roane County and no county layer was reachable. WebSearch was exhausted
+  mid-session, which stopped a search for such a layer.
+
+### Time check
+
+The only drawn feature (`geometry:sns-complex-boundary`, entity site:ornl-sns-neutrino-alley) takes the site's timeline
+from the COHERENT placements and is active in 2026-10 in the built bundle; the map is not empty in the current year.
+
+### Site coordinate corrections
+
+None new (the earlier suggestion for site:ornl-sns-neutrino-alley, the boundary centroid, was applied by the integrator).
+
+### Backlog
+
+* Roane County GIS building footprints with ORNL numbers, plus an ORNL document that says which number is the linac gallery,
+  the ring and the target building; or an ORNL site map with a text legend (the route that matched PSI's building codes).
+* An official linac-structure length (the figures on file are 305 m, 325 m and, from unfetched summaries, 493 m) to check
+  a candidate against.
