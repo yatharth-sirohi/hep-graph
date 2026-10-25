@@ -262,3 +262,59 @@ check, central laser, three fluorescence stations with distance checks). TAx4 no
   dynamic-DNS host, which it did not follow, and that the Rutgers (Ivanov) and Utah (Mallen) theses linked from older papers returned 404 (not re-checked here).
 * A statement of the origin and orientation of the `TASDPosition.dat` frame, and its z datum (the sub-agent found the z column 12-16 m above the raw event dump's `POS` z; not re-checked; z is unused here).
 * TAx4 station coordinates (only a figure) and the TALE infill; communication towers.
+
+## 4. LHAASO (Daocheng)
+
+Grade: **partial (one point) -> layout to scale** (1188 muon detectors, the three WCDA pools, the ED-array outline, all with
+checks against stated dimensions). The 5216 individual EDs and the 18 WFCTA telescopes are not drawn.
+
+### Sources and what was verified here
+
+* **Coordinate.** LHAASO Science Book 2021 edition, chapter 1 (Chin. Phys. C 46, 030001 (2022), DOI 10.1088/1674-1137/ac3fa6; arXiv:1905.02773 v4,
+  CC BY 3.0). Re-downloaded the 183-page PDF (54 MB) and read the abstract: "located at Mt. Haizi (4410 m a.s.l., 600 g/cm2, 29° 21’ 27.56” N, 100° 08’ 19.66” E) in Daocheng, Sichuan province".
+  This is the coordinate already on `site:lhaaso-haizi-mountain` and the map (QA pass of 2026-09-21). The previous worklog's statement that
+  the Science Book "remains unfetchable" is out of date: `curl` of the arXiv PDF followed by `pdftotext` works.
+* **Layout.** Fig. 1 of the Science Book (PDF page 8) is a vector graphic with 5216 red squares (EDs), 1188 blue circles (MDs), three teal pools, a NORTH arrow pointing up and a 150 m scale bar.
+  A research sub-agent extracted it; I redid the extraction independently from a fresh copy: (a) the same figure in the right panel of Fig. 1 of arXiv:2401.01038 (CC BY 4.0; 5216 red squares, 1188 blue circles, X (m)/Y (m)
+  axes read from tick labels at 0.1248 pt/m east-west, 0.1206 pt/m north-south) and (b) a similarity registration of the Science Book figure onto it: 5215 of 5216 EDs within 2 m (median 0.16 m), scale 4.33 m per point, rotation 0.
+  The two papers share one coordinate list.
+* **Origin and scale checks that the text can test** (all pass with an origin at the mean of circle fits to the outer ED ring, the 575 m ED boundary and the outer MD ring):
+  4911 EDs inside 575 m and 305 outside ("4911 EDs with 15 m spacing in a circle area with radius of 575 m, and the guarding ring array consisting of 305 EDs"); farthest ED 635.2 m ("outer radius of 635 m");
+  pools measure 150.1 m x 150.1 m, 150.1 m x 150.1 m and 300.2 m x 110.1 m ("The pool 1 and 2 are both 150 m × 150 m. Pool 3 is 300 m × 110 m."), total 78,109 m2 ("78,000 m2"); the ED hull spans 1270.2 m (2 x 635 m).
+* **Independent position check (OpenStreetMap).** Overpass (lz4 mirror, extract 2026-10-25T11:28:50Z) has the three pools as traced polygons (ways 1046559931, 1046559932, 1046559933, "Water Cherenkov Detector Array #3, #1, #2"). Their corners lie 1 to 3 m east and 2 to 10 m north of the placement here, with a
+  best-fit rotation of about -0.9 deg (a rough trace). OSM way 1003419124 ("Kilometer-Square Array (LHAASO)") is a regular 38-gon of radius 619.8 m centred 2 m from the quoted coordinate: a drawn circle, not a trace, so it is not evidence. No OSM geometry is used in any record, and no record cites an OSM source.
+* **Frame.** Origin = array centre placed at the quoted coordinate; x east, y north (NORTH arrow). The quoted coordinate is not defined in the source as the array centre; the pools versus OSM and the 164 m shift to the 2016 coordinate give `accuracy_m` 30.
+
+### Why the EDs are not drawn
+
+5216 EDs as 1 m markers are 26 000 vertices; the map bundle came to 3.55 MB and the build refuses bundles over 2 MB (`geometry/lhaaso-daocheng.json is 3548567 bytes, over the 2000000 byte limit`). The 1188 MDs as 6 m markers (the 36 m2 each has in the Science Book) fit
+(bundle 0.68 MB). The ED array is represented by its outline (hull of the 45 vertices) with area and span checks. Allowing `MultiPoint` in `geo.GEOJSON_TYPES` (the browser already draws it) would let all 6404 detectors be two records.
+
+### Inventory
+
+| Entity | Drawn / unlocated | Record | Representation | accuracy_m | Check |
+| --- | --- | --- | --- | ---: | --- |
+| KM2A muon detectors (1188) | drawn | geometry:lhaaso-km2a-mds-block-01 .. -15 (k-d blocks, west to east) | derived | 30 | 1188 MDs (stated 1188); median nearest-neighbour 27.3 m vs 30 m (worklog only) |
+| KM2A ED array (5216 EDs) | outline only | geometry:lhaaso-km2a-array-outline | derived | 30 | area 1.242 km2 vs 1.3 km2 (-4.4%, tol 5%) and span 1270.2 m vs 1270 m (tol 2%): pass |
+| WCDA pools 1, 2, 3 | drawn | geometry:lhaaso-wcda-pool-1, -2, -3 | derived | 30 | area 22 559 m2 vs 22 500, 22 559 vs 22 500, 33 090 vs 33 000 m2 (tol 3%): pass |
+| WFCTA (18 telescopes) | not drawn | n/a | n/a | n/a | text and figure disagree on the position |
+| site:lhaaso-haizi-mountain anchor | drawn (existing) | geometry:lhaaso-array-point | surveyed | 50 | unchanged |
+
+### Source conflicts
+
+1. **Coordinate:** 29°21’27.56” N, 100°08’19.66” E (Science Book 2021 and, to 0.1”, the WCDA paper arXiv:2101.03508: 29°21’27.6”, 100°08’19.6”) versus 29°21’31” N, 100°08’15” E in the 2016 and 2018 papers (arXiv:1602.07600, arXiv:1802.04773; a pre-construction value, 164 m away) versus "100.01 E, 29.35 N" in arXiv:2010.06205 and arXiv:2401.01038 (about 12.5 km west; a typo copied between the two). The 2021 value is used.
+2. **Counts:** ED totals 5195 (arXiv:2010.06205, arXiv:2101.03508, planning) versus 5216 (Science Book, arXiv:2401.01038, arXiv:2405.11826; 5216 is used and matches the figure); "1171 tanks" appears once in the Science Book against 1188; 4911+305 = 5216.
+3. **Where the telescopes are:** Science Book section III.C: "The telescopes were installed at the southwest corner of the first pool"; the figure puts the WFCTA cluster at the junction of pools 1 and 2. Not drawn.
+4. **Pool gaps:** text 2 m (pools 1-2) and 5 m (to pool 3); the figure shows about 3 m and 6 m. Immaterial at the 30 m accuracy.
+5. **Area of the site:** 1.35 km2 (Science Book) versus 1.36 km2 (IHEP "Site" page). Not used.
+6. **Design or as built:** not stated; the plotted EDs have a median nearest-neighbour distance of 13.6 m against a stated 15 m spacing (5th to 95th percentile 8.7 to 16.7 m), so the plot is not an ideal lattice.
+7. **Licence:** CC BY 3.0 (Science Book). The records carry the DOI attribution; arXiv:2401.01038 is CC BY 4.0 (used for cross-checking only).
+
+### Site coordinate corrections
+
+None (the integrator already moved `site:lhaaso-haizi-mountain` to the Science Book coordinate).
+
+### Backlog
+
+* The 5216 ED markers (reproducible from the Science Book PDF page 8 with `pdftocairo -svg` and a similarity registration onto Fig. 1 of arXiv:2401.01038) once `MultiPoint` is allowed or the 2 MB bundle limit is raised.
+* A statement of which point the quoted coordinate marks and whether the figure shows as-built positions; official WFCTA positions; WCDA cell positions (3120 cells of 5 m x 5 m, derivable but not drawn).
