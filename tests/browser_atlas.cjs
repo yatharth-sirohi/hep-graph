@@ -2062,6 +2062,96 @@ async function setRangeValue(locator, value) {
     }
   });
 
+  // Reader-review findings F12 and F15-F17 (rv-maps). These read the real
+  // geometry bundles, so they only run against the generated tree.
+  if (process.env.HEP_ATLAS_DATA === "generated") {
+    const openLocalMap = async (slug, contextOptions = {}) => {
+      const mapContext = await browser.newContext({ viewport: { width: 1440, height: 900 }, reducedMotion: "reduce", ...contextOptions });
+      mapContext.on("page", (p) => p.on("pageerror", (e) => errors.push(e.message)));
+      const p = await mapContext.newPage();
+      p.setDefaultTimeout(30000);
+      await p.goto(`${base}/atlas#/map/${slug}`, { waitUntil: "domcontentloaded" });
+      await p.locator(".leaflet-container").waitFor({ timeout: 20000 });
+      await p.locator(".map-section").first().waitFor({ timeout: 20000 });
+      await p.waitForTimeout(1500);
+      return { mapContext, p };
+    };
+
+    await record("Local map: an unlocated entry gives one plain reason and keeps the research log under a collapsed 'Research notes' (F12)", async () => {
+      const { mapContext, p } = await openLocalMap("fermilab");
+      const rows = await p.locator(".map-unlocated-row").evaluateAll((els) => els.map((el) => ({
+        visible: el.innerText,
+        reason: el.querySelector(".map-unlocated-reason").innerText,
+        notesOpen: el.querySelector("details.map-research-notes").open,
+        notesText: el.querySelector("details.map-research-notes").textContent,
+      })));
+      assert.ok(rows.length > 5, `expected Fermilab's unlocated entries, got ${rows.length}`);
+      for (const row of rows) {
+        assert.doesNotMatch(row.visible, /\b(?:src|geometry|beamline|site|detector|accelerator|experiment):[a-z0-9]|HTTP\s*\d{3}|this session|Overpass|To do:/i,
+          `research-log wording or a raw id is visible: ${JSON.stringify(row.visible)}`);
+        assert.ok(row.reason.length > 20 && row.reason.length < 400, `one plain sentence, got ${JSON.stringify(row.reason)}`);
+        assert.equal(row.notesOpen, false, "the research notes are collapsed");
+        assert.match(row.notesText, /Record ids/, "the raw ids live in the research notes");
+      }
+      assert.ok(rows.some((r) => /What would let us draw it/.test(r.notesText)), "the backlog is in the research notes");
+      await mapContext.close();
+    });
+
+    await record("Local map: the unlocated-reason helper names ids, drops research-log clauses and falls back plainly (F12)", async () => {
+      const out = await page.evaluate(async () => {
+        const m = await import("/atlas/js/unlocated.js");
+        const names = { "src:paper-a": "The A paper", "detector:det-b": "B detector" };
+        const resolve = (id) => names[id] || null;
+        return {
+          named: m.namedText("Placed (src:paper-a) near detector:det-b, see geometry:gone-x.", resolve),
+          reason: m.plainReason("No OpenStreetMap footprint for the hall was found this session (a targeted OSM name search returned none); the placement cites src:paper-a only.", { resolve, name: "X" }),
+          log: m.plainReason("A web search on 2026-10-25 returned HTTP 403 from Overpass via src:zzz-q.", { resolve, name: "The hall" }),
+          sentences: m.splitSentences("Fig. 2 shows it (Vol. II). A. C. Mezger wrote it. Done."),
+        };
+      });
+      assert.equal(out.named, "Placed (The A paper) near B detector.");
+      assert.doesNotMatch(out.reason, /this session|OSM|src:/);
+      assert.match(out.reason, /No OpenStreetMap footprint for the hall was found/);
+      assert.match(out.log, /^No source we could read gives a verified position or outline for The hall/);
+      assert.equal(out.sentences.length, 3, JSON.stringify(out.sentences));
+    });
+
+    await record("Local map: a position-only map labels its accuracy circle, opens the legend, and draws no tile seam (F15, F16)", async () => {
+      const { mapContext, p } = await openLocalMap("km3net-arca");
+      const label = p.locator(".map-label-uncertainty:not(.is-hidden)");
+      assert.equal(await label.count(), 1, "the big circle is labelled on the map");
+      assert.match((await label.innerText()).replace(/\s+/g, " "), /position uncertainty ±2000 m — not the detector outline/);
+      assert.equal(await p.locator(".map-section", { hasText: "Legend" }).first().evaluate((el) => el.open), true,
+        "the legend starts open on a map that has only positions");
+      // F15: tiles overlap their neighbours, so the fractional-zoom hairline has nothing to show through.
+      await p.waitForSelector(".leaflet-tile-pane img.leaflet-tile", { timeout: 15000 }).catch(() => {});
+      const tile = await p.evaluate(() => {
+        const t = document.querySelector(".leaflet-tile-pane img.leaflet-tile");
+        return t ? { width: parseFloat(getComputedStyle(t).width), blend: getComputedStyle(t).mixBlendMode } : null;
+      });
+      if (tile) {
+        assert.ok(tile.width > 256, `tiles are drawn slightly oversize, got ${tile.width}px`);
+        assert.equal(tile.blend, "normal");
+      }
+      await mapContext.close();
+      // A map with a drawn outline does not open the legend by itself.
+      const other = await openLocalMap("fermilab");
+      assert.equal(await other.p.locator(".map-section", { hasText: "Legend" }).first().evaluate((el) => el.open), false);
+      await other.mapContext.close();
+    });
+
+    await record("Local map: every LHC experiment point is labelled at the default zoom, and a temporary shutdown is not worded as closed (F17)", async () => {
+      const { mapContext, p } = await openLocalMap("cern");
+      for (const id of ["point1-atlas-boundary", "point2-alice-boundary", "point5-cms-cavern", "point8-lhcb-boundary"]) {
+        assert.equal(await p.locator(`[data-label-for="geometry:${id}"]:not(.is-hidden)`).count(), 1, `${id} is labelled`);
+      }
+      const status = await p.evaluate(async () => (await import("/atlas/js/mapstyle.js")).statusStyle("shutdown").label);
+      assert.match(status, /^Temporarily shut down \(long shutdown \/ upgrade\)$/);
+      await mapContext.close();
+    });
+
+  }
+
   await record("A result whose official_url restates its arXiv link shows one arXiv link and no 'Official page'", async () => {
     const arxivDuplicateResult = process.env.HEP_ATLAS_DATA === "generated"
       ? "alice-hypertriton-lifetime-2019" : "super-k-atmospheric-oscillation-1998";

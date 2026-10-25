@@ -58,7 +58,10 @@ const STATUS_STYLES = {
   commissioning: { dash: '10 6', color: '#f2b441', label: 'Commissioning', hint: 'dashed amber' },
   completed: { dash: null, color: '#98a3a9', label: 'Completed', hint: 'grey' },
   decommissioned: { dash: null, color: '#98a3a9', label: 'Decommissioned', hint: 'grey' },
-  shutdown: { dash: null, color: '#98a3a9', label: 'Shut down', hint: 'grey' },
+  // A temporary stop (the LHC's long shutdowns), not a closure: the ontology
+  // reserves `decommissioned` and `completed` for the end of a thing's life, so
+  // the reader must not take grey-and-"shut down" for either.
+  shutdown: { dash: null, color: '#98a3a9', label: 'Temporarily shut down (long shutdown / upgrade)', hint: 'grey — a pause, not a closure' },
   proposed: { dash: '2 5', label: 'Proposed', hint: 'dotted' },
   approved: { dash: '2 5', label: 'Approved', hint: 'dotted' },
   planned: { dash: '2 5', label: 'Planned', hint: 'dotted' },
@@ -170,7 +173,8 @@ export function legendGroups(levels) {
   const statusRows = [
     ['legend-status-active', 'Active', 'solid line'],
     ['legend-status-construction', 'Under construction / commissioning', 'dashed, amber'],
-    ['legend-status-completed', 'Completed / decommissioned / shut down', 'grey'],
+    ['legend-status-completed', 'Completed / decommissioned', 'grey'],
+    ['legend-status-shutdown', 'Temporarily shut down (long shutdown / upgrade)', 'grey — a pause in operation, not a closure'],
     ['legend-status-proposed', 'Proposed / approved', 'dotted'],
     ['legend-status-unrecorded', 'Structure present, no operating status recorded for the year', 'grey, finely dashed'],
     ['legend-status-outside', 'Not yet built, or already ended, in the selected year',
@@ -187,7 +191,8 @@ export function legendGroups(levels) {
     .map((key) => [`legend-rep-${key}`, REPRESENTATION_STYLES[key].label, REPRESENTATION_STYLES[key].hint]);
   representationRows.push(['legend-rep-point', 'Position only (a circle with a centre mark)',
     'no source gives this feature a footprint, so what is drawn is its position and a circle of '
-    + 'its positional accuracy — the circle is the uncertainty, not the building']);
+    + 'its positional accuracy, labelled “position uncertainty ±N m — not the detector outline”: '
+    + 'the circle is how well the position is known, not the size of the thing']);
   return [
     { title: 'Feature type', note: 'What kind of thing the shape is.', rows: typeRows },
     { title: 'Status in the selected year', note: 'Read from the entity’s recorded history at the year on the timeline, not from a fixed label.', rows: statusRows },
@@ -222,8 +227,59 @@ const LABEL_RANK = {
   road: 7, water: 7,
 };
 
-export function labelRank(featureType) {
-  return LABEL_RANK[featureType] != null ? LABEL_RANK[featureType] : 5;
+// A site where an experiment's detector stands (an LHC point: ATLAS at Point 1,
+// ALICE at Point 2, LHCb at Point 8) is one of the places a reader came to the
+// map to find, so its label is a high-priority one, whatever kind of outline the
+// build drew for it (review F17: CMS was labelled, ATLAS was not,
+// because CMS's cavern is a point and ATLAS's site is a boundary polygon).
+// They are placed ahead of the rings: a ring's label can stand at any of forty
+// points along it, a small footprint's label at one of four beside it, so letting
+// the rings choose first used to leave the footprint with nowhere to go.
+const EXPERIMENT_SITE_RANK = -1;
+
+export function labelRank(featureType, { experimentSite = false } = {}) {
+  const rank = LABEL_RANK[featureType] != null ? LABEL_RANK[featureType] : 5;
+  return experimentSite ? EXPERIMENT_SITE_RANK : rank;
+}
+
+// --- the circle around a position-only feature --------------------------------
+// A Point is drawn as a circle of its positional accuracy. At KM3NeT/ARCA that
+// is a 2 km ring on a map of an array a few hundred metres across, and next to
+// the array's own label it read as the array. So the ring says what it is.
+
+/** What the circle is not an outline of, from the kind of feature it surrounds. */
+function outlineNoun(feature) {
+  if (feature.entity_type === 'facility' || /\b(?:reference|site) marker\b/i.test(feature.name || '')) return 'site';
+  if (['hall', 'cavern', 'building', 'shaft'].includes(feature.feature_type)) return feature.feature_type;
+  return 'detector';
+}
+
+/** The three pieces of "position uncertainty ±2000 m — not the detector
+ *  outline" (so a label can keep the figure and its unit on one line), or null
+ *  when the feature has no recorded positional accuracy to state. */
+export function uncertaintyParts(feature) {
+  if (!(feature && feature.accuracy_m > 0)) return null;
+  return {
+    lead: 'position uncertainty',
+    figure: `\u00b1${feature.accuracy_m} m`,
+    tail: `\u2014 not the ${outlineNoun(feature)} outline`,
+  };
+}
+
+/** "position uncertainty ±2000 m — not the detector outline", or '' when the
+ *  feature has no recorded positional accuracy to state. */
+export function uncertaintyLabel(feature) {
+  const parts = uncertaintyParts(feature);
+  return parts ? `${parts.lead} ${parts.figure} ${parts.tail}` : '';
+}
+
+/** True when every feature of a map is either a position with an accuracy
+ *  circle or a derived stand-in shape, so nothing on it is a sourced outline
+ *  and the reader needs the legend to know what the circles mean. */
+export function isPositionOnlyMap(features) {
+  const isPoint = (f) => f.geometry && (f.geometry.type === 'Point' || f.geometry.type === 'MultiPoint');
+  return features.length > 0 && features.some(isPoint)
+    && features.every((f) => isPoint(f) || f.representation === 'derived');
 }
 
 // Past this many characters a label wraps onto a second line (the CSS caps its
@@ -303,8 +359,15 @@ function usableEntityName(feature, entityNameCounts) {
  * it. Returns `{ text, sub }` — `sub` is the second line, used only for an
  * inferred direction, which §4 requires to say it is not a structure.
  */
-export function labelText(feature, entityNameCounts = new Map()) {
+export function labelText(feature, entityNameCounts = new Map(), { experimentSite = false } = {}) {
   const own = dropQualifiers(feature.name || feature.entity_name || feature.id);
+  // An experiment's site is labelled by the site's own name — "LHC Point 1
+  // (ATLAS cavern)" — which is what a reader looks for, and a line shorter than
+  // the build's name for the outline ("CERN Point 1 surface site (ATLAS)").
+  if (experimentSite && feature.entity_name) {
+    const siteName = dropQualifiers(feature.entity_name);
+    if (siteName && siteName.length <= LABEL_MAX) return { text: siteName, sub: '' };
+  }
   if (feature.feature_type === 'direction_line') {
     const split = /^(.*?)\s*(?:beam\s+)?direction\s+toward\s+(.+)$/i.exec(own);
     let text = own;
@@ -326,12 +389,12 @@ export function labelText(feature, entityNameCounts = new Map()) {
 /** Labels for a whole map. Two features that would read identically after
  *  shortening (Pierre Auger's two arrays) fall back to their longer,
  *  qualifier-free names, which the label is allowed to wrap. */
-export function labelsFor(features) {
+export function labelsFor(features, { isExperimentSite = () => false } = {}) {
   const counts = new Map();
   for (const f of features) {
     if (f.entity_name) counts.set(f.entity_name, (counts.get(f.entity_name) || 0) + 1);
   }
-  const labels = new Map(features.map((f) => [f.id, labelText(f, counts)]));
+  const labels = new Map(features.map((f) => [f.id, labelText(f, counts, { experimentSite: isExperimentSite(f) })]));
   const seen = new Map();
   for (const f of features) {
     const key = labels.get(f.id).text.toLowerCase();
