@@ -351,7 +351,9 @@ function renderDocsMode() {
       h('a', {
         href: (doc.reference && doc.reference.url) || '#', target: '_blank', rel: 'noopener', class: 'document-title',
       }, labelOf(doc)),
-      h('span', { class: 'document-meta' }, ` — ${metaBits.join(', ')}`),
+      // Its own line: inline after a title that wraps, " — Conceptual Design
+      // Report, 2021" used to begin a line of its own with a dangling dash.
+      h('div', { class: 'document-meta' }, metaBits.join(' · ')),
     ]);
     if (owners.length) {
       li.appendChild(h('div', { class: 'document-owners' }, `Owners: ${owners.join(', ')}`));
@@ -418,6 +420,13 @@ export function show(mode) {
     modeOpener = null;
     return;
   }
+  // app.js calls show() on every state change — a timeline move, a filter, the
+  // "Move timeline here" button on a result row — and none of them changes what
+  // this panel lists (results, documents and topics do not depend on the
+  // timeline or the filters). Rebuilding it anyway threw away the person's
+  // scroll position, the selects and the text they had typed, and dropped
+  // keyboard focus onto <body>.
+  if (mode === lastMode && container.firstElementChild && !container.classList.contains('hidden')) return;
   if (mode !== lastMode) {
     modeOpener = document.activeElement;
     lastMode = mode;

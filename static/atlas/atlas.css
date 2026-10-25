@@ -160,6 +160,12 @@ input {
   background: var(--teal);
   color: #06201d;
 }
+/* The keyboard's row is also marked by a bar, not just the fill, so it stays
+   findable under forced colours and for anyone who cannot tell teal from navy. */
+.search-result.is-active {
+  box-shadow: inset 4px 0 0 var(--amber);
+  font-weight: 600;
+}
 .search-empty {
   padding: 7px 8px;
   color: var(--muted);
@@ -300,18 +306,62 @@ input {
   outline: 2px solid var(--amber);
   outline-offset: 2px;
 }
+/* "Clear all filters": rendered only while a filter is active (filters.js). */
+.filter-clear-row:empty {
+  display: none;
+}
+.filter-clear-row {
+  /* Stays at the top of the sidebar while the long list scrolls under it. */
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  margin: 0 0 8px;
+  padding: 4px 0;
+  background: var(--panel);
+}
+.filter-clear-all {
+  appearance: none;
+  width: 100%;
+  background: transparent;
+  color: var(--white);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  padding: 5px 10px;
+  font-size: 13px;
+  cursor: pointer;
+}
+.filter-clear-all:hover {
+  border-color: var(--teal);
+}
 .filter-group summary {
   cursor: pointer;
   font-size: 13px;
   font-weight: 600;
   padding: 3px 0;
 }
+/* "3 selected" on a group's header: what a collapsed group is still filtering by. */
+.filter-group-count {
+  display: inline-block;
+  margin-left: 2px;
+  padding: 0 7px;
+  border-radius: 999px;
+  background: var(--teal);
+  color: #06201d;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 18px;
+  white-space: nowrap;
+}
 .filter-options {
   display: flex;
   flex-direction: column;
   gap: 3px;
   margin: 4px 0 8px;
-  max-height: 160px;
+}
+/* Only the two long groups scroll inside themselves; the short ones just
+   grow, so there is no box-in-a-box to get trapped in. */
+.filter-options.is-long {
+  max-height: 300px;
   overflow-y: auto;
 }
 .filter-option {
@@ -723,6 +773,7 @@ input {
   margin-bottom: 10px;
 }
 .results-filters select,
+.mode-toolbar select,
 .results-filters input[type="search"] {
   background: var(--panel-2);
   border: 1px solid var(--line-strong);
@@ -894,24 +945,63 @@ input {
 .panel-section-body {
   padding-top: 8px;
 }
+/* Key specifications and other label/value facts.
+   The 340 px record panel leaves ~308 px of text, and spec labels are long
+   ("Far detector fiducial mass (per module)"). A two-column grid sized the label
+   column to its longest label and left the value 28 px — "128 / 5 / km", one
+   character per line. So the label sits above its value by default, both at the
+   full width, and the two only share a line where the list itself is wide
+   enough (a container query on the list, not the viewport: the same list is
+   340 px in the side panel and wider in a map drawer or tablet sheet). */
 .kv-list {
-  display: grid;
-  /* minmax(0, 1fr), not a bare 1fr: a grid track's automatic minimum size
-     is its content's min-content width unless told otherwise, so a long
-     unbroken value (a baseline, a mass) pushed the column past the panel's
-     own right edge instead of wrapping inside it — this is what "1285 km"
-     rendered as "1285 k" (desktop, 340px panel). */
-  grid-template-columns: max-content minmax(0, 1fr);
-  gap: 4px 10px;
+  container-type: inline-size;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
   margin: 0;
+}
+.kv-row {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
 }
 .kv-list dt {
   color: var(--muted);
+  font-size: 12.5px;
+  overflow-wrap: break-word;
 }
 .kv-list dd {
   margin: 0;
   min-width: 0;
   overflow-wrap: break-word;
+}
+/* A figure and its unit never split across lines ("1285 km", "17.5 kt"). */
+.nowrap {
+  white-space: nowrap;
+}
+@container (min-width: 420px) {
+  .kv-row {
+    display: grid;
+    grid-template-columns: minmax(8rem, 11rem) minmax(0, 1fr);
+    gap: 0 12px;
+  }
+  .kv-list dt {
+    font-size: inherit;
+  }
+}
+/* One line, under the last section: which sections this record has nothing for.
+   Absence from the Atlas is not absence in the world, and the line says so. */
+.omitted-note {
+  border-top: 1px solid var(--line);
+  margin: 0;
+  padding: 8px 0;
+  color: var(--muted);
+  font-size: 13px;
+  font-style: italic;
+}
+.omitted-note a {
+  text-decoration: underline;
 }
 .entity-list {
   list-style: none;
@@ -1209,6 +1299,11 @@ input {
      visually consistent with it. */
   text-decoration: underline;
   white-space: nowrap;
+}
+/* The long data-version sentence already carries this on a wide screen; phone.css
+   shows this short form where that sentence has moved into the filters sheet. */
+.footer-coverage {
+  display: none;
 }
 .share-status {
   color: var(--teal);

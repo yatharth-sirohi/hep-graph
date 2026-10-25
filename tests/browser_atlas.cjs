@@ -189,6 +189,88 @@ async function setRangeValue(locator, value) {
     assert.match(panelText, /1285 ?km|1,285 ?km/);
   });
 
+  await record("Search is one combobox: first option active, Enter opens it, arrows move, Escape closes", async () => {
+    // A fresh context: the next test continues from the DUNE panel left open here.
+    const ctx = await browser.newContext({ viewport: { width: 1440, height: 960 } });
+    const p = await ctx.newPage();
+    await p.goto(`${base}/atlas${dataTree}`);
+    await p.waitForFunction(() => document.querySelectorAll(".atlas-marker").length > 0, { timeout: 15000 });
+    const active = () => p.evaluate(() => {
+      const input = document.getElementById("atlas-search");
+      const id = input.getAttribute("aria-activedescendant");
+      const el = id && document.getElementById(id);
+      return {
+        text: el ? el.textContent : null,
+        selected: el ? el.getAttribute("aria-selected") : null,
+        highlighted: document.querySelectorAll(".search-result.is-active").length,
+        expanded: input.getAttribute("aria-expanded"),
+        role: input.getAttribute("role"),
+      };
+    });
+    await p.locator("#atlas-search").click();
+    await p.keyboard.type("Fermilab");
+    await p.locator(".search-result").first().waitFor();
+    const first = await active();
+    assert.ok(first.text, "the first option must be active as soon as the list appears");
+    assert.deepEqual([first.selected, first.highlighted, first.expanded, first.role], ["true", 1, "true", "combobox"]);
+    await p.keyboard.press("ArrowDown");
+    const second = await active();
+    assert.notEqual(second.text, first.text, "ArrowDown moves the active option");
+    assert.equal(second.highlighted, 1, "exactly one option is highlighted at a time");
+    await p.keyboard.press("ArrowUp");
+    assert.equal((await active()).text, first.text, "ArrowUp moves it back");
+    await p.keyboard.press("Escape");
+    assert.equal((await active()).expanded, "false", "Escape closes the list");
+    assert.equal(await p.locator("#search-results").isHidden(), true);
+    // Enter opens the top result — here with the list dismissed, so it also
+    // proves Enter asks for the query again rather than doing nothing.
+    await p.keyboard.press("Enter");
+    const type = first.text.split(" — ").pop().toLowerCase();
+    await p.waitForFunction((prefix) => location.hash.startsWith(prefix), `#/${type}/`);
+    await p.locator("#detail-panel h2").waitFor();
+    // Escape inside the search box belongs to the search box, not to the open panel.
+    await p.locator("#atlas-search").click();
+    await p.keyboard.type("DUNE");
+    await p.locator(".search-result").first().waitFor();
+    await p.keyboard.press("Escape");
+    assert.equal(await p.locator("#detail-panel").isHidden(), false, "Escape that closes the list must leave the record panel open");
+    await ctx.close();
+  });
+
+  await record("Filter groups: long ones start collapsed, headers carry the count, Clear all filters appears only while one is active", async () => {
+    const ctx = await browser.newContext({ viewport: { width: 1440, height: 960 } });
+    const p = await ctx.newPage();
+    await p.goto(`${base}/atlas${dataTree}`);
+    await p.locator("#filters-controls .filter-group").first().waitFor();
+    // The checkboxes exist before the app has subscribed to state changes (the
+    // globe loads first), and a change made in that gap updates the URL but
+    // not the panel: wait until the globe has markers, as the other checks do.
+    await p.waitForFunction(() => document.querySelectorAll(".atlas-marker").length > 0, { timeout: 30000 });
+    const groups = () => p.evaluate(() => Object.fromEntries([...document.querySelectorAll("#filters-controls .filter-group")]
+      .map((d) => [d.dataset.facet, { open: d.open, header: d.querySelector("summary").textContent.trim() }])));
+    const before = await groups();
+    assert.equal(before.topic.open, false, "Research topic starts collapsed");
+    assert.equal(before.experimentKind.open, false, "Experiment kind starts collapsed");
+    assert.equal(before.region.open, true, "the short groups stay open");
+    assert.equal(await p.locator("#filter-clear-all").count(), 0, "no Clear all filters while nothing is active");
+    await p.locator('.filter-group[data-facet="topic"] > summary').click();
+    await p.locator('.filter-group[data-facet="topic"] input[type=checkbox]').first().check({ force: true });
+    assert.match((await groups()).topic.header, /1 selected$/);
+    await p.locator("#filter-clear-all").waitFor();
+    // Collapse it again, then change another facet: it must stay collapsed and keep its count.
+    await p.locator('.filter-group[data-facet="topic"] > summary').click();
+    await p.locator("#filter-region-Europe").check({ force: true });
+    const after = await groups();
+    assert.equal(after.topic.open, false, "ticking another facet must not re-open a group the reader closed");
+    assert.match(after.topic.header, /1 selected$/, "a collapsed group still shows its selection count");
+    assert.match(after.region.header, /1 selected$/);
+    await p.locator("#filter-clear-all").click();
+    await p.waitForFunction(() => !document.getElementById("filter-clear-all"));
+    assert.doesNotMatch(p.url(), /[?&](t|rg)=/, "Clear all filters removes the parameters from the URL");
+    assert.doesNotMatch((await groups()).topic.header, /selected/);
+    await ctx.close();
+  });
+
   await record("Collaboration mode shows institution dots on the globe", async () => {
     await page.locator(".collab-line .collab-link").first().click();
     await page.locator("#detail-panel h2", { hasText: "DUNE Collaboration" }).waitFor();
@@ -348,8 +430,10 @@ async function setRangeValue(locator, value) {
     const historical = sections.find((s) => s.heading.includes("Historical experiments"));
     const future = sections.find((s) => s.heading.includes("Future"));
     assert.ok(current && current.text.includes(duneHeading), "DUNE should be listed under Current experiments at Fermilab");
-    assert.ok(historical && !historical.text.includes(duneHeading), "DUNE must not also be listed under Historical experiments");
-    assert.ok(future, "a Future / planned experiments section should exist alongside current and historical");
+    // A section the Atlas has nothing for is not drawn at all, so "not under
+    // Historical / Future" means either no such section or one without DUNE.
+    assert.ok(!historical || !historical.text.includes(duneHeading), "DUNE must not also be listed under Historical experiments");
+    assert.ok(!future || !future.text.includes(duneHeading), "DUNE must not be listed under Future / planned experiments");
   });
 
   await record("Setting the year to 1990 hides the not-yet-built ATLAS cavern site", async () => {
@@ -401,6 +485,12 @@ async function setRangeValue(locator, value) {
         .map((dd) => dd.textContent);
     });
     assert.deepEqual(overflowing, [], "no key-spec value should render past the detail panel's own right edge");
+    // The label column once took everything and left values 28 px wide (one
+    // character per line): a value must always have room for a real word.
+    const slivers = await page.evaluate(() => [...document.querySelectorAll("#detail-panel .kv-list dd")]
+      .filter((dd) => dd.getBoundingClientRect().width < 120)
+      .map((dd) => `${dd.previousElementSibling.textContent}: ${Math.round(dd.getBoundingClientRect().width)}px`));
+    assert.deepEqual(slivers, [], "no key-spec value may be squeezed into a sliver by its label");
   });
 
   await record("Site-tier globe markers have an enlarged tap target", async () => {
@@ -1453,7 +1543,7 @@ async function setRangeValue(locator, value) {
     // merge and split with altitude), and the reloads above may leave the
     // camera elsewhere than the cold-load default; the invariant is that
     // clearing widens the set beyond the Europe-only subset.
-    await page.locator(".filter-chip.filter-clear-all").click();
+    await page.locator("#filter-clear-all").click();
     await page.waitForFunction(
       (n) => document.querySelectorAll(".atlas-marker").length > n
         && document.querySelectorAll(".filter-chip").length === 0,
@@ -1581,6 +1671,28 @@ async function setRangeValue(locator, value) {
       .map((el) => Date.parse(el.textContent.trim().length === 4 ? `${el.textContent.trim()}-01-01` : el.textContent.trim()) || 0));
     const sortedDesc = [...dates].sort((a, b) => b - a);
     assert.deepEqual(dates, sortedDesc, "results must render newest-first by default");
+  });
+
+  await record("Results mode: 'Move timeline here' keeps the list's scroll position, its filters and keyboard focus", async () => {
+    await page.goto(`${base}/atlas${modeQuery("results")}`);
+    await page.locator("#results-mode-list").waitFor();
+    await page.waitForFunction(() => document.querySelectorAll("#results-mode-list .result-row").length > 5);
+    // Every state change (the timeline year included) used to rebuild this
+    // panel from scratch: back to the top, selects reset, focus on <body>.
+    await page.selectOption("#results-sort", "experiment");
+    const scroller = page.locator("#mode-panel .mode-scroll");
+    await scroller.evaluate((el) => { el.scrollTop = 400; });
+    const jump = page.locator("#results-mode-list .jump-year-btn").nth(8);
+    await jump.focus(); // scrolls the button into view; measure after that
+    const before = await scroller.evaluate((el) => el.scrollTop);
+    assert.ok(before > 0, "the results list must be tall enough to scroll in this check");
+    const year = await jump.evaluate((button) => button.closest("li").querySelector(".result-date").textContent.trim().slice(0, 4));
+    await jump.click();
+    await page.waitForFunction((y) => document.querySelector("#timeline-readout").textContent.trim() === y, year);
+    assert.equal(await page.locator("#results-sort").inputValue(), "experiment", "a timeline move must not reset the sort control");
+    assert.ok(Math.abs(await scroller.evaluate((el) => el.scrollTop) - before) < 40, "a timeline move must not scroll the list back to the top");
+    assert.equal(await page.evaluate(() => document.activeElement && document.activeElement.className), "text-btn jump-year-btn",
+      "keyboard focus stays on the button that was pressed");
   });
 
   await record("Results mode: the sort control reorders rows; the group toggles bucket them and set aria-pressed", async () => {
@@ -1924,18 +2036,29 @@ async function setRangeValue(locator, value) {
     assert.match(pubText, new RegExp(`arXiv ${distinctArxiv.replace(".", "\\.")} \\(preprint\\)`));
   });
 
-  await record("An experiment without curated results explains why, with counts from the loaded bundle", async () => {
+  // The panel draws no section it has nothing for; one closing line names what
+  // is missing, as absence from the Atlas and never as absence in the world.
+  async function omittedNote(targetPage) {
+    return targetPage.evaluate(() => {
+      const note = document.querySelector("#detail-panel .omitted-note");
+      return {
+        text: note ? note.innerText : "",
+        hasCoverageLink: !!(note && note.querySelector('a[href$="about.html#coverage"]')),
+        headings: [...document.querySelectorAll("#detail-panel details.panel-section summary")].map((s) => s.textContent.trim()),
+      };
+    });
+  }
+
+  await record("An experiment without curated results says so as absence from the Atlas, not as an empty section", async () => {
     const noResultsExperiment = process.env.HEP_ATLAS_DATA === "generated" ? "abracadabra" : "belle";
     await page.goto(`${base}/atlas${dataTree}#/experiment/${noResultsExperiment}`);
     await page.locator("#detail-panel h2").waitFor();
-    await openSection(page, "Results timeline");
-    const sectionText = await page.evaluate(() => {
-      const summaries = [...document.querySelectorAll("#detail-panel details.panel-section summary")];
-      const details = summaries.find((s) => s.textContent.trim() === "Results timeline")?.closest("details");
-      return details ? details.innerText : "";
-    });
-    assert.match(sectionText, /No results curated for this experiment yet \(the atlas records \d+ results across \d+ experiments; see coverage\)/,
-      `expected the honest "not yet curated" wording with real counts, got: ${sectionText}`);
+    const { text, hasCoverageLink, headings } = await omittedNote(page);
+    assert.ok(!headings.includes("Results timeline"), `an empty Results timeline must not be drawn, got: ${headings.join(" | ")}`);
+    assert.match(text, /None recorded in the Atlas: .*Results/, `got: ${text}`);
+    assert.match(text, /Coverage is partial, so this is not evidence that none exist/, `got: ${text}`);
+    assert.ok(hasCoverageLink, "the closing line must link to the coverage report");
+    assert.doesNotMatch(text, /^None\b(?! recorded)/, "never a bare 'None'");
   });
 
   if (process.env.HEP_ATLAS_DATA === "generated") {
@@ -1945,26 +2068,21 @@ async function setRangeValue(locator, value) {
       // distinct from a curation gap, so it gets its own wording.
       await page.goto(`${base}/atlas${dataTree}#/experiment/cupid`);
       await page.locator("#detail-panel h2").waitFor();
-      await openSection(page, "Results timeline");
-      const sectionText = await page.evaluate(() => {
-        const summaries = [...document.querySelectorAll("#detail-panel details.panel-section summary")];
-        const details = summaries.find((s) => s.textContent.trim() === "Results timeline")?.closest("details");
-        return details ? details.innerText : "";
-      });
-      assert.match(sectionText, /Not yet operating — no results expected\./, `got: ${sectionText}`);
+      const { text } = await omittedNote(page);
+      assert.match(text, /Results \(not yet operating, none expected\)/, `got: ${text}`);
     });
 
     await record("A collaboration with no curated roster disables 'View collaboration on globe' with a reason", async () => {
-      // A fresh, unlistened context: this deliberately requests a
-      // memberships/abracadabra.json that does not exist (the whole point
-      // of the check), which the app itself handles via a caught rejection
-      // — but Chromium still logs the failed network request itself as a
-      // console error regardless of whether JS catches it, which would
-      // otherwise fail this file's blanket "no uncaught console errors"
-      // assertion on the shared `page`/`context` for a 404 this test causes
-      // on purpose.
+      // manifest.json lists every bundle the build wrote, so a collaboration
+      // with no roster must never be asked for `memberships/<slug>.json`: that
+      // request is a 404, and Chromium logs it as a console error whether or
+      // not the page's JavaScript catches it.
       const freshContext = await browser.newContext({ viewport: { width: 1440, height: 960 } });
       const freshPage = await freshContext.newPage();
+      const failedRequests = [];
+      freshPage.on("response", (response) => { if (response.status() >= 400) failedRequests.push(`${response.status()} ${response.url()}`); });
+      const consoleErrors = [];
+      freshPage.on("console", (message) => { if (message.type() === "error") consoleErrors.push(message.text()); });
       await freshPage.goto(`${base}/atlas${dataTree}#/collaboration/abracadabra`);
       await freshPage.locator("#detail-panel h2").waitFor();
       const panelText = await freshPage.locator("#detail-panel").innerText();
@@ -1974,6 +2092,8 @@ async function setRangeValue(locator, value) {
       assert.equal(await viewBtn.isDisabled(), true, "the globe button must be disabled without a curated roster");
       const title = await viewBtn.getAttribute("title");
       assert.ok(title && title.length > 0, "the disabled button must carry a reason in its title");
+      assert.deepEqual(failedRequests, [], "opening a collaboration without a roster must not request a bundle the manifest does not list");
+      assert.deepEqual(consoleErrors, [], "and must not log a console error");
       await freshContext.close();
     });
   }

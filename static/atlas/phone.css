@@ -406,8 +406,17 @@
     padding: 12px 0;
     font-size: 15px;
   }
+  /* Sticks just under the sheet's own bar rather than behind it. */
+  .filter-clear-row {
+    top: calc(var(--phone-touch) + 2px);
+  }
+  .filter-clear-all {
+    min-height: var(--phone-touch);
+    font-size: 15px;
+  }
   /* One scroll, the sheet's, not a list inside a list. */
-  .filter-options {
+  .filter-options,
+  .filter-options.is-long {
     max-height: none;
     gap: 0;
   }
@@ -723,6 +732,13 @@
   .atlas-footer .data-version-label {
     display: none;
   }
+  /* The data-version sentence lives in the filters sheet here, so the honesty
+     statement it carries keeps a short form in the footer: a row of its own
+     above the links (the footer wraps instead of squeezing four targets, the
+     long one included, into 390 px). */
+  .atlas-footer {
+    flex-wrap: wrap;
+  }
   .atlas-footer .footer-link,
   .atlas-footer .text-btn {
     display: inline-flex;
@@ -735,6 +751,16 @@
     color: var(--teal);
     font-size: 13px;
     text-decoration: underline;
+  }
+  .atlas-footer .footer-link.footer-coverage {
+    display: flex;
+    justify-content: center;
+    flex: 1 1 100%;
+    min-height: 32px;
+    padding: 0 8px;
+    font-size: 12px;
+    white-space: normal;
+    text-align: center;
   }
   .share-status:empty {
     display: none;
