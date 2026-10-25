@@ -349,6 +349,196 @@ async function setRangeValue(locator, value) {
     assert.match(subtitle, /\d{4}/, "document subtitle should carry a real year");
   });
 
+  // ---- Independent-review round (rv-panels) ----------------------------------
+  // Each of these was found by someone using the Atlas, not by this suite, and
+  // each failed silently: the page rendered, nothing threw. They need the real
+  // records (the fixtures have no Higgs topic or DUNE detectors), so they run
+  // against the generated tree only.
+  if (process.env.HEP_ATLAS_DATA === "generated") {
+    const freshReader = async (options = {}) => {
+      const ctx = await browser.newContext({ viewport: { width: 1440, height: 960 }, reducedMotion: "reduce", ...options });
+      const p = await ctx.newPage();
+      return { ctx, p };
+    };
+    const markerCounts = (p) => p.evaluate(() => ({
+      lit: document.querySelectorAll(".atlas-marker.is-highlighted").length,
+      muted: document.querySelectorAll(".atlas-marker.is-muted").length,
+    }));
+
+    await record("Topics: opening a topic highlights its experiments' facilities and mutes the rest, until the topic closes", async () => {
+      const { ctx, p } = await freshReader();
+      await p.goto(`${base}/atlas${dataTree}`);
+      await p.waitForFunction(() => document.querySelectorAll(".atlas-marker").length > 0, { timeout: 15000 });
+      await p.locator('#mode-buttons [data-mode="topic"]').click();
+      await p.locator(".topic-link", { hasText: "Neutrino oscillations" }).click();
+      await p.locator("#detail-panel h2", { hasText: "Neutrino oscillations" }).waitFor();
+      // The highlight used to be set by the click and wiped by the route change
+      // that followed it, so the globe never showed which places the topic means.
+      await p.waitForFunction(() => document.querySelectorAll(".atlas-marker.is-highlighted").length > 0, { timeout: 10000 });
+      const open = await markerCounts(p);
+      assert.ok(open.lit > 0 && open.muted > 0, `expected some markers lit and the rest muted, got ${JSON.stringify(open)}`);
+      await p.keyboard.press("Escape");
+      await p.waitForFunction(() => document.getElementById("detail-panel").classList.contains("hidden"));
+      await p.waitForFunction(() => document.querySelectorAll(".atlas-marker.is-highlighted, .atlas-marker.is-muted").length === 0);
+      await ctx.close();
+    });
+
+    await record("Results: filters, sort and grouping live in the URL, survive Back from an opened result, and arrive in a shared link", async () => {
+      const { ctx, p } = await freshReader();
+      await p.goto(`${base}/atlas${dataTree}`);
+      await p.waitForFunction(() => document.querySelectorAll(".atlas-marker").length > 0, { timeout: 15000 });
+      await p.locator('#mode-buttons [data-mode="results"]').click();
+      await p.locator("#results-mode-list li").first().waitFor();
+      await p.selectOption("#results-filter-topic", "topic:higgs-physics");
+      await p.selectOption("#results-filter-type", "observation");
+      await p.selectOption("#results-sort", "experiment");
+      await p.locator("#results-group-experiment").click();
+      const view = () => p.evaluate(() => ({
+        count: document.getElementById("results-count").textContent,
+        topic: document.getElementById("results-filter-topic").value,
+        type: document.getElementById("results-filter-type").value,
+        sort: document.getElementById("results-sort").value,
+        grouped: document.getElementById("results-group-experiment").getAttribute("aria-pressed"),
+      }));
+      const filtered = await view();
+      assert.deepEqual([filtered.topic, filtered.type, filtered.sort, filtered.grouped],
+        ["topic:higgs-physics", "observation", "experiment", "true"]);
+      const shared = p.url();
+      assert.match(shared, /[?&]rt=topic%3Ahiggs-physics/, "the topic filter is in the address");
+      assert.match(shared, /[?&]rs=experiment/, "the sort is in the address");
+      await p.locator("#results-mode-list .result-title").first().click();
+      await p.locator("#detail-panel h2").waitFor();
+      assert.doesNotMatch(p.url(), /[?&]rt=/, "an opened result's address does not carry the list's filters");
+      await p.goBack();
+      await p.locator("#results-mode-list li").first().waitFor();
+      assert.deepEqual(await view(), filtered, "Back restores the same filtered, sorted, grouped list");
+      const q = await ctx.newPage();
+      await q.goto(shared);
+      await q.locator("#results-mode-list li").first().waitFor();
+      assert.equal(await q.locator("#results-count").innerText(), filtered.count, "a shared link opens the same list");
+      assert.equal(await q.locator("#results-filter-topic").inputValue(), "topic:higgs-physics");
+      await ctx.close();
+    });
+
+    await record("Search reads words, not one string: Higgs reaches CERN, ATLAS, CMS and the CMS discovery; questions are never 'No matches'", async () => {
+      const { ctx, p } = await freshReader();
+      await p.goto(`${base}/atlas${dataTree}`);
+      await p.waitForFunction(() => document.querySelectorAll(".atlas-marker").length > 0, { timeout: 15000 });
+      const rows = async (query) => {
+        await p.locator("#atlas-search").fill("");
+        await p.locator("#atlas-search").fill(query);
+        await p.locator("#search-results li").first().waitFor();
+        return p.evaluate(() => [...document.querySelectorAll("#search-results li")].map((li) => li.textContent.trim()));
+      };
+      const higgs = await rows("Higgs");
+      assert.match(higgs[0], /^Higgs physics — Topic$/, "the topic named Higgs is still first");
+      for (const wanted of [/^CERN — Facility/, /^ATLAS — Experiment/, /^CMS — Experiment/,
+        /^Observation of a new boson at a mass of 125 GeV — Result/]) {
+        assert.ok(higgs.some((row) => wanted.test(row)), `"Higgs" must offer ${wanted}; got ${JSON.stringify(higgs)}`);
+      }
+      assert.ok(higgs.find((row) => /^CMS — Experiment/.test(row)).includes("via Higgs physics"),
+        "a row reached through a topic says which");
+      for (const query of ["Higgs discovery", "where was the Higgs discovered"]) {
+        const found = await rows(query);
+        assert.ok(!found.includes("No matches."), `"${query}" must not be "No matches"`);
+        assert.ok(found.some((row) => /^Observation of a new boson at a mass of 125 GeV — Result/.test(row)),
+          `"${query}" must reach the CMS discovery paper; got ${JSON.stringify(found)}`);
+      }
+      assert.deepEqual(await rows("pr\u00e9vessin"), await rows("PREVESSIN"), "accents and case do not matter");
+      assert.ok((await rows("Super Kamiokande"))[0].startsWith("Super-Kamiokande — Experiment"), "words match across a hyphen");
+      assert.deepEqual(await rows("zzzzqq"), ["No matches."], "a query no word of which is in the Atlas still says so");
+      assert.ok((await rows("zzzzqq Higgs")).length > 1, "one matching word is enough once all-words finds nothing");
+      await ctx.close();
+    });
+
+    await record("Experiment panel lists its detectors and the distance and bearing between its sites; a result says where", async () => {
+      const { ctx, p } = await freshReader();
+      await p.goto(`${base}/atlas${dataTree}#/experiment/dune`);
+      await p.locator("#detail-panel h2").waitFor();
+      const section = (title) => p.locator("#detail-panel details.panel-section", { has: p.locator("summary", { hasText: new RegExp(`^${title}$`) }) });
+      const detectors = await section("Detectors").locator("a.entity-link").allInnerTexts();
+      assert.equal(detectors.length, 5, `DUNE records five detectors, got ${JSON.stringify(detectors)}`);
+      assert.ok(detectors.some((name) => /Far Detector Module 1/.test(name)));
+      const beam = section("Beam and sites");
+      await beam.locator("summary").click();
+      const text = await beam.innerText();
+      assert.match(text, /Fermi National Accelerator Laboratory → Sanford Underground Research Facility: ≈ 12\d0 km, bearing 28\d° \(WNW\)/);
+      assert.ok(await beam.locator('a.local-map-link', { hasText: /Fermilab/ }).count() > 0, "the Fermilab local map is linked");
+      assert.ok(await beam.locator('a.local-map-link', { hasText: /SURF/ }).count() > 0, "the SURF local map is linked");
+      await p.goto(`${base}/atlas${dataTree}#/result/cms-higgs-boson-observation-2012`);
+      await p.locator("#detail-panel .result-where").waitFor();
+      assert.match(await p.locator("#detail-panel .result-where").innerText(), /^Where: CERN \(local map\)$/);
+      await p.locator("#detail-panel .result-where a", { hasText: "local map" }).click();
+      await p.waitForFunction(() => location.hash === "#/map/cern");
+      await ctx.close();
+    });
+
+    await record("A detector with only a direction line on a map is never 'shown to scale' there; its own site's map is the to-scale link", async () => {
+      const { ctx, p } = await freshReader();
+      await p.goto(`${base}/atlas${dataTree}#/detector/dune-far-detector-1`);
+      await p.locator("#detail-panel .local-map-chip-row").waitFor();
+      const chips = await p.locator("#detail-panel .local-map-chip").allInnerTexts();
+      assert.ok(chips.some((t) => /^◎ Direction toward this detector drawn on the Fermilab.*map/.test(t)), JSON.stringify(chips));
+      assert.ok(!chips.some((t) => /Shown to scale on the Fermilab/.test(t)), "a direction line is not drawn to scale");
+      assert.ok(chips.some((t) => /^◎ Its site is shown to scale on the SURF/.test(t)), JSON.stringify(chips));
+      // A detector the map really draws keeps the plain claim.
+      await p.goto(`${base}/atlas${dataTree}#/detector/cdf`);
+      await p.waitForFunction(() => /CDF/.test(document.querySelector("#detail-panel h2")?.textContent || ""));
+      await p.locator("#detail-panel .local-map-chip").first().waitFor();
+      assert.match(await p.locator("#detail-panel .local-map-chip").first().innerText(), /^◎ Shown to scale on the Fermilab/);
+      await ctx.close();
+    });
+
+    await record("Timeline: Play at the last year starts again from the first year", async () => {
+      const { ctx, p } = await freshReader();
+      await p.goto(`${base}/atlas${dataTree}`);
+      await p.waitForFunction(() => document.querySelectorAll(".atlas-marker").length > 0, { timeout: 15000 });
+      const maxYear = await p.locator("#timeline-year").getAttribute("max");
+      const minYear = await p.locator("#timeline-year").getAttribute("min");
+      await setRangeValue(p.locator("#timeline-year"), Number(maxYear));
+      await p.waitForFunction((y) => document.getElementById("timeline-readout").textContent.trim() === y, maxYear);
+      await p.locator("#timeline-play").click();
+      assert.equal(await p.locator("#timeline-play").getAttribute("aria-pressed"), "true", "Play is running");
+      await p.waitForFunction((y) => document.getElementById("timeline-readout").textContent.trim() === y, minYear);
+      await p.locator("#timeline-play").click();
+      await ctx.close();
+    });
+
+    await record("Topic panel: physics results come first, technology milestones follow under their own heading", async () => {
+      const { ctx, p } = await freshReader();
+      await p.goto(`${base}/atlas${dataTree}#/topic/neutrino-oscillations`);
+      await p.locator("#detail-panel h2").waitFor();
+      const related = p.locator("#detail-panel details.panel-section", { has: p.locator("summary", { hasText: /^Related results$/ }) });
+      await related.locator("summary").click();
+      const order = await related.evaluate((el) => [...el.querySelectorAll(".panel-section-body > *")].map((node) => (
+        node.tagName === "H4" ? `H4:${node.textContent}` : `UL:${[...node.querySelectorAll("a")].map((a) => a.textContent).join("|")}`)));
+      assert.equal(order.length, 3, JSON.stringify(order));
+      assert.equal(order[1], "H4:Technology milestones");
+      assert.doesNotMatch(order[0], /Excavation of colossal caverns/, "a milestone is not among the physics results");
+      assert.match(order[2], /Excavation of colossal caverns/);
+      await ctx.close();
+    });
+
+    await record("Copy share link without clipboard access says what to do and offers the link in a selected read-only field", async () => {
+      const { ctx, p } = await freshReader({ viewport: { width: 390, height: 844 }, hasTouch: true });
+      await p.addInitScript(() => {
+        Object.defineProperty(navigator, "clipboard", { value: { writeText: () => Promise.reject(new Error("denied")) } });
+      });
+      await p.goto(`${base}/atlas${dataTree}`);
+      await p.waitForFunction(() => document.querySelectorAll(".atlas-marker").length > 0, { timeout: 15000 });
+      await p.locator("#share-link").click();
+      const field = p.locator("#share-status input.share-url");
+      await field.waitFor();
+      assert.equal(await field.getAttribute("readonly"), "");
+      assert.equal(await field.inputValue(), p.url());
+      assert.equal((await p.locator("#share-status .share-status-text").innerText()).trim(), "Press and hold to copy");
+      assert.doesNotMatch(await p.locator("#share-status").innerText(), /https?:/, "the raw address is not dumped into the status line");
+      const selected = await field.evaluate((el) => el.selectionStart === 0 && el.selectionEnd === el.value.length);
+      assert.ok(selected, "the whole link is selected");
+      await ctx.close();
+    });
+  }
+
   // Workstream A1: site/detector/accelerator/beamline routes. Before this,
   // state.js's TYPE_PREFIX and panels.js's RENDERERS both lacked these four
   // types — selecting one from global search showed "Unknown entity type",
