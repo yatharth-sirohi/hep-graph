@@ -1,0 +1,109 @@
+{
+  "accuracy_m": 20,
+  "aliases": [],
+  "checks": [
+    {
+      "expected": {
+        "dimension": "length",
+        "display": "66.06 m (perimeter of 23.23 m x 9.8 m)",
+        "unit": "m",
+        "value": 66.06
+      },
+      "kind": "length",
+      "locator": "section on the main spectrometer: vessel length and inner diameter",
+      "note": "Tautological: perimeter computed by me as 2 x (23.23 + 9.8) m of the rectangle that is drawn.",
+      "quote": "23.23 m long and has an inner diameter of 9.8 m",
+      "sources": [
+        "src:geo-kit-katrin-design-paper"
+      ],
+      "tolerance": 0.005
+    }
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "depth_m": null,
+  "entity_id": "detector:katrin",
+  "feature_type": "other",
+  "geometry": {
+    "confidence": "derived",
+    "locator": "KATRIN Collaboration arXiv:2103.04755 (vessel '23.23 m long ... inner diameter of 9.8 m'); placement as for the beam axis",
+    "note": "Size sourced; position inside the hall bounded to about 20 m, not surveyed.",
+    "sources": [
+      "src:geo-kit-katrin-lorentz-2022",
+      "src:geo-kit-katrin-aircoil-2013",
+      "src:geo-kit-katrin-tdr-2004",
+      "src:geo-kit-katrin-design-paper",
+      "src:geo-kit-osm-katrin-outline",
+      "src:geo-kit-osm-tlk-452"
+    ],
+    "value": {
+      "coordinates": [
+        [
+          [
+            8.435876,
+            49.0956748
+          ],
+          [
+            8.4359639,
+            49.0958756
+          ],
+          [
+            8.4360933,
+            49.0958514
+          ],
+          [
+            8.4360054,
+            49.0956506
+          ],
+          [
+            8.435876,
+            49.0956748
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    },
+    "verified_at": "2026-10-25"
+  },
+  "id": "geometry:kit-katrin-main-spectrometer",
+  "level_id": "surface",
+  "license": {
+    "attribution": "© OpenStreetMap contributors",
+    "name": "ODbL-1.0",
+    "url": "https://www.openstreetmap.org/copyright"
+  },
+  "links": {
+    "website": null
+  },
+  "map_id": "map:kit-karlsruhe",
+  "method": "DERIVED footprint: a rectangle 23.23 m long (along the axis) and 9.8 m wide (across), the plan view of the main spectrometer vessel ('23.23 m long and has an inner diameter of 9.8 m', src:geo-kit-katrin-design-paper), centred on z = 0 of the beam axis (geometry:kit-katrin-beamline-axis). The real vessel is a cylinder with conical end sections, so the rectangle slightly overstates the corners. PLACEMENT (the same for the axis and the vessel footprint). Direction: the KATRIN Collaboration writes 'The experiment has an orientation of xi ~ 16 deg east to the local north N' (src:geo-kit-katrin-lorentz-2022); the long sides of the OSM KATRIN outline (way 394890935) run at 15.8-16.1 deg, which is independent agreement, not an input. Positions along the axis: Table 1 of src:geo-kit-katrin-aircoil-2013 gives the centres of the coil systems relative to the centre of the main spectrometer (z = 0): WGTS -38.87 m, DPS -27.25, CPS -20.58, pre-spectrometer coils -16.46 and -12.10, pinch coil +12.18, detector coil +13.78. Where z = 0 lies on the ground is NOT published; it was bounded by three facts: (1) the main spectrometer vessel, 23.23 m long and 9.8 m in diameter (src:geo-kit-katrin-design-paper), lies inside the OSM KATRIN outline; (2) the detector coil (z = +13.78 m) lies inside the same outline; (3) the WGTS (z = -38.87 m) stands in Tritium Laboratory building 452 ('Rear system and WGTS will be installed in the existing TLK building'; 'The Tritium Laboratory (building 452)'; src:geo-kit-katrin-tdr-2004) whose OSM outline is way 99082477. In the 16-degree frame (a along the axis, b to the left, origin 49.0957 N 8.4360 E) the outline is a 53 m x 19 m stepped polygon; scanning z = 0 over a 0.25 m grid, the placements satisfying (1)-(3) span a = -13.3 to +14.0 m and b = -1.8 to +7.5 m (1806 of the grid points); adding the pre-spectrometer coils inside the outline narrows a to -8.5..+14.0 m, and adding the DPS and CPS (the TDR puts the transport system in a new building that 'will become part of TLK') narrows it to +2.3..+14.0 m. z = 0 is drawn at the centre of the set (a = 6.4 m, b = 3.0 m, i.e. 49.0957631 N, 8.4359846 E); the largest distance from it to any feasible placement is 19.7 m, hence accuracy_m 20. Everything relative (the 52.65 m between coil-system centres, the 16 deg direction) is sourced; the absolute position inside the hall is not. Haversine perimeter of the drawn rectangle: 66.051 m.",
+  "name": "KATRIN main spectrometer vessel (plan footprint, 23.23 m x 9.8 m)",
+  "notes": [
+    "A plan-view rectangle, not the vessel's true outline (conical ends)."
+  ],
+  "osm": {
+    "elements": [
+      "way/394890935",
+      "way/99082477"
+    ],
+    "timestamp": "2026-10-25T10:55:35Z"
+  },
+  "representation": "derived",
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:kit-campus-north",
+  "sources": [
+    "src:geo-kit-katrin-lorentz-2022",
+    "src:geo-kit-katrin-aircoil-2013",
+    "src:geo-kit-katrin-tdr-2004",
+    "src:geo-kit-katrin-design-paper",
+    "src:geo-kit-osm-katrin-outline",
+    "src:geo-kit-osm-tlk-452"
+  ],
+  "summary": {
+    "plain": "The huge vacuum vessel in which KATRIN measures the energy of the electrons, drawn from above at its published size."
+  },
+  "type": "geometry",
+  "valid": null
+}

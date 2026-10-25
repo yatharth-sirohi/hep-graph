@@ -159,3 +159,58 @@ None on the new or changed files.
   then georeference against three OSM corners of Building 203 (cite, never copy) and place the linac axis.
 * APS: an accelerator record for the APS (so the ring has its own `entity_id` and start date), and an APS survey table with
   the ring-centre coordinates to replace the fitted centre.
+
+---
+
+## 3. KIT / KATRIN (`map:kit-karlsruhe`)
+
+Grade before: partial (footprints only, KATRIN outline typed `experimental_area`, beamline unlocated).
+Grade after: **layout to scale (derived, accuracy 20 m)**: a beam axis and the main spectrometer vessel at published size,
+direction and spacing, positioned inside the OSM hall outline by stated constraints.
+
+### Sourced inputs (all fetched this session)
+
+| Input | Value | Source |
+| --- | --- | --- |
+| Orientation of the experiment | "The experiment has an orientation of xi ~ 16 deg east to the local north N." | KATRIN Collaboration, arXiv:2207.06326, Fig. 2 caption (p. 4) |
+| Position of each coil system along the axis, z = 0 at the centre of the main spectrometer | WGTS -38.87 m, DPS -27.25, CPS -20.58, PS1 -16.46, PS2 -12.10, PCH +12.18, DET +13.78 | Glueck et al., arXiv:1304.6569, Table 1 |
+| Same direction from another angle | "aligned almost to south-north direction, with an angle of 14 deg relative to the horizontal earth field" (the horizontal field is itself a little east of true north, so consistent) | same paper, p. 5 |
+| Main spectrometer vessel | 23.23 m long, 9.8 m inner diameter | arXiv:2103.04755 (already on file) |
+| Where things stand | "Rear system and WGTS will be installed in the existing TLK building"; "The Tritium Laboratory (building 452)"; spectrometers "in new buildings at the 'green field' site north of TLK"; "~ 70 m long linear configuration"; monitor beam line in a different building | KATRIN Design Report 2004 (FZKA 7090), pp. 48, 88, 89, 53 (`katrin.kit.edu/publikationen/DesignReport2004-12Jan2005.pdf`) |
+
+### What the OSM outline adds, and what it cannot
+
+The earlier pass could not draw a line because it had no axis and no end points. Now the direction and the spacing are published.
+What is still not published is **where z = 0 stands on the ground**. In the 16-degree frame the OSM KATRIN outline (way 394890935) is a stepped
+53 m x 19 m polygon (a 35 m x 19 m wide part and an 18 m x 11 m narrow wing); the 99 x 94 m TLK 452 (way 99082477) lies to its south-west.
+Three facts bound z = 0: the vessel lies in the outline, the detector coil lies in the outline, the WGTS stands in building 452. A 0.25 m grid search
+gives 1806 feasible placements spanning 27 m along the axis and 9 m across it (centre drawn; largest distance from the centre to a feasible placement 19.7 m, so `accuracy_m` 20). Stricter, less
+certain assumptions shrink the set (pre-spectrometer coils also in the outline: largest distance from the drawn centre 15 m; DPS and CPS also in the outline: 9 m), and the drawn centre is a feasible placement in all three sets. The
+orientation is independent of the outline: the outline's long sides run at 15.8-16.1 deg, the Collaboration says 16 deg.
+
+### Inventory
+
+| Entity | Status | Representation | accuracy_m | Check |
+| --- | --- | --- | --- | --- |
+| detector:katrin (beam axis, WGTS coil centre to detector coil centre, 52.64 m) | drawn: geometry:kit-katrin-beamline-axis (`beamline`, derived) | derived | 20 | azimuth 16.0 deg vs 16 deg (tol 1 deg): pass, **tautological**; length 52.644 m vs 52.65 m (my difference of two Table 1 values), tol 0.5%: pass, **tautological** |
+| detector:katrin (main spectrometer vessel footprint, 23.23 m x 9.8 m) | drawn: geometry:kit-katrin-main-spectrometer (`other`, derived) | derived | 20 | perimeter 66.051 m vs 66.06 m (2 x (23.23 + 9.8)), tol 0.5%: pass, **tautological** |
+| detector:katrin (outline, TLK 451/452, campus boundary) | unchanged | georeferenced | | |
+| rest of the beamline (rear section, detector end, DPS/CPS elements, pre-spectrometer, monitor beam line) | **unlocated**, row rewritten | | | |
+
+The checks are labelled tautological because the shapes are built from the same numbers; the independent evidence is the 15.8-16.1 deg of the OSM outline,
+the containment tests (vessel and detector in the outline, WGTS in TLK 452: all pass for the drawn placement) and the constraint set above.
+
+### Conflicts and caveats
+
+* The "about 70 m" overall length is not reproduced: 52.64 m is the sourced span between the WGTS and detector coil centres; the rest (rear section, detector system) has no published position.
+* The OSM outline is the mapper's polygon; the earlier pass typed it `experimental_area` and left it so. Nothing here asserts it is "the hall"; the derived shapes only require that it contain the vessel and the detector coil.
+* The Design Report describes buildings as planned (2004), with a transport hall that "will become part of TLK"; the as-built layout may differ. The drawn centre is consistent with the transport system lying in the outline's narrow wing, but that is not used as an input.
+
+### Site coordinate corrections
+
+Unchanged from the previous stream's proposal (site:kit-campus-north, option B hall-grade point at the outline centroid 49.09574 N, 8.435976 E, within 10 m of the drawn z = 0 point 49.0957631 N, 8.4359846 E).
+
+### Backlog
+
+* A surveyed KATRIN coordinate (main spectrometer centre or WGTS in the KIT Campus North coordinate system) or a dimensioned hall plan: then re-anchor the two shapes and cut accuracy_m to a few metres.
+* Positions of the rear section and the detector end (to reach the 70 m), the monitor-spectrometer hall.
