@@ -10,7 +10,7 @@
 // This module owns no globe/DOM rendering of markers — only the filter
 // *panel* UI (checkboxes, chips, clear-all) and the pure matching logic.
 
-import { statusForTimeline, statusEra, titleCase } from './model.js';
+import { statusForTimeline, statusEra, titleCase, kindLabel } from './model.js';
 
 // ---------------------------------------------------------------- regions
 // Not exhaustive of all ISO-3166 alpha-2 codes, but covers every country
@@ -346,6 +346,10 @@ const FACET_LABELS = {
 };
 
 function optionLabel(facet, value) {
+  // Kind slugs go through the explicit label map (model.js KIND_LABELS), not
+  // titleCase(), which spells "cevns" as "Cevns" and "long_lived_particle" as
+  // "Long Lived Particle".
+  if (facet === 'facilityKind' || facet === 'experimentKind') return kindLabel(value);
   return facet === 'region' || facet === 'era' ? titleCase(value).replace(/^./, (c) => c.toUpperCase())
     : titleCase(value);
 }

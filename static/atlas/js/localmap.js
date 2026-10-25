@@ -19,7 +19,7 @@
 // globe's cold load must not pay for a map engine nobody has opened yet.
 
 import {
-  titleCase, quantityText, statusForTimeline, timelineAbsenceReason, monthToYear,
+  titleCase, kindLabel, quantityText, statusForTimeline, timelineAbsenceReason, monthToYear,
 } from './model.js';
 import * as mapstyle from './mapstyle.js';
 
@@ -1139,7 +1139,7 @@ function renderDrawer() {
       ? statusForTimeline(record.state_segments, view.timelineState) : null;
     drawerHead.appendChild(h('p', { class: 'map-subtitle' }, [
       titleCase(primary.entity_type),
-      record && record.kind ? ` · ${titleCase(record.kind)}` : '',
+      record && record.kind ? ` · ${kindLabel(record.kind)}` : '',
       resolved ? ` · ${mapstyle.statusStyle(resolved.status).label} in ${whenLabel()}` : '',
     ].join('')));
   }

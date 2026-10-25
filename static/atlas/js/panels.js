@@ -5,7 +5,7 @@
 
 import * as loader from './loader.js';
 import {
-  quantityText, fmtDate, titleCase, statusEra, statusForTimeline, timelineAbsenceReason,
+  quantityText, fmtDate, titleCase, kindLabel, statusEra, statusForTimeline, timelineAbsenceReason,
 } from './model.js';
 import * as provenance from './provenance.js';
 
@@ -334,7 +334,7 @@ async function renderFacility(id, timelineState) {
 
   const frag = document.createDocumentFragment();
   frag.appendChild(h('h2', {}, facility.name));
-  frag.appendChild(h('p', { class: 'panel-subtitle' }, titleCase(facility.kind)));
+  frag.appendChild(h('p', { class: 'panel-subtitle' }, kindLabel(facility.kind)));
   frag.appendChild(experimentBadge(facility, timelineState));
 
   const facilitySummary = plainSummaryOf(facility, t);
@@ -403,7 +403,7 @@ async function renderExperiment(id, timelineState) {
 
   const frag = document.createDocumentFragment();
   frag.appendChild(h('h2', {}, exp.name));
-  frag.appendChild(h('p', { class: 'panel-subtitle' }, titleCase(exp.kind)));
+  frag.appendChild(h('p', { class: 'panel-subtitle' }, kindLabel(exp.kind)));
   frag.appendChild(experimentBadge(exp, timelineState));
 
   const collabs = (exp.collaboration_ids || []).map((cid) => ATLAS.collaborations[cid]).filter(Boolean);
@@ -905,7 +905,7 @@ async function renderDetector(id, timelineState) {
 
   const frag = document.createDocumentFragment();
   frag.appendChild(h('h2', {}, detector.name));
-  const techLabel = [detector.technology, (detector.technology_classes || []).map(titleCase).join(', ')]
+  const techLabel = [detector.technology, (detector.technology_classes || []).map(kindLabel).join(', ')]
     .filter(Boolean).join(' · ');
   if (techLabel) frag.appendChild(h('p', { class: 'panel-subtitle' }, techLabel));
   frag.appendChild(experimentBadge(detector, timelineState));
@@ -982,7 +982,7 @@ async function renderAccelerator(id, timelineState) {
 
   const frag = document.createDocumentFragment();
   frag.appendChild(h('h2', {}, accelerator.name));
-  frag.appendChild(h('p', { class: 'panel-subtitle' }, titleCase(accelerator.kind)));
+  frag.appendChild(h('p', { class: 'panel-subtitle' }, kindLabel(accelerator.kind)));
   frag.appendChild(experimentBadge(accelerator, timelineState));
   // ---- local map view hook (§4): the compact subtitle-area affordance
   const mapChip = localMapChip(accelerator);
