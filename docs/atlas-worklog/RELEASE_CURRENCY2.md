@@ -29,7 +29,14 @@ Result: the repair is confirmed by two dated sources, the restart is only a plan
 
 Result: confirmed; recorded as a milestone annotation, not a status change. https://www.ctao.org/news/the-large-sized-telescope-sub-array-is-inaugurated-on-ctao-north/ (La Palma, 15 October 2026): "celebrated the inauguration of the Large-Sized Telescope (LST) sub-array at the CTAO-North site"; "With the three new LSTs (LST-2, LST-3, and LST-4) joining the existing LST-1, the four telescopes will become a true array"; "Over the coming years, the LSTs will undergo commissioning and integration into CTAO operations." The record structure does not support per-telescope intervals (one aggregate `detector:ctao` for both sites; the LSTs exist only as map geometry), the article gives no commissioning dates for LST-2 to LST-4 and says commissioning is still ahead, and the rest of CTAO is unbuilt, so a `phase` row (status construction, 2026-10-15) was added to `experiment:ctao` and `detector:ctao` and the observatory status stays `construction`.
 
-## 4. Change log
+
+## 4. Audit leads from the first pass
+
+### 4.1 SNS proton power upgrade
+
+Result: confirmed and dated. ORNL, 18 May 2026 (https://www.ornl.gov/news/sns-upgrade-accelerates-neutron-research-boosts-data-quality): "The completed proton power upgrade ensures SNS will remain the world's most powerful proton accelerator" and the linac "is well along the path to 2.8 megawatts". So the project is complete, but the delivered power is still being ramped. The dates come from the LINAC2024 paper by the project team (https://www.osti.gov/servlets/purl/2448167): "The long installation outage began in August 2023 and concluded in April 2024"; "Beam commissioning commenced June 7th"; "Neutron production for the user program resumed July 11th as planned at 1.3 GeV and 1.7 MW". The Atlas had an undated, open-ended `upgrade` row (start and end null, so it covered nothing) and an open-ended operating row from 2007-08 that ignored the 2023-24 outage. Fixed to: active 2007-08 to 2023-08, upgrade 2023-08 to 2024-07-11, active from 2024-07-11. Status stays `active`. Not changed: `specs.beam_energy` ("~1 GeV", Wikipedia) now reads 1.3 GeV in the project paper; left for a spec pass.
+
+## Change log (every edit, for re-opening)
 
 - **accelerator:fermilab-main-injector** — intervals["no Main Injector beam (transformer failures)"].note/sources; intervals["NuMI run..."].label/note/quote/sources
   - old: planned run labelled "NuMI run, 20 weeks (planned)", quote from the April 2026 PAC report only; shutdown note ended at "should be re-checked"
@@ -57,3 +64,8 @@ Result: confirmed; recorded as a milestone annotation, not a status change. http
   - new: plus phase "LST sub-array (LST-1 to LST-4, CTAO-North) completed and inaugurated", 2026-10-15; status unchanged (`construction`)
   - source: https://www.ctao.org/news/the-large-sized-telescope-sub-array-is-inaugurated-on-ctao-north/ (record `src:geo-arrays2-ctao-lst-inauguration-2026`, re-read this session)
   - quote: "celebrated the inauguration of the Large-Sized Telescope (LST) sub-array at the CTAO-North site"
+- **accelerator:sns** — intervals (status stays `active`)
+  - old: construction (..2006-04); upgrade "Proton Power Upgrade (1.4 -> 2.8 MW)" start null, end null (covered nothing); active "operational (first instruments commissioned)" 2007-08 open-ended
+  - new: active 2007-08 .. 2023-08; upgrade 2023-08 .. 2024-07-11 (verified); new active "operating with the upgraded linac (1.3 GeV; power ramping toward 2.8 MW)" from 2024-07-11 (open)
+  - sources: https://www.osti.gov/servlets/purl/2448167 (LINAC2024 THPB045); https://www.ornl.gov/news/sns-upgrade-accelerates-neutron-research-boosts-data-quality
+  - quote: "The long installation outage began in August 2023 and concluded in April 2024." | "Neutron production for the user program resumed July 11th as planned at 1.3 GeV and 1.7 MW." | "The completed proton power upgrade ensures SNS will remain the world's most powerful proton accelerator" (18 May 2026)
