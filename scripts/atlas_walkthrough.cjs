@@ -27,7 +27,9 @@ const ONLY = process.argv.slice(4);
   const rows = [];
   for (const slug of maps) {
     errors.length = 0;
-    await page.goto(`${BASE}/atlas#/map/${slug}`, { waitUntil: 'load' });
+    const loaded = await page.goto(`${BASE}/atlas#/map/${slug}`, { waitUntil: 'load', timeout: 180000 })
+      .then(() => true, (err) => { errors.push(`goto: ${err.message.split('\n')[0]}`); return false; });
+    if (!loaded) { rows.push({ slug, shapes: 0, markers: 0, featureRows: 0, unlocated: 0, checksPassed: 0, checksFailed: 0, scaleBar: null, errors: [...errors] }); continue; }
     await page.waitForSelector('.leaflet-container', { timeout: 20000 }).catch(() => {});
     await page.waitForTimeout(2500);
     const seen = await page.evaluate(() => {
