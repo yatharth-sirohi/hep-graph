@@ -22,6 +22,48 @@ set. The release requires every facility to open a working to-scale map. Sources
   `mu3e` (collaboration, detector, experiment) are pre-existing and date-dependent (the validator
   derives state at the current month, 2026-10); none of them is on a file this stream touched. The integrator confirmed they are time-driven, present on the base branch and being fixed elsewhere; this stream's bar is "0 errors other than these three" and no mu3e file was touched.
 
+## Summary (grades by the coverage-state definition: "layout to scale" = a structural feature plus footprints)
+
+| Facility | Grade before → after | Drawn features (rep.) | Checks passed | Unlocated rows |
+| --- | --- | --- | --- | ---: |
+| argonne-national-laboratory | no map → partial | 5 (5 georeferenced) | 0/0 | 2 |
+| isis-neutron-source | no map → partial | 3 (3 georeferenced) | 0/0 | 2 |
+| ill-grenoble | no map → **layout to scale** | 5 (4 georeferenced, 1 derived; hall×3) | 1/1 | 1 |
+| kit-karlsruhe | no map → partial | 4 (4 georeferenced) | 0/0 | 1 |
+| mit | no map → partial | 3 (3 georeferenced) | 0/0 | 1 |
+| yale-wright-lab | no map → partial | 1 (georeferenced) | 0/0 | 1 |
+| university-of-washington-cenpa | no map → partial | 1 (georeferenced) | 0/0 | 2 |
+| mcmurdo-ldb | no map → partial (tier C) | 2 (georeferenced) | 0/0 | 2 |
+| summit-station-greenland | no map → **layout to scale** | 10 (7 derived, 2 georeferenced, 1 surveyed; array×7) | 9/9 | 1 |
+
+The coverage report's "facilities without a local map" list is now only `juno-jiangmen` (not in this
+stream). This stream adds 9 maps, 34 geometry records and 43 source records (all new files,
+no existing record edited): see `git diff --stat b748d0c..HEAD`.
+
+## Validator, build and tests at the end of this stream
+
+* `python -m hepgraph.atlas.validate`: **3 errors, 1588 warnings**. The 3 errors are the
+  integrator-acknowledged `status-not-derived-state` findings on `mu3e` (untouched). No warning
+  or error names a file of this stream; the only findings that mention these facilities' entities
+  are pre-existing ones (A23 campus-grade site points on sites that hold a detector; `rank`
+  fields on KARMEN sources; A12 interval notes on `karmen`, `katrin`, `abracadabra`, `haystac`,
+  `admx`, `project-8`, `rno-g`).
+* `python -m hepgraph.atlas.build`: writes all 79 files but **exits 1** with
+  `atlas.json is 1501489 bytes, over the 1500000 byte limit` (`schema.ATLAS_JSON_MAX_BYTES`).
+  **This is caused by the map count, not by any one record.** atlas.json is written indented; each
+  new map adds about 1.1 KB (its `maps` entry) plus the facility/site/detector `map_id` fields,
+  and the headroom before this stream was about 9 KB for nine maps that need about 10.5 KB. The
+  same test fails in the suite: `tests/test_atlas_geometry_data.py::test_every_map_builds_a_bundle_inside_the_size_budget`
+  (1 failed, 680 passed). Other release streams add maps too, so the integrator should raise the
+  cap or write atlas.json with compact separators (the same content is about 917 KB compact) rather
+  than trim records; I did not touch `hepgraph/`. Per-map bundles are small (7–65 KB each, far under
+  the 2 MB cap).
+* Every `checks[]` row of this stream passes (10/10: 1 ILL `span`, 8 Summit `distance`, 1 Summit
+  `length`), and `tests/test_atlas_geometry_data.py` passes apart from the size test above.
+* `hepgraph.atlas.geo.centroid` precision defect for tiny polygons: see section 3, item 6.
+* Generated files under `static/atlas/generated/` were restored before each commit and are not
+  committed.
+
 ---
 
 ## 1. argonne-national-laboratory (`map:argonne-national-laboratory`)
@@ -146,11 +188,11 @@ centroid of the OSM RAL polygon (51.570768, -1.315704), well inside its 1500 m p
 
 **Remaining backlog**
 
-1. Synchrotron: an ISIS/STFC site plan or design report placing the ring in the R5 complex,
+1. Synchrotron: an ISIS/STFC site plan or design report placing the ring on the RAL site,
    georeferenced against ≥ 3 OSM building corners; then a `length` check against 163 m.
 2. Target positions and the proton-beam axis (site plan or KARMEN technical paper) to place
    KARMEN from its sourced 17.7 m / 100° offset.
-3. The ISIS linac (70 MeV) and the beamline from the synchrotron to TS2 (the TS2 extraction
+3. The ISIS linac and the beamline from the synchrotron to TS2 (the TS2 extraction
    line); no fetched source gives either.
 4. An official RAL campus boundary/area for an `area` check.
 
@@ -354,7 +396,7 @@ and cannot be told apart from the sources.
 
 **Remaining backlog**
 
-1. A source naming the room of ABRACADABRA-10 cm (an LNS lab page, a Winslow-group thesis or the
+1. A source naming the room of ABRACADABRA-10 cm (an MIT lab page, a Winslow-group thesis or the
    PRD design paper's acknowledgements), then a point inside that building's footprint.
 2. Floor plans (MIT FIS) for Buildings 24 and 26, if the room is found.
 3. DMRadio and other successor Winslow-group experiments are not atlas entities yet; nothing
