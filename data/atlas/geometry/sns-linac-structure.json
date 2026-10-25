@@ -1,0 +1,202 @@
+{
+  "accuracy_m": 10,
+  "aliases": [],
+  "checks": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "depth_m": null,
+  "entity_id": "accelerator:sns",
+  "feature_type": "linac",
+  "geometry": {
+    "confidence": "approximate",
+    "locator": "OSM way/892578460 version 1 (2021-01-06T07:44:30Z) read 2026-10-25T11:43:00Z; ORNL map CL_ornl.xml POLY_20210629215236013 'SNS LINEAR Accelerator and Klystron Gallery'; PAC 2001 RPPH066 section 2.1 (tunnel 1056 feet) and PAC 2003 MOAL003 (~330-m-long klystron gallery)",
+    "note": "OpenStreetMap alone yields at most `approximate`. The footprint is the surface structure, not the beam axis, and its identity rests on georeferencing ORNL's hand-drawn map polygon (about 40 m centroid offset, 8 deg axis difference), not on a source that names the OSM building.",
+    "sources": [
+      "src:geo-ornl-osm-sns-linac-structure",
+      "src:geo-ornl-interactive-map",
+      "src:geo-ornl-pac2001-linac-conventional-facilities",
+      "src:geo-ornl-pac2003-holtkamp-status",
+      "src:geo-ornl-sns-cold-linac-2005"
+    ],
+    "value": {
+      "coordinates": [
+        [
+          [
+            -84.3060191,
+            35.9509136
+          ],
+          [
+            -84.3058052,
+            35.9510057
+          ],
+          [
+            -84.3023963,
+            35.9524731
+          ],
+          [
+            -84.3023436,
+            35.9523928
+          ],
+          [
+            -84.3025362,
+            35.9523099
+          ],
+          [
+            -84.3024979,
+            35.9522516
+          ],
+          [
+            -84.3031122,
+            35.9519872
+          ],
+          [
+            -84.3031506,
+            35.9520457
+          ],
+          [
+            -84.3033711,
+            35.9519508
+          ],
+          [
+            -84.3033327,
+            35.9518923
+          ],
+          [
+            -84.3035678,
+            35.9517911
+          ],
+          [
+            -84.3036039,
+            35.951846
+          ],
+          [
+            -84.3038688,
+            35.9517319
+          ],
+          [
+            -84.3038328,
+            35.951677
+          ],
+          [
+            -84.3041135,
+            35.9515562
+          ],
+          [
+            -84.3041507,
+            35.9516129
+          ],
+          [
+            -84.304371,
+            35.9515181
+          ],
+          [
+            -84.3043337,
+            35.9514614
+          ],
+          [
+            -84.3045712,
+            35.9513591
+          ],
+          [
+            -84.3046111,
+            35.9514198
+          ],
+          [
+            -84.3049351,
+            35.9512803
+          ],
+          [
+            -84.3048953,
+            35.9512196
+          ],
+          [
+            -84.3051179,
+            35.9511238
+          ],
+          [
+            -84.3051576,
+            35.9511843
+          ],
+          [
+            -84.3053142,
+            35.9511169
+          ],
+          [
+            -84.3052745,
+            35.9510564
+          ],
+          [
+            -84.3054897,
+            35.9509637
+          ],
+          [
+            -84.3055281,
+            35.9510222
+          ],
+          [
+            -84.305688,
+            35.9509533
+          ],
+          [
+            -84.3056496,
+            35.9508949
+          ],
+          [
+            -84.3059281,
+            35.950775
+          ],
+          [
+            -84.305972,
+            35.9508419
+          ],
+          [
+            -84.3060191,
+            35.9509136
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    },
+    "verified_at": "2026-10-25"
+  },
+  "id": "geometry:sns-linac-structure",
+  "level_id": "surface",
+  "license": {
+    "attribution": "© OpenStreetMap contributors",
+    "name": "ODbL-1.0",
+    "url": "https://www.openstreetmap.org/copyright"
+  },
+  "links": {
+    "website": null
+  },
+  "map_id": "map:oak-ridge-national-laboratory",
+  "method": "OpenStreetMap way 892578460 (building=yes, no name, 33 nodes, version 1, 2021-01-06T07:44:30Z) used verbatim: a stepped thin structure 369.8 m long (largest extent) and 5294 m2 in area (average width 14.3 m). IDENTIFICATION (the OSM way carries no name; ORNL's own map labels the structure but gives no latitude/longitude). ORNL's interactive map (src:geo-ornl-interactive-map) has one map, 'Chestnut Ridge' (UMAP_2015071721664, 7000 x 4000 px), with seven labelled polygons: 8600 CLO, 8610 CNMS, 8630 JINS, 8640 Guest House, 8700 Instrument Hall, Second Target Station and 'SNS LINEAR Accelerator and Klystron Gallery'. The polygons are in the map's image units (x and y both scaled to the half-width). A similarity transform (rotation, uniform scale, translation, one mirror) from those units to metres was fitted by least squares to four pairs whose OSM footprints are identifiable by name or by size: the Guest House (OSM way 892578468, named 'ORNL Guest House', addr:housenumber 8640) and, by matching size and position, CLO to way 892578439, 8700 to way 443660319 and JINS to way 892578446. Fit: scale 673 m per image unit, rotation 18 deg, residual of the four anchors 9-13 m; leave-one-out predictions of an omitted anchor are 15-30 m off. Transforming the linac polygon with that fit puts its centroid 37 m (leave-one-out range 37-66 m) from the centroid of OSM way 892578460, with long axes at 20 and 28 deg and lengths along the axis of 403 m (ORNL polygon, hand-drawn, includes the klystron-gallery offsets) and 369 m (OSM). Way 892578460 is the only long thin building of the 25 in the SNS complex (the next longest, way 892578439, is 269 m in span but 8042 m2 in area, i.e. 30 m wide on average, and lies about 550 m east of where the ORNL polygon falls). The ORNL polygons were not copied; they only identify the OSM footprint. What it is: the 'SNS LINEAR Accelerator and Klystron Gallery' of the ORNL map, i.e. the surface footprint of the klystron building together with the front-end building, with the berm-covered linac tunnel beside it; it is not the beam axis. Plausibility against sourced figures (not written as checks, because they are not like-for-like): the linac tunnel is 'The length of the linac tunnel is 1056 feet' (321.9 m), the klystron gallery '~330-m-long' (PAC 2001 and PAC 2003) and ORNL's 2005 news item 'the 1,000-foot linac' (src:geo-ornl-sns-cold-linac-2005), and the front-end building is a further '11000 square feet'; the footprint is 370 m long. The footprint's average width of 14.3 m compares with a klystron building 'width of 30 feet' (9.1 m) plus a tunnel '14' wide' (4.3 m) plus walls. Confidence stays approximate: OpenStreetMap alone, and an identification by georeferencing a hand-drawn polygon, not by a source that names the OSM building.",
+  "name": "SNS linac structure (front-end building, klystron gallery and linac tunnel footprint)",
+  "notes": [
+    "Only the linac side of the accelerator is placed. The accumulator ring (248 m), the HEBT (169 m) and the RTBT (151 m) have no published position and are listed under the map's unlocated rows.",
+    "Uncertainty is stated, not hidden: the identification with the ORNL map polygon has a centroid offset of 37 m (leave-one-out up to 66 m) and the long axes differ by 8 degrees."
+  ],
+  "osm": {
+    "elements": [
+      "way/892578460"
+    ],
+    "timestamp": "2026-10-25T11:43:00Z"
+  },
+  "representation": "georeferenced",
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:ornl-sns-neutrino-alley",
+  "sources": [
+    "src:geo-ornl-osm-sns-linac-structure",
+    "src:geo-ornl-interactive-map",
+    "src:geo-ornl-pac2001-linac-conventional-facilities",
+    "src:geo-ornl-pac2003-holtkamp-status",
+    "src:geo-ornl-sns-cold-linac-2005"
+  ],
+  "summary": {
+    "plain": "The long, thin building on the Chestnut Ridge side of the Spallation Neutron Source that holds the proton linac's front end and klystron gallery, with the linac tunnel beside it under a berm."
+  },
+  "type": "geometry",
+  "valid": null
+}
