@@ -2074,3 +2074,10 @@ a.local-map-chip {
   border-color: var(--amber);
   box-shadow: 0 0 0 2px #0b1620, 0 0 0 4px var(--amber);
 }
+
+/* The hover tooltip was shrink-wrapped to its containing block, which has no
+   width, so "Super Proton Synchrotron" stacked one word per line in a column
+   under 100 px wide. It takes its natural width up to its own max-width. */
+.map-tooltip.leaflet-tooltip {
+  width: max-content;
+}

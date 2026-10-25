@@ -422,6 +422,11 @@ Implementation resolved these; they are normative from here on.
   hovering or focusing the list row shows it. Labels follow the level and year
   filters and are ghosted with their shape. They are `aria-hidden`: the
   feature list is the screen-reader equivalent.
+* Series: three or more numbered records of one thing ("Auger SD1500
+  stations, band 3 of 20", "LHAASO ... block 7 of 15", "Baikal-GVD cluster 4")
+  are labelled once, "Auger SD1500 stations: 20 bands", at the middle of the
+  whole run; hovering or focusing any member's list row shows that label. The
+  records themselves stay individually listed, hoverable and selectable.
 * A footprint or line drawn smaller than 8 px across (reactor buildings 50 m
   wide on a map that also frames a detector 52 km away) is not left invisible:
   it also gets a point symbol at its centroid, shaped by feature type (diamond

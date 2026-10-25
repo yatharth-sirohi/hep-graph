@@ -242,7 +242,7 @@ const EVIDENCE_QUALIFIER = new RegExp([
   'inferred', 'point', 'centre of', 'shared with', 'second shaft', 'not confirmed', 'surface',
 ].map((word) => `\\b${word}\\b`).join('|'), 'i');
 
-const NAME_SUFFIX = /,\s*(full ring|tunnel|building|convex hull)\s*$/i;
+const NAME_SUFFIX = /,\s*(full ring|tunnel|building|convex hull(?: of [^,]*)?)\s*$/i;
 
 function tidy(text) {
   return text.replace(/\s+/g, ' ').replace(/\s+,/g, ',').trim();
@@ -348,4 +348,39 @@ export function labelsFor(features) {
     }
   }
   return labels;
+}
+
+// --- series: many records, one label --------------------------------------
+// The instrument-level array maps split one detector into several records
+// ("Auger SD1500 stations, band 3 of 20", "LHAASO ... block 7 of 15", "Baikal-GVD
+// cluster 4"). Labelling each would put twenty near-identical chips over the very
+// array they describe, so a run of three or more is labelled once, at the middle
+// of the whole run.
+
+const SERIES_PATTERN = /\b(band|block|strip|cluster|string|station|part|section)s?\s+(\d+)(?:\s*-\s*(\d+))?(?:\s+of\s+(\d+))?/i;
+export const SERIES_MIN_MEMBERS = 3;
+
+/** `{ key, prefix, noun, total }` when this feature's name is one numbered
+ *  member of a series, else null. Parenthetical remarks do not take part. */
+export function seriesOf(feature) {
+  const name = (feature.name || '').replace(/\s*\([^()]*\)/g, '');
+  const match = SERIES_PATTERN.exec(name);
+  if (!match) return null;
+  const prefix = name.slice(0, match.index).replace(/[\s,;:-]+$/, '');
+  if (!prefix) return null;
+  const tail = name.slice(match.index + match[0].length).replace(/[\s,;:-]+$/, '').trim();
+  const noun = match[1].toLowerCase();
+  return {
+    key: `${feature.feature_type}|${prefix.toLowerCase()}|${noun}|${tail.toLowerCase()}`,
+    prefix,
+    noun,
+    total: match[4] ? Number(match[4]) : null,
+  };
+}
+
+/** "Auger SD1500 stations: 20 bands" — the one label of a whole series. */
+export function seriesLabel(info, count) {
+  const n = info.total || count;
+  const noun = info.noun === 'station' ? 'station groups' : `${info.noun}${n === 1 ? '' : 's'}`;
+  return `${info.prefix}: ${n} ${noun}`;
 }
