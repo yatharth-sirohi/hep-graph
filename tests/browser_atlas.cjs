@@ -881,7 +881,10 @@ async function setRangeValue(locator, value) {
           }
           assert.equal(await p.locator(`path[data-geometry-id="${pointFeature.id}"]`).count(), 1,
             "a Point feature is an SVG path, so it carries the same four encodings as every other feature");
-          assert.equal(await p.locator(".leaflet-marker-icon").count(), 0,
+          // The only marker-pane elements allowed are the point symbols that
+          // stand in for a footprint drawn smaller than a few pixels
+          // (.map-symbol-icon, a styled <div>); a default pin (<img>) is not.
+          assert.equal(await p.locator(".leaflet-marker-icon:not(.map-symbol-icon)").count(), 0,
             "no default Leaflet pin markers anywhere: a pin would assert a footprint no source gives");
           assert.match(await row.innerText(), /position only/i,
             "the list row says only the position is known");
@@ -955,6 +958,13 @@ async function setRangeValue(locator, value) {
               tiles: document.querySelectorAll("img.leaflet-tile").length,
               basemapDisabled: document.getElementById("map-basemap-toggle").disabled,
               paths: document.querySelectorAll(".leaflet-overlay-pane svg path").length,
+              drawnInside: (() => {
+                const c = document.querySelector(".leaflet-container").getBoundingClientRect();
+                const boxes = [...document.querySelectorAll(".leaflet-overlay-pane path[data-geometry-id]")]
+                  .map((el) => el.getBoundingClientRect()).filter((r) => r.width || r.height);
+                return boxes.length > 0 && boxes.every((r) => r.left >= c.left && r.right <= c.right
+                  && r.top >= c.top && r.bottom <= c.bottom);
+              })(),
             };
           });
           console.log("polar map:", polarMapId, JSON.stringify(info));
@@ -968,10 +978,13 @@ async function setRangeValue(locator, value) {
           assert.equal(info.tiles, 0, "no Web Mercator basemap tiles are requested at a pole");
           assert.equal(info.basemapDisabled, true, "the basemap toggle is disabled, not merely off");
           assert.match(await p.locator("#map-basemap-unavailable").innerText(), /No basemap at the pole/i);
-          const expectedShorter = 2 * polarMeta.extent_m;
+          // Framed to what the map draws, in the metre grid: a finite span in
+          // metres (not NaN, which is what projecting a lat/lng box around a pole
+          // gives) with every drawn shape inside the view.
           const measuredShorter = Math.min(info.widthM, info.heightM);
-          assert.ok(Math.abs(measuredShorter - expectedShorter) / expectedShorter <= 0.02,
-            `polar opening view spans ${Math.round(measuredShorter)} m, want ${expectedShorter} m`);
+          assert.ok(Number.isFinite(measuredShorter) && measuredShorter > 0,
+            `polar opening view spans ${measuredShorter} m, want a finite span in metres`);
+          assert.ok(info.drawnInside, "everything the polar map draws is inside its opening view");
           assert.ok(info.paths > 0, "the features are drawn on the plain background");
           assert.deepEqual(polarErrors, [], "no uncaught errors on a polar map");
           await mapContext.close();
