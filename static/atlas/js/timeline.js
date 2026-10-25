@@ -162,6 +162,21 @@ export function createTimeline(container, { minYear, maxYear, defaultYear, onCha
     timer = null;
   }
   function startPlay() {
+    // Pressing Play with the slider already at the last year used to start a
+    // timer whose first tick found nothing to advance to and stopped it again:
+    // the button did nothing. From the end it plays from the beginning, and a
+    // range keeps its width.
+    if (mode === 'year') {
+      if (Number(yearInput.value) >= maxYear) {
+        yearInput.value = String(minYear);
+        emit();
+      }
+    } else if (Number(hiInput.value) >= maxYear) {
+      const width = Number(hiInput.value) - Number(loInput.value);
+      loInput.value = String(minYear);
+      hiInput.value = String(clamp(minYear + width, minYear, maxYear));
+      emit();
+    }
     playing = true;
     setPlayCaption(playBtn, true);
     playBtn.setAttribute('aria-pressed', 'true');
