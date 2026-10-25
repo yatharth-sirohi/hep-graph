@@ -1,0 +1,104 @@
+{
+  "aliases": [],
+  "center": {
+    "confidence": "approximate",
+    "kind": "underground_lab",
+    "lat": 22.1180556,
+    "locator": "arXiv:2104.02565 Sec. 1.2",
+    "lon": 112.5180556,
+    "note": "Map centre is the published hall coordinate (see geometry:juno-experimental-hall).",
+    "precision_m": 150,
+    "quote": "The geographic location is 112° 31’05” E and 22° 07’05” N.",
+    "sources": [
+      "src:juno-physics-detector-arxiv-2021",
+      "src:geo-juno-physics-2015"
+    ],
+    "verified_at": "2026-10-25"
+  },
+  "coverage": {
+    "researched": "partial",
+    "tier": "A"
+  },
+  "extent_m": 2000,
+  "facility_id": "facility:juno-jiangmen",
+  "id": "map:juno-jiangmen",
+  "levels": [
+    {
+      "depth_m": null,
+      "id": "surface",
+      "kind": "surface",
+      "name": "Surface",
+      "note": ""
+    },
+    {
+      "depth_m": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "length",
+        "display": "693.35 m (vertical overburden of the detector centre)",
+        "locator": "Sec. 1.2, JUNO experimental site",
+        "note": "Elevation of the hill above the detector 240.6 m a.s.l.; hall dome -403.5 m, floor -430.5 m, detector centre -452.75 m (same paragraph). The CDR (src:juno-cdr-arxiv-2015, Sec. 10.1.2) gave 728.8 m for the original design position; the hall was moved ~60 m before excavation.",
+        "quote": "the vertical overburden for the detector center is 693.35 m (1800 m.w.e).",
+        "sources": [
+          "src:juno-physics-detector-arxiv-2021"
+        ],
+        "unit": "m",
+        "value": 693.35,
+        "verified_at": "2026-10-25"
+      },
+      "id": "underground-hall",
+      "kind": "underground",
+      "name": "JUNO experimental hall (693.35 m vertical overburden at the detector centre)",
+      "note": "Plan view; the hall point is drawn at its published surface projection. Elevations: dome -403.5 m, floor -430.5 m, detector centre -452.75 m a.s.l.; hill 240.6 m a.s.l."
+    }
+  ],
+  "linked_map_ids": [
+    "map:juno-reactor-baselines"
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "JUNO — underground experimental hall and surface campus (Kaiping, Jiangmen)",
+  "notes": [
+    "The hall was moved about 60 m north-west of its originally designed position before excavation (arXiv:2104.02565 Sec. 1.2); the CDR's overburden (728.8 m) and shaft lengths refer to the earlier design, so the 2021 figures are used for the level depth."
+  ],
+  "schema": "hep-atlas/0.2",
+  "schematics": [
+    {
+      "note": "Official schematic in the CDR civil chapter; topology only, never drawn on the to-scale map.",
+      "source_id": "src:juno-cdr-arxiv-2015",
+      "title": "JUNO site layout, vertical shaft + inclined shaft scheme (CDR Fig. 10.3, not to scale)"
+    },
+    {
+      "note": "Official schematic of the hall, ancillary rooms and tunnels; not drawn.",
+      "source_id": "src:juno-cdr-arxiv-2015",
+      "title": "JUNO underground facility layout (CDR Fig. 10.4, not to scale)"
+    }
+  ],
+  "site_ids": [
+    "site:juno-jiangmen-underground-lab"
+  ],
+  "sources": [
+    "src:juno-physics-detector-arxiv-2021",
+    "src:geo-juno-physics-2015",
+    "src:juno-cdr-arxiv-2015",
+    "src:geo-juno-osm-campus"
+  ],
+  "summary": {
+    "plain": "The JUNO neutrino detector sits in a rock hall under Dashi Hill near Kaiping, in southern China. This map shows the hall's published position and the surface campus; the two reactor complexes it listens to are on the linked baseline map.",
+    "technical": "Published coordinate of the hall (arXiv:2104.02565) as a surveyed point with 150 m accuracy, and the OSM outline of the surface campus. The access shafts are not drawn (no coordinates published); the Yangjiang and Taishan reactor buildings and the 52-53 km baselines are on map:juno-reactor-baselines."
+  },
+  "type": "map",
+  "unlocated": [
+    {
+      "backlog": "The JUNO civil-engineering drawings (CDR Figs. 10.3 and 10.4 are unscaled), the JUNO TDR / detector-construction paper civil chapter, or a Chinese environmental-impact assessment giving shaft-collar coordinates; failing that an OSM feature for the Dongkeng quarry shaft or the portal. With the portal coordinate the inclined shaft can be drawn as a line (horizontal run = 1266 m x cos(atan 0.425)).",
+      "entity_id": "facility:juno-jiangmen",
+      "reason": "The two access routes to the hall are described only by length and slope: a vertical shaft 564 m deep (arXiv:2104.02565; 581 m in the CDR, 589 m in its geology chapter) in the Dongkeng quarry, joined to the hall by a 300 m tunnel at 3 % slope, and an inclined tunnel 1266 m long at 42.5 % slope (CDR: 1,340 m at 42.6 %, entrance portal at Shenghe Village, Jinji Town) with an 85 m interconnecting tunnel. No fetched source gives a coordinate, bearing or surveyed plan for either, and OpenStreetMap carries neither a quarry nor a portal or shaft feature there (only the research-campus outline). Drawing them would mean inventing a bearing.",
+      "sources": [
+        "src:juno-cdr-arxiv-2015",
+        "src:juno-physics-detector-arxiv-2021"
+      ],
+      "verified_at": "2026-10-25"
+    }
+  ]
+}
