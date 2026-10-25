@@ -473,3 +473,77 @@ and cannot be told apart from the sources.
    a footprint `area` check.
 3. The CENPA tandem/accelerator hall, if the atlas ever records CENPA's accelerator (not an atlas
    entity today).
+
+---
+
+## 8. mcmurdo-ldb (`map:mcmurdo-ldb`)
+
+**Grade: no map → marker only / partial (one airfield outline and one station point).** Tier C.
+The facility has no accelerator or beamline; the one detector, `detector:anita`, flies at about
+37 km altitude and has no ground position (its placement is the launch site).
+
+| Entity / feature | Status | Representation | accuracy_m | Check |
+| --- | --- | --- | --- | --- |
+| `site:mcmurdo-ldb-launch-site` → `geometry:mcmurdo-williams-field-aerodrome` (OSM way 821080729, "Williams Field"/"Willy Field", ICAO NZWD, `source=ADD`; 5.39 km², 13.7 km perimeter, 4.18 km span) | drawn (`boundary`) | georeferenced | 100 | none (no official figure) |
+| McMurdo Station → `geometry:mcmurdo-station-point` (OSM node 515065315, `place=town`, `ref:linz:place_id=57201`) | drawn (context point) | georeferenced | 300 | none |
+| LDB camp buildings (payload assembly "Big Barn", launch area) via `facility:mcmurdo-ldb` | **unlocated** | — | — | — |
+| `detector:anita` | **unlocated** (no ground position) | — | — | — |
+
+**Sources fetched and quoted**
+
+* "the campaign manager from the National Scientific Balloon Facility (NSBF) takes four of us who
+  are here for the balloon launch out to Williams (Willy) Field, where the balloon facility is" and
+  "The 8 mile trip out to Willy Field" — NASA Goddard TIGER balloon-campaign diary, 10 Nov 2001
+  (https://asd.gsfc.nasa.gov/archive/tiger/tiger_11_10.html), fetched in full. It is a campaign
+  diary (rank 9, `project_document`), the only fetched statement that puts the LDB facility at
+  Williams Field.
+* Existing source `src:astro-neutrino-anita-csbf-nasa-antarctica-payloads` (NASA CSBF): "NASA Long
+  Duration Balloon (LDB) site at LDB Camp, McMurdo Station."
+* Stratocat's McMurdo base page (www.stratocat.com.ar/bases/41e.htm; fetched, secondary, not
+  cited) describes the LDB field site at Williams Field with the payload buildings towed there in
+  2005 and the "Big Barn" payload-assembly building; none gives a coordinate.
+
+**Honesty calls and conflicts**
+
+1. *The LDB camp is not drawn.* No fetched source or OSM element gives its buildings or pads.
+   The Williams Field outline is an **airfield** boundary (ADD-sourced, 4.2 km across), so it is
+   drawn as the site outline, not as the camp. OSM's node "LDB Junction" (1027266821,
+   166.8824 E, 77.8476 S) is a named road junction on the ice road, not the camp; it was not used.
+2. *LDB Camp vs Williams Field.* The atlas site note says ANITA-LITE/ANITA-I launched from "LDB
+   Camp" and ANITA-II from Williams Field; NASA's diary and CSBF page do not separate the two
+   locations in any fetched text. Left as in the existing record.
+3. *Runways not drawn.* OSM has two runway lines named Williams Field (2949 m and 1944 m, source
+   LINZ) and a taxiway; skiways are re-groomed each season and the shelf moves, so they would
+   give false precision. The polygon's own description tag lists runways of 10 000 ft (3048 m);
+   the 2949 m OSM line is 3.2 % shorter, and the tag is not an official source, so no check was
+   written.
+4. *Ross Ice Shelf moves.* Williams Field stands on the floating shelf; every position is a
+   mapped (LINZ/ADD) position, not a fixed survey. The map's single level is named accordingly.
+5. *Distance.* The McMurdo node to the Williams Field outline centroid is 10.0 km great-circle,
+   against the "8 mile" (12.9 km) road trip in NASA's diary; these are different quantities, so no
+   `distance` check was asserted.
+6. The McMurdo point is a settlement label (the station has over 100 buildings, many mapped from
+   the LINZ Antarctic dataset); accuracy 300 m, tier C.
+
+**Site coordinate corrections** (for the integrator; none applied here)
+
+```json
+[{"site_id": "site:mcmurdo-ldb-launch-site",
+  "current": {"lat": -77.8675, "lon": 167.05667, "precision_m": 20000, "kind": "campus", "source": "src:astro-neutrino-anita-wikipedia-williams-field"},
+  "proposed": {"lat": -77.867605, "lon": 167.086446, "precision_m": 3000, "kind": "campus"},
+  "distance_from_current_m": 696,
+  "source": "src:geo-mcmurdo-osm-williams-field-aerodrome (centroid of OSM way 821080729; the OSM tags gns:DMS_LAT/LONG 77°52'03\"S 167°03'24\"E equal the current Wikipedia point) with src:geo-mcmurdo-nasa-tiger-diary",
+  "quote": "out to Williams (Willy) Field, where the balloon facility is",
+  "note": "The current point lies inside the airfield outline, 0.7 km from its centroid; a precision of about 3 km (the outline is 4.2 km across) is defensible, 20 km is not needed. The camp itself is still not located."}]
+```
+
+**Remaining backlog**
+
+1. An NSF/USAP or CSBF site plan or a published coordinate for the LDB camp and its pads;
+   then draw the buildings and the launch area against surveyed control points.
+2. A dated position for Williams Field (LINZ Topo50 Antarctic layer metadata or USAP facilities
+   map) to bound the ice-shelf drift.
+3. SCAR Composite Gazetteer coordinates for "Williams Field" and "McMurdo Station" (the gazetteer
+   moved to placenames.aq, which does not resolve from this machine) to replace the OSM place
+   node with an official coordinate.
+4. ANITA flight tracks (a separate product, not a facility map).
