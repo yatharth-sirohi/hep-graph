@@ -291,3 +291,8 @@ Records changed: the map's unlocated row (second-pass notes and backlog), one so
 ### Backlog
 
 * A PSI layout drawing with building codes (or the "HIPA info" elog layout) that names the building of the Ring Cyclotron vault.
+
+## Integrator verification (2026-10-25)
+
+* APS circumference re-read on ops.aps.anl.gov/SRparameters: "Circumference C 1103.609 m".
+* KATRIN orientation: arXiv:2207.06326 gives "ξ ≈ 16°" in the Fig. 2 caption but "ξ ≈ 17°" in the Sec. 2 text; 16° kept because the OSM hall outline runs at 15.8–16.1°. Recorded as a note on geometry:kit-katrin-beamline-axis.
