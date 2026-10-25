@@ -651,6 +651,15 @@ input {
 .mode-panel.hidden {
   display: none;
 }
+/* The column between the panel and .mode-scroll: without it .mode-body grew
+   to its content (8,460 px of results) and the panel's overflow:hidden clipped
+   the list, so it could not scroll at all. */
+.mode-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+}
 /* A3: on a laptop-or-wider viewport there is room to show a genuinely
    dense list without covering the whole globe. A percentage width on a
    grid item resolves against its own grid area (here, the "globe" track,

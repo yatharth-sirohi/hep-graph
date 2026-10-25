@@ -1,4 +1,4 @@
-// phone.js — the behaviour half of the phone layout (viewports <= 760 px).
+// phone.js — the behaviour half of the phone layout (viewports <= 900 px, phones and portrait tablets).
 // The look lives in phone.css; this file only does what CSS cannot:
 //
 //   * a header button that opens the filters/legend sheet (and, on a local
@@ -17,7 +17,7 @@
 // and deactivate() puts every moved node back — so the desktop DOM and
 // layout are exactly what they were without this file.
 
-const PHONE_QUERY = '(max-width: 760px)';
+const PHONE_QUERY = '(max-width: 900px)';
 const mq = window.matchMedia(PHONE_QUERY);
 
 const $ = (selector, root = document) => root.querySelector(selector);
