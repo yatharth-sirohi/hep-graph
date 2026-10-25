@@ -6,8 +6,7 @@
 // Every renderer's `sourcesDisclosure` (panels.js) goes through
 // `renderClaimItems` so a fix here fixes every panel at once; the A23
 // approximate-location note goes through `renderApproximateLocationNote` so
-// it gets the same shape (a labelled claim, its field pointer kept, never a
-// bespoke one-off row).
+// it gets the same shape (a labelled claim, never a bespoke one-off row).
 
 import { titleCase, fmtDate, quantityText } from './model.js';
 
@@ -299,31 +298,91 @@ export function sourceTypeWord(sourceType) {
 
 // --------------------------------------------------------- claim rendering
 // One <li class="claim-group"> per pointer: its readable label, the quote
-// or locator, the confidence, and the sources that back it — instead of one
-// row per (pointer, source). The exact pointer stays available both as a
-// `title` attribute and a small trailing "field: …" line, so nothing that
-// used to be visible (the raw pointer) is lost, just no longer the headline.
+// with where to find it in the source (the claim's `locator`: page, section,
+// table), the confidence, and the sources that back it — instead of one row
+// per (pointer, source). The JSON pointer is a maintainer's handle, not
+// something a reader can act on: it stays only as the label's `title`.
+
+// Lower-case alphanumerics only, so a quote and a source excerpt compare equal
+// despite curly quotes, hyphens, whitespace or markup-free punctuation.
+function normText(text) {
+  return String(text || '').normalize('NFKC').toLowerCase().replace(/[^\p{L}\p{N}]+/gu, ' ').trim();
+}
+
+// A source's `excerpt` is the passage that source was read for. When the
+// claim's quote sits inside it (or the other way round, allowing the authored
+// "…" gaps between quote fragments), the record itself says the quote comes
+// from that source.
+export function sourceHoldsQuote(src, quote) {
+  const excerpt = normText(src && src.excerpt);
+  const whole = normText(quote);
+  if (!excerpt || !whole) return false;
+  // An excerpt only counts as "inside the quote" when it is long enough to be a
+  // passage rather than a stray phrase.
+  const passage = excerpt.length >= 24;
+  if (excerpt.includes(whole) || (passage && whole.includes(excerpt))) return true;
+  const fragments = String(quote).split(/\.\.\.|…/).map(normText).filter((f) => f.length >= 12);
+  return fragments.some((f) => excerpt.includes(f) || (passage && f.includes(excerpt)));
+}
+
+// The sources whose own record carries the quote first; everything else keeps
+// its authored order (a stable partition — nothing is dropped or invented).
+export function orderSourcesForQuote(sources, quote) {
+  if (!quote || sources.length < 2) return sources;
+  const holders = sources.filter((src) => sourceHoldsQuote(src, quote));
+  if (!holders.length || holders.length === sources.length) return sources;
+  return [...holders, ...sources.filter((src) => !holders.includes(src))];
+}
+
+const PDF_URL = /\.pdf(?:$|[?#])/i;
+
+// A direct PDF for the source, or null. Prefers an explicit PDF URL on the
+// record, then the arXiv PDF for an arXiv id (recorded in `reference.arxiv`,
+// or readable from an arxiv.org abstract URL).
+export function sourcePdfUrl(src) {
+  if (!src) return null;
+  const ref = src.reference && typeof src.reference === 'object' ? src.reference : {};
+  for (const url of [ref.pdf, ref.url, src.url]) {
+    if (typeof url === 'string' && PDF_URL.test(url)) return url;
+  }
+  let arxivId = typeof ref.arxiv === 'string' ? ref.arxiv.trim() : '';
+  if (!arxivId) {
+    const m = /^https?:\/\/(?:www\.)?arxiv\.org\/(?:abs|pdf)\/(.+?)(?:\.pdf)?(?:[?#].*)?$/i.exec(src.url || '');
+    if (m) arxivId = m[1];
+  }
+  arxivId = arxivId.replace(/^arxiv:/i, '');
+  return arxivId ? `https://arxiv.org/pdf/${arxivId}` : null;
+}
+
+function sourceRow(src) {
+  const pdf = sourcePdfUrl(src);
+  const href = src.url || '#';
+  const titleIsPdf = !!pdf && pdf === href;
+  return h('li', { class: 'claim-source' }, [
+    h('a', { href, target: '_blank', rel: 'noopener' }, src.title || src.id),
+    titleIsPdf ? h('span', { class: 'source-type' }, 'PDF') : null,
+    pdf && !titleIsPdf ? h('a', { class: 'source-pdf', href: pdf, target: '_blank', rel: 'noopener', 'aria-label': `PDF of ${src.title || src.id}` }, 'PDF') : null,
+    h('span', { class: 'source-type' }, sourceTypeWord(src.source_type)),
+    src.accessed ? h('span', { class: 'source-access' }, `Accessed ${src.accessed}`) : null,
+  ]);
+}
+
 function claimGroup(pointer, provRecord, sourcesBundle, record) {
   const srcIds = provRecord.sources || [];
   const sources = srcIds.map((id) => sourcesBundle.byId[id]).filter(Boolean);
   if (!sources.length) return null;
 
   const { label, field } = claimLabel(pointer, record);
-  const quoteOrLocator = provRecord.quote ? `“${provRecord.quote}”` : (provRecord.locator || '');
   const confidence = confidenceWord(provRecord.confidence);
-
-  const sourceItems = sources.map((src) => h('li', { class: 'claim-source' }, [
-    h('a', { href: src.url || '#', target: '_blank', rel: 'noopener' }, src.title || src.id),
-    h('span', { class: 'source-type' }, sourceTypeWord(src.source_type)),
-    src.accessed ? h('span', { class: 'source-access' }, `Accessed ${src.accessed}`) : null,
-  ]));
+  const locator = provRecord.locator ? String(provRecord.locator) : '';
+  const ordered = orderSourcesForQuote(sources, provRecord.quote);
 
   return h('li', { class: 'claim-group' }, [
     h('div', { class: 'claim-label', title: `field: ${field}` }, label),
-    quoteOrLocator ? h('div', { class: 'claim-evidence' }, quoteOrLocator) : null,
+    provRecord.quote ? h('div', { class: 'claim-evidence' }, `“${provRecord.quote}”`) : null,
+    locator ? h('div', { class: 'claim-locator' }, [h('span', { class: 'claim-locator-label' }, 'In the source: '), locator]) : null,
     confidence ? h('div', { class: 'claim-confidence' }, `Confidence: ${confidence}`) : null,
-    h('ul', { class: 'claim-sources' }, sourceItems),
-    h('div', { class: 'claim-field' }, `field: ${field}`),
+    h('ul', { class: 'claim-sources' }, ordered.map(sourceRow)),
   ]);
 }
 
@@ -343,15 +402,14 @@ export function renderClaimItems(entries, sourcesBundle, record) {
 
 // A23: a linked site's admitted-approximate `/coordinates` note, rendered in
 // the same claim-group shape as everything else in the Sources disclosure
-// (a labelled claim with its field pointer kept) instead of a bespoke row.
+// (a labelled claim, the pointer only as a title) instead of a bespoke row.
 // The headline keeps the established "Approximate location — <site name>"
 // wording (the panel's own "Beam and sites" line already says the same
-// thing next to the site link); only the pointer traceability is new here.
+// thing next to the site link).
 export function renderApproximateLocationNote(site, note) {
   const { field } = claimLabel('/coordinates', site);
   return h('li', { class: 'claim-group approximate-location-note' }, [
     h('div', { class: 'claim-label', title: `field: ${field}` }, `Approximate location — ${site.name}`),
     h('div', { class: 'claim-evidence' }, note),
-    h('div', { class: 'claim-field' }, `field: ${field}`),
   ]);
 }

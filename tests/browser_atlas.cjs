@@ -2021,9 +2021,45 @@ async function setRangeValue(locator, value) {
     // should render with content pulled from its own record, not just a
     // title-cased fallback of the pointer path.
     assert.ok(labels.some((l) => /Timeline:|Baseline/.test(l)), `expected a Timeline/Baseline claim label, got ${JSON.stringify(labels)}`);
-    // The exact pointer is still available, just not the headline.
-    const fieldLines = await page.locator("#detail-panel .claim-field").allInnerTexts();
-    assert.ok(fieldLines.some((t) => /^field: \//.test(t.trim())), "expected the raw pointer to remain visible in a 'field: /...' line");
+    // The exact pointer is a maintainer's handle (review F11): never visible text,
+    // still on the label's title attribute.
+    assert.equal(await page.locator("#detail-panel .claim-field").count(), 0, "no 'field: /...' line may be visible");
+    assert.doesNotMatch(await page.locator("#detail-panel").innerText(), /field: \//, "the JSON pointer must not be visible text");
+    const titles = await page.locator("#detail-panel .claim-label").evaluateAll((els) => els.map((el) => el.getAttribute("title")));
+    assert.ok(titles.some((t) => /^field: \//.test(t || "")), "expected the pointer to remain on the claim label's title attribute");
+  });
+
+  await record("Sources: the source that holds the quote is listed first, the locator is shown, and a PDF link is offered (review F11)", async () => {
+    await page.goto(`${base}/atlas${dataTree}`);
+    const out = await page.evaluate(async () => {
+      const m = await import("/atlas/js/provenance.js");
+      const quote = "The Booster then accelerates those protons to 8 GeV ... and more.";
+      const a = { id: "a", title: "A", excerpt: "unrelated words about something else entirely" };
+      const b = { id: "b", title: "B", excerpt: "The Booster then accelerates those protons to 8 GeV" };
+      return {
+        order: m.orderSourcesForQuote([a, b], quote).map((x) => x.id),
+        keep: m.orderSourcesForQuote([a, { id: "c", title: "C" }], quote).map((x) => x.id),
+        arxivRef: m.sourcePdfUrl({ url: "https://doi.org/10.1/x", reference: { arxiv: "1507.06690" } }),
+        arxivAbs: m.sourcePdfUrl({ url: "https://arxiv.org/abs/0806.1449" }),
+        pdfUrl: m.sourcePdfUrl({ url: "https://example.org/a/b.pdf" }),
+        none: m.sourcePdfUrl({ url: "https://example.org/page" }),
+      };
+    });
+    assert.deepEqual(out.order, ["b", "a"]);
+    assert.deepEqual(out.keep, ["a", "c"], "no excerpt match: authored order is kept");
+    assert.equal(out.arxivRef, "https://arxiv.org/pdf/1507.06690");
+    assert.equal(out.arxivAbs, "https://arxiv.org/pdf/0806.1449");
+    assert.equal(out.pdfUrl, "https://example.org/a/b.pdf");
+    assert.equal(out.none, null);
+    if (process.env.HEP_ATLAS_DATA === "generated") {
+      await page.goto(`${base}/atlas#/accelerator/fermilab-booster`);
+      await page.locator("#detail-panel h2").waitFor();
+      await openSection(page, "Sources");
+      await page.waitForSelector("#detail-panel .claim-group", { timeout: 10000 });
+      const located = await page.locator("#detail-panel .claim-locator").allInnerTexts();
+      assert.ok(located.some((t) => /In the source: §/.test(t)), `expected a locator beside a quote, got ${JSON.stringify(located)}`);
+      assert.ok(await page.locator("#detail-panel .claim-source a.source-pdf").count() > 0, "expected a PDF link next to an arXiv-backed source");
+    }
   });
 
   await record("A result whose official_url restates its arXiv link shows one arXiv link and no 'Official page'", async () => {

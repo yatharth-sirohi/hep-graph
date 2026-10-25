@@ -1053,9 +1053,9 @@ input {
   color: var(--muted);
 }
 /* provenance.js's grouped-by-claim Sources disclosure (task A4): one claim
-   label, its quote/locator and confidence, then the sources that back it —
-   the raw JSON pointer stays available (title attribute + this small line)
-   but is no longer the headline. */
+   label, its quote, where to find it in the source (locator) and confidence,
+   then the sources that back it. The raw JSON pointer is only the label's
+   title attribute (review F11): a reader cannot act on it. */
 .claim-group {
   border-left: 2px solid var(--line-strong);
   padding-left: 10px;
@@ -1090,10 +1090,18 @@ input {
 .source-type {
   color: var(--muted);
 }
-.claim-field {
-  font-size: 10px;
+.claim-locator {
+  font-size: 12px;
   color: var(--muted);
-  opacity: 0.7;
+  overflow-wrap: anywhere;
+}
+.claim-locator-label {
+  font-weight: 600;
+}
+.source-pdf {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
 }
 .site-location-note {
   font-size: 12px;
