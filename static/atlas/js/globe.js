@@ -42,7 +42,9 @@ export function supportsWebGL2() {
 export const INSTITUTION_ARC_THRESHOLD = 150;
 // "do not show 5,000 labels simultaneously" (spec §70) — a hard ceiling on
 // simultaneously visible marker labels, independent of how many markers are
-// on screen. Cluster badges (which *are* the count) always count toward it.
+// on screen. Applied to the captions actually on screen by declutterLabels,
+// after overlap removal; cluster badges (which *are* the count), the selected
+// marker and the hovered one always count toward it.
 export const LABEL_BUDGET = 40;
 // Below this altitude the camera is close enough that individual facility
 // pins are unambiguous; at or above it, nearby facilities merge into one
@@ -70,6 +72,16 @@ const FOCUS_ALTITUDE = 0.5;
 const FOCUS_ALTITUDE_WIDE = 1.1;
 const FOCUS_WIDE_SPREAD_DEG = 18;
 const FOCUS_FLIGHT_MS = 1000;
+// Throttles (ms). Camera moves fire per animation frame; rebuilding every DOM
+// marker or re-measuring every label that often would cost more than the
+// frame itself.
+const REBUILD_THROTTLE_MS = 100;
+const DECLUTTER_DELAY_MS = 120;
+// A caption is dropped for a marker this close to the globe's edge (as a
+// fraction of the angle to the horizon): foreshortened and sitting on the
+// atmosphere glow, its name would only add noise. Beyond the horizon itself the
+// marker is not drawn at all.
+const LIMB_LABEL_FRACTION = 0.9;
 // Scenery drawn after the first paint (see loadBorders).
 const BORDERS_URL = '/atlas/vendor/countries-borders-110m.json';
 const BORDER_COLOR = 'rgba(176, 216, 204, 0.42)';
@@ -89,6 +101,17 @@ function lonDelta(a, b) {
   let d = a - b;
   d = ((d + 180) % 360 + 360) % 360 - 180;
   return d;
+}
+
+/** Great-circle angle in degrees (angularDistDeg below is a flat lat/lon
+ * distance, good enough for clustering but wrong near the poles). */
+function greatCircleDeg(aLat, aLon, bLat, bLon) {
+  const rad = Math.PI / 180;
+  const dLat = (bLat - aLat) * rad;
+  const dLon = lonDelta(bLon, aLon) * rad;
+  const h = Math.sin(dLat / 2) ** 2
+    + Math.cos(aLat * rad) * Math.cos(bLat * rad) * Math.sin(dLon / 2) ** 2;
+  return (2 * Math.asin(Math.min(1, Math.sqrt(h)))) / rad;
 }
 
 function angularDistDeg(aLat, aLon, bLat, bLon) {
@@ -616,6 +639,7 @@ export function createGlobe(container, {
   // leaving a collaboration. Each run fully replaces htmlElementsData and
   // arcsData with a freshly clustered set sized for the current altitude.
   function rebuildVisibleLayer() {
+    lastRebuildAt = performance.now();
     markerEls.clear();
     markerMeta.clear();
     const tls = filterTimelineState();
@@ -669,7 +693,6 @@ export function createGlobe(container, {
     }
 
     const htmlLayer = [];
-    const labelCandidates = []; // { el, priority } — trimmed to LABEL_BUDGET after building
 
     for (const entry of facilityClustered) {
       if (entry.kind === 'single') {
@@ -694,12 +717,15 @@ export function createGlobe(container, {
           tier: 'facility',
         });
         markerEls.set(record.id, el);
-        markerMeta.set(record.id, { segments: record.state_segments, tier: 'facility' });
+        // `weight` ranks captions in declutterLabels: a facility that hosts more
+        // experiments keeps its name when two would collide.
+        markerMeta.set(record.id, {
+          segments: record.state_segments, tier: 'facility', weight: (record.experiment_ids || []).length,
+        });
         applyTimelineClasses(el, record.state_segments);
         htmlLayer.push({
           id: record.id, lat: entry.lat, lng: entry.lon, altitude: 0.02, el,
         });
-        labelCandidates.push({ el, priority: 0 });
       } else {
         const id = `cluster:facility:${entry.items.map((i) => i.id).sort().join('+')}`;
         const marker = makeClusterElement({
@@ -712,9 +738,8 @@ export function createGlobe(container, {
           expand: (lat, lng) => expandAt(lat, lng, FACILITY_CLUSTER_ALTITUDE),
         });
         markerEls.set(id, marker.el);
-        markerMeta.set(id, { segments: null, tier: 'facility' });
+        markerMeta.set(id, { segments: null, tier: 'facility', cluster: true, weight: entry.items.length });
         htmlLayer.push(marker);
-        labelCandidates.push({ el: marker.el, priority: -1 }); // clusters always keep their label
       }
     }
 
@@ -737,12 +762,13 @@ export function createGlobe(container, {
       });
       el.classList.add('is-site-tier');
       markerEls.set(site.id, el);
-      markerMeta.set(site.id, { segments: site.record.state_segments, tier: 'site' });
+      markerMeta.set(site.id, {
+        segments: site.record.state_segments, tier: 'site', weight: (siteExperimentIndex.get(site.id) || []).length,
+      });
       applyTimelineClasses(el, site.record.state_segments);
       htmlLayer.push({
         id: site.id, lat: site.lat, lng: site.lon, altitude: 0.012, el,
       });
-      labelCandidates.push({ el, priority: 1 });
     }
 
     const instArcs = [];
@@ -763,11 +789,10 @@ export function createGlobe(container, {
         });
         el.dataset.collaboration = institutionCollaborationId;
         markerEls.set(id, el);
-        markerMeta.set(id, { segments: null, tier: 'institution' });
+        markerMeta.set(id, { segments: null, tier: 'institution', weight: 0 });
         htmlLayer.push({
           id, lat: entry.lat, lng: entry.lon, altitude: 0.015, el,
         });
-        labelCandidates.push({ el, priority: 2 });
         if (hostCoords) {
           instArcs.push({
             id: `conn:${id}`,
@@ -792,9 +817,8 @@ export function createGlobe(container, {
           expand: (lat, lng) => expandAt(lat, lng, MIN_CLUSTER_ALTITUDE),
         });
         markerEls.set(id, marker.el);
-        markerMeta.set(id, { segments: null, tier: 'institution' });
+        markerMeta.set(id, { segments: null, tier: 'institution', cluster: true, weight: entry.items.length });
         htmlLayer.push(marker);
-        labelCandidates.push({ el: marker.el, priority: -1 });
         if (hostCoords) {
           instArcs.push({
             id: `conn:${id}`,
@@ -810,15 +834,16 @@ export function createGlobe(container, {
       }
     }
 
-    // ---- label budget: clusters (priority -1) always keep their label;
-    // individual markers are shown in tier order (facility, site,
-    // institution) until the budget is spent. ----------------------------
-    labelCandidates.sort((a, b) => a.priority - b.priority);
-    let shown = 0;
-    for (const { el, priority } of labelCandidates) {
-      const keep = priority < 0 || shown < LABEL_BUDGET;
-      el.classList.toggle('no-label', !keep);
-      if (keep) shown += 1;
+    // ---- captions carry over a rebuild ------------------------------------
+    // A rebuild replaces every marker element. Starting the new ones with the
+    // caption decisions of the last declutter pass (and unknown facilities
+    // hidden until the next pass reveals them) means captions do not flash
+    // cluttered for a frame and then disappear. Clusters keep their count.
+    for (const [id, el] of markerEls) {
+      const meta = markerMeta.get(id);
+      if (meta.cluster || meta.tier !== 'facility' || isSelectedMarker(id)) continue;
+      const hidden = labelHidden.has(id) ? labelHidden.get(id) : true;
+      if (hidden) el.classList.add('is-label-hidden');
     }
 
     // ---- highlight (topic mode) carries over the rebuild --------------
@@ -856,7 +881,12 @@ export function createGlobe(container, {
       }
     }
 
+    for (const d of htmlLayer) markerMeta.get(d.id).pos = { lat: d.lat, lng: d.lng };
+
     globe.htmlElementsData(htmlLayer);
+    // Marker boxes only get their screen positions on the next rendered frame,
+    // so caption decluttering waits for it.
+    scheduleDeclutter(DECLUTTER_DELAY_MS);
 
     // ---- arcs: capped to what's actually drawn (never the full roster —
     // only the currently visible/clustered institution markers get an arc).
@@ -873,11 +903,150 @@ export function createGlobe(container, {
     rebuildVisibleLayer();
   }
 
+  // ---- camera-driven work, throttled -----------------------------------
+  // `onZoom` fires for every camera movement — a drag, a damped coast, a
+  // programmatic flight — once per animation frame. Re-clustering (a full DOM
+  // rebuild) and re-measuring labels at that rate is wasted work, so both run
+  // at most every ~100 ms with a trailing call, which always fires after the
+  // last movement and so always sees the camera's final position.
+  let lastRebuildAt = 0;
+  let rebuildTimer = null;
+  function scheduleRebuild() {
+    if (rebuildTimer) return;
+    const wait = Math.max(0, REBUILD_THROTTLE_MS - (performance.now() - lastRebuildAt));
+    rebuildTimer = window.setTimeout(() => {
+      rebuildTimer = null;
+      rebuildVisibleLayer();
+    }, wait);
+  }
+
   globe.onZoom(({ altitude }) => {
-    if (Math.abs(altitude - currentAltitude) < 0.01) return;
-    currentAltitude = altitude;
-    rebuildVisibleLayer();
+    if (Math.abs(altitude - currentAltitude) >= 0.01) {
+      currentAltitude = altitude;
+      scheduleRebuild();
+    }
+    scheduleDeclutter(DECLUTTER_DELAY_MS);
   });
+
+  // ---- caption decluttering ---------------------------------------------
+  // Facility names are drawn under their glyph. In dense regions (Europe, the
+  // US west, Japan) the captions collide with each other and with other
+  // markers, so after each camera change we measure what is actually on screen
+  // and hide the caption of any marker whose box would overlap one that
+  // matters more. Priority: selected > hovered/focused > cluster badge >
+  // facilities hosting more experiments > everything else. A hidden caption is
+  // `visibility: hidden` (class `is-label-hidden`), never removed: the marker
+  // keeps its glyph and its click/focus target, and the caption returns on
+  // hover or keyboard focus (atlas.css). Markers on the far side of the globe
+  // are display:none (CSS2DRenderer), have no box, and so never take part.
+  let declutterTimer = null;
+  // marker id -> last decision (true = caption hidden); read by the next rebuild.
+  const labelHidden = new Map();
+  function scheduleDeclutter(delay) {
+    if (declutterTimer) return;
+    declutterTimer = window.setTimeout(() => {
+      // CSS2DRenderer attaches and positions a marker on a rendered frame, so
+      // measure two animation frames from now: by then the globe's own loop has
+      // drawn at least once since whatever scheduled this (a rebuild's fresh
+      // markers have no screen position until it has).
+      window.requestAnimationFrame(() => window.requestAnimationFrame(() => {
+        declutterTimer = null;
+        declutterLabels();
+      }));
+    }, delay);
+  }
+
+  const LABEL_PAD = 1; // px of breathing room between captions (each side)
+  function padded(r) {
+    return {
+      left: r.left - LABEL_PAD, top: r.top - LABEL_PAD, right: r.right + LABEL_PAD, bottom: r.bottom + LABEL_PAD,
+    };
+  }
+  function overlaps(a, b) {
+    return a.left < b.right && a.right > b.left && a.top < b.bottom && a.bottom > b.top;
+  }
+
+  function declutterLabels() {
+    if (!markerEls.size) return;
+    const stage = container.getBoundingClientRect();
+    if (!stage.width || !stage.height) return;
+    const items = [];
+    const pov = globe.pointOfView();
+    const limbDeg = LIMB_LABEL_FRACTION * (Math.acos(1 / (1 + pov.altitude)) * 180) / Math.PI;
+    // ---- reads only (no style writes until every box is measured) ----------
+    for (const [id, el] of markerEls) {
+      const meta = markerMeta.get(id) || {};
+      // A marker on the far side of the globe is never attached (or is
+      // display:none): no box, so it takes no part.
+      if (!el.isConnected || !el.style.transform) continue;
+      const glyph = el.getBoundingClientRect();
+      if (!glyph.width && !glyph.height) continue;
+      if (glyph.right < stage.left || glyph.left > stage.right
+        || glyph.bottom < stage.top || glyph.top > stage.bottom) continue; // off screen
+      const selected = el.classList.contains('is-selected');
+      const hovered = el.matches(':hover') || el === document.activeElement;
+      const cluster = !!meta.cluster;
+      const labelled = selected || hovered || cluster || meta.tier === 'facility';
+      const label = labelled ? el.querySelector('.atlas-marker-label') : null;
+      const nearLimb = !!meta.pos
+        && greatCircleDeg(pov.lat, pov.lng, meta.pos.lat, meta.pos.lng) > limbDeg;
+      items.push({
+        nearLimb,
+        el, selected, hovered, cluster, meta, glyph: padded(glyph),
+        // A hidden caption keeps its box (visibility), so it can be re-measured.
+        label: label ? padded(label.getBoundingClientRect()) : null,
+        name: el.dataset.id,
+      });
+    }
+    // ---- decide ------------------------------------------------------------
+    const rank = (it) => (it.selected ? (it.meta.tier === 'facility' ? 0 : 0.5) : it.hovered ? 1 : it.cluster ? 2 : 3);
+    const order = items.slice().sort((a, b) => (
+      rank(a) - rank(b)
+      || (b.meta.weight || 0) - (a.meta.weight || 0)
+      || (a.name < b.name ? -1 : 1)
+    ));
+    // A caption also keeps clear of the glyph of any facility or cluster that
+    // outranks its own marker (a lesser facility's pin may sit under it; the
+    // caption never covers a more important one).
+    const obstacles = items.filter((it) => it.cluster || it.meta.tier === 'facility' || it.selected);
+    const orderIndex = new Map(order.map((it, i) => [it, i]));
+    const placed = [];
+    const hide = new Map();
+    // LABEL_BUDGET (spec §70) caps how many captions are on screen at once;
+    // clusters, the selection and the hovered marker are always inside it.
+    let budgetLeft = LABEL_BUDGET;
+    for (const it of order) {
+      if (!it.label) continue;
+      if (it.selected || it.hovered || it.cluster) {
+        // The hovered marker and cluster badges are never hidden. Selected
+        // captions (an experiment selects every site and facility it uses) only
+        // yield to each other, in rank order: facility before site.
+        if (it.selected && !it.hovered && placed.some((r) => overlaps(it.label, r))) {
+          hide.set(it.el, true);
+          continue;
+        }
+        placed.push(it.label);
+        hide.set(it.el, false);
+        budgetLeft -= 1;
+        continue;
+      }
+      if (budgetLeft <= 0 || it.nearLimb) { hide.set(it.el, true); continue; }
+      // A caption running past the stage edge would be cut off mid-word.
+      const clipped = it.label.left < stage.left || it.label.right > stage.right
+        || it.label.top < stage.top || it.label.bottom > stage.bottom;
+      const blocked = clipped
+        || placed.some((r) => overlaps(it.label, r))
+        || obstacles.some((o) => orderIndex.get(o) < orderIndex.get(it) && overlaps(it.label, o.glyph));
+      hide.set(it.el, blocked);
+      if (!blocked) { placed.push(it.label); budgetLeft -= 1; }
+    }
+
+    // ---- writes ------------------------------------------------------------
+    for (const [el, hidden] of hide) {
+      labelHidden.set(el.dataset.id, hidden);
+      if (el.classList.contains('is-label-hidden') !== hidden) el.classList.toggle('is-label-hidden', hidden);
+    }
+  }
 
   // ---- selection: which markers an open panel stands for, and where to look
   const facilitiesBySite = new Map();
@@ -1029,6 +1198,7 @@ export function createGlobe(container, {
     insetKey = key;
     if (inset > 0) camera.setViewOffset(width, height, 0, Math.round(inset / 2), width, height);
     else if (camera.view && camera.view.enabled) camera.clearViewOffset();
+    scheduleDeclutter(DECLUTTER_DELAY_MS);
   }
 
   // --- public API -------------------------------------------------------
@@ -1139,6 +1309,7 @@ export function createGlobe(container, {
       if (!width || !height) return;
       if (globe.width() !== width || globe.height() !== height) globe.width(width).height(height);
       applyViewInset(width, height);
+      scheduleDeclutter(DECLUTTER_DELAY_MS);
     },
     destroy() {
       if (resizeObserver) resizeObserver.disconnect();

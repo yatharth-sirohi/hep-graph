@@ -482,7 +482,21 @@ input {
      must opt back in individually to stay clickable/focusable. */
   pointer-events: auto;
 }
+/* The caption hangs below the glyph instead of sitting under it in the flex
+   column. The element is centred on its geographic point, so a caption in the
+   flow made the glyph jump about 9px whenever the label was shown or hidden
+   (and put the glyph off its true location whenever it was shown). Out of the
+   flow, the glyph is always the anchor, and the label can be toggled freely by
+   the declutter pass in globe.js. */
 .atlas-marker-label {
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  margin-top: 2px;
+  transform: translateX(-50%);
+  max-width: 22em;
+  overflow: hidden;
+  text-overflow: ellipsis;
   font-size: 10px;
   color: #dff1ee;
   background: rgba(6, 20, 28, 0.7);
@@ -524,24 +538,27 @@ input {
   outline-offset: 3px;
   border-radius: 4px;
 }
-/* Label budget (spec §70: "do not show 5,000 labels simultaneously") — a
-   marker past the budget keeps its glyph and its full click/tap/focus
-   target, only the text caption is hidden, so nothing becomes unreachable. */
-.atlas-marker.no-label .atlas-marker-label {
-  display: none;
-}
 /* Cluster markers: a distinct amber ring with a count, expandable by click
-   or Enter/Space (docs/HEP_ATLAS_ARCHITECTURE.md "Clustering and filters"). */
+   or Enter/Space (docs/HEP_ATLAS_ARCHITECTURE.md "Clustering and filters").
+   The count sits inside the ring rather than in a pill hanging below it, so a
+   cluster is one small target that no facility caption can end up under. */
 .atlas-marker.is-cluster {
   cursor: zoom-in;
 }
 .atlas-marker.is-cluster .atlas-marker-label {
   display: block;
+  top: 50%;
+  margin-top: 0;
+  transform: translate(-50%, -50%);
+  max-width: none;
+  overflow: visible;
+  font-size: 11px;
   font-weight: 700;
-  color: #1c1204;
-  background: var(--amber);
-  border-radius: 999px;
-  padding: 1px 6px;
+  line-height: 1;
+  color: var(--amber);
+  background: transparent;
+  border-radius: 0;
+  padding: 0;
 }
 .atlas-marker.tier-cluster::after {
   content: '';
@@ -549,6 +566,25 @@ input {
   inset: -10px;
 }
 
+/* Label decluttering (globe.js declutterLabels): a caption that would sit on
+   top of a higher-priority one is hidden, not removed — its glyph stays a full
+   click/focus target and the caption comes back on hover or keyboard focus, in
+   in full (up to 32em) and above its neighbours. These rules come after the
+   tier rules above so they win at equal specificity. */
+.atlas-marker.is-label-hidden .atlas-marker-label {
+  visibility: hidden;
+}
+.atlas-marker:hover,
+.atlas-marker:focus-visible,
+.atlas-marker.is-selected {
+  z-index: 10000 !important;
+}
+.atlas-marker:hover .atlas-marker-label,
+.atlas-marker:focus-visible .atlas-marker-label {
+  display: block;
+  visibility: visible;
+  max-width: 32em;
+}
 .atlas-marker.is-selected .atlas-marker-label {
   display: block;
   max-width: 32em;
