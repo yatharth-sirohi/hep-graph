@@ -63,13 +63,17 @@ function getPath(record, path) {
   return cur;
 }
 
-// "<status-or-role>, <start> – <end>" — an open end (`end` falsy) leaves the
-// dash trailing with nothing after it ("active, 2013-09 – "), matching how
-// the globe/timeline already write an open interval.
+// "<status-or-role>, <start> – <end>". An open end reads "since <start>" when
+// the start is a date (and just the start text otherwise), never a dash with
+// nothing after it ("active, 2013-09 – )"); an open start reads "until <end>".
 function rangeText(statusOrRole, start, end) {
+  const head = statusOrRole || 'unrecorded';
   const startText = start ? fmtDate(start) : '';
   const endText = end ? fmtDate(end) : '';
-  return `${statusOrRole || 'unrecorded'}, ${startText} – ${endText}`;
+  if (startText && endText) return `${head}, ${startText} – ${endText}`;
+  if (startText) return `${head}, ${/^\d{4}/.test(startText) ? 'since ' : ''}${startText}`;
+  if (endText) return `${head}, until ${endText}`;
+  return head;
 }
 
 function fallbackLabel(segs) {

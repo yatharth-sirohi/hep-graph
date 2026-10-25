@@ -2043,6 +2043,8 @@ async function setRangeValue(locator, value) {
         arxivAbs: m.sourcePdfUrl({ url: "https://arxiv.org/abs/0806.1449" }),
         pdfUrl: m.sourcePdfUrl({ url: "https://example.org/a/b.pdf" }),
         none: m.sourcePdfUrl({ url: "https://example.org/page" }),
+        open: m.claimLabel("/intervals/0", { intervals: [{ label: "operating", status: "active", start: "2013-09", end: null }] }).label,
+        closed: m.claimLabel("/intervals/0", { intervals: [{ label: "operating", status: "active", start: "2013-09", end: "2020" }] }).label,
       };
     });
     assert.deepEqual(out.order, ["b", "a"]);
@@ -2051,6 +2053,8 @@ async function setRangeValue(locator, value) {
     assert.equal(out.arxivAbs, "https://arxiv.org/pdf/0806.1449");
     assert.equal(out.pdfUrl, "https://example.org/a/b.pdf");
     assert.equal(out.none, null);
+    assert.equal(out.open, "Timeline: operating (active, since 2013-09)", "an open interval never ends in a dangling dash");
+    assert.equal(out.closed, "Timeline: operating (active, 2013-09 – 2020)");
     if (process.env.HEP_ATLAS_DATA === "generated") {
       await page.goto(`${base}/atlas#/accelerator/fermilab-booster`);
       await page.locator("#detail-panel h2").waitFor();
