@@ -230,3 +230,75 @@ and a derived core cylinder). No accelerator or beamline exists for ILL.
    ILL's installations-overview page was unreachable, HTTP 503) for `span`/`area` checks.
 3. The H-beam tubes and neutron-guide paths from the reactor to the guide halls; no fetched source.
 4. ILL's building-number page, to cite "ILL5/ILL7/ILL22" directly once ILL's site is reachable.
+
+---
+
+## 4. kit-karlsruhe (`map:kit-karlsruhe`)
+
+**Grade: no map → partial (footprints only).** The previous KIT worklog (`GEOMETRY_desy-psi-kit.md`)
+found no KATRIN building because Overpass was down and Nominatim cannot search by tag. The OSM API
+bounding-box read found a named element, so a map is now possible; the beamline itself is still
+not placeable.
+
+| Entity / feature | Status | Representation | accuracy_m | Check |
+| --- | --- | --- | --- | --- |
+| `site:kit-campus-north` → `geometry:kit-campus-north-boundary` (OSM way 155843597, 2.04 km², 2584 m span, `source=estimate`) | drawn | georeferenced | 30 | none (no official figure) |
+| `detector:katrin` → `geometry:kit-katrin-experiment-outline` (OSM way 394890935 "Karlsruhe-Tritium-Neutrino-Experiment", 13 nodes, 879 m², 55.6 m long at bearing 16°, man_made=observatory indoor=yes) | drawn as `experimental_area` | georeferenced | 10 | none; the 55.6 m long axis is shorter than the ≈ 70 m setup, so no length check is asserted |
+| TLK building 451 → `geometry:kit-tlk-building-451` (OSM way 99082515, ref 451; 792 m²) | drawn | georeferenced | 10 | none |
+| TLK building 452 → `geometry:kit-tlk-building-452` (OSM way 99082477, ref 452; 3374 m²) | drawn | georeferenced | 10 | none |
+| KATRIN beamline axis and components (source, transport, pre-spectrometer, main spectrometer, detector; overall ≈ 70 m) | **unlocated** (map row on `facility:kit-karlsruhe`) | — | — | — |
+
+**Sources fetched and quoted**
+
+* "Figure 1: Schematic view of the KATRIN experimental setup. The overall length of the setup is about
+  70 m." and "the WGTS magnet cryostat system was positioned in the TLK hall" — KATRIN
+  collaboration, *The Design, Construction, and Commissioning of the KATRIN Experiment*
+  (arXiv:2103.04755v3, JINST), full text read. The same paper gives the main spectrometer vessel as
+  "23.23 m long and has an inner diameter of 9.8 m", and orientation as upstream (south) to
+  downstream (north), with no azimuth.
+* "The overall length of the experiment exceeds 70 meters" — https://www.katrin.kit.edu/1032.php
+  (official KATRIN page, fetched).
+* "Building 451/452" — KIT Tritium Laboratory Karlsruhe handout
+  (https://www.tlk.kit.edu/downloads/Handout-TLK.pdf), address block; same handout "KATRIN is hosted
+  at TLK".
+* Corroboration only (rank 12, no source record): de.wikipedia "KATRIN" gives 49.095717 N,
+  8.436117 E (49° 5′ 44.6″ N, 8° 26′ 10″ E) and en.wikipedia 49.09583 N, 8.43611 E; the OSM outline
+  centroid (49.09574 N, 8.435976 E) is about 10 m from the German value.
+
+**Honesty calls and conflicts**
+
+1. *The beamline was not drawn as a line.* A line along the outline's long axis would have been a
+   guess at both end points (the outline is 55.6 m, the setup is ≈ 70 m; the source cryostat sits in
+   the TLK hall, outside the outline) and at the lateral position inside a 12–16 m strip. No
+   fetched source gives an azimuth or any end-point coordinate. Left in `unlocated[]`.
+2. *The outline is typed `experimental_area`, not `hall`.* Whether the OSM mapper meant the spectrometer
+   hall or the beamline footprint is not stated; the KATRIN paper gives no hall dimensions or
+   building number. It overlaps OSM building 460 and abuts the east end of TLK 452. The map's
+   grade therefore stays "partial".
+3. *TLK 451/452 identification* rests on the OSM `ref` matching "Building 451/452" in the KIT
+   handout; which one holds the WGTS is not stated. The 1600 m² quoted in the handout is the TLK's
+   laboratory area, not a footprint, and is not used as a check.
+4. The campus outline carries the mapper's `source=estimate`, so its accuracy is 30 m rather than 15.
+
+**Site coordinate corrections** (for the integrator; none applied here)
+
+```json
+[{"site_id": "site:kit-campus-north",
+  "current": {"lat": 49.09591, "lon": 8.42661, "precision_m": 1500, "kind": "campus", "source": "src:katrin-kit-campus-north-coordinates"},
+  "proposed_option_a_campus": {"lat": 49.099694, "lon": 8.431813, "precision_m": 600, "kind": "campus",
+     "source": "src:geo-kit-osm-campus-north (centroid of OSM way 155843597)", "distance_from_current_m": 567},
+  "proposed_option_b_katrin_hall": {"lat": 49.09574, "lon": 8.435976, "precision_m": 30, "kind": "detector",
+     "source": "src:geo-kit-osm-katrin-outline (centroid of OSM way 394890935; de.wikipedia 49.095717, 8.436117 within 10 m)",
+     "quote": "name=Karlsruhe-Tritium-Neutrino-Experiment, short_name=KATRIN, man_made=observatory", "distance_from_current_m": 680},
+  "note": "The site holds only detector:katrin, so option B (hall-grade point) is the one that would remove the A23 'campus-grade point' warning; the old point is inside the campus polygon, so option A is only a refinement."}]
+```
+
+**Remaining backlog**
+
+1. As-built KATRIN layout: the TDR as-built update or a geodetic survey giving the beam axis
+   azimuth and end points; then draw the beamline and check it against 70 m.
+2. KIT Campus North GIS (with licence) or a building directory naming the spectrometer hall
+   (OSM building 460 is the leading candidate, unconfirmed) and giving its dimensions.
+3. Which TLK building houses the WGTS/transport sections.
+4. The monitor-spectrometer hall and the parallel monitor beamline (mentioned in the KATRIN
+   paper's Figure 1 caption); not located in any fetched source.

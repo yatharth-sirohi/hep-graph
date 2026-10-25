@@ -1,0 +1,119 @@
+{
+  "accuracy_m": 10,
+  "aliases": [],
+  "checks": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "depth_m": null,
+  "entity_id": "detector:katrin",
+  "feature_type": "experimental_area",
+  "geometry": {
+    "confidence": "approximate",
+    "locator": "OSM way 394890935 (version 3, last edited 2026-02-08T04:28:34Z), read from the OSM API 0.6 at 2026-10-25T10:55:35Z",
+    "note": "OpenStreetMap outline alone; no official figure checks it. Its long axis (55.6 m) is shorter than the overall setup length stated by KATRIN ('about 70 m'; 'exceeds 70 meters'), so the outline is the experiment's footprint beside the Tritium Laboratory, not the whole beamline.",
+    "quote": "The overall length of the setup is about 70 m",
+    "sources": [
+      "src:geo-kit-osm-katrin-outline",
+      "src:geo-kit-katrin-design-paper",
+      "src:geo-kit-katrin-experimental-setup-page"
+    ],
+    "value": {
+      "coordinates": [
+        [
+          [
+            8.4357887,
+            49.0955035
+          ],
+          [
+            8.4358584,
+            49.0956613
+          ],
+          [
+            8.4358077,
+            49.0956707
+          ],
+          [
+            8.4359387,
+            49.0959743
+          ],
+          [
+            8.4361289,
+            49.0959393
+          ],
+          [
+            8.4361935,
+            49.0959274
+          ],
+          [
+            8.4361884,
+            49.0959176
+          ],
+          [
+            8.4361781,
+            49.0958914
+          ],
+          [
+            8.436083,
+            49.0956711
+          ],
+          [
+            8.4360624,
+            49.0956235
+          ],
+          [
+            8.4360026,
+            49.0956346
+          ],
+          [
+            8.4359379,
+            49.095476
+          ],
+          [
+            8.4357887,
+            49.0955035
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    },
+    "verified_at": "2026-10-25"
+  },
+  "id": "geometry:kit-katrin-experiment-outline",
+  "level_id": "surface",
+  "license": {
+    "attribution": "© OpenStreetMap contributors",
+    "name": "ODbL-1.0",
+    "url": "https://www.openstreetmap.org/copyright"
+  },
+  "links": {
+    "website": null
+  },
+  "map_id": "map:kit-karlsruhe",
+  "method": "OpenStreetMap way 394890935, name 'Karlsruhe-Tritium-Neutrino-Experiment', short_name KATRIN (man_made=observatory, observatory:type=neutrino, indoor=yes, start_date=2018-06-11), a 13-node outline used verbatim. The long sides run at bearings of 15.8-16.1 degrees from north. Its centroid lies about 10 m from the coordinate the German Wikipedia article gives for KATRIN (49.095717 N, 8.436117 E; rank 12, corroboration only).",
+  "name": "KATRIN experiment outline (spectrometer hall and beamline, OpenStreetMap)",
+  "notes": [
+    "The outline abuts the east end of Tritium Laboratory building 452 and overlaps OSM building 460; the KATRIN paper places the WGTS source cryostat in the TLK hall, so the source and part of the transport section lie inside the TLK buildings, outside this outline.",
+    "What the outline depicts (spectrometer hall versus beamline footprint) is the OSM mapper's choice; no fetched source states the hall's dimensions or building number, so it is typed experimental_area rather than hall."
+  ],
+  "osm": {
+    "elements": [
+      "way/394890935"
+    ],
+    "timestamp": "2026-10-25T10:55:35Z"
+  },
+  "representation": "georeferenced",
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:kit-campus-north",
+  "sources": [
+    "src:geo-kit-osm-katrin-outline",
+    "src:geo-kit-katrin-design-paper",
+    "src:geo-kit-katrin-experimental-setup-page"
+  ],
+  "summary": {
+    "plain": "The ground outline of the KATRIN neutrino-mass experiment at KIT Campus North as mapped in OpenStreetMap: a narrow strip about 56 metres long and 12 to 16 metres wide, running roughly north-north-east beside the Tritium Laboratory."
+  },
+  "type": "geometry",
+  "valid": null
+}
