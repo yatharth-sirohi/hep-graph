@@ -6,16 +6,17 @@
 // option is active as soon as a list appears, so typing a name and pressing
 // Enter opens the best match; ArrowUp/ArrowDown move through the options,
 // Escape closes the list (a second Escape clears the box).
+//
+// What matches, and in what order, is searchrank.js's job.
 
 import { titleCase } from './model.js';
+import { createMatcher, buildRelatedTopics } from './searchrank.js';
 
-//: Which kind of thing a person most likely means when several records match.
-const TYPE_ORDER = ['experiment', 'facility', 'collaboration', 'site', 'detector',
-  'accelerator', 'beamline', 'topic', 'result', 'document', 'institution'];
-
-export function init({ inputEl, listEl, entries, navigate }) {
+export function init({ inputEl, listEl, entries, navigate, atlas = null, results = [] }) {
   let active = -1;
   let shown = [];
+  let reached = []; // per shown entry: the topic it was found through, or null
+  const matcher = createMatcher(entries, atlas ? buildRelatedTopics(atlas, results) : new Map());
   // A polite live region that says how many options the list holds, so a
   // screen-reader user hears that typing produced results (or none).
   const statusEl = document.getElementById('search-status');
@@ -38,6 +39,7 @@ export function init({ inputEl, listEl, entries, navigate }) {
     inputEl.setAttribute('aria-expanded', 'false');
     inputEl.removeAttribute('aria-activedescendant');
     shown = [];
+    reached = [];
     active = -1;
     announce('');
   }
@@ -64,32 +66,10 @@ export function init({ inputEl, listEl, entries, navigate }) {
   }
 
   function render(query) {
-    const q = query.trim().toLowerCase();
-    if (!q) { close(); return; }
-    // Rank by how directly an entry answers the query, then by type. Typing
-    // "DUNE" must offer the experiment first: it matches only through its
-    // alias, while the beamline, collaboration and three detector records all
-    // carry "DUNE" inside their names and would otherwise bury it.
-    const score = (entry) => {
-      const name = entry.name.toLowerCase();
-      const aliases = entry.aliases.map((alias) => alias.toLowerCase());
-      if (name === q || aliases.includes(q)) return 0;
-      if (name.startsWith(q) || aliases.some((alias) => alias.startsWith(q))) return 1;
-      if (name.includes(q) || aliases.some((alias) => alias.includes(q))) return 2;
-      return 3;
-    };
-    const typeRank = (type) => {
-      const at = TYPE_ORDER.indexOf(type);
-      return at < 0 ? TYPE_ORDER.length : at;
-    };
-    shown = entries
-      .map((entry) => ({ entry, rank: score(entry) }))
-      .filter((row) => row.rank < 3 || row.entry.subtitle.toLowerCase().includes(q))
-      .sort((a, b) => a.rank - b.rank
-        || typeRank(a.entry.type) - typeRank(b.entry.type)
-        || a.entry.name.length - b.entry.name.length)
-      .map((row) => row.entry)
-      .slice(0, 25);
+    if (!query.trim()) { close(); return; }
+    const found = matcher(query);
+    shown = found.map((row) => row.entry);
+    reached = found.map((row) => row.via);
     listEl.innerHTML = '';
     if (!shown.length) {
       // Not an option: it can never be activated or chosen. role=presentation
@@ -105,7 +85,17 @@ export function init({ inputEl, listEl, entries, navigate }) {
         li.id = `search-result-${i}`;
         li.setAttribute('role', 'option');
         li.setAttribute('aria-selected', 'false');
-        li.textContent = label(entry);
+        // One inline box, so the phone's flex rows keep the label and the note in one line of text.
+        const text = document.createElement('span');
+        text.textContent = label(entry);
+        // A row reached through a research topic (ATLAS for "Higgs") says so, so
+        // it is not mistaken for a record that has the word in its own name.
+        if (reached[i]) {
+          text.appendChild(Object.assign(document.createElement('span'), {
+            className: 'search-via', textContent: ` · via ${reached[i]}`,
+          }));
+        }
+        li.appendChild(text);
         li.addEventListener('mousedown', (event) => {
           event.preventDefault();
           select(entry);

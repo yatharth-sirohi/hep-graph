@@ -218,7 +218,14 @@ async function main() {
   });
 
   search.init({
-    inputEl: els.searchInput, listEl: els.searchResults, entries: searchEntries, navigate: state.navigate,
+    inputEl: els.searchInput,
+    listEl: els.searchResults,
+    entries: searchEntries,
+    navigate: state.navigate,
+    // Experiments, facilities and results are also found through the research
+    // topic they are filed under (search "Higgs", reach ATLAS, CMS and CERN).
+    atlas,
+    results: resultsBundle.list,
   });
 
   if (hasGL2) {
