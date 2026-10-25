@@ -1052,6 +1052,26 @@ input {
   font-size: 11px;
   color: var(--muted);
 }
+/* ---- rv-panels: result "Where" line and distance between sites -- begin ---- */
+/* A link sitting in a sentence with plain text needs more than colour to be
+   told apart from it (WCAG 1.4.1), like .entity-link-with-meta above. */
+.result-where {
+  margin: 10px 0;
+}
+.result-where a,
+.site-distances .source-meta a {
+  text-decoration: underline;
+}
+.site-distances h4 {
+  margin: 12px 0 4px;
+  font-size: 13px;
+  color: var(--muted);
+  font-weight: 600;
+}
+.site-distances .entity-list {
+  margin-bottom: 4px;
+}
+/* ---- rv-panels -- end ---- */
 /* provenance.js's grouped-by-claim Sources disclosure (task A4): one claim
    label, its quote/locator and confidence, then the sources that back it —
    the raw JSON pointer stays available (title attribute + this small line)

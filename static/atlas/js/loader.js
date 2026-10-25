@@ -199,6 +199,14 @@ export async function getSources() {
   return sourcesCache;
 }
 
+/** One local map's geometry bundle (`maps[id].bundle` in atlas.json, e.g.
+ * `geometry/fermilab.json`). Panels read only its `entity_index` and each
+ * feature's `representation` — to say truthfully how a map depicts an entity —
+ * so this is the same cached request the map view itself makes later. */
+export async function getGeometry(bundlePath) {
+  return fetchJSON(bundlePath);
+}
+
 export async function getSearchEntries() {
   const raw = await fetchJSON('search.json');
   const entries = Array.isArray(raw) ? raw : (raw.entries || []);
