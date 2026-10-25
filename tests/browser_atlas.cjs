@@ -1986,16 +1986,16 @@ async function setRangeValue(locator, value) {
     });
 
     await record("A collaboration with no curated roster disables 'View collaboration on globe' with a reason", async () => {
-      // A fresh, unlistened context: this deliberately requests a
-      // memberships/abracadabra.json that does not exist (the whole point
-      // of the check), which the app itself handles via a caught rejection
-      // — but Chromium still logs the failed network request itself as a
-      // console error regardless of whether JS catches it, which would
-      // otherwise fail this file's blanket "no uncaught console errors"
-      // assertion on the shared `page`/`context` for a 404 this test causes
-      // on purpose.
+      // manifest.json lists every bundle the build wrote, so a collaboration
+      // with no roster must never be asked for `memberships/<slug>.json`: that
+      // request is a 404, and Chromium logs it as a console error whether or
+      // not the page's JavaScript catches it.
       const freshContext = await browser.newContext({ viewport: { width: 1440, height: 960 } });
       const freshPage = await freshContext.newPage();
+      const failedRequests = [];
+      freshPage.on("response", (response) => { if (response.status() >= 400) failedRequests.push(`${response.status()} ${response.url()}`); });
+      const consoleErrors = [];
+      freshPage.on("console", (message) => { if (message.type() === "error") consoleErrors.push(message.text()); });
       await freshPage.goto(`${base}/atlas${dataTree}#/collaboration/abracadabra`);
       await freshPage.locator("#detail-panel h2").waitFor();
       const panelText = await freshPage.locator("#detail-panel").innerText();
@@ -2005,6 +2005,8 @@ async function setRangeValue(locator, value) {
       assert.equal(await viewBtn.isDisabled(), true, "the globe button must be disabled without a curated roster");
       const title = await viewBtn.getAttribute("title");
       assert.ok(title && title.length > 0, "the disabled button must carry a reason in its title");
+      assert.deepEqual(failedRequests, [], "opening a collaboration without a roster must not request a bundle the manifest does not list");
+      assert.deepEqual(consoleErrors, [], "and must not log a console error");
       await freshContext.close();
     });
   }

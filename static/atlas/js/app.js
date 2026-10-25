@@ -340,6 +340,15 @@ async function main() {
         }
         if (globeApi) {
           const membership = await loader.getMembership(collabId);
+          if (!membership) {
+            // The build wrote no roster for this collaboration (a shared link
+            // can still ask for one): there are no institutions to put on the
+            // globe, so leave collaboration mode. The record panel says why.
+            lastCollabShown = null;
+            panels.setCollaborationContext(null);
+            state.navigate({ mode: null, collab: null }, { replace: true });
+            return;
+          }
           await globeApi.setCollaboration(collabId, membership);
           // §75: default the arcs off for very large collaborations
           // (INSTITUTION_ARC_THRESHOLD, docs/atlas-worklog/REVIEW_performance.md
