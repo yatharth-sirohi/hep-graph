@@ -302,3 +302,60 @@ not placeable.
 3. Which TLK building houses the WGTS/transport sections.
 4. The monitor-spectrometer hall and the parallel monitor beamline (mentioned in the KATRIN
    paper's Figure 1 caption); not located in any fetched source.
+
+---
+
+## 5. mit (`map:mit`)
+
+**Grade: no map → partial (footprints only).** The only atlas record that references MIT is
+`experiment:abracadabra` / `detector:abracadabra` at `site:mit-cambridge-campus` (searched all
+experiments' `facility_roles`, all detector `placements`, and every file mentioning
+`facility:mit` or `site:mit-cambridge-campus`); there is no other MIT experiment or site.
+
+| Entity / feature | Status | Representation | accuracy_m | Check |
+| --- | --- | --- | --- | --- |
+| `site:mit-cambridge-campus` → `geometry:mit-campus-boundary` (OSM multipolygon relation 65066, 11 closed rings assembled from 13 outer ways; 0.81 km², 2.42 km span) | drawn | georeferenced | 20 | none (no official figure) |
+| MIT Building 26, Karl Taylor Compton Laboratories → `geometry:mit-building-26-compton-laboratories` (OSM way 32525936; 2755 m²) | drawn (context building) | georeferenced | 8 | none |
+| MIT Building 24 → `geometry:mit-building-24` (OSM way 29127459; 2477 m²) | drawn (context building) | georeferenced | 8 | none |
+| `detector:abracadabra` (ABRACADABRA-10 cm, 2018–2021) | **unlocated** | — | — | — |
+
+**Sources fetched and quoted**
+
+* "Winslow Lab(s) are located at: Building 26-524 Building 24-036" — MIT Winslow Lab contact page
+  (https://winslow.mit.edu/contact), fetched. The same group's home page lists "Our Location Building
+  26-524 Building 24-036" and says its work "currently focuses on searches for neutrinoless
+  double-beta decay and axion dark matter".
+* "The current generation, ABRACADABRA-10cm, is located at MIT." — https://abracadabra.mit.edu/,
+  fetched. No building, room or floor is given there or in arXiv:1810.12257, arXiv:1905.06882 or
+  arXiv:2102.06722 (all three downloaded and searched for "building", "basement", "room",
+  "located at").
+* The Winslow group's link to ABRACADABRA is the existing source
+  `src:axions-abracadabra-mit-winslow-page` (MIT Physics faculty page: "demonstrated this
+  technique with the ABRA-10cm experiment").
+
+**Honesty calls and conflicts**
+
+1. *The detector is not attributed to either building.* The experiment is only "located at MIT";
+   the group that built it lists two spaces. Drawing a point or footprint for the apparatus in
+   26-524 or 24-036 would be a guess between two buildings, and nothing says the 10 cm prototype
+   was not elsewhere. Both buildings are drawn as Winslow Lab buildings, and the detector is listed
+   as unlocated against `detector:abracadabra`.
+2. *Campus outline.* The relation is a mapped multipolygon of several separate parcels
+   (Technology Square, Kendall and Vassar Street blocks); it is context only. Rings were joined by
+   endpoint matching; each building centroid was checked to lie inside the main ring.
+3. Building 26's OSM `layer=1`, `ele=3` tags are irrelevant to the footprint; the footprint is
+   used verbatim.
+
+**Site coordinate corrections**: none needed. The existing point (42.358253, -71.096627, 500 m,
+Nominatim) is 230 m from the OSM campus centroid, inside its stated precision. If the integrator
+wants a building-grade point for the detector's site, the only sourced candidates are the two
+Winslow Lab buildings (26: 42.360871, -71.091160; 24: 42.360717, -71.092068), which are 75 m apart
+and cannot be told apart from the sources.
+
+**Remaining backlog**
+
+1. A source naming the room of ABRACADABRA-10 cm (an LNS lab page, a Winslow-group thesis or the
+   PRD design paper's acknowledgements), then a point inside that building's footprint.
+2. Floor plans (MIT FIS) for Buildings 24 and 26, if the room is found.
+3. DMRadio and other successor Winslow-group experiments are not atlas entities yet; nothing
+   to draw for them.
