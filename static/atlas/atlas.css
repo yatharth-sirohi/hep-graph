@@ -202,9 +202,25 @@ input {
 #atlas-main {
   flex: 1;
   display: grid;
-  grid-template-columns: 220px 1fr 340px;
-  grid-template-areas: "filters globe detail";
+  /* Two tracks only: the globe takes everything the filters do not. The detail
+     track below exists only while a record is open — a display:none grid item
+     still reserves its track, which used to leave a 340px empty column beside
+     the globe whenever no panel was showing. minmax(0, 1fr) lets the stage
+     shrink below its content's width. */
+  grid-template-columns: 220px minmax(0, 1fr);
+  grid-template-areas: "filters globe";
   min-height: 0;
+}
+#atlas-main:not(.is-map-route):has(> .detail-panel:not(.hidden)) {
+  grid-template-columns: 220px minmax(0, 1fr) 340px;
+  grid-template-areas: "filters globe detail";
+}
+/* A browser without :has() keeps the fixed three-track layout, as before. */
+@supports not selector(:has(*)) {
+  #atlas-main {
+    grid-template-columns: 220px minmax(0, 1fr) 340px;
+    grid-template-areas: "filters globe detail";
+  }
 }
 .filters-panel {
   grid-area: filters;
@@ -466,7 +482,21 @@ input {
      must opt back in individually to stay clickable/focusable. */
   pointer-events: auto;
 }
+/* The caption hangs below the glyph instead of sitting under it in the flex
+   column. The element is centred on its geographic point, so a caption in the
+   flow made the glyph jump about 9px whenever the label was shown or hidden
+   (and put the glyph off its true location whenever it was shown). Out of the
+   flow, the glyph is always the anchor, and the label can be toggled freely by
+   the declutter pass in globe.js. */
 .atlas-marker-label {
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  margin-top: 2px;
+  transform: translateX(-50%);
+  max-width: 22em;
+  overflow: hidden;
+  text-overflow: ellipsis;
   font-size: 10px;
   color: #dff1ee;
   background: rgba(6, 20, 28, 0.7);
@@ -508,29 +538,91 @@ input {
   outline-offset: 3px;
   border-radius: 4px;
 }
-/* Label budget (spec §70: "do not show 5,000 labels simultaneously") — a
-   marker past the budget keeps its glyph and its full click/tap/focus
-   target, only the text caption is hidden, so nothing becomes unreachable. */
-.atlas-marker.no-label .atlas-marker-label {
-  display: none;
-}
 /* Cluster markers: a distinct amber ring with a count, expandable by click
-   or Enter/Space (docs/HEP_ATLAS_ARCHITECTURE.md "Clustering and filters"). */
+   or Enter/Space (docs/HEP_ATLAS_ARCHITECTURE.md "Clustering and filters").
+   The count sits inside the ring rather than in a pill hanging below it, so a
+   cluster is one small target that no facility caption can end up under. */
 .atlas-marker.is-cluster {
   cursor: zoom-in;
 }
 .atlas-marker.is-cluster .atlas-marker-label {
   display: block;
+  top: 50%;
+  margin-top: 0;
+  transform: translate(-50%, -50%);
+  max-width: none;
+  overflow: visible;
+  font-size: 11px;
   font-weight: 700;
-  color: #1c1204;
-  background: var(--amber);
-  border-radius: 999px;
-  padding: 1px 6px;
+  line-height: 1;
+  color: var(--amber);
+  background: transparent;
+  border-radius: 0;
+  padding: 0;
 }
 .atlas-marker.tier-cluster::after {
   content: '';
   position: absolute;
   inset: -10px;
+}
+
+/* Label decluttering (globe.js declutterLabels): a caption that would sit on
+   top of a higher-priority one is hidden, not removed — its glyph stays a full
+   click/focus target and the caption comes back on hover or keyboard focus, in
+   in full (up to 32em) and above its neighbours. These rules come after the
+   tier rules above so they win at equal specificity. */
+.atlas-marker.is-label-hidden .atlas-marker-label {
+  visibility: hidden;
+}
+.atlas-marker:hover,
+.atlas-marker:focus-visible,
+.atlas-marker.is-selected {
+  z-index: 10000 !important;
+}
+.atlas-marker:hover .atlas-marker-label,
+.atlas-marker:focus-visible .atlas-marker-label {
+  display: block;
+  visibility: visible;
+  max-width: 32em;
+}
+.atlas-marker.is-selected .atlas-marker-label {
+  display: block;
+  max-width: 32em;
+}
+/* The selected facility/site: an amber halo around the glyph and an always-on
+   caption, until the panel is closed. Colour is not the only cue — the ring is
+   a shape, and the marker also carries aria-current. */
+.atlas-marker.is-selected {
+  opacity: 1 !important;
+}
+.atlas-marker.is-selected .atlas-marker-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #1c1204;
+  background: var(--amber);
+}
+.atlas-marker.is-selected::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: calc(var(--marker-size, 26px) + 20px);
+  height: calc(var(--marker-size, 26px) + 20px);
+  margin: calc((var(--marker-size, 26px) + 20px) / -2) 0 0 calc((var(--marker-size, 26px) + 20px) / -2);
+  border: 2px solid var(--amber);
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px rgba(11, 22, 32, 0.7), 0 0 16px 2px rgba(242, 180, 65, 0.7);
+  pointer-events: none;
+  animation: atlas-selected-pulse 1.8s ease-in-out infinite;
+}
+@keyframes atlas-selected-pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.14); opacity: 0.7; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .atlas-marker.is-selected::before {
+    animation: none;
+  }
 }
 
 /* --------------------------------------------------------------- modes */
@@ -1116,6 +1208,15 @@ input {
 /* --------------------------------------------------------------- mobile */
 @media (max-width: 760px) {
   #atlas-main {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "globe"
+      "filters"
+      "detail";
+  }
+  /* Separate rule on purpose: a selector list containing :has() is dropped
+     whole by a browser that lacks it, which must not take the line above. */
+  #atlas-main:not(.is-map-route):has(> .detail-panel:not(.hidden)) {
     grid-template-columns: 1fr;
     grid-template-areas:
       "globe"

@@ -148,6 +148,37 @@ export function titleCase(s) {
   return (s || '').replace(/_/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
 }
 
+// Display labels for the schema's `kind` / `technology_class` enums
+// (hepgraph/atlas/schema.py FACILITY_KINDS, EXPERIMENT_KINDS, ACCELERATOR_KINDS,
+// TECHNOLOGY_CLASSES). The ids stay the slugs the data uses — this is only
+// what a person reads. titleCase() turns "cevns" into "Cevns" and "lar_tpc"
+// into "Lar Tpc", so any slug whose natural spelling is not plain Title Case
+// is listed here; the rest fall through to titleCase().
+export const KIND_LABELS = {
+  // experiment kinds
+  cevns: 'CEvNS',
+  long_lived_particle: 'Long-Lived Particle (LLP)',
+  gamma_ray: 'Gamma-Ray',
+  // technology classes
+  lar_tpc: 'Liquid-Argon TPC',
+  xenon_tpc: 'Liquid-Xenon TPC',
+  argon_tpc: 'Liquid-Argon TPC',
+  noble_liquid_tpc: 'Noble-Liquid TPC',
+  gaseous_tpc: 'Gaseous TPC',
+  imaging_atmospheric_cherenkov: 'Imaging Atmospheric Cherenkov (IACT)',
+  skipper_ccd: 'Skipper CCD',
+  light_shining_through_wall: 'Light-Shining-Through-Wall',
+  lumped_element_resonator: 'Lumped-Element Resonator',
+};
+
+/** Human label for a facility/experiment/accelerator kind or a detector
+ * technology class: the explicit KIND_LABELS entry if there is one, else
+ * titleCase(). */
+export function kindLabel(value) {
+  if (value == null || value === '') return '';
+  return KIND_LABELS[value] || titleCase(value);
+}
+
 /** A flat entity index over atlas.json, so any id can be resolved to its
  * record and coarse "kind" in O(1). */
 export function buildIndex(atlas) {

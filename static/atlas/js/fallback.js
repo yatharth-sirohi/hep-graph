@@ -2,7 +2,7 @@
 // accessible lists and tables instead of the globe. Detail panels are
 // reused unchanged (panels.js does not depend on the globe being present).
 
-import { titleCase, fmtDate } from './model.js';
+import { titleCase, kindLabel, fmtDate } from './model.js';
 import * as filtersModule from './filters.js';
 
 function h(tag, attrs = {}, children = []) {
@@ -84,7 +84,7 @@ export function render(container, {
       const tr = h('tr', {});
       tr.appendChild(linkCell({ type: 'facility', slug: f.id.split(':')[1] }, f.name, navigate));
       tr.append(
-        h('td', {}, titleCase(f.kind)),
+        h('td', {}, kindLabel(f.kind)),
         h('td', {}, titleCase(f.status)),
         h('td', {}, (f.country || []).join(', ')),
         h('td', {}, isApproximateFacility(f) ? 'Approximate' : 'Precise'),
@@ -113,7 +113,7 @@ export function render(container, {
       const tr = h('tr', {});
       tr.appendChild(linkCell({ type: 'experiment', slug: e.id.split(':')[1] }, e.name, navigate));
       const facilities = (e.facility_ids || []).map((fid) => atlas.facilities[fid] && atlas.facilities[fid].name).filter(Boolean).join(', ');
-      tr.append(h('td', {}, titleCase(e.kind)), h('td', {}, facilities), h('td', {}, titleCase(e.status)));
+      tr.append(h('td', {}, kindLabel(e.kind)), h('td', {}, facilities), h('td', {}, titleCase(e.status)));
       return tr;
     });
   container.appendChild(table('Experiments', ['Name', 'Kind', 'Facility', 'Status'], experimentRows));
@@ -162,7 +162,7 @@ export function render(container, {
       const tr = h('tr', {});
       tr.appendChild(linkCell({ type: 'accelerator', slug: a.id.split(':')[1] }, a.name, navigate));
       const facility = atlas.facilities && atlas.facilities[a.facility_id];
-      tr.append(h('td', {}, titleCase(a.kind)), h('td', {}, facility ? facility.name : ''), h('td', {}, titleCase(a.status)));
+      tr.append(h('td', {}, kindLabel(a.kind)), h('td', {}, facility ? facility.name : ''), h('td', {}, titleCase(a.status)));
       return tr;
     });
   container.appendChild(table('Accelerators', ['Name', 'Kind', 'Facility', 'Status'], acceleratorRows));

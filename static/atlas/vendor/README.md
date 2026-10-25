@@ -39,6 +39,25 @@ namespaces, licence links and library homepages. Requires WebGL2.
 Fed to `Globe.polygonsData()` so the globe has coastlines without a raster
 texture or a tile server.
 
+## countries-borders-110m.json
+
+| | |
+| --- | --- |
+| source package | `world-atlas` 2.0.2 (`countries-110m.json`, TopoJSON, 107761 B, sha256 `2516c915867c7baf18ddec727aec46c315541a07cfb3d79a6559b05d5e94eee8`) |
+| url | https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/countries-110m.json |
+| underlying data | Natural Earth 1:110m Admin 0 - Countries |
+| derived by | decoding the TopoJSON arcs and keeping only line work: arcs used by two countries become the `border` feature, arcs used by one country become the `coastline` feature (both one `MultiLineString`). Country names/ids are dropped. Touching arcs are chained end to end into longer paths (the same edges, fewer draw calls), the degenerate Antarctic edge along the pole is removed, and coordinates are rounded to 2 decimal places |
+| bytes | 116137 |
+| sha256 | `71451ca998744a66edf448d6f99533f8d4eed752e1d41424926019c6004ba330` |
+| licence | Natural Earth data: public domain. `world-atlas` packaging: ISC (Mike Bostock). |
+
+Drawn by `globe.js` as a `pathsData` layer (thin, low-contrast lines) on top of
+the `land-110m.json` fill. It is fetched after the globe's first paint and the
+globe works without it: if the request fails the land fill and its own coast
+stroke simply stay as they were. The 110m scale is a political-geography aid
+for orientation, not a survey: disputed and recently changed borders follow
+Natural Earth's de facto line work and the atlas takes no position on them.
+
 ## leaflet/
 
 The 2D map engine for the to-scale local-map view
