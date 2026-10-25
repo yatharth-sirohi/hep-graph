@@ -104,7 +104,17 @@
   },
   "result_type": "measurement",
   "schema": "hep-atlas/0.2",
-  "significance": "3σ (δCP = 0 excluded; an indication of CP violation, not a discovery)",
+  "significance": {
+    "confidence": "verified",
+    "locator": "arXiv:1910.03887, abstract",
+    "note": "'δCP = 0 excluded' follows from the quoted 3σ intervals (0 lies outside both); 'not a discovery' restates the collaboration's wording 'an indication'.",
+    "quote": "excluding values of dCP which result in a large enhancement of the observed anti-neutrino oscillation probability at three standard deviations (3 sigma) ... Our results show an indication of CP violation in the lepton sector.",
+    "sources": [
+      "src:t2k-nature-2020-cp"
+    ],
+    "value": "3σ (δCP = 0 excluded; an indication of CP violation, not a discovery)",
+    "verified_at": "2026-10-25"
+  },
   "sources": [
     "src:t2k-nature-2020-cp"
   ],
@@ -118,5 +128,5 @@
     "topic:neutrino-oscillations"
   ],
   "type": "result",
-  "why_it_matters": "It excludes the CP-conserving value δCP = 0 at 3σ — an indication that neutrinos and antineutrinos oscillate differently (CP violation in the lepton sector), a possible ingredient of the matter-antimatter asymmetry of the universe (leptogenesis), and part of the physics case for Hyper-Kamiokande's more sensitive search."
+  "why_it_matters": "It excludes the CP-conserving value δCP = 0 at 3σ — an indication that neutrinos and antineutrinos oscillate differently (CP violation in the lepton sector), a possible ingredient of the matter-antimatter asymmetry of the universe through leptogenesis. The paper closes by saying that future measurements with larger data samples will determine whether the leptonic CP violation is larger than the quark-sector CP violation."
 }

@@ -18,14 +18,15 @@
     "tier": "B"
   },
   "date": {
-    "confidence": "approximate",
-    "locator": "arXiv:2006.09721 identifier",
-    "note": "2020-06 derived from the arXiv identifier 2006.09721 (YYMM prefix = 2020-06); exact day not confirmed by a fetched source. Journal publication was later in 2020 (Phys. Rev. D 102, 072004).",
+    "confidence": "verified",
+    "locator": "arXiv:2006.09721, submission history",
+    "note": "arXiv v1 submission date. Published as Phys. Rev. D 102, 072004 (2020).",
+    "quote": "Submitted on 17 Jun 2020 (v1)",
     "sources": [
       "src:dm-noble-liquid-xenon1t-excess-2020"
     ],
-    "value": "2020-06",
-    "verified_at": "2026-09-17"
+    "value": "2020-06-17",
+    "verified_at": "2026-10-25"
   },
   "date_kind": "preprint",
   "detector_ids": [
@@ -47,7 +48,7 @@
     "sources": [
       "src:dm-noble-liquid-xenon1t-excess-2020"
     ],
-    "value": "Excess most prominent between 2 and 3 keV; if interpreted as a monoenergetic peak, centered at (2.3+-0.2) keV with 3.0 sigma global (4.0 sigma local) significance -- interpretation unconfirmed.",
+    "value": "Excess most prominent between 2 and 3 keV; if interpreted as a monoenergetic peak, centered at (2.3 ± 0.2) keV (68% C.L.) with 3.0σ global (4.0σ local) significance; the abstract does not claim a discovery.",
     "verified_at": "2026-09-17"
   },
   "links": {
@@ -63,7 +64,8 @@
   },
   "name": "Excess Electronic Recoil Events in XENON1T",
   "notes": [
-    "This is explicitly NOT a discovery, observation, or confirmed dark-matter signal: the collaboration's own abstract frames every explanation (axion, neutrino magnetic moment, tritium, bosonic dark matter) as a hypothesis with no interpretation confirmed or excluded."
+    "This is explicitly not a discovery, observation or confirmed dark-matter signal: the abstract reports 'An excess over known backgrounds' and treats each explanation (axion, neutrino magnetic moment, tritium, bosonic dark matter) as a hypothesis, with a trace of tritium that can 'neither be confirmed nor excluded'.",
+    "Later XENONnT electronic-recoil analysis (https://arxiv.org/abs/2207.11330): \"we observe no excess above background\"; its abstract also gives a background about 5 times lower than in XENON1T (\"(15.8 ± 1.3) events/(tonne×year×keV), the lowest ever achieved in a dark matter detector and ~5 times lower than in XENON1T\")."
   ],
   "official_url": {
     "confidence": "verified",
@@ -98,15 +100,16 @@
     "sources": [
       "src:dm-noble-liquid-xenon1t-excess-2020"
     ],
-    "value": "up to 3.4 sigma (solar axion hypothesis, before tritium is allowed to float; reduces to 2.0 sigma if an unconstrained tritium component is included)",
-    "verified_at": "2026-09-17"
+    "value": "up to 3.4σ (solar axion hypothesis, before an unconstrained tritium component is included in the fit; 2.0σ with it)",
+    "verified_at": "2026-10-25"
   },
   "sources": [
-    "src:dm-noble-liquid-xenon1t-excess-2020"
+    "src:dm-noble-liquid-xenon1t-excess-2020",
+    "src:rv-l-xenonnt-er-2022"
   ],
   "summary": {
-    "plain": "In 2020, XENON1T reported seeing more low-energy electron-recoil events than expected. The excess was never confirmed as dark matter, a new particle or any other specific cause -- possible explanations included a tiny amount of natural radioactivity (tritium) in the detector, solar particles called axions, or a new neutrino property -- and it remains an open, unresolved anomaly.",
-    "technical": "XENON1T low-energy (1-30 keV) electronic-recoil search, 0.65 t-y exposure, background rate 76+-2 events/(t y keV). An excess above background is observed, most prominent between 2 and 3 keV. Solar axion (3.4 sigma), enhanced neutrino magnetic moment (3.2 sigma) and tritium beta-decay (3.2 sigma) hypotheses were tested; a bosonic-dark-matter interpretation favors a peak at (2.3+-0.2) keV at 3.0 sigma global / 4.0 sigma local significance. None of these is confirmed; the collaboration's own paper treats it as an open excess, not a discovery."
+    "plain": "In 2020 XENON1T reported an excess of low-energy electron-recoil events over known backgrounds, most prominent between 2 and 3 keV. The paper tested solar-axion, neutrino-magnetic-moment, tritium and bosonic-dark-matter explanations at 3.0 to 3.4σ, and says a trace of tritium can neither be confirmed nor excluded. A later XENONnT analysis with a lower background reports no excess.",
+    "technical": "XENON1T low-energy electronic-recoil search, 0.65 t-y exposure, background rate 76 ± 2 events/(t y keV) between 1 and 30 keV. An excess over known backgrounds is observed, most prominent between 2 and 3 keV. Solar axion 3.4σ, enhanced neutrino magnetic moment 3.2σ, tritium β decay 3.2σ (the first two fall to 2.0σ and 0.9σ if an unconstrained tritium component is included in the fit); for bosonic dark matter the excess favors a monoenergetic peak at (2.3 ± 0.2) keV with 3.0σ global (4.0σ local) significance. The abstract reports an excess over known backgrounds; it does not claim a discovery."
   },
   "title": "Excess Electronic Recoil Events in XENON1T",
   "topic_ids": [
@@ -114,5 +117,5 @@
     "topic:direct-dark-matter-detection"
   ],
   "type": "result",
-  "why_it_matters": "The most-discussed unexplained anomaly in the direct-detection field this decade; it motivated dedicated follow-up analyses by XENONnT and other experiments and is still not resolved."
+  "why_it_matters": "The abstract reports an excess over known backgrounds and weighs three explanations (solar axions, an enhanced neutrino magnetic moment, tritium); it says the axion and neutrino-magnetic-moment results are in strong tension with stellar constraints and that a trace of tritium can neither be confirmed nor excluded. The later XENONnT electronic-recoil analysis, with a background about five times lower, reports no excess above background."
 }
