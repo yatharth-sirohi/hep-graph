@@ -359,3 +359,59 @@ and cannot be told apart from the sources.
 2. Floor plans (MIT FIS) for Buildings 24 and 26, if the room is found.
 3. DMRadio and other successor Winslow-group experiments are not atlas entities yet; nothing
    to draw for them.
+
+---
+
+## 6. yale-wright-lab (`map:yale-wright-lab`)
+
+**Grade: no map → partial (one footprint).** The only atlas detector at the site is
+`detector:haystac`; there is no accelerator record for Wright Lab.
+
+| Entity / feature | Status | Representation | accuracy_m | Check |
+| --- | --- | --- | --- | --- |
+| `site:yale-wright-lab-campus` → `geometry:yale-wright-laboratory-building` (OSM way 228473354, "Wright Laboratory", 272 Whitney Avenue; 2590 m², 78 m span, last edited 2024-06-02) | drawn (`building`) | georeferenced | 8 | none (no official dimension) |
+| `detector:haystac` | **unlocated** | — | — | — |
+
+**Sources fetched and quoted**
+
+* "Navigation Address (For GPS) 272 Whitney Avenue New Haven, CT 06511 U.S.A." — Yale Wright
+  Laboratory contact page (https://wlab.yale.edu/contact), fetched; matches the OSM address tag
+  (addr:housenumber 272, addr:street Whitney Avenue).
+* "The detector was built and is in operation at Yale University's Wright laboratory." — existing
+  source `src:axions-haystac-official-page`.
+* History page (https://wlab.yale.edu/about/history), fetched: the Electron Linear Accelerator
+  was built at the "Yale Atomic Research Lab," "part of the current site of Wright Lab", and a HILAC
+  was built in the 1950s. It names no building footprint.
+
+**Honesty calls and conflicts**
+
+1. *Other Wright buildings not drawn.* OSM also names "Wright Laboratory West" (way 363775878, 268
+   Whitney Avenue, source bing), "Electron Accelerator Laboratory" (way 363775881, 270 Whitney
+   Avenue) and "Wright Annex" (way 1465262374). The English Wikipedia article (rank 12, a search
+   snippet only) calls the complex three buildings and the second "Wright Lab West". No fetched
+   official source ties any of these OSM polygons to the laboratory, so they are listed as
+   candidates in the backlog rather than drawn.
+2. *Building may be out of date.* The laboratory's visit page says that, as of 3 August 2026, it
+   has a new front entrance, with continuing construction in the area, and its history page
+   announces an addition and a new building; the OSM footprint was last edited in 2024.
+3. HAYSTAC is "in operation at Wright laboratory" only; room unknown.
+
+**Site coordinate corrections** (for the integrator; none applied here)
+
+```json
+[{"site_id": "site:yale-wright-lab-campus",
+  "current": {"lat": 41.3190182, "lon": -72.9207433, "precision_m": 100, "kind": "campus", "source": "src:axions-nominatim-yale-wright-lab"},
+  "proposed": {"lat": 41.319007, "lon": -72.920702, "precision_m": 30, "kind": "campus"},
+  "distance_from_current_m": 4,
+  "source": "src:geo-yale-osm-wright-laboratory (centroid of OSM way 228473354) with src:geo-yale-wright-lab-contact",
+  "quote": "Navigation Address (For GPS) 272 Whitney Avenue New Haven, CT 06511 U.S.A.",
+  "note": "The existing point is already the building's centroid (the Nominatim hit resolved to this footprint); only the precision (100 m -> 30 m) and the label (a building, not a campus) change. A hall-grade position inside the building still needs the room."}]
+```
+
+**Remaining backlog**
+
+1. The HAYSTAC room (paper, thesis or floor plan), then a point inside the footprint.
+2. An official Wright Lab building list (or Yale facilities map) to decide whether OSM's "Wright
+   Laboratory West", "Electron Accelerator Laboratory" and "Wright Annex" belong to the laboratory.
+3. A post-construction footprint once the Wright Lab addition is built (completion expected 2030
+   per the history page).
