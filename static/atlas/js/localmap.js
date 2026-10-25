@@ -794,6 +794,7 @@ function drawFeatures(L) {
   symbolLayer.clearLayers();
   stale.forEach((el) => { if (el) el.remove(); });
   labelRecords = new Map();
+  const seriesOfFeature = collapseSeries(bundle.features.filter(featureVisible));
   for (const feature of bundle.features) {
     if (!featureVisible(feature)) continue;
     const level = levelById(feature.level_id);
@@ -838,7 +839,7 @@ function drawFeatures(L) {
       if (ghost) el.classList.add('is-ghosted');
     }
     layersByFeature.set(feature.id, group);
-    addLabel(L, feature, shape, { options, ghost });
+    addLabel(L, feature, shape, { options, ghost, series: seriesOfFeature.get(feature.id) });
   }
   scheduleLabelLayout();
 }
@@ -1094,7 +1095,7 @@ function unionBox(parts) {
 /** The point symbol for a polygon or line feature (not for a Point, which
  *  already draws a centre mark): same colour, hover tooltip and click as the
  *  shape it stands for. Added to the map only while the shape is tiny. */
-function symbolFor(L, feature, shape, { options, ghost }) {
+function symbolFor(L, feature, shape, { options, ghost, series }) {
   const parts = lineParts(shape);
   if (!parts.length) return null;
   const isArea = shape.type === 'Polygon' || shape.type === 'MultiPolygon';
@@ -1107,8 +1108,11 @@ function symbolFor(L, feature, shape, { options, ghost }) {
     iconAnchor: [SYMBOL_SIZE_PX / 2, SYMBOL_SIZE_PX / 2],
   });
   const marker = L.marker([lat, lon], { icon, keyboard: false, riseOnHover: false });
-  marker.bindTooltip(tooltipFor(feature), { sticky: true, className: 'map-tooltip' });
-  marker.on('click', () => selectFrom(feature, null));
+  marker.bindTooltip(series
+    ? `${series.text}\n${series.count} records drawn, each listed under "Features on this map"`
+    : tooltipFor(feature), { sticky: true, className: 'map-tooltip' });
+  // A series' symbol stands for many records, so it opens none of them.
+  if (!series) marker.on('click', () => selectFrom(feature, null));
   marker.on('add', () => {
     const el = marker.getElement();
     if (!el) return;
@@ -1137,12 +1141,55 @@ function updateSymbols() {
   }
 }
 
-function addLabel(L, feature, shape, { options, ghost }) {
-  const plan = labelPlan(L, feature, shape);
+/**
+ * Group the drawn features into series (see mapstyle.seriesOf): three or more
+ * numbered records of one thing share a single label at the middle of the
+ * whole run, which counts as selected when any member is (the selection is
+ * usually the array's entity, shared by all of them). Returns a map from
+ * feature id to `{ leader: true, ... }` for the member that carries the label,
+ * or `{ leader: false }` for the rest.
+ */
+function collapseSeries(features) {
+  const groups = new Map();
+  for (const feature of features) {
+    if (pointParts(feature.geometry).length || !lineParts(feature.geometry).length) continue;
+    const info = mapstyle.seriesOf(feature);
+    if (!info) continue;
+    if (!groups.has(info.key)) groups.set(info.key, { info, members: [] });
+    groups.get(info.key).members.push(feature);
+  }
+  const out = new Map();
+  for (const { info, members } of groups.values()) {
+    if (members.length < mapstyle.SERIES_MIN_MEMBERS) continue;
+    const box = unionBox(members.flatMap((m) => lineParts(m.geometry)));
+    const [leader, ...rest] = members;
+    out.set(leader.id, {
+      leader: true,
+      text: mapstyle.seriesLabel(info, members.length),
+      count: members.length,
+      memberIds: new Set(members.map((m) => m.id)),
+      selected: members.some((m) => !!view.sel && (view.sel === m.entity_id || view.sel === m.id)),
+      // The rectangle the whole run covers, so the label sits at its middle.
+      shape: {
+        type: 'Polygon',
+        coordinates: [[[box.w, box.s], [box.e, box.s], [box.e, box.n], [box.w, box.n], [box.w, box.s]]],
+      },
+    });
+    for (const member of rest) out.set(member.id, { leader: false });
+  }
+  return out;
+}
+
+function addLabel(L, feature, shape, { options, ghost, series }) {
+  if (series && !series.leader) return;
+  const labelShape = series ? series.shape : shape;
+  const plan = labelPlan(L, feature, labelShape);
   if (!plan) return;
-  const spec = labelTexts.get(feature.id) || { text: feature.entity_name || feature.name, sub: '' };
+  const spec = series
+    ? { text: series.text, sub: '' }
+    : (labelTexts.get(feature.id) || { text: feature.entity_name || feature.name, sub: '' });
   const rank = mapstyle.labelRank(feature.feature_type);
-  const selected = !!view.sel && (view.sel === feature.entity_id || view.sel === feature.id);
+  const selected = series ? series.selected : !!view.sel && (view.sel === feature.entity_id || view.sel === feature.id);
   const content = h('span', { class: 'map-label-text' }, [
     h('span', { class: 'map-label-name' }, spec.text),
     spec.sub ? h('span', { class: 'map-label-sub' }, spec.sub) : null,
@@ -1170,10 +1217,11 @@ function addLabel(L, feature, shape, { options, ghost }) {
     plan,
     rank,
     selected,
-    sizeM: featureSizeM(feature),
+    sizeM: series ? featureSizeM({ ...feature, geometry: series.shape }) : featureSizeM(feature),
+    memberIds: series ? series.memberIds : null,
     box: { w: 0, h: 0 },
     lastKey: null,
-    symbol: symbolFor(L, feature, shape, { options, ghost }),
+    symbol: symbolFor(L, feature, labelShape, { options, ghost, series }),
     symbolShown: false,
   });
 }
@@ -1194,8 +1242,14 @@ function revealLabel(featureId) {
   scheduleLabelLayout();
 }
 
+/** A hovered or focused list row asks for its own label — or, if the row is
+ *  one member of a series, for the series' single label. */
+function isForced(rec) {
+  return !!forcedLabelId && (rec.id === forcedLabelId || (!!rec.memberIds && rec.memberIds.has(forcedLabelId)));
+}
+
 function labelPriority(a, b) {
-  const forced = (rec) => (rec.id === forcedLabelId ? 0 : 1);
+  const forced = (rec) => (isForced(rec) ? 0 : 1);
   if (forced(a) !== forced(b)) return forced(a) - forced(b);
   if (a.selected !== b.selected) return a.selected ? -1 : 1;
   if (a.rank !== b.rank) return a.rank - b.rank;
@@ -1331,7 +1385,7 @@ function layoutLabels() {
     if (!el) continue;
     if (!rec.box.w || !rec.box.h) rec.box = { w: el.offsetWidth, h: el.offsetHeight };
     if (!rec.box.w || !rec.box.h) continue;
-    const forced = rec.id === forcedLabelId;
+    const forced = isForced(rec);
     let chosen = null;
     let fallback = null;
     for (const candidate of labelCandidates(rec)) {
