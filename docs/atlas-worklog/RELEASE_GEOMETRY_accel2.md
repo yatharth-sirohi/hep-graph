@@ -12,6 +12,30 @@ Cyclotron, Injector 2) and KIT (KATRIN). New sources are prefixed `src:geo-<faci
   is the HTTP `Date` of the API response; element versions and edit times are in the source excerpts.
 * The pre-existing validator errors are the three `status-not-derived-state` findings on the mu3e records (not touched).
 
+## Summary
+
+| Facility | Grade before | Grade after | What was added (representation, check) |
+| --- | --- | --- | --- |
+| Oak Ridge / SNS (map:oak-ridge-national-laboratory) | marker only | layout to scale (approximate) | linac structure 370 m (OSM way 892578460, georeferenced, approximate), Instrument Hall building 8700 (way 443660319, approximate), Guest House and 22 buildings; identified through ORNL's own interactive map; no checks; ring, HEBT, RTBT, target and Neutrino Alley unlocated |
+| Argonne / APS (map:argonne-national-laboratory) | partial | layout to scale | APS storage ring orbit as a derived circle, R = 175.645 m from the published 1103.609 m circumference, concentric with the circular outlines of the experiment hall (accuracy 10 m); length check 1103.595 vs 1103.609 m (tautological, stated); ATLAS still unlocated |
+| ISIS (map:isis-neutron-source) | partial | partial | nothing placeable; reasons, leads (R6, R5.3) and backlog rewritten |
+| PSI (map:psi) | layout to scale | layout to scale | nothing placeable; Ring Cyclotron still unlocated; second-pass notes and backlog |
+| KIT / KATRIN (map:kit-karlsruhe) | partial | layout to scale (derived, accuracy 20 m) | beam axis WGTS-to-detector coil centres 52.64 m at 16 deg and the main spectrometer vessel footprint 23.23 m x 9.8 m, from the Collaboration's orientation and Table 1 coil positions, positioned in the OSM hall outline by constraints; checks tautological (stated) |
+
+### End state of this branch
+
+* `python -m hepgraph.atlas.validate`: 3 errors, all the pre-existing `status-not-derived-state` findings on the mu3e records (not touched); no warning on any file of this stream.
+* `python -m hepgraph.atlas.build` succeeds; generated bundles were restored before each commit and are not committed. `tests/test_atlas_geometry_data.py` passes; the full suite passes (682 passed, 139 skipped).
+* The derived shapes were drawn to a scratch image and compared with the OSM outlines they depend on (KATRIN: vessel and detector end inside the outline, WGTS end inside TLK 452; APS: the orbit inside the hall annulus, 5.6 m outside the inner wall, with the infield buildings inside it).
+  The maps were not opened in the browser pane (it was hidden during the session), so scale bars and tooltips were not checked.
+
+### Method lessons
+
+1. **A lab's own interactive map may be a data source.** ORNL's `map.ornl.gov` is a CampusTours app whose XML data files (`/xml/CL_ornl.xml`, `/xml/AL_ornl.xml`, found from the page's `any.xml`) hold labelled building polygons in image units. They carry no coordinates, but a similarity fit onto four identifiable OSM buildings (residuals 9-13 m, leave-one-out 15-30 m) identified the SNS linac and Instrument Hall footprints.
+2. **Collaboration papers hide survey-grade layout tables.** The KATRIN air-coil paper's Table 1 lists the axial position of every coil system relative to the main spectrometer centre; a physics paper's Figure caption gave the azimuth. Search the field-modelling and systematics papers, not the instrument overview.
+3. **Fit a circle to the outline before deciding what the outline is.** The APS hall's outer way is a 258-vertex circle (standard deviation 0.44 m); with the design report's "annular, concentric" statements and the published circumference, the orbit follows without a surveyed centre.
+4. **When two hypotheses both fit by size, say so and stop.** At ISIS and PSI several buildings could hold the machine; no source chose between them, so none was drawn.
+
 ---
 
 ## 1. Oak Ridge / SNS (`map:oak-ridge-national-laboratory`)
@@ -233,7 +257,7 @@ Nothing could be placed from a source. Records changed: the map's unlocated row 
 * Sourced size: "a 52 m diameter proton synchrotron" (CERN Courier, 15 March 2000) agrees with the 163 m circumference of IPAC 2014; neither gives a centre.
 * Dead ends: ISIS safety page (only R55 and R80), ISIS annual review 2018 (no building numbers for the machines), RAL-TR-2012-010 (an R55 tunnel statement, abstract only), a building.co.uk
   feature on the ISIS second target station (no layout), UKRI tender notices (R69, R132, R3 media centre; nothing on the machine halls), searches for "R6", "R5.3", "synchrotron hall" with ISIS.
-* A 52 m ring fits inside R6 (about 68 m across) and inside the rounded part of R5.3, so any of them would "look right"; that is exactly why none was drawn.
+* A 52 m ring would fit inside R6 (4 611 m^2) and inside the rounded part of R5.3 by size alone, so several buildings would "look right"; that is exactly why none was drawn.
 
 ### Inventory
 
