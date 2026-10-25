@@ -29,16 +29,62 @@
     },
     {
       "confidence": "verified",
-      "end": null,
+      "end": {
+        "approx": true,
+        "date": "2025",
+        "display": "before the summer-2025 upgrade"
+      },
       "label": "science operations",
-      "locator": "inspirehep.net/experiments/1807876, date_started field",
-      "note": "",
+      "locator": "end: ATHEXIS 2026 and LIDINE 2026 talk abstracts",
+      "note": "END ADDED 2026-10-25 at year precision: the collaboration describes a detector upgrade \"carried out in summer 2025\" (LIDINE 2026 abstract) after which \"the experiment began its new commissioning phase in 2026\" (ATHEXIS 2026 abstract). The date of the last science-run data is not given by any fetched source. Previously open-ended.",
       "sources": [
-        "src:dm-noble-liquid-xenonnt-inspire-experiment"
+        "src:dm-noble-liquid-xenonnt-inspire-experiment",
+        "src:currency-xenonnt-athexis-2026-abstract",
+        "src:currency-xenonnt-lidine-2026-abstract"
       ],
       "start": "2021-07-06",
       "status": "active",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-25"
+    },
+    {
+      "confidence": "approximate",
+      "end": {
+        "approx": true,
+        "date": "2026"
+      },
+      "label": "detector upgrade (new TPC electrodes, drift field 23 -> 100 V/cm)",
+      "locator": "LIDINE 2026 abstract; Nikhef slides May 2026: \"Upgrade completed replacing electrodes to increase drift field from 23 V/cm to 100 V/cm\", \"12 month upgrade\" on the timeline",
+      "note": "Month of start and end not given by any fetched source (the slide timeline labels a \"12 month upgrade\" starting in 2025).",
+      "quote": "an overview of the XENONnT detector upgrade carried out in summer 2025 and present the status and first results of the subsequent commissioning campaign",
+      "sources": [
+        "src:currency-xenonnt-lidine-2026-abstract",
+        "src:currency-xenonnt-nikhef-jamboree-2026-05"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2025",
+        "display": "summer 2025"
+      },
+      "status": "upgrade",
+      "verified_at": "2026-10-25"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "commissioning after the 2025 upgrade",
+      "note": "Nikhef slides (May 2026): \"Commissioning until July, then start of data taking\". The LIDINE 2026 abstract (talk of 7 October 2026) still reports \"the status and first results of the subsequent commissioning campaign\"; no fetched source says that post-upgrade science data taking has started, so the state is commissioning, not active.",
+      "quote": "Following upgrade operations conducted in 2025, the experiment began its new commissioning phase in 2026.",
+      "sources": [
+        "src:currency-xenonnt-athexis-2026-abstract",
+        "src:currency-xenonnt-lidine-2026-abstract",
+        "src:currency-xenonnt-nikhef-jamboree-2026-05"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2026"
+      },
+      "status": "commissioning",
+      "verified_at": "2026-10-25"
     }
   ],
   "links": {
@@ -134,7 +180,7 @@
       "verified_at": "2026-09-17"
     }
   },
-  "status": "active",
+  "status": "commissioning",
   "subsystems": [],
   "summary": {
     "plain": "A tank of nearly six tonnes of liquid xenon, watched by light sensors, that records the tiny flash made if a dark matter particle -- or a neutrino -- bumps into a xenon atom. It is the enlarged, cleaner successor to the XENON1T detector, in the same underground hall in Italy.",

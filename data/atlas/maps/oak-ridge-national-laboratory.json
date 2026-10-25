@@ -26,7 +26,7 @@
       "id": "surface",
       "kind": "surface",
       "name": "Surface",
-      "note": "The only drawn feature is the SNS complex's surface property boundary."
+      "note": "Plan view of the SNS complex boundary, the linac structure, the Instrument Hall (building 8700) and the complex's other buildings."
     },
     {
       "depth_m": null,
@@ -42,8 +42,8 @@
   },
   "name": "Oak Ridge National Laboratory, Spallation Neutron Source",
   "notes": [
-    "Overpass (overpass-api.de and lz4.overpass-api.de) refused essentially every connection attempt for LANL/ORNL after the SLAC extract succeeded (TCP connection refused, then HTTP 429, then connection refused again); overpass.kumi.systems accepted queries but appears to serve only a partial/regional dataset (zero elements even for a query overpass-api.de had already answered for the same SLAC bbox) and was not trusted; overpass.osm.ch answered but likewise returned zero elements for known-good queries and was dropped for the same reason. maps.mail.ru/osm/tools/overpass/api/interpreter, suggested mid-session, did return real data (25 buildings inside the SNS complex boundary, see the unlocated row below and the worklog) but timed out (HTTP 504) on anything larger than a single 'building' filter over a sub-1 km box, so the ring/linac search itself could not complete. Nominatim's /search and /lookup endpoints (a separate, lighter-weight OSM service) were reachable throughout and are the source of the complex boundary drawn on this map.",
-    "COHERENT's four operating sub-detectors (CENNS-10, CsI, Ge, NaI) all sit in Neutrino Alley, officially 'about 20 meters from the SNS target' at its closest point and 50 m long overall (src:geo-ornl-neutrino-alley-qa); none is drawn individually, since no source this session gives any one detector's position along the alley or a coordinate/heading for the alley itself, only its overall length and closest-approach distance. See the worklog."
+    "Release pass 2 (2026-10-25): the linac structure and the Instrument Hall were placed by georeferencing ORNL's own interactive map ('Chestnut Ridge', labelled building polygons without coordinates) onto OpenStreetMap footprints; both are approximate and the method, its residuals and its limits are in the records and in docs/atlas-worklog/RELEASE_GEOMETRY_accel2.md.",
+    "COHERENT's four operating sub-detectors (CENNS-10, CsI, Ge, NaI) all sit in Neutrino Alley, officially 'about 20 meters from the SNS target' at its closest point and 50 m long overall (src:geo-ornl-neutrino-alley-qa); none is drawn individually, since no source gives any one detector's position along the alley or a coordinate/heading for the alley itself, only its overall length and closest-approach distance."
   ],
   "schema": "hep-atlas/0.2",
   "schematics": [],
@@ -51,23 +51,36 @@
     "site:ornl-sns-neutrino-alley"
   ],
   "sources": [
-    "src:geo-ornl-osm-sns-boundary"
+    "src:geo-ornl-osm-sns-boundary",
+    "src:geo-ornl-interactive-map"
   ],
   "summary": {
-    "plain": "The Spallation Neutron Source at Oak Ridge National Laboratory, Tennessee, shown here as its outer accelerator/target complex boundary: the linac, accumulator ring and the COHERENT experiment's Neutrino Alley all lie somewhere within this footprint, but none has its own separately-sourced path or position this session.",
-    "technical": "One local map for facility:oak-ridge-national-laboratory. Only OpenStreetMap way 907808191 ('ORNL Spallation Neutron Source'), the complex's outer property boundary, was locatable this session; the SNS linac and accumulator ring (accelerator:sns) are unlocated, and Neutrino Alley's own position within the complex (site:ornl-sns-neutrino-alley) is represented only by that outer boundary, honestly widened in accuracy_m."
+    "plain": "The Spallation Neutron Source at Oak Ridge National Laboratory, Tennessee: the long linac building and the instrument hall that holds the mercury target are drawn at true scale inside the complex boundary. The accumulator ring and the two beam-transport lines are underground and have no published position, so they are listed as not located.",
+    "technical": "One local map for facility:oak-ridge-national-laboratory. Drawn: the OSM footprint of the linac structure (front-end building, klystron gallery and tunnel; 370 m, accelerator:sns) and of the Instrument Hall (building 8700), both identified by georeferencing the polygons of ORNL's interactive map, plus the Guest House and 22 other OSM buildings. Not located: the 248 m accumulator ring, the HEBT (169 m), the RTBT (151 m), the target's position inside building 8700 and Neutrino Alley."
   },
   "type": "map",
   "unlocated": [
     {
-      "backlog": "A candidate for the linac building was found and deliberately NOT drawn: unlabeled OpenStreetMap way 892578460 inside the SNS complex is an unusually long, thin rectangle (measured span 370 m, area 5,294 sq m, implied width approx 14 m) geometrically consistent with the published linac-length range, but it carries no name or other identifying tag, so identifying it as the linac would be this researcher's inference, not a sourced claim. A future pass should confirm it (or find the actual linac/ring building) via an official annotated aerial photo, a civil-engineering site plan, or by retrying a fuller Overpass query (name/landuse tags, the accumulator ring's characteristic near-circular shape) once a mirror answers reliably within its timeout.",
-      "entity_id": "accelerator:sns",
-      "reason": "The SNS's ~305-330 m linac (sources disagree across eras: '1,000-foot linac' [305 m] per src:geo-ornl-sns-cold-linac-2005, a 2005 pre-completion article; other official pages describe a '355-yard' [~325 m] linac; a 493 m post-Proton-Power-Upgrade total appears only in unfetched secondary summaries and is not used here) and its 271-yard (~248 m) accumulator ring (src:geo-ornl-sns-ppu-ring) are both inside the complex boundary drawn as geometry:sns-complex-boundary. A later Overpass mirror (maps.mail.ru) did return the complex's 25 individual building footprints, none named or tagged beyond generic 'building=yes'/'service' (one unrelated 'ORNL Guest House'), so no building can be honestly identified as the linac or ring without guessing from shape alone; see the backlog for the one shape-only candidate found.",
+      "backlog": "A published SNS site or tunnel layout with a scale bar, coordinates or surveyed control points (the 1999 SNS EIS site plan, a civil-construction drawing set, or an IWAA/PAC survey paper giving ring-centre and linac-axis coordinates); georeference it against the linac structure and the 8700 hall drawn here (cite, never copy), then add length checks against 248.0 m (ring), 169 m (HEBT) and 151 m (RTBT). Do not draw the ring as a circle: it is a four-arc, four-straight-section lattice, and the layout figure in PAC 2003 TPPE011 is an unscaled schematic.",
+      "entity_id": "facility:oak-ridge-national-laboratory",
+      "reason": "SNS accumulator ring (circumference 248.0 m), High Energy Beam Transport (169 m) and Ring-to-Target Beam Transport (151 m) lines. They are buried under the earth berm and are not mapped in OpenStreetMap (the complex holds only 25 building footprints, none of them a ring); ORNL's interactive map draws only the linac gallery, the Instrument Hall, CLO, CNMS, JINS and the Guest House; and the only layout figure found (PAC 2003 TPPE011, Fig. 1) is a labelled schematic without scale, coordinates or north. The derived distance from the linac end to the 8700 hall (about 220 m in this map) would not fix the ring's position, and the ring is a four-superperiod lattice, so no circle is drawn. The atlas has no accelerator record for the ring or the transfer lines (accelerator:sns is drawn through the linac structure).",
       "sources": [
+        "src:geo-ornl-pac2003-wei-ring-status",
+        "src:geo-ornl-pac2003-henderson-commissioning",
         "src:geo-ornl-sns-ppu-ring",
-        "src:geo-ornl-sns-cold-linac-2005"
+        "src:geo-ornl-interactive-map"
       ],
-      "verified_at": "2026-09-18"
+      "verified_at": "2026-10-25"
+    },
+    {
+      "backlog": "A COHERENT or SNS paper with a plan view of the target building basement and the alley (a scaled drawing or measured offsets from the target to each detector), or a basement drawing from ORNL; then place it from the 8700 footprint.",
+      "entity_id": "facility:oak-ridge-national-laboratory",
+      "reason": "Neutrino Alley (the COHERENT detector corridor) and the target position. ORNL says the corridor is 50 m long and 'about 20 meters from the SNS target' at its closest point, and ORNL's map says the Instrument Hall (8700) 'contains the SNS back-end system including the heavy-metal target'; but no fetched source gives the target's position inside the 8700 footprint, the alley's bearing, or which building lies above it. The site is accounted for on the map by the complex boundary (drawn); the corridor and the COHERENT detectors are not drawn.",
+      "sources": [
+        "src:geo-ornl-neutrino-alley-qa",
+        "src:geo-ornl-interactive-map"
+      ],
+      "verified_at": "2026-10-25"
     }
   ]
 }

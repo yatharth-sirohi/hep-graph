@@ -1,0 +1,129 @@
+{
+  "accuracy_m": 10,
+  "aliases": [],
+  "checks": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "depth_m": {
+    "approx": false,
+    "confidence": "verified",
+    "dimension": "length",
+    "display": "1.1 km",
+    "locator": "Sec. 8.4.2 Boulby underground laboratory",
+    "note": "Applies to the two primary shafts; the OSM names Man Shaft (Downcast) and Rock Shaft (Upcast) match their stated roles (people access, rock/product removal), which is how they are identified here.",
+    "quote": "two 1.1 km primary shafts for people access and rock/product removal, and one 180 m shaft, which is a tailings shaft",
+    "sources": [
+      "src:geo-boulby-aion-workshop-2023"
+    ],
+    "unit": "m",
+    "value": 1100,
+    "verified_at": "2026-10-25"
+  },
+  "entity_id": null,
+  "feature_type": "shaft",
+  "geometry": {
+    "confidence": "approximate",
+    "locator": "OSM way 104139003 as of 2026-10-25T11:18:36Z; arXiv:2310.08183 Sec. 8.4.2",
+    "note": "OpenStreetMap alone yields at most 'approximate'. Mapped from Bing imagery (source:geometry=Bing); no official shaft diameter was found, so there is no checks[] row.",
+    "sources": [
+      "src:geo-boulby-osm-shafts",
+      "src:geo-boulby-aion-workshop-2023"
+    ],
+    "value": {
+      "coordinates": [
+        [
+          [
+            -0.8247948,
+            54.5516622
+          ],
+          [
+            -0.8247633,
+            54.5516897
+          ],
+          [
+            -0.8247199,
+            54.5517011
+          ],
+          [
+            -0.8246728,
+            54.551699
+          ],
+          [
+            -0.8246218,
+            54.5516749
+          ],
+          [
+            -0.8246089,
+            54.5516514
+          ],
+          [
+            -0.8246224,
+            54.5516183
+          ],
+          [
+            -0.8246531,
+            54.5516002
+          ],
+          [
+            -0.8247004,
+            54.5515918
+          ],
+          [
+            -0.8247553,
+            54.5516007
+          ],
+          [
+            -0.8247856,
+            54.5516191
+          ],
+          [
+            -0.8247978,
+            54.5516398
+          ],
+          [
+            -0.8247948,
+            54.5516622
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    },
+    "verified_at": "2026-10-25"
+  },
+  "id": "geometry:boulby-rock-shaft",
+  "level_id": "surface",
+  "license": {
+    "attribution": "© OpenStreetMap contributors",
+    "name": "ODbL-1.0",
+    "url": "https://www.openstreetmap.org/copyright"
+  },
+  "links": {
+    "website": null
+  },
+  "map_id": "map:boulby-underground-laboratory",
+  "method": "OpenStreetMap way 104139003 (man_made=mineshaft, name 'Rock Shaft (Upcast)', 12 vertices, 112 m2) kept verbatim: the shaft collar at the surface. The shaft runs vertically to about 1.1 km; the OSM name matches one of the two primary shafts that the Boulby workshop summary describes as 'two 1.1 km primary shafts for people access and rock/product removal'.",
+  "name": "Boulby mine Rock Shaft (Upcast) (shaft collar, OpenStreetMap)",
+  "notes": [
+    "The third (tailings) shaft, 180 m deep, is not mapped in OSM and is not drawn."
+  ],
+  "osm": {
+    "elements": [
+      "way/104139003"
+    ],
+    "timestamp": "2026-10-25T11:18:36Z"
+  },
+  "representation": "georeferenced",
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:boulby-mine",
+  "sources": [
+    "src:geo-boulby-osm-shafts",
+    "src:geo-boulby-aion-workshop-2023"
+  ],
+  "summary": {
+    "plain": "The collar of the mine's rock and product shaft at the surface; the shaft descends about 1.1 km to the level of the underground laboratory."
+  },
+  "type": "geometry",
+  "valid": null
+}

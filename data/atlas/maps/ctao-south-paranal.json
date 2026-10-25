@@ -36,15 +36,24 @@
   },
   "name": "CTAO-South — Paranal",
   "notes": [
-    "Facility status is 'construction'; individual telescope positions are planned, not yet built/surveyed, per CTAO's own site description."
+    "Facility status is 'construction'. The approved Alpha Configuration (14 MSTs and 37 SSTs over about 3 km2, plus foundations for four LSTs and three more SSTs) defines the position of every telescope, but CTAO publishes the layout only as an unscaled figure (no scale bar, no coordinate axes) and says the released coordinates are 'as-requested', with final positions shifting by less than ten metres. No coordinate table was found on the CTAO site, the news page or the press coverage fetched on 2026-10-25, so no telescope pad is drawn.",
+    "OpenStreetMap way 939135727 ('Cherenkov Telescope Array - Southern Hemisphere Site', landuse=construction, 20 nodes, version 2, 2025-02-25; read with the OSM API map call at 2026-10-25T10:38:39Z) was considered and not drawn: it is a near-elliptical outline of 2.04 km2, 32 % smaller than the 3 km2 the array is published to cover, with its centroid 374 m from the published array coordinate, so it can be neither the array footprint nor a site boundary that contains it.",
+    "The only to-scale feature is the array's published coordinate (24d41'0.34\"S, 70d18'58.84\"W), good to metres as printed but a reference point of the layout, not a structure."
   ],
   "schema": "hep-atlas/0.2",
-  "schematics": [],
+  "schematics": [
+    {
+      "note": "Official CTAO layout figure with no scale bar or coordinate axes; shows 14 MSTs, 37 SSTs, foundations for 4 LSTs and 3 SSTs, and calibration devices. Topology only. Never drawn on the to-scale map.",
+      "source_id": "src:geo-arrays2-ctao-alpha-layouts-news",
+      "title": "CTAO-South Alpha Configuration layout (schematic, not to scale)"
+    }
+  ],
   "site_ids": [
     "site:paranal-cta-south"
   ],
   "sources": [
-    "src:cosmic-gamma-verify-ctao-south-site-page"
+    "src:cosmic-gamma-verify-ctao-south-site-page",
+    "src:geo-arrays2-ctao-alpha-layouts-news"
   ],
   "summary": {
     "plain": "The Atacama Desert site near Paranal, Chile, where the southern half of the Cherenkov Telescope Array Observatory is under construction.",

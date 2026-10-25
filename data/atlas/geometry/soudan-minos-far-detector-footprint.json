@@ -1,0 +1,73 @@
+{
+  "accuracy_m": 3,
+  "aliases": [],
+  "checks": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "depth_m": null,
+  "entity_id": "detector:minos-far-detector",
+  "feature_type": "other",
+  "geometry": {
+    "confidence": "derived",
+    "locator": "arXiv:0805.3170 Sec. 1 (planes 8 m edge to edge; supermodules 14.78 m and 14.10 m; 1.15 m gap) and Sec. 6.5 (midpoint coordinate, 15.631 m, azimuth 333.4452°)",
+    "note": "Derived from a surveyed point, a surveyed azimuth and published dimensions; every input is quoted in method. No independent figure measures the footprint itself, so there is no checks[] row.",
+    "quote": "The far detector and cavern axes are level and at an azimuth of 333.4452° (26.5548° west of true north).",
+    "sources": [
+      "src:minos-detector-paper-2008"
+    ],
+    "value": {
+      "coordinates": [
+        [
+          [
+            -92.2413663,
+            47.8201252
+          ],
+          [
+            -92.2412705,
+            47.8201573
+          ],
+          [
+            -92.2414519,
+            47.8204011
+          ],
+          [
+            -92.2415478,
+            47.820369
+          ],
+          [
+            -92.2413663,
+            47.8201252
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    },
+    "verified_at": "2026-10-25"
+  },
+  "id": "geometry:soudan-minos-far-detector-footprint",
+  "level_id": "level-27",
+  "license": null,
+  "links": {
+    "website": null
+  },
+  "map_id": "map:soudan-underground-laboratory",
+  "method": "Derived: a rectangle in plan, 8 m wide (the 'edge to edge dimension of 8 m' of the octagonal steel planes) and 30.31 m long, centred on the surveyed midpoint of the two supermodules (47.820267 N, 92.241412 W) and aligned with the published detector and cavern axis, azimuth 333.4452° (26.5548° west of true north). Along the axis it runs from 15.631 m upstream of the midpoint ('The origin of the detector coordinate system is the upstream edge of the far detector. This lies 15.631 m upstream from the midpoint') to 14.675 m downstream (half of the 1.15 m gap plus the 14.10 m second supermodule); the first supermodule is 14.78 m long. Computed on a local equirectangular plane. Inputs are all from arXiv:0805.3170 Secs. 1, 6.5 (survey precision 0.7 m per coordinate, axis 15 microradians); accuracy_m 3 m also covers the steel-envelope definition. The coil ends, cosmic-ray veto shield and walkways are not included; this is the steel-and-scintillator stack, not the cavern.",
+  "name": "MINOS far detector steel-plane envelope (plan view, derived from the published survey)",
+  "notes": [
+    "The cavern (hall) is not drawn: the paper gives only the detector/cavern axis azimuth, not the cavern's size or its offset from the detector midpoint."
+  ],
+  "osm": null,
+  "representation": "derived",
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:soudan-minos-far-detector",
+  "sources": [
+    "src:minos-detector-paper-2008"
+  ],
+  "summary": {
+    "plain": "The 5,400-tonne MINOS far detector as it lies in its cavern on the 27th level: a block 8 m wide and about 30 m long, pointing along the published axis (north-north-west) toward Fermilab."
+  },
+  "type": "geometry",
+  "valid": null
+}

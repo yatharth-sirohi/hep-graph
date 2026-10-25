@@ -18,7 +18,7 @@
     "researched": "partial",
     "tier": "B"
   },
-  "extent_m": 900,
+  "extent_m": 600,
   "facility_id": "facility:fred-lawrence-whipple-observatory",
   "id": "map:fred-lawrence-whipple-observatory",
   "levels": [
@@ -36,7 +36,9 @@
   },
   "name": "VERITAS — Fred Lawrence Whipple Observatory",
   "notes": [
-    "Overpass (OpenStreetMap) was unreachable for the whole of this research session -- an OSM trace of the individual telescope pads (which the brief's own leads suggested, noting Whipple is 'often mapped') could not be attempted. See worklog."
+    "Telescope positions are OpenStreetMap nodes (telescopes T1-T4, source=yahoo, edited 2026-10-08), read with the OSM API map call on 2026-10-25 because Overpass answered 502 at capacity. Their spacings agree with the labels of Figure 1 of Perkins and Maier 2009 to within 7 % (four of five labels within 4 %), and T1 is at its post-2009 position.",
+    "Buildings of the basecamp (the OSM polygons of the administrative complex and car parks) are unnamed and are not drawn; no fetched source identifies them.",
+    "Distance T1-T4 (172 m in OSM) is not in any fetched text; Figure 4 of the 2025 VERITAS overview (arXiv:2507.09813; y axis north) shows T1 about 170 m east of T4 by eye, consistent with OSM, but a figure read by eye is not cited as a source."
   ],
   "schema": "hep-atlas/0.2",
   "schematics": [],
@@ -44,11 +46,12 @@
     "site:mount-hopkins-veritas"
   ],
   "sources": [
-    "src:cosmic-gamma-veritas-official-specifications-page"
+    "src:cosmic-gamma-veritas-official-specifications-page",
+    "src:geo-arrays2-veritas-perkins-2009"
   ],
   "summary": {
-    "plain": "The VERITAS array of four 12 m gamma-ray telescopes at the Fred Lawrence Whipple Observatory basecamp on Mount Hopkins, Arizona.",
-    "technical": "One local map for facility:fred-lawrence-whipple-observatory. VERITAS is drawn as a single reference point at its own official published coordinate; the four individual telescopes (T1-T4, ~35-127 m apart) are not resolved separately this session (see geometry record notes)."
+    "plain": "The VERITAS array of four 12 m gamma-ray telescopes at the basecamp of the Fred Lawrence Whipple Observatory on Mount Hopkins, Arizona, with the basecamp outline.",
+    "technical": "Four telescope points from OpenStreetMap nodes, each checked by centroid-to-centroid distance against the spacings labelled in Figure 1 of Perkins and Maier 2009 (7 % tolerance); the array outline is the quadrilateral through them with a perimeter check of 409 m (sum of the four labelled sides). Map centre is the collaboration's published array coordinate (31d40'30.21\"N, 110d57'7.77\"W), 24 m from the OSM quadrilateral's centroid."
   },
   "type": "map",
   "unlocated": []

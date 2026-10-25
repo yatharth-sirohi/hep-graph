@@ -39,7 +39,7 @@
       "note": "Proof-of-concept/R&D demonstration, not a physics-data-taking run; recorded as `commissioning` rather than `active` to avoid overstating its maturity. Start is the year the collaboration first demonstrated CRES (official About page); the University of Washington location comes from the DOE Office of Science highlight (2015). Construction predates 2014 and is not sourced.",
       "quote": "Cyclotron Radiation Emission Spectroscopy (CRES), which was first demonstrated by the collaboration in 2014 ... Phase I in our science program was to demonstrate the feasibility of CRES on single electrons emitted from a gaseous source, Krypton-83m.",
       "sources": [
-        "src:rf09-project8-about-page",
+        "src:currency2-project8-about-page",
         "src:project8-doe-highlight-2015"
       ],
       "start": "2014",
@@ -48,30 +48,46 @@
     },
     {
       "confidence": "verified",
-      "end": null,
+      "end": {
+        "approx": true,
+        "date": "2025-03",
+        "display": "over by March 2025 (written in the past tense); end date not sourced"
+      },
       "label": "Phase II: first CRES measurement of molecular tritium",
       "locator": "Project 8 Phase II apparatus paper (arXiv:2503.08807), abstract",
-      "note": "Exact start date of Phase II itself is not stated in the abstract fetched; `start` (2025-03) is the publication month of the paper describing the Phase II apparatus and its first CRES measurement of molecular tritium — an upper bound on when Phase II was already under way, not the phase's true start date. Recorded this way, rather than `start: null`, because a null start with a null end would derive to 'no presence at all' for a phase that is demonstrably active.",
-      "quote": "we describe the Project 8 Phase II apparatus, used for the detection of the CRES signal from the conversion electrons of 83mKr and the first CRES measurement of the beta-decay spectrum of molecular tritium",
+      "note": "REWRITTEN 2026-10-25 (before: start 2025-03, the publication month of the apparatus paper, and open-ended). Both bounds are limits, not dates: the first Phase II tritium result was on arXiv by 9 December 2022 (arXiv:2212.05048, '82-live-day data-taking period', PRL Sept 2023), so Phase II had started by then; the Phase II apparatus paper (arXiv:2503.08807, 11 March 2025) speaks of it in the past tense ('was a crucial demonstration') and the collaboration site says 'Currently, Project 8 has finished a demonstration of this technique', so Phase II was over by March 2025. The Phase II start and end dates themselves are not given by any fetched source.",
+      "quote": "Phase II of Project 8, in addition to setting the first CRES-based neutrino mass limit, was a crucial demonstration of CRES’s potential as a precision measurement technique",
       "sources": [
-        "src:project8-arxiv-2503-08807-phase2"
+        "src:project8-arxiv-2503-08807-phase2",
+        "src:currency2-project8-arxiv-2212-05048",
+        "src:currency2-project8-about-page"
       ],
-      "start": "2025-03",
+      "start": {
+        "approx": true,
+        "date": "2022-12",
+        "display": "no later than December 2022 (first tritium result posted); true start not sourced"
+      },
       "status": "active",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-25"
     },
     {
-      "confidence": "uncertain",
+      "confidence": "approximate",
       "end": null,
-      "label": "Phase III: atomic tritium R&D",
+      "label": "Phase III: apparatus R&D (cavity-CRES demonstrators, atomic-tritium source); no data-taking",
       "locator": "Project 8 About page, section \"Current Experiment status\"",
-      "note": "No fetched source gives a start date for Phase III; recorded as R&D/proposed rather than construction or active, since the official About page says Phase III will demonstrate free-space CRES and atomic-tritium production and that current efforts are on demonstrators of various technologies, not a running Phase III apparatus.",
-      "quote": "In Phase III we will demonstrate the ability to make CRES measurements in free space, as well as the ability to produce and trap atomic tritium. ... Currently, efforts are focused on Phase III.",
+      "note": "REWRITTEN 2026-10-25 (before: status `proposed`, start and end null, so the interval covered nothing and the experiment's state came from the open-ended Phase II row). Official site (checked 2026-10-25, news items to 12 May 2026): \"Currently, efforts are focused on Phase III. We are developing demonstrators of various technologies\"; APS DNP, 19 October 2025: \"Project 8 is now entering Phase III\"; Phenomenology 2026 (May 2026): \"the upcoming phase of Project 8 will demonstrate the first realization of cavity-based CRES using Cavity CRES Apparatus (CCA)\" and a cubic-metre 'Low-Frequency Apparatus' \"is being designed\". No apparatus is taking physics data, so the status is `upgrade` (an existing experiment between data-taking phases, next-phase apparatus in development); this label is a judgement, because the Atlas has no 'R&D hiatus' status and the sources call it R&D. Start is an approximate lower bound from the October 2025 abstract.",
+      "quote": "Currently, efforts are focused on Phase III. We are developing demonstrators of various technologies and working on our detector simulations and event analysis.",
       "sources": [
-        "src:rf09-project8-about-page"
+        "src:currency2-project8-about-page",
+        "src:currency2-project8-dnp2025-abstract",
+        "src:currency2-project8-pheno2026-abstract"
       ],
-      "start": null,
-      "status": "proposed",
+      "start": {
+        "approx": true,
+        "date": "2025-10",
+        "display": "'now entering Phase III' (October 2025); true start not sourced"
+      },
+      "status": "upgrade",
       "verified_at": "2026-10-25"
     }
   ],
@@ -105,7 +121,7 @@
         "note": "This is the long-term Phase IV design goal using atomic tritium, not a current achieved sensitivity. The ontology's `mass_energy` dimension does not define a meV unit, so value/unit are recorded in eV/c^2 (0.04) while `display` keeps the source's own wording (40 meV).",
         "quote": "The final phase, Phase IV, will use atomic tritium to measure the neutrino mass with a sensitivity of approximately 40 meV.",
         "sources": [
-          "src:rf09-project8-about-page",
+          "src:currency2-project8-about-page",
           "src:project8-cenpa-npl-node-1554"
         ],
         "unit": "eV/c^2",
@@ -142,7 +158,7 @@
       "note": "",
       "quote": "our aim is to measure the absolute neutrino mass using tritium beta decays ... a new method of electron spectroscopy, Cyclotron Radiation Emission Spectroscopy (CRES)",
       "sources": [
-        "src:rf09-project8-about-page",
+        "src:currency2-project8-about-page",
         "src:project8-cenpa-npl-node-1554"
       ],
       "value": "Measure the absolute neutrino mass via a high-precision, frequency-based tritium beta-decay spectrum measurement (Cyclotron Radiation Emission Spectroscopy)",
@@ -156,9 +172,9 @@
     "src:project8-doe-highlight-2015",
     "src:project8-arxiv-2503-08807-phase2",
     "src:project8-cenpa-npl-node-1554",
-    "src:rf09-project8-about-page"
+    "src:currency2-project8-about-page"
   ],
-  "status": "active",
+  "status": "upgrade",
   "summary": {
     "plain": "An experiment that measures the faint radio signal a single electron gives off when it spins in a magnetic field, aiming to weigh the neutrino. It began as a tabletop demonstration at the University of Washington and is now moving toward using real tritium gas.",
     "technical": "Project 8: phased neutrino-mass programme using Cyclotron Radiation Emission Spectroscopy (CRES) on tritium beta decay. Phase I (University of Washington, CRES first demonstrated in 2014) demonstrated single-electron CRES detection on 83mKr conversion electrons (15 eV resolution). Phase II achieved the first CRES measurement of the molecular-tritium beta spectrum. Phase III (CENPA-led atomic-tritium source R&D) targets the systematic limitations of molecular tritium, working toward a final design sensitivity of ~40 meV."

@@ -13,13 +13,15 @@
   "intervals": [
     {
       "confidence": "uncertain",
-      "end": null,
+      "end": "2024-07",
       "label": "operating",
-      "locator": "§1, Introduction",
-      "note": "Evidence date, not a commissioning date: this is the earliest operation of the machine documented by a source fetched in this session (NuMI beam paper, MINOS data taking from 20 May 2005). The machine has run since the 1970s; no fetchable source gave its commissioning date (fnal.gov and history.fnal.gov returned HTTP 403).",
+      "locator": "end: Fermilab PAC report, April 2026 meeting, findings on accelerator status",
+      "note": "Evidence date, not a commissioning date: this is the earliest operation of the machine documented by a source fetched in this session (NuMI beam paper, MINOS data taking from 20 May 2005). The machine has run since the 1970s; no fetchable source gave its commissioning date (fnal.gov and history.fnal.gov returned HTTP 403). END ADDED 2026-10-25: \"The MI has not operated since July 2024\" (Fermilab PAC, April 2026 meeting); \"Following the record achievement [1.018 MW to NuMI, June 2024], the Main Injector complex suffered a series of failures that have prevented NuMI beam.\" (IPAC'26). Previously open-ended.",
       "quote": "the 120 GeV protons extracted from the Fermilab Main Injector",
       "sources": [
-        "src:fermilab-numi-beam-paper-2016"
+        "src:fermilab-numi-beam-paper-2016",
+        "src:currency-fnal-pac-report-2026-04",
+        "src:currency-fnal-ipac26-main-injector-abstract"
       ],
       "start": {
         "approx": true,
@@ -29,7 +31,50 @@
         "latest": "2005"
       },
       "status": "active",
-      "verified_at": "2026-09-16"
+      "verified_at": "2026-10-25"
+    },
+    {
+      "confidence": "approximate",
+      "end": {
+        "date": "2026-10",
+        "display": "restart planned October 2026",
+        "planned": true
+      },
+      "label": "no Main Injector beam (transformer failures)",
+      "locator": "Fermilab PAC report April 2026; PAC NuMI mini-meeting report July 2025 (\"There was no beam delivery for MI since 2024\")",
+      "note": "Start at month precision. Restart is a plan, not a report: the PAC report of the April 2026 meeting (posted June 2026) says \"A 20 week run is planned from October 2026 to Feb 2027 to run NuMI. The long shutdown is planned for 2028-29.\" It adds that the repaired transformers were due by 15 September, two weeks before the 1 October NuMI start. No source dated after July 2026 was found that confirms the restart, so the shutdown is left in place at 2026-10-25 and should be re-checked. The rest of the complex (Linac, Booster, Booster Neutrino Beam) kept running. UPDATE 2026-10-25: the PAC report of the 1-4 September 2026 meeting (posted October 2026) is the newest source: \"Beam has already been established in Linac and Booster (Aug 26), MI will start up on September 21, stable beam is planned for October 1\"; 6 of the 8 transformers were operational (3 at the April meeting; at least 2 Kautz transformers are needed for full-energy MI operation) and a spare is due in December. That is still a plan written before 21 September: no source dated after that was reachable (Fermilab newsroom has no item on a restart; indico.fnal.gov, fnal.gov operations pages and the NOvA/Mu2e/FTBF sites refused non-browser access), so the shutdown is kept and the planned end stays at month precision (2026-10).",
+      "quote": "The MI has not operated since July 2024",
+      "sources": [
+        "src:currency-fnal-pac-report-2026-04",
+        "src:currency-fnal-pac-numi-2025-07",
+        "src:currency-fnal-ipac26-main-injector-abstract",
+        "src:currency-fnal-ipac26-accelerator-complex-talk",
+        "src:currency2-fnal-pac-report-2026-09"
+      ],
+      "start": "2024-07",
+      "status": "shutdown",
+      "verified_at": "2026-10-25"
+    },
+    {
+      "confidence": "approximate",
+      "end": {
+        "date": "2027-02",
+        "planned": true
+      },
+      "kind": "run",
+      "label": "NuMI run (planned: 12 weeks, stretch goal 20)",
+      "note": "A schedule, not a reported event. April 2026 PAC report: a 20-week run planned October 2026 to February 2027 (FY27 NuMI run already cut from 30 to 20 weeks for budget; the PAC thought 12 weeks would suffice). Sept 2026 PAC report: \"The plan is for 12 weeks of operation in FY27, with a stretch goal of 20 weeks of operation, with a focus on the NuMI beam\"; MI start-up planned 2026-09-21, stable beam 2026-10-01. Whether the run started is not confirmed by any fetched source as of 2026-10-25. The planned end (2027-02) is the 20-week stretch case from the April report; a 12-week run from 1 October would end near the end of December 2026.",
+      "quote": "The plan is for 12 weeks of operation in FY27, with a stretch goal of 20 weeks of operation, with a focus on the NuMI beam.",
+      "sources": [
+        "src:currency2-fnal-pac-report-2026-09",
+        "src:currency-fnal-pac-report-2026-04"
+      ],
+      "start": {
+        "date": "2026-10",
+        "planned": true
+      },
+      "status": "planned",
+      "verified_at": "2026-10-25"
     }
   ],
   "is_collider": false,
@@ -81,7 +126,7 @@
       "verified_at": "2026-09-16"
     }
   },
-  "status": "active",
+  "status": "shutdown",
   "summary": {
     "plain": "A 3.3-kilometre ring that accelerates protons to 120 billion electronvolts. Its beam makes the NuMI neutrinos today and will make the LBNF beam for DUNE.",
     "technical": "3.3 km circumference proton synchrotron, design energy 150 GeV, operated at 120 GeV for neutrino production; slip-stacked Booster batches are loaded via the Recycler. Source of the NuMI beam and of the future LBNF beam."

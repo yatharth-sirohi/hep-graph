@@ -85,32 +85,77 @@
     },
     {
       "confidence": "verified",
-      "end": null,
+      "end": "2024-07",
       "label": "neutrino- and antineutrino-beam operation",
-      "locator": "NOvA PRD 106, 032004, data-set description",
-      "note": "Start is the first day of the neutrino-mode data set used in the NOvA 2022 oscillation analysis. The experiment continues to operate as of the most recent sourced publication (2025).",
+      "locator": "end: Fermilab PAC report, April 2026 meeting",
+      "note": "Start is the first day of the neutrino-mode data set used in the NOvA 2022 oscillation analysis. The experiment continues to operate as of the most recent sourced publication (2025). END ADDED 2026-10-25: NuMI has had no beam since July 2024 (\"The MI has not operated since July 2024\", Fermilab PAC, April 2026 meeting). Previously open-ended.",
       "quote": "13.6×10²⁰ POT from 555.3 s of integrated beam-pulse time recorded between February 6, 2014, to March 20, 2020",
       "sources": [
-        "src:nova-prd-2022-oscillation-parameters"
+        "src:nova-prd-2022-oscillation-parameters",
+        "src:currency-fnal-pac-report-2026-04",
+        "src:currency-fnal-ipac26-main-injector-abstract"
       ],
       "start": "2014-02-06",
       "status": "active",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-25"
     },
     {
       "confidence": "verified",
-      "end": null,
+      "end": "2024-07",
       "kind": "run",
       "label": "antineutrino-beam running begins",
       "locator": "Fermilab newsroom, 2018-06",
-      "note": "Secondary run label: marks the start of antineutrino-mode beam data collection alongside the ongoing neutrino-mode run.",
+      "note": "Secondary run label: marks the start of antineutrino-mode beam data collection alongside the ongoing neutrino-mode run. End capped at the NuMI beam stop (2024-07).",
       "quote": "NOvA began studying antineutrinos in February 2017.",
       "sources": [
-        "src:nova-fermilab-news-2018-antineutrino"
+        "src:nova-fermilab-news-2018-antineutrino",
+        "src:currency-fnal-pac-report-2026-04"
       ],
       "start": "2017-02",
       "status": "active",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-25"
+    },
+    {
+      "confidence": "derived",
+      "end": {
+        "date": "2026-10",
+        "display": "restart planned October 2026",
+        "planned": true
+      },
+      "label": "no NuMI beam (Main Injector transformer failures)",
+      "note": "Derived from the beam source: NuMI, the only beam NOvA uses, has not run since July 2024 (see beamline:numi). Restart is a plan, not a report: the PAC report of the April 2026 meeting (posted June 2026) says \"A 20 week run is planned from October 2026 to Feb 2027 to run NuMI. The long shutdown is planned for 2028-29.\" It adds that the repaired transformers were due by 15 September, two weeks before the 1 October NuMI start. No source dated after July 2026 was found that confirms the restart, so the shutdown is left in place at 2026-10-25 and should be re-checked. The rest of the complex (Linac, Booster, Booster Neutrino Beam) kept running. UPDATE 2026-10-25: the PAC report of the 1-4 September 2026 meeting (posted October 2026) still lists the restart as a plan: \"Beam has already been established in Linac and Booster (Aug 26), MI will start up on September 21, stable beam is planned for October 1\"; 6 of 8 transformers operational. No source dated after 21 September was reachable, so the shutdown is kept. CONFLICTING STATEMENT (left unresolved, status kept): Fermilab's 7 July 2026 feature says NOvA 'is the only currently operating long-baseline neutrino experiment in the United States' and 'is taking data' (https://news.fnal.gov/2026/07/fermilab-marks-70-years-of-neutrino-science-and-leads-next-generation-experiment/); the PAC reports (April and September 2026) are more specific that the Main Injector has not delivered NuMI beam since July 2024, and the feature does not say which data. Shutdown here means no NuMI beam data-taking, not that the detectors are powered down.",
+      "quote": "Following the record achievement, the Main Injector complex suffered a series of failures that have prevented NuMI beam.",
+      "sources": [
+        "src:currency-fnal-pac-report-2026-04",
+        "src:currency-fnal-pac-numi-2025-07",
+        "src:currency-fnal-ipac26-main-injector-abstract",
+        "src:currency2-fnal-pac-report-2026-09",
+        "src:currency2-fnal-news-70-years-neutrino-2026-07"
+      ],
+      "start": "2024-07",
+      "status": "shutdown",
+      "verified_at": "2026-10-25"
+    },
+    {
+      "confidence": "approximate",
+      "end": {
+        "date": "2027-02",
+        "planned": true
+      },
+      "kind": "run",
+      "label": "NuMI run (planned: 12 weeks, stretch goal 20)",
+      "note": "A schedule, not a reported event. April 2026 PAC report: a 20-week run planned October 2026 to February 2027 (FY27 NuMI run already cut from 30 to 20 weeks for budget; the PAC thought 12 weeks would suffice). Sept 2026 PAC report: \"The plan is for 12 weeks of operation in FY27, with a stretch goal of 20 weeks of operation, with a focus on the NuMI beam\"; MI start-up planned 2026-09-21, stable beam 2026-10-01. Whether the run started is not confirmed by any fetched source as of 2026-10-25. The planned end (2027-02) is the 20-week stretch case from the April report; a 12-week run from 1 October would end near the end of December 2026.",
+      "quote": "The plan is for 12 weeks of operation in FY27, with a stretch goal of 20 weeks of operation, with a focus on the NuMI beam.",
+      "sources": [
+        "src:currency2-fnal-pac-report-2026-09",
+        "src:currency-fnal-pac-report-2026-04"
+      ],
+      "start": {
+        "date": "2026-10",
+        "planned": true
+      },
+      "status": "planned",
+      "verified_at": "2026-10-25"
     }
   ],
   "key_specs": [
@@ -262,7 +307,7 @@
     "src:nova-prd-2022-oscillation-parameters",
     "src:nova-research-goals-page"
   ],
-  "status": "active",
+  "status": "shutdown",
   "summary": {
     "plain": "A long-distance neutrino experiment: Fermilab fires a beam of neutrinos 810 kilometres through the Earth to northern Minnesota, watching how they change type on the way to learn about neutrino masses and matter-antimatter asymmetry.",
     "technical": "Off-axis NuMI accelerator neutrino oscillation experiment with functionally identical near (0.3 kt, Fermilab) and far (14 kt, Ash River, MN) liquid-scintillator tracking calorimeters, 810 km baseline, 14.6 mrad off-axis, peak beam energy 1.8 GeV. Took first long-distance neutrinos in November 2013, began physics data in February 2014 and antineutrino-mode running in February 2017."

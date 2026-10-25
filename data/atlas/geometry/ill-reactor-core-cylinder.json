@@ -1,0 +1,196 @@
+{
+  "accuracy_m": 5,
+  "aliases": [],
+  "checks": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "depth_m": null,
+  "entity_id": null,
+  "feature_type": "other",
+  "geometry": {
+    "confidence": "derived",
+    "locator": "ILL engineering paper (IGORR 10, 2005), section 2; centre = centroid of OSM way 191447189",
+    "note": "The circle is the footprint of the cylinder that houses the core, not of the fuel element (which is smaller). Position rests on the reactor building being concentric with its foundation raft.",
+    "quote": "The centre of the raft supports a concrete cylinder 7 m in diameter, 2 m thick and 15 m in height. This cylinder is the core of the reactor",
+    "sources": [
+      "src:geo-ill-osm-reactor-hall",
+      "src:geo-ill-igorr-2005-reactor-building"
+    ],
+    "value": {
+      "coordinates": [
+        [
+          [
+            5.6928923,
+            45.2060991
+          ],
+          [
+            5.6928914,
+            45.2061052
+          ],
+          [
+            5.6928889,
+            45.2061112
+          ],
+          [
+            5.6928848,
+            45.2061166
+          ],
+          [
+            5.6928792,
+            45.2061214
+          ],
+          [
+            5.6928725,
+            45.2061254
+          ],
+          [
+            5.6928648,
+            45.2061283
+          ],
+          [
+            5.6928564,
+            45.2061301
+          ],
+          [
+            5.6928477,
+            45.2061307
+          ],
+          [
+            5.692839,
+            45.2061301
+          ],
+          [
+            5.6928306,
+            45.2061283
+          ],
+          [
+            5.6928229,
+            45.2061254
+          ],
+          [
+            5.6928161,
+            45.2061214
+          ],
+          [
+            5.6928106,
+            45.2061166
+          ],
+          [
+            5.6928064,
+            45.2061112
+          ],
+          [
+            5.6928039,
+            45.2061052
+          ],
+          [
+            5.692803,
+            45.2060991
+          ],
+          [
+            5.6928039,
+            45.2060929
+          ],
+          [
+            5.6928064,
+            45.2060869
+          ],
+          [
+            5.6928106,
+            45.2060815
+          ],
+          [
+            5.6928161,
+            45.2060767
+          ],
+          [
+            5.6928229,
+            45.2060727
+          ],
+          [
+            5.6928306,
+            45.2060698
+          ],
+          [
+            5.692839,
+            45.206068
+          ],
+          [
+            5.6928477,
+            45.2060674
+          ],
+          [
+            5.6928564,
+            45.206068
+          ],
+          [
+            5.6928648,
+            45.2060698
+          ],
+          [
+            5.6928725,
+            45.2060727
+          ],
+          [
+            5.6928792,
+            45.2060767
+          ],
+          [
+            5.6928848,
+            45.2060815
+          ],
+          [
+            5.6928889,
+            45.2060869
+          ],
+          [
+            5.6928914,
+            45.2060929
+          ],
+          [
+            5.6928923,
+            45.2060991
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    },
+    "verified_at": "2026-10-25"
+  },
+  "id": "geometry:ill-reactor-core-cylinder",
+  "level_id": "surface",
+  "license": {
+    "attribution": "© OpenStreetMap contributors",
+    "name": "ODbL-1.0",
+    "url": "https://www.openstreetmap.org/copyright"
+  },
+  "links": {
+    "website": null
+  },
+  "map_id": "map:ill-grenoble",
+  "method": "Derived: a 7 m diameter circle (32-gon, radius 3.5 m) centred on the centroid (45.206099 N, 5.692848 E) of the near-circular OSM outline of the reactor building (way 191447189; vertex radii 29.76-29.96 m about that centroid). The ILL engineering paper states that the foundation raft of the cylindrical reactor building 'supports a concrete cylinder 7 m in diameter ... This cylinder is the core of the reactor' at 'the centre of the raft'; the raft is circular and carries the cylindrical building, so the building centre is taken as the raft centre. A circle is drawn here only because the source gives the cylinder's diameter and the centre follows from a sourced circular building.",
+  "name": "ILL reactor core cylinder (7 m diameter) at the centre of the reactor building",
+  "notes": [
+    "The Ricochet detector is 8.8 m from the core (src:cevns-ricochet-fast-neutron-2022) in a direction no fetched source gives, so it is not drawn."
+  ],
+  "osm": {
+    "elements": [
+      "way/191447189"
+    ],
+    "timestamp": "2026-10-25T10:51:18Z"
+  },
+  "representation": "derived",
+  "schema": "hep-atlas/0.2",
+  "site_id": null,
+  "sources": [
+    "src:geo-ill-osm-reactor-hall",
+    "src:geo-ill-igorr-2005-reactor-building"
+  ],
+  "summary": {
+    "plain": "The 7-metre-wide concrete cylinder at the centre of the ILL reactor building that houses the reactor core and pool; the antineutrino source for the Ricochet experiment."
+  },
+  "type": "geometry",
+  "valid": null
+}

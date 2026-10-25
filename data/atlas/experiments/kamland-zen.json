@@ -35,19 +35,39 @@
   "id": "experiment:kamland-zen",
   "intervals": [
     {
-      "confidence": "uncertain",
-      "end": null,
+      "confidence": "verified",
+      "end": "2024-01-12",
       "label": "KamLAND-Zen 800 data taking",
-      "locator": "no fetched primary source states an exact KamLAND-Zen 800 start date",
-      "note": "No source fetched in this session states an exact start date for the upgraded KamLAND-Zen 800 phase; `start` (2022) is the year of the earliest dated result paper on this phase (a lower bound, not the true start), chosen so a null/null interval does not derive to 'no presence' for an experiment that is clearly active. The 2024-06 result paper (exposure 2.1 ton·yr) postdates this bound.",
-      "quote": "an upgraded detector with almost double the amount of xenon and an ultralow radioactivity container, corresponding to an exposure of 970 kg yr of 136Xe",
+      "locator": "arXiv:2406.11438v2 (revised 23 Mar 2026), abstract: \"the full KamLAND-Zen 800 dataset collected between February 5, 2019, and January 12, 2024\"",
+      "note": "Dates replaced 2026-10-25. Previously start 2022 (a lower bound: year of the earliest result paper) and no end. The collaboration's own paper gives the KamLAND-Zen 800 data-taking period as February 5, 2019 to January 12, 2024.",
+      "quote": "KamLAND-Zen 800 completed data-taking in January 2024 to start dismantling the current KamLAND detector in preparation for a detector upgrade, KamLAND2-Zen.",
       "sources": [
         "src:kamland-zen-arxiv-2203-inverted-ordering",
         "src:kamland-zen-arxiv-2406-complete-dataset"
       ],
-      "start": "2022",
+      "start": "2019-02-05",
       "status": "active",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-25"
+    },
+    {
+      "confidence": "approximate",
+      "end": {
+        "approx": true,
+        "date": "2029",
+        "display": "FY2028-2029 (KamLAND2-Zen start; marked \"??\" on the slide)",
+        "planned": true
+      },
+      "label": "KamLAND2-Zen upgrade: dismantling of KamLAND (no data taking)",
+      "note": "Start = completion of KamLAND-Zen 800 data taking in January 2024 \"to start dismantling the current KamLAND detector\". Q-EYES 2025 slides: \"KamLAND2 will start in FY2027 ... Installation XeLS and its housing 2028-2029 ... KamLAND2-Zen will start in FY2028-2029??\"; TAUP 2025: \"Upgrade to KamLAND2-Zen. Last physics run on August 27th 2024\".",
+      "quote": "KamLAND-Zen 800 completed data-taking in January 2024 to start dismantling the current KamLAND detector in preparation for a detector upgrade, KamLAND2-Zen.",
+      "sources": [
+        "src:kamland-zen-arxiv-2406-complete-dataset",
+        "src:currency-kamland-qeyes2025-slides",
+        "src:currency-kamland-taup2025-slides"
+      ],
+      "start": "2024-01",
+      "status": "upgrade",
+      "verified_at": "2026-10-25"
     }
   ],
   "key_specs": [
@@ -138,7 +158,7 @@
     "src:kamland-zen-arxiv-2406-complete-dataset",
     "src:kamland-zen-arxiv-2203-inverted-ordering"
   ],
-  "status": "active",
+  "status": "upgrade",
   "summary": {
     "plain": "A xenon-loaded balloon of liquid suspended inside the KamLAND detector deep under a Japanese mountain, searching for a rare radioactive process in xenon atoms. Its latest result sets one of the strongest limits yet on the process.",
     "technical": "KamLAND-Zen: 745 kg of xenon (enriched in 136Xe) dissolved in liquid scintillator inside a balloon suspended within the KamLAND detector at Kamioka. The KamLAND-Zen 800 phase's complete dataset (2.1 t·yr exposure) sets T1/2 0ν > 3.8x10^26 yr (90% C.L.), improving on the prior phase's 970 kg·yr / 2.3x10^26 yr limit."

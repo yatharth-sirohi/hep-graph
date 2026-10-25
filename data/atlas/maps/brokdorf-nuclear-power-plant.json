@@ -36,19 +36,23 @@
     "website": null
   },
   "name": "Brokdorf — reactor building and the CONUS position",
-  "notes": [],
+  "notes": [
+    "The 'Reaktorgebaeude' polygon (way 87723028, 9227 m2, 130 m span) is the whole reactor-building complex, not the containment cylinder; its circular arc (radius 40.2 m) suggests the axis lies ~21 m SSW of the polygon centroid, but no source states the core position, so the CONUS point keeps the centroid with 40 m accuracy."
+  ],
   "schema": "hep-atlas/0.2",
   "schematics": [],
   "site_ids": [
     "site:brokdorf-nuclear-power-plant-campus"
   ],
   "sources": [
-    "src:geo-reactors-osm-brokdorf-leibstadt-reactors",
-    "src:cevns-conus-prl-2024-final-brokdorf"
+    "src:cevns-conus-prl-2024-final-brokdorf",
+    "src:geo-brokdorf-osm-extract-2026-10",
+    "src:geo-brokdorf-szl-base-2023",
+    "src:geo-reactors-osm-brokdorf-leibstadt-reactors"
   ],
   "summary": {
-    "plain": "The Brokdorf reactor building, inside which the CONUS germanium detectors sat 17.1 m from the core until the plant closed at the end of 2021.",
-    "technical": "Reactor-building footprint from OpenStreetMap (georeferenced); CONUS drawn as a derived point at the building centroid with accuracy widened for the unresolved 17.1 m offset (arXiv:2401.07684)."
+    "plain": "The Brokdorf reactor building, inside which the CONUS germanium detectors sat 17.1 m from the core until the plant closed at the end of 2021, with the turbine hall and the on-site interim fuel store.",
+    "technical": "Reactor-building footprint from OpenStreetMap (georeferenced); CONUS drawn as a derived point at the building centroid with accuracy widened for the unresolved 17.1 m offset (arXiv:2401.07684). The interim fuel store outline is cross-checked against BASE's stated 93 m x 27 m (perimeter, 6 %); the turbine hall is context."
   },
   "type": "map",
   "unlocated": []

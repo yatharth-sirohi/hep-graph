@@ -1,0 +1,245 @@
+{
+  "accuracy_m": 500,
+  "aliases": [],
+  "checks": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "depth_m": null,
+  "entity_id": "detector:icecube-deepcore",
+  "feature_type": "string",
+  "geometry": {
+    "confidence": "derived",
+    "locator": "IC86 geometry file rows with string 79-86 (x, y in m, IceCube frame); frame: IceCube instrumentation paper (arXiv:1612.05093 v3) section 5.3; anchor: i3astropy/__init__.py line 25",
+    "note": "Confidence derived: see geometry:icecube-strings-1-78.",
+    "sources": [
+      "src:geo-arrays-icecube-toise-gcd-ic86",
+      "src:geo-arrays-icecube-i3astropy-location",
+      "src:icecube-detector-paper-jinst-2017"
+    ],
+    "value": {
+      "coordinates": [
+        [
+          [
+            [
+              -67.86818,
+              -89.9949261
+            ],
+            [
+              -67.7914102,
+              -89.9949427
+            ],
+            [
+              -67.6030067,
+              -89.9949359
+            ],
+            [
+              -67.6802908,
+              -89.9949193
+            ],
+            [
+              -67.86818,
+              -89.9949261
+            ]
+          ]
+        ],
+        [
+          [
+            [
+              -65.5542496,
+              -89.9952433
+            ],
+            [
+              -65.464283,
+              -89.9952597
+            ],
+            [
+              -65.2668265,
+              -89.9952522
+            ],
+            [
+              -65.3573296,
+              -89.9952358
+            ],
+            [
+              -65.5542496,
+              -89.9952433
+            ]
+          ]
+        ],
+        [
+          [
+            [
+              -57.9301591,
+              -89.9945634
+            ],
+            [
+              -57.829231,
+              -89.9945786
+            ],
+            [
+              -57.6686118,
+              -89.994569
+            ],
+            [
+              -57.7698112,
+              -89.9945538
+            ],
+            [
+              -57.9301591,
+              -89.9945634
+            ]
+          ]
+        ],
+        [
+          [
+            [
+              -55.032141,
+              -89.9950952
+            ],
+            [
+              -54.911362,
+              -89.9951099
+            ],
+            [
+              -54.7392851,
+              -89.9950995
+            ],
+            [
+              -54.8603249,
+              -89.9950848
+            ],
+            [
+              -55.032141,
+              -89.9950952
+            ]
+          ]
+        ],
+        [
+          [
+            [
+              -62.9511151,
+              -89.9955501
+            ],
+            [
+              -62.8454203,
+              -89.9955661
+            ],
+            [
+              -62.6389978,
+              -89.9955579
+            ],
+            [
+              -62.7452384,
+              -89.9955419
+            ],
+            [
+              -62.9511151,
+              -89.9955501
+            ]
+          ]
+        ],
+        [
+          [
+            [
+              -70.0826212,
+              -89.9952491
+            ],
+            [
+              -70.0084615,
+              -89.995266
+            ],
+            [
+              -69.8041541,
+              -89.9952598
+            ],
+            [
+              -69.8789433,
+              -89.995243
+            ],
+            [
+              -70.0826212,
+              -89.9952491
+            ]
+          ]
+        ],
+        [
+          [
+            [
+              -69.9222031,
+              -89.9946039
+            ],
+            [
+              -69.8564349,
+              -89.9946208
+            ],
+            [
+              -69.676782,
+              -89.9946146
+            ],
+            [
+              -69.7430359,
+              -89.9945977
+            ],
+            [
+              -69.9222031,
+              -89.9946039
+            ]
+          ]
+        ],
+        [
+          [
+            [
+              -62.6466976,
+              -89.9942808
+            ],
+            [
+              -62.5636733,
+              -89.9942967
+            ],
+            [
+              -62.4035367,
+              -89.9942884
+            ],
+            [
+              -62.4868869,
+              -89.9942725
+            ],
+            [
+              -62.6466976,
+              -89.9942808
+            ]
+          ]
+        ]
+      ],
+      "type": "MultiPolygon"
+    },
+    "verified_at": "2026-10-25"
+  },
+  "id": "geometry:icecube-deepcore-strings-79-86",
+  "level_id": "icecube-ice",
+  "license": null,
+  "links": {
+    "website": null
+  },
+  "map_id": "map:amundsen-scott-south-pole-station",
+  "method": "Plan positions of the eight specialised DeepCore strings, from the same IC86 geometry file, frame and anchor as geometry:icecube-strings-1-78 (each string drawn as a 2 m square marker; positions are the mean horizontal (x, y) of the 60 DOMs, identical for every DOM). Frame and anchor: the IceCube coordinate system has its y-axis along the Prime Meridian (Grid North, towards Greenwich) and its x-axis 90 degrees clockwise from it (Grid East) (IceCube instrumentation paper, arXiv v3, section 5.3), and its origin is at elevation 883.9 m. The IceCube Collaboration software repository i3astropy gives the nominal location of the centre of the detector as lat -89.9944, lon -62.6081, height 883.9 m, which is taken as the frame origin. Conversion: the origin is placed at that point in a South Pole azimuthal-equidistant plane (distance from the pole = colatitude x 6 371 008.8 m, grid north = 0 deg meridian, grid east = 90 deg E; this is the same plane the browser draws), each string is the origin plus its (x, y) offset, and the inverse projection gives lat/lon. The origin is 622.7 m from the pole on the 62.6 deg W meridian. Accuracy: the layout of the strings relative to each other is surveyed to about 1 m, and the pattern keeps its true size and orientation (grid north). The absolute position of the whole pattern is only good to about 500 m: the anchor is a nominal value of no stated epoch, the array moves with the ice about 10 m a year relative to geographic coordinates, and the lat/lon of IceCube on Wikipedia and in OpenStreetMap (89.99 S, 63.4531 W) lies 489 m from the anchor used. Check done in the worklog: Delaunay edges shorter than 110 m between the 15 DeepCore strings (these 8 plus the seven central standard strings 26, 27, 35, 36, 37, 45, 46) span 40.9 m to 104.9 m against the official range of 41 m to 105 m; the median of all 36 edges is 71.8 m against the official average of 72 m.",
+  "name": "IceCube DeepCore specialised strings 79-86 (plan positions)",
+  "notes": [
+    "Official figure (IceCube instrumentation paper v3 section 1.1.2): \"The inter-string spacing in DeepCore varies from 41 m to 105 m, with an average spacing of 72 m.\" DeepCore = these 8 strings plus the seven central standard strings."
+  ],
+  "representation": "derived",
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:south-pole-icecube",
+  "sources": [
+    "src:geo-arrays-icecube-toise-gcd-ic86",
+    "src:geo-arrays-icecube-i3astropy-location",
+    "src:icecube-detector-paper-jinst-2017"
+  ],
+  "summary": {
+    "plain": "The eight specialised, closely spaced DeepCore strings at the centre of the IceCube array, drawn at their true spacing; the whole pattern could be shifted by up to about half a kilometre."
+  },
+  "type": "geometry",
+  "valid": null
+}

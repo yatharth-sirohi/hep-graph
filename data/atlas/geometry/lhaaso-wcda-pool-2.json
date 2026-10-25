@@ -1,0 +1,96 @@
+{
+  "accuracy_m": 30,
+  "aliases": [],
+  "checks": [
+    {
+      "expected": {
+        "dimension": "area",
+        "display": "22 500 m²",
+        "unit": "m^2",
+        "value": 22500
+      },
+      "kind": "area",
+      "locator": "LHAASO Science Book, chapter 1 (Chin. Phys. C 46, 030001), section III.B, p. 030001-34 (PDF page 40)",
+      "note": "The corners are read from the figure and the sides measure 150.1 m x 150.1 m; the check tests the figure scale against the stated dimensions.",
+      "quote": "There are 3 pools. The pool 1 and 2 are both 150 m × 150 m. Pool 3 is 300 m × 110 m.",
+      "sources": [
+        "src:geo-lhaaso-cpc-2022-instruments"
+      ],
+      "tolerance": 0.03
+    }
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "depth_m": null,
+  "entity_id": "detector:lhaaso",
+  "feature_type": "hall",
+  "geometry": {
+    "confidence": "derived",
+    "locator": "Science Book (CPC 46, 030001) Fig. 1, PDF page 8, teal pool rectangle; dimensions section III.B p. 030001-34; frame as geometry:lhaaso-km2a-array-outline",
+    "note": "Confidence derived: corners read from a published figure; dimensions and area agree with the text.",
+    "sources": [
+      "src:geo-lhaaso-cpc-2022-instruments",
+      "src:cosmic-gamma-lhaaso-science-book-arxiv-2019",
+      "src:geo-arrays-lhaaso-km2a-crab-2024"
+    ],
+    "value": {
+      "coordinates": [
+        [
+          [
+            100.1394177,
+            29.3567137
+          ],
+          [
+            100.1407563,
+            29.3573907
+          ],
+          [
+            100.1399835,
+            29.3585636
+          ],
+          [
+            100.1386447,
+            29.3578864
+          ],
+          [
+            100.1394177,
+            29.3567137
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    },
+    "verified_at": "2026-10-25"
+  },
+  "id": "geometry:lhaaso-wcda-pool-2",
+  "level_id": "surface",
+  "license": {
+    "attribution": "LHAASO Collaboration, Chin. Phys. C 46, 030001 (2022), doi:10.1088/1674-1137/ac3fa6",
+    "name": "CC-BY-3.0",
+    "url": "https://creativecommons.org/licenses/by/3.0/"
+  },
+  "links": {
+    "website": null
+  },
+  "map_id": "map:lhaaso-daocheng",
+  "method": "Outline of the 150 m x 150 m water Cherenkov pool (south-east, next to pool 1) read from the four corners of the teal rectangle in Fig. 1 of the Science Book. The Science Book states \"The two smaller pools are at south-east and the bigger one is at north-west. The gap between the pool 1 and 2 is 2 m and they are 5 m apart from pool 3.\" The pools are tilted about 30 deg from the axes (the long side of pool 3 runs N60E). Layout: the detector positions are read from the vector graphic of Fig. 1 of the LHAASO Science Book (Chin. Phys. C 46, 030001 (2022), arXiv:1905.02773 v4, PDF page 8; the figure carries a NORTH arrow pointing up and a 150 m scale bar), which plots 5216 EDs as red squares and 1188 MDs as blue circles. The figure was registered by a similarity transform onto a second published copy of the layout, the right panel of Fig. 1 of arXiv:2401.01038 (X (m), Y (m) axes read from the tick labels): 5215 of 5216 EDs match within 2 m (median 0.16 m), scale 4.33 m per point, no rotation; the pool sides then measure 150.1 m, 150.1 m and 300.2 m x 110.1 m against the stated 150 m, 150 m and 300 m x 110 m. Origin: the centre of the circular array, the mean of circle fits to the outer ED ring, the 575 m ED boundary and the outer MD ring. With it, 4911 EDs lie inside 575 m and 305 outside (stated: \"4911 EDs ... radius of 575 m\" and \"305 EDs\" in the guarding ring) and the farthest ED is 635.2 m from it (stated outer radius 635 m). Placement: the origin is put at the coordinate the Collaboration gives for LHAASO, 29 deg 21' 27.56\" N, 100 deg 08' 19.66\" E (Science Book abstract, same document), in an azimuthal-equidistant projection (WGS 84) with x east and y north. An independent check: the three pools traced in OpenStreetMap (ways 1046559931, 1046559932, 1046559933, Overpass extract 2026-10-25T11:28:50Z) lie 1 to 3 m east and 2 to 10 m north of the pool corners placed this way. It is not stated whether the figure shows design or as-built positions and what point the quoted coordinate marks; accuracy_m 30 covers the OpenStreetMap offset and that doubt; the older coordinate 29 21 31 N, 100 08 15 E of the 2016 papers lies 164 m away and is superseded. ",
+  "name": "LHAASO WCDA pool 2 (150 m x 150 m)",
+  "notes": [
+    "The three pools total 78109 m2 as drawn against the stated total active area of 78,000 m2 (Science Book abstract, \"78,000 m2\")."
+  ],
+  "representation": "derived",
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:lhaaso-haizi-mountain",
+  "sources": [
+    "src:geo-lhaaso-cpc-2022-instruments",
+    "src:cosmic-gamma-lhaaso-science-book-arxiv-2019",
+    "src:geo-arrays-lhaaso-km2a-crab-2024"
+  ],
+  "summary": {
+    "plain": "One of the three adjacent ponds (150 m x 150 m) of the LHAASO water Cherenkov detector array, drawn at its published position and tilt."
+  },
+  "type": "geometry",
+  "valid": null
+}

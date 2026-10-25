@@ -1,0 +1,68 @@
+{
+  "aliases": [],
+  "center": {
+    "confidence": "derived",
+    "kind": "campus",
+    "lat": 45.206099,
+    "locator": "Centroid of the OSM outline of the reactor building (way 191447189)",
+    "lon": 5.692848,
+    "note": "Map centre only; not a claim about any structure.",
+    "precision_m": 50,
+    "sources": [
+      "src:geo-ill-osm-reactor-hall"
+    ],
+    "verified_at": "2026-10-25"
+  },
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "extent_m": 600,
+  "facility_id": "facility:ill-grenoble",
+  "id": "map:ill-grenoble",
+  "levels": [
+    {
+      "depth_m": null,
+      "id": "surface",
+      "kind": "surface",
+      "name": "Surface",
+      "note": "Plan view of the campus and the ILL buildings; the reactor pool and foundation raft below the building are not drawn."
+    }
+  ],
+  "linked_map_ids": [],
+  "links": {
+    "website": null
+  },
+  "name": "Institut Laue-Langevin — reactor building and guide halls on the EPN campus",
+  "notes": [
+    "No accelerator or beamline record exists for ILL; the guide halls depict facility:ill-grenoble.",
+    "The ILL's neutron guides and beam tubes between the reactor and the guide halls are not mapped in any fetched source and are not drawn."
+  ],
+  "schema": "hep-atlas/0.2",
+  "schematics": [],
+  "site_ids": [
+    "site:ill-grenoble-reactor-hall"
+  ],
+  "sources": [
+    "src:geo-ill-osm-reactor-hall",
+    "src:geo-ill-igorr-2005-reactor-building",
+    "src:geo-ill-virtual-tour-page",
+    "src:geo-ill-osm-epn-campus"
+  ],
+  "summary": {
+    "plain": "The Institut Laue-Langevin in Grenoble, drawn to scale: the 60-metre domed reactor building with its core cylinder, the two neutron-guide halls beside it, and the shared EPN campus boundary. The Ricochet detector is known only as 8.8 metres from the core, so it is not drawn.",
+    "technical": "One local map for facility:ill-grenoble. OpenStreetMap footprints (cadastre-derived): reactor building ILL 5 (way 191447189, span 59.79 m against the 60 m inner-shell diameter of an ILL engineering paper: pass), guide halls ILL 7 (way 191447188) and ILL 22 (way 191447185), and the EPN campus polygon (way 64549604). The 7 m reactor-core cylinder is a derived circle at the centre of the circular reactor building. detector:ricochet-cryocube is unlocated (distance only)."
+  },
+  "type": "map",
+  "unlocated": [
+    {
+      "backlog": "Find a Ricochet installation drawing or paper that gives the CryoCube room position or its bearing from the core (the Ricochet commissioning paper or an ILL experimental-area plan), then place it on the circle of radius 8.8 m about the core cylinder drawn here.",
+      "entity_id": "detector:ricochet-cryocube",
+      "reason": "Ricochet CryoCube: sourced only as 8.8 m from the reactor core ('8.8 meters away from the 58 MW research nuclear reactor core'). That fixes a distance, not a position: no fetched source gives the bearing or room, so the detector can lie anywhere on a 8.8 m circle about the core and is not drawn. Its site, the reactor building, is drawn.",
+      "sources": [
+        "src:cevns-ricochet-fast-neutron-2022"
+      ],
+      "verified_at": "2026-10-25"
+    }
+  ]
+}

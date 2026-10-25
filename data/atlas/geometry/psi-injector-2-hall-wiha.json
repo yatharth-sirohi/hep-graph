@@ -1,0 +1,83 @@
+{
+  "accuracy_m": 8,
+  "aliases": [],
+  "checks": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "depth_m": null,
+  "entity_id": null,
+  "feature_type": "building",
+  "geometry": {
+    "confidence": "approximate",
+    "locator": "OSM way/28028422 version 2 (2011-09-30T09:39:04Z) fetched 2026-10-25T11:05:26Z; Arealplan 18.11.2015 legend line 'WIHA Injektorhalle 2 B6'",
+    "note": "OpenStreetMap alone yields at most 'approximate'.",
+    "sources": [
+      "src:psi-geo-osm-wiha-hall",
+      "src:psi-geo-arealplan-2015"
+    ],
+    "value": {
+      "coordinates": [
+        [
+          [
+            8.2224119,
+            47.5374713
+          ],
+          [
+            8.2223663,
+            47.5373033
+          ],
+          [
+            8.2230482,
+            47.5372189
+          ],
+          [
+            8.2230938,
+            47.5373869
+          ],
+          [
+            8.2224119,
+            47.5374713
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    },
+    "verified_at": "2026-10-25"
+  },
+  "id": "geometry:psi-injector-2-hall-wiha",
+  "level_id": "surface",
+  "license": {
+    "attribution": "© OpenStreetMap contributors",
+    "name": "ODbL-1.0",
+    "url": "https://www.openstreetmap.org/copyright"
+  },
+  "links": {
+    "website": null
+  },
+  "map_id": "map:psi",
+  "method": "OpenStreetMap way 28028422 (building, name 'WIHA') used verbatim; PSI's site-map legend gives 'WIHA Injektorhalle 2' (src:psi-geo-arealplan-2015), i.e. the hall of the Injector 2 cyclotron (the 72 MeV stage of HIPA). Footprint 52.1 m x 19.1 m, area 988 m2. No official dimension was found to check it against, so confidence stays approximate.",
+  "name": "PSI Injector 2 hall (WIHA)",
+  "notes": [
+    "Context building (no atlas record depicts the injector cyclotron); accelerator:psi-hipa stays in map.unlocated because the Ring Cyclotron itself is not located."
+  ],
+  "osm": {
+    "elements": [
+      "way/28028422"
+    ],
+    "timestamp": "2026-10-25T11:05:26Z"
+  },
+  "representation": "georeferenced",
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:psi-villigen",
+  "sources": [
+    "src:psi-geo-osm-wiha-hall",
+    "src:psi-geo-arealplan-2015"
+  ],
+  "summary": {
+    "plain": "The hall of PSI's Injector 2 cyclotron, which brings the protons to 72 MeV before the Ring Cyclotron."
+  },
+  "type": "geometry",
+  "valid": null
+}

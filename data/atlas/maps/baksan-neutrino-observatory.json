@@ -57,7 +57,8 @@
   "name": "BNO — Baksan Neutrino Observatory",
   "notes": [
     "This map is honestly thin: the surface administrative building and the Neutrino settlement are drawn from OpenStreetMap, but the tunnels themselves and the SAGE underground hall are not, because no fetched source this session gives the tunnel's path/bearing and OpenStreetMap does not appear to trace it (no way was found via Nominatim name search for 'Baksan tunnel' or Cyrillic equivalents, and a bounding-box tag search that Overpass would have allowed was not possible — Overpass was unreachable throughout this session, see the facility worklog).",
-    "SAGE's own 1999 paper (src:sage-1999-capture-rate) states the laboratory is '3.5 km from the entrance of a horizontal adit excavated into the side of Mount Andyrchi' with a 60x10x12 m chamber (src:geo-euro-ug-pandola-2011); this is recorded here and in the facility worklog as backlog for a future pass with Overpass access or a topographic source giving the tunnel's bearing."
+    "SAGE's own 1999 paper (src:sage-1999-capture-rate) states the laboratory is '3.5 km from the entrance of a horizontal adit excavated into the side of Mount Andyrchi' with a 60x10x12 m chamber (src:geo-euro-ug-pandola-2011); this is recorded here and in the facility worklog as backlog for a future pass with Overpass access or a topographic source giving the tunnel's bearing.",
+    "Release geometry (underground): the Main adit entrance (OSM node) was added and the unlocated row now cites the official INR distances (550 m to BUST, 3.5 km to SAGE) and halls; the tunnel path and halls are still not drawn."
   ],
   "schema": "hep-atlas/0.2",
   "schematics": [],
@@ -65,7 +66,11 @@
     "site:baksan-sage-underground-lab"
   ],
   "sources": [
+    "src:geo-baksan-inr-bno-main",
+    "src:geo-baksan-inr-bust",
+    "src:geo-baksan-inr-ggnt",
     "src:geo-baksan-osm-bno-building",
+    "src:geo-baksan-osm-main-adit",
     "src:geo-baksan-osm-neutrino-village",
     "src:sage-1999-capture-rate"
   ],
@@ -76,13 +81,16 @@
   "type": "map",
   "unlocated": [
     {
-      "backlog": "Once Overpass is reachable, search a bounding box around the BNO building (way 1504181774) for tunnel=yes or man_made=adit ways; failing that, find a published topographic map or paper figure (e.g. an INR technical report) giving the tunnel's compass bearing so its line can be sourced rather than guessed, then walk 3.5 km along it per src:sage-1999-capture-rate.",
+      "backlog": "A published bearing or plan of the Main adit (INR technical drawing, the 'longitudinal section of the underground complex' of the INR page Fig. 1 with a plan view, or a topographic map of the underground complex); with the bearing, the BUST hall (550 m) and the SAGE hall (3.5 km) are one line-offset each from the entrance node.",
       "entity_id": "site:baksan-sage-underground-lab",
-      "reason": "SAGE's own paper states the laboratory is 3.5 km from the tunnel/adit entrance, but no source fetched this session gives the tunnel's path or compass bearing into Mount Andyrchi, and OpenStreetMap does not appear to trace the tunnel (no matching way was found by name search, and a tag-based bounding-box search was not possible because Overpass was unreachable throughout this session). Deriving a position without a sourced bearing would be a guess, not a measurement.",
+      "reason": "Official INR pages give the layout along the tunnel but not in plan: two parallel horizontal adits about 4 km long into Mount Andyrchi; the Baksan Underground Scintillation Telescope hall 550 m from the start of the horizontal tunnel (base 16.7 m x 16.7 m, ~850 m w.e.); the gallium-germanium telescope (SAGE) laboratory 3.5 km from the tunnel entrance, with a 60 m x 10 m x 12 m hall at 4700 m w.e. No fetched source gives the adit's bearing or a coordinate for any hall, and OpenStreetMap maps only the Main adit entrance (drawn), not its path.",
       "sources": [
-        "src:sage-1999-capture-rate"
+        "src:geo-baksan-inr-ggnt",
+        "src:geo-baksan-inr-bust",
+        "src:geo-baksan-inr-bno-main",
+        "src:geo-baksan-osm-main-adit"
       ],
-      "verified_at": "2026-09-18"
+      "verified_at": "2026-10-25"
     }
   ]
 }

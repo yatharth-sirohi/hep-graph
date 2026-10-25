@@ -1,0 +1,79 @@
+{
+  "aliases": [],
+  "center": {
+    "confidence": "derived",
+    "kind": "campus",
+    "lat": -77.85797,
+    "locator": "Midpoint of the OSM McMurdo Station node and the centroid of the Williams Field outline",
+    "lon": 166.87739,
+    "note": "Map centre only; not a claim about any structure.",
+    "precision_m": 1500,
+    "sources": [
+      "src:geo-mcmurdo-osm-station-node",
+      "src:geo-mcmurdo-osm-williams-field-aerodrome"
+    ],
+    "verified_at": "2026-10-25"
+  },
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "extent_m": 8000,
+  "facility_id": "facility:mcmurdo-ldb",
+  "id": "map:mcmurdo-ldb",
+  "levels": [
+    {
+      "depth_m": null,
+      "id": "surface",
+      "kind": "surface",
+      "name": "Surface (Ross Island rock and Ross Ice Shelf)",
+      "note": "Plan view; McMurdo Station stands on Ross Island and Williams Field on the floating Ross Ice Shelf, whose position changes."
+    }
+  ],
+  "linked_map_ids": [],
+  "links": {
+    "website": null
+  },
+  "name": "McMurdo Long Duration Balloon Facility — Williams Field and McMurdo Station",
+  "notes": [
+    "Positions on the Ross Ice Shelf are time-dependent (the shelf flows and skiways are re-groomed), so the Williams Field outline is a mapped position, not a fixed survey point.",
+    "The previous placeholder site coordinate (167.05667 E, 77.8675 S, 20 km precision, from Wikipedia) falls inside the drawn outline, 0.7 km from its centroid."
+  ],
+  "schema": "hep-atlas/0.2",
+  "schematics": [],
+  "site_ids": [
+    "site:mcmurdo-ldb-launch-site"
+  ],
+  "sources": [
+    "src:geo-mcmurdo-osm-williams-field-aerodrome",
+    "src:geo-mcmurdo-osm-station-node",
+    "src:geo-mcmurdo-nasa-tiger-diary",
+    "src:astro-neutrino-anita-csbf-nasa-antarctica-payloads"
+  ],
+  "summary": {
+    "plain": "Williams Field, the Ross Ice Shelf airfield where NASA's long-duration balloon facility launches balloons, and McMurdo Station about 10 kilometres to the west, drawn to scale from OpenStreetMap. The balloon camp's own buildings are not mapped in any source found.",
+    "technical": "One local map for facility:mcmurdo-ldb. OpenStreetMap: the Williams Field aerodrome polygon (way 821080729, source ADD, ICAO NZWD, 5.4 km2) as the site outline for site:mcmurdo-ldb-launch-site, and the McMurdo Station place node (515065315). The facility is placed at Williams Field by a NASA balloon-team diary. The LDB camp buildings and detector:anita's launch pads are unlocated; ANITA has no ground position."
+  },
+  "type": "map",
+  "unlocated": [
+    {
+      "backlog": "Find a CSBF/NASA LDB site plan, a USAP/NSF facilities map or a published coordinate for the LDB camp (the Big Barn, the payload assembly buildings and the launch area) and draw those against surveyed control points; OSM 'LDB Junction' (node 1027266821, 166.8824 E, 77.8476 S) is a named road junction on the ice road, not the camp, and was not used.",
+      "entity_id": "facility:mcmurdo-ldb",
+      "reason": "The LDB camp itself (payload assembly buildings and launch area) is not mapped: the fetched NASA diary says only that the balloon facility is at Williams (Willy) Field, and NASA's CSBF page says 'LDB Camp, McMurdo Station'. OpenStreetMap has the airfield outline but none of the camp's buildings, and the facility's exact pad moved between campaigns, so no shape is drawn for it.",
+      "sources": [
+        "src:geo-mcmurdo-nasa-tiger-diary",
+        "src:astro-neutrino-anita-csbf-nasa-antarctica-payloads"
+      ],
+      "verified_at": "2026-10-25"
+    },
+    {
+      "backlog": "None as a map feature: ANITA flies at float altitude over the ice sheet and has no ground position; a flight-track map would be a separate product.",
+      "entity_id": "detector:anita",
+      "reason": "ANITA is a balloon payload that takes data at about 37 km altitude drifting over Antarctica; the atlas places it at the launch site only. The launch site is drawn as the Williams Field outline, and no source gives a pad inside it for any ANITA flight.",
+      "sources": [
+        "src:astro-neutrino-anita-csbf-nasa-antarctica-payloads"
+      ],
+      "verified_at": "2026-10-25"
+    }
+  ]
+}

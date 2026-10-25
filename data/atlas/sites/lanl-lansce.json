@@ -7,15 +7,16 @@
   "coordinates": {
     "confidence": "approximate",
     "kind": "campus",
-    "lat": 35.8725644,
-    "locator": "OSM node 8041862150 named \"LANSCE\"",
-    "lon": -106.2890098,
-    "note": "Correction: the previous ROR point for the laboratory as a whole is 2.4 km from the LANSCE accelerator area (TA-53). Previous record: campus point 35.88808, -106.30697 at 800 m precision, sources ['src:ror-01e41cf67', 'src:lansce-wikipedia']; moved 2055 m (integrator, 2026-09-21, per docs/atlas-worklog/GEOMETRY_*.md).",
-    "precision_m": 150,
+    "lat": 35.8684,
+    "locator": "centroid of the linac wing, main hall, Proton Storage Ring and Lujan Center footprints (Los Alamos County Structures layer; OpenStreetMap way 370719333)",
+    "lon": -106.2589,
+    "note": "Campus point at the LANSCE building cluster on TA-53. The previous point (35.8725644, -106.2890098, OSM node 'LANSCE') is the west tip of TA-53, about 2.8 km from the accelerator buildings. A hall position for LSND is not sourced.",
+    "precision_m": 300,
     "sources": [
-      "src:geo-lanl-osm-lansce-node"
+      "src:lanl-geo-county-structures",
+      "src:lanl-geo-osm-linac-building"
     ],
-    "verified_at": "2026-09-21"
+    "verified_at": "2026-10-25"
   },
   "country": "US",
   "coverage": {
@@ -41,7 +42,9 @@
   "sources": [
     "src:lansce-wikipedia",
     "src:ror-01e41cf67",
-    "src:geo-lanl-osm-lansce-node"
+    "src:geo-lanl-osm-lansce-node",
+    "src:lanl-geo-county-structures",
+    "src:lanl-geo-osm-linac-building"
   ],
   "summary": {
     "plain": "The LANSCE particle-accelerator facility at Los Alamos National Laboratory, in the hills of northern New Mexico.",

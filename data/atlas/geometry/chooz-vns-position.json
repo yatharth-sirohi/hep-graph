@@ -1,0 +1,68 @@
+{
+  "accuracy_m": 40,
+  "aliases": [],
+  "checks": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "depth_m": null,
+  "entity_id": "site:chooz-very-near-nucleus",
+  "feature_type": "other",
+  "geometry": {
+    "confidence": "derived",
+    "locator": "NUCLEUS arXiv:1905.10258 Sec. 2.1; OSM way 331249625, way 331249628, way 331249709",
+    "note": "Computed from two published distances and two OSM building centroids; side of the line chosen with the OSM office-building footprint.",
+    "quote": "The baseline of the VNS to the two reactor cores is 72 m to B-1, and 102 m to B-2 respectively.",
+    "sources": [
+      "src:geo-chooz-nucleus-2019",
+      "src:geo-chooz-osm-extract-2026-10",
+      "src:geo-reactors-osm-chooz-reactors"
+    ],
+    "value": {
+      "coordinates": [
+        4.7900333,
+        50.0893714
+      ],
+      "type": "Point"
+    },
+    "verified_at": "2026-10-25"
+  },
+  "id": "geometry:chooz-vns-position",
+  "level_id": "surface",
+  "license": {
+    "attribution": "© OpenStreetMap contributors",
+    "name": "ODbL-1.0",
+    "url": "https://www.openstreetmap.org/copyright"
+  },
+  "links": {
+    "website": null
+  },
+  "map_id": "map:chooz",
+  "method": "Derived: intersection of the circles of radius 72 m about the centroid of OSM way 331249625 (Chooz B1) and 102 m about the centroid of way 331249628 (Chooz-B2), the VNS-to-core baselines of the NUCLEUS paper (arXiv:1905.10258 Sec. 2.1: 72 m to B-1, 102 m to B-2), on a local equirectangular plane; the circles overlap in a thin lens 59 m wide, so the two mirror solutions are 59 m apart. The paper says the VNS room lies in the basement of a five-story office building between the two reactors; the southern solution lies inside OSM building way/331249709 (8.9 m from its centroid) whereas the northern solution is 67 m from that building and inside no building, so the southern one is adopted. The paper adds that the VNS 'is not centered with respect to the building'. The circles are drawn about building centroids, not core axes (the OSM unit footprints are ~15 000 m2), so accuracy_m 40 covers a 20 m offset of each core.",
+  "name": "NUCLEUS Very-Near-Site room (derived position between the two Chooz B units)",
+  "notes": [
+    "Mirror solutions (lon, lat): [4.7900333, 50.0893714] (adopted) and [4.7898616, 50.0898914]."
+  ],
+  "osm": {
+    "elements": [
+      "way/331249625",
+      "way/331249628",
+      "way/331249709"
+    ],
+    "timestamp": "2026-10-25T10:54:21Z"
+  },
+  "representation": "derived",
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:chooz-very-near-nucleus",
+  "sources": [
+    "src:geo-chooz-nucleus-2019",
+    "src:geo-chooz-osm-extract-2026-10",
+    "src:geo-reactors-osm-chooz-reactors"
+  ],
+  "summary": {
+    "plain": "The basement room of an office building between the two Chooz B reactors, 72 m from one reactor core and 102 m from the other, where the NUCLEUS neutrino experiment is being installed. Position computed from those two distances, good to about 40 m."
+  },
+  "type": "geometry",
+  "valid": null
+}

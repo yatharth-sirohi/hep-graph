@@ -1,0 +1,55 @@
+{
+  "accuracy_m": 10,
+  "aliases": [],
+  "checks": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "depth_m": null,
+  "entity_id": null,
+  "feature_type": "other",
+  "geometry": {
+    "confidence": "verified",
+    "locator": "rnog_detector.py (commit 283c049), method get_site_coordinates; arXiv:2411.12922 Figure 1",
+    "note": "'verified': representation is 'surveyed' (a published coordinate) from a rank<=10 source. The coordinate is a software constant quoted to six decimals; its own survey is not published, so accuracy_m is set to 10 m.",
+    "quote": "The returned location corresponds to the position of the DISC borehole which is used as the origin of the RNO-G coordinate system",
+    "sources": [
+      "src:geo-summit-rnog-detector-origin-code",
+      "src:astro-neutrino-rno-g-first-seven-stations-2024"
+    ],
+    "value": {
+      "coordinates": [
+        -38.455815,
+        72.582793
+      ],
+      "type": "Point"
+    },
+    "verified_at": "2026-10-25"
+  },
+  "id": "geometry:summit-disc-borehole",
+  "level_id": "ice-surface",
+  "license": null,
+  "links": {
+    "website": null
+  },
+  "map_id": "map:summit-station-greenland",
+  "method": "Published coordinate used verbatim: the RNO-G detector code returns (72.582793 N, -38.455815 E) as the position of the DISC borehole, 'used as the origin of the RNO-G coordinate system'. The RNO-G station paper's Figure 1 also marks a 'DISC Borehole' beside 'Big House' at that spot (viewed, not traced).",
+  "name": "DISC borehole, the origin of the RNO-G coordinate system",
+  "notes": [
+    "Drawn so that the station offsets have a visible origin; it is not an RNO-G instrument."
+  ],
+  "osm": null,
+  "representation": "surveyed",
+  "schema": "hep-atlas/0.2",
+  "site_id": null,
+  "sources": [
+    "src:geo-summit-rnog-detector-origin-code",
+    "src:astro-neutrino-rno-g-first-seven-stations-2024"
+  ],
+  "summary": {
+    "plain": "The Deep Ice Sheet Coring (DISC) borehole near Summit Station, the reference point from which the RNO-G station positions are measured."
+  },
+  "type": "geometry",
+  "valid": null
+}
