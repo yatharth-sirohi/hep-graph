@@ -396,8 +396,10 @@ async function setRangeValue(locator, value) {
     const historical = sections.find((s) => s.heading.includes("Historical experiments"));
     const future = sections.find((s) => s.heading.includes("Future"));
     assert.ok(current && current.text.includes(duneHeading), "DUNE should be listed under Current experiments at Fermilab");
-    assert.ok(historical && !historical.text.includes(duneHeading), "DUNE must not also be listed under Historical experiments");
-    assert.ok(future, "a Future / planned experiments section should exist alongside current and historical");
+    // A section the Atlas has nothing for is not drawn at all, so "not under
+    // Historical / Future" means either no such section or one without DUNE.
+    assert.ok(!historical || !historical.text.includes(duneHeading), "DUNE must not also be listed under Historical experiments");
+    assert.ok(!future || !future.text.includes(duneHeading), "DUNE must not be listed under Future / planned experiments");
   });
 
   await record("Setting the year to 1990 hides the not-yet-built ATLAS cavern site", async () => {
@@ -449,6 +451,12 @@ async function setRangeValue(locator, value) {
         .map((dd) => dd.textContent);
     });
     assert.deepEqual(overflowing, [], "no key-spec value should render past the detail panel's own right edge");
+    // The label column once took everything and left values 28 px wide (one
+    // character per line): a value must always have room for a real word.
+    const slivers = await page.evaluate(() => [...document.querySelectorAll("#detail-panel .kv-list dd")]
+      .filter((dd) => dd.getBoundingClientRect().width < 120)
+      .map((dd) => `${dd.previousElementSibling.textContent}: ${Math.round(dd.getBoundingClientRect().width)}px`));
+    assert.deepEqual(slivers, [], "no key-spec value may be squeezed into a sliver by its label");
   });
 
   await record("Site-tier globe markers have an enlarged tap target", async () => {
@@ -1955,18 +1963,29 @@ async function setRangeValue(locator, value) {
     assert.match(pubText, new RegExp(`arXiv ${distinctArxiv.replace(".", "\\.")} \\(preprint\\)`));
   });
 
-  await record("An experiment without curated results explains why, with counts from the loaded bundle", async () => {
+  // The panel draws no section it has nothing for; one closing line names what
+  // is missing, as absence from the Atlas and never as absence in the world.
+  async function omittedNote(targetPage) {
+    return targetPage.evaluate(() => {
+      const note = document.querySelector("#detail-panel .omitted-note");
+      return {
+        text: note ? note.innerText : "",
+        hasCoverageLink: !!(note && note.querySelector('a[href$="about.html#coverage"]')),
+        headings: [...document.querySelectorAll("#detail-panel details.panel-section summary")].map((s) => s.textContent.trim()),
+      };
+    });
+  }
+
+  await record("An experiment without curated results says so as absence from the Atlas, not as an empty section", async () => {
     const noResultsExperiment = process.env.HEP_ATLAS_DATA === "generated" ? "abracadabra" : "belle";
     await page.goto(`${base}/atlas${dataTree}#/experiment/${noResultsExperiment}`);
     await page.locator("#detail-panel h2").waitFor();
-    await openSection(page, "Results timeline");
-    const sectionText = await page.evaluate(() => {
-      const summaries = [...document.querySelectorAll("#detail-panel details.panel-section summary")];
-      const details = summaries.find((s) => s.textContent.trim() === "Results timeline")?.closest("details");
-      return details ? details.innerText : "";
-    });
-    assert.match(sectionText, /No results curated for this experiment yet \(the atlas records \d+ results across \d+ experiments; see coverage\)/,
-      `expected the honest "not yet curated" wording with real counts, got: ${sectionText}`);
+    const { text, hasCoverageLink, headings } = await omittedNote(page);
+    assert.ok(!headings.includes("Results timeline"), `an empty Results timeline must not be drawn, got: ${headings.join(" | ")}`);
+    assert.match(text, /None recorded in the Atlas: .*Results/, `got: ${text}`);
+    assert.match(text, /Coverage is partial, so this is not evidence that none exist/, `got: ${text}`);
+    assert.ok(hasCoverageLink, "the closing line must link to the coverage report");
+    assert.doesNotMatch(text, /^None\b(?! recorded)/, "never a bare 'None'");
   });
 
   if (process.env.HEP_ATLAS_DATA === "generated") {
@@ -1976,13 +1995,8 @@ async function setRangeValue(locator, value) {
       // distinct from a curation gap, so it gets its own wording.
       await page.goto(`${base}/atlas${dataTree}#/experiment/cupid`);
       await page.locator("#detail-panel h2").waitFor();
-      await openSection(page, "Results timeline");
-      const sectionText = await page.evaluate(() => {
-        const summaries = [...document.querySelectorAll("#detail-panel details.panel-section summary")];
-        const details = summaries.find((s) => s.textContent.trim() === "Results timeline")?.closest("details");
-        return details ? details.innerText : "";
-      });
-      assert.match(sectionText, /Not yet operating — no results expected\./, `got: ${sectionText}`);
+      const { text } = await omittedNote(page);
+      assert.match(text, /Results \(not yet operating, none expected\)/, `got: ${text}`);
     });
 
     await record("A collaboration with no curated roster disables 'View collaboration on globe' with a reason", async () => {
