@@ -172,3 +172,88 @@ point for a detector-holding site) is on an existing record.
 The map's features carry the campus site's timeline (active from 2026-09 back to the site's first placement);
 `geometry:psi-campus-buildings` and the context buildings have no entity and no `valid`, so they are timeless.
 Built bundle: all six features present in 2026.
+
+## Jefferson Lab (map:jefferson-lab)
+
+Grade before: partial (campus boundary and CEBAF Center only; accelerator:cebaf unlocated).
+Grade after: layout to scale (derived racetrack, four halls, tunnel straights, service buildings, campus buildings).
+
+### What made it possible: the City of Newport News footprint layer
+
+OSM still has no CEBAF element (re-checked 2026-10-25 through the OSM API: 5 786 ways in the box
+-85.5..-76.46 x 37.085..37.11, none is a tunnel, hall or ring). The earlier worklog's backlog asked for "a
+non-OSM source". The city publishes **building footprints** as open data
+(`https://maps.nnva.gov/gis/rest/services/Operational/Building/MapServer/0`, found through the city GeoHub
+catalog at geohub.nnva.gov; "photo derived building polygons digitized from 2016 Aerial photography and manually
+updated polygons based on site and building plans"; terms: public information, no warranty). Its Jefferson Lab
+polygons carry `BLDGNOTE = 'Jefferson Lab #NNN'`, and the numbers are the same ones as the list of buildings on
+JLab's own site plan (`src:geo-jlab-site-plan-detail`): #101 Hall A, #94 Hall B, #96 Hall C, #203 Hall D,
+#999 Accelerator Tunnel (as #999-01 and #999-02), #39/#49/#63/#50 East Arc Service E2-E5, #68/#56/#40/#45
+West Arc Service W2-W5, #21 North Extractor Service, #82 South Extractor Service, #53 Injector Service.
+One query over the campus box returned 330 footprints (saved in scratch, not committed).
+
+### The racetrack is derived, and the data over-determine it
+
+* The two #999 footprints are parallel strips 265 m long and 4.5-5 m wide (the tunnel is "about 14 feet across
+  and 10 feet high"), axes at bearing 63.6 degrees, **160.7 m apart**.
+* The eight arc service buildings lie on two semicircles. A circle fitted to E3-E5 and one fitted to W3-W5 (centres
+  on the mid-line between the straights) have radius **80.3 m, equal to half the straight separation**; the six
+  fitted buildings sit within 0.6 m of their circles, E2 within 0.2 m, W2 within 4.4 m (it is at the arc's end).
+  The extractor and injector service buildings (#21, #82, #53) lie within 1.5 m of the extended straight lines.
+  A circle through three points always exists; the independent facts are that its centre falls on the mid-line, its
+  radius equals the separation of two lines that were not used in the fit, and E2/E1/W1 fall on the tangent points
+  and lines. The 1986 design paper (`tu2-3`, "average arc radius of 80 m") agrees.
+* The centre line (two straights of 403.4 m between the arc tangent points, two semicircles) is **1311 m**.
+
+### Inventory
+
+| Entity | Status | Representation | accuracy_m | Check |
+| --- | --- | --- | --- | --- |
+| accelerator:cebaf | drawn: geometry:jlab-cebaf-racetrack (ring, level `cebaf-tunnel`) | derived | 20 | length 1311.3 m vs "about 7/8 of a mile" (1408 m), tolerance 7.5% (the half-step of eighth-mile rounding): pass, -6.9%, **weak, see conflict** |
+| accelerator:cebaf (straights) | geometry:jlab-cebaf-tunnel-999-01 / -999-02 (tunnel polygons from the city layer) | georeferenced, approximate | 10 | none (no official as-built straight length found) |
+| accelerator:cebaf (halls) | geometry:jlab-hall-a (#101), -b (#94), -c (#96), -d (#203; valid from 2017) | georeferenced | 10 | Hall A **verified**: span 51.6 m vs "174 feet across" (53.0 m), tol 5%: pass (-2.6%). B, C, D approximate (no official size found) |
+| (context) arc, extractor, injector service buildings | geometry:jlab-cebaf-service-buildings (11 footprints) | georeferenced | 10 | the anchors of the arcs |
+| (context) 70 other campus buildings | geometry:jlab-campus-buildings | georeferenced | 10 | CEBAF Center (#12) is not repeated: city and OSM outlines are 6.8 m apart, areas 5221 m^2 vs 5262 m^2 |
+| site:jlab-newport-news | campus boundary (unchanged, OSM) and CEBAF Center (unchanged, OSM) | | | |
+
+The map centre was moved onto the racetrack (derived, 50 m) and `extent_m` set to 800; the old centre was the
+vertex mean of the campus boundary, 470 m to the north.
+
+### Source conflicts
+
+* **Derived tunnel length 1311 m vs the official "about 7/8 of a mile" (1408 m): -6.9%.** `node/14330` and
+  `science/unique` both say 7/8 mile; neither gives a figure to better than an eighth of a mile, so 13/16 to 15/16
+  mile (1310-1508 m) is the range the words allow and the derived line sits at its lower edge. The check tolerance
+  (7.5%) is that rounding half-step, not a value fitted to pass; the record is `derived` and the discrepancy is
+  stated in the record's notes. A real extra 100 m of tunnel (spreader/recombiner geometry, beam-switchyard
+  connections, or a longer beam path than the tunnel centre line) cannot be excluded from these sources.
+* The tunnel depth conflict recorded earlier (25 ft vs 30 ft on two official pages) is unchanged.
+* `#999-01` = North LINAC (building 01) and `#999-02` = South LINAC (building 02) is an inference from the part
+  numbers and the north/south positions; the records name them "building 999, part 01/02" and say so.
+
+### What was not done
+
+* The beam switchyard, the tunnels to the halls and the cross-section of the arcs (five stacked beamlines) are not
+  drawn; no source gives their paths.
+* Halls B, C, D have no official size to check against.
+
+### Site coordinate corrections
+
+None. `site:jlab-newport-news` is a campus point (already corrected by the integrator) and was not used as an anchor.
+
+### Warnings left
+
+None attributable to the JLab files.
+
+### Backlog
+
+* An official straight-section length or a JLab figure with a scale to confirm the 403 m straights and the
+  total length (the CEBAF 12 GeV design report or a NIM paper on the machine layout).
+* Official sizes for Halls B, C, D.
+* The same approach (a municipal or county footprint layer with the lab's own numbers) is worth trying for other
+  laboratories whose OSM coverage is empty.
+
+### Time check
+
+The ring, tunnel strips and halls take accelerator:cebaf's timeline (active in 2026-10); Hall D is valid from 2017.
+The campus-building features have no entity and no `valid` (timeless). Built bundle: all eleven features present in 2026.

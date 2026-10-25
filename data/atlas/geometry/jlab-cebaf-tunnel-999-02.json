@@ -1,0 +1,81 @@
+{
+  "accuracy_m": 10,
+  "aliases": [],
+  "checks": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "depth_m": null,
+  "entity_id": "accelerator:cebaf",
+  "feature_type": "tunnel",
+  "geometry": {
+    "confidence": "approximate",
+    "locator": "City of Newport News Building layer, OBJECTID 81961, BLDGNOTE 'Jefferson Lab #999-02', roof Flat, source Procedural, last update 1716995910000 ms epoch; JLab site plan list of buildings",
+    "note": "Polygon used verbatim from the city layer (photo-derived and plan-updated); identity by the lab's own building number on both lists.",
+    "sources": [
+      "src:jlab-geo-nn-building-footprints",
+      "src:geo-jlab-site-plan-detail",
+      "src:geo-jlab-node-14330-cebaf-page",
+      "src:geo-jlab-accelerator-unique-page"
+    ],
+    "value": {
+      "coordinates": [
+        [
+          [
+            -76.4806163,
+            37.0938357
+          ],
+          [
+            -76.4806388,
+            37.0938708
+          ],
+          [
+            -76.4779564,
+            37.0949368
+          ],
+          [
+            -76.4779351,
+            37.0949006
+          ],
+          [
+            -76.4806163,
+            37.0938357
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    },
+    "verified_at": "2026-10-25"
+  },
+  "id": "geometry:jlab-cebaf-tunnel-999-02",
+  "level_id": "cebaf-tunnel",
+  "license": {
+    "attribution": "City of Newport News, VA (Building Footprints layer)",
+    "name": "City of Newport News public information data (no-warranty use terms)",
+    "url": "https://geohub.nnva.gov/"
+  },
+  "links": {
+    "website": null
+  },
+  "map_id": "map:jefferson-lab",
+  "method": "City of Newport News footprint 'Jefferson Lab #999-02' used verbatim: a strip about 265 m long and 4.5-5 m wide, the southern of the two parallel straight sections of the racetrack. JLab's site plan labels '999 Accelerator Tunnel' twice and lists '01 North LINAC' and '02 South LINAC'; the city's part numbers -01 and -02 and the north/south positions match, but the equivalence of 999-0x with the numbered linac buildings is an inference, not a statement in either source. The strip width matches the tunnel cross-section 'about 14 feet across' plus walls 'almost 2 feet thick' (src:geo-jlab-node-14330-cebaf-page, src:geo-jlab-accelerator-unique-page).",
+  "name": "CEBAF accelerator tunnel, south straight section (building 999, part 02)",
+  "notes": [
+    "Checks: none; no official straight-section length was found (the 1986-87 design papers give 240 m linacs, which is a design figure, not the as-built footprint)."
+  ],
+  "representation": "georeferenced",
+  "schema": "hep-atlas/0.2",
+  "site_id": null,
+  "sources": [
+    "src:jlab-geo-nn-building-footprints",
+    "src:geo-jlab-site-plan-detail",
+    "src:geo-jlab-node-14330-cebaf-page",
+    "src:geo-jlab-accelerator-unique-page"
+  ],
+  "summary": {
+    "plain": "The south straight section of the CEBAF tunnel, where one of the two superconducting linacs sits."
+  },
+  "type": "geometry",
+  "valid": null
+}
