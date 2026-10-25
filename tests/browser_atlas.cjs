@@ -1656,6 +1656,28 @@ async function setRangeValue(locator, value) {
     assert.deepEqual(dates, sortedDesc, "results must render newest-first by default");
   });
 
+  await record("Results mode: 'Move timeline here' keeps the list's scroll position, its filters and keyboard focus", async () => {
+    await page.goto(`${base}/atlas${modeQuery("results")}`);
+    await page.locator("#results-mode-list").waitFor();
+    await page.waitForFunction(() => document.querySelectorAll("#results-mode-list .result-row").length > 5);
+    // Every state change (the timeline year included) used to rebuild this
+    // panel from scratch: back to the top, selects reset, focus on <body>.
+    await page.selectOption("#results-sort", "experiment");
+    const scroller = page.locator("#mode-panel .mode-scroll");
+    await scroller.evaluate((el) => { el.scrollTop = 400; });
+    const jump = page.locator("#results-mode-list .jump-year-btn").nth(8);
+    await jump.focus(); // scrolls the button into view; measure after that
+    const before = await scroller.evaluate((el) => el.scrollTop);
+    assert.ok(before > 0, "the results list must be tall enough to scroll in this check");
+    const year = await jump.evaluate((button) => button.closest("li").querySelector(".result-date").textContent.trim().slice(0, 4));
+    await jump.click();
+    await page.waitForFunction((y) => document.querySelector("#timeline-readout").textContent.trim() === y, year);
+    assert.equal(await page.locator("#results-sort").inputValue(), "experiment", "a timeline move must not reset the sort control");
+    assert.ok(Math.abs(await scroller.evaluate((el) => el.scrollTop) - before) < 40, "a timeline move must not scroll the list back to the top");
+    assert.equal(await page.evaluate(() => document.activeElement && document.activeElement.className), "text-btn jump-year-btn",
+      "keyboard focus stays on the button that was pressed");
+  });
+
   await record("Results mode: the sort control reorders rows; the group toggles bucket them and set aria-pressed", async () => {
     await page.goto(`${base}/atlas${modeQuery("results")}`);
     await page.locator("#results-mode-list").waitFor();
