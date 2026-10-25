@@ -2,23 +2,23 @@
   "aliases": [],
   "center": {
     "confidence": "verified",
-    "kind": "campus",
-    "lat": 39.3,
-    "locator": "The surface detector array of the Telescope Array experiment, site-description section",
-    "lon": -112.9,
-    "note": "Map centre only; not a claim about any structure. Uses the array's own published coordinate.",
-    "precision_m": 6000,
-    "quote": "The TA site is located in the desert about 1400 m above sea level centered at 39.3 N and 112.9 W in Millard County, Utah, USA",
+    "kind": "detector",
+    "lat": 39.296918,
+    "locator": "arXiv:1410.3151 section 5.1, list of MC thrown-event parameters, \"Surface Impact Position\"",
+    "lon": -112.908733,
+    "note": "Map centre only: the Central Laser Facility, which is also the origin of the station table frame. A camera position, not a claim about any structure.",
+    "precision_m": 20,
+    "quote": "Surface Impact Position: Uniform, random distribution inside a circle of radius 25 km, centered at the CLF (39.296918 N Lat, 112.908733 W Long).",
     "sources": [
-      "src:geo-arrays-ta-site-paper"
+      "src:geo-arrays-ta-hybrid-spectrum-2014"
     ],
-    "verified_at": "2026-09-18"
+    "verified_at": "2026-10-25"
   },
   "coverage": {
     "researched": "partial",
     "tier": "B"
   },
-  "extent_m": 20000,
+  "extent_m": 28000,
   "facility_id": "facility:telescope-array-utah",
   "id": "map:telescope-array-utah",
   "levels": [
@@ -34,10 +34,13 @@
   "links": {
     "website": null
   },
-  "name": "Telescope Array — Utah",
+  "name": "Telescope Array (Utah): surface-detector array, fluorescence stations and laser",
   "notes": [
-    "site:telescope-array-utah-central-site currently carries a coarser (precision_m 15000) Nominatim geocode of the town of Delta, explicitly documented there as not a survey point for the array; the array's own descriptive centre found this session is reported as a site coordinate correction candidate in the worklog.",
-    "The 507-station 1.2 km SD grid and the three fluorescence-detector sites (Black Rock Mesa, Long Ridge, Middle Drum) are not drawn: their widely repeated coordinates trace only to a hobbyist astronomy site (cleardarksky.com, also Wikipedia's own citation), not to an official TA page or paper fetched this session (telescopearray.org and known mirrors were unreachable). See worklog backlog."
+    "All 507 surface-detector stations are drawn from TASDPosition.dat in the Telescope Array Collaboration data release on Zenodo (DOI 10.5281/zenodo.8405760, CC BY 4.0), in 7 west-to-east strips of 72 or 73 as 1.73 m markers (the contract allows no MultiPoint). The release states no origin or orientation; the frame (origin at the CLF, axes true east and north) was found by registering the table against Fig. 5 of arXiv:2103.01086, a plot on latitude and longitude axes: median residual 14 m, rotation -0.001 deg. Accuracy 100 m.",
+    "The three fluorescence stations (Black Rock Mesa, Long Ridge, Middle Drum) are read from the triangle markers of Fig. 1 of arXiv:1410.3151 registered to the station table, so each is good to about 500 m and is a figure reading, not a published coordinate. No document fetched gives their latitude and longitude. The three are 20.8 km from the CLF, which the papers describe as equidistant from all three, about 21 km.",
+    "The previous version drew one 6 km-precision point (geometry:ta-array-point) at the centre quoted as \"39.3 N and 112.9 W\" in arXiv:1201.4964; it is removed because the stations and the laser now carry the location. The old worklog said telescopearray.org was unreachable; its address now redirects to a dynamic-DNS host that was not followed.",
+    "TAx4 (500 further stations at 2.08 km spacing, arXiv:2103.01086) is not drawn: its positions are published only as a figure of deployed and planned locations.",
+    "The array is a square 1.2 km grid of 507 stations, whose centroid is 4.0 km south of the CLF; the CLF is the centre of the three-telescope triangle."
   ],
   "schema": "hep-atlas/0.2",
   "schematics": [],
@@ -45,11 +48,15 @@
     "site:telescope-array-utah-central-site"
   ],
   "sources": [
-    "src:geo-arrays-ta-site-paper"
+    "src:geo-arrays-ta-hybrid-spectrum-2014",
+    "src:geo-arrays-ta-hybrid-xmax-2018",
+    "src:geo-arrays-ta-site-paper",
+    "src:geo-arrays-ta-tax4-sd-2021",
+    "src:geo-arrays-ta-zenodo-sd-data-release"
   ],
   "summary": {
-    "plain": "The Telescope Array ultra-high-energy cosmic-ray observatory near Delta, Utah: 507 surface-detector stations on a 1.2 km grid over ~700 km2, watched by three fluorescence-detector stations.",
-    "technical": "One local map for facility:telescope-array-utah. Drawn as a single reference point at the array's own published centre (39.3N, 112.9W), tighter than the existing site record's Delta-Utah town geocode; extent_m set large (20 km) to reflect the array's true ~700 km2 scale even though only the centre point is drawn this session."
+    "plain": "The Telescope Array cosmic-ray observatory in the Utah desert: all 507 scintillator stations on their 1.2 km grid, the outline of the array, the central laser, and the three fluorescence telescope stations that overlook the array from three sides.",
+    "technical": "One local map for facility:telescope-array-utah. The 507 SD stations are the x, y columns of TASDPosition.dat (Zenodo 10.5281/zenodo.8405760), placed with the origin at the Central Laser Facility (39.296918 N, 112.908733 W from arXiv:1410.3151) and axes true east and north, a frame established by registration against a published latitude-longitude plot (median residual 14 m). The three FD stations are read from a published layout figure registered to the table (accuracy 500 m). TAx4 is not drawn."
   },
   "type": "map",
   "unlocated": []

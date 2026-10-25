@@ -1,0 +1,150 @@
+{
+  "accuracy_m": 100,
+  "aliases": [],
+  "checks": [
+    {
+      "expected": {
+        "dimension": "area",
+        "display": "700 km²",
+        "unit": "km^2",
+        "value": 700
+      },
+      "kind": "area",
+      "locator": "arXiv:1201.4964 (NIM A 689 (2012) 87), section 3",
+      "note": "A different TA proceedings paper (arXiv:1110.0133) says about 730 km2 (507 x 1.2 km x 1.2 km); the journal paper and most others say approximately 700 km2.",
+      "quote": "The SD array consists of 507 detector units, which were deployed in a square grid with 1.2 km spacing to cover a total area of approximately 700 km2.",
+      "sources": [
+        "src:geo-arrays-ta-site-paper"
+      ],
+      "tolerance": 0.05
+    }
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "depth_m": null,
+  "entity_id": "site:telescope-array-utah-central-site",
+  "feature_type": "array",
+  "geometry": {
+    "confidence": "derived",
+    "locator": "convex hull of TASDPosition.dat; origin CLF per arXiv:1410.3151 section 5.1",
+    "note": "Confidence derived: the hull and the geographic frame are this work.",
+    "sources": [
+      "src:geo-arrays-ta-zenodo-sd-data-release",
+      "src:geo-arrays-ta-hybrid-spectrum-2014",
+      "src:geo-arrays-ta-tax4-sd-2021",
+      "src:geo-arrays-ta-site-paper"
+    ],
+    "value": {
+      "coordinates": [
+        [
+          [
+            -113.0658403,
+            39.184031
+          ],
+          [
+            -112.9956917,
+            39.1296017
+          ],
+          [
+            -112.8845878,
+            39.1294316
+          ],
+          [
+            -112.8290458,
+            39.1298317
+          ],
+          [
+            -112.8151628,
+            39.140654
+          ],
+          [
+            -112.7454262,
+            39.2053672
+          ],
+          [
+            -112.7453761,
+            39.2161897
+          ],
+          [
+            -112.7452476,
+            39.2486274
+          ],
+          [
+            -112.7589605,
+            39.3027793
+          ],
+          [
+            -112.7854362,
+            39.3668333
+          ],
+          [
+            -112.8142924,
+            39.4109929
+          ],
+          [
+            -112.8281654,
+            39.4218454
+          ],
+          [
+            -112.8700542,
+            39.4219166
+          ],
+          [
+            -112.8838573,
+            39.4217468
+          ],
+          [
+            -112.9258069,
+            39.4003416
+          ],
+          [
+            -112.9398902,
+            39.3895293
+          ],
+          [
+            -113.0651693,
+            39.2922569
+          ],
+          [
+            -113.0658403,
+            39.184031
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    },
+    "verified_at": "2026-10-25"
+  },
+  "id": "geometry:ta-sd-array-boundary",
+  "level_id": "surface",
+  "license": {
+    "attribution": "Telescope Array Collaboration, Data release of the TA SD event display (Zenodo, DOI 10.5281/zenodo.8405760)",
+    "name": "CC-BY-4.0",
+    "url": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "links": {
+    "website": null
+  },
+  "map_id": "map:telescope-array-utah",
+  "method": "Convex hull of the 507 station positions of geometry:ta-sd-stations-strip-01 to -07 (17 vertices); a computed outline, not a published boundary. Frame: TASDPosition.dat (TA Collaboration data release on Zenodo, DOI 10.5281/zenodo.8405760, licence CC BY 4.0) lists 507 stations as x, y, z in km; the release states neither origin nor orientation. Both were established here by registering the table against a published map: Fig. 5 of arXiv:2103.01086 is a vector plot on latitude and longitude axes of the 507 TA SDs; its 507 red markers, read from the vector graphic and calibrated on the axis ticks, were matched one-to-one to the table and fitted to it. With the origin at the Central Laser Facility, 39.296918 N 112.908733 W (arXiv:1410.3151 section 5.1), x pointing east and y north, the fitted rotation is -0.001 deg and scale 1.0004, the CLF falls at table (0.006, 0.005) km, and the median residual is 14 m (90th percentile 26 m, 99th percentile 40 m) after a 6 m mean shift. A UTM zone 12 grid would be rotated by about 1.2 deg here, so the axes are true east and north. Stations are placed with an ellipsoidal azimuthal-equidistant projection about the CLF (WGS 84; agrees with a tangent-plane ENU to under 1 m at 25 km; a spherical equirectangular conversion would differ by up to 60 m at the array corners and fits the figure worse). The z column is not used. Each station is a 1.73 m square, the area-equivalent of one 3 m2 scintillator layer (arXiv:1201.4964: \"Each layer of scintillator has an area of 3 m2\"), so a position marker with the scintillator's area, not its outline. Accuracy 100 m covers the registration scatter, the origin (about 10 m) and the choice of projection. ",
+  "name": "Telescope Array surface-detector array outline (convex hull of the 507 stations)",
+  "notes": [
+    "Area of the hull 691.5 km2 against the paper's \"approximately 700 km2\" (-1.2%)."
+  ],
+  "representation": "derived",
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:telescope-array-utah-central-site",
+  "sources": [
+    "src:geo-arrays-ta-zenodo-sd-data-release",
+    "src:geo-arrays-ta-hybrid-spectrum-2014",
+    "src:geo-arrays-ta-tax4-sd-2021",
+    "src:geo-arrays-ta-site-paper"
+  ],
+  "summary": {
+    "plain": "The outline of the Telescope Array surface-detector array, about 690 square kilometres of Utah desert."
+  },
+  "type": "geometry",
+  "valid": null
+}
