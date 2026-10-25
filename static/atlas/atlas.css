@@ -1990,3 +1990,178 @@ a.local-map-chip {
     width: calc(100% - 20px);
   }
 }
+
+/* local map labels ---------------------------------------------------------
+   Permanent names on the local map (localmap.js, "labels"), the on-map empty
+   notice, and the reset-view button. Labels are Leaflet tooltips: a dark chip
+   with light text is legible on the OpenStreetMap tiles and on the plain
+   background alike, and the chip's left edge carries the shape's own colour
+   (the name is never colour-coded alone).
+   ------------------------------------------------------------------------ */
+.map-label.leaflet-tooltip {
+  width: max-content;
+  max-width: 17em;
+  padding: 1px 6px 2px;
+  background: #0b1620ee;
+  color: var(--white);
+  border: 1px solid var(--line-strong);
+  border-left: 3px solid var(--label-accent, var(--teal));
+  border-radius: 3px;
+  box-shadow: 0 1px 3px #00000099;
+  font-size: 12px;
+  line-height: 1.3;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  text-wrap: balance;
+  text-align: left;
+  pointer-events: none;
+}
+.map-label.is-principal {
+  font-weight: 600;
+}
+.map-label .map-label-name,
+.map-label .map-label-sub {
+  display: block;
+}
+.map-label .map-label-sub {
+  white-space: nowrap;
+  color: var(--muted);
+  font-size: 10.5px;
+  font-style: italic;
+  font-weight: 400;
+}
+/* A feature drawn only because "show features outside the selected year" is
+   on: its label is as faint as its shape is, but kept legible. */
+.map-label.is-ghosted {
+  color: var(--muted);
+  border-style: dashed;
+  border-left-style: dashed;
+  font-style: italic;
+  font-weight: 400;
+}
+.map-label.is-selected {
+  border-color: var(--amber);
+  border-left-color: var(--amber);
+  box-shadow: 0 0 0 1px var(--amber), 0 1px 3px #000000cc;
+}
+.map-label.is-forced {
+  z-index: 2;
+  border-color: var(--white);
+}
+/* Hidden by the declutter (or not yet placed, or mid zoom animation): kept in
+   layout so its size can be measured, but not painted. */
+.map-label.leaflet-tooltip.is-hidden,
+.map-labels-busy .map-label.leaflet-tooltip {
+  visibility: hidden !important;
+}
+.leaflet-fade-anim .map-label.leaflet-tooltip {
+  transition: none;
+}
+
+.map-reset-control .map-reset-btn {
+  display: block;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  border-radius: inherit;
+  background: var(--panel);
+  color: var(--white);
+  cursor: pointer;
+  line-height: 0;
+}
+.map-reset-control .map-reset-btn:hover {
+  background: var(--panel-2);
+}
+.map-reset-control .map-reset-btn svg {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* Nothing drawn: said on the map itself, with the click that fixes it. */
+.map-empty-notice {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 1100;
+  transform: translate(-50%, -50%);
+  width: min(440px, calc(100% - 100px));
+  padding: 12px 14px;
+  background: var(--panel);
+  border: 1px solid var(--amber);
+  border-left-width: 3px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  color: var(--white);
+  font-size: 13px;
+}
+.map-empty-notice p {
+  margin: 0 0 8px;
+}
+.map-empty-notice .map-empty-title {
+  font-size: 14px;
+  font-weight: 600;
+}
+.map-empty-btn {
+  appearance: none;
+  background: var(--panel-2);
+  border: 1px solid var(--teal);
+  border-radius: var(--radius);
+  color: var(--white);
+  cursor: pointer;
+  font: inherit;
+  font-weight: 600;
+  padding: 6px 12px;
+}
+.map-empty-btn:hover {
+  background: var(--teal);
+  color: var(--paper);
+}
+@media (max-width: 760px) {
+  .map-label.leaflet-tooltip {
+    font-size: 11px;
+    max-width: 13em;
+  }
+  .map-label .map-label-sub {
+    white-space: normal;
+  }
+  .map-empty-notice {
+    width: calc(100% - 90px);
+  }
+}
+
+/* Point symbol for a footprint or line drawn smaller than a few pixels
+   (localmap.js, "symbolFor"). Shape follows feature type; colour is the
+   shape's own; the pale outline keeps it visible on tiles and on the plain
+   background alike. */
+.map-symbol-icon {
+  background: none;
+  border: 0;
+}
+.map-symbol-icon .map-symbol {
+  display: block;
+  width: 14px;
+  height: 14px;
+  box-sizing: border-box;
+  background: var(--symbol-color, #9aa7b0);
+  border: 2px solid var(--white);
+  box-shadow: 0 0 0 1px #0b1620, 0 1px 3px #000000aa;
+}
+.map-symbol-icon .map-symbol-circle {
+  border-radius: 50%;
+}
+.map-symbol-icon .map-symbol-square {
+  border-radius: 2px;
+}
+.map-symbol-icon .map-symbol-diamond {
+  transform: rotate(45deg) scale(0.8);
+}
+.map-symbol-icon.is-ghosted .map-symbol {
+  opacity: 0.55;
+  border-style: dashed;
+}
+.map-symbol-icon.is-selected .map-symbol {
+  border-color: var(--amber);
+  box-shadow: 0 0 0 2px #0b1620, 0 0 0 4px var(--amber);
+}

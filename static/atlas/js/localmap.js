@@ -44,9 +44,22 @@ let mapInstance = null;
 let tileLayer = null;
 let featureGroup = null;
 let layersByFeature = new Map();
+let labelLayer = null;
+let symbolLayer = null;
+let labelRecords = new Map();
+let labelTexts = new Map();
+let labelFrame = 0;
+let forcedLabelId = null;
 let view = { levels: null, basemap: true, sel: null, timelineState: { year: null } };
 let polarProjection = false;
 let framed = false;
+// The view is "pristine" until the reader pans or zooms it. A pristine view is
+// re-framed to what the map draws whenever that changes (a level toggle, the
+// timeline, "show features from all years"); a view the reader has moved is
+// never taken back from them except by the reset-view button.
+let userMoved = false;
+let framing = false;
+let frameKey = null;
 let showOutside = false;
 let depthOpen = false;
 let selOpener = null;
@@ -316,9 +329,18 @@ function destroyMap() {
   }
   polarProjection = false;
   framed = false;
+  userMoved = false;
+  framing = false;
+  frameKey = null;
+  if (labelFrame) window.cancelAnimationFrame(labelFrame);
+  labelFrame = 0;
+  forcedLabelId = null;
   if (window.__hepAtlasLocalMap) delete window.__hepAtlasLocalMap;
   tileLayer = null;
   featureGroup = null;
+  labelLayer = null;
+  symbolLayer = null;
+  labelRecords = new Map();
   layersByFeature = new Map();
 }
 
@@ -375,33 +397,141 @@ function polarCRS(L, centre) {
   });
 }
 
-/** Metres per pixel the current view would need to span 2 × extent_m across
- *  its shorter side, expressed as a zoom for whichever CRS is in use. */
-function zoomForExtent() {
+/** The zoom at which the view's shorter side spans `2 × halfSpanM` metres,
+ *  for whichever CRS is in use. */
+function zoomForHalfSpan(halfSpanM, latitude) {
   const size = mapInstance.getSize();
   const shorter = Math.min(size.x, size.y);
   if (!shorter) return null;
-  const span = 2 * (mapMeta.extent_m || 3000);
-  const metresPerPixel = span / shorter;
+  const metresPerPixel = (2 * halfSpanM) / shorter;
   if (polarProjection) return -Math.log2(metresPerPixel);
   // Web Mercator: 156543.03392 m/px at zoom 0 on the equator, scaled by
-  // cos(latitude) — evaluated at this map's own centre.
-  const atEquator = 156543.033928 * Math.cos(toRad(mapMeta.center.lat));
+  // cos(latitude) — evaluated at the latitude the view is centred on.
+  const atEquator = 156543.033928 * Math.cos(toRad(latitude));
   return Math.log2(atEquator / metresPerPixel);
 }
 
 /**
- * Frame the view from the map record's own `center` and `extent_m` — never
- * from the drawn features' bounding box. Several maps carry an
- * `inferred_direction` line hundreds of kilometres long (T2K's 295 km to
- * Kamioka, CNGS's 730 km to Gran Sasso); fitting the features would zoom
- * the campus out to nothing to accommodate a line that is not a structure.
+ * The fallback frame: the map record's own `center` and `extent_m`. Used when
+ * nothing is drawn (a year or level selection that hides every feature), so
+ * the empty map is still pointed at the facility rather than at the world.
  */
 function frameToExtent() {
-  const zoom = zoomForExtent();
+  const zoom = zoomForHalfSpan(mapMeta.extent_m || 3000, mapMeta.center.lat);
   if (zoom == null) return false;
   mapInstance.setView([mapMeta.center.lat, mapMeta.center.lon], zoom, { animate: false });
   return true;
+}
+
+/** Features that decide the frame. An inferred direction is a bearing, not a
+ *  structure: T2K's runs 295 km to Kamioka and CNGS's 731 km to Gran Sasso, and
+ *  fitting it would shrink the campus to nothing to make room for a line that
+ *  is clipped at the map edge anyway. It is left out of the frame unless it is
+ *  all that is drawn, in which case the record's own extent frames the view. */
+function framingFeatures() {
+  return bundle.features
+    .filter(featureVisible)
+    .filter((f) => f.representation !== 'inferred_direction' && f.feature_type !== 'direction_line');
+}
+
+/**
+ * Frame the view to the bounds of the features drawn for the current level and
+ * year selection, with padding. Works in projected pixels at a reference zoom
+ * rather than through L.latLngBounds, so it is the same arithmetic in Web
+ * Mercator and in the polar metre grid (where a lat/lng box around the pole
+ * spans every longitude). A Point is framed as the circle it is drawn as, its
+ * positional accuracy, and the zoom is capped so a single small feature is
+ * never blown up past what its accuracy supports.
+ */
+function frameToFeatures() {
+  const L = window.L;
+  const size = mapInstance.getSize();
+  if (!size.x || !size.y) return false;
+  const features = framingFeatures();
+  if (!features.length) return false;
+  const crs = mapInstance.options.crs;
+  const z0 = 0;
+  let minX = Infinity;
+  let minY = Infinity;
+  let maxX = -Infinity;
+  let maxY = -Infinity;
+  let maxAccuracy = 0;
+  const add = (lon, lat) => {
+    const p = crs.latLngToPoint(L.latLng(lat, lon), z0);
+    if (!Number.isFinite(p.x) || !Number.isFinite(p.y)) return;
+    minX = Math.min(minX, p.x);
+    maxX = Math.max(maxX, p.x);
+    minY = Math.min(minY, p.y);
+    maxY = Math.max(maxY, p.y);
+  };
+  for (const feature of features) {
+    for (const part of lineParts(feature.geometry)) part.forEach(([lon, lat]) => add(lon, lat));
+    for (const [lon, lat] of pointParts(feature.geometry)) {
+      const radius = pointRadius(feature);
+      for (const bearing of [0, 90, 180, 270]) {
+        const [plat, plon] = destination(lat, lon, bearing, radius);
+        add(plon, plat);
+      }
+    }
+    if (feature.accuracy_m) maxAccuracy = Math.max(maxAccuracy, feature.accuracy_m);
+  }
+  if (!Number.isFinite(minX)) return false;
+  const pad = Math.min(FRAME_PADDING_PX, Math.floor(Math.min(size.x, size.y) / 6));
+  const availW = Math.max(40, size.x - 2 * pad);
+  const availH = Math.max(40, size.y - 2 * pad);
+  const widthPx = Math.max(maxX - minX, 1e-9);
+  const heightPx = Math.max(maxY - minY, 1e-9);
+  const centre = crs.pointToLatLng(L.point((minX + maxX) / 2, (minY + maxY) / 2), z0);
+  let zoom = z0 + Math.log2(Math.min(availW / widthPx, availH / heightPx));
+  const halfSpan = Math.max((mapMeta.extent_m || 3000) / FRAME_MIN_SPAN_DIVISOR,
+    FRAME_ACCURACY_MULTIPLE * maxAccuracy, FRAME_MIN_HALF_SPAN_M);
+  const cap = zoomForHalfSpan(halfSpan, centre.lat);
+  if (cap != null) zoom = Math.min(zoom, cap);
+  zoom = Math.max(mapInstance.getMinZoom(), Math.min(zoom, mapInstance.getMaxZoom()));
+  if (!Number.isFinite(zoom)) return false;
+  mapInstance.setView(centre, zoom, { animate: false });
+  return true;
+}
+
+const FRAME_PADDING_PX = 56;
+// A frame is never tighter than a sixth of the record's own extent, twice the
+// largest positional accuracy it contains, or 150 m, whichever is widest: a
+// lone Point or one small building is shown with the ground around it, not
+// blown up to a scale its accuracy cannot support.
+const FRAME_MIN_SPAN_DIVISOR = 6;
+const FRAME_ACCURACY_MULTIPLE = 2;
+const FRAME_MIN_HALF_SPAN_M = 150;
+
+/** The drawn selection and the stage size: when either changes, a view the
+ *  reader has not touched is framed again. */
+function frameSignature() {
+  const size = mapInstance.getSize();
+  return `${framingFeatures().map((f) => f.id).join('|')}#${size.x}x${size.y}`;
+}
+
+/**
+ * Frame the map to what it draws. `force` is the reset-view button; otherwise a
+ * view the reader has already moved is left alone, and so is one that is
+ * already framed to this same selection and stage size.
+ */
+function refreshFrame({ force = false } = {}) {
+  if (!mapInstance) return false;
+  const size = mapInstance.getSize();
+  if (!size.x || !size.y) {
+    framed = false;
+    return false;
+  }
+  const key = frameSignature();
+  if (!force && framed && (userMoved || key === frameKey)) return framed;
+  framing = true;
+  try {
+    framed = frameToFeatures() || frameToExtent();
+  } finally {
+    framing = false;
+  }
+  frameKey = key;
+  userMoved = false;
+  return framed;
 }
 
 function createMap(L) {
@@ -429,12 +559,26 @@ function createMap(L) {
   }
   mapInstance = L.map(dom.canvas, options);
   L.control.scale({ imperial: false, metric: true, position: 'bottomleft' }).addTo(mapInstance);
+  resetViewControl(L).addTo(mapInstance);
   featureGroup = L.layerGroup().addTo(mapInstance);
+  symbolLayer = L.layerGroup().addTo(mapInstance);
+  labelLayer = L.layerGroup().addTo(mapInstance);
+  // Anything that moves the view that this module did not do itself means the
+  // reader has taken the camera (see refreshFrame).
+  mapInstance.on('movestart zoomstart', () => { if (!framing) userMoved = true; });
+  // Labels are laid out against the view, so they are re-laid out when it
+  // changes; during a zoom animation they are hidden rather than left
+  // sliding over the wrong shapes.
+  mapInstance.on('zoomstart', () => mapInstance.getContainer().classList.add('map-labels-busy'));
+  mapInstance.on('moveend resize', scheduleLabelLayout);
+  // A stage that changes size (the drawer opening, a rotated phone) frames a
+  // view the reader has not touched again.
+  mapInstance.on('resize', () => { if (!framing) refreshFrame(); });
   // The container was display:none until the route's layout class landed on
   // #atlas-main, so it can still measure 0 × 0 here; framing then collapses
   // to zoom 0 (the whole world). Try now, and again from show() once the
   // browser has laid the stage out.
-  framed = frameToExtent();
+  refreshFrame();
   // A test/debug handle: the browser suite reads the scale control's label
   // and pixel width and checks it against map.distance() at the view centre.
   window.__hepAtlasLocalMap = mapInstance;
@@ -597,6 +741,30 @@ function lineCoords(geometry) {
   return null;
 }
 
+/** The radius a Point is drawn with: its positional accuracy, or 25 m when
+ *  the record gives none. */
+function pointRadius(feature) {
+  return feature.accuracy_m != null && feature.accuracy_m > 0 ? feature.accuracy_m : 25;
+}
+
+/** [lon, lat] vertex arrays of a line or of a polygon's outer ring(s). */
+function lineParts(geometry) {
+  switch (geometry.type) {
+    case 'LineString': return [geometry.coordinates];
+    case 'MultiLineString': return geometry.coordinates;
+    case 'Polygon': return geometry.coordinates.slice(0, 1);
+    case 'MultiPolygon': return geometry.coordinates.map((polygon) => polygon[0]);
+    default: return [];
+  }
+}
+
+/** [lon, lat] positions of a Point or MultiPoint. */
+function pointParts(geometry) {
+  if (geometry.type === 'Point') return [geometry.coordinates];
+  if (geometry.type === 'MultiPoint') return geometry.coordinates;
+  return [];
+}
+
 /** Leaflet's default for a GeoJSON Point is a pin marker, which is exactly
  *  what §4 rules out: a pin asserts a position and says nothing about what
  *  is known. A quarter of the real features are Points — a cavern, an
@@ -607,7 +775,7 @@ function lineCoords(geometry) {
  *  mark so it stays findable when zoomed out. Both are SVG paths, both
  *  carry the same four encodings as every other feature. */
 function pointLayers(L, feature, options) {
-  const radius = feature.accuracy_m != null && feature.accuracy_m > 0 ? feature.accuracy_m : 25;
+  const radius = pointRadius(feature);
   return {
     pointToLayer: (_geoJsonPoint, latlng) => L.circle(latlng, {
       ...options, radius, fill: true, fillColor: options.color, fillOpacity: options.fillOpacity || 0.12,
@@ -618,6 +786,14 @@ function pointLayers(L, feature, options) {
 function drawFeatures(L) {
   featureGroup.clearLayers();
   layersByFeature = new Map();
+  // Leaflet fades a removed tooltip out over 200 ms before dropping its node;
+  // drop the old labels now so the DOM never holds two sets of names.
+  const stale = [];
+  labelLayer.eachLayer((tooltip) => stale.push(tooltip.getElement()));
+  labelLayer.clearLayers();
+  symbolLayer.clearLayers();
+  stale.forEach((el) => { if (el) el.remove(); });
+  labelRecords = new Map();
   for (const feature of bundle.features) {
     if (!featureVisible(feature)) continue;
     const level = levelById(feature.level_id);
@@ -662,7 +838,532 @@ function drawFeatures(L) {
       if (ghost) el.classList.add('is-ghosted');
     }
     layersByFeature.set(feature.id, group);
+    addLabel(L, feature, shape, { options, ghost });
   }
+  scheduleLabelLayout();
+}
+
+
+// ---------------------------------------------------------- reset-view button
+
+/** "Reset view": frames the map to what it draws, again. A real <button>, so
+ *  Enter and Space both work (Leaflet's own zoom buttons are links). */
+function resetViewControl(L) {
+  const ResetView = L.Control.extend({
+    options: { position: 'topleft' },
+    onAdd() {
+      const bar = L.DomUtil.create('div', 'leaflet-bar leaflet-control map-reset-control');
+      const btn = h('button', {
+        type: 'button',
+        class: 'map-reset-btn',
+        id: 'map-reset-view',
+        title: 'Reset view',
+        'aria-label': 'Reset the view to the features this map draws',
+      });
+      btn.innerHTML = '<svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" focusable="false">'
+        + '<path d="M2 6V2h4M10 2h4v4M14 10v4h-4M6 14H2v-4" fill="none" stroke="currentColor" '
+        + 'stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+      btn.addEventListener('click', () => refreshFrame({ force: true }));
+      L.DomEvent.disableClickPropagation(bar);
+      bar.appendChild(btn);
+      return bar;
+    },
+  });
+  return new ResetView();
+}
+
+// ----------------------------------------------------------------- labels
+//
+// Every drawn feature carries a permanent label, because a shape that names
+// itself only in a hover tooltip leaves a reader unable to tell the LHC from
+// the SPS without hovering each one. Labels are Leaflet tooltips, not map
+// features: they take no clicks (the shape under them does), they are hidden
+// from assistive technology (the feature list is the equivalent, and carries
+// the same names), and which of them show is decided per view by
+// layoutLabels(): in priority order, each label takes the first position that
+// fits on screen without covering a more important label.
+
+const LABEL_GAP_PX = 10;
+const POINT_LABEL_GAPS_PX = [LABEL_GAP_PX, 40, 80];
+const LABEL_PAD_PX = 3;
+const LABEL_EDGE_PX = 4;
+const OUTLINE_SAMPLES = 48;
+// An open line is sampled this many times along its length; the label tries
+// the middle of whatever part of the line is on screen first, then fans out.
+const LINE_SAMPLES = 41;
+// Their interior is context for the features inside them, so a label sits on
+// the outline instead of on top of what is inside.
+const OUTLINE_LABEL_TYPES = new Set(['boundary', 'level_outline']);
+
+function coordBox(coords) {
+  let w = Infinity;
+  let s = Infinity;
+  let e = -Infinity;
+  let n = -Infinity;
+  for (const [lon, lat] of coords) {
+    w = Math.min(w, lon);
+    e = Math.max(e, lon);
+    s = Math.min(s, lat);
+    n = Math.max(n, lat);
+  }
+  return { w, s, e, n };
+}
+
+function planarLength(coords) {
+  const k = Math.cos(toRad(coords[0][1]));
+  let total = 0;
+  for (let i = 1; i < coords.length; i += 1) {
+    total += Math.hypot((coords[i][0] - coords[i - 1][0]) * k, coords[i][1] - coords[i - 1][1]);
+  }
+  return total;
+}
+
+function isClosedLine(coords) {
+  const a = coords[0];
+  const b = coords[coords.length - 1];
+  return coords.length > 3 && a[0] === b[0] && a[1] === b[1];
+}
+
+/** The [lon, lat] a given fraction of the way along a polyline. */
+function pointAlong(coords, fraction) {
+  const k = Math.cos(toRad(coords[0][1]));
+  const lengths = [];
+  let total = 0;
+  for (let i = 1; i < coords.length; i += 1) {
+    const d = Math.hypot((coords[i][0] - coords[i - 1][0]) * k, coords[i][1] - coords[i - 1][1]);
+    lengths.push(d);
+    total += d;
+  }
+  let remaining = total * fraction;
+  for (let i = 0; i < lengths.length; i += 1) {
+    if (remaining <= lengths[i] || i === lengths.length - 1) {
+      const u = lengths[i] ? Math.min(1, remaining / lengths[i]) : 0;
+      return [
+        coords[i][0] + (coords[i + 1][0] - coords[i][0]) * u,
+        coords[i][1] + (coords[i + 1][1] - coords[i][1]) * u,
+      ];
+    }
+    remaining -= lengths[i];
+  }
+  return coords[0];
+}
+
+/** Area centroid of a ring; falls back to the box centre for a degenerate one. */
+function ringCentroid(ring) {
+  const k = Math.cos(toRad(ring[0][1]));
+  let area = 0;
+  let cx = 0;
+  let cy = 0;
+  for (let i = 0; i < ring.length - 1; i += 1) {
+    const x0 = ring[i][0] * k;
+    const y0 = ring[i][1];
+    const x1 = ring[i + 1][0] * k;
+    const y1 = ring[i + 1][1];
+    const cross = x0 * y1 - x1 * y0;
+    area += cross;
+    cx += (x0 + x1) * cross;
+    cy += (y0 + y1) * cross;
+  }
+  if (Math.abs(area) < 1e-18) {
+    const box = coordBox(ring);
+    return [(box.w + box.e) / 2, (box.s + box.n) / 2];
+  }
+  return [cx / (3 * area) / k, cy / (3 * area)];
+}
+
+/** The part of a multi-part shape a label is attached to: the biggest by
+ *  bounding box (for areas) or the longest (for lines). */
+function principalPart(parts, byArea) {
+  let best = parts[0];
+  let bestScore = -1;
+  for (const part of parts) {
+    const box = coordBox(part);
+    const score = byArea ? (box.e - box.w) * (box.n - box.s) : planarLength(part);
+    if (score > bestScore) {
+      best = part;
+      bestScore = score;
+    }
+  }
+  return best;
+}
+
+/** Candidate anchors for a feature's label, as lat/lng with the placements to
+ *  try at each. `kind` says how layoutLabels() should order them. */
+function labelPlan(L, feature, shape) {
+  const ll = ([lon, lat]) => L.latLng(lat, lon);
+  const points = pointParts(shape);
+  if (points.length) {
+    return {
+      kind: 'point',
+      // A position can sit inside a building whose own label is centred on it,
+      // so the label may stand a little further off, on any side.
+      anchors: [{
+        ll: ll(points[0]), places: ['above', 'right', 'left', 'below'], gap: LABEL_GAP_PX, gaps: POINT_LABEL_GAPS_PX,
+      }],
+    };
+  }
+  const parts = lineParts(shape);
+  if (!parts.length) return null;
+  const isArea = shape.type === 'Polygon' || shape.type === 'MultiPolygon';
+  const part = principalPart(parts, isArea);
+  const outline = () => ({
+    kind: 'outline',
+    anchors: Array.from({ length: OUTLINE_SAMPLES }, (_, i) => ({
+      ll: ll(pointAlong(part, i / OUTLINE_SAMPLES)), places: ['center'], gap: 0,
+    })),
+  });
+  if (isArea) {
+    if (OUTLINE_LABEL_TYPES.has(feature.feature_type)) return outline();
+    const box = coordBox(part);
+    const midLon = (box.w + box.e) / 2;
+    const midLat = (box.s + box.n) / 2;
+    return {
+      kind: 'area',
+      box,
+      anchors: [
+        { id: 'centre', ll: ll(ringCentroid(part)), places: ['center'], gap: 0 },
+        { id: 'above', ll: ll([midLon, box.n]), places: ['above'], gap: LABEL_PAD_PX + 1 },
+        { id: 'below', ll: ll([midLon, box.s]), places: ['below'], gap: LABEL_PAD_PX + 1 },
+        { id: 'right', ll: ll([box.e, midLat]), places: ['right'], gap: LABEL_PAD_PX + 1 },
+        { id: 'left', ll: ll([box.w, midLat]), places: ['left'], gap: LABEL_PAD_PX + 1 },
+      ],
+    };
+  }
+  if (isClosedLine(part)) return outline();
+  return {
+    kind: 'line',
+    anchors: Array.from({ length: LINE_SAMPLES }, (_, i) => ({
+      ll: ll(pointAlong(part, i / (LINE_SAMPLES - 1))), places: ['center'], gap: LABEL_GAP_PX,
+    })),
+  };
+}
+
+/** Rough size of a feature in metres (its bounding-box diagonal, or the
+ *  accuracy circle of a point): the tie-break after feature type. */
+function featureSizeM(feature) {
+  const points = pointParts(feature.geometry);
+  if (points.length) return 2 * pointRadius(feature);
+  const parts = lineParts(feature.geometry);
+  if (!parts.length) return 0;
+  let w = Infinity;
+  let s = Infinity;
+  let e = -Infinity;
+  let n = -Infinity;
+  for (const part of parts) {
+    const box = coordBox(part);
+    w = Math.min(w, box.w);
+    e = Math.max(e, box.e);
+    s = Math.min(s, box.s);
+    n = Math.max(n, box.n);
+  }
+  return greatCircleM([s, w], [n, e]);
+}
+
+// A footprint or line that is drawn smaller than this on screen is
+// effectively invisible (JUNO's reactor buildings are ~50 m each and 52 km
+// from the detector: at the scale that frames both, each is under a pixel),
+// so it also gets a point symbol, which goes away once the shape is big enough.
+const SYMBOL_BELOW_PX = 8;
+const SYMBOL_SIZE_PX = 14;
+const SYMBOL_LABEL_GAPS_PX = [SYMBOL_SIZE_PX / 2 + 5, 40, 80];
+const LINE_TYPES = new Set(['ring', 'tunnel', 'linac', 'beamline', 'transfer_line', 'direction_line', 'road']);
+const FOOTPRINT_TYPES = new Set(['hall', 'cavern', 'building', 'experimental_area', 'target_station',
+  'shaft', 'array', 'string']);
+
+/** The symbol's shape follows the feature type, the way the stroke does: a
+ *  diamond for a line-like structure, a square for a footprint, a circle
+ *  for anything else. */
+function symbolShape(featureType) {
+  if (LINE_TYPES.has(featureType)) return 'diamond';
+  if (FOOTPRINT_TYPES.has(featureType)) return 'square';
+  return 'circle';
+}
+
+function unionBox(parts) {
+  const box = { w: Infinity, s: Infinity, e: -Infinity, n: -Infinity };
+  for (const part of parts) {
+    const b = coordBox(part);
+    box.w = Math.min(box.w, b.w);
+    box.e = Math.max(box.e, b.e);
+    box.s = Math.min(box.s, b.s);
+    box.n = Math.max(box.n, b.n);
+  }
+  return box;
+}
+
+/** The point symbol for a polygon or line feature (not for a Point, which
+ *  already draws a centre mark): same colour, hover tooltip and click as the
+ *  shape it stands for. Added to the map only while the shape is tiny. */
+function symbolFor(L, feature, shape, { options, ghost }) {
+  const parts = lineParts(shape);
+  if (!parts.length) return null;
+  const isArea = shape.type === 'Polygon' || shape.type === 'MultiPolygon';
+  const part = principalPart(parts, isArea);
+  const [lon, lat] = isArea ? ringCentroid(part) : pointAlong(part, 0.5);
+  const icon = L.divIcon({
+    className: 'map-symbol-icon',
+    html: `<span class="map-symbol map-symbol-${symbolShape(feature.feature_type)}"></span>`,
+    iconSize: [SYMBOL_SIZE_PX, SYMBOL_SIZE_PX],
+    iconAnchor: [SYMBOL_SIZE_PX / 2, SYMBOL_SIZE_PX / 2],
+  });
+  const marker = L.marker([lat, lon], { icon, keyboard: false, riseOnHover: false });
+  marker.bindTooltip(tooltipFor(feature), { sticky: true, className: 'map-tooltip' });
+  marker.on('click', () => selectFrom(feature, null));
+  marker.on('add', () => {
+    const el = marker.getElement();
+    if (!el) return;
+    // Decoration: the feature list is the screen-reader equivalent.
+    el.setAttribute('aria-hidden', 'true');
+    el.setAttribute('data-symbol-for', feature.id);
+    el.style.setProperty('--symbol-color', options.color);
+    el.classList.toggle('is-ghosted', ghost);
+    el.classList.toggle('is-selected', !!view.sel && (view.sel === feature.entity_id || view.sel === feature.id));
+  });
+  return { marker, centre: L.latLng(lat, lon), extent: unionBox(parts) };
+}
+
+/** Show a feature's point symbol while its shape is drawn smaller than
+ *  SYMBOL_BELOW_PX across, and take it off again once the shape is bigger. */
+function updateSymbols() {
+  if (!mapInstance || !symbolLayer) return;
+  for (const rec of labelRecords.values()) {
+    if (!rec.symbol) continue;
+    const a = mapInstance.latLngToContainerPoint([rec.symbol.extent.s, rec.symbol.extent.w]);
+    const b = mapInstance.latLngToContainerPoint([rec.symbol.extent.n, rec.symbol.extent.e]);
+    const tiny = Math.max(Math.abs(a.x - b.x), Math.abs(a.y - b.y)) < SYMBOL_BELOW_PX;
+    if (tiny && !rec.symbolShown) symbolLayer.addLayer(rec.symbol.marker);
+    else if (!tiny && rec.symbolShown) symbolLayer.removeLayer(rec.symbol.marker);
+    rec.symbolShown = tiny;
+  }
+}
+
+function addLabel(L, feature, shape, { options, ghost }) {
+  const plan = labelPlan(L, feature, shape);
+  if (!plan) return;
+  const spec = labelTexts.get(feature.id) || { text: feature.entity_name || feature.name, sub: '' };
+  const rank = mapstyle.labelRank(feature.feature_type);
+  const selected = !!view.sel && (view.sel === feature.entity_id || view.sel === feature.id);
+  const content = h('span', { class: 'map-label-text' }, [
+    h('span', { class: 'map-label-name' }, spec.text),
+    spec.sub ? h('span', { class: 'map-label-sub' }, spec.sub) : null,
+  ]);
+  const classes = ['map-label', 'is-hidden'];
+  if (ghost) classes.push('is-ghosted');
+  if (selected) classes.push('is-selected');
+  if (rank <= 1) classes.push('is-principal');
+  const tooltip = L.tooltip({
+    permanent: true, direction: 'center', opacity: 1, interactive: false, className: classes.join(' '),
+  }).setLatLng(plan.anchors[0].ll).setContent(content);
+  labelLayer.addLayer(tooltip);
+  const el = tooltip.getElement();
+  if (el) {
+    // The feature list carries every name; the map's copy is decoration for a
+    // screen reader, and would otherwise read as a stray "tooltip".
+    el.removeAttribute('role');
+    el.setAttribute('aria-hidden', 'true');
+    el.setAttribute('data-label-for', feature.id);
+    el.style.setProperty('--label-accent', options.color);
+  }
+  labelRecords.set(feature.id, {
+    id: feature.id,
+    tooltip,
+    plan,
+    rank,
+    selected,
+    sizeM: featureSizeM(feature),
+    box: { w: 0, h: 0 },
+    lastKey: null,
+    symbol: symbolFor(L, feature, shape, { options, ghost }),
+    symbolShown: false,
+  });
+}
+
+function scheduleLabelLayout() {
+  if (labelFrame || !mapInstance) return;
+  labelFrame = window.requestAnimationFrame(() => {
+    labelFrame = 0;
+    layoutLabels();
+  });
+}
+
+/** Show a feature's label whatever the declutter says: its list row is being
+ *  hovered or focused, so the reader is asking which shape it is. */
+function revealLabel(featureId) {
+  if (forcedLabelId === featureId) return;
+  forcedLabelId = featureId;
+  scheduleLabelLayout();
+}
+
+function labelPriority(a, b) {
+  const forced = (rec) => (rec.id === forcedLabelId ? 0 : 1);
+  if (forced(a) !== forced(b)) return forced(a) - forced(b);
+  if (a.selected !== b.selected) return a.selected ? -1 : 1;
+  if (a.rank !== b.rank) return a.rank - b.rank;
+  if (a.sizeM !== b.sizeM) return b.sizeM - a.sizeM;
+  return a.id < b.id ? -1 : 1;
+}
+
+/** Screen boxes the labels must keep clear of: the map's own controls and the
+ *  notices laid over it, which sit above the tooltip pane. */
+function obstacleBoxes() {
+  const container = mapInstance.getContainer();
+  const origin = container.getBoundingClientRect();
+  const nodes = [...container.querySelectorAll('.leaflet-control')];
+  nodes.push(...dom.stage.querySelectorAll(
+    '.map-north, .map-tile-notice:not(.hidden), .map-empty-notice, .map-gap-notice.on-stage, .map-depth:not(.hidden)',
+  ));
+  const boxes = [];
+  for (const node of nodes) {
+    const r = node.getBoundingClientRect();
+    if (!r.width || !r.height) continue;
+    boxes.push({
+      x: r.left - origin.left - LABEL_PAD_PX,
+      y: r.top - origin.top - LABEL_PAD_PX,
+      w: r.width + 2 * LABEL_PAD_PX,
+      h: r.height + 2 * LABEL_PAD_PX,
+    });
+  }
+  return boxes;
+}
+
+function boxesOverlap(a, b) {
+  return a.x < b.x + b.w && b.x < a.x + a.w && a.y < b.y + b.h && b.y < a.y + a.h;
+}
+
+function labelBox(candidate, size) {
+  const { x, y } = candidate.point;
+  const { w, h } = size;
+  switch (candidate.place) {
+    case 'above': return { x: x - w / 2, y: y - candidate.gap - h, w, h };
+    case 'below': return { x: x - w / 2, y: y + candidate.gap, w, h };
+    case 'right': return { x: x + candidate.gap, y: y - h / 2, w, h };
+    case 'left': return { x: x - candidate.gap - w, y: y - h / 2, w, h };
+    default: return { x: x - w / 2, y: y - h / 2, w, h };
+  }
+}
+
+/** The positions a label may take in the current view, best first. */
+function labelCandidates(rec) {
+  if (rec.symbolShown) {
+    // The shape is a few pixels across and stands as a point symbol: its label
+    // goes beside the symbol, as a Point's does, not on top of it.
+    const point = mapInstance.latLngToContainerPoint(rec.symbol.centre);
+    const out = [];
+    for (const gap of SYMBOL_LABEL_GAPS_PX) {
+      for (const place of ['above', 'right', 'left', 'below']) {
+        out.push({ key: `s:${place}:${gap}`, point, place, gap });
+      }
+    }
+    const kept = out.findIndex((c) => c.key === rec.lastKey);
+    if (kept > 0) out.unshift(out.splice(kept, 1)[0]);
+    return out;
+  }
+  const { plan } = rec;
+  const project = (anchor) => mapInstance.latLngToContainerPoint(anchor.ll);
+  let anchors = plan.anchors.map((anchor, index) => ({ anchor, index, point: project(anchor) }));
+  if (plan.kind === 'outline') {
+    // On a ring or an outline the label sits on the line, topmost first: the
+    // 12 o'clock of a ring reads as its name plate and rarely covers another.
+    anchors = anchors.slice().sort((a, b) => a.point.y - b.point.y || a.index - b.index);
+  } else if (plan.kind === 'line') {
+    // At a line's midpoint — or, when the view shows only part of it, the
+    // midpoint of the part that is shown — then outwards from there.
+    const size = mapInstance.getSize();
+    const visible = anchors.filter(({ point }) => point.x >= 0 && point.y >= 0
+      && point.x <= size.x && point.y <= size.y);
+    if (visible.length) {
+      const middle = visible[Math.floor(visible.length / 2)].index;
+      anchors = visible.slice().sort((a, b) => Math.abs(a.index - middle) - Math.abs(b.index - middle)
+        || a.index - b.index);
+      // The first few also try just above and below, so a label can sit beside
+      // a line that a more important label is crossing.
+      anchors = anchors.map((entry, i) => (i < 3
+        ? { ...entry, anchor: { ...entry.anchor, places: ['center', 'above', 'below'] } } : entry));
+    } else {
+      anchors = [];
+    }
+  } else if (plan.kind === 'area') {
+    // A footprint smaller than its own label would be hidden by it, so the
+    // label goes beside it instead.
+    const sw = mapInstance.latLngToContainerPoint([plan.box.s, plan.box.w]);
+    const ne = mapInstance.latLngToContainerPoint([plan.box.n, plan.box.e]);
+    const small = Math.abs(ne.x - sw.x) < rec.box.w || Math.abs(sw.y - ne.y) < rec.box.h;
+    if (small) anchors = anchors.slice(1).concat(anchors[0]);
+  }
+  const out = [];
+  for (const { anchor, index, point } of anchors) {
+    for (const gap of anchor.gaps || [anchor.gap]) {
+      for (const place of anchor.places) {
+        out.push({ key: `${index}:${place}:${gap}`, point, place, gap });
+      }
+    }
+  }
+  // A label that has a working position keeps it, so panning does not make
+  // names skate around their ring.
+  const kept = out.findIndex((c) => c.key === rec.lastKey);
+  if (kept > 0) out.unshift(out.splice(kept, 1)[0]);
+  return out;
+}
+
+/**
+ * Decide which labels show, and where, for the current view. Highest priority
+ * first (the selected feature, then by feature type, then by size); each
+ * takes the first candidate position that is on screen and clear of every
+ * label already placed and of the map's controls. A label with no such
+ * position is hidden — its name is still in the hover tooltip and the list.
+ */
+function layoutLabels() {
+  if (!mapInstance) return;
+  const container = mapInstance.getContainer();
+  const mapSize = mapInstance.getSize();
+  if (!mapSize.x || !mapSize.y || !labelRecords.size) {
+    container.classList.remove('map-labels-busy');
+    return;
+  }
+  updateSymbols();
+  const blocked = obstacleBoxes();
+  const placed = [];
+  const inView = (box) => box.x >= LABEL_EDGE_PX && box.y >= LABEL_EDGE_PX
+    && box.x + box.w <= mapSize.x - LABEL_EDGE_PX && box.y + box.h <= mapSize.y - LABEL_EDGE_PX;
+  const order = [...labelRecords.values()].sort(labelPriority);
+  for (const rec of order) {
+    const el = rec.tooltip.getElement();
+    if (!el) continue;
+    if (!rec.box.w || !rec.box.h) rec.box = { w: el.offsetWidth, h: el.offsetHeight };
+    if (!rec.box.w || !rec.box.h) continue;
+    const forced = rec.id === forcedLabelId;
+    let chosen = null;
+    let fallback = null;
+    for (const candidate of labelCandidates(rec)) {
+      const box = labelBox(candidate, rec.box);
+      if (!inView(box)) continue;
+      if (!fallback) fallback = { candidate, box };
+      const clear = !placed.some((other) => boxesOverlap(box, other))
+        && !blocked.some((other) => boxesOverlap(box, other));
+      if (clear) {
+        chosen = { candidate, box };
+        break;
+      }
+    }
+    if (!chosen && forced) chosen = fallback;
+    el.classList.toggle('is-forced', forced);
+    if (!chosen) {
+      el.classList.add('is-hidden');
+      continue;
+    }
+    placed.push({
+      x: chosen.box.x - LABEL_PAD_PX,
+      y: chosen.box.y - LABEL_PAD_PX,
+      w: chosen.box.w + 2 * LABEL_PAD_PX,
+      h: chosen.box.h + 2 * LABEL_PAD_PX,
+    });
+    rec.lastKey = chosen.candidate.key;
+    rec.tooltip.setLatLng(mapInstance.containerPointToLatLng([
+      chosen.box.x + chosen.box.w / 2, chosen.box.y + chosen.box.h / 2,
+    ]));
+    el.classList.remove('is-hidden');
+  }
+  container.classList.remove('map-labels-busy');
 }
 
 // ------------------------------------------------------------- selection
@@ -731,6 +1432,12 @@ function featureRow(feature) {
     isPoint ? h('span', { class: 'map-feature-meta' }, 'position only — no sourced footprint') : null,
   ]);
   btn.addEventListener('click', () => selectFrom(feature, btn));
+  // Hovering or focusing a row shows that feature's map label even if the
+  // declutter has hidden it, so the list and the map can be read together.
+  btn.addEventListener('mouseenter', () => revealLabel(feature.id));
+  btn.addEventListener('focus', () => revealLabel(feature.id));
+  btn.addEventListener('mouseleave', () => revealLabel(null));
+  btn.addEventListener('blur', () => revealLabel(null));
   return btn;
 }
 
@@ -877,6 +1584,8 @@ function sourceTitle(sid) {
 function renderSidebar() {
   const { layers } = dom;
   layers.innerHTML = '';
+  // The rows are rebuilt, so a hovered or focused one is gone without a blur.
+  if (forcedLabelId) revealLabel(null);
 
   const back = h('button', { type: 'button', class: 'map-back-btn', id: 'map-back' }, '← Back to globe');
   back.addEventListener('click', () => NAVIGATE({ entity: null, sel: null, levels: null, basemap: true }));
@@ -1110,6 +1819,60 @@ function renderSelectionNotice() {
   dom.stage.appendChild(timelineGapNotice(gap, 'on-stage'));
 }
 
+/**
+ * When nothing at all is drawn, say so on the map itself, with the one click
+ * that fixes it. A blank dark map with the explanation in the sidebar reads as
+ * "there is nothing here" — a claim the atlas cannot make: the map is empty
+ * because of the timeline or the level toggles, not because the laboratory is.
+ */
+function renderEmptyNotice() {
+  const existing = dom.stage.querySelector('.map-empty-notice');
+  if (existing) existing.remove();
+  if (!bundle || !bundle.features.length || layersByFeature.size) return;
+  const onVisibleLevels = bundle.features.filter((f) => visibleLevelIds().includes(f.level_id));
+  const nodes = [];
+  let action;
+  if (!onVisibleLevels.length) {
+    nodes.push(
+      h('p', { class: 'map-empty-title' }, 'Every level is switched off, so nothing is drawn.'),
+      h('p', {}, `This map has ${bundle.features.length} feature${bundle.features.length === 1 ? '' : 's'}; `
+        + 'switching levels off only hides them.'),
+    );
+    action = h('button', { type: 'button', class: 'map-empty-btn' }, 'Show all levels');
+    action.addEventListener('click', () => NAVIGATE({ levels: null }));
+  } else {
+    let first = Infinity;
+    let last = -Infinity;
+    for (const feature of onVisibleLevels) {
+      const segments = feature.state_segments;
+      if (!segments || !segments.length) continue;
+      first = Math.min(first, segments[0][0]);
+      last = Math.max(last, segments[segments.length - 1][1]);
+    }
+    const span = Number.isFinite(first)
+      ? (monthToYear(first) === monthToYear(last)
+        ? `${monthToYear(first)}` : `${monthToYear(first)}\u2013${monthToYear(last)}`)
+      : null;
+    const n = onVisibleLevels.length;
+    nodes.push(
+      h('p', { class: 'map-empty-title' }, `Nothing on this map is present in ${whenLabel()}.`),
+      h('p', {}, `${n === 1 ? 'Its one feature belongs' : `Its ${n} features belong`} to other years`
+        + `${span ? ` (${span})` : ''}. The timeline is hiding ${n === 1 ? 'it' : 'them'}: `
+        + 'that is a filter, not a statement about the laboratory.'),
+    );
+    action = h('button', { type: 'button', class: 'map-empty-btn', id: 'map-empty-all-years' },
+      'Show features from all years');
+    action.addEventListener('click', () => {
+      showOutside = true;
+      redraw();
+      const toggle = document.getElementById('map-outside-toggle');
+      if (toggle) toggle.focus({ preventScroll: true });
+    });
+  }
+  nodes.push(action);
+  dom.stage.appendChild(h('div', { class: 'map-empty-notice', role: 'status' }, nodes));
+}
+
 function renderDrawer() {
   const { drawer, drawerHead, drawerFacts, root } = dom;
   const features = selectedFeatures();
@@ -1263,9 +2026,12 @@ function renderNorthIndicator() {
 function redraw() {
   const L = window.L;
   drawFeatures(L);
+  refreshFrame();
+  layoutLabels();
   renderSidebar();
   renderDepth();
   renderSelectionNotice();
+  renderEmptyNotice();
 }
 
 // ------------------------------------------------------------------ show
@@ -1328,6 +2094,7 @@ export async function show(current, ctx) {
     let L;
     try {
       [L, bundle] = await Promise.all([loadLeaflet(), fetchBundle(ctx.loaderBase, meta.bundle)]);
+      labelTexts = mapstyle.labelsFor(bundle.features);
       createMap(L);
     } catch (error) {
       currentMapId = null;
@@ -1366,8 +2133,12 @@ export async function show(current, ctx) {
   mapMeta = meta;
   const L = window.L;
   try {
-    applyBasemap(L);
     drawFeatures(L);
+    // Frame before the basemap is added, so tiles are requested once, for the
+    // view the reader will see, and not for a first guess at it.
+    refreshFrame();
+    applyBasemap(L);
+    layoutLabels();
   } catch (error) {
     window.console.error('HEP Atlas local map: could not draw', error);
     renderMessage([
@@ -1382,6 +2153,7 @@ export async function show(current, ctx) {
   renderDepth();
   renderDrawer();
   renderSelectionNotice();
+  renderEmptyNotice();
 
   // The selected entity's normal detail panel, rendered by panels.js into
   // the drawer (app.js has already pointed panels at drawerPanelEl()).
@@ -1404,12 +2176,13 @@ export async function show(current, ctx) {
   // the map route's layout class landed on #atlas-main — so the map was very
   // likely built against a 0 × 0 box, where framing collapses to zoom 0 (the
   // whole world). Measure again on the next frame and, if the opening view
-  // was never framed, frame it now from center/extent_m.
+  // was never framed, frame it now.
   if (mapInstance) {
     window.requestAnimationFrame(() => {
       if (!mapInstance) return;
       mapInstance.invalidateSize({ animate: false });
-      if (!framed) framed = frameToExtent();
+      refreshFrame();
+      layoutLabels();
     });
   }
 }
