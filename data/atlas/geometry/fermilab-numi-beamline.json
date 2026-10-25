@@ -1,82 +1,104 @@
 {
-  "accuracy_m": 30,
+  "accuracy_m": 5,
   "aliases": [],
   "checks": [
     {
       "expected": {
         "dimension": "angle",
-        "display": "336.17 deg (bearing to Soudan)",
+        "display": "336.17°",
         "unit": "deg",
         "value": 336.17
       },
       "kind": "azimuth",
-      "locator": "great-circle bearing recomputed from site:soudan-minos-far-detector's own sourced coordinates",
-      "quote": null,
+      "locator": "MINOS NIM paper section 6.5: published far-detector coordinate; bearing computed from the target (see note)",
+      "note": "Great-circle initial bearing from the surveyed target to the MINOS far detector (47.820267 N, 92.241412 W) = 336.169 deg; the beam is designed to point at Soudan.",
+      "quote": "latitude 47.820267 degrees north, longitude 92.241412 degrees west",
       "sources": [
-        "src:minos-prd-2007-muon-charge-ratio",
-        "src:fermilab-numi-beam-paper-2016"
-      ]
+        "src:minos-detector-paper-2008"
+      ],
+      "tolerance": 0.5
     }
   ],
   "coverage": {
     "researched": "partial",
-    "tier": "B"
+    "tier": "A"
   },
   "depth_m": null,
   "entity_id": "beamline:numi",
   "feature_type": "beamline",
   "geometry": {
-    "confidence": "derived",
-    "locator": "Derived from geometry:fermilab-numi-target's construction",
-    "note": "A plan-view axis only; the true beam also descends 58 mrad (src:fermilab-numi-beam-paper-2016) which a plan-view line cannot show. Not a survey of the beam pipe or tunnel.",
+    "confidence": "verified",
+    "locator": "NuMI Facility TDR (FERMILAB-DESIGN-1998-01) Appendix A, beam sheet 'Site coordinates for beamline: horn2.ces' (DUSAF x, y in ft; station along the beam in ft)",
+    "note": "",
     "sources": [
-      "src:fermilab-geo-osm-buildings",
-      "src:fermilab-numi-beam-paper-2016"
+      "src:fermilab-geo-numi-tdr-1998",
+      "src:fermilab-geo-oshinowo-coordinate-systems-1997"
     ],
     "value": {
       "coordinates": [
         [
-          -88.2651363,
-          41.8310919
+          -88.2655305,
+          41.83197
         ],
         [
-          -88.2705018,
-          41.8401407
+          -88.2657701,
+          41.8323742
+        ],
+        [
+          -88.2690572,
+          41.8379206
+        ],
+        [
+          -88.2690669,
+          41.8379371
+        ],
+        [
+          -88.2691875,
+          41.8381405
+        ],
+        [
+          -88.2696318,
+          41.8388903
+        ],
+        [
+          -88.2704687,
+          41.8403023
+        ],
+        [
+          -88.2705958,
+          41.8405168
+        ],
+        [
+          -88.2706917,
+          41.8406786
         ]
       ],
       "type": "LineString"
     },
-    "verified_at": "2026-09-18"
+    "verified_at": "2026-10-25"
   },
   "id": "geometry:fermilab-numi-beamline",
-  "level_id": "surface",
-  "license": {
-    "attribution": "© OpenStreetMap contributors",
-    "name": "ODbL-1.0",
-    "url": "https://www.openstreetmap.org/copyright"
-  },
+  "level_id": "near-detector-caverns",
+  "license": null,
   "links": {
     "website": null
   },
   "map_id": "map:fermilab",
-  "method": "Straight line from the derived target (geometry:fermilab-numi-target) along the bearing to Soudan (336.17 degrees) to 1100 m, spanning the MINOS and NOvA near-detector surface buildings.",
-  "name": "NuMI primary beamline axis (derived)",
-  "notes": [],
-  "osm": {
-    "elements": [
-      "way/54794245"
-    ],
-    "timestamp": "2026-09-18T20:20:01Z"
-  },
-  "representation": "derived",
+  "method": "Published coordinates converted to WGS 84: the beam sheet rows HALTA (target), DECAY and DENCU (start and end of the decay pipe), DUMP (absorber), MUON0 and MUOND (muon alcove region), M ENCU (upstream end of the MINOS enclosure), MIN_NO (MINOS near detector) and ROCK (downstream end), joined by straight segments; every row is collinear within 0.01 deg (bearing 152.18332 deg ccw from site east, pitch -3.336 deg). Conversion of DUSAF to WGS 84: DUSAF x, y (ft) are the FSCS coordinates of Beams-doc-1148 (origin A0 = 41°50′14.312704″ N, 88°15′41.143123″ W, false x = y = 100000 ft, +y axis at geodetic azimuth 38°16′48.01429″, scale 1.000029251 at A0), applied as a rotated tangent plane on the GRS80 ellipsoid (difference to the double stereographic projection below 0.2 m within 1.5 km of A0). NAD83 and WGS 84 are taken as equal. Replaces the earlier derived straight line (accuracy 30 m).",
+  "name": "NuMI neutrino beam centreline, target to MINOS hall",
+  "notes": [
+    "Beam points at the Soudan laboratory (MINOS far detector, 1985-2016 era) at bearing 336.17 deg; NOvA at Ash River is 0.6 deg away (see geometry:fermilab-numi-direction)."
+  ],
+  "osm": null,
+  "representation": "surveyed",
   "schema": "hep-atlas/0.2",
-  "site_id": "site:fermilab-main-campus",
+  "site_id": null,
   "sources": [
-    "src:fermilab-geo-osm-buildings",
-    "src:fermilab-numi-beam-paper-2016"
+    "src:fermilab-geo-numi-tdr-1998",
+    "src:fermilab-geo-oshinowo-coordinate-systems-1997"
   ],
   "summary": {
-    "plain": "A plan-view axis only; the true beam also descends 58 mrad (src:fermilab-numi-beam-paper-2016) which a plan-view line cannot show. Not a survey of the beam pipe or tunnel."
+    "plain": "The straight line the NuMI neutrino beam follows underground, from the target to the MINOS near-detector hall, about 1 km long."
   },
   "type": "geometry",
   "valid": null

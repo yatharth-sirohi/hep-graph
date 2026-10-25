@@ -1,0 +1,104 @@
+{
+  "accuracy_m": 15,
+  "aliases": [],
+  "checks": [
+    {
+      "expected": {
+        "dimension": "length",
+        "display": "69 m",
+        "unit": "m",
+        "value": 69
+      },
+      "kind": "span",
+      "locator": "NuMI NIM paper (arXiv:1507.06690) section 2.5",
+      "quote": "The Target Hall is located approximately 41 m underground in the dolomite rock formation and is a long domed chamber, approximately 69 m long, 8.1 m wide, and 12.5 m high.",
+      "sources": [
+        "src:fermilab-numi-beam-paper-2016"
+      ],
+      "tolerance": 0.03
+    }
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "A"
+  },
+  "depth_m": {
+    "approx": false,
+    "confidence": "verified",
+    "dimension": "length",
+    "display": "41 m",
+    "note": "NuMI NIM paper section 2.5; the TDR puts the beam 114 ft (34.7 m) below grade at the target.",
+    "quote": "The Target Hall is located approximately 41 m underground in the dolomite rock formation",
+    "sources": [
+      "src:fermilab-numi-beam-paper-2016"
+    ],
+    "unit": "m",
+    "value": 41,
+    "verified_at": "2026-10-25"
+  },
+  "entity_id": "beamline:numi",
+  "feature_type": "target_station",
+  "geometry": {
+    "confidence": "derived",
+    "locator": "TDR section 5.2.4 (internal dimensions) with the beam-sheet row DECAY",
+    "note": "Derived: the corners follow from published dimensions laid on the surveyed beam axis; the position of the walls along the axis and the beam-to-wall offset are assumptions stated in the method.",
+    "quote": "Internal dimensions of the Target Enclosure are 220 ft. in length, 27 ft. wide",
+    "sources": [
+      "src:fermilab-geo-numi-tdr-1998",
+      "src:fermilab-numi-beam-paper-2016",
+      "src:fermilab-geo-oshinowo-coordinate-systems-1997"
+    ],
+    "value": {
+      "coordinates": [
+        [
+          [
+            -88.2653977,
+            41.8318373
+          ],
+          [
+            -88.2657248,
+            41.8323892
+          ],
+          [
+            -88.2658153,
+            41.8323592
+          ],
+          [
+            -88.2654882,
+            41.8318072
+          ],
+          [
+            -88.2653977,
+            41.8318373
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    },
+    "verified_at": "2026-10-25"
+  },
+  "id": "geometry:fermilab-numi-target-hall",
+  "level_id": "near-detector-caverns",
+  "license": null,
+  "links": {
+    "website": null
+  },
+  "map_id": "map:fermilab",
+  "method": "Derived. Internal size 220 ft x 27 ft from the NuMI TDR (sec. 5.2.4: \"Internal dimensions of the Target Enclosure are 220 ft. in length, 27 ft. wide\"), laid out horizontally on the beam axis with its downstream wall at the start of the decay pipe (row DECAY; the NuMI NIM paper: the beam pit runs \"up to the decay pipe, which protrudes 0.35 m into the downstream end of the pit\") and the upstream wall 220 ft upstream, which falls 2.5 ft downstream of the baffle row BAFLE1 (station 1084.98 ft), as expected for a hall that starts at the baffle. The beam is assumed to run on the hall centre line; the sources do not give the lateral offset. Conversion of DUSAF to WGS 84: DUSAF x, y (ft) are the FSCS coordinates of Beams-doc-1148 (origin A0 = 41°50′14.312704″ N, 88°15′41.143123″ W, false x = y = 100000 ft, +y axis at geodetic azimuth 38°16′48.01429″, scale 1.000029251 at A0), applied as a rotated tangent plane on the GRS80 ellipsoid (difference to the double stereographic projection below 0.2 m within 1.5 km of A0). NAD83 and WGS 84 are taken as equal.",
+  "name": "NuMI target hall (target enclosure)",
+  "notes": [],
+  "osm": null,
+  "representation": "derived",
+  "schema": "hep-atlas/0.2",
+  "site_id": null,
+  "sources": [
+    "src:fermilab-geo-numi-tdr-1998",
+    "src:fermilab-numi-beam-paper-2016",
+    "src:fermilab-geo-oshinowo-coordinate-systems-1997"
+  ],
+  "summary": {
+    "plain": "The underground hall, about 67 m long and 8 m wide, that houses the NuMI target, focusing horns and their shielding."
+  },
+  "type": "geometry",
+  "valid": null
+}

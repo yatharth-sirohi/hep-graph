@@ -1,24 +1,7 @@
 {
   "accuracy_m": 8,
   "aliases": [],
-  "checks": [
-    {
-      "expected": {
-        "dimension": "length",
-        "display": "1 km",
-        "unit": "m",
-        "value": 1000
-      },
-      "kind": "distance",
-      "locator": "NOvA near-detector placement note, 'The 0.3 kt Near Detector is located 1 km downstream of the neutrino production target'",
-      "quote": "The 0.3 kt Near Detector is located 1 km downstream of the neutrino production target and 100 m underground at Fermilab",
-      "sources": [
-        "src:nova-arxiv-2025-monopole-search"
-      ],
-      "to_geometry_id": "geometry:fermilab-numi-target",
-      "tolerance": 0.08
-    }
-  ],
+  "checks": [],
   "coverage": {
     "researched": "partial",
     "tier": "B"
@@ -27,9 +10,9 @@
   "entity_id": "detector:nova-near-detector",
   "feature_type": "hall",
   "geometry": {
-    "confidence": "verified",
+    "confidence": "approximate",
     "locator": "OSM way/272646255, extract timestamp 2026-09-18T20:20:01Z",
-    "note": "This is the SURFACE building only, per its own OSM name. The NOvA near detector is '100 m underground' (src:nova-arxiv-2025-monopole-search); its horizontal offset from this surface point is not sourced this session, so the underground detector is not drawn separately. Confidence upgraded to 'verified' (second pass, 2026-09-18): the checks[] row below (distance to the newly-derived NuMI target) passes and cites a rank-10 journal article.",
+    "note": "This is the SURFACE building only, per its own OSM name. The NOvA near detector is '100 m underground' (src:nova-arxiv-2025-monopole-search) and 'located 1 km downstream of the neutrino production target'; its horizontal offset from this surface point is not sourced, so the underground detector is not drawn separately. Release pass (gaps stream): the earlier distance check against a derived NuMI target (964.9 m vs 1 km, which had raised this to verified) was removed, because the NuMI target now sits at its surveyed position (NuMI TDR beam sheet) and this building stands 861 m from it, on the beam axis (0.8 m off), i.e. about 140 m upstream of the 1 km at which the detector sits: it is the shaft building, not the detector.",
     "sources": [
       "src:fermilab-geo-osm-buildings",
       "src:nova-arxiv-2025-monopole-search"
@@ -93,7 +76,8 @@
   "method": "OpenStreetMap way 272646255 'NOvA Near Detector on Surface' footprint, traced verbatim (tagged man_made=particle physics detector).",
   "name": "NOvA near-detector surface building",
   "notes": [
-    "QA pass (2026-09-21): removed the `valid: {start: '2014-02-06', end: null}` window a previous pass set -- a preventive fix for a latent bug in hepgraph.atlas.build._feature_segments(): any `valid` dict with a non-null `start` and `end: null` hard-codes `status: 'active'` through build day regardless of the entity's real status, bypassing state_segments entirely. Currently harmless because detector:nova-near-detector genuinely is 'active' today, but this pattern produced a live false-'active' claim on three other records (geometry:lhc-tunnel-ring, geometry:fermilab-mc1-building, geometry:fermilab-microboone-hall) fixed the same way in this pass -- see docs/atlas-worklog/REVIEW_geometry_qa.md."
+    "QA pass (2026-09-21): removed the `valid: {start: '2014-02-06', end: null}` window a previous pass set -- a preventive fix for a latent bug in hepgraph.atlas.build._feature_segments(): any `valid` dict with a non-null `start` and `end: null` hard-codes `status: 'active'` through build day regardless of the entity's real status, bypassing state_segments entirely. Currently harmless because detector:nova-near-detector genuinely is 'active' today, but this pattern produced a live false-'active' claim on three other records (geometry:lhc-tunnel-ring, geometry:fermilab-mc1-building, geometry:fermilab-microboone-hall) fixed the same way in this pass -- see docs/atlas-worklog/REVIEW_geometry_qa.md.",
+    "Release pass (gaps stream): confidence lowered from verified to approximate and the distance check removed; see geometry note. The building lies 861 m from the surveyed NuMI target (TDR beam sheet) and 75 m from the MINOS surface building."
   ],
   "osm": {
     "elements": [

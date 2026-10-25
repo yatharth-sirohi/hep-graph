@@ -44,3 +44,88 @@ Grade before: partial (surface buildings and the Davis cavern point; the DUNE ca
 * Central Utility Cavern: an Arup excavation drawing or SURF laser-scan plan giving its offset along the cavern axis. The 3D slide shows it flanked by the two caverns and extending past both ends, which a rectangle could follow once the offset is published.
 * A survey outline of the as-built caverns (SURF/Sanford Lab laser-scan campaign cited in Heise Table 2) to replace the idealised rectangle, and the Ross Shaft to cavern drift geometry.
 * Resolve whether Table 4 FD points are cryostat centres, from the DUNE site coordinate-system note or from installation survey records.
+
+## 2. Fermilab (`map:fermilab`)
+
+Grade before: layout to scale for the campus rings, the Booster-neutrino short-baseline halls and the NuMI/MINOS surface buildings; the NuMI target and beam derived from OSM buildings (accuracy 30 m); the Main Injector placed by a fit to an OSM service road; underground NuMI structures, LBNF, DUNE ND and Mu2e unlocated. After: layout to scale, with the NuMI facility drawn from published survey coordinates (target, proton beam line, decay pipe, target hall, absorber hall, MINOS enclosure and detector position), the Main Injector and Recycler re-placed from the Main Injector TDR's own site coordinates, and two earlier records corrected (below). LBNF, the DUNE ND hall and Mu2e stay unlocated.
+
+### The key find: a published conversion from Fermilab site coordinates to latitude and longitude
+
+The earlier Fermilab worklogs could not convert Fermilab's local coordinates because the defining document (`ppd.fnal.gov/align/beams-doc-1148.html`) returns 403 to scripts. A copy is on the Internet Archive (`http://web.archive.org/web/2020/https://ppd.fnal.gov/align/beams-doc-1148.html`, fetched once, full text read). B. Oshinowo, "Fermilab Coordinate Systems", Beams-doc-1148 v4.0 (15 May 1997), section 4.2: Fermilab Site Coordinate System (FSCS = DUSAF, in feet) has its origin A0 at "N 41° 50' 14.312704" / W 88° 15' 41.143123"" (NAD83), false easting and northing 100000 ft at A0, +Y axis at geodetic azimuth "38° 16' 48.01429"", double stereographic projection, scale 1.000029251309483. The conversion is implemented here as a rotated tangent plane on GRS80 (within 0.2 m of the projection near A0). Tests of it, all passed:
+
+| Test | Result |
+| --- | --- |
+| A0 (100000, 100000 ft) maps back to the published A0 | exact |
+| NuMI beam sheet: bearing from the converted target to the published MINOS far-detector coordinate (47.820267 N, 92.241412 W, MINOS NIM paper Sec. 6.5) | 336.169 deg; the sheet's own beam axis gives 336.177 deg (0.008 deg) |
+| Decay pipe length from converted coordinates | 674.19 m horizontal; station difference 2214.57 ft = 675.0 m (0.05 % after the 3.3 deg pitch) |
+| 8 GeV line start (Booster extraction point, MI TDR P8_GEV survey: x = 99511.383 ft, y = 99309.844 ft) | 76.3 m from the centre of the OSM-fitted Booster circle; the sourced 474 m circumference gives radius 75.44 m (0.9 m) |
+| NuMI target to MINOS near-detector row MIN_NO | 1038.9 m horizontal; MINOS NIM paper: "The near detector is 1040 m from the primary target" |
+| End of the decay pipe from the target | 724.2 m; MINOS NIM paper: the beam "was sent 723 m past the target position" |
+| MINOS enclosure upstream end to the OSM MINOS Service Building | 78.8 m; MINOS NIM paper: the detector cart "was pulled about 80 m from the base of the shaft into the near detector hall" |
+
+### Sources used (all fetched this session)
+
+* NuMI Facility TDR, FERMILAB-DESIGN-1998-01 Rev. 1.0 (`https://lss.fnal.gov/archive/design/fermilab-design-1998-01.pdf`, 403 to scripts; read from `http://web.archive.org/web/2016id_/https://lss.fnal.gov/archive/design/fermilab-design-1998-01.pdf`, 380 pages, `pdftotext`). Appendix A is the "beam sheet", "Site coordinates for beamline: horn2.ces": DUSAF x, y (ft) and station for every device from the MI-60 extraction to the downstream end of the MINOS hall. The scanned numbers were transcribed and every pair of consecutive rows checked against the station difference times cos(pitch): all 56 rows agree within 0.6 ft. Section 5.2 gives the enclosure sizes (target enclosure 220 ft x 27 ft, absorber enclosure 50 ft x 27 ft, MINOS enclosure 150 ft x 30 ft).
+* Main Injector TDR, FERMILAB-DESIGN-1994-01 (`https://beamdocs.fnal.gov/AD/DocDB/0042/004294/001/fermilab-design-1994-01.pdf`): appendix "Main Injector Ring Site Coordinates (MI_19)" (MAD survey listing) and "8 GeV Line Site Coordinates".
+* NuMI NIM paper arXiv:1507.06690 and MINOS NIM paper arXiv:0805.3170 for the cross-check figures; DOE/EA-1943 (`https://www.energy.gov/nepa/articles/ea-1943-final-environmental-assessment`, 12 000 lines of text read), LBNF CDR Vol. 3 arXiv:1601.05823, DUNE ND CDR arXiv:2103.13910, "Design of the LBNF beamline" arXiv:1704.04471 for LBNF.
+
+### Inventory
+
+| Entity | Drawn / unlocated | Representation | accuracy_m | Check result |
+| --- | --- | --- | ---: | --- |
+| beamline:numi target (rewritten `geometry:fermilab-numi-target`) | drawn | surveyed | 5 | distance to the MINOS detector position 1038.9 m vs 1040 m (MINOS paper), tolerance 1 %: pass |
+| beamline:numi proton line, HQ101 to target (`geometry:fermilab-numi-primary-beamline`, 37 vertices) | drawn | surveyed | 5 | length 347.6 m vs "350 m beam line" (NuMI paper), 2 %: pass |
+| beamline:numi neutrino axis, target to MINOS hall end (rewritten `geometry:fermilab-numi-beamline`) | drawn | surveyed | 5 | azimuth 336.18 deg vs 336.17 deg to the published Soudan coordinate (0.5 deg): pass |
+| NuMI decay tunnel and pipe (`geometry:fermilab-numi-decay-pipe`) | drawn | surveyed | 5 | length 674.2 m vs 675 m (NuMI paper), 1 %: pass |
+| NuMI target hall, 220 ft x 27 ft (`geometry:fermilab-numi-target-hall`) | drawn | derived | 15 | span 67.6 m vs "approximately 69 m long" (NuMI paper), 3 %: pass |
+| NuMI absorber hall, 50 ft x 27 ft (`geometry:fermilab-numi-absorber-hall`) | drawn | derived | 15 | span 17.3 m vs 17.3 m from the paper's 15.2 m x 8.2 m: pass |
+| detector:minos-near-detector position, row MIN_NO (`geometry:fermilab-minos-near-detector-position`) | drawn | surveyed | 5 | distance to the target 1038.9 m vs 1040 m: pass |
+| MINOS enclosure, 150 ft x 30 ft, 105 m deep, hosting MINOS ND, MINERvA, ArgoNeuT, SENSEI (`geometry:fermilab-minos-near-hall`) | drawn | derived | 10 | none (all dimensions from one source; position checked through the detector point) |
+| accelerator:fermilab-main-injector, accelerator:fermilab-recycler (re-placed) | drawn | derived | 8 (was 30) | length 3317.4 m vs 3319.419 m, 0.2 %: pass |
+| detector:minerva, detector:sensei | unlocated (hosted in the drawn MINOS hall; own position not published) | n/a | n/a | n/a |
+| beamline:lbnf, detector:dune-near-detector | unlocated | n/a | n/a | n/a |
+| detector:mu2e, site:fermilab-mu2e-hall | unlocated | n/a | n/a | n/a |
+
+The new NuMI features sit on a re-purposed level (`near-detector-caverns`, now "NuMI beam enclosures and MINOS near-detector hall (35-105 m below grade)", depth 105 m from the MINOS paper). The target is "approximately 114 ft. below surface grade level" at the beam (TDR 5.2.4) and the Target Hall is "approximately 41 m underground" (NuMI paper): both recorded on the features.
+
+### How the halls were laid out
+
+Corners are computed in the DUSAF plane from the beam axis (bearing 152.18332 deg counter-clockwise from site east, as listed on every sheet row from the target to the end): target hall, 220 ft upstream of the row DECAY (its downstream wall at the start of the decay pipe; the upstream wall then falls 2.5 ft downstream of the baffle row BAFLE1); absorber hall, 50 ft downstream of the row DENCU (the sheet's row MUOND1, 3 ft past that, and the 33 ft of rock to the first muon alcove agree); MINOS enclosure, 150 ft downstream of the row M ENCU (the sheet's rows M ENCD and ROCK fall 150.0 ft beyond it horizontally). The beam is assumed to run on each hall's centre line (the sources give no lateral offset), which is why these three are `derived`. The MINOS detector row MIN_NO is 85.6 ft inside the enclosure, matching the TDR's "85.5 ft from the upstream end".
+
+### Main Injector and Recycler re-placed (correction to the earlier release pass)
+
+* The earlier placement came from a fit of the TDR-derived shape to the OSM service road "Indian Creek Road". A ring road cannot fix a near-circular ring's rotation, and the record's own cross-checks (a single OSM building 9 m from a straight centre) could not detect the error.
+* The MI TDR appendix lists site coordinates of every lattice element. Rows read from the scanned page (89 with all digits legible) were fitted by a rotation and translation (no scaling) of the same shape: rms 0.34 m, maximum 0.52 m, lattice origin within 0.5 m of the listed one. The fitted ring is displaced 38-74 m (mean 54 m) from the old one and rotated 5.7 degrees: the MI-60 straight now runs at geodetic azimuth 339.6 deg, against 339.51 deg from Beams-doc-1148 Appendix A ("FSCS Azimuth = 301° 13' 53.9"") and 339.51 deg in the NuMI sheet, where the old ring had 333.8 deg.
+* Independent confirmations not used in the fit: the 8 GeV line survey in the same appendix ends 1.2 m from the new ring at path length 588 m, inside the MI-10 straight (570.5-639.7 m), but 9.6 m from the old ring at a position in the arc before it; the LBNF paper's 7.2 degree horizontal bend added to the new MI-10 heading (280.5 deg) gives 287.7 deg, the great-circle bearing from MI-10 to the SURF caverns (287.76 deg), where the old heading would be 5.7 degrees off.
+* Side effects handled: `geometry:fermilab-recycler-ring` (identical coordinates, updated with it); `geometry:fermilab-mi-62-service-building` text (its "9 m from the centre of MI-62" statement belonged to the old placement; it is now 14.7 m from the tunnel and 53.6 m from the straight's centre, no contradiction); the OSM source `src:fermilab-geo-osm-indian-creek-road` is no longer cited by anything and was removed.
+* Not touched: the Tevatron circle (derived, 60 m, from OSM ring roads). Beams-doc-1148 gives A0 on the Tevatron exactly (41.8373091 N, 88.2614286 W) and the MI-60 line 11.823 m from the F0 straight; with the Tevatron circumference those two facts put the circle centre 38 m from the OSM-fitted centre, inside its 60 m, so it could be tightened by a later pass.
+
+### Source conflicts and corrections
+
+1. NuMI target: the earlier derived position (from the MINOS surface building and 1040 m) is 103 m from the published one, along the beam axis. The MINOS Service Building is 79 m from the hall, so "building above the detector" was wrong; the earlier cross-check from the NOvA building (38.6 m from the first estimate) agreed only because the NOvA building is ~140 m upstream of its detector in the same way. Replaced.
+2. `geometry:fermilab-nova-near-surface`: its distance check (964.9 m vs "1 km") had raised it to verified against the wrong target. The building is 861 m from the surveyed target, on the axis (0.8 m off): it is the shaft building, about 140 m upstream of the detector at 1 km. The check was removed and the confidence lowered to approximate.
+3. MINOS NIM paper: "330 m from the hadron absorber" disagrees with the TDR geometry (1040 m minus 723.2 m = 316.8 m to the end of the decay pipe; 1036.6 ft = 316 m from the absorber enclosure to the detector face). Not used.
+4. Target position within the hall: TDR "Target Enclosure ... 220 ft" vs NuMI paper "approximately 69 m long" (226 ft, includes the upstream extension): the drawn 220 ft is the internal dimension; the span check allows 3 %.
+5. LBNF primary beam length: 328 m (1078 ft) "to the target" (CDR 5.3.2), "approximately 1,200 feet" (CDR 6.2.7 and 6.2.8), 1,000 ft (EA). Not resolved; see LBNF below.
+
+### LBNF and the DUNE ND hall: why not drawn
+
+No source gives a coordinate. The chain MI-10 straight (now surveyed) + extraction path length + 7.2 degree bend + 574 m along the bearing to SURF, with the ND hall 38-46 m east of Kirk Road (EA), fits together (the bend check above is exact), but the target stays uncertain to about 50 m through three unknowns (where the beam leaves the 69 m straight, which path length is built, where the bend is). Candidate ranges are in the map row. A 50 m uncertainty on 50 m halls is a marker, not a footprint; per the brief it is left unlocated with that backlog.
+
+### Mu2e: not resolved
+
+No document found ties Mu2e to OSM way 720556732 "MC-2". The Mu2e TDR (arXiv:1501.05241) has no site coordinates (Fig. 6.120 is a drawing); the Muon Campus review (arXiv:2208.02889) does not mention MC-2; two web searches returned nothing. `geometry:fermilab-mc2-building` stays a context feature.
+
+### Site coordinate corrections (for the integrator)
+
+* None for site records. The Fermilab site coordinate origin A0 is 41.8373091 N, 88.2614286 W (published, NAD83).
+
+### Backlog
+
+* LBNF: lattice or site plan in FSCS coordinates (see the map row), then DUNE ND hall 574 m along 287.7 deg.
+* Mu2e: a document that names the building, or Mu2e Offline hall geometry.
+* Tevatron ring: tighten from A0 and the MI-60 offset (above); the Booster ring from the 8 GeV line start (Booster extraction, 76.3 m from the OSM centre).
+* NuMI: lateral offset of the target, absorber and MINOS halls from the beam axis (TDR figures 5-3 to 5-10, not text); the muon alcoves (rows MUON0, MUOND2, MUOND3) are not drawn.
+* The NuMI sheet also lists the NuMI horns and baffles; not drawn (metres, not a map feature).
+
+Method lesson for later streams: where a Fermilab design report prints "site coordinates" in feet, they are FSCS/DUSAF and convert with Beams-doc-1148. Converter used here: `fscs.py` in the session scratch directory (rotation by 38.28 degrees plus ellipsoid radii at A0; 15 lines).
