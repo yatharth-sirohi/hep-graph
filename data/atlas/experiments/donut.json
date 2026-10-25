@@ -15,15 +15,15 @@
     "tier": "D"
   },
   "energy_regime": {
-    "confidence": "uncertain",
-    "locator": "Wikipedia, DONUT",
-    "note": "Sole source for beam-energy framing is Wikipedia (rank 12); no official Fermilab page describing DONUT's beam setup was reachable in this session (fnal.gov returned HTTP 403 to every fetch attempt).",
-    "quote": "used the Tevatron ... to produce tau neutrinos via decay of charmed mesons",
+    "confidence": "verified",
+    "locator": "arXiv:hep-ex/0012035 (Phys. Lett. B 504 (2001) 218), detector and beam description",
+    "note": "Beam description from the DONUT 2001 paper (arXiv:hep-ex/0012035): 800 GeV protons from the Fermilab Tevatron on a meter-long tungsten beam dump, with most interacting neutrinos from charmed-meson decays in the dump.",
+    "quote": "The neutrino beam was created using 800 GeV protons from the Fermilab Tevatron interacting in a meter long tungsten beam dump ... Most of the neutrinos that interacted in the emulsion target originated in the decays of charmed mesons in the beam dump.",
     "sources": [
-      "src:donut-wikipedia"
+      "src:donut-plb-2001-observation"
     ],
     "value": "Tau neutrinos from charmed-meson decay in a Tevatron fixed-target proton beam dump",
-    "verified_at": "2026-09-17"
+    "verified_at": "2026-10-25"
   },
   "external": {
     "greybook": null,
@@ -44,47 +44,47 @@
       "verified_at": "2026-09-17"
     },
     {
-      "confidence": "uncertain",
+      "confidence": "verified",
       "facility_id": "facility:fermilab",
-      "locator": "Wikipedia, DONUT",
-      "note": "Sole fetched source is Wikipedia (rank 12); fnal.gov returned HTTP 403 to every fetch attempt in this session.",
-      "quote": "used the Tevatron ... to produce tau neutrinos via decay of charmed mesons",
+      "locator": "arXiv:hep-ex/0012035 (Phys. Lett. B 504 (2001) 218), detector and beam description",
+      "note": "Beam description from the DONUT 2001 paper (arXiv:hep-ex/0012035): 800 GeV protons from the Fermilab Tevatron on a tungsten beam dump.",
+      "quote": "The neutrino beam was created using 800 GeV protons from the Fermilab Tevatron interacting in a meter long tungsten beam dump ... Most of the neutrinos that interacted in the emulsion target originated in the decays of charmed mesons in the beam dump.",
       "role": "beam_source",
       "sources": [
-        "src:donut-wikipedia"
+        "src:donut-plb-2001-observation"
       ],
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-25"
     }
   ],
   "id": "experiment:donut",
   "intervals": [
     {
-      "confidence": "uncertain",
+      "confidence": "verified",
       "end": "1997",
       "label": "data taking",
-      "locator": "Wikipedia, DONUT",
-      "note": "Sole fetched source for the run period is Wikipedia (rank 12); no official Fermilab/INSPIRE page giving the run dates was reachable in this session. Year-only precision.",
-      "quote": "operated at Fermilab in summer 1997",
+      "locator": "arXiv:hep-ex/0012035 (Phys. Lett. B 504 (2001) 218), detector and beam description",
+      "note": "Year-only precision; the DONUT paper states the emulsion targets were exposed from April to September 1997.",
+      "quote": "The emulsion targets were exposed from April to September 1997.",
       "sources": [
-        "src:donut-wikipedia"
+        "src:donut-plb-2001-observation"
       ],
       "start": "1997",
       "status": "active",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-25"
     },
     {
-      "confidence": "uncertain",
+      "confidence": "approximate",
       "end": null,
       "label": "completed",
-      "locator": "Wikipedia, DONUT; abstract",
-      "note": "Terminal event. No fetched source gives a month/day precision end-of-run date; 1997 (the sourced run year, rank 12) is used as the start of this terminal interval rather than the 2000-12 publication-submission date, since the experiment's actual data taking ended in 1997 and the publication only reports the completed analysis.",
-      "quote": "operated at Fermilab in summer 1997",
+      "locator": "arXiv:hep-ex/0012035 (Phys. Lett. B 504 (2001) 218), detector and beam description",
+      "note": "Terminal event. The DONUT paper gives April to September 1997 as the exposure period of the emulsion targets, so 1997 is used as the start of this terminal interval (year data taking ended) rather than the 2000-12 publication-submission date.",
+      "quote": "The emulsion targets were exposed from April to September 1997.",
       "sources": [
-        "src:donut-wikipedia"
+        "src:donut-plb-2001-observation"
       ],
       "start": "1997",
       "status": "completed",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-25"
     }
   ],
   "key_specs": [

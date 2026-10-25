@@ -31,48 +31,48 @@
     {
       "site_id": "site:double-chooz-near-detector",
       "role": "near",
-      "start": "2015",
+      "start": {"approx": true, "date": "2014-12", "display": "end of 2014"},
       "end": null,
-      "sources": ["src:double-chooz-wikipedia"],
-      "verified_at": "2026-09-17",
+      "sources": ["src:rf04-double-chooz-detectors-2022"],
+      "verified_at": "2026-10-25",
       "confidence": "approximate",
-      "quote": "Data collection began: Early 2015 (both detectors)",
-      "note": "Near detector construction/commissioning finished substantially later than the far detector; sourced from Wikipedia (rank 12) only."
+      "quote": "After construction of the new near laboratory and detector, data taking with the second detector started at the end of 2014.",
+      "note": "Near detector construction/commissioning finished substantially later than the far detector. The collaboration's detector paper says data taking with the second (near) detector started at the end of 2014; Wikipedia says the beginning of 2015, and the 2019 Double Chooz theta13 paper uses two-detector data from January 2015, so the start is recorded as approximately December 2014."
     }
   ],
   "intervals": [
     {
       "label": "far detector only",
       "status": "active",
-      "start": null,
-      "end": "2015",
-      "sources": ["src:double-chooz-2012-evidence"],
-      "verified_at": "2026-09-17",
-      "confidence": "uncertain",
-      "quote": "227.93 live days with 33.71 GW-ton-years",
-      "note": "Exact far-detector-only start date not found in a fetched source."
+      "start": "2011-04",
+      "end": {"approx": true, "date": "2014-12", "display": "end of 2014"},
+      "sources": ["src:rf04-double-chooz-detectors-2022"],
+      "verified_at": "2026-10-25",
+      "confidence": "approximate",
+      "quote": "its data taking started first, in April 2011. After construction of the new near laboratory and detector, data taking with the second detector started at the end of 2014.",
+      "note": "Start month from the collaboration's detector paper (far detector data taking began in April 2011); end is the start of data taking with the second detector, at the end of 2014 (previously recorded as 2015 from Wikipedia)."
     },
     {
       "label": "near and far detectors",
       "status": "active",
-      "start": "2015",
+      "start": {"approx": true, "date": "2014-12", "display": "end of 2014"},
       "end": "2017-12",
-      "sources": ["src:double-chooz-wikipedia"],
-      "verified_at": "2026-09-17",
+      "sources": ["src:rf04-double-chooz-detectors-2022", "src:double-chooz-wikipedia"],
+      "verified_at": "2026-10-25",
       "confidence": "approximate",
-      "quote": "Data collection began: Early 2015 (both detectors) ... Data collection ended: Late December 2017",
-      "note": "Dates sourced from Wikipedia (rank 12) only."
+      "quote": "After construction of the new near laboratory and detector, data taking with the second detector started at the end of 2014. Both detectors ran in parallel for about three years, until the end of 2017, when neutrino data taking was stopped.",
+      "note": "Start and end from the collaboration's detector paper ('end of 2014', 'end of 2017'); the end month (December) is from Wikipedia's 'late December 2017'. Wikipedia gives the beginning of 2015 for the start of two-detector data taking."
     },
     {
       "label": "shut down",
       "status": "completed",
       "start": "2017-12",
       "end": null,
-      "sources": ["src:double-chooz-wikipedia"],
-      "verified_at": "2026-09-17",
+      "sources": ["src:rf04-double-chooz-detectors-2022", "src:double-chooz-wikipedia"],
+      "verified_at": "2026-10-25",
       "confidence": "approximate",
-      "quote": "Data collection ended: Late December 2017",
-      "note": "Terminal event date sourced from Wikipedia (rank 12) only."
+      "quote": "Both detectors ran in parallel for about three years, until the end of 2017, when neutrino data taking was stopped.",
+      "note": "Terminal event: end of neutrino data taking ('end of 2017' in the collaboration's detector paper; the month, December, is from Wikipedia's 'late December 2017')."
     }
   ],
   "status": "completed",
@@ -98,10 +98,10 @@
   "notes": [
     "Modelled as a single detector record covering both the near and far detectors, which the sources describe as (near-)identical designs."
   ],
-  "sources": ["src:double-chooz-2012-evidence", "src:double-chooz-wikipedia"],
+  "sources": ["src:double-chooz-2012-evidence", "src:double-chooz-wikipedia", "src:rf04-double-chooz-detectors-2022"],
   "summary": {
     "plain": "Two similar tank-shaped detectors of gadolinium-loaded liquid scintillator, one close to and one far from the Chooz reactors, catching antineutrino flashes of light.",
-    "technical": "Calorimetric Gd-loaded liquid-scintillator detectors (four concentric cylindrical vessels), ~10.3 m3 fiducial volume, at near (400 m, from 2015) and far (1050 m, from the 2012 result onward) halls at the Chooz reactor site."
+    "technical": "Calorimetric Gd-loaded liquid-scintillator detectors (four concentric cylindrical vessels), ~10.3 m3 fiducial volume, at near (400 m, from the end of 2014) and far (1050 m, from the 2012 result onward) halls at the Chooz reactor site."
   },
   "coverage": {
     "tier": "B",

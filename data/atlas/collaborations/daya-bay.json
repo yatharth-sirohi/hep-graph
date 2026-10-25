@@ -18,24 +18,24 @@
       "status": "active",
       "start": null,
       "end": "2020",
-      "sources": ["src:daya-bay-wikipedia"],
-      "verified_at": "2026-09-17",
+      "sources": ["src:reactor-solar-verify-daya-bay-final-prl-2023"],
+      "verified_at": "2026-10-25",
       "confidence": "approximate",
-      "quote": "Operating Period: 2011–2020",
-      "locator": "Wikipedia infobox",
-      "note": "Start not sourced; end year per Wikipedia only."
+      "quote": "Seven-AD operation occurred from 26 January 2017 until 12 December 2020 (1417 days) with one AD in EH1 re-purposed for liquid scintillator R&D for the JUNO experiment",
+      "locator": "arXiv:2211.14988, experiment description",
+      "note": "Start not sourced. End year taken from the end of Daya Bay data taking (12 December 2020) in the final Daya Bay oscillation paper; the date the collaboration itself closed is not stated."
     },
     {
       "label": "collaboration completed",
       "status": "completed",
       "start": "2020",
       "end": null,
-      "sources": ["src:daya-bay-wikipedia"],
-      "verified_at": "2026-09-17",
+      "sources": ["src:reactor-solar-verify-daya-bay-final-prl-2023"],
+      "verified_at": "2026-10-25",
       "confidence": "approximate",
-      "quote": "Operating Period: 2011–2020",
-      "locator": "Wikipedia infobox",
-      "note": "Terminal event recorded at the 2020 end-of-operations date per Wikipedia; no official page fetched this session independently confirms 2020."
+      "quote": "Seven-AD operation occurred from 26 January 2017 until 12 December 2020 (1417 days) with one AD in EH1 re-purposed for liquid scintillator R&D for the JUNO experiment",
+      "locator": "arXiv:2211.14988, experiment description",
+      "note": "Terminal event recorded at the end of Daya Bay data taking (12 December 2020, final Daya Bay oscillation paper); the date the collaboration itself closed is not stated."
     }
   ],
   "status": "completed",
@@ -43,12 +43,12 @@
     "as_of": null,
     "evidence_class": "institutional_page",
     "institution_count": {
-      "value": 40,
-      "sources": ["src:daya-bay-wikipedia"],
-      "verified_at": "2026-09-17",
+      "value": 42,
+      "sources": ["src:reactor-solar-verify-daya-bay-final-prl-2023"],
+      "verified_at": "2026-10-25",
       "confidence": "approximate",
-      "quote": "40+ institutional collaborators",
-      "note": "Wikipedia (rank 12) states '40+', an imprecise floor; no official collaboration/institution-list page was reachable this session (dayabay.ihep.ac.cn timed out on every attempt)."
+      "quote": "41 Iowa State University, Ames, Iowa 50011 42 Chongqing University, Chongqing",
+      "note": "Counted from the numbered affiliations (1-42, all distinct institutions) in the author list of the final Daya Bay oscillation paper, arXiv:2211.14988 (dated 29 November 2022). This is a count of listed author affiliations, not an official membership figure; no official collaboration page was reachable (dayabay.ihep.ac.cn is unreachable). The earlier value 40 ('40+ institutional collaborators') could not be found in the cached Wikipedia text."
     },
     "country_count": {
       "value": 6,
@@ -56,7 +56,7 @@
       "verified_at": "2026-09-17",
       "confidence": "uncertain",
       "quote": "researchers from China, Chile, the United States, Taiwan (Republic of China), Russia, and the Czech Republic",
-      "note": "Counted from the six places named; Wikipedia does not itself state a country count number, and 'Taiwan (Republic of China)' may or may not be counted separately from China depending on convention."
+      "note": "Counted from the six places named; Wikipedia does not itself state a country count number, and 'Taiwan (Republic of China)' may or may not be counted separately from China depending on convention. The author affiliations of the final Daya Bay paper (arXiv:2211.14988, 2022) are in mainland China, Taiwan, Hong Kong, the United States, the Czech Republic and Russia (JINR Dubna), with no Chilean institution, so the set of places differs between sources."
     },
     "member_count": null,
     "roster_source_ids": ["src:daya-bay-wikipedia"]
@@ -68,10 +68,10 @@
     "website": null
   },
   "notes": [
-    "Membership counts here rely on Wikipedia (rank 12) because the official experiment site (dayabay.ihep.ac.cn) timed out on every WebFetch attempt this session; per this workstream's brief, membership counts should ideally come from the collaboration's own page — flagged as `missing_fields` in the coverage row.",
+    "The country count here relies on Wikipedia (rank 12) (the institution count is counted from the final Daya Bay paper's author affiliations) because the official experiment site (dayabay.ihep.ac.cn) timed out on every WebFetch attempt this session; per this workstream's brief, membership counts should ideally come from the collaboration's own page — flagged as `missing_fields` in the coverage row.",
     "Institution-level membership rows and leadership/person records are owned by other workstreams and are not written here."
   ],
-  "sources": ["src:daya-bay-inspire-experiment-record", "src:daya-bay-wikipedia"],
+  "sources": ["src:daya-bay-inspire-experiment-record", "src:daya-bay-wikipedia", "src:reactor-solar-verify-daya-bay-final-prl-2023"],
   "summary": {
     "plain": "The international team of scientists from China and several other countries who built and ran the Daya Bay reactor-neutrino experiment.",
     "technical": "International collaboration operating the Daya Bay reactor-antineutrino experiment; per Wikipedia, researchers from China, Chile, the United States, Taiwan, Russia and the Czech Republic across 40+ institutions."

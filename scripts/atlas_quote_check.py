@@ -51,7 +51,7 @@ REPORT = ROOT / "docs" / "atlas-worklog" / "RELEASE_QUOTE_CHECK.md"
 UA = ("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "
       "(KHTML, like Gecko) Chrome/124.0 Safari/537.36")
 PDFTOTEXT = "/opt/homebrew/bin/pdftotext"
-TIMEOUT, WORKERS, MAX_BYTES = 30, 4, 80 * 1024 * 1024
+TIMEOUT, WORKERS, MAX_BYTES = 30, 4, 200 * 1024 * 1024
 HOST_GAP = {"arxiv.org": 1.5}  # seconds between requests to one host (default 1)
 NEAR_THRESHOLD, SEGMENT_MIN = 0.85, 12
 CLASS_ORDER = ["verbatim", "segments", "near", "missing", "unfetchable", "skipped"]
@@ -149,7 +149,8 @@ class Fetcher:
         raw_p, meta_p, txt_p = self._paths(url)
         if meta_p.exists():
             meta = json.loads(meta_p.read_text())
-            if meta.get("error") and self.retry_failed and not self.offline:
+            retry = self.retry_failed or str(meta.get("error")).startswith("response too large")
+            if meta.get("error") and retry and not self.offline:
                 meta_p.unlink()
             else:
                 return (txt_p.read_text() if txt_p.exists() else None), meta
