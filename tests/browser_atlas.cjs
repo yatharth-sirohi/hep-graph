@@ -531,7 +531,11 @@ async function setRangeValue(locator, value) {
       await page.waitForFunction(() => {
         const summaries = [...document.querySelectorAll("#detail-panel details.panel-section summary")];
         const details = summaries.find((s) => s.textContent.trim() === "Sources")?.closest("details");
-        return !!details && details.open && !details.querySelector(".loading-note");
+        // `open` flips before the toggle handler inserts even the loading note,
+        // so also wait for the body to hold something.
+        const body = details && details.querySelector(".panel-section-body");
+        return !!details && details.open && !details.querySelector(".loading-note")
+          && !!body && body.children.length > 0;
       }, { timeout: 10000 });
       const sourcesText = await detailsText("Sources");
       assert.match(sourcesText || "", /Approximate location — Rutherford Appleton Laboratory/,
