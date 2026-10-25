@@ -6,16 +6,15 @@
   "coordinates": {
     "confidence": "approximate",
     "kind": "campus",
-    "lat": 41.67364,
-    "locator": "ROR v2 API record for organization 05gvnxz63 (Argonne National Laboratory), addresses[0].lat/addresses[0].lng",
-    "lon": -88.00173,
-    "note": "Upgraded 2026-09-17: ROR v2 organization record for Argonne National Laboratory (ror.org/05gvnxz63) gives a geocoded campus point, rank 8, replacing the Wikipedia-infobox-only point (rank 12). anl.gov (root, /about and /our-history paths all attempted) returned HTTP 403 again in this session; every prose claim on facility:argonne-national-laboratory therefore remains Wikipedia-only, but the coordinate itself is now backed by a rank-8 geocoder rather than Wikipedia alone.",
-    "precision_m": 800,
+    "lat": 41.709622,
+    "locator": "centroid of OpenStreetMap way 4372309 (Argonne campus fence, 131 nodes)",
+    "lon": -87.980823,
+    "note": "Campus point from the OpenStreetMap outline of the fenced Argonne campus (A23 campus point, approximate). It replaces a ROR geocoder point that sat about 4.4 km south-west, near Lemont, outside the campus.",
+    "precision_m": 500,
     "sources": [
-      "src:ror-05gvnxz63",
-      "src:argonne-wikipedia"
+      "src:geo-argonne-osm-campus-boundary"
     ],
-    "verified_at": "2026-09-17"
+    "verified_at": "2026-10-25"
   },
   "country": "US",
   "coverage": {
@@ -40,7 +39,8 @@
   "setting": "surface",
   "sources": [
     "src:argonne-wikipedia",
-    "src:ror-05gvnxz63"
+    "src:ror-05gvnxz63",
+    "src:geo-argonne-osm-campus-boundary"
   ],
   "summary": {
     "plain": "The main Argonne National Laboratory campus near Lemont, Illinois, southwest of Chicago.",

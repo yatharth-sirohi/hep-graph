@@ -45,7 +45,7 @@ const ONLY = process.argv.slice(4);
       };
     });
     const shot = path.join(OUT, `${slug}.png`);
-    await page.screenshot({ path: shot });
+    await page.screenshot({ path: shot, timeout: 60000 }).catch((err) => errors.push(`screenshot: ${err.message.split('\n')[0]}`));
     rows.push({ slug, ...seen, errors: [...errors], shot });
   }
   await browser.close();
