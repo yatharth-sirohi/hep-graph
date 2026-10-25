@@ -1,0 +1,523 @@
+{
+  "accuracy_m": 10,
+  "aliases": [],
+  "checks": [
+    {
+      "expected": {
+        "dimension": "area",
+        "display": "22,000 m²",
+        "unit": "m^2",
+        "value": 22000
+      },
+      "kind": "area",
+      "locator": "HAWC paper: 'HAWC is composed of 300 water Cherenkov detectors built over an area of 22,000 m2' (HAWC deployment/design contributions, ICRC 2013 bundle)",
+      "quote": "HAWC is composed of 300 water Cherenkov detectors built over an area of 22,000 m2",
+      "sources": [
+        "src:cosmic-gamma-hawc-design-paper-arxiv-2013"
+      ],
+      "tolerance": 0.05
+    },
+    {
+      "expected": {
+        "dimension": "area",
+        "display": "22,395 m²",
+        "unit": "m^2",
+        "value": 22395
+      },
+      "kind": "area",
+      "locator": "'Site infrastructure, layout and platform' (Deployment of the HAWC gamma-ray observatory in Sierra Negra, ICRC 2013): the flattened HAWC platform",
+      "quote": "During 2011 an area of about 22,395 m2 , corresponding to the HAWC platform, was flattened",
+      "sources": [
+        "src:cosmic-gamma-hawc-design-paper-arxiv-2013"
+      ],
+      "tolerance": 0.03
+    }
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "depth_m": null,
+  "entity_id": "site:hawc-sierra-negra",
+  "feature_type": "array",
+  "geometry": {
+    "confidence": "derived",
+    "locator": "convex hull of the vertices of OSM ways 541455344..541455690 (extract 2026-10-25T10:38:54Z); HAWC ICRC 2013 contributions",
+    "note": "Confidence 'derived' per contract: a derived shape is derived, even with passing checks. The 22,000, 22,500 and 22,395 m2 figures all appear in the HAWC ICRC 2013 contributions for the array or the platform.",
+    "quote": "HAWC is composed of 300 water Cherenkov detectors built over an area of 22,000 m2",
+    "sources": [
+      "src:geo-arrays2-hawc-osm-tank-field",
+      "src:cosmic-gamma-hawc-design-paper-arxiv-2013"
+    ],
+    "value": {
+      "coordinates": [
+        [
+          [
+            -97.308603,
+            18.9951724
+          ],
+          [
+            -97.3086006,
+            18.9951548
+          ],
+          [
+            -97.3085599,
+            18.9950173
+          ],
+          [
+            -97.3083504,
+            18.994329
+          ],
+          [
+            -97.3083075,
+            18.9941908
+          ],
+          [
+            -97.308296,
+            18.9941767
+          ],
+          [
+            -97.3082787,
+            18.9941699
+          ],
+          [
+            -97.3081066,
+            18.9941614
+          ],
+          [
+            -97.3076028,
+            18.9941495
+          ],
+          [
+            -97.3075841,
+            18.994152
+          ],
+          [
+            -97.3073558,
+            18.9941932
+          ],
+          [
+            -97.3068981,
+            18.9943253
+          ],
+          [
+            -97.3068831,
+            18.9943361
+          ],
+          [
+            -97.3068047,
+            18.9943943
+          ],
+          [
+            -97.3067975,
+            18.9944107
+          ],
+          [
+            -97.306766,
+            18.9945312
+          ],
+          [
+            -97.3067685,
+            18.9945488
+          ],
+          [
+            -97.3067872,
+            18.9946167
+          ],
+          [
+            -97.3068417,
+            18.9948066
+          ],
+          [
+            -97.3068817,
+            18.9949439
+          ],
+          [
+            -97.3069871,
+            18.9952969
+          ],
+          [
+            -97.3069985,
+            18.995311
+          ],
+          [
+            -97.3071956,
+            18.9954107
+          ],
+          [
+            -97.307213,
+            18.9954175
+          ],
+          [
+            -97.3075597,
+            18.9954691
+          ],
+          [
+            -97.307726,
+            18.9954646
+          ],
+          [
+            -97.3077447,
+            18.9954623
+          ],
+          [
+            -97.3079059,
+            18.9954337
+          ],
+          [
+            -97.308211,
+            18.9953482
+          ],
+          [
+            -97.3083662,
+            18.9952957
+          ],
+          [
+            -97.3085809,
+            18.9951997
+          ],
+          [
+            -97.3085958,
+            18.9951888
+          ],
+          [
+            -97.308603,
+            18.9951724
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    },
+    "verified_at": "2026-10-25"
+  },
+  "id": "geometry:hawc-tank-field-hull",
+  "level_id": "surface",
+  "license": {
+    "attribution": "© OpenStreetMap contributors",
+    "name": "ODbL-1.0",
+    "url": "https://www.openstreetmap.org/copyright"
+  },
+  "links": {
+    "website": null
+  },
+  "map_id": "map:sierra-negra",
+  "method": "Convex hull (Andrew's monotone chain on lon/lat) of every vertex of the 300 OpenStreetMap tank polygons (see geometry:hawc-tanks), 33 vertices. A hull encloses the gaps between rows and the counting-house gap, so it is the outline the tank field presents, not a boundary or fence. The paper's own area figures for the array (22,000 m2) and for the levelled platform (22,395 m2) are compared with its area.",
+  "name": "HAWC tank field outline (convex hull of the 300 tanks)",
+  "notes": [],
+  "osm": {
+    "elements": [
+      "way/541455344",
+      "way/541455345",
+      "way/541455346",
+      "way/541455347",
+      "way/541455348",
+      "way/541455349",
+      "way/541455350",
+      "way/541455351",
+      "way/541455352",
+      "way/541455353",
+      "way/541455354",
+      "way/541455355",
+      "way/541455356",
+      "way/541455357",
+      "way/541455358",
+      "way/541455359",
+      "way/541455360",
+      "way/541455361",
+      "way/541455362",
+      "way/541455363",
+      "way/541455364",
+      "way/541455365",
+      "way/541455366",
+      "way/541455367",
+      "way/541455368",
+      "way/541455369",
+      "way/541455370",
+      "way/541455371",
+      "way/541455372",
+      "way/541455373",
+      "way/541455374",
+      "way/541455375",
+      "way/541455376",
+      "way/541455377",
+      "way/541455378",
+      "way/541455379",
+      "way/541455380",
+      "way/541455381",
+      "way/541455382",
+      "way/541455383",
+      "way/541455384",
+      "way/541455385",
+      "way/541455386",
+      "way/541455387",
+      "way/541455388",
+      "way/541455389",
+      "way/541455390",
+      "way/541455391",
+      "way/541455392",
+      "way/541455393",
+      "way/541455394",
+      "way/541455395",
+      "way/541455396",
+      "way/541455397",
+      "way/541455398",
+      "way/541455399",
+      "way/541455445",
+      "way/541455446",
+      "way/541455447",
+      "way/541455448",
+      "way/541455449",
+      "way/541455450",
+      "way/541455451",
+      "way/541455452",
+      "way/541455453",
+      "way/541455454",
+      "way/541455455",
+      "way/541455456",
+      "way/541455457",
+      "way/541455458",
+      "way/541455459",
+      "way/541455460",
+      "way/541455461",
+      "way/541455462",
+      "way/541455463",
+      "way/541455464",
+      "way/541455465",
+      "way/541455466",
+      "way/541455467",
+      "way/541455468",
+      "way/541455469",
+      "way/541455470",
+      "way/541455471",
+      "way/541455472",
+      "way/541455473",
+      "way/541455474",
+      "way/541455475",
+      "way/541455476",
+      "way/541455477",
+      "way/541455478",
+      "way/541455479",
+      "way/541455480",
+      "way/541455481",
+      "way/541455482",
+      "way/541455483",
+      "way/541455484",
+      "way/541455485",
+      "way/541455486",
+      "way/541455487",
+      "way/541455488",
+      "way/541455489",
+      "way/541455490",
+      "way/541455491",
+      "way/541455492",
+      "way/541455493",
+      "way/541455494",
+      "way/541455495",
+      "way/541455496",
+      "way/541455497",
+      "way/541455498",
+      "way/541455499",
+      "way/541455500",
+      "way/541455501",
+      "way/541455502",
+      "way/541455503",
+      "way/541455504",
+      "way/541455505",
+      "way/541455506",
+      "way/541455507",
+      "way/541455508",
+      "way/541455509",
+      "way/541455510",
+      "way/541455511",
+      "way/541455512",
+      "way/541455513",
+      "way/541455514",
+      "way/541455515",
+      "way/541455516",
+      "way/541455517",
+      "way/541455518",
+      "way/541455519",
+      "way/541455520",
+      "way/541455521",
+      "way/541455522",
+      "way/541455523",
+      "way/541455524",
+      "way/541455525",
+      "way/541455526",
+      "way/541455527",
+      "way/541455528",
+      "way/541455529",
+      "way/541455530",
+      "way/541455531",
+      "way/541455532",
+      "way/541455533",
+      "way/541455534",
+      "way/541455535",
+      "way/541455536",
+      "way/541455537",
+      "way/541455538",
+      "way/541455539",
+      "way/541455540",
+      "way/541455541",
+      "way/541455542",
+      "way/541455543",
+      "way/541455544",
+      "way/541455545",
+      "way/541455546",
+      "way/541455547",
+      "way/541455548",
+      "way/541455549",
+      "way/541455550",
+      "way/541455551",
+      "way/541455552",
+      "way/541455553",
+      "way/541455554",
+      "way/541455555",
+      "way/541455556",
+      "way/541455557",
+      "way/541455558",
+      "way/541455559",
+      "way/541455560",
+      "way/541455561",
+      "way/541455562",
+      "way/541455563",
+      "way/541455564",
+      "way/541455565",
+      "way/541455566",
+      "way/541455567",
+      "way/541455568",
+      "way/541455569",
+      "way/541455570",
+      "way/541455571",
+      "way/541455572",
+      "way/541455573",
+      "way/541455574",
+      "way/541455575",
+      "way/541455576",
+      "way/541455577",
+      "way/541455578",
+      "way/541455579",
+      "way/541455580",
+      "way/541455581",
+      "way/541455582",
+      "way/541455583",
+      "way/541455584",
+      "way/541455585",
+      "way/541455586",
+      "way/541455587",
+      "way/541455588",
+      "way/541455589",
+      "way/541455590",
+      "way/541455591",
+      "way/541455592",
+      "way/541455593",
+      "way/541455594",
+      "way/541455595",
+      "way/541455596",
+      "way/541455597",
+      "way/541455598",
+      "way/541455599",
+      "way/541455600",
+      "way/541455601",
+      "way/541455603",
+      "way/541455604",
+      "way/541455605",
+      "way/541455606",
+      "way/541455607",
+      "way/541455608",
+      "way/541455609",
+      "way/541455610",
+      "way/541455611",
+      "way/541455612",
+      "way/541455613",
+      "way/541455614",
+      "way/541455615",
+      "way/541455616",
+      "way/541455617",
+      "way/541455618",
+      "way/541455619",
+      "way/541455620",
+      "way/541455621",
+      "way/541455622",
+      "way/541455623",
+      "way/541455624",
+      "way/541455625",
+      "way/541455626",
+      "way/541455627",
+      "way/541455628",
+      "way/541455629",
+      "way/541455630",
+      "way/541455631",
+      "way/541455632",
+      "way/541455633",
+      "way/541455634",
+      "way/541455635",
+      "way/541455636",
+      "way/541455637",
+      "way/541455638",
+      "way/541455639",
+      "way/541455640",
+      "way/541455641",
+      "way/541455642",
+      "way/541455643",
+      "way/541455644",
+      "way/541455645",
+      "way/541455646",
+      "way/541455647",
+      "way/541455648",
+      "way/541455649",
+      "way/541455650",
+      "way/541455651",
+      "way/541455652",
+      "way/541455653",
+      "way/541455654",
+      "way/541455655",
+      "way/541455656",
+      "way/541455657",
+      "way/541455658",
+      "way/541455659",
+      "way/541455660",
+      "way/541455661",
+      "way/541455662",
+      "way/541455664",
+      "way/541455665",
+      "way/541455666",
+      "way/541455667",
+      "way/541455668",
+      "way/541455669",
+      "way/541455670",
+      "way/541455671",
+      "way/541455672",
+      "way/541455673",
+      "way/541455674",
+      "way/541455675",
+      "way/541455676",
+      "way/541455677",
+      "way/541455678",
+      "way/541455679",
+      "way/541455680",
+      "way/541455681",
+      "way/541455682",
+      "way/541455683",
+      "way/541455684",
+      "way/541455685",
+      "way/541455686",
+      "way/541455687",
+      "way/541455688",
+      "way/541455689",
+      "way/541455690"
+    ],
+    "timestamp": "2026-10-25T10:38:54Z"
+  },
+  "representation": "derived",
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:hawc-sierra-negra",
+  "sources": [
+    "src:geo-arrays2-hawc-osm-tank-field"
+  ],
+  "summary": {
+    "plain": "The outline of the HAWC tank field, about 190 metres east to west and 150 metres north to south, enclosing about 22,400 square metres."
+  },
+  "type": "geometry",
+  "valid": null
+}

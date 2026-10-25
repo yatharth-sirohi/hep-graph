@@ -4,15 +4,16 @@
   "coordinates": {
     "confidence": "approximate",
     "kind": "campus",
-    "lat": 22.11827,
-    "locator": "Wikipedia infobox, 'Jiangmen Underground Neutrino Observatory', citing He, Miao (2014), NOW workshop presentation, p.9 (topographical map, no printed coordinate text)",
-    "lon": 112.51867,
-    "note": "No rank<=7 source fetched this session states explicit numeric coordinates for the underground hall (the JUNO CDR and 'JUNO Physics and Detector' papers give only the qualitative location -- 52.5-53 km from the Yangjiang/Taishan nuclear plants, under >700 m of granite, near Kaiping/Jiangmen, Guangdong -- with no lat/lon). This value is Wikipedia's infobox coordinate, itself derived (per Wikipedia's own citation) from a 2014 conference presentation slide, not a stated numeric coordinate; per A17 it is recorded as `kind: campus`, `confidence: approximate`, not `kind: underground_lab`, and precision is set coarse (2 km) to reflect that uncertainty.",
-    "precision_m": 2000,
+    "lat": 22.1180556,
+    "locator": "JUNO physics and detector paper (arXiv:2104.02565), Sec. 1.2",
+    "lon": 112.5180556,
+    "note": "Published coordinate converted from degrees-minutes-seconds. Kept approximate: against the GPS-surveyed baselines of the same paper, the six Yangjiang reactor buildings in OpenStreetMap sit about 100 m farther from this point than published (Taishan agrees to 10–16 m), so either the point or the tracing is off by ~100 m.",
+    "precision_m": 150,
+    "quote": "The geographic location is 112° 31’05” E and 22° 07’05” N.",
     "sources": [
-      "src:juno-wikipedia-coordinates"
+      "src:juno-physics-detector-arxiv-2021"
     ],
-    "verified_at": "2026-09-17"
+    "verified_at": "2026-10-25"
   },
   "countries": [
     "CN"
@@ -69,7 +70,8 @@
   "sources": [
     "src:juno-cdr-arxiv-2015",
     "src:juno-wikipedia-coordinates",
-    "src:reactor-solar-verify-juno-cpc-2026-arxiv"
+    "src:reactor-solar-verify-juno-cpc-2026-arxiv",
+    "src:juno-physics-detector-arxiv-2021"
   ],
   "summary": {
     "plain": "The rock cavern under Dashi Hill near Kaiping, in Jiangmen, southern China, where the JUNO neutrino detector sits, shielded by more than 700 metres of granite.",

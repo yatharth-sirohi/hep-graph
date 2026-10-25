@@ -24,16 +24,33 @@
     },
     {
       "confidence": "verified",
-      "end": null,
+      "end": "2026-08-31",
       "label": "operating",
-      "note": "Physics data taking from Run 1 (2016-2018) through the ongoing Run 2 (2021-present); see experiment:na62 for the full run-by-run breakdown.",
+      "locator": "end: home.cern, \"All CERN accelerators now on the road to HiLumi\", 31 August 2026",
+      "note": "Physics data taking from Run 1 (2016-2018) through the ongoing Run 2 (2021-present); see experiment:na62 for the full run-by-run breakdown. End capped at 2026-08-31, when the SPS beams stopped for LS3 (see the shutdown interval below).",
       "sources": [
         "src:na62-jhep-2021-measurement",
-        "src:na62-cern-news-2026-refined-measurement"
+        "src:na62-cern-news-2026-refined-measurement",
+        "src:currency-cern-all-accelerators-2026-08-31"
       ],
       "start": "2015",
       "status": "active",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-25"
+    },
+    {
+      "confidence": "derived",
+      "end": null,
+      "label": "no SPS beam: Long Shutdown 3",
+      "note": "Derived, not an experiment-specific report: the SPS and the whole injector complex stopped on 31 August 2026 (CERN’s injector complex and Antimatter Factory took their final steps towards Long Shutdown 3 (LS3) this morning, as the last particle beams were extracted and the machines fell silent.) and the North Area, which hosts this experiment, is being consolidated during LS3 (\"the consolidation of the Super Proton Synchrotron (SPS) North Area\", CERN, 29 June 2026). No NA62/NA64 statement about its own last day of data taking was fetched, so the end is set to the date beams stopped and confidence is derived.",
+      "quote": "CERN’s injector complex and Antimatter Factory took their final steps towards Long Shutdown 3 (LS3) this morning, as the last particle beams were extracted and the machines fell silent.",
+      "sources": [
+        "src:currency-cern-all-accelerators-2026-08-31",
+        "src:cern-long-shutdown-3-page",
+        "src:currency-cern-accelerator-report-2026-08-20"
+      ],
+      "start": "2026-08-31",
+      "status": "shutdown",
+      "verified_at": "2026-10-25"
     }
   ],
   "links": {
@@ -82,7 +99,7 @@
       "verified_at": "2026-09-17"
     }
   },
-  "status": "active",
+  "status": "shutdown",
   "subsystems": [
     {
       "description": [

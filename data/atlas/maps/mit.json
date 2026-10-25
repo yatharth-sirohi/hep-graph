@@ -1,0 +1,69 @@
+{
+  "aliases": [],
+  "center": {
+    "confidence": "derived",
+    "kind": "campus",
+    "lat": 42.360794,
+    "locator": "Midpoint of the OSM footprints of Buildings 26 and 24",
+    "lon": -71.091614,
+    "note": "Map centre only; not a claim about any structure.",
+    "precision_m": 60,
+    "sources": [
+      "src:geo-mit-osm-building-26",
+      "src:geo-mit-osm-building-24"
+    ],
+    "verified_at": "2026-10-25"
+  },
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "extent_m": 1000,
+  "facility_id": "facility:mit",
+  "id": "map:mit",
+  "levels": [
+    {
+      "depth_m": null,
+      "id": "surface",
+      "kind": "surface",
+      "name": "Surface",
+      "note": "Plan view of the campus and the two Winslow Lab buildings; floors and rooms are not drawn."
+    }
+  ],
+  "linked_map_ids": [],
+  "links": {
+    "website": null
+  },
+  "name": "MIT — campus and the Winslow Lab buildings (Compton Laboratories and Building 24)",
+  "notes": [
+    "The only atlas experiment that references MIT is ABRACADABRA (experiment:abracadabra, detector:abracadabra at site:mit-cambridge-campus); no other MIT experiment or site exists in data/atlas, so only these buildings are drawn."
+  ],
+  "schema": "hep-atlas/0.2",
+  "schematics": [],
+  "site_ids": [
+    "site:mit-cambridge-campus"
+  ],
+  "sources": [
+    "src:geo-mit-osm-campus",
+    "src:geo-mit-winslow-lab-contact",
+    "src:geo-mit-abracadabra-site",
+    "src:axions-abracadabra-mit-winslow-page"
+  ],
+  "summary": {
+    "plain": "The MIT campus in Cambridge, Massachusetts, drawn to scale with the two buildings (26 and 24, on Vassar Street) that hold the Winslow group's laboratories. The ABRACADABRA-10 cm axion detector is known only as 'at MIT', so it is not placed in either building.",
+    "technical": "One local map for facility:mit. OpenStreetMap: campus multipolygon (relation 65066) and buildings 26 (way 32525936) and 24 (way 29127459), tied to the Winslow Lab by its contact page ('Building 26-524 Building 24-036'). The Winslow group's link to ABRACADABRA is src:axions-abracadabra-mit-winslow-page. detector:abracadabra is unlocated: its room is not stated."
+  },
+  "type": "map",
+  "unlocated": [
+    {
+      "backlog": "Find a source naming the room that housed ABRACADABRA-10 cm (an MIT LNS lab page, the PRD design paper's acknowledgements, or a thesis from the Winslow group) and then place a point inside the matching building footprint; the room itself needs an MIT floor plan.",
+      "entity_id": "detector:abracadabra",
+      "reason": "ABRACADABRA-10 cm is sourced only as 'located at MIT' (official ABRACADABRA site). The Winslow Lab that built it lists two spaces, 26-524 and 24-036, and no fetched source says which one held the apparatus (or whether it stood elsewhere on campus), so the detector is not placed. Both candidate buildings are drawn as Winslow Lab buildings.",
+      "sources": [
+        "src:geo-mit-abracadabra-site",
+        "src:geo-mit-winslow-lab-contact"
+      ],
+      "verified_at": "2026-10-25"
+    }
+  ]
+}

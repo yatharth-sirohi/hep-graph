@@ -4,16 +4,16 @@
   "coordinates": {
     "confidence": "approximate",
     "kind": "campus",
-    "lat": 50.09,
-    "locator": "infobox",
-    "lon": 4.78944,
-    "note": "Campus-level coordinate of the Chooz nuclear power plant from Wikipedia's infobox (geocoder/Wikipedia is acceptable only at kind:campus, labelled approximate, per v0.2 A17). NUCLEUS is sited 'very near' the reactor core, much closer than the Double Chooz near/far halls, but no fetched source in this pass gives an exact distance-from-core figure or a more precise coordinate for the NUCLEUS location specifically, so the plant's own campus point is used (A23: shown as approximate until a hall position is sourced). Sign/hemisphere sanity-checked: Chooz, France is in the northern hemisphere (positive lat) and east of the prime meridian (positive lon) — consistent.",
-    "precision_m": 300,
-    "quote": "50°5′24″N 4°47′22″E",
+    "lat": 50.0893714,
+    "locator": "geometry:chooz-vns-position (intersection of the NUCLEUS baselines 72 m to B-1 and 102 m to B-2)",
+    "lon": 4.7900333,
+    "note": "Derived from the NUCLEUS baselines about the B1/B2 unit centroids; the solution lies inside the office building between the units that the paper describes.",
+    "precision_m": 40,
     "sources": [
-      "src:chooz-npp-wikipedia"
+      "src:geo-chooz-nucleus-2019",
+      "src:geo-chooz-osm-extract-2026-10"
     ],
-    "verified_at": "2026-09-17"
+    "verified_at": "2026-10-25"
   },
   "country": "FR",
   "coverage": {
@@ -41,7 +41,9 @@
   "schema": "hep-atlas/0.2",
   "setting": "surface",
   "sources": [
-    "src:chooz-npp-wikipedia"
+    "src:chooz-npp-wikipedia",
+    "src:geo-chooz-nucleus-2019",
+    "src:geo-chooz-osm-extract-2026-10"
   ],
   "summary": {
     "plain": "A location very close to the reactor core at the Chooz nuclear power plant in France, where the NUCLEUS experiment is being built to catch antineutrinos with extremely sensitive cryogenic detectors.",

@@ -3,21 +3,21 @@
   "center": {
     "confidence": "derived",
     "kind": "campus",
-    "lat": 37.0989568,
-    "locator": "Arithmetic mean of the 47 vertices of the campus boundary (OSM/Nominatim way/246018258)",
-    "lon": -76.4815705,
-    "note": "Map centre only; not a claim about any structure. precision_m is set loosely because this is a naive vertex-average centroid, not an area centroid.",
-    "precision_m": 500,
+    "lat": 37.094904,
+    "locator": "vertex mean of geometry:jlab-cebaf-racetrack (derived centre line of the CEBAF tunnel)",
+    "lon": -76.480003,
+    "note": "Map centre only; not a claim about any structure.",
+    "precision_m": 50,
     "sources": [
-      "src:geo-jlab-nominatim-campus-boundary"
+      "src:jlab-geo-nn-building-footprints"
     ],
-    "verified_at": "2026-09-18"
+    "verified_at": "2026-10-25"
   },
   "coverage": {
     "researched": "partial",
     "tier": "C"
   },
-  "extent_m": 1300,
+  "extent_m": 800,
   "facility_id": "facility:jefferson-lab",
   "id": "map:jefferson-lab",
   "levels": [
@@ -26,7 +26,7 @@
       "id": "surface",
       "kind": "surface",
       "name": "Surface",
-      "note": ""
+      "note": "Experimental halls A-D, the arc and extractor service buildings and the campus buildings, from the City of Newport News footprint layer, plus the OSM campus boundary and CEBAF Center."
     },
     {
       "depth_m": {
@@ -47,7 +47,7 @@
       "id": "cebaf-tunnel",
       "kind": "underground",
       "name": "CEBAF accelerator tunnel",
-      "note": "No feature is drawn on this level this session (see map.unlocated: accelerator:cebaf); the level is declared so a future geometry record for the CEBAF racetrack has a home."
+      "note": "The racetrack centre line (geometry:jlab-cebaf-racetrack) and the two straight-section strips (building 999 parts 01 and 02) are drawn on this level. The beam switchyard and the access tunnels to the halls are not drawn."
     }
   ],
   "linked_map_ids": [],
@@ -56,8 +56,9 @@
   },
   "name": "Jefferson Lab — Newport News campus",
   "notes": [
-    "Only one atlas accelerator (accelerator:cebaf) and one atlas site (site:jlab-newport-news) exist for this facility in this wave (see docs/atlas-worklog/ID_REGISTRY.md); no beamline or detector-hosting site records exist for JLab's experimental halls, so nothing beyond CEBAF itself needs to be drawn or unlocated.",
-    "Site coordinate correction: site:jlab-newport-news's existing coordinate (36.98038, -76.42975, a ROR-geocoded point, precision_m 800) is about 13 km south-southeast of this session's independently-corroborated Nominatim/site-plan location for the actual campus (centroid 37.0989568, -76.4815705; the campus-boundary way's own Nominatim point is 37.0961464, -76.4815621; both match Jefferson Lab's own site-plan address '12000 Jefferson Ave.'). See the worklog's site coordinate corrections list; not applied here (a geometry researcher may not edit existing site records)."
+    "Release pass (2026-10-25): accelerator:cebaf is drawn. The City of Newport News publishes building footprints in which the Jefferson Lab buildings carry the lab's own building numbers (BLDGNOTE 'Jefferson Lab #101' ...), the same numbers as the list on JLab's site plan; OSM has no tunnel, hall or service-building outline for the lab (re-checked 2026-10-25 through the OSM API: 5786 ways in the box, none of them CEBAF).",
+    "The tunnel straights are the footprints of building 999 (parts 01 and 02), 265 m long; the two arcs are semicircles of 80.3 m radius fitted to the eight arc service buildings (E2-E5, W2-W5), which lie on them to within 0.6 m (W2 4.4 m). See geometry:jlab-cebaf-racetrack for the derivation and the -6.9% difference from the official 'about 7/8 of a mile'.",
+    "Site coordinate: site:jlab-newport-news (campus point 37.09896, -76.48157) is 470 m north of the racetrack centre; it is a campus-grade point and was not used as an anchor for anything."
   ],
   "schema": "hep-atlas/0.2",
   "schematics": [],
@@ -65,24 +66,17 @@
     "site:jlab-newport-news"
   ],
   "sources": [
+    "src:geo-jlab-node-14330-cebaf-page",
+    "src:geo-jlab-nominatim-campus-boundary",
+    "src:geo-jlab-site-plan-detail",
     "src:jlab-about-page",
-    "src:geo-jlab-nominatim-campus-boundary"
+    "src:jlab-geo-nn-building-footprints",
+    "src:jlab-geo-virtual-tour"
   ],
   "summary": {
-    "plain": "Jefferson Lab's campus in Newport News, Virginia, home to the CEBAF electron accelerator and its four experimental halls; this pass draws the campus boundary and the CEBAF Center building, and lists CEBAF itself as not yet geometrically located after an Overpass outage cut the session short.",
-    "technical": "One local map for facility:jefferson-lab. The campus boundary (OSM/Nominatim way 246018258) and the CEBAF Center administration building (way 319579555) are drawn as georeferenced OpenStreetMap shapes, corroborated by Jefferson Lab's own site-plan building-number key. accelerator:cebaf (the racetrack tunnel and its four experimental halls) is listed in unlocated[] because both permitted Overpass mirrors were unreachable for the remainder of the session."
+    "plain": "Jefferson Lab's campus in Newport News, Virginia, drawn to scale: the oval underground tunnel of the CEBAF electron accelerator with its two straight sections and two semicircular arcs, the four experimental halls (A to D), the service buildings that stand on the arcs and the other lab buildings. The tunnel outline is derived from the numbered buildings above it, not traced from a map of the tunnel.",
+    "technical": "Local map for facility:jefferson-lab. Building footprints from the City of Newport News open-data layer (lab building numbers match JLab's site plan): halls A-D (Hall A verified by a span check against the official '174 feet across'), the two 265 m building-999 strips, eleven arc/extractor/injector service buildings and 70 further buildings. geometry:jlab-cebaf-racetrack is a derived centre line: straights along the strips' axes (160.7 m apart), semicircles of 80.3 m radius fitted to the eight arc service buildings, total 1311 m against the official 'about 7/8 of a mile' (-6.9%). OSM supplies only the campus boundary and CEBAF Center."
   },
   "type": "map",
-  "unlocated": [
-    {
-      "backlog": "Re-run `python scripts/atlas_osm_extract.py --map jefferson-lab --bbox 36.968,-76.445,36.993,-76.415 --filter 'way[\"tunnel\"=\"yes\"]' --filter 'way[\"name\"~\"CEBAF|Hall A|Hall B|Hall C|Hall D\",i]'` once Overpass is reachable; cross-reference results against the building numbers in src:geo-jlab-site-plan-detail (999=Accelerator Tunnel, 101=Hall A, 94=Hall B, 96=Hall C, 203=Hall D) and the sourced total tunnel length ('7/8 of a mile', ~1,408 m, per src:geo-jlab-node-14330-cebaf-page and src:geo-jlab-accelerator-unique-page) as a length check once a shape is found.",
-      "entity_id": "accelerator:cebaf",
-      "reason": "Both permitted Overpass mirrors (overpass-api.de and lz4.overpass-api.de) became unreachable ('Connection refused' on every attempt, including a 10-minute, ~30-attempt background poll of overpass-api.de/api/status) partway through this session, after BNL's geometry had already been extracted but before any Jefferson Lab query could run. No other fetched source gives a georeferenced trace of CEBAF's racetrack tunnel: Jefferson Lab's own site-plan document (src:geo-jlab-site-plan-detail) names the tunnel ('999 Accelerator Tunnel') and its four experimental halls ('101 Experimental Hall A', '94 Experimental Hall B', '96 Experimental Hall C', '203 Experimental Hall D') and shows their layout in an aerial photo, but that photo is not itself georeferenced (no scale bar or coordinate grid), so tracing shapes from it by eye would not be a sourced geometry per the research contract.",
-      "sources": [
-        "src:jlab-accelerator-page",
-        "src:geo-jlab-site-plan-detail"
-      ],
-      "verified_at": "2026-09-18"
-    }
-  ]
+  "unlocated": []
 }

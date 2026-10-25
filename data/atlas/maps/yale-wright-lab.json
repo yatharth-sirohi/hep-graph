@@ -1,0 +1,67 @@
+{
+  "aliases": [],
+  "center": {
+    "confidence": "derived",
+    "kind": "campus",
+    "lat": 41.319007,
+    "locator": "Centroid of the OSM footprint of Wright Laboratory, way 228473354",
+    "lon": -72.920702,
+    "note": "Map centre only; not a claim about any structure.",
+    "precision_m": 20,
+    "sources": [
+      "src:geo-yale-osm-wright-laboratory"
+    ],
+    "verified_at": "2026-10-25"
+  },
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "extent_m": 500,
+  "facility_id": "facility:yale-wright-lab",
+  "id": "map:yale-wright-lab",
+  "levels": [
+    {
+      "depth_m": null,
+      "id": "surface",
+      "kind": "surface",
+      "name": "Surface",
+      "note": "Plan view of the building footprint; floors and rooms are not drawn."
+    }
+  ],
+  "linked_map_ids": [],
+  "links": {
+    "website": null
+  },
+  "name": "Yale Wright Laboratory — building at 272 Whitney Avenue, New Haven",
+  "notes": [
+    "The Wright Lab site is under construction (a new front entrance as of 2026-08-03 on the laboratory's visit page; an addition to Wright Lab, an instrumentation centre and a Physical Sciences and Engineering Building on its history page), so the footprint may change."
+  ],
+  "schema": "hep-atlas/0.2",
+  "schematics": [],
+  "site_ids": [
+    "site:yale-wright-lab-campus"
+  ],
+  "sources": [
+    "src:geo-yale-osm-wright-laboratory",
+    "src:geo-yale-wright-lab-contact",
+    "src:geo-yale-wright-lab-history"
+  ],
+  "summary": {
+    "plain": "The Wright Laboratory building at 272 Whitney Avenue in New Haven, Connecticut, drawn to scale. The HAYSTAC axion detector operates inside it, but no source says in which room, so it is not placed.",
+    "technical": "One local map for facility:yale-wright-lab. Single OpenStreetMap footprint (way 228473354, 2590 m2, 78 m span, last edited 2024-06-02), tied to the laboratory by its official navigation address. detector:haystac is unlocated (room not stated). Other OSM buildings named Wright Laboratory West, Electron Accelerator Laboratory and Wright Annex are not drawn: no official source ties them to the laboratory."
+  },
+  "type": "map",
+  "unlocated": [
+    {
+      "backlog": "Find a HAYSTAC paper, thesis or Wright Lab floor plan that names the room (or building wing) housing the haloscope's dilution refrigerator and magnet, then place a point inside this footprint; also find an official Wright Lab building list to decide whether the OSM 'Wright Laboratory West' / 'Electron Accelerator Laboratory' / 'Wright Annex' buildings belong to the laboratory.",
+      "entity_id": "detector:haystac",
+      "reason": "HAYSTAC is sourced only as 'built and is in operation at Yale University's Wright laboratory' (official HAYSTAC page): the building is drawn, but no fetched source gives the room or position of the haloscope inside it.",
+      "sources": [
+        "src:axions-haystac-official-page",
+        "src:geo-yale-wright-lab-contact"
+      ],
+      "verified_at": "2026-10-25"
+    }
+  ]
+}

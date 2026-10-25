@@ -69,7 +69,7 @@ def test_every_bundle_is_canonical_json(built: BuildResult) -> None:
 
     for path, text in built.files.items():
         payload = json.loads(text)
-        assert text == dump_json(payload), f"{path} is not canonical JSON (A11)"
+        assert text == dump_json(payload, indent=None), f"{path} is not canonical JSON (A11)"
 
 
 def test_manifest_lists_every_bundle_with_a_hash(built: BuildResult) -> None:

@@ -7,8 +7,9 @@ A1-A22) governs the *input*; this governs the *output*.
 
 Rules that hold for every bundle:
 
-* **Canonical JSON.** `json.dumps(sort_keys=True, indent=2, ensure_ascii=False)`
-  plus a trailing newline (A11).  Byte-for-byte deterministic: two builds of
+* **Canonical JSON.** `json.dumps(sort_keys=True, ensure_ascii=False)` with no
+  indentation, plus a trailing newline (A11; bundles are compact since the
+  2026-10 release — authored records under `data/atlas/` keep `indent=2`).  Byte-for-byte deterministic: two builds of
   the same data produce identical files.  `build.py --check` rebuilds into a
   temporary directory and fails when anything differs.
 * **No provenance in the hot path.** `atlas.json` carries *stripped* values

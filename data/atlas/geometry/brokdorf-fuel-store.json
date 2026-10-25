@@ -1,0 +1,107 @@
+{
+  "accuracy_m": 8,
+  "aliases": [],
+  "checks": [
+    {
+      "expected": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "length",
+        "display": "240 m (perimeter of a 93 m x 27 m hall)",
+        "locator": "BASE UVP-Vorpruefung SZL Brokdorf, Sec. 3 \"Ausgangslage\"",
+        "note": "Perimeter computed as 2 x (93 + 27) m from the quoted length and width; the OSM outline measures 93.8 m x 31.8 m (area 2980 m2 vs 2511 m2 for 93 x 27), i.e. it also contains the building annex; tolerance 6 % reflects that.",
+        "quote": "Das Lagergebäude mit Empfangsbereich und Lagerhalle ist ca. 93 m lang, 27 m breit und 24 m hoch (inklusive Aufbauten).",
+        "sources": [
+          "src:geo-brokdorf-szl-base-2023"
+        ],
+        "unit": "m",
+        "value": 240,
+        "verified_at": "2026-10-25"
+      },
+      "kind": "length",
+      "locator": "BASE UVP-Vorpruefung SZL Brokdorf, Sec. 3 \"Ausgangslage\"",
+      "sources": [
+        "src:geo-brokdorf-szl-base-2023"
+      ],
+      "tolerance": 0.06
+    }
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "depth_m": null,
+  "entity_id": null,
+  "feature_type": "building",
+  "geometry": {
+    "confidence": "approximate",
+    "locator": "OSM way 87722984 as of 2026-10-25T11:03:20Z; BASE document Sec. 3",
+    "note": "OpenStreetMap alone yields at most 'approximate'; the perimeter check agrees with the regulator's stated dimensions.",
+    "sources": [
+      "src:geo-brokdorf-osm-extract-2026-10",
+      "src:geo-brokdorf-szl-base-2023"
+    ],
+    "value": {
+      "coordinates": [
+        [
+          [
+            9.3440976,
+            53.8532228
+          ],
+          [
+            9.3443691,
+            53.8529839
+          ],
+          [
+            9.3431892,
+            53.8525173
+          ],
+          [
+            9.3429176,
+            53.8527562
+          ],
+          [
+            9.3440976,
+            53.8532228
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    },
+    "verified_at": "2026-10-25"
+  },
+  "id": "geometry:brokdorf-fuel-store",
+  "level_id": "surface",
+  "license": {
+    "attribution": "© OpenStreetMap contributors",
+    "name": "ODbL-1.0",
+    "url": "https://www.openstreetmap.org/copyright"
+  },
+  "links": {
+    "website": null
+  },
+  "map_id": "map:brokdorf-nuclear-power-plant",
+  "method": "OpenStreetMap way 87722984 (building=warehouse, name 'Brennelementzwischenlager Brokdorf', operator BGZ), 4-vertex outline kept verbatim. Cross-check: BASE states the store building is about 93 m long and 27 m wide; the outline's perimeter is compared with 2 x (93 + 27) m.",
+  "name": "Brokdorf on-site interim fuel store (Brennelement-Zwischenlager, OpenStreetMap)",
+  "notes": [
+    "Measured perimeter 250.3 m against 240 m (+4.3 %). Context building: it is not part of any atlas detector or experiment."
+  ],
+  "osm": {
+    "elements": [
+      "way/87722984"
+    ],
+    "timestamp": "2026-10-25T11:03:20Z"
+  },
+  "representation": "georeferenced",
+  "schema": "hep-atlas/0.2",
+  "site_id": null,
+  "sources": [
+    "src:geo-brokdorf-osm-extract-2026-10",
+    "src:geo-brokdorf-szl-base-2023"
+  ],
+  "summary": {
+    "plain": "The dry store for spent fuel on the Brokdorf plant site, a hall about 93 m long and 27 m wide."
+  },
+  "type": "geometry",
+  "valid": null
+}

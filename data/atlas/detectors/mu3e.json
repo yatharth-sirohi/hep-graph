@@ -11,16 +11,54 @@
   "intervals": [
     {
       "confidence": "approximate",
-      "end": "2026-09",
-      "label": "pixel-tracker installation",
-      "note": "Most recent dated construction milestone found; overall project start date not found in a fetched source this session.",
+      "end": null,
+      "label": "Phase I construction",
+      "note": "Mirrors experiment:mu3e (same lower-bound reasoning). Start is a lower bound, not a stated \"construction began\" date: the earliest dated source found that calls Phase I \"under construction\" is the December 2018 European-Strategy submission (arXiv:1812.06540v1, 16 Dec 2018), whose own Mu3e section says \"Construction of the Mu3e Phase-I experiment will begin in 2019\" (a plan). PSI's news list shows a construction meeting in Wengen on 01.03.2019 and the solenoid arriving on 29.07.2020. Phase I was still described as \"currently under construction\" in the June 2026 abstract (Phi-Psi 2026) and on 16.09.2026 the fourth pixel layer was still to follow for the next beam time, so the interval stays open.",
+      "quote": "The first phase of the Mu3e experiment is under construction at PSI",
+      "sources": [
+        "src:currency-mu3e-arxiv-1812-06540",
+        "src:currency-mu3e-pisa-2026-abstract",
+        "src:currency-mu3e-psi-news-layer3"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2018-12",
+        "display": "by December 2018 (earliest dated \"under construction\")"
+      },
+      "status": "construction",
+      "verified_at": "2026-10-25"
+    },
+    {
+      "confidence": "verified",
+      "end": "2026-09-24",
+      "kind": "phase",
+      "label": "2026 installation of the central detector station",
+      "locator": "psi.ch/en/mu3e/news: 10.07.2026 vertex detector, 07.08.2026 fibre detector, 21.08.2026 tile detector, 16.09.2026 layer 3, 24.09.2026 craned into the PiE5 area",
+      "note": "Phase annotation (kind phase). End: Today Mu3e was craned from the staging setup to the PiE5 area, where the experiment was inserted into the Mu3e magnet. (24.09.2026).",
+      "quote": "Mu3e has installed the vertex detector for the 2026 beamtime, marking an important milestone in the detector assembly.",
+      "sources": [
+        "src:currency-mu3e-psi-news",
+        "src:currency-mu3e-psi-news-craned-area"
+      ],
+      "start": "2026-07-10",
+      "status": "construction",
+      "verified_at": "2026-10-25"
+    },
+    {
+      "confidence": "verified",
+      "end": "2026-09-16",
+      "kind": "phase",
+      "label": "pixel-tracker installation (third layer)",
+      "locator": "psi.ch/en/mu3e, news item dated 16.09.2026",
+      "note": "Phase annotation (kind phase). Previously the only interval, at month precision (2026-09); the source gives the day.",
       "quote": "The third layer of the Mu3e pixel detector was sucessfully installed.",
       "sources": [
-        "src:muons-psi-mu3e-site"
+        "src:muons-psi-mu3e-site",
+        "src:currency-mu3e-psi-news-layer3"
       ],
-      "start": "2026-09",
+      "start": "2026-09-16",
       "status": "construction",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-25"
     }
   ],
   "links": {
@@ -48,7 +86,9 @@
   "schema": "hep-atlas/0.2",
   "sources": [
     "src:muons-inspire-experiment-mu3e",
-    "src:muons-psi-mu3e-site"
+    "src:muons-psi-mu3e-site",
+    "src:currency-mu3e-arxiv-1812-06540",
+    "src:currency-mu3e-pisa-2026-abstract"
   ],
   "specs": {},
   "status": "construction",

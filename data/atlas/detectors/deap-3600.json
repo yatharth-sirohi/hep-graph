@@ -29,26 +29,29 @@
     },
     {
       "confidence": "verified",
-      "end": null,
-      "label": "science operations",
-      "locator": "Astropart. Phys. 108 (2019) 1-23, Sec. 3.2",
-      "note": "Open interval; see experiment:deap-3600 for the corresponding 'detector upgrade (third fill)' interval describing the current hardware phase.",
+      "end": "2020-03",
+      "label": "second fill: science operations",
+      "locator": "end: PASCOS 2025 slides \"3 Year Dataset (Nov 2016 to March 2020)\"; CAP 2026: \"since the end of the second fill run in 2020\"",
+      "note": "END SET 2026-10-25. Previously open-ended with the note that no source said data taking had stopped; the collaboration states the second-fill data set ran from Nov 2016 to March 2020 and that upgrades have been ongoing \"since the end of the second fill run in 2020\".",
       "quote": "has been stably maintained since completing the second fill in November 2016",
       "sources": [
         "src:dm-noble-liquid-deap-3600-detector-paper",
         "src:dm-noble-liquid-deap-3600-official-site",
-        "src:dm-noble-liquid-deap-3600-status-2026"
+        "src:dm-noble-liquid-deap-3600-status-2026",
+        "src:currency-deap3600-pascos2025-slides",
+        "src:currency-deap3600-cap2026-abstract"
       ],
       "start": "2016-11",
       "status": "active",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-25"
     },
     {
       "confidence": "uncertain",
       "end": null,
+      "kind": "phase",
       "label": "detector upgrade (third fill)",
       "locator": "snolab.ca, DEAP-3600 experiment page, status field",
-      "note": "SNOLAB's own experiment page (accessed 2026-09-17) states current status 'Upgrading'; no source fetched this session gives the true start date of this phase. Start is set to 2026-09, the month this status was confirmed, as the earliest defensible anchor rather than an invented date; see experiment:deap-3600 for the same reasoning.",
+      "note": "SNOLAB's own experiment page (accessed 2026-09-17) states current status 'Upgrading'; no source fetched this session gives the true start date of this phase. Start is set to 2026-09, the month this status was confirmed, as the earliest defensible anchor rather than an invented date; see experiment:deap-3600 for the same reasoning. RE-READ 2026-10-25: demoted to a phase annotation. The collaboration's abstracts of 22 June and 21 September 2026 describe a \"just-started\" / \"newly initiated third fill run\" with preliminary third-fill results, which conflicts with reading SNOLAB's \"Upgrading\" status label as a current absence of data taking. The SNOLAB page could not be re-opened. A 2025 plan said third-fill data taking would end \"~ summer 2026\" with decommissioning to make room for ARGOlite; no fetched source says whether that happened.",
       "quote": "Upgrading",
       "sources": [
         "src:dm-noble-liquid-deap-3600-snolab-page",
@@ -56,7 +59,41 @@
       ],
       "start": "2026-09",
       "status": "upgrade",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-25"
+    },
+    {
+      "confidence": "approximate",
+      "end": "2025-02",
+      "label": "detector upgrades (neck flow guides, particulate removal system)",
+      "locator": "CAP 2025 abstract (9 June 2025); CAP 2026 abstract",
+      "note": "Start = end of the second-fill data set (March 2020, month from the PASCOS slide); end = installation finished in February 2025. The fill and dust-removal procedures followed (\"Upgrade done 2025-April / Filling continue 2025-July / Dust removal 2025-September\" on the PASCOS 2025 timeline).",
+      "quote": "The installation of these upgrades was finished in February 2025",
+      "sources": [
+        "src:currency-deap3600-cap2025-abstract",
+        "src:currency-deap3600-cap2026-abstract"
+      ],
+      "start": "2020-03",
+      "status": "upgrade",
+      "verified_at": "2026-10-25"
+    },
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "third fill: science operations",
+      "locator": "LRT 2026 abstract (21 September 2026); CAP 2026 abstract (22 June 2026): \"the just-started third fill run\"",
+      "note": "Start month not found: the 2025 plan had \"Data taking 2025-November\" and the CAP 2025 abstract expected the fill to complete in August 2025; the 2026 abstracts call it \"just-started\" / \"newly initiated\". Whether third-fill data taking is still running on 2026-10-25 is not stated (the 2025 plan ended it \"~ summer 2026\"; SNOLAB lists \"Upgrading\").",
+      "quote": "These improvements are now being evaluated in the newly initiated third fill run.",
+      "sources": [
+        "src:currency-deap3600-lrt2026-abstract",
+        "src:currency-deap3600-cap2026-abstract",
+        "src:currency-deap3600-pascos2025-slides"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2025"
+      },
+      "status": "active",
+      "verified_at": "2026-10-25"
     }
   ],
   "links": {},
@@ -199,7 +236,7 @@
       "verified_at": "2026-09-17"
     }
   },
-  "status": "upgrade",
+  "status": "active",
   "subsystems": [
     {
       "description": {

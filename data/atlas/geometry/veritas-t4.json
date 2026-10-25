@@ -1,0 +1,77 @@
+{
+  "accuracy_m": 15,
+  "aliases": [],
+  "checks": [
+    {
+      "expected": {
+        "dimension": "length",
+        "display": "81 m",
+        "unit": "m",
+        "value": 81
+      },
+      "kind": "distance",
+      "locator": "Perkins and Maier 2009, Figure 1 (aerial view of the new array layout): the arrow between T4 and T3 is labelled '81m'; text on page 2: new-layout distances 81 m to 127 m",
+      "quote": "the new layout distances range from 81 m to 127 m",
+      "sources": [
+        "src:geo-arrays2-veritas-perkins-2009"
+      ],
+      "to_geometry_id": "geometry:veritas-t3",
+      "tolerance": 0.07
+    }
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "depth_m": null,
+  "entity_id": "experiment:veritas",
+  "feature_type": "other",
+  "geometry": {
+    "confidence": "approximate",
+    "locator": "OSM node/664910849 v3 (2026-10-08T06:05:59Z); extract: OSM API map call, bbox -110.970,31.662,-110.935,31.690, fetched 2026-10-25T10:39:02Z",
+    "note": "OpenStreetMap point (rank 11), so confidence is capped at approximate. The distance checks use a 7 % tolerance, which is what a 10-15 m placement error on a 100 m spacing amounts to; the published spacings are integers read from labels on an aerial photograph.",
+    "sources": [
+      "src:geo-arrays2-veritas-osm-t4",
+      "src:geo-arrays2-veritas-perkins-2009"
+    ],
+    "value": {
+      "coordinates": [
+        -110.95274,
+        31.6751674
+      ],
+      "type": "Point"
+    },
+    "verified_at": "2026-10-25"
+  },
+  "id": "geometry:veritas-t4",
+  "level_id": "surface",
+  "license": {
+    "attribution": "© OpenStreetMap contributors",
+    "name": "ODbL-1.0",
+    "url": "https://www.openstreetmap.org/copyright"
+  },
+  "links": {
+    "website": null
+  },
+  "map_id": "map:fred-lawrence-whipple-observatory",
+  "method": "OpenStreetMap node 664910849 (man_made=telescope, name=VERITAS, ref=4, telescope:diameter=12), a single point used verbatim. The node's position is the mapper's placement of the telescope, traced from aerial imagery (source=yahoo); the tracing accuracy on a 12 m dish is taken as 15 m. T1 stands at its position after the 2009 relocation (the OSM T1-T4 distance is 172 m, not the 35 m of the old layout). Distance checks measure this node against the neighbours named in Figure 1 of Perkins and Maier 2009.",
+  "name": "VERITAS telescope T4 (12 m)",
+  "notes": [],
+  "osm": {
+    "elements": [
+      "node/664910849"
+    ],
+    "timestamp": "2026-10-25T10:39:02Z"
+  },
+  "representation": "georeferenced",
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:mount-hopkins-veritas",
+  "sources": [
+    "src:geo-arrays2-veritas-osm-t4"
+  ],
+  "summary": {
+    "plain": "Telescope T4 of the four-telescope VERITAS array at the basecamp of the Whipple Observatory in Arizona (a 12-metre gamma-ray telescope)."
+  },
+  "type": "geometry",
+  "valid": null
+}
