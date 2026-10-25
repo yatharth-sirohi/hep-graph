@@ -48,6 +48,22 @@ Result: Phase II is over and the collaboration is working on Phase III apparatus
 
 Result: pause confirmed by SNOLAB's own report; status stays `proposed`. SNOLAB Report (slides dated 26 May 2026, https://cinp.ca/sites/default/files/2026-06/SNOLAB_2026CAP.pdf), slide 26 "SNOLAB Cryopit Timeline", first entry "Dec 2024": "US led nEXO project was paused." (read from the rendered slide). No source says cancelled; nexo.llnl.gov (undated) still says "The nEXO experiment is under development"; SNOLAB's 31 July 2026 talk lists "nEXO 2.0" only as an illustrative future-project idea ("does not indicate SNOLAB approval or space allocation"). A `phase` annotation (status `proposed`, from 2024-12) was added to the experiment and detector; the pause's own announcement was not found.
 
+### 4.5 SENSEI (SNOLAB runs)
+
+Result: the SNOLAB runs were missing and are now recorded as intervals; status stays `active`. arXiv:2312.13342 (SENSEI at SNOLAB, 20 December 2023): "The SENSEI apparatus at SNOLAB was installed in 2021"; first science data "taken from September 9, 2022 to April 10, 2023"; "The SNOLAB setup has been upgraded with additional detectors for another science run" (not dated). The Fermilab MINOS-cavern operation is still described as current in arXiv:2610.22418 (15 October 2026). Not done (follow-up for the integrator): a SNOLAB placement for `detector:sensei` and an `unlocated`/drawn entry on the SNOLAB map were not added, because the Atlas rules put maps/ out of scope for this stream and an undrawn placement raises an A25 warning; the first pass had left the placement out for lack of an explicit SNOLAB source, which now exists.
+
+### 4.6 P-ONE first line and the STRAW pathfinder
+
+Result: nothing of P-ONE has been in the water since July 2023, and the first full-scale line (P-ONE-1) is built and tested but not reported deployed. The experiment and its detector move from `commissioning`/`active` to `construction`. Sources (official P-ONE news): the STRAW moorings "were disconnected and recovered during last month’s summer 2023 #ONCAbyss expedition" (ONC item of 24 August 2023); P-ONE-1 "was fully assembled and integrated" on 28 April 2026 ("nearly three years of coordinated international development and engineering efforts"); it "successfully completed its final pre-deployment shallow-water test" on 23 June 2026; "the collaboration aims to deploy P-ONE-1 ... by the end of August 2026"; Demonstrator final assembly at TRIUMF "between 2027 and 2028". The news page has nothing newer than 23 June 2026 and no other report of a deployment was found, so the deployment is recorded as a planned phase (August 2026) and the experiment as `construction`; if the line is in fact deployed the state would be `commissioning`. The first-pass rows had treated STRAW as operating with no end, which is why the experiment read `commissioning`.
+
+### 4.7 RNO-G station count and drilling
+
+Result: eight stations confirmed (35 planned); the 2023 pause ended by 2025; status stays `construction`. Summit Station project page for the 2026 season (https://geo-summit.org/summit-station/research-projects/collaborative-research-wou-mma-robust-searches-ultrahigh-energy-neutrinos-rno-g): "the eight existing RNO-G stations (Sites 11, 12, 13, 14, 21, 22, 23, and 24)"; "boreholes drilled in 2025 (Sites 15, 25, 34, and 35) and 2026 (Site 45)"; "Between July and August, the science team will bring five new RNO-G stations online". ARENA 2026 abstracts (June 2026): "RNO-G currently consists of eight autonomous stations"; "As of March 2026, eight of these stations have already been commissioned". Not found: any report of the outcome of the June-August 2026 season, so the five new stations are a planned row, not counted. The "deployment paused" row now ends in 2025 (approximate upper bound).
+
+### 4.8 ARA
+
+Result: no status change. The planned upgrade partly happened: arXiv:2509.18368 (22 September 2025): "In 2024, two of the five ARA stations received DAQ upgrades", with "2024-2025 season upgrades" and RFSoC DAQ "foreseen in the coming years". ARENA 2026 abstracts call ARA "five independent stations which have been taking data for over a decade"; arXiv:2603.00341 (27 February 2026) reports "nearly 30 station-years of livetime accumulated". None says which stations are live in 2026 or what the 2025-26 and 2026-27 seasons did, so the 'reduced-scale operation' row (2 of 5 live in the 2024 paper) was kept and its note updated.
+
 ## Change log (every edit, for re-opening)
 
 - **accelerator:fermilab-main-injector** — intervals["no Main Injector beam (transformer failures)"].note/sources; intervals["NuMI run..."].label/note/quote/sources
@@ -97,3 +113,26 @@ Result: pause confirmed by SNOLAB's own report; status stays `proposed`. SNOLAB 
   - new: plus phase "US-led project paused (listed by SNOLAB, December 2024)" from 2024-12 (approximate)
   - source: https://cinp.ca/sites/default/files/2026-06/SNOLAB_2026CAP.pdf (SNOLAB Report, 26 May 2026, slide 26)
   - quote: "US led nEXO project was paused."
+- **experiment:sensei**, **detector:sensei** — intervals (added; status stays `active`)
+  - old: protoSENSEI 2018 .. 2019-01; science operations at Fermilab MINOS cavern 2019-01 open
+  - new: plus phase "SNOLAB: SENSEI apparatus installed" 2021; run "SNOLAB Run 1 (first science run)" 2022-09-09 .. 2023-04-10
+  - source: https://arxiv.org/abs/2312.13342
+  - quote: "The SENSEI apparatus at SNOLAB was installed in 2021." | "based on data taken from September 9, 2022 to April 10, 2023"
+- **experiment:p-one** — status / intervals
+  - old: status `commissioning`; "pathfinder programme deployed and taking data" 2019-01 open-ended
+  - new: status `construction`; pathfinder row ends 2023-07 (recovered); new construction interval "P-ONE-1 first full-scale line and demonstrator construction (line integrated, awaiting deployment)" from 2023 (approximate lower bound), open; phases 2026-04-28 (integrated), 2026-06-23 (wet test); planned phase "P-ONE-1 deployment at Cascadia Basin (planned)" 2026-08
+  - sources: https://www.pacific-neutrino.org/main-menu/news/the-recovered-straw-pathfinder-hardware-is-back-in-germany-for-analysis ; https://www.pacific-neutrino.org/main-menu/news/successful-integration-of-first-detector-line-p-one-1-1 ; https://www.pacific-neutrino.org/main-menu/news/successful-wet-test-of-p-one-1-in-vancouvers-granville-island
+  - quote: "The three moorings (a 500-metre string and two 150 metre in length) were disconnected and recovered during last month’s summer 2023 #ONCAbyss expedition" | "On April 28, the 1 km-long detector line P-ONE-1 was fully assembled and integrated" | "the collaboration aims to deploy P-ONE-1, including the full acoustic calibration infrastructure on the seafloor, by the end of August 2026"
+- **detector:p-one** — status / intervals
+  - old: status `active`; "STRAW pathfinder operating" 2019-01 open-ended
+  - new: status `construction`; STRAW row ends 2023-07; new construction interval "P-ONE-1 first full-scale line: integrated 2026-04-28, wet-tested 2026-06-23, awaiting deployment" from 2023 (approximate)
+  - sources: same three P-ONE news pages
+- **experiment:rno-g**, **detector:rno-g** — intervals (status stays `construction`)
+  - old: "deployment paused" 2023 open-ended
+  - new: pause ends 2025 (approximate upper bound); new construction interval "construction resumed (2025 drilling; eight stations commissioned; 35 planned)" from 2025; (experiment only) run "eight stations commissioned" from 2026-03 and planned phase "2026 season: five new stations to be brought online (planned)" 2026-07 .. 2026-08
+  - sources: https://geo-summit.org/summit-station/research-projects/collaborative-research-wou-mma-robust-searches-ultrahigh-energy-neutrinos-rno-g ; https://indico.kit.edu/event/5380/contributions/22645/ ; https://indico.kit.edu/event/5380/contributions/22649/
+  - quote: "antennas in boreholes drilled in 2025 (Sites 15, 25, 34, and 35) and 2026 (Site 45)" | "As of March 2026, eight of these stations have already been commissioned with more to follow each year."
+- **experiment:ara**, **detector:ara** — note/sources only (no status or date change)
+  - new: note records the 2024 DAQ upgrade of two stations and the June 2026 abstracts
+  - sources: https://arxiv.org/abs/2509.18368 ; https://indico.kit.edu/event/5380/contributions/22635/
+  - quote: "In 2024, two of the five ARA stations received DAQ upgrades, improving the existing electronics"
