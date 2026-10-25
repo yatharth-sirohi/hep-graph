@@ -21,20 +21,21 @@ Why two maps: the Yangjiang and Taishan reactors are 52-53 km from the hall. The
 | Yangjiang reactor buildings YJ-1..YJ-6 | juno-reactor-baselines | drawn, six OSM `building=reactor` ways | georeferenced | 15 | distance to hall vs GPS baseline, all pass at 0.3 % (table below) |
 | Taishan EPR buildings TS-1, TS-2 | juno-reactor-baselines | drawn, two OSM buildings each containing one `power=generator` EPR node | georeferenced | 15 | distance to hall vs baseline pass at 0.3 %; separation 252.5 m pass at 3 % |
 
-Checks (expected vs measured; hall = published coordinate, buildings = centroid of the OSM polygon):
+Checks (expected vs measured; hall = published coordinate, buildings = area centroid of the OSM polygon). "Measured" is computed here with an origin-shifted centroid; the pipeline's `geo.centroid` has a numerical defect on small polygons (section 6), so the `measured_m` in the built bundles differs by up to ~30 m for these 1200 m² domes. Every check passes with either.
 
-| Core | Published baseline (arXiv:2104.02565 Table 1) | Measured | Difference |
-| --- | ---: | ---: | ---: |
-| YJ-1 | 52 740 m | 52 824 m | +84 m |
-| YJ-2 | 52 820 m | 52 922 m | +102 m |
-| YJ-3 | 52 410 m | 52 497 m | +87 m |
-| YJ-4 | 52 490 m | 52 588 m | +98 m |
-| YJ-5 | 52 110 m | 52 235 m | +125 m |
-| YJ-6 | 52 190 m | 52 312 m | +122 m |
-| TS-1 | 52 770 m | 52 754 m | -16 m |
-| TS-2 | 52 640 m | 52 631 m | -9 m |
-| Taishan core separation | 252.5 m | 256.6 m | +1.6 % |
-| Yangjiang max core separation (YJ-5 to YJ-2) | 736 m | 696.9 m | -5.3 % (tolerance 6 %) |
+| Core | Published baseline (arXiv:2104.02565 Table 1) | Measured (stable centroid) | Difference | Bundle `measured_m` |
+| --- | ---: | ---: | ---: | ---: |
+| YJ-1 | 52 740 m | 52 837 m | +97 m | 52 823.9 |
+| YJ-2 | 52 820 m | 52 917 m | +97 m | 52 922.1 |
+| YJ-3 | 52 410 m | 52 511 m | +101 m | 52 497.3 |
+| YJ-4 | 52 490 m | 52 591 m | +101 m | 52 588.4 |
+| YJ-5 | 52 110 m | 52 206 m | +96 m | 52 235.3 |
+| YJ-6 | 52 190 m | 52 286 m | +96 m | 52 311.6 |
+| TS-1 | 52 770 m | 52 754 m | -16 m | 52 754.2 |
+| TS-2 | 52 640 m | 52 630 m | -10 m | 52 630.6 |
+| Taishan core separation | 252.5 m | 257.1 m (+1.8 %) | | 256.6 |
+| Yangjiang maximum core separation (YJ-5 to YJ-2) | 736 m | 725.2 m (-1.5 %) | | 696.9 (-5.3 %, tolerance 6 %) |
+| Yangjiang minimum core separation | 89 m | 83.7 m (-6 %), the three twin pairs are all 83.7 m | | 79 (not used as a check) |
 
 Principal sources (the integrator can re-open these):
 
@@ -46,8 +47,8 @@ Principal sources (the integrator can re-open these):
 
 ### Source conflicts and honesty calls
 
-1. Published coordinate vs the baselines. The six Yangjiang buildings are 84-125 m farther from the published coordinate than the surveyed baselines say; the two Taishan buildings agree to <= 16 m. A pure displacement of the published point of ~100 m toward SSW (bearing ~205°) would remove both, and so would a ~100 m registration offset between the OSM tracings of the two plants; the sources cannot tell these apart. Handling: the hall stays the published coordinate (that is what a source states), `accuracy_m` 150 (arc-second rounding alone is ~21 m, plus the paper's own statement that the hall was moved ~60 m from the design position, with no statement which position the coordinate describes), confidence `approximate` although the representation is `surveyed`. The check tolerance on the baselines is 0.3 % (~155 m at 52 km) so the check fails a coordinate that is more than ~150 m wrong, which is its job.
-2. Core separations. OSM domes give 79 m minimum and 697 m maximum against the published 89 m and 736 m (arXiv:1507.05613 says 88 m / 736 m). Only the maximum is a check (6 % tolerance); the minimum is 11 % off and is not used as a check. Probable cause: oblique-imagery offset of ~60 m tall domes in the tracing.
+1. Published coordinate vs the baselines. With stable centroids the six Yangjiang buildings are all 96-101 m farther from the published coordinate than the surveyed baselines say (a spread of only 5 m between the six), the two Taishan buildings agree to 10-16 m (measured slightly short). A pure displacement of the published point of ~100 m toward SSW (bearing ~205°) removes both, and so would a ~100 m registration offset between the OSM tracings of the two plants; the sources cannot tell these apart. Handling: the hall stays the published coordinate (that is what a source states), `accuracy_m` 150 (arc-second rounding alone is ~21 m, plus the paper's own statement that the hall was moved ~60 m from the design position, with no statement which position the coordinate describes), confidence `approximate` although the representation is `surveyed`. The check tolerance on the baselines is 0.3 % (~155 m at 52 km), so the check fails a coordinate that is more than ~150 m wrong, which is its job.
+2. Core separations. Stable centroids of the OSM domes give 83.7 m minimum and 725.2 m maximum against the published 89 m and 736 m (arXiv:1507.05613 says 88 m / 736 m), i.e. -6 % and -1.5 %. Only the maximum is a check (6 % tolerance, because the pipeline's centroid routine measures 697 m on these small polygons); the minimum is not used as a check.
 3. Unit labels. The OSM ways carry no unit numbers. YJ-n / TS-n are assigned by matching the order of measured distances to the order of the published baselines. Within each Yangjiang pair the odd unit is the north-eastern one; no source confirms this numbering, and the geometry records say so in `method`.
 4. Shaft depth and length figures disagree across the JUNO documents: vertical shaft 581 m (CDR Sec. 10.1.2), 589 m (CDR Sec. 10.2.2.2), 564 m (arXiv:2104.02565); inclined shaft 1,340 m at 42.6 % (CDR) vs 1266 m at 42.5 % (arXiv:2104.02565, after the ~60 m move). The level depth uses the 2021 figure; none of the shaft figures is drawn.
 5. Hall footprint not drawn: a 43.5 m (water pool) circle around a 150 m-accuracy point would carry false precision, and the hall outline orientation is not published as coordinates.
@@ -81,7 +82,7 @@ Grade before: partial (three OSM unit footprints; far, near and very-near sites 
 
 * Inputs: Double Chooz TDR https://arxiv.org/pdf/hep-ex/0606025 Sec. 2.1: "The far detector is located at a distance of 1114.6 ± 0.1 m from RE, and at 997.9 ± 0.1 m from RW" (1115 m / 998 m in https://arxiv.org/pdf/2009.05515 Sec. 2); the two OSM unit centroids (163.3 m apart).
 * Which core is nearer: the TDR labels cores RE/RW (east/west) but the OSM east unit is B2 and the TDR's own Fig. 2/3 and its "close to the old Chooz A" caption are figure-based. Decision: the nearer core is B2, because Double Chooz PRD 86, 052008 (https://arxiv.org/pdf/1207.6632) Table V predicts 3422.4 far-detector events from B2 against 2910.9 from B1 with both reactors on (equal nominal power, flux ~ 1/L²; the distance ratio would give 1.25, the table 1.18). This contradicts reading the TDR's RW as the geographic west unit B1 (see conflicts).
-* Mirror choice: the two circles meet at (4.7983695 E, 50.0975524 N) and (4.8026622 E, 50.0845921 N). IGN RGE ALTI elevations (Géoplateforme altimetry API, queried 2026-10-25): plant ground 114.7 m; northern solution 138.1 m (23 m rise, cannot give the ~300 m.w.e. ≈ 107 m of rock the TDR quotes), southern solution 239.4 m on a hill. The southern solution is also 209 m from the OSM "Chooz A" building (TDR Fig. 3 caption: hall "located close the old Chooz A underground power plant").
+* Mirror choice: the two circles meet at (4.7983783 E, 50.0975486 N) and (4.8026591 E, 50.0845889 N). IGN RGE ALTI elevations (Géoplateforme altimetry API, queried 2026-10-25): plant ground 114.7 m; northern solution 138.1 m (23 m rise, cannot give the ~300 m.w.e. ≈ 107 m of rock the TDR quotes), southern solution 239.4 m on a hill. The southern solution is also 209 m from the OSM "Chooz A" building (TDR Fig. 3 caption: hall "located close the old Chooz A underground power plant").
 * Sensitivity (why accuracy_m is 200): circle centres 163 m apart, radii ~1 km: 5 m of error in the core separation moves the point ~25 m, a 20-30 m perpendicular offset of one core from its footprint centroid rotates the pair and moves it ~100-170 m.
 * Not used: any bearing from a figure; imagery.
 
@@ -98,12 +99,12 @@ NUCLEUS (https://arxiv.org/pdf/1905.10258 Sec. 2.1): "The baseline of the VNS to
 
 ### Near-laboratory candidates (not drawn; backlog)
 
-With 355 m to B1 and 469 m to B2 (pairing implied by the iso-flux design, the farther core of the far lab being also the farther core of the near lab): 4.7932676 E 50.0927424 N (132.2 m a.s.l.) and 4.7949525 E 50.0876553 N (107.9 m). With the opposite pairing: 4.7853808 E 50.0916671 N (114.8 m) and 4.7870657 E 50.0865800 N (105.7 m). None sits under a clear hill; nothing in the fetched sources selects one.
+With 355 m to B1 and 469 m to B2 (pairing implied by the iso-flux design, the farther core of the far lab being also the farther core of the near lab): 4.7932710 E 50.0927410 N (132.2 m a.s.l.) and 4.7949513 E 50.0876540 N (107.9 m). With the opposite pairing: 4.7853820 E 50.0916684 N (114.8 m) and 4.7870623 E 50.0865814 N (105.7 m). None sits under a clear hill; nothing in the fetched sources selects one.
 
 ### Site coordinate corrections (for the integrator)
 
-* `site:double-chooz-far-detector`: current 50.09, 4.78944, campus, precision 2000 m (Wikipedia). Proposed: lat 50.0845921, lon 4.8026622, kind campus, precision_m 200, confidence approximate (derived), sources `src:geo-chooz-dc-tdr-2006`, `src:double-chooz-2012-evidence`, `src:geo-chooz-osm-extract-2026-10`, `src:geo-chooz-ign-alti-api`; locator `geometry:chooz-far-laboratory`.
-* `site:chooz-very-near-nucleus`: current 50.09, 4.78944 (Wikipedia, precision 300 m). Proposed: lat 50.0893716, lon 4.7900335, precision_m 40, derived, sources `src:geo-chooz-nucleus-2019`, `src:geo-chooz-osm-extract-2026-10`; locator `geometry:chooz-vns-position`.
+* `site:double-chooz-far-detector`: current 50.09, 4.78944, campus, precision 2000 m (Wikipedia). Proposed: lat 50.0845889, lon 4.8026591, kind campus, precision_m 200, confidence approximate (derived), sources `src:geo-chooz-dc-tdr-2006`, `src:double-chooz-2012-evidence`, `src:geo-chooz-osm-extract-2026-10`, `src:geo-chooz-ign-alti-api`; locator `geometry:chooz-far-laboratory`.
+* `site:chooz-very-near-nucleus`: current 50.09, 4.78944 (Wikipedia, precision 300 m). Proposed: lat 50.0893714, lon 4.7900333, precision_m 40, derived, sources `src:geo-chooz-nucleus-2019`, `src:geo-chooz-osm-extract-2026-10`; locator `geometry:chooz-vns-position`.
 * `site:double-chooz-near-detector`: unchanged (unlocated).
 
 ### Backlog
@@ -130,9 +131,9 @@ Grade before: partial / partial. After: partial / partial, with one wrong buildi
 
 ### What changed and why
 
-* Leibstadt reactor building. The earlier record drew OSM way 567961020 (a 1319 m² building) because it was the largest building nearest the plant's bus-stop node, and said so. The OSM data of 2026-10-25 contain a dome-roofed `building:part` (way 608881797, 1719 m², circular part radius 23.0 m, residual <= 1.4 m) whose polygon contains the plant's `power=generator` node (BWR-1, 1220 MW, node 257712288) 7 m from its centroid. That is the reactor building; the old building is 190 m SSW of it and is no longer drawn. Both CONUS+ and the map centre followed. Identification is by tags, not by name, so confidence stays `approximate`.
-* Leibstadt CONUS+ point = centre of the circle fitted to the dome (2.1 m from the polygon centroid), taken as the reactor axis; the detector is within 12.45 m of the axis (arXiv:2407.11912: "12.45 m horizontal distance from the reactor central axis", azimuth not published); accuracy 30 m.
-* Brokdorf. The "Reaktorgebäude" polygon is the whole reactor-building complex (130 m span, 9227 m²), not the containment cylinder. A circle fitted to its 13 arc vertices has radius 40.2 m (residual <= 2.7 m) and is centred 20.7 m SSW of the polygon centroid (9.3457897 E, 53.8505931 N); whether that arc is concentric with the core is not stated, so the CONUS point keeps the centroid and its accuracy is raised from 20 m to 40 m (17.1 m published offset + up to ~21 m centroid-to-axis).
+* Leibstadt reactor building. The earlier record drew OSM way 567961020 (a 1319 m² building) because it was the largest building nearest the plant's bus-stop node, and said so. The OSM data of 2026-10-25 contain a dome-roofed `building:part` (way 608881797, 1719 m², circular part radius 23.0 m, residual <= 1.4 m) whose polygon contains the plant's `power=generator` node (BWR-1, 1220 MW, node 257712288) 6 m from its centroid. That is the reactor building; the old building is 190 m SSW of it and is no longer drawn. Both CONUS+ and the map centre followed. Identification is by tags, not by name, so confidence stays `approximate`.
+* Leibstadt CONUS+ point = centre of the circle fitted to the dome (1.4 m from the polygon centroid), taken as the reactor axis; the detector is within 12.45 m of the axis (arXiv:2407.11912: "12.45 m horizontal distance from the reactor central axis", azimuth not published); accuracy 30 m.
+* Brokdorf. The "Reaktorgebäude" polygon is the whole reactor-building complex (130 m span, 9227 m²), not the containment cylinder. A circle fitted to its 13 arc vertices has radius 40.2 m (residual <= 2.7 m) and is centred 20.4 m SSW of the polygon centroid (9.3457897 E, 53.8505931 N); whether that arc is concentric with the core is not stated, so the CONUS point keeps the centroid and its accuracy is raised from 20 m to 40 m (17.1 m published offset + up to ~20 m centroid-to-axis).
 * Brokdorf interim fuel store: BASE's "Allgemeine Vorprüfung zur Feststellung der UVP-Pflicht" for SZL Brokdorf (https://www.uvp-portal.de/sites/default/files/2023-12/UVP-Vorpr%C3%BCfung%20SZL%20KBR%20R%C3%BCckf%C3%BChrung%20Abschluss%20Vorpr%C3%BCfung%20Stand%2027.11.2023%20zur%20Ver%C3%B6ffentlichung_Barrierefrei.pdf, Sec. 3): "Das Lagergebäude mit Empfangsbereich und Lagerhalle ist ca. 93 m lang, 27 m breit und 24 m hoch (inklusive Aufbauten)." The OSM outline is 93.8 m x 31.8 m (area 2980 m² vs 2511 m² for 93 x 27, so it includes the annex); only the perimeter is used as a check, at 6 %.
 
 ### Source conflicts and failed leads
@@ -150,3 +151,59 @@ Grade before: partial / partial. After: partial / partial, with one wrong buildi
 
 * An official reactor-building (containment) diameter and an outline or core coordinate for Brokdorf and Leibstadt, to replace OSM complex polygons and the fitted axes.
 * The azimuth of the detector offsets (CONUS 17.1 m, CONUS+ 12.45 m) from the CONUS papers' figures, which would turn the two points into positions good to a few metres.
+
+## 4. Boulby (`map:boulby-underground-laboratory`)
+
+Grade before: marker only (a surface-works outline and a sourced depth). After: partial. New: the two primary shaft collars and two shaft-head buildings from OpenStreetMap. The laboratory itself is not drawn.
+
+| Entity | Drawn / unlocated | Representation | accuracy_m | Check result |
+| --- | --- | --- | ---: | --- |
+| Mine surface works outline (OSM way 29230185, existing) | drawn | georeferenced | 15 | none |
+| Man Shaft (Downcast), OSM way 104138958 | drawn (`geometry:boulby-man-shaft`, level surface, shaft depth 1100 m) | georeferenced | 10 | none (no official shaft diameter found) |
+| Rock Shaft (Upcast), OSM way 104139003 | drawn (`geometry:boulby-rock-shaft`) | georeferenced | 10 | none |
+| Winder House (way 104138984), Fan House (way 104138986), context | drawn | georeferenced | 10 | none |
+| 180 m tailings shaft | not drawn (not mapped in OSM) | n/a | n/a | n/a |
+| Underground laboratory at 1100 m (facility row) | unlocated | n/a | n/a | n/a |
+
+Sources: https://arxiv.org/pdf/2310.08183 Sec. 8.4.2: "shafts at Boulby, of which there are three: two 1.1 km primary shafts for people access and rock/product removal, and one 180 m shaft, which is a tailings shaft" (`src:geo-boulby-aion-workshop-2023`); https://arxiv.org/pdf/2301.05183 Sec. III: "located at a depth of 1100 m, equivalent to 2840 m of water", 4000 m³ experimental space built in 2015 (`src:geo-boulby-darksphere-2023`); OSM extract of 2026-10-25T11:18:36Z (`src:geo-boulby-osm-shafts`). The identification of the two OSM shafts with the "two 1.1 km primary shafts" rests on their names and stated roles (man shaft / rock shaft); it is stated in the records. Conflict: none of the two papers' depth figures disagree (1.1 km, 1100 m); Pandola 2011 gives a minimum overburden of 2850 m w.e. and the DarkSPHERE paper 2840 m w.e.; both agree with the existing level depth. Site coordinate corrections: none. Backlog: a mine plan or STFC site plan with a scale, or a paper giving the laboratory's offset from the shaft bottom, to draw the 4000 m³ hall.
+
+## 5. Soudan (`map:soudan-underground-laboratory`)
+
+Grade before: partial (surveyed 5-decimal point and the OSM shaft house). After: close to layout-to-scale at the detector level: the MINOS far detector is now drawn as a footprint at its surveyed position and published orientation, with the shaft house and a second shaft collar as context; the cavern, Soudan 2 and the CDMS laboratory are not drawn.
+
+The decisive source is the MINOS detector paper, https://arxiv.org/pdf/0805.3170 (`src:minos-detector-paper-2008`), Sec. 6.5 "Far detector location": "That midpoint was surveyed and determined to be located at latitude 47.820267 degrees north, longitude 92.241412 degrees west, and ellipsoid height -248.4 m in North American Datum 1983 (NAD 83)." (the midpoint between the two supermodules, surveyed with an inertial survey of 0.7 m precision per coordinate relative to the surface); "The far detector and cavern axes are level and at an azimuth of 333.4452° (26.5548° west of true north)." Sec. 1: octagonal planes "with edge to edge dimension of 8 m", two supermodules of 14.78 m and 14.10 m "axially separated by a 1.15 m gap"; Sec. 6.5: the origin plane "lies 15.631 m upstream from the midpoint".
+
+| Entity | Drawn / unlocated | Representation | accuracy_m | Check result |
+| --- | --- | --- | ---: | --- |
+| site:soudan-minos-far-detector (detector midpoint) | drawn: `geometry:soudan-minos-far-detector-point` (existing, refined to 6 decimals) | surveyed | 3 (was 100) | none possible on a Point |
+| detector:minos-far-detector footprint | drawn: `geometry:soudan-minos-far-detector-footprint`, 8 m x 30.31 m rectangle along azimuth 333.4452° from 15.631 m upstream to 14.675 m downstream of the midpoint | derived | 3 | none: every input is the same paper's survey, so a check would be circular (the polygon measures 30.306 m, 7.994 m, axis 333.447°) |
+| Soudan Mine shaft house (OSM way 722791010, existing) | drawn | georeferenced | 10 | none |
+| 'Shaft #8' (OSM way 1293533760), context | drawn: `geometry:soudan-shaft-8` | georeferenced | 10 | none |
+| cavern of MINOS, Soudan 2 cavern, CDMS II / SuperCDMS Soudan laboratory | unlocated (facility row) | n/a | n/a | n/a |
+
+Unlocated reason (sourced): the paper gives only the axis azimuth for the cavern, not its size or its offset from the detector midpoint; the MINOS Technical Design Report (https://www.osti.gov/biblio/1861363 and the Fermilab archive copies) returned HTTP 403 and https://www.soudan.umn.edu/ refused the connection. Backlog: those documents (cavern dimensions, level-27 plan with the Soudan 2 / CDMS cavern offsets); with the axis azimuth and the cavern width/length the MINOS hall is a rectangle about the surveyed midpoint.
+
+Findings and conflicts: (a) the PRD 76, 052003 value (47.82027, -92.24141) and the NIM value agree to 0.3 m; the NIM six-decimal value is now used. (b) The laboratory shaft "is inclined by 12° with respect to the vertical" (Sec. 6.4.1), so a straight shaft would put level 27 ~150 m horizontally from its collar (705 m x tan 12°). The detector midpoint is 127 m from the centroid of the NRHP shaft house and 72 m from the 'Shaft #8' collar; neither is a check (the detector is not at the shaft bottom, and no source says which collar serves the laboratory). (c) Depth: the paper quotes 705 m (Sec. 1, Sec. 6.5) and 710 m (Sec. 6.3); the level keeps 705 m.
+
+Site coordinate corrections (for the integrator): `site:soudan-minos-far-detector`: current 47.82027, -92.24141, underground_lab, precision_m 100. Proposed: lat 47.820267, lon -92.241412, kind underground_lab, precision_m 3, confidence verified, source `src:minos-detector-paper-2008`, locator Sec. 6.5, quote "That midpoint was surveyed and determined to be located at latitude 47.820267 degrees north, longitude 92.241412 degrees west, and ellipsoid height -248.4 m in North American Datum 1983 (NAD 83)."
+
+## 6. Baksan (`map:baksan-neutrino-observatory`)
+
+Grade before: partial (the BNO compound outline and the Neutrino village outline). After: partial; the Main adit entrance was added and the unlocated row now states the official distances. The adit path and the halls are not drawn: no source gives the tunnel's bearing.
+
+Official INR pages (fetched with curl, text read directly): https://www.inr.ru/bno/ — "комплекс подземных сооружений, расположенных вдоль двух параллельных горизонтальных штолен в толще горы Андырчи (высота горы свыше 4 км; длина штолен около 4 км)"; https://www.inr.ru/rus/bno/lggnt.html — "Подземный комплекс лаборатории ГГНТ расположен на расстоянии 3.5 км от входа горизонтального тоннеля, ведущего внутрь горы Андырчи.", hall "длиной 60 м, шириной 10 м и высотой 12 метров", 4700 m w.e.; https://www.inr.ru/rus/bno/lbpst.html — "Телескоп расположен в горной выработке объемом 12000 куб. метров на расстоянии 550м от начала горизонтального тоннеля.", base 16.7 x 16.7 m, 850 hg/cm² of soil, the Andyrchi array's central detector ~350 m vertically above it. The entrance: OSM node 4244310615 `man_made=adit`, name "Главная", description "Вход в штольню Главную Баксанской нейтринной обсерватории" (extract 2026-10-25T11:25:46Z), 43.2756023 N 42.6921682 E.
+
+| Entity | Drawn / unlocated | Representation | accuracy_m | Check result |
+| --- | --- | --- | ---: | --- |
+| BNO compound outline (OSM way 1504181774, existing) | drawn | georeferenced | 10 | none |
+| Neutrino village outline (way 206835293, existing) | drawn | georeferenced | 15 | none |
+| Main adit entrance (OSM node 4244310615) | drawn: `geometry:baksan-main-adit-entrance` (Point) | georeferenced | 20 | none |
+| site:baksan-sage-underground-lab (and BUST at 550 m, 4 km adits) | unlocated | n/a | n/a | n/a |
+
+Lead not turned into a record: a terrain test with SRTM 30 m heights (OpenTopoData `srtm30m`, sampled every 3° at 550 m and 3.5 km from the entrance node, entrance elevation 1711 m, tunnel assumed horizontal at that elevation). Official figures to meet: ~350 m of rock over BUST at 550 m, and for SAGE 4700 m w.e. which at the BUST ratio (850 m w.e. for ~350 m) is ~1.9 km of rock at 3.5 km. The terrain rises by 346-377 m at 550 m and by 1.6-2.1 km at 3.5 km along azimuths of about 126-165° (SE); the best fits (rock 1.7-1.95 km at 3.5 km and 350 +/- 15 m at 550 m) are two bands near 128° and 156°. That is too wide to place a 60 m hall (a 15° uncertainty is ~900 m at 3.5 km), so nothing was drawn; a published bearing or plan would collapse it. Site coordinate corrections: none (the site record is a campus point from Wikipedia; the adit entrance is the first sourced position of the complex, 70 m north of the BNO compound centroid; not proposed as a site correction because the SAGE hall is 3.5 km inside the mountain). Backlog: INR plan view of the Main adit (Fig. 1 of the INR page is a longitudinal section), a topographic map of the underground complex, or a paper stating the adit azimuth.
+
+## 7. Pipeline defect found, warnings, validation
+
+* **`hepgraph.atlas.geo.centroid` is numerically unstable for polygons** (cannot be fixed by this stream; `hepgraph/` is out of scope). `_ring_centroid` applies the shoelace formula to absolute lon/lat in degrees, so for small polygons at high |lon| or |lat| the cross products cancel catastrophically. Measured against an origin-shifted centroid over all 112 committed polygon records, the pipeline centroid is wrong by 150.7 m (`geometry:j-parc-neutrino-muon-monitor-building`, 148 m²), 130 m (`geometry:soudan-shaft-8`, 44 m²), 54 m (my Soudan footprint, 242 m²), 43.5 m (`yangjiang-reactor-yj5`, 1216 m²), 38 m (yj6), 34 m (`wipp-mineshaft-building`), 30 m (`j-parc-neutrino-near-detector-hall-building`, `super-kamiokande-cavern`), 27 m (`lingao-ii-core-l4`), 24 m (`fermilab-minos-near-surface`, `j-parc-hadron-hall-building`), and more than 8 m on a further dozen. It affects every `distance` check on polygons (the build's `measured.centroid`, `geometry-site-mismatch`, the browser's reported centroid). Fix: subtract the first vertex (or the vertex mean) before forming the cross products; add a regression test with a 40 m² polygon at 92° W. Consequence for this stream: all my `distance` checks use polygons large enough or tolerances wide enough to pass with both the defective and the correct centroid (verified), and every number quoted in my notes uses the correct centroid. Earlier worklogs' centroid-based residuals (SURF 124 m / 550 m, Soudan 127 m, RENO/Daya Bay tolerances widened to 5-6 %) were computed with the defective routine and should be re-derived after the fix; the Daya Bay EH2 and RENO near-hall checks that needed 5-6 % tolerance may then pass at 3 %.
+* Warnings: no warning in `hepgraph.atlas.validate` names a file of this stream; the totals (1588 warnings, 4 informational) are unchanged from the base branch (3 errors = the three mu3e `status-not-derived-state` errors given by the integrator, not touched). `hepgraph.atlas.build` succeeds; the generated bundles were restored, not committed.
+* Web search budget: the session's WebSearch budget was exhausted partway through (Brokdorf/Leibstadt reactor-building dimensions were not found); no search was made by other means.
