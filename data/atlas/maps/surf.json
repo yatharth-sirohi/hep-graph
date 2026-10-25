@@ -45,7 +45,7 @@
       "id": "4850-level",
       "kind": "underground",
       "name": "4850 Level (1478 m)",
-      "note": "Plan view; the DUNE far-detector caverns (site:surf-4850-level-dune-far-detector) are on this same level but their position relative to the Ross Shaft is not sourced this session (see map.unlocated)."
+      "note": "Plan view. The LBNF/DUNE detector caverns are drawn here (derived from published module coordinates, see their records); the cryostats rest on the 4910 level, about 60 ft below the 4850 floor, and the caverns are 28 m high, so the plan outline is the 4850 plan projection of a deeper void. Davis Campus point is surveyed; the Central Utility Cavern and the drifts are not drawn."
     }
   ],
   "linked_map_ids": [],
@@ -53,9 +53,19 @@
     "website": null
   },
   "name": "SURF — Sanford Underground Research Facility, Lead, South Dakota",
-  "notes": [],
+  "notes": [
+    "Central Utility Cavern (190 m x 19.3 m, between the two detector caverns per DUNE TDR Vol. III 5.2) is not drawn: no fetched source gives its offset along the cavern axis.",
+    "Conflict: detector caverns are 144.5 m long in the DUNE TDR (design, 2020) and 521.5 ft = 158.95 m on a December 2023 Fermilab slide; the drawn length is the latter (see geometry records).",
+    "Heise (arXiv:2603.06504) Table 4 prints its Latitude and Longitude column headings interchanged; the values carry hemisphere letters and are unambiguous."
+  ],
   "schema": "hep-atlas/0.2",
-  "schematics": [],
+  "schematics": [
+    {
+      "note": "Official schematic, slide 27; topology only (Ross Shaft, west and south drifts, two detector caverns flanking the Central Utility Cavern). Never drawn on the to-scale map.",
+      "source_id": "src:geo-surf-lbnf-community-2023-12",
+      "title": "LBNF/DUNE 4850 Level cavern and drift layout (3D CAD view labelled with cavern sizes; not to scale)"
+    }
+  ],
   "site_ids": [
     "site:surf-surface-campus",
     "site:surf-davis-campus-lz",
@@ -63,23 +73,15 @@
   ],
   "sources": [
     "src:geo-surf-osm-campus-buildings",
-    "src:surf-official-site"
+    "src:surf-official-site",
+    "src:geo-surf-heise-2026-review",
+    "src:geo-surf-lbnf-community-2023-12",
+    "src:dune-fd-tdr-vol-3"
   ],
   "summary": {
-    "plain": "SURF's surface campus in Lead, South Dakota (Yates and Ross shaft areas) and the 4850 Level 1478 m below, home to the Davis Campus (LZ, Majorana Demonstrator) and the LBNF/DUNE far-detector excavation.",
-    "technical": "Local map for facility:surf spanning the Lead, SD surface campus (OSM building footprints for the Yates and Ross shaft head-frames and hoists) and the 4850 Level (1478 m depth). The Davis Campus cavern (LZ, Majorana Demonstrator) is drawn from its own surveyed coordinate (SURF Physics Procedia Table 5); the LBNF/DUNE far-detector caverns on the same level remain unlocated for lack of a sourced offset from the Ross Shaft."
+    "plain": "SURF’s surface campus in Lead, South Dakota (Yates and Ross shaft areas) and the 4850 Level 1478 m below, home to the Davis Campus (LZ, Majorana Demonstrator) and the two huge caverns excavated for the DUNE far detector.",
+    "technical": "Local map for facility:surf: OSM building footprints for the Yates and Ross head-frames and hoists, the Davis Campus cavern at its surveyed coordinate (SURF Physics Procedia Table 5), and the LBNF/DUNE north and south detector caverns on the 4850 Level, derived from the published FD1-FD4 module coordinates (Heise 2026, Table 4) and the as-excavated cavern size (521.5 ft x 65 ft). The Central Utility Cavern and access drifts are not drawn."
   },
   "type": "map",
-  "unlocated": [
-    {
-      "backlog": "Fetch Fermilab's 'Volume 3: Long-Baseline Neutrino Facility for DUNE' design report (lss.fnal.gov/archive/design/fermilab-design-2016-03.pdf, returned HTTP 403 to both WebFetch and curl this session) or the DUNE FD TDR's civil-engineering chapter for a cavern layout figure with a stated offset from the Ross Shaft or a Homestake-mine-coordinate-system plan; failing that, ask SURF's engineering group directly for a georeferenced site plan.",
-      "entity_id": "site:surf-4850-level-dune-far-detector",
-      "reason": "The LBNF/DUNE far-detector caverns (two 145 m long detector caverns plus the Central Utility Cavern, per LBNF's own public excavation page) are on the 4850 Level, reached via the Ross Shaft, but no source fetched this session states their horizontal offset or bearing from the Ross Shaft, a survey coordinate for the caverns, or a Homestake-mine-coordinate-system plan converted to lat/lon. The existing site record's own coordinate is an explicit surface-proxy fallback (precision_m 2000) and is not treated as an anchor for a derived shape here.",
-      "sources": [
-        "src:dune-fd-tdr-vol-1",
-        "src:fermilab-lbnf-dune-site"
-      ],
-      "verified_at": "2026-09-18"
-    }
-  ]
+  "unlocated": []
 }
