@@ -415,3 +415,61 @@ and cannot be told apart from the sources.
    Laboratory West", "Electron Accelerator Laboratory" and "Wright Annex" belong to the laboratory.
 3. A post-construction footprint once the Wright Lab addition is built (completion expected 2030
    per the history page).
+
+---
+
+## 7. university-of-washington-cenpa (`map:university-of-washington-cenpa`)
+
+**Grade: no map → partial (one footprint).** No accelerator record exists for CENPA; the site hosts
+`detector:admx` (main) and `detector:project-8` (prototype).
+
+| Entity / feature | Status | Representation | accuracy_m | Check |
+| --- | --- | --- | --- | --- |
+| `site:uw-cenpa-campus` → `geometry:cenpa-north-physics-laboratory` (OSM way 885743335, "North Physics Laboratory", 4311, ref NPV, 3833 m², 104.5 m span, King County GIS origin) | drawn (`building`) | georeferenced | 8 | none: the official "53,500-sq. ft." is a floor area, not a footprint |
+| `detector:admx` | **unlocated** | — | — | — |
+| `detector:project-8` | **unlocated** | — | — | — |
+
+**Sources fetched and quoted**
+
+* "CENPA is located at the North Physics Lab: a 53,500-sq. ft. stand-alone facility that supports
+  up to 100 faculty, staff, students, and visitors." — CENPA About page
+  (https://www.npl.washington.edu/cenpa/about), fetched.
+* CENPA contact page (https://www.npl.washington.edu/cenpa/contact): "Laboratory Shipping Address:
+  … 4311 Mason Place NE Seattle, WA 98195" and directions "turn left on Pend Oreille Rd". Cited
+  through the **existing** source `src:axions-admx-cenpa-contact` (same URL; a duplicate source
+  record was first written and removed after the validator's `duplicate-source-url` error).
+
+**Honesty calls and conflicts**
+
+1. *Address conflict, resolved by the house number.* CENPA's page says 4311 **Mason Place** NE;
+   OSM files the North Physics Laboratory under 4311 **Pend Oreille Road** NE. Same house number;
+   Pend Oreille Rd is the road CENPA's own directions use. The identification (NPL = CENPA's
+   building) rests on CENPA's About page, not on the address.
+2. *No check.* 53,500 sq ft (4970 m²) is a floor area; the 3833 m² footprint (41 260 sq ft) with the
+   OSM two levels would give about 82 500 sq ft, so the figure cannot confirm the footprint and no
+   check row is asserted.
+3. Neither detector is placed inside the building: ADMX is only "sited at … the University of
+   Washington", Project 8's placement is `uncertain` ("built at the University of Washington").
+   The existing site note that ADMX's cavity and magnet "sit inside the North Physics Lab
+   building" is consistent with the About page but gives no room.
+
+**Site coordinate corrections** (for the integrator; none applied here)
+
+```json
+[{"site_id": "site:uw-cenpa-campus",
+  "current": {"lat": 47.6593849, "lon": -122.302645, "precision_m": 200, "kind": "campus", "source": "src:axions-nominatim-uw-cenpa"},
+  "proposed": {"lat": 47.660093, "lon": -122.302842, "precision_m": 30, "kind": "campus"},
+  "distance_from_current_m": 80,
+  "source": "src:geo-cenpa-osm-north-physics-laboratory (centroid of OSM way 885743335) with src:geo-cenpa-about-page",
+  "quote": "CENPA is located at the North Physics Lab: a 53,500-sq. ft. stand-alone facility",
+  "note": "The existing point is a Nominatim hit on the Mason Place address, about 80 m south of the building; the new point is the building centroid (precision 200 m -> 30 m)."}]
+```
+
+**Remaining backlog**
+
+1. The ADMX magnet/cavity room and the Project 8 Phase I location (CENPA/ADMX papers, theses, or a
+   floor plan), then points inside the footprint.
+2. An official building footprint or GIS layer (UW Facilities / King County GIS licence) to give
+   a footprint `area` check.
+3. The CENPA tandem/accelerator hall, if the atlas ever records CENPA's accelerator (not an atlas
+   entity today).
