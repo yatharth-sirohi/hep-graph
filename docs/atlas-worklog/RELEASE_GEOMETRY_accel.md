@@ -4,6 +4,36 @@ Facilities: PSI, Oak Ridge (SNS), Los Alamos (LANSCE), Jefferson Lab, Fermilab.
 Worktree `/Users/yatharthsirohi/Desktop/HEP-Graph-ar-accel`, branch `atlas-release-accel`.
 New sources are prefixed `src:<facility>-geo-*` / `src:geo-*`.
 
+## Summary
+
+| Facility | Grade before | Grade after | Principal shapes added (representation, check) |
+| --- | --- | --- | --- |
+| PSI (map:psi) | marker only | layout to scale | experimental hall WEHA (georeferenced, **verified**: perimeter 370 m vs 360 m and area 6916 m^2 vs 6500 m^2 from PSI's "130x50 m"), Injector 2 hall, SINQ, UCN hall, 109 campus buildings; Ring Cyclotron still unlocated |
+| Oak Ridge / SNS (map:oak-ridge-national-laboratory) | marker only | marker only | nothing could be sourced beyond the boundary (see section) |
+| Los Alamos / LANSCE (map:los-alamos-national-laboratory) | marker only (and empty in 2026) | layout to scale | linac structure 695 m x 26 m (georeferenced), Proton Storage Ring building (span 31.8 m vs "30-m-diameter", pass), main hall, Lujan Center, WNR, TA-53 boundary, 76 buildings; LSND unlocated |
+| Jefferson Lab (map:jefferson-lab) | partial | layout to scale | CEBAF racetrack centre line (derived, 1311 m vs "about 7/8 mile" 1408 m: -6.9%, weak check), tunnel straights, Hall A (**verified**, span 51.6 m vs 174 ft = 53.0 m), Halls B-D, 11 service buildings, 70 campus buildings |
+| Fermilab (map:fermilab) | layout to scale (MI, Recycler, PIP-II unlocated) | layout to scale | Main Injector ring (derived from the TDR lattice, 3319.37 m vs 3319.419 m; independent 28.789277 m offset check reproduced to 0.1%) and Recycler (same tunnel); PIP-II still unlocated |
+
+Final state of this branch: `python -m hepgraph.atlas.validate` reports 3 errors, all the pre-existing time-driven
+`status-not-derived-state` findings on collaboration:mu3e, detector:mu3e and experiment:mu3e (not touched), and no
+warning on any file of this stream except the intentional `geometry-duplicate-shape` on geometry:fermilab-recycler-ring.
+`python -m hepgraph.atlas.build` succeeds; tests/test_atlas_geometry_data.py passes. All five maps were opened in the
+browser at year 2026 (1440 x 900) and draw their features.
+
+### Method lessons (useful beyond these five labs)
+
+1. **The OSM API works when Overpass is down** (`api.openstreetmap.org/api/0.6/map?bbox=` in tiles under the 50 000-node
+   limit, `.../way/<id>/full`), and it is not rate-limited like Overpass for light use.
+2. **Search the whole site, not the OSM point.** LANSCE's one OSM "site" node was 2.8 km from the buildings; the buildings carry
+   LANL numbers in `ref`.
+3. **Municipal and county footprint layers carry the lab's own building numbers.** Newport News (Jefferson Lab) and
+   Los Alamos County (TA-53, with a `technical_areas` layer) publish them through ArcGIS REST; the lab's site plan or building
+   list then identifies halls, tunnel parts and arc service buildings, and independent datasets can be compared number by number.
+4. A lab's own site-map **legend text** (PSI's Arealplan) identifies OSM buildings that are named only by code.
+5. Official source numbers often over-determine a layout (Main Injector TDR: dipole counts and lengths, straight-section
+   lengths, an offset statement that serves as an independent check; Jefferson Lab: arc service buildings on a circle of
+   exactly half the straight separation).
+
 ## Method note: Overpass was down, OSM data came from the OSM API
 
 `overpass-api.de` answered the first status probe with a TLS hang and then, for a
