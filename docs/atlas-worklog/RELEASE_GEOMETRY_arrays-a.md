@@ -394,3 +394,16 @@ None proposed: the published coordinate used is the one already on `site:baikal-
 * `python -m hepgraph.atlas.build` succeeds; the largest bundles are `lhaaso-daocheng.json` 0.68 MB, `pierre-auger-observatory.json` 0.91 MB (budget 2 MB). Generated files were restored before each commit.
 * `pytest -q`: 681 passed, 139 skipped (PostgreSQL-backed tests) at the last commit; `tests/test_atlas_geometry_data.py` executes every check written here against the real shapes.
 * A browser pass on a local static server (build output, port 8761, stopped afterwards) opened #/map/amundsen-scott-south-pole-station, pierre-auger-observatory, telescope-array-utah, lhaaso-daocheng and baikal-deep-underwater-neutrino-telescope: all render; the South Pole map uses the polar projection with grid north up; on the LHAASO map the OpenStreetMap basemap shows the pools under the drawn pools.
+
+## Integrator verification (2026-10-25)
+
+Auger frame: converting the Los Leones FD origin used by opendata.auger.org's
+own field-of-view drawing (E 459207, N 6071871) as UTM 19S / WGS 84 gives
+35.495876 S, 69.449767 W, 23 m from OpenStreetMap node 1342506868 (Pierre Auger
+Observatory communications tower, which the detector paper's Fig. 6 shows
+directly behind the Los Leones FD building). OSM monitoring-station nodes
+"Morriña" and "Tato" coincide with sdMap stations 321 and 440 to 0.1 m (likely
+imported from the same data, so not independent). A PSAD56 reading would be
+off by roughly 250 m. The WGS 84 assumption stands.
+IceCube frame: the v3 instrumentation paper's "aligned with the Prime Meridian
+(Grid North)" and the 883.9 m origin elevation were re-read in arXiv:1612.05093v3.
