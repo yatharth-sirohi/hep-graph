@@ -406,8 +406,17 @@
     padding: 12px 0;
     font-size: 15px;
   }
+  /* Sticks just under the sheet's own bar rather than behind it. */
+  .filter-clear-row {
+    top: calc(var(--phone-touch) + 2px);
+  }
+  .filter-clear-all {
+    min-height: var(--phone-touch);
+    font-size: 15px;
+  }
   /* One scroll, the sheet's, not a list inside a list. */
-  .filter-options {
+  .filter-options,
+  .filter-options.is-long {
     max-height: none;
     gap: 0;
   }

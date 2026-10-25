@@ -235,7 +235,7 @@ async function contrastOf(page, selector) {
       await region.check({ force: true });
       await page.locator(".filter-chip", { hasText: "Europe" }).first().waitFor();
       await runAxe(page, tree.label, "filters panel");
-      await page.locator(".filter-chip.filter-clear-all").click();
+      await page.locator("#filter-clear-all").click();
     });
 
     await record(`[${tree.label}] axe: timeline moved to a past year`, async () => {

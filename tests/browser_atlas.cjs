@@ -237,6 +237,40 @@ async function setRangeValue(locator, value) {
     await ctx.close();
   });
 
+  await record("Filter groups: long ones start collapsed, headers carry the count, Clear all filters appears only while one is active", async () => {
+    const ctx = await browser.newContext({ viewport: { width: 1440, height: 960 } });
+    const p = await ctx.newPage();
+    await p.goto(`${base}/atlas${dataTree}`);
+    await p.locator("#filters-controls .filter-group").first().waitFor();
+    // The checkboxes exist before the app has subscribed to state changes (the
+    // globe loads first), and a change made in that gap updates the URL but
+    // not the panel: wait until the globe has markers, as the other checks do.
+    await p.waitForFunction(() => document.querySelectorAll(".atlas-marker").length > 0, { timeout: 30000 });
+    const groups = () => p.evaluate(() => Object.fromEntries([...document.querySelectorAll("#filters-controls .filter-group")]
+      .map((d) => [d.dataset.facet, { open: d.open, header: d.querySelector("summary").textContent.trim() }])));
+    const before = await groups();
+    assert.equal(before.topic.open, false, "Research topic starts collapsed");
+    assert.equal(before.experimentKind.open, false, "Experiment kind starts collapsed");
+    assert.equal(before.region.open, true, "the short groups stay open");
+    assert.equal(await p.locator("#filter-clear-all").count(), 0, "no Clear all filters while nothing is active");
+    await p.locator('.filter-group[data-facet="topic"] > summary').click();
+    await p.locator('.filter-group[data-facet="topic"] input[type=checkbox]').first().check({ force: true });
+    assert.match((await groups()).topic.header, /1 selected$/);
+    await p.locator("#filter-clear-all").waitFor();
+    // Collapse it again, then change another facet: it must stay collapsed and keep its count.
+    await p.locator('.filter-group[data-facet="topic"] > summary').click();
+    await p.locator("#filter-region-Europe").check({ force: true });
+    const after = await groups();
+    assert.equal(after.topic.open, false, "ticking another facet must not re-open a group the reader closed");
+    assert.match(after.topic.header, /1 selected$/, "a collapsed group still shows its selection count");
+    assert.match(after.region.header, /1 selected$/);
+    await p.locator("#filter-clear-all").click();
+    await p.waitForFunction(() => !document.getElementById("filter-clear-all"));
+    assert.doesNotMatch(p.url(), /[?&](t|rg)=/, "Clear all filters removes the parameters from the URL");
+    assert.doesNotMatch((await groups()).topic.header, /selected/);
+    await ctx.close();
+  });
+
   await record("Collaboration mode shows institution dots on the globe", async () => {
     await page.locator(".collab-line .collab-link").first().click();
     await page.locator("#detail-panel h2", { hasText: "DUNE Collaboration" }).waitFor();
@@ -1492,7 +1526,7 @@ async function setRangeValue(locator, value) {
     // merge and split with altitude), and the reloads above may leave the
     // camera elsewhere than the cold-load default; the invariant is that
     // clearing widens the set beyond the Europe-only subset.
-    await page.locator(".filter-chip.filter-clear-all").click();
+    await page.locator("#filter-clear-all").click();
     await page.waitForFunction(
       (n) => document.querySelectorAll(".atlas-marker").length > n
         && document.querySelectorAll(".filter-chip").length === 0,
