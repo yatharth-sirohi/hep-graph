@@ -5,6 +5,19 @@ Worktree `HEP-Graph-ar-arrays`, branch `atlas-release-arrays`. New sources are p
 Pierre Auger Observatory, Telescope Array (Utah), LHAASO (Daocheng), Baikal-GVD.
 Previous worklogs: `GEOMETRY_arrays.md`, `GEOMETRY_polar-sea.md`.
 
+## Result at a glance
+
+| Facility | Grade before | Grade after | New features | Principal check |
+| --- | --- | --- | --- | --- |
+| Amundsen-Scott South Pole (IceCube, DeepCore, IceTop) | marker only | layout to scale | 78 + 8 strings, 162 tanks (6 records), array footprint | footprint 0.868 km2 vs nominal 1 km2 (weak); spacing/tank checks in the record notes |
+| Pierre Auger Observatory | partial | layout to scale | 1636 stations (21 records), main array outline rebuilt | outline 3098 km2 vs 3000 km2 (+3.25%) |
+| Telescope Array (Utah) | partial | layout to scale | 507 stations (7 records), outline, CLF, 3 FD stations | outline 691.5 km2 vs ~700 km2; FD 20.8 km vs "about 21 km" |
+| LHAASO (Daocheng) | partial | layout to scale | 1188 MDs (15 records), 3 WCDA pools, ED-array outline | 4911/305 ED split, 635 m radius, pool areas, outline span 1270 m |
+| Baikal-GVD | partial | layout to scale (relative); 1500 m absolute | 11 clusters, 88 strings, with deployment years | cluster chord 117-120 m vs 117 m (R = 60 m heptagon) |
+
+New records: 63 geometry (data/atlas/geometry), 17 sources (data/atlas/sources), 5 maps edited; 2 geometry records removed (superseded):
+`ta-array-point`, `baikal-gvd-cluster-footprint`; ED markers of LHAASO not drawn (2 MB bundle limit). The geometry LICENSE note gained a paragraph on the non-OSM licences.
+
 ## Method notes common to all five
 
 * The contract (`docs/HEP_ATLAS_GEOMETRY.md` section 1.2, `geo.GEOJSON_TYPES`) allows no
@@ -371,3 +384,13 @@ None proposed: the published coordinate used is the one already on `site:baikal-
 * A coordinate for any specific cluster or the shore station (cable landing near the Ivanovka river outfall): none in any document fetched; the JINR site names a "Береговая станция" without a position.
 * The frame origin of the positioning-system coordinates (the Baikal-GVD positioning papers, or a geodetic reference point of the telescope).
 * Top views for clusters 12-16 and the inter-cluster/laser strings (a 2025-2026 numeric layout); string positions measured after each season.
+
+## Network use, limits and validation
+
+* **Overpass** (one query at a time, at least 15 s apart, `User-Agent: HEP-Atlas-research/1.0 (...)`, small boxes, `[timeout:90]`): South Pole polar box (overpass-api.de, extract 2026-10-25T10:37:51Z); Auger names/towers/buildings (11:11:23Z); LHAASO area (two HTTP 502 from overpass-api.de, then the lz4 mirror answered, extract 11:27:51Z) and the pool/array ways with geometry (11:28:50Z); Baikal shore tags (11:42:02Z) and an `is_in` test (11:48:03Z; all six points fell in one large water area, so it proved nothing and was not used). Raw responses stayed in the scratch directory.
+* **Web search budget.** The session's WebSearch budget (200 calls, shared by all agents) ran out during the Auger fluorescence-detector hunt, so no further searches could be made after that point; direct document fetches (arXiv, Zenodo, GitHub raw/API, project sites) were still possible and were used. No search engine was queried by other means.
+* **INSPIRE** was not used. Three research sub-agents (Telescope Array, LHAASO, Baikal-GVD sources) ran read-only; their reports were treated as leads and every quote and number used above was re-fetched or recomputed here (see each section).
+* `python -m hepgraph.atlas.validate`: 3 errors, all `status-not-derived-state` on `collaboration:mu3e`, `detector:mu3e`, `experiment:mu3e` (time-driven, pre-existing on the base branch, not touched), and the same 1588 warnings as the base branch: no warning is left on any file of this stream.
+* `python -m hepgraph.atlas.build` succeeds; the largest bundles are `lhaaso-daocheng.json` 0.68 MB, `pierre-auger-observatory.json` 0.91 MB (budget 2 MB). Generated files were restored before each commit.
+* `pytest -q`: 681 passed, 139 skipped (PostgreSQL-backed tests) at the last commit; `tests/test_atlas_geometry_data.py` executes every check written here against the real shapes.
+* A browser pass on a local static server (build output, port 8761, stopped afterwards) opened #/map/amundsen-scott-south-pole-station, pierre-auger-observatory, telescope-array-utah, lhaaso-daocheng and baikal-deep-underwater-neutrino-telescope: all render; the South Pole map uses the polar projection with grid north up; on the LHAASO map the OpenStreetMap basemap shows the pools under the drawn pools.
