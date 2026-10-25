@@ -52,7 +52,8 @@ UA = ("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "
       "(KHTML, like Gecko) Chrome/124.0 Safari/537.36")
 PDFTOTEXT = "/opt/homebrew/bin/pdftotext"
 TIMEOUT, WORKERS, MAX_BYTES = 30, 4, 200 * 1024 * 1024
-HOST_GAP = {"arxiv.org": 1.5}  # seconds between requests to one host (default 1)
+HOST_GAP = {"arxiv.org": 1.5, "web.archive.org": 3.0}  # seconds between requests to one host (default 1)
+HOST_UA = {"web.archive.org": "HEP-Atlas-quote-check/1.0 (research script)"}  # archive.org rate-limits browser UAs
 NEAR_THRESHOLD, SEGMENT_MIN = 0.85, 12
 CLASS_ORDER = ["verbatim", "segments", "near", "missing", "unfetchable", "skipped"]
 
@@ -95,7 +96,8 @@ ARXIV_RE = re.compile(r"arxiv\.org/(?:abs|pdf)/([^?#\s]+?)(?:\.pdf)?(?:v\d+)?/?(
 
 
 def source_urls(src: dict) -> tuple[list[str], list[str]]:
-    """(primary candidates, fallbacks tried only if the primary is unfetchable).
+    """(primary candidates, fallbacks tried only if the primary is unfetchable: the
+    record's `archive_url`, then the arXiv copy of the same paper).
 
     arXiv: the PDF (it contains the abstract) is tried first; the abstract page only
     if some quote is still unresolved, which saves a request per paper."""
@@ -111,10 +113,10 @@ def source_urls(src: dict) -> tuple[list[str], list[str]]:
     if m:
         aid = m.group(1)
         return [f"https://arxiv.org/pdf/{aid}", f"https://arxiv.org/abs/{aid}"], []
-    fallback = []
+    fallback = [src["archive_url"]] if src.get("archive_url") else []
     if ref.get("arxiv"):
         aid = str(ref["arxiv"]).replace("arXiv:", "")
-        fallback = [f"https://arxiv.org/pdf/{aid}", f"https://arxiv.org/abs/{aid}"]
+        fallback += [f"https://arxiv.org/pdf/{aid}", f"https://arxiv.org/abs/{aid}"]
     return [url], fallback
 
 
@@ -132,8 +134,8 @@ def skip_reason(src: dict) -> str | None:
 class Fetcher:
     """Cached, throttled fetcher: one request per URL ever, <=1 in flight per host."""
 
-    def __init__(self, cache: Path, retry_failed=False, offline=False):
-        self.cache, self.retry_failed, self.offline = cache, retry_failed, offline
+    def __init__(self, cache: Path, retry_failed=False, offline=False, retry_429=False):
+        self.cache, self.retry_failed, self.offline, self.retry_429 = cache, retry_failed, offline, retry_429
         cache.mkdir(parents=True, exist_ok=True)
         self.guard = threading.Lock()
         self.host_lock: dict[str, threading.Lock] = collections.defaultdict(threading.Lock)
@@ -149,7 +151,8 @@ class Fetcher:
         raw_p, meta_p, txt_p = self._paths(url)
         if meta_p.exists():
             meta = json.loads(meta_p.read_text())
-            retry = self.retry_failed or str(meta.get("error")).startswith("response too large")
+            err = str(meta.get("error"))  # rate limits and the old size cap are not verdicts on the URL
+            retry = self.retry_failed or err.startswith("response too large") or (self.retry_429 and err == "HTTP 429")
             if meta.get("error") and retry and not self.offline:
                 meta_p.unlink()
             else:
@@ -180,7 +183,7 @@ class Fetcher:
             meta = {"url": url, "fetched_at": time.strftime("%Y-%m-%dT%H:%M:%S")}
             try:
                 req = urllib.request.Request(url, headers={
-                    "User-Agent": UA, "Accept-Language": "en-US,en;q=0.9",
+                    "User-Agent": HOST_UA.get(host, UA), "Accept-Language": "en-US,en;q=0.9",
                     "Accept": "text/html,application/xhtml+xml,application/pdf;q=0.9,*/*;q=0.8",
                     "Accept-Encoding": "gzip, deflate"})
                 with self.opener.open(req, timeout=TIMEOUT) as r:
@@ -469,7 +472,8 @@ def run(args) -> list[dict]:
             it["note"] = "no sources on the quote's object or any ancestor"
         for sid in dict.fromkeys(it["sources"]):
             by_source[sid].append(n)
-    fetcher = Fetcher(Path(args.cache), retry_failed=args.retry_failed, offline=args.offline)
+    fetcher = Fetcher(Path(args.cache), retry_failed=args.retry_failed, offline=args.offline,
+                      retry_429=args.retry_429)
 
     # interleave hosts so the 4 workers are not all queued behind one throttled host
     def host(sid):
@@ -545,6 +549,7 @@ def main():
     ap.add_argument("--report", default=str(REPORT))
     ap.add_argument("--only", help="only quotes whose file path contains this text")
     ap.add_argument("--retry-failed", action="store_true", help="refetch URLs whose cached fetch failed")
+    ap.add_argument("--retry-429", action="store_true", help="refetch URLs whose cached fetch was rate-limited (HTTP 429)")
     ap.add_argument("--offline", action="store_true", help="classify from the cache only")
     args = ap.parse_args()
     items = run(args)
