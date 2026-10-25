@@ -407,6 +407,13 @@ Implementation resolved these; they are normative from here on.
   toggleable, default on; on tile failure the features still render on the
   dark background and a notice says the basemap is unavailable. No API key,
   nothing paid.
+* Framing: a map opens framed to the bounds of the features it draws for the
+  current level and year selection (padded; a Point is framed as its accuracy
+  circle; the zoom is capped so a small feature is never shown finer than its
+  accuracy supports; inferred directions are not part of the frame). `center`
+  and `extent_m` frame the map only when nothing is drawn. A view the reader
+  has not moved is re-framed when the drawn set changes; the reset-view button
+  frames it again on demand.
 * Styling encodes four things independently and the legend says so:
   **feature type** (ring/tunnel thick line, beamline line with arrowheads,
   hall/cavern/building filled polygon, boundary thin dashed, direction line

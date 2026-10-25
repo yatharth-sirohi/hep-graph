@@ -707,48 +707,53 @@ async function setRangeValue(locator, value) {
         await mapContext.close();
       });
 
-      await record("Local map: the opening view is framed by center/extent_m, not by the features", async () => {
+      await record("Local map: the opening view is framed to the features it draws", async () => {
         const { mapContext, p } = await openMap();
+        await p.waitForTimeout(1500);
         const framing = await p.evaluate(() => {
           const m = window.__hepAtlasLocalMap;
+          const c = document.querySelector(".leaflet-container").getBoundingClientRect();
+          // The drawn structures, not the inferred-direction lines (bearings
+          // that run hundreds of km and are clipped at the map edge).
+          const boxes = [...document.querySelectorAll(".leaflet-overlay-pane path[data-geometry-id]")]
+            .filter((el) => el.getAttribute("data-representation") !== "inferred_direction")
+            .map((el) => el.getBoundingClientRect())
+            .filter((r) => r.width || r.height);
+          const left = Math.min(...boxes.map((r) => r.left)) - c.left;
+          const right = c.right - Math.max(...boxes.map((r) => r.right));
+          const top = Math.min(...boxes.map((r) => r.top)) - c.top;
+          const bottom = c.bottom - Math.max(...boxes.map((r) => r.bottom));
           const size = m.getSize();
-          const mid = size.y / 2;
           return {
-            centre: [m.getCenter().lat, m.getCenter().lng],
-            widthM: m.distance(m.containerPointToLatLng([0, mid]), m.containerPointToLatLng([size.x, mid])),
+            drawn: boxes.length, left, right, top, bottom, sx: size.x, sy: size.y,
+            widthM: m.distance(m.containerPointToLatLng([0, size.y / 2]), m.containerPointToLatLng([size.x, size.y / 2])),
             heightM: m.distance(m.containerPointToLatLng([size.x / 2, 0]), m.containerPointToLatLng([size.x / 2, size.y])),
-            sx: size.x, sy: size.y,
           };
         });
-        // The record's own extent_m spans the shorter side of the stage.
-        const expectedShorter = 2 * meta.extent_m;
-        const measuredShorter = Math.min(framing.widthM, framing.heightM);
-        const error = Math.abs(measuredShorter - expectedShorter) / expectedShorter;
-        console.log("framing:", JSON.stringify({
-          map: mapId, extent_m: meta.extent_m, expectedShorter,
-          measuredShorter: Math.round(measuredShorter), errorPercent: Number((100 * error).toFixed(2)),
-        }));
-        assert.ok(error <= 0.02,
-          `opening view spans ${Math.round(measuredShorter)} m across its shorter side, but the map `
-          + `record declares extent_m ${meta.extent_m} (so ${expectedShorter} m) — ${(100 * error).toFixed(1)} % out`);
-        assert.ok(Math.abs(framing.centre[0] - meta.center.lat) < 0.01
-          && Math.abs(framing.centre[1] - meta.center.lon) < 0.01,
-        "the opening view is centred on the record's own centre");
-
-        // And the decisive case: a map carrying a feature far outside its
-        // extent must still open at its extent. Fitting the features would
-        // zoom a campus out to nothing to accommodate an inferred-direction
-        // line that is not a structure (T2K's is 295 km, CNGS's 730 km).
-        const far = geometry.features.reduce((acc, f) => {
-          const c = f.measured && f.measured.centroid;
-          if (!c) return acc;
-          const dx = (c[0] - meta.center.lon) * 111320 * Math.cos(meta.center.lat * Math.PI / 180);
-          const dy = (c[1] - meta.center.lat) * 110540;
-          return Math.max(acc, Math.hypot(dx, dy));
-        }, 0);
-        console.log(`farthest feature centroid on ${mapId}: ${Math.round(far)} m from the centre`);
-        assert.ok(measuredShorter < 4 * expectedShorter,
-          "the opening view must not have been widened to fit the features");
+        console.log("framing:", JSON.stringify({ map: mapId, extent_m: meta.extent_m,
+          drawn: framing.drawn, margins: [framing.left, framing.right, framing.top, framing.bottom].map(Math.round) }));
+        assert.ok(framing.drawn > 0, "the map draws features");
+        // Nothing the map draws is cut off by the edge of the stage...
+        for (const side of ["left", "right", "top", "bottom"]) {
+          assert.ok(framing[side] >= 0, `the drawn features run off the ${side} edge of the opening view (${framing[side].toFixed(0)} px)`);
+        }
+        // ...and the facility is not left at one edge of empty land: the margin
+        // on the emptier side of each axis is at most 3x the tighter one, or
+        // the zoom cap (never finer than a sixth of extent_m) is what stopped it.
+        const shorter = Math.min(framing.widthM, framing.heightM);
+        const capped = shorter <= 2 * (meta.extent_m / 6) * 1.02;
+        if (!capped) {
+          const lopsided = (a, b) => Math.max(a, b) > 3 * Math.max(Math.min(a, b), 60);
+          assert.ok(!lopsided(framing.left, framing.right),
+            `the features sit against one side: margins left ${framing.left.toFixed(0)} px, right ${framing.right.toFixed(0)} px`);
+          assert.ok(!lopsided(framing.top, framing.bottom),
+            `the features sit against one edge: margins top ${framing.top.toFixed(0)} px, bottom ${framing.bottom.toFixed(0)} px`);
+        }
+        // A map carrying a feature far outside its extent must still frame the
+        // campus: the inferred-direction line (T2K's is 295 km, CNGS's 730 km)
+        // is not part of the frame.
+        assert.ok(shorter < 4 * 2 * meta.extent_m,
+          "the opening view must not have been widened to fit a far-away line");
         await mapContext.close();
       });
 

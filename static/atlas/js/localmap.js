@@ -47,6 +47,13 @@ let layersByFeature = new Map();
 let view = { levels: null, basemap: true, sel: null, timelineState: { year: null } };
 let polarProjection = false;
 let framed = false;
+// The view is "pristine" until the reader pans or zooms it. A pristine view is
+// re-framed to what the map draws whenever that changes (a level toggle, the
+// timeline, "show features from all years"); a view the reader has moved is
+// never taken back from them except by the reset-view button.
+let userMoved = false;
+let framing = false;
+let frameKey = null;
 let showOutside = false;
 let depthOpen = false;
 let selOpener = null;
@@ -316,6 +323,9 @@ function destroyMap() {
   }
   polarProjection = false;
   framed = false;
+  userMoved = false;
+  framing = false;
+  frameKey = null;
   if (window.__hepAtlasLocalMap) delete window.__hepAtlasLocalMap;
   tileLayer = null;
   featureGroup = null;
@@ -375,33 +385,141 @@ function polarCRS(L, centre) {
   });
 }
 
-/** Metres per pixel the current view would need to span 2 × extent_m across
- *  its shorter side, expressed as a zoom for whichever CRS is in use. */
-function zoomForExtent() {
+/** The zoom at which the view's shorter side spans `2 × halfSpanM` metres,
+ *  for whichever CRS is in use. */
+function zoomForHalfSpan(halfSpanM, latitude) {
   const size = mapInstance.getSize();
   const shorter = Math.min(size.x, size.y);
   if (!shorter) return null;
-  const span = 2 * (mapMeta.extent_m || 3000);
-  const metresPerPixel = span / shorter;
+  const metresPerPixel = (2 * halfSpanM) / shorter;
   if (polarProjection) return -Math.log2(metresPerPixel);
   // Web Mercator: 156543.03392 m/px at zoom 0 on the equator, scaled by
-  // cos(latitude) — evaluated at this map's own centre.
-  const atEquator = 156543.033928 * Math.cos(toRad(mapMeta.center.lat));
+  // cos(latitude) — evaluated at the latitude the view is centred on.
+  const atEquator = 156543.033928 * Math.cos(toRad(latitude));
   return Math.log2(atEquator / metresPerPixel);
 }
 
 /**
- * Frame the view from the map record's own `center` and `extent_m` — never
- * from the drawn features' bounding box. Several maps carry an
- * `inferred_direction` line hundreds of kilometres long (T2K's 295 km to
- * Kamioka, CNGS's 730 km to Gran Sasso); fitting the features would zoom
- * the campus out to nothing to accommodate a line that is not a structure.
+ * The fallback frame: the map record's own `center` and `extent_m`. Used when
+ * nothing is drawn (a year or level selection that hides every feature), so
+ * the empty map is still pointed at the facility rather than at the world.
  */
 function frameToExtent() {
-  const zoom = zoomForExtent();
+  const zoom = zoomForHalfSpan(mapMeta.extent_m || 3000, mapMeta.center.lat);
   if (zoom == null) return false;
   mapInstance.setView([mapMeta.center.lat, mapMeta.center.lon], zoom, { animate: false });
   return true;
+}
+
+/** Features that decide the frame. An inferred direction is a bearing, not a
+ *  structure: T2K's runs 295 km to Kamioka and CNGS's 731 km to Gran Sasso, and
+ *  fitting it would shrink the campus to nothing to make room for a line that
+ *  is clipped at the map edge anyway. It is left out of the frame unless it is
+ *  all that is drawn, in which case the record's own extent frames the view. */
+function framingFeatures() {
+  return bundle.features
+    .filter(featureVisible)
+    .filter((f) => f.representation !== 'inferred_direction' && f.feature_type !== 'direction_line');
+}
+
+/**
+ * Frame the view to the bounds of the features drawn for the current level and
+ * year selection, with padding. Works in projected pixels at a reference zoom
+ * rather than through L.latLngBounds, so it is the same arithmetic in Web
+ * Mercator and in the polar metre grid (where a lat/lng box around the pole
+ * spans every longitude). A Point is framed as the circle it is drawn as, its
+ * positional accuracy, and the zoom is capped so a single small feature is
+ * never blown up past what its accuracy supports.
+ */
+function frameToFeatures() {
+  const L = window.L;
+  const size = mapInstance.getSize();
+  if (!size.x || !size.y) return false;
+  const features = framingFeatures();
+  if (!features.length) return false;
+  const crs = mapInstance.options.crs;
+  const z0 = 0;
+  let minX = Infinity;
+  let minY = Infinity;
+  let maxX = -Infinity;
+  let maxY = -Infinity;
+  let maxAccuracy = 0;
+  const add = (lon, lat) => {
+    const p = crs.latLngToPoint(L.latLng(lat, lon), z0);
+    if (!Number.isFinite(p.x) || !Number.isFinite(p.y)) return;
+    minX = Math.min(minX, p.x);
+    maxX = Math.max(maxX, p.x);
+    minY = Math.min(minY, p.y);
+    maxY = Math.max(maxY, p.y);
+  };
+  for (const feature of features) {
+    for (const part of lineParts(feature.geometry)) part.forEach(([lon, lat]) => add(lon, lat));
+    for (const [lon, lat] of pointParts(feature.geometry)) {
+      const radius = pointRadius(feature);
+      for (const bearing of [0, 90, 180, 270]) {
+        const [plat, plon] = destination(lat, lon, bearing, radius);
+        add(plon, plat);
+      }
+    }
+    if (feature.accuracy_m) maxAccuracy = Math.max(maxAccuracy, feature.accuracy_m);
+  }
+  if (!Number.isFinite(minX)) return false;
+  const pad = Math.min(FRAME_PADDING_PX, Math.floor(Math.min(size.x, size.y) / 6));
+  const availW = Math.max(40, size.x - 2 * pad);
+  const availH = Math.max(40, size.y - 2 * pad);
+  const widthPx = Math.max(maxX - minX, 1e-9);
+  const heightPx = Math.max(maxY - minY, 1e-9);
+  const centre = crs.pointToLatLng(L.point((minX + maxX) / 2, (minY + maxY) / 2), z0);
+  let zoom = z0 + Math.log2(Math.min(availW / widthPx, availH / heightPx));
+  const halfSpan = Math.max((mapMeta.extent_m || 3000) / FRAME_MIN_SPAN_DIVISOR,
+    FRAME_ACCURACY_MULTIPLE * maxAccuracy, FRAME_MIN_HALF_SPAN_M);
+  const cap = zoomForHalfSpan(halfSpan, centre.lat);
+  if (cap != null) zoom = Math.min(zoom, cap);
+  zoom = Math.max(mapInstance.getMinZoom(), Math.min(zoom, mapInstance.getMaxZoom()));
+  if (!Number.isFinite(zoom)) return false;
+  mapInstance.setView(centre, zoom, { animate: false });
+  return true;
+}
+
+const FRAME_PADDING_PX = 56;
+// A frame is never tighter than a sixth of the record's own extent, twice the
+// largest positional accuracy it contains, or 150 m, whichever is widest: a
+// lone Point or one small building is shown with the ground around it, not
+// blown up to a scale its accuracy cannot support.
+const FRAME_MIN_SPAN_DIVISOR = 6;
+const FRAME_ACCURACY_MULTIPLE = 2;
+const FRAME_MIN_HALF_SPAN_M = 150;
+
+/** The drawn selection and the stage size: when either changes, a view the
+ *  reader has not touched is framed again. */
+function frameSignature() {
+  const size = mapInstance.getSize();
+  return `${framingFeatures().map((f) => f.id).join('|')}#${size.x}x${size.y}`;
+}
+
+/**
+ * Frame the map to what it draws. `force` is the reset-view button; otherwise a
+ * view the reader has already moved is left alone, and so is one that is
+ * already framed to this same selection and stage size.
+ */
+function refreshFrame({ force = false } = {}) {
+  if (!mapInstance) return false;
+  const size = mapInstance.getSize();
+  if (!size.x || !size.y) {
+    framed = false;
+    return false;
+  }
+  const key = frameSignature();
+  if (!force && framed && (userMoved || key === frameKey)) return framed;
+  framing = true;
+  try {
+    framed = frameToFeatures() || frameToExtent();
+  } finally {
+    framing = false;
+  }
+  frameKey = key;
+  userMoved = false;
+  return framed;
 }
 
 function createMap(L) {
@@ -429,12 +547,19 @@ function createMap(L) {
   }
   mapInstance = L.map(dom.canvas, options);
   L.control.scale({ imperial: false, metric: true, position: 'bottomleft' }).addTo(mapInstance);
+  resetViewControl(L).addTo(mapInstance);
   featureGroup = L.layerGroup().addTo(mapInstance);
+  // Anything that moves the view that this module did not do itself means the
+  // reader has taken the camera (see refreshFrame).
+  mapInstance.on('movestart zoomstart', () => { if (!framing) userMoved = true; });
+  // A stage that changes size (the drawer opening, a rotated phone) frames a
+  // view the reader has not touched again.
+  mapInstance.on('resize', () => { if (!framing) refreshFrame(); });
   // The container was display:none until the route's layout class landed on
   // #atlas-main, so it can still measure 0 × 0 here; framing then collapses
   // to zoom 0 (the whole world). Try now, and again from show() once the
   // browser has laid the stage out.
-  framed = frameToExtent();
+  refreshFrame();
   // A test/debug handle: the browser suite reads the scale control's label
   // and pixel width and checks it against map.distance() at the view centre.
   window.__hepAtlasLocalMap = mapInstance;
@@ -597,6 +722,30 @@ function lineCoords(geometry) {
   return null;
 }
 
+/** The radius a Point is drawn with: its positional accuracy, or 25 m when
+ *  the record gives none. */
+function pointRadius(feature) {
+  return feature.accuracy_m != null && feature.accuracy_m > 0 ? feature.accuracy_m : 25;
+}
+
+/** [lon, lat] vertex arrays of a line or of a polygon's outer ring(s). */
+function lineParts(geometry) {
+  switch (geometry.type) {
+    case 'LineString': return [geometry.coordinates];
+    case 'MultiLineString': return geometry.coordinates;
+    case 'Polygon': return geometry.coordinates.slice(0, 1);
+    case 'MultiPolygon': return geometry.coordinates.map((polygon) => polygon[0]);
+    default: return [];
+  }
+}
+
+/** [lon, lat] positions of a Point or MultiPoint. */
+function pointParts(geometry) {
+  if (geometry.type === 'Point') return [geometry.coordinates];
+  if (geometry.type === 'MultiPoint') return geometry.coordinates;
+  return [];
+}
+
 /** Leaflet's default for a GeoJSON Point is a pin marker, which is exactly
  *  what §4 rules out: a pin asserts a position and says nothing about what
  *  is known. A quarter of the real features are Points — a cavern, an
@@ -607,7 +756,7 @@ function lineCoords(geometry) {
  *  mark so it stays findable when zoomed out. Both are SVG paths, both
  *  carry the same four encodings as every other feature. */
 function pointLayers(L, feature, options) {
-  const radius = feature.accuracy_m != null && feature.accuracy_m > 0 ? feature.accuracy_m : 25;
+  const radius = pointRadius(feature);
   return {
     pointToLayer: (_geoJsonPoint, latlng) => L.circle(latlng, {
       ...options, radius, fill: true, fillColor: options.color, fillOpacity: options.fillOpacity || 0.12,
@@ -663,6 +812,35 @@ function drawFeatures(L) {
     }
     layersByFeature.set(feature.id, group);
   }
+}
+
+
+// ---------------------------------------------------------- reset-view button
+
+/** "Reset view": frames the map to what it draws, again. A real <button>, so
+ *  Enter and Space both work (Leaflet's own zoom buttons are links). */
+function resetViewControl(L) {
+  const ResetView = L.Control.extend({
+    options: { position: 'topleft' },
+    onAdd() {
+      const bar = L.DomUtil.create('div', 'leaflet-bar leaflet-control map-reset-control');
+      const btn = h('button', {
+        type: 'button',
+        class: 'map-reset-btn',
+        id: 'map-reset-view',
+        title: 'Reset view',
+        'aria-label': 'Reset the view to the features this map draws',
+      });
+      btn.innerHTML = '<svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" focusable="false">'
+        + '<path d="M2 6V2h4M10 2h4v4M14 10v4h-4M6 14H2v-4" fill="none" stroke="currentColor" '
+        + 'stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+      btn.addEventListener('click', () => refreshFrame({ force: true }));
+      L.DomEvent.disableClickPropagation(bar);
+      bar.appendChild(btn);
+      return bar;
+    },
+  });
+  return new ResetView();
 }
 
 // ------------------------------------------------------------- selection
@@ -1263,6 +1441,7 @@ function renderNorthIndicator() {
 function redraw() {
   const L = window.L;
   drawFeatures(L);
+  refreshFrame();
   renderSidebar();
   renderDepth();
   renderSelectionNotice();
@@ -1366,8 +1545,11 @@ export async function show(current, ctx) {
   mapMeta = meta;
   const L = window.L;
   try {
-    applyBasemap(L);
     drawFeatures(L);
+    // Frame before the basemap is added, so tiles are requested once, for the
+    // view the reader will see, and not for a first guess at it.
+    refreshFrame();
+    applyBasemap(L);
   } catch (error) {
     window.console.error('HEP Atlas local map: could not draw', error);
     renderMessage([
@@ -1404,12 +1586,12 @@ export async function show(current, ctx) {
   // the map route's layout class landed on #atlas-main — so the map was very
   // likely built against a 0 × 0 box, where framing collapses to zoom 0 (the
   // whole world). Measure again on the next frame and, if the opening view
-  // was never framed, frame it now from center/extent_m.
+  // was never framed, frame it now.
   if (mapInstance) {
     window.requestAnimationFrame(() => {
       if (!mapInstance) return;
       mapInstance.invalidateSize({ animate: false });
-      if (!framed) framed = frameToExtent();
+      refreshFrame();
     });
   }
 }

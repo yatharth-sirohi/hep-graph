@@ -1889,3 +1889,27 @@ a.local-map-chip {
     width: calc(100% - 20px);
   }
 }
+
+/* local map view ------------------------------------------------------------
+   The reset-view button (localmap.js, "reset-view button").
+   ------------------------------------------------------------------------ */
+.map-reset-control .map-reset-btn {
+  display: block;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  border-radius: inherit;
+  background: var(--panel);
+  color: var(--white);
+  cursor: pointer;
+  line-height: 0;
+}
+.map-reset-control .map-reset-btn:hover {
+  background: var(--panel-2);
+}
+.map-reset-control .map-reset-btn svg {
+  display: inline-block;
+  vertical-align: middle;
+}
