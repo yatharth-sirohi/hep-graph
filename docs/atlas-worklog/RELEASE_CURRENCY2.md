@@ -25,7 +25,11 @@ Result: the repair is confirmed by two dated sources, the restart is only a plan
 - Not found: any source after 26 May 2026 on whether the autumn restart happened (the SNO+ site snoplus.phy.queensu.ca does not answer from here; snolab.ca has no news index; the newest SNO+ arXiv paper, 2604.05746 of 7 April 2026, is a reactor-neutrino analysis using data "between May 2022 and July 2025"). The shutdown stays until a source reports the restart.
 - Judgement: "autumn restart" is ambiguous (scintillator data-taking vs water fill); it cannot be the tellurium fill, which the same slide puts in 2028. The shutdown's end is therefore recorded as a planned, approximate date (autumn 2026: date 2026-10, earliest 2026-09, latest 2026-11).
 
-## 3. Change log
+## 3. CTAO LST sub-array
+
+Result: confirmed; recorded as a milestone annotation, not a status change. https://www.ctao.org/news/the-large-sized-telescope-sub-array-is-inaugurated-on-ctao-north/ (La Palma, 15 October 2026): "celebrated the inauguration of the Large-Sized Telescope (LST) sub-array at the CTAO-North site"; "With the three new LSTs (LST-2, LST-3, and LST-4) joining the existing LST-1, the four telescopes will become a true array"; "Over the coming years, the LSTs will undergo commissioning and integration into CTAO operations." The record structure does not support per-telescope intervals (one aggregate `detector:ctao` for both sites; the LSTs exist only as map geometry), the article gives no commissioning dates for LST-2 to LST-4 and says commissioning is still ahead, and the rest of CTAO is unbuilt, so a `phase` row (status construction, 2026-10-15) was added to `experiment:ctao` and `detector:ctao` and the observatory status stays `construction`.
+
+## 4. Change log
 
 - **accelerator:fermilab-main-injector** — intervals["no Main Injector beam (transformer failures)"].note/sources; intervals["NuMI run..."].label/note/quote/sources
   - old: planned run labelled "NuMI run, 20 weeks (planned)", quote from the April 2026 PAC report only; shutdown note ended at "should be re-checked"
@@ -48,3 +52,8 @@ Result: the repair is confirmed by two dated sources, the restart is only a plan
   - new: status `shutdown`; scintillator phase ends 2026-04 (approximate, "by April 2026"); new interval "acrylic vessel leak repair" 2026-04 (approximate) -> planned autumn 2026 (2026-10, earliest 2026-09, latest 2026-11); (experiment only) planned tellurium phase relabelled "tellurium-loaded phase (planned: 0.5% Te fill from 2028)", start 2028 (approximate, from the slide's timeline figure)
   - sources: https://indico.lip.pt/event/2184/contributions/7460/attachments/5713/9308/Advisory2026_NeutrinoPhysics.pdf ; https://cinp.ca/sites/default/files/2026-06/SNOLAB_2026CAP.pdf
   - quote: "leak in AV, height identified, lowering water now to repair, autumn restart" (LIP slide, 27-28 April 2026) | "Fill 0.5% Te" (same slide; year read from the figure) | "No damage to the neck. AV was not stuck" (SNOLAB report, 26 May 2026)
+- **experiment:ctao**, **detector:ctao** — intervals (added)
+  - old: construction 2015 open-ended (only)
+  - new: plus phase "LST sub-array (LST-1 to LST-4, CTAO-North) completed and inaugurated", 2026-10-15; status unchanged (`construction`)
+  - source: https://www.ctao.org/news/the-large-sized-telescope-sub-array-is-inaugurated-on-ctao-north/ (record `src:geo-arrays2-ctao-lst-inauguration-2026`, re-read this session)
+  - quote: "celebrated the inauguration of the Large-Sized Telescope (LST) sub-array at the CTAO-North site"
