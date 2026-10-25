@@ -62,6 +62,13 @@ const SITE_VISIBLE_ALTITUDE = 1.3;
 // 0.4° — two points closer together than that in raw degrees can never be
 // separated by the radius formula alone, only by disabling it).
 const MIN_CLUSTER_ALTITUDE = 0.12;
+// Scenery drawn after the first paint (see loadBorders).
+const BORDERS_URL = '/atlas/vendor/countries-borders-110m.json';
+const BORDER_COLOR = 'rgba(176, 216, 204, 0.42)';
+const COAST_COLOR = 'rgba(190, 228, 216, 0.7)';
+// Just above the land polygons (polygonAltitude 0.006) so the lines never
+// z-fight with the fill, and below every marker layer.
+const BORDER_ALTITUDE = 0.0075;
 
 function clamp(v, lo, hi) {
   return Math.min(hi, Math.max(lo, v));
@@ -285,7 +292,18 @@ export function createGlobe(container, { atlas, index, onSelect }) {
     // static dash still reads as directional without the continuous redraw.
     .arcDashLength(0.4)
     .arcDashGap(0.18)
-    .arcDashAnimateTime(0);
+    .arcDashAnimateTime(0)
+    // Country borders and coastlines (static/atlas/vendor/countries-borders-
+    // 110m.json): 1px lines, low contrast, loaded after the first paint.
+    .pathsData([])
+    .pathPoints('points')
+    .pathPointLat((p) => p[1])
+    .pathPointLng((p) => p[0])
+    .pathPointAlt(BORDER_ALTITUDE)
+    .pathColor((d) => (d.kind === 'coastline' ? COAST_COLOR : BORDER_COLOR))
+    .pathStroke(null)
+    .pathTransitionDuration(0)
+    .pathLabel(() => '');
 
   try {
     const mat = globe.globeMaterial();
@@ -306,6 +324,36 @@ export function createGlobe(container, { atlas, index, onSelect }) {
   fetch('/atlas/vendor/land-110m.json').then((r) => r.json()).then((land) => {
     globe.polygonsData(land.features || []);
   }).catch(() => {});
+
+  // Country borders + coastlines. Fetched only after the globe has painted, so
+  // they never delay the first frame; any failure leaves the globe exactly as
+  // it was (the land fill keeps its own coast stroke).
+  let bordersRequested = false;
+  function loadBorders() {
+    if (bordersRequested) return;
+    bordersRequested = true;
+    fetch(BORDERS_URL)
+      .then((r) => {
+        if (!r.ok) throw new Error(`HTTP ${r.status}`);
+        return r.json();
+      })
+      .then((collection) => {
+        const paths = [];
+        for (const feature of collection.features || []) {
+          const kind = feature.properties && feature.properties.kind;
+          const lines = (feature.geometry && feature.geometry.coordinates) || [];
+          for (const points of lines) {
+            if (points.length > 1) paths.push({ kind, points });
+          }
+        }
+        if (!paths.length) return;
+        globe.pathsData(paths);
+        // The coastline now comes from the path layer; drop the land polygons'
+        // own (dark, doubled) outline.
+        globe.polygonStrokeColor(() => null);
+      })
+      .catch(() => {});
+  }
 
   // --- marker model -------------------------------------------------
   const markerEls = new Map(); // id -> element
@@ -749,6 +797,8 @@ export function createGlobe(container, { atlas, index, onSelect }) {
       siteEntities = buildSiteEntities();
       beamArcs = buildBeamArcs();
       rebuildVisibleLayer();
+      // After the first frame has painted, bring in the country borders.
+      window.requestAnimationFrame(() => window.setTimeout(loadBorders, 0));
     },
     setYear(year) {
       timelineMode = { kind: 'year', year, month: Math.round((year - 1950) * 12 + 6) };
