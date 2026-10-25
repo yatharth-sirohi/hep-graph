@@ -1,23 +1,24 @@
 {
   "aliases": [],
   "center": {
-    "confidence": "approximate",
+    "confidence": "verified",
     "kind": "campus",
-    "lat": 28.757069,
-    "locator": "Nominatim search result for 'Observatorio del Roque de los Muchachos'",
-    "lon": -17.8888436,
-    "note": "Map centre only; not a claim about any structure.",
-    "precision_m": 500,
+    "lat": 28.762164,
+    "locator": "CTAO-North array page, 'Array Coordinates' block (28 45 43.7904 N, 17 53 31.218 W converted to decimal degrees)",
+    "lon": -17.892005,
+    "note": "Map centre only; not a claim about any structure. The published array coordinate is a reference point of the planned 13-telescope array: the six built telescopes lie 70 to 200 m from it.",
+    "precision_m": 100,
+    "quote": "Latitude: 28º 45′ 43.7904″ North Longitude: 17º 53′ 31.218″ West",
     "sources": [
-      "src:cosmic-gamma-nominatim-roque-de-los-muchachos"
+      "src:geo-arrays2-ctao-north-array-page"
     ],
-    "verified_at": "2026-09-18"
+    "verified_at": "2026-10-25"
   },
   "coverage": {
     "researched": "partial",
     "tier": "B"
   },
-  "extent_m": 1500,
+  "extent_m": 500,
   "facility_id": "facility:roque-de-los-muchachos-observatory",
   "id": "map:roque-de-los-muchachos-observatory",
   "levels": [
@@ -35,21 +36,31 @@
   },
   "name": "Roque de los Muchachos — MAGIC and CTAO-North",
   "notes": [
-    "geometry:magic-array-point and geometry:ctao-north-lst1-point share the exact same coordinate -- expected to raise the validator's geometry-duplicate-shape warning; both experiments genuinely occupy this same approximate patch and are not resolved to finer precision this session.",
-    "Overpass (OpenStreetMap) was unreachable for the whole of this research session -- an OSM trace distinguishing the MAGIC-I/MAGIC-II/LST-1 pads (which the brief's own leads suggested, noting Roque is 'often mapped') could not be attempted. See worklog.",
-    "The commonly cited value 28°45'43\"N 17°53'24\"W for MAGIC and ~100 m for LST-1's distance from it were found via multiple secondary sources this session but could not be confirmed against a primary source fetched directly (every attempt to fetch a MAGIC/LST technical paper returned no coordinate text) -- not used, flagged as an unverified candidate in the worklog."
+    "Telescope footprints are OpenStreetMap ways (MAGIC I and II, LST-1, three newer LSTs), read with the OSM API map call on 2026-10-25 because Overpass answered 502 at capacity. The MAGIC separation (85 m) and the LST-1 distance from MAGIC ('~100 m') come from the joint LST-1/MAGIC paper (arXiv:2310.01954).",
+    "The three newer LSTs are not numbered in OSM or in any fetched source; they are named by OSM way. CTAO announced the inauguration of the four-LST sub-array on 2026-10-15 and says the telescopes will now be commissioned. All CTAO features inherit experiment:ctao's 'construction' status, so LST-1 (observing since 2018) is drawn with the same status as the new LSTs.",
+    "The planned CTAO-North layout (four LSTs and nine MSTs over about 0.5 km2) is published only as an unscaled figure; the nine MSTs are not drawn. OSM also maps FACT (a small Cherenkov telescope that is not an atlas entity) and many optical telescopes, which are not part of this facility's inventory."
   ],
   "schema": "hep-atlas/0.2",
-  "schematics": [],
+  "schematics": [
+    {
+      "note": "Official CTAO layout figure with no scale bar or coordinate axes; shows the four LSTs, nine MSTs and the MAGIC telescopes. Topology only. Never drawn on the to-scale map.",
+      "source_id": "src:geo-arrays2-ctao-alpha-layouts-news",
+      "title": "CTAO-North Alpha Configuration layout (schematic, not to scale)"
+    }
+  ],
   "site_ids": [
     "site:roque-de-los-muchachos-gamma-ray-array"
   ],
   "sources": [
-    "src:cosmic-gamma-nominatim-roque-de-los-muchachos"
+    "src:cosmic-gamma-nominatim-roque-de-los-muchachos",
+    "src:geo-arrays2-ctao-alpha-layouts-news",
+    "src:geo-arrays2-ctao-lst-inauguration-2026",
+    "src:geo-arrays2-ctao-north-array-page",
+    "src:geo-arrays2-lst1-magic-joint-2023"
   ],
   "summary": {
-    "plain": "The mountaintop observatory on La Palma, Canary Islands, hosting the MAGIC gamma-ray telescopes and the CTAO-North site (including the LST-1 prototype).",
-    "technical": "One local map for facility:roque-de-los-muchachos-observatory, shared by experiment:magic and experiment:ctao (CTAO-North). Both are drawn at the same approximate campus point (precision_m 500) because no source fetched this session gives separate decimal coordinates for the MAGIC pads versus the CTAO-North/LST-1 site, matching the existing site record's own documented limitation."
+    "plain": "The mountaintop observatory on La Palma, Canary Islands, with the two 17 m MAGIC gamma-ray telescopes and the four 23 m Large-Sized Telescopes of the northern Cherenkov Telescope Array.",
+    "technical": "Six telescope footprints and the MAGIC counting house from OpenStreetMap; the MAGIC-I to MAGIC-II distance is checked against the published 85 m, LST-1 against the published ~100 m from MAGIC. The outline is the convex hull of the six footprints. Map centre is CTAO-North's published array coordinate."
   },
   "type": "map",
   "unlocated": []

@@ -1,0 +1,109 @@
+{
+  "accuracy_m": 10,
+  "aliases": [],
+  "checks": [
+    {
+      "expected": {
+        "dimension": "length",
+        "display": "120 m",
+        "unit": "m",
+        "value": 120
+      },
+      "kind": "distance",
+      "locator": "H.E.S.S. Telescopes page, 'Arrangement of the telescopes'; Crab paper (A&A 457, 899) section 2",
+      "quote": "The initial four H.E.S.S. telescopes (Phase I) are arranged in form of a square with 120 m side length",
+      "sources": [
+        "src:geo-arrays-hess-telescopes-page",
+        "src:geo-arrays2-hess-crab-2006"
+      ],
+      "to_geometry_id": "geometry:hess-ct-west",
+      "tolerance": 0.03
+    }
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "depth_m": null,
+  "entity_id": "experiment:h-e-s-s",
+  "feature_type": "other",
+  "geometry": {
+    "confidence": "approximate",
+    "locator": "OSM way/171900955 v5 (2026-10-08T06:07:50Z); extract: OSM API map call, bbox 16.485,-23.285,16.515,-23.258, fetched 2026-10-25T10:35:43Z",
+    "note": "OpenStreetMap trace (rank 11), so confidence is capped at approximate even though the neighbour-distance check passes: that check confirms the telescopes' relative placement, not the outline of this polygon.",
+    "sources": [
+      "src:geo-arrays2-hess-osm-ct-south",
+      "src:geo-arrays-hess-telescopes-page",
+      "src:geo-arrays2-hess-crab-2006"
+    ],
+    "value": {
+      "coordinates": [
+        [
+          [
+            16.5000219,
+            -23.2722324
+          ],
+          [
+            16.5000746,
+            -23.2722028
+          ],
+          [
+            16.500133,
+            -23.2722309
+          ],
+          [
+            16.500134,
+            -23.2722923
+          ],
+          [
+            16.5000814,
+            -23.2723218
+          ],
+          [
+            16.5000229,
+            -23.2722938
+          ],
+          [
+            16.5000219,
+            -23.2722324
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    },
+    "verified_at": "2026-10-25"
+  },
+  "id": "geometry:hess-ct-south",
+  "level_id": "surface",
+  "license": {
+    "attribution": "© OpenStreetMap contributors",
+    "name": "ODbL-1.0",
+    "url": "https://www.openstreetmap.org/copyright"
+  },
+  "links": {
+    "website": null
+  },
+  "map_id": "map:hess-khomas-highland",
+  "method": "OpenStreetMap way 171900955 (building=yes, man_made=telescope, name=H.E.S.S., telescope:diameter=12m), a closed 7-node polygon used verbatim, no simplification. The way is one of four traced by OSM mappers at the corners of the CT1-CT4 square; OSM does not say which of CT1-CT4 it is, so the corner is named instead. The distance check measures its centroid to the centroid of the west corner telescope against the published 120 m side.",
+  "name": "H.E.S.S. 12 m telescope, south corner of the CT1-CT4 square",
+  "notes": [
+    "Which of CT1-CT4 stands at this corner is not stated by any fetched source (the H.E.S.S. Telescopes page says only that the square's diagonal runs north-south). Backlog: a H.E.S.S. instrument paper or array-layout table that numbers the telescopes."
+  ],
+  "osm": {
+    "elements": [
+      "way/171900955"
+    ],
+    "timestamp": "2026-10-25T10:35:43Z"
+  },
+  "representation": "georeferenced",
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:khomas-highland-hess",
+  "sources": [
+    "src:geo-arrays2-hess-osm-ct-south"
+  ],
+  "summary": {
+    "plain": "One of the four 12-metre H.E.S.S. telescopes of the original array, at the south corner of the 120-metre square (which of CT1 to CT4 it is, is not stated in the map data)."
+  },
+  "type": "geometry",
+  "valid": null
+}

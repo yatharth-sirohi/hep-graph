@@ -1,0 +1,157 @@
+{
+  "accuracy_m": 10,
+  "aliases": [],
+  "checks": [
+    {
+      "expected": {
+        "dimension": "length",
+        "display": "85 m",
+        "unit": "m",
+        "value": 85
+      },
+      "kind": "distance",
+      "locator": "Performance of the joint LST-1 and MAGIC observations (A&A 2023), section 2.1 'MAGIC'",
+      "quote": "MAGIC is a system of two IACTs, separated by a distance of 85 m.",
+      "sources": [
+        "src:geo-arrays2-lst1-magic-joint-2023"
+      ],
+      "to_geometry_id": "geometry:roque-magic-i",
+      "tolerance": 0.04
+    }
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "depth_m": null,
+  "entity_id": "experiment:magic",
+  "feature_type": "other",
+  "geometry": {
+    "confidence": "approximate",
+    "locator": "OSM way/288251656 v9 (2026-10-08T06:00:37Z); extract: OSM API map call, bbox -17.915,28.745,-17.875,28.775, fetched 2026-10-25T10:38:47Z",
+    "note": "OpenStreetMap trace (rank 11), so confidence is capped at approximate even where the distance check passes.",
+    "sources": [
+      "src:geo-arrays2-roque-osm-magic-ii",
+      "src:geo-arrays2-lst1-magic-joint-2023"
+    ],
+    "value": {
+      "coordinates": [
+        [
+          [
+            -17.8906581,
+            28.7613042
+          ],
+          [
+            -17.8906493,
+            28.7612739
+          ],
+          [
+            -17.8906291,
+            28.7612482
+          ],
+          [
+            -17.8906001,
+            28.76123
+          ],
+          [
+            -17.8905658,
+            28.7612216
+          ],
+          [
+            -17.8905303,
+            28.761224
+          ],
+          [
+            -17.8905008,
+            28.7612352
+          ],
+          [
+            -17.8904768,
+            28.7612538
+          ],
+          [
+            -17.8904604,
+            28.761278
+          ],
+          [
+            -17.8904535,
+            28.7613055
+          ],
+          [
+            -17.8904565,
+            28.7613335
+          ],
+          [
+            -17.8904692,
+            28.7613593
+          ],
+          [
+            -17.8904905,
+            28.7613804
+          ],
+          [
+            -17.8905181,
+            28.7613947
+          ],
+          [
+            -17.8905494,
+            28.7614009
+          ],
+          [
+            -17.8905814,
+            28.7613982
+          ],
+          [
+            -17.8906138,
+            28.7613853
+          ],
+          [
+            -17.8906393,
+            28.7613634
+          ],
+          [
+            -17.8906547,
+            28.7613353
+          ],
+          [
+            -17.8906581,
+            28.7613042
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    },
+    "verified_at": "2026-10-25"
+  },
+  "id": "geometry:roque-magic-ii",
+  "level_id": "surface",
+  "license": {
+    "attribution": "© OpenStreetMap contributors",
+    "name": "ODbL-1.0",
+    "url": "https://www.openstreetmap.org/copyright"
+  },
+  "links": {
+    "website": null
+  },
+  "map_id": "map:roque-de-los-muchachos-observatory",
+  "method": "OpenStreetMap way 288251656 (building=yes, man_made=telescope, short_name='MAGIC II', telescope:diameter=17), a closed 20-node polygon used verbatim, no simplification. The distance check measures its centroid to MAGIC-I's against the published 85 m separation.",
+  "name": "MAGIC-II telescope (17 m)",
+  "notes": [],
+  "osm": {
+    "elements": [
+      "way/288251656"
+    ],
+    "timestamp": "2026-10-25T10:38:47Z"
+  },
+  "representation": "georeferenced",
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:roque-de-los-muchachos-gamma-ray-array",
+  "sources": [
+    "src:geo-arrays2-roque-osm-magic-ii"
+  ],
+  "summary": {
+    "plain": "The second 17-metre MAGIC telescope, 85 metres from the first, added in 2009."
+  },
+  "type": "geometry",
+  "valid": null
+}
