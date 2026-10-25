@@ -7,28 +7,29 @@
     "confidence": "approximate",
     "dimension": "length",
     "display": "~2,835 m",
-    "note": "Same ice-surface elevation as the rest of the South Pole station area (reused from the icecube workstream's facility record for consistency, not independently re-measured for ARA).",
-    "quote": "IceCube ... located near the Amundsen-Scott South Pole Station",
+    "note": "Elevation of the Amundsen-Scott South Pole Station (NSF: approximately 2,835 m, 9,301 ft). ARA lies about 2 km from IceCube near the station on the same ice surface (ARA overview paper), so the station elevation is used; this is not a separate survey of the ARA stations.",
+    "quote": "Sits atop the Antarctic ice sheet at an elevation of approximately 2,835 meters (9,301 feet) above sea level.",
     "sources": [
-      "src:icecube-official-detector-page"
+      "src:icecube-nsf-south-pole-station"
     ],
     "unit": "m",
     "value": 2835,
-    "verified_at": "2026-09-17"
+    "verified_at": "2026-10-25"
   },
   "coordinates": {
     "confidence": "approximate",
     "kind": "detector",
     "lat": -90.0,
     "lon": 0.0,
-    "note": "No ARA-specific official page publishes station-level latitude/longitude; ARA's own overview paper places it only relative to IceCube ('about 2 km from the IceCube Neutrino Observatory'). Following the precedent set by the icecube workstream's own site:south-pole-icecube record (same physical station, same problem), the geographic South Pole is recorded as an approximate anchor point with a generous precision_m to cover both the IceCube array footprint and ARA's ~2 km offset from it; this is not a surveyed position. src:icecube-official-detector-page is an icecube-workstream source, cited here (not created here) because it independently establishes that IceCube -- and by the 2 km offset, ARA -- sits at the geographic South Pole.",
+    "note": "No ARA-specific page publishes station-level latitude/longitude. The NSF Amundsen-Scott station page positions the station at 90 S (the geographic South Pole); the ARA overview paper says only that the five stations are located about 2 km from the IceCube Neutrino Observatory, which the IceCube page places near the station. The geographic South Pole is therefore recorded as an approximate anchor point (lat -90, lon 0) with a generous precision_m to cover the IceCube footprint and ARA's ~2 km offset from it; this is not a surveyed position of the ARA stations.",
     "precision_m": 3000,
-    "quote": "IceCube, the South Pole neutrino observatory, is a cubic-kilometer particle detector made of Antarctic ice and located near the Amundsen-Scott South Pole Station. / [ARA overview paper:] located about 2 km from the IceCube Neutrino Observatory",
+    "quote": "Positioned at 90°S, the geographic South Pole.",
     "sources": [
-      "src:icecube-official-detector-page",
-      "src:astro-neutrino-ara-overview-paper-2024"
+      "src:icecube-nsf-south-pole-station",
+      "src:astro-neutrino-ara-overview-paper-2024",
+      "src:icecube-official-detector-page"
     ],
-    "verified_at": "2026-09-17"
+    "verified_at": "2026-10-25"
   },
   "countries": [
     "AQ"
@@ -73,7 +74,9 @@
   "schema": "hep-atlas/0.2",
   "setting": "ice",
   "sources": [
-    "src:astro-neutrino-ara-overview-paper-2024"
+    "src:astro-neutrino-ara-overview-paper-2024",
+    "src:icecube-nsf-south-pole-station",
+    "src:icecube-official-detector-page"
   ],
   "summary": {
     "plain": "A handful of boreholes near the South Pole, about two kilometres from the IceCube observatory, each holding a small station of radio antennas listening for neutrinos.",

@@ -24,19 +24,32 @@
   },
   "depth": {
     "approx": false,
-    "confidence": "approximate",
+    "confidence": "uncertain",
     "dimension": "length",
     "display": "2100 m (6900 ft)",
-    "note": "Sourced from Wikipedia (rank 12) only this session.",
-    "quote": "the apparatus situated 2,100 meters (6,900 feet) underground",
+    "note": "Wikipedia (rank 12) is the only source found for a 2100 m figure. The SAGE 1999 results paper (arXiv:astro-ph/9907113) gives the overburden of the SAGE laboratory as 4700 meters of water equivalent (see depth_mwe), not a vertical depth in metres.",
+    "quote": "stored 2,100 m (6,900 ft) underground at the Baksan Neutrino Observatory in the Caucasus Mountains in Russia",
     "sources": [
       "src:sage-wikipedia"
     ],
     "unit": "m",
     "value": 2100,
-    "verified_at": "2026-09-18"
+    "verified_at": "2026-10-25"
   },
-  "depth_mwe": null,
+  "depth_mwe": {
+    "approx": false,
+    "confidence": "verified",
+    "dimension": "depth_mwe",
+    "display": "4700 m water equivalent",
+    "note": "Overhead shielding of the SAGE gallium laboratory, 3.5 km from the entrance of the horizontal adit into Mount Andyrchi (SAGE 1999 results paper).",
+    "quote": "has an overhead shielding of 4700 meters of water equivalent",
+    "sources": [
+      "src:sage-1999-capture-rate"
+    ],
+    "unit": "m.w.e.",
+    "value": 4700,
+    "verified_at": "2026-10-25"
+  },
   "facility_id": "facility:baksan-neutrino-observatory",
   "id": "site:baksan-sage-underground-lab",
   "links": {
@@ -52,7 +65,8 @@
   "schema": "hep-atlas/0.2",
   "setting": "underground",
   "sources": [
-    "src:sage-wikipedia"
+    "src:sage-wikipedia",
+    "src:sage-1999-capture-rate"
   ],
   "summary": {
     "plain": "A chamber more than two kilometres inside a mountain in the Russian Caucasus, holding tonnes of liquid gallium metal to catch solar neutrinos.",

@@ -13,17 +13,16 @@
   "id": "facility:wipp",
   "intervals": [
     {
-      "confidence": "uncertain",
+      "confidence": "verified",
       "end": null,
       "label": "operating (DOE transuranic-waste repository)",
       "locator": "WIPP official DOE page",
-      "note": "No source fetched in this session gives WIPP's actual opening/founding date; 2011 is a lower bound borrowed from the earliest sourced fact available in this session (EXO-200 beginning operations there), not the facility's true founding date. Recorded this way, rather than `start: null`, because a null start with a null end would derive to 'no presence at all' at the build date, misrepresenting a facility that is clearly operating.",
-      "quote": "2,150 feet underground",
+      "note": "The official DOE page gives the opening year (1999). An earlier version of this record used 2011 (EXO-200 beginning operations there) as a lower bound because no opening date had been read; the cited quote was a depth statement, not an opening date.",
+      "quote": "The facility began operation in 1999.",
       "sources": [
-        "src:exo-200-doe-wipp-official-page",
-        "src:exo-200-final-results-arxiv-1906"
+        "src:exo-200-doe-wipp-official-page"
       ],
-      "start": "2011",
+      "start": "1999",
       "status": "active",
       "verified_at": "2026-09-17"
     }
@@ -42,15 +41,16 @@
   },
   "name": "Waste Isolation Pilot Plant",
   "notes": [
-    "WIPP is primarily a U.S. Department of Energy transuranic nuclear-waste repository; it hosted the EXO-200 double-beta-decay experiment as a secondary underground physics use. No source fetched in this session gives the facility's own true founding/opening date; see the interval's note for how the recorded lower-bound start was chosen."
+    "WIPP is primarily a U.S. Department of Energy transuranic nuclear-waste repository; it hosted the EXO-200 double-beta-decay experiment as a secondary underground physics use. The official DOE page gives the facility's opening year (1999); see the interval's note."
   ],
   "operator_ids": [],
   "operator_text": {
     "confidence": "verified",
-    "locator": "WIPP official DOE page",
+    "locator": "wipp.energy.gov home page footer",
     "note": "",
-    "quote": "Salado Isolation Mining Contractors, LLC. operates the facility for the U.S. Department of Energy",
+    "quote": "Operated by Salado Isolation Mining Contractors, LLC. For The U.S. DEPT. of Energy",
     "sources": [
+      "src:rf13-wipp-home",
       "src:exo-200-doe-wipp-official-page"
     ],
     "value": "U.S. Department of Energy, Office of Environmental Management (operating contractor: Salado Isolation Mining Contractors, LLC)",
@@ -60,7 +60,8 @@
   "related_facility_ids": [],
   "schema": "hep-atlas/0.2",
   "sources": [
-    "src:exo-200-doe-wipp-official-page"
+    "src:exo-200-doe-wipp-official-page",
+    "src:rf13-wipp-home"
   ],
   "specs": {
     "depth": {
@@ -70,7 +71,7 @@
       "display": "~655 m (2,150 ft)",
       "locator": "WIPP official DOE page",
       "note": "Converted from the quoted feet figure (2150 ft x 0.3048 = 655.3 m).",
-      "quote": "2,150 feet underground",
+      "quote": "Transuranic waste is disposed of 2,150 feet underground in rooms mined from the salt bed.",
       "sources": [
         "src:exo-200-doe-wipp-official-page"
       ],

@@ -7,10 +7,11 @@
   "distinct_from": ["collaboration:sno-plus"],
   "formation": {
     "value": "1984",
-    "sources": ["src:sno-official-site"],
-    "verified_at": "2026-09-17",
+    "sources": ["src:sno-official-site", "src:rf09-sno-homepage-wayback"],
+    "verified_at": "2026-10-25",
     "confidence": "verified",
     "locator": "sno.phy.queensu.ca homepage",
+    "quote": "The first co-spokesmen for the SNO collaboration when it was established in 1984",
     "note": ""
   },
   "intervals": [
@@ -19,22 +20,22 @@
       "status": "active",
       "start": "1984",
       "end": "2007-05",
-      "sources": ["src:sno-official-site", "src:sno-milestones"],
-      "verified_at": "2026-09-17",
+      "sources": ["src:sno-official-site", "src:sno-milestones", "src:rf09-sno-homepage-wayback", "src:rf09-sno-publicity-wayback"],
+      "verified_at": "2026-10-25",
       "confidence": "verified",
-      "quote": "The collaboration was established in 1984",
-      "note": "End taken as the D2O-drain date (2007-05), when the SNO experiment as such concluded and the site was refitted for SNO+."
+      "quote": "The first co-spokesmen for the SNO collaboration when it was established in 1984",
+      "note": "End taken as the D2O-drain date (2007-05), when the SNO experiment as such concluded and the site was refitted for SNO+. The same Milestones page also lists result releases in June 2008 (NCD phase) and May 2013 (combined three-phase results), so analysis by the collaboration continued after the drain date; no source states a formal end of the collaboration."
     },
     {
       "label": "collaboration completed",
       "status": "completed",
       "start": "2007-05",
       "end": null,
-      "sources": ["src:sno-milestones"],
-      "verified_at": "2026-09-17",
+      "sources": ["src:sno-milestones", "src:rf09-sno-publicity-wayback"],
+      "verified_at": "2026-10-25",
       "confidence": "verified",
       "quote": "May 2007 -- D2O drained from acrylic vessel",
-      "note": "Terminal event recorded at the D2O-drain date."
+      "note": "Terminal event recorded at the D2O-drain date (the Milestones page also lists result releases in 2008 and 2013; no formal end of the collaboration is stated)."
     }
   ],
   "status": "completed",
@@ -43,19 +44,19 @@
     "evidence_class": "official_institution_list",
     "institution_count": {
       "value": 13,
-      "sources": ["src:sno-institutions-page"],
-      "verified_at": "2026-09-17",
+      "sources": ["src:sno-institutions-page", "src:rf09-sno-institutions-wayback"],
+      "verified_at": "2026-10-25",
       "confidence": "verified",
-      "quote": "13 active institutions listed on the official Participating Institutions page",
-      "note": "Counted directly from the official institutions page's list (Queen's, Carleton, Guelph, Laurentian, UBC, Penn, LANL, LBNL, U. Washington, Oxford, BNL, UT Austin, MIT); the page itself gives no single summary sentence stating a count."
+      "quote": "Queen's University (Ontario, Canada) ... Massachusetts Institute of Technology (Massachusetts, USA)",
+      "note": "Counted directly from the official institutions page's list (Queen's, Carleton, Guelph, Laurentian, UBC, Penn, LANL, LBNL, U. Washington, Oxford, BNL, UT Austin, MIT); the page itself gives no single summary sentence stating a count. The quote gives the first and last entries of that list of 13. The page footer says it was last revised Jan 25, 2008."
     },
     "country_count": {
       "value": 3,
-      "sources": ["src:sno-institutions-page"],
-      "verified_at": "2026-09-17",
+      "sources": ["src:sno-institutions-page", "src:rf09-sno-institutions-wayback"],
+      "verified_at": "2026-10-25",
       "confidence": "verified",
-      "quote": "Canada, United States, United Kingdom",
-      "note": "Counted from the countries of the 13 listed institutions."
+      "quote": "Queen's University (Ontario, Canada) ... Los Alamos National Laboratory (New Mexico, USA) ... Oxford University (Oxford, UK)",
+      "note": "Counted as the three distinct countries (Canada, USA, UK) named in the parenthetical locations of the 13 listed active institutions (5 in Canada, 7 in the USA, 1 in the UK); the page does not state a country count."
     },
     "member_count": null,
     "roster_source_ids": ["src:sno-institutions-page"]
@@ -87,7 +88,7 @@
     "The institutions page also lists four institutions that participated only until specific earlier years (Chalk River Laboratories, National Research Council of Canada, UC Irvine, Princeton University); these are not counted in `institution_count`, which reflects only the 13 listed as 'active'.",
     "Leadership `person_id` intentionally left null (no people/ records in this wave); named in `note` instead."
   ],
-  "sources": ["src:sno-official-site", "src:sno-institutions-page"],
+  "sources": ["src:sno-official-site", "src:sno-institutions-page", "src:sno-milestones", "src:rf09-sno-homepage-wayback", "src:rf09-sno-institutions-wayback", "src:rf09-sno-publicity-wayback"],
   "summary": {
     "plain": "The international team, formed in 1984 and based mainly at Queen's University, that built and ran the SNO experiment in a Canadian mine.",
     "technical": "SNO Collaboration, established 1984 (initial co-spokesmen Herb Chen, UC Irvine, and George Ewan, Queen's University); 13 active member institutions across Canada, the United States and the United Kingdom per the official institutions page."

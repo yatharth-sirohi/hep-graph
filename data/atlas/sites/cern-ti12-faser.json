@@ -8,15 +8,15 @@
     "confidence": "uncertain",
     "kind": "campus",
     "lat": 46.2355606,
-    "locator": "voisins.cern, Meyrin Site - Point 1 (reused anchor; does not itself describe TI12)",
+    "locator": "OpenStreetMap/Nominatim record of way 340213340, CERN - Point 1 (ATLAS) (reused anchor, about 480 m from the tunnel; it does not itself describe TI12)",
     "lon": 6.0546968,
     "note": "REVIEW REQUIRED (A17), after real effort: no CERN geodetic/survey publication giving WGS84 coordinates for the FASER/TI12 tunnel location was found (home.cern and the INSPIRE experiment record state only the distance/direction from ATLAS IP1, not coordinates; a Nominatim/OpenStreetMap search for the tunnel name returned only generic CERN-campus results, not a point specific to this tunnel). FASER is stated to be 480 m downstream of the ATLAS interaction point in the unused service tunnel TI12 (src:colliders-lhc-faser-inspire-experiment-record, corroborated independently by home.cern/science/experiments/faser). As a placeholder, this record reuses the numeric coordinate value already sourced for site:cern-point-1-atlas (46.2355606, 6.0546968), the nearest existing sourced CERN point, since the detector is only ~480 m from that point -- well inside this record's widened precision_m. Per v0.2 A23, kind is 'campus' (not 'detector') since no rank<=7 source gives a surveyed hall position; confidence is 'uncertain' and this note documents the gap, which the validator accepts as a warning-level approximate placement (coordinate-kind-approximate) rather than an error. VERIFIER FIX (2026-09-17): removed a self-contradictory earlier sentence that asserted, in this same note, both that 'kind is kept as detector' and that 'kind is kept as campus'; the field's actual value has always been 'campus' and only that is now stated.",
     "precision_m": 1500,
-    "quote": "80 hectares in the Swiss communes of Meyrin and Satigny and the French communes of Prevessin-Moens and Saint-Genis-Pouilly.",
+    "quote": "\"osm_id\":340213340,\"lat\":\"46.2355606\",\"lon\":\"6.0546968\"",
     "sources": [
-      "src:cern-meyrin-site-point-1"
+      "src:cern-point-1-osm-nominatim"
     ],
-    "verified_at": "2026-09-17"
+    "verified_at": "2026-10-25"
   },
   "countries": [
     "CH"
@@ -57,7 +57,8 @@
   "sources": [
     "src:colliders-lhc-faser-inspire-experiment-record",
     "src:colliders-lhc-faser-home-cern-page",
-    "src:cern-meyrin-site-point-1"
+    "src:cern-meyrin-site-point-1",
+    "src:cern-point-1-osm-nominatim"
   ],
   "summary": {
     "plain": "An unused service tunnel at CERN, 480 metres from the ATLAS collision point, that now holds the FASER experiment, searching for rare particles thrown straight down the beamline.",

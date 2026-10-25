@@ -26,35 +26,35 @@
     {
       "label": "far-detector-only running (flux-model comparison)",
       "status": "active",
-      "start": "2011",
-      "end": "2015",
-      "sources": ["src:double-chooz-wikipedia", "src:double-chooz-2012-evidence"],
-      "verified_at": "2026-09-17",
-      "confidence": "uncertain",
-      "quote": "Previous operation: Several years with only the far detector using flux models",
-      "note": "No fetched source states an exact far-detector-only start date. '2011' is inferred (not stated verbatim) as a lower bound consistent with the 2012 discovery paper's own 227.93 live-day exposure ending by its July 2012 submission; flagged uncertain rather than treated as a sourced date."
+      "start": "2011-04",
+      "end": {"approx": true, "date": "2014-12", "display": "end of 2014"},
+      "sources": ["src:rf04-double-chooz-detectors-2022"],
+      "verified_at": "2026-10-25",
+      "confidence": "approximate",
+      "quote": "its data taking started first, in April 2011. After construction of the new near laboratory and detector, data taking with the second detector started at the end of 2014.",
+      "note": "Start month from the collaboration's detector paper (far detector data taking began in April 2011); end is the start of data taking with the second detector, at the end of 2014 (previously recorded as 2015 from Wikipedia)."
     },
     {
       "label": "near and far detectors both operating",
       "status": "active",
-      "start": "2015",
+      "start": {"approx": true, "date": "2014-12", "display": "end of 2014"},
       "end": "2017-12",
-      "sources": ["src:double-chooz-wikipedia"],
-      "verified_at": "2026-09-17",
+      "sources": ["src:rf04-double-chooz-detectors-2022", "src:double-chooz-wikipedia"],
+      "verified_at": "2026-10-25",
       "confidence": "approximate",
-      "quote": "Data collection began: Early 2015 (both detectors) ... Data collection ended: Late December 2017",
-      "note": "Sourced from Wikipedia (rank 12) only; no official page (unreachable this session) independently confirms these dates."
+      "quote": "After construction of the new near laboratory and detector, data taking with the second detector started at the end of 2014. Both detectors ran in parallel for about three years, until the end of 2017, when neutrino data taking was stopped.",
+      "note": "Start and end from the collaboration's detector paper ('end of 2014', 'end of 2017'); the end month (December) is from Wikipedia's 'late December 2017'. Wikipedia gives the beginning of 2015 for the start of two-detector data taking."
     },
     {
       "label": "completed",
       "status": "completed",
       "start": "2017-12",
       "end": null,
-      "sources": ["src:double-chooz-wikipedia"],
-      "verified_at": "2026-09-17",
+      "sources": ["src:rf04-double-chooz-detectors-2022", "src:double-chooz-wikipedia"],
+      "verified_at": "2026-10-25",
       "confidence": "approximate",
-      "quote": "Data collection ended: Late December 2017",
-      "note": "Terminal event date sourced from Wikipedia (rank 12) only."
+      "quote": "Both detectors ran in parallel for about three years, until the end of 2017, when neutrino data taking was stopped.",
+      "note": "Terminal event: end of neutrino data taking ('end of 2017' in the collaboration's detector paper; the month, December, is from Wikipedia's 'late December 2017')."
     }
   ],
   "physics_goals": [
@@ -71,12 +71,12 @@
   "unique_capabilities": [
     {
       "value": "Near and far identical detectors at 400 m and 1050 m from the Chooz-B reactor cores to cancel reactor-flux systematics",
-      "sources": ["src:double-chooz-wikipedia"],
-      "verified_at": "2026-09-17",
+      "sources": ["src:rf04-double-chooz-detectors-2022"],
+      "verified_at": "2026-10-25",
       "confidence": "approximate",
-      "quote": "Near detector: 400 meters from reactors ... Far detector: 1,050 meters from reactors",
-      "locator": "Wikipedia",
-      "note": "Sourced from Wikipedia (rank 12) only this session."
+      "quote": "two identically designed detectors with different average baselines of about 400 m and 1050 m from the two reactor cores ... the systematic uncertainty in the neutrino flux calculation was strongly reduced in the ratio of measurements with far and near detectors.",
+      "locator": "arXiv:2201.13285 (Eur. Phys. J. C 82 (2022) 804), abstract and section 2.1",
+      "note": "Baselines are average values ('about 400 m and 1050 m'); the flux-systematics cancellation is stated in section 2.1 of the collaboration's detector paper (the detectors were 'almost identical' and in an effective iso-flux position)."
     }
   ],
   "energy_regime": null,
@@ -104,11 +104,11 @@
         "dimension": "length",
         "approx": true,
         "display": "~400 m",
-        "sources": ["src:double-chooz-wikipedia"],
-        "verified_at": "2026-09-17",
-        "confidence": "approximate",
-        "quote": "Near detector: 400 meters from reactors",
-        "note": "Sourced from Wikipedia (rank 12) only; the 2012 discovery paper (far-detector-only era) does not give a near-detector baseline."
+        "sources": ["src:rf04-double-chooz-detectors-2022"],
+        "verified_at": "2026-10-25",
+        "confidence": "verified",
+        "quote": "two identically designed detectors with different average baselines of about 400 m and 1050 m from the two reactor cores",
+        "note": "Average baseline of the near detector ('about 400 m') from the collaboration's detector paper; the 2012 discovery paper (far-detector-only era) does not give a near-detector baseline."
       }
     }
   ],
@@ -130,12 +130,13 @@
   "sources": [
     "src:double-chooz-inspire-experiment-record",
     "src:double-chooz-2012-evidence",
-    "src:double-chooz-wikipedia"
+    "src:double-chooz-wikipedia",
+    "src:rf04-double-chooz-detectors-2022"
   ],
   "status": "completed",
   "summary": {
     "plain": "A French experiment that watched antineutrinos from the Chooz nuclear reactors with two detectors at different distances, finding evidence that they change type on the way.",
-    "technical": "Reactor-antineutrino oscillation experiment at the Chooz nuclear power plant, France, with detectors at 400 m and 1050 m from the reactor cores; its 2012 far-detector-only result found sin²(2θ₁₃) = 0.109±0.030(stat)±0.025(syst), excluding no-oscillation at 2.9σ. Both detectors ran 2015-2017."
+    "technical": "Reactor-antineutrino oscillation experiment at the Chooz nuclear power plant, France, with detectors at 400 m and 1050 m from the reactor cores; its 2012 far-detector-only result found sin²(2θ₁₃) = 0.109±0.030(stat)±0.025(syst), excluding no-oscillation at 2.9σ. Both detectors ran from the end of 2014 to the end of 2017."
   },
   "coverage": {
     "tier": "B",
