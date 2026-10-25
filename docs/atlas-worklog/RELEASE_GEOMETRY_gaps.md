@@ -4,6 +4,18 @@ Branch `atlas-release-gaps`, 2026-10-25. Researcher: geometry stream "gaps" (Son
 
 Method: every number below was read this session from a document fetched with curl (PDFs through `pdftotext`, tables checked against a rendered page image) or from the OSM editing API / Overpass. INSPIRE was not used. Raw downloads are in the session scratch directory, never in `data/`.
 
+## Result at a glance
+
+| Facility | Grade before | Grade after | What was added | Left unlocated |
+| --- | --- | --- | --- | --- |
+| SURF | partial | partial (caverns drawn to scale) | north and south LBNF/DUNE detector caverns, derived from the published FD1-FD4 module coordinates (accuracy 30 m) | Central Utility Cavern not drawn (not an entity) |
+| Fermilab | layout to scale | layout to scale, much better placed | NuMI target, proton line, decay pipe, target hall, absorber hall, MINOS enclosure and detector position from the NuMI TDR survey coordinates; Main Injector, Recycler and Tevatron re-placed from Fermilab's own survey data; A0 and Booster-extraction reference points | LBNF, DUNE near detector, Mu2e, MINERvA/SENSEI positions |
+| CERN | layout to scale | layout to scale | surface buildings marking UA1, UA2, CAST, ECN3 sites; both HL-LHC surface complexes (verified) | Linac2, ISR |
+| South Pole | layout to scale | unchanged | none (reason and backlog rewritten) | IceCube Upgrade |
+| KEK, SLAC, DESY | layout to scale | unchanged | none (reasons and backlogs rewritten) | KEK-PS, SLC arcs, ZEUS hall |
+
+**For the integrator.** (1) Site coordinate corrections to apply: SURF DUNE site (section 1), CERN LSS4, LSS5, CAST and ECN3 sites (section 3). (2) Existing records changed beyond a source id, on purpose: the Fermilab Main Injector, Recycler, Tevatron and Booster rings (re-placed or tightened from published survey data; the old road/OSM-fitted placements were up to 54 m off), the NuMI target, beamline and direction line (the old target was 103 m off), the NOvA near surface building (confidence lowered, wrong verifying check removed), the MI-62 building text, and `src:dune-fd-tdr-vol-3`, `src:fermilab-geo-mi-tdr-1994` (excerpt, retrieval). One source record was deleted. (3) MapCERN (the CERN web map's public ArcGIS service) states no licence; only identifiers and measured areas from it are used. (4) The pipeline centroid defect reported by the underground stream (`geo.centroid` on small polygons) was avoided: no `distance` check here depends on a small polygon's centroid. (5) The Fermilab Site Coordinate System converter is 15 lines (rotation by 38.28 degrees and GRS80 radii at A0); a later stream with another Fermilab design report can reuse the description in section 2.
+
 ## 1. SURF (`map:surf`)
 
 Grade before: partial (surface buildings and the Davis cavern point; the DUNE caverns unlocated). After: partial, now with the two LBNF/DUNE detector caverns drawn to scale on the 4850 Level (layout to scale at the level of the structures that have a published position). The Central Utility Cavern and the drifts are still not drawn.
