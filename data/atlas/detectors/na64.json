@@ -11,16 +11,32 @@
   "intervals": [
     {
       "confidence": "verified",
-      "end": null,
+      "end": "2026-08-31",
       "label": "operating",
-      "note": "",
+      "note": "End capped at 2026-08-31, when the SPS beams stopped for LS3 (see the shutdown interval below).",
       "quote": "started operations at CERN's North Area in 2016",
       "sources": [
-        "src:na64-home-cern-experiments-page"
+        "src:na64-home-cern-experiments-page",
+        "src:currency-cern-all-accelerators-2026-08-31"
       ],
       "start": "2016",
       "status": "active",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-25"
+    },
+    {
+      "confidence": "derived",
+      "end": null,
+      "label": "no SPS beam: Long Shutdown 3",
+      "note": "Derived, not an experiment-specific report: the SPS and the whole injector complex stopped on 31 August 2026 (CERN’s injector complex and Antimatter Factory took their final steps towards Long Shutdown 3 (LS3) this morning, as the last particle beams were extracted and the machines fell silent.) and the North Area, which hosts this experiment, is being consolidated during LS3 (\"the consolidation of the Super Proton Synchrotron (SPS) North Area\", CERN, 29 June 2026). No NA62/NA64 statement about its own last day of data taking was fetched, so the end is set to the date beams stopped and confidence is derived.",
+      "quote": "CERN’s injector complex and Antimatter Factory took their final steps towards Long Shutdown 3 (LS3) this morning, as the last particle beams were extracted and the machines fell silent.",
+      "sources": [
+        "src:currency-cern-all-accelerators-2026-08-31",
+        "src:cern-long-shutdown-3-page",
+        "src:currency-cern-accelerator-report-2026-08-20"
+      ],
+      "start": "2026-08-31",
+      "status": "shutdown",
+      "verified_at": "2026-10-25"
     }
   ],
   "links": {
@@ -52,7 +68,7 @@
     "src:na64-official-site"
   ],
   "specs": {},
-  "status": "active",
+  "status": "shutdown",
   "subsystems": [],
   "summary": {
     "plain": "The NA64 detector tags and tracks incoming electrons, absorbs their energy in a calorimeter, and watches for cases where energy simply vanishes -- a possible sign of an invisible dark-sector particle.",

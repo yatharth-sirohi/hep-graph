@@ -44,16 +44,33 @@
     },
     {
       "confidence": "verified",
-      "end": null,
+      "end": "2024-05",
       "label": "operating",
-      "locator": "INSPIRE experiment record 1761312, field date_started",
-      "note": "Day-precision start date from the INSPIRE experiment record's date_started field, matching the wave-3 brief's 'operating since 2023' guidance.",
+      "locator": "end: arXiv:2512.14110 abstract",
+      "note": "Day-precision start date from the INSPIRE experiment record's date_started field, matching the wave-3 brief's 'operating since 2023' guidance. END SET 2026-10-25: the collaboration paper says ALPS II \"searched for axions and similar lightweight particles in its first science campaign from February to May 2024\" and that \"Currently, the optical system of ALPS II is being upgraded aiming for another two orders of magnitude sensitivity increase.\" (arXiv:2512.14110, v3 of 15 May 2026). No second science run was found. Previously open-ended.",
       "sources": [
-        "src:axions-alps-ii-inspire-experiment"
+        "src:axions-alps-ii-inspire-experiment",
+        "src:currency-alps-ii-first-science-arxiv-2512-14110"
       ],
       "start": "2023-05-23",
       "status": "active",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-25"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "optical-system upgrade after the first science campaign",
+      "note": "Start not stated: set to the end of the first science campaign (May 2024) as the earliest it can be. Still under way in the version of the paper dated 15 May 2026; no later report was found.",
+      "quote": "Currently, the optical system of ALPS II is being upgraded aiming for another two orders of magnitude sensitivity increase.",
+      "sources": [
+        "src:currency-alps-ii-first-science-arxiv-2512-14110"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2024-05"
+      },
+      "status": "upgrade",
+      "verified_at": "2026-10-25"
     }
   ],
   "key_specs": [],
@@ -95,7 +112,7 @@
     "src:axions-alps-ii-official-site",
     "src:axions-alps-ii-tdr-2013"
   ],
-  "status": "active",
+  "status": "upgrade",
   "summary": {
     "plain": "ALPS II shines a laser at a light-tight wall to see whether a tiny fraction can pass through as an undetectable particle and turn back into light on the far side. This would reveal new, very light particles related to dark matter. It has been operating at DESY since 2023.",
     "technical": "Light-shining-through-a-wall (LSW) experiment at DESY reusing decommissioned superconducting HERA dipole magnets and matched optical build-up/regeneration cavities, successor to ALPS I (completed 2010); TDR submitted 2012-08, operating (data taking) since 2023-05-23."

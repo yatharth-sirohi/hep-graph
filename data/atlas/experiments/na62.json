@@ -99,19 +99,35 @@
     },
     {
       "confidence": "verified",
-      "end": null,
+      "end": "2026-08-31",
       "kind": "run",
       "label": "Run 2",
-      "note": "Ongoing as of the most recent source fetched this session, arXiv:2607.16413 (submitted 17 July 2026), reporting a combined 2016-2024 measurement that includes 2023-2024 data first previewed at the 2026 La Thuile conference (src:na62-cern-news-2026-refined-measurement).",
+      "note": "Ongoing as of the most recent source fetched this session, arXiv:2607.16413 (submitted 17 July 2026), reporting a combined 2016-2024 measurement that includes 2023-2024 data first previewed at the 2026 La Thuile conference (src:na62-cern-news-2026-refined-measurement). End capped at 2026-08-31, when the SPS beams stopped for LS3 (see the shutdown interval below).",
       "quote": "enhanced beam intensity during the 2021-2022 campaign following detector upgrades",
       "sources": [
         "src:na62-jhep-2025-observation",
         "src:na62-cern-news-2026-refined-measurement",
-        "src:fixed-target-verify-na62-refined-arxiv-2607-16413"
+        "src:fixed-target-verify-na62-refined-arxiv-2607-16413",
+        "src:currency-cern-all-accelerators-2026-08-31"
       ],
       "start": "2021",
       "status": "active",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-25"
+    },
+    {
+      "confidence": "derived",
+      "end": null,
+      "label": "no SPS beam: Long Shutdown 3",
+      "note": "Derived, not an experiment-specific report: the SPS and the whole injector complex stopped on 31 August 2026 (CERN’s injector complex and Antimatter Factory took their final steps towards Long Shutdown 3 (LS3) this morning, as the last particle beams were extracted and the machines fell silent.) and the North Area, which hosts this experiment, is being consolidated during LS3 (\"the consolidation of the Super Proton Synchrotron (SPS) North Area\", CERN, 29 June 2026). No NA62/NA64 statement about its own last day of data taking was fetched, so the end is set to the date beams stopped and confidence is derived.",
+      "quote": "CERN’s injector complex and Antimatter Factory took their final steps towards Long Shutdown 3 (LS3) this morning, as the last particle beams were extracted and the machines fell silent.",
+      "sources": [
+        "src:currency-cern-all-accelerators-2026-08-31",
+        "src:cern-long-shutdown-3-page",
+        "src:currency-cern-accelerator-report-2026-08-20"
+      ],
+      "start": "2026-08-31",
+      "status": "shutdown",
+      "verified_at": "2026-10-25"
     }
   ],
   "key_specs": [
@@ -209,7 +225,7 @@
     "src:na62-inspire-experiment-record",
     "src:na62-cern-north-area-page"
   ],
-  "status": "active",
+  "status": "shutdown",
   "summary": {
     "plain": "NA62 is a CERN experiment that fires a beam of charged kaons at a detector to catch one of the rarest particle decays known: a positive kaon turning into a pion and two invisible neutrinos. Catching enough of these decays tests the Standard Model.",
     "technical": "Fixed-target kaon-decay experiment in the ECN3 cavern of the CERN SPS North Area, using a 400 GeV/c primary proton beam to produce a secondary/tertiary charged-kaon beam. Measures the branching ratio of K+ -> pi+ nu nubar via a decay-in-flight technique with GigaTracker beam-timing, RICH, LKr calorimeter and veto subsystems (arXiv:1703.08501). Constructed 2009-2014, commissioned 2014-2015, Run 1 data 2016-2018 (arXiv:2103.15389, 3.4 sigma evidence-level measurement), Run 2 from 2021 with upgraded beam intensity, reaching a 5 sigma observation with 2016-2022 data (arXiv:2412.12015) and a further refined measurement including 2023-2024 data reported in 2026."

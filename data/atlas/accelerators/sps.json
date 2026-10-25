@@ -16,16 +16,19 @@
   "intervals": [
     {
       "confidence": "verified",
-      "end": null,
+      "end": "2026-08-31",
       "label": "operating",
-      "note": "",
+      "locator": "end: home.cern, \"All CERN accelerators now on the road to HiLumi\", 31 August 2026",
+      "note": "End = 31 August 2026, when \"CERN’s injector complex and Antimatter Factory took their final steps towards Long Shutdown 3 (LS3) this morning, as the last particle beams were extracted and the machines fell silent.\" The 20 August 2026 accelerator report had scheduled the switch-off of all machines for 6.00 a.m. on Monday, 31 August. Previously open-ended.",
       "quote": "The SPS became the workhorse of CERN's particle physics programme when it switched on in 1976.",
       "sources": [
-        "src:cern-sps-page"
+        "src:cern-sps-page",
+        "src:currency-cern-all-accelerators-2026-08-31",
+        "src:currency-cern-accelerator-report-2026-08-20"
       ],
       "start": "1976",
       "status": "active",
-      "verified_at": "2026-09-16"
+      "verified_at": "2026-10-25"
     },
     {
       "confidence": "verified",
@@ -41,6 +44,25 @@
       "start": "1981",
       "status": "active",
       "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "verified",
+      "end": {
+        "approx": true,
+        "date": "2028",
+        "display": "staged restart from 2028 onwards",
+        "planned": true
+      },
+      "label": "Long Shutdown 3 (injector complex)",
+      "note": "Start = 31 August 2026 (CERN news item of that date). End is a schedule value: \"Following the long shutdown, CERN’s accelerator complex will gradually come back to life, beginning with Linac4, the PS Booster and ISOLDE at the start of 2028.\" (20 August 2026) and \"The complex will progressively return to operation from 2028 onwards, with the different injectors and facilities restarting in stages.\" (31 August 2026).",
+      "quote": "CERN’s injector complex and Antimatter Factory took their final steps towards Long Shutdown 3 (LS3) this morning, as the last particle beams were extracted and the machines fell silent.",
+      "sources": [
+        "src:currency-cern-all-accelerators-2026-08-31",
+        "src:currency-cern-accelerator-report-2026-08-20"
+      ],
+      "start": "2026-08-31",
+      "status": "shutdown",
+      "verified_at": "2026-10-25"
     }
   ],
   "is_collider": false,
@@ -106,7 +128,7 @@
       "verified_at": "2026-09-16"
     }
   },
-  "status": "active",
+  "status": "shutdown",
   "summary": {
     "plain": "A seven-kilometre ring at CERN that has been the laboratory's workhorse since 1976. It accelerates protons to 450 billion electronvolts and hands them to the Large Hadron Collider, and in the 1980s it was rebuilt to collide protons with antiprotons, which is how the W and Z particles were discovered.",
     "technical": "~7 km proton synchrotron, 1317 room-temperature magnets, top energy 450 GeV; LHC injector and fixed-target source for the North Area, NA61/SHINE, NA62, COMPASS and AWAKE; operated as the Sp̄pS proton-antiproton collider for UA1/UA2 from 1981 to 1990."
