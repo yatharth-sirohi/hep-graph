@@ -549,6 +549,46 @@ input {
   inset: -10px;
 }
 
+.atlas-marker.is-selected .atlas-marker-label {
+  display: block;
+  max-width: 32em;
+}
+/* The selected facility/site: an amber halo around the glyph and an always-on
+   caption, until the panel is closed. Colour is not the only cue — the ring is
+   a shape, and the marker also carries aria-current. */
+.atlas-marker.is-selected {
+  opacity: 1 !important;
+}
+.atlas-marker.is-selected .atlas-marker-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #1c1204;
+  background: var(--amber);
+}
+.atlas-marker.is-selected::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: calc(var(--marker-size, 26px) + 20px);
+  height: calc(var(--marker-size, 26px) + 20px);
+  margin: calc((var(--marker-size, 26px) + 20px) / -2) 0 0 calc((var(--marker-size, 26px) + 20px) / -2);
+  border: 2px solid var(--amber);
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px rgba(11, 22, 32, 0.7), 0 0 16px 2px rgba(242, 180, 65, 0.7);
+  pointer-events: none;
+  animation: atlas-selected-pulse 1.8s ease-in-out infinite;
+}
+@keyframes atlas-selected-pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.14); opacity: 0.7; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .atlas-marker.is-selected::before {
+    animation: none;
+  }
+}
+
 /* --------------------------------------------------------------- modes */
 .mode-panel {
   grid-area: globe;

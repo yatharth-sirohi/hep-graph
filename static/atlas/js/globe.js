@@ -62,6 +62,14 @@ const SITE_VISIBLE_ALTITUDE = 1.3;
 // 0.4° — two points closer together than that in raw degrees can never be
 // separated by the radius formula alone, only by disabling it).
 const MIN_CLUSTER_ALTITUDE = 0.12;
+// Camera altitude (globe radii) a selection flies to: roughly 30 degrees of
+// latitude top to bottom — a country or a US state group is readable, and the
+// site tier (below SITE_VISIBLE_ALTITUDE) is on. Selections whose markers are
+// far apart (a long-baseline beam, a collaboration's hosts) get the wider one.
+const FOCUS_ALTITUDE = 0.5;
+const FOCUS_ALTITUDE_WIDE = 1.1;
+const FOCUS_WIDE_SPREAD_DEG = 18;
+const FOCUS_FLIGHT_MS = 1000;
 // Scenery drawn after the first paint (see loadBorders).
 const BORDERS_URL = '/atlas/vendor/countries-borders-110m.json';
 const BORDER_COLOR = 'rgba(176, 216, 204, 0.42)';
@@ -320,11 +328,38 @@ export function createGlobe(container, {
     // Cosmetic only — the sphere still renders with the library default.
   }
 
-  const reduced = reducedMotion();
+  // Evaluated at the moment of use, not once at start-up: a person can switch
+  // "reduce motion" on while the page is open.
   const controls = globe.controls();
-  controls.autoRotate = !reduced;
+  controls.autoRotate = !reducedMotion();
   controls.autoRotateSpeed = 0.28;
   controls.enableDamping = true;
+
+  // Auto-rotation is an idle attract mode, and it ends for good the first time
+  // the person does anything: drag, wheel/pinch zoom, select something, or move
+  // keyboard focus onto a marker. It never resumes — a globe that starts turning
+  // again after a pause carries the facility someone is reading about out of
+  // view (and is moving content with no way to stop it, WCAG 2.2.2).
+  function stopAutoRotate() {
+    if (!controls.autoRotate) return;
+    controls.autoRotate = false;
+    // With damping on, OrbitControls keeps the last rotation steps as momentum
+    // and keeps applying them for a second or so after auto-rotation is off —
+    // enough to nudge the camera off a facility it has just flown to (more so
+    // on a slow frame rate, where each step is bigger). Turning damping off for
+    // two frames applies that momentum in one go and clears it.
+    const damping = controls.enableDamping;
+    controls.enableDamping = false;
+    window.requestAnimationFrame(() => window.requestAnimationFrame(() => {
+      controls.enableDamping = damping;
+    }));
+  }
+  controls.addEventListener('start', stopAutoRotate); // OrbitControls: pointer down, wheel, touch
+  container.addEventListener('focusin', stopAutoRotate);
+  const motionQuery = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)');
+  if (motionQuery && typeof motionQuery.addEventListener === 'function') {
+    motionQuery.addEventListener('change', () => { if (reducedMotion()) stopAutoRotate(); });
+  }
 
   fetch('/atlas/vendor/land-110m.json').then((r) => r.json()).then((land) => {
     globe.polygonsData(land.features || []);
@@ -368,6 +403,10 @@ export function createGlobe(container, {
   let beamArcs = [];
   let highlightSet = null;
   let currentAltitude = 2.4;
+  // What the open panel is about: the entity id, the globe markers that stand
+  // for it (highlighted, kept out of clusters, always captioned) and, for an
+  // institution, its id (its markers are ids of the form `<collab>::<id>`).
+  let selection = { id: null, markerIds: new Set(), institutionId: null, anchor: null, altitude: FOCUS_ALTITUDE };
   let filterState = filtersModule.emptyFilterState();
   const topicIndex = filtersModule.buildTopicIndex(atlas.topics || {});
   const siteExperimentIndex = filtersModule.buildSiteExperimentIndex(atlas);
@@ -393,6 +432,8 @@ export function createGlobe(container, {
     el.setAttribute('aria-label', fullLabel);
     el.title = fullLabel;
     el.dataset.id = id;
+    // Read by the selected-marker halo in atlas.css so the ring clears the glyph.
+    el.style.setProperty('--marker-size', `${size}px`);
     el.appendChild(buildGlyph({
       shape, color, size, hollow, hatched, approximate,
     }));
@@ -423,7 +464,12 @@ export function createGlobe(container, {
       hatched,
       approximate,
       tier,
-      onActivate: () => onSelect && onSelect(route),
+      onActivate: () => {
+        // Clicking the marker whose panel is already open puts the camera back
+        // on it (the navigation itself is a no-op for an unchanged route).
+        if (selection.markerIds.has(id)) flyToSelection();
+        if (onSelect) onSelect(route);
+      },
     });
   }
 
@@ -460,7 +506,7 @@ export function createGlobe(container, {
   function expandAt(lat, lng, disableClusteringBelow) {
     const nextAltitude = expandTargetAltitude(currentAltitude, disableClusteringBelow);
     currentAltitude = nextAltitude;
-    globe.pointOfView({ lat, lng, altitude: nextAltitude }, reduced ? 0 : 700);
+    globe.pointOfView({ lat, lng, altitude: nextAltitude }, reducedMotion() ? 0 : 700);
     rebuildVisibleLayer();
   }
 
@@ -575,25 +621,35 @@ export function createGlobe(container, {
     const tls = filterTimelineState();
 
     // ---- facilities: always shown, clustered when zoomed out ----------
+    // The selected facility is shown whatever the filters say (its panel is
+    // open, so it must be findable) and is never merged into a cluster.
     const passingFacilities = facilityEntities.filter(
-      (f) => filtersModule.facilityMatchesWithTopics(f.record, filterState, tls, topicIndex),
+      (f) => selection.markerIds.has(f.id)
+        || filtersModule.facilityMatchesWithTopics(f.record, filterState, tls, topicIndex),
     );
+    const selectedFacilities = passingFacilities.filter((f) => selection.markerIds.has(f.id));
+    const clusterableFacilities = selectedFacilities.length
+      ? passingFacilities.filter((f) => !selection.markerIds.has(f.id)) : passingFacilities;
     // Facilities also disable clustering outright below FACILITY_CLUSTER_ALTITUDE
     // (see `expandTargetAltitude`, which always zooms cluster-expansion below
     // it) — the `> MIN_CLUSTER_ALTITUDE` guard is redundant here in practice
     // but keeps this condition correct if that gate is ever lowered.
     const facilityClustered = (currentAltitude >= FACILITY_CLUSTER_ALTITUDE && currentAltitude > MIN_CLUSTER_ALTITUDE)
-      ? clusterByRadius(passingFacilities, facilityClusterRadiusDeg(currentAltitude))
-      : passingFacilities.map((f) => ({ kind: 'single', lat: f.lat, lon: f.lon, item: f }));
+      ? clusterByRadius(clusterableFacilities, facilityClusterRadiusDeg(currentAltitude))
+      : clusterableFacilities.map((f) => ({ kind: 'single', lat: f.lat, lon: f.lon, item: f }));
+    for (const f of selectedFacilities) {
+      facilityClustered.push({ kind: 'single', lat: f.lat, lon: f.lon, item: f });
+    }
 
     // ---- sites: only at medium/close zoom; not clustered (kept
     // individually addressable — see docs/HEP_ATLAS_ARCHITECTURE.md) -----
     const sitesVisibleTier = currentAltitude < SITE_VISIBLE_ALTITUDE;
-    const passingSites = sitesVisibleTier
-      ? siteEntities.filter(
-        (s) => filtersModule.siteMatches(s.record, filterState, tls, siteExperimentIndex, topicIndex),
-      )
-      : [];
+    // A selected site is drawn at any zoom (it is what the panel is about).
+    const passingSites = siteEntities.filter((s) => (
+      selection.markerIds.has(s.id)
+      || (sitesVisibleTier
+        && filtersModule.siteMatches(s.record, filterState, tls, siteExperimentIndex, topicIndex))
+    ));
 
     // ---- institutions: clustered at every zoom (collaboration mode) ---
     const passingInstitutions = institutionEntities.filter(
@@ -601,9 +657,16 @@ export function createGlobe(container, {
         m.record, filterState, institutionCollaborationExperiments, topicIndex,
       ),
     );
+    const isSelectedInstitution = (m) => !!selection.institutionId
+      && m.record.institution_id === selection.institutionId;
+    const clusterableInstitutions = selection.institutionId
+      ? passingInstitutions.filter((m) => !isSelectedInstitution(m)) : passingInstitutions;
     const institutionClustered = currentAltitude > MIN_CLUSTER_ALTITUDE
-      ? clusterByRadius(passingInstitutions, institutionClusterRadiusDeg(currentAltitude))
-      : passingInstitutions.map((m) => ({ kind: 'single', lat: m.lat, lon: m.lon, item: m }));
+      ? clusterByRadius(clusterableInstitutions, institutionClusterRadiusDeg(currentAltitude))
+      : clusterableInstitutions.map((m) => ({ kind: 'single', lat: m.lat, lon: m.lon, item: m }));
+    for (const m of passingInstitutions.filter(isSelectedInstitution)) {
+      institutionClustered.push({ kind: 'single', lat: m.lat, lon: m.lon, item: m });
+    }
 
     const htmlLayer = [];
     const labelCandidates = []; // { el, priority } — trimmed to LABEL_BUDGET after building
@@ -766,6 +829,33 @@ export function createGlobe(container, {
       }
     }
 
+    // ---- the selected entity's markers (halo + caption, atlas.css) ----------
+    // A site that sits under a selected facility's glyph (a facility marker is
+    // drawn on its primary site) gets no halo of its own: one ring, not two
+    // nested ones, and one caption.
+    const selectedFacilityPoints = htmlLayer.filter(
+      (d) => markerMeta.get(d.id).tier === 'facility' && !markerMeta.get(d.id).cluster && isSelectedMarker(d.id),
+    );
+    // Within ~5 km: closer than a facility glyph is wide at the zoom a selection
+    // flies to.
+    const isUnderSelectedFacility = (d) => selectedFacilityPoints.some(
+      (f) => Math.abs(f.lat - d.lat) < 0.05 && Math.abs(lonDelta(f.lng, d.lng)) < 0.05,
+    );
+    for (const d of htmlLayer) {
+      if (!isSelectedMarker(d.id)) continue;
+      const el = d.el;
+      el.setAttribute('aria-current', 'true');
+      const under = markerMeta.get(d.id).tier === 'site' && isUnderSelectedFacility(d);
+      if (!under) el.classList.add('is-selected');
+      // Timeline: an entity that did not exist in the selected year is hidden
+      // (is-absent), but one whose panel is open must stay findable. The panel
+      // says why it is not operating; the marker is drawn dimmed.
+      if (el.classList.contains('is-absent')) {
+        el.classList.remove('is-absent');
+        el.classList.add('is-dimmed');
+      }
+    }
+
     globe.htmlElementsData(htmlLayer);
 
     // ---- arcs: capped to what's actually drawn (never the full roster —
@@ -788,6 +878,124 @@ export function createGlobe(container, {
     currentAltitude = altitude;
     rebuildVisibleLayer();
   });
+
+  // ---- selection: which markers an open panel stands for, and where to look
+  const facilitiesBySite = new Map();
+  for (const facility of Object.values(atlas.facilities || {})) {
+    if (!facility.primary_site_id) continue;
+    const list = facilitiesBySite.get(facility.primary_site_id) || [];
+    list.push(facility.id);
+    facilitiesBySite.set(facility.primary_site_id, list);
+  }
+
+  function isSelectedMarker(id) {
+    return selection.markerIds.has(id)
+      || (!!selection.institutionId && id.endsWith(`::${selection.institutionId}`));
+  }
+
+  function facilityAnchor(facilityId) {
+    const facility = atlas.facilities && atlas.facilities[facilityId];
+    return facility ? siteCoords(facility.primary_site_id) : null;
+  }
+
+  /** The markers and camera target for an entity id (`facility:fermilab`,
+   * `experiment:dune`, ...). An entity with no place on the globe — a person,
+   * a result, a topic — resolves to an empty selection: nothing highlighted
+   * and nowhere to fly. A facility's marker sits on its primary site, so a
+   * site that hosts a facility highlights that facility's marker too: it is
+   * the glyph a person can actually see there. */
+  function resolveSelection(id) {
+    const out = {
+      id, markerIds: new Set(), institutionId: null, anchor: null, altitude: FOCUS_ALTITUDE,
+    };
+    if (!id) return out;
+    const record = index.get(id);
+    const addSite = (siteId) => {
+      if (!siteId || !atlas.sites || !atlas.sites[siteId]) return;
+      out.markerIds.add(siteId);
+      for (const facilityId of facilitiesBySite.get(siteId) || []) out.markerIds.add(facilityId);
+    };
+    const addFacility = (facilityId) => {
+      if (facilityId && atlas.facilities && atlas.facilities[facilityId]) out.markerIds.add(facilityId);
+    };
+    switch (id.split(':')[0]) {
+      case 'facility':
+        addFacility(id);
+        out.anchor = facilityAnchor(id);
+        break;
+      case 'site':
+        addSite(id);
+        out.anchor = siteCoords(id);
+        break;
+      case 'experiment': {
+        if (!record) break;
+        const host = (record.facility_roles || []).find((r) => r.role === 'host');
+        (record.site_ids || []).forEach(addSite);
+        (record.facility_ids || []).forEach(addFacility);
+        out.anchor = (host && facilityAnchor(host.facility_id))
+          || (record.site_ids || []).map(siteCoords).find(Boolean)
+          || (record.facility_ids || []).map(facilityAnchor).find(Boolean) || null;
+        break;
+      }
+      case 'detector': {
+        if (!record) break;
+        const siteIds = (record.placements || []).map((p) => p.site_id).filter(Boolean);
+        siteIds.forEach(addSite);
+        out.anchor = siteIds.map(siteCoords).find(Boolean) || null;
+        break;
+      }
+      case 'accelerator':
+        if (!record) break;
+        addSite(record.site_id);
+        addFacility(record.facility_id);
+        out.anchor = siteCoords(record.site_id) || facilityAnchor(record.facility_id);
+        break;
+      case 'beamline': {
+        if (!record) break;
+        const siteIds = [...(record.near_detector_site_ids || []), ...(record.far_detector_site_ids || [])];
+        addFacility(record.facility_id);
+        siteIds.forEach(addSite);
+        out.anchor = siteIds.map(siteCoords).find(Boolean) || facilityAnchor(record.facility_id);
+        break;
+      }
+      case 'collaboration':
+        if (!record) break;
+        addSite(record.host_site_id);
+        addFacility(record.host_facility_id);
+        out.anchor = siteCoords(record.host_site_id) || facilityAnchor(record.host_facility_id);
+        break;
+      case 'institution': {
+        out.institutionId = id;
+        const member = institutionEntities.find((m) => m.record.institution_id === id);
+        out.anchor = member ? { lat: member.lat, lon: member.lon } : null;
+        break;
+      }
+      default:
+        break;
+    }
+    if (out.anchor) {
+      let spread = 0;
+      for (const markerId of out.markerIds) {
+        const at = atlas.sites && atlas.sites[markerId] ? siteCoords(markerId) : facilityAnchor(markerId);
+        if (at) spread = Math.max(spread, angularDistDeg(out.anchor.lat, out.anchor.lon, at.lat, at.lon));
+      }
+      out.altitude = spread > FOCUS_WIDE_SPREAD_DEG ? FOCUS_ALTITUDE_WIDE : FOCUS_ALTITUDE;
+    }
+    return out;
+  }
+
+  /** Flies the camera to the selection (~1 s, or an instant jump under
+   * prefers-reduced-motion). Auto-rotation is switched off first: left on, it
+   * keeps turning the globe under the flight and the facility drifts away. */
+  function flyToSelection() {
+    const { anchor, altitude } = selection;
+    if (!anchor) return;
+    stopAutoRotate();
+    globe.pointOfView(
+      { lat: anchor.lat, lng: anchor.lon, altitude },
+      reducedMotion() ? 0 : FOCUS_FLIGHT_MS,
+    );
+  }
 
   // ---- a panel laid over the bottom of the stage ---------------------------
   // On a phone the detail panel is a fixed bottom sheet over the globe. The
@@ -854,10 +1062,15 @@ export function createGlobe(container, {
       reapplyTimeline();
     },
     setFilters(nextFilters) {
-      filterState = nextFilters || filtersModule.emptyFilterState();
+      const next = nextFilters || filtersModule.emptyFilterState();
+      // app.js pushes the filters on every route change; rebuilding every DOM
+      // marker for an unchanged set is wasted work and drops hover state.
+      if (JSON.stringify(next) === JSON.stringify(filterState)) return;
+      filterState = next;
       rebuildVisibleLayer();
     },
     setArcsEnabled(enabled) {
+      if (enabled === arcsEnabled) return;
       arcsEnabled = enabled;
       rebuildVisibleLayer();
     },
@@ -893,7 +1106,7 @@ export function createGlobe(container, {
       rebuildVisibleLayer();
       if (hostCoords) {
         currentAltitude = 1.6;
-        globe.pointOfView({ lat: hostCoords.lat, lng: hostCoords.lon, altitude: currentAltitude }, reduced ? 0 : 900);
+        globe.pointOfView({ lat: hostCoords.lat, lng: hostCoords.lon, altitude: currentAltitude }, reducedMotion() ? 0 : 900);
         rebuildVisibleLayer();
       }
     },
@@ -905,18 +1118,19 @@ export function createGlobe(container, {
       arcsForcedOff = false;
       rebuildVisibleLayer();
     },
-    focus(id) {
-      const site = index.get(id) && index.get(id).primary_site_id
-        ? index.get(index.get(id).primary_site_id) : index.get(id);
-      const coords = coordsOf(site);
-      if (coords) {
-        currentAltitude = 1.0;
-        globe.pointOfView({ lat: coords.lat, lng: coords.lon, altitude: currentAltitude }, reduced ? 0 : 900);
-        rebuildVisibleLayer();
-      }
+    /** The open panel's entity (or null when the panel closes). Highlights its
+     * markers, keeps them out of clusters, and — unless `fly` is false, as in
+     * collaboration mode where setCollaboration() owns the camera — flies there.
+     * Selecting what is already selected does nothing, so re-rendering the panel
+     * (a filter or a timeline move) never yanks the camera back. */
+    select(id, { fly = true } = {}) {
+      const next = id || null;
+      if (next === selection.id) return;
+      selection = resolveSelection(next);
+      if (next) stopAutoRotate();
+      rebuildVisibleLayer();
+      if (next && fly) flyToSelection();
     },
-    pauseAutoRotate() { controls.autoRotate = false; },
-    resumeAutoRotate() { if (!reduced) controls.autoRotate = true; },
     resize() {
       const width = container.clientWidth;
       const height = container.clientHeight;

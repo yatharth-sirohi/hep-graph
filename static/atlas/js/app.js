@@ -189,9 +189,12 @@ async function main() {
     });
   }
 
-  function focusGlobe(id) {
-    if (globeApi) globeApi.focus(id);
-  }
+  // The camera follows the *selection* (applyState -> globeApi.select), which
+  // runs the moment the route changes. The panels also announce an id when
+  // they finish rendering, and re-render on every filter and timeline change;
+  // flying the camera on each of those is what used to pull it back after the
+  // person had moved it, so this callback is deliberately inert.
+  function focusGlobe() {}
 
   async function viewOnGlobe(collaborationId) {
     // `collab` keeps the context in the URL, so a link to an institution can say
@@ -309,6 +312,17 @@ async function main() {
     filterPanel.setFilters(filters);
     if (globeApi) globeApi.setFilters(filters);
     renderFallbackIfActive(current);
+
+    // The open panel's entity: highlight its markers and fly the camera there
+    // (a no-op while it is unchanged). In collaboration mode setCollaboration()
+    // below owns the camera, so only the highlight is applied.
+    if (globeApi) {
+      const entity = current.entity && current.entity.type !== 'map'
+        ? `${current.entity.type}:${current.entity.slug}` : null;
+      const cameraOwnedByCollaboration = current.mode === 'collab'
+        && !!current.entity && current.entity.type === 'collaboration';
+      globeApi.select(entity, { fly: !cameraOwnedByCollaboration });
+    }
 
     timeline.syncFromState(current);
 
