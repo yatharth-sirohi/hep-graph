@@ -263,8 +263,13 @@ function buildGlyph({
  * Creates the globe inside `container`.
  * `atlas` is the parsed atlas.json. `index` maps any id -> its record.
  * `onSelect(route)` fires when a marker is activated (click or Enter).
+ * `coverElements` are panels that may be laid over the bottom of the stage
+ * (the phone layout's bottom sheets); the view is centred on what they leave
+ * visible, so a selected marker is not parked underneath one.
  */
-export function createGlobe(container, { atlas, index, onSelect }) {
+export function createGlobe(container, {
+  atlas, index, onSelect, coverElements = [],
+}) {
   const Globe = window.Globe;
   const globe = Globe()(container)
     .backgroundColor('rgba(0,0,0,0)')
@@ -784,6 +789,40 @@ export function createGlobe(container, { atlas, index, onSelect }) {
     rebuildVisibleLayer();
   });
 
+  // ---- a panel laid over the bottom of the stage ---------------------------
+  // On a phone the detail panel is a fixed bottom sheet over the globe. The
+  // camera looks at the middle of the *canvas*, so a selected marker lands
+  // right under the sheet. A projection offset moves the centre of the view up
+  // by half of what the sheet covers, so the camera target sits in the middle
+  // of the part that is still visible. Desktop panels are grid columns (the
+  // canvas itself shrinks) or sit inside the stage, so nothing is covered.
+  let insetKey = '';
+  function coveredBottom() {
+    const stage = container.getBoundingClientRect();
+    let covered = 0;
+    for (const el of coverElements) {
+      if (!el || el.getClientRects().length === 0) continue; // display:none
+      if (window.getComputedStyle(el).position !== 'fixed') continue;
+      const top = el.getBoundingClientRect().top;
+      if (top < stage.bottom) covered = Math.max(covered, stage.bottom - Math.max(top, stage.top));
+    }
+    // Never push the view centre past the point where little globe would be
+    // left on screen.
+    return Math.min(covered, stage.height * 0.7);
+  }
+  function applyViewInset(width, height) {
+    const camera = typeof globe.camera === 'function' ? globe.camera() : null;
+    if (!camera || typeof camera.setViewOffset !== 'function') return;
+    const inset = Math.round(coveredBottom());
+    // The library refreshes the projection when the canvas size changes but
+    // keeps the old view window, so the size is part of what must be unchanged.
+    const key = `${width}x${height}:${inset}`;
+    if (key === insetKey) return;
+    insetKey = key;
+    if (inset > 0) camera.setViewOffset(width, height, 0, Math.round(inset / 2), width, height);
+    else if (camera.view && camera.view.enabled) camera.clearViewOffset();
+  }
+
   // --- public API -------------------------------------------------------
   const api = {
     ready() {
@@ -879,12 +918,40 @@ export function createGlobe(container, { atlas, index, onSelect }) {
     pauseAutoRotate() { controls.autoRotate = false; },
     resumeAutoRotate() { if (!reduced) controls.autoRotate = true; },
     resize() {
-      globe.width(container.clientWidth).height(container.clientHeight);
+      const width = container.clientWidth;
+      const height = container.clientHeight;
+      // A hidden stage (no-WebGL fallback showing, or a 0-sized container) has
+      // no size to fit; keep the last good one.
+      if (!width || !height) return;
+      if (globe.width() !== width || globe.height() !== height) globe.width(width).height(height);
+      applyViewInset(width, height);
     },
     destroy() {
+      if (resizeObserver) resizeObserver.disconnect();
       if (typeof globe._destructor === 'function') globe._destructor();
     },
   };
   api.resize();
+
+  // Keep the canvas sized to its container whatever changes it: the window, a
+  // detail panel opening or closing (the grid gives the globe a different
+  // width), or the timeline bar finishing its own layout after the globe was
+  // created — the canvas was sized once at start-up, before the timeline
+  // existed, and stayed taller than the stage it sits in.
+  let resizeObserver = null;
+  if (typeof ResizeObserver === 'function') {
+    let frame = 0;
+    resizeObserver = new ResizeObserver(() => {
+      if (frame) return;
+      frame = window.requestAnimationFrame(() => {
+        frame = 0;
+        api.resize();
+      });
+    });
+    resizeObserver.observe(container);
+    // A bottom sheet appearing or changing height does not resize the stage,
+    // but it does change what is visible of it.
+    for (const el of coverElements) if (el) resizeObserver.observe(el);
+  }
   return api;
 }

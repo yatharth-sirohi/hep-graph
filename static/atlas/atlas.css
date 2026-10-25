@@ -202,9 +202,25 @@ input {
 #atlas-main {
   flex: 1;
   display: grid;
-  grid-template-columns: 220px 1fr 340px;
-  grid-template-areas: "filters globe detail";
+  /* Two tracks only: the globe takes everything the filters do not. The detail
+     track below exists only while a record is open — a display:none grid item
+     still reserves its track, which used to leave a 340px empty column beside
+     the globe whenever no panel was showing. minmax(0, 1fr) lets the stage
+     shrink below its content's width. */
+  grid-template-columns: 220px minmax(0, 1fr);
+  grid-template-areas: "filters globe";
   min-height: 0;
+}
+#atlas-main:not(.is-map-route):has(> .detail-panel:not(.hidden)) {
+  grid-template-columns: 220px minmax(0, 1fr) 340px;
+  grid-template-areas: "filters globe detail";
+}
+/* A browser without :has() keeps the fixed three-track layout, as before. */
+@supports not selector(:has(*)) {
+  #atlas-main {
+    grid-template-columns: 220px minmax(0, 1fr) 340px;
+    grid-template-areas: "filters globe detail";
+  }
 }
 .filters-panel {
   grid-area: filters;
@@ -1116,6 +1132,15 @@ input {
 /* --------------------------------------------------------------- mobile */
 @media (max-width: 760px) {
   #atlas-main {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "globe"
+      "filters"
+      "detail";
+  }
+  /* Separate rule on purpose: a selector list containing :has() is dropped
+     whole by a browser that lacks it, which must not take the line above. */
+  #atlas-main:not(.is-map-route):has(> .detail-panel:not(.hidden)) {
     grid-template-columns: 1fr;
     grid-template-areas:
       "globe"

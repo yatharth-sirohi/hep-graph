@@ -225,6 +225,7 @@ async function main() {
         atlas,
         index,
         onSelect: (route) => state.navigate({ entity: route }),
+        coverElements: [els.detailPanel, els.modePanel],
       });
       globeApi.ready();
       window.addEventListener('resize', () => globeApi.resize());
