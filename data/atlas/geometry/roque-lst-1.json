@@ -1,0 +1,159 @@
+{
+  "accuracy_m": 10,
+  "aliases": [],
+  "checks": [
+    {
+      "expected": {
+        "dimension": "length",
+        "display": "~100 m",
+        "unit": "m",
+        "value": 100
+      },
+      "kind": "distance",
+      "locator": "Performance of the joint LST-1 and MAGIC observations (A&A 2023), section 1: LST-1 'is placed at a distance of only ~100 m from the MAGIC telescopes'",
+      "quote": "It is placed at a distance of only ∼ 100 m from the MAGIC",
+      "sources": [
+        "src:geo-arrays2-lst1-magic-joint-2023"
+      ],
+      "to_geometry_id": "geometry:roque-magic-ii",
+      "tolerance": 0.1
+    }
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "depth_m": null,
+  "entity_id": "experiment:ctao",
+  "feature_type": "other",
+  "geometry": {
+    "confidence": "approximate",
+    "locator": "OSM way/685521693 v5 (2026-10-08T06:00:37Z); extract: OSM API map call, bbox -17.915,28.745,-17.875,28.775, fetched 2026-10-25T10:38:47Z",
+    "note": "OpenStreetMap trace (rank 11), so confidence is capped at approximate even where the distance check passes. The 10 % tolerance reflects that '~100 m' is an approximate figure in the source.",
+    "sources": [
+      "src:geo-arrays2-roque-osm-lst-1",
+      "src:geo-arrays2-lst1-magic-joint-2023"
+    ],
+    "value": {
+      "coordinates": [
+        [
+          [
+            -17.8914243,
+            28.7616192
+          ],
+          [
+            -17.891467,
+            28.7616357
+          ],
+          [
+            -17.8915135,
+            28.7616386
+          ],
+          [
+            -17.8915584,
+            28.7616277
+          ],
+          [
+            -17.8915965,
+            28.7616041
+          ],
+          [
+            -17.8916233,
+            28.7615706
+          ],
+          [
+            -17.8916352,
+            28.7615344
+          ],
+          [
+            -17.8916337,
+            28.7614968
+          ],
+          [
+            -17.891619,
+            28.7614614
+          ],
+          [
+            -17.8915924,
+            28.7614318
+          ],
+          [
+            -17.8915567,
+            28.761411
+          ],
+          [
+            -17.8915153,
+            28.7614009
+          ],
+          [
+            -17.8914724,
+            28.7614026
+          ],
+          [
+            -17.8914322,
+            28.7614159
+          ],
+          [
+            -17.8913987,
+            28.7614395
+          ],
+          [
+            -17.8913738,
+            28.7614741
+          ],
+          [
+            -17.8913636,
+            28.761514
+          ],
+          [
+            -17.8913694,
+            28.7615545
+          ],
+          [
+            -17.8913905,
+            28.761591
+          ],
+          [
+            -17.8914243,
+            28.7616192
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    },
+    "verified_at": "2026-10-25"
+  },
+  "id": "geometry:roque-lst-1",
+  "level_id": "surface",
+  "license": {
+    "attribution": "© OpenStreetMap contributors",
+    "name": "ODbL-1.0",
+    "url": "https://www.openstreetmap.org/copyright"
+  },
+  "links": {
+    "website": null
+  },
+  "map_id": "map:roque-de-los-muchachos-observatory",
+  "method": "OpenStreetMap way 685521693 (building=yes, name='Large-Sized-Teleskop LST-1', telescope:diameter=23, height=45), a closed 20-node polygon used verbatim, no simplification. The distance check measures its centroid to MAGIC-II's, the nearer MAGIC telescope, against the published '~100 m from the MAGIC telescopes'; MAGIC-I is farther (about 148 m), so the published phrase is read as the nearest telescope.",
+  "name": "LST-1 (23 m Large-Sized Telescope prototype)",
+  "notes": [
+    "Drawn with its entity's status (CTAO is under construction). Per the CTAO-North page, LST-1 'was completed on site in October 2018 and is foreseen to become the CTAO’s first telescope once it has completed its commissioning and is accepted by the CTAO'."
+  ],
+  "osm": {
+    "elements": [
+      "way/685521693"
+    ],
+    "timestamp": "2026-10-25T10:38:47Z"
+  },
+  "representation": "georeferenced",
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:roque-de-los-muchachos-gamma-ray-array",
+  "sources": [
+    "src:geo-arrays2-roque-osm-lst-1"
+  ],
+  "summary": {
+    "plain": "The first Large-Sized Telescope of the northern Cherenkov Telescope Array, a 23-metre prototype completed in 2018 about 100 metres from MAGIC."
+  },
+  "type": "geometry",
+  "valid": null
+}

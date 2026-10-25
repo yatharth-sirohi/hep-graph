@@ -246,3 +246,143 @@ between H.E.S.S. footprints (error under 1 m on 120 m) and between VERITAS
 points (exact), and measures the 300 tanks with an `area` check; the
 MultiPolygon centroid happens to be off by only 3 m. Fix: subtract the first
 vertex before accumulating.
+
+---
+
+## 4. Roque de los Muchachos: MAGIC, LST-1 to LST-4, CTAO-North (`map:roque-de-los-muchachos-observatory`)
+
+Grade before: **partial** (2 features: two points on the same 500 m campus
+coordinate). Grade after: **layout to scale** (8 features: MAGIC-I, MAGIC-II,
+MAGIC counting house, LST-1, three newer LSTs, outline of the built
+telescopes). The map centre moves from a 500 m geocode to CTAO-North's
+published array coordinate.
+
+| Entity / feature | Drawn? | Representation | accuracy_m | Check (expected vs measured) |
+| --- | --- | --- | ---: | --- |
+| `geometry:roque-magic-i` (experiment:magic) | drawn | georeferenced (OSM way 288251657) | 10 | none of its own; MAGIC-II's check measures against it |
+| `geometry:roque-magic-ii` (experiment:magic) | drawn | georeferenced (OSM way 288251656) | 10 | distance to MAGIC-I, expected 85 m: measured 86.2 m (+1.4 %), pass at 4 % |
+| `geometry:roque-magic-counting-house` | drawn | georeferenced (OSM way 288988538) | 8 | none |
+| `geometry:roque-lst-1` (experiment:ctao) | drawn | georeferenced (OSM way 685521693) | 10 | distance to MAGIC-II (nearer MAGIC telescope), expected "~100 m": measured 96.0 m (-4.0 %), pass at 10 % |
+| `geometry:roque-lst-new-a/b/c` (experiment:ctao; the three newer LSTs) | drawn | georeferenced (OSM ways 1263216283/84/85) | 10 | none: no published position or spacing |
+| `geometry:roque-gamma-ray-telescope-cluster` (site:roque-de-los-muchachos-gamma-ray-array) | drawn | derived (convex hull of the six footprints) | 15 | none (hull is 32,500 m2, 284 m across; the published 0.5 km2 is the planned 13-telescope array, a different object) |
+| CTAO-North's nine planned MSTs | not drawn | | | layout published only as an unscaled figure (linked under `schematics`) |
+| `map.unlocated[]` | empty | | | everything in the facility's inventory is drawn; the MSTs are not an atlas entity |
+
+Principal sources: OSM ways (`https://www.openstreetmap.org/way/288251657`
+MAGIC I, `/way/288251656` MAGIC II, `/way/685521693` LST-1,
+`/way/1263216283`, `/way/1263216284`, `/way/1263216285` newer LSTs,
+`/way/288988538` counting house); Performance of the joint LST-1 and MAGIC
+observations, `https://arxiv.org/abs/2310.01954` ("MAGIC is a system of two
+IACTs, separated by a distance of 85 m"; LST-1 "is placed at a distance of only
+~100 m from the MAGIC telescopes"); CTAO-North page
+`https://www.ctao.org/emission-to-discovery/array-sites/ctao-north/` (array
+coordinate "Latitude: 28º 45′ 43.7904″ North Longitude: 17º 53′ 31.218″ West";
+"13 telescopes distributed over an area of about 0.5 km2: four Large-Sized
+Telescopes ... and nine Medium-Sized Telescopes"); CTAO news of 2026-10-15
+`https://www.ctao.org/news/the-large-sized-telescope-sub-array-is-inaugurated-on-ctao-north/`;
+CTAO layout release `https://www.ctao.org/news/ctao-releases-layouts-for-alpha-configuration/`.
+
+Status and time: all CTAO features inherit `experiment:ctao` (status
+`construction`), so LST-1 (completed on site October 2018, "foreseen to become
+the CTAO's first telescope once it has completed its commissioning") is drawn
+amber like the three newer LSTs. CTAO announced on 2026-10-15 the inauguration
+of the LST sub-array and "the completion of the four telescopes"; "over the
+coming years, the LSTs will undergo commissioning and integration into CTAO
+operations". The OSM tag "In Construction (3-24)" on the three newer LSTs is a
+2024 note and out of date; it is not used. No `valid` window is set (the build
+turns a `valid` start into a clip of the entity's own lifecycle, which would
+not improve on the entity's status).
+
+Source conflicts and judgement calls:
+
+* **"~100 m from the MAGIC telescopes" versus two MAGIC telescopes.** OSM
+  puts LST-1 at 96 m from MAGIC-II but 148 m from MAGIC-I. The paper's phrase
+  is loose; the check is asserted against the nearer telescope at a 10 %
+  tolerance and the MAGIC-I distance is not claimed.
+* **The commonly cited MAGIC coordinate** (28d45'43"N 17d53'24"W, flagged as
+  unverified in the earlier worklog) is within 7 m of the OSM MAGIC-I centroid
+  (28.761958, -17.890065), but no primary source for it was fetched, so it is
+  still not cited. CTAO-North's published array coordinate is a different
+  point, 170 to 190 m west of the MAGIC telescopes (it is a reference point of
+  the planned array, and the built telescopes lie 70 to 190 m from it).
+* The three newer LSTs cannot be numbered LST-2, LST-3, LST-4 (OSM does not,
+  and the CTAO figures are unscaled).
+* OSM also maps FACT, the SuperWASP, GTC, WHT and other optical telescopes,
+  which are not in this facility's inventory.
+
+Site coordinate corrections (an official, precise source; integrator to apply):
+
+```json
+{"site_id": "site:roque-de-los-muchachos-gamma-ray-array",
+ "current": {"lat": 28.757069, "lon": -17.8888436, "precision_m": 500, "kind": "campus"},
+ "proposed": {"lat": 28.762164, "lon": -17.892005, "precision_m": 250, "kind": "detector"},
+ "source": "src:geo-arrays2-ctao-north-array-page",
+ "locator": "CTAO-North array page, 'Array Coordinates'",
+ "quote": "Latitude: 28º 45′ 43.7904″ North Longitude: 17º 53′ 31.218″ West"}
+```
+
+`precision_m` 250 because the published coordinate is the array reference
+point and MAGIC-I stands 190 m from it; the current point is a geocode of the
+whole observatory, 600 m south-east of the telescopes.
+
+Not drawn and why (backlog):
+
+1. CTAO-North MSTs (nine planned): the as-requested layout coordinates (shift
+   under 10 m) behind the CTAO figure; ask CTAO or find the construction-permit
+   documents.
+2. Numbering of the three newer LSTs and a published LST spacing, to add
+   checks.
+3. LST camera access towers (OSM service buildings), not drawn.
+
+---
+
+## 5. CTAO-South, Paranal (`map:ctao-south-paranal`)
+
+Grade before: **partial** (1 feature). Grade after: **partial, unchanged**
+(1 feature plus an official layout schematic link). This is the one facility in
+the stream where the evidence did not allow an upgrade.
+
+| Entity / feature | Drawn? | Representation | accuracy_m | Check |
+| --- | --- | --- | ---: | --- |
+| `geometry:ctao-south-array-point` (site:paranal-cta-south) | drawn (unchanged) | surveyed (published array coordinate) | 100 | none |
+| 14 MSTs, 37 SSTs, 4 LST and 3 SST foundations | not drawn | | | no published coordinates |
+| OSM way 939135727 (site outline) | considered, not drawn | | | 2.04 km2 vs the published ~3 km2 |
+
+What was looked for and found:
+
+* The CTAO site and news pages (fetched 2026-10-25) say the Alpha Configuration
+  "defines the geographical positions of the elements in the array", and the
+  release news says "the released layout coordinates correspond to the so-called
+  'as-requested coordinates' ... any shift in the final positions would be
+  limited to less than ten metres". The layout is published as two figures
+  (`https://www.ctao.org/wp-content/uploads/CTAO_South_Alpha_Final2_2024.png` and the
+  North equivalent). Both are schematic: no scale bar, no coordinate axes. They
+  are linked on the map under `schematics` and are not traced.
+* A web search pointed at the simulation layouts of the prod5
+  instrument-response release (Zenodo record 5499840) as the only other place
+  with positions; the Zenodo API answered 403 to this session and the files
+  were not read. They are simulation layouts, not the as-requested layout, so
+  they would not have been used for a `surveyed` pad.
+* OpenStreetMap has no telescope, pad, foundation or road of the array at
+  CTAO-South other than one polygon (way 939135727, "Cherenkov Telescope Array -
+  Southern Hemisphere Site", `landuse=construction`, version 2 of 2025-02-25):
+  a 20-node near-ellipse, 1.63 km across and 2.04 km2 in area. The official page
+  says the array is "spread over three square kilometers" (the layout release
+  says "51 telescopes over a ~3 km 2 area"); the polygon is 32 % smaller than that, so it cannot be the
+  array footprint, and a site boundary must contain the array. Its centroid is
+  374 m from the published array coordinate. It is not drawn because a plausible
+  but wrong outline is worse than none.
+
+Planned features and time: none are drawn, so there is nothing to date. Had
+telescope pads been available they would inherit `experiment:ctao`'s
+`construction` status; a pad with no built telescope would need a `valid`
+window, which the current build turns into a clip of the entity's lifecycle (see
+the RHIC note in `REVIEW_geometry_qa.md`).
+
+Site coordinate corrections: none. `site:paranal-cta-south` already carries the
+published coordinate (24d41'0.34"S, 70d18'58.84"W).
+
+Backlog: the Alpha-configuration coordinate file (CTAO as-requested layout or
+the construction-phase surveyed pad coordinates) from CTAO; until then the map
+stays at one reference point. With it, 51 telescope pads and 7 foundations would
+be `surveyed` points with an area check against the published ~3 km2.
