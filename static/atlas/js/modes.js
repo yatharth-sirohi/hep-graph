@@ -4,13 +4,16 @@
 
 import { titleCase, fmtDate, buildIndex } from './model.js';
 
-let ctx = null; // { container, atlas, results, documents, navigate, highlightGlobe, setTimelineYear }
+let ctx = null; // { container, atlas, results, documents, navigate, getState, setTimelineYear }
 // Flat id->record index over atlas.json (same groups buildIndex covers:
 // facilities/sites/accelerators/beamlines/experiments/detectors/
 // collaborations/topics), built once per init() and reused to resolve a
 // document's owner_ids to names — those ids point at experiment/detector/
 // collaboration/beamline records, never at a separate "people" bundle.
 let entityIndex = null;
+// Set by the Results panel while it is on screen: brings it in line with the
+// view the address names (see state.js's `results`).
+let resultsSync = null;
 
 /** The human label of a record.
  *
@@ -95,10 +98,11 @@ function renderTopicNode(topics, topic) {
   const children = topicChildren(topics, topic.id);
   const li = h('li', {});
   const link = h('a', { href: `#/topic/${topic.id.split(':')[1]}`, class: 'topic-link' }, topic.name);
+  // The globe highlight for the chosen topic is not set here: it follows the
+  // route (app.js), so it stays for as long as the topic is open and goes when
+  // the reader leaves it, whichever way they arrived (this tree, search, a link).
   link.addEventListener('click', (event) => {
     event.preventDefault();
-    const matches = new Set([topic.id, ...(topic.experiment_ids || []), ...(topic.facility_ids || [])]);
-    ctx.highlightGlobe(matches);
     goto({ type: 'topic', slug: topic.id.split(':')[1] });
   });
   li.appendChild(link);
@@ -199,6 +203,9 @@ function renderResultsMode() {
   const filters = { year: '', experiment: '', facility: '', topic: '', type: '' };
   let sortBy = 'date';
   let groupBy = 'none';
+  // The view the address carries (state.js): filters, sort and grouping survive
+  // opening a result and pressing Back, and travel in a shared link.
+  const startView = (ctx.getState && ctx.getState().results) || null;
 
   function select(id, label, options, nameMap) {
     const sel = h('select', { id, 'aria-label': label });
@@ -236,8 +243,6 @@ function renderResultsMode() {
     const link = h('a', { href: `#/result/${result.id.split(':')[1]}`, class: 'result-title' }, labelOf(result));
     link.addEventListener('click', (event) => {
       event.preventDefault();
-      const firstExp = (result.experiment_ids || [])[0];
-      if (firstExp) ctx.highlightGlobe(new Set([firstExp]));
       goto({ type: 'result', slug: result.id.split(':')[1] });
     });
     main.appendChild(link);
@@ -297,19 +302,74 @@ function renderResultsMode() {
     }
   }
 
-  function setGroupBy(next) {
-    groupBy = groupBy === next ? 'none' : next;
+  function showGroupBy(next) {
+    groupBy = next;
     groupYearBtn.setAttribute('aria-pressed', String(groupBy === 'year'));
     groupYearBtn.classList.toggle('is-active', groupBy === 'year');
     groupExpBtn.setAttribute('aria-pressed', String(groupBy === 'experiment'));
     groupExpBtn.classList.toggle('is-active', groupBy === 'experiment');
+  }
+
+  // A <select> takes a value only when it is one of its options; a link that
+  // names a filter this list does not offer falls back to "All" rather than
+  // leaving the box blank.
+  function setSelect(sel, value) {
+    sel.value = value || '';
+    if (sel.value !== (value || '')) sel.value = '';
+  }
+
+  function viewNow() {
+    return {
+      year: yearSel.value, experiment: expSel.value, facility: facSel.value,
+      topic: topicSel.value, type: typeSel.value, sort: sortSel.value, group: groupBy,
+    };
+  }
+
+  function sameView(a, b) {
+    return ['year', 'experiment', 'facility', 'topic', 'type', 'sort', 'group']
+      .every((key) => (a[key] || '') === (b[key] || ''));
+  }
+
+  function setView(view) {
+    setSelect(yearSel, view.year);
+    setSelect(expSel, view.experiment);
+    setSelect(facSel, view.facility);
+    setSelect(topicSel, view.topic);
+    setSelect(typeSel, view.type);
+    setSelect(sortSel, view.sort || 'date');
+    showGroupBy(['year', 'experiment'].includes(view.group) ? view.group : 'none');
+  }
+
+  // Writes the view into the address (replacing the entry, like the globe
+  // filters do), so Back from an opened result and a shared link both land on
+  // this same list. The panel is not rebuilt for its own change: show() sees
+  // the address already agrees with what is on screen.
+  function persist() {
+    const saved = (ctx.getState && ctx.getState().results) || {};
+    const view = viewNow();
+    if (!sameView(saved, view)) ctx.navigate({ results: view }, { replace: true });
+  }
+
+  function setGroupBy(next) {
+    showGroupBy(groupBy === next ? 'none' : next);
     apply();
+    persist();
   }
   groupYearBtn.addEventListener('click', () => setGroupBy('year'));
   groupExpBtn.addEventListener('click', () => setGroupBy('experiment'));
 
-  for (const sel of [yearSel, expSel, facSel, topicSel, typeSel, sortSel]) sel.addEventListener('change', apply);
+  for (const sel of [yearSel, expSel, facSel, topicSel, typeSel, sortSel]) {
+    sel.addEventListener('change', () => { apply(); persist(); });
+  }
+  if (startView) setView(startView);
   apply();
+  // The address changed under an open panel (Back or Forward between two
+  // filtered lists): follow it.
+  resultsSync = (view) => {
+    if (!view || sameView(view, viewNow())) return;
+    setView(view);
+    apply();
+  };
 
   return h('div', { class: 'mode-body' }, [
     h('h2', {}, 'Results'),
@@ -407,12 +467,12 @@ const MODE_RENDERERS = { topic: renderTopicMode, results: renderResultsMode, doc
 let modeOpener = null;
 let lastMode = null;
 
-export function show(mode) {
+export function show(mode, current = null) {
   const { container } = ctx;
   if (!mode || !MODE_RENDERERS[mode]) {
     container.innerHTML = '';
     container.classList.add('hidden');
-    ctx.highlightGlobe(null);
+    resultsSync = null;
     lastMode = null;
     if (modeOpener && document.body.contains(modeOpener)) {
       modeOpener.focus({ preventScroll: true });
@@ -426,7 +486,10 @@ export function show(mode) {
   // timeline or the filters). Rebuilding it anyway threw away the person's
   // scroll position, the selects and the text they had typed, and dropped
   // keyboard focus onto <body>.
-  if (mode === lastMode && container.firstElementChild && !container.classList.contains('hidden')) return;
+  if (mode === lastMode && container.firstElementChild && !container.classList.contains('hidden')) {
+    if (mode === 'results' && resultsSync && current) resultsSync(current.results);
+    return;
+  }
   if (mode !== lastMode) {
     modeOpener = document.activeElement;
     lastMode = mode;

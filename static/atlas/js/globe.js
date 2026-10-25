@@ -859,8 +859,9 @@ export function createGlobe(container, {
     // ---- highlight (topic mode) carries over the rebuild --------------
     if (highlightSet) {
       for (const [id, el] of markerEls) {
-        el.classList.toggle('is-highlighted', highlightSet.has(id));
-        el.classList.toggle('is-muted', !highlightSet.has(id));
+        const lit = isHighlighted(id);
+        el.classList.toggle('is-highlighted', lit);
+        el.classList.toggle('is-muted', !lit);
       }
     }
 
@@ -1067,6 +1068,17 @@ export function createGlobe(container, {
     facilitiesBySite.set(facility.primary_site_id, list);
   }
 
+  /** Whether the highlight set (a topic's facilities and sites) covers a marker.
+   * A cluster stands for several markers — its id lists them, `cluster:<tier>:
+   * <id>+<id>…` — so it is lit when any of them is, rather than muted over the
+   * very facility being pointed at. */
+  function isHighlighted(id) {
+    if (!highlightSet) return false;
+    if (highlightSet.has(id)) return true;
+    if (!id.startsWith('cluster:')) return false;
+    return id.replace(/^cluster:[^:]+:/, '').split('+').some((member) => highlightSet.has(member));
+  }
+
   function isSelectedMarker(id) {
     return selection.markerIds.has(id)
       || (!!selection.institutionId && id.endsWith(`::${selection.institutionId}`));
@@ -1263,8 +1275,9 @@ export function createGlobe(container, {
     setHighlight(idSet) {
       highlightSet = idSet;
       for (const [id, el] of markerEls) {
-        el.classList.toggle('is-highlighted', !!highlightSet && highlightSet.has(id));
-        el.classList.toggle('is-muted', !!highlightSet && !highlightSet.has(id));
+        const lit = isHighlighted(id);
+        el.classList.toggle('is-highlighted', lit);
+        el.classList.toggle('is-muted', !!highlightSet && !lit);
       }
     },
     async setCollaboration(collaborationId, membership) {

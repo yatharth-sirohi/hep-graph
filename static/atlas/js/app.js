@@ -12,7 +12,7 @@ import * as search from './search.js';
 import * as fallback from './fallback.js';
 import * as filtersModule from './filters.js';
 import * as localmap from './localmap.js';
-import { buildIndex } from './model.js';
+import { buildIndex, topicMarkerIds } from './model.js';
 
 const els = {
   dataNotice: document.getElementById('data-notice'),
@@ -213,7 +213,7 @@ async function main() {
     results: resultsBundle,
     documents: documentsBundle,
     navigate: state.navigate,
-    highlightGlobe: (idSet) => globeApi && globeApi.setHighlight(idSet),
+    getState: state.get,
     setTimelineYear: (year) => timeline.setYear(year),
   });
 
@@ -301,6 +301,8 @@ async function main() {
 
   // ---- state <-> UI -----------------------------------------------------
   let lastCollabShown = null;
+  // Which topic the globe is currently highlighting for (or null).
+  let highlightedTopic = null;
   async function applyState(current) {
     for (const btn of els.modeButtons.querySelectorAll('.mode-toggle')) {
       btn.classList.toggle('is-active', (btn.dataset.mode || null) === (current.mode || null));
@@ -312,6 +314,21 @@ async function main() {
     filterPanel.setFilters(filters);
     if (globeApi) globeApi.setFilters(filters);
     renderFallbackIfActive(current);
+
+    // An open topic highlights the facilities and sites of its experiments and
+    // mutes the rest, for exactly as long as that topic is the open route. It is
+    // derived from the route here — not set by the Topics list when a link is
+    // clicked — so it survives the panel opening, and a link, a search result or
+    // Back/Forward reaches the same picture.
+    if (globeApi) {
+      const topicId = current.entity && current.entity.type === 'topic'
+        ? `topic:${current.entity.slug}` : null;
+      if (topicId !== highlightedTopic) {
+        highlightedTopic = topicId;
+        const markers = topicId ? topicMarkerIds(atlas, topicId) : null;
+        globeApi.setHighlight(markers && markers.size ? markers : null);
+      }
+    }
 
     // The open panel's entity: highlight its markers and fly the camera there
     // (a no-op while it is unchanged). In collaboration mode setCollaboration()
@@ -375,7 +392,7 @@ async function main() {
     }
 
     if (current.mode && current.mode !== 'collab') {
-      modes.show(current.mode);
+      modes.show(current.mode, current);
     } else {
       modes.show(null);
     }

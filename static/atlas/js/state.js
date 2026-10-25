@@ -1,6 +1,7 @@
 // state.js — the single source of truth for "what is on screen": the hash
 // route (#/facility/<slug> etc.), plus short query state (?y=, ?r=, ?t=, ?s=,
-// ?m=, ?arcs=). Back/forward and copy-pasted URLs both restore the view.
+// ?m=, ?arcs=, and the Results list's own ?ry=/?rx=/?rf=/?rt=/?rk=/?rs=/?rb=).
+// Back/forward and copy-pasted URLs both restore the view.
 
 const TYPE_PREFIX = {
   facility: 'facility', experiment: 'experiment', collaboration: 'collaboration',
@@ -11,6 +12,36 @@ const TYPE_PREFIX = {
   // search box and a pasted link all reach it through the same code path.
   map: 'map',
 };
+
+// ---- Results list (modes.js) ------------------------------------------------
+// The Results panel's year / experiment / facility / topic / type filters, its
+// sort order and its grouping. They are part of the view, so they live in the
+// URL while the panel is open: opening a result and pressing Back, or sending
+// the link, brings back the same list. Only values that differ from the
+// defaults are written, and only while `m=results` — leaving the panel must not
+// strand them in the address of a view that cannot honour them.
+const RESULTS_PARAMS = {
+  year: 'ry', experiment: 'rx', facility: 'rf', topic: 'rt', type: 'rk', sort: 'rs', group: 'rb',
+};
+const RESULTS_SORTS = ['date', 'experiment', 'type'];
+const RESULTS_GROUPS = ['none', 'year', 'experiment'];
+
+export function defaultResultsView() {
+  return { year: '', experiment: '', facility: '', topic: '', type: '', sort: 'date', group: 'none' };
+}
+
+function parseResultsView(params) {
+  const view = defaultResultsView();
+  for (const key of ['year', 'experiment', 'facility', 'topic', 'type']) {
+    const value = params.get(RESULTS_PARAMS[key]);
+    if (value) view[key] = value;
+  }
+  const sort = params.get(RESULTS_PARAMS.sort);
+  if (RESULTS_SORTS.includes(sort)) view.sort = sort;
+  const group = params.get(RESULTS_PARAMS.group);
+  if (RESULTS_GROUPS.includes(group)) view.group = group;
+  return view;
+}
 
 const subscribers = new Set();
 let current = null;
@@ -33,6 +64,7 @@ function parseSearch(search) {
     // the entity (or context feature) in the drawer. `levels: null` means
     // "all levels", which is not the same as "no levels" (`[]`).
     levels: null, basemap: true, sel: null,
+    results: parseResultsView(params),
   };
   if (params.has('y')) {
     const y = parseInt(params.get('y'), 10);
@@ -95,6 +127,12 @@ function buildURL(state) {
     if (state.basemap === false) params.set('bm', '0');
     if (state.sel) params.set('sel', state.sel);
   }
+  if (state.mode === 'results' && state.results) {
+    const defaults = defaultResultsView();
+    for (const [key, param] of Object.entries(RESULTS_PARAMS)) {
+      if (state.results[key] && state.results[key] !== defaults[key]) params.set(param, state.results[key]);
+    }
+  }
   const search = params.toString();
   const hash = state.entity ? `#/${state.entity.type}/${state.entity.slug}` : '';
   return `${window.location.pathname}${search ? `?${search}` : ''}${hash}`;
@@ -106,7 +144,14 @@ function notify() {
 
 /** Merge `patch` into the current state and push a new history entry. */
 export function navigate(patch, { replace = false } = {}) {
+  const previousMode = current ? current.mode : null;
   current = { ...current, ...patch };
+  // The Results filters belong to one visit of the panel: opening it again from
+  // the toolbar starts from the full list, as it always has. (Back/forward
+  // restores them from the address instead, through readLocation().)
+  if ('mode' in patch && (patch.mode || null) !== (previousMode || null) && !('results' in patch)) {
+    current.results = defaultResultsView();
+  }
   const url = buildURL(current);
   if (replace) {
     window.history.replaceState(current, '', url);
