@@ -5,23 +5,25 @@
     {
       "expected": {
         "approx": true,
-        "confidence": "approximate",
+        "confidence": "verified",
         "dimension": "length",
-        "display": "≈157.1 m (computed as 2πr from r = 25 m)",
-        "locator": "article body",
-        "note": "Computed by this record's author as circumference = 2*pi*25 m; the source states the radius, not the circumference directly.",
-        "quote": "a radius of 25 m (1/4 of the PS)",
+        "display": "~157 m (each of the four rings)",
+        "locator": "CERN BE-OP PSB 'Introduction' page, first paragraph",
+        "note": "CERN's page says ~157 m; the CERN Courier radius of 25 m (1/4 of the PS) gives 2 pi r = 157.08 m, consistent.",
+        "quote": "four superimposed rings with a circumference of ~157m each",
         "sources": [
+          "src:geo-cern-psb-op-intro",
           "src:geo-cern-courier-psb-hits-40"
         ],
         "unit": "m",
-        "value": 157.08,
-        "verified_at": "2026-09-18"
+        "value": 157,
+        "verified_at": "2026-10-25"
       },
       "kind": "length",
-      "locator": "article body",
-      "quote": "a radius of 25 m (1/4 of the PS)",
+      "locator": "CERN BE-OP PSB 'Introduction' page, first paragraph",
+      "quote": "four superimposed rings with a circumference of ~157m each",
       "sources": [
+        "src:geo-cern-psb-op-intro",
         "src:geo-cern-courier-psb-hits-40"
       ],
       "tolerance": 0.03
@@ -188,7 +190,7 @@
     "website": null
   },
   "map_id": "map:cern",
-  "method": "OpenStreetMap way 309914733 (highway=corridor, tunnel=yes, layer=-1), used verbatim. Expected circumference for the check is computed as 2*pi*25 m from CERN Courier's stated PSB radius of 25 m (1/4 of the PS), not a directly published circumference figure -- kept 'approximate' rather than 'verified' for this reason.",
+  "method": "OpenStreetMap way 309914733 (highway=corridor, tunnel=yes, layer=-1), used verbatim. Expected circumference for the check is the ~157 m that CERN's PSB operations page prints for each of the four rings (the CERN Courier radius of 25 m, 2*pi*25 = 157.08 m, agrees); confidence is left at 'approximate' because the OSM way is a tunnel corridor, not a surveyed ring.",
   "name": "PS Booster tunnel, full ring",
   "notes": [],
   "osm": {
