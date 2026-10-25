@@ -153,3 +153,80 @@ centroid of the OSM RAL polygon (51.570768, -1.315704), well inside its 1500 m p
 3. The ISIS linac (70 MeV) and the beamline from the synchrotron to TS2 (the TS2 extraction
    line); no fetched source gives either.
 4. An official RAL campus boundary/area for an `area` check.
+
+---
+
+## 3. ill-grenoble (`map:ill-grenoble`)
+
+**Grade: no map → layout to scale** (a structural hall with a passing official check, footprints,
+and a derived core cylinder). No accelerator or beamline exists for ILL.
+
+| Entity / feature | Status | Representation | accuracy_m | Check |
+| --- | --- | --- | --- | --- |
+| `site:ill-grenoble-reactor-hall` → `geometry:ill-reactor-hall` (OSM way 191447189, name:en "Reactor Hall", ref ILL 5; 42-node near-circle, vertex radii 29.76–29.96 m) | drawn, `feature_type: hall` | georeferenced, confidence **verified** | 5 | `span` expected 60 m (ILL engineering paper, inner-shell diameter) vs measured 59.79 m, tolerance 3 % → **pass** (0.35 %) |
+| ILL Guide Hall 1 → `geometry:ill-guide-hall-1-ill7` (OSM way 191447188, ref ILL 7; 6654 m², 142 m span) | drawn, `hall` on `facility:ill-grenoble` | georeferenced | 8 | none (no official dimension fetched) |
+| ILL Guide Hall 2 → `geometry:ill-guide-hall-2-ill22` (OSM way 191447185, ref ILL 22; 3360 m², 95 m span) | drawn | georeferenced | 8 | none |
+| EPN campus boundary → `geometry:ill-epn-campus-boundary` (OSM way 64549604, 352 000 m², 939 m span; shared with the ESRF) | drawn, context | georeferenced | 15 | none |
+| Reactor core cylinder → `geometry:ill-reactor-core-cylinder` (7 m circle at the building's centre) | drawn, context | **derived** | 5 | none (the diameter is the input) |
+| `detector:ricochet-cryocube` (8.8 m from the core) | **unlocated** | — | — | — |
+
+**Sources fetched and quoted**
+
+* "The building consists of a cylindrical concrete shell of 60 m diameter and 40 m height (inner
+  shell)" and "The centre of the raft supports a concrete cylinder 7 m in diameter, 2 m thick and
+  15 m in height. This cylinder is the core of the reactor." — L. Germane (ILL), J.-M. Thiry,
+  F. Plewinski, *Seismic strengthening of the ILL High Flux Reactor building*, IGORR 10 (2005), §2
+  (https://www.igorr.com/_media/proceedings:2005_igorr10:germane-seismic_strengthening_of_the_ill_high_flux_reactor.pdf),
+  full text read with pdftotext.
+* "Guide hall 1 (ILL7)", "Guide hall 2 (ILL22)" — ILL, *Take a virtual 360° tour of the ILL*
+  (https://www.ill.eu/en/the-facility/take-a-virtual-360-tour-of-the-ill/), fetched in full.
+
+**Honesty calls and conflicts**
+
+1. *Reactor hall `verified`.* The span check confirms that the OSM outline is the 60 m cylindrical
+   reactor building (not another building at that spot); the location itself rests on OSM (cadastre
+   import, source tag `cadastre-dgi-fr`, 2012). This is the contract's rule (rank ≤ 10 source plus a
+   passing check) and the same pattern as the LHC/HERA rings; the check is on the footprint's
+   size, not on its position. The 60 m figure is the *inner shell*; the OSM outline is the outer
+   footprint and still measures 59.79 m, so the two agree within 0.35 %. An *area* check
+   (π·30² = 2827 m² vs 2785 m²) was not written: that would derive its expectation from the
+   diameter rather than quote an official area.
+2. *ILL 5 = reactor building.* ILL's own building naming ("reactor building (ILL5)") appeared only
+   in a web-search snippet of ILL's installations page, which returned HTTP 503 on every direct
+   fetch (`www2017.ill.eu`). It is **not** cited. The number rests on the OSM tag plus the passing
+   60 m diameter check.
+3. *ILL 22 = Guide Hall 2* rests on the building number matching exactly between OSM's `ref` and
+   ILL's page; OSM gives no name for it.
+4. *Core cylinder is a circle.* Allowed here because a source gives the cylinder's diameter (7 m) and
+   its position (centre of the circular foundation raft under a cylindrical building whose
+   outline is itself near-circular, radii within 0.2 m). `derived`, accuracy 5 m. It is the
+   cylinder housing the pool and vessel, not the fuel element.
+5. *Ricochet not placed.* Only "8.8 meters away from the 58 MW research nuclear reactor core" is
+   sourced (src:cevns-ricochet-fast-neutron-2022): a distance without a bearing.
+6. **`hepgraph.atlas.geo.centroid` defect (report, not fixed; `hepgraph/` is off-limits).** It
+   multiplies absolute lon/lat in the polygon cross product, so for a polygon only a few metres
+   across it loses precision: for the 7 m core circle `measured.centroid` in the bundle comes out
+   at 45.205763 N instead of 45.206099 N (37 m off). The shape itself, its area and its span are
+   right and the browser does not use `measured.centroid`; the fix is to subtract the first vertex
+   before forming the cross products.
+
+**Site coordinate corrections** (for the integrator; none applied here)
+
+```json
+[{"site_id": "site:ill-grenoble-reactor-hall",
+  "current": {"lat": 45.206239, "lon": 5.692774, "precision_m": 200, "kind": "campus", "source": "src:cevns-ill-wikipedia"},
+  "proposed": {"lat": 45.206099, "lon": 5.692848, "precision_m": 30, "kind": "campus"},
+  "distance_from_current_m": 17,
+  "source": "src:geo-ill-osm-reactor-hall (OSM way 191447189) with src:geo-ill-igorr-2005-reactor-building",
+  "quote": "The building consists of a cylindrical concrete shell of 60 m diameter and 40 m height (inner shell)",
+  "note": "Centroid of the circular reactor building (also the reactor-core axis). The existing point is already within 17 m; the improvement is mainly the precision (200 m -> 30 m). The Ricochet detector itself is 8.8 m from this axis in an unsourced direction."}]
+```
+
+**Remaining backlog**
+
+1. Ricochet CryoCube position: an installation drawing, or a paper giving the room/bearing from
+   the core; then a point on the 8.8 m circle about the core cylinder.
+2. Official dimensions of the guide halls (ILL annual reports 1992–1995 on ill.eu may list them;
+   ILL's installations-overview page was unreachable, HTTP 503) for `span`/`area` checks.
+3. The H-beam tubes and neutron-guide paths from the reactor to the guide halls; no fetched source.
+4. ILL's building-number page, to cite "ILL5/ILL7/ILL22" directly once ILL's site is reachable.
