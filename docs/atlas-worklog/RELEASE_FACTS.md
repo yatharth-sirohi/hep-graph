@@ -1404,11 +1404,13 @@ Conventions: `verified_at` is 2026-10-25 on every object whose source was re-rea
 
 ## 5. Not changed, for the integrator
 
-- Merge conflicts with `atlas-release` (tested with `git merge-tree`): `detectors/kamland.json`, `experiments/kamland.json`,
-  `experiments/na62.json` (the currency pass reformatted/edited neighbouring text). Re-apply this branch's edits on top of the
-  `atlas-release` versions: KamLAND `technology` (13 m balloon inside an 18 m containment vessel, 1,879 PMTs, 3.2 kton water-Cherenkov
-  outer detector; source arXiv:hep-ex/0212021), KamLAND experiment `physics_goals/0` and `unique_capabilities/0` quotes, and the NA62
-  interval quote (`/intervals/*` text "using data collected in 2021 and 2022 ..."; keep the currency pass's note).
+- Merge with `atlas-release` (tested with `git merge-tree`): ten files conflict because the currency passes re-serialised
+  hand-formatted entity files (`detectors/{kamland,nexo,p-one,rno-g}`, `experiments/{kamland,na62,p-one,project-8,rno-g,sno-plus}`).
+  A trial resolution exists on branch `atlas-release-facts-merged` (one merge commit on top of this branch, JSON-level three-way merge
+  against base b748d0c: non-overlapping edits from both sides kept, the release side wins where both rewrote the same interval
+  quote/note/sources; `src:rf09-project8-about-page` dropped as a duplicate URL of `src:currency2-project8-about-page`).
+  On that branch the validator reports 0 errors and the checker finds no new near/missing outside geometry/maps except
+  `sites/telescope-array-utah-central-site.json /coordinates` (an arrays-stream record).
 - `sites/kamioka-mozumi-mine-super-kamiokande.json /coordinates` quote is typographically exact on the printed page of NIM A 501
   (p. 420) but the PDF text layer drops the degree and prime signs, so the checker classes it `near`.
 - `memberships/atlas.json /members/146` (University of Iowa) was removed: the ATLAS public institutions list (fetched 2026-10-25) names
