@@ -179,6 +179,31 @@ export function kindLabel(value) {
   return KIND_LABELS[value] || titleCase(value);
 }
 
+/** The globe markers that stand for a research topic: the facilities and sites
+ * of the experiments that carry it in `topic_ids` — exactly the experiments the
+ * topic panel lists. (A topic record carries no experiment list of its own; the
+ * link is stored on the experiment.) Returns an empty set for a topic nothing
+ * in the Atlas is tagged with, which callers must treat as "nothing to
+ * highlight" rather than "mute the whole globe". */
+export function topicMarkerIds(atlas, topicId) {
+  const ids = new Set();
+  const facilities = atlas.facilities || {};
+  const sites = atlas.sites || {};
+  for (const experiment of Object.values(atlas.experiments || {})) {
+    if (!(experiment.topic_ids || []).includes(topicId)) continue;
+    for (const facilityId of experiment.facility_ids || []) {
+      if (facilities[facilityId]) ids.add(facilityId);
+    }
+    for (const siteId of experiment.site_ids || []) {
+      const site = sites[siteId];
+      if (!site) continue;
+      ids.add(siteId);
+      if (site.facility_id && facilities[site.facility_id]) ids.add(site.facility_id);
+    }
+  }
+  return ids;
+}
+
 /** A flat entity index over atlas.json, so any id can be resolved to its
  * record and coarse "kind" in O(1). */
 export function buildIndex(atlas) {

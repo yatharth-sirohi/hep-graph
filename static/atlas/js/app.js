@@ -12,7 +12,7 @@ import * as search from './search.js';
 import * as fallback from './fallback.js';
 import * as filtersModule from './filters.js';
 import * as localmap from './localmap.js';
-import { buildIndex } from './model.js';
+import { buildIndex, topicMarkerIds } from './model.js';
 
 const els = {
   dataNotice: document.getElementById('data-notice'),
@@ -213,12 +213,19 @@ async function main() {
     results: resultsBundle,
     documents: documentsBundle,
     navigate: state.navigate,
-    highlightGlobe: (idSet) => globeApi && globeApi.setHighlight(idSet),
+    getState: state.get,
     setTimelineYear: (year) => timeline.setYear(year),
   });
 
   search.init({
-    inputEl: els.searchInput, listEl: els.searchResults, entries: searchEntries, navigate: state.navigate,
+    inputEl: els.searchInput,
+    listEl: els.searchResults,
+    entries: searchEntries,
+    navigate: state.navigate,
+    // Experiments, facilities and results are also found through the research
+    // topic they are filed under (search "Higgs", reach ATLAS, CMS and CERN).
+    atlas,
+    results: resultsBundle.list,
   });
 
   if (hasGL2) {
@@ -289,18 +296,62 @@ async function main() {
   });
 
   // ---- share link -------------------------------------------------------
+  // Copying needs clipboard permission, which many phones (and any page on a
+  // non-secure origin) do not give. Then the address goes into a read-only field
+  // that is already selected, with the instruction for the device in use, rather
+  // than being dumped into the status line as an unexplained URL.
+  let shareTimer = 0;
+  function clearShareStatus() {
+    window.clearTimeout(shareTimer);
+    els.shareStatus.textContent = '';
+    els.shareStatus.classList.remove('is-fallback');
+  }
+  function showShareFallback(url) {
+    const touch = window.matchMedia('(max-width: 900px), (pointer: coarse)').matches;
+    const message = document.createElement('span');
+    message.className = 'share-status-text';
+    message.textContent = touch ? 'Press and hold to copy' : 'Press Ctrl+C (⌘C on a Mac) to copy';
+    const field = document.createElement('input');
+    field.type = 'text';
+    field.readOnly = true;
+    field.className = 'share-url';
+    field.value = url;
+    field.setAttribute('aria-label', 'Share link');
+    const done = document.createElement('button');
+    done.type = 'button';
+    done.className = 'text-btn share-done';
+    done.textContent = 'Done';
+    done.addEventListener('click', () => { clearShareStatus(); els.shareBtn.focus({ preventScroll: true }); });
+    field.addEventListener('keydown', (event) => {
+      if (event.key !== 'Escape') return;
+      event.stopPropagation(); // dismisses this, not the record panel behind it
+      done.click();
+    });
+    els.shareStatus.replaceChildren(message, field, done);
+    els.shareStatus.classList.add('is-fallback');
+    // Selected on the tap itself (iOS only honours it inside the gesture), so
+    // press-and-hold or the keyboard shortcut copies the whole link.
+    field.focus({ preventScroll: true });
+    field.select();
+    field.setSelectionRange(0, url.length);
+  }
   els.shareBtn.addEventListener('click', async () => {
+    clearShareStatus();
+    const url = window.location.href;
     try {
-      await navigator.clipboard.writeText(window.location.href);
-      els.shareStatus.textContent = 'Link copied.';
+      await navigator.clipboard.writeText(url);
     } catch (error) {
-      els.shareStatus.textContent = window.location.href;
+      showShareFallback(url);
+      return;
     }
-    window.setTimeout(() => { els.shareStatus.textContent = ''; }, 4000);
+    els.shareStatus.textContent = 'Link copied.';
+    shareTimer = window.setTimeout(clearShareStatus, 4000);
   });
 
   // ---- state <-> UI -----------------------------------------------------
   let lastCollabShown = null;
+  // Which topic the globe is currently highlighting for (or null).
+  let highlightedTopic = null;
   async function applyState(current) {
     for (const btn of els.modeButtons.querySelectorAll('.mode-toggle')) {
       btn.classList.toggle('is-active', (btn.dataset.mode || null) === (current.mode || null));
@@ -312,6 +363,21 @@ async function main() {
     filterPanel.setFilters(filters);
     if (globeApi) globeApi.setFilters(filters);
     renderFallbackIfActive(current);
+
+    // An open topic highlights the facilities and sites of its experiments and
+    // mutes the rest, for exactly as long as that topic is the open route. It is
+    // derived from the route here — not set by the Topics list when a link is
+    // clicked — so it survives the panel opening, and a link, a search result or
+    // Back/Forward reaches the same picture.
+    if (globeApi) {
+      const topicId = current.entity && current.entity.type === 'topic'
+        ? `topic:${current.entity.slug}` : null;
+      if (topicId !== highlightedTopic) {
+        highlightedTopic = topicId;
+        const markers = topicId ? topicMarkerIds(atlas, topicId) : null;
+        globeApi.setHighlight(markers && markers.size ? markers : null);
+      }
+    }
 
     // The open panel's entity: highlight its markers and fly the camera there
     // (a no-op while it is unchanged). In collaboration mode setCollaboration()
@@ -375,7 +441,7 @@ async function main() {
     }
 
     if (current.mode && current.mode !== 'collab') {
-      modes.show(current.mode);
+      modes.show(current.mode, current);
     } else {
       modes.show(null);
     }

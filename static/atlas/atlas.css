@@ -170,6 +170,14 @@ input {
   padding: 7px 8px;
   color: var(--muted);
 }
+/* ---- rv-panels: search row reached through a topic -- begin ---- */
+/* A search row reached through a research topic: the topic, in a lighter weight
+   that keeps the row's own colour (it must stay legible on the highlighted row). */
+.search-via {
+  font-weight: 400;
+  opacity: 0.8;
+}
+/* ---- rv-panels -- end ---- */
 .fixture-banner {
   font-size: 12px;
   color: var(--amber);
@@ -1052,6 +1060,26 @@ input {
   font-size: 11px;
   color: var(--muted);
 }
+/* ---- rv-panels: result "Where" line and distance between sites -- begin ---- */
+/* A link sitting in a sentence with plain text needs more than colour to be
+   told apart from it (WCAG 1.4.1), like .entity-link-with-meta above. */
+.result-where {
+  margin: 10px 0;
+}
+.result-where a,
+.site-distances .source-meta a {
+  text-decoration: underline;
+}
+.site-distances h4 {
+  margin: 12px 0 4px;
+  font-size: 13px;
+  color: var(--muted);
+  font-weight: 600;
+}
+.site-distances .entity-list {
+  margin-bottom: 4px;
+}
+/* ---- rv-panels -- end ---- */
 /* provenance.js's grouped-by-claim Sources disclosure (task A4): one claim
    label, its quote/locator and confidence, then the sources that back it —
    the raw JSON pointer stays available (title attribute + this small line)
@@ -1308,6 +1336,41 @@ input {
 .share-status {
   color: var(--teal);
 }
+/* ---- rv-panels: share-link fallback -- begin ---- */
+/* Copy share link when the browser will not give the page the clipboard: the
+   link sits in a read-only, pre-selected field with the instruction above it,
+   in a card that floats over the page rather than widening the footer. */
+.share-status.is-fallback {
+  position: fixed;
+  right: 16px;
+  bottom: 52px;
+  z-index: 2000;
+  width: min(460px, calc(100vw - 32px));
+  padding: 10px 12px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  background: var(--panel);
+  color: var(--white);
+  box-shadow: var(--shadow);
+}
+.share-status-text {
+  display: block;
+  margin: 0 0 6px;
+}
+.share-url {
+  width: 100%;
+  padding: 4px 8px;
+  font: inherit;
+  font-size: 13px;
+  color: var(--white);
+  background: var(--panel-2);
+  border: 1px solid var(--line-strong);
+  border-radius: 6px;
+}
+.share-done {
+  margin-top: 8px;
+}
+/* ---- rv-panels -- end ---- */
 
 /* ---- about page ---- */
 /* static/atlas/about.html only. Reuses the tokens and header/footer rules

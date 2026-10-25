@@ -8,6 +8,7 @@ import {
   quantityText, fmtDate, titleCase, kindLabel, statusEra, statusForTimeline, timelineAbsenceReason,
 } from './model.js';
 import * as provenance from './provenance.js';
+import { greatCircleM, initialBearing } from './localmap.js';
 
 let ATLAS = null;
 let INDEX = null;
@@ -331,28 +332,85 @@ function sourcesDisclosure(entityId, record, { approximateSites = [], membership
 }
 
 // ---- local map view hook (docs/HEP_ATLAS_GEOMETRY.md §4) -- begin -------
+// How a local map depicts one entity, from the map's own geometry bundle:
+//   drawn      a surveyed, georeferenced or derived feature stands for it
+//   direction  only an inferred bearing points toward it (a line, not a place)
+//   none       the map covers the entity's area but draws nothing for it
+//   unknown    the bundle could not be read, so nothing is claimed
+// `map_id` / `geometry_map_ids` only say that a map is *about* the entity; the
+// wording a panel may use ("shown to scale") depends on this.
+async function depictionOn(mapId, entityId) {
+  const meta = ((ATLAS && ATLAS.maps) || {})[mapId];
+  if (!meta || !meta.bundle) return 'unknown';
+  try {
+    const bundle = await loader.getGeometry(meta.bundle);
+    const featureIds = new Set(((bundle.entity_index || {})[entityId]) || []);
+    const features = (bundle.features || []).filter((f) => featureIds.has(f.id));
+    if (!features.length) return 'none';
+    return features.some((f) => f.representation !== 'inferred_direction' && f.feature_type !== 'direction_line')
+      ? 'drawn' : 'direction';
+  } catch (error) {
+    return 'unknown';
+  }
+}
+
+/**
+ * The maps that concern a record, each with how it depicts it. `map_id` on a
+ * facility or a site, `geometry_map_ids` on an accelerator, beamline or
+ * detector (the maps that draw something for it). A detector that no map draws
+ * itself, but whose own site is drawn to scale on one, also gets that map (kind
+ * `site`): the site is where the detector is, and that is what the map shows.
+ */
+async function mapDepictions(record) {
+  if (!record) return [];
+  const maps = (ATLAS && ATLAS.maps) || {};
+  const ids = record.map_id ? [record.map_id] : (record.geometry_map_ids || []);
+  const rows = [];
+  for (const mapId of ids.filter((id) => maps[id])) {
+    // A facility is the map's host, not a feature on it.
+    const how = record.id && record.id.startsWith('facility:') ? 'host' : await depictionOn(mapId, record.id);
+    rows.push({ mapId, meta: maps[mapId], how });
+  }
+  if (record.id && record.id.startsWith('detector:') && !rows.some((row) => row.how === 'drawn')) {
+    for (const placement of record.placements || []) {
+      const site = placement.site_id && ATLAS.sites[placement.site_id];
+      if (!site || !site.map_id || !maps[site.map_id] || rows.some((row) => row.mapId === site.map_id && row.how === 'site')) continue;
+      if (await depictionOn(site.map_id, site.id) === 'drawn') {
+        rows.push({ mapId: site.map_id, meta: maps[site.map_id], how: 'site' });
+      }
+    }
+  }
+  // What is drawn to scale first, then what is only a direction or not drawn.
+  const rank = { host: 0, drawn: 0, site: 1, none: 2, unknown: 3, direction: 4 };
+  return rows.sort((a, b) => rank[a.how] - rank[b.how]);
+}
+
 /**
  * The "Open local map" affordance for any record the build has linked to a
- * to-scale local map: `map_id` on a facility or a site, `geometry_map_ids`
- * on an accelerator, beamline or detector (the maps that draw it). Returns
- * null when the build linked none, so a caller can append it unconditionally
- * and nothing appears for a facility whose campus has not been mapped yet —
- * which means "not researched", not "has no layout".
+ * local map. Returns null when the build linked none, so a caller can append it
+ * unconditionally and nothing appears for a facility whose campus has not been
+ * mapped yet — which means "not researched", not "has no layout". What each
+ * row says about the map depends on how that map really depicts the record
+ * (see mapDepictions): a direction line is never described as drawn to scale.
  */
-export function localMapLinks(record) {
-  if (!record) return null;
-  const ids = record.map_id ? [record.map_id] : (record.geometry_map_ids || []);
-  const maps = (ATLAS && ATLAS.maps) || {};
-  const known = ids.filter((mapId) => maps[mapId]);
-  if (!known.length) return null;
-  const items = known.map((mapId) => {
-    const meta = maps[mapId];
+export async function localMapLinks(record) {
+  const rows = await mapDepictions(record);
+  if (!rows.length) return null;
+  const noun = record.id ? record.id.split(':')[0] : 'record';
+  const items = rows.map(({ mapId, meta, how }) => {
     const drawn = `${meta.to_scale_count} feature${meta.to_scale_count === 1 ? '' : 's'} drawn to scale`;
     const unlocated = meta.unlocated_count
       ? ` \u00b7 ${meta.unlocated_count} not drawn (geometry not verified)` : '';
+    const note = {
+      direction: noun === 'beamline'
+        ? 'Draws only an inferred beam direction \u2014 a bearing, not to scale'
+        : `Draws only an inferred direction toward this ${noun} \u2014 a bearing, not to scale`,
+      none: `This map covers its area, but nothing is drawn for this ${noun} (geometry not verified)`,
+      site: 'Its site is drawn to scale on this map',
+    }[how] || `${drawn}${unlocated}`;
     return h('li', { class: 'entity-link-with-meta' }, [
       linkTo(idRoute(mapId), `Open local map \u2014 ${meta.name}`, 'local-map-link'),
-      h('div', { class: 'source-meta' }, `${drawn}${unlocated}`),
+      h('div', { class: 'source-meta' }, note),
     ]);
   });
   return section('Local map', [h('ul', { class: 'entity-list' }, items)]);
@@ -360,20 +418,30 @@ export function localMapLinks(record) {
 
 /**
  * The same affordance as one compact line for a panel's subtitle area, so a
- * reader looking at a site, accelerator, beamline or detector sees "shown on
- * a local map" before scrolling. Returns null when the build linked none.
+ * reader looking at a site, accelerator, beamline or detector sees how it
+ * appears on a local map before scrolling. "Shown to scale" is said only when a
+ * surveyed, georeferenced or derived feature depicts the record; an inferred
+ * direction line, a covered-but-undrawn area and an unreadable bundle each have
+ * their own wording. Returns null when the build linked none.
  */
-export function localMapChip(record) {
-  if (!record) return null;
-  const ids = record.map_id ? [record.map_id] : (record.geometry_map_ids || []);
-  const maps = (ATLAS && ATLAS.maps) || {};
-  const known = ids.filter((mapId) => maps[mapId]);
-  if (!known.length) return null;
+export async function localMapChip(record) {
+  const rows = await mapDepictions(record);
+  if (!rows.length) return null;
+  const noun = record.id ? record.id.split(':')[0] : 'record';
+  // One row, one chip per line: the sentences are long, and two of them run
+  // together with a dot between read as one.
   const wrap = h('p', { class: 'panel-subtitle local-map-chip-row' });
-  known.forEach((mapId, i) => {
-    if (i) wrap.appendChild(document.createTextNode(' \u00b7 '));
-    wrap.appendChild(linkTo(idRoute(mapId), `\u25ce Shown to scale on the ${maps[mapId].name} local map`,
-      'local-map-chip'));
+  rows.forEach(({ mapId, meta, how }, i) => {
+    if (i) wrap.appendChild(h('br'));
+    const text = {
+      drawn: `\u25ce Shown to scale on the ${meta.name} local map`,
+      site: `\u25ce Its site is shown to scale on the ${meta.name} local map`,
+      direction: noun === 'beamline'
+        ? `\u25ce Beam direction drawn on the ${meta.name} map (an inferred bearing, not to scale)`
+        : `\u25ce Direction toward this ${noun} drawn on the ${meta.name} map (an inferred bearing, not to scale)`,
+      none: `\u25ce Within the ${meta.name} local map \u2014 not drawn there`,
+    }[how] || `\u25ce On the ${meta.name} local map`;
+    wrap.appendChild(linkTo(idRoute(mapId), text, 'local-map-chip'));
   });
   return wrap;
 }
@@ -461,13 +529,92 @@ async function renderFacility(id, timelineState) {
   // ---- local map view hook (§4): only the facility renderer calls it for
   // now; the site/accelerator/beamline/detector renderers can append the
   // same element when they land.
-  const mapSection = localMapLinks(facility);
+  const mapSection = await localMapLinks(facility);
   if (mapSection) frag.appendChild(mapSection);
 
   sections.note();
   frag.appendChild(sourcesDisclosure(id, facility));
   CALLBACKS.focusGlobe(id);
   return frag;
+}
+
+// ---- distance between an experiment's sites ------------------------------
+// formatDistance/compassPoint mirror the local map view's own "off-campus
+// destination" rows (which compute the same great-circle figures with the same
+// two exported helpers), so a distance read here and on the map agree.
+function formatDistance(metres) {
+  if (metres >= 10000) return `${Math.round(metres / 1000)} km`;
+  if (metres >= 1000) return `${(metres / 1000).toFixed(1)} km`;
+  return `${Math.round(metres)} m`;
+}
+
+function compassPoint(bearing) {
+  const names = ['N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE',
+    'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW'];
+  return names[Math.round(bearing / 22.5) % 16];
+}
+
+/**
+ * Where two sites of one experiment lie from each other: great-circle distance
+ * and the initial bearing, with links to the local maps of both ends (DUNE:
+ * Fermilab to the SURF 4850 Level, 1285 km away, to the west-north-west). Shown
+ * for every pair of the experiment's sites that have coordinates; an
+ * experiment has at most three, so this is at most three short lines. The pair
+ * is oriented along the beam when a beamline names one site as near and the
+ * other as far (or as a baseline), otherwise in the order the record lists the
+ * sites. Returns null with fewer than two located sites.
+ */
+function siteDistances(sites, beamlines) {
+  const located = sites.filter((s) => s.lat != null && s.lon != null);
+  if (located.length < 2) return null;
+  const along = (from, to) => beamlines.some((b) => (
+    ((b.near_detector_site_ids || []).includes(from.id) && (b.far_detector_site_ids || []).includes(to.id))
+    || (b.baselines || []).some((base) => base.from_site_id === from.id && base.to_site_id === to.id)));
+  const pairs = [];
+  for (let i = 0; i < located.length; i += 1) {
+    for (let j = i + 1; j < located.length; j += 1) {
+      let [from, to] = [located[i], located[j]];
+      if (along(to, from) && !along(from, to)) [from, to] = [to, from];
+      const a = [from.lat, from.lon];
+      const b = [to.lat, to.lon];
+      pairs.push({ from, to, metres: greatCircleM(a, b), bearing: initialBearing(a, b) });
+    }
+  }
+  pairs.sort((x, y) => x.metres - y.metres);
+  const maps = (ATLAS && ATLAS.maps) || {};
+  const placeName = (site, other) => {
+    const facility = site.facility_id && ATLAS.facilities[site.facility_id];
+    const otherFacility = other.facility_id && ATLAS.facilities[other.facility_id];
+    return facility && facility !== otherFacility ? facility.name : site.name;
+  };
+  const items = pairs.map(({ from, to, metres, bearing }) => {
+    const approximate = [from, to].some((s) => s.coordinates && s.coordinates.approximate);
+    const mapIds = [...new Set([from, to].map((s) => s.map_id).filter((id) => id && maps[id]))];
+    // A campus-grade coordinate is good to a few kilometres, so a figure
+    // between two such points is not quoted to the metre (1288 km would sit
+    // beside the beamline's own 1285 km as a disagreement it is not).
+    const shown = approximate && metres >= 100000 ? Math.round(metres / 10000) * 10000 : metres;
+    return h('li', { class: 'entity-link-with-meta' }, [
+      `${placeName(from, to)} \u2192 ${placeName(to, from)}: ${approximate ? '\u2248 ' : ''}${formatDistance(shown)}, `
+        + `bearing ${bearing.toFixed(0)}\u00b0 (${compassPoint(bearing)})`,
+      mapIds.length ? h('div', { class: 'source-meta' }, [
+        mapIds.length === 1 ? 'Local map: ' : 'Local maps: ',
+        ...mapIds.flatMap((mapId, i) => [
+          i ? document.createTextNode(' \u00b7 ') : null,
+          linkTo(idRoute(mapId), maps[mapId].name, 'local-map-link'),
+        ]),
+      ]) : null,
+    ]);
+  });
+  return h('div', { class: 'site-distances' }, [
+    h('h4', {}, 'Distance between sites'),
+    h('ul', { class: 'entity-list' }, items),
+    h('p', { class: 'source-meta' }, [
+      'Great-circle distance and initial bearing between the recorded site coordinates',
+      pairs.some((p) => [p.from, p.to].some((s) => s.coordinates && s.coordinates.approximate))
+        ? '; \u2248 marks a campus-grade (approximate) coordinate, so that distance is rounded to 10 km.' : '.',
+    ]),
+  ]);
 }
 
 // ---------------------------------------------------------------- experiment
@@ -514,6 +661,9 @@ async function renderExperiment(id, timelineState) {
     ]),
   ], { open: false, missing: [!t.summary_technical && 'Technical summary'] });
 
+  const detectors = (exp.detector_ids || []).map((did) => ATLAS.detectors[did]).filter(Boolean);
+  sections.add('Detectors', recordLinks(detectors));
+
   const beamlines = (exp.beamline_ids || []).map((bid) => ATLAS.beamlines[bid]).filter(Boolean);
   const sites = (exp.site_ids || []).map((sid) => ATLAS.sites[sid]).filter(Boolean);
   // A23: an admitted-approximate site coordinate (a campus point standing
@@ -531,6 +681,7 @@ async function renderExperiment(id, timelineState) {
       linkTo({ type: 'facility', slug: (s.facility_id || s.id).split(':')[1] }, `${s.name} (${s.setting})`),
       siteLocationNote(s),
     ]))) : null,
+    siteDistances(sites, beamlines),
   ], { open: false });
 
   const { byId: resultById } = await loader.getResults();
@@ -790,7 +941,17 @@ async function renderTopic(id) {
 
   const { list: allResults } = await loader.getResults();
   const results = allResults.filter((r) => (r.topic_ids || []).includes(id));
-  sections.add('Related results', resultLinks(results), { open: false });
+  // Physics results first. A technology milestone (a cavern excavated, a
+  // prototype's performance, a luminosity record) belongs to the topic's
+  // instruments, not to what the topic has found, so it follows under its own
+  // heading instead of sitting among the findings.
+  const milestones = results.filter((r) => r.result_type === 'technology_milestone');
+  const physics = results.filter((r) => r.result_type !== 'technology_milestone');
+  sections.add('Related results', [
+    resultLinks(physics),
+    milestones.length ? h('h4', {}, 'Technology milestones') : null,
+    resultLinks(milestones),
+  ], { open: false, label: 'Related results' });
 
   sections.note();
   return frag;
@@ -820,6 +981,22 @@ async function renderResult(id) {
     [titleCase(result.date_kind) || 'Date', fmtDate(result.date)],
   ]);
   if (facts) frag.appendChild(facts);
+  // Where it was done: the facility records the result names, each with its
+  // local map when the Atlas has drawn one (an absent link means not mapped yet).
+  const facilities = (result.facility_ids || []).map((fid) => ATLAS.facilities[fid]).filter(Boolean);
+  if (facilities.length) {
+    const maps = (ATLAS && ATLAS.maps) || {};
+    frag.appendChild(h('p', { class: 'result-where' }, [
+      h('strong', {}, 'Where: '),
+      ...facilities.flatMap((facility, i) => [
+        i ? document.createTextNode(', ') : null,
+        linkTo(idRoute(facility.id), facility.name),
+        facility.map_id && maps[facility.map_id]
+          ? h('span', { class: 'result-where-map' }, [' (', linkTo(idRoute(facility.map_id), 'local map', 'local-map-link'), ')'])
+          : null,
+      ]),
+    ]));
+  }
   const experiments = (result.experiment_ids || []).map((eid) => ATLAS.experiments[eid]).filter(Boolean);
   sections.add('Experiment', recordLinks(experiments));
   const pub = result.publication || {};
@@ -882,7 +1059,7 @@ async function renderSite(id, timelineState) {
   frag.appendChild(h('p', { class: 'panel-subtitle' }, [titleCase(site.setting), place].filter(Boolean).join(' · ')));
   frag.appendChild(experimentBadge(site, timelineState));
   // ---- local map view hook (§4): the compact subtitle-area affordance
-  const mapChip = localMapChip(site);
+  const mapChip = await localMapChip(site);
   if (mapChip) frag.appendChild(mapChip);
 
   // A23: coordinates.approximate only exists on the generated tree's nested
@@ -946,7 +1123,7 @@ async function renderSite(id, timelineState) {
   sections.add('Documents', documentLinks(documents), { open: false });
 
   // ---- local map view hook (§4)
-  const mapSection = localMapLinks(site);
+  const mapSection = await localMapLinks(site);
   if (mapSection) frag.appendChild(mapSection);
 
   sections.note();
@@ -971,7 +1148,7 @@ async function renderDetector(id, timelineState) {
   if (techLabel) frag.appendChild(h('p', { class: 'panel-subtitle' }, techLabel));
   frag.appendChild(experimentBadge(detector, timelineState));
   // ---- local map view hook (§4): the compact subtitle-area affordance
-  const mapChip = localMapChip(detector);
+  const mapChip = await localMapChip(detector);
   if (mapChip) frag.appendChild(mapChip);
 
   const detectorSummary = plainSummaryOf(detector, t);
@@ -1012,7 +1189,7 @@ async function renderDetector(id, timelineState) {
   sections.add('Documents', documentLinks(documents), { open: false });
 
   // ---- local map view hook (§4)
-  const mapSection = localMapLinks(detector);
+  const mapSection = await localMapLinks(detector);
   if (mapSection) frag.appendChild(mapSection);
 
   sections.note();
@@ -1035,7 +1212,7 @@ async function renderAccelerator(id, timelineState) {
   frag.appendChild(h('p', { class: 'panel-subtitle' }, kindLabel(accelerator.kind)));
   frag.appendChild(experimentBadge(accelerator, timelineState));
   // ---- local map view hook (§4): the compact subtitle-area affordance
-  const mapChip = localMapChip(accelerator);
+  const mapChip = await localMapChip(accelerator);
   if (mapChip) frag.appendChild(mapChip);
 
   const acceleratorSummary = plainSummaryOf(accelerator, t);
@@ -1086,7 +1263,7 @@ async function renderAccelerator(id, timelineState) {
   sections.add('Documents', documentLinks(documents), { open: false });
 
   // ---- local map view hook (§4)
-  const mapSection = localMapLinks(accelerator);
+  const mapSection = await localMapLinks(accelerator);
   if (mapSection) frag.appendChild(mapSection);
 
   sections.note();
@@ -1107,7 +1284,7 @@ async function renderBeamline(id, timelineState) {
   frag.appendChild(h('h2', {}, beamline.name));
   frag.appendChild(experimentBadge(beamline, timelineState));
   // ---- local map view hook (§4): the compact subtitle-area affordance
-  const mapChip = localMapChip(beamline);
+  const mapChip = await localMapChip(beamline);
   if (mapChip) frag.appendChild(mapChip);
 
   const beamlineSummary = plainSummaryOf(beamline, t);
@@ -1165,7 +1342,7 @@ async function renderBeamline(id, timelineState) {
   sections.add('Documents', documentLinks(documents), { open: false });
 
   // ---- local map view hook (§4)
-  const mapSection = localMapLinks(beamline);
+  const mapSection = await localMapLinks(beamline);
   if (mapSection) frag.appendChild(mapSection);
 
   sections.note();

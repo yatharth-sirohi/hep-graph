@@ -765,6 +765,24 @@
   .share-status:empty {
     display: none;
   }
+  /* ---- rv-panels: share-link fallback -- begin ---- */
+  .share-status.is-fallback {
+    left: 12px;
+    right: 12px;
+    width: auto;
+  }
+  .share-url {
+    min-height: var(--phone-touch);
+    padding: 6px 10px;
+    font-size: 14px;
+    -webkit-user-select: all;
+    user-select: all;
+  }
+  .share-status .share-done {
+    margin: 6px 0 0;
+    min-height: var(--phone-touch);
+  }
+  /* ---- rv-panels -- end ---- */
   .share-status {
     position: fixed;
     left: 12px;
