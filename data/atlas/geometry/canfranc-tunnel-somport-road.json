@@ -7,16 +7,24 @@
   "checks": [
     {
       "expected": {
+        "confidence": "verified",
         "dimension": "length",
-        "display": "8600 m",
+        "display": "8608 m",
+        "locator": "PIARC paper, Resumen (abstract), first sentence",
+        "note": "Replaces the 8600 m previously cited to a Dialnet abstract that could not be re-fetched; 8608 m is the figure printed by the Spanish Ministry of Public Works paper.",
+        "quote": "una longitud de 8.608 metros (2/3 en territorio español y 1/3 en territorio francés)",
+        "sources": [
+          "src:geo-canfranc-somport-length-piarc"
+        ],
         "unit": "m",
-        "value": 8600
+        "value": 8608,
+        "verified_at": "2026-10-25"
       },
       "kind": "length",
-      "locator": "abstract/body text",
-      "quote": "Su longitud total es de 8600 m.",
+      "locator": "PIARC paper (López Guarga, Ministerio de Fomento, 2006), Resumen",
+      "quote": "una longitud de 8.608 metros (2/3 en territorio español y 1/3 en territorio francés)",
       "sources": [
-        "src:geo-canfranc-somport-length-dialnet"
+        "src:geo-canfranc-somport-length-piarc"
       ],
       "tolerance": 0.02
     }
@@ -31,11 +39,11 @@
   "geometry": {
     "confidence": "verified",
     "locator": "OSM way 29050143 + way 76450688 + way 1356486837, as of 2026-09-18T23:05:00Z",
-    "note": "'verified' rests on the passing length check against a civil-engineering journal article (rank 10, ≤ 10), independent of OSM.",
+    "note": "'verified' rests on the passing length check against the Spanish Ministry of Public Works paper to PIARC (8,608 m; rank 9 <= 10), independent of OSM.",
     "quote": null,
     "sources": [
       "src:geo-canfranc-osm-somport-road-tunnel",
-      "src:geo-canfranc-somport-length-dialnet"
+      "src:geo-canfranc-somport-length-piarc"
     ],
     "value": {
       "coordinates": [
@@ -273,7 +281,7 @@
   "site_id": null,
   "sources": [
     "src:geo-canfranc-osm-somport-road-tunnel",
-    "src:geo-canfranc-somport-length-dialnet"
+    "src:geo-canfranc-somport-length-piarc"
   ],
   "summary": {
     "plain": "The 8.6 km Somport road tunnel between France and Spain, opened in 2003, running close to the Canfranc underground laboratory."
