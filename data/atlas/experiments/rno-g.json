@@ -1,69 +1,243 @@
 {
-  "id": "experiment:rno-g",
-  "type": "experiment",
-  "name": "RNO-G",
-  "aliases": ["Radio Neutrino Observatory Greenland"],
-  "kind": "astrophysical_neutrino",
-  "secondary_kinds": ["cosmic_ray"],
-  "collaboration_ids": ["collaboration:rno-g"],
-  "facility_roles": [
-    {"facility_id": "facility:summit-station-greenland", "role": "host",
-     "sources": ["src:astro-neutrino-rno-g-design-paper-jinst-2021"], "verified_at": "2026-09-17", "confidence": "verified",
-     "quote": "located at 72°35'46\" N, 38°25'19\" W at the peak of the Greenland ice cap", "note": ""}
+  "accelerator_ids": [],
+  "aliases": [
+    "Radio Neutrino Observatory Greenland"
   ],
   "beamline_ids": [],
-  "accelerator_ids": [],
-  "topic_ids": ["topic:high-energy-astrophysical-neutrinos", "topic:cosmic-rays"],
-  "intervals": [
-    {"label": "design", "status": "proposed", "start": "2020-10", "end": "2021-05",
-     "sources": ["src:astro-neutrino-rno-g-design-paper-jinst-2021"], "verified_at": "2026-09-17", "confidence": "verified",
-     "quote": "RNO-G will be the first production-scale radio detector for in-ice neutrino signals", "note": ""},
-    {"label": "phased construction (first two field seasons)", "status": "construction", "start": "2021-05-24", "end": "2022-08-15",
-     "sources": ["src:astro-neutrino-rno-g-geo-summit-rno-g-project-page", "src:astro-neutrino-rno-g-first-seven-stations-2024"],
-     "verified_at": "2026-09-17", "confidence": "verified",
-     "quote": "The array is currently in phased construction near Summit Station on the Greenland ice sheet, with 7 stations deployed during the first two boreal summer field seasons of 2021 and 2022",
-     "note": "2021 season 24 May-19 Aug; 2022 season 9 May-15 Aug, per the Summit Station project page."},
-    {"label": "deployment paused for evaluation", "status": "construction", "start": "2023", "end": null,
-     "sources": ["src:astro-neutrino-rno-g-first-seven-stations-2024"], "verified_at": "2026-09-17", "confidence": "verified",
-     "quote": "RNO-G paused deployment in 2023 in order to evaluate the instrument performance and design aspects before pushing forward to complete the array.",
-     "note": "Status remains 'construction' (not shutdown/cancelled): the collaboration's own 2024 paper frames this as a pause before continuing, not a stop."}
+  "collaboration_ids": [
+    "collaboration:rno-g"
   ],
-  "status": "construction",
-  "physics_goals": [
-    {"value": "Detect ultra-high-energy (PeV-scale and above) astrophysical and cosmogenic neutrinos using in-ice radio detection at the top of the Greenland ice sheet",
-     "sources": ["src:astro-neutrino-rno-g-design-paper-jinst-2021"], "verified_at": "2026-09-17", "confidence": "verified",
-     "quote": "RNO-G will be the first production-scale radio detector for in-ice neutrino signals", "note": ""}
-  ],
-  "unique_capabilities": [],
-  "energy_regime": null,
-  "key_specs": [
-    {"label": "Stations deployed (2021-2022 seasons)", "quantity": {
-        "value": 7, "unit": "", "dimension": "count", "approx": false, "display": "7 stations",
-        "sources": ["src:astro-neutrino-rno-g-first-seven-stations-2024"], "verified_at": "2026-09-17", "confidence": "verified",
-        "quote": "with 7 stations deployed during the first two boreal summer field seasons of 2021 and 2022", "note": ""}},
-    {"label": "Design target (full array)", "quantity": {
-        "value": 35, "unit": "", "dimension": "count", "approx": false, "display": "35 stations (design)",
-        "sources": ["src:astro-neutrino-rno-g-wipac-project-page"], "verified_at": "2026-09-17", "confidence": "verified",
-        "quote": "The Radio Neutrino Observatory in Greenland (RNO-G) is under construction at the Summit Station in Greenland to search for ultra-high-energy neutrinos; 35 stations to be deployed.", "note": ""}},
-    {"label": "Station spacing", "quantity": {
-        "value": 1.25, "unit": "km", "dimension": "length", "approx": false, "display": "1.25 km grid",
-        "sources": ["src:astro-neutrino-rno-g-geo-summit-rno-g-project-page"], "verified_at": "2026-09-17", "confidence": "verified",
-        "quote": "array is a 1.25 km grid of stations with three strings of 15 antennas 100 m below the surface and 9 surface antennas", "note": ""}}
-  ],
-  "lineage": [],
-  "external": {"greybook": null, "inspire_experiment": 1826393, "wikidata": null},
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
   "document_ids": [],
-  "result_ids": [],
-  "links": {"website": {"value": "https://radio.uchicago.edu/", "sources": ["src:astro-neutrino-rno-g-official-site"], "verified_at": "2026-09-17", "confidence": "verified", "note": ""}},
+  "energy_regime": null,
+  "external": {
+    "greybook": null,
+    "inspire_experiment": 1826393,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "facility_id": "facility:summit-station-greenland",
+      "note": "",
+      "quote": "located at 72°35'46\" N, 38°25'19\" W at the peak of the Greenland ice cap",
+      "role": "host",
+      "sources": [
+        "src:astro-neutrino-rno-g-design-paper-jinst-2021"
+      ],
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "id": "experiment:rno-g",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2021-05",
+      "label": "design",
+      "note": "",
+      "quote": "RNO-G will be the first production-scale radio detector for in-ice neutrino signals",
+      "sources": [
+        "src:astro-neutrino-rno-g-design-paper-jinst-2021"
+      ],
+      "start": "2020-10",
+      "status": "proposed",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": "2022-08-15",
+      "label": "phased construction (first two field seasons)",
+      "note": "2021 season 24 May-19 Aug; 2022 season 9 May-15 Aug, per the Summit Station project page.",
+      "quote": "The array is currently in phased construction near Summit Station on the Greenland ice sheet, with 7 stations deployed during the first two boreal summer field seasons of 2021 and 2022",
+      "sources": [
+        "src:astro-neutrino-rno-g-geo-summit-rno-g-project-page",
+        "src:astro-neutrino-rno-g-first-seven-stations-2024"
+      ],
+      "start": "2021-05-24",
+      "status": "construction",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "end": {
+        "approx": true,
+        "date": "2025",
+        "display": "drilling resumed in the 2025 season (boreholes drilled at sites 15, 25, 34, 35)"
+      },
+      "label": "deployment paused for evaluation",
+      "note": "Status remains 'construction' (not shutdown/cancelled): the collaboration's own 2024 paper frames this as a pause before continuing, not a stop. END ADDED 2026-10-25: the 2026 Summit Station page lists boreholes drilled in 2025 at four new sites, so deployment work had resumed by 2025 (the year the pause ended is an upper bound; nothing fetched dates the restart more closely). Previously open-ended.",
+      "quote": "RNO-G paused deployment in 2023 in order to evaluate the instrument performance and design aspects before pushing forward to complete the array.",
+      "sources": [
+        "src:astro-neutrino-rno-g-first-seven-stations-2024",
+        "src:currency2-rno-g-summit-station-2026-field-plan"
+      ],
+      "start": "2023",
+      "status": "construction",
+      "verified_at": "2026-10-25"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "construction resumed (2025 drilling; eight stations commissioned; 35 planned)",
+      "note": "Currency pass 2 (2026-10-25). The Summit Station project page for the 2026 season (undated NSF-funded project page) says the array has eight existing stations (Sites 11, 12, 13, 14, 21, 22, 23, 24), that boreholes were drilled in 2025 at Sites 15, 25, 34 and 35 and in 2026 at Site 45, and that between July and August 2026 five new stations would be brought online (a plan); two ARENA 2026 abstracts (June 2026) say eight stations are operating/commissioned (\"As of March 2026\"). No source reporting the outcome of the 2026 field season was found, so the station count stays eight confirmed (35 planned) and the 2026 installation is recorded as planned only.",
+      "quote": "antennas in boreholes drilled in 2025 (Sites 15, 25, 34, and 35) and 2026 (Site 45)",
+      "sources": [
+        "src:currency2-rno-g-summit-station-2026-field-plan",
+        "src:currency2-rno-g-kit-2026-status-abstract",
+        "src:currency2-rno-g-kit-2026-sva-abstract"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2025",
+        "display": "first new boreholes drilled in 2025"
+      },
+      "status": "construction",
+      "verified_at": "2026-10-25"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "kind": "run",
+      "label": "eight stations commissioned",
+      "note": "Annotation (kind run): \"As of March 2026, eight of these stations have already been commissioned\" (ARENA 2026 abstract); \"RNO-G currently consists of eight autonomous stations\" (ARENA 2026 status abstract); \"first data of the 2026 season\" is reported in the first abstract. The experiment-level status stays `construction` (8 of 35 stations built), as in the first pass.",
+      "quote": "As of March 2026, eight of these stations have already been commissioned with more to follow each year.",
+      "sources": [
+        "src:currency2-rno-g-kit-2026-sva-abstract",
+        "src:currency2-rno-g-kit-2026-status-abstract"
+      ],
+      "start": "2026-03",
+      "status": "active",
+      "verified_at": "2026-10-25"
+    },
+    {
+      "confidence": "approximate",
+      "end": {
+        "date": "2026-08",
+        "planned": true
+      },
+      "kind": "phase",
+      "label": "2026 season: five new stations to be brought online (planned)",
+      "note": "A plan from the Summit Station project page: \"Between July and August, the science team will bring five new RNO-G stations online\" (Sites 15, 25, 34, 35, 45); drill teams to drill five more sites (16, 26, 36, 45, 46) between June and August. Whether this happened is not reported by any fetched source (2026-10-25), so it is not counted in the station total.",
+      "quote": "Between July and August, the science team will bring five new RNO-G stations online",
+      "sources": [
+        "src:currency2-rno-g-summit-station-2026-field-plan"
+      ],
+      "start": {
+        "date": "2026-07",
+        "planned": true
+      },
+      "status": "planned",
+      "verified_at": "2026-10-25"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Stations deployed (2021-2022 seasons)",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "count",
+        "display": "7 stations",
+        "note": "",
+        "quote": "with 7 stations deployed during the first two boreal summer field seasons of 2021 and 2022",
+        "sources": [
+          "src:astro-neutrino-rno-g-first-seven-stations-2024"
+        ],
+        "unit": "",
+        "value": 7,
+        "verified_at": "2026-09-17"
+      }
+    },
+    {
+      "label": "Design target (full array)",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "count",
+        "display": "35 stations (design)",
+        "note": "",
+        "quote": "The Radio Neutrino Observatory in Greenland (RNO-G) is under construction at the Summit Station in Greenland to search for ultra-high-energy neutrinos; 35 stations to be deployed.",
+        "sources": [
+          "src:astro-neutrino-rno-g-wipac-project-page"
+        ],
+        "unit": "",
+        "value": 35,
+        "verified_at": "2026-09-17"
+      }
+    },
+    {
+      "label": "Station spacing",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "length",
+        "display": "1.25 km grid",
+        "note": "",
+        "quote": "array is a 1.25 km grid of stations with three strings of 15 antennas 100 m below the surface and 9 surface antennas",
+        "sources": [
+          "src:astro-neutrino-rno-g-geo-summit-rno-g-project-page"
+        ],
+        "unit": "km",
+        "value": 1.25,
+        "verified_at": "2026-09-17"
+      }
+    }
+  ],
+  "kind": "astrophysical_neutrino",
+  "lineage": [],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "note": "",
+      "sources": [
+        "src:astro-neutrino-rno-g-official-site"
+      ],
+      "value": "https://radio.uchicago.edu/",
+      "verified_at": "2026-09-17"
+    }
+  },
+  "name": "RNO-G",
   "notes": [
     "External INSPIRE experiment recid 1826393 confirmed via the INSPIRE experiment API record fetched this session.",
     "Derived fields (detector_ids, site_ids, result_ids, document_ids) are deliberately not written (v0.2 A1)."
   ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "note": "",
+      "quote": "RNO-G will be the first production-scale radio detector for in-ice neutrino signals",
+      "sources": [
+        "src:astro-neutrino-rno-g-design-paper-jinst-2021"
+      ],
+      "value": "Detect ultra-high-energy (PeV-scale and above) astrophysical and cosmogenic neutrinos using in-ice radio detection at the top of the Greenland ice sheet",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "result_ids": [],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [
+    "cosmic_ray"
+  ],
+  "sources": [
+    "src:astro-neutrino-rno-g-official-site",
+    "src:astro-neutrino-rno-g-design-paper-jinst-2021",
+    "src:astro-neutrino-rno-g-first-seven-stations-2024",
+    "src:astro-neutrino-rno-g-geo-summit-rno-g-project-page",
+    "src:astro-neutrino-rno-g-wipac-project-page",
+    "src:astro-neutrino-rno-g-inspire-experiment-record"
+  ],
+  "status": "construction",
   "summary": {
     "plain": "A radio-antenna neutrino detector being built into the ice at the very top of Greenland's ice sheet, one station at a time, to catch the radio flash from the highest-energy neutrinos from space.",
     "technical": "In-ice radio neutrino detector under phased construction at Summit Station, Greenland (72°35'46\"N 38°25'19\"W, atop >3 km of ice); design target 35 stations on a 1.25 km grid, each with 3 strings of 15 antennas ~100 m deep plus 9 surface antennas. 7 stations deployed over the 2021-2022 field seasons; deployment paused in 2023 to evaluate instrument performance before continuing."
   },
-  "coverage": {"researched": "partial", "tier": "B"},
-  "sources": ["src:astro-neutrino-rno-g-official-site", "src:astro-neutrino-rno-g-design-paper-jinst-2021", "src:astro-neutrino-rno-g-first-seven-stations-2024", "src:astro-neutrino-rno-g-geo-summit-rno-g-project-page", "src:astro-neutrino-rno-g-wipac-project-page", "src:astro-neutrino-rno-g-inspire-experiment-record"],
-  "schema": "hep-atlas/0.2"
+  "topic_ids": [
+    "topic:high-energy-astrophysical-neutrinos",
+    "topic:cosmic-rays"
+  ],
+  "type": "experiment",
+  "unique_capabilities": []
 }

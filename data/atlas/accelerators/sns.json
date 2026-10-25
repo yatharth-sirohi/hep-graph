@@ -27,30 +27,48 @@
       "verified_at": "2026-09-17"
     },
     {
-      "confidence": "uncertain",
-      "end": null,
+      "confidence": "verified",
+      "end": "2024-07-11",
       "label": "Proton Power Upgrade (1.4 -> 2.8 MW)",
-      "note": "No start/end date for the Proton Power Upgrade project is stated on the page fetched in this session; recorded without dates rather than guessed.",
-      "quote": "The Proton Power Upgrade project doubled the power capability of the SNS linear accelerator, from 1.4 to 2.8 megawatts.",
+      "locator": "LINAC2024 THPB045 abstract/introduction: start = outage start; end = 'Neutron production for the user program resumed July 11th as planned at 1.3 GeV and 1.7 MW' (beam commissioning June 7 - early July 2024)",
+      "note": "DATED 2026-10-25 (previously start/end null, status upgrade, open): this interval is the long installation outage of the Proton Power Upgrade project (August 2023 to April 2024), through beam commissioning (from 7 June 2024), to the resumption of user neutron production on 11 July 2024. The project itself is reported complete: ORNL, 18 May 2026, \"The completed proton power upgrade ensures SNS will remain the world's most powerful proton accelerator\"; the same release says the linac is \"well along the path to 2.8 megawatts\", i.e. the capability is installed but the delivered power is still being ramped (1.7 MW in July 2024; the official SNS page showed 1.8 MW on 2026-09-17).",
+      "quote": "The long installation outage began in August 2023 and concluded in April 2024.",
       "sources": [
-        "src:ornl-sns-page"
+        "src:ornl-sns-page",
+        "src:currency2-sns-ppu-completion-linac2024",
+        "src:currency2-ornl-sns-upgrade-news-2026-05-18"
       ],
-      "start": null,
+      "start": "2023-08",
       "status": "upgrade",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-25"
     },
     {
       "confidence": "uncertain",
-      "end": null,
+      "end": "2023-08",
       "label": "operational (first instruments commissioned)",
-      "note": "Added 2026-09-17 to fix an A10 status/derived-state mismatch (both existing intervals have `start: null`, so neither covers the build date). Sourced to Wikipedia only; the official neutrons.ornl.gov/sns page re-fetched this session gives no commissioning date, only current beam power.",
+      "note": "Added 2026-09-17 to fix an A10 status/derived-state mismatch (both existing intervals have `start: null`, so neither covers the build date). Sourced to Wikipedia only; the official neutrons.ornl.gov/sns page re-fetched this session gives no commissioning date, only current beam power. END ADDED 2026-10-25: \"The long installation outage began in August 2023 and concluded in April 2024\" (LINAC2024 paper, ORNL); the machine is `upgrade` for that outage and `active` again from 2024-07-11 (next rows). Previously open-ended; the start date is still Wikipedia only.",
       "quote": "The first three instruments began commissioning and were available to the scientific community in August 2007.",
       "sources": [
-        "src:sns-wikipedia"
+        "src:sns-wikipedia",
+        "src:currency2-sns-ppu-completion-linac2024"
       ],
       "start": "2007-08",
       "status": "active",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-25"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "operating with the upgraded linac (1.3 GeV; power ramping toward 2.8 MW)",
+      "note": "Added 2026-10-25. User neutron production resumed on 11 July 2024 at 1.3 GeV and 1.7 MW after the upgrade outage (LINAC2024 paper); ORNL (18 May 2026) reports the Proton Power Upgrade complete and the linac \"well along the path to 2.8 megawatts\", and users already benefiting from the extra power. Status was `active` before this edit as well; this row only closes the gap that the open-ended old operating row and the undated upgrade row left.",
+      "quote": "Neutron production for the user program resumed July 11th as planned at 1.3 GeV and 1.7 MW.",
+      "sources": [
+        "src:currency2-sns-ppu-completion-linac2024",
+        "src:currency2-ornl-sns-upgrade-news-2026-05-18"
+      ],
+      "start": "2024-07-11",
+      "status": "active",
+      "verified_at": "2026-10-25"
     }
   ],
   "is_collider": false,
