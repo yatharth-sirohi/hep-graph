@@ -214,3 +214,56 @@ Unchanged from the previous stream's proposal (site:kit-campus-north, option B h
 
 * A surveyed KATRIN coordinate (main spectrometer centre or WGTS in the KIT Campus North coordinate system) or a dimensioned hall plan: then re-anchor the two shapes and cut accuracy_m to a few metres.
 * Positions of the rear section and the detector end (to reach the 70 m), the monitor-spectrometer hall.
+
+---
+
+## 4. ISIS (`map:isis-neutron-source`)
+
+Grade before and after: **partial** (footprints only). The synchrotron, the linac and the extracted proton beamlines are still unlocated.
+Nothing could be placed from a source. Records changed: the map's unlocated row (reason and backlog rewritten, two sources added); no geometry added.
+
+### What was found
+
+* STFC's campus map (`https://www.ukri.org/wp-content/uploads/2023/07/STFC-070723-RutherfordAppletonLaboratoryCampusMap.pdf`, v2.3, 2022, an image with no text
+  layer; read by eye for labels, not traced) labels R5.1-R5.5, R5.3 (a building with a rounded north end), R6, R6A, R55 and R80 between and beside the two target
+  stations. Its legend names only R22, R27, R75, R83, R84, R87, R92, R97, R100 and the conference rooms. So the map says where the buildings are, not what holds the ring.
+* OSM carries the same numbers: R6 is way 200338539 ("industrial", 4 611 m^2), the R5.x block is inside way 200338759 (its fixme: "R55 is the experimental hall only.
+  The smaller building is split into R5.1, R5.2, R5.3 and R5.4"), R55 is the building:part way 1454005510 and R80 is way 750266080. An extract of the RAL area (bbox
+  -1.325..-1.305 x 51.565..51.577, 2026-10-25T19:45Z) has no circular outline.
+* Sourced size: "a 52 m diameter proton synchrotron" (CERN Courier, 15 March 2000) agrees with the 163 m circumference of IPAC 2014; neither gives a centre.
+* Dead ends: ISIS safety page (only R55 and R80), ISIS annual review 2018 (no building numbers for the machines), RAL-TR-2012-010 (an R55 tunnel statement, abstract only), a building.co.uk
+  feature on the ISIS second target station (no layout), UKRI tender notices (R69, R132, R3 media centre; nothing on the machine halls), searches for "R6", "R5.3", "synchrotron hall" with ISIS.
+* A 52 m ring fits inside R6 (about 68 m across) and inside the rounded part of R5.3, so any of them would "look right"; that is exactly why none was drawn.
+
+### Inventory
+
+| Entity | Status |
+| --- | --- |
+| ISIS synchrotron (163 m), linac (70 MeV), EPB lines | **unlocated**, rewritten reason with leads (R6, R5.3; unconfirmed) |
+| TS1 (R55), TS2 (R80), RAL boundary | unchanged (context) |
+| detector:karmen | unchanged (**unlocated**) |
+
+### Backlog
+
+* An ISIS/STFC document with a building register or site plan that names the synchrotron hall (and the linac and EPB tunnels) by R-number; then take the outline from OSM.
+
+---
+
+## 5. PSI (`map:psi`)
+
+Grade before and after: **layout to scale** (hall WEHA verified plus buildings). The Ring Cyclotron is still unlocated; Injector 2 is represented only by its hall as context.
+Records changed: the map's unlocated row (second-pass notes and backlog), one source added (PSI's Ring Cyclotron page). No geometry added.
+
+### What was found
+
+* PSI's Ring Cyclotron page (`https://www.psi.ch/en/cas/ring`) gives injection and extraction radii (2.1 m and 4.5 m) and says nothing about the building. The Injector 2 page,
+  the HIPA info page, the Kiselev 2024 talk (a labelled 3-D picture "Experimental hall WEHA ... 590-MeV-Ring cyclotron ... SINQ ... UCN" without scale), the HB2012 (Seidel), Cyclotrons 2022
+  and arXiv 1707.07970 / 1903.08935 papers carry no building statement.
+* The full Arealplan 2015 legend (re-read from its text layer) lists WEHA Experimentierhalle, WIHA Injektorhalle 2, WHFA Hochfrequenzgebaeude, WYCA Niederenergieareal C, WNAA Nukleonenhalle, WMHA Montagehalle and others,
+  and has no entry for the Ring Cyclotron or its vault.
+* Decision on WIHA: PSI's legend calls it "Injektorhalle 2", the hall of Injector 2, and the earlier pass drew it as context. It was **not** attached to accelerator:psi-hipa
+  because that record's main machine is the Ring Cyclotron: attaching the hall would let the map claim HIPA is drawn while its 590 MeV stage is not.
+
+### Backlog
+
+* A PSI layout drawing with building codes (or the "HIPA info" elog layout) that names the building of the Ring Cyclotron vault.
