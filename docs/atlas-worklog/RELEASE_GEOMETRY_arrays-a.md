@@ -99,8 +99,8 @@ metres of (0, 0), so the point is taken as the origin.
 
 ### Source conflicts
 
-* **Orientation:** the earlier worklog said no source gives it; v3 of the JINST paper does (older arXiv versions
-  did not carry the paragraph, or it was not read). Chosen: v3.
+* **Orientation:** the earlier worklog said no source gives it; v3 of the JINST paper does (the earlier read was probably of
+  an earlier arXiv version; this was not checked). Chosen: v3.
 * **Absolute position of the array:** i3astropy `i3location` (89.9944 S, 62.6081 W) versus the Wikipedia/Wikidata point
   for IceCube (89.99 S, 63.4531 W), which OpenStreetMap node 5249487917 ("IceCube Neutrino Observatory", Overpass
   2026-10-25T10:37:51Z) copies. They are 489.4 m apart. Chosen: i3astropy (collaboration code, height equals the
