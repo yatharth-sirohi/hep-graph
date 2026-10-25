@@ -123,3 +123,69 @@ metres of (0, 0), so the point is taken as the origin.
   cable origin), which would cut the 500 m absolute uncertainty to metres; `docs.icecube.aq` "Coordinate
   Systems" (HTTP 401) would be the place.
 * IceCube Laboratory building footprint (not in OpenStreetMap on 2026-10-25).
+
+## 2. Pierre Auger Observatory (Malargue)
+
+Grade: **partial (two hulls) -> layout to scale** (every active surface-detector station drawn at its published
+position, 1636 stations; the two array outlines kept with an area check). Fluorescence buildings not placed.
+
+### What was done
+
+* Re-fetched `https://opendata.auger.org/releases/3/auxiliary/sdMap.csv` (release 3, 20 March 2024, DOI
+  10.5281/zenodo.10488964; 1689 stations, columns id, northing, easting, altitude, start, stop, sd1500, sd750). The data
+  page (`/data.php`) says: "stop: GPS time of the last event detected by the station. The value is 1 if the station is
+  still in operation". Licence (home page): "The Open Data are released under the (CC BY-SA 4.0) International
+  License." Records derived from it therefore carry `license: CC-BY-SA-4.0` with the DOI attribution (the build prints it
+  under the map). The two hull records from the previous pass had `license: null` and were updated.
+* Only stations with stop = 1 are drawn: 1587 flagged sd1500 (including the 22 that are also sd750) in 20 north-to-south
+  bands of 79 or 80 (`geometry:auger-sd1500-stations-band-01` .. `-20`) and 49 infill-only stations
+  (`geometry:auger-sd750-infill-stations`). 53 stations with a recorded stop time are left out.
+* Each station is a 3.6 m square marker, 3.6 m being the tank diameter in the Observatory paper
+  (arXiv:1502.01323 section 3.1: "A surface detector station consists of a 3.6 m diameter water tank").
+* `geometry:auger-sd1500-array-boundary` was rebuilt as the hull of the 1587 active stations (31 vertices, 3097.6 km2;
+  the previous version used every station ever flagged, 3158 km2) with its area check retightened from 8% to 5%.
+
+### Assumption that is not in the source
+
+The data page says "UTC" (sic) coordinates and states no zone or datum. They are read as UTM zone 19 south on WGS 84
+(EPSG:32719, `pyproj`), because only zone 19 puts the numbers at Malargue and GPS surveys are WGS 84. If the
+Collaboration used another datum the whole array shifts; `accuracy_m` is 50 and confidence `approximate` for that
+reason. The converted extent (34.93-35.52 S, 68.91-69.66 W) agrees with the previous pass's independent conversion.
+
+### Inventory
+
+| Entity | Drawn / unlocated | Record | Representation | accuracy_m | Check |
+| --- | --- | --- | --- | ---: | --- |
+| detector:pierre-auger-observatory (1587 main-array stations) | drawn | geometry:auger-sd1500-stations-band-01 .. -20 | surveyed | 50 | median nearest-neighbour 1489.5 m vs official 1500 m triangular grid (worklog only) |
+| same, infill-only stations (49) | drawn | geometry:auger-sd750-infill-stations | surveyed | 50 | median nearest-neighbour of the 71 sd750 stations 742.7 m vs official 750 m (worklog only) |
+| site:malargue-auger (array outline) | drawn | geometry:auger-sd1500-array-boundary | derived | 50 | area 3097.6 km2 vs 3000 km2 (+3.25%, tol 5%): pass |
+| experiment:pierre-auger-observatory (infill outline) | drawn | geometry:auger-sd750-infill-boundary | derived | 50 | none asserted (29.3 km2 vs "23.5 km2, 61-detector", see conflict 3) |
+| Fluorescence detectors Los Leones, Los Morados, Loma Amarilla, Coihueco | not drawn | not atlas entities (no site records) | n/a | n/a | n/a |
+| 53 stations with a stop time | not drawn | n/a | n/a | n/a | n/a |
+
+Station altitudes in the table run 1344 m to 1619 m against the paper's "detectors located at altitudes between 1340 m and 1610 m".
+
+### Source conflicts
+
+1. **Station count.** The paper says "Currently more than 1660 surface detector stations are operational" (section 3.6, 2015); the
+   release (2024) marks 1636 stations in operation (1565 main + 49 infill + 22 both) and lists 1689 stations in all. Not
+   reconcilable from fetched sources (stations lost, retired, or the flag lags); the drawn set is the release's own.
+2. **Latitude and longitude of the array.** The paper says the array lies "between latitudes 35.0 and 35.3 S and between longitudes
+   69.0 and 69.4 W"; the stations span 34.93-35.52 S and 68.91-69.66 W. The sentence is rough; the table was used.
+3. **Infill size.** The abstract says "a 23.5 km2, 61-detector infilled array with 750 m spacing"; 71 stations carry sd750 = 1 and their hull
+   is 29.3 km2 (the 49 infill-only stations alone: 25.8 km2). No check is asserted.
+4. **Licence.** The CC BY-SA 4.0 share-alike clause applies to the derived coordinates; the integrator should confirm the
+   repository's data licence note (`data/atlas/geometry/LICENSE.md` currently speaks only of OSM-derived records).
+
+### Site coordinate corrections
+
+None (`site:malargue-auger` is the Observatory's address in the town, already documented as not the array).
+
+### Backlog
+
+* Coordinates of the four fluorescence buildings (Los Leones, Los Morados, Loma Amarilla, Coihueco), the CLF and XLF: none in the papers
+  fetched (arXiv:0907.4282, 1502.01323, 1604.03637, 2007.09035, 1011.6523), none in Open Data (`fdPixelMap.csv` is pointing only).
+  Overpass has communication-tower nodes operated by the Observatory at (-35.496078, -69.4498211) on Cerro Los Leones and
+  (-35.1143142, -69.6000234), but no building footprints. Needs an Auger GAP note, the Offline detector configuration, or a mapped footprint.
+* An explicit statement of the UTM zone and datum of `sdMap.csv`.
+* AERA radio antennas, HEAT, AMIGA unitary cell and AugerPrime surface scintillator positions; stopped stations with their date windows.
