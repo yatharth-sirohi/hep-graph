@@ -1287,10 +1287,13 @@ def _feature_segments(ctx: _Context, record: dict) -> tuple[list | None, Any]:
         start = schema.month_index(schema.lo(valid.get('start')))
         end = schema.month_index(schema.hi(valid.get('end')))
         build_month = schema.month_index(ctx.build_day)
-        if start is None:
-            start = build_month
         if end is None:
             end = build_month
+        if start is None:
+            # An open start means "as long as the entity goes back", not "from
+            # today": taking the build month made every window with only an end
+            # (the Tevatron ring, the CDF and D0 halls) empty, hence timeless.
+            start = min(entity_segments[0][0], end) if entity_segments else end
         if end < start:
             return None, None
         months: dict[int, tuple[str, str]] = {m: (schema.UNRECORDED, 'certain') for m in range(start, end + 1)}

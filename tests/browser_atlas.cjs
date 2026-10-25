@@ -287,7 +287,10 @@ async function setRangeValue(locator, value) {
     assert.doesNotMatch(panelText, /\b0 confirmed institutions\b(?!\s*\()/, "DUNE has a real, nonzero confirmed-member count");
     await page.locator("#view-on-globe").click();
     await page.waitForFunction(() => document.querySelectorAll(".atlas-marker.tier-institution").length > 0, { timeout: 10000 });
-    assert.ok(await page.locator(".atlas-marker.tier-institution").count() > 0);
+    // The camera's fly-to rebuilds the marker layer once (the dots blink out
+    // for ~0.4 s); judge the settled globe.
+    await page.waitForTimeout(1500);
+    await page.waitForFunction(() => document.querySelectorAll(".atlas-marker.tier-institution").length > 0, { timeout: 10000 });
   });
 
   await record("Experiment status badge follows the selected timeline year, not just build-time status", async () => {
@@ -460,16 +463,18 @@ async function setRangeValue(locator, value) {
     // unchanged either way.
     await freshPage.waitForTimeout(1200);
     await setRangeValue(freshPage.locator("#timeline-year"), 1990);
+    // Gone from the layer outright, or still attached but marked absent/dimmed
+    // (with motion allowed, a removed marker lingers through its exit tween).
     await freshPage.waitForFunction((selector) => {
       const el = document.querySelector(selector);
-      return !!el && (el.classList.contains("is-absent") || el.classList.contains("is-dimmed"));
+      return !el || el.classList.contains("is-absent") || el.classList.contains("is-dimmed");
     }, atlasCavernSelector, { timeout: 15000 });
-    const state = await freshPage.locator(atlasCavernSelector).evaluate((el) => ({
-      absent: el.classList.contains("is-absent"),
-      dimmed: el.classList.contains("is-dimmed"),
-      display: getComputedStyle(el).display,
-    }));
-    assert.ok(state.absent || state.dimmed, "ATLAS site marker should be absent or dimmed at 1990");
+    const state = await freshPage.evaluate((selector) => {
+      const el = document.querySelector(selector);
+      return el ? { removed: false, absent: el.classList.contains("is-absent"),
+        dimmed: el.classList.contains("is-dimmed"), display: getComputedStyle(el).display } : { removed: true };
+    }, atlasCavernSelector);
+    assert.ok(state.removed || state.absent || state.dimmed, "ATLAS site marker should be gone, absent or dimmed at 1990");
     if (state.absent) assert.equal(state.display, "none");
     await freshContext.close();
   });
@@ -537,7 +542,7 @@ async function setRangeValue(locator, value) {
     await freshPage.waitForFunction(() => {
       const summaries = [...document.querySelectorAll("#detail-panel details.panel-section summary")];
       const details = summaries.find((s) => s.textContent.trim() === "Sources")?.closest("details");
-      return !!details && details.open && !details.querySelector(".loading-note");
+      return !!details && details.open && ["loaded", "error"].includes(details.dataset.state);
     }, { timeout: 10000 });
     assert.ok(requested.some((u) => u.includes("provenance.json")), "opening the Sources disclosure must fetch provenance.json");
     assert.ok(requested.some((u) => u.includes("sources.json")), "opening the Sources disclosure must fetch sources.json");
@@ -621,11 +626,7 @@ async function setRangeValue(locator, value) {
       await page.waitForFunction(() => {
         const summaries = [...document.querySelectorAll("#detail-panel details.panel-section summary")];
         const details = summaries.find((s) => s.textContent.trim() === "Sources")?.closest("details");
-        // `open` flips before the toggle handler inserts even the loading note,
-        // so also wait for the body to hold something.
-        const body = details && details.querySelector(".panel-section-body");
-        return !!details && details.open && !details.querySelector(".loading-note")
-          && !!body && body.children.length > 0;
+        return !!details && details.open && ["loaded", "error"].includes(details.dataset.state);
       }, { timeout: 10000 });
       const sourcesText = await detailsText("Sources");
       assert.match(sourcesText || "", /Approximate location — Rutherford Appleton Laboratory/,
@@ -717,9 +718,16 @@ async function setRangeValue(locator, value) {
         const at = await p.evaluate((gid) => {
           const el = document.querySelector(`path[data-geometry-id="${gid}"]`);
           if (!el) return null;
-          const point = el.getPointAtLength(el.getTotalLength() * 0.25);
-          const q = new DOMPoint(point.x, point.y).matrixTransform(el.getScreenCTM());
-          return { x: q.x, y: q.y };
+          // Click a point of the path that is topmost there: where two rings
+          // touch (the Booster and the Tevatron), the other one may be on top.
+          let fallback = null;
+          for (const f of [0.25, 0.4, 0.6, 0.75, 0.1, 0.9, 0.5]) {
+            const point = el.getPointAtLength(el.getTotalLength() * f);
+            const q = new DOMPoint(point.x, point.y).matrixTransform(el.getScreenCTM());
+            fallback = fallback || { x: q.x, y: q.y };
+            if (document.elementFromPoint(q.x, q.y) === el) return { x: q.x, y: q.y };
+          }
+          return fallback;
         }, geometryId);
         assert.ok(at, `expected a drawn path for ${geometryId}`);
         await p.mouse.click(at.x, at.y);
@@ -1994,7 +2002,7 @@ async function setRangeValue(locator, value) {
     await page.waitForFunction(() => {
       const summaries = [...document.querySelectorAll("#detail-panel details.panel-section summary")];
       const details = summaries.find((s) => s.textContent.trim() === "Sources")?.closest("details");
-      return !!details && !details.querySelector(".loading-note");
+      return !!details && details.open && ["loaded", "error"].includes(details.dataset.state);
     }, { timeout: 10000 });
     const labels = await page.locator("#detail-panel .claim-label").allInnerTexts();
     assert.ok(labels.length > 0, "expected at least one claim label in DUNE's Sources disclosure");

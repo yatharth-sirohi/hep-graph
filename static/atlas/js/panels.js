@@ -270,7 +270,9 @@ function intervalLine(iv) {
 // reordered to each row's authored `source_index`) so `/members/N` resolves
 // to the right institution's name.
 function sourcesDisclosure(entityId, record, { approximateSites = [], membershipMembers = null } = {}) {
-  const details = h('details', { class: 'panel-section' });
+  // data-state (idle → loading → loaded | error) says where the lazy load is,
+  // so nothing has to guess from the placeholder text.
+  const details = h('details', { class: 'panel-section', 'data-state': 'idle' });
   details.appendChild(h('summary', {}, 'Sources'));
   const body = h('div', { class: 'panel-section-body' }, [
     emptyNote('Opens to load this entity’s sources.'),
@@ -283,6 +285,7 @@ function sourcesDisclosure(entityId, record, { approximateSites = [], membership
   async function load() {
     if (loaded || inFlight) return;
     inFlight = true;
+    details.dataset.state = 'loading';
     body.innerHTML = '';
     body.appendChild(h('p', { class: 'loading-note', role: 'status' }, 'Loading sources…'));
     try {
@@ -307,7 +310,9 @@ function sourcesDisclosure(entityId, record, { approximateSites = [], membership
         ? h('ul', { class: 'source-list' }, items)
         : emptyNote('No sourced fields recorded for this entity yet.'));
       loaded = true;
+      details.dataset.state = 'loaded';
     } catch (error) {
+      details.dataset.state = 'error';
       body.innerHTML = '';
       body.appendChild(h('p', { class: 'error-note', role: 'alert' },
         `Could not load sources: ${error.message}`));

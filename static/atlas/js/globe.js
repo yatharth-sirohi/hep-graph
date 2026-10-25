@@ -302,7 +302,10 @@ export function createGlobe(container, {
   atlas, index, onSelect, coverElements = [],
 }) {
   const Globe = window.Globe;
-  const globe = Globe()(container)
+  // `animateIn` scales and spins the globe into place over ~1 s at start-up
+  // (markers glide ~100 px with the camera standing still): skip it for a
+  // reader who asked for reduced motion.
+  const globe = Globe({ animateIn: !reducedMotion() })(container)
     .backgroundColor('rgba(0,0,0,0)')
     .showAtmosphere(true)
     .atmosphereColor('#6fa8dc')
@@ -313,6 +316,10 @@ export function createGlobe(container, {
     .polygonAltitude(0.006)
     .htmlAltitude((d) => d.altitude)
     .htmlElement((d) => d.el)
+    // three-globe tweens a marker to its new position over 1 s whenever the
+    // layer is rebuilt (a cluster re-forming moved ~130 px on load): motion a
+    // reader who asked for reduced motion must not get.
+    .htmlTransitionDuration(reducedMotion() ? 0 : 1000)
     .arcsData([])
     .arcStartLat((d) => d.startLat)
     .arcStartLng((d) => d.startLng)
@@ -381,7 +388,10 @@ export function createGlobe(container, {
   container.addEventListener('focusin', stopAutoRotate);
   const motionQuery = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)');
   if (motionQuery && typeof motionQuery.addEventListener === 'function') {
-    motionQuery.addEventListener('change', () => { if (reducedMotion()) stopAutoRotate(); });
+    motionQuery.addEventListener('change', () => {
+      if (reducedMotion()) stopAutoRotate();
+      globe.htmlTransitionDuration(reducedMotion() ? 0 : 1000);
+    });
   }
 
   fetch('/atlas/vendor/land-110m.json').then((r) => r.json()).then((land) => {

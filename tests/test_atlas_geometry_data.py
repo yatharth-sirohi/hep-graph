@@ -158,3 +158,12 @@ def test_every_map_builds_a_bundle_inside_the_size_budget() -> None:
     assert result.errors == [], result.errors
     bundles = [path for path in result.files if path.startswith("geometry/")]
     assert len(bundles) == len(_map_files())
+    # A shape whose `valid` window has an end must never come out timeless
+    # (drawn in every year): an open start once turned the Tevatron ring and
+    # the CDF and D0 halls into permanent features.
+    built = {feature["id"]: feature for path in bundles
+             for feature in json.loads(result.files[path])["features"]}
+    for path in _geometry_files():
+        record = json.loads(path.read_text(encoding="utf-8"))
+        if (record.get("valid") or {}).get("end") and record.get("entity_id"):
+            assert built[record["id"]].get("state_segments"), record["id"]

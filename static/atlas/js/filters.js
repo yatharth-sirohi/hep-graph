@@ -493,6 +493,9 @@ export function createFilterPanel(container, { atlas, topicIndex, onChange }) {
     // keyboard focus after every single toggle. Facet/option checkbox ids
     // are stable across renders, so re-find and refocus the same one.
     const focusedId = document.activeElement && document.activeElement.id;
+    // The `toggle` event is dispatched asynchronously, so a group closed just
+    // before this render may not have reported it yet: read the DOM too.
+    for (const group of body.querySelectorAll('.filter-group')) openState.set(group.dataset.facet, group.open);
     body.innerHTML = '';
     body.append(
       facetGroup('era', ERA_LIST),

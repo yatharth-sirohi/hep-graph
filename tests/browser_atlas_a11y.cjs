@@ -443,7 +443,7 @@ async function contrastOf(page, selector) {
       await kbPage.waitForFunction(() => {
         const summaries = [...document.querySelectorAll("#detail-panel details.panel-section summary")];
         const details = summaries.find((s) => s.textContent.trim() === "Sources")?.closest("details");
-        return !!details && details.open && !details.querySelector(".loading-note");
+        return !!details && details.open && ["loaded", "error"].includes(details.dataset.state);
       }, { timeout: 10000 });
 
       // Escape closes the panel and returns focus to the search input — the
