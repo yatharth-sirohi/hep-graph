@@ -429,9 +429,13 @@ function frameToExtent() {
  *  is clipped at the map edge anyway. It is left out of the frame unless it is
  *  all that is drawn, in which case the record's own extent frames the view. */
 function framingFeatures() {
-  return bundle.features
+  const drawn = bundle.features
     .filter(featureVisible)
     .filter((f) => f.representation !== 'inferred_direction' && f.feature_type !== 'direction_line');
+  // A campus boundary is context: Fermilab's is 7 km across and framing it left
+  // the rings a small knot in the middle. Frame the structures when there are any.
+  const structures = drawn.filter((f) => f.feature_type !== 'boundary');
+  return structures.length ? structures : drawn;
 }
 
 /**
