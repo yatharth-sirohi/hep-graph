@@ -1289,11 +1289,15 @@ async function setRangeValue(locator, value) {
         await phone.waitForTimeout(1200);
         const overflow = await phone.evaluate(() => document.documentElement.scrollWidth);
         assert.ok(overflow <= 392, `expected no horizontal overflow at 390 px, got ${overflow}`);
-        await phone.locator("[data-feature-row]").first().click();
+        // On a phone the layer list is a bottom sheet behind a header button
+        // (js/phone.js); the feature rows are only reachable once it is open.
+        await phone.locator("#phone-layers-btn").tap();
+        await phone.locator("[data-feature-row]").first().tap();
         await phone.locator("#map-drawer-title").waitFor({ timeout: 15000 });
         const sheet = await phone.locator(".map-drawer").boundingBox();
-        assert.ok(sheet.y + sheet.height >= 840,
-          "on a phone the drawer is a bottom sheet anchored to the bottom of the viewport");
+        const timeline = await phone.locator("#timeline-bar").boundingBox();
+        assert.ok(Math.abs(sheet.y + sheet.height - timeline.y) <= 2,
+          "on a phone the drawer is a bottom sheet resting on the timeline bar, which stays reachable");
         await phone.screenshot({ path: path.join(output, "local-map-390x844.png") });
         await phoneContext.close();
       });
