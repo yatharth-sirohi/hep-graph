@@ -7,17 +7,15 @@
   "altitude": null,
   "coordinates": {
     "confidence": "approximate",
-    "kind": "underground_lab",
-    "lat": 44.34549,
-    "locator": "J. Heise, The Sanford Underground Research Facility at Homestake (arXiv:1503.01112), Table 5 Coordinates estimates for various locations of interest, rows LBNF (10 kt Cavern) and LBNF (30 kt Cavern)",
-    "lon": -103.75508,
-    "note": "Midpoint of the two LBNF cavern rows of Table 5 in the SURF overview paper (surface-projected positions): LBNF (10 kt Cavern) 44 deg 20 min 45.07 sec N, 103 deg 45 min 17.96 sec W (44.345853, -103.754989) and LBNF (30 kt Cavern) 44 deg 20 min 42.44 sec N, 103 deg 45 min 18.62 sec W (44.345122, -103.755172), about 83 m apart. The PDF text lists the table column by column; the three values in each column follow the order of the three row labels. These are 2015 plan-stage estimates of the LBNF cavern positions, so confidence stays approximate and precision_m is 500. This replaces an earlier OpenStreetMap/Nominatim surface point for the whole site (44.3474397, -103.7548247, about 218 m from the new value; src:surf-osm-nominatim is still listed in the record sources). The DUNE paper and the SURF site establish only that the far detector is at the 4850 ft level at Lead, South Dakota.",
-    "precision_m": 500,
-    "quote": "4850L Other LBNF (10 kt Cavern) LBNF (30 kt Cavern) Expt Hall (Generic) ... 44◦ 20’ 45.07” N 44◦ 20’ 42.44” N 44◦ 20’ 56.88” N 103◦ 45’ 17.96” W 103◦ 45’ 18.62” W 103◦ 45’ 08.66” W",
+    "kind": "campus",
+    "lat": 44.3455559,
+    "locator": "Heise 2026 (arXiv:2603.06504), Table 4, rows FD1–FD4 (the table's latitude/longitude headings are swapped; values carry hemisphere letters)",
+    "lon": -103.7552387,
+    "note": "Mean of the four DUNE far-detector module positions, i.e. the centre of the north and south caverns on the 4850 Level. Kept as an approximate campus point because the source is a preprint (A17).",
+    "precision_m": 100,
+    "quote": "FD1 (NE) 103.7546341 W 44.3459914 N 97 1420",
     "sources": [
-      "src:lz-surf-heise-2015",
-      "src:surf-official-site",
-      "src:dune-protodune-sp-performance-2020"
+      "src:geo-surf-heise-2026-review"
     ],
     "verified_at": "2026-10-25"
   },
@@ -95,7 +93,8 @@
     "src:dune-fd-tdr-vol-1",
     "src:surf-official-site",
     "src:surf-osm-nominatim",
-    "src:lz-surf-heise-2015"
+    "src:lz-surf-heise-2015",
+    "src:geo-surf-heise-2026-review"
   ],
   "summary": {
     "plain": "Caverns nearly a mile underground at the Sanford laboratory, excavated to hold the huge liquid-argon detectors of the DUNE experiment.",

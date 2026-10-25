@@ -5,18 +5,18 @@
   ],
   "altitude": null,
   "coordinates": {
-    "confidence": "uncertain",
+    "confidence": "approximate",
     "kind": "campus",
-    "lat": 46.2601088,
-    "lon": 6.0577057,
-    "note": "No fetched source publishes a surveyed lat/lon for the ECN3 cavern itself. CERN's own Experimental Areas page (be-dep-ea.web.cern.ch/northarea) confirms ECN3 is an underground cavern on the North Area / Prevessin site fed by the P42 and K12 beamlines, currently housing NA62; it gives no coordinate. The point recorded here is the same CERN Prevessin-site campus point already used for the existing site:cern-neutrino-platform-ehn1 record (owned by another workstream) for the same reason: it is the closest sourced approximation, not a building-level survey. Treat this as campus precision, not cavern precision.",
-    "precision_m": 2000,
-    "quote": "The P42 and the K12 beamlines lead to the underground cavern ECN3, where the NA62 experiment is currently located that receives a tertiary kaon beam.",
+    "lat": 46.264135,
+    "locator": "centroid of the ECN3 access building (CERN building 911, OSM way 44413082); building number to acronym from MapCERN",
+    "lon": 6.06109,
+    "note": "Surface building serving the underground hall; the hall itself sits below at an offset no fetched source publishes, hence the precision.",
+    "precision_m": 150,
     "sources": [
-      "src:na62-cern-north-area-page",
-      "src:na62-official-site"
+      "src:geo-cern-osm-sps-ba-sr8-buildings",
+      "src:geo-cern-mapcern-facilities"
     ],
-    "verified_at": "2026-09-17"
+    "verified_at": "2026-10-25"
   },
   "countries": [
     "FR"
@@ -58,7 +58,9 @@
   "sources": [
     "src:na62-cern-north-area-page",
     "src:na62-official-site",
-    "src:na48-cern-courier-fixed-target"
+    "src:na48-cern-courier-fixed-target",
+    "src:geo-cern-osm-sps-ba-sr8-buildings",
+    "src:geo-cern-mapcern-facilities"
   ],
   "summary": {
     "plain": "An underground cavern in CERN's North Area, on the French side of the laboratory, that has held a succession of kaon-decay experiments: NA48, then NA62, and reserved for the future SHiP experiment.",
