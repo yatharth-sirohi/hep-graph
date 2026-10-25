@@ -46,7 +46,7 @@
       "id": "level-27",
       "kind": "underground",
       "name": "Level 27 (705 m)",
-      "note": "Plan view; houses geometry:soudan-minos-far-detector-point (MINOS far detector, CDMS II, SuperCDMS Soudan, all sharing this one sourced cavern position)."
+      "note": "Plan view; houses the surveyed MINOS far-detector midpoint (geometry:soudan-minos-far-detector-point) and the derived steel-plane envelope of the detector (geometry:soudan-minos-far-detector-footprint, axis 333.4452°). CDMS II and SuperCDMS Soudan share the site record; the laboratory shaft is inclined 12° from vertical (arXiv:0805.3170 Sec. 6.4.1)."
     }
   ],
   "linked_map_ids": [],
@@ -54,7 +54,9 @@
     "website": null
   },
   "name": "Soudan Underground Laboratory, Soudan, Minnesota",
-  "notes": [],
+  "notes": [
+    "Release geometry (underground): the surveyed detector midpoint was refined to six decimals with 3 m accuracy and the detector's steel-plane envelope was added from the published axis azimuth and dimensions. The cavern itself is not drawn."
+  ],
   "schema": "hep-atlas/0.2",
   "schematics": [],
   "site_ids": [
@@ -62,12 +64,24 @@
   ],
   "sources": [
     "src:geo-soudan-osm-shaft",
+    "src:geo-soudan-osm-shaft8-2026-10",
+    "src:minos-detector-paper-2008",
     "src:minos-prd-2007-muon-charge-ratio"
   ],
   "summary": {
-    "plain": "The Soudan Underground Laboratory, 705 m down a disused iron mine in northern Minnesota: the historic shaft house on the surface and Level 27 below, home to the MINOS far detector and the CDMS II / SuperCDMS Soudan dark-matter experiments.",
-    "technical": "Local map for facility:soudan-underground-laboratory. Surface geometry is the NRHP-listed Soudan Mine shaft house from OpenStreetMap. The Level 27 laboratory is drawn as a surveyed point taken directly from the MINOS Collaboration's own published coordinate (PRD 76, 052003), reused verbatim from site:soudan-minos-far-detector; MINOS far detector, CDMS II and SuperCDMS Soudan all share this one position, having no independently sourced distinct footprint."
+    "plain": "The Soudan iron mine in northern Minnesota, with the historic shaft house at the surface and, 705 m down on the 27th level, the MINOS far detector drawn at its surveyed position and orientation. The cavern and the neighbouring dark-matter laboratory are not located.",
+    "technical": "Surveyed MINOS far-detector midpoint (arXiv:0805.3170, 0.7 m inertial survey precision), derived 8 m x 30.3 m steel-plane envelope along the published 333.4452° axis, OSM shaft house and Shaft #8; cavern and CDMS laboratory unlocated."
   },
   "type": "map",
-  "unlocated": []
+  "unlocated": [
+    {
+      "backlog": "The MINOS TDR (NuMI-L-337) or a Soudan lab level-27 plan giving the cavern dimensions and the offset between the MINOS and Soudan 2 / CDMS caverns; with the published axis azimuth the MINOS hall can be drawn as a rectangle about the surveyed midpoint, and the neighbouring cavern placed from the stated offset.",
+      "entity_id": "facility:soudan-underground-laboratory",
+      "reason": "The cavern that houses MINOS and the neighbouring Soudan laboratory (the former Soudan 2 cavern, CDMS II, SuperCDMS Soudan) are named in the MINOS paper ('the MINOS detector hall and the neighboring Soudan laboratory') but their sizes and positions relative to the surveyed detector midpoint are not given in any fetched source: the paper states only the detector/cavern axis azimuth. The MINOS Technical Design Report (OSTI 1861363; Fermilab archive) and the University of Minnesota laboratory site, which may carry cavern dimensions and a level plan, were unreachable (HTTP 403 and connection refused).",
+      "sources": [
+        "src:minos-detector-paper-2008"
+      ],
+      "verified_at": "2026-10-25"
+    }
+  ]
 }
