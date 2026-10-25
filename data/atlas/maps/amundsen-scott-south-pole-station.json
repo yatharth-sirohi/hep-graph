@@ -95,7 +95,9 @@
     "src:geo-polar-icetop-detector-paper-2013",
     "src:geo-polar-osm-south-pole-station",
     "src:icecube-detector-paper-jinst-2017",
-    "src:icecube-nsf-south-pole-station"
+    "src:icecube-nsf-south-pole-station",
+    "src:geo-arrays-icecube-upgrade-camera-2023",
+    "src:currency-icecube-upgrade-status-arxiv-2609-24387"
   ],
   "summary": {
     "plain": "The U.S. research station at the geographic South Pole and the IceCube neutrino telescope beside it. The map shows the 86 in-ice strings (including the dense DeepCore centre) and the 162 IceTop surface tanks at their true spacing, with grid north up; the whole pattern could be shifted by up to about half a kilometre because the ice moves and the published anchor is nominal. ARA, AMANDA, the IceCube Upgrade and IceCube-Gen2 are not drawn.",
@@ -133,11 +135,12 @@
       "verified_at": "2026-09-18"
     },
     {
-      "backlog": "Find the as-built Upgrade string coordinates in the IceCube frame (an Upgrade deployment paper or the geometry file of the IC93 configuration); the frame is anchored, so a table converts directly.",
+      "backlog": "The as-built string coordinates in the IceCube frame: a table or geometry file for the IC93 configuration (the Upgrade GCD), or an Upgrade deployment paper listing the string numbers drilled and their horizontal positions. Strings 36, 79 and 80 of the existing array lie inside the Upgrade footprint (arXiv:2308.07276) and are already drawn from the IC86 geometry, so any set of distances to them converts directly with the anchor used on this map.",
       "entity_id": "experiment:icecube-upgrade",
-      "reason": "The Upgrade's five new strings were deployed 'at the bottom center of the 86 existing strings' (already cited on experiment:icecube-upgrade), inside the DeepCore footprint drawn on this map. No fetched source tabulates their as-built string coordinates: IceCube's Upgrade Monte Carlo data release page (icecube.wisc.edu/data-releases/2020/04/) offers only images of the simulated 7-string design, which also differs from the five strings deployed.",
+      "reason": "Only the DESIGN layout is published, and the as-built layout differs from it. The design has seven strings numbered 87 to 93 with horizontal spacings of 21 m to 43 m, drawn with all inter-string distances in Fig. 2 of the Upgrade camera paper (arXiv:2308.07276, a figure, not text), whereas the 2026 status paper (arXiv:2609.24387) says five strings were added in 2025/26 and shows the final layout only in a schematic (Fig. 1, no axes or coordinates); the collaboration news items count five or six strings deployed. Drawing the seven design positions would put two or more strings on the map that were never built, and no source says which of the seven the five deployed strings are.",
       "sources": [
-        "src:icecube-upgrade-press-release-2026"
+        "src:geo-arrays-icecube-upgrade-camera-2023",
+        "src:currency-icecube-upgrade-status-arxiv-2609-24387"
       ],
       "verified_at": "2026-09-18"
     },
