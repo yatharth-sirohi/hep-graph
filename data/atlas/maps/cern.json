@@ -74,7 +74,8 @@
   "name": "CERN — Meyrin, Prévessin and the LHC ring",
   "notes": [
     "Linked maps: map:lngs (the CNGS far site at LNGS) does not exist yet in this atlas; linked_map_ids is left empty here and the build's automatic derivation (from beamline:cngs's far_detector_site_ids) will populate it once LNGS has its own map.",
-    "site:cern-lep-point-2-l3 and site:cern-point-2-alice, and site:cern-lep-point-8-delphi and site:cern-point-8-lhcb, are drawn as separate geometry features using the SAME underlying OSM polygon (the same physical Point 2 / Point 8 enclosure hosted a LEP experiment 1989-2000 and hosts an LHC experiment today); this is expected to raise the validator's geometry-duplicate-shape warning for those two pairs, documented here and in the worklog rather than avoided by omission."
+    "site:cern-lep-point-2-l3 and site:cern-point-2-alice, and site:cern-lep-point-8-delphi and site:cern-point-8-lhcb, are drawn as separate geometry features using the SAME underlying OSM polygon (the same physical Point 2 / Point 8 enclosure hosted a LEP experiment 1989-2000 and hosts an LHC experiment today); this is expected to raise the validator's geometry-duplicate-shape warning for those two pairs, documented here and in the worklog rather than avoided by omission.",
+    "Release pass (gaps stream, 2026-10-25): MapCERN's public Facilities layer (CERN GIS) names the SPS access buildings (868-873 = BA1-BA6), SR8 (2875), the HL-LHC buildings (SD/SE/SU/SF/SHM 17 and 57) and the ECN3 access and counting-room buildings (911, 918); the OpenStreetMap polygons carry those numbers, which is why the earlier name searches for UA1, UA2, CAST and ECN3 found nothing. UA1 and UA2 (underground in ECX5 and ECX4), CAST (SR8) and ECN3 (underground cavern, building 900) are therefore shown by the surface buildings that serve them, not by their own outlines; the HL-LHC surface buildings are drawn, its new shafts and galleries are not."
   ],
   "schema": "hep-atlas/0.2",
   "schematics": [
@@ -103,7 +104,17 @@
   ],
   "sources": [
     "src:geo-cern-osm-lhc-relation",
-    "src:cern-lhc-page"
+    "src:cern-lhc-page",
+    "src:geo-cern-mapcern-facilities",
+    "src:geo-cern-hllhc-civil-engineering-2017",
+    "src:geo-cern-hllhc-pm17-lift-2023",
+    "src:geo-cern-hllhc-point5-visit",
+    "src:geo-cern-sps-history",
+    "src:geo-cern-north-area-infrastructure",
+    "src:geo-cern-crome-sps-deployment",
+    "src:geo-cern-osm-sps-ba-sr8-buildings",
+    "src:geo-cern-osm-hllhc-buildings",
+    "src:geo-cern-osm-ecn3-access-buildings"
   ],
   "summary": {
     "plain": "CERN's main campus on the France-Switzerland border near Geneva: the 27-km LHC/LEP ring, the SPS, PS and PSB injector rings, and the surface sites of the ATLAS, CMS, ALICE and LHCb experiments, drawn to scale from OpenStreetMap and CERN's own published figures.",
@@ -112,7 +123,7 @@
   "type": "map",
   "unlocated": [
     {
-      "backlog": "Search CERN's historical civil-engineering archive or a 1970s ISR design report for a site plan with a scale bar; georeference against the Meyrin buildings that still exist.",
+      "backlog": "A 1970s ISR design report or CERN historical civil-engineering plan with a scale bar, georeferenced against Meyrin buildings that still stand; the public MapCERN layers (Facilities, Levels, Rooms, surfaces) were searched this session and contain no ISR tunnel or building named as such.",
       "entity_id": "accelerator:isr",
       "reason": "The Intersecting Storage Rings occupied part of the Meyrin site until 1984. No OpenStreetMap trace was found this session (three Overpass name searches for 'ISR'/'Intersecting Storage' in the Meyrin bbox returned zero elements), and no other fetched source gives coordinates or a civil-engineering plan for its tunnel.",
       "sources": [
@@ -121,56 +132,11 @@
       "verified_at": "2026-09-18"
     },
     {
-      "backlog": "Locate the new HL-LHC shafts/caverns (e.g. PM18, PM15) via CERN's HL-LHC civil-engineering pages and add them as their own geometry records once sourced.",
-      "entity_id": "accelerator:hl-lhc",
-      "reason": "HL-LHC is an in-place upgrade of the existing LHC ring (drawn as geometry:lhc-tunnel-ring under accelerator:lhc), not a separate structure, so drawing a second ring would misrepresent it as a distinct tunnel. Its own new civil works (e.g. the new shafts and service caverns being added at Points 1 and 5) are not located by any source fetched this session.",
-      "sources": [
-        "src:cern-hilumi-lhc-page"
-      ],
-      "verified_at": "2026-09-18"
-    },
-    {
-      "backlog": "Find Linac2's building number/plan via a CERN historical-photo or civil-engineering page (it stood near the current Linac4/PSB area before demolition).",
+      "backlog": "A CERN document that gives the Linac2 building number (the TE-EPC Long Shutdown 2 page lists Meyrin-side building ranges 355-356, 361-363 and 365-367 without saying which is Linac2); once the number is known, MapCERN Facilities (https://maps.cern.ch/arcgis/rest/services/Hosted/Etages_v2_public/FeatureServer/114, field numero) gives its outline and the OSM way with that name gives a traced footprint.",
       "entity_id": "accelerator:linac2",
-      "reason": "Linac2 (in operation 1978-2018, now decommissioned) has no OpenStreetMap building trace (a name search for 'Linac 2'/'LINAC2' in the Meyrin bbox returned zero elements this session) and no fetched CERN page gives its location or footprint.",
+      "reason": "Linac2 (in operation 1978-2018, switched off for the last time on 12 November 2018) has no OpenStreetMap building trace by name and no fetched CERN page gives a building number: the CERN Open Days page lists it only by a site-map grid reference (\"ME.62\", which is not a coordinate; the page returned HTTP 503 when re-fetched), and the public MapCERN layers carry building numbers and acronyms (Facilities) but no entry that names Linac2.",
       "sources": [
         "src:cern-linac2-page"
-      ],
-      "verified_at": "2026-09-18"
-    },
-    {
-      "backlog": "Locate LSS4 via an SPS civil-engineering drawing or the UA2 detector paper's stated azimuthal position along the SPS ring.",
-      "entity_id": "site:cern-sps-lss4-ua2",
-      "reason": "UA2's hall at SPS Long Straight Section 4. No OpenStreetMap trace was found this session (a name search for 'UA1|UA2|LSS4|LSS5' across the SPS-ring bbox returned zero elements) and the existing site record's own coordinate is an unsourced-precision Meyrin-campus fallback (precision_m 3000).",
-      "sources": [
-        "src:ua2-cern-experiment-page"
-      ],
-      "verified_at": "2026-09-18"
-    },
-    {
-      "backlog": "Locate LSS5 via an SPS civil-engineering drawing or the UA1 detector paper's stated azimuthal position along the SPS ring.",
-      "entity_id": "site:cern-sps-lss5-ua1",
-      "reason": "UA1's hall at SPS Long Straight Section 5. Same search and sourcing gap as site:cern-sps-lss4-ua2.",
-      "sources": [
-        "src:ua1-cern-experiment-page"
-      ],
-      "verified_at": "2026-09-18"
-    },
-    {
-      "backlog": "Ask CERN's GIS/survey group for the CAST platform's coordinates, or find an open-days site plan showing its position relative to Point 8.",
-      "entity_id": "site:cern-cast-sr8",
-      "reason": "CAST's telescope building near LHC Point 8/SR8. No OpenStreetMap trace was found this session (a name search for 'CAST' near Point 8, radius 1.5 km, returned zero elements) and the existing site record itself documents that no official page gives a coordinate more precise than the Point 8 campus point.",
-      "sources": [
-        "src:axions-cast-sr8-point8-cryo-doc"
-      ],
-      "verified_at": "2026-09-18"
-    },
-    {
-      "backlog": "Locate ECN3 via CERN's North Area civil-engineering/BE-DEP-EA public drawings, or a detector-paper survey coordinate from NA62 or NA48.",
-      "entity_id": "site:cern-ecn3-north-area",
-      "reason": "ECN3 is an underground cavern in the North Area fed by the P42/K12 beamlines (currently housing NA62). It is not a surface building, so it has no OpenStreetMap footprint of its own; only the outer Prévessin site fence (way 23722021, drawn as geometry:prevessin-site-boundary, context only) and 77 numbered surface buildings with no 'ECN3' name were found in this session's North Area extract. Drawing the whole Prévessin boundary as if it were ECN3's own shape would misrepresent a small cavern as occupying the entire campus.",
-      "sources": [
-        "src:na62-cern-north-area-page"
       ],
       "verified_at": "2026-09-18"
     }

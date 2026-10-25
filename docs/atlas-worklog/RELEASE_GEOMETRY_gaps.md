@@ -129,3 +129,50 @@ No document found ties Mu2e to OSM way 720556732 "MC-2". The Mu2e TDR (arXiv:150
 * The NuMI sheet also lists the NuMI horns and baffles; not drawn (metres, not a map feature).
 
 Method lesson for later streams: where a Fermilab design report prints "site coordinates" in feet, they are FSCS/DUSAF and convert with Beams-doc-1148. Converter used here: `fscs.py` in the session scratch directory (rotation by 38.28 degrees plus ellipsoid radii at A0; 15 lines).
+
+## 3. CERN (`map:cern`)
+
+Grade before: layout to scale for the LHC, LEP, SPS, PS and PSB rings, the eight LHC/LEP experiment enclosures and the Meyrin/Prévessin context; seven entities unlocated (UA1 and UA2 sites, CAST, ECN3, HL-LHC, Linac2, ISR). After: the same, plus the surface buildings that mark the UA1, UA2, CAST and ECN3 sites and both HL-LHC surface complexes; two entities stay unlocated (Linac2, ISR).
+
+### The key find: building numbers
+
+CERN names its buildings by number, OpenStreetMap carries those numbers as `name`/`addr:housenumber`, and the lab's public web map (MapCERN, https://maps.cern.ch/) is backed by an open ArcGIS REST service whose "Facilities" layer maps number to acronym and outline. The earlier name searches (UA1, UA2, LSS4, CAST, ECN3) could not succeed because no OSM element is named that way. Queried with a descriptive User-Agent, a few dozen requests: `https://maps.cern.ch/arcgis/rest/services/Hosted/Etages_v2_public/FeatureServer/114` (fields `numero`, `sigle`, `type_ouv`; 823 facilities) and the layer metadata. Found: 868-873 = BA1-BA6 (SPS access buildings), 2875 = SR8, 3155/3154/3180/3169/3168 = SD17/SE17/SU17/SF17/SHM17, 3555/3560/3581/3569/3577 = SD57/SE57/SU57/SF57/SHM57, 911 = BAA85, 918 = BX83. Licence: the service states none (`copyrightText` empty). Only identifiers and areas measured from the service polygons are used (as `expected` values in checks); no MapCERN geometry is copied into a record; shapes are the OSM polygons carrying the same numbers, whose centroids agree with the official ones to 0.7 to 3 m. If the integrator wants a licence statement, ask CERN's GIS group (support via the link in https://maps.docs.cern.ch/).
+
+### Inventory
+
+| Entity | Drawn / unlocated | Representation | accuracy_m | Check result |
+| --- | --- | --- | ---: | --- |
+| site:cern-sps-lss4-ua2 (UA2) | drawn as SPS access building BA4 (b.871, OSM way 68885471): `geometry:sps-ba4-access-building` | georeferenced, approximate | 8 | area 1463 m2 vs 1495 m2 (MapCERN outline), 5 %: pass |
+| site:cern-sps-lss5-ua1 (UA1) | drawn as BA5 (b.872, OSM way 78502933): `geometry:sps-ba5-access-building` | georeferenced, approximate | 8 | area 1027 vs 1032 m2, 5 %: pass |
+| site:cern-cast-sr8 (CAST) | drawn as SR8 building (b.2875, way 35204808): `geometry:cast-sr8-building` | georeferenced, approximate | 8 | area 964 vs 982 m2, 5 %: pass |
+| site:cern-ecn3-north-area | drawn as the access building b.911 (way 44413082) and the counting rooms b.918 (way 44413083) | georeferenced, approximate | 8 | b.918 area 923 vs 936 m2, 5 %: pass; b.911 none |
+| accelerator:hl-lhc | drawn as the five surface buildings at Point 1 (ways 1101838706/4/5, 975205197/6) and at Point 5 (ways 1525136503/4, 1371322442/39) | georeferenced, verified | 8 | total area 3256 m2 (Point 1) and 3351 m2 (Point 5) vs "3300 m2 of buildings" per Point (CERN Accelerating News): pass at 3 %; outlines within 3 m of the official ones |
+| accelerator:linac2, accelerator:isr | unlocated | n/a | n/a | n/a |
+
+### What is and is not shown
+
+* UA1 and UA2 stood underground, in the caverns ECX5 and ECX4 (CERN SPS history page, https://be-dep-op-sps.web.cern.ch/history: "Excavation of the ECX4 and ECX5 caverns was started in 1979. By the summer of 1981, installation of the UA1 experiment was completed in ECX5, and likewise for UA2 in ECX4."). The building drawn is the surface access building of point 4 or 5 of the SPS. The link between cavern ECXn and building BAn rests on the shared point number plus CERN's CROME page, which lists the SPS areas as "BA1, BA2, BA4/ECA4, BA5 and BA6"; it is an inference, stated in the records, and the sites are drawn as approximate. The six BA buildings lie 62, 57, 60, 61 and 62 degrees apart around the centre of a circle fitted to the drawn SPS ring (radii 1071-1090 m against the ring's 1101 m, i.e. 10-30 m inside it), so the drawn ring passes within 30 m of every access point, consistent with its stated 30 m accuracy.
+* CAST: the CAST site record places the experiment in SR8 (a secondary CERN cryogenics document); no official CAST page found names the building. MapCERN names building 2875 "SR8".
+* ECN3: the NACONS table gives "Underground Experimental Cavern 3 (900) ... 1887 m2" and lists b.911 as "Access point for ECN3 underground cavern" and b.918 as "Counting rooms for ECN3 experimental cavern" (the table's m2 are gross floor areas over several levels, so they are not footprint checks). The cavern outline is not published; its building 900 is not in the public MapCERN layers.
+* HL-LHC: "A cluster of three buildings is located at the head of the shaft" (SD, SU, SE), SF and SHM stand alone, "Per Point, the total surface corresponds to about 20000 m2, including 3300 m2 of buildings" (CERN Accelerating News issue 20, https://accelerating-news-arc.web.cern.ch/node/358.html); the project news names the shaft PM17 at Point 1 (https://hilumilhc.web.cern.ch/?p=872) and the buildings SU57, SD57, SE57 at Point 5 (https://hilumilhc.web.cern.ch/?p=2491). Not drawn: the PM shafts (9.7 m x 80 m), the US/UW cavern (16 m x 45 m), the 300 m UR gallery and the UA/UL galleries; no source gives their plan position. The task brief's "PM15/PM18" were not found in any source: the HL-LHC shafts at Points 1 and 5 are PM17 and PM57 in the project pages above.
+
+### Source conflicts and honesty calls
+
+1. The earlier site records put UA1, UA2 (and ECN3, CAST) at campus-grade points: LSS4 and LSS5 both at the Meyrin geocoder point (46.2338702, 6.0469869, 3 km), 5 km from where the buildings stand. Corrections below.
+2. OSM maps SE57 and SU57 as one polygon (way 1525136504, 1018 m2) where the official outlines are 375 and 679 m2 (sum 1054 m2, 3 % more): drawn as mapped; the total-area check still passes.
+3. NACONS areas (b.911: 396 m2, b.918: 847 m2) are gross floor areas, not footprints (b.911 footprint 283 m2 officially, 259 m2 in OSM; b.918 936 and 923 m2), so only MapCERN footprints are used as check values.
+
+### Site coordinate corrections (for the integrator)
+
+* `site:cern-sps-lss4-ua2`: current 46.2338702, 6.0469869, campus, 3000 m (Meyrin geocoder). Proposed 46.248855, 6.068604 (centroid of OSM way 68885471, SPS access building BA4 = b.871 = MapCERN 871 "BA4"), kind campus, precision_m 100 (the cavern is underground at an unpublished offset), sources `src:geo-cern-osm-sps-ba-sr8-buildings`, `src:geo-cern-mapcern-facilities`; quote "871 BA4 BÂTIMENT".
+* `site:cern-sps-lss5-ua1`: current the same Meyrin point. Proposed 46.239102, 6.066901 (way 78502933, b.872 "BA5"), precision_m 100.
+* `site:cern-cast-sr8`: current 46.2417561, 6.0971635, precision_m 1000. Proposed 46.242110, 6.096939 (way 35204808, b.2875 "SR8"), precision_m 100, confidence approximate (identification of CAST with the building rests on the cryogenics document).
+* `site:cern-ecn3-north-area`: current 46.2601088, 6.0577057, precision_m 2000 (Prévessin campus). Proposed 46.264135, 6.061090 (b.911, access to the ECN3 cavern), precision_m 150.
+
+### Backlog
+
+* UA1/UA2 caverns: a CERN civil-engineering drawing or SPS layout giving the ECX4/ECX5 offset from BA4/BA5 and the cavern size (CERN Bulletin 41/1979, https://repository.cern/records/5kt26-j2q14/files/41-1979.pdf, returns 403 to scripts and is a scan without text; it reportedly describes the UA1/UA2 shafts and depths).
+* ECN3 cavern: outline of building 900, or the SHiP/ECN3 high-intensity civil-engineering study with a plan.
+* HL-LHC underground structures: HL-LHC TDR civil-engineering chapter with plan coordinates (the CYRM download returned HTTP 500 to scripts).
+* Linac2 building number and ISR plan (see the map rows).
+* CDS (cds.cern.ch) is behind an anti-bot challenge for scripts; not circumvented.
