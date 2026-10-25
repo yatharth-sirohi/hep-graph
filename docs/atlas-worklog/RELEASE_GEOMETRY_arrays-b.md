@@ -163,3 +163,86 @@ Not drawn and why (backlog):
    in OSM.
 4. The Whipple 10 m telescope on the Mount Hopkins summit, not part of this
    facility's inventory and out of the basecamp map's extent.
+
+---
+
+## 3. HAWC at Sierra Negra (`map:sierra-negra`)
+
+Grade before: **partial** (1 feature: one reference point at a coordinate good
+to 0.01 degree). Grade after: **layout to scale** (3 features: the 300 water
+tanks, the tank-field outline, the observatory polygon). The map centre moves
+from the paper's rounded coordinate to the centroid of the tank field.
+
+| Entity / feature | Drawn? | Representation | accuracy_m | Check (expected vs measured) |
+| --- | --- | --- | ---: | --- |
+| `geometry:hawc-tanks` (detector:hawc; MultiPolygon of 300 footprints) | drawn | georeferenced (OSM ways 541455344 to 541455690, 300 ways, one editing session) | 5 | summed area, expected 12,556 m2 (= 300 x pi x (7.3 m/2)^2, derived from the paper's 300 tanks of 7.3 m): measured 13,142.9 m2, +4.7 %, pass at 6 % |
+| `geometry:hawc-tank-field-hull` (site:hawc-sierra-negra) | drawn | derived (convex hull of all tank vertices, 33 vertices) | 10 | area vs "22,000 m2": 22,415.9 m2 (+1.9 %), pass at 5 %; area vs the levelled platform "about 22,395 m2": +0.09 %, pass at 3 % |
+| `geometry:hawc-observatory-polygon` | drawn | georeferenced (OSM way 1563711916) | 15 | none (32,534 m2, bigger than the 22,395 m2 platform, so not compared) |
+| outrigger array (345 tanks) | not drawn | | | no position source, none in OSM |
+| HAWC Utility Building, counting house | not drawn | | | unnamed OSM polygons, none identified |
+| `map.unlocated[]` | empty | | | the contract's `unlocated` rows name atlas entities; the outriggers are not an entity, so they are in the map notes and here |
+
+Principal sources: OSM extract of the 300 ways
+(`https://api.openstreetmap.org/api/0.6/map?bbox=-97.325,18.980,-97.295,19.005`,
+way ids as above, e.g. `https://www.openstreetmap.org/way/541455344`); OSM way
+`https://www.openstreetmap.org/way/1563711916`; HAWC ICRC 2013 contributions
+`https://arxiv.org/abs/1310.0074` ("HAWC is composed of 300 water Cherenkov
+detectors built over an area of 22,000 m2"; "Each tank is a cylinder of 7.3m
+in diameter and 5m in height"; "an area of about 22,395 m2, corresponding to
+the HAWC platform"); outriggers `https://arxiv.org/abs/1908.06650`.
+
+Why this is believed: exactly 300 tank ways exist, tagged `height=5` and
+`content=water` (the paper's 5 m tank height); the field outline's area matches
+the paper's array and platform areas to 2 % and 0.1 %. Each tank polygon
+encloses 43.8 m2 against 41.9 m2 for a 7.3 m circle (equivalent-circle diameter
+7.47 m, longest chord 7.65 m): the mappers drew the tanks about 2 % wide, which
+is the whole of the +4.7 % area-check residual; `accuracy_m` 5 for the position
+is unaffected.
+
+Source conflicts and judgement calls:
+
+* The paper quotes three areas for the array: 22,000 m2 (array), "about
+  22,500 m2" and "about 22,395 m2" (platform). The hull is 22,416 m2; two of the
+  three are asserted as checks.
+* The map centre was the rounded coordinate (18.99 N, 97.31 W); the tank field
+  centroid is 587 m from it, inside the rounding box (+-0.005 degree is about
+  550 m north-south and 520 m east-west), so the two do not conflict.
+
+Site coordinate corrections (integrator to apply or not; the proposal rests on
+an OSM trace, rank 11, corroborated by the paper's rounded coordinate):
+
+```json
+{"site_id": "site:hawc-sierra-negra",
+ "current": {"lat": 18.99, "lon": -97.31, "precision_m": 600},
+ "proposed": {"lat": 18.99480, "lon": -97.30767, "precision_m": 30},
+ "source": "src:geo-arrays2-hawc-osm-tank-field",
+ "locator": "centroid of the convex hull of the 300 OSM tank footprints (geometry:hawc-tank-field-hull)",
+ "quote": "HAWC is composed of 300 water Cherenkov detectors built over an area of 22,000 m2 (hull area 22,416 m2); paper site coordinate 18.99 N, 97.31 W lies 587 m from the proposal, inside its rounding"}
+```
+
+Not drawn and why (backlog):
+
+1. The 345 outrigger tanks (1.55 m diameter, "concentric circular symmetric" around
+   the main array, 12 to 18 m apart, in sections A to E; arXiv:1908.06650):
+   backlog is a HAWC outrigger layout table or GIS file; neither the text nor OSM
+   gives positions.
+2. HUB and counting house: none of the four unnamed OSM buildings near the
+   array can be identified from the paper ("installed East to the tank array
+   platform"). Backlog: a HAWC site plan.
+3. The LMT on Sierra Negra (about 1.3 km south-west of the array) is a separate
+   facility, not in this atlas facility's inventory, and is not drawn.
+
+## Pipeline issue found while checking HAWC (for the integrator; `hepgraph/` not touched)
+
+`hepgraph/atlas/geo.py::_ring_centroid` accumulates the shoelace sums in raw
+longitude/latitude, without translating to a local origin. For a polygon a few
+metres across at large coordinates this loses the significant digits: the
+centroids of the 300 HAWC tank polygons (lon -97) are off by a median of 107 m
+and a maximum of 532 m from the true centroid, while the H.E.S.S. footprints
+(lon 16.5) are off by 0.1 to 1.0 m. It affects `distance` checks between small
+polygons, `geometry-site-mismatch`, and the `measured.centroid` in the bundle,
+not `area`, `length` or `span`. This stream therefore uses `distance` checks only
+between H.E.S.S. footprints (error under 1 m on 120 m) and between VERITAS
+points (exact), and measures the 300 tanks with an `area` check; the
+MultiPolygon centroid happens to be off by only 3 m. Fix: subtract the first
+vertex before accumulating.
