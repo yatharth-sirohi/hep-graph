@@ -114,6 +114,14 @@ def test_ring_winding_does_not_change_the_area() -> None:
         pytest.approx(geo.polygon_area_m2({"type": "Polygon", "coordinates": [ring]}))
 
 
+def test_a_small_polygon_far_from_the_origin_keeps_its_centroid() -> None:
+    # A HAWC tank: 7.3 m across at lon -97. Raw-degree shoelace sums put its
+    # centroid hundreds of metres away.
+    shape = circle(-97.30767, 18.99480, 3.65, vertices=24)
+    lon, lat = geo.centroid(shape)
+    assert geo.haversine_m(lon, lat, -97.30767, 18.99480) < 0.5
+
+
 def test_span_is_the_greatest_distance_between_two_vertices() -> None:
     shape = circle(6.06, 46.26, 1000.0, vertices=60)
     assert geo.geometry_span_m(shape) == pytest.approx(2000.0, rel=5e-3)
