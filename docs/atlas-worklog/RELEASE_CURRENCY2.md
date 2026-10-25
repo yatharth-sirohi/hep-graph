@@ -64,6 +64,12 @@ Result: eight stations confirmed (35 planned); the 2023 pause ended by 2025; sta
 
 Result: no status change. The planned upgrade partly happened: arXiv:2509.18368 (22 September 2025): "In 2024, two of the five ARA stations received DAQ upgrades", with "2024-2025 season upgrades" and RFSoC DAQ "foreseen in the coming years". ARENA 2026 abstracts call ARA "five independent stations which have been taking data for over a decade"; arXiv:2603.00341 (27 February 2026) reports "nearly 30 station-years of livetime accumulated". None says which stations are live in 2026 or what the 2025-26 and 2026-27 seasons did, so the 'reduced-scale operation' row (2 of 5 live in the 2024 paper) was kept and its note updated.
 
+## 5. SuperCDMS, Mu3e, DEAP-3600
+
+- SuperCDMS SNOLAB: not resolved, no change. Newest source remains SLAC, 26 August 2026 (https://www6.slac.stanford.edu/news/2026-08-26-supercdms-snolab-begins-preliminary-phase-dark-matter-hunt): "The early-science phase will continue through fall 2026. Following this early data-taking period, the SuperCDMS Collaboration and Operations team plans to warm up the experiment ... This warm-up and maintenance period is expected to last into late 2026, followed by a year of data collection". Nothing newer was found (searches, SLAC page, the SNOLAB report of 26 May and talk of 31 July 2026, whose SuperCDMS text is stale boilerplate). The `active` early-science interval stays open; warm-up is not recorded because no source reports it.
+- Mu3e October-November beam time: not confirmed, status stays `construction`. The PSI Mu3e news page (checked 2026-10-25) has as newest item 24.09.2026 ("Today Mu3e was craned from the staging setup to the PiE5 area, where the experiment was inserted into the Mu3e magnet."), nothing on the start of beam time; the PSI secondary-beam-line schedule page links only schedules for 2013-2020. A note was added to the planned beam-time interval.
+- DEAP-3600 third fill: confirmed running at the end of July 2026; the end is not reported. Light Dark World, 30 July 2026, S. Viel (https://indico.global/event/16618/contributions/155493/attachments/74552/144592/sviel_LDW_july30.pdf): "Now taking data with detector in the upgraded configuration"; "New data taking with upgraded detector to mitigate backgrounds (2025 – present)"; "New data collection in progress with upgraded DEAP-3600 at SNOLAB". The first pass's evidence (22 June and 21 September 2026 abstracts: "newly initiated third fill run") is consistent. Confidence of the third-fill interval raised from `uncertain` to `approximate` (a talk is a secondary source; the start year is approximate). The 2025 plan's end ("~ summer 2026") is not confirmed or refuted by anything dated after 21 September.
+
 ## Change log (every edit, for re-opening)
 
 - **accelerator:fermilab-main-injector** — intervals["no Main Injector beam (transformer failures)"].note/sources; intervals["NuMI run..."].label/note/quote/sources
@@ -136,3 +142,11 @@ Result: no status change. The planned upgrade partly happened: arXiv:2509.18368 
   - new: note records the 2024 DAQ upgrade of two stations and the June 2026 abstracts
   - sources: https://arxiv.org/abs/2509.18368 ; https://indico.kit.edu/event/5380/contributions/22635/
   - quote: "In 2024, two of the five ARA stations received DAQ upgrades, improving the existing electronics"
+- **experiment:deap-3600**, **detector:deap-3600** — intervals["third fill: science operations"] confidence/quote/sources/note (status stays `active`)
+  - old: confidence `uncertain`; quote "These improvements are now being evaluated in the newly initiated third fill run."; start 2025 (approximate), open
+  - new: confidence `approximate`; adds the 30 July 2026 talk as first source; quote "New data collection in progress with upgraded DEAP-3600 at SNOLAB"; dates unchanged
+  - source: https://indico.global/event/16618/contributions/155493/attachments/74552/144592/sviel_LDW_july30.pdf
+  - quote: "Now taking data with detector in the upgraded configuration" | "New data taking with upgraded detector to mitigate backgrounds (2025 – present)"
+- **experiment:mu3e** — intervals["two-month beam time (planned)"].note only (no status or date change)
+  - new: note records that the PSI news page's newest item (24.09.2026) says nothing about the start of beam time
+  - source: https://www.psi.ch/en/mu3e/news
