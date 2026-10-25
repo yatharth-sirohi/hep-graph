@@ -1,0 +1,124 @@
+{
+  "accuracy_m": 8,
+  "aliases": [],
+  "checks": [
+    {
+      "expected": {
+        "dimension": "length",
+        "display": "360 m (perimeter of 130 m x 50 m)",
+        "unit": "m",
+        "value": 360
+      },
+      "kind": "length",
+      "locator": "Slide 6 of the 7 July 2009 J-PARC talk",
+      "note": "expected = 2 x (130 + 50) m, computed here from the quoted footprint",
+      "quote": "dimensions experimental hall: 130×50×20 m3",
+      "sources": [
+        "src:psi-geo-seidel-2009"
+      ],
+      "tolerance": 0.05
+    },
+    {
+      "expected": {
+        "dimension": "area",
+        "display": "6500 m^2 (130 m x 50 m)",
+        "unit": "m^2",
+        "value": 6500
+      },
+      "kind": "area",
+      "locator": "Slide 6 of the 7 July 2009 J-PARC talk",
+      "note": "expected = 130 x 50 m2; tolerance 8% because the quoted sides are rounded to 10 m and 5 m",
+      "quote": "dimensions experimental hall: 130×50×20 m3",
+      "sources": [
+        "src:psi-geo-seidel-2009"
+      ],
+      "tolerance": 0.08
+    }
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "depth_m": null,
+  "entity_id": "site:psi-villigen",
+  "feature_type": "hall",
+  "geometry": {
+    "confidence": "verified",
+    "locator": "OSM way/28028423 version 10 (2026-08-19T23:51:26Z) fetched 2026-10-25T11:05:23Z; Arealplan 18.11.2015 legend line 'WEHA Experimentierhalle B7'; Seidel talk slide 6",
+    "note": "Verified by identity (official legend) plus a passing size check against PSI's own hall dimensions; the polygon itself is a third-party tracing.",
+    "sources": [
+      "src:psi-geo-osm-weha-hall",
+      "src:psi-geo-arealplan-2015",
+      "src:psi-geo-seidel-2009",
+      "src:psi-geo-kiselev-impact-2024"
+    ],
+    "value": {
+      "coordinates": [
+        [
+          [
+            8.2224258,
+            47.5370886
+          ],
+          [
+            8.2231125,
+            47.5370049
+          ],
+          [
+            8.2227956,
+            47.5358209
+          ],
+          [
+            8.2221624,
+            47.5359124
+          ],
+          [
+            8.2221224,
+            47.5359182
+          ],
+          [
+            8.2224258,
+            47.5370886
+          ]
+        ]
+      ],
+      "type": "Polygon"
+    },
+    "verified_at": "2026-10-25"
+  },
+  "id": "geometry:psi-experimental-hall-weha",
+  "level_id": "surface",
+  "license": {
+    "attribution": "© OpenStreetMap contributors",
+    "name": "ODbL-1.0",
+    "url": "https://www.openstreetmap.org/copyright"
+  },
+  "links": {
+    "website": null
+  },
+  "map_id": "map:psi",
+  "method": "OpenStreetMap way 28028423 (building, name 'SμS/Particle Physics - WEHA', roof:shape sawtooth) used verbatim. Identity: PSI's own site-map legend gives 'WEHA Experimentierhalle' (src:psi-geo-arealplan-2015) and PSI's HIPA 50-year talk calls it the 'Experimental hall WEHA' with the meson Target M and the piE1 beamline in it (src:psi-geo-kiselev-impact-2024). Size check: PSI's 2009 talk gives 'dimensions experimental hall: 130x50x20 m3' (src:psi-geo-seidel-2009); the OSM footprint is a rectangle of 134.0 m x 52.4 m (area 6916 m2, perimeter 370 m), 3% and 5% larger on the two sides, within the rounding of the quoted figures. The expected perimeter 360 m and area 6500 m2 in checks[] are my products of the quoted 130 m x 50 m. Haversine / spherical-excess measures on R = 6371008.8 m.",
+  "name": "PSI experimental hall WEHA (HIPA targets and muon/pion beamlines, SμS)",
+  "notes": [
+    "feature_type 'hall' with the campus site as entity: no atlas record depicts the hall itself. The Ring Cyclotron's own building is NOT identified (see map.unlocated)."
+  ],
+  "osm": {
+    "elements": [
+      "way/28028423"
+    ],
+    "timestamp": "2026-10-25T11:05:23Z"
+  },
+  "representation": "georeferenced",
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:psi-villigen",
+  "sources": [
+    "src:psi-geo-osm-weha-hall",
+    "src:psi-geo-arealplan-2015",
+    "src:psi-geo-seidel-2009",
+    "src:psi-geo-kiselev-impact-2024"
+  ],
+  "summary": {
+    "plain": "The big sawtooth-roofed hall beside the River Aare where the proton beam hits its meson targets and feeds the muon and pion beamlines."
+  },
+  "type": "geometry",
+  "valid": null
+}
