@@ -16,7 +16,16 @@ Other NuMI-fed entities checked by grep: `minerva`, `minos`, `minos-plus` are `c
 
 New fact worth a follow-up, not applied (no entity in the Atlas for the experiments): April 2026 PAC: "FNAL has decided not to run SY120 before the long 2028-29 shutdown for budget reasons" (SY120 feeds the Fermilab Test Beam Facility and SpinQuest).
 
-## 2. Change log
+## 2. SNO+ (acrylic vessel repair and restart)
+
+Result: the repair is confirmed by two dated sources, the restart is only a plan, and the tellurium placeholder was wrong by a year. SNO+ (experiment and detector) moves from `active` to `shutdown` with a planned autumn 2026 restart.
+
+- LIP Advisory Committee 2026 (27-28 April 2026), J. Maneira, slide 5 "SNO+ TIMELINE AND PLANS" (https://indico.lip.pt/event/2184/contributions/7460/attachments/5713/9308/Advisory2026_NeutrinoPhysics.pdf): "Acrylic Vessel Repairs leak in AV, height identified, lowering water now to repair, autumn restart". The slide's timeline figure (rendered and read, not text) shows the scintillator-phase bar ending before the 2026 tick, "Repairs" over 2026-2027 and the green "Fill 0.5% Te" bar starting at 2028 (then "0.5% data", "Fill 1.5% Te", "1.5% data"). Text: "Submitted proposal for 1.5% loading".
+- SNOLAB Report, slides dated 2026/05/26 (https://cinp.ca/sites/default/files/2026-06/SNOLAB_2026CAP.pdf), slides 16-17 "SNO+ Cavity Access for Repairs": "No damage to the neck. AV was not stuck", "Anchor point good. No degradation of structure", "Installing lights"; the cavity photograph shows the PMT array with the water level lowered.
+- Not found: any source after 26 May 2026 on whether the autumn restart happened (the SNO+ site snoplus.phy.queensu.ca does not answer from here; snolab.ca has no news index; the newest SNO+ arXiv paper, 2604.05746 of 7 April 2026, is a reactor-neutrino analysis using data "between May 2022 and July 2025"). The shutdown stays until a source reports the restart.
+- Judgement: "autumn restart" is ambiguous (scintillator data-taking vs water fill); it cannot be the tellurium fill, which the same slide puts in 2028. The shutdown's end is therefore recorded as a planned, approximate date (autumn 2026: date 2026-10, earliest 2026-09, latest 2026-11).
+
+## 3. Change log
 
 - **accelerator:fermilab-main-injector** — intervals["no Main Injector beam (transformer failures)"].note/sources; intervals["NuMI run..."].label/note/quote/sources
   - old: planned run labelled "NuMI run, 20 weeks (planned)", quote from the April 2026 PAC report only; shutdown note ended at "should be re-checked"
@@ -34,3 +43,8 @@ New fact worth a follow-up, not applied (no entity in the Atlas for the experime
   - new: status `shutdown`; "operating" ends 2024-07; new derived interval "no NuMI beam (Main Injector transformer failures)" 2024-07 -> planned 2026-10 (mirrors experiment:nova, same conflict note)
   - source: https://pac.fnal.gov/wp-content/uploads/2026/06/Public_PAC_Report_April_2026.pdf
   - quote: "The MI has not operated since July 2024"
+- **experiment:sno-plus**, **detector:sno-plus** — status / intervals
+  - old: status `active`; "liquid-scintillator phase" 2022 open-ended; (experiment only) planned "tellurium-loading phase" start 2027 (an unsourced placeholder)
+  - new: status `shutdown`; scintillator phase ends 2026-04 (approximate, "by April 2026"); new interval "acrylic vessel leak repair" 2026-04 (approximate) -> planned autumn 2026 (2026-10, earliest 2026-09, latest 2026-11); (experiment only) planned tellurium phase relabelled "tellurium-loaded phase (planned: 0.5% Te fill from 2028)", start 2028 (approximate, from the slide's timeline figure)
+  - sources: https://indico.lip.pt/event/2184/contributions/7460/attachments/5713/9308/Advisory2026_NeutrinoPhysics.pdf ; https://cinp.ca/sites/default/files/2026-06/SNOLAB_2026CAP.pdf
+  - quote: "leak in AV, height identified, lowering water now to repair, autumn restart" (LIP slide, 27-28 April 2026) | "Fill 0.5% Te" (same slide; year read from the figure) | "No damage to the neck. AV was not stuck" (SNOLAB report, 26 May 2026)
