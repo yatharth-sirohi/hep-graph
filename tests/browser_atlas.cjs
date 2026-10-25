@@ -2152,6 +2152,30 @@ async function setRangeValue(locator, value) {
 
   }
 
+  // Phone-width findings F8 and F9 (rv-maps).
+  if (process.env.HEP_ATLAS_DATA === "generated") {
+    await record("Phone: the Results filters wrap instead of scrolling sideways, and about.html fits the screen (F8, F9)", async () => {
+      for (const width of [360, 390]) {
+        const mobile = await browser.newContext({ viewport: { width, height: 844 }, ...MOBILE });
+        mobile.on("page", (p) => p.on("pageerror", (e) => errors.push(e.message)));
+        const p = await mobile.newPage();
+        await p.goto(`${base}/atlas?m=results`);
+        await p.locator("#results-filter-facility").waitFor({ timeout: 20000 });
+        const seen = await p.evaluate(() => [...document.querySelectorAll(".results-filters select, #results-sort, .group-toggle")]
+          .map((el) => { const r = el.getBoundingClientRect(); return { id: el.id, left: r.left, right: r.right }; }));
+        assert.equal(seen.length, 8, "five filters, the sort and two group buttons");
+        for (const c of seen) assert.ok(c.left >= 0 && c.right <= width, `${c.id} is on screen at ${width}px (${c.left}..${c.right})`);
+        const strips = await p.evaluate(() => [...document.querySelectorAll(".results-filters, .mode-toolbar")]
+          .map((el) => el.scrollWidth - el.clientWidth));
+        assert.ok(strips.every((d) => d <= 0), `no control strip scrolls sideways: ${strips}`);
+        await p.goto(`${base}/atlas/about.html`);
+        await p.locator(".about-toc").waitFor();
+        assert.ok(await p.evaluate(() => document.documentElement.scrollWidth) <= width, `about.html is wider than ${width}px`);
+        await mobile.close();
+      }
+    });
+  }
+
   await record("A result whose official_url restates its arXiv link shows one arXiv link and no 'Official page'", async () => {
     const arxivDuplicateResult = process.env.HEP_ATLAS_DATA === "generated"
       ? "alice-hypertriton-lifetime-2019" : "super-k-atmospheric-oscillation-1998";

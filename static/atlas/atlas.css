@@ -1337,7 +1337,9 @@ body.about-page {
   margin: 0 auto;
   padding: 28px 20px 60px;
   display: grid;
-  grid-template-columns: 200px 1fr;
+  /* minmax(0, …): a bare 1fr is minmax(auto, 1fr), so one long unbreakable word
+     (a file name in <code>) made the whole column as wide as the word. */
+  grid-template-columns: 200px minmax(0, 1fr);
   gap: 32px;
   align-items: start;
 }
@@ -1466,12 +1468,32 @@ body.about-page {
 }
 @media (max-width: 760px) {
   .about-main {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
   .about-toc {
     position: static;
   }
 }
+/* ---- review F9 (rv-maps): no sideways scroll at phone width ----
+   The page measured 421 px at a 390 px viewport, clipping the contents list and
+   the body text. The grid column above was the cause; these keep it from
+   coming back: nothing in the article or the contents may be wider than its
+   column, long names in <code> and links break, and a wide table scrolls inside
+   its own wrapper. */
+.about-toc,
+.about-article {
+  min-width: 0;
+  max-width: 100%;
+}
+.about-article code,
+.about-article a,
+.about-toc a {
+  overflow-wrap: anywhere;
+}
+.about-table-wrap {
+  max-width: 100%;
+}
+/* ---- end review F9 ---- */
 
 /* ---- local map ----------------------------------------------------------
    The 2D, to-scale local-map view (docs/HEP_ATLAS_GEOMETRY.md §4). Everything
