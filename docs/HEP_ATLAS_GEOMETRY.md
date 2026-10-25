@@ -422,6 +422,8 @@ Implementation resolved these; they are normative from here on.
   hovering or focusing the list row shows it. Labels follow the level and year
   filters and are ghosted with their shape. They are `aria-hidden`: the
   feature list is the screen-reader equivalent.
+* When the selection leaves nothing drawn, a notice over the map says so, with
+  one action ("Show features from all years", or "Show all levels").
 * Styling encodes four things independently and the legend says so:
   **feature type** (ring/tunnel thick line, beamline line with arrowheads,
   hall/cavern/building filled polygon, boundary thin dashed, direction line

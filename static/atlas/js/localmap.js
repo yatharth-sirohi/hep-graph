@@ -1121,7 +1121,7 @@ function obstacleBoxes() {
   const origin = container.getBoundingClientRect();
   const nodes = [...container.querySelectorAll('.leaflet-control')];
   nodes.push(...dom.stage.querySelectorAll(
-    '.map-north, .map-tile-notice:not(.hidden), .map-gap-notice.on-stage, .map-depth:not(.hidden)',
+    '.map-north, .map-tile-notice:not(.hidden), .map-empty-notice, .map-gap-notice.on-stage, .map-depth:not(.hidden)',
   ));
   const boxes = [];
   for (const node of nodes) {
@@ -1715,6 +1715,60 @@ function renderSelectionNotice() {
   dom.stage.appendChild(timelineGapNotice(gap, 'on-stage'));
 }
 
+/**
+ * When nothing at all is drawn, say so on the map itself, with the one click
+ * that fixes it. A blank dark map with the explanation in the sidebar reads as
+ * "there is nothing here" — a claim the atlas cannot make: the map is empty
+ * because of the timeline or the level toggles, not because the laboratory is.
+ */
+function renderEmptyNotice() {
+  const existing = dom.stage.querySelector('.map-empty-notice');
+  if (existing) existing.remove();
+  if (!bundle || !bundle.features.length || layersByFeature.size) return;
+  const onVisibleLevels = bundle.features.filter((f) => visibleLevelIds().includes(f.level_id));
+  const nodes = [];
+  let action;
+  if (!onVisibleLevels.length) {
+    nodes.push(
+      h('p', { class: 'map-empty-title' }, 'Every level is switched off, so nothing is drawn.'),
+      h('p', {}, `This map has ${bundle.features.length} feature${bundle.features.length === 1 ? '' : 's'}; `
+        + 'switching levels off only hides them.'),
+    );
+    action = h('button', { type: 'button', class: 'map-empty-btn' }, 'Show all levels');
+    action.addEventListener('click', () => NAVIGATE({ levels: null }));
+  } else {
+    let first = Infinity;
+    let last = -Infinity;
+    for (const feature of onVisibleLevels) {
+      const segments = feature.state_segments;
+      if (!segments || !segments.length) continue;
+      first = Math.min(first, segments[0][0]);
+      last = Math.max(last, segments[segments.length - 1][1]);
+    }
+    const span = Number.isFinite(first)
+      ? (monthToYear(first) === monthToYear(last)
+        ? `${monthToYear(first)}` : `${monthToYear(first)}\u2013${monthToYear(last)}`)
+      : null;
+    const n = onVisibleLevels.length;
+    nodes.push(
+      h('p', { class: 'map-empty-title' }, `Nothing on this map is present in ${whenLabel()}.`),
+      h('p', {}, `${n === 1 ? 'Its one feature belongs' : `Its ${n} features belong`} to other years`
+        + `${span ? ` (${span})` : ''}. The timeline is hiding ${n === 1 ? 'it' : 'them'}: `
+        + 'that is a filter, not a statement about the laboratory.'),
+    );
+    action = h('button', { type: 'button', class: 'map-empty-btn', id: 'map-empty-all-years' },
+      'Show features from all years');
+    action.addEventListener('click', () => {
+      showOutside = true;
+      redraw();
+      const toggle = document.getElementById('map-outside-toggle');
+      if (toggle) toggle.focus({ preventScroll: true });
+    });
+  }
+  nodes.push(action);
+  dom.stage.appendChild(h('div', { class: 'map-empty-notice', role: 'status' }, nodes));
+}
+
 function renderDrawer() {
   const { drawer, drawerHead, drawerFacts, root } = dom;
   const features = selectedFeatures();
@@ -1873,6 +1927,7 @@ function redraw() {
   renderSidebar();
   renderDepth();
   renderSelectionNotice();
+  renderEmptyNotice();
 }
 
 // ------------------------------------------------------------------ show
@@ -1994,6 +2049,7 @@ export async function show(current, ctx) {
   renderDepth();
   renderDrawer();
   renderSelectionNotice();
+  renderEmptyNotice();
 
   // The selected entity's normal detail panel, rendered by panels.js into
   // the drawer (app.js has already pointed panels at drawerPanelEl()).

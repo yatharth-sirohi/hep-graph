@@ -1978,6 +1978,45 @@ a.local-map-chip {
   vertical-align: middle;
 }
 
+/* Nothing drawn: said on the map itself, with the click that fixes it. */
+.map-empty-notice {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 1100;
+  transform: translate(-50%, -50%);
+  width: min(440px, calc(100% - 100px));
+  padding: 12px 14px;
+  background: var(--panel);
+  border: 1px solid var(--amber);
+  border-left-width: 3px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  color: var(--white);
+  font-size: 13px;
+}
+.map-empty-notice p {
+  margin: 0 0 8px;
+}
+.map-empty-notice .map-empty-title {
+  font-size: 14px;
+  font-weight: 600;
+}
+.map-empty-btn {
+  appearance: none;
+  background: var(--panel-2);
+  border: 1px solid var(--teal);
+  border-radius: var(--radius);
+  color: var(--white);
+  cursor: pointer;
+  font: inherit;
+  font-weight: 600;
+  padding: 6px 12px;
+}
+.map-empty-btn:hover {
+  background: var(--teal);
+  color: var(--paper);
+}
 @media (max-width: 760px) {
   .map-label.leaflet-tooltip {
     font-size: 11px;
@@ -1985,5 +2024,8 @@ a.local-map-chip {
   }
   .map-label .map-label-sub {
     white-space: normal;
+  }
+  .map-empty-notice {
+    width: calc(100% - 90px);
   }
 }
