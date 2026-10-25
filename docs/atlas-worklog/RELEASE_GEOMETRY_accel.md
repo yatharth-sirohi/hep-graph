@@ -181,7 +181,7 @@ Grade after: layout to scale (derived racetrack, four halls, tunnel straights, s
 ### What made it possible: the City of Newport News footprint layer
 
 OSM still has no CEBAF element (re-checked 2026-10-25 through the OSM API: 5 786 ways in the box
--85.5..-76.46 x 37.085..37.11, none is a tunnel, hall or ring). The earlier worklog's backlog asked for "a
+-76.50..-76.46 x 37.085..37.11, none is a tunnel, hall or ring). The earlier worklog's backlog asked for "a
 non-OSM source". The city publishes **building footprints** as open data
 (`https://maps.nnva.gov/gis/rest/services/Operational/Building/MapServer/0`, found through the city GeoHub
 catalog at geohub.nnva.gov; "photo derived building polygons digitized from 2016 Aerial photography and manually
@@ -257,3 +257,72 @@ None attributable to the JLab files.
 
 The ring, tunnel strips and halls take accelerator:cebaf's timeline (active in 2026-10); Hall D is valid from 2017.
 The campus-building features have no entity and no `valid` (timeless). Built bundle: all eleven features present in 2026.
+
+## Los Alamos / LANSCE (map:los-alamos-national-laboratory)
+
+Grade before: marker only (one OSM point; accelerator:lansce and detector:lsnd unlocated); and the map drew nothing in 2026.
+Grade after: layout to scale for the LANSCE cluster (linac structure, main hall, ring, Lujan Center, WNR, boundary, 76 further buildings); detector:lsnd still unlocated.
+
+### The integrator's finding (empty map in 2026) and its cause
+
+The only feature, `geometry:lansce-site-marker`, was tied to `site:lanl-lansce`. A site has no timeline of its own; its
+`state_segments` come from the detectors placed there, and the only one is LSND (1993-98, 'completed'), so the
+feature was "not present in 2026". `accelerator:lansce` itself is fine (interval 1972-06 to open, status active), so
+nothing needs editing there. The marker is retired and the new features are either tied to the active accelerator or
+timeless (no entity, no `valid`, `site_id` only). The map centre was also wrong in a second way: OSM node 8041862150
+"LANSCE" is the **west end** of TA-53, 2.8 km from the building cluster; the map is now centred on the cluster
+(35.8684, -106.2589) with `extent_m` 1000.
+
+### The earlier "TA-53 is unmapped" conclusion was wrong
+
+The previous pass searched around the OSM node and found no buildings. An OSM API extract of the cluster
+(bbox -106.275..-106.245 x 35.862..35.878, 2026-10-25T11:24Z) holds 118 TA-53 features, many with the LANL building
+number in `ref` (53-0003, 53-0007, 53-0017, 53-0030, 53-0364, 53-0365 ...). Los Alamos County also publishes (i) the
+LANL technical-area polygons (`gis.losalamosnm.us/.../basemaps/technical_areas/MapServer/0`, TA-53 = "MESON PHYSICS
+FACILITY", 751 acres) and (ii) a 'Structures' footprint layer with `BLDG_ID` and a 30-character `DESC_`
+(`.../basemaps/basemap/MapServer/7`: "Proton Stg Ring Fac", "Manuel Lujan Neutron Scatterin" ...).
+**Cross-dataset check** (the two sets were made independently): for the same building numbers the OSM and county
+outlines have centroids 1.0 m (53-6), 1.0 m (53-19), 2.9 m (53-18), 3.1 m (53-2), 3.4 m (53-365), 5.5 m (53-939), 5.7 m
+(53-17), 8.3 m (53-28), 9.4 m (53-14), 10.9 m (53-30) apart; areas agree within 5% for buildings 6, 14, 17, 18, 28 and 939 and differ by 14-41% for 19, 30 and 365 (a matter of outline detail, not position). Building 53-3 is two
+outlines: the long wing (OSM) and the main hall (county), adjoining; 53-7 differs (OSM 22 m box, county 205 m thin
+structure), so the county outline is drawn and the disagreement is noted on the map.
+
+### Inventory
+
+| Entity | Status | Representation | accuracy_m | Check |
+| --- | --- | --- | --- | --- |
+| accelerator:lansce | drawn: geometry:lansce-linac-building (OSM way 370719333, ref 53-0003, 695 m x 26 m, east-west; `linac`) | georeferenced, approximate | 10 | none (building vs the official "800m" accelerator stage is not like for like; 695 m vs 800 m recorded as a conflict) |
+| (context) main hall, building 3 | geometry:lansce-main-building (county BLDG_ID 3) | georeferenced | 10 | none |
+| (context) Proton Storage Ring facility, 8 | geometry:lansce-proton-storage-ring-building (county BLDG_ID 8, a 31.8 m circle) | georeferenced, approximate | 10 | span 31.8 m vs "30-m-diameter Proton Storage Ring" (LANL, LA-UR-05-9402), tol 10%: pass (+6%) |
+| (context) Lujan Center 30, WNR 7, "Gta Facility" 365, neutrino-experiment service building 364 | one record each (county layer) | georeferenced | 10 | none |
+| (context) 70 further structures | geometry:lansce-other-structures (guard stations left out) | georeferenced | 10 | none |
+| (context) TA-53 boundary | geometry:lansce-ta-53-boundary (county polygon, 1006 -> 110 vertices at 8 m) | georeferenced | 20 | none |
+| detector:lsnd | **unlocated** (reason extended) | - | - | - |
+
+Identification of the linac wing rests on: the shared building number 53-3 between OSM and the county layer
+("Los Alamos Neutron Science Cen"), LANL's statement that the linac stretches "eastward from the Laboratory along a narrow
+mesa top" (LA-UR-05-9402), the straight 695 m east-west shape ending at the main hall, and the absence of any other
+structure of that length. No fetched source says "building 53-3 holds the linac"; the record says so.
+
+### Source conflicts
+
+* **Linac length: 800 m (LANL linac page, "The third and longest stage of the accelerator (800m)") vs the 695 m
+  outline of the structure (-13%).** A building outline and an accelerator stage are different things so no check was written and the shape is `approximate`.
+* TA-53 building 7: OSM 22 m box vs county 205 m structure (see above).
+* The previous worklog said TA-53 had zero OSM buildings; that was an artefact of the search location, not of OSM.
+
+### Site coordinate corrections (for the integrator)
+
+| record | current | proposed | source | note |
+| --- | --- | --- | --- | --- |
+| site:lanl-lansce | 35.8725644, -106.2890098 (precision 150 m; OSM node 'LANSCE') | 35.8684, -106.2589 (campus point at the LANSCE building cluster), precision_m about 300 | src:lanl-geo-county-structures (centroid of the linac wing, main hall, ring and Lujan footprints), src:lanl-geo-osm-linac-building | The current point is the west tip of TA-53, 2.8 km from the cluster. A hall position for LSND (the detector placed here) is not sourced. |
+
+### Not done, and backlog
+
+* The linac's beam axis, its front end (injectors, drift-tube linac) and the switchyard and experimental areas (A, B, C, D) are not separately located.
+* detector:lsnd: needs a LANSCE document giving the A6 beam stop or Area A coordinates; the county 'Neutrion Exper Service Bl' (building 364) is a candidate lead only.
+* A LANL building list that names the linac building number (a document stating "53-3 = linac").
+
+### Time check
+
+Linac wing: accelerator:lansce timeline (active in 2026-10). All other features are timeless. Built bundle: all nine features present in 2026.
