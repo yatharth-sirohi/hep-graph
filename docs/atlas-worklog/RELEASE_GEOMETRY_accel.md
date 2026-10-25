@@ -104,3 +104,71 @@ None new for Fermilab.
   transfer line to the Booster per the 2024 alignment papers; no coordinates are public.
 * Mu2e, KTeV, MINERvA, DONUT, DUNE near detector, LBNF: nothing new in OSM
   (Nominatim name searches over the campus returned no results on 2026-10-25).
+
+## PSI (map:psi)
+
+Grade before: marker only (campus boundary, accelerator:psi-hipa unlocated).
+Grade after: layout to scale (a verified hall plus principal buildings and the campus footprints); accelerator:psi-hipa still unlocated.
+
+### What made it possible
+
+PSI's own **Arealplan of 18.11.2015** (`https://indico.psi.ch/event/4127/attachments/7754/9862/PSIsitemapESS.pdf`,
+hosted by PSI) has a text-layer legend that maps PSI's four-letter building codes to names
+("WEHA Experimentierhalle B7", "WIHA Injektorhalle 2 B6", "WNAB UCN-Halle A7", "WNHA
+Neutronenhalle B7", "WNLA Neutronenleiterhalle B7", "WMFA UCN-Betriebsgebäude A7",
+"WNAA Nukleonenhalle A7"). The OSM mappers named the PSI buildings by exactly those codes,
+which the earlier pass could not see through Nominatim. The plan itself was read for its
+legend only; it was not traced and is not copied. A 2009 PSI talk (M. Seidel, J-PARC,
+`https://www2.kek.jp/accl/legacy/seminar/file/mike_seidel_PSI_accelerators.pdf`, slide 6)
+gives the experimental hall as "130x50x20 m3" and the Ring Cyclotron as "ø15m".
+
+### Inventory
+
+| Entity | Status | Representation | accuracy_m | Check |
+| --- | --- | --- | --- | --- |
+| site:psi-villigen | drawn: geometry:psi-campus-boundary (unchanged) and geometry:psi-experimental-hall-weha (hall, OSM way 28028423) | georeferenced, **verified** (hall) | 8 | perimeter 370 m vs 360 m (2 x (130 + 50), PSI 2009 talk), tol 5%: pass (+2.8%); area 6916 m^2 vs 6500 m^2, tol 8%: pass (+6.4%). OSM footprint 134.0 m x 52.4 m |
+| (context) Injector 2 hall WIHA | geometry:psi-injector-2-hall-wiha (way 28028422), 52.1 m x 19.1 m | georeferenced, approximate | 8 | none (no official dimension found) |
+| (context) SINQ building | geometry:psi-sinq-building (way 694278565), 124.8 m x 35.4 m | georeferenced, approximate | 8 | none |
+| (context) UCN hall WNAB | geometry:psi-ucn-hall-wnab (way 736230166), 29.2 m x 12.8 m | georeferenced, approximate | 8 | none |
+| (context) 109 other campus buildings | geometry:psi-campus-buildings (MultiPolygon) | georeferenced, approximate | 8 | none |
+| accelerator:psi-hipa | **unlocated** (reason and backlog rewritten) | - | - | - |
+| detector:meg, detector:meg-ii, detector:mu3e | accounted through site:psi-villigen; no hall attributed | - | - | - |
+
+The hall's `verified` rests on identity (official legend) plus a passing size check against PSI's own
+dimension; the polygon itself is still a third-party tracing. The expected perimeter and area are my
+products of the quoted 130 m x 50 m (stated in each check's note).
+
+### What could not be done
+
+* **The Ring Cyclotron is not placed.** No fetched source says which building holds it: the Arealplan
+  legend has no "Ringzyklotron" entry (it does have WEHA, WIHA, WNAA "Nukleonenhalle", WHFA
+  "Hochfrequenzgebäude"), PSI's HIPA page and talks give its layout only as an unscaled diagram, and
+  searches for "Nukleonenhalle" + Ringzyklotron found nothing. Candidate buildings (for example WNAA,
+  WMHA, or the WEHA hall itself) were not chosen by shape; guessing would put a 15 m machine in a
+  building because it is the right size. HIPA therefore stays unlocated, and WEHA/WIHA are drawn as
+  context (WEHA as a `hall` of the site, WIHA as a building) rather than as HIPA's own features.
+* MEG II and Mu3e: no source found that says which hall they are in (they are placed on the campus
+  site); they are not attributed to WEHA. Mu3e records were not touched (known unrelated validator errors).
+* No official figures were found for WIHA, SINQ, UCN-Halle (no checks).
+
+### Site coordinate corrections
+
+None new. `site:psi-villigen` was already moved onto the campus by the integrator on 2026-09-21.
+
+### Warnings left on PSI files
+
+None attributable to the PSI geometry or map records. The A23 warning on site:psi-villigen (campus-grade
+point for a detector-holding site) is on an existing record.
+
+### Backlog
+
+* A PSI document naming the Ring Cyclotron's building (code in the Arealplan legend, a layout drawing with
+  a scale bar, or a GIS layer); then take that building from OSM by its code.
+* Official dimensions for the Injector 2 hall, SINQ halls, UCN hall (to add size checks).
+* The hall of MEG II / Mu3e (the pi-E5 area) from a PSI document.
+
+### Time check
+
+The map's features carry the campus site's timeline (active from 2026-09 back to the site's first placement);
+`geometry:psi-campus-buildings` and the context buildings have no entity and no `valid`, so they are timeless.
+Built bundle: all six features present in 2026.
