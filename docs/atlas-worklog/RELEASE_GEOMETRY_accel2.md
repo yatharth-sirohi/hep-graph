@@ -102,3 +102,60 @@ None attributable to the SNS records.
   (248.0 m, 169 m, 151 m; PAC 2003 ROPA001).
 * An official dimension for the linac structure or for building 8700 to turn the plausibility argument into a check.
 * The target position inside 8700 and the Neutrino Alley bearing (COHERENT plan view).
+
+---
+
+## 2. Argonne / APS (`map:argonne-national-laboratory`)
+
+Grade before: partial (footprints only). Grade after: **layout to scale** (a derived storage-ring orbit plus footprints).
+ATLAS inside Building 203 is still unlocated.
+
+### The APS orbit: what a circle can honestly claim
+
+The earlier pass left the 1104 m orbit unlocated because "no source gives a radius and centre". The data over-determine it:
+
+* **Radius, sourced**: the APS operations page `https://ops.aps.anl.gov/SRparameters/SRparameters.html` (M. Borland, 2024-08-27)
+  gives "Circumference C 1103.609 m" and "There are 40 sectors in the ring". R = C / 2 pi = 175.645 m. The ring is 40 identical
+  9-degree sectors, so a circle of the same circumference departs from the orbit by less than one sector's sagitta, 0.54 m.
+* **Centre, fitted to the OSM hall**: the outer way of relation 3126234 (258 vertices) is a circle of R = 196.82 m with a 0.44 m
+  standard deviation; the inner way (80 vertices) has notches (mazes, ratchets), but its 47 vertices on the circle (trimmed least
+  squares) give R = 169.97 m and a centre 0.6 m from the outer one. Centre used: 41.7035178 N, 87.9881277 W.
+* **Relation, sourced**: the 1987 Conceptual Design Report (ANL-87-15, OSTI-hosted scan at the University of North Texas Digital
+  Library, `https://digital.library.unt.edu/ark:/67531/metadc282823/`): "The single-story experiment hall is an annular
+  structure housing both the storage ring enclosure and the experiment floor" (p. IV.3-25), "The storage ring enclosure is
+  located inside the inner perimeter wall of the experiment hall. ... The enclosure is basically circular in plan" (p. IV.3-16),
+  "The inside wall of the concrete tunnel is parallel to the storage ring" (section 2.3.5.3), the hall "91 ft wide by 3472 ft
+  (1060 m) in circumference at the storage ring centerline", and the machine-support buildings "in the infield".
+* **Cross-checks not used in the construction**: the OSM annulus is 26.8 m wide against 91 ft = 27.7 m (-3.4%); the OSM APS linac
+  building (411) and injection wing (412) lie 75-137 m and 44-81 m from the centre, inside the 170 m inner wall (infield).
+* Drawn offset: 5.6 m outside the radius of the inner wall. The report's own cross-section (enclosure interior 11.6-18.9 ft wide,
+  0.8 m walls, about 1.7 m of utility corridor) would put the beam 4-6 m outside the inner wall, so the drawn offset is plausible
+  but not independently pinned; `accuracy_m` 10 and `derived`.
+
+### Inventory (new or changed)
+
+| Entity | Status | Representation | accuracy_m | Check |
+| --- | --- | --- | --- | --- |
+| APS storage ring (no accelerator record; attached to site:argonne-campus) | drawn: geometry:argonne-aps-storage-ring-orbit (ring, circle, 360 vertices) | derived | 10 | length 1103.595 m vs "Circumference C 1103.609 m", tol 0.2%: pass (tautological by construction, said so in the record) |
+| ATLAS layout (injectors, booster, linac, target areas) | **unlocated**, reason extended | - | - | - |
+
+### Conflicts and caveats
+
+* The orbit is attached to `site:argonne-campus` because the atlas has no APS accelerator record (the contract needs an
+  `entity_id` for a ring). The campus site has no state segments, so the ring is drawn in every year (as the campus boundary
+  already is). The integrator may re-point it when `accelerator:aps` exists.
+* Circumference: 1103.609 m (2024 lattice page) vs "1104 m" (OSTI parameter list) vs 1060 m (1987 design). No conflict at
+  the as-built level; the design value is not used for position.
+* `aps.anl.gov`, `anl.gov`, `www.phy.anl.gov` and the sandbox mirror return HTTP 403 to every fetch (re-tried): the ATLAS floor plan
+  PDF (`.../ATLAS_floor_plan_Mar2022.pdf`) and `.../atlas-facility-layout-with-beam-locations` could not be read.
+
+### Warnings left
+
+None on the new or changed files.
+
+### Backlog
+
+* ATLAS: any reachable copy of the ATLAS floor plan or a Building 203 survey drawing with an identifiable building outline;
+  then georeference against three OSM corners of Building 203 (cite, never copy) and place the linac axis.
+* APS: an accelerator record for the APS (so the ring has its own `entity_id` and start date), and an APS survey table with
+  the ring-centre coordinates to replace the fitted centre.

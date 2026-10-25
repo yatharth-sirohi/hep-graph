@@ -26,7 +26,7 @@
       "id": "surface",
       "kind": "surface",
       "name": "Surface",
-      "note": "Plan view of the campus boundary and the principal accelerator buildings; no underground feature is drawn."
+      "note": "Plan view of the campus boundary, the principal APS buildings, the derived storage-ring orbit and Building 203; no underground feature is drawn."
     }
   ],
   "linked_map_ids": [],
@@ -35,8 +35,9 @@
   },
   "name": "Argonne National Laboratory — campus, Advanced Photon Source and Physics Building",
   "notes": [
-    "Argonne has no accelerator, beamline or detector record in the atlas, so every feature here is a context shape (entity_id null) except the campus boundary, which depicts site:argonne-campus.",
-    "anl.gov, phy.anl.gov and map.anl.gov all returned HTTP 403 to every fetch in this session; the official statements used come from OSTI-hosted laboratory documents."
+    "Argonne has no accelerator, beamline or detector record in the atlas, so every feature here is a context shape (entity_id null) except the campus boundary and the derived APS orbit, which are attached to site:argonne-campus.",
+    "anl.gov, aps.anl.gov, www.phy.anl.gov, map.anl.gov and the sandbox mirror all returned HTTP 403 to every fetch in this session as well; the statements used come from the APS operations pages (ops.aps.anl.gov) and OSTI-hosted laboratory documents.",
+    "Release pass 2 (2026-10-25): the APS storage-ring orbit was added as a derived circle (see geometry:argonne-aps-storage-ring-orbit); the ATLAS layout remains unlocated."
   ],
   "schema": "hep-atlas/0.2",
   "schematics": [
@@ -52,28 +53,20 @@
   "sources": [
     "src:geo-argonne-osm-campus-boundary",
     "src:geo-argonne-aps-parameters",
-    "src:geo-argonne-atlas-lab-portrait"
+    "src:geo-argonne-atlas-lab-portrait",
+    "src:geo-argonne-aps-sr-parameters",
+    "src:geo-argonne-aps-cdr-1987"
   ],
   "summary": {
-    "plain": "Argonne National Laboratory's campus near Lemont, Illinois, drawn to scale with the ring-shaped Advanced Photon Source hall, its injector buildings and the Physics Building that houses the ATLAS heavy-ion linac.",
-    "technical": "One local map for facility:argonne-national-laboratory. Drawn from OpenStreetMap: the campus fence polygon (way 4372309), the APS Experiment Hall multipolygon (relation 3126234, outer 1240 m / inner 1133 m perimeter), the APS linac tunnel (411) and injection wing (412) buildings, and Building 203, identified as the ATLAS building by an Argonne laboratory report. The APS storage-ring orbit (1104 m circumference, OSTI) and the ATLAS accelerator's internal layout are not drawn."
+    "plain": "Argonne National Laboratory's campus near Lemont, Illinois, drawn to scale: the ring-shaped Advanced Photon Source hall with the storage-ring path inside it, the injector buildings, and the Physics Building that houses the ATLAS heavy-ion linac.",
+    "technical": "One local map for facility:argonne-national-laboratory. Drawn from OpenStreetMap: the campus fence polygon (way 4372309), the APS Experiment Hall multipolygon (relation 3126234), the APS linac tunnel (411) and injection wing (412) buildings, and Building 203 (the ATLAS building). Derived: the APS storage-ring orbit as a circle of the published 1103.609 m circumference, concentric with the hall's circular outlines (accuracy 10 m). Not drawn: the internal layout of ATLAS."
   },
   "type": "map",
   "unlocated": [
     {
-      "backlog": "Find a published APS storage-ring survey table or lattice drawing with sector coordinates (the APS Upgrade technical design report or its survey/alignment documents) and place the orbit against surveyed control points, then add a length check against 1104 m.",
-      "entity_id": "facility:argonne-national-laboratory",
-      "reason": "APS storage ring orbit (circumference 1104 m, 40 sectors per the APS list of parameters). OpenStreetMap maps only the ring-shaped Experiment Hall (relation 3126234), not the beam path; the hall's inner outline measures about 1133 m and its outer outline about 1240 m, so it brackets no figure that could serve as a ring-circumference check, and an orbit drawn as a circle would be invented geometry. The Atlas has no accelerator record for the APS.",
-      "sources": [
-        "src:geo-argonne-aps-parameters",
-        "src:geo-argonne-osm-aps-hall"
-      ],
-      "verified_at": "2026-10-25"
-    },
-    {
       "backlog": "Obtain the ATLAS floor plan (phy.anl.gov/atlas/facility/floorplan.html, an unscaled graphic) or a surveyed drawing of Building 203 and georeference it against at least three building corners from the OSM footprint; official plans may only be cited, never copied.",
       "entity_id": "facility:argonne-national-laboratory",
-      "reason": "ATLAS accelerator layout (injectors, booster linac, ATLAS linac, target areas I-IV). Only the Building 203 footprint is drawn; the laboratory's own layout figure is an unscaled cutaway, and no fetched source gives the beam axis or hall outlines inside the building. The Atlas has no accelerator record for ATLAS.",
+      "reason": "ATLAS accelerator layout (injectors, booster linac, ATLAS linac, target areas I-IV). Only the Building 203 footprint is drawn; the laboratory's own layout figure is an unscaled cutaway, and no fetched source gives the beam axis or hall outlines inside the building. The official ATLAS floor-plan PDF and the 'Facility Layout with Beam Locations' page (anl.gov) and phy.anl.gov documents returned HTTP 403 again on 2026-10-25, and a floor plan of equipment would in any case need three identifiable building corners to be georeferenced. The Atlas has no accelerator record for ATLAS.",
       "sources": [
         "src:geo-argonne-atlas-lab-portrait"
       ],
