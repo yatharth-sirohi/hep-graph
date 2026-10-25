@@ -22,7 +22,7 @@ interface says only "coverage updated" with this date.
 | person | 12 |
 | result | 109 |
 | site | 93 |
-| source | 1864 |
+| source | 1868 |
 | topic | 42 |
 | membership rows | 658 |
 
