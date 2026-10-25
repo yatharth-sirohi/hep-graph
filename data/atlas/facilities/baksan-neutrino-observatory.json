@@ -7,10 +7,11 @@
   "kind": "underground_laboratory",
   "operator": {
     "value": "Institute for Nuclear Research of the Russian Academy of Sciences (INR RAS)",
-    "sources": ["src:sage-wikipedia"],
-    "verified_at": "2026-09-18",
-    "confidence": "uncertain",
-    "note": "Wikipedia (rank 12) names the Joint Institute for Nuclear Research (Russia) as a SAGE participant, but not explicitly as the Baksan facility's operator; INR RAS's operatorship is general knowledge of the Baksan observatory not independently confirmed by a rank<=10 source fetched this session, so recorded uncertain rather than verified."
+    "sources": ["src:geo-euro-ug-pandola-2011", "src:rf12-inr-baksan-observatory-page"],
+    "verified_at": "2026-10-25",
+    "confidence": "verified",
+    "quote": "The laboratory is operated by the Institute for Nuclear Research (INR) of the Russian Academy of Sciences.",
+    "note": "Pandola (arXiv:1102.0208) states the operator; the INR RAS website lists the Baksan Neutrino Observatory (BNO) among its 'main facilities'. The SAGE 1999 results paper also places the SAGE laboratory at the BNO of INR RAS."
   },
   "operator_ids": [],
   "country": ["RU"],
@@ -22,26 +23,26 @@
       "status": "active",
       "start": "1989-12",
       "end": null,
-      "sources": ["src:sage-wikipedia"],
-      "verified_at": "2026-09-18",
+      "sources": ["src:sage-wikipedia", "src:sage-1999-capture-rate"],
+      "verified_at": "2026-10-25",
       "confidence": "approximate",
-      "quote": "Construction/Start: December 1989",
-      "note": "Sourced from Wikipedia (rank 12) only this session; no official Baksan/INR page was reachable (inr.ru/baksan.html returned 404)."
+      "quote": "The experiment began measuring the solar neutrino capture rate with the gallium target in December 1989",
+      "note": "Month precision rests on Wikipedia (rank 12). The SAGE 1999 results paper (arXiv:astro-ph/9907113) says 'by late 1989 backgrounds were low enough to begin solar neutrino measurements' and that the data period SAGE I began in January 1990. This interval is the SAGE-hosting period only; the observatory itself is older (Pandola, arXiv:1102.0208: excavation started in 1966, experimental activities in the 1970s)."
     }
   ],
   "status": "active",
   "specs": {
     "depth": {
-      "value": 2100,
-      "unit": "m",
-      "dimension": "length",
+      "value": 4700,
+      "unit": "m.w.e.",
+      "dimension": "depth_mwe",
       "approx": false,
-      "display": "2100 m (6900 ft)",
-      "sources": ["src:sage-wikipedia"],
-      "verified_at": "2026-09-18",
-      "confidence": "approximate",
-      "quote": "the apparatus situated 2,100 meters (6,900 feet) underground",
-      "note": "Sourced from Wikipedia (rank 12) only this session."
+      "display": "4700 m.w.e. (Gallium-Germanium Neutrino Telescope / SAGE hall)",
+      "sources": ["src:rf12-inr-baksan-observatory-page", "src:sage-1999-capture-rate"],
+      "verified_at": "2026-10-25",
+      "confidence": "verified",
+      "quote": "the Gallium-Germanium Neutrino Telescope with a 50 ton target of metallic gallium and a laboratory for extraction of germanium atoms located at a depth of 4700 m.w.e in the mountain rock",
+      "note": "Depth of the SAGE hall in metres of water equivalent, per the INR RAS page and the SAGE 1999 paper ('overhead shielding of 4700 meters of water equivalent'). Other Baksan halls are shallower (BUST more than 800 m.w.e.; low-background laboratories at 660, 1000 and 4900 m.w.e. per the INR page). The previous value of 2100 m (6900 ft), taken from Wikipedia, is not stated by either source and was removed."
     }
   },
   "topic_ids": ["topic:solar-neutrinos"],
@@ -50,12 +51,12 @@
     "website": null
   },
   "notes": [
-    "The Baksan/INR official site (inr.ru/baksan.html) returned 404 on the one URL guessed this session; this record relies on Wikipedia and the SAGE 1999 results paper (which does not itself state facility coordinates or depth)."
+    "The INR RAS page on the observatory (inr.ru/eng/ebno.html) gives the depths in metres of water equivalent; the SAGE 1999 results paper gives the SAGE hall depth and does not state facility coordinates. The SAGE-start month still rests on Wikipedia."
   ],
-  "sources": ["src:sage-inspire-experiment-record", "src:sage-wikipedia"],
+  "sources": ["src:sage-inspire-experiment-record", "src:sage-wikipedia", "src:sage-1999-capture-rate", "src:geo-euro-ug-pandola-2011", "src:rf12-inr-baksan-observatory-page"],
   "summary": {
-    "plain": "An underground laboratory dug into a mountain in the Russian Caucasus, more than two kilometres of rock overhead, built to study neutrinos from the Sun and elsewhere.",
-    "technical": "Underground neutrino laboratory in the Caucasus Mountains, Russia, operated by INR RAS; the SAGE gallium detector sits about 2100 m (6900 ft) underground."
+    "plain": "An underground laboratory dug into a mountain in the Russian Caucasus, with rock overhead equal in shielding to about 4700 metres of water at its deepest neutrino hall, built to study neutrinos from the Sun and elsewhere.",
+    "technical": "Underground neutrino laboratory in the Caucasus Mountains, Russia, operated by INR RAS; the SAGE gallium detector sits at a depth of 4700 m.w.e."
   },
   "coverage": {
     "tier": "D",

@@ -8,12 +8,12 @@
   "placements": [
     {"site_id": "site:summit-station-rno-g", "role": "main", "start": "2021-05-24", "end": null,
      "sources": ["src:astro-neutrino-rno-g-geo-summit-rno-g-project-page"], "verified_at": "2026-09-17", "confidence": "verified",
-     "quote": "Fieldwork occurred in 2021 (May 24-August 19, with 13 personnel)", "note": ""}
+     "quote": "Date In Date Out #People 2021 Greenland - Summit 2021-05-24 2021-08-19 13", "note": "Start is the 'Date In' of the first (2021) Summit Station field season listed on the Summit Station project page; the date of the first station installation is not stated there."}
   ],
   "technology": {
     "value": "In-ice radio antenna stations: each with three strings of antennas ~100 m deep in the firn plus surface antennas, detecting the Askaryan radio pulse from neutrino-induced showers in ice",
-    "sources": ["src:astro-neutrino-rno-g-geo-summit-rno-g-project-page"], "verified_at": "2026-09-17", "confidence": "verified",
-    "quote": "array is a 1.25 km grid of stations with three strings of 15 antennas 100 m below the surface and 9 surface antennas", "note": ""
+    "sources": ["src:astro-neutrino-rno-g-first-seven-stations-2024"], "verified_at": "2026-10-25", "confidence": "verified",
+    "quote": "Each station is composed of 24 low-noise receiving antennas installed in a hybrid configuration with both near-surface and deep receivers. ... The deep antennas are deployed in three boreholes down to 100 meters depth.", "note": ""
   },
   "technology_class": "radio",
   "technology_classes": ["radio"],
@@ -31,23 +31,23 @@
       "sources": ["src:astro-neutrino-rno-g-first-seven-stations-2024"], "verified_at": "2026-09-17", "confidence": "verified",
       "quote": "7 stations deployed during the first two boreal summer field seasons of 2021 and 2022", "note": ""},
     "depth_max": {"value": 100, "unit": "m", "dimension": "length", "approx": false, "display": "~100 m",
-      "sources": ["src:astro-neutrino-rno-g-geo-summit-rno-g-project-page"], "verified_at": "2026-09-17", "confidence": "verified",
-      "quote": "three strings of 15 antennas 100 m below the surface", "note": "In-ice antenna string depth."}
+      "sources": ["src:astro-neutrino-rno-g-first-seven-stations-2024", "src:astro-neutrino-rno-g-geo-summit-rno-g-project-page"], "verified_at": "2026-10-25", "confidence": "verified",
+      "quote": "The deep antennas are deployed in three boreholes down to 100 meters depth.", "note": "In-ice antenna string depth."}
   },
   "subsystems": [
-    {"name": "Deep strings", "description": {"value": "Three strings of 15 antennas per station, ~100 m below the surface",
-      "sources": ["src:astro-neutrino-rno-g-geo-summit-rno-g-project-page"], "verified_at": "2026-09-17", "confidence": "verified",
-      "quote": "three strings of 15 antennas 100 m below the surface", "note": ""}},
+    {"name": "Deep strings", "description": {"value": "Three boreholes per station (a power string carrying the phased-array trigger antennas, plus two helper strings), holding 15 receiving antennas in total, down to ~100 m below the surface",
+      "sources": ["src:astro-neutrino-rno-g-first-seven-stations-2024"], "verified_at": "2026-10-25", "confidence": "verified",
+      "quote": "15 total Rx. antennas & 2 Tx. calibration pulser antennas installed in 3 boreholes ... The deep antennas are deployed in three boreholes down to 100 meters depth.", "note": "15 is the station total across the three boreholes (24 receiving antennas per station minus 9 near-surface), not 15 per string; the Summit Station project page's wording 'three strings of 15 antennas' is ambiguous."}},
     {"name": "Surface antennas", "description": {"value": "9 surface antennas per station",
-      "sources": ["src:astro-neutrino-rno-g-geo-summit-rno-g-project-page"], "verified_at": "2026-09-17", "confidence": "verified",
-      "quote": "9 surface antennas", "note": ""}}
+      "sources": ["src:astro-neutrino-rno-g-first-seven-stations-2024"], "verified_at": "2026-10-25", "confidence": "verified",
+      "quote": "The LPDAs are installed in trenches just below the snow surface in three separate rows that are centered on each borehole radial axis. Each row of LPDAs consists of three LPDAs", "note": "9 = three trenches (one per borehole) of three log-periodic dipole antennas (LPDAs) each, as stated in the quoted passage; the paper also refers to 'the nine surface channels'."}}
   ],
   "document_ids": [],
   "links": {"website": null},
   "notes": [],
   "summary": {
     "plain": "Stations of buried and surface radio antennas, spaced more than a kilometre apart on the Greenland ice sheet, listening for the radio crackle of the highest-energy neutrinos.",
-    "technical": "RNO-G station design: 3 in-ice strings of 15 antennas each (~100 m depth) plus 9 surface antennas per station, on a 1.25 km grid; 7 stations built over the 2021-2022 field seasons, deployment paused in 2023 pending a performance/design review."
+    "technical": "RNO-G station design: three boreholes (~100 m depth) holding 15 receiving antennas in total plus 9 near-surface antennas (24 receiving channels) per station, on a 1.25 km grid; 7 stations built over the 2021-2022 field seasons, deployment paused in 2023 pending a performance/design review."
   },
   "coverage": {"researched": "partial", "tier": "B"},
   "sources": ["src:astro-neutrino-rno-g-geo-summit-rno-g-project-page", "src:astro-neutrino-rno-g-first-seven-stations-2024"],

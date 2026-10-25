@@ -19,31 +19,32 @@
     {
       "confidence": "uncertain",
       "facility_id": "facility:university-of-washington-cenpa",
-      "locator": "Project 8 official site / DOE highlight",
-      "note": "facility:university-of-washington-cenpa is owned by the 'axions' Wave 3 lead (which also uses this facility for ADMX); it was a dangling reference for most of this session and has since been created (not duplicated here). This role covers the Phase I CRES demonstration, which the collaboration's own site and a DOE Office of Science highlight both place at the University of Washington; later phases (II, III) involve multiple institutions (e.g. Case Western, Mainz, MIT, Yale, PNNL) and are not all located at UW.",
-      "quote": "a prototype instrument constructed at the University of Washington",
+      "locator": "DOE Office of Science highlight, 2015-11",
+      "note": "facility:university-of-washington-cenpa is owned by the 'axions' Wave 3 lead (which also uses this facility for ADMX); it was a dangling reference for most of this session and has since been created (not duplicated here). This role covers the Phase I CRES demonstration, which a DOE Office of Science highlight places at the University of Washington (the project8.org pages fetched do not state where the Phase I apparatus was built); later phases (II, III) involve multiple institutions (e.g. Case Western, Mainz, MIT, Yale, PNNL) and are not all located at UW.",
+      "quote": "constructed a prototype instrument at the University of Washington to demonstrate a new electron spectroscopy technique",
       "role": "prototype_host",
       "sources": [
-        "src:project8-official-site"
+        "src:project8-doe-highlight-2015"
       ],
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-25"
     }
   ],
   "id": "experiment:project-8",
   "intervals": [
     {
-      "confidence": "verified",
+      "confidence": "approximate",
       "end": null,
       "label": "Phase I: CRES demonstration (University of Washington)",
-      "locator": "DOE Office of Science highlight, 2015-11",
-      "note": "This is a proof-of-concept/R&D demonstration, not a physics-data-taking run; recorded as `commissioning` rather than `active` to avoid overstating its maturity, per the brief's instruction to record R&D/prototype phases carefully.",
-      "quote": "The prototype instrument demonstrating the new technique was built at the University of Washington ... detecting monoenergetic conversion electrons from 83mKr",
+      "locator": "Project 8 About page, sections \"diving deeper\" and \"Current Experiment status\"; DOE Office of Science highlight, 2015-11",
+      "note": "Proof-of-concept/R&D demonstration, not a physics-data-taking run; recorded as `commissioning` rather than `active` to avoid overstating its maturity. Start is the year the collaboration first demonstrated CRES (official About page); the University of Washington location comes from the DOE Office of Science highlight (2015). Construction predates 2014 and is not sourced.",
+      "quote": "Cyclotron Radiation Emission Spectroscopy (CRES), which was first demonstrated by the collaboration in 2014 ... Phase I in our science program was to demonstrate the feasibility of CRES on single electrons emitted from a gaseous source, Krypton-83m.",
       "sources": [
+        "src:rf09-project8-about-page",
         "src:project8-doe-highlight-2015"
       ],
-      "start": "2015",
+      "start": "2014",
       "status": "commissioning",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-25"
     },
     {
       "confidence": "verified",
@@ -63,15 +64,15 @@
       "confidence": "uncertain",
       "end": null,
       "label": "Phase III: atomic tritium R&D",
-      "locator": "CENPA seminar announcement (npl.washington.edu/node/1554)",
-      "note": "No fetched source gives a start date for Phase III; recorded as R&D/proposed rather than construction or active, since the fetched source describes atomic-tritium-source development work, not a running Phase III apparatus.",
-      "quote": "Project 8 aims to reach neutrino mass sensitivity down to 40 meV",
+      "locator": "Project 8 About page, section \"Current Experiment status\"",
+      "note": "No fetched source gives a start date for Phase III; recorded as R&D/proposed rather than construction or active, since the official About page says Phase III will demonstrate free-space CRES and atomic-tritium production and that current efforts are on demonstrators of various technologies, not a running Phase III apparatus.",
+      "quote": "In Phase III we will demonstrate the ability to make CRES measurements in free space, as well as the ability to produce and trap atomic tritium. ... Currently, efforts are focused on Phase III.",
       "sources": [
-        "src:project8-cenpa-npl-node-1554"
+        "src:rf09-project8-about-page"
       ],
       "start": null,
       "status": "proposed",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-25"
     }
   ],
   "key_specs": [
@@ -100,15 +101,16 @@
         "confidence": "verified",
         "dimension": "mass_energy",
         "display": "~0.04 eV/c^2 (40 meV)",
-        "locator": "CENPA seminar announcement (npl.washington.edu/node/1554)",
+        "locator": "Project 8 About page, section \"Current Experiment status\"",
         "note": "This is the long-term Phase IV design goal using atomic tritium, not a current achieved sensitivity. The ontology's `mass_energy` dimension does not define a meV unit, so value/unit are recorded in eV/c^2 (0.04) while `display` keeps the source's own wording (40 meV).",
-        "quote": "Project 8 aims to reach neutrino mass sensitivity down to 40 meV",
+        "quote": "The final phase, Phase IV, will use atomic tritium to measure the neutrino mass with a sensitivity of approximately 40 meV.",
         "sources": [
+          "src:rf09-project8-about-page",
           "src:project8-cenpa-npl-node-1554"
         ],
         "unit": "eV/c^2",
         "value": 0.04,
-        "verified_at": "2026-09-17"
+        "verified_at": "2026-10-25"
       }
     }
   ],
@@ -136,14 +138,15 @@
   "physics_goals": [
     {
       "confidence": "verified",
-      "locator": "CENPA seminar announcement",
+      "locator": "Project 8 About page, section \"diving deeper\"",
       "note": "",
-      "quote": "Project 8 aims to reach neutrino mass sensitivity down to 40 meV",
+      "quote": "our aim is to measure the absolute neutrino mass using tritium beta decays ... a new method of electron spectroscopy, Cyclotron Radiation Emission Spectroscopy (CRES)",
       "sources": [
+        "src:rf09-project8-about-page",
         "src:project8-cenpa-npl-node-1554"
       ],
       "value": "Measure the absolute neutrino mass via a high-precision, frequency-based tritium beta-decay spectrum measurement (Cyclotron Radiation Emission Spectroscopy)",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-25"
     }
   ],
   "schema": "hep-atlas/0.2",
@@ -152,12 +155,13 @@
     "src:project8-official-site",
     "src:project8-doe-highlight-2015",
     "src:project8-arxiv-2503-08807-phase2",
-    "src:project8-cenpa-npl-node-1554"
+    "src:project8-cenpa-npl-node-1554",
+    "src:rf09-project8-about-page"
   ],
   "status": "active",
   "summary": {
     "plain": "An experiment that measures the faint radio signal a single electron gives off when it spins in a magnetic field, aiming to weigh the neutrino. It began as a tabletop demonstration at the University of Washington and is now moving toward using real tritium gas.",
-    "technical": "Project 8: phased neutrino-mass programme using Cyclotron Radiation Emission Spectroscopy (CRES) on tritium beta decay. Phase I (University of Washington, from 2015) demonstrated single-electron CRES detection on 83mKr conversion electrons (15 eV resolution). Phase II achieved the first CRES measurement of the molecular-tritium beta spectrum. Phase III (CENPA-led atomic-tritium source R&D) targets the systematic limitations of molecular tritium, working toward a final design sensitivity of ~40 meV."
+    "technical": "Project 8: phased neutrino-mass programme using Cyclotron Radiation Emission Spectroscopy (CRES) on tritium beta decay. Phase I (University of Washington, CRES first demonstrated in 2014) demonstrated single-electron CRES detection on 83mKr conversion electrons (15 eV resolution). Phase II achieved the first CRES measurement of the molecular-tritium beta spectrum. Phase III (CENPA-led atomic-tritium source R&D) targets the systematic limitations of molecular tritium, working toward a final design sensitivity of ~40 meV."
   },
   "topic_ids": [
     "topic:neutrino-mass-direct",

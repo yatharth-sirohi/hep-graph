@@ -10,18 +10,18 @@
   "id": "detector:project-8",
   "intervals": [
     {
-      "confidence": "verified",
+      "confidence": "approximate",
       "end": null,
       "label": "Phase I apparatus (University of Washington)",
-      "locator": "DOE Office of Science highlight, 2015-11",
-      "note": "R&D/demonstration apparatus, not a mature physics detector.",
-      "quote": "The prototype instrument demonstrating the new technique was built at the University of Washington",
+      "locator": "Project 8 About page, section \"diving deeper\"",
+      "note": "R&D/demonstration apparatus, not a mature physics detector. Start is the year the collaboration first demonstrated CRES (official About page: Phase I demonstrated CRES on Kr-83m); construction predates it and is not sourced.",
+      "quote": "Cyclotron Radiation Emission Spectroscopy (CRES), which was first demonstrated by the collaboration in 2014 ... Phase I in our science program was to demonstrate the feasibility of CRES on single electrons emitted from a gaseous source, Krypton-83m.",
       "sources": [
-        "src:project8-doe-highlight-2015"
+        "src:rf09-project8-about-page"
       ],
-      "start": "2015",
+      "start": "2014",
       "status": "commissioning",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-25"
     }
   ],
   "links": {
@@ -36,46 +36,47 @@
     {
       "confidence": "uncertain",
       "end": null,
-      "locator": "Project 8 official site / DOE Office of Science highlight, 2015-11",
-      "note": "site:uw-cenpa-campus is a campus-level marker (owned by the 'axions' lead); the Phase I apparatus's own building/room is not separately sourced in this session.",
-      "quote": "The prototype instrument demonstrating the new technique was built at the University of Washington",
+      "locator": "DOE Office of Science highlight 2015-11 (location); Project 8 About page (2014 first demonstration)",
+      "note": "site:uw-cenpa-campus is a campus-level marker (owned by the 'axions' lead); the Phase I apparatus's own building/room is not separately sourced. Start 2014 is the year CRES was first demonstrated by the collaboration (official About page); the University of Washington location comes from the DOE Office of Science highlight (2015), so the start is an upper bound.",
+      "quote": "constructed a prototype instrument at the University of Washington to demonstrate a new electron spectroscopy technique",
       "role": "prototype",
       "site_id": "site:uw-cenpa-campus",
       "sources": [
         "src:project8-doe-highlight-2015",
-        "src:project8-official-site"
+        "src:rf09-project8-about-page"
       ],
-      "start": "2015",
-      "verified_at": "2026-09-17"
+      "start": "2014",
+      "verified_at": "2026-10-25"
     }
   ],
   "schema": "hep-atlas/0.2",
   "sources": [
     "src:project8-doe-highlight-2015",
-    "src:project8-arxiv-2503-08807-phase2"
+    "src:project8-arxiv-2503-08807-phase2",
+    "src:rf09-project8-about-page"
   ],
   "specs": {
     "magnetic_field": {
       "approx": false,
-      "confidence": "uncertain",
+      "confidence": "verified",
       "dimension": "magnetic_field",
       "display": "1 T",
-      "locator": "secondary web summary, not directly fetched from a primary Project 8 paper in this session",
-      "note": "The 1 Tesla figure is carried from a secondary summary of Project 8 publications describing the CRES technique; not independently confirmed against a directly fetched primary source in this session.",
-      "quote": "",
+      "locator": "DOE Office of Science highlight, 2015-11",
+      "note": "Field of the Phase I apparatus per the DOE Office of Science highlight (2015). The later Phase II apparatus used 0.959 T (arXiv:2503.08807).",
+      "quote": "microwave signal of tritium endpoint electrons in a 1-Tesla magnetic field",
       "sources": [
-        "src:project8-arxiv-2503-08807-phase2"
+        "src:project8-doe-highlight-2015"
       ],
       "unit": "T",
       "value": 1,
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-25"
     }
   },
   "status": "commissioning",
   "subsystems": [],
   "summary": {
     "plain": "A small tabletop instrument built at the University of Washington that catches the faint radio hum a single electron makes as it spirals in a magnetic field, the first step toward weighing the neutrino this way.",
-    "technical": "Project 8 Phase I CRES apparatus: single-electron cyclotron-radiation detection cell in a ~1 T magnetic field, demonstrated on 83mKr conversion electrons at the University of Washington (2015); later phases add gaseous tritium sources."
+    "technical": "Project 8 Phase I CRES apparatus: single-electron cyclotron-radiation detection cell in a ~1 T magnetic field, demonstrated on 83mKr conversion electrons at the University of Washington (CRES first demonstrated in 2014); later phases add gaseous tritium sources."
   },
   "technology": {
     "confidence": "verified",
