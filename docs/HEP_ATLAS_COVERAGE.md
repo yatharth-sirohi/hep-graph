@@ -1,6 +1,6 @@
 # HEP Atlas coverage
 
-Generated 2026-09-21 by `scripts/atlas_coverage_report.py`. Every number here is
+Generated 2026-10-25 by `scripts/atlas_coverage_report.py`. Every number here is
 computed from `data/atlas/`; none of it is asserted by hand. The atlas does not
 claim to contain every experiment in experimental high-energy physics, and the
 interface says only "coverage updated" with this date.
@@ -16,15 +16,15 @@ interface says only "coverage updated" with this date.
 | document | 70 |
 | experiment | 131 |
 | facility | 48 |
-| geometry | 174 |
+| geometry | 368 |
 | institution | 529 |
-| map | 39 |
+| map | 50 |
 | person | 12 |
 | result | 109 |
 | site | 93 |
-| source | 1606 |
+| source | 1864 |
 | topic | 42 |
-| membership rows | 659 |
+| membership rows | 658 |
 
 ## Coverage by tier
 
@@ -88,16 +88,16 @@ exists with sourced content. Gaps are computed per record, not declared.
 | Colliders | 23 | 23 | 2 | 21 | 0 | 9 | 13 |
 | Cosmic rays, gamma rays and astroparticle | 2 | 2 | 0 | 2 | 0 | 2 | 2 |
 | Dark matter direct detection | 17 | 17 | 0 | 17 | 1 | 13 | 14 |
-| Direct neutrino mass | 2 | 2 | 0 | 2 | 1 | 1 | 2 |
+| Direct neutrino mass | 2 | 2 | 0 | 2 | 0 | 1 | 2 |
 | Fixed target, rare kaons and long-lived particles | 10 | 10 | 0 | 10 | 1 | 9 | 9 |
-| Gamma rays | 6 | 6 | 0 | 6 | 2 | 6 | 6 |
+| Gamma rays | 6 | 6 | 0 | 6 | 1 | 6 | 6 |
 | Heavy ions | 3 | 3 | 0 | 3 | 0 | 1 | 3 |
 | High-energy and astrophysical neutrinos | 13 | 13 | 0 | 13 | 0 | 10 | 10 |
 | Muon precision and rare processes | 6 | 6 | 0 | 6 | 1 | 3 | 3 |
-| Neutrinoless double beta decay | 9 | 9 | 0 | 9 | 3 | 9 | 9 |
+| Neutrinoless double beta decay | 9 | 9 | 0 | 9 | 1 | 9 | 9 |
 | Reactor and low-energy neutrinos | 5 | 5 | 0 | 5 | 0 | 0 | 4 |
 | Solar and radiochemical neutrinos | 6 | 6 | 0 | 6 | 0 | 2 | 6 |
-| **All** | **131** | **131** | **3** | **128** | **10** | **79** | **96** |
+| **All** | **131** | **131** | **3** | **128** | **6** | **79** | **96** |
 
 ## Per-experiment detail
 
@@ -212,7 +212,7 @@ exists with sourced content. Gaps are computed per record, not declared.
 
 | Experiment | State | Still missing |
 | --- | --- | --- |
-| KATRIN | researched | institution membership, historical intervals, technical documents |
+| KATRIN | researched | institution membership, technical documents |
 | Project 8 | researched | institution membership, major results, technical documents |
 
 ### Fixed target, rare kaons and long-lived particles
@@ -234,7 +234,7 @@ exists with sourced content. Gaps are computed per record, not declared.
 
 | Experiment | State | Still missing |
 | --- | --- | --- |
-| CTAO | researched | institution membership, historical intervals, major results, technical documents |
+| CTAO | researched | institution membership, major results, technical documents |
 | H.E.S.S. | researched | institution membership, major results, technical documents |
 | HAWC | researched | institution membership, major results, technical documents |
 | LHAASO | researched | institution membership, historical intervals, major results, technical documents |
@@ -286,11 +286,11 @@ exists with sourced content. Gaps are computed per record, not declared.
 | CUPID | researched | institution membership, historical intervals, major results, technical documents |
 | EXO-200 | researched | institution membership, major results, technical documents |
 | GERDA | researched | institution membership, major results, technical documents |
-| KamLAND-Zen | researched | institution membership, historical intervals, detector, major results, technical documents |
+| KamLAND-Zen | researched | institution membership, detector, major results, technical documents |
 | LEGEND | researched | institution membership, major results, technical documents |
 | Majorana Demonstrator | researched | institution membership, major results, technical documents |
 | NEXT | researched | institution membership, major results, technical documents |
-| nEXO | researched | institution membership, historical intervals, major results, technical documents |
+| nEXO | researched | institution membership, major results, technical documents |
 
 ### Reactor and low-energy neutrinos
 
@@ -323,51 +323,60 @@ Checks are independent official figures the validator re-measures on every run.
 
 | Map | Facility | Features | Surveyed | Georeferenced | Derived | Inferred direction | Unlocated | Checks passed | Checks failed |
 | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| Amundsen-Scott South Pole Station — IceCube and ARA | Amundsen-Scott South Pole Station | 1 | 0 | 1 | 0 | 0 | 8 | 0 | 0 |
-| Baikal-GVD — southern Lake Baikal site | Baikal Deep Underwater Neutrino Telescope | 2 | 1 | 0 | 1 | 0 | 0 | 0 | 0 |
-| BNO — Baksan Neutrino Observatory | Baksan Neutrino Observatory | 2 | 0 | 2 | 0 | 0 | 1 | 0 | 0 |
-| Boulby Underground Laboratory | Boulby Underground Laboratory | 1 | 0 | 1 | 0 | 0 | 0 | 0 | 0 |
-| Brokdorf — reactor building and the CONUS position | Brokdorf Nuclear Power Plant | 2 | 0 | 1 | 1 | 0 | 0 | 0 | 0 |
+| Amundsen-Scott South Pole Station: IceCube, DeepCore and IceTop | Amundsen-Scott South Pole Station | 7 | 0 | 1 | 6 | 0 | 5 | 1 | 0 |
+| Argonne National Laboratory — campus, Advanced Photon Source and Physics Building | Argonne National Laboratory | 6 | 0 | 5 | 1 | 0 | 1 | 1 | 0 |
+| Baikal-GVD: clusters of strings in southern Lake Baikal | Baikal Deep Underwater Neutrino Telescope | 12 | 1 | 0 | 11 | 0 | 0 | 11 | 0 |
+| BNO — Baksan Neutrino Observatory | Baksan Neutrino Observatory | 3 | 0 | 3 | 0 | 0 | 1 | 0 | 0 |
+| Boulby Underground Laboratory | Boulby Underground Laboratory | 5 | 0 | 5 | 0 | 0 | 1 | 0 | 0 |
+| Brokdorf — reactor building and the CONUS position | Brokdorf Nuclear Power Plant | 4 | 0 | 3 | 1 | 0 | 0 | 1 | 0 |
 | Brookhaven National Laboratory — Upton campus, RHIC and AGS rings | Brookhaven National Laboratory | 11 | 0 | 11 | 0 | 0 | 0 | 2 | 0 |
-| LSC — Laboratorio Subterráneo de Canfranc | Laboratorio Subterraneo de Canfranc | 4 | 0 | 4 | 0 | 0 | 0 | 1 | 0 |
-| CERN — Meyrin, Prévessin and the LHC ring | CERN | 21 | 1 | 17 | 2 | 1 | 7 | 5 | 0 |
-| Chooz — reactor cores (Double Chooz / NUCLEUS site) | Chooz Reactor Neutrino Site | 3 | 0 | 3 | 0 | 0 | 3 | 0 | 0 |
+| LSC — Laboratorio Subterráneo de Canfranc | Laboratorio Subterráneo de Canfranc | 4 | 0 | 4 | 0 | 0 | 0 | 1 | 0 |
+| CERN — Meyrin, Prévessin and the LHC ring | CERN | 28 | 1 | 24 | 2 | 1 | 2 | 11 | 0 |
+| Chooz — reactor cores (Double Chooz / NUCLEUS site) | Chooz Reactor Neutrino Site | 6 | 0 | 4 | 2 | 0 | 1 | 4 | 0 |
 | China Jinping Underground Laboratory (CJPL) | China Jinping Underground Laboratory | 3 | 0 | 1 | 2 | 0 | 0 | 1 | 0 |
 | CTAO-South — Paranal | CTAO-South (Paranal) | 1 | 1 | 0 | 0 | 0 | 0 | 0 | 0 |
 | Daya Bay — reactor cores and experimental halls | Daya Bay Reactor Neutrino Laboratory | 9 | 0 | 6 | 3 | 0 | 0 | 18 | 0 |
 | DESY — Hamburg-Bahrenfeld campus and the HERA ring | Deutsches Elektronen-Synchrotron | 4 | 0 | 4 | 0 | 0 | 1 | 1 | 0 |
-| Fermilab — Batavia, Illinois | Fermi National Accelerator Laboratory | 23 | 0 | 13 | 8 | 2 | 13 | 9 | 0 |
-| VERITAS — Fred Lawrence Whipple Observatory | Fred Lawrence Whipple Observatory | 1 | 1 | 0 | 0 | 0 | 0 | 0 | 0 |
-| H.E.S.S. — Khomas Highland | H.E.S.S. site, Khomas Highland | 2 | 1 | 0 | 1 | 0 | 0 | 1 | 0 |
+| Fermilab — Batavia, Illinois | Fermi National Accelerator Laboratory | 34 | 7 | 14 | 11 | 2 | 11 | 16 | 0 |
+| VERITAS — Fred Lawrence Whipple Observatory | Fred Lawrence Whipple Observatory | 6 | 0 | 5 | 1 | 0 | 0 | 6 | 0 |
+| H.E.S.S. — Khomas Highland | H.E.S.S. site, Khomas Highland | 9 | 0 | 8 | 1 | 0 | 0 | 9 | 0 |
+| Institut Laue-Langevin — reactor building and guide halls on the EPN campus | Institut Laue-Langevin | 5 | 0 | 4 | 1 | 0 | 1 | 1 | 0 |
+| ISIS Neutron and Muon Source — Rutherford Appleton Laboratory campus and target-station buildings | ISIS Neutron and Muon Source | 3 | 0 | 3 | 0 | 0 | 2 | 0 | 0 |
 | J-PARC — Tokai accelerator complex | J-PARC (Japan Proton Accelerator Research Complex) | 9 | 0 | 8 | 0 | 1 | 0 | 4 | 0 |
-| Jefferson Lab — Newport News campus | Thomas Jefferson National Accelerator Facility | 2 | 0 | 2 | 0 | 0 | 1 | 0 | 0 |
+| Jefferson Lab — Newport News campus | Thomas Jefferson National Accelerator Facility | 11 | 0 | 10 | 1 | 0 | 0 | 2 | 0 |
+| JUNO — underground experimental hall and surface campus (Kaiping, Jiangmen) | Jiangmen Underground Neutrino Observatory | 2 | 1 | 1 | 0 | 0 | 1 | 0 | 0 |
+| JUNO — Yangjiang and Taishan reactor complexes at the 52-53 km baseline | Jiangmen Underground Neutrino Observatory | 9 | 1 | 8 | 0 | 0 | 0 | 10 | 0 |
 | Kamioka Observatory — Mozumi and Tochibora mines | Kamioka Observatory (ICRR, University of Tokyo) | 6 | 1 | 2 | 2 | 1 | 0 | 3 | 0 |
 | KEK — Tsukuba campus | KEK (High Energy Accelerator Research Organization) | 11 | 0 | 10 | 0 | 1 | 1 | 2 | 0 |
+| KIT Campus North — KATRIN experiment and Tritium Laboratory | Karlsruhe Institute of Technology, Campus North | 6 | 0 | 4 | 2 | 0 | 1 | 3 | 0 |
 | KM3NeT/ARCA — Capo Passero deep-sea site | KM3NeT | 2 | 1 | 0 | 1 | 0 | 0 | 0 | 0 |
 | KM3NeT/ORCA — Toulon deep-sea site | KM3NeT | 2 | 1 | 0 | 1 | 0 | 0 | 0 | 0 |
-| Leibstadt — reactor building and the CONUS+ position | Leibstadt Nuclear Power Plant | 2 | 0 | 1 | 1 | 0 | 0 | 0 | 0 |
-| LHAASO — Haizi Mountain, Daocheng | LHAASO (Daocheng) | 1 | 1 | 0 | 0 | 0 | 0 | 0 | 0 |
+| Leibstadt — reactor building and the CONUS+ position | Leibstadt Nuclear Power Plant | 3 | 0 | 2 | 1 | 0 | 0 | 0 | 0 |
+| LHAASO (Daocheng): KM2A detectors and WCDA pools | LHAASO (Daocheng) | 20 | 1 | 0 | 19 | 0 | 0 | 5 | 0 |
 | LNGS — Laboratori Nazionali del Gran Sasso | Laboratori Nazionali del Gran Sasso | 7 | 1 | 2 | 4 | 0 | 0 | 1 | 0 |
-| Los Alamos National Laboratory, LANSCE (Technical Area 53) | Los Alamos National Laboratory | 1 | 0 | 1 | 0 | 0 | 2 | 0 | 0 |
+| Los Alamos National Laboratory, LANSCE (Technical Area 53) | Los Alamos National Laboratory | 9 | 0 | 9 | 0 | 0 | 1 | 1 | 0 |
+| McMurdo Long Duration Balloon Facility — Williams Field and McMurdo Station | McMurdo Long Duration Balloon Facility | 2 | 0 | 2 | 0 | 0 | 2 | 0 | 0 |
+| MIT — campus and the Winslow Lab buildings (Compton Laboratories and Building 24) | Massachusetts Institute of Technology | 3 | 0 | 3 | 0 | 0 | 1 | 0 | 0 |
 | LSM — Laboratoire Souterrain de Modane | Laboratoire Souterrain de Modane | 3 | 0 | 3 | 0 | 0 | 0 | 1 | 0 |
-| Oak Ridge National Laboratory, Spallation Neutron Source | Oak Ridge National Laboratory | 1 | 0 | 1 | 0 | 0 | 1 | 0 | 0 |
-| Pierre Auger Observatory — Malargüe array | Pierre Auger Observatory | 2 | 0 | 0 | 2 | 0 | 0 | 1 | 0 |
-| PSI — Villigen and Wurenlingen campus | Paul Scherrer Institute | 1 | 0 | 1 | 0 | 0 | 1 | 0 | 0 |
-| Roque de los Muchachos — MAGIC and CTAO-North | Roque de los Muchachos Observatory | 2 | 0 | 2 | 0 | 0 | 0 | 0 | 0 |
-| HAWC — Sierra Negra | Sierra Negra (HAWC site) | 1 | 1 | 0 | 0 | 0 | 0 | 0 | 0 |
+| Oak Ridge National Laboratory, Spallation Neutron Source | Oak Ridge National Laboratory | 5 | 0 | 5 | 0 | 0 | 2 | 0 | 0 |
+| Pierre Auger Observatory: Malargüe surface-detector array | Pierre Auger Observatory | 23 | 21 | 0 | 2 | 0 | 0 | 1 | 0 |
+| PSI — Villigen and Wurenlingen campus | Paul Scherrer Institute | 6 | 0 | 6 | 0 | 0 | 1 | 2 | 0 |
+| Roque de los Muchachos — MAGIC and CTAO-North | Roque de los Muchachos Observatory | 8 | 0 | 7 | 1 | 0 | 0 | 2 | 0 |
+| HAWC — Sierra Negra | Sierra Negra (HAWC site) | 3 | 0 | 2 | 1 | 0 | 0 | 3 | 0 |
 | SLAC National Accelerator Laboratory, Menlo Park campus | SLAC National Accelerator Laboratory | 7 | 0 | 7 | 0 | 0 | 1 | 1 | 0 |
 | SNOLAB — Vale Creighton Mine, Sudbury, Ontario | SNOLAB | 3 | 0 | 2 | 1 | 0 | 0 | 1 | 0 |
-| Soudan Underground Laboratory, Soudan, Minnesota | Soudan Underground Laboratory | 2 | 1 | 1 | 0 | 0 | 0 | 0 | 0 |
-| SURF — Sanford Underground Research Facility, Lead, South Dakota | Sanford Underground Research Facility | 6 | 1 | 5 | 0 | 0 | 1 | 0 | 0 |
-| Telescope Array — Utah | Telescope Array (Utah) | 1 | 1 | 0 | 0 | 0 | 0 | 0 | 0 |
+| Soudan Underground Laboratory, Soudan, Minnesota | Soudan Underground Laboratory | 4 | 1 | 2 | 1 | 0 | 1 | 0 | 0 |
+| Summit Station, Greenland — RNO-G stations, skiway and camp | Summit Station, Greenland | 10 | 1 | 2 | 7 | 0 | 1 | 9 | 0 |
+| SURF — Sanford Underground Research Facility, Lead, South Dakota | Sanford Underground Research Facility | 8 | 1 | 5 | 2 | 0 | 0 | 2 | 0 |
+| Telescope Array (Utah): surface-detector array, fluorescence stations and laser | Telescope Array (Utah) | 12 | 1 | 0 | 11 | 0 | 0 | 4 | 0 |
+| CENPA — North Physics Laboratory, University of Washington | Center for Experimental Nuclear Physics and Astrophysics (CENPA) | 1 | 0 | 1 | 0 | 0 | 2 | 0 | 0 |
 | WIPP — Waste Isolation Pilot Plant, Carlsbad, New Mexico | Waste Isolation Pilot Plant | 3 | 0 | 3 | 0 | 0 | 0 | 0 | 0 |
+| Yale Wright Laboratory — building at 272 Whitney Avenue, New Haven | Yale Wright Laboratory | 1 | 0 | 1 | 0 | 0 | 1 | 0 | 0 |
 | Hanbit (Yonggwang) — reactor units and the RENO detector halls | Yonggwang (Hanbit) Reactor Neutrino Site | 9 | 0 | 7 | 2 | 0 | 0 | 12 | 0 |
 
-### Facilities without a local map (10)
+### Facilities without a local map (0)
 
-Named rather than counted, so the gap cannot be read as coverage:
-
-Argonne National Laboratory, Center for Experimental Nuclear Physics and Astrophysics (CENPA), ISIS Neutron and Muon Source, Institut Laue-Langevin, Jiangmen Underground Neutrino Observatory, Karlsruhe Institute of Technology, Campus North, Massachusetts Institute of Technology, McMurdo Long Duration Balloon Facility, Summit Station, Greenland, Yale Wright Laboratory.
+Every facility in the atlas has a local map.
 
 
 ## What is deliberately out of scope
