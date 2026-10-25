@@ -386,3 +386,77 @@ Backlog: the Alpha-configuration coordinate file (CTAO as-requested layout or
 the construction-phase surveyed pad coordinates) from CTAO; until then the map
 stays at one reference point. With it, 51 telescope pads and 7 foundations would
 be `surveyed` points with an area check against the published ~3 km2.
+
+---
+
+## 6. Summary, site coordinate corrections, validator and build
+
+| Facility | Grade before | Grade after | Features drawn | Checks (all pass) |
+| --- | --- | --- | ---: | --- |
+| H.E.S.S. | partial | layout to scale | 9 | 4 neighbour distances (120 m), 4 centre-to-corner distances (84.85 m), perimeter 480 m |
+| CTAO-South | partial | partial (unchanged) | 1 | none |
+| Roque de los Muchachos | partial | layout to scale | 8 | MAGIC separation 85 m, LST-1 to MAGIC ~100 m |
+| Sierra Negra (HAWC) | partial | layout to scale | 3 | tank area, array area (22,000 m2) and platform area (22,395 m2) |
+| Whipple (VERITAS) | partial | layout to scale | 6 | five published spacings (7 %), perimeter 409 m |
+
+Site coordinate corrections, collected (details in each section):
+
+1. `site:roque-de-los-muchachos-gamma-ray-array`: (28.757069, -17.8888436,
+   precision 500, campus) to (28.762164, -17.892005, precision 250, detector);
+   source `src:geo-arrays2-ctao-north-array-page`, quote "Latitude: 28º 45′
+   43.7904″ North Longitude: 17º 53′ 31.218″ West". Official source.
+2. `site:hawc-sierra-negra`: (18.99, -97.31, precision 600) to (18.99480,
+   -97.30767, precision 30); source `src:geo-arrays2-hawc-osm-tank-field`
+   (OSM, rank 11; corroborated by the paper's rounded coordinate and the 22,400 m2
+   hull). The integrator may prefer to keep the paper coordinate.
+3. Optional: `site:khomas-highland-hess` precision_m 200 to 50 (the source gives
+   the coordinate to one arc-second).
+4. None for `site:mount-hopkins-veritas` or `site:paranal-cta-south`.
+
+Overpass: unavailable (HTTP 502, "at capacity") for the two H.E.S.S. queries; all
+five extracts were read with the OSM API `map` call instead (see the method
+note at the top). If an integrator wants `osm.timestamp` to be an Overpass
+`timestamp_osm_base`, the five boxes can be re-queried when Overpass recovers;
+the element ids and versions in every `locator` identify exactly what was used.
+
+Validator, build and tests (run from this worktree, `main` venv):
+
+* `python -m hepgraph.atlas.validate`: **3 errors, 1587 warnings** (1588 after the
+  H.E.S.S. commit; the duplicate-shape warning on the two Roque points went with
+  their replacement).
+  The three errors are the pre-existing, time-driven `status-not-derived-state`
+  findings for `collaboration:mu3e`, `detector:mu3e` and `experiment:mu3e`,
+  which the integrator confirmed are not this stream's and are being fixed
+  elsewhere; no mu3e file was touched. **No error or warning is reported on any
+  file written or edited by this stream** (every `geometry/hess-*`,
+  `veritas-*`, `hawc-*`, `roque-*`, `ctao-south-*` record, the five maps and the
+  `geo-arrays2-*` sources). The warnings that mention these facilities are on
+  records this stream did not edit (experiment/detector intervals for HAWC and
+  VERITAS; the A23 campus-grade point warning on the Roque site record, which the
+  correction above would clear).
+* `python -m hepgraph.atlas.build`: succeeds. Largest bundle of this stream:
+  `sierra-negra.json`, 392 KB (300 tank polygons), under the 2 MB cap. Generated
+  files were restored and are not in any commit.
+* Existing tests (not new ones): `tests/test_atlas_geometry_data.py`,
+  `test_atlas_geo.py`, `test_atlas_build.py` (107 passed) and `pytest -k atlas`
+  (352 passed, 1 skipped).
+* Visual check on the built product (Chromium pane, local static server):
+  `#/map/hess-khomas-highland`, `#/map/sierra-negra` and
+  `#/map/roque-de-los-muchachos-observatory` render; the H.E.S.S. square shows
+  its north-south diagonal with CT5 in the middle, the HAWC tank field spans
+  about two scale-bar lengths (190 m), and the Roque telescopes sit on the
+  ridge beside the road. VERITAS and CTAO-South were checked in the bundle
+  only.
+
+Pipeline issues for the integrator (nothing under `hepgraph/` was touched):
+
+1. `geo.centroid` numerical error on small polygons at large coordinates
+   (section 3 above).
+2. `_feature_segments` turns any `valid` start into a clip of the entity's
+   lifecycle; the planned CTAO pads that would have needed a future-dated
+   `valid` could not be expressed. Not triggered here.
+3. If the coverage grade counts structural feature types (as
+   `GEOMETRY_COVERAGE_STATE.md` suggests), note that the telescope footprints here
+   are `other` because no contract type fits a single telescope; each facility's
+   structural feature is its `array` outline (`array` at H.E.S.S., VERITAS,
+   HAWC and the Roque cluster outline). CTAO-South has none.
