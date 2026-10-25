@@ -92,3 +92,64 @@ than the campus boundary is a context building (`entity_id: null`).
    check on the boundary.
 4. Atlas-side: `accelerator` records for the APS and ATLAS would let the ring/linac be features
    with an `entity_id` (this stream may not create entities).
+
+---
+
+## 2. isis-neutron-source (`map:isis-neutron-source`)
+
+**Grade: no map → partial (footprints only).** No accelerator, beamline or target-station record
+exists for ISIS, so the two target-station buildings are context features attached to the site by
+`site_id`. The synchrotron could not be placed.
+
+| Entity / feature | Status | Representation | accuracy_m | Check |
+| --- | --- | --- | --- | --- |
+| `site:isis-rutherford-appleton` → `geometry:isis-ral-campus-boundary` (OSM way 69870055, landuse polygon, 4648 m perimeter, 0.755 km²) | drawn | georeferenced | 15 | none (no official boundary figure) |
+| Target Station 1 building R55 → `geometry:isis-ts1-building-r55` (OSM building:part way 1454005510; 5528 m², 116 m span) | drawn (the hall, not the target) | georeferenced | 10 | none |
+| Target Station 2 building R80 → `geometry:isis-ts2-building-r80` (OSM way 750266080, "R80 (TS2)"; 7395 m², 122 m span) | drawn | georeferenced | 10 | none |
+| ISIS proton synchrotron, 163 m circumference | **unlocated** | — | — | — |
+| `detector:karmen` (17.7 m from the target, 100° to the beam) | **unlocated** | — | — | — |
+
+**Sources fetched and quoted**
+
+* "Target Station 1 (R55)" and "Target Station 2 (R80)" — ISIS, *Safety information*
+  (https://www.isis.stfc.ac.uk/safety-information/), fetched in full. Same page: "Radiation surveys
+  are carried out in R55 and R80 before the start of every user cycle". This is what ties the OSM
+  building names to the target stations.
+* "The 163 m circumference, 800 MeV, 50 Hz rapid cycling synchrotron accelerates up to 3·10^13
+  protons per pulse." — IPAC 2014 MOPRI115, *Activation Models of the ISIS Collectors*
+  (https://proceedings.jacow.org/IPAC2014/html/auth1826.htm), abstract as returned by WebFetch.
+  Used in the `unlocated[]` reason, not as a check (no shape here measures the ring).
+  Corroborated by an NI/ISIS case study ("the beam makes 12,000 revolutions of the 163 m
+  circumference").
+* A 2022 ISIS talk (Faircloth, indico.stfc.ac.uk event 509) has the hidden caption "ISIS Target
+  Station 1 in Building R55" on a photo slide; not cited, because a picture caption in a slide
+  deck is weaker than the safety page.
+
+**Honesty calls and conflicts**
+
+1. OSM has no ring, tunnel or synchrotron hall for ISIS (searched the whole RAL bbox for
+   "synchrotron", "isis", "target", "accelerator"). The only OSM element named "ISIS" is a
+   983 m² building tagged R5.1; its function is not stated by any source, so it is not drawn. The
+   enclosing OSM building way 200338759 (R55 plus the smaller R5.1–R5.5 block) is not drawn as the
+   hall: its own fixme says "R55 is the experimental hall only", so the `building:part` named R55
+   is used. A 163 m ring would have a diameter near 52 m (not a claim: no source states the ring
+   is circular, radius or centre), and no sourced building or centre exists to draw one.
+2. KARMEN: the detector record has a sourced 17.7 m / 100° offset from the ISIS target, but the
+   target and beam axis have no sourced coordinates and the site point is 1500 m campus-grade.
+   Not derived (rule: never derive a shape from a campus-grade point).
+3. `site:isis-rutherford-appleton` counts as drawn through the campus-boundary feature, so no
+   `map-entity-unaccounted` warning is raised for the KARMEN-hosting site; `detector:karmen` is
+   listed explicitly as unlocated regardless.
+
+**Site coordinate corrections**: none. The site point (51.570862, -1.315498) is 0.07 km from the
+centroid of the OSM RAL polygon (51.570768, -1.315704), well inside its 1500 m precision.
+
+**Remaining backlog**
+
+1. Synchrotron: an ISIS/STFC site plan or design report placing the ring in the R5 complex,
+   georeferenced against ≥ 3 OSM building corners; then a `length` check against 163 m.
+2. Target positions and the proton-beam axis (site plan or KARMEN technical paper) to place
+   KARMEN from its sourced 17.7 m / 100° offset.
+3. The ISIS linac (70 MeV) and the beamline from the synchrotron to TS2 (the TS2 extraction
+   line); no fetched source gives either.
+4. An official RAL campus boundary/area for an `area` check.
