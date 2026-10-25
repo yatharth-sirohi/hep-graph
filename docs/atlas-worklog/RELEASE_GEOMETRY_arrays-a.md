@@ -318,3 +318,56 @@ None (the integrator already moved `site:lhaaso-haizi-mountain` to the Science B
 
 * The 5216 ED markers (reproducible from the Science Book PDF page 8 with `pdftocairo -svg` and a similarity registration onto Fig. 1 of arXiv:2401.01038) once `MultiPoint` is allowed or the 2 MB bundle limit is raised.
 * A statement of which point the quoted coordinate marks and whether the figure shows as-built positions; official WFCTA positions; WCDA cell positions (3120 cells of 5 m x 5 m, derivable but not drawn).
+
+## 5. Baikal-GVD
+
+Grade: **partial (one point and one assumed cluster circle) -> layout to scale for the relative arrangement** (eleven clusters, 88
+strings, each with its deployment year), with the whole field's place on the lake known only to about 1500 m. This is the weakest of
+the five records on absolute position and the integrator should weigh it accordingly.
+
+### Sources and what was verified here
+
+* **Site coordinate.** "located about 3.6 km offshore at 51° 46’N and 104° 24’E" (arXiv:2309.16310, ICRC 2023); the same 51° 46’ N, 104° 24’ E in arXiv:2011.09209, 2412.00164 ("3.6 km offshore and 1365 m deep") and 2507.01893 ("at about 4 km from the shore"; re-read in fresh copies of 2309.16310, 2412.00164 and 2507.01893).
+  arXiv:1308.1833 (2013, early construction) says: "The geographical coordinates of the detector site are 51°50′N and 104°20′E" and places the site near the outfall of the Ivanovka river (re-read). The two are 8.7 km apart (7.4 km north-south, 4.6 km east-west). No document says what the point marks. 2020-2025 value used; the 2013 value recorded as a conflict.
+* **Cluster layout.** Two published figures carry positions in metres and a north direction:
+  Fig. 2 of arXiv:2108.00212 ("Positioning system for Baikal-GVD", ICRC 2021; "Reconstructed planar AM coordinates in GVD 2021. X is eastbound, Y is northbound.") plots the measured positions of the 8 strings of each of clusters 1-8 (and three instrumental strings), and Fig. 1 (right panel) of arXiv:2309.16310
+  is a to-scale schematic top view for 2023 with a north arrow and a 0-100 m bar. A research sub-agent digitised both; I repeated the work from fresh copies: gridlines of the 2021 plot at 1.75 px/m (570, 920, 1270 px = X -400, -200, 0), 66 coloured markers detected (cluster 1 centre string (-19.7, -269.5) m, cluster 2 (-223.6, -392.9), cluster 8 (29.4, -693.1), the same values), and 97 green dots detected in the 2023 top view; a similarity registration of the
+  schematic onto the measured plot matches 63 dots within 8 m (rms 3.1 m), scale 2.58 m per pixel. Clusters 1-11 each have 8 dots (one spurious detection, an inter-cluster string star, removed at cluster 5); the seven outer strings are 58-62 m from the central one (stated: "a regular heptagon with the radius of 60 m"); the widest chord of each cluster is 117.2-120.1 m
+  as drawn (marker diagonals included) against 117.0 m expected for a regular heptagon of radius 60 m (check tolerance 4%).
+* **Deployment years** read by me from the legend of Fig. 1 (left panel) of arXiv:2309.16310: 1: 2016, 2: 2017, 3: 2018, 4 and 5: 2019, 6 and 7: 2020, 8: 2021, 9 and 10: 2022, 11 and 12: 2023, 13: "Exp.". Used as each record's `valid.start`, so the timeline slider shows the field growing.
+* Counts and later growth (verified in fresh copies): 96 strings and 3456 OMs in 2023 (arXiv:2309.16310); 14 clusters, 117 strings, 4212 OMs by April 2025 (arXiv:2507.01893); the JINR site (`baikal-gvd.jinr.ru/telescope`, re-fetched) says "16 независимых кластеров" and "более 4 896 оптических модулей" for 2026.
+
+### Placement and why the accuracy is 1500 m
+
+The frames of both figures have no stated origin and the coordinate is rounded to a minute (1.85 km in latitude, 1.15 km in longitude) and is not attached to a cluster. The centroid of the eleven central strings is placed on 51°46′ N, 104°24′ E in an azimuthal-equidistant projection with the figures' north up.
+The pattern keeps its true size and orientation; `accuracy_m` is 1500 for its position. Representation `derived`, confidence `derived`.
+
+### Inventory
+
+| Entity | Drawn / unlocated | Record | Representation | accuracy_m | Check |
+| --- | --- | --- | --- | ---: | --- |
+| detector:baikal-gvd, clusters 1-11 (88 strings) | drawn | geometry:baikal-gvd-cluster-01 .. -11 | derived | 1500 (relative about 5) | span 117.2-120.1 m vs 117.0 m (regular heptagon, R = 60 m), tol 4%: pass |
+| site:baikal-gvd-lake-baikal | drawn (existing) | geometry:baikal-gvd-site-point | surveyed | 2000 | unchanged |
+| Clusters 12 and 13 | not drawn | n/a | n/a | n/a | incomplete in the top view (5 and 2-3 dots) |
+| Clusters 14-16, inter-cluster and laser strings | not drawn | n/a | n/a | n/a | no top view with coordinates |
+| Shore station | not drawn | n/a | n/a | n/a | no coordinate in any source |
+| geometry:baikal-gvd-cluster-footprint (60 m circle at the site point) | removed | superseded | n/a | n/a | n/a |
+
+### Source conflicts
+
+1. **Site coordinate:** 51°46′N 104°24′E (2020-2025) versus 51°50′N 104°20′E (2013): 8.7 km apart; neither says what it marks. 2020-2025 used.
+2. **Shore distance:** "about 3.6 km offshore" (2020-2024) versus "about 4 km from the shore" (2025) versus "beginning from about of three kilometers from the shore" (2013).
+3. **Cluster spacing:** "approximately 300 m between the cluster centers" (2023), "reduced from 300 m to 250 m in 2022" and "250-300 m" (2025-2026); on the drawn layout the nearest-neighbour distance of a cluster centre is 201-266 m (eleven clusters), so the field is not a uniform lattice; the layout was not forced onto one.
+4. **Optical-module depth range:** 750-1275 m (2023 figure axis and 2021 text: "between 750 and 1275 meters") versus the JINR page's "700 m" top and "1240 m" bottom module. Not used here (lakebed level depth unchanged at 1366 m).
+5. **Number of clusters in 2023:** 12 implied by 96 strings (arXiv:2309.16310 text), 13 numbered in its figure (13 is "Exp."), 11 complete in the top view.
+6. **Licence:** arXiv:2108.00212 and arXiv:2309.16310 are CC BY-NC-ND 4.0. Only positions (facts) were read from the figures; no image is copied. The integrator should confirm that is acceptable.
+
+### Site coordinate corrections
+
+None proposed: the published coordinate used is the one already on `site:baikal-gvd-lake-baikal`. (If the integrator wants the 2013 conflict noted on the site record: 51°50′N, 104°20′E, arXiv:1308.1833, "The geographical coordinates of the detector site are 51°50′N and 104°20′E".)
+
+### Backlog
+
+* A coordinate for any specific cluster or the shore station (cable landing near the Ivanovka river outfall): none in any document fetched; the JINR site names a "Береговая станция" without a position.
+* The frame origin of the positioning-system coordinates (the Baikal-GVD positioning papers, or a geodetic reference point of the telescope).
+* Top views for clusters 12-16 and the inter-cluster/laser strings (a 2025-2026 numeric layout); string positions measured after each season.
