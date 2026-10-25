@@ -1,0 +1,77 @@
+{
+  "aliases": [],
+  "center": {
+    "confidence": "derived",
+    "kind": "campus",
+    "lat": 47.660093,
+    "locator": "Centroid of the OSM footprint of the North Physics Laboratory, way 885743335",
+    "lon": -122.302842,
+    "note": "Map centre only; not a claim about any structure.",
+    "precision_m": 20,
+    "sources": [
+      "src:geo-cenpa-osm-north-physics-laboratory"
+    ],
+    "verified_at": "2026-10-25"
+  },
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "extent_m": 500,
+  "facility_id": "facility:university-of-washington-cenpa",
+  "id": "map:university-of-washington-cenpa",
+  "levels": [
+    {
+      "depth_m": null,
+      "id": "surface",
+      "kind": "surface",
+      "name": "Surface",
+      "note": "Plan view of the building footprint; floors and rooms are not drawn."
+    }
+  ],
+  "linked_map_ids": [],
+  "links": {
+    "website": null
+  },
+  "name": "CENPA — North Physics Laboratory, University of Washington",
+  "notes": [
+    "The building is a single-building map by design: CENPA 'is located at the North Physics Lab: a 53,500-sq. ft. stand-alone facility'."
+  ],
+  "schema": "hep-atlas/0.2",
+  "schematics": [],
+  "site_ids": [
+    "site:uw-cenpa-campus"
+  ],
+  "sources": [
+    "src:geo-cenpa-osm-north-physics-laboratory",
+    "src:geo-cenpa-about-page",
+    "src:axions-admx-cenpa-contact"
+  ],
+  "summary": {
+    "plain": "The North Physics Laboratory on the University of Washington campus in Seattle, home of CENPA, drawn to scale. The ADMX axion detector and the Project 8 prototype are inside it, but no source gives their rooms, so they are not placed.",
+    "technical": "One local map for facility:university-of-washington-cenpa. Single OpenStreetMap footprint (way 885743335, 3833 m2, 104 m span; King County GIS origin) identified as CENPA's building by CENPA's About page. detector:admx and detector:project-8 are unlocated (rooms not stated)."
+  },
+  "type": "map",
+  "unlocated": [
+    {
+      "backlog": "Find a CENPA or ADMX paper, thesis or floor plan naming the laboratory room (or the shielded ADMX bay) that holds the magnet and cavity, then place a point inside this footprint; likewise for the Project 8 Phase I apparatus.",
+      "entity_id": "detector:admx",
+      "reason": "ADMX is sourced only as 'sited at the Center for Experimental Physics and Astrophysics at the University of Washington' (official ADMX site). The North Physics Laboratory is drawn, but no fetched source gives the position of the magnet and cavity inside it.",
+      "sources": [
+        "src:axions-admx-official-site",
+        "src:geo-cenpa-about-page"
+      ],
+      "verified_at": "2026-10-25"
+    },
+    {
+      "backlog": "Find a Project 8 paper or CENPA page that states where the Phase I CRES apparatus was operated (room or building) and for how long, then place it.",
+      "entity_id": "detector:project-8",
+      "reason": "Project 8's Phase I prototype is placed at this site with 'uncertain' confidence ('built at the University of Washington'); no fetched source gives its room, building or years on site, so it is not drawn inside the North Physics Laboratory.",
+      "sources": [
+        "src:project8-official-site",
+        "src:geo-cenpa-about-page"
+      ],
+      "verified_at": "2026-10-25"
+    }
+  ]
+}

@@ -1,0 +1,107 @@
+{
+  "accuracy_m": 20,
+  "aliases": [],
+  "checks": [
+    {
+      "expected": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "length",
+        "display": "5120.6 m",
+        "locator": "Working at Summit, \"Skiway\"",
+        "note": "",
+        "quote": "The skiway (snow runway) is 16,800 feet long and 200 feet wide.",
+        "sources": [
+          "src:geo-summit-working-at-summit-page"
+        ],
+        "unit": "m",
+        "value": 5120.64,
+        "verified_at": "2026-10-25"
+      },
+      "kind": "length",
+      "locator": "Working at Summit, \"Skiway\"",
+      "quote": "The skiway (snow runway) is 16,800 feet long and 200 feet wide.",
+      "sources": [
+        "src:geo-summit-working-at-summit-page"
+      ],
+      "tolerance": 0.02
+    }
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "depth_m": null,
+  "entity_id": null,
+  "feature_type": "other",
+  "geometry": {
+    "confidence": "verified",
+    "locator": "OSM way 704074469 (version 2, last edited 2020-12-01T15:17:46Z), read from the OSM API 0.6 at 2026-10-25T11:10:31Z",
+    "note": "Confidence 'verified' rests on the passing length check against the official GEOSummit page (a rank<=10 source); the centre line's width (200 ft officially) is not drawn.",
+    "quote": "The skiway (snow runway) is 16,800 feet long and 200 feet wide.",
+    "sources": [
+      "src:geo-summit-osm-skiway",
+      "src:geo-summit-working-at-summit-page"
+    ],
+    "value": {
+      "coordinates": [
+        [
+          -38.4762421,
+          72.5796919
+        ],
+        [
+          -38.4723967,
+          72.5808829
+        ],
+        [
+          -38.468486,
+          72.582094
+        ],
+        [
+          -38.4650874,
+          72.5831465
+        ],
+        [
+          -38.3696522,
+          72.6126761
+        ]
+      ],
+      "type": "LineString"
+    },
+    "verified_at": "2026-10-25"
+  },
+  "id": "geometry:summit-skiway",
+  "level_id": "ice-surface",
+  "license": {
+    "attribution": "© OpenStreetMap contributors",
+    "name": "ODbL-1.0",
+    "url": "https://www.openstreetmap.org/copyright"
+  },
+  "links": {
+    "website": null
+  },
+  "map_id": "map:summit-station-greenland",
+  "method": "OpenStreetMap way 704074469 (aeroway=runway, surface=ice), used verbatim as the skiway centre line; nodes kept as fetched, no simplification. Its measured length is checked against the 16,800 ft given on the station's own page.",
+  "name": "Summit Station skiway (snow runway)",
+  "notes": [
+    "OSM edit of 2020-12-01 (version 2). The skiway is groomed snow and the ice sheet moves slowly; the mapped line is a position at the time of that edit."
+  ],
+  "osm": {
+    "elements": [
+      "way/704074469"
+    ],
+    "timestamp": "2026-10-25T11:10:31Z"
+  },
+  "representation": "georeferenced",
+  "schema": "hep-atlas/0.2",
+  "site_id": null,
+  "sources": [
+    "src:geo-summit-osm-skiway",
+    "src:geo-summit-working-at-summit-page"
+  ],
+  "summary": {
+    "plain": "The snow runway at Summit Station, 5.1 kilometres long, used by LC-130 and Twin Otter aircraft to bring people, cargo and fuel to the station and the RNO-G array."
+  },
+  "type": "geometry",
+  "valid": null
+}

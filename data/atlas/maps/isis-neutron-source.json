@@ -1,0 +1,75 @@
+{
+  "aliases": [],
+  "center": {
+    "confidence": "derived",
+    "kind": "campus",
+    "lat": 51.570768,
+    "locator": "Centroid of the OSM campus polygon, way 69870055",
+    "lon": -1.315704,
+    "note": "Map centre only; not a claim about any structure.",
+    "precision_m": 500,
+    "sources": [
+      "src:geo-isis-osm-ral-boundary"
+    ],
+    "verified_at": "2026-10-25"
+  },
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "extent_m": 1000,
+  "facility_id": "facility:isis-neutron-source",
+  "id": "map:isis-neutron-source",
+  "levels": [
+    {
+      "depth_m": null,
+      "id": "surface",
+      "kind": "surface",
+      "name": "Surface",
+      "note": "Plan view of the campus and the two target-station buildings; no underground feature is drawn."
+    }
+  ],
+  "linked_map_ids": [],
+  "links": {
+    "website": null
+  },
+  "name": "ISIS Neutron and Muon Source — Rutherford Appleton Laboratory campus and target-station buildings",
+  "notes": [
+    "No accelerator, beamline or target-station record exists for ISIS in the atlas; the R55 and R80 buildings are therefore context features attached to site:isis-rutherford-appleton by site_id, not by entity_id."
+  ],
+  "schema": "hep-atlas/0.2",
+  "schematics": [],
+  "site_ids": [
+    "site:isis-rutherford-appleton"
+  ],
+  "sources": [
+    "src:geo-isis-osm-ral-boundary",
+    "src:geo-isis-safety-information",
+    "src:geo-isis-synchrotron-ipac2014"
+  ],
+  "summary": {
+    "plain": "The Rutherford Appleton Laboratory campus in Oxfordshire, drawn to scale with the two buildings that house ISIS Target Station 1 and Target Station 2. The 163-metre proton synchrotron and the KARMEN neutrino detector site could not be placed from public sources.",
+    "technical": "One local map for facility:isis-neutron-source. Drawn from OpenStreetMap: the RAL campus polygon (way 69870055), building R55 (Target Station 1 experimental hall, building:part way 1454005510) and building R80 (Target Station 2, way 750266080); the R55/R80 identification is ISIS's own safety page. The synchrotron (163 m, IPAC 2014) and detector:karmen (17.7 m from the target, 100 degrees to the beam) are listed as unlocated."
+  },
+  "type": "map",
+  "unlocated": [
+    {
+      "backlog": "Find a published ISIS site plan or synchrotron hall drawing (an ISIS or STFC design report, or an STFC estates GIS layer with a licence) that places the ring on the RAL site, and georeference it against at least three OSM building corners; then add a length check against 163 m. A circle may be drawn only if a source states the ring's radius and centre.",
+      "entity_id": "facility:isis-neutron-source",
+      "reason": "ISIS proton synchrotron (163 m circumference, 800 MeV, 50 Hz rapid-cycling, per IPAC 2014). OpenStreetMap maps no ring, tunnel or synchrotron hall at RAL, and no fetched source gives the ring's centre or its building; the R55 and R80 outlines are the target-station buildings named by ISIS's safety page, and no source places the synchrotron relative to them. The Atlas has no accelerator record for the synchrotron.",
+      "sources": [
+        "src:geo-isis-synchrotron-ipac2014"
+      ],
+      "verified_at": "2026-10-25"
+    },
+    {
+      "backlog": "Needs the surveyed positions of the ISIS target and proton beam axis in site coordinates (an ISIS/RAL civil drawing or a KARMEN technical paper with a site plan), then the sourced 17.7 m / 100 degree offset places the detector. Until then the KARMEN bunker cannot be located.",
+      "entity_id": "detector:karmen",
+      "reason": "KARMEN sat 17.7 m from the ISIS target at 100 degrees to the proton beam (KARMEN detector description). The ISIS target and beam direction have no sourced coordinates, the site point is campus-grade (1500 m), and the KARMEN bunker was a 1990-2001 installation that no fetched source or OSM element places; a position derived from the campus point would be invented geometry.",
+      "sources": [
+        "src:karmen-prd-2002-numubar-nuebar-limits"
+      ],
+      "verified_at": "2026-10-25"
+    }
+  ]
+}

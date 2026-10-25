@@ -1,0 +1,110 @@
+{
+  "accuracy_m": 100,
+  "aliases": [],
+  "checks": [
+    {
+      "expected": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "length",
+        "display": "1.25 km",
+        "locator": "Section 2.1 \"Array layout\"",
+        "note": "Nominal grid spacing between neighbouring stations (N-S); as-built stations sit within a few percent of the grid.",
+        "quote": "The square grid has an inter-station spacing of 1.25 km",
+        "sources": [
+          "src:astro-neutrino-rno-g-first-seven-stations-2024"
+        ],
+        "unit": "m",
+        "value": 1250,
+        "verified_at": "2026-10-25"
+      },
+      "kind": "distance",
+      "locator": "Section 2.1 \"Array layout\"",
+      "quote": "The square grid has an inter-station spacing of 1.25 km",
+      "sources": [
+        "src:astro-neutrino-rno-g-first-seven-stations-2024"
+      ],
+      "to_geometry_id": "geometry:rnog-station-21",
+      "tolerance": 0.05
+    },
+    {
+      "expected": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "length",
+        "display": "1.25 km",
+        "locator": "Section 2.1 \"Array layout\"",
+        "note": "Nominal grid spacing between neighbouring stations (E-W); as-built stations sit within a few percent of the grid.",
+        "quote": "The square grid has an inter-station spacing of 1.25 km",
+        "sources": [
+          "src:astro-neutrino-rno-g-first-seven-stations-2024"
+        ],
+        "unit": "m",
+        "value": 1250,
+        "verified_at": "2026-10-25"
+      },
+      "kind": "distance",
+      "locator": "Section 2.1 \"Array layout\"",
+      "quote": "The square grid has an inter-station spacing of 1.25 km",
+      "sources": [
+        "src:astro-neutrino-rno-g-first-seven-stations-2024"
+      ],
+      "to_geometry_id": "geometry:rnog-station-12",
+      "tolerance": 0.05
+    }
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "depth_m": null,
+  "entity_id": "detector:rno-g",
+  "feature_type": "array",
+  "geometry": {
+    "confidence": "derived",
+    "locator": "RNO_season_2022.json (commit 008d623) station 22 pos_easting/pos_northing; rnog_detector.py origin; arXiv:2411.12922 Figure 1 shows station 22 (Avinngaq) west/north of the DISC borehole (viewed, not traced)",
+    "note": "Derived from collaboration-published offsets and a published origin; the offsets are as-installed positions (depth wrt snow level at time of measurement) from the detector description, not a separate survey table. Spacings to neighbouring stations pass the 1.25 km grid check within 5 %.",
+    "sources": [
+      "src:geo-summit-rnog-season-2022-detector-json",
+      "src:geo-summit-rnog-detector-origin-code",
+      "src:astro-neutrino-rno-g-first-seven-stations-2024"
+    ],
+    "value": {
+      "coordinates": [
+        -38.4599885,
+        72.598157
+      ],
+      "type": "Point"
+    },
+    "verified_at": "2026-10-25"
+  },
+  "id": "geometry:rnog-station-22",
+  "level_id": "ice-surface",
+  "license": null,
+  "links": {
+    "website": null
+  },
+  "map_id": "map:summit-station-greenland",
+  "method": "Computed: station 22's published offsets (easting -138.9 m, northing 1708.4 m, pos_site 'summit') from the RNO_season_2022.json detector description were added to the published origin (72.582793 N, -38.455815 E, the DISC borehole) in a spherical local tangent plane (R = 6 371 008.8 m; dlat = N/R, dlon = E/(R cos 72.582793 deg)), giving 72.5981570 N, -38.4599885 E. The offsets are taken as true-east/true-north metres; if the collaboration's easting/northing axes are grid-aligned instead (UTM zone 24 convergence is about 0.5 degrees here), stations 4 km north of the origin would move by up to about 40 m, hence accuracy_m 100.",
+  "name": "RNO-G station 22 (Avinngaq)",
+  "notes": [
+    "Station 22 commissioning month (2021-07) is the 'commission_time' in the detector description; the station's three 100 m strings and nine surface antennas lie within a few tens of metres of this point."
+  ],
+  "osm": null,
+  "representation": "derived",
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:summit-station-rno-g",
+  "sources": [
+    "src:geo-summit-rnog-season-2022-detector-json",
+    "src:geo-summit-rnog-detector-origin-code",
+    "src:astro-neutrino-rno-g-first-seven-stations-2024"
+  ],
+  "summary": {
+    "plain": "RNO-G station 22 (Avinngaq), one of the seven radio-detector stations of the Radio Neutrino Observatory in Greenland, placed on the ice sheet to the north and north-west of the Summit Station camp."
+  },
+  "type": "geometry",
+  "valid": {
+    "end": null,
+    "start": "2021-07"
+  }
+}
