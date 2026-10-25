@@ -424,7 +424,8 @@ async function contrastOf(page, selector) {
       await kbPage.locator("#atlas-search").focus();
       await kbPage.keyboard.type("DUNE");
       await kbPage.locator(".search-result").first().waitFor();
-      await kbPage.keyboard.press("ArrowDown");
+      // The first option is already active (aria-activedescendant), so Enter
+      // opens the best match without an arrow key first.
       await kbPage.keyboard.press("Enter");
       await kbPage.locator("#detail-panel h2").waitFor();
 

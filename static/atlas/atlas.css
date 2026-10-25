@@ -160,6 +160,12 @@ input {
   background: var(--teal);
   color: #06201d;
 }
+/* The keyboard's row is also marked by a bar, not just the fill, so it stays
+   findable under forced colours and for anyone who cannot tell teal from navy. */
+.search-result.is-active {
+  box-shadow: inset 4px 0 0 var(--amber);
+  font-weight: 600;
+}
 .search-empty {
   padding: 7px 8px;
   color: var(--muted);

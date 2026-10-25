@@ -189,6 +189,54 @@ async function setRangeValue(locator, value) {
     assert.match(panelText, /1285 ?km|1,285 ?km/);
   });
 
+  await record("Search is one combobox: first option active, Enter opens it, arrows move, Escape closes", async () => {
+    // A fresh context: the next test continues from the DUNE panel left open here.
+    const ctx = await browser.newContext({ viewport: { width: 1440, height: 960 } });
+    const p = await ctx.newPage();
+    await p.goto(`${base}/atlas${dataTree}`);
+    await p.waitForFunction(() => document.querySelectorAll(".atlas-marker").length > 0, { timeout: 15000 });
+    const active = () => p.evaluate(() => {
+      const input = document.getElementById("atlas-search");
+      const id = input.getAttribute("aria-activedescendant");
+      const el = id && document.getElementById(id);
+      return {
+        text: el ? el.textContent : null,
+        selected: el ? el.getAttribute("aria-selected") : null,
+        highlighted: document.querySelectorAll(".search-result.is-active").length,
+        expanded: input.getAttribute("aria-expanded"),
+        role: input.getAttribute("role"),
+      };
+    });
+    await p.locator("#atlas-search").click();
+    await p.keyboard.type("Fermilab");
+    await p.locator(".search-result").first().waitFor();
+    const first = await active();
+    assert.ok(first.text, "the first option must be active as soon as the list appears");
+    assert.deepEqual([first.selected, first.highlighted, first.expanded, first.role], ["true", 1, "true", "combobox"]);
+    await p.keyboard.press("ArrowDown");
+    const second = await active();
+    assert.notEqual(second.text, first.text, "ArrowDown moves the active option");
+    assert.equal(second.highlighted, 1, "exactly one option is highlighted at a time");
+    await p.keyboard.press("ArrowUp");
+    assert.equal((await active()).text, first.text, "ArrowUp moves it back");
+    await p.keyboard.press("Escape");
+    assert.equal((await active()).expanded, "false", "Escape closes the list");
+    assert.equal(await p.locator("#search-results").isHidden(), true);
+    // Enter opens the top result — here with the list dismissed, so it also
+    // proves Enter asks for the query again rather than doing nothing.
+    await p.keyboard.press("Enter");
+    const type = first.text.split(" — ").pop().toLowerCase();
+    await p.waitForFunction((prefix) => location.hash.startsWith(prefix), `#/${type}/`);
+    await p.locator("#detail-panel h2").waitFor();
+    // Escape inside the search box belongs to the search box, not to the open panel.
+    await p.locator("#atlas-search").click();
+    await p.keyboard.type("DUNE");
+    await p.locator(".search-result").first().waitFor();
+    await p.keyboard.press("Escape");
+    assert.equal(await p.locator("#detail-panel").isHidden(), false, "Escape that closes the list must leave the record panel open");
+    await ctx.close();
+  });
+
   await record("Collaboration mode shows institution dots on the globe", async () => {
     await page.locator(".collab-line .collab-link").first().click();
     await page.locator("#detail-panel h2", { hasText: "DUNE Collaboration" }).waitFor();
