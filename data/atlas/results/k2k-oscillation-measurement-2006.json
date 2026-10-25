@@ -78,13 +78,23 @@
   },
   "result_type": "measurement",
   "schema": "hep-atlas/0.2",
-  "significance": "4.3 sigma (probability of no-oscillation hypothesis 0.0015%)",
+  "significance": {
+    "confidence": "verified",
+    "locator": "Phys. Rev. D 74, 072003 (2006), abstract",
+    "note": "",
+    "quote": "The probability that the observations are explained by the expectation for no neutrino oscillation is 0.0015% (4.3sigma).",
+    "sources": [
+      "src:k2k-prd-2006"
+    ],
+    "value": "4.3σ (probability 0.0015% that the observations are explained by no oscillation)",
+    "verified_at": "2026-10-25"
+  },
   "sources": [
     "src:k2k-prd-2006"
   ],
   "summary": {
-    "plain": "K2K sent a beam of neutrinos 250 km underground from KEK to Super-Kamiokande and found fewer of them arrived than expected - and with the wrong energies - confirming with a controlled, human-made beam what Super-Kamiokande had already seen in natural atmospheric neutrinos.",
-    "technical": "112 observed vs. 158.1(+9.2/-8.6) expected beam-originated events in the SK fiducial volume, plus a distorted energy spectrum in 58 single-ring muon-like events; no-oscillation hypothesis excluded at 4.3 sigma; two-flavour fit gives Delta m^2 in [1.9,3.5]e-3 eV^2 (90% CL), best fit 2.8e-3 eV^2."
+    "plain": "K2K sent a beam of muon neutrinos from KEK to the Super-Kamiokande detector in Kamioka and found fewer arrived than expected without oscillation: 112 events against an expected 158.1, with a distorted energy spectrum. The collaboration gives a probability of 0.0015% (4.3σ) that the observations are explained by no oscillation.",
+    "technical": "112 beam-originated events observed in the Super-Kamiokande fiducial volume versus an expectation of 158.1 (+9.2/−8.6) without oscillation; a distortion of the energy spectrum is also seen in 58 single-ring muon-like events. The probability that the observations are explained by the expectation for no neutrino oscillation is 0.0015% (4.3σ). In a two-flavor scenario the allowed Δm² region at sin²2θ = 1 is between 1.9 and 3.5 × 10⁻³ eV² at the 90% CL, with a best-fit value of 2.8 × 10⁻³ eV²."
   },
   "title": "Measurement of Neutrino Oscillation by the K2K Experiment",
   "topic_ids": [
@@ -92,5 +102,5 @@
     "topic:atmospheric-neutrinos"
   ],
   "type": "result",
-  "why_it_matters": "First confirmation of neutrino oscillation using an artificial, well-characterised accelerator beam rather than natural atmospheric or solar neutrinos, validating the interpretation of the atmospheric-neutrino anomaly and establishing the long-baseline accelerator method used ever since (K2K, MINOS, T2K, NOvA, DUNE)."
+  "why_it_matters": "The paper says the K2K collaboration had previously reported evidence of neutrino oscillations in a man-made neutrino beam directed 250 km across Japan; this paper presents updated ν_μ disappearance measurements: 112 observed events against 158.1 expected without oscillation, a distorted energy spectrum, and an allowed Δm² region of 1.9 to 3.5 × 10⁻³ eV² at 90% CL."
 }

@@ -1,5 +1,16 @@
 {
   "aliases": [],
+  "announced": {
+    "confidence": "verified",
+    "locator": "IHEP news item \"JUNO Experiment Delivers First Physics Results Two Months After Completion\", 2025-11-19",
+    "note": "IHEP press conference in Jiangmen announcing the completion of JUNO and its first physics results; the news item says early data show the detector's key performance indicators meet or surpass design expectations and that the detector-performance paper was posted on arXiv on 18 November.",
+    "quote": "2025-11-19 The Institute of High Energy Physics (IHEP) of the Chinese Academy of Sciences(CAS) today held a press conference in Jiangmen City to announce the successful completion of the Jiangmen Underground Neutrino Observatory (JUNO)",
+    "sources": [
+      "src:juno-ihep-first-results-en"
+    ],
+    "value": "2025-11-19",
+    "verified_at": "2026-10-25"
+  },
   "claim": {
     "locator": "Chinese Physics C 50, 043001 (2026), article title; confirmed verbatim against arXiv:2511.14590 and INSPIRE literature id 3084402",
     "quote": "Initial performance results of the JUNO detector",
@@ -16,17 +27,18 @@
     "tier": "A"
   },
   "date": {
-    "confidence": "approximate",
-    "locator": "Chin. Phys. C 50, 043001 (2026), Issue 4, 2026; INSPIRE literature id 3084402",
-    "note": "Chinese Physics C 50, 043001 (2026), Issue 4; confirmed via INSPIRE-HEP (control_number 3084402) and the IOP article page (DOI 10.1088/1674-1137/ae3dc1), which additionally records 'Received 19 November 2025' but no day/month for the print/online-publication date itself, so only year precision is recorded here. The arXiv preprint (2511.14590) was posted 2025-11-18.",
+    "confidence": "verified",
+    "locator": "arXiv:2511.14590, submission history; IHEP news item of 2025-11-19",
+    "note": "First public posting (arXiv v1, 18 November 2025), one day before the IHEP press conference and before the Chinese Physics C publication (2026); the display date is the earliest public date (A9).",
+    "quote": "Submitted on 18 Nov 2025",
     "sources": [
-      "src:juno-cpc-initial-performance-2026",
-      "src:reactor-solar-verify-juno-cpc-2026-arxiv"
+      "src:reactor-solar-verify-juno-cpc-2026-arxiv",
+      "src:juno-ihep-first-results-en"
     ],
-    "value": "2026",
-    "verified_at": "2026-09-18"
+    "value": "2025-11-18",
+    "verified_at": "2026-10-25"
   },
-  "date_kind": "publication",
+  "date_kind": "preprint",
   "detector_ids": [
     "detector:juno"
   ],
@@ -46,8 +58,8 @@
     "sources": [
       "src:reactor-solar-verify-juno-cpc-2026-arxiv"
     ],
-    "value": "Light yield 1,785 p.e./MeV; energy resolution 3.4% at 0.511 MeV; attenuation length 20.6 m at 430 nm",
-    "verified_at": "2026-09-18"
+    "value": "Light yield about 1785 photoelectrons per MeV at the detector centre; energy resolution 3.4% for two 0.511 MeV γ at the detector centre; liquid-scintillator attenuation length 20.6 m at 430 nm",
+    "verified_at": "2026-10-25"
   },
   "links": {
     "website": null
@@ -64,6 +76,17 @@
     "url": "https://cpc.ihep.ac.cn/news/specialissue/cdb801c8-850f-451f-962b-ee78ebb52f4d_en.htm"
   },
   "publication_source_id": "src:juno-cpc-initial-performance-2026",
+  "published": {
+    "confidence": "verified",
+    "locator": "Chinese Physics C 50 (Issue 4, 2026), cover story page",
+    "note": "",
+    "quote": "Cover Story (Issue 4, 2026): Initial performance results of the JUNO detector",
+    "sources": [
+      "src:juno-cpc-initial-performance-2026"
+    ],
+    "value": "2026",
+    "verified_at": "2026-10-25"
+  },
   "result_type": "technology_milestone",
   "schema": "hep-atlas/0.2",
   "significance": {
@@ -81,8 +104,8 @@
     "src:reactor-solar-verify-juno-cpc-2026-arxiv"
   ],
   "summary": {
-    "plain": "The JUNO collaboration's first report on how well the detector itself works: how much light it collects, how sharply it measures energy, and how clear its liquid is.",
-    "technical": "First reported in-situ performance figures for the JUNO central detector: light yield 1,785 photoelectrons/MeV, energy resolution 3.4% at 0.511 MeV γ-rays, and liquid-scintillator attenuation length 20.6 m at 430 nm."
+    "plain": "The JUNO collaboration's initial report on how well the detector itself works: how much light it collects, how sharply it measures energy, and how clear its liquid scintillator is.",
+    "technical": "Initial performance results for the JUNO central detector: liquid-scintillator attenuation length 20.6 m at 430 nm; about 1785 photoelectrons per MeV at the detector centre; energy resolution 3.4% for two 0.511 MeV gamma rays at the detector centre; energy nonlinearity calibrated to better than 1%; data-acquisition duty cycle above 97.8% during the initial science runs."
   },
   "title": "Initial performance results of the JUNO detector",
   "topic_ids": [
@@ -97,7 +120,7 @@
     "sources": [
       "src:reactor-solar-verify-juno-cpc-2026-arxiv"
     ],
-    "value": "Confirms the detector meets or exceeds its design specifications ahead of its long-term physics program.",
-    "verified_at": "2026-09-18"
+    "value": "The abstract reports a data-acquisition duty cycle above 97.8% during the initial science runs, which it says demonstrates the excellent stability and readiness of JUNO for high-precision neutrino physics; IHEP's news item says early data show the key performance indicators fully meet or surpass design expectations.",
+    "verified_at": "2026-10-25"
   }
 }

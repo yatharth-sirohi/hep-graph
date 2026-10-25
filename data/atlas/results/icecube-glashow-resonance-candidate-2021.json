@@ -1,8 +1,19 @@
 {
   "aliases": [],
+  "announced": {
+    "confidence": "verified",
+    "locator": "IceCube press release \"IceCube detection of a high-energy particle proves 60-year-old theory\", posted 2021-03-10",
+    "note": "Nature publication and IceCube announcement of 10 March 2021; the arXiv posting (21 October 2021) came later.",
+    "quote": "The result was published on March 10 in Nature.",
+    "sources": [
+      "src:rv-r2-icecube-pr-glashow-2021"
+    ],
+    "value": "2021-03-10",
+    "verified_at": "2026-10-25"
+  },
   "claim": {
     "locator": "abstract (arXiv:2110.15051)",
-    "quote": "Here we report the detection by the IceCube neutrino observatory of a cascade of high-energy particles (a particle shower) consistent with being created at the Glashow resonance.",
+    "quote": "Here we report the detection by the IceCube neutrino observatory of a cascade of high-energy particles (a particle shower) consistent with being created at the Glashow resonance. ... The evidence of the Glashow resonance suggests the presence of electron antineutrinos in the astrophysical flux, while also providing further validation of the standard model of particle physics.",
     "sources": [
       "src:icecube-result-glashow-nature-2021"
     ]
@@ -16,15 +27,16 @@
   },
   "date": {
     "confidence": "verified",
-    "note": "arXiv submission date of the posted version. Published as Nature 591, 220-224 (2021); the arXiv posting followed publication.",
-    "quote": "[Submitted on 21 Oct 2021]",
+    "locator": "IceCube press release \"IceCube detection of a high-energy particle proves 60-year-old theory\", posted 2021-03-10",
+    "note": "Nature publication and IceCube announcement of 10 March 2021; the arXiv posting (21 October 2021) came later.",
+    "quote": "The result was published on March 10 in Nature.",
     "sources": [
-      "src:icecube-result-glashow-nature-2021"
+      "src:rv-r2-icecube-pr-glashow-2021"
     ],
-    "value": "2021-10-21",
-    "verified_at": "2026-09-16"
+    "value": "2021-03-10",
+    "verified_at": "2026-10-25"
   },
-  "date_kind": "preprint",
+  "date_kind": "announcement",
   "detector_ids": [
     "detector:icecube"
   ],
@@ -71,7 +83,18 @@
     "doi": "10.1038/s41586-021-03256-1",
     "url": "https://arxiv.org/abs/2110.15051"
   },
-  "result_type": "first_detection",
+  "published": {
+    "confidence": "verified",
+    "locator": "arXiv journal reference",
+    "note": "",
+    "quote": "Nature 591, 220-224 (2021)",
+    "sources": [
+      "src:icecube-result-glashow-nature-2021"
+    ],
+    "value": "2021",
+    "verified_at": "2026-10-25"
+  },
+  "result_type": "evidence",
   "schema": "hep-atlas/0.2",
   "significance": {
     "confidence": "uncertain",
@@ -87,13 +110,13 @@
     "src:icecube-result-glashow-nature-2021"
   ],
   "summary": {
-    "plain": "IceCube caught a single enormous burst of light in the ice with an energy of about six thousand trillion electronvolts — matching a long-predicted reaction between a cosmic antineutrino and an electron.",
-    "technical": "A cascade of 6.05 ± 0.72 PeV reconstructed energy, with secondary-muon features indicating hadronic decay of a resonant W⁻ boson, consistent with the Glashow resonance at 6.3 PeV antineutrino energy. Implies electron antineutrinos in the astrophysical flux."
+    "plain": "IceCube detected a single particle shower with an energy of about 6 PeV (six thousand trillion electronvolts) that is consistent with being created at the Glashow resonance: the resonant formation of a W⁻ boson when a high-energy electron antineutrino meets an electron.",
+    "technical": "Cascade with an energy of 6.05 ± 0.72 PeV (from Cherenkov radiation in the Antarctic ice), consistent with the Glashow resonance, which peaks at an antineutrino energy of 6.3 PeV in the electron rest frame; features consistent with secondary muons indicate the hadronic decay of a resonant W⁻ boson and, the paper says, confirm that the source is astrophysical. The paper states that the evidence suggests electron antineutrinos in the astrophysical flux and provides further validation of the Standard Model."
   },
   "title": "Detection of a particle shower at the Glashow resonance with IceCube",
   "topic_ids": [
     "topic:high-energy-astrophysical-neutrinos"
   ],
   "type": "result",
-  "why_it_matters": "First candidate observation of the Glashow resonance, a 60-year-old Standard Model prediction, and a way to distinguish neutrinos from antineutrinos in astrophysical fluxes."
+  "why_it_matters": "The abstract says the resonance's unique signature indicates a method of distinguishing neutrinos from antineutrinos, a way to identify astronomical accelerators that produce neutrinos via hadronuclear or photohadronic interactions. IceCube's press release adds that Sheldon Glashow first proposed the resonance in 1960."
 }
