@@ -1,154 +1,225 @@
 {
-  "schema": "hep-atlas/0.2",
-  "id": "experiment:sno-plus",
-  "type": "experiment",
-  "name": "SNO+",
+  "accelerator_ids": [],
   "aliases": [],
-  "kind": "solar_neutrino",
-  "secondary_kinds": ["double_beta_decay", "reactor_neutrino"],
-  "collaboration_ids": ["collaboration:sno-plus"],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:sno-plus"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "document_ids": [],
+  "energy_regime": null,
+  "external": {
+    "greybook": null,
+    "inspire_experiment": 1108233,
+    "wikidata": null
+  },
   "facility_roles": [
     {
-      "facility_id": "facility:snolab",
-      "role": "host",
-      "start": null,
-      "end": null,
-      "sources": ["src:sno-plus-official-site"],
-      "verified_at": "2026-09-17",
       "confidence": "verified",
-      "note": ""
+      "end": null,
+      "facility_id": "facility:snolab",
+      "note": "",
+      "role": "host",
+      "sources": [
+        "src:sno-plus-official-site"
+      ],
+      "start": null,
+      "verified_at": "2026-09-17"
     }
   ],
-  "beamline_ids": [],
-  "accelerator_ids": [],
-  "topic_ids": ["topic:solar-neutrinos", "topic:neutrinoless-double-beta-decay", "topic:reactor-neutrinos"],
+  "id": "experiment:sno-plus",
   "intervals": [
     {
-      "label": "water-fill commissioning phase",
-      "status": "commissioning",
-      "start": "2017",
+      "confidence": "approximate",
       "end": "2019",
-      "sources": ["src:sno-plus-wikipedia"],
-      "verified_at": "2026-09-17",
-      "confidence": "approximate",
+      "label": "water-fill commissioning phase",
+      "note": "Sourced from Wikipedia (rank 12); no official page fetched this session restates these exact years.",
       "quote": "The detector underwent a water-filled commissioning phase from 2017 to 2019",
-      "note": "Sourced from Wikipedia (rank 12); no official page fetched this session restates these exact years."
+      "sources": [
+        "src:sno-plus-wikipedia"
+      ],
+      "start": "2017",
+      "status": "commissioning",
+      "verified_at": "2026-09-17"
     },
     {
-      "label": "liquid-scintillator phase",
-      "status": "active",
-      "start": "2022",
-      "end": null,
-      "sources": ["src:sno-plus-wikipedia"],
-      "verified_at": "2026-09-17",
       "confidence": "approximate",
+      "end": {
+        "approx": true,
+        "date": "2026-04",
+        "display": "by April 2026 (leak repair under way); onset not sourced"
+      },
+      "label": "liquid-scintillator phase",
+      "note": "Sourced from Wikipedia (rank 12). END ADDED 2026-10-25: the acrylic-vessel leak repair was under way by April 2026 (LIP slide: \"lowering water now to repair\"); onset date not sourced. Previously open-ended.",
       "quote": "In 2022, the detector was filled with Linear alkylbenzene (LAB) liquid scintillator loaded with the wavelength shifter PPO",
-      "note": "Sourced from Wikipedia (rank 12)."
+      "sources": [
+        "src:sno-plus-wikipedia",
+        "src:currency2-sno-plus-lip-advisory-2026"
+      ],
+      "start": "2022",
+      "status": "active",
+      "verified_at": "2026-10-25"
     },
     {
-      "label": "tellurium-loading phase (planned)",
-      "status": "planned",
-      "start": {"date": "2027", "planned": true, "note": "No specific year is stated in the fetched sources; this is a placeholder acknowledging the planned phase exists without asserting a date."},
+      "confidence": "approximate",
       "end": null,
-      "sources": ["src:sno-plus-wikipedia"],
-      "verified_at": "2026-09-17",
-      "confidence": "uncertain",
-      "quote": "The next major phase involves loading natural tellurium (130Te) into the scintillator",
-      "note": "No fetched source gives a specific planned year; a placeholder 'planned: true' date of 2027 is used only so the interval is schema-valid, and is explicitly flagged uncertain/unsourced for that specific year -- treat the date as unknown, only the fact of a planned future phase is sourced."
-    }
-  ],
-  "physics_goals": [
-    {
-      "value": "Search for neutrinoless double beta decay of 130-Te",
-      "sources": ["src:sno-plus-official-site"],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
-      "quote": "the search for neutrinoless double beta decay",
-      "locator": "snoplus.phy.queensu.ca homepage"
+      "label": "tellurium-loaded phase (planned: 0.5% Te fill from 2028)",
+      "locator": "slide 5 'SNO+ timeline and plans': in the 2026-2032 timeline, 'Repairs' occupies 2026-2027 and the green 'Fill 0.5% Te' bar starts at the 2028 tick",
+      "note": "Replaces the first-pass placeholder 2027 (which had no source). April 2026 slide: 0.5% fill from 2028 (read from the timeline figure, not from text), '0.5% data' after it, 'Fill 1.5% Te' around 2030-2032 and '1.5% data' last; \"0.5%: best sensitivity to 130Te 0vbb (2x10^26 yr in 3 yrs). Submitted proposal for 1.5% loading\". A schedule, not an event.",
+      "quote": "Fill 0.5% Te",
+      "sources": [
+        "src:currency2-sno-plus-lip-advisory-2026"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2028",
+        "display": "Fill 0.5% Te from 2028 (timeline figure)",
+        "planned": true
+      },
+      "status": "planned",
+      "verified_at": "2026-10-25"
     },
     {
-      "value": "Measure the 8B solar neutrino flux via elastic scattering",
-      "sources": ["src:sno-plus-official-site"],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
-      "quote": "lowest background solar electron scattering signal above 5 MeV to date",
-      "locator": "snoplus.phy.queensu.ca homepage, Dec 2024 result summary"
-    },
-    {
-      "value": "Measure reactor antineutrino oscillations over long baselines",
-      "sources": ["src:sno-plus-official-site"],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
-      "quote": "Initial measurement of reactor antineutrino oscillations (January 2025)",
-      "locator": "snoplus.phy.queensu.ca homepage"
+      "confidence": "approximate",
+      "end": {
+        "approx": true,
+        "date": "2026-10",
+        "display": "autumn 2026 restart (planned)",
+        "earliest": "2026-09",
+        "latest": "2026-11",
+        "planned": true
+      },
+      "label": "acrylic vessel leak repair",
+      "note": "Added 2026-10-25. LIP Advisory Committee slide (27-28 April 2026, J. Maneira): \"Acrylic Vessel Repairs: leak in AV, height identified, lowering water now to repair, autumn restart\". SNOLAB report of 26 May 2026 has a slide 'SNO+ Cavity Access for Repairs' (rope-access team, boat in the cavity, \"No damage to the neck. AV was not stuck\", \"Installing lights\"; photo of the cavity with the water level lowered), so the repair was under way in spring 2026. No source gives the day the scintillator data-taking stopped (the April 2026 reactor analysis, arXiv:2604.05746, uses data \"between May 2022 and July 2025\", which is an analysis cut, not an end of running), so the start is 'by April 2026' at month precision, approximate. The restart is a plan: 'autumn restart' (autumn 2026 = September-November, middle month 2026-10); the slide does not say what restarts (scintillator data-taking or water fill) and no source dated after 26 May 2026 reports it, so the shutdown is kept at 2026-10-25 and must be re-checked.",
+      "quote": "leak in AV, height identified, lowering water now to repair, autumn restart",
+      "sources": [
+        "src:currency2-sno-plus-lip-advisory-2026",
+        "src:currency2-snolab-report-2026-05-26"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2026-04",
+        "display": "by April 2026 (leak repair under way); onset not sourced"
+      },
+      "status": "shutdown",
+      "verified_at": "2026-10-25"
     }
   ],
-  "unique_capabilities": [
-    {
-      "value": "Reuses the original SNO acrylic vessel and cavern, refilled first with water, then liquid scintillator, and eventually tellurium-loaded scintillator, for a multi-phase, multi-purpose physics program",
-      "sources": ["src:sno-plus-official-site"],
-      "verified_at": "2026-09-17",
-      "confidence": "verified",
-      "quote": "a multipurpose neutrino detector",
-      "locator": "snoplus.phy.queensu.ca homepage"
-    }
-  ],
-  "energy_regime": null,
   "key_specs": [
     {
       "label": "Liquid scintillator mass",
       "quantity": {
-        "value": 780,
-        "unit": "t",
-        "dimension": "mass",
         "approx": false,
-        "display": "780 t",
-        "sources": ["src:sno-plus-wikipedia"],
-        "verified_at": "2026-09-17",
         "confidence": "approximate",
+        "dimension": "mass",
+        "display": "780 t",
+        "note": "Sourced from Wikipedia (rank 12); no official/paper source independently fetched this session restates this figure.",
         "quote": "780 tonnes of organic liquid scintillator",
-        "note": "Sourced from Wikipedia (rank 12); no official/paper source independently fetched this session restates this figure."
+        "sources": [
+          "src:sno-plus-wikipedia"
+        ],
+        "unit": "t",
+        "value": 780,
+        "verified_at": "2026-09-17"
       }
     }
   ],
+  "kind": "solar_neutrino",
   "lineage": [
     {
-      "experiment_id": "experiment:sno",
-      "relation": "upgrade_of",
-      "sources": ["src:sno-plus-official-site"],
-      "verified_at": "2026-09-17",
       "confidence": "verified",
-      "note": "SNO+ reuses SNO's cavern and acrylic vessel at SNOLAB per the official site's own description; the inverse `upgraded_to` row on experiment:sno is derived at build (v0.2 A1), not authored here."
+      "experiment_id": "experiment:sno",
+      "note": "SNO+ reuses SNO's cavern and acrylic vessel at SNOLAB per the official site's own description; the inverse `upgraded_to` row on experiment:sno is derived at build (v0.2 A1), not authored here.",
+      "relation": "upgrade_of",
+      "sources": [
+        "src:sno-plus-official-site"
+      ],
+      "verified_at": "2026-09-17"
     }
   ],
-  "external": {
-    "inspire_experiment": 1108233,
-    "greybook": null,
-    "wikidata": null
-  },
-  "document_ids": [],
-  "result_ids": [],
   "links": {
     "website": {
-      "value": "https://snoplus.phy.queensu.ca/",
-      "sources": ["src:sno-plus-official-site"],
-      "verified_at": "2026-09-17",
       "confidence": "verified",
-      "note": ""
+      "note": "",
+      "sources": [
+        "src:sno-plus-official-site"
+      ],
+      "value": "https://snoplus.phy.queensu.ca/",
+      "verified_at": "2026-09-17"
     }
   },
+  "name": "SNO+",
   "notes": [
     "Derived fields (detector_ids, site_ids, result_ids, document_ids) deliberately not authored (v0.2 A1).",
     "The 'planned' tellurium-loading interval's date is a schema-satisfying placeholder (2027) explicitly flagged as unsourced for that year; only the existence of a future tellurium phase is sourced."
   ],
-  "sources": ["src:sno-plus-official-site", "src:sno-plus-wikipedia", "src:sno-plus-inspire-experiment-record"],
-  "status": "active",
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "snoplus.phy.queensu.ca homepage",
+      "quote": "the search for neutrinoless double beta decay",
+      "sources": [
+        "src:sno-plus-official-site"
+      ],
+      "value": "Search for neutrinoless double beta decay of 130-Te",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "locator": "snoplus.phy.queensu.ca homepage, Dec 2024 result summary",
+      "quote": "lowest background solar electron scattering signal above 5 MeV to date",
+      "sources": [
+        "src:sno-plus-official-site"
+      ],
+      "value": "Measure the 8B solar neutrino flux via elastic scattering",
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "verified",
+      "locator": "snoplus.phy.queensu.ca homepage",
+      "quote": "Initial measurement of reactor antineutrino oscillations (January 2025)",
+      "sources": [
+        "src:sno-plus-official-site"
+      ],
+      "value": "Measure reactor antineutrino oscillations over long baselines",
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "result_ids": [],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [
+    "double_beta_decay",
+    "reactor_neutrino"
+  ],
+  "sources": [
+    "src:sno-plus-official-site",
+    "src:sno-plus-wikipedia",
+    "src:sno-plus-inspire-experiment-record"
+  ],
+  "status": "shutdown",
   "summary": {
     "plain": "SNO+ reuses the same underground cavern and acrylic ball that SNO used, now filled with liquid scintillator, to search for a hypothetical nuclear decay and to study solar and reactor neutrinos.",
     "technical": "Multipurpose experiment at SNOLAB reusing SNO's acrylic vessel and cavern: water-fill commissioning 2017-2019, then 780 t liquid-scintillator fill from 2022, with a planned future tellurium-loading phase for a neutrinoless double-beta-decay search; also measures 8B solar neutrinos and long-baseline reactor antineutrino oscillations."
   },
-  "coverage": {
-    "tier": "B",
-    "researched": "partial"
-  }
+  "topic_ids": [
+    "topic:solar-neutrinos",
+    "topic:neutrinoless-double-beta-decay",
+    "topic:reactor-neutrinos"
+  ],
+  "type": "experiment",
+  "unique_capabilities": [
+    {
+      "confidence": "verified",
+      "locator": "snoplus.phy.queensu.ca homepage",
+      "quote": "a multipurpose neutrino detector",
+      "sources": [
+        "src:sno-plus-official-site"
+      ],
+      "value": "Reuses the original SNO acrylic vessel and cavern, refilled first with water, then liquid scintillator, and eventually tellurium-loaded scintillator, for a multi-phase, multi-purpose physics program",
+      "verified_at": "2026-09-17"
+    }
+  ]
 }
