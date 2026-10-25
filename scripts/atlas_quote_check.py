@@ -364,7 +364,9 @@ NUM = r"\d+(?:\.\d+)?"
 def numbers_in(text: str) -> list[float]:
     t = unicodedata.normalize("NFKC", text).translate(_MAP).casefold()
     t = re.sub(r"\\times|\\cdot", "×", t).replace("$", "").replace("{", "").replace("}", "")  # LaTeX
-    t = re.sub(r"(?<=\d)[,\u2009 ](?=\d{3}(?!\d))", "", t)  # 1,585 / 1 585 -> 1585
+    t = re.sub(r"(?<=\d),(?=\d{3}(?!\d))", "", t)  # 1,585 -> 1585
+    # 1 585 -> 1585, but not the gap between two table entries "667.9 451.8" (a decimal before the gap, or after the three digits)
+    t = re.sub(r"(?<!\.\d)(?<=\d)[\u2009 ](?=\d{3}(?!\d|\.\d))", "", t)
     out = []
     for m in re.finditer(rf"({NUM})\s*(?:x|\*|×|·|⋅)\s*10\s*\^?\s*\(?\s*([+-]?\d+)\s*\)?", t):
         out.append(float(m.group(1)) * 10 ** int(m.group(2)))
@@ -387,6 +389,9 @@ def numbers_in(text: str) -> list[float]:
 RESCALES = [1.0] + [10.0 ** e for e in (-12, -9, -6, -3, 3, 6, 9, 12, -2, -1, 1, 2)]
 
 
+IMPERIAL_TO_METRE = (0.3048, 0.0254, 0.9144, 1609.344, 1852.0)  # ft, in, yd, mile, nautical mile
+
+
 def number_in_quote(value: float, quote: str) -> bool:
     if value == 0:
         return True  # "none"/"zero" phrasing is too varied to police
@@ -395,6 +400,11 @@ def number_in_quote(value: float, quote: str) -> bool:
             continue
         for r in RESCALES:
             if math.isclose(abs(value), q * r, rel_tol=2e-3) or math.isclose(abs(value), q / r, rel_tol=2e-3):
+                return True
+        # a value stored in metres whose quote gives feet / miles ("2,150 feet" -> 655 m); figures in feet are
+        # rounded, so a 1 % tolerance
+        for k in IMPERIAL_TO_METRE:
+            if math.isclose(abs(value), q * k, rel_tol=1e-2):
                 return True
     return False
 
