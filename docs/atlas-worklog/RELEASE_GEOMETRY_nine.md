@@ -547,3 +547,96 @@ The facility has no accelerator or beamline; the one detector, `detector:anita`,
    moved to placenames.aq, which does not resolve from this machine) to replace the OSM place
    node with an official coordinate.
 4. ANITA flight tracks (a separate product, not a facility map).
+
+---
+
+## 9. summit-station-greenland (`map:summit-station-greenland`)
+
+**Grade: no map → layout to scale for the RNO-G array** (seven station points with passing spacing
+checks, a checked skiway line, and camp footprints). Tier B.
+
+| Entity / feature | Status | Representation | accuracy_m | Check |
+| --- | --- | --- | --- | --- |
+| `detector:rno-g` stations 11, 12, 13, 21, 22, 23, 24 → `geometry:rnog-station-11` … `-24` (`array`, Point) | drawn | **derived** | 100 | `distance` to neighbouring station vs 1.25 km grid spacing, tolerance 5 %: 12→11 1201 m, 13→12 1230 m, 22→21 1224 m, 23→22 1261 m, 24→23 1204 m, 21→11 1285 m, 22→12 1229 m, 23→13 1241 m: **8/8 pass** |
+| Summit Station skiway → `geometry:summit-skiway` (OSM way 704074469, aeroway=runway) | drawn (`other`, line) | georeferenced, confidence **verified** | 20 | `length` expected 16,800 ft = 5120.64 m vs measured 5100.9 m, tolerance 2 % → **pass** (0.39 %) |
+| DISC borehole → `geometry:summit-disc-borehole` (published 72.582793 N, −38.455815 E) | drawn (context) | surveyed (published coordinate), verified | 10 | none |
+| Camp area → `geometry:summit-camp-building-footprints` (11 unnamed OSM `building=yes` ways 1001537503–513, MultiPolygon) | drawn (context) | georeferenced | 10 | none; unnamed |
+| Summit Station named buildings (Big House, Green House/Berthing Module, Science and Operations Barn, Mobile Garage, AWO, MSF) | **unlocated** (map row on `facility:summit-station-greenland`) | — | — | — |
+
+**Sources fetched and quoted**
+
+* Station positions: `RNO_season_2022.json` in the RNO-G collaboration's open NuRadioMC software
+  (GPL-3.0), pinned at commit 008d623 (2025-03-20,
+  https://github.com/nu-radio/NuRadioMC/blob/008d623f1ce9634f2fed2858486eef72d7ab475b/NuRadioReco/detector/RNO_G/RNO_season_2022.json),
+  fetched in full. Seven stations (11, 12, 13, 21, 22, 23, 24) with `pos_site: summit` and
+  `pos_easting`/`pos_northing` in metres, e.g. station 11: −1572.909, 730.010; station 21: −309.077,
+  496.701; with `commission_time` 2021-07-11 (11), 2022-06-21 (12), 2022-07-04 (13), 2021-07-04 (21),
+  2021-07-01 (22), 2022-06-26 (23), 2022-07-12 (24).
+* Origin: `rnog_detector.py` (commit 283c049, 2026-07-24), `get_site_coordinates`: "The returned location
+  corresponds to the position of the DISC borehole which is used as the origin of the RNO-G
+  coordinate system, i.e., this locations acts as a reference point to define the station positions."
+  returning (72.582793, −38.455815).
+* "The square grid has an inter-station spacing of 1.25 km" and the station numbering/names — RNO-G
+  collaboration, *The first seven stations of RNO-G* (arXiv:2411.12922), §2.1 (existing source
+  `src:astro-neutrino-rno-g-first-seven-stations-2024`, read in full this session).
+* "The skiway (snow runway) is 16,800 feet long and 200 feet wide." and the building list and sizes
+  (Big House "26-feet-wide by 56-feet-long", Mobile Garage "32-feet x 97-feet (9.7m x 29.5m)", AWO
+  "150 square-foot … one kilometer south of Summit Station", MSF "16'x36'") — GEOSummit, *Working at
+  Summit* (https://geo-summit.org/summit-station/working-at-summit), fetched.
+
+**Honesty calls and conflicts**
+
+1. *Stations are `derived`, not `surveyed`.* The inputs are published, but the conversion from
+   metres to lat/lon is my computation (spherical local tangent plane, R = 6 371 008.8 m, offsets
+   taken as true-east/true-north) and the JSON does not state its axes. If the axes are grid-aligned
+   (UTM zone 24 convergence ≈ 0.5° here), a station 4 km north would shift by up to ≈ 40 m, hence
+   accuracy 100 m.
+2. *Origin ambiguity resolved against the paper's map.* NuRadioMC's JSON-based detector class uses a
+   rounded generic "summit" point (72.57, −38.46, in `coordinates.json`), while the RNO-G database
+   class uses the DISC borehole (72.582793, −38.455815) as the origin. The two differ by 1.4 km, so
+   the origin matters. Figure 1 of arXiv:2411.12922 (a lat/lon-graticule map with the DISC
+   Borehole, Big House, skiway and station markers, viewed but **not** traced or copied) puts station
+   11 at the left edge near 38.50° W / 72.59° N, station 21 about 0.5 km north-west of the DISC
+   borehole, and station 24 near 72.62° N; the DISC-origin positions here (11: 72.5894 N, 38.5031° W;
+   21: 72.5873 N, 38.4651° W; 24: 72.6200 N, 38.4475° W) agree with those readings to within the
+   ≈ 0.003° I can read from the figure, and a 1.4 km shift would not. This is a plausibility
+   check, not a measurement, and is why the origin choice is documented rather than asserted.
+3. *Spacing conflict between papers.* The 2020 design paper (arXiv:2010.12279, Figure 7 caption)
+   says "grid spacing is approximately 1 km"; the 2024 as-built paper says 1.25 km. The installed
+   spacings are 1.20–1.28 km, so 1.25 km is used and the 1 km figure is treated as a superseded
+   plan.
+4. *Skiway verified, camp buildings not named.* The skiway passes its length check (0.39 %).
+   No OSM footprint near the camp matches an official building size: the best fit is the 30.2 × 11.8 m
+   way 1001537504 against the Mobile Garage's 29.5 × 9.7 m (width +22 %); none is 7.9 × 17.1 m
+   (Big House). They are drawn as one unnamed context MultiPolygon. The camp's buildings are moved on
+   sleds, so footprints are positions at the 2021-11-11 mapping.
+5. `valid.start` on each station is the month of the detector description's `commission_time`;
+   stations 12, 13, 23, 24 (2022) and 11, 21, 22 (2021) therefore appear in the right season on the
+   timeline. The map sets `kind: ice` for its single level; antennas reach ~100 m below the drawn
+   surface point.
+6. *Not drawn:* the 28 further planned stations of the 35-station grid (nominal positions only).
+   The earlier planned layout in `RNO_array.json` (same repository) has nominal positions for all 35
+   but its own origin note is absent, so it was not used.
+
+**Site coordinate corrections** (for the integrator; none applied here)
+
+```json
+[{"site_id": "site:summit-station-rno-g",
+  "current": {"lat": 72.5961, "lon": -38.4219, "precision_m": 2000, "kind": "detector", "source": "src:astro-neutrino-rno-g-design-paper-jinst-2021"},
+  "proposed": {"lat": 72.60214, "lon": -38.47368, "precision_m": 2500, "kind": "detector"},
+  "distance_from_current_m": 1848,
+  "source": "mean of the seven drawn station points (src:geo-summit-rnog-season-2022-detector-json + src:geo-summit-rnog-detector-origin-code); the farthest station is 2.17 km from this centroid",
+  "note": "The existing point 72°35'46\"N 38°25'19\"W is the RNO-G paper's approximate site and coincides (60 m) with the midpoint of the Summit skiway (OSM way 704074469), not with the array, which lies 1.8 km to its west-north-west. It is inside the stated 2 km precision, so this is a refinement, not a correction."}]
+```
+
+**Remaining backlog**
+
+1. Name the camp buildings: georeference the official Summit Station Site Plan (2016) or the
+   Overall Site Plan and Skiway Layout (2014) (links on the Working at Summit page; cite, never
+   copy) against the OSM skiway and the DISC borehole, or obtain a GEOSummit GIS layer.
+2. The RNO-G station axis convention (true north vs grid) from the collaboration's coordinate
+   documentation, to tighten accuracy_m below 100 m; and the RNO-G database's as-surveyed GPS values
+   if published.
+3. Positions for stations beyond the first seven as they are built.
+4. The AWO (about 1 km south of the station) and the Mobile Science Facility (several hundred feet
+   east of the Big House), if a site plan locates them; both are sled-mounted and move.

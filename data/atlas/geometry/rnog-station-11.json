@@ -1,0 +1,59 @@
+{
+  "accuracy_m": 100,
+  "aliases": [],
+  "checks": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "depth_m": null,
+  "entity_id": "detector:rno-g",
+  "feature_type": "array",
+  "geometry": {
+    "confidence": "derived",
+    "locator": "RNO_season_2022.json (commit 008d623) station 11 pos_easting/pos_northing; rnog_detector.py origin; arXiv:2411.12922 Figure 1 shows station 11 (Nanoq) west/north of the DISC borehole (viewed, not traced)",
+    "note": "Derived from collaboration-published offsets and a published origin; the offsets are as-installed positions (depth wrt snow level at time of measurement) from the detector description, not a separate survey table. Spacings to neighbouring stations pass the 1.25 km grid check within 5 %.",
+    "sources": [
+      "src:geo-summit-rnog-season-2022-detector-json",
+      "src:geo-summit-rnog-detector-origin-code",
+      "src:astro-neutrino-rno-g-first-seven-stations-2024"
+    ],
+    "value": {
+      "coordinates": [
+        -38.5030726,
+        72.5893581
+      ],
+      "type": "Point"
+    },
+    "verified_at": "2026-10-25"
+  },
+  "id": "geometry:rnog-station-11",
+  "level_id": "ice-surface",
+  "license": null,
+  "links": {
+    "website": null
+  },
+  "map_id": "map:summit-station-greenland",
+  "method": "Computed: station 11's published offsets (easting -1572.9 m, northing 730.0 m, pos_site 'summit') from the RNO_season_2022.json detector description were added to the published origin (72.582793 N, -38.455815 E, the DISC borehole) in a spherical local tangent plane (R = 6 371 008.8 m; dlat = N/R, dlon = E/(R cos 72.582793 deg)), giving 72.5893581 N, -38.5030726 E. The offsets are taken as true-east/true-north metres; if the collaboration's easting/northing axes are grid-aligned instead (UTM zone 24 convergence is about 0.5 degrees here), stations 4 km north of the origin would move by up to about 40 m, hence accuracy_m 100.",
+  "name": "RNO-G station 11 (Nanoq)",
+  "notes": [
+    "Station 11 commissioning month (2021-07) is the 'commission_time' in the detector description; the station's three 100 m strings and nine surface antennas lie within a few tens of metres of this point."
+  ],
+  "osm": null,
+  "representation": "derived",
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:summit-station-rno-g",
+  "sources": [
+    "src:geo-summit-rnog-season-2022-detector-json",
+    "src:geo-summit-rnog-detector-origin-code",
+    "src:astro-neutrino-rno-g-first-seven-stations-2024"
+  ],
+  "summary": {
+    "plain": "RNO-G station 11 (Nanoq), one of the seven radio-detector stations of the Radio Neutrino Observatory in Greenland, placed on the ice sheet north-west of Summit Station."
+  },
+  "type": "geometry",
+  "valid": {
+    "end": null,
+    "start": "2021-07"
+  }
+}
