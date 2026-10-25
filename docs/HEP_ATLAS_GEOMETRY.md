@@ -422,6 +422,12 @@ Implementation resolved these; they are normative from here on.
   hovering or focusing the list row shows it. Labels follow the level and year
   filters and are ghosted with their shape. They are `aria-hidden`: the
   feature list is the screen-reader equivalent.
+* A footprint or line drawn smaller than 8 px across (reactor buildings 50 m
+  wide on a map that also frames a detector 52 km away) is not left invisible:
+  it also gets a point symbol at its centroid, shaped by feature type (diamond
+  for line-like structures, square for footprints, circle otherwise), which
+  goes away once the shape is large enough. Its label is decluttered like any
+  other and sits beside the symbol.
 * When the selection leaves nothing drawn, a notice over the map says so, with
   one action ("Show features from all years", or "Show all levels").
 * Styling encodes four things independently and the legend says so:

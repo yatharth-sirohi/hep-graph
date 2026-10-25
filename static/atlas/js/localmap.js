@@ -45,6 +45,7 @@ let tileLayer = null;
 let featureGroup = null;
 let layersByFeature = new Map();
 let labelLayer = null;
+let symbolLayer = null;
 let labelRecords = new Map();
 let labelTexts = new Map();
 let labelFrame = 0;
@@ -338,6 +339,7 @@ function destroyMap() {
   tileLayer = null;
   featureGroup = null;
   labelLayer = null;
+  symbolLayer = null;
   labelRecords = new Map();
   layersByFeature = new Map();
 }
@@ -559,6 +561,7 @@ function createMap(L) {
   L.control.scale({ imperial: false, metric: true, position: 'bottomleft' }).addTo(mapInstance);
   resetViewControl(L).addTo(mapInstance);
   featureGroup = L.layerGroup().addTo(mapInstance);
+  symbolLayer = L.layerGroup().addTo(mapInstance);
   labelLayer = L.layerGroup().addTo(mapInstance);
   // Anything that moves the view that this module did not do itself means the
   // reader has taken the camera (see refreshFrame).
@@ -788,6 +791,7 @@ function drawFeatures(L) {
   const stale = [];
   labelLayer.eachLayer((tooltip) => stale.push(tooltip.getElement()));
   labelLayer.clearLayers();
+  symbolLayer.clearLayers();
   stale.forEach((el) => { if (el) el.remove(); });
   labelRecords = new Map();
   for (const feature of bundle.features) {
@@ -1055,6 +1059,84 @@ function featureSizeM(feature) {
   return greatCircleM([s, w], [n, e]);
 }
 
+// A footprint or line that is drawn smaller than this on screen is
+// effectively invisible (JUNO's reactor buildings are ~50 m each and 52 km
+// from the detector: at the scale that frames both, each is under a pixel),
+// so it also gets a point symbol, which goes away once the shape is big enough.
+const SYMBOL_BELOW_PX = 8;
+const SYMBOL_SIZE_PX = 14;
+const SYMBOL_LABEL_GAPS_PX = [SYMBOL_SIZE_PX / 2 + 5, 40, 80];
+const LINE_TYPES = new Set(['ring', 'tunnel', 'linac', 'beamline', 'transfer_line', 'direction_line', 'road']);
+const FOOTPRINT_TYPES = new Set(['hall', 'cavern', 'building', 'experimental_area', 'target_station',
+  'shaft', 'array', 'string']);
+
+/** The symbol's shape follows the feature type, the way the stroke does: a
+ *  diamond for a line-like structure, a square for a footprint, a circle
+ *  for anything else. */
+function symbolShape(featureType) {
+  if (LINE_TYPES.has(featureType)) return 'diamond';
+  if (FOOTPRINT_TYPES.has(featureType)) return 'square';
+  return 'circle';
+}
+
+function unionBox(parts) {
+  const box = { w: Infinity, s: Infinity, e: -Infinity, n: -Infinity };
+  for (const part of parts) {
+    const b = coordBox(part);
+    box.w = Math.min(box.w, b.w);
+    box.e = Math.max(box.e, b.e);
+    box.s = Math.min(box.s, b.s);
+    box.n = Math.max(box.n, b.n);
+  }
+  return box;
+}
+
+/** The point symbol for a polygon or line feature (not for a Point, which
+ *  already draws a centre mark): same colour, hover tooltip and click as the
+ *  shape it stands for. Added to the map only while the shape is tiny. */
+function symbolFor(L, feature, shape, { options, ghost }) {
+  const parts = lineParts(shape);
+  if (!parts.length) return null;
+  const isArea = shape.type === 'Polygon' || shape.type === 'MultiPolygon';
+  const part = principalPart(parts, isArea);
+  const [lon, lat] = isArea ? ringCentroid(part) : pointAlong(part, 0.5);
+  const icon = L.divIcon({
+    className: 'map-symbol-icon',
+    html: `<span class="map-symbol map-symbol-${symbolShape(feature.feature_type)}"></span>`,
+    iconSize: [SYMBOL_SIZE_PX, SYMBOL_SIZE_PX],
+    iconAnchor: [SYMBOL_SIZE_PX / 2, SYMBOL_SIZE_PX / 2],
+  });
+  const marker = L.marker([lat, lon], { icon, keyboard: false, riseOnHover: false });
+  marker.bindTooltip(tooltipFor(feature), { sticky: true, className: 'map-tooltip' });
+  marker.on('click', () => selectFrom(feature, null));
+  marker.on('add', () => {
+    const el = marker.getElement();
+    if (!el) return;
+    // Decoration: the feature list is the screen-reader equivalent.
+    el.setAttribute('aria-hidden', 'true');
+    el.setAttribute('data-symbol-for', feature.id);
+    el.style.setProperty('--symbol-color', options.color);
+    el.classList.toggle('is-ghosted', ghost);
+    el.classList.toggle('is-selected', !!view.sel && (view.sel === feature.entity_id || view.sel === feature.id));
+  });
+  return { marker, centre: L.latLng(lat, lon), extent: unionBox(parts) };
+}
+
+/** Show a feature's point symbol while its shape is drawn smaller than
+ *  SYMBOL_BELOW_PX across, and take it off again once the shape is bigger. */
+function updateSymbols() {
+  if (!mapInstance || !symbolLayer) return;
+  for (const rec of labelRecords.values()) {
+    if (!rec.symbol) continue;
+    const a = mapInstance.latLngToContainerPoint([rec.symbol.extent.s, rec.symbol.extent.w]);
+    const b = mapInstance.latLngToContainerPoint([rec.symbol.extent.n, rec.symbol.extent.e]);
+    const tiny = Math.max(Math.abs(a.x - b.x), Math.abs(a.y - b.y)) < SYMBOL_BELOW_PX;
+    if (tiny && !rec.symbolShown) symbolLayer.addLayer(rec.symbol.marker);
+    else if (!tiny && rec.symbolShown) symbolLayer.removeLayer(rec.symbol.marker);
+    rec.symbolShown = tiny;
+  }
+}
+
 function addLabel(L, feature, shape, { options, ghost }) {
   const plan = labelPlan(L, feature, shape);
   if (!plan) return;
@@ -1091,6 +1173,8 @@ function addLabel(L, feature, shape, { options, ghost }) {
     sizeM: featureSizeM(feature),
     box: { w: 0, h: 0 },
     lastKey: null,
+    symbol: symbolFor(L, feature, shape, { options, ghost }),
+    symbolShown: false,
   });
 }
 
@@ -1160,6 +1244,20 @@ function labelBox(candidate, size) {
 
 /** The positions a label may take in the current view, best first. */
 function labelCandidates(rec) {
+  if (rec.symbolShown) {
+    // The shape is a few pixels across and stands as a point symbol: its label
+    // goes beside the symbol, as a Point's does, not on top of it.
+    const point = mapInstance.latLngToContainerPoint(rec.symbol.centre);
+    const out = [];
+    for (const gap of SYMBOL_LABEL_GAPS_PX) {
+      for (const place of ['above', 'right', 'left', 'below']) {
+        out.push({ key: `s:${place}:${gap}`, point, place, gap });
+      }
+    }
+    const kept = out.findIndex((c) => c.key === rec.lastKey);
+    if (kept > 0) out.unshift(out.splice(kept, 1)[0]);
+    return out;
+  }
   const { plan } = rec;
   const project = (anchor) => mapInstance.latLngToContainerPoint(anchor.ll);
   let anchors = plan.anchors.map((anchor, index) => ({ anchor, index, point: project(anchor) }));
@@ -1222,6 +1320,7 @@ function layoutLabels() {
     container.classList.remove('map-labels-busy');
     return;
   }
+  updateSymbols();
   const blocked = obstacleBoxes();
   const placed = [];
   const inView = (box) => box.x >= LABEL_EDGE_PX && box.y >= LABEL_EDGE_PX

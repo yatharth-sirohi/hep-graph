@@ -2029,3 +2029,38 @@ a.local-map-chip {
     width: calc(100% - 90px);
   }
 }
+
+/* Point symbol for a footprint or line drawn smaller than a few pixels
+   (localmap.js, "symbolFor"). Shape follows feature type; colour is the
+   shape's own; the pale outline keeps it visible on tiles and on the plain
+   background alike. */
+.map-symbol-icon {
+  background: none;
+  border: 0;
+}
+.map-symbol-icon .map-symbol {
+  display: block;
+  width: 14px;
+  height: 14px;
+  box-sizing: border-box;
+  background: var(--symbol-color, #9aa7b0);
+  border: 2px solid var(--white);
+  box-shadow: 0 0 0 1px #0b1620, 0 1px 3px #000000aa;
+}
+.map-symbol-icon .map-symbol-circle {
+  border-radius: 50%;
+}
+.map-symbol-icon .map-symbol-square {
+  border-radius: 2px;
+}
+.map-symbol-icon .map-symbol-diamond {
+  transform: rotate(45deg) scale(0.8);
+}
+.map-symbol-icon.is-ghosted .map-symbol {
+  opacity: 0.55;
+  border-style: dashed;
+}
+.map-symbol-icon.is-selected .map-symbol {
+  border-color: var(--amber);
+  box-shadow: 0 0 0 2px #0b1620, 0 0 0 4px var(--amber);
+}
