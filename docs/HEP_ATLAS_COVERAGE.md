@@ -21,8 +21,8 @@ interface says only "coverage updated" with this date.
 | map | 50 |
 | person | 12 |
 | result | 109 |
-| site | 93 |
-| source | 1903 |
+| site | 94 |
+| source | 1927 |
 | topic | 42 |
 | membership rows | 658 |
 
@@ -345,7 +345,7 @@ Checks are independent official figures the validator re-measures on every run.
 | J-PARC — Tokai accelerator complex | J-PARC (Japan Proton Accelerator Research Complex) | 9 | 0 | 8 | 0 | 1 | 0 | 4 | 0 |
 | Jefferson Lab — Newport News campus | Thomas Jefferson National Accelerator Facility | 11 | 0 | 10 | 1 | 0 | 0 | 2 | 0 |
 | JUNO — underground experimental hall and surface campus (Kaiping, Jiangmen) | Jiangmen Underground Neutrino Observatory | 2 | 1 | 1 | 0 | 0 | 1 | 0 | 0 |
-| JUNO — Yangjiang and Taishan reactor complexes at the 52-53 km baseline | Jiangmen Underground Neutrino Observatory | 9 | 1 | 8 | 0 | 0 | 0 | 10 | 0 |
+| JUNO — experimental hall and the Yangjiang and Taishan reactor buildings | Jiangmen Underground Neutrino Observatory | 9 | 1 | 8 | 0 | 0 | 0 | 10 | 0 |
 | Kamioka Observatory — Mozumi and Tochibora mines | Kamioka Observatory (ICRR, University of Tokyo) | 6 | 1 | 2 | 2 | 1 | 0 | 3 | 0 |
 | KEK — Tsukuba campus | KEK (High Energy Accelerator Research Organization) | 11 | 0 | 10 | 0 | 1 | 1 | 2 | 0 |
 | KIT Campus North — KATRIN experiment and Tritium Laboratory | Karlsruhe Institute of Technology, Campus North | 6 | 0 | 4 | 2 | 0 | 1 | 3 | 0 |
