@@ -52,11 +52,33 @@ texture or a tile server.
 | licence | Natural Earth data: public domain. `world-atlas` packaging: ISC (Mike Bostock). |
 
 Drawn by `globe.js` as a `pathsData` layer (thin, low-contrast lines) on top of
-the `land-110m.json` fill. It is fetched after the globe's first paint and the
+the `land-110m.json` fill (or, once `earth-dark-4096.webp` has loaded, on top of that picture). It is fetched after the globe's first paint and the
 globe works without it: if the request fails the land fill and its own coast
 stroke simply stay as they were. The 110m scale is a political-geography aid
 for orientation, not a survey: disputed and recently changed borders follow
 Natural Earth's de facto line work and the atlas takes no position on them.
+
+## earth-dark-4096.webp
+
+| | |
+| --- | --- |
+| source dataset | Natural Earth "Gray Earth with Shaded Relief, Hypsography, and Ocean Bottom", 1:50m, version 2.0.0 (`GRAY_50M_SR_OB.tif`, 10,800 x 5,400, 8-bit grey) |
+| url | https://naciscdn.org/naturalearth/50m/raster/GRAY_50M_SR_OB.zip (Natural Earth's own download host; page: https://www.naturalearthdata.com/downloads/50m-raster-data/50m-gray-earth/) |
+| downloaded | 2026-10-26, 24,751,015 B zip, sha256 `60da5a9845131f0f74e5bd36a904957143bb2faccb9d01cbbb4a1651317df397`; the zip is not vendored |
+| underlying data | relief shading and hypsography from modified SRTM Plus 1 km elevation (eastern Himalayas and southern Andes patched with Viewfinder Panoramas data; regionally equalised hypsography by Daniel Huffman, University of Wisconsin-Madison); ocean bottom from CleanTOPO2 with reduced contrast. Natural Earth is made by Nathaniel Vaughn Kelso, Tom Patterson and the Natural Earth contributors |
+| licence | public domain. Natural Earth's terms: "All versions of Natural Earth raster + vector map data found on this website are in the public domain. You may use the maps in any manner, including modifying the content and design, electronically, in printed form or as a part of a mobile app. No permission is needed to use Natural Earth. Crediting the authors is unnecessary" (https://www.naturalearthdata.com/about/terms-of-use/). The About page credits it anyway |
+| derived by | `scripts/atlas_earth_texture.py` (numpy, macOS `sips`, `cwebp` 1.6): resize to 4096 x 2048; land/ocean mask by a soft threshold on the image's own grey (ocean sits at 72-110, land at 120-235, with a clean valley between, so the mask follows the raster's own coastline); a high-pass copy of the grey (box blur radius 9) is added back (x2.2 ocean, x1.4 land) so ridges, shelf breaks and fracture zones read at globe scale; land is mapped to a desaturated slate ramp `#222f39` -> `#36444f` and the ocean floor to a navy ramp `#050f17` -> `#112f42`; encoded as lossy WebP, quality 74, `-m 6 -sharp_yuv`, no dither |
+| bytes | 333232 |
+| sha256 | `7aed397e685ca5210df60d8813f2995a7d3ae4246107f05f0f6891ee76e4e185` |
+| palette limit | land is capped dark on purpose. Measured on the rendered globe (Chrome, real GPU; markers, labels and borders hidden; Europe, the overview, North America and Japan views): median Earth luminance 0.008-0.023, 99th percentile <= 0.051, 99.9th percentile (the brightest relief) <= 0.066 (WCAG relative luminance). Against 0.066 every facility kind colour has >= 3.35:1 as a fill, the pale keyline drawn round each glyph (`globeicons.js`, the colour lightened 58 %) has >= 6.1:1, and even the dimmest status colour (#3d444a, a closed site) has 4.2:1 through its keyline. Under a 1.3 gamma lift standing in for a projector in a bright room (every sRGB value raised to the power 1/1.3, Earth's brightest relief 0.1185) the keylines still have >= 3.4:1 |
+
+`globe.js` fetches it only after the first frame has painted (`loadEarthTexture`),
+decodes it first (a corrupt file is rejected before the globe is told to use it),
+hands three-globe a `blob:` URL of it, and only then drops the flat land polygons.
+If the request or the decode fails the globe keeps its original look: green land
+polygons on navy. It is `.webp` because the server's `/atlas` whitelist serves
+`.webp` and `.png` but not `.jpg`. Re-running the script with the same input
+reproduces the same bytes.
 
 ## leaflet/
 
