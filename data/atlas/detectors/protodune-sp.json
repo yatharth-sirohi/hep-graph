@@ -13,19 +13,39 @@
   "id": "detector:protodune-sp",
   "intervals": [
     {
-      "confidence": "uncertain",
-      "end": null,
-      "label": "operation at the CERN Neutrino Platform",
-      "locator": "DUNE home page",
-      "note": "The DUNE site states the first prototype started taking data in September 2018; no end date for ProtoDUNE-SP running could be sourced, so the terminal interval is left open (ontology §4 allows this with confidence \"uncertain\").",
-      "quote": "The first started taking data in September 2018 and the second is under construction.",
+      "confidence": "verified",
+      "end": "2020-07",
+      "label": "operation at the CERN Neutrino Platform (ProtoDUNE-SP phase I)",
+      "locator": "CERN EP department newsletter, article 'DUNE prototype activities at the Neutrino Platform' (undated; tagged March 2022 - May 2022), paragraph beginning \"ProtoDUNE-SP (NP04)\"",
+      "note": "CERN's newsletter dates the operation from August 2018 to July 2020. The DUNE collaboration site says the first prototype \"started taking data in September 2018\", so the start is shown as August-September 2018.",
+      "quote": "ProtoDUNE-SP (NP04), the single-phase Horizontal Drift DUNE Far Detector prototype at the CERN Neutrino Platform, successfully operated from August 2018 to July 2020 in the CERN EHN1 experimental area",
       "sources": [
+        "src:rc-cern-ep-news-dune-prototypes",
         "src:dune-collaboration-site",
         "src:dune-protodune-sp-performance-2020"
       ],
-      "start": "2018-09",
+      "start": {
+        "date": "2018-09",
+        "display": "August-September 2018",
+        "earliest": "2018-08",
+        "latest": "2018-09"
+      },
+      "status": "active",
+      "verified_at": "2026-10-25"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "phase I completed; detector decommissioned for ProtoDUNE-II",
+      "locator": "CERN EP department newsletter, article 'DUNE prototype activities at the Neutrino Platform' (undated; tagged March 2022 - May 2022), paragraph beginning \"Following two years of successful operation\"; decommissioning: paragraph beginning \"ProtoDUNE-II activities were initiated\"",
+      "note": "The same article says that ProtoDUNE-II activities were initiated in November 2020 with the decommissioning of ProtoDUNE-I, that the cryostat was opened by February 2021 and that all detector components were removed from it by September 2021. The completed state starts when operation ended (July 2020).",
+      "quote": "the NP04 cryostat was emptied from 22 July 2020 until 24 October 2020 marking the completion of ProtoDUNE-SP Phase I (ProtoDUNE-I)",
+      "sources": [
+        "src:rc-cern-ep-news-dune-prototypes"
+      ],
+      "start": "2020-07",
       "status": "completed",
-      "verified_at": "2026-09-16"
+      "verified_at": "2026-10-25"
     }
   ],
   "links": {
@@ -33,23 +53,24 @@
   },
   "name": "ProtoDUNE-SP",
   "notes": [
-    "The liquid argon mass (about 0.8 kt in the cryostat) could not be sourced from any page fetched in this session and is left null."
+    "Only the total liquid argon mass is entered (about 750 t, from the CERN newsletter); the active (instrumented) mass is not given in the sources consulted."
   ],
   "parent_detector_id": null,
   "placements": [
     {
       "confidence": "verified",
-      "end": null,
-      "locator": "abstract",
-      "note": "Installed in the CERN Neutrino Platform test-beam hall (EHN1) in the CERN North Area.",
-      "quote": "It is installed at the CERN Neutrino Platform in a specially-constructed beam that delivers charged pions, kaons, protons, muons and electrons with momenta in the range 0.3 GeV/c to 7 GeV/c.",
+      "end": "2020-07",
+      "locator": "CERN EP department newsletter, article 'DUNE prototype activities at the Neutrino Platform' (undated; tagged March 2022 - May 2022), paragraph beginning \"ProtoDUNE-SP (NP04)\"; ProtoDUNE-SP performance paper, abstract (installation in the CERN Neutrino Platform beam)",
+      "note": "Installed in the CERN Neutrino Platform test-beam hall (EHN1) in the CERN North Area; operation there ended in July 2020. The CERN article adds that the NP04 cryostat was emptied from 22 July to 24 October 2020, that decommissioning for ProtoDUNE-II began in November 2020 and that all detector components were out of the cryostat by September 2021; it says the ProtoDUNE-II configuration will use the same cryostat. The performance paper's abstract says the detector \"is installed at the CERN Neutrino Platform in a specially-constructed beam\".",
+      "quote": "ProtoDUNE-SP (NP04), the single-phase Horizontal Drift DUNE Far Detector prototype at the CERN Neutrino Platform, successfully operated from August 2018 to July 2020 in the CERN EHN1 experimental area",
       "role": "prototype",
       "site_id": "site:cern-neutrino-platform-ehn1",
       "sources": [
+        "src:rc-cern-ep-news-dune-prototypes",
         "src:dune-protodune-sp-performance-2020"
       ],
       "start": "2018",
-      "verified_at": "2026-09-16"
+      "verified_at": "2026-10-25"
     }
   ],
   "schema": "hep-atlas/0.2",
@@ -58,7 +79,8 @@
     "src:dune-fd-tdr-vol-1",
     "src:dune-collaboration-site",
     "src:dune-cern-neutrino-platform-page",
-    "src:rf04-protodune-sp-performance-arxiv"
+    "src:rf04-protodune-sp-performance-arxiv",
+    "src:rc-cern-ep-news-dune-prototypes"
   ],
   "specs": {
     "active_mass": null,
@@ -116,7 +138,21 @@
       "value": "liquid argon",
       "verified_at": "2026-09-16"
     },
-    "total_mass": null
+    "total_mass": {
+      "approx": true,
+      "confidence": "approximate",
+      "dimension": "mass",
+      "display": "about 750 t of liquid argon",
+      "locator": "CERN EP department newsletter, article 'DUNE prototype activities at the Neutrino Platform' (undated; tagged March 2022 - May 2022), paragraph beginning \"ProtoDUNE-SP (NP04)\"",
+      "note": "The article writes \"~750 tonnes of LAr\" for ProtoDUNE in its paragraph on ProtoDUNE-SP and does not say whether this is the cryostat's total or the instrumented mass; it is entered as the total liquid argon mass.",
+      "quote": "With its ~750 tonnes of LAr, ProtoDUNE is the largest LArTPC ever operated.",
+      "sources": [
+        "src:rc-cern-ep-news-dune-prototypes"
+      ],
+      "unit": "t",
+      "value": 750,
+      "verified_at": "2026-10-25"
+    }
   },
   "status": "completed",
   "subsystems": [
@@ -151,8 +187,8 @@
     }
   ],
   "summary": {
-    "plain": "A full-height prototype of the DUNE far detector, built at CERN and exposed to a test beam of known particles from 2018. It showed that the design works before the real detectors were built in South Dakota.",
-    "technical": "Single-phase LArTPC prototype at the CERN Neutrino Platform (EHN1) with a 7.2 × 6.0 × 6.9 m³ active volume, 3.6 m drift at 500 V/cm, full-size DUNE APAs, photon detectors and a cosmic-ray tagger, in a 0.3-7 GeV/c tagged charged-particle beam from 2018."
+    "plain": "A full-height prototype of the DUNE far detector, built at CERN and exposed to a test beam of known particles from 2018 to 2020. It showed that the design works before the real detectors were built in South Dakota.",
+    "technical": "Single-phase LArTPC prototype at the CERN Neutrino Platform (EHN1) with a 7.2 × 6.0 × 6.9 m³ active volume, 3.6 m drift at 500 V/cm, full-size DUNE APAs, photon detectors and a cosmic-ray tagger, in a 0.3-7 GeV/c tagged charged-particle beam. Operated from August 2018 to July 2020; decommissioning for ProtoDUNE-II began in November 2020."
   },
   "technology": {
     "confidence": "verified",
