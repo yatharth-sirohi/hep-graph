@@ -69,8 +69,10 @@
 .atlas-marker.is-label-hidden .atlas-marker-leader {
   display: none;
 }
-/* phone.js thins ordinary captions; the one a panel is open for always stays. */
-.atlas-marker.is-selected.phone-label-off:not(.is-label-hidden) .atlas-marker-label {
+/* phone.js thins ordinary captions; the one a panel is open for always stays, and
+   so does a cluster's count (the count is the badge). */
+.atlas-marker.is-selected.phone-label-off:not(.is-label-hidden) .atlas-marker-label,
+.atlas-marker.is-cluster.phone-label-off .atlas-marker-label {
   visibility: visible;
 }
 
