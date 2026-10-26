@@ -49,7 +49,7 @@
       "end": null,
       "label": "proposed (Snowmass 2021 contribution)",
       "locator": "arXiv:2203.08322, submitted 16 March 2022",
-      "note": "This is the date of the Snowmass planning-document proposal, not a formal experiment-approval date; no source fetched this session states that DarkQuest has been formally approved or scheduled.",
+      "note": "This is the date of the Snowmass planning-document proposal, not a formal experiment-approval date; no source consulted (checked 2026-10-25: arXiv:2203.08322 and a web search for later announcements) states that DarkQuest has been formally approved or scheduled.",
       "sources": [
         "src:darkquest-proposal-arxiv-2022"
       ],
@@ -66,10 +66,10 @@
   },
   "name": "DarkQuest",
   "notes": [
-    "Derived fields (detector_ids, site_ids, result_ids, document_ids) are deliberately not written (v0.2 A1).",
-    "collaboration_ids left empty: no source fetched this session names a distinct 'DarkQuest Collaboration' separate from the SeaQuest/SpinQuest proponents; no collaboration:darkquest record was created rather than inventing one.",
-    "2026-09-17 fixed-target verification: `lineage` previously carried an `upgrade_of experiment:seaquest` row, but the cited source's own title ('DarkQuest: A dark sector upgrade to SpinQuest at the 120 GeV Fermilab Main Injector', arXiv:2203.08322) and abstract say DarkQuest upgrades SpinQuest (Fermilab E-1039, the spin-physics successor to SeaQuest that reuses the same spectrometer); the abstract fetched this session does not mention SeaQuest at all. Re-pointing `upgrade_of` at experiment:seaquest was not what the source said, so the row is removed rather than kept as a plausible-sounding substitute (ground rule 3: unknown is a value). experiment:spinquest is not created here (SpinQuest is out of this wave's ID_REGISTRY scope); the SpinQuest relationship is recorded only in prose, in this note and in `unique_capabilities`/`summary`, not as a `lineage` row to an id this workstream does not own.",
-    "No detector record created: DarkQuest is described as reusing the SeaQuest/SpinQuest apparatus at site:fermilab-nm4-hall (see experiment:seaquest and detector:seaquest) rather than a distinct new detector; no source fetched this session describes DarkQuest-specific hardware changes in enough detail to justify a separate detector file in this pass.",
+    "Derived lists (detector_ids, site_ids, result_ids, document_ids) are not stored in this record; they are derived from the other records.",
+    "collaboration_ids is empty: no source consulted (checked 2026-10-25) names a distinct 'DarkQuest Collaboration' separate from the SeaQuest/SpinQuest proponents, so no DarkQuest collaboration record exists.",
+    "The cited source's own title ('DarkQuest: A dark sector upgrade to SpinQuest at the 120 GeV Fermilab Main Injector', arXiv:2203.08322) and abstract say DarkQuest upgrades SpinQuest (Fermilab E-1039, the spin-physics successor to SeaQuest that reuses the same spectrometer); the abstract does not mention SeaQuest at all. The lineage therefore carries no `upgrade_of experiment:seaquest` row, because the source does not say that. No SpinQuest experiment record exists, so the SpinQuest relationship is recorded only in prose (this note, `unique_capabilities` and `summary`), not as a lineage row.",
+    "No separate detector record exists: DarkQuest is described as reusing the SeaQuest/SpinQuest apparatus at site:fermilab-nm4-hall (see experiment:seaquest and detector:seaquest), and no source consulted (checked 2026-10-25) describes DarkQuest-specific hardware changes in enough detail to justify one.",
     "status is `proposed` because the only source found is a 2021/2022 Snowmass community-planning contribution, not an approval document; do not read this as an active or under-construction programme."
   ],
   "physics_goals": [
@@ -94,7 +94,7 @@
   "status": "proposed",
   "summary": {
     "plain": "DarkQuest is a proposed Fermilab experiment that would reuse the SeaQuest particle detector to search for hidden, dark-sector particles instead of ordinary quarks, at low cost since it builds on equipment already installed.",
-    "technical": "Proposed dark-sector upgrade (Snowmass 2021 contribution, arXiv:2203.08322) to the SeaQuest/SpinQuest spectrometer at the 120 GeV Fermilab Main Injector, targeting visible decays of dark photons, axion-like particles and dark scalars in the MeV-GeV mass range; not yet formally approved as of the sources fetched this session."
+    "technical": "Proposed dark-sector upgrade (Snowmass 2021 contribution, arXiv:2203.08322) to the SeaQuest/SpinQuest spectrometer at the 120 GeV Fermilab Main Injector, targeting visible decays of dark photons, axion-like particles and dark scalars in the MeV-GeV mass range; no source consulted (checked 2026-10-25) reports a formal approval."
   },
   "topic_ids": [
     "topic:dark-photons-dark-sectors",
