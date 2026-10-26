@@ -1,0 +1,147 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "experiment_ids": [
+    "experiment:cosine-100u"
+  ],
+  "id": "detector:cosine-100u",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2025-09",
+      "label": "decommissioning at Y2L, relocation, upgrade and installation at Yemilab",
+      "locator": "arXiv:2608.11678, Sec. 1",
+      "note": "Start: COSINE-100 completed data taking in March 2023 (14 March 2023, arXiv:2409.13226). The decommissioning at Y2L was completed in October 2023 (arXiv:2409.15748) and shield installation began in January 2024 (AAPPS Bull.); first physics data September 2025.",
+      "quote": "After COSINE-100 completed data taking in March 2023, the detector was upgraded to COSINE-100U and relocated to Yemilab",
+      "sources": [
+        "src:cosine-100u-encapsulation-2026"
+      ],
+      "start": "2023-03",
+      "status": "construction",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "physics data taking at Yemilab",
+      "locator": "arXiv:2608.11678, Sec. III",
+      "note": "Room-temperature physics data (about 23 C) from September 2025; the nominal -30 C operation followed in May 2026.",
+      "quote": "Stable COSINE-100U physics data taking began at Yemilab in September 2025",
+      "sources": [
+        "src:cosine-100u-encapsulation-2026"
+      ],
+      "start": "2025-09",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "kind": "run",
+      "label": "physics data taking at the nominal -30 C",
+      "locator": "arXiv:2608.11678, Sec. I",
+      "note": "",
+      "quote": "Physics data taking at the nominal operating temperature of −30 ◦C began in May 2026.",
+      "sources": [
+        "src:cosine-100u-encapsulation-2026"
+      ],
+      "start": "2026-05",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {},
+  "name": "COSINE-100U detector",
+  "notes": [],
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "locator": "arXiv:2608.11678, Sec. III.A",
+      "note": "Start = relocation after COSINE-100 ended (March 2023).",
+      "quote": "The COSINE-100U experiment is located at Yemilab in Jeongseon, Gangwon Province, Republic of Korea.",
+      "role": "main",
+      "site_id": "site:yemilab-handuk",
+      "sources": [
+        "src:cosine-100u-encapsulation-2026"
+      ],
+      "start": "2023-03",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:cosine-100u-upgrade-2025",
+    "src:cosine-100u-encapsulation-2026",
+    "src:yemilab-construction-frontiers-2024",
+    "src:yemilab-aapps-bulletin-2024"
+  ],
+  "specs": {
+    "depth": {
+      "approx": true,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "about 1,000 m",
+      "locator": "arXiv:2608.11678, Sec. III.A",
+      "note": "",
+      "quote": "The laboratory is situated approximately 1,000 m underground",
+      "sources": [
+        "src:cosine-100u-encapsulation-2026"
+      ],
+      "unit": "m",
+      "value": 1000,
+      "verified_at": "2026-10-26"
+    },
+    "target_medium": {
+      "confidence": "verified",
+      "locator": "arXiv:2409.15748, abstract",
+      "note": "",
+      "quote": "eight NaI(Tl) crystals",
+      "sources": [
+        "src:cosine-100u-upgrade-2025"
+      ],
+      "value": "NaI(Tl)",
+      "verified_at": "2026-10-26"
+    },
+    "total_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "99.1 kg",
+      "locator": "arXiv:2409.15748, abstract",
+      "note": "",
+      "quote": "The detector, consisting of eight NaI(Tl) crystals with a total mass of 99.1 kg",
+      "sources": [
+        "src:cosine-100u-upgrade-2025"
+      ],
+      "unit": "kg",
+      "value": 99.1,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "active",
+  "subsystems": [],
+  "summary": {
+    "plain": "COSINE-100U is the upgraded COSINE-100 experiment: the same eight sodium-iodide crystals, moved to the deeper Yemilab laboratory and re-fitted so that more of their light is collected. It aims to look for lighter dark matter and has been taking data there since September 2025.",
+    "technical": "Eight NaI(Tl) crystals (99.1 kg) with direct PMT coupling through silicone optical pads and 45-degree beveled crystal edges (light yield 15.8-27.7 p.e./keV), liquid-scintillator veto in a low-temperature room at about -30 C at Yemilab (the 2024 facility paper planned to reuse the copper box with about 2 tonnes of liquid scintillator and to remake the shielding) (about 1,000 m overburden, muon flux about 1e-7 /cm2/s). Physics data since September 2025 at room temperature and since May 2026 at -30 C."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "arXiv:2608.11678, abstract",
+    "note": "",
+    "quote": "directly couples the photomultiplier tubes (PMTs) to the crystal end faces through 2-mm-thick silicone optical pads",
+    "sources": [
+      "src:cosine-100u-encapsulation-2026"
+    ],
+    "value": "Eight NaI(Tl) crystals with photomultiplier tubes coupled directly to the crystal end faces, in a liquid-scintillator veto in a -30 C room",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "scintillating_crystal",
+  "technology_classes": [
+    "scintillating_crystal"
+  ],
+  "type": "detector"
+}

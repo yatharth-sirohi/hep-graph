@@ -1,0 +1,157 @@
+{
+  "aliases": [],
+  "collaboration_ids": [
+    "collaboration:amore"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "end": "2018-12",
+      "facility_id": "facility:yangyang-underground-laboratory",
+      "locator": "arXiv:1903.09483, abstract",
+      "note": "The TDR places AMoRE-Pilot's cryostat in the A5 area of Y2L; AMoRE at Y2L was built in the A5 tunnel in 2015 (CUP page).",
+      "quote": "This stage of the project is carried out in the Yangyang underground laboratory at a depth of 700 m.",
+      "role": "host",
+      "sources": [
+        "src:amore-pilot-first-results-2019"
+      ],
+      "start": "2015-07",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:amore-pilot",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2018-12",
+      "label": "AMoRE-Pilot data taking at Y2L",
+      "locator": "CUP 'Double Beta Decay' page, section 'AMoRE-Pilot Experiment'",
+      "note": "Start: 'since summer 2015' (the page); end: 'the end of 2018' (arXiv:2005.05567). The 2024 background paper says 'from 2015 to 2018'; five data-taking runs between 2015 and 2017 are described in arXiv:1903.09483.",
+      "quote": "AMoRE-Pilot, the pilot phase of the AMoRE project, is an experiment that has been running in the 700-m-deep Yangyang underground Laboratory (Y2L) since summer 2015",
+      "sources": [
+        "src:cup-ibs-double-beta-decay"
+      ],
+      "start": {
+        "date": "2015-07",
+        "display": "summer 2015",
+        "earliest": "2015-06",
+        "latest": "2015-08"
+      },
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "completed (run ended)",
+      "locator": "arXiv:2005.05567, abstract",
+      "note": "Month precision: 'the end of 2018'.",
+      "quote": "After completion of the AMoRE-Pilot run at the end of 2018",
+      "sources": [
+        "src:amore-overview-jinst-2020"
+      ],
+      "start": "2018-12",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Crystal mass (six crystals)",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "mass",
+        "display": "1.9 kg",
+        "locator": "arXiv:1903.09483, abstract",
+        "note": "",
+        "quote": "six calcium molybdate crystals with a total mass of 1.9 kg",
+        "sources": [
+          "src:amore-pilot-first-results-2019"
+        ],
+        "unit": "kg",
+        "value": 1.9,
+        "verified_at": "2026-10-26"
+      }
+    },
+    {
+      "label": "Depth",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "length",
+        "display": "700 m",
+        "locator": "arXiv:1903.09483, abstract",
+        "note": "",
+        "quote": "This stage of the project is carried out in the Yangyang underground laboratory at a depth of 700 m.",
+        "sources": [
+          "src:amore-pilot-first-results-2019"
+        ],
+        "unit": "m",
+        "value": 700,
+        "verified_at": "2026-10-26"
+      }
+    }
+  ],
+  "kind": "double_beta_decay",
+  "lineage": [],
+  "links": {
+    "website": {
+      "confidence": "approximate",
+      "locator": "CUP 'Double Beta Decay' research page",
+      "note": "No dedicated AMoRE website was found; the Center for Underground Physics page describes the experiment.",
+      "quote": "The AMoRE Experiment",
+      "sources": [
+        "src:cup-ibs-double-beta-decay"
+      ],
+      "value": "https://centers.ibs.re.kr/html/cup/research/research_0303.html",
+      "verified_at": "2026-10-26"
+    }
+  },
+  "name": "AMoRE-Pilot",
+  "notes": [
+    "external.inspire_experiment is null: INSPIRE was not consulted (its rate budget belongs to the supervised importer).",
+    "The AMoRE project is described as a series of experiments in three phases (Pilot, I, II); each phase has its own record, linked by lineage.",
+    "Planned schedule in the 2015 design report: AMoRE-Pilot 2015-2016 with 1.5 kg; the executed pilot ran 2015-2018 with 1.9 kg."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "arXiv:1903.09483, abstract",
+      "note": "",
+      "quote": "The Advanced Molybdenum-based Rare process Experiment (AMoRE) aims to search for neutrinoless double beta decay (0$\\nu\\beta\\beta$) of $^{100}$Mo with $\\sim$100 kg of $^{100}$Mo-enriched molybdenum embedded in cryogenic detectors with a dual heat and light readout.",
+      "sources": [
+        "src:amore-pilot-first-results-2019"
+      ],
+      "value": "Search for neutrinoless double beta decay of 100Mo with ~100 kg of 100Mo-enriched molybdenum in cryogenic detectors; the pilot stage tests the technique and backgrounds",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:amore-pilot-first-results-2019",
+    "src:amore-overview-jinst-2020",
+    "src:amore-pilot-background-study-2024",
+    "src:cup-ibs-double-beta-decay",
+    "src:amore-technical-design-report-2015"
+  ],
+  "status": "completed",
+  "summary": {
+    "plain": "AMoRE-Pilot was the first, small stage of the AMoRE experiment: six calcium-molybdate crystals (1.9 kg) cooled to a few thousandths of a degree above absolute zero, run at the Yangyang laboratory from 2015 to 2018 to look for neutrinoless double beta decay of molybdenum-100. It found no such decay and set a limit.",
+    "technical": "Six 48depl-Ca100MoO4 crystals (1.9 kg total), phonon and scintillation readout with metallic magnetic calorimeters at mK temperatures (dilution refrigerator), in the A5 area of Y2L (700 m). First results from 111 kg d: T1/2(0vbb, 100Mo) > 9.5e22 yr (90% C.L.); a later background study sets T1/2 >= 3.0e23 yr."
+  },
+  "topic_ids": [
+    "topic:neutrinoless-double-beta-decay",
+    "topic:neutrino-physics"
+  ],
+  "type": "experiment"
+}

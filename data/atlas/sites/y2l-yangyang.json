@@ -1,0 +1,80 @@
+{
+  "aliases": [],
+  "altitude": null,
+  "coordinates": {
+    "confidence": "verified",
+    "kind": "underground_lab",
+    "lat": 38.019194,
+    "locator": "arXiv:1710.05299, Sec. 2.1",
+    "lon": 128.499611,
+    "note": "Converted from the published 38 deg 01' 09.1\" N, 128 deg 29' 58.6\" E. The paper gives the position of the facility to 0.1 arcsecond but does not state an accuracy; precision_m (300) is the Atlas's conservative estimate. The coordinate pair stands in the sentence that locates the Y2L facility under Mount Jumbong; the paper does not say whether it is a surface or an underground position.",
+    "precision_m": 300,
+    "quote": "The Y2L facility is situated next to the underground generators of the Yangyang pumped-storage hydroelectric power plant under Mount Jumbong, 150 km east of Seoul in Korea (38◦ 010 09.1”N, 128◦ 290 58.6”E).",
+    "sources": [
+      "src:cosine-100-initial-performance-2018"
+    ],
+    "verified_at": "2026-10-26"
+  },
+  "country": "KR",
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "depth": {
+    "approx": false,
+    "confidence": "verified",
+    "dimension": "length",
+    "display": "700 m",
+    "locator": "arXiv:1710.05299, Sec. 2.1",
+    "note": "Minimum granite overburden; KIMS and AMoRE papers also say 700 m, a 2023 IBS slide deck says 600 m.",
+    "quote": "The experimental areas have a minimum granite overburden of 700 m",
+    "sources": [
+      "src:cosine-100-initial-performance-2018"
+    ],
+    "unit": "m",
+    "value": 700,
+    "verified_at": "2026-10-26"
+  },
+  "depth_mwe": {
+    "approx": true,
+    "confidence": "uncertain",
+    "dimension": "depth_mwe",
+    "display": "2000 m water equivalent",
+    "locator": "arXiv:astro-ph/0509080, Sec. 'YangYang Underground Laboratory'",
+    "note": "KIMS 2006 (A6 muon flux 2.7e-7 /cm2/s, 'consistent with 2000 m'); the KIMS 2016 axion paper says 2400 m.w.e. and the COSINE-100 2025 paper says approximately 1,800 m.w.e. (A5 flux 3.8e-7 /cm2/s). Three values are in the literature; none is adjudicated here.",
+    "quote": "which is consistent with the water equivalent depth of 2000 m",
+    "sources": [
+      "src:kims-first-limit-2006"
+    ],
+    "unit": "m.w.e.",
+    "value": 2000,
+    "verified_at": "2026-10-26"
+  },
+  "facility_id": "facility:yangyang-underground-laboratory",
+  "id": "site:y2l-yangyang",
+  "links": {
+    "website": null
+  },
+  "name": "Yangyang Underground Laboratory (Y2L)",
+  "notes": [
+    "COSINE-100 and AMoRE sit in the A5 tunnel; KIMS used the A6 area (the COSINE-100 paper says its crystals were measured 'in the KIMS setup at A6').",
+    "A 2023 IBS slide deck quotes 600 m overburden for the A6 tunnel; all papers read say 700 m."
+  ],
+  "place": {
+    "city": "Yangyang",
+    "country": "KR",
+    "region": "Gangwon"
+  },
+  "schema": "hep-atlas/0.2",
+  "setting": "underground",
+  "sources": [
+    "src:cosine-100-initial-performance-2018",
+    "src:cup-ibs-underground-labs",
+    "src:kims-first-limit-2006"
+  ],
+  "summary": {
+    "plain": "The underground halls of the Yangyang laboratory, in tunnels of a pumped-storage power plant in Gangwon province, South Korea, under about 700 metres of granite. They housed the KIMS, COSINE-100 and AMoRE experiments.",
+    "technical": "Y2L experimental areas A5 and A6 beside the underground generators of the Yangyang pumped-storage plant under Mount Jumbong (150 km east of Seoul), 2 km by car from the portal; minimum granite overburden 700 m; muon flux 3.8e-7 /cm2/s (A5) and 2.7e-7 /cm2/s (A6)."
+  },
+  "type": "site"
+}

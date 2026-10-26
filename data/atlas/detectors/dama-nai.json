@@ -1,0 +1,164 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "experiment_ids": [
+    "experiment:dama-nai"
+  ],
+  "id": "detector:dama-nai",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "1995",
+      "label": "proposal",
+      "locator": "arXiv:astro-ph/0501412, Sec. 2",
+      "note": "Proposed in 1990 (year only). The end (1995) is the start of the data taking the 2026 review dates to 1995; construction and approval dates are not given in the sources read.",
+      "quote": "The DAMA/NaI experiment was proposed in 1990 [9], designed and realized having",
+      "sources": [
+        "src:dama-nai-galactic-halo-2005"
+      ],
+      "start": "1990",
+      "status": "proposed",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": "2002-07",
+      "label": "DAMA/NaI data taking (seven annual cycles)",
+      "locator": "arXiv:2607.24448, Sec. 2.4.1",
+      "note": "Start: year only (the review); the 2003 DAMA paper dates the DAMA/NaI-5 data to August 1999 - July 2000, DAMA/NaI-6 to November 2000 - July 2001 and DAMA/NaI-7 to August 2001 - July 2002, and the first data release to 1996. End: the collaboration's own statement.",
+      "quote": "DAMA/NaI which ran from 1995 to 2002 at LNGS.",
+      "sources": [
+        "src:nai-dark-matter-review-2026"
+      ],
+      "start": "1995",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "completed",
+      "locator": "LNGS DAMA page, 'Detectors'",
+      "note": "Month precision; the collaboration says DAMA/NaI 'has completed its data taking in July 2002'; the DAMA/LIBRA installation started the same year.",
+      "quote": "the DAMA/NaI set-up (~100 kg highly radiopure NaI(Tl)), which has completed its data taking in July 2002.",
+      "sources": [
+        "src:dama-lngs-page"
+      ],
+      "start": "2002-07",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {},
+  "name": "DAMA/NaI detector",
+  "notes": [],
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": "2002-07",
+      "locator": "arXiv:astro-ph/0307403, abstract",
+      "note": "Start 1995 (year) and end July 2002 as in the experiment intervals; see their notes.",
+      "quote": "which has been operative at the Gran Sasso National Laboratory of the I.N.F.N. for more than one decade",
+      "role": "main",
+      "site_id": "site:lngs-hall-b",
+      "sources": [
+        "src:dama-dark-matter-search-2003"
+      ],
+      "start": "1995",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:dama-lngs-page",
+    "src:dama-dark-matter-search-2003",
+    "src:dama-nai-galactic-halo-2005"
+  ],
+  "specs": {
+    "crystal_count": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "count",
+      "display": "9 crystals of 9.70 kg",
+      "locator": "arXiv:astro-ph/0307403, Sec. 4 (DAMA/NaI)",
+      "note": "",
+      "quote": "nine 9.70 kg highly radiopure NaI(Tl) scintillators especially built for this purpose",
+      "sources": [
+        "src:dama-dark-matter-search-2003"
+      ],
+      "unit": "",
+      "value": 9,
+      "verified_at": "2026-10-26"
+    },
+    "depth": {
+      "approx": true,
+      "confidence": "verified",
+      "dimension": "depth_mwe",
+      "display": "3,800 m.w.e. (LNGS average)",
+      "locator": "arXiv:2607.24448, Sec. 2.4.1",
+      "note": "Average depth of the Gran Sasso laboratory as quoted by the 2026 review (1,400 m of rock); the hall of the DAMA set-up is not given.",
+      "quote": "under 1,400 m of rock overburden, equivalent to an average depth of 3,800 meters of water equivalent (m.w.e.)",
+      "sources": [
+        "src:nai-dark-matter-review-2026"
+      ],
+      "unit": "m.w.e.",
+      "value": 3800,
+      "verified_at": "2026-10-26"
+    },
+    "exposure": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "exposure",
+      "display": "107731 kg day",
+      "locator": "arXiv:astro-ph/0307403, abstract",
+      "note": "Total exposure of the seven annual cycles.",
+      "quote": "107731 kg day total exposure",
+      "sources": [
+        "src:dama-dark-matter-search-2003"
+      ],
+      "unit": "kg d",
+      "value": 107731,
+      "verified_at": "2026-10-26"
+    },
+    "target_mass": {
+      "approx": true,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "about 100 kg",
+      "locator": "arXiv:astro-ph/0307403, abstract",
+      "note": "Nominal mass of the set-up; the annual-modulation analysis used nine 9.70 kg crystals.",
+      "quote": "about 100 kg highly radiopure NaI(Tl) DAMA experiment (DAMA/NaI)",
+      "sources": [
+        "src:dama-dark-matter-search-2003"
+      ],
+      "unit": "kg",
+      "value": 100,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "About 100 kg of highly radiopure sodium iodide crystals (nine crystals of 9.7 kg), read by photomultiplier tubes, inside copper, lead, polyethylene and concrete shielding at Gran Sasso.",
+    "technical": "Nine NaI(Tl) crystals of 9.70 kg, two PMTs each, 10 cm quartz light guides, sealed Cu box flushed with high-purity nitrogen, Cu/Pb/Cd foils/polyethylene-paraffin shield and 1 m of concrete (arXiv:astro-ph/0307403)."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "arXiv:astro-ph/0307403, Sec. 4 (DAMA/NaI)",
+    "note": "",
+    "quote": "nine 9.70 kg highly radiopure NaI(Tl) scintillators especially built for this purpose",
+    "sources": [
+      "src:dama-dark-matter-search-2003"
+    ],
+    "value": "Array of nine highly radiopure NaI(Tl) scintillating crystals read by photomultiplier tubes",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "scintillating_crystal",
+  "technology_classes": [
+    "scintillating_crystal"
+  ],
+  "type": "detector"
+}

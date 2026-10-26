@@ -1,0 +1,135 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "experiment_ids": [
+    "experiment:amore-ii"
+  ],
+  "id": "detector:amore-ii",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "AMoRE-II installation at Yemilab",
+      "locator": "arXiv:2406.09698, abstract",
+      "note": "Start = the earliest dated source read that says AMoRE-II is being installed (arXiv:2406.09698, June 2024); the actual start of construction is earlier (the Yemilab AMoRE Hall exists since 2022 and the 2023 papers speak of preparations) but no source gives it. Still 'upcoming' in July 2026 (arXiv:2607.08039: 'the AMoRE-II experiment, which will soon become operational'); no source reports commissioning or physics data.",
+      "quote": "AMoRE-II is currently being installed at the Yemi Underground Laboratory, located approximately 1000 meters deep in Jeongseon, Korea.",
+      "sources": [
+        "src:amore-ii-projected-background-2024"
+      ],
+      "start": "2024-06",
+      "status": "construction",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {},
+  "name": "AMoRE-II detector",
+  "notes": [],
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "locator": "arXiv:2406.09698, abstract",
+      "note": "Placement in the AMoRE Hall of Yemilab (the deepest hall, floor at 1,029 m; Front. Phys. 12:1323991, Sec. 4.2).",
+      "quote": "AMoRE-II is currently being installed at the Yemi Underground Laboratory, located approximately 1000 meters deep in Jeongseon, Korea.",
+      "role": "main",
+      "site_id": "site:yemilab-handuk",
+      "sources": [
+        "src:amore-ii-projected-background-2024"
+      ],
+      "start": "2024-06",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:amore-ii-projected-background-2024",
+    "src:amore-ii-lmo-calorimeters-2025",
+    "src:yemilab-construction-frontiers-2024",
+    "src:yemilab-aapps-bulletin-2024",
+    "src:amore-i-ca40-double-electron-capture-2026"
+  ],
+  "specs": {
+    "depth": {
+      "approx": true,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "approximately 1000 meters",
+      "locator": "arXiv:2406.09698, abstract",
+      "note": "",
+      "quote": "AMoRE-II is currently being installed at the Yemi Underground Laboratory, located approximately 1000 meters deep in Jeongseon, Korea.",
+      "sources": [
+        "src:amore-ii-projected-background-2024"
+      ],
+      "unit": "m",
+      "value": 1000,
+      "verified_at": "2026-10-26"
+    },
+    "isotope": {
+      "confidence": "verified",
+      "locator": "arXiv:2406.09698, abstract",
+      "note": "",
+      "quote": "AMoRE-II aims to search for neutrinoless double beta decay with an array of 423 Li$_2$$^{100}$MoO$_4$ crystals",
+      "sources": [
+        "src:amore-ii-projected-background-2024"
+      ],
+      "value": "100Mo",
+      "verified_at": "2026-10-26"
+    },
+    "isotope_mass": {
+      "approx": true,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "about 90 kg",
+      "locator": "arXiv:2407.12227, abstract",
+      "note": "",
+      "quote": "featuring a large detector array with about 90 kg of $^{100}$Mo isotope",
+      "sources": [
+        "src:amore-ii-lmo-calorimeters-2025"
+      ],
+      "unit": "kg",
+      "value": 90,
+      "verified_at": "2026-10-26"
+    },
+    "module_count": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "count",
+      "display": "423 crystals",
+      "locator": "arXiv:2406.09698, abstract",
+      "note": "Staged deployment (90 crystals in the first stage, 350 in the second) according to PoS(ICHEP2024)133; other 2024 sources quote 180 kg of crystals.",
+      "quote": "an array of 423 Li$_2$$^{100}$MoO$_4$ crystals",
+      "sources": [
+        "src:amore-ii-projected-background-2024"
+      ],
+      "unit": "",
+      "value": 423,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "construction",
+  "subsystems": [],
+  "summary": {
+    "plain": "AMoRE-II is the main, full-size stage of AMoRE, being installed at Yemilab: about 90 kg of molybdenum-100 in hundreds of lithium-molybdate crystals cooled to a few thousandths of a degree above absolute zero. It aims to probe the whole range of neutrino masses expected if neutrino masses follow the so-called inverted ordering.",
+    "technical": "Array of 423 Li2 100MoO4 crystals (about 90 kg of 100Mo) as MMC-read cryogenic calorimeters in a dilution refrigerator (Leiden, three pulse tubes) with 26 cm lead, boric-acid rubber, 70 cm polyethylene and a water-Cherenkov and plastic-scintillator muon veto, in the AMoRE Hall of Yemilab (about 1,000 m); target background 1e-4 counts/keV/kg/yr, sensitivity T1/2 ~ 6e26 yr (m_bb 15-29 meV, the whole inverted-hierarchy region). Status: under construction; 'upcoming' in July 2026."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "arXiv:2407.12227, abstract",
+    "note": "",
+    "quote": "This paper discusses the baseline design and characterization of the lithium molybdate cryogenic calorimeters to be used in the AMoRE-II detector modules.",
+    "sources": [
+      "src:amore-ii-lmo-calorimeters-2025"
+    ],
+    "value": "Array of lithium-molybdate (Li2 100MoO4) scintillating crystals read out as cryogenic calorimeters with metallic magnetic calorimeters at about 10 mK",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "cryogenic_bolometer",
+  "technology_classes": [
+    "cryogenic_bolometer",
+    "scintillating_crystal"
+  ],
+  "type": "detector"
+}

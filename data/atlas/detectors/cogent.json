@@ -1,0 +1,169 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "experiment_ids": [
+    "experiment:cogent"
+  ],
+  "id": "detector:cogent",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2009-12-04",
+      "label": "underground installation and cooldown at Soudan",
+      "locator": "arXiv:1106.0650, p. 1",
+      "note": "End: data taking started on 4 December 2009 ('spanning 442 live days over the period 4 December 2009 to 6 March 2011', arXiv:1208.5737). The 2013 paper says the detector was 'installed in the Soudan Underground Laboratory (SUL) during 2009'.",
+      "quote": "Underground installation of this PPC at SUL took place on August 21, 2009.",
+      "sources": [
+        "src:cogent-annual-modulation-2011",
+        "src:cogent-detector-and-backgrounds-2013"
+      ],
+      "start": "2009-08-21",
+      "status": "commissioning",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "2011-03",
+      "label": "initial run (442 live days to 6 March 2011)",
+      "locator": "arXiv:1208.5737, Sec. I",
+      "note": "Month precision for the end: the data set ends 6 March 2011 and a fire in the access shaft halted the run in March 2011.",
+      "quote": "spanning 442 live days over the period 4 December 2009 to 6 March 2011",
+      "sources": [
+        "src:cogent-detector-and-backgrounds-2013"
+      ],
+      "start": "2009-12-04",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": "2011-06-07",
+      "label": "outage after the Soudan access-shaft fire",
+      "locator": "arXiv:1401.3295, Introduction",
+      "note": "Start: month precision ('halted the initial run in March of 2011', arXiv:1208.5737); end: 7 June 2011 ('three month downtime').",
+      "quote": "Operation restarted on 7 June 2011 following a three month downtime.",
+      "sources": [
+        "src:cogent-three-years-modulation-2014",
+        "src:cogent-detector-and-backgrounds-2013"
+      ],
+      "start": "2011-03",
+      "status": "shutdown",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "continuous data taking after the fire (data set analysed to 23 April 2013)",
+      "locator": "arXiv:1401.3295, Introduction",
+      "note": "Open interval: the detector 'has taken data continuously since' 7 June 2011 and the latest data set read ends 23 April 2013 (1,129 live days of the 1,237-day span; the maximum-likelihood paper quotes 1136 live days). No source read states when, or whether, CoGeNT stopped: the January 2014 paper still says 'The CoGeNT detector presently operating at the Soudan Underground Laboratory', the C-4 upgrade was described as ongoing, and the Atlas's Soudan facility record has the laboratory decommissioning from 2016. The status 'active' is therefore a last-known state, not a 2026 observation.",
+      "quote": "The presently examined cumulative dataset ends on 23 April 2013, spanning 1,237 days, of which 1,129 were live.",
+      "sources": [
+        "src:cogent-three-years-modulation-2014",
+        "src:cogent-maximum-likelihood-2014"
+      ],
+      "start": "2011-06-07",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {},
+  "name": "CoGeNT detector",
+  "notes": [],
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "locator": "arXiv:1208.5737, Sec. II",
+      "note": "CoGeNT sat in the Soudan-2 (proton-decay) hall: the PRD paper says its shield rests on 'base I-beams that once supported the Soudan-2 proton decay experiment' at 2090 m.w.e., whereas the Atlas's only Soudan site is the MINOS far-detector cavern (2070 m.w.e.). They are different halls of the same mine level; no source read gives the Soudan-2 hall's coordinates, so the MINOS-cavern point stands for the laboratory.",
+      "quote": "The present CoGeNT detector is located at the Soudan Underground Laboratory (Soudan, Minnesota, USA)",
+      "role": "main",
+      "site_id": "site:soudan-minos-far-detector",
+      "sources": [
+        "src:cogent-detector-and-backgrounds-2013"
+      ],
+      "start": "2009-08-21",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:cogent-detector-and-backgrounds-2013",
+    "src:cogent-low-mass-excess-2010",
+    "src:cogent-annual-modulation-2011",
+    "src:cogent-three-years-modulation-2014",
+    "src:cogent-maximum-likelihood-2014",
+    "src:cogent-dama-constraints-2008"
+  ],
+  "specs": {
+    "depth": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "depth_mwe",
+      "display": "2090 m.w.e.",
+      "locator": "arXiv:1208.5737, Sec. II",
+      "note": "",
+      "quote": "providing 2090 meters of water equivalent (m.w.e.) overburden as shielding against cosmic rays",
+      "sources": [
+        "src:cogent-detector-and-backgrounds-2013"
+      ],
+      "unit": "m.w.e.",
+      "value": 2090,
+      "verified_at": "2026-10-26"
+    },
+    "target_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "440 g",
+      "locator": "arXiv:1002.4703, p. 1",
+      "note": "Crystal mass; see key_specs note.",
+      "quote": "A new 440 g PPC diode was built with attention paid to these.",
+      "sources": [
+        "src:cogent-low-mass-excess-2010"
+      ],
+      "unit": "kg",
+      "value": 0.44,
+      "verified_at": "2026-10-26"
+    },
+    "threshold": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "energy",
+      "display": "0.4 keVee",
+      "locator": "arXiv:1002.4703, p. 1",
+      "note": "Electron-equivalent noise threshold.",
+      "quote": "down to the 0.4 keVee electronic noise threshold",
+      "sources": [
+        "src:cogent-low-mass-excess-2010"
+      ],
+      "unit": "keV",
+      "value": 0.4,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "active",
+  "subsystems": [],
+  "summary": {
+    "plain": "CoGeNT ran a single 440-gram germanium crystal in the Soudan mine in Minnesota to look for very light dark matter. It reported an unexplained excess of low-energy events and a seasonal rate change that fit light dark matter, but called their origin unknown and the significance low, and other experiments did not confirm them.",
+    "technical": "Single modified BEGe p-type point-contact germanium diode (440 g; ~0.4 keVee noise threshold) in a Pb/Cu/polyethylene shield at Soudan (2090 m.w.e.), installed 21 Aug 2009, data from 4 Dec 2009. 2010 PRL: an irreducible excess of bulk-like events below 3 keVee. 2011 PRL (442 live days): a ~2.8 sigma annual modulation. 2013 PRD: detailed background model; no viable background explanation found. 2014: 3.4-year release (1,129 live days) with a modulation amplitude ~4-7 times the standard-halo expectation; maximum-likelihood significance 1.7 sigma, 'well below evidentiary'. An excess is not a discovery."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "arXiv:1208.5737, Sec. II",
+    "note": "",
+    "quote": "The detector element is a single modified BEGe germanium diode.",
+    "sources": [
+      "src:cogent-detector-and-backgrounds-2013"
+    ],
+    "value": "Single modified BEGe p-type point-contact (PPC) germanium diode with sub-keV threshold",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "germanium",
+  "technology_classes": [
+    "germanium"
+  ],
+  "type": "detector"
+}

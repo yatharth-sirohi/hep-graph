@@ -1,0 +1,81 @@
+{
+  "aliases": [
+    "SUPL site"
+  ],
+  "altitude": null,
+  "coordinates": {
+    "confidence": "approximate",
+    "kind": "campus",
+    "lat": -37.0693057,
+    "locator": "Nominatim result for 'Stawell Gold Mine' (landuse relation 15097444)",
+    "lon": 142.8067113,
+    "note": "Approximate, campus-grade: the centre of the OpenStreetMap area of the Stawell Gold Mine (bounding box about 2 km across). No official SUPL or SABRE page read gives a latitude and longitude, and the laboratory itself lies 1 km underground along the mine decline, so this is the surface mine area and not the laboratory position. The official address is 'Stawell Gold Mines, 43 Reefs Road, Stawell Victoria 3380' (supl.org.au).",
+    "precision_m": 1500,
+    "quote": "\"lat\":\"-37.0693057\",\"lon\":\"142.8067113\"",
+    "sources": [
+      "src:supl-osm-nominatim"
+    ],
+    "verified_at": "2026-10-26"
+  },
+  "country": "AU",
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "depth_mwe": {
+    "approx": true,
+    "confidence": "verified",
+    "dimension": "depth_mwe",
+    "display": "about 2900 m water equivalent",
+    "locator": "arXiv:2211.03016, abstract",
+    "note": "",
+    "quote": "SUPL is a newly built facility located 1024 m underground (about 2900 m water equivalent) within the Stawell Gold Mine",
+    "sources": [
+      "src:sabre-south-experiment-supl-2022"
+    ],
+    "unit": "m.w.e.",
+    "value": 2900,
+    "verified_at": "2026-10-26"
+  },
+  "depth_rock": {
+    "approx": false,
+    "confidence": "verified",
+    "dimension": "length",
+    "display": "1024 m underground",
+    "locator": "arXiv:2211.03016, abstract",
+    "note": "The same paper's text says 'The laboratory is 1025 m below ground with a flat over burden of basalt'; the 2024 SABRE talk says '1025 m deep (2900 m water equivalent)'. Recorded as the abstract's 1024 m.",
+    "quote": "SUPL is a newly built facility located 1024 m underground (about 2900 m water equivalent) within the Stawell Gold Mine",
+    "sources": [
+      "src:sabre-south-experiment-supl-2022"
+    ],
+    "unit": "m",
+    "value": 1024,
+    "verified_at": "2026-10-26"
+  },
+  "facility_id": "facility:stawell-underground-physics-laboratory",
+  "id": "site:stawell-underground-physics-laboratory",
+  "links": {
+    "website": null
+  },
+  "name": "Stawell Underground Physics Laboratory (Stawell Gold Mine)",
+  "notes": [
+    "A17: the coordinate rests on a geocoder (rank 8), so it is a campus-grade point marked approximate; it is not relabelled as a detector or underground-lab position."
+  ],
+  "place": {
+    "city": "Stawell",
+    "country": "AU",
+    "region": "Victoria"
+  },
+  "schema": "hep-atlas/0.2",
+  "setting": "underground",
+  "sources": [
+    "src:supl-our-story",
+    "src:supl-osm-nominatim",
+    "src:sabre-south-experiment-supl-2022"
+  ],
+  "summary": {
+    "plain": "The underground laboratory inside the Stawell Gold Mine in Victoria, Australia, a kilometre below the surface.",
+    "technical": "SUPL, 1024 m below the surface of the Stawell Gold Mine (about 2900 m.w.e., flat basalt overburden); the point recorded is the surface mine area, not the laboratory."
+  },
+  "type": "site"
+}

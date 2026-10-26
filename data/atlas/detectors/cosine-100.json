@@ -1,0 +1,163 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "experiment_ids": [
+    "experiment:cosine-100"
+  ],
+  "id": "detector:cosine-100",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2016-09",
+      "label": "detector assembly at Y2L (early 2016) and commissioning",
+      "locator": "arXiv:1710.05299, Sec. 1",
+      "note": "Start: 'early 2016' (year precision). End: the physics run started in late September 2016 (month precision).",
+      "quote": "The construction and assembly of the COSINE-100 detector at Y2L took place in early 2016, and the physics run started in late September of 2016.",
+      "sources": [
+        "src:cosine-100-initial-performance-2018"
+      ],
+      "start": "2016",
+      "status": "construction",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "2023-03-14",
+      "kind": "lifecycle",
+      "label": "physics data taking at Y2L (6.4 years)",
+      "locator": "arXiv:2409.13226, Appendix A",
+      "note": "The COSINE-100 detector collected dark matter search data from October 21, 2016 to March 14, 2023 (Fig. 1 caption of arXiv:2409.13226).",
+      "quote": "It began physics operation on October 21, 2016 and concluded on March 14, 2023, for relocation of the experimental site to Yemilab",
+      "sources": [
+        "src:cosine-100-full-dataset-annual-modulation-2025"
+      ],
+      "start": "2016-10-21",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "completed (concluded for relocation to Yemilab)",
+      "locator": "arXiv:2409.13226, Appendix A",
+      "note": "The same collaboration continues as COSINE-100U at Yemilab (experiment:cosine-100u).",
+      "quote": "It began physics operation on October 21, 2016 and concluded on March 14, 2023, for relocation of the experimental site to Yemilab",
+      "sources": [
+        "src:cosine-100-full-dataset-annual-modulation-2025"
+      ],
+      "start": "2023-03-14",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {},
+  "name": "COSINE-100 detector",
+  "notes": [],
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": "2023-03-14",
+      "locator": "arXiv:1710.05299, Sec. 2.1",
+      "note": "Start = early 2016 construction; end = end of physics data taking.",
+      "quote": "The COSINE experiment is located in a recently established experimental area in the Y2L A5 tunnel.",
+      "role": "main",
+      "site_id": "site:y2l-yangyang",
+      "sources": [
+        "src:cosine-100-initial-performance-2018"
+      ],
+      "start": "2016",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:cosine-100-initial-performance-2018",
+    "src:cup-ibs-dark-matter",
+    "src:cosine-100-full-dataset-annual-modulation-2025",
+    "src:cosine-100-first-results-2018",
+    "src:yemilab-aapps-bulletin-2024"
+  ],
+  "specs": {
+    "depth": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "700 m",
+      "locator": "arXiv:1710.05299, Sec. 2.1",
+      "note": "Minimum granite overburden at Y2L.",
+      "quote": "The experimental areas have a minimum granite overburden of 700 m",
+      "sources": [
+        "src:cosine-100-initial-performance-2018"
+      ],
+      "unit": "m",
+      "value": 700,
+      "verified_at": "2026-10-26"
+    },
+    "target_medium": {
+      "confidence": "verified",
+      "locator": "arXiv:1906.01791, abstract",
+      "note": "",
+      "quote": "COSINE-100 uses sodium iodide as the target medium",
+      "sources": [
+        "src:cosine-100-first-results-2018"
+      ],
+      "value": "NaI(Tl)",
+      "verified_at": "2026-10-26"
+    },
+    "threshold": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "energy",
+      "display": "0.7 keV",
+      "locator": "arXiv:2408.14688, abstract",
+      "note": "Electron-equivalent analysis threshold of the 2024-25 analyses; earlier analyses used 1 keV.",
+      "quote": "lowered the threshold to 0.7 keV",
+      "sources": [
+        "src:cosine-100-threshold-0-7-kev-2024"
+      ],
+      "unit": "keV",
+      "value": 0.7,
+      "verified_at": "2026-10-26"
+    },
+    "total_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "106 kg",
+      "locator": "arXiv:1903.10098, abstract",
+      "note": "",
+      "quote": "The COSINE-100 experiment, consisting of 106 kg of NaI(Tl) target material",
+      "sources": [
+        "src:cosine-100-annual-modulation-1-7-years-2019"
+      ],
+      "unit": "kg",
+      "value": 106,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "COSINE-100 was a 106 kg array of eight sodium-iodide crystals at the Yangyang underground laboratory, built to test the long-disputed claim by the DAMA experiment of a yearly rise and fall in dark-matter-like signals, using the same kind of crystal. It ran from 2016 to 2023 and has not confirmed the DAMA signal.",
+    "technical": "Eight NaI(Tl) crystals (106 kg, two 3-inch PMTs each) immersed in 2,200 L of LAB liquid scintillator (active veto) inside a copper box, a 20 cm lead castle and plastic-scintillator muon panels, in the Y2L A5 tunnel (700 m overburden). Physics data 21 Oct 2016 - 14 Mar 2023 (6.4 yr). Annual-modulation analyses (1.7 yr, 3 yr, 6.4 yr full data set), WIMP limits with a 1 keV and then 0.7 keV threshold, and a combined analysis with ANAIS-112."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "arXiv:1710.05299, Sec. 1",
+    "note": "",
+    "quote": "an eight element, 106 kg array of low-background NaI(Tl) crystals",
+    "sources": [
+      "src:cosine-100-initial-performance-2018"
+    ],
+    "value": "Array of eight low-background NaI(Tl) crystals read by photomultiplier tubes inside a liquid-scintillator veto",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "scintillating_crystal",
+  "technology_classes": [
+    "scintillating_crystal"
+  ],
+  "type": "detector"
+}

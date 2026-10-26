@@ -1,0 +1,138 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "experiment_ids": [
+    "experiment:cdms-i"
+  ],
+  "id": "detector:cdms-i",
+  "intervals": [
+    {
+      "confidence": "uncertain",
+      "end": "1999-09",
+      "label": "WIMP-search data runs at the Stanford Underground Facility",
+      "locator": "arXiv:astro-ph/9712343, Sec. 3.1",
+      "note": "Start: the earliest report read (TAUP97, Sept 1997; arXiv Dec 1997) says 'we have begun taking data to search for WIMPs' and mentions data runs over 'the past year', so data taking began in 1996-97; the exact start is not published in the sources read, and 1997 is a year-level upper bound. End: the last CDMS I data, the Ge BLIP run 'Between November, 1998, and September, 1999'.",
+      "quote": "we have begun taking data to search for WIMPs",
+      "sources": [
+        "src:cdms-i-preliminary-limits-1997",
+        "src:cdms-i-exclusion-limits-2000"
+      ],
+      "start": "1997",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "completed (last CDMS I data run)",
+      "locator": "arXiv:astro-ph/0002471, p. 3",
+      "note": "Month precision; the date is the end of the last CDMS I data set analysed (Sept 1999), not a published closing date. The first tower of ZIP detectors (CDMS II) was commissioned at SUF in the second half of 2001 (arXiv:1010.4290) and moved to Soudan in 2003.",
+      "quote": "Between November, 1998, and September, 1999, 96 live days of data were obtained using 3 of 4 165 g Ge BLIP detectors.",
+      "sources": [
+        "src:cdms-i-exclusion-limits-2000",
+        "src:cdms-i-exclusion-limits-2002"
+      ],
+      "start": "1999-09",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {},
+  "name": "CDMS I detectors",
+  "notes": [],
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": "1999-09",
+      "locator": "arXiv:astro-ph/0203500, Sec. II",
+      "note": "Years/months as for the experiment intervals.",
+      "quote": "The first stage of the Cryogenic Dark Matter Search (CDMS I) operates at the Stanford Underground Facility, a tunnel 10.6 m beneath the Stanford University campus.",
+      "role": "main",
+      "site_id": "site:stanford-underground-facility-hepl",
+      "sources": [
+        "src:cdms-i-exclusion-limits-2002"
+      ],
+      "start": "1997",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:cdms-i-exclusion-limits-2002",
+    "src:cdms-i-exclusion-limits-2000",
+    "src:cdms-i-preliminary-limits-1997"
+  ],
+  "specs": {
+    "depth": {
+      "approx": true,
+      "confidence": "verified",
+      "dimension": "depth_mwe",
+      "display": "17 meters water-equivalent",
+      "locator": "arXiv:astro-ph/9712343, Sec. 2",
+      "note": "Later papers give ~16 m of water (arXiv:astro-ph/0203500, astro-ph/0002471).",
+      "quote": "at a depth of 17 meters water-equivalent (mwe)",
+      "sources": [
+        "src:cdms-i-preliminary-limits-1997"
+      ],
+      "unit": "m.w.e.",
+      "value": 17,
+      "verified_at": "2026-10-26"
+    },
+    "target_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "165 g",
+      "locator": "arXiv:astro-ph/0002471, p. 3",
+      "note": "Mass of each Ge BLIP detector; four BLIPs in the 1999 run, three analysed. A 100 g Si ZIP detector ran in 1998.",
+      "quote": "Between November, 1998, and September, 1999, 96 live days of data were obtained using 3 of 4 165 g Ge BLIP detectors.",
+      "sources": [
+        "src:cdms-i-exclusion-limits-2000"
+      ],
+      "unit": "kg",
+      "value": 0.165,
+      "verified_at": "2026-10-26"
+    },
+    "temperature": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "temperature",
+      "display": "20 mK",
+      "locator": "arXiv:astro-ph/0002471, p. 3",
+      "note": "",
+      "quote": "provides a low-background 20 mK volume",
+      "sources": [
+        "src:cdms-i-exclusion-limits-2000"
+      ],
+      "unit": "mK",
+      "value": 20,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "The first stage of the Cryogenic Dark Matter Search: germanium and silicon crystals cooled to 20 thousandths of a degree above absolute zero, in a shallow tunnel under Stanford University. Its 2000 result excluded, at more than 84% confidence, the whole dark matter signal region reported by the DAMA experiment.",
+    "technical": "Four 165 g Ge BLIP (NTD phonon) detectors and a 100 g Si ZIP detector measuring ionization and phonons, in a 20 mK cold volume behind 15 cm Pb, 25 cm polyethylene and a scintillator muon veto at ~17 m.w.e. (Stanford Underground Facility). 1998 Si run (33 live days) and 1998-99 Ge run (96 live days, 3 of 4 detectors; 10.6 kg d after cuts, 15.8 kg d in the later relaxed-fiducial analysis). Limits exclude unexplored space for 10-70 GeV/c^2; 23 candidates consistent with neutron background."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "arXiv:astro-ph/0002471, p. 2",
+    "note": "",
+    "quote": "CDMS detectors measure phonon and electron-hole pair production to determine recoil energy and ionization yield for each event.",
+    "sources": [
+      "src:cdms-i-exclusion-limits-2000"
+    ],
+    "value": "Cryogenic Ge (BLIP) and Si (ZIP) detectors measuring phonons and ionization simultaneously",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "cryogenic_bolometer",
+  "technology_classes": [
+    "cryogenic_bolometer",
+    "germanium"
+  ],
+  "type": "detector"
+}
