@@ -1,0 +1,173 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "experiment_ids": [
+    "experiment:pandax-ii"
+  ],
+  "id": "detector:pandax-ii",
+  "intervals": [
+    {
+      "confidence": "uncertain",
+      "end": "2015-11",
+      "label": "construction and installation",
+      "locator": "arXiv:1602.06563, Sec. 1",
+      "note": "Start: the paper says only that construction 'commenced after PandaX-I'; October 2014 is the end of PandaX-I's data set (arXiv:1505.00771), a lower bound. End: start of the commissioning run.",
+      "quote": "The construction and installation of the second stage of the PandaX experiment, PandaX-II, with a half-ton scale LXe target, commenced after PandaX-I.",
+      "sources": [
+        "src:pandax-ii-commissioning-run-2016"
+      ],
+      "start": "2014-10",
+      "status": "construction",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "2015-12-14",
+      "kind": "run",
+      "label": "commissioning run",
+      "locator": "arXiv:1602.06563, Sec. 2",
+      "note": "",
+      "quote": "A brief physics commissioning run was taken from Nov. 21 to Dec. 14, 2015",
+      "sources": [
+        "src:pandax-ii-commissioning-run-2016"
+      ],
+      "start": "2015-11-21",
+      "status": "commissioning",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": "2019-06-29",
+      "label": "physics runs (Runs 9-11) and calibration",
+      "locator": "arXiv:2007.15469, abstract",
+      "note": "Start: first data in March 2016. End: official shutdown on 29 June 2019 (the full-exposure paper says the operation after Run 11 was dedicated to calibration and systematic studies before the official shutdown).",
+      "quote": "including all data from March 2016 to August 2018",
+      "sources": [
+        "src:pandax-ii-full-exposure-2020"
+      ],
+      "start": "2016-03",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "completed (official shutdown)",
+      "locator": "arXiv:2007.15469, Sec. 2",
+      "note": "",
+      "quote": "before the official shutdown of PandaX-II on June 29, 2019",
+      "sources": [
+        "src:pandax-ii-full-exposure-2020"
+      ],
+      "start": "2019-06-29",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {},
+  "name": "PandaX-II detector",
+  "notes": [],
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": "2019-06-29",
+      "locator": "arXiv:1607.07400, abstract",
+      "note": "Start = the commissioning run; end = official shutdown. The PandaX-II papers name only the 'China JinPing Underground Laboratory'.",
+      "quote": "We report the WIMP dark matter search results using the first physics-run data of the PandaX-II 500 kg liquid xenon dual-phase time-projection chamber, operating at the China JinPing Underground Laboratory.",
+      "role": "main",
+      "site_id": "site:cjpl-i",
+      "sources": [
+        "src:pandax-ii-98-7-day-2016"
+      ],
+      "start": "2015-11-21",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:pandax-ii-commissioning-run-2016",
+    "src:pandax-ii-98-7-day-2016",
+    "src:pandax-ii-54-ton-day-2017",
+    "src:pandax-ii-full-exposure-2020"
+  ],
+  "specs": {
+    "exposure": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "exposure",
+      "display": "132000 kg d (132 ton day)",
+      "locator": "arXiv:2007.15469, abstract",
+      "note": "132 ton day = 1.32e5 kg d.",
+      "quote": "the full 132 ton$\\cdot$day exposure of the PandaX-II experiment",
+      "sources": [
+        "src:pandax-ii-full-exposure-2020"
+      ],
+      "unit": "kg d",
+      "value": 132000,
+      "verified_at": "2026-10-26"
+    },
+    "phase": {
+      "confidence": "verified",
+      "locator": "arXiv:1607.07400, abstract",
+      "note": "",
+      "quote": "PandaX-II 500 kg liquid xenon dual-phase time-projection chamber",
+      "sources": [
+        "src:pandax-ii-98-7-day-2016"
+      ],
+      "value": "dual-phase",
+      "verified_at": "2026-10-26"
+    },
+    "target_medium": {
+      "confidence": "verified",
+      "locator": "arXiv:1607.07400, abstract",
+      "note": "",
+      "quote": "PandaX-II 500 kg liquid xenon dual-phase time-projection chamber",
+      "sources": [
+        "src:pandax-ii-98-7-day-2016"
+      ],
+      "value": "liquid xenon",
+      "verified_at": "2026-10-26"
+    },
+    "total_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "500 kg",
+      "locator": "arXiv:1607.07400, abstract",
+      "note": "",
+      "quote": "PandaX-II 500 kg liquid xenon dual-phase time-projection chamber",
+      "sources": [
+        "src:pandax-ii-98-7-day-2016"
+      ],
+      "unit": "kg",
+      "value": 500,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "PandaX-II was the second stage of the Chinese PandaX programme: a half-tonne liquid xenon detector in the Jinping underground laboratory, running from 2016 to 2019. It saw no dark matter and, in 2016-2017, set the strongest limits then published.",
+    "technical": "Dual-phase xenon TPC with a 500 kg liquid xenon target at CJPL. Commissioning run 21 Nov - 14 Dec 2015; physics Runs 9, 10, 11 (March 2016 - August 2018, 132 ton day total); official shutdown 29 June 2019. Full-exposure spin-independent limit 2.2e-46 cm^2 at 30 GeV/c^2. Successor of PandaX-I; superseded by PandaX-4T."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "arXiv:1607.07400, abstract",
+    "note": "",
+    "quote": "We report the WIMP dark matter search results using the first physics-run data of the PandaX-II 500 kg liquid xenon dual-phase time-projection chamber, operating at the China JinPing Underground Laboratory.",
+    "sources": [
+      "src:pandax-ii-98-7-day-2016"
+    ],
+    "value": "Dual-phase liquid xenon time projection chamber (500 kg)",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "noble_liquid_tpc",
+  "technology_classes": [
+    "noble_liquid_tpc",
+    "xenon_tpc"
+  ],
+  "type": "detector"
+}
