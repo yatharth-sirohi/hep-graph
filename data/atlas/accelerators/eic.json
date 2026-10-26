@@ -1,0 +1,87 @@
+{
+  "aliases": [
+    "EIC"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "distinct_from": [],
+  "facility_id": "facility:brookhaven-national-laboratory",
+  "feeds_accelerator_ids": [],
+  "id": "accelerator:eic",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2026-04-12",
+      "label": "first long-lead procurements (CD-3A)",
+      "locator": "BNL Newsroom, 6 Feb 2026, \"Building smart: early purchases, reuse, and workforce continuity\"",
+      "note": "April 2024 is the date the first phase of federally approved long-lead procurements was announced; the 2026 article also reports CD-3B approval on 6 Feb 2026 for a second phase. Earlier DOE decisions (CD-0, CD-1) were not read from a fetched source.",
+      "quote": "During the first phase of federally approved long-lead procurements, announced in April 2024",
+      "sources": [
+        "src:hadron2-eic-bnl-cd3b-news-2026"
+      ],
+      "start": "2024-04",
+      "status": "approved",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "construction (conversion of RHIC begins)",
+      "locator": "BNL Newsroom, 13 April 2026, first paragraph; BNL EIC page: \"Brookhaven Lab is building a new machine\"",
+      "note": "RHIC completed its final run in February 2026; removals on 13 April 2026 are described as the first step in transforming RHIC into the EIC. In February 2026 the project director still spoke of preparing \"the formal transition into the construction phase\", so the DOE construction baseline (CD-2/CD-3) may not yet have been approved.",
+      "quote": "Work begins today at the U.S. Department of Energy’s (DOE) Brookhaven National Laboratory to remove components from the Relativistic Heavy Ion Collider (RHIC)",
+      "sources": [
+        "src:bnl-newsroom-eic-transformation-2026",
+        "src:hadron2-eic-bnl-eic-page"
+      ],
+      "start": "2026-04-13",
+      "status": "construction",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "is_collider": true,
+  "kind": "collider",
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "locator": "BNL EIC page",
+      "note": "",
+      "quote": "That’s why Brookhaven Lab is building a new machine—an Electron-Ion Collider, or EIC—to look inside the nucleus and its protons and neutrons.",
+      "sources": [
+        "src:hadron2-eic-bnl-eic-page"
+      ],
+      "value": "https://www.bnl.gov/eic/",
+      "verified_at": "2026-10-26"
+    }
+  },
+  "name": "Electron-Ion Collider",
+  "notes": [
+    "No design energy or luminosity is recorded: the BNL pages fetched give no numbers (the EIC Yellow Report PDF could not be read as text).",
+    "Operations start is not recorded for the collider; the ePIC detector paper of 2023 expected the project detector to start operating in 2032 (see experiment:epic), which may have changed.",
+    "The EIC reuses RHIC components (accelerator:rhic), which completed its final run in February 2026; the RHIC record is not edited here.",
+    "Status: construction is asserted from the BNL statements that the EIC \"is being built\" and that RHIC conversion began on 13 April 2026; DOE critical decisions CD-2/CD-3 were not found."
+  ],
+  "particles": [
+    "electron",
+    "proton",
+    "ion"
+  ],
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:bnl-upton-campus",
+  "sources": [
+    "src:hadron2-eic-bnl-eic-page",
+    "src:hadron2-eic-bnl-machine-page",
+    "src:bnl-newsroom-eic-transformation-2026",
+    "src:hadron2-eic-bnl-cd3b-news-2026"
+  ],
+  "specs": {},
+  "status": "construction",
+  "summary": {
+    "plain": "The Electron-Ion Collider is a new particle collider being built at Brookhaven Lab, in partnership with Jefferson Lab, by adding an electron ring to the tunnel of the retired RHIC collider. It will collide polarised electrons with protons and nuclei to map the quarks and gluons inside them.",
+    "technical": "EIC: two intersecting accelerators, a polarised electron storage ring and a proton/ion ring (one of RHIC's ion storage rings, its injector chain and its 2.4-mile-circumference tunnel are reused), colliding polarised electron beams with polarised protons and with nuclei from deuterium to uranium; first detector ePIC at the former STAR interaction region. Conversion of RHIC began on 2026-04-13."
+  },
+  "superseded_by": null,
+  "type": "accelerator"
+}

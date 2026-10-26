@@ -1,0 +1,147 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "distinct_from": [],
+  "experiment_ids": [
+    "experiment:epic"
+  ],
+  "id": "detector:epic",
+  "intervals": [
+    {
+      "confidence": "uncertain",
+      "end": "2024-03",
+      "label": "collaboration formed; EIC project detector technical design",
+      "locator": "arXiv:2305.15593, section on the technical design",
+      "note": "July 2022: ePIC collaboration formed to lead the technical design of the EIC project detector. \"approved\" here means selected as the EIC project detector; the end bound is the day before the first long-lead procurements (April 2024) that included detector components.",
+      "quote": "a new detector collaboration: ePIC has been formed in July 2022 to lead the EIC project detector technical design based on the EIC reference design",
+      "sources": [
+        "src:hadron2-epic-vertex-tracking-arxiv-2023"
+      ],
+      "start": "2022-07",
+      "status": "approved",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "construction (long-lead procurement of detector components)",
+      "locator": "BNL Newsroom, 13 April 2026 (\"being designed and constructed\"); CD-3A/CD-3B procurements include detector items (silicon photomultipliers, solenoid power supply, crystals, fibres, electronics)",
+      "note": "BNL describes ePIC as \"being designed and constructed\" and the CD-3A/CD-3B packages buy detector components, but no source states the date the detector construction phase formally began; April 2024 is the date of the first approved procurements. The same BNL pages say the EIC is preparing a \"formal transition into the construction phase\".",
+      "quote": "will be taken apart to make way for the new ePIC detector being designed and constructed for the Electron-Ion Collider",
+      "sources": [
+        "src:hadron2-eic-bnl-cd3b-news-2026",
+        "src:bnl-newsroom-eic-transformation-2026"
+      ],
+      "start": "2024-04",
+      "status": "construction",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "operation (planned)",
+      "locator": "arXiv:2305.15593, ePIC section",
+      "note": "A 2023 expectation; no 2026 schedule was found, and the EIC project baseline (CD-2) had not been located, so the date may have moved.",
+      "quote": "The EIC project detector is expected to start operate in 2032",
+      "sources": [
+        "src:hadron2-epic-vertex-tracking-arxiv-2023"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2032",
+        "display": "2032",
+        "planned": true
+      },
+      "status": "planned",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "ePIC detector",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "locator": "BNL Newsroom, 13 April 2026",
+      "note": "Planned: the STAR detector, in the same hall, is to be taken apart to make way for ePIC. The placement start is the planned operating date, not an installation date.",
+      "quote": "will be taken apart to make way for the new ePIC detector being designed and constructed for the Electron-Ion Collider",
+      "role": "main",
+      "site_id": "site:bnl-rhic-ip6-star",
+      "sources": [
+        "src:bnl-newsroom-eic-transformation-2026"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2032",
+        "display": "planned installation at IP6",
+        "planned": true
+      },
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:hadron2-epic-detector-page"
+  ],
+  "specs": {
+    "length": {
+      "approx": true,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "about 9.5 m (central detector)",
+      "locator": "ePIC Detector page, Central Detector",
+      "note": "",
+      "quote": "The ePIC Central Detector is very compact spanning a cylindrical volume that is about 9.5m longitudinally and 2.67m radially, covering an acceptance of about 3°-177°",
+      "sources": [
+        "src:hadron2-epic-detector-page"
+      ],
+      "unit": "m",
+      "value": 9.5,
+      "verified_at": "2026-10-26"
+    },
+    "solenoid_field": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "magnetic_field",
+      "display": "1.7 T",
+      "locator": "ePIC Detector page, Central Detector",
+      "note": "",
+      "quote": "instrumented within a 1.7T magnetic field, generated from a 2.8m bore diameter superconducting solenoid magnet",
+      "sources": [
+        "src:hadron2-epic-detector-page"
+      ],
+      "unit": "T",
+      "value": 1.7,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "construction",
+  "subsystems": [],
+  "summary": {
+    "plain": "A cylindrical detector about 9.5 metres long built around a large solenoid magnet, with silicon and gas trackers, particle-identification layers and calorimeters, plus detectors far along the beam pipes.",
+    "technical": "ePIC central detector (about 9.5 m long, 2.67 m radius, 3-177 degrees) in a 1.7 T field from a 2.8 m bore superconducting solenoid: silicon vertex/tracking layers and micro-pattern gas detectors (about 7.5 m^2 and 34.4 m^2), fast timing and Cherenkov PID, electromagnetic and hadronic calorimeters; far-forward and far-backward detectors extend the acceptance to |eta| > 6."
+  },
+  "superseded_by": null,
+  "technology": {
+    "confidence": "verified",
+    "locator": "ePIC Detector page",
+    "note": "",
+    "quote": "instrumented within a 1.7T magnetic field, generated from a 2.8m bore diameter superconducting solenoid magnet",
+    "sources": [
+      "src:hadron2-epic-detector-page"
+    ],
+    "value": "Compact general-purpose collider detector: silicon and micro-pattern gas tracking in a 1.7 T solenoid, fast-timing and Cherenkov PID, electromagnetic and hadronic calorimeters, plus far-forward and far-backward detectors",
+    "verified_at": "2026-10-26"
+  },
+  "technology_classes": [
+    "general_purpose_collider"
+  ],
+  "type": "detector"
+}
