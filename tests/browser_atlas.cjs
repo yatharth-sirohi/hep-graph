@@ -114,8 +114,37 @@ async function setRangeValue(locator, value) {
   }, value);
 }
 
+// The "Start here" card (static/atlas/js/start.js) appears on a first visit to a bare
+// /atlas, and every context below is a first visit. The suite is about the Atlas,
+// not the card, so contexts start with it dismissed (the card's own tests pass
+// `{ welcome: true }` to see it). This is the same state a returning visitor has.
+function dismissWelcomeByDefault(browserInstance) {
+  const original = browserInstance.newContext.bind(browserInstance);
+  browserInstance.newContext = async (options = {}) => {
+    const { welcome, ...rest } = options;
+    const context = await original(rest);
+    if (!welcome) {
+      await context.addInitScript(() => {
+        try { window.localStorage.setItem("hep-atlas.start-here", "dismissed"); } catch (error) { /* no storage */ }
+      });
+    }
+    return context;
+  };
+}
+
+// The filter groups live in the Filters drawer, which is shut until the header's
+// Filters button opens it (a calm first view). Phone-width pages use a sheet instead.
+async function openFilters(page) {
+  const button = page.locator("#filters-btn");
+  if ((await button.getAttribute("aria-expanded")) !== "true") await button.click();
+  await page.locator("#filters-panel.is-open").waitFor();
+  // It slides in: wait until it has stopped, so a click does not land on a moving drawer.
+  await page.waitForFunction(() => getComputedStyle(document.getElementById("filters-panel")).transform === "none");
+}
+
 (async () => {
   browser = await engine.launch(launchOptions());
+  dismissWelcomeByDefault(browser);
   const context = await browser.newContext({
     viewport: { width: 1440, height: 960 },
     reducedMotion: "reduce",
@@ -244,6 +273,7 @@ async function setRangeValue(locator, value) {
     const ctx = await browser.newContext({ viewport: { width: 1440, height: 960 } });
     const p = await ctx.newPage();
     await p.goto(`${base}/atlas${dataTree}`);
+    await openFilters(p);
     await p.locator("#filters-controls .filter-group").first().waitFor();
     // The checkboxes exist before the app has subscribed to state changes (the
     // globe loads first), and a change made in that gap updates the URL but
@@ -271,6 +301,167 @@ async function setRangeValue(locator, value) {
     await p.waitForFunction(() => !document.getElementById("filter-clear-all"));
     assert.doesNotMatch(p.url(), /[?&](t|rg)=/, "Clear all filters removes the parameters from the URL");
     assert.doesNotMatch((await groups()).topic.header, /selected/);
+    await ctx.close();
+  });
+
+  // ---- Start here (static/atlas/js/start.js) ---------------------------------------
+  await record("Start here: a first visit shows a labelled card with four real deep links, Escape dismisses it for good, the footer reopens it", async () => {
+    if (process.env.HEP_ATLAS_DATA !== "generated") {
+      // The curated questions name records of the real bundle. Against the fixture
+      // tree only the rule "an address with a query never opens the card" applies.
+      const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 }, welcome: true });
+      const p = await ctx.newPage();
+      await p.goto(`${base}/atlas${dataTree}`);
+      await p.waitForFunction(() => document.querySelectorAll(".atlas-marker").length > 0, { timeout: 30000 });
+      assert.equal(await p.locator("#start-card").isHidden(), true, "a query string (here ?data=) means the visitor did not arrive cold");
+      await ctx.close();
+      return;
+    }
+    const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 }, welcome: true });
+    const p = await ctx.newPage();
+    await p.goto(`${base}/atlas`);
+    await p.locator("#start-card").waitFor({ timeout: 30000 });
+
+    // What the card is: a labelled, described dialog that holds focus's starting point.
+    const card = await p.evaluate(() => {
+      const el = document.getElementById("start-card");
+      const label = document.getElementById(el.getAttribute("aria-labelledby"));
+      const desc = document.getElementById(el.getAttribute("aria-describedby"));
+      return {
+        role: el.getAttribute("role"), modal: el.getAttribute("aria-modal"),
+        label: label && label.textContent.trim(), desc: desc && desc.textContent.replace(/\s+/g, " ").trim(),
+        focusInside: el.contains(document.activeElement),
+        links: [...el.querySelectorAll("a[data-start-link]")].map((a) => ({ text: a.querySelector(".start-question-text").textContent.trim(), href: a.getAttribute("href") })),
+        buttons: [...el.querySelectorAll("button")].map((b) => b.getAttribute("aria-label") || b.textContent.trim()),
+      };
+    });
+    assert.equal(card.role, "dialog");
+    assert.notEqual(card.modal, "true", "the card is not modal: the globe behind it stays reachable");
+    assert.equal(card.label, "Start here");
+    assert.equal(card.desc, "Every major particle-physics facility on a to-scale map, with every fact traced to its source.");
+    assert.equal(card.focusInside, true, "opening the card moves focus into it, so a keyboard user starts there");
+    assert.deepEqual(card.links.map((l) => l.href), [
+      "#/experiment/dune", "#/result/atlas-higgs-observation-2012", "#/topic/neutrino-oscillations", "?fk=underground_laboratory",
+    ]);
+    assert.deepEqual(card.links.map((l) => l.text), [
+      "Where is DUNE\u2019s far detector?", "Where was the Higgs discovered?",
+      "Which experiments study neutrino oscillations?", "How deep are the underground labs?",
+    ]);
+    assert.deepEqual(card.buttons, ["Close Start here", "Browse results", "Search", "Explore the globe"]);
+
+    // Every question lands on something real, and dismisses the card on the way.
+    const expectations = [
+      { href: "#/experiment/dune", panel: /Deep Underground Neutrino Experiment/, url: /#\/experiment\/dune$/ },
+      { href: "#/result/atlas-higgs-observation-2012", panel: /observation of a new particle/i, url: /#\/result\/atlas-higgs-observation-2012$/ },
+      { href: "#/topic/neutrino-oscillations", panel: /Neutrino oscillations/, url: /#\/topic\/neutrino-oscillations$/ },
+    ];
+    for (const expected of expectations) {
+      await p.locator(`#start-card a[href="${expected.href}"]`).click();
+      await p.waitForFunction(() => document.getElementById("start-card").hidden);
+      await p.locator("#detail-panel h2").waitFor();
+      assert.match(await p.locator("#detail-panel h2").innerText(), expected.panel, `${expected.href} opens its record`);
+      assert.match(p.url(), expected.url);
+      assert.equal(await p.evaluate(() => window.localStorage.getItem("hep-atlas.start-here")), "dismissed");
+      // Reopen from the footer for the next one: it reopens, and aria-expanded follows.
+      await p.locator("#start-here-link").click();
+      await p.locator("#start-card").waitFor();
+      assert.equal(await p.locator("#start-here-link").getAttribute("aria-expanded"), "true");
+    }
+    // The fourth is a filter: the globe narrows to underground laboratories.
+    const before = await p.evaluate(() => document.querySelectorAll(".atlas-marker").length);
+    await p.locator('#start-card a[href="?fk=underground_laboratory"]').click();
+    await p.waitForFunction(() => document.getElementById("start-card").hidden);
+    await p.waitForFunction((n) => document.querySelectorAll(".atlas-marker").length !== n, before, { timeout: 15000 });
+    assert.match(p.url(), /[?&]fk=underground_laboratory/);
+    assert.equal(await p.locator("#filters-badge").innerText(), "1", "the Filters button says one filter is on");
+
+    // Escape closes it, and it stays closed on the next cold visit.
+    await p.locator("#start-here-link").click();
+    await p.locator("#start-card").waitFor();
+    await p.keyboard.press("Escape");
+    await p.waitForFunction(() => document.getElementById("start-card").hidden);
+    await p.goto(`${base}/atlas`);
+    await p.waitForFunction(() => document.querySelectorAll(".atlas-marker").length > 0, { timeout: 30000 });
+    await p.waitForTimeout(500);
+    assert.equal(await p.locator("#start-card").isHidden(), true, "a dismissed card does not return unasked");
+    await ctx.close();
+  });
+
+  await record("Start here: only a bare address opens it; a link, ?welcome=0 or blocked storage behave", async () => {
+    // A shared link (hash) and a state link (query) are not first visits.
+    for (const suffix of ["#/experiment/dune", "?welcome=0", "?y=2020"]) {
+      const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 }, welcome: true });
+      const p = await ctx.newPage();
+      await p.goto(`${base}/atlas${dataTree && suffix.startsWith("?") ? `${dataTree}&${suffix.slice(1)}` : suffix.startsWith("#") ? `${dataTree}${suffix}` : suffix}`);
+      await p.waitForFunction(() => document.querySelectorAll(".atlas-marker").length > 0, { timeout: 30000 });
+      await p.waitForTimeout(400);
+      assert.equal(await p.locator("#start-card").isHidden(), true, `${suffix} must not open the card`);
+      await ctx.close();
+    }
+    // Storage that throws (a private window, blocked site data): the card still opens
+    // on a bare visit, closes, and nothing is logged as an error.
+    const blocked = await browser.newContext({ viewport: { width: 1440, height: 900 }, welcome: true });
+    await blocked.addInitScript(() => {
+      Object.defineProperty(window, "localStorage", { get() { throw new Error("storage blocked"); } });
+    });
+    const p = await blocked.newPage();
+    const pageErrors = [];
+    p.on("pageerror", (e) => pageErrors.push(e.message));
+    p.on("console", (m) => { if (m.type() === "error") pageErrors.push(m.text()); });
+    if (process.env.HEP_ATLAS_DATA === "generated") {
+      await p.goto(`${base}/atlas`);
+      await p.locator("#start-card").waitFor({ timeout: 30000 });
+      await p.locator('#start-card [data-start-action="globe"]').click();
+      await p.waitForFunction(() => document.getElementById("start-card").hidden);
+    }
+    assert.deepEqual(pageErrors, [], "blocked storage must not raise errors");
+    await blocked.close();
+  });
+
+  await record("Start here: Browse results and Search do what they say", async () => {
+    if (process.env.HEP_ATLAS_DATA !== "generated") return;
+    const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 }, welcome: true });
+    const p = await ctx.newPage();
+    await p.goto(`${base}/atlas`);
+    await p.locator("#start-card").waitFor({ timeout: 30000 });
+    await p.locator('#start-card [data-start-action="results"]').click();
+    await p.locator("#results-mode-list").waitFor();
+    assert.match(p.url(), /[?&]m=results/);
+    assert.equal(await p.locator("#start-card").isHidden(), true);
+    await p.locator("#start-here-link").click();
+    await p.locator('#start-card [data-start-action="search"]').click();
+    assert.equal(await p.evaluate(() => document.activeElement && document.activeElement.id), "atlas-search", "Search puts the cursor in the search box");
+    await ctx.close();
+  });
+
+  await record("Start here on a phone is a bottom sheet: full width, a 44 px close, every entry on screen without scrolling", async () => {
+    if (process.env.HEP_ATLAS_DATA !== "generated") return;
+    const ctx = await browser.newContext({ viewport: { width: 390, height: 844 }, ...MOBILE, welcome: true });
+    const p = await ctx.newPage();
+    await p.goto(`${base}/atlas`);
+    await p.locator("#start-card").waitFor({ timeout: 30000 });
+    const box = await p.evaluate(() => {
+      const rect = (el) => { const r = el.getBoundingClientRect(); return { x: r.x, y: r.y, w: r.width, h: r.height, b: r.bottom }; };
+      const card = document.getElementById("start-card");
+      return {
+        card: rect(card), viewport: { w: window.innerWidth, h: window.innerHeight },
+        close: rect(card.querySelector(".start-close")),
+        actions: [...card.querySelectorAll(".start-action")].map(rect),
+        questions: [...card.querySelectorAll(".start-question")].map(rect),
+        overflowX: document.documentElement.scrollWidth > window.innerWidth,
+        timeline: rect(document.getElementById("timeline-bar")),
+        scrolls: card.scrollHeight > card.clientHeight + 1,
+      };
+    });
+    assert.ok(Math.abs(box.card.w - box.viewport.w) <= 1, "the sheet is the full width of the phone");
+    assert.ok(box.card.b <= box.timeline.y + 2, "the sheet rests on the timeline bar, which stays reachable");
+    assert.ok(box.close.w >= 44 && box.close.h >= 44, "the close button is a 44 px target");
+    for (const a of box.actions) assert.ok(a.h >= 44 && a.b <= box.card.b && a.y >= box.card.y, "each action is a 44 px target inside the sheet");
+    for (const q of box.questions) assert.ok(q.h >= 44, "each question is a 44 px target");
+    assert.equal(box.scrolls, false, "all four questions and the three entries fit without scrolling a 390x844 phone");
+    assert.equal(box.overflowX, false, "no sideways scroll");
+    await p.locator(".start-close").tap();
+    await p.waitForFunction(() => document.getElementById("start-card").hidden);
     await ctx.close();
   });
 
@@ -1708,6 +1899,7 @@ async function setRangeValue(locator, value) {
 
     // Facet option checkbox ids are deterministic (filters.js's
     // createFilterPanel): `filter-<facet>-<value>`.
+    await openFilters(page);
     const region = page.locator("#filter-region-Europe");
     await region.waitFor();
     await region.check({ force: true });
@@ -1743,6 +1935,7 @@ async function setRangeValue(locator, value) {
     // AND composition: adding a second facet must narrow the set further
     // (never widen it) — a region with no "planned" facility legitimately
     // narrows all the way to zero, which is itself the correct AND result.
+    await openFilters(page);
     const eraCheckbox = page.locator("#filter-era-planned");
     if (await eraCheckbox.count()) {
       await eraCheckbox.check({ force: true });
@@ -1776,6 +1969,7 @@ async function setRangeValue(locator, value) {
     // merge and split with altitude), and the reloads above may leave the
     // camera elsewhere than the cold-load default; the invariant is that
     // clearing widens the set beyond the Europe-only subset.
+    await openFilters(page);
     await page.locator("#filter-clear-all").click();
     await page.waitForFunction(
       (n) => document.querySelectorAll(".atlas-marker").length > n

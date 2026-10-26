@@ -14,7 +14,7 @@
 // not an accessible encoding (§23) and, on a map of real places, a reader
 // who cannot tell "derived" from "surveyed" is being misled about evidence.
 
-import { titleCase } from './model.js';
+import { titleCase, STATUS_COLOR } from './model.js';
 
 // --- feature type -----------------------------------------------------
 // `fill: true` means the shape is a footprint and is drawn filled; lines are
@@ -54,21 +54,21 @@ export function typeStyle(featureType) {
 const STATUS_STYLES = {
   active: { dash: null, label: 'Active', hint: 'solid' },
   upgrade: { dash: null, label: 'Upgrade', hint: 'solid' },
-  construction: { dash: '10 6', color: '#f2b441', label: 'Under construction', hint: 'dashed amber' },
-  commissioning: { dash: '10 6', color: '#f2b441', label: 'Commissioning', hint: 'dashed amber' },
-  completed: { dash: null, color: '#98a3a9', label: 'Completed', hint: 'grey' },
-  decommissioned: { dash: null, color: '#98a3a9', label: 'Decommissioned', hint: 'grey' },
+  construction: { dash: '10 6', color: STATUS_COLOR.construction, label: 'Under construction', hint: 'dashed amber' },
+  commissioning: { dash: '10 6', color: STATUS_COLOR.commissioning, label: 'Commissioning', hint: 'dashed amber' },
+  completed: { dash: null, color: STATUS_COLOR.completed, label: 'Completed', hint: 'grey' },
+  decommissioned: { dash: null, color: STATUS_COLOR.completed, label: 'Decommissioned', hint: 'grey' },
   // A temporary stop (the LHC's long shutdowns), not a closure: the ontology
   // reserves `decommissioned` and `completed` for the end of a thing's life, so
   // the reader must not take grey-and-"shut down" for either.
-  shutdown: { dash: null, color: '#98a3a9', label: 'Temporarily shut down (long shutdown / upgrade)', hint: 'grey — a pause, not a closure' },
+  shutdown: { dash: null, color: STATUS_COLOR.shutdown, label: 'Temporarily shut down (long shutdown / upgrade)', hint: 'grey — a pause, not a closure' },
   proposed: { dash: '2 5', label: 'Proposed', hint: 'dotted' },
   approved: { dash: '2 5', label: 'Approved', hint: 'dotted' },
   planned: { dash: '2 5', label: 'Planned', hint: 'dotted' },
   // A structure that exists in this year while its entity has no recorded
   // operating state (a tunnel before its machine, a hall after its
   // experiment): drawn grey and finely dashed so it can never be read as running.
-  unrecorded: { dash: '4 4', color: '#98a3a9', label: 'Structure present, no operating status recorded', hint: 'grey, finely dashed' },
+  unrecorded: { dash: '4 4', color: STATUS_COLOR.shutdown, label: 'Structure present, no operating status recorded', hint: 'grey, finely dashed' },
 };
 
 export function statusStyle(status) {

@@ -188,11 +188,40 @@ async function contrastOf(page, selector) {
   }, selector);
 }
 
+// The "Start here" card (static/atlas/js/start.js) appears on a first visit to a bare
+// /atlas, and every context below is a first visit. The suite is about the Atlas,
+// not the card, so contexts start with it dismissed (the card's own tests pass
+// `{ welcome: true }` to see it). This is the same state a returning visitor has.
+function dismissWelcomeByDefault(browserInstance) {
+  const original = browserInstance.newContext.bind(browserInstance);
+  browserInstance.newContext = async (options = {}) => {
+    const { welcome, ...rest } = options;
+    const context = await original(rest);
+    if (!welcome) {
+      await context.addInitScript(() => {
+        try { window.localStorage.setItem("hep-atlas.start-here", "dismissed"); } catch (error) { /* no storage */ }
+      });
+    }
+    return context;
+  };
+}
+
+// The filter groups live in the Filters drawer, which is shut until the header's
+// Filters button opens it (a calm first view). Phone-width pages use a sheet instead.
+async function openFilters(page) {
+  const button = page.locator("#filters-btn");
+  if ((await button.getAttribute("aria-expanded")) !== "true") await button.click();
+  await page.locator("#filters-panel.is-open").waitFor();
+  // It slides in: wait until it has stopped, so a click does not land on a moving drawer.
+  await page.waitForFunction(() => getComputedStyle(document.getElementById("filters-panel")).transform === "none");
+}
+
 (async () => {
   const browser = await chromium.launch({
     headless: true,
     ...(process.env.HEP_BROWSER_EXECUTABLE ? { executablePath: process.env.HEP_BROWSER_EXECUTABLE } : {}),
   });
+  dismissWelcomeByDefault(browser);
 
   for (const tree of DATA_TREES) {
     const dataTree = tree.query;
@@ -230,12 +259,32 @@ async function contrastOf(page, selector) {
     await record(`[${tree.label}] axe: filters panel (with an active filter)`, async () => {
       await page.goto(`${base}/atlas${dataTree}`);
       await page.waitForFunction(() => document.querySelectorAll(".atlas-marker").length > 0, { timeout: 15000 });
+      await openFilters(page);
       const region = page.locator("#filter-region-Europe");
       await region.waitFor();
       await region.check({ force: true });
       await page.locator(".filter-chip", { hasText: "Europe" }).first().waitFor();
-      await runAxe(page, tree.label, "filters panel");
+      await runAxe(page, tree.label, "filters drawer (open, with an active filter)");
       await page.locator("#filter-clear-all").click();
+    });
+
+    await record(`[${tree.label}] axe: Key popover (open), and Escape closes it and returns focus to its button`, async () => {
+      await page.goto(`${base}/atlas${dataTree}`);
+      await page.waitForFunction(() => document.querySelectorAll(".atlas-marker").length > 0, { timeout: 15000 });
+      await page.locator("#key-btn").click();
+      await page.locator("#key-popover").waitFor();
+      assert.equal(await page.locator("#key-btn").getAttribute("aria-expanded"), "true");
+      // The Key carries the status colours the timeline used to: words next to every dot.
+      const keyText = await page.locator("#key-popover").innerText();
+      for (const term of ["Facility shape", "Accelerator laboratory", "Active", "Upgrade", "Construction / commissioning",
+        "Proposed / approved / planned", "Completed", "Uncertain (possible)", "Institution dot", "Location precision"]) {
+        assert.ok(keyText.toLowerCase().includes(term.toLowerCase()), `the Key must say "${term}" in words`);
+      }
+      await runAxe(page, tree.label, "Key popover (open)");
+      await page.keyboard.press("Escape");
+      await page.locator("#key-popover").waitFor({ state: "hidden" });
+      assert.equal(await page.evaluate(() => document.activeElement && document.activeElement.id), "key-btn",
+        "Escape closes the Key and puts focus back on the button that opened it");
     });
 
     await record(`[${tree.label}] axe: timeline moved to a past year`, async () => {
@@ -488,6 +537,13 @@ async function contrastOf(page, selector) {
       const chipsLive = await kbPage.locator(".filter-chips").getAttribute("aria-live");
       assert.equal(chipsLive, "polite", "the active-filters chip row must be a polite live region");
 
+      // Keyboard route to the drawer: the header's Filters button, Enter, and focus
+      // lands in the drawer.
+      await kbPage.locator("#filters-btn").focus();
+      await kbPage.keyboard.press("Enter");
+      await kbPage.locator("#filters-panel.is-open").waitFor();
+      const drawerHasFocus = await kbPage.evaluate(() => document.getElementById("filters-panel").contains(document.activeElement));
+      assert.equal(drawerHasFocus, true, "opening the Filters drawer from the keyboard must move focus into it");
       await kbPage.locator("#filter-region-Europe").focus();
       await kbPage.keyboard.press("Space");
       await kbPage.locator(".filter-chip", { hasText: "Europe" }).first().waitFor();
@@ -584,6 +640,37 @@ async function contrastOf(page, selector) {
       assert.equal(hasUncertainMarker.hasPattern, true, "an uncertain-certainty marker must render a hatch pattern (not just a class with no visual effect)");
       await ncContext.close();
     });
+  }
+
+  // ---- the Start-here card (first visit to a bare /atlas): scanned open, once. It
+  // only opens on the generated bundle's address, so it is not part of the tree loop.
+  {
+    const startContext = await browser.newContext({ viewport: { width: 1440, height: 960 }, welcome: true });
+    const startPage = await startContext.newPage();
+    await record("axe: Start here card (first visit), keyboard order, and dismissal", async () => {
+      await startPage.goto(`${base}/atlas`);
+      await startPage.locator("#start-card").waitFor({ timeout: 30000 });
+      await runAxe(startPage, "generated", "Start here card");
+      // Tab order inside the card: close, four questions, then the three entries.
+      const order = await startPage.evaluate(() => {
+        const card = document.getElementById("start-card");
+        return [...card.querySelectorAll("button, a[href]")].map((el) => el.textContent.trim() || el.getAttribute("aria-label"));
+      });
+      assert.equal(order[0], "\u00d7", "the close button is the first control in the card");
+      assert.equal(order.length, 8, `one close, four questions, three entries: ${JSON.stringify(order)}`);
+      await startPage.keyboard.press("Tab");
+      const inside = await startPage.evaluate(() => document.getElementById("start-card").contains(document.activeElement));
+      assert.equal(inside, true, "Tab from the card's own focus stop goes to its first control");
+      await startPage.keyboard.press("Escape");
+      await startPage.waitForFunction(() => document.getElementById("start-card").hidden);
+      // Contrast of the card's own text, measured on the rendered page.
+      await startPage.locator("#start-here-link").click();
+      for (const selector of [".start-lede", ".start-question-text", ".start-question-hint", ".start-kicker", ".start-heading"]) {
+        const measured = await contrastOf(startPage, `#start-card ${selector}`);
+        assert.ok(measured && measured.ratio >= 4.5, `${selector} contrast ${measured && measured.ratio.toFixed(2)}:1 is below 4.5:1`);
+      }
+    });
+    await startContext.close();
   }
 
   // ---- about.html: one axe scan, after its live coverage numbers render
