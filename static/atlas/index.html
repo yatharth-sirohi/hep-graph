@@ -17,6 +17,14 @@
     <header class="atlas-header">
       <a class="brand" href="/" aria-label="Back to HEP Graph">&larr; HEP Graph</a>
       <h1 class="atlas-title">HEP <b>Atlas</b></h1>
+      <!-- The view switcher: a segmented control in the header on a laptop; on a
+           phone (phone.js) the same element moves into the Views sheet. -->
+      <div id="mode-buttons" class="mode-buttons" role="group" aria-label="View">
+        <button type="button" class="mode-toggle is-active" data-mode="" aria-pressed="true">Globe</button>
+        <button type="button" class="mode-toggle" data-mode="topic" aria-pressed="false">Topics</button>
+        <button type="button" class="mode-toggle" data-mode="results" aria-pressed="false">Results</button>
+        <button type="button" class="mode-toggle" data-mode="docs" aria-pressed="false">Documents</button>
+      </div>
       <div class="search-wrap">
         <label for="atlas-search" class="visually-hidden">Search the atlas</label>
         <input
@@ -33,6 +41,21 @@
         <span id="search-status" class="visually-hidden" role="status" aria-live="polite"></span>
       </div>
       <span id="fixture-banner" class="fixture-banner hidden" role="note"></span>
+      <!-- Key and Filters: two quiet buttons. The Key opens a compact popover;
+           Filters opens the left drawer (chrome.js). Both are hidden on a phone,
+           where "Views & filters" (phone.js) is the one entry to all of it. -->
+      <div class="header-tools">
+        <button type="button" id="key-btn" class="tool-btn" aria-haspopup="dialog" aria-expanded="false" aria-controls="key-popover">Key</button>
+        <button type="button" id="filters-btn" class="tool-btn" aria-expanded="false" aria-controls="filters-panel">
+          Filters<span id="filters-badge" class="tool-badge" hidden></span>
+        </button>
+        <div id="key-popover" class="key-popover" role="dialog" aria-label="Key to the map and the colours" tabindex="-1" hidden>
+          <div id="key-body" class="key-body">
+            <div id="marker-legend" class="marker-legend"></div>
+            <div id="key-status" class="key-status"></div>
+          </div>
+        </div>
+      </div>
     </header>
 
     <!-- axe "region" (all page content must be contained by a landmark):
@@ -49,21 +72,12 @@
     </div>
 
     <main id="atlas-main">
-      <aside id="filters-panel" class="filters-panel" aria-label="Views, filters and legend">
-        <details open>
-          <summary>View</summary>
-          <div id="mode-buttons" class="mode-buttons" role="group" aria-label="Browse mode">
-            <button type="button" class="mode-toggle is-active" data-mode="">Globe</button>
-            <button type="button" class="mode-toggle" data-mode="topic">Topics</button>
-            <button type="button" class="mode-toggle" data-mode="results">Results</button>
-            <button type="button" class="mode-toggle" data-mode="docs">Documents</button>
-          </div>
-        </details>
-        <details open>
-          <summary>Legend</summary>
-          <div id="marker-legend" class="marker-legend"></div>
-        </details>
-        <details>
+      <aside id="filters-panel" class="filters-panel" aria-label="Filters">
+        <div class="drawer-head">
+          <h2 class="drawer-title">Filters</h2>
+          <button type="button" id="filters-close" class="drawer-close" aria-label="Close filters">&times;</button>
+        </div>
+        <details class="drawer-options">
           <summary>Options</summary>
           <label class="option-row">
             <input type="checkbox" id="arcs-toggle" />
@@ -71,7 +85,9 @@
           </label>
           <p id="arcs-auto-off-note" class="option-note hidden" role="status"></p>
         </details>
-        <details open>
+        <!-- A disclosure only on a phone (phone.css); in the drawer its summary is
+             hidden, because the drawer is itself the "Filters" disclosure. -->
+        <details class="filters-disclosure" open>
           <summary>Filters</summary>
           <div id="filters-controls" aria-label="Filter the atlas by status, topic, kind and region"></div>
         </details>
@@ -85,6 +101,7 @@
       <section id="mode-panel" class="mode-panel hidden" aria-live="polite"></section>
 
       <section id="detail-panel" class="detail-panel hidden" aria-live="polite"></section>
+
     </main>
 
     <div id="timeline-bar" class="timeline-bar" aria-label="Timeline"></div>

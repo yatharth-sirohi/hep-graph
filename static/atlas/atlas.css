@@ -208,9 +208,9 @@ input {
 .atlas-header {
   display: flex;
   align-items: center;
-  gap: 18px;
-  height: 60px;
-  padding: 0 18px;
+  gap: var(--space-4);
+  height: 56px;
+  padding: 0 var(--space-4);
   background: var(--navy);
   box-shadow: var(--shadow);
   position: sticky;
@@ -232,12 +232,18 @@ input {
 }
 .atlas-title {
   font-size: var(--text-lg);
+  font-weight: 500;
+  letter-spacing: -0.01em;
   margin: 0;
   white-space: nowrap;
 }
+.atlas-title b {
+  font-weight: 700;
+}
 .search-wrap {
   position: relative;
-  flex: 1;
+  flex: 1 1 200px;
+  min-width: 160px;
   max-width: 420px;
 }
 #atlas-search {
@@ -336,73 +342,269 @@ input {
 #atlas-main {
   flex: 1;
   display: grid;
-  /* Two tracks only: the globe takes everything the filters do not. The detail
-     track below exists only while a record is open — a display:none grid item
-     still reserves its track, which used to leave a 340px empty column beside
-     the globe whenever no panel was showing. minmax(0, 1fr) lets the stage
-     shrink below its content's width. */
-  grid-template-columns: 220px minmax(0, 1fr);
-  grid-template-areas: "filters globe";
+  /* One track: the globe takes the whole width. There is no sidebar column any
+     more — the view switcher is in the header, the Key is a popover, and Filters
+     is a drawer that opens over the stage (below), so the globe is not squeezed
+     for controls that are used once in a while. The detail track exists only
+     while a record is open — a display:none grid item still reserves its track,
+     which used to leave a 340px empty column beside the globe whenever no panel
+     was showing. minmax(0, 1fr) lets the stage shrink below its content's width. */
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas: "globe";
   min-height: 0;
+  /* The drawer, the Start-here card and the mode panel are positioned against
+     the stage; isolation keeps their z-indexes from meeting the header's. */
+  position: relative;
+  isolation: isolate;
 }
 #atlas-main:not(.is-map-route):has(> .detail-panel:not(.hidden)) {
-  grid-template-columns: 220px minmax(0, 1fr) 340px;
-  grid-template-areas: "filters globe detail";
+  grid-template-columns: minmax(0, 1fr) 340px;
+  grid-template-areas: "globe detail";
 }
-/* A browser without :has() keeps the fixed three-track layout, as before. */
+/* A browser without :has() keeps the fixed two-track layout, as before. */
 @supports not selector(:has(*)) {
   #atlas-main {
-    grid-template-columns: 220px minmax(0, 1fr) 340px;
-    grid-template-areas: "filters globe detail";
+    grid-template-columns: minmax(0, 1fr) 340px;
+    grid-template-areas: "globe detail";
   }
 }
-.filters-panel {
-  grid-area: filters;
-  background: var(--panel);
-  border-right: 1px solid var(--line);
-  padding: 10px;
-  overflow-y: auto;
-}
-.filters-panel details {
-  margin-bottom: 10px;
-  border-bottom: 1px solid var(--line);
-  padding-bottom: 8px;
-}
-.filters-panel summary {
-  cursor: pointer;
-  font-weight: 600;
-  padding: 4px 0;
-}
+
+/* ---- the view switcher: a segmented control (header; a phone moves it into its
+   Views sheet). The active segment is filled AND carries aria-pressed, so it is
+   not colour alone. */
 .mode-buttons {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
+  display: inline-flex;
+  flex: none;
+  gap: 2px;
+  padding: 3px;
+  background: var(--paper);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-pill);
 }
 .mode-toggle {
   appearance: none;
   background: transparent;
-  border: 1px solid var(--line-strong);
+  border: 0;
   color: var(--white);
-  border-radius: var(--radius);
-  padding: 6px 10px;
-  text-align: left;
+  border-radius: var(--radius-pill);
+  padding: 5px 14px;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  line-height: 1.4;
+  white-space: nowrap;
   cursor: pointer;
+  transition: background-color var(--dur) var(--ease), color var(--dur) var(--ease);
 }
-.mode-toggle.is-active {
+.mode-toggle:hover {
+  background: color-mix(in srgb, var(--white) 10%, transparent);
+}
+.mode-toggle.is-active,
+.mode-toggle.is-active:hover {
   background: var(--teal);
   color: var(--on-accent);
+}
+
+/* ---- Key and Filters buttons, and the Key popover */
+.header-tools {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-left: auto;
+}
+.tool-btn {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  background: transparent;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  color: var(--white);
+  padding: 6px var(--space-3);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  line-height: 1.4;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+.tool-btn:hover {
   border-color: var(--teal);
+}
+.tool-btn[aria-expanded='true'] {
+  background: var(--panel-2);
+  border-color: var(--teal);
+}
+.tool-badge {
+  min-width: 20px;
+  padding: 0 6px;
+  border-radius: var(--radius-pill);
+  background: var(--amber);
+  color: var(--on-amber);
+  font-size: var(--text-xs);
+  line-height: 20px;
+  text-align: center;
+}
+.tool-badge[hidden] {
+  display: none;
+}
+/* The globe's own controls do not exist on a local map (it has its layer list and
+   its own legend), so the view switcher, Key and Filters step aside there. */
+body.is-map-route .header-tools,
+body.is-map-route .atlas-header > .mode-buttons {
+  display: none;
+}
+.key-popover {
+  position: absolute;
+  top: calc(100% + var(--space-3));
+  right: 0;
+  z-index: 40;
+  width: min(520px, calc(100vw - 24px));
+  max-height: calc(100vh - 96px);
+  overflow-y: auto;
+  padding: var(--space-4);
+  background: var(--panel);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--elev-3);
+}
+.key-popover[hidden] {
+  display: none;
+}
+.key-popover:focus {
+  outline: none;
+}
+/* Two columns: the marker shapes and dots on the left, the status colours on the
+   right (the same palette the timeline, the panels and the globe use). */
+.key-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--space-4) var(--space-5);
+}
+.key-body strong,
+.timeline-legend strong {
+  display: block;
+  margin-bottom: var(--space-1);
+  font-size: var(--text-xs);
+  font-weight: 650;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.key-status .timeline-legend {
+  flex-direction: column;
+  flex-wrap: nowrap;
+  gap: var(--space-2);
+  width: auto;
+  font-size: var(--text-sm);
+  color: var(--white);
+}
+.key-status .timeline-legend .legend-item {
+  align-items: flex-start;
+  gap: var(--space-2);
+}
+.key-status .timeline-legend .dot {
+  flex: none;
+  margin-top: 4px;
+}
+
+/* ---- the Filters drawer: opens over the left of the stage, 240 px wide, and
+   shuts again; it is not a column, so the globe keeps the whole width. Shut, it
+   is visibility:hidden — out of the tab order and the accessibility tree. */
+.filters-panel {
+  position: absolute;
+  z-index: 30;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 240px;
+  padding: 0 var(--space-3) var(--space-4);
+  background: var(--panel);
+  border-right: 1px solid var(--line-strong);
+  box-shadow: var(--elev-3);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  visibility: hidden;
+  opacity: 0;
+  transform: translateX(calc(-1 * var(--space-4)));
+  pointer-events: none;
+  transition: transform var(--dur) var(--ease), opacity var(--dur) var(--ease), visibility 0s linear var(--dur);
+}
+.filters-panel.is-open {
+  visibility: visible;
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+  transition: transform var(--dur) var(--ease), opacity var(--dur) var(--ease), visibility 0s;
+}
+.filters-panel:focus {
+  outline: none;
+}
+/* A list panel (Topics / Results / Documents) steps right while the drawer is open. */
+#atlas-main:has(> .filters-panel.is-open) > .mode-panel {
+  margin-left: calc(240px + var(--space-3));
+}
+.drawer-head {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 calc(-1 * var(--space-3));
+  padding: var(--space-3) var(--space-3) var(--space-2);
+  background: var(--panel);
+}
+.drawer-title {
+  margin: 0;
+  font-size: var(--text-md);
+  font-weight: 650;
+}
+.drawer-close {
+  appearance: none;
+  display: inline-grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: none;
+  color: var(--white);
+  font-size: var(--text-xl);
+  line-height: 1;
+  cursor: pointer;
+}
+.drawer-close:hover {
+  background: var(--panel-2);
+}
+.filters-panel details {
+  margin-bottom: var(--space-2);
+  border-bottom: 1px solid var(--line);
+  padding-bottom: var(--space-2);
+}
+.filters-panel summary {
+  cursor: pointer;
+  font-weight: 600;
+  padding: var(--space-1) 0;
+}
+/* The drawer is itself the "Filters" disclosure: its inner summary shows only on a phone. */
+.filters-disclosure > summary {
+  display: none;
+}
+.filters-disclosure {
+  border-bottom: 0;
 }
 .option-row {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: var(--space-2);
   font-size: var(--text-sm);
 }
 .option-note {
   font-size: var(--text-xs);
   color: var(--amber);
-  margin: 4px 0 0;
+  margin: var(--space-1) 0 0;
 }
 .option-note.hidden {
   display: none;
@@ -511,21 +713,23 @@ input {
   margin: 0 0 10px;
 }
 .marker-legend {
-  font-size: var(--text-xs);
+  font-size: var(--text-sm);
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: var(--space-4);
 }
 .legend-group {
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  margin-bottom: 6px;
+  gap: var(--space-2);
 }
 .legend-item {
   display: flex;
-  align-items: center;
-  gap: 6px;
+  align-items: flex-start;
+  gap: var(--space-2);
+}
+.legend-item > i {
+  margin-top: 3px;
 }
 .legend-item .glyph,
 .legend-item .dot {
@@ -1624,7 +1828,16 @@ input {
   font-size: var(--text-xs);
 }
 .data-version-label {
+  /* Takes the width the links leave and wraps inside it, so the buttons beside it
+     never break their own labels onto two lines. */
+  flex: 1 1 0;
+  min-width: 0;
   color: var(--muted);
+}
+.atlas-footer .text-btn,
+.atlas-footer .footer-link {
+  flex: none;
+  white-space: nowrap;
 }
 .footer-link {
   color: var(--teal);

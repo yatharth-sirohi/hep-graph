@@ -372,16 +372,42 @@
     padding: 12px 0;
     font-size: var(--text-lg);
   }
+  /* The laptop's header controls: a phone has the one "Views & filters" button,
+     and the view switcher and the Key live in its sheet (phone.js moves them
+     there; until it has, the header copy stays out of the way). */
+  .header-tools,
+  .atlas-header > .mode-buttons,
+  .drawer-head {
+    display: none;
+  }
+  .filters-disclosure > summary {
+    display: block;
+  }
+  .filters-disclosure {
+    border-bottom: 1px solid var(--line);
+  }
+  /* The view switcher in the sheet: four large separate buttons, two by two. */
   .mode-buttons {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 8px;
-    padding-bottom: 8px;
+    padding: 0 0 8px;
+    background: none;
+    border: 0;
+    border-radius: 0;
   }
   .mode-toggle {
     min-height: var(--phone-touch);
     padding: 8px 12px;
     font-size: var(--text-md);
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius);
+  }
+  .mode-toggle.is-active {
+    border-color: var(--teal);
+  }
+  .key-body {
+    grid-template-columns: minmax(0, 1fr);
   }
   .option-row {
     min-height: var(--phone-touch);
@@ -432,6 +458,12 @@
   }
   .marker-legend {
     font-size: var(--text-md);
+  }
+  .key-status .timeline-legend {
+    font-size: var(--text-md);
+  }
+  .phone-section-body .key-body {
+    color: var(--white);
   }
   .phone-section-body {
     font-size: var(--text-md);

@@ -188,6 +188,14 @@ async function contrastOf(page, selector) {
   }, selector);
 }
 
+// The filter groups live in the Filters drawer, which is shut until the header's
+// Filters button opens it (a calm first view). Phone-width pages use a sheet instead.
+async function openFilters(page) {
+  const button = page.locator("#filters-btn");
+  if ((await button.getAttribute("aria-expanded")) !== "true") await button.click();
+  await page.locator("#filters-panel.is-open").waitFor();
+}
+
 (async () => {
   const browser = await chromium.launch({
     headless: true,
@@ -230,11 +238,12 @@ async function contrastOf(page, selector) {
     await record(`[${tree.label}] axe: filters panel (with an active filter)`, async () => {
       await page.goto(`${base}/atlas${dataTree}`);
       await page.waitForFunction(() => document.querySelectorAll(".atlas-marker").length > 0, { timeout: 15000 });
+      await openFilters(page);
       const region = page.locator("#filter-region-Europe");
       await region.waitFor();
       await region.check({ force: true });
       await page.locator(".filter-chip", { hasText: "Europe" }).first().waitFor();
-      await runAxe(page, tree.label, "filters panel");
+      await runAxe(page, tree.label, "filters drawer (open, with an active filter)");
       await page.locator("#filter-clear-all").click();
     });
 
@@ -488,6 +497,13 @@ async function contrastOf(page, selector) {
       const chipsLive = await kbPage.locator(".filter-chips").getAttribute("aria-live");
       assert.equal(chipsLive, "polite", "the active-filters chip row must be a polite live region");
 
+      // Keyboard route to the drawer: the header's Filters button, Enter, and focus
+      // lands in the drawer.
+      await kbPage.locator("#filters-btn").focus();
+      await kbPage.keyboard.press("Enter");
+      await kbPage.locator("#filters-panel.is-open").waitFor();
+      const drawerHasFocus = await kbPage.evaluate(() => document.getElementById("filters-panel").contains(document.activeElement));
+      assert.equal(drawerHasFocus, true, "opening the Filters drawer from the keyboard must move focus into it");
       await kbPage.locator("#filter-region-Europe").focus();
       await kbPage.keyboard.press("Space");
       await kbPage.locator(".filter-chip", { hasText: "Europe" }).first().waitFor();

@@ -114,6 +114,14 @@ async function setRangeValue(locator, value) {
   }, value);
 }
 
+// The filter groups live in the Filters drawer, which is shut until the header's
+// Filters button opens it (a calm first view). Phone-width pages use a sheet instead.
+async function openFilters(page) {
+  const button = page.locator("#filters-btn");
+  if ((await button.getAttribute("aria-expanded")) !== "true") await button.click();
+  await page.locator("#filters-panel.is-open").waitFor();
+}
+
 (async () => {
   browser = await engine.launch(launchOptions());
   const context = await browser.newContext({
@@ -244,6 +252,7 @@ async function setRangeValue(locator, value) {
     const ctx = await browser.newContext({ viewport: { width: 1440, height: 960 } });
     const p = await ctx.newPage();
     await p.goto(`${base}/atlas${dataTree}`);
+    await openFilters(p);
     await p.locator("#filters-controls .filter-group").first().waitFor();
     // The checkboxes exist before the app has subscribed to state changes (the
     // globe loads first), and a change made in that gap updates the URL but
@@ -1708,6 +1717,7 @@ async function setRangeValue(locator, value) {
 
     // Facet option checkbox ids are deterministic (filters.js's
     // createFilterPanel): `filter-<facet>-<value>`.
+    await openFilters(page);
     const region = page.locator("#filter-region-Europe");
     await region.waitFor();
     await region.check({ force: true });
@@ -1743,6 +1753,7 @@ async function setRangeValue(locator, value) {
     // AND composition: adding a second facet must narrow the set further
     // (never widen it) — a region with no "planned" facility legitimately
     // narrows all the way to zero, which is itself the correct AND result.
+    await openFilters(page);
     const eraCheckbox = page.locator("#filter-era-planned");
     if (await eraCheckbox.count()) {
       await eraCheckbox.check({ force: true });
@@ -1776,6 +1787,7 @@ async function setRangeValue(locator, value) {
     // merge and split with altitude), and the reloads above may leave the
     // camera elsewhere than the cold-load default; the invariant is that
     // clearing widens the set beyond the Europe-only subset.
+    await openFilters(page);
     await page.locator("#filter-clear-all").click();
     await page.waitForFunction(
       (n) => document.querySelectorAll(".atlas-marker").length > n

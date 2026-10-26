@@ -12,6 +12,7 @@ import * as search from './search.js';
 import * as fallback from './fallback.js';
 import * as filtersModule from './filters.js';
 import * as localmap from './localmap.js';
+import { createChrome } from './chrome.js';
 import { buildIndex, topicMarkerIds } from './model.js';
 
 const els = {
@@ -99,6 +100,11 @@ async function main() {
   // and every deep link opens the globe with no panel.
   state.init();
 
+  // The header's Key and Filters buttons answer from the first paint, not only once
+  // the data has arrived (the Key's marker legend needs none of it).
+  renderLegend();
+  const chrome = createChrome();
+
   // Visible text in an aria-live region (#data-notice is role="status"),
   // shown for the whole cold-load fetch below, not just the initial probe —
   // on a throttled connection this is what used to be a blank globe stage
@@ -159,7 +165,6 @@ async function main() {
   }
 
   const index = buildIndex(atlas);
-  renderLegend();
 
   // ---- filters (docs/HEP_ATLAS_ARCHITECTURE.md "Clustering and filters")
   const topicIndex = filtersModule.buildTopicIndex(atlas.topics);
@@ -268,6 +273,10 @@ async function main() {
     },
   });
 
+  // The status legend the timeline builds is part of the Key popover now, not a
+  // row of the timeline bar.
+  chrome.adoptStatusLegend(document.getElementById('timeline-legend'));
+
   // ---- mode buttons / arcs toggle --------------------------------------
   els.modeButtons.addEventListener('click', (event) => {
     const btn = event.target.closest('.mode-toggle');
@@ -354,13 +363,16 @@ async function main() {
   let highlightedTopic = null;
   async function applyState(current) {
     for (const btn of els.modeButtons.querySelectorAll('.mode-toggle')) {
-      btn.classList.toggle('is-active', (btn.dataset.mode || null) === (current.mode || null));
+      const on = (btn.dataset.mode || null) === (current.mode || null);
+      btn.classList.toggle('is-active', on);
+      btn.setAttribute('aria-pressed', String(on));
     }
     els.arcsToggle.checked = !!current.arcs;
     if (globeApi) globeApi.setArcsEnabled(!!current.arcs);
 
     const filters = filtersModule.filtersFromState(current);
     filterPanel.setFilters(filters);
+    chrome.setFilterCount(Object.values(filters).reduce((sum, list) => sum + list.length, 0));
     if (globeApi) globeApi.setFilters(filters);
     renderFallbackIfActive(current);
 
@@ -427,7 +439,7 @@ async function main() {
           const forcedOff = globeApi.isArcsForcedOff();
           els.arcsAutoOffNote.classList.toggle('hidden', !forcedOff);
           els.arcsAutoOffNote.textContent = forcedOff
-            ? `Institution connections are off by default for collaborations over ${globeModule.INSTITUTION_ARC_THRESHOLD} institutions. Use the checkbox above to show them anyway.`
+            ? `Institution connections are off by default for collaborations over ${globeModule.INSTITUTION_ARC_THRESHOLD} institutions. Open Filters and tick \u201cShow institution connections\u201d to show them anyway.`
             : '';
           if (forcedOff && current.arcs) {
             state.navigate({ arcs: false }, { replace: true });
@@ -454,6 +466,8 @@ async function main() {
     // detail panel there rather than in the (now hidden) side panel.
     const mapRoute = current.entity && current.entity.type === 'map' ? current.entity : null;
     document.getElementById('atlas-main').classList.toggle('is-map-route', !!mapRoute);
+    document.body.classList.toggle('is-map-route', !!mapRoute);
+    if (mapRoute) chrome.closeAll();
     if (mapRoute) {
       const mapTimeline = current.range ? { range: current.range } : { year: current.year };
       modes.show(null);
