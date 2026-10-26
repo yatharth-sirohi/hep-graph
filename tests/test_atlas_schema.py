@@ -496,6 +496,27 @@ def test_a21_plausibility_table_and_great_circle() -> None:
     assert schema.great_circle_m(0.0, 0.0, 0.0, 0.0) == 0.0
 
 
+def test_a27_muon_flux_units_and_range() -> None:
+    """A27: three muon-flux units share the base cm^-2 s^-1, and the range
+    runs from sea level (~1.7e-2) to the deepest laboratory (~2e-10)."""
+    def flux(value: float, unit: str, display: str | None = None) -> dict:
+        row = {"value": value, "unit": unit, "dimension": "muon_flux"}
+        return {**row, "display": display} if display else row
+
+    for unit in ("cm^-2 s^-1", "m^-2 s^-1", "m^-2 d^-1"):
+        assert schema.unit_allowed("muon_flux", unit)
+    assert not schema.unit_allowed("muon_flux", "cm^-2 h^-1")
+    # 3.1e-6 m^-2 s^-1 is 3.1e-10 cm^-2 s^-1; 0.27 m^-2 d^-1 is the same flux.
+    assert schema.quantity_magnitude(flux(3.1e-6, "m^-2 s^-1")) == pytest.approx(3.1e-10)
+    assert schema.quantity_magnitude(flux(0.27, "m^-2 d^-1")) == pytest.approx(3.125e-10, rel=1e-3)
+    # The display's own unit wins, and its leading number is the value.
+    shown = flux(3.4e-8, "cm^-2 s^-1", "3.4 \u00d7 10^-4 m^-2 s^-1 (\u00b1 0.1 stat)")
+    assert schema.display_magnitude(shown) == pytest.approx(3.4e-8)
+    low, high = schema.PLAUSIBILITY_RANGES["muon_flux"]["muon_flux"]
+    assert low <= 2.0e-10 and 1.7e-2 <= high
+    assert schema.ENTITY_FIELDS["site"]["muon_flux"].dimension == "muon_flux"
+
+
 # ------------------------------------------------------------- A9 shapes ---
 
 def test_a9_reference_entries_may_be_objects_with_intervals(atlas) -> None:

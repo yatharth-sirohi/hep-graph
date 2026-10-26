@@ -35,11 +35,43 @@
     "value": 1700,
     "verified_at": "2026-09-17"
   },
-  "depth_mwe": null,
+  "depth_mwe": {
+    "approx": false,
+    "confidence": "verified",
+    "dimension": "depth_mwe",
+    "display": "4800 m.w.e. (average)",
+    "locator": "Sec. 2, Astropart. Phys. 44 (2013) 28 (arXiv:1302.7112)",
+    "note": "Average overburden of the laboratory under the Fréjus mountain; Pandola 2011 gives 4000 m w.e. as the minimum and 4800 m w.e. as the average. EDELWEISS also gives a rock overburden of 1800 m at zero degrees, against the 1700 m on the site record. Mei & Hime 2006 Table I derive an equivalent flat-overburden depth of 4.15 ± 0.2 km.w.e. from the Fréjus flux.",
+    "quote": "an average rock overburden of 4800 m w. e. (meters water equivalent)",
+    "sources": [
+      "src:ug-edelweiss-muon-background-2013",
+      "src:geo-euro-ug-pandola-2011"
+    ],
+    "unit": "m.w.e.",
+    "value": 4800,
+    "verified_at": "2026-10-26"
+  },
   "facility_id": "facility:modane-underground-laboratory",
   "id": "site:lsm-frejus",
   "links": {
     "website": null
+  },
+  "muon_flux": {
+    "approx": false,
+    "confidence": "verified",
+    "dimension": "muon_flux",
+    "display": "5.4 m⁻² d⁻¹ (± 0.2 stat., +0.5 −0.9 syst.)",
+    "locator": "Abstract and Sec. 3.6, Astropart. Phys. 44 (2013) 28 (arXiv:1302.7112)",
+    "note": "Muons per square metre per day. The paper states that Sec. 3.6 determines \"the integral muon flux through a horizontal surface\", from the EDELWEISS muon-veto system (18503 candidates in 2009-2010, muon bundles included, no zenith-angle cut); the same data give 6.6 per m^2 per day through a sphere. The quote is the PDF text with the superscript 2 of m^2 lost in extraction. Pandola 2011 quotes 5.76 × 10^-5 m^-2 s^-1, \"five muons per m2 per day\", from the Fréjus experiment (Berger et al. 1989); Mei & Hime Table I: (5.47 ± 0.1) × 10^-9 cm^-2 s^-1 (Fréjus).",
+    "quote": "Souterrain de Modane (LSM) was measured to be Φµ = (5.4 ± 0.2+0.5 −0.9 ) muons/m /d",
+    "sources": [
+      "src:ug-edelweiss-muon-background-2013",
+      "src:geo-euro-ug-pandola-2011",
+      "src:ug-mei-hime-2006"
+    ],
+    "unit": "m^-2 d^-1",
+    "value": 5.4,
+    "verified_at": "2026-10-26"
   },
   "name": "LSM Fréjus underground laboratory",
   "notes": [],

@@ -330,6 +330,26 @@ and `experiment.kind` values `cmb`, `dark_energy_survey`, `nucleon_decay`,
 measurements), `antimatter` and `neutron_precision` (EDM, lifetime, decay
 correlations).
 
+**A27. Cosmic-ray muon flux underground (2026-10-26).** New quantity
+dimension `muon_flux` with units `cm^-2 s^-1` (base), `m^-2 s^-1` and
+`m^-2 d^-1` (a source quoting per hour or per year is converted, and the
+conversion is said in `note`), and an optional site field
+`site.muon_flux: Q(muon_flux)`. The value is the **total** flux of
+cosmic-ray muons at the site: muons per unit area per unit time summed over
+all arrival directions, as the cited source defines it (through a horizontal
+surface, through the cross section of a sphere, or a detector's rate divided
+by its acceptance over all angles). `note` says which, with the energy
+threshold, the hall and the detector when the source gives them. Beam muons
+never go here, and the vertical intensity (per steradian) is not a flux: it
+appears only in `note`. The measurement's uncertainty goes in `display`,
+written so the leading number is the value (`3.4 × 10⁻⁴ m⁻² s⁻¹ (± 0.1)`),
+because the A21 display check reads the first number it finds and takes its
+unit from the quantity unless `display` names a listed ASCII unit. A
+simulated expectation is `approximate` and its `display` says "simulated".
+The validator applies a plausibility range of 1e-11 to 5e-2 cm^-2 s^-1 (the
+deepest laboratory to sea level) to the site field. The chart of depth
+against flux reads `depth_mwe` and `muon_flux` and nothing else.
+
 ## 0. Ground rules
 
 1. **Canonical data is JSON under `data/atlas/`**, one file per entity, human
@@ -461,6 +481,7 @@ Recognised dimensions and units (the validator rejects mismatches):
 | `integrated_luminosity` | pb^-1, fb^-1, ab^-1 |
 | `magnetic_field` | T |
 | `depth_mwe` | m.w.e. |
+| `muon_flux` | cm^-2 s^-1, m^-2 s^-1, m^-2 d^-1 (A27) |
 | `volume` | m^3, km^3 |
 | `count` | (unit `""`) |
 | `time` | s, ms, ns, d, yr |
@@ -532,6 +553,7 @@ are interval lists; **C** are coordinates.
 | `coordinates` | **C** (required) |
 | `setting` | `surface` \| `underground` \| `ice` \| `sea` \| `lake` \| `balloon` \| `mountain` |
 | `depth` | **Q** `length` (rock overburden) and/or `depth_mwe` |
+| `muon_flux` | **Q** `muon_flux` (A27): total cosmic-ray muon flux through a horizontal surface |
 | `altitude` | **Q** `length` |
 | `country` | ISO code |
 | `place` | `{"city": "Lead", "region": "South Dakota", "country": "US"}` |

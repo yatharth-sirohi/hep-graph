@@ -36,11 +36,45 @@
     "value": 1100,
     "verified_at": "2026-09-17"
   },
-  "depth_mwe": null,
+  "depth_mwe": {
+    "approx": false,
+    "confidence": "verified",
+    "dimension": "depth_mwe",
+    "display": "2805 ± 45 m.w.e.",
+    "locator": "Sec. 4 and Conclusions, Nucl. Instrum. Meth. A 511 (2003) 347 (hep-ex/0306014)",
+    "note": "Effective vertical depth for a flat surface, found by comparing the measured muon intensity with calculation, for a measured vertical depth of 1070 m (the site record keeps the 1.1 km of the laboratory page). Pandola 2011 gives 2850 m w.e. as the minimum and 3450 m w.e. as the average overburden; Mei & Hime Table I: 2.805 ± 0.015 km.w.e.",
+    "quote": "This shows an effective vertical depth of 2805±45 metres of water equivalent",
+    "sources": [
+      "src:ug-boulby-muon-flux-2003",
+      "src:geo-euro-ug-pandola-2011",
+      "src:ug-mei-hime-2006"
+    ],
+    "unit": "m.w.e.",
+    "value": 2805,
+    "verified_at": "2026-10-26"
+  },
   "facility_id": "facility:boulby-underground-laboratory",
   "id": "site:boulby-mine",
   "links": {
     "website": null
+  },
+  "muon_flux": {
+    "approx": false,
+    "confidence": "verified",
+    "dimension": "muon_flux",
+    "display": "4.09 × 10⁻⁸ cm⁻² s⁻¹ (± 0.15)",
+    "locator": "Abstract and Sec. 4, Nucl. Instrum. Meth. A 511 (2003) 347 (hep-ex/0306014)",
+    "note": "Measured with the one-tonne ZEPLIN-I liquid-scintillator veto detector, counting muons that deposit 30 MeV or more; (4.09 ± 0.08 stat. ± 0.13 syst.) in the text. The paper's vertical intensity, 3.32 × 10^-8 cm^-2 s^-1 sr^-1, is not a flux and is not recorded. Pandola 2011 quotes 4.1 × 10^-4 m^-2 s^-1; Mei & Hime Table I (Boulby row) and Woodley et al. 2024 Table III repeat (4.09 ± 0.15) × 10^-8 cm^-2 s^-1.",
+    "quote": "The muon flux in the laboratory is found to be (4.09±0.15)×10−8 cm−2 s−1",
+    "sources": [
+      "src:ug-boulby-muon-flux-2003",
+      "src:geo-euro-ug-pandola-2011",
+      "src:ug-mei-hime-2006",
+      "src:ug-woodley-mute-2024"
+    ],
+    "unit": "cm^-2 s^-1",
+    "value": 4.09e-08,
+    "verified_at": "2026-10-26"
   },
   "name": "Boulby Mine (site of the underground laboratory)",
   "notes": [],

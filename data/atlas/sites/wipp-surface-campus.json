@@ -42,10 +42,11 @@
     "dimension": "depth_mwe",
     "display": "1585 m.w.e.",
     "locator": "The EXO-200 detector, part I: Detector design and construction (arXiv:1202.2192), site description",
-    "note": "The figure is from the EXO-200 detector design paper (arXiv:1202.2192), read directly on 2026-09-17. A later EXO-200 paper (Searches for Double Beta Decay of 134Xe with EXO-200) instead reports ~1624 (+22/−21) m.w.e. for the underground clean room; this later re-estimate was not checked against the paper itself. The detector design paper's 1585 m.w.e. is recorded as the directly sourced value; the difference between the two figures is unresolved.",
+    "note": "The figure is from the EXO-200 detector design paper (arXiv:1202.2192), read directly on 2026-09-17. A later EXO-200 paper (Searches for Double Beta Decay of 134Xe with EXO-200) instead reports ~1624 (+22/−21) m.w.e. for the underground clean room; this later re-estimate was not checked against the paper itself. The detector design paper's 1585 m.w.e. is recorded as the directly sourced value; the difference between the two figures is unresolved. The WIPP muon-flux paper (Esch et al. 2005), converting its own measured flux, gives 1585 (+11/-6) m.w.e. at 655 m depth with a salt density of 2.3 ± 0.2 g/cm^3, in agreement with the EXO-200 design paper's figure.",
     "quote": "EXO-200 is located at a depth of 1585 m water equivalent ... in the Waste Isolation Pilot Plant (WIPP) near Carlsbad, New Mexico",
     "sources": [
-      "src:0vbb-verify-exo-200-detector-design-arxiv-1202-2192"
+      "src:0vbb-verify-exo-200-detector-design-arxiv-1202-2192",
+      "src:ug-esch-wipp-muon-flux-2005"
     ],
     "unit": "m.w.e.",
     "value": 1585,
@@ -63,6 +64,23 @@
       "value": "https://www.energy.gov/em/waste-isolation-pilot-plant-wipp",
       "verified_at": "2026-09-17"
     }
+  },
+  "muon_flux": {
+    "approx": false,
+    "confidence": "verified",
+    "dimension": "muon_flux",
+    "display": "4.77 × 10⁻⁷ cm⁻² s⁻¹ (+0.08 −0.10)",
+    "locator": "Esch et al. 2005, Sec. 3.2, Eq. (9); Mei & Hime 2006, Table I (WIPP row)",
+    "note": "The quote is the WIPP row of Mei & Hime Table I (total flux in cm^-2 s^-1, then equivalent depth in km.w.e.), which cites Esch et al.; Esch et al. state their total flux as (4.77 +0.08/-0.10) × 10^-7 Hz/cm^2 through two stacked scintillator panels (area 2.33 m^2, run time 532800 s), corrected for geometric efficiency. Their vertical intensity, (3.10 +0.05/-0.07) × 10^-7 cm^-2 s^-1 sr^-1, is not a flux and is not recorded. Measured in the Q area at 655 m depth. Woodley et al. 2024 Table III repeats (4.77 ± 0.09) × 10^-7.",
+    "quote": "WIPP (4.77±0.09) × 10−7 [6] 1.585±0.011",
+    "sources": [
+      "src:ug-esch-wipp-muon-flux-2005",
+      "src:ug-mei-hime-2006",
+      "src:ug-woodley-mute-2024"
+    ],
+    "unit": "cm^-2 s^-1",
+    "value": 4.77e-07,
+    "verified_at": "2026-10-26"
   },
   "name": "WIPP surface campus, Carlsbad, New Mexico",
   "notes": [

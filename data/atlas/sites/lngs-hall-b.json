@@ -39,11 +39,42 @@
     "value": 1400,
     "verified_at": "2026-09-16"
   },
-  "depth_mwe": null,
+  "depth_mwe": {
+    "approx": false,
+    "confidence": "verified",
+    "dimension": "depth_mwe",
+    "display": "3800 m.w.e.",
+    "locator": "Section on LNGS; Table 1 (Pandola 2011)",
+    "note": "Laboratory-wide average overburden, the same for all three halls here: the halls are about 80 m apart and \"could feature slightly different rock coverage\" (Borexino 2012, Sec. 3). Pandola 2011 gives 3100 m w.e. as the minimum depth and 3800 m w.e. as the average; Mei & Hime 2006 Table I derive equivalent flat-overburden depths of 2.96 to 3.1 km.w.e. from three Gran Sasso flux measurements.",
+    "quote": "The rock overburden of the laboratory is about 3100 m w.e. (minimum depth), or 3800 m w.e. (average depth).",
+    "sources": [
+      "src:geo-euro-ug-pandola-2011"
+    ],
+    "unit": "m.w.e.",
+    "value": 3800,
+    "verified_at": "2026-10-26"
+  },
   "facility_id": "facility:lngs",
   "id": "site:lngs-hall-b",
   "links": {
     "website": null
+  },
+  "muon_flux": {
+    "approx": false,
+    "confidence": "approximate",
+    "dimension": "muon_flux",
+    "display": "3.22 × 10⁻⁴ m⁻² s⁻¹ (± 0.08)",
+    "locator": "Sec. 3 (The Cosmic Muon Flux), Borexino 2012; Table 1, Borexino 2019",
+    "note": "MACRO measurement in Hall B (1991-1997 per Borexino 2019, Table 1), as quoted by the Borexino collaboration; MACRO's own paper (Ambrosio et al., Phys. Rev. D 52, 3793, 1995) is not on arXiv and was not read, hence \"approximate\". Borexino notes that the acceptance of both MACRO and LVD depends strongly on the muon incidence angle. Woodley et al. 2024, Table III, lists MACRO as (3.22 ± 0.08) × 10^-8 cm^-2 s^-1.",
+    "quote": "Borexino is located in Hall C, while the cosmic muon flux has been measured previously by LVD in Hall A [4] and by MACRO in Hall B [16]. These experiments reported a flux of (3.31 ± 0.03) · 10−4 m−2 s−1 and (3.22 ± 0.08) · 10−4 m−2 s−1 , respectively.",
+    "sources": [
+      "src:ug-borexino-jcap-2012-muon-flux",
+      "src:ug-borexino-jcap-2019-muon-modulation",
+      "src:ug-woodley-mute-2024"
+    ],
+    "unit": "m^-2 s^-1",
+    "value": 0.000322,
+    "verified_at": "2026-10-26"
   },
   "name": "LNGS Hall B",
   "notes": [
