@@ -1,0 +1,417 @@
+{
+  "audience": "First-year physics students; no particle physics needed.",
+  "estimated_minutes": 12,
+  "id": "tour:neutrino-oscillation-story",
+  "name": "The neutrino oscillation story",
+  "notes": [
+    "Working title. Homestake: the Atlas dates continuous operation from 1970 (a Wikipedia-sourced interval, approximate); the Davis Nobel lecture says the experiment became operational in 1967. The text avoids the start year except the 1998 paper's \"since 1970\"."
+  ],
+  "order": 1,
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:rf06-davis-nobel-lecture-2002",
+    "src:tours-nist-codata-speed-of-light"
+  ],
+  "steps": [
+    {
+      "camera": {
+        "altitude": 0.3,
+        "lat": 44.352,
+        "lng": -103.751
+      },
+      "claims": [
+        {
+          "confidence": "verified",
+          "covers": "a 100,000-gallon chlorine-argon neutrino detector in a gold mine in Lead, South Dakota",
+          "locator": "Davis, Nobel Lecture, section after Fig. 4",
+          "quote": "to build a 100,000-gallon chlorine-argon neutrino detector in the Homestake Gold Mine, in Lead, South Dakota",
+          "sources": [
+            "src:rf06-davis-nobel-lecture-2002"
+          ],
+          "verified_at": "2026-10-26"
+        },
+        {
+          "covers": "measured the flux of solar neutrinos from 1970",
+          "field": "physics_goals.0",
+          "ref": "experiment:homestake"
+        },
+        {
+          "covers": "The Sun produces one-third as many neutrinos as expected",
+          "field": "why_it_matters",
+          "ref": "result:homestake-flux-measurement-1998"
+        },
+        {
+          "confidence": "verified",
+          "covers": "this was the solar neutrino problem",
+          "locator": "Davis, Nobel Lecture, section on the chlorine experiment results",
+          "quote": "Thus, the “solar neutrino problem” was born in 1967 and lived until the turn of the century.",
+          "sources": [
+            "src:rf06-davis-nobel-lecture-2002"
+          ],
+          "verified_at": "2026-10-26"
+        }
+      ],
+      "id": "homestake",
+      "select": "experiment:homestake",
+      "text": "Homestake, a 100,000-gallon chlorine-argon neutrino detector in a gold mine in Lead, South Dakota, measured the flux of solar neutrinos from 1970. The Sun produces one-third as many neutrinos as expected, wrote Raymond Davis, and this was the solar neutrino problem.",
+      "title": "The Sun's missing neutrinos",
+      "year": 1975
+    },
+    {
+      "camera": {
+        "altitude": 0.3,
+        "lat": 36.426,
+        "lng": 137.31
+      },
+      "claims": [
+        {
+          "covers": "a 50,000-tonne water Cherenkov detector 1000 metres underground in the Kamioka Mine",
+          "field": "specs.depth",
+          "ref": "facility:kamioka-observatory"
+        },
+        {
+          "covers": "it began operation on 1 April 1996",
+          "field": "intervals.SK-I",
+          "ref": "experiment:super-kamiokande"
+        },
+        {
+          "covers": "In June 1998 it found that fewer neutrinos arrived from the opposite side of the Earth than expected, providing compelling evidence for neutrino oscillations",
+          "field": "date",
+          "ref": "result:sk-atmospheric-oscillation-evidence-1998"
+        }
+      ],
+      "id": "super-kamiokande-1998",
+      "select": "experiment:super-kamiokande",
+      "text": "Super-Kamiokande is a 50,000-tonne water Cherenkov detector 1000 metres underground in the Kamioka Mine in Japan, and it began operation on 1 April 1996. In June 1998 it found that fewer neutrinos arrived from the opposite side of the Earth than expected, providing compelling evidence for neutrino oscillations.",
+      "title": "Evidence for oscillations",
+      "year": 1998
+    },
+    {
+      "camera": {
+        "altitude": 0.3,
+        "lat": 46.475,
+        "lng": -81.201
+      },
+      "claims": [
+        {
+          "covers": "SNO held 1000 tonnes of heavy water",
+          "field": "key_specs.Heavy water target mass",
+          "ref": "experiment:sno"
+        },
+        {
+          "covers": "the centre of its detector vessel 2039 m below the surface",
+          "field": "key_specs.Depth",
+          "ref": "experiment:sno"
+        },
+        {
+          "covers": "in a mine near Sudbury, Canada",
+          "field": "coordinates",
+          "ref": "site:snolab-underground-lab"
+        },
+        {
+          "covers": "In April 2002 it released",
+          "field": "date",
+          "ref": "result:sno-nc-evidence-2002"
+        },
+        {
+          "covers": "direct evidence that solar electron neutrinos change flavor",
+          "field": "claim",
+          "ref": "result:sno-nc-evidence-2002"
+        },
+        {
+          "covers": "the non-electron-flavour part of the solar flux 5.3 standard deviations above zero",
+          "field": "significance",
+          "ref": "result:sno-nc-evidence-2002"
+        }
+      ],
+      "id": "sno",
+      "select": "experiment:sno",
+      "text": "SNO held 1000 tonnes of heavy water, with the centre of its detector vessel 2039 m below the surface in a mine near Sudbury, Canada. In April 2002 it released direct evidence that solar electron neutrinos change flavor, with the non-electron-flavour part of the solar flux 5.3 standard deviations above zero.",
+      "title": "Heavy water and the solar puzzle",
+      "year": 2002
+    },
+    {
+      "camera": {
+        "altitude": 0.3,
+        "lat": 36.422,
+        "lng": 137.315
+      },
+      "claims": [
+        {
+          "covers": "KamLAND watched antineutrinos emitted by distant power reactors, typically 180 km away",
+          "field": "physics_goals.0",
+          "ref": "experiment:kamland"
+        },
+        {
+          "covers": "released on 6 December 2002",
+          "field": "date",
+          "ref": "result:kamland-first-results-2002"
+        },
+        {
+          "covers": "a deficit of events inconsistent with standard antineutrino propagation at the 99.95% confidence level",
+          "field": "significance",
+          "ref": "result:kamland-first-results-2002"
+        }
+      ],
+      "id": "kamland",
+      "select": "experiment:kamland",
+      "text": "KamLAND watched antineutrinos emitted by distant power reactors, typically 180 km away. Its first results, released on 6 December 2002, showed a deficit of events inconsistent with standard antineutrino propagation at the 99.95% confidence level.",
+      "title": "A deficit of reactor antineutrinos",
+      "year": 2003
+    },
+    {
+      "camera": {
+        "altitude": 0.4,
+        "lat": 36.442,
+        "lng": 138.955
+      },
+      "claims": [
+        {
+          "covers": "T2K uses an intense proton beam from the J-PARC accelerator in Tokai, Japan",
+          "field": "facility_roles.facility:j-parc",
+          "ref": "experiment:t2k"
+        },
+        {
+          "covers": "a muon neutrino beam aimed 295 km away at Super-Kamiokande",
+          "field": "claim",
+          "ref": "result:t2k-electron-neutrino-appearance-observation-2014"
+        },
+        {
+          "covers": "In November 2013 it reported",
+          "field": "date",
+          "ref": "result:t2k-electron-neutrino-appearance-observation-2014"
+        },
+        {
+          "covers": "observing electron neutrino appearance in that beam, with 28 electron neutrino events and a significance of 7.3σ",
+          "field": "claim",
+          "ref": "result:t2k-electron-neutrino-appearance-observation-2014"
+        }
+      ],
+      "id": "t2k",
+      "question": {
+        "answer": "The baseline is 295 km = 295,000 m and the speed of light is 299,792,458 m/s, so t = 295,000 ÷ 299,792,458 ≈ 0.000984 s, which is about 0.98 ms.",
+        "calculation": [
+          {
+            "field": "key_specs.Baseline",
+            "name": "L",
+            "ref": "experiment:t2k",
+            "unit": "m"
+          },
+          {
+            "confidence": "verified",
+            "locator": "NIST CODATA value page for c, \"Numerical value\"",
+            "name": "c",
+            "quote": "speed of light in vacuum Numerical value 299 792 458 m s -1",
+            "sources": [
+              "src:tours-nist-codata-speed-of-light"
+            ],
+            "unit": "m/s",
+            "value": 299792458,
+            "verified_at": "2026-10-26"
+          },
+          {
+            "digits": 3,
+            "expression": "L / c",
+            "name": "t",
+            "unit": "s",
+            "value": 0.000984
+          },
+          {
+            "digits": 2,
+            "expression": "t * 1000",
+            "name": "t_ms",
+            "unit": "ms",
+            "value": 0.98
+          }
+        ],
+        "claims": [
+          {
+            "covers": "295 km",
+            "field": "key_specs.Baseline",
+            "in": "prompt",
+            "ref": "experiment:t2k"
+          },
+          {
+            "covers": "The baseline is 295 km",
+            "field": "key_specs.Baseline",
+            "in": "answer",
+            "ref": "experiment:t2k"
+          },
+          {
+            "confidence": "verified",
+            "covers": "the speed of light is 299,792,458 m/s",
+            "in": "answer",
+            "locator": "NIST CODATA value page for c, \"Numerical value\"",
+            "quote": "speed of light in vacuum Numerical value 299 792 458 m s -1",
+            "sources": [
+              "src:tours-nist-codata-speed-of-light"
+            ],
+            "verified_at": "2026-10-26"
+          }
+        ],
+        "prompt": "T2K's neutrinos travel 295 km from J-PARC to Super-Kamiokande. Estimate the travel time, assuming they move at the speed of light."
+      },
+      "select": "experiment:t2k",
+      "text": "T2K uses an intense proton beam from the J-PARC accelerator in Tokai, Japan, to make a muon neutrino beam aimed 295 km away at Super-Kamiokande. In November 2013 it reported observing electron neutrino appearance in that beam, with 28 electron neutrino events and a significance of 7.3σ.",
+      "title": "A beam across Japan",
+      "year": 2014
+    },
+    {
+      "camera": {
+        "altitude": 0.8,
+        "lat": 45.121,
+        "lng": -90.523
+      },
+      "claims": [
+        {
+          "covers": "NOvA's 14 kt far detector is near Ash River, Minnesota, about 810 km from the neutrino source",
+          "field": "key_specs.Far detector mass",
+          "ref": "experiment:nova"
+        },
+        {
+          "covers": "Both of its detectors are 14.6 mrad off the beam axis and receive a narrow-band neutrino flux peaked at 1.8 GeV",
+          "field": "energy_regime",
+          "ref": "experiment:nova"
+        }
+      ],
+      "id": "nova",
+      "question": {
+        "answer": "T2K's beam has its peak energy at about 0.6 GeV, which maximizes the effect of the neutrino oscillation at 295 km. For T2K, 295 km ÷ 0.6 GeV ≈ 490 km/GeV, and for NOvA, 810 km ÷ 1.8 GeV = 450 km/GeV. The two ratios differ by only about 9% (490 ÷ 450 ≈ 1.1), although NOvA's baseline is about 2.7 times longer (810 ÷ 295 ≈ 2.7).",
+        "calculation": [
+          {
+            "field": "key_specs.Baseline",
+            "name": "LT",
+            "ref": "experiment:t2k",
+            "unit": "km"
+          },
+          {
+            "field": "specs.peak_neutrino_energy",
+            "name": "ET",
+            "ref": "beamline:j-parc-neutrino",
+            "unit": "GeV"
+          },
+          {
+            "field": "key_specs.Baseline",
+            "name": "LN",
+            "ref": "experiment:nova",
+            "unit": "km"
+          },
+          {
+            "field": "key_specs.Peak neutrino energy",
+            "name": "EN",
+            "ref": "experiment:nova",
+            "unit": "GeV"
+          },
+          {
+            "digits": 2,
+            "expression": "LT / ET",
+            "name": "rT",
+            "unit": "km/GeV",
+            "value": 490
+          },
+          {
+            "digits": 2,
+            "expression": "LN / EN",
+            "name": "rN",
+            "unit": "km/GeV",
+            "value": 450
+          },
+          {
+            "digits": 2,
+            "expression": "rT / rN",
+            "name": "ratio",
+            "unit": "",
+            "value": 1.1
+          },
+          {
+            "digits": 1,
+            "expression": "(ratio - 1) * 100",
+            "name": "diff",
+            "unit": "%",
+            "value": 9
+          },
+          {
+            "digits": 2,
+            "expression": "LN / LT",
+            "name": "longer",
+            "unit": "",
+            "value": 2.7
+          }
+        ],
+        "claims": [
+          {
+            "covers": "T2K's baseline is 295 km",
+            "field": "key_specs.Baseline",
+            "in": "prompt",
+            "ref": "experiment:t2k"
+          },
+          {
+            "covers": "its beam energy peaks at about 0.6 GeV",
+            "field": "specs.peak_neutrino_energy",
+            "in": "prompt",
+            "ref": "beamline:j-parc-neutrino"
+          },
+          {
+            "covers": "NOvA's baseline is about 810 km",
+            "field": "key_specs.Baseline",
+            "in": "prompt",
+            "ref": "experiment:nova"
+          },
+          {
+            "covers": "its beam energy peaks at 1.8 GeV",
+            "field": "key_specs.Peak neutrino energy",
+            "in": "prompt",
+            "ref": "experiment:nova"
+          },
+          {
+            "covers": "T2K's beam has its peak energy at about 0.6 GeV, which maximizes the effect of the neutrino oscillation at 295 km",
+            "field": "secondary_beam",
+            "in": "answer",
+            "ref": "beamline:j-parc-neutrino"
+          }
+        ],
+        "prompt": "T2K's baseline is 295 km and its beam energy peaks at about 0.6 GeV; NOvA's baseline is about 810 km and its beam energy peaks at 1.8 GeV. Compare the ratio of baseline to energy for the two experiments."
+      },
+      "select": "experiment:nova",
+      "text": "NOvA's 14 kt far detector is near Ash River, Minnesota, about 810 km from the neutrino source. Both of its detectors are 14.6 mrad off the beam axis and receive a narrow-band neutrino flux peaked at 1.8 GeV.",
+      "title": "A longer baseline",
+      "year": 2016
+    },
+    {
+      "camera": {
+        "altitude": 0.3,
+        "lat": 22.118,
+        "lng": 112.518
+      },
+      "claims": [
+        {
+          "covers": "JUNO is a 20 kt liquid-scintillator detector 52.5 km from multiple reactor cores",
+          "field": "key_specs.Baseline to reactor cores",
+          "ref": "experiment:juno"
+        },
+        {
+          "covers": "it began physics data taking on 26 August 2025",
+          "field": "intervals.physics data taking",
+          "ref": "experiment:juno"
+        },
+        {
+          "covers": "With its first data it measured",
+          "field": "claim",
+          "ref": "result:juno-oscillation-parameters-2026"
+        },
+        {
+          "covers": "sin²θ12 = 0.3092 ± 0.0087 and Δm²21 = (7.50 ± 0.12) × 10⁻⁵ eV² for the normal mass ordering scenario, improving the precision by a factor of 1.6 relative to the combination of all previous measurements",
+          "field": "key_value_text",
+          "ref": "result:juno-oscillation-parameters-2026"
+        }
+      ],
+      "id": "juno",
+      "select": "experiment:juno",
+      "text": "JUNO is a 20 kt liquid-scintillator detector 52.5 km from multiple reactor cores, and it began physics data taking on 26 August 2025. With its first data it measured sin²θ12 = 0.3092 ± 0.0087 and Δm²21 = (7.50 ± 0.12) × 10⁻⁵ eV² for the normal mass ordering scenario, improving the precision by a factor of 1.6 relative to the combination of all previous measurements.",
+      "title": "A reactor detector in China",
+      "year": 2025
+    }
+  ],
+  "summary": "Seven stops on the path from the Sun's missing neutrinos to neutrino oscillations measured with beams and reactors.",
+  "type": "tour"
+}

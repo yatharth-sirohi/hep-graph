@@ -53,6 +53,9 @@ ENTITY_DIRS: dict[str, str] = {
     # built in, and so a map may reference anything that loads before it.
     'map': 'maps',
     'geometry': 'geometry',
+    # A28 (2026-10-26): guided tours.  Appended last for the same reason; a
+    # tour references anything, nothing references a tour.
+    'tour': 'tours',
 }
 DIR_TO_TYPE: dict[str, str] = {v: k for k, v in ENTITY_DIRS.items()}
 ENTITY_TYPES: tuple[str, ...] = tuple(ENTITY_DIRS)
@@ -1786,6 +1789,24 @@ ENTITY_FIELDS: dict[str, dict[str, FieldSpec]] = {
         'valid': _f('validity'),
         'license': _f('license'),
         'osm': _f('osm'),
+    },
+    # A28 — guided tours (docs/HEP_ATLAS_ONTOLOGY.md A28; rules in tours.py).
+    # A tour is not a `COMMON_FIELDS` entity: it has no coverage tier, links or
+    # aliases.  Its steps are validated by `hepgraph.atlas.tours`, not by the
+    # generic field table, so the table only names the top-level shape.
+    'tour': {
+        'id': _f('str', True, nullable=False),
+        'type': _f('str', True, nullable=False),
+        'schema': _f('str'),
+        'name': _f('str', True, nullable=False),                # a working title
+        'order': _f('int'),                                     # position in the tour list
+        'summary': _f('str', True, nullable=False),             # what the tour is, not a fact
+        'audience': _f('str', True, nullable=False),
+        'estimated_minutes': _f('int', True, nullable=False),
+        'sources': _f('ids', True, ref_type='source'),          # every source its claims rest on
+        'steps': _f('list', True, nullable=False),
+        'notes': _f('list'),
+        'superseded_by': _f('id'),
     },
     'source': {
         'id': _f('str', True, nullable=False),

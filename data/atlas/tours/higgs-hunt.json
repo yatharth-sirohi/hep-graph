@@ -1,0 +1,409 @@
+{
+  "audience": "First-year physics students; no particle physics needed.",
+  "estimated_minutes": 10,
+  "id": "tour:higgs-hunt",
+  "name": "The Higgs hunt",
+  "notes": [
+    "Working title. The Tevatron and 2011 LHC steps rest on the ATLAS 2012 paper's introduction and the CDF+D0 combination (arXiv:1207.6436)."
+  ],
+  "order": 3,
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:lep-arxiv-higgs-search-2003",
+    "src:tours-atlas-higgs-observation-arxiv-1207-7214-pdf",
+    "src:tours-tevatron-higgs-evidence-arxiv-1207-6436"
+  ],
+  "steps": [
+    {
+      "camera": {
+        "altitude": 0.6,
+        "lat": 46.234,
+        "lng": 6.047
+      },
+      "claims": [
+        {
+          "confidence": "verified",
+          "covers": "The mechanism that breaks electroweak symmetry in the Standard Model gives mass to massive elementary particles and implies the existence of a scalar particle, the Higgs boson",
+          "locator": "ATLAS Higgs paper (arXiv:1207.7214), Section 1, Introduction",
+          "quote": "However, the mechanism that breaks electroweak symmetry in the SM has not been verified experimentally. This mechanism [5–10], which gives mass to massive elementary particles, implies the existence of a scalar particle, the SM Higgs boson.",
+          "sources": [
+            "src:tours-atlas-higgs-observation-arxiv-1207-7214-pdf"
+          ],
+          "verified_at": "2026-10-26"
+        },
+        {
+          "confidence": "verified",
+          "covers": "In its discovery paper ATLAS described it as the only elementary particle in the Standard Model that had not yet been observed",
+          "locator": "ATLAS Higgs paper (arXiv:1207.7214), Section 1, Introduction",
+          "quote": "The search for the Higgs boson, the only elementary particle in the SM that has not yet been observed, is one of the highlights of the Large Hadron Collider [11] (LHC) physics programme.",
+          "sources": [
+            "src:tours-atlas-higgs-observation-arxiv-1207-7214-pdf"
+          ],
+          "verified_at": "2026-10-26"
+        }
+      ],
+      "id": "why-a-higgs",
+      "select": "topic:higgs-physics",
+      "text": "The mechanism that breaks electroweak symmetry in the Standard Model gives mass to massive elementary particles and implies the existence of a scalar particle, the Higgs boson. In its discovery paper ATLAS described it as the only elementary particle in the Standard Model that had not yet been observed.",
+      "title": "Why a Higgs boson?",
+      "year": 1990
+    },
+    {
+      "camera": {
+        "altitude": 0.25,
+        "lat": 46.234,
+        "lng": 6.047
+      },
+      "claims": [
+        {
+          "covers": "a collider with a 27 km circumference at CERN",
+          "field": "specs.circumference",
+          "ref": "accelerator:lep"
+        },
+        {
+          "covers": "reached a collision energy that topped 209 GeV in 2000",
+          "field": "specs.cms_energy",
+          "ref": "accelerator:lep"
+        },
+        {
+          "confidence": "verified",
+          "covers": "The four LEP collaborations, ALEPH, DELPHI, L3 and OPAL, collected 2461 pb-1 of collision data at energies between 189 and 209 GeV and used it to search for the Standard Model Higgs boson",
+          "locator": "Abstract of arXiv:hep-ex/0306033",
+          "quote": "The four LEP collaborations, ALEPH, DELPHI, L3 and OPAL, have collected a total of 2461 pb-1 of e+e- collision data at centre-of-mass energies between 189 and 209 GeV. The data are used to search for the Standard Model Higgs boson.",
+          "sources": [
+            "src:lep-arxiv-higgs-search-2003"
+          ],
+          "verified_at": "2026-10-26"
+        }
+      ],
+      "id": "lep",
+      "select": "accelerator:lep",
+      "text": "LEP, a collider with a 27 km circumference at CERN, reached a collision energy that topped 209 GeV in 2000. The four LEP collaborations, ALEPH, DELPHI, L3 and OPAL, collected 2461 pb-1 of collision data at energies between 189 and 209 GeV and used it to search for the Standard Model Higgs boson.",
+      "title": "LEP searches at up to 209 GeV",
+      "year": 1999
+    },
+    {
+      "camera": {
+        "altitude": 0.25,
+        "lat": 46.234,
+        "lng": 6.047
+      },
+      "claims": [
+        {
+          "covers": "the combined LEP search established a lower bound of 114.4 GeV/c² on the mass of the Standard Model Higgs boson, at the 95% confidence level",
+          "field": "claim",
+          "ref": "result:lep-higgs-exclusion-2003"
+        },
+        {
+          "covers": "In June 2003",
+          "field": "date",
+          "ref": "result:lep-higgs-exclusion-2003"
+        },
+        {
+          "confidence": "verified",
+          "covers": "Global fits to precision electroweak results gave an indirect limit of mH < 158 GeV at 95% CL",
+          "locator": "ATLAS Higgs paper (arXiv:1207.7214), Section 1, Introduction",
+          "quote": "Indirect limits on the SM Higgs boson mass of mH < 158 GeV at 95% confidence level (CL) have been set using global fits to precision electroweak results [12].",
+          "sources": [
+            "src:tours-atlas-higgs-observation-arxiv-1207-7214-pdf"
+          ],
+          "verified_at": "2026-10-26"
+        }
+      ],
+      "id": "lep-limit",
+      "select": "result:lep-higgs-exclusion-2003",
+      "text": "In June 2003 the combined LEP search established a lower bound of 114.4 GeV/c² on the mass of the Standard Model Higgs boson, at the 95% confidence level. Global fits to precision electroweak results gave an indirect limit of mH < 158 GeV at 95% CL, as ATLAS recalled in its discovery paper.",
+      "title": "No Higgs below 114.4 GeV",
+      "year": 2003
+    },
+    {
+      "camera": {
+        "altitude": 0.25,
+        "lat": 41.842,
+        "lng": -88.246
+      },
+      "claims": [
+        {
+          "covers": "The Tevatron at Fermilab collided protons and antiprotons at 1.96 TeV from 2002 through 2011 (Run II)",
+          "field": "intervals.Run II",
+          "ref": "accelerator:fermilab-tevatron"
+        },
+        {
+          "confidence": "verified",
+          "covers": "In July 2012",
+          "locator": "arXiv abstract page, submission line",
+          "quote": "Submitted on 27 Jul 2012",
+          "sources": [
+            "src:tours-tevatron-higgs-evidence-arxiv-1207-6436"
+          ],
+          "verified_at": "2026-10-26"
+        },
+        {
+          "confidence": "verified",
+          "covers": "CDF and D0 combined their searches for a Higgs boson decaying to a bottom-antibottom quark pair",
+          "locator": "Abstract of arXiv:1207.6436",
+          "quote": "We combine searches by the CDF and D0 Collaborations for the associated production of a Higgs boson with a W or Z boson and subsequent decay of the Higgs boson to a bottom-antibottom quark pair.",
+          "sources": [
+            "src:tours-tevatron-higgs-evidence-arxiv-1207-6436"
+          ],
+          "verified_at": "2026-10-26"
+        },
+        {
+          "confidence": "verified",
+          "covers": "reported evidence for a new particle, with a global significance of 3.1 standard deviations",
+          "locator": "Abstract of arXiv:1207.6436",
+          "quote": "The largest local significance is 3.3 standard deviations, corresponding to a global significance of 3.1 standard deviations. We interpret this as evidence for the presence of a new particle consistent with the standard model Higgs boson",
+          "sources": [
+            "src:tours-tevatron-higgs-evidence-arxiv-1207-6436"
+          ],
+          "verified_at": "2026-10-26"
+        }
+      ],
+      "id": "tevatron",
+      "select": "accelerator:fermilab-tevatron",
+      "text": "The Tevatron at Fermilab collided protons and antiprotons at 1.96 TeV from 2002 through 2011 (Run II). In July 2012 CDF and D0 combined their searches for a Higgs boson decaying to a bottom-antibottom quark pair and reported evidence for a new particle, with a global significance of 3.1 standard deviations.",
+      "title": "The Tevatron joins the hunt",
+      "year": 2011
+    },
+    {
+      "camera": {
+        "altitude": 0.25,
+        "lat": 46.234,
+        "lng": 6.047
+      },
+      "claims": [
+        {
+          "covers": "The LHC began high-energy collisions at 7 TeV on 30 March 2010",
+          "field": "intervals.Run 1.specs.cms_energy",
+          "ref": "accelerator:lhc"
+        },
+        {
+          "confidence": "verified",
+          "covers": "In their 2011 data ATLAS and CMS reported excesses compatible with SM Higgs boson production in the mass region 124–126 GeV, with significances of 2.9 and 3.1 standard deviations, respectively",
+          "locator": "ATLAS Higgs paper (arXiv:1207.7214), Section 1, Introduction",
+          "quote": "Both the ATLAS and CMS Collaborations reported excesses of events in their 2011 datasets ... which were compatible with SM Higgs boson production and decay in the mass region 124–126 GeV, with significances of 2.9 and 3.1 standard deviations (σ), respectively",
+          "sources": [
+            "src:tours-atlas-higgs-observation-arxiv-1207-7214-pdf"
+          ],
+          "verified_at": "2026-10-26"
+        }
+      ],
+      "id": "lhc",
+      "select": "accelerator:lhc",
+      "text": "The LHC began high-energy collisions at 7 TeV on 30 March 2010. In their 2011 data ATLAS and CMS reported excesses compatible with SM Higgs boson production in the mass region 124–126 GeV, with significances of 2.9 and 3.1 standard deviations, respectively.",
+      "title": "The LHC and the first hints",
+      "year": 2011
+    },
+    {
+      "camera": {
+        "altitude": 0.12,
+        "lat": 46.236,
+        "lng": 6.055
+      },
+      "claims": [
+        {
+          "covers": "On 4 July 2012 ATLAS and CMS presented their latest preliminary results in the search for the Higgs particle",
+          "field": "date",
+          "ref": "result:atlas-higgs-observation-2012"
+        },
+        {
+          "covers": "ATLAS reported a neutral boson with a measured mass of 126.0 ± 0.4 (stat) ± 0.4 (sys) GeV",
+          "field": "key_value",
+          "ref": "result:atlas-higgs-observation-2012"
+        },
+        {
+          "covers": "an observation with a significance of 5.9 standard deviations",
+          "field": "claim",
+          "ref": "result:atlas-higgs-observation-2012"
+        }
+      ],
+      "id": "atlas-2012",
+      "question": {
+        "answer": "The expected rate is one in 1 ÷ (1.7×10⁻⁹) ≈ 590 million, so about once in 590 million repetitions of the experiment.",
+        "calculation": [
+          {
+            "field": "claim",
+            "name": "mant",
+            "number": "1.7",
+            "ref": "result:atlas-higgs-observation-2012",
+            "unit": ""
+          },
+          {
+            "digits": 2,
+            "expression": "mant * 1e-9",
+            "name": "p",
+            "unit": "",
+            "value": 1.7e-09
+          },
+          {
+            "digits": 2,
+            "expression": "1 / p / 1000000",
+            "name": "n_million",
+            "unit": "million",
+            "value": 590
+          }
+        ],
+        "claims": [
+          {
+            "covers": "a background fluctuation probability of 1.7×10⁻⁹",
+            "field": "claim",
+            "in": "prompt",
+            "ref": "result:atlas-higgs-observation-2012"
+          }
+        ],
+        "prompt": "ATLAS quoted a background fluctuation probability of 1.7×10⁻⁹ for its excess. If there were no new particle, about how often would you expect a fluctuation this large?"
+      },
+      "select": "result:atlas-higgs-observation-2012",
+      "text": "On 4 July 2012 ATLAS and CMS presented their latest preliminary results in the search for the Higgs particle. ATLAS reported a neutral boson with a measured mass of 126.0 ± 0.4 (stat) ± 0.4 (sys) GeV, in an observation with a significance of 5.9 standard deviations.",
+      "title": "ATLAS's result",
+      "year": 2012
+    },
+    {
+      "camera": {
+        "altitude": 0.12,
+        "lat": 46.309,
+        "lng": 6.077
+      },
+      "claims": [
+        {
+          "covers": "CMS observed an excess of events with a local significance of 5.0 standard deviations at a mass near 125 GeV, signalling the production of a new particle",
+          "field": "claim",
+          "ref": "result:cms-higgs-boson-observation-2012"
+        },
+        {
+          "covers": "A fit to the two decay modes with the best mass resolution gave a mass of 125.3 ± 0.4 (stat.) ± 0.5 (syst.) GeV",
+          "field": "key_value",
+          "ref": "result:cms-higgs-boson-observation-2012"
+        }
+      ],
+      "id": "cms-2012",
+      "question": {
+        "answer": "Treating the uncertainties as independent and adding them in quadrature gives 0.57 GeV for ATLAS and 0.64 GeV for CMS. The masses differ by 126.0 − 125.3 = 0.7 GeV, with a combined uncertainty of √(0.57² + 0.64²) ≈ 0.85 GeV. That is 0.7 ÷ 0.85 ≈ 0.82 standard deviations, so the two measurements are consistent.",
+        "calculation": [
+          {
+            "field": "key_value",
+            "name": "mA",
+            "number": "126.0",
+            "ref": "result:atlas-higgs-observation-2012",
+            "unit": "GeV"
+          },
+          {
+            "field": "key_value",
+            "name": "aS",
+            "number": "0.4",
+            "ref": "result:atlas-higgs-observation-2012",
+            "unit": "GeV"
+          },
+          {
+            "field": "key_value",
+            "name": "aY",
+            "number": "0.4",
+            "ref": "result:atlas-higgs-observation-2012",
+            "unit": "GeV"
+          },
+          {
+            "field": "key_value",
+            "name": "mC",
+            "number": "125.3",
+            "ref": "result:cms-higgs-boson-observation-2012",
+            "unit": "GeV"
+          },
+          {
+            "field": "key_value",
+            "name": "cS",
+            "number": "0.4",
+            "ref": "result:cms-higgs-boson-observation-2012",
+            "unit": "GeV"
+          },
+          {
+            "field": "key_value",
+            "name": "cY",
+            "number": "0.5",
+            "ref": "result:cms-higgs-boson-observation-2012",
+            "unit": "GeV"
+          },
+          {
+            "digits": 2,
+            "expression": "sqrt(aS**2 + aY**2)",
+            "name": "sA",
+            "unit": "GeV",
+            "value": 0.57
+          },
+          {
+            "digits": 2,
+            "expression": "sqrt(cS**2 + cY**2)",
+            "name": "sC",
+            "unit": "GeV",
+            "value": 0.64
+          },
+          {
+            "digits": 1,
+            "expression": "mA - mC",
+            "name": "dm",
+            "unit": "GeV",
+            "value": 0.7
+          },
+          {
+            "digits": 2,
+            "expression": "sqrt(sA**2 + sC**2)",
+            "name": "s",
+            "unit": "GeV",
+            "value": 0.85
+          },
+          {
+            "digits": 2,
+            "expression": "dm / s",
+            "name": "z",
+            "unit": "standard deviations",
+            "value": 0.82
+          }
+        ],
+        "claims": [
+          {
+            "covers": "126.0 ± 0.4 (stat.) ± 0.4 (sys.) GeV",
+            "field": "key_value",
+            "in": "prompt",
+            "ref": "result:atlas-higgs-observation-2012"
+          },
+          {
+            "covers": "125.3 ± 0.4 (stat.) ± 0.5 (syst.) GeV",
+            "field": "key_value",
+            "in": "prompt",
+            "ref": "result:cms-higgs-boson-observation-2012"
+          }
+        ],
+        "prompt": "ATLAS measured the mass of the new particle as 126.0 ± 0.4 (stat.) ± 0.4 (sys.) GeV and CMS as 125.3 ± 0.4 (stat.) ± 0.5 (syst.) GeV. Do the two measurements agree?"
+      },
+      "select": "result:cms-higgs-boson-observation-2012",
+      "text": "CMS observed an excess of events with a local significance of 5.0 standard deviations at a mass near 125 GeV, signalling the production of a new particle. A fit to the two decay modes with the best mass resolution gave a mass of 125.3 ± 0.4 (stat.) ± 0.5 (syst.) GeV.",
+      "title": "CMS's result",
+      "year": 2012
+    },
+    {
+      "camera": {
+        "altitude": 0.25,
+        "lat": 46.234,
+        "lng": 6.047
+      },
+      "claims": [
+        {
+          "covers": "In June 2022",
+          "field": "date",
+          "ref": "result:atlas-nature-higgs-2022"
+        },
+        {
+          "covers": "the ATLAS Collaboration reported that the Higgs boson discovered ten years ago is remarkably consistent with the predictions of the theory",
+          "field": "claim",
+          "ref": "result:atlas-nature-higgs-2022"
+        }
+      ],
+      "id": "ten-years-on",
+      "select": "result:atlas-nature-higgs-2022",
+      "text": "In June 2022 the ATLAS Collaboration reported that the Higgs boson discovered ten years ago is remarkably consistent with the predictions of the theory.",
+      "title": "Ten years on",
+      "year": 2022
+    }
+  ],
+  "summary": "Follow the search for the Higgs boson from LEP, through the Tevatron, to the announcement by ATLAS and CMS on 4 July 2012.",
+  "type": "tour"
+}
