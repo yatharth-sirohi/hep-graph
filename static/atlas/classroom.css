@@ -266,11 +266,20 @@ html.is-embed .embed-open {
   text-decoration: none;
   white-space: nowrap;
 }
+/* A narrow frame (an LMS column, a phone) uses the phone header, which is wrapped and
+   touch-sized: the link goes to the right of the title and is a full-size target. */
+@media (max-width: 900px) {
+  html.is-embed .embed-open {
+    margin-left: auto;
+    min-height: var(--phone-touch, 44px);
+  }
+}
 html.is-embed .embed-open:hover {
   background: color-mix(in srgb, var(--teal) 82%, white);
 }
 html.is-embed .atlas-header {
-  height: 44px;
+  height: auto;
+  min-height: 44px;
   gap: var(--space-3);
 }
 html.is-embed .atlas-header .brand,

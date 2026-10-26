@@ -548,6 +548,44 @@ otherwise the intersection of the two endpoints' existence hulls; the months
 are the month indices of `lo(start)` and `hi(end)` (`null` for an open end).
 Edges are sorted by `(type, from, to)`.
 
+## `glossary.json`
+
+The terms the record panels define in a popover (m.w.e., off-axis angle, CL, σ, ...). It is
+written only when `data/atlas/glossary/` holds terms, and listed in `manifest.json` like
+any other bundle; the browser fetches it the first time a record with a summary opens, and a
+page without it (or with `?data=fixtures`) simply has no glossary.
+
+```json
+{ "schema": "hep-atlas/0.2",
+  "terms": [ {
+    "id": "metres-water-equivalent",
+    "term": "metres water equivalent (m.w.e.)",
+    "title": "Metres water equivalent (m.w.e.)",
+    "definition": "Plain, at most 45 words, supported by the quote.",
+    "match": [ {"pattern": "m\\.w\\.e\\.", "case": true}, "met(?:re|er)s? water equivalent" ],
+    "quote": "Verbatim, at most 300 characters.",
+    "locator": "Where in the source.",
+    "source": { "id": "src:...", "title": "...", "publisher": "...", "url": "https://..." },
+    "confidence": "verified",
+    "verified_at": "2026-10-26"
+  } ] }
+```
+
+* **Sourced like everything else.** A term in `data/atlas/glossary/*.json` (each file a list)
+  carries `quote`, `locator`, `sources`, `confidence` and `verified_at`; the validator rules
+  `glossary-*` check the shape, the length limits, that every source resolves and may be
+  cited, and that every `match` pattern compiles. `scripts/atlas_quote_check.py --only glossary`
+  checks every quote against its source. The bundle inlines each term's first source (title,
+  publisher, url) so the popover needs no `sources.json`.
+* **`match`** lists JavaScript-compatible regular expressions (no look-behind). An entry is a
+  string (case-insensitive) or `{"pattern": ..., "case": true}`. A match must stand alone (the
+  characters either side are not letters or digits), and a pattern should name one sense of the
+  word only (`fiducial (?:mass|volume)`, not `fiducial`, which also starts "fiducial cross
+  section").
+* **First use per record.** `js/summary.js` and `js/glossary.js` mark the first match of each
+  term in a record's summary paragraphs (and a topic's overview); a term appears at most once
+  per record.
+
 ## `coverage.json`
 
 ```json

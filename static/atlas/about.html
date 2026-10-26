@@ -33,6 +33,7 @@
           <li><a href="#rosters">Collaboration rosters</a></li>
           <li><a href="#results-wording">How results are worded</a></li>
           <li><a href="#local-maps">Local-map geometry</a></li>
+          <li><a href="#classroom">Classroom modes and embedding</a></li>
           <li><a href="#coverage">Coverage</a></li>
           <li><a href="#report-error">Report an error</a></li>
         </ol>
@@ -285,6 +286,69 @@
             carries the attribution <strong>© OpenStreetMap contributors</strong> under the Open
             Database License (ODbL) 1.0, as OpenStreetMap's own licence requires.
           </p>
+        </section>
+
+        <section id="classroom" aria-labelledby="classroom-h">
+          <h2 id="classroom-h">Classroom modes and embedding</h2>
+          <p>
+            These are ways of reading the atlas, not changes to what it says: every mode shows
+            the same records, and nothing in them is stored on a server.
+          </p>
+          <ul>
+            <li>
+              <strong>Projector mode.</strong> A light, high-contrast theme with type about a
+              quarter larger and thicker outlines and beam arcs, for a lecture hall. Body text is
+              at least 7:1 against its background (WCAG AAA); the contrast of every colour is
+              measured from the stylesheet's own declarations by an automated test. The globe's
+              Earth image stays dark. Switch it on with the <em>Projector</em> button in the header
+              (on a phone: <em>Views &amp; filters</em>, under <em>Display</em>), or open a link
+              ending in <code>?theme=projector</code>. The choice is remembered in this
+              browser only (local storage); a link's own <code>?theme=</code> wins over it and is
+              not remembered.
+            </li>
+            <li>
+              <strong>Embed mode.</strong> <code>?embed=1</code> removes the search box, the view
+              switcher, the filters, the footer and the Start-here card, leaves a small
+              <em>Open in HEP Atlas</em> link to the same view at full size, and keeps the timeline
+              only where the address names a year or range, or on a local map. To put a view on a
+              course page or in a learning-management system, open it, add <code>embed=1</code> to
+              its address and use that address as the source of an
+              <code>&lt;iframe&gt;</code>, for example
+              <code>&lt;iframe src="https://&hellip;/atlas?embed=1#/experiment/t2k" width="100%" height="640" title="T2K on the HEP Atlas"&gt;&lt;/iframe&gt;</code>.
+              The footer is where this page says that coverage is partial: an embedded view
+              leaves it out, so a page that embeds the atlas should say so itself or link to the
+              <a href="#coverage">coverage report</a>.
+            </li>
+            <li>
+              <strong>A server change for embedding.</strong> Until this release every page of
+              this site told browsers never to show it inside another page
+              (<code>frame-ancestors 'none'</code>). The server now sends
+              <code>frame-ancestors *</code> for the atlas &mdash; <code>/atlas</code> and every file
+              under it &mdash; so any web page may frame it. Every other response, including the HEP
+              Graph application and the whole <code>/api</code> interface, still sends
+              <code>frame-ancestors 'none'</code>. Embedding is read-only: the atlas sets no cookies,
+              the embedding page cannot read what is inside the frame (the browser's same-origin
+              rule), and the atlas does not learn which page embeds it beyond what any web request
+              reveals.
+            </li>
+            <li>
+              <strong>Glossary.</strong> The first time a record's text uses a term the panels
+              rely on (m.w.e., off-axis angle, baseline, CL, &sigma;, luminosity, TPC, CEvNS and
+              about twenty more), it is a button with a dotted underline that opens a short
+              definition, a link to its source and the source's own words. Each definition is
+              held to the same rule as every other claim in the atlas: it rests on a verbatim
+              quote, with a locator, from the Particle Data Group's reviews, a laboratory's pages or
+              CERN Courier, and the quote is checked against the source by the same script that
+              checks the rest. The terms live in <code>data/atlas/glossary/</code> in the project
+              repository and reach the browser as <code>glossary.json</code>.
+            </li>
+            <li>
+              <strong>Plain or technical.</strong> Every record carries two summaries, one written for
+              a newcomer and one for a specialist. A <em>Summary: Plain | Technical</em> toggle at
+              the top of a record switches between them; plain is the default, and the choice is
+              remembered in this browser. A record with only one of the two shows it and says so.
+            </li>
+          </ul>
         </section>
 
         <section id="coverage" aria-labelledby="coverage-h">
