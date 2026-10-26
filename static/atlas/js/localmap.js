@@ -434,9 +434,13 @@ function framingFeatures() {
     .filter(featureVisible)
     .filter((f) => f.representation !== 'inferred_direction' && f.feature_type !== 'direction_line');
   // A campus boundary is context: Fermilab's is 7 km across and framing it left
-  // the rings a small knot in the middle. Frame the structures when there are any.
+  // the rings a small knot in the middle. Frame the structures when they have an
+  // extent of their own (a line or a polygon). When everything else is a point,
+  // the boundary is the facility itself and is framed too: McMurdo Station is a
+  // point 8 km from the Williams Field outline that the map is about.
   const structures = drawn.filter((f) => f.feature_type !== 'boundary');
-  return structures.length ? structures : drawn;
+  const hasExtent = structures.some((f) => !['Point', 'MultiPoint'].includes(f.geometry && f.geometry.type));
+  return structures.length && hasExtent ? structures : drawn;
 }
 
 /**
