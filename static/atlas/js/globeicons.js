@@ -21,10 +21,34 @@
 // A pale keyline is drawn under the coloured shape so even the dimmest status
 // colour (a closed site is #3d444a) keeps >= 3:1 against the dark Earth.
 
+import { FACILITY_KIND_SHAPE } from './model.js';
+
 const SVG_NS = 'http://www.w3.org/2000/svg';
-const INK = '#06141c';
 
 let patternCounter = 0;
+
+// Colours that carry a meaning in the interface (selection and clusters are the
+// amber, a glyph's dark details the page ink) come from atlas.css's design tokens, so
+// the globe follows a palette change; the fallbacks are the tokens' values today.
+const tokenCache = new Map();
+export function cssToken(name, fallback) {
+  if (tokenCache.has(name)) return tokenCache.get(name);
+  let value = '';
+  try {
+    value = window.getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+  } catch (error) {
+    value = '';
+  }
+  if (!/^#[0-9a-f]{6}$/i.test(value)) return fallback; // stylesheet not applied (yet): do not cache the fallback
+  tokenCache.set(name, value.toLowerCase());
+  return value.toLowerCase();
+}
+
+/** `rgba(r,g,b,a)` for a `#rrggbb`. */
+export function withAlpha(hex, alpha) {
+  const n = parseInt(String(hex).replace('#', ''), 16);
+  return `rgba(${(n >> 16) & 255},${(n >> 8) & 255},${n & 255},${alpha})`;
+}
 
 function svgEl(name, attrs) {
   const el = document.createElementNS(SVG_NS, name);
@@ -160,7 +184,7 @@ export function buildGlyph({
   });
   if (shape === 'cluster') {
     svg.appendChild(svgEl('circle', {
-      cx: 12, cy: 12, r: 10.2, fill: 'rgba(8,22,32,0.94)', stroke: color, 'stroke-width': 1.8,
+      cx: 12, cy: 12, r: 10.2, fill: withAlpha(cssToken('--paper', '#0b1620'), 0.94), stroke: color, 'stroke-width': 1.8,
     }));
     svg.appendChild(svgEl('circle', {
       cx: 12, cy: 12, r: 8.2, fill: 'none', stroke: color, 'stroke-width': 0.6, 'stroke-opacity': 0.45,
@@ -191,6 +215,7 @@ export function buildGlyph({
   const bodyWidth = empty ? 2.4 : hatched ? 1.5 : 1;
   const dash = approximate ? '2,2' : (hatched && hollow ? '3,2' : null);
   const edge = lighten(color, 0.58);
+  const inkColor = cssToken('--paper', '#0b1620'); // details drawn dark on a solid glyph
   // An outline with nothing inside is seen by its own colour alone.
   const ink = empty ? liftToLuminance(color, 0.36) : color;
 
@@ -206,7 +231,7 @@ export function buildGlyph({
       const solidFill = p.r === 'body' || p.r === 'dot';
       const width = (p.r === 'body' || p.r === 'dot' ? bodyWidth : p.w || 2) + (dash ? 1.6 : 1.7);
       const attrs = dash
-        ? { stroke: 'rgba(3,12,19,0.62)', 'stroke-width': width, fill: 'none' }
+        ? { stroke: withAlpha(cssToken('--paper', '#0b1620'), 0.7), 'stroke-width': width, fill: 'none' }
         : {
           stroke: edge, 'stroke-width': width, fill: solidFill && !empty ? edge : 'none', 'stroke-opacity': 0.92,
         };
@@ -238,11 +263,11 @@ export function buildGlyph({
         group.appendChild(drawPrimitive(p, { fill: ink, stroke: 'none' }));
         break;
       case 'ink':
-        group.appendChild(drawPrimitive(p, { fill: empty ? ink : INK, stroke: 'none' }));
+        group.appendChild(drawPrimitive(p, { fill: empty ? ink : inkColor, stroke: 'none' }));
         break;
       case 'inkline':
         group.appendChild(drawPrimitive(p, {
-          fill: 'none', stroke: empty ? ink : INK, 'stroke-width': p.w || 1.4, 'stroke-linecap': 'round',
+          fill: 'none', stroke: empty ? ink : inkColor, 'stroke-width': p.w || 1.4, 'stroke-linecap': 'round',
         }));
         break;
       default:
@@ -258,4 +283,15 @@ export function facilityGlyph(kind, { shape, color, size = 18 } = {}) {
   return buildGlyph({
     shape, kind, color: color || '#9aa7b0', size, hollow: false, hatched: false, approximate: false,
   });
+}
+
+/** One entry per facility kind for a legend or Key, in the model's order: `{ kind,
+ * label, svg }` with the very glyph the globe draws (so the Key cannot drift from
+ * the markers it explains). */
+export function facilityKeyEntries(size = 18) {
+  return Object.entries(FACILITY_KIND_SHAPE).map(([kind, info]) => ({
+    kind,
+    label: info.label,
+    svg: facilityGlyph(kind, { shape: info.shape, color: info.color, size }),
+  }));
 }

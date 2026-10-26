@@ -17,7 +17,7 @@ import {
   facilityShape, statusAtMonth, statusInRange, statusColor, timelineAbsenceReason, DIMMED_STATUSES,
 } from './model.js';
 import * as filtersModule from './filters.js';
-import { buildGlyph } from './globeicons.js';
+import { buildGlyph, cssToken, withAlpha } from './globeicons.js';
 
 function reducedMotion() {
   return window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -74,6 +74,9 @@ const FOCUS_FLIGHT_MS = 1000;
 // The range showView accepts: just above the surface to well clear of the globe.
 const MIN_VIEW_ALTITUDE = 0.05;
 const MAX_VIEW_ALTITUDE = 4;
+// showView lowers a requested altitude on a stage too short to show the globe at least
+// this big (radius, px).
+const MIN_GLOBE_RADIUS_PX = 105;
 // Throttles (ms). Camera moves fire per animation frame; rebuilding every DOM
 // marker or re-measuring every label that often would cost more than the
 // frame itself.
@@ -95,6 +98,9 @@ const BORDER_ALTITUDE = 0.0075;
 // recipe). It replaces the flat land polygons once it has loaded; until then, or
 // if it never does, the globe keeps its original look.
 const EARTH_URL = '/atlas/vendor/earth-dark-4096.webp';
+const BASE_LAND_COLOR = 'rgb(36,50,61)'; // atlas_earth_texture.py's land ramp, mid-way
+const BASE_OCEAN_COLOR = '#0b1f2c'; // and its ocean ramp
+const BASE_COAST_COLOR = 'rgba(150,188,184,0.42)';
 const ATMOSPHERE_COLOR = '#2f9c96';
 const ATMOSPHERE_ALTITUDE = 0.09;
 
@@ -139,10 +145,13 @@ const BEAM_COLOR_QUIET = ['rgba(155,195,228,0.88)', 'rgba(135,175,212,0.74)'];
 const BEAM_COLOR_QUIET_SELECTED = ['rgba(235,246,255,1)', 'rgba(160,200,232,0.9)'];
 const BEAM_PX_QUIET = 2.4;
 const BEAM_PX_QUIET_SELECTED = 3.2;
-// A beam selection flies to show the whole baseline: about this many degrees of
-// altitude per degree of baseline (a 295 km beam fills a third of the stage).
+// A beam selection flies to show the whole baseline with room round it: about this
+// many globe radii of altitude per degree of baseline, and never closer than the
+// minimum. Closer than ~0.34 the 4096-px Earth image is magnified past 3.5x and its
+// relief turns to mush; at 0.34 a 295 km beam is ~110 px long, which still carries
+// its glow and labels.
 const BEAM_FOCUS_ALTITUDE_PER_DEG = 0.062;
-const BEAM_FOCUS_ALTITUDE_MIN = 0.16;
+const BEAM_FOCUS_ALTITUDE_MIN = 0.34;
 // An unselected beam's label needs its arc on screen to be at least as long as
 // the label's shortest form (the distance alone, ~50 px) and never under this many
 // pixels: a pill with no arc beside it is only noise. The full name needs the arc
@@ -422,9 +431,12 @@ export function createGlobe(container, {
     .showAtmosphere(true)
     .atmosphereColor(ATMOSPHERE_COLOR)
     .atmosphereAltitude(ATMOSPHERE_ALTITUDE)
-    .polygonCapColor(() => 'rgba(70,120,100,0.55)')
+    // The first paint, before the Earth image arrives (and the look if it never
+    // does): the same dark slate land on navy ocean as the image's own ramps, so
+    // the swap to the relief reads as detail arriving, not as a change of colour.
+    .polygonCapColor(() => BASE_LAND_COLOR)
     .polygonSideColor(() => 'rgba(0,0,0,0)')
-    .polygonStrokeColor(() => 'rgba(40,80,66,0.9)')
+    .polygonStrokeColor(() => BASE_COAST_COLOR)
     .polygonAltitude(0.006)
     .htmlAltitude((d) => d.altitude)
     .htmlElement((d) => d.el)
@@ -471,7 +483,7 @@ export function createGlobe(container, {
   try {
     const mat = globe.globeMaterial();
     if (mat && mat.color && typeof mat.color.setStyle === 'function') {
-      mat.color.setStyle('#0b1f2b');
+      mat.color.setStyle(BASE_OCEAN_COLOR);
       if ('shininess' in mat) mat.shininess = 2;
     }
   } catch (error) {
@@ -707,7 +719,7 @@ export function createGlobe(container, {
       ariaLabel: `${label} near here — ${namesPreview}. Press Enter to zoom in and expand.`,
       size,
       shape: 'cluster',
-      color: '#f2b441',
+      color: cssToken('--amber', '#f2b441'),
       hollow: false,
       tier,
       extraClass: 'tier-cluster',
@@ -1182,7 +1194,7 @@ export function createGlobe(container, {
           route: { type: 'institution', slug: member.institution_id.split(':')[1] },
           size: 9,
           shape: 'circle',
-          color: '#f2b441',
+          color: cssToken('--amber', '#f2b441'),
           hollow,
           tier: 'institution',
         });
@@ -1199,7 +1211,7 @@ export function createGlobe(container, {
             startLng: hostCoords.lon,
             endLat: entry.lat,
             endLng: entry.lon,
-            color: ['rgba(242,180,65,0.55)', 'rgba(242,180,65,0.05)'],
+            color: [withAlpha(cssToken('--amber', '#f2b441'), 0.55), withAlpha(cssToken('--amber', '#f2b441'), 0.05)],
             stroke: 0.25,
             label: `${member.name} ↔ collaboration host`,
           });
@@ -1225,7 +1237,7 @@ export function createGlobe(container, {
             startLng: hostCoords.lon,
             endLat: entry.lat,
             endLng: entry.lon,
-            color: ['rgba(242,180,65,0.55)', 'rgba(242,180,65,0.05)'],
+            color: [withAlpha(cssToken('--amber', '#f2b441'), 0.55), withAlpha(cssToken('--amber', '#f2b441'), 0.05)],
             stroke: 0.25,
             label: `${entry.items.length} institutions ↔ collaboration host`,
           });
@@ -1481,8 +1493,8 @@ export function createGlobe(container, {
     widthCache.set(key, width);
     return width;
   }
-  const BEAM_PILL_PAD = 16; // horizontal padding + border of .bl-pill
-  const BEAM_PILL_HEIGHT = 21;
+  const BEAM_PILL_PAD = 20; // horizontal padding + border of .bl-pill (globe.css)
+  const BEAM_PILL_HEIGHT = 24;
 
   function declutterLabels() {
     if (!markerEls.size && !beamEls.size) return;
@@ -1859,6 +1871,7 @@ export function createGlobe(container, {
     const { anchor, altitude } = selection;
     if (!anchor) return;
     stopAutoRotate();
+    endViewRequest(true); // the subject changed: ease back to the centre of the view
     globe.pointOfView(
       { lat: anchor.lat, lng: anchor.lon, altitude },
       reducedMotion() ? 0 : FOCUS_FLIGHT_MS,
@@ -1879,6 +1892,7 @@ export function createGlobe(container, {
     const view = fitView(points);
     if (!view) return;
     stopAutoRotate();
+    endViewRequest(true);
     globe.pointOfView(
       { lat: view.lat, lng: view.lon, altitude: view.altitude },
       reducedMotion() ? 0 : FOCUS_FLIGHT_MS,
@@ -1893,6 +1907,10 @@ export function createGlobe(container, {
   // of the part that is still visible. Desktop panels are grid columns (the
   // canvas itself shrinks) or sit inside the stage, so nothing is covered.
   let insetKey = '';
+  // Where showView's caller wants its subject, as a pixel shift of the view centre
+  // (positive x: to the right; positive y: down), on top of the bottom-sheet inset.
+  let framing = { x: 0, y: 0 };
+  let framingTween = 0;
   function coveredBottom() {
     const stage = container.getBoundingClientRect();
     let covered = 0;
@@ -1907,18 +1925,117 @@ export function createGlobe(container, {
     return Math.min(covered, stage.height * 0.7);
   }
   function applyViewInset(width, height) {
-    const camera = typeof globe.camera === 'function' ? globe.camera() : null;
-    if (!camera || typeof camera.setViewOffset !== 'function') return;
     const inset = Math.round(coveredBottom());
-    // The library refreshes the projection when the canvas size changes but
-    // keeps the old view window, so the size is part of what must be unchanged.
-    const key = `${width}x${height}:${inset}`;
+    // globe.gl's own `globeOffset` moves the picture by this many pixels (right, down)
+    // and keeps doing so through resizes and the library's own start-up digest, which
+    // clear a view window set on the camera directly. A bottom sheet moves the picture
+    // up by half of what it covers, so its subject sits mid-way in what is left.
+    const shiftX = Math.round(framing.x);
+    const shiftY = Math.round(framing.y - inset / 2);
+    const key = `${width}x${height}:${shiftX},${shiftY}`;
     if (key === insetKey) return;
     insetKey = key;
-    if (inset > 0) camera.setViewOffset(width, height, 0, Math.round(inset / 2), width, height);
-    else if (camera.view && camera.view.enabled) camera.clearViewOffset();
+    globe.globeOffset([shiftX, shiftY]);
     scheduleDeclutter(DECLUTTER_DELAY_MS);
   }
+
+  /** Eases the framing shift to `target` over `ms` (at once when 0, or under
+   * prefers-reduced-motion). */
+  function moveFraming(target, ms) {
+    window.cancelAnimationFrame(framingTween);
+    framingTween = 0;
+    const from = { ...framing };
+    if (!ms || reducedMotion() || (Math.abs(target.x - from.x) < 0.5 && Math.abs(target.y - from.y) < 0.5)) {
+      framing = { ...target };
+      applyViewInset(globe.width(), globe.height());
+      return;
+    }
+    const start = performance.now();
+    const step = (now) => {
+      const p = Math.min(1, (now - start) / ms);
+      const e = p < 0.5 ? 2 * p * p : 1 - ((-2 * p + 2) ** 2) / 2;
+      framing = { x: from.x + (target.x - from.x) * e, y: from.y + (target.y - from.y) * e };
+      applyViewInset(globe.width(), globe.height());
+      framingTween = p < 1 ? window.requestAnimationFrame(step) : 0;
+    };
+    framingTween = window.requestAnimationFrame(step);
+  }
+
+  /** The pixel shift that puts the middle of the stage's free part at the centre
+   * of the view, for an element laid over the stage (the Start-here card): a sheet
+   * spanning the stage's width frees the other end; a panel spanning its height
+   * frees the other side; a card floating at one side is judged by the nearest
+   * edge it hangs from. An element that does not overlap the stage (a phone sheet
+   * that shrinks the stage instead of covering it) shifts nothing. */
+  function clearanceShift(element) {
+    if (!element || element.getClientRects().length === 0) return { x: 0, y: 0 };
+    const stage = container.getBoundingClientRect();
+    const box = element.getBoundingClientRect();
+    const ox = Math.min(box.right, stage.right) - Math.max(box.left, stage.left);
+    const oy = Math.min(box.bottom, stage.bottom) - Math.max(box.top, stage.top);
+    if (!(ox > 0 && oy > 0) || !stage.width || !stage.height) return { x: 0, y: 0 };
+    const limit = (v, size) => clamp(v, -0.35 * size, 0.35 * size);
+    const above = box.top + box.height / 2 < stage.top + stage.height / 2;
+    const leftOf = box.left + box.width / 2 < stage.left + stage.width / 2;
+    if (ox >= 0.9 * stage.width) {
+      return { x: 0, y: limit(above ? (box.bottom - stage.top) / 2 : -(stage.bottom - box.top) / 2, stage.height) };
+    }
+    if (oy >= 0.9 * stage.height) {
+      return { x: limit(leftOf ? (box.right - stage.left) / 2 : -(stage.right - box.left) / 2, stage.width), y: 0 };
+    }
+    const gaps = [
+      ['left', box.left - stage.left], ['right', stage.right - box.right],
+      ['top', box.top - stage.top], ['bottom', stage.bottom - box.bottom],
+    ].sort((a, b) => a[1] - b[1]);
+    switch (gaps[0][0]) {
+      case 'left': return { x: limit((box.right - stage.left) / 2, stage.width), y: 0 };
+      case 'right': return { x: limit(-(stage.right - box.left) / 2, stage.width), y: 0 };
+      case 'top': return { x: 0, y: limit((box.bottom - stage.top) / 2, stage.height) };
+      default: return { x: 0, y: limit(-(stage.bottom - box.top) / 2, stage.height) };
+    }
+  }
+
+  /** The highest camera altitude at which the globe still shows at least
+   * MIN_GLOBE_RADIUS_PX across its radius in what is left of the stage: a view
+   * written for a full-height stage (2.6 for the opening look) would be a 40 px
+   * marble in the 120 px strip a phone's sheet leaves. */
+  function altitudeCeiling() {
+    const visible = Math.max(80, container.clientHeight - coveredBottom());
+    const u = (MIN_GLOBE_RADIUS_PX * Math.tan((25 * Math.PI) / 180)) / (visible / 2);
+    return 1 / (u / Math.sqrt(1 + u * u)) - 1;
+  }
+
+  // What showView was last asked for. While it stands, a change in the stage's size
+  // (a sheet opening, a rotation) or in the element it clears is answered by framing
+  // the same view again; any other camera command ends it, and a person taking the
+  // camera ends the re-aiming (`held`) but not the shift. A shift ends by easing
+  // back to the centre.
+  let viewRequest = null;
+  function endViewRequest(animate) {
+    viewRequest = null;
+    if (framing.x || framing.y) moveFraming({ x: 0, y: 0 }, animate ? FOCUS_FLIGHT_MS : 0);
+  }
+  function reframe(animate) {
+    if (!viewRequest) return;
+    const { view, offset, clearOf } = viewRequest;
+    const shift = clearanceShift(clearOf);
+    moveFraming({ x: shift.x + offset.x, y: shift.y + offset.y }, animate ? 450 : 0);
+    if (viewRequest.held) {
+      const altitude = clamp(Math.min(view.altitude, altitudeCeiling()), MIN_VIEW_ALTITUDE, MAX_VIEW_ALTITUDE);
+      if (Math.abs(altitude - viewRequest.altitude) > 0.01) {
+        viewRequest.altitude = altitude;
+        // A flight begun by showView may still be running, and the library never
+        // cancels one: a new flight of the same length starts later, so it ends last
+        // and wins.
+        globe.pointOfView({ lat: view.lat, lng: view.lng, altitude }, reducedMotion() ? 0 : FOCUS_FLIGHT_MS);
+        if (reducedMotion()) {
+          currentAltitude = altitude;
+          rebuildVisibleLayer();
+        }
+      }
+    }
+  }
+  controls.addEventListener('start', () => { if (viewRequest) viewRequest.held = false; });
 
   // --- public API -------------------------------------------------------
   const api = {
@@ -1942,19 +2059,47 @@ export function createGlobe(container, {
     /** Points the camera at `{ lat, lng, altitude }` (altitude in globe radii; 2.4
      * is the opening overview, 0.5 a country). Animated by default, instant when
      * `animate` is false or under prefers-reduced-motion. Ends auto-rotation, like
-     * any other deliberate camera move, so the framed view stays framed. */
-    showView(view, { animate = true } = {}) {
+     * any other deliberate camera move, so the framed view stays framed.
+     *
+     * Options for a view that is meant to sit beside something laid over the stage:
+     *   offset   `{ x, y }` px — where the subject goes relative to the stage's centre
+     *            (x > 0: right of it, y > 0: below it)
+     *   clearOf  an element over the stage (the Start-here card): the subject goes to the
+     *            middle of what that element leaves free, and follows it as it moves,
+     *            resizes, or is dismissed (the view eases back to the centre)
+     * The altitude asked for is lowered on a stage too short to show a globe of a
+     * useful size (the strip a phone's sheet leaves). The shift ends, easing back,
+     * when anything else moves the camera (a selection, a topic, a collaboration). */
+    showView(view, { animate = true, offset = null, clearOf = null } = {}) {
       const lat = Number(view && view.lat);
       const lng = Number(view && view.lng);
       const altitude = Number(view && view.altitude);
       if (!Number.isFinite(lat) || !Number.isFinite(lng) || !Number.isFinite(altitude)) return;
       stopAutoRotate();
-      const target = {
+      const instant = !animate || reducedMotion();
+      const wanted = {
         lat: clamp(lat, -90, 90),
         lng: ((((lng + 180) % 360) + 360) % 360) - 180,
-        altitude: clamp(altitude, MIN_VIEW_ALTITUDE, MAX_VIEW_ALTITUDE),
+        altitude,
       };
-      const instant = !animate || reducedMotion();
+      const dx = Number(offset && offset.x);
+      const dy = Number(offset && offset.y);
+      const extra = { x: Number.isFinite(dx) ? dx : 0, y: Number.isFinite(dy) ? dy : 0 };
+      if (viewRequest && viewRequest.clearOf && viewRequest.clearOf !== clearOf && resizeObserver) {
+        resizeObserver.unobserve(viewRequest.clearOf);
+      }
+      viewRequest = {
+        view: wanted, offset: extra, clearOf: clearOf || null, held: true, altitude: null,
+      };
+      if (clearOf && resizeObserver) resizeObserver.observe(clearOf);
+      const shift = clearanceShift(clearOf);
+      moveFraming({ x: shift.x + extra.x, y: shift.y + extra.y }, instant ? 0 : FOCUS_FLIGHT_MS);
+      const target = {
+        lat: wanted.lat,
+        lng: wanted.lng,
+        altitude: clamp(Math.min(altitude, altitudeCeiling()), MIN_VIEW_ALTITUDE, MAX_VIEW_ALTITUDE),
+      };
+      viewRequest.altitude = target.altitude;
       if (instant) currentAltitude = target.altitude;
       globe.pointOfView(target, instant ? 0 : FOCUS_FLIGHT_MS);
       if (instant) rebuildVisibleLayer(); // markers cluster for the new altitude at once
@@ -2019,6 +2164,7 @@ export function createGlobe(container, {
       arcsForcedOff = rawInstitutionCount > INSTITUTION_ARC_THRESHOLD;
       rebuildVisibleLayer();
       if (hostCoords) {
+        endViewRequest(true);
         currentAltitude = 1.6;
         globe.pointOfView({ lat: hostCoords.lat, lng: hostCoords.lon, altitude: currentAltitude }, reducedMotion() ? 0 : 900);
         rebuildVisibleLayer();
@@ -2051,8 +2197,10 @@ export function createGlobe(container, {
       // A hidden stage (no-WebGL fallback showing, or a 0-sized container) has
       // no size to fit; keep the last good one.
       if (!width || !height) return;
-      if (globe.width() !== width || globe.height() !== height) globe.width(width).height(height);
+      const resized = globe.width() !== width || globe.height() !== height;
+      if (resized) globe.width(width).height(height);
       applyViewInset(width, height);
+      if (resized && viewRequest) reframe(false); // a stage of another size: the same view, re-aimed
       scheduleDeclutter(DECLUTTER_DELAY_MS);
     },
     destroy() {
@@ -2075,6 +2223,8 @@ export function createGlobe(container, {
       frame = window.requestAnimationFrame(() => {
         frame = 0;
         api.resize();
+        // The element a view clears moved, resized or went away: follow it.
+        if (viewRequest) reframe(true);
       });
     });
     resizeObserver.observe(container);

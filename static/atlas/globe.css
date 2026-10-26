@@ -14,22 +14,30 @@
   display: block;
   overflow: visible;
 }
-.atlas-marker-label {
+.atlas-marker .atlas-marker-label {
+  /* The type scale's floor (atlas.css --text-xs, 12 px) on every size of screen:
+     phone.css's 11 px caption is one px under what a projector can carry. */
+  font-size: var(--text-xs, 12px);
   font-weight: 600;
   letter-spacing: 0.01em;
-  color: #eef8f6;
+  line-height: 1.3;
+  color: var(--white, #f4f7f8);
   background: rgba(4, 16, 24, 0.82);
+  background: color-mix(in srgb, var(--paper, #0b1620) 84%, transparent);
   border: 1px solid rgba(160, 205, 200, 0.28);
+  border: 1px solid color-mix(in srgb, var(--white, #f4f7f8) 26%, transparent);
 }
 
 /* Cluster badges: the same dark disc and thin amber ring as the facility glyphs'
    keylines, with a faint glow so a cluster reads from across the globe. */
 .atlas-marker.is-cluster svg {
-  filter: drop-shadow(0 0 5px rgba(242, 180, 65, 0.4));
+  filter: drop-shadow(0 0 5px color-mix(in srgb, var(--amber, #f2b441) 45%, transparent));
 }
 .atlas-marker.is-cluster .atlas-marker-label {
   border: 0;
-  color: #ffd27a;
+  background: transparent;
+  color: var(--amber, #f2b441);
+  font-size: var(--text-xs, 12px);
   font-weight: 800;
   letter-spacing: 0;
 }
@@ -48,6 +56,10 @@
     calc(-50% + var(--label-y, calc(var(--marker-size, 26px) / 2 + 24px)))
   );
   border: 0;
+  font-size: var(--text-xs, 12px);
+  font-weight: 700;
+  color: var(--on-amber, #1c1204);
+  background: var(--amber, #f2b441);
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.5);
   /* On a phone a long name must still fit the stage (the panel has it in full). */
   max-width: min(32em, calc(100vw - 32px));
@@ -81,6 +93,7 @@
    a zero-size anchor three-globe positions at the arc's midpoint; the pill hangs
    above it (or wherever declutterLabels put it). */
 .atlas-beam-label {
+  --beam-ink: #1d6a90; /* the hue of the live beam arcs, dark: tints the pill's face */
   width: 0;
   height: 0;
   pointer-events: none;
@@ -91,14 +104,15 @@
   top: 0;
   box-sizing: border-box;
   white-space: nowrap;
-  padding: 0 8px;
-  height: 21px;
-  line-height: 19px;
-  font-size: 11px;
+  padding: 0 9px;
+  height: 24px;
+  line-height: 22px;
+  font-size: var(--text-xs, 12px);
   font-weight: 650;
   font-variant-numeric: tabular-nums;
-  color: #e9fbff;
-  background: rgba(5, 24, 38, 0.9);
+  color: var(--white, #f4f7f8);
+  background: rgba(5, 24, 38, 0.92);
+  background: color-mix(in srgb, var(--paper, #0b1620) 90%, var(--beam-ink) 10%);
   border: 1px solid rgba(120, 215, 255, 0.85);
   border-radius: 11px;
   box-shadow: 0 1px 8px rgba(0, 0, 0, 0.55);
@@ -132,13 +146,13 @@
 .atlas-beam-label.is-quiet .bl-pill {
   border-style: dashed;
   border-color: rgba(160, 196, 226, 0.8);
-  color: #cfe1ef;
+  color: var(--muted, #a9b3b9);
   font-style: italic;
 }
 .atlas-beam-label.is-selected .bl-pill {
   border-color: #fff;
   background: rgba(8, 38, 58, 0.97);
-  color: #fff;
+  color: var(--white, #f4f7f8);
 }
 .atlas-beam-label.is-label-hidden .bl-pill {
   visibility: hidden;
@@ -165,10 +179,5 @@
 @media (prefers-reduced-motion: reduce) {
   .bl-pill {
     transition: none;
-  }
-}
-@media (max-width: 760px) {
-  .bl-pill {
-    font-size: 11px;
   }
 }

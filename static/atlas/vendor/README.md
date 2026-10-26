@@ -75,8 +75,9 @@ Natural Earth's de facto line work and the atlas takes no position on them.
 `globe.js` fetches it only after the first frame has painted (`loadEarthTexture`),
 decodes it first (a corrupt file is rejected before the globe is told to use it),
 hands three-globe a `blob:` URL of it, and only then drops the flat land polygons.
-If the request or the decode fails the globe keeps its original look: green land
-polygons on navy. It is `.webp` because the server's `/atlas` whitelist serves
+Until then (and for good if the request or the decode fails) the globe paints the
+same palette flat: slate land polygons on a navy sphere, so the image arrives as
+detail, not as a change of colour. It is `.webp` because the server's `/atlas` whitelist serves
 `.webp` and `.png` but not `.jpg`. Re-running the script with the same input
 reproduces the same bytes.
 
