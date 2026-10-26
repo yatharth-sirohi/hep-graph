@@ -3197,6 +3197,98 @@ async function openFilters(page) {
     await p.screenshot({ path: path.join(output, "beam-section-mobile.png") });
     await ctx.close();
   });
+
+  // ---- HEP Graph x Atlas (static/atlas/js/hepgraph.js, views/person.js) -- begin ------
+  // `#/view/person/<inspire-author-id>` places one HEP Graph researcher from the Atlas's own
+  // rosters. This server has no database, so HEP Graph's `/api/person/<id>` answers 503:
+  // that must read as an error, never as "no experiments".
+  await record("HEP Graph x Atlas: the person route places a researcher from the Atlas's rosters, and a missing database is an error, never an empty result", async () => {
+    const generated = process.env.HEP_ATLAS_DATA === "generated";
+    // A person each tree's people files name, with INSPIRE author id (the fixture's are invented).
+    const known = generated ? { id: "1035202", name: "Elizabeth Worcester" } : { id: "2417710", name: "Rosalind Okonjo" };
+    const personErrors = [];
+    const ctx = await browser.newContext({ viewport: { width: 1280, height: 900 }, reducedMotion: "reduce" });
+    // The 503 the no-database server answers is expected; the browser logs it as a console error.
+    ctx.on("page", (page) => page.on("pageerror", (e) => errors.push(`person view: ${e.message}`)));
+    ctx.on("page", (page) => page.on("console", (msg) => {
+      if (msg.type() !== "error") return;
+      if (/\/api\/person\//.test(msg.location().url || "")) personErrors.push(msg.text());
+      else errors.push(`person view console.error: ${msg.text()}`);
+    }));
+    const p = await ctx.newPage();
+    p.setDefaultTimeout(30000);
+
+    // 1. A researcher the Atlas names: its own rows show, and HEP Graph's failure is said, not hidden.
+    await p.goto(viewURL(`#/view/person/${known.id}`));
+    await p.locator(".pv-table tbody tr").first().waitFor();
+    assert.equal(await p.locator("#view-title").innerText(), known.name);
+    assert.ok(await p.locator(".pv-table tbody tr").count() >= 1, "the Atlas's membership rows are listed");
+    assert.ok(await p.locator("svg.pv-svg .pv-mark-inst").count() >= 1, "an institution is drawn on the map");
+    assert.ok(await p.locator("svg.pv-svg .pv-mark-site").count() >= 1, "an experiment site is drawn on the map");
+    assert.match(await p.locator(".pv-partial").innerText(), /only partial/i, "the rosters are said to be partial");
+    await p.locator(".pv-hg-error").waitFor();
+    assert.equal(await p.locator(".pv-hg-error").getAttribute("role"), "alert");
+    assert.match(await p.locator(".pv-hg-error").innerText(), /could not be reached[\s\S]*not an empty record/i);
+    assert.ok((await p.locator(".pv-globe-link").count()) >= 1, "a collaboration with a roster offers the globe");
+    assert.match(await p.locator(".pv-globe-link").first().getAttribute("href"), /m=collab&c=[a-z0-9-]+#\/collaboration\//);
+    // A table row's collaboration opens its panel in this page (the SPA's own routing).
+    await p.locator(".pv-table tbody tr a.entity-link").first().click();
+    await p.locator("#detail-panel h2").waitFor();
+    assert.equal(await p.locator("#view-host").isVisible(), false, "the record opens on the globe page");
+
+    // 2. A researcher the Atlas does not name, with no database: the page is an error, not "none".
+    await p.goto(viewURL("#/view/person/7"));
+    await p.locator(".view-error").waitFor();
+    assert.equal(await p.locator(".view-error").getAttribute("role"), "alert");
+    assert.match(await p.locator(".view-error").innerText(), /HEP Graph could not be reached/);
+    assert.equal(await p.locator(".pv-table").count(), 0, "no table of memberships");
+    assert.equal(await p.locator("svg.pv-svg").count(), 0, "no map");
+    assert.equal(await p.locator(".pv-lede").count(), 0, "no 'no experiments' sentence");
+
+    // 3. The same author, HEP Graph answering: unknown to the Atlas is "unknown, not none".
+    await ctx.route("**/api/person/7?summary=1", (route) => route.fulfill({
+      status: 200, contentType: "application/json",
+      body: JSON.stringify({ status: "ok", mode: "database", summary: true, person: {
+        id: "7", name: "Test Person", orcid: null, affiliations: ["Test U."], profile_status: "profile",
+      } }),
+    }));
+    await p.goto(viewURL("#/view/person/7"));
+    await p.locator(".pv-hg-slot dl").waitFor();
+    assert.match(await p.locator(".pv-lede").innerText(), /unknown, not none/);
+    assert.match(await p.locator(".pv-hg-slot").innerText(), /Test U\./);
+    assert.equal(await p.locator(".pv-table").count(), 0, "no invented memberships");
+    await ctx.unroute("**/api/person/7?summary=1");
+
+    // 4. Something that is not an INSPIRE author id is refused, not looked up.
+    await p.goto(viewURL("#/view/person/not-an-id"));
+    await p.locator(".view-error").waitFor();
+    assert.match(await p.locator(".view-error").innerText(), /not an INSPIRE author id/);
+
+    // 5. From a collaboration panel: the people the Atlas has matched, each with both links.
+    await p.goto(viewURL("#/collaboration/dune"));
+    await p.locator("#detail-panel .hg-people-link").waitFor({ state: "attached" });
+    // (The section is a closed <details>: read text, not rendered text.)
+    assert.equal((await p.locator("#detail-panel .hg-people-link").textContent()).replace(/\s+/g, " "), "People in HEP Graph →");
+    assert.match(await p.locator("#detail-panel .hg-people-note").first().textContent(), /no collaboration query/);
+    const matched = p.locator("#detail-panel .hg-people-list li");
+    assert.ok(await matched.count() >= 1, "the people the Atlas matched to INSPIRE author ids are listed");
+    assert.match(await matched.first().locator("a.hep-graph-link").getAttribute("href"), /^\/\?source=\d+$/);
+    assert.match(await matched.first().locator("a.entity-link").getAttribute("href"), /^#\/view\/person\/\d+$/);
+    // The experiment panel carries the same section through its collaboration.
+    await p.goto(viewURL("#/experiment/dune"));
+    await p.locator("#detail-panel .hg-people-link").waitFor({ state: "attached" });
+    assert.ok(await p.locator("#detail-panel .hg-people-list li").count() >= 1);
+    // ...and a listed person opens the Atlas's page for them.
+    await p.locator("#detail-panel .hg-people-list li a.entity-link").first().evaluate((a) => a.closest("details").setAttribute("open", ""));
+    await p.locator("#detail-panel .hg-people-list li a.entity-link").first().click();
+    await p.locator(".pv-partial").waitFor();
+    assert.match(p.url(), /#\/view\/person\/\d+$/);
+
+    // The 503 is the only console error, and it came from the person endpoint.
+    assert.ok(personErrors.length >= 1 && personErrors.every((text) => /503/.test(text)), `unexpected person-endpoint errors: ${personErrors.join(" | ")}`);
+    await ctx.close();
+  });
+  // ---- HEP Graph x Atlas -- end -----------------------------------------------------
   // ---- views -- end ---------------------------------------------------------------
 
   await record("about.html loads with live coverage counts read from the current data tree, and 0 console errors", async () => {

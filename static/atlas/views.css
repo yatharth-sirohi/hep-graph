@@ -178,6 +178,243 @@ body.is-view-route .atlas-header > .mode-buttons {
   line-height: var(--leading-body);
 }
 
+/* ----------------------------------------------- researcher on the Atlas (person) */
+/* `#/view/person/<inspire-author-id>` (js/views/person.js) and the "People in HEP Graph"
+   section of the collaboration and experiment panels (panels.js). */
+.pv-lede {
+  max-width: 74ch;
+  margin: 0 0 var(--space-3);
+  font-size: var(--text-lg);
+  line-height: var(--leading-body);
+}
+.pv-partial {
+  max-width: 74ch;
+  margin: 0 0 var(--space-5);
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--line-strong);
+  border-left: 4px solid var(--amber);
+  border-radius: var(--radius);
+  background: var(--panel);
+  font-size: var(--text-sm);
+  line-height: var(--leading-body);
+}
+.pv-figure {
+  margin: 0 0 var(--space-5);
+}
+.pv-map {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.pv-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.pv-sea {
+  fill: var(--panel);
+}
+.pv-land {
+  fill: var(--panel-2);
+  stroke: var(--line-strong);
+  stroke-width: 0.5;
+}
+.pv-mark {
+  cursor: pointer;
+}
+.pv-mark circle,
+.pv-mark path {
+  stroke: var(--paper);
+  stroke-width: 1.5;
+}
+.pv-mark-inst circle {
+  fill: var(--teal);
+}
+.pv-mark-site path {
+  fill: var(--amber);
+}
+/* A larger invisible target, so a mark can be tapped on a phone. */
+.pv-mark .pv-hit {
+  fill: transparent;
+  stroke: none;
+}
+.pv-mark:hover circle:not(.pv-hit),
+.pv-mark:hover path,
+.pv-mark:focus-visible circle:not(.pv-hit),
+.pv-mark:focus-visible path {
+  stroke: var(--white);
+  stroke-width: 2.5;
+}
+.pv-mark:focus {
+  outline: none;
+}
+.pv-caption {
+  margin-top: var(--space-3);
+  color: var(--muted);
+  font-size: var(--text-sm);
+  line-height: var(--leading-body);
+}
+.pv-key {
+  display: inline-block;
+  margin-right: var(--space-3);
+}
+.pv-key i {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin-right: 4px;
+  vertical-align: -1px;
+}
+.pv-key-inst {
+  border-radius: 50%;
+  background: var(--teal);
+}
+.pv-key-site {
+  background: var(--amber);
+  transform: rotate(45deg) scale(0.85);
+}
+.pv-section {
+  margin: 0 0 var(--space-5);
+}
+.pv-section > h3 {
+  margin: 0 0 var(--space-2);
+  font-size: var(--text-lg);
+  color: var(--teal);
+}
+.pv-table-wrap {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+.pv-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-sm);
+  line-height: var(--leading-body);
+}
+.pv-table caption {
+  padding: var(--space-3) var(--space-3) 0;
+  color: var(--muted);
+  text-align: left;
+}
+.pv-table th,
+.pv-table td {
+  padding: var(--space-2) var(--space-3);
+  border-top: 1px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+.pv-table th {
+  color: var(--muted);
+  font-weight: 600;
+}
+.pv-list {
+  margin: 0;
+  padding-left: var(--space-4);
+}
+.pv-sub,
+.pv-note {
+  color: var(--muted);
+  font-size: var(--text-xs);
+}
+.pv-note {
+  max-width: 74ch;
+  margin: var(--space-2) 0;
+}
+.pv-dl {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0 0 var(--space-2);
+}
+.pv-dl > div {
+  display: grid;
+  grid-template-columns: minmax(0, 11rem) minmax(0, 1fr);
+  gap: var(--space-3);
+}
+.pv-dl dt {
+  color: var(--muted);
+  font-size: var(--text-sm);
+}
+.pv-dl dd {
+  margin: 0;
+}
+.pv-hg-error {
+  max-width: 62ch;
+  margin: 0 0 var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--danger);
+  border-left-width: 4px;
+  border-radius: var(--radius);
+  background: var(--panel);
+}
+.pv-hg-error p {
+  margin: 0 0 var(--space-3);
+}
+.pv-hg-open {
+  display: inline-block;
+  margin-top: var(--space-2);
+}
+@media (max-width: 700px) {
+  /* The table becomes one card per membership; no sideways scroll. */
+  .pv-table caption {
+    display: block;
+  }
+  .pv-table thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+  .pv-table,
+  .pv-table tbody,
+  .pv-table tr,
+  .pv-table td {
+    display: block;
+  }
+  .pv-table tr {
+    border-top: 1px solid var(--line);
+    padding: var(--space-2) 0;
+  }
+  .pv-table td {
+    border-top: 0;
+    padding: 2px var(--space-3);
+  }
+  .pv-table td::before {
+    content: attr(data-label);
+    display: block;
+    color: var(--muted);
+    font-size: var(--text-xs);
+  }
+  .pv-dl > div {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+  }
+}
+/* The "People in HEP Graph" section of a collaboration or experiment panel. */
+.hg-people-list {
+  margin: var(--space-2) 0;
+  padding: 0;
+  list-style: none;
+}
+.hg-people-list li {
+  padding: 2px 0;
+  font-size: var(--text-sm);
+}
+.hg-people-note {
+  margin: var(--space-2) 0;
+  color: var(--muted);
+  font-size: var(--text-xs);
+  line-height: var(--leading-body);
+}
+a.hg-people-link {
+  display: inline-block;
+  margin: var(--space-1) 0;
+  font-weight: 650;
+  text-decoration: underline;
+}
+
 /* -------------------------------------------------------------- beam section */
 .bs-lede {
   max-width: 74ch;

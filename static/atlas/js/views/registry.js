@@ -53,6 +53,7 @@
 //     and its numbers in a table.
 
 import { VIEW_NAME, WORKING_TITLE, beamSearchEntries, parseArg } from './beam-rows.js';
+import { PERSON_VIEW, PERSON_VIEW_TITLE } from '../hepgraph.js';
 
 export const VIEWS = {
   [VIEW_NAME]: {
@@ -64,6 +65,13 @@ export const VIEWS = {
       return beamline ? { route: { type: 'beamline', slug: parsed.slug }, label: `Back to ${beamline.name}` } : null;
     },
     searchEntries: beamSearchEntries,
+  },
+  // `#/view/person/<inspire-author-id>`: where the Atlas places one HEP Graph researcher.
+  // No search entries: people are never in the search box (ontology A14); the route is
+  // reached from HEP Graph's person panel and from the collaboration and experiment panels.
+  [PERSON_VIEW]: {
+    title: PERSON_VIEW_TITLE,
+    load: () => import('./person.js'),
   },
 };
 

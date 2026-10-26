@@ -14,6 +14,9 @@ import {
 } from './views/beam-rows.js';
 import { quoteView, readableText, readableView } from './tex.js';
 import { facilityPrintAction } from './export.js';
+import {
+  HEP_GRAPH_SEARCH_URL, authorIdOf, hepGraphPersonUrl, personViewRoute, rosterPeople,
+} from './hepgraph.js';
 
 let ATLAS = null;
 let INDEX = null;
@@ -703,6 +706,54 @@ function siteDistances(sites, beamlines) {
   ]);
 }
 
+// ---------------------------------------------------- people in HEP Graph (M6)
+// "People in HEP Graph →" on a collaboration or experiment. HEP Graph's front end takes
+// only person ids (`?source=`, `?target=`) and filters: it has no query for a
+// collaboration, an experiment or a name, and no endpoint lists a collaboration's people
+// (docs/atlas-worklog/HEPGRAPH_ATLAS.md). So the link opens its person search, and says so;
+// the people the Atlas itself has matched to INSPIRE author ids are listed beneath it,
+// each with a link to HEP Graph and to the Atlas's own page for them. Partial, and said.
+async function peopleInHepGraph(collaborationIds) {
+  const people = new Map();
+  let failure = null;
+  try {
+    const scans = await Promise.all(collaborationIds.map((cid) => rosterPeople(cid)));
+    for (const { rows } of scans) {
+      for (const row of rows) {
+        const authorId = authorIdOf(row.id);
+        if (authorId && !people.has(authorId)) people.set(authorId, row.name || `INSPIRE author ${authorId}`);
+      }
+    }
+  } catch (error) {
+    failure = error;
+  }
+  const nodes = [
+    h('a', { class: 'hg-people-link', href: HEP_GRAPH_SEARCH_URL, target: '_blank', rel: 'noopener' }, 'People in HEP Graph \u2192'),
+    h('p', { class: 'hg-people-note' }, 'HEP Graph cannot list the members of a collaboration or an experiment: it is searched by a '
+      + 'person\u2019s name and has no collaboration query. This link opens its person search; it is not filtered.'),
+  ];
+  if (failure) {
+    nodes.push(h('p', { class: 'hg-people-note hg-people-failed', role: 'alert' },
+      `The Atlas\u2019s own people records could not be read (${failure.message}), so which people it has matched to INSPIRE `
+      + 'author records is unknown here \u2014 not none.'));
+  } else if (people.size) {
+    nodes.push(
+      h('p', { class: 'hg-people-note' }, `The Atlas has matched ${people.size} named ${people.size === 1 ? 'person' : 'people'} to `
+        + 'INSPIRE author records. Its rosters are partial, so this is not the author list.'),
+      h('ul', { class: 'hg-people-list' }, [...people].map(([authorId, name]) => h('li', {}, [
+        `${name} \u00b7 `,
+        linkTo(personViewRoute(authorId), 'on the Atlas'),
+        ' \u00b7 ',
+        h('a', { href: hepGraphPersonUrl(authorId), target: '_blank', rel: 'noopener', class: 'hep-graph-link' }, 'in HEP Graph'),
+      ]))),
+    );
+  } else {
+    nodes.push(h('p', { class: 'hg-people-note' }, 'The Atlas has not matched any named member of the collaboration to an INSPIRE author '
+      + 'record yet. Its rosters are partial, so that says nothing about whether it has members.'));
+  }
+  return nodes;
+}
+
 // ---------------------------------------------------------------- experiment
 async function renderExperiment(id, timelineState) {
   const exp = ATLAS.experiments[id];
@@ -809,6 +860,10 @@ async function renderExperiment(id, timelineState) {
     ['Successors', lineageList(successors)],
     ['Related programs', lineageList(others)],
   ], { open: false, optional: ['Related programs'] });
+
+  if (collabs.length) {
+    sections.add('In HEP Graph', await peopleInHepGraph(collabs.map((c) => c.id)), { open: false });
+  }
 
   // The local maps of the facility it runs at (every one of them).
   const mapSection = await localMapLinks(exp);
@@ -921,6 +976,8 @@ async function renderCollaboration(id, timelineState) {
       if (typeof row.source_index === 'number') membershipMembers[row.source_index] = row;
     }
   }
+
+  sections.add('In HEP Graph', await peopleInHepGraph([id]), { open: false });
 
   sections.note();
   frag.appendChild(sourcesDisclosure(id, collab, { membershipMembers }));
