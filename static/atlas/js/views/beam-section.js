@@ -207,7 +207,7 @@ function drawSection(model, status, width, minHeight = 0) {
       // On a phone the open sky is too narrow for a second bar and its label (they would run into
       // the surface); the stretch is in the heading and every depth is written beside its mark.
       compact ? null : s('path', { class: 'bs-scale-line', d: `M${bx} ${by + 34} v${f(vBarKm * ky, 1)} M${bx - 4} ${by + 34} h8 M${bx - 4} ${f(by + 34 + vBarKm * ky, 1)} h8` }),
-      compact ? null : s('text', { class: 'bs-t', x: bx + 9, y: by + 34 + Math.max(14, (vBarKm * ky) / 2 + 4) }, `${vBarKm < 1 ? `${vBarKm * 1000} m` : `${vBarKm} km`} depth (×${V})`),
+      compact ? null : s('text', { class: 'bs-t', x: bx + 9, y: by + 34 + Math.max(14, (vBarKm * ky) / 2 + 4) }, `${vBarKm < 1 ? `${vBarKm * 1000} m` : `${vBarKm} km`} (×${V})`),
     ]),
   );
 
