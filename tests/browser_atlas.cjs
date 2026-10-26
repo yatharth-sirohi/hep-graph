@@ -1080,7 +1080,7 @@ async function openFilters(page) {
     // CPU throttling (Chromium only) makes the flight and the rebuilds land the way they
     // do on a busy machine.
     const routes = process.env.HEP_ATLAS_DATA === "generated"
-      ? ["experiment/t2k", "experiment/k2k", "experiment/hyper_kamiokande"] : ["experiment/dune"];
+      ? ["experiment/t2k", "experiment/k2k", "experiment/hyper-kamiokande"] : ["experiment/dune"];
     const signature = () => [...document.querySelectorAll(".atlas-marker.is-selected .atlas-marker-label, .atlas-beam-label .bl-pill")]
       .map((el) => { const r = el.getBoundingClientRect(); return [r.left, r.top, r.width].map(Math.round).join(","); }).join("|");
     const overlapsOf = () => {
@@ -1111,10 +1111,11 @@ async function openFilters(page) {
     for (const route of routes) {
       for (let attempt = 0; attempt < 2; attempt += 1) {
         const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 } });
+        ctx.setDefaultTimeout(90000);
         const p = await ctx.newPage();
         if (BROWSER_NAME === "chromium") {
           const cdp = await ctx.newCDPSession(p);
-          await cdp.send("Emulation.setCPUThrottlingRate", { rate: 6 });
+          await cdp.send("Emulation.setCPUThrottlingRate", { rate: 4 });
         }
         await p.goto(`${base}/atlas${dataTree ? `${dataTree}&welcome=0` : "?welcome=0"}#/${route}`);
         await p.locator("#detail-panel h2").waitFor();

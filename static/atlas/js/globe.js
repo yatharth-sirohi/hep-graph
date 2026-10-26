@@ -1319,7 +1319,9 @@ export function createGlobe(container, {
           route: { type: 'institution', slug: member.institution_id.split(':')[1] },
           size: 9,
           shape: 'circle',
-          color: cssToken('--amber', '#f2b441'),
+          // An institution has its own hue (atlas.css --institution); amber is the
+          // cluster badges' and the selection's.
+          color: cssToken('--institution', '#a3b0ff'),
           hollow,
           tier: 'institution',
         });
@@ -1336,7 +1338,7 @@ export function createGlobe(container, {
             startLng: hostCoords.lon,
             endLat: entry.lat,
             endLng: entry.lon,
-            color: [withAlpha(cssToken('--amber', '#f2b441'), 0.55), withAlpha(cssToken('--amber', '#f2b441'), 0.05)],
+            color: [withAlpha(cssToken('--institution', '#a3b0ff'), 0.55), withAlpha(cssToken('--institution', '#a3b0ff'), 0.05)],
             stroke: 0.25,
             label: `${member.name} ↔ collaboration host`,
           });
@@ -1362,7 +1364,7 @@ export function createGlobe(container, {
             startLng: hostCoords.lon,
             endLat: entry.lat,
             endLng: entry.lon,
-            color: [withAlpha(cssToken('--amber', '#f2b441'), 0.55), withAlpha(cssToken('--amber', '#f2b441'), 0.05)],
+            color: [withAlpha(cssToken('--institution', '#a3b0ff'), 0.55), withAlpha(cssToken('--institution', '#a3b0ff'), 0.05)],
             stroke: 0.25,
             label: `${entry.items.length} institutions ↔ collaboration host`,
           });
