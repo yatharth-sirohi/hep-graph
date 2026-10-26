@@ -11,6 +11,10 @@ const TYPE_PREFIX = {
   // `#/map/<facility-slug>` is a route like any other, so back/forward, the
   // search box and a pasted link all reach it through the same code path.
   map: 'map',
+  // ---- views (js/views/registry.js) ----
+  // `#/view/<name>/<arg>` (the beam section: `#/view/beam-section/lbnf~1`). The slug is
+  // `<name>/<arg>`, so it keeps its own slash; the route is otherwise like any other.
+  view: 'view',
 };
 
 // ---- Results list (modes.js) ------------------------------------------------

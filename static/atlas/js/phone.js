@@ -272,19 +272,23 @@ let lastMapRoute = null;
 function syncRoute() {
   if (!active || !headerButtons) return;
   const isMap = els.main.classList.contains('is-map-route');
+  // A view (js/views/) has no filters, layers or sheets: its own frame carries a back
+  // control, so the header buttons step aside there as well.
+  const isView = els.main.classList.contains('is-view-route');
   document.body.classList.toggle('phone-map', isMap);
-  headerButtons.filters.hidden = isMap;
+  headerButtons.filters.hidden = isMap || isView;
   headerButtons.back.hidden = !isMap;
   headerButtons.layers.hidden = !isMap;
-  if (isMap !== lastMapRoute) {
+  const offGlobe = isMap || isView;
+  if (offGlobe !== lastMapRoute) {
     // A route change starts with every toggled sheet shut.
     closeToggled(SHEETS.filters, false);
     closeToggled(SHEETS.layers, false);
     // The globe stage is display:none on a map route, and any resize event
     // fired meanwhile (a sheet opening, the phone rotating) made globe.js
     // measure it as 0 x 0. Measure it again now that it is back.
-    if (lastMapRoute && !isMap) window.requestAnimationFrame(() => window.dispatchEvent(new Event('resize')));
-    lastMapRoute = isMap;
+    if (lastMapRoute && !offGlobe) window.requestAnimationFrame(() => window.dispatchEvent(new Event('resize')));
+    lastMapRoute = offGlobe;
   }
   attachMapSheets();
 }
@@ -446,7 +450,7 @@ function overlap(a, b) {
 }
 
 function declutter() {
-  if (!active || els.main.classList.contains('is-map-route')) return;
+  if (!active || els.main.classList.contains('is-map-route') || els.main.classList.contains('is-view-route')) return;
   const stage = document.getElementById('globe-stage');
   if (!stage) return;
   const box = stage.getBoundingClientRect();

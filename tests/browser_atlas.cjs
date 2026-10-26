@@ -2837,6 +2837,166 @@ async function openFilters(page) {
     await footerContext.close();
   });
 
+  // ---- views: "Beam through the Earth" (static/atlas/js/views/) -- begin ----------
+  // The route `#/view/beam-section/<beamline>[~<row>]` draws a cross-section of the
+  // Earth along a sourced baseline. These run against either data tree: both carry the
+  // LBNF baseline (Fermilab to SURF), whose computed dip is 5.8 degrees.
+  const viewURL = (hash, query = "") => `${base}/atlas${dataTree}${dataTree ? query.replace(/^\?/, "&") : query}${hash}`;
+  const viewContext = async (options = {}) => {
+    const ctx = await browser.newContext({ viewport: { width: 1280, height: 900 }, reducedMotion: "reduce", ...options });
+    ctx.on("page", (p) => p.on("pageerror", (e) => errors.push(`beam section: ${e.message}`)));
+    ctx.on("page", (p) => p.on("console", (msg) => {
+      if (msg.type() === "error") errors.push(`beam section console.error: ${msg.text()}`);
+    }));
+    const p = await ctx.newPage();
+    p.setDefaultTimeout(30000);
+    return { ctx, p };
+  };
+
+  await record("Beam through the Earth: DUNE's section renders, its computed dip is 5.8 degrees, and its numbers are in a table", async () => {
+    const { ctx, p } = await viewContext();
+    await p.goto(viewURL("#/view/beam-section/lbnf"));
+    await p.locator(".bs-fig-a svg.bs-svg").waitFor();
+    await p.locator(".bs-fig-b svg.bs-svg").waitFor();
+    // The computed dip, within 0.1 degree of 5.8.
+    const dip = parseFloat(await p.locator(".bs-stat-value").first().innerText());
+    assert.ok(Math.abs(dip - 5.8) <= 0.1, `expected a dip of 5.8 degrees, got ${dip}`);
+    const deepest = parseFloat(await p.locator(".bs-stat-value").nth(1).innerText());
+    assert.ok(Math.abs(deepest - 32.4) <= 1, `expected about 32 km at mid-chord, got ${deepest}`);
+    // Every SVG names itself and says what it shows; the stretch is stated in the figure.
+    const svgs = await p.evaluate(() => [...document.querySelectorAll("#view-host svg.bs-svg")].map((svg) => ({
+      role: svg.getAttribute("role"), title: !!svg.querySelector("title")?.textContent, desc: !!svg.querySelector("desc")?.textContent,
+      labelled: !!svg.getAttribute("aria-labelledby"), text: svg.textContent,
+    })));
+    assert.ok(svgs.length >= 2);
+    for (const svg of svgs) assert.deepEqual([svg.role, svg.title, svg.desc, svg.labelled], ["img", true, true, true]);
+    assert.match(svgs[0].text, /vertical ×20/, "the vertical stretch is written in the figure");
+    // The same numbers, with formulas and uncertainty, in a table.
+    const table = await p.locator("table.bs-table").first().innerText();
+    assert.match(table, /5\.79°/);
+    assert.match(table, /R · Δσ/);
+    assert.match(table, /Earth radius 6357–6378 km/);
+    assert.equal(await p.locator("table.bs-table caption").first().isVisible(), true);
+    // "Inputs and method": a disclosure, shut at first, with the radius and the formulas.
+    const method = p.locator("#view-method");
+    assert.equal(await method.evaluate((el) => el.open), false);
+    await p.locator("#view-method > summary").click();
+    const methodText = await method.innerText();
+    assert.match(methodText, /6371\.0 km/);
+    assert.match(methodText, /0\.3 %/);
+    assert.match(methodText, /sin\(Δσ\/2\)/);
+    // Reduced motion: no flow overlay is displayed.
+    assert.equal(await p.evaluate(() => [...document.querySelectorAll(".bs-flow")].every((el) => getComputedStyle(el).display === "none")), true);
+    if (process.env.HEP_ATLAS_DATA === "generated") {
+      // Under construction: dashed and labelled; the sourced baseline appears beside the computed distance, cited.
+      assert.equal(await p.locator(".bs-beam.is-dashed").count(), 1);
+      assert.match(await p.locator(".bs-fig-a svg.bs-svg").first().textContent(), /under construction/);
+      await p.locator("#bs-cite-baseline .claim-group").first().waitFor();
+      assert.match(await p.locator(".bs-compare").innerText(), /1285 km/);
+      assert.match(await p.locator("#bs-cite-baseline").innerText(), /1285 km from the neutrino production target/);
+    }
+    await p.screenshot({ path: path.join(output, "beam-section-desktop.png"), fullPage: true });
+    await ctx.close();
+  });
+
+  await record("Beam through the Earth: reached from the beamline and experiment panels, search and a pasted link; Back, Escape, history and the year behave", async () => {
+    const { ctx, p } = await viewContext();
+    await p.goto(viewURL("#/beamline/lbnf"));
+    const cta = p.locator("#detail-panel .beam-section-link").first();
+    await cta.waitFor();
+    assert.match(await cta.innerText(), /Beam through the Earth/);
+    await cta.click();
+    await p.locator("#view-host:not(.hidden) svg.bs-svg").first().waitFor();
+    assert.match(p.url(), /#\/view\/beam-section\/lbnf$/);
+    assert.equal(await p.locator("#detail-panel").isHidden(), true, "the record panel steps aside");
+    assert.equal(await p.locator("#view-title").innerText(), "Beam through the Earth");
+    // The browser's Back returns to the beamline and Forward to the view.
+    await p.goBack();
+    await p.locator("#detail-panel h2").waitFor();
+    assert.match(p.url(), /#\/beamline\/lbnf$/);
+    await p.goForward();
+    await p.locator("#view-host:not(.hidden) svg.bs-svg").first().waitFor();
+    // The back control and Escape both return to where the reader came from.
+    await p.locator("#view-back").click();
+    await p.locator("#detail-panel h2").waitFor();
+    assert.match(p.url(), /#\/beamline\/lbnf$/);
+    await p.locator("#detail-panel .beam-section-link").first().click();
+    await p.locator("#view-host:not(.hidden) svg.bs-svg").first().waitFor();
+    await p.keyboard.press("Escape");
+    await p.locator("#detail-panel h2").waitFor();
+    assert.match(p.url(), /#\/beamline\/lbnf$/);
+    // The experiment panel carries a link per baseline row.
+    await p.goto(viewURL("#/experiment/dune"));
+    await p.locator("#detail-panel .beam-section-links a").first().waitFor();
+    assert.match(await p.locator("#detail-panel .beam-section-links").innerText(), /Beam through the Earth/);
+    // The search box reaches it: "DUNE beam" and "beam through the earth".
+    for (const query of ["DUNE beam", "beam through the earth"]) {
+      await p.locator("#atlas-search").fill(query);
+      await p.locator(".search-result").first().waitFor();
+      assert.match(await p.locator(".search-result").first().innerText(), /Beam through the Earth/, `"${query}" must lead to the view`);
+    }
+    await p.locator("#atlas-search").fill("DUNE beam");
+    await p.locator(".search-result.is-active").waitFor();
+    await p.locator("#atlas-search").press("Enter");
+    await p.locator("#view-host:not(.hidden) svg.bs-svg").first().waitFor();
+    assert.match(p.url(), /#\/view\/beam-section\/lbnf$/);
+    // A pasted link with the year query keeps the year; an unknown row is an error, not a default figure.
+    await p.goto(viewURL("#/view/beam-section/lbnf", "?y=1999"));
+    await p.locator(".bs-fig-a svg.bs-svg").waitFor();
+    assert.match(p.url(), /y=1999/);
+    if (process.env.HEP_ATLAS_DATA === "generated") {
+      assert.match(await p.locator("#bs-status").innerText(), /Not yet built in 1999/);
+    }
+    await p.goto(viewURL("#/view/beam-section/lbnf~7"));
+    await p.locator(".view-error").waitFor();
+    assert.equal(await p.locator(".view-error").getAttribute("role"), "alert");
+    assert.equal(await p.locator("svg.bs-svg").count(), 0, "an error draws no figure");
+    await ctx.close();
+  });
+
+  await record("Beam through the Earth: the globe's cold load fetches no view code; the route fetches it then (P1-2 pattern)", async () => {
+    const { ctx, p } = await viewContext();
+    const requested = [];
+    await ctx.route("**/*", (route) => { requested.push(route.request().url()); route.continue(); });
+    await p.goto(viewURL(""), { waitUntil: "domcontentloaded" });
+    await p.waitForFunction(() => document.querySelectorAll(".atlas-marker").length > 0 || document.querySelector(".fallback-notice"), { timeout: 30000 });
+    await p.waitForTimeout(800);
+    // (beam-rows.js and beam-geometry.js are the few KB of arithmetic the record panels use for their links;
+    // the figure's own module, beam-section.js, is what must wait for the route.)
+    const viewCode = (list) => list.filter((url) => /\/js\/views\/beam-section\.js/.test(url));
+    assert.deepEqual(viewCode(requested), [], "opening the globe must not load the view's module");
+    const before = requested.length;
+    await p.evaluate(() => { window.location.hash = "#/view/beam-section/lbnf"; });
+    await p.locator(".bs-fig-a svg.bs-svg").waitFor();
+    assert.ok(viewCode(requested.slice(before)).some((url) => url.includes("beam-section.js")), "the module is fetched when the route opens");
+    await ctx.close();
+  });
+
+  await record("Beam through the Earth on a phone: no sideways scroll, a 44 px back control, the section fits the screen", async () => {
+    const { ctx, p } = await viewContext({ viewport: { width: 390, height: 844 }, ...MOBILE });
+    await p.goto(viewURL("#/view/beam-section/lbnf"));
+    await p.locator(".bs-fig-a svg.bs-svg").waitFor();
+    await p.locator(".bs-fig-b svg.bs-svg").waitFor();
+    await p.waitForTimeout(400);
+    const box = await p.evaluate(() => {
+      const host = document.getElementById("view-host");
+      const svg = document.querySelector(".bs-fig-a svg.bs-svg").getBoundingClientRect();
+      return {
+        pageOverflow: document.documentElement.scrollWidth > window.innerWidth,
+        hostOverflow: host.scrollWidth > host.clientWidth + 1,
+        back: document.getElementById("view-back").getBoundingClientRect().height,
+        svgRight: svg.right, innerWidth: window.innerWidth,
+      };
+    });
+    assert.equal(box.pageOverflow, false, "no sideways scroll on the page");
+    assert.equal(box.hostOverflow, false, "no sideways scroll in the view");
+    assert.ok(box.back >= 44, "the back control is a 44 px target");
+    assert.ok(box.svgRight <= box.innerWidth, "the section fits the width of the phone");
+    await p.screenshot({ path: path.join(output, "beam-section-mobile.png") });
+    await ctx.close();
+  });
+  // ---- views -- end ---------------------------------------------------------------
+
   await record("about.html loads with live coverage counts read from the current data tree, and 0 console errors", async () => {
     const freshContext = await browser.newContext({ viewport: { width: 1280, height: 900 } });
     const freshErrors = [];

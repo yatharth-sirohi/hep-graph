@@ -14,6 +14,8 @@ import * as filtersModule from './filters.js';
 import * as localmap from './localmap.js';
 import { createChrome } from './chrome.js';
 import * as startModule from './start.js';
+import { createViewHost } from './views/host.js';
+import { viewSearchEntries } from './views/registry.js';
 import { buildIndex, topicMarkerIds } from './model.js';
 import { facilityKeyEntries } from './globeicons.js';
 
@@ -226,6 +228,11 @@ async function main() {
     el: els.detailPanel, atlas, index, navigate: state.navigate, focusGlobe, viewOnGlobe,
   });
 
+  // The views' frame (js/views/host.js): mounted lazily, only when a `#/view/...` route opens.
+  const views = createViewHost({
+    main: document.getElementById('atlas-main'), atlas, index, loader, navigate: state.navigate,
+  });
+
   modes.init({
     container: els.modePanel,
     atlas,
@@ -236,10 +243,12 @@ async function main() {
     setTimelineYear: (year) => timeline.setYear(year),
   });
 
+  // Views (js/views/registry.js) add their own rows, so "beam through the Earth" and
+  // "DUNE beam" reach the beam section without the build knowing about views.
   search.init({
     inputEl: els.searchInput,
     listEl: els.searchResults,
-    entries: searchEntries,
+    entries: [...searchEntries, ...viewSearchEntries(atlas)],
     navigate: state.navigate,
     // Experiments, facilities and results are also found through the research
     // topic they are filed under (search "Higgs", reach ATLAS, CMS and CERN).
@@ -311,7 +320,9 @@ async function main() {
   document.addEventListener('keydown', (event) => {
     if (event.key !== 'Escape') return;
     const current = state.get();
-    if (current.entity) {
+    if (current.entity && current.entity.type === 'view') {
+      views.back();
+    } else if (current.entity) {
       state.navigate({ entity: null });
     } else if (current.mode && current.mode !== 'collab') {
       state.navigate({ mode: null });
@@ -411,7 +422,7 @@ async function main() {
     // (a no-op while it is unchanged). In collaboration mode setCollaboration()
     // below owns the camera, so only the highlight is applied.
     if (globeApi) {
-      const entity = current.entity && current.entity.type !== 'map'
+      const entity = current.entity && current.entity.type !== 'map' && current.entity.type !== 'view'
         ? `${current.entity.type}:${current.entity.slug}` : null;
       const cameraOwnedByCollaboration = current.mode === 'collab'
         && !!current.entity && current.entity.type === 'collaboration';
@@ -467,6 +478,33 @@ async function main() {
       els.arcsAutoOffNote.classList.add('hidden');
       els.arcsAutoOffNote.textContent = '';
     }
+
+    // ---- views (js/views/) -- begin ---------------------------------------
+    // `#/view/<name>/<arg>` takes over #atlas-main the way the local map does: the
+    // globe stage, the lists and the record panel step aside and the view's frame
+    // (views/host.js) holds the whole stage. A view loads its module only now.
+    const viewRoute = current.entity && current.entity.type === 'view' ? current.entity : null;
+    const mainEl = document.getElementById('atlas-main');
+    mainEl.classList.toggle('is-view-route', !!viewRoute);
+    document.body.classList.toggle('is-view-route', !!viewRoute);
+    if (viewRoute) {
+      mainEl.classList.remove('is-map-route');
+      document.body.classList.remove('is-map-route');
+      chrome.closeAll();
+      modes.show(null);
+      els.detailPanel.classList.add('hidden');
+      els.detailPanel.innerHTML = '';
+      if (localmap.isOpen()) {
+        localmap.hide();
+        panels.init({
+          el: els.detailPanel, atlas, index, navigate: state.navigate, focusGlobe, viewOnGlobe,
+        });
+      }
+      await views.show(current);
+      return;
+    }
+    views.hide(current);
+    // ---- views -- end -----------------------------------------------------
 
     if (current.mode && current.mode !== 'collab') {
       modes.show(current.mode, current);
