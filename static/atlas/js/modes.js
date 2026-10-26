@@ -428,8 +428,16 @@ function renderResultsMode() {
     ]),
   );
   updateControlsSummary();
+  // The same results, drawn by year and physics question (js/views/results-story.js).
+  const storyLink = h('a', { href: '#/view/results-story', class: 'results-story-link' }, 'See the results as a story');
+  storyLink.addEventListener('click', (event) => {
+    if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    event.preventDefault();
+    ctx.navigate({ entity: { type: 'view', slug: 'results-story' }, mode: null });
+  });
   return h('div', { class: 'mode-body' }, [
     h('h2', {}, 'Results'),
+    h('p', { class: 'mode-hint' }, storyLink),
     countEl,
     controls,
     exportBar({

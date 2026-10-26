@@ -60,6 +60,7 @@ class Atlas:
     memberships: dict[str, dict] = field(default_factory=dict)
     coverage: list[dict] = field(default_factory=list)
     glossary: list[dict] = field(default_factory=list)
+    limits: dict[str, dict] = field(default_factory=dict)   # A29: curve slug -> file
     files: dict[str, str] = field(default_factory=dict)
     membership_files: dict[str, str] = field(default_factory=dict)
     problems: list[LoadProblem] = field(default_factory=list)
@@ -155,6 +156,8 @@ def load_atlas(root: Path | str = DATA_DIR) -> Atlas:
             _load_coverage(atlas, path, payload)
         elif directory == 'glossary':
             _load_glossary(atlas, path, payload)
+        elif directory == 'limits':
+            _load_limit(atlas, path, payload)
         elif directory == 'topics':
             _load_topics(atlas, path, payload)
         elif directory in schema.DIR_TO_TYPE:
@@ -427,6 +430,19 @@ def _load_glossary(atlas: Atlas, path: Path, payload: Any) -> None:
         seen.add(term_id)
         atlas.glossary.append({**row, '_file': atlas.relative(path)})
     atlas.glossary.sort(key=lambda row: row['id'])
+def _load_limit(atlas: Atlas, path: Path, payload: Any) -> None:
+    """A29: one file per published limit curve (or published minimum), keyed by slug."""
+    if not isinstance(payload, dict):
+        atlas.problem(path, 'limit file must contain one JSON object')
+        return
+    slug = payload.get('slug')
+    if not isinstance(slug, str) or path.stem != slug:
+        atlas.problem(path, f'"slug" must equal the file name ({path.stem!r}), got {slug!r}')
+        return
+    if slug in atlas.limits:
+        atlas.problem(path, f'duplicate limit slug {slug!r}')
+        return
+    atlas.limits[slug] = payload
 
 
 def _load_coverage(atlas: Atlas, path: Path, payload: Any) -> None:

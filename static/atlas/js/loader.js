@@ -215,6 +215,17 @@ export async function getGeometry(bundlePath) {
   return fetchJSON(bundlePath);
 }
 
+/** One exclusion plot's bundle (`limits/<plot>.json`, A29): its axes and every curve and
+ * published minimum drawn on it. A plot the build did not write is an error with a message
+ * a reader can act on, never an empty plot: a missing curve must not read as "no limits". */
+export async function getLimits(plot) {
+  const bundlePath = `limits/${plot}.json`;
+  if (!(await isBundleListed(bundlePath))) {
+    throw new Error(`the Atlas data has no exclusion plot called \u201c${plot}\u201d`);
+  }
+  return fetchJSON(bundlePath);
+}
+
 export async function getSearchEntries() {
   const raw = await fetchJSON('search.json');
   const entries = Array.isArray(raw) ? raw : (raw.entries || []);

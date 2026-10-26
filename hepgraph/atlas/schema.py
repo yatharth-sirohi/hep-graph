@@ -61,7 +61,7 @@ DIR_TO_TYPE: dict[str, str] = {v: k for k, v in ENTITY_DIRS.items()}
 ENTITY_TYPES: tuple[str, ...] = tuple(ENTITY_DIRS)
 # Directories that hold non-entity files (keyed by collaboration / workstream).
 # `glossary/` holds lists of plain-language term definitions (see GLOSSARY_*).
-AUXILIARY_DIRS: tuple[str, ...] = ('memberships', 'coverage', 'glossary')
+AUXILIARY_DIRS: tuple[str, ...] = ('memberships', 'coverage', 'glossary', 'limits')
 
 # The glossary the panels' popovers read (docs/HEP_ATLAS_BUNDLES.md `glossary.json`).
 # Each term is a sourced definition: a short plain-language `definition`, the
@@ -345,6 +345,21 @@ RESULT_CLAIM_KEYWORDS: dict[str, str] = {
 RESULT_DATE_KINDS: tuple[str, ...] = ('announcement', 'preprint', 'publication')  # A16
 # A12: results that are allowed to predate their experiment's operation.
 MILESTONE_RESULT_TYPES: frozenset[str] = frozenset({'technology_milestone'})
+
+# A29: the exclusion plots ("limits/<plot>.json" bundles, `data/atlas/limits/<slug>.json`
+# sources).  A plot fixes the units of every curve drawn on it; a curve file that
+# declares others is a validator error, so a plotted point is always in the unit the
+# axis says.
+LIMIT_PLOTS: dict[str, dict[str, str]] = {
+    'wimp-si': {
+        'title': 'Spin-independent WIMP\u2013nucleon cross section: published 90% CL upper limits',
+        'x_label': 'WIMP mass', 'x_unit': 'GeV/c^2',
+        'y_label': 'Spin-independent WIMP\u2013nucleon cross section', 'y_unit': 'cm^2',
+    },
+}
+LIMIT_KINDS: tuple[str, ...] = ('limit_curve', 'limit_marker')
+# A thinned curve says so; above this many points a curve must be thinned (A29).
+LIMIT_MAX_POINTS = 300
 
 DOC_TYPES: tuple[str, ...] = (
     'conceptual_design_report', 'technical_design_report', 'technical_proposal',

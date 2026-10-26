@@ -416,6 +416,51 @@ for a map, and `?y=<year>#/view/<name>/<arg>` for a view (the route `state.js`
 does not yet read; a view beats a map beats a selection). The counts in the
 manifest gain `tours`.
 
+**A29. Claim level on the results timeline, and published limit curves
+(2026-10-26).** (a) *Results.* The "Results as a story" view
+(`#/view/results-story`) encodes a result's strength in the form of its mark
+from `result_type` and from nothing else. `result_type` is a structured enum
+that A16 already checks against the claim's own wording for `discovery`,
+`observation`, `evidence` and `first_detection`. Observation-class results
+(`observation`, `discovery`, `first_detection`), `evidence` and `limit` each have
+a form; every other type (`measurement`, `precision_measurement`, `anomaly`,
+`technology_milestone`) has the neutral mark, because the record does not state
+a claim level for it. `significance` stays what §3.12 and A15 made it, a sourced
+string exactly as reported: the view prints it verbatim, never parses it, never
+uses it to choose a form, and where a record has none says "no significance
+recorded in the Atlas" (never that none exists). No new result field was needed:
+49 of the 109 results carry a sourced `significance` value, quoted from the
+abstract or the main text, and 39 more carry a sourced `significance` block with
+a null value and a note (why none applies or none was found); the rest have no
+block. The conventional 3σ ("evidence") and 5σ ("observation")
+thresholds are explained on the page, but a mark follows the paper's wording,
+not the number (a Galactic-plane "observation" is 4.5σ). (b) *Limits.* New
+auxiliary directory `data/atlas/limits/`, one small file per published limit
+curve or published minimum, `type: limit_curve | limit_marker`, `slug` equal
+to the file name, `plot` (a key of `schema.LIMIT_PLOTS`; the first is `wimp-si`,
+spin-independent WIMP-nucleon cross section against WIMP mass, GeV/c^2 and
+cm^2), `label`, `experiment_id`, `result_id` (or null), `confidence_level`,
+`columns.{x,y}` (the exact HEPData column names and the units), and for a
+curve `hepdata` (`record_url`, `recid`, `inspire_id`, `version`, `doi`,
+`table`, `table_doi`, `table_url`, `license: CC0`, `retrieved`, `table_sha256`,
+`rows`), `paper` (arXiv id, DOI), `points` (`[x, y]` pairs, x increasing),
+`thinned` and `units_check`. HEPData is CC0 and is not INSPIRE: the Atlas may
+fetch it, and records the table's hash so the copy can be checked against the
+record. HEPData column headers carry no units; the units are justified by the
+`units_check`, the number the abstract quotes (verbatim, with locator) equalling
+the table value at the lowest point of the plotted column. A curve over 300
+points is thinned and says so (`thinned: true`, `hepdata.rows` the table's own
+count) and the page states it. Where a paper has no HEPData table, a
+`limit_marker` draws only the one number its abstract publishes: `hepdata: null`
+with a `hepdata_note`, a `point`, the verbatim `quote` (which must contain
+`value_as_written` and `mass_as_written`), its `locator` and `sources`. The
+validator (`check_limits`, errors only) requires the HEPData record URL, table,
+DOIs, columns and licence; every point to be `[x, y]` with both finite numbers
+greater than 0 and x increasing; the units to be the plot's; the units check to
+match the curve's lowest point; the references (experiment, result, sources) to
+exist. `build` writes `limits/<plot>.json` (lazy, listed in the manifest);
+`Atlas.counts()` does not count them.
+
 **A30. Accelerator chains (2026-10-26).** `accelerator.feeds_accelerator_ids[]`
 entries are id strings or A9 objects `{id, start?, end?, sources, quote, locator,
 confidence, verified_at, note}`; a link without dates holds for hull(A) ∩ hull(B).

@@ -69,7 +69,9 @@ def test_route_types_match_state_js() -> None:
     source = (ROOT / 'static' / 'atlas' / 'js' / 'state.js').read_text(encoding='utf-8')
     block = re.search(r'const TYPE_PREFIX = \{(.*?)\n\};', source, re.S).group(1)
     names = set(re.findall(r'\b([a-z]+):\s*\'[a-z]+\'', block))
-    assert names == set(T.ROUTABLE_TYPES)
+    # `view` and `tour` routes are not entities a step can select: a step reaches a
+    # view through its own `view` field, and a tour is what the player plays.
+    assert names - {'view', 'tour'} == set(T.ROUTABLE_TYPES)
 
 
 # -- the validator can fail -------------------------------------------------------

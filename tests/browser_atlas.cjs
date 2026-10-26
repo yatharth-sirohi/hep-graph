@@ -3292,6 +3292,213 @@ async function openFilters(page) {
     await ctx.close();
   });
   // ---- HEP Graph x Atlas -- end -----------------------------------------------------
+  // ---- views: Results as a story (M4) -- begin -----------------------------------
+  // `#/view/results-story[/<topic>]`: every result of the Atlas as a mark at its date, in lanes by
+  // physics question. The form of a mark is the record's `result_type`; the significance is printed
+  // as written and never decides it. One check for the view (desktop and phone).
+  await record("Results as a story: lanes and marks match the real results, the form follows result_type and not the sigma, a mark opens its result and its paper, the year draws a band, a phone scrolls sideways", async () => {
+    const generated = process.env.HEP_ATLAS_DATA === "generated";
+    const { ctx, p } = await viewContext();
+    await p.goto(viewURL("#/view/results-story"));
+    await p.locator(".rs-mark, .view-error").first().waitFor();
+    if (!generated) {
+      // The fixture tree is a stand-in: the view either draws its marks or says why it cannot, never a blank.
+      assert.ok((await p.locator(".rs-mark").count()) > 0 || (await p.locator(".view-error").count()) > 0);
+      await ctx.close();
+      return;
+    }
+    assert.equal(await p.locator("#view-title").innerText(), "Results as a story");
+    // The contract against the real bundle: every result is drawn, and the shape of each is the one its result_type names.
+    const bundle = await p.evaluate(() => fetch("/atlas/generated/results.json").then((r) => r.json()));
+    const results = Object.values(bundle).filter((r) => r && r.type === "result");
+    const formOf = (r) => ({ observation: "observation", discovery: "observation", first_detection: "observation", evidence: "evidence", limit: "limit" }[r.result_type] || "neutral");
+    const dom = await p.evaluate(() => [...document.querySelectorAll(".rs-mark")].map((m) => ({
+      id: m.dataset.id, form: [...m.classList].find((c) => c.startsWith("rs-form-")).slice(8), label: m.getAttribute("aria-label"),
+    })));
+    assert.equal(new Set(dom.map((m) => m.id)).size, results.length, "every result of the Atlas has a mark");
+    for (const r of results) {
+      const mine = dom.filter((m) => m.id === r.id);
+      assert.ok(mine.length >= 1, `${r.id} is drawn`);
+      assert.ok(mine.every((m) => m.form === formOf(r)), `${r.id}: the mark is ${formOf(r)}, from result_type ${r.result_type}`);
+    }
+    // Never infer strength: a precision measurement that states 3.3 sigma keeps the neutral mark; an "observation" at 4.5 sigma keeps its own.
+    const g2 = dom.find((m) => m.id === "result:muon-g-2-measurement-2021");
+    assert.equal(g2.form, "neutral");
+    assert.match(g2.label, /3\.3σ/);
+    assert.equal(dom.find((m) => m.id === "result:icecube-galactic-plane-neutrinos-2023").form, "observation");
+    // Lanes: a header that opens its topic, and a table of every mark.
+    assert.ok((await p.locator(".rs-lane").count()) >= 15);
+    assert.match(await p.locator("a.rs-lane-link").first().getAttribute("href"), /^#\/topic\//);
+    assert.ok((await p.locator(".rs-table-details tbody tr").count()) === results.length);
+    // A mark opens a card with the result and the paper; the significance is verbatim.
+    await p.locator('.rs-mark[data-id="result:atlas-higgs-observation-2012"]').first().click();
+    await p.locator(".rs-card:not([hidden])").waitFor();
+    const cardText = await p.locator(".rs-card").innerText();
+    assert.match(cardText, /Observation · 4 July 2012/);
+    assert.match(cardText, /5\.9σ \(local\)/);
+    assert.equal(await p.locator(".rs-card a.rs-btn", { hasText: "Open the paper" }).getAttribute("href"), "https://arxiv.org/abs/1207.7214");
+    await p.locator(".rs-card a.rs-btn-primary").click();
+    await p.locator("#detail-panel h2").waitFor();
+    assert.match(p.url(), /#\/result\/atlas-higgs-observation-2012$/);
+    await p.goBack();
+    await p.locator(".rs-mark").first().waitFor();
+    // A lane header opens its topic.
+    await p.locator('.rs-lane[data-lane="topic:higgs-physics"] a.rs-lane-link').click();
+    await p.locator("#detail-panel h2").waitFor();
+    assert.match(p.url(), /#\/topic\/higgs-physics$/);
+    // The topic panel's entry point leads to that topic's lanes.
+    await p.locator("#detail-panel .view-cta a", { hasText: "See the results as a story" }).click();
+    await p.locator(".rs-mark").first().waitFor();
+    assert.match(p.url(), /#\/view\/results-story\/higgs-physics$/);
+    assert.equal(await p.locator(".rs-lane").count(), 1);
+    assert.equal(await p.locator("#view-title").innerText(), "Results as a story: Higgs physics");
+    // Search reaches it.
+    await p.locator("#atlas-search").fill("neutrino oscillations timeline");
+    await p.locator(".search-result").first().waitFor();
+    assert.match(await p.locator(".search-result").allInnerTexts().then((t) => t.join("\n")), /Results as a story: Neutrino oscillations/);
+    // The timeline's year draws a band, and the results after it are dimmed.
+    await p.goto(viewURL("#/view/results-story", "?y=2012"));
+    await p.locator(".rs-mark").first().waitFor();
+    assert.ok((await p.locator(".rs-now").count()) > 0, "a band for the year");
+    assert.equal(await p.locator('.rs-mark[data-id="result:atlas-higgs-observation-2012"]').first().evaluate((m) => m.classList.contains("is-later")), false);
+    assert.equal(await p.locator('.rs-mark[data-id="result:atlas-nature-higgs-2022"]').first().evaluate((m) => m.classList.contains("is-later")), true);
+    // An unknown topic is an error, not an empty timeline.
+    await p.goto(viewURL("#/view/results-story/no-such-topic"));
+    await p.locator(".view-error").waitFor();
+    assert.equal(await p.locator(".rs-mark").count(), 0);
+    await p.screenshot({ path: path.join(output, "results-story-desktop.png") });
+    await ctx.close();
+
+    // A phone: the lanes stack (header above its strip) and scroll sideways; the page itself does not.
+    const phone = await viewContext({ viewport: { width: 390, height: 844 }, ...MOBILE });
+    await phone.p.goto(viewURL("#/view/results-story"));
+    await phone.p.locator(".rs-mark").first().waitFor();
+    await phone.p.waitForTimeout(300);
+    const box = await phone.p.evaluate(() => {
+      const host = document.getElementById("view-host");
+      const scroll = document.querySelector(".rs-scroll");
+      const lane = document.querySelector(".rs-lane");
+      return {
+        pageOverflow: document.documentElement.scrollWidth > window.innerWidth,
+        hostOverflow: host.scrollWidth > host.clientWidth + 1,
+        stripScrolls: scroll.scrollWidth > scroll.clientWidth + 100,
+        headAboveStrip: lane.querySelector(".rs-lane-head").getBoundingClientRect().bottom <= lane.querySelector(".rs-track").getBoundingClientRect().top + 2,
+        back: document.getElementById("view-back").getBoundingClientRect().height,
+      };
+    });
+    assert.equal(box.pageOverflow, false, "no sideways scroll on the page");
+    assert.equal(box.hostOverflow, false, "no sideways scroll in the view");
+    assert.equal(box.stripScrolls, true, "the strips scroll sideways");
+    assert.equal(box.headAboveStrip, true, "the lane header sits above its strip");
+    assert.ok(box.back >= 44, "the back control is a 44 px target");
+    await phone.ctx.close();
+  });
+  // ---- views: Results as a story (M4) -- end -------------------------------------
+
+  // ---- views: the WIMP exclusion plot (M4) -- begin -------------------------------
+  // `#/view/limits/wimp-si`: the published WIMP-nucleon limits, log-log, each curve cited. The data are
+  // HEPData tables (A29); a curve with no table is a labelled marker. One check for the view.
+  await record("WIMP exclusion plot: both LZ curves and the two published minima are drawn, read-out, citations and entry points work, an unknown plot is an error, a phone does not scroll sideways", async () => {
+    const generated = process.env.HEP_ATLAS_DATA === "generated";
+    const { ctx, p } = await viewContext();
+    await p.goto(viewURL("#/view/limits/wimp-si"));
+    await p.locator(".lm-svg, .view-error").first().waitFor();
+    if (!generated) {
+      // The fixture tree carries no limits bundle: the view says so and draws no empty plot.
+      await p.locator(".view-error").waitFor();
+      assert.equal(await p.locator(".lm-svg").count(), 0);
+      await ctx.close();
+      return;
+    }
+    assert.equal(await p.locator("#view-title").innerText(), "WIMP exclusion plot");
+    assert.equal(await p.locator(".lm-series").count(), 4);
+    assert.equal(await p.locator(".lm-series:not(.is-marker) .lm-line").count(), 2);
+    assert.equal(await p.locator(".lm-series.is-marker .lm-diamond").count(), 2);
+    assert.equal(await p.locator(".lm-chip").count(), 4);
+    // Log-log: decade ticks on both axes; every curve is labelled on the plot and in the legend.
+    const text = await p.locator(".lm-svg").first().textContent();
+    assert.match(text, /10⁻⁴⁸/);
+    assert.match(text, /10⁻⁴⁴/);
+    assert.match(text, /10⁴/);
+    for (const label of ["LZ 2022", "LZ 2024", "XENONnT 2023 (min.)", "PandaX-4T 2021 (min.)"]) assert.ok(text.includes(label), `${label} is labelled on the plot`);
+    const svg = await p.locator(".lm-svg").first().evaluate((el) => ({ role: el.getAttribute("role"), t: !!el.querySelector("title").textContent, d: !!el.querySelector("desc").textContent }));
+    assert.deepEqual(svg, { role: "img", t: true, d: true });
+    // The lowest point of each curve, against the HEPData tables: LZ 2022 9.17e-48 at 36 GeV, LZ 2024 2.18e-48 at 40 GeV.
+    const stats = await p.locator(".lm-stats").innerText();
+    assert.match(stats, /9\.17 × 10⁻⁴⁸ cm²\s+at 36 GeV\/c²/);
+    assert.match(stats, /2\.18 × 10⁻⁴⁸ cm²\s+at 40 GeV\/c²/);
+    assert.match(stats, /2\.58 × 10⁻⁴⁷ cm²\s+at 28 GeV\/c²/);
+    assert.match(stats, /3\.80 × 10⁻⁴⁷ cm²\s+at 30 GeV\/c²/);
+    // The read-out: pointing at the dot of LZ 2024's minimum names it.
+    const spot = await p.evaluate(() => {
+      const dots = [...document.querySelectorAll('.lm-series[data-slug="lz-2024-si-wimp-nucleon"] .lm-dot')];
+      const ring = document.querySelector('.lm-series[data-slug="lz-2024-si-wimp-nucleon"] .lm-min-ring').getBoundingClientRect();
+      const x = ring.left + ring.width / 2;
+      const y = ring.top + ring.height / 2;
+      return { x, y, dots: dots.length };
+    });
+    assert.equal(spot.dots, 26);
+    await p.mouse.move(spot.x, spot.y);
+    await p.waitForFunction(() => /LZ, 4\.2 tonne-years \(2024\): 40 GeV\/c², 2\.18 × 10⁻⁴⁸ cm²/.test(document.querySelector(".lm-readout").textContent));
+    // Citations: the HEPData record, the table and the paper are links; the markers say why they are markers.
+    const cites = await p.locator(".lm-cites").innerText();
+    assert.match(cites, /hepdata\.net\/record\/ins2841863/);
+    assert.match(cites, /“SI cross section”/);
+    assert.match(cites, /arXiv:2410\.17036/);
+    assert.match(cites, /No HEPData record for this paper was found/);
+    assert.equal(await p.locator('.lm-cites a[href="https://www.hepdata.net/record/ins2107834"]').count(), 1);
+    // The numbers are in tables; the method says nothing was thinned and the fog was left out.
+    await p.locator(".lm-data > summary").first().click();
+    assert.equal(await p.locator(".lm-data[open] tbody tr").first().evaluate((tr) => tr.closest("table").querySelectorAll("tbody tr").length), 40);
+    await p.locator("#view-method > summary").click();
+    const method = await p.locator("#view-method").innerText();
+    assert.match(method, /No curve is thinned/);
+    assert.match(method, /neutrino “fog”/);
+    // Entry points: the dark-matter topic, the LZ, XENONnT and PandaX-4T panels, search.
+    await p.goto(viewURL("#/topic/dark-matter"));
+    await p.locator("#detail-panel .view-cta a", { hasText: "WIMP exclusion plot" }).click();
+    await p.locator(".lm-svg").waitFor();
+    assert.match(p.url(), /#\/view\/limits\/wimp-si$/);
+    for (const slug of ["lz", "xenonnt", "pandax-4t"]) {
+      await p.goto(viewURL(`#/experiment/${slug}`));
+      await p.locator("#detail-panel .beam-section-links a", { hasText: "WIMP exclusion plot" }).click();
+      await p.locator(".lm-svg").waitFor();
+      assert.match(p.url(), /#\/view\/limits\/wimp-si$/, `${slug} leads to the plot`);
+    }
+    await p.locator("#atlas-search").fill("dark matter limits");
+    await p.locator(".search-result").first().waitFor();
+    assert.match(await p.locator(".search-result").allInnerTexts().then((t) => t.join("\n")), /WIMP exclusion plot/);
+    // An unknown plot is an error, not an empty plot.
+    await p.goto(viewURL("#/view/limits/no-such-plot"));
+    await p.locator(".view-error").waitFor();
+    assert.equal(await p.locator(".lm-svg").count(), 0);
+    await p.goto(viewURL("#/view/limits/wimp-si"));
+    await p.locator(".lm-svg").waitFor();
+    await p.screenshot({ path: path.join(output, "limits-desktop.png") });
+    await ctx.close();
+
+    // A phone.
+    const phone = await viewContext({ viewport: { width: 390, height: 844 }, ...MOBILE });
+    await phone.p.goto(viewURL("#/view/limits/wimp-si"));
+    await phone.p.locator(".lm-svg").waitFor();
+    await phone.p.waitForTimeout(300);
+    const box = await phone.p.evaluate(() => {
+      const host = document.getElementById("view-host");
+      const svg = document.querySelector(".lm-svg").getBoundingClientRect();
+      return {
+        pageOverflow: document.documentElement.scrollWidth > window.innerWidth,
+        hostOverflow: host.scrollWidth > host.clientWidth + 1,
+        svgRight: svg.right, innerWidth: window.innerWidth,
+        chip: document.querySelector(".lm-chip").getBoundingClientRect().height,
+      };
+    });
+    assert.equal(box.pageOverflow, false, "no sideways scroll on the page");
+    assert.equal(box.hostOverflow, false, "no sideways scroll in the view");
+    assert.ok(box.svgRight <= box.innerWidth, "the plot fits the width of the phone");
+    assert.ok(box.chip >= 44, "the legend chips are 44 px targets");
+    await phone.ctx.close();
+  });
+  // ---- views: the WIMP exclusion plot (M4) -- end ---------------------------------
   // ---- views -- end ---------------------------------------------------------------
 
   // ---- researchers' tools: Compare, Cite and the list exports -- begin ------------------

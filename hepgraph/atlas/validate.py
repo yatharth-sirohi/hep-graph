@@ -34,6 +34,7 @@ from __future__ import annotations
 import argparse
 import datetime as _dt
 import json
+import math
 import re
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -2794,6 +2795,166 @@ def check_tours(ctx: _Context) -> Iterator[Finding]:
 
 
 # ===========================================================================
+# A29: published limit curves (data/atlas/limits/<slug>.json)
+# ===========================================================================
+
+def _is_number(value: Any) -> bool:
+    return isinstance(value, (int, float)) and not isinstance(value, bool)
+
+
+def _positive_finite(value: Any) -> bool:
+    """A plotted coordinate: a real number, finite and > 0 (the axes are logarithmic)."""
+    return _is_number(value) and math.isfinite(value) and value > 0
+
+
+def check_limits(ctx: _Context) -> Iterator[Finding]:
+    """A29: a limit file is a curve (a HEPData table, every point a finite positive
+    number in the units the plot declares) or a published minimum (one point, its
+    quote and sources). Every finding is an error: a plotted point that cannot be
+    traced to its table, or that is in the wrong unit, must not reach a figure."""
+    for slug, payload in sorted(ctx.atlas.limits.items()):
+        path = f'limits/{slug}.json'
+
+        def err(rule: str, pointer: str, message: str) -> Finding:
+            return Finding(ERROR, rule, path, None, pointer, message)
+
+        kind = payload.get('type')
+        if kind not in schema.LIMIT_KINDS:
+            yield err('limit-type', _pointer('type'), f'`type` must be one of {list(schema.LIMIT_KINDS)}')
+            continue
+        plot = schema.LIMIT_PLOTS.get(payload.get('plot'))
+        if plot is None:
+            yield err('limit-plot', _pointer('plot'),
+                      f'`plot` {payload.get("plot")!r} is not one of {sorted(schema.LIMIT_PLOTS)}')
+            continue
+        if not _text(payload.get('label')):
+            yield err('limit-label', _pointer('label'), 'a curve needs a `label` for the figure')
+        experiment = ctx.atlas.get(payload.get('experiment_id')) if payload.get('experiment_id') else None
+        if experiment is None or schema.id_type(experiment.get('id', '')) != 'experiment':
+            yield err('limit-reference', _pointer('experiment_id'),
+                      f'`experiment_id` {payload.get("experiment_id")!r} is not an experiment of the Atlas')
+        if payload.get('result_id') is not None:
+            result = ctx.atlas.get(payload['result_id'])
+            if result is None or schema.id_type(result.get('id', '')) != 'result':
+                yield err('limit-reference', _pointer('result_id'),
+                          f'`result_id` {payload["result_id"]!r} is not a result of the Atlas')
+        level = (payload.get('confidence_level') or {}).get('value')
+        if not (_is_number(level) and 0 < level < 1):
+            yield err('limit-confidence-level', _pointer('confidence_level', 'value'),
+                      'the confidence level is a number strictly between 0 and 1 (0.9 for 90% CL)')
+        # The declared units are the plot's units, for the x and the y column alike.
+        columns = payload.get('columns') or {}
+        for axis in ('x', 'y'):
+            unit = (columns.get(axis) or {}).get('unit')
+            if unit != plot[f'{axis}_unit']:
+                yield err('limit-units', _pointer('columns', axis, 'unit'),
+                          f'the {axis} column is declared in {unit!r}; plot {payload["plot"]!r} is in {plot[f"{axis}_unit"]!r}')
+
+        if kind == 'limit_marker':
+            yield from _check_limit_marker(ctx, payload, err)
+            continue
+
+        # ---- a curve: a HEPData table
+        hepdata = payload.get('hepdata')
+        if not isinstance(hepdata, dict):
+            yield err('limit-hepdata', _pointer('hepdata'), 'a curve names its HEPData record, table and DOI')
+            hepdata = {}
+        else:
+            if not _text(hepdata.get('record_url')).startswith('https://www.hepdata.net/record/'):
+                yield err('limit-hepdata', _pointer('hepdata', 'record_url'),
+                          '`record_url` must be a https://www.hepdata.net/record/ URL')
+            for key in ('table', 'doi', 'table_doi', 'retrieved', 'table_sha256'):
+                if not _text(hepdata.get(key)):
+                    yield err('limit-hepdata', _pointer('hepdata', key), f'`hepdata.{key}` is required')
+            if hepdata.get('license') != 'CC0':
+                yield err('limit-hepdata', _pointer('hepdata', 'license'),
+                          'HEPData tables are CC0 (A29); the file must say so')
+        paper = payload.get('paper') or {}
+        for key in ('arxiv', 'doi'):
+            if not _text(paper.get(key)):
+                yield err('limit-paper', _pointer('paper', key), f'`paper.{key}` is required for a curve')
+        for axis in ('x', 'y'):
+            if not _text((columns.get(axis) or {}).get('name')):
+                yield err('limit-columns', _pointer('columns', axis, 'name'),
+                          'the exact HEPData column used must be named')
+
+        points = payload.get('points')
+        if not isinstance(points, list) or len(points) < 2:
+            yield err('limit-points', _pointer('points'), 'a curve needs at least two points')
+            continue
+        previous = None
+        for index, point in enumerate(points):
+            if not (isinstance(point, list) and len(point) == 2
+                    and _positive_finite(point[0]) and _positive_finite(point[1])):
+                yield err('limit-points', _pointer('points', index),
+                          f'point {index} must be [x, y], both finite numbers greater than 0, got {point!r}')
+                previous = None
+                continue
+            if previous is not None and point[0] <= previous:
+                yield err('limit-points-order', _pointer('points', index),
+                          f'point {index}: x must increase along the curve ({point[0]} after {previous})')
+            previous = point[0]
+        rows = hepdata.get('rows')
+        if payload.get('thinned') is True:
+            if not (isinstance(rows, int) and rows > len(points)):
+                yield err('limit-thinned', _pointer('thinned'),
+                          'a thinned curve records the table\'s row count in `hepdata.rows`, larger than the points kept')
+        else:
+            if len(points) > schema.LIMIT_MAX_POINTS:
+                yield err('limit-thinned', _pointer('points'),
+                          f'{len(points)} points is over {schema.LIMIT_MAX_POINTS}: thin the curve and set `thinned: true` (the page states it)')
+            if rows != len(points):
+                yield err('limit-thinned', _pointer('hepdata', 'rows'),
+                          f'`hepdata.rows` ({rows!r}) differs from the {len(points)} points kept, but `thinned` is not true')
+
+        # The units are justified by the abstract: its number is the plotted minimum.
+        check = payload.get('units_check') or {}
+        valid = [pt for pt in points if isinstance(pt, list) and len(pt) == 2
+                 and _positive_finite(pt[0]) and _positive_finite(pt[1])]
+        if not valid:
+            continue
+        lowest = min(valid, key=lambda pt: pt[1])
+        if not _text(check.get('quote')) or not _text(check.get('locator')):
+            yield err('limit-units-check', _pointer('units_check'),
+                      'the units check needs the abstract\'s `quote` and its `locator`')
+        for source_id in check.get('sources') or []:
+            if ctx.source(source_id) is None:
+                yield err('limit-reference', _pointer('units_check', 'sources'),
+                          f'{source_id!r} is not a source of the Atlas')
+        if not check.get('sources'):
+            yield err('limit-units-check', _pointer('units_check', 'sources'),
+                      'the units check cites the source of its quote')
+        if not (_positive_finite(check.get('mass')) and _positive_finite(check.get('value'))
+                and math.isclose(check['mass'], lowest[0], rel_tol=1e-9)
+                and math.isclose(check['value'], lowest[1], rel_tol=1e-6)):
+            yield err('limit-units-check', _pointer('units_check'),
+                      f'the units check must match the lowest point of the curve ({lowest[0]} GeV/c^2, {lowest[1]} cm^2)')
+
+
+def _check_limit_marker(ctx: _Context, payload: dict, err) -> Iterator[Finding]:
+    """A published minimum with no HEPData curve: one point, its verbatim quote, its sources."""
+    point = payload.get('point') or {}
+    if not (_positive_finite(point.get('x')) and _positive_finite(point.get('y'))):
+        yield err('limit-points', _pointer('point'), 'the point is {x, y}, both finite numbers greater than 0')
+    if payload.get('hepdata') is not None or not _text(payload.get('hepdata_note')):
+        yield err('limit-hepdata', _pointer('hepdata'),
+                  'a marker has `hepdata: null` and a `hepdata_note` saying why there is no curve')
+    quote = _text(payload.get('quote'))
+    if not quote or not _text(payload.get('locator')):
+        yield err('limit-marker-quote', _pointer('quote'), 'a marker needs the verbatim `quote` and its `locator`')
+    else:
+        for key in ('value_as_written', 'mass_as_written'):
+            if not _text(payload.get(key)) or _text(payload.get(key)) not in quote:
+                yield err('limit-marker-quote', _pointer(key), f'`{key}` must appear in the quote as written')
+    sources = payload.get('sources')
+    if not sources:
+        yield err('limit-marker-quote', _pointer('sources'), 'a marker cites the source of its quote')
+    for source_id in sources or []:
+        if ctx.source(source_id) is None:
+            yield err('limit-reference', _pointer('sources'), f'{source_id!r} is not a source of the Atlas')
+
+
+# ===========================================================================
 # Dispatcher and reporting
 # ===========================================================================
 
@@ -2846,6 +3007,7 @@ CHECKS = (
     check_maps,
     check_geometry,
     check_tours,
+    check_limits,
 )
 
 

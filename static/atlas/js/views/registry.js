@@ -57,6 +57,12 @@ import { PERSON_VIEW, PERSON_VIEW_TITLE } from '../hepgraph.js';
 import {
   VIEW_NAME as COMPARE_NAME, WORKING_TITLE as COMPARE_TITLE, compareSearchEntries,
 } from './compare-route.js';
+import {
+  VIEW_NAME as RESULTS_VIEW, WORKING_TITLE as RESULTS_TITLE, resultsParent, resultsSearchEntries,
+} from './results-rows.js';
+import {
+  VIEW_NAME as LIMITS_VIEW, WORKING_TITLE as LIMITS_TITLE, limitsParent, limitsSearchEntries,
+} from './limits-rows.js';
 
 export const VIEWS = {
   [VIEW_NAME]: {
@@ -81,6 +87,19 @@ export const VIEWS = {
     title: COMPARE_TITLE,
     load: () => import('./compare.js'),
     searchEntries: compareSearchEntries,
+  },
+  // ---- M4: results timeline and the exclusion plot (views/results-*.js, views/limits*.js)
+  [RESULTS_VIEW]: {
+    title: RESULTS_TITLE,
+    load: () => import('./results-story.js'),
+    parent: resultsParent,
+    searchEntries: resultsSearchEntries,
+  },
+  [LIMITS_VIEW]: {
+    title: LIMITS_TITLE,
+    load: () => import('./limits.js'),
+    parent: limitsParent,
+    searchEntries: limitsSearchEntries,
   },
 };
 
