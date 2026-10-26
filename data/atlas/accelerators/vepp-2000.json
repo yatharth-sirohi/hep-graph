@@ -1,0 +1,147 @@
+{
+  "aliases": [
+    "VEPP-2000 collider",
+    "VEPP-2000 e+e- collider"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "facility_id": "facility:binp-novosibirsk",
+  "feeds_accelerator_ids": [],
+  "id": "accelerator:vepp-2000",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2007",
+      "label": "upgrade decision and construction",
+      "locator": "Berkaev et al., JETP 113 (2011) 213, abstract; the introduction records the spring 2000 decision to modernise VEPP-2M",
+      "note": "Year precision: decision in spring 2000 to modernise VEPP-2M (introduction), construction completed 2007 (abstract).",
+      "quote": "In 2007, at the Institute of Nuclear Physics (Novosibirsk), the construction of the VEPP-2000 electron–positron collider was completed.",
+      "sources": [
+        "src:colliders2-vepp2000-first-experiments-jetp-2011"
+      ],
+      "start": "2000",
+      "status": "construction",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": "2010",
+      "label": "commissioning and first experiments",
+      "locator": "Berkaev et al., JETP 113 (2011) 213, abstract",
+      "note": "First beam tests (round beams at 508 MeV) from 2007; CMD-3 installed October 2009; the first experimental season was completed in summer 2010.",
+      "quote": "In October 2009, a CMD-3 (cryogenic magnetic detector) was installed at the VEPP-2000 facility, and the physics program with both the SND and CMD-3 particle detectors was started in the energy range of 1–1.9 GeV.",
+      "sources": [
+        "src:colliders2-vepp2000-first-experiments-jetp-2011"
+      ],
+      "start": "2007",
+      "status": "commissioning",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "e+e- collider operation",
+      "locator": "Shatunov et al., IPAC-2017 abstract (start); Solodov, Phi to Psi 2026 (still collecting data: \"2025 data were collected with the reverse direction of the beams\")",
+      "note": "Year precision for the start. The injection chain was upgraded in 2013-2016 (IPAC-2017 abstract); CMD-3 reported on 8 June 2026 that more data (x3) are to be collected in 2024-2026.",
+      "quote": "VEPP-2000 e+e− collider at BINP was commissioned and started data taking with two detectors in 2010 with old injection chain.",
+      "sources": [
+        "src:colliders2-vepp2000-high-luminosity-ipac17",
+        "src:colliders2-solodov-cmd3-phipsi2026"
+      ],
+      "start": "2010",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": "2016",
+      "kind": "phase",
+      "label": "upgraded injection complex",
+      "locator": "Shatunov et al., IPAC-2017 abstract",
+      "note": "Injection-chain upgrade within the operating period; the 2016/2017 run was the first reported with the new BINP injection complex (VEPP-2000 news, 12 July 2017).",
+      "quote": "The injection chain was significantly upgraded in 2013-2016.",
+      "sources": [
+        "src:colliders2-vepp2000-high-luminosity-ipac17",
+        "src:colliders2-vepp2000-news"
+      ],
+      "start": "2013",
+      "status": "upgrade",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "is_collider": true,
+  "kind": "collider",
+  "links": {
+    "website": null
+  },
+  "name": "VEPP-2000",
+  "notes": [
+    "The VEPP-2000 status page (vepp2k.inp.nsk.su/status) read zero beam currents on 23 October 2026; this is a snapshot of the control-system display, not evidence that the collider is decommissioned, and the record follows the 2026 CMD-3 statement that running continues in 2024-2026."
+  ],
+  "particles": [
+    "electron",
+    "positron"
+  ],
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:binp-novosibirsk-akademgorodok",
+  "sources": [
+    "src:colliders2-vepp2000-first-experiments-jetp-2011",
+    "src:colliders2-vepp2000-high-luminosity-ipac17",
+    "src:colliders2-solodov-cmd3-phipsi2026"
+  ],
+  "specs": {
+    "circumference": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "24.4 m",
+      "locator": "Solodov, Phi to Psi 2026, slide 2",
+      "note": "",
+      "quote": "circumference – 24.4 m",
+      "sources": [
+        "src:colliders2-solodov-cmd3-phipsi2026"
+      ],
+      "unit": "m",
+      "value": 24.4,
+      "verified_at": "2026-10-26"
+    },
+    "cms_energy": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "energy",
+      "display": "up to 2.0 GeV",
+      "locator": "Solodov, Phi to Psi 2026, slide 2",
+      "note": "Centre-of-mass energy range 0.3-2.0 GeV; the maximum is recorded.",
+      "quote": "c.m. energy 0.3-2.0 GeV",
+      "sources": [
+        "src:colliders2-solodov-cmd3-phipsi2026"
+      ],
+      "unit": "GeV",
+      "value": 2.0,
+      "verified_at": "2026-10-26"
+    },
+    "peak_luminosity": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "luminosity",
+      "display": "0.8 × 10^32 cm^-2 s^-1 (achieved, at 2 GeV)",
+      "locator": "Solodov, Phi to Psi 2026, slide 2",
+      "note": "Achieved at 2 GeV c.m. energy; the project value is 1.0 × 10^32 cm^-2 s^-1.",
+      "quote": "0.8x1032 cm-2 sec-1 (achieved)",
+      "sources": [
+        "src:colliders2-solodov-cmd3-phipsi2026"
+      ],
+      "unit": "cm^-2 s^-1",
+      "value": 8e+31,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "active",
+  "summary": {
+    "plain": "The 24-metre electron-positron ring of the Budker Institute in Novosibirsk, Siberia, which replaced VEPP-2M. It collides round beams at up to 2 GeV and has served the CMD-3 and SND detectors since 2010; CMD-3 alone reports about one inverse femtobarn collected.",
+    "technical": "VEPP-2000: e⁺e⁻ collider with the round-colliding-beams concept, c.m. energy 0.3-2.0 GeV, circumference 24.4 m, luminosity 0.8×10³² cm⁻² s⁻¹ achieved at 2 GeV (project 1.0×10³²); construction completed 2007, data taking with CMD-3 and SND from 2010; new injection complex 2013-2016; data taken in 2025 with the beam direction reversed."
+  },
+  "type": "accelerator"
+}

@@ -1,0 +1,69 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
+  },
+  "formation": {
+    "confidence": "approximate",
+    "locator": "Greybook record for UA4",
+    "note": "Experiment approval date, used as a lower bound for the collaboration formation.",
+    "quote": "\"approvalDate\" : \"18-01-1979\"",
+    "sources": [
+      "src:colliders2-greybook-ua4"
+    ],
+    "value": "1979-01-18",
+    "verified_at": "2026-10-26"
+  },
+  "host_facility_id": "facility:cern",
+  "host_site_id": "site:cern-sps-lss4-ua2",
+  "id": "collaboration:ua4",
+  "intervals": [
+    {
+      "confidence": "derived",
+      "end": "1985-06-17",
+      "label": "SppS data taking",
+      "locator": "Greybook record for UA4, status history (Data Taking row); start bounded by the first SppS collisions",
+      "note": "Greybook's Data Taking row runs from the approval date (18 January 1979) to 17 June 1985, so its start is not a first-data date. The start is taken as 1981, the year the SPS first collided protons and antiprotons (\"In summer 1981 the first collision ... was recorded\", CERN Archives guide for UA1).",
+      "quote": "\"endDate\" : \"17-06-1985\", \"startDate\" : \"18-01-1979\", \"statusCode\" : \"DT\", \"statusDescription\" : \"Data Taking\"",
+      "sources": [
+        "src:colliders2-greybook-ua4",
+        "src:ua1-cern-archives-guide"
+      ],
+      "start": "1981",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "data taking completed",
+      "locator": "Greybook record for UA4, status history (Completed row)",
+      "note": "Greybook then marks the experiment Finished from 18 June 1995.",
+      "quote": "\"endDate\" : \"17-06-1995\", \"startDate\" : \"18-06-1985\", \"statusCode\" : \"CM\"",
+      "sources": [
+        "src:colliders2-greybook-ua4"
+      ],
+      "start": "1985-06-18",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "leadership": [],
+  "links": {
+    "website": null
+  },
+  "name": "UA4 Collaboration",
+  "notes": [],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:colliders2-greybook-ua4",
+    "src:colliders2-ua4-elastic-total-cross-section-plb-1982"
+  ],
+  "status": "completed",
+  "summary": {
+    "plain": "The collaboration that proposed and ran the UA4 experiment at CERN's proton-antiproton collider; its spokesperson was Giorgio Matthiae.",
+    "technical": "UA4 collaboration, spokesperson G. Matthiae (Greybook); the 1982 elastic/total cross-section paper has 23 authors."
+  },
+  "type": "collaboration"
+}

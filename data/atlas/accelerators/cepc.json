@@ -1,0 +1,102 @@
+{
+  "aliases": [
+    "CEPC"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "facility_id": "facility:ihep-beijing",
+  "feeds_accelerator_ids": [],
+  "id": "accelerator:cepc",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "proposal and design studies",
+      "locator": "CERN Courier, 26 October 2025",
+      "note": "Design documents: Pre-CDR 2015, CDR 2018 (two volumes), accelerator TDR 2023, reference-detector TDR October 2025. The project site says \"After the technical design phase, CEPC is now entering its EDR phase.\" In October 2025 the study leader said CEPC would not be in the 2026-2030 five-year plan and would be resubmitted in 2030 unless FCC is approved first.",
+      "quote": "Chinese physicists formally proposed a dedicated electron–positron collider in September 2012.",
+      "sources": [
+        "src:colliders2-cerncourier-cepc-approval-on-hold",
+        "src:colliders2-cepc-project-site",
+        "src:colliders2-cepc-cdr-vol2",
+        "src:colliders2-cepc-tdr-accelerator"
+      ],
+      "start": "2012-09",
+      "status": "proposed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "is_collider": true,
+  "kind": "collider",
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "locator": "CEPC project site (home page)",
+      "note": "",
+      "sources": [
+        "src:colliders2-cepc-project-site"
+      ],
+      "value": "http://cepc.ihep.ac.cn/",
+      "verified_at": "2026-10-26"
+    }
+  },
+  "name": "Circular Electron Positron Collider",
+  "notes": [
+    "The Atlas marker is the IHEP Beijing campus, the laboratory that develops the project, not the tunnel site: the 2023 accelerator TDR describes \"forthcoming engineering design phase and site selection procedures\", so no tunnel site has been selected.",
+    "The accelerator TDR (December 2023) anticipated \"Construction is anticipated to begin around 2027-2028, pending government approval, with an estimated duration of 8 years.\" That schedule is superseded by the October 2025 statement that CEPC will not be in the 2026-2030 plan; no replacement schedule is published in the sources consulted, so no construction interval is recorded.",
+    "Study leader Wang Yifang (CERN Courier, 26 October 2025): \"We plan to submit CEPC for consideration again in 2030, unless FCC is officially approved before then, in which case we will seek to join FCC, and give up CEPC.\""
+  ],
+  "particles": [
+    "electron",
+    "positron"
+  ],
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:ihep-beijing-campus",
+  "sources": [
+    "src:colliders2-cepc-project-site",
+    "src:colliders2-cepc-cdr-vol1",
+    "src:colliders2-cepc-cdr-vol2",
+    "src:colliders2-cepc-tdr-accelerator",
+    "src:colliders2-cerncourier-cepc-approval-on-hold"
+  ],
+  "specs": {
+    "circumference": {
+      "approx": true,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "approximately 100 km",
+      "locator": "CDR vol. 2 abstract",
+      "note": "Tunnel circumference as stated in the design reports; the collider and booster share the tunnel.",
+      "quote": "The CEPC, to be hosted in China in a circular underground tunnel of approximately 100 km in circumference, is designed to operate as a Higgs factory producing electron-positron collisions with a center-of-mass energy of 240 GeV.",
+      "sources": [
+        "src:colliders2-cepc-cdr-vol2"
+      ],
+      "unit": "km",
+      "value": 100,
+      "verified_at": "2026-10-26"
+    },
+    "cms_energy": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "energy",
+      "display": "240 GeV (Higgs-factory mode)",
+      "locator": "CDR vol. 2 abstract",
+      "note": "Higgs-factory mode; the same abstract gives 91.2 GeV (Z) and about 160 GeV (WW threshold), and the TDR adds a ttbar mode.",
+      "quote": "The CEPC, to be hosted in China in a circular underground tunnel of approximately 100 km in circumference, is designed to operate as a Higgs factory producing electron-positron collisions with a center-of-mass energy of 240 GeV.",
+      "sources": [
+        "src:colliders2-cepc-cdr-vol2"
+      ],
+      "unit": "GeV",
+      "value": 240,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "proposed",
+  "summary": {
+    "plain": "A proposed 100-kilometre electron-positron collider, designed as a Higgs factory and developed at the Institute of High Energy Physics in Beijing. It is to be hosted in China, but its site has not been selected, and it was left out of China's 2026-2030 five-year plan.",
+    "technical": "CEPC: proposed e+e- collider in a ~100 km circumference underground tunnel (with a Linac and Damping Ring on the surface and a Booster in the tunnel), 240 GeV Higgs mode, Z mode at 91.2 GeV, WW threshold near 160 GeV, ttbar mode in the TDR; provision for a later SPPC. Pre-CDR 2015, CDR 2018, accelerator TDR 2023 (framework for a forthcoming engineering design phase and site selection), reference-detector TDR October 2025. Not in the 2026-2030 Chinese five-year plan (CERN Courier, 26 October 2025)."
+  },
+  "type": "accelerator"
+}

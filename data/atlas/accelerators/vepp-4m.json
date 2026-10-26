@@ -1,0 +1,74 @@
+{
+  "aliases": [
+    "VEPP-4M collider",
+    "VEPP-4",
+    "VEPP-4M e+e- collider"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "facility_id": "facility:binp-novosibirsk",
+  "feeds_accelerator_ids": [],
+  "id": "accelerator:vepp-4m",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "e+e- collider operation (VEPP-4 and VEPP-4M)",
+      "locator": "Skrinsky (PAC 1995), section 1.5; the KEDR home page records KEDR experiments at VEPP-4M since 2002",
+      "note": "Skrinsky dates the VEPP-4 collider operation from 1980 (maximum 5.5 GeV per beam then); the VEPP-4M upgrade date was not found in the sources fetched. KEDR has taken data at VEPP-4M since 2002 and published new results in 2025 (arXiv:2506.02421).",
+      "quote": "Since 1980 the higher energy e+e- collider VEPP-4 is in operation at Novosibirsk",
+      "sources": [
+        "src:colliders2-skrinsky-accelerator-field-novosibirsk-1995",
+        "src:colliders2-kedr-home"
+      ],
+      "start": "1980",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "is_collider": true,
+  "kind": "collider",
+  "links": {
+    "website": null
+  },
+  "name": "VEPP-4M",
+  "notes": [
+    "The VEPP-4 to VEPP-4M upgrade date is not stated in the sources fetched; the record starts at the VEPP-4 start (1980)."
+  ],
+  "particles": [
+    "electron",
+    "positron"
+  ],
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:binp-novosibirsk-akademgorodok",
+  "sources": [
+    "src:colliders2-vepp4-complex-page",
+    "src:colliders2-skrinsky-accelerator-field-novosibirsk-1995",
+    "src:colliders2-kedr-home"
+  ],
+  "specs": {
+    "beam_energy": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "energy",
+      "display": "up to 6 GeV per beam",
+      "locator": "BINP VEPP-4 complex page (Russian)",
+      "note": "The page says the VEPP-4 complex includes the VEPP-4M e+e- collider up to 6 GeV; the KEDR page quotes a total range 2E = 2-11 GeV.",
+      "quote": "электрон-позитронный коллайдер ВЭПП-4М (до 6 ГэВ)",
+      "sources": [
+        "src:colliders2-vepp4-complex-page"
+      ],
+      "unit": "GeV",
+      "value": 6,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "active",
+  "summary": {
+    "plain": "The high-energy electron-positron collider of the Budker Institute in Novosibirsk, Siberia, which reaches up to 6 GeV per beam. Its KEDR detector has measured the J/psi, psi(2S) and tau masses with record precision, using a very accurate beam-energy calibration.",
+    "technical": "VEPP-4M e⁺e⁻ collider (VEPP-4 complex with the VEPP-3 storage ring and an injector): up to 6 GeV per beam; precise beam-energy measurement by resonant depolarisation (about 10⁻⁷ relative accuracy) and Compton backscattering; operating since 1980 as VEPP-4; KEDR experiments since 2002."
+  },
+  "type": "accelerator"
+}

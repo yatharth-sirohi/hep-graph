@@ -1,0 +1,132 @@
+{
+  "aliases": [
+    "DAFNE",
+    "DAΦNE phi-factory",
+    "DAFNE phi factory"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "facility_id": "facility:infn-lnf-frascati",
+  "feeds_accelerator_ids": [],
+  "id": "accelerator:dafne",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "1999",
+      "label": "first beams and commissioning",
+      "locator": "INFN-LNF DAFNE page",
+      "note": "LNF says first beams circulated in 1997; INFN's laboratories page says DAFNE \"started operating\" in 1999 (taken as the end of commissioning).",
+      "quote": "The first particle beams started circulating in DAΦNE in 1997.",
+      "sources": [
+        "src:colliders2-lnf-dafne-page"
+      ],
+      "start": "1997",
+      "status": "commissioning",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "e+e- collider operation (phi factory)",
+      "locator": "INFN, Laboratories page (Frascati)",
+      "note": "INFN (2026) says SIDDHARTA2 is \"now operating at DAFNE\", so the collider is still in use. KLOE took data from 1999 (CERN Courier) or 2000 (LNF) to 2006; KLOE-2 from November 2014 to 30 March 2018; SIDDHARTA-2 and PADME since.",
+      "quote": "In 1999, DAFNE started operating.",
+      "sources": [
+        "src:colliders2-infn-laboratories-page"
+      ],
+      "start": "1999",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "2018-03-30",
+      "kind": "phase",
+      "label": "KLOE-2 run with crab-waist collisions",
+      "locator": "CERN Courier, 1 June 2018",
+      "note": "First application of the crab-waist collision scheme in the presence of a high-field detector solenoid; KLOE-2 data taking ended on 30 March 2018. LNF notes the crab-waist scheme was first tested at DAΦNE in 2007.",
+      "quote": "The implementation of this innovative configuration by the DAΦNE team allowed KLOE-2 to collect an integrated luminosity of 5.5 fb−1 in a period of just over three years.",
+      "sources": [
+        "src:colliders2-cerncourier-kloe2-completes-data-taking"
+      ],
+      "start": "2014-11",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "is_collider": true,
+  "kind": "collider",
+  "links": {
+    "website": null
+  },
+  "name": "DAΦNE",
+  "notes": [
+    "KLOE start: CERN Courier says KLOE first collected data in 1999; the LNF particle-physics page says it took data from 2000 to 2006."
+  ],
+  "particles": [
+    "electron",
+    "positron"
+  ],
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:infn-lnf-frascati",
+  "sources": [
+    "src:colliders2-lnf-dafne-page",
+    "src:colliders2-infn-laboratories-page",
+    "src:colliders2-cerncourier-kloe2-completes-data-taking"
+  ],
+  "specs": {
+    "circumference": {
+      "approx": true,
+      "confidence": "approximate",
+      "dimension": "length",
+      "display": "approx. 100 m (each of two rings)",
+      "locator": "INFN-LNF DAFNE page",
+      "note": "Each ring is about 100 m in length; recorded as the approximate ring circumference.",
+      "quote": "The accelerator consists of 2 rings approx. 100 m in length",
+      "sources": [
+        "src:colliders2-lnf-dafne-page"
+      ],
+      "unit": "m",
+      "value": 100,
+      "verified_at": "2026-10-26"
+    },
+    "cms_energy": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "energy",
+      "display": "1.02 GeV",
+      "locator": "INFN-LNF DAFNE page",
+      "note": "Tuned to the mass of the phi meson.",
+      "quote": "The total energy of the beams in the reference system of the centre of the mass is equal to 1.02 GeV",
+      "sources": [
+        "src:colliders2-lnf-dafne-page"
+      ],
+      "unit": "GeV",
+      "value": 1.02,
+      "verified_at": "2026-10-26"
+    },
+    "peak_luminosity": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "luminosity",
+      "display": "2.4 × 10^32 cm^-2 s^-1",
+      "locator": "CERN Courier, 1 June 2018",
+      "note": "Record for an e+e- collider at these energies (about 1 GeV), reached during the KLOE-2 run.",
+      "quote": "Record performances in terms of peak luminosity (2.4 × 1032 cm–2 s–1)",
+      "sources": [
+        "src:colliders2-cerncourier-kloe2-completes-data-taking"
+      ],
+      "unit": "cm^-2 s^-1",
+      "value": 2.4e+32,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "active",
+  "summary": {
+    "plain": "An electron-positron collider at Italy's Frascati laboratory, tuned to 1.02 GeV so that collisions make phi mesons in large numbers (a phi factory). It hosted the KLOE and KLOE-2 experiments until 2018 and now runs SIDDHARTA-2, with first beams in 1997.",
+    "technical": "DAΦNE: two ~100 m e⁺e⁻ rings with two interaction points, √s = 1.02 GeV (φ resonance); first beams 1997, operating from 1999; peak luminosity 2.4×10³² cm⁻² s⁻¹ with the crab-waist scheme; experiments KLOE (1999-2006), FINUDA, DEAR, SIDDHARTA, KLOE-2 (2014-2018), SIDDHARTA-2; also the BTF and DAΦNE-Light."
+  },
+  "type": "accelerator"
+}

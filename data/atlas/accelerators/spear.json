@@ -1,0 +1,146 @@
+{
+  "aliases": [
+    "SPEAR",
+    "SPEAR collider",
+    "Stanford Positron Electron Accelerating Ring"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "facility_id": "facility:slac",
+  "feeds_accelerator_ids": [],
+  "id": "accelerator:spear",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "1970",
+      "label": "proposal",
+      "locator": "CERN Courier, \"The ring on the parking lot\"",
+      "note": "From 1964 to 1970 annual funding requests to the AEC were rejected (same article); the machine was then built from SLAC operating funds.",
+      "quote": "first proposed building the Stanford Positron-Electron Asymmetric Rings (SPEAR) in 1964",
+      "sources": [
+        "src:colliders2-cerncourier-ring-on-the-parking-lot"
+      ],
+      "start": "1964",
+      "status": "proposed",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": "1972",
+      "label": "construction",
+      "locator": "CERN Courier, \"The ring on the parking lot\"",
+      "note": "Funding agreed in 1970 (about 20 months before service in 1972); year precision.",
+      "quote": "In 1972, only 20 months after its construction had finally been agreed, the SPEAR electron-positron collider went into service",
+      "sources": [
+        "src:colliders2-cerncourier-ring-on-the-parking-lot"
+      ],
+      "start": "1970",
+      "status": "construction",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "1990",
+      "label": "e+e- collider operation",
+      "locator": "SLAC Milestones; end from the 1990 entry",
+      "note": "First physics data by spring 1973 (CERN Courier). From October 1979 half of SPEAR running time was dedicated to synchrotron radiation (Hallonsten); the end date is when SPEAR became a dedicated synchrotron-radiation facility.",
+      "quote": "1972: SPEAR operations begin",
+      "sources": [
+        "src:colliders2-slac-milestones"
+      ],
+      "start": "1972",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "dedicated synchrotron-radiation facility; collider operation ended",
+      "locator": "SLAC Milestones, 1990 entry",
+      "note": "SPEAR has since run only as a synchrotron-radiation source (upgraded to SPEAR3 in 2004); photon science is outside the Atlas scope (A26), so this record covers the collider period only.",
+      "quote": "1990: SPEAR becomes a dedicated synchrotron radiation facility with its own independent injector.",
+      "sources": [
+        "src:colliders2-slac-milestones"
+      ],
+      "start": "1990",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "is_collider": true,
+  "kind": "collider",
+  "links": {
+    "website": null
+  },
+  "name": "Stanford Positron Electron Asymmetric Ring",
+  "notes": [
+    "SSRL describes the tau as \"discovered at SPEAR in 1976\"; the discovery paper (Mark I, Phys. Rev. Lett. 35, 1489) is dated December 1975, the date used on the result record.",
+    "The ring and its detectors are on the SLAC campus; the SPEAR site marker is the SLAC campus point, not the ring."
+  ],
+  "particles": [
+    "electron",
+    "positron"
+  ],
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:slac-menlo-park-campus",
+  "sources": [
+    "src:colliders2-ssrl-spear-history",
+    "src:colliders2-slac-milestones",
+    "src:colliders2-cerncourier-ring-on-the-parking-lot"
+  ],
+  "specs": {
+    "beam_energy": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "energy",
+      "display": "up to 4 GeV per beam",
+      "locator": "SSRL, History of the SPEAR Storage Ring",
+      "note": "",
+      "quote": "counter-rotating beams of electrons and positrons were circulated at energies up to 4 GeV",
+      "sources": [
+        "src:colliders2-ssrl-spear-history"
+      ],
+      "unit": "GeV",
+      "value": 4,
+      "verified_at": "2026-10-26"
+    },
+    "circumference": {
+      "approx": false,
+      "confidence": "approximate",
+      "dimension": "length",
+      "display": "234 m",
+      "locator": "Hallonsten, Physics in Perspective (SPEAR vs PEP circumference)",
+      "note": "A historian's figure; SSRL describes the ring as \"some 80 meters in diameter\", which is roughly consistent (a ring of 80 m diameter would be about 250 m round).",
+      "quote": "compared to SPEAR’s 234 m",
+      "sources": [
+        "src:colliders2-hallonsten-parasites-slac-sr"
+      ],
+      "unit": "m",
+      "value": 234,
+      "verified_at": "2026-10-26"
+    },
+    "cms_energy": {
+      "approx": true,
+      "confidence": "verified",
+      "dimension": "energy",
+      "display": "about 8 GeV total",
+      "locator": "Perl Nobel lecture, \"SPEAR and the Mark I Detector\"",
+      "note": "Perl adds that in the first few years the maximum energy with useful luminosity was 4.8 GeV.",
+      "quote": "Eventually SPEAR obtained a total energy of about 8 GeV",
+      "sources": [
+        "src:colliders2-perl-nobel-lecture-1995"
+      ],
+      "unit": "GeV",
+      "value": 8,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "completed",
+  "summary": {
+    "plain": "SLAC's first electron-positron collider, a single ring about 80 metres across that began running in 1972. At SPEAR, the Mark I experiment found the J/psi particle (1974), proving the charm quark, and the tau lepton (1975). Since 1990 it has run only as an X-ray source.",
+    "technical": "SPEAR e⁺e⁻ storage ring at SLAC: beams up to 4 GeV (about 8 GeV total), 234 m circumference; operations began 1972; detectors Mark I (1973-1977), Mark II (1977-1979), Crystal Ball, Mark III (1981-1988); dedicated to synchrotron-radiation research from 1990 (now SPEAR3)."
+  },
+  "type": "accelerator"
+}

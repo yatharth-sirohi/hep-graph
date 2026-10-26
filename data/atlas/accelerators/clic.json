@@ -1,0 +1,98 @@
+{
+  "aliases": [
+    "CLIC"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "facility_id": "facility:cern",
+  "feeds_accelerator_ids": [],
+  "id": "accelerator:clic",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "design phase",
+      "locator": "CLIC Conceptual Design Report vol. 2, arXiv:1202.5940 (first posted 26 February 2012)",
+      "note": "Start = the posting of the CDR volume on physics and detectors; earlier CLIC design work is not recorded. The Project Implementation Plan (2018/2019) states CLIC is \"under development by international collaborations hosted by CERN\". The CERN page and the plan give a schedule of construction \"by 2026\" and first beams \"by 2035\"; the CERN page still reads so on 2026-10-26 and no source consulted reports a construction decision, so the schedule is not recorded as intervals.",
+      "quote": "This report describes the physics potential and experiments at a future multi-TeV e+e- collider based on the Compact Linear Collider (CLIC) technology.",
+      "sources": [
+        "src:colliders2-clic-cdr-vol2",
+        "src:colliders2-clic-pip",
+        "src:colliders2-cern-clic-page"
+      ],
+      "start": "2012-02",
+      "status": "proposed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "is_collider": true,
+  "kind": "collider",
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "locator": "CERN CLIC page",
+      "note": "",
+      "sources": [
+        "src:colliders2-cern-clic-page"
+      ],
+      "value": "https://home.cern/science/accelerators/compact-linear-collider",
+      "verified_at": "2026-10-26"
+    }
+  },
+  "name": "Compact Linear Collider",
+  "notes": [
+    "The Atlas marker is the CERN Meyrin campus, the host laboratory named by the design report; the CLIC site would be 11 to 50 km long depending on the stage and has no exact location in the sources consulted.",
+    "The CERN CLIC page says the collaboration comprises \"more than 70 institutes in more than 30 countries\"."
+  ],
+  "particles": [
+    "electron",
+    "positron"
+  ],
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:cern-meyrin",
+  "sources": [
+    "src:colliders2-cern-clic-page",
+    "src:colliders2-clic-pip",
+    "src:colliders2-clic-cdr-vol2"
+  ],
+  "specs": {
+    "cms_energy": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "energy",
+      "display": "3 TeV (third stage)",
+      "locator": "Project Implementation Plan abstract",
+      "note": "The maximum of the three stages is recorded.",
+      "quote": "CLIC is foreseen to be built and operated in stages, at centre-of-mass energies of 380 GeV, 1.5 TeV and 3 TeV, for a site length ranging between 11 km and 50 km.",
+      "sources": [
+        "src:colliders2-clic-pip"
+      ],
+      "unit": "GeV",
+      "value": 3000,
+      "verified_at": "2026-10-26"
+    },
+    "length": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "50 km (longest stage)",
+      "locator": "Project Implementation Plan abstract",
+      "note": "The maximum site length (3 TeV stage) is recorded.",
+      "quote": "CLIC is foreseen to be built and operated in stages, at centre-of-mass energies of 380 GeV, 1.5 TeV and 3 TeV, for a site length ranging between 11 km and 50 km.",
+      "sources": [
+        "src:colliders2-clic-pip"
+      ],
+      "unit": "km",
+      "value": 50,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "proposed",
+  "summary": {
+    "plain": "A proposed linear electron-positron collider designed as an addition to CERN's accelerator complex, to be built in three stages from 380 GeV up to 3 TeV. Its design is developed by an international collaboration of more than 70 institutes. It is not approved.",
+    "technical": "CLIC: proposed normal-conducting two-beam-acceleration linear e+e- collider (12 GHz structures powered by a drive beam), staged at 380 GeV, 1.5 TeV and 3 TeV, site length 11-50 km, hosted by CERN. CDR 2012, Project Implementation Plan 2018 (CERN-2018-010-M). The first stage was costed at about 6 billion CHF with ~170 MW (PIP abstract). No approval is recorded in the sources consulted."
+  },
+  "type": "accelerator"
+}

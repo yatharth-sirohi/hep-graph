@@ -1,0 +1,69 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
+  },
+  "formation": {
+    "confidence": "approximate",
+    "locator": "Greybook record for UA5",
+    "note": "Experiment approval date, used as a lower bound for the collaboration formation.",
+    "quote": "\"approvalDate\" : \"15-02-1979\"",
+    "sources": [
+      "src:colliders2-greybook-ua5"
+    ],
+    "value": "1979-02-15",
+    "verified_at": "2026-10-26"
+  },
+  "host_facility_id": "facility:cern",
+  "host_site_id": "site:cern-sps-lss4-ua2",
+  "id": "collaboration:ua5",
+  "intervals": [
+    {
+      "confidence": "derived",
+      "end": "1989-02-15",
+      "label": "SppS data taking",
+      "locator": "Greybook record for UA5, status history (Completed row); start bounded by the first SppS collisions",
+      "note": "Greybook records one \"Completed\" row from approval (15 February 1979) to 14 February 1989 and no separate Data Taking row, so neither a first-data nor a last-data date is stated. The start is the year of the first SppS collisions (summer 1981, CERN Archives guide for UA1); the end is the start of the Finished status. UA5 data at 900 GeV were published in 1986.",
+      "quote": "\"endDate\" : \"14-02-1989\", \"startDate\" : \"15-02-1979\", \"statusCode\" : \"CM\", \"statusDescription\" : \"Completed\"",
+      "sources": [
+        "src:colliders2-greybook-ua5",
+        "src:ua1-cern-archives-guide"
+      ],
+      "start": "1981",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "experiment finished",
+      "locator": "Greybook record for UA5, status history (Finished row)",
+      "note": "Start of the Finished status in Greybook.",
+      "quote": "\"endDate\" : null, \"startDate\" : \"15-02-1989\", \"statusCode\" : \"FI\", \"statusDescription\" : \"Finished\"",
+      "sources": [
+        "src:colliders2-greybook-ua5"
+      ],
+      "start": "1989-02-15",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "leadership": [],
+  "links": {
+    "website": null
+  },
+  "name": "UA5 Collaboration",
+  "notes": [],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:colliders2-greybook-ua5",
+    "src:colliders2-ua5-scaling-violations-plb-1986"
+  ],
+  "status": "completed",
+  "summary": {
+    "plain": "The collaboration that built and ran the UA5 streamer-chamber experiment at CERN's proton-antiproton collider; John Rushbrooke was its spokesperson.",
+    "technical": "UA5 collaboration: spokesperson J. Rushbrooke and contact person C. Booth (Greybook); the 1986 scaling-violations paper has about 40 authors."
+  },
+  "type": "collaboration"
+}

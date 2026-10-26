@@ -1,0 +1,138 @@
+{
+  "accelerator_ids": [
+    "accelerator:vepp-2m",
+    "accelerator:vepp-2000"
+  ],
+  "aliases": [
+    "Spherical Neutral Detector",
+    "SND detector"
+  ],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:snd"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
+  },
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:binp-novosibirsk",
+      "locator": "SND General Info",
+      "note": "",
+      "quote": "The Spherical Neutral Detector (SND) [2,3] is a facility for high energy physics experiments. It has been mounted at the VEPP-2M e+e- collider in Novosibirsk, Russia.",
+      "role": "host",
+      "sources": [
+        "src:colliders2-snd-general-info"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:snd",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2000",
+      "label": "VEPP-2M data taking",
+      "locator": "Silagadze, essay on the SND site, section I; SND General Info (\"SND is taking its data since 1995\")",
+      "note": "Year precision.",
+      "quote": "An improved version of the neutral detector — the spherical neutral detector (SND) [4] — operated at the VEPP2M collider in 1995-2000.",
+      "sources": [
+        "src:colliders2-snd-essay-silagadze",
+        "src:colliders2-snd-general-info"
+      ],
+      "start": "1995",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": "2010",
+      "label": "upgrade for VEPP-2000",
+      "locator": "Silagadze, essay on the SND site, section I",
+      "note": "VEPP-2M was modernised into VEPP-2000 after 2000; the first VEPP-2000 season with SND was 2009/2010 (Berkaev et al.).",
+      "quote": "SND was also upgraded for experiments at this new collider [5] and it operates at VEPP-2000 since 2010.",
+      "sources": [
+        "src:colliders2-snd-essay-silagadze"
+      ],
+      "start": "2000",
+      "status": "upgrade",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "VEPP-2000 data taking",
+      "locator": "Silagadze, essay on the SND site, section I",
+      "note": "Year precision. SND results published in 2025 (e.g. arXiv:2510.09019) show continued operation.",
+      "quote": "SND was also upgraded for experiments at this new collider [5] and it operates at VEPP-2000 since 2010.",
+      "sources": [
+        "src:colliders2-snd-essay-silagadze"
+      ],
+      "start": "2010",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [],
+  "kind": "collider",
+  "lineage": [
+    {
+      "confidence": "verified",
+      "experiment_id": "experiment:nd",
+      "locator": "Silagadze, essay on the SND site, section I",
+      "note": "SND is described as an improved version of the ND neutral detector.",
+      "quote": "An improved version of the neutral detector — the spherical neutral detector (SND) [4] — operated at the VEPP2M collider in 1995-2000.",
+      "relation": "upgrade_of",
+      "sources": [
+        "src:colliders2-snd-essay-silagadze"
+      ],
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "locator": "SND home page title",
+      "note": "",
+      "quote": "Spherical Neutral Detector Home Page",
+      "sources": [
+        "src:colliders2-snd-home-page"
+      ],
+      "value": "https://wwwsnd.inp.nsk.su/",
+      "verified_at": "2026-10-26"
+    }
+  },
+  "name": "SND",
+  "notes": [
+    "SND shares one record for its VEPP-2M and VEPP-2000 phases; the SND page of 1996 describes the original detector."
+  ],
+  "physics_goals": [],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:colliders2-snd-general-info",
+    "src:colliders2-snd-essay-silagadze",
+    "src:colliders2-snd-home-page"
+  ],
+  "status": "active",
+  "summary": {
+    "plain": "The Spherical Neutral Detector at the Budker Institute in Novosibirsk, a ball of 1,632 sodium iodide crystals around the collision point. It ran at VEPP-2M from 1995 to 2000, was upgraded and has run at VEPP-2000 since 2010, measuring how electron-positron collisions at 0.4-2 GeV make photons and hadrons.",
+    "technical": "SND: three-layer spherical NaI(Tl) calorimeter of 1632 crystals (13.5 radiation lengths, 3.6 t), cylindrical drift chambers inside and a muon/veto system of streamer tubes and scintillators outside; VEPP-2M (0.7-1.4 GeV) 1995-2000, upgraded after 2000 for VEPP-2000, operating there since 2010; successor of the ND neutral detector (1982-87)."
+  },
+  "topic_ids": [
+    "topic:collider-physics",
+    "topic:qcd",
+    "topic:muon-precision-physics"
+  ],
+  "type": "experiment",
+  "unique_capabilities": []
+}

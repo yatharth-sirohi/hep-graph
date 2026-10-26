@@ -1,0 +1,107 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
+  },
+  "experiment_ids": [
+    "experiment:cmd-3"
+  ],
+  "id": "detector:cmd-3",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2010",
+      "label": "installation and first experimental season",
+      "locator": "Berkaev et al., JETP 113 (2011) 213, abstract",
+      "note": "The first experimental season was completed in summer 2010.",
+      "quote": "In October 2009, a CMD-3 (cryogenic magnetic detector) was installed at the VEPP-2000 facility, and the physics program with both the SND and CMD-3 particle detectors was started in the energy range of 1–1.9 GeV.",
+      "sources": [
+        "src:colliders2-vepp2000-first-experiments-jetp-2011"
+      ],
+      "start": "2009-10",
+      "status": "commissioning",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "VEPP-2000 data taking",
+      "locator": "Shatunov et al., IPAC-2017 abstract (two detectors, 2010); Solodov, Phi to Psi 2026 (1 fb^-1 collected; more data to be collected in 2024-2026)",
+      "note": "Year precision.",
+      "quote": "VEPP-2000 e+e− collider at BINP was commissioned and started data taking with two detectors in 2010 with old injection chain.",
+      "sources": [
+        "src:colliders2-vepp2000-high-luminosity-ipac17",
+        "src:colliders2-solodov-cmd3-phipsi2026"
+      ],
+      "start": "2010",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "CMD-3 detector",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "locator": "Berkaev et al., JETP 113 (2011) 213, abstract",
+      "note": "Campus-grade placement: no fetched source locates the detector hall; the marker is the BINP campus point in Akademgorodok.",
+      "quote": "In October 2009, a CMD-3 (cryogenic magnetic detector) was installed at the VEPP-2000 facility",
+      "role": "main",
+      "site_id": "site:binp-novosibirsk-akademgorodok",
+      "sources": [
+        "src:colliders2-vepp2000-first-experiments-jetp-2011"
+      ],
+      "start": "2009-10",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:colliders2-solodov-cmd3-phipsi2026"
+  ],
+  "specs": {
+    "solenoid_field": {
+      "approx": true,
+      "confidence": "verified",
+      "dimension": "magnetic_field",
+      "display": "up to 1.3 T",
+      "locator": "Solodov, Phi to Psi 2026, slide 3",
+      "note": "Range 1.0-1.3 T; the maximum is recorded.",
+      "quote": "Magnetic field 1.0-1.3 T",
+      "sources": [
+        "src:colliders2-solodov-cmd3-phipsi2026"
+      ],
+      "unit": "T",
+      "value": 1.3,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "active",
+  "subsystems": [],
+  "summary": {
+    "plain": "The CMD-3 detector: a superconducting solenoid around the collision point with a drift chamber, time-of-flight counters, three types of calorimeter and muon counters, measuring the products of electron-positron collisions at up to 2 GeV.",
+    "technical": "CMD-3: magnetic field 1.0-1.3 T; drift chamber (σ ~100 µm in the transverse plane, 2-3 mm along z); EM calorimeter (LXe, CsI, BGO, 13.5 X0, σ_E/E ~3-10%); TOF; muon counters."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "Solodov, Phi to Psi 2026, slide 3 (CMD-3 detector)",
+    "note": "",
+    "quote": "Magnetic field 1.0-1.3 T",
+    "sources": [
+      "src:colliders2-solodov-cmd3-phipsi2026"
+    ],
+    "value": "Magnetic detector with a drift chamber, time-of-flight counters, an electromagnetic calorimeter of liquid xenon, CsI and BGO and muon counters in a 1.0-1.3 T field",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "general_purpose_collider",
+  "technology_classes": [
+    "general_purpose_collider"
+  ],
+  "type": "detector"
+}

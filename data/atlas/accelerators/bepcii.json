@@ -1,0 +1,158 @@
+{
+  "aliases": [
+    "BEPCII",
+    "BEPCII upgrade"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "facility_id": "facility:ihep-beijing",
+  "feeds_accelerator_ids": [],
+  "id": "accelerator:bepcii",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2004-01",
+      "label": "approval of the BEPC Upgrade Project",
+      "locator": "IHEP history page (timeline)",
+      "note": "",
+      "quote": "In December 2003, the National Development and Reform Commission officially approved the BEPC Upgrade Project.",
+      "sources": [
+        "src:colliders2-ihep-history-page"
+      ],
+      "start": "2003-12",
+      "status": "approved",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "2008-07",
+      "label": "construction",
+      "locator": "IHEP history page (timeline); end = first collisions in July 2008",
+      "note": "End is the month of the first BEPCII collisions (July 2008).",
+      "quote": "In January 2004, the BEPC Upgrade Project kicked off.",
+      "sources": [
+        "src:colliders2-ihep-history-page"
+      ],
+      "start": "2004-01",
+      "status": "construction",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "2009-07",
+      "label": "commissioning",
+      "locator": "IHEP history page (timeline); end = acceptance test, July 2009",
+      "note": "The National Acceptance Test was passed in July 2009.",
+      "quote": "In July 2008, the first collisions took place at BEPCII, the upgraded BEPC, and were observed by the new BESIII detector.",
+      "sources": [
+        "src:colliders2-ihep-history-page"
+      ],
+      "start": "2008-07",
+      "status": "commissioning",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "2024-07-01",
+      "label": "e+e- collider operation",
+      "locator": "IHEP history page (timeline); end from the IPAC'26 paper (shutdown of BEPCII on July 1st, 2024)",
+      "note": "Design luminosity was reached in April 2016 (IHEP history page). Start = acceptance test; physics data taking with BESIII had begun with the July 2008 collisions.",
+      "quote": "In July 2009, the Upgrade Project, BEPCII, successfully passed the National Acceptance Test organized by the National Development and Reform Commission",
+      "sources": [
+        "src:colliders2-ihep-history-page",
+        "src:colliders2-bepcii-upgrade-commissioning-ipac26"
+      ],
+      "start": "2009-07",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": "2025-05",
+      "label": "BEPCII upgrade: hardware replacement",
+      "locator": "Geng et al., IPAC'26 WEP1606, abstract",
+      "note": "Hardware replacement finished by the end of 2024; the end of this interval is the start of machine commissioning in May 2025 (same abstract).",
+      "quote": "The upgrade of Beijing Electron and Positron Collider-II (BEPCII) has begun since the shutdown of BEPCII on July 1st in 2024.",
+      "sources": [
+        "src:colliders2-bepcii-upgrade-commissioning-ipac26"
+      ],
+      "start": "2024-07-01",
+      "status": "upgrade",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "commissioning of the BEPCII upgrade",
+      "locator": "Geng et al., IPAC'26 WEP1606, abstract",
+      "note": "The same paper reports that the designed luminosity of 1.1 × 10^33 cm^-2 s^-1 was achieved on 28 April 2026. Resumption of BESIII physics data taking is not stated in the sources fetched.",
+      "quote": "the machine commissioning of BEPCII Upgrade project has started since May 2025 after recovery from the cryogenic system fault.",
+      "sources": [
+        "src:colliders2-bepcii-upgrade-commissioning-ipac26"
+      ],
+      "start": "2025-05",
+      "status": "commissioning",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "is_collider": true,
+  "kind": "collider",
+  "links": {
+    "website": null
+  },
+  "name": "Beijing Electron-Positron Collider II",
+  "notes": [
+    "The BEPCII-U target parameters (beam energy up to 2.8 GeV, luminosity gains) appear in the IPAC'26 paper tables; they are not recorded as specs because the paper is a preliminary proceedings file."
+  ],
+  "particles": [
+    "electron",
+    "positron"
+  ],
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:ihep-beijing-campus",
+  "sources": [
+    "src:colliders2-ihep-history-page",
+    "src:colliders2-ihep-facilities-page",
+    "src:colliders2-bepcii-upgrade-commissioning-ipac26"
+  ],
+  "specs": {
+    "cms_energy": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "energy",
+      "display": "up to 4.2 GeV",
+      "locator": "IHEP facilities page",
+      "note": "Centre-of-mass energy range 2.0-4.2 GeV; the maximum is recorded.",
+      "quote": "running in the tau-charm energy region (Ecm = 2.0-4.2 GeV)",
+      "sources": [
+        "src:colliders2-ihep-facilities-page"
+      ],
+      "unit": "GeV",
+      "value": 4.2,
+      "verified_at": "2026-10-26"
+    },
+    "peak_luminosity": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "luminosity",
+      "display": "1 × 10^33 cm^-2 s^-1 (design)",
+      "locator": "IHEP facilities page",
+      "note": "Design value at a beam energy of 1.89 GeV; IHEP reports the design luminosity was reached in April 2016.",
+      "quote": "with a design luminosity of 1 × 1033 cm-2s-1 at a beam energy of 1.89 GeV",
+      "sources": [
+        "src:colliders2-ihep-facilities-page"
+      ],
+      "unit": "cm^-2 s^-1",
+      "value": 1e+33,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "commissioning",
+  "summary": {
+    "plain": "The rebuilt two-ring electron-positron collider at the Institute of High Energy Physics in Beijing, running in the tau-charm energy region from 2008. It hosts the BESIII detector. Since July 2024 it has been undergoing an upgrade to higher energy and luminosity, which was in commissioning in 2026.",
+    "technical": "BEPCII: two-ring e⁺e⁻ collider, Ecm 2.0-4.2 GeV, design luminosity 1×10³³ cm⁻² s⁻¹ at 1.89 GeV beam energy (reached April 2016); first collisions July 2008 observed by BESIII; shut down 1 July 2024 for an upgrade (BEPCII-U) to raise beam energy and luminosity; machine commissioning from May 2025, design luminosity of the upgraded machine reported achieved on 28 April 2026."
+  },
+  "type": "accelerator"
+}

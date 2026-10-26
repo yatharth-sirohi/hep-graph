@@ -1,0 +1,125 @@
+{
+  "aliases": [
+    "KLOE-2 detector"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
+  },
+  "experiment_ids": [
+    "experiment:kloe",
+    "experiment:kloe-2"
+  ],
+  "id": "detector:kloe",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2006",
+      "label": "KLOE data taking",
+      "locator": "CERN Courier, 1 June 2018; INFN-LNF particle-physics page (end 2006)",
+      "note": "Year precision; LNF says 2000-2006.",
+      "quote": "which began with the first data collected by KLOE in 1999",
+      "sources": [
+        "src:colliders2-cerncourier-kloe2-completes-data-taking",
+        "src:colliders2-lnf-particle-physics-page"
+      ],
+      "start": "1999",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": "2014-11",
+      "label": "upgrade to KLOE-2",
+      "locator": "KLOE-2 Inner Tracker TDR (2010), introduction; run start from CERN Courier",
+      "note": "Upgrades include a cylindrical GEM inner tracker (TDR 2010) and other detectors; the dates of the upgrade work are not given in the sources fetched, the interval is bounded by the end of KLOE and the start of the KLOE-2 run.",
+      "quote": "After the completion of the KLOE data taking, a proposal [5, 6] has been presented for a physics program to be carried out with an upgraded KLOE detector, KLOE-2",
+      "sources": [
+        "src:colliders2-kloe2-inner-tracker-tdr-arxiv",
+        "src:colliders2-cerncourier-kloe2-completes-data-taking"
+      ],
+      "start": "2006",
+      "status": "upgrade",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "2018-03-30",
+      "label": "KLOE-2 data taking",
+      "locator": "CERN Courier, 1 June 2018",
+      "note": "Data taking ended on 30 March 2018.",
+      "quote": "then continued with KLOE-2 since November 2014",
+      "sources": [
+        "src:colliders2-cerncourier-kloe2-completes-data-taking"
+      ],
+      "start": "2014-11",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "data taking ended",
+      "locator": "CERN Courier, 1 June 2018",
+      "note": "",
+      "quote": "On 30 March the KLOE-2 experiment concluded its data-taking campaign",
+      "sources": [
+        "src:colliders2-cerncourier-kloe2-completes-data-taking"
+      ],
+      "start": "2018-03-30",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "KLOE detector",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": "2018-03-30",
+      "locator": "CERN Courier, 1 June 2018",
+      "note": "Campus-grade placement: no fetched source locates the KLOE hall or the DAΦNE interaction region; the marker is the LNF campus point. The LNF page says DAΦNE has two interaction points, one in use with KLOE-2.",
+      "quote": "which began with the first data collected by KLOE in 1999",
+      "role": "main",
+      "site_id": "site:infn-lnf-frascati",
+      "sources": [
+        "src:colliders2-cerncourier-kloe2-completes-data-taking"
+      ],
+      "start": "1999",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:colliders2-cerncourier-kloe2-completes-data-taking",
+    "src:colliders2-kloe-tracking-detector-nim-2002",
+    "src:colliders2-kloe2-inner-tracker-tdr-arxiv"
+  ],
+  "specs": {},
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "The KLOE particle detector at DAΦNE: a 4-metre drift chamber inside a lead-and-scintillating-fibre calorimeter that recorded the decays of phi mesons, later upgraded for KLOE-2 with a cylindrical inner tracker of GEM foils.",
+    "technical": "KLOE: 4 m-diameter drift chamber surrounded by a lead-scintillating-fibre electromagnetic calorimeter; KLOE-2 upgrades include a cylindrical gas-electron-multiplier (GEM) inner tracker, the first high-energy use of cylindrical GEMs (CERN Courier); tracker described in NIM A488 (2002) 51."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "CERN Courier, 1 June 2018",
+    "note": "",
+    "quote": "The general-purpose KLOE detector, comprising a 4 m-diameter drift chamber surrounded by a lead-scintillating-fibre electromagnetic calorimeter with very good energy and timing performance at low energies",
+    "sources": [
+      "src:colliders2-cerncourier-kloe2-completes-data-taking"
+    ],
+    "value": "4 m-diameter drift chamber surrounded by a lead-scintillating-fibre electromagnetic calorimeter; KLOE-2 added a cylindrical GEM inner tracker",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "general_purpose_collider",
+  "technology_classes": [
+    "general_purpose_collider"
+  ],
+  "type": "detector"
+}

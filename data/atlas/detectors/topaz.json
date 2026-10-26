@@ -1,0 +1,90 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
+  },
+  "experiment_ids": [
+    "experiment:topaz"
+  ],
+  "id": "detector:topaz",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "1995-12",
+      "label": "TRISTAN data taking",
+      "locator": "KEK history page; end from the 1995 Dec entry (\"TRISTAN experiments finished\")",
+      "note": "The detector's own start and end dates are not given in the sources fetched; the dates are those of the TRISTAN experimental programme (May 1987 to December 1995). Kondo writes that data taking ran 1987-1995.",
+      "quote": "1987 May：TRISTAN experiments began.",
+      "sources": [
+        "src:kek-history-page"
+      ],
+      "start": "1987-05",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "TRISTAN experiments finished",
+      "locator": "KEK history page",
+      "note": "Programme end date, applied to this detector.",
+      "quote": "1995 Dec：TRISTAN experiments finished.",
+      "sources": [
+        "src:kek-history-page"
+      ],
+      "start": "1995-12",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "TOPAZ detector",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": "1995-12",
+      "locator": "KEK history page",
+      "note": "Campus-grade placement: no fetched source says which TRISTAN experimental hall this detector occupied; the marker is the KEK Tsukuba campus point.",
+      "quote": "1987 May：TRISTAN experiments began.",
+      "role": "main",
+      "site_id": "site:kek-tsukuba-campus",
+      "sources": [
+        "src:kek-history-page"
+      ],
+      "start": "1987-05",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:colliders2-kondo-tristan-and-kekb-colliders"
+  ],
+  "specs": {},
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "The TOPAZ detector at TRISTAN: a time-projection chamber that records the three-dimensional tracks of charged particles inside a superconducting solenoid.",
+    "technical": "TOPAZ: superconducting solenoidal magnet and a time-projection tracking chamber (TPC)."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "Kondo, section 1",
+    "note": "",
+    "quote": "TOPAZ built a time-projection tracking chamber.",
+    "sources": [
+      "src:colliders2-kondo-tristan-and-kekb-colliders"
+    ],
+    "value": "Superconducting solenoidal magnet with a time-projection tracking chamber (TPC)",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "gaseous_tpc",
+  "technology_classes": [
+    "gaseous_tpc"
+  ],
+  "type": "detector"
+}

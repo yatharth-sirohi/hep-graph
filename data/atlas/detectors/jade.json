@@ -1,0 +1,90 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
+  },
+  "experiment_ids": [
+    "experiment:jade"
+  ],
+  "id": "detector:jade",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "1986-11-03",
+      "label": "PETRA data taking",
+      "locator": "Bethke & Wagner (2022), Table 2 (1979, March); end from Table 2 (1986, Nov. 3)",
+      "note": "First data (single electron beam) in March 1979; a beam loss damaged the tracking chamber on 26 March 1979 and data taking resumed in June 1979 after repair. End = 3 November 1986 \"shutdown of PETRA and the JADE experiment\".",
+      "quote": "March first data recorded (single e− -beam, Ebeam = 11.3 GeV)",
+      "sources": [
+        "src:colliders2-jade-history-bethke-wagner"
+      ],
+      "start": "1979-03",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "PETRA shut down; experiment ended",
+      "locator": "Bethke & Wagner (2022), Table 2 (1986)",
+      "note": "JADE data were later preserved and revived; analyses continued until 2012 and data and software were released in 2022 via the CERN Open Data portal.",
+      "quote": "Nov. 3 shutdown of PETRA and the JADE experiment",
+      "sources": [
+        "src:colliders2-jade-history-bethke-wagner"
+      ],
+      "start": "1986-11-03",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "JADE detector",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": "1986-11-03",
+      "locator": "Bethke & Wagner (2022), Table 2 (1979, February)",
+      "note": "Campus-grade placement: DESY published no coordinates for the PETRA experimental halls that were fetched; the marker is the DESY campus point.",
+      "quote": "February JADE detector moved into beam",
+      "role": "main",
+      "site_id": "site:desy-hamburg-campus",
+      "sources": [
+        "src:colliders2-jade-history-bethke-wagner"
+      ],
+      "start": "1979-02",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:colliders2-jade-history-bethke-wagner"
+  ],
+  "specs": {},
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "The JADE particle detector at DESY's PETRA ring: a compact magnet surrounding a drift-chamber tracker and a lead-glass calorimeter, which together identified electrons, photons and jets of particles.",
+    "technical": "JADE detector: cylindrical drift chambers (the jet chamber has 96 drift cells in three concentric rings with 16 sense wires each) inside a thin normal-conducting solenoid, a modular array of lead-glass shower counters around the coil, an iron-yoke muon filter with drift chambers covering 92% of the solid angle, and small-angle luminosity and two-photon taggers; upgraded between 1981 and 1985."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "Bethke & Wagner (2022), section 3.2",
+    "note": "",
+    "quote": "interspersed by 4 or 5 layers of drift chambers covering 92% of the solid angle.",
+    "sources": [
+      "src:colliders2-jade-history-bethke-wagner"
+    ],
+    "value": "Jet chamber with 96 drift cells in three concentric rings, lead-glass calorimeter, iron-yoke muon filter with drift chambers (92% of solid angle)",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "general_purpose_collider",
+  "technology_classes": [
+    "general_purpose_collider"
+  ],
+  "type": "detector"
+}

@@ -1,0 +1,173 @@
+{
+  "accelerator_ids": [
+    "accelerator:spear",
+    "accelerator:doris"
+  ],
+  "aliases": [
+    "Crystal Ball detector",
+    "SLAC-SP-024"
+  ],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:crystal-ball"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
+  },
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "facility_id": "facility:slac",
+      "locator": "AIP catalogue, SLAC-SP-024",
+      "note": "SPEAR period at SLAC; the DORIS II period at DESY is the second facility role below.",
+      "quote": "The experiment was approved in 1975 and completed running in 1979.",
+      "role": "host",
+      "sources": [
+        "src:colliders2-aip-icos-crystal-ball"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": "1987",
+      "facility_id": "facility:desy",
+      "locator": "Ziemann, German Beams, DORIS section",
+      "note": "DORIS II period at DESY, about 1982-1987.",
+      "quote": "The higher energies of 5.6 GeV per beam allowed the two new detectors, ARGUS and Crystal Ball, to investigate pairs of B-mesons",
+      "role": "host",
+      "sources": [
+        "src:colliders2-ziemann-german-beams"
+      ],
+      "start": "1982",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:crystal-ball",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "1979",
+      "label": "approval (SLAC-SP-024)",
+      "locator": "AIP Study of Multi-Institutional Collaborations, SLAC-SP-024",
+      "note": "AIP gives approval in 1975. Its \"completed running in 1979\" conflicts with the three years at SPEAR derived below and is not used for the end of running (see log).",
+      "quote": "The experiment was approved in 1975 and completed running in 1979.",
+      "sources": [
+        "src:colliders2-aip-icos-crystal-ball"
+      ],
+      "start": "1975",
+      "status": "approved",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "derived",
+      "end": "1987",
+      "label": "SPEAR and DORIS II running",
+      "locator": "Crystal Ball Collaboration, arXiv:nucl-ex/0302017 (detector description)",
+      "note": "No source states exact start and end dates. Derived: put in storage at SLAC from 1987, five years at DESY (DORIS II upgraded in 1982, Ziemann), three years before that at SPEAR, so about 1979-1982 at SPEAR and 1982-1987 at DESY.",
+      "quote": "It was built at SLAC and used for meson spectroscopy measurements there for three years. It was then used at DESY for five years of experiments and put in storage at SLAC from 1987 until 1996 when it was moved to BNL by our collaboration.",
+      "sources": [
+        "src:colliders2-crystal-ball-bnl-nucleon-hyperon-arxiv"
+      ],
+      "start": "1979",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "derived",
+      "end": "1982",
+      "kind": "phase",
+      "label": "SPEAR phase",
+      "locator": "arXiv:nucl-ex/0302017",
+      "note": "Three years at SLAC before DESY; derived dates (see the umbrella interval).",
+      "quote": "It was built at SLAC and used for meson spectroscopy measurements there for three years.",
+      "sources": [
+        "src:colliders2-crystal-ball-bnl-nucleon-hyperon-arxiv"
+      ],
+      "start": "1979",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "derived",
+      "end": "1987",
+      "kind": "phase",
+      "label": "DORIS II phase",
+      "locator": "Ziemann, German Beams, DORIS section (higher energies allowed ARGUS and Crystal Ball); arXiv:nucl-ex/0302017 (five years at DESY, storage from 1987)",
+      "note": "Start from the 1982 DORIS II upgrade, end from \"put in storage at SLAC from 1987\".",
+      "quote": "DORIS was upgraded in 1982 to reemerge as DORIS II",
+      "sources": [
+        "src:colliders2-ziemann-german-beams",
+        "src:colliders2-crystal-ball-bnl-nucleon-hyperon-arxiv"
+      ],
+      "start": "1982",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "removed from DESY; stored at SLAC",
+      "locator": "arXiv:nucl-ex/0302017",
+      "note": "The e+e- programme ended with the detector going into storage; it later ran at Brookhaven (AGS) and Mainz (hadron physics, outside this record).",
+      "quote": "put in storage at SLAC from 1987 until 1996 when it was moved to BNL by our collaboration",
+      "sources": [
+        "src:colliders2-crystal-ball-bnl-nucleon-hyperon-arxiv"
+      ],
+      "start": "1987",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [],
+  "kind": "collider",
+  "lineage": [],
+  "links": {
+    "website": null
+  },
+  "name": "Crystal Ball",
+  "notes": [
+    "Placements and run periods at SPEAR and DORIS II are derived from \"three years\" and \"five years\" statements (see the interval notes); AIP says the SPEAR experiment \"completed running in 1979\", which contradicts this and is recorded as a conflict in the log.",
+    "The detector later ran at the Brookhaven AGS and at the Mainz MAMI accelerator; those hadron-physics programmes are not part of this record."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "approximate",
+      "locator": "AIP Study of Multi-Institutional Collaborations, SLAC-SP-024",
+      "note": "AIP catalogue record (secondary source).",
+      "quote": "Although proposed before discovery of the J/psi, the detector was well suited to and primarily used for studying the spectra of charm-quark systems.",
+      "sources": [
+        "src:colliders2-aip-icos-crystal-ball"
+      ],
+      "value": "Study the spectra of charm-quark systems (charmonium) at SPEAR",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:colliders2-aip-icos-crystal-ball",
+    "src:colliders2-crystal-ball-bnl-nucleon-hyperon-arxiv",
+    "src:colliders2-ziemann-german-beams"
+  ],
+  "status": "completed",
+  "summary": {
+    "plain": "A spherical detector of 672 sodium iodide crystals that surrounded the collision point to measure photons. Built at SLAC and used at SPEAR for charmonium spectroscopy, then moved to DESY's DORIS ring in 1982 to study bottom-quark systems, before going to Brookhaven and Mainz for later work.",
+    "technical": "Crystal Ball: 672 NaI(Tl) crystals covering 94% of 4π, central spark chambers; approved 1975 (SLAC-SP-024, spokesperson E. D. Bloom); about three years of meson spectroscopy at SPEAR, then about five years at DORIS II (DESY) studying b-quark systems; in storage at SLAC 1987-1996, then at BNL (hadron physics, not recorded here)."
+  },
+  "topic_ids": [
+    "topic:collider-physics",
+    "topic:charm-physics",
+    "topic:b-physics",
+    "topic:qcd"
+  ],
+  "type": "experiment",
+  "unique_capabilities": []
+}
