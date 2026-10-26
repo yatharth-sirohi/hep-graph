@@ -1,0 +1,195 @@
+{
+  "accelerator_ids": [
+    "accelerator:sps"
+  ],
+  "aliases": [
+    "NA58",
+    "Common Muon and Proton Apparatus for Structure and Spectroscopy"
+  ],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:compass"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "distinct_from": [],
+  "energy_regime": {
+    "confidence": "verified",
+    "locator": "arXiv:hep-ex/0511028 abstract",
+    "note": "",
+    "quote": "using a 160 GeV polarized muon beam scattered on a polarized 6-LiD target",
+    "sources": [
+      "src:hadron2-compass-gluon-polarisation-arxiv-2005"
+    ],
+    "value": "160 GeV polarised muon beam (and hadron beams) on polarised and unpolarised fixed targets",
+    "verified_at": "2026-10-26"
+  },
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:cern",
+      "locator": "CERN COMPASS page",
+      "note": "",
+      "quote": "The Common Muon and Proton Apparatus for Structure and Spectroscopy (COMPASS) experiment is a multipurpose experiment at CERN’s Super Proton Synchrotron (SPS).",
+      "role": "host",
+      "sources": [
+        "src:hadron2-compass-cern-experiment-page",
+        "src:hadron2-amber-letter-of-intent-arxiv-2018"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:cern",
+      "locator": "arXiv:hep-ex/0703049 abstract",
+      "note": "SPS M2 muon and hadron beams (accelerator:sps).",
+      "quote": "The COMPASS experiment makes use of the CERN SPS high-intensitymuon and hadron beams for the investigation of the nucleon spin structure and the spectroscopy of hadrons.",
+      "role": "beam_source",
+      "sources": [
+        "src:hadron2-compass-detector-nim-arxiv-2007"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:compass",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2001",
+      "label": "approval and construction",
+      "locator": "arXiv:hep-ex/0703049, Section 1 (Introduction)",
+      "note": "The paper says construction of the spectrometer started after CERN approved the experiment in October 1998, followed by a technical run in 2001; the end bound (2001) is year precision.",
+      "quote": "started after the experiment approval by CERN in October 1998",
+      "sources": [
+        "src:hadron2-compass-detector-nim-arxiv-2007"
+      ],
+      "start": "1998-10",
+      "status": "construction",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "2022",
+      "label": "physics data taking",
+      "locator": "arXiv:hep-ex/0703049 abstract; CERN COMPASS page: \"last run in 2021-2022\"",
+      "note": "Physics data taking from 2002 (muon beam; hadron beam in 2004), resumed in 2006 after the 2005 accelerator shutdown; last run in 2021-2022 per the CERN page.",
+      "quote": "The setup has been successfully operated from 2002 onwards using a muon beam.",
+      "sources": [
+        "src:hadron2-compass-detector-nim-arxiv-2007",
+        "src:hadron2-compass-cern-experiment-page"
+      ],
+      "start": "2002",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "completed",
+      "locator": "CERN COMPASS page",
+      "note": "Year precision: last run in 2021-2022; AMBER page: \"the COMPASS experiment, which concluded in 2022\".",
+      "quote": "AMBER, or Apparatus for Meson and Baryon Experimental Research, will be the next-generation successor of COMPASS after the experiment’s last run in 2021–2022.",
+      "sources": [
+        "src:hadron2-compass-cern-experiment-page"
+      ],
+      "start": "2022",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Muon beam energy",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "energy",
+        "display": "160 GeV",
+        "locator": "arXiv:hep-ex/0511028 abstract",
+        "note": "",
+        "quote": "using a 160 GeV polarized muon beam scattered on a polarized 6-LiD target",
+        "sources": [
+          "src:hadron2-compass-gluon-polarisation-arxiv-2005"
+        ],
+        "unit": "GeV",
+        "value": 160,
+        "verified_at": "2026-10-26"
+      }
+    }
+  ],
+  "kind": "hadron_structure",
+  "lineage": [],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "locator": "CERN COMPASS experiment page",
+      "note": "The collaboration site www.compass.cern.ch did not resolve when fetched on 2026-10-26; the CERN experiment page is the official page.",
+      "quote": "The Common Muon and Proton Apparatus for Structure and Spectroscopy (COMPASS) experiment is a multipurpose experiment at CERN’s Super Proton Synchrotron (SPS).",
+      "sources": [
+        "src:hadron2-compass-cern-experiment-page"
+      ],
+      "value": "https://home.cern/science/experiments/compass",
+      "verified_at": "2026-10-26"
+    }
+  },
+  "name": "COMPASS",
+  "notes": [
+    "No collaboration formation date is recorded: the NIM paper says the muon and hadron programmes were launched independently in 1995 and fused on the M2 beam line, but no merger date is stated.",
+    "Placement in EHN2 rests on the AMBER letter of intent (\"the existing spectrometer in EHN2\").",
+    "INSPIRE experiment id not looked up: inspirehep.net is off-limits to coverage streams (STREAM_RULES); external.inspire_experiment left null for the integrator."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "CERN COMPASS page",
+      "note": "",
+      "quote": "A major aim is to study the internal structure of protons and neutrons and to discover more about how the property called spin arises in them",
+      "sources": [
+        "src:hadron2-compass-cern-experiment-page"
+      ],
+      "value": "Study the internal structure of protons and neutrons and how their spin arises from quarks and gluons; investigate the spectrum of hadrons, including glueballs",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:hadron2-compass-cern-experiment-page",
+    "src:hadron2-compass-detector-nim-arxiv-2007"
+  ],
+  "status": "completed",
+  "summary": {
+    "plain": "COMPASS fired muons and hadrons from CERN's SPS accelerator at polarised targets to study how protons and neutrons get their spin from their quarks and gluons, and to search for exotic particles. It took data from 2002 until its last run in 2021-2022.",
+    "technical": "Common Muon and Proton Apparatus for Structure and Spectroscopy (NA58) on the SPS M2 beam line in EHN2: 160 GeV polarised muon beam on a polarised 6LiD/NH3 target in a superconducting solenoid and hadron beams on liquid-hydrogen and nuclear targets, with a two-stage large-angle spectrometer, RICH and calorimetry; programme of nucleon spin structure (gluon polarisation, TMDs, GPDs) and light-hadron spectroscopy (diffractive production of exotic mesons)."
+  },
+  "superseded_by": null,
+  "topic_ids": [
+    "topic:hadron-structure",
+    "topic:qcd"
+  ],
+  "type": "experiment",
+  "unique_capabilities": [
+    {
+      "confidence": "verified",
+      "locator": "arXiv:hep-ex/0703049 abstract",
+      "note": "",
+      "quote": "Outgoing particles are detected by a two-stage, large angle and large momentum range spectrometer.",
+      "sources": [
+        "src:hadron2-compass-detector-nim-arxiv-2007"
+      ],
+      "value": "Large polarised target inside a superconducting solenoid with a two-stage, large-angle and large-momentum-range spectrometer using SPS muon and hadron beams",
+      "verified_at": "2026-10-26"
+    }
+  ]
+}

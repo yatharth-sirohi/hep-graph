@@ -1,0 +1,108 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "distinct_from": [],
+  "experiment_ids": [
+    "experiment:compass"
+  ],
+  "id": "detector:compass",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2001",
+      "label": "approval and construction",
+      "locator": "arXiv:hep-ex/0703049, Section 1 (Introduction)",
+      "note": "The paper says construction of the spectrometer started after CERN approved the experiment in October 1998, followed by a technical run in 2001; the end bound (2001) is year precision.",
+      "quote": "started after the experiment approval by CERN in October 1998",
+      "sources": [
+        "src:hadron2-compass-detector-nim-arxiv-2007"
+      ],
+      "start": "1998-10",
+      "status": "construction",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "2022",
+      "label": "physics data taking",
+      "locator": "arXiv:hep-ex/0703049 abstract; CERN COMPASS page: \"last run in 2021-2022\"",
+      "note": "Physics data taking from 2002 (muon beam; hadron beam in 2004), resumed in 2006 after the 2005 accelerator shutdown; last run in 2021-2022 per the CERN page.",
+      "quote": "The setup has been successfully operated from 2002 onwards using a muon beam.",
+      "sources": [
+        "src:hadron2-compass-detector-nim-arxiv-2007",
+        "src:hadron2-compass-cern-experiment-page"
+      ],
+      "start": "2002",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "completed",
+      "locator": "CERN COMPASS page",
+      "note": "Year precision: last run in 2021-2022; AMBER page: \"the COMPASS experiment, which concluded in 2022\".",
+      "quote": "AMBER, or Apparatus for Meson and Baryon Experimental Research, will be the next-generation successor of COMPASS after the experiment’s last run in 2021–2022.",
+      "sources": [
+        "src:hadron2-compass-cern-experiment-page"
+      ],
+      "start": "2022",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "COMPASS spectrometer",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": "2022",
+      "locator": "arXiv:1808.00848 (AMBER LoI), Section 1",
+      "note": "EHN2 per the AMBER letter of intent.",
+      "quote": "using the existing spectrometer in EHN2",
+      "role": "main",
+      "site_id": "site:cern-ehn2-north-area",
+      "sources": [
+        "src:hadron2-amber-letter-of-intent-arxiv-2018",
+        "src:hadron2-compass-cern-experiment-page"
+      ],
+      "start": "2002",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:hadron2-compass-detector-nim-arxiv-2007"
+  ],
+  "specs": {},
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "A two-stage magnetic spectrometer with a large polarised target, tracking chambers, a ring-imaging Cherenkov counter and calorimeters, built to follow all particles from beam collisions with a target.",
+    "technical": "COMPASS: polarised target in a superconducting solenoid (muon beam), two-stage large-angle / large-momentum spectrometer with several types of tracking detectors, RICH counter, hadron and electromagnetic calorimeters and muon filters; reused as the AMBER backbone."
+  },
+  "superseded_by": null,
+  "technology": {
+    "confidence": "verified",
+    "locator": "arXiv:hep-ex/0703049 abstract",
+    "note": "",
+    "quote": "Outgoing particles are detected by a two-stage, large angle and large momentum range spectrometer.",
+    "sources": [
+      "src:hadron2-compass-detector-nim-arxiv-2007"
+    ],
+    "value": "Two-stage, large-angle and large-momentum-range magnetic spectrometer with polarised target, RICH and calorimeters",
+    "verified_at": "2026-10-26"
+  },
+  "technology_classes": [
+    "forward_spectrometer",
+    "magnetic_spectrometer"
+  ],
+  "type": "detector"
+}

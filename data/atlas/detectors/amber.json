@@ -1,0 +1,127 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "distinct_from": [],
+  "experiment_ids": [
+    "experiment:amber"
+  ],
+  "id": "detector:amber",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2020",
+      "label": "proposal (letter of intent)",
+      "locator": "arXiv:1808.00848 (CERN-SPSC-2019-003), submitted 2 Aug 2018",
+      "note": "Start = arXiv submission of the letter of intent (2 Aug 2018); end = year of approval by the CERN Research Board.",
+      "quote": "A New QCD facility at the M2 beam line of the CERN SPS",
+      "sources": [
+        "src:hadron2-amber-letter-of-intent-arxiv-2018"
+      ],
+      "start": "2018-08",
+      "status": "proposed",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "2023",
+      "label": "approved",
+      "locator": "CERN AMBER page",
+      "note": "Year precision: approved 2020, data taking from 2023.",
+      "quote": "AMBER was approved by the CERN Research Board in 2020, started taking data in 2023 and released its first results in 2024.",
+      "sources": [
+        "src:hadron2-amber-cern-experiment-page"
+      ],
+      "start": "2020",
+      "status": "approved",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "2026-08-31",
+      "label": "data taking (first phase)",
+      "locator": "CERN AMBER page; end: CERN news of 31 August 2026 (injector complex shut down for LS3)",
+      "note": "Started taking data in 2023 (year precision); the SPS and its North Area beams stopped on 31 August 2026 for Long Shutdown 3, so this is the end of the 2023-2026 data-taking.",
+      "quote": "AMBER was approved by the CERN Research Board in 2020, started taking data in 2023 and released its first results in 2024.",
+      "sources": [
+        "src:hadron2-amber-cern-experiment-page",
+        "src:currency-cern-all-accelerators-2026-08-31"
+      ],
+      "start": "2023",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": {
+        "approx": true,
+        "date": "2028",
+        "display": "staged restart from 2028 onwards",
+        "planned": true
+      },
+      "label": "Long Shutdown 3 (no SPS beam)",
+      "locator": "CERN news, 31 August 2026",
+      "note": "Restart is a plan: \"The complex will progressively return to operation from 2028 onwards, with the different injectors and facilities restarting in stages.\" Whether and when AMBER resumes (second phase with kaon beams) is not stated.",
+      "quote": "CERN’s injector complex and Antimatter Factory took their final steps towards Long Shutdown 3 (LS3) this morning, as the last particle beams were extracted and the machines fell silent.",
+      "sources": [
+        "src:currency-cern-all-accelerators-2026-08-31"
+      ],
+      "start": "2026-08-31",
+      "status": "shutdown",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "AMBER spectrometer",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "locator": "arXiv:1808.00848",
+      "note": "EHN2; start = first data taking (2023, year precision).",
+      "quote": "using the existing spectrometer in EHN2 equipped with liquid hydrogen and liquid helium targets",
+      "role": "main",
+      "site_id": "site:cern-ehn2-north-area",
+      "sources": [
+        "src:hadron2-amber-letter-of-intent-arxiv-2018",
+        "src:hadron2-amber-cern-experiment-page"
+      ],
+      "start": "2023",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:hadron2-amber-letter-of-intent-arxiv-2018"
+  ],
+  "specs": {},
+  "status": "shutdown",
+  "subsystems": [],
+  "summary": {
+    "plain": "The upgraded COMPASS spectrometer in Hall EHN2, with new liquid-hydrogen and liquid-helium targets and additional detectors for each measurement.",
+    "technical": "Upgraded COMPASS two-stage magnetic spectrometer in EHN2, equipped with liquid hydrogen/helium targets, with measurement-specific instrumentation (and, for some proposals, a dedicated target spectrometer with tracking and electromagnetic calorimetry)."
+  },
+  "superseded_by": null,
+  "technology": {
+    "confidence": "verified",
+    "locator": "arXiv:1808.00848, Section 1",
+    "note": "",
+    "quote": "where the upgraded multi-purpose two-stage magnetic spectrometer will serve as experimental backbone of the new facility",
+    "sources": [
+      "src:hadron2-amber-letter-of-intent-arxiv-2018"
+    ],
+    "value": "Upgraded multi-purpose two-stage magnetic spectrometer (the COMPASS spectrometer) with new targets and instrumentation",
+    "verified_at": "2026-10-26"
+  },
+  "technology_classes": [
+    "forward_spectrometer",
+    "magnetic_spectrometer"
+  ],
+  "type": "detector"
+}

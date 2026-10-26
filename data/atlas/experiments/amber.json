@@ -1,0 +1,197 @@
+{
+  "accelerator_ids": [
+    "accelerator:sps"
+  ],
+  "aliases": [
+    "NA66",
+    "Apparatus for Meson and Baryon Experimental Research",
+    "COMPASS++/AMBER"
+  ],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:amber"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "distinct_from": [],
+  "energy_regime": null,
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:cern",
+      "locator": "arXiv:1808.00848 (AMBER letter of intent)",
+      "note": "",
+      "quote": "using the existing spectrometer in EHN2 equipped with liquid hydrogen and liquid helium targets",
+      "role": "host",
+      "sources": [
+        "src:hadron2-amber-letter-of-intent-arxiv-2018"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:cern",
+      "locator": "CERN AMBER page",
+      "note": "Secondary beams from the SPS (accelerator:sps).",
+      "quote": "AMBER directs secondary particle beams from the Super Proton Synchrotron onto various targets to study hadrons such as protons, antiprotons, pions and kaons.",
+      "role": "beam_source",
+      "sources": [
+        "src:hadron2-amber-cern-experiment-page"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:amber",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2020",
+      "label": "proposal (letter of intent)",
+      "locator": "arXiv:1808.00848 (CERN-SPSC-2019-003), submitted 2 Aug 2018",
+      "note": "Start = arXiv submission of the letter of intent (2 Aug 2018); end = year of approval by the CERN Research Board.",
+      "quote": "A New QCD facility at the M2 beam line of the CERN SPS",
+      "sources": [
+        "src:hadron2-amber-letter-of-intent-arxiv-2018"
+      ],
+      "start": "2018-08",
+      "status": "proposed",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "2023",
+      "label": "approved",
+      "locator": "CERN AMBER page",
+      "note": "Year precision: approved 2020, data taking from 2023.",
+      "quote": "AMBER was approved by the CERN Research Board in 2020, started taking data in 2023 and released its first results in 2024.",
+      "sources": [
+        "src:hadron2-amber-cern-experiment-page"
+      ],
+      "start": "2020",
+      "status": "approved",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "2026-08-31",
+      "label": "data taking (first phase)",
+      "locator": "CERN AMBER page; end: CERN news of 31 August 2026 (injector complex shut down for LS3)",
+      "note": "Started taking data in 2023 (year precision); the SPS and its North Area beams stopped on 31 August 2026 for Long Shutdown 3, so this is the end of the 2023-2026 data-taking.",
+      "quote": "AMBER was approved by the CERN Research Board in 2020, started taking data in 2023 and released its first results in 2024.",
+      "sources": [
+        "src:hadron2-amber-cern-experiment-page",
+        "src:currency-cern-all-accelerators-2026-08-31"
+      ],
+      "start": "2023",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": {
+        "approx": true,
+        "date": "2028",
+        "display": "staged restart from 2028 onwards",
+        "planned": true
+      },
+      "label": "Long Shutdown 3 (no SPS beam)",
+      "locator": "CERN news, 31 August 2026",
+      "note": "Restart is a plan: \"The complex will progressively return to operation from 2028 onwards, with the different injectors and facilities restarting in stages.\" Whether and when AMBER resumes (second phase with kaon beams) is not stated.",
+      "quote": "CERN’s injector complex and Antimatter Factory took their final steps towards Long Shutdown 3 (LS3) this morning, as the last particle beams were extracted and the machines fell silent.",
+      "sources": [
+        "src:currency-cern-all-accelerators-2026-08-31"
+      ],
+      "start": "2026-08-31",
+      "status": "shutdown",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [],
+  "kind": "hadron_structure",
+  "lineage": [
+    {
+      "experiment_id": "experiment:compass",
+      "locator": "CERN AMBER page",
+      "quote": "AMBER, or Apparatus for Meson and Baryon Experimental Research, is the successor to the COMPASS experiment, which concluded in 2022.",
+      "relation": "predecessor",
+      "sources": [
+        "src:hadron2-amber-cern-experiment-page"
+      ]
+    }
+  ],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "locator": "AMBER website home page",
+      "note": "The CERN experiment page https://home.cern/science/experiments/amber describes the experiment.",
+      "quote": "AMBER experiment Physics Beyond Colliders",
+      "sources": [
+        "src:hadron2-amber-web-page"
+      ],
+      "value": "https://amber.web.cern.ch/",
+      "verified_at": "2026-10-26"
+    }
+  },
+  "name": "AMBER",
+  "notes": [
+    "Status shutdown reflects the SPS stop for Long Shutdown 3 on 2026-08-31; the CERN page does not state a post-LS3 plan.",
+    "AMBER released preliminary first results in 2024 (antiproton production cross section in p+He, ICHEP 2024) per a CERN news item; no collaboration paper or preprint was found, so no result record is written.",
+    "The AMBER website lists no membership count; members are listed in the CERN Greybook (not read).",
+    "INSPIRE experiment id not looked up: inspirehep.net is off-limits to coverage streams (STREAM_RULES); external.inspire_experiment left null for the integrator."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "CERN AMBER page",
+      "note": "",
+      "quote": "The first is to determine the rates at which antiprotons are produced in proton–hydrogen and proton–helium collisions.",
+      "sources": [
+        "src:hadron2-amber-cern-experiment-page"
+      ],
+      "value": "Determine antiproton production rates in proton-hydrogen and proton-helium collisions, measure the proton radius with muons, and measure quark and gluon momenta in pions and kaons",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:hadron2-amber-cern-experiment-page",
+    "src:hadron2-amber-letter-of-intent-arxiv-2018",
+    "src:hadron2-amber-web-page"
+  ],
+  "status": "shutdown",
+  "summary": {
+    "plain": "AMBER is the successor to COMPASS at CERN. It directs beams of muons, protons, pions, kaons and antiprotons at targets to measure antiproton production (relevant to dark-matter searches), the proton's charge radius and the quark and gluon momenta inside pions and kaons. It started taking data in 2023.",
+    "technical": "Apparatus for Meson and Baryon Experimental Research (NA66) on the SPS M2 beam line in EHN2, built on the upgraded COMPASS two-stage spectrometer: phase 1 antiproton production in p+H2 and p+He, proton-radius measurement with high-energy muons and pion/kaon Drell-Yan structure; phase 2 intense kaon beams (strange-meson spectroscopy, Primakoff reactions). Approved 2020, data taking from 2023, SPS stopped for LS3 on 2026-08-31."
+  },
+  "superseded_by": null,
+  "topic_ids": [
+    "topic:hadron-structure",
+    "topic:qcd"
+  ],
+  "type": "experiment",
+  "unique_capabilities": [
+    {
+      "confidence": "verified",
+      "locator": "arXiv:1808.00848, Section 1",
+      "note": "",
+      "quote": "where the upgraded multi-purpose two-stage magnetic spectrometer will serve as experimental backbone of the new facility",
+      "sources": [
+        "src:hadron2-amber-letter-of-intent-arxiv-2018"
+      ],
+      "value": "Upgraded multi-purpose two-stage magnetic spectrometer as the backbone for several proposed measurements on the M2 beam line",
+      "verified_at": "2026-10-26"
+    }
+  ]
+}
