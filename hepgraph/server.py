@@ -44,7 +44,11 @@ ATLAS_CONTENT_TYPES = {
 # every request; see docs/HEP_ATLAS_BUNDLES.md for the design writeup.
 _ATLAS_ETAG_CACHE: dict[Path, tuple[int, int, str]] = {}
 _ATLAS_ETAG_LOCK = threading.Lock()
-ATLAS_CACHE_CONTROL = 'public, max-age=0, must-revalidate'
+# Every file under /atlas is static and changes only with a deployment, which
+# starts with an empty edge cache: browsers still revalidate (max-age=0, a cheap
+# 304) while Vercel's CDN answers for everyone, so a page load no longer costs a
+# serverless invocation per file (it was ~40) or spends the per-address budget.
+ATLAS_CACHE_CONTROL = 'public, max-age=0, s-maxage=86400, stale-while-revalidate=604800'
 
 
 def _atlas_etag(target, body):

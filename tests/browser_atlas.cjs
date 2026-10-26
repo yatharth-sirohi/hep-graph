@@ -1710,7 +1710,12 @@ async function setRangeValue(locator, value) {
       afterRegion,
       { timeout: 15000 },
     );
-    assert.equal(await page.locator("#filter-region-Europe").isChecked(), true, "reload must restore the checked filter");
+    const restored = await page.evaluate(() => {
+      const box = document.getElementById("filter-region-Europe");
+      return { exists: !!box, checked: !!(box && box.checked), url: location.href,
+        chips: [...document.querySelectorAll(".filter-chip")].map((c) => c.textContent.trim()) };
+    });
+    assert.equal(restored.checked, true, `reload must restore the checked filter: ${JSON.stringify(restored)} (reloaded ${urlWithRegionOnly})`);
 
     // AND composition: adding a second facet must narrow the set further
     // (never widen it) — a region with no "planned" facility legitimately
