@@ -1,0 +1,87 @@
+{
+  "aliases": [
+    "ILC"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "facility_id": "facility:kek",
+  "feeds_accelerator_ids": [],
+  "id": "accelerator:ilc",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "Technical Design Report published; no site selected",
+      "locator": "ILC TDR Volume 1 (Executive Summary), arXiv:1306.6327",
+      "note": "Start = the June 2013 publication of the four-volume Technical Design Report; earlier design stages are not recorded. The TDR abstract: \"Once a site is selected and the necessary site-dependent engineering is carried out, construction can begin immediately.\" The ILC International Development Team page (linearcollider.org) says the Japanese high energy physics community has been promoting the ILC \"to be hosted in the mountainous regions of northern Japan\". ILC NewsLine, 25 June 2025: \"None of these projects have yet been approved\".",
+      "quote": "For Asia, two possible ILC candidate sites have been identified: Kitakami in the Tohoku district in northern Japan; and Sefuri in the Kyushu district in the south.",
+      "sources": [
+        "src:colliders2-ilc-tdr-vol1",
+        "src:colliders2-ilc-tdr-vol3-ii",
+        "src:colliders2-linearcollider-org",
+        "src:colliders2-ilc-newsline-japan-vision-2025"
+      ],
+      "start": "2013-06",
+      "status": "proposed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "is_collider": true,
+  "kind": "collider",
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "locator": "ILC International Development Team site (home page)",
+      "note": "",
+      "sources": [
+        "src:colliders2-linearcollider-org"
+      ],
+      "value": "https://linearcollider.org/",
+      "verified_at": "2026-10-26"
+    }
+  },
+  "name": "International Linear Collider",
+  "notes": [
+    "The ILC has no site. The Atlas marker is the KEK Tsukuba campus only because an accelerator record needs a facility and a site: KEK hosts the linear-collider workshop LCWS2026 (ILC NewsLine, 17 September 2026). It is NOT a candidate site; the 2013 TDR names Kitakami (Tohoku district, northern Japan) and Sefuri (Kyushu district) as the two possible ILC candidate sites for Asia.",
+    "The two detector designs, ILD and SiD, are described in the TDR; they are not recorded as experiments because no host site has been named for them.",
+    "The ILC International Development Team was created by ICFA to prepare the ILC Pre-Lab (linearcollider.org); the page fetched does not date its creation."
+  ],
+  "particles": [
+    "electron",
+    "positron"
+  ],
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:kek-tsukuba-campus",
+  "sources": [
+    "src:colliders2-ilc-tdr-vol1",
+    "src:colliders2-ilc-tdr-vol3-ii",
+    "src:colliders2-linearcollider-org",
+    "src:colliders2-ilc-newsline-japan-vision-2025",
+    "src:colliders2-ilc-newsline-2026-09-17"
+  ],
+  "specs": {
+    "cms_energy": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "energy",
+      "display": "500 GeV (baseline design)",
+      "locator": "TDR Volume 3.II abstract",
+      "note": "Baseline; the abstract adds that the accelerator can be extended to 1 TeV and can run as a Higgs factory at around 250 GeV and on the Z0 pole.",
+      "quote": "describes in four volumes the physics case and the design of a 500 GeV centre-of-mass energy linear electron-positron collider",
+      "sources": [
+        "src:colliders2-ilc-tdr-vol3-ii"
+      ],
+      "unit": "GeV",
+      "value": 500,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "proposed",
+  "summary": {
+    "plain": "A proposed linear electron-positron collider with a 500 GeV baseline design, extendable to 1 TeV. The 2013 design report named two candidate sites in Japan, Kitakami and Sefuri, and the Japanese community now promotes northern Japan. No site has been selected and the project is not approved.",
+    "technical": "ILC: proposed superconducting-RF (niobium cavity) linear e+e- collider; TDR (2013) baseline 500 GeV centre-of-mass, extendable to 1 TeV, Higgs-factory mode near 250 GeV, two detectors (ILD and SiD) sharing the luminosity in a push-pull configuration. TDR Vol. 1: two candidate sites for Asia, Kitakami (Tohoku, northern Japan) and Sefuri (Kyushu). No site selected, no approval. The ILC International Development Team (created by ICFA) is to prepare the ILC Pre-Lab."
+  },
+  "type": "accelerator"
+}
