@@ -1,0 +1,115 @@
+{
+  "aliases": [],
+  "countries": [
+    "SE"
+  ],
+  "country": [
+    "SE"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
+  },
+  "id": "facility:european-spallation-source",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2014-09",
+      "label": "site selected",
+      "locator": "ESS Story page",
+      "note": "Day precision from the facility's own history page.",
+      "quote": "the definitive selection of Lund was announced in Brussels on 28 May 2009",
+      "sources": [
+        "src:essnusb-ess-story-page"
+      ],
+      "start": "2009-05-28",
+      "status": "approved",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "construction",
+      "locator": "ESS Story page, \"Construction Begins\"",
+      "note": "Open-ended: the facility is still described as under construction in the ESSnuSB design report (2022) and the first beam on the tuning dump was reported on 16 May 2025 (press release); no fetched source reports beam on target or the start of user operation.",
+      "quote": "The ESS construction project broke ground in September 2014.",
+      "sources": [
+        "src:essnusb-ess-story-page"
+      ],
+      "start": "2014-09",
+      "status": "construction",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "kind": "spallation_source",
+  "links": {
+    "website": null
+  },
+  "name": "European Spallation Source",
+  "notes": [
+    "No ESS accelerator or beamline record is created here (not assigned to this stream); an `accelerator:ess-linac` and an ESSnuSB `beamline` would be natural additions for the integrator."
+  ],
+  "operator": {
+    "confidence": "verified",
+    "locator": "ESS Story page",
+    "note": "",
+    "quote": "ESS completed the transition from ESS AB to European Spallation Source ERIC on 1 October 2015",
+    "sources": [
+      "src:essnusb-ess-story-page"
+    ],
+    "value": "European Spallation Source ERIC",
+    "verified_at": "2026-10-26"
+  },
+  "operator_ids": [],
+  "primary_site_id": "site:ess-lund",
+  "related_facility_ids": [],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:essnusb-ess-story-page",
+    "src:essnusb-cdr-2022",
+    "src:essnusb-ess-beam-on-dump-2025",
+    "src:geo-essnusb-nominatim-ess"
+  ],
+  "specs": {
+    "beam_power": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "power",
+      "display": "5 MW",
+      "locator": "abstract",
+      "note": "",
+      "quote": "The world's most intense pulsed spallation neutron source, the European Spallation Source (ESS), will have a proton linac operating at 5\\,MW power, 2\\,GeV kinetic energy and 14~Hz repetition rate",
+      "sources": [
+        "src:essnusb-cdr-2022"
+      ],
+      "unit": "MW",
+      "value": 5,
+      "verified_at": "2026-10-26"
+    },
+    "proton_energy": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "energy",
+      "display": "2 GeV",
+      "locator": "abstract",
+      "note": "",
+      "quote": "will have a proton linac operating at 5\\,MW power, 2\\,GeV kinetic energy and 14~Hz repetition rate",
+      "sources": [
+        "src:essnusb-cdr-2022"
+      ],
+      "unit": "GeV",
+      "value": 2,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "construction",
+  "summary": {
+    "plain": "The world's most powerful planned neutron source, being built in Lund, Sweden, around a 5-megawatt proton linear accelerator. Its protons will make neutrons for materials research and could also drive a neutrino beam.",
+    "technical": "European Spallation Source (ESS ERIC), Lund, Sweden: 5 MW, 2 GeV proton linac at 14 Hz, under construction since September 2014; beam on tuning dump achieved May 2025; the ESSnuSB study proposes doubling the repetition rate and adding an accumulator ring for a neutrino super beam."
+  },
+  "topic_ids": [
+    "topic:neutrino-oscillations",
+    "topic:cp-violation"
+  ],
+  "type": "facility"
+}
