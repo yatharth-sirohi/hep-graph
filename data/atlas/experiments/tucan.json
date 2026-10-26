@@ -1,0 +1,105 @@
+{
+  "accelerator_ids": [],
+  "aliases": [],
+  "collaboration_ids": [
+    "collaboration:tucan"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "facility_id": "facility:triumf",
+      "locator": "TRIUMF news item, paragraph 2",
+      "note": "",
+      "quote": "used a beam from TRIUMF’s 520 MeV cyclotron to produce a batch of neutrons",
+      "role": "host",
+      "sources": [
+        "src:precision-2-tucan-triumf-news-2025"
+      ],
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:tucan",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2024",
+      "label": "development of the advanced UCN source",
+      "locator": "KURNS news item, paragraph 3",
+      "note": "Start is a lower bound: after the 2017 first UCN production at TRIUMF with a prototype source, development of the advanced source continued. The experiment's start and approval dates are not stated in a source consulted.",
+      "quote": "Since then, development has continued on a new, advanced UCN source designed to deliver UCNs at world-leading intensity [3].",
+      "sources": [
+        "src:precision-2-tucan-kyoto-news-2025",
+        "src:precision-2-tucan-arxiv-2507-05278"
+      ],
+      "start": "2017",
+      "status": "construction",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "commissioning of the source, first UCN production",
+      "locator": "arXiv:2507.05278, abstract",
+      "note": "A record production run took place on 13 June 2025 (KURNS and TRIUMF news); the liquid-deuterium moderator was not yet installed, and no later status is published. A site-wide shutdown of the TRIUMF accelerators was announced for 2026 in the collaboration's outlook (not recorded as an interval).",
+      "quote": "Substantial progress in 2024 allowed the collaboration to operate the complete source system, with the exception of the liquid deuterium cold moderator, resulting in the first production of UCNs.",
+      "sources": [
+        "src:precision-2-tucan-arxiv-2507-05278",
+        "src:precision-2-tucan-kyoto-news-2025",
+        "src:precision-2-tucan-triumf-news-2025"
+      ],
+      "start": "2024",
+      "status": "commissioning",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [],
+  "kind": "neutron_precision",
+  "lineage": [],
+  "links": {
+    "website": null
+  },
+  "name": "TUCAN",
+  "notes": [
+    "Conflict: arXiv:2507.05278 (v4, July 2026) says the first UCN production followed progress in 2024, while KURNS and TRIUMF report the 13 June 2025 run as the record-setting production; the commissioning interval starts at 2024 (approximate) and the June 2025 run is recorded in its note.",
+    "The TRIUMF cyclotron is not recorded as an accelerator in this atlas (no accelerator:triumf record); listed for the integrator."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "arXiv:2507.05278, abstract",
+      "note": "",
+      "quote": "The TRIUMF Ultracold Advanced Neutron (TUCAN) collaboration has been developing a high-intensity ultracold neutron (UCN) source aimed at searching for the neutron electric dipole moment (EDM)",
+      "sources": [
+        "src:precision-2-tucan-arxiv-2507-05278"
+      ],
+      "value": "Search for the neutron electric dipole moment with a sensitivity goal of 1e-27 e cm using a high-intensity ultracold neutron source",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:precision-2-tucan-arxiv-2507-05278",
+    "src:precision-2-tucan-kyoto-news-2025",
+    "src:precision-2-tucan-triumf-news-2025"
+  ],
+  "status": "commissioning",
+  "summary": {
+    "plain": "A Canadian-led collaboration building a very intense source of ultracold neutrons at TRIUMF in Vancouver, to search for the neutron’s electric dipole moment with a target sensitivity of 10^-27 electron-charge centimetres. The source made its first ultracold neutrons in 2024-2025.",
+    "technical": "TUCAN (TRIUMF Ultracold Advanced Neutron): accelerator-driven superfluid-helium UCN source on a 520 MeV cyclotron proton beam (design 1.6 x 10^7 UCN/s with the liquid-deuterium moderator) feeding a neutron EDM spectrometer with goal 10^-27 e cm. First UCN production in 2024; record run 13 June 2025 without the LD2 moderator."
+  },
+  "topic_ids": [
+    "topic:neutron-physics"
+  ],
+  "type": "experiment",
+  "unique_capabilities": []
+}

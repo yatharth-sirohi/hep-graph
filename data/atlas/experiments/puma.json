@@ -1,0 +1,148 @@
+{
+  "accelerator_ids": [
+    "accelerator:elena",
+    "accelerator:cern-ad"
+  ],
+  "aliases": [],
+  "collaboration_ids": [
+    "collaboration:puma"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "facility_id": "facility:cern",
+      "locator": "CERN PUMA page",
+      "note": "",
+      "quote": "PUMA, or antiProton Unstable Matter Annihilation, is a compact experiment designed to carry antiprotons from CERN’s Antimatter Factory to the Laboratory’s ISOLDE facility",
+      "role": "host",
+      "sources": [
+        "src:precision-2-cern-puma-page"
+      ],
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:puma",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2021",
+      "label": "project start",
+      "locator": "PUMA home page, last paragraph",
+      "note": "",
+      "quote": "The project began in January 2018, with acceptance as a CERN experiment (AD-09) in 2021",
+      "sources": [
+        "src:precision-2-puma-site-home"
+      ],
+      "start": "2018-01",
+      "status": "proposed",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "2024-12",
+      "label": "approved as CERN experiment AD-09",
+      "locator": "CERN PUMA page, last paragraph",
+      "note": "CERN gives March 2021 for the approval; the PUMA site says \"acceptance as a CERN experiment (AD-09) in 2021\".",
+      "quote": "PUMA was approved in March 2021 and is expected to begin operation in 2025.",
+      "sources": [
+        "src:precision-2-puma-site-home",
+        "src:precision-2-cern-puma-page"
+      ],
+      "start": "2021",
+      "status": "approved",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": "2026-08-31",
+      "label": "installation and commissioning with antiprotons",
+      "locator": "PUMA home page, last paragraph",
+      "note": "Start is the start of installation of the primary apparatus. End: 31 August 2026 (LS3); the PUMA page is undated, so the continuation of commissioning up to that date is an inference from \"ongoing\".",
+      "quote": "installation of the primary apparatus since December 2024. Commissioning with antiprotons at the AD is ongoing.",
+      "sources": [
+        "src:precision-2-puma-site-home",
+        "src:currency-cern-all-accelerators-2026-08-31"
+      ],
+      "start": "2024-12",
+      "status": "commissioning",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "Long Shutdown 3 (no antiproton beam)",
+      "locator": "opening paragraph",
+      "note": "The Antimatter Factory (AD and ELENA) delivered its last beams on 31 August 2026 and \"will progressively return to operation from 2028 onwards, with the different injectors and facilities restarting in stages\" (CERN, 31 August 2026); no experiment-specific restart date is published, so the end is left open.",
+      "quote": "CERN’s injector complex and Antimatter Factory took their final steps towards Long Shutdown 3 (LS3) this morning, as the last particle beams were extracted and the machines fell silent.",
+      "sources": [
+        "src:currency-cern-all-accelerators-2026-08-31"
+      ],
+      "start": "2026-08-31",
+      "status": "shutdown",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [],
+  "kind": "antimatter",
+  "lineage": [],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "locator": "official collaboration site",
+      "note": "",
+      "sources": [
+        "src:precision-2-puma-site-home"
+      ],
+      "value": "https://puma.web.cern.ch/",
+      "verified_at": "2026-10-26"
+    }
+  },
+  "name": "PUMA",
+  "notes": [
+    "PUMA is also a nuclear-structure experiment at ISOLDE; ISOLDE operations are outside this stream (no ISOLDE site record exists in the atlas)."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "PUMA home page, first paragraph",
+      "note": "",
+      "quote": "PUMA aims to determine the neutron-to-proton density ratio at the nuclear surface by studying the annihilation of antiprotons on nuclei.",
+      "sources": [
+        "src:precision-2-puma-site-home"
+      ],
+      "value": "Determine the neutron-to-proton density ratio at the nuclear surface by studying antiproton annihilation on nuclei, to study neutron skins and halos",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [
+    "other"
+  ],
+  "sources": [
+    "src:precision-2-puma-site-home",
+    "src:precision-2-puma-site-about",
+    "src:precision-2-cern-puma-page",
+    "src:precision-2-puma-eur-phys-j-a-2022",
+    "src:currency-cern-all-accelerators-2026-08-31"
+  ],
+  "status": "shutdown",
+  "summary": {
+    "plain": "A compact CERN experiment designed to trap antiprotons, carry them by truck to CERN’s ISOLDE facility and annihilate them on short-lived nuclei. The products show how protons and neutrons are spread at the surface of those nuclei.",
+    "technical": "PUMA (antiProton Unstable Matter Annihilation, AD-09): transportable Penning trap storing about a billion antiprotons from ELENA, to be moved to ISOLDE to measure the neutron-to-proton annihilation ratio on rare isotopes (neutron skins, halos). Approved March 2021; installed at the AD hall since December 2024."
+  },
+  "topic_ids": [
+    "topic:antimatter",
+    "topic:nuclear-and-heavy-ion"
+  ],
+  "type": "experiment",
+  "unique_capabilities": []
+}

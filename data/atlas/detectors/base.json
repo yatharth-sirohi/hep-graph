@@ -1,0 +1,92 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "experiment_ids": [
+    "experiment:base"
+  ],
+  "id": "detector:base",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2026-08-31",
+      "label": "antiproton runs at the Antiproton Decelerator",
+      "locator": "Nature 524, 196 (2015), Author contributions",
+      "note": "Start year is the first antiproton run named in the BASE charge-to-mass paper; BASE's approval and installation date is not stated in a source consulted. End: 31 August 2026 (LS3).",
+      "quote": "participated in the 2014 antiproton run and contributed to the data collection",
+      "sources": [
+        "src:precision-2-base-charge-to-mass-nature-2015",
+        "src:currency-cern-all-accelerators-2026-08-31"
+      ],
+      "start": "2014",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "Long Shutdown 3 (no antiproton beam)",
+      "locator": "opening paragraph",
+      "note": "The Antimatter Factory (AD and ELENA) delivered its last beams on 31 August 2026 and \"will progressively return to operation from 2028 onwards, with the different injectors and facilities restarting in stages\" (CERN, 31 August 2026); no experiment-specific restart date is published, so the end is left open.",
+      "quote": "CERN’s injector complex and Antimatter Factory took their final steps towards Long Shutdown 3 (LS3) this morning, as the last particle beams were extracted and the machines fell silent.",
+      "sources": [
+        "src:currency-cern-all-accelerators-2026-08-31"
+      ],
+      "start": "2026-08-31",
+      "status": "shutdown",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "BASE multi-Penning-trap system",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "locator": "Nature 524, 196 (2015), Author contributions",
+      "note": "AD hall campus-grade site.",
+      "quote": "participated in the 2014 antiproton run and contributed to the data collection",
+      "role": "main",
+      "site_id": "site:cern-antiproton-decelerator-hall",
+      "sources": [
+        "src:precision-2-base-charge-to-mass-nature-2015"
+      ],
+      "start": "2014",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:currency-cern-all-accelerators-2026-08-31",
+    "src:precision-2-base-charge-to-mass-nature-2015",
+    "src:precision-2-cern-base-page"
+  ],
+  "specs": {},
+  "status": "shutdown",
+  "subsystems": [],
+  "summary": {
+    "plain": "Four connected electromagnetic traps held at very low temperature. One stores antiprotons for months, one identifies a single antiproton’s spin, one measures it precisely and one cools it.",
+    "technical": "Four-Penning-trap system (analysis trap with a magnetic bottle for spin detection, precision trap, cooling trap, reservoir trap holding 50-100 antiprotons) with image-current detection; the transportable trap BASE-STEP is a separate development."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "CERN BASE page, 2nd paragraph",
+    "note": "",
+    "quote": "Using an experimental set-up with four Penning traps – devices that hold particles in place with electromagnetic fields",
+    "sources": [
+      "src:precision-2-cern-base-page"
+    ],
+    "value": "Cryogenic multi-Penning-trap system with analysis, precision, cooling and reservoir traps",
+    "verified_at": "2026-10-26"
+  },
+  "technology_classes": [
+    "other"
+  ],
+  "type": "detector"
+}

@@ -1,0 +1,107 @@
+{
+  "accelerator_ids": [],
+  "aliases": [
+    "BL3"
+  ],
+  "collaboration_ids": [
+    "collaboration:nist-bl3"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "facility_id": "facility:nist-center-for-neutron-research",
+      "locator": "CIPANP 2025 abstract",
+      "note": "",
+      "quote": "will run at the NIST Center for Neutron Research after the facility returns to operation, expected in 2027",
+      "role": "host",
+      "sources": [
+        "src:precision-2-bl3-cipanp-2025-abstract"
+      ],
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:nist-bl3",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "funded and under construction",
+      "locator": "CIPANP 2025 abstract (9-13 June 2025)",
+      "note": "As of June 2025 the apparatus was to be integrated offline in 2026. The NCNR reactor resumed operation in May 2026 (NIST), earlier than the \"expected in 2027\" of the abstract; no later BL3 status was found.",
+      "quote": "The project received funding in 2022 and subsystems are now being developed and constructed.",
+      "sources": [
+        "src:precision-2-bl3-cipanp-2025-abstract"
+      ],
+      "start": "2022",
+      "status": "construction",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "first run at the NCNR (planned)",
+      "locator": "CIPANP 2025 abstract",
+      "note": "Schedule from June 2025, not an event.",
+      "quote": "The apparatus will be integrated offline in 2026 and will run at the NIST Center for Neutron Research after the facility returns to operation, expected in 2027.",
+      "sources": [
+        "src:precision-2-bl3-cipanp-2025-abstract"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2027",
+        "display": "after the facility returns to operation, expected in 2027",
+        "planned": true
+      },
+      "status": "planned",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [],
+  "kind": "neutron_precision",
+  "lineage": [],
+  "links": {
+    "website": null
+  },
+  "name": "NIST beam neutron lifetime experiment BL3",
+  "notes": [
+    "The BL3 conceptual design report (2021) is cited by the BL2 paper as \"unpublished\" and was not used; the status rests on the collaboration's June 2025 conference abstract.",
+    "No lineage edge to BL2 is recorded because the sources describe BL3 only as an \"entirely new apparatus\" improving on the previous experiment."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "CIPANP 2025 abstract",
+      "note": "",
+      "quote": "reduce the neutron lifetime uncertainty from the beam method to <0.3 s.",
+      "sources": [
+        "src:precision-2-bl3-cipanp-2025-abstract"
+      ],
+      "value": "Reduce the beam-method neutron lifetime uncertainty to below 0.3 s and the systematic uncertainties to the 10^-4 level",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:precision-2-bl3-cipanp-2025-abstract"
+  ],
+  "status": "construction",
+  "summary": {
+    "plain": "The next-generation NIST neutron-lifetime experiment, under construction. It uses a larger magnet, proton trap and neutron beam to measure the lifetime to better than 0.3 seconds with the beam method and to test the method’s systematic effects.",
+    "technical": "BL3 beam neutron lifetime: entirely new apparatus with a larger magnet and proton trap, a larger neutron beam and a segmented silicon detector (a factor 100 in proton trapping rate), goal below 0.3 s on the beam-method lifetime and systematics at the 10^-4 level. Funded 2022; integration planned 2026; run at the NCNR."
+  },
+  "topic_ids": [
+    "topic:neutron-physics"
+  ],
+  "type": "experiment",
+  "unique_capabilities": []
+}

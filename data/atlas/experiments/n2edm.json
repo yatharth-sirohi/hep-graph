@@ -1,0 +1,111 @@
+{
+  "accelerator_ids": [
+    "accelerator:psi-hipa"
+  ],
+  "aliases": [],
+  "collaboration_ids": [
+    "collaboration:n2edm"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "facility_id": "facility:psi",
+      "locator": "arXiv:2101.08730, abstract",
+      "note": "",
+      "quote": "currently under construction at the ultracold neutron source at the Paul Scherrer Institute (PSI)",
+      "role": "host",
+      "sources": [
+        "src:precision-2-n2edm-design-arxiv-2101-08730"
+      ],
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:n2edm",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2025-11",
+      "label": "under construction at the PSI ultracold neutron source",
+      "locator": "arXiv:2101.08730, abstract",
+      "note": "Start is the date of the design report, which says the experiment is \"currently under construction\"; the construction start itself is not stated. End: first use of the n2EDM apparatus for ultracold-neutron measurements (arXiv:2511.06884, 10 Nov 2025).",
+      "quote": "We present the design of a next-generation experiment, n2EDM, currently under construction at the ultracold neutron source at the Paul Scherrer Institute (PSI)",
+      "sources": [
+        "src:precision-2-n2edm-design-arxiv-2101-08730",
+        "src:precision-2-n2edm-ucn-spectrum-arxiv-2511-06884"
+      ],
+      "start": "2021-01",
+      "status": "construction",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "commissioning",
+      "locator": "arXiv:2601.22960, introduction (30 January 2026)",
+      "note": "Start is a lower bound (the first paper using the apparatus for UCN measurements, 10 November 2025); the January 2026 paper says the experiment \"is currently being commissioned\". The active magnetic shield was commissioned in 2021 (same paper). No EDM result has been published.",
+      "quote": "which is currently being commissioned at the ultracold neutron (UCN) source",
+      "sources": [
+        "src:precision-2-n2edm-active-magnetic-shield-arxiv-2601-22960",
+        "src:precision-2-n2edm-ucn-spectrum-arxiv-2511-06884"
+      ],
+      "start": "2025-11",
+      "status": "commissioning",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [],
+  "kind": "neutron_precision",
+  "lineage": [
+    {
+      "experiment_id": "experiment:psi-nedm",
+      "relation": "predecessor",
+      "sources": [
+        "src:precision-2-n2edm-design-arxiv-2101-08730"
+      ]
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "n2EDM",
+  "notes": [],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "arXiv:2101.08730, abstract",
+      "note": "",
+      "quote": "is expected to deliver an order of magnitude better sensitivity with provision for further substantial improvements",
+      "sources": [
+        "src:precision-2-n2edm-design-arxiv-2101-08730"
+      ],
+      "value": "Carry out a high-precision search for an electric dipole moment of the neutron with an order of magnitude better sensitivity than the previous apparatus",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:precision-2-n2edm-design-arxiv-2101-08730",
+    "src:precision-2-n2edm-active-magnetic-shield-arxiv-2601-22960",
+    "src:precision-2-n2edm-ucn-spectrum-arxiv-2511-06884"
+  ],
+  "status": "commissioning",
+  "summary": {
+    "plain": "The next-generation neutron electric-dipole-moment experiment at the Paul Scherrer Institute, aimed at an order of magnitude better sensitivity than its predecessor. It uses two stacked storage chambers and a huge magnetically shielded room, and is being commissioned.",
+    "technical": "n2EDM at the PSI UCN source: double-chamber Ramsey spectrometer (two vertically stacked UCN storage chambers) in a very large magnetically shielded room with an active magnetic shield and Hg/Cs magnetometry; goal an order of magnitude better sensitivity than the PSI nEDM apparatus (operated until 2017). Design report 2021; commissioning as of January 2026."
+  },
+  "topic_ids": [
+    "topic:neutron-physics"
+  ],
+  "type": "experiment",
+  "unique_capabilities": []
+}

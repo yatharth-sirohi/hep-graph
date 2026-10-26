@@ -1,0 +1,89 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "experiment_ids": [
+    "experiment:perkeo-iii"
+  ],
+  "id": "detector:perkeo-iii",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2008",
+      "label": "commissioning run (continuous beam)",
+      "locator": "TUM PERKEO III page, paragraph 4",
+      "note": "The end of commissioning is the start of the 2008/2009 beta-asymmetry run (same page).",
+      "quote": "It was commissioned successfully in a first run at the Institute Laue-Langevin (ILL) in 2007.",
+      "sources": [
+        "src:precision-2-perkeo-iii-tum-page"
+      ],
+      "start": "2007",
+      "status": "commissioning",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "measurement runs at the ILL (2008/2009, 2014/2015, 2019/2020)",
+      "locator": "TUM PERKEO III page, last paragraph",
+      "note": "Runs: beta asymmetry A 2008/2009; proton asymmetry C 2014 and 2015; beta spectrum 2019 and 2020 (\"Analysis of the data is ongoing\"). No later run was found, so the interval is left open; whether the spectrometer is still in use at the ILL is not stated.",
+      "quote": "In 2019 and 2020 we successfully performed a measurement of the beta spectrum with the aim to strongly improve the limits on the Fierz interfernce term b using an unpolarised, pulsed neutron beam.",
+      "sources": [
+        "src:precision-2-perkeo-iii-tum-page"
+      ],
+      "start": "2008",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "PERKEO III spectrometer",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "locator": "TUM PERKEO III page, figure caption",
+      "note": "ILL reactor-hall campus-grade site; the PF1B hall is not located in a fetched source.",
+      "quote": "PERKEO III installed at the cold neutron beam line PF1b at the Institut Laue-Langevin, Grenoble, France.",
+      "role": "main",
+      "site_id": "site:ill-grenoble-reactor-hall",
+      "sources": [
+        "src:precision-2-perkeo-iii-tum-page"
+      ],
+      "start": "2007",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:precision-2-perkeo-iii-tum-page"
+  ],
+  "specs": {},
+  "status": "active",
+  "subsystems": [],
+  "summary": {
+    "plain": "An eight-metre magnet system in which the electrons and protons from neutron decays are guided to two detectors, with a pulsed neutron beam that lets the background be measured under the same conditions as the signal.",
+    "technical": "8 m, 54-coil magnet system with a large decay volume accepting a large part of the natural beam divergence, two connected detector systems and a pulsed, polarized cold neutron beam at PF1B."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "TUM PERKEO III page, paragraph 3",
+    "note": "",
+    "quote": "Like all PERKEO spectrometers, PERKEO III uses a magnetic field to transport electrons and protons from the decay region towards the detectors in a symmetric set-up, ensuring a solid angle acceptance of (almost) 4π.",
+    "sources": [
+      "src:precision-2-perkeo-iii-tum-page"
+    ],
+    "value": "Magnetic spectrometer transporting electrons and protons from neutron decay to two detector systems in a symmetric set-up with almost 4π acceptance",
+    "verified_at": "2026-10-26"
+  },
+  "technology_classes": [
+    "magnetic_spectrometer"
+  ],
+  "type": "detector"
+}

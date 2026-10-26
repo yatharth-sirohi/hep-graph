@@ -1,0 +1,111 @@
+{
+  "accelerator_ids": [],
+  "aliases": [
+    "BL2"
+  ],
+  "collaboration_ids": [
+    "collaboration:nist-bl2"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "facility_id": "facility:nist-center-for-neutron-research",
+      "locator": "arXiv:2506.01682, Section III.A",
+      "note": "",
+      "quote": "The apparatus for these studies is part of the BL2 experiment to measure the neutron lifetime",
+      "role": "host",
+      "sources": [
+        "src:precision-2-nist-bl2-molecular-hydrogen-arxiv-2506-01682"
+      ],
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:nist-bl2",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2020-10",
+      "label": "data taking with the BL2 apparatus",
+      "locator": "arXiv:2506.01682, Section III",
+      "note": "These are the dates of the data analysed in the 2025 hydrogen-detection paper, which says the BL2 data \"have not been used to report a neutron lifetime result\"; the start and end of the BL2 programme as a whole are not stated.",
+      "quote": "The data for this work were acquired between July 2018 and October 2020.",
+      "sources": [
+        "src:precision-2-nist-bl2-molecular-hydrogen-arxiv-2506-01682"
+      ],
+      "start": "2018-07",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "completed (NCNR reactor shut down 3 February 2021)",
+      "locator": "arXiv:2506.01682, Section III",
+      "note": "Completion is taken as the end of the dated data set; the reactor was shut down on 3 February 2021.",
+      "quote": "The data for this work were acquired between July 2018 and October 2020.",
+      "sources": [
+        "src:precision-2-nist-bl2-molecular-hydrogen-arxiv-2506-01682",
+        "src:precision-2-nist-ncnr-restart-news-2023"
+      ],
+      "start": "2020-10",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [],
+  "kind": "neutron_precision",
+  "lineage": [
+    {
+      "experiment_id": "experiment:nist-bl1",
+      "relation": "upgrade_of",
+      "sources": [
+        "src:precision-2-nist-bl2-molecular-hydrogen-arxiv-2506-01682"
+      ]
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "NIST beam neutron lifetime experiment BL2",
+  "notes": [
+    "The \"BL2 collaboration\" is named in the 2025 paper; a BL2 lifetime result has not been published in the sources consulted."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "arXiv:2506.01682, Section III",
+      "note": "",
+      "quote": "The data in this period were part of studies re-examining systematic effects associated with beam experiments using this technique.",
+      "sources": [
+        "src:precision-2-nist-bl2-molecular-hydrogen-arxiv-2506-01682"
+      ],
+      "value": "Re-examine the systematic effects of the beam method of measuring the neutron lifetime",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:precision-2-nist-bl2-molecular-hydrogen-arxiv-2506-01682",
+    "src:precision-2-nist-bl1-lifetime-arxiv-1309-2623"
+  ],
+  "status": "completed",
+  "summary": {
+    "plain": "The second NIST beam neutron-lifetime experiment, using largely the same apparatus as the first to study systematic effects. Its 2018-2020 data led to a 2025 study of how molecular hydrogen in the vacuum could affect such measurements; no BL2 lifetime has been reported.",
+    "technical": "BL2 at the NCNR: cold-neutron-beam proton-trap lifetime apparatus, largely the same as that used in 2003, used for re-examination of beam-method systematics; 2025 paper demonstrates charge exchange of trapped protons on molecular hydrogen and its detection efficiency, concluding BL1 was unlikely to be significantly affected."
+  },
+  "topic_ids": [
+    "topic:neutron-physics"
+  ],
+  "type": "experiment",
+  "unique_capabilities": []
+}

@@ -1,0 +1,100 @@
+{
+  "aliases": [
+    "AD",
+    "Antimatter Factory"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "facility_id": "facility:cern",
+  "feeds_accelerator_ids": [
+    "accelerator:elena"
+  ],
+  "id": "accelerator:cern-ad",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2026-08-31",
+      "label": "operation (first physics 2000)",
+      "locator": "AD page, paragraph beginning \"Installed in 2000\"",
+      "note": "Start year from the AD page (\"Installed in 2000\") and the Courier of 17 August 2000 (\"Now coming into action for physics is CERN's new Antiproton Decelerator\"); the Courier of 1 October 2001 adds \"After coming into operation last year\". The exact first-beam day is not stated in a source consulted. End: 31 August 2026, when the Antimatter Factory machines fell silent for Long Shutdown 3.",
+      "quote": "Installed in 2000, the AD made the headlines in 2002 when large numbers of antihydrogen atoms were produced for the first time.",
+      "sources": [
+        "src:precision-2-cern-ad-page",
+        "src:precision-2-cern-courier-ad-2000",
+        "src:precision-2-cern-courier-ad-2001",
+        "src:currency-cern-all-accelerators-2026-08-31"
+      ],
+      "start": "2000",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "Long Shutdown 3 (Antimatter Factory)",
+      "locator": "opening paragraph",
+      "note": "The complex will progressively return to operation from 2028 onwards, with the different injectors and facilities restarting in stages. (31 August 2026). No separate restart date for the AD is published in that item, so the end is left open.",
+      "quote": "CERN’s injector complex and Antimatter Factory took their final steps towards Long Shutdown 3 (LS3) this morning, as the last particle beams were extracted and the machines fell silent.",
+      "sources": [
+        "src:currency-cern-all-accelerators-2026-08-31"
+      ],
+      "start": "2026-08-31",
+      "status": "shutdown",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "is_collider": false,
+  "kind": "synchrotron",
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "locator": "official CERN page for the AD",
+      "note": "",
+      "sources": [
+        "src:precision-2-cern-ad-page"
+      ],
+      "value": "https://home.cern/science/accelerators/antiproton-decelerator",
+      "verified_at": "2026-10-26"
+    }
+  },
+  "name": "Antiproton Decelerator",
+  "notes": [
+    "accelerator:ps feeds this machine (\"A proton beam coming from the PS (Proton Synchrotron) is fired into a block of metal\", AD page); that feed edge lives on accelerator:ps, which this stream does not own (listed for the integrator)."
+  ],
+  "particles": [
+    "antiproton"
+  ],
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:cern-antiproton-decelerator-hall",
+  "sources": [
+    "src:precision-2-cern-ad-page",
+    "src:precision-2-cern-courier-ad-2000",
+    "src:precision-2-cern-courier-ad-2001",
+    "src:currency-cern-all-accelerators-2026-08-31"
+  ],
+  "specs": {
+    "beam_energy": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "energy",
+      "display": "5.3 MeV (ejection, as seen by ELENA)",
+      "locator": "CERN message of 14 November 2016, third paragraph",
+      "note": "The AD delivers 5.3 MeV antiprotons, the ELENA input energy stated in the source; the AD's own design figures (circumference, momentum range) are not recorded because no fetched source states them.",
+      "quote": "ELENA, a new ring that will take antiprotons from the AD and reduce their energy from 5.3 MeV to 100 keV",
+      "sources": [
+        "src:precision-2-cern-great-progress-2016"
+      ],
+      "unit": "MeV",
+      "value": 5.3,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "shutdown",
+  "summary": {
+    "plain": "A ring at CERN that slows down antiprotons so scientists can trap them, make antihydrogen atoms and compare matter with antimatter. It started up in 2000 and paused with the rest of CERN’s injectors for a long upgrade shutdown in August 2026.",
+    "technical": "The AD takes antiprotons produced by a proton beam from the PS striking a metal target and decelerates them, with stochastic and electron cooling, to 5.3 MeV for the AD experiments, now via the ELENA ring. Operating since 2000; in LS3 from 31 August 2026."
+  },
+  "type": "accelerator"
+}

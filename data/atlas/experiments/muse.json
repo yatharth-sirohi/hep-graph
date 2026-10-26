@@ -1,0 +1,106 @@
+{
+  "accelerator_ids": [
+    "accelerator:psi-hipa"
+  ],
+  "aliases": [],
+  "collaboration_ids": [
+    "collaboration:muse"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "facility_id": "facility:psi",
+      "locator": "arXiv:2602.10279, abstract",
+      "note": "",
+      "quote": "using the Paul Scherrer Institute's PiM1 secondary beamline.",
+      "role": "host",
+      "sources": [
+        "src:precision-2-muse-post-veto-arxiv-2602-10279"
+      ],
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:muse",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2022",
+      "label": "design and construction (lower bound: technical design report)",
+      "locator": "arXiv:1709.09753, submission history",
+      "note": "Start is the submission date of the PSI Technical Design Report for experiment R-12-01.1, a lower bound for the construction phase; MUSE's approval and construction-start dates are not stated in a source consulted. End: first beam times in 2022.",
+      "quote": "Submitted on 27 Sep 2017",
+      "sources": [
+        "src:precision-2-muse-tdr-arxiv-1709-09753",
+        "src:precision-2-muse-post-veto-arxiv-2602-10279"
+      ],
+      "start": "2017-09",
+      "status": "construction",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "data taking (beam times from 2022)",
+      "locator": "arXiv:2602.10279, Section 2",
+      "note": "A 2026 detector paper refers to MUSE's 2022 and 2023 beam times; no end of data taking is stated, so the interval is open. No physics result has been found in the sources consulted.",
+      "quote": "The initial operation of the TCPV during MUSE’s 2022 and 2023 beam times used only the",
+      "sources": [
+        "src:precision-2-muse-post-veto-arxiv-2602-10279"
+      ],
+      "start": "2022",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [],
+  "kind": "muon_precision",
+  "lineage": [],
+  "links": {
+    "website": null
+  },
+  "name": "MUSE",
+  "notes": [
+    "Kind is muon_precision with a hadron_structure secondary kind: the goal is the proton radius, measured with muon and electron beams."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "arXiv:1709.09753, abstract",
+      "note": "",
+      "quote": "The PSI MUSE proposal is to measure $\\mu p$ and $e p$ scattering in the same experiment at the same time.",
+      "sources": [
+        "src:precision-2-muse-tdr-arxiv-1709-09753"
+      ],
+      "value": "Measure mu p and e p elastic scattering in the same experiment at the same time to test lepton universality and address the proton radius puzzle",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [
+    "hadron_structure"
+  ],
+  "sources": [
+    "src:precision-2-muse-tdr-arxiv-1709-09753",
+    "src:precision-2-muse-post-veto-arxiv-2602-10279"
+  ],
+  "status": "active",
+  "summary": {
+    "plain": "An experiment at the Paul Scherrer Institute that scatters electrons and muons off a hydrogen target at the same time, to find out whether the proton looks the same in both and to help settle the proton radius puzzle.",
+    "technical": "MUSE (PSI R-12-01.1) on the pi M1 beamline: simultaneous elastic e-p and mu-p scattering from a liquid hydrogen target in a large-acceptance non-magnetic spectrometer, both beam polarities, to compare proton charge radii and two-photon exchange. Beam times from 2022."
+  },
+  "topic_ids": [
+    "topic:muon-precision-physics",
+    "topic:qcd"
+  ],
+  "type": "experiment",
+  "unique_capabilities": []
+}

@@ -1,0 +1,103 @@
+{
+  "accelerator_ids": [],
+  "aliases": [
+    "BL1"
+  ],
+  "collaboration_ids": [
+    "collaboration:nist-bl1"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "facility_id": "facility:nist-center-for-neutron-research",
+      "locator": "arXiv:1309.2623, abstract",
+      "note": "",
+      "quote": "The most precise determination of the neutron lifetime using the beam method was completed in 2005",
+      "role": "host",
+      "sources": [
+        "src:precision-2-nist-bl1-lifetime-arxiv-1309-2623"
+      ],
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:nist-bl1",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2005",
+      "label": "lifetime measurement at NIST (2003 experiment)",
+      "locator": "arXiv:2506.01682, Section III.A",
+      "note": "Start is the year of the beam lifetime measurement; the 2013 paper says the measurement \"was completed in 2005\" (arXiv:1309.2623, abstract). Exact run dates are not stated.",
+      "quote": "It is largely the same as that used to perform the lifetime measurement at NIST in 2003.",
+      "sources": [
+        "src:precision-2-nist-bl2-molecular-hydrogen-arxiv-2506-01682",
+        "src:precision-2-nist-bl1-lifetime-arxiv-1309-2623"
+      ],
+      "start": "2003",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "completed",
+      "locator": "arXiv:1309.2623, abstract",
+      "note": "",
+      "quote": "The most precise determination of the neutron lifetime using the beam method was completed in 2005",
+      "sources": [
+        "src:precision-2-nist-bl1-lifetime-arxiv-1309-2623"
+      ],
+      "start": "2005",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [],
+  "kind": "neutron_precision",
+  "lineage": [],
+  "links": {
+    "website": null
+  },
+  "name": "NIST beam neutron lifetime experiment BL1",
+  "notes": [
+    "BL1 is not named in the brief; it is included as the predecessor that carries the published NIST lifetime result (2005, revised 2013) and because BL2 is described in sources as largely the same apparatus."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "arXiv:2506.01682, abstract",
+      "note": "",
+      "quote": "One method of determining the free neutron lifetime involves the absolute counting of neutrons and trapped decay protons.",
+      "sources": [
+        "src:precision-2-nist-bl2-molecular-hydrogen-arxiv-2506-01682"
+      ],
+      "value": "Determine the free neutron lifetime by absolute counting of neutrons and trapped decay protons in a cold neutron beam",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:precision-2-nist-bl1-lifetime-arxiv-1309-2623",
+    "src:precision-2-nist-bl2-molecular-hydrogen-arxiv-2506-01682"
+  ],
+  "status": "completed",
+  "summary": {
+    "plain": "The first of the NIST beam-method measurements of the neutron lifetime. It counted the decay protons from a cold-neutron beam trapped in a magnetic and electric field and, with a better calibration of the neutron counter in 2013, gave a lifetime of 887.7 seconds.",
+    "technical": "NIST BL1 beam neutron lifetime (2003 measurement, reported 2005): neutron-decay protons trapped in a Penning-type proton trap in a superconducting solenoid and counted against the absolute neutron fluence; revised in 2013 with a directly calibrated 6Li neutron monitor to tau_n = 887.7 ± 1.2 stat ± 1.9 syst s."
+  },
+  "topic_ids": [
+    "topic:neutron-physics"
+  ],
+  "type": "experiment",
+  "unique_capabilities": []
+}

@@ -1,0 +1,108 @@
+{
+  "accelerator_ids": [
+    "accelerator:lansce"
+  ],
+  "aliases": [
+    "UCNtau"
+  ],
+  "collaboration_ids": [
+    "collaboration:ucntau"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "facility_id": "facility:los-alamos-national-laboratory",
+      "locator": "arXiv:2409.05560, abstract",
+      "note": "",
+      "quote": "Here we publish three years of data for the UCNtau experiment performed at the Los Alamos Ultra Cold Neutron Facility at the Los Alamos Neutron Science Center.",
+      "role": "host",
+      "sources": [
+        "src:precision-2-ucntau-prc-arxiv-2409-05560"
+      ],
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:ucntau",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2022",
+      "label": "data taking with the magneto-gravitational trap (2017 to 2022)",
+      "locator": "arXiv:2106.10375, abstract",
+      "note": "Dated campaigns: 2017 and 2018 (arXiv:2106.10375) and runs from 2020-2022 (arXiv:2409.05560, abstract). Earlier runs may exist (the first result was posted in July 2017) but no earlier date is stated in a source consulted.",
+      "quote": "over two data acquisition campaigns in 2017 and 2018",
+      "sources": [
+        "src:precision-2-ucntau-lifetime-arxiv-2106-10375",
+        "src:precision-2-ucntau-prc-arxiv-2409-05560"
+      ],
+      "start": "2017",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "upgrade for the next level of precision",
+      "locator": "CIPANP 2025 abstract",
+      "note": "Start is inferred as the end of the last dated run (2022); the June 2025 abstract only says an upgrade is \"underway\". No later status found.",
+      "quote": "an upgrade underway to achieve the next level of precision from the technique will be discussed.",
+      "sources": [
+        "src:precision-2-ucntau-cipanp-2025-abstract",
+        "src:precision-2-ucntau-prc-arxiv-2409-05560"
+      ],
+      "start": "2022",
+      "status": "upgrade",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [],
+  "kind": "neutron_precision",
+  "lineage": [],
+  "links": {
+    "website": null
+  },
+  "name": "UCNτ",
+  "notes": [
+    "Status \"upgrade\" rests on a June 2025 conference abstract; no later status was found."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "arXiv:2106.10375, abstract",
+      "note": "",
+      "quote": "We report an improved measurement of the free neutron lifetime $\\tau_{n}$ using the UCN$\\tau$ apparatus at the Los Alamos Neutron Science Center.",
+      "sources": [
+        "src:precision-2-ucntau-lifetime-arxiv-2106-10375"
+      ],
+      "value": "Measure the free neutron lifetime with ultracold neutrons stored in a magneto-gravitational trap and detected in situ",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:precision-2-ucntau-lifetime-arxiv-2106-10375",
+    "src:precision-2-ucntau-science-arxiv-1707-01817",
+    "src:precision-2-ucntau-prc-arxiv-2409-05560",
+    "src:precision-2-ucntau-cipanp-2025-abstract"
+  ],
+  "status": "upgrade",
+  "summary": {
+    "plain": "An experiment at Los Alamos that holds ultracold neutrons in a bowl made of magnets and gravity, so they cannot touch any walls, and counts how many survive. Its measured neutron lifetime is about 877.8 seconds, with an uncertainty of about 0.3 seconds. An upgrade is underway.",
+    "technical": "UCNtau at the Los Alamos Ultra Cold Neutron Facility (LANSCE): asymmetric magneto-gravitational trap with in situ detection of surviving UCN; tau_n = 877.75 ± 0.28 stat +0.22/-0.16 syst s (2017-2018 data), all-data average 877.82 ± 0.22 (stat) +0.20/-0.17 (syst) s including 2020-2022 runs. Upgrade underway as of June 2025."
+  },
+  "topic_ids": [
+    "topic:neutron-physics"
+  ],
+  "type": "experiment",
+  "unique_capabilities": []
+}

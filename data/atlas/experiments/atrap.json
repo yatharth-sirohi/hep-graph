@@ -1,0 +1,113 @@
+{
+  "accelerator_ids": [
+    "accelerator:cern-ad"
+  ],
+  "aliases": [],
+  "collaboration_ids": [
+    "collaboration:atrap"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "facility_id": "facility:cern",
+      "locator": "CERN ATRAP page",
+      "note": "",
+      "quote": "In 2002, ATRAP provided the first glimpse inside antihydrogen atoms after researchers successfully created and measured a large number of them.",
+      "role": "host",
+      "sources": [
+        "src:precision-2-cern-atrap-page"
+      ],
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:atrap",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2026-08-31",
+      "label": "data taking at the Antiproton Decelerator",
+      "locator": "Courier article, 6th paragraph",
+      "note": "Start is a lower bound: the CERN Courier of 17 August 2000 reports the AD \"coming into action for physics\" and supplying ATRAP, ATHENA and ASACUSA; the experiment's own first-data date is not stated in a source consulted. The end of ATRAP data taking is not dated in any source consulted (the active interval is closed at the same upper bound as the completed one); CERN's AD page says \"ATRAP and ACE have now completed their experiments\" (undated), whereas the older CERN ATRAP page says \"ATRAP is still in operation\".",
+      "quote": "This is the motivation behind CERN’s new AD, which supplies antiprotons to several experiments – ATRAP (son of TRAP at LEAR), ATHENA and ASACUSA.",
+      "sources": [
+        "src:precision-2-cern-courier-ad-2000",
+        "src:precision-2-cern-atrap-page"
+      ],
+      "start": "2000",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "completed (true end date not published; upper bound)",
+      "locator": "AD page, last paragraph",
+      "note": "UPPER BOUND ONLY. The AD page states that ATRAP has completed but gives no date; the date used is the day the Antimatter Factory stopped for LS3, by which time ATRAP is no longer listed as running. The real end of ATRAP data taking is earlier and unknown (unresolved).",
+      "quote": "Whereas ATRAP and ACE have now completed their experiments.",
+      "sources": [
+        "src:precision-2-cern-ad-page"
+      ],
+      "start": "2026-08-31",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [],
+  "kind": "antimatter",
+  "lineage": [],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "locator": "CERN's own page for the experiment",
+      "note": "",
+      "sources": [
+        "src:precision-2-cern-atrap-page"
+      ],
+      "value": "https://home.cern/science/experiments/atrap",
+      "verified_at": "2026-10-26"
+    }
+  },
+  "name": "ATRAP",
+  "notes": [
+    "Conflict logged in docs/atlas-worklog/PRECISION_2.md: CERN's ATRAP page says \"ATRAP is still in operation\" while the AD page says ATRAP has completed; the AD page is the later statement and is used for the status, with no end date."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "CERN ATRAP page, first paragraph",
+      "note": "",
+      "quote": "The Antihydrogen trap (ATRAP) is an experiment to compare hydrogen atoms with their antimatter equivalents – antihydrogen atoms.",
+      "sources": [
+        "src:precision-2-cern-atrap-page"
+      ],
+      "value": "Compare hydrogen with antihydrogen to look for differences between matter and antimatter",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:precision-2-cern-atrap-page",
+    "src:precision-2-cern-courier-ad-2000",
+    "src:precision-2-cern-ad-page"
+  ],
+  "status": "completed",
+  "summary": {
+    "plain": "A CERN experiment that made and studied atoms of antihydrogen to compare them with hydrogen. It was the first to use cold positrons to cool antiprotons, building on the earlier TRAP experiment. It has now finished.",
+    "technical": "ATRAP (Antihydrogen Trap, AD-2): Penning-Ioffe traps in which cold positrons cool antiprotons and form antihydrogen; successor of TRAP at LEAR and a sister of ATHENA. At the AD from 2000; CERN now lists it as completed."
+  },
+  "topic_ids": [
+    "topic:antimatter"
+  ],
+  "type": "experiment",
+  "unique_capabilities": []
+}

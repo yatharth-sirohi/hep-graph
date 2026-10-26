@@ -1,0 +1,115 @@
+{
+  "accelerator_ids": [
+    "accelerator:psi-hipa"
+  ],
+  "aliases": [],
+  "collaboration_ids": [
+    "collaboration:pioneer"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "facility_id": "facility:psi",
+      "locator": "PSI page",
+      "note": "",
+      "quote": "PIONEER is a next-generation rare pion decay experiment, accepted as a high priority experiment at the Paul Scherrer Institute (PSI) in Switzerland.",
+      "role": "host",
+      "sources": [
+        "src:precision-2-pioneer-psi-page"
+      ],
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:pioneer",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2025-04",
+      "label": "proposal to the PSI programme advisory committee",
+      "locator": "arXiv:2203.01981, submitted 3 March 2022",
+      "note": "Start is the arXiv posting date of the proposal; the date PSI approved it is not stated in a fetched source.",
+      "quote": "PIONEER: Studies of Rare Pion Decays",
+      "sources": [
+        "src:precision-2-pioneer-proposal-arxiv-2203-01981"
+      ],
+      "start": "2022-03",
+      "status": "proposed",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "approved at PSI (high priority)",
+      "locator": "arXiv:2504.06375, introduction",
+      "note": "Start is an UPPER BOUND: the April 2025 European-Strategy input says the experiment is \"approved\"; PSI's page says \"accepted as a high priority experiment\". Demonstrator runs are expected at PSI in late 2026 and TRIUMF in 2027, with physics data taking aimed by the end of the decade.",
+      "quote": "The experiment is approved at the Paul Scherrer Institute (PSI).",
+      "sources": [
+        "src:precision-2-pioneer-esppu-arxiv-2504-06375",
+        "src:precision-2-pioneer-psi-page"
+      ],
+      "start": "2025-04",
+      "status": "approved",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [],
+  "kind": "muon_precision",
+  "lineage": [],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "locator": "PSI page for the experiment",
+      "note": "",
+      "sources": [
+        "src:precision-2-pioneer-psi-page"
+      ],
+      "value": "https://www.psi.ch/en/pioneer",
+      "verified_at": "2026-10-26"
+    }
+  },
+  "name": "PIONEER",
+  "notes": [
+    "PSI says the design learns \"from the previous generation PEN and PiENu measurements\" (PSI page); PIONEER is the planned successor programme but no lineage edge is recorded because a lineage relation needs both sources to say so explicitly.",
+    "PIONEER is a collaboration of 80 researchers from 25 universities and national laboratories in Canada, China, Japan, Switzerland and the USA (PSI page); the same demonstrator programme includes a TRIUMF run in 2027."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "arXiv:2504.06375, abstract",
+      "note": "",
+      "quote": "In Phase I, PIONEER aims to measure the charged-pion branching ratio to electrons vs.\\ muons $R_{e/\\mu}$ to 1 part in $10^4$",
+      "sources": [
+        "src:precision-2-pioneer-esppu-arxiv-2504-06375"
+      ],
+      "value": "Measure the charged-pion branching ratio to electrons vs. muons (phase I) and pion beta decay (phases II-III) to test lepton flavour universality and CKM unitarity",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:precision-2-pioneer-psi-page",
+    "src:precision-2-pioneer-proposal-arxiv-2203-01981",
+    "src:precision-2-pioneer-esppu-arxiv-2504-06375"
+  ],
+  "status": "approved",
+  "summary": {
+    "plain": "A next-generation experiment planned at the Paul Scherrer Institute to measure how often a charged pion decays to an electron rather than a muon, and pion beta decay, to test whether electrons and muons are treated alike. It is approved and in its demonstrator phase.",
+    "technical": "PIONEER (PSI R-22-01.1): phase I aims at R_e/mu to 1 part in 10^4 (15 times better than current), phases II and III at pion beta decay for V_ud and CKM unitarity; active LGAD target and a 25 X0 3pi sr calorimeter (LXe or LYSO). Approved with high priority; physics data taking aimed by 2030."
+  },
+  "topic_ids": [
+    "topic:flavor-physics",
+    "topic:muon-precision-physics"
+  ],
+  "type": "experiment",
+  "unique_capabilities": []
+}
