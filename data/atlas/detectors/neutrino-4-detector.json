@@ -1,0 +1,122 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
+  },
+  "experiment_ids": [
+    "experiment:neutrino-4"
+  ],
+  "id": "detector:neutrino-4-detector",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2016",
+      "label": "detector model measurements",
+      "locator": "arXiv:2005.05301 abstract",
+      "note": "Year precision: a 400 l test model was used first; the end is the year the full-scale detector replaced it (\"The model of the detector was replaced with the full-scale detector in 2016\").",
+      "quote": "The experiment Neutrino-4 had started in 2014 with a detector model and then was continued with a full-scale detector in 2016 - 2021.",
+      "sources": [
+        "src:neutrino-4-prd-2021-search"
+      ],
+      "start": "2014",
+      "status": "commissioning",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": "2021",
+      "label": "full-scale detector data taking",
+      "locator": "arXiv:2003.03199, section 3",
+      "note": "Start is month precision from the 2020 analysis paper; the end is year precision from the PRD abstract (\"2016 - 2021\"). The reactor-on measurements ran until June 2019; background measurements followed from June 2019 to January 2020 and the 2021 paper reports data to 2021.",
+      "quote": "The measurements with reactor under operation have started in June 2016 and were continued till June 2019, when reactor was stopped for renovation.",
+      "sources": [
+        "src:neutrino-4-prd-2021-results"
+      ],
+      "start": "2016-06",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "completed",
+      "locator": "arXiv:2005.05301 abstract",
+      "note": "Terminal event at the end of the stated 2016-2021 period; the same paper announces plans for an improved or completely new setup, whose construction was not found in the sources.",
+      "quote": "The experiment Neutrino-4 had started in 2014 with a detector model and then was continued with a full-scale detector in 2016 - 2021.",
+      "sources": [
+        "src:neutrino-4-prd-2021-search"
+      ],
+      "start": "2021",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "Neutrino-4 detector",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "locator": "abstract",
+      "note": "Campus-grade site point (the RIAR site); see the site record.",
+      "quote": "The experiment has been carried out on the SM-3 reactor having a compact active zone",
+      "role": "main",
+      "site_id": "site:sm-3-reactor-riar-dimitrovgrad",
+      "sources": [
+        "src:neutrino-4-jetpl-2019-first-observation"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:neutrino-4-jetpl-2019-first-observation",
+    "src:neutrino-4-prd-2021-search",
+    "src:neutrino-4-prd-2021-results"
+  ],
+  "specs": {
+    "sensitive_volume": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "volume",
+      "display": "1.8 m^3",
+      "locator": "section IX",
+      "note": "",
+      "quote": "The total volume of the scintillator is 1.8 m3.",
+      "sources": [
+        "src:neutrino-4-prd-2021-search"
+      ],
+      "unit": "m^3",
+      "value": 1.8,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "A tank holding 1.8 cubic metres of gadolinium-doped liquid scintillator in 50 sections, with photomultiplier tubes and shielding, that rolls on rails to different distances from the reactor.",
+    "technical": "Inner vessel divided into 10 rows x 5 sections (0.225 x 0.225 x 0.85 m^3) filled with 0.1 % Gd liquid scintillator (1.8 m^3 total), PMT readout, passive and active (muon veto) shielding; movable on rails to measure 6-12 m from the core."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "section IX",
+    "note": "",
+    "quote": "This detector is also filled with liquid scintillator with gadolinium concentration 0.1%. The detector inner vessel is divided into 50 sections",
+    "sources": [
+      "src:neutrino-4-prd-2021-search"
+    ],
+    "value": "Gd-doped (0.1 %) liquid-scintillator antineutrino detector divided into 50 sections, movable on rails, with active muon veto",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "liquid_scintillator",
+  "technology_classes": [
+    "liquid_scintillator"
+  ],
+  "type": "detector"
+}

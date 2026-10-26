@@ -1,0 +1,133 @@
+{
+  "accelerator_ids": [],
+  "aliases": [
+    "Detector of the reactor AntiNeutrino based on Solid-state Scintillator"
+  ],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:danss"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
+  },
+  "energy_regime": null,
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:kalinin-npp",
+      "locator": "abstract",
+      "note": "",
+      "quote": "The DANSS detector is placed under an industrial 3.1~$\\mathrm{GW_{th}}$ reactor of the Kalinin Nuclear Power Plant 350~km NW from Moscow.",
+      "role": "host",
+      "sources": [
+        "src:danss-plb-2018-sterile-search"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:danss",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "data taking",
+      "locator": "Universe 7, 360 (2021) = arXiv:2109.13541, section 2.1.3",
+      "note": "Year precision; the experiment is described as in operation since 2016 and later talks report results up to 2023. No fetched source says it has stopped, so it is recorded as ongoing; last data-taking figure seen: 7.7 million IBD events by March 2023 (conference summary, not fetched).",
+      "quote": "The DANSS experiment [33,34] has been operated since 2016 at a LEU reactor of 3.1 GW thermal power in Kalinin, Russia",
+      "sources": [
+        "src:danss-review-reactor-anomalies-2021"
+      ],
+      "start": "2016",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Distance to reactor core",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "length",
+        "display": "10.7 m to 12.7 m",
+        "locator": "abstract",
+        "note": "Lower end of the range, recorded as `value`; the detector is moved on-line between 10.7, 11.7 and 12.7 m.",
+        "quote": "The distance to the core is varied on-line from 10.7~m to 12.7~m.",
+        "sources": [
+          "src:danss-plb-2018-sterile-search"
+        ],
+        "unit": "m",
+        "value": 10.7,
+        "verified_at": "2026-10-26"
+      }
+    },
+    {
+      "label": "Reactor thermal power",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "power",
+        "display": "3.1 GW_th",
+        "locator": "abstract",
+        "note": "",
+        "quote": "The DANSS detector is placed under an industrial 3.1~$\\mathrm{GW_{th}}$ reactor of the Kalinin Nuclear Power Plant",
+        "sources": [
+          "src:danss-plb-2018-sterile-search"
+        ],
+        "unit": "GW",
+        "value": 3.1,
+        "verified_at": "2026-10-26"
+      }
+    }
+  ],
+  "kind": "reactor_neutrino",
+  "lineage": [],
+  "links": {
+    "website": null
+  },
+  "name": "DANSS",
+  "notes": [
+    "The official DANSS site (danss.itep.ru) did not resolve; no website recorded.",
+    "DANSS has run continuously since 2016 according to the sources; the interval is open-ended with approximate confidence because no source dates an end."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "abstract",
+      "note": "",
+      "quote": "Due to this feature, it could be used not only for the reactor monitoring, but also for fundamental research including short-range neutrino oscillations to the sterile state.",
+      "sources": [
+        "src:danss-jinst-2016-detector"
+      ],
+      "value": "Search for short-baseline oscillations of reactor antineutrinos to a sterile neutrino and monitor reactor operation, using a movable solid-scintillator spectrometer a few metres from an industrial reactor core",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:danss-jinst-2016-detector",
+    "src:danss-plb-2018-sterile-search",
+    "src:danss-review-reactor-anomalies-2021"
+  ],
+  "status": "active",
+  "summary": {
+    "plain": "A movable one-cubic-metre block of plastic scintillator strips placed a few metres below an industrial reactor at the Kalinin power plant in Russia. By comparing antineutrino spectra at three distances since 2016 it has looked for, and so far excluded, much of the parameter space for a sterile neutrino.",
+    "technical": "Highly segmented (2500 strips, Gd-loaded reflective cover) 1 m^3 plastic-scintillator IBD detector on a lifting platform under a 3.1 GW_th VVER-1000 core at 10.7/11.7/12.7 m, ~50 m.w.e. overburden, ~5000 antineutrinos/day at the closest position. Spectral ratios between distances exclude sin^2(2 theta_14) < 0.01 in the most sensitive region (2018)."
+  },
+  "topic_ids": [
+    "topic:reactor-neutrinos",
+    "topic:sterile-neutrinos",
+    "topic:neutrino-oscillations"
+  ],
+  "type": "experiment",
+  "unique_capabilities": []
+}
