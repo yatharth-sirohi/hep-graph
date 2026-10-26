@@ -1,3 +1,42 @@
+/* ---------------------------------------------------------------- fonts
+   Self-hosted (the CSP allows only 'self'): static/atlas/vendor/fonts/, with the
+   SIL OFL licences and provenance in vendor/README.md. 119 KB in all, loaded
+   lazily per unicode-range and shown with font-display: swap, so text is
+   readable in the fallback face while they arrive.
+
+   Inter (variable weight) carries the interface. STIX Two Math carries the
+   notation Inter does not draw consistently: Greek (ν, θ₁₃), combining marks (the
+   bar over an antineutrino, ν̄), super- and subscripts, letterlike symbols,
+   arrows and mathematical operators. The ranges are disjoint on purpose, so one
+   character never comes from two faces: ±, ×, ², ³, ¹ and the primes are taken
+   out of Inter's Latin range and drawn by STIX Two Math, and Inter's own ↑ ↓ and
+   minus are left out of its range, so "(2.5 ± 0.1) × 10⁻³ cm⁻² →" is set in one
+   notation face. */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/atlas/vendor/fonts/inter-latin-wght-normal.woff2') format('woff2');
+  unicode-range: U+0000-00B0, U+00B4-00B8, U+00BA-00D6, U+00D8-00F6, U+00F8-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-2031, U+2038-2056, U+2058-206F, U+20AC, U+2122, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/atlas/vendor/fonts/inter-latin-ext-a-wght-normal.woff2') format('woff2');
+  unicode-range: U+0100-017F;
+}
+@font-face {
+  font-family: 'STIX Two Math';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/atlas/vendor/fonts/stix-two-math-subset.woff2') format('woff2');
+  unicode-range: U+00B1-00B3, U+00B9, U+00D7, U+00F7, U+0300-03FF, U+2032-2037, U+2057, U+2070-209F, U+20D0-20FF, U+2100-215F, U+2190-23FF, U+25A0-25FF;
+}
+
 :root {
   --navy: #10283f;
   --navy-2: #183a55;
@@ -41,7 +80,7 @@ body {
   margin: 0;
   background: var(--paper);
   color: var(--white);
-  font: 15px/1.5 Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  font: 15px/1.5 Inter, "STIX Two Math", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
   display: flex;
   flex-direction: column;
   min-height: 100vh;

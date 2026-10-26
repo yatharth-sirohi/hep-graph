@@ -94,6 +94,36 @@ explicit choice made by `localmap.js` — OpenStreetMap standard tiles with the
 mandatory attribution, no API key, toggleable, and the one third-party origin
 named in the server's `img-src` (`hepgraph/server.py`).
 
+## fonts/
+
+Self-hosted typefaces for the interface (`atlas.css`, `@font-face` at the top).
+The CSP is `default-src 'self'`, so a CDN or Google Fonts link would be blocked;
+these are real files. 119,036 bytes in all (budget 300 KB), each loaded only when
+a character in its `unicode-range` is on screen, `font-display: swap`.
+
+| file | bytes | sha256 | what it is |
+| --- | --- | --- | --- |
+| `inter-latin-wght-normal.woff2` | 48256 | `3100e775e8616cd2611beecfa23a4263d7037586789b43f035236a2e6fbd4c62` | Inter variable (weight 100-900), the Latin slice, **unmodified** from `@fontsource-variable/inter` 5.3.0 (`files/inter-latin-wght-normal.woff2`) |
+| `inter-latin-ext-a-wght-normal.woff2` | 14536 | `204c779645a081d82fa0a3e08baef799a6f9a5b11f2004a7b13f7a27c64e2b7d` | The Latin Extended-A block (U+0100-017F: ā ō š č ł ğ …, which occur in institution names) cut from that package's `inter-latin-ext-wght-normal.woff2` with `pyftsubset` (fonttools 4.67, `--layout-features='*'`) |
+| `stix-two-math-subset.woff2` | 56244 | `987402fd948d3d6c5286d7c8215a118f4b2999dc6de7e9d5223e45058ec39878` | STIX Two Math Regular, cut from `@fontsource/stix-two-math` 5.3.0 (`files/stix-two-math-latin-400-normal.woff2`, 403 KB) to Greek and combining marks, letterlike symbols, super/subscripts, arrows, mathematical operators and miscellaneous technical symbols, geometric shapes, ± × ÷ ² ³ ¹ and the primes. The OpenType `MATH` table (layout constants for equation engines, not used by a browser's text layout) is dropped; kerning, marks, `ssty`/`sups`/`subs`/`frac` and GDEF/GPOS/GSUB are kept |
+| `OFL-Inter.txt` | 4477 | | SIL Open Font License 1.1, Copyright 2016 The Inter Project Authors (https://github.com/rsms/inter) |
+| `OFL-STIX-Two-Math.txt` | 4391 | | SIL Open Font License 1.1, Copyright 2001-2021 The STIX Fonts Project Authors (https://github.com/stipub/stixfonts) |
+
+Both fonts are SIL OFL 1.1 and neither declares a Reserved Font Name, so the
+subsets keep their family names. The licence texts travel with the files.
+
+Why the two faces and these ranges: Inter draws the interface; STIX Two Math is
+the notation face. Their `unicode-range`s are **disjoint**, so a character never
+comes from two faces. Inter's Latin slice is therefore declared in `atlas.css`
+*without* ±, ×, the superscript digits ² ³ ¹, the primes, ↑ ↓ and the minus sign
+(U+2212), all of which STIX Two Math draws, and without the combining macron
+U+0304 so that "ν̄" (an antineutrino, 124 occurrences in the data) is one cluster
+set entirely in STIX Two Math.
+
+Re-vendoring: `npm pack @fontsource-variable/inter @fontsource/stix-two-math`, unpack,
+re-run the `pyftsubset` commands above, check the sizes (budget: 300 KB for all
+font files) and the sha256 column.
+
 ## Decision record
 
 `docs/HEP_ATLAS_GLOBE_LIBRARY.md` — measured bytes, measured FPS, and why the
