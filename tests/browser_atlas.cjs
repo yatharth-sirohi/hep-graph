@@ -383,8 +383,13 @@ async function setRangeValue(locator, value) {
       await p.locator("#detail-panel h2", { hasText: "Neutrino oscillations" }).waitFor();
       // The highlight used to be set by the click and wiped by the route change
       // that followed it, so the globe never showed which places the topic means.
-      await p.waitForFunction(() => document.querySelectorAll(".atlas-marker.is-highlighted").length > 0, { timeout: 10000 });
-      const open = await markerCounts(p);
+      // Judge the settled globe: the camera's flight to the topic rebuilds the
+      // marker layer once, so a count taken mid-flight can read empty.
+      const open = await (await p.waitForFunction(() => {
+        const lit = document.querySelectorAll(".atlas-marker.is-highlighted").length;
+        const muted = document.querySelectorAll(".atlas-marker.is-muted").length;
+        return lit > 0 && muted > 0 ? { lit, muted } : null;
+      }, null, { timeout: 15000 })).jsonValue();
       assert.ok(open.lit > 0 && open.muted > 0, `expected some markers lit and the rest muted, got ${JSON.stringify(open)}`);
       await p.keyboard.press("Escape");
       await p.waitForFunction(() => document.getElementById("detail-panel").classList.contains("hidden"));
