@@ -2995,6 +2995,50 @@ async function openFilters(page) {
     await p.screenshot({ path: path.join(output, "beam-section-mobile.png") });
     await ctx.close();
   });
+  // ---- Follow the proton (static/atlas/js/proton.js) ------------------------------
+  // The order of the stages comes from the dated `feeds_accelerator_ids` links, so the
+  // chain changes with the year: Linac2 feeds the PS Booster until 2018, Linac4 from 2020.
+  // The fixtures carry no chain, so this runs against the real build only.
+  if (process.env.HEP_ATLAS_DATA === "generated") {
+    await record("Follow the proton: CERN's ladder has the right five stages for the year (Linac2 in 2015, Linac4 in 2021) and the step in the URL round-trips", async () => {
+      const { ctx, p } = await viewContext();
+      const rungs = () => p.locator(".pr-rung .entity-link").allInnerTexts();
+      const stepOf = () => p.evaluate(() => new URL(location.href).searchParams.get("proton"));
+      await p.goto(viewURL("#/map/cern", "?y=2021"));
+      await p.locator("#proton-control").waitFor();
+      await p.locator("#proton-control").click();
+      await p.locator("#pr-card:not(.hidden)").waitFor();
+      assert.deepEqual(await rungs(), ["Linac4", "PSB", "PS", "SPS", "LHC"], "2021: Linac4 starts the chain");
+      assert.equal(await stepOf(), "1");
+      assert.match(await p.locator("#pr-counter").innerText(), /^Step 1 of 9 · stage 1 of 5$/);
+      // Next, three times: Linac4 -> (transfer) -> PSB -> (transfer) -> PS is step 5; step 4 is the transfer.
+      for (let i = 0; i < 3; i += 1) await p.locator(".pr-next").click();
+      await p.waitForFunction(() => new URL(location.href).searchParams.get("proton") === "4");
+      assert.match(await p.locator("#pr-stage-name").innerText(), /^PSB → PS$/, "a transfer is a step of its own");
+      assert.match(await p.locator(".pr-geom").innerText(), /No line is drawn/, "a transfer draws no line");
+      // The step is the address: a reload lands on the same step.
+      await p.reload();
+      await p.locator("#pr-card:not(.hidden)").waitFor();
+      assert.equal(await stepOf(), "4");
+      assert.match(await p.locator("#pr-stage-name").innerText(), /^PSB → PS$/);
+      // The arrow keys step from inside the card, and Escape closes it.
+      await p.locator(".pr-next").focus();
+      await p.keyboard.press("ArrowRight");
+      await p.waitForFunction(() => new URL(location.href).searchParams.get("proton") === "5");
+      assert.match(await p.locator("#pr-stage-name").innerText(), /^Proton Synchrotron$/);
+      await p.keyboard.press("Escape");
+      await p.waitForFunction(() => !new URL(location.href).searchParams.has("proton"));
+      assert.equal(await p.locator("#pr-card").isHidden(), true);
+      // 2015: the chain starts at Linac2, which the CERN map does not draw.
+      await p.goto(viewURL("#/map/cern", "?y=2015&proton=1"));
+      await p.locator("#pr-card:not(.hidden)").waitFor();
+      assert.deepEqual(await rungs(), ["Linac2", "PSB", "PS", "SPS", "LHC"], "2015: Linac2 starts the chain");
+      assert.match(await p.locator(".pr-kind").innerText(), /Not drawn on this map/i);
+      assert.match(await p.locator("#pr-stage-name").innerText(), /^Linac2$/);
+      assert.equal(await p.locator("path.pr-current").count(), 0, "a stage with no geometry lights nothing and draws no path");
+      await ctx.close();
+    });
+  }
   // ---- views -- end ---------------------------------------------------------------
 
   await record("about.html loads with live coverage counts read from the current data tree, and 0 console errors", async () => {

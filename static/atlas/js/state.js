@@ -68,6 +68,9 @@ function parseSearch(search) {
     // the entity (or context feature) in the drawer. `levels: null` means
     // "all levels", which is not the same as "no levels" (`[]`).
     levels: null, basemap: true, sel: null,
+    // `proton`: the 1-based step of "Follow the proton" (js/proton.js), or null (the
+    // player is closed). Like `sel`, it only means something on a map route.
+    proton: null,
     results: parseResultsView(params),
   };
   if (params.has('y')) {
@@ -97,6 +100,10 @@ function parseSearch(search) {
   }
   if (params.get('bm') === '0') state.basemap = false;
   if (params.has('sel')) state.sel = params.get('sel');
+  if (params.has('proton')) {
+    const step = parseInt(params.get('proton'), 10);
+    if (step >= 1) state.proton = step;
+  }
   return state;
 }
 
@@ -130,6 +137,7 @@ function buildURL(state) {
     if (state.levels) params.set('lv', state.levels.join(','));
     if (state.basemap === false) params.set('bm', '0');
     if (state.sel) params.set('sel', state.sel);
+    if (state.proton) params.set('proton', String(state.proton));
   }
   if (state.mode === 'results' && state.results) {
     const defaults = defaultResultsView();
@@ -148,8 +156,17 @@ function notify() {
 
 /** Merge `patch` into the current state and push a new history entry. */
 export function navigate(patch, { replace = false } = {}) {
+  const previous = current;
   const previousMode = current ? current.mode : null;
   current = { ...current, ...patch };
+  // The player's step belongs to one map: going to another route (a record from the
+  // ladder, the globe, another map) leaves it behind, unless the patch says otherwise.
+  // Back restores it, because it is in the address.
+  if ('entity' in patch && !('proton' in patch)) {
+    const before = previous && previous.entity;
+    const after = patch.entity;
+    if (!before || !after || before.type !== after.type || before.slug !== after.slug) current.proton = null;
+  }
   // The Results filters belong to one visit of the panel: opening it again from
   // the toolbar starts from the full list, as it always has. (Back/forward
   // restores them from the address instead, through readLocation().)
