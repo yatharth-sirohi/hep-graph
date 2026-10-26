@@ -2622,6 +2622,16 @@
       title.append(h, meta);
       if (p.source_url)
         title.append(link("Open source profile ↗", p.source_url));
+      // Same-origin, so not through link() (https + allowed hosts only). The Atlas
+      // page says "unknown" for an author its partial rosters do not name.
+      if (/^[1-9]\d{0,11}$/.test(String(p.id))) {
+        const onAtlas = document.createElement("a");
+        onAtlas.textContent = "See on the HEP Atlas →";
+        onAtlas.href = `/atlas/#/view/person/${p.id}`;
+        onAtlas.target = "_blank";
+        onAtlas.rel = "noopener";
+        title.append(p.source_url ? " · " : "", onAtlas);
+      }
       content.append(title);
       const stats = document.createElement("div");
       stats.className = "profile-stats";

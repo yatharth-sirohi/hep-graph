@@ -60,6 +60,18 @@ async function main() {
     assert.doesNotMatch(await page.locator("body").innerText(), /Neon graph|graph database|graph-db:/i);
     assert.ok(seen.filter((url) => url.pathname.startsWith("/api/")).every((url) => url.searchParams.get("mode") !== "snapshot"));
     assert.ok(seen.some((url) => url.pathname === "/api/path" && url.searchParams.get("mode") === "database" && url.searchParams.get("genealogy") === "false"));
+    // The person panel links to the HEP Atlas page for that INSPIRE author id (HEP Graph x Atlas).
+    await page.route("**/api/person/1*", (route) => route.fulfill({ json: {
+      status: "ok", mode: "database", indexed: true, queryable: true, coauthor_count: 1, combined_degree: 1,
+      person: { id: "1", name: "alice", aliases: [], affiliations: [], orcid: null, profile_status: "profile",
+        source_url: "https://inspirehep.net/authors/1" },
+      collaborators: [], advisers: [], students: [], filters: {}, version: "graph-db:test",
+      coverage: { label: "Pinned graph version", complete: true },
+    } }));
+    await page.locator(".path-card .person-link", { hasText: "alice" }).first().click();
+    const onAtlas = page.locator("#person-content a", { hasText: "See on the HEP Atlas" });
+    await onAtlas.waitFor();
+    assert.equal(await onAtlas.getAttribute("href"), "/atlas/#/view/person/1");
     assert.deepEqual(errors, []);
     console.log("PASS v0.3 browser path, update date, and search-job polling");
   } finally {
