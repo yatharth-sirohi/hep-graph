@@ -1979,6 +1979,8 @@ async function openFilters(page) {
         await p.evaluate(() => window.history.back());
         await waitForSel(p, null);
         assert.ok(!decodeURIComponent(p.url()).includes("sel="), "Back clears the selection");
+        // The address changes first; the map then re-renders (asynchronously) and closes the drawer.
+        await p.locator("#map-drawer-title").waitFor({ state: "detached", timeout: 10000 });
         assert.equal(await p.locator("#map-drawer-title").count(), 0, "Back closes the drawer");
         await p.evaluate(() => window.history.forward());
         await waitForSel(p, ring.entity_id || ring.id);

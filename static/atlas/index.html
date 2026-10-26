@@ -58,12 +58,6 @@
         <button type="button" id="filters-btn" class="tool-btn" aria-expanded="false" aria-controls="filters-panel">
           Filters<span id="filters-badge" class="tool-badge" hidden></span>
         </button>
-        <!-- Projector mode (js/classroom.js): a light, high-contrast theme with larger type.
-             On a phone this button moves into the "Views & filters" sheet (phone.js). -->
-        <button type="button" id="theme-btn" class="tool-btn theme-btn" aria-pressed="false" aria-label="Projector mode"
-                title="Projector mode: a light, high-contrast theme with larger type, for a lecture hall">
-          <span class="theme-btn-label">Projector</span><span class="theme-btn-state" aria-hidden="true">Off</span>
-        </button>
         <div id="key-popover" class="key-popover" role="dialog" aria-label="Key to the map and the colours" tabindex="-1" hidden>
           <div id="key-body" class="key-body">
             <div id="marker-legend" class="marker-legend"></div>
@@ -73,6 +67,12 @@
             </div>
           </div>
         </div>
+        <!-- Projector mode (js/classroom.js): a light, high-contrast theme with larger type.
+             On a phone this button moves into the "Views & filters" sheet (phone.js). -->
+        <button type="button" id="theme-btn" class="tool-btn theme-btn" aria-pressed="false" aria-label="Projector mode"
+                title="Projector mode: a light, high-contrast theme with larger type, for a lecture hall">
+          <span class="theme-btn-label">Projector</span><span class="theme-btn-state" aria-hidden="true">Off</span>
+        </button>
       </div>
       <!-- "Take it to a slide" (js/export.js): the globe or map on screen as a PNG, in a
            popover like the Key. Not offered on a phone (export.css). -->
