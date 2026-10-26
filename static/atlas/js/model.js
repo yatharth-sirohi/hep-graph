@@ -130,6 +130,8 @@ export const FACILITY_KIND_SHAPE = {
   astroparticle_observatory: { shape: 'diamond', color: '#d68b6f', label: 'Astroparticle observatory' },
   polar_station: { shape: 'snowflake', color: '#bfe6f2', label: 'Polar station' },
   reactor_site: { shape: 'square', color: '#e0c25c', label: 'Reactor site' },
+  research_laboratory: { shape: 'flask', color: '#d98bb2', label: 'Research laboratory' },
+  spallation_source: { shape: 'starburst', color: '#ffa65c', label: 'Spallation source' },
 };
 
 export function facilityShape(kind) {
