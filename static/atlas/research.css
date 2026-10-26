@@ -1,0 +1,526 @@
+/* research.css — the researchers' tools: Compare (the view and its tray), Cite (the
+   BibTeX section of a result or document panel) and the CSV/JSON export bar of the
+   Results and Documents lists. Loaded after views.css and before phone.css
+   (index.html). Colours, sizes and gaps come from the tokens in atlas.css; nothing
+   here carries a literal colour. */
+
+/* ===================================================================== Compare */
+/* Four columns of text need more than the 1180 px the beam section uses. */
+.view-page:has(.cmp-page) {
+  max-width: 1440px;
+}
+.cmp-lede {
+  max-width: 72ch;
+  margin: 0 0 var(--space-4);
+  color: var(--muted);
+  font-size: var(--text-md);
+}
+
+/* ---- who is being compared */
+.cmp-editor {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin: 0 0 var(--space-4);
+  padding: var(--space-3) var(--space-4);
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+.cmp-editor-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2) var(--space-3);
+}
+.cmp-editor-label {
+  color: var(--muted);
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+.cmp-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.cmp-chip,
+.compare-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 2px 2px 2px var(--space-3);
+  background: var(--panel-2);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-pill);
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+.cmp-chip-name,
+.compare-chip-name {
+  color: var(--white);
+  text-decoration: none;
+}
+.view-host .cmp-chip-name {
+  text-decoration: none;
+}
+.cmp-chip-remove,
+.compare-chip-remove {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  background: none;
+  border: 0;
+  border-radius: 50%;
+  color: var(--muted);
+  font: inherit;
+  font-size: var(--text-lg);
+  line-height: 1;
+  cursor: pointer;
+}
+.cmp-chip-remove:hover,
+.compare-chip-remove:hover {
+  color: var(--white);
+  background: color-mix(in srgb, var(--teal) 18%, transparent);
+}
+.cmp-add {
+  min-height: 38px;
+  max-width: 100%;
+  padding: 6px var(--space-3);
+  background: var(--panel-2);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  color: var(--white);
+  font: inherit;
+  font-size: var(--text-sm);
+}
+.cmp-add:disabled {
+  color: var(--muted);
+  cursor: not-allowed;
+}
+.cmp-csv {
+  min-height: 38px;
+}
+.cmp-status {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--text-xs);
+}
+.cmp-status.is-error {
+  color: var(--danger);
+}
+.cmp-status:empty {
+  display: none;
+}
+.cmp-suffix {
+  color: var(--muted);
+}
+.cmp-notice {
+  margin: 0 0 var(--space-3);
+  padding: var(--space-2) var(--space-3);
+  border-left: 3px solid var(--amber);
+  background: var(--panel);
+  font-size: var(--text-sm);
+}
+.cmp-examples h3 {
+  margin: var(--space-4) 0 var(--space-2);
+  font-size: var(--text-lg);
+}
+
+/* ---- the table */
+.cmp-scroll {
+  max-width: 100%;
+  overflow-x: auto;
+}
+.cmp-table {
+  width: 100%;
+  min-width: calc(11rem + var(--cols, 2) * 13rem);
+  border-collapse: collapse;
+  table-layout: fixed;
+  margin: 0 0 var(--space-5);
+  font-size: var(--text-sm);
+}
+.cmp-table caption {
+  padding: 0 0 var(--space-2);
+  color: var(--muted);
+  font-size: var(--text-sm);
+  text-align: left;
+}
+.cmp-table th,
+.cmp-table td {
+  padding: var(--space-3) var(--space-3) var(--space-3) 0;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+  overflow-wrap: anywhere;
+}
+.cmp-table thead th {
+  border-bottom: 1px solid var(--line-strong);
+  color: var(--white);
+  font-size: var(--text-md);
+  font-weight: 650;
+}
+.cmp-table thead th:first-child,
+.cmp-table tbody th {
+  width: 11rem;
+}
+.cmp-table tbody th {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  background: var(--paper);
+  color: var(--white);
+  font-weight: 650;
+}
+.cmp-kind {
+  display: block;
+  margin-top: 2px;
+  color: var(--muted);
+  font-size: var(--text-xs);
+  font-weight: 400;
+}
+.cmp-lines {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.cmp-line {
+  line-height: 1.4;
+}
+.cmp-line.is-sub {
+  padding-left: var(--space-3);
+  border-left: 2px solid var(--line);
+  color: var(--muted);
+}
+.cmp-label {
+  color: var(--muted);
+  font-size: var(--text-xs);
+}
+.cmp-text {
+  font-variant-numeric: tabular-nums;
+}
+.cmp-converted {
+  position: relative;
+  text-decoration: underline dotted var(--muted);
+  text-underline-offset: 3px;
+  cursor: help;
+}
+/* A keyboard or touch reader has no hover: the recorded wording appears on focus. */
+.cmp-converted:focus::after {
+  content: attr(data-original);
+  position: absolute;
+  left: 0;
+  bottom: calc(100% + 4px);
+  z-index: 5;
+  width: max-content;
+  max-width: 16rem;
+  padding: var(--space-1) var(--space-2);
+  background: var(--panel-2);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--elev-2);
+  color: var(--white);
+  font-size: var(--text-xs);
+  font-weight: 400;
+  white-space: normal;
+}
+.cmp-status-badge {
+  margin: 0;
+}
+.cmp-missing {
+  margin: 0;
+  color: var(--muted);
+  font-style: italic;
+}
+.cmp-marks {
+  white-space: nowrap;
+}
+.view-host .cmp-src {
+  display: inline-block;
+  min-width: 1.6em;
+  padding: 0 5px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-pill);
+  color: var(--teal);
+  font-size: var(--text-xs);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.5;
+  text-align: center;
+  text-decoration: none;
+}
+.view-host .cmp-src:hover {
+  border-color: var(--teal);
+  background: color-mix(in srgb, var(--teal) 14%, transparent);
+}
+.cmp-nosrc {
+  color: var(--muted);
+  font-size: var(--text-xs);
+  font-style: italic;
+}
+.cmp-sources h3,
+.view-method h3 {
+  margin: var(--space-4) 0 var(--space-2);
+  font-size: var(--text-lg);
+}
+.cmp-source-list {
+  margin: 0;
+  padding-left: 2.2em;
+  font-size: var(--text-sm);
+}
+.cmp-source-list li {
+  margin-bottom: var(--space-1);
+  overflow-wrap: anywhere;
+}
+.cmp-method-list {
+  margin: 0;
+  padding-left: 1.2em;
+}
+
+/* ---- a narrow screen: each row becomes a card, every value labelled with its experiment */
+@media (max-width: 760px) {
+  .cmp-editor {
+    padding: var(--space-3);
+  }
+  .cmp-chip-remove {
+    width: 44px;
+    height: 44px;
+  }
+  .cmp-add,
+  .cmp-csv {
+    min-height: 44px;
+  }
+  .cmp-scroll {
+    overflow-x: visible;
+  }
+  .cmp-table {
+    min-width: 0;
+    table-layout: auto;
+  }
+  .cmp-table caption {
+    display: block;
+    width: auto;
+  }
+  .cmp-table thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+  }
+  .cmp-table,
+  .cmp-table tbody,
+  .cmp-table tr,
+  .cmp-table th,
+  .cmp-table td {
+    display: block;
+    width: auto;
+  }
+  .cmp-table tbody tr {
+    margin-bottom: var(--space-3);
+    padding: var(--space-2) var(--space-3);
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+  }
+  .cmp-table tbody th {
+    position: static;
+    width: auto;
+    padding: var(--space-1) 0 var(--space-2);
+    background: none;
+    border: 0;
+    font-size: var(--text-md);
+  }
+  .cmp-table td {
+    padding: var(--space-2) 0;
+    border-bottom: 0;
+    border-top: 1px solid var(--line);
+  }
+  .cmp-table td[data-label]::before {
+    content: attr(data-label);
+    display: block;
+    margin-bottom: 2px;
+    color: var(--teal);
+    font-size: var(--text-xs);
+    font-weight: 650;
+  }
+  .view-host .cmp-src {
+    min-width: 28px;
+    padding: 3px 6px;
+  }
+}
+
+/* ======================================================================== tray */
+.compare-tray {
+  grid-area: globe;
+  align-self: end;
+  justify-self: end;
+  z-index: 12;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  width: min(440px, calc(100% - 24px));
+  margin: 12px;
+  padding: var(--space-3);
+  background: var(--panel);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+.compare-tray[hidden] {
+  display: none;
+}
+.compare-tray-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+}
+.compare-tray-title {
+  color: var(--muted);
+  font-size: var(--text-xs);
+  font-weight: 650;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.compare-tray-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.compare-tray-actions {
+  justify-content: space-between;
+}
+.compare-tray-open {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px var(--space-3);
+  font-size: var(--text-sm);
+  text-decoration: none;
+}
+.compare-tray-open.is-disabled {
+  background: var(--panel-2);
+  color: var(--muted);
+  cursor: not-allowed;
+}
+.compare-tray-hint {
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--text-xs);
+}
+
+/* "Add to compare" on an experiment's panel */
+.compare-control {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2) var(--space-3);
+  margin: 0 0 var(--space-3);
+}
+.compare-add.is-disabled {
+  color: var(--muted);
+  cursor: not-allowed;
+}
+.compare-open-link {
+  font-size: var(--text-sm);
+  text-decoration: underline;
+}
+.compare-open-link[hidden] {
+  display: none;
+}
+.compare-add-status {
+  flex-basis: 100%;
+  min-height: 0;
+  color: var(--muted);
+  font-size: var(--text-xs);
+}
+.compare-add-status:empty {
+  display: none;
+}
+
+/* ======================================================================== cite */
+.cite-entry {
+  margin: 0 0 var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  color: var(--white);
+  font: var(--text-xs)/1.5 var(--font-mono);
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+.cite-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+}
+.cite-status,
+.export-status {
+  color: var(--muted);
+  font-size: var(--text-xs);
+}
+.cite-status.is-error,
+.export-status.is-error {
+  color: var(--danger);
+}
+.cite-missing {
+  margin: var(--space-2) 0 0;
+}
+
+/* ================================================================ list exports */
+.export-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+  margin: 0 0 var(--space-2);
+}
+.export-status:empty {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  /* On a phone the stage above the sheets is what is left: the tray sits at its top edge. */
+  .compare-tray {
+    align-self: start;
+    justify-self: stretch;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    width: auto;
+    margin: 8px;
+    padding: var(--space-2) var(--space-3);
+  }
+  .compare-tray-actions {
+    margin-left: auto;
+  }
+  .compare-tray-hint:not(.is-needed) {
+    display: none;
+  }
+  .compare-tray-hint {
+    flex-basis: 100%;
+  }
+  .compare-chip-remove {
+    width: 36px;
+    height: 36px;
+  }
+  .compare-add,
+  .cite-copy,
+  .cite-download,
+  .export-btn {
+    min-height: 44px;
+  }
+}

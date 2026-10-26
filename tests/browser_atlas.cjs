@@ -98,7 +98,10 @@ const results = [];
 const errors = [];
 let browser;
 
+// HEP_ONLY=<regex> runs only the checks whose name matches (a way to re-run one area while working on it).
+const only = process.env.HEP_ONLY ? new RegExp(process.env.HEP_ONLY, "i") : null;
 const record = async (name, fn) => {
+  if (only && !only.test(name)) return;
   const start = Date.now();
   await fn();
   results.push({ name, status: "passed", milliseconds: Date.now() - start });
@@ -3290,6 +3293,366 @@ async function openFilters(page) {
   });
   // ---- HEP Graph x Atlas -- end -----------------------------------------------------
   // ---- views -- end ---------------------------------------------------------------
+
+  // ---- researchers' tools: Compare, Cite and the list exports -- begin ------------------
+  // static/atlas/js/views/compare*.js and static/atlas/js/research/. They run against either
+  // data tree; what only the real build can say (DUNE's 1285 km, the Higgs entry) is asserted
+  // when HEP_ATLAS_DATA=generated.
+  const GEN = process.env.HEP_ATLAS_DATA === "generated";
+  const treeDir = GEN ? "generated" : "fixtures";
+  const compareSlugs = GEN ? "dune,hyper-kamiokande,juno" : "dune,lz,nova";
+  const knownResult = GEN
+    ? { slug: "atlas-higgs-observation-2012", key: "atlas-higgs-observation-2012" }
+    : { slug: "higgs-boson-observation-2012", key: "higgs-boson-observation-2012" };
+  const noIdResult = GEN ? "dune-far-site-excavation-2024" : "belle-2-first-collisions-2018";
+  const todayLocal = () => {
+    const d = new Date();
+    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+  };
+  const dataVersionOf = async (page) => {
+    const manifest = await (await page.request.get(`${base}/atlas/${treeDir}/manifest.json`)).json();
+    return manifest.data_version || manifest.version;
+  };
+  const researchContext = async (options = {}) => {
+    const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 }, reducedMotion: "reduce", acceptDownloads: true, ...options });
+    ctx.on("page", (p) => p.on("pageerror", (e) => errors.push(`research tools: ${e.message}`)));
+    ctx.on("page", (p) => p.on("console", (msg) => {
+      if (msg.type() === "error") errors.push(`research tools console.error: ${msg.text()}`);
+    }));
+    const p = await ctx.newPage();
+    p.setDefaultTimeout(30000);
+    return { ctx, p };
+  };
+  // The file a click downloads, as { name, text } (the BOM is kept: it is part of the file).
+  const downloadOf = async (page, click) => {
+    const [download] = await Promise.all([page.waitForEvent("download"), click()]);
+    return { name: download.suggestedFilename(), text: fs.readFileSync(await download.path(), "utf8") };
+  };
+  const csvBody = (text) => text.replace(/^﻿/, "").split("\r\n").filter((line) => line !== "");
+
+  await record("Compare: three experiments render from the URL as three columns, with source markers, 'not recorded' and a unit tooltip", async () => {
+    const { ctx, p } = await researchContext();
+    await p.goto(viewURL(`#/view/compare/${compareSlugs}`));
+    await p.locator("table.cmp-table").waitFor();
+    assert.equal(await p.locator("#view-title").innerText(), "Compare experiments");
+    const heads = await p.locator("table.cmp-table thead th").allInnerTexts();
+    assert.equal(heads.length, 4, "a Quantity column and one column per experiment");
+    assert.ok((await p.locator("table.cmp-table tbody tr").count()) >= 10, "the ten rows of the brief");
+    const labels = await p.locator("table.cmp-table tbody th").allInnerTexts();
+    for (const label of ["Status in", "Dates", "Host facility and site", "Depth or overburden", "Baseline", "Target or fiducial mass", "Energy", "Technology", "Key results", "Collaboration size"]) {
+      assert.ok(labels.some((l) => l.startsWith(label)), `a row for ${label}`);
+    }
+    assert.equal(await p.locator("table.cmp-table caption").count(), 1);
+    // The sources load after the first paint; every marker is a link to its source.
+    await p.locator(".cmp-source-list li").first().waitFor();
+    const markers = await p.locator("a.cmp-src").evaluateAll((els) => els.map((a) => [a.getAttribute("href"), a.getAttribute("aria-label")]));
+    assert.ok(markers.length > 10, "markers on the values");
+    for (const [href, label] of markers) {
+      assert.match(href, /^https?:\/\//);
+      assert.match(label, /^Source \d+: .+\(opens in a new tab\)$/);
+    }
+    assert.ok((await p.locator(".cmp-missing").count()) > 0, "what the Atlas does not hold reads 'not recorded'");
+    assert.equal(await p.locator(".cmp-missing").first().innerText(), "not recorded");
+    if (GEN) {
+      assert.deepEqual(heads.map((h) => h.split("\n")[0]), ["Quantity", "DUNE", "Hyper-Kamiokande", "JUNO"]);
+      const baseline = await p.locator('tr[data-row="baseline"]').innerText();
+      assert.match(baseline, /1285 km/);
+      assert.match(baseline, /~295 km/);
+      assert.match(baseline, /~52\.5 km/);
+      assert.match(await p.locator('tr[data-row="mass"]').innerText(), /260 kt total, 188 kt fiducial/, "a wording with two figures is shown as recorded");
+      // A row that mixes units is read in one: the original is in the tooltip.
+      await p.goto(viewURL("#/view/compare/atlas,juno,nova"));
+      await p.locator("table.cmp-table").waitFor();
+      const converted = p.locator('tr[data-row="mass"] abbr.cmp-converted').first();
+      assert.equal(await converted.innerText(), "7 kt");
+      assert.equal(await converted.getAttribute("title"), "Recorded as: 7000 t");
+    }
+    await ctx.close();
+  });
+
+  await record("Compare: Download CSV is exactly the table, with a citations column and the data version, access date and link in its header", async () => {
+    const { ctx, p } = await researchContext();
+    await p.goto(viewURL(`#/view/compare/${compareSlugs}`));
+    await p.locator("table.cmp-table").waitFor();
+    const version = await dataVersionOf(p);
+    const file = await downloadOf(p, () => p.locator("#cmp-csv").click());
+    assert.match(file.name, new RegExp(`^hep-atlas-compare-${compareSlugs.replace(/,/g, "-")}-\\d{4}-\\d{2}-\\d{2}\\.csv$`));
+    assert.ok(file.text.startsWith("﻿# HEP Atlas: comparison of experiments\r\n"), "a BOM, then the metadata lines");
+    const lines = csvBody(file.text);
+    assert.equal(lines[1], `# Atlas data version: ${version}`);
+    assert.equal(lines[2], `# Accessed: ${todayLocal()}`);
+    assert.ok(lines.some((l) => l.startsWith("# Link: ") && l.includes("#/view/compare/")));
+    const header = lines.find((l) => !l.startsWith("#"));
+    assert.equal(header, GEN ? "Quantity,DUNE,Hyper-Kamiokande,JUNO,Citations" : header, "one column per experiment, then Citations");
+    assert.ok(header.startsWith("Quantity,") && header.endsWith(",Citations") && header.split(",").length === 5);
+    const dataRows = lines.filter((l) => !l.startsWith("#")).slice(1);
+    assert.equal(dataRows.length, await p.locator("table.cmp-table tbody tr").count(), "one CSV row per table row");
+    assert.ok(dataRows.every((row) => /https?:\/\//.test(row) || /not recorded"?$/.test(row)), "every row ends in source URLs");
+    if (GEN) {
+      const baseline = dataRows.find((r) => r.startsWith("Baseline,"));
+      assert.match(baseline, /Baseline: 1285 km/);
+      assert.match(baseline, /DUNE: https:\/\//);
+      assert.ok(dataRows.some((r) => r.includes("not recorded")), "missing values are written 'not recorded', never blank");
+    }
+    assert.match(await p.locator("#cmp-status").innerText(), /^Downloaded hep-atlas-compare-/);
+    await ctx.close();
+  });
+
+  await record("Compare: the tray collects up to four from the experiment panels, the URL holds the list, and search and the page edit it", async () => {
+    const { ctx, p } = await researchContext();
+    await p.goto(viewURL("#/experiment/dune"));
+    const add = p.locator("#detail-panel .compare-add");
+    await add.waitFor();
+    assert.equal((await add.innerText()).trim(), "Add to compare");
+    assert.equal(await p.locator("#compare-tray").isVisible(), false, "nothing collected, no tray");
+    await add.click();
+    assert.equal((await add.innerText()).trim(), "Remove from compare");
+    assert.equal(await p.locator("#compare-tray").isVisible(), true);
+    assert.match(await p.locator("#compare-tray .compare-tray-hint").innerText(), /one more/);
+    for (const slug of ["lz", "nova"]) {
+      await p.goto(viewURL(`#/experiment/${slug}`));
+      await p.locator("#detail-panel .compare-add").click();
+    }
+    assert.equal(await p.locator("#compare-tray .compare-chip").count(), 3);
+    assert.equal(await p.locator("#compare-tray .compare-tray-open").getAttribute("href"), "#/view/compare/dune,lz,nova");
+    // The control on the panel follows the tray.
+    assert.match(await p.locator("#detail-panel .compare-open-link").innerText(), /Open comparison \(3\)/);
+    // It survives a reload (sessionStorage), and four is the most.
+    await p.reload();
+    await p.locator("#detail-panel .compare-add").waitFor();
+    assert.equal(await p.locator("#compare-tray .compare-chip").count(), 3);
+    await p.goto(viewURL("#/experiment/atlas"));
+    await p.locator("#detail-panel .compare-add").click();
+    await p.goto(viewURL("#/experiment/cms"));
+    const fifth = p.locator("#detail-panel .compare-add");
+    await fifth.waitFor();
+    assert.equal(await fifth.getAttribute("aria-disabled"), "true");
+    await fifth.click({ force: true }); // aria-disabled, not disabled: it answers with the reason
+    assert.equal(await p.locator("#compare-tray .compare-chip").count(), 4, "a fifth is not added");
+    assert.match(await p.locator("#detail-panel .compare-add-status").innerText(), /holds 4/);
+    // Open the comparison from the tray: the URL carries the four.
+    await p.locator("#compare-tray .compare-tray-open").click();
+    await p.waitForURL(/#\/view\/compare\/dune,lz,nova,atlas$/);
+    await p.locator("table.cmp-table").waitFor();
+    assert.equal(await p.locator("table.cmp-table thead th").count(), 5);
+    assert.equal(await p.locator("#cmp-add").isDisabled(), true, "four is the most");
+    // Remove one with its chip; the URL follows, and so does the tray.
+    await p.locator(".cmp-chip-remove").nth(1).click();
+    await p.waitForURL(/#\/view\/compare\/dune,nova,atlas$/);
+    await p.locator("table.cmp-table").waitFor();
+    assert.equal(await p.locator("table.cmp-table thead th").count(), 4);
+    // Add one with the select.
+    await p.locator("#cmp-add").selectOption("lz");
+    await p.waitForURL(/#\/view\/compare\/dune,nova,atlas,lz$/);
+    await p.locator("table.cmp-table").waitFor();
+    // Back reaches the previous list.
+    await p.goBack();
+    await p.waitForURL(/#\/view\/compare\/dune,nova,atlas$/);
+    // A bare link, or the search box, with something in the tray opens the tray's list.
+    await p.goto(viewURL("#/view/compare/"));
+    await p.waitForURL(/#\/view\/compare\/dune,nova,atlas$/);
+    await ctx.close();
+
+    const search = await researchContext();
+    await search.p.goto(viewURL(""));
+    await search.p.waitForFunction(() => document.querySelectorAll(".atlas-marker").length > 0 || document.querySelector(".fallback-notice"), { timeout: 30000 });
+    await search.p.locator("#atlas-search").fill("compare");
+    assert.match(await search.p.locator(".search-result").first().innerText(), /Compare experiments/);
+    await search.p.keyboard.press("Enter");
+    await search.p.locator("#view-title").waitFor();
+    assert.match(search.p.url(), /#\/view\/compare\/$/);
+    assert.match(await search.p.locator(".cmp-lede").innerText(), /Choose two to 4 experiments/);
+    // Nothing chosen: the page offers examples, and a link opens one.
+    await search.p.locator(".cmp-example").first().click();
+    await search.p.locator("table.cmp-table").waitFor();
+    assert.equal(await search.p.locator("table.cmp-table thead th").count(), 4);
+    await search.ctx.close();
+  });
+
+  await record("Compare: unknown and surplus experiments in a link are named, not dropped silently", async () => {
+    const { ctx, p } = await researchContext();
+    await p.goto(viewURL("#/view/compare/dune,not-an-experiment,lz,nova,atlas,cms"));
+    await p.locator("table.cmp-table").waitFor();
+    assert.equal(await p.locator("table.cmp-table thead th").count(), 5, "four experiments");
+    const notices = await p.locator(".cmp-notice").allInnerTexts();
+    assert.ok(notices.some((t) => /not-an-experiment/.test(t)), "the unknown slug is named");
+    assert.ok(notices.some((t) => /at most/.test(t)), "the fifth is named");
+    await p.goto(viewURL("#/view/compare/dune"));
+    await p.locator(".cmp-lede").waitFor();
+    assert.equal(await p.locator("table.cmp-table").count(), 0, "one experiment is not a comparison");
+    assert.equal(await p.locator("#cmp-csv").isDisabled(), true);
+    await ctx.close();
+  });
+
+  await record("Compare: the globe's cold load fetches no compare code; the route fetches it then", async () => {
+    const { ctx, p } = await researchContext();
+    const requested = [];
+    await ctx.route("**/*", (route) => { requested.push(route.request().url()); route.continue(); });
+    await p.goto(viewURL(""), { waitUntil: "domcontentloaded" });
+    await p.waitForFunction(() => document.querySelectorAll(".atlas-marker").length > 0 || document.querySelector(".fallback-notice"), { timeout: 30000 });
+    await p.waitForTimeout(800);
+    const compareCode = (list) => list.filter((url) => /\/js\/views\/compare(-rows|-units)?\.js/.test(url));
+    assert.deepEqual(compareCode(requested), [], "opening the globe must not load the table's code");
+    const before = requested.length;
+    await p.evaluate((slugs) => { window.location.hash = `#/view/compare/${slugs}`; }, compareSlugs);
+    await p.locator("table.cmp-table").waitFor();
+    assert.ok(compareCode(requested.slice(before)).some((url) => url.includes("compare.js")), "the module is fetched when the route opens");
+    await ctx.close();
+  });
+
+  await record("Compare on a phone: no sideways scroll, every value labelled with its experiment, 44 px controls", async () => {
+    const { ctx, p } = await researchContext({ viewport: { width: 390, height: 844 }, ...MOBILE });
+    await p.goto(viewURL(`#/view/compare/${compareSlugs}`));
+    await p.locator("table.cmp-table").waitFor();
+    await p.locator(".cmp-source-list li").first().waitFor();
+    const box = await p.evaluate(() => {
+      const host = document.getElementById("view-host");
+      const cell = document.querySelector("table.cmp-table tbody td");
+      const remove = document.querySelector(".cmp-chip-remove").getBoundingClientRect();
+      return {
+        pageOverflow: document.documentElement.scrollWidth > window.innerWidth,
+        hostOverflow: host.scrollWidth > host.clientWidth + 1,
+        cellDisplay: getComputedStyle(cell).display,
+        label: cell.getAttribute("data-label"),
+        labelShown: getComputedStyle(cell, "::before").content,
+        remove: [remove.width, remove.height],
+        csv: document.getElementById("cmp-csv").getBoundingClientRect().height,
+      };
+    });
+    assert.equal(box.pageOverflow, false, "no sideways scroll on the page");
+    assert.equal(box.hostOverflow, false, "no sideways scroll in the view");
+    assert.equal(box.cellDisplay, "block", "a row is a card on a phone");
+    assert.ok(box.label && box.labelShown.includes(box.label.slice(0, 3)), "each value carries its experiment's name");
+    assert.ok(box.remove[0] >= 44 && box.remove[1] >= 44 && box.csv >= 44, "44 px targets");
+    await ctx.close();
+  });
+
+  await record("Cite: a known result shows a valid BibTeX entry that can be copied and downloaded; a record with no DOI or arXiv id offers none", async () => {
+    const { ctx, p } = await researchContext();
+    await p.goto(viewURL(`#/result/${knownResult.slug}`));
+    const summary = p.locator("#detail-panel details.panel-section > summary", { hasText: /^Cite$/ });
+    await summary.waitFor();
+    assert.equal(await p.locator("#detail-panel .cite-entry").isVisible(), false, "Cite is a disclosure, shut at first");
+    await summary.click();
+    const entry = (await p.locator("#detail-panel .cite-entry").innerText()).trim();
+    assert.match(entry, new RegExp(`^@misc\\{${knownResult.key},\\n`));
+    assert.match(entry, /\n  title = \{\{.+\}\},\n/);
+    assert.match(entry, /\n  doi = \{10\.1016\/j\.physletb\.2012\.08\.020\},\n/);
+    assert.match(entry, /\n  eprint = \{1207\.7214\},\n  archivePrefix = \{arXiv\}/);
+    assert.match(entry, /\n  year = \{2012\},\n/);
+    assert.ok(entry.endsWith("\n}"));
+    assert.equal(entry.split("{").length, entry.split("}").length, "braces are balanced");
+    assert.doesNotMatch(entry, /journal/, "no journal is guessed: the record names none");
+    if (GEN) assert.match(entry, /\n  author = \{\{ATLAS Collaboration\}\},\n/);
+    assert.match(await p.locator("#detail-panel .cite-missing").innerText(), /Not carried by the record, so left out: .*journal/);
+    // Copy: either the clipboard took it, or the entry is selected for the reader to copy.
+    await p.locator("#detail-panel .cite-copy").click();
+    await p.locator("#detail-panel .cite-status").filter({ hasText: /Copied|selected/ }).waitFor();
+    // Download: a .bib named for the entry, with the data version and the access date in its header.
+    const version = await dataVersionOf(p);
+    const file = await downloadOf(p, () => p.locator("#detail-panel .cite-download").click());
+    assert.equal(file.name, `${knownResult.key}.bib`);
+    assert.ok(file.text.startsWith(`% From HEP Atlas, data version ${version}; record result:${knownResult.slug}; accessed ${todayLocal()}.\n`));
+    assert.ok(file.text.includes(entry));
+    // No DOI and no arXiv identifier: it says so and offers no entry.
+    await p.goto(viewURL(`#/result/${noIdResult}`));
+    await p.locator("#detail-panel details.panel-section > summary", { hasText: /^Cite$/ }).click();
+    assert.match(await p.locator("#detail-panel .cite-none").innerText(), /neither a DOI nor an arXiv identifier/);
+    assert.equal(await p.locator("#detail-panel .cite-entry").count(), 0);
+    assert.equal(await p.locator("#detail-panel .cite-download").count(), 0);
+    if (GEN) {
+      // A document: the same section, and its owner is not made its author.
+      await p.goto(viewURL("#/document/aleph-detector-nim-1990"));
+      await p.locator("#detail-panel details.panel-section > summary", { hasText: /^Cite$/ }).click();
+      const doc = (await p.locator("#detail-panel .cite-entry").innerText()).trim();
+      assert.match(doc, /^@misc\{aleph-detector-nim-1990,/);
+      assert.match(doc, /doi = \{10\.1016\/0168-9002\(90\)91831-U\}/);
+      assert.match(doc, /year = \{1990\}/);
+      assert.doesNotMatch(doc, /author/);
+    }
+    await ctx.close();
+  });
+
+  await record("Export: the Results list downloads as CSV and JSON exactly as filtered, with the data version, the filter and the access date", async () => {
+    const { ctx, p } = await researchContext();
+    const sep = dataTree ? `${dataTree}&` : "?";
+    await p.goto(`${base}/atlas${sep}m=results&rx=experiment%3Aatlas`);
+    await p.locator("#results-mode-list .result-row").first().waitFor();
+    const shown = await p.locator("#results-mode-list .result-row").count();
+    const total = Number((await p.locator("#results-count").innerText()).match(/of (\d+) results/)[1]);
+    assert.ok(shown > 0 && shown < total, "a filtered list");
+    const slugsShown = await p.locator("#results-mode-list .result-title").evaluateAll((els) => els.map((a) => a.getAttribute("href").replace("#/result/", "")));
+    const version = await dataVersionOf(p);
+    const csvFile = await downloadOf(p, () => p.locator("#mode-panel .export-csv").click());
+    assert.equal(csvFile.name, `hep-atlas-results-${todayLocal()}.csv`);
+    const lines = csvBody(csvFile.text);
+    assert.equal(lines[0], "# HEP Atlas: results list");
+    assert.equal(lines[1], `# Atlas data version: ${version}`);
+    assert.match(lines[2], /^# Filter: Experiment: .*ATLAS.*; sorted by date \(newest first\)$/);
+    assert.equal(lines[3], `# Rows: ${shown} of ${total} results`);
+    assert.equal(lines[4], `# Accessed: ${todayLocal()}`);
+    assert.match(lines[5], /^# Link: .*[?&]m=results.*rx=experiment/);
+    const table = lines.filter((l) => !l.startsWith("#"));
+    assert.ok(table[0].startsWith("id,name,title,date,date_kind,result_type,experiments,experiment_ids,doi,arxiv,url,atlas_url,source_urls"));
+    assert.equal(table.length - 1, shown, "the rows on screen, no more and no fewer");
+    assert.deepEqual(table.slice(1).map((row) => row.split(",")[0]), slugsShown.map((slug) => `result:${slug}`), "in the order on screen");
+    const jsonFile = await downloadOf(p, () => p.locator("#mode-panel .export-json").click());
+    assert.equal(jsonFile.name, `hep-atlas-results-${todayLocal()}.json`);
+    const doc = JSON.parse(jsonFile.text);
+    assert.equal(doc.meta.data_version, version);
+    assert.equal(doc.meta.accessed, todayLocal());
+    assert.match(doc.meta.filter, /Experiment: .*ATLAS/);
+    assert.deepEqual([doc.meta.rows_shown, doc.meta.rows_in_list], [shown, total]);
+    assert.deepEqual(doc.rows.map((r) => r.id), slugsShown.map((slug) => `result:${slug}`));
+    assert.ok(doc.rows.every((r) => Array.isArray(r.source_urls) && Array.isArray(r.experiments) && r.atlas_url.includes("#/result/")));
+    if (GEN) {
+      const higgs = doc.rows.find((r) => r.id === "result:atlas-higgs-observation-2012");
+      assert.equal(higgs.doi, "10.1016/j.physletb.2012.08.020");
+      assert.equal(higgs.arxiv, "1207.7214");
+      assert.ok(higgs.source_urls.length >= 1 && higgs.source_urls.every((u) => /^https?:\/\//.test(u)));
+    }
+    // Nothing matches: nothing is downloaded, and it says so.
+    await p.locator("#results-filter-year").selectOption({ index: 1 });
+    await p.locator("#results-filter-experiment").selectOption({ index: 1 });
+    await p.locator("#results-filter-type").selectOption({ index: 1 });
+    if ((await p.locator("#results-mode-list .result-row").count()) === 0) {
+      await p.locator("#mode-panel .export-csv").click();
+      assert.match(await p.locator("#mode-panel .export-status").innerText(), /Nothing to download/);
+    }
+    await ctx.close();
+  });
+
+  await record("Export: the Documents list downloads as filtered, in the order shown, and says what filter produced it", async () => {
+    const { ctx, p } = await researchContext();
+    await p.goto(`${base}/atlas${dataTree}${dataTree ? "&" : "?"}m=docs`);
+    await p.locator("#docs-text-filter").waitFor();
+    await p.locator(".document-row").first().waitFor();
+    await p.locator("#docs-text-filter").fill("dune");
+    const shown = await p.locator(".document-row").count();
+    const total = Number((await p.locator("#docs-count").innerText()).match(/of (\d+) documents/)[1]);
+    assert.ok(shown > 0 && shown < total);
+    const names = await p.locator(".document-row .document-title").allInnerTexts();
+    const version = await dataVersionOf(p);
+    const file = await downloadOf(p, () => p.locator("#mode-panel .export-json").click());
+    assert.equal(file.name, `hep-atlas-documents-${todayLocal()}.json`);
+    const doc = JSON.parse(file.text);
+    assert.equal(doc.meta.list, "Documents");
+    assert.equal(doc.meta.data_version, version);
+    assert.match(doc.meta.filter, /title or owner contains “dune”/);
+    assert.equal(doc.rows.length, shown);
+    assert.deepEqual(doc.rows.map((r) => r.name), names, "in the order on screen");
+    assert.ok(doc.rows.every((r) => r.id.startsWith("document:") && Array.isArray(r.owners) && "doi" in r && "arxiv" in r && Array.isArray(r.source_urls)));
+    const csvFile = await downloadOf(p, () => p.locator("#mode-panel .export-csv").click());
+    const lines = csvBody(csvFile.text);
+    assert.equal(lines[0], "# HEP Atlas: documents list");
+    assert.equal(lines[3], `# Rows: ${shown} of ${total} documents`);
+    assert.ok(lines.find((l) => !l.startsWith("#")).startsWith("id,name,doc_type,date,owners,owner_ids,doi,arxiv,report_number,url,atlas_url,source_urls"));
+    await p.locator("#docs-text-filter").fill("zzzz-no-such-document");
+    await p.locator("#mode-panel .export-csv").click();
+    assert.match(await p.locator("#mode-panel .export-status").innerText(), /Nothing to download/);
+    await ctx.close();
+  });
+  // ---- researchers' tools -- end ---------------------------------------------------
 
   await record("about.html loads with live coverage counts read from the current data tree, and 0 console errors", async () => {
     const freshContext = await browser.newContext({ viewport: { width: 1280, height: 900 } });

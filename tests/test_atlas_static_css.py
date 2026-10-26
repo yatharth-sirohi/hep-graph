@@ -16,6 +16,7 @@ STYLESHEETS = [
     ROOT / "static" / "atlas" / "atlas.css",
     ROOT / "static" / "atlas" / "globe.css",
     ROOT / "static" / "atlas" / "views.css",
+    ROOT / "static" / "atlas" / "research.css",
     ROOT / "static" / "atlas" / "phone.css",
     ROOT / "static" / "atlas" / "export.css",
     ROOT / "static" / "atlas" / "classroom.css",

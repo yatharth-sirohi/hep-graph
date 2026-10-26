@@ -330,6 +330,56 @@ async function openFilters(page) {
       await viewContext.close();
     });
 
+    // ---- researchers' tools (static/atlas/js/views/compare*.js, js/research/) ----------
+    // The comparison table with its markers, its sources and the open method; the tray; the
+    // panel's "Add to compare" and "Cite"; the export bar of the lists. All must be clean.
+    await record(`[${tree.label}] axe: compare view (table, markers, sources, method open), its empty state, and the tray`, async () => {
+      const compareContext = await browser.newContext({ viewport: { width: 1440, height: 960 }, reducedMotion: "reduce" });
+      const comparePage = await compareContext.newPage();
+      comparePage.setDefaultTimeout(30000);
+      await comparePage.goto(`${base}/atlas${dataTree}#/view/compare/dune,lz,nova`);
+      await comparePage.locator("table.cmp-table").waitFor();
+      await comparePage.locator(".cmp-source-list li").first().waitFor();
+      const closed = await runAxe(comparePage, tree.label, "compare view");
+      assert.deepEqual(closed.violations, [], `expected 0 WCAG axe violations on the compare view, got ${JSON.stringify(closed.violations)}`);
+      await comparePage.locator("#view-method > summary").click();
+      const open = await runAxe(comparePage, tree.label, "compare view, inputs and method open");
+      assert.deepEqual(open.violations, [], `expected 0 WCAG axe violations with the method open, got ${JSON.stringify(open.violations)}`);
+      // The empty state, with its examples (nothing in the tray).
+      await comparePage.evaluate(() => { window.sessionStorage.clear(); });
+      await comparePage.goto(`${base}/atlas${dataTree}#/view/compare/x`);
+      await comparePage.reload();
+      await comparePage.locator(".cmp-examples").waitFor();
+      const empty = await runAxe(comparePage, tree.label, "compare view, nothing chosen");
+      assert.deepEqual(empty.violations, [], `expected 0 WCAG axe violations on the empty compare view, got ${JSON.stringify(empty.violations)}`);
+      // The tray over the globe, and the control on the experiment panel.
+      await comparePage.goto(`${base}/atlas${dataTree}#/experiment/dune`);
+      await comparePage.locator("#detail-panel .compare-add").click();
+      await comparePage.goto(`${base}/atlas${dataTree}#/experiment/lz`);
+      await comparePage.locator("#detail-panel .compare-add").click();
+      await comparePage.locator("#compare-tray .compare-chip").nth(1).waitFor();
+      const tray = await runAxe(comparePage, tree.label, "experiment panel with the compare tray");
+      assert.deepEqual(tray.violations, [], `expected 0 WCAG axe violations with the tray, got ${JSON.stringify(tray.violations)}`);
+      await compareContext.close();
+    });
+
+    await record(`[${tree.label}] axe: result panel with Cite open, and the Results list with its export bar`, async () => {
+      const citeContext = await browser.newContext({ viewport: { width: 1440, height: 960 }, reducedMotion: "reduce" });
+      const citePage = await citeContext.newPage();
+      citePage.setDefaultTimeout(30000);
+      const slug = tree.label === "generated" ? "atlas-higgs-observation-2012" : "higgs-boson-observation-2012";
+      await citePage.goto(`${base}/atlas${dataTree}#/result/${slug}`);
+      await citePage.locator("#detail-panel details.panel-section > summary", { hasText: /^Cite$/ }).click();
+      await citePage.locator("#detail-panel .cite-entry").waitFor();
+      const cite = await runAxe(citePage, tree.label, "result panel, Cite open");
+      assert.deepEqual(cite.violations, [], `expected 0 WCAG axe violations with Cite open, got ${JSON.stringify(cite.violations)}`);
+      await citePage.goto(`${base}/atlas${dataTree ? `${dataTree}&m=results` : "?m=results"}`);
+      await citePage.locator("#mode-panel .export-bar").waitFor();
+      const lists = await runAxe(citePage, tree.label, "results list with the export bar");
+      assert.deepEqual(lists.violations, [], `expected 0 WCAG axe violations on the Results list, got ${JSON.stringify(lists.violations)}`);
+      await citeContext.close();
+    });
+
     // ---- local map view (docs/HEP_ATLAS_GEOMETRY.md §4) -- begin --------
     // Two states, both of which have to be clean: the map with nothing
     // selected, and the map with the drawer open (which is where panels.js's

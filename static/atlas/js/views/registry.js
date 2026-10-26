@@ -54,6 +54,9 @@
 
 import { VIEW_NAME, WORKING_TITLE, beamSearchEntries, parseArg } from './beam-rows.js';
 import { PERSON_VIEW, PERSON_VIEW_TITLE } from '../hepgraph.js';
+import {
+  VIEW_NAME as COMPARE_NAME, WORKING_TITLE as COMPARE_TITLE, compareSearchEntries,
+} from './compare-route.js';
 
 export const VIEWS = {
   [VIEW_NAME]: {
@@ -72,6 +75,12 @@ export const VIEWS = {
   [PERSON_VIEW]: {
     title: PERSON_VIEW_TITLE,
     load: () => import('./person.js'),
+  },
+  // Two to four experiments side by side: #/view/compare/dune,juno (compare-route.js).
+  [COMPARE_NAME]: {
+    title: COMPARE_TITLE,
+    load: () => import('./compare.js'),
+    searchEntries: compareSearchEntries,
   },
 };
 

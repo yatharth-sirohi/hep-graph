@@ -16,6 +16,7 @@ import { createChrome } from './chrome.js';
 import * as classroom from './classroom.js';
 import * as startModule from './start.js';
 import { createViewHost } from './views/host.js';
+import { mountTray } from './research/compare-tray.js';
 import { viewSearchEntries } from './views/registry.js';
 import * as exportModule from './export.js';
 import { buildIndex, topicMarkerIds } from './model.js';
@@ -233,6 +234,10 @@ async function main() {
   panels.init({
     el: els.detailPanel, atlas, index, navigate: state.navigate, focusGlobe, viewOnGlobe,
   });
+
+  // The compare tray (js/research/compare-tray.js): the experiments chosen with "Add to
+  // compare", in a corner of the stage while it holds any.
+  mountTray({ main: document.getElementById('atlas-main'), atlas, navigate: state.navigate });
 
   // The views' frame (js/views/host.js): mounted lazily, only when a `#/view/...` route opens.
   const views = createViewHost({
