@@ -125,7 +125,7 @@
   "name": "Relativistic Heavy Ion Collider",
   "notes": [
     "site_id is set to site:bnl-upton-campus (the general BNL campus) rather than either IP-specific site, because RHIC is a ring machine spanning both interaction points and the tunnel between them, not a single point; the campus site is the most representative single location, matching the accelerator's own facility-level coordinate anchor.",
-    "The Atlas has no records for accelerator:bnl-linac and accelerator:bnl-booster, the earlier stages of RHIC's injector chain; they are mentioned only in prose (src:bnl-rhic-ags-page)."
+    "Injector chain: Linac (accelerator:bnl-linac, 200 MeV) to Booster (accelerator:bnl-booster, 1.5 GeV) to AGS (accelerator:ags, 24 GeV protons) to RHIC; heavy ions entered the Booster from EBIS and, before that, from the Tandem Van de Graaffs, neither of which has a record."
   ],
   "particles": [
     "gold ion (Au)",
@@ -141,6 +141,21 @@
     "src:bnl-about-history-accelerators-page"
   ],
   "specs": {
+    "beam_energy": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "energy",
+      "display": "up to 250 GeV (protons); 100 GeV per nucleon (gold)",
+      "locator": "DOE Office of Science, RHIC user-facility page, \"Description\"",
+      "note": "Design top energies per beam; the highest proton energy actually used was about 255 GeV (Run 22, 510 GeV centre of mass, see the Run 22 interval).",
+      "quote": "RHIC collides all ion beam species from protons to Uranium at energies up to 100 GeV (Giga Electron Volts) per nucleon (250 GeV for protons).",
+      "sources": [
+        "src:rhic-osti-facility-page"
+      ],
+      "unit": "GeV",
+      "value": 250,
+      "verified_at": "2026-10-26"
+    },
     "circumference": {
       "approx": true,
       "confidence": "derived",
@@ -170,6 +185,22 @@
       "unit": "GeV",
       "value": 200,
       "verified_at": "2026-09-17"
+    },
+    "injection_energy": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "energy",
+      "display": "about 24 GeV (protons); 8.86 GeV per nucleon (gold)",
+      "locator": "Aidala et al., Rev. Mod. Phys. 85, 655 (arXiv:1209.2803), §II.A",
+      "note": "Injected from the AGS through the AtR line. Gold: \"The nominal momentum and kinetic energy at extraction are 9.75 GeV/c and 8.86 GeV per nucleon (γ = 10.520).\" (Ahrens et al., PAC 2001, section \"AGS\").",
+      "quote": "The bunch of polarized protons is then transferred to the Alternating Gradient Synchrotron (AGS) and accelerated to 24 GeV before injection into RHIC.",
+      "sources": [
+        "src:aidala-spin-structure-rmp-2013",
+        "src:rhic-gold-injector-pac2001-ahrens"
+      ],
+      "unit": "GeV",
+      "value": 24,
+      "verified_at": "2026-10-26"
     }
   },
   "status": "completed",

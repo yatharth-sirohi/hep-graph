@@ -75,7 +75,9 @@
     "website": null
   },
   "name": "J-PARC Main Ring",
-  "notes": [],
+  "notes": [
+    "Beams leave the main ring by fast extraction to the neutrino beamline (beamline:j-parc-neutrino) and by slow extraction to the Hadron Experimental Facility, which has no beamline record in the Atlas."
+  ],
   "particles": [
     "proton"
   ],
@@ -133,6 +135,21 @@
       "unit": "m",
       "value": 1567,
       "verified_at": "2026-10-25"
+    },
+    "injection_energy": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "energy",
+      "display": "3 GeV",
+      "locator": "T2K experiment paper (NIM A 659, 106), §2 \"J-PARC Accelerator\"",
+      "note": "RCS output energy. The main ring is designed for 50 GeV and currently runs at 30 GeV (J-PARC \"Accelerators\" pages: \"A 50 GeV (currently 30 GeV) main ring (MR)\"); the neutrino beamline uses fast extraction at 30 GeV.",
+      "quote": "beam is accelerated up to 3 GeV by the RCS with a 25 Hz cycle. The harmonic number of the RCS is two, and there are two bunches in a cycle. About 5% of these bunches are supplied to the MR.",
+      "sources": [
+        "src:t2k-nim-2011"
+      ],
+      "unit": "GeV",
+      "value": 3,
+      "verified_at": "2026-10-26"
     }
   },
   "status": "active",

@@ -10,7 +10,19 @@
   },
   "facility_id": "facility:cern",
   "feeds_accelerator_ids": [
-    "accelerator:ps"
+    {
+      "confidence": "verified",
+      "id": "accelerator:ps",
+      "locator": "home.cern, \"The Proton Synchrotron Booster\"",
+      "note": "Start = the first beams of the Booster, 26 May 1972. The PS page says the PS \"usually accelerates either protons delivered by the Proton Synchrotron Booster or heavy ions from the Low Energy Ion Ring (LEIR)\". Transfer energy to the PS: 2 GeV today, 1.4 GeV from 1999 to 2018 (see the era intervals).",
+      "quote": "Before the Booster received its first beams on 26 May 1972, protons were injected directly from Linac1 into the PS, where they were accelerated to 26 GeV.",
+      "sources": [
+        "src:cern-psb-page",
+        "src:cern-ps-page"
+      ],
+      "start": "1972-05-26",
+      "verified_at": "2026-10-26"
+    }
   ],
   "id": "accelerator:psb",
   "intervals": [
@@ -33,12 +45,30 @@
     {
       "confidence": "verified",
       "end": "2018",
-      "label": "Linac2 era (50 MeV in, 1.4 GeV out)",
-      "note": "",
+      "kind": "phase",
+      "label": "Linac2 era (50 MeV injection)",
+      "note": "CERN's PSB page gives \"1.4 GeV\" for the whole of 1978 to 2018, but the Booster extracted 800 MeV at the start, 1 GeV later and only reached 1.4 GeV in 1999 (CERN Courier, see the \"1.4 GeV extraction era\" interval); the 1.4 GeV figure is therefore carried by that interval, not by this one.",
       "quote": "From 1978 until 2018, the Booster received protons from Linac2 at 50 MeV and accelerated them to 1.4 GeV for injection into the PS.",
       "sources": [
         "src:cern-psb-page"
       ],
+      "specs": {
+        "injection_energy": {
+          "approx": false,
+          "confidence": "verified",
+          "dimension": "energy",
+          "display": "50 MeV",
+          "locator": "home.cern, \"The Proton Synchrotron Booster\"",
+          "note": "",
+          "quote": "From 1978 until 2018, the Booster received protons from Linac2 at 50 MeV and accelerated them to 1.4 GeV for injection into the PS.",
+          "sources": [
+            "src:cern-psb-page"
+          ],
+          "unit": "MeV",
+          "value": 50,
+          "verified_at": "2026-10-26"
+        }
+      },
       "start": "1978",
       "status": "active",
       "verified_at": "2026-09-16"
@@ -61,6 +91,105 @@
       "start": "2026-08-31",
       "status": "shutdown",
       "verified_at": "2026-10-25"
+    },
+    {
+      "confidence": "verified",
+      "end": "1978",
+      "kind": "phase",
+      "label": "Linac1 era (50 MeV injection)",
+      "locator": "CERN Courier, \"The PS Booster hits 40\"",
+      "note": "Linac1 fed the Booster from its first beams until Linac2 replaced it in 1978 (\"Linac2 started up in 1978, when it replaced Linac1.\", CERN Linac2 page).",
+      "quote": "The 50 MeV beam from Linac1 is distributed vertically and multiturn-injected into each ring.",
+      "sources": [
+        "src:geo-cern-courier-psb-hits-40",
+        "src:cern-linac2-page"
+      ],
+      "specs": {
+        "injection_energy": {
+          "approx": false,
+          "confidence": "verified",
+          "dimension": "energy",
+          "display": "50 MeV",
+          "locator": "CERN Courier, \"The PS Booster hits 40\"",
+          "note": "",
+          "quote": "The 50 MeV beam from Linac1 is distributed vertically and multiturn-injected into each ring.",
+          "sources": [
+            "src:geo-cern-courier-psb-hits-40"
+          ],
+          "unit": "MeV",
+          "value": 50,
+          "verified_at": "2026-10-26"
+        }
+      },
+      "start": "1972-05-26",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": "1999",
+      "kind": "phase",
+      "label": "800 MeV to 1 GeV extraction era",
+      "locator": "CERN Courier, \"The PS Booster hits 40\"",
+      "note": "Extraction energy 800 MeV at the start (quote) and 1 GeV after \"the PSB was promoted to a 1 GeV machine after minor hardware modifications\"; ISOLDE was \"relocated at the PSB in 1992\" to use \"the PSB's 1 GeV beam\". No CERN source consulted dates the 800 MeV to 1 GeV step, so this interval records the range 0.8 to 1 GeV; the end is the 1999 upgrade to 1.4 GeV.",
+      "quote": "On 26 May 1972, the PS Booster (PSB) accelerated its first protons to the design energy of 800 MeV.",
+      "sources": [
+        "src:geo-cern-courier-psb-hits-40"
+      ],
+      "specs": {
+        "beam_energy": {
+          "approx": false,
+          "confidence": "approximate",
+          "dimension": "energy",
+          "display": "about 0.9 GeV (0.8 to 1 GeV)",
+          "locator": "CERN Courier, \"The PS Booster hits 40\"",
+          "max": 1.0,
+          "min": 0.8,
+          "note": "Range 0.8 to 1 GeV; the display shows its midpoint. 800 MeV at first beam (quote); 1 GeV by 1992 (same article, ISOLDE paragraph); date of the step not stated.",
+          "quote": "On 26 May 1972, the PS Booster (PSB) accelerated its first protons to the design energy of 800 MeV.",
+          "sources": [
+            "src:geo-cern-courier-psb-hits-40"
+          ],
+          "unit": "GeV",
+          "verified_at": "2026-10-26"
+        }
+      },
+      "start": "1972-05-26",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "2018",
+      "kind": "phase",
+      "label": "1.4 GeV extraction era",
+      "locator": "CERN Courier, \"40 years of CERN's Proton Synchrotron\"",
+      "note": "Start from the 1999 CERN Courier article (the installation was \"completed by early 2000\" per the 2012 article); end from the PSB page (\"From 1978 until 2018 ... 1.4 GeV\"), after which the Linac4 / 2 GeV configuration began.",
+      "quote": "In 1999 the harmful effects of space charge in the PS were reduced by raising the Booster energy to 1.4 GeV.",
+      "sources": [
+        "src:cern-courier-40-years-ps-1999",
+        "src:cern-psb-page"
+      ],
+      "specs": {
+        "beam_energy": {
+          "approx": false,
+          "confidence": "verified",
+          "dimension": "energy",
+          "display": "1.4 GeV",
+          "locator": "CERN Courier, \"40 years of CERN's Proton Synchrotron\"",
+          "note": "",
+          "quote": "In 1999 the harmful effects of space charge in the PS were reduced by raising the Booster energy to 1.4 GeV.",
+          "sources": [
+            "src:cern-courier-40-years-ps-1999"
+          ],
+          "unit": "GeV",
+          "value": 1.4,
+          "verified_at": "2026-10-26"
+        }
+      },
+      "start": "1999",
+      "status": "active",
+      "verified_at": "2026-10-26"
     }
   ],
   "is_collider": false,
@@ -77,7 +206,9 @@
     }
   },
   "name": "Proton Synchrotron Booster",
-  "notes": [],
+  "notes": [
+    "CONFLICT (era of the 1.4 GeV extraction energy): the CERN PSB page says the Booster \"received protons from Linac2 at 50 MeV and accelerated them to 1.4 GeV\" from 1978 until 2018; CERN Courier (1999) says the Booster energy was raised to 1.4 GeV in 1999, after 800 MeV (1972) and 1 GeV. The Courier dates are used for the 1.4 GeV interval; the PSB page is kept for the 50 MeV Linac2 injection."
+  ],
   "particles": [
     "proton",
     "lead ion"
@@ -103,6 +234,22 @@
       "unit": "GeV",
       "value": 2,
       "verified_at": "2026-09-16"
+    },
+    "injection_energy": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "energy",
+      "display": "160 MeV",
+      "locator": "home.cern, \"The Proton Synchrotron Booster\"",
+      "note": "Injection energy of the current configuration (Linac4, since 2020); 50 MeV with Linac1 and Linac2 (see the era intervals).",
+      "quote": "receive beams of negative hydrogen ions (H-, consisting of a hydrogen atom with an additional electron) from the linear accelerator Linac4 at 160 MeV.",
+      "sources": [
+        "src:cern-psb-page",
+        "src:cern-accelerator-complex"
+      ],
+      "unit": "MeV",
+      "value": 160,
+      "verified_at": "2026-10-26"
     }
   },
   "status": "shutdown",

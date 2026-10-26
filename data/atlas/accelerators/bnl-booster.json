@@ -1,0 +1,124 @@
+{
+  "aliases": [
+    "BNL Booster",
+    "Brookhaven Booster"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "facility_id": "facility:brookhaven-national-laboratory",
+  "feeds_accelerator_ids": [
+    {
+      "confidence": "verified",
+      "id": "accelerator:ags",
+      "locator": "BNL \"RHIC Accelerators\" page, item 3",
+      "note": "Start = the completion of the Booster (1991); the AGS is the next machine in the chain, for RHIC and (earlier and still) for the AGS programme.",
+      "quote": "The Booster then feeds the beam into the Alternating Gradient Synchrotron.",
+      "sources": [
+        "src:bnl-rhic-complex-page",
+        "src:bnl-rhic-booster-page"
+      ],
+      "start": "1991",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "accelerator:bnl-booster",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "1991",
+      "label": "construction",
+      "locator": "BNL \"Booster Synchrotron\" page",
+      "note": "Years as on the page.",
+      "quote": "Construction of the Alternating Gradient Synchrotron (AGS) Booster was begun in 1986 and completed in 1991.",
+      "sources": [
+        "src:bnl-rhic-booster-page"
+      ],
+      "start": "1986",
+      "status": "construction",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "operating",
+      "locator": "BNL \"Booster Synchrotron\" page",
+      "note": "Start = completion year; the Booster is described in the present tense (it feeds the AGS and the NASA Space Radiation Laboratory) on the pages read on 2026-10-26.",
+      "quote": "Construction of the Alternating Gradient Synchrotron (AGS) Booster was begun in 1986 and completed in 1991.",
+      "sources": [
+        "src:bnl-rhic-booster-page",
+        "src:bnl-rhic-complex-page"
+      ],
+      "start": "1991",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "is_collider": false,
+  "kind": "booster",
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "note": "",
+      "sources": [
+        "src:bnl-rhic-booster-page"
+      ],
+      "value": "https://www.bnl.gov/rhic/booster.php",
+      "verified_at": "2026-10-26"
+    }
+  },
+  "name": "AGS Booster",
+  "notes": [
+    "Source of the energetic heavy-ion beams of the NASA Space Radiation Laboratory (NSRL) as well as the AGS injector; NSRL has no record in the Atlas.",
+    "Kinetic energy: the 1.5 GeV is for protons; the heavy-ion energy at Booster extraction is lower per nucleon and is not recorded. A 2023 RHIC review gives \"2.3 GeV\" for the same stage, apparently a total (not kinetic) energy; the kinetic figure of the Reviews of Modern Physics article is used."
+  ],
+  "particles": [
+    "proton",
+    "heavy ion"
+  ],
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:bnl-upton-campus",
+  "sources": [
+    "src:bnl-rhic-booster-page",
+    "src:bnl-rhic-complex-page"
+  ],
+  "specs": {
+    "beam_energy": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "energy",
+      "display": "1.5 GeV (protons)",
+      "locator": "Aidala et al., Rev. Mod. Phys. 85, 655 (arXiv:1209.2803), §II.A",
+      "note": "Protons, after injection at 200 MeV from the Linac.",
+      "quote": "In the case of polarized-proton running at RHIC, a pulse of polarized H− ions from the source is accelerated to 200 MeV in the linac, then stripped of its electrons as it is injected and captured as a single bunch of polarized protons in the Booster, which accelerates the protons to 1.5 GeV.",
+      "sources": [
+        "src:aidala-spin-structure-rmp-2013"
+      ],
+      "unit": "GeV",
+      "value": 1.5,
+      "verified_at": "2026-10-26"
+    },
+    "injection_energy": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "energy",
+      "display": "200 MeV (protons)",
+      "locator": "BNL \"Booster Synchrotron\" page",
+      "note": "",
+      "quote": "accepting heavy ions from EBIS or protons from the 200-million electron volt (MeV) Linac.",
+      "sources": [
+        "src:bnl-rhic-booster-page"
+      ],
+      "unit": "MeV",
+      "value": 200,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "active",
+  "summary": {
+    "plain": "A small ring, a quarter the size of the AGS, built in 1986-1991 to give protons and heavy ions a first push before they enter the AGS. It lifts protons from 200 million to 1.5 billion electronvolts.",
+    "technical": "Rapid-cycling booster synchrotron (Building 942) accepting 200 MeV H- ions from the Linac (stripped on injection) or heavy ions from EBIS, accelerating protons to 1.5 GeV kinetic energy for the AGS; also the heavy-ion source for NSRL."
+  },
+  "type": "accelerator"
+}

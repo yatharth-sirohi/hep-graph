@@ -7,9 +7,7 @@
     "tier": "C"
   },
   "facility_id": "facility:slac",
-  "feeds_accelerator_ids": [
-    "accelerator:slac-linac"
-  ],
+  "feeds_accelerator_ids": [],
   "id": "accelerator:pep-ii",
   "intervals": [
     {
@@ -46,7 +44,7 @@
   },
   "name": "PEP-II",
   "notes": [
-    "The record lists the SLAC linac as PEP-II's injector. No source consulted states this explicitly; it is an uncited fact about the accelerator complex rather than a sourced claim."
+    "Injected by the SLAC linac (accelerator:slac-linac). The earlier version of this record listed accelerator:slac-linac as a downstream machine of PEP-II (a reversed link); it is fixed on the linac record, with the sources of the injection (PAC 1995, WAQ15)."
   ],
   "particles": [
     "electron",
@@ -59,6 +57,21 @@
     "src:babar-wikipedia"
   ],
   "specs": {
+    "beam_energy": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "energy",
+      "display": "9.0 GeV e⁻ and 3.1 GeV e⁺",
+      "locator": "PAC 1995, WAQ15, abstract",
+      "note": "Asymmetric rings: 9.0 GeV electrons in the high-energy ring, 3.1 GeV positrons in the low-energy ring; the quantity records the electron energy. SLAC's graduate handbook page gives slightly different design values (\"9.1 GeV\" and \"3 GeV\", centre-of-mass energy \"about 10.5 GeV\"); the BaBar detector paper agrees with 9.0 and 3.1 GeV.",
+      "quote": "Utilization of the existing high power, low emittance beams available at SLAC required that a great portion of the systems for pulsed extraction and transport of 9.0 GeV electrons and 3.1 GeV positrons for injection into the PEP-II rings will reside in the existing linac housing.",
+      "sources": [
+        "src:pep-ii-injection-pac1995-fieguth"
+      ],
+      "unit": "GeV",
+      "value": 9.0,
+      "verified_at": "2026-10-26"
+    },
     "circumference": {
       "approx": false,
       "confidence": "uncertain",
@@ -87,6 +100,21 @@
       "unit": "GeV",
       "value": 10.58,
       "verified_at": "2026-10-25"
+    },
+    "injection_energy": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "energy",
+      "display": "9.0 GeV e⁻ and 3.1 GeV e⁺ (full-energy injection from the linac)",
+      "locator": "PAC 1995, WAQ15, abstract",
+      "note": "Injection energies equal the ring energies: the SLAC linac extracted 9.0 GeV electrons at Sector 10 and 3.1 GeV positrons at Sector 4 (same paper).",
+      "quote": "Utilization of the existing high power, low emittance beams available at SLAC required that a great portion of the systems for pulsed extraction and transport of 9.0 GeV electrons and 3.1 GeV positrons for injection into the PEP-II rings will reside in the existing linac housing.",
+      "sources": [
+        "src:pep-ii-injection-pac1995-fieguth"
+      ],
+      "unit": "GeV",
+      "value": 9.0,
+      "verified_at": "2026-10-26"
     }
   },
   "status": "completed",

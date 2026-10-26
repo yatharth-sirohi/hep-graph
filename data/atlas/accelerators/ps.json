@@ -9,7 +9,33 @@
   },
   "facility_id": "facility:cern",
   "feeds_accelerator_ids": [
-    "accelerator:sps"
+    {
+      "confidence": "verified",
+      "end": "1984",
+      "id": "accelerator:isr",
+      "locator": "home.cern, \"The Intersecting Storage Rings\"",
+      "note": "Start = the first proton collisions in the ISR (\"On 27 January 1971, two beams of protons collided in the Intersecting Storage Rings (ISR) for the first time.\"); end = \"The ISR began operation in 1971 and ran until 1984\". Transfer energy: \"The CERN PS injected 26 GeV/c proton beams into the two rings\" (Bryant, arXiv:1206.3950).",
+      "quote": "The Proton Synchrotron, which is still in operation, fed proton beams into the ISR.",
+      "sources": [
+        "src:cern-isr-page",
+        "src:isr-bryant-arxiv-1206-3950"
+      ],
+      "start": "1971-01-27",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "id": "accelerator:sps",
+      "locator": "home.cern, \"The Super Proton Synchrotron\"",
+      "note": "Start = the first SPS beam, 17 June 1976 (SPS Operations history: \"The first beam was injected on 17 June 1976\"). Transfer energy 26 GeV today (accelerator-complex page).",
+      "quote": "Measuring nearly 7 kilometres in circumference, it takes particles from the Proton Synchrotron and accelerates them to provide beams for the Large Hadron Collider, the NA61/SHINE and NA62 experiments, the COMPASS experiment.",
+      "sources": [
+        "src:cern-sps-page",
+        "src:geo-cern-sps-history"
+      ],
+      "start": "1976-06-17",
+      "verified_at": "2026-10-26"
+    }
   ],
   "id": "accelerator:ps",
   "intervals": [
@@ -47,6 +73,104 @@
       "start": "2026-08-31",
       "status": "shutdown",
       "verified_at": "2026-10-25"
+    },
+    {
+      "confidence": "approximate",
+      "end": "1972-05-26",
+      "kind": "phase",
+      "label": "Direct Linac1 injection (50 MeV)",
+      "locator": "home.cern, \"The Proton Synchrotron Booster\"",
+      "note": "End = the first Booster beams (quote). Start is taken as the PS's first acceleration of protons: the page says only that before 26 May 1972 protons were injected directly from Linac1, without dating Linac1's first use. \"The low injection energy of 50 MeV limited the number of protons the PS could accept.\" (same page.)",
+      "quote": "Before the Booster received its first beams on 26 May 1972, protons were injected directly from Linac1 into the PS, where they were accelerated to 26 GeV.",
+      "sources": [
+        "src:cern-psb-page"
+      ],
+      "specs": {
+        "injection_energy": {
+          "approx": false,
+          "confidence": "verified",
+          "dimension": "energy",
+          "display": "50 MeV",
+          "locator": "home.cern, \"The Proton Synchrotron Booster\"",
+          "note": "",
+          "quote": "The low injection energy of 50 MeV limited the number of protons the PS could accept.",
+          "sources": [
+            "src:cern-psb-page"
+          ],
+          "unit": "MeV",
+          "value": 50,
+          "verified_at": "2026-10-26"
+        }
+      },
+      "start": "1959-11-24",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": "1999",
+      "kind": "phase",
+      "label": "Booster injection at 0.8 to 1 GeV",
+      "locator": "CERN Courier, \"The PS Booster hits 40\"",
+      "note": "Transfer energy of the Booster (800 MeV at first beam, 1 GeV later, see accelerator:psb); the date of the 1 GeV step is not stated.",
+      "quote": "On 26 May 1972, the PS Booster (PSB) accelerated its first protons to the design energy of 800 MeV.",
+      "sources": [
+        "src:geo-cern-courier-psb-hits-40"
+      ],
+      "specs": {
+        "injection_energy": {
+          "approx": false,
+          "confidence": "approximate",
+          "dimension": "energy",
+          "display": "about 0.9 GeV (0.8 to 1 GeV)",
+          "locator": "CERN Courier, \"The PS Booster hits 40\"",
+          "max": 1.0,
+          "min": 0.8,
+          "note": "Range 0.8 to 1 GeV; the display shows its midpoint. 800 MeV at first beam; 1 GeV later (date not stated).",
+          "quote": "On 26 May 1972, the PS Booster (PSB) accelerated its first protons to the design energy of 800 MeV.",
+          "sources": [
+            "src:geo-cern-courier-psb-hits-40"
+          ],
+          "unit": "GeV",
+          "verified_at": "2026-10-26"
+        }
+      },
+      "start": "1972-05-26",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "2018",
+      "kind": "phase",
+      "label": "Booster injection at 1.4 GeV",
+      "locator": "home.cern, \"Accelerator upgrades during LS2\"",
+      "note": "The 1.4 GeV transfer energy began in 1999 (CERN Courier, 1999) and ended with the LS2 upgrade to 2 GeV.",
+      "quote": "To cope with the almost 50% increase in injection energy from 1.4 to 2 GeV, the 20-metre-long injection line into the PS was replaced",
+      "sources": [
+        "src:cern-accelerator-upgrades-ls2-media-kit",
+        "src:cern-courier-40-years-ps-1999"
+      ],
+      "specs": {
+        "injection_energy": {
+          "approx": false,
+          "confidence": "verified",
+          "dimension": "energy",
+          "display": "1.4 GeV",
+          "locator": "home.cern, \"Accelerator upgrades during LS2\"",
+          "note": "",
+          "quote": "To cope with the almost 50% increase in injection energy from 1.4 to 2 GeV, the 20-metre-long injection line into the PS was replaced",
+          "sources": [
+            "src:cern-accelerator-upgrades-ls2-media-kit"
+          ],
+          "unit": "GeV",
+          "value": 1.4,
+          "verified_at": "2026-10-26"
+        }
+      },
+      "start": "1999",
+      "status": "active",
+      "verified_at": "2026-10-26"
     }
   ],
   "is_collider": false,
@@ -84,7 +208,7 @@
       "confidence": "verified",
       "dimension": "energy",
       "display": "up to 26 GeV",
-      "note": "",
+      "note": "Extraction energy to the SPS. CERN's accelerator-complex page writes 26 GeV; its LS2 media kit writes \"pushes the beam up to 25 GeV\". The two figures fit a momentum of 26 GeV/c (about 25 GeV kinetic energy), but CERN's pages do not say which quantity they quote (our inference).",
       "quote": "The accelerator operates at up to 26 GeV.",
       "sources": [
         "src:cern-ps-page",
@@ -107,6 +231,22 @@
       "unit": "m",
       "value": 628,
       "verified_at": "2026-09-16"
+    },
+    "injection_energy": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "energy",
+      "display": "2 GeV",
+      "locator": "home.cern, \"The Proton Synchrotron Booster\"",
+      "note": "Injection energy of the current configuration (since the 2019-20 shutdown). Before, 1.4 GeV (1999 to 2018) and lower (see the era intervals).",
+      "quote": "The ions are stripped of their two electrons during injection from Linac4 into the Proton Synchrotron Booster to leave only protons, which are accelerated to 2 GeV for injection into the Proton Synchrotron (PS).",
+      "sources": [
+        "src:cern-psb-page",
+        "src:cern-accelerator-upgrades-ls2-media-kit"
+      ],
+      "unit": "GeV",
+      "value": 2,
+      "verified_at": "2026-10-26"
     }
   },
   "status": "shutdown",

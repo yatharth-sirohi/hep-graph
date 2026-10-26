@@ -1,0 +1,154 @@
+{
+  "accelerator_id": "accelerator:sps",
+  "aliases": [
+    "North Area",
+    "CERN North Area"
+  ],
+  "baselines": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "facility_id": "facility:cern",
+  "far_detector_site_ids": [],
+  "id": "beamline:cern-north-area",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2026-08-31",
+      "label": "beam operation",
+      "locator": "SPS Operations group, \"History\", section \"The first experiments\"",
+      "note": "Start from the SPS history page (\"From late 1976 ...\"), year precision with the page's wording; physics beams in the halls began later (CERN Courier dates the first North Area muons to the March 1978 commissioning run, not fetched here). End = 31 August 2026, when the SPS fell silent for Long Shutdown 3 (\"CERN's injector complex and Antimatter Factory took their final steps towards Long Shutdown 3 (LS3) this morning, as the last particle beams were extracted and the machines fell silent.\"); derived because the North Area is fed only by the SPS.",
+      "quote": "From late 1976 the SPS started delivering proton beams to fixed-target experiments in the North and West Areas.",
+      "sources": [
+        "src:geo-cern-sps-history",
+        "src:currency-cern-all-accelerators-2026-08-31",
+        "src:cern-accelerator-complex"
+      ],
+      "start": {
+        "date": "1976",
+        "display": "late 1976"
+      },
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": {
+        "approx": true,
+        "date": "2028",
+        "display": "staged restart from 2028 onwards",
+        "planned": true
+      },
+      "label": "Long Shutdown 3 (injector complex)",
+      "note": "Planned: the SPS is shut down for Long Shutdown 3 from 31 August 2026 (CERN, \"All CERN accelerators now on the road to HiLumi\"); the complex \"will progressively return to operation from 2028 onwards\". The North Area restart date is not given separately; the SPS restart is used as a bound.",
+      "quote": "CERN’s injector complex and Antimatter Factory took their final steps towards Long Shutdown 3 (LS3) this morning, as the last particle beams were extracted and the machines fell silent.",
+      "sources": [
+        "src:currency-cern-all-accelerators-2026-08-31",
+        "src:currency-cern-accelerator-report-2026-08-20"
+      ],
+      "start": "2026-08-31",
+      "status": "shutdown",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "note": "",
+      "sources": [
+        "src:na62-cern-north-area-page"
+      ],
+      "value": "https://be-dep-ea.web.cern.ch/northarea",
+      "verified_at": "2026-10-26"
+    }
+  },
+  "name": "SPS North Area beams",
+  "near_detector_site_ids": [
+    "site:cern-ecn3-north-area"
+  ],
+  "notes": [
+    "The North Area is a set of beamlines (H2, H4, H6, H8, M2, K12/P42) rather than one line; it is recorded as one beamline fed by accelerator:sps. It is not linked to experiments here (the NA experiments cite accelerator:sps): COMPASS/AMBER, NA61/SHINE, NA62, NA63, NA64 and NA65 are served, per CERN's accelerator-complex page.",
+    "Sources differ on the primary energy: the BE-EA page and the Physics Beyond Colliders report give a 400 GeV/c SPS proton beam; the SPS Operations history says \"The North Area took beams of 400 and later 450 GeV, both fast- and resonant slow extracted\". 400 GeV/c is recorded (current page).",
+    "Only site:cern-ecn3-north-area is listed as a detector site (NA62's cavern); EHN1 and EHN2 have no Atlas site record."
+  ],
+  "primary_beam": {
+    "confidence": "verified",
+    "locator": "be-dep-ea.web.cern.ch, \"North Area\"",
+    "note": "",
+    "quote": "The beams are produced after the 400 GeV/c SPS proton beam on each of the three primary targets T2, T4, and T6.",
+    "sources": [
+      "src:na62-cern-north-area-page"
+    ],
+    "value": {
+      "energy": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "energy",
+        "display": "400 GeV/c",
+        "locator": "be-dep-ea.web.cern.ch, \"North Area\"",
+        "note": "A momentum (GeV/c) of the protons slowly extracted from the SPS onto the primary targets.",
+        "quote": "The beams are produced after the 400 GeV/c SPS proton beam on each of the three primary targets T2, T4, and T6.",
+        "sources": [
+          "src:na62-cern-north-area-page"
+        ],
+        "unit": "GeV",
+        "value": 400,
+        "verified_at": "2026-10-26"
+      },
+      "particle": "proton"
+    },
+    "verified_at": "2026-10-26"
+  },
+  "schema": "hep-atlas/0.2",
+  "secondary_beam": {
+    "confidence": "verified",
+    "locator": "be-dep-ea.web.cern.ch, \"North Area\"",
+    "note": "The page names hadron, electron and muon beams in its paragraphs on the individual beamlines (H2 to H8, M2).",
+    "quote": "The North Area comprises seven beamlines for secondary and tertiary beams, two experimental halls EHN1 and EHN2 above the ground as well as the underground cavern ECN3.",
+    "sources": [
+      "src:na62-cern-north-area-page"
+    ],
+    "value": "secondary and tertiary hadron, electron and muon beams in seven beamlines serving the halls EHN1 and EHN2 and the cavern ECN3",
+    "verified_at": "2026-10-26"
+  },
+  "sources": [
+    "src:na62-cern-north-area-page",
+    "src:geo-cern-sps-history",
+    "src:cern-accelerator-complex"
+  ],
+  "specs": {
+    "proton_energy": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "energy",
+      "display": "400 GeV/c",
+      "locator": "be-dep-ea.web.cern.ch, \"North Area\"",
+      "note": "A momentum (GeV/c).",
+      "quote": "The beams are produced after the 400 GeV/c SPS proton beam on each of the three primary targets T2, T4, and T6.",
+      "sources": [
+        "src:na62-cern-north-area-page"
+      ],
+      "unit": "GeV",
+      "value": 400,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "shutdown",
+  "summary": {
+    "plain": "The fixed-target beams of CERN's Super Proton Synchrotron: protons at 400 GeV/c strike three targets, and the secondary and tertiary beams that result feed the experiments in two surface halls and one underground cavern. It runs whenever the SPS does.",
+    "technical": "Slow-extracted 400 GeV/c SPS protons on targets T2, T4 and T6 produce seven secondary and tertiary beamlines (H2, H4, H6, H8 in EHN1; M2 to EHN2; K12/P42 to ECN3). In use since late 1976; shut down with the SPS for LS3 from 31 August 2026."
+  },
+  "target": {
+    "confidence": "verified",
+    "locator": "be-dep-ea.web.cern.ch, \"North Area\"",
+    "note": "",
+    "quote": "The beams are produced after the 400 GeV/c SPS proton beam on each of the three primary targets T2, T4, and T6.",
+    "sources": [
+      "src:na62-cern-north-area-page"
+    ],
+    "value": "three primary targets, T2, T4 and T6, struck by the slow-extracted SPS proton beam",
+    "verified_at": "2026-10-26"
+  },
+  "type": "beamline"
+}

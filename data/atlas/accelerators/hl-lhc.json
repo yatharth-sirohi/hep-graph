@@ -105,6 +105,21 @@
     "src:cern-long-shutdown-3-page"
   ],
   "specs": {
+    "beam_energy": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "energy",
+      "display": "7 TeV per beam (nominal baseline)",
+      "locator": "IPAC 2018, MOPML009, \"New baseline\"",
+      "note": "Nominal baseline of the 2018 HL-LHC parameter set; the same paper studies an \"ultimate\" beam energy of 7.5 TeV as a project goal. The LHC ran at 6.8 TeV per beam in Run 3 (accelerator:lhc); CERN has not published the Run 4 energy on the pages consulted.",
+      "quote": "The current HL-LHC baseline, with the nominal beam energy of 7.0 TeV, features the parameters shown in Table 1 [4,12].",
+      "sources": [
+        "src:hl-lhc-ipac2018-mopml009"
+      ],
+      "unit": "TeV",
+      "value": 7,
+      "verified_at": "2026-10-26"
+    },
     "circumference": {
       "approx": false,
       "confidence": "derived",
@@ -118,6 +133,21 @@
       "unit": "m",
       "value": 26659,
       "verified_at": "2026-09-16"
+    },
+    "cms_energy": {
+      "approx": false,
+      "confidence": "derived",
+      "dimension": "energy",
+      "display": "14 TeV (twice the nominal beam energy)",
+      "locator": "IPAC 2018, MOPML009, \"New baseline\"",
+      "note": "Twice the nominal 7.0 TeV beam energy of two head-on proton beams.",
+      "quote": "The current HL-LHC baseline, with the nominal beam energy of 7.0 TeV, features the parameters shown in Table 1 [4,12].",
+      "sources": [
+        "src:hl-lhc-ipac2018-mopml009"
+      ],
+      "unit": "TeV",
+      "value": 14,
+      "verified_at": "2026-10-26"
     }
   },
   "status": "construction",

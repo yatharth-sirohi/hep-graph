@@ -8,7 +8,29 @@
     "tier": "B"
   },
   "facility_id": "facility:fermilab",
-  "feeds_accelerator_ids": [],
+  "feeds_accelerator_ids": [
+    {
+      "confidence": "approximate",
+      "end": "2011-09-30",
+      "id": "accelerator:fermilab-tevatron",
+      "locator": "Nagaitsev, arXiv:1408.0759, section 2 \"Main Injector\"",
+      "note": "Start: \"construction of the Main Injector synchrotron and Recycler storage ring was initiated and completed in the spring of 1999 with the Main Injector initially utilized in the last Tevatron fixed target run\" (Shiltsev). End: \"Run II was initiated in March of 2001 and continued through September 2011\" and \"The Tevatron will be shut off September 30, 2011.\" (same paper). The P1 and A1 lines carried the proton and antiproton injection from the Main Injector to the Tevatron (NuMI paper). Before 1999 the Tevatron was injected by the Fermilab Main Ring, which has no Atlas record.",
+      "quote": "Protons from the Booster and antiprotons from the Recycler were accelerated to 150 GeV in the Main Injector",
+      "sources": [
+        "src:fermilab-geo-nagaitsev-pbar-recycler-mi-2014",
+        "src:fermilab-tevatron-shiltsev-2011",
+        "src:fermilab-numi-beam-paper-2016"
+      ],
+      "start": {
+        "approx": true,
+        "date": "1999-04",
+        "display": "spring 1999",
+        "earliest": "1999-03",
+        "latest": "1999-05"
+      },
+      "verified_at": "2026-10-26"
+    }
+  ],
   "id": "accelerator:fermilab-main-injector",
   "intervals": [
     {
@@ -121,6 +143,44 @@
       },
       "status": "planned",
       "verified_at": "2026-10-25"
+    },
+    {
+      "confidence": "approximate",
+      "end": "2011-09-30",
+      "kind": "phase",
+      "label": "Tevatron injector (150 GeV)",
+      "locator": "Nagaitsev, arXiv:1408.0759, section 2 \"Main Injector\"",
+      "note": "While injecting the Tevatron the Main Injector accelerated to 150 GeV, its design energy; the neutrino-production operating point is 120 GeV (top-level beam_energy).",
+      "quote": "Protons from the Booster and antiprotons from the Recycler were accelerated to 150 GeV in the Main Injector",
+      "sources": [
+        "src:fermilab-geo-nagaitsev-pbar-recycler-mi-2014"
+      ],
+      "specs": {
+        "beam_energy": {
+          "approx": false,
+          "confidence": "verified",
+          "dimension": "energy",
+          "display": "150 GeV",
+          "locator": "Nagaitsev, arXiv:1408.0759, section 2 \"Main Injector\"",
+          "note": "",
+          "quote": "Protons from the Booster and antiprotons from the Recycler were accelerated to 150 GeV in the Main Injector",
+          "sources": [
+            "src:fermilab-geo-nagaitsev-pbar-recycler-mi-2014"
+          ],
+          "unit": "GeV",
+          "value": 150,
+          "verified_at": "2026-10-26"
+        }
+      },
+      "start": {
+        "approx": true,
+        "date": "1999-04",
+        "display": "spring 1999",
+        "earliest": "1999-03",
+        "latest": "1999-05"
+      },
+      "status": "active",
+      "verified_at": "2026-10-26"
     }
   ],
   "is_collider": false,
@@ -170,6 +230,21 @@
       "unit": "km",
       "value": 3.3,
       "verified_at": "2026-09-16"
+    },
+    "injection_energy": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "energy",
+      "display": "8 GeV",
+      "locator": "NuMI Neutrino Beam paper, §1 Introduction",
+      "note": "Protons from the 8 GeV Booster (and, in Tevatron Run II, antiprotons from the 8 GeV Recycler).",
+      "quote": "This accelerator would use the Fermilab 8 GeV Booster as an injector and have the ability to accelerate protons up to 150 GeV",
+      "sources": [
+        "src:fermilab-numi-beam-paper-2016"
+      ],
+      "unit": "GeV",
+      "value": 8,
+      "verified_at": "2026-10-26"
     }
   },
   "status": "shutdown",
