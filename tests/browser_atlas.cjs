@@ -443,6 +443,12 @@ async function setRangeValue(locator, value) {
         assert.ok(!found.includes("No matches."), `"${query}" must not be "No matches"`);
         assert.ok(found.some((row) => /^Observation of a new boson at a mass of 125 GeV — Result/.test(row)),
           `"${query}" must reach the CMS discovery paper; got ${JSON.stringify(found)}`);
+        // Release-candidate review F7: a question about a discovery is answered
+        // by the papers that announced it, not by later measurements.
+        if (process.env.HEP_ATLAS_DATA === "generated") {
+          assert.ok(found.slice(0, 2).every((row) => /^Observation of a new (boson|particle)/.test(row)),
+            `"${query}" must lead with the two 2012 discovery papers; got ${JSON.stringify(found.slice(0, 4))}`);
+        }
       }
       assert.deepEqual(await rows("pr\u00e9vessin"), await rows("PREVESSIN"), "accents and case do not matter");
       assert.ok((await rows("Super Kamiokande"))[0].startsWith("Super-Kamiokande — Experiment"), "words match across a hyphen");
