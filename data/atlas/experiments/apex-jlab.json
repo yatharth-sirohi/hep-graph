@@ -1,0 +1,159 @@
+{
+  "accelerator_ids": [
+    "accelerator:cebaf"
+  ],
+  "aliases": [
+    "A' Experiment",
+    "APEX",
+    "Dark photon experiment APEX"
+  ],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:apex-jlab"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "distinct_from": [],
+  "energy_regime": null,
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:jefferson-lab",
+      "locator": "thesis abstract",
+      "note": "",
+      "quote": "The A’ Experiment (APEX) in Hall A of Jefferson Lab is a search for a new vector gauge boson",
+      "role": "host",
+      "sources": [
+        "src:hadron2-apex-glasgow-thesis-2022"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:jefferson-lab",
+      "locator": "thesis abstract",
+      "note": "Electron beam from CEBAF (accelerator:cebaf).",
+      "quote": "A test run for APEX was performed in 2010 with a beam energy of 2.260 GeV",
+      "role": "beam_source",
+      "sources": [
+        "src:hadron2-apex-glasgow-thesis-2022"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:apex-jlab",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2010",
+      "label": "test run",
+      "locator": "thesis abstract; APEX page: \"PRL based on 2010 APEX test run\"",
+      "note": "Year precision.",
+      "quote": "A test run for APEX was performed in 2010 with a beam energy of 2.260 GeV",
+      "sources": [
+        "src:hadron2-apex-glasgow-thesis-2022",
+        "src:hadron2-apex-experiment-page"
+      ],
+      "start": "2010",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "2019",
+      "label": "production run",
+      "locator": "thesis abstract",
+      "note": "Year precision.",
+      "quote": "An APEX production run was carried out in 2019, with a beam energy of 2.138 GeV.",
+      "sources": [
+        "src:hadron2-apex-glasgow-thesis-2022"
+      ],
+      "start": "2019",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "completed",
+      "locator": "thesis abstract",
+      "note": "Terminal event inferred from the last documented run: no fetched source states that APEX data taking has ended; a 2021 review mentions planned further runs at other beam energies, which were not found to have taken place.",
+      "quote": "An APEX production run was carried out in 2019, with a beam energy of 2.138 GeV.",
+      "sources": [
+        "src:hadron2-apex-glasgow-thesis-2022"
+      ],
+      "start": "2019",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [],
+  "kind": "fixed_target",
+  "lineage": [],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "locator": "APEX page, Summary",
+      "note": "",
+      "quote": "The A' Experiment (APEX) will search for a new vector boson A' with very weak coupling to electrons in the mass range from 65 MeV to 550 MeV.",
+      "sources": [
+        "src:hadron2-apex-experiment-page"
+      ],
+      "value": "https://hallaweb.jlab.org/experiment/APEX/",
+      "verified_at": "2026-10-26"
+    }
+  },
+  "name": "APEX (A' Experiment)",
+  "notes": [
+    "kind fixed_target with secondary long_lived_particle; not a hadron-structure experiment, so topic:hadron-structure is not used.",
+    "The test run (2010) and production run (2019) are 9 years apart; the proposal went to PAC35 and PAC37 per the APEX page, but no approval date was found, so the interval between them is unrecorded.",
+    "The 2019 production-run beam energy appears as 2.138 GeV (Glasgow thesis) and 2.2 GeV (a 2021 review): the thesis value is used.",
+    "INSPIRE experiment id not looked up: inspirehep.net is off-limits to coverage streams (STREAM_RULES); external.inspire_experiment left null for the integrator."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "APEX page, Summary",
+      "note": "",
+      "quote": "The A' Experiment (APEX) will search for a new vector boson A' with very weak coupling to electrons in the mass range from 65 MeV to 550 MeV.",
+      "sources": [
+        "src:hadron2-apex-experiment-page"
+      ],
+      "value": "Search for a new vector boson A' (dark photon) with very weak coupling to electrons in the mass range from 65 MeV to 550 MeV",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [
+    "long_lived_particle"
+  ],
+  "sources": [
+    "src:hadron2-apex-experiment-page",
+    "src:hadron2-apex-glasgow-thesis-2022",
+    "src:hadron2-apex-test-run-arxiv-2011"
+  ],
+  "status": "completed",
+  "summary": {
+    "plain": "APEX searches for a hypothetical 'dark photon' by firing Jefferson Lab's electron beam at a heavy target and looking for a narrow bump in the mass of electron-positron pairs. A short 2010 test run set the first limits; a longer run followed in 2019.",
+    "technical": "Fixed-target search for a sub-GeV vector boson A' decaying to e+e- using the Hall A high-resolution spectrometers at their minimum opening angle on a thin high-Z target: test run in 2010 (2.26 GeV, limits alpha'/alpha ~ 1e-6 for 175-250 MeV) and a production run in 2019 (2.138 GeV) whose analysis was reported preliminarily in a 2022 thesis."
+  },
+  "superseded_by": null,
+  "topic_ids": [
+    "topic:dark-photons-dark-sectors",
+    "topic:long-lived-particles",
+    "topic:accelerator-dark-matter-searches"
+  ],
+  "type": "experiment",
+  "unique_capabilities": []
+}
