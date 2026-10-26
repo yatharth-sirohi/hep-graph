@@ -1,0 +1,81 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "experiment_ids": [
+    "experiment:nist-bl1"
+  ],
+  "id": "detector:nist-bl1",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2005",
+      "label": "lifetime measurement at NIST (2003 experiment)",
+      "locator": "arXiv:2506.01682, Section III.A",
+      "note": "Start is the year of the beam lifetime measurement; the 2013 paper says the measurement \"was completed in 2005\" (arXiv:1309.2623, abstract). Exact run dates are not stated.",
+      "quote": "It is largely the same as that used to perform the lifetime measurement at NIST in 2003.",
+      "sources": [
+        "src:precision-2-nist-bl2-molecular-hydrogen-arxiv-2506-01682",
+        "src:precision-2-nist-bl1-lifetime-arxiv-1309-2623"
+      ],
+      "start": "2003",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "completed",
+      "locator": "arXiv:1309.2623, abstract",
+      "note": "",
+      "quote": "The most precise determination of the neutron lifetime using the beam method was completed in 2005",
+      "sources": [
+        "src:precision-2-nist-bl1-lifetime-arxiv-1309-2623"
+      ],
+      "start": "2005",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "BL1 proton trap and neutron monitor",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": "2005",
+      "locator": "arXiv:2506.01682, Section III.A",
+      "note": "NCNR campus-grade site; the guide-hall station is not located in a fetched source.",
+      "quote": "It is largely the same as that used to perform the lifetime measurement at NIST in 2003.",
+      "role": "main",
+      "site_id": "site:nist-ncnr-gaithersburg",
+      "sources": [
+        "src:precision-2-nist-bl2-molecular-hydrogen-arxiv-2506-01682",
+        "src:precision-2-nist-bl1-lifetime-arxiv-1309-2623"
+      ],
+      "start": "2003",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:precision-2-nist-bl1-lifetime-arxiv-1309-2623",
+    "src:precision-2-nist-bl2-molecular-hydrogen-arxiv-2506-01682"
+  ],
+  "specs": {},
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "A magnetic and electric trap that holds the protons from neutron decays in a cold neutron beam and releases them to be counted, plus a monitor that counts the neutrons.",
+    "technical": "Segmented proton trap in a superconducting solenoid with electrostatic end barriers, a silicon proton detector and a 6Li-deposit neutron monitor; the BL2 apparatus is largely the same as that used in 2003."
+  },
+  "technology_classes": [
+    "other"
+  ],
+  "type": "detector"
+}

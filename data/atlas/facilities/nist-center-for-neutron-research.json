@@ -1,0 +1,111 @@
+{
+  "aliases": [
+    "NCNR",
+    "NBSR"
+  ],
+  "countries": [
+    "US"
+  ],
+  "country": [
+    "US"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "id": "facility:nist-center-for-neutron-research",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2021-02-03",
+      "label": "NBSR operation (initial criticality 7 December 1967)",
+      "locator": "history page, timeline",
+      "note": "The NBSR first achieved continuous operation in 1969 (same page). End: the reactor was shut down on 3 February 2021 after a fuel-element incident.",
+      "quote": "1967: The NBSR achieves initial criticality on December 7, 1967, marking the start of its nuclear operations.",
+      "sources": [
+        "src:precision-2-nist-ncnr-history-page",
+        "src:precision-2-nist-ncnr-restart-news-2023"
+      ],
+      "start": "1967-12-07",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": "2026-05",
+      "label": "reactor shut down after the 3 February 2021 fuel-element incident",
+      "locator": "NIST news of March 2023, first paragraph",
+      "note": "The NRC authorized restart in March 2023 (same item); the facility news page, updated 12 August 2026, says \"The NCNR resumed reactor operations in May\" (the year is not printed in that sentence; the page and its call for proposals of 30 July 2026 place it in 2026).",
+      "quote": "The NIST Center for Neutron Research reactor has been shut down since Feb. 3, 2021, when a single fuel element overheated and was damaged because it was not securely latched into place.",
+      "sources": [
+        "src:precision-2-nist-ncnr-restart-news-2023",
+        "src:precision-2-nist-ncnr-facility-news"
+      ],
+      "start": "2021-02-03",
+      "status": "shutdown",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "reactor operations resumed",
+      "locator": "facility news, notice to users",
+      "note": "Year 2026 inferred from the page date (updated 12 August 2026) and the call for proposals issued on 30 July 2026.",
+      "quote": "The NCNR resumed reactor operations in May following an extensive repair, maintenance, and upgrade project.",
+      "sources": [
+        "src:precision-2-nist-ncnr-facility-news"
+      ],
+      "start": "2026-05",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "kind": "reactor_site",
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "locator": "official NCNR site",
+      "note": "",
+      "sources": [
+        "src:precision-2-nist-ncnr-welcome-page"
+      ],
+      "value": "https://www.nist.gov/ncnr",
+      "verified_at": "2026-10-26"
+    }
+  },
+  "name": "NIST Center for Neutron Research",
+  "notes": [
+    "Created by the precision-2 stream as the host of the NIST beam neutron-lifetime experiments."
+  ],
+  "operator_ids": [],
+  "operator_text": {
+    "confidence": "verified",
+    "locator": "NIST news of March 2023, first line",
+    "note": "",
+    "quote": "The U.S. Department of Commerce’s National Institute of Standards and Technology (NIST)",
+    "sources": [
+      "src:precision-2-nist-ncnr-restart-news-2023"
+    ],
+    "value": "National Institute of Standards and Technology (U.S. Department of Commerce)",
+    "verified_at": "2026-10-26"
+  },
+  "primary_site_id": "site:nist-ncnr-gaithersburg",
+  "related_facility_ids": [],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:precision-2-nist-ncnr-welcome-page",
+    "src:precision-2-nist-ncnr-history-page",
+    "src:precision-2-nist-ncnr-restart-news-2023",
+    "src:precision-2-nist-ncnr-facility-news"
+  ],
+  "specs": {},
+  "status": "active",
+  "summary": {
+    "plain": "The neutron research centre of the U.S. National Institute of Standards and Technology in Gaithersburg, Maryland. Its research reactor first went critical in 1967 and supplies neutron beams, including those used to measure how long a free neutron lives. It was shut down in 2021 and resumed operating in 2026.",
+    "technical": "NIST Center for Neutron Research: national user facility built around the NBSR research reactor (first critical 7 December 1967), with thermal and cold neutron beams. In this Atlas it hosts the beam neutron-lifetime experiments BL1, BL2 and BL3. Shut down 3 February 2021; reactor operations resumed in May 2026."
+  },
+  "topic_ids": [
+    "topic:neutron-physics"
+  ],
+  "type": "facility"
+}
