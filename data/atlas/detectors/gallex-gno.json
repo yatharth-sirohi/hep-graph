@@ -1,86 +1,103 @@
 {
-  "schema": "hep-atlas/0.2",
-  "id": "detector:gallex-gno",
-  "type": "detector",
-  "name": "GALLEX/GNO gallium target",
   "aliases": [],
-  "experiment_ids": ["experiment:gallex-gno"],
-  "parent_detector_id": null,
-  "technology": {
-    "value": "Radiochemical gallium detector: solar neutrinos capture on 71Ga to produce 71Ge, which is chemically extracted and counted; the target is a gallium trichloride-hydrochloric acid solution, not an electronic real-time detector",
-    "sources": ["src:gallex-wikipedia"],
-    "verified_at": "2026-09-17",
-    "confidence": "uncertain",
-    "quote": "101 tons of gallium trichloride–hydrochloric acid solution, which contained 30.3 tons of gallium",
-    "note": "Sourced from Wikipedia (rank 12) only this session. No `radiochemical` value exists in TECHNOLOGY_CLASSES (checked hepgraph/atlas/schema.py); `technology_class` is set to `other` and the radiochemical gallium technique is described in this free-text field instead, per the domain lead's resolution of this enum gap."
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
   },
-  "technology_class": "other",
-  "technology_classes": ["other"],
-  "placements": [
-    {
-      "site_id": "site:lngs-hall-a",
-      "role": "main",
-      "start": "1991",
-      "end": "2003-04",
-      "sources": ["src:rf05-gno-complete-results-arxiv"],
-      "verified_at": "2026-10-25",
-      "confidence": "approximate",
-      "quote": "gallium based solar observations at LNGS (first in GALLEX, later in GNO) lasted from May 14, 1991 through April 9, 2003",
-      "note": "Placed at site:lngs-hall-a (owned by the facilities workstream; not created here). The cited GNO final paper names LNGS and the 1991-2003 span but does not name Hall A specifically."
-    }
+  "document_ids": [],
+  "experiment_ids": [
+    "experiment:gallex-gno"
   ],
+  "id": "detector:gallex-gno",
   "intervals": [
     {
-      "label": "GALLEX + GNO operation",
-      "status": "active",
-      "start": "1991",
-      "end": "2003-04",
-      "sources": ["src:rf05-gno-complete-results-arxiv"],
-      "verified_at": "2026-10-25",
       "confidence": "approximate",
+      "end": "2003-04",
+      "label": "GALLEX + GNO operation",
+      "note": "Span from the GNO collaboration's final paper (gallium observations at LNGS lasted from May 14, 1991 through April 9, 2003); stored at year/month precision.",
       "quote": "gallium based solar observations at LNGS (first in GALLEX, later in GNO) lasted from May 14, 1991 through April 9, 2003",
-      "note": "Span from the GNO collaboration's final paper (gallium observations at LNGS lasted from May 14, 1991 through April 9, 2003); stored at year/month precision."
+      "sources": [
+        "src:rf05-gno-complete-results-arxiv"
+      ],
+      "start": "1991",
+      "status": "active",
+      "verified_at": "2026-10-25"
     },
     {
-      "label": "shut down",
-      "status": "completed",
-      "start": "2003-04",
-      "end": null,
-      "sources": ["src:rf05-gno-complete-results-arxiv"],
-      "verified_at": "2026-10-25",
       "confidence": "approximate",
+      "end": null,
+      "label": "shut down",
+      "note": "Terminal event from the GNO collaboration's final paper (GNO terminated after solar runs performed between May 20, 1998 and April 9, 2003); stored at month precision.",
       "quote": "The GNO experiment is now terminated after altogether 58 solar exposure runs that were performed between May 20, 1998 and April 9, 2003.",
-      "note": "Terminal event from the GNO collaboration's final paper (GNO terminated after solar runs performed between May 20, 1998 and April 9, 2003); stored at month precision."
+      "sources": [
+        "src:rf05-gno-complete-results-arxiv"
+      ],
+      "start": "2003-04",
+      "status": "completed",
+      "verified_at": "2026-10-25"
     }
   ],
-  "status": "completed",
-  "specs": {
-    "target_mass": {
-      "value": 30.3,
-      "unit": "t",
-      "dimension": "mass",
-      "approx": false,
-      "display": "30.3 t gallium",
-      "sources": ["src:gallex-wikipedia"],
-      "verified_at": "2026-09-17",
-      "confidence": "approximate",
-      "quote": "101 tons of gallium trichloride–hydrochloric acid solution, which contained 30.3 tons of gallium",
-      "note": "Sourced from Wikipedia (rank 12) only this session."
-    }
-  },
-  "subsystems": [],
-  "document_ids": [],
   "links": {
     "website": null
   },
+  "name": "GALLEX/GNO gallium target",
   "notes": [],
-  "sources": ["src:gallex-wikipedia", "src:rf05-gno-complete-results-arxiv"],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": "2003-04",
+      "note": "Placed at site:lngs-hall-a. The cited GNO final paper names LNGS and the 1991-2003 span but does not name Hall A specifically.",
+      "quote": "gallium based solar observations at LNGS (first in GALLEX, later in GNO) lasted from May 14, 1991 through April 9, 2003",
+      "role": "main",
+      "site_id": "site:lngs-hall-a",
+      "sources": [
+        "src:rf05-gno-complete-results-arxiv"
+      ],
+      "start": "1991",
+      "verified_at": "2026-10-25"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:gallex-wikipedia",
+    "src:rf05-gno-complete-results-arxiv"
+  ],
+  "specs": {
+    "target_mass": {
+      "approx": false,
+      "confidence": "approximate",
+      "dimension": "mass",
+      "display": "30.3 t gallium",
+      "note": "Sourced from Wikipedia only (checked 2026-09-17).",
+      "quote": "101 tons of gallium trichloride–hydrochloric acid solution, which contained 30.3 tons of gallium",
+      "sources": [
+        "src:gallex-wikipedia"
+      ],
+      "unit": "t",
+      "value": 30.3,
+      "verified_at": "2026-09-17"
+    }
+  },
+  "status": "completed",
+  "subsystems": [],
   "summary": {
     "plain": "A huge tank of gallium-laced liquid buried in an Italian mountain; when a low-energy solar neutrino hits a gallium atom, it turns into a germanium atom that scientists then count.",
     "technical": "Radiochemical gallium detector, 30.3 t Ga as 101 t GaCl3-HCl solution, at LNGS Hall A; 71Ga(νe,e⁻)71Ge reaction, chemically extracted and counted in campaigns rather than observed in real time."
   },
-  "coverage": {
-    "tier": "D",
-    "researched": "partial"
-  }
+  "technology": {
+    "confidence": "uncertain",
+    "note": "Sourced from Wikipedia only (checked 2026-09-17). The technology classes have no radiochemical value, so the class is 'other' and the radiochemical gallium technique is described in this free-text field instead.",
+    "quote": "101 tons of gallium trichloride–hydrochloric acid solution, which contained 30.3 tons of gallium",
+    "sources": [
+      "src:gallex-wikipedia"
+    ],
+    "value": "Radiochemical gallium detector: solar neutrinos capture on 71Ga to produce 71Ge, which is chemically extracted and counted; the target is a gallium trichloride-hydrochloric acid solution, not an electronic real-time detector",
+    "verified_at": "2026-09-17"
+  },
+  "technology_class": "other",
+  "technology_classes": [
+    "other"
+  ],
+  "type": "detector"
 }

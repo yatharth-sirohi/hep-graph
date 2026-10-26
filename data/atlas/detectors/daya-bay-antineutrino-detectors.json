@@ -1,132 +1,162 @@
 {
-  "schema": "hep-atlas/0.2",
-  "id": "detector:daya-bay-antineutrino-detectors",
-  "type": "detector",
-  "name": "Daya Bay antineutrino detectors",
-  "aliases": ["Daya Bay ADs"],
-  "experiment_ids": ["experiment:daya-bay"],
-  "parent_detector_id": null,
-  "technology": {
-    "value": "Functionally identical cylindrical antineutrino detectors filled with gadolinium-doped liquid scintillator, viewed by photomultiplier tubes",
-    "sources": ["src:daya-bay-detector-paper-2013"],
-    "verified_at": "2026-09-17",
-    "confidence": "verified",
-    "quote": "eight, functionally identical antineutrino detectors",
-    "note": ""
-  },
-  "technology_class": "liquid_scintillator",
-  "technology_classes": ["liquid_scintillator"],
-  "placements": [
-    {
-      "site_id": "site:daya-bay-experimental-halls",
-      "role": "near",
-      "start": null,
-      "end": null,
-      "sources": ["src:daya-bay-discovery-2012"],
-      "verified_at": "2026-09-17",
-      "confidence": "approximate",
-      "quote": "two near (flux-weighted baseline 470 m and 576 m) and one far (1648 m) underground experimental halls",
-      "note": "Daya Bay near hall (470 m flux-weighted baseline). Placed at the shared campus-grade site point (see site note); hall-specific coordinates not found."
-    },
-    {
-      "site_id": "site:daya-bay-experimental-halls",
-      "role": "near",
-      "start": null,
-      "end": null,
-      "sources": ["src:daya-bay-discovery-2012"],
-      "verified_at": "2026-09-17",
-      "confidence": "approximate",
-      "quote": "two near (flux-weighted baseline 470 m and 576 m) and one far (1648 m) underground experimental halls",
-      "note": "Ling Ao near hall (576 m flux-weighted baseline). Placed at the shared campus-grade site point (see site note); hall-specific coordinates not found."
-    },
-    {
-      "site_id": "site:daya-bay-experimental-halls",
-      "role": "far",
-      "start": null,
-      "end": null,
-      "sources": ["src:daya-bay-discovery-2012"],
-      "verified_at": "2026-09-17",
-      "confidence": "approximate",
-      "quote": "two near (flux-weighted baseline 470 m and 576 m) and one far (1648 m) underground experimental halls",
-      "note": "Far hall (1648 m baseline). Placed at the shared campus-grade site point (see site note); hall-specific coordinates not found."
-    }
+  "aliases": [
+    "Daya Bay ADs"
   ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "document_ids": [],
+  "experiment_ids": [
+    "experiment:daya-bay"
+  ],
+  "id": "detector:daya-bay-antineutrino-detectors",
   "intervals": [
     {
-      "label": "6-detector configuration",
-      "status": "active",
-      "start": "2011-12-24",
+      "confidence": "verified",
       "end": "2012-07-28",
-      "sources": ["src:reactor-solar-verify-daya-bay-final-prl-2023"],
-      "verified_at": "2026-10-25",
-      "confidence": "verified",
+      "label": "6-detector configuration",
+      "note": "Dates from the final Daya Bay oscillation paper (arXiv:2211.14988), which lists the six-, eight- and seven-detector running periods.",
       "quote": "From 24 December 2011 to 28 July 2012 (217 days), the experiment ran in an initial six-AD configuration with 2 ADs in EH1, 1 AD in EH2 and 3 ADs in EH3",
-      "note": "Dates from the final Daya Bay oscillation paper (arXiv:2211.14988), which lists the six-, eight- and seven-detector running periods."
+      "sources": [
+        "src:reactor-solar-verify-daya-bay-final-prl-2023"
+      ],
+      "start": "2011-12-24",
+      "status": "active",
+      "verified_at": "2026-10-25"
     },
     {
-      "label": "8-detector configuration",
-      "status": "active",
-      "start": "2012-10-19",
+      "confidence": "verified",
       "end": "2016-12-20",
-      "sources": ["src:reactor-solar-verify-daya-bay-final-prl-2023", "src:daya-bay-detector-paper-2013"],
-      "verified_at": "2026-10-25",
-      "confidence": "verified",
+      "label": "8-detector configuration",
+      "note": "Dates from the final Daya Bay oscillation paper (arXiv:2211.14988). Earlier text had this interval ending in 2020 (Wikipedia operating period), but the eight-detector configuration ended on 20 December 2016; seven detectors ran from 26 January 2017 (next interval).",
       "quote": "An AD was added to both EH2 and EH3 during the summer of 2012 and this eight-AD configuration was operated from 19 October 2012 until 20 December 2016 (1524 days).",
-      "note": "Dates from the final Daya Bay oscillation paper (arXiv:2211.14988). Earlier text had this interval ending in 2020 (Wikipedia operating period), but the eight-detector configuration ended on 20 December 2016; seven detectors ran from 26 January 2017 (next interval)."
-    },
-    {
-      "label": "7-detector configuration",
+      "sources": [
+        "src:reactor-solar-verify-daya-bay-final-prl-2023",
+        "src:daya-bay-detector-paper-2013"
+      ],
+      "start": "2012-10-19",
       "status": "active",
-      "start": "2017-01-26",
-      "end": "2020-12-12",
-      "sources": ["src:reactor-solar-verify-daya-bay-final-prl-2023"],
-      "verified_at": "2026-10-25",
-      "confidence": "verified",
-      "quote": "Seven-AD operation occurred from 26 January 2017 until 12 December 2020 (1417 days) with one AD in EH1 re-purposed for liquid scintillator R&D for the JUNO experiment",
-      "note": "Dates from the final Daya Bay oscillation paper (arXiv:2211.14988). 12 December 2020 is the end of the data set used in that paper."
+      "verified_at": "2026-10-25"
     },
     {
-      "label": "shut down",
-      "status": "completed",
-      "start": "2020",
-      "end": null,
-      "sources": ["src:reactor-solar-verify-daya-bay-final-prl-2023"],
-      "verified_at": "2026-10-25",
-      "confidence": "approximate",
+      "confidence": "verified",
+      "end": "2020-12-12",
+      "label": "7-detector configuration",
+      "note": "Dates from the final Daya Bay oscillation paper (arXiv:2211.14988). 12 December 2020 is the end of the data set used in that paper.",
       "quote": "Seven-AD operation occurred from 26 January 2017 until 12 December 2020 (1417 days) with one AD in EH1 re-purposed for liquid scintillator R&D for the JUNO experiment",
-      "note": "Year taken from the end of data taking on 12 December 2020 (final Daya Bay oscillation paper); that source does not state the date the detectors were physically shut down."
+      "sources": [
+        "src:reactor-solar-verify-daya-bay-final-prl-2023"
+      ],
+      "start": "2017-01-26",
+      "status": "active",
+      "verified_at": "2026-10-25"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "shut down",
+      "note": "Year taken from the end of data taking on 12 December 2020 (final Daya Bay oscillation paper); that source does not state the date the detectors were physically shut down.",
+      "quote": "Seven-AD operation occurred from 26 January 2017 until 12 December 2020 (1417 days) with one AD in EH1 re-purposed for liquid scintillator R&D for the JUNO experiment",
+      "sources": [
+        "src:reactor-solar-verify-daya-bay-final-prl-2023"
+      ],
+      "start": "2020",
+      "status": "completed",
+      "verified_at": "2026-10-25"
     }
   ],
-  "status": "completed",
-  "specs": {
-    "target_mass": {
-      "value": 20,
-      "unit": "t",
-      "dimension": "mass",
-      "approx": false,
-      "display": "20 t Gd-doped liquid scintillator per detector",
-      "sources": ["src:daya-bay-detector-paper-2013", "src:reactor-solar-verify-daya-bay-final-prl-2023"],
-      "verified_at": "2026-10-25",
-      "confidence": "verified",
-      "quote": "Each AD consists of a Stainless Steel Vessel (SSV) containing 3 detector zones filled with different liquids ... The innermost target zone contains 20 tons of gadolinium-doped liquid scintillator (GdLS) inside an Inner Acrylic Vessel (IAV).",
-      "note": "Target (gadolinium-doped liquid scintillator) mass per antineutrino detector; the final Daya Bay paper (arXiv:2211.14988) gives 20 tonnes of GdLS in each AD."
-    }
-  },
-  "subsystems": [],
-  "document_ids": [],
   "links": {
     "website": null
   },
+  "name": "Daya Bay antineutrino detectors",
   "notes": [
-    "Modelled as a single detector-system record covering all (six, later eight) functionally identical antineutrino detectors, per the detector paper's own description of them as 'functionally identical'; individual AD1-AD8 unit records were not created in this wave."
+    "Modelled as a single detector-system record covering all (six, later eight) functionally identical antineutrino detectors, per the detector paper's own description of them as 'functionally identical'; individual AD1-AD8 unit records are not in the Atlas."
   ],
-  "sources": ["src:daya-bay-detector-paper-2013", "src:daya-bay-discovery-2012", "src:reactor-solar-verify-daya-bay-final-prl-2023"],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "note": "Daya Bay near hall (470 m flux-weighted baseline). Placed at the shared campus-grade site point (see site note); hall-specific coordinates not found.",
+      "quote": "two near (flux-weighted baseline 470 m and 576 m) and one far (1648 m) underground experimental halls",
+      "role": "near",
+      "site_id": "site:daya-bay-experimental-halls",
+      "sources": [
+        "src:daya-bay-discovery-2012"
+      ],
+      "start": null,
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "note": "Ling Ao near hall (576 m flux-weighted baseline). Placed at the shared campus-grade site point (see site note); hall-specific coordinates not found.",
+      "quote": "two near (flux-weighted baseline 470 m and 576 m) and one far (1648 m) underground experimental halls",
+      "role": "near",
+      "site_id": "site:daya-bay-experimental-halls",
+      "sources": [
+        "src:daya-bay-discovery-2012"
+      ],
+      "start": null,
+      "verified_at": "2026-09-17"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "note": "Far hall (1648 m baseline). Placed at the shared campus-grade site point (see site note); hall-specific coordinates not found.",
+      "quote": "two near (flux-weighted baseline 470 m and 576 m) and one far (1648 m) underground experimental halls",
+      "role": "far",
+      "site_id": "site:daya-bay-experimental-halls",
+      "sources": [
+        "src:daya-bay-discovery-2012"
+      ],
+      "start": null,
+      "verified_at": "2026-09-17"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:daya-bay-detector-paper-2013",
+    "src:daya-bay-discovery-2012",
+    "src:reactor-solar-verify-daya-bay-final-prl-2023"
+  ],
+  "specs": {
+    "target_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "20 t Gd-doped liquid scintillator per detector",
+      "note": "Target (gadolinium-doped liquid scintillator) mass per antineutrino detector; the final Daya Bay paper (arXiv:2211.14988) gives 20 tonnes of GdLS in each AD.",
+      "quote": "Each AD consists of a Stainless Steel Vessel (SSV) containing 3 detector zones filled with different liquids ... The innermost target zone contains 20 tons of gadolinium-doped liquid scintillator (GdLS) inside an Inner Acrylic Vessel (IAV).",
+      "sources": [
+        "src:daya-bay-detector-paper-2013",
+        "src:reactor-solar-verify-daya-bay-final-prl-2023"
+      ],
+      "unit": "t",
+      "value": 20,
+      "verified_at": "2026-10-25"
+    }
+  },
+  "status": "completed",
+  "subsystems": [],
   "summary": {
     "plain": "A set of identical tank-like detectors, each holding 20 tonnes of a liquid that glows when antineutrinos interact in it, spread across near and far halls at Daya Bay.",
     "technical": "Six (2011-2012), then eight (2012-2016), then seven (2017-2020) functionally identical Gd-doped liquid-scintillator antineutrino detectors, each ~20 t target mass, deployed across the Daya Bay near, Ling Ao near and far underground halls."
   },
-  "coverage": {
-    "tier": "B",
-    "researched": "partial"
-  }
+  "technology": {
+    "confidence": "verified",
+    "note": "",
+    "quote": "eight, functionally identical antineutrino detectors",
+    "sources": [
+      "src:daya-bay-detector-paper-2013"
+    ],
+    "value": "Functionally identical cylindrical antineutrino detectors filled with gadolinium-doped liquid scintillator, viewed by photomultiplier tubes",
+    "verified_at": "2026-09-17"
+  },
+  "technology_class": "liquid_scintillator",
+  "technology_classes": [
+    "liquid_scintillator"
+  ],
+  "type": "detector"
 }

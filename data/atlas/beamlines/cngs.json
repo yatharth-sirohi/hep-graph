@@ -11,7 +11,7 @@
         "dimension": "length",
         "display": "732 km",
         "locator": "CERN Neutrinos to Gran Sasso page",
-        "note": "The CERN end is site:cern-meyrin per the brief's default (no more specific sourced CNGS target-point coordinate was found in this session); the LNGS end is site:lngs-hall-c, owned by the 'facilities' lead and not yet created in data/atlas/, so the A21 great-circle cross-check cannot run against it yet.",
+        "note": "The CERN end is taken to be the Meyrin site (site:cern-meyrin), since no more specific sourced coordinate for the CNGS target point was found; the LNGS end is Hall C (site:lngs-hall-c).",
         "quote": "732 kilometres away in Italy",
         "sources": [
           "src:opera-cern-cngs-page"
@@ -86,8 +86,7 @@
   "name": "CERN Neutrinos to Gran Sasso (CNGS)",
   "near_detector_site_ids": [],
   "notes": [
-    "far_detector_site_ids and baselines[].to_site_id reference site:lngs-hall-c, owned by the 'facilities' lead and not yet created in data/atlas/ when this record was written; expected dangling reference until that lead lands. The A21 great-circle geometry check cannot be run until that site has coordinates -- re-check the 732 km figure against the great-circle distance once it does.",
-    "The CERN end is recorded as site:cern-meyrin per the brief's instruction ('the CERN end is site:cern-meyrin unless you source a CNGS target point'); no more specific sourced CNGS extraction-point coordinate was found in this session."
+    "The CERN end is recorded as site:cern-meyrin, the default CERN site; no more specific sourced coordinate for the CNGS extraction point was found."
   ],
   "primary_beam": {
     "confidence": "verified",

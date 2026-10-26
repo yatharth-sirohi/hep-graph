@@ -14,7 +14,7 @@
       "confidence": "verified",
       "end": null,
       "label": "construction",
-      "note": "No explicit end date for construction is given by any source fetched in this session; the commissioning/dedication interval below covers the period immediately before first collisions.",
+      "note": "No source consulted (checked 2026-09-17) gives an explicit end date for construction; the commissioning/dedication interval below covers the period immediately before first collisions.",
       "quote": "Brookhaven received funding to proceed with the construction of RHIC in 1991 and physics operations began in 2000.",
       "sources": [
         "src:bnl-about-history-accelerators-page"
@@ -27,7 +27,7 @@
       "confidence": "verified",
       "end": "1999-10-04",
       "label": "commissioning and dedication",
-      "note": "Commissioning start date is not stated by any source fetched in this session; the dedication (marking the end of successful commissioning) was 1999-10-04.",
+      "note": "No source consulted (checked 2026-09-17) states the commissioning start date; the dedication (marking the end of successful commissioning) was 1999-10-04.",
       "quote": "On Monday, Oct. 4, 1999, the RHIC was dedicated following successful commissioning.",
       "sources": [
         "src:heavy-ions-rhic25-timeline"
@@ -79,7 +79,7 @@
           "confidence": "verified",
           "dimension": "energy",
           "display": "500 GeV per colliding polarized proton pair",
-          "note": "Some RHIC spin-physics literature found via search (not independently re-fetched and confirmed with an official BNL quote in this session) refers to a maximum of up to 510 GeV for polarized p+p; the only official BNL press material actually fetched in this session states 500 GeV as 'the highest collision energy' reached, so 500 GeV (verified) is recorded here rather than 510 GeV.",
+          "note": "Some RHIC spin-physics literature refers to a maximum of up to 510 GeV for polarized p+p; this was not confirmed against an official BNL quote. The official BNL press material consulted (checked 2026-09-17) states 500 GeV as 'the highest collision energy' reached, so 500 GeV is recorded rather than 510 GeV.",
           "quote": "This year's run will take place at the highest collision energy: 500 billion electron volts (GeV) per colliding proton pair.",
           "sources": [
             "src:bnl-newsroom-run22-2021"
@@ -97,7 +97,7 @@
       "confidence": "verified",
       "end": null,
       "label": "final run and end of RHIC operations",
-      "note": "RHIC's 25th and final run ended 2026-02-06; per A10, because this terminal interval has already started by the build date, the accelerator's own `status` field is set to `completed` rather than the pre-terminal state. DOE and BNL are now converting the machine into the Electron-Ion Collider, reusing the tunnel, one ion storage ring, the pre-accelerator chain and \"a large detector hall\" (src:bnl-newsroom-eic-transformation-2026, dated 2026-04-13). No `accelerator:eic` record is created in this wave. CORRECTION 2026-10-25: this note previously named the sPHENIX hall as the reused hall; the BNL article says the interaction region currently occupied by STAR becomes the site of the ePIC detector, sPHENIX will be disassembled apart from its outer hadronic calorimeter (reused in ePIC), and \"The removal process is expected to take place over a period of six years\" (removal of about 6,500 major RHIC components began 13 April 2026).",
+      "note": "RHIC's 25th and final run ended 2026-02-06; because this terminal interval has already started, the accelerator's status is 'completed'. DOE and BNL are converting the machine into the Electron-Ion Collider, reusing the tunnel, one ion storage ring, the pre-accelerator chain and \"a large detector hall\" (src:bnl-newsroom-eic-transformation-2026, dated 2026-04-13). The Atlas has no accelerator record for the Electron-Ion Collider yet. The BNL article says the interaction region currently occupied by STAR becomes the site of the ePIC detector, sPHENIX will be disassembled apart from its outer hadronic calorimeter (reused in ePIC), and \"The removal process is expected to take place over a period of six years\" (removal of about 6,500 major RHIC components began 13 April 2026).",
       "quote": "Just after 9 a.m. on Friday, Feb. 6, 2026, final beams of oxygen ions ... circulated through the twin 2.4-mile-circumference rings ... and crashed into one another at nearly the speed of light.",
       "sources": [
         "src:heavy-ions-rhic-final-collisions-2026",
@@ -125,8 +125,7 @@
   "name": "Relativistic Heavy Ion Collider",
   "notes": [
     "site_id is set to site:bnl-upton-campus (the general BNL campus) rather than either IP-specific site, because RHIC is a ring machine spanning both interaction points and the tunnel between them, not a single point; the campus site is the most representative single location, matching the accelerator's own facility-level coordinate anchor.",
-    "accelerator:ags (this record's injector) is created in this same wave.",
-    "accelerator:bnl-linac and accelerator:bnl-booster (the earlier stages of RHIC's injector chain) were not created in this session for lack of time; their existence is referenced only in prose (src:bnl-rhic-ags-page) and not as separate entities."
+    "The Atlas has no records for accelerator:bnl-linac and accelerator:bnl-booster, the earlier stages of RHIC's injector chain; they are mentioned only in prose (src:bnl-rhic-ags-page)."
   ],
   "particles": [
     "gold ion (Au)",

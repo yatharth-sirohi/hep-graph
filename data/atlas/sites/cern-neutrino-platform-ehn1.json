@@ -7,11 +7,11 @@
   "altitude": null,
   "coordinates": {
     "confidence": "uncertain",
-    "kind": "detector",
+    "kind": "campus",
     "lat": 46.2601088,
     "locator": "CERN Neutrino Platform page",
     "lon": 6.0577057,
-    "note": "This site is used as the placement for ProtoDUNE-SP, ProtoDUNE-DP and the ICARUS refurbishment, none of which has its own dedicated site record. `kind` is set to `detector` only because A17/the validator requires that for any site holding a detector placement; the coordinate itself is the OpenStreetMap/Nominatim point for CERN's whole Prevessin site, not a surveyed position for the EHN1 building (also known as Building 887, ~330 m long). Real effort (CERN's Neutrino Platform page, the North Area experimental-areas pages, and open-days material) confirmed the building's identity and general siting on the Prevessin site but did not turn up a published lat/lon for EHN1 itself. Treat every placement at this site as campus-precision, not building precision. CERN publishes no coordinate for the hall on the fetched page.",
+    "note": "The coordinate is the OpenStreetMap/Nominatim point for CERN's whole Prévessin site, not a surveyed position of the EHN1 building (Building 887, about 330 m long), so it is recorded as a campus point and shown as approximate. The site is the placement of ProtoDUNE-SP, ProtoDUNE-DP and the ICARUS refurbishment. CERN's Neutrino Platform page, the North Area pages and open-days material (checked 2026-09-17) identify the building and its general siting on the Prévessin site but give no latitude and longitude for it; treat every placement here as campus-precision.",
     "precision_m": 2000,
     "quote": "located in a test-beam hall on CERN’s Prévessin site",
     "sources": [
@@ -43,8 +43,7 @@
   },
   "name": "CERN Neutrino Platform, EHN1 (Prévessin site)",
   "notes": [
-    "facility:cern is owned by the cern-atlas workstream; this record only references it.",
-    "Coordinates are shown at campus (Prevessin-site) precision; see coordinates.note. `kind: detector` is a schema requirement (this site hosts several detector placements), not a claim of survey-grade precision for the EHN1 building."
+    "Coordinates are shown at campus (Prévessin-site) precision; see the coordinate note. The marker is not a claim of survey-grade precision for the EHN1 building."
   ],
   "place": {
     "city": "Prévessin-Moëns",
