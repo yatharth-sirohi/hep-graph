@@ -330,6 +330,28 @@ async function openFilters(page) {
       await viewContext.close();
     });
 
+    // ---- Follow the proton (static/atlas/js/proton.js) ----------------------------
+    // The card (a stage, a transfer with the sources open, a stage the map does not
+    // draw) and the energy ladder in the layers column, on the real build: the fixtures
+    // carry no injector chain. Reduced motion, so the dot and the camera hold still.
+    if (tree.label === "generated") {
+      await record(`[${tree.label}] axe: Follow the proton card and energy ladder (stage, transfer, not drawn)`, async () => {
+        const ctx = await browser.newContext({ viewport: { width: 1440, height: 960 }, reducedMotion: "reduce" });
+        const p = await ctx.newPage();
+        p.setDefaultTimeout(30000);
+        for (const [label, query] of [["a stage", "?y=2021&proton=3"], ["a transfer", "?y=2021&proton=2"], ["a stage the map does not draw", "?y=2015&proton=1"]]) {
+          await p.goto(`${base}/atlas${query}#/map/cern`);
+          await p.locator("#pr-card:not(.hidden)").waitFor();
+          await p.waitForFunction(() => !document.querySelector("#pr-card .pr-claims") || !document.querySelector("#pr-card .pr-src:empty"));
+          await p.locator("#pr-card details").evaluateAll((all) => all.forEach((d) => { d.open = true; }));
+          await p.waitForFunction(() => !document.querySelector("#pr-card .pr-claims .loading-note") && !/Loading the sources/.test(document.querySelector("#pr-card .pr-claims")?.textContent || ""));
+          const result = await runAxe(p, tree.label, `follow the proton, ${label}`);
+          assert.deepEqual(result.violations, [], `expected 0 WCAG axe violations on the player (${label}), got ${JSON.stringify(result.violations)}`);
+        }
+        await ctx.close();
+      });
+    }
+
     // ---- researchers' tools (static/atlas/js/views/compare*.js, js/research/) ----------
     // The comparison table with its markers, its sources and the open method; the tray; the
     // panel's "Add to compare" and "Cite"; the export bar of the lists. All must be clean.

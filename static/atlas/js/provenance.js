@@ -225,6 +225,14 @@ export function claimLabel(pointer, record) {
     return { label: `Leadership: ${titleCase(row.role || 'role')}`, field };
   }
 
+  // /feeds_accelerator_ids/N — A30: the beam this machine hands to another, with its dates.
+  if (segs[0] === 'feeds_accelerator_ids' && /^\d+$/.test(segs[1] || '')) {
+    const entry = val(['feeds_accelerator_ids', segs[1]]);
+    const toId = entry && typeof entry === 'object' ? entry.id : entry;
+    const other = toId && INDEX ? INDEX.get(toId) : null;
+    return { label: `Beam hand-over: ${(record && record.name) || 'this machine'} → ${(other && other.name) || toId || 'another machine'}`, field };
+  }
+
   // /baselines/N, /baselines/N/distance — beamline baseline distance.
   if (segs[0] === 'baselines' && /^\d+$/.test(segs[1] || '')) {
     const baseline = val(['baselines', segs[1]]) || {};

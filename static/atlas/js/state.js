@@ -74,6 +74,9 @@ function parseSearch(search) {
     // slug, `cmpc` the map point the overlay is centred on. The reader's own location
     // is never in either: it is held in memory for the visit and nowhere else.
     cmp: null, cmpc: null,
+    // `proton`: the 1-based step of "Follow the proton" (js/proton.js), or null (the
+    // player is closed). Like `sel`, it only means something on a map route.
+    proton: null,
     results: parseResultsView(params),
     // ---- classroom modes (js/classroom.js): `?embed=1` and `?theme=projector|standard`
     // ride along in every address the app writes, so reloading or sharing keeps them.
@@ -111,6 +114,9 @@ function parseSearch(search) {
     state.cmp = params.get('cmp');
     const at = /^(-?\d{1,2}(?:\.\d+)?),(-?\d{1,3}(?:\.\d+)?)$/.exec(params.get('cmpc') || '');
     if (at && Math.abs(Number(at[1])) <= 90 && Math.abs(Number(at[2])) <= 180) state.cmpc = [Number(at[1]), Number(at[2])];
+  if (params.has('proton')) {
+    const step = parseInt(params.get('proton'), 10);
+    if (step >= 1) state.proton = step;
   }
   return state;
 }
@@ -151,6 +157,7 @@ function buildURL(state) {
       params.set('cmp', state.cmp);
       if (state.cmpc) params.set('cmpc', `${state.cmpc[0]},${state.cmpc[1]}`);
     }
+    if (state.proton) params.set('proton', String(state.proton));
   }
   if (state.mode === 'results' && state.results) {
     const defaults = defaultResultsView();
@@ -169,6 +176,7 @@ function notify() {
 
 /** Merge `patch` into the current state and push a new history entry. */
 export function navigate(patch, { replace = false } = {}) {
+  const previous = current;
   const previousMode = current ? current.mode : null;
   const previousEntity = current ? current.entity : null;
   current = { ...current, ...patch };
@@ -178,6 +186,14 @@ export function navigate(patch, { replace = false } = {}) {
     const next = patch.entity;
     const same = previousEntity && next && previousEntity.type === next.type && previousEntity.slug === next.slug;
     if (!same) { current.cmp = null; current.cmpc = null; }
+  }
+  // The player's step belongs to one map: going to another route (a record from the
+  // ladder, the globe, another map) leaves it behind, unless the patch says otherwise.
+  // Back restores it, because it is in the address.
+  if ('entity' in patch && !('proton' in patch)) {
+    const before = previous && previous.entity;
+    const after = patch.entity;
+    if (!before || !after || before.type !== after.type || before.slug !== after.slug) current.proton = null;
   }
   // The Results filters belong to one visit of the panel: opening it again from
   // the toolbar starts from the full list, as it always has. (Back/forward

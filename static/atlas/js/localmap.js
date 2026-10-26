@@ -69,6 +69,12 @@ let compareOpen = false;
 let depthOpen = false;
 let selOpener = null;
 let lastAnnouncedSel = null;
+// "Follow the proton" (js/proton.js): one player per map instance, created only on a
+// map whose facility has an injector chain, and only after the map itself is drawn.
+let player = null;
+let playerLoading = false;
+let lastShownKey = null;
+let cameraSaved = null;
 
 // ---------------------------------------------------------------- helpers
 
@@ -346,6 +352,13 @@ function whenLabel() {
 function destroyMap() {
   // The overlay (and, with it, any location the reader shared) goes with the map.
   if (compare) compare.destroy();
+  if (player) {
+    player.detach();
+    player = null;
+  }
+  playerLoading = false;
+  lastShownKey = null;
+  cameraSaved = null;
   if (mapInstance) {
     mapInstance.remove();
     mapInstance = null;
@@ -1967,6 +1980,9 @@ function renderSidebar() {
   layers.appendChild(h('p', { class: 'visually-hidden', id: 'map-selection-live', role: 'status', 'aria-live': 'polite' },
     lastAnnouncedSel || ''));
 
+  // ---- Follow the proton: the energy ladder of the chain in the selected year
+  if (player) layers.appendChild(player.renderSection());
+
   // ---- view controls
   const basemapOffForPrivacy = !!(compare && compare.hidesBasemap());
   const basemapBtn = toggleButton('OpenStreetMap basemap', view.basemap && !polarProjection && !basemapOffForPrivacy, () => {
@@ -2435,6 +2451,117 @@ function redraw() {
   renderEmptyNotice();
 }
 
+// ------------------------------------------------------- Follow the proton
+// The player itself is js/proton.js (loaded only for a map that can have a chain);
+// this is what it needs from the map: the camera, the year, the reasons a stage is
+// not drawn, and the one rule that moving the camera for it is not the reader taking
+// it (so a view the reader has not touched is still framed again afterwards).
+
+/** A facility whose accelerators feed each other, or feed a beamline, may have a chain
+ *  in some year; whether it does is the player's own question. */
+function mayHaveChain() {
+  const fid = mapMeta.facility_id;
+  const own = Object.values(ATLAS.accelerators || {}).filter((a) => a.facility_id === fid);
+  const ids = new Set(own.map((a) => a.id));
+  if (own.some((a) => (a.feeds_accelerator_ids || []).length)) return true;
+  return Object.values(ATLAS.beamlines || {}).some((b) => b.facility_id === fid && ids.has(b.accelerator_id));
+}
+
+function cameraSave() {
+  if (!mapInstance || cameraSaved) return;
+  cameraSaved = { center: mapInstance.getCenter(), zoom: mapInstance.getZoom(), userMoved };
+}
+
+function cameraRestore() {
+  if (!mapInstance || !cameraSaved) return;
+  const saved = cameraSaved;
+  cameraSaved = null;
+  framing = true;
+  try {
+    mapInstance.setView(saved.center, saved.zoom, { animate: !window.matchMedia('(prefers-reduced-motion: reduce)').matches });
+  } finally {
+    framing = false;
+  }
+  userMoved = saved.userMoved;
+}
+
+/** Fit the view to `bounds`, keeping the lit stage clear of the player's card. */
+function cameraFit(bounds, { animate = true, card = null } = {}) {
+  if (!mapInstance || !bounds || !bounds.isValid()) return;
+  const L = window.L;
+  const sw = bounds.getSouthWest();
+  const ne = bounds.getNorthEast();
+  let target = bounds;
+  // A building or a point is shown with the ground around it, as the map's own frame does.
+  if (greatCircleM([sw.lat, sw.lng], [ne.lat, ne.lng]) < 240) {
+    target = L.latLng((sw.lat + ne.lat) / 2, (sw.lng + ne.lng) / 2).toBounds(240);
+  }
+  const size = mapInstance.getSize();
+  let topLeft = [28, 28];
+  let bottomRight = [28, 28];
+  if (card && !card.classList.contains('hidden')) {
+    if (window.matchMedia('(max-width: 900px)').matches) {
+      bottomRight = [28, Math.min(card.offsetHeight + 64, size.y * 0.7)];
+    } else {
+      bottomRight = [Math.min(card.offsetWidth + 38, size.x * 0.55), 28];
+      topLeft = [28, 28];
+    }
+  }
+  framing = true;
+  try {
+    const options = {
+      paddingTopLeft: topLeft, paddingBottomRight: bottomRight, animate, duration: 1, maxZoom: mapInstance.getMaxZoom(),
+    };
+    if (animate) mapInstance.flyToBounds(target, options);
+    else mapInstance.fitBounds(target, options);
+  } finally {
+    framing = false;
+  }
+  // The player's camera is not the automatic frame: a resize (a sheet opening, a phone
+  // turning) must not reframe the whole map over it. Closing the player restores both.
+  userMoved = true;
+}
+
+function protonHost() {
+  return {
+    L: window.L,
+    atlas: ATLAS,
+    index: INDEX,
+    mapMeta,
+    bundle,
+    stage: dom.stage,
+    map: () => mapInstance,
+    navigate: (patch, options) => NAVIGATE(patch, options),
+    getTimeline: () => view.timelineState || {},
+    plainReason: (reason, name) => plainReason(reason, { resolve: nameForId, name }),
+    cameraSave,
+    cameraRestore,
+    cameraFit,
+  };
+}
+
+/** Create the map's player once, after the map is drawn, and tell it the URL's step. */
+function ensurePlayer() {
+  if (player || playerLoading || !bundle || !mapInstance || !mayHaveChain()) return;
+  const instance = mapInstance;
+  playerLoading = true;
+  import('./proton.js').then(async (module) => {
+    playerLoading = false;
+    if (!mapInstance || mapInstance !== instance) return;
+    const created = module.createPlayer(protonHost());
+    if (!created.available) return;
+    player = created;
+    await created.attach();
+    if (player !== created || mapInstance !== instance) return;
+    renderSidebar();
+    created.sync(view.proton);
+  }).catch((error) => {
+    playerLoading = false;
+    // The player is an addition to the map: if it cannot load, the map stands without it.
+    window.console.error('HEP Atlas: "Follow the proton" could not load', error);
+  });
+}
+
 // ------------------------------------------------------------------ show
 
 function renderMessage(nodes) {
@@ -2484,7 +2611,17 @@ export async function show(current, ctx) {
     cmp: current.cmp || null,
     cmpc: current.cmpc || null,
     timelineState: ctx.timelineState,
+    proton: current.proton || null,
   };
+
+  // Only the player's step moved (a click on Next, a tick of Play): nothing the map
+  // draws has changed, so the map is not drawn again — that would cost a full label
+  // layout per step and would restart the dot.
+  const shownKey = JSON.stringify([mapId, view.levels, view.basemap, view.sel, view.timelineState]);
+  if (player && mapInstance && bundle && mapId === currentMapId && shownKey === lastShownKey) {
+    player.sync(view.proton);
+    return;
+  }
 
   if (mapId !== currentMapId) {
     destroyMap();
@@ -2613,6 +2750,10 @@ export async function show(current, ctx) {
       layoutLabels();
     });
   }
+
+  lastShownKey = shownKey;
+  if (player) player.sync(view.proton);
+  else ensurePlayer();
 }
 
 export function hide() {
@@ -2643,6 +2784,11 @@ document.addEventListener('keydown', (event) => {
     renderSidebar();
     const btn = document.getElementById('map-depth-toggle');
     if (btn) btn.focus({ preventScroll: true });
+    return;
+  }
+  if (player && player.isOpen()) {
+    event.stopPropagation();
+    player.closeFromEscape();
     return;
   }
   if (view.sel) {
