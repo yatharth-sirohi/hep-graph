@@ -1,0 +1,85 @@
+{
+  "aliases": [
+    "Savannah River Plant",
+    "SRS"
+  ],
+  "countries": [
+    "US"
+  ],
+  "country": [
+    "US"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "id": "facility:savannah-river-site",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "1954",
+      "label": "site construction",
+      "locator": "SRS 'About' page, timeline heading 1951",
+      "note": "Year precision only; the end is the 1954 startup of the P, L and K reactors.",
+      "quote": "Site construction begins.",
+      "sources": [
+        "src:disc-srs-about"
+      ],
+      "start": "1951",
+      "status": "construction",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "production reactors in operation",
+      "locator": "SRS 'About' page, timeline heading 1954",
+      "note": "R Reactor and the 305-M test pile started earlier (year heading garbled in the page text); P Reactor, the one used by Cowan and Reines, started in 1954. Status is as of 2026-10-26: the site is still a DOE site.",
+      "quote": "P, L, K Reactors and F Canyon startup.",
+      "sources": [
+        "src:disc-srs-about"
+      ],
+      "start": "1954",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "kind": "reactor_site",
+  "links": {
+    "website": null
+  },
+  "name": "Savannah River Site",
+  "notes": [
+    "Reactor-neutrino physics happened here only as a guest experiment: the site is a DOE production and cleanup site, not a physics laboratory.",
+    "The official SRS timeline lists \"Neutrino confirmed at P Reactor\" under 1956 and \"R Reactor startup\" under an earlier year heading whose digits were lost in the page text; the active interval therefore starts with the 1954 P, L, K reactor startups and is marked approximate."
+  ],
+  "operator_text": {
+    "confidence": "verified",
+    "locator": "SRS 'About' page, timeline entry for 2008",
+    "note": "The same page speaks of \"the Department of Energy’s facilities\"; whether the 2008 contractor is still the operator on 2026-10-26 was not re-checked.",
+    "quote": "Savannah River Nuclear Solutions awarded contract for management and operations of SRS.",
+    "sources": [
+      "src:disc-srs-about"
+    ],
+    "value": "U.S. Department of Energy; management and operations contract awarded to Savannah River Nuclear Solutions in 2008",
+    "verified_at": "2026-10-26"
+  },
+  "primary_site_id": "site:savannah-river-site",
+  "related_facility_ids": [],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:disc-srs-about",
+    "src:disc-doe-em-savannah-river-site",
+    "src:disc-aps-historic-site-savannah-river"
+  ],
+  "specs": {},
+  "status": "active",
+  "summary": {
+    "plain": "A very large U.S. Department of Energy site in South Carolina, built in the early 1950s to make nuclear-weapons materials. Its P Reactor gave Clyde Cowan and Frederick Reines the intense stream of antineutrinos with which they detected the neutrino in 1956.",
+    "technical": "Savannah River Site (formerly Savannah River Plant): 310 square miles in Aiken, Barnwell and Allendale counties, South Carolina; five production reactors built from 1951 (R, P, K, L, C). Host of the Cowan–Reines reactor-antineutrino experiment at P Reactor, 1955-1956."
+  },
+  "topic_ids": [
+    "topic:reactor-neutrinos"
+  ],
+  "type": "facility"
+}
