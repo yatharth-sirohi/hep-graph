@@ -309,7 +309,7 @@ def test_an_entry_has_only_the_fields_the_record_carries(out: dict) -> None:
     assert c["journal"]["type"] == "article" and "journal = {Phys. Lett. B}" in c["journal"]["text"]
     assert "journal" not in c["journal"]["missing"]
     assert "author = {Doe, J. and Roe, R.}" in c["authors"]["text"]
-    assert "note = {Report number CERN-EP-2012-1}" in c["report"]["text"]
+    assert "note = {Announced 2012-07-04; Report number CERN-EP-2012-1}" in c["report"]["text"]
     # A document: its owner is not its author.
     assert c["doc"]["ok"] and "author" not in c["doc"]["text"] and "year = {1990}" in c["doc"]["text"]
     assert "author" in c["doc"]["missing"]
