@@ -895,8 +895,8 @@ types without changing entity files.
 
 Bundle budget: `atlas.json` + `manifest.json` ≤ 400 KB uncompressed was set
 against the three-experiment pilot and is now a warning threshold rather than a
-target; at 30 experiments the bundle is ~457 KB. The build still fails above
-1.5 MB and prints per-type sizes, and the lazily loaded bundles (provenance,
+target; at 30 experiments the bundle is ~457 KB. The build fails above
+2.5 MB raw or 500 KB gzipped (raised for A26) and prints per-type sizes, and the lazily loaded bundles (provenance,
 sources, institutions, text, graph) are where growth is expected to land.
 
 ## 9. Validation (structural, build-failing)
