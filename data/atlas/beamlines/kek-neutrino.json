@@ -4,7 +4,35 @@
     "KEK-PS neutrino beamline",
     "K2K beamline"
   ],
-  "baselines": [],
+  "baselines": [
+    {
+      "confidence": "verified",
+      "distance": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "length",
+        "display": "250 km",
+        "locator": "KEK K2K FAQ page, answer on the beam path",
+        "note": "The K2K paper states it twice: \"uses an accelerator-produced beam of nearly pure νμ with a neutrino flight distance of 250 km\" (§I) and the far detector \"which is located 250 km away from KEK\" (§III). The KEK end is site:kek-tsukuba-belle-ii, the only KEK site in the Atlas (the KEK Tsukuba campus, used as a proxy: the Atlas has no record for the KEK-PS neutrino beamline site itself). The great-circle distance between the two recorded points is 249.6 km (0.2 % from the stated value).",
+        "quote": "After passing through the near detectors, the neutrino beam enters the earth and emerges at Super-Kamiokande, 250 km away.",
+        "sources": [
+          "src:k2k-faq-page",
+          "src:k2k-prd-2006"
+        ],
+        "unit": "km",
+        "value": 250,
+        "verified_at": "2026-10-26"
+      },
+      "from_site_id": "site:kek-tsukuba-belle-ii",
+      "note": "",
+      "sources": [
+        "src:k2k-faq-page",
+        "src:k2k-prd-2006"
+      ],
+      "to_site_id": "site:kamioka-mozumi-mine-super-kamiokande",
+      "verified_at": "2026-10-26"
+    }
+  ],
   "coverage": {
     "researched": "full",
     "tier": "B"
@@ -121,14 +149,14 @@
       "confidence": "verified",
       "dimension": "length",
       "display": "250 km",
-      "note": "The Atlas has no site record for the KEK end of the baseline, so the 250 km distance is recorded as a spec rather than as a site-to-site baseline.",
+      "note": "Also recorded as a site-to-site baseline in `baselines` (KEK Tsukuba campus point to Super-Kamiokande).",
       "quote": "a neutrino flight distance of 250 km",
       "sources": [
         "src:k2k-prd-2006"
       ],
       "unit": "km",
       "value": 250,
-      "verified_at": "2026-09-16"
+      "verified_at": "2026-10-26"
     },
     "proton_energy": {
       "approx": false,
