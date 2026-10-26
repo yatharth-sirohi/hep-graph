@@ -1,0 +1,164 @@
+{
+  "accelerator_ids": [],
+  "aliases": [
+    "Taishan Antineutrino Observatory",
+    "TAO"
+  ],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:juno"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
+  },
+  "energy_regime": null,
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:taishan-npp",
+      "locator": "abstract",
+      "note": "",
+      "quote": "A ton-level liquid scintillator detector will be placed at about 30 m from a core of the Taishan Nuclear Power Plant.",
+      "role": "host",
+      "sources": [
+        "src:juno-tao-cdr-2020"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:juno-tao",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2024-09",
+      "label": "proposed (conceptual design report)",
+      "locator": "TAO CDR (arXiv:2005.08745), abstract page; the report states \"The experiment is expected to start operation in 2022.\"",
+      "note": "Start is the arXiv submission month of the conceptual design report; the report's planned 2022 start was not met. The end is the start of assembly at the plant (next interval); a 1:1 prototype ran at IHEP from December 2023 (talk) and was disassembled in summer 2024.",
+      "quote": "Submitted on 18 May 2020",
+      "sources": [
+        "src:juno-tao-cdr-2020"
+      ],
+      "start": "2020-05",
+      "status": "proposed",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "construction (assembly in the plant)",
+      "locator": "IAEA TM talk (April 2025), slide \"Assembling in Taishan\"",
+      "note": "April 2025 talk: liquid-scintillator filling was to start in late April 2025 and commissioning data taking in May 2025 (both planned). No fetched source confirms that commissioning has begun or that data taking has started, so the experiment stays at `construction`.",
+      "quote": "Assembling in Taishan • Started from Sept. 2024",
+      "sources": [
+        "src:juno-tao-iaea-2025-status"
+      ],
+      "start": "2024-09",
+      "status": "construction",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Distance to the reactor core",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "length",
+        "display": "44 m",
+        "locator": "slide 2",
+        "note": "The 2020 design report gave about 30 m; the 2025 status talk gives 44 m.",
+        "quote": "Location: • 44 m from Taishan NPP core (4.6 GW)",
+        "sources": [
+          "src:juno-tao-iaea-2025-status"
+        ],
+        "unit": "m",
+        "value": 44,
+        "verified_at": "2026-10-26"
+      }
+    },
+    {
+      "label": "Reactor thermal power",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "power",
+        "display": "4.6 GW",
+        "locator": "slide 2",
+        "note": "",
+        "quote": "Location: • 44 m from Taishan NPP core (4.6 GW)",
+        "sources": [
+          "src:juno-tao-iaea-2025-status"
+        ],
+        "unit": "GW",
+        "value": 4.6,
+        "verified_at": "2026-10-26"
+      }
+    },
+    {
+      "label": "Gd-doped liquid-scintillator target",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "mass",
+        "display": "2.8 ton (1 ton fiducial)",
+        "locator": "abstract",
+        "note": "",
+        "quote": "A spherical acrylic vessel containing 2.8 ton gadolinium-doped liquid scintillator",
+        "sources": [
+          "src:juno-tao-cdr-2020"
+        ],
+        "unit": "t",
+        "value": 2.8,
+        "verified_at": "2026-10-26"
+      }
+    }
+  ],
+  "kind": "reactor_neutrino",
+  "lineage": [],
+  "links": {
+    "website": null
+  },
+  "name": "JUNO-TAO",
+  "notes": [
+    "TAO is a satellite experiment of JUNO and is run by the JUNO Collaboration (the CDR is authored by \"The JUNO Collaboration\"), so no separate collaboration record is created; experiment:juno is committed and not edited here (a complementary/same-programme lineage row is listed for the integrator).",
+    "No TAO physics result has been published in the sources consulted; no result record."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "abstract",
+      "note": "",
+      "quote": "The reactor antineutrino spectrum will be measured with sub-percent energy resolution, to provide a reference spectrum for future reactor neutrino experiments, and to provide a benchmark measurement to test nuclear databases.",
+      "sources": [
+        "src:juno-tao-cdr-2020"
+      ],
+      "value": "Measure the reactor antineutrino spectrum with sub-percent energy resolution, giving JUNO a reference spectrum and testing nuclear databases",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:juno-tao-cdr-2020",
+    "src:juno-tao-iaea-2025-status"
+  ],
+  "status": "construction",
+  "summary": {
+    "plain": "A small, very precise antineutrino detector being installed in a basement at the Taishan nuclear power plant. Cooled to minus 50 degrees and read out by silicon light sensors, it will measure the reactor spectrum with unprecedented resolution as a reference for the larger JUNO detector 53 km away.",
+    "technical": "Taishan Antineutrino Observatory: 2.8 t Gd-doped liquid scintillator (1 t fiducial) in a 1.8 m acrylic sphere viewed by ~10 m^2 of SiPMs (>50 % PDE, ~4500 p.e./MeV) at -50 C, 44 m from a 4.6 GW_th EPR core at -9.6 m depth; ~2000 IBD/day; satellite of JUNO providing a sub-percent-resolution reference spectrum. Assembly in the plant began September 2024."
+  },
+  "topic_ids": [
+    "topic:reactor-neutrinos",
+    "topic:neutrino-oscillations"
+  ],
+  "type": "experiment",
+  "unique_capabilities": []
+}

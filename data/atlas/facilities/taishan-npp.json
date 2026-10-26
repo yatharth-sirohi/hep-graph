@@ -1,0 +1,73 @@
+{
+  "aliases": [],
+  "countries": [
+    "CN"
+  ],
+  "country": [
+    "CN"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
+  },
+  "id": "facility:taishan-npp",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2024-09",
+      "label": "candidate host of JUNO-TAO (conceptual design report)",
+      "locator": "TAO CDR (arXiv:2005.08745), abstract page; \"A ton-level liquid scintillator detector will be placed at about 30 m from a core of the Taishan Nuclear Power Plant.\"",
+      "note": "Start is the submission month of the TAO conceptual design report, which names the plant as the host; interval of the neutrino-physics use only.",
+      "quote": "Submitted on 18 May 2020",
+      "sources": [
+        "src:juno-tao-cdr-2020"
+      ],
+      "start": "2020-05",
+      "status": "proposed",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "hosting JUNO-TAO (assembly)",
+      "locator": "IAEA TM talk (April 2025), slide \"Assembling in Taishan\"",
+      "note": "Interval of the neutrino-physics use only: assembly of the TAO detector in the plant began in September 2024. The plant itself (two EPR units in operation, two more possibly to follow) is not dated here; status `construction` is the status of the TAO installation, which is why this facility record is marked `construction` rather than `active`.",
+      "quote": "Assembling in Taishan • Started from Sept. 2024",
+      "sources": [
+        "src:juno-tao-iaea-2025-status"
+      ],
+      "start": "2024-09",
+      "status": "construction",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "kind": "reactor_site",
+  "links": {
+    "website": null
+  },
+  "name": "Taishan Nuclear Power Plant",
+  "notes": [
+    "Plant description from the TAO CDR: \"Taishan Nuclear Power Plant locates in Chixi town of Taishan city in Guangdong province, 53 km from the JUNO experiment. It has two cores currently in operation.\""
+  ],
+  "operator": null,
+  "operator_ids": [],
+  "primary_site_id": "site:taishan-npp-tao-basement",
+  "related_facility_ids": [],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:juno-tao-cdr-2020",
+    "src:juno-tao-iaea-2025-status",
+    "src:geo-juno-tao-nominatim-taishan"
+  ],
+  "specs": {},
+  "status": "construction",
+  "summary": {
+    "plain": "A nuclear power plant on the coast of Guangdong, China, with two of the world's most powerful reactors; a small detector, TAO, is being installed in a basement about 44 metres from one core to measure its antineutrinos precisely for the nearby JUNO experiment.",
+    "technical": "Taishan Nuclear Power Plant, Chixi town, Taishan city, Guangdong, 53 km from JUNO: two EPR cores of 4.6 GW thermal power each in operation (two more possibly later); host of the JUNO-TAO near detector."
+  },
+  "topic_ids": [
+    "topic:reactor-neutrinos",
+    "topic:neutrino-oscillations"
+  ],
+  "type": "facility"
+}
