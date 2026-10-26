@@ -86,6 +86,12 @@ const SHEETS = {
     },
     dialogLabel: () => 'Selected feature',
   },
+  // The Start-here card (start.js) is already a bottom sheet here, with its own
+  // close; it is listed only so the globe shrinks to the strip above it.
+  start: {
+    get: () => document.getElementById('start-card'),
+    dialogLabel: () => 'Start here',
+  },
 };
 
 function headingText(el) {
@@ -369,7 +375,7 @@ function watchSheets() {
     const el = sheet.get();
     if (!el || watched.has(el)) continue;
     watched.add(el);
-    sheetObserver.observe(el, { attributes: true, attributeFilter: ['class'] });
+    sheetObserver.observe(el, { attributes: true, attributeFilter: ['class', 'hidden'] });
     sizeObserver.observe(el);
   }
 }
