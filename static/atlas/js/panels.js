@@ -115,7 +115,7 @@ function recordLinks(records) {
 
 function resultLinks(results) {
   return results.length
-    ? h('ul', { class: 'entity-list' }, results.map((r) => h('li', {}, linkTo(idRoute(r.id), r.title))))
+    ? h('ul', { class: 'entity-list' }, results.map((r) => h('li', {}, linkTo(idRoute(r.id), r.name || r.title))))
     : null;
 }
 
@@ -696,7 +696,7 @@ async function renderExperiment(id, timelineState) {
     ? h('ol', { class: 'entity-list timeline-list' }, results.map((r) => h('li', {}, [
       h('span', { class: 'result-date' }, r.date || String(r.year || '')),
       ' ',
-      linkTo(idRoute(r.id), r.title),
+      linkTo(idRoute(r.id), r.name || r.title),
     ])))
     : null, { open: false, label: notYetOperating ? 'Results (not yet operating, none expected)' : 'Results' });
 
@@ -967,8 +967,13 @@ async function renderResult(id) {
 
   const frag = document.createDocumentFragment();
   const sections = panelSections(frag);
-  frag.appendChild(h('h2', {}, result.title));
+  // The heading is the Atlas's own name (typeset notation); the paper's title
+  // is kept verbatim underneath when it differs, as it was published.
+  frag.appendChild(h('h2', {}, result.name || result.title));
   frag.appendChild(h('p', { class: 'panel-subtitle' }, `${titleCase(result.result_type)} · ${fmtDate(result.date)}`));
+  if (result.title && result.name && result.title !== result.name) {
+    frag.appendChild(h('p', { class: 'source-meta' }, `Paper title: ${result.title}`));
+  }
   const claim = (t.claim && t.claim.quote) || (result.claim && result.claim.quote) || (result.summary && result.summary.plain) || '';
   if (claim) frag.appendChild(h('p', {}, claim));
   // The bundle carries one `date` plus a `date_kind` ("announcement" |

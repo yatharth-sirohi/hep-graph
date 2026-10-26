@@ -516,8 +516,8 @@ async function setRangeValue(locator, value) {
         node.tagName === "H4" ? `H4:${node.textContent}` : `UL:${[...node.querySelectorAll("a")].map((a) => a.textContent).join("|")}`)));
       assert.equal(order.length, 3, JSON.stringify(order));
       assert.equal(order[1], "H4:Technology milestones");
-      assert.doesNotMatch(order[0], /Excavation of colossal caverns/, "a milestone is not among the physics results");
-      assert.match(order[2], /Excavation of colossal caverns/);
+      assert.doesNotMatch(order[0], /Excavation of (colossal caverns|the DUNE far-site caverns)/, "a milestone is not among the physics results");
+      assert.match(order[2], /Excavation of (colossal caverns|the DUNE far-site caverns)/);
       await ctx.close();
     });
 
