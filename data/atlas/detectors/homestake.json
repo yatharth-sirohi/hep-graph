@@ -11,30 +11,49 @@
   "id": "detector:homestake",
   "intervals": [
     {
+      "confidence": "verified",
+      "end": "1967",
+      "label": "construction",
+      "locator": "Cleveland et al. 1998, section 1 (Introduction)",
+      "note": "Davis's Nobel lecture also shows the experiment's chamber half-excavated in the summer of 1965.",
+      "quote": "The Homestake solar neutrino experiment was built in the period 1965–1967",
+      "sources": [
+        "src:homestake-1998-flux-measurement"
+      ],
+      "start": "1965",
+      "status": "construction",
+      "verified_at": "2026-10-26"
+    },
+    {
       "confidence": "approximate",
       "end": "1994",
-      "label": "continuous operation",
-      "note": "Dates sourced from Wikipedia (rank 12) only.",
-      "quote": "The experiment operated continuously from 1970 until 1994.",
+      "label": "operation",
+      "locator": "Davis, Nobel Lecture 2002, p. 68, paragraph after Fig. 7",
+      "note": "Start: the year Davis gives for the experiment becoming operational. The standard data set analysed by Cleveland et al. begins in 1970, when rise-time counting was introduced. The end is the end of the standard data set, not a documented shutdown: Cleveland et al. (accepted October 1997) still describe the detector as measuring solar neutrinos, and no source read dates the end of operation. The Homestake mine itself closed in 2001.",
+      "quote": "The Homestake experiment became operational in 1967.",
       "sources": [
-        "src:homestake-wikipedia"
+        "src:rf06-davis-nobel-lecture-2002",
+        "src:homestake-1998-flux-measurement",
+        "src:surf-our-story"
       ],
-      "start": "1970",
+      "start": "1967",
       "status": "active",
-      "verified_at": "2026-09-18"
+      "verified_at": "2026-10-26"
     },
     {
       "confidence": "approximate",
       "end": null,
       "label": "shut down",
-      "note": "Terminal event date sourced from Wikipedia (rank 12) only.",
-      "quote": "The experiment operated continuously from 1970 until 1994.",
+      "locator": "Cleveland et al. 1998, section 7.1",
+      "note": "A bound on the end of the standard data set, not a shutdown date. The end is the end of the standard data set, not a documented shutdown: Cleveland et al. (accepted October 1997) still describe the detector as measuring solar neutrinos, and no source read dates the end of operation. The Homestake mine itself closed in 2001.",
+      "quote": "Our standard data set consists of 108 solar neutrino observations made between 1970 and 1994.",
       "sources": [
-        "src:homestake-wikipedia"
+        "src:homestake-1998-flux-measurement",
+        "src:surf-our-story"
       ],
       "start": "1994",
       "status": "completed",
-      "verified_at": "2026-09-18"
+      "verified_at": "2026-10-26"
     }
   ],
   "links": {
@@ -47,24 +66,25 @@
   "parent_detector_id": null,
   "placements": [
     {
-      "confidence": "uncertain",
+      "confidence": "approximate",
       "end": "1994",
-      "note": "site:surf-surface-campus is an approximate campus-level point for the whole SURF/Homestake site, used because no distinct sourced coordinate exists for the Davis chlorine-tank chamber. The detector was actually ~1478 m (4850 ft) underground, not at the surface; the placement's role and dates are sourced, but the site point only marks the general campus location, not the true underground depth.",
-      "quote": "The experiment took place in the Homestake Gold Mine in Lead, South Dakota. ... The experiment operated continuously from 1970 until 1994.",
+      "note": "site:surf-surface-campus is an approximate campus-level point for the whole SURF/Homestake site, used because no distinct sourced coordinate exists for the Davis chlorine-tank chamber. The detector was actually ~1478 m (4850 ft) underground, not at the surface; the placement's role is sourced from the 1998 paper, its dates from the experiment's intervals, but the site point only marks the general campus location, not the true underground depth.",
+      "quote": "The Homestake Solar Neutrino Observatory is located in the Homestake Gold Mine, at Lead, South Dakota",
       "role": "main",
       "site_id": "site:surf-surface-campus",
       "sources": [
-        "src:homestake-wikipedia",
+        "src:homestake-1998-flux-measurement",
         "src:rf06-davis-nobel-lecture-2002"
       ],
-      "start": "1970",
-      "verified_at": "2026-10-25"
+      "start": "1967",
+      "verified_at": "2026-10-26"
     }
   ],
   "schema": "hep-atlas/0.2",
   "sources": [
     "src:homestake-wikipedia",
-    "src:homestake-1998-flux-measurement"
+    "src:homestake-1998-flux-measurement",
+    "src:rf06-davis-nobel-lecture-2002"
   ],
   "specs": {
     "target_mass": {
@@ -85,7 +105,7 @@
   "subsystems": [],
   "summary": {
     "plain": "A tank of dry-cleaning fluid, nearly a mile underground, that turned rare chlorine atoms into argon whenever a solar neutrino struck.",
-    "technical": "Radiochemical chlorine-argon detector, 380 m³ perchloroethylene target, 1478 m (4850 ft) underground in the Homestake mine; ran 1970-1994, measured 37Ar production rate 2.56±0.16(stat)±0.16(syst) SNU."
+    "technical": "Radiochemical chlorine-argon detector, 380 m³ perchloroethylene target, 1478 m (4850 ft) underground in the Homestake mine; built 1965-1967, operational from 1967 (standard data set 1970-1994), measured 37Ar production rate 2.56±0.16(stat)±0.16(syst) SNU."
   },
   "technology": {
     "confidence": "verified",
