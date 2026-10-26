@@ -104,6 +104,14 @@
      on the globe stage (0.4 was 2.0:1). */
   --planned-fade: 0.7;
 
+  /* ---- the globe stage: the Earth image stays dark in every theme (classroom.css's
+     projector mode redefines the surfaces and text above, not these), so what is drawn
+     on it - glyph details, selection rings and captions - takes constants of its own. */
+  --globe-ink: #0b1620;
+  --globe-amber: #f2b441;
+  --marker-label-size: var(--text-xs);   /* marker, cluster and beam-label captions */
+  --beam-stroke-scale: 1;                /* multiplies the beam arcs' width (js/globe.js) */
+
   /* ---- type scale (px) and faces */
   --font-ui: Inter, "STIX Two Math", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;

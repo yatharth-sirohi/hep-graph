@@ -69,6 +69,10 @@ function parseSearch(search) {
     // "all levels", which is not the same as "no levels" (`[]`).
     levels: null, basemap: true, sel: null,
     results: parseResultsView(params),
+    // ---- classroom modes (js/classroom.js): `?embed=1` and `?theme=projector|standard`
+    // ride along in every address the app writes, so reloading or sharing keeps them.
+    embed: params.get('embed') === '1',
+    theme: ['projector', 'standard'].includes(params.get('theme')) ? params.get('theme') : null,
   };
   if (params.has('y')) {
     const y = parseInt(params.get('y'), 10);
@@ -111,6 +115,8 @@ function readLocation() {
 function buildURL(state) {
   const params = new URLSearchParams();
   if (state.dataMode) params.set('data', state.dataMode);
+  if (state.embed) params.set('embed', '1');
+  if (state.theme) params.set('theme', state.theme);
   if (state.year != null) params.set('y', String(state.year));
   if (state.range) params.set('r', `${state.range[0]}-${state.range[1]}`);
   if (state.topic) params.set('t', state.topic);
@@ -163,6 +169,14 @@ export function navigate(patch, { replace = false } = {}) {
     window.history.pushState(current, '', url);
   }
   notify();
+}
+
+/** Merge `patch` into the current state and rewrite the address in place, without
+ * telling any subscriber: for a view preference (the theme) that changes nothing the
+ * panels or the globe draw, so it must not re-render them. */
+export function patchQuietly(patch) {
+  current = { ...current, ...patch };
+  window.history.replaceState(current, '', buildURL(current));
 }
 
 export function get() {

@@ -14,6 +14,11 @@
     <link rel="stylesheet" href="/atlas/views.css" />
     <link rel="stylesheet" href="/atlas/phone.css" />
     <link rel="stylesheet" href="/atlas/export.css" />
+    <link rel="stylesheet" href="/atlas/classroom.css" />
+    <!-- Classic, render-blocking and tiny: it sets the theme (?theme=, or the remembered
+         choice) and the embed class (?embed=1) before the first paint, so a projector or
+         embedded page never flashes the standard chrome. -->
+    <script src="/atlas/js/classroom-boot.js"></script>
   </head>
   <body>
     <a class="skip-link" href="#atlas-main">Skip to atlas</a>
@@ -52,6 +57,12 @@
         <button type="button" id="filters-btn" class="tool-btn" aria-expanded="false" aria-controls="filters-panel">
           Filters<span id="filters-badge" class="tool-badge" hidden></span>
         </button>
+        <!-- Projector mode (js/classroom.js): a light, high-contrast theme with larger type.
+             On a phone this button moves into the "Views & filters" sheet (phone.js). -->
+        <button type="button" id="theme-btn" class="tool-btn theme-btn" aria-pressed="false" aria-label="Projector mode"
+                title="Projector mode: a light, high-contrast theme with larger type, for a lecture hall">
+          <span class="theme-btn-label">Projector</span><span class="theme-btn-state" aria-hidden="true">Off</span>
+        </button>
         <div id="key-popover" class="key-popover" role="dialog" aria-label="Key to the map and the colours" tabindex="-1" hidden>
           <div id="key-body" class="key-body">
             <div id="marker-legend" class="marker-legend"></div>
@@ -68,6 +79,9 @@
         </button>
         <div id="export-popover" class="export-popover" role="dialog" tabindex="-1" hidden></div>
       </div>
+      <!-- Embed mode only (?embed=1, classroom.css): the same view at full size, in a new tab.
+           A child of the header itself, not of .header-tools, which a narrow frame hides. -->
+      <a id="embed-open" class="embed-open" href="/atlas/" target="_blank" rel="noopener">Open in HEP Atlas<span class="visually-hidden"> (opens in a new tab)</span></a>
     </header>
 
     <!-- axe "region" (all page content must be contained by a landmark):

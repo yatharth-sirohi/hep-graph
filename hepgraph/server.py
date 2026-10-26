@@ -264,6 +264,12 @@ class Handler(BaseHTTPRequestHandler):
             'image/svg+xml', 'model/gltf-binary',
         }
 
+    def _frame_ancestors(self):
+        """The `frame-ancestors` source list for this request's path: `*` for
+        /atlas and its assets, `'none'` for everything else."""
+        path = urllib.parse.urlsplit(self.path).path
+        return '*' if path == '/atlas' or path.startswith('/atlas/') else "'none'"
+
     def respond(self, value, status=200, content_type='application/json; charset=utf-8', *, cache_control=None, etag=None, raw=False, cdn_cache_control=None):
         body = json.dumps(value, ensure_ascii=False, allow_nan=False).encode() if content_type.startswith('application/json') and not raw else value
         encoding = None
@@ -294,7 +300,10 @@ class Handler(BaseHTTPRequestHandler):
         # <img> tiles with the mandatory attribution shown. This is the only
         # third-party origin the policy allows, and only for images —
         # script-src, connect-src and default-src stay 'self'.
-        self.send_header('Content-Security-Policy', "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://tile.openstreetmap.org https://*.tile.openstreetmap.org; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'")
+        # frame-ancestors: the HEP Atlas (and the files under /atlas) may be framed by
+        # any page so that a course page or an LMS can embed it (?embed=1); every
+        # other response - the HEP Graph app and the whole API - is never framed.
+        self.send_header('Content-Security-Policy', "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://tile.openstreetmap.org https://*.tile.openstreetmap.org; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors " + self._frame_ancestors())
         self.send_header('Permissions-Policy', 'camera=(), microphone=(), geolocation=()')
         self.end_headers()
         if self.command != 'HEAD':

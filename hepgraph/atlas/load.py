@@ -59,6 +59,7 @@ class Atlas:
     entities: dict[str, dict[str, dict]] = field(default_factory=lambda: {t: {} for t in schema.ENTITY_TYPES})
     memberships: dict[str, dict] = field(default_factory=dict)
     coverage: list[dict] = field(default_factory=list)
+    glossary: list[dict] = field(default_factory=list)
     files: dict[str, str] = field(default_factory=dict)
     membership_files: dict[str, str] = field(default_factory=dict)
     problems: list[LoadProblem] = field(default_factory=list)
@@ -152,6 +153,8 @@ def load_atlas(root: Path | str = DATA_DIR) -> Atlas:
             _load_membership(atlas, path, payload)
         elif directory == 'coverage':
             _load_coverage(atlas, path, payload)
+        elif directory == 'glossary':
+            _load_glossary(atlas, path, payload)
         elif directory == 'topics':
             _load_topics(atlas, path, payload)
         elif directory in schema.DIR_TO_TYPE:
@@ -400,6 +403,30 @@ def _load_membership(atlas: Atlas, path: Path, payload: Any) -> None:
         payload = {**payload, 'members': []}
     atlas.memberships[collaboration_id] = payload
     atlas.membership_files[collaboration_id] = atlas.relative(path)
+
+
+def _load_glossary(atlas: Atlas, path: Path, payload: Any) -> None:
+    """`glossary/*.json`: each file a JSON list of term records (schema.GLOSSARY_*)."""
+    if isinstance(payload, dict):
+        payload = [payload]
+    if not isinstance(payload, list):
+        atlas.problem(path, 'glossary file must contain a JSON list of term records')
+        return
+    seen = {row.get('id') for row in atlas.glossary}
+    for index, row in enumerate(payload):
+        if not isinstance(row, dict):
+            atlas.problem(path, f'glossary[{index}] is not an object')
+            continue
+        term_id = row.get('id')
+        if not isinstance(term_id, str) or not term_id:
+            atlas.problem(path, f'glossary[{index}] has no "id"')
+            continue
+        if term_id in seen:
+            atlas.problem(path, f'duplicate glossary term {term_id!r}')
+            continue
+        seen.add(term_id)
+        atlas.glossary.append({**row, '_file': atlas.relative(path)})
+    atlas.glossary.sort(key=lambda row: row['id'])
 
 
 def _load_coverage(atlas: Atlas, path: Path, payload: Any) -> None:

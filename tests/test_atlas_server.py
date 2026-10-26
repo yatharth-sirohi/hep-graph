@@ -271,9 +271,34 @@ def test_csp_allows_openstreetmap_tiles_as_images_only(service, atlas_dir) -> No
     assert "https://tile.openstreetmap.org" in img_src
     assert "https://*.tile.openstreetmap.org" in img_src
     for directive in ("default-src 'self'", "script-src 'self'", "connect-src 'self'",
-                      "object-src 'none'", "frame-ancestors 'none'"):
+                      "object-src 'none'", "frame-ancestors *"):
         assert directive in policy, directive
     assert "openstreetmap" not in policy.replace(img_src, "")
+
+
+def _frame_ancestors(headers: dict[str, str]) -> str:
+    policy = headers["Content-Security-Policy"]
+    return next(d.strip() for d in policy.split(";") if d.strip().startswith("frame-ancestors"))
+
+
+def test_only_the_atlas_may_be_framed(service, atlas_dir) -> None:
+    """A course page or LMS embeds the Atlas (`?embed=1`), so /atlas and its assets
+    send `frame-ancestors *`. The HEP Graph app, its assets and the whole API keep
+    `frame-ancestors 'none'`, and the rest of each policy is identical."""
+    base, _ = service
+    atlas_paths = ["/atlas", "/atlas/", "/atlas?embed=1", "/atlas/atlas.js", "/atlas/atlas.css",
+                   "/atlas/generated/manifest.json", "/atlas/missing.js"]
+    for path in atlas_paths:
+        _status, headers, _body = _request(base, path)
+        assert _frame_ancestors(headers) == "frame-ancestors *", path
+    other_paths = ["/", "/index.html", "/favicon.svg", "/api/health", "/api/dataset", "/atlasx", "/not-a-page"]
+    for path in other_paths:
+        _status, headers, _body = _request(base, path)
+        assert _frame_ancestors(headers) == "frame-ancestors 'none'", path
+    _status, atlas_headers, _body = _request(base, "/atlas/")
+    _status, app_headers, _body = _request(base, "/api/health")
+    strip = lambda headers: _frame_ancestors(headers) and headers["Content-Security-Policy"].rsplit(";", 1)[0]
+    assert strip(atlas_headers) == strip(app_headers), "only frame-ancestors may differ between the two policies"
 
 
 def test_generated_files_are_cacheable_and_sent_byte_for_byte(service, atlas_dir) -> None:

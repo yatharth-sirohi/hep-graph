@@ -1156,6 +1156,36 @@ def build_graph_bundle(ctx: _Context) -> dict:
     return {'schema': schema.SCHEMA_TAG, 'edges': unique}
 
 
+def build_glossary_bundle(ctx: _Context) -> dict:
+    """`glossary.json`: the terms a panel's popovers define (docs/HEP_ATLAS_BUNDLES.md).
+
+    Small enough to carry its provenance inline: each term names its first source
+    (title, publisher, url) beside the verbatim quote and locator, so the popover
+    shows where a definition comes from without loading `sources.json`.
+    """
+    terms = []
+    for term in ctx.atlas.glossary:
+        source = None
+        for source_id in term.get('sources') or []:
+            record = ctx.atlas.get(source_id)
+            if record is not None:
+                source = {key: record[key] for key in ('id', 'title', 'publisher', 'url') if record.get(key)}
+                break
+        terms.append({
+            'confidence': term.get('confidence'),
+            'definition': term['definition'],
+            'id': term['id'],
+            'locator': term.get('locator'),
+            'match': list(term.get('match') or []),
+            'quote': term.get('quote'),
+            'source': source,
+            'term': term.get('term'),
+            'title': term.get('title'),
+            'verified_at': term.get('verified_at'),
+        })
+    return {'schema': schema.SCHEMA_TAG, 'terms': terms}
+
+
 def build_coverage_bundle(ctx: _Context) -> tuple[dict, dict[str, dict]]:
     """`coverage.json`: the merged registry plus the derived A10 flags.
 
@@ -1732,6 +1762,8 @@ def build(data_dir: Path | str | None = None, out_dir: Path | str | None = None,
         'graph.json': build_graph_bundle(ctx),
         'coverage.json': coverage_bundle,
     }
+    if atlas.glossary:
+        files['glossary.json'] = build_glossary_bundle(ctx)
     files.update(build_membership_bundles(ctx))
     people_bundles = build_people_bundles(ctx)
     files.update(people_bundles)

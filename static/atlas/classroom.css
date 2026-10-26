@@ -1,0 +1,473 @@
+/* HEP Atlas classroom modes: projector mode, embed mode, and the built-in
+   explanations (glossary popover, plain/technical summary toggle).
+   Loaded last (after atlas.css, globe.css and phone.css). Everything here is either
+   scoped to :root[data-theme='projector'] / html.is-embed, or new classes of its own,
+   so with neither mode on the standard stylesheet is exactly what it was.
+
+   The two modes are switched before the first paint by js/classroom-boot.js
+   (?theme=projector, a remembered choice, ?embed=1) and driven by js/classroom.js. */
+
+/* =============================================================== projector */
+/* A light, high-contrast theme for a lecture hall, made by redefining the design
+   tokens: every rule in atlas.css, globe.css and phone.css already reads them. Type is
+   1.25x the standard scale (12/13/15/17/20/24/32 px -> 15/16/19/21/25/30/40), borders
+   and focus rings are thicker, and beam arcs are 1.5x. Body text is >= 7:1 on every
+   surface (WCAG AAA), measured by tests/test_atlas_static_css.py from these very
+   declarations. The globe's Earth image stays dark: what is drawn on it takes the
+   --globe-* constants (atlas.css), and the stage re-declares the bright amber below. */
+:root[data-theme='projector'] {
+  color-scheme: light;
+
+  /* ---- surfaces */
+  --navy: #e4ebf1;
+  --navy-2: #dbe4ec;
+  --ink: #ffffff;
+  --paper: #ffffff;
+  --panel: #f6f8fa;
+  --panel-2: #e9eef2;
+  --line: #8497a5;
+  --line-strong: #44596a;
+
+  /* ---- text and accents (UI colours that carry text are >= 7:1 on every surface) */
+  --white: #0a141c;
+  --muted: #2f424f;
+  --teal: #004d44;
+  --amber: #6e3a00;
+  --danger: #8c1c12;
+  --on-accent: #ffffff;
+  --on-amber: #ffffff;
+
+  /* ---- status palette on light surfaces: Okabe-Ito hues, darkened. Same checks as the
+     standard palette (>= 4.5:1 on --panel-2 except --status-unrecorded, a graphics-only
+     grey at >= 3:1; colour-vision-deficiency distances >= 15, greys >= 10). */
+  --status-active: #0b7343;
+  --status-upgrade: #2a5ad2;
+  --status-construction: #8c4000;
+  --status-planned: #991f90;
+  --status-completed: #3c3f43;
+  --status-retired: #595f64;
+  --status-unrecorded: #7b8389;
+  --planned-fade: 0.85;
+
+  /* ---- type scale, 1.25x */
+  --text-xs: 15px;
+  --text-sm: 16px;
+  --text-md: 19px;
+  --text-lg: 21px;
+  --text-xl: 25px;
+  --text-2xl: 30px;
+  --text-3xl: 40px;
+
+  /* ---- captions on the globe, and the beam arcs, carry across the room */
+  --marker-label-size: 16px;
+  --beam-stroke-scale: 1.5;
+
+  /* ---- shadows are lighter on a light page */
+  --elev-1: 0 1px 2px #00000033;
+  --elev-2: 0 5px 20px #00000026;
+  --elev-3: 0 16px 48px #00000040, 0 2px 8px #00000033;
+}
+
+/* The timeline's slider and every checkbox take the theme's accent, not the browser's blue. */
+:root[data-theme='projector'] input[type='range'],
+:root[data-theme='projector'] input[type='checkbox'] {
+  accent-color: var(--teal);
+}
+
+/* What sits on the dark Earth keeps the bright amber (selection ring, caption, leader). */
+:root[data-theme='projector'] .globe-stage {
+  --amber: var(--globe-amber);
+  --on-amber: #1c1204;
+}
+
+/* Thicker strokes: focus rings, the edge of every control, and the marker keylines. */
+:root[data-theme='projector'] :focus-visible {
+  outline-width: 3px;
+}
+:root[data-theme='projector'] #atlas-search,
+:root[data-theme='projector'] .tool-btn,
+:root[data-theme='projector'] .text-btn,
+:root[data-theme='projector'] .jump-year-btn,
+:root[data-theme='projector'] .mode-buttons,
+:root[data-theme='projector'] .filter-clear-all,
+:root[data-theme='projector'] .role-btn {
+  border-width: 2px;
+}
+:root[data-theme='projector'] .panel-section,
+:root[data-theme='projector'] .start-card,
+:root[data-theme='projector'] .key-popover,
+:root[data-theme='projector'] .mode-panel {
+  border-color: var(--line-strong);
+}
+/* A facility glyph's pale keyline (globeicons.js draws it as the first, pointer-less
+   group): 4.2 on a 24-unit glyph instead of 2.7-4. */
+:root[data-theme='projector'] .atlas-marker svg > g[pointer-events='none'] > * {
+  stroke-width: 4.2;
+}
+
+/* Captions on the globe: a light pill with dark text, a firm edge. */
+:root[data-theme='projector'] .atlas-marker:not(.is-cluster):not(.is-selected) .atlas-marker-label {
+  font-weight: 700;
+  color: var(--white);
+  background: #fffffff2;
+  border: 2px solid var(--line-strong);
+}
+:root[data-theme='projector'] .atlas-marker.is-selected .atlas-marker-label {
+  border: 2px solid #1c1204;
+}
+/* Beam labels ride on the dark Earth too. */
+:root[data-theme='projector'] .bl-pill {
+  font-weight: 700;
+  color: var(--white);
+  background: #fffffff2;
+  border: 2px solid #0b4a6b;
+  box-shadow: 0 1px 8px #00000099;
+}
+:root[data-theme='projector'] .bl-pill:hover,
+:root[data-theme='projector'] .bl-pill:focus-visible,
+:root[data-theme='projector'] .atlas-beam-label.is-selected .bl-pill {
+  background: #ffffff;
+  border-color: #000000;
+  color: var(--white);
+}
+:root[data-theme='projector'] .atlas-beam-label.is-quiet .bl-pill {
+  border-color: var(--line-strong);
+  color: var(--muted);
+}
+
+/* The Key shows the very glyphs the globe draws, which are made for a dark ground. */
+:root[data-theme='projector'] .legend-item > svg {
+  box-sizing: content-box;
+  padding: 3px;
+  border-radius: 5px;
+  background: var(--globe-ink);
+}
+
+/* The local map: dark chips become light ones, and the legend's line samples sit on the
+   dark chip the map draws them on (they are the map's own colours, made for tiles). */
+:root[data-theme='projector'] .map-canvas .leaflet-control-attribution,
+:root[data-theme='projector'] .map-canvas .leaflet-control-scale-line,
+:root[data-theme='projector'] .map-north {
+  background: #ffffffe6;
+  color: var(--white);
+}
+:root[data-theme='projector'] .map-label.leaflet-tooltip {
+  background: #fffffff2;
+  box-shadow: 0 1px 3px #00000066;
+}
+:root[data-theme='projector'] .map-symbol-icon .map-symbol {
+  border-color: #ffffff;
+}
+:root[data-theme='projector'] .map-swatch {
+  margin: 0 10px 0 4px;
+  box-shadow: 0 0 0 4px var(--globe-ink);
+}
+:root[data-theme='projector'] .map-swatch.legend-type-hall,
+:root[data-theme='projector'] .map-swatch.legend-rep-point {
+  border-color: var(--globe-amber);
+}
+
+/* Room for the larger type: wider record panel, list panels, drawer and cards. Only at
+   laptop width and up: a phone keeps its sheets exactly as phone.css lays them out. */
+@media (min-width: 901px) {
+  :root[data-theme='projector'] .atlas-header {
+    height: 64px;
+  }
+  :root[data-theme='projector'] .search-wrap {
+    max-width: 480px;
+  }
+  :root[data-theme='projector'] #atlas-main:not(.is-map-route):has(> .detail-panel:not(.hidden)) {
+    grid-template-columns: minmax(0, 1fr) clamp(380px, 30vw, 480px);
+  }
+  :root[data-theme='projector'] .mode-panel {
+    width: min(600px, 92%);
+  }
+  :root[data-theme='projector'] .filters-panel {
+    width: 300px;
+  }
+  :root[data-theme='projector'] #atlas-main:has(> .filters-panel.is-open) > .mode-panel {
+    margin-left: calc(300px + var(--space-3));
+  }
+  :root[data-theme='projector'] .start-card {
+    width: min(520px, calc(100% - 2 * var(--space-5)));
+  }
+}
+@media (min-width: 1084px) {
+  :root[data-theme='projector'] .mode-panel {
+    width: min(720px, 92%);
+  }
+}
+@supports not selector(:has(*)) {
+  @media (min-width: 901px) {
+    :root[data-theme='projector'] #atlas-main {
+      grid-template-columns: minmax(0, 1fr) clamp(380px, 30vw, 480px);
+    }
+  }
+}
+
+/* A local map hides the header's Key and Filters (atlas.css); the theme button stays,
+   so a lecturer can switch modes without leaving the map. (Phone: the sheet has it.) */
+@media (min-width: 901px) {
+  body.is-map-route .header-tools {
+    display: flex;
+  }
+  body.is-map-route #key-btn,
+  body.is-map-route #filters-btn {
+    display: none;
+  }
+}
+
+/* The header button: a labelled toggle. Its state is in its text and aria-pressed; the
+   fill is the second cue. */
+.theme-btn .theme-btn-state {
+  padding: 0 6px;
+  border-radius: var(--radius-pill);
+  background: var(--panel-2);
+  color: var(--muted);
+  font-size: var(--text-xs);
+  line-height: 1.5;
+}
+.theme-btn[aria-pressed='true'] {
+  background: var(--teal);
+  border-color: var(--teal);
+  color: var(--on-accent);
+}
+.theme-btn[aria-pressed='true'] .theme-btn-state {
+  background: var(--on-accent);
+  color: var(--teal);
+}
+/* In the phone sheet (phone.js moves it into the "Display" section): a full-width row. */
+.phone-section .theme-btn {
+  width: 100%;
+  justify-content: space-between;
+  min-height: 44px;
+  font-size: var(--text-md);
+}
+
+/* ================================================================== embed */
+/* ?embed=1: minimal chrome for a course page or an LMS iframe. No search, view
+   switcher, filters, projector button, footer or Start-here card; a small "Open in HEP
+   Atlas" link to the same view at full size; the timeline only where the route needs it
+   (classroom.js adds .embed-timeline for a local map; the boot script, for an address
+   that names a year or a range). */
+.embed-open {
+  display: none;
+}
+html.is-embed .embed-open {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px var(--space-3);
+  border-radius: var(--radius-sm);
+  background: var(--teal);
+  color: var(--on-accent);
+  font-size: var(--text-sm);
+  font-weight: 650;
+  line-height: 1.4;
+  text-decoration: none;
+  white-space: nowrap;
+}
+/* A narrow frame (an LMS column, a phone) uses the phone header, which is wrapped and
+   touch-sized: the link goes to the right of the title and is a full-size target. */
+@media (max-width: 900px) {
+  html.is-embed .embed-open {
+    margin-left: auto;
+    min-height: var(--phone-touch, 44px);
+  }
+}
+html.is-embed .embed-open:hover {
+  background: color-mix(in srgb, var(--teal) 82%, white);
+}
+html.is-embed .atlas-header {
+  height: auto;
+  min-height: 44px;
+  gap: var(--space-3);
+}
+html.is-embed .atlas-header .brand,
+html.is-embed .search-wrap,
+html.is-embed #mode-buttons,
+html.is-embed #filters-btn,
+html.is-embed #theme-btn,
+html.is-embed #phone-filters-btn,
+html.is-embed .atlas-footer,
+html.is-embed #start-card {
+  display: none !important;
+}
+html.is-embed .atlas-title {
+  font-size: var(--text-md);
+}
+html.is-embed:not(.embed-timeline) .timeline-bar {
+  display: none;
+}
+@media (min-width: 901px) {
+  :root[data-theme='projector'].is-embed .atlas-header {
+    height: 52px;
+  }
+}
+
+/* ============================================================ explanations */
+/* Glossary: the first use of a term in a record's text is a button (dotted underline)
+   that opens a small popover with the definition and its source. It is an inline
+   button with no padding or border, so wrapping a term changes no line box: nothing
+   moves when the glossary arrives. */
+.gloss-term {
+  appearance: none;
+  position: relative;
+  display: inline;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 2px;
+  background: none;
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+  text-align: inherit;
+  text-decoration: underline dotted;
+  text-decoration-color: var(--teal);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.22em;
+  cursor: help;
+  -webkit-tap-highlight-color: transparent;
+}
+/* A larger tap target that takes no room. */
+.gloss-term::after {
+  content: '';
+  position: absolute;
+  inset: -7px -3px;
+}
+.gloss-term:hover {
+  text-decoration-style: solid;
+}
+.gloss-term:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 2px;
+}
+.gloss-term[aria-expanded='true'] {
+  background: color-mix(in srgb, var(--teal) 18%, transparent);
+  text-decoration-style: solid;
+}
+.gloss-pop {
+  position: fixed;
+  z-index: 3000;
+  box-sizing: border-box;
+  width: min(380px, calc(100vw - 24px));
+  max-height: calc(100vh - 24px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: var(--space-3) var(--space-4) var(--space-3);
+  background: var(--panel);
+  color: var(--white);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  box-shadow: var(--elev-3);
+  font-size: var(--text-sm);
+  line-height: 1.45;
+}
+.gloss-pop[hidden] {
+  display: none;
+}
+.gloss-pop:focus {
+  outline: none;
+}
+.gloss-pop-title {
+  margin: 0 36px var(--space-1) 0;
+  font-size: var(--text-md);
+  font-weight: 650;
+  line-height: var(--leading-tight);
+}
+.gloss-pop-def {
+  margin: 0 0 var(--space-2);
+}
+.gloss-pop-source {
+  margin: 0;
+  font-size: var(--text-xs);
+  color: var(--muted);
+}
+.gloss-pop-source a {
+  color: var(--teal);
+  text-decoration: underline;
+}
+.gloss-pop-quote {
+  margin-top: var(--space-2);
+  font-size: var(--text-xs);
+  color: var(--muted);
+}
+.gloss-pop-quote summary {
+  cursor: pointer;
+  font-weight: 600;
+}
+.gloss-pop-quote blockquote {
+  margin: var(--space-1) 0 0;
+  padding-left: var(--space-2);
+  border-left: 2px solid var(--line-strong);
+  font-style: italic;
+  overflow-wrap: anywhere;
+}
+.gloss-pop-close {
+  appearance: none;
+  position: absolute;
+  top: var(--space-1);
+  right: var(--space-1);
+  display: inline-grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: none;
+  color: var(--white);
+  font-size: var(--text-xl);
+  line-height: 1;
+  cursor: pointer;
+}
+.gloss-pop-close:hover {
+  background: var(--panel-2);
+}
+
+/* Plain / technical summary toggle at the top of a record. */
+.summary-toggle {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin: 0 0 var(--space-3);
+  font-size: var(--text-xs);
+}
+.summary-toggle-label {
+  color: var(--muted);
+  font-weight: 600;
+}
+.summary-toggle-group {
+  display: inline-flex;
+  gap: 2px;
+  padding: 2px;
+  background: var(--paper);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-pill);
+}
+.summary-toggle-btn {
+  appearance: none;
+  padding: 3px 12px;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--white);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  line-height: 1.4;
+  cursor: pointer;
+}
+.summary-toggle-btn:hover {
+  background: color-mix(in srgb, var(--white) 10%, transparent);
+}
+.summary-toggle-btn[aria-pressed='true'],
+.summary-toggle-btn[aria-pressed='true']:hover {
+  background: var(--teal);
+  color: var(--on-accent);
+}
+.summary-toggle-note {
+  flex-basis: 100%;
+  margin: 0;
+  color: var(--muted);
+  font-style: italic;
+}

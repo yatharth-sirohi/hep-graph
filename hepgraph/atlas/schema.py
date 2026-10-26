@@ -60,7 +60,17 @@ ENTITY_DIRS: dict[str, str] = {
 DIR_TO_TYPE: dict[str, str] = {v: k for k, v in ENTITY_DIRS.items()}
 ENTITY_TYPES: tuple[str, ...] = tuple(ENTITY_DIRS)
 # Directories that hold non-entity files (keyed by collaboration / workstream).
-AUXILIARY_DIRS: tuple[str, ...] = ('memberships', 'coverage')
+# `glossary/` holds lists of plain-language term definitions (see GLOSSARY_*).
+AUXILIARY_DIRS: tuple[str, ...] = ('memberships', 'coverage', 'glossary')
+
+# The glossary the panels' popovers read (docs/HEP_ATLAS_BUNDLES.md `glossary.json`).
+# Each term is a sourced definition: a short plain-language `definition`, the
+# verbatim `quote` (and its `locator`) it rests on, and `sources`.  `match` lists
+# the regular expressions (JavaScript-compatible: no look-behind) that find the
+# term in a panel's text; an entry is a string (case-insensitive) or
+# `{"pattern": ..., "case": true}` (case-sensitive).
+GLOSSARY_DEFINITION_MAX_WORDS = 45
+GLOSSARY_QUOTE_MAX_CHARS = 300
 
 # Every id is `<type>:<slug>`; `src:` is the prefix of the `source` type.
 ID_PREFIX_TO_TYPE: dict[str, str] = {t: t for t in ENTITY_TYPES if t != 'source'}
