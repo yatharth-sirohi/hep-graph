@@ -392,6 +392,27 @@ function claimGroup(pointer, provRecord, sourcesBundle, record) {
   ]);
 }
 
+// One piece of evidence outside a record panel, in the same shape as a panel's claim
+// group: a guided tour's claim (js/tours.js) carries its own quote, locator and source
+// ids. `label` and `note` are nodes or text; `sourceIds` are resolved against the
+// sources bundle, and an id the bundle does not hold is still listed, by its id, so a
+// claim never loses a source silently.
+export function renderEvidenceItem({
+  label, note = null, quote = '', locator = '', confidence = '', sourceIds = [], id = null,
+}, sourcesBundle) {
+  const sources = (sourceIds || []).map((sourceId) => (sourcesBundle.byId || {})[sourceId] || { id: sourceId });
+  const ordered = orderSourcesForQuote(sources, quote);
+  const confidenceText = confidenceWord(confidence);
+  return h('li', { class: 'claim-group', id }, [
+    h('div', { class: 'claim-label' }, label),
+    note ? h('div', { class: 'claim-note' }, note) : null,
+    quote ? h('div', { class: 'claim-evidence' }, quoteView(quote)) : null,
+    locator ? h('div', { class: 'claim-locator' }, [h('span', { class: 'claim-locator-label' }, 'In the source: '), String(locator)]) : null,
+    confidenceText ? h('div', { class: 'claim-confidence' }, `Confidence: ${confidenceText}`) : null,
+    h('ul', { class: 'claim-sources' }, ordered.map((src) => (src.url ? sourceRow(src) : h('li', { class: 'claim-source' }, src.title || src.id)))),
+  ]);
+}
+
 // `entries` is `provenance[entityId]` ({pointer: provRecord}); returns an
 // array of <li> nodes (the caller wraps them in one <ul>, alongside any A23
 // approximate-location notes), or [] when nothing here has a resolvable

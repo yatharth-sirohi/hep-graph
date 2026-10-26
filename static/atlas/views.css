@@ -25,7 +25,7 @@
   grid-template-columns: minmax(0, 1fr);
   grid-template-areas: none;
 }
-#atlas-main.is-view-route > :not(.view-host) {
+#atlas-main.is-view-route > :not(.view-host):not(.tour-card):not(.tour-resume) {
   display: none !important;
 }
 /* The globe's own controls do not exist on a view (it has no layers or filters),

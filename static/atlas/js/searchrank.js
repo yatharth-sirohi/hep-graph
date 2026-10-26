@@ -39,7 +39,7 @@
 
 //: Which kind of thing a person most likely means when several records match.
 export const TYPE_ORDER = ['experiment', 'facility', 'collaboration', 'site', 'detector',
-  'accelerator', 'beamline', 'topic', 'result', 'document', 'institution'];
+  'accelerator', 'beamline', 'topic', 'tour', 'result', 'document', 'institution'];
 
 // Question words and fillers: "where was the Higgs discovered" is about the
 // Higgs and a discovery. Dropped only while some other word remains.

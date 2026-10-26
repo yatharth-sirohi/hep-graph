@@ -1,6 +1,7 @@
 // state.js — the single source of truth for "what is on screen": the hash
 // route (#/facility/<slug> etc.), plus short query state (?y=, ?r=, ?t=, ?s=,
-// ?m=, ?arcs=, and the Results list's own ?ry=/?rx=/?rf=/?rt=/?rk=/?rs=/?rb=).
+// ?m=, ?arcs=, a tour's ?step= and ?present=, and the Results list's own
+// ?ry=/?rx=/?rf=/?rt=/?rk=/?rs=/?rb=).
 // Back/forward and copy-pasted URLs both restore the view.
 
 const TYPE_PREFIX = {
@@ -15,6 +16,12 @@ const TYPE_PREFIX = {
   // `#/view/<name>/<arg>` (the beam section: `#/view/beam-section/lbnf~1`). The slug is
   // `<name>/<arg>`, so it keeps its own slash; the route is otherwise like any other.
   view: 'view',
+  // ---- guided tours (js/tours.js) ----
+  // `#/tour/<slug>` plays a tour; the step rides in `?step=<n>` (1-based) and
+  // `?present=1` turns on presenter mode. `#/view/tour/<slug>` is accepted too and
+  // is rewritten to this form by app.js. The step's own year, selection, map or
+  // view are not in the address: the tour supplies them (docs A28, `href`).
+  tour: 'tour',
 };
 
 // ---- Results list (modes.js) ------------------------------------------------
@@ -68,6 +75,8 @@ function parseSearch(search) {
     // the entity (or context feature) in the drawer. `levels: null` means
     // "all levels", which is not the same as "no levels" (`[]`).
     levels: null, basemap: true, sel: null,
+    // ---- guided tours: the 1-based step, and presenter mode ----
+    step: null, present: false,
     results: parseResultsView(params),
   };
   if (params.has('y')) {
@@ -97,14 +106,33 @@ function parseSearch(search) {
   }
   if (params.get('bm') === '0') state.basemap = false;
   if (params.has('sel')) state.sel = params.get('sel');
+  if (params.has('step')) {
+    const step = parseInt(params.get('step'), 10);
+    if (Number.isFinite(step) && step >= 1) state.step = step;
+  }
+  state.present = params.get('present') === '1';
   return state;
 }
 
+// A query written inside the hash (`#/tour/higgs-hunt?step=3`, the way a tour link is
+// often typed or pasted) is read as if it stood before the `#`; a parameter in both
+// places keeps the real query's value. The address is rewritten in the usual form the
+// next time anything navigates.
+function locationParts() {
+  const { hash, search } = window.location;
+  const at = hash.indexOf('?');
+  if (at < 0) return { hash, search };
+  const merged = new URLSearchParams(search);
+  for (const [key, value] of new URLSearchParams(hash.slice(at + 1))) if (!merged.has(key)) merged.set(key, value);
+  return { hash: hash.slice(0, at), search: `?${merged.toString()}` };
+}
+
 function readLocation() {
+  const { hash, search } = locationParts();
   return {
-    entity: parseHashEntity(window.location.hash),
-    ...parseSearch(window.location.search),
-    dataMode: new URLSearchParams(window.location.search).get('data'),
+    entity: parseHashEntity(hash),
+    ...parseSearch(search),
+    dataMode: new URLSearchParams(search).get('data'),
   };
 }
 
@@ -130,6 +158,12 @@ function buildURL(state) {
     if (state.levels) params.set('lv', state.levels.join(','));
     if (state.basemap === false) params.set('bm', '0');
     if (state.sel) params.set('sel', state.sel);
+  }
+  // The tour's step and presenter flag only mean something on a tour route, so they
+  // are written only there (the same rule as `sel` above).
+  if (state.entity && state.entity.type === 'tour') {
+    if (state.step != null) params.set('step', String(state.step));
+    if (state.present) params.set('present', '1');
   }
   if (state.mode === 'results' && state.results) {
     const defaults = defaultResultsView();

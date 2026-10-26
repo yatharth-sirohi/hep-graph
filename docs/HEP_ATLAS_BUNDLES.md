@@ -564,6 +564,10 @@ Each entry is `[type, id, name, aliases, subtitle]`.  **People are never in
 `search.json`** (A14): person search is delegated to HEP Graph live search.
 Sorted by `(type, id)`.
 
+A28 adds `tour` entries (`["tour", "tour:higgs-hunt", "The Higgs hunt", [], "Guided tour · 8 steps · <summary>"]`):
+a tour is matched by its name and the words of its summary, and opens the player
+(`#/tour/<slug>`).
+
 A25 adds `map` entries, whose subtitle is `"Local map · <facility name>"`:
 
 ```json

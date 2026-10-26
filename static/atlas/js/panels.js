@@ -13,6 +13,7 @@ import {
   VIEW_NAME, WORKING_TITLE, rowGeometry, rowsForBeamline, rowsForExperiment,
 } from './views/beam-rows.js';
 import { quoteView, readableText, readableView } from './tex.js';
+import { tourMeta, tourSlug, toursCoveringTopic } from './tour-data.js';
 
 let ATLAS = null;
 let INDEX = null;
@@ -1074,8 +1075,52 @@ async function renderTopic(id) {
     resultLinks(milestones),
   ], { open: false, label: 'Related results' });
 
+  // The guided tours with a step about this topic. tours.json is not fetched before this
+  // panel is open, and not waited for: the section appears when it has arrived, and a
+  // failure leaves it out (an extra, not a claim that no tour exists).
+  const toursSection = h('div', { class: 'topic-tours', hidden: '' });
+  frag.appendChild(toursSection);
+  fillTopicTours(toursSection, id, allResults);
+
   sections.note();
   return frag;
+}
+
+async function fillTopicTours(slot, topicId, results) {
+  let data;
+  try {
+    data = await loader.getTours();
+  } catch (error) {
+    return;
+  }
+  if (!data || !slot.isConnected) return;
+  const resultTopics = new Map(results.map((r) => [r.id, r.topic_ids || []]));
+  const topicsOf = (entityId) => {
+    if (resultTopics.has(entityId)) return resultTopics.get(entityId);
+    const record = INDEX && INDEX.get ? INDEX.get(entityId) : null;
+    return (record && record.topic_ids) || [];
+  };
+  const rows = toursCoveringTopic(topicId, data.list, ATLAS.topics, topicsOf);
+  if (!rows.length) return;
+  const list = h('ul', { class: 'entity-list tour-links' }, rows.map(({ tour, steps }) => {
+    const slug = tourSlug(tour.id);
+    const a = h('a', { href: `#/tour/${slug}?step=${steps[0]}`, class: 'entity-link' }, tour.name);
+    a.addEventListener('click', (event) => {
+      if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      event.preventDefault();
+      CALLBACKS.navigate({ entity: { type: 'tour', slug }, step: steps[0] });
+    });
+    return h('li', {}, [
+      a,
+      h('span', { class: 'source-meta' }, ` · ${steps.length} of ${tour.steps.length} step${tour.steps.length === 1 ? '' : 's'} · ${tourMeta(tour)}`),
+    ]);
+  }));
+  const el = section('Guided tours', [
+    h('p', { class: 'source-meta' }, 'Tours with a step about this topic; each opens at the first such step.'),
+    list,
+  ], { open: true });
+  slot.replaceChildren(el);
+  slot.hidden = false;
 }
 
 // ------------------------------------------------------------------- result
@@ -1545,7 +1590,7 @@ const RENDERERS = {
 // build-time status. app.js re-invokes render() on every timeline change
 // (it is itself a state.navigate() subscriber), so this also re-renders the
 // whole panel whenever the year or range moves.
-export async function render(route, timelineState = { year: new Date().getFullYear() }) {
+export async function render(route, timelineState = { year: new Date().getFullYear() }, { focus = true } = {}) {
   if (!route) {
     container.innerHTML = '';
     container.classList.add('hidden');
@@ -1586,7 +1631,9 @@ export async function render(route, timelineState = { year: new Date().getFullYe
     const heading = container.querySelector('h2');
     if (heading) {
       heading.setAttribute('tabindex', '-1');
-      heading.focus({ preventScroll: true });
+      // A guided tour keeps focus in its own card (`focus: false`): its Next button stays
+      // where the reader's keyboard is while the record changes beside it.
+      if (focus) heading.focus({ preventScroll: true });
     }
     if (route.type === 'collaboration') setCollaborationContext(id);
   } catch (error) {
