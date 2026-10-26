@@ -60,7 +60,14 @@ export function createTimeline(container, { minYear, maxYear, defaultYear, onCha
   playBtn.id = 'timeline-play';
   playBtn.setAttribute('aria-pressed', 'false');
   setPlayCaption(playBtn, false);
-  modeRow.append(yearBtn, rangeBtn, playBtn);
+  // Playback speed: one press steps 1x -> 2x -> 5x -> 1x. A plain button, so it
+  // takes Tab, Enter and Space like Play beside it; its name states the speed.
+  const speedBtn = document.createElement('button');
+  speedBtn.type = 'button';
+  speedBtn.className = 'mode-btn speed-btn';
+  speedBtn.id = 'timeline-speed';
+  speedBtn.title = 'Change playback speed';
+  modeRow.append(yearBtn, rangeBtn, playBtn, speedBtn);
 
   const sliderRow = document.createElement('div');
   sliderRow.className = 'timeline-sliders';
@@ -153,7 +160,14 @@ export function createTimeline(container, { minYear, maxYear, defaultYear, onCha
   loInput.addEventListener('input', emit);
   hiInput.addEventListener('input', emit);
 
-  const PLAY_INTERVAL_MS = 900; // restrained: about one year per second
+  const PLAY_INTERVAL_MS = 900; // restrained: about one year per second at 1x
+  const SPEEDS = [1, 2, 5];
+  let speed = SPEEDS[0];
+  function setSpeedCaption() {
+    speedBtn.textContent = `${speed}\u00d7`;
+    speedBtn.setAttribute('aria-label', `Playback speed ${speed}\u00d7. Press to change.`);
+  }
+  setSpeedCaption();
   function stopPlay() {
     playing = false;
     setPlayCaption(playBtn, false);
@@ -180,22 +194,33 @@ export function createTimeline(container, { minYear, maxYear, defaultYear, onCha
     playing = true;
     setPlayCaption(playBtn, true);
     playBtn.setAttribute('aria-pressed', 'true');
-    timer = setInterval(() => {
-      if (mode === 'year') {
-        const next = Number(yearInput.value) + 1;
-        if (next > maxYear) { stopPlay(); return; }
-        yearInput.value = String(next);
-      } else {
-        const span = Number(hiInput.value) - Number(loInput.value);
-        const nextHi = Number(hiInput.value) + 1;
-        if (nextHi > maxYear) { stopPlay(); return; }
-        hiInput.value = String(nextHi);
-        loInput.value = String(clamp(nextHi - span, minYear, maxYear));
-      }
-      emit();
-    }, PLAY_INTERVAL_MS);
+    scheduleTicks();
+  }
+  function tick() {
+    if (mode === 'year') {
+      const next = Number(yearInput.value) + 1;
+      if (next > maxYear) { stopPlay(); return; }
+      yearInput.value = String(next);
+    } else {
+      const span = Number(hiInput.value) - Number(loInput.value);
+      const nextHi = Number(hiInput.value) + 1;
+      if (nextHi > maxYear) { stopPlay(); return; }
+      hiInput.value = String(nextHi);
+      loInput.value = String(clamp(nextHi - span, minYear, maxYear));
+    }
+    emit();
+  }
+  function scheduleTicks() {
+    if (timer) clearInterval(timer);
+    timer = setInterval(tick, PLAY_INTERVAL_MS / speed);
   }
   playBtn.addEventListener('click', () => (playing ? stopPlay() : startPlay()));
+  speedBtn.addEventListener('click', () => {
+    speed = SPEEDS[(SPEEDS.indexOf(speed) + 1) % SPEEDS.length];
+    setSpeedCaption();
+    // A change while playing takes effect at once, from the year it is at.
+    if (playing) scheduleTicks();
+  });
 
   updateLegend();
   // Deliberately no emit() here. Announcing the default year at construction
