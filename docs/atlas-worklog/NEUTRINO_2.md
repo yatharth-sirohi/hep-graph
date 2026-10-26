@@ -2,6 +2,8 @@
 
 Branch `atlas-c4-neutrino`, worktree `~/Desktop/HEP-Graph-ar-c4-neutrino`. Owner tag `neutrino-2`; registry rows in `data/atlas/coverage/neutrino-2.json`; topic in `data/atlas/topics/neutrino-2.json`.
 
+Part 2 of this wave (the 23 candidates listed under "Not done" below, all now written) is [NEUTRINO_2B.md](NEUTRINO_2B.md).
+
 ## Scope and outcome
 
 Brief: the neutrino and nucleon-decay experiments the Atlas lacked (reactor, accelerator, atmospheric/nucleon decay, solar, double-beta decay, direct neutrino mass, telescopes) plus `topic:nucleon-decay`. **The stream stopped at a usage limit before it was finished.** Done to the full mandatory bar (experiment, detector, collaboration, located site on a facility, sourced intervals, headline result where a primary paper was retrievable, registry row): 18 experiments. Not started (queued as `researched: "none"` rows so the registry is honest): 23 candidates, listed under "Not done". One candidate was examined and excluded (HUNT).
