@@ -727,6 +727,44 @@ async function renderExperiment(id, timelineState) {
 }
 
 // ------------------------------------------------------------- collaboration
+// What the roster's rows are, by `evidence_class`, for a roster none of whose
+// rows is individually dated: an official list of member institutions, or the
+// affiliations printed on a paper. Any other class is named by its own label.
+const ROSTER_ROW_WORDS = {
+  official_institution_list: (n, asOf) => `${n} institutions on the official list${asOf}, not individually dated`,
+  publication_affiliation_current: (n, asOf) => `${n} institutions listed on a collaboration paper${asOf}; `
+    + 'current membership not confirmed, not individually dated. The full membership is larger',
+};
+
+// The headline over a roster. A roster whose rows carry dates is counted as
+// confirmed and undated members. One whose rows carry none (`counts` all zero)
+// is not "0 confirmed institutions": it has a list, and the sentence says what
+// kind of list it is and that nothing on it is dated.
+function rosterCountLabel(membership) {
+  const counts = membership.counts || {};
+  const confirmed = counts.confirmed || 0;
+  const undated = counts.undated || 0;
+  const asOf = membership.as_of ? ` as of ${membership.as_of}` : '';
+  const history = membership.membership_history;
+  const rows = membership.members || [];
+  if (confirmed + undated === 0) {
+    if (!rows.length) return 'No institutions are listed in the Atlas roster for this collaboration yet';
+    const byClass = new Map();
+    for (const row of rows) {
+      const key = row.evidence_class || row.evidence_label || 'unspecified';
+      byClass.set(key, [...(byClass.get(key) || []), row]);
+    }
+    return [...byClass].map(([key, group]) => {
+      const words = ROSTER_ROW_WORDS[key];
+      return words ? words(group.length, asOf)
+        : `${group.length} institutions on the roster${asOf} (${group[0].evidence_label || key}), not individually dated`;
+    }).join('; ');
+  }
+  return (history === 'partial' || history === 'unknown')
+    ? `Partial roster: ${confirmed} confirmed institutions (+${undated} undated)${asOf}; the full membership is larger`
+    : `${confirmed} confirmed institutions (+${undated} undated)${asOf}`;
+}
+
 async function renderCollaboration(id, timelineState) {
   const collab = ATLAS.collaborations[id];
   if (!collab) return emptyNote('Unknown collaboration.');
@@ -773,19 +811,11 @@ async function renderCollaboration(id, timelineState) {
     // title attribute is invisible on a phone and to most keyboard users).
     frag.appendChild(emptyNote('Institution roster not yet curated for this collaboration.'));
   } else {
-    const counts = membership.counts || {};
-    const confirmed = counts.confirmed || 0;
-    const undated = counts.undated || 0;
-    const asOf = membership.as_of ? ` as of ${membership.as_of}` : '';
-    const history = membership.membership_history;
-    const countLabel = (history === 'partial' || history === 'unknown')
-      ? `Partial roster: ${confirmed} confirmed institutions (+${undated} undated)${asOf}; the full membership is larger`
-      : `${confirmed} confirmed institutions (+${undated} undated)${asOf}`;
     sections.add('Membership', [
-      h('p', { class: 'membership-count' }, countLabel),
+      h('p', { class: 'membership-count' }, rosterCountLabel(membership)),
       keyValueList([
-        ['Institutions', collab.membership && collab.membership.institution_count],
-        ['Countries', collab.membership && collab.membership.country_count],
+        ['Institutions (collaboration’s own count)', collab.membership && collab.membership.institution_count],
+        ['Countries (collaboration’s own count)', collab.membership && collab.membership.country_count],
         ['As of', collab.membership && collab.membership.as_of],
       ]),
     ]);

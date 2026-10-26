@@ -286,8 +286,17 @@ async function setRangeValue(locator, value) {
     // is worded "Partial roster: N confirmed institutions (+M undated)…; the
     // full membership is larger" — never a bare "N members" that reads as a
     // complete count.
-    assert.match(panelText, /Partial roster: \d+ confirmed institutions \(\+\d+ undated\)[^.]*the full membership is larger/);
-    assert.doesNotMatch(panelText, /\b0 confirmed institutions\b(?!\s*\()/, "DUNE has a real, nonzero confirmed-member count");
+    // Release-candidate review F12: the generated roster is the collaboration's
+    // official institution list with no individual dates (`counts` all zero), and
+    // "Partial roster: 0 confirmed institutions" over it read as an empty roster.
+    // It says what the list is instead; a roster with dated rows keeps the
+    // confirmed/undated wording.
+    if (process.env.HEP_ATLAS_DATA === "generated") {
+      assert.match(panelText, /\d+ institutions on the official list as of \d{4}-\d{2}, not individually dated/);
+    } else {
+      assert.match(panelText, /Partial roster: \d+ confirmed institutions \(\+\d+ undated\)[^.]*the full membership is larger/);
+    }
+    assert.doesNotMatch(panelText, /\b0 confirmed institutions\b(?!\s*\()/, "a roster is never described as 0 confirmed institutions");
     await page.locator("#view-on-globe").click();
     await page.waitForFunction(() => document.querySelectorAll(".atlas-marker.tier-institution").length > 0, { timeout: 10000 });
     // The camera's fly-to rebuilds the marker layer once (the dots blink out
