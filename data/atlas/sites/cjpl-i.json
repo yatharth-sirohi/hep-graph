@@ -37,23 +37,43 @@
     "verified_at": "2026-09-17"
   },
   "depth_mwe": {
-    "approx": true,
-    "confidence": "approximate",
+    "approx": false,
+    "confidence": "verified",
     "dimension": "depth_mwe",
-    "display": "~2400 m.w.e.",
-    "locator": "arXiv:1404.2651, overview of CJPL-I/CJPL-II depths",
-    "note": "From the 2014 second-phase-development paper's figures for CJPL-I; not confirmed on an official CJPL page (checked 2026-09-17).",
+    "display": "6720 m.w.e.",
+    "locator": "Sec. 4, Chin. Phys. C 37 (2013) 086001 (arXiv:1305.0899)",
+    "note": "2400 m of vertical rock times a measured average density of 2.8 g/cm^3. This replaces an earlier \"~2400 m.w.e.\", which repeated the rock thickness in metres as a water-equivalent depth; the 2014 CJPL-II paper (arXiv:1404.2651) it was credited to states 6,720 m. Woodley et al. 2024 infer an effective flat-overburden depth of 6.20 ± 0.13 km.w.e. from the measured flux instead.",
+    "quote": "The water equivalent depth of CJPL is calculated to be 6720m as the product of the measured average rock density of 2.8g/cm3 and the depth of 2400m.",
     "sources": [
-      "src:cjpl-arxiv-phase2-2014"
+      "src:ug-cjpl-muon-telescope-2013",
+      "src:cjpl-arxiv-phase2-2014",
+      "src:ug-woodley-mute-2024"
     ],
     "unit": "m.w.e.",
-    "value": 2400,
-    "verified_at": "2026-09-17"
+    "value": 6720,
+    "verified_at": "2026-10-26"
   },
   "facility_id": "facility:cjpl",
   "id": "site:cjpl-i",
   "links": {
     "website": null
+  },
+  "muon_flux": {
+    "approx": false,
+    "confidence": "verified",
+    "dimension": "muon_flux",
+    "display": "3.53 × 10⁻¹⁰ cm⁻² s⁻¹ (± 0.22 stat., ± 0.07 syst.)",
+    "locator": "Abstract and Sec. 6, Chin. Phys. C 45, 025001 (arXiv:2007.15925)",
+    "note": "Jinping Neutrino Experiment 1-ton liquid-scintillator prototype in CJPL-I: 264 muon events in 645.2 days with reconstructed directions; the 2025 CJPL-II paper calls it the efficiency-corrected CJPL-I flux. Its vertical intensity, (2.0 ± 0.3 stat.) × 10^-10 cm^-2 s^-1 sr^-1, is not a flux and is not recorded. The earlier plastic-scintillator telescope result, (2.0 ± 0.4) × 10^-10 cm^-2 s^-1 or 61.7 ± 11.7 per m^2 per year (Wu et al. 2013), had no angular correction to the detector acceptance, which is why the JNE value is used here; the 2018 CJPL review (Table I) still tabulates it as 0.17 per m^2 per day. Woodley et al. 2024 Table III lists JNE as (3.53 ± 0.29) × 10^-10.",
+    "quote": "measured the cosmic-ray muon flux to be (3.53 ± 0.22stat. ± 0.07sys. ) × 10−10 cm−2 s−1",
+    "sources": [
+      "src:ug-jne-cjpl-muon-flux-2021",
+      "src:ug-cjpl-muon-telescope-2013",
+      "src:ug-woodley-mute-2024"
+    ],
+    "unit": "cm^-2 s^-1",
+    "value": 3.53e-10,
+    "verified_at": "2026-10-26"
   },
   "name": "CJPL-I",
   "notes": [],
@@ -73,7 +93,7 @@
   ],
   "summary": {
     "plain": "The original hall of the China Jinping Underground Laboratory, reached from a hydropower station tunnel under more than two kilometres of mountain rock in Sichuan, China.",
-    "technical": "CJPL-I: the original CJPL hall beside the Jinping traffic tunnel, Sichuan, inaugurated 2010, with ~2400 m (2400 m.w.e.) rock overburden, among the deepest overburdens of any underground laboratory in the world."
+    "technical": "CJPL-I: the original CJPL hall beside the Jinping traffic tunnel, Sichuan, inaugurated 2010, with ~2400 m of rock overburden (~6720 m.w.e.), among the deepest overburdens of any underground laboratory in the world."
   },
   "type": "site"
 }

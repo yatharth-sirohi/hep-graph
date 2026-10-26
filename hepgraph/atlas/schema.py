@@ -518,6 +518,7 @@ UNITS: dict[str, tuple[str, ...]] = {
     'magnetic_field': ('T', 'mT', 'G'),
     'electric_field': ('V/cm', 'kV/cm', 'kV/m'),
     'depth_mwe': ('m.w.e.',),
+    'muon_flux': ('cm^-2 s^-1', 'm^-2 s^-1', 'm^-2 d^-1'),            # A27
     'volume': ('m^3', 'km^3', 'L'),
     'exposure': ('kg d', 'kg yr', 't yr', 'kt yr'),
     'fraction': ('%', ''),
@@ -552,6 +553,8 @@ UNIT_SCALE: dict[str, dict[str, float]] = {
     'magnetic_field': {'T': 1.0, 'mT': 1e-3, 'G': 1e-4},
     'electric_field': {'V/cm': 1.0, 'kV/cm': 1e3, 'kV/m': 10.0},
     'depth_mwe': {'m.w.e.': 1.0},
+    # A27: base cm^-2 s^-1; 1 m^-2 = 1e-4 cm^-2; 1 d = 86400 s.
+    'muon_flux': {'cm^-2 s^-1': 1.0, 'm^-2 s^-1': 1e-4, 'm^-2 d^-1': 1e-4 / 86400.0},
     'volume': {'m^3': 1.0, 'km^3': 1e9, 'L': 1e-3},
     # Base kg d.
     'exposure': {'kg d': 1.0, 'kg yr': 365.25, 't yr': 365.25e3, 'kt yr': 365.25e6},
@@ -704,6 +707,8 @@ PLAUSIBILITY_RANGES: dict[str, dict[str, tuple[float, float]]] = {
     'cms_energy':  {'energy': (1.0e8, 1.0e15)},                # 100 MeV .. 1000 TeV
     'beam_power':  {'power': (1.0e3, 1.0e7)},                  # 1 kW .. 10 MW
     'total_mass':  {'mass': (1.0, 1.0e12)},                    # 1 kg .. 1e9 t
+    # A27: cosmic-ray muon flux, sea level (~1.7e-2) down to the deepest lab (~2e-10)
+    'muon_flux':   {'muon_flux': (1.0e-11, 5.0e-2)},           # cm^-2 s^-1
 }
 
 # Appendix A + §3.1/3.3/3.4: spec key -> allowed dimensions.  An empty tuple
@@ -1595,6 +1600,7 @@ ENTITY_FIELDS: dict[str, dict[str, FieldSpec]] = {
         'depth': _f('quantity', dimension=('length', 'depth_mwe')),
         'depth_rock': _f('quantity', dimension='length'),      # A9
         'depth_mwe': _f('quantity', dimension='depth_mwe'),    # A9
+        'muon_flux': _f('quantity', dimension='muon_flux'),    # A27
         'altitude': _f('quantity', dimension='length'),
         'country': _f('str', True),
         'countries': _f('country_list'),

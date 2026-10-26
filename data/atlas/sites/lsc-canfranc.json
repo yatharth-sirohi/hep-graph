@@ -35,11 +35,42 @@
     "value": 800,
     "verified_at": "2026-09-17"
   },
-  "depth_mwe": null,
+  "depth_mwe": {
+    "approx": false,
+    "confidence": "verified",
+    "dimension": "depth_mwe",
+    "display": "2450 m.w.e. (Hall B)",
+    "locator": "Sec. 1, ANAIS-112 (arXiv:1710.03837)",
+    "note": "Hall B of the new laboratory, per the ANAIS-112 collaboration; the muon flux was measured in Hall A. Pandola 2011 gives \"about 2400 m w.e.\" as the maximum rock overburden of the new laboratory. The laboratory's own pages give 800 m of rock and no water-equivalent figure.",
+    "quote": "The hut housing the experiment is at the hall B of LSC under 2450 m.w.e.",
+    "sources": [
+      "src:ug-anais-112-lsc-2017",
+      "src:geo-euro-ug-pandola-2011"
+    ],
+    "unit": "m.w.e.",
+    "value": 2450,
+    "verified_at": "2026-10-26"
+  },
   "facility_id": "facility:canfranc-underground-laboratory",
   "id": "site:lsc-canfranc",
   "links": {
     "website": null
+  },
+  "muon_flux": {
+    "approx": false,
+    "confidence": "verified",
+    "dimension": "muon_flux",
+    "display": "5.26 × 10⁻³ m⁻² s⁻¹ (± 0.21)",
+    "locator": "Abstract and Sec. 3, Eur. Phys. J. C 79 (2019) 721 (arXiv:1902.00868)",
+    "note": "Hall A of the LAB2400, measured with a dedicated Muon Monitor (three layers of scintillator, 352 pixels, flux-defining area 1 m^2, all azimuth angles and zenith angles up to 80 degrees); statistical uncertainty about 0.2%, dominant systematic ±4%. The paper reports (4.29 ± 0.17) × 10^-3 m^-2 s^-1 for its other location, LAB2500, and says these values supersede preliminary ones that were 20% too low for LAB2400. Pandola 2011 quotes a residual muon flux of 2 to 4 × 10^-3 m^-2 s^-1 depending on the location.",
+    "quote": "The measured integrated muon flux is (5.26 ± 0.21) × 10−3 m−2 s−1 in the Hall A of the LAB2400",
+    "sources": [
+      "src:ug-trzaska-canfranc-muon-flux-2019",
+      "src:geo-euro-ug-pandola-2011"
+    ],
+    "unit": "m^-2 s^-1",
+    "value": 0.00526,
+    "verified_at": "2026-10-26"
   },
   "name": "LSC Canfranc underground laboratory",
   "notes": [],

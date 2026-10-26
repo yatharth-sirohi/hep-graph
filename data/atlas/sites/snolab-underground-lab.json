@@ -42,10 +42,12 @@
     "confidence": "verified",
     "dimension": "depth_mwe",
     "display": "~6000 m water equivalent",
-    "note": "",
+    "note": "The SNO collaboration's 2009 muon-flux paper gives 5890 ± 94 m.w.e. for a flat overburden at 2.092 km, and Mei & Hime 2006 Table I use 6.011 ± 0.1 km.w.e.; the three figures agree within about 2%.",
     "quote": "The granitic rock overburden (mainly norite) corresponds to approximately 6000 m water equivalent.",
     "sources": [
-      "src:sno-nim-detector-paper-2000"
+      "src:sno-nim-detector-paper-2000",
+      "src:ug-sno-muon-flux-prd-2009",
+      "src:ug-mei-hime-2006"
     ],
     "unit": "m.w.e.",
     "value": 6000,
@@ -55,6 +57,23 @@
   "id": "site:snolab-underground-lab",
   "links": {
     "website": null
+  },
+  "muon_flux": {
+    "approx": false,
+    "confidence": "verified",
+    "dimension": "muon_flux",
+    "display": "3.31 × 10⁻¹⁰ cm⁻² s⁻¹ (± 0.01 stat., ± 0.09 syst.)",
+    "locator": "Abstract and Sec. V.A (Cosmic-Ray Muon Flux), Phys. Rev. D 80, 012001 (arXiv:0902.2776)",
+    "note": "Total flux of cosmic-ray muons measured with the SNO detector in its cavern, for zenith angle cos θ > 0.4 (the flat overburden removes almost all muons at larger angles) and corrected for acceptance: 62.9 ± 0.2 muons per day through a circular fiducial area of 830 cm radius. The paper places the detector at a depth of 2.092 km, 5890 ± 94 m.w.e. with a flat overburden. Independent check in the SNOLAB Cube Hall: DEAP-3600 (arXiv:2608.20504, 20 Aug 2026) finds (3.71 ± 0.25 stat. ± 0.09 syst.) × 10^-10 cm^-2 s^-1 by coincidence, 1.4 sigma from SNO, and 4.42 ± 0.13 ± 0.84 from its water tank alone. Second source: Mei & Hime 2006, Table I, Sudbury row, (3.77 ± 0.41) × 10^-10 cm^-2 s^-1 at 6.011 ± 0.1 km.w.e. from an earlier SNO report. Vertical intensity not recorded.",
+    "quote": "The cosmic ray muon flux at SNO with zenith angle cos θzenith > 0.4 is measured to be (3.31±0.01 (stat.)±0.09 (sys.))×10−10 µ/s/cm2",
+    "sources": [
+      "src:ug-sno-muon-flux-prd-2009",
+      "src:ug-deap3600-muon-flux-snolab-2026",
+      "src:ug-mei-hime-2006"
+    ],
+    "unit": "cm^-2 s^-1",
+    "value": 3.31e-10,
+    "verified_at": "2026-10-26"
   },
   "name": "SNOLAB underground laboratory",
   "notes": [

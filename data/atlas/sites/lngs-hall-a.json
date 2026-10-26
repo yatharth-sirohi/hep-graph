@@ -38,11 +38,41 @@
     "value": 1400,
     "verified_at": "2026-09-17"
   },
-  "depth_mwe": null,
+  "depth_mwe": {
+    "approx": false,
+    "confidence": "verified",
+    "dimension": "depth_mwe",
+    "display": "3800 m.w.e.",
+    "locator": "Section on LNGS; Table 1 (Pandola 2011)",
+    "note": "Laboratory-wide average overburden, the same for all three halls here: the halls are about 80 m apart and \"could feature slightly different rock coverage\" (Borexino 2012, Sec. 3). Pandola 2011 gives 3100 m w.e. as the minimum depth and 3800 m w.e. as the average; Mei & Hime 2006 Table I derive equivalent flat-overburden depths of 2.96 to 3.1 km.w.e. from three Gran Sasso flux measurements.",
+    "quote": "The rock overburden of the laboratory is about 3100 m w.e. (minimum depth), or 3800 m w.e. (average depth).",
+    "sources": [
+      "src:geo-euro-ug-pandola-2011"
+    ],
+    "unit": "m.w.e.",
+    "value": 3800,
+    "verified_at": "2026-10-26"
+  },
   "facility_id": "facility:lngs",
   "id": "site:lngs-hall-a",
   "links": {
     "website": null
+  },
+  "muon_flux": {
+    "approx": false,
+    "confidence": "verified",
+    "dimension": "muon_flux",
+    "display": "3.35 × 10⁻⁴ m⁻² s⁻¹ (± 0.0005 stat., ± 0.03 syst.)",
+    "locator": "Abstract and Sec. III, Phys. Rev. D 100, 062002 (arXiv:1909.04579)",
+    "note": "Average muon flux measured by the Large Volume Detector (LVD) in Hall A from 1994 to 2017 (5.48 × 10^7 muons collected over 8402 days), corrected for acceptance, with the seasonal modulation averaged out. The paper puts LVD \"at a minimal depth of 3100 m w.e.\"; the lab-wide average is in depth_mwe. Borexino 2019, Table 1, lists the Hall A results as LVD 3.31 ± 0.03 (2001-2008), LVD 3.3332 ± 0.0005 (1992-2016) and GERDA 3.47 ± 0.07 (2010-2013), all in 10^-4 m^-2 s^-1.",
+    "quote": "We report the value of the average muon flux measured from 1994 to 2017: I0µ = 3.35 ± 0.0005stat ± 0.03sys · 10−4 m−2 s−1",
+    "sources": [
+      "src:ug-lvd-prd-2019-muon-flux",
+      "src:ug-borexino-jcap-2019-muon-modulation"
+    ],
+    "unit": "m^-2 s^-1",
+    "value": 0.000335,
+    "verified_at": "2026-10-26"
   },
   "name": "LNGS Hall A",
   "notes": [

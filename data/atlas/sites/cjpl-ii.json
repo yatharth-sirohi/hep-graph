@@ -23,37 +23,57 @@
     "tier": "C"
   },
   "depth": {
-    "approx": false,
-    "confidence": "approximate",
+    "approx": true,
+    "confidence": "verified",
     "dimension": "length",
-    "display": "2100 m rock overburden",
-    "locator": "arXiv:1404.2651, second-phase development overview",
-    "note": "Figure is from the 2014 CJPL-II second-phase-development paper (arXiv:1404.2651); not confirmed on an official CJPL page (checked 2026-09-17).",
+    "display": "~2400 m of vertical rock",
+    "locator": "Sec. 1, arXiv:2511.11050; Table I of arXiv:1801.00587 gives CJPL-II 2,400 m",
+    "note": "Rock cover of CJPL as a whole; the sources give no hall-specific thickness for CJPL-II. This replaces an earlier 2100 m credited to the 2014 second-phase paper (arXiv:1404.2651), which says CJPL-II halls lie under overburdens of about 2.4 km of rock.",
+    "quote": "is shielded by approximately 2,400 m of vertical rock coverage",
     "sources": [
-      "src:cjpl-arxiv-phase2-2014"
+      "src:ug-cjpl-ii-muon-flux-2025",
+      "src:cjpl-arxiv-early-science-2018"
     ],
     "unit": "m",
-    "value": 2100,
-    "verified_at": "2026-09-17"
+    "value": 2400,
+    "verified_at": "2026-10-26"
   },
   "depth_mwe": {
     "approx": true,
-    "confidence": "approximate",
+    "confidence": "derived",
     "dimension": "depth_mwe",
-    "display": "~2100 m.w.e.",
-    "locator": "arXiv:1404.2651, second-phase development overview",
-    "note": "Figure is from the 2014 CJPL-II second-phase-development paper (arXiv:1404.2651); not confirmed on an official CJPL page (checked 2026-09-17).",
+    "display": "~6720 m.w.e.",
+    "locator": "Sec. 2, Physics Procedia (2014), arXiv:1404.2651",
+    "note": "No CJPL-II-specific water-equivalent depth is published. The CJPL-wide average of about 2400 m of vertical rock at 2.8 g/cm^3 gives the 6720 m.w.e. that Wu et al. (2013) published for CJPL-I; the 2025 CJPL-II paper states about 2,400 m of vertical rock. This replaces an earlier \"~2100 m.w.e.\", which the cited 2014 paper does not state. (The quoted \"g/m 3\" is the paper's own typo for g/cm^3.)",
+    "quote": "corresponds to the water equivalent depth of 6,720 m (assuming a rock density of 2.8 g/m 3)",
     "sources": [
-      "src:cjpl-arxiv-phase2-2014"
+      "src:cjpl-arxiv-phase2-2014",
+      "src:ug-cjpl-muon-telescope-2013",
+      "src:ug-cjpl-ii-muon-flux-2025"
     ],
     "unit": "m.w.e.",
-    "value": 2100,
-    "verified_at": "2026-09-17"
+    "value": 6720,
+    "verified_at": "2026-10-26"
   },
   "facility_id": "facility:cjpl",
   "id": "site:cjpl-ii",
   "links": {
     "website": null
+  },
+  "muon_flux": {
+    "approx": false,
+    "confidence": "verified",
+    "dimension": "muon_flux",
+    "display": "3.03 × 10⁻¹⁰ cm⁻² s⁻¹ (± 0.24 stat., ± 0.18 syst.)",
+    "locator": "Abstract and Sec. 3, arXiv:2511.11050",
+    "note": "Hall C2 of CJPL-II, plastic-scintillator muon telescope, 161 muons in 1098 live days (October 2016 to December 2020); the efficiency was obtained by simulating underground muon energies and angles and the telescope response. The efficiency-uncorrected flux is (1.70 ± 0.13) × 10^-10 cm^-2 s^-1. The paper calls the result the lowest among underground laboratories worldwide.",
+    "quote": "The cosmic-ray muon flux is determined to be (3.03 ± 0.24 (stat) ± 0.18 (sys)) × 10−10 cm−2 s−1",
+    "sources": [
+      "src:ug-cjpl-ii-muon-flux-2025"
+    ],
+    "unit": "cm^-2 s^-1",
+    "value": 3.03e-10,
+    "verified_at": "2026-10-26"
   },
   "name": "CJPL-II",
   "notes": [
@@ -75,7 +95,7 @@
   ],
   "summary": {
     "plain": "A newer, larger extension of the Jinping underground laboratory, about half a kilometre from the original hall along the same tunnel, also under more than two kilometres of rock.",
-    "technical": "CJPL-II: a second-phase extension of CJPL, ~500 m west of CJPL-I along the same traffic tunnel, with four planned caverns (14 m × 14 m × 130 m each) and ~2100 m (2100 m.w.e.) rock overburden; civil engineering credited elsewhere to Tsinghua University and Yalong River Hydropower Development Company (not confirmed on an official page)."
+    "technical": "CJPL-II: a second-phase extension of CJPL, ~500 m west of CJPL-I along the same traffic tunnel, with four planned caverns (14 m × 14 m × 130 m each) and ~2400 m of vertical rock overburden (~6720 m.w.e.); civil engineering credited elsewhere to Tsinghua University and Yalong River Hydropower Development Company (not confirmed on an official page)."
   },
   "type": "site"
 }

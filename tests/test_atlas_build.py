@@ -350,6 +350,35 @@ def test_no_provenance_keys_leak_through_an_intervals_start_or_end(tmp_path: Pat
         "a note on the date qualifier itself, not the interval — must not leak")
 
 
+def test_a27_site_muon_flux_reaches_the_bundle_and_its_provenance(tmp_path: Path) -> None:
+    """A27: a site's `muon_flux` quantity is stripped into atlas.json like any
+    other quantity, with its quote and sources held in provenance.json."""
+    import shutil
+
+    root = tmp_path / "atlas"
+    shutil.copytree(FIXTURE, root)
+    site_path = root / "sites" / "demo-lab-campus.json"
+    site = json.loads(site_path.read_text(encoding="utf-8"))
+    site["muon_flux"] = {
+        "approx": False, "confidence": "verified", "dimension": "muon_flux",
+        "display": "3.4 \u00d7 10\u207b\u2074 m\u207b\u00b2 s\u207b\u00b9 (\u00b1 0.1)",
+        "locator": "Abstract", "note": "", "quote": "a synthetic quote for the test",
+        "sources": ["src:demo-lab-site"], "unit": "m^-2 s^-1", "value": 3.4e-4,
+        "verified_at": "2026-09-16",
+    }
+    site_path.write_text(json.dumps(site), encoding="utf-8")
+
+    result = build(root, tmp_path / "out", build_date=BUILD_DATE)
+    assert result.errors == []
+    built_site = json.loads(result.files["atlas.json"])["sites"]["site:demo-lab-campus"]
+    assert built_site["muon_flux"] == {
+        "approx": False, "dimension": "muon_flux", "unit": "m^-2 s^-1", "value": 3.4e-4,
+        "display": site["muon_flux"]["display"]}
+    provenance = json.loads(result.files["provenance.json"])["site:demo-lab-campus"]["/muon_flux"]
+    assert provenance["quote"] == "a synthetic quote for the test"
+    assert provenance["sources"] == ["src:demo-lab-site"]
+
+
 # ---------------------------------------------------------------------------
 # Sanity checks on the remaining bundles the fixture must exercise.
 # ---------------------------------------------------------------------------

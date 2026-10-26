@@ -2110,6 +2110,12 @@ def check_specs(ctx: _Context) -> Iterator[Finding]:
                                             'baseline', row['distance'])
             if finding is not None:
                 yield finding
+        # A27: a site's own `muon_flux` field is range-checked like a spec.
+        if _type == 'site' and schema.is_quantity(record.get('muon_flux')):
+            finding = _plausibility_finding(path, entity_id, ('muon_flux',), 'muon_flux',
+                                            record['muon_flux'])
+            if finding is not None:
+                yield finding
 
 
 def check_planned_starts(ctx: _Context) -> Iterator[Finding]:
