@@ -1,0 +1,84 @@
+{
+  "aliases": [
+    "IMB Fairport mine",
+    "Morton-Thiokol salt mine, Fairport"
+  ],
+  "altitude": null,
+  "coordinates": {
+    "confidence": "approximate",
+    "kind": "campus",
+    "lat": 41.7519155,
+    "locator": "Nominatim result 1: OSM relation 181991 (Fairport Harbor village), lat/lon fields",
+    "lon": -81.2723464,
+    "note": "Village centroid, not the mine shaft or detector hall (A23). It lies within the rounding of the IMB paper's own \"41.7 N, 81.3 W\"; the true shaft position could differ by a few km.",
+    "precision_m": 5000,
+    "quote": "\"osm_id\":181991,\"lat\":\"41.7519155\",\"lon\":\"-81.2723464\"",
+    "sources": [
+      "src:disc-nominatim-fairport-harbor",
+      "src:disc-aps-bionta-imb-sn1987a-1987"
+    ],
+    "verified_at": "2026-10-26"
+  },
+  "country": "US",
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "depth_mwe": {
+    "approx": false,
+    "confidence": "verified",
+    "dimension": "depth_mwe",
+    "display": "1570 m water equivalent",
+    "locator": "Bionta et al., PRL 58, 1494, text",
+    "note": "",
+    "quote": "at a depth of 1570 m water equivalent",
+    "sources": [
+      "src:disc-aps-bionta-imb-sn1987a-1987"
+    ],
+    "unit": "m.w.e.",
+    "value": 1570,
+    "verified_at": "2026-10-26"
+  },
+  "depth_rock": {
+    "approx": true,
+    "confidence": "approximate",
+    "dimension": "length",
+    "display": "about 610 m (nearly 2,000 feet)",
+    "locator": "APS news release, 27 August 2024",
+    "note": "2,000 ft = 610 m; the source says \"nearly 2,000 feet\", so this is an upper approximation of the detector depth, not a measured rock overburden.",
+    "quote": "Located nearly 2,000 feet underground in the Fairport Harbor Morton Salt Mine",
+    "sources": [
+      "src:disc-aps-morton-salt-mine-historic-site"
+    ],
+    "unit": "m",
+    "value": 610,
+    "verified_at": "2026-10-26"
+  },
+  "facility_id": "facility:imb-fairport-mine",
+  "id": "site:imb-fairport-mine",
+  "links": {
+    "website": null
+  },
+  "name": "Fairport Harbor Morton Salt Mine (IMB site)",
+  "notes": [
+    "The marker is the OpenStreetMap centroid of Fairport Harbor village. The IMB paper itself gives only \"near Fairport, Ohio (41.7 N, 81.3 W)\", at 0.1-degree precision, and the village point lies inside that rounding; a surveyed shaft or hall coordinate would replace it.",
+    "The 1987 paper calls the host the \"Morton-Thiokol salt mine\"; the 2024 APS pages call it the \"Fairport Harbor Morton Salt Mine\" (the APS text also places it in Painesville, Ohio)."
+  ],
+  "place": {
+    "city": "Fairport Harbor",
+    "country": "US",
+    "region": "Ohio"
+  },
+  "schema": "hep-atlas/0.2",
+  "setting": "underground",
+  "sources": [
+    "src:disc-aps-bionta-imb-sn1987a-1987",
+    "src:disc-aps-morton-salt-mine-historic-site",
+    "src:disc-nominatim-fairport-harbor"
+  ],
+  "summary": {
+    "plain": "A working salt mine near Fairport Harbor, Ohio, on Lake Erie, where a tank of ultrapure water about 600 metres down listened for dying protons and, in 1987, caught neutrinos from a supernova.",
+    "technical": "Morton Salt mine near Fairport Harbor, Lake County, Ohio, hosting the IMB water Cherenkov detector at 1570 m.w.e. (nearly 2,000 feet underground). The detector hall is not separately geolocated by any source consulted."
+  },
+  "type": "site"
+}
