@@ -163,13 +163,26 @@
     }
   ],
   "kind": "reactor_neutrino",
-  "lineage": [],
+  "lineage": [
+    {
+      "confidence": "verified",
+      "experiment_id": "experiment:cowan-reines-hanford-1953",
+      "locator": "Reines Nobel Lecture, section \"The Savannah River Experiment\"",
+      "note": "",
+      "quote": "Encouraged by the Hanford results, we considered how it might be possible to build a detector which would be even more discriminating in its rejection of background.",
+      "relation": "predecessor",
+      "sources": [
+        "src:disc-nobel-lecture-reines-1995"
+      ],
+      "verified_at": "2026-10-26"
+    }
+  ],
   "links": {
     "website": null
   },
   "name": "Cowan–Reines reactor neutrino experiment",
   "notes": [
-    "The 1953 attempt at the Hanford reactors is sourced: \"A tentative identification of the free neutrino was made in an experiment performed at Hanford in 1953\" (Science 124, 103), and Reines writes \"Our entourage arrived at Hanford in the spring of 1953\" and that after a few months they stopped (Nobel Lecture). It is NOT modelled as an interval here because it happened at a different facility (a Hanford record is not assigned to this stream); for the integrator: add facility:hanford-site (reactor_site) and a predecessor experiment with this record's lineage.",
+    "The 1953 attempt at Hanford is the separate experiment:cowan-reines-hanford-1953 (facility:hanford-site), its predecessor: \"A tentative identification of the free neutrino was made in an experiment performed at Hanford in 1953\" (Science 124, 103), and Reines writes \"Our entourage arrived at Hanford in the spring of 1953\" (Nobel Lecture).",
     "No collaboration record: a five-author Los Alamos group (Cowan, Reines, Harrison, Kruse, McGuire), not a named collaboration. No detector record is created (not assigned to this stream).",
     "The official SRS timeline lists \"Neutrino confirmed at P Reactor\" under 1956; the APS plaque page says the definitive experiment was run \"in early 1956\"; Reines says the detector reached Savannah River in the fall of 1955. These are consistent: installation in fall 1955, running into 1956.",
     "The Savannah River site point is the whole-site centroid; P Reactor itself is not geolocated."
