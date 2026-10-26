@@ -464,6 +464,12 @@ async function openFilters(page) {
       await comparePage.goto(`${base}/atlas${dataTree}#/experiment/lz`);
       await comparePage.locator("#detail-panel .compare-add").click();
       await comparePage.locator("#compare-tray .compare-chip").nth(1).waitFor();
+      // The "Open comparison" button turns from disabled to teal through a colour
+      // transition; measure its contrast after it, not in the frame it starts.
+      await comparePage.waitForFunction(() => {
+        const open = document.querySelector("#compare-tray .compare-tray-open");
+        return open && open.getAnimations().length === 0;
+      });
       const tray = await runAxe(comparePage, tree.label, "experiment panel with the compare tray");
       assert.deepEqual(tray.violations, [], `expected 0 WCAG axe violations with the tray, got ${JSON.stringify(tray.violations)}`);
       await compareContext.close();

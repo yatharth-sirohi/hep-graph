@@ -288,7 +288,10 @@ export function resultsSearchEntries(atlas) {
       type: 'view',
       id: `view:${VIEW_NAME}/${id.split(':')[1]}`,
       name: `${WORKING_TITLE}: ${name}`,
-      aliases: [`${name} timeline`, `${name} results timeline`, `${name} results as a story`, `${name} discoveries`],
+      // No alias starts with the topic's own name: a search for "Higgs" means the topic,
+      // and the timeline is found by "Higgs timeline" or "timeline of Higgs results".
+      aliases: [`timeline of ${name} results`, `results timeline: ${name}`, `results story: ${name}`,
+        `story of ${name} discoveries`],
       subtitle: 'Results on a timeline',
     });
   }

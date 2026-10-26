@@ -2617,7 +2617,9 @@ export async function show(current, ctx) {
   // Only the player's step moved (a click on Next, a tick of Play): nothing the map
   // draws has changed, so the map is not drawn again — that would cost a full label
   // layout per step and would restart the dot.
-  const shownKey = JSON.stringify([mapId, view.levels, view.basemap, view.sel, view.timelineState]);
+  // The comparison overlay is part of what the map draws, so a change of `cmp`/`cmpc` is
+  // never "only the step moved".
+  const shownKey = JSON.stringify([mapId, view.levels, view.basemap, view.sel, view.cmp, view.cmpc, view.timelineState]);
   if (player && mapInstance && bundle && mapId === currentMapId && shownKey === lastShownKey) {
     player.sync(view.proton);
     return;

@@ -83,6 +83,9 @@ export function createChrome() {
   for (const type of ['pointerup', 'pointercancel']) {
     document.addEventListener(type, () => { window.setTimeout(() => { pointerOnKey = false; }, 0); }, true);
   }
+  // A key press moves focus by keyboard: the pointer is no longer the reason. The timeout
+  // above can run late on a busy page (the globe drawing), after a quick Tab.
+  document.addEventListener('keydown', () => { pointerOnKey = false; }, true);
   keyPopover.addEventListener('focusout', (event) => {
     if (keyPopover.hidden || pointerOnKey) return;
     const next = event.relatedTarget;
