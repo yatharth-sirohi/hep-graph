@@ -30,6 +30,7 @@ from __future__ import annotations
 
 import argparse
 import datetime as _dt
+import gzip as _gzip
 import hashlib
 import re as _re
 from dataclasses import dataclass, field
@@ -1769,6 +1770,11 @@ def build(data_dir: Path | str | None = None, out_dir: Path | str | None = None,
     if atlas_bytes > schema.ATLAS_JSON_MAX_BYTES:
         result.errors.append(
             f'atlas.json is {atlas_bytes} bytes, over the {schema.ATLAS_JSON_MAX_BYTES} byte limit')
+    atlas_gzip_bytes = len(_gzip.compress(texts['atlas.json'].encode('utf-8'), mtime=0))
+    if atlas_gzip_bytes > schema.ATLAS_JSON_MAX_GZIP_BYTES:
+        result.errors.append(
+            f'atlas.json compresses to {atlas_gzip_bytes} bytes, over the '
+            f'{schema.ATLAS_JSON_MAX_GZIP_BYTES} byte gzip limit')
     first_load = atlas_bytes + len(texts['manifest.json'].encode('utf-8'))
     if first_load > schema.ATLAS_JSON_BUDGET_BYTES:
         result.warnings.append(

@@ -496,8 +496,11 @@ DISPLAY_FACTOR_ERROR = 10.0
 DISPLAY_FACTOR_WARN = 1.05
 # A12: years outside this range are a calendar error.
 MIN_YEAR, MAX_YEAR = 1900, 2100
-# §8: the build fails above this (uncompressed atlas.json).
-ATLAS_JSON_MAX_BYTES = 1_500_000
+# §8: the build fails above these. The uncompressed ceiling rose from 1.5 MB to
+# 2.5 MB for the all-of-HEP coverage wave (A26); what a reader downloads is the
+# gzip-compressed file (Vercel compresses it), so that size is the real budget.
+ATLAS_JSON_MAX_BYTES = 2_500_000
+ATLAS_JSON_MAX_GZIP_BYTES = 500_000
 ATLAS_JSON_BUDGET_BYTES = 400_000  # pilot budget; over it the build prints a note
 
 # A3: state_segments are expressed in months since this epoch.
