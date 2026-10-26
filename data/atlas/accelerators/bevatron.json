@@ -1,0 +1,83 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "facility_id": "facility:lawrence-berkeley-national-laboratory",
+  "feeds_accelerator_ids": [],
+  "id": "accelerator:bevatron",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "1993",
+      "label": "operation",
+      "locator": "Berkeley Lab History, '1950's' page; end year from Berkeley Lab Elements",
+      "note": "January 1954 is when construction was completed; the date of first beam is not stated. End year: \"operated from 1954 to 1993\".",
+      "quote": "Construction was completed in January 1954 and the new machine, a synchrotron designed to accelerate protons up to energies of 6.5 billion electron volts, then designated BeV (now universally known as GeV), was christened the “Bevatron.”",
+      "sources": [
+        "src:disc-lbl-history-1950s",
+        "src:disc-lbl-elements-bevatron-40-years"
+      ],
+      "start": "1954-01",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "decommissioned",
+      "locator": "Berkeley Lab Elements, 13 June 2019",
+      "note": "Year precision; demolition is not dated in any source fetched.",
+      "quote": "a particle accelerator that operated from 1954 to 1993",
+      "sources": [
+        "src:disc-lbl-elements-bevatron-40-years"
+      ],
+      "start": "1993",
+      "status": "decommissioned",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "is_collider": false,
+  "kind": "synchrotron",
+  "links": {
+    "website": null
+  },
+  "name": "Bevatron",
+  "notes": [
+    "Later history (the Bevalac, 1970s) is not recorded: the Berkeley Lab page that states it returned HTTP 403, so no sourced interval exists for it.",
+    "The Bevatron building is not separately geolocated; the accelerator uses the Berkeley Lab campus site."
+  ],
+  "particles": [
+    "proton"
+  ],
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:lbnl-berkeley-campus",
+  "sources": [
+    "src:disc-lbl-history-1950s",
+    "src:disc-lbl-elements-bevatron-40-years"
+  ],
+  "specs": {
+    "beam_energy": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "energy",
+      "display": "6.5 GeV (design)",
+      "locator": "Berkeley Lab History, '1950's' page, paragraph on the antiproton",
+      "note": "Design energy, written \"6.5 billion electron volts, then designated BeV\".",
+      "quote": "a synchrotron designed to accelerate protons up to energies of 6.5 billion electron volts",
+      "sources": [
+        "src:disc-lbl-history-1950s"
+      ],
+      "unit": "GeV",
+      "value": 6.5,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "decommissioned",
+  "summary": {
+    "plain": "A proton accelerator at Berkeley, California, completed in 1954 and built with an energy just above what is needed to make an antiproton. In 1955 it did, and it ran until 1993.",
+    "technical": "Proton synchrotron designed for 6.5 GeV (then written 6.5 BeV), christened the Bevatron when construction was completed in January 1954; operated 1954-1993 at Berkeley Lab. Site of the 1955 antiproton observation."
+  },
+  "type": "accelerator"
+}
