@@ -1,0 +1,183 @@
+{
+  "accelerator_ids": [
+    "accelerator:cebaf"
+  ],
+  "aliases": [
+    "CEBAF Large Acceptance Spectrometer",
+    "CLAS (6 GeV)"
+  ],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:clas"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "distinct_from": [],
+  "energy_regime": {
+    "confidence": "verified",
+    "locator": "arXiv:2006.15566, Section 1",
+    "note": "",
+    "quote": "In the period from 1997 to 2012 this detector was used for studies of inclusive, semi-inclusive, and exclusive reactions from a fixed",
+    "sources": [
+      "src:hadron2-clas-carman-2020-strong-qcd-review"
+    ],
+    "value": "Electron and photon beams up to 6 GeV",
+    "verified_at": "2026-10-26"
+  },
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:jefferson-lab",
+      "locator": "CLAS NIM A503 abstract",
+      "note": "",
+      "quote": "A collaboration of about 30 institutions has designed, assembled, and commissioned CLAS in Hall B at the Thomas Jefferson National Accelerator Facility.",
+      "role": "host",
+      "sources": [
+        "src:hadron2-clas-detector-nim-2003",
+        "src:hadron2-clas-jlab-hall-b-welcome-page"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:jefferson-lab",
+      "locator": "arXiv:2006.15566, Section 1",
+      "note": "Electron and photon beams up to 6 GeV from CEBAF (accelerator:cebaf).",
+      "quote": "In the period from 1997 to 2012 this detector was used for studies of inclusive, semi-inclusive, and exclusive reactions from a fixed",
+      "role": "beam_source",
+      "sources": [
+        "src:hadron2-clas-carman-2020-strong-qcd-review"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:clas",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2012",
+      "label": "data taking (6 GeV era)",
+      "locator": "JLab Hall B welcome page; end year from Carman, Joo & Mokeev (arXiv:2006.15566), Section 1: 'In the period from 1997 to 2012 this detector was used ...'",
+      "note": "Start: month precision from the JLab page (December 1997); end: year precision from the 2020 review (1997 to 2012); no source fetched gives the final run date.",
+      "quote": "it has been taking data since December, 1997",
+      "sources": [
+        "src:hadron2-clas-jlab-hall-b-welcome-page",
+        "src:hadron2-clas-carman-2020-strong-qcd-review"
+      ],
+      "start": "1997-12",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "completed",
+      "locator": "arXiv:2006.15566, Section 1",
+      "note": "Replaced by CLAS12 between 2012 and 2017 as part of the 12 GeV Upgrade.",
+      "quote": "In the period from 2012 to 2017 CLAS was replaced with the new large acceptance CLAS12 spectrometer",
+      "sources": [
+        "src:hadron2-clas-carman-2020-strong-qcd-review"
+      ],
+      "start": "2012",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Forward-angle momentum resolution",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "fraction",
+        "display": "0.5%",
+        "locator": "CLAS NIM A503 abstract",
+        "note": "",
+        "quote": "Trajectory reconstruction using drift chambers results in a momentum resolution of 0.5% at forward angles.",
+        "sources": [
+          "src:hadron2-clas-detector-nim-2003"
+        ],
+        "unit": "%",
+        "value": 0.5,
+        "verified_at": "2026-10-26"
+      }
+    }
+  ],
+  "kind": "hadron_structure",
+  "lineage": [],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "locator": "JLab Experimental Hall B page",
+      "note": "JLab Hall B page hosting the CLAS Collaboration and Hall B pages; no separate CLAS/CLAS12 domain was reachable (clas12.jlab.org does not resolve).",
+      "quote": "Welcome to the CLAS Collaboration",
+      "sources": [
+        "src:hadron2-clas-jlab-hall-b-page"
+      ],
+      "value": "https://www.jlab.org/physics/hall-b",
+      "verified_at": "2026-10-26"
+    }
+  },
+  "name": "CLAS",
+  "notes": [
+    "INSPIRE experiment id not looked up: inspirehep.net is off-limits to coverage streams (STREAM_RULES); external.inspire_experiment left null for the integrator.",
+    "Collaboration size is not recorded: the only count found (nearly 150 physicists from more than 30 universities, JLab Hall B welcome page) is undated and from the 1990s, so it is not a current membership.",
+    "CLAS12 (experiment:clas12) is recorded as an upgrade of CLAS; the two share the CLAS Collaboration."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "CLAS NIM A503 abstract",
+      "note": "",
+      "quote": "The CEBAF large acceptance spectrometer (CLAS) is used to study photo- and electro-induced nuclear and hadronic reactions by providing efficient detection of neutral and charged particles over a good fraction of the full solid angle.",
+      "sources": [
+        "src:hadron2-clas-detector-nim-2003"
+      ],
+      "value": "Study photo- and electro-induced nuclear and hadronic reactions: nucleon resonance (N*) spectrum, nucleon structure",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:hadron2-clas-detector-nim-2003",
+    "src:hadron2-clas-jlab-hall-b-page",
+    "src:hadron2-clas-jlab-hall-b-welcome-page",
+    "src:hadron2-clas-carman-2020-strong-qcd-review"
+  ],
+  "status": "completed",
+  "summary": {
+    "plain": "CLAS (the CEBAF Large Acceptance Spectrometer) was a large particle detector in Hall B at Jefferson Lab that recorded what happens when electron or photon beams strike nuclei, mapping nucleon excitations and the structure of protons and neutrons from 1997 to 2012.",
+    "technical": "Large-acceptance spectrometer in CEBAF Hall B built around a six-coil toroidal magnet with drift chambers, Cherenkov counters, time-of-flight scintillators and electromagnetic calorimeters; ran with electron and photon beams up to 6 GeV from 1997 to 2012 (N* programme, DVCS, GPDs, spin structure) before being replaced by CLAS12."
+  },
+  "superseded_by": null,
+  "topic_ids": [
+    "topic:hadron-structure",
+    "topic:qcd"
+  ],
+  "type": "experiment",
+  "unique_capabilities": [
+    {
+      "confidence": "verified",
+      "locator": "CLAS NIM A503 abstract",
+      "note": "",
+      "quote": "The CEBAF large acceptance spectrometer (CLAS) is used to study photo- and electro-induced nuclear and hadronic reactions by providing efficient detection of neutral and charged particles over a good fraction of the full solid angle.",
+      "sources": [
+        "src:hadron2-clas-detector-nim-2003"
+      ],
+      "value": "Efficient detection of neutral and charged particles over a good fraction of the full solid angle in a toroidal magnetic field",
+      "verified_at": "2026-10-26"
+    }
+  ]
+}

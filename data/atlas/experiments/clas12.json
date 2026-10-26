@@ -1,0 +1,209 @@
+{
+  "accelerator_ids": [
+    "accelerator:cebaf"
+  ],
+  "aliases": [
+    "CLAS12 spectrometer",
+    "CLAS at 12 GeV"
+  ],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:clas"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "distinct_from": [],
+  "energy_regime": {
+    "confidence": "verified",
+    "locator": "CLAS12 NIM A959 abstract",
+    "note": "",
+    "quote": "using polarized and unpolarized electron beams and targets for beam energies up to 11 GeV",
+    "sources": [
+      "src:hadron2-clas12-detector-nim-2020"
+    ],
+    "value": "Electron beam energies up to 11 GeV",
+    "verified_at": "2026-10-26"
+  },
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:jefferson-lab",
+      "locator": "CLAS12 NIM A959 abstract",
+      "note": "",
+      "quote": "The CEBAF Large Acceptance Spectrometer for operation at 12 GeV beam energy (CLAS12) in Hall B at Jefferson Laboratory is used to study electro-induced nuclear and hadronic reactions.",
+      "role": "host",
+      "sources": [
+        "src:hadron2-clas12-detector-nim-2020"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:jefferson-lab",
+      "locator": "CLAS12 NIM A959 abstract",
+      "note": "12 GeV CEBAF electron beam (accelerator:cebaf).",
+      "quote": "CLAS12 has been part of the energy-doubling project of Jefferson Lab",
+      "role": "beam_source",
+      "sources": [
+        "src:hadron2-clas12-detector-nim-2020"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:clas12",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2017",
+      "label": "construction (CLAS replaced by CLAS12)",
+      "locator": "arXiv:2006.15566 Section 1",
+      "note": "Year precision; the review gives the period in which CLAS was replaced by CLAS12 within the 12 GeV Upgrade.",
+      "quote": "In the period from 2012 to 2017 CLAS was replaced with the new large acceptance CLAS12 spectrometer",
+      "sources": [
+        "src:hadron2-clas-carman-2020-strong-qcd-review"
+      ],
+      "start": "2012",
+      "status": "construction",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "physics data taking",
+      "locator": "PoS(SPIN2018)041, abstract",
+      "note": "\"has begun the physics data taking in February 2018\"; the proceedings say data taking was paused in summer 2018 and resumed end of September 2018.",
+      "quote": "The CLAS12 experiment at the Jefferson Laboratory has begun the physics data taking in February 2018",
+      "sources": [
+        "src:hadron2-clas12-first-sidis-results-spin2018-pos"
+      ],
+      "start": "2018-02",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Forward momentum resolution",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "fraction",
+        "display": "1%",
+        "locator": "CLAS12 NIM A959 abstract",
+        "note": "Forward direction; central 3%.",
+        "quote": "Trajectory reconstruction in the forward direction using drift chambers and in the central direction using a vertex tracker results in momentum resolutions of 1% and 3%, respectively.",
+        "sources": [
+          "src:hadron2-clas12-detector-nim-2020"
+        ],
+        "unit": "%",
+        "value": 1,
+        "verified_at": "2026-10-26"
+      }
+    },
+    {
+      "label": "Central momentum resolution",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "fraction",
+        "display": "3%",
+        "locator": "CLAS12 NIM A959 abstract",
+        "note": "",
+        "quote": "Trajectory reconstruction in the forward direction using drift chambers and in the central direction using a vertex tracker results in momentum resolutions of 1% and 3%, respectively.",
+        "sources": [
+          "src:hadron2-clas12-detector-nim-2020"
+        ],
+        "unit": "%",
+        "value": 3,
+        "verified_at": "2026-10-26"
+      }
+    }
+  ],
+  "kind": "hadron_structure",
+  "lineage": [
+    {
+      "experiment_id": "experiment:clas",
+      "locator": "arXiv:2006.15566 Section 1",
+      "quote": "In the period from 2012 to 2017 CLAS was replaced with the new large acceptance CLAS12 spectrometer",
+      "relation": "upgrade_of",
+      "sources": [
+        "src:hadron2-clas-carman-2020-strong-qcd-review"
+      ]
+    }
+  ],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "locator": "JLab Experimental Hall B page",
+      "note": "JLab Hall B page hosting the CLAS Collaboration and Hall B pages; no separate CLAS/CLAS12 domain was reachable (clas12.jlab.org does not resolve).",
+      "quote": "Welcome to the CLAS Collaboration",
+      "sources": [
+        "src:hadron2-clas-jlab-hall-b-page"
+      ],
+      "value": "https://www.jlab.org/physics/hall-b",
+      "verified_at": "2026-10-26"
+    }
+  },
+  "name": "CLAS12",
+  "notes": [
+    "INSPIRE experiment id not looked up: inspirehep.net is off-limits to coverage streams (STREAM_RULES); external.inspire_experiment left null for the integrator.",
+    "The detector paper reports that an international collaboration of 48 institutions contributed to the design and construction of CLAS12 hardware; that is not a collaboration membership count and is not recorded as one.",
+    "Shares collaboration:clas with experiment:clas."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "CLAS12 NIM A959 abstract",
+      "note": "",
+      "quote": "These capabilities are being used in a broad program to study the structure and interactions of nucleons, nuclei, and mesons",
+      "sources": [
+        "src:hadron2-clas12-detector-nim-2020"
+      ],
+      "value": "Study the structure and interactions of nucleons, nuclei and mesons with polarised and unpolarised electron beams and targets up to 11 GeV",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:hadron2-clas12-detector-nim-2020",
+    "src:hadron2-clas-jlab-hall-b-page",
+    "src:hadron2-clas12-first-sidis-results-spin2018-pos",
+    "src:hadron2-clas-carman-2020-strong-qcd-review"
+  ],
+  "status": "active",
+  "summary": {
+    "plain": "CLAS12 is the upgraded Hall B detector at Jefferson Lab for the 12 GeV electron beam. Its magnets and chambers follow the particles from electron collisions with protons and nuclei to study how the proton, neutron and heavier states are built from quarks and gluons.",
+    "technical": "CLAS12: dual-magnet large-acceptance spectrometer in CEBAF Hall B (superconducting torus for forward angles up to 35 degrees, solenoid and central tracker for 35-125 degrees) with 1% / 3% forward / central momentum resolution; running since February 2018 with polarised electron beams up to 11 GeV on polarised and unpolarised targets (DVCS, SIDIS, TMDs, hadron spectroscopy)."
+  },
+  "superseded_by": null,
+  "topic_ids": [
+    "topic:hadron-structure",
+    "topic:qcd"
+  ],
+  "type": "experiment",
+  "unique_capabilities": [
+    {
+      "confidence": "verified",
+      "locator": "CLAS12 NIM A959 abstract",
+      "note": "",
+      "quote": "CLAS12 is based on a dual-magnet system with a superconducting torus magnet that provides a largely azimuthal field distribution that covers the forward polar angle range up to 35",
+      "sources": [
+        "src:hadron2-clas12-detector-nim-2020"
+      ],
+      "value": "Dual-magnet system: superconducting torus for the forward region and solenoid with central tracker for large angles, with good particle identification and high data-acquisition rates",
+      "verified_at": "2026-10-26"
+    }
+  ]
+}
