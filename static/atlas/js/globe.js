@@ -2203,6 +2203,12 @@ export function createGlobe(container, {
       if (resized && viewRequest) reframe(false); // a stage of another size: the same view, re-aimed
       scheduleDeclutter(DECLUTTER_DELAY_MS);
     },
+    /** True when no marker rebuild and no caption declutter is waiting to run, so what is
+     * on screen is the final layout for the camera where it is (export.js waits for this
+     * before it takes a picture, and never takes one in the middle of a layout). */
+    isSettled() {
+      return !rebuildTimer && !declutterTimer;
+    },
     /** The globe as a picture, for export.js: the frame on screen, drawn again at
      * `pixelRatio` device pixels per CSS pixel and copied to a new canvas that is the
      * stage's size times that. The WebGL canvas is not kept once it has been shown

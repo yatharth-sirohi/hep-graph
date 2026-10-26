@@ -302,19 +302,22 @@ function paintFooter(ctx, layout, lines) {
 
 // ----------------------------------------------------------------- globe
 
-async function settleGlobe(container) {
+/** Waits until the globe has finished laying itself out: no rebuild or caption pass
+ * pending (globe.js isSettled), and the markers and captions standing still. A picture
+ * taken before that would show captions where they were, not where they are going. */
+async function settleGlobe(globe, container) {
   await ensureFonts();
-  const sample = () => [...container.querySelectorAll('.atlas-marker, .bl-pill')].slice(0, 80).map((el) => {
+  const sample = () => [...container.querySelectorAll('.atlas-marker, .atlas-marker-label, .bl-pill')].slice(0, 200).map((el) => {
     const rect = el.getBoundingClientRect();
     return rect.left * 3 + rect.top;
   });
   let previous = sample();
   let stable = 0;
-  for (let frame = 0; frame < 100 && stable < 4; frame += 1) {
+  for (let frame = 0; frame < 150 && stable < 12; frame += 1) {
     await nextFrame();
     const now = sample();
     const same = now.length === previous.length && now.every((value, i) => Math.abs(value - previous[i]) < 0.5);
-    stable = same ? stable + 1 : 0;
+    stable = same && (typeof globe.isSettled !== 'function' || globe.isSettled()) ? stable + 1 : 0;
     previous = now;
   }
 }
@@ -433,7 +436,7 @@ async function composeGlobe(info, options) {
       + 'The list view cannot be exported as an image.');
   }
   const container = document.getElementById('globe-container');
-  await settleGlobe(container);
+  await settleGlobe(globe, container);
   const stageRect = container.getBoundingClientRect();
   if (!stageRect.width || !stageRect.height) throw new ExportError('The globe is not on screen, so there is nothing to export.');
   const date = todayISO();
@@ -962,7 +965,6 @@ function createDialog() {
   function setOpen(next, { restoreFocus = true } = {}) {
     if (next === open) return;
     open = next;
-    const hadFocus = popover.contains(document.activeElement);
     popover.hidden = !next;
     button.setAttribute('aria-expanded', String(next));
     if (next) {
@@ -973,7 +975,7 @@ function createDialog() {
       window.clearTimeout(refreshTimer);
       preview.replaceChildren();
       current = null;
-      if (restoreFocus && hadFocus) button.focus({ preventScroll: true });
+      if (restoreFocus) button.focus({ preventScroll: true });
     }
   }
 
@@ -981,16 +983,18 @@ function createDialog() {
   closeX.addEventListener('click', () => setOpen(false));
   dismiss.addEventListener('click', () => setOpen(false));
   for (const input of Object.values(radios)) input.addEventListener('change', () => render());
+  // The button stays enabled while it saves (a disabled button drops the focus it holds).
+  let saving = false;
   download.addEventListener('click', async () => {
-    if (!current) return;
-    download.disabled = true;
+    if (!current || saving) return;
+    saving = true;
     try {
       const bytes = await downloadCanvas(current.canvas, current.filename);
       say(`Saved ${current.filename} (${Math.round(bytes / 1024)} KB).`);
     } catch (error) {
       say(error.message);
     } finally {
-      download.disabled = false;
+      saving = false;
     }
   });
 
