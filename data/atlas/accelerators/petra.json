@@ -1,0 +1,160 @@
+{
+  "aliases": [
+    "PETRA",
+    "PETRA I",
+    "PETRA e+e- collider"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "facility_id": "facility:desy",
+  "feeds_accelerator_ids": [],
+  "id": "accelerator:petra",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "1975",
+      "label": "proposal",
+      "locator": "Table 1, Timeline of the e+ e− storage ring PETRA",
+      "note": "End = fall 1975, when the federal government approved the project.",
+      "quote": "proposal for an e+ e− storage ring of 2304 m circumference",
+      "sources": [
+        "src:colliders2-jade-history-bethke-wagner"
+      ],
+      "start": "1974-09",
+      "status": "proposed",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "1976",
+      "label": "approval",
+      "locator": "Table 1 (1975, Fall)",
+      "note": "Fall 1975; the interval ends at the start of construction (spring 1976).",
+      "quote": "approval by federal government",
+      "sources": [
+        "src:colliders2-jade-history-bethke-wagner"
+      ],
+      "start": "1975",
+      "status": "approved",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "1978-07",
+      "label": "construction",
+      "locator": "Table 1 (1976, Spring); end = July 1978 completion",
+      "note": "Spring 1976 start (year precision kept); end is July 1978, \"early completion of PETRA, start of operation\".",
+      "quote": "start of PETRA construction",
+      "sources": [
+        "src:colliders2-jade-history-bethke-wagner"
+      ],
+      "start": "1976",
+      "status": "construction",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "1978-09",
+      "label": "commissioning",
+      "locator": "Table 1 (1978, July)",
+      "note": "First stored beams in July 1978; first e+e- collisions in September 1978.",
+      "quote": "early completion of PETRA, start of operation",
+      "sources": [
+        "src:colliders2-jade-history-bethke-wagner"
+      ],
+      "start": "1978-07",
+      "status": "commissioning",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "1986-11-03",
+      "label": "e+e- collider operation",
+      "locator": "Table 1 (1978, September); end from the 1986 November 3 row \"final shutdown of PETRA and experiments\"",
+      "note": "The end date is the sourced final shutdown of PETRA as a particle collider.",
+      "quote": "first e+ e− collisions",
+      "sources": [
+        "src:colliders2-jade-history-bethke-wagner"
+      ],
+      "start": "1978-09",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "final shutdown as a collider",
+      "locator": "Table 1 (1986, November 3)",
+      "note": "PETRA as an e+e- collider ended here. The same ring was later reused as the HERA pre-accelerator (PETRA II, from 1990 to 2007), as a synchrotron-radiation source from 1995, and rebuilt as PETRA III; this record covers the collider only.",
+      "quote": "final shutdown of PETRA and experiments",
+      "sources": [
+        "src:colliders2-jade-history-bethke-wagner"
+      ],
+      "start": "1986-11-03",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "is_collider": true,
+  "kind": "collider",
+  "links": {
+    "website": null
+  },
+  "name": "Positron-Electron Tandem Ring Accelerator",
+  "notes": [
+    "The DESY anniversary page says PETRA served as pre-accelerator for HERA \"starting in 1986\"; Bethke & Wagner (Eur. Phys. J. H 2022) say PETRA \"came back to life in 1990 as PETRA-II\" after the November 1986 shutdown. The record follows the latter for the collider/pre-accelerator distinction and only models the collider period.",
+    "PETRA II (HERA pre-accelerator) and PETRA III (synchrotron-radiation source) are not separate records here; photon science is outside the Atlas scope (A26)."
+  ],
+  "particles": [
+    "electron",
+    "positron"
+  ],
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:desy-hamburg-campus",
+  "sources": [
+    "src:colliders2-jade-history-bethke-wagner",
+    "src:colliders2-desy-1978-petra-page",
+    "src:colliders2-ziemann-german-beams"
+  ],
+  "specs": {
+    "beam_energy": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "energy",
+      "display": "up to 23.390 GeV per beam",
+      "locator": "Table 1 (1984, March)",
+      "note": "Maximum beam energy reached, March 1984 (energy upgrade to 22 GeV in 1983).",
+      "quote": "maximum Eb of 23.390 GeV",
+      "sources": [
+        "src:colliders2-jade-history-bethke-wagner"
+      ],
+      "unit": "GeV",
+      "value": 23.39,
+      "verified_at": "2026-10-26"
+    },
+    "circumference": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "2304 m",
+      "locator": "Table 1 (1974 September proposal figure); DESY page gives 2.3 km as built",
+      "note": "Design figure from the 1974 proposal; the DESY anniversary page states 2.3 kilometre circumference for the ring as commissioned.",
+      "quote": "proposal for an e+ e− storage ring of 2304 m circumference",
+      "sources": [
+        "src:colliders2-jade-history-bethke-wagner",
+        "src:colliders2-desy-1978-petra-page"
+      ],
+      "unit": "m",
+      "value": 2304,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "completed",
+  "summary": {
+    "plain": "DESY's 2.3-kilometre electron-positron ring in Hamburg, which collided beams from 1978 to 1986. Experiments there (TASSO, MARK J, JADE, PLUTO, CELLO) found the first direct evidence of the gluon in three-jet events in 1979.",
+    "technical": "PETRA e⁺e⁻ storage-ring collider, 2304 m circumference, beam energy up to 23.39 GeV (centre-of-mass up to about 46.8 GeV); first collisions September 1978, final collider shutdown 3 November 1986. Four collision regions: TASSO, MARK J, JADE and PLUTO (replaced by CELLO in March 1980). Later reused as HERA pre-accelerator and as the PETRA III light source."
+  },
+  "type": "accelerator"
+}

@@ -1,0 +1,166 @@
+{
+  "aliases": [
+    "DORIS",
+    "DORIS II",
+    "DORIS III",
+    "Double-Ring Storage Facility"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "facility_id": "facility:desy",
+  "feeds_accelerator_ids": [],
+  "id": "accelerator:doris",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "1993",
+      "label": "e+e- collider operation (DORIS, DORIS II, DORIS III)",
+      "locator": "DORIS history page, 1974 entry; end from the 1993 entry",
+      "note": "Year-precision start (the page gives no month); end is the year the page says DORIS became a dedicated synchrotron-radiation source.",
+      "quote": "The storage ring DORIS is build as an electron-positron collider for high energy physics.",
+      "sources": [
+        "src:colliders2-desy-doris-history"
+      ],
+      "start": "1974",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": "1982",
+      "kind": "phase",
+      "label": "DORIS (two rings)",
+      "locator": "Ziemann, \"German Beams\", DORIS section",
+      "note": "Original double-ring machine (DOppel-RIng-Speicher), initially up to 3 GeV per beam; end = the 1982 upgrade to DORIS II.",
+      "quote": "Towards the end of 1974, the two detectors PLUTO and DASP were placed in their respective collision points.",
+      "sources": [
+        "src:colliders2-ziemann-german-beams"
+      ],
+      "specs": {
+        "beam_energy": {
+          "approx": false,
+          "confidence": "verified",
+          "dimension": "energy",
+          "display": "up to 3 GeV per beam (initial)",
+          "locator": "Ziemann, DORIS section",
+          "note": "Initial energy; raised to close to 5 GeV per beam before the 1982 upgrade.",
+          "quote": "initially stored electrons and positrons with energies of up to 3 GeV",
+          "sources": [
+            "src:colliders2-ziemann-german-beams"
+          ],
+          "unit": "GeV",
+          "value": 3,
+          "verified_at": "2026-10-26"
+        }
+      },
+      "start": "1974",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "1991",
+      "kind": "phase",
+      "label": "DORIS II (single ring)",
+      "locator": "Ziemann, DORIS section",
+      "note": "Single-ring operation at up to 5.6 GeV per beam; hosted ARGUS and Crystal Ball. End = the 1991 upgrade to DORIS III.",
+      "quote": "DORIS was upgraded in 1982 to reemerge as DORIS II",
+      "sources": [
+        "src:colliders2-ziemann-german-beams"
+      ],
+      "specs": {
+        "beam_energy": {
+          "approx": false,
+          "confidence": "verified",
+          "dimension": "energy",
+          "display": "5.6 GeV per beam",
+          "locator": "Ziemann, DORIS section",
+          "note": "Beam energy in the DORIS II era.",
+          "quote": "The higher energies of 5.6 GeV per beam",
+          "sources": [
+            "src:colliders2-ziemann-german-beams"
+          ],
+          "unit": "GeV",
+          "value": 5.6,
+          "verified_at": "2026-10-26"
+        }
+      },
+      "start": "1982",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "1993",
+      "kind": "phase",
+      "label": "DORIS III (ARGUS running)",
+      "locator": "DORIS history page, 1991 entry",
+      "note": "DORIS III modified one long straight section for synchrotron-radiation insertion devices; the other straight section kept ARGUS running until 1993.",
+      "quote": "In the second straight the very successful ARGUS detector is operating until 1993 for high energy physics.",
+      "sources": [
+        "src:colliders2-desy-doris-history"
+      ],
+      "start": "1991",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "collider operation ended",
+      "locator": "DORIS history page, 1993 entry",
+      "note": "Particle-physics running ended; DORIS then served only as a synchrotron-radiation source (until 2012 per Ziemann, \"German Beams\"). This record covers the collider only.",
+      "quote": "DORIS is running as a dedicated source for synchrotron radiation.",
+      "sources": [
+        "src:colliders2-desy-doris-history"
+      ],
+      "start": "1993",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "is_collider": true,
+  "kind": "collider",
+  "links": {
+    "website": null
+  },
+  "name": "Doppel-Ring-Speicher",
+  "notes": [
+    "End of collider running: the DESY DORIS page says ARGUS operated \"until 1993\"; other sources give end of data taking in 1992. The record follows the DESY page (1993) and marks it approximate."
+  ],
+  "particles": [
+    "electron",
+    "positron"
+  ],
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:desy-hamburg-campus",
+  "sources": [
+    "src:colliders2-desy-doris-history",
+    "src:colliders2-ziemann-german-beams"
+  ],
+  "specs": {
+    "circumference": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "288 m",
+      "locator": "Ziemann, DORIS section",
+      "note": "",
+      "quote": "circumference of 288 m",
+      "sources": [
+        "src:colliders2-ziemann-german-beams"
+      ],
+      "unit": "m",
+      "value": 288,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "completed",
+  "summary": {
+    "plain": "DESY's first electron-positron collider, in Hamburg, running from 1974. It confirmed the charm quark's bound states, produced Upsilon mesons after its 1982 upgrade, and hosted ARGUS, which first saw B-meson mixing in 1987, and Crystal Ball.",
+    "technical": "DORIS e⁺e⁻ storage ring, 288 m circumference; two rings up to 3 GeV per beam from 1974 (PLUTO, DASP), single-ring DORIS II from 1982 at up to 5.6 GeV per beam (ARGUS, Crystal Ball), DORIS III from 1991; high-energy-physics running ended 1993, after which it served only as a synchrotron-radiation source."
+  },
+  "type": "accelerator"
+}
