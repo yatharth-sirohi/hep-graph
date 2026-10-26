@@ -1,0 +1,79 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "distinct_from": [],
+  "experiment_ids": [
+    "experiment:bmn"
+  ],
+  "id": "detector:bmn",
+  "intervals": [
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "physics runs",
+      "locator": "arXiv:2312.17573, Introduction (first physics run in 2023 with a Xe beam); 64th PAC PP report: ninth physics run recorded 2.75 billion events",
+      "note": "The detector paper dates the \"first physics run\" to 2023 with a xenon beam; earlier runs with carbon, argon and krypton beams exist (the Lambda paper uses carbon-beam data) but their dates are not in the sources fetched, so the start is the earliest documented run. The June 2026 report counts a ninth physics run (Xe + Sn, 2.75 billion events) after an eighth run (Xe + CsI).",
+      "quote": "A schematic view of the BM@N setup, as used in the first physics run in 2023 with a Xe beam, is shown in Fig. 1.",
+      "sources": [
+        "src:hadron2-bmn-spectrometer-arxiv-2023",
+        "src:hadron2-jinr-pac-pp-64-news-2026"
+      ],
+      "start": "2023",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "BM@N spectrometer",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "locator": "arXiv:2312.17573",
+      "note": "VBLHEP accelerator complex (campus-grade).",
+      "quote": "BM@N (Baryonic Matter at Nuclotron) is the first experiment operational at the Nuclotron/NICA ion-accelerating complex, dedicated to studying interactions of relativistic beams of heavy ions with fixed targets",
+      "role": "main",
+      "site_id": "site:jinr-vblhep-accelerator-complex",
+      "sources": [
+        "src:hadron2-bmn-spectrometer-arxiv-2023"
+      ],
+      "start": "2023",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:hadron2-bmn-spectrometer-arxiv-2023"
+  ],
+  "specs": {},
+  "status": "active",
+  "subsystems": [],
+  "summary": {
+    "plain": "A forward magnetic spectrometer with a large dipole magnet, silicon and gas tracking, time-of-flight and calorimeters that records the particles produced when heavy ions hit a fixed target.",
+    "technical": "BM@N forward spectrometer (1.6 < eta < 4.4): SP-41 analysing magnet (3.15 Tm at 2000 A), beam and trigger detectors, silicon and GEM tracking, drift/cathode-strip chambers, TOF400/TOF700 walls, calorimetry."
+  },
+  "superseded_by": null,
+  "technology": {
+    "confidence": "verified",
+    "locator": "arXiv:2312.17573, Introduction",
+    "note": "",
+    "quote": "The BM@N detector is a forward spectrometer that covers the pseudorapidity range 1.6 ≤ η ≤ 4.4.",
+    "sources": [
+      "src:hadron2-bmn-spectrometer-arxiv-2023"
+    ],
+    "value": "Forward magnetic spectrometer with a dipole magnet, beam monitoring, tracking, time-of-flight and calorimeters",
+    "verified_at": "2026-10-26"
+  },
+  "technology_classes": [
+    "forward_spectrometer",
+    "magnetic_spectrometer"
+  ],
+  "type": "detector"
+}

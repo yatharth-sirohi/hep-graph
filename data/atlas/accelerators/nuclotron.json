@@ -1,0 +1,76 @@
+{
+  "aliases": [
+    "Nuclotron-M"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "distinct_from": [],
+  "facility_id": "facility:jinr-dubna",
+  "feeds_accelerator_ids": [
+    "accelerator:nica"
+  ],
+  "id": "accelerator:nuclotron",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "operation (superconducting synchrotron)",
+      "locator": "HIAT2015 paper \"Nuclotron: 20 years\", Operation section",
+      "note": "Month precision: 51 runs were performed since March 1993; it serves as the main accelerator of the NICA complex (Nuclotron-M modernisation continues; June 2026: modernisation of the Booster, Nuclotron, collider and beam transport channel).",
+      "quote": "51 runs of the Nuclotron operation were performed since March 1993",
+      "sources": [
+        "src:hadron2-nuclotron-20-years-hiat-2015"
+      ],
+      "start": "1993-03",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "is_collider": false,
+  "kind": "synchrotron",
+  "links": {
+    "website": null
+  },
+  "name": "Nuclotron",
+  "notes": [
+    "The commissioning year (March 1993) is from the 2015 HIAT paper; the modernisation known as Nuclotron-M is part of the NICA project and is not recorded as a separate interval."
+  ],
+  "particles": [
+    "proton",
+    "deuteron",
+    "ion"
+  ],
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:jinr-vblhep-accelerator-complex",
+  "sources": [
+    "src:hadron2-nuclotron-20-years-hiat-2015",
+    "src:hadron2-bmn-spectrometer-arxiv-2023",
+    "src:hadron2-jinr-nica-first-run-news-2025"
+  ],
+  "specs": {
+    "beam_energy": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "energy",
+      "display": "up to 6 AGeV for light ions (Z/A ~ 0.5)",
+      "locator": "arXiv:2312.17573, Introduction",
+      "note": "Kinetic energy per nucleon for light ions; heavy ions with Z/A ~ 0.4 reach 4.5 AGeV.",
+      "quote": "The Nuclotron will provide the experiment with beams of a variety of particles, from protons to gold ions, with kinetic energy in the range from 1 to 6 AGeV for light ions with a Z/A ratio of ∼ 0.5 and up to 4.5 AGeV for heavy ions with a Z/A ratio of ∼ 0.4.",
+      "sources": [
+        "src:hadron2-bmn-spectrometer-arxiv-2023"
+      ],
+      "unit": "GeV",
+      "value": 6,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "active",
+  "summary": {
+    "plain": "The Nuclotron is JINR's superconducting ring accelerator in Dubna, in operation since 1993. It supplies protons and ions up to gold at several GeV per nucleon to fixed-target experiments such as BM@N and injects the NICA collider.",
+    "technical": "Nuclotron: superconducting synchrotron (cold-iron fast-cycling magnets) in operation since March 1993, delivering beams from protons to gold ions at 1-6 AGeV (light ions) and up to 4.5 AGeV (heavy ions) to BM@N and, via the Booster chain, to the NICA collider."
+  },
+  "superseded_by": null,
+  "type": "accelerator"
+}
