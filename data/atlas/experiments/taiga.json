@@ -1,0 +1,181 @@
+{
+  "accelerator_ids": [],
+  "aliases": [
+    "Tunka Advanced Instrument for cosmic rays and Gamma Astronomy"
+  ],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:taiga"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "distinct_from": [],
+  "energy_regime": null,
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:tunka-valley",
+      "locator": "Section 2",
+      "note": "",
+      "quote": "in the Tunka valley 50 km to the west from Lake Baikal (51.49 N, 103.04 E)",
+      "role": "host",
+      "sources": [
+        "src:c2-cr-taiga-2022"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:taiga",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2022",
+      "label": "TAIGA construction",
+      "locator": "Section 2",
+      "note": "Start: \"In 2012 in the frame of Russian-German joint research activities, the construction of two new detectors was started.\" (Kostunin et al., arXiv:1903.07460, Section 2).",
+      "quote": "In 2022, we completed the deployment and commissioning of the TAIGA-1 hybrid complex",
+      "sources": [
+        "src:c2-cr-taiga-2022"
+      ],
+      "start": "2012",
+      "status": "construction",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "TAIGA operation",
+      "locator": "Section 2",
+      "note": "2013 is the year the first TAIGA-type array, Tunka-HiSCORE (later TAIGA-HiSCORE), went into operation; the Tunka-133 array had been taking data since 2009. The first IACT was deployed in 2017 and the second in 2018. The most recent statement read (2022) describes TAIGA-1 as complete and in operation.",
+      "quote": "was put into operation one year later, in 2013",
+      "sources": [
+        "src:c2-cr-taiga-lecture"
+      ],
+      "start": "2013",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "TAIGA-HiSCORE stations",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "count",
+        "display": "120 stations",
+        "locator": "Section 2",
+        "note": "",
+        "quote": "It consists of 120 TAIGA-HiSCORE wide-angle Cherenkov stations",
+        "sources": [
+          "src:c2-cr-taiga-2022"
+        ],
+        "unit": "",
+        "value": 120,
+        "verified_at": "2026-10-26"
+      }
+    },
+    {
+      "label": "Imaging atmospheric Cherenkov telescopes",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "count",
+        "display": "3 telescopes",
+        "locator": "Section 2",
+        "note": "",
+        "quote": "three 4-m class Imaging Atmospheric Cherenkov Telescopes (IACT)",
+        "sources": [
+          "src:c2-cr-taiga-2022"
+        ],
+        "unit": "",
+        "value": 3,
+        "verified_at": "2026-10-26"
+      }
+    },
+    {
+      "label": "Scintillation detector area",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "area",
+        "display": "250 m²",
+        "locator": "Section 2",
+        "note": "",
+        "quote": "250 m2 of scintillation particle detectors of TunkaGrande",
+        "sources": [
+          "src:c2-cr-taiga-2022"
+        ],
+        "unit": "m^2",
+        "value": 250,
+        "verified_at": "2026-10-26"
+      }
+    }
+  ],
+  "kind": "cosmic_ray",
+  "lineage": [
+    {
+      "confidence": "verified",
+      "experiment_id": "experiment:tunka-133",
+      "note": "Tunka-133 is one of the setups of the facility later named TAIGA. Row on the lexicographically smaller id (experiment:taiga).",
+      "quote": "the entire facility was later called TAIGA (Tunka Advanced Instrument for cosmic rays and Gamma Astronomy)",
+      "relation": "same_program",
+      "sources": [
+        "src:c2-cr-taiga-lecture"
+      ],
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "TAIGA",
+  "notes": [
+    "No official TAIGA website is recorded: taiga-experiment.info returned HTTP 404 and the other candidate hosts did not resolve (checked 2026-10-26).",
+    "TAIGA is recorded as one experiment because the collaboration's own lecture treats Tunka-133, Tunka-Rex, Tunka-Grande, TAIGA-HiSCORE and TAIGA-IACT as setups of one facility; Tunka-133 additionally has its own record because it has its own long series of results."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "abstract",
+      "note": "",
+      "quote": "Our goal is to establish a novel hybrid direct air shower technique, sufficient to access the energy domain of the long-sought Pevatrons.",
+      "sources": [
+        "src:c2-cr-taiga-crab"
+      ],
+      "value": "Establish a hybrid air-shower technique able to reach the energy domain of Galactic PeV accelerators (\"Pevatrons\").",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [
+    "gamma_ray"
+  ],
+  "sources": [
+    "src:c2-cr-taiga-2022",
+    "src:c2-cr-taiga-lecture",
+    "src:c2-cr-taiga-crab"
+  ],
+  "status": "active",
+  "summary": {
+    "plain": "TAIGA combines three kinds of detector in a Siberian valley: light stations, imaging telescopes and particle counters. Together they hunt for PeV gamma rays and measure cosmic rays from 100 TeV to several EeV.",
+    "technical": "Hybrid detector complex in the Tunka valley: 120 TAIGA-HiSCORE wide-angle Cherenkov stations, three 4 m class IACTs and 250 m2 of scintillators (Tunka-Grande, TAIGA-MUON), with Tunka-133 and the Tunka-Rex radio array; TAIGA-1 completed 2022. Detected the Crab Nebula at 8.5 sigma with the first IACT."
+  },
+  "superseded_by": null,
+  "topic_ids": [
+    "topic:gamma-rays",
+    "topic:cosmic-rays",
+    "topic:astroparticle-physics"
+  ],
+  "type": "experiment",
+  "unique_capabilities": []
+}

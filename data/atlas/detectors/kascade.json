@@ -1,0 +1,126 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "distinct_from": [],
+  "experiment_ids": [
+    "experiment:kascade"
+  ],
+  "id": "detector:kascade",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2012-12",
+      "label": "KASCADE operation",
+      "locator": "Research Subject",
+      "note": "End: \"KASCADE and its extension KASCADE-Grande stopped finally the active data acquisition of all its components including the radio EAS experiment LOPES end of 2012 after more than 20 years of data taking\" (Haungs et al., arXiv:1504.06696, abstract). \"More than 20 years\" is longer than 1996-2012; the official 1996 start is used.",
+      "quote": "As an extension of the former KASCADE experiment running successfully since 1996",
+      "sources": [
+        "src:c2-cr-kascade-grande-official-page",
+        "src:c2-cr-kcdc-paper"
+      ],
+      "start": "1996",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "data acquisition stopped",
+      "locator": "abstract",
+      "note": "Start is the month the paper gives (\"end of 2012\").",
+      "quote": "KASCADE and its extension KASCADE-Grande stopped finally the active data acquisition of all its components including the radio EAS experiment LOPES end of 2012 after more than 20 years of data taking",
+      "sources": [
+        "src:c2-cr-kcdc-paper"
+      ],
+      "start": "2012-12",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "KASCADE array, muon tracking detector and calorimeter",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": "2012-12",
+      "locator": "Research Subject",
+      "note": "Campus-grade placement: the sources give the array position only to 0.1 degree.",
+      "quote": "The experiment was situated on site of the former Forschungszentrum Karlsruhe (now Karlsruhe Institute of Technology, KIT, 49,1°N, 8,4°O) at 110m a.s.l",
+      "role": "main",
+      "site_id": "site:kit-campus-north",
+      "sources": [
+        "src:c2-cr-kascade-grande-official-page"
+      ],
+      "start": "1996",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:c2-cr-kascade-grande-official-page",
+    "src:c2-cr-kg-knee"
+  ],
+  "specs": {
+    "altitude": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "110 m",
+      "locator": "Research Subject",
+      "note": "",
+      "quote": "at 110m a.s.l",
+      "sources": [
+        "src:c2-cr-kascade-grande-official-page"
+      ],
+      "unit": "m",
+      "value": 110,
+      "verified_at": "2026-10-26"
+    },
+    "area": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "area",
+      "display": "0.04 km² (200 m × 200 m)",
+      "locator": "Section \"Experiment\"",
+      "note": "200 m × 200 m converted to km2.",
+      "quote": "the original KASCADE array covering 200 × 200 m2 with unshielded and shielded detectors",
+      "sources": [
+        "src:c2-cr-kg-knee"
+      ],
+      "unit": "km^2",
+      "value": 0.04,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "A square of particle detectors, 200 metres on a side, with a muon tracker and a hadron calorimeter at its centre.",
+    "technical": "KASCADE: 200 m × 200 m field array of unshielded and shielded scintillators (electrons and muons), central detector with hadron calorimeter and muon tracking detector."
+  },
+  "superseded_by": null,
+  "technology": {
+    "confidence": "verified",
+    "locator": "Research Subject",
+    "note": "",
+    "quote": "It measured simultaneously the electromagnetic, muonic and hadronic componenets of extensive air showers of cosmic rays.",
+    "sources": [
+      "src:c2-cr-kascade-grande-official-page"
+    ],
+    "value": "Multi-detector air-shower array measuring the electromagnetic, muonic and hadronic components of each shower.",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "air_shower_array",
+  "technology_classes": [
+    "air_shower_array",
+    "tracking_calorimeter"
+  ],
+  "type": "detector"
+}

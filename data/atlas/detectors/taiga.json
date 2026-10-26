@@ -1,0 +1,174 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "distinct_from": [],
+  "experiment_ids": [
+    "experiment:taiga"
+  ],
+  "id": "detector:taiga",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2022",
+      "label": "TAIGA construction",
+      "locator": "Section 2",
+      "note": "Start: \"In 2012 in the frame of Russian-German joint research activities, the construction of two new detectors was started.\" (Kostunin et al., arXiv:1903.07460, Section 2).",
+      "quote": "In 2022, we completed the deployment and commissioning of the TAIGA-1 hybrid complex",
+      "sources": [
+        "src:c2-cr-taiga-2022"
+      ],
+      "start": "2012",
+      "status": "construction",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "TAIGA operation",
+      "locator": "Section 2",
+      "note": "2013 is the year the first TAIGA-type array, Tunka-HiSCORE (later TAIGA-HiSCORE), went into operation; the Tunka-133 array had been taking data since 2009. The first IACT was deployed in 2017 and the second in 2018. The most recent statement read (2022) describes TAIGA-1 as complete and in operation.",
+      "quote": "was put into operation one year later, in 2013",
+      "sources": [
+        "src:c2-cr-taiga-lecture"
+      ],
+      "start": "2013",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "TAIGA hybrid detector complex",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "locator": "Section 2",
+      "note": "Valley-scale placement; see site:tunka-valley.",
+      "quote": "in the Tunka valley 50 km to the west from Lake Baikal (51.49 N, 103.04 E)",
+      "role": "main",
+      "site_id": "site:tunka-valley",
+      "sources": [
+        "src:c2-cr-taiga-2022"
+      ],
+      "start": "2013",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:c2-cr-taiga-2022",
+    "src:c2-cr-taiga-lecture"
+  ],
+  "specs": {
+    "station_count": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "count",
+      "display": "120 HiSCORE stations",
+      "locator": "Section 2",
+      "note": "",
+      "quote": "It consists of 120 TAIGA-HiSCORE wide-angle Cherenkov stations",
+      "sources": [
+        "src:c2-cr-taiga-2022"
+      ],
+      "unit": "",
+      "value": 120,
+      "verified_at": "2026-10-26"
+    },
+    "telescope_count": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "count",
+      "display": "3 telescopes",
+      "locator": "Section 2",
+      "note": "",
+      "quote": "three 4-m class Imaging Atmospheric Cherenkov Telescopes (IACT)",
+      "sources": [
+        "src:c2-cr-taiga-2022"
+      ],
+      "unit": "",
+      "value": 3,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "active",
+  "subsystems": [
+    {
+      "description": [
+        {
+          "confidence": "verified",
+          "locator": "Section 2",
+          "note": "",
+          "quote": "a low-threshold non-imaging air-Cherenkov array originally called Tunka-HiSCORE",
+          "sources": [
+            "src:c2-cr-taiga-lecture"
+          ],
+          "value": "A low-threshold non-imaging air-Cherenkov timing array, put into operation in 2013.",
+          "verified_at": "2026-10-26"
+        }
+      ],
+      "name": "TAIGA-HiSCORE"
+    },
+    {
+      "description": [
+        {
+          "confidence": "verified",
+          "locator": "Section 2",
+          "note": "",
+          "quote": "a digital radio array called Tunka Radio Extension (Tunka-Rex)",
+          "sources": [
+            "src:c2-cr-taiga-lecture"
+          ],
+          "value": "A digital radio antenna array for air-shower radio emission, deployed and commissioned in 2012.",
+          "verified_at": "2026-10-26"
+        }
+      ],
+      "name": "Tunka-Rex"
+    },
+    {
+      "description": [
+        {
+          "confidence": "verified",
+          "locator": "Section 2",
+          "note": "",
+          "quote": "the former KASCADEGrande scintillators were shipped to Tunka and formed the Tunka-Grande array",
+          "sources": [
+            "src:c2-cr-taiga-lecture"
+          ],
+          "value": "Scintillator array formed from former KASCADE-Grande scintillators shipped to Tunka in 2014-2015.",
+          "verified_at": "2026-10-26"
+        }
+      ],
+      "name": "Tunka-Grande"
+    }
+  ],
+  "summary": {
+    "plain": "A hybrid of light stations, imaging telescopes, radio antennas and particle counters in one valley, for PeV gamma rays and cosmic rays.",
+    "technical": "TAIGA-1: 120 HiSCORE stations (1 km2), three IACTs (about 9.6 degree field of view), Tunka-Grande and TAIGA-MUON scintillators (250 m2), Tunka-Rex radio array, and the older Tunka-133 Cherenkov array."
+  },
+  "superseded_by": null,
+  "technology": {
+    "confidence": "verified",
+    "locator": "Section 2",
+    "note": "",
+    "quote": "It consists of 120 TAIGA-HiSCORE wide-angle Cherenkov stations, three 4-m class Imaging Atmospheric Cherenkov Telescopes (IACT) and 250 m2 of scintillation particle detectors",
+    "sources": [
+      "src:c2-cr-taiga-2022"
+    ],
+    "value": "Hybrid of a wide-angle Cherenkov timing array (HiSCORE), imaging atmospheric Cherenkov telescopes and scintillator arrays.",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "imaging_atmospheric_cherenkov",
+  "technology_classes": [
+    "imaging_atmospheric_cherenkov",
+    "air_shower_array"
+  ],
+  "type": "detector"
+}

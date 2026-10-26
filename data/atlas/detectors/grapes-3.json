@@ -1,0 +1,143 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "distinct_from": [],
+  "experiment_ids": [
+    "experiment:grapes-3"
+  ],
+  "id": "detector:grapes-3",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "GRAPES-3 operation",
+      "locator": "Section 1",
+      "note": "The sentence refers to the muon telescope (G3MT) in continuous operation since 2000; the start of the scintillator array is not stated in the sources read. The experiment is still publishing in 2026 but no source read says in so many words that it is running now.",
+      "quote": "In continuous operation since the year 2000",
+      "sources": [
+        "src:c2-cr-g3-muon"
+      ],
+      "start": "2000",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "GRAPES-3 scintillator array and muon telescope",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "locator": "Section 2",
+      "note": "Start is the year of continuous muon-telescope operation.",
+      "quote": "GRAPES-3 is a ground-based observatory located in the Nilgiri mountains in Ooty, India (11.4∘N, 76.7∘E, 2200 m above mean sea level).",
+      "role": "main",
+      "site_id": "site:ooty-cosmic-ray-laboratory",
+      "sources": [
+        "src:c2-cr-g3-muon"
+      ],
+      "start": "2000",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:c2-cr-g3-angres",
+    "src:c2-cr-g3-energy",
+    "src:c2-cr-g3-muon"
+  ],
+  "specs": {
+    "altitude": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "2200 m",
+      "locator": "Section 2",
+      "note": "",
+      "quote": "(11.4∘N, 76.7∘E, 2200 m above mean sea level)",
+      "sources": [
+        "src:c2-cr-g3-muon"
+      ],
+      "unit": "m",
+      "value": 2200,
+      "verified_at": "2026-10-26"
+    },
+    "area": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "area",
+      "display": "25,000 m²",
+      "locator": "Section 2",
+      "note": "",
+      "quote": "400 plastic scintillator detectors (each 1 m2 ) spread over 25000 m2",
+      "sources": [
+        "src:c2-cr-g3-angres"
+      ],
+      "unit": "m^2",
+      "value": 25000,
+      "verified_at": "2026-10-26"
+    },
+    "station_count": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "count",
+      "display": "400 detectors",
+      "locator": "Section 2",
+      "note": "",
+      "quote": "400 plastic scintillator detectors (each 1 m2 ) spread over 25000 m2",
+      "sources": [
+        "src:c2-cr-g3-angres"
+      ],
+      "unit": "",
+      "value": 400,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "active",
+  "subsystems": [
+    {
+      "description": [
+        {
+          "confidence": "verified",
+          "locator": "Section 2",
+          "note": "",
+          "quote": "The G3MT consists of 3712 proportional counters (PRCs) arranged in 16 muon telescope modules with a total area of 560 m2",
+          "sources": [
+            "src:c2-cr-g3-energy"
+          ],
+          "value": "3712 proportional counters in 16 modules with a total area of 560 m2, recording muons above 1 GeV.",
+          "verified_at": "2026-10-26"
+        }
+      ],
+      "name": "GRAPES-3 muon telescope (G3MT)"
+    }
+  ],
+  "summary": {
+    "plain": "A field of 400 plastic scintillators and a large muon telescope in southern India.",
+    "technical": "GRAPES-3: 400 scintillator detectors (1 m2 each, 25,000 m2) and the 560 m2 muon telescope G3MT (3,712 proportional counters, 16 modules, 1 GeV threshold)."
+  },
+  "superseded_by": null,
+  "technology": {
+    "confidence": "verified",
+    "locator": "Section 2",
+    "note": "",
+    "quote": "400 plastic scintillator detectors (each 1 m2 ) spread over 25000 m2",
+    "sources": [
+      "src:c2-cr-g3-angres"
+    ],
+    "value": "Dense array of plastic-scintillator detectors plus a tracking muon telescope built from gas-filled proportional counters.",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "air_shower_array",
+  "technology_classes": [
+    "air_shower_array"
+  ],
+  "type": "detector"
+}
