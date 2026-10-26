@@ -9,6 +9,9 @@ import {
 } from './model.js';
 import * as provenance from './provenance.js';
 import { greatCircleM, initialBearing } from './localmap.js';
+import {
+  VIEW_NAME, WORKING_TITLE, rowGeometry, rowsForBeamline, rowsForExperiment,
+} from './views/beam-rows.js';
 import { quoteView, readableText, readableView } from './tex.js';
 
 let ATLAS = null;
@@ -567,6 +570,58 @@ async function renderFacility(id, timelineState) {
   return frag;
 }
 
+// ---- "Beam through the Earth" (js/views/beam-section.js) ---------------------
+// A baseline row is a drawable cross-section of the Earth, so every beamline panel,
+// and every experiment panel whose far detector a baseline reaches, links to it, one
+// link per row. The numbers in the hint are the view's own (views/beam-rows.js and
+// beam-geometry.js), computed from the two recorded coordinates; the view shows
+// their formulas, inputs and uncertainty. Pure arithmetic: nothing is fetched here.
+function beamSectionHint(row) {
+  const { geometry } = rowGeometry(row);
+  const distance = row.baseline.distance ? row.baseline.distance.display : '';
+  return [distance, `dips ${geometry.dipDeg.toFixed(1)}\u00b0 below the horizon`,
+    `${geometry.sagittaKm.toFixed(1)} km deep at mid-path`]
+    .filter(Boolean).join(' \u00b7 ');
+}
+
+function beamSectionRoute(row) {
+  return { type: 'view', slug: `${VIEW_NAME}/${row.arg}` };
+}
+
+// The beamline panel's call to action: a card, one prominent link per baseline row.
+function beamSectionCta(rows) {
+  const route = (row) => beamSectionRoute(row);
+  return h('div', { class: 'beam-section-cta' }, [
+    h('p', { class: 'beam-section-cta-kicker' }, 'See the physics'),
+    ...rows.map((row) => {
+      const a = h('a', {
+        class: 'beam-section-link',
+        href: `#/${route(row).type}/${route(row).slug}`,
+      }, [
+        h('span', { class: 'beam-section-link-title' }, rows.length > 1 ? `${WORKING_TITLE}: ${row.label}` : WORKING_TITLE),
+        h('span', { class: 'beam-section-link-hint' }, `${row.label} \u00b7 ${beamSectionHint(row)}`),
+      ]);
+      a.addEventListener('click', (event) => {
+        if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+        event.preventDefault();
+        CALLBACKS.navigate({ entity: route(row) });
+      });
+      return a;
+    }),
+  ]);
+}
+
+// The experiment panel's quieter line: the same links, in running text.
+function beamSectionLinkLine(rows) {
+  return h('p', { class: 'beam-section-links' }, [
+    'See the physics: ',
+    ...rows.flatMap((row, i) => [
+      i ? document.createTextNode(' \u00b7 ') : null,
+      linkTo(beamSectionRoute(row), `${WORKING_TITLE}: ${row.label}`),
+    ]),
+  ]);
+}
+
 // ---- distance between an experiment's sites ------------------------------
 // formatDistance/compassPoint mirror the local map view's own "off-campus
 // destination" rows (which compute the same great-circle figures with the same
@@ -666,6 +721,9 @@ async function renderExperiment(id, timelineState) {
       ...collabs.flatMap((c, i) => (i === 0 ? [linkTo(idRoute(c.id), c.name, 'collab-link')] : [document.createTextNode(', '), linkTo(idRoute(c.id), c.name, 'collab-link')])),
     ]));
   }
+
+  const experimentBeamRows = rowsForExperiment(ATLAS, exp);
+  if (experimentBeamRows.length) frag.appendChild(beamSectionLinkLine(experimentBeamRows));
 
   const expPlainSummary = plainSummaryOf(exp, t);
   sections.add('What it studies', [
@@ -1398,6 +1456,8 @@ async function renderBeamline(id, timelineState) {
   // ---- local map view hook (§4): the compact subtitle-area affordance
   const mapChip = await localMapChip(beamline);
   if (mapChip) frag.appendChild(mapChip);
+  const beamlineRows = rowsForBeamline(ATLAS, beamline);
+  if (beamlineRows.length) frag.appendChild(beamSectionCta(beamlineRows));
 
   const beamlineSummary = plainSummaryOf(beamline, t);
   const primaryBeam = beamline.primary_beam || {};

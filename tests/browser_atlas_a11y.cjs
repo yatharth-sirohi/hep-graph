@@ -309,6 +309,27 @@ async function openFilters(page) {
       await runAxe(page, tree.label, "document library");
     });
 
+    // ---- views: "Beam through the Earth" (static/atlas/js/views/) ----------------
+    // The figure, the table, the citations and the open "Inputs and method" must all
+    // be clean: an SVG that names itself, text on the tokens' contrast, a table with
+    // headers, and a disclosure that is a real <details>.
+    await record(`[${tree.label}] axe: beam through the Earth view, and with Inputs and method open`, async () => {
+      const viewContext = await browser.newContext({ viewport: { width: 1440, height: 960 }, reducedMotion: "reduce" });
+      const viewPage = await viewContext.newPage();
+      viewPage.setDefaultTimeout(30000);
+      await viewPage.goto(`${base}/atlas${dataTree}#/view/beam-section/lbnf`);
+      await viewPage.locator(".bs-fig-a svg.bs-svg").waitFor();
+      // The citations arrive after the first paint; scan once they have.
+      await viewPage.waitForFunction(() => !document.querySelector("#view-host .bs-cite .loading-note"));
+      const closed = await runAxe(viewPage, tree.label, "beam section view");
+      assert.deepEqual(closed.violations, [], `expected 0 WCAG axe violations on the beam section, got ${JSON.stringify(closed.violations)}`);
+      await viewPage.locator("#view-method > summary").click();
+      await viewPage.waitForFunction(() => !document.querySelector("#view-host .bs-sources .loading-note"));
+      const open = await runAxe(viewPage, tree.label, "beam section view, inputs and method open");
+      assert.deepEqual(open.violations, [], `expected 0 WCAG axe violations with the method open, got ${JSON.stringify(open.violations)}`);
+      await viewContext.close();
+    });
+
     // ---- local map view (docs/HEP_ATLAS_GEOMETRY.md §4) -- begin --------
     // Two states, both of which have to be clean: the map with nothing
     // selected, and the map with the drawer open (which is where panels.js's

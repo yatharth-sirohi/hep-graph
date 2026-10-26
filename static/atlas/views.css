@@ -1,0 +1,728 @@
+/* views.css — the Atlas "views" framework and the beam-section view.
+   Loaded once, after atlas.css and globe.css and before phone.css (index.html).
+   Everything here belongs to `#/view/<name>/<arg>` (js/views/): the route puts
+   `.is-view-route` on #atlas-main and on <body>, which stands the globe layout
+   down and gives the view the whole stage, as the local map's route does.
+   Colours and sizes come from the tokens in atlas.css; the few view-specific
+   colours below are tokens of their own, so a later view can reuse them. */
+
+:root {
+  /* The beam, in the hues the globe draws it (globe.js BEAM_COLOR*): bright cyan
+     while running, a muted steel blue while it is not. */
+  --view-beam: #96f4ff;
+  --view-beam-glow: #46b4ff;
+  --view-beam-quiet: #a0c4e2;
+  /* The ground in section: a lighter rock at the surface, darker with depth. */
+  --view-rock-top: #234a60;
+  --view-rock-bottom: #0f2231;
+  --view-surface: #8fd3b2;
+  /* A detector marker (and anything else standing for a recorded detector). */
+  --view-detector: var(--amber);
+}
+
+/* ------------------------------------------------------------------ the stage */
+#atlas-main.is-view-route {
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas: none;
+}
+#atlas-main.is-view-route > :not(.view-host) {
+  display: none !important;
+}
+/* The globe's own controls do not exist on a view (it has no layers or filters),
+   so the view switcher, Key and Filters step aside, as on a local map. */
+body.is-view-route .header-tools,
+body.is-view-route .atlas-header > .mode-buttons {
+  display: none;
+}
+
+.view-host {
+  grid-column: 1 / -1;
+  grid-row: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: var(--paper);
+}
+.view-host.hidden {
+  display: none;
+}
+.view-page {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: var(--space-4) var(--space-5) var(--space-7);
+}
+.view-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: var(--space-3) var(--space-4);
+  margin-bottom: var(--space-4);
+}
+.view-back {
+  appearance: none;
+  flex: 0 1 auto;
+  max-width: 100%;
+  background: var(--panel-2);
+  border: 1px solid var(--line-strong);
+  color: var(--white);
+  border-radius: var(--radius);
+  padding: 8px var(--space-3);
+  min-height: 38px;
+  font: inherit;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  cursor: pointer;
+  text-align: left;
+  transition: border-color var(--dur) var(--ease), background-color var(--dur) var(--ease);
+}
+.view-back:hover {
+  border-color: var(--teal);
+}
+.view-titles {
+  flex: 1 1 320px;
+  min-width: 0;
+}
+.view-title {
+  margin: 0;
+  font-size: var(--text-3xl);
+  font-weight: 650;
+  line-height: var(--leading-tight);
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+}
+/* The heading takes focus when a view opens (so a screen reader starts there); it is
+   not a control, so it carries no ring. */
+.view-title:focus {
+  outline: none;
+}
+.view-subtitle {
+  margin: var(--space-2) 0 0;
+  color: var(--muted);
+  font-size: var(--text-md);
+}
+.view-subtitle .status-badge {
+  margin: 0 0 0 var(--space-2);
+  vertical-align: 1px;
+  text-transform: none;
+}
+.view-body > :first-child {
+  margin-top: 0;
+}
+/* A link set in a sentence is told apart from the text by more than its colour (WCAG 1.4.1). */
+.view-host a {
+  text-decoration: underline;
+}
+.view-error {
+  max-width: 62ch;
+  padding: var(--space-4);
+  border: 1px solid var(--danger);
+  border-left-width: 4px;
+  border-radius: var(--radius);
+  background: var(--panel);
+  color: var(--white);
+}
+.view-error p {
+  margin: 0 0 var(--space-3);
+}
+
+/* "Inputs and method": a disclosure like the panels' sections, set apart under the figure. */
+.view-method {
+  margin-top: var(--space-6);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  background: var(--panel);
+}
+.view-method[hidden] {
+  display: none;
+}
+.view-method > summary {
+  cursor: pointer;
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--text-lg);
+  font-weight: 650;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+.view-method > summary::-webkit-details-marker {
+  display: none;
+}
+.view-method > summary::before {
+  content: '\25b8';
+  color: var(--teal);
+  transition: transform var(--dur) var(--ease);
+}
+.view-method[open] > summary::before {
+  transform: rotate(90deg);
+}
+.view-method > summary:hover {
+  background: color-mix(in srgb, var(--teal) 8%, transparent);
+}
+.view-method-body {
+  padding: 0 var(--space-4) var(--space-5);
+  max-width: 100ch;
+}
+.view-method-body h3 {
+  margin: var(--space-5) 0 var(--space-2);
+  font-size: var(--text-md);
+  color: var(--teal);
+}
+.view-method-body h4 {
+  margin: var(--space-3) 0 var(--space-1);
+  font-size: var(--text-sm);
+}
+.view-method-body p,
+.view-method-body li {
+  font-size: var(--text-sm);
+  line-height: var(--leading-body);
+}
+
+/* -------------------------------------------------------------- beam section */
+.bs-lede {
+  max-width: 74ch;
+  margin: 0 0 var(--space-4);
+  font-size: var(--text-lg);
+  line-height: var(--leading-body);
+}
+.bs-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: var(--space-3);
+  margin: 0 0 var(--space-5);
+}
+.bs-stat {
+  margin: 0;
+  padding: var(--space-3) var(--space-4);
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--view-beam);
+  border-radius: var(--radius);
+}
+.bs-stat dt {
+  margin: 0 0 var(--space-1);
+  color: var(--muted);
+  font-size: var(--text-sm);
+}
+.bs-stat dd {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.bs-stat-value {
+  font-size: var(--text-3xl);
+  font-weight: 650;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+}
+.bs-stat-note {
+  color: var(--muted);
+  font-size: var(--text-xs);
+}
+
+.bs-figure {
+  margin: 0 0 var(--space-5);
+}
+.bs-fig-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-4);
+  align-items: stretch;
+}
+@media (min-width: 900px) {
+  .bs-fig-grid {
+    grid-template-columns: minmax(0, 1fr) 340px;
+  }
+}
+.bs-fig-a,
+.bs-fig-b,
+.bs-offaxis {
+  min-width: 0;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.bs-fig-side {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  min-width: 0;
+}
+.bs-fig-side > .bs-fig-b {
+  flex: 1 1 auto;
+}
+.bs-svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+.bs-caption {
+  max-width: 100ch;
+  margin-top: var(--space-3);
+  color: var(--muted);
+  font-size: var(--text-sm);
+  line-height: var(--leading-body);
+}
+.bs-caption strong {
+  color: var(--white);
+}
+
+/* the SVG's own marks */
+.bs-svg text {
+  font-family: var(--font-ui);
+  font-size: 13px;
+  fill: var(--white);
+}
+.bs-svg .bs-t-muted {
+  fill: var(--muted);
+  font-size: 12.5px;
+}
+.bs-svg .bs-t-strong {
+  font-weight: 650;
+}
+.bs-svg .bs-t-head {
+  font-size: 15px;
+}
+.bs-svg .bs-t-name {
+  font-size: 15px;
+}
+.bs-svg .bs-t-num {
+  font-size: 15px;
+  font-variant-numeric: tabular-nums;
+}
+.bs-svg .bs-t-role {
+  fill: var(--muted);
+  font-size: 12px;
+  font-weight: 650;
+  letter-spacing: 0.08em;
+}
+.bs-svg .bs-not-to-scale {
+  fill: var(--amber);
+  letter-spacing: 0.08em;
+}
+.bs-rock-top {
+  stop-color: var(--view-rock-top);
+}
+.bs-rock-bottom {
+  stop-color: var(--view-rock-bottom);
+}
+.bs-surface,
+.bs-earth-arc {
+  stroke: var(--view-surface);
+  stroke-width: 3;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+.bs-earth {
+  stroke: var(--line-strong);
+  stroke-width: 1;
+}
+.bs-radius {
+  fill: none;
+  stroke: var(--line-strong);
+  stroke-width: 1;
+  stroke-dasharray: 3 4;
+}
+.bs-centre {
+  fill: var(--muted);
+}
+.bs-beam-glow {
+  stroke: var(--view-beam-glow);
+  stroke-width: 11;
+  stroke-opacity: 0.2;
+  stroke-linecap: round;
+}
+.bs-beam,
+.bs-earth-chord {
+  stroke: var(--view-beam);
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+.bs-earth-chord {
+  stroke-width: 2.5;
+}
+.bs-beam.is-quiet {
+  stroke: var(--view-beam-quiet);
+}
+.bs-beam.is-dashed {
+  stroke-dasharray: 11 8;
+  stroke-linecap: butt;
+}
+.bs-arrowhead {
+  fill: var(--view-beam);
+}
+/* The gentle flow along a running beam: short bright dashes sliding down the chord.
+   Under prefers-reduced-motion it is not drawn at all, only the steady line. */
+.bs-flow {
+  display: none;
+  stroke: var(--white);
+  stroke-width: 3;
+  stroke-opacity: 0.9;
+  stroke-linecap: round;
+  stroke-dasharray: 1 30;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .bs-flow {
+    display: inline;
+    animation: bs-flow 1.8s linear infinite;
+  }
+  @keyframes bs-flow {
+    to {
+      stroke-dashoffset: -31;
+    }
+  }
+}
+.bs-pill rect {
+  fill: var(--paper);
+  stroke: var(--view-beam);
+  stroke-width: 1;
+  fill-opacity: 0.92;
+}
+.bs-pill-status rect {
+  stroke: var(--status-construction);
+  stroke-dasharray: 4 3;
+}
+.bs-site {
+  fill: var(--white);
+  stroke: var(--paper);
+  stroke-width: 1.5;
+}
+.bs-depth-line {
+  stroke: var(--white);
+  stroke-width: 1.5;
+  stroke-dasharray: 3 3;
+  stroke-opacity: 0.85;
+}
+.bs-detector {
+  fill: var(--view-detector);
+  stroke: var(--paper);
+  stroke-width: 1;
+}
+.bs-dim-line,
+.bs-scale-line,
+.bs-dip-arc,
+.bs-leader {
+  fill: none;
+  stroke: var(--white);
+  stroke-width: 1.5;
+  stroke-opacity: 0.9;
+}
+.bs-dip-arc {
+  stroke: var(--amber);
+  stroke-width: 2;
+  stroke-opacity: 1;
+}
+.bs-horizon,
+.bs-detector-line {
+  stroke: var(--muted);
+  stroke-width: 1.5;
+  stroke-dasharray: 6 4;
+}
+.bs-detector-line {
+  stroke: var(--view-detector);
+  stroke-dasharray: none;
+  stroke-width: 2;
+}
+/* the off-axis card */
+.bs-offaxis {
+  padding: var(--space-3) var(--space-4) var(--space-4);
+}
+.bs-offaxis h3,
+.bs-compare h3,
+.bs-records h3 {
+  margin: 0 0 var(--space-2);
+  font-size: var(--text-md);
+}
+.bs-offaxis .bs-svg {
+  margin: 0 -4px;
+}
+.bs-offaxis-warning {
+  margin: var(--space-2) 0;
+  padding: 2px 8px;
+  border-left: 3px solid var(--amber);
+  font-size: var(--text-xs);
+  color: var(--white);
+}
+.bs-offaxis-line {
+  margin: var(--space-2) 0 0;
+  font-size: var(--text-sm);
+}
+
+/* tables of numbers */
+.bs-table-scroll {
+  max-width: 100%;
+  overflow-x: auto;
+}
+.bs-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 0 var(--space-5);
+  font-size: var(--text-sm);
+}
+.bs-table caption {
+  text-align: left;
+  color: var(--muted);
+  padding: 0 0 var(--space-2);
+  font-size: var(--text-sm);
+}
+.bs-table th,
+.bs-table td {
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+.bs-table thead th {
+  color: var(--muted);
+  font-weight: 600;
+  border-bottom: 1px solid var(--line-strong);
+}
+.bs-table tbody th {
+  font-weight: 600;
+  min-width: 12em;
+}
+.bs-num {
+  font-variant-numeric: tabular-nums;
+  font-weight: 650;
+  white-space: nowrap;
+}
+.bs-formula {
+  min-width: 15em;
+}
+.bs-math {
+  display: block;
+  font-family: 'STIX Two Math', var(--font-ui);
+  font-size: var(--text-md);
+}
+.bs-formulas .bs-math {
+  display: inline;
+}
+.bs-inputs {
+  display: block;
+  color: var(--muted);
+  font-size: var(--text-xs);
+  font-variant-numeric: tabular-nums;
+}
+.bs-uncertainty {
+  color: var(--muted);
+  font-size: var(--text-xs);
+}
+.bs-uncertainty-parts {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.bs-inputs-table {
+  min-width: 720px;
+}
+
+/* the sourced baseline beside the computed distance (and, where there is one, the
+   off-axis angle next to it) */
+.bs-lower {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-4);
+  margin: 0 0 var(--space-5);
+}
+@media (min-width: 900px) {
+  .bs-lower.has-offaxis {
+    grid-template-columns: minmax(0, 3fr) minmax(300px, 2fr);
+    align-items: start;
+  }
+}
+.bs-lower > .bs-compare {
+  max-width: none;
+  margin: 0;
+}
+.bs-compare,
+.bs-records {
+  max-width: 100ch;
+  margin: 0 0 var(--space-5);
+  padding: var(--space-4);
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+.bs-compare-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: var(--space-3);
+  margin: 0 0 var(--space-3);
+}
+.bs-compare-list dt {
+  color: var(--muted);
+  font-size: var(--text-xs);
+}
+.bs-compare-list dd {
+  margin: 0;
+  font-size: var(--text-xl);
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+}
+.bs-compare-note {
+  margin: 0 0 var(--space-3);
+  font-size: var(--text-sm);
+}
+.bs-cite .source-list,
+.bs-sources .source-list {
+  margin: 0;
+}
+.bs-records .bs-records-sub {
+  margin-top: var(--space-4);
+}
+.bs-records .entity-list {
+  margin: 0;
+}
+.bs-source-block {
+  margin-bottom: var(--space-3);
+}
+.bs-method-list {
+  padding-left: 1.2em;
+}
+.bs-method-list li {
+  margin-bottom: var(--space-2);
+}
+
+/* ------------------------------------------------------------ a narrow screen */
+@media (max-width: 760px) {
+  .view-page {
+    padding: var(--space-3) 16px var(--space-6);
+  }
+  .view-title {
+    font-size: var(--text-2xl);
+  }
+  .view-back {
+    min-height: 44px;
+  }
+  .bs-lede {
+    font-size: var(--text-md);
+  }
+  /* On a phone the figure comes straight after the sentence that introduces it, and the
+     four numbers follow it (they have nothing to focus, so the reading order and the
+     visual order do not part ways for a keyboard). */
+  .view-body {
+    display: flex;
+    flex-direction: column;
+  }
+  .view-body > * {
+    order: 3;
+  }
+  .view-body > .bs-lede {
+    order: 0;
+  }
+  .view-body > .bs-figure {
+    order: 1;
+  }
+  .view-body > .bs-stats {
+    order: 2;
+  }
+  /* Two numbers across, not four tall cards. */
+  .bs-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-2);
+  }
+  .bs-stat {
+    padding: var(--space-2) var(--space-3);
+  }
+  .bs-stat dt {
+    font-size: var(--text-xs);
+  }
+  .bs-stat-value {
+    font-size: var(--text-xl);
+  }
+  /* A four-column table does not fit 358 px: each row becomes a card, every cell
+     carrying its own label. */
+  .bs-table:not(.bs-inputs-table) thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+  }
+  .bs-table:not(.bs-inputs-table),
+  .bs-table:not(.bs-inputs-table) tbody,
+  .bs-table:not(.bs-inputs-table) tr,
+  .bs-table:not(.bs-inputs-table) th,
+  .bs-table:not(.bs-inputs-table) td {
+    display: block;
+  }
+  .bs-table:not(.bs-inputs-table) tr {
+    margin-bottom: var(--space-3);
+    padding: var(--space-2) var(--space-3);
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+  }
+  .bs-table:not(.bs-inputs-table) th,
+  .bs-table:not(.bs-inputs-table) td {
+    padding: 3px 0;
+    border: 0;
+    min-width: 0;
+  }
+  .bs-table:not(.bs-inputs-table) td[data-label]::before {
+    content: attr(data-label);
+    display: block;
+    color: var(--muted);
+    font-size: var(--text-xs);
+    font-weight: 600;
+  }
+  .view-method-body {
+    padding: 0 var(--space-3) var(--space-4);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .view-method > summary::before {
+    transition: none;
+  }
+}
+
+/* ------------------------------------------ links to the view from the panels */
+/* The beamline panel's call to action, and the quieter link row on an experiment. */
+.beam-section-cta {
+  margin: 0 0 var(--space-3);
+  padding: var(--space-3);
+  border: 1px solid var(--view-beam);
+  border-radius: var(--radius);
+  background: color-mix(in srgb, var(--view-beam) 8%, var(--panel-2));
+}
+.beam-section-cta-kicker {
+  margin: 0 0 var(--space-1);
+  color: var(--muted);
+  font-size: var(--text-xs);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.beam-section-cta a.beam-section-link {
+  display: block;
+  color: var(--white);
+  font-weight: 650;
+  font-size: var(--text-md);
+  text-decoration: none;
+  padding: 4px 0;
+}
+.beam-section-cta a.beam-section-link:hover .beam-section-link-title,
+.beam-section-cta a.beam-section-link:focus-visible .beam-section-link-title {
+  text-decoration: underline;
+}
+.beam-section-link-title::after {
+  content: ' \2192';
+  color: var(--view-beam);
+}
+.beam-section-link-hint {
+  display: block;
+  margin-top: 2px;
+  color: var(--muted);
+  font-size: var(--text-xs);
+  font-weight: 400;
+}
+.beam-section-links {
+  margin: 0 0 var(--space-3);
+  font-size: var(--text-sm);
+}
+.beam-section-links a {
+  text-decoration: underline;
+}
