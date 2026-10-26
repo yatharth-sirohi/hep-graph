@@ -141,17 +141,31 @@ const BEAM_GLOW_COLOR = ['rgba(90,200,255,0.2)', 'rgba(60,150,255,0.1)'];
 const BEAM_GLOW_COLOR_SELECTED = ['rgba(150,225,255,0.34)', 'rgba(90,180,255,0.2)'];
 // A beam that is not running (under construction, shut down, completed): the same
 // hue family, but fine static dashes instead of a flowing stream, and dimmer.
-const BEAM_COLOR_QUIET = ['rgba(155,195,228,0.88)', 'rgba(135,175,212,0.74)'];
+const BEAM_COLOR_QUIET = ['rgba(165,205,236,0.95)', 'rgba(140,180,218,0.82)'];
 const BEAM_COLOR_QUIET_SELECTED = ['rgba(235,246,255,1)', 'rgba(160,200,232,0.9)'];
-const BEAM_PX_QUIET = 2.4;
-const BEAM_PX_QUIET_SELECTED = 3.2;
+// Heavy enough to read from the back of a room, and still the quieter of the two: no
+// glow, no flow, a paler hue and gaps in the line.
+const BEAM_PX_QUIET = 4.6;
+const BEAM_PX_QUIET_SELECTED = 5.8;
+// The dashes of a quiet beam are a size on the screen, not a share of the arc (a
+// share made a 730 km arc a row of specks). A beam that is yet to run (under
+// construction, approved, proposed) is dotted; one that has stopped is dashed.
+const BEAM_DASH_PX = 10;
+const BEAM_DASH_GAP_PX = 6;
+const BEAM_DOT_PX = 5;
+const BEAM_DOT_GAP_PX = 8;
+const FUTURE_BEAM_STATUSES = new Set(['construction', 'commissioning', 'approved', 'proposed', 'planned', 'absent']);
+// Arcs that leave and land at (nearly) the same places are drawn side by side, this
+// many px apart, so that they do not read as one stub: a difference in height is
+// invisible when the globe is seen from above.
+const BEAM_BUNDLE_SPACING_PX = 12;
 // A beam selection flies to show the whole baseline with room round it: about this
 // many globe radii of altitude per degree of baseline, and never closer than the
-// minimum. Closer than ~0.34 the 4096-px Earth image is magnified past 3.5x and its
-// relief turns to mush; at 0.34 a 295 km beam is ~110 px long, which still carries
-// its glow and labels.
-const BEAM_FOCUS_ALTITUDE_PER_DEG = 0.062;
-const BEAM_FOCUS_ALTITUDE_MIN = 0.34;
+// minimum. Closer than ~0.30 the 4096-px Earth image is magnified past 3.5x on a
+// dense screen and its relief turns to mush; at 0.30 a 295 km beam is ~120 px long,
+// which still carries its glow and labels.
+const BEAM_FOCUS_ALTITUDE_PER_DEG = 0.054;
+const BEAM_FOCUS_ALTITUDE_MIN = 0.3;
 // An unselected beam's label needs its arc on screen to be at least as long as
 // the label's shortest form (the distance alone, ~50 px) and never under this many
 // pixels: a pill with no arc beside it is only noise. The full name needs the arc
@@ -198,13 +212,24 @@ export function baselineKm(distance) {
   return null;
 }
 
-/** "295 km", "1,285 km", "~810 km" for an approximate figure. */
-export function formatBaselineKm(km, approx) {
-  const rounded = km >= 100 ? Math.round(km) : Math.round(km * 10) / 10;
-  return `${approx ? '~' : ''}${rounded.toLocaleString('en-US')} km`;
+/** The baseline as a short label: the recorded value with the places its source gave
+ * it (735.3 km stays "735.3 km", never "735 km"), cut at one decimal because the
+ * panel has the full figure and the label has to fit a pill. An approximate one
+ * is marked the way its source marks it: "~810 km", "about 295 km". `display` is the
+ * source's own wording of the figure. */
+export function formatBaselineKm(km, approx, display = '') {
+  const rounded = Math.round(km * 10) / 10;
+  const text = `${rounded.toLocaleString('en-US', { maximumFractionDigits: 1 })} km`;
+  if (!approx) return text;
+  return /^\s*(about|approximately|approx\.?|roughly)\b/i.test(String(display || '')) ? `about ${text}` : `~${text}`;
 }
 
 const ENDED_STATUSES = new Set(['completed', 'decommissioned', 'cancelled']);
+
+// What a beam arc is, for whoever cannot see (or is misled by) its curve: the arc is
+// lifted off the globe so that it can be seen; the beam itself runs straight through
+// the rock.
+export const BEAM_ARC_NOTE = 'Drawn as an arc above the surface so it can be seen; the beam itself travels in a straight line through the Earth.';
 
 // How a lifecycle status reads in a beam's label and tooltip. `active` is the only
 // status drawn as a live, flowing beam; every other one is drawn quieter.
@@ -622,7 +647,27 @@ export function createGlobe(container, {
   // --- marker model -------------------------------------------------
   const markerEls = new Map(); // id -> element
   const markerMeta = new Map(); // id -> { segments, tier, route }
-  const beamEls = new Map(); // arc id -> { outer, pill, leader, arc, text, shortText }
+  const beamEls = new Map(); // arc id -> { outer, pill, leader, arc, text, shortText, measureLong, measureShort }
+  // The one sentence every beam label points to (aria-describedby), kept out of sight.
+  const BEAM_NOTE_ID = 'atlas-beam-arc-note';
+  const arcNote = document.createElement('span');
+  arcNote.id = BEAM_NOTE_ID;
+  arcNote.className = 'visually-hidden';
+  arcNote.textContent = BEAM_ARC_NOTE;
+  container.appendChild(arcNote);
+  // A hidden element in the type size captions and pills use, so that code that
+  // sizes things after the type (cluster badges) can read it in px.
+  const labelProbe = document.createElement('div');
+  labelProbe.className = 'atlas-label-probe';
+  labelProbe.setAttribute('aria-hidden', 'true');
+  container.appendChild(labelProbe);
+  let labelPx = 12;
+  let builtLabelPx = 12; // the size the markers on screen were built for
+  function readLabelPx() {
+    const px = parseFloat(window.getComputedStyle(labelProbe).fontSize);
+    labelPx = Number.isFinite(px) && px >= 8 ? Math.round(px) : 12;
+    return labelPx;
+  }
   let arcsEnabled = false;
   let arcsForcedOff = false; // true once a collaboration exceeds INSTITUTION_ARC_THRESHOLD
   let beamArcs = [];
@@ -710,7 +755,8 @@ export function createGlobe(container, {
   function makeClusterElement({
     id, lat, lng, tier, count, names, expand,
   }) {
-    const size = clamp(18 + Math.log2(count + 1) * 4, 18, 34);
+    // The count is type, so the badge that holds it grows with the type size.
+    const size = Math.round(clamp(18 + Math.log2(count + 1) * 4, 18, 34) * Math.max(1, labelPx / 12));
     const label = `${count} ${tier === 'facility' ? 'facilities' : tier === 'site' ? 'sites' : 'institutions'}`;
     const namesPreview = names.slice(0, 4).join(', ') + (names.length > 4 ? ', …' : '');
     const el = makeInteractiveElement({
@@ -835,7 +881,7 @@ export function createGlobe(container, {
         const source = shortPlaceName(siteFacility(baseline.from_site_id, beamline.facility_id))
           || shortPlaceName(sites[baseline.from_site_id]);
         const far = farEndName(baseline.to_site_id, beamline.facility_id);
-        const distanceText = km == null ? '' : formatBaselineKm(km, approx);
+        const distanceText = km == null ? '' : formatBaselineKm(km, approx, baseline.distance && baseline.distance.display);
         const mid = centreOf([{ lat: from.lat, lon: from.lon }, { lat: to.lat, lon: to.lon }]);
         out.push({
           id: `${beamline.id}:${baseline.from_site_id}:${baseline.to_site_id}:${row}`,
@@ -846,6 +892,11 @@ export function createGlobe(container, {
           startLng: from.lon,
           endLat: to.lat,
           endLng: to.lon,
+          // Where the baseline really runs; the drawn ends above may be moved aside
+          // a few px (placeBeamArc) so that arcs of one bundle can be told apart.
+          trueStart: { lat: from.lat, lng: from.lon },
+          trueEnd: { lat: to.lat, lng: to.lon },
+          bundleSize: 1,
           spanDeg,
           mid: { lat: mid.lat, lng: mid.lon },
           rank: 0,
@@ -861,18 +912,16 @@ export function createGlobe(container, {
     // T2HK's Hyper-K arcs leave J-PARC together and land 8 km apart — would be drawn
     // on top of each other. Each further arc in such a bundle rides higher.
     const SAME_PLACE_DEG = 0.3;
+    const samePlace = (a, b) => greatCircleDeg(a.startLat, a.startLng, b.startLat, b.startLng) <= SAME_PLACE_DEG
+      && greatCircleDeg(a.endLat, a.endLng, b.endLat, b.endLng) <= SAME_PLACE_DEG;
     out.sort((a, b) => (a.id < b.id ? -1 : 1));
     for (let i = 0; i < out.length; i += 1) {
       for (let j = 0; j < i; j += 1) {
-        const a = out[j];
-        const b = out[i];
-        if (greatCircleDeg(a.startLat, a.startLng, b.startLat, b.startLng) <= SAME_PLACE_DEG
-          && greatCircleDeg(a.endLat, a.endLng, b.endLat, b.endLng) <= SAME_PLACE_DEG) {
-          b.rank = Math.max(b.rank, a.rank + 1);
-        }
+        if (samePlace(out[j], out[i])) out[i].rank = Math.max(out[i].rank, out[j].rank + 1);
       }
     }
     for (const arc of out) {
+      arc.bundleSize = 1 + out.filter((other) => other !== arc && samePlace(other, arc)).length;
       // three-globe's arc rises to 1.125 x its `altitude` at mid-span.
       arc.altitude = clamp(0.42 * (arc.spanDeg * Math.PI) / 180, 0.012, 0.3) * (1 + 0.6 * arc.rank);
       arc.apex = 1.125 * arc.altitude;
@@ -912,6 +961,48 @@ export function createGlobe(container, {
     return Math.max(0.004, (px * 2 * Math.tan((25 * Math.PI) / 180) * Math.max(currentAltitude, 0.05) * (180 / Math.PI)) / height);
   }
 
+  /** Degrees of arc that span `px` pixels on the screen at the current camera altitude
+   * (signed, unlike beamStrokeDeg, which is a thickness). */
+  function pxToDeg(px) {
+    const height = Math.max(200, container.clientHeight || 700);
+    return (px * 2 * Math.tan((25 * Math.PI) / 180) * Math.max(currentAltitude, 0.05) * (180 / Math.PI)) / height;
+  }
+
+  /** Where an arc is drawn: its baseline's own ends, or, for one of several arcs
+   * that leave and land at the same places (T2K's Super-K and Hyper-K arcs), those
+   * ends moved sideways so that the bundle fans out into parallel lines BEAM_BUNDLE_
+   * SPACING_PX apart on the screen, wherever the camera is. The shift is a few px, which
+   * is under the glyph that sits on each end. Also moves the label's anchor. */
+  function placeBeamArc(arc) {
+    const { trueStart: a, trueEnd: b } = arc;
+    let shiftNorth = 0;
+    let shiftEast = 0;
+    if (arc.bundleSize > 1) {
+      const offsetDeg = pxToDeg((arc.rank - (arc.bundleSize - 1) / 2) * BEAM_BUNDLE_SPACING_PX);
+      const rad = Math.PI / 180;
+      const dLng = lonDelta(b.lng, a.lng) * rad;
+      const bearing = Math.atan2(
+        Math.sin(dLng) * Math.cos(b.lat * rad),
+        Math.cos(a.lat * rad) * Math.sin(b.lat * rad) - Math.sin(a.lat * rad) * Math.cos(b.lat * rad) * Math.cos(dLng),
+      );
+      // To the right of the direction of travel.
+      shiftNorth = offsetDeg * Math.cos(bearing + Math.PI / 2);
+      shiftEast = offsetDeg * Math.sin(bearing + Math.PI / 2);
+    }
+    const move = (p) => ({
+      lat: clamp(p.lat + shiftNorth, -89.5, 89.5),
+      lng: p.lng + shiftEast / Math.max(0.05, Math.cos((p.lat * Math.PI) / 180)),
+    });
+    const from = move(a);
+    const to = move(b);
+    arc.startLat = from.lat;
+    arc.startLng = from.lng;
+    arc.endLat = to.lat;
+    arc.endLng = to.lng;
+    const mid = centreOf([{ lat: from.lat, lon: from.lng }, { lat: to.lat, lon: to.lng }]);
+    arc.mid = { lat: mid.lat, lng: mid.lon };
+  }
+
   /** Styles one arc for its status and selection, in place (three-globe reads
    * these back through the accessors set up with the globe). Returns the arc. */
   function styleBeamArc(arc, status) {
@@ -922,8 +1013,23 @@ export function createGlobe(container, {
     arc.statusPhrase = phrase;
     arc.selected = selection.beamlineIds.has(arc.beamline.id);
     arc.flow = !quiet;
-    arc.dashLength = quiet ? 0.03 : 0.1;
-    arc.dashGap = quiet ? 0.05 : 0.07;
+    arc.dotted = quiet && FUTURE_BEAM_STATUSES.has(status);
+    arc.dashLength = 0.1;
+    arc.dashGap = 0.07;
+    if (quiet) {
+      // Dashes (or dots) of a fixed size on the screen, whatever the length of the arc;
+      // an arc too short to carry three of them is drawn solid.
+      const lengthPx = Math.max(1, (arc.spanDeg / pxToDeg(1)) * 1.3);
+      const dash = arc.dotted ? BEAM_DOT_PX : BEAM_DASH_PX;
+      const gap = arc.dotted ? BEAM_DOT_GAP_PX : BEAM_DASH_GAP_PX;
+      if (lengthPx < 3 * (dash + gap)) {
+        arc.dashLength = 1;
+        arc.dashGap = 0;
+      } else {
+        arc.dashLength = dash / lengthPx;
+        arc.dashGap = gap / lengthPx;
+      }
+    }
     arc.color = quiet ? BEAM_COLOR_QUIET : BEAM_COLOR;
     arc.colorSelected = quiet ? BEAM_COLOR_QUIET_SELECTED : BEAM_COLOR_SELECTED;
     arc.stroke = beamStrokeDeg(quiet ? BEAM_PX_QUIET : BEAM_PX);
@@ -949,6 +1055,7 @@ export function createGlobe(container, {
     const lines = [`${escapeHtml(arc.beamline.name)}`, `${escapeHtml(arc.fromName)} → ${escapeHtml(arc.toName)}`];
     if (arc.distanceDisplay) lines.push(`${escapeHtml(arc.distanceDisplay)} baseline`);
     if (phrase) lines.push(`<em>${escapeHtml(phrase)}</em>`);
+    lines.push(`<small>${escapeHtml(BEAM_ARC_NOTE)}</small>`);
     arc.label = lines.join('<br>');
     if (arc.glow) arc.glow.label = arc.label;
     return arc;
@@ -966,7 +1073,9 @@ export function createGlobe(container, {
     const aria = `${arc.beamline.name}: ${arc.fromName} to ${arc.toName}`
       + `${arc.distanceDisplay ? `, ${arc.distanceDisplay} baseline` : ''}${phrase}. Press Enter to open the beamline.`;
     pill.setAttribute('aria-label', aria);
-    pill.title = aria.replace(/\. Press Enter.*$/, '');
+    // The arc is lifted off the globe to be seen; say so for whoever it would mislead.
+    pill.setAttribute('aria-describedby', BEAM_NOTE_ID);
+    pill.title = `${aria.replace(/\. Press Enter.*$/, '')}. ${BEAM_ARC_NOTE}`;
     const long = document.createElement('span');
     long.className = 'bl-long';
     long.textContent = text;
@@ -978,8 +1087,23 @@ export function createGlobe(container, {
     const leader = document.createElement('span');
     leader.className = 'bl-leader';
     leader.setAttribute('aria-hidden', 'true');
+    // Unseen copies of the two forms, so that declutterLabels can read the true width
+    // of either in this engine's own type (a canvas measure leaves out italics, tabular
+    // figures and the pill's padding, and a pill wider than measured overlaps its
+    // neighbour).
+    const measure = (content) => {
+      const copy = document.createElement('span');
+      copy.className = 'bl-measure';
+      copy.setAttribute('aria-hidden', 'true');
+      copy.textContent = content;
+      return copy;
+    };
+    const measureLong = measure(text);
+    const measureShort = measure(short.textContent);
     outer.appendChild(leader);
     outer.appendChild(pill);
+    outer.appendChild(measureLong);
+    outer.appendChild(measureShort);
     const open = () => {
       if (onSelect) onSelect({ type: 'beamline', slug: arc.beamline.id.split(':')[1] });
     };
@@ -991,7 +1115,7 @@ export function createGlobe(container, {
       }
     });
     return {
-      outer, pill, leader, arc, text, shortText: short.textContent,
+      outer, pill, leader, arc, text, shortText: short.textContent, measureLong, measureShort,
     };
   }
 
@@ -1035,6 +1159,7 @@ export function createGlobe(container, {
   // arcsData with a freshly clustered set sized for the current altitude.
   function rebuildVisibleLayer() {
     lastRebuildAt = performance.now();
+    builtLabelPx = readLabelPx();
     markerEls.clear();
     markerMeta.clear();
     const tls = filterTimelineState();
@@ -1302,6 +1427,7 @@ export function createGlobe(container, {
     for (const arc of beamArcs) {
       const status = beamStatus(arc);
       if (status == null) continue; // the beamline did not exist in the selected year
+      placeBeamArc(arc);
       styleBeamArc(arc, status);
       if (!arc.quiet) arcs.push(arc.glow); // under the beam itself
       arcs.push(arc);
@@ -1374,8 +1500,30 @@ export function createGlobe(container, {
   let declutterTimer = null;
   // marker id -> last decision (true = caption hidden); read by the next rebuild.
   const labelHidden = new Map();
-  function scheduleDeclutter(delay) {
-    if (declutterTimer) return;
+  // A request is never dropped. One that arrives while a pass is already waiting (a
+  // flight asks every frame, a rebuild replaces the markers a waiting pass was going to
+  // measure) makes that pass be followed by another, so the last word is always spoken
+  // by a pass that began after the last change. A pass is also followed by another when
+  // the camera had moved since the one before it (a coast that never raised a request of
+  // its own) and when a marker or beam it should have placed had no screen position yet.
+  let declutterAgain = false;
+  let declutterFollowUps = 0;
+  let lastPassView = '';
+  const DECLUTTER_MAX_FOLLOW_UPS = 30;
+  function viewKey() {
+    const pov = globe.pointOfView();
+    return `${pov.lat.toFixed(3)},${pov.lng.toFixed(3)},${pov.altitude.toFixed(4)}|${insetKey}|${container.clientWidth}x${container.clientHeight}|${readLabelPx()}`;
+  }
+  function scheduleDeclutter(delay = DECLUTTER_DELAY_MS) {
+    declutterFollowUps = 0;
+    armDeclutter(delay);
+  }
+  function armDeclutter(delay) {
+    if (declutterTimer) {
+      declutterAgain = true;
+      return;
+    }
+    declutterAgain = false;
     declutterTimer = window.setTimeout(() => {
       // CSS2DRenderer attaches and positions a marker on a rendered frame, so
       // measure two animation frames from now: by then the globe's own loop has
@@ -1383,7 +1531,23 @@ export function createGlobe(container, {
       // markers have no screen position until it has).
       window.requestAnimationFrame(() => window.requestAnimationFrame(() => {
         declutterTimer = null;
-        declutterLabels();
+        const askedMeanwhile = declutterAgain;
+        declutterAgain = false;
+        // The caption type size was changed (projector mode, a wider window): the
+        // cluster badges are sized after it, so rebuild them first; the rebuild asks for
+        // its own pass.
+        if (readLabelPx() !== builtLabelPx && markerEls.size) {
+          rebuildVisibleLayer();
+          return;
+        }
+        const { pending } = declutterLabels();
+        const view = viewKey();
+        const moved = view !== lastPassView;
+        lastPassView = view;
+        if ((askedMeanwhile || moved || pending) && declutterFollowUps < DECLUTTER_MAX_FOLLOW_UPS) {
+          declutterFollowUps += 1;
+          armDeclutter(delay);
+        }
       }));
     }, delay);
   }
@@ -1472,43 +1636,29 @@ export function createGlobe(container, {
     return null;
   }
 
-  // Width of a beam label's text, to choose between its two forms without
-  // touching the DOM. The font is read once, from the first label built.
-  let beamFont = null;
-  let measureContext = null;
-  const widthCache = new Map();
-  function beamTextWidth(text, pill) {
-    if (!beamFont) {
-      const css = window.getComputedStyle(pill);
-      beamFont = `${css.fontWeight} ${css.fontSize} ${css.fontFamily}`;
-    }
-    const key = `${beamFont}|${text}`;
-    if (widthCache.has(key)) return widthCache.get(key);
-    if (!measureContext) measureContext = document.createElement('canvas').getContext('2d');
-    let width = text.length * 6.4;
-    if (measureContext) {
-      measureContext.font = beamFont;
-      width = measureContext.measureText(text).width;
-    }
-    widthCache.set(key, width);
-    return width;
-  }
-  const BEAM_PILL_PAD = 20; // horizontal padding + border of .bl-pill (globe.css)
-  const BEAM_PILL_HEIGHT = 24;
-
+  /** Places the captions and beam labels that should be shown and hides the rest.
+   * Returns `{ pending }`: how many selected markers and selected beams that are on
+   * the near side of the globe had no screen position yet (their element was only
+   * just built), so that the caller measures again. */
   function declutterLabels() {
-    if (!markerEls.size && !beamEls.size) return;
+    let pending = 0;
+    if (!markerEls.size && !beamEls.size) return { pending };
     const stage = container.getBoundingClientRect();
-    if (!stage.width || !stage.height) return;
+    if (!stage.width || !stage.height) return { pending };
     const items = [];
     const pov = globe.pointOfView();
-    const limbDeg = LIMB_LABEL_FRACTION * (Math.acos(1 / (1 + pov.altitude)) * 180) / Math.PI;
+    const horizonDeg = (Math.acos(1 / (1 + pov.altitude)) * 180) / Math.PI;
+    const limbDeg = LIMB_LABEL_FRACTION * horizonDeg;
+    const onNearSide = (at) => !!at && greatCircleDeg(pov.lat, pov.lng, at.lat, at.lng) < horizonDeg * 0.97;
     // ---- reads only (no style writes until every box is measured) ----------
     for (const [id, el] of markerEls) {
       const meta = markerMeta.get(id) || {};
       // A marker on the far side of the globe is never attached (or is
       // display:none): no box, so it takes no part.
-      if (!el.isConnected || !el.style.transform) continue;
+      if (!el.isConnected || !el.style.transform) {
+        if (el.classList.contains('is-selected') && onNearSide(meta.pos)) pending += 1;
+        continue;
+      }
       const glyph = el.getBoundingClientRect();
       if (!glyph.width && !glyph.height) continue;
       if (glyph.right < stage.left || glyph.left > stage.right
@@ -1536,15 +1686,24 @@ export function createGlobe(container, {
       });
     }
     for (const [id, parts] of beamEls) {
-      if (!parts.pill.getClientRects().length) continue; // far side of the globe
-      const anchor = parts.outer.getBoundingClientRect();
       const { arc } = parts;
+      if (!parts.pill.getClientRects().length) { // far side of the globe, or not drawn yet
+        if (arc.selected && onNearSide(arc.mid)) pending += 1;
+        continue;
+      }
+      const anchor = parts.outer.getBoundingClientRect();
       const a = globe.getScreenCoords(arc.startLat, arc.startLng, 0);
       const b = globe.getScreenCoords(arc.endLat, arc.endLng, 0);
       const lengthPx = Math.hypot(a.x - b.x, a.y - b.y);
       const hovered = parts.pill.matches(':hover') || parts.pill === document.activeElement;
-      const longW = beamTextWidth(parts.text, parts.pill) + BEAM_PILL_PAD;
-      const shortW = beamTextWidth(parts.shortText, parts.pill) + BEAM_PILL_PAD;
+      // The pill's true size in either form, from its unseen copies (they are laid
+      // out like the pill itself, so they carry its type, italics and padding).
+      const longBox = parts.measureLong.getBoundingClientRect();
+      const shortBox = parts.measureShort.getBoundingClientRect();
+      const longW = longBox.width;
+      const shortW = shortBox.width;
+      const pillH = shortBox.height;
+      if (!longW || !shortW || !pillH) { pending += 1; continue; }
       items.push({
         type: 'beam',
         name: `beam:${id}`,
@@ -1558,6 +1717,7 @@ export function createGlobe(container, {
         lengthPx,
         longW,
         shortW,
+        pillH,
         label: null,
         glyph: null,
       });
@@ -1610,7 +1770,7 @@ export function createGlobe(container, {
             cy: it.cy,
             radius: 5,
             w: form.w,
-            h: BEAM_PILL_HEIGHT,
+            h: it.pillH,
             preferAbove: true,
             stage,
             placed,
@@ -1694,6 +1854,7 @@ export function createGlobe(container, {
         applyLeader(outer, leader, spot, 4, it.cx, it.cy);
       }
     }
+    return { pending };
   }
 
   /** Draws (or clears) the leader line from an anchor out to the caption placed at
@@ -1923,6 +2084,14 @@ export function createGlobe(container, {
     // Never push the view centre past the point where little globe would be
     // left on screen.
     return Math.min(covered, stage.height * 0.7);
+  }
+  // While a phone's sheet leaves the globe a strip this short, the markers are
+  // reduced to their glyphs: a world of captions and cluster counts in a 150 px strip
+  // is a pile of overprinted numbers (the sheet itself names what is selected).
+  const SHORT_STRIP_PX = 220;
+  function syncStripClass() {
+    const visible = container.clientHeight - coveredBottom();
+    container.classList.toggle('is-short-strip', visible > 0 && visible < SHORT_STRIP_PX);
   }
   function applyViewInset(width, height) {
     const inset = Math.round(coveredBottom());
@@ -2200,6 +2369,10 @@ export function createGlobe(container, {
       const resized = globe.width() !== width || globe.height() !== height;
       if (resized) globe.width(width).height(height);
       applyViewInset(width, height);
+      syncStripClass();
+      // The caption type size follows the viewport's width: badges built for another
+      // size are rebuilt.
+      if (readLabelPx() !== builtLabelPx && markerEls.size) rebuildVisibleLayer();
       if (resized && viewRequest) reframe(false); // a stage of another size: the same view, re-aimed
       scheduleDeclutter(DECLUTTER_DELAY_MS);
     },
