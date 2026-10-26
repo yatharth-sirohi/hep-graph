@@ -223,9 +223,9 @@
         "approx": false,
         "confidence": "verified",
         "dimension": "power",
-        "display": "1.0-1.2 MW, upgradable to 2.4 MW",
+        "display": "1.0-1.2 MW",
         "locator": "Vol. I, §1.1.2 The DUNE Detectors and Supporting Facilities (LBNF paragraph); arXiv PDF p. 20 (printed p. 1–4); the quote is in the PDF body, not on the arXiv abstract page",
-        "note": "",
+        "note": "The TDR (Vol. I, §1.1.2) also says: \"A further planned upgrade of the accelerator complex could provide up to 2.4 MW of beam power by 2030\".",
         "quote": "will deliver between 1.0 and 1.2 MW of proton beam power from the Fermilab Main Injector to LBNF",
         "sources": [
           "src:dune-fd-tdr-vol-1"
@@ -243,11 +243,14 @@
         "dimension": "length",
         "display": "1478 m (4850-foot level); sources round this to about 1500 m",
         "locator": "page 'The MAJORANA Demonstrator Project at the 4850 Level Davis Campus', paragraph on the shield and the underground location (the page states the level and its metric value)",
-        "note": "The 4850 Level is named for its depth in feet: 4850 ft x 0.3048 m/ft = 1478.3 m, the figure SURF itself gives ('4850 Level (1478 m)') and the one the local map uses. SURF's scientific director rounds it to 1500 m in the Snowmass 2022 paper (\"campuses at the 4850-foot level (1500 m, 4300 m.w.e.)\"); the same author gives 1490 m in a 2024 paper, and DUNE TDR Vol. I says \"approximately 1.5 km underground\". The water-equivalent overburden is the separate 4300 m.w.e. value. The far-detector modules are on the 4850 Level of SURF. CHANGED 2026-10-25: was value 1500 m, display \"1500 m of rock (4850-foot level)\" (the Snowmass 2022 rounding), which disagreed with the 1478 m of the map level.",
+        "note": "The 4850 Level is named for its depth in feet: 4850 ft x 0.3048 m/ft = 1478.3 m, the figure SURF itself gives ('4850 Level (1478 m)') and the one the local map uses. SURF's scientific director rounds it to 1500 m in the Snowmass 2022 paper (\"campuses at the 4850-foot level (1500 m, 4300 m.w.e.)\"); the same author gives 1490 m in a 2024 paper, and DUNE TDR Vol. I says \"approximately 1.5 km underground\". The water-equivalent overburden is the separate 4300 m.w.e. value. The far-detector modules are on the 4850 Level of SURF. CHANGED 2026-10-25: was value 1500 m, display \"1500 m of rock (4850-foot level)\" (the Snowmass 2022 rounding), which disagreed with the 1478 m of the map level. Placement of the DUNE far detector at this level: DUNE TDR Vol. I, §1.1.2 and Fig. 1.4 (arXiv PDF p. 25): \"the SURF underground area, also referred to as the 4850 (foot) level or 4850L\"; ProtoDUNE-SP paper (arXiv:2007.06722, PDF p. 12): \"a far detector located at the 4850 ft level of Sanford Underground Research Facility (SURF)\". The quote above is SURF's statement for the 4850 Level itself.",
         "quote": "The entire experiment will be located at the 4850 Level (1478 m) Davis Campus at the Sanford Lab Underground Research Facility (SURF).",
         "sources": [
           "src:majorana-demonstrator-surf-news",
-          "src:surf-heise-snowmass-2022"
+          "src:surf-heise-snowmass-2022",
+          "src:dune-fd-tdr-vol-1",
+          "src:rf04-protodune-sp-performance-arxiv",
+          "src:surf-heise-opportunities-2024"
         ],
         "unit": "m",
         "value": 1478,
@@ -288,7 +291,7 @@
     },
     {
       "confidence": "verified",
-      "locator": "CDR Vol. 2, §1 (subscripts rendered inline in the HTML version)",
+      "locator": "CDR Vol. 2, §1; arXiv PDF p. 25 (the quote is in the PDF body, not on the arXiv abstract page)",
       "note": "",
       "quote": "DUNE, with a baseline of ~1300 km, will be able to unambiguously determine the neutrino mass hierarchy and measure the value of δCP",
       "sources": [
