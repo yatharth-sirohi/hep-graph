@@ -35,7 +35,7 @@
       "end": {
         "approx": true,
         "date": "2026-06",
-        "note": "VERIFIER FIX (2026-09-17): capped at the LHC-wide Long Shutdown 3 boundary (see the added interval below); this record previously left this interval open-ended (end: null), which made detector:alice derive as permanently 'active' even during LS3, contradicting experiment:alice's own (correct) 'shutdown' status at the same date. ALICE cannot record collisions the LHC is not delivering."
+        "note": "Ends at the LHC-wide start of Long Shutdown 3 (June 2026); ALICE cannot record collisions the LHC is not delivering."
       },
       "label": "operating",
       "locator": "INSPIRE experiment record 1110642, field date_started",
@@ -62,17 +62,28 @@
       "verified_at": "2026-09-17"
     },
     {
-      "confidence": "verified",
-      "end": null,
-      "label": "Long Shutdown 3",
-      "locator": "reused from experiment:alice's sourced Long Shutdown 3 interval (src:cern-ls3-farewell-2026)",
-      "note": "VERIFIER-ADDED (2026-09-17): mirrors experiment:alice's Long Shutdown 3 interval so the detector-level derived status agrees with the experiment-level one; ongoing at verified_at.",
+      "confidence": "approximate",
+      "end": {
+        "approx": true,
+        "date": "2030",
+        "display": "mid-2030",
+        "note": "CERN schedule: the LHC resumes operation in mid-2030; the rest of the CERN complex restarts in stages from mid-2028.",
+        "planned": true
+      },
+      "label": "Long Shutdown 3 / ITS3 and FoCal upgrade",
+      "locator": "home.cern/science/long-shutdown-3, item of 5 August 2026 \"The LHC is being warmed up from near absolute zero to room temperature\"",
+      "note": "The ITS3 (new inner tracking layers) and FoCal (forward calorimeter) upgrades are approved for installation during Long Shutdown 3. The bounds and the sources' wording are those of experiment:alice, whose interval note also records that the 2024 and 2026 ALICE-related sources use older LS3 dates than CERN's mid-2030 schedule.",
+      "quote": "Two detector upgrades of ALICE ... have recently been approved for installation during the next long shutdown of the LHC",
       "sources": [
+        "src:rc-alice-its3-focal-approval-2024",
+        "src:rc-alice-its3-design-arxiv-2026",
+        "src:colliders-lhc-alice-collaboration-site",
+        "src:cern-long-shutdown-3-page",
         "src:cern-ls3-farewell-2026"
       ],
-      "start": "2026-06",
-      "status": "shutdown",
-      "verified_at": "2026-09-17"
+      "start": "2026-06-29",
+      "status": "upgrade",
+      "verified_at": "2026-10-25"
     }
   ],
   "links": {
@@ -80,9 +91,9 @@
   },
   "name": "ALICE detector",
   "notes": [
-    "specs.total_mass/length/diameter reflect the as-built (2008) detector; the ALICE 2 upgrade (2021) replaced the ITS and TPC internals but no fetched source gives updated overall mass/dimension figures, so the original detector-paper values are kept with a note.",
+    "specs.total_mass/length/diameter reflect the as-built (2008) detector; the ALICE 2 upgrade (2021) replaced the ITS and TPC internals but no source consulted gives updated overall mass/dimension figures, so the original detector-paper values are kept with a note.",
     "Placed at site:cern-point-2-alice, whose coordinate is an approximate geocoder-derived campus point (see that record's notes) rather than a surveyed cavern coordinate.",
-    "VERIFIER FIX (2026-09-17): status corrected 'active' -> 'shutdown' and a Long Shutdown 3 interval added (mirroring experiment:alice), because the prior record's open-ended 'operating' interval made the detector derive as permanently active even while CERN's LHC -- ALICE's only beam source -- is in Long Shutdown 3, contradicting experiment:alice's own status."
+    "The detector record carries the same Long Shutdown 3 interval and status as experiment:alice, so that the two agree."
   ],
   "parent_detector_id": null,
   "placements": [
@@ -90,7 +101,7 @@
       "confidence": "verified",
       "end": null,
       "locator": "2008 JINST 3 S08002, section 2.1",
-      "note": "Start approximated to the 1997 approval, when construction/installation at Point 2 began per the same paper; no fetched source gives an exact day the detector installation itself began at the site.",
+      "note": "Start approximated to the 1997 approval, when construction/installation at Point 2 began per the same paper; no source consulted gives an exact day the detector installation itself began at the site.",
       "quote": "The ALICE detector and area facilities are located at Point 2 of the LHC accelerator tunnel in the commune of St. Genis-Pouilly, France.",
       "role": "main",
       "site_id": "site:cern-point-2-alice",
@@ -222,7 +233,7 @@
       "verified_at": "2026-10-25"
     }
   },
-  "status": "shutdown",
+  "status": "upgrade",
   "subsystems": [
     {
       "confidence": "verified",

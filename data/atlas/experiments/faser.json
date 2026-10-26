@@ -16,7 +16,7 @@
   "document_ids": [],
   "energy_regime": {
     "confidence": "approximate",
-    "note": "No FASER-specific energy value distinct from the LHC-wide Run 3 energy was found in this session.",
+    "note": "No FASER-specific energy value distinct from the LHC-wide Run 3 energy was found.",
     "sources": [
       "src:colliders-lhc-faser-home-cern-page"
     ],
@@ -103,7 +103,7 @@
       "end": {
         "approx": true,
         "date": "2026-06",
-        "note": "VERIFIER FIX (2026-09-17): capped at the LHC-wide Long Shutdown 3 boundary (see the added interval below); previously open-ended (end: null). FASER has no beam source other than the LHC, so it cannot be 'active' while the LHC itself is shut down for LS3 (as already correctly modelled for experiment:alice, experiment:lhcb and experiment:totem in this same partition)."
+        "note": "Ends at the LHC-wide start of Long Shutdown 3 (June 2026); FASER has no beam source other than the LHC, so it cannot be active while the LHC is shut down."
       },
       "kind": "run",
       "label": "Run 3 (data-taking)",
@@ -117,17 +117,26 @@
       "verified_at": "2026-09-17"
     },
     {
-      "confidence": "verified",
-      "end": null,
+      "confidence": "derived",
+      "end": {
+        "approx": true,
+        "date": "2030",
+        "display": "mid-2030",
+        "note": "CERN schedule: the LHC resumes operation in mid-2030; the rest of the CERN complex restarts in stages from mid-2028.",
+        "planned": true
+      },
       "label": "Long Shutdown 3",
-      "locator": "reused from accelerator:lhc's sourced Long Shutdown 3 interval (src:cern-ls3-farewell-2026)",
-      "note": "VERIFIER-ADDED (2026-09-17): FASER only detects particles from LHC collisions, so it shares the LHC-wide Long Shutdown 3 interval already sourced for ALICE, LHCb and TOTEM in this partition; ongoing at verified_at.",
+      "locator": "home.cern/science/long-shutdown-3, item of 5 August 2026 \"The LHC is being warmed up from near absolute zero to room temperature\"",
+      "note": "FASER detects particles produced in LHC collisions, so it is idle while the LHC is shut down; this is an inference, since no FASER-specific statement about this shutdown was found. Status is shutdown, not upgrade. The collaboration's home page (checked 2026-10-25) does not mention LS3 or an upgrade. No source consulted says that upgrade work on FASER is under way in LS3. FASER's collaboration plans an upgraded neutrino detector: 'The current plan is to implement the upgrade of the FASER detector by the start of the LHC Run 4.' (FASER Collaboration, arXiv:2503.19775, March 2025). That is a plan, not a report of work in progress. Start and end are the LHC-wide Long Shutdown 3 dates. CERN's 5 August 2026 item says 'The cryogenics team has been running the warm-up sequence since LS3 began on 29 June 2026' and that the stored helium is kept 'ready to be used again once the accelerator resumes operation in mid-2030'; CERN's 29 June 2026 article says 'The HiLumi LHC, scheduled to begin operation in 2030'. The end is a schedule value, not a reported event.",
+      "quote": "Following its final physics run, the accelerator has been switched off to begin CERN’s Long Shutdown 3 (LS3) ... The HiLumi LHC, scheduled to begin operation in 2030",
       "sources": [
-        "src:cern-ls3-farewell-2026"
+        "src:cern-long-shutdown-3-page",
+        "src:cern-ls3-farewell-2026",
+        "src:rc-faser-neutrino-upgrade-2025"
       ],
-      "start": "2026-06",
+      "start": "2026-06-29",
       "status": "shutdown",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-25"
     }
   ],
   "key_specs": [
@@ -166,9 +175,8 @@
   },
   "name": "FASER",
   "notes": [
-    "Derived fields (detector_ids, site_ids, result_ids, document_ids) deliberately not written (v0.2 A1).",
-    "Mandatory-bar-only pass: no results/technical documents written (FASER is not a wave-3 flagship).",
-    "VERIFIER FIX (2026-09-17): status corrected 'active' -> 'shutdown' and a Long Shutdown 3 interval added, reusing the same LHC-wide LS3 source already cited for ALICE/LHCb/TOTEM. The prior record left FASER's data-taking interval open-ended, so it derived as permanently active even though FASER cannot record anything while its only beam source (the LHC) is off for LS3."
+    "No results or technical documents are recorded for FASER yet.",
+    "FASER cannot record anything while its only beam source (the LHC) is off for LS3, so its data-taking interval ends at the start of Long Shutdown 3 and its status is shutdown."
   ],
   "physics_goals": [
     {

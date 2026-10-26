@@ -69,7 +69,7 @@
       "end": "1993-03-01",
       "label": "Expression of Interest",
       "locator": "CERN Courier, \"ALICE: the heavy-ion challenge\"",
-      "note": "Year precision only (Evian workshop, 1992); the exact date within 1992 is not stated in the excerpt fetched.",
+      "note": "Year precision only (Evian workshop, 1992); the exact date within 1992 is not stated in the excerpt consulted.",
       "quote": "an expression of interest for a dedicated general-purpose heavy-ion detector was presented at Evian in 1992",
       "sources": [
         "src:colliders-lhc-alice-courier-heavy-ion-challenge"
@@ -97,7 +97,7 @@
       "end": "1997-02-06",
       "label": "Technical Proposal and addenda",
       "locator": "2008 JINST 3 S08002, Introduction",
-      "note": "Year precision only: the detector paper confirms the sequence (Expression of Interest -> Letter of Intent -> Technical Proposal -> Addenda -> 1997 approval) but does not give the Technical Proposal's exact date within this fetched text. CERN Courier ('New kid on the block') independently dates the forward-muon-spectrometer addendum to 1995 ('included as an addendum to the Letter of Intent in 1995'); the Technical Proposal itself (CERN/LHCC/95-71) is widely cited as 1995 but that exact report was not fetched this session, so this interval is marked approximate rather than verified.",
+      "note": "Year precision only: the detector paper confirms the sequence (Expression of Interest -> Letter of Intent -> Technical Proposal -> Addenda -> 1997 approval) but does not give the Technical Proposal's exact date in the text consulted. CERN Courier ('New kid on the block') dates the forward-muon-spectrometer addendum to 1995 ('included as an addendum to the Letter of Intent in 1995'); the Technical Proposal itself was not consulted, so this interval is marked approximate rather than verified.",
       "quote": "The ALICE concept evolved via the Expression of Interest [2] and a Letter of Intent [3] towards the Technical Proposal [4] and its Addenda [5–7]. The experiment was approved in 1997",
       "sources": [
         "src:colliders-lhc-alice-detector-jinst-2008",
@@ -165,11 +165,11 @@
       "end": {
         "approx": true,
         "date": "2013",
-        "note": "Run 1 ended in early 2013 with Long Shutdown 1; no ALICE-specific or CERN page fetched this session gives the exact end date."
+        "note": "Run 1 ended in early 2013 with Long Shutdown 1; no ALICE-specific or CERN page consulted gives the exact end date."
       },
       "kind": "run",
       "label": "Run 1",
-      "note": "This is an LHC machine-wide schedule fact (all four main LHC experiments, including ALICE, took data through the same run); no ALICE-specific start/end announcement was found in this session beyond the general LHC schedule pages already fetched by the cern-atlas partition.",
+      "note": "This is an LHC machine-wide schedule fact (all four main LHC experiments, including ALICE, took data through the same run); no ALICE-specific start/end announcement was found beyond the general LHC schedule pages.",
       "quote": "The first attempt for collisions at 7 TeV (3.5 TeV per beam) is scheduled for 30 March.",
       "sources": [
         "src:cern-lhc-7tev-collisions-2010",
@@ -249,22 +249,25 @@
       "confidence": "approximate",
       "end": {
         "approx": true,
-        "date": "2029",
+        "date": "2030",
+        "display": "mid-2030",
+        "note": "CERN schedule: the LHC resumes operation in mid-2030; the rest of the CERN complex restarts in stages from mid-2028.",
         "planned": true
       },
-      "label": "Long Shutdown 3",
-      "note": "Machine-wide LHC fact. ALICE's own collaboration site separately states further ALICE detector upgrades continue 'for Run 4 until the end of 2033' and that R&D is underway for a next-generation 'ALICE 3' experiment for HL-LHC Run 5 (src:colliders-lhc-alice-collaboration-site) - recorded here as a note rather than a further dated interval since no specific ALICE 3 approval/construction date has been sourced.",
-      "quote": "Following its final physics run, the accelerator has been switched off to begin CERN's Long Shutdown 3 (LS3).",
+      "label": "Long Shutdown 3 / ITS3 and FoCal upgrade",
+      "locator": "home.cern/science/long-shutdown-3, item of 5 August 2026 \"The LHC is being warmed up from near absolute zero to room temperature\"",
+      "note": "ALICE's own detector is being upgraded in this shutdown: the ITS3 (replacing the three innermost tracking layers) and the FoCal forward calorimeter. CERN news of 25 April 2024, written by the ALICE collaboration, says the two upgrades 'have recently been approved for installation during the next long shutdown of the LHC'. The ALICE Collaboration's January 2026 paper (arXiv:2601.07405) says 'During the LHC Long Shutdown 3 (2026-29) ALICE will replace its three innermost tracking layers by a new detector'. ALICE's site says 'Further detector upgrades are being carried out for Run 4 until the end of 2033'; that describes the upgrade programme for Run 4 and does not date the end of this shutdown. The 2024 and 2026 ALICE-related sources give LS3 as 2026-28 and 2026-29; this interval follows CERN's later schedule, in which the LHC resumes operation in mid-2030. The 2024 article dated the ITS3 and FoCal installation to early 2028; no 2026 source consulted confirms the current installation schedule. ALICE takes no data in this period because the LHC is off. Start and end are the LHC-wide Long Shutdown 3 dates. CERN's 5 August 2026 item says 'The cryogenics team has been running the warm-up sequence since LS3 began on 29 June 2026' and that the stored helium is kept 'ready to be used again once the accelerator resumes operation in mid-2030'; CERN's 29 June 2026 article says 'The HiLumi LHC, scheduled to begin operation in 2030'. The end is a schedule value, not a reported event.",
+      "quote": "Two detector upgrades of ALICE ... have recently been approved for installation during the next long shutdown of the LHC",
       "sources": [
-        "src:cern-ls3-farewell-2026",
-        "src:cern-long-shutdown-3-page"
+        "src:rc-alice-its3-focal-approval-2024",
+        "src:rc-alice-its3-design-arxiv-2026",
+        "src:colliders-lhc-alice-collaboration-site",
+        "src:cern-long-shutdown-3-page",
+        "src:cern-ls3-farewell-2026"
       ],
-      "start": {
-        "approx": true,
-        "date": "2026-06"
-      },
-      "status": "shutdown",
-      "verified_at": "2026-09-17"
+      "start": "2026-06-29",
+      "status": "upgrade",
+      "verified_at": "2026-10-25"
     }
   ],
   "key_specs": [
@@ -359,10 +362,9 @@
   },
   "name": "ALICE",
   "notes": [
-    "Derived fields (detector_ids, site_ids, result_ids, document_ids) are deliberately not written (v0.2 A1).",
-    "CONFLICT on ALICE's overall depth: the detector paper (2008 JINST 3 S08002) gives the UX25 cavern floor as 52 m underground with 28 m of overburden; home.cern separately states the detector 'sits in a vast cavern 56 m below ground'. Both are recorded (see site:cern-point-2-alice); no fetched source reconciles the two figures.",
-    "The Technical Proposal's exact submission date (commonly cited elsewhere as CERN/LHCC/95-71, 1995) was not confirmed from a page fetched in this session; the 'Technical Proposal and addenda' interval is therefore year-precision and marked approximate rather than verified.",
-    "No spokesperson or other leadership figure is named on any page fetched this session; collaboration.leadership is left empty rather than guessed."
+    "CONFLICT on ALICE's overall depth: the detector paper (2008 JINST 3 S08002) gives the UX25 cavern floor as 52 m underground with 28 m of overburden; home.cern separately states the detector 'sits in a vast cavern 56 m below ground'. Both are recorded (see site:cern-point-2-alice); no source consulted reconciles the two figures.",
+    "The Technical Proposal's exact submission date was not confirmed from any page consulted; the 'Technical Proposal and addenda' interval is therefore year-precision and marked approximate rather than verified.",
+    "No page consulted names a spokesperson or other current leadership figure; collaboration.leadership is left empty rather than guessed."
   ],
   "physics_goals": [
     {
@@ -426,7 +428,7 @@
     "src:colliders-lhc-alice-official-site",
     "src:lep-cern-alice-experiment-page"
   ],
-  "status": "shutdown",
+  "status": "upgrade",
   "summary": {
     "plain": "ALICE is CERN's dedicated heavy-ion experiment at the Large Hadron Collider. By colliding lead nuclei instead of protons, it recreates the quark-gluon plasma, an extremely hot and dense state of matter thought to have filled the universe microseconds after the Big Bang, and studies how ordinary matter freezes out of it.",
     "technical": "General-purpose heavy-ion experiment at CERN LHC Point 2, optimised for the physics of strongly interacting matter and the quark-gluon plasma in Pb-Pb, p-Pb and pp collisions. Central barrel (ITS, TPC, TRD, TOF, HMPID, PHOS, EMCal) inside the L3 solenoid (0.5 T, reused from LEP) plus a forward muon spectrometer; approved 1997, first LHC collisions recorded November 2009, ALICE 2 upgrade (new ITS2 pixel tracker, GEM-based continuous-readout TPC) completed 2021 for LHC Run 3."

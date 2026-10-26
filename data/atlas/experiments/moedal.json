@@ -18,7 +18,7 @@
   "document_ids": [],
   "energy_regime": {
     "confidence": "approximate",
-    "note": "No MoEDAL-specific energy value distinct from the LHC-wide figures was found in this session.",
+    "note": "No MoEDAL-specific energy value distinct from the LHC-wide figures was found.",
     "sources": [
       "src:colliders-lhc-moedal-inspire-experiment-record"
     ],
@@ -92,7 +92,7 @@
       "end": null,
       "label": "MAPP upgrade approved",
       "locator": "home.cern MoEDAL-MAPP page",
-      "note": "Secondary label: MAPP (MoEDAL Apparatus for Penetrating Particles) is an approved extension to the main MoEDAL detector, not a full replacement; both intervals are treated as covering the same experiment record with an added label rather than as a separate experiment id, since no source fetched in this session treats MAPP as a distinct experiment with its own approval/collaboration.",
+      "note": "Secondary label: MAPP (MoEDAL Apparatus for Penetrating Particles) is an approved extension to the main MoEDAL detector, not a full replacement; both intervals cover the same experiment record under an added label rather than a separate experiment id, since no source consulted treats MAPP as a distinct experiment with its own approval or collaboration.",
       "quote": "In preparation for data taking during run 3 of the LHC, the MoEDAL detector has been upgraded to MoEDAL-MAPP. The addition detector, MAPP (MoEDAL Apparatus for Penetrating Particles), was approved in 2021",
       "sources": [
         "src:colliders-lhc-moedal-mapp-home-cern-page"
@@ -103,18 +103,23 @@
     },
     {
       "confidence": "derived",
-      "end": null,
+      "end": {
+        "approx": true,
+        "date": "2030",
+        "display": "mid-2030",
+        "note": "CERN schedule: the LHC resumes operation in mid-2030; the rest of the CERN complex restarts in stages from mid-2028.",
+        "planned": true
+      },
       "label": "Long Shutdown 3",
-      "note": "Derived from the LHC-wide shutdown, as for the other LHC experiments in this atlas; no MoEDAL-specific announcement was fetched. Source for the shutdown: \"On Saturday 27 June at 6 am, the LHC’s Page 1 — the accelerator’s dashboard — said “goodbye” to collisions. The LHC operators dumped the last beams before the accelerator’s metamorphosis.\" (home.cern, item dated 29 June 2026).",
-      "quote": "On Saturday 27 June at 6 am, the LHC’s Page 1 — the accelerator’s dashboard — said “goodbye” to collisions. The LHC operators dumped the last beams before the accelerator’s metamorphosis.",
+      "locator": "home.cern/science/long-shutdown-3, item of 5 August 2026 \"The LHC is being warmed up from near absolute zero to room temperature\"",
+      "note": "MoEDAL searches for particles produced in LHC collisions, so it is idle while the LHC is shut down; this is an inference, since no MoEDAL-specific statement about this shutdown was found. Status is shutdown, not upgrade. The collaboration's home page (checked 2026-10-25) does not mention LS3 or an upgrade. No source consulted says that upgrade work on MoEDAL is under way in LS3. A 2022-23 paper describes MAPP-2, a planned second phase of the MAPP detector, as 'planned for installation during the long shutdown (LS3) prior to the startup of HL-LHC' (J. Pinfold, arXiv:2209.03988 v2); no 2026 source consulted confirms that installation has begun. Start and end are the LHC-wide Long Shutdown 3 dates. CERN's 5 August 2026 item says 'The cryogenics team has been running the warm-up sequence since LS3 began on 29 June 2026' and that the stored helium is kept 'ready to be used again once the accelerator resumes operation in mid-2030'; CERN's 29 June 2026 article says 'The HiLumi LHC, scheduled to begin operation in 2030'. The end is a schedule value, not a reported event.",
+      "quote": "Following its final physics run, the accelerator has been switched off to begin CERN’s Long Shutdown 3 (LS3) ... The HiLumi LHC, scheduled to begin operation in 2030",
       "sources": [
         "src:cern-long-shutdown-3-page",
-        "src:cern-ls3-farewell-2026"
+        "src:cern-ls3-farewell-2026",
+        "src:rc-moedal-mapp-pinfold-2023"
       ],
-      "start": {
-        "approx": true,
-        "date": "2026-06"
-      },
+      "start": "2026-06-29",
       "status": "shutdown",
       "verified_at": "2026-10-25"
     }
@@ -172,9 +177,8 @@
   },
   "name": "MoEDAL",
   "notes": [
-    "Derived fields (detector_ids, site_ids, result_ids, document_ids) deliberately not written (v0.2 A1).",
-    "MAPP (MoEDAL Apparatus for Penetrating Particles) is recorded as an alias and an additional 'upgrade' interval on this same experiment record, not as a separate experiment id; no source fetched in this session treats it as a distinct collaboration/experiment.",
-    "Mandatory-bar-only pass: no results/technical documents written (MoEDAL is not a wave-3 flagship)."
+    "MAPP (MoEDAL Apparatus for Penetrating Particles) is recorded as an alias and an additional 'upgrade' interval on this experiment record, not as a separate experiment id; no source consulted treats it as a distinct collaboration or experiment.",
+    "No results or technical documents are recorded for MoEDAL yet."
   ],
   "physics_goals": [
     {

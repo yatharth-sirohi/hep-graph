@@ -18,7 +18,7 @@
       "end": {
         "approx": true,
         "date": "2026-06",
-        "note": "VERIFIER FIX (2026-09-17): capped at the LHC-wide Long Shutdown 3 boundary (see the added interval below); previously open-ended (end: null), which made detector:totem derive as permanently 'active' during LS3, contradicting experiment:totem's own 'shutdown' status at the same date."
+        "note": "Ends at the LHC-wide start of Long Shutdown 3 (June 2026); mirrors experiment:totem."
       },
       "label": "operating",
       "locator": "INSPIRE experiment record 1110567, field date_started",
@@ -31,17 +31,25 @@
       "verified_at": "2026-09-17"
     },
     {
-      "confidence": "verified",
-      "end": null,
+      "confidence": "derived",
+      "end": {
+        "approx": true,
+        "date": "2030",
+        "display": "mid-2030",
+        "note": "CERN schedule: the LHC resumes operation in mid-2030; the rest of the CERN complex restarts in stages from mid-2028.",
+        "planned": true
+      },
       "label": "Long Shutdown 3",
-      "locator": "reused from experiment:totem's sourced Long Shutdown 3 interval (src:cern-ls3-farewell-2026)",
-      "note": "VERIFIER-ADDED (2026-09-17): mirrors experiment:totem's Long Shutdown 3 interval so the detector-level derived status agrees with the experiment-level one; ongoing at verified_at.",
+      "locator": "home.cern/science/long-shutdown-3, item of 5 August 2026 \"The LHC is being warmed up from near absolute zero to room temperature\"",
+      "note": "The detector record carries the same Long Shutdown 3 interval as experiment:totem, whose interval note gives the evidence and CERN's wording for the bounds; the state is inferred from the LHC being shut down.",
+      "quote": "Following its final physics run, the accelerator has been switched off to begin CERN’s Long Shutdown 3 (LS3) ... The HiLumi LHC, scheduled to begin operation in 2030",
       "sources": [
+        "src:cern-long-shutdown-3-page",
         "src:cern-ls3-farewell-2026"
       ],
-      "start": "2026-06",
+      "start": "2026-06-29",
       "status": "shutdown",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-25"
     }
   ],
   "links": {
@@ -49,7 +57,7 @@
   },
   "name": "TOTEM detector",
   "notes": [
-    "VERIFIER FIX (2026-09-17): status corrected 'active' -> 'shutdown' and a Long Shutdown 3 interval added (mirroring experiment:totem), because the prior record's open-ended 'operating' interval made the detector derive as permanently active even while CERN's LHC -- TOTEM's only beam source -- is in Long Shutdown 3, contradicting experiment:totem's own status."
+    "Status shutdown matches experiment:totem (Long Shutdown 3)."
   ],
   "parent_detector_id": null,
   "placements": [
@@ -57,7 +65,7 @@
       "confidence": "verified",
       "end": null,
       "locator": "home.cern TOTEM page",
-      "note": "TOTEM's Roman Pots and T1/T2 telescopes extend along the beamline well beyond the CMS cavern itself, but share the same interaction point; placed at the existing site:cern-point-5-cms (owned by cern-cms), referenced only, per the id registry.",
+      "note": "TOTEM's Roman Pots and T1/T2 telescopes extend along the beamline well beyond the CMS cavern itself, but share the same interaction point; the detector is placed at the existing site:cern-point-5-cms.",
       "quote": "As CERN’s ‘longest’ experiment, TOTEM detectors are spread across almost half a kilometre around the CMS interaction point.",
       "role": "main",
       "site_id": "site:cern-point-5-cms",

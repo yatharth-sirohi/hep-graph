@@ -18,7 +18,7 @@
       "end": {
         "approx": true,
         "date": "2026-06",
-        "note": "VERIFIER FIX (2026-09-17): capped at the LHC-wide Long Shutdown 3 boundary; mirrors experiment:lhcf."
+        "note": "Ends at the LHC-wide start of Long Shutdown 3 (June 2026); mirrors experiment:lhcf."
       },
       "label": "operating",
       "locator": "INSPIRE experiment record 1126263, field date_started",
@@ -31,17 +31,25 @@
       "verified_at": "2026-09-17"
     },
     {
-      "confidence": "verified",
-      "end": null,
+      "confidence": "derived",
+      "end": {
+        "approx": true,
+        "date": "2030",
+        "display": "mid-2030",
+        "note": "CERN schedule: the LHC resumes operation in mid-2030; the rest of the CERN complex restarts in stages from mid-2028.",
+        "planned": true
+      },
       "label": "Long Shutdown 3",
-      "locator": "reused from experiment:lhcf's sourced Long Shutdown 3 interval (src:cern-ls3-farewell-2026)",
-      "note": "VERIFIER-ADDED (2026-09-17): mirrors experiment:lhcf so the detector-level derived status agrees with the experiment-level one.",
+      "locator": "home.cern/science/long-shutdown-3, item of 5 August 2026 \"The LHC is being warmed up from near absolute zero to room temperature\"",
+      "note": "The detector record carries the same Long Shutdown 3 interval as experiment:lhcf, whose interval note gives the evidence and CERN's wording for the bounds; the state is inferred from the LHC being shut down.",
+      "quote": "Following its final physics run, the accelerator has been switched off to begin CERN’s Long Shutdown 3 (LS3) ... The HiLumi LHC, scheduled to begin operation in 2030",
       "sources": [
+        "src:cern-long-shutdown-3-page",
         "src:cern-ls3-farewell-2026"
       ],
-      "start": "2026-06",
+      "start": "2026-06-29",
       "status": "shutdown",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-25"
     }
   ],
   "links": {
@@ -50,7 +58,7 @@
   "name": "LHCf detector",
   "notes": [
     "home.cern gives detector mass (40 kg) and dimensions (30 cm × 80 cm × 10 cm) per arm as of a November 2012 page snapshot; recorded in specs below.",
-    "VERIFIER FIX (2026-09-17): status corrected 'active' -> 'shutdown' (see experiment:lhcf)."
+    "Status shutdown matches experiment:lhcf (Long Shutdown 3)."
   ],
   "parent_detector_id": null,
   "placements": [
@@ -58,7 +66,7 @@
       "confidence": "verified",
       "end": null,
       "locator": "INSPIRE experiment record 1126263, field description; home.cern LHCf page corroborates IP1",
-      "note": "LHCf's two arms are physically in the TAN neutral-particle absorbers ±140 m from IP1, not in the ATLAS cavern itself; placed at site:cern-point-1-atlas (owned by cern-atlas, referenced only) per the id registry's explicit instruction that LHCf places at this existing site.",
+      "note": "LHCf's two arms are physically in the TAN neutral-particle absorbers ±140 m from IP1, not in the ATLAS cavern itself; the detector is placed at the existing site:cern-point-1-atlas.",
       "quote": "installed at zero degree collision angle +-140m from an interaction point (IP)",
       "role": "main",
       "site_id": "site:cern-point-1-atlas",

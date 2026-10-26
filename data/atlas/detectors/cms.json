@@ -84,7 +84,7 @@
       "confidence": "uncertain",
       "end": "2018-12-03",
       "label": "LHC Run 2",
-      "note": "CERN states Run 2 ended on 3 December 2018 'after three fantastic years'; the exact 2015 restart date was not confirmed from a source fetched in this session, so the start is recorded at year precision.",
+      "note": "CERN states Run 2 ended on 3 December 2018 'after three fantastic years'; no source consulted gives the exact 2015 restart date, so the start is recorded at year precision.",
       "quote": "On 3 December, the LHC's second run came to an end after three fantastic years.",
       "sources": [
         "src:cms-cern-run2-conclusion-2018"
@@ -122,23 +122,25 @@
       "verified_at": "2026-09-16"
     },
     {
-      "confidence": "verified",
+      "confidence": "approximate",
       "end": {
         "approx": true,
         "date": "2030",
-        "note": "HiLumi LHC scheduled to begin operation in 2030",
+        "display": "mid-2030",
+        "note": "CERN schedule: the LHC resumes operation in mid-2030; the rest of the CERN complex restarts in stages from mid-2028.",
         "planned": true
       },
       "label": "Long Shutdown 3 — Phase-2 upgrade",
-      "note": "Phase-2 upgrade of CMS for the HL-LHC: new all-silicon tracker, new endcap calorimeter, MIP timing detector, muon and trigger/DAQ upgrades.",
-      "quote": "As of mid-2026, the accelerator complex and experimental facilities at CERN are undergoing major maintenance and upgrade work. This phase, known as 'Long Shutdown 3' or 'LS3', is expected to last up to four years.",
+      "locator": "home.cern/science/long-shutdown-3, item of 5 August 2026 \"The LHC is being warmed up from near absolute zero to room temperature\"",
+      "note": "Phase-2 upgrade of CMS for the HL-LHC: new all-silicon tracker, new endcap calorimeter, MIP timing detector, muon and trigger/DAQ upgrades. The bounds are the same as for experiment:cms, whose interval note gives CERN's wording and the upgrade work reported so far.",
+      "quote": "In the LHC caverns, the ATLAS and CMS experiments will undergo extensive upgrades, effectively becoming renewed detectors.",
       "sources": [
         "src:cern-long-shutdown-3-page",
         "src:cern-ls3-farewell-2026"
       ],
-      "start": "2026-06",
+      "start": "2026-06-29",
       "status": "upgrade",
-      "verified_at": "2026-09-16"
+      "verified_at": "2026-10-25"
     }
   ],
   "links": {
@@ -155,7 +157,7 @@
   "name": "CMS detector",
   "notes": [
     "Total mass is recorded as 12 500 t following the source used (2008 JINST paper). The 14 000 t figure that also circulates comes from CMS outreach pages and is recorded as a conflict rather than silently averaged.",
-    "ECAL crystal count, tracker silicon area in m² and the tracker |η| acceptance were not obtained from a source fetched in this session and are therefore absent."
+    "ECAL crystal count, tracker silicon area in m² and the tracker |η| acceptance were not found in any source consulted and are therefore absent."
   ],
   "parent_detector_id": null,
   "placements": [
@@ -249,7 +251,7 @@
       "confidence": "verified",
       "dimension": "magnetic_field",
       "display": "3.8 T",
-      "note": "Operating central flux density at the nominal 18.2 kA. The magnet was designed for and tested at 4 T, the value quoted on CMS's public pages; see worklog conflict C4.",
+      "note": "Operating central flux density at the nominal 18.2 kA. The magnet was designed for and tested at 4 T, the value quoted on CMS's public pages; the 4 T design value and the 3.8 T operating value are not reconciled.",
       "quote": "operational current of 18.2 kA, which corresponds to a central magnetic flux density of 3.8 T",
       "sources": [
         "src:cms-magnet-flux-loops-2022"
@@ -263,7 +265,7 @@
       "confidence": "verified",
       "dimension": "mass",
       "display": "12500 t",
-      "note": "The 2008 JINST detector paper and CERN's Point 5 page both give 12 500 t. CMS's own public detector page instead calls CMS 'The 14,000-tonne detector' while giving 12 500 t for the magnet coils plus return yoke; see worklog conflict C2.",
+      "note": "The 2008 JINST detector paper and CERN's Point 5 page both give 12 500 t. CMS's own public detector page instead calls CMS 'The 14,000-tonne detector' while giving 12 500 t for the magnet coils plus return yoke; the two figures are not reconciled.",
       "quote": "The overall dimensions of the CMS detector are a length of 21.6 m, a diameter of 14.6 m and a total weight of 12500 t.",
       "sources": [
         "src:cms-cern-voisins-point-5",

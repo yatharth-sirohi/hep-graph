@@ -44,19 +44,24 @@
       "confidence": "approximate",
       "end": {
         "approx": true,
-        "date": "2029",
+        "date": "2030",
+        "display": "mid-2030",
+        "note": "CERN schedule: the LHC resumes operation in mid-2030; the rest of the CERN complex restarts in stages from mid-2028.",
         "planned": true
       },
       "label": "Phase-II upgrade (LS3)",
-      "note": "Start (2026-06) is the scheduled beginning of Long Shutdown 3; the end date is the Run 4 start, itself described by the source as \"currently planned\" and therefore approximate/subject to change.",
-      "quote": "They will all be installed and commissioned during LS3 in time for the start of Run 4, currently planned for 2029.",
+      "locator": "home.cern/science/long-shutdown-3, item of 5 August 2026 \"The LHC is being warmed up from near absolute zero to room temperature\"",
+      "note": "Installation of the Phase-II upgrade detectors (ITk, HGTD, new trigger/DAQ and front-end electronics) during Long Shutdown 3; the bounds are the same as for experiment:atlas, whose interval note gives CERN's wording. An earlier end of 2029 (the Run 4 start in ATLAS's January 2023 feature article) is superseded by CERN's mid-2030 schedule.",
+      "quote": "the next generation of detector technologies that are being installed at CERN during the long shutdown period prior to 2030",
       "sources": [
         "src:atlas-high-luminosity-feature",
-        "src:cern-long-shutdown-3-page"
+        "src:cern-long-shutdown-3-page",
+        "src:cern-ls3-farewell-2026",
+        "src:rc-atlas-hilumi-upgrades-page"
       ],
-      "start": "2026-06",
+      "start": "2026-06-29",
       "status": "upgrade",
-      "verified_at": "2026-09-16"
+      "verified_at": "2026-10-25"
     }
   ],
   "links": {
@@ -72,7 +77,7 @@
   },
   "name": "ATLAS detector",
   "notes": [
-    "CONFLICT on the overall length: the 2008 JINST detector paper says 'The dimensions of the detector are 25 m in height and 44 m in length', while atlas.cern ('46m long') and home.cern ('At 46 m long, 25 m high and 25 m wide') say 46 m. The 46 m value from the collaboration's own current page is recorded in specs.length; the 44 m JINST value is kept in the note of that quantity. The most likely explanation is that the two figures count the forward shielding differently, but no fetched source says so.",
+    "CONFLICT on the overall length: the 2008 JINST detector paper says 'The dimensions of the detector are 25 m in height and 44 m in length', while atlas.cern ('46m long') and home.cern ('At 46 m long, 25 m high and 25 m wide') say 46 m. The 46 m value from the collaboration's own current page is recorded in specs.length; the 44 m JINST value is kept in the note of that quantity. The most likely explanation is that the two figures count the forward shielding differently, but no source consulted says so.",
     "CONFLICT on the toroid field: atlas.cern's magnet page says the toroids 'provide a magnetic field of up to 3.5 Tesla' in its text and lists '4 T magnetic field on superconductor' in its barrel- and end-cap-toroid tables. 3.5 T is recorded as the delivered field and 4 T is noted as the peak on the conductor.",
     "Trigger numbers are the 2008 design values from the JINST paper; atlas.cern's current Trigger & DAQ page quotes up to 100 000 events/s after the first level and ~1000 events/s to storage."
   ],
