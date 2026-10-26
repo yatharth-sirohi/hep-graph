@@ -1,0 +1,96 @@
+{
+  "aliases": [
+    "Hanford",
+    "Hanford Engineering Works"
+  ],
+  "countries": [
+    "US"
+  ],
+  "country": [
+    "US"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "id": "facility:hanford-site",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "1989",
+      "label": "plutonium production",
+      "locator": "hanford.gov \"Hanford Mission\" page, second paragraph",
+      "note": "The page dates plutonium production from 1943. The B Reactor page says: \"Construction of B Reactor began in October 1943. Fuel was loaded into the reactor on Sept. 13, 1944, and it reached full power in February 1945.\"",
+      "quote": "Plutonium production took place between 1943 and 1989.",
+      "sources": [
+        "src:fu-hanford-mission-page",
+        "src:fu-hanford-breactor-page"
+      ],
+      "start": "1943",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "environmental cleanup mission",
+      "locator": "hanford.gov \"Hanford Mission\" page, third paragraph",
+      "note": "Status is as of 2026-10-26: the page (last updated 1 September 2026) describes the cleanup as continuing.",
+      "quote": "Hanford cleanup began in 1989, when a landmark agreement was reached between DOE, the U.S. Environmental Protection Agency, and the Washington State Department of Ecology.",
+      "sources": [
+        "src:fu-hanford-mission-page"
+      ],
+      "start": "1989",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "kind": "reactor_site",
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "locator": "hanford.gov",
+      "note": "",
+      "quote": "Hanford.Gov",
+      "sources": [
+        "src:fu-hanford-mission-page"
+      ],
+      "value": "https://www.hanford.gov/",
+      "verified_at": "2026-10-26"
+    }
+  },
+  "name": "Hanford Site",
+  "notes": [
+    "Reactor-neutrino physics happened here only as a guest experiment: the site is a Department of Energy plutonium-production and cleanup site, not a physics laboratory.",
+    "Reines calls the 1953 host \"one of the Hanford Engineering Works reactors in Hanford, Washington\"; no source read names which of the site's nine reactors it was."
+  ],
+  "operator_text": {
+    "confidence": "verified",
+    "locator": "hanford.gov \"Hanford Mission\" page, second paragraph",
+    "note": "The page places Hanford in the Department of Energy complex and describes the cleanup as DOE's responsibility; the contractors that run the site were not recorded.",
+    "quote": "Nowhere in the DOE Complex is cleanup more challenging than at the Hanford Site in southeastern Washington.",
+    "sources": [
+      "src:fu-hanford-mission-page"
+    ],
+    "value": "U.S. Department of Energy",
+    "verified_at": "2026-10-26"
+  },
+  "primary_site_id": "site:hanford-site",
+  "related_facility_ids": [],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:fu-hanford-mission-page",
+    "src:fu-hanford-breactor-page",
+    "src:disc-nobel-lecture-reines-1995"
+  ],
+  "specs": {},
+  "status": "active",
+  "summary": {
+    "plain": "A very large U.S. Department of Energy site in Washington state, built in 1943 to make plutonium for nuclear weapons and now being cleaned up. In 1953 Clyde Cowan and Frederick Reines made their first attempt to detect the neutrino at one of its reactors.",
+    "technical": "Hanford Site, southeastern Washington: nine nuclear reactors along the Columbia River, plutonium production 1943-1989, cleanup since 1989. Host of the first Cowan-Reines reactor-antineutrino attempt (spring 1953, a 300 L liquid-scintillator detector at one of the Hanford Engineering Works reactors)."
+  },
+  "topic_ids": [
+    "topic:reactor-neutrinos"
+  ],
+  "type": "facility"
+}

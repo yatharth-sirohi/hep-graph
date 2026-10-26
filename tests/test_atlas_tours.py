@@ -136,13 +136,18 @@ def test_step_and_question_counts_are_enforced(atlas) -> None:
     assert {'tour-step-count', 'tour-question-count'} <= _rules(T.validate_tour(atlas, tour, BUILD_DATE))
 
 
-def test_a_claim_may_not_lean_on_an_encyclopaedia_only_field(atlas) -> None:
-    # Homestake's continuous-operation interval cites Wikipedia alone (rank 12).
-    resolved = T.resolve(atlas, 'experiment:homestake', 'intervals.continuous operation')
-    assert resolved.sources == ['src:homestake-wikipedia']
+def test_a_claim_may_not_lean_on_an_encyclopaedia_only_field(atlas, monkeypatch) -> None:
+    # Homestake's intervals cite the Davis lecture and the 1998 paper, so the test puts an
+    # encyclopaedia source (rank 12) on one real interval for the length of the test.
+    weak = next(sid for sid, source in atlas.by_type('source').items()
+                if source.get('source_type') == 'wikipedia')
+    interval = next(row for row in atlas.get('experiment:homestake')['intervals'] if row['label'] == 'operation')
+    monkeypatch.setitem(interval, 'sources', [weak])
+    resolved = T.resolve(atlas, 'experiment:homestake', 'intervals.operation')
+    assert resolved.sources == [weak]
     tour = _tour(atlas)
     tour['steps'][0]['claims'][1] = {'covers': tour['steps'][0]['claims'][1]['covers'],
-                                      'ref': 'experiment:homestake', 'field': 'intervals.continuous operation'}
+                                      'ref': 'experiment:homestake', 'field': 'intervals.operation'}
     assert 'tour-ref-weak-source' in _rules(T.validate_tour(atlas, tour, BUILD_DATE))
 
 

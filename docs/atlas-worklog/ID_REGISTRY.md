@@ -67,3 +67,4 @@ creating your own copy).
 | pierre-auger-observatory (facility:pierre-auger-observatory + site:malargue), telescope-array (facility:telescope-array-utah + site), hawc (facility:sierra-negra + site), lhaaso (facility:lhaaso-daocheng + site), ctao (facility:roque-de-los-muchachos-observatory + facility:ctao-south-paranal + sites), veritas (facility:fred-lawrence-whipple-observatory + site), magic (site under roque-de-los-muchachos), h-e-s-s (facility:hess-khomas-highland + site) | cosmic-gamma |
 | star, phenix, sphenix (sites and RHIC via facilities); experiment/detector/collaboration records | heavy-ions |
 | site:ornl-sns-complex (the SNS accelerator and target complex; added in the release-candidate pass because the complex outline was being labelled with the Neutrino Alley site) | rc-data |
+| facility:hanford-site, site:hanford-site, experiment:cowan-reines-hanford-1953 (predecessor of experiment:cowan-reines-neutrino); sources `src:fu-*` | followups |
