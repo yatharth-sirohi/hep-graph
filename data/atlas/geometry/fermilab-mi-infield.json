@@ -12,7 +12,7 @@
   "geometry": {
     "confidence": "approximate",
     "locator": "OSM way/1167765305, extract timestamp 2026-09-18T20:20:01Z",
-    "note": "Context feature only (entity_id null): shown for orientation because it sits inside the undrawn Main Injector/Recycler ring, but it is explicitly NOT a representation of the ring/tunnel -- see map.unlocated for accelerator:fermilab-main-injector and accelerator:fermilab-recycler, and the geometry worklog 'Main Injector infield' section.",
+    "note": "Context feature only: shown for orientation because it lies inside the Main Injector/Recycler ring. It is not a representation of the ring or its tunnel, which are drawn separately (geometry:fermilab-main-injector-ring and geometry:fermilab-recycler-ring).",
     "sources": [
       "src:fermilab-geo-osm-mi-infield"
     ],
@@ -500,9 +500,11 @@
     "website": null
   },
   "map_id": "map:fermilab",
-  "method": "OpenStreetMap way 1167765305 (natural=grassland), traced verbatim, 116 vertices. Investigated as a candidate Main Injector infield proxy per the research brief, then rejected as a ring proxy: its bounding span (1038 m N-S x 860 m E-W, matching the integrator's earlier estimate) is roughly the right order of magnitude for a ~3.3 km-circumference oval, but its own perimeter (5548 m) is 67% longer than the Main Injector's sourced circumference (3319.4 m, src:fermilab-geo-mi-tdr-1994) -- it traces an irregular natural-grassland/wetland boundary, not a clean racetrack inset, and cannot be used to derive or validate the ring's shape.",
+  "method": "OpenStreetMap way 1167765305 (natural=grassland), traced verbatim, 116 vertices. Considered as a proxy for the Main Injector ring and rejected: its bounding span (1038 m N-S x 860 m E-W) is of the right order of magnitude for a ~3.3 km-circumference oval, but its own perimeter (5548 m) is 67% longer than the Main Injector's sourced circumference (3319.4 m, src:fermilab-geo-mi-tdr-1994), and it traces an irregular natural-grassland/wetland boundary, not a clean racetrack inset, so it cannot be used to derive or validate the ring's shape.",
   "name": "Grassland area inside the Main Injector/Recycler ring (context only)",
-  "notes": [],
+  "notes": [
+    "No source consulted (checked 2026-10-25) gives the age of this grassland. It lies inside the Main Injector ring, whose civil construction began with the groundbreaking of 22 March 1993 and was complete in 1997. Fermilab's September 2003 newsletter says replacement wetland was built \"in the middle of the Main Injector ring\", planted in 1992, and that the Army Corps of Engineers closed its permit in 1997. The polygon is therefore drawn from 1997; farmland or earlier vegetation at this spot is not drawn."
+  ],
   "osm": {
     "elements": [
       "way/1167765305"
@@ -513,11 +515,27 @@
   "schema": "hep-atlas/0.2",
   "site_id": null,
   "sources": [
-    "src:fermilab-geo-osm-mi-infield"
+    "src:fermilab-geo-osm-mi-infield",
+    "src:rc-fnal-ferminews-2003-09-main-injector-wetlands",
+    "src:rv-fnal-mi-commissioning-pac99",
+    "src:rv-fnal-history-accelerator-history"
   ],
   "summary": {
-    "plain": "Context feature only (entity_id null): shown for orientation because it sits inside the undrawn Main Injector/Recycler ring, but it is explicitly NOT a representation of the ring/tunnel -- see map...."
+    "plain": "A grassland polygon (OpenStreetMap) inside the Main Injector ring, drawn from 1997 for orientation only; it is not the ring or its tunnel."
   },
   "type": "geometry",
-  "valid": null
+  "valid": {
+    "confidence": "derived",
+    "end": null,
+    "locator": "FermiNews, September 2003, p. 5 (restored sedge wetlands inside the Main Injector ring); PAC 1999 paper MOCL3, section 1 (ring civil construction complete in 1997); Fermilab History and Archives, 'Accelerator History' (Main Injector groundbreaking 22 March 1993)",
+    "note": "Start is the year the ring's civil construction was complete and the replacement wetland inside the ring was accepted; no source gives the age of this grassland.",
+    "quote": "After we planted in 1992, the wetlands area was monitored by the Corps of Engineers for five years. In 1997, the mitigated area was well on its way, and the Corps agreed that the wetlands were good enough to close the permit.",
+    "sources": [
+      "src:rc-fnal-ferminews-2003-09-main-injector-wetlands",
+      "src:rv-fnal-mi-commissioning-pac99",
+      "src:rv-fnal-history-accelerator-history"
+    ],
+    "start": "1997",
+    "verified_at": "2026-10-25"
+  }
 }

@@ -12,7 +12,7 @@
   "geometry": {
     "confidence": "derived",
     "locator": "Derived from geometry:fermilab-bnb-target; candidate OSM ways/1423112777,1423112778, extract timestamp 2026-09-18",
-    "note": "accuracy_m widened to 30 m specifically to cover the ~17 m candidate-footprint scatter, on top of the usual OSM/derivation uncertainty. A QA pass or a source naming the specific building would let this become a proper 'hall' polygon.",
+    "note": "Accuracy is set to 30 m to cover the ~17 m scatter between the two candidate footprints, on top of the usual OpenStreetMap and derivation uncertainty. A source naming the specific building would allow it to be drawn as a hall polygon.",
     "sources": [
       "src:fermilab-geo-osm-sbn-area",
       "src:sbnd-detector-paper-2025"
@@ -37,11 +37,10 @@
     "website": null
   },
   "map_id": "map:fermilab",
-  "method": "Point placed 110 m upstream of geometry:fermilab-bnb-target's downstream bearing continuation, i.e. at the sourced 110 m SBND baseline (src:sbnd-detector-paper-2025) along the derived BNB axis. Two OSM building footprints sit near this ideal point but neither is confidently identified as SBND specifically: way 1423112777 (span ~34 m, 17.2 m from the ideal point) and way 1423112778 (span ~10 m, 17.7 m from the ideal point) -- almost equally good positional matches, no OSM tag names either, and no source fetched this session distinguishes them. `feature_type` is `target_station` (a labelled point) rather than the real building footprint because the specific footprint is not confidently identified; drawing either candidate polygon as 'SBND' would overstate certainty.",
+  "method": "Point placed 110 m upstream of geometry:fermilab-bnb-target's downstream bearing continuation, i.e. at the sourced 110 m SBND baseline (src:sbnd-detector-paper-2025) along the derived BNB axis. Two OSM building footprints sit near this ideal point but neither is confidently identified as SBND specifically: way 1423112777 (span ~34 m, 17.2 m from the ideal point) and way 1423112778 (span ~10 m, 17.7 m from the ideal point) -- almost equally good positional matches, no OSM tag names either, and no source consulted (checked 2026-09-18) distinguishes them. `feature_type` is `target_station` (a labelled point) rather than the real building footprint because the specific footprint is not confidently identified; drawing either candidate polygon as 'SBND' would overstate certainty.",
   "name": "SBND (derived position; candidate footprint not confirmed)",
   "notes": [
-    "Integrator (2026-09-21): feature_type corrected from target_station to other; this is a derived detector position, not a beam target.",
-    "QA pass (2026-09-21): removed the `valid: {start: '2024-07', end: null}` window a previous pass set -- a preventive fix for a latent bug in hepgraph.atlas.build._feature_segments(): any `valid` dict with a non-null `start` and `end: null` hard-codes `status: 'active'` through build day regardless of the entity's real status, bypassing state_segments entirely. Currently harmless because detector:sbnd genuinely is 'active' today, but this pattern produced a live false-'active' claim on three other records (geometry:lhc-tunnel-ring, geometry:fermilab-mc1-building, geometry:fermilab-microboone-hall) fixed the same way in this pass -- see docs/atlas-worklog/REVIEW_geometry_qa.md."
+    "The feature type is 'other' (corrected on 2026-09-21 from target_station): this is a derived detector position, not a beam target."
   ],
   "osm": {
     "elements": [
@@ -58,7 +57,7 @@
     "src:sbnd-detector-paper-2025"
   ],
   "summary": {
-    "plain": "accuracy_m widened to 30 m specifically to cover the ~17 m candidate-footprint scatter, on top of the usual OSM/derivation uncertainty. A QA pass or a source naming the specific building would let ..."
+    "plain": "A derived point for the SBND detector, 110 m along the Booster Neutrino Beam axis from the derived target. Two nearby building footprints are almost equally good matches, so no building is drawn."
   },
   "type": "geometry",
   "valid": null

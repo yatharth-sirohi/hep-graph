@@ -25,7 +25,7 @@
   "geometry": {
     "confidence": "approximate",
     "locator": "OSM way/720556725, extract timestamp 2026-09-18T21:57:05Z; identity confirmed by src:muons-arxiv-1501-06858 Ch.6.1 'The muon storage ring will be located in the MC-1 Building on the Muon Campus'",
-    "note": "The existing site record site:fermilab-mc-1-muon-campus carries a coarse 4 km geocoder point; this OSM building position is a strictly better anchor and is flagged as a site coordinate correction in the geometry worklog. The g-2 TDR states the experimental hall floor is 12 ft (3.66 m) below grade; recorded as this feature's own depth_m rather than a separate level since no other feature shares that level.",
+    "note": "The atlas site record site:fermilab-mc-1-muon-campus now carries this building's centroid as its point (accuracy 40 m). The g-2 TDR states the experimental hall floor is 12 ft (3.66 m) below grade; this is recorded as the feature's own depth_m rather than as a separate level, since no other feature shares that level.",
     "sources": [
       "src:fermilab-geo-osm-mc1",
       "src:muons-arxiv-1501-06858"
@@ -84,9 +84,7 @@
   "map_id": "map:fermilab",
   "method": "OpenStreetMap way 720556725 'MC-1' footprint, traced verbatim.",
   "name": "MC-1 Building, Fermilab Muon Campus",
-  "notes": [
-    "QA pass (2026-09-21): removed the `valid: {start: '2013', end: null}` window a previous pass set. hepgraph.atlas.build._feature_segments() treats any `valid` dict with a non-null `start` as an open-ended 'active' window through build day whenever `end` is null, overriding the entity's own state_segments entirely -- so this feature was rendering `status: 'active'` in the built bundle today even though detector:muon-g-2's own sourced timeline says otherwise (status 'completed' at build day 2026-09-21, confirmed by directly testing hepgraph.atlas.build._Context.status_at_build/segments). Removing `valid` restores the intended fallback (contract SS3: 'without it the feature inherits the entity's timeline'). This is a pipeline-code gap (hepgraph/atlas/build.py `_feature_segments`), not unique to this record -- see docs/atlas-worklog/REVIEW_geometry_qa.md."
-  ],
+  "notes": [],
   "osm": {
     "elements": [
       "way/720556725"
@@ -101,7 +99,7 @@
     "src:muons-arxiv-1501-06858"
   ],
   "summary": {
-    "plain": "The existing site record site:fermilab-mc-1-muon-campus carries a coarse 4 km geocoder point; this OSM building position is a strictly better anchor and is flagged as a site coordinate correction i..."
+    "plain": "The MC-1 building on the Fermilab Muon Campus, which houses the Muon g-2 storage ring, from an OpenStreetMap footprint."
   },
   "type": "geometry",
   "valid": null
