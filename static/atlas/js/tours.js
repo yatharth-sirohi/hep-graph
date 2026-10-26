@@ -85,6 +85,7 @@ export function createPlayer({
     return {
       resolve: async (raw) => ({ ...raw, entity: null }), leave() {}, frame() {}, settle() {}, active: () => false,
       ownsCamera: () => false, panelRoute: (current) => current.entity, interceptPanelNavigate: () => false,
+      mapFraming: () => null, takePanelFocus: () => false,
     };
   }
 
@@ -95,6 +96,7 @@ export function createPlayer({
   let target = null;
   let activeKey = null;
   let framePending = false;
+  let mapFramePending = false;
   let settlePending = false;
   let dismissedKey = null; // the step whose record panel the reader closed
   let phoneKey = null; // phone: the step whose record the reader asked for
@@ -106,6 +108,9 @@ export function createPlayer({
   let serial = 0;
   let lastFocus = null;
   let answerOpen = false;
+  let collapsed = false; // phone: the sheet is folded down to its controls
+  let focusRecord = false; // the reader asked for the record: focus goes to it
+  let focusCard = false; // the record was closed: focus comes back to the card
 
   const nameOf = (id) => {
     const record = index && index.get ? index.get(id) : null;
@@ -127,8 +132,13 @@ export function createPlayer({
     const progress = h('div', { class: 'tour-progress' }, [h('p', { class: 'tour-meta' }, [count, year]), bar]);
     const body = h('div', { class: 'tour-body', id: 'tour-body' });
     const back = h('button', { type: 'button', class: 'text-btn tour-back' }, 'Back');
+    // Phone only (tours.css): fold the sheet down to its controls so a view or a map above it
+    // can be seen whole, and bring the text back.
+    const collapse = h('button', {
+      type: 'button', class: 'text-btn tour-collapse', 'aria-expanded': 'true', 'aria-controls': 'tour-body',
+    }, 'Hide text');
     const next = h('button', { type: 'button', class: 'primary-btn tour-next' }, 'Next');
-    const nav = h('div', { class: 'tour-nav' }, [back, next]);
+    const nav = h('div', { class: 'tour-nav' }, [back, collapse, next]);
     const hint = h('p', { class: 'tour-hint' },
       'Arrow keys, Page Up/Down or Space to step · B blanks the screen · A shows the answer · Esc leaves presenter mode');
     const status = h('p', { class: 'visually-hidden', role: 'status', 'aria-live': 'polite' });
@@ -140,6 +150,7 @@ export function createPlayer({
     presentBtn.addEventListener('click', () => setPresent(!present));
     closeBtn.addEventListener('click', () => exit());
     back.addEventListener('click', () => go(stepNo - 1));
+    collapse.addEventListener('click', () => setCollapsed(!collapsed));
     next.addEventListener('click', () => (stepNo >= tour.steps.length ? exit() : go(stepNo + 1)));
     card.addEventListener('focusin', (event) => { lastFocus = event.target; });
 
@@ -160,7 +171,7 @@ export function createPlayer({
     resumeClose.addEventListener('click', () => { paused = null; updatePill(); });
 
     dom = {
-      kicker, presentBtn, closeBtn, title, count, year, bar, barFill, body, back, next, hint, status, blankEl, resume, resumeBtn,
+      kicker, presentBtn, closeBtn, title, count, year, bar, barFill, body, back, collapse, next, hint, status, blankEl, resume, resumeBtn,
     };
     return dom;
   }
@@ -181,7 +192,8 @@ export function createPlayer({
     card.hidden = true;
     card.classList.remove('is-yielding');
     main.classList.remove('has-tour');
-    document.body.classList.remove('is-touring', 'is-presenting');
+    document.body.classList.remove('is-touring', 'is-presenting', 'tour-record-open');
+    card.classList.remove('is-collapsed');
     main.style.removeProperty('--tour-w');
     document.title = BASE_TITLE;
     setBlank(null);
@@ -304,7 +316,8 @@ export function createPlayer({
     const answer = h('div', { class: 'tour-answer', id: 'tour-answer', hidden: !answerOpen }, [
       h('p', { class: 'tour-q-answer' }, sentence(q.answer, answerClaims)),
       workingList(q) ? h('details', { class: 'panel-section' }, [h('summary', {}, 'How it was worked out'), h('div', { class: 'panel-section-body' }, workingList(q))]) : null,
-      answerClaims.length ? sourcesDisclosure(answerClaims.map((claim) => ({ claim, where: 'in the answer' })), 'Sources for the answer') : null,
+      // The answer's own claims and the ones its working leans on (the figures in the question).
+      claims.length ? sourcesDisclosure(claims.map((claim) => ({ claim, where: claim.in === 'prompt' ? 'in the question' : 'in the answer' })), 'Sources for the question and answer') : null,
     ]);
     const toggle = h('button', {
       type: 'button', class: 'text-btn tour-answer-btn', 'aria-expanded': String(answerOpen), 'aria-controls': 'tour-answer',
@@ -321,6 +334,21 @@ export function createPlayer({
     };
   }
 
+  function setCollapsed(on) {
+    collapsed = !!on;
+    card.classList.toggle('is-collapsed', collapsed);
+    dom.collapse.setAttribute('aria-expanded', String(!collapsed));
+    dom.collapse.textContent = collapsed ? 'Show text' : 'Hide text';
+  }
+
+  // Scrolls the card's own body, never the page (scrollIntoView also scrolls every ancestor,
+  // which on a phone slides the whole screen up).
+  function scrollBodyTo(el) {
+    const box = dom.body;
+    const top = el.getBoundingClientRect().top - box.getBoundingClientRect().top + box.scrollTop;
+    box.scrollTop = Math.max(0, top - 8);
+  }
+
   function setAnswer(open) {
     answerOpen = open;
     const toggle = card.querySelector('.tour-answer-btn');
@@ -329,13 +357,26 @@ export function createPlayer({
     answer.hidden = !open;
     toggle.setAttribute('aria-expanded', String(open));
     toggle.textContent = open ? 'Hide answer' : 'Show answer';
-    if (open) answer.scrollIntoView({ block: 'nearest' });
+    // A laptop shows the question and its answer together, from the top of the question card;
+    // a phone's short sheet shows the answer itself.
+    if (open) {
+      const target_ = PHONE.matches ? answer : card.querySelector('.tour-question');
+      if (target_) scrollBodyTo(target_);
+    }
+  }
+
+  // The record a step points at: the one beside the globe, or a local map's drawer (`sel`).
+  function recordId() {
+    if (!target) return null;
+    if (target.stage === 'globe') return target.entity ? `${target.entity.type}:${target.entity.slug}` : null;
+    if (target.stage === 'map') return target.sel || null;
+    return null;
   }
 
   function recordButton() {
-    const route = target && target.stage === 'globe' ? target.entity : null;
-    if (!route) return null;
-    const name = nameOf(`${route.type}:${route.slug}`);
+    const id = recordId();
+    if (!id) return null;
+    const name = nameOf(id);
     const button = h('button', { type: 'button', class: 'text-btn tour-record-btn' }, name ? `Open the record for ${name}` : 'Open the record');
     button.addEventListener('click', openPanel);
     return button;
@@ -423,21 +464,29 @@ export function createPlayer({
   function closePanel() {
     dismissedKey = activeKey;
     phoneKey = null;
+    focusCard = true;
     refresh();
   }
 
   function openPanel() {
     dismissedKey = null;
     phoneKey = activeKey;
+    focusRecord = true;
     refresh();
   }
 
   function updateRecordButton() {
     if (!dom) return;
     const button = card.querySelector('.tour-record-btn');
-    if (button) button.hidden = !(target && target.entity && target.stage === 'globe' && panelHidden());
+    const hasRecord = !!recordId();
+    // Beside the globe the record opens by itself (and can be closed, then asked for again); a
+    // local map's drawer is a column of its own on a laptop, so only a phone needs the button there.
+    const hidden = !hasRecord || !(target.stage === 'globe' ? panelHidden() : PHONE.matches && phoneKey !== activeKey);
+    if (button) button.hidden = hidden;
     // A phone shows one sheet at a time: while the record is open the card steps aside.
-    card.classList.toggle('is-yielding', PHONE.matches && target && target.stage === 'globe' && phoneKey === activeKey);
+    const yielding = !!hasRecord && PHONE.matches && phoneKey === activeKey;
+    card.classList.toggle('is-yielding', yielding);
+    document.body.classList.toggle('tour-record-open', yielding);
   }
 
   // ----------------------------------------------------------------- the keyboard
@@ -544,6 +593,7 @@ export function createPlayer({
       // once (a replace, so Back still goes from step to step) and draw from that.
       activeKey = key;
       framePending = true;
+      mapFramePending = true;
       settlePending = true;
       dismissedKey = null;
       phoneKey = null;
@@ -551,13 +601,18 @@ export function createPlayer({
       paused = null;
       updatePill();
       renderStep();
+      setCollapsed(false); // a new step's text is shown, whatever the last one did
       const patch = { mode: null, collab: null, sel: target.sel };
       if (target.year != null) { patch.year = target.year; patch.range = null; }
       navigate(patch, { replace: true });
       return null;
     }
+    // A phone's map drawer was closed (its selection cleared): the card comes back.
+    if (target.stage === 'map' && phoneKey === activeKey && !raw.sel) phoneKey = null;
     updateRecordButton();
-    return { ...raw, entity: target.entity, mode: null, collab: null };
+    return {
+      ...raw, entity: target.entity, mode: null, collab: null, tourKey: key,
+    };
   }
 
   /** A route that is not a tour's: the card goes. A tour left by following something else is
@@ -571,14 +626,17 @@ export function createPlayer({
     serial += 1;
     activeKey = null;
     framePending = false;
+    mapFramePending = false;
     settlePending = false;
     hideCard();
     updatePill();
   }
 
-  /** Called by app.js with the globe stage showing: fly to the step's camera, clear of the card. */
-  function frame() {
-    if (!framePending || !activeKey) return;
+  /** Called by app.js with the globe stage showing: fly to the step's camera, clear of the card.
+   * `current` is the state resolve() returned; a call that belongs to a step the reader has
+   * already left (Next pressed twice quickly) does nothing. */
+  function frame(current) {
+    if (!framePending || !activeKey || !current || current.tourKey !== activeKey) return;
     framePending = false;
     const globe = getGlobe();
     if (globe && typeof globe.showView === 'function' && target.stage === 'globe' && step.camera) {
@@ -586,8 +644,17 @@ export function createPlayer({
     }
   }
 
-  function settle() {
-    if (!activeKey || !settlePending) { updateRecordButton(); return; }
+  function settle(current) {
+    if (!activeKey || !current || current.tourKey !== activeKey) return;
+    if (!settlePending) {
+      updateRecordButton();
+      if (focusCard) {
+        focusCard = false;
+        const record = card.querySelector('.tour-record-btn');
+        (record && !record.hidden ? record : card).focus({ preventScroll: true });
+      }
+      return;
+    }
     settlePending = false;
     framePending = false;
     updateRecordButton();
@@ -612,6 +679,22 @@ export function createPlayer({
     /** The record panel's route for the state app.js is drawing: the step's own, unless the
      * reader closed it, or a phone has not been asked for it. */
     panelRoute: (current) => (activeKey && panelHidden() ? null : current.entity),
+    /** For a local map step: `{ frameSelection, reframe }` for localmap.show(). A step frames what
+     * it is about; `reframe` is true once, when the step opens, so a map the reader has moved is
+     * framed again for the next step but not on every redraw. Null when no tour is on screen. */
+    mapFraming(current) {
+      if (!activeKey || !current || current.tourKey !== activeKey) return null;
+      const reframe = mapFramePending;
+      mapFramePending = false;
+      return { frameSelection: true, reframe };
+    },
+    /** True once after the reader asked for the record ("Open the record"): it takes focus then,
+     * where a record that simply follows each step leaves focus in the card. */
+    takePanelFocus() {
+      const asked = focusRecord;
+      focusRecord = false;
+      return asked;
+    },
     /** The panel's × (a patch of `{ entity: null }`) closes the panel and keeps the tour. */
     interceptPanelNavigate(patch) {
       if (!activeKey || !patch || patch.entity !== null || Object.keys(patch).length !== 1) return false;

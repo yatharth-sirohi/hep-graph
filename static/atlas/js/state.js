@@ -161,7 +161,10 @@ function buildURL(state) {
   }
   // The tour's step and presenter flag only mean something on a tour route, so they
   // are written only there (the same rule as `sel` above).
-  if (state.entity && state.entity.type === 'tour') {
+  // (`#/view/tour/<slug>` is the same route by another name until app.js rewrites it.)
+  const onTour = state.entity && (state.entity.type === 'tour'
+    || (state.entity.type === 'view' && String(state.entity.slug).startsWith('tour/')));
+  if (onTour) {
     if (state.step != null) params.set('step', String(state.step));
     if (state.present) params.set('present', '1');
   }
@@ -183,7 +186,17 @@ function notify() {
 /** Merge `patch` into the current state and push a new history entry. */
 export function navigate(patch, { replace = false } = {}) {
   const previousMode = current ? current.mode : null;
+  const previousEntity = current ? current.entity : null;
   current = { ...current, ...patch };
+  // A tour's step and presenter flag belong to one tour: leaving it forgets both, and
+  // opening another tour (from search, a topic, the Tours list) starts at its first step
+  // unless the patch names one.
+  if ('entity' in patch) {
+    const into = patch.entity && patch.entity.type === 'tour';
+    const same = into && previousEntity && previousEntity.type === 'tour' && previousEntity.slug === patch.entity.slug;
+    if (!('step' in patch) && !same) current.step = null;
+    if (!into && !('present' in patch)) current.present = false;
+  }
   // The Results filters belong to one visit of the panel: opening it again from
   // the toolbar starts from the full list, as it always has. (Back/forward
   // restores them from the address instead, through readLocation().)

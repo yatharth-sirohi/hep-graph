@@ -431,6 +431,12 @@ function frameToExtent() {
  *  is clipped at the map edge anyway. It is left out of the frame unless it is
  *  all that is drawn, in which case the record's own extent frames the view. */
 function framingFeatures() {
+  // A guided tour's step frames what it is about (the Proton Synchrotron, not the whole
+  // complex): the drawn features of the selection, when there are any on this map.
+  if (frameOnSelection) {
+    const selected = selectedFeatures().filter(featureVisible);
+    if (selected.length) return selected;
+  }
   const drawn = bundle.features
     .filter(featureVisible)
     .filter((f) => f.representation !== 'inferred_direction' && f.feature_type !== 'direction_line');
@@ -502,6 +508,9 @@ function frameToFeatures() {
   mapInstance.setView(centre, zoom, { animate: false });
   return true;
 }
+
+// Set by show(): frame the selected entity's features rather than everything drawn.
+let frameOnSelection = false;
 
 const FRAME_PADDING_PX = 56;
 // A frame is never tighter than a sixth of the record's own extent, twice the
@@ -2427,6 +2436,9 @@ export async function show(current, ctx) {
     return;
   }
 
+  // ctx.frameSelection: frame the selection, not everything drawn (a tour step's map);
+  // ctx.reframe: do so now even if the reader has moved the map (a new step).
+  frameOnSelection = !!ctx.frameSelection;
   view = {
     levels: current.levels === undefined ? null : current.levels,
     basemap: current.basemap !== false,
@@ -2492,7 +2504,7 @@ export async function show(current, ctx) {
     drawFeatures(L);
     // Frame before the basemap is added, so tiles are requested once, for the
     // view the reader will see, and not for a first guess at it.
-    refreshFrame();
+    refreshFrame({ force: !!ctx.reframe });
     applyBasemap(L);
     layoutLabels();
   } catch (error) {
@@ -2547,6 +2559,7 @@ export function hide() {
   if (!dom) { opened = false; return; }
   opened = false;
   depthOpen = false;
+  frameOnSelection = false;
   destroyMap();
   currentMapId = null;
   bundle = null;

@@ -433,7 +433,9 @@ async function main() {
   // those; the player holds the card. `#/view/tour/<slug>` is the same route by another name.
   async function applyState(raw) {
     if (raw.entity && raw.entity.type === 'view' && raw.entity.slug.startsWith('tour/')) {
-      state.navigate({ entity: { type: 'tour', slug: raw.entity.slug.slice('tour/'.length) } }, { replace: true });
+      state.navigate({
+        entity: { type: 'tour', slug: raw.entity.slug.slice('tour/'.length) }, step: raw.step, present: raw.present,
+      }, { replace: true });
       return;
     }
     let current = raw;
@@ -444,7 +446,7 @@ async function main() {
       tourPlayer.leave();
     }
     await applyEffective(current);
-    tourPlayer.settle();
+    tourPlayer.settle(current);
   }
 
   async function applyEffective(current) {
@@ -594,6 +596,8 @@ async function main() {
       await localmap.show(current, {
         atlas, index, navigate: state.navigate, panels, timelineState: mapTimeline,
         loaderBase: loader.base(),
+        // A tour step's map frames its own subject (js/tours.js), not the whole campus.
+        ...(tourPlayer.mapFraming(current) || {}),
       });
       return;
     }
@@ -612,8 +616,8 @@ async function main() {
     const timelineState = current.range ? { range: current.range } : { year: current.year };
     if (tourPlayer.active()) {
       // The globe stage is showing: the step's camera, then its record beside the card.
-      tourPlayer.frame();
-      await panels.render(tourPlayer.panelRoute(current), timelineState, { focus: false });
+      tourPlayer.frame(current);
+      await panels.render(tourPlayer.panelRoute(current), timelineState, { focus: tourPlayer.takePanelFocus() });
       return;
     }
     await panels.render(current.entity, timelineState);

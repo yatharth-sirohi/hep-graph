@@ -27,6 +27,7 @@ let container = null;
 // it. Restored when the panel closes (render(null, ...)).
 let openerElement = null;
 let lastRenderedId = null;
+let renderTicket = 0;
 
 export function init({ el, atlas, index, navigate, focusGlobe, viewOnGlobe }) {
   container = el;
@@ -1591,6 +1592,10 @@ const RENDERERS = {
 // (it is itself a state.navigate() subscriber), so this also re-renders the
 // whole panel whenever the year or range moves.
 export async function render(route, timelineState = { year: new Date().getFullYear() }, { focus = true } = {}) {
+  // Two renders can overlap (Next pressed twice in a tour, a fast pair of clicks): only the
+  // latest one may write the panel, so a slow earlier record never lands on top of a later
+  // one, or reopens a panel that has since been closed.
+  const ticket = ++renderTicket;
   if (!route) {
     container.innerHTML = '';
     container.classList.add('hidden');
@@ -1621,6 +1626,7 @@ export async function render(route, timelineState = { year: new Date().getFullYe
   }
   try {
     const frag = await renderer(id, timelineState);
+    if (ticket !== renderTicket) return;
     container.innerHTML = '';
     const closeBtn = h('button', {
       type: 'button', class: 'close-btn', id: 'close-detail', 'aria-label': 'Close panel',
@@ -1637,6 +1643,7 @@ export async function render(route, timelineState = { year: new Date().getFullYe
     }
     if (route.type === 'collaboration') setCollaborationContext(id);
   } catch (error) {
+    if (ticket !== renderTicket) return;
     container.innerHTML = '';
     container.appendChild(emptyNote(`Could not load this entity: ${error.message}`));
   }

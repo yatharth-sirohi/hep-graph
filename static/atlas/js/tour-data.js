@@ -112,6 +112,9 @@ export function coveredSegments(text, claims) {
 }
 
 // --------------------------------------------------------- naming a referenced field
+// Path segments that are the record's plumbing, not something a reader would name.
+const PLUMBING = new Set(['value', 'quantity', 'key_specs']);
+
 function spoken(segment) {
   const text = String(segment).replace(/_/g, ' ').trim();
   return text ? text.charAt(0).toUpperCase() + text.slice(1) : text;
@@ -120,11 +123,11 @@ function spoken(segment) {
 /**
  * A reader's name for a dotted field path (`key_specs.Baseline`, `primary_beam.value.energy`,
  * `baselines.site:ash-river-nova-far-detector.distance`): the segments joined by " › ",
- * `value` and `quantity` plumbing dropped, a record id replaced by its name (`nameOf(id)`
+ * `value`, `quantity` and `key_specs` plumbing dropped, a record id replaced by its name (`nameOf(id)`
  * returns null for an id it does not know), a trailing "(far detector)" kept.
  */
 export function fieldLabel(field, nameOf = () => null) {
-  const segments = String(field || '').split('.').filter((s) => s && s !== 'value' && s !== 'quantity');
+  const segments = String(field || '').split('.').filter((s) => s && !PLUMBING.has(s));
   return segments.map((segment) => {
     if (/^[a-z_]+:[a-z0-9-]/.test(segment)) return nameOf(segment) || segment;
     return spoken(segment);

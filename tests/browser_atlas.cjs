@@ -98,7 +98,11 @@ const results = [];
 const errors = [];
 let browser;
 
+// HEP_ONLY=<regular expression> runs only the checks whose name matches (a targeted run in
+// another engine, e.g. HEP_ONLY="^Tours" for the guided-tour player); it skips the rest.
+const onlyChecks = process.env.HEP_ONLY ? new RegExp(process.env.HEP_ONLY, "i") : null;
 const record = async (name, fn) => {
+  if (onlyChecks && !onlyChecks.test(name)) return;
   const start = Date.now();
   await fn();
   results.push({ name, status: "passed", milliseconds: Date.now() - start });
@@ -2996,6 +3000,397 @@ async function openFilters(page) {
     await ctx.close();
   });
   // ---- views -- end ---------------------------------------------------------------
+
+
+  // ---- guided tours: the player (static/atlas/js/tours.js) -- begin -----------------------
+  // `#/tour/<slug>?step=<n>` plays a tour from tours.json (A28). The fixture tree has none,
+  // so the player's checks run against the generated build only; the fixtures check that the
+  // entry points stay out of the way.
+  if (process.env.HEP_ATLAS_DATA !== "generated") {
+    await record("Tours: a data build without tours.json hides the Tours button and the Start-here row", async () => {
+      const { ctx, p } = await viewContext();
+      await p.goto(viewURL(""));
+      await p.waitForFunction(() => document.querySelectorAll(".atlas-marker").length > 0, { timeout: 30000 });
+      assert.equal(await p.locator("#tours-mode-btn").isHidden(), true);
+      await ctx.close();
+    });
+  } else {
+    const toursBundle = await (await fetch(`${base}/atlas/generated/tours.json`)).json();
+    const tourList = toursBundle.order.map((id) => toursBundle.tours[id]);
+    const slugOf = (tour) => tour.id.replace(/^tour:/, "");
+    const tourURL = (slug, query = "") => `${base}/atlas${query}#/tour/${slug}`;
+    const stageOf = (step) => (step.view ? "view" : step.map ? "map" : "globe");
+    const stepCount = (tour) => tour.steps.length;
+
+    // Waits until step `n` of `tour` is the one on screen, and asserts what the step applied:
+    // its year on the timeline, its place in the address, and the route its own fields name.
+    async function expectStep(p, tour, n, { phone = false } = {}) {
+      const step = tour.steps[n - 1];
+      await p.waitForFunction(([at, of]) => (document.querySelector(".tour-count") || {}).textContent === `Step ${at} of ${of}`,
+        [n, stepCount(tour)], { timeout: 45000 });
+      const where = `${slugOf(tour)} step ${n} (${step.id})`;
+      if (step.year != null) {
+        await p.waitForFunction((y) => Number(document.getElementById("timeline-year").value) === y, step.year, { timeout: 45000 });
+      }
+      const url = new URL(p.url());
+      assert.equal(url.searchParams.get("step"), String(n), `${where}: the step is in the address`);
+      assert.equal(url.hash, `#/tour/${slugOf(tour)}`, `${where}: the address stays the tour's`);
+      if (step.year != null) assert.equal(url.searchParams.get("y"), String(step.year), `${where}: the year is in the address`);
+      assert.equal(await p.locator(".tour-step-title").innerText(), step.title, where);
+      const stage = stageOf(step);
+      if (stage === "view") {
+        await p.locator("#view-host:not(.hidden) #view-title").waitFor({ timeout: 45000 });
+        assert.equal(await p.evaluate(() => document.body.classList.contains("is-view-route")), true, `${where}: a view`);
+      } else if (stage === "map") {
+        await p.locator(".map-view:not(.hidden)").waitFor({ timeout: 45000 });
+        assert.equal(await p.evaluate(() => document.body.classList.contains("is-map-route")), true, `${where}: a local map`);
+        assert.match(await p.locator("#atlas-main").getAttribute("class"), /has-tour/);
+      } else if (phone) {
+        // One sheet at a time: the record is asked for, not opened beside the card.
+        assert.equal(await p.locator("#detail-panel").isHidden(), true, `${where}: the record waits`);
+      } else {
+        await p.locator("#detail-panel:not(.hidden) h2").waitFor({ timeout: 45000 });
+        const classes = await p.evaluate(() => [document.body.classList.contains("is-view-route"), document.body.classList.contains("is-map-route")]);
+        assert.deepEqual(classes, [false, false], `${where}: the globe stage`);
+        assert.ok((await p.locator("#detail-panel h2").first().innerText()).length > 0, `${where}: a record beside the card`);
+      }
+      return step;
+    }
+
+    await record("Tours: all six launch tours play from step 1 to Finish with Next; each step applies its year and its route, and Finish returns to the globe", async () => {
+      assert.equal(tourList.length, 6);
+      const { ctx, p } = await viewContext({ viewport: { width: 1440, height: 900 } });
+      for (const tour of tourList) {
+        await p.goto(tourURL(slugOf(tour)));
+        await p.locator("#tour-card:not([hidden]) .tour-step-title").waitFor({ timeout: 45000 });
+        for (let n = 1; n <= stepCount(tour); n += 1) {
+          await expectStep(p, tour, n);
+          assert.equal(await p.locator(".tour-back").isDisabled(), n === 1);
+          assert.equal(await p.locator(".tour-next").innerText(), n === stepCount(tour) ? "Finish" : "Next");
+          const bar = await p.locator(".tour-bar").getAttribute("aria-valuenow");
+          assert.equal(bar, String(n));
+          // Whatever a step opens (a record, a map, a view) takes focus for a moment; it comes back to the card.
+          if (n === 1) {
+            await p.waitForFunction(() => document.activeElement && document.activeElement.id === "tour-card", null, { timeout: 30000 })
+              .catch(() => { throw new Error(`${slugOf(tour)}: the card should take focus when a tour opens`); });
+            await p.locator(".tour-next").focus();
+          } else {
+            await p.waitForFunction(() => document.activeElement && document.activeElement.classList.contains("tour-next"), null, { timeout: 30000 })
+              .catch(() => { throw new Error(`${slugOf(tour)} step ${n}: Next should keep focus, so Next, Next, Next works from the keyboard`); });
+          }
+          if (n < stepCount(tour)) await p.keyboard.press("Enter");
+        }
+        await p.keyboard.press("Enter"); // Finish
+        await p.locator("#tour-card").waitFor({ state: "hidden" });
+        const after = new URL(p.url());
+        assert.equal(after.hash, "", `${slugOf(tour)}: Finish returns to the globe`);
+        assert.equal(after.searchParams.has("step"), false);
+        assert.equal(await p.evaluate(() => document.body.classList.contains("is-touring")), false);
+        assert.equal(await p.locator("#tour-resume").isHidden(), true, "Finish is not a tour left behind");
+      }
+      await ctx.close();
+    });
+
+    await record("Tours: ?step= round-trips (reload, Back and Forward), is clamped, and #/tour/<slug>?step=N and #/view/tour/<slug> are the same route", async () => {
+      const higgs = tourList.find((t) => slugOf(t) === "higgs-hunt");
+      const { ctx, p } = await viewContext({ viewport: { width: 1440, height: 900 } });
+      await p.goto(tourURL("higgs-hunt", "?step=4"));
+      await expectStep(p, higgs, 4);
+      await p.locator(".tour-next").click();
+      await expectStep(p, higgs, 5);
+      await p.reload();
+      await expectStep(p, higgs, 5);
+      await p.goBack();
+      await expectStep(p, higgs, 4);
+      await p.goForward();
+      await expectStep(p, higgs, 5);
+      // A bare tour route opens step 1 and writes it; a step past the end or before the start is clamped.
+      await p.goto(tourURL("higgs-hunt"));
+      await expectStep(p, higgs, 1);
+      await p.goto(tourURL("higgs-hunt", "?step=99"));
+      await expectStep(p, higgs, stepCount(higgs));
+      await p.goto(tourURL("higgs-hunt", "?step=0"));
+      await expectStep(p, higgs, 1);
+      // The query typed inside the hash, and the view-style route.
+      await p.goto(`${base}/atlas#/tour/higgs-hunt?step=3`);
+      await expectStep(p, higgs, 3);
+      await p.goto(`${base}/atlas?step=2#/view/tour/higgs-hunt`);
+      await expectStep(p, higgs, 2);
+      // A tour that does not exist is said so, with the tours that do; it draws no step.
+      await p.goto(tourURL("no-such-tour"));
+      await p.locator("#tour-card .tour-title", { hasText: "No such tour" }).waitFor();
+      assert.equal(await p.locator("#tour-card .entity-list a").count(), tourList.length);
+      assert.equal(await p.locator(".tour-next").isHidden(), true);
+      await p.locator("#tour-card .tour-close").click();
+      await p.locator("#tour-card").waitFor({ state: "hidden" });
+      await ctx.close();
+    });
+
+    await record("Tours: a step's question shows its prompt, 'Show answer' reveals the worked answer in place with its sources, and Sources lists each claim", async () => {
+      const higgs = tourList.find((t) => slugOf(t) === "higgs-hunt");
+      const step = higgs.steps[5]; // ATLAS's result, which asks how often a 5.9 sigma excess is a fluctuation
+      assert.ok(step.question);
+      const { ctx, p } = await viewContext({ viewport: { width: 1440, height: 900 } });
+      await p.goto(tourURL("higgs-hunt", "?step=6"));
+      await expectStep(p, higgs, 6);
+      assert.equal(await p.locator(".tour-question .tour-q-prompt").innerText(), step.question.prompt);
+      const button = p.locator(".tour-answer-btn");
+      assert.deepEqual([await button.innerText(), await button.getAttribute("aria-expanded")], ["Show answer", "false"]);
+      assert.equal(await p.locator(".tour-answer").isHidden(), true, "the answer is not shown before it is asked for");
+      await button.click();
+      await p.locator(".tour-answer").waitFor({ state: "visible" });
+      assert.deepEqual([await button.innerText(), await button.getAttribute("aria-expanded")], ["Hide answer", "true"]);
+      assert.equal(await p.locator(".tour-q-answer").innerText(), step.question.answer, "the worked answer is revealed in place, word for word");
+      // The answer's sources (the question's claims and its own) and its working are one disclosure each.
+      const questionClaims = step.question.claims;
+      assert.match(await p.locator(".tour-answer .tour-sources > summary").innerText(), new RegExp(`Sources for the question and answer \\(${questionClaims.length}\\)`));
+      await p.locator(".tour-answer .tour-sources > summary").click();
+      await p.locator(".tour-answer .tour-sources .claim-group").first().waitFor();
+      assert.equal(await p.locator(".tour-answer .tour-sources .claim-group").count(), questionClaims.length);
+      await p.locator(".tour-answer details.panel-section:not(.tour-sources) > summary").click();
+      assert.match(await p.locator(".tour-working").innerText(), /=/);
+      // "Show answer" again hides it.
+      await button.click();
+      assert.equal(await p.locator(".tour-answer").isHidden(), true);
+      // The step's Sources: one item per claim (its prompt's claims too), each with its quote and a source link.
+      const claims = step.claims.length + step.question.claims.filter((c) => c.in === "prompt").length;
+      const sources = p.locator(".tour-body > .tour-sources");
+      assert.match(await sources.locator("> summary").innerText(), new RegExp(`Sources \\(${claims}\\)`));
+      assert.equal(await sources.evaluate((el) => el.open), false, "Sources is closed until it is asked for");
+      await sources.locator("> summary").click();
+      await sources.locator(".claim-group").first().waitFor();
+      assert.equal(await sources.locator(".claim-group").count(), claims);
+      const first = sources.locator(".claim-group").first();
+      assert.ok((await first.locator(".claim-evidence").innerText()).length > 20, "the quote is shown");
+      assert.ok(await first.locator(".claim-source a").count() >= 1, "a source is linked");
+      assert.match(await first.locator(".claim-label").innerText(), new RegExp(`^“${step.claims[0].covers.slice(0, 20).replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}`));
+      // Every phrase a claim covers is marked in the sentence.
+      assert.ok(await p.locator(".tour-text .tour-covered").count() >= 1);
+      await ctx.close();
+    });
+
+    await record("Tours: presenter mode (?present=1) sets large type; arrow keys, Page Up/Down and Space step; B blanks, any key restores; A shows the answer; Escape leaves presenter mode, then the record, then the tour", async () => {
+      const higgs = tourList.find((t) => slugOf(t) === "higgs-hunt");
+      const { ctx, p } = await viewContext({ viewport: { width: 1920, height: 1080 } });
+      await p.goto(tourURL("higgs-hunt", "?present=1&step=5"));
+      await expectStep(p, higgs, 5);
+      assert.equal(await p.evaluate(() => document.body.classList.contains("is-presenting")), true);
+      assert.equal(await p.locator(".tour-present").getAttribute("aria-pressed"), "true");
+      const sizes = await p.evaluate(() => ({
+        text: parseFloat(getComputedStyle(document.querySelector(".tour-text")).fontSize),
+        title: parseFloat(getComputedStyle(document.querySelector(".tour-step-title")).fontSize),
+        card: document.getElementById("tour-card").getBoundingClientRect().width,
+      }));
+      assert.ok(sizes.text >= 22 && sizes.title >= 26 && sizes.card >= 480, `large type: ${JSON.stringify(sizes)}`);
+      assert.equal(await p.locator(".tour-hint").isVisible(), true, "the keys are listed");
+      for (const [key, expected] of [["ArrowRight", 6], ["PageDown", 7], [" ", 8], ["ArrowLeft", 7], ["PageUp", 6], ["Space", 7], ["Home", 1], ["End", 8]]) {
+        await p.keyboard.press(key);
+        await expectStep(p, higgs, expected);
+      }
+      assert.match(p.url(), /present=1/, "presenter mode stays in the address");
+      // A key on a clicker acts on the tour even after a button was clicked.
+      await p.locator(".tour-back").click();
+      await expectStep(p, higgs, 7);
+      await p.keyboard.press(" ");
+      await expectStep(p, higgs, 8);
+      // B blanks the screen; the next key restores it and does nothing else.
+      await p.keyboard.press("b");
+      assert.equal(await p.locator("#tour-blank").isVisible(), true);
+      assert.equal(await p.evaluate(() => getComputedStyle(document.getElementById("tour-blank")).backgroundColor), "rgb(0, 0, 0)");
+      await p.keyboard.press("ArrowLeft");
+      assert.equal(await p.locator("#tour-blank").isHidden(), true);
+      assert.equal(await p.locator(".tour-count").innerText(), "Step 8 of 8", "the key that restores the screen does not also step");
+      // A shows the answer of a question step.
+      await p.keyboard.press("ArrowLeft");
+      await expectStep(p, higgs, 7);
+      await p.keyboard.press("a");
+      await p.locator(".tour-answer").waitFor({ state: "visible" });
+      // Escape: presenter mode first (the tour stays), then the record beside the card, then the tour.
+      await p.keyboard.press("Escape");
+      await p.waitForFunction(() => !document.body.classList.contains("is-presenting"));
+      assert.equal(await p.locator("#tour-card").isVisible(), true);
+      assert.doesNotMatch(p.url(), /present=1/);
+      await p.keyboard.press("Escape");
+      await p.locator("#detail-panel").waitFor({ state: "hidden" });
+      assert.equal(await p.locator("#tour-card").isVisible(), true, "closing the record keeps the tour");
+      assert.match(p.url(), /step=7/);
+      await p.keyboard.press("Escape");
+      await p.locator("#tour-card").waitFor({ state: "hidden" });
+      assert.equal(new URL(p.url()).hash, "");
+      await ctx.close();
+    });
+
+    await record("Tours: the Tours list, the Start-here row, a topic's tours and search all open a tour; tours.json is fetched only when asked", async () => {
+      const higgs = tourList.find((t) => slugOf(t) === "higgs-hunt");
+      const { ctx, p } = await viewContext({ viewport: { width: 1440, height: 900 } });
+      const requested = [];
+      await ctx.route("**/*", (route) => { requested.push(route.request().url()); route.continue(); });
+      await p.goto(`${base}/atlas`);
+      await p.waitForFunction(() => document.querySelectorAll(".atlas-marker").length > 0, { timeout: 30000 });
+      await p.waitForTimeout(600);
+      assert.deepEqual(requested.filter((url) => /tours\.json/.test(url)), [], "the cold load does not fetch the tours");
+      // The header's Tours button lists every tour with its length and a way in.
+      assert.equal(await p.locator("#tours-mode-btn").isVisible(), true);
+      await p.locator("#tours-mode-btn").click();
+      await p.locator(".tour-list .tour-row").first().waitFor();
+      assert.ok(requested.some((url) => /tours\.json/.test(url)), "the list asks for the tours");
+      assert.equal(await p.locator(".tour-list .tour-row").count(), tourList.length);
+      assert.deepEqual(await p.locator(".tour-row-title").allInnerTexts(), tourList.map((t) => t.name), "in the authored order");
+      assert.match(await p.locator(".tour-row-meta").first().innerText(), /\d+ steps · about \d+ minutes/);
+      await p.locator(".tour-row", { hasText: higgs.name }).locator("a.tour-start").click();
+      await expectStep(p, higgs, 1);
+      assert.equal(await p.locator("#mode-panel").isHidden(), true, "the list gives way to the tour");
+      // Presenting from the list opens the tour in presenter mode.
+      await p.locator(".tour-close").click();
+      await p.locator("#tour-card").waitFor({ state: "hidden" });
+      await p.locator("#tours-mode-btn").click();
+      await p.locator(".tour-row", { hasText: higgs.name }).locator("a.tour-start-present").click();
+      await p.waitForFunction(() => document.body.classList.contains("is-presenting"));
+      await p.locator(".tour-close").click();
+      await p.locator("#tour-card").waitFor({ state: "hidden" });
+      // A topic lists the tours with a step about it; each opens at the first such step.
+      await p.goto(`${base}/atlas#/topic/higgs-physics`);
+      const link = p.locator(".topic-tours a", { hasText: higgs.name });
+      await link.waitFor();
+      assert.match(await p.locator(".topic-tours").innerText(), /of 8 steps/);
+      await link.click();
+      await expectStep(p, higgs, 1);
+      // Search finds a tour by its name and by the words of its summary ("bubble chamber" is only in the W and Z tour's).
+      await p.locator("#atlas-search").fill("Higgs hunt");
+      assert.match(await p.locator(".search-result").first().innerText(), /The Higgs hunt — Tour/);
+      await p.locator("#atlas-search").fill("bubble chamber");
+      await p.locator(".search-result", { hasText: "The W and Z at CERN — Tour" }).waitFor();
+      await p.locator("#atlas-search").fill("oscillation story");
+      await p.locator(".search-result").first().waitFor();
+      await p.locator("#atlas-search").press("Enter");
+      await p.waitForFunction(() => location.hash === "#/tour/neutrino-oscillation-story");
+      await expectStep(p, tourList.find((t) => slugOf(t) === "neutrino-oscillation-story"), 1);
+      await ctx.close();
+      // The Start-here card leads with a "Take a tour" row that opens the list.
+      const welcome = await browser.newContext({ viewport: { width: 1440, height: 900 }, reducedMotion: "reduce", welcome: true });
+      const w = await welcome.newPage();
+      await w.goto(`${base}/atlas`);
+      await w.locator("#start-card").waitFor({ timeout: 30000 });
+      assert.equal(await w.locator("#start-tours").isVisible(), true);
+      assert.match(await w.locator("#start-tours-hint").innerText(), /6 short, sourced walks/);
+      assert.equal(await w.locator("#start-card h3").first().textContent(), "Take a tour", "the first of the card's options");
+      await w.locator('#start-tours a[href="?m=tours"]').click();
+      await w.locator(".tour-list .tour-row").first().waitFor();
+      assert.equal(await w.locator("#start-card").isHidden(), true);
+      await welcome.close();
+    });
+
+    await record("Tours: leaving a tour by following a link keeps a Resume pill; the record's x closes only the record; the camera clears the card", async () => {
+      const higgs = tourList.find((t) => slugOf(t) === "higgs-hunt");
+      const { ctx, p } = await viewContext({ viewport: { width: 1440, height: 900 } });
+      await p.goto(tourURL("higgs-hunt", "?step=2"));
+      await expectStep(p, higgs, 2);
+      // The camera frames the step's subject (CERN) in the free part of the stage, clear of the card and the record.
+      const cern = p.locator('.atlas-marker[data-id="facility:cern"]');
+      await cern.waitFor({ timeout: 30000 });
+      await p.waitForTimeout(800);
+      const geometry = await p.evaluate(() => {
+        const rect = (el) => el.getBoundingClientRect();
+        const marker = rect(document.querySelector('.atlas-marker[data-id="facility:cern"]'));
+        return { x: marker.left + marker.width / 2, card: rect(document.getElementById("tour-card")).right, panel: rect(document.getElementById("detail-panel")).left };
+      });
+      assert.ok(geometry.x > geometry.card && geometry.x < geometry.panel, `CERN at ${Math.round(geometry.x)} px, between the card (${Math.round(geometry.card)}) and the record (${Math.round(geometry.panel)})`);
+      // x closes the record, not the tour; Next brings the next step's record back.
+      await p.locator("#close-detail").click();
+      await p.locator("#detail-panel").waitFor({ state: "hidden" });
+      assert.equal(await p.locator("#tour-card").isVisible(), true);
+      await p.locator(".tour-record-btn").waitFor({ state: "visible" });
+      await p.locator(".tour-record-btn").click();
+      await p.locator("#detail-panel:not(.hidden) h2").waitFor();
+      await p.locator(".tour-next").click();
+      await expectStep(p, higgs, 3);
+      // Following a link out of the record leaves the tour, and the pill brings it back at the same step.
+      await p.locator("#detail-panel .entity-link").first().click();
+      await p.locator("#tour-card").waitFor({ state: "hidden" });
+      await p.locator("#tour-resume").waitFor({ state: "visible" });
+      assert.match(await p.locator(".tour-resume-btn").innerText(), /Resume tour: The Higgs hunt · step 3 of 8/);
+      await p.locator(".tour-resume-btn").click();
+      await expectStep(p, higgs, 3);
+      assert.equal(await p.locator("#tour-resume").isHidden(), true);
+      await ctx.close();
+    });
+
+    await record("Tours on a phone: the card is a bottom sheet with 44 px controls and no sideways scroll; the record is one tap away and takes the sheet's place; a map and a view step fit the screen", async () => {
+      const higgs = tourList.find((t) => slugOf(t) === "higgs-hunt");
+      const beams = tourList.find((t) => slugOf(t) === "neutrino-beams-through-the-earth");
+      const collider = tourList.find((t) => slugOf(t) === "how-a-collider-complex-works");
+      const { ctx, p } = await viewContext({ viewport: { width: 390, height: 844 }, ...MOBILE });
+      const fits = async (label) => {
+        const box = await p.evaluate(() => {
+          const card = document.getElementById("tour-card").getBoundingClientRect();
+          const stage = document.getElementById("atlas-main").getBoundingClientRect();
+          return {
+            overflow: document.documentElement.scrollWidth > window.innerWidth,
+            left: card.left, right: card.right, bottom: card.bottom, height: card.height, stageBottom: stage.bottom, stageHeight: stage.height,
+            next: document.querySelector(".tour-next").getBoundingClientRect().height,
+            close: document.querySelector(".tour-close").getBoundingClientRect().height,
+          };
+        });
+        assert.equal(box.overflow, false, `${label}: no sideways scroll`);
+        assert.ok(box.left <= 1 && box.right >= 389, `${label}: a sheet across the width (${box.left}..${box.right})`);
+        assert.ok(Math.abs(box.bottom - box.stageBottom) <= 2, `${label}: at the bottom of the stage`);
+        assert.ok(box.height <= box.stageHeight * 0.62, `${label}: a sheet, not the whole stage (${box.height} of ${box.stageHeight})`);
+        assert.ok(box.next >= 44 && box.close >= 44, `${label}: 44 px controls`);
+      };
+      await p.goto(tourURL("higgs-hunt", "?step=3"));
+      await expectStep(p, higgs, 3, { phone: true });
+      await fits("globe step");
+      assert.equal(await p.locator(".tour-present").isHidden(), true);
+      // The record: one tap, the card steps aside; the sheet's own close brings the card back.
+      const open = p.locator(".tour-record-btn");
+      await open.waitFor({ state: "visible" });
+      assert.ok((await open.boundingBox()).height >= 44, "the record button is a 44 px target");
+      await open.click();
+      await p.locator("#detail-panel:not(.hidden) h2").waitFor();
+      assert.equal(await p.locator("#tour-card").isHidden(), true, "the card yields to the record");
+      await p.locator("#detail-panel .sheet-close").click();
+      await p.locator("#detail-panel").waitFor({ state: "hidden" });
+      await p.locator("#tour-card").waitFor({ state: "visible" });
+      assert.match(p.url(), /step=3/, "closing the record does not leave the tour");
+      // A view step and a map step, on the phone.
+      await p.goto(tourURL("neutrino-beams-through-the-earth", "?step=3"));
+      await expectStep(p, beams, 3, { phone: true });
+      await p.locator("#view-host:not(.hidden) svg.bs-svg").first().waitFor({ timeout: 45000 });
+      await fits("view step");
+      assert.equal(await p.evaluate(() => { const h = document.getElementById("view-host"); return h.scrollWidth > h.clientWidth + 1; }), false);
+      assert.equal(await p.locator(".view-back").isHidden(), true, "the view's own back control would leave the tour from under the sheet");
+      // "Hide text" folds the sheet to its controls so the figure above it can be seen; the next step shows its text again.
+      const sizes = { card: (await p.locator("#tour-card").boundingBox()).height, view: await p.evaluate(() => document.getElementById("view-host").clientHeight) };
+      await p.locator(".tour-collapse").click();
+      assert.equal(await p.locator(".tour-collapse").getAttribute("aria-expanded"), "false");
+      assert.equal(await p.locator(".tour-body").isHidden(), true);
+      await p.waitForFunction((h) => document.getElementById("view-host").clientHeight > h, sizes.view);
+      assert.ok((await p.locator("#tour-card").boundingBox()).height < sizes.card / 2, "the folded sheet is a strip");
+      await p.locator(".tour-next").click();
+      await expectStep(p, beams, 4, { phone: true });
+      assert.equal(await p.locator(".tour-body").isVisible(), true, "a new step shows its text");
+      await p.locator(".tour-back").click();
+      await expectStep(p, beams, 3, { phone: true });
+      await p.goto(tourURL("how-a-collider-complex-works", "?step=3"));
+      await expectStep(p, collider, 3, { phone: true });
+      await fits("map step");
+      assert.equal(await p.locator("#phone-map-back-btn").isVisible(), false, "the map's own back control would leave the tour from under the sheet");
+      // The map's selection drawer is a bottom sheet too: it waits to be asked for, then takes the card's place.
+      assert.equal(await p.locator(".map-drawer").isHidden(), true, "the drawer does not cover the card");
+      await p.locator(".tour-record-btn").waitFor({ state: "visible" });
+      await p.locator(".tour-record-btn").click();
+      await p.locator(".map-drawer").waitFor({ state: "visible" });
+      assert.equal(await p.locator("#tour-card").isHidden(), true, "the card yields to the drawer");
+      await p.locator(".map-drawer .sheet-close").click();
+      await p.locator("#tour-card").waitFor({ state: "visible" });
+      // Next and the question work with a thumb.
+      await p.locator(".tour-next").click();
+      await expectStep(p, collider, 4, { phone: true });
+      await p.screenshot({ path: path.join(output, "tour-mobile.png") });
+      await ctx.close();
+    });
+  }
+  // ---- guided tours: the player -- end ------------------------------------------------------
 
   await record("about.html loads with live coverage counts read from the current data tree, and 0 console errors", async () => {
     const freshContext = await browser.newContext({ viewport: { width: 1280, height: 900 } });

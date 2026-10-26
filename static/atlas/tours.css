@@ -260,6 +260,9 @@ body.is-presenting #atlas-main {
 .tour-nav [hidden] {
   display: none;
 }
+.tour-collapse {
+  display: none;
+}
 .tour-nav .primary-btn {
   min-width: 96px;
 }
@@ -337,12 +340,12 @@ body.is-presenting #atlas-main {
   #atlas-main.has-tour.is-view-route {
     padding-left: calc(var(--tour-w) + 2 * var(--space-4));
   }
-  /* "Back to the globe" and the map's own back control would leave the tour from under
-     the card; the card has Exit, and Escape goes through it. */
-  body.is-touring .view-back,
-  body.is-touring .map-back-btn {
-    display: none;
-  }
+}
+/* "Back to the globe" and the map's own back control would leave the tour from under the
+   card; the card has Exit, and Escape goes through it. */
+body.is-touring .view-back,
+body.is-touring .map-back-btn {
+  display: none;
 }
 
 /* -------------------------------------------------------------- presenter mode */
@@ -463,7 +466,7 @@ body.is-presenting .tour-hint {
     width: auto;
     max-width: none;
     /* A sheet, so the stage above it keeps a globe worth looking at. */
-    max-height: 56%;
+    max-height: 60%;
     padding-top: var(--space-3);
     border: 0;
     border-top: 1px solid var(--line-strong);
@@ -476,10 +479,27 @@ body.is-presenting .tour-hint {
   .tour-card.is-yielding {
     display: none;
   }
+  /* A local map's selection drawer is a bottom sheet here too; during a tour it waits to be
+     asked for ("Open the record for X"), so it does not cover the card. */
+  body.is-touring:not(.tour-record-open) .map-drawer {
+    display: none;
+  }
   #atlas-main:has(> .filters-panel.is-open) > .tour-card {
     left: 0;
   }
-  .tour-head,
+  /* The head folds into the title row: the tour's name, then the close control at the
+     corner; "Guided tour" and the presenter toggle (a lecturer's, on a projector) are not
+     worth a row of a 390 px sheet. ?present=1 still works on any width. */
+  .tour-head {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0;
+  }
+  .tour-kicker,
+  .tour-present {
+    display: none;
+  }
   .tour-title,
   .tour-progress,
   .tour-nav,
@@ -487,20 +507,23 @@ body.is-presenting .tour-hint {
     padding-left: var(--space-4);
     padding-right: var(--space-4);
   }
+  .tour-title {
+    margin-top: 0;
+    padding-right: calc(var(--phone-touch, 44px) + var(--space-2));
+    font-size: var(--text-md);
+  }
   .tour-close {
     width: var(--phone-touch, 44px);
     height: var(--phone-touch, 44px);
-    margin: calc(-1 * var(--space-3)) calc(-1 * var(--space-3)) calc(-1 * var(--space-3)) 0;
+    margin: 0;
     font-size: 26px;
   }
-  .tour-chip {
-    min-height: 32px;
-  }
-  .tour-title {
-    font-size: var(--text-md);
-  }
   .tour-progress {
+    padding-top: var(--space-1);
     padding-bottom: var(--space-2);
+  }
+  .tour-meta {
+    margin-bottom: var(--space-1);
   }
   .tour-step-title {
     font-size: var(--text-lg);
@@ -513,6 +536,22 @@ body.is-presenting .tour-hint {
   .tour-nav .primary-btn {
     min-height: var(--phone-touch, 44px);
     min-width: 96px;
+  }
+  /* Fold the sheet to its controls, so the view or map above it can be seen whole. */
+  .tour-collapse {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
+    padding-left: var(--space-3);
+    padding-right: var(--space-3);
+  }
+  .tour-card.is-collapsed .tour-body,
+  .tour-card.is-collapsed .tour-hint {
+    display: none;
+  }
+  .tour-card.is-collapsed .tour-nav {
+    border-top: 0;
   }
   .tour-answer-btn,
   .tour-record-btn {
