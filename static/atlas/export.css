@@ -1,0 +1,406 @@
+/* HEP Atlas "Take it to a slide" (js/export.js): the Export popover in the header, and
+   the print stylesheet — the page's interactive chrome never prints, and a facility's
+   one-page sheet (#print-sheet, built by js/export.js) prints in its place.
+   Loaded after atlas.css, globe.css and phone.css; every colour on screen is a token. */
+
+/* ------------------------------------------------------------- the popover */
+.header-export {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+/* On a map the header's Key and Filters step aside (atlas.css) and with them the
+   `margin-left: auto` that keeps the right-hand controls at the right. */
+body.is-map-route .header-export {
+  margin-left: auto;
+}
+.export-icon {
+  flex: none;
+}
+/* Between a phone and a laptop the header is full: the button keeps only its icon (its
+   name is the aria-label) and the search box gives up a little of its minimum width. */
+@media (min-width: 901px) and (max-width: 1060px) {
+  .export-label {
+    display: none;
+  }
+  .atlas-header .search-wrap {
+    min-width: 120px;
+  }
+}
+.export-popover {
+  position: absolute;
+  top: calc(100% + var(--space-3));
+  right: 0;
+  z-index: 40;
+  width: min(560px, calc(100vw - 24px));
+  max-height: calc(100vh - 96px);
+  overflow-y: auto;
+  padding: var(--space-4);
+  background: var(--panel);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--elev-3);
+}
+.export-popover[hidden] {
+  display: none;
+}
+.export-popover:focus {
+  outline: none;
+}
+.export-title {
+  margin: 0 var(--space-6) var(--space-1) 0;
+  font-size: var(--text-lg);
+  font-weight: 650;
+}
+.export-close {
+  position: absolute;
+  top: var(--space-3);
+  right: var(--space-3);
+  width: 32px;
+  height: 32px;
+  display: inline-grid;
+  place-items: center;
+  background: none;
+  border: none;
+  border-radius: var(--radius-sm);
+  color: var(--white);
+  font-size: var(--text-xl);
+  line-height: 1;
+  cursor: pointer;
+}
+.export-close:hover {
+  background: var(--panel-2);
+}
+.export-lede {
+  margin: 0 0 var(--space-3);
+  color: var(--muted);
+  font-size: var(--text-sm);
+}
+.export-sizes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-5);
+  margin: 0 0 var(--space-3);
+  padding: 0;
+  border: 0;
+  min-width: 0;
+}
+.export-sizes legend {
+  padding: 0;
+  margin-bottom: var(--space-1);
+  font-size: var(--text-xs);
+  font-weight: 650;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.export-size {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+  cursor: pointer;
+}
+.export-dim {
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+.export-preview {
+  display: grid;
+  place-items: center;
+  min-height: 140px;
+  overflow: hidden;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  transition: opacity var(--dur) var(--ease);
+}
+.export-preview.is-busy {
+  opacity: 0.55;
+}
+.export-canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.export-error {
+  margin: 0;
+  padding: var(--space-3);
+  color: var(--danger);
+  font-size: var(--text-sm);
+}
+.export-notes p {
+  margin: var(--space-2) 0 0;
+  font-size: var(--text-xs);
+  color: var(--muted);
+}
+.export-notes .export-tiles:not(.is-included) {
+  padding: var(--space-2) var(--space-3);
+  color: var(--white);
+  border-left: 3px solid var(--amber);
+  background: var(--panel-2);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+.export-notes code {
+  color: var(--white);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  overflow-wrap: anywhere;
+}
+.export-status {
+  min-height: 1.4em;
+  margin: var(--space-2) 0 0;
+  font-size: var(--text-xs);
+  color: var(--muted);
+}
+.export-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-top: var(--space-2);
+}
+/* The header has no room for it on a phone, and a lecture slide is not made there. */
+@media (max-width: 900px) {
+  .header-export {
+    display: none;
+  }
+}
+
+/* "Print facility sheet" in a facility's panel (the row is atlas.css's .panel-actions). */
+.print-sheet-note {
+  margin-left: var(--space-2);
+  font-size: var(--text-xs);
+  color: var(--danger);
+}
+
+/* ------------------------------------------------------- the facility sheet */
+/* The sheet is built into the page (js/export.js) and is never on screen. Its layout is
+   written outside @media print so that the script can measure it — off screen, at the
+   narrower of the two paper widths — and shrink its map until it fits one page. Sizes
+   below the base are in em, so a script that has to can scale the whole sheet. */
+.print-sheet {
+  display: none;
+  box-sizing: border-box;
+  font: 9.4pt/1.38 var(--font-ui);
+  color: #14212b;
+  background: #fff;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+.print-sheet.is-measuring {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: -10000px;
+  width: 184mm; /* the printable width of A4; Letter's is wider */
+  visibility: hidden;
+}
+.print-sheet * {
+  box-sizing: border-box;
+}
+.ps-head {
+  margin: 0 0 3mm;
+  padding: 0 0 2.5mm;
+  border-bottom: 1.2pt solid #14212b;
+}
+.ps-head p {
+  margin: 0;
+}
+.print-sheet .ps-brand {
+  margin: 0 0 1mm;
+  font-size: 0.85em;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #4a5d6a;
+}
+.ps-title {
+  margin: 0;
+  font-size: 2.34em;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  color: #14212b;
+}
+.print-sheet .ps-kind {
+  margin-top: 1.2mm;
+  font-size: 1.12em;
+  font-weight: 650;
+  color: #0e5c54;
+}
+.print-sheet .ps-where {
+  margin-top: 0.6mm;
+  font-size: 0.96em;
+  color: #3a4a55;
+}
+.ps-section {
+  margin: 0 0 3.2mm;
+  break-inside: avoid;
+}
+.ps-section h2 {
+  margin: 0 0 1mm;
+  font-size: 0.85em;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #4a5d6a;
+}
+.print-sheet .ps-summary {
+  margin: 0;
+  font-size: 1.06em;
+  line-height: 1.42;
+}
+.ps-columns {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  gap: 0 7mm;
+}
+/* A specification is its name over its value, so a long value (an accelerator's three
+   numbers, "1478 m (4850-foot level); sources round this to about 1500 m") gets the
+   whole column instead of a sliver beside a long name. */
+.ps-specs {
+  margin: 0;
+}
+.ps-specs dt {
+  margin: 1.2mm 0 0;
+  font-weight: 650;
+}
+.ps-specs dt:first-child {
+  margin-top: 0;
+}
+.ps-specs dd {
+  margin: 0;
+  color: #2a3a46;
+}
+.ps-experiments {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.915em;
+}
+.ps-experiments.is-long {
+  columns: 2;
+  column-gap: 5mm;
+}
+.ps-experiments li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 2mm;
+  margin: 0 0 0.5mm;
+  break-inside: avoid;
+}
+.ps-exp-name {
+  min-width: 0;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+.ps-exp-years {
+  white-space: nowrap;
+  text-align: right;
+  color: #3a4a55;
+  font-variant-numeric: tabular-nums;
+}
+.print-sheet .ps-none {
+  margin: 0;
+  color: #4a5d6a;
+  font-style: italic;
+}
+.print-sheet .ps-note {
+  margin: 1mm 0 0;
+  font-size: 0.81em;
+  color: #4a5d6a;
+}
+.ps-map {
+  margin: 0 0 3.2mm;
+  break-inside: avoid;
+}
+.ps-map img {
+  display: block;
+  max-width: 100%;
+  max-height: 72mm; /* js/export.js lowers it when the rest of the sheet needs the room */
+  margin: 0 auto;
+  border: 0.5pt solid #8a97a2;
+}
+.ps-map figcaption {
+  margin-top: 1mm;
+  font-size: 0.79em;
+  color: #4a5d6a;
+}
+.ps-sources {
+  margin: 0;
+  padding-left: 4.5mm;
+  font-size: 0.81em;
+  line-height: 1.32;
+}
+.ps-sources li {
+  margin: 0 0 0.5mm;
+}
+.ps-src-title {
+  font-weight: 600;
+}
+.ps-src-who,
+.ps-src-where {
+  color: #3a4a55;
+}
+.ps-foot {
+  margin-top: 3mm;
+  padding-top: 2mm;
+  border-top: 0.6pt solid #8a97a2;
+  font-size: 0.81em;
+  color: #3a4a55;
+}
+.ps-foot p {
+  margin: 0;
+}
+
+/* ------------------------------------------------------------------ print */
+@media print {
+  @page {
+    /* The paper is the printer's (A4 or Letter); the sheet is fitted to the shorter. */
+    size: auto;
+    margin: 11mm 13mm;
+  }
+
+  html,
+  body {
+    height: auto !important;
+    min-height: 0 !important;
+    background: #fff !important;
+    color: #14212b !important;
+  }
+  body {
+    display: block !important;
+  }
+
+  /* Interactive chrome: never on paper. */
+  .skip-link,
+  .atlas-header,
+  .atlas-footer,
+  #timeline-bar,
+  .filters-panel,
+  .start-card,
+  .key-popover,
+  .export-popover,
+  .mode-panel,
+  .leaflet-control-container,
+  .map-north,
+  .map-tile-notice,
+  .panel-actions,
+  .close-btn,
+  .notice,
+  [aria-label="Site notifications"] {
+    display: none !important;
+  }
+
+  /* While a facility sheet is printing, it is the only thing on the page. */
+  body.is-printing-sheet > *:not(#print-sheet) {
+    display: none !important;
+  }
+  body.is-printing-sheet #print-sheet {
+    display: block;
+    position: static;
+    width: auto;
+    visibility: visible;
+  }
+}

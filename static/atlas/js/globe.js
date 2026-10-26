@@ -2203,6 +2203,31 @@ export function createGlobe(container, {
       if (resized && viewRequest) reframe(false); // a stage of another size: the same view, re-aimed
       scheduleDeclutter(DECLUTTER_DELAY_MS);
     },
+    /** The globe as a picture, for export.js: the frame on screen, drawn again at
+     * `pixelRatio` device pixels per CSS pixel and copied to a new canvas that is the
+     * stage's size times that. The WebGL canvas is not kept once it has been shown
+     * (preserveDrawingBuffer would cost every frame), so the frame is rendered and
+     * copied in the same task, before the browser presents it; the renderer then goes
+     * back to its own ratio and draws the frame it had. The markers, captions and beam
+     * labels are DOM elements, not part of this canvas (export.js draws them from the
+     * elements themselves). */
+    captureFrame(pixelRatio) {
+      const renderer = globe.renderer();
+      const original = renderer.getPixelRatio();
+      try {
+        renderer.setPixelRatio(pixelRatio);
+        renderer.render(globe.scene(), globe.camera());
+        const source = renderer.domElement;
+        const copy = document.createElement('canvas');
+        copy.width = source.width;
+        copy.height = source.height;
+        copy.getContext('2d').drawImage(source, 0, 0);
+        return copy;
+      } finally {
+        renderer.setPixelRatio(original);
+        renderer.render(globe.scene(), globe.camera());
+      }
+    },
     destroy() {
       if (resizeObserver) resizeObserver.disconnect();
       if (typeof globe._destructor === 'function') globe._destructor();

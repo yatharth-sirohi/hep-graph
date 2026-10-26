@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="/atlas/atlas.css" />
     <link rel="stylesheet" href="/atlas/globe.css" />
     <link rel="stylesheet" href="/atlas/phone.css" />
+    <link rel="stylesheet" href="/atlas/export.css" />
   </head>
   <body>
     <a class="skip-link" href="#atlas-main">Skip to atlas</a>
@@ -56,6 +57,15 @@
             <div id="key-status" class="key-status"></div>
           </div>
         </div>
+      </div>
+      <!-- "Take it to a slide" (js/export.js): the globe or map on screen as a PNG, in a
+           popover like the Key. Not offered on a phone (export.css). -->
+      <div class="header-export">
+        <button type="button" id="export-btn" class="tool-btn" aria-label="Export image" title="Export image" aria-haspopup="dialog" aria-expanded="false" aria-controls="export-popover">
+          <svg class="export-icon" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" focusable="false"><path d="M8 2v8m0 0L5 7m3 3 3-3M2.5 13.5h11" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span class="export-label">Export image</span>
+        </button>
+        <div id="export-popover" class="export-popover" role="dialog" tabindex="-1" hidden></div>
       </div>
     </header>
 
