@@ -301,3 +301,56 @@ export function facilityKeyEntries(size = 18) {
     svg: facilityGlyph(kind, { shape: info.shape, color: info.color, size }),
   }));
 }
+
+// ---- beam arcs, as the Key draws them ---------------------------------------------
+// A mini-SVG of the globe's own beam arcs (globe.js styleBeamArc). The colours, the
+// dash proportions and the thickness ratio are copied from there; tests/
+// test_atlas_static_css.py fails if the colours stop matching.
+//   running  a bright cyan-to-blue line of short dashes that flow from the source to
+//            the detector (the flow is atlas.css `.key-beam-flow`, off under
+//            prefers-reduced-motion), over a wide faint glow
+//   quiet    (under construction, shut down, ended) fine static dots, dimmer
+export const BEAM_KEY_COLORS = {
+  running: ['rgba(150,244,255,0.98)', 'rgba(70,180,255,0.88)'],
+  glow: ['rgba(90,200,255,0.2)', 'rgba(60,150,255,0.1)'],
+  quiet: ['rgba(165,205,236,0.95)', 'rgba(140,180,218,0.82)'],
+};
+
+let beamGradientCounter = 0;
+
+/** The Key's picture of a beam arc: `running` or not (under construction, ended). */
+export function beamKeyGlyph({ running, width = 44, height = 20 } = {}) {
+  const svg = svgEl('svg', {
+    viewBox: '0 0 44 20', width, height, 'aria-hidden': 'true', focusable: 'false',
+  });
+  const defs = svgEl('defs', {});
+  const gradient = (id, [from, to]) => {
+    const g = svgEl('linearGradient', { id, x1: '0', y1: '0', x2: '1', y2: '0' });
+    g.appendChild(svgEl('stop', { offset: '0', 'stop-color': from }));
+    g.appendChild(svgEl('stop', { offset: '1', 'stop-color': to }));
+    defs.appendChild(g);
+    return `url(#${id})`;
+  };
+  beamGradientCounter += 1;
+  const n = beamGradientCounter;
+  const arc = 'M4 16 Q22 -4 40 16';
+  const colors = running ? BEAM_KEY_COLORS.running : BEAM_KEY_COLORS.quiet;
+  const tube = gradient(`atlas-key-beam-${n}`, colors);
+  svg.appendChild(defs);
+  if (running) {
+    svg.appendChild(svgEl('path', {
+      d: arc, fill: 'none', stroke: gradient(`atlas-key-glow-${n}`, BEAM_KEY_COLORS.glow), 'stroke-width': 7.5, 'stroke-linecap': 'round',
+    }));
+  }
+  // Dash and gap are the globe's 0.10 / 0.07 (running) and 0.03 / 0.05 (quiet) of the
+  // arc's length, which is about 44 units here; the quiet beam's tube is 2.4 / 3 as thick.
+  svg.appendChild(svgEl('path', running
+    ? {
+      d: arc, fill: 'none', stroke: tube, 'stroke-width': 2.6, 'stroke-dasharray': '4.2 2.9', class: 'key-beam-flow',
+    }
+    : {
+      d: arc, fill: 'none', stroke: tube, 'stroke-width': 2.2, 'stroke-dasharray': '1.4 2.2',
+    }));
+  return svg;
+}
+

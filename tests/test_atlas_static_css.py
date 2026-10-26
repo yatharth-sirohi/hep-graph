@@ -208,6 +208,45 @@ def test_model_js_status_colours_match_the_css_tokens() -> None:
             f"model.js STATUS_COLOR.{status} drifted from {STATUS_TOKENS[family]}")
 
 
+def test_institution_colour_is_not_a_status_colour() -> None:
+    """Amber was both an institution dot and the "construction" status; the dot has its
+    own colour now, far from every status colour, the accent amber and the facility-kind
+    colours, and still readable on the globe's ocean."""
+    tokens = _tokens()
+    institution = _rgb(tokens["--institution"])
+    others = {name: _rgb(tokens[token]) for name, token in STATUS_TOKENS.items()}
+    others["--amber"] = _rgb(tokens["--amber"])
+    others["--teal"] = _rgb(tokens["--teal"])
+    kinds = MODEL_JS.read_text(encoding="utf-8")
+    kinds = kinds[kinds.index("export const FACILITY_KIND_SHAPE"):]
+    kinds = kinds[: kinds.index("};")]
+    for kind, colour in re.findall(r"(\w+):\s*\{[^}]*color:\s*'(#[0-9a-fA-F]{6})'", kinds):
+        others[kind] = _rgb(colour)
+    assert len(others) > 15, "the facility-kind colours were not found in model.js"
+    for name, colour in others.items():
+        assert _distance(institution, colour) >= 15.0, f"--institution is too close to {name}"
+        for kind in ("protan", "deutan", "tritan"):
+            assert _distance(_simulate(institution, kind), _simulate(colour, kind)) >= 10.0, (
+                f"--institution vs {name} under {kind}")
+    for stage in STAGE:
+        assert _contrast(institution, _rgb(stage)) >= 3.0
+
+
+def test_key_beam_colours_match_the_globe_arcs() -> None:
+    """The Key draws beam arcs from copies of the globe's own colours; they must not drift."""
+    globe = (ROOT / "static" / "atlas" / "js" / "globe.js").read_text(encoding="utf-8")
+    icons = (ROOT / "static" / "atlas" / "js" / "globeicons.js").read_text(encoding="utf-8")
+
+    def pair(source: str, name: str) -> list[str]:
+        match = re.search(rf"{name}\s*=\s*\[('rgba\([^']+\)'),\s*('rgba\([^']+\)')\]", source)
+        assert match, f"{name} not found"
+        return [m.strip("'") for m in match.groups()]
+
+    assert pair(globe, "const BEAM_COLOR") == pair(icons.replace("running:", "const BEAM_COLOR ="), "const BEAM_COLOR")
+    assert pair(globe, "const BEAM_GLOW_COLOR") == pair(icons.replace("glow:", "const BEAM_GLOW_COLOR ="), "const BEAM_GLOW_COLOR")
+    assert pair(globe, "const BEAM_COLOR_QUIET") == pair(icons.replace("quiet:", "const BEAM_COLOR_QUIET ="), "const BEAM_COLOR_QUIET")
+
+
 def test_type_scale_is_the_documented_one() -> None:
     tokens = _tokens()
     sizes = [int(tokens[f"--text-{n}"].removesuffix("px")) for n in ("xs", "sm", "md", "lg", "xl", "2xl", "3xl")]

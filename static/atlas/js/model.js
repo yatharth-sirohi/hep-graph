@@ -217,6 +217,76 @@ export function topicMarkerIds(atlas, topicId) {
   return ids;
 }
 
+/** The `{ lat, lon }` of each marker id in `ids` (a site, or a facility, which sits
+ * at its primary site); an id with no coordinates is left out. */
+export function markerPoints(atlas, ids) {
+  const sites = atlas.sites || {};
+  const facilities = atlas.facilities || {};
+  const points = [];
+  for (const id of ids) {
+    const site = sites[id] || sites[(facilities[id] || {}).primary_site_id];
+    if (!site) continue;
+    const c = site.coordinates || site;
+    const lat = Number(c.lat);
+    const lon = Number(c.lon);
+    if (c.lat != null && c.lon != null && Number.isFinite(lat) && Number.isFinite(lon)) points.push({ lat, lon });
+  }
+  return points;
+}
+
+/** Great-circle angle in degrees between two `{ lat, lon }` points. */
+export function angleDeg(a, b) {
+  const rad = Math.PI / 180;
+  const cos = Math.sin(a.lat * rad) * Math.sin(b.lat * rad)
+    + Math.cos(a.lat * rad) * Math.cos(b.lat * rad) * Math.cos((a.lon - b.lon) * rad);
+  return Math.acos(Math.max(-1, Math.min(1, cos))) / rad;
+}
+
+// A view of the whole Earth, for a set of places too far apart for any closer view to
+// hold them (a topic whose experiments sit on three continents). The camera sees every
+// point within acos(1 / (1 + altitude)) degrees of where it looks: 76.9 degrees at
+// WORLD_MAX_ALTITUDE, which is as far out as the camera goes before the globe is too
+// small to read. The view looks from the middle latitudes (never beyond 60 degrees,
+// where the globe would be seen from above its pole and every coastline would turn
+// on its head), at the spot from which the most of the places can be seen, the nearest
+// to all of them winning a tie. A place on the far side of the Earth from the rest (the
+// South Pole's IceCube, with the northern labs) cannot be in the same view as them; the
+// picture shows the most that one view can, and the person can turn the globe.
+export const WORLD_MIN_ALTITUDE = 2.6;
+export const WORLD_MAX_ALTITUDE = 3.4;
+const WORLD_SEES_DEG = 76;
+const WORLD_MAX_LATITUDE = 60;
+
+/** `{ lat, lng, altitude }`, or null for no points. */
+export function worldView(points) {
+  if (!points || !points.length) return null;
+  let best = null;
+  for (let lat = -WORLD_MAX_LATITUDE; lat <= WORLD_MAX_LATITUDE; lat += 5) {
+    for (let lng = -180; lng < 180; lng += 5) {
+      const centre = { lat, lon: lng };
+      let seen = 0;
+      let total = 0;
+      let farthest = 0;
+      for (const p of points) {
+        const d = angleDeg(centre, p);
+        if (d <= WORLD_SEES_DEG) {
+          seen += 1;
+          total += d;
+          farthest = Math.max(farthest, d);
+        }
+      }
+      if (!best || seen > best.seen || (seen === best.seen && total < best.total)) {
+        best = { lat, lng, seen, total, farthest };
+      }
+    }
+  }
+  // Far enough out to hold the farthest place it shows, with a margin; never nearer
+  // than a whole-Earth view, never farther than the camera goes.
+  const reach = Math.min(best.farthest + 4, 80) * (Math.PI / 180);
+  const altitude = Math.min(WORLD_MAX_ALTITUDE, Math.max(WORLD_MIN_ALTITUDE, 1 / Math.cos(reach) - 1));
+  return { lat: best.lat, lng: best.lng, altitude };
+}
+
 /** A flat entity index over atlas.json, so any id can be resolved to its
  * record and coarse "kind" in O(1). */
 export function buildIndex(atlas) {

@@ -178,7 +178,7 @@
   /* Marker captions: smaller, capped, and thinned out by phone.js. A tap
      target is at least 44 px even where the glyph is 14. */
   .atlas-marker-label {
-    font-size: 11px;
+    font-size: var(--marker-label-size, 12px);
     max-width: 13em;
     overflow: hidden;
     text-overflow: ellipsis;
