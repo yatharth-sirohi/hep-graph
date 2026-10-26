@@ -311,10 +311,11 @@
   stroke-linejoin: round;
 }
 .leaflet-container path.pr-glow {
-  stroke: var(--view-beam-glow);
-  stroke-opacity: 0.32;
-  fill: var(--view-beam-glow);
-  fill-opacity: 0.1;
+  /* A dark casing under the bright line: the beam colour is light, and the basemap is too. */
+  stroke: var(--navy);
+  stroke-opacity: 0.62;
+  fill: var(--navy);
+  fill-opacity: 0.12;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
@@ -503,7 +504,7 @@
     left: 10px;
     bottom: 38px;
     width: auto;
-    max-height: 56%;
+    max-height: 48%;
     padding: var(--space-2) var(--space-3);
   }
   .pr-title {

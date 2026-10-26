@@ -653,12 +653,12 @@ export function createPlayer(host) {
       if (earlier.has(stage.id)) featureLayers(stage, 'pr-done', 3).forEach((layer) => overlay.done.addLayer(layer));
     }
     if (stageOfStep && stageOfStep.drawn) {
-      featureLayers(stageOfStep, 'pr-glow', 14).forEach((layer) => overlay.current.addLayer(layer));
+      featureLayers(stageOfStep, 'pr-glow', 11).forEach((layer) => overlay.current.addLayer(layer));
       featureLayers(stageOfStep, 'pr-current', 5).forEach((layer) => overlay.current.addLayer(layer));
     } else if (item.kind === 'transfer') {
-      featureLayers(item.from, 'pr-glow pr-from', 12).forEach((layer) => overlay.current.addLayer(layer));
+      featureLayers(item.from, 'pr-glow pr-from', 10).forEach((layer) => overlay.current.addLayer(layer));
       featureLayers(item.from, 'pr-current pr-from', 4).forEach((layer) => overlay.current.addLayer(layer));
-      featureLayers(item.to, 'pr-glow pr-to', 12).forEach((layer) => overlay.current.addLayer(layer));
+      featureLayers(item.to, 'pr-glow pr-to', 10).forEach((layer) => overlay.current.addLayer(layer));
       featureLayers(item.to, 'pr-current pr-to', 4).forEach((layer) => overlay.current.addLayer(layer));
     }
   }
