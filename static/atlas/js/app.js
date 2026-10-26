@@ -179,8 +179,6 @@ async function main() {
   // Guided tours (js/tours.js) are only offered when the data build carries tours.json
   // (the fixture tree does not): the header's Tours button, the Start card's row.
   const hasTours = await loader.isBundleListed('tours.json');
-  const toursButton = document.getElementById('tours-mode-btn');
-  if (toursButton) toursButton.hidden = !hasTours;
   const tourRows = searchEntries.filter((entry) => entry.type === 'tour').length;
 
   // ---- filters (docs/HEP_ATLAS_ARCHITECTURE.md "Clustering and filters")
@@ -350,6 +348,9 @@ async function main() {
   els.arcsToggle.addEventListener('change', () => {
     state.navigate({ arcs: els.arcsToggle.checked }, { replace: true });
   });
+  // The Tours button appears once its click is wired (and only when the build has tours).
+  const toursButton = document.getElementById('tours-mode-btn');
+  if (toursButton) toursButton.hidden = !hasTours;
 
   // ---- Escape closes the open panel (§23) -------------------------------
   // The detail panel and the topic/results/docs mode panel are the only two

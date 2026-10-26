@@ -78,8 +78,45 @@ tours of `docs/atlas-worklog/TOURS.md` (A28, `tours.json`). Feature names are wo
 
 ## Playthrough (six tours, 1440 px and 390 px)
 
-See the final report and "For the integrator" below.
+Each tour was played step by step as a student would (Next to Finish, every answer revealed), once
+at 1440 x 900 and once at 390 x 844, and read from a contact sheet per tour
+(`test-results/tours/{desktop,phone}-<slug>.png`; the folder is gitignored). Every step applied its
+year, selection, map or view; the subject sat in the free part of the stage between the card and
+the record; no step overflowed sideways. What read wrong, and was fixed in the player:
+
+| where | what a student saw | fix |
+| --- | --- | --- |
+| collider tour, every map step | the local map never moved: Linac4, Booster, PS, SPS and LHC were the same framing of the whole complex | `localmap.show` takes `frameSelection` / `reframe`: a tour step frames the selected entity's drawn features (the chain visibly grows from 500 m to 5 km) |
+| phone, view steps | the sheet covered the beam-section figure; only its heading showed above it | "Hide text" in the sheet folds it to its controls (a new step shows its text again); the view's own Back control is hidden during a tour |
+| phone, map steps | the map's selection drawer (a bottom sheet) sat on top of the tour sheet | the drawer waits to be asked for ("Open the record for X"), then takes the sheet's place |
+| phone, "Show answer" | the answer appeared below the fold of a 340 px sheet | the card scrolls to the answer (its own body only: `scrollIntoView` slid the whole page up) |
+| any step, Next twice quickly | a slow earlier record could land over a later one | one render ticket in `panels.render`; the player ignores a step it has already left |
+| `#/view/tour/<slug>?step=2` | opened at step 1 (the timeline's first `?y=` rewrite dropped the step) | the address keeps `step` on that spelling too |
+| Start-here on a phone | the new "Take a tour" row pushed the actions off a 390 x 844 sheet | one-line row on a phone; the sheet may use 88 % of the stage |
+| CERN map, step "The chain falls silent" | the drawer heading read `facility:cern` | `localmap` names an undrawn selection by its record |
 
 ## For the integrator
 
-* (filled in after the playthrough)
+Data problems (not fixed here; the player does not paper over them):
+
+* `how-a-collider-complex-works`: the `camera` of every step is unused (all six are `map` steps,
+  and a local map frames the selection); harmless, but the field misleads.
+* `going-underground-dark-matter` step `snolab`, worked answer: line `r_cm` references the field
+  `key_specs.Total liquid argon (design)`, so the built line carries that field's `display`
+  ("3600 kg") beside a value of 85 cm (the radius is in the claim's quote). The player shows the
+  line's own value and unit; the tour should reference the field that states the radius, or use a
+  `number` line, and the validator should compare `display` with `value`.
+* Eight of the fourteen questions (`snolab`, `surf-lz`, `five-labs`, `atlas-2012`, `cms-2012`,
+  `lhc`, `lbnf`, `z-boson-1983`) have claims only in the prompt: their answers are arithmetic on
+  those figures. The player lists every question claim under "Sources for the question and
+  answer" once the answer is shown, so the working is traceable; the data is as intended.
+* `?theme=projector` was not on this branch, so presenter mode was not run under it. Nothing in
+  `tours.css` sets a colour except the blank screen (black, or white with W), so a theme that
+  redefines the tokens restyles the card; check the two together after merging.
+
+Merge notes: `state.js`, `app.js`, `panels.js`, `localmap.js`, `phone.js`, `phone.css`,
+`index.html`, `atlas.css`, `views.css` and `build.py` each carry a small hunk (route and `?step=`
+in `state.js`; the tour wrapper around `applyState`; a render ticket; `frameSelection`; one sheet
+entry; the Start-here height; the Tours button, the card and the Start row; two selectors that
+leave the card alone; one search row per tour). Rebuild `static/atlas/generated` at merge: the
+player needs `tours.json` and the `tour` rows of `search.json`.

@@ -2218,7 +2218,10 @@ function renderDrawer() {
     return;
   }
   const primary = features[0] || null;
-  const name = (primary && (primary.entity_name || primary.name)) || view.sel;
+  // An entity the map draws nothing for (a tour selects the facility on its own campus map)
+  // is still named by its record, never by its id.
+  const selectedRecord = INDEX ? INDEX.get(view.sel) : null;
+  const name = (primary && (primary.entity_name || primary.name)) || (selectedRecord && selectedRecord.name) || view.sel;
   const closeBtn = h('button', {
     type: 'button', class: 'close-btn', id: 'map-drawer-close', 'aria-label': 'Close the selection drawer',
   }, '×');
@@ -2240,7 +2243,7 @@ function renderDrawer() {
   }
   if (!primary) {
     drawerFacts.appendChild(h('p', { class: 'empty-note' },
-      `Nothing on this map depicts ${view.sel}.`));
+      `Nothing on this map depicts ${name}.`));
   } else {
     for (const feature of features) drawerFacts.appendChild(factsFor(feature));
   }

@@ -565,6 +565,14 @@ body.is-presenting .tour-hint {
     left: var(--space-3);
     bottom: var(--space-3);
   }
+  /* The Start-here card is a bottom sheet that must show every entry without scrolling a
+     390 x 844 phone: the tour row is one line there, its heading left to the row's own text. */
+  .start-tours .start-heading {
+    display: none;
+  }
+  .start-tours .start-questions {
+    margin-bottom: var(--space-2);
+  }
   body.is-touring .phone-actions #phone-map-back-btn {
     display: none;
   }

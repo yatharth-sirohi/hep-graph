@@ -309,7 +309,7 @@ async function openFilters(page) {
   });
 
   // ---- Start here (static/atlas/js/start.js) ---------------------------------------
-  await record("Start here: a first visit shows a labelled card with four real deep links, Escape dismisses it for good, the footer reopens it", async () => {
+  await record("Start here: a first visit shows a labelled card with a tour row and four real deep links, Escape dismisses it for good, the footer reopens it", async () => {
     if (process.env.HEP_ATLAS_DATA !== "generated") {
       // The curated questions name records of the real bundle. Against the fixture
       // tree only the rule "an address with a query never opens the card" applies.
@@ -344,11 +344,12 @@ async function openFilters(page) {
     assert.equal(card.label, "Start here");
     assert.equal(card.desc, "Every major particle-physics facility on a to-scale map, with every fact traced to its source.");
     assert.equal(card.focusInside, true, "opening the card moves focus into it, so a keyboard user starts there");
+    // "Take a tour" leads (the guided tours, js/tours.js), then the four questions.
     assert.deepEqual(card.links.map((l) => l.href), [
-      "#/experiment/dune", "#/result/atlas-higgs-observation-2012", "#/topic/neutrino-oscillations", "?fk=underground_laboratory",
+      "?m=tours", "#/experiment/dune", "#/result/atlas-higgs-observation-2012", "#/topic/neutrino-oscillations", "?fk=underground_laboratory",
     ]);
     assert.deepEqual(card.links.map((l) => l.text), [
-      "Where is DUNE\u2019s far detector?", "Where was the Higgs discovered?",
+      "Follow a guided tour", "Where is DUNE\u2019s far detector?", "Where was the Higgs discovered?",
       "Which experiments study neutrino oscillations?", "How deep are the underground labs?",
     ]);
     assert.deepEqual(card.buttons, ["Close Start here", "Browse results", "Search", "Explore the globe"]);
@@ -3098,11 +3099,12 @@ async function openFilters(page) {
       await expectStep(p, higgs, 4);
       await p.locator(".tour-next").click();
       await expectStep(p, higgs, 5);
-      await p.reload();
-      await expectStep(p, higgs, 5);
+      // Back and Forward walk the steps (one history entry each); a reload keeps the step.
       await p.goBack();
       await expectStep(p, higgs, 4);
       await p.goForward();
+      await expectStep(p, higgs, 5);
+      await p.reload();
       await expectStep(p, higgs, 5);
       // A bare tour route opens step 1 and writes it; a step past the end or before the start is clamped.
       await p.goto(tourURL("higgs-hunt"));
@@ -3134,6 +3136,9 @@ async function openFilters(page) {
       await p.goto(tourURL("higgs-hunt", "?step=6"));
       await expectStep(p, higgs, 6);
       assert.equal(await p.locator(".tour-question .tour-q-prompt").innerText(), step.question.prompt);
+      // Reduced motion (this context asks for it): the progress bar jumps, and the camera is told to jump (globe.js).
+      assert.equal(await p.evaluate(() => matchMedia("(prefers-reduced-motion: reduce)").matches), true);
+      assert.equal(await p.evaluate(() => getComputedStyle(document.querySelector(".tour-bar > i")).transitionDuration), "0s");
       const button = p.locator(".tour-answer-btn");
       assert.deepEqual([await button.innerText(), await button.getAttribute("aria-expanded")], ["Show answer", "false"]);
       assert.equal(await p.locator(".tour-answer").isHidden(), true, "the answer is not shown before it is asked for");
