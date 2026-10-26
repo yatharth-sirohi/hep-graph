@@ -1508,6 +1508,67 @@ def check_coordinate_sources(ctx: _Context) -> Iterator[Finding]:
                                   f'not {kind!r} ({source.get("id")})')
 
 
+def check_glossary(ctx: _Context) -> Iterator[Finding]:
+    """The panels' glossary (`data/atlas/glossary/`): every term is a sourced
+    definition.  A definition is plain and short; the verbatim `quote` it rests on
+    (with its `locator`) and at least one resolvable source are required, and every
+    `match` pattern must compile (they run in the browser, so no look-behind)."""
+    for term in getattr(ctx.atlas, 'glossary', []):
+        term_id = term.get('id')
+        path = term.get('_file', 'glossary/')
+
+        def finding(rule: str, pointer: str, message: str, level: str = ERROR) -> Finding:
+            return Finding(level, rule, path, None, pointer, f'glossary term {term_id!r}: {message}')
+
+        if not isinstance(term_id, str) or not re.fullmatch(r'[a-z0-9]+(?:-[a-z0-9]+)*', term_id):
+            yield finding('glossary-id', _pointer('id'), 'the id must be lower-case kebab-case')
+        for key in ('term', 'title', 'definition', 'quote', 'locator'):
+            if not isinstance(term.get(key), str) or not term[key].strip():
+                yield finding('glossary-missing-field', _pointer(key), f'`{key}` is required')
+        definition = term.get('definition')
+        if isinstance(definition, str) and len(definition.split()) > schema.GLOSSARY_DEFINITION_MAX_WORDS:
+            yield finding('glossary-definition-length', _pointer('definition'),
+                          f'a definition is one or two plain sentences, at most '
+                          f'{schema.GLOSSARY_DEFINITION_MAX_WORDS} words; this has {len(definition.split())}')
+        quote = term.get('quote')
+        if isinstance(quote, str) and len(quote) > schema.GLOSSARY_QUOTE_MAX_CHARS:
+            yield finding('glossary-quote-length', _pointer('quote'),
+                          f'the quote is {len(quote)} characters; the limit is {schema.GLOSSARY_QUOTE_MAX_CHARS}')
+        if term.get('confidence') not in schema.CONFIDENCES:
+            yield finding('glossary-confidence', _pointer('confidence'),
+                          f'`confidence` must be one of {", ".join(schema.CONFIDENCES)}')
+        if not _text(term.get('verified_at')):
+            yield finding('glossary-missing-field', _pointer('verified_at'), '`verified_at` is required')
+        sources = term.get('sources')
+        if not isinstance(sources, list) or not sources:
+            yield finding('glossary-sources', _pointer('sources'), 'at least one source id is required')
+        else:
+            for index, source_id in enumerate(sources):
+                source = ctx.atlas.get(source_id) if isinstance(source_id, str) else None
+                if source is None or schema.id_type(schema.canonical_id(source_id)) != 'source':
+                    yield finding('glossary-sources', _pointer('sources', index),
+                                  f'{source_id!r} is not a source record')
+                elif source.get('retrieval') in schema.UNCITABLE_RETRIEVALS:
+                    yield finding('glossary-sources', _pointer('sources', index),
+                                  f'{source_id!r} has a failed retrieval and cannot be cited')
+        matches = term.get('match')
+        if not isinstance(matches, list) or not matches:
+            yield finding('glossary-match', _pointer('match'), 'at least one `match` pattern is required')
+            continue
+        for index, entry in enumerate(matches):
+            pattern = entry.get('pattern') if isinstance(entry, dict) else entry
+            if not isinstance(pattern, str) or not pattern:
+                yield finding('glossary-match', _pointer('match', index), 'a pattern is a non-empty string')
+                continue
+            if '(?<' in pattern:
+                yield finding('glossary-match', _pointer('match', index),
+                              'look-behind is not supported by every browser; use a look-ahead or a longer pattern')
+            try:
+                re.compile(pattern)
+            except re.error as exc:
+                yield finding('glossary-match', _pointer('match', index), f'the pattern does not compile: {exc}')
+
+
 def check_sources(ctx: _Context) -> Iterator[Finding]:
     """A18/A22: `accessed` is required, a `failed` retrieval may not be cited,
     a source nobody cites warns, and an authored `rank` that disagrees with the
@@ -1518,6 +1579,10 @@ def check_sources(ctx: _Context) -> Iterator[Finding]:
             canonical = schema.canonical_id(reference)
             if schema.id_type(canonical) == 'source':
                 cited.add(canonical)
+    for term in getattr(ctx.atlas, 'glossary', []):
+        for source_id in term.get('sources') or []:
+            if isinstance(source_id, str):
+                cited.add(schema.canonical_id(source_id))
 
     for entity_id, record in sorted(ctx.atlas.by_type('source').items()):
         path = ctx.path_of(entity_id)
@@ -2740,6 +2805,7 @@ CHECKS = (
     check_claim_evidence,
     check_coordinate_sources,
     check_sources,
+    check_glossary,
     check_evidence_classes,
     check_membership_files,
     check_record_sources,
