@@ -16,11 +16,39 @@
   "id": "facility:kit-karlsruhe",
   "intervals": [
     {
+      "confidence": "verified",
+      "end": "2009-10-01",
+      "label": "Forschungszentrum Karlsruhe (predecessor institution on Campus North)",
+      "locator": "KIT history page, section \"Forschungszentrum Karlsruhe\"",
+      "note": "Campus North is \"the former Karlsruhe Research Center\" (The premises of Campus North in Eggenstein-Leopoldshafen, the former Karlsruhe Research Center. KIT history page). The page also says: \"50 years after the foundation of Forschungszentrum Karlsruhe and 181 years after the foundation of Universität Karlsruhe\". The end is the merger date: \"On October 01, 2009 did both institutions merge into the new legal entity of KIT.\"",
+      "quote": "the fathers establishing the Kernreaktor Bau- und Betriebsgesellschaft mbH (Nuclear Reactor Construction and Operation Company), the later Kernforschungszentrum Karlsruhe (KfK, Karlsruhe Nuclear Research Center), in 1956 entered new territory",
+      "sources": [
+        "src:fu-kit-history-page"
+      ],
+      "start": "1956",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "KIT (merger of Universität Karlsruhe and Forschungszentrum Karlsruhe)",
+      "locator": "KIT history page, introduction",
+      "note": "Campus North, the former Forschungszentrum Karlsruhe, is one of KIT's two campuses.",
+      "quote": "On October 01, 2009 did both institutions merge into the new legal entity of KIT.",
+      "sources": [
+        "src:fu-kit-history-page"
+      ],
+      "start": "2009-10-01",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
       "confidence": "uncertain",
       "end": null,
       "label": "hosting KATRIN",
       "locator": "KATRIN official site",
-      "note": "No source consulted (checked 2026-09-17) gives a founding or opening date for KIT Campus North or the Tritium Laboratory Karlsruhe itself; this interval only documents that the site is operating as KATRIN's host, per the experiment's own site.",
+      "note": "Documents that the site is operating as KATRIN's host, per the experiment's own site; the facility's own dates are the two intervals above.",
       "quote": "the KArlsruhe TRItium Neutrino (KATRIN) experiment, which is presently being performed at Tritium Laboratory Karlsruhe on the KIT Campus North site",
       "sources": [
         "src:katrin-official-site"
@@ -44,7 +72,7 @@
   },
   "name": "Karlsruhe Institute of Technology, Campus North",
   "notes": [
-    "No source consulted (checked 2026-09-17) gives a founding or opening date for KIT Campus North or the Tritium Laboratory Karlsruhe itself; the sole interval's start (2019) is a lower bound borrowed from KATRIN's own sourced operating start (the earliest dated fact available), not a true facility founding date. A start year is recorded, rather than leaving the interval undated, so that a clearly operating facility is not shown as having no recorded presence.",
+    "Campus North is the site of the former Forschungszentrum Karlsruhe (founded 1956 as the Kernreaktor Bau- und Betriebsgesellschaft, later Kernforschungszentrum Karlsruhe); KIT as a legal entity dates from the merger with Universität Karlsruhe on 1 October 2009. The first interval is therefore the predecessor institution's, so that KASCADE (from 1996) and KASCADE-Grande (from 2003), which stood on the Forschungszentrum site before KIT existed, do not predate their host. No source read dates the Tritium Laboratory Karlsruhe itself.",
     "This record covers KIT Campus North (the Tritium Laboratory Karlsruhe site) at the level needed for KATRIN's host-facility role; it is not a full record of KIT as a university/research organisation."
   ],
   "operator_ids": [],
@@ -63,7 +91,8 @@
   "related_facility_ids": [],
   "schema": "hep-atlas/0.2",
   "sources": [
-    "src:katrin-official-site"
+    "src:katrin-official-site",
+    "src:fu-kit-history-page"
   ],
   "specs": {},
   "status": "active",
