@@ -72,7 +72,7 @@ function rangeText(statusOrRole, start, end) {
   const startText = start ? fmtDate(start) : '';
   const endText = end ? fmtDate(end) : '';
   if (startText && endText) return `${head}, ${startText} – ${endText}`;
-  if (startText) return `${head}, ${/^\d{4}/.test(startText) ? 'since ' : ''}${startText}`;
+  if (startText) return `${head}, ${/^(?:c\. )?\d{4}/.test(startText) ? 'since ' : ''}${startText}`;
   if (endText) return `${head}, until ${endText}`;
   return head;
 }

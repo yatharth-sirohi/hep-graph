@@ -5,7 +5,7 @@
 
 import * as loader from './loader.js';
 import {
-  quantityText, fmtDate, titleCase, kindLabel, statusEra, statusForTimeline, timelineAbsenceReason,
+  quantityText, fmtDate, fmtInterval, titleCase, kindLabel, statusEra, statusForTimeline, timelineAbsenceReason,
 } from './model.js';
 import * as provenance from './provenance.js';
 import { greatCircleM, initialBearing } from './localmap.js';
@@ -250,9 +250,7 @@ async function documentsFor(id, record) {
 function intervalLine(iv) {
   const label = iv.label ? `${titleCase(iv.label)}: ` : '';
   const status = titleCase(iv.status);
-  const start = fmtDate(iv.start) || '?';
-  const end = fmtDate(iv.end) || 'present';
-  return `${label}${status} (${start}–${end})`;
+  return `${label}${status} (${fmtInterval(iv.start, iv.end) || '?–present'})`;
 }
 
 // Sources are ~2.2 MB combined (provenance.json + sources.json) and the
@@ -1140,7 +1138,7 @@ async function renderSite(id, timelineState) {
     ? h('ul', { class: 'entity-list' }, detectorsHere.map(({ detector, placement }) => h('li', { class: 'entity-link-with-meta' }, [
       linkTo(idRoute(detector.id), detector.name),
       placement.role ? ` — ${titleCase(placement.role)}` : '',
-      (placement.start || placement.end) ? ` (${placement.start || '?'}–${placement.end || 'present'})` : '',
+      (placement.start || placement.end) ? ` (${fmtInterval(placement.start, placement.end)})` : '',
     ])))
     : null);
 
@@ -1206,7 +1204,7 @@ async function renderDetector(id, timelineState) {
       return h('li', { class: 'entity-link-with-meta' }, [
         site ? linkTo(idRoute(site.id), site.name) : document.createTextNode(p.site_id),
         p.role ? ` — ${titleCase(p.role)}` : '',
-        (p.start || p.end) ? ` (${p.start || '?'}–${p.end || 'present'})` : '',
+        (p.start || p.end) ? ` (${fmtInterval(p.start, p.end)})` : '',
       ]);
     }))
     : null);
