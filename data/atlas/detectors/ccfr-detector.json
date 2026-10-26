@@ -1,0 +1,142 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
+  },
+  "experiment_ids": [
+    "experiment:ccfr"
+  ],
+  "id": "detector:ccfr-detector",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "1982",
+      "kind": "run",
+      "label": "E616 (as \"CCFRR\") and E701 runs",
+      "locator": "History of Neutrinos at Lab E",
+      "note": "Year precision. E701 \"took data in 1982\" (same page). Earlier incarnation of the collaboration (\"CCFRR\": Caltech, Columbia, Fermilab, Rochester, Rockefeller) with a narrow-band 400 GeV beam and spark chambers.",
+      "quote": "E616, run in 1979, was the first experiment to take advantage of the high-energy neutrino beam in Lab E.",
+      "sources": [
+        "src:ccfr-nevis-history-lab-e"
+      ],
+      "start": "1979",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "1985",
+      "kind": "run",
+      "label": "E744 run",
+      "locator": "History of Neutrinos at Lab E",
+      "note": "Year precision; Tevatron 800 GeV protons, quadrupole-triplet wide-band beam, drift chambers.",
+      "quote": "The Lab E neutrino era hit its stride with E744, run in 1985, and E770, run in 1987 and 1988.",
+      "sources": [
+        "src:ccfr-nevis-history-lab-e"
+      ],
+      "start": "1985",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "1988",
+      "kind": "run",
+      "label": "E770 run",
+      "locator": "History of Neutrinos at Lab E",
+      "note": "Year precision. The CCFR home page states that the collaboration collected data in two fixed-target runs, in 1985 (E744) and 1987-88 (E770).",
+      "quote": "The Lab E neutrino era hit its stride with E744, run in 1985, and E770, run in 1987 and 1988.",
+      "sources": [
+        "src:ccfr-nevis-history-lab-e"
+      ],
+      "start": "1987",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "completed (CCFR data taking; detector continued as NuTeV)",
+      "locator": "About the CCFR site",
+      "note": "Terminal event: the end of the 1987-88 run. The Lab E detector was reused by the NuTeV collaboration (E815) in 1996-97, which has its own record.",
+      "quote": "The CCFR collaboration collected data from two fixed-target runs at Fermilab in 1985 (experiment E744) and 1987-88 (experiment E770).",
+      "sources": [
+        "src:ccfr-nevis-about"
+      ],
+      "start": "1988",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "CCFR Lab E neutrino detector",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "locator": "hep-ex/0009041, introduction",
+      "note": "The existing Fermilab main-campus site (campus-grade) is reused: Lab E is in the fixed-target area of the Fermilab site; its own coordinate is not published in the sources read.",
+      "quote": "The CCFR experiment collected data using the Fermilab Tevatron Quad-Triplet wide-band νµ and ν µ beam.",
+      "role": "main",
+      "site_id": "site:fermilab-main-campus",
+      "sources": [
+        "src:ccfr-nevis-history-lab-e",
+        "src:ccfr-prl-2001-structure-functions"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:ccfr-nevis-history-lab-e",
+    "src:ccfr-nevis-about",
+    "src:ccfr-nevis-home",
+    "src:ccfr-zphysc-1995-strange-quark",
+    "src:ccfr-prl-2001-structure-functions"
+  ],
+  "specs": {
+    "total_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "690 ton",
+      "locator": "section 2",
+      "note": "",
+      "quote": "neutrino interactions occur in the 690 ton unmagnetized steel-scintillator target-calorimeter",
+      "sources": [
+        "src:ccfr-zphysc-1995-strange-quark"
+      ],
+      "unit": "t",
+      "value": 690,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "A 690-tonne wall of steel plates interleaved with plastic scintillator and tracking chambers, followed by a magnetised iron muon spectrometer, in Lab E at Fermilab.",
+    "technical": "Unmagnetised steel-scintillator target calorimeter (690 t, hadronic resolution 0.85/sqrt(E)) instrumented with drift chambers for muon tracking, followed by a solid-iron toroidal spectrometer (dp = 0.11 p); in 1996-97 reused by NuTeV."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "section 2",
+    "note": "",
+    "quote": "In the CCFR detector [4, 5], neutrino interactions occur in the 690 ton unmagnetized steel-scintillator target-calorimeter, which is instrumented with drift chambers for muon",
+    "sources": [
+      "src:ccfr-zphysc-1995-strange-quark"
+    ],
+    "value": "690 t steel-scintillator target calorimeter with drift chambers followed by an iron toroidal muon spectrometer",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "tracking_calorimeter",
+  "technology_classes": [
+    "tracking_calorimeter"
+  ],
+  "type": "detector"
+}
