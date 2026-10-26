@@ -1,0 +1,146 @@
+{
+  "accelerator_ids": [],
+  "aliases": [
+    "BICEP",
+    "Robinson Gravitational Wave Background Telescope",
+    "Background Imaging of Cosmic Extragalactic Polarization"
+  ],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:bicep-keck"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "distinct_from": [],
+  "energy_regime": null,
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:amundsen-scott-south-pole-station",
+      "locator": "LAMBDA BICEP1 text",
+      "note": "",
+      "quote": "BICEP1 observed from the Amundsen-Scott South Pole Station between 2006 and 2008, mapping about 2% of the sky chosen to be uniquely clean of polarized foreground emission.",
+      "role": "host",
+      "sources": [
+        "src:c2-cmb-lambda-bk"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:bicep1",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2008",
+      "label": "observations",
+      "locator": "abstract (arXiv:0906.4069); abstract (arXiv:0906.1181)",
+      "note": "The 2010 BICEP paper says \"During three seasons of observing at the South Pole (2006 through 2008)\"; the end is recorded at year precision (the last observing month is not stated).",
+      "quote": "BICEP has completed 3 years of successful observations at the South Pole beginning in 2006 February.",
+      "sources": [
+        "src:c2-cmb-bicep1-characterization",
+        "src:c2-cmb-bicep1-2yr"
+      ],
+      "start": "2006-02",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "observations ended",
+      "locator": "abstract (arXiv:0906.1181); LAMBDA BICEP1 text",
+      "note": "No source states a decommissioning date; BICEP1 \"observed ... between 2006 and 2008\" (LAMBDA), \"three seasons of observations at the South Pole (2006 to 2008)\" (arXiv:1310.1422), so completion is recorded at year precision, 2008.",
+      "quote": "During three seasons of observing at the South Pole (2006 through 2008)",
+      "sources": [
+        "src:c2-cmb-bicep1-2yr",
+        "src:c2-cmb-lambda-bk",
+        "src:c2-cmb-bicep1-3yr"
+      ],
+      "start": "2008",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Polarization-sensitive bolometers",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "count",
+        "display": "98 bolometers (49 pairs)",
+        "locator": "section 1 (arXiv:1403.4302)",
+        "note": "",
+        "quote": "from 98 to 500 detectors (49 to 250 pairs)",
+        "sources": [
+          "src:c2-cmb-bicep2-experiment"
+        ],
+        "unit": "",
+        "value": 98,
+        "verified_at": "2026-10-26"
+      }
+    }
+  ],
+  "kind": "cmb",
+  "lineage": [],
+  "links": {
+    "website": {
+      "confidence": "approximate",
+      "locator": "page header",
+      "note": "The site is served on plain http: its TLS certificate has expired (checked 2026-10-26); the page content was read over http.",
+      "quote": "Official website for results from the BICEP/Keck series of CMB polarization experiments",
+      "sources": [
+        "src:c2-cmb-bk-site"
+      ],
+      "value": "http://bicepkeck.org/",
+      "verified_at": "2026-10-26"
+    }
+  },
+  "name": "BICEP1",
+  "notes": [
+    "No INSPIRE experiment id is recorded: INSPIRE was not contacted by this stream.",
+    "The BICEP2 paper states the full three-year BICEP1 data set \"yields the best direct limits to date on inflationary B-modes: r < 0.65 at 95% confidence level\"."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "abstract (arXiv:0906.1181)",
+      "note": "",
+      "quote": "Background Imaging of Cosmic Extragalactic Polarization (BICEP) is a bolometric polarimeter designed to measure the inflationary B-mode polarization of the cosmic microwave background (CMB) at degree angular scales.",
+      "sources": [
+        "src:c2-cmb-bicep1-2yr"
+      ],
+      "value": "Measure the inflationary B-mode polarization of the CMB at degree angular scales.",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:c2-cmb-bicep1-2yr",
+    "src:c2-cmb-bicep1-characterization",
+    "src:c2-cmb-lambda-bk",
+    "src:c2-cmb-bk-site"
+  ],
+  "status": "completed",
+  "summary": {
+    "plain": "The first BICEP telescope: a small refractor at the South Pole that spent three years (2006-2008) mapping a clean 2% of the sky in polarization, looking for the imprint of gravitational waves from inflation.",
+    "technical": "Bolometric CMB polarimeter at the South Pole (Dark Sector Laboratory) observing 2006-2008 at 100 and 150 GHz; direct B-mode limit r < 0.65 (95%) from the three-year data set; pathfinder for BICEP2 and the Keck Array."
+  },
+  "superseded_by": null,
+  "topic_ids": [
+    "topic:cmb",
+    "topic:cosmology"
+  ],
+  "type": "experiment",
+  "unique_capabilities": []
+}

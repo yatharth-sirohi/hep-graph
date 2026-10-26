@@ -1,0 +1,139 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "distinct_from": [],
+  "experiment_ids": [
+    "experiment:bicep3"
+  ],
+  "id": "detector:bicep3",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2016",
+      "label": "deployment and first season",
+      "locator": "LAMBDA \"BICEP3\"",
+      "note": "Deployed in the 2014-2015 austral summer (LAMBDA); the 2016 paper calls 2016 \"its second year of observation (and first science season)\", so the commissioning end is set at 2016 (year precision).",
+      "quote": "BICEP3, the successor to BICEP2, was deployed to the Dark Sector Laboratory at Amundsen-Scott South Pole Station in the 2014-2015 Austral summer season.",
+      "sources": [
+        "src:c2-cmb-lambda-bk"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2015-01",
+        "display": "2014-2015 austral summer",
+        "earliest": "2014-11",
+        "latest": "2015-02"
+      },
+      "status": "commissioning",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "science observations",
+      "locator": "section 2 (arXiv:2203.16556); abstract (arXiv:1607.04668)",
+      "note": "Open-ended: the official BICEP/Keck publication list (checked 2026-10-26) includes SPIE 2024-2026 papers on calibration of \"the BICEP3 and BICEP Array CMB Polarimeters from 2017 to 2024\" and on BICEP data \"from 2016 through 2024\"; no source states that BICEP3 stopped observing.",
+      "quote": "has been observing at the foreground-minimum 95 GHz since 2016",
+      "sources": [
+        "src:c2-cmb-bk-latest-2022",
+        "src:c2-cmb-bicep3-perf"
+      ],
+      "start": "2016",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "BICEP3 telescope",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "locator": "LAMBDA \"BICEP3\"",
+      "note": "Same mount as BICEP2: \"BICEP3 occupies a separate mount previously used for BICEP2 on a nearby building\" (arXiv:2110.00483).",
+      "quote": "BICEP3, the successor to BICEP2, was deployed to the Dark Sector Laboratory at Amundsen-Scott South Pole Station in the 2014-2015 Austral summer season.",
+      "role": "main",
+      "site_id": "site:south-pole-dark-sector",
+      "sources": [
+        "src:c2-cmb-lambda-bk"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2015-01",
+        "display": "2014-2015 austral summer",
+        "earliest": "2014-11",
+        "latest": "2015-02"
+      },
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:c2-cmb-bicep3-perf",
+    "src:c2-cmb-lambda-bk",
+    "src:c2-cmb-bk-latest-2022",
+    "src:c2-cmb-bk18"
+  ],
+  "specs": {
+    "diameter": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "520 mm aperture",
+      "locator": "abstract (arXiv:1607.04668)",
+      "note": "",
+      "quote": "BICEP3 is a 520 mm aperture, compact two-lens refractor",
+      "sources": [
+        "src:c2-cmb-bicep3-perf"
+      ],
+      "unit": "mm",
+      "value": 520,
+      "verified_at": "2026-10-26"
+    },
+    "sensor_count": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "count",
+      "display": "2560 TES bolometers",
+      "locator": "abstract (arXiv:1607.04668)",
+      "note": "",
+      "quote": "a full complement of 20 tiles of detectors (2560 TESs)",
+      "sources": [
+        "src:c2-cmb-bicep3-perf"
+      ],
+      "unit": "",
+      "value": 2560,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "active",
+  "subsystems": [],
+  "summary": {
+    "plain": "A 52-centimetre refracting telescope in the Dark Sector Laboratory at the South Pole with 2560 superconducting detectors at 95 GHz, the most sensitive BICEP/Keck instrument at that frequency.",
+    "technical": "Compact two-lens refractor, 520 mm aperture, 20 tiles (2560 TES bolometers) at 95 GHz, on the former BICEP1/BICEP2 mount in the Dark Sector Laboratory; science observations since 2016."
+  },
+  "superseded_by": null,
+  "technology": {
+    "confidence": "verified",
+    "locator": "abstract (arXiv:1607.04668)",
+    "note": "",
+    "quote": "BICEP3 is a 520 mm aperture, compact two-lens refractor designed to observe the polarization of the cosmic microwave background (CMB) at 95 GHz.",
+    "sources": [
+      "src:c2-cmb-bicep3-perf"
+    ],
+    "value": "Compact two-lens refracting telescope, 520 mm aperture, 95 GHz, with modular antenna-coupled TES focal-plane tiles.",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "other",
+  "technology_classes": [
+    "other"
+  ],
+  "type": "detector"
+}

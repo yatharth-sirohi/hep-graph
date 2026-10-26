@@ -1,0 +1,124 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "distinct_from": [],
+  "experiment_ids": [
+    "experiment:keck-array"
+  ],
+  "id": "detector:keck-array",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": {
+        "approx": true,
+        "date": "2019-11",
+        "display": "late 2019",
+        "earliest": "2019-10",
+        "latest": "2019-12"
+      },
+      "label": "observations",
+      "locator": "section 1 (arXiv:2012.04047); LAMBDA \"Keck Array\"",
+      "note": "Observations \"beginning in 2012\" (LAMBDA); the end is \"late 2019\" (arXiv:2203.16556), stored as an approximate November 2019 with the source wording in `display`.",
+      "quote": "The Keck Array consisted of five Bicep2 -like 260 mm aperture receivers and started observations at 150 GHz in 2012.",
+      "sources": [
+        "src:c2-cmb-bicep-array-2020",
+        "src:c2-cmb-lambda-bk"
+      ],
+      "start": "2012",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "decommissioned",
+      "locator": "section 2 (arXiv:2203.16556)",
+      "note": "The proceedings say only \"late 2019\".",
+      "quote": "In late 2019, Keck was decommissioned and replaced by the Bicep Array telescope",
+      "sources": [
+        "src:c2-cmb-bk-latest-2022"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2019-11",
+        "display": "late 2019",
+        "earliest": "2019-10",
+        "latest": "2019-12"
+      },
+      "status": "decommissioned",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "Keck Array",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "locator": "section 3.2 (arXiv:1502.00643)",
+      "note": "Sourced location is the MAPO mount (previously used by DASI and QUaD), 0.7 km from the pole; shares the Dark Sector site record because no separate coordinates are published.",
+      "quote": "All five Keck Array receivers are attached to a common telescope mount located at the Martin A. Pomerantz Observatory (MAPO) at the Amundsen-Scott South Pole Station.",
+      "role": "main",
+      "site_id": "site:south-pole-dark-sector",
+      "sources": [
+        "src:c2-cmb-keck-bk5"
+      ],
+      "start": "2012",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:c2-cmb-keck-bk5",
+    "src:c2-cmb-bicep-array-2020",
+    "src:c2-cmb-lambda-bk",
+    "src:c2-cmb-bk-latest-2022"
+  ],
+  "specs": {
+    "telescope_count": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "count",
+      "display": "five receivers on one mount",
+      "locator": "section 2 (arXiv:1502.00643)",
+      "note": "",
+      "quote": "The Keck Array consists of five identical receivers on a single telescope mount at the South Pole.",
+      "sources": [
+        "src:c2-cmb-keck-bk5"
+      ],
+      "unit": "",
+      "value": 5,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "decommissioned",
+  "subsystems": [],
+  "summary": {
+    "plain": "Five small refracting telescopes sharing one mount at the South Pole, each like BICEP2, that watched the same patch of sky at 95, 150, 220 and later 270 GHz until they were replaced in late 2019.",
+    "technical": "Five BICEP2-style 260 mm receivers (150 GHz, later 95, 220 and 270 GHz) on a single mount on the Martin A. Pomerantz Observatory (the mount formerly used by DASI and QUaD); observed 2012 to late 2019."
+  },
+  "superseded_by": null,
+  "technology": {
+    "confidence": "verified",
+    "locator": "LAMBDA \"Keck Array\"",
+    "note": "",
+    "quote": "The Keck Array consists of five BICEP2-style receivers in a single telescope mount at the South Pole.",
+    "sources": [
+      "src:c2-cmb-lambda-bk"
+    ],
+    "value": "Five BICEP2-style receivers (260 mm aperture) on a single telescope mount.",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "other",
+  "technology_classes": [
+    "other"
+  ],
+  "type": "detector"
+}

@@ -1,0 +1,153 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "distinct_from": [],
+  "experiment_ids": [
+    "experiment:hires"
+  ],
+  "id": "detector:hires",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "1996-05-24",
+      "kind": "phase",
+      "label": "HiRes prototype and MIA muon array (hybrid)",
+      "locator": "Section II",
+      "note": "The hybrid experiment used the prototype HiRes fluorescence detector with the Michigan Muon Array (MIA); shown as commissioning of the full HiRes detectors.",
+      "quote": "During the lifetime of this hybrid experiment between Aug. 23, 1993 and May. 24, 1996",
+      "sources": [
+        "src:c2-cr-hires-mia"
+      ],
+      "start": "1993-08-23",
+      "status": "commissioning",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "2006",
+      "kind": "lifecycle",
+      "label": "HiRes-I operation",
+      "locator": "Section 1",
+      "note": "End 2006: \"The HiRes I detector took data in monocular mode from 1997 to 2006, while HiRes II operated from 1999 to 2006.\" (Sokolsky & Thomson, arXiv:0706.1248, Section 5).",
+      "quote": "The HiRes1 site has been in operation since May 1997 and has been collecting monocular data.",
+      "sources": [
+        "src:c2-cr-hires-icrc99-first-stereo",
+        "src:c2-cr-sokolsky-thomson"
+      ],
+      "start": "1997-05",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "2006",
+      "kind": "phase",
+      "label": "HiRes-II operation",
+      "locator": "Abstract",
+      "note": "The second station (Camel's Back Ridge); end year from Sokolsky & Thomson, as for HiRes-I.",
+      "quote": "has been in operation since Spring 1999",
+      "sources": [
+        "src:c2-cr-hires-icrc99-first-stereo",
+        "src:c2-cr-sokolsky-thomson"
+      ],
+      "start": {
+        "approx": true,
+        "date": "1999-04",
+        "display": "Spring 1999",
+        "earliest": "1999-03",
+        "latest": "1999-05"
+      },
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "data taking ended",
+      "locator": "p. 1",
+      "note": "Start is the end year of data taking.",
+      "quote": "operated on clear, moonless nights over a period of nine years (1997-2006)",
+      "sources": [
+        "src:c2-cr-hires-gzk"
+      ],
+      "start": "2006",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "HiRes air-fluorescence detector (HiRes-I and HiRes-II)",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": "2006",
+      "locator": "Section 1",
+      "note": "",
+      "quote": "The HiRes1 site has been in operation since May 1997 and has been collecting monocular data.",
+      "role": "main",
+      "site_id": "site:dugway-hires-i",
+      "sources": [
+        "src:c2-cr-hires-icrc99-first-stereo"
+      ],
+      "start": "1997-05",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "2006",
+      "locator": "Abstract",
+      "note": "HiRes-II on Camel's Back Ridge.",
+      "quote": "has been in operation since Spring 1999",
+      "role": "main",
+      "site_id": "site:dugway-hires-ii",
+      "sources": [
+        "src:c2-cr-hires-icrc99-first-stereo"
+      ],
+      "start": {
+        "approx": true,
+        "date": "1999-04",
+        "display": "Spring 1999",
+        "earliest": "1999-03",
+        "latest": "1999-05"
+      },
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:c2-cr-hires-gzk",
+    "src:c2-cr-hires-icrc99-first-stereo",
+    "src:c2-cr-hires-icrc99-black-rock-hills"
+  ],
+  "specs": {},
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "Two hilltop stations of telescopes that photograph the faint ultraviolet light of cosmic-ray air showers over the Utah desert.",
+    "technical": "HiRes-I (22 telescope modules, 3-17 degrees elevation) and HiRes-II (42 modules, 3-31 degrees), each module a 3.7 m2 spherical mirror with a 256-PMT camera of 1 degree pixels; 12.6 km apart for stereo."
+  },
+  "superseded_by": null,
+  "technology": {
+    "confidence": "verified",
+    "locator": "p. 2",
+    "note": "",
+    "quote": "A cluster of 256 photomultiplier tubes (PMTs) is placed at the focal plane of each mirror and serves as the camera for each telescope.",
+    "sources": [
+      "src:c2-cr-hires-gzk"
+    ],
+    "value": "Two stations of spherical-mirror telescopes with 256-PMT cameras that image nitrogen fluorescence from air showers.",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "other",
+  "technology_classes": [
+    "other"
+  ],
+  "type": "detector"
+}

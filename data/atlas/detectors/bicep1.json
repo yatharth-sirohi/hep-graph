@@ -1,0 +1,113 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "distinct_from": [],
+  "experiment_ids": [
+    "experiment:bicep1"
+  ],
+  "id": "detector:bicep1",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2008",
+      "label": "observations",
+      "locator": "abstract (arXiv:0906.4069); abstract (arXiv:0906.1181)",
+      "note": "The 2010 BICEP paper says \"During three seasons of observing at the South Pole (2006 through 2008)\"; the end is recorded at year precision (the last observing month is not stated).",
+      "quote": "BICEP has completed 3 years of successful observations at the South Pole beginning in 2006 February.",
+      "sources": [
+        "src:c2-cmb-bicep1-characterization",
+        "src:c2-cmb-bicep1-2yr"
+      ],
+      "start": "2006-02",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "observations ended",
+      "locator": "abstract (arXiv:0906.1181); LAMBDA BICEP1 text",
+      "note": "No source states a decommissioning date; BICEP1 \"observed ... between 2006 and 2008\" (LAMBDA), \"three seasons of observations at the South Pole (2006 to 2008)\" (arXiv:1310.1422), so completion is recorded at year precision, 2008.",
+      "quote": "During three seasons of observing at the South Pole (2006 through 2008)",
+      "sources": [
+        "src:c2-cmb-bicep1-2yr",
+        "src:c2-cmb-lambda-bk",
+        "src:c2-cmb-bicep1-3yr"
+      ],
+      "start": "2008",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "BICEP1 telescope",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "locator": "BICEP1 characterization paper (arXiv:0906.4069), Figure 1 caption",
+      "note": "Start is the first month of observations; the telescope was in the DSL building 800 m from the pole.",
+      "quote": "looking out through the roof of the Dark Sector Laboratory (DSL) building located 800 m from the geographic South Pole",
+      "role": "main",
+      "site_id": "site:south-pole-dark-sector",
+      "sources": [
+        "src:c2-cmb-bicep1-characterization"
+      ],
+      "start": "2006-02",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:c2-cmb-bicep1-characterization",
+    "src:c2-cmb-lambda-bk",
+    "src:c2-cmb-bicep2-experiment"
+  ],
+  "specs": {
+    "sensor_count": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "count",
+      "display": "98 bolometers (49 pairs)",
+      "locator": "section 1 (arXiv:1403.4302)",
+      "note": "",
+      "quote": "from 98 to 500 detectors (49 to 250 pairs)",
+      "sources": [
+        "src:c2-cmb-bicep2-experiment"
+      ],
+      "unit": "",
+      "value": 98,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "A small two-lens refracting telescope looking out through the roof of a laboratory near the South Pole, built to look for the faint polarization pattern that gravitational waves from inflation would leave in the Big Bang afterglow.",
+    "technical": "Two-lens refracting telescope with 49 pairs of horn-coupled polarization-sensitive bolometers at 100 and 150 GHz, on a 3-axis mount in the Dark Sector Laboratory; observed 2006-2008, mapping about 2% of the sky."
+  },
+  "superseded_by": null,
+  "technology": {
+    "confidence": "verified",
+    "locator": "LAMBDA BICEP1 text",
+    "note": "",
+    "quote": "The instrument comprised a two-lens refracting telescope coupled to a focal plane of 49 orthogonal pairs of horn-coupled polarization-sensitive bolometers operating at 100 and 150 GHz.",
+    "sources": [
+      "src:c2-cmb-lambda-bk"
+    ],
+    "value": "Two-lens refracting telescope with a focal plane of 49 orthogonal pairs of horn-coupled polarization-sensitive bolometers at 100 and 150 GHz.",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "other",
+  "technology_classes": [
+    "other"
+  ],
+  "type": "detector"
+}

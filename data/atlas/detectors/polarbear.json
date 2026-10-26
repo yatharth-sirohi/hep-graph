@@ -1,0 +1,165 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "distinct_from": [],
+  "experiment_ids": [
+    "experiment:polarbear"
+  ],
+  "id": "detector:polarbear",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2024",
+      "kind": "lifecycle",
+      "label": "observations (POLARBEAR-1 and Simons Array)",
+      "locator": "section 4 (arXiv:1210.7768); LAMBDA POLARBEAR text",
+      "note": "Start is first light of POLARBEAR-1 on the Huan Tran Telescope. End is the year LAMBDA gives for the Simons Array (\"2019 - 2024\"); LAMBDA does not say whether observations continued to the end of 2024.",
+      "quote": "First light with the fully integrated experiment was achieved on January 10th, 2012 with a scan of Jupiter.",
+      "sources": [
+        "src:c2-cmb-polarbear-instrument",
+        "src:c2-cmb-lambda-polarbear"
+      ],
+      "start": "2012-01-10",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": {
+        "approx": true,
+        "date": "2016-12"
+      },
+      "kind": "phase",
+      "label": "POLARBEAR-1 (Huan Tran Telescope)",
+      "locator": "LAMBDA POLARBEAR text; abstract (arXiv:2005.06168)",
+      "note": "The end is the last month of data in the published 670 deg^2 analysis (\"from July 2014 to December 2016\"); no source consulted states when POLARBEAR-1 observations ended, and the Simons Array receiver was deployed in 2018-2019.",
+      "quote": "In subsequent years (2014-2016) the POLARBEAR survey was expanded to cover 670 square degrees of sky.",
+      "sources": [
+        "src:c2-cmb-lambda-polarbear",
+        "src:c2-cmb-polarbear-670"
+      ],
+      "start": "2012-01-10",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": "2024",
+      "kind": "phase",
+      "label": "Simons Array (POLARBEAR-2 receivers)",
+      "locator": "LAMBDA POLARBEAR text",
+      "note": "Years only, as printed by LAMBDA.",
+      "quote": "The Simons Array (2019 - 2024) consisted of an array of second generation Polarbear-2 receivers.",
+      "sources": [
+        "src:c2-cmb-lambda-polarbear"
+      ],
+      "start": "2019",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "programme completed",
+      "locator": "LAMBDA POLARBEAR text",
+      "note": "LAMBDA describes the Simons Array in the past tense with the span \"2019 - 2024\"; it states no completion date or decommissioning, so completion is recorded at year precision. The CMB-S4 page (undated) still calls \"the current POLARBEAR/Simons Array\" one of the Chilean experiments.",
+      "quote": "The Simons Array (2019 - 2024) consisted of an array of second generation Polarbear-2 receivers.",
+      "sources": [
+        "src:c2-cmb-lambda-polarbear"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2024"
+      },
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "Huan Tran Telescope and POLARBEAR receivers",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "locator": "section 2 (arXiv:1403.2369)",
+      "note": "",
+      "quote": "The HTT is located at the James Ax Observatory in Northern Chile on Cerro Toco",
+      "role": "main",
+      "site_id": "site:polarbear-james-ax-observatory",
+      "sources": [
+        "src:c2-cmb-polarbear-bmode"
+      ],
+      "start": "2012-01-10",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:c2-cmb-polarbear-instrument",
+    "src:c2-cmb-polarbear-670",
+    "src:c2-cmb-polarbear2-simons-array",
+    "src:c2-cmb-lambda-polarbear"
+  ],
+  "specs": {
+    "diameter": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "2.5 m aperture",
+      "locator": "section 2 (arXiv:2005.06168)",
+      "note": "",
+      "quote": "mounted on the 2.5 m aperture Huan Tran Telescope at the James Ax Observatory",
+      "sources": [
+        "src:c2-cmb-polarbear-670"
+      ],
+      "unit": "m",
+      "value": 2.5,
+      "verified_at": "2026-10-26"
+    },
+    "sensor_count": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "count",
+      "display": "1274 TES bolometers (POLARBEAR-1)",
+      "locator": "LAMBDA POLARBEAR text",
+      "note": "",
+      "quote": "It contained 1274 antenna-coupled TES bolometers observing at 150 GHz.",
+      "sources": [
+        "src:c2-cmb-lambda-polarbear"
+      ],
+      "unit": "",
+      "value": 1274,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "A 2.5-metre telescope in the Chilean Andes with a succession of cameras, first POLARBEAR and then the three-telescope Simons Array, that measured the polarization of the Big Bang afterglow on small angular scales.",
+    "technical": "2.5 m off-axis Gregorian Huan Tran Telescope with the 1274-bolometer POLARBEAR-1 receiver (150 GHz) and later POLARBEAR-2 receivers (7588 dichroic pixels at 95/150 GHz) of the Simons Array; James Ax Observatory, 5200 m."
+  },
+  "superseded_by": null,
+  "technology": {
+    "confidence": "approximate",
+    "locator": "LAMBDA POLARBEAR text",
+    "note": "LAMBDA says \"3.5-meter diameter\" (apparently the 3.5 arcminute beam size; the telescope's primary is the 2.5 m aperture given by the POLARBEAR papers).",
+    "quote": "POLARBEAR is a cosmic microwave background (CMB) experiment situated on the 3.5-meter diameter Huan Tran Telescope",
+    "sources": [
+      "src:c2-cmb-lambda-polarbear"
+    ],
+    "value": "2.5 m off-axis Gregorian telescope (Huan Tran Telescope) with antenna-coupled TES bolometer receivers: POLARBEAR-1 (1274 bolometers, 150 GHz) and POLARBEAR-2 (95 and 150 GHz).",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "other",
+  "technology_classes": [
+    "other"
+  ],
+  "type": "detector"
+}

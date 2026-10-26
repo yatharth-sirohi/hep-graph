@@ -1,0 +1,115 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "distinct_from": [],
+  "experiment_ids": [
+    "experiment:class"
+  ],
+  "id": "detector:class",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "kind": "lifecycle",
+      "label": "observations",
+      "locator": "section 3.1 (arXiv:2309.00675); section 1 (arXiv:2501.11904)",
+      "note": "Start is the first day of the 40 GHz survey data \"after initial commissioning\". The telescopes were shut down on 2022-05-19 \"for maintenance and instrument upgrades\"; the 2025 90 GHz paper uses observations \"collected through 2024\", so observing resumed. A 2025-dated statement (\"where it has been observing since 2016\", arXiv:2501.11904) is the latest status source.",
+      "quote": "This paper uses data from the 40 GHz telescope observations beginning 2016 August 31, after initial commissioning, and extending to 2022 May 19, when the telescopes were shut down for maintenance and instrument upgrades.",
+      "sources": [
+        "src:c2-cmb-class-40ghz-spectra",
+        "src:c2-cmb-class-90ghz-reionization"
+      ],
+      "start": "2016-08-31",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "kind": "phase",
+      "label": "90 GHz telescope",
+      "locator": "section 2.2 (arXiv:2501.11904)",
+      "note": "",
+      "quote": "The first of the two 90 GHz telescope arrays was deployed in June 2018 and has been observing since then.",
+      "sources": [
+        "src:c2-cmb-class-90ghz-reionization"
+      ],
+      "start": "2018-06",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "CLASS telescope array",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "locator": "section 1 (arXiv:1911.04499)",
+      "note": "",
+      "quote": "maps microwave polarization over 75% of the sky from Cerro Toco in the Atacama Desert of Chile",
+      "role": "main",
+      "site_id": "site:class-cerro-toco",
+      "sources": [
+        "src:c2-cmb-class-40ghz-optics"
+      ],
+      "start": "2016-08-31",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:c2-cmb-lambda-class",
+    "src:c2-cmb-class-40ghz-optics",
+    "src:c2-cmb-class-90ghz-reionization",
+    "src:c2-cmb-class-40ghz-spectra",
+    "src:c2-cmb-class-overview"
+  ],
+  "specs": {
+    "telescope_count": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "count",
+      "display": "four telescopes",
+      "locator": "LAMBDA CLASS text",
+      "note": "",
+      "quote": "The Cosmology Large Angular Scale Surveyor (CLASS) is an array of four microwave telescopes at a high-altitude site in Chile's Atacama Desert",
+      "sources": [
+        "src:c2-cmb-lambda-class"
+      ],
+      "unit": "",
+      "value": 4,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "active",
+  "subsystems": [],
+  "summary": {
+    "plain": "An array of four microwave telescopes in the Chilean Andes that scan most of the sky with a rapidly spinning polarization modulator to measure the largest-scale polarization of the Big Bang afterglow.",
+    "technical": "Four telescopes at 40, 90, 150/220 GHz with front-end variable-delay polarization modulators on constant-elevation (45 deg) scans over 720 deg of azimuth; 40 GHz since 2016, 90 GHz since June 2018."
+  },
+  "superseded_by": null,
+  "technology": {
+    "confidence": "verified",
+    "locator": "LAMBDA CLASS text",
+    "note": "",
+    "quote": "The Cosmology Large Angular Scale Surveyor (CLASS) is an array of four microwave telescopes at a high-altitude site in Chile's Atacama Desert",
+    "sources": [
+      "src:c2-cmb-lambda-class"
+    ],
+    "value": "Array of four microwave telescopes with front-end polarization modulators and TES bolometers at 40, 90, 150 and 220 GHz.",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "other",
+  "technology_classes": [
+    "other"
+  ],
+  "type": "detector"
+}

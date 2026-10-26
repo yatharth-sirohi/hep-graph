@@ -1,0 +1,204 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "distinct_from": [],
+  "experiment_ids": [
+    "experiment:hegra"
+  ],
+  "id": "detector:hegra",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2002",
+      "label": "data taking",
+      "locator": "HEGRA experiment page",
+      "note": "The official page dates data taking with the various detector types to 1987-2002. Individual instruments started later: the first imaging telescope's camera in mid-1992 and AIROBICC in 1992 (arXiv:2406.15037); the five-telescope stereoscopic system was completed in 1997.",
+      "quote": "With its various types of detectors HEGRA was taking data between 1987 and 2002.",
+      "sources": [
+        "src:c2-gr-hegra-official-page"
+      ],
+      "start": "1987",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "data taking ended",
+      "locator": "HEGRA experiment page",
+      "note": "The Cherenkov telescopes were dismantled in September 2002 (same page).",
+      "quote": "With its various types of detectors HEGRA was taking data between 1987 and 2002.",
+      "sources": [
+        "src:c2-gr-hegra-official-page"
+      ],
+      "start": "2002",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "HEGRA air-shower and Cherenkov telescope complex",
+  "notes": [
+    "The imaging telescopes were dismantled in September 2002 (official page)."
+  ],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": "2002",
+      "locator": "arXiv:astro-ph/9702059, section 1",
+      "note": "",
+      "quote": "(2200 m a.s.l., 28.750 N, 17.890 W) covering an area of about 200m · 200m",
+      "role": "main",
+      "site_id": "site:roque-de-los-muchachos-hegra",
+      "sources": [
+        "src:c2-gr-hegra-status-arxiv-1997"
+      ],
+      "start": "1987",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:c2-gr-hegra-official-page",
+    "src:c2-gr-hegra-status-arxiv-1997",
+    "src:c2-gr-hegra-iact-performance-arxiv-1997"
+  ],
+  "specs": {
+    "altitude": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "2200 m",
+      "locator": "HEGRA experiment page",
+      "note": "",
+      "quote": "at a height of 2200 m a.s.l.",
+      "sources": [
+        "src:c2-gr-hegra-official-page"
+      ],
+      "unit": "m",
+      "value": 2200,
+      "verified_at": "2026-10-26"
+    },
+    "energy_range": {
+      "confidence": "verified",
+      "locator": "arXiv:astro-ph/9704098, abstract",
+      "note": "",
+      "quote": "The system provides a gamma-ray energy threshold around 0.5 TeV.",
+      "sources": [
+        "src:c2-gr-hegra-iact-performance-arxiv-1997",
+        "src:c2-gr-hegra-crab-arxiv-2004"
+      ],
+      "value": "IACT gamma-ray threshold about 0.5 TeV; spectrum of the Crab measured up to 80 TeV",
+      "verified_at": "2026-10-26"
+    },
+    "mirror_area": {
+      "approx": false,
+      "confidence": "approximate",
+      "dimension": "area",
+      "display": "8.5 m2 per telescope",
+      "locator": "arXiv:astro-ph/9704098, section 1",
+      "note": "Design value of the five-telescope stereoscopic system; the first telescope had a different mirror area.",
+      "quote": "five identical telescopes with 8.5 m2 mirror area",
+      "sources": [
+        "src:c2-gr-hegra-iact-performance-arxiv-1997"
+      ],
+      "unit": "m^2",
+      "value": 8.5,
+      "verified_at": "2026-10-26"
+    },
+    "telescope_count": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "count",
+      "display": "6 telescopes",
+      "locator": "HEGRA experiment page",
+      "note": "",
+      "quote": "There were a total of six of these telescopes in operation.",
+      "sources": [
+        "src:c2-gr-hegra-official-page"
+      ],
+      "unit": "",
+      "value": 6,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "completed",
+  "subsystems": [
+    {
+      "description": [
+        {
+          "confidence": "verified",
+          "locator": "HEGRA experiment page",
+          "note": "",
+          "quote": "49 of these detectors were spread in a 7-by-7 grid to observe the amplitude and the time of arrival of the front of Cherenkov light. Another 48 were added later on.",
+          "sources": [
+            "src:c2-gr-hegra-official-page"
+          ],
+          "value": "Angle-integrating Cherenkov counters: 49 detectors in a 7-by-7 grid, with 48 more added later.",
+          "verified_at": "2026-10-26"
+        }
+      ],
+      "name": "AIROBICC"
+    },
+    {
+      "description": [
+        {
+          "confidence": "verified",
+          "locator": "HEGRA experiment page",
+          "note": "",
+          "quote": "More than 250 of these counters were in operation, spread over a 180-by-180 m2 area.",
+          "sources": [
+            "src:c2-gr-hegra-official-page"
+          ],
+          "value": "More than 250 scintillation counters spread over a 180 m by 180 m area.",
+          "verified_at": "2026-10-26"
+        }
+      ],
+      "name": "Scintillator array"
+    },
+    {
+      "description": [
+        {
+          "confidence": "verified",
+          "locator": "HEGRA experiment page",
+          "note": "",
+          "quote": "Muon 'Towers' with 16 m2 area each. Seventeen of these detectors were installed on La Palma.",
+          "sources": [
+            "src:c2-gr-hegra-official-page"
+          ],
+          "value": "Seventeen muon towers of 16 m2 area each.",
+          "verified_at": "2026-10-26"
+        }
+      ],
+      "name": "Muon towers"
+    }
+  ],
+  "summary": {
+    "plain": "A set of detectors over an area of about 200 by 200 metres: imaging Cherenkov telescopes, light counters, ground-level scintillators and muon detectors, all watching air showers from cosmic particles.",
+    "technical": "Combined complex: stereoscopic IACT system (8.5 m2 mirrors, 271-pixel cameras, FoV about 4.6 deg), AIROBICC wide-angle Cherenkov counters, scintillator array, muon towers, plus CRT and CLUE."
+  },
+  "superseded_by": null,
+  "technology": {
+    "confidence": "verified",
+    "locator": "HEGRA experiment page",
+    "note": "",
+    "quote": "It consisted of several detector types for observing secondary particles or light from particle cascades in the atmosphere (Extensive Air Showers, EAS).",
+    "sources": [
+      "src:c2-gr-hegra-official-page"
+    ],
+    "value": "Combined air-shower complex of imaging atmospheric Cherenkov telescopes, the AIROBICC angle-integrating Cherenkov counters, a scintillator array and muon towers.",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "imaging_atmospheric_cherenkov",
+  "technology_classes": [
+    "imaging_atmospheric_cherenkov",
+    "air_shower_array"
+  ],
+  "type": "detector"
+}

@@ -1,0 +1,153 @@
+{
+  "accelerator_ids": [],
+  "aliases": [
+    "Cosmology Large Angular Scale Surveyor",
+    "CLASS telescope array"
+  ],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:class"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "distinct_from": [],
+  "energy_regime": null,
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:parque-astronomico-atacama",
+      "locator": "LAMBDA CLASS text",
+      "note": "",
+      "quote": "The Cosmology Large Angular Scale Surveyor (CLASS) is an array of four microwave telescopes at a high-altitude site in Chile's Atacama Desert of Chile as part of the Parque Astronómico de Atacama.",
+      "role": "host",
+      "sources": [
+        "src:c2-cmb-lambda-class"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:class",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "kind": "lifecycle",
+      "label": "observations",
+      "locator": "section 3.1 (arXiv:2309.00675); section 1 (arXiv:2501.11904)",
+      "note": "Start is the first day of the 40 GHz survey data \"after initial commissioning\". The telescopes were shut down on 2022-05-19 \"for maintenance and instrument upgrades\"; the 2025 90 GHz paper uses observations \"collected through 2024\", so observing resumed. A 2025-dated statement (\"where it has been observing since 2016\", arXiv:2501.11904) is the latest status source.",
+      "quote": "This paper uses data from the 40 GHz telescope observations beginning 2016 August 31, after initial commissioning, and extending to 2022 May 19, when the telescopes were shut down for maintenance and instrument upgrades.",
+      "sources": [
+        "src:c2-cmb-class-40ghz-spectra",
+        "src:c2-cmb-class-90ghz-reionization"
+      ],
+      "start": "2016-08-31",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "kind": "phase",
+      "label": "90 GHz telescope",
+      "locator": "section 2.2 (arXiv:2501.11904)",
+      "note": "",
+      "quote": "The first of the two 90 GHz telescope arrays was deployed in June 2018 and has been observing since then.",
+      "sources": [
+        "src:c2-cmb-class-90ghz-reionization"
+      ],
+      "start": "2018-06",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Telescopes",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "count",
+        "display": "four telescopes",
+        "locator": "LAMBDA CLASS text",
+        "note": "",
+        "quote": "The Cosmology Large Angular Scale Surveyor (CLASS) is an array of four microwave telescopes at a high-altitude site in Chile's Atacama Desert",
+        "sources": [
+          "src:c2-cmb-lambda-class"
+        ],
+        "unit": "",
+        "value": 4,
+        "verified_at": "2026-10-26"
+      }
+    },
+    {
+      "label": "Altitude",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "length",
+        "display": "5140 m",
+        "locator": "arXiv:2309.00675, section 1",
+        "note": "",
+        "quote": "Located at 5140 m elevation in the Atacama Desert of northern Chile",
+        "sources": [
+          "src:c2-cmb-class-40ghz-spectra"
+        ],
+        "unit": "m",
+        "value": 5140,
+        "verified_at": "2026-10-26"
+      }
+    }
+  ],
+  "kind": "cmb",
+  "lineage": [],
+  "links": {
+    "website": null
+  },
+  "name": "CLASS",
+  "notes": [
+    "No INSPIRE experiment id is recorded: INSPIRE was not contacted by this stream."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "LAMBDA CLASS text",
+      "note": "",
+      "quote": "The CLASS experiment aims to probe reionization and primordial gravitational radiation by making precise measurements of the polarization of the Cosmic Microwave Background (CMB) on the largest angular scales over 75% of the sky",
+      "sources": [
+        "src:c2-cmb-lambda-class"
+      ],
+      "value": "Probe reionization and primordial gravitational radiation by measuring CMB polarization on the largest angular scales over 75% of the sky.",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:c2-cmb-lambda-class",
+    "src:c2-cmb-class-overview",
+    "src:c2-cmb-class-40ghz-optics",
+    "src:c2-cmb-class-40ghz-spectra",
+    "src:c2-cmb-class-90ghz-reionization"
+  ],
+  "status": "active",
+  "summary": {
+    "plain": "Four microwave telescopes at 5140 metres in northern Chile that have surveyed about three quarters of the sky since 2016, measuring the largest-scale polarization of the Big Bang afterglow, which is hard to measure from the ground.",
+    "technical": "CLASS: telescopes at 40/90/150/220 GHz (40 GHz since 31 August 2016; 90 GHz since June 2018) on Cerro Toco (~5140 m), surveying 73.6% of the sky with variable-delay polarization modulators to probe reionization (optical depth) and primordial B modes at r ~ 0.01."
+  },
+  "superseded_by": null,
+  "topic_ids": [
+    "topic:cmb",
+    "topic:cosmology"
+  ],
+  "type": "experiment",
+  "unique_capabilities": []
+}

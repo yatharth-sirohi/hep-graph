@@ -1,0 +1,141 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "distinct_from": [],
+  "experiment_ids": [
+    "experiment:hagar"
+  ],
+  "id": "detector:hagar",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2017-12",
+      "label": "regular observations (documented to December 2017)",
+      "locator": "Astrophys. Space Sci. Trans. 7, 501 (2011), abstract",
+      "note": "Start: regular source observations since September 2008. End: the Crab dataset of the 2019 HAGAR paper runs from October 2008 to December 2017 (arXiv:1902.01081); that is the end of the documented data, not of observations.",
+      "quote": "Regular source observations are running since September 2008.",
+      "sources": [
+        "src:c2-gr-hagar-asstr-2011"
+      ],
+      "start": "2008-09",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "operation after 2017 (not documented)",
+      "locator": "arXiv:2406.15037, section 2.2",
+      "note": "No source fetched dates the end of HAGAR observations. A 2024 review describes the array in the present tense; the status is carried forward from that and not confirmed.",
+      "quote": "The HAGAR telescopes (Singh, et al. 2019) are located in Hanle in the Himalayas at 4500 m above sea level, on the same site as the 21 m diameter Cherenkov imaging telescope MACE",
+      "sources": [
+        "src:c2-gr-mirzoyan-history-arxiv-2024"
+      ],
+      "start": "2017-12",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "HAGAR telescope array",
+  "notes": [
+    "No Appendix A technology class fits a non-imaging wavefront-sampling Cherenkov array; `other` is used with the technique described in the sourced `technology` string (A24)."
+  ],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "locator": "arXiv:2406.15037, section 2.2",
+      "note": "HAGAR is described as being on the same site as MACE; no separate HAGAR coordinate is published in the sources fetched.",
+      "quote": "The HAGAR telescopes (Singh, et al. 2019) are located in Hanle in the Himalayas at 4500 m above sea level, on the same site as the 21 m diameter Cherenkov imaging telescope MACE",
+      "role": "main",
+      "site_id": "site:hanle-gamma-ray-site",
+      "sources": [
+        "src:c2-gr-mirzoyan-history-arxiv-2024"
+      ],
+      "start": "2008-09",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:c2-gr-hagar-crab-arxiv-2019",
+    "src:c2-gr-hagar-asstr-2011"
+  ],
+  "specs": {
+    "altitude": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "4270 m",
+      "locator": "Astrophys. Space Sci. Trans. 7, 501 (2011), abstract",
+      "note": "",
+      "quote": "set-up at Hanle, at 4270 m amsl",
+      "sources": [
+        "src:c2-gr-hagar-asstr-2011"
+      ],
+      "unit": "m",
+      "value": 4270,
+      "verified_at": "2026-10-26"
+    },
+    "mirror_area": {
+      "approx": true,
+      "confidence": "verified",
+      "dimension": "area",
+      "display": "~31 m2",
+      "locator": "arXiv:1902.01081, section 2",
+      "note": "",
+      "quote": "The total reflector area of all seven telescopes is about 31 m2",
+      "sources": [
+        "src:c2-gr-hagar-crab-arxiv-2019"
+      ],
+      "unit": "m^2",
+      "value": 31,
+      "verified_at": "2026-10-26"
+    },
+    "telescope_count": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "count",
+      "display": "7 telescopes",
+      "locator": "arXiv:1902.01081, section 2",
+      "note": "",
+      "quote": "consists of an array of seven atmospheric Cherenkov telescopes located at the center and corners of a hexagon inscribed in a circle of 50 meter radius",
+      "sources": [
+        "src:c2-gr-hagar-crab-arxiv-2019"
+      ],
+      "unit": "",
+      "value": 7,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "active",
+  "subsystems": [],
+  "summary": {
+    "plain": "Seven small telescopes laid out in a hexagon about 50 metres in radius, each made of seven round mirrors, that time the arrival of the Cherenkov light front from air showers.",
+    "technical": "Seven telescopes at the centre and corners of a hexagon inscribed in a circle of 50 m radius; each has seven parabolic glass mirrors of 0.9 m diameter with f/d = 1; total reflector area about 31 m2."
+  },
+  "superseded_by": null,
+  "technology": {
+    "confidence": "verified",
+    "locator": "arXiv:1902.01081, section 2",
+    "note": "",
+    "quote": "consists of an array of seven atmospheric Cherenkov telescopes located at the center and corners of a hexagon inscribed in a circle of 50 meter radius",
+    "sources": [
+      "src:c2-gr-hagar-crab-arxiv-2019"
+    ],
+    "value": "Wavefront-sampling array of seven non-imaging atmospheric Cherenkov telescopes in a hexagon of 50 m radius.",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "other",
+  "technology_classes": [
+    "other"
+  ],
+  "type": "detector"
+}

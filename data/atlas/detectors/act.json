@@ -1,0 +1,161 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "distinct_from": [],
+  "experiment_ids": [
+    "experiment:act"
+  ],
+  "id": "detector:act",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2022",
+      "kind": "lifecycle",
+      "label": "operations",
+      "locator": "abstract (arXiv:1007.0290); LAMBDA ACT overview",
+      "note": "Commissioned \"at its site in late 2007\" with the 148 GHz channel (arXiv:1007.0290, section 1); \"took its final data in 2022\" (LAMBDA). Years only.",
+      "quote": "The telescope was commissioned in 2007 and has completed its third year of operations.",
+      "sources": [
+        "src:c2-cmb-act-receiver",
+        "src:c2-cmb-lambda-act"
+      ],
+      "start": "2007",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "2010",
+      "kind": "phase",
+      "label": "MBAC (first receiver)",
+      "locator": "LAMBDA ACT overview, \"ACT (MBAC)\"",
+      "note": "The other two MBAC frequencies were installed in June 2008 (arXiv:1007.0290).",
+      "quote": "mapped the CMB temperature anisotropies over an area of around 1000 square degrees from 2008 to 2010",
+      "sources": [
+        "src:c2-cmb-lambda-act",
+        "src:c2-cmb-act-receiver"
+      ],
+      "start": "2008",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "2016",
+      "kind": "phase",
+      "label": "ACTPol",
+      "locator": "LAMBDA ACT overview, \"ACTPol\"",
+      "note": "The ACTPol paper says the receiver \"was commissioned with its first 148 GHz array in 2013\" (arXiv:1605.06569).",
+      "quote": "The second-generation, polarization-sensitive receiver ACTPol observed between 2013 and 2016.",
+      "sources": [
+        "src:c2-cmb-lambda-act",
+        "src:c2-cmb-actpol-instrument"
+      ],
+      "start": "2013",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": "2022",
+      "kind": "phase",
+      "label": "Advanced ACTPol (AdvACT)",
+      "locator": "LAMBDA ACT overview, \"AdvACT\"",
+      "note": "Conflict: LAMBDA says 2016 to 2022; the DR6 maps paper says the AdvACT data used for DR6 were \"collected from 2017-05-05 to 2022-07-02\". The LAMBDA span is kept for the receiver phase and the DR6 dates are quoted in the log.",
+      "quote": "The third generation Advanced ACTPol receiver extended the frequency coverage down to 20 GHz and surveyed 40% of the sky from 2016 to 2022.",
+      "sources": [
+        "src:c2-cmb-lambda-act",
+        "src:c2-cmb-act-dr6-maps"
+      ],
+      "start": "2016",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "decommissioned",
+      "locator": "LAMBDA ACT overview, intro",
+      "note": "Year precision only: \"took its final data in 2022 and has been decommissioned\" (LAMBDA); the DR6 maps paper uses the past tense (\"ACT was a 6-meter ... telescope\").",
+      "quote": "The Atacama Cosmology Telescope took its final data in 2022 and has been decommissioned.",
+      "sources": [
+        "src:c2-cmb-lambda-act"
+      ],
+      "start": "2022",
+      "status": "decommissioned",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "Atacama Cosmology Telescope (6 m)",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": "2022",
+      "locator": "abstract (arXiv:1007.0290)",
+      "note": "",
+      "quote": "The instrument is located on Cerro Toco in the Atacama Desert, at an altitude of 5190 meters.",
+      "role": "main",
+      "site_id": "site:act-cerro-toco",
+      "sources": [
+        "src:c2-cmb-act-receiver"
+      ],
+      "start": "2007",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:c2-cmb-act-receiver",
+    "src:c2-cmb-actpol-instrument",
+    "src:c2-cmb-act-dr6-maps",
+    "src:c2-cmb-lambda-act"
+  ],
+  "specs": {
+    "diameter": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "6 m",
+      "locator": "abstract (arXiv:1007.0290)",
+      "note": "",
+      "quote": "A six-meter off-axis Gregorian telescope feeds a new type of cryogenic receiver",
+      "sources": [
+        "src:c2-cmb-act-receiver"
+      ],
+      "unit": "m",
+      "value": 6,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "decommissioned",
+  "subsystems": [],
+  "summary": {
+    "plain": "A six-metre telescope on a 5190-metre mountain in northern Chile that mapped the faint afterglow of the Big Bang at fine detail, with successive cameras, from 2007 until it was decommissioned after taking its final data in 2022.",
+    "technical": "6 m off-axis Gregorian telescope on Cerro Toco (5190 m): MBAC (148/218/277 GHz, 2008-2010), ACTPol (2013-2016) and Advanced ACTPol (2016-2022, 20-280 GHz); decommissioned after final data in 2022."
+  },
+  "superseded_by": null,
+  "technology": {
+    "confidence": "verified",
+    "locator": "abstract (arXiv:1007.0290)",
+    "note": "",
+    "quote": "A six-meter off-axis Gregorian telescope feeds a new type of cryogenic receiver, the Millimeter Bolometer Array Camera.",
+    "sources": [
+      "src:c2-cmb-act-receiver"
+    ],
+    "value": "Six-metre off-axis Gregorian telescope feeding a cryogenic millimetre-wave bolometer camera (MBAC, then ACTPol and Advanced ACTPol receivers).",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "other",
+  "technology_classes": [
+    "other"
+  ],
+  "type": "detector"
+}

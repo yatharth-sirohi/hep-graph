@@ -1,0 +1,153 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "distinct_from": [],
+  "experiment_ids": [
+    "experiment:agasa"
+  ],
+  "id": "detector:agasa",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "1990",
+      "label": "construction",
+      "locator": "Chronology, Showa 62 (1987)",
+      "note": "End 1990: \"The 100km2 wide area air shower detector, AGASA, was completed at Akeno.\" (same chronology, Heisei 2).",
+      "quote": "The construction of the 100km2 wide-area air shower detector, AGASA, started at the Akeno Observatory.",
+      "sources": [
+        "src:c2-cr-icrr-history-chronology"
+      ],
+      "start": "1987",
+      "status": "construction",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "2004-01",
+      "label": "operation",
+      "locator": "Overview",
+      "note": "The AGASA results page gives the data epoch of the published spectrum as \"Feb. 17, 1990 -- Jul. 31, 2002\". Sokolsky & Thomson give \"Full operation of the array began in 1993\"; Anchordoqui et al. (hep-ph/0206072) say \"The full AGASA experiment has been running since 1992\"; see the log.",
+      "quote": "The AGASA had been in operation as the world's largest air-shower array for 13 years since 1990, but was terminated in January 2004",
+      "sources": [
+        "src:c2-cr-icrr-akeno-observatory-facility-page"
+      ],
+      "start": "1990",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "operation ended",
+      "locator": "Overview",
+      "note": "Start is the termination month; observation was handed over to Telescope Array.",
+      "quote": "The AGASA had been in operation as the world's largest air-shower array for 13 years since 1990, but was terminated in January 2004",
+      "sources": [
+        "src:c2-cr-icrr-akeno-observatory-facility-page"
+      ],
+      "start": "2004-01",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "AGASA surface and muon detector array",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": "2004-01",
+      "locator": "AGASA home page",
+      "note": "",
+      "quote": "We constructed a very large surface array at the Akeno Observatory (35o 47' N, 138o 30' E)",
+      "role": "main",
+      "site_id": "site:akeno-observatory",
+      "sources": [
+        "src:c2-cr-agasa-official-page"
+      ],
+      "start": "1990",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:c2-cr-agasa-official-page",
+    "src:c2-cr-sokolsky-thomson"
+  ],
+  "specs": {
+    "altitude": {
+      "approx": false,
+      "confidence": "approximate",
+      "dimension": "length",
+      "display": "900 m",
+      "locator": "Information block",
+      "note": "Altitude of the Akeno Observatory, the centre of the array.",
+      "quote": "Altitude : 900m (average atmospheric pressure: 910 hPa)",
+      "sources": [
+        "src:c2-cr-icrr-akeno-observatory-facility-page"
+      ],
+      "unit": "m",
+      "value": 900,
+      "verified_at": "2026-10-26"
+    },
+    "area": {
+      "approx": true,
+      "confidence": "verified",
+      "dimension": "area",
+      "display": "~100 km²",
+      "locator": "AGASA home page",
+      "note": "",
+      "quote": "AGASA covers an area of about 100 km2",
+      "sources": [
+        "src:c2-cr-agasa-official-page"
+      ],
+      "unit": "km^2",
+      "value": 100,
+      "verified_at": "2026-10-26"
+    },
+    "station_count": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "count",
+      "display": "111 surface detectors",
+      "locator": "AGASA home page",
+      "note": "",
+      "quote": "consists of 111 detectors on the ground (surface detectors)",
+      "sources": [
+        "src:c2-cr-agasa-official-page"
+      ],
+      "unit": "",
+      "value": 111,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "A field of 111 scintillator panels spread over 100 square kilometres, wired together by optical fibre to catch the particle showers of the most energetic cosmic rays.",
+    "technical": "AGASA: 111 plastic-scintillator surface detectors (2.2 m2 each) at about 1 km spacing, 27 muon detectors under absorbers (0.5 GeV muon threshold), optical-fibre data links, central computer control; covered about 100 km2."
+  },
+  "superseded_by": null,
+  "technology": {
+    "confidence": "verified",
+    "locator": "AGASA home page",
+    "note": "",
+    "quote": "the detectors are sequentially connected with a pair of optical fibers.",
+    "sources": [
+      "src:c2-cr-agasa-official-page"
+    ],
+    "value": "Array of plastic-scintillator surface detectors on a roughly 1 km grid, linked by optical fibres, with shielded muon detectors.",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "air_shower_array",
+  "technology_classes": [
+    "air_shower_array"
+  ],
+  "type": "detector"
+}

@@ -1,0 +1,76 @@
+{
+  "aliases": [],
+  "altitude": {
+    "approx": true,
+    "confidence": "approximate",
+    "dimension": "length",
+    "display": "2800 m",
+    "locator": "section 2 \"Site\"",
+    "note": "Physical altitude of the South Pole site generally, quoted as 2800 m in the SPT instrument paper; NSF gives approximately 2,835 m for the station. Not a survey of the Dark Sector.",
+    "quote": "The average pressure altitude in winter is 3300 m (cf. 2800 m physical altitude).",
+    "sources": [
+      "src:c2-cmb-spt-instrument"
+    ],
+    "unit": "m",
+    "value": 2800,
+    "verified_at": "2026-10-26"
+  },
+  "coordinates": {
+    "confidence": "approximate",
+    "kind": "detector",
+    "lat": -90.0,
+    "locator": "BICEP1 characterization paper (arXiv:0906.4069), Figure 1 caption; NSF station page; CMB-S4 sites page",
+    "lon": 0.0,
+    "note": "No source consulted publishes latitude/longitude for the Dark Sector buildings. The BICEP1 and BICEP2 papers place the Dark Sector Laboratory 800 m from the geographic South Pole, the DASI paper places the Martin A. Pomerantz Observatory (MAPO) 0.7 km from it, and the CMB-S4 page describes the Dark Sector as about 1 km from the station. The pole (90 S, longitude degenerate, recorded as 0) is therefore used as the anchor with precision_m = 1000; this is not a surveyed position and its direction from the pole is not sourced. Same anchor convention as the existing IceCube and ARA sites.",
+    "precision_m": 1000,
+    "quote": "looking out through the roof of the Dark Sector Laboratory (DSL) building located 800 m from the geographic South Pole",
+    "sources": [
+      "src:c2-cmb-bicep1-characterization",
+      "src:icecube-nsf-south-pole-station",
+      "src:c2-cmb-cmbs4-sites"
+    ],
+    "verified_at": "2026-10-26"
+  },
+  "countries": [
+    "AQ"
+  ],
+  "country": "AQ",
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "depth": null,
+  "depth_mwe": null,
+  "depth_rock": null,
+  "distinct_from": [],
+  "facility_id": "facility:amundsen-scott-south-pole-station",
+  "id": "site:south-pole-dark-sector",
+  "links": {
+    "website": null
+  },
+  "name": "South Pole - Dark Sector (SPT, BICEP/Keck, MAPO)",
+  "notes": [
+    "Sourced locations inside the Dark Sector differ: BICEP1, BICEP2 and BICEP3 stand in the Dark Sector Laboratory (DSL, 800 m from the pole); DASI and the Keck Array (and then BICEP Array) sit on the Martin A. Pomerantz Observatory (MAPO) mount, 0.7 km from the pole and about 200 m from the DSL (BICEP1 characterization paper, beam-mapping setup); the SPT stands in the same Dark Sector. No source gives separate coordinates for MAPO, the DSL and the SPT, so one site is used rather than three records on one point.",
+    "Shares its anchor point (the pole, 90 S) with site:south-pole-icecube and site:south-pole-ara; the globe draws them on top of each other."
+  ],
+  "place": {
+    "city": null,
+    "country": "AQ",
+    "region": "Antarctica (Dark Sector, South Pole)"
+  },
+  "schema": "hep-atlas/0.2",
+  "setting": "ice",
+  "sources": [
+    "src:c2-cmb-cmbs4-sites",
+    "src:c2-cmb-bicep1-characterization",
+    "src:icecube-nsf-south-pole-station",
+    "src:c2-cmb-dasi-design",
+    "src:c2-cmb-spt-instrument"
+  ],
+  "summary": {
+    "plain": "The quiet radio-and-microwave zone about a kilometre from the main South Pole station buildings, where the South Pole Telescope, the BICEP and Keck telescopes and earlier microwave experiments such as DASI have mapped the Big Bang afterglow.",
+    "technical": "Dark Sector of the Amundsen-Scott South Pole Station: a low radio-frequency zone about 1 km from the main station housing the Dark Sector Laboratory (BICEP1/2, Keck Array, BICEP3, BICEP Array), the SPT and the Martin A. Pomerantz Observatory (DASI); the baseline South Pole site of the proposed CMB-S4."
+  },
+  "superseded_by": null,
+  "type": "site"
+}

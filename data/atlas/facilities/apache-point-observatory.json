@@ -1,0 +1,102 @@
+{
+  "aliases": [
+    "APO"
+  ],
+  "countries": [
+    "US"
+  ],
+  "country": [
+    "US"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "distinct_from": [],
+  "id": "facility:apache-point-observatory",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "kind": "lifecycle",
+      "label": "SDSS survey operations",
+      "locator": "sdss.org 'Surveys' page, introduction",
+      "note": "Interval records when the Sloan Digital Sky Survey began using the site (first light 1998, routine operations 2000); it is not the observatory founding date, which no fetched source gives. The page does not itself name the site in that sentence; the site is named on the SDSS instruments page.",
+      "quote": "saw first light on its giant mosaic camera in 1998 and entered routine operations in 2000",
+      "sources": [
+        "src:c2-de-sdss-surveys-page"
+      ],
+      "start": "1998",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "kind": "astronomical_observatory",
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "locator": "apo.nmsu.edu home page, 'About Us'",
+      "note": "",
+      "quote": "Apache Point Observatory is operated by the Astrophysical Research Consortium as a research-grade facility housing several astronomical telescopes.",
+      "sources": [
+        "src:c2-de-apo-homepage"
+      ],
+      "value": "https://www.apo.nmsu.edu/",
+      "verified_at": "2026-10-26"
+    }
+  },
+  "name": "Apache Point Observatory",
+  "notes": [
+    "The observatory founding date is not stated on any page fetched; the interval above is the SDSS hosting interval only.",
+    "The SDSS collaboration page says SDSS telescopes are operated by New Mexico State University at Apache Point and funded by ARC; the APO homepage says APO is operated by ARC; both statements are cited where used."
+  ],
+  "operator": {
+    "confidence": "verified",
+    "locator": "apo.nmsu.edu home page, 'About Us'",
+    "note": "",
+    "quote": "Apache Point Observatory is operated by the Astrophysical Research Consortium as a research-grade facility housing several astronomical telescopes.",
+    "sources": [
+      "src:c2-de-apo-homepage"
+    ],
+    "value": "Astrophysical Research Consortium",
+    "verified_at": "2026-10-26"
+  },
+  "operator_ids": [],
+  "operator_text": null,
+  "primary_site_id": "site:apache-point-sdss-2-5m-telescope",
+  "related_facility_ids": [],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:c2-de-apo-homepage",
+    "src:c2-de-apo-information-page",
+    "src:c2-de-sdss-instruments-page"
+  ],
+  "specs": {
+    "altitude": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "2788 m",
+      "locator": "apo.nmsu.edu page header",
+      "note": "",
+      "quote": "Elev. 2788 m",
+      "sources": [
+        "src:c2-de-apo-homepage"
+      ],
+      "unit": "m",
+      "value": 2788,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "active",
+  "summary": {
+    "plain": "An observatory in the Sacramento Mountains of southern New Mexico. Its Sloan Foundation 2.5-metre telescope has carried the Sloan Digital Sky Survey, including the BOSS and eBOSS dark-energy surveys.",
+    "technical": "Observatory in the Sacramento Mountains, New Mexico, at 2788 m, owned and managed by the Astrophysical Research Consortium; hosts the SDSS 2.5-m telescope used for SDSS, BOSS and eBOSS."
+  },
+  "superseded_by": null,
+  "topic_ids": [
+    "topic:dark-energy",
+    "topic:cosmology"
+  ],
+  "type": "facility"
+}

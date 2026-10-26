@@ -1,0 +1,116 @@
+{
+  "aliases": [
+    "Atacama Astronomical Park",
+    "Parque Astronómico de Atacama",
+    "PAA"
+  ],
+  "countries": [
+    "CL"
+  ],
+  "country": [
+    "CL"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "distinct_from": [],
+  "id": "facility:parque-astronomico-atacama",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "kind": "lifecycle",
+      "label": "first CMB telescope operating in the park area (ACT)",
+      "locator": "abstract (arXiv:1007.0290); ACT DR6 maps paper (arXiv:2503.14451), section 1",
+      "note": "Start is the commissioning of ACT, the earliest sourced instrument in the area that the later literature places in the Parque Astronómico Atacama (ACT DR6 maps paper: \"ACT was a 6-meter off-axis Gregorian telescope, located at 5190 meters altitude in the Parque Astronómico Atacama\"). The park itself received its formal concession only in 2014 (next row); CONICYT states that two projects were already operating in the area at that time.",
+      "quote": "The telescope was commissioned in 2007 and has completed its third year of operations.",
+      "sources": [
+        "src:c2-cmb-act-receiver",
+        "src:c2-cmb-act-dr6-maps"
+      ],
+      "start": "2007",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "kind": "phase",
+      "label": "territorial concession presented; park opened by CONICYT",
+      "locator": "news item \"Conicyt opens Atacama Astronomical Park\", paragraph 3",
+      "note": "The news item is headed \"Published 10-01-2014\" (day-month-year) and says CONICYT \"opened the Atacama Astronomical Park\" on receipt of the 50-year territorial concession; the page does not state the ceremony date separately, so the publication date is used.",
+      "quote": "The Minister of National Assets, Rodrigo Perez, presented the Territorial Concession 50 years the President (s) CONICYT, Mateo Budinich, an area of 36.381,02 hectares in the area called Pampa La Bola, Llano de Chajnantor, municipality of San Pedro de Atacama",
+      "sources": [
+        "src:c2-cmb-conicyt-paa"
+      ],
+      "start": "2014-01-10",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "kind": "astronomical_observatory",
+  "links": {
+    "website": null
+  },
+  "name": "Parque Astronómico Atacama",
+  "notes": [
+    "No website for the park itself is recorded: no park site was fetched. CONICYT's astronomy news page is cited for the opening and the concession.",
+    "Sourced site names differ by experiment (ACT: \"slopes of Cerro Toco\"; POLARBEAR: \"James Ax Observatory ... on Cerro Toco\"; CLASS: \"Cerro Toco\"; Simons Observatory: \"near the summit of Cerro Toco\"); all four are on Cerro Toco within about a kilometre of each other and all four papers/pages place them in the Parque Astronómico Atacama. See the four site records.",
+    "SWGO (proposed) is hosted here at Pampa La Bola; its site record carries only a regional-anchor coordinate because no source gives Pampa La Bola's longitude. The park's concession page names \"the area called Pampa La Bola, Llano de Chajnantor\"."
+  ],
+  "operator": {
+    "confidence": "approximate",
+    "locator": "news item, paragraph 3",
+    "note": "The 2014 concession was presented to the president of CONICYT. Later papers (ACT DR6 maps, 2025) cite the Agencia Nacional de Investigación y Desarrollo (ANID) as the agency under whose auspices ACT operated in the park; the CONICYT-to-ANID succession is not stated in any fetched source, so the 2014 holder is recorded.",
+    "quote": "The Minister of National Assets, Rodrigo Perez, presented the Territorial Concession 50 years the President (s) CONICYT, Mateo Budinich, an area of 36.381,02 hectares in the area called Pampa La Bola, Llano de Chajnantor, municipality of San Pedro de Atacama",
+    "sources": [
+      "src:c2-cmb-conicyt-paa"
+    ],
+    "value": "CONICYT (Comisión Nacional de Investigación Científica y Tecnológica), holder of the park's territorial concession",
+    "verified_at": "2026-10-26"
+  },
+  "operator_ids": [],
+  "operator_text": null,
+  "primary_site_id": "site:act-cerro-toco",
+  "related_facility_ids": [],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:c2-cmb-conicyt-paa",
+    "src:c2-cmb-so-about",
+    "src:c2-cmb-cmbs4-sites",
+    "src:c2-cmb-act-dr6-maps",
+    "src:c2-cmb-lambda-class",
+    "src:c2-swgo-site-selection-2024"
+  ],
+  "specs": {
+    "area": {
+      "approx": false,
+      "confidence": "derived",
+      "dimension": "area",
+      "display": "363.8 km² (36,381.02 hectares)",
+      "locator": "news item, paragraph 3",
+      "note": "The source gives hectares (\"36.381,02\"); 1 ha = 0.01 km^2 gives 363.8102 km^2.",
+      "quote": "an area of 36.381,02 hectares in the area called Pampa La Bola, Llano de Chajnantor",
+      "sources": [
+        "src:c2-cmb-conicyt-paa"
+      ],
+      "unit": "km^2",
+      "value": 363.8102,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "active",
+  "summary": {
+    "plain": "A high-altitude desert park in northern Chile reserved for astronomy. Several microwave telescopes that map the afterglow of the Big Bang stand on and near Cerro Toco inside it, including the Atacama Cosmology Telescope, the Simons Observatory, POLARBEAR/Simons Array and CLASS. The planned SWGO gamma-ray observatory is to be built on a nearby plateau in the same park.",
+    "technical": "Astronomical park of about 36,000 ha on the Llano de Chajnantor (San Pedro de Atacama, Antofagasta Region), held by CONICYT under a 50-year territorial concession from January 2014. Hosts ground-based CMB experiments at ~5200 m on Cerro Toco: ACT (2007-2022), POLARBEAR/Simons Array, CLASS and the Simons Observatory; the baseline Chilean site of the proposed CMB-S4 (cancelled 2025). Also the chosen host site (Pampa La Bola, 4770 m) of the proposed SWGO gamma-ray observatory, selected August 2024."
+  },
+  "superseded_by": null,
+  "topic_ids": [
+    "topic:cmb",
+    "topic:cosmology",
+    "topic:astroparticle-physics",
+    "topic:gamma-rays"
+  ],
+  "type": "facility"
+}

@@ -1,0 +1,96 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "distinct_from": [],
+  "experiment_ids": [
+    "experiment:cmb-s4"
+  ],
+  "id": "detector:cmb-s4",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2025-07-09",
+      "label": "proposed",
+      "locator": "abstract (arXiv:1610.02743)",
+      "note": "Start is the submission date of the CMB-S4 Science Book, the earliest CMB-S4 document read; earlier community planning (Snowmass 2013) is not sourced here. The 2025 DOE/NSF statement calls it \"a proposed next generation project\".",
+      "quote": "This book lays out the scientific goals to be addressed by the next-generation ground-based cosmic microwave background experiment, CMB-S4, envisioned to consist of dedicated telescopes at the South Pole, the high Chilean Atacama plateau and possibly a northern hemisphere site",
+      "sources": [
+        "src:c2-cmb-cmbs4-science-book"
+      ],
+      "start": "2016-10-10",
+      "status": "proposed",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "cancelled",
+      "locator": "home page, first paragraph",
+      "note": "The DOE/NSF statement of 9 July 2025, quoted on the project page: \"DOE and NSF have jointly decided that they can no longer support the CMB-S4 Project.\" The page adds: \"The CMB-S4 Project is proceeding with an orderly shutdown of the project, documenting the technical advances, survey simulations and instrumentation designs created by the project, and preserving access to the extensive document archive.\" The Atlas status `cancelled` is the closest enum value to \"can no longer support\"; the source does not use the word.",
+      "quote": "On July 9, 2025, the U.S. Department of Energy (DOE), Office of Science, Office of High Energy Physics and the U.S. National Science Foundation (NSF) issued a statement informing the CMB-S4 Project that",
+      "sources": [
+        "src:c2-cmb-cmbs4-home"
+      ],
+      "start": "2025-07-09",
+      "status": "cancelled",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "CMB-S4 telescopes (proposed)",
+  "notes": [
+    "Instrument was never built; the record exists so the experiment has a located placement."
+  ],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "locator": "CMB-S4 sites page, South Pole section",
+      "note": "\"proposed sites for the CMB-S4 small ... and large ... aperture telescopes\" in the Dark Sector. The Chilean telescopes were to stand in the Parque Astronómico Atacama (baseline: Cerro Toco, arXiv:1907.04473) but no site record exists for that unbuilt location, so only the South Pole placement is drawn.",
+      "quote": "A mock-up of the Dark Sector at the South Pole, showing the current SPT and BICEP/Keck telescopes (left) together with the proposed sites for the CMB-S4 small (center and center-right) and large (right) aperture telescopes.",
+      "role": "main",
+      "site_id": "site:south-pole-dark-sector",
+      "sources": [
+        "src:c2-cmb-cmbs4-sites"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:c2-cmb-cmbs4-experiment",
+    "src:c2-cmb-cmbs4-sites",
+    "src:c2-cmb-cmbs4-home"
+  ],
+  "specs": {},
+  "status": "cancelled",
+  "subsystems": [],
+  "summary": {
+    "plain": "A planned set of large and small microwave telescopes at the South Pole and in Chile, meant to detect primordial gravitational waves. In July 2025 the US DOE and NSF said they could no longer support the project.",
+    "technical": "Proposed Stage-4 ground-based CMB experiment: large- and small-aperture telescopes with predominantly dichroic detectors in 11 bands at the South Pole (Dark Sector) and the Parque Astronómico Atacama; never built."
+  },
+  "superseded_by": null,
+  "technology": {
+    "confidence": "verified",
+    "locator": "experiment overview, paragraph 3",
+    "note": "",
+    "quote": "It will use predominantly dichoric detectors (sensitive to two observing frequencies at once) to cover 11 observing bands",
+    "sources": [
+      "src:c2-cmb-cmbs4-experiment"
+    ],
+    "value": "Large and small aperture telescopes with predominantly dichroic detectors covering 11 observing bands.",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "other",
+  "technology_classes": [
+    "other"
+  ],
+  "type": "detector"
+}

@@ -1,0 +1,115 @@
+{
+  "aliases": [
+    "LSST Camera",
+    "Simonyi Survey Telescope"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "distinct_from": [],
+  "experiment_ids": [
+    "experiment:rubin-lsst"
+  ],
+  "id": "detector:simonyi-survey-telescope-lsst-camera",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2025-10",
+      "label": "construction",
+      "locator": "Rubin 'History' page",
+      "note": "",
+      "quote": "In 2015 a traditional stone-laying ceremony was held on Cerro Pachón, in Chile, to commemorate the official start of construction.",
+      "sources": [
+        "src:c2-de-rubin-history"
+      ],
+      "start": "2015",
+      "status": "construction",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "operations",
+      "locator": "Rubin survey-strategy site, 'LSST Overview'",
+      "note": "Sources disagree on the month: the Rubin survey-strategy page says \"as of June 29, 2026\"; the Rubin LSST page says \"in June 2026\"; the Rubin About page says \"in July 2026\"; the DOE Office of Science announcement is dated 30 June 2026. 29 June 2026 is used (the only day-precision statement from a Rubin page).",
+      "quote": "Rubin Observatory has begun the 10-year Legacy Survey of Space and Time (LSST) as of June 29, 2026.",
+      "sources": [
+        "src:c2-de-rubin-survey-strategy-progress"
+      ],
+      "start": "2026-06-29",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "Simonyi Survey Telescope and LSST Camera",
+  "notes": [
+    "The detector operations interval starts at the LSST survey start; the commissioning interval is recorded on the experiment."
+  ],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "locator": "Rubin 'History' page",
+      "note": "Start is the month the LSST Camera was installed on the telescope; the telescope structure and mirrors reached the summit in 2018.",
+      "quote": "In March 2025, the LSST Camera — the largest digital camera in the world — was installed on the telescope",
+      "role": "main",
+      "site_id": "site:cerro-pachon-simonyi-survey-telescope",
+      "sources": [
+        "src:c2-de-rubin-history"
+      ],
+      "start": "2025-03",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:c2-de-noirlab-simonyi-survey-telescope",
+    "src:c2-de-lsst-desc-homepage",
+    "src:c2-de-rubin-history"
+  ],
+  "specs": {
+    "diameter": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "8.4 meters",
+      "locator": "NOIRLab Simonyi Survey Telescope page",
+      "note": "Diameter of the primary mirror (M1), which is a combined primary/tertiary surface.",
+      "quote": "Primary M1 8.4 meters",
+      "sources": [
+        "src:c2-de-noirlab-simonyi-survey-telescope"
+      ],
+      "unit": "m",
+      "value": 8.4,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "active",
+  "subsystems": [],
+  "summary": {
+    "plain": "An 8.4-metre telescope with a very short, wide view and a 3.2-gigapixel camera, built to photograph the entire visible southern sky every few nights.",
+    "technical": "Simonyi Survey Telescope (8.4 m combined primary/tertiary, 3.42 m secondary, 3.5-degree field) with the 3.2-gigapixel LSST Camera (64 cm focal plane)."
+  },
+  "superseded_by": null,
+  "technology": {
+    "confidence": "verified",
+    "locator": "NOIRLab Simonyi Survey Telescope page",
+    "note": "",
+    "quote": "3.5-degree field of view covering a 64 cm diameter flat focal plane",
+    "sources": [
+      "src:c2-de-noirlab-simonyi-survey-telescope"
+    ],
+    "value": "8.4 m reflecting survey telescope with a 3.5-degree field of view covering a 64 cm diameter flat focal plane, carrying the 3.2-gigapixel LSST Camera.",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "other",
+  "technology_classes": [
+    "other"
+  ],
+  "type": "detector"
+}

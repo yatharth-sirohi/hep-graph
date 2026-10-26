@@ -1,0 +1,220 @@
+{
+  "accelerator_ids": [],
+  "aliases": [
+    "SDSS"
+  ],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:sdss"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "distinct_from": [],
+  "energy_regime": null,
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:apache-point-observatory",
+      "locator": "sdss.org 'Instruments' page",
+      "note": "SDSS-V also observes from Las Campanas Observatory, Chile (not recorded here).",
+      "quote": "The SDSS uses a dedicated 2.5-m f/5 modified Ritchey-Chrétien altitude-azimuth telescope located at Apache Point Observatory, in south east New Mexico",
+      "role": "host",
+      "sources": [
+        "src:c2-de-sdss-instruments-page"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:sdss",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2000",
+      "label": "first light and commissioning",
+      "locator": "sdss.org 'Surveys' page, introduction",
+      "note": "Year precision only.",
+      "quote": "saw first light on its giant mosaic camera in 1998 and entered routine operations in 2000",
+      "sources": [
+        "src:c2-de-sdss-surveys-page"
+      ],
+      "start": "1998",
+      "status": "commissioning",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "2008",
+      "kind": "phase",
+      "label": "SDSS-I/II",
+      "locator": "sdss.org 'Surveys' page, section headings",
+      "note": "SDSS-II is dated 2005-2008 on the same page.",
+      "quote": "SDSS: Prior Surveys (2000-2008)",
+      "sources": [
+        "src:c2-de-sdss-surveys-page"
+      ],
+      "start": "2000",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "2014",
+      "kind": "phase",
+      "label": "SDSS-III",
+      "locator": "sdss.org 'Surveys' page, section headings",
+      "note": "",
+      "quote": "SDSS-III: Prior Surveys (2008-2014)",
+      "sources": [
+        "src:c2-de-sdss-surveys-page"
+      ],
+      "start": "2008",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "2020",
+      "kind": "phase",
+      "label": "SDSS-IV",
+      "locator": "sdss.org 'Surveys' page, section headings",
+      "note": "",
+      "quote": "SDSS-IV: Surveys (2014-2020)",
+      "sources": [
+        "src:c2-de-sdss-surveys-page"
+      ],
+      "start": "2014",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "kind": "phase",
+      "label": "SDSS-V",
+      "locator": "sdss.org 'Surveys' page, section SDSS-V",
+      "note": "The collaboration page says SDSS-V \"began collecting data in October 2020 and is expected to run through 2027\"; a next phase is in planning for January 2027.",
+      "quote": "The SDSS-V Pioneering Panoptic Spectroscopy program started observing in October 2020",
+      "sources": [
+        "src:c2-de-sdss-surveys-page"
+      ],
+      "start": "2020-10",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Telescope aperture",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "length",
+        "display": "2.5-m",
+        "locator": "sdss.org 'Instruments' page",
+        "note": "",
+        "quote": "The SDSS uses a dedicated 2.5-m f/5 modified Ritchey-Chrétien altitude-azimuth telescope",
+        "sources": [
+          "src:c2-de-sdss-instruments-page"
+        ],
+        "unit": "m",
+        "value": 2.5,
+        "verified_at": "2026-10-26"
+      }
+    },
+    {
+      "label": "Objects with spectra, first five years",
+      "quantity": {
+        "approx": true,
+        "confidence": "verified",
+        "dimension": "count",
+        "display": "700,000 celestial objects",
+        "locator": "sdss.org 'Surveys' page, section SDSS (2000-2008)",
+        "note": "Lower bound: \"more than 700,000\".",
+        "quote": "In its first five years of operations, the SDSS carried out deep multi-color imaging over 8000 square degrees and measured spectra of more than 700,000 celestial objects.",
+        "sources": [
+          "src:c2-de-sdss-surveys-page"
+        ],
+        "unit": "",
+        "value": 700000,
+        "verified_at": "2026-10-26"
+      }
+    }
+  ],
+  "kind": "dark_energy_survey",
+  "lineage": [],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "locator": "sdss.org collaboration page",
+      "note": "",
+      "quote": "SDSS is operated by an international collaboration of hundreds of scientists at numerous institutions around the globe.",
+      "sources": [
+        "src:c2-de-sdss-collaboration-page"
+      ],
+      "value": "https://www.sdss.org/",
+      "verified_at": "2026-10-26"
+    }
+  },
+  "name": "Sloan Digital Sky Survey",
+  "notes": [
+    "external.inspire_experiment is left null: INSPIRE-HEP was not contacted (STREAM_RULES forbid it), so no INSPIRE experiment recid could be fetched.",
+    "Structure decision: SDSS is recorded as the programme, with BOSS (SDSS-III) and eBOSS (SDSS-IV) as their own experiment records because they have their own dark-energy results, dates and target samples; they are tied to this record with same_program lineage rows (carried on the lexicographically smaller id per A1). Atlas kind dark_energy_survey is used for the programme because the BAO measurements of SDSS-I/II, BOSS and eBOSS are its headline cosmology; SDSS-V (Milky Way, Local Volume and Black Hole Mappers) is not a dark-energy survey.",
+    "SDSS-V also observes with the du Pont telescope at Las Campanas Observatory, Chile; that site is not recorded."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "arXiv:astro-ph/0006396, abstract",
+      "note": "",
+      "quote": "a spectroscopic survey of the approximately one million brightest galaxies and 10^5 brightest quasars found in the photometric object catalog produced by the imaging survey",
+      "sources": [
+        "src:c2-de-sdss-technical-summary-arxiv-2000"
+      ],
+      "value": "Image the northern sky in five bands and measure the redshifts of about one million galaxies and 100,000 quasars to map how matter is distributed in the universe.",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:c2-de-sdss-homepage",
+    "src:c2-de-sdss-surveys-page",
+    "src:c2-de-sdss-collaboration-page",
+    "src:c2-de-sdss-instruments-page",
+    "src:c2-de-sdss-technical-summary-arxiv-2000"
+  ],
+  "status": "active",
+  "summary": {
+    "plain": "A decades-long survey of the sky using one dedicated 2.5-metre telescope in New Mexico. Its early phases imaged half the northern sky and mapped a million galaxies in 3D; the BOSS and eBOSS phases measured cosmic expansion. The current phase maps stars and black holes.",
+    "technical": "Programme record for the SDSS 2.5-m telescope survey at Apache Point: SDSS-I/II (2000–2008) imaging and spectroscopy of ~10⁶ galaxies, SDSS-III (BOSS, 2008–2014), SDSS-IV (eBOSS, 2014–2020) and SDSS-V (since October 2020, Milky Way, Local Volume and Black Hole Mappers). Only the early phases and BOSS/eBOSS are dark-energy surveys."
+  },
+  "superseded_by": null,
+  "topic_ids": [
+    "topic:dark-energy",
+    "topic:cosmology",
+    "topic:astroparticle-physics"
+  ],
+  "type": "experiment",
+  "unique_capabilities": [
+    {
+      "confidence": "verified",
+      "locator": "sdss.org 'Instruments' page",
+      "note": "",
+      "quote": "The SDSS uses a dedicated 2.5-m f/5 modified Ritchey-Chrétien altitude-azimuth telescope",
+      "sources": [
+        "src:c2-de-sdss-instruments-page"
+      ],
+      "value": "A dedicated 2.5-m wide-field telescope (3-degree distortion-free field) serving successive survey phases with new instruments, including the BOSS spectrographs used for BOSS, eBOSS and SDSS-V.",
+      "verified_at": "2026-10-26"
+    }
+  ]
+}

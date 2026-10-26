@@ -1,0 +1,155 @@
+{
+  "accelerator_ids": [],
+  "aliases": [
+    "Keck",
+    "BICEP/Keck Array"
+  ],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:bicep-keck"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "distinct_from": [],
+  "energy_regime": null,
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:amundsen-scott-south-pole-station",
+      "locator": "abstract (arXiv:2203.16556)",
+      "note": "",
+      "quote": "For the past decade, the BICEP/Keck collaboration has been operating a series of telescopes at the Amundsen-Scott South Pole Station",
+      "role": "host",
+      "sources": [
+        "src:c2-cmb-bk-latest-2022"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:keck-array",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": {
+        "approx": true,
+        "date": "2019-11",
+        "display": "late 2019",
+        "earliest": "2019-10",
+        "latest": "2019-12"
+      },
+      "label": "observations",
+      "locator": "section 1 (arXiv:2012.04047); LAMBDA \"Keck Array\"",
+      "note": "Observations \"beginning in 2012\" (LAMBDA); the end is \"late 2019\" (arXiv:2203.16556), stored as an approximate November 2019 with the source wording in `display`.",
+      "quote": "The Keck Array consisted of five Bicep2 -like 260 mm aperture receivers and started observations at 150 GHz in 2012.",
+      "sources": [
+        "src:c2-cmb-bicep-array-2020",
+        "src:c2-cmb-lambda-bk"
+      ],
+      "start": "2012",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "decommissioned",
+      "locator": "section 2 (arXiv:2203.16556)",
+      "note": "The proceedings say only \"late 2019\".",
+      "quote": "In late 2019, Keck was decommissioned and replaced by the Bicep Array telescope",
+      "sources": [
+        "src:c2-cmb-bk-latest-2022"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2019-11",
+        "display": "late 2019",
+        "earliest": "2019-10",
+        "latest": "2019-12"
+      },
+      "status": "decommissioned",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Receivers",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "count",
+        "display": "five receivers on one mount",
+        "locator": "section 2 (arXiv:1502.00643)",
+        "note": "",
+        "quote": "The Keck Array consists of five identical receivers on a single telescope mount at the South Pole.",
+        "sources": [
+          "src:c2-cmb-keck-bk5"
+        ],
+        "unit": "",
+        "value": 5,
+        "verified_at": "2026-10-26"
+      }
+    }
+  ],
+  "kind": "cmb",
+  "lineage": [],
+  "links": {
+    "website": {
+      "confidence": "approximate",
+      "locator": "page header",
+      "note": "The site is served on plain http: its TLS certificate has expired (checked 2026-10-26); the page content was read over http.",
+      "quote": "Official website for results from the BICEP/Keck series of CMB polarization experiments",
+      "sources": [
+        "src:c2-cmb-bk-site"
+      ],
+      "value": "http://bicepkeck.org/",
+      "verified_at": "2026-10-26"
+    }
+  },
+  "name": "Keck Array",
+  "notes": [
+    "No INSPIRE experiment id is recorded: INSPIRE was not contacted by this stream."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "abstract (arXiv:1502.00643)",
+      "note": "",
+      "quote": "The Keck Array is a system of cosmic microwave background (CMB) polarimeters, each similar to the BICEP2 experiment.",
+      "sources": [
+        "src:c2-cmb-keck-bk5"
+      ],
+      "value": "Follow up the BICEP2 B-mode observations with more detectors and more frequencies to separate dust from a primordial signal.",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:c2-cmb-keck-bk5",
+    "src:c2-cmb-bicep-array-2020",
+    "src:c2-cmb-bk-latest-2022",
+    "src:c2-cmb-lambda-bk",
+    "src:c2-cmb-bk-site"
+  ],
+  "status": "decommissioned",
+  "summary": {
+    "plain": "Five BICEP2-style telescopes on one mount at the South Pole that watched the same patch of sky as BICEP2 with more detectors and more colours, from 2012 until late 2019 when BICEP Array replaced them.",
+    "technical": "Multi-receiver CMB polarimeter (five 260 mm refractors; 150 GHz, then 95, 220 and 270 GHz) at the South Pole, 2012 to late 2019; with BICEP2 and BICEP3 gives the BK15/BK18 data sets. Replaced by BICEP Array."
+  },
+  "superseded_by": null,
+  "topic_ids": [
+    "topic:cmb",
+    "topic:cosmology"
+  ],
+  "type": "experiment",
+  "unique_capabilities": []
+}

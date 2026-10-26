@@ -1,0 +1,110 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "distinct_from": [],
+  "experiment_ids": [
+    "experiment:flys-eye"
+  ],
+  "id": "detector:flys-eye",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "1981",
+      "label": "Fly's Eye I construction",
+      "locator": "slide \"Construction of Fly's Eye 1\"",
+      "note": "",
+      "quote": "Construction of Fly’s Eye 1 1978-1981",
+      "sources": [
+        "src:c2-cr-uhecr2022-sokolsky-air-fluorescence-history"
+      ],
+      "start": "1978",
+      "status": "construction",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": "1992",
+      "label": "Fly's Eye operating",
+      "locator": "Introduction",
+      "note": "Sokolsky & Thomson (arXiv:0706.1248) say \"The detectors were operated from 1982 to 1992\"; Bertou et al. (astro-ph/0001516) say data taking \"started ... in 1982\". The Fly's Eye group's own final paper says 1981, used here; the start-year disagreement is recorded in the log.",
+      "quote": "which ran from 1981 to 1992",
+      "sources": [
+        "src:c2-cr-fe-anisotropy"
+      ],
+      "start": "1981",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "data taking ended",
+      "locator": "Introduction",
+      "note": "Start is the end year of the original experiment; HiRes succeeded it on the same site.",
+      "quote": "which ran from 1981 to 1992",
+      "sources": [
+        "src:c2-cr-fe-anisotropy"
+      ],
+      "start": "1992",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "Fly's Eye air-fluorescence detector",
+  "notes": [
+    "The placement site is an approximate region marker (see site:dugway-flys-eye)."
+  ],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": "1992",
+      "locator": "Section 5, History",
+      "note": "",
+      "quote": "Dugway, Utah (40deg N, 113 deg W)",
+      "role": "main",
+      "site_id": "site:dugway-flys-eye",
+      "sources": [
+        "src:c2-cr-sokolsky-thomson"
+      ],
+      "start": "1981",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:c2-cr-fe-1995",
+    "src:c2-cr-sokolsky-thomson",
+    "src:c2-cr-fe-anisotropy"
+  ],
+  "specs": {},
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "A pair of mirror-and-camera \"eyes\" that photographed the faint glow cosmic-ray air showers leave in the night sky.",
+    "technical": "Air-fluorescence detector: Fly's Eye I with 67 mirrors (1.5 m diameter, 880 PMT pixels, full-sky coverage) and Fly's Eye II with 36 mirrors, 3.3-3.4 km away, giving monocular and stereo reconstruction at 1017-1020 eV."
+  },
+  "superseded_by": null,
+  "technology": {
+    "confidence": "verified",
+    "locator": "Section 2",
+    "note": "",
+    "quote": "The Fly's Eye is a compound eye of 880 photomultiplier tube (PMT) pixels",
+    "sources": [
+      "src:c2-cr-fe-1995"
+    ],
+    "value": "Two compound eyes of spherical mirrors with photomultiplier-tube cameras that image the fluorescence light of air showers: Fly's Eye I (67 mirrors) and Fly's Eye II (36 mirrors).",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "other",
+  "technology_classes": [
+    "other"
+  ],
+  "type": "detector"
+}

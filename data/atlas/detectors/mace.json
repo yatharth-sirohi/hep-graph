@@ -1,0 +1,153 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "distinct_from": [],
+  "experiment_ids": [
+    "experiment:mace"
+  ],
+  "id": "detector:mace",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": {
+        "approx": true,
+        "date": "2021-09"
+      },
+      "label": "installation and commissioning",
+      "locator": "arXiv:1701.01120, abstract",
+      "note": "As of the January 2017 sensitivity paper the telescope was being installed; the start of construction is not given in any source fetched. The end is the start of regular observations in September 2021 (a 2024 paper calls it newly commissioned).",
+      "quote": "which is presently being installed at Hanle in Ladakh, India",
+      "sources": [
+        "src:c2-gr-mace-sensitivity-arxiv-2017"
+      ],
+      "start": null,
+      "status": "construction",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "regular observations",
+      "locator": "arXiv:2404.01649, section 1",
+      "note": "Regular Crab Nebula observations since September 2021; the 2024 paper reports the first-light analysis of November 2022 to February 2023 data.",
+      "quote": "has been carrying out regular observations of Crab Nebula since September 2021",
+      "sources": [
+        "src:c2-gr-mace-crab-arxiv-2024"
+      ],
+      "start": "2021-09",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "MACE 21 m telescope",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "locator": "arXiv:1701.01120, abstract",
+      "note": "Start is the beginning of regular observations; the telescope was under installation from before 2017.",
+      "quote": "Hanle in Ladakh, India (32^0 46^' 46^\" N, 78^0 58^' 35^\" E) at an altitude of 4270 m a.s.l.",
+      "role": "main",
+      "site_id": "site:hanle-gamma-ray-site",
+      "sources": [
+        "src:c2-gr-mace-sensitivity-arxiv-2017"
+      ],
+      "start": "2021-09",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:c2-gr-mace-crab-arxiv-2024",
+    "src:c2-gr-mace-sensitivity-arxiv-2017"
+  ],
+  "specs": {
+    "altitude": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "4270 m",
+      "locator": "arXiv:2404.01649, abstract",
+      "note": "",
+      "quote": "installed at an altitude of 4270m above sea level",
+      "sources": [
+        "src:c2-gr-mace-crab-arxiv-2024"
+      ],
+      "unit": "m",
+      "value": 4270,
+      "verified_at": "2026-10-26"
+    },
+    "energy_range": {
+      "confidence": "verified",
+      "locator": "arXiv:2404.01649, abstract",
+      "note": "",
+      "quote": "The gamma-rays are detected in an energy range spanning from 80 GeV to ~5 TeV.",
+      "sources": [
+        "src:c2-gr-mace-crab-arxiv-2024"
+      ],
+      "value": "Crab Nebula detected from 80 GeV to about 5 TeV; analysis threshold 80 GeV",
+      "verified_at": "2026-10-26"
+    },
+    "mirror_area": {
+      "approx": true,
+      "confidence": "verified",
+      "dimension": "area",
+      "display": "~337 m2",
+      "locator": "arXiv:1701.01120, section 1",
+      "note": "",
+      "quote": "with a total light collector area of ∼ 337 m2",
+      "sources": [
+        "src:c2-gr-mace-sensitivity-arxiv-2017"
+      ],
+      "unit": "m^2",
+      "value": 337,
+      "verified_at": "2026-10-26"
+    },
+    "telescope_count": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "count",
+      "display": "1 telescope",
+      "locator": "arXiv:2404.01649, abstract",
+      "note": "",
+      "quote": "The Major Atmospheric Cherenkov Experiment (MACE) is a large size (21m) Imaging Atmospheric Cherenkov Telescope (IACT) installed at an altitude of 4270m above sea level at Hanle, Ladakh in northern India.",
+      "sources": [
+        "src:c2-gr-mace-crab-arxiv-2024"
+      ],
+      "unit": "",
+      "value": 1,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "active",
+  "subsystems": [],
+  "summary": {
+    "plain": "A very large dish of 356 mirror panels that focuses the blue light of gamma-ray air showers onto a camera of 1088 light sensors, high in the Himalayas.",
+    "technical": "21 m quasi-parabolic reflector, f-ratio 1.2, focal length 25 m, 356 panels of four spherical aluminium facets (about 337 m2); camera of 1088 PMTs in 68 modules of 16 PMTs, 0.125 deg pixels."
+  },
+  "superseded_by": null,
+  "technology": {
+    "confidence": "verified",
+    "locator": "arXiv:2404.01649, section 2",
+    "note": "",
+    "quote": "The telescope has a 21m diameter quasi-parabolic reflector with an f-ratio of 1.2 and a focal length of 25m.",
+    "sources": [
+      "src:c2-gr-mace-crab-arxiv-2024"
+    ],
+    "value": "21 m quasi-parabolic imaging atmospheric Cherenkov telescope with a 1088-PMT camera.",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "imaging_atmospheric_cherenkov",
+  "technology_classes": [
+    "imaging_atmospheric_cherenkov"
+  ],
+  "type": "detector"
+}

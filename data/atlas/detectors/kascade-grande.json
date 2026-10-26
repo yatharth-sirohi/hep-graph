@@ -1,0 +1,141 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "distinct_from": [],
+  "experiment_ids": [
+    "experiment:kascade-grande"
+  ],
+  "id": "detector:kascade-grande",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2012-12",
+      "label": "KASCADE-Grande operation",
+      "locator": "Section III",
+      "note": "\"KASCADE-Grande has started combined data acquisition with all detector components since the end of 2003.\" End: \"stopped finally the active data acquisition of all its components ... end of 2012\" (Haungs et al., arXiv:1504.06696). The December 2003 to March 2009 range quoted is the span of the analysed data set; operation continued to the end of 2012.",
+      "quote": "The data presented here were taken from December 2003 to March 2009",
+      "sources": [
+        "src:c2-cr-kg-icrc2009",
+        "src:c2-cr-kcdc-paper"
+      ],
+      "start": "2003-12",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "data acquisition stopped",
+      "locator": "abstract",
+      "note": "Start is the month the paper gives (\"end of 2012\").",
+      "quote": "KASCADE and its extension KASCADE-Grande stopped finally the active data acquisition of all its components including the radio EAS experiment LOPES end of 2012 after more than 20 years of data taking",
+      "sources": [
+        "src:c2-cr-kcdc-paper"
+      ],
+      "start": "2012-12",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "Grande array with the KASCADE detectors",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": "2012-12",
+      "locator": "Research Subject",
+      "note": "Campus-grade placement: the sources give the array position only to 0.1 degree.",
+      "quote": "The experiment was situated on site of the former Forschungszentrum Karlsruhe (now Karlsruhe Institute of Technology, KIT, 49,1°N, 8,4°O) at 110m a.s.l",
+      "role": "main",
+      "site_id": "site:kit-campus-north",
+      "sources": [
+        "src:c2-cr-kascade-grande-official-page"
+      ],
+      "start": "2003-12",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:c2-cr-kg-knee",
+    "src:c2-cr-kascade-grande-official-page"
+  ],
+  "specs": {
+    "altitude": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "110 m",
+      "locator": "Research Subject",
+      "note": "",
+      "quote": "at 110m a.s.l",
+      "sources": [
+        "src:c2-cr-kascade-grande-official-page"
+      ],
+      "unit": "m",
+      "value": 110,
+      "verified_at": "2026-10-26"
+    },
+    "area": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "area",
+      "display": "0.49 km² (700 m × 700 m)",
+      "locator": "Section \"Experiment\"",
+      "note": "700 m × 700 m converted to km2.",
+      "quote": "spread over an area of 700 × 700 m2",
+      "sources": [
+        "src:c2-cr-kg-knee"
+      ],
+      "unit": "km^2",
+      "value": 0.49,
+      "verified_at": "2026-10-26"
+    },
+    "station_count": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "count",
+      "display": "37 stations",
+      "locator": "Section \"Experiment\"",
+      "note": "",
+      "quote": "consists of the Grande array with 37 stations of 10 m2 scintillation detectors each",
+      "sources": [
+        "src:c2-cr-kg-knee"
+      ],
+      "unit": "",
+      "value": 37,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "Thirty-seven scintillator stations spread over about half a square kilometre, running together with the original KASCADE detectors.",
+    "technical": "KASCADE-Grande: Grande array (37 stations of 10 m2, 700 m × 700 m) plus the KASCADE array, muon tracking detector and calorimeter; triggered by the Piccolo cluster for full efficiency above about 1016 eV."
+  },
+  "superseded_by": null,
+  "technology": {
+    "confidence": "verified",
+    "locator": "Section \"Experiment\"",
+    "note": "",
+    "quote": "consists of the Grande array with 37 stations of 10 m2 scintillation detectors each, spread over an area of 700 × 700 m2",
+    "sources": [
+      "src:c2-cr-kg-knee"
+    ],
+    "value": "Array of 37 scintillator stations (10 m2 each) spread over 700 m × 700 m, operated together with the KASCADE detectors.",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "air_shower_array",
+  "technology_classes": [
+    "air_shower_array",
+    "tracking_calorimeter"
+  ],
+  "type": "detector"
+}

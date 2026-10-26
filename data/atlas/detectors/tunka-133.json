@@ -1,0 +1,136 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "distinct_from": [],
+  "experiment_ids": [
+    "experiment:tunka-133"
+  ],
+  "id": "detector:tunka-133",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "Tunka-133 operation",
+      "locator": "abstract",
+      "note": "The April 2021 arXiv text says the array \"is taking data since 2009\"; the TAIGA collaboration's 2022 overview says \"in 2012 we finished deployment of the Tunka-133 array\" (six satellite clusters were added in 2011). No later statement that the array is still running was read, so \"active\" with an open end is the last reported state.",
+      "quote": "is taking data since 2009",
+      "sources": [
+        "src:c2-cr-tunka133"
+      ],
+      "start": "2009",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "Tunka-133 Cherenkov light array",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "locator": "Section 2",
+      "note": "Valley-scale placement; see site:tunka-valley.",
+      "quote": "in the Tunka valley 50 km to the west from Lake Baikal (51.49 N, 103.04 E)",
+      "role": "main",
+      "site_id": "site:tunka-valley",
+      "sources": [
+        "src:c2-cr-taiga-2022"
+      ],
+      "start": "2009",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:c2-cr-tunka133",
+    "src:c2-cr-taiga-2022"
+  ],
+  "specs": {
+    "altitude": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "670 m",
+      "locator": "Section 2",
+      "note": "",
+      "quote": "The Tunka-133 array is located at an altitude of 670 m a.s.l.",
+      "sources": [
+        "src:c2-cr-tunka133"
+      ],
+      "unit": "m",
+      "value": 670,
+      "verified_at": "2026-10-26"
+    },
+    "area": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "area",
+      "display": "3 km²",
+      "locator": "Section 2",
+      "note": "",
+      "quote": "arranged over an area of 3 km2",
+      "sources": [
+        "src:c2-cr-taiga-2022"
+      ],
+      "unit": "km^2",
+      "value": 3,
+      "verified_at": "2026-10-26"
+    },
+    "energy_range": {
+      "confidence": "verified",
+      "locator": "abstract",
+      "note": "",
+      "quote": "in the energy range from 6 · 1015 to 1018 eV",
+      "sources": [
+        "src:c2-cr-tunka133"
+      ],
+      "value": "6 × 10¹⁵ to 10¹⁸ eV",
+      "verified_at": "2026-10-26"
+    },
+    "station_count": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "count",
+      "display": "175 detectors",
+      "locator": "Section 2",
+      "note": "",
+      "quote": "It consists of 175 optical detectors",
+      "sources": [
+        "src:c2-cr-tunka133"
+      ],
+      "unit": "",
+      "value": 175,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "active",
+  "subsystems": [],
+  "summary": {
+    "plain": "175 light detectors in 25 clusters that record the blue Cherenkov flash of cosmic-ray air showers on dark nights.",
+    "technical": "Tunka-133: 175 optical detectors in 25 hexagonal clusters (six plus one central) over about 3 km2 at 670 m; PMT-based Cherenkov-light lateral-distribution measurement; winter-season operation."
+  },
+  "superseded_by": null,
+  "technology": {
+    "confidence": "verified",
+    "locator": "Section 2",
+    "note": "",
+    "quote": "The detectors are grouped into 25 clusters with seven detectors each",
+    "sources": [
+      "src:c2-cr-tunka133"
+    ],
+    "value": "Array of 175 photomultiplier-based optical detectors (in 25 clusters of seven) measuring the Cherenkov light of air showers at night.",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "air_shower_array",
+  "technology_classes": [
+    "air_shower_array"
+  ],
+  "type": "detector"
+}

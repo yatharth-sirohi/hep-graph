@@ -1,0 +1,193 @@
+{
+  "accelerator_ids": [],
+  "aliases": [
+    "Extended Baryon Oscillation Spectroscopic Survey",
+    "SDSS-IV eBOSS"
+  ],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:sdss"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "distinct_from": [],
+  "energy_regime": null,
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:apache-point-observatory",
+      "locator": "arXiv:1508.04473, abstract",
+      "note": "",
+      "quote": "The Extended Baryon Oscillation Spectroscopic Survey (eBOSS) will conduct novel cosmological observations using the BOSS spectrograph at Apache Point Observatory.",
+      "role": "host",
+      "sources": [
+        "src:c2-de-eboss-overview-arxiv-2015"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:eboss",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2019-03",
+      "kind": "run",
+      "label": "dark-time observations",
+      "locator": "sdss.org eBOSS page, 'eBOSS Technical Details'",
+      "note": "",
+      "quote": "Dark-time observations July 2014 – March 2019",
+      "sources": [
+        "src:c2-de-sdss-eboss-page"
+      ],
+      "start": "2014-07",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "observations completed",
+      "locator": "sdss.org eBOSS page, 'eBOSS Technical Details'",
+      "note": "Final measurements and cosmological interpretation were made public on 20 July 2020 (same page).",
+      "quote": "Dark-time observations July 2014 – March 2019",
+      "sources": [
+        "src:c2-de-sdss-eboss-page"
+      ],
+      "start": "2019-03",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Fibres per plate",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "count",
+        "display": "1000 fibers per 7-square-degree plate",
+        "locator": "sdss.org eBOSS page, 'eBOSS Technical Details'",
+        "note": "",
+        "quote": "1000 fibers per 7-square-degree plate",
+        "sources": [
+          "src:c2-de-sdss-eboss-page"
+        ],
+        "unit": "",
+        "value": 1000,
+        "verified_at": "2026-10-26"
+      }
+    },
+    {
+      "label": "Planned luminous red galaxies",
+      "quantity": {
+        "approx": false,
+        "confidence": "approximate",
+        "dimension": "count",
+        "display": "300,000 luminous red galaxies",
+        "locator": "sdss.org eBOSS page, 'eBOSS Technical Details'",
+        "note": "Design target stated on the survey page, not the achieved number.",
+        "quote": "300,000 luminous red galaxies over 6,000 square degrees, 0.6 < z < 1.0",
+        "sources": [
+          "src:c2-de-sdss-eboss-page"
+        ],
+        "unit": "",
+        "value": 300000,
+        "verified_at": "2026-10-26"
+      }
+    },
+    {
+      "label": "Planned quasars",
+      "quantity": {
+        "approx": false,
+        "confidence": "approximate",
+        "dimension": "count",
+        "display": "500,000 quasars",
+        "locator": "sdss.org eBOSS page, 'eBOSS Technical Details'",
+        "note": "Design target stated on the survey page, not the achieved number.",
+        "quote": "500,000 quasars over 6,000 square degrees, 0.8 < z < 3.5",
+        "sources": [
+          "src:c2-de-sdss-eboss-page"
+        ],
+        "unit": "",
+        "value": 500000,
+        "verified_at": "2026-10-26"
+      }
+    }
+  ],
+  "kind": "dark_energy_survey",
+  "lineage": [
+    {
+      "confidence": "verified",
+      "experiment_id": "experiment:sdss",
+      "locator": "sdss.org 'Surveys' page, section SDSS-IV",
+      "note": "eBOSS is the cosmology survey of SDSS-IV.",
+      "quote": "The latest generation of the SDSS (SDSS-IV, 2014-2020) is extending precision cosmological measurements to a critical early phase of cosmic history (eBOSS)",
+      "relation": "same_program",
+      "sources": [
+        "src:c2-de-sdss-surveys-page"
+      ],
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "locator": "sdss.org eBOSS page",
+      "note": "",
+      "quote": "The Extended Baryon Oscillation Spectroscopic Survey (eBOSS)",
+      "sources": [
+        "src:c2-de-sdss-eboss-page"
+      ],
+      "value": "https://www.sdss.org/surveys/eboss/",
+      "verified_at": "2026-10-26"
+    }
+  },
+  "name": "eBOSS",
+  "notes": [
+    "external.inspire_experiment is left null: INSPIRE-HEP was not contacted (STREAM_RULES forbid it), so no INSPIRE experiment recid could be fetched.",
+    "eBOSS data are part of the SDSS Collaboration; no separate eBOSS collaboration record exists.",
+    "No predecessor lineage to BOSS is recorded: the fetched pages call eBOSS a survey of a later SDSS generation that reuses the BOSS spectrographs and combines with BOSS results, but none uses the word predecessor or successor."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "arXiv:1508.04473, abstract",
+      "note": "",
+      "quote": "eBOSS will use four different tracers to measure the distance-redshift relation with baryon acoustic oscillations (BAO).",
+      "sources": [
+        "src:c2-de-eboss-overview-arxiv-2015"
+      ],
+      "value": "Measure the distance-redshift relation with baryon acoustic oscillations using four tracers: luminous red galaxies, emission-line galaxies, quasars and the Lyman-alpha forest.",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:c2-de-sdss-eboss-page",
+    "src:c2-de-eboss-overview-arxiv-2015",
+    "src:c2-de-eboss-final-cosmology-arxiv-2020",
+    "src:c2-de-sdss-surveys-page"
+  ],
+  "status": "completed",
+  "summary": {
+    "plain": "The Extended Baryon Oscillation Spectroscopic Survey, part of SDSS-IV, mapped galaxies and quasars from when the universe was 3 to 8 billion years old, a critical time when dark energy started to affect its expansion, and measured how fast space was expanding then.",
+    "technical": "SDSS-IV survey with the BOSS spectrographs on the 2.5-m telescope at Apache Point, dark-time observations July 2014 to March 2019: luminous red galaxies (0.6<z<1.0), emission-line galaxies (0.6<z<1.1) and quasars (0.8<z<3.5) for BAO and RSD measurements at 1–2% precision between 0.6<z<2.5."
+  },
+  "superseded_by": null,
+  "topic_ids": [
+    "topic:dark-energy",
+    "topic:cosmology"
+  ],
+  "type": "experiment",
+  "unique_capabilities": []
+}

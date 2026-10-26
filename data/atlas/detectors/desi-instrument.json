@@ -1,0 +1,110 @@
+{
+  "aliases": [
+    "DESI spectrograph system"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "distinct_from": [],
+  "experiment_ids": [
+    "experiment:desi"
+  ],
+  "id": "detector:desi-instrument",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2019-10-22",
+      "label": "construction",
+      "locator": "arXiv:2205.10939, Table 1 (Select Major Milestones of the DESI Project)",
+      "note": "",
+      "quote": "CD-3 Approve Start of Construction 6/22/16",
+      "sources": [
+        "src:c2-de-desi-instrumentation-arxiv-2022"
+      ],
+      "start": "2016-06-22",
+      "status": "construction",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "2020-12-14",
+      "label": "commissioning",
+      "locator": "arXiv:2205.10939, Table 1 (Select Major Milestones of the DESI Project)",
+      "note": "",
+      "quote": "Start of Commissioning 10/22/19",
+      "sources": [
+        "src:c2-de-desi-instrumentation-arxiv-2022"
+      ],
+      "start": "2019-10-22",
+      "status": "commissioning",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "operations",
+      "locator": "arXiv:2205.10939, Table 1 (Select Major Milestones of the DESI Project)",
+      "note": "",
+      "quote": "Start of Survey Validation 12/14/20",
+      "sources": [
+        "src:c2-de-desi-instrumentation-arxiv-2022"
+      ],
+      "start": "2020-12-14",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "DESI instrument (corrector, focal plane, fibre system and spectrographs)",
+  "notes": [
+    "No detector-level specs are recorded beyond the experiment key specs; the telescope itself (Mayall 4-m) belongs to Kitt Peak."
+  ],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "locator": "arXiv:2205.10939, section 1",
+      "note": "Installation spanned 2018 to 2019 (table of milestones: corrector installed 11/30/18, focal plate assembly installed 7/24/19); no single installation date is given, so start is left open.",
+      "quote": "This instrumentation is installed at the 4 m Nicholas U. Mayall telescope at Kitt Peak National Observatory",
+      "role": "main",
+      "site_id": "site:kitt-peak-mayall-telescope",
+      "sources": [
+        "src:c2-de-desi-instrumentation-arxiv-2022"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:c2-de-desi-instrumentation-arxiv-2022"
+  ],
+  "specs": {},
+  "status": "active",
+  "subsystems": [],
+  "summary": {
+    "plain": "The fibre-fed spectroscopic machine mounted on the Mayall telescope: a wide-field lens corrector, 5,020 robotic fibre positioners and ten spectrographs.",
+    "technical": "DESI prime-focus system on the 4-m Mayall telescope: 3.2-deg diameter corrector, 5020 robotic fibre positioners on a 0.812 m focal surface, ten spectrographs covering 360–980 nm at resolution 2000–5000."
+  },
+  "superseded_by": null,
+  "technology": {
+    "confidence": "verified",
+    "locator": "arXiv:2205.10939, abstract",
+    "note": "",
+    "quote": "The ten spectrographs each use a pair of dichroics to split the light into three channels that together record the light from 360 - 980 nm with a resolution of 2000 to 5000.",
+    "sources": [
+      "src:c2-de-desi-instrumentation-arxiv-2022"
+    ],
+    "value": "Prime-focus multi-object fibre spectroscopic system: 5020 robotic fibre positioners feeding ten spectrographs that record 360–980 nm at resolution 2000 to 5000.",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "spectrometer",
+  "technology_classes": [
+    "spectrometer"
+  ],
+  "type": "detector"
+}

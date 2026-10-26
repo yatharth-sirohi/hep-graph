@@ -1,0 +1,126 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "distinct_from": [],
+  "experiment_ids": [
+    "experiment:yakutsk-eas-array"
+  ],
+  "id": "detector:yakutsk-eas-array",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "array operating",
+      "locator": "Section 1",
+      "note": "The same paper's abstract says \"continuously operating for more than 50 years (since 1970)\"; Glushkov et al. (arXiv:0907.0374) say the array \"has been observing UHECR events since 1973\"; a 2025 Yakutsk paper gives \"the entire observation period of 1974-2024\". 1973 is used where the body text and the independent paper agree.",
+      "quote": "it has been continuously operating since 1973",
+      "sources": [
+        "src:c2-cr-yakutsk-status"
+      ],
+      "start": "1973",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "2021",
+      "kind": "phase",
+      "label": "technical modernization",
+      "locator": "Section 2",
+      "note": "\"...and as a result the array was reduced to its minimal area of 5.62 km2.\" Whether observations continued during the modernization is not stated.",
+      "quote": "During the 2019-2021 period a significant technical modernization was conducted",
+      "sources": [
+        "src:c2-cr-yakutsk-giant"
+      ],
+      "start": "2019",
+      "status": "upgrade",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "Yakutsk surface, muon and Cherenkov detector network",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "locator": "\"Array Geometry\" paragraph",
+      "note": "Start is the year the array began continuous operation (see the experiment record).",
+      "quote": "Geographical coordinates of the array are: latitude 61.70 N, longitude 129.40 E, 100 m above sea level (1020 g/cm2)",
+      "role": "main",
+      "site_id": "site:yakutsk-eas-array-oktyomtsy",
+      "sources": [
+        "src:c2-cr-yakutsk-official-eas-page"
+      ],
+      "start": "1973",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:c2-cr-yakutsk-official-eas-page",
+    "src:c2-cr-yakutsk-giant",
+    "src:c2-cr-yakutsk-status"
+  ],
+  "specs": {
+    "altitude": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "100 m",
+      "locator": "\"Array Geometry\" paragraph",
+      "note": "",
+      "quote": "latitude 61.70 N, longitude 129.40 E, 100 m above sea level (1020 g/cm2)",
+      "sources": [
+        "src:c2-cr-yakutsk-official-eas-page"
+      ],
+      "unit": "m",
+      "value": 100,
+      "verified_at": "2026-10-26"
+    },
+    "area": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "area",
+      "display": "5.62 km²",
+      "locator": "Section 2",
+      "note": "",
+      "quote": "the array was reduced to its minimal area of 5.62 km2",
+      "sources": [
+        "src:c2-cr-yakutsk-giant"
+      ],
+      "unit": "km^2",
+      "value": 5.62,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "active",
+  "subsystems": [],
+  "summary": {
+    "plain": "A scattered network of ground scintillators, underground muon detectors and light detectors across about six square kilometres of a river valley.",
+    "technical": "Yakutsk array: stations on a triangular pattern (Trigger-500, Trigger-1000), 49 surface stations over 11 km2 in 2021 and 5.62 km2 after the 2019-2021 modernization, six underground muon detectors, Cherenkov-light PMTs with an autonomous subset since 1995."
+  },
+  "superseded_by": null,
+  "technology": {
+    "confidence": "verified",
+    "locator": "\"Detecting extensive air showers\"",
+    "note": "",
+    "quote": "In our case charged particles are detected by scintillators on the ground, muons are detected by scintillators shielded with soil layer, and Cherenkov light emitted in air by relativistic electrons is observed by photomultiplier tubes (PMT).",
+    "sources": [
+      "src:c2-cr-yakutsk-official-eas-page"
+    ],
+    "value": "Network of ground scintillators for charged particles, soil-shielded scintillators for muons, and photomultipliers for air-Cherenkov light.",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "air_shower_array",
+  "technology_classes": [
+    "air_shower_array"
+  ],
+  "type": "detector"
+}

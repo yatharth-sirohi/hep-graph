@@ -1,0 +1,142 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "distinct_from": [],
+  "experiment_ids": [
+    "experiment:tibet-asgamma"
+  ],
+  "id": "detector:tibet-asgamma",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "Tibet air-shower arrays (Tibet-I, -II, -III)",
+      "locator": "Section 2",
+      "note": "Start of the first (Tibet-I) array at Yangbajing. The 2002 text says that array ran three years before many scintillation counters were added (Tibet-II). The ICRR chronology dates the construction of the \"air shower gamma ray detector in Tibet\" to 1993 and its completion to 1997 (Heisei 5 and 9). No source read reconciles the two.",
+      "quote": "After three years of operation, starting in 1990, of the Tibet-I array",
+      "sources": [
+        "src:c2-cr-tibet-diffuse-2002"
+      ],
+      "start": "1990",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "kind": "phase",
+      "label": "Tibet-III array",
+      "locator": "abstract",
+      "note": "",
+      "quote": "The Tibet-III air shower array, consisting of 533 scintillation detectors, has been operating successfully at Yangbajing in Tibet, China since 1999.",
+      "sources": [
+        "src:c2-cr-tibet-crab-2009"
+      ],
+      "start": "1999",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "kind": "phase",
+      "label": "air-shower array with underground muon detectors",
+      "locator": "Section I",
+      "note": "The underground water-Cherenkov muon-detector (MD) array, about 3,400 m2, beneath the air-shower array; a 100 m2 prototype was built in 2007. Allows hadron rejection above 100 TeV.",
+      "quote": "Since the beginning of 2014, a water-Cherenkov-type MD array with a total area of",
+      "sources": [
+        "src:c2-cr-tibet-2019"
+      ],
+      "start": "2014",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "Tibet air-shower array and underground muon-detector array",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "locator": "first paragraph",
+      "note": "",
+      "quote": "In collaboration with China, an air shower observation array is built at Yangbajing (4300m above sea level, 90.53 deg E,30.11 deg N) in Tibet, China to observe high-energy cosmic rays.",
+      "role": "main",
+      "site_id": "site:yangbajing-cosmic-ray-observatory",
+      "sources": [
+        "src:c2-cr-tibet-official-experiment-page"
+      ],
+      "start": "1990",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:c2-cr-tibet-official-experiment-page",
+    "src:c2-cr-tibet-2019",
+    "src:c2-cr-tibet-2021"
+  ],
+  "specs": {
+    "altitude": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "4300 m",
+      "locator": "first paragraph",
+      "note": "",
+      "quote": "Yangbajing (4300m above sea level, 90.53 deg E,30.11 deg N)",
+      "sources": [
+        "src:c2-cr-tibet-official-experiment-page"
+      ],
+      "unit": "m",
+      "value": 4300,
+      "verified_at": "2026-10-26"
+    },
+    "area": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "area",
+      "display": "65,700 m²",
+      "locator": "Section II",
+      "note": "",
+      "quote": "The current AS array, covering an area of 65,700 m2",
+      "sources": [
+        "src:c2-cr-tibet-2019"
+      ],
+      "unit": "m^2",
+      "value": 65700,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "active",
+  "subsystems": [],
+  "summary": {
+    "plain": "Scintillator panels over about 65,000 square metres of the Tibetan plateau, with underground water tanks that tell gamma-ray showers from cosmic-ray showers.",
+    "technical": "Tibet AS array (597 scintillation detectors of 0.5 m2 in 2019, 65,700 m2) plus underground water-Cherenkov muon-detector array (3,400 m2, since 2014); angular resolution about 1 degree measured with the Moon's shadow."
+  },
+  "superseded_by": null,
+  "technology": {
+    "confidence": "verified",
+    "locator": "description",
+    "note": "",
+    "quote": "Each counter has a plate of plastic scintillator, 0.5 m2 in area and 3 cm in thickness, equipped with a 2-inch-in-diameter photomultiplier tube (PMT).",
+    "sources": [
+      "src:c2-cr-tibet-official-experiment-page"
+    ],
+    "value": "Array of plastic-scintillator detectors measuring air-shower arrival time and density, with an underground water-Cherenkov muon-detector array for gamma/hadron discrimination.",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "air_shower_array",
+  "technology_classes": [
+    "air_shower_array",
+    "water_cherenkov"
+  ],
+  "type": "detector"
+}
