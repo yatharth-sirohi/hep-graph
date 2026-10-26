@@ -37,8 +37,10 @@
 // then spread over name and subtitle, then through a topic. The type order
 // (experiment before facility before ...) and shorter names break ties.
 
-//: Which kind of thing a person most likely means when several records match.
-export const TYPE_ORDER = ['experiment', 'facility', 'collaboration', 'site', 'detector',
+//: Which kind of thing a person most likely means when several records match. A view (a chart, a
+//: section) has a name of its own and few rivals for it, so when it matches as well as a record does,
+//: "energy frontier" and "going underground" lead to the chart and not to a topic of the same words.
+export const TYPE_ORDER = ['view', 'experiment', 'facility', 'collaboration', 'site', 'detector',
   'accelerator', 'beamline', 'topic', 'result', 'document', 'institution'];
 
 // Question words and fillers: "where was the Higgs discovered" is about the

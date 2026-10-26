@@ -664,7 +664,11 @@ function frontierCta(accelerator) {
   let hint;
   if (entry.plotted) {
     const row = entry.plotted;
-    hint = `${frontier.energyText(row.energy.gev)} ${row.collider ? '\u221as' : 'beam energy'} \u00b7 began operating ${row.start.year}`;
+    const quantity = row.collider ? '\u221as' : 'beam energy';
+    const steps = row.points.filter((point) => point.kind === 'era');
+    hint = steps.length > 1
+      ? `${quantity}: ${steps.map((point) => `${frontier.energyText(point.gev)} (${point.year})`).join(' \u2192 ')}`
+      : `${frontier.energyText(row.points[0].gev)} ${quantity}${row.points[0].kind === 'today' ? ', as recorded today' : ` from ${row.points[0].year}`} \u00b7 began operating ${row.first.year}`;
   } else {
     hint = `Not plotted: ${entry.skipped.reason}`;
   }

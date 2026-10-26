@@ -29,20 +29,28 @@ Branch `atlas-m4-charts`, 2026-10-26. Working titles (the owner names features):
 
 ### The energy frontier
 
-* **Eligible:** a numeric energy in the field for the machine's kind and a dated start of operation: 28 of 31 accelerators.
-* **Field:** `is_collider` → `specs.cms_energy` (√s, filled marker); otherwise `specs.beam_energy` (hollow). The two are different quantities and the chart says so; it never derives √s from beam energies (KEKB records only per-ring beam energies and is listed as not plotted).
-* **Operating beats design:** where an `active` interval carries its own value of the field (A3, `Interval.specs`: the LHC's runs, LEP1/LEP2, CEBAF's 4 and 6 GeV, RHIC's Run 22), the latest such interval gives the energy and the headline `specs` value is footnoted (†) if it differs. Otherwise the record's stated value is drawn.
-* **Year:** the start of the first `active` interval (a planned date is not a start). A machine is drawn once, at that year, even if it ran lower when it began.
+A first version drew each machine once, at its first operating year and its latest operating energy (the Tevatron at 1.96 TeV in 1985, the LHC at 13.6 TeV in 2010). That is wrong physics for a Livingston chart and was replaced by the rules below.
+
+* **Eligible:** a machine with a dated start of operation (the start of its first `active` interval; a planned date is not a start) and an energy: an era's own value, or the headline value.
+* **Field:** `is_collider` -> `specs.cms_energy` (√s, filled marker); otherwise `specs.beam_energy` (hollow). The two are different quantities and the chart says so; it never derives √s from beam energies (KEKB records only per-ring beam energies and is listed as not plotted).
+* **One point per era:** an era is an interval of status `active` (kind `run`, `phase` or none) whose own `specs` carry the field (A3, A30). Its point stands at that interval's start year; the points of a machine are joined by a thin line in its colour. The first point is the first operation.
+* **Energy as recorded today:** where no era dates an energy to the start, the headline `specs` value is drawn once at the first-operation year with a **dashed ring**, and the point, the legend and the table say "Energy as recorded today; the starting energy is not in the Atlas." The same point is added in front of a track whose first era starts after the first operation (RHIC). It is not joined to the track.
+* **Headline value no era dates** (the LHC's 14 TeV design value, CEBAF's 12 GeV): footnoted (†), not drawn.
+* **A range** (PSB's "0.8 to 1 GeV" era) has no single value and is not drawn.
 * **Colour and shape:** the first particle the record lists: electrons/positrons, protons (also antiprotons and H⁻), ions (also deuterons and alphas).
-* **Timeline:** machines that began after the selected year (or after the end of a range) fade, a line stands at the year, and the table rows fade.
+* **Timeline:** points whose year is after the selected year (or after the end of a range) fade, with the line segment that ends at them; a machine's name fades when all its points have; a line stands at the year.
+* **Sentence under the title** is computed: "The highest √s in the Atlas is the LHC's: 7 TeV (2010) → 13 TeV (2015) → 13.6 TeV (2022)."
+* **Search:** `view` is first in `searchrank.js` TYPE_ORDER and the view carries the alias "energy frontier" (an exact match), so "energy frontier" and "going underground" lead to the views and not to the topic of the same name.
+
+Checked on this branch's data (28 machines, 33 points, 24 of them dashed) and on a build of `atlas-next` (A30: 35 machines, 45 points, 29 dashed; the extra eras are AGS, FNAL Linac, FNAL Main Injector, J-PARC linac, KEK linac, PSB, SPS). A30's data is not on this branch; the code reads eras from any interval's `specs`, so it needs no change when it arrives.
 
 ## Notes for the data owners (not edited here)
 
-* **CEBAF:** the record's headline `beam_energy` is 12 GeV ("after the 2018 upgrade") but the interval for the 2018 upgrade carries no `specs`, so the chart draws the latest *interval* energy, 6 GeV, and footnotes the 12 GeV. Putting 12 GeV on the 2018 interval would move the point.
-* **RHIC:** drawn at 500 GeV (Run 22, polarised p+p), footnoting 200 GeV (Au+Au, the headline). A student expects 200 GeV at 2000; an Au+Au energy on an interval would settle which is "the" energy.
-* **Tevatron** is drawn at 1.96 TeV from 1985; the record gives 1.96 TeV (Run II, 2002) as its one √s and carries no Run I energy.
-* **KEKB** has no `cms_energy` (10.58 GeV); PIP-II has no active interval; HL-LHC has neither.
-* Search: "energy frontier" returns the topic *Collider physics* before the view (type order in `searchrank.js` has no `view`); not changed here.
+* **Most machines are one dashed point.** Only the LHC (three runs), LEP (LEP1, LEP2), CEBAF (4 and 6 GeV) and RHIC (Run 22) carry dated energies on this branch. A dated starting energy would turn a dashed point into a true first point: the **Tevatron** (about 1.8 TeV in Run I, 1.96 TeV from Run II), **HERA**, **SLAC linac**, **SLC**, the **ISR**, **SPS**, **PS**, **KEKB/PEP-II**.
+* **CEBAF:** the headline 12 GeV ("after the 2018 upgrade") is not on any interval; the 2018 upgrade interval carries no `specs`, so the track ends at 6 GeV (2000) with a footnote. Putting 12 GeV on that interval would add its point.
+* **RHIC:** 200 GeV (Au+Au) is the headline and is drawn as recorded today at 2000; Run 22's 500 GeV (polarised p+p) is an era at 2021. The record has no Run 1 or 2001 energy.
+* **KEKB** has no `cms_energy` (10.58 GeV); PIP-II has no active interval; HL-LHC has neither (LEAR has no energy on `atlas-next`).
+* **PS and PSB** carry injection-energy eras (`injection_energy`, not plotted); PSB's 0.8 to 1 GeV extraction era is a range and is skipped.
 
 ## Start-here card
 

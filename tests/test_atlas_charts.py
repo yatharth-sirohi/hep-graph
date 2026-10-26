@@ -34,7 +34,7 @@ const out = {
   energyScaleEv: fr.ENERGY_SCALE_EV,
   flux: Object.fromEntries(ug.undergroundRows(atlas).map((r) => [r.id, r.flux])),
   depthOnly: ug.depthOnlyRows(atlas).map((r) => r.id),
-  energyGeV: Object.fromEntries(fr.frontierRows(atlas).map((r) => [r.id, r.energy.gev])),
+  energyGeV: Object.fromEntries(fr.frontierRows(atlas).map((r) => [r.id, r.points.map((p) => [p.year, p.gev, p.kind])])),
   ticks: chart.logTicks(1e-10, 1e-6).major.map((t) => [t.value, t.label]),
   ticksOffDecade: chart.logTicks(3e-10, 5e-7).major.map((t) => t.label),
   minor: chart.logTicks(1e-3, 1e-1).minor.length,
@@ -92,11 +92,14 @@ def test_every_flux_is_converted_to_cm2_per_s_with_the_a27_scale(result: dict) -
     assert "site:lngs-hall-c" not in result["depthOnly"]
 
 
-def test_energies_are_converted_to_gev(result: dict) -> None:
+def test_energies_are_converted_to_gev_one_point_per_era(result: dict) -> None:
     gev = result["energyGeV"]
-    assert gev["accelerator:fermilab-linac"] == pytest.approx(0.4)  # 400 MeV
-    assert gev["accelerator:sps"] == pytest.approx(450)
-    assert gev["accelerator:lhc"] == pytest.approx(13600)  # Run 3, 13.6 TeV, not the 14 TeV design value
+    # The LHC is three points, one per run, never its 14 TeV design value at its first year.
+    assert gev["accelerator:lhc"] == [[2010, 7000, "era"], [2015, 13000, "era"], [2022, 13600, "era"]]
+    assert gev["accelerator:lep"] == [[1989, 91, "era"], [1995, 209, "era"]]
+    # A machine whose record dates no energy is one point at its first operation, marked as recorded today.
+    assert gev["accelerator:linac2"] == [[1978, pytest.approx(0.05), "today"]]  # 50 MeV in GeV
+    assert gev["accelerator:fermilab-tevatron"][0][2] == "today"
 
 
 def test_log_axis_ticks_are_decades_with_superscripts(result: dict) -> None:

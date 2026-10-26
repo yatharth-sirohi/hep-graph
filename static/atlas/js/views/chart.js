@@ -6,11 +6,13 @@
 //     id, title, description,                     the SVG's accessible name and description
 //     x: { kind: 'linear', domain: [1000, 7000], label: 'Depth (m.w.e.)' },
 //     y: { kind: 'log',    domain: [1e-10, 1e-6],  label: 'Muon flux (cm⁻² s⁻¹)' },
-//     points: [{ id, x, y, yErr: [lo, hi]?, label, shape, tone, hollow, href, aria, tip: [lines], priority }],
+//     points: [{ id, x, y, yErr: [lo, hi]?, label, shape, tone, hollow, ring, group, href, aria, tip: [lines], priority }],
+//     lines: [{ tone, ids: [pointId, ...] }],      thin lines joining points in order (a machine's track)
 //     legend: [{ title?, items: [{ shape, tone, hollow, text }] }],
 //     onOpen(point),                              a click, Enter or a click on the label
 //   });
-//   chart.setFaded(ids, note)     points drawn faint (and said so to a screen reader)
+//   chart.setFaded(ids, note)     points drawn faint (and said so to a screen reader); a line fades with the point it
+//                                 ends at, a label with its group (the points sharing `group`) once all of them fade
 //   chart.destroy()
 //
 //   dataTable({ caption, columns, rows })         the same rows as an HTML table
@@ -141,7 +143,8 @@ function rectCircleOverlap(rect, circle) {
 /**
  * Where each point's label goes. `items`: `{ id, x, y, r, w, h, priority }` (the marker's centre and
  * radius, the label's size; higher priority is placed first and kept when room runs out), `bounds`:
- * `{ x0, y0, x1, y1 }`, the area labels may use, `options.omit`: drop a label that cannot be placed
+ * `{ x0, y0, x1, y1 }`, the area labels may use (an item may ask for its label on the left: `side: 'left'`),
+ * `options.segments`: lines `{ x1, y1, x2, y2 }` a label should stay off, `options.omit`: drop a label that cannot be placed
  * clear of the others instead of crowding it, `options.leaderMinPriority`: drop a label that would need
  * a leader line unless its priority is at least this. Returns `Map(id -> { x, y, w, h, leader })`, where
  * (x, y) is the label's top-left corner and `leader` says it sits away from its marker and wants a
@@ -162,6 +165,16 @@ export function placeLabels(items, bounds, options = {}) {
     let total = 0;
     if (!inside(rect)) total += 1e5;
     for (const other of taken) total += overlapArea(rect, other) * 40;
+    // A label stays off the thin lines of the tracks too (about two pixels of cost for each pixel of line it covers).
+    for (const seg of options.segments || []) {
+      const length = Math.hypot(seg.x2 - seg.x1, seg.y2 - seg.y1);
+      const steps = Math.max(1, Math.ceil(length / 3));
+      for (let i = 0; i <= steps; i += 1) {
+        const px = seg.x1 + ((seg.x2 - seg.x1) * i) / steps;
+        const py = seg.y1 + ((seg.y2 - seg.y1) * i) / steps;
+        if (px >= rect.x && px <= rect.x + rect.w && py >= rect.y && py <= rect.y + rect.h) total += 6;
+      }
+    }
     circles.forEach((circle, i) => { if (items[i] !== self) total += rectCircleOverlap(rect, circle) * 6; });
     // The label's own marker too: a label never covers the mark it names.
     total += rectCircleOverlap(rect, { x: self.x, y: self.y, r: self.r + 1 }) * 6;
@@ -194,6 +207,12 @@ export function placeLabels(items, bounds, options = {}) {
         const cy = y + Math.sin(angle) * distance;
         list.push({ x: cx - w / 2, y: cy - hgt / 2, leader: true });
       }
+    }
+    // A marker that is the start of a line (a machine's track runs to the right) prefers its label on the left.
+    if (it.side === 'left') {
+      [list[0], list[1]] = [list[1], list[0]];
+      [list[4], list[6]] = [list[6], list[4]];
+      [list[5], list[7]] = [list[7], list[5]];
     }
     return list.map((c) => ({ ...c, w, h: hgt }));
   };
@@ -269,11 +288,15 @@ export function markerShape(shape, r) {
   }
 }
 
-function legendSwatch({ shape, tone, hollow }) {
-  const svg = s('svg', { class: 'ch-swatch', width: 20, height: 20, viewBox: '-10 -10 20 20', 'aria-hidden': 'true', focusable: 'false' });
-  const mark = markerShape(shape || 'circle', 5.5);
-  mark.setAttribute('class', `ch-mark ch-tone-${tone || 'plain'}${hollow ? ' is-hollow' : ''}`);
-  svg.appendChild(mark);
+function legendSwatch({ shape, tone, hollow, ring, line }) {
+  const svg = s('svg', { class: 'ch-swatch', width: line ? 34 : 22, height: 22, viewBox: line ? '-17 -11 34 22' : '-11 -11 22 22', 'aria-hidden': 'true', focusable: 'false' });
+  if (line) svg.appendChild(s('line', { class: `ch-track ch-tone-${tone || 'plain'}`, x1: -15, x2: 15, y1: 0, y2: 0 }));
+  if (ring) svg.appendChild(s('circle', { class: `ch-ring ch-tone-${tone || 'plain'}`, r: 9 }));
+  if (!line || shape) {
+    const mark = markerShape(shape || 'circle', 5.5);
+    mark.setAttribute('class', `ch-mark ch-tone-${tone || 'plain'}${hollow ? ' is-hollow' : ''}`);
+    svg.appendChild(mark);
+  }
   return svg;
 }
 
@@ -308,6 +331,8 @@ export function createChart(container, spec) {
   let svg = null;
   let fade = { ids: new Set(), note: '' };
   let parts = new Map(); // id -> { link, label, leader, point }
+  let tracks = new Map(); // id of the point a line ends at -> the line
+  let groups = new Map(); // group -> ids of its points
   let geometry = null; // { xs, plot } of the last drawing, for the year marker
   let xMarker = null; // { value, text }
   let markerLayer = null;
@@ -346,11 +371,15 @@ export function createChart(container, spec) {
     for (const [id, part] of parts) {
       const faded = fade.ids.has(id);
       part.link.classList.toggle('is-faded', faded);
-      if (part.label) part.label.classList.toggle('is-faded', faded);
-      if (part.leader) part.leader.classList.toggle('is-faded', faded);
+      // A label belongs to a machine, not to one of its points: it fades when all of them have.
+      const group = groups.get(part.point.group || part.point.id) || [id];
+      const labelFaded = group.every((member) => fade.ids.has(member));
+      if (part.label) part.label.classList.toggle('is-faded', labelFaded);
+      if (part.leader) part.leader.classList.toggle('is-faded', labelFaded);
       const base = part.point.aria || part.point.label;
       part.link.setAttribute('aria-label', faded && fade.note ? `${base}. ${fade.note}` : base);
     }
+    for (const [id, line] of tracks) line.classList.toggle('is-faded', fade.ids.has(id));
   }
 
   function paintMarker() {
@@ -440,11 +469,12 @@ export function createChart(container, spec) {
 
     // ---- points
     const markR = compact ? 5.5 : 6.5;
+    const trackLayer = s('g', { class: 'ch-tracks', 'aria-hidden': 'true' });
     const bars = s('g', { class: 'ch-bars', 'aria-hidden': 'true' });
     const leaders = s('g', { class: 'ch-leaders', 'aria-hidden': 'true' });
     const marks = s('g', { class: 'ch-points' });
     const labels = s('g', { class: 'ch-labels', 'aria-hidden': 'true' });
-    node.append(bars, leaders, marks, labels);
+    node.append(trackLayer, bars, leaders, marks, labels);
     const next = new Map();
     const labelNodes = [];
     for (const point of spec.points) {
@@ -465,11 +495,12 @@ export function createChart(container, spec) {
       const g = s('g', { transform: `translate(${f1(cx)} ${f1(cy)})` });
       const mark = markerShape(point.shape || 'circle', markR);
       mark.setAttribute('class', `ch-mark ch-tone-${point.tone || 'plain'}${point.hollow ? ' is-hollow' : ''}`);
-      g.append(
+      g.append(...[
         s('circle', { class: 'ch-hit', r: compact ? 12 : 11 }),
-        s('circle', { class: 'ch-focus', r: markR + 5 }),
+        s('circle', { class: 'ch-focus', r: markR + 6 }),
+        point.ring ? s('circle', { class: `ch-ring ch-tone-${point.tone || 'plain'}`, r: markR + 3.5 }) : null,
         mark,
-      );
+      ].filter(Boolean));
       link.appendChild(g);
       link.addEventListener('click', (event) => activate(point, event));
       link.addEventListener('keydown', (event) => { if (event.key === 'Enter') activate(point, event); });
@@ -480,6 +511,26 @@ export function createChart(container, spec) {
       marks.appendChild(link);
       next.set(point.id, { link, label: null, leader: null, point, cx, cy, bar });
       if (point.label) labelNodes.push(point);
+    }
+
+    // ---- the lines that join a machine's points, drawn under the markers
+    const nextTracks = new Map();
+    for (const line of spec.lines || []) {
+      for (let i = 1; i < line.ids.length; i += 1) {
+        const from = next.get(line.ids[i - 1]);
+        const to = next.get(line.ids[i]);
+        if (!from || !to) continue;
+        const el = s('line', { class: `ch-track ch-tone-${line.tone || 'plain'}`, x1: f1(from.cx), y1: f1(from.cy), x2: f1(to.cx), y2: f1(to.cy) });
+        trackLayer.appendChild(el);
+        nextTracks.set(line.ids[i], el);
+      }
+    }
+    tracks = nextTracks;
+    groups = new Map();
+    for (const point of spec.points) {
+      const key = point.group || point.id;
+      if (!groups.has(key)) groups.set(key, []);
+      groups.get(key).push(point.id);
     }
 
     // ---- labels (measured in place, then moved off each other and off the markers)
@@ -496,9 +547,17 @@ export function createChart(container, spec) {
       const w = box && box.width > 0 ? box.width + 2 : estimateWidth(point.label, labelSize);
       const hgt = box && box.height > 0 ? box.height : labelSize * 1.25;
       const part = next.get(point.id);
-      items.push({ id: point.id, x: part.cx, y: part.cy, r: markR + 1, w, h: hgt, priority: point.priority || 0 });
+      items.push({ id: point.id, x: part.cx, y: part.cy, r: markR + 1, w, h: hgt, priority: point.priority || 0, side: point.labelSide || null });
     }
-    const placement = placeLabels(items, { x0: plot.x0 + 2, y0: plot.y0 - 2, x1: plot.x1 + margin.right - 4, y1: plot.y1 - 2 }, { omit: !!spec.omitCrowdedLabels, leaderMinPriority: compact ? (spec.compactLeaderMinPriority || 0) : 0 });
+    const segments = [];
+    for (const line of spec.lines || []) {
+      for (let i = 1; i < line.ids.length; i += 1) {
+        const from = next.get(line.ids[i - 1]);
+        const to = next.get(line.ids[i]);
+        if (from && to) segments.push({ x1: from.cx, y1: from.cy, x2: to.cx, y2: to.cy });
+      }
+    }
+    const placement = placeLabels(items, { x0: plot.x0 + 2, y0: plot.y0 - 2, x1: plot.x1 + margin.right - 4, y1: plot.y1 - 2 }, { segments, omit: !!spec.omitCrowdedLabels, leaderMinPriority: compact ? (spec.compactLeaderMinPriority || 0) : 0 });
     for (const point of labelNodes) {
       const t = textFor.get(point.id);
       const spot = placement.get(point.id);

@@ -877,7 +877,25 @@ body.is-view-route .atlas-header > .mode-buttons {
 .ch-point:hover .ch-mark {
   stroke: var(--white);
 }
-.ch-point.is-faded .ch-mark {
+/* A dashed ring: the energy is as recorded today and no era dates it to this year. */
+.ch-ring {
+  fill: none;
+  stroke: var(--tone, var(--white));
+  stroke-width: 1.5;
+  stroke-dasharray: 2.5 2.5;
+}
+/* A machine's track: a thin line joining its points in the machine's colour. */
+.ch-track {
+  stroke: var(--tone, var(--white));
+  stroke-width: 1.75;
+  stroke-opacity: 0.75;
+  stroke-linecap: round;
+}
+.ch-track.is-faded {
+  stroke-opacity: 0.25;
+}
+.ch-point.is-faded .ch-mark,
+.ch-point.is-faded .ch-ring {
   opacity: 0.35;
 }
 /* A faded label stays readable (about 4.9:1 on the panel): fading says "not yet", it does not hide the name. */

@@ -9,13 +9,20 @@
 //   * Energy field: a collider is drawn at √s (`specs.cms_energy`), every other machine (a fixed-target
 //     accelerator, a synchrotron, an injector, a booster) at its beam energy (`specs.beam_energy`).
 //     The two are different quantities, so a collider is a filled marker and the rest are hollow.
-//   * Operating energy beats the headline value. A record's `specs` hold its headline energy (often
-//     the design value); `intervals[].specs` hold what a run actually delivered (A3: "values that change
-//     per run"). Where an active interval carries its own value of the field, the latest such interval
-//     gives the plotted energy and the headline value is footnoted if it differs.
-//   * Year: the start of the first interval whose status is `active` (the machine began operating),
-//     read from the date as recorded: a planned date is not a start.
+//   * A machine is a TRACK of points, one per era the record gives an energy for. An era is an interval
+//     of status `active` (a `run`, a `phase`, or a plain interval) whose own `specs` carry the field
+//     (A3, A30: "earlier eras live in intervals with their own specs"). Its point stands at the start
+//     year of that interval. The points of a track are joined by a thin line in the machine's colour.
+//   * Where no era carries an energy, the record's headline `specs` value is drawn once, at the year
+//     the machine began operating, as an "as recorded today" point (a dashed ring): the Atlas dates no
+//     energy to the start, and the chart says so rather than let a machine look as if it began at its
+//     final energy. The same point is added in front of a track whose first era starts after the first
+//     operation (RHIC: first collisions 2000, an energy recorded for 2021 only).
+//   * Where eras exist and the headline value is not one of them (the LHC's 14 TeV design value, CEBAF's
+//     12 GeV), the headline value is footnoted, not drawn: nothing dates it.
 //   * No sourced energy, or no start of operation: not plotted, and listed with the reason.
+//   * A machine's first operation is the start of its first interval of status `active`; a planned
+//     date is not a start.
 
 import { quantityText } from '../model.js';
 
@@ -45,7 +52,8 @@ export function energyGeV(quantity) {
 export function energyText(gev) {
   if (gev >= 1000) return `${Number((gev / 1000).toPrecision(3))} TeV`;
   if (gev >= 1) return `${Number(gev.toPrecision(3))} GeV`;
-  return `${Number((gev * 1000).toPrecision(3))} MeV`;
+  if (gev >= 1e-3) return `${Number((gev * 1000).toPrecision(3))} MeV`;
+  return `${Number((gev * 1e6).toPrecision(3))} keV`;
 }
 
 // ---- dates ----------------------------------------------------------------------
@@ -113,42 +121,18 @@ function statusSummary(intervals) {
   return seen.join(', ');
 }
 
-/** What one accelerator is drawn as, or why it is not: `{ plotted: row }` or `{ skipped: { id, accelerator, reason } }`. */
+/** The footnote on a point whose energy no era dates: the Atlas holds the machine's energy today, not the one it started with. */
+export const AS_RECORDED_TODAY = 'Energy as recorded today; the starting energy is not in the Atlas.';
+
+/** What one accelerator is drawn as, or why it is not: `{ plotted: machine }` or `{ skipped: { id, accelerator, reason } }`. A
+ * machine is `{ id, slug, accelerator, name, label, collider, field, family, particles, first, points, other }`; a point is
+ * `{ id, index, year, month, approx, gev, quantity, kind: 'era' | 'today', label, pointer }`. */
 export function frontierEntry(accelerator) {
   const field = FIELD_OF(accelerator);
   const intervals = accelerator.intervals || [];
   const reasons = [];
 
-  // ---- the energy
-  const headline = (accelerator.specs || {})[field] || null;
-  const headlineGeV = energyGeV(headline);
-  const own = intervals
-    .map((interval, index) => ({ interval, index, quantity: (interval.specs || {})[field] || null }))
-    .filter(({ interval, quantity }) => interval.status === 'active' && energyGeV(quantity) != null);
-  const start = (entry) => {
-    const date = parseDate(entry.interval.start);
-    return date ? dateKey(date) : -Infinity;
-  };
-  own.sort((a, b) => (start(a) - start(b)) || (a.index - b.index));
-  const operating = own.length ? own[own.length - 1] : null;
-  let energy = null;
-  if (operating) {
-    energy = {
-      quantity: operating.quantity, gev: energyGeV(operating.quantity), kind: 'interval', index: operating.index,
-      pointer: `/intervals/${operating.index}/specs/${field}`, label: operating.interval.label || 'operating interval',
-    };
-  } else if (headlineGeV != null) {
-    energy = { quantity: headline, gev: headlineGeV, kind: 'specs', index: null, pointer: `/specs/${field}`, label: 'the record’s stated value' };
-  } else if (accelerator.is_collider) {
-    const beam = (accelerator.specs || {}).beam_energy;
-    reasons.push(beam
-      ? `A collider with no sourced centre-of-mass energy (√s). It records a beam energy (${quantityText(beam)}), but the chart draws a collider at √s and does not derive one.`
-      : 'A collider with no sourced centre-of-mass energy (√s) and no beam energy.');
-  } else {
-    reasons.push('No sourced beam energy.');
-  }
-
-  // ---- the start of operation
+  // ---- the first operation
   const active = intervals
     .map((interval, index) => ({ interval, index, date: parseDate(interval.start) }))
     .filter(({ interval, date }) => interval.status === 'active' && date && !date.planned);
@@ -161,20 +145,44 @@ export function frontierEntry(accelerator) {
       : `Not yet operating: its recorded intervals are ${statusSummary(intervals) || 'absent'}, none of them active, so it has no start of operation.`);
   }
 
-  if (reasons.length) return { skipped: { id: accelerator.id, accelerator, reason: reasons.join(' ') } };
+  // ---- the eras that carry an energy of their own, in order
+  const headline = (accelerator.specs || {})[field] || null;
+  const headlineGeV = energyGeV(headline);
+  const eras = active
+    .map(({ interval, index, date }) => ({ interval, index, date, quantity: (interval.specs || {})[field] || null }))
+    .filter(({ quantity }) => energyGeV(quantity) != null);
 
-  // ---- the footnote: the headline value, when the operating one replaced a different one
-  let other = null;
-  if (operating && headline && headlineGeV != null && Math.abs(headlineGeV - energy.gev) > 1e-9 * energy.gev) {
-    other = { quantity: headline, gev: headlineGeV, pointer: `/specs/${field}` };
-  }
-  // ---- the energies the record gives for its own runs, in order
-  const history = own.map(({ interval, index, quantity }) => ({
-    label: interval.label || 'run', year: (parseDate(interval.start) || {}).year || null, quantity, gev: energyGeV(quantity), index,
+  const points = eras.map(({ interval, index, date, quantity }, n) => ({
+    index: n, year: date.year, month: date.month, approx: date.approx, gev: energyGeV(quantity), quantity, kind: 'era',
+    label: interval.label || 'era', pointer: `/intervals/${index}/specs/${field}`, startPointer: `/intervals/${index}`,
   }));
 
+  if (!points.length && headlineGeV == null) {
+    if (accelerator.is_collider) {
+      const beam = (accelerator.specs || {}).beam_energy;
+      reasons.push(beam
+        ? `A collider with no sourced centre-of-mass energy (\u221as). It records a beam energy (${quantityText(beam)}), but the chart draws a collider at \u221as and does not derive one.`
+        : 'A collider with no sourced centre-of-mass energy (\u221as) and no beam energy.');
+    } else {
+      reasons.push('No sourced beam energy.');
+    }
+  }
+  if (reasons.length) return { skipped: { id: accelerator.id, accelerator, reason: reasons.join(' ') } };
+
+  // ---- the point for the first operation, when no era dates an energy to it
+  let other = null;
+  if (headlineGeV != null && (!points.length || points[0].year > first.date.year)) {
+    points.unshift({
+      index: 0, year: first.date.year, month: first.date.month, approx: first.date.approx, gev: headlineGeV, quantity: headline,
+      kind: 'today', label: first.interval.label || 'first operation', pointer: `/specs/${field}`, startPointer: `/intervals/${first.index}`,
+    });
+    points.forEach((point, n) => { point.index = n; });
+  } else if (headlineGeV != null && !points.some((point) => Math.abs(point.gev - headlineGeV) <= 1e-9 * headlineGeV)) {
+    other = { quantity: headline, gev: headlineGeV, pointer: `/specs/${field}` };
+  }
+  for (const point of points) point.id = `${accelerator.id}#${point.index}`;
+
   const families = (accelerator.particles || []).map(particleFamily);
-  const family = families[0] || 'other';
   return {
     plotted: {
       id: accelerator.id,
@@ -184,20 +192,19 @@ export function frontierEntry(accelerator) {
       label: shortName(accelerator),
       collider: !!accelerator.is_collider,
       field,
-      energy,
+      points,
       other,
-      history,
-      start: {
+      first: {
         year: first.date.year, month: first.date.month, approx: first.date.approx, index: first.index,
         label: first.interval.label || '', pointer: `/intervals/${first.index}`,
       },
-      family,
+      family: families[0] || 'other',
       particles: accelerator.particles || [],
     },
   };
 }
 
-/** `{ rows, skipped }`: every accelerator, either plotted (in order of start, then energy) or listed with the reason. */
+/** `{ rows, skipped, points }`: every accelerator, either plotted (a machine with its points, in order of first operation) or listed with the reason. */
 export function frontierData(atlas) {
   const rows = [];
   const skipped = [];
@@ -206,9 +213,9 @@ export function frontierData(atlas) {
     if (entry.plotted) rows.push(entry.plotted);
     else skipped.push(entry.skipped);
   }
-  rows.sort((a, b) => (a.start.year - b.start.year) || (a.energy.gev - b.energy.gev) || (a.id < b.id ? -1 : 1));
+  rows.sort((a, b) => (a.first.year - b.first.year) || (a.points[0].gev - b.points[0].gev) || (a.id < b.id ? -1 : 1));
   skipped.sort((a, b) => (a.id < b.id ? -1 : 1));
-  return { rows, skipped };
+  return { rows, skipped, points: rows.flatMap((row) => row.points.map((point) => ({ ...point, machine: row }))) };
 }
 
 export function frontierRows(atlas) {
@@ -221,11 +228,12 @@ export function frontierFor(atlas, acceleratorId) {
   return accelerator ? frontierEntry(accelerator) : null;
 }
 
-/** True when the machine had started operating by the selected timeline position: a year, or a range (its last year). */
-export function startedBy(row, timelineState) {
+/** True when a point's year is not after the selected timeline position: a year, or a range (its last year). A machine's
+ * first point is the year it began operating, so this is also whether the machine had started. */
+export function startedBy(point, timelineState) {
   if (!timelineState) return true;
-  if (timelineState.range) return row.start.year <= timelineState.range[1];
-  if (timelineState.year != null) return row.start.year <= timelineState.year;
+  if (timelineState.range) return point.year <= timelineState.range[1];
+  if (timelineState.year != null) return point.year <= timelineState.year;
   return true;
 }
 
@@ -243,6 +251,9 @@ export function frontierSearchEntries(atlas) {
     id: `view:${VIEW_NAME}`,
     name: WORKING_TITLE,
     aliases: [
+      // The title without its article, so "energy frontier" matches exactly (and, with `view` first in the
+      // search's type order, leads here and not to the topic of the same name).
+      'energy frontier',
       'Livingston chart',
       'Livingston plot',
       'accelerator energy against year',

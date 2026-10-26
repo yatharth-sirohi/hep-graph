@@ -3006,12 +3006,21 @@ async function openFilters(page) {
     const d = typeof iv.start === "string" ? iv.start : (iv.start && !iv.start.planned ? iv.start.date : null);
     return d && /^\d{4}/.test(d) ? Number(d.slice(0, 4)) : null;
   };
+  // One point per era (an active interval whose own specs carry the field), at its start year; a machine whose
+  // record dates no energy to its first operation (or whose first era starts later) also has one "as recorded
+  // today" point at the year it began operating, carrying the headline value.
   const frontierExpected = (atlas) => Object.values(atlas.accelerators).map((a) => {
     const field = a.is_collider ? "cms_energy" : "beam_energy";
-    const hasEnergy = typeof (a.specs && a.specs[field] && a.specs[field].value) === "number"
-      || (a.intervals || []).some((iv) => iv.status === "active" && iv.specs && iv.specs[field] && typeof iv.specs[field].value === "number");
-    const starts = (a.intervals || []).filter((iv) => iv.status === "active").map(startOf).filter((y) => y != null);
-    return { id: a.id, collider: !!a.is_collider, plotted: hasEnergy && starts.length > 0, start: starts.length ? Math.min(...starts) : null };
+    const num = (q) => (q && typeof q.value === "number" ? q.value : null);
+    const active = (a.intervals || []).filter((iv) => iv.status === "active")
+      .map((iv) => ({ iv, year: startOf(iv) })).filter((x) => x.year != null);
+    const first = active.length ? Math.min(...active.map((x) => x.year)) : null;
+    const eras = active.filter((x) => num(x.iv.specs && x.iv.specs[field]) != null).map((x) => x.year).sort((p, q) => p - q);
+    const head = num(a.specs && a.specs[field]);
+    const years = [...eras];
+    let today = false;
+    if (first != null && head != null && (eras.length === 0 || eras[0] > first)) { years.unshift(first); today = true; }
+    return { id: a.id, collider: !!a.is_collider, plotted: first != null && years.length > 0, years, today, eras: eras.length };
   });
   // No two labels of a chart may overlap by more than a few pixels, and none may leave the drawing.
   const labelProblems = (p) => p.evaluate(() => {
@@ -3080,7 +3089,7 @@ async function openFilters(page) {
     await ctx.close();
   });
 
-  await record("The energy frontier: every accelerator with an energy and a start is a point, colliders filled and the rest hollow, later machines fade with the year, a point opens its accelerator", async () => {
+  await record("The energy frontier: a machine is a line of one point per era, never its final energy at its first year; dashed where no era dates the energy; later points fade with the year; a point opens its accelerator", async () => {
     const { ctx, p } = await viewContext();
     await p.goto(viewURL("#/view/energy-frontier"));
     if (!generated) {
@@ -3093,30 +3102,43 @@ async function openFilters(page) {
     const atlas = await loadAtlas(p);
     const expected = frontierExpected(atlas);
     const plotted = expected.filter((e) => e.plotted);
-    assert.equal(plotted.length, 28, "28 of the 31 accelerators are plottable");
-    assert.equal(await p.locator("#ef-chart .ch-point").count(), plotted.length);
-    assert.equal(await p.locator("table.ef-table tbody tr").count(), plotted.length);
-    assert.equal(await p.locator("#ef-chart .ch-point .ch-mark:not(.is-hollow)").count(), plotted.filter((e) => e.collider).length, "colliders are filled");
-    assert.equal(await p.locator("#ef-chart .ch-point .ch-mark.is-hollow").count(), plotted.filter((e) => !e.collider).length, "the rest are hollow");
+    const points = plotted.flatMap((e) => e.years.map((year, i) => ({ id: e.id, collider: e.collider, year, today: e.today && i === 0 })));
+    assert.equal(await p.locator("#ef-chart .ch-point").count(), points.length, "one point per era, plus one for each machine whose energy no era dates");
+    assert.equal(await p.locator("table.ef-table tbody tr").count(), points.length);
+    assert.equal(await p.locator("#ef-chart .ch-point .ch-mark:not(.is-hollow)").count(), points.filter((e) => e.collider).length, "a collider's points are filled");
+    assert.equal(await p.locator("#ef-chart .ch-point .ch-mark.is-hollow").count(), points.filter((e) => !e.collider).length, "every other machine's are hollow");
+    assert.equal(await p.locator("#ef-chart .ch-point .ch-ring").count(), points.filter((e) => e.today).length, "a dashed ring marks each energy that is as recorded today");
+    assert.equal(await p.locator("#ef-chart svg.ch-svg .ch-track").count(), plotted.reduce((n, e) => n + Math.max(0, e.eras - 1), 0), "the eras of a machine are joined by a line");
+    assert.match(await p.locator("#ef-chart .ch-legend").innerText(), /Energy as recorded today; the starting energy is not in the Atlas/);
     // The ones with no point are listed, with the reason.
     const unplotted = await p.locator("table.ef-skipped").innerText();
     for (const name of ["PIP-II", "High-Luminosity LHC", "KEKB"]) assert.match(unplotted, new RegExp(name));
     assert.equal(await p.locator("table.ef-skipped tbody tr").count(), expected.length - plotted.length);
-    // The LHC is drawn at its Run 3 energy and footnotes the design value.
-    assert.match(await p.locator('#ef-chart .ch-point[data-id="accelerator:lhc"]').getAttribute("aria-label"), /13\.6 TeV/);
-    assert.match(await p.locator(".ef-footnotes").innerText(), /LHC: drawn at 13\.6 TeV.*14 TeV \(design\)/);
+    // The LHC is three points, one per run, each at the energy of its run; its 14 TeV design value is footnoted, not drawn.
+    const aria = async (id) => p.locator(`#ef-chart .ch-point[data-id="${id}"]`).getAttribute("aria-label");
+    assert.match(await aria("accelerator:lhc#0"), /7 TeV.*Run 1, from 2010/);
+    assert.match(await aria("accelerator:lhc#1"), /13 TeV.*Run 2, from 2015/);
+    assert.match(await aria("accelerator:lhc#2"), /13\.6 TeV.*Run 3, from 2022/);
+    assert.equal(await p.locator('#ef-chart .ch-point[data-id="accelerator:lhc#3"]').count(), 0, "the design energy is not a point");
+    assert.match(await p.locator(".ef-footnotes").innerText(), /LHC: the record also states 14 TeV \(design\)/);
+    // LEP starts at the Z pole, not at 209 GeV; the Tevatron (no era data) is one dashed point that says so.
+    assert.match(await aria("accelerator:lep#0"), /91 GeV.*1989/);
+    assert.match(await aria("accelerator:lep#1"), /209 GeV.*1995/);
+    assert.match(await aria("accelerator:fermilab-tevatron#0"), /Energy as recorded today; the starting energy is not in the Atlas/);
+    assert.match(await p.locator(".ch-lede").innerText(), /13\.6 TeV \(2022\)/, "the sentence under the title says when the LHC reached 13.6 TeV");
     assert.deepEqual(await labelProblems(p), [], "labels neither overlap nor leave the chart");
-    // The timeline: a year fades the machines that began operating after it.
-    const fadedAt = (year) => plotted.filter((e) => e.start > year).length;
-    await p.goto(viewURL("#/view/energy-frontier", "?y=1985"));
+    // The timeline: a year fades the points for later years, and a machine's later eras with them.
+    const fadedAt = (year) => points.filter((e) => e.year > year).length;
+    await p.goto(viewURL("#/view/energy-frontier", "?y=2012"));
     await p.locator("#ef-chart svg.ch-svg").waitFor();
-    assert.equal(await p.locator("#ef-chart .ch-point.is-faded").count(), fadedAt(1985));
-    assert.match(await p.locator("#ef-year-note").innerText(), new RegExp(`${plotted.length - fadedAt(1985)} of the ${plotted.length}`));
+    assert.equal(await p.locator("#ef-chart .ch-point.is-faded").count(), fadedAt(2012));
+    assert.equal(await p.locator('#ef-chart .ch-point[data-id="accelerator:lhc#0"]').evaluate((el) => el.classList.contains("is-faded")), false, "the LHC had begun by 2012");
+    assert.equal(await p.locator('#ef-chart .ch-point[data-id="accelerator:lhc#2"]').evaluate((el) => el.classList.contains("is-faded")), true, "its 13.6 TeV era had not");
     await setRangeValue(p.locator("#timeline-year"), 2000);
     await p.waitForFunction((n) => document.querySelectorAll("#ef-chart .ch-point.is-faded").length === n, fadedAt(2000));
     assert.match(p.url(), /y=2000/);
     // A point opens its accelerator.
-    await p.locator('#ef-chart .ch-point[data-id="accelerator:lhc"]').click();
+    await p.locator('#ef-chart .ch-point[data-id="accelerator:lhc#0"]').click();
     await p.locator("#detail-panel h2").waitFor();
     assert.match(p.url(), /#\/accelerator\/lhc/);
     assert.match(await p.locator("#detail-panel h2").innerText(), /Large Hadron Collider/);
@@ -3126,7 +3148,7 @@ async function openFilters(page) {
     await p.locator("#view-method > summary").click();
     const method = await p.locator("#view-method").innerText();
     assert.match(method, /copied from UNIT_SCALE/);
-    assert.equal(await p.locator("table.ef-field-table tbody tr").count(), plotted.length);
+    assert.equal(await p.locator("table.ef-field-table tbody tr").count(), points.length);
     assert.match(await p.locator("table.ef-field-table").innerText(), /cms_energy.*\/intervals\/\d+\/specs\/cms_energy/);
     await p.locator('#ef-inputs[data-state="ready"]').waitFor();
     assert.equal(await p.locator("#ef-inputs details.ch-input").count(), plotted.length);
@@ -3149,7 +3171,7 @@ async function openFilters(page) {
     assert.match(p.url(), /#\/facility\/lngs$/);
     await p.goto(viewURL("#/accelerator/lhc"));
     await p.locator("#detail-panel .chart-link").first().waitFor();
-    assert.match(await p.locator("#detail-panel .chart-link").first().innerText(), /The energy frontier[\s\S]*13\.6 TeV/);
+    assert.match(await p.locator("#detail-panel .chart-link").first().innerText(), /The energy frontier[\s\S]*13\.6 TeV \(2022\)/);
     await p.locator("#detail-panel .chart-link").first().click();
     await p.locator("#ef-chart svg.ch-svg").waitFor();
     assert.match(p.url(), /#\/view\/energy-frontier$/);
@@ -3159,7 +3181,7 @@ async function openFilters(page) {
     assert.match(await p.locator("#detail-panel .chart-cta").first().innerText(), /Not plotted/);
     // Search.
     for (const [query, title, route] of [["going underground", "Going underground", "underground"], ["muon flux", "Going underground", "underground"],
-      ["livingston", "The energy frontier", "energy-frontier"]]) {
+      ["livingston", "The energy frontier", "energy-frontier"], ["energy frontier", "The energy frontier", "energy-frontier"]]) {
       await p.locator("#atlas-search").fill(query);
       await p.locator(".search-result").first().waitFor();
       assert.match(await p.locator(".search-result").first().innerText(), new RegExp(title), `"${query}" leads to ${title}`);
