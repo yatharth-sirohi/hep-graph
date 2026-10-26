@@ -1,0 +1,83 @@
+[
+  {
+    "aliases": [
+      "observational cosmology",
+      "precision cosmology",
+      "cosmic frontier: cosmology"
+    ],
+    "id": "topic:cosmology",
+    "name": "Cosmology",
+    "observables": [
+      "Hubble constant",
+      "matter, baryon and dark-energy density parameters",
+      "scalar spectral index and primordial amplitude",
+      "optical depth to reionization",
+      "dark-energy equation of state (w0, wa)",
+      "sum of neutrino masses",
+      "tensor-to-scalar ratio",
+      "amplitude of matter fluctuations (sigma 8)"
+    ],
+    "overview": "Observational cosmology has established a precision cosmological model. The Universe is taken to be a perturbed Robertson-Walker space-time governed by Einstein's equations, with a matter budget built from baryons, photons, neutrinos, dark matter and dark energy; typical comparisons of models with data now feature between five and ten parameters. In the flat LambdaCDM model that the Particle Data Group adopts, fits to Planck CMB temperature, polarization and lensing data give a matter density parameter of 0.315 ± 0.007 and a cosmological-constant density parameter of 0.685 ± 0.007; adding ACT CMB data and DESI DR2 baryon acoustic oscillations moves them to 0.300 ± 0.004 and 0.700 ± 0.004. The highest-precision CMB data come from the Planck satellite, with the ground-based Atacama Cosmology Telescope and South Pole Telescope extending to smaller angular scales, while large galaxy surveys add baryon acoustic oscillations and weak lensing. The PDG notes that LambdaCDM contains two ingredients, dark matter and dark energy, not yet verified by laboratory experiments, and that existing indications against it, the Hubble tension and hints of evolving dark energy, are not securely established.",
+    "parent_id": null,
+    "question": "What is the Universe made of, how has it expanded, and how did its structure form - and do the answers require physics beyond the Standard Model?",
+    "schema": "hep-atlas/0.2",
+    "sources": [
+      "src:topic-pdg-2026-cosmological-parameters",
+      "src:topic-pdg-2026-dark-energy",
+      "src:topic-pdg-2026-cosmic-microwave-background"
+    ],
+    "type": "topic"
+  },
+  {
+    "aliases": [
+      "CMB",
+      "CMB polarization",
+      "B modes"
+    ],
+    "id": "topic:cmb",
+    "name": "Cosmic microwave background",
+    "observables": [
+      "temperature, E-mode and B-mode angular power spectra",
+      "tensor-to-scalar ratio r",
+      "CMB lensing potential power spectrum",
+      "optical depth to reionization",
+      "Sunyaev-Zeldovich cluster counts",
+      "spectral index of scalar perturbations"
+    ],
+    "overview": "The cosmic microwave background, discovered in 1965, dominates the photon number and energy content of the radiation reaching us from beyond the Galaxy. Its spectrum is very well described by a blackbody with T = 2.7255 K, with temperature anisotropies at the 10^-5 level and polarization anisotropies at the 10^-6 level and below. After the COBE, WMAP and Planck satellites, ground-based and balloon-borne experiments, notably the Atacama Cosmology Telescope and the South Pole Telescope, extended maps to small angular scales; the PDG states that the programme to map temperature anisotropies is effectively wrapping up and that attention is increasingly focusing on polarization. Polarization splits into E modes and B modes: inflationary scalar perturbations give only E modes, whereas tensor perturbations generate roughly equal amounts of E and B, so a non-zero primordial B-mode signal would measure the gravitational-wave contribution and potentially the energy scale of inflation. CMB lensing converts E modes into B modes, complicating the extraction of a tensor signal. The current limit on the tensor-to-scalar ratio is r < ~0.04 from BICEP/Keck Array and Planck data, and experiments including the Simons Observatory are expected to push the sensitivity toward r ~ 0.001.",
+    "parent_id": "topic:cosmology",
+    "question": "What does the oldest light in the Universe say about its contents, its geometry and the earliest instants of its history, including inflation?",
+    "schema": "hep-atlas/0.2",
+    "sources": [
+      "src:topic-pdg-2026-cosmic-microwave-background",
+      "src:topic-pdg-2026-cosmological-parameters"
+    ],
+    "type": "topic"
+  },
+  {
+    "aliases": [
+      "cosmic acceleration",
+      "dark energy surveys"
+    ],
+    "id": "topic:dark-energy",
+    "name": "Dark energy",
+    "observables": [
+      "baryon acoustic oscillation distance scale D_M/r_d and H(z)",
+      "equation-of-state parameters w0 and wa",
+      "supernova distance moduli",
+      "weak-lensing shear and galaxy clustering two-point functions",
+      "redshift-space distortions and the growth rate of structure",
+      "galaxy-cluster abundance"
+    ],
+    "overview": "In the late 1990s supernova surveys by two independent teams provided direct evidence for accelerating cosmic expansion, and CMB evidence for a spatially flat Universe cemented the case. A cosmological constant, with equation-of-state parameter w = -1, is the simplest explanation; a new form of energy with negative pressure, or a modification of General Relativity, are alternatives, and the PDG follows common usage in treating \"dark energy\" as a catch-all term for the origin of cosmic acceleration. The main probes are Type Ia supernovae, baryon acoustic oscillations, weak lensing, galaxy clusters and redshift-space distortions. The PDG describes most Stage III experiments as having completed observations; DESI began full operations in May 2021 and its three-year data set includes over 30 million galaxies and quasars. Within LambdaCDM the DESI Collaboration reports a tension of about 2 sigma between BAO and CMB alone, and in all the data combinations the PDG shows, the LambdaCDM values (w0 = -1, wa = 0) lie outside the 95% contour of the w0wa fit; the quoted significance depends on the combination, from 2.8 sigma to 4.2 sigma with supernovae added, and 3.1 sigma for DESI plus CMB. The PDG treats the indications of evolving dark energy as not securely established.",
+    "parent_id": "topic:cosmology",
+    "question": "Why is the expansion of the Universe accelerating - is it a cosmological constant, a new form of energy, or a change to gravity?",
+    "schema": "hep-atlas/0.2",
+    "sources": [
+      "src:topic-pdg-2026-dark-energy",
+      "src:topic-pdg-2026-cosmological-parameters",
+      "src:topic-pdg-2026-cosmic-microwave-background"
+    ],
+    "type": "topic"
+  }
+]
