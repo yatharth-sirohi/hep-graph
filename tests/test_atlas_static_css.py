@@ -16,6 +16,7 @@ STYLESHEETS = [
     ROOT / "static" / "atlas" / "atlas.css",
     ROOT / "static" / "atlas" / "globe.css",
     ROOT / "static" / "atlas" / "phone.css",
+    ROOT / "static" / "atlas" / "classroom.css",
 ]
 
 
@@ -219,3 +220,110 @@ def test_no_literal_status_hex_survives_in_the_stylesheets() -> None:
             if path.name == "atlas.css" and hex_ in ("#7fd1e6", "#7d8b96"):
                 continue  # local-map feature-type colours (beamline, road), not statuses
             assert hex_ not in text, f"{path.name} still carries the retired status colour {hex_}"
+
+
+# ---------------------------------------------------------------------------
+# Projector mode (classroom.css): the light theme is the same tokens redefined, so its
+# contrast is measured from those declarations exactly as the standard theme's is. Body
+# text is held to WCAG AAA (7:1), as a lecture hall's washed-out projector needs.
+# ---------------------------------------------------------------------------
+CLASSROOM_CSS = ROOT / "static" / "atlas" / "classroom.css"
+SURFACES = ("--paper", "--panel", "--panel-2", "--navy", "--navy-2")
+
+
+def _projector() -> dict[str, str]:
+    text = _strip_comments(CLASSROOM_CSS.read_text(encoding="utf-8"))
+    start = text.index(":root[data-theme='projector'] {")
+    block = text[start: text.index("\n}", start) + 2]
+    return dict(re.findall(r"(--[a-z0-9-]+)\s*:\s*([^;]+);", block))
+
+
+def test_projector_theme_redefines_the_surfaces_and_the_text() -> None:
+    projector = _projector()
+    for name in (*SURFACES, "--white", "--muted", "--teal", "--amber", "--danger", "--line", "--line-strong",
+                 "--on-accent", "--on-amber"):
+        assert name in projector, f"projector mode does not redefine {name}"
+    # Light: every surface is lighter than every text colour.
+    for surface in SURFACES:
+        assert _luminance(_rgb(projector[surface])) > 0.6, f"{surface} is not a light surface"
+    assert _luminance(_rgb(projector["--white"])) < 0.05, "body text is near-black on the projector theme"
+
+
+def test_projector_body_text_is_at_least_7_to_1_on_every_surface() -> None:
+    projector = _projector()
+    for name in ("--white", "--muted"):
+        for surface in SURFACES:
+            ratio = _contrast(_rgb(projector[name]), _rgb(projector[surface]))
+            assert ratio >= 7.0, f"{name} is {ratio:.2f}:1 on {surface}; projector body text needs 7:1"
+
+
+def test_projector_accent_text_and_buttons_are_at_least_7_to_1() -> None:
+    projector = _projector()
+    for name in ("--teal", "--amber", "--danger"):
+        for surface in SURFACES:
+            ratio = _contrast(_rgb(projector[name]), _rgb(projector[surface]))
+            assert ratio >= 7.0, f"{name} is {ratio:.2f}:1 on {surface}; accent text needs 7:1 here"
+    for fill, ink in (("--teal", "--on-accent"), ("--amber", "--on-amber")):
+        ratio = _contrast(_rgb(projector[ink]), _rgb(projector[fill]))
+        assert ratio >= 7.0, f"{ink} on {fill} is {ratio:.2f}:1; a filled button's label needs 7:1"
+    for surface in SURFACES:
+        ratio = _contrast(_rgb(projector["--line-strong"]), _rgb(projector[surface]))
+        assert ratio >= 3.0, f"--line-strong is {ratio:.2f}:1 on {surface}; a control's edge needs 3:1"
+
+
+def test_projector_status_palette_keeps_the_standard_palette_guarantees() -> None:
+    projector = _projector()
+    surfaces = [_rgb(projector[n]) for n in ("--paper", "--panel", "--panel-2")]
+    for status, token in STATUS_TOKENS.items():
+        colour = _rgb(projector[token])
+        for surface in surfaces:
+            assert _contrast(colour, surface) >= 3.0, f"{token} is under 3:1 on a projector surface"
+        if status != "unrecorded":
+            ratio = _contrast(colour, _rgb(projector["--panel-2"]))
+            assert ratio >= 4.5, f"{token} is {ratio:.2f}:1 on --panel-2"
+    fade = float(projector["--planned-fade"])
+    for surface in surfaces:
+        faded = _over(_rgb(projector["--status-planned"]), fade, surface)
+        assert _contrast(faded, surface) >= 3.0, "a planned facility, faded, must still read on the light surface"
+    colours = {s: _rgb(projector[t]) for s, t in STATUS_TOKENS.items()}
+    names = sorted(colours)
+    for i, a in enumerate(names):
+        for b in names[i + 1:]:
+            floor = 10.0 if (a in GREYS and b in GREYS) else 15.0
+            for kind in ("protan", "deutan", "tritan"):
+                d = _distance(_simulate(colours[a], kind), _simulate(colours[b], kind))
+                assert d >= floor, f"projector {a} vs {b} under {kind}: distance {d:.1f} < {floor}"
+            assert _distance(colours[a], colours[b]) >= floor, f"projector {a} vs {b} are too close"
+
+
+def test_projector_type_is_a_quarter_larger_and_strokes_are_thicker() -> None:
+    standard, projector = _tokens(), _projector()
+    for name in ("xs", "sm", "md", "lg", "xl", "2xl", "3xl"):
+        was = int(standard[f"--text-{name}"].removesuffix("px"))
+        now = int(projector[f"--text-{name}"].removesuffix("px"))
+        assert 1.2 <= now / was <= 1.3, f"--text-{name}: {was}px -> {now}px is not the ~1.25x scale"
+    assert int(projector["--marker-label-size"].removesuffix("px")) >= 15, "captions on the globe: 15px at least"
+    assert float(projector["--beam-stroke-scale"]) > float(standard["--beam-stroke-scale"])
+    css = _strip_comments(CLASSROOM_CSS.read_text(encoding="utf-8"))
+    assert re.search(r"g\[pointer-events='none'\] > \* \{\s*stroke-width: (\d+(?:\.\d+)?)", css), "marker keylines"
+
+
+def test_the_globe_stage_constants_are_not_redefined_by_the_projector_theme() -> None:
+    """What is drawn on the dark Earth takes constants, so the globe reads the same in
+    both themes: the glyph ink and the selection amber are never redefined."""
+    projector, standard = _projector(), _tokens()
+    for name in ("--globe-ink", "--globe-amber"):
+        assert name in standard and name not in projector, name
+    for stage in STAGE:
+        assert _contrast(_rgb(standard["--globe-amber"]), _rgb(stage)) >= 4.5
+    assert _contrast(_rgb("#1c1204"), _rgb(standard["--globe-amber"])) >= 7.0, "the selected caption's ink on amber"
+
+
+def test_embed_mode_hides_the_chrome_and_keeps_the_open_link() -> None:
+    css = _strip_comments(CLASSROOM_CSS.read_text(encoding="utf-8"))
+    hidden = css[css.index("html.is-embed .atlas-header .brand"):]
+    hidden = hidden[: hidden.index("}")]
+    for selector in (".search-wrap", "#mode-buttons", ".atlas-footer", "#start-card", "#filters-btn"):
+        assert selector in hidden, f"embed mode must hide {selector}"
+    assert "html.is-embed:not(.embed-timeline) .timeline-bar" in css
+    assert ".embed-open" in css and "html.is-embed .embed-open" in css

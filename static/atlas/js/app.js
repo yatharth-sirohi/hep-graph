@@ -13,6 +13,7 @@ import * as fallback from './fallback.js';
 import * as filtersModule from './filters.js';
 import * as localmap from './localmap.js';
 import { createChrome } from './chrome.js';
+import * as classroom from './classroom.js';
 import * as startModule from './start.js';
 import { buildIndex, topicMarkerIds } from './model.js';
 import { facilityKeyEntries } from './globeicons.js';
@@ -111,6 +112,8 @@ async function main() {
   // the data has arrived (the Key's marker legend needs none of it).
   renderLegend();
   const chrome = createChrome();
+  // Projector theme button, embed link and timeline (answers from the first paint too).
+  classroom.init();
 
   // Visible text in an aria-live region (#data-notice is role="status"),
   // shown for the whole cold-load fetch below, not just the initial probe —

@@ -424,6 +424,13 @@ function moveLongTexts() {
   if (views && views.parentNode === els.header) {
     moveInto(views, ensureSheetSection('phone-views-section', 'View', { first: true }));
   }
+  // Projector mode (js/classroom.js) is a header button at laptop width; here it is
+  // a row of its own under the view switcher.
+  const theme = document.getElementById('theme-btn');
+  if (theme && !theme.closest('.phone-section')) {
+    const filtersFirst = $(':scope > .filters-disclosure', els.filters);
+    moveInto(theme, ensureSheetSection('phone-display-section', 'Display', { before: filtersFirst }));
+  }
   const key = document.getElementById('key-body');
   if (key && key.parentNode !== els.filters && !key.closest('.phone-section')) {
     const filtersSection = $(':scope > .filters-disclosure', els.filters);

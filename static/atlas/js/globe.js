@@ -719,7 +719,7 @@ export function createGlobe(container, {
       ariaLabel: `${label} near here — ${namesPreview}. Press Enter to zoom in and expand.`,
       size,
       shape: 'cluster',
-      color: cssToken('--amber', '#f2b441'),
+      color: cssToken('--globe-amber', '#f2b441'),
       hollow: false,
       tier,
       extraClass: 'tier-cluster',
@@ -909,8 +909,16 @@ export function createGlobe(container, {
    * camera altitude (the vertical field of view is 50 degrees). */
   function beamStrokeDeg(px) {
     const height = Math.max(200, container.clientHeight || 700);
-    return Math.max(0.004, (px * 2 * Math.tan((25 * Math.PI) / 180) * Math.max(currentAltitude, 0.05) * (180 / Math.PI)) / height);
+    return Math.max(0.004, (px * beamScale * 2 * Math.tan((25 * Math.PI) / 180) * Math.max(currentAltitude, 0.05) * (180 / Math.PI)) / height);
   }
+
+  /** The theme's beam-stroke multiplier (--beam-stroke-scale: 1, and 1.5 in projector
+   * mode, whose beams must carry across a lecture hall). */
+  function readBeamScale() {
+    const value = Number.parseFloat(window.getComputedStyle(document.documentElement).getPropertyValue('--beam-stroke-scale'));
+    return Number.isFinite(value) && value > 0 ? value : 1;
+  }
+  let beamScale = readBeamScale();
 
   /** Styles one arc for its status and selection, in place (three-globe reads
    * these back through the accessors set up with the globe). Returns the arc. */
@@ -1194,7 +1202,7 @@ export function createGlobe(container, {
           route: { type: 'institution', slug: member.institution_id.split(':')[1] },
           size: 9,
           shape: 'circle',
-          color: cssToken('--amber', '#f2b441'),
+          color: cssToken('--globe-amber', '#f2b441'),
           hollow,
           tier: 'institution',
         });
@@ -1211,7 +1219,7 @@ export function createGlobe(container, {
             startLng: hostCoords.lon,
             endLat: entry.lat,
             endLng: entry.lon,
-            color: [withAlpha(cssToken('--amber', '#f2b441'), 0.55), withAlpha(cssToken('--amber', '#f2b441'), 0.05)],
+            color: [withAlpha(cssToken('--globe-amber', '#f2b441'), 0.55), withAlpha(cssToken('--globe-amber', '#f2b441'), 0.05)],
             stroke: 0.25,
             label: `${member.name} ↔ collaboration host`,
           });
@@ -1237,7 +1245,7 @@ export function createGlobe(container, {
             startLng: hostCoords.lon,
             endLat: entry.lat,
             endLng: entry.lon,
-            color: [withAlpha(cssToken('--amber', '#f2b441'), 0.55), withAlpha(cssToken('--amber', '#f2b441'), 0.05)],
+            color: [withAlpha(cssToken('--globe-amber', '#f2b441'), 0.55), withAlpha(cssToken('--globe-amber', '#f2b441'), 0.05)],
             stroke: 0.25,
             label: `${entry.items.length} institutions ↔ collaboration host`,
           });
@@ -1358,6 +1366,13 @@ export function createGlobe(container, {
       scheduleRebuild();
     }
     scheduleDeclutter(DECLUTTER_DELAY_MS);
+  });
+
+  // Projector mode (js/classroom.js) thickens the beams through a token; the arcs are
+  // WebGL tubes, so they take the new width on the next rebuild.
+  document.addEventListener('atlas:themechange', () => {
+    beamScale = readBeamScale();
+    scheduleRebuild();
   });
 
   // ---- caption decluttering ---------------------------------------------

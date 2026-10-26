@@ -190,7 +190,7 @@ export function buildGlyph({
   });
   if (shape === 'cluster') {
     svg.appendChild(svgEl('circle', {
-      cx: 12, cy: 12, r: 10.2, fill: withAlpha(cssToken('--paper', '#0b1620'), 0.94), stroke: color, 'stroke-width': 1.8,
+      cx: 12, cy: 12, r: 10.2, fill: withAlpha(cssToken('--globe-ink', '#0b1620'), 0.94), stroke: color, 'stroke-width': 1.8,
     }));
     svg.appendChild(svgEl('circle', {
       cx: 12, cy: 12, r: 8.2, fill: 'none', stroke: color, 'stroke-width': 0.6, 'stroke-opacity': 0.45,
@@ -221,7 +221,7 @@ export function buildGlyph({
   const bodyWidth = empty ? 2.4 : hatched ? 1.5 : 1;
   const dash = approximate ? '2,2' : (hatched && hollow ? '3,2' : null);
   const edge = lighten(color, 0.58);
-  const inkColor = cssToken('--paper', '#0b1620'); // details drawn dark on a solid glyph
+  const inkColor = cssToken('--globe-ink', '#0b1620'); // details drawn dark on a solid glyph
   // An outline with nothing inside is seen by its own colour alone.
   const ink = empty ? liftToLuminance(color, 0.36) : color;
 
@@ -237,7 +237,7 @@ export function buildGlyph({
       const solidFill = p.r === 'body' || p.r === 'dot';
       const width = (p.r === 'body' || p.r === 'dot' ? bodyWidth : p.w || 2) + (dash ? 1.6 : 1.7);
       const attrs = dash
-        ? { stroke: withAlpha(cssToken('--paper', '#0b1620'), 0.7), 'stroke-width': width, fill: 'none' }
+        ? { stroke: withAlpha(cssToken('--globe-ink', '#0b1620'), 0.7), 'stroke-width': width, fill: 'none' }
         : {
           stroke: edge, 'stroke-width': width, fill: solidFill && !empty ? edge : 'none', 'stroke-opacity': 0.92,
         };

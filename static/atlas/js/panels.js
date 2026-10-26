@@ -10,6 +10,7 @@ import {
 import * as provenance from './provenance.js';
 import { greatCircleM, initialBearing } from './localmap.js';
 import { quoteView, readableText, readableView } from './tex.js';
+import { summaryParagraph, decorate as decorateSummaries } from './summary.js';
 
 let ATLAS = null;
 let INDEX = null;
@@ -188,14 +189,11 @@ function panelSections(frag) {
   };
 }
 
-// The generated bundle puts an entity's plain-language summary right on its
-// atlas.json record (`record.summary.plain`); the fixtures instead only put
-// it in the lazily-loaded text bundle (`t.summary_plain`, no `summary` key
-// on the record at all). Prefer the record's own field and fall back to the
-// text bundle's, so both trees render a summary when one was written.
-function plainSummaryOf(record, t) {
-  return (record && record.summary && record.summary.plain) || (t && t.summary_plain) || null;
-}
+// A record's summary paragraph comes from js/summary.js: the plain-language one by
+// default, the technical one when the reader chose it (the generated bundle keeps the
+// plain summary on the record and the technical one in the lazily loaded text bundle;
+// the fixtures keep both in the text bundle). summaryParagraph() returns a <p> (or null
+// when the record has neither), and decorate() adds the toggle and the glossary terms.
 
 // A23 (docs/HEP_ATLAS_ONTOLOGY.md): a site's stripped `coordinates` carry
 // `approximate: true` when the canonical confidence was `approximate` or
@@ -526,9 +524,9 @@ async function renderFacility(id, timelineState) {
   frag.appendChild(h('p', { class: 'panel-subtitle' }, kindLabel(facility.kind)));
   frag.appendChild(experimentBadge(facility, timelineState));
 
-  const facilitySummary = plainSummaryOf(facility, t);
+  const facilitySummary = summaryParagraph(facility, t);
   sections.add('Overview', [
-    facilitySummary ? h('p', {}, facilitySummary) : null,
+    facilitySummary,
     keyValueList([
       ['Aliases', (facility.aliases || []).join(', ')],
       // Generated bundle: `operator_text` (no `operator` field at all).
@@ -667,9 +665,9 @@ async function renderExperiment(id, timelineState) {
     ]));
   }
 
-  const expPlainSummary = plainSummaryOf(exp, t);
+  const expPlainSummary = summaryParagraph(exp, t, 'plain-summary');
   sections.add('What it studies', [
-    expPlainSummary ? h('p', { class: 'plain-summary' }, expPlainSummary) : null,
+    expPlainSummary,
     exp.topic_ids && exp.topic_ids.length
       ? h('p', {}, ['Research topics: ', ...exp.topic_ids.flatMap((tid, i) => {
         const topic = ATLAS.topics[tid];
@@ -683,7 +681,8 @@ async function renderExperiment(id, timelineState) {
   sections.add('Key specifications', keyValueList(keySpecRows));
 
   sections.add('Full technical section', [
-    t.summary_technical ? h('p', {}, t.summary_technical) : null,
+    // Shown at the top of the record instead while the reader has chosen the technical summary.
+    t.summary_technical ? h('p', { 'data-hide-when': 'technical' }, t.summary_technical) : null,
     keyValueList([
       ['Energy regime', exp.energy_regime],
       ['External IDs', exp.external ? Object.entries(exp.external).filter(([, v]) => v).map(([k, v]) => `${k}: ${v}`).join(' · ') : ''],
@@ -811,9 +810,9 @@ async function renderCollaboration(id, timelineState) {
   frag.appendChild(h('h2', {}, collab.name));
   frag.appendChild(experimentBadge(collab, timelineState));
 
-  const summary = plainSummaryOf(collab, t)
-    || `Formed ${collab.formation || 'at an unrecorded date'}${host ? `, hosted at ${host.name}` : ''}.`;
-  sections.add('Summary', h('p', {}, summary));
+  const summary = summaryParagraph(collab, t)
+    || h('p', {}, `Formed ${collab.formation || 'at an unrecorded date'}${host ? `, hosted at ${host.name}` : ''}.`);
+  sections.add('Summary', summary);
 
   sections.add('Host facility', host ? linkTo(idRoute(host.id), host.name) : null);
 
@@ -980,7 +979,7 @@ async function renderTopic(id) {
   const sections = panelSections(frag);
   frag.appendChild(h('h2', {}, topic.name));
   frag.appendChild(h('p', { class: 'plain-question' }, topic.question || ''));
-  if (t.overview) frag.appendChild(h('p', {}, t.overview));
+  if (t.overview) frag.appendChild(h('p', { 'data-gloss': '' }, t.overview));
 
   sections.add('Observables', topic.observables && topic.observables.length
     ? h('ul', { class: 'entity-list' }, topic.observables.map((o) => h('li', {}, o)))
@@ -1061,8 +1060,8 @@ async function renderResult(id) {
   // the claim follows under a label that says where it was taken from, so it
   // reads as an excerpt and not as the Atlas speaking; a quote that is only the
   // paper's title is not repeated (the title is already on the page).
-  const lede = plainSummaryOf(result, t);
-  if (lede) frag.appendChild(h('p', { class: 'plain-summary result-lede' }, lede));
+  const lede = summaryParagraph(result, t, 'plain-summary result-lede');
+  if (lede) frag.appendChild(lede);
   const claim = (t.claim && t.claim.quote) || (result.claim && result.claim.quote) || '';
   const locator = (t.claim && t.claim.locator) || (result.claim && result.claim.locator) || '';
   const excerpt = claim && claimExcerptLabel(result, claim, locator, !lede);
@@ -1181,9 +1180,9 @@ async function renderSite(id, timelineState) {
   const coordText = (site.lat != null && site.lon != null)
     ? `${site.lat.toFixed(4)}, ${site.lon.toFixed(4)}${site.precision_m != null ? ` (±${site.precision_m} m${site.coord_kind ? `, ${titleCase(site.coord_kind)}` : ''})` : ''}`
     : '';
-  const siteSummary = plainSummaryOf(site, t);
+  const siteSummary = summaryParagraph(site, t);
   sections.add('Overview', [
-    siteSummary ? h('p', {}, siteSummary) : null,
+    siteSummary,
     keyValueList([
       ['Aliases', (site.aliases || []).join(', ')],
       ['Country', (site.countries && site.countries.length ? site.countries.join(', ') : site.country) || ''],
@@ -1263,9 +1262,9 @@ async function renderDetector(id, timelineState) {
   const mapChip = await localMapChip(detector);
   if (mapChip) frag.appendChild(mapChip);
 
-  const detectorSummary = plainSummaryOf(detector, t);
+  const detectorSummary = summaryParagraph(detector, t);
   sections.add('Overview', [
-    detectorSummary ? h('p', {}, detectorSummary) : null,
+    detectorSummary,
     keyValueList([['Aliases', (detector.aliases || []).join(', ')]]),
   ], { missing: [!detectorSummary && 'Plain-language summary'] });
 
@@ -1327,9 +1326,9 @@ async function renderAccelerator(id, timelineState) {
   const mapChip = await localMapChip(accelerator);
   if (mapChip) frag.appendChild(mapChip);
 
-  const acceleratorSummary = plainSummaryOf(accelerator, t);
+  const acceleratorSummary = summaryParagraph(accelerator, t);
   sections.add('Overview', [
-    acceleratorSummary ? h('p', {}, acceleratorSummary) : null,
+    acceleratorSummary,
     keyValueList([
       ['Aliases', (accelerator.aliases || []).join(', ')],
       ['Collider', accelerator.is_collider ? 'Yes' : 'No'],
@@ -1399,12 +1398,12 @@ async function renderBeamline(id, timelineState) {
   const mapChip = await localMapChip(beamline);
   if (mapChip) frag.appendChild(mapChip);
 
-  const beamlineSummary = plainSummaryOf(beamline, t);
+  const beamlineSummary = summaryParagraph(beamline, t);
   const primaryBeam = beamline.primary_beam || {};
   const primaryBeamText = [primaryBeam.particle, primaryBeam.energy ? quantityText(primaryBeam.energy) : null]
     .filter(Boolean).join(' · ');
   sections.add('Overview', [
-    beamlineSummary ? h('p', {}, beamlineSummary) : null,
+    beamlineSummary,
     keyValueList([
       ['Aliases', (beamline.aliases || []).join(', ')],
       ['Primary beam', primaryBeamText],
@@ -1523,6 +1522,9 @@ export async function render(route, timelineState = { year: new Date().getFullYe
     closeBtn.addEventListener('click', () => CALLBACKS.navigate({ entity: null }));
     container.appendChild(closeBtn);
     container.appendChild(frag);
+    // The summary toggle and the glossary terms; the glossary loads on its own, so the
+    // panel is already readable (and focused) while it arrives.
+    decorateSummaries(container);
     const heading = container.querySelector('h2');
     if (heading) {
       heading.setAttribute('tabindex', '-1');

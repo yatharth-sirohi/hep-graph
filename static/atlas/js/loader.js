@@ -154,6 +154,14 @@ export async function getText() {
   return fetchJSON('text.json');
 }
 
+/** The glossary (`glossary.json`: `{ terms: [...] }`), or `{ terms: [] }` when the build
+ * wrote none (the fixtures have no glossary). It only decorates panels, so a bundle the
+ * manifest lists that fails to load throws and the caller carries on without it. */
+export async function getGlossary() {
+  if (!(await isBundleListed('glossary.json'))) return { terms: [] };
+  return fetchJSON('glossary.json');
+}
+
 export async function getProvenance() {
   return fetchJSON('provenance.json');
 }
