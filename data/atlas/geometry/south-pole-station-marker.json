@@ -12,7 +12,7 @@
   "geometry": {
     "confidence": "approximate",
     "locator": "OSM node 5314074411, tags name='Amundsen–Scott South Pole Station', place=village, ele=2835, start_date=1956",
-    "note": "representation georeferenced from OpenStreetMap alone yields at most 'approximate' confidence per the contract; no independent check is possible for a single reference point.",
+    "note": "A single reference point georeferenced from OpenStreetMap alone supports at most 'approximate' confidence; no independent check is possible for a single point.",
     "quote": "ele 2835 name Amundsen–Scott South Pole ... official_name Amundsen–Scott South Pole Station operator United States Antarctic Program place village",
     "sources": [
       "src:geo-polar-osm-south-pole-station"
@@ -40,7 +40,7 @@
   "method": "Single OpenStreetMap node (place=village, name='Amundsen–Scott South Pole Station'), Overpass extract with out geom; using the near-pole bbox form (-90,-180,-89.98,180) as instructed, mirrors overpass-api.de then lz4.overpass-api.de. No OSM building footprint for the station or a separate IceCube Laboratory (ICL) feature was found in this query (a name-pattern search for 'Amundsen|South Pole Station' on building ways, and for 'IceCube Laboratory|ICL' on any way, returned zero elements; only this one place node matched). Used as a visible reference marker for site:south-pole-icecube's approximate location, not a claim about the true surveyed position of the array, the ICL building, or any structure; accuracy_m is set generously (300 m) because a single untagged-building 'place' node is not a survey. The node sits about 223 m from the geometric South Pole (90 - 89.998 degrees of latitude), plausible for the station's real offset from the pole marker.",
   "name": "Amundsen-Scott South Pole Station (reference marker)",
   "notes": [
-    "This marker stands in for site:south-pole-icecube on the map, the same way geometry:meyrin-site-marker stands in for site:cern-meyrin on map:cern. site:south-pole-ara is NOT covered by this marker (it is a physically distinct site ~2 km away with no sourced position of its own this session) and is listed in map.unlocated[] instead."
+    "This marker stands in for the South Pole IceCube site on the map, in the same way as the Meyrin site marker stands in for the CERN Meyrin site. The ARA site is NOT covered by this marker: it is a physically distinct site ~2 km away with no sourced position of its own (checked 2026-10-25), and it is listed among the places not located on this map."
   ],
   "osm": {
     "elements": [
