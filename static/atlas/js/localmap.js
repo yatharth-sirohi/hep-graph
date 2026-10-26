@@ -234,6 +234,22 @@ export function isOpen() {
   return opened;
 }
 
+/** What export.js needs to picture the open map (js/export.js): Leaflet's map object,
+ *  whether it is the polar projection (no basemap, grid north), the record's own
+ *  attribution strings, whether the basemap is switched on, and the selected id.
+ *  Null while no map is drawn. */
+export function exportInfo() {
+  if (!opened || !mapInstance || !mapMeta) return null;
+  return {
+    map: mapInstance,
+    polar: polarProjection,
+    meta: mapMeta,
+    attribution: mapMeta.attribution || [],
+    basemap: !!(tileLayer && mapInstance.hasLayer(tileLayer)),
+    selected: view.sel || null,
+  };
+}
+
 // ------------------------------------------------------------- data views
 
 function levelById(id) {

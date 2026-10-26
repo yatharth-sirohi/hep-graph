@@ -1077,6 +1077,208 @@ async function openFilters(page) {
     await page.screenshot({ path: path.join(output, "desktop.png"), fullPage: true });
   });
 
+  // ---- take it to a slide (static/atlas/js/export.js) -- begin ----------
+  // The exported PNG is decoded in the page and sampled: it must be the size the dialog
+  // promised, not blank, with the title band, the timeline year and the citation footer
+  // drawn in their own bands. Then the facility sheet: in print media the page's chrome
+  // is gone and the sheet is what prints (and, in Chromium, it is one page).
+  {
+    const exportTree = `${base}/atlas/${dataTree ? "fixtures" : "generated"}/`;
+    const exportAtlas = await (await fetch(`${exportTree}atlas.json`)).json();
+    const exportMaps = Object.entries(exportAtlas.maps || {}).filter(([, m]) => m.facility_id);
+    const sheetFacility = Object.values(exportAtlas.facilities || {})
+      .filter((f) => f.map_id && exportAtlas.maps && exportAtlas.maps[f.map_id])
+      .sort((a, b) => (a.id === "facility:surf" ? -1 : b.id === "facility:surf" ? 1 : a.id.localeCompare(b.id)))[0] || null;
+
+    const exportContext = async (viewport = { width: 1280, height: 800 }) => {
+      const exportCtx = await browser.newContext({ viewport, reducedMotion: "reduce", acceptDownloads: true });
+      exportCtx.on("page", (p) => p.on("pageerror", (e) => errors.push(`export: ${e.message}`)));
+      exportCtx.on("page", (p) => p.on("console", (msg) => {
+        if (msg.type() === "error") errors.push(`export console.error: ${msg.text()}`);
+      }));
+      const p = await exportCtx.newPage();
+      p.setDefaultTimeout(45000);
+      return { exportCtx, p };
+    };
+
+    // Opens the Export popover, picks a size, waits for the preview, downloads, and
+    // returns what the PNG holds.
+    const exportAs = async (p, preset) => {
+      if (await p.locator("#export-popover").isHidden()) await p.locator("#export-btn").click();
+      await p.locator("#export-popover").waitFor({ state: "visible" });
+      await p.locator(`input[name="export-size"][value="${preset}"]`).check();
+      await p.waitForFunction(() => {
+        const b = document.querySelector(".export-download");
+        return b && !b.disabled;
+      }, null, { timeout: 40000 });
+      const promised = await p.locator(".export-dim").nth(preset === "slide" ? 0 : 1).innerText();
+      const notes = await p.locator(".export-notes").innerText();
+      const [download] = await Promise.all([p.waitForEvent("download"), p.locator(".export-download").click()]);
+      const bytes = fs.readFileSync(await download.path());
+      const last = await p.evaluate(() => window.__hepAtlasExport.last);
+      const sample = await p.evaluate(async (b64) => {
+        const blob = new Blob([Uint8Array.from(atob(b64), (c) => c.charCodeAt(0))], { type: "image/png" });
+        const bitmap = await createImageBitmap(blob);
+        const canvas = document.createElement("canvas");
+        canvas.width = bitmap.width;
+        canvas.height = bitmap.height;
+        const ctx = canvas.getContext("2d");
+        ctx.drawImage(bitmap, 0, 0);
+        const W = bitmap.width;
+        const H = bitmap.height;
+        const count = (x, y, w, h, test) => {
+          const d = ctx.getImageData(x, y, w, h).data;
+          let n = 0;
+          for (let i = 0; i < d.length; i += 4) if (test(d[i], d[i + 1], d[i + 2])) n += 1;
+          return n;
+        };
+        const colours = new Set();
+        for (let gy = 0; gy < 48; gy += 1) {
+          for (let gx = 0; gx < 48; gx += 1) {
+            const px = ctx.getImageData(Math.floor(((gx + 0.5) / 48) * W), Math.floor(100 + ((gy + 0.5) / 48) * (H - 220)), 1, 1).data;
+            colours.add(`${px[0] >> 4},${px[1] >> 4},${px[2] >> 4}`);
+          }
+        }
+        const navy = (px) => Math.abs(px[0] - 16) < 14 && Math.abs(px[1] - 40) < 14 && Math.abs(px[2] - 63) < 14;
+        return {
+          W,
+          H,
+          distinctColours: colours.size,
+          titleBand: navy(ctx.getImageData(4, 4, 1, 1).data),
+          footerBand: navy(ctx.getImageData(4, H - 4, 1, 1).data),
+          yearPixels: count(W - 320, 4, 316, 80, (r, g, b) => r > 200 && g > 140 && g < 215 && b < 120),
+          footerTextPixels: count(0, H - 44, Math.min(W, 1400), 40, (r, g, b) => r > 140 && g > 150 && b > 150),
+          titleTextPixels: count(0, 4, 700, 80, (r, g, b) => r > 200 && g > 200 && b > 200),
+        };
+      }, bytes.toString("base64"));
+      return { promised, notes, last, sample, name: download.suggestedFilename(), bytes: bytes.length };
+    };
+
+    await record("Export image: the globe and a local map each give a non-blank PNG of the promised size, with title, year and citation drawn", async () => {
+      const { exportCtx, p } = await exportContext();
+      await p.goto(`${base}/atlas${dataTree}${dataTree ? "&" : "?"}y=1998`);
+      await p.waitForFunction(() => document.querySelectorAll(".atlas-marker").length > 0, null, { timeout: 20000 });
+      for (const preset of ["slide", "double"]) {
+        const out = await exportAs(p, preset);
+        assert.match(out.name, /^hep-atlas_globe_1998\.png$/, "the file name says what it is");
+        assert.ok(out.promised.includes(`${out.sample.W} × ${out.sample.H}`),
+          `the dialog promised "${out.promised}", the PNG is ${out.sample.W} x ${out.sample.H}`);
+        if (preset === "slide") assert.deepEqual([out.sample.W, out.sample.H], [1920, 1080], "the slide preset is 1920 x 1080");
+        else assert.ok(out.sample.W >= 2 * 600, `double size is twice the stage, got ${out.sample.W} wide`);
+        assert.ok(out.sample.distinctColours > 12, `the globe image is not blank (${out.sample.distinctColours} colours)`);
+        assert.ok(out.sample.titleBand && out.sample.footerBand, "title band and footer band are drawn");
+        assert.ok(out.sample.yearPixels > 40, `the timeline year is drawn in amber (${out.sample.yearPixels} px)`);
+        assert.ok(out.sample.footerTextPixels > 150, `the citation footer is drawn (${out.sample.footerTextPixels} text px)`);
+        assert.ok(out.sample.titleTextPixels > 200, "the title is drawn");
+        assert.equal(out.last.footerLines.length, 1, "a globe's footer is the citation alone");
+        assert.match(out.last.footerLines[0], /^HEP Atlas — hep-graph\.vercel\.app\/atlas — data version \S+ — accessed \d{4}-\d{2}-\d{2}$/);
+        assert.equal(out.last.timeline, "1998");
+      }
+      await p.keyboard.press("Escape");
+      assert.equal(await p.locator("#export-popover").isHidden(), true, "Escape closes the dialog");
+      assert.equal(await p.evaluate(() => document.activeElement && document.activeElement.id), "export-btn",
+        "focus returns to the Export button");
+      await exportCtx.close();
+
+      if (!exportMaps.length) { console.log("SKIP: export of a local map — this tree publishes no maps."); return; }
+      const [mapId, mapMeta] = exportMaps.find(([id]) => id === "map:surf") || exportMaps[0];
+      const mapSlug = mapId.split(":")[1];
+      const { exportCtx: mapCtx, p: mp } = await exportContext();
+      await mp.goto(`${base}/atlas${dataTree}#/map/${mapSlug}`);
+      await mp.locator(".leaflet-container").waitFor({ timeout: 20000 });
+      await mp.locator(".map-section").first().waitFor({ timeout: 20000 });
+      for (const preset of ["slide", "double"]) {
+        const out = await exportAs(mp, preset);
+        assert.match(out.name, new RegExp(`^hep-atlas_${mapSlug}-map_\\d{4}\\.png$`));
+        assert.ok(out.promised.includes(`${out.sample.W} × ${out.sample.H}`),
+          `the dialog promised "${out.promised}", the PNG is ${out.sample.W} x ${out.sample.H}`);
+        if (preset === "slide") assert.deepEqual([out.sample.W, out.sample.H], [1920, 1080]);
+        assert.ok(out.sample.distinctColours > 3, `the map image is not blank (${out.sample.distinctColours} colours)`);
+        assert.ok(out.sample.titleBand && out.sample.footerBand && out.sample.yearPixels > 40);
+        assert.ok(out.sample.footerTextPixels > 150, "the citation footer is drawn");
+        assert.equal(out.last.title, mapMeta.name, "the title is the map's name");
+        // Tiles are in the picture only if they could be drawn without tainting the canvas
+        // and had all arrived; otherwise the dialog says so and the credit is not claimed.
+        const tiles = out.last.tiles;
+        assert.ok(["included", "incomplete", "blocked", "off", "polar"].includes(tiles.state), `tile state ${tiles.state}`);
+        const credited = out.last.footerLines.some((line) => line.includes("© OpenStreetMap contributors"));
+        assert.equal(credited, tiles.state === "included" || (mapMeta.attribution || []).some((a) => a.includes("OpenStreetMap")),
+          "the OpenStreetMap credit is in the footer whenever its tiles or its data are in the picture");
+        assert.ok(out.notes.includes(tiles.message.slice(0, 40)), "the dialog states what happened to the tiles");
+        // The metre scale bar: its drawn length is a true ground distance at its own row.
+        const bar = out.last.scaleBar;
+        assert.ok(bar && bar.metres > 0 && bar.cssPixels > 20, "a metre scale bar is drawn");
+        const ground = await mp.evaluate(({ px }) => {
+          const map = window.__hepAtlasLocalMap;
+          const y = map.getSize().y - 34;
+          return map.distance(map.containerPointToLatLng([24, y]), map.containerPointToLatLng([24 + px, y]));
+        }, { px: bar.cssPixels });
+        assert.ok(Math.abs(ground - bar.metres) / bar.metres < 0.01,
+          `the bar says ${bar.metres} m over ${bar.cssPixels.toFixed(1)} px, which is ${ground.toFixed(1)} m on the ground`);
+        console.log("export map:", JSON.stringify({ preset, size: `${out.sample.W}x${out.sample.H}`, tiles: tiles.state, bar: bar.metres }));
+      }
+      await mapCtx.close();
+    });
+
+    await record("Print facility sheet: in print media the page's chrome is gone and the one-page sheet is what prints", async () => {
+      if (!sheetFacility) { console.log("SKIP: facility sheet — no facility with a map in this tree."); return; }
+      const slug = sheetFacility.id.split(":")[1];
+      const { exportCtx, p } = await exportContext({ width: 1280, height: 800 });
+      await p.goto(`${base}/atlas${dataTree}#/facility/${slug}`);
+      await p.locator("#detail-panel h2").waitFor({ timeout: 20000 });
+      await p.evaluate(() => { window.__printCalls = 0; window.print = () => { window.__printCalls += 1; }; });
+      await p.locator(".print-sheet-btn").click();
+      await p.waitForFunction(() => window.__printCalls > 0, null, { timeout: 45000 });
+      assert.equal(await p.locator("#print-sheet").isHidden(), true, "the sheet is not on screen");
+      assert.equal(new URL(p.url()).hash, `#/facility/${slug}`, "the reader is put back where they were");
+      await p.emulateMedia({ media: "print" });
+      const seen = await p.evaluate(() => {
+        const shown = (sel) => {
+          const el = document.querySelector(sel);
+          return !!el && getComputedStyle(el).display !== "none" && el.getClientRects().length > 0;
+        };
+        const sheet = document.getElementById("print-sheet");
+        return {
+          header: shown(".atlas-header"),
+          timeline: shown("#timeline-bar"),
+          footer: shown(".atlas-footer"),
+          main: shown("#atlas-main"),
+          panel: shown("#detail-panel"),
+          sheet: shown("#print-sheet"),
+          title: sheet.querySelector(".ps-title").textContent,
+          kind: sheet.querySelector(".ps-kind").textContent,
+          foot: sheet.querySelector(".ps-foot").textContent,
+          interactive: sheet.querySelectorAll("button, input, select, textarea, a[href]").length,
+          mapImage: !!sheet.querySelector(".ps-map img"),
+          sections: [...sheet.querySelectorAll(".ps-section h2")].map((h) => h.textContent),
+        };
+      });
+      assert.deepEqual(
+        [seen.header, seen.timeline, seen.footer, seen.main, seen.panel],
+        [false, false, false, false, false],
+        "no part of the interactive page prints",
+      );
+      assert.equal(seen.sheet, true, "the sheet prints");
+      assert.equal(seen.title, sheetFacility.name);
+      assert.ok(seen.kind.length > 8, "kind and status are on the sheet");
+      assert.match(seen.foot, /hep-graph\.vercel\.app\/atlas — data version \S+ — accessed \d{4}-\d{2}-\d{2}/);
+      assert.equal(seen.interactive, 0, "nothing interactive is on the sheet");
+      for (const heading of ["What it is", "Key specifications", "Experiments hosted", "Sources"]) {
+        if (heading === "What it is" && !(sheetFacility.summary && sheetFacility.summary.plain)) continue;
+        assert.ok(seen.sections.includes(heading), `the sheet has "${heading}"`);
+      }
+      console.log("print sheet:", JSON.stringify({ title: seen.title, mapImage: seen.mapImage, sections: seen.sections }));
+      if (BROWSER_NAME === "chromium") {
+        // The only engine that prints to PDF headless: A4 or Letter, one page.
+        const pdf = await p.pdf({ format: "Letter", printBackground: true });
+        const pages = (pdf.toString("latin1").match(/\/Type\s*\/Page[^s]/g) || []).length;
+        assert.equal(pages, 1, `the sheet is ${pages} pages on Letter, want 1`);
+      }
+      await exportCtx.close();
+    });
+  }
+  // ---- take it to a slide -- end ----------------------------------------
+
   // ---- local map view (docs/HEP_ATLAS_GEOMETRY.md §4) -- begin ----------
   // These run against whichever tree HEP_ATLAS_DATA selects. The generated
   // tree has no `maps` until the geometry build lands, so rather than

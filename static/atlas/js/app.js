@@ -16,6 +16,7 @@ import { createChrome } from './chrome.js';
 import * as startModule from './start.js';
 import { createViewHost } from './views/host.js';
 import { viewSearchEntries } from './views/registry.js';
+import * as exportModule from './export.js';
 import { buildIndex, topicMarkerIds } from './model.js';
 import { facilityKeyEntries } from './globeicons.js';
 
@@ -200,6 +201,8 @@ async function main() {
     firstVisit,
   });
   const hasGL2 = globeModule.supportsWebGL2();
+  // "Take it to a slide": the header's Export image control and the facility sheet.
+  exportModule.init({ atlas, index, manifest, getGlobe: () => globeApi });
 
   function renderFallbackIfActive(current) {
     if (!fallbackActive) return;

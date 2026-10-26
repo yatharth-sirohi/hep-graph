@@ -13,6 +13,7 @@ import {
   VIEW_NAME, WORKING_TITLE, rowGeometry, rowsForBeamline, rowsForExperiment,
 } from './views/beam-rows.js';
 import { quoteView, readableText, readableView } from './tex.js';
+import { facilityPrintAction } from './export.js';
 
 let ATLAS = null;
 let INDEX = null;
@@ -528,6 +529,7 @@ async function renderFacility(id, timelineState) {
   frag.appendChild(h('h2', {}, facility.name));
   frag.appendChild(h('p', { class: 'panel-subtitle' }, kindLabel(facility.kind)));
   frag.appendChild(experimentBadge(facility, timelineState));
+  frag.appendChild(facilityPrintAction(id));
 
   const facilitySummary = plainSummaryOf(facility, t);
   sections.add('Overview', [
