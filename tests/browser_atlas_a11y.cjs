@@ -380,6 +380,40 @@ async function openFilters(page) {
       await viewContext.close();
     });
 
+    // ---- views: "Going underground" and "The energy frontier" (the chart toolkit, views/chart.js) ----
+    // The SVG names and describes itself, its points are links with names, the legend, the table and the
+    // open "Inputs and method" (every input's disclosure) must be clean. The fixture tree holds no muon
+    // flux or accelerator intervals, so there each view's error state is what is scanned.
+    for (const [name, route, chart] of [["going underground", "underground", "#ug-chart"], ["the energy frontier", "energy-frontier", "#ef-chart"]]) {
+      await record(`[${tree.label}] axe: ${name} view, and with Inputs and method open`, async () => {
+        const viewContext = await browser.newContext({ viewport: { width: 1440, height: 960 }, reducedMotion: "reduce" });
+        const viewPage = await viewContext.newPage();
+        viewPage.setDefaultTimeout(30000);
+        await viewPage.goto(`${base}/atlas${dataTree}#/view/${route}`);
+        if (tree.label !== "generated") {
+          await viewPage.locator(".view-error").waitFor();
+          const errored = await runAxe(viewPage, tree.label, `${name} view, error state`);
+          assert.deepEqual(errored.violations, [], `expected 0 WCAG axe violations on the ${name} error state, got ${JSON.stringify(errored.violations)}`);
+          await viewContext.close();
+          return;
+        }
+        await viewPage.locator(`${chart} svg.ch-svg`).waitFor();
+        const closed = await runAxe(viewPage, tree.label, `${name} view`);
+        assert.deepEqual(closed.violations, [], `expected 0 WCAG axe violations on ${name}, got ${JSON.stringify(closed.violations)}`);
+        await viewPage.locator("#view-method > summary").click();
+        await viewPage.locator('.ch-inputs[data-state="ready"]').waitFor();
+        const open = await runAxe(viewPage, tree.label, `${name} view, inputs and method open`);
+        assert.deepEqual(open.violations, [], `expected 0 WCAG axe violations with the method open on ${name}, got ${JSON.stringify(open.violations)}`);
+        // A point is reachable and operable from the keyboard: Tab to it, Enter opens its record.
+        await viewPage.locator(`${chart} .ch-point`).first().focus();
+        assert.equal(await viewPage.evaluate(() => document.activeElement.classList.contains("ch-point")), true);
+        await viewPage.keyboard.press("Enter");
+        await viewPage.locator("#detail-panel h2").waitFor();
+        assert.match(viewPage.url(), /#\/(site|accelerator)\//);
+        await viewContext.close();
+      });
+    }
+
     // ---- Follow the proton (static/atlas/js/proton.js) ----------------------------
     // The card (a stage, a transfer with the sources open, a stage the map does not
     // draw) and the energy ladder in the layers column, on the real build: the fixtures

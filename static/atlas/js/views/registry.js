@@ -53,6 +53,8 @@
 //     and its numbers in a table.
 
 import { VIEW_NAME, WORKING_TITLE, beamSearchEntries, parseArg } from './beam-rows.js';
+import * as underground from './underground-rows.js';
+import * as frontier from './frontier-rows.js';
 import { PERSON_VIEW, PERSON_VIEW_TITLE } from '../hepgraph.js';
 import {
   VIEW_NAME as COMPARE_NAME, WORKING_TITLE as COMPARE_TITLE, compareSearchEntries,
@@ -77,6 +79,16 @@ export const VIEWS = {
       return beamline ? { route: { type: 'beamline', slug: parsed.slug }, label: `Back to ${beamline.name}` } : null;
     },
     searchEntries: beamSearchEntries,
+  },
+  [underground.VIEW_NAME]: {
+    title: underground.WORKING_TITLE,
+    load: () => import('./underground.js'),
+    searchEntries: underground.undergroundSearchEntries,
+  },
+  [frontier.VIEW_NAME]: {
+    title: frontier.WORKING_TITLE,
+    load: () => import('./energy-frontier.js'),
+    searchEntries: frontier.frontierSearchEntries,
   },
   // `#/view/person/<inspire-author-id>`: where the Atlas places one HEP Graph researcher.
   // No search entries: people are never in the search box (ontology A14); the route is
