@@ -1,0 +1,175 @@
+{
+  "accelerator_ids": [],
+  "aliases": [
+    "Coherent Neutrino-Nucleus Interaction Experiment"
+  ],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:connie"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
+  },
+  "energy_regime": null,
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:angra-npp",
+      "locator": "section II",
+      "note": "",
+      "quote": "The CONNIE detector is an array of 14 charge-coupled devices (CCDs) operating at the Angra 2 reactor of the Almirante Alvaro Alberto Nuclear Power Plant, in the state of Rio de Janeiro, Brazil.",
+      "role": "host",
+      "sources": [
+        "src:connie-prd-2019-exploring-low-energy"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:connie",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": {
+        "approx": true,
+        "date": "2016-06",
+        "display": "mid 2016"
+      },
+      "label": "engineering run with a 4 g prototype",
+      "locator": "arXiv:1906.02200, section II",
+      "note": "Year precision for the start (\"late 2014\"); the end is the full sensor upgrade in \"mid 2016\" (next interval). The engineering run paper (arXiv:1604.01343) reports the first year of operation of the 4 g prototype.",
+      "quote": "The engineering prototype of the experiment was installed at the reactor site in late 2014",
+      "sources": [
+        "src:connie-prd-2019-exploring-low-energy"
+      ],
+      "start": "2014",
+      "status": "commissioning",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "data taking with the upgraded CCD array",
+      "locator": "arXiv:1906.02200, section II",
+      "note": "Open-ended: later papers report 2019 data and a skipper-CCD update (2021-22, conference abstract only), and the 2022 paper says the experiment \"is taking data\". No source consulted states that data taking has ended.",
+      "quote": "A complete upgrade of the sensors was performed in mid 2016",
+      "sources": [
+        "src:connie-prd-2019-exploring-low-energy"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2016-06",
+        "display": "mid 2016"
+      },
+      "status": "active",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Distance to the reactor core",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "length",
+        "display": "30 m",
+        "locator": "abstract",
+        "note": "",
+        "quote": "which is operating at a distance of 30 m from the core of the Angra 2 nuclear reactor",
+        "sources": [
+          "src:connie-prd-2019-exploring-low-energy"
+        ],
+        "unit": "m",
+        "value": 30,
+        "verified_at": "2026-10-26"
+      }
+    },
+    {
+      "label": "Reactor thermal power",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "power",
+        "display": "3.8 GW",
+        "locator": "abstract",
+        "note": "",
+        "quote": "with a thermal power of 3.8 GW",
+        "sources": [
+          "src:connie-prd-2019-exploring-low-energy"
+        ],
+        "unit": "GW",
+        "value": 3.8,
+        "verified_at": "2026-10-26"
+      }
+    },
+    {
+      "label": "Active mass (2016 array)",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "mass",
+        "display": "47.6 g (8 CCDs)",
+        "locator": "abstract",
+        "note": "",
+        "quote": "considering an active mass 47.6 g (8 CCDs)",
+        "sources": [
+          "src:connie-prd-2019-exploring-low-energy"
+        ],
+        "unit": "g",
+        "value": 47.6,
+        "verified_at": "2026-10-26"
+      }
+    }
+  ],
+  "kind": "cevns",
+  "lineage": [],
+  "links": {
+    "website": null
+  },
+  "name": "CONNIE",
+  "notes": [
+    "The experiment's collaboration pages were not found; no website recorded.",
+    "Latest results seen only as conference abstracts (skipper-CCD run 2021-22); the newest paper fetched is arXiv:2110.13033 (2019 data)."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "abstract",
+      "note": "",
+      "quote": "with the goal of measuring low-energy recoils from coherent elastic scattering (CE$\\nu$NS) of reactor antineutrinos with silicon nuclei and testing nonstandard neutrino interactions (NSI)",
+      "sources": [
+        "src:connie-prd-2019-exploring-low-energy"
+      ],
+      "value": "Measure low-energy recoils from coherent elastic neutrino-nucleus scattering of reactor antineutrinos on silicon with CCDs, and test non-standard neutrino interactions",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [
+    "reactor_neutrino"
+  ],
+  "sources": [
+    "src:connie-jinst-2016-engineering-run",
+    "src:connie-prd-2019-exploring-low-energy",
+    "src:connie-jhep-2022-2019-data",
+    "src:connie-jhep-2020-light-mediators"
+  ],
+  "status": "active",
+  "summary": {
+    "plain": "An array of very low-noise silicon camera chips (CCDs) 30 metres from the Angra 2 nuclear reactor in Brazil, built to spot the tiny recoil of a silicon nucleus when a reactor antineutrino scatters off it coherently. It has set limits and continues to improve its sensitivity.",
+    "technical": "Coherent Neutrino-Nucleus Interaction Experiment: low-noise fully depleted CCDs (8-14 devices, 47.6 g active in 2016, 36.2 g fiducial in 2019) at 30 m from the 3.8 GW_th Angra 2 core, surface, passive polyethylene/lead shield; reactor-on minus reactor-off spectra with ~50-1000 eV thresholds set limits 40-66 x the Standard Model CEvNS rate; 2021-22 skipper-CCD upgrade."
+  },
+  "topic_ids": [
+    "topic:cevns",
+    "topic:reactor-neutrinos"
+  ],
+  "type": "experiment",
+  "unique_capabilities": []
+}
