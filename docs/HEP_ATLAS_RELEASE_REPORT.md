@@ -79,4 +79,9 @@ release. Plan: `docs/HEP_ATLAS_RELEASE_PLAN.md`. Round-by-round workups:
 files are served by the Python function with `Cache-Control: public,
 max-age=0, must-revalidate` for browsers and `Vercel-CDN-Cache-Control:
 max-age=86400, stale-while-revalidate=604800` for Vercel's edge cache, which a
-deployment empties. Production verification is recorded in round 10.
+deployment empties.
+
+**Verified on production (2026-10-26 UTC):** `main` 1679922 live within ~30 s;
+CDN `MISS` → `HIT` on Atlas files; browser suite 95/95 applicable checks against
+the live site; all 50 local maps render with 0 console errors; HEP Graph's route
+search unaffected. Details: `docs/atlas-worklog/RELEASE_ROUND_10.md`.
