@@ -458,6 +458,27 @@ Implementation resolved these; they are normative from here on.
   record.
 * The globe's facility panel, site/accelerator/beamline/detector panels and
   search results all offer "Open local map" when `map_id` exists.
+* **Compare with…** (`static/atlas/js/localmap-compare.js`, `views/scale-geometry.js`): a section
+  of the layer panel lays another facility's principal footprint over this map at true scale.
+  The footprint is that facility's own geometry records of type `ring`, `array`, `boundary`,
+  `linac`, `tunnel`, `beamline` and `transfer_line` (or, when it has none, its halls, caverns and
+  buildings); positions without an extent and inferred directions are never part of it. Each
+  vertex is moved by its great-circle distance and initial bearing from the footprint's centre
+  (the middle of its bounding box) to the same distance and bearing from the new centre, on the
+  sphere R = 6371.0088 km, so ground distances are preserved (the LHC ring keeps its
+  circumference to better than 10⁻⁷) where a shift of latitude and longitude would squeeze it
+  toward a pole. On a polar map the bearing is from grid north. The overlay is drawn pink and
+  dashed, takes no clicks, is labelled "<facility>: overlay at true scale" and listed with its
+  own size and each shape's length and accuracy. State: `cmp=<facility-slug>` and
+  `cmpc=<lat>,<lon>` (the map point it is centred on, rounded to 4 decimals; absent it is the
+  map's recorded centre), written on map routes only and dropped when another route opens.
+  **Over my location** calls the browser's Geolocation API only on a click (and not on a polar
+  map); the position lives in the page's memory for the visit and is never stored, sent, or put
+  in `cmp`/`cmpc`, the history state, storage or a cookie. While it is in use the OpenStreetMap
+  basemap is off unless the reader turns it on (its tile requests would say where they are).
+  `hepgraph/server.py` allows `geolocation=(self)` in `Permissions-Policy` for `/atlas` pages
+  only. There is no typed-city box: it would need a gazetteer of sourced coordinates or a
+  network geocoder.
 
 ## 5. Research method (per campus)
 

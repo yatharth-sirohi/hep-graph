@@ -63,6 +63,9 @@ let userMoved = false;
 let framing = false;
 let frameKey = null;
 let showOutside = false;
+// "Compare with…" (localmap-compare.js): loaded the first time a map is opened, never on the globe.
+let compare = null;
+let compareOpen = false;
 let depthOpen = false;
 let selOpener = null;
 let lastAnnouncedSel = null;
@@ -341,6 +344,8 @@ function whenLabel() {
 // --------------------------------------------------------------- the map
 
 function destroyMap() {
+  // The overlay (and, with it, any location the reader shared) goes with the map.
+  if (compare) compare.destroy();
   if (mapInstance) {
     mapInstance.remove();
     mapInstance = null;
@@ -473,8 +478,11 @@ function frameToFeatures() {
   const L = window.L;
   const size = mapInstance.getSize();
   if (!size.x || !size.y) return false;
-  const features = framingFeatures();
-  if (!features.length) return false;
+  // A comparison overlay is framed with the map's own shapes — or alone, when it sits
+  // over the reader's location and the map's shapes are somewhere else entirely.
+  const overlay = compare ? compare.framePoints() : null;
+  const features = overlay && overlay.exclusive ? [] : framingFeatures();
+  if (!features.length && !(overlay && overlay.points.length)) return false;
   const crs = mapInstance.options.crs;
   const z0 = 0;
   let minX = Infinity;
@@ -501,6 +509,7 @@ function frameToFeatures() {
     }
     if (feature.accuracy_m) maxAccuracy = Math.max(maxAccuracy, feature.accuracy_m);
   }
+  if (overlay) for (const [lon, lat] of overlay.points) add(lon, lat);
   if (!Number.isFinite(minX)) return false;
   const pad = Math.min(FRAME_PADDING_PX, Math.floor(Math.min(size.x, size.y) / 6));
   const availW = Math.max(40, size.x - 2 * pad);
@@ -532,7 +541,7 @@ const FRAME_MIN_HALF_SPAN_M = 150;
  *  reader has not touched is framed again. */
 function frameSignature() {
   const size = mapInstance.getSize();
-  return `${framingFeatures().map((f) => f.id).join('|')}#${size.x}x${size.y}`;
+  return `${framingFeatures().map((f) => f.id).join('|')}#${size.x}x${size.y}#${compare ? compare.signature() : ''}`;
 }
 
 /**
@@ -623,7 +632,10 @@ function applyBasemap(L) {
     mapInstance.getContainer().classList.add('basemap-off');
     return;
   }
-  if (view.basemap) {
+  // While a comparison overlay sits over the reader's own location the basemap is off
+  // (its tile requests would say where the reader is) unless they turn it on.
+  const privacyHidden = !!(compare && compare.hidesBasemap());
+  if (view.basemap && !privacyHidden) {
     if (!tileLayer) {
       tileLayer = L.tileLayer(TILE_URL, {
         maxZoom: 19, attribution: TILE_ATTRIBUTION, crossOrigin: true,
@@ -646,7 +658,12 @@ function applyBasemap(L) {
     mapInstance.getContainer().classList.remove('basemap-off');
   } else {
     if (tileLayer && mapInstance.hasLayer(tileLayer)) mapInstance.removeLayer(tileLayer);
-    dom.tileNotice.classList.add('hidden');
+    if (privacyHidden) {
+      dom.tileNotice.textContent = compare.basemapNotice();
+      dom.tileNotice.classList.remove('hidden');
+    } else {
+      dom.tileNotice.classList.add('hidden');
+    }
     mapInstance.getContainer().classList.add('basemap-off');
   }
 }
@@ -1951,11 +1968,17 @@ function renderSidebar() {
     lastAnnouncedSel || ''));
 
   // ---- view controls
-  const basemapBtn = toggleButton('OpenStreetMap basemap', view.basemap && !polarProjection, () => {
-    if (polarProjection) return;
+  const basemapOffForPrivacy = !!(compare && compare.hidesBasemap());
+  const basemapBtn = toggleButton('OpenStreetMap basemap', view.basemap && !polarProjection && !basemapOffForPrivacy, () => {
+    if (polarProjection || basemapOffForPrivacy) return;
     NAVIGATE({ basemap: !view.basemap });
   }, 'map-basemap-toggle');
   basemapBtn.id = 'map-basemap-toggle';
+  if (basemapOffForPrivacy) {
+    basemapBtn.disabled = true;
+    basemapBtn.setAttribute('aria-disabled', 'true');
+    basemapBtn.setAttribute('aria-describedby', 'map-compare-privacy');
+  }
   if (polarProjection) {
     basemapBtn.disabled = true;
     basemapBtn.setAttribute('aria-disabled', 'true');
@@ -1982,6 +2005,17 @@ function renderSidebar() {
     outsideBtn,
     depthBtn,
   ]));
+
+  // ---- scale comparison: another facility's footprint over this map (localmap-compare.js)
+  if (compare) {
+    const compareBody = h('div', { class: 'map-compare', id: 'map-compare' });
+    compare.renderPanel(compareBody);
+    const compareSection = panelSection('Compare with…', [compareBody],
+      { open: compareOpen || !!view.cmp, className: 'map-compare-section' });
+    // The sidebar is rebuilt on every change; a section the reader opened stays open.
+    compareSection.addEventListener('toggle', () => { compareOpen = compareSection.open; });
+    layers.appendChild(compareSection);
+  }
 
   layers.appendChild(panelSection('Levels', [
     h('p', { class: 'map-note' },
@@ -2447,6 +2481,8 @@ export async function show(current, ctx) {
     levels: current.levels === undefined ? null : current.levels,
     basemap: current.basemap !== false,
     sel: current.sel || null,
+    cmp: current.cmp || null,
+    cmpc: current.cmpc || null,
     timelineState: ctx.timelineState,
   };
 
@@ -2519,6 +2555,26 @@ export async function show(current, ctx) {
         `The local map for ${meta.name} could not be drawn: ${error.message}.`),
     ]);
     return;
+  }
+  // "Compare with…": loaded once, on the first map opened. If it cannot load, the map
+  // is whole without it (the section is simply absent).
+  if (!compare) {
+    try {
+      compare = await import('./localmap-compare.js');
+    } catch (error) {
+      window.console.error('HEP Atlas local map: the comparison overlay could not load', error);
+    }
+  }
+  if (compare && mapInstance) {
+    // Not awaited: the footprint of another facility loads while the map is already usable.
+    compare.sync({
+      L, map: () => mapInstance, atlas: ATLAS, mapId, mapMeta, polarHost: polarProjection, view, isPolar,
+      fetchBundle: (path) => fetchBundle(ctx.loaderBase, path),
+      navigate: NAVIGATE,
+      rerender: () => { if (opened && mapInstance && bundle) renderSidebar(); },
+      reframe: () => { if (mapInstance) { refreshFrame({ force: true }); layoutLabels(); } },
+      applyBasemap: () => { if (mapInstance) applyBasemap(window.L); },
+    }).catch((error) => window.console.error('HEP Atlas local map: the comparison overlay failed', error));
   }
   renderSidebar();
   renderNorthIndicator();

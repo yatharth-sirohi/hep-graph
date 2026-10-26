@@ -1,7 +1,7 @@
 // registry.js — the table of Atlas "views": full-stage pages that draw a physics
 // figure from Atlas records (a cross-section of the Earth along a neutrino beam
-// today; the energy-frontier chart, the underground chart, scale comparisons and
-// "follow the proton" next). A view is ONE module plus ONE line in VIEWS below.
+// today, and the detector line-up; the energy-frontier chart, the underground chart
+// and "follow the proton" next). A view is ONE module plus ONE line in VIEWS below.
 //
 // ROUTE      #/view/<name>/<arg>       (state.js: TYPE_PREFIX.view)
 //            It is an ordinary route: Back/Forward, a pasted link, the `?y=` year and
@@ -63,6 +63,9 @@ import {
 import {
   VIEW_NAME as LIMITS_VIEW, WORKING_TITLE as LIMITS_TITLE, limitsParent, limitsSearchEntries,
 } from './limits-rows.js';
+import {
+  VIEW_NAME as SCALE_VIEW_NAME, WORKING_TITLE as SCALE_WORKING_TITLE, scaleSearchEntries,
+} from './scale-detectors.js';
 
 export const VIEWS = {
   [VIEW_NAME]: {
@@ -100,6 +103,14 @@ export const VIEWS = {
     load: () => import('./limits.js'),
     parent: limitsParent,
     searchEntries: limitsSearchEntries,
+  },
+  // The detector line-up: no argument (`#/view/detector-scale`). It uses only the sourced
+  // dimensions in the detector records; "Compare with…" on a local map is the other half
+  // of the scale comparisons and lives in js/localmap-compare.js.
+  [SCALE_VIEW_NAME]: {
+    title: SCALE_WORKING_TITLE,
+    load: () => import('./detector-scale.js'),
+    searchEntries: scaleSearchEntries,
   },
 };
 

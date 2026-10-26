@@ -301,6 +301,15 @@ def test_only_the_atlas_may_be_framed(service, atlas_dir) -> None:
     assert strip(atlas_headers) == strip(app_headers), "only frame-ancestors may differ between the two policies"
 
 
+def test_geolocation_is_allowed_to_the_atlas_pages_only(service, atlas_dir) -> None:
+    """"Over my location" on a local map needs the Geolocation API, which the site-wide policy
+    switched off. Only the Atlas may use it, only for its own origin; camera and microphone
+    stay off, and every other route keeps geolocation off."""
+    base, _ = service
+    _status, atlas_headers, _body = _request(base, "/atlas/")
+    assert atlas_headers["Permissions-Policy"] == "camera=(), microphone=(), geolocation=(self)"
+    _status, home_headers, _body = _request(base, "/")
+    assert home_headers["Permissions-Policy"] == "camera=(), microphone=(), geolocation=()"
 def test_generated_files_are_cacheable_and_sent_byte_for_byte(service, atlas_dir) -> None:
     base, _ = service
     status, headers, body = _request(base, "/atlas/generated/manifest.json")

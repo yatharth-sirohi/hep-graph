@@ -1,6 +1,8 @@
 // state.js — the single source of truth for "what is on screen": the hash
 // route (#/facility/<slug> etc.), plus short query state (?y=, ?r=, ?t=, ?s=,
-// ?m=, ?arcs=, and the Results list's own ?ry=/?rx=/?rf=/?rt=/?rk=/?rs=/?rb=).
+// ?m=, ?arcs=, and the Results list's own ?ry=/?rx=/?rf=/?rt=/?rk=/?rs=/?rb=;
+// on a local map also ?cmp=<facility> and ?cmpc=<lat>,<lon>, the footprint laid
+// over it and the map point it is centred on).
 // Back/forward and copy-pasted URLs both restore the view.
 
 const TYPE_PREFIX = {
@@ -68,6 +70,10 @@ function parseSearch(search) {
     // the entity (or context feature) in the drawer. `levels: null` means
     // "all levels", which is not the same as "no levels" (`[]`).
     levels: null, basemap: true, sel: null,
+    // ---- scale comparison on a local map (localmap-compare.js): `cmp` is a facility
+    // slug, `cmpc` the map point the overlay is centred on. The reader's own location
+    // is never in either: it is held in memory for the visit and nowhere else.
+    cmp: null, cmpc: null,
     results: parseResultsView(params),
     // ---- classroom modes (js/classroom.js): `?embed=1` and `?theme=projector|standard`
     // ride along in every address the app writes, so reloading or sharing keeps them.
@@ -101,6 +107,11 @@ function parseSearch(search) {
   }
   if (params.get('bm') === '0') state.basemap = false;
   if (params.has('sel')) state.sel = params.get('sel');
+  if (/^[a-z0-9][a-z0-9-]*$/.test(params.get('cmp') || '')) {
+    state.cmp = params.get('cmp');
+    const at = /^(-?\d{1,2}(?:\.\d+)?),(-?\d{1,3}(?:\.\d+)?)$/.exec(params.get('cmpc') || '');
+    if (at && Math.abs(Number(at[1])) <= 90 && Math.abs(Number(at[2])) <= 180) state.cmpc = [Number(at[1]), Number(at[2])];
+  }
   return state;
 }
 
@@ -136,6 +147,10 @@ function buildURL(state) {
     if (state.levels) params.set('lv', state.levels.join(','));
     if (state.basemap === false) params.set('bm', '0');
     if (state.sel) params.set('sel', state.sel);
+    if (state.cmp) {
+      params.set('cmp', state.cmp);
+      if (state.cmpc) params.set('cmpc', `${state.cmpc[0]},${state.cmpc[1]}`);
+    }
   }
   if (state.mode === 'results' && state.results) {
     const defaults = defaultResultsView();
@@ -155,7 +170,15 @@ function notify() {
 /** Merge `patch` into the current state and push a new history entry. */
 export function navigate(patch, { replace = false } = {}) {
   const previousMode = current ? current.mode : null;
+  const previousEntity = current ? current.entity : null;
   current = { ...current, ...patch };
+  // An overlay belongs to the map it was laid on: opening any other route drops it
+  // (a link that names `cmp` brings it back, because the patch then says so).
+  if ('entity' in patch && !('cmp' in patch)) {
+    const next = patch.entity;
+    const same = previousEntity && next && previousEntity.type === next.type && previousEntity.slug === next.slug;
+    if (!same) { current.cmp = null; current.cmpc = null; }
+  }
   // The Results filters belong to one visit of the panel: opening it again from
   // the toolbar starts from the full list, as it always has. (Back/forward
   // restores them from the address instead, through readLocation().)

@@ -304,7 +304,13 @@ class Handler(BaseHTTPRequestHandler):
         # any page so that a course page or an LMS can embed it (?embed=1); every
         # other response - the HEP Graph app and the whole API - is never framed.
         self.send_header('Content-Security-Policy', "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://tile.openstreetmap.org https://*.tile.openstreetmap.org; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors " + self._frame_ancestors())
-        self.send_header('Permissions-Policy', 'camera=(), microphone=(), geolocation=()')
+        # Geolocation stays off everywhere except the HEP Atlas pages, where "Compare with…"
+        # on a local map can lay a footprint over the reader's own location. That is only
+        # ever asked on an explicit click, only of the page's own origin ((self), never a
+        # frame or another site), and the browser still asks the reader; the position is kept
+        # in the page and never stored, sent or put in an address (static/atlas/js/localmap-compare.js).
+        geolocation = '(self)' if self._frame_ancestors() == '*' else '()'  # the same /atlas test
+        self.send_header('Permissions-Policy', f'camera=(), microphone=(), geolocation={geolocation}')
         self.end_headers()
         if self.command != 'HEAD':
             try:
