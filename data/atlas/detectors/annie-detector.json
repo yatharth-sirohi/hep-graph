@@ -1,0 +1,126 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
+  },
+  "experiment_ids": [
+    "experiment:annie"
+  ],
+  "id": "detector:annie-detector",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2017",
+      "kind": "phase",
+      "label": "Phase I (PMT-only test-beam run)",
+      "locator": "arXiv:1707.08222, executive summary",
+      "note": "Start month from the 2017 proposal (commissioned April 2016, data since May 2016); the end year is from the experiment page (\"Phase I ... was successfully completed in 2017\").",
+      "quote": "Phase I was approved by the PAC in Spring of 2015, commissioned in April 2016. The collaboration has been taking data since May of 2016.",
+      "sources": [
+        "src:annie-fnal-pac-2017-physics-proposal"
+      ],
+      "start": "2016-04",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": "2020",
+      "kind": "phase",
+      "label": "Phase II installation and commissioning",
+      "locator": "ANNIE home page",
+      "note": "Month precision for the installation; the Fermilab feature of 11 March 2020 reports the first neutrino events in the Phase II detector, with gadolinium doping complete and source calibration under way.",
+      "quote": "Phase II detector for the full physics program of the experiment was installed in July 2019 and data taking was started in 2020.",
+      "sources": [
+        "src:annie-official-site"
+      ],
+      "start": "2019-07",
+      "status": "commissioning",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "kind": "phase",
+      "label": "Phase II data taking",
+      "locator": "ANNIE home page",
+      "note": "Open-ended: the 2025 LAPPD paper reports beam-correlated data in the running experiment; no source consulted says ANNIE has stopped.",
+      "quote": "Phase II detector for the full physics program of the experiment was installed in July 2019 and data taking was started in 2020.",
+      "sources": [
+        "src:annie-official-site"
+      ],
+      "start": "2020",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "ANNIE detector",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "locator": "arXiv:1707.08222, executive summary",
+      "note": "Campus-grade Fermilab main-campus point reused; the SciBooNE hall has no separate coordinate in the sources read (the hall is 30 m deep per the Fermilab feature).",
+      "quote": "use of the SciBooNE Hall",
+      "role": "main",
+      "site_id": "site:fermilab-main-campus",
+      "sources": [
+        "src:annie-fnal-pac-2017-physics-proposal",
+        "src:annie-fnal-feature-2020-first-neutrinos"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:annie-fnal-pac-2017-physics-proposal",
+    "src:annie-loi-2015",
+    "src:annie-official-site"
+  ],
+  "specs": {
+    "total_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "26-ton",
+      "locator": "ANNIE home page",
+      "note": "",
+      "quote": "is a 26-ton water-based neutrino detector at Fermilab on the Booster Neutrino Beam (BNB)",
+      "sources": [
+        "src:annie-official-site"
+      ],
+      "unit": "t",
+      "value": 26,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "active",
+  "subsystems": [],
+  "summary": {
+    "plain": "A tank of gadolinium-doped water viewed by photomultiplier tubes and a few fast LAPPD light sensors, with a veto in front and an iron-scintillator muon tracker behind, in an underground hall.",
+    "technical": "Instrumented tank with 25 t Gd-loaded water as neutrino target and neutron tagger, 8-inch PMTs plus LAPPDs, a front veto against dirt-induced events and an iron-scintillator muon range detector; located in the SciBooNE hall."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "abstract",
+    "note": "",
+    "quote": "The ANNIE experiment consists of a small Water Cherenkov detector, instrumented with both conventional photomultiplier tubes (PMTs) and Large Area Picosecond Photodetectors (LAPPDs) deployed on the Booster Neutrino Beam (BNB) at Fermilab.",
+    "sources": [
+      "src:annie-fnal-pac-2017-physics-proposal"
+    ],
+    "value": "Gadolinium-doped water Cherenkov detector with PMTs and LAPPD fast photodetectors and a muon range detector",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "water_cherenkov",
+  "technology_classes": [
+    "water_cherenkov"
+  ],
+  "type": "detector"
+}

@@ -1,0 +1,139 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
+  },
+  "experiment_ids": [
+    "experiment:argoneut"
+  ],
+  "id": "detector:argoneut-detector",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2009-09",
+      "label": "commissioning in the MINOS near-detector hall",
+      "locator": "JINST 7 P10019 (arXiv:1205.6747), section 4",
+      "note": "\"Spring 2009\" (season precision, start month March); the first neutrino candidate was recorded on 27 May 2009 and the physics run began in September 2009.",
+      "quote": "The ArgoNeuT detector was commissioned for the physics run in the MINOS-ND hall at Fermilab in spring 2009.",
+      "sources": [
+        "src:argoneut-jinst-2012-detector"
+      ],
+      "start": "2009-03",
+      "status": "commissioning",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "2010-02",
+      "label": "physics run in the NuMI low-energy beam",
+      "locator": "arXiv:1205.6702, abstract",
+      "note": "Month precision; the detector paper says the run lasted until late February 2010 and collected 1.335e20 protons on target.",
+      "quote": "ArgoNeuT operated in the NuMI low-energy beam line directly upstream of the MINOS Near Detector from September 2009 to February 2010",
+      "sources": [
+        "src:argoneut-analysis-muons-2012"
+      ],
+      "start": "2009-09",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "completed",
+      "locator": "arXiv:1205.6702, abstract",
+      "note": "Terminal event: end of the physics run; no source consulted dates the removal of the detector.",
+      "quote": "ArgoNeuT operated in the NuMI low-energy beam line directly upstream of the MINOS Near Detector from September 2009 to February 2010",
+      "sources": [
+        "src:argoneut-analysis-muons-2012"
+      ],
+      "start": "2010-02",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "ArgoNeuT detector",
+  "notes": [
+    "Run statistics: \"The first neutrino candidate was recorded on May 27, 2009.\""
+  ],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "locator": "section 4",
+      "note": "The existing Fermilab main-campus point (used for the MINOS near detector too) is reused; the MINOS-ND hall is about 100 m below ground and has no separate coordinate in the sources read.",
+      "quote": "ArgoNeuT was located just upstream of the MINOS Near Detector (MINOS-ND)",
+      "role": "main",
+      "site_id": "site:fermilab-main-campus",
+      "sources": [
+        "src:argoneut-jinst-2012-detector"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:argoneut-jinst-2012-detector",
+    "src:argoneut-analysis-muons-2012",
+    "src:argoneut-prl-2012-cc-cross-sections"
+  ],
+  "specs": {
+    "active_volume": {
+      "approx": true,
+      "confidence": "verified",
+      "dimension": "volume",
+      "display": "~170 L",
+      "locator": "section 3",
+      "note": "",
+      "quote": "The active volume is 40 h × 47 w × 90 l cm3 , corresponding to about ∼170 liters of LAr.",
+      "sources": [
+        "src:argoneut-jinst-2012-detector"
+      ],
+      "unit": "L",
+      "value": 170,
+      "verified_at": "2026-10-26"
+    },
+    "drift_length": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "47 cm",
+      "locator": "section 3",
+      "note": "",
+      "quote": "the maximum drift length inside the TPC volume is `d = 47 cm",
+      "sources": [
+        "src:argoneut-jinst-2012-detector"
+      ],
+      "unit": "cm",
+      "value": 47,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "A tank of liquid argon, 170 litres in volume, with fine wire planes that record the tracks of charged particles from neutrino interactions in three dimensions.",
+    "technical": "Liquid-argon TPC with 47 cm horizontal drift, three wire planes (two instrumented, induction and collection), a cryostat with a cryocooler re-liquefaction and purification loop; muons exiting are ranged in the MINOS near detector."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "abstract",
+    "note": "",
+    "quote": "The ArgoNeuT liquid argon time projection chamber has collected thousands of neutrino and antineutrino events during an extended run period in the NuMI beam-line at Fermilab.",
+    "sources": [
+      "src:argoneut-jinst-2012-detector"
+    ],
+    "value": "Liquid-argon time projection chamber with horizontal drift and wire-plane readout",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "noble_liquid_tpc",
+  "technology_classes": [
+    "noble_liquid_tpc"
+  ],
+  "type": "detector"
+}
