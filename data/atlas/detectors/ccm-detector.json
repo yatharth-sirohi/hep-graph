@@ -1,0 +1,182 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
+  },
+  "experiment_ids": [
+    "experiment:ccm"
+  ],
+  "id": "detector:ccm-detector",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2022",
+      "label": "engineering runs (CCM120 in 2019, CCM200 in 2021)",
+      "locator": "Abstract",
+      "note": "Start: the CCM120 engineering run 'in Fall 2019' (season precision). The DPF 2026 collaboration talk lists 'CCM200 Engineering Run (2021)' before the physics run; the end (2022) is the start of the physics run. Both are year-level.",
+      "quote": "An engineering run was performed in Fall 2019 to study the characteristics of the CCM120 detector",
+      "sources": [
+        "src:ccm-2105-14020"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2019-10",
+        "display": "Fall 2019",
+        "earliest": "2019-09",
+        "latest": "2019-11"
+      },
+      "status": "commissioning",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "CCM200 physics run (3-year data-taking period)",
+      "locator": "Talk slide 'Coherent CAPTAIN-Mills Experiment Overview'",
+      "note": "The July 2026 talk labels the CCM200 physics run '2022-2024'; an April 2024 talk says CCM was 'Mid-way through 3yr data taking period'. No source consulted says data taking has stopped or continues in 2026, and the August 2026 ALP paper says future analyses will use the full CCM200 dataset; the interval is left open. Year precision.",
+      "quote": "CCM200 Physics Run (2022-2024)",
+      "sources": [
+        "src:ccm-dpf-2026-newmark-talk"
+      ],
+      "start": "2022",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "Coherent CAPTAIN-Mills detector (CCM120 / CCM200)",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "locator": "Introduction",
+      "note": "Campus-grade LANSCE point; the detector stands in the Lujan Center, 20 m from the target (abstract of arXiv:2105.14020); no hall coordinate is published in the sources read.",
+      "quote": "CCM operates at the LANSCE Lujan Center where 800 MeV protons are delivered at a rate of 20 Hz",
+      "role": "main",
+      "site_id": "site:lanl-lansce",
+      "sources": [
+        "src:ccm-2109-14146"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:ccm-2105-14020",
+    "src:ccm-2109-14146",
+    "src:ccm-2507-08886",
+    "src:ccm-2507-08887"
+  ],
+  "specs": {
+    "fiducial_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "7 tons",
+      "locator": "Abstract",
+      "note": "Stored as mass (liquid argon).",
+      "quote": "instruments 7 tons (fiducial volume) of LAr with 200 8-inch photomultiplier tubes (PMTs)",
+      "sources": [
+        "src:ccm-2507-08886"
+      ],
+      "unit": "t",
+      "value": 7,
+      "verified_at": "2026-10-26"
+    },
+    "phase": {
+      "confidence": "verified",
+      "locator": "Abstract",
+      "note": "",
+      "quote": "The operation of this 10-ton detector was strictly light-based",
+      "sources": [
+        "src:ccm-2109-14146"
+      ],
+      "value": "single-phase (scintillation light only)",
+      "verified_at": "2026-10-26"
+    },
+    "pmt_count": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "count",
+      "display": "200 photomultiplier tubes",
+      "locator": "Abstract",
+      "note": "",
+      "quote": "instruments 7 tons (fiducial volume) of LAr with 200 8-inch photomultiplier tubes (PMTs)",
+      "sources": [
+        "src:ccm-2507-08886"
+      ],
+      "unit": "",
+      "value": 200,
+      "verified_at": "2026-10-26"
+    },
+    "target_distance": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "20 meters",
+      "locator": "Abstract",
+      "note": "",
+      "quote": "CCM is a 10-ton liquid argon (LAr) detector located 20 meters from a high flux neutron/neutrino source",
+      "sources": [
+        "src:ccm-2105-14020"
+      ],
+      "unit": "m",
+      "value": 20,
+      "verified_at": "2026-10-26"
+    },
+    "target_medium": {
+      "confidence": "verified",
+      "locator": "Abstract",
+      "note": "",
+      "quote": "CCM is a 10-ton liquid argon (LAr) detector",
+      "sources": [
+        "src:ccm-2105-14020"
+      ],
+      "value": "liquid argon",
+      "verified_at": "2026-10-26"
+    },
+    "total_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "10-ton",
+      "locator": "Abstract",
+      "note": "",
+      "quote": "CCM is a 10-ton liquid argon (LAr) detector",
+      "sources": [
+        "src:ccm-2105-14020"
+      ],
+      "unit": "t",
+      "value": 10,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "active",
+  "subsystems": [],
+  "summary": {
+    "plain": "The CCM detector: a steel tank of liquid argon with 200 light sensors, built to see the faint flashes made when a neutrino or a dark-matter particle nudges an argon nucleus.",
+    "technical": "Cylindrical stainless-steel cryostat (2.58 m diameter, 2.26 m height) holding 10 t of LAr, about 3 t active veto and about 5 t (CCM120) / 7 t (CCM200) fiducial volume; 200 8-inch PMTs, 50 % photocathode coverage, 2 ns timing resolution; TPB-coated foils and PMTs (80 % coated) for wavelength shifting."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "Abstract",
+    "note": "",
+    "quote": "80% of which are coated in a wavelength shifting material and the remaining 20% are uncoated",
+    "sources": [
+      "src:ccm-2507-08886"
+    ],
+    "value": "Single-phase liquid-argon light-collection detector (scintillation and Cherenkov light, no drift field or charge readout); 80 % of the PMTs coated with a wavelength shifter, 20 % uncoated",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "noble_liquid_tpc",
+  "technology_classes": [
+    "noble_liquid_tpc"
+  ],
+  "type": "detector"
+}

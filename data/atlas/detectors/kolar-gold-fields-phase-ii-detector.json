@@ -1,0 +1,121 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
+  },
+  "experiment_ids": [
+    "experiment:kolar-gold-fields-experiments"
+  ],
+  "id": "detector:kolar-gold-fields-phase-ii-detector",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "1993",
+      "label": "data taking",
+      "locator": "section I, Introduction",
+      "note": "Year precision: 'This detector became operational in 1985.'",
+      "quote": "This detector became operational in 1985. The Phase II detector comprised of about 4000 proportional counters and total weight of 260 tons.",
+      "sources": [
+        "src:kgf-hep-ex0008074"
+      ],
+      "start": "1985",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "completed",
+      "locator": "section I, Introduction",
+      "note": "The paper says the proton-decay experiment stopped data taking in 1993; it does not give a separate retirement date for this detector.",
+      "quote": "Since the management of KGF mines decided to start closing the mines in 1993, the proton decay experiment stopped data taking in 1993.",
+      "sources": [
+        "src:kgf-hep-ex0008074"
+      ],
+      "start": "1993",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "KGF Phase II proton-decay detector",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "locator": "section I, Introduction",
+      "note": "Placed at the Kolar Gold Fields site; the mine level and shaft are not given by any source consulted (the depth is in the specs).",
+      "quote": "This detector became operational in 1985. The Phase II detector comprised of about 4000 proportional counters and total weight of 260 tons.",
+      "role": "main",
+      "site_id": "site:kolar-gold-fields-mines",
+      "sources": [
+        "src:kgf-hep-ex0008074"
+      ],
+      "start": "1985",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:kgf-hep-ex0008074"
+  ],
+  "specs": {
+    "depth": {
+      "approx": false,
+      "confidence": "derived",
+      "dimension": "depth_mwe",
+      "display": "6045 m.w.e. (6045 hg/cm²)",
+      "locator": "section I, Introduction",
+      "note": "Paper unit hg/cm^2; 1 hg/cm^2 = 1 m.w.e. The page text of the second figure reads 'installed at a 2 depth of 6045 hg/cm' because the superscript is displaced.",
+      "quote": "installed at a 2 depth of 6045 hg/cm (Ref. 10)",
+      "sources": [
+        "src:kgf-hep-ex0008074"
+      ],
+      "unit": "m.w.e.",
+      "value": 6045,
+      "verified_at": "2026-10-26"
+    },
+    "total_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "260 tons",
+      "locator": "section I, Introduction",
+      "note": "",
+      "quote": "This detector became operational in 1985. The Phase II detector comprised of about 4000 proportional counters and total weight of 260 tons.",
+      "sources": [
+        "src:kgf-hep-ex0008074"
+      ],
+      "unit": "t",
+      "value": 260,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "A larger second proton-decay detector at KGF, about 260 tons, operating from 1985 at a slightly shallower level than the first.",
+    "technical": "Phase II: about 4000 proportional counters (6 m long) in 60 layers with 0.6 cm iron plates, 6 x 6 m^2 floor area, 260 t, at 6045 hg/cm^2."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "section II, Experimental Details",
+    "note": "",
+    "quote": "The Phase II detector was also of similar type but used only 6 m long proportional counters.",
+    "sources": [
+      "src:kgf-hep-ex0008074"
+    ],
+    "value": "Iron-walled proportional counters in crossed horizontal layers interleaved with iron plates",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "tracking_calorimeter",
+  "technology_classes": [
+    "tracking_calorimeter"
+  ],
+  "type": "detector"
+}

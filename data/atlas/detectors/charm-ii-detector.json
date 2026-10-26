@@ -1,0 +1,132 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
+  },
+  "experiment_ids": [
+    "experiment:charm-ii"
+  ],
+  "id": "detector:charm-ii-detector",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "1986",
+      "label": "preparation and setting-up (WA79)",
+      "locator": "Administrative history, CHARM 2 experiments",
+      "note": "Preparation began in 1983 and the setting-up in 1984 (the archive text reads 'The setting-up started is 1984'); data taking began in 1986. Dore (EPJ H 37, 2012) heads the detector '(1982)'.",
+      "quote": "CHARM 2 (Brussels IIHE-CERN-Hamburg-Louvain-Moscow-Munich-Naples-Rome Collaboration) experiments WA79: The preparation of this experiment began in 1983.",
+      "sources": [
+        "src:charm-cern-archives-guide"
+      ],
+      "start": "1983",
+      "status": "construction",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "1991-08-12",
+      "label": "data taking (WA79)",
+      "locator": "Administrative history, CHARM 2 experiments",
+      "note": "The CERN archive gives data taking from 1986 to 12 August 1991. The 1994 Phys. Lett. B abstract analyses 'the CHARM II detector from 1987 till 1991' and the CERN Courier says 'From 1983-91 the WA79 (CHARM II) experiment detected several thousand events'; the archive dates are chosen because they are the experiment's own record of its run.",
+      "quote": "The data-taking began in 1986. WA79 was completed on the 12th August 1991.",
+      "sources": [
+        "src:charm-cern-archives-guide"
+      ],
+      "start": "1986",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "completed",
+      "locator": "Administrative history, CHARM 2 experiments",
+      "note": "Terminal event: WA79 'was completed on the 12th August 1991'.",
+      "quote": "The data-taking began in 1986. WA79 was completed on the 12th August 1991.",
+      "sources": [
+        "src:charm-cern-archives-guide"
+      ],
+      "start": "1991-08-12",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "CHARM II detector",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": "1991-08-12",
+      "locator": "Administrative history, CHARM 2 experiments",
+      "note": "Approximate: no fetched source gives a coordinate or a hall for this detector in the SPS West Area, so the existing campus-grade point of the CERN Meyrin site (precision 500 m) is used. 'WA' is CERN's West Area experiment prefix (CERN Archives list WA9 as 'West Area experiment 9').",
+      "quote": "The data-taking began in 1986. WA79 was completed on the 12th August 1991.",
+      "role": "main",
+      "site_id": "site:cern-meyrin",
+      "sources": [
+        "src:charm-cern-archives-guide"
+      ],
+      "start": "1986",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:cern-wa-1103-4572",
+    "src:charm-cern-archives-guide"
+  ],
+  "specs": {
+    "target_medium": {
+      "confidence": "verified",
+      "locator": "§4.2.2 CERN experiments",
+      "note": "",
+      "quote": "It was a massive fine grained calorimeter (692 t) of low density (target material glass) followed by a magnetic spectrometer [72].",
+      "sources": [
+        "src:cern-wa-1103-4572"
+      ],
+      "value": "glass",
+      "verified_at": "2026-10-26"
+    },
+    "total_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "692 t",
+      "locator": "§4.2.2 CERN experiments",
+      "note": "",
+      "quote": "It was a massive fine grained calorimeter (692 t) of low density (target material glass) followed by a magnetic spectrometer [72].",
+      "sources": [
+        "src:cern-wa-1103-4572"
+      ],
+      "unit": "t",
+      "value": 692,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "A very large, fine-grained calorimeter made of glass plates and tracking planes, with a magnet behind it, designed so that a neutrino scattering off a single electron could be seen.",
+    "technical": "692 t fine-grained calorimeter with a low-density glass target followed by a magnetic spectrometer."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "§4.2.2 CERN experiments",
+    "note": "",
+    "quote": "It was a massive fine grained calorimeter (692 t) of low density (target material glass) followed by a magnetic spectrometer [72].",
+    "sources": [
+      "src:cern-wa-1103-4572"
+    ],
+    "value": "Massive fine-grained low-density calorimeter with a glass target, followed by a magnetic spectrometer",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "tracking_calorimeter",
+  "technology_classes": [
+    "tracking_calorimeter"
+  ],
+  "type": "detector"
+}

@@ -1,0 +1,157 @@
+{
+  "accelerator_ids": [],
+  "aliases": [],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:holmes"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
+  },
+  "energy_regime": null,
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "facility_id": "facility:university-of-milano-bicocca",
+      "locator": "section 5 Conclusions",
+      "note": "The 2015 paper says the cryogenic test-bed is being set up at the University of Milano-Bicocca laboratory; the ERC grant's host institution is INFN. The location of the 2025 physics runs is not stated.",
+      "quote": "A cryogenic test-bed instrumented for TES arrays microwave readout is being set up at University of Milano-Bicocca laboratory.",
+      "role": "host",
+      "sources": [
+        "src:holmes-1412-5060"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:holmes",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2014-02",
+      "label": "funded by the European Research Council",
+      "locator": "section 3",
+      "note": "Year precision for the funding decision ('funded in 2013'); the end is the start of the grant (1 February 2014, month precision).",
+      "quote": "HOLMES was funded in 2013 by the European Research Council with an Advanced Grant awarded to Prof. S. Ragazzi.",
+      "sources": [
+        "src:holmes-1412-5060"
+      ],
+      "start": "2013",
+      "status": "approved",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": "2025-03",
+      "label": "ERC grant period: design and set-up of the experiment",
+      "locator": "section 3",
+      "note": "Start is the grant start (1 Feb 2014); in the 2015 paper 'all the systems required for the HOLMES experiment are being designed and set-up'. The end is only an upper bound: the first physics results (two physics runs) were reported in March 2025 and the dates of those runs are not stated in the paper, so the construction/operation boundary is not sourced.",
+      "quote": "The Italian Istituto Nazionale di Fisica Nucleare (INFN) is the Host Institution for the grant which started on February 1st 2014 and will end on January 31st 2019.",
+      "sources": [
+        "src:holmes-1412-5060"
+      ],
+      "start": "2014-02",
+      "status": "construction",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "physics runs and first result",
+      "locator": "abstract",
+      "note": "Start is the arXiv v1 date (2025-03-10) of the first physics result, which reports data from two physics runs lasting two months; the real start of data taking is earlier and undated in the paper. Open because no source says the experiment stopped; whether it is taking data on 2026-10-26 is not confirmed.",
+      "quote": "With a total of 7 × 107 decay events recorded over two months and a Bayesian statistical analysis, we derive an upper limit of mβ < 27 eV/c2 at 90% credibility.",
+      "sources": [
+        "src:holmes-2503-19920"
+      ],
+      "start": "2025-03",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Neutrino-mass limit (first physics result, 2025)",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "mass_energy",
+        "display": "mβ < 27 eV/c² (90% credibility)",
+        "locator": "abstract",
+        "note": "",
+        "quote": "With a total of 7 × 107 decay events recorded over two months and a Bayesian statistical analysis, we derive an upper limit of mβ < 27 eV/c2 at 90% credibility.",
+        "sources": [
+          "src:holmes-2503-19920"
+        ],
+        "unit": "eV/c^2",
+        "value": 27,
+        "verified_at": "2026-10-26"
+      }
+    },
+    {
+      "label": "Decay events recorded in the 2025 result",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "count",
+        "display": "7 × 10⁷ 163Ho decays (two months)",
+        "locator": "abstract",
+        "note": "",
+        "quote": "With a total of 7 × 107 decay events recorded over two months and a Bayesian statistical analysis, we derive an upper limit of mβ < 27 eV/c2 at 90% credibility.",
+        "sources": [
+          "src:holmes-2503-19920"
+        ],
+        "unit": "",
+        "value": 70000000,
+        "verified_at": "2026-10-26"
+      }
+    }
+  ],
+  "kind": "neutrino_mass",
+  "lineage": [],
+  "links": {
+    "website": null
+  },
+  "name": "HOLMES",
+  "notes": [
+    "No official website was found (searches and the Milano-Bicocca pages tried returned nothing fetchable); no INSPIRE experiment id was looked up.",
+    "The 2015 design target was a sensitivity as low as 0.4 eV with about 1000 detectors; the 2025 result is far below that scale."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "section 3",
+      "note": "",
+      "quote": "The HOLMES experiment is aimed at directly measuring the electron neutrino mass using the EC decay of 163 Ho and an array of low temperature microcalorimeters.",
+      "sources": [
+        "src:holmes-1412-5060"
+      ],
+      "value": "Measure the electron neutrino mass calorimetrically from the electron-capture decay of 163Ho with an array of low-temperature microcalorimeters",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:holmes-1412-5060",
+    "src:holmes-1807-09269",
+    "src:holmes-2503-19920"
+  ],
+  "status": "active",
+  "summary": {
+    "plain": "An experiment in Italy that weighs the electron neutrino by watching holmium-163 atoms decay inside ultra-cold detectors. Its first result, from two months of data in 2025, limits the neutrino mass to 27 electron-volts at 90% credibility.",
+    "technical": "Calorimetric 163Ho electron-capture spectroscopy with ion-implanted TES microcalorimeters (6 eV FWHM, microwave-multiplexed readout) at a few tens of mK; ERC Advanced Grant 2014-2019 (INFN host); first result m_β < 27 eV/c² (90% credibility) from 7×10⁷ events."
+  },
+  "topic_ids": [
+    "topic:neutrino-mass-direct"
+  ],
+  "type": "experiment",
+  "unique_capabilities": []
+}

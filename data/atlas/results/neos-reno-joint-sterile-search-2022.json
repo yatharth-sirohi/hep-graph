@@ -8,7 +8,8 @@
     ]
   },
   "collaboration_ids": [
-    "collaboration:neos"
+    "collaboration:neos",
+    "collaboration:reno"
   ],
   "coverage": {
     "researched": "full",
@@ -27,11 +28,17 @@
   },
   "date_kind": "preprint",
   "detector_ids": [
-    "detector:neos-detector"
+    "detector:neos-detector",
+    "detector:reno"
   ],
   "experiment_ids": [
     "experiment:neos",
-    "experiment:reno"
+    {
+      "id": "experiment:reno",
+      "sources": [
+        "src:neos-prd-2022-neos-ii"
+      ]
+    }
   ],
   "facility_ids": [
     "facility:yonggwang-hanbit-reactor-site"

@@ -1,0 +1,205 @@
+{
+  "accelerator_ids": [
+    "accelerator:sps"
+  ],
+  "aliases": [
+    "WA96",
+    "Neutrino Oscillation MAgnetic Detector"
+  ],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:nomad"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
+  },
+  "energy_regime": null,
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:cern",
+      "locator": "§1 Introduction",
+      "note": "",
+      "quote": "The NOMAD experiment was designed in 1991 to search for ντ appearance from neutrino oscillations in the CERN wide-band neutrino beam produced by the 450 GeV proton synchrotron.",
+      "role": "host",
+      "sources": [
+        "src:nomad-hep-ex0106102"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:nomad",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "1993",
+      "label": "approved",
+      "locator": "Administrative history",
+      "note": "'End of 1991' is stored as December 1991, approximate. The NOMAD final paper agrees: 'The NOMAD experiment was designed in 1991'. The end of this interval is the start of first operation (Courier: 1993).",
+      "quote": "NOMAD (Neutrino Oscillation MAgnetic Detector) or WA96 located in the West Area of SPS experiment was approved at the end of 1991.",
+      "sources": [
+        "src:nomad-cern-archives-guide"
+      ],
+      "start": {
+        "approx": true,
+        "date": "1991-12",
+        "display": "end of 1991",
+        "note": "Source wording: 'at the end of 1991'."
+      },
+      "status": "approved",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": "1995",
+      "label": "first operation (CERN Courier: began operation in 1993)",
+      "locator": "CERN Courier, 27 November 1998, section 'Muon neutrinos'",
+      "note": "The Courier says the detector began operation in 1993; the NOMAD final paper dates its event sample from 1995 and Dore (EPJ H 37, 2012) writes 'NOMAD (1994)'. The 1993-1995 period is recorded as commissioning/first operation, an interpretation that no source spells out.",
+      "quote": "With the West Area well served with muon neutrinos, specialized detectors (NOMAD using kinematic techniques, and CHORUS using nuclear emulsion to observe the final state tau leptons) began operation in 1993.",
+      "sources": [
+        "src:cern-wa-courier-neutrinos-stop-going-west-1998"
+      ],
+      "start": "1993",
+      "status": "commissioning",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "1998",
+      "label": "data taking",
+      "locator": "§1 Introduction",
+      "note": "Year precision, from the NOMAD final-results paper. The CERN archive's administrative history says the data taking was completed at the end of 1998 (used for the terminal event).",
+      "quote": "From 1995 to 1998 the experiment has collected 1 040 000 events with an identified muon, corresponding to about 1 350 000 νµ CC interactions",
+      "sources": [
+        "src:nomad-hep-ex0106102"
+      ],
+      "start": "1995",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "completed",
+      "locator": "Administrative history",
+      "note": "Terminal event: end of data taking, 'at the end of 1998' (December 1998, approximate). The CERN Courier (27 November 1998) dates the completion of the CHORUS and NOMAD experiments to September 1998. The detector was dismantled during 1999.",
+      "quote": "The data taking was completed at the end of 1998 and the detector was dismantled during the course of 1999.",
+      "sources": [
+        "src:nomad-cern-archives-guide"
+      ],
+      "start": {
+        "approx": true,
+        "date": "1998-12",
+        "display": "end of 1998",
+        "note": "Source wording: 'at the end of 1998'."
+      },
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Fiducial target mass",
+      "quantity": {
+        "approx": true,
+        "confidence": "verified",
+        "dimension": "mass",
+        "display": "about 2.7 tons",
+        "locator": "§2 NOMAD detector",
+        "note": "",
+        "quote": "Inside a 0.4 T magnetic field there is an active target consisting of drift chambers (DC) [8] with a fiducial mass of about 2.7 tons and a low average density (0.1 g/cm3 ).",
+        "sources": [
+          "src:nomad-hep-ex0106102"
+        ],
+        "unit": "t",
+        "value": 2.7,
+        "verified_at": "2026-10-26"
+      }
+    },
+    {
+      "label": "Magnetic field",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "magnetic_field",
+        "display": "0.4 T",
+        "locator": "§2 NOMAD detector",
+        "note": "",
+        "quote": "Inside a 0.4 T magnetic field there is an active target consisting of drift chambers (DC) [8] with a fiducial mass of about 2.7 tons and a low average density (0.1 g/cm3 ).",
+        "sources": [
+          "src:nomad-hep-ex0106102"
+        ],
+        "unit": "T",
+        "value": 0.4,
+        "verified_at": "2026-10-26"
+      }
+    },
+    {
+      "label": "Average source-detector distance",
+      "quantity": {
+        "approx": true,
+        "confidence": "verified",
+        "dimension": "length",
+        "display": "625 m (average)",
+        "locator": "§3 Neutrino beam and event samples",
+        "note": "",
+        "quote": "Neutrinos are produced at an average distance of 625 m from the detector.",
+        "sources": [
+          "src:nomad-hep-ex0106102"
+        ],
+        "unit": "m",
+        "value": 625,
+        "verified_at": "2026-10-26"
+      }
+    }
+  ],
+  "kind": "accelerator_neutrino",
+  "lineage": [],
+  "links": {
+    "website": null
+  },
+  "name": "NOMAD",
+  "notes": [
+    "No official NOMAD website survives; none is recorded.",
+    "The NOMAD detector re-used the UA1 magnet (CERN archive: 'a high resolution magnetic detector built with the UA1 magnet')."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "Administrative history",
+      "note": "",
+      "quote": "Its main goal was to search for the appearance of tau neutrinos in the SPS wideband neutrino beam.",
+      "sources": [
+        "src:nomad-cern-archives-guide"
+      ],
+      "value": "Search for tau-neutrino appearance in the SPS wide-band neutrino beam using the kinematics of tau-lepton decays measured with a magnetic detector",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:nomad-hep-ex0106102",
+    "src:nomad-cern-archives-guide",
+    "src:cern-wa-courier-neutrinos-stop-going-west-1998"
+  ],
+  "status": "completed",
+  "summary": {
+    "plain": "A magnetic detector at CERN that looked for muon neutrinos turning into tau neutrinos by measuring every visible particle precisely and spotting the missing momentum of a tau decay. It ran in 1995-98, found no signal, and limited the mixing to below about 0.00033 at large mass differences.",
+    "technical": "Magnetic detector (UA1 dipole, 0.4 T) in the CERN SPS wide-band nu_mu beam: ~2.7 t fiducial drift-chamber target, transition-radiation detector, preshower, lead-glass calorimeter, hadron calorimeter and muon chambers; nu_tau appearance searched by kinematic criteria on tau decays. Final result: sin^2(2 theta) < 3.3e-4 at large delta m^2 (90 % CL)."
+  },
+  "topic_ids": [
+    "topic:neutrino-oscillations",
+    "topic:neutrino-interactions"
+  ],
+  "type": "experiment",
+  "unique_capabilities": []
+}

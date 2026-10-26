@@ -1,0 +1,134 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
+  },
+  "experiment_ids": [
+    "experiment:baksan-underground-scintillation-telescope"
+  ],
+  "id": "detector:baksan-underground-scintillation-telescope-detector",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "telescope operating (launched 1978)",
+      "locator": "Laboratory page, section 'Baksan Underground Scintillation Telescope (BPST)'",
+      "note": "Year precision: the INR laboratory page says the 3200-channel telescope was launched in 1978. A 2002 collaboration paper says it 'was constructed late in 1977' and physics began later; a 2013 paper counts continuous measurements 'since December of 1978'. The interval is open: the latest paper read (PoS(MUTO2022)035, data to 31 December 2021) says the facility 'has been uninterruptedly used' for the neutrino-burst search since mid-1980; no source confirms operation in 2026.",
+      "quote": "В 1978 г. осуществлен запуск 3200-канального подземного сцинтилляционного телескопа (ПСТ), одной из крупнейших подземных установок того времени.",
+      "sources": [
+        "src:geo-baksan-inr-bust"
+      ],
+      "start": "1978",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "locator": "page title",
+      "note": "",
+      "quote": "БНО ИЯИ РАН - Лаборатория Баксанский подземный сцинтилляционный телескоп.",
+      "sources": [
+        "src:geo-baksan-inr-bust"
+      ],
+      "value": "https://www.inr.ru/rus/bno/lbpst.html",
+      "verified_at": "2026-10-26"
+    }
+  },
+  "name": "Baksan Underground Scintillation Telescope detector",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "locator": "Laboratory page, section on the telescope",
+      "note": "The hall is 550 m inside the horizontal tunnel; the site point is the OpenStreetMap Main adit entrance (campus-grade, no hall coordinate published).",
+      "quote": "Телескоп расположен в горной выработке объемом 12000 куб. метров на расстоянии 550м от начала горизонтального тоннеля.",
+      "role": "main",
+      "site_id": "site:baksan-bust-hall",
+      "sources": [
+        "src:geo-baksan-inr-bust"
+      ],
+      "start": "1978",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:geo-baksan-inr-bust",
+    "src:baksan-bust-1907-03019",
+    "src:baksan-bust-1907-05183"
+  ],
+  "specs": {
+    "length": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "17 × 17 × 11 m³",
+      "locator": "§2 The facility",
+      "note": "Plan 17 m x 17 m, height 11 m.",
+      "quote": "The facility has dimensions 17 × 17 × 11 m3",
+      "sources": [
+        "src:baksan-bust-1907-03019"
+      ],
+      "unit": "m",
+      "value": 17,
+      "verified_at": "2026-10-26"
+    },
+    "sensor_count": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "count",
+      "display": "3184 standard counters",
+      "locator": "§3",
+      "note": "The INR page says 3,180 and a 2007 proceeding says 3,150; the 2019 paper's figure is used.",
+      "quote": "The BUST consists of 3184 standard autonomous counters.",
+      "sources": [
+        "src:baksan-bust-1907-03019"
+      ],
+      "unit": "",
+      "value": 3184,
+      "verified_at": "2026-10-26"
+    },
+    "total_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "330 t",
+      "locator": "§3",
+      "note": "",
+      "quote": "The total scintillator mass is 330 t",
+      "sources": [
+        "src:baksan-bust-1907-03019"
+      ],
+      "unit": "t",
+      "value": 330,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "active",
+  "subsystems": [],
+  "summary": {
+    "plain": "A tall block of 3,184 scintillator tanks, stacked in planes, that records the track and timing of every particle passing through.",
+    "technical": "Aluminium tanks (0.7 x 0.7 x 0.3 m^3) of white-spirit scintillator with PPO and POPOP, one 15 cm PMT each; four horizontal and four vertical layers in a concrete-block building; time-of-flight direction measurement (2 ns) separates upward from downward muons."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "§3 The method of neutrino burst detection",
+    "note": "",
+    "quote": "The BUST consists of 3184 standard autonomous counters. The total scintillator mass is 330 t",
+    "sources": [
+      "src:baksan-bust-1907-03019"
+    ],
+    "value": "Four-storey building of liquid-scintillator counters (aluminium tanks, white-spirit scintillator, one photomultiplier each): four horizontal and four vertical planes, 3184 counters, 330 t of scintillator",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "liquid_scintillator",
+  "technology_classes": [
+    "liquid_scintillator"
+  ],
+  "type": "detector"
+}

@@ -1,0 +1,116 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
+  },
+  "experiment_ids": [
+    "experiment:nusex"
+  ],
+  "id": "detector:nusex-detector",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "data taking",
+      "locator": "abstract/section 'The Detector'",
+      "note": "Day precision from the 1985 ICRC paper (OCR text layer: 'It has been running since June 1st, 1982 in a cave aside the Mont Blanc Tunnel'); the 1983 AIP proceedings say 'operating since 1982'. The same paper reports 2.8 years of operation by 1985. The end of data taking is not given in any source consulted; see the next interval.",
+      "quote": "June 1st, 1982 In a cave aside the Mont Blanc Tunnel",
+      "sources": [
+        "src:nusex-ntrs-icrc1985-he6-2-6",
+        "src:nusex-osti-5702014-1983"
+      ],
+      "start": "1982-06-01",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "completed",
+      "locator": "section 2 'Nucleon decay experiments'",
+      "note": "Terminal event with an unknown date, given as a window: the earliest bound (March 1985) is June 1982 plus the '2.8 years of operation' of the 1985 ICRC paper, i.e. the detector was still running then; the latest bound (July 2004) is the review (arXiv v1, 26 Jul 2004) saying NUSEX 'stopped data-taking'. No fetched source dates the end; later NUSEX analysis papers (EPL 8, 611, received 22 November 1988) show the analysis continued into 1988-89.",
+      "quote": "We note that NUSEX, Fréjus, Soudan, Kamiokande and IMB stopped data-taking and currently only Superkamiokande is active.",
+      "sources": [
+        "src:frejus-hep-ph0407297",
+        "src:nusex-ntrs-icrc1985-he6-2-6"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2004-07",
+        "display": "between March 1985 and July 2004; end of data taking not stated in any source consulted",
+        "earliest": "1985-03",
+        "latest": "2004-07"
+      },
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "NUSEX detector",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "locator": "abstract",
+      "note": "Start date from the 1985 ICRC paper (see the experiment record). The cave position inside the tunnel is not surveyed.",
+      "quote": "is situated half way along the road tunnel under Mont Blanc linking France and Italy",
+      "role": "main",
+      "site_id": "site:mont-blanc-tunnel-laboratory",
+      "sources": [
+        "src:nusex-springer-monopole83-price-1984"
+      ],
+      "start": "1982-06-01",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:frejus-hep-ph0407297",
+    "src:nusex-ntrs-icrc1985-he6-2-6",
+    "src:nusex-springer-monopole83-price-1984"
+  ],
+  "specs": {
+    "total_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "150 tons",
+      "locator": "section 'The Detector'",
+      "note": "",
+      "quote": "Total mass is 150 tons",
+      "sources": [
+        "src:nusex-ntrs-icrc1985-he6-2-6"
+      ],
+      "unit": "t",
+      "value": 150,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "A cube of iron plates 3.5 metres on a side, interleaved with layers of gas-filled plastic tubes that light up along the tracks of charged particles, weighing 150 tons.",
+    "technical": "136 horizontal iron plates (1 cm, 3.5 m x 3.5 m) interleaved with planes of 320 resistive-cathode PVC streamer tubes (1 cm^2) read out by two orthogonal sets of aluminium strips; 150 t total."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "section 3.1 'NUSEX experiment'",
+    "note": "",
+    "quote": "NUSEX[3] was composed of iron plates interleaved with streamer tubes.",
+    "sources": [
+      "src:frejus-hep-ph0407297"
+    ],
+    "value": "Digital tracking calorimeter of iron plates interleaved with plastic streamer tubes",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "tracking_calorimeter",
+  "technology_classes": [
+    "tracking_calorimeter"
+  ],
+  "type": "detector"
+}

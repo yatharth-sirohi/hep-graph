@@ -1,0 +1,184 @@
+{
+  "accelerator_ids": [],
+  "aliases": [],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:macro"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
+  },
+  "energy_regime": null,
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:lngs",
+      "locator": "§1 Introduction",
+      "note": "",
+      "quote": "The detector was located in Hall B of the underground Gran Sasso Laboratory (Italy).",
+      "role": "host",
+      "sources": [
+        "src:macro-hep-ex0612057"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:macro",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "1994-04",
+      "label": "data taking with the detector under construction",
+      "locator": "§1",
+      "note": "Supermodules were added in turn; the quote gives March 1989 to April 1994 with the detector under construction. The mid-1994 start of the full-detector interval follows.",
+      "quote": "Data were taken from March 1989 till april 1994 with the detector under construction and from the middle of 1994 till the end of 2000 with the full detector.",
+      "sources": [
+        "src:macro-hep-ex0210006"
+      ],
+      "start": "1989-03",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": "2000-12",
+      "label": "data taking with the full detector",
+      "locator": "§1",
+      "note": "Start 'the middle of 1994' (month precision, approximate). End: 'running until December 2000' (arXiv:hep-ex/0612057, §1) and 'to the end of year 2000' (arXiv:hep-ex/0210006).",
+      "quote": "Data were taken from March 1989 till april 1994 with the detector under construction and from the middle of 1994 till the end of 2000 with the full detector.",
+      "sources": [
+        "src:macro-hep-ex0210006"
+      ],
+      "start": {
+        "approx": true,
+        "date": "1994-06",
+        "display": "middle of 1994"
+      },
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "completed",
+      "locator": "§1 Introduction",
+      "note": "Terminal event: end of data taking, December 2000.",
+      "quote": "The detector started data taking in 1989 and it was running until December 2000.",
+      "sources": [
+        "src:macro-hep-ex0612057"
+      ],
+      "start": "2000-12",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Dimensions (length)",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "length",
+        "display": "76.5 m (76.5 × 12 × 9.3 m³)",
+        "locator": "§1",
+        "note": "Another MACRO summary (arXiv:hep-ex/0612057) gives 76.6 × 12 × 9.3 m3.",
+        "quote": "The full detector had global dimensions of 76.5 × 12 × 9.3 m3",
+        "sources": [
+          "src:macro-hep-ex0210006"
+        ],
+        "unit": "m",
+        "value": 76.5,
+        "verified_at": "2026-10-26"
+      }
+    },
+    {
+      "label": "Total mass",
+      "quantity": {
+        "approx": true,
+        "confidence": "verified",
+        "dimension": "mass",
+        "display": "≃ 5300 t",
+        "locator": "§1",
+        "note": "",
+        "quote": "The total mass was ≃ 5300 t.",
+        "sources": [
+          "src:macro-hep-ex0210006"
+        ],
+        "unit": "t",
+        "value": 5300,
+        "verified_at": "2026-10-26"
+      }
+    },
+    {
+      "label": "Overburden (laboratory mean)",
+      "quantity": {
+        "approx": true,
+        "confidence": "verified",
+        "dimension": "depth_mwe",
+        "display": "≃ 3700 m.w.e.",
+        "locator": "§1",
+        "note": "Mean rock thickness of Gran Sasso as quoted in the MACRO paper (minimum 3150 m.w.e.); the LNGS site records carry 3800 m.w.e. from another source.",
+        "quote": "is well shielded from cosmic rays by a mean rock thickness of ≃ 3700 m.w.e.",
+        "sources": [
+          "src:macro-hep-ex0210006"
+        ],
+        "unit": "m.w.e.",
+        "value": 3700,
+        "verified_at": "2026-10-26"
+      }
+    }
+  ],
+  "kind": "cosmic_ray",
+  "lineage": [],
+  "links": {
+    "website": null
+  },
+  "name": "MACRO",
+  "notes": [
+    "Primary kind cosmic_ray: the MACRO papers say it was designed for rare phenomena in the cosmic radiation and optimised for supermassive GUT magnetic monopoles (there is no monopole kind); atmospheric-neutrino oscillations are recorded as the secondary kind and as the headline result."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "§1 Introduction",
+      "note": "",
+      "quote": "MACRO was a large area multipurpose underground detector [1] designed to search for rare events and rare phenomena in the cosmic radiation.",
+      "sources": [
+        "src:macro-hep-ex0612057"
+      ],
+      "value": "Search for rare events and rare phenomena in the cosmic radiation: supermassive GUT magnetic monopoles, atmospheric-neutrino oscillations, exotic particles (nuclearites, WIMPs), muon physics and astrophysics",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [
+    "atmospheric_neutrino"
+  ],
+  "sources": [
+    "src:macro-hep-ex0612057",
+    "src:macro-hep-ex0210006",
+    "src:macro-hep-ex0207020",
+    "src:macro-epjc-36-323-2004"
+  ],
+  "status": "completed",
+  "summary": {
+    "plain": "A very large detector, about 77 metres long, in a hall of the Gran Sasso laboratory under the mountain. From 1989 to 2000 it hunted magnetic monopoles and recorded muons made by atmospheric neutrinos coming up through the Earth, whose deficit fits neutrino oscillation.",
+    "technical": "Multipurpose large-area underground detector (76.5 x 12 x 9.3 m^3, about 5300 t, acceptance about 10,000 m^2 sr) of liquid-scintillator counters, limited streamer tubes and nuclear-track detectors in LNGS Hall B. Final GUT-monopole limit 1.4e-16 cm^-2 s^-1 sr^-1 (90 % CL, 4e-5 < beta < 1); atmospheric nu_mu to nu_tau oscillation with best fit sin^2(2theta)=1, delta m^2 = 0.0023 eV^2 and no-oscillation excluded at about 5 sigma."
+  },
+  "topic_ids": [
+    "topic:atmospheric-neutrinos",
+    "topic:neutrino-oscillations",
+    "topic:cosmic-rays",
+    "topic:precision-and-rare-processes"
+  ],
+  "type": "experiment",
+  "unique_capabilities": []
+}

@@ -1,0 +1,141 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
+  },
+  "experiment_ids": [
+    "experiment:macro"
+  ],
+  "id": "detector:macro-detector",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "1994-04",
+      "label": "data taking with the detector under construction",
+      "locator": "§1",
+      "note": "Supermodules were added in turn; the quote gives March 1989 to April 1994 with the detector under construction. The mid-1994 start of the full-detector interval follows.",
+      "quote": "Data were taken from March 1989 till april 1994 with the detector under construction and from the middle of 1994 till the end of 2000 with the full detector.",
+      "sources": [
+        "src:macro-hep-ex0210006"
+      ],
+      "start": "1989-03",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": "2000-12",
+      "label": "data taking with the full detector",
+      "locator": "§1",
+      "note": "Start 'the middle of 1994' (month precision, approximate). End: 'running until December 2000' (arXiv:hep-ex/0612057, §1) and 'to the end of year 2000' (arXiv:hep-ex/0210006).",
+      "quote": "Data were taken from March 1989 till april 1994 with the detector under construction and from the middle of 1994 till the end of 2000 with the full detector.",
+      "sources": [
+        "src:macro-hep-ex0210006"
+      ],
+      "start": {
+        "approx": true,
+        "date": "1994-06",
+        "display": "middle of 1994"
+      },
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "completed",
+      "locator": "§1 Introduction",
+      "note": "Terminal event: end of data taking, December 2000.",
+      "quote": "The detector started data taking in 1989 and it was running until December 2000.",
+      "sources": [
+        "src:macro-hep-ex0612057"
+      ],
+      "start": "2000-12",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "MACRO detector",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": "2000-12",
+      "locator": "§1 Introduction",
+      "note": "Hall B is stated by the MACRO papers; the site point is the shared campus-grade LNGS point (no hall coordinate published). Start is the first data taking (March 1989, detector under construction).",
+      "quote": "The detector was located in Hall B of the underground Gran Sasso Laboratory (Italy).",
+      "role": "main",
+      "site_id": "site:lngs-hall-b",
+      "sources": [
+        "src:macro-hep-ex0612057"
+      ],
+      "start": "1989-03",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:macro-hep-ex0612057",
+    "src:macro-hep-ex0210006"
+  ],
+  "specs": {
+    "length": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "76.5 m (76.5 × 12 × 9.3 m³)",
+      "locator": "§1",
+      "note": "Another MACRO summary (arXiv:hep-ex/0612057) gives 76.6 × 12 × 9.3 m3.",
+      "quote": "The full detector had global dimensions of 76.5 × 12 × 9.3 m3",
+      "sources": [
+        "src:macro-hep-ex0210006"
+      ],
+      "unit": "m",
+      "value": 76.5,
+      "verified_at": "2026-10-26"
+    },
+    "total_mass": {
+      "approx": true,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "≃ 5300 t",
+      "locator": "§1",
+      "note": "",
+      "quote": "The total mass was ≃ 5300 t.",
+      "sources": [
+        "src:macro-hep-ex0210006"
+      ],
+      "unit": "t",
+      "value": 5300,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "A long, low building-sized array of scintillator tanks, streamer tubes and track-etch plastic that recorded muons crossing the Gran Sasso rock, 1989 to 2000.",
+    "technical": "Modular detector of supermodules (each 12.6 x 12 x 9.3 m^3) combining liquid scintillation counters, limited streamer tubes and nuclear-track detectors, with a rock absorber; global size 76.5 x 12 x 9.3 m^3."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "§1 Introduction",
+    "note": "",
+    "quote": "three sub-detectors: liquid scintillation counters, limited streamer tubes and nuclear track detectors",
+    "sources": [
+      "src:macro-hep-ex0612057"
+    ],
+    "value": "Three sub-detectors in a modular (supermodule) structure: liquid-scintillator counters, limited streamer tubes and nuclear-track detectors, plus a rock absorber",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "other",
+  "technology_classes": [
+    "other",
+    "liquid_scintillator"
+  ],
+  "type": "detector"
+}

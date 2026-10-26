@@ -1,0 +1,160 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
+  },
+  "experiment_ids": [
+    "experiment:candles"
+  ],
+  "id": "detector:candles-detector",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "CANDLES III data taking",
+      "locator": "§ on experiments with isotopes other than 136Xe, CANDLES paragraph",
+      "note": "Season precision for the start (\"Spring 2013\", review of March 2014). A December 2023 collaboration talk still lists 'CANDLES III: current operating detector system', so the experiment is recorded as ongoing; no later source was found.",
+      "quote": "The CANDLES III experiment is presently taking data since Spring 2013 at the Kamioka underground laboratory, Japan.",
+      "sources": [
+        "src:candles-1403-3329"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2013-04",
+        "display": "Spring 2013",
+        "earliest": "2013-03",
+        "latest": "2013-05"
+      },
+      "status": "active",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "CANDLES III detector",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "locator": "§II, detector description",
+      "note": "Laboratory lab-D of the Kamioka Underground Laboratory; the site's coordinate is campus-grade.",
+      "quote": "The current setup of the detector system, which is called CANDLES-III, is installed at lab-D of the Kamioka Underground Laboratory (2700 m.w.e.) in the Institute of Cosmic Ray Research of the University of Tokyo.",
+      "role": "main",
+      "site_id": "site:kamioka-candles-lab-d",
+      "sources": [
+        "src:candles-2008-09288"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2013-04",
+        "display": "Spring 2013",
+        "earliest": "2013-03",
+        "latest": "2013-05"
+      },
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:candles-2008-09288"
+  ],
+  "specs": {
+    "isotope": {
+      "confidence": "verified",
+      "locator": "abstract",
+      "note": "",
+      "quote": "which corresponds 350 g of 48 Ca",
+      "sources": [
+        "src:candles-2008-09288"
+      ],
+      "value": "48Ca (natural abundance, in CaF2)",
+      "verified_at": "2026-10-26"
+    },
+    "isotope_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "350 g",
+      "locator": "abstract",
+      "note": "",
+      "quote": "which corresponds 350 g of 48 Ca",
+      "sources": [
+        "src:candles-2008-09288"
+      ],
+      "unit": "g",
+      "value": 350,
+      "verified_at": "2026-10-26"
+    },
+    "module_count": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "count",
+      "display": "96",
+      "locator": "§II",
+      "note": "",
+      "quote": "Fig. 1 shows the CANDLES-III system, which comprises 96 CaF2 modules, a LS, a water buffer, 62 photomultiplier tubes (PMTs), and external shields.",
+      "sources": [
+        "src:candles-2008-09288"
+      ],
+      "unit": "",
+      "value": 96,
+      "verified_at": "2026-10-26"
+    },
+    "pmt_count": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "count",
+      "display": "62",
+      "locator": "§II",
+      "note": "",
+      "quote": "Fig. 1 shows the CANDLES-III system, which comprises 96 CaF2 modules, a LS, a water buffer, 62 photomultiplier tubes (PMTs), and external shields.",
+      "sources": [
+        "src:candles-2008-09288"
+      ],
+      "unit": "",
+      "value": 62,
+      "verified_at": "2026-10-26"
+    },
+    "target_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "305 kg (CaF2)",
+      "locator": "abstract",
+      "note": "",
+      "quote": "scintillation crystals (305 kg) with natural Ca",
+      "sources": [
+        "src:candles-2008-09288"
+      ],
+      "unit": "kg",
+      "value": 305,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "active",
+  "subsystems": [],
+  "summary": {
+    "plain": "A tank of liquid scintillator holding 96 cubes of calcium fluoride crystal, watched by 62 photomultiplier tubes. The liquid vetoes radiation from outside while the crystals both host the decay and flash when it happens.",
+    "technical": "96 CaF2 modules (10 cm cubes, 3.18 kg each) with wavelength-shifter layers in six layers of 16 in an acrylic LS vessel (1.4 m diameter and height), in a 3 m x 4 m water tank; 62 PMTs (20, 13 and 10 inch); cancellation coils for the Earth's field; pulse-shape discrimination of internal backgrounds."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "abstract",
+    "note": "",
+    "quote": "External backgrounds were rejected using a 4π active shield of a liquid scintillator surrounding the CaF2 crystals.",
+    "sources": [
+      "src:candles-2008-09288"
+    ],
+    "value": "CaF2 scintillating crystals with wavelength-shifter layers, immersed in a liquid scintillator that acts as a 4pi active shield, read out by photomultiplier tubes",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "scintillating_crystal",
+  "technology_classes": [
+    "scintillating_crystal"
+  ],
+  "type": "detector"
+}

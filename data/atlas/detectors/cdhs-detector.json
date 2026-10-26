@@ -1,0 +1,124 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
+  },
+  "experiment_ids": [
+    "experiment:cdhs"
+  ],
+  "id": "detector:cdhs-detector",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "1984",
+      "label": "data taking",
+      "locator": "page text, first paragraphs",
+      "note": "Month precision for the start, from the collaboration member's page. Dore (EPJ H 37, 2012) writes 'took data from 1977 in the neutrino beam of the CERN SPS' and the CERN Courier says the first SPS neutrino beams appeared early in 1977; the page's December 1976 is kept as the experiment's own statement. In 1983 the detector was split in two parts for a neutrino-oscillation experiment in the PS neutrino beam (Dore).",
+      "quote": "The experiment took data in the CERN neutrino beams from December 1976 until 1984.",
+      "sources": [
+        "src:cdhs-knobloch-page-wayback"
+      ],
+      "start": "1976-12",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "completed",
+      "locator": "page text, first paragraphs",
+      "note": "Terminal event: end of data taking, year precision ('until 1984').",
+      "quote": "The experiment took data in the CERN neutrino beams from December 1976 until 1984.",
+      "sources": [
+        "src:cdhs-knobloch-page-wayback"
+      ],
+      "start": "1984",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "CDHS detector",
+  "notes": [
+    "Dore (EPJ H 37, 2012): circular magnetised iron plates interspersed with drift chambers, total mass 1250 tonnes."
+  ],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": "1984",
+      "locator": "page text, first paragraph",
+      "note": "Approximate: no fetched source gives a coordinate or a hall for this detector in the SPS West Area, so the existing campus-grade point of the CERN Meyrin site (precision 500 m) is used.",
+      "quote": "The CDHS neutrino experiment at CERN was a collaboration of CERN, Dortmund, Heidelberg and Saclay (later joined by Warsaw) led by Jack Steinberger.",
+      "role": "main",
+      "site_id": "site:cern-meyrin",
+      "sources": [
+        "src:cdhs-knobloch-page-wayback"
+      ],
+      "start": "1976-12",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:cdhs-knobloch-page-wayback",
+    "src:cern-wa-1103-4572"
+  ],
+  "specs": {
+    "module_count": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "count",
+      "display": "19",
+      "locator": "page text, first paragraph",
+      "note": "",
+      "quote": "It consisted of 19 magnetized iron modules, separated from each other by wire drift chambers.",
+      "sources": [
+        "src:cdhs-knobloch-page-wayback"
+      ],
+      "unit": "",
+      "value": 19,
+      "verified_at": "2026-10-26"
+    },
+    "total_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "1250 tons",
+      "locator": "page text, first paragraph",
+      "note": "",
+      "quote": "The detector had a mass of 1250 tons and combined the functions of a muon spectrometer and hadron calorimeter.",
+      "sources": [
+        "src:cdhs-knobloch-page-wayback"
+      ],
+      "unit": "t",
+      "value": 1250,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "A stack of magnetised iron slabs with tracking chambers between them: neutrinos strike the iron, and the chambers follow the muon and the hadron shower that come out.",
+    "technical": "1250 t iron-plate (toroidal) spectrometer/calorimeter of 19 magnetised iron modules separated by wire drift chambers; a 31 m^3 liquid-hydrogen target was later placed in front to study neutrino interactions in hydrogen."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "page text, first paragraph",
+    "note": "",
+    "quote": "It consisted of 19 magnetized iron modules, separated from each other by wire drift chambers.",
+    "sources": [
+      "src:cdhs-knobloch-page-wayback"
+    ],
+    "value": "Magnetised iron modules separated by wire drift chambers, serving as muon spectrometer and hadron calorimeter",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "tracking_calorimeter",
+  "technology_classes": [
+    "tracking_calorimeter"
+  ],
+  "type": "detector"
+}

@@ -1,0 +1,122 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
+  },
+  "experiment_ids": [
+    "experiment:charm"
+  ],
+  "id": "detector:charm-detector",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "1978",
+      "label": "proposal accepted",
+      "locator": "Administrative history",
+      "note": "Year precision; the end is the start of data taking. The accepting body was CERN's Experimental Physics (EP) Division.",
+      "quote": "In 1977 the proposal of the CHARM Collaboration (CERN-Hamburg-Amsterdam-Rome-Moscow Collaboration) to study semi-leptonic neutral current processes and muon polarization produced in neutrino and antineutrino interactions was accepted by the Experimental Physics (EP) Division.",
+      "sources": [
+        "src:charm-cern-archives-guide"
+      ],
+      "start": "1977",
+      "status": "approved",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "1984-09-03",
+      "label": "data taking (WA18)",
+      "locator": "Administrative history, CHARM experiments",
+      "note": "Data taking began in 1978 and ran with the complete apparatus from 1979 until 3 September 1984. Dore (EPJ H 37, 2012) and the CERN Courier (27 November 1998: 'A year later the 100 t CHARM electronic detector became operational', after 1977) agree on 1978. The collaboration also ran WA65 (1980-82, prompt neutrino production) and PS181 (a PS oscillation experiment, from 1983); these are not separate Atlas records.",
+      "quote": "WA18: The data-taking of this SPS experiment began in 1978. WA18 started running with the complete apparatus in 1979, and was completed on the 3rd September 1984.",
+      "sources": [
+        "src:charm-cern-archives-guide"
+      ],
+      "start": "1978",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "completed",
+      "locator": "Administrative history, CHARM experiments",
+      "note": "Terminal event: WA18 'was completed on the 3rd September 1984'.",
+      "quote": "WA18: The data-taking of this SPS experiment began in 1978. WA18 started running with the complete apparatus in 1979, and was completed on the 3rd September 1984.",
+      "sources": [
+        "src:charm-cern-archives-guide"
+      ],
+      "start": "1984-09-03",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "CHARM detector",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": "1984-09-03",
+      "locator": "Administrative history, CHARM experiments",
+      "note": "Approximate: no fetched source gives a coordinate or a hall for this detector in the SPS West Area, so the existing campus-grade point of the CERN Meyrin site (precision 500 m) is used. 'WA' is CERN's West Area experiment prefix (CERN Archives list WA9 as 'West Area experiment 9').",
+      "quote": "WA18: The data-taking of this SPS experiment began in 1978.",
+      "role": "main",
+      "site_id": "site:cern-meyrin",
+      "sources": [
+        "src:charm-cern-archives-guide"
+      ],
+      "start": "1978",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:cern-wa-1103-4572",
+    "src:cern-wa-courier-neutrinos-stop-going-west-1998",
+    "src:charm-cern-archives-guide"
+  ],
+  "specs": {
+    "total_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "100 t",
+      "locator": "CERN Courier, 27 November 1998, section 'First studies'",
+      "note": "Mass as quoted by the CERN Courier.",
+      "quote": "A year later the 100 t CHARM electronic detector became operational.",
+      "sources": [
+        "src:cern-wa-courier-neutrinos-stop-going-west-1998"
+      ],
+      "unit": "t",
+      "value": 100,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "A low-density calorimeter of marble plates and tracking tubes, chosen so that neutrino collisions would leave clear, easily measured tracks, with a muon spectrometer behind it.",
+    "technical": "78 marble (CaCO3) plates with proportional tubes and scintillators, surrounded by magnetised iron frames, followed by a muon spectrometer of magnetised iron toroids."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "§4.2.2 CERN experiments",
+    "note": "",
+    "quote": "The detector was a low density, low Z calorimeter optimized for the detection of neutral currents. It consisted of 78 marble plates interspersed with planes of proportional tubes and scintillators.",
+    "sources": [
+      "src:cern-wa-1103-4572"
+    ],
+    "value": "Low-density, low-Z calorimeter of marble plates interspersed with planes of proportional tubes and scintillators, followed by a muon spectrometer with magnetised iron toroids",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "tracking_calorimeter",
+  "technology_classes": [
+    "tracking_calorimeter"
+  ],
+  "type": "detector"
+}

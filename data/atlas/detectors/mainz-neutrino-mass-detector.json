@@ -1,0 +1,177 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
+  },
+  "experiment_ids": [
+    "experiment:mainz-neutrino-mass"
+  ],
+  "id": "detector:mainz-neutrino-mass-detector",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "1994",
+      "label": "phase I data taking",
+      "locator": "section 1 Introduction",
+      "note": "Year precision. The paper says the spectrometer 'yielded first results in 1991' (so data taking began no later than 1991) and shows 'the last spectrum from phase I taken in 1994' (section 4, Fig. 20 caption); the phase I start month and the exact end are not stated.",
+      "quote": "Our spectrometer yielded first results in 1991",
+      "sources": [
+        "src:mainz-neutrino-mass-hep-ex0412056"
+      ],
+      "start": "1991",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "1997",
+      "label": "phase II improvement programme (new frozen-T2 source, flow cryostat, background reduction)",
+      "locator": "section 1 Introduction and section 3",
+      "note": "Year precision, from the final-results paper: 'Phase II of the Mainz neutrino mass experiment started in 1995 with substantial improvements'; data at the improved signal-to-background ratio 'from 1997 on'.",
+      "quote": "we performed in the years 1995-97 a substantial improvement program",
+      "sources": [
+        "src:mainz-neutrino-mass-hep-ex0412056"
+      ],
+      "start": "1995",
+      "status": "upgrade",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "2001",
+      "label": "phase II data taking",
+      "locator": "abstract",
+      "note": "Year precision. Section 7 of the paper says the data taking on the neutrino mass covered 1998 to 2001 (the first improved runs, 1997, are counted in the abstract); phase III (background studies for KATRIN) was running when the paper was written (2004) and is not a neutrino-mass data-taking interval.",
+      "quote": "Extensive data taking took place in the years 1997 to 2001.",
+      "sources": [
+        "src:mainz-neutrino-mass-hep-ex0412056"
+      ],
+      "start": "1997",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "completed",
+      "locator": "abstract",
+      "note": "Terminal event: end of neutrino-mass data taking in 2001 (year precision). The paper (2004) says the spectrometer was then in 'the presently running phase III ... to prepare the followup experiment KATRIN', a background-reduction programme, not a neutrino-mass search; no source gives the end of phase III.",
+      "quote": "Extensive data taking took place in the years 1997 to 2001.",
+      "sources": [
+        "src:mainz-neutrino-mass-hep-ex0412056"
+      ],
+      "start": "2001",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "Mainz MAC-E-filter spectrometer with frozen tritium source",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "locator": "author affiliation 1",
+      "note": "Placed at the campus-grade Institute of Physics point; the paper gives the affiliation only, not the hall.",
+      "quote": "Institut für Physik der Johannes Gutenberg-Universität Mainz, D-55099 Mainz, Germany",
+      "role": "main",
+      "site_id": "site:mainz-institute-of-physics",
+      "sources": [
+        "src:mainz-neutrino-mass-hep-ex0412056"
+      ],
+      "start": "1991",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:mainz-neutrino-mass-hep-ex0412056"
+  ],
+  "specs": {
+    "diameter": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "1 m (spectrometer vessel)",
+      "locator": "section 3, Fig. 3 caption",
+      "note": "",
+      "quote": "the diameter of the spectrometer vessel is 1 m",
+      "sources": [
+        "src:mainz-neutrino-mass-hep-ex0412056"
+      ],
+      "unit": "m",
+      "value": 1,
+      "verified_at": "2026-10-26"
+    },
+    "isotope": {
+      "confidence": "verified",
+      "locator": "abstract",
+      "note": "",
+      "quote": "The paper reports on the improved Mainz experiment on tritum β spectroscopy",
+      "sources": [
+        "src:mainz-neutrino-mass-hep-ex0412056"
+      ],
+      "value": "3H",
+      "verified_at": "2026-10-26"
+    },
+    "length": {
+      "approx": true,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "about 6 m (source to detector)",
+      "locator": "section 3, Fig. 3 caption",
+      "note": "Distance between the source and the detector, not the vessel length.",
+      "quote": "The distance between source and detector is about 6 m",
+      "sources": [
+        "src:mainz-neutrino-mass-hep-ex0412056"
+      ],
+      "unit": "m",
+      "value": 6,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "completed",
+  "subsystems": [
+    {
+      "description": [
+        {
+          "confidence": "verified",
+          "locator": "section 3, Fig. 3 caption",
+          "note": "",
+          "quote": "Frozen T2 source housed in the tilted solenoid S1; guiding solenoids S2, S3; the vessel with altogether 27 electrodes",
+          "sources": [
+            "src:mainz-neutrino-mass-hep-ex0412056"
+          ],
+          "value": "Frozen T2 source in a tilted solenoid, guiding solenoids, a vessel with 27 electrodes and a refocussing solenoid housing the detector",
+          "verified_at": "2026-10-26"
+        }
+      ],
+      "name": "Frozen T2 source and MAC-E filter"
+    }
+  ],
+  "summary": {
+    "plain": "The Mainz spectrometer: a six-metre-long vacuum vessel with strong magnets and electrodes that lets only the highest-energy electrons from decaying tritium (frozen in a thin film) through to a detector.",
+    "technical": "MAC-E filter: frozen molecular-tritium film source in a solenoid, 27-electrode spectrometer vessel of 1 m diameter, source-to-detector distance about 6 m, electron detector in a refocussing solenoid."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "section 1 Introduction",
+    "note": "",
+    "quote": "thereafter electrostatic filters with magnetic adiabatic collimation (MAC-E-Filters) took over",
+    "sources": [
+      "src:mainz-neutrino-mass-hep-ex0412056"
+    ],
+    "value": "Electrostatic filter with magnetic adiabatic collimation (MAC-E filter) analysing the beta spectrum of a quench-condensed molecular-tritium film",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "magnetic_spectrometer",
+  "technology_classes": [
+    "magnetic_spectrometer"
+  ],
+  "type": "detector"
+}

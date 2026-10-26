@@ -1,0 +1,139 @@
+{
+  "aliases": [
+    "Fréjus tracking calorimeter"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
+  },
+  "experiment_ids": [
+    "experiment:frejus"
+  ],
+  "id": "detector:frejus-detector",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "1984-02-19",
+      "label": "installation and commissioning",
+      "locator": "section 'Laboratoire Souterrain de Modane (LSM), France'",
+      "note": "Year precision. The review says the detector was commissioned in 1982; the collaboration's own paper says continuous data taking began on 19 February 1984 with 240 t and that the full 912 t was reached in June 1985. The end of this interval is the start of continuous data taking. The detector grew module by module, so installation overlapped data taking.",
+      "quote": "The excavation started in 1979 and the first experiment - a 900 ton iron tracking calorimeter to search for proton decay (“Frejus experiment”) - was commissioned in 1982.",
+      "sources": [
+        "src:geo-euro-ug-pandola-2011"
+      ],
+      "start": "1982",
+      "status": "commissioning",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "1988-09-13",
+      "label": "data taking",
+      "locator": "section 3 'Data processing'",
+      "note": "Day precision, from the collaboration's own paper. Mass 240 t at the start, 912 t from June 1985. The quote is three consecutive sentences of that section.",
+      "quote": "Continuous data taking started February 19, 1984 with a mass of 240 tons. The size of the detector was gradually increased until the final mass of 912 tons was reached in June 1985. Data taking ended September 13, 1988.",
+      "sources": [
+        "src:frejus-plb269-227-1991"
+      ],
+      "start": "1984-02-19",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "completed",
+      "locator": "section 3 'Data processing'",
+      "note": "Terminal event: end of data taking.",
+      "quote": "Data taking ended September 13, 1988.",
+      "sources": [
+        "src:frejus-plb269-227-1991"
+      ],
+      "start": "1988-09-13",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "Fréjus detector",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "locator": "section 1 'Introduction'",
+      "note": "The paper places the detector in the Laboratoire Souterrain de Modane but gives no hall coordinate; the site record is the laboratory's own approximate point.",
+      "quote": "It was located in the Laboratoire Souterrain de Modane in the Alps and consisted of flash tubes for tracking and Geiger tubes for triggering.",
+      "role": "main",
+      "site_id": "site:lsm-frejus",
+      "sources": [
+        "src:frejus-plb245-305-1990"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:frejus-plb269-227-1991",
+    "src:frejus-plb245-305-1990",
+    "src:geo-euro-ug-pandola-2011"
+  ],
+  "specs": {
+    "fiducial_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "700 t",
+      "locator": "section 3",
+      "note": "",
+      "quote": "This reduces the fiducial mass to 700 tons leading to an exposure of 2.0 kiloton year (kty).",
+      "sources": [
+        "src:frejus-plb269-227-1991"
+      ],
+      "unit": "t",
+      "value": 700,
+      "verified_at": "2026-10-26"
+    },
+    "total_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "912 t",
+      "locator": "section 3",
+      "note": "",
+      "quote": "The size of the detector was gradually increased until the final mass of 912 tons was reached in June 1985.",
+      "sources": [
+        "src:frejus-plb269-227-1991"
+      ],
+      "unit": "t",
+      "value": 912,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "A stack of thin iron plates alternating with gas-filled flash chambers that photograph the tracks of charged particles from two angles, about 900 tons in all, installed deep inside the Fréjus road-tunnel mountain.",
+    "technical": "Tracking calorimeter: 912 flash-chamber planes (5 mm x 5 mm cells) between 3 mm iron plates, with 113 planes of Geiger tubes (15 mm cells) giving a trigger of grouped hits in about 1 m^3 (threshold about 200 MeV); cells alternate vertical and horizontal for two orthogonal views."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "section 2 'The experiment'",
+    "note": "",
+    "quote": "The fine granularity of this 900 ton tracking calorimeter is achieved by a sandwich structure consisting of 912 flash chambers (5 mm × 5 mm cells) and iron ( 3 mm) planes",
+    "sources": [
+      "src:frejus-plb269-227-1991"
+    ],
+    "value": "Modular iron-plate tracking calorimeter with plastic flash chambers (5 mm cells) and Geiger-tube trigger planes",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "tracking_calorimeter",
+  "technology_classes": [
+    "tracking_calorimeter"
+  ],
+  "type": "detector"
+}

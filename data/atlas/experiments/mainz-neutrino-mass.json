@@ -1,0 +1,165 @@
+{
+  "accelerator_ids": [],
+  "aliases": [
+    "Mainz tritium beta-decay experiment"
+  ],
+  "beamline_ids": [],
+  "collaboration_ids": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
+  },
+  "energy_regime": null,
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:johannes-gutenberg-university-mainz",
+      "locator": "author affiliation 1",
+      "note": "",
+      "quote": "Institut für Physik der Johannes Gutenberg-Universität Mainz, D-55099 Mainz, Germany",
+      "role": "host",
+      "sources": [
+        "src:mainz-neutrino-mass-hep-ex0412056"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:mainz-neutrino-mass",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "1994",
+      "label": "phase I data taking",
+      "locator": "section 1 Introduction",
+      "note": "Year precision. The paper says the spectrometer 'yielded first results in 1991' (so data taking began no later than 1991) and shows 'the last spectrum from phase I taken in 1994' (section 4, Fig. 20 caption); the phase I start month and the exact end are not stated.",
+      "quote": "Our spectrometer yielded first results in 1991",
+      "sources": [
+        "src:mainz-neutrino-mass-hep-ex0412056"
+      ],
+      "start": "1991",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "1997",
+      "label": "phase II improvement programme (new frozen-T2 source, flow cryostat, background reduction)",
+      "locator": "section 1 Introduction and section 3",
+      "note": "Year precision, from the final-results paper: 'Phase II of the Mainz neutrino mass experiment started in 1995 with substantial improvements'; data at the improved signal-to-background ratio 'from 1997 on'.",
+      "quote": "we performed in the years 1995-97 a substantial improvement program",
+      "sources": [
+        "src:mainz-neutrino-mass-hep-ex0412056"
+      ],
+      "start": "1995",
+      "status": "upgrade",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "2001",
+      "label": "phase II data taking",
+      "locator": "abstract",
+      "note": "Year precision. Section 7 of the paper says the data taking on the neutrino mass covered 1998 to 2001 (the first improved runs, 1997, are counted in the abstract); phase III (background studies for KATRIN) was running when the paper was written (2004) and is not a neutrino-mass data-taking interval.",
+      "quote": "Extensive data taking took place in the years 1997 to 2001.",
+      "sources": [
+        "src:mainz-neutrino-mass-hep-ex0412056"
+      ],
+      "start": "1997",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "completed",
+      "locator": "abstract",
+      "note": "Terminal event: end of neutrino-mass data taking in 2001 (year precision). The paper (2004) says the spectrometer was then in 'the presently running phase III ... to prepare the followup experiment KATRIN', a background-reduction programme, not a neutrino-mass search; no source gives the end of phase III.",
+      "quote": "Extensive data taking took place in the years 1997 to 2001.",
+      "sources": [
+        "src:mainz-neutrino-mass-hep-ex0412056"
+      ],
+      "start": "2001",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Final electron-antineutrino mass limit (phase II)",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "mass_energy",
+        "display": "m(νe) ≤ 2.3 eV/c² (95% CL)",
+        "locator": "abstract",
+        "note": "",
+        "quote": "We derive an upper limit of m(νe ) ≤ 2.3 eV/c2 at 95% confidence level for the mass itself.",
+        "sources": [
+          "src:mainz-neutrino-mass-hep-ex0412056"
+        ],
+        "unit": "eV/c^2",
+        "value": 2.3,
+        "verified_at": "2026-10-26"
+      }
+    }
+  ],
+  "kind": "neutrino_mass",
+  "lineage": [
+    {
+      "confidence": "verified",
+      "experiment_id": "experiment:troitsk-nu-mass",
+      "locator": "section 1 Introduction",
+      "note": "",
+      "quote": "They were proposed and realized independently in Mainz [21] and Troitsk [22,23].",
+      "relation": "complementary",
+      "sources": [
+        "src:mainz-neutrino-mass-hep-ex0412056"
+      ],
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "Mainz neutrino-mass experiment",
+  "notes": [
+    "No official website exists for the finished experiment. No collaboration with its own name was found in the fetched papers (the authors are the Institut für Physik, Mainz, group), so no collaboration record is written.",
+    "Phase III (a background-exploration programme preparing KATRIN) was 'presently running' when the final paper was written in 2004; its end is not sourced and it is not recorded as an interval.",
+    "KATRIN lineage: the Mainz paper calls KATRIN the follow-up experiment; the predecessor rows live on experiment:katrin."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "abstract",
+      "note": "",
+      "quote": "A residual analysis of the data sets yields for the square of the electron antineutrino mass the final result",
+      "sources": [
+        "src:mainz-neutrino-mass-hep-ex0412056"
+      ],
+      "value": "Measure the absolute mass scale of the electron antineutrino from the shape of the tritium beta-decay spectrum near its endpoint",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:mainz-neutrino-mass-hep-ex0412056"
+  ],
+  "status": "completed",
+  "summary": {
+    "plain": "A tritium beta-decay experiment at the University of Mainz. A large electrostatic filter measured the electron spectrum just below its endpoint to weigh the electron antineutrino. Its final result, from data taken 1997-2001, limited the neutrino mass to at most 2.3 electron-volts.",
+    "technical": "Mainz MAC-E-filter tritium beta spectroscopy with a quench-condensed T2 film source: phase I (first results 1991, last spectrum 1994) and phase II (improvement programme 1995-97, data 1997-2001). Final result m²(νe) = (-0.6 ± 2.2 stat ± 2.1 syst) eV²/c⁴, m(νe) ≤ 2.3 eV/c² (95% CL); phase III prepared KATRIN."
+  },
+  "topic_ids": [
+    "topic:neutrino-mass-direct"
+  ],
+  "type": "experiment",
+  "unique_capabilities": []
+}

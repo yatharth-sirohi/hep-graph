@@ -1,0 +1,120 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
+  },
+  "experiment_ids": [
+    "experiment:pandax-iii"
+  ],
+  "id": "detector:pandax-iii-detector",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "first TPC module under construction",
+      "locator": "§1, end of the introduction",
+      "note": "Start is the date of the design paper (arXiv v1, 27 October 2016), which says the first module is under construction. A November 2023 status paper says 'The construction of the detector was completed. The detector will be installed at the CJPL-II after the performance test in Shanghai.' No later source was found on installation; the PandaX website (checked 2026-10-26) calls PandaX-III 'a R&D effort to develop a high pressure gaseous Xenon TPC'. The status 'construction' is therefore the last documented stage, not a statement about 2026.",
+      "quote": "The first 200 kg module is under construction and is expected to be deployed in the next 2-3 years.",
+      "sources": [
+        "src:pandax-iii-1610-08883"
+      ],
+      "start": "2016-10",
+      "status": "construction",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "PandaX-III TPC",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "locator": "§1 Introduction",
+      "note": "Planned placement: as of the November 2023 status paper the final detector was still to be installed at CJPL-II after tests in Shanghai; the 2016 design paper names CJPL without the phase.",
+      "quote": "The detector will be installed at the CJPL-II [17] after the performance test in Shanghai.",
+      "role": "main",
+      "site_id": "site:cjpl-ii",
+      "sources": [
+        "src:pandax-iii-2311-13396"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:pandax-iii-2311-13396",
+    "src:pandax-iii-1610-08883",
+    "src:pandax-iii-2001-01356"
+  ],
+  "specs": {
+    "isotope": {
+      "confidence": "verified",
+      "locator": "§1 Introduction",
+      "note": "",
+      "quote": "It can hold about 140 kg of xenon (90% enriched) at an operating pressure of 10 bar.",
+      "sources": [
+        "src:pandax-iii-2311-13396"
+      ],
+      "value": "136Xe (90 % enriched)",
+      "verified_at": "2026-10-26"
+    },
+    "module_count": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "count",
+      "display": "52 Micromegas modules",
+      "locator": "§1 Introduction",
+      "note": "",
+      "quote": "A tessellation of 52 20.0 × 20.0 cm2 thermal-bonding Micromegas modules [13, 14] are used for charge readout.",
+      "sources": [
+        "src:pandax-iii-2311-13396"
+      ],
+      "unit": "",
+      "value": 52,
+      "verified_at": "2026-10-26"
+    },
+    "target_mass": {
+      "approx": true,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "~140 kg",
+      "locator": "§1 Introduction",
+      "note": "200 kg in the 2016 design paper.",
+      "quote": "It can hold about 140 kg of xenon (90% enriched) at an operating pressure of 10 bar.",
+      "sources": [
+        "src:pandax-iii-2311-13396"
+      ],
+      "unit": "kg",
+      "value": 140,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "construction",
+  "subsystems": [],
+  "summary": {
+    "plain": "A steel vessel holding xenon gas at ten times atmospheric pressure, with a plane of tiny gas-amplifier modules at each end that image the tracks of electrons from a decay.",
+    "technical": "Cylindrical TPC (height 120 cm, diameter 160 cm) in a stainless-steel high-pressure vessel; 52 thermal-bonding Micromegas modules with Ge-film resistive anode read the charge; electric-field-shaping cage; 20 kg-scale prototype tested in Shanghai."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "abstract",
+    "note": "",
+    "quote": "The PandaX-III experiment searches the neutrinoless double beta decay of 136 Xe with a high-pressure xenon gaseous time projection chamber (TPC). Thermalbonding Micromegas modules are used for charge collection.",
+    "sources": [
+      "src:pandax-iii-2311-13396"
+    ],
+    "value": "High-pressure gaseous xenon time projection chamber with thermal-bonding Micromegas charge-readout modules; tracks of the two electrons give topological background rejection",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "gaseous_tpc",
+  "technology_classes": [
+    "gaseous_tpc"
+  ],
+  "type": "detector"
+}
