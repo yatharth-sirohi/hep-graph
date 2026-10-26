@@ -706,7 +706,7 @@
     position: relative;
     min-width: var(--phone-touch);
     min-height: var(--phone-touch);
-    padding: 0 10px;
+    padding: 0 8px;
     font-size: 13px;
   }
   .tl-short[hidden] {
@@ -724,9 +724,11 @@
   .tl-glyph {
     font-size: 15px;
   }
+  /* With the speed button the row holds five controls; the slider gives way
+     first so the year stays on the same row down to 360 px. */
   .timeline-sliders {
-    flex: 1 1 96px;
-    min-width: 96px;
+    flex: 1 1 56px;
+    min-width: 56px;
   }
   .timeline-sliders input[type='range'] {
     height: var(--phone-touch);
