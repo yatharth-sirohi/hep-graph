@@ -350,6 +350,21 @@ The validator applies a plausibility range of 1e-11 to 5e-2 cm^-2 s^-1 (the
 deepest laboratory to sea level) to the site field. The chart of depth
 against flux reads `depth_mwe` and `muon_flux` and nothing else.
 
+**A31. Detector dimensions for the scale comparison (2026-10-26).** Detector
+`specs` gain length-valued keys so the true-scale line-up (`#/view/detector-scale`)
+reads every size from a sourced record and never from the view's code:
+`width` and `height` (the detector's overall extent, beside the existing `length`
+and `diameter`); `inner_detector_diameter` and `inner_detector_height` (a named
+inner volume, e.g. Super-Kamiokande's PMT-lined ID inside its tank);
+`central_detector_diameter` (JUNO's acrylic sphere); `cryostat_width`,
+`cryostat_height` and `cryostat_length` (the internal dimensions of one DUNE
+far-detector module's cryostat); `main_spectrometer_length` and
+`main_spectrometer_diameter` (KATRIN's MAC-E filter vessel); `string_spacing` (the
+horizontal spacing of an in-ice array's strings). All are `length` quantities.
+`note` says which volume the number measures (inner or outer, tank or sub-volume)
+whenever the source does, and a dimension the source does not label (an
+`a × b × c` list with no names) is not recorded.
+
 ## 0. Ground rules
 
 1. **Canonical data is JSON under `data/atlas/`**, one file per entity, human

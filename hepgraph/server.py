@@ -295,7 +295,13 @@ class Handler(BaseHTTPRequestHandler):
         # third-party origin the policy allows, and only for images —
         # script-src, connect-src and default-src stay 'self'.
         self.send_header('Content-Security-Policy', "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://tile.openstreetmap.org https://*.tile.openstreetmap.org; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'")
-        self.send_header('Permissions-Policy', 'camera=(), microphone=(), geolocation=()')
+        # Geolocation stays off everywhere except the HEP Atlas pages, where "Compare with…"
+        # on a local map can lay a footprint over the reader's own location. That is only
+        # ever asked on an explicit click, only of the page's own origin ((self), never a
+        # frame or another site), and the browser still asks the reader; the position is kept
+        # in the page and never stored, sent or put in an address (static/atlas/js/localmap-compare.js).
+        geolocation = '(self)' if urllib.parse.urlsplit(self.path).path.startswith('/atlas') else '()'
+        self.send_header('Permissions-Policy', f'camera=(), microphone=(), geolocation={geolocation}')
         self.end_headers()
         if self.command != 'HEAD':
             try:

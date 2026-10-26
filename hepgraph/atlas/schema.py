@@ -751,6 +751,17 @@ SPEC_KEY_DIMENSIONS: dict[str, tuple[str, ...]] = {
     'tank_diameter': ('length',),
     'photocoverage': ('fraction',),
     'energy_resolution': (),
+    # A31: outer dimensions and named sub-volumes drawn by the scale comparison view
+    'width': ('length',),
+    'height': ('length',),
+    'inner_detector_diameter': ('length',),
+    'inner_detector_height': ('length',),
+    'central_detector_diameter': ('length',),
+    'cryostat_width': ('length',),
+    'cryostat_height': ('length',),
+    'cryostat_length': ('length',),
+    'main_spectrometer_length': ('length',),
+    'main_spectrometer_diameter': ('length',),
     # xenon / argon tpc
     'threshold': ('energy',),
     'shielding': (),
@@ -765,6 +776,7 @@ SPEC_KEY_DIMENSIONS: dict[str, tuple[str, ...]] = {
     'trigger_rate': ('rate', 'frequency'),
     # ice / sea cherenkov
     'instrumented_volume': ('volume',),
+    'string_spacing': ('length',),
     'sensor_count': ('count',),
     'string_count': ('count',),
     'depth_min': ('length',),

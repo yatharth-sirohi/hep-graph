@@ -330,6 +330,41 @@ async function openFilters(page) {
       await viewContext.close();
     });
 
+    // ---- views: scale comparisons ------------------------------------------------
+    // The detector line-up (shapes that are links, a table, a method with quotes) and a
+    // local map with a comparison overlay laid on and its section open. The generated
+    // tree only: the fixtures carry neither the dimensions nor the maps.
+    if (tree.label === "generated") {
+      await record(`[${tree.label}] axe: detector line-up view, and with Inputs and method open`, async () => {
+        const viewContext = await browser.newContext({ viewport: { width: 1440, height: 960 }, reducedMotion: "reduce" });
+        const viewPage = await viewContext.newPage();
+        viewPage.setDefaultTimeout(30000);
+        await viewPage.goto(`${base}/atlas${dataTree}#/view/detector-scale`);
+        await viewPage.locator(".ds-link").first().waitFor();
+        await viewPage.locator(".ds-ice-block").waitFor();
+        const closed = await runAxe(viewPage, tree.label, "detector line-up view");
+        assert.deepEqual(closed.violations, [], `expected 0 WCAG axe violations on the line-up, got ${JSON.stringify(closed.violations)}`);
+        await viewPage.locator("#view-method > summary").click();
+        await viewPage.locator('[data-quote="detector:katrin|main_spectrometer_length"] q').waitFor();
+        const open = await runAxe(viewPage, tree.label, "detector line-up view, inputs and method open");
+        assert.deepEqual(open.violations, [], `expected 0 WCAG axe violations with the method open, got ${JSON.stringify(open.violations)}`);
+        await viewContext.close();
+      });
+      await record(`[${tree.label}] axe: local map with a comparison overlay and the Compare with… section open`, async () => {
+        const mapContext = await browser.newContext({ viewport: { width: 1440, height: 960 }, reducedMotion: "reduce" });
+        const mapPage = await mapContext.newPage();
+        mapPage.setDefaultTimeout(30000);
+        await mapPage.goto(`${base}/atlas${dataTree}#/map/fermilab`);
+        await mapPage.locator(".map-compare-section > summary").click();
+        await mapPage.selectOption("#map-compare-select", "cern");
+        await mapPage.locator(".map-cmp-line").first().waitFor();
+        await mapPage.locator(".map-cmp-active").waitFor();
+        const result = await runAxe(mapPage, tree.label, "local map with a comparison overlay");
+        assert.deepEqual(result.violations, [], `expected 0 WCAG axe violations with an overlay, got ${JSON.stringify(result.violations)}`);
+        await mapContext.close();
+      });
+    }
+
     // ---- local map view (docs/HEP_ATLAS_GEOMETRY.md §4) -- begin --------
     // Two states, both of which have to be clean: the map with nothing
     // selected, and the map with the drawer open (which is where panels.js's

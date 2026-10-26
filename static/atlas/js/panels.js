@@ -12,6 +12,9 @@ import { greatCircleM, initialBearing } from './localmap.js';
 import {
   VIEW_NAME, WORKING_TITLE, rowGeometry, rowsForBeamline, rowsForExperiment,
 } from './views/beam-rows.js';
+import {
+  ICECUBE, ROSTER as SCALE_ROSTER, VIEW_NAME as SCALE_VIEW_NAME, WORKING_TITLE as SCALE_WORKING_TITLE,
+} from './views/scale-detectors.js';
 import { quoteView, readableText, readableView } from './tex.js';
 
 let ATLAS = null;
@@ -1320,6 +1323,12 @@ async function renderDetector(id, timelineState) {
   // ---- local map view hook (§4): the compact subtitle-area affordance
   const mapChip = await localMapChip(detector);
   if (mapChip) frag.appendChild(mapChip);
+  // The detector line-up (js/views/detector-scale.js) draws this detector at true scale.
+  if (id === ICECUBE.id || SCALE_ROSTER.some((entry) => entry.id === id)) {
+    frag.appendChild(h('p', { class: 'beam-section-links' }, [
+      'See its size at true scale: ', linkTo({ type: 'view', slug: SCALE_VIEW_NAME }, SCALE_WORKING_TITLE),
+    ]));
+  }
 
   const detectorSummary = plainSummaryOf(detector, t);
   sections.add('Overview', [

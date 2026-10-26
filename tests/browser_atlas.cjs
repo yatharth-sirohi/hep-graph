@@ -2997,6 +2997,156 @@ async function openFilters(page) {
   });
   // ---- views -- end ---------------------------------------------------------------
 
+  // ---- views: scale comparisons -- begin ------------------------------------------
+  // "Compare with…" on a local map (static/atlas/js/localmap-compare.js) and the detector
+  // line-up (static/atlas/js/views/detector-scale.js). Both read the real build: the
+  // fixtures carry neither the maps nor the detector dimensions, so a green run on them
+  // would prove nothing.
+  if (process.env.HEP_ATLAS_DATA === "generated") {
+    const PIXEL = Buffer.from("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==", "base64");
+    // The longest overlay line's length on screen, times the metres one pixel is at the
+    // centre of the view (what the scale bar shows): the ring's circumference in metres.
+    const overlayRingMetres = (p) => p.evaluate(() => {
+      const m = window.__hepAtlasLocalMap;
+      const px = Math.max(...[...document.querySelectorAll(".map-cmp-line")].map((el) => el.getTotalLength()));
+      const size = m.getSize();
+      const a = m.containerPointToLatLng([size.x / 2 - 100, size.y / 2]);
+      const b = m.containerPointToLatLng([size.x / 2 + 100, size.y / 2]);
+      return px * (m.distance(a, b) / 200);
+    });
+
+    await record("Compare with…: the LHC over Fermilab's map is 26.7 km around against the scale bar, the address round-trips, and a location never reaches it", async () => {
+      const { ctx, p } = await viewContext({
+        viewport: { width: 1440, height: 900 }, permissions: ["geolocation"], geolocation: { latitude: 41.6611, longitude: -91.5302 },
+      });
+      const tiles = [];
+      await ctx.route("**/tile.openstreetmap.org/**", (route) => {
+        tiles.push(route.request().url());
+        route.fulfill({ status: 200, contentType: "image/png", body: PIXEL });
+      });
+      await p.goto(viewURL("#/map/fermilab"));
+      await p.locator(".map-compare-section > summary").click();
+      await p.selectOption("#map-compare-select", "cern");
+      await p.locator(".map-cmp-line").first().waitFor();
+      await p.waitForTimeout(700);
+      // The address names the facility and the map point; the layer is labelled an overlay.
+      const params = new URL(p.url()).searchParams;
+      assert.equal(params.get("cmp"), "cern");
+      assert.match(params.get("cmpc") || "", /^-?\d+\.\d+,-?\d+\.\d+$/);
+      assert.match(await p.locator(".map-cmp-label").innerText(), /CERN.*overlay/i);
+      assert.match(await p.locator(".map-cmp-active").innerText(), /overlay, not part of this map/i);
+      // 26.7 km: the LHC, to within 1 % of CERN's 26 659 m, read against the map's scale.
+      const metres = await overlayRingMetres(p);
+      assert.ok(Math.abs(metres / 26659 - 1) < 0.01, `the LHC ring should measure 26.7 km on the map's scale, got ${(metres / 1000).toFixed(2)} km`);
+      await p.screenshot({ path: path.join(output, "compare-lhc-over-fermilab.png") });
+      // A pasted link: the same overlay, the same size.
+      const link = p.url();
+      await p.goto("about:blank");
+      await p.goto(link);
+      await p.locator(".map-cmp-line").first().waitFor();
+      await p.waitForTimeout(700);
+      assert.equal(await p.locator("#map-compare-select").inputValue(), "cern");
+      assert.equal(new URL(p.url()).searchParams.get("cmpc"), params.get("cmpc"), "the map point round-trips");
+      const again = await overlayRingMetres(p);
+      assert.ok(Math.abs(again / 26659 - 1) < 0.01, `after a reload the ring should still be 26.7 km, got ${(again / 1000).toFixed(2)} km`);
+      // Over the reader: only a click asks the browser, and nothing of it is kept or sent.
+      assert.equal(await p.evaluate(() => navigator.geolocation === undefined), false);
+      assert.match(await p.locator("#map-compare-privacy").innerText(), /not stored, not sent anywhere, and not written into the link/);
+      const tilesBefore = tiles.length;
+      await p.locator("#map-compare-locate").click();
+      await p.locator(".map-cmp-label").filter({ hasText: "your location" }).waitFor();
+      await p.waitForTimeout(700);
+      const here = new URL(p.url());
+      assert.equal(here.searchParams.get("cmp"), "cern", "the facility stays in the link");
+      assert.equal(here.searchParams.has("cmpc"), false, "the location is not a map point in the link");
+      const leaks = await p.evaluate(() => JSON.stringify([
+        window.location.href, window.history.state, { ...window.localStorage }, { ...window.sessionStorage }, document.cookie,
+      ]));
+      assert.ok(!/41\.66|91\.53/.test(leaks), "the reader's position appears nowhere in the address, history, storage or cookies");
+      assert.equal(tiles.length, tilesBefore, "no basemap tile is requested around the reader unless they turn it on");
+      const nearby = await overlayRingMetres(p);
+      assert.ok(Math.abs(nearby / 26659 - 1) < 0.01, `over Iowa City the ring should still read 26.7 km, got ${(nearby / 1000).toFixed(2)} km`);
+      await p.screenshot({ path: path.join(output, "compare-lhc-over-me.png") });
+      await p.locator("#map-compare-tiles").click();
+      await p.waitForTimeout(900);
+      assert.ok(tiles.length > tilesBefore, "the basemap is requested once the reader asks for it");
+      // Removing the overlay clears the address.
+      await p.selectOption("#map-compare-select", "");
+      await p.waitForFunction(() => !document.querySelector(".map-cmp-shape"));
+      assert.equal(new URL(p.url()).searchParams.has("cmp"), false);
+      await ctx.close();
+    });
+
+    await record("Detector line-up: the sourced detectors are drawn at one scale beside a 1.8 m person, IceCube has its own panel, each opens its record", async () => {
+      const { ctx, p } = await viewContext();
+      await p.goto(viewURL("#/view/detector-scale"));
+      await p.locator(".ds-link").first().waitFor();
+      await p.locator(".ds-ice-block").waitFor();
+      const drawn = await p.locator(".ds-link").count();
+      const tableRows = await p.locator("#view-body table.bs-table").first().locator("tbody tr").count();
+      assert.ok(drawn >= 12, `expected at least 12 detectors, got ${drawn}`);
+      assert.equal(drawn, tableRows, "every drawn detector is a row of the table of numbers");
+      assert.match(await p.locator("#view-subtitle").innerText(), new RegExp(`^${drawn} detectors at one linear scale`));
+      assert.ok(!/\bnull\b|undefined|NaN/.test(await p.locator("#view-body").innerText()), "no stray null, undefined or NaN on the page");
+      // One scale: widths and heights stand in the ratio of the recorded sizes, and the person is 1.8 m.
+      const box = (detector, selector) => p.evaluate(([id, sel]) => {
+        const r = document.querySelector(`.ds-link[data-detector="${id}"] ${sel}`).getBBox();
+        return { w: r.width, h: r.height };
+      }, [detector, selector]);
+      const hk = await box("detector:hyper-kamiokande", ".ds-shape");
+      const atlas = await box("detector:atlas", ".ds-shape");
+      assert.ok(Math.abs(hk.w / atlas.w - 68 / 46) < 0.02, `Hyper-K is 68 m wide and ATLAS 46 m long: ratio ${hk.w / atlas.w}`);
+      assert.ok(Math.abs(hk.h / atlas.h - 71 / 25) < 0.03, `Hyper-K is 71 m tall and ATLAS 25 m: ratio ${hk.h / atlas.h}`);
+      const person = await p.evaluate(() => document.querySelector(".ds-person circle").parentElement.getBBox().height);
+      assert.ok(Math.abs(person / hk.h - 1.8 / 71) < 0.003, `the person is 1.8 m against Hyper-K's 71 m: ratio ${person / hk.h}`);
+      // The scale is stated, and no log or broken scale is used.
+      const note = await p.locator("#ds-scale-note").innerText();
+      assert.match(note, /pixels to the metre, the same horizontally and vertically/);
+      assert.match(note, /No log scale, no broken axis/);
+      // IceCube, at its own scale, with its own 1 km bar.
+      assert.match(await p.locator(".ds-ice-svg").textContent(), /1,450–2,450 m deep/);
+      assert.match(await p.locator("#ds-ice-caption").innerText(), /The bar at the right is 1 km/);
+      // Method: every dimension with its source and a verbatim quote.
+      await p.locator("#view-method > summary").click();
+      await p.locator('[data-quote="detector:katrin|main_spectrometer_length"] q').waitFor();
+      const katrin = await p.locator('[data-quote="detector:katrin|main_spectrometer_length"]').innerText();
+      assert.match(katrin, /vacuum vessel of the MS is 23\.23 m long/);
+      assert.match(await p.locator('tr[data-detector="detector:katrin"][data-spec="main_spectrometer_length"]').innerText(), /23\.23 m/);
+      await p.screenshot({ path: path.join(output, "detector-lineup-desktop.png") });
+      // Each detector opens its record.
+      await p.locator('.ds-link[data-detector="detector:super-kamiokande"]').click();
+      await p.waitForFunction(() => location.hash === "#/detector/super-kamiokande");
+      await p.locator("#detail-panel h2").waitFor();
+      assert.match(await p.locator("#detail-panel h2").innerText(), /Super-Kamiokande/);
+      await ctx.close();
+    });
+
+    await record("Detector line-up on a phone: no sideways scroll on the page, the shapes still share one scale", async () => {
+      const { ctx, p } = await viewContext({ viewport: { width: 390, height: 844 }, ...MOBILE });
+      await p.goto(viewURL("#/view/detector-scale"));
+      await p.locator(".ds-link").first().waitFor();
+      await p.locator(".ds-ice-block").waitFor();
+      await p.waitForTimeout(400);
+      const fit = await p.evaluate(() => {
+        const host = document.getElementById("view-host");
+        return {
+          pageOverflow: document.documentElement.scrollWidth > window.innerWidth,
+          hostOverflow: host.scrollWidth > host.clientWidth + 1,
+          back: document.getElementById("view-back").getBoundingClientRect().height,
+          links: document.querySelectorAll(".ds-link").length,
+        };
+      });
+      assert.equal(fit.pageOverflow, false, "no sideways scroll on the page");
+      assert.equal(fit.hostOverflow, false, "no sideways scroll in the view");
+      assert.ok(fit.back >= 44, "the back control is a 44 px target");
+      assert.ok(fit.links >= 12);
+      await p.screenshot({ path: path.join(output, "detector-lineup-mobile.png") });
+      await ctx.close();
+    });
+  }
+  // ---- views: scale comparisons -- end --------------------------------------------
+
+
   await record("about.html loads with live coverage counts read from the current data tree, and 0 console errors", async () => {
     const freshContext = await browser.newContext({ viewport: { width: 1280, height: 900 } });
     const freshErrors = [];
