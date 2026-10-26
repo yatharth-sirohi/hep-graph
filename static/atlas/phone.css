@@ -785,6 +785,62 @@
     display: none;
   }
 
+  /* ------------------------------------------------------------- Start here */
+  /* The first-visit card is a bottom sheet here, over the stage and under the
+     header, with a 44 px close and full-width actions. */
+  .start-card {
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: auto;
+    width: auto;
+    max-height: 74%;
+    transform: none;
+    padding: var(--space-4) var(--space-4) var(--space-5);
+    border: 0;
+    border-top: 1px solid var(--line-strong);
+    border-radius: var(--phone-sheet-radius) var(--phone-sheet-radius) 0 0;
+    box-shadow: 0 -10px 28px #00000080;
+    z-index: 1500;
+    overscroll-behavior: contain;
+  }
+  .start-close {
+    top: 0;
+    right: 0;
+    width: var(--phone-touch);
+    height: var(--phone-touch);
+    font-size: 26px;
+  }
+  .start-title {
+    font-size: var(--text-xl);
+    padding-right: var(--phone-touch);
+  }
+  .start-question {
+    min-height: var(--phone-touch);
+    justify-content: center;
+  }
+  .start-question-text {
+    font-size: var(--text-md);
+  }
+  .start-question-hint {
+    font-size: var(--text-sm);
+  }
+  /* The three entries stay on one row, the globe first, so none is below the fold. */
+  .start-actions {
+    flex-wrap: nowrap;
+  }
+  .start-action,
+  .start-actions .primary-btn {
+    flex: 1 1 auto;
+    min-height: var(--phone-touch);
+    margin-left: 0;
+    padding: 0 var(--space-3);
+    font-size: var(--text-sm);
+  }
+  .start-actions .primary-btn {
+    order: -1;
+  }
+
   /* ----------------------------------------------------------------- footer */
   .atlas-footer {
     position: relative;
@@ -877,5 +933,16 @@
   .atlas-footer .text-btn {
     padding: 0 4px;
     font-size: var(--text-xs);
+  }
+}
+
+/* A phone-width card has no room for the one-line hint under each question, so it is
+   dropped there; the question itself is the link's name. */
+@media (max-width: 520px) {
+  .start-card {
+    max-height: 82%;
+  }
+  .start-question-hint {
+    display: none;
   }
 }

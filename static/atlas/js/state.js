@@ -180,6 +180,25 @@ export function init() {
   return current;
 }
 
+/**
+ * The state patch a deep link names, e.g. "#/experiment/dune" or "?fk=underground_laboratory":
+ * only what the link says, so navigate(patch) opens that route or filter on top of the
+ * current view. A link the Start-here card shows is a real href (middle-click, copy
+ * link and a crawler all work); its click handler turns it into this patch.
+ */
+export function patchFromLink(href) {
+  const url = new URL(href, window.location.href);
+  const parsed = parseSearch(url.search);
+  const params = new URLSearchParams(url.search);
+  const patch = {};
+  const entity = parseHashEntity(url.hash);
+  if (entity) patch.entity = entity;
+  const named = [['y', 'year'], ['t', 'topic'], ['s', 'status'], ['er', 'era'], ['fk', 'facilityKind'],
+    ['ek', 'experimentKind'], ['rg', 'region'], ['m', 'mode']];
+  for (const [param, key] of named) if (params.has(param)) patch[key] = parsed[key];
+  return patch;
+}
+
 export function entityHash(type, slug) {
   return `#/${type}/${slug}`;
 }

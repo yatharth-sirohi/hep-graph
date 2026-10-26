@@ -13,6 +13,7 @@ import * as fallback from './fallback.js';
 import * as filtersModule from './filters.js';
 import * as localmap from './localmap.js';
 import { createChrome } from './chrome.js';
+import * as startModule from './start.js';
 import { buildIndex, topicMarkerIds } from './model.js';
 
 const els = {
@@ -98,6 +99,8 @@ async function main() {
   // from the current state — so if the route has not been parsed yet, the
   // entity in a shared link is written out of the URL before it is ever read,
   // and every deep link opens the globe with no panel.
+  // Decided from the address as it arrived — the timeline rewrites it (?y=) as it starts.
+  const firstVisit = startModule.isFirstVisit();
   state.init();
 
   // The header's Key and Filters buttons answer from the first paint, not only once
@@ -183,6 +186,13 @@ async function main() {
 
   let globeApi = null;
   let fallbackActive = false;
+  const startHere = startModule.createStartHere({
+    card: document.getElementById('start-card'),
+    reopenButton: document.getElementById('start-here-link'),
+    searchInput: els.searchInput,
+    getGlobe: () => globeApi,
+    firstVisit,
+  });
   const hasGL2 = globeModule.supportsWebGL2();
 
   function renderFallbackIfActive(current) {
@@ -506,6 +516,7 @@ async function main() {
   state.subscribe((current) => { applyState(current); });
   const initial = state.init();
   await applyState(initial);
+  startHere.openFirstVisit();
 }
 
 main().catch((error) => {

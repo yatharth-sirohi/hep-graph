@@ -102,6 +102,56 @@
 
       <section id="detail-panel" class="detail-panel hidden" aria-live="polite"></section>
 
+      <!-- The Start-here card (js/start.js): shown unasked on a first visit to a bare
+           /atlas, reopened by the footer's "Start here". Every link is a real deep link. -->
+      <section
+        id="start-card"
+        class="start-card"
+        role="dialog"
+        aria-labelledby="start-title"
+        aria-describedby="start-lede"
+        tabindex="-1"
+        hidden
+      >
+        <button type="button" class="start-close" data-start-action="close" aria-label="Close Start here">&times;</button>
+        <p class="start-kicker">HEP Atlas</p>
+        <h2 id="start-title" class="start-title">Start here</h2>
+        <p id="start-lede" class="start-lede">
+          Every major particle-physics facility on a to-scale map, with every fact traced to its source.
+        </p>
+        <h3 class="start-heading">Ask a question</h3>
+        <ul class="start-questions">
+          <li>
+            <a class="start-question" data-start-link href="#/experiment/dune">
+              <span class="start-question-text">Where is DUNE&rsquo;s far detector?</span>
+              <span class="start-question-hint">Opens the experiment; the globe flies to its sites</span>
+            </a>
+          </li>
+          <li>
+            <a class="start-question" data-start-link href="#/result/atlas-higgs-observation-2012">
+              <span class="start-question-text">Where was the Higgs discovered?</span>
+              <span class="start-question-hint">ATLAS&rsquo;s 2012 discovery, with the map of CERN</span>
+            </a>
+          </li>
+          <li>
+            <a class="start-question" data-start-link href="#/topic/neutrino-oscillations">
+              <span class="start-question-text">Which experiments study neutrino oscillations?</span>
+              <span class="start-question-hint">A topic page, with its experiments lit on the globe</span>
+            </a>
+          </li>
+          <li>
+            <a class="start-question" data-start-link href="?fk=underground_laboratory">
+              <span class="start-question-text">How deep are the underground labs?</span>
+              <span class="start-question-hint">Filters the globe to underground laboratories; open one for its depth</span>
+            </a>
+          </li>
+        </ul>
+        <div class="start-actions">
+          <button type="button" class="text-btn start-action" data-start-action="results">Browse results</button>
+          <button type="button" class="text-btn start-action" data-start-action="search">Search</button>
+          <button type="button" class="primary-btn start-action" data-start-action="globe">Explore the globe</button>
+        </div>
+      </section>
     </main>
 
     <div id="timeline-bar" class="timeline-bar" aria-label="Timeline"></div>
@@ -112,6 +162,7 @@
            filters sheet at phone width, so the honesty statement it carries
            keeps one short, always-visible form here. -->
       <a href="/atlas/about.html#coverage" class="footer-link footer-coverage">Coverage: partial — see the coverage report</a>
+      <button id="start-here-link" type="button" class="text-btn" aria-haspopup="dialog" aria-controls="start-card" aria-expanded="false">Start here</button>
       <a href="/atlas/about.html" class="footer-link">Methodology</a>
       <a href="mailto:yatharth-sirohi@uiowa.edu?subject=HEP%20Atlas%3A%20error%20report" class="footer-link">Report an error</a>
       <button id="share-link" type="button" class="text-btn">Copy share link</button>

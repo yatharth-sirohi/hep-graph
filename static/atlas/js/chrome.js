@@ -32,11 +32,13 @@ export function createChrome() {
 
   function setKeyOpen(open, { restoreFocus = true } = {}) {
     if (open === !keyPopover.hidden) return;
+    // Asked before the popover is hidden: a hidden element gives its focus up.
+    const hadFocus = keyPopover.contains(document.activeElement);
     keyPopover.hidden = !open;
     keyBtn.setAttribute('aria-expanded', String(open));
     if (open) {
       keyPopover.focus({ preventScroll: true });
-    } else if (restoreFocus && keyPopover.contains(document.activeElement)) {
+    } else if (restoreFocus && hadFocus) {
       keyBtn.focus({ preventScroll: true });
     }
   }
@@ -45,12 +47,13 @@ export function createChrome() {
     if (PHONE.matches) return; // phone.js owns this element as a sheet
     const isOpen = panel.classList.contains('is-open');
     if (open === isOpen) return;
+    const hadFocus = panel.contains(document.activeElement);
     panel.classList.toggle('is-open', open);
     filtersBtn.setAttribute('aria-expanded', String(open));
     if (open) {
       panel.setAttribute('tabindex', '-1');
       panel.focus({ preventScroll: true });
-    } else if (restoreFocus && panel.contains(document.activeElement)) {
+    } else if (restoreFocus && hadFocus) {
       filtersBtn.focus({ preventScroll: true });
     }
   }
