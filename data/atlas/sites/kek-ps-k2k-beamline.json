@@ -1,0 +1,57 @@
+{
+  "aliases": [
+    "KEK-PS site",
+    "KEK 12 GeV PS and K2K beamline site"
+  ],
+  "altitude": null,
+  "coordinates": {
+    "confidence": "approximate",
+    "kind": "campus",
+    "lat": 36.1520734,
+    "locator": "Area centroid of the OSM KEK campus polygon (way 100702753, landuse=institutional, 84 vertices); K2K tutorial page, paragraph on the planned long-baseline experiment (fetched 2026-10-26)",
+    "lon": 140.0726871,
+    "note": "Campus-grade point for the KEK 12 GeV proton synchrotron (KEK-PS) and the K2K neutrino beamline, not a surveyed position: it is the area centroid of the OpenStreetMap KEK campus polygon, and the farthest vertex of that polygon lies 1003 m from it, so precision_m is 1100. The K2K tutorial page says the neutrino beam was produced at the KEK-PS and the primary proton beam was bent from the North hall to a target station, but no source consulted gives the coordinates of the PS ring, the North hall or the target station. The great-circle distance from this point to Super-Kamiokande is 249.4 km, within 0.3 % of the 250 km the K2K paper states.",
+    "precision_m": 1100,
+    "quote": "a high intensity muon neutrino beam with average evergy of 1.5 GeV, produced at KEK-PS, will be injected to Super-Kamiokande, located 250 km west of KEK.",
+    "sources": [
+      "src:geo-kek-osm-campus-boundary",
+      "src:k2k-tutorial-page"
+    ],
+    "verified_at": "2026-10-26"
+  },
+  "countries": [
+    "JP"
+  ],
+  "country": "JP",
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "depth": null,
+  "facility_id": "facility:kek",
+  "id": "site:kek-ps-k2k-beamline",
+  "links": {
+    "website": null
+  },
+  "name": "KEK 12 GeV proton synchrotron and K2K beamline (Tsukuba campus)",
+  "notes": [
+    "Created in M1 round 2 so that the K2K baseline starts at the machine that made the beam (the KEK 12 GeV PS) and not at the Belle II interaction hall (site:kek-tsukuba-belle-ii), which is a different place on the same campus. The position is campus-grade only."
+  ],
+  "place": {
+    "city": "Tsukuba",
+    "country": "JP",
+    "region": "Ibaraki"
+  },
+  "schema": "hep-atlas/0.2",
+  "setting": "surface",
+  "sources": [
+    "src:k2k-tutorial-page",
+    "src:k2k-prd-2006",
+    "src:geo-kek-osm-campus-boundary"
+  ],
+  "summary": {
+    "plain": "The part of KEK's Tsukuba campus where the 12 GeV proton synchrotron and the K2K neutrino beamline stood. From 1999 to 2004 protons from the synchrotron made the neutrino beam sent 250 kilometres to Super-Kamiokande. Only a campus-wide point is known, not the exact position on the campus.",
+    "technical": "Campus-grade stand-in for the KEK-PS (12 GeV proton synchrotron) and the K2K primary proton line and target station. The K2K tutorial page says the primary proton beam was bent from the North hall to the target station; none of these structures has a sourced coordinate. 249.4 km by great circle from Super-Kamiokande; the K2K measurement paper gives 250 km."
+  },
+  "type": "site"
+}
