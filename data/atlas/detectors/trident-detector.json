@@ -1,0 +1,107 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
+  },
+  "experiment_ids": [
+    "experiment:trident"
+  ],
+  "id": "detector:trident-detector",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "proposed (design paper and pathfinder results)",
+      "locator": "arXiv abstract page of the design paper (Nature Astronomy 7, 1497 (2023))",
+      "note": "Start is the arXiv submission month of the design paper. The paper schedules a 10-string pilot project at the selected site for about 2026 and construction of the full array after a successful demonstration; no source seen reports that either has started, so no construction interval is entered.",
+      "quote": "Submitted on 10 Jul 2022",
+      "sources": [
+        "src:trident-natastron-2023-design"
+      ],
+      "start": "2022-07",
+      "status": "proposed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "TRIDENT telescope (proposed)",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "locator": "section \"Site\"",
+      "note": "Region-grade (about 10 km) position stated to 0.1 degree in the design paper.",
+      "quote": "an area near 114.0◦ E, 17.4◦ N was selected as a suitable location to build a large scale deep-sea detector",
+      "role": "main",
+      "site_id": "site:trident-south-china-sea-abyssal-plain",
+      "sources": [
+        "src:trident-natastron-2023-design"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:trident-natastron-2023-design"
+  ],
+  "specs": {
+    "instrumented_volume": {
+      "approx": true,
+      "confidence": "verified",
+      "dimension": "volume",
+      "display": "~7.5 km^3",
+      "locator": "section \"Detector design\"",
+      "note": "",
+      "quote": "This arrangement will result in a world-leading instrumented geometric volume of ∼ 7.5 km3",
+      "sources": [
+        "src:trident-natastron-2023-design"
+      ],
+      "unit": "km^3",
+      "value": 7.5,
+      "verified_at": "2026-10-26"
+    },
+    "string_count": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "count",
+      "display": "1211 strings",
+      "locator": "section \"Detector design\"",
+      "note": "",
+      "quote": "The detector contains 1211 strings, each containing 20 hDOMs separated vertically by 30 m",
+      "sources": [
+        "src:trident-natastron-2023-design"
+      ],
+      "unit": "",
+      "value": 1211,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "proposed",
+  "subsystems": [],
+  "summary": {
+    "plain": "A planned seafloor array of about 24,000 light-sensing modules on 1,211 strings that detects the faint blue Cherenkov flashes produced when neutrinos interact in the sea water.",
+    "technical": "Proposed array of 1211 strings with 20 hybrid digital optical modules each (multi-PMT plus SiPM), vertical spacing 30 m, 2800-3400 m below sea level, Penrose-tiling string pattern with 70 m and 110 m spacings, ~7.5 km^3."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "section \"Detector design\"",
+    "note": "",
+    "quote": "the TRIDENT hDOM design adds SiPMs with excellent timing resolution, placed in the spaces between PMTs",
+    "sources": [
+      "src:trident-natastron-2023-design"
+    ],
+    "value": "Hybrid digital optical modules (multiple small PMTs plus SiPMs) on seafloor strings detecting Cherenkov light in sea water",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "sea_cherenkov",
+  "technology_classes": [
+    "sea_cherenkov"
+  ],
+  "type": "detector"
+}
