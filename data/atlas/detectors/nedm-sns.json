@@ -1,0 +1,93 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "experiment_ids": [
+    "experiment:nedm-sns"
+  ],
+  "id": "detector:nedm-sns",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2018-10",
+      "label": "development and design (plans paper, 2007)",
+      "locator": "arXiv:nucl-ex/0702024, abstract",
+      "note": "Start is the date of the collaboration's plans paper (10 February 2007), a lower bound for the proposal; the approval date is not stated in a source consulted.",
+      "quote": "This experiment, which will be run at the 8.9 A Neutron Line at the Fundamental Neutron Physics Beamline (FNPB) at the Spallation Neutron Source (SNS) at the Oak Ridge National Laboratory",
+      "sources": [
+        "src:precision-2-nedm-sns-plans-arxiv-nucl-ex-0702024"
+      ],
+      "start": "2007-02",
+      "status": "proposed",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "construction",
+      "locator": "arXiv:1810.03718, section on new searches (8 October 2018)",
+      "note": "Start is a lower bound: an October 2018 review says the SNS experiment \"requires five more years to complete construction and commissioning\"; the current official page says \"The nEDM@SNS experiment is now being constructed at SNS’s Fundamental Neutron Physics Beam Line\". No commissioning or data-taking date is published.",
+      "quote": "requires five more years to complete construction and commissioning",
+      "sources": [
+        "src:precision-2-worldwide-search-neutron-edm-arxiv-1810-03718",
+        "src:precision-2-nedm-sns-one-page-summary"
+      ],
+      "start": "2018-10",
+      "status": "construction",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "nEDM@SNS apparatus",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "locator": "one-page summary, last paragraph",
+      "note": "SNS complex campus-grade site; the Fundamental Neutron Physics Beamline hall is not located in a fetched source.",
+      "quote": "The nEDM@SNS experiment is now being constructed at SNS’s Fundamental Neutron Physics Beam Line.",
+      "role": "main",
+      "site_id": "site:ornl-sns-complex",
+      "sources": [
+        "src:precision-2-nedm-sns-one-page-summary"
+      ],
+      "start": "2018-10",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:precision-2-nedm-sns-one-page-summary",
+    "src:precision-2-nedm-sns-plans-arxiv-nucl-ex-0702024",
+    "src:precision-2-nedm-sns-site-home",
+    "src:precision-2-worldwide-search-neutron-edm-arxiv-1810-03718"
+  ],
+  "specs": {},
+  "status": "construction",
+  "subsystems": [],
+  "summary": {
+    "plain": "Two identical liquid-helium-filled cells in a strong electric field, where neutrons are cooled to ultracold energies, stored, and watched through flashes of light for a tiny change in how their spins turn.",
+    "technical": "Two measurement cells with opposite electric fields (75 kV/cm, Cavallo multiplier, 630 kV) in liquid 4He at 0.5 K; polarized 3He co-magnetometer; multilayer magnetic shield enclosure; magnet tested at Caltech and moved to ORNL."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "one-page summary",
+    "note": "",
+    "quote": "The experiment has two identical measurement cells with the electric field in opposite directions to control systematics.",
+    "sources": [
+      "src:precision-2-nedm-sns-one-page-summary"
+    ],
+    "value": "Superfluid-helium ultracold-neutron production and storage in two measurement cells with polarized He-3 co-magnetometry and a 75 kV/cm electric field",
+    "verified_at": "2026-10-26"
+  },
+  "technology_classes": [
+    "other"
+  ],
+  "type": "detector"
+}

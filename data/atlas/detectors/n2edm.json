@@ -1,0 +1,93 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "experiment_ids": [
+    "experiment:n2edm"
+  ],
+  "id": "detector:n2edm",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2025-11",
+      "label": "under construction at the PSI ultracold neutron source",
+      "locator": "arXiv:2101.08730, abstract",
+      "note": "Start is the date of the design report, which says the experiment is \"currently under construction\"; the construction start itself is not stated. End: first use of the n2EDM apparatus for ultracold-neutron measurements (arXiv:2511.06884, 10 Nov 2025).",
+      "quote": "We present the design of a next-generation experiment, n2EDM, currently under construction at the ultracold neutron source at the Paul Scherrer Institute (PSI)",
+      "sources": [
+        "src:precision-2-n2edm-design-arxiv-2101-08730",
+        "src:precision-2-n2edm-ucn-spectrum-arxiv-2511-06884"
+      ],
+      "start": "2021-01",
+      "status": "construction",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "commissioning",
+      "locator": "arXiv:2601.22960, introduction (30 January 2026)",
+      "note": "Start is a lower bound (the first paper using the apparatus for UCN measurements, 10 November 2025); the January 2026 paper says the experiment \"is currently being commissioned\". The active magnetic shield was commissioned in 2021 (same paper). No EDM result has been published.",
+      "quote": "which is currently being commissioned at the ultracold neutron (UCN) source",
+      "sources": [
+        "src:precision-2-n2edm-active-magnetic-shield-arxiv-2601-22960",
+        "src:precision-2-n2edm-ucn-spectrum-arxiv-2511-06884"
+      ],
+      "start": "2025-11",
+      "status": "commissioning",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "n2EDM spectrometer",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "locator": "arXiv:2101.08730, abstract",
+      "note": "PSI campus-grade site; the UCN area is not located in a fetched source.",
+      "quote": "currently under construction at the ultracold neutron source at the Paul Scherrer Institute (PSI)",
+      "role": "main",
+      "site_id": "site:psi-villigen",
+      "sources": [
+        "src:precision-2-n2edm-design-arxiv-2101-08730"
+      ],
+      "start": "2021-01",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:precision-2-n2edm-active-magnetic-shield-arxiv-2601-22960",
+    "src:precision-2-n2edm-design-arxiv-2101-08730",
+    "src:precision-2-n2edm-ucn-spectrum-arxiv-2511-06884"
+  ],
+  "specs": {},
+  "status": "commissioning",
+  "subsystems": [],
+  "summary": {
+    "plain": "Two storage chambers stacked one above the other, inside a room shielded from magnetic fields and surrounded by active compensation coils, in which ultracold neutron spins precess in electric fields of opposite direction.",
+    "technical": "Double-chamber UCN Ramsey spectrometer in a magnetically shielded room (passive) with an eight-coil active magnetic shield; Hg and Cs magnetometers for field control."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "arXiv:2601.22960, introduction",
+    "note": "",
+    "quote": "utilizes two vertically stacked UCN storage chambers",
+    "sources": [
+      "src:precision-2-n2edm-active-magnetic-shield-arxiv-2601-22960"
+    ],
+    "value": "Two vertically stacked ultracold-neutron storage chambers inside a magnetically shielded room with an active magnetic shield",
+    "verified_at": "2026-10-26"
+  },
+  "technology_classes": [
+    "other"
+  ],
+  "type": "detector"
+}
