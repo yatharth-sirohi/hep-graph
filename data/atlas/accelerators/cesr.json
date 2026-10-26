@@ -1,0 +1,172 @@
+{
+  "aliases": [
+    "CESR",
+    "CESR-c"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "facility_id": "facility:cornell-wilson-lab",
+  "feeds_accelerator_ids": [],
+  "id": "accelerator:cesr",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "1977",
+      "label": "proposal",
+      "locator": "CLASSE CLEO page, \"CESR and CLEO Timelines\"",
+      "note": "Quote keeps the page's own spelling (\"propsal\"). End = NSF funding approval in 1977.",
+      "quote": "1975: CESR propsal submitted to NSF",
+      "sources": [
+        "src:colliders2-classe-cleo-page"
+      ],
+      "start": "1975",
+      "status": "proposed",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "1977",
+      "label": "NSF funding approved",
+      "locator": "CLASSE CLEO page, \"CESR and CLEO Timelines\"",
+      "note": "Year precision; construction followed in 1977-79 (Berkelman).",
+      "quote": "1977: NSF funding approved",
+      "sources": [
+        "src:colliders2-classe-cleo-page"
+      ],
+      "start": "1977",
+      "status": "approved",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": "1979-04",
+      "label": "construction",
+      "locator": "Berkelman, \"A Personal History of CESR and CLEO\", contents; first electrons injected in early April 1979",
+      "note": "Year-precision start; the end is the first electron injection in April 1979 (same source).",
+      "quote": "3 Construction, 1977-79",
+      "sources": [
+        "src:colliders2-berkelman-cesr-cleo-history"
+      ],
+      "start": "1977",
+      "status": "construction",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": "1979-08-14",
+      "label": "commissioning",
+      "locator": "Berkelman, chapter 3 (Construction, 1977-79)",
+      "note": "The first electrons were injected on or about 2 April 1979 (the author recalls); the first measurable colliding-beam luminosity came on 14 August 1979.",
+      "quote": "the first electrons were injected into CESR the next morning, on what would have been April 2 if we had not stopped the clock",
+      "sources": [
+        "src:colliders2-berkelman-cesr-cleo-history"
+      ],
+      "start": "1979-04",
+      "status": "commissioning",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "2008-03-03",
+      "label": "e+e- collider operation",
+      "locator": "Berkelman, chapter 3; end from the CLASSE CLEO timeline (2008: running ends on March 3rd)",
+      "note": "CLASSE dates the first e+e- collisions only to 1979; Berkelman gives the day of first measurable luminosity. The end is the end of CLEO running; CESR continues as the CHESS synchrotron-light source and an accelerator-physics facility.",
+      "quote": "It was on August 14 that we had the first measurable colliding beam luminosity.",
+      "sources": [
+        "src:colliders2-berkelman-cesr-cleo-history",
+        "src:colliders2-classe-cleo-page"
+      ],
+      "start": "1979-08-14",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": "2008-03-03",
+      "kind": "phase",
+      "label": "CESR-c (charm-region running)",
+      "locator": "CLASSE CLEO page timelines (CESR: 2003-04 superferric wigglers)",
+      "note": "CLEO-c took data at the lower, charm-threshold energies enabled by the superferric wigglers installed in 2003-04.",
+      "quote": "2003: CLEO-c data collection started",
+      "sources": [
+        "src:colliders2-classe-cleo-page"
+      ],
+      "start": "2003",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "CLEO running ended; CESR continues as a light source",
+      "locator": "CLASSE CLEO page, \"CESR and CLEO Timelines\"",
+      "note": "Particle-physics running ended; CESR still operates as the source for CHESS and for accelerator-physics studies (CLASSE about page). This record covers the collider period only.",
+      "quote": "2008: Running ends on March 3rd",
+      "sources": [
+        "src:colliders2-classe-cleo-page"
+      ],
+      "start": "2008-03-03",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "is_collider": true,
+  "kind": "collider",
+  "links": {
+    "website": null
+  },
+  "name": "Cornell Electron Storage Ring",
+  "notes": [
+    "CESR continues to operate after 2008 as a synchrotron-light and accelerator-physics facility; photon science is outside the Atlas scope (A26), so this record covers the collider period."
+  ],
+  "particles": [
+    "electron",
+    "positron"
+  ],
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:cornell-wilson-lab",
+  "sources": [
+    "src:colliders2-berkelman-cesr-cleo-history",
+    "src:colliders2-classe-cleo-page"
+  ],
+  "specs": {
+    "beam_energy": {
+      "approx": false,
+      "confidence": "approximate",
+      "dimension": "energy",
+      "display": "8 GeV (design)",
+      "locator": "Berkelman, chapter 7 (Improving CESR, 1981-88)",
+      "note": "Design beam energy; the text says CESR never ran at it.",
+      "quote": "CESR never ran at its 8 GeV design energy",
+      "sources": [
+        "src:colliders2-berkelman-cesr-cleo-history"
+      ],
+      "unit": "GeV",
+      "value": 8,
+      "verified_at": "2026-10-26"
+    },
+    "peak_luminosity": {
+      "approx": false,
+      "confidence": "approximate",
+      "dimension": "luminosity",
+      "display": "1 × 10^32 cm^-2 s^-1 (design)",
+      "locator": "Berkelman, chapter 7",
+      "note": "Design luminosity of the proposal at 8 GeV; Berkelman notes it was never achieved under the proposal's parameters and gives later luminosities year by year (Appendix Table I, up to 1.25 × 10^33 in 2001).",
+      "quote": "peak luminosity of 1032 /cm2 sec",
+      "sources": [
+        "src:colliders2-berkelman-cesr-cleo-history"
+      ],
+      "unit": "cm^-2 s^-1",
+      "value": 1e+32,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "completed",
+  "summary": {
+    "plain": "Cornell University's electron-positron storage ring, which first collided beams in 1979 at energies chosen to make the new bottom-quark Upsilon states. Its experiments CLEO and CUSB studied beauty and charm particles until 2008; the ring still feeds Cornell's X-ray source.",
+    "technical": "CESR e⁺e⁻ storage ring at the Wilson Synchrotron Laboratory, Cornell: proposal 1975, NSF funding 1977, first electrons April 1979, first colliding-beam luminosity 14 August 1979; Υ region (design 8 GeV beams, 10³² cm⁻² s⁻¹); CLEO at the south and CUSB at the north interaction point; CESR-c (charm threshold) from 2003; CLEO running ended 3 March 2008; ring now used for CHESS and accelerator physics."
+  },
+  "type": "accelerator"
+}

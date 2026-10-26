@@ -1,0 +1,91 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
+  },
+  "experiment_ids": [
+    "experiment:cusb"
+  ],
+  "id": "detector:cusb",
+  "intervals": [
+    {
+      "confidence": "derived",
+      "end": "1990",
+      "label": "CESR data taking (north area)",
+      "locator": "Berkelman, chapter 10 (The CLEO-2 Years); \"since the turn-on of CESR in 1979\" (chapter 5)",
+      "note": "Start: CUSB had run \"since the turn-on of CESR in 1979\"; the month is taken from the first colliding-beam luminosity on 14 August 1979 (chapter 3); end derived as 1979 + eleven years (the PAC terminated CUSB after one more Υ(4S) run in the early CLEO-2 era). CUSB-II (BGO upgrade) was chosen by the PAC in January 1984.",
+      "quote": "CUSB under the leadership of the Franzinis had run in the north interaction region for eleven years",
+      "sources": [
+        "src:colliders2-berkelman-cesr-cleo-history"
+      ],
+      "start": "1979-08",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "derived",
+      "end": null,
+      "label": "CUSB terminated",
+      "locator": "Berkelman, chapter 10",
+      "note": "Year derived (see the active interval); the detector was dismantled afterwards.",
+      "quote": "Upon the advice of the PAC I decided to terminate the CUSB experiment after one more run on the Υ(4S).",
+      "sources": [
+        "src:colliders2-berkelman-cesr-cleo-history"
+      ],
+      "start": "1990",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "CUSB detector",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": "1990",
+      "locator": "Berkelman, chapter 6",
+      "note": "Campus-grade placement: no fetched source locates the CLEO or CUSB experimental areas; the marker is the Wilson Laboratory building point. CUSB sat at the north interaction point, in trailers on Upper Alumni Field.",
+      "quote": "The users of CESR in the 1980’s were CLEO at the south interaction point, CUSB in the north, CHESS",
+      "role": "main",
+      "site_id": "site:cornell-wilson-lab",
+      "sources": [
+        "src:colliders2-berkelman-cesr-cleo-history"
+      ],
+      "start": "1979-08",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:colliders2-berkelman-cesr-cleo-history",
+    "src:colliders2-cusb-ii-detector-nim-1988"
+  ],
+  "specs": {},
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "The CUSB detector: a compact non-magnetic ball of sodium iodide and lead glass crystals that measured the energies of photons from Upsilon decays at the north interaction point of CESR.",
+    "technical": "CUSB: non-magnetic NaI and lead-glass shower detector (CUSB-II: BGO scintillation counters replacing the tracking chambers)."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "Berkelman, chapter 6",
+    "note": "",
+    "quote": "running their nonmagnetic NaI and lead-glass detector there since the turn-on of CESR in 1979",
+    "sources": [
+      "src:colliders2-berkelman-cesr-cleo-history"
+    ],
+    "value": "Non-magnetic NaI and lead-glass shower detector",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "scintillating_crystal",
+  "technology_classes": [
+    "scintillating_crystal"
+  ],
+  "type": "detector"
+}
