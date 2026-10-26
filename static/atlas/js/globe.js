@@ -668,9 +668,22 @@ export function createGlobe(container, {
     // (see `expandTargetAltitude`, which always zooms cluster-expansion below
     // it) — the `> MIN_CLUSTER_ALTITUDE` guard is redundant here in practice
     // but keeps this condition correct if that gate is ever lowered.
+    //
+    // A facility that does not exist in the selected year or range is hidden
+    // (is-absent), so it must not be counted in, or named by, a cluster either:
+    // only the members present in the selection are clustered; the absent ones
+    // stay as (hidden) single markers, which is what they are on their own.
+    const absentInSelection = (f) => !!timelineMode
+      && !!(f.record.state_segments && f.record.state_segments.length)
+      && !segmentsPresence(f.record.state_segments);
+    const presentFacilities = clusterableFacilities.filter((f) => !absentInSelection(f));
+    const absentFacilities = clusterableFacilities.filter(absentInSelection);
     const facilityClustered = (currentAltitude >= FACILITY_CLUSTER_ALTITUDE && currentAltitude > MIN_CLUSTER_ALTITUDE)
-      ? clusterByRadius(clusterableFacilities, facilityClusterRadiusDeg(currentAltitude))
-      : clusterableFacilities.map((f) => ({ kind: 'single', lat: f.lat, lon: f.lon, item: f }));
+      ? clusterByRadius(presentFacilities, facilityClusterRadiusDeg(currentAltitude))
+      : presentFacilities.map((f) => ({ kind: 'single', lat: f.lat, lon: f.lon, item: f }));
+    for (const f of absentFacilities) {
+      facilityClustered.push({ kind: 'single', lat: f.lat, lon: f.lon, item: f });
+    }
     for (const f of selectedFacilities) {
       facilityClustered.push({ kind: 'single', lat: f.lat, lon: f.lon, item: f });
     }
