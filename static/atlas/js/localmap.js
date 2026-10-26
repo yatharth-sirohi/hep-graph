@@ -1234,6 +1234,9 @@ function addLabel(L, feature, shape, { options, ghost, series }) {
     lastKey: null,
     symbol: symbolFor(L, feature, labelShape, { options, ghost, series }),
     symbolShown: false,
+    // What the feature itself draws, for the labels of lower-priority features
+    // to keep clear of (see layoutLabels).
+    solid: { geometry: feature.geometry, type: feature.feature_type },
   });
 }
 
@@ -1460,6 +1463,96 @@ function labelCandidates(rec) {
   return out;
 }
 
+// ---- labels keep off the shapes of more important features ------------------
+// The declutter above only kept labels off each other. A label is also not put
+// on top of a ring, a beamline or a building that matters more than the feature
+// it names, unless it matters as much as they do (a ring, a line, a tunnel, a
+// hall, a cavern or an experiment's site keeps its place): a smaller building's
+// name stands beside the line it would otherwise cross, or is left to the hover
+// tooltip and the list. Context outlines (campus boundaries, roads,
+// water) are never obstacles; they are what labels are laid over.
+const CONTEXT_SOLID_TYPES = new Set(['boundary', 'level_outline', 'road', 'water']);
+const KEEP_OVER_SHAPES_RANK = 2;
+// A footprint no bigger than this on screen blocks its whole box, not just its edge.
+const SMALL_FOOTPRINT_PX = 90;
+const POINT_MARK_PX = 7;
+
+function screenSolid(rec) {
+  const { geometry, type } = rec.solid || {};
+  if (!geometry || CONTEXT_SOLID_TYPES.has(type)) return null;
+  const toPoint = ([lon, lat]) => mapInstance.latLngToContainerPoint([lat, lon]);
+  const segments = [];
+  const boxes = [];
+  let minX = Infinity;
+  let minY = Infinity;
+  let maxX = -Infinity;
+  let maxY = -Infinity;
+  const grow = (x, y) => {
+    minX = Math.min(minX, x);
+    maxX = Math.max(maxX, x);
+    minY = Math.min(minY, y);
+    maxY = Math.max(maxY, y);
+  };
+  const isArea = geometry.type === 'Polygon' || geometry.type === 'MultiPolygon';
+  for (const part of lineParts(geometry)) {
+    const pts = part.map(toPoint);
+    let lx = Infinity;
+    let ly = Infinity;
+    let hx = -Infinity;
+    let hy = -Infinity;
+    for (let i = 0; i < pts.length; i += 1) {
+      grow(pts[i].x, pts[i].y);
+      lx = Math.min(lx, pts[i].x);
+      hx = Math.max(hx, pts[i].x);
+      ly = Math.min(ly, pts[i].y);
+      hy = Math.max(hy, pts[i].y);
+      if (i) segments.push([pts[i - 1].x, pts[i - 1].y, pts[i].x, pts[i].y]);
+    }
+    if (isArea && hx - lx <= SMALL_FOOTPRINT_PX && hy - ly <= SMALL_FOOTPRINT_PX) {
+      boxes.push({ x: lx, y: ly, w: hx - lx, h: hy - ly });
+    }
+  }
+  for (const position of pointParts(geometry)) {
+    const p = toPoint(position);
+    grow(p.x, p.y);
+    boxes.push({ x: p.x - POINT_MARK_PX, y: p.y - POINT_MARK_PX, w: 2 * POINT_MARK_PX, h: 2 * POINT_MARK_PX });
+  }
+  if (rec.symbolShown && rec.symbol) {
+    const c = mapInstance.latLngToContainerPoint(rec.symbol.centre);
+    grow(c.x, c.y);
+    boxes.push({ x: c.x - SYMBOL_SIZE_PX / 2, y: c.y - SYMBOL_SIZE_PX / 2, w: SYMBOL_SIZE_PX, h: SYMBOL_SIZE_PX });
+  }
+  if (!Number.isFinite(minX)) return null;
+  return { id: rec.id, memberIds: rec.memberIds, bbox: { x: minX, y: minY, w: maxX - minX, h: maxY - minY }, segments, boxes };
+}
+
+/** Whether the segment (x0,y0)-(x1,y1) passes through the box (Liang–Barsky). */
+function segmentHitsBox([x0, y0, x1, y1], box) {
+  let t0 = 0;
+  let t1 = 1;
+  const dx = x1 - x0;
+  const dy = y1 - y0;
+  const clip = (p, q) => {
+    if (p === 0) return q >= 0;
+    const r = q / p;
+    if (p < 0) {
+      if (r > t1) return false;
+      if (r > t0) t0 = r;
+    } else {
+      if (r < t0) return false;
+      if (r < t1) t1 = r;
+    }
+    return true;
+  };
+  return clip(-dx, x0 - box.x) && clip(dx, box.x + box.w - x0)
+    && clip(-dy, y0 - box.y) && clip(dy, box.y + box.h - y0);
+}
+
+function solidHits(solid, box) {
+  if (!boxesOverlap(solid.bbox, box)) return false;
+  return solid.boxes.some((b) => boxesOverlap(b, box)) || solid.segments.some((seg) => segmentHitsBox(seg, box));
+}
+
 /**
  * Decide which labels show, and where, for the current view. Highest priority
  * first (the selected feature, then by feature type, then by size); each
@@ -1482,50 +1575,67 @@ function layoutLabels() {
   const inView = (box) => box.x >= LABEL_EDGE_PX && box.y >= LABEL_EDGE_PX
     && box.x + box.w <= mapSize.x - LABEL_EDGE_PX && box.y + box.h <= mapSize.y - LABEL_EDGE_PX;
   const order = [...labelRecords.values()].sort(labelPriority);
+  // The shapes of the features handled so far, whether or not their own label
+  // shows: what a label of lower priority is kept off.
+  const solids = [];
   for (const rec of order) {
-    const el = rec.tooltip.getElement();
-    if (!el) continue;
-    if (!rec.box.w || !rec.box.h) rec.box = { w: el.offsetWidth, h: el.offsetHeight };
-    if (!rec.box.w || !rec.box.h) continue;
-    const forced = isForced(rec);
-    // Four telescopes with the same ±15 m would carry four identical chips: say
-    // it once (the legend and every tooltip say it for the rest), unless the
-    // reader is asking about that one.
-    if (!circleReadable(rec) || (rec.circle && !forced && ringTextsShown.has(rec.circle.text))) {
-      el.classList.add('is-hidden');
-      continue;
-    }
-    let chosen = null;
-    let fallback = null;
-    for (const candidate of labelCandidates(rec)) {
-      const box = labelBox(candidate, rec.box);
-      if (!inView(box)) continue;
-      if (!fallback) fallback = { candidate, box };
-      const clear = !placed.some((other) => boxesOverlap(box, other))
-        && !blocked.some((other) => boxesOverlap(box, other));
-      if (clear) {
-        chosen = { candidate, box };
-        break;
+    placement: {
+      const el = rec.tooltip.getElement();
+      if (!el) break placement;
+      if (!rec.box.w || !rec.box.h) rec.box = { w: el.offsetWidth, h: el.offsetHeight };
+      if (!rec.box.w || !rec.box.h) break placement;
+      const forced = isForced(rec);
+      // Four telescopes with the same ±15 m would carry four identical chips: say
+      // it once (the legend and every tooltip say it for the rest), unless the
+      // reader is asking about that one.
+      if (!circleReadable(rec) || (rec.circle && !forced && ringTextsShown.has(rec.circle.text))) {
+        el.classList.add('is-hidden');
+        break placement;
       }
+      // Another feature's own parts (a series, an entity's several outlines) are
+      // not in its way; the label of an accuracy circle sits on its own ring.
+      const others = rec.circle ? [] : solids.filter((solid) => solid.id !== rec.id
+        && !(rec.memberIds && rec.memberIds.has(solid.id)) && !(solid.memberIds && solid.memberIds.has(rec.id)));
+      const onShape = (box) => others.some((solid) => solidHits(solid, box));
+      // A label that matters as much as the shapes (a ring, a line, a tunnel, a
+      // hall, a cavern, an experiment's site) is placed as it always was; a lesser
+      // one must also be clear of them, or it is left to its tooltip and its row
+      // in the list.
+      const avoidShapes = !forced && !rec.selected && rec.rank > KEEP_OVER_SHAPES_RANK;
+      let chosen = null;
+      let fallback = null;
+      for (const candidate of labelCandidates(rec)) {
+        const box = labelBox(candidate, rec.box);
+        if (!inView(box)) continue;
+        if (!fallback) fallback = { candidate, box };
+        const clear = !placed.some((other) => boxesOverlap(box, other))
+          && !blocked.some((other) => boxesOverlap(box, other));
+        if (clear && !(avoidShapes && onShape(box))) {
+          chosen = { candidate, box };
+          break;
+        }
+      }
+      if (!chosen && forced) chosen = fallback;
+      el.classList.toggle('is-forced', forced);
+      if (!chosen) {
+        el.classList.add('is-hidden');
+        break placement;
+      }
+      placed.push({
+        x: chosen.box.x - LABEL_PAD_PX,
+        y: chosen.box.y - LABEL_PAD_PX,
+        w: chosen.box.w + 2 * LABEL_PAD_PX,
+        h: chosen.box.h + 2 * LABEL_PAD_PX,
+      });
+      rec.lastKey = chosen.candidate.key;
+      if (rec.circle) ringTextsShown.add(rec.circle.text);
+      rec.tooltip.setLatLng(mapInstance.containerPointToLatLng([
+        chosen.box.x + chosen.box.w / 2, chosen.box.y + chosen.box.h / 2,
+      ]));
+      el.classList.remove('is-hidden');
     }
-    if (!chosen && forced) chosen = fallback;
-    el.classList.toggle('is-forced', forced);
-    if (!chosen) {
-      el.classList.add('is-hidden');
-      continue;
-    }
-    placed.push({
-      x: chosen.box.x - LABEL_PAD_PX,
-      y: chosen.box.y - LABEL_PAD_PX,
-      w: chosen.box.w + 2 * LABEL_PAD_PX,
-      h: chosen.box.h + 2 * LABEL_PAD_PX,
-    });
-    rec.lastKey = chosen.candidate.key;
-    if (rec.circle) ringTextsShown.add(rec.circle.text);
-    rec.tooltip.setLatLng(mapInstance.containerPointToLatLng([
-      chosen.box.x + chosen.box.w / 2, chosen.box.y + chosen.box.h / 2,
-    ]));
-    el.classList.remove('is-hidden');
+    const solid = screenSolid(rec);
+    if (solid) solids.push(solid);
   }
   container.classList.remove('map-labels-busy');
 }
