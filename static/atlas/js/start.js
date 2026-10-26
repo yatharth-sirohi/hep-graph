@@ -18,10 +18,11 @@ import * as state from './state.js';
 export const STORAGE_KEY = 'hep-atlas.start-here';
 
 // The camera the globe frames behind the card, for a globe that can be told where to
-// look (`globeApi.showView`): the North Atlantic, where the long-baseline neutrino
-// programmes (Fermilab to South Dakota, CERN to Gran Sasso) and the two biggest
-// colliders sit within one hemisphere.
-export const FIRST_VIEW = { lat: 38, lng: -30, altitude: 2.6 };
+// look (`globeApi.showView`): North America and the western edge of Europe, one hemisphere
+// that holds Fermilab, its neutrino beam to South Dakota (drawn, labelled "1,285 km", and
+// the first thing a visitor can click) and CERN with Gran Sasso at the far limb. Lower
+// than the old whole-Atlantic marble (2.6), where no beam was long enough to draw.
+export const FIRST_VIEW = { lat: 44, lng: -70, altitude: 1.8 };
 
 function readDismissed() {
   try {

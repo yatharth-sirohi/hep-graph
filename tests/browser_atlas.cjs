@@ -1185,6 +1185,69 @@ async function openFilters(page) {
     }
   });
 
+  await record("Selected captions and beam labels never overlap after a cold deep link, whatever the load (the declutter pass is never dropped)", async () => {
+    // A fresh context WITHOUT reduced motion: the camera flies to the selection, and
+    // it is during that flight that the declutter pass used to be dropped, leaving two
+    // selected captions (or a caption and a beam pill) printed over each other for good.
+    // CPU throttling (Chromium only) makes the flight and the rebuilds land the way they
+    // do on a busy machine.
+    const routes = process.env.HEP_ATLAS_DATA === "generated"
+      ? ["experiment/t2k", "experiment/k2k", "experiment/hyper-kamiokande"] : ["experiment/dune"];
+    const signature = () => [...document.querySelectorAll(".atlas-marker.is-selected .atlas-marker-label, .atlas-beam-label .bl-pill")]
+      .map((el) => { const r = el.getBoundingClientRect(); return [r.left, r.top, r.width].map(Math.round).join(","); }).join("|");
+    const overlapsOf = () => {
+      const shown = (el) => {
+        const cs = getComputedStyle(el);
+        const r = el.getBoundingClientRect();
+        return cs.visibility !== "hidden" && cs.display !== "none" && r.width > 0 && r.height > 0;
+      };
+      const boxes = [];
+      for (const el of document.querySelectorAll(".atlas-marker.is-selected .atlas-marker-label")) {
+        if (!el.closest(".atlas-marker").classList.contains("is-label-hidden") && shown(el)) boxes.push([`caption ${el.textContent.trim()}`, el.getBoundingClientRect()]);
+      }
+      for (const el of document.querySelectorAll(".atlas-beam-label:not(.is-label-hidden) .bl-pill")) {
+        if (shown(el)) boxes.push([`beam ${el.getAttribute("aria-label")}`, el.getBoundingClientRect()]);
+      }
+      const hits = [];
+      for (let i = 0; i < boxes.length; i += 1) {
+        for (let j = i + 1; j < boxes.length; j += 1) {
+          const a = boxes[i][1];
+          const b = boxes[j][1];
+          const ox = Math.min(a.right, b.right) - Math.max(a.left, b.left);
+          const oy = Math.min(a.bottom, b.bottom) - Math.max(a.top, b.top);
+          if (ox > 0.5 && oy > 0.5) hits.push(`${boxes[i][0]} / ${boxes[j][0]}`);
+        }
+      }
+      return { shown: boxes.length, hits };
+    };
+    for (const route of routes) {
+      for (let attempt = 0; attempt < 2; attempt += 1) {
+        const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 } });
+        ctx.setDefaultTimeout(90000);
+        const p = await ctx.newPage();
+        if (BROWSER_NAME === "chromium") {
+          const cdp = await ctx.newCDPSession(p);
+          await cdp.send("Emulation.setCPUThrottlingRate", { rate: 4 });
+        }
+        await p.goto(`${base}/atlas${dataTree ? `${dataTree}&welcome=0` : "?welcome=0"}#/${route}`);
+        await p.locator("#detail-panel h2").waitFor();
+        // Settled: what is shown has not moved for 1.5 s.
+        let last = "";
+        let steady = 0;
+        for (let i = 0; i < 80 && steady < 5; i += 1) {
+          await p.waitForTimeout(300);
+          const now = await p.evaluate(signature);
+          steady = now && now === last ? steady + 1 : 0;
+          last = now;
+        }
+        const { shown, hits } = await p.evaluate(overlapsOf);
+        assert.ok(shown >= 2, `${route}: expected selected captions on the globe, found ${shown}`);
+        assert.deepEqual(hits, [], `${route} (load ${attempt + 1}): overlapping captions / beam labels`);
+        await ctx.close();
+      }
+    }
+  });
+
   await record("Desktop screenshot", async () => {
     await page.screenshot({ path: path.join(output, "desktop.png"), fullPage: true });
   });

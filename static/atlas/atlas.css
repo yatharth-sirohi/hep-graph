@@ -942,7 +942,9 @@ body.is-map-route .atlas-header > .mode-buttons {
   gap: 2px;
   transform: translate(-50%, -50%);
   cursor: pointer;
-  filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.6));
+  /* No filter on the marker itself: WebKit clips a filtered element's overflow (the
+     selection ring and the offset caption hang outside its box) to a square. The glyph
+     carries its own shadow (globe.css). */
   transition: opacity 0.2s ease;
   /* three-globe's html-elements container sets pointer-events: none on
      itself so camera-drag gestures pass through to the canvas; markers
@@ -964,7 +966,8 @@ body.is-map-route .atlas-header > .mode-buttons {
   max-width: 22em;
   overflow: hidden;
   text-overflow: ellipsis;
-  font-size: 10px;
+  text-align: left;
+  font-size: var(--marker-label-size, 12px);
   color: #dff1ee;
   background: rgba(6, 20, 28, 0.7);
   padding: 1px 4px;
@@ -998,7 +1001,7 @@ body.is-map-route .atlas-header > .mode-buttons {
   opacity: 0.2;
 }
 .atlas-marker.is-highlighted svg {
-  filter: drop-shadow(0 0 6px var(--amber));
+  filter: drop-shadow(0 0 2px rgba(2, 10, 16, 0.85)) drop-shadow(0 0 6px var(--amber));
 }
 .atlas-marker:focus-visible {
   outline: 2px solid var(--amber);
@@ -1019,7 +1022,8 @@ body.is-map-route .atlas-header > .mode-buttons {
   transform: translate(-50%, -50%);
   max-width: none;
   overflow: visible;
-  font-size: 11px;
+  text-align: center;
+  font-size: var(--marker-label-size, 12px);
   font-weight: 700;
   line-height: 1;
   color: var(--amber);
@@ -1063,7 +1067,7 @@ body.is-map-route .atlas-header > .mode-buttons {
   opacity: 1 !important;
 }
 .atlas-marker.is-selected .atlas-marker-label {
-  font-size: 11px;
+  font-size: var(--marker-label-size, 12px);
   font-weight: 700;
   color: #1c1204;
   background: var(--amber);
