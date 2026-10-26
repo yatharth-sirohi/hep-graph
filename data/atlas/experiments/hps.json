@@ -1,0 +1,176 @@
+{
+  "accelerator_ids": [
+    "accelerator:cebaf"
+  ],
+  "aliases": [
+    "HPS",
+    "Heavy Photon Search experiment"
+  ],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:hps"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "distinct_from": [],
+  "energy_regime": null,
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:jefferson-lab",
+      "locator": "arXiv:2212.10629, Section II.B (Hall B beamline and target); 2024 PAC update executive summary",
+      "note": "",
+      "quote": "The HPS apparatus operates in the downstream alcove of experimental Hall B",
+      "role": "host",
+      "sources": [
+        "src:hadron2-hps-2016-run-arxiv-2022",
+        "src:hadron2-hps-update-2024"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:jefferson-lab",
+      "locator": "arXiv:2212.10629, Section II.B",
+      "note": "Electron beam from CEBAF (accelerator:cebaf).",
+      "quote": "The 2.3 GeV electron beam is transported ≈57 m from the upstream Hall B tunnel to HPS",
+      "role": "beam_source",
+      "sources": [
+        "src:hadron2-hps-2016-run-arxiv-2022"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:hps",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2016-05",
+      "label": "installation and engineering runs",
+      "locator": "HPS experiment page, \"About the HPS Experiment\"; installation: \"installed at JLAB in February 2015\"",
+      "note": "Installed February 2015 (SLAC HPS page); the 2018 paper says installed and commissioned \"early in the spring of 2015\". Engineering runs: March-April 2015 and May 2016 (a 2016 run is the subject of arXiv:2212.10629).",
+      "quote": "Engineering runs during March and April 2015 and May 2016 demonstrated that the experiment worked and produced physics quality data.",
+      "sources": [
+        "src:hadron2-hps-experiment-page"
+      ],
+      "start": "2015-02",
+      "status": "commissioning",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "uncertain",
+      "end": "2018-12",
+      "label": "JLab approval of 165 days of running",
+      "locator": "HPS experiment page, \"About the HPS Experiment\"",
+      "note": "The page is undated prose written around early 2018 (it says the first HPS physics publication \"will be submitted in Spring, 2018\"); the approval date itself is not stated, so the year is approximate and the end (before the first protracted run, scheduled for summer 2019) is a bound.",
+      "quote": "On the basis of these early results, JLAB has approved 165 days of running for the experiment.",
+      "sources": [
+        "src:hadron2-hps-experiment-page"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2018",
+        "display": "about 2018"
+      },
+      "status": "approved",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "physics runs (2019, 2021 and later)",
+      "locator": "arXiv:2212.10629 abstract; May 2024 PAC update: second physics run in progress",
+      "note": "Year precision. The May 2024 update says 30 of the remaining 135 PAC days had been used for the second physics run and the collaboration was preparing detector repairs for further operations; no source after May 2024 was found, so \"active\" is the latest documented state.",
+      "quote": "HPS has taken high-luminosity data runs in 2019 and 2021 that will explore new dark photon phase space.",
+      "sources": [
+        "src:hadron2-hps-2016-run-arxiv-2022",
+        "src:hadron2-hps-update-2024"
+      ],
+      "start": "2019",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [],
+  "kind": "fixed_target",
+  "lineage": [],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "locator": "HPS experiment page",
+      "note": "The HPS experiment page on the SLAC HPS group Confluence space; the Jefferson Lab Hall B run wiki is behind the lab login.",
+      "quote": "The Heavy Photon Search Group at SLAC is collaborating with physicists at Jefferson Lab",
+      "sources": [
+        "src:hadron2-hps-experiment-page"
+      ],
+      "value": "https://confluence.slac.stanford.edu/display/hpsg/Heavy+Photon+Search+Experiment",
+      "verified_at": "2026-10-26"
+    }
+  },
+  "name": "Heavy Photon Search (HPS)",
+  "notes": [
+    "kind fixed_target with secondary long_lived_particle; not a hadron-structure experiment, so topic:hadron-structure is not used.",
+    "Approved by JLab for 165 days of running (SLAC HPS page, written about 2018); the 2024 update counts remaining PAC days of 135 after 2020.",
+    "Latest status evidence is May 2024; no later source found.",
+    "INSPIRE experiment id not looked up: inspirehep.net is off-limits to coverage streams (STREAM_RULES); external.inspire_experiment left null for the integrator."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "May 2024 update, executive summary",
+      "note": "",
+      "quote": "The Heavy Photon Search (HPS) experiment in Hall-B at Jefferson Lab searches for heavy or dark photons that mix with ordinary photons through kinetic mixing",
+      "sources": [
+        "src:hadron2-hps-update-2024"
+      ],
+      "value": "Search for heavy (dark) photons that mix with ordinary photons through kinetic mixing, using resonance and displaced-vertex signatures",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [
+    "long_lived_particle"
+  ],
+  "sources": [
+    "src:hadron2-hps-experiment-page",
+    "src:hadron2-hps-update-2024",
+    "src:hadron2-hps-2016-run-arxiv-2022"
+  ],
+  "status": "active",
+  "summary": {
+    "plain": "HPS fires electrons from Jefferson Lab onto a thin tungsten foil and looks for electron-positron pairs that would reveal a hypothetical 'dark photon' - a new light force carrier tied to dark matter - either as a narrow bump in mass or as a pair born a little downstream of the target.",
+    "technical": "Fixed-target dark-photon search in the Hall B alcove: tungsten foil target, silicon micro-strip vertex tracker in a dipole magnet, PbWO4 calorimeter and scintillator hodoscope, searching for A' to e+e- resonances (20-220 MeV) and displaced vertices; engineering runs 2015-2016 (first limits at eps^2 ~ 10^-5), high-luminosity runs in 2019 and 2021, second physics run under way as of 2024."
+  },
+  "superseded_by": null,
+  "topic_ids": [
+    "topic:dark-photons-dark-sectors",
+    "topic:long-lived-particles",
+    "topic:accelerator-dark-matter-searches"
+  ],
+  "type": "experiment",
+  "unique_capabilities": [
+    {
+      "confidence": "verified",
+      "locator": "May 2024 PAC update, executive summary",
+      "note": "",
+      "quote": "using a compact, large-acceptance forward spectrometer consisting of a tungsten foil target, a silicon micro-strip vertex tracker (SVT), a PbWO4 electromagnetic calorimeter (ECal), and a scintillation hodoscope (SH)",
+      "sources": [
+        "src:hadron2-hps-update-2024",
+        "src:hadron2-hps-experiment-page"
+      ],
+      "value": "Compact large-acceptance forward spectrometer with a silicon vertex tracker placed millimetres from the beam, sensitive to both prompt resonances and displaced decay vertices",
+      "verified_at": "2026-10-26"
+    }
+  ]
+}

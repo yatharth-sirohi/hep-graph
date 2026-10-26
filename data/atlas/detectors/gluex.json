@@ -1,0 +1,128 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "distinct_from": [],
+  "experiment_ids": [
+    "experiment:gluex"
+  ],
+  "id": "detector:gluex",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "operating",
+      "locator": "arXiv:1701.08123 Introduction",
+      "note": "Spring 2016 is the earliest data-taking documented in the first GlueX result paper; commissioning runs may have preceded it, so this is an upper bound on the start of operation, not the start of construction.",
+      "quote": "The data were collected in the spring of 2016 utilizing the newly upgraded Continuous Electron Beam Accelerator Facility (CEBAF) at Jefferson Lab.",
+      "sources": [
+        "src:hadron2-gluex-beam-asymmetry-arxiv-2017",
+        "src:hadron2-gluex-wiki-2026-07-23"
+      ],
+      "start": {
+        "date": "2016-04",
+        "display": "spring 2016",
+        "earliest": "2016-03",
+        "latest": "2016-05"
+      },
+      "status": "active",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "GlueX detector",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "locator": "arXiv:1905.10811, The Experiment",
+      "note": "Hall D identity from the JLab Hall D page and the J/psi paper; start = first documented GlueX data (spring 2016).",
+      "quote": "The data were collected by the GlueX experiment located in Hall D at Jefferson Lab during 2016 and 2017",
+      "role": "main",
+      "site_id": "site:jlab-hall-d",
+      "sources": [
+        "src:hadron2-gluex-jlab-hall-d-page",
+        "src:hadron2-gluex-jpsi-threshold-arxiv-2019"
+      ],
+      "start": {
+        "date": "2016-04",
+        "display": "spring 2016",
+        "earliest": "2016-03",
+        "latest": "2016-05"
+      },
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:hadron2-gluex-detector-nim-arxiv-2020"
+  ],
+  "specs": {
+    "solenoid_field": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "magnetic_field",
+      "display": "2 T",
+      "locator": "arXiv:2005.14272, Introduction",
+      "note": "",
+      "quote": "A 2-T solenoidal magnet surrounds the drift chambers used for charged-particle tracking.",
+      "sources": [
+        "src:hadron2-gluex-detector-nim-arxiv-2020"
+      ],
+      "unit": "T",
+      "value": 2,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "active",
+  "subsystems": [
+    {
+      "confidence": "verified",
+      "locator": "arXiv:2005.14272 abstract",
+      "note": "",
+      "quote": "The energy and arrival time of beam photons are tagged using a scintillator hodoscope and a scintillating fiber array.",
+      "sources": [
+        "src:hadron2-gluex-detector-nim-arxiv-2020"
+      ],
+      "value": "Photon beam tagging (scintillator hodoscope and scintillating fiber array), pair spectrometer and triplet polarimeter",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "locator": "arXiv:2005.14272 abstract",
+      "note": "",
+      "quote": "Electromagnetic showers are reconstructed in a cylindrical scintillating fiber calorimeter inside the magnet and a lead-glass array downstream.",
+      "sources": [
+        "src:hadron2-gluex-detector-nim-arxiv-2020"
+      ],
+      "value": "Electromagnetic calorimetry: cylindrical scintillating fiber calorimeter inside the magnet and a lead-glass array downstream",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "summary": {
+    "plain": "A hermetic detector in Jefferson Lab Hall D that tracks charged particles in a 2-tesla solenoid and measures photons and particle flight times, built to reconstruct complete photoproduction reactions.",
+    "technical": "GlueX beamline and detector: tagged linearly polarised photon beam; central straw-tube drift chamber and six packages of planar cathode-strip/drift-wire chambers in a 2 T solenoid; cylindrical scintillating-fibre barrel calorimeter inside the magnet and a lead-glass forward calorimeter; time-of-flight and a later DIRC for kaon identification."
+  },
+  "superseded_by": null,
+  "technology": {
+    "confidence": "verified",
+    "locator": "arXiv:2005.14272 abstract",
+    "note": "",
+    "quote": "Charged-particle tracks from interactions in the central target are analyzed in a solenoidal field using a central straw-tube drift chamber and six packages of planar chambers with cathode strips and drift wires.",
+    "sources": [
+      "src:hadron2-gluex-detector-nim-arxiv-2020"
+    ],
+    "value": "Large-acceptance, nearly hermetic photoproduction spectrometer: tagged linearly polarised photon beam, central straw-tube drift chamber and planar chambers in a solenoid, barrel and forward calorimeters, time-of-flight",
+    "verified_at": "2026-10-26"
+  },
+  "technology_classes": [
+    "spectrometer"
+  ],
+  "type": "detector"
+}

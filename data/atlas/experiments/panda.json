@@ -1,0 +1,128 @@
+{
+  "accelerator_ids": [],
+  "aliases": [
+    "Antiproton ANnihilations at DArmstadt",
+    "anti-Proton ANnihilation at DArmstadt"
+  ],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:panda"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "distinct_from": [],
+  "energy_regime": null,
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:gsi-fair",
+      "locator": "PANDA website, Welcome page",
+      "note": "",
+      "quote": "The PANDA Experiment will be one of the key experiments at the Facility for Antiproton and Ion Research (FAIR) which is under construction and currently being built on the area of the GSI Helmholtzzentrum für Schwerionenforschung in Darmstadt, Germany.",
+      "role": "host",
+      "sources": [
+        "src:hadron2-panda-welcome-page",
+        "src:hadron2-panda-physics-performance-report-arxiv-2009"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:panda",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2022-09",
+      "label": "proposed (Physics Performance Report)",
+      "locator": "arXiv:0903.3905 abstract (submitted 23 March 2009)",
+      "note": "Start = submission of the Physics Performance Report naming the HESR at FAIR as the host; end = the month before the earliest news of hardware deployment.",
+      "quote": "The proposed PANDA detector is a state-of-the art internal target detector at the HESR at FAIR",
+      "sources": [
+        "src:hadron2-panda-physics-performance-report-arxiv-2009"
+      ],
+      "start": "2009-03",
+      "status": "proposed",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "construction (detector components being built and deployed)",
+      "locator": "PANDA news list: Outstanding Achievement Award 2021 (2022-10-26) for deployment of tracker planes; \"Forward Endcap travels to Jülich\" (2023-04-24)",
+      "note": "PANDA's own pages say the experiment \"will be one of the key experiments\" at FAIR, which \"is under construction\", and that \"a versatile detector will be build\"; news items record hardware activity (tracker planes deployed, forward endcap shipped), so construction is recorded from the earliest dated item. No source states a formal construction start or an operating date.",
+      "quote": "Outstanding Achievement Award 2021 2022-10-26 for deployment of tracker planes",
+      "sources": [
+        "src:hadron2-panda-news-page",
+        "src:hadron2-panda-welcome-page"
+      ],
+      "start": "2022-10",
+      "status": "construction",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [],
+  "kind": "hadron_structure",
+  "lineage": [],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "locator": "PANDA website",
+      "note": "",
+      "quote": "The PANDA Experiment will be one of the key experiments at the Facility for Antiproton and Ion Research (FAIR) which is under construction and currently being built on the area of the GSI Helmholtzzentrum für Schwerionenforschung in Darmstadt, Germany.",
+      "sources": [
+        "src:hadron2-panda-welcome-page"
+      ],
+      "value": "https://panda.gsi.de/",
+      "verified_at": "2026-10-26"
+    }
+  },
+  "name": "PANDA",
+  "notes": [
+    "accelerator_ids is empty: PANDA runs at the High Energy Storage Ring (HESR) of FAIR, which is not among the accelerators this stream was asked to create; accelerator:sis100 feeds the antiproton production but is not recorded as the PANDA beam source. For the integrator: add accelerator:hesr and link it.",
+    "Status as the sources state it: \"will be one of the key experiments at FAIR which is under construction\"; the Physics Performance Report (2009) is the design report naming the host; hardware items appear in the news from October 2022 (tracker planes, forward endcap).",
+    "Collaboration with Russian institutes is suspended (PANDA website).",
+    "INSPIRE experiment id not looked up: inspirehep.net is off-limits to coverage streams (STREAM_RULES); external.inspire_experiment left null for the integrator."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "arXiv:0903.3905 abstract",
+      "note": "",
+      "quote": "Gluonic excitations, the physics of strange and charm quarks and nucleon structure studies will be performed with unprecedented accuracy",
+      "sources": [
+        "src:hadron2-panda-physics-performance-report-arxiv-2009"
+      ],
+      "value": "Study the strong interaction with antiprotons: gluonic excitations, strange and charm quark physics and nucleon structure",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [
+    "fixed_target"
+  ],
+  "sources": [
+    "src:hadron2-panda-welcome-page",
+    "src:hadron2-panda-physics-performance-report-arxiv-2009",
+    "src:hadron2-panda-news-page"
+  ],
+  "status": "construction",
+  "summary": {
+    "plain": "PANDA is a planned detector at the future FAIR facility that will collide antiprotons with a hydrogen target to study how quarks and gluons form hadrons. It will search for exotic particles such as glueballs and hybrids, charm spectroscopy, hypernuclei and nucleon structure.",
+    "technical": "Antiproton ANnihilations at DArmstadt: internal-target detector at the High Energy Storage Ring (HESR) with a target spectrometer (solenoid) and a forward spectrometer (dipole) for precision charmonium and open-charm spectroscopy, glueball and hybrid searches, hadrons in matter, hypernuclei and nucleon structure; the PANDA collaboration has more than 420 scientists from 18 countries."
+  },
+  "superseded_by": null,
+  "topic_ids": [
+    "topic:hadron-structure",
+    "topic:qcd"
+  ],
+  "type": "experiment",
+  "unique_capabilities": []
+}

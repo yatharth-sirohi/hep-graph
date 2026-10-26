@@ -1,0 +1,93 @@
+{
+  "aliases": [
+    "NICA",
+    "Nuclotron-based Ion Collider fAcility"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "distinct_from": [],
+  "facility_id": "facility:jinr-dubna",
+  "feeds_accelerator_ids": [],
+  "id": "accelerator:nica",
+  "intervals": [
+    {
+      "confidence": "uncertain",
+      "end": "2025-03-24",
+      "label": "under construction",
+      "locator": "arXiv:2102.00442 abstract (31 Jan 2021: NICA \"is under construction\"); arXiv:2202.08970 (Feb 2022)",
+      "note": "January 2021 is the earliest source fetched that calls NICA under construction; the construction start is not stated (the JINR director speaks of a 19-year journey, i.e. from about 2006).",
+      "quote": "proposed to be placed in one of the two interaction points of the NICA collider that is under construction at the Joint Institute for Nuclear Research (Dubna, Russia)",
+      "sources": [
+        "src:hadron2-spd-cdr-arxiv-2021",
+        "src:hadron2-mpd-status-arxiv-2022"
+      ],
+      "start": "2021-01",
+      "status": "construction",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "commissioning (Run 1 and Run 2)",
+      "locator": "JINR news, 27 March 2025; 64th PAC PP report, 17 June 2026: Run 1 finished in April 2026, next run scheduled for autumn",
+      "note": "Run 1 (25 March 2025 to April 2026): stable circulation of xenon beams (1.76 GeV/nucleon) in each collider ring and, in February 2026, synchronised counter-rotating beams at the MPD point; no collisions are reported in the sources fetched. A JINR report found by search (8 September 2026, not fetched) says Run 2 started on 27 August 2026.",
+      "quote": "On 25 March 2025, run 1 at the NICA Accelerator Complex was initiated at the Laboratory of High Energy Physics at the Joint Institute for Nuclear Research.",
+      "sources": [
+        "src:hadron2-jinr-nica-first-run-news-2025",
+        "src:hadron2-jinr-pac-pp-64-news-2026"
+      ],
+      "start": "2025-03-25",
+      "status": "commissioning",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "is_collider": true,
+  "kind": "collider",
+  "links": {
+    "website": null
+  },
+  "name": "NICA collider (Nuclotron-based Ion Collider fAcility)",
+  "notes": [
+    "Status commissioning as of 2026-10-26: Run 1 ran from 25 March 2025 to April 2026 and a second run was scheduled for autumn 2026; the 27 August 2026 start of Run 2 comes from a JINR report not fetched here. No source reports recorded beam collisions yet.",
+    "The planned and delivered luminosity figures are targets, not achievements."
+  ],
+  "particles": [
+    "ion",
+    "proton",
+    "deuteron"
+  ],
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:jinr-vblhep-accelerator-complex",
+  "sources": [
+    "src:hadron2-jinr-nica-first-run-news-2025",
+    "src:hadron2-jinr-mpd-collaboration-meeting-news-2026",
+    "src:hadron2-jinr-pac-pp-64-news-2026",
+    "src:hadron2-mpd-status-arxiv-2022"
+  ],
+  "specs": {
+    "cms_energy": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "energy",
+      "display": "up to 27 GeV (polarised proton collisions)",
+      "locator": "SPD website, What is the Spin Physics Detector?",
+      "note": "Collision energy for polarised protons per the SPD proposal; heavy-ion runs use 2-2.5 GeV/nucleon beams.",
+      "quote": "at a collision energy up to 27 GeV and luminosity up to 1032 cm−2 s−1",
+      "sources": [
+        "src:hadron2-spd-website"
+      ],
+      "unit": "GeV",
+      "value": 27,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "commissioning",
+  "summary": {
+    "plain": "NICA is JINR's new collider in Dubna for heavy ions and polarised protons and deuterons, built on the Nuclotron. Its first run began in March 2025 and circulated xenon beams in both rings; collisions at the MPD detector are the next goal.",
+    "technical": "Nuclotron-based Ion Collider fAcility: two superconducting collider rings fed by KRION-6T source, LUTI linac, Booster and Nuclotron; design for heavy-ion collisions (xenon at 2-2.5 GeV/nucleon, luminosity 1e24-1e25 cm^-2 s^-1 targeted in the next run) and polarised p and d collisions up to 27 GeV with luminosity up to 1e32; Run 1 (2025-2026) achieved stable xenon circulation; MPD and SPD are the collider experiments."
+  },
+  "superseded_by": null,
+  "type": "accelerator"
+}

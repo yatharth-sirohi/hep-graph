@@ -1,0 +1,122 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "distinct_from": [],
+  "formation": {
+    "confidence": "uncertain",
+    "locator": "no formation date on the fetched pages",
+    "note": "No fetched source states a collaboration formation date.",
+    "sources": [
+      "src:hadron2-amber-web-page",
+      "src:hadron2-amber-cern-experiment-page"
+    ],
+    "value": null,
+    "verified_at": "2026-10-26"
+  },
+  "host_facility_id": "facility:cern",
+  "host_site_id": "site:cern-ehn2-north-area",
+  "id": "collaboration:amber",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2020",
+      "label": "collaboration: proposal (letter of intent)",
+      "locator": "arXiv:1808.00848 (CERN-SPSC-2019-003), submitted 2 Aug 2018",
+      "note": "Start = arXiv submission of the letter of intent (2 Aug 2018); end = year of approval by the CERN Research Board.",
+      "quote": "A New QCD facility at the M2 beam line of the CERN SPS",
+      "sources": [
+        "src:hadron2-amber-letter-of-intent-arxiv-2018"
+      ],
+      "start": "2018-08",
+      "status": "proposed",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "2023",
+      "label": "collaboration: approved",
+      "locator": "CERN AMBER page",
+      "note": "Year precision: approved 2020, data taking from 2023.",
+      "quote": "AMBER was approved by the CERN Research Board in 2020, started taking data in 2023 and released its first results in 2024.",
+      "sources": [
+        "src:hadron2-amber-cern-experiment-page"
+      ],
+      "start": "2020",
+      "status": "approved",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "2026-08-31",
+      "label": "collaboration: data taking (first phase)",
+      "locator": "CERN AMBER page; end: CERN news of 31 August 2026 (injector complex shut down for LS3)",
+      "note": "Started taking data in 2023 (year precision); the SPS and its North Area beams stopped on 31 August 2026 for Long Shutdown 3, so this is the end of the 2023-2026 data-taking.",
+      "quote": "AMBER was approved by the CERN Research Board in 2020, started taking data in 2023 and released its first results in 2024.",
+      "sources": [
+        "src:hadron2-amber-cern-experiment-page",
+        "src:currency-cern-all-accelerators-2026-08-31"
+      ],
+      "start": "2023",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": {
+        "approx": true,
+        "date": "2028",
+        "display": "staged restart from 2028 onwards",
+        "planned": true
+      },
+      "label": "collaboration: Long Shutdown 3 (no SPS beam)",
+      "locator": "CERN news, 31 August 2026",
+      "note": "Restart is a plan: \"The complex will progressively return to operation from 2028 onwards, with the different injectors and facilities restarting in stages.\" Whether and when AMBER resumes (second phase with kaon beams) is not stated.",
+      "quote": "CERN’s injector complex and Antimatter Factory took their final steps towards Long Shutdown 3 (LS3) this morning, as the last particle beams were extracted and the machines fell silent.",
+      "sources": [
+        "src:currency-cern-all-accelerators-2026-08-31"
+      ],
+      "start": "2026-08-31",
+      "status": "shutdown",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "leadership": [],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "locator": "AMBER website",
+      "note": "",
+      "quote": "AMBER experiment Physics Beyond Colliders",
+      "sources": [
+        "src:hadron2-amber-web-page"
+      ],
+      "value": "https://amber.web.cern.ch/",
+      "verified_at": "2026-10-26"
+    }
+  },
+  "membership": {
+    "as_of": null,
+    "country_count": null,
+    "evidence_class": null,
+    "institution_count": null,
+    "member_count": null,
+    "roster_source_ids": []
+  },
+  "name": "AMBER Collaboration",
+  "notes": [],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:hadron2-amber-web-page",
+    "src:hadron2-amber-cern-experiment-page"
+  ],
+  "status": "shutdown",
+  "summary": {
+    "plain": "The collaboration running the AMBER experiment at CERN, successor to the COMPASS collaboration.",
+    "technical": "AMBER Collaboration: membership is listed in the CERN Greybook (not read); no count is recorded."
+  },
+  "superseded_by": null,
+  "type": "collaboration"
+}

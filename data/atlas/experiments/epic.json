@@ -1,0 +1,213 @@
+{
+  "accelerator_ids": [
+    "accelerator:eic"
+  ],
+  "aliases": [
+    "electron-Proton/Ion Collider detector",
+    "EIC project detector"
+  ],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:epic"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "distinct_from": [],
+  "energy_regime": null,
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:brookhaven-national-laboratory",
+      "locator": "BNL Newsroom, 13 April 2026",
+      "note": "",
+      "quote": "will be taken apart to make way for the new ePIC detector being designed and constructed for the Electron-Ion Collider",
+      "role": "host",
+      "sources": [
+        "src:bnl-newsroom-eic-transformation-2026"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:brookhaven-national-laboratory",
+      "locator": "BNL Newsroom, 13 April 2026",
+      "note": "ePIC will record electron-proton/ion collisions in the Electron-Ion Collider (accelerator:eic).",
+      "quote": "the EIC will be built by reusing major components of RHIC, including its entire 2.4-mile-circumference tunnel",
+      "role": "beam_source",
+      "sources": [
+        "src:bnl-newsroom-eic-transformation-2026"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:epic",
+  "intervals": [
+    {
+      "confidence": "uncertain",
+      "end": "2024-03",
+      "label": "collaboration formed; EIC project detector technical design",
+      "locator": "arXiv:2305.15593, section on the technical design",
+      "note": "July 2022: ePIC collaboration formed to lead the technical design of the EIC project detector. \"approved\" here means selected as the EIC project detector; the end bound is the day before the first long-lead procurements (April 2024) that included detector components.",
+      "quote": "a new detector collaboration: ePIC has been formed in July 2022 to lead the EIC project detector technical design based on the EIC reference design",
+      "sources": [
+        "src:hadron2-epic-vertex-tracking-arxiv-2023"
+      ],
+      "start": "2022-07",
+      "status": "approved",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "construction (long-lead procurement of detector components)",
+      "locator": "BNL Newsroom, 13 April 2026 (\"being designed and constructed\"); CD-3A/CD-3B procurements include detector items (silicon photomultipliers, solenoid power supply, crystals, fibres, electronics)",
+      "note": "BNL describes ePIC as \"being designed and constructed\" and the CD-3A/CD-3B packages buy detector components, but no source states the date the detector construction phase formally began; April 2024 is the date of the first approved procurements. The same BNL pages say the EIC is preparing a \"formal transition into the construction phase\".",
+      "quote": "will be taken apart to make way for the new ePIC detector being designed and constructed for the Electron-Ion Collider",
+      "sources": [
+        "src:hadron2-eic-bnl-cd3b-news-2026",
+        "src:bnl-newsroom-eic-transformation-2026"
+      ],
+      "start": "2024-04",
+      "status": "construction",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "operation (planned)",
+      "locator": "arXiv:2305.15593, ePIC section",
+      "note": "A 2023 expectation; no 2026 schedule was found, and the EIC project baseline (CD-2) had not been located, so the date may have moved.",
+      "quote": "The EIC project detector is expected to start operate in 2032",
+      "sources": [
+        "src:hadron2-epic-vertex-tracking-arxiv-2023"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2032",
+        "display": "2032",
+        "planned": true
+      },
+      "status": "planned",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Solenoid field",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "magnetic_field",
+        "display": "1.7 T",
+        "locator": "ePIC Detector page, Central Detector",
+        "note": "",
+        "quote": "instrumented within a 1.7T magnetic field, generated from a 2.8m bore diameter superconducting solenoid magnet",
+        "sources": [
+          "src:hadron2-epic-detector-page"
+        ],
+        "unit": "T",
+        "value": 1.7,
+        "verified_at": "2026-10-26"
+      }
+    },
+    {
+      "label": "Central detector length",
+      "quantity": {
+        "approx": true,
+        "confidence": "verified",
+        "dimension": "length",
+        "display": "about 9.5 m",
+        "locator": "ePIC Detector page, Central Detector",
+        "note": "",
+        "quote": "The ePIC Central Detector is very compact spanning a cylindrical volume that is about 9.5m longitudinally and 2.67m radially, covering an acceptance of about 3°-177°",
+        "sources": [
+          "src:hadron2-epic-detector-page"
+        ],
+        "unit": "m",
+        "value": 9.5,
+        "verified_at": "2026-10-26"
+      }
+    }
+  ],
+  "kind": "hadron_structure",
+  "lineage": [],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "locator": "ePIC collaboration overview page",
+      "note": "",
+      "quote": "We are working together to build the world’s most sophisticated particle detector for analyzing collisions between electrons and protons or other nuclei.",
+      "sources": [
+        "src:hadron2-epic-overview-page"
+      ],
+      "value": "https://www.epic-eic.org/",
+      "verified_at": "2026-10-26"
+    }
+  },
+  "name": "ePIC",
+  "notes": [
+    "ePIC is NOT an upgrade of STAR: it replaces STAR in the same interaction region (STAR was taken apart to make way for it); no lineage row is recorded.",
+    "The EIC project detector was selected in 2022 from the ATHENA, CORE and ECCE proposals (ECCE adopted as the reference design in March 2022 per a 2023 ePIC talk, not cited); ePIC was formed in July 2022.",
+    "A second EIC detector at another interaction region is discussed (EIC Yellow Report: \"two complementary detectors\") but is not an experiment with a host site and design report; it is not recorded.",
+    "INSPIRE experiment id not looked up: inspirehep.net is off-limits to coverage streams (STREAM_RULES); external.inspire_experiment left null for the integrator."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "ePIC Science page",
+      "note": "",
+      "quote": "The ePIC detector at the Electron-Ion Collider will study these components with unprecedented precision, providing new insights, especially into the behavior of sea quarks and gluons.",
+      "sources": [
+        "src:hadron2-epic-science-page"
+      ],
+      "value": "Study the quark-gluon structure of nucleons and nuclei, especially sea quarks and gluons, with polarised electron beams",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [
+    "collider"
+  ],
+  "sources": [
+    "src:hadron2-epic-overview-page",
+    "src:hadron2-epic-detector-page",
+    "src:bnl-newsroom-eic-transformation-2026",
+    "src:hadron2-topic-eic-yellow-report-2021"
+  ],
+  "status": "construction",
+  "summary": {
+    "plain": "ePIC is the first detector for the Electron-Ion Collider. A compact, multi-layer detector with a big solenoid magnet, it will record the particles produced when electrons hit protons and nuclei, so physicists can image the quarks and gluons that make up visible matter.",
+    "technical": "ePIC (electron-Proton/Ion Collider detector): general-purpose EIC project detector built around a 1.7 T, 2.8 m bore superconducting solenoid, with silicon (MAPS) and micro-pattern gas tracking, fast-timing and Cherenkov PID, electromagnetic and hadronic calorimetry, covering about 3-177 degrees centrally (|eta| < 3.5) plus far-forward and far-backward detectors extending the acceptance to |eta| > 6; to be installed at the former STAR interaction region of RHIC."
+  },
+  "superseded_by": null,
+  "topic_ids": [
+    "topic:hadron-structure",
+    "topic:qcd",
+    "topic:nuclear-and-heavy-ion"
+  ],
+  "type": "experiment",
+  "unique_capabilities": [
+    {
+      "confidence": "verified",
+      "locator": "ePIC Detector page",
+      "note": "",
+      "quote": "The ePIC detector instruments state of the art detector technology to provide precision momentum, energy and particle identification over a large acceptance.",
+      "sources": [
+        "src:hadron2-epic-detector-page"
+      ],
+      "value": "Large-acceptance central detector (about 3 to 177 degrees) with far-forward and far-backward detectors extending the acceptance beyond |eta| of 6",
+      "verified_at": "2026-10-26"
+    }
+  ]
+}

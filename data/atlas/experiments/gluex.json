@@ -1,0 +1,191 @@
+{
+  "accelerator_ids": [
+    "accelerator:cebaf"
+  ],
+  "aliases": [
+    "Gluonic Excitation experiment",
+    "Hall D experiment"
+  ],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:gluex"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "distinct_from": [],
+  "energy_regime": {
+    "confidence": "verified",
+    "locator": "arXiv:2005.14272 abstract",
+    "note": "",
+    "quote": "9-GeV linearly polarized photon beam",
+    "sources": [
+      "src:hadron2-gluex-detector-nim-arxiv-2020",
+      "src:hadron2-gluex-jlab-hall-d-page"
+    ],
+    "value": "~9 GeV linearly polarised photon beam from 12 GeV CEBAF electrons",
+    "verified_at": "2026-10-26"
+  },
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:jefferson-lab",
+      "locator": "JLab 'Experimental Hall D' page",
+      "note": "",
+      "quote": "Hall D is dedicated to the operation of a large-acceptance detector for experiments with a broad-band, linearly-polarized photon beam produced by ~12 GeV electrons from CEBAF.",
+      "role": "host",
+      "sources": [
+        "src:hadron2-gluex-jlab-hall-d-page"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:jefferson-lab",
+      "locator": "JLab 'Experimental Hall D' page",
+      "note": "Photon beam produced from the ~12 GeV CEBAF electron beam (accelerator:cebaf).",
+      "quote": "Hall D is dedicated to the operation of a large-acceptance detector for experiments with a broad-band, linearly-polarized photon beam produced by ~12 GeV electrons from CEBAF.",
+      "role": "beam_source",
+      "sources": [
+        "src:hadron2-gluex-jlab-hall-d-page"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:gluex",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "first data taking (GlueX Phase I onward)",
+      "locator": "arXiv:1701.08123, Introduction (full text); active in 2026 per the collaboration wiki: \"GlueX-II running in 2026\"",
+      "note": "Spring 2016 is the earliest data-taking documented in the first GlueX result paper; commissioning runs may have preceded it, so this is an upper bound on the start of operation, not the start of construction.",
+      "quote": "The data were collected in the spring of 2016 utilizing the newly upgraded Continuous Electron Beam Accelerator Facility (CEBAF) at Jefferson Lab.",
+      "sources": [
+        "src:hadron2-gluex-beam-asymmetry-arxiv-2017",
+        "src:hadron2-gluex-wiki-2026-07-23"
+      ],
+      "start": {
+        "date": "2016-04",
+        "display": "spring 2016",
+        "earliest": "2016-03",
+        "latest": "2016-05"
+      },
+      "status": "active",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Photon beam energy",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "energy",
+        "display": "9 GeV",
+        "locator": "arXiv:2005.14272 abstract",
+        "note": "",
+        "quote": "9-GeV linearly polarized photon beam",
+        "sources": [
+          "src:hadron2-gluex-detector-nim-arxiv-2020"
+        ],
+        "unit": "GeV",
+        "value": 9,
+        "verified_at": "2026-10-26"
+      }
+    },
+    {
+      "label": "Solenoid field",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "magnetic_field",
+        "display": "2 T",
+        "locator": "arXiv:2005.14272, Introduction",
+        "note": "",
+        "quote": "A 2-T solenoidal magnet surrounds the drift chambers used for charged-particle tracking.",
+        "sources": [
+          "src:hadron2-gluex-detector-nim-arxiv-2020"
+        ],
+        "unit": "T",
+        "value": 2,
+        "verified_at": "2026-10-26"
+      }
+    }
+  ],
+  "kind": "hadron_structure",
+  "lineage": [],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "locator": "GlueX collaboration wiki main page",
+      "note": "The collaboration home page www.gluex.org did not respond when fetched on 2026-10-26; the collaboration wiki is its own official page.",
+      "quote": "Welcome to the Hall-D and GlueX Wiki!",
+      "sources": [
+        "src:hadron2-gluex-wiki-main"
+      ],
+      "value": "https://halldweb.jlab.org/wiki/index.php/Main_Page",
+      "verified_at": "2026-10-26"
+    }
+  },
+  "name": "GlueX",
+  "notes": [
+    "INSPIRE experiment id not looked up: inspirehep.net is off-limits to coverage streams (STREAM_RULES); external.inspire_experiment left null for the integrator.",
+    "No separate GlueX construction/approval dates are recorded: no fetched source gives them. The detector was installed in Hall D as part of the 12 GeV Upgrade.",
+    "The collaboration wiki (2026-07-23 agenda) lists GlueX-II running in 2026 and a tentative 2027 plan for GlueX-III; no collaboration membership count newer than a 2006 wiki snapshot (about 100 from 24 institutions) was found, so none is recorded."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "arXiv:2005.14272, Introduction",
+      "note": "",
+      "quote": "has been built to search for and map out the spectrum of exotic hybrid mesons using a 9-GeV linearly-polarized photon beam incident on a proton target",
+      "sources": [
+        "src:hadron2-gluex-detector-nim-arxiv-2020"
+      ],
+      "value": "Search for and map the spectrum of exotic hybrid mesons",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:hadron2-gluex-detector-nim-arxiv-2020",
+    "src:hadron2-gluex-jlab-hall-d-page",
+    "src:hadron2-gluex-wiki-main"
+  ],
+  "status": "active",
+  "summary": {
+    "plain": "GlueX fires a beam of high-energy polarised photons at a hydrogen target in Hall D at Jefferson Lab to map out and search for exotic hybrid mesons, particles whose quarks are bound together with an excited gluon field.",
+    "technical": "Photoproduction experiment in CEBAF Hall D: a ~9 GeV linearly polarised, tagged photon beam (from 12 GeV electrons) on a liquid-hydrogen target, with a hermetic detector (2 T solenoid, straw-tube and planar drift chambers, barrel and forward calorimeters, time-of-flight) designed for amplitude analysis of light-meson spectra and the search for exotic hybrid mesons (J^PC exotics); data taking since spring 2016."
+  },
+  "superseded_by": null,
+  "topic_ids": [
+    "topic:hadron-structure",
+    "topic:qcd"
+  ],
+  "type": "experiment",
+  "unique_capabilities": [
+    {
+      "confidence": "verified",
+      "locator": "arXiv:2005.14272, Introduction",
+      "note": "",
+      "quote": "The detector is nearly hermetic for both charged particles and photons arising from reactions in the cryogenic target at the center of the detector, allowing for reconstruction of exclusive final states.",
+      "sources": [
+        "src:hadron2-gluex-detector-nim-arxiv-2020"
+      ],
+      "value": "Hermetic large-acceptance detector for charged particles and photons with a linearly polarised, tagged photon beam, allowing exclusive final states to be reconstructed",
+      "verified_at": "2026-10-26"
+    }
+  ]
+}

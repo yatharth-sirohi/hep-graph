@@ -1,0 +1,134 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "distinct_from": [],
+  "experiment_ids": [
+    "experiment:moller"
+  ],
+  "id": "detector:moller",
+  "intervals": [
+    {
+      "confidence": "uncertain",
+      "end": "2024-04",
+      "label": "proposal",
+      "locator": "arXiv:1411.4088 abstract",
+      "note": "Start = arXiv submission of the physics case and experimental overview (15 Nov 2014; the paper says the 12 GeV upgraded Jefferson Lab hosts it). End = earliest documented construction (April 2024); the DOE approval and construction-start milestones were not found in any fetched source.",
+      "quote": "The proposed MOLLER experiment will improve on this result by a factor of five",
+      "sources": [
+        "src:hadron2-moller-proposal-arxiv-2014"
+      ],
+      "start": "2014-11",
+      "status": "proposed",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "construction",
+      "locator": "APS April Meeting 2024 abstract (6 Apr 2024); APS 2025: \"now in its construction phase\"; APS 2026: assembly to finish late 2026; JLab Hall A Feb 2026: installation started",
+      "note": "April 2024 is the earliest source found stating that the experiment is under construction; construction may have begun earlier. Funding: DOE (MIE), NSF, CFI/RM (APS 2025 talk).",
+      "quote": "The experiment is currently in the construction and prototype testing phase",
+      "sources": [
+        "src:hadron2-moller-aps-2024-abstract",
+        "src:hadron2-moller-aps-2025-abstract",
+        "src:hadron2-moller-aps-2026-abstract",
+        "src:hadron2-jlab-hall-a-update-2026-02"
+      ],
+      "start": "2024-04",
+      "status": "construction",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "uncertain",
+      "end": {
+        "approx": true,
+        "date": "2030",
+        "display": "three years of running",
+        "planned": true
+      },
+      "label": "physics running (planned)",
+      "locator": "JLab Hall A update, February 2026, conclusion slide; APS 2025 talk: \"Ready for physics in early 2027.\"",
+      "note": "Schedule, not an event: \"Will start running in 2027 for 3 years\"; the end year is the start plus the stated three years. Earlier talks gave 2025/2026 targets, so the schedule has slipped.",
+      "quote": "MOLLER installation is in progress. Will start running in 2027 for 3 years.",
+      "sources": [
+        "src:hadron2-jlab-hall-a-update-2026-02",
+        "src:hadron2-moller-aps-2025-slides"
+      ],
+      "start": {
+        "date": "2027",
+        "display": "2027",
+        "planned": true
+      },
+      "status": "planned",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "MOLLER apparatus",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "locator": "JLab Hall A update, February 2026, MOLLER slide",
+      "note": "Installation of the apparatus in Hall A began (SBS deinstallation completed); the placement start is that installation, not data taking.",
+      "quote": "SBS Deinstallation completed. Installation has started.",
+      "role": "main",
+      "site_id": "site:jlab-hall-a",
+      "sources": [
+        "src:hadron2-jlab-hall-a-update-2026-02"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2026-02",
+        "display": "installation started (Feb 2026 update)"
+      },
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:hadron2-moller-home-page"
+  ],
+  "specs": {},
+  "status": "construction",
+  "subsystems": [
+    {
+      "confidence": "verified",
+      "locator": "moller.jlab.org",
+      "note": "",
+      "quote": "The MOLLER experiment has 11 major subsystems, including the target, spectrometer and collimators, the main detectors and several types of auxilliary detectors.",
+      "sources": [
+        "src:hadron2-moller-home-page"
+      ],
+      "value": "11 major subsystems including target, spectrometer and collimators, main detectors and auxiliary detectors",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "summary": {
+    "plain": "The apparatus being installed in Hall A: a long liquid-hydrogen target, two sets of toroidal magnets that focus scattered electrons into a ring, and quartz detectors that measure the light they produce.",
+    "technical": "MOLLER apparatus with 11 major subsystems: liquid-hydrogen target, toroidal spectrometer and collimators focusing Møller electrons to a ring about 30 m downstream, fused-silica Cherenkov main detectors, beam monitors, polarimetry (two independent polarimeters), tracking detectors for Q^2 calibration and auxiliary background detectors."
+  },
+  "superseded_by": null,
+  "technology": {
+    "confidence": "verified",
+    "locator": "moller.jlab.org, apparatus summary",
+    "note": "",
+    "quote": "The MOLLER experiment has 11 major subsystems, including the target, spectrometer and collimators, the main detectors and several types of auxilliary detectors.",
+    "sources": [
+      "src:hadron2-moller-home-page"
+    ],
+    "value": "Toroidal-magnet spectrometer with fused-silica Cherenkov detectors measuring the integrated Møller-electron flux per beam-helicity state",
+    "verified_at": "2026-10-26"
+  },
+  "technology_classes": [
+    "magnetic_spectrometer"
+  ],
+  "type": "detector"
+}

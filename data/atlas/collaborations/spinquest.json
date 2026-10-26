@@ -1,0 +1,118 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "distinct_from": [],
+  "formation": {
+    "confidence": "uncertain",
+    "locator": "no formation date on the fetched pages",
+    "note": "No fetched source states a collaboration formation date.",
+    "sources": [
+      "src:hadron2-spinquest-home-page",
+      "src:hadron2-spinquest-liu-hadron-workshop-2024"
+    ],
+    "value": null,
+    "verified_at": "2026-10-26"
+  },
+  "host_facility_id": "facility:fermilab",
+  "host_site_id": "site:fermilab-nm4-hall",
+  "id": "collaboration:spinquest",
+  "intervals": [
+    {
+      "confidence": "uncertain",
+      "end": "2024-07",
+      "label": "collaboration: commissioning, then data taking",
+      "locator": "Fermilab PAC public report, April 2026 meeting, \"Status of the SpinQuest experiment and its dark sector upgrades\"; APS April 2019 abstract: \"Since the beginning of the SpinQuest commissioning in Fall 2018\"; K. Liu talk Aug 2024: \"E1039/SpinQuest: 2018 - now\"",
+      "note": "Start: commissioning began Fall 2018 (APS 2019 abstract). End: the PAC report says the experiment received about 10^15 protons on target in summer 2024 and no beam since; the end is placed at 2024-07, the month the Main Injector stopped operating (see accelerator:fermilab-main-injector). No fetched source dates the start of polarised-target physics data taking.",
+      "quote": "The experiment received ~10^15 POT in the summer of 2024 but has not received a beam since then.",
+      "sources": [
+        "src:hadron2-spinquest-aps-2019-abstract",
+        "src:hadron2-spinquest-liu-hadron-workshop-2024",
+        "src:currency-fnal-pac-report-2026-04"
+      ],
+      "start": {
+        "date": "2018-10",
+        "display": "Fall 2018",
+        "earliest": "2018-09",
+        "latest": "2018-11"
+      },
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "collaboration: no beam (switchyard SY120 not operating)",
+      "locator": "Fermilab PAC public report, April 2026 meeting, summary section",
+      "note": "The experiment has had no beam since summer 2024. The April 2026 PAC report says SY120, which feeds SpinQuest, will not be operated before the long shutdown (planned 2028-29) because of budget constraints; the experiment had planned to take data in Q4 2026 if the switchyard run were not cancelled and has a four-year plan for after the long shutdown. A temporary stop, not an end of the experiment.",
+      "quote": "SY120, which will not be operated before the LS due to budget constraints",
+      "sources": [
+        "src:currency-fnal-pac-report-2026-04"
+      ],
+      "start": "2024-07",
+      "status": "shutdown",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "leadership": [],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "locator": "SpinQuest home page",
+      "note": "",
+      "quote": "The SpinQuest experiment is designed to explore a very particular aspect of proton and neutron structure: Are the sea quarks orbiting around the spin axis of the nucleon?",
+      "sources": [
+        "src:hadron2-spinquest-home-page"
+      ],
+      "value": "https://spinquest.fnal.gov/",
+      "verified_at": "2026-10-26"
+    }
+  },
+  "membership": {
+    "as_of": "2024-08",
+    "country_count": {
+      "confidence": "verified",
+      "locator": "K. Liu talk, \"SpinQuest Collaboration\" slide",
+      "note": "",
+      "quote": "SpinQuest Collaboration • 22 institutions from 7 countries",
+      "sources": [
+        "src:hadron2-spinquest-liu-hadron-workshop-2024"
+      ],
+      "value": 7,
+      "verified_at": "2026-10-26"
+    },
+    "evidence_class": null,
+    "institution_count": {
+      "confidence": "verified",
+      "locator": "K. Liu talk, \"SpinQuest Collaboration\" slide",
+      "note": "",
+      "quote": "SpinQuest Collaboration • 22 institutions from 7 countries",
+      "sources": [
+        "src:hadron2-spinquest-liu-hadron-workshop-2024"
+      ],
+      "value": 22,
+      "verified_at": "2026-10-26"
+    },
+    "member_count": null,
+    "roster_source_ids": [
+      "src:hadron2-spinquest-liu-hadron-workshop-2024"
+    ]
+  },
+  "name": "SpinQuest Collaboration",
+  "notes": [],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:hadron2-spinquest-home-page",
+    "src:hadron2-spinquest-liu-hadron-workshop-2024",
+    "src:currency-fnal-pac-report-2026-04"
+  ],
+  "status": "shutdown",
+  "summary": {
+    "plain": "The collaboration of about 22 institutions from 7 countries running the SpinQuest polarised Drell-Yan experiment at Fermilab.",
+    "technical": "SpinQuest (E1039) Collaboration: 22 institutions from 7 countries (August 2024 talk); the collaboration page lists full and affiliate members by institution."
+  },
+  "superseded_by": null,
+  "type": "collaboration"
+}

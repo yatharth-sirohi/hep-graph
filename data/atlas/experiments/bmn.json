@@ -1,0 +1,128 @@
+{
+  "accelerator_ids": [
+    "accelerator:nuclotron"
+  ],
+  "aliases": [
+    "Baryonic Matter at Nuclotron"
+  ],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:bmn"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "distinct_from": [],
+  "energy_regime": null,
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:jinr-dubna",
+      "locator": "arXiv:2312.17573, Introduction",
+      "note": "",
+      "quote": "BM@N (Baryonic Matter at Nuclotron) is the first experiment operational at the Nuclotron/NICA ion-accelerating complex, dedicated to studying interactions of relativistic beams of heavy ions with fixed targets",
+      "role": "host",
+      "sources": [
+        "src:hadron2-bmn-spectrometer-arxiv-2023"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:jinr-dubna",
+      "locator": "arXiv:2312.17573, Introduction",
+      "note": "Beams from the Nuclotron (accelerator:nuclotron).",
+      "quote": "The Nuclotron will provide the experiment with beams of a variety of particles, from protons to gold ions, with kinetic energy in the range from 1 to 6 AGeV for light ions with a Z/A ratio of ∼ 0.5 and up to 4.5 AGeV for heavy ions with a Z/A ratio of ∼ 0.4.",
+      "role": "beam_source",
+      "sources": [
+        "src:hadron2-bmn-spectrometer-arxiv-2023"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:bmn",
+  "intervals": [
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "physics runs",
+      "locator": "arXiv:2312.17573, Introduction (first physics run in 2023 with a Xe beam); 64th PAC PP report: ninth physics run recorded 2.75 billion events",
+      "note": "The detector paper dates the \"first physics run\" to 2023 with a xenon beam; earlier runs with carbon, argon and krypton beams exist (the Lambda paper uses carbon-beam data) but their dates are not in the sources fetched, so the start is the earliest documented run. The June 2026 report counts a ninth physics run (Xe + Sn, 2.75 billion events) after an eighth run (Xe + CsI).",
+      "quote": "A schematic view of the BM@N setup, as used in the first physics run in 2023 with a Xe beam, is shown in Fig. 1.",
+      "sources": [
+        "src:hadron2-bmn-spectrometer-arxiv-2023",
+        "src:hadron2-jinr-pac-pp-64-news-2026"
+      ],
+      "start": "2023",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [],
+  "kind": "heavy_ion",
+  "lineage": [],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "locator": "BM@N website, collaboration news",
+      "note": "",
+      "quote": "The 16th Collaboration Meeting of the BM@N Experiment at NICA took place at the V.I. Veksler and A.M. Baldin Laboratory of High Energy Physics",
+      "sources": [
+        "src:hadron2-bmn-website"
+      ],
+      "value": "https://bmn.jinr.ru/",
+      "verified_at": "2026-10-26"
+    }
+  },
+  "name": "BM@N",
+  "notes": [
+    "Hall: the BM@N experimental area at the VBLHEP accelerator complex; placed at the campus-grade accelerator-complex point.",
+    "The 2026 JINR report counts nine physics runs; this record does not list the earlier ones individually because their dates were not fetched.",
+    "INSPIRE experiment id not looked up: inspirehep.net is off-limits to coverage streams (STREAM_RULES); external.inspire_experiment left null for the integrator."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "arXiv:2312.17573, Introduction",
+      "note": "",
+      "quote": "The primary goal of the experiment is to explore the QCD phase diagram in the region of high baryonic chemical potential",
+      "sources": [
+        "src:hadron2-bmn-spectrometer-arxiv-2023"
+      ],
+      "value": "Explore the QCD phase diagram at high baryonic chemical potential, search for critical phenomena and constrain the equation of state of high-density nuclear matter",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [
+    "fixed_target"
+  ],
+  "sources": [
+    "src:hadron2-bmn-spectrometer-arxiv-2023",
+    "src:hadron2-bmn-website",
+    "src:hadron2-jinr-pac-pp-64-news-2026"
+  ],
+  "status": "active",
+  "summary": {
+    "plain": "BM@N (Baryonic Matter at Nuclotron) is the first experiment at JINR's Nuclotron/NICA complex. It aims heavy-ion beams of up to several GeV per nucleon at fixed targets and measures the produced particles to study dense, baryon-rich nuclear matter, including strange hyperons.",
+    "technical": "BM@N: forward magnetic spectrometer (SP-41 dipole, silicon and GEM tracking, TOF, calorimeters; pseudorapidity 1.6-4.4) on the Nuclotron beam (1-6 AGeV) studying heavy-ion collisions with C, Ar, Kr and Xe beams on solid targets: equation of state at high baryon density, strange hyperon and meson production near threshold; Xe+CsI and Xe+Sn runs (2023, 2025-2026) collected billions of events."
+  },
+  "superseded_by": null,
+  "topic_ids": [
+    "topic:heavy-ion-physics-qgp",
+    "topic:qcd",
+    "topic:nuclear-and-heavy-ion"
+  ],
+  "type": "experiment",
+  "unique_capabilities": []
+}

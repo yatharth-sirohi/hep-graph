@@ -1,0 +1,176 @@
+{
+  "accelerator_ids": [
+    "accelerator:sps"
+  ],
+  "aliases": [
+    "NA61",
+    "SHINE",
+    "SPS Heavy Ion and Neutrino Experiment"
+  ],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:na61-shine"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "distinct_from": [],
+  "energy_regime": null,
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:cern",
+      "locator": "NA61/SHINE website, Beams page",
+      "note": "",
+      "quote": "Then the beam is transported to the Experimental Hall North 1 and NA61/SHINE.",
+      "role": "host",
+      "sources": [
+        "src:hadron2-na61-shine-beams-page"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:cern",
+      "locator": "arXiv:1401.4699 abstract",
+      "note": "Beams from the SPS via the H2 beam line (accelerator:sps).",
+      "quote": "the H2 beamline of the CERN North Area",
+      "role": "beam_source",
+      "sources": [
+        "src:hadron2-na61-shine-facility-jinst-arxiv-2014"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:na61-shine",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2007",
+      "label": "approved by the CERN Research Board",
+      "locator": "NA61/SHINE website, History of the Collaboration",
+      "note": "The end (2007, year precision) is the year of the first run; the day-level start is the approval date.",
+      "quote": "The new experiment, NA61/SHINE, was approved by the CERN Research Board on February 21, 2007.",
+      "sources": [
+        "src:hadron2-na61-shine-history-page"
+      ],
+      "start": "2007-02-21",
+      "status": "approved",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "2026-08-31",
+      "label": "data taking",
+      "locator": "arXiv:1102.0983 abstract (first run in 2007); JINST 2014: first physics data with hadron beams 2009 and ion beams 2011; end: CERN news 31 Aug 2026",
+      "note": "Pilot data in the first run of 2007 (year precision); runs continued with long shutdowns until the SPS stopped on 2026-08-31.",
+      "quote": "A set of data collected during the first NA61/SHINE run in 2007",
+      "sources": [
+        "src:hadron2-na61-shine-pc-31gev-arxiv-2011",
+        "src:hadron2-na61-shine-facility-jinst-arxiv-2014",
+        "src:currency-cern-all-accelerators-2026-08-31"
+      ],
+      "start": "2007",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": {
+        "approx": true,
+        "date": "2028",
+        "display": "staged restart from 2028 onwards",
+        "planned": true
+      },
+      "label": "Long Shutdown 3 (no SPS beam)",
+      "locator": "CERN news, 31 August 2026",
+      "note": "Restart is a plan (\"from 2028 onwards\"); NA61/SHINE has proposed a further programme (arXiv:2025 strategy proposal, not read).",
+      "quote": "CERN’s injector complex and Antimatter Factory took their final steps towards Long Shutdown 3 (LS3) this morning, as the last particle beams were extracted and the machines fell silent.",
+      "sources": [
+        "src:currency-cern-all-accelerators-2026-08-31"
+      ],
+      "start": "2026-08-31",
+      "status": "shutdown",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [],
+  "kind": "heavy_ion",
+  "lineage": [
+    {
+      "experiment_id": "experiment:na49",
+      "locator": "arXiv:1401.4699 abstract; arXiv:2603.08053: NA49 detector ownership transferred to NA61/SHINE",
+      "quote": "Numerous components of the NA61/SHINE set-up were inherited from its predecessors, in particular, the last one, the NA49 experiment.",
+      "relation": "predecessor",
+      "sources": [
+        "src:hadron2-na61-shine-facility-jinst-arxiv-2014",
+        "src:hadron2-sps-h2-review-gazdzicki-arxiv-2026"
+      ]
+    }
+  ],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "locator": "NA61/SHINE home page",
+      "note": "",
+      "quote": "Welcome to the NA61/SHINE experiment",
+      "sources": [
+        "src:hadron2-na61-shine-home-page"
+      ],
+      "value": "https://shine.web.cern.ch/",
+      "verified_at": "2026-10-26"
+    }
+  },
+  "name": "NA61/SHINE",
+  "notes": [
+    "Placed in EHN1 (the NA61/SHINE Beams page says the beam is transported to Experimental Hall North 1); the site record is the existing site:cern-neutrino-platform-ehn1, which carries a coarse campus point (see its notes). Refining it with the MapCERN building 887 (EHN1) centroid (46.26122, 6.05717) is left for the integrator.",
+    "Status shutdown reflects the SPS stop for Long Shutdown 3 on 2026-08-31 (restart planned from 2028 onwards).",
+    "The first run of 2007 is the earliest documented data; the JINST paper states first physics data with hadron beams in 2009 and with ion beams in 2011 (the 2007 sample was a pilot run).",
+    "INSPIRE experiment id not looked up: inspirehep.net is off-limits to coverage streams (STREAM_RULES); external.inspire_experiment left null for the integrator."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "About us page",
+      "note": "",
+      "quote": "study the properties of the onset of deconfinement and search for the criticalpoint of strongly interacting matter",
+      "sources": [
+        "src:hadron2-na61-shine-about-page"
+      ],
+      "value": "Study the onset of deconfinement and search for the critical point of strongly interacting matter; measure hadron production for neutrino and cosmic-ray physics",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [
+    "fixed_target"
+  ],
+  "sources": [
+    "src:hadron2-na61-shine-home-page",
+    "src:hadron2-na61-shine-about-page",
+    "src:hadron2-na61-shine-facility-jinst-arxiv-2014"
+  ],
+  "status": "shutdown",
+  "summary": {
+    "plain": "NA61/SHINE studies what happens when protons and nuclei collide with fixed targets at CERN's SPS. It scans collision energy and system size to look for the onset of quark-gluon plasma formation and a critical point, and measures hadron production needed for neutrino and cosmic-ray experiments.",
+    "technical": "SPS Heavy Ion and Neutrino Experiment (NA61) on the H2 beam line in the North Area: large-acceptance spectrometer with four time projection chambers (two Vertex TPCs in superconducting magnets, up to 9 Tm), ToF walls and the PSD calorimeter, inherited largely from NA49; collision energy / system size scan with p, Be, Ar and Xe beams, p+p and hadron-nucleus data for T2K/NuMI neutrino fluxes and cosmic-ray air showers; approved 2007, running 2007-2026 until LS3."
+  },
+  "superseded_by": null,
+  "topic_ids": [
+    "topic:heavy-ion-physics-qgp",
+    "topic:qcd",
+    "topic:nuclear-and-heavy-ion"
+  ],
+  "type": "experiment",
+  "unique_capabilities": []
+}

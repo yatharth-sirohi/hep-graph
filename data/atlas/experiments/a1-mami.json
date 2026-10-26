@@ -1,0 +1,128 @@
+{
+  "accelerator_ids": [
+    "accelerator:mami"
+  ],
+  "aliases": [
+    "A1 Collaboration",
+    "A1 at MAMI"
+  ],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:a1-mami"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "distinct_from": [],
+  "energy_regime": null,
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:mainz-mami",
+      "locator": "Institute of Nuclear Physics home page, list of experimental setups",
+      "note": "",
+      "quote": "MAMI accelerator and experimental setups (A1, A2)",
+      "role": "host",
+      "sources": [
+        "src:hadron2-mainz-kph-home-page"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:mainz-mami",
+      "locator": "arXiv:1007.5076 abstract",
+      "note": "Electron beam of MAMI (accelerator:mami).",
+      "quote": "New precise results of a measurement of the elastic electron-proton scattering cross section performed at the Mainz Microtron MAMI are presented.",
+      "role": "beam_source",
+      "sources": [
+        "src:hadron2-a1-proton-form-factors-arxiv-2010"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:a1-mami",
+  "intervals": [
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "operation (three-spectrometer facility)",
+      "locator": "arXiv:1007.5076 abstract (July 2010); MAMI page lists A1 among the MAMI experimental setups",
+      "note": "The A1 start is not stated in any source fetched; 2010 is the date of the earliest result paper read (measurement at MAMI), so it is an upper bound on the start. The institute page lists A1 among the current MAMI setups.",
+      "quote": "New precise results of a measurement of the elastic electron-proton scattering cross section performed at the Mainz Microtron MAMI are presented.",
+      "sources": [
+        "src:hadron2-a1-proton-form-factors-arxiv-2010",
+        "src:hadron2-mainz-mami-page"
+      ],
+      "start": "2010",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [],
+  "kind": "hadron_structure",
+  "lineage": [],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "locator": "A1 Collaboration website",
+      "note": "",
+      "quote": "These experiments aim in particular to study the spatial structure of atomic nuclei or nuclear building blocks.",
+      "sources": [
+        "src:hadron2-a1-collaboration-website"
+      ],
+      "value": "https://wwwa1.kph.uni-mainz.de/",
+      "verified_at": "2026-10-26"
+    }
+  },
+  "name": "A1 (MAMI)",
+  "notes": [
+    "Named \"A1 (MAMI)\" to distinguish it from other experiments called A1.",
+    "The hall coordinate is not published; placed at the institute building (campus-grade).",
+    "Spokesperson Harald Merkel per the A1 website; no membership count.",
+    "INSPIRE experiment id not looked up: inspirehep.net is off-limits to coverage streams (STREAM_RULES); external.inspire_experiment left null for the integrator."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "A1 Collaboration website",
+      "note": "",
+      "quote": "These experiments aim in particular to study the spatial structure of atomic nuclei or nuclear building blocks.",
+      "sources": [
+        "src:hadron2-a1-collaboration-website"
+      ],
+      "value": "Study the spatial structure of atomic nuclei and nuclear building blocks with electron scattering and magnetic spectrometers",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:hadron2-a1-collaboration-website",
+    "src:hadron2-a1-proton-form-factors-arxiv-2010",
+    "src:hadron2-mainz-kph-home-page"
+  ],
+  "status": "active",
+  "summary": {
+    "plain": "A1 is an electron-scattering collaboration at Mainz with three large magnetic spectrometers, each about 15 metres long, that measure the particles from electron collisions with nuclei and nucleons with very high precision, for example the proton's form factors.",
+    "technical": "A1 Collaboration at MAMI: three-spectrometer facility (each >200 t, momentum resolution better than 1e-4) with vertical drift chambers, scintillators, Cherenkov counters, a focal-plane polarimeter and the KAOS spectrometer for kaons, studying nuclear and nucleon structure by electron scattering up to 1.5 GeV; precision proton form factors from about 1400 cross sections."
+  },
+  "superseded_by": null,
+  "topic_ids": [
+    "topic:hadron-structure",
+    "topic:qcd",
+    "topic:nuclear-and-heavy-ion"
+  ],
+  "type": "experiment",
+  "unique_capabilities": []
+}

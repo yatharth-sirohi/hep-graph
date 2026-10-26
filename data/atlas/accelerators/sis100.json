@@ -1,0 +1,93 @@
+{
+  "aliases": [
+    "SIS 100"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "distinct_from": [],
+  "facility_id": "facility:gsi-fair",
+  "feeds_accelerator_ids": [],
+  "id": "accelerator:sis100",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "installation in the FAIR tunnels (first project stage)",
+      "locator": "arXiv:2510.14948 abstract",
+      "note": "Year precision (\"since early 2024\"); the FAIR page says FAIR \"is being built in Darmstadt\" without a start date.",
+      "quote": "Installation work in the FAIR accelerator tunnels and supply buildings has been ongoing since early 2024.",
+      "sources": [
+        "src:hadron2-fair-commissioning-ipac-arxiv-2025"
+      ],
+      "start": "2024",
+      "status": "construction",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "beam commissioning (planned)",
+      "locator": "arXiv:2510.14948 abstract",
+      "note": "A schedule, not an event (IPAC 2025 paper): cryogenic plant commissioning from 2025, transport line end of 2025, beam commissioning in the second half of 2027.",
+      "quote": "beam commissioning is scheduled for the second half of 2027",
+      "sources": [
+        "src:hadron2-fair-commissioning-ipac-arxiv-2025"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2027-07",
+        "display": "second half of 2027",
+        "planned": true
+      },
+      "status": "planned",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "is_collider": false,
+  "kind": "synchrotron",
+  "links": {
+    "website": null
+  },
+  "name": "SIS100 superconducting synchrotron",
+  "notes": [
+    "Status as of 2026-10-26 from the IPAC 2025 paper (arXiv:2510.14948, October 2025): the first project stage includes the SIS100, the Super-FRS and beam transport lines; \"First Science\" and \"First Science +\" stage definitions are not recorded here."
+  ],
+  "particles": [
+    "proton",
+    "ion",
+    "antiproton"
+  ],
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:fair-construction-site",
+  "sources": [
+    "src:hadron2-fair-accelerator-page",
+    "src:hadron2-fair-commissioning-ipac-arxiv-2025",
+    "src:hadron2-fair-home-page"
+  ],
+  "specs": {
+    "circumference": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "1,100 m",
+      "locator": "FAIR accelerator page",
+      "note": "",
+      "quote": "The SIS100 has a circumference of 1,100 meters",
+      "sources": [
+        "src:hadron2-fair-accelerator-page"
+      ],
+      "unit": "m",
+      "value": 1100,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "construction",
+  "summary": {
+    "plain": "SIS100 is the central new ring of the FAIR facility, a 1.1-kilometre superconducting accelerator in an underground tunnel that will accelerate ions of all elements to 99% of the speed of light. It is under construction, with beam commissioning planned for the second half of 2027.",
+    "technical": "SIS100: superconducting 100 Tm heavy-ion synchrotron (1100 m circumference, tunnel up to 17 m deep) of the first FAIR project stage with the Super-FRS and beam transport lines; injected from the SIS18; installation in the tunnels since early 2024, beam commissioning scheduled for the second half of 2027."
+  },
+  "superseded_by": null,
+  "type": "accelerator"
+}

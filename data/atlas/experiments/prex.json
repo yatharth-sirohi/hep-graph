@@ -1,0 +1,197 @@
+{
+  "accelerator_ids": [
+    "accelerator:cebaf"
+  ],
+  "aliases": [
+    "Lead Radius Experiment",
+    "PREX-II",
+    "208Pb Radius Experiment"
+  ],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:prex"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "distinct_from": [],
+  "energy_regime": null,
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:jefferson-lab",
+      "locator": "arXiv:1209.3179 abstract",
+      "note": "",
+      "quote": "PREX which ran in Hall A at the Thomas Jefferson National Accelerator Facility",
+      "role": "host",
+      "sources": [
+        "src:hadron2-prex-experiment-overview-arxiv-2012",
+        "src:hadron2-prex2-neutron-skin-arxiv-2021"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:jefferson-lab",
+      "locator": "arXiv:2102.10767, Experiment section",
+      "note": "PREX-II electron beam from CEBAF (accelerator:cebaf).",
+      "quote": "from a 953 MeV electron beam on a diamond",
+      "role": "beam_source",
+      "sources": [
+        "src:hadron2-prex2-neutron-skin-arxiv-2021"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:prex",
+  "intervals": [
+    {
+      "confidence": "uncertain",
+      "end": "2010",
+      "label": "PREX-I run",
+      "locator": "PREX page, index of \"Photographs from 2010 Run\"; arXiv:1209.3179 abstract: PREX ran in Hall A",
+      "note": "Only the run year is documented in the fetched sources (a link title on the PREX page); month and day are not.",
+      "quote": "Photographs from 2010 Run",
+      "sources": [
+        "src:hadron2-prex-crex-hall-a-page",
+        "src:hadron2-prex-experiment-overview-arxiv-2012"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2010",
+        "display": "2010 run"
+      },
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "2019-06-16",
+      "label": "PREX-II approved",
+      "locator": "PREX page, Proposals and Updates",
+      "note": "Approved with A rating in August 2011 (PAC38); the end of this interval is the day before the PREX-II run began.",
+      "quote": "PREX II proposal for PAC38. Exp E12-11-101. (Status: approved with A rating in August 2011.)",
+      "sources": [
+        "src:hadron2-prex-crex-hall-a-page"
+      ],
+      "start": "2011-08",
+      "status": "approved",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "uncertain",
+      "end": "2019-09-09",
+      "label": "PREX-II run",
+      "locator": "slide \"PREX running and radiation\"",
+      "note": "Start is stated; the end (9 Sept 2019) is the extended end date given on the same slide (written in Jan 2020), taken as the end of PREX-II beam time.",
+      "quote": "Started -17 June 2019; Ends - 18 Aug 2019 (scheduled)",
+      "sources": [
+        "src:hadron2-prex-crex-hall-a-collab-meeting-2020-01"
+      ],
+      "start": "2019-06-17",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "completed",
+      "locator": "slide \"PREX running and radiation\"",
+      "note": "Terminal event: end of PREX-II running per the extended schedule on the slide; the PREX page also states that the PREX/CREX programme was completed in September 2020.",
+      "quote": "Extension - 3 weeks (Ends -9 Sept)",
+      "sources": [
+        "src:hadron2-prex-crex-hall-a-collab-meeting-2020-01"
+      ],
+      "start": "2019-09-09",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "PREX-II beam energy",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "energy",
+        "display": "953 MeV",
+        "locator": "arXiv:2102.10767, Experiment section",
+        "note": "",
+        "quote": "from a 953 MeV electron beam on a diamond",
+        "sources": [
+          "src:hadron2-prex2-neutron-skin-arxiv-2021"
+        ],
+        "unit": "MeV",
+        "value": 953,
+        "verified_at": "2026-10-26"
+      }
+    }
+  ],
+  "kind": "electroweak_precision",
+  "lineage": [],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "locator": "Hall A parity pages (PREX/CREX)",
+      "note": "Hall A parity page of the PREX/CREX collaboration (hallaweb.jlab.org/parity/prex).",
+      "quote": "208Pb Radius Experiment PREX",
+      "sources": [
+        "src:hadron2-prex-crex-hall-a-page"
+      ],
+      "value": "https://hallaweb.jlab.org/parity/prex/",
+      "verified_at": "2026-10-26"
+    }
+  },
+  "name": "PREX",
+  "notes": [
+    "One record covers PREX-I (2010) and PREX-II (2019) as labelled intervals; the sister experiment CREX (48Ca) is experiment:crex.",
+    "PREX-I month-level dates were not found; only the run year (2010).",
+    "The PREX/CREX page states both were performed by the Hall A Parity Collaboration (which also did HAPPEX and PVDIS).",
+    "INSPIRE experiment id not looked up: inspirehep.net is off-limits to coverage streams (STREAM_RULES); external.inspire_experiment left null for the integrator."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "PREX page, introduction",
+      "note": "",
+      "quote": "uses the parity violating weak neutral interaction to probe the neutron distribution in a heavy nucleus, namely 208Pb",
+      "sources": [
+        "src:hadron2-prex-crex-hall-a-page"
+      ],
+      "value": "Measure the neutron distribution radius of 208Pb (the neutron skin) via parity-violating electron scattering to about 1%",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:hadron2-prex-crex-hall-a-page",
+    "src:hadron2-prex-experiment-overview-arxiv-2012",
+    "src:hadron2-prex2-neutron-skin-arxiv-2021",
+    "src:hadron2-prex1-neutron-radius-arxiv-2012"
+  ],
+  "status": "completed",
+  "summary": {
+    "plain": "PREX used spinning electron beams on lead to measure the neutron skin of lead-208, how far its neutrons extend beyond its protons. The first run (2010) and the second (PREX-II, 2019) showed a thick skin that matters for the structure of neutron stars.",
+    "technical": "Lead Radius Experiment (E12-11-101 for PREX-II) in Hall A: parity-violating elastic scattering of longitudinally polarised ~950 MeV electrons from 208Pb at Q^2 ~ 0.006 GeV^2, measuring the neutral weak form factor and hence the neutron radius. PREX-I (2010) gave the first electroweak observation of the neutron skin; PREX-II (2019) combined result R_n - R_p = 0.283 ± 0.071 fm."
+  },
+  "superseded_by": null,
+  "topic_ids": [
+    "topic:hadron-structure",
+    "topic:electroweak-physics",
+    "topic:precision-and-rare-processes",
+    "topic:nuclear-and-heavy-ion"
+  ],
+  "type": "experiment",
+  "unique_capabilities": []
+}

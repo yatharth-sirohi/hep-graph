@@ -1,0 +1,134 @@
+{
+  "accelerator_ids": [
+    "accelerator:sis18"
+  ],
+  "aliases": [
+    "High Acceptance DiElectron Spectrometer"
+  ],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:hades"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "distinct_from": [],
+  "energy_regime": null,
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:gsi-fair",
+      "locator": "arXiv:nucl-ex/0608031, Introduction",
+      "note": "",
+      "quote": "High-Acceptance DiElectron Spectrometer HADES at GSI, Darmstadt",
+      "role": "host",
+      "sources": [
+        "src:hadron2-hades-cc-dielectron-arxiv-2006"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:gsi-fair",
+      "locator": "arXiv:0902.3478, Introduction",
+      "note": "Beams from the SIS18 heavy-ion synchrotron (accelerator:sis18).",
+      "quote": "of the heavy-ion synchrotron SIS18",
+      "role": "beam_source",
+      "sources": [
+        "src:hadron2-hades-spectrometer-arxiv-2009"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:hades",
+  "intervals": [
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "data taking",
+      "locator": "arXiv:0902.3478 (kick-plane reconstruction used for \"experiments done before 2004\"); HADES website: Au+Au beam time 2025 and a 2026 publication",
+      "note": "The 2009 detector paper says HADES experiments were done before 2004; no source gives the start of data taking. The date is an upper bound (\"before 2004\"). Data taking continues: the HADES website lists \"Beam time AuAu 2025\" and a 2026 publication.",
+      "quote": "experiments done before 2004",
+      "sources": [
+        "src:hadron2-hades-spectrometer-arxiv-2009",
+        "src:hadron2-hades-home-page"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2003",
+        "display": "before 2004",
+        "latest": "2003-12"
+      },
+      "status": "active",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [],
+  "kind": "heavy_ion",
+  "lineage": [],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "locator": "HADES website home page",
+      "note": "",
+      "quote": "Beam time AuAu 2025",
+      "sources": [
+        "src:hadron2-hades-home-page"
+      ],
+      "value": "https://hades.gsi.de/",
+      "verified_at": "2026-10-26"
+    }
+  },
+  "name": "HADES",
+  "notes": [
+    "The start of HADES data taking is not stated in the sources fetched (\"experiments done before 2004\" in the 2009 detector paper); the interval start is an upper bound.",
+    "HADES is a Phase-0 FAIR experiment; its detector is being upgraded (ECAL, FRPC, STS appear on the experiment website) and it will be complemented by CBM at higher rates.",
+    "No collaboration membership count was found on the pages fetched.",
+    "INSPIRE experiment id not looked up: inspirehep.net is off-limits to coverage streams (STREAM_RULES); external.inspire_experiment left null for the integrator."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "arXiv:0902.3478 abstract",
+      "note": "",
+      "quote": "HADES is a versatile magnetic spectrometer aimed at studying dielectron production in pion, proton and heavy-ion induced collisions.",
+      "sources": [
+        "src:hadron2-hades-spectrometer-arxiv-2009"
+      ],
+      "value": "Study dielectron production in pion, proton and heavy-ion induced collisions: hadron properties in nuclei and in hot, dense hadronic matter",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [
+    "fixed_target"
+  ],
+  "sources": [
+    "src:hadron2-hades-spectrometer-arxiv-2009",
+    "src:hadron2-hades-home-page",
+    "src:hadron2-hades-nature-physics-2019-hzdr"
+  ],
+  "status": "active",
+  "summary": {
+    "plain": "HADES is a magnetic spectrometer at GSI in Darmstadt that records electron-positron pairs and hadrons from proton, pion and heavy-ion collisions at about 1 to 2 GeV per nucleon. It probes the hot, dense, baryon-rich matter found in neutron-star mergers. It has run since before 2004.",
+    "technical": "High-Acceptance DiElectron Spectrometer: six superconducting-coil toroidal magnet, hadron-blind RICH, drift chambers, time of flight and a multiplicity/electron trigger (85% azimuthal coverage, 18-85 degrees polar), at the SIS18 for dielectron and strangeness studies in p, pi and heavy-ion (C+C, Ar+KCl, Au+Au, Ag+Ag) collisions; Au+Au at 1.23 AGeV (sqrt(sNN) = 2.4 GeV) gave the fireball temperature of about 72 MeV."
+  },
+  "superseded_by": null,
+  "topic_ids": [
+    "topic:heavy-ion-physics-qgp",
+    "topic:qcd",
+    "topic:nuclear-and-heavy-ion"
+  ],
+  "type": "experiment",
+  "unique_capabilities": []
+}

@@ -1,0 +1,116 @@
+{
+  "accelerator_ids": [
+    "accelerator:mesa"
+  ],
+  "aliases": [
+    "P2 experiment"
+  ],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:p2-mesa"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "distinct_from": [],
+  "energy_regime": null,
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:mainz-mami",
+      "locator": "arXiv:1802.04759 abstract",
+      "note": "",
+      "quote": "This article describes the future P2 parity-violating electron scattering facility at the upcoming MESA accelerator in Mainz.",
+      "role": "host",
+      "sources": [
+        "src:hadron2-p2-experiment-arxiv-2018"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:mainz-mami",
+      "locator": "arXiv:1802.04759 introduction",
+      "note": "Polarised electron beam of MESA (accelerator:mesa, under construction).",
+      "quote": "the new Mainz Energy Recovery Superconducting Accelerator (MESA) is under construction",
+      "role": "beam_source",
+      "sources": [
+        "src:hadron2-p2-experiment-arxiv-2018"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:p2-mesa",
+  "intervals": [
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "construction of the experiment at MESA",
+      "locator": "arXiv:1802.04759 abstract (the \"future P2 facility\" at the \"upcoming\" MESA); components \"currently under construction\" in the body; MESA page lists P2 among the MESA experimental setups",
+      "note": "No source dates the start of P2 construction; February 2018 is the date of the P2 design paper naming the host. The MESA accelerator is itself still under construction, so the experiment has not started data taking.",
+      "quote": "This article describes the future P2 parity-violating electron scattering facility at the upcoming MESA accelerator in Mainz.",
+      "sources": [
+        "src:hadron2-p2-experiment-arxiv-2018",
+        "src:hadron2-mainz-mesa-page"
+      ],
+      "start": "2018-02",
+      "status": "construction",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [],
+  "kind": "electroweak_precision",
+  "lineage": [],
+  "links": {
+    "website": null
+  },
+  "name": "P2 (MESA)",
+  "notes": [
+    "Meets the inclusion bar through the P2 design paper (arXiv:1802.04759) naming MESA in Mainz as the host and the KPH/MESA pages listing P2 among the MESA experiments.",
+    "The precision goal has been quoted as 0.13% (2015), 0.14% (2018 design paper, recorded) and 0.15% (a 2026 conference abstract found by search, not fetched).",
+    "The P2 collaboration website did not respond when fetched; links.website is null.",
+    "INSPIRE experiment id not looked up: inspirehep.net is off-limits to coverage streams (STREAM_RULES); external.inspire_experiment left null for the integrator."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "arXiv:1802.04759 abstract",
+      "note": "",
+      "quote": "The first measurement of the P2 experiment aims for a high precision determination of the weak mixing angle to a precision of 0.14%",
+      "sources": [
+        "src:hadron2-p2-experiment-arxiv-2018"
+      ],
+      "value": "Determine the weak mixing angle to a precision of 0.14% at low four-momentum transfer through parity-violating electron-proton scattering",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:hadron2-p2-experiment-arxiv-2018",
+    "src:hadron2-mainz-mesa-page"
+  ],
+  "status": "construction",
+  "summary": {
+    "plain": "P2 will measure the weak mixing angle, a basic number of the Standard Model, with unprecedented precision at low energy by scattering spin-polarised electrons from the new MESA accelerator in Mainz off hydrogen and measuring the tiny parity-violating asymmetry.",
+    "technical": "P2 experiment at MESA: parity-violating elastic electron-proton scattering of 155 MeV longitudinally polarised electrons at Q^2 = 4.5e-3 GeV^2 on a liquid-hydrogen target with a solenoid spectrometer of full azimuthal acceptance and Cherenkov detectors, aiming at the weak mixing angle to 0.14% (the weak charge of the proton to about 2%); also neutron skin of 208Pb and two-photon-exchange asymmetries."
+  },
+  "superseded_by": null,
+  "topic_ids": [
+    "topic:hadron-structure",
+    "topic:electroweak-physics",
+    "topic:precision-and-rare-processes"
+  ],
+  "type": "experiment",
+  "unique_capabilities": []
+}

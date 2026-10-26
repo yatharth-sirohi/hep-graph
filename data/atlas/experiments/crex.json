@@ -1,0 +1,149 @@
+{
+  "accelerator_ids": [
+    "accelerator:cebaf"
+  ],
+  "aliases": [
+    "Calcium Radius Experiment"
+  ],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:crex"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "distinct_from": [],
+  "energy_regime": null,
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:jefferson-lab",
+      "locator": "arXiv:2205.11593, Introduction",
+      "note": "",
+      "quote": "isotopically enriched 48 Ca target in Hall A at Thomas Jefferson National Accelerator Facility",
+      "role": "host",
+      "sources": [
+        "src:hadron2-crex-ca48-weak-form-factor-arxiv-2022"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:jefferson-lab",
+      "locator": "arXiv:2205.11593",
+      "note": "Polarised electron beam from CEBAF (accelerator:cebaf).",
+      "quote": "isotopically enriched 48 Ca target in Hall A at Thomas Jefferson National Accelerator Facility",
+      "role": "beam_source",
+      "sources": [
+        "src:hadron2-crex-ca48-weak-form-factor-arxiv-2022"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:crex",
+  "intervals": [
+    {
+      "confidence": "uncertain",
+      "end": "2020-09",
+      "label": "CREX run",
+      "locator": "slide \"CREX running\"; PREX page: \"Experiments completed in September 2020\"",
+      "note": "Start (5 Dec 2019) from the slide; end (September 2020) from the PREX/CREX page, which states the experiments were completed then.",
+      "quote": "Started: 5 Dec 2019 - 17 Dec 2019; 6 Jan 2020 - still going",
+      "sources": [
+        "src:hadron2-prex-crex-hall-a-collab-meeting-2020-01",
+        "src:hadron2-prex-crex-hall-a-page"
+      ],
+      "start": "2019-12-05",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "completed",
+      "locator": "PREX page",
+      "note": "Month precision.",
+      "quote": "Experiments completed in September 2020",
+      "sources": [
+        "src:hadron2-prex-crex-hall-a-page"
+      ],
+      "start": "2020-09",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [],
+  "kind": "electroweak_precision",
+  "lineage": [
+    {
+      "experiment_id": "experiment:prex",
+      "locator": "PREX page, introduction",
+      "quote": "Its sister experiment \"CREX\" (E12-12-004) will use a 48Ca target.",
+      "relation": "complementary",
+      "sources": [
+        "src:hadron2-prex-crex-hall-a-page"
+      ]
+    }
+  ],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "locator": "Hall A parity pages (PREX/CREX)",
+      "note": "Hall A parity page of the PREX/CREX collaboration (hallaweb.jlab.org/parity/prex).",
+      "quote": "208Pb Radius Experiment PREX",
+      "sources": [
+        "src:hadron2-prex-crex-hall-a-page"
+      ],
+      "value": "https://hallaweb.jlab.org/parity/prex/",
+      "verified_at": "2026-10-26"
+    }
+  },
+  "name": "CREX",
+  "notes": [
+    "INSPIRE experiment id not looked up: inspirehep.net is off-limits to coverage streams (STREAM_RULES); external.inspire_experiment left null for the integrator.",
+    "Lineage: `complementary` to experiment:prex (the PREX page calls CREX its \"sister experiment\"); per A1 it lives on experiment:crex, the lexicographically smaller id."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "arXiv:2205.11593 abstract",
+      "note": "",
+      "quote": "The resulting neutron skin thickness $R_n-R_p=0.121 \\pm 0.026\\ {\\rm (exp)} \\pm 0.024\\ {\\rm (model)}$~fm is relatively thin yet consistent with many model calculations.",
+      "sources": [
+        "src:hadron2-crex-ca48-weak-form-factor-arxiv-2022"
+      ],
+      "value": "Measure the neutral weak form factor and neutron skin of 48Ca with parity-violating electron scattering",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:hadron2-prex-crex-hall-a-page",
+    "src:hadron2-crex-ca48-weak-form-factor-arxiv-2022"
+  ],
+  "status": "completed",
+  "summary": {
+    "plain": "CREX is PREX's sister experiment: it measured the neutron skin of calcium-48 with spin-flipped electron beams at Jefferson Lab. The skin turned out relatively thin, a result that must be reconciled with the thick skin of lead.",
+    "technical": "Calcium Radius Experiment (E12-12-004) in Hall A: parity-violating elastic scattering of longitudinally polarised electrons from 48Ca; A_PV = 2668 ± 106 (stat) ± 40 (syst) ppb, F_W = 0.1304 ± 0.0052 ± 0.0020, neutron skin R_n - R_p = 0.121 ± 0.026 (exp) ± 0.024 (model) fm."
+  },
+  "superseded_by": null,
+  "topic_ids": [
+    "topic:hadron-structure",
+    "topic:electroweak-physics",
+    "topic:precision-and-rare-processes",
+    "topic:nuclear-and-heavy-ion"
+  ],
+  "type": "experiment",
+  "unique_capabilities": []
+}

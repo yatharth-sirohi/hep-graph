@@ -1,0 +1,95 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "distinct_from": [],
+  "experiment_ids": [
+    "experiment:mpd"
+  ],
+  "id": "detector:mpd",
+  "intervals": [
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "construction (detector components in production and assembly)",
+      "locator": "arXiv:2202.08970 abstract (Feb 2022); 64th PAC PP report (June 2026): assembly of the experimental facility in progress",
+      "note": "February 2022 is the earliest source fetched saying the MPD components \"are currently in production\"; the construction start is not stated. June 2026: the superconducting magnet fully commissioned at its 0.57 T design field, more than 80% of the ECAL and more than half of the TOF modules installed, TPC to be installed in August, detector to be moved to the MPD interaction point by the end of October 2026.",
+      "quote": "The Multi-Purpose Detector (MPD) has been designed to operate at NICA and its components are currently in production.",
+      "sources": [
+        "src:hadron2-mpd-status-arxiv-2022",
+        "src:hadron2-jinr-pac-pp-64-news-2026"
+      ],
+      "start": "2022-02",
+      "status": "construction",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "MPD detector",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "locator": "64th PAC PP report",
+      "note": "Move to the MPD interaction point planned for the end of October 2026; campus-grade accelerator-complex point.",
+      "quote": "The collaboration’s main task is to move the fully assembled detector to the MPD interaction point by the end of October 2026",
+      "role": "main",
+      "site_id": "site:jinr-vblhep-accelerator-complex",
+      "sources": [
+        "src:hadron2-jinr-pac-pp-64-news-2026"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:hadron2-mpd-status-arxiv-2022",
+    "src:hadron2-jinr-pac-pp-64-news-2026"
+  ],
+  "specs": {
+    "solenoid_field": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "magnetic_field",
+      "display": "0.57 T",
+      "locator": "JINR news, 22 April 2026",
+      "note": "",
+      "quote": "One of the main achievements was the stable operation of the experimental facility’s superconducting magnet at the design field of 0.57 T.",
+      "sources": [
+        "src:hadron2-jinr-mpd-collaboration-meeting-news-2026"
+      ],
+      "unit": "T",
+      "value": 0.57,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "construction",
+  "subsystems": [],
+  "summary": {
+    "plain": "A cylindrical detector built inside a large superconducting solenoid, with a gas-filled tracking chamber, time-of-flight walls and calorimeters, to follow the thousands of particles produced when two heavy ions collide at NICA.",
+    "technical": "MPD: superconducting solenoid (0.57 T), central time projection chamber, time-of-flight system, electromagnetic calorimeter and forward hadron calorimeters, in the MPD hall; magnet fully commissioned in 2026, ECAL and TOF modules being installed."
+  },
+  "superseded_by": null,
+  "technology": {
+    "confidence": "verified",
+    "locator": "64th PAC PP report",
+    "note": "",
+    "quote": "more than 80 % of the electromagnetic calorimeter modules and more than half of the time-of-flight system modules are installed",
+    "sources": [
+      "src:hadron2-jinr-pac-pp-64-news-2026"
+    ],
+    "value": "Solenoidal general-purpose heavy-ion detector with a central time projection chamber, time-of-flight and calorimetry",
+    "verified_at": "2026-10-26"
+  },
+  "technology_classes": [
+    "general_purpose_collider"
+  ],
+  "type": "detector"
+}

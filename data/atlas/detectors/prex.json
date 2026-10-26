@@ -1,0 +1,131 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "distinct_from": [],
+  "experiment_ids": [
+    "experiment:prex"
+  ],
+  "id": "detector:prex",
+  "intervals": [
+    {
+      "confidence": "uncertain",
+      "end": "2010",
+      "label": "PREX-I run",
+      "locator": "PREX page, index of \"Photographs from 2010 Run\"; arXiv:1209.3179 abstract: PREX ran in Hall A",
+      "note": "Only the run year is documented in the fetched sources (a link title on the PREX page); month and day are not.",
+      "quote": "Photographs from 2010 Run",
+      "sources": [
+        "src:hadron2-prex-crex-hall-a-page",
+        "src:hadron2-prex-experiment-overview-arxiv-2012"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2010",
+        "display": "2010 run"
+      },
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "2019-06-16",
+      "label": "PREX-II approved",
+      "locator": "PREX page, Proposals and Updates",
+      "note": "Approved with A rating in August 2011 (PAC38); the end of this interval is the day before the PREX-II run began.",
+      "quote": "PREX II proposal for PAC38. Exp E12-11-101. (Status: approved with A rating in August 2011.)",
+      "sources": [
+        "src:hadron2-prex-crex-hall-a-page"
+      ],
+      "start": "2011-08",
+      "status": "approved",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "uncertain",
+      "end": "2019-09-09",
+      "label": "PREX-II run",
+      "locator": "slide \"PREX running and radiation\"",
+      "note": "Start is stated; the end (9 Sept 2019) is the extended end date given on the same slide (written in Jan 2020), taken as the end of PREX-II beam time.",
+      "quote": "Started -17 June 2019; Ends - 18 Aug 2019 (scheduled)",
+      "sources": [
+        "src:hadron2-prex-crex-hall-a-collab-meeting-2020-01"
+      ],
+      "start": "2019-06-17",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "completed",
+      "locator": "slide \"PREX running and radiation\"",
+      "note": "Terminal event: end of PREX-II running per the extended schedule on the slide; the PREX page also states that the PREX/CREX programme was completed in September 2020.",
+      "quote": "Extension - 3 weeks (Ends -9 Sept)",
+      "sources": [
+        "src:hadron2-prex-crex-hall-a-collab-meeting-2020-01"
+      ],
+      "start": "2019-09-09",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "PREX apparatus",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": "2019-09-09",
+      "locator": "arXiv:1209.3179 abstract; arXiv:2102.10767 Experiment section",
+      "note": "Hall A for both PREX-I and PREX-II.",
+      "quote": "PREX which ran in Hall A at the Thomas Jefferson National Accelerator Facility",
+      "role": "main",
+      "site_id": "site:jlab-hall-a",
+      "sources": [
+        "src:hadron2-prex-experiment-overview-arxiv-2012",
+        "src:hadron2-prex2-neutron-skin-arxiv-2021",
+        "src:hadron2-prex-crex-hall-a-collab-meeting-2020-01"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2010",
+        "display": "2010 run"
+      },
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:hadron2-prex-experiment-overview-arxiv-2012",
+    "src:hadron2-prex2-neutron-skin-arxiv-2021"
+  ],
+  "specs": {},
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "The Hall A set-up used for PREX: a thin lead target in the electron beam and two high-resolution spectrometers that picked out the electrons scattered elastically at a small angle.",
+    "technical": "Hall A with its two high-resolution spectrometers measuring elastic scattering of polarised electrons from a 208Pb target (diamond-lead-diamond sandwich in PREX-II) at about 5 degrees; transverse-asymmetry detector and SBS GEM detectors were added in PREX-II."
+  },
+  "superseded_by": null,
+  "technology": {
+    "confidence": "verified",
+    "locator": "arXiv:1209.3179 abstract",
+    "note": "",
+    "quote": "PREX which ran in Hall A at the Thomas Jefferson National Accelerator Facility",
+    "sources": [
+      "src:hadron2-prex-experiment-overview-arxiv-2012"
+    ],
+    "value": "Hall A high-resolution spectrometers with a lead target for parity-violating elastic electron scattering",
+    "verified_at": "2026-10-26"
+  },
+  "technology_classes": [
+    "magnetic_spectrometer"
+  ],
+  "type": "detector"
+}

@@ -1,0 +1,145 @@
+{
+  "accelerator_ids": [
+    "accelerator:sps"
+  ],
+  "aliases": [
+    "NA45",
+    "CERES/NA45"
+  ],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:na45-ceres"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "distinct_from": [],
+  "energy_regime": null,
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:cern",
+      "locator": "arXiv:2603.10835, Section 3",
+      "note": "",
+      "quote": "CERES pioneered the measurement of electron-positron pairs at the SPS.",
+      "role": "host",
+      "sources": [
+        "src:hadron2-sps-first-signals-review-arxiv-2026"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:cern",
+      "locator": "arXiv:nucl-ex/0506002 abstract",
+      "note": "Ion beams from the SPS (accelerator:sps).",
+      "quote": "in 158 GeV/n {Pb-Au} ($\\sqrt{s}$= 17.2 GeV) collisions taken at the CERN SPS in 1995 and 1996",
+      "role": "beam_source",
+      "sources": [
+        "src:hadron2-ceres-ee-pairs-pb-au-arxiv-2005"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:na45-ceres",
+  "intervals": [
+    {
+      "confidence": "uncertain",
+      "end": "1992",
+      "label": "construction and commissioning (first phase)",
+      "locator": "arXiv:2603.10835, Section 3.1 (running history)",
+      "note": "Review: first phase 1988-1993 with proposal approval, construction and installation, commissioning in 1990 and the first successful S-Au run in 1992; the status \"construction\" covers 1988 to the first physics run (1992).",
+      "quote": "First phase (1988-1993, spokesperson Hans Specht): submission and approval of the proposal, construction and installation of the spectrometer, commissioning in 1990 with the challenging spark breakdown of the UV detectors with a S beam and the first successful S-Au run in 1992.",
+      "sources": [
+        "src:hadron2-sps-first-signals-review-arxiv-2026"
+      ],
+      "start": "1988",
+      "status": "construction",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "2000",
+      "label": "data taking (S-Au 1992, p-A 1993, Pb-Au 1995-2000)",
+      "locator": "arXiv:2603.10835, Section 3.1 (second and third phases)",
+      "note": "Year precision: first successful S-Au run in 1992; Pb-Au data in 1995, 1996, 1999 and 2000 (last).",
+      "quote": "data taking with Pb-Au collisions at 40𝐴 GeV in 1999 and 158𝐴 GeV in the year 2000",
+      "sources": [
+        "src:hadron2-sps-first-signals-review-arxiv-2026"
+      ],
+      "start": "1992",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "completed",
+      "locator": "arXiv:2603.10835, Section 3.1",
+      "note": "Terminal event: the last data taking was Pb-Au at 158A GeV in 2000; the review also says the last CERES paper appeared in 2024.",
+      "quote": "data taking with Pb-Au collisions at 40𝐴 GeV in 1999 and 158𝐴 GeV in the year 2000",
+      "sources": [
+        "src:hadron2-sps-first-signals-review-arxiv-2026"
+      ],
+      "start": "2000",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [],
+  "kind": "heavy_ion",
+  "lineage": [],
+  "links": {
+    "website": null
+  },
+  "name": "CERES",
+  "notes": [
+    "Hall not identified: placed at the generic Prévessin North Area site.",
+    "The review also records the CERES upgrade phases: improved tracking for the 1995-1996 Pb-Au runs and a radial-drift TPC for 1999-2000.",
+    "No collaboration website, formation date or membership found.",
+    "INSPIRE experiment id not looked up: inspirehep.net is off-limits to coverage streams (STREAM_RULES); external.inspire_experiment left null for the integrator."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "arXiv:2603.10835, Section 3",
+      "note": "",
+      "quote": "CERES pioneered the measurement of electron-positron pairs at the SPS.",
+      "sources": [
+        "src:hadron2-sps-first-signals-review-arxiv-2026"
+      ],
+      "value": "Measure electron-positron pairs in heavy-ion collisions as a probe of thermal radiation, deconfinement and chiral symmetry restoration",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:hadron2-sps-first-signals-review-arxiv-2026",
+    "src:hadron2-ceres-ee-pairs-pb-au-arxiv-2005",
+    "src:hadron2-ceres-rho-modification-arxiv-2006"
+  ],
+  "status": "completed",
+  "summary": {
+    "plain": "CERES (NA45) was a CERN experiment that detected pairs of electrons and positrons from heavy-ion collisions, a clean probe of the hot, dense matter. It found more low-mass electron pairs than hadron decays can explain, from sulphur-gold to lead-gold collisions, 1992 to 2000.",
+    "technical": "CERES/NA45: electron-pair spectrometer with two Ring Imaging Cherenkov detectors in a field-free region and silicon drift tracking (upgraded with a radial-drift TPC), measuring low-mass e+e- in S-Au (1992), p-A (1993) and Pb-Au (1995, 1996, 1999, 2000) collisions: enhancement of low-mass pairs and a strong in-medium broadening of the rho."
+  },
+  "superseded_by": null,
+  "topic_ids": [
+    "topic:heavy-ion-physics-qgp",
+    "topic:qcd",
+    "topic:nuclear-and-heavy-ion"
+  ],
+  "type": "experiment",
+  "unique_capabilities": []
+}

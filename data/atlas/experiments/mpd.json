@@ -1,0 +1,129 @@
+{
+  "accelerator_ids": [
+    "accelerator:nica"
+  ],
+  "aliases": [
+    "Multi-Purpose Detector",
+    "MPD at NICA"
+  ],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:mpd"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "distinct_from": [],
+  "energy_regime": null,
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:jinr-dubna",
+      "locator": "arXiv:2202.08970 abstract; JINR news 27 March 2025: the MPD experimental hall",
+      "note": "",
+      "quote": "The Multi-Purpose Detector (MPD) has been designed to operate at NICA and its components are currently in production.",
+      "role": "host",
+      "sources": [
+        "src:hadron2-mpd-status-arxiv-2022",
+        "src:hadron2-jinr-nica-first-run-news-2025"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:jinr-dubna",
+      "locator": "64th PAC PP report",
+      "note": "Beams from the NICA collider (accelerator:nica), not yet colliding at the MPD point.",
+      "quote": "the next run, scheduled for autumn",
+      "role": "beam_source",
+      "sources": [
+        "src:hadron2-jinr-pac-pp-64-news-2026"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:mpd",
+  "intervals": [
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "construction (detector components in production and assembly)",
+      "locator": "arXiv:2202.08970 abstract (Feb 2022); 64th PAC PP report (June 2026): assembly of the experimental facility in progress",
+      "note": "February 2022 is the earliest source fetched saying the MPD components \"are currently in production\"; the construction start is not stated. June 2026: the superconducting magnet fully commissioned at its 0.57 T design field, more than 80% of the ECAL and more than half of the TOF modules installed, TPC to be installed in August, detector to be moved to the MPD interaction point by the end of October 2026.",
+      "quote": "The Multi-Purpose Detector (MPD) has been designed to operate at NICA and its components are currently in production.",
+      "sources": [
+        "src:hadron2-mpd-status-arxiv-2022",
+        "src:hadron2-jinr-pac-pp-64-news-2026"
+      ],
+      "start": "2022-02",
+      "status": "construction",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [],
+  "kind": "heavy_ion",
+  "lineage": [],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "locator": "MPD website",
+      "note": "",
+      "quote": "MPD Collaboration",
+      "sources": [
+        "src:hadron2-mpd-website"
+      ],
+      "value": "https://mpd.jinr.ru/",
+      "verified_at": "2026-10-26"
+    }
+  },
+  "name": "MPD",
+  "notes": [
+    "Status as the sources state it: under construction/assembly (arXiv:2202.08970: \"components are currently in production\"; JINR June 2026: assembly in progress, move to the interaction point by end of October 2026).",
+    "The MPD letter of intent, conceptual and technical design reports are linked from mpd.jinr.ru (not read); the status paper arXiv:2202.08970 is cited.",
+    "No collaboration membership count was read (the April 2026 meeting was attended by about 200 scientists from 11 countries).",
+    "INSPIRE experiment id not looked up: inspirehep.net is off-limits to coverage streams (STREAM_RULES); external.inspire_experiment left null for the integrator."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "arXiv:2202.08970 abstract",
+      "note": "",
+      "quote": "The Multi-Purpose Detector (MPD) has been designed to operate at NICA and its components are currently in production.",
+      "sources": [
+        "src:hadron2-mpd-status-arxiv-2022"
+      ],
+      "value": "Study dense baryon-rich QCD matter in heavy-ion collisions at the NICA collider (design of the Multi-Purpose Detector for NICA)",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:hadron2-mpd-status-arxiv-2022",
+    "src:hadron2-mpd-website",
+    "src:hadron2-jinr-pac-pp-64-news-2026"
+  ],
+  "status": "construction",
+  "summary": {
+    "plain": "MPD (Multi-Purpose Detector) is the main detector for heavy-ion collisions at JINR's NICA collider. It is being assembled around a large superconducting solenoid and is to be moved to the collision point by the end of October 2026 for the collider's xenon run, to study dense nuclear matter.",
+    "technical": "Multi-Purpose Detector at NICA: superconducting solenoid (0.57 T design field) around a time projection chamber, with time-of-flight, electromagnetic calorimeter and forward hadron calorimeters, designed for heavy-ion collisions at 4-11 GeV per nucleon pair; under assembly in the MPD hall, TPC installation planned for August 2026 and move to the interaction point by end of October 2026."
+  },
+  "superseded_by": null,
+  "topic_ids": [
+    "topic:heavy-ion-physics-qgp",
+    "topic:qcd",
+    "topic:nuclear-and-heavy-ion"
+  ],
+  "type": "experiment",
+  "unique_capabilities": []
+}
