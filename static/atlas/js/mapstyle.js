@@ -413,6 +413,44 @@ export function labelsFor(features, { isExperimentSite = () => false } = {}) {
   return labels;
 }
 
+/** The name each feature goes by in the list beside the map. A feature is named
+ *  for the entity it draws, so two outlines of one entity (the two ECN3
+ *  buildings, the two HL-LHC Point surface sites) would read as the same row
+ *  twice. Where names collide, each gets what tells it apart, tried in this
+ *  order and used only if it does tell the whole group apart: its type, its
+ *  level, both, its own name. "ECN3 cavern, CERN North Area — ECN3 access
+ *  building". `levelName(levelId)` gives a level's name. */
+export function listNamesFor(features, levelName = (id) => id) {
+  const shared = (f) => f.entity_name || f.name || f.id;
+  const groups = new Map();
+  for (const f of features) groups.set(shared(f), (groups.get(shared(f)) || []).concat(f));
+  const names = new Map();
+  for (const [name, group] of groups) {
+    if (group.length < 2) {
+      names.set(group[0].id, name);
+      continue;
+    }
+    const type = (f) => titleCase(f.feature_type || 'other');
+    // A level's depth, a building's number: kept out unless nothing else tells
+    // the rows apart.
+    const level = (f) => withoutParens(String(levelName(f.level_id) || ''));
+    const own = (f) => {
+      const text = f.name ? dropQualifiers(f.name) || f.name : '';
+      return text && text !== name ? text : '';
+    };
+    const ownBare = (f) => withoutParens(own(f));
+    const tellers = [type, level, (f) => `${type(f)}, ${level(f)}`, ownBare, own];
+    const teller = tellers.find((fn) => {
+      const values = group.map(fn);
+      return values.every(Boolean) && new Set(values.map((v) => v.toLowerCase())).size === group.length;
+    });
+    group.forEach((f, i) => {
+      names.set(f.id, `${name} \u2014 ${teller ? teller(f) : `${own(f) || type(f)} (${i + 1})`}`);
+    });
+  }
+  return names;
+}
+
 // --- series: many records, one label --------------------------------------
 // The instrument-level array maps split one detector into several records
 // ("Auger SD1500 stations, band 3 of 20", "LHAASO ... block 7 of 15", "Baikal-GVD

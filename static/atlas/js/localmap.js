@@ -49,6 +49,7 @@ let labelLayer = null;
 let symbolLayer = null;
 let labelRecords = new Map();
 let labelTexts = new Map();
+let listNames = new Map();
 let labelFrame = 0;
 let forcedLabelId = null;
 let view = { levels: null, basemap: true, sel: null, timelineState: { year: null } };
@@ -1587,7 +1588,7 @@ function featureRow(feature) {
     'aria-pressed': selected ? 'true' : 'false',
     'data-feature-row': feature.id,
   }, [
-    h('span', { class: 'map-feature-name' }, feature.entity_name || feature.name),
+    h('span', { class: 'map-feature-name' }, listNames.get(feature.id) || feature.entity_name || feature.name),
     h('span', { class: 'map-feature-meta' },
       `${t.label} · ${level ? level.name : feature.level_id}`),
     h('span', { class: 'map-feature-meta' },
@@ -2334,6 +2335,10 @@ export async function show(current, ctx) {
     try {
       [L, bundle] = await Promise.all([loadLeaflet(), fetchBundle(ctx.loaderBase, meta.bundle)]);
       labelTexts = mapstyle.labelsFor(bundle.features, { isExperimentSite });
+      listNames = mapstyle.listNamesFor(bundle.features, (id) => {
+        const level = (mapMeta.levels || []).find((lv) => lv.id === id);
+        return level ? level.name : id;
+      });
       createMap(L);
     } catch (error) {
       currentMapId = null;
