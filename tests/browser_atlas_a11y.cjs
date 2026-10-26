@@ -277,14 +277,64 @@ async function openFilters(page) {
       // The Key carries the status colours the timeline used to: words next to every dot.
       const keyText = await page.locator("#key-popover").innerText();
       for (const term of ["Facility shape", "Accelerator laboratory", "Active", "Upgrade", "Construction / commissioning",
-        "Proposed / approved / planned", "Completed", "Uncertain (possible)", "Institution dot", "Location precision"]) {
+        "Proposed / approved / planned", "Completed", "Uncertain (possible)", "Institution dot", "Location precision",
+        "Cluster of places", "Experiment site", "Beam running", "Beam under construction or ended"]) {
         assert.ok(keyText.toLowerCase().includes(term.toLowerCase()), `the Key must say "${term}" in words`);
       }
+      // What the new entries draw is the globe's own glyphs and arcs, not a description.
+      const art = await page.evaluate(() => ({
+        badge: !!document.querySelector("#key-globe .key-badge svg circle") && document.querySelector("#key-globe .key-badge b").textContent,
+        siteDots: document.querySelectorAll("#key-globe .key-art svg[width=\"12\"]").length,
+        beams: document.querySelectorAll("#key-globe path[stroke-dasharray]").length,
+        flowing: document.querySelectorAll("#key-globe .key-beam-flow").length,
+      }));
+      assert.equal(art.badge, "3", "the cluster badge is drawn with its count");
+      assert.ok(art.siteDots >= 3, "the site dots are drawn, one in each of three statuses");
+      assert.equal(art.beams, 2, "both beam arcs are drawn");
+      assert.equal(art.flowing, 1, "only the running beam flows");
+      // The institution dot is not drawn in the colour of any status (it was amber, as was Construction).
+      const dots = await page.evaluate(() => {
+        const colour = (el) => getComputedStyle(el).backgroundColor;
+        const institution = document.querySelector("#marker-legend .dot.solid");
+        const construction = document.querySelector("#key-status .dot.construction");
+        return { institution: colour(institution), construction: colour(construction) };
+      });
+      assert.notEqual(dots.institution, dots.construction, "the institution dot is not the Construction colour");
       await runAxe(page, tree.label, "Key popover (open)");
       await page.keyboard.press("Escape");
       await page.locator("#key-popover").waitFor({ state: "hidden" });
       assert.equal(await page.evaluate(() => document.activeElement && document.activeElement.id), "key-btn",
         "Escape closes the Key and puts focus back on the button that opened it");
+    });
+
+    await record(`[${tree.label}] Key popover: it closes when focus leaves it (Tab and Shift+Tab), not when the pointer is inside it or on its button`, async () => {
+      await page.goto(`${base}/atlas${dataTree}`);
+      await page.waitForFunction(() => document.querySelectorAll(".atlas-marker").length > 0, { timeout: 15000 });
+      const state = () => page.evaluate(() => ({
+        hidden: document.getElementById("key-popover").hidden,
+        expanded: document.getElementById("key-btn").getAttribute("aria-expanded"),
+        active: document.activeElement && document.activeElement.id,
+      }));
+      await page.locator("#key-btn").click();
+      await page.locator("#key-popover").waitFor();
+      await page.keyboard.press("Tab");
+      await page.waitForFunction(() => document.getElementById("key-popover").hidden);
+      assert.equal((await state()).expanded, "false", "Tab out of the Key closes it");
+      assert.notEqual((await state()).active, "key-popover", "focus stays where it went");
+      await page.locator("#key-btn").click();
+      await page.locator("#key-popover").waitFor();
+      await page.keyboard.press("Shift+Tab");
+      await page.waitForFunction(() => document.getElementById("key-popover").hidden);
+      assert.equal((await state()).active, "filters-btn", "Shift+Tab goes to the button before it, and closes it");
+      // A click inside the popover is not leaving it, and a click on the button toggles (does not reopen).
+      await page.locator("#key-btn").click();
+      await page.locator("#key-popover").waitFor();
+      await page.locator("#key-popover .legend-group strong").first().click();
+      await page.waitForTimeout(250);
+      assert.equal((await state()).hidden, false, "clicking inside the Key keeps it open");
+      await page.locator("#key-btn").click();
+      await page.waitForTimeout(250);
+      assert.equal((await state()).hidden, true, "clicking the Key button again closes it, and it stays closed");
     });
 
     await record(`[${tree.label}] axe: timeline moved to a past year`, async () => {

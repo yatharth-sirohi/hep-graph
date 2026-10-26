@@ -474,6 +474,28 @@ export async function localMapChip(record) {
   });
   return wrap;
 }
+/**
+ * A facility's local maps, as links in the head of its panel (under the status),
+ * each with a line saying what the map holds. A facility can have several (JUNO,
+ * KM3NeT); each gets its own link. Null when the build linked none. The link used to
+ * sit in a "Local map" card at the foot of the panel, 400 px below the first screen
+ * on CERN's; a map is a main way into a facility, so it comes first.
+ */
+export async function localMapHeader(record) {
+  const rows = await mapDepictions(record);
+  if (!rows.length) return null;
+  const wrap = h('div', { class: 'local-map-header' });
+  for (const { mapId, meta } of rows) {
+    const drawn = `${meta.to_scale_count} feature${meta.to_scale_count === 1 ? '' : 's'} drawn to scale`;
+    const unlocated = meta.unlocated_count
+      ? ` \u00b7 ${meta.unlocated_count} not drawn (geometry not verified)` : '';
+    wrap.appendChild(h('p', { class: 'local-map-entry' }, [
+      linkTo(idRoute(mapId), `\u25ce Open local map: ${meta.name}`, 'local-map-chip local-map-link'),
+      h('span', { class: 'source-meta' }, `${drawn}${unlocated}`),
+    ]));
+  }
+  return wrap;
+}
 // ---- local map view hook -- end ----------------------------------------
 
 // Renders the status pill from the entity's per-year `state_segments` at the
@@ -525,6 +547,8 @@ async function renderFacility(id, timelineState) {
   frag.appendChild(h('h2', {}, facility.name));
   frag.appendChild(h('p', { class: 'panel-subtitle' }, kindLabel(facility.kind)));
   frag.appendChild(experimentBadge(facility, timelineState));
+  const mapHeader = await localMapHeader(facility);
+  if (mapHeader) frag.appendChild(mapHeader);
 
   const facilitySummary = plainSummaryOf(facility, t);
   sections.add('Overview', [
@@ -554,12 +578,6 @@ async function renderFacility(id, timelineState) {
 
   const related = (facility.related_facility_ids || []).map((rid) => ATLAS.facilities[rid]).filter(Boolean);
   sections.add('Related facilities', recordLinks(related), { open: false });
-
-  // ---- local map view hook (§4): only the facility renderer calls it for
-  // now; the site/accelerator/beamline/detector renderers can append the
-  // same element when they land.
-  const mapSection = await localMapLinks(facility);
-  if (mapSection) frag.appendChild(mapSection);
 
   sections.note();
   frag.appendChild(sourcesDisclosure(id, facility));
@@ -978,13 +996,12 @@ async function renderTopic(id) {
 
   const frag = document.createDocumentFragment();
   const sections = panelSections(frag);
+  // The panel answers the question the topic is named for, in the order a newcomer
+  // asks it: the plain question, then who studies it and where, and only then the
+  // physicist's overview. That overview is a paragraph of notation (mixing
+  // matrices, CP phases); it is one click away, not the first thing on the page.
   frag.appendChild(h('h2', {}, topic.name));
   frag.appendChild(h('p', { class: 'plain-question' }, topic.question || ''));
-  if (t.overview) frag.appendChild(h('p', {}, t.overview));
-
-  sections.add('Observables', topic.observables && topic.observables.length
-    ? h('ul', { class: 'entity-list' }, topic.observables.map((o) => h('li', {}, o)))
-    : null);
 
   // `topic.experiment_ids` / `topic.result_ids` are not derived fields in
   // the generated bundle (unlike facility/experiment/collaboration, topics
@@ -996,10 +1013,17 @@ async function renderTopic(id) {
   const current = experiments.filter((e) => statusEra(e.status) === 'current');
   const historical = experiments.filter((e) => statusEra(e.status) === 'historical');
   const future = experiments.filter((e) => statusEra(e.status) === 'future');
+  if (experiments.length) {
+    // Coverage is partial, so the count is of what the Atlas holds, said as such.
+    frag.appendChild(h('p', { class: 'panel-hint topic-count' },
+      `${experiments.length} experiment${experiments.length === 1 ? '' : 's'} in the Atlas study this. `
+      + 'Their sites are lit on the globe; the rest is dimmed.'));
+  }
+  const counted = (title, list) => `${title} (${list.length})`;
   sections.groups('Experiments', [
-    ['Current', recordLinks(current), 'Current experiments'],
-    ['Historical', recordLinks(historical), 'Historical experiments'],
-    ['Future / planned', recordLinks(future), 'Future / planned experiments'],
+    [counted('Current', current), recordLinks(current), 'Current experiments'],
+    [counted('Historical', historical), recordLinks(historical), 'Historical experiments'],
+    [counted('Future / planned', future), recordLinks(future), 'Future / planned experiments'],
   ]);
 
   const { list: allResults } = await loader.getResults();
@@ -1015,6 +1039,13 @@ async function renderTopic(id) {
     milestones.length ? h('h4', {}, 'Technology milestones') : null,
     resultLinks(milestones),
   ], { open: false, label: 'Related results' });
+
+  sections.add('Technical overview', t.overview ? h('p', {}, t.overview) : null, {
+    open: false, label: 'Technical overview',
+  });
+  sections.add('Observables', topic.observables && topic.observables.length
+    ? h('ul', { class: 'entity-list' }, topic.observables.map((o) => h('li', {}, o)))
+    : null, { open: false });
 
   sections.note();
   return frag;
@@ -1041,8 +1072,32 @@ function claimExcerptLabel(result, quote, locator, always) {
   return /\babstract\b/.test(where) ? 'From the abstract' : 'From the paper';
 }
 
+// The results announced the same day, at the same facility and on the same topic, as
+// `result` (ATLAS's and CMS's Higgs papers were presented together at one seminar on
+// 4 July 2012; CDF and DØ announced the top quark on one day in 1995). Found by that
+// rule from the records, never authored, and only when both carry the same kind of
+// date ("announcement"; a preprint date or a publication date is not an announcement)
+// down to the day: a year, or a month, is not a day.
+function sameDayResults(result, list) {
+  if (!result.date || !/^\d{4}-\d{2}-\d{2}$/.test(result.date)) return [];
+  const facilities = new Set(result.facility_ids || []);
+  const topics = new Set(result.topic_ids || []);
+  return list.filter((other) => other.id !== result.id
+    && other.date === result.date
+    && other.date_kind === result.date_kind
+    && other.result_type === result.result_type
+    && (other.facility_ids || []).some((f) => facilities.has(f))
+    && (other.topic_ids || []).some((topic) => topics.has(topic)));
+}
+
+const DATE_KIND_SAME_DAY = {
+  announcement: 'Announced the same day',
+  preprint: 'Preprint dated the same day',
+  publication: 'Published the same day',
+};
+
 async function renderResult(id) {
-  const { byId } = await loader.getResults();
+  const { byId, list: resultList } = await loader.getResults();
   const result = byId.get(id);
   if (!result) return emptyNote('Unknown result.');
   const text = await loader.getText();
@@ -1054,6 +1109,51 @@ async function renderResult(id) {
   // is kept verbatim underneath when it differs, as it was published.
   frag.appendChild(h('h2', {}, result.name || result.title));
   frag.appendChild(h('p', { class: 'panel-subtitle' }, `${titleCase(result.result_type)} · ${fmtDate(result.date)}`));
+  // Under the subtitle, so the answer to "where" is on the first screen (the globe is
+  // looking at the same place: app.js selects the result's facility): the facility
+  // records the result names, each with its local map when the Atlas has drawn one
+  // (an absent link means not mapped yet), then the results announced with this one.
+  const facilities = (result.facility_ids || []).map((fid) => ATLAS.facilities[fid]).filter(Boolean);
+  if (facilities.length) {
+    const maps = (ATLAS && ATLAS.maps) || {};
+    frag.appendChild(h('p', { class: 'result-where' }, [
+      h('strong', {}, 'Where: '),
+      ...facilities.flatMap((facility, i) => [
+        i ? document.createTextNode(', ') : null,
+        linkTo(idRoute(facility.id), facility.name),
+        // One map reads "local map"; a facility with several names each.
+        (() => {
+          const mapIds = mapIdsOfFacility(facility.id).filter((mapId) => maps[mapId]);
+          return mapIds.length
+            ? h('span', { class: 'result-where-map' }, [
+              ' (',
+              ...mapIds.flatMap((mapId, k) => [
+                k ? document.createTextNode(', ') : null,
+                linkTo(idRoute(mapId), mapIds.length === 1 ? 'local map' : maps[mapId].name, 'local-map-link'),
+              ]),
+              ')',
+            ])
+            : null;
+        })(),
+      ]),
+    ]));
+  }
+  const alongside = sameDayResults(result, resultList);
+  if (alongside.length) {
+    const shared = (result.facility_ids || []).map((fid) => ATLAS.facilities[fid])
+      .filter((facility) => facility && alongside.some((other) => (other.facility_ids || []).includes(facility.id)))
+      .map((facility) => facility.name);
+    frag.appendChild(h('p', { class: 'result-companions' }, [
+      h('strong', {}, `${DATE_KIND_SAME_DAY[result.date_kind] || 'Dated the same day'}${shared.length ? ` at ${shared.join(', ')}` : ''}: `),
+      ...alongside.flatMap((other, i) => {
+        const names = (other.experiment_ids || []).map((eid) => ATLAS.experiments[eid]).filter(Boolean).map((e) => e.name);
+        return [
+          i ? document.createTextNode('; ') : null,
+          linkTo(idRoute(other.id), `${names.length ? `${names.join(', ')} \u2014 ` : ''}${other.name || other.title}`),
+        ];
+      }),
+    ]));
+  }
   if (result.title && result.name && result.title !== result.name) {
     frag.appendChild(h('p', { class: 'source-meta' }, ['Paper title: ', readableView(result.title)]));
   }
@@ -1082,33 +1182,6 @@ async function renderResult(id) {
     [titleCase(result.date_kind) || 'Date', fmtDate(result.date)],
   ]);
   if (facts) frag.appendChild(facts);
-  // Where it was done: the facility records the result names, each with its
-  // local map when the Atlas has drawn one (an absent link means not mapped yet).
-  const facilities = (result.facility_ids || []).map((fid) => ATLAS.facilities[fid]).filter(Boolean);
-  if (facilities.length) {
-    const maps = (ATLAS && ATLAS.maps) || {};
-    frag.appendChild(h('p', { class: 'result-where' }, [
-      h('strong', {}, 'Where: '),
-      ...facilities.flatMap((facility, i) => [
-        i ? document.createTextNode(', ') : null,
-        linkTo(idRoute(facility.id), facility.name),
-        // One map reads "local map"; a facility with several names each.
-        (() => {
-          const mapIds = mapIdsOfFacility(facility.id).filter((mapId) => maps[mapId]);
-          return mapIds.length
-            ? h('span', { class: 'result-where-map' }, [
-              ' (',
-              ...mapIds.flatMap((mapId, k) => [
-                k ? document.createTextNode(', ') : null,
-                linkTo(idRoute(mapId), mapIds.length === 1 ? 'local map' : maps[mapId].name, 'local-map-link'),
-              ]),
-              ')',
-            ])
-            : null;
-        })(),
-      ]),
-    ]));
-  }
   const experiments = (result.experiment_ids || []).map((eid) => ATLAS.experiments[eid]).filter(Boolean);
   sections.add('Experiment', recordLinks(experiments));
   const pub = result.publication || {};

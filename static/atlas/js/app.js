@@ -14,8 +14,12 @@ import * as filtersModule from './filters.js';
 import * as localmap from './localmap.js';
 import { createChrome } from './chrome.js';
 import * as startModule from './start.js';
-import { buildIndex, topicMarkerIds } from './model.js';
-import { facilityKeyEntries } from './globeicons.js';
+import {
+  buildIndex, topicMarkerIds, markerPoints, worldView, statusColor,
+} from './model.js';
+import {
+  facilityKeyEntries, buildGlyph, cssToken, beamKeyGlyph,
+} from './globeicons.js';
 
 const els = {
   dataNotice: document.getElementById('data-notice'),
@@ -31,6 +35,7 @@ const els = {
   arcsAutoOffNote: document.getElementById('arcs-auto-off-note'),
   filtersControls: document.getElementById('filters-controls'),
   legend: document.getElementById('marker-legend'),
+  keyGlobe: document.getElementById('key-globe'),
   searchInput: document.getElementById('atlas-search'),
   searchResults: document.getElementById('search-results'),
   shareBtn: document.getElementById('share-link'),
@@ -75,9 +80,42 @@ function setNotice(text) {
   els.dataNotice.classList.remove('hidden');
 }
 
+function legendItem(art, label) {
+  const item = document.createElement('span');
+  item.className = 'legend-item';
+  if (art) {
+    art.setAttribute('aria-hidden', 'true');
+    item.classList.add('has-art');
+    item.append(art);
+  }
+  item.append(label);
+  return item;
+}
+
+function legendGroup(title, items, { id } = {}) {
+  const group = document.createElement('div');
+  group.className = 'legend-group';
+  if (id) group.id = id;
+  const heading = document.createElement('strong');
+  heading.textContent = title;
+  group.append(heading, ...items);
+  return group;
+}
+
+// A picture of something the Key explains, in a box of one width so the words beside
+// the pictures of a group start at one place.
+function keyArt(...nodes) {
+  const art = document.createElement('span');
+  art.className = 'key-art';
+  art.append(...nodes);
+  return art;
+}
+
 function renderLegend() {
-  // The facility glyphs are the very SVGs the globe draws, so the Key cannot drift
-  // from the markers it explains.
+  // Everything drawn here is the thing the globe draws — the facility glyphs are the
+  // very SVGs the globe's markers are, the cluster badge and the site dots come from
+  // the same glyph builder, the beam arcs are copies of the arcs' own colours and
+  // dashes — so the Key cannot drift from what it explains.
   els.legend.innerHTML = `
     <div class="legend-group" id="legend-facility-kinds"><strong>Facility shape</strong></div>
     <div class="legend-group"><strong>Institution dot</strong>
@@ -95,6 +133,31 @@ function renderLegend() {
     item.append(entry.svg, entry.label);
     kinds.append(item);
   }
+
+  if (!els.keyGlobe) return;
+  // A cluster: the dark disc with its amber ring, and the count the globe prints in it.
+  const badge = document.createElement('span');
+  badge.className = 'key-badge';
+  const count = document.createElement('b');
+  count.textContent = '3';
+  badge.append(buildGlyph({
+    shape: 'cluster', color: cssToken('--amber', '#f2b441'), size: 26,
+  }), count);
+  // A site: the 12 px dot, in the colour of its status (three of them, so it is
+  // plain that the colour is the status's and not the dot's).
+  const dots = ['active', 'construction', 'completed'].map((status) => buildGlyph({
+    shape: 'circle', color: statusColor(status), size: 12, hollow: false, hatched: false, approximate: false,
+  }));
+  els.keyGlobe.replaceChildren(
+    legendGroup('Clusters and sites', [
+      legendItem(keyArt(badge), 'Cluster of places close together; the number is how many'),
+      legendItem(keyArt(...dots), 'Experiment site: a small dot, coloured by status'),
+    ]),
+    legendGroup('Beams', [
+      legendItem(keyArt(beamKeyGlyph({ running: true })), 'Beam running: a bright line, flowing'),
+      legendItem(keyArt(beamKeyGlyph({ running: false })), 'Beam under construction or ended: a dotted, dimmer line'),
+    ]),
+  );
 }
 
 async function main() {
@@ -371,6 +434,37 @@ async function main() {
     shareTimer = window.setTimeout(clearShareStatus, 4000);
   });
 
+  // The camera for a topic: all of what is lit in one view. Places within a continent
+  // or two are framed by the globe's own fit (fitHighlight); a topic whose places are
+  // on opposite sides of the Earth (neutrino oscillations: Japan, Europe, North
+  // America, the South Pole) cannot be fitted that way, and the globe's fit would fall
+  // back on the densest region and hide the rest. For those, the camera goes out to a
+  // whole-Earth view from the spot that shows the most of them (showView).
+  function frameTopic(markers) {
+    const points = markerPoints(atlas, markers);
+    if (!points.length) return;
+    const fit = globeModule.fitView(points);
+    if (fit && fit.whole) {
+      globeApi.fitHighlight();
+      return;
+    }
+    const world = worldView(points);
+    if (world) globeApi.showView(world);
+  }
+
+  // What the globe selects for an open record. A result has no place of its own, but
+  // it says where it was done, so the globe goes to that facility and marks it
+  // (the panel's "Where:" line names the same place). Anything else is selected as itself.
+  function selectionFor(entity) {
+    if (!entity || entity.type === 'map') return null;
+    if (entity.type === 'result' && resultsBundle.byId) {
+      const result = resultsBundle.byId.get(`result:${entity.slug}`);
+      const facilityId = ((result && result.facility_ids) || []).find((fid) => atlas.facilities[fid]);
+      if (facilityId) return facilityId;
+    }
+    return `${entity.type}:${entity.slug}`;
+  }
+
   // ---- state <-> UI -----------------------------------------------------
   let lastCollabShown = null;
   // Which topic the globe is currently highlighting for (or null).
@@ -403,7 +497,7 @@ async function main() {
         const markers = topicId ? topicMarkerIds(atlas, topicId) : null;
         globeApi.setHighlight(markers && markers.size ? markers : null);
         // The camera goes to what is lit: the places the topic is about.
-        if (markers && markers.size) globeApi.fitHighlight();
+        if (markers && markers.size) frameTopic(markers);
       }
     }
 
@@ -411,8 +505,7 @@ async function main() {
     // (a no-op while it is unchanged). In collaboration mode setCollaboration()
     // below owns the camera, so only the highlight is applied.
     if (globeApi) {
-      const entity = current.entity && current.entity.type !== 'map'
-        ? `${current.entity.type}:${current.entity.slug}` : null;
+      const entity = selectionFor(current.entity);
       const cameraOwnedByCollaboration = current.mode === 'collab'
         && !!current.entity && current.entity.type === 'collaboration';
       globeApi.select(entity, { fly: !cameraOwnedByCollaboration });

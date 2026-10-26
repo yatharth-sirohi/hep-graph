@@ -73,6 +73,14 @@
   /* ---- accents (UI, not status) */
   --teal: #54c6ba;
   --amber: #f2b441;
+  /* The institution dots of a collaboration view. Not a status colour: amber had
+     been drawn both for an institution and for "construction" (--status-construction,
+     #f0a81a, is the same hue to the eye), and a pale grey-blue would have sat on
+     Completed (#b3bec5). A pale periwinkle is at least 21 CIE76 from every status
+     colour, the facility-kind colours and --amber (tests/test_atlas_static_css.py
+     checks), and 8:1 on the globe's ocean. globe.js reads it for institution dots
+     and for the arcs that join them to their collaboration's host. */
+  --institution: #a3b0ff;
   /* Error/failure text: a salmon-vermillion, 5.4:1 on --panel-2 (the previous
      #d4786e was 4.4:1 there). */
   --danger: #e8887c;
@@ -494,6 +502,61 @@ body.is-map-route .atlas-header > .mode-buttons {
   text-transform: uppercase;
   color: var(--muted);
 }
+/* The right-hand column of the Key: the status colours, then what else the globe
+   draws (clusters, site dots, beams). */
+.key-col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  min-width: 0;
+}
+/* A picture in the Key that is not a glyph of one size: a cluster badge, three site
+   dots, a beam arc. Every one sits in a box of the same width so the words beside them
+   line up. */
+.legend-item .key-art {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 3px;
+  width: 44px;
+  min-height: 18px;
+}
+.legend-item.has-art {
+  align-items: center;
+}
+.key-badge {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+}
+.key-badge svg {
+  grid-area: 1 / 1;
+  filter: drop-shadow(0 0 4px color-mix(in srgb, var(--amber) 45%, transparent));
+}
+.key-badge b {
+  /* positioned, so it paints above the glyph's filtered (stacking-context) svg */
+  position: relative;
+  grid-area: 1 / 1;
+  font-size: var(--text-xs);
+  font-weight: 800;
+  line-height: 1;
+  color: var(--amber);
+}
+/* The running beam's dashes flow from the source to the detector, as the globe's do. */
+.key-beam-flow {
+  animation: key-beam-flow 0.9s linear infinite;
+}
+@keyframes key-beam-flow {
+  to { stroke-dashoffset: -7.1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .key-beam-flow {
+    animation: none;
+  }
+}
 .key-status .timeline-legend {
   flex-direction: column;
   flex-wrap: nowrap;
@@ -772,13 +835,13 @@ body.is-map-route .atlas-header > .mode-buttons {
 }
 .legend-item .dot.solid {
   border-radius: 50%;
-  background: var(--amber);
-  border-color: var(--amber);
+  background: var(--institution);
+  border-color: var(--institution);
 }
 .legend-item .dot.hollow {
   border-radius: 50%;
   background: transparent;
-  border-color: var(--amber);
+  border-color: var(--institution);
 }
 .legend-item .dot.approximate {
   border-radius: 50%;
@@ -1281,6 +1344,42 @@ body.is-map-route .atlas-header > .mode-buttons {
   color: var(--muted);
   font-size: var(--text-sm);
   margin: 0 0 var(--space-3);
+}
+/* A topic's plain question: the first thing under its name, in the voice of a person
+   asking, not of a data sheet. */
+.plain-question {
+  margin: 0 0 var(--space-3);
+  font-size: var(--text-lg);
+  line-height: var(--leading-tight);
+  color: var(--white);
+}
+.panel-hint {
+  margin: 0 0 var(--space-3);
+  font-size: var(--text-sm);
+  color: var(--muted);
+}
+/* A facility's local maps, in the head of its panel: a link, and under it what the
+   map holds. */
+.local-map-header {
+  margin: 0 0 var(--space-3);
+}
+.local-map-entry {
+  margin: 0 0 var(--space-2);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.local-map-entry a.local-map-chip {
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+/* The results announced with this one (the Higgs papers of ATLAS and CMS). */
+.result-companions {
+  margin: 0 0 var(--space-3);
+  font-size: var(--text-sm);
+}
+.result-companions a {
+  text-decoration: underline;
 }
 /* Chips: the one small-pill shape (status, tags, role filters, active filters).
    A chip that is a button gets .is-active when it is on. */
