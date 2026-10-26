@@ -4,7 +4,62 @@
     "NuMI",
     "Neutrinos at the Main Injector"
   ],
-  "baselines": [],
+  "baselines": [
+    {
+      "confidence": "verified",
+      "distance": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "length",
+        "display": "735.3 km",
+        "locator": "MINOS detector paper, §1 Introduction (overview of the experiment)",
+        "note": "Target-to-far-detector distance. The Fermilab end is site:fermilab-main-campus, a campus-grade point (precision 3 km), not the target; the Soudan end is the surveyed MINOS far-detector midpoint (site:soudan-minos-far-detector). The great-circle distance between the two recorded points is 735.4 km (0.01 % from the stated value). The same paper gives the surveyed figure as \"735.3380 km from the upstream end of the first horn of the neutrino beamline\" (§6.5, Far detector location); the NuMI beam paper (NIM A 806) rounds to 734 km: \"encountering the MINOS Far Detector (FD) 734 km away in the Soudan Mine in Minnesota\".",
+        "quote": "The far detector, shown in Fig. 1, is located in Soudan, MN (47.8◦ N latitude, and 92.2◦ W longitude), 735.3 km from the NuMI beam production target at Fermilab",
+        "sources": [
+          "src:minos-detector-paper-2008",
+          "src:fermilab-numi-beam-paper-2016"
+        ],
+        "unit": "km",
+        "value": 735.3,
+        "verified_at": "2026-10-26"
+      },
+      "from_site_id": "site:fermilab-main-campus",
+      "note": "",
+      "sources": [
+        "src:minos-detector-paper-2008",
+        "src:fermilab-numi-beam-paper-2016"
+      ],
+      "to_site_id": "site:soudan-minos-far-detector",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "distance": {
+        "approx": true,
+        "confidence": "verified",
+        "dimension": "length",
+        "display": "~810 km",
+        "locator": "NOvA monopole-search paper (arXiv:2512.20294), §II NOvA Far Detector; PRD 106, 032004, §II",
+        "note": "Target-to-far-detector distance as the NOvA collaboration quotes it; the 2022 oscillation paper says \"The 14 kt Far Detector (FD) is located at Ash River, Minnesota, ~810 km from the source.\" The Fermilab end is site:fermilab-main-campus, a campus-grade point (precision 3 km); the Ash River end is the NOvA far-detector point, which the collaboration quotes only to 0.1 degree (precision 8 km). The great-circle distance between the two recorded points is 811.7 km (0.2 % from the stated value).",
+        "quote": "the 14 kt Far Detector (FD) is located on the surface, 810 km from the target, near Ash River, Minnesota",
+        "sources": [
+          "src:nova-arxiv-2025-monopole-search",
+          "src:nova-prd-2022-oscillation-parameters"
+        ],
+        "unit": "km",
+        "value": 810,
+        "verified_at": "2026-10-26"
+      },
+      "from_site_id": "site:fermilab-main-campus",
+      "note": "",
+      "sources": [
+        "src:nova-arxiv-2025-monopole-search",
+        "src:nova-prd-2022-oscillation-parameters"
+      ],
+      "to_site_id": "site:ash-river-nova-far-detector",
+      "verified_at": "2026-10-26"
+    }
+  ],
   "coverage": {
     "researched": "partial",
     "tier": "B"
@@ -21,7 +76,10 @@
     "verified_at": "2026-09-16"
   },
   "facility_id": "facility:fermilab",
-  "far_detector_site_ids": [],
+  "far_detector_site_ids": [
+    "site:soudan-minos-far-detector",
+    "site:ash-river-nova-far-detector"
+  ],
   "id": "beamline:numi",
   "intervals": [
     {
@@ -121,7 +179,9 @@
   "near_detector_site_ids": [
     "site:fermilab-main-campus"
   ],
-  "notes": [],
+  "notes": [
+    "Near-detector baselines are not recorded: the MINOS, MINERvA and NOvA near detectors all sit on site:fermilab-main-campus, the same campus point as the beamline, so no site-to-site distance exists. Sourced figures for when separate near-detector sites exist: the MINOS near detector is \"1040 m from the primary target\" (MINOS detector paper, §6.1); the NOvA near detector is \"located 1 km downstream of the neutrino production target\" (arXiv:2512.20294)."
+  ],
   "primary_beam": {
     "confidence": "verified",
     "locator": "§1, Introduction",
@@ -165,7 +225,10 @@
   },
   "sources": [
     "src:fermilab-numi-beam-paper-2016",
-    "src:fermilab-nova-offaxis-dpf2017"
+    "src:fermilab-nova-offaxis-dpf2017",
+    "src:minos-detector-paper-2008",
+    "src:nova-arxiv-2025-monopole-search",
+    "src:nova-prd-2022-oscillation-parameters"
   ],
   "specs": {
     "beam_power": {
