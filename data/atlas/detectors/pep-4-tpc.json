@@ -1,0 +1,91 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
+  },
+  "experiment_ids": [
+    "experiment:pep-4-tpc"
+  ],
+  "id": "detector:pep-4-tpc",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "1990",
+      "label": "PEP data taking",
+      "locator": "N. J. Hadley, LBL-16116 (1983), section 3.2 (start); AIP catalogue, SLAC-PEP-004-009 (end)",
+      "note": "Start (data taking April 1982) from the Hadley thesis; end (completed running 1990) from the AIP catalogue (secondary), so the end year is approximate. PEP-4 and PEP-9 (Two-Gamma) were merged around 1985.",
+      "quote": "installed in the PEP beam line in January 1982. Mter further checkout, data taking was started in April 1982.",
+      "sources": [
+        "src:colliders2-hadley-lbl-thesis-pep4-tpc-1983",
+        "src:colliders2-aip-icos-pep4-tpc"
+      ],
+      "start": "1982-04",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "completed running",
+      "locator": "AIP catalogue, SLAC-PEP-004-009",
+      "note": "Year precision.",
+      "quote": "PEP-004 and PEP-009 were approved in 1977 and merged around 1985 and completed running in 1990.",
+      "sources": [
+        "src:colliders2-aip-icos-pep4-tpc"
+      ],
+      "start": "1990",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "PEP-4 TPC detector",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": "1990",
+      "locator": "Hadley thesis, section 3.2",
+      "note": "Campus-grade placement: no fetched source locates this experimental hall or interaction region; the marker is the SLAC campus point.",
+      "quote": "installed in the PEP beam line in January 1982. Mter further checkout, data taking was started in April 1982.",
+      "role": "main",
+      "site_id": "site:slac-menlo-park-campus",
+      "sources": [
+        "src:colliders2-hadley-lbl-thesis-pep4-tpc-1983"
+      ],
+      "start": "1982-01",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:colliders2-cerncourier-tpc-turns-25"
+  ],
+  "specs": {},
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "The PEP-4 time projection chamber: a gas-filled cylinder two metres long that records the ionisation trails of charged particles as three-dimensional images and identifies them by how much energy they lose.",
+    "technical": "PEP-4 TPC: 2 m long cylindrical drift volume (40 cm inner, 2 m outer diameter), 80% argon / 20% methane gas at 8.5 atm, central cathode membrane at -75 kV, six end-cap sectors with multiwire proportional chambers, solenoidal field."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "CERN Courier, \"The time projection chamber turns 25\"",
+    "note": "",
+    "quote": "This 2 m long cylindrical TPC had an inner diameter of 40 cm and an outer diameter of 2 m",
+    "sources": [
+      "src:colliders2-cerncourier-tpc-turns-25"
+    ],
+    "value": "Time projection chamber: 2 m long cylinder in 80% argon / 20% methane gas at 8.5 atm with a central cathode at -75 kV, six end-cap sectors with multiwire proportional chambers and a solenoidal field",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "gaseous_tpc",
+  "technology_classes": [
+    "gaseous_tpc"
+  ],
+  "type": "detector"
+}

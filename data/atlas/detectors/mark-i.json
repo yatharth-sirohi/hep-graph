@@ -1,0 +1,107 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
+  },
+  "experiment_ids": [
+    "experiment:mark-i"
+  ],
+  "id": "detector:mark-i",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "1977",
+      "label": "SPEAR data taking",
+      "locator": "Richter Nobel lecture, section 2.5; end from the SLAC AHRO Mark page (1977: dismantled and removed from SPEAR)",
+      "note": "Richter (December 1976) says the Mark I would be replaced at SPEAR by the Mark II in the fall of 1977; the SLAC archives page gives 1977 for its dismantling and removal.",
+      "quote": "The Mark I magnetic detector was ready to begin taking data in February 1973.",
+      "sources": [
+        "src:colliders2-richter-nobel-lecture-1976",
+        "src:colliders2-slac-ahro-mark-page"
+      ],
+      "start": "1973-02",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "dismantled and removed from SPEAR",
+      "locator": "SLAC AHRO \"MARK\" page, detectors table (Mark I)",
+      "note": "Year precision.",
+      "quote": "Dismantled and removed from SPEAR",
+      "sources": [
+        "src:colliders2-slac-ahro-mark-page"
+      ],
+      "start": "1977",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "Mark I detector",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": "1977",
+      "locator": "SLAC AHRO \"MARK\" page, detectors table",
+      "note": "Campus-grade placement: no fetched source locates this experimental hall or interaction region; the marker is the SLAC campus point.",
+      "quote": "Mark I 1973 Installed at SPEAR",
+      "role": "main",
+      "site_id": "site:slac-menlo-park-campus",
+      "sources": [
+        "src:colliders2-slac-ahro-mark-page"
+      ],
+      "start": "1973",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:colliders2-richter-nobel-lecture-1976"
+  ],
+  "specs": {
+    "solenoid_field": {
+      "approx": true,
+      "confidence": "verified",
+      "dimension": "magnetic_field",
+      "display": "about 0.4 T (about 4 kilogauss)",
+      "locator": "Richter Nobel lecture, section 2.5",
+      "note": "",
+      "quote": "The Mark I magnet produces a solenoidal field, coaxial with the beams, of about 4 kilogauss throughout a field volume of about 20 cubic meters.",
+      "sources": [
+        "src:colliders2-richter-nobel-lecture-1976"
+      ],
+      "unit": "T",
+      "value": 0.4,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "The Mark I (SLAC-LBL) detector at SPEAR: a solenoid magnet around the collision point with spark chambers, scintillators and shower counters that tracked and identified the particles from electron-positron collisions.",
+    "technical": "Mark I: solenoidal field about 4 kilogauss over about 20 cubic metres; 16 concentric cylinders of magnetostrictive wire spark chambers; 48 scintillators (trigger and time of flight); aluminium coil; 24 lead-scintillator shower counters; iron flux return; muon spark chambers."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "Richter Nobel lecture, section 2.5",
+    "note": "",
+    "quote": "16 concentric cylinders of magnetostrictive wire spark chambers that provide tracking information for momentum measurements",
+    "sources": [
+      "src:colliders2-richter-nobel-lecture-1976"
+    ],
+    "value": "Solenoidal magnetic spectrometer: 16 cylindrical magnetostrictive-wire spark chambers, scintillator time-of-flight counters, lead-scintillator shower counters and an iron flux return with muon spark chambers",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "general_purpose_collider",
+  "technology_classes": [
+    "general_purpose_collider"
+  ],
+  "type": "detector"
+}

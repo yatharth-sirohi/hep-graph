@@ -1,0 +1,116 @@
+{
+  "aliases": [
+    "PEP",
+    "PEP storage ring"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "facility_id": "facility:slac",
+  "feeds_accelerator_ids": [],
+  "id": "accelerator:pep",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "1980",
+      "label": "construction",
+      "locator": "Hallonsten, Physics in Perspective",
+      "note": "Start is the month stated by Hallonsten; end is the year PEP operations began (SLAC Milestones).",
+      "quote": "In June 1977 SLAC had began constructing its next big HEP machine, the PEP (Positron-Electron Project)",
+      "sources": [
+        "src:colliders2-hallonsten-parasites-slac-sr"
+      ],
+      "start": "1977-06",
+      "status": "construction",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": "1990",
+      "label": "e+e- collider operation",
+      "locator": "SLAC Milestones; CERN Courier \"SLAC at 50\": \"ran during the years 1980–1990\"",
+      "note": "Year precision; the SLAC page gives the start, CERN Courier gives the 1980-1990 span. The end of collider running is not dated more precisely in the sources fetched.",
+      "quote": "1980: PEP operations begin",
+      "sources": [
+        "src:colliders2-slac-milestones",
+        "src:colliders2-cerncourier-slac-at-50"
+      ],
+      "start": "1980",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "collider operation ended",
+      "locator": "CERN Courier, \"SLAC at 50\"",
+      "note": "The PEP ring was later reused for the high-energy ring of PEP-II (accelerator:pep-ii).",
+      "quote": "ran during the years 1980–1990",
+      "sources": [
+        "src:colliders2-cerncourier-slac-at-50"
+      ],
+      "start": "1990",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "is_collider": true,
+  "kind": "collider",
+  "links": {
+    "website": null
+  },
+  "name": "Positron-Electron Project",
+  "notes": [
+    "The ring and its interaction regions are on the SLAC campus; the PEP site marker is the SLAC campus point. The existing PEP-II record places PEP-II at the IR-2 hall (site:slac-pep-ii-ir2-babar)."
+  ],
+  "particles": [
+    "electron",
+    "positron"
+  ],
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:slac-menlo-park-campus",
+  "sources": [
+    "src:colliders2-hallonsten-parasites-slac-sr",
+    "src:colliders2-slac-milestones",
+    "src:colliders2-cerncourier-slac-at-50"
+  ],
+  "specs": {
+    "circumference": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "2.2 km",
+      "locator": "Hallonsten, Physics in Perspective",
+      "note": "",
+      "quote": "a larger storage ring for particle collisions (1.4 miles or 2.2 km in circumference, compared to SPEAR’s 234 m)",
+      "sources": [
+        "src:colliders2-hallonsten-parasites-slac-sr"
+      ],
+      "unit": "km",
+      "value": 2.2,
+      "verified_at": "2026-10-26"
+    },
+    "cms_energy": {
+      "approx": false,
+      "confidence": "approximate",
+      "dimension": "energy",
+      "display": "29 GeV",
+      "locator": "CERN Courier, \"The time projection chamber turns 25\"",
+      "note": "Centre-of-mass energy at which the PEP experiments (MAC, PEP-4 TPC) took the data in their publications; PEP could reach higher energies.",
+      "quote": "which studied 29 GeV e+e– collisions at the PEP storage ring at SLAC",
+      "sources": [
+        "src:colliders2-cerncourier-tpc-turns-25"
+      ],
+      "unit": "GeV",
+      "value": 29,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "completed",
+  "summary": {
+    "plain": "SLAC's second electron-positron collider, a ring 2.2 kilometres around that ran from 1980 to 1990 at about 29 GeV. Detectors including MAC, the PEP-4 time projection chamber and Mark II studied quark jets, the tau lepton and electroweak effects. Its ring was reused for PEP-II.",
+    "technical": "PEP e⁺e⁻ storage-ring collider at SLAC, 2.2 km circumference, injected by the SLAC linac, centre-of-mass energy about 29 GeV for the experiments recorded here; construction began June 1977, operation 1980-1990; experiments included MAC, PEP-4 (TPC) and Mark II; the ring was reused for the high-energy ring of PEP-II."
+  },
+  "type": "accelerator"
+}

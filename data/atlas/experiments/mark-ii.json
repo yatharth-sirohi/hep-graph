@@ -1,0 +1,172 @@
+{
+  "accelerator_ids": [
+    "accelerator:spear",
+    "accelerator:pep",
+    "accelerator:slc"
+  ],
+  "aliases": [
+    "Mark II detector"
+  ],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:mark-ii"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
+  },
+  "energy_regime": {
+    "confidence": "approximate",
+    "locator": "Feldman, SLAC-PUB-5152, \"The MARK II detector\"",
+    "note": "SPEAR and PEP energies from the quoted sentence and its follow-up (\"the 29 GeV storage ring PEP\"); the SLC Z-pole energy is not stated in the quoted line.",
+    "quote": "The MARK II detector began life as the second general purpose detector at the 7 GeV storage ring SPEAR.",
+    "sources": [
+      "src:colliders2-feldman-slac-pub-5152"
+    ],
+    "value": "Electron-positron collisions at the SPEAR (7 GeV total), PEP (29 GeV) and SLC (Z pole, 91 GeV) energies",
+    "verified_at": "2026-10-26"
+  },
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:slac",
+      "locator": "SLAC AHRO \"MARK\" page, detectors table",
+      "note": "",
+      "quote": "Mark II 1977 Installed at SPEAR",
+      "role": "host",
+      "sources": [
+        "src:colliders2-slac-ahro-mark-page"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:mark-ii",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "1990",
+      "label": "SPEAR, PEP and SLC operation",
+      "locator": "SLAC AHRO \"MARK\" page, detectors table; end from the 1990 row (moved off SLC beamline)",
+      "note": "Umbrella interval; the three phases below give the sourced stages. First Z decay at the SLC on 11 April 1989 (Feldman, SLAC-PUB-5152).",
+      "quote": "Mark II 1977 Installed at SPEAR",
+      "sources": [
+        "src:colliders2-slac-ahro-mark-page"
+      ],
+      "start": "1977",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "1979",
+      "kind": "phase",
+      "label": "SPEAR phase",
+      "locator": "SLAC AHRO \"MARK\" page, detectors table",
+      "note": "Installed at SPEAR in 1977, replacing the Mark I; moved to PEP in 1979.",
+      "quote": "1979 Moved to PEP at beginning of PEP program",
+      "sources": [
+        "src:colliders2-slac-ahro-mark-page"
+      ],
+      "start": "1977",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": "1985",
+      "kind": "phase",
+      "label": "PEP phase",
+      "locator": "SLAC AHRO \"MARK\" page, detectors table (1979 move to PEP; 1985 return to PEP for testing)",
+      "note": "The page records the move to PEP in 1979, the 1982 selection as first SLC detector and a 1985 upgrade and return to PEP for testing; the date it left PEP for the upgrade is not stated, so the end year is approximate.",
+      "quote": "1979 Moved to PEP at beginning of PEP program",
+      "sources": [
+        "src:colliders2-slac-ahro-mark-page"
+      ],
+      "start": "1979",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "1990",
+      "kind": "phase",
+      "label": "SLC phase",
+      "locator": "SLAC AHRO \"MARK\" page, detectors table",
+      "note": "Installed in the Collider Hall in 1986, rolled onto the SLC beamline in 1987; the first Z decay was observed on 11 April 1989 (Feldman). Moved off the beamline in 1990 to make way for SLD.",
+      "quote": "1987 Rolled onto SLC beamline",
+      "sources": [
+        "src:colliders2-slac-ahro-mark-page"
+      ],
+      "start": "1987",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "moved off the SLC beamline",
+      "locator": "SLAC AHRO \"MARK\" page, detectors table",
+      "note": "Year precision.",
+      "quote": "1990 Moved off SLC beamline to east end of CEH",
+      "sources": [
+        "src:colliders2-slac-ahro-mark-page"
+      ],
+      "start": "1990",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [],
+  "kind": "collider",
+  "lineage": [
+    {
+      "confidence": "verified",
+      "experiment_id": "experiment:mark-i",
+      "locator": "SLAC AHRO \"MARK\" page; Richter Nobel lecture: replaced by \"a generally similar device, the Mark II\"",
+      "note": "The Mark II replaced the Mark I at SPEAR in 1977.",
+      "quote": "Mark II 1977 Installed at SPEAR",
+      "relation": "predecessor",
+      "sources": [
+        "src:colliders2-slac-ahro-mark-page"
+      ],
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "Mark II",
+  "notes": [
+    "No Mark II website exists; no URL is recorded.",
+    "The brief lists \"Mark II\" under SPEAR and \"Mark II at PEP\" under PEP; the sources treat one detector with three accelerator stops, so one record carries all three phases.",
+    "Dates of the PEP phase are approximate: see the interval note."
+  ],
+  "physics_goals": [],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:colliders2-slac-ahro-mark-page",
+    "src:colliders2-feldman-slac-pub-5152",
+    "src:colliders2-richter-nobel-lecture-1976"
+  ],
+  "status": "completed",
+  "summary": {
+    "plain": "The second general-purpose detector at SLAC. It started at the SPEAR ring in 1977, moved to the larger PEP ring in 1979, and in 1987 became the first detector on the Stanford Linear Collider, where it saw its first Z boson decay in April 1989.",
+    "technical": "Mark II: SLAC-LBL solenoidal general-purpose detector, successor of the Mark I; SPEAR (1977-79, 7 GeV storage ring), PEP (from 1979, 29 GeV), upgraded and tested at PEP in 1985, installed in the Collider Hall in 1986, on the SLC beamline from 1987 (first Z decay 11 April 1989; about 500 Z decays and 19 nb⁻¹ by December 1989); about 130 physicists from nine institutions in 1989; moved off the beamline in 1990."
+  },
+  "topic_ids": [
+    "topic:collider-physics",
+    "topic:electroweak-physics",
+    "topic:charm-physics",
+    "topic:qcd"
+  ],
+  "type": "experiment",
+  "unique_capabilities": []
+}
