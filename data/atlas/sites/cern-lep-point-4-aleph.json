@@ -10,7 +10,7 @@
     "kind": "campus",
     "lat": 46.3041925,
     "lon": 6.0362827,
-    "note": "Coordinate kind is 'campus' rather than 'detector'/'underground_lab' because the only coordinate source available in this session is an OpenStreetMap/Nominatim geocoder lookup, and A17 restricts geocoder-backed coordinates to campus/headquarters kind (the validator's GEOCODER_COORDINATE_KINDS). This point should be read as 'the general CERN-site area this marker names', not a surveyed detector-cavern location. Because of this, detector:aleph does not carry a structured placements[] row against this site (it would require kind 'detector'/'underground_lab', which in turn requires a non-geocoder source we do not have); the experiment-to-place relationship is instead recorded only as prose in this file and via collaboration.host_site_id, per A22/A17 rather than by fabricating a stronger source.",
+    "note": "The only coordinate source found (checked 2026-09-17) is an OpenStreetMap/Nominatim geocoder lookup, which gives a campus-grade point. Read it as the general CERN-site area this marker names, not a surveyed detector-cavern position; it is shown as approximate. A survey or an official CERN coordinate for the cavern would give a better point. For this reason the ALEPH detector has no placement of its own at this site: the link is stated in the text and through the collaboration's host site.",
     "precision_m": 300,
     "quote": "lat 46.3041925, lon 6.0362827, display_name 'CERN - Point 4, Echenevex, Gex, Ain, Auvergne-Rhone-Alpes, France', osm_type way, osm_id 26966721",
     "sources": [
@@ -35,8 +35,7 @@
   "links": {},
   "name": "LEP Point 4 (ALEPH)",
   "notes": [
-    "Point number is directly sourced ('Located at point 4 of the LEP ring', CERN Courier ALEPH page); coordinates are an OpenStreetMap/Nominatim centroid for the surface marker 'CERN - Point 4', by the same method already used elsewhere in this atlas for site:cern-point-1-atlas. REVIEW REQUIRED: no official CERN or geodetic publication giving surveyed coordinates for this cavern was fetched in this session.",
-    "Coordinate kind is 'campus' rather than 'detector'/'underground_lab' because the only coordinate source available in this session is an OpenStreetMap/Nominatim geocoder lookup, and A17 restricts geocoder-backed coordinates to campus/headquarters kind (the validator's GEOCODER_COORDINATE_KINDS). This point should be read as 'the general CERN-site area this marker names', not a surveyed detector-cavern location. Because of this, detector:aleph does not carry a structured placements[] row against this site (it would require kind 'detector'/'underground_lab', which in turn requires a non-geocoder source we do not have); the experiment-to-place relationship is instead recorded only as prose in this file and via collaboration.host_site_id, per A22/A17 rather than by fabricating a stronger source."
+    "The point number is directly sourced ('Located at point 4 of the LEP ring', CERN Courier ALEPH page). The coordinates are an OpenStreetMap/Nominatim centroid for the surface marker 'CERN - Point 4', by the same method used for the ATLAS Point 1 record. No official CERN or geodetic publication consulted (checked 2026-09-17) gives surveyed coordinates for this cavern."
   ],
   "place": {
     "city": "Echenevex",

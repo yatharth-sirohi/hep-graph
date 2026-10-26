@@ -12,7 +12,7 @@
     "kind": "campus",
     "lat": 46.2417561,
     "lon": 6.0971635,
-    "note": "REVIEW REQUIRED, after real effort: no CERN geodetic-survey or metrology publication giving WGS84 coordinates for the underground LHCb cavern was found (JINST detector paper blocked by bot-detection/size limit; LHCb Upgrade Framework TDR only checked for bibliographic metadata; home.cern and lhcb-outreach.web.cern.ch state only the depth and nearby village, not coordinates). The numeric lat/lon value is inherited from an OpenStreetMap/Nominatim centroid for \"CERN Point 8\" (kept as src:lep-point-8-osm-nominatim in this record's top-level sources for provenance, matching the pattern used at site:cern-point-1-atlas); that geocoder source is not cited on this coordinate field because A17 forbids a geocoder backing a detector-kind point. Per v0.2 A23, kind is 'campus' (not 'detector') since no rank<=7 source gives a surveyed hall position; confidence is 'uncertain' and this note documents the gap, which the validator accepts as a warning-level approximate placement (coordinate-kind-approximate) rather than an error. VERIFIER FIX (2026-09-17): removed a self-contradictory earlier sentence that asserted, in this same note, both that 'kind is kept as detector' and that 'kind is kept as campus'; the field's actual value has always been 'campus' and only that is now stated.",
+    "note": "No CERN geodetic-survey or metrology publication giving WGS84 coordinates for the underground LHCb cavern was found (checked 2026-09-17: the JINST detector paper could not be read because of bot detection and size limits; the LHCb Upgrade Framework TDR was checked only for bibliographic metadata; home.cern and lhcb-outreach.web.cern.ch state only the depth and the nearby village, not coordinates). The numeric lat/lon is an OpenStreetMap/Nominatim centroid for 'CERN Point 8', listed with the record's sources for provenance (the same method as for ATLAS Point 1) but not cited on this coordinate. It is a campus-grade point with large uncertainty, not a surveyed hall position.",
     "precision_m": 300,
     "quote": "lat 46.2417561, lon 6.0971635, display_name 'CERN Point 8, Ferney-Voltaire, Gex, Ain, Auvergne-Rhone-Alpes, France metropolitaine, 01210, France', osm_type node, osm_id 4776607775",
     "sources": [
@@ -61,7 +61,7 @@
   "name": "LHC Point 8 (LHCb)",
   "notes": [
     "This is a NEW record, distinct from site:cern-lep-point-8-delphi (owned by historic-cern), which documents the same physical point during the LEP/DELPHI era. The two coexist and are not duplicates: they describe the same cavern at different eras with independently sourced facts.",
-    "REVIEW REQUIRED: coordinate is a geocoder value (kind: campus, confidence: approximate); no rank<=7 detector-kind coordinate was found after real effort in this session. See coordinates.note."
+    "The coordinate is a geocoder value, shown as a campus-grade point with large uncertainty; no primary or official source consulted (checked 2026-09-17) gives a detector-grade coordinate. See the coordinate note."
   ],
   "place": {
     "city": "Ferney-Voltaire",

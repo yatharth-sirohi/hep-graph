@@ -12,7 +12,7 @@
     "kind": "campus",
     "lat": 46.2514448,
     "lon": 6.0202234,
-    "note": "REVIEW REQUIRED, after real effort: no CERN geodetic-survey, metrology paper or official ALICE/CERN page giving WGS84 coordinates for the underground ALICE (UX25) cavern was found (checked the ALICE detector paper, alice.cern, home.cern, the ALICE Collaboration site, and the ITS2/TPC upgrade TDR abstracts). The numeric lat/lon value is inherited from an OpenStreetMap/Nominatim centroid for 'CERN - Point 2 (Alice)' (kept as src:lep-point-2-osm-nominatim in this record's top-level sources for provenance, matching the pattern used at site:cern-point-1-atlas and site:cern-point-8-lhcb); that geocoder source is not cited on this coordinate field because A17 forbids a geocoder backing a detector-kind point. Per v0.2 A23, kind is 'campus' (not 'detector') since no rank<=7 source gives a surveyed hall position; confidence is 'uncertain' and this note documents the gap, which the validator accepts as a warning-level approximate placement (coordinate-kind-approximate) rather than an error. VERIFIER FIX (2026-09-17): removed a self-contradictory earlier sentence that asserted, in this same note, both that 'kind is kept as detector' and that 'kind is kept as campus'; the field's actual value has always been 'campus' and only that is now stated.",
+    "note": "No CERN geodetic-survey or metrology publication, and no official ALICE or CERN page, giving WGS84 coordinates for the underground ALICE (UX25) cavern was found (checked 2026-09-17: the ALICE detector paper, alice.cern, home.cern, the ALICE Collaboration site and the ITS2/TPC upgrade TDR abstracts). The numeric lat/lon is an OpenStreetMap/Nominatim centroid for 'CERN - Point 2 (Alice)', listed with the record's sources for provenance (the same method as for ATLAS Point 1 and LHCb Point 8) but not cited on this coordinate. It is a campus-grade point with large uncertainty, not a surveyed hall position.",
     "precision_m": 300,
     "quote": "lat 46.2514448, lon 6.0202234, display_name 'CERN - Point 2 (Alice), Sergy, Gex, Ain, Auvergne-Rhone-Alpes, France', osm_type way, osm_id 253791392",
     "sources": [
@@ -77,8 +77,8 @@
   },
   "name": "LHC Point 2 (ALICE)",
   "notes": [
-    "REVIEW REQUIRED: coordinate kind is 'campus' because no rank<=7 source gives a surveyed hall position; the numeric value is a geocoder-derived estimate, not a survey. See coordinates.note for the full account of sources checked.",
-    "This is a separate record from site:cern-lep-point-2-l3 (owned by historic-cern), which documents the same physical LHC point during the earlier LEP/L3 era. The two coexist deliberately per the Wave 3 brief: same point, different eras, cross-referenced in prose rather than merged.",
+    "The coordinate is a geocoder-derived estimate, not a survey, so it is shown as a campus-grade point with large uncertainty. See the coordinate note for the sources checked.",
+    "This is a separate record from LEP Point 2 (L3), which documents the same physical LHC point during the earlier LEP/L3 era. The two coexist deliberately: same point, different eras, cross-referenced in prose rather than merged.",
     "detector:alice's placements[] cites this site with role 'main' despite the campus-kind coordinate, following the same pattern used at site:cern-point-1-atlas (an uncertain/approximate coordinate that is still the best available point for the marker)."
   ],
   "place": {

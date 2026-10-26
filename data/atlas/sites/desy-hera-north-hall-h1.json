@@ -9,7 +9,7 @@
     "lat": 53.5901057,
     "locator": "OSM way 131496014 \"HERA Halle Nord\" building centroid, 37.7 m from the north end of the OSM HERA tunnel ring",
     "lon": 9.8844408,
-    "note": "Correction: replaces a ROR campus point 8.4 km away with the HERA North Hall building footprint centroid. `kind: campus` under A23 because the position rests on an OpenStreetMap tracing (rank 11), which A17 does not admit as a detector-grade point on its own; the H1 detector stood inside this hall. Previous record: campus point 53.55073, 9.99302 at 800 m precision, sources ['src:ror-01js2sh04', 'src:desy-wikipedia']; moved 12821 m (2026-09-21).",
+    "note": "Centroid of the HERA North Hall building footprint as traced in OpenStreetMap; the H1 detector stood inside this hall. It is a campus-grade point, shown as approximate, because an OpenStreetMap tracing is not a surveyed detector position. It replaces a ROR campus point 8.4 km away.",
     "precision_m": 50,
     "sources": [
       "src:geo-desy-osm-hera-halle-nord"
@@ -30,8 +30,8 @@
   },
   "name": "HERA North Hall (H1)",
   "notes": [
-    "No official DESY page or the H1 detector paper was fetched with a coordinate specific to the North Hall in this session; the general DESY campus point is reused here with a note, per A17.",
-    "src:h1-wikipedia confirms: 'The HERA North Hall, where the H1 detector was located, is now used for the new ALPS experiment' — corroborating the North Hall/H1 pairing used in the ID registry."
+    "No official DESY page or H1 detector paper consulted gives a coordinate for the North Hall; the point recorded is an OpenStreetMap tracing of the hall building (see the coordinate note).",
+    "Wikipedia's H1 article confirms the North Hall/H1 pairing: 'The HERA North Hall, where the H1 detector was located, is now used for the new ALPS experiment'."
   ],
   "place": {
     "city": "Hamburg",
@@ -49,7 +49,7 @@
   ],
   "summary": {
     "plain": "The experimental hall on the HERA ring at DESY where the H1 detector recorded electron-proton collisions.",
-    "technical": "HERA North Hall, DESY campus, housing the H1 detector (1992-2007); now used for the ALPS experiment. No coordinate distinct from the general DESY campus point was found in this session (see note)."
+    "technical": "HERA North Hall, DESY campus, housing the H1 detector (1992-2007); now used for the ALPS experiment. The recorded point is the centroid of the hall building as traced in OpenStreetMap (about 50 m precision)."
   },
   "type": "site"
 }

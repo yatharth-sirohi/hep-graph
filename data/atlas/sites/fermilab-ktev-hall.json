@@ -7,7 +7,7 @@
     "lat": 41.8422582,
     "locator": "site:fermilab-main-campus coordinates (reused); ultimately the LBNF/DUNE official project site's Batavia, Illinois location statement",
     "lon": -88.245782,
-    "note": "No source fetched this session gives a surveyed lat/lon for the specific KTeV hall on the Fermilab fixed-target beamlines. Following the same honest pattern already used for site:fermilab-main-campus (owned by another workstream) and site:cern-ecn3-north-area (this workstream), the campus-level OSM/Nominatim centroid for the whole Fermilab site is recorded here with a large precision_m and `confidence: uncertain`. Treat this as campus precision, not hall precision.",
+    "note": "No source consulted (checked 2026-09-17) gives a surveyed lat/lon for the KTeV hall on the Fermilab fixed-target beamlines. The point recorded is the one used for the Fermilab main campus, with a precision of 3 km and uncertain confidence. Treat it as campus precision, not hall precision.",
     "precision_m": 3000,
     "sources": [
       "src:fermilab-lbnf-dune-site"
@@ -31,9 +31,7 @@
   },
   "name": "KTeV experimental hall, Fermilab",
   "notes": [
-    "facility:fermilab is owned by the fermilab-dune workstream; this record only references it.",
-    "Coordinates reuse the same honestly-approximate Fermilab campus point as site:fermilab-main-campus (a different, existing site record owned by another workstream) rather than duplicating a fresh geocoder lookup; see coordinates.note.",
-    "2026-09-17 fixed-target verification: `coordinates.kind` was `detector`, which is dishonest under A23 (a campus-grade point relabelled `detector` to satisfy the validator, which then passes silently instead of emitting the honest `coordinate-kind-approximate` warning). Corrected to `campus`, matching this record's own note that the point is campus precision, not hall/cavern precision."
+    "The coordinates reuse the Fermilab main-campus point rather than a separate lookup; see the coordinate note."
   ],
   "place": {
     "city": "Batavia",

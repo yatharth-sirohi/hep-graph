@@ -9,7 +9,7 @@
     "lat": 41.8422582,
     "locator": "site:fermilab-main-campus coordinates (reused); ultimately the LBNF/DUNE official project site's Batavia, Illinois location statement",
     "lon": -88.245782,
-    "note": "No source fetched this session gives a surveyed lat/lon for the NM4 building specifically. Following the same honest pattern already used for site:fermilab-main-campus (owned by another workstream) and site:cern-ecn3-north-area (this workstream), the campus-level OSM/Nominatim centroid for the whole Fermilab site is recorded here with a large precision_m and `confidence: uncertain`. Treat this as campus precision, not hall precision.",
+    "note": "No source consulted (checked 2026-09-17) gives a surveyed lat/lon for the NM4 building. The point recorded is the one used for the Fermilab main campus, with a precision of 3 km and uncertain confidence. Treat it as campus precision, not hall precision.",
     "precision_m": 3000,
     "sources": [
       "src:fermilab-lbnf-dune-site"
@@ -33,10 +33,8 @@
   },
   "name": "NM4 hall, Fermilab",
   "notes": [
-    "facility:fermilab is owned by the fermilab-dune workstream; this record only references it.",
     "Coordinates reuse the same honestly-approximate Fermilab campus point as site:fermilab-main-campus rather than duplicating a fresh geocoder lookup; see coordinates.note.",
-    "Building identity ('NM4 Bldg.') sourced to a Wikipedia pointer (src:seaquest-wikipedia-pointer, rank 12); no rank <= 10 source naming the building was fetched this session.",
-    "2026-09-17 fixed-target verification: `coordinates.kind` was `detector`, which is dishonest under A23 (a campus-grade point relabelled `detector` to satisfy the validator, which then passes silently instead of emitting the honest `coordinate-kind-approximate` warning). Corrected to `campus`, matching this record's own note that the point is campus precision, not hall/cavern precision."
+    "The building identity ('NM4 Bldg.') rests on a Wikipedia pointer only; no other source consulted (checked 2026-09-17) names the building."
   ],
   "place": {
     "city": "Batavia",
