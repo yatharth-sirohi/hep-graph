@@ -1648,6 +1648,39 @@ def build_maps_coverage(ctx: _Context) -> dict:
     return {'maps': rows, 'facilities_without_a_map': without}
 
 
+def limits_bundle_path(plot: str) -> str:
+    return f'limits/{plot}.json'
+
+
+def build_limits_bundles(ctx: _Context) -> dict[str, dict]:
+    """`limits/<plot>.json`, one per plot (A29): the plot's axes and every curve and
+    published minimum drawn on it, as the files under data/atlas/limits/ wrote them.
+    The files are already small and already carry their provenance (HEPData record,
+    table, DOI, arXiv id, columns, units); nothing is added or dropped here."""
+    by_plot: dict[str, list[dict]] = {}
+    for slug in sorted(ctx.atlas.limits):
+        payload = ctx.atlas.limits[slug]
+        if payload.get('plot') in schema.LIMIT_PLOTS:
+            by_plot.setdefault(payload['plot'], []).append(payload)
+    bundles: dict[str, dict] = {}
+    for plot, rows in sorted(by_plot.items()):
+        spec = schema.LIMIT_PLOTS[plot]
+        curves = []
+        for payload in sorted(rows, key=lambda row: (row.get('order', 0), row['slug'])):
+            curve = {key: value for key, value in payload.items() if key != 'schema'}
+            curves.append(curve)
+        bundles[limits_bundle_path(plot)] = {
+            'schema': schema.SCHEMA_TAG,
+            'plot': plot,
+            'title': spec['title'],
+            'x': {'label': spec['x_label'], 'unit': spec['x_unit']},
+            'y': {'label': spec['y_label'], 'unit': spec['y_unit']},
+            'curves': curves,
+            'version': '',          # filled in by build(), like a geometry bundle
+        }
+    return bundles
+
+
 def build_manifest(ctx: _Context, files: dict[str, str], sizes: dict[str, int]) -> dict:
     """`manifest.json`: version, counts, timeline bounds and bundle sizes."""
     bundles: dict[str, dict] = {}
@@ -1733,6 +1766,8 @@ def build(data_dir: Path | str | None = None, out_dir: Path | str | None = None,
     geometry_bundles, geometry_errors = build_geometry_bundles(ctx)   # A25
     files.update(geometry_bundles)
     result.errors.extend(geometry_errors)
+    limits_bundles = build_limits_bundles(ctx)                       # A29
+    files.update(limits_bundles)
 
     # `atlas.json` repeats the data version, so the version must be computed
     # from the bundle text with the field blanked, then written back.
@@ -1743,7 +1778,7 @@ def build(data_dir: Path | str | None = None, out_dir: Path | str | None = None,
     # A geometry bundle loads on its own, long after atlas.json, so it repeats
     # the version the rest of the data was built at: a stale cached bundle is
     # then visibly stale rather than silently mixed with fresh records.
-    for path, bundle in geometry_bundles.items():
+    for path, bundle in {**geometry_bundles, **limits_bundles}.items():
         bundle['version'] = version
         texts[path] = _bundle_text(bundle)
 

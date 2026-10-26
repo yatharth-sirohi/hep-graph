@@ -53,6 +53,12 @@
 //     and its numbers in a table.
 
 import { VIEW_NAME, WORKING_TITLE, beamSearchEntries, parseArg } from './beam-rows.js';
+import {
+  VIEW_NAME as RESULTS_VIEW, WORKING_TITLE as RESULTS_TITLE, resultsParent, resultsSearchEntries,
+} from './results-rows.js';
+import {
+  VIEW_NAME as LIMITS_VIEW, WORKING_TITLE as LIMITS_TITLE, limitsParent, limitsSearchEntries,
+} from './limits-rows.js';
 
 export const VIEWS = {
   [VIEW_NAME]: {
@@ -64,6 +70,19 @@ export const VIEWS = {
       return beamline ? { route: { type: 'beamline', slug: parsed.slug }, label: `Back to ${beamline.name}` } : null;
     },
     searchEntries: beamSearchEntries,
+  },
+  // ---- M4: results timeline and the exclusion plot (views/results-*.js, views/limits*.js)
+  [RESULTS_VIEW]: {
+    title: RESULTS_TITLE,
+    load: () => import('./results-story.js'),
+    parent: resultsParent,
+    searchEntries: resultsSearchEntries,
+  },
+  [LIMITS_VIEW]: {
+    title: LIMITS_TITLE,
+    load: () => import('./limits.js'),
+    parent: limitsParent,
+    searchEntries: limitsSearchEntries,
   },
 };
 

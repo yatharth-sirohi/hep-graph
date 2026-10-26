@@ -726,3 +726,746 @@ body.is-view-route .atlas-header > .mode-buttons {
 .beam-section-links a {
   text-decoration: underline;
 }
+
+.view-cta {
+  border-color: var(--teal);
+  background: color-mix(in srgb, var(--teal) 8%, var(--panel-2));
+}
+.view-cta .beam-section-link-title::after {
+  color: var(--teal);
+}
+
+/* ===== M4: Results as a story (js/views/results-story.js) -- begin ===== */
+:root {
+  /* The form of a mark: the shape says it; the colour only repeats it. */
+  --rs-observation: var(--teal);
+  --rs-evidence: var(--amber);
+  --rs-limit: #7db4ff;
+  --rs-neutral: var(--muted);
+}
+.rs-form-observation { --rs-c: var(--rs-observation); }
+.rs-form-evidence { --rs-c: var(--rs-evidence); }
+.rs-form-limit { --rs-c: var(--rs-limit); }
+.rs-form-neutral { --rs-c: var(--rs-neutral); }
+
+.rs-lede {
+  max-width: 74ch;
+  margin: 0 0 var(--space-3);
+  font-size: var(--text-lg);
+  line-height: var(--leading-body);
+}
+.rs-scope {
+  margin: 0 0 var(--space-3);
+  font-size: var(--text-md);
+}
+.rs-key-wrap {
+  margin: 0 0 var(--space-3);
+}
+.rs-key {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.rs-key-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  font-size: var(--text-sm);
+  line-height: var(--leading-body);
+}
+.rs-key-item .rs-shape {
+  flex: none;
+  margin-top: 2px;
+}
+.rs-key-text {
+  display: flex;
+  flex-direction: column;
+}
+.rs-key-meaning {
+  color: var(--muted);
+  font-size: var(--text-xs);
+}
+.rs-key-more > summary {
+  cursor: pointer;
+  min-height: 44px;
+  padding: 10px 0;
+  color: var(--muted);
+  font-size: var(--text-sm);
+}
+.rs-key-note {
+  max-width: 100ch;
+  margin: 0 0 var(--space-2);
+  color: var(--muted);
+  font-size: var(--text-sm);
+  line-height: var(--leading-body);
+}
+.rs-key-note strong {
+  color: var(--white);
+}
+.rs-jump {
+  margin: 0 0 var(--space-3);
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+.rs-jump > summary {
+  cursor: pointer;
+  min-height: 44px;
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--text-md);
+}
+.rs-jump-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0 var(--space-4) var(--space-4);
+  list-style: none;
+}
+.rs-jump-btn {
+  appearance: none;
+  min-height: 44px;
+  padding: 6px var(--space-3);
+  background: var(--panel-2);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-pill);
+  color: var(--white);
+  font: inherit;
+  font-size: var(--text-sm);
+  cursor: pointer;
+}
+.rs-jump-btn:hover {
+  border-color: var(--teal);
+}
+.rs-now-note {
+  min-height: 1.2em;
+  margin: 0 0 var(--space-2);
+  color: var(--muted);
+  font-size: var(--text-sm);
+}
+
+/* ---- the stage: lanes, strips, marks */
+.rs-stage {
+  position: relative;
+  margin: 0 0 var(--space-5);
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+.rs-scroll {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: var(--space-2) 0 var(--space-3);
+  border-radius: var(--radius);
+}
+.rs-scroll:focus {
+  outline: none;
+}
+.rs-canvas {
+  position: relative;
+}
+.rs-group {
+  position: relative;
+  height: 30px;
+  margin-top: var(--space-2);
+  border-top: 1px solid var(--line-strong);
+}
+.rs-group-name {
+  position: sticky;
+  left: 0;
+  z-index: 2;
+  display: inline-block;
+  padding: 6px var(--space-3) 0;
+  background: var(--panel);
+  color: var(--teal);
+  font-size: var(--text-xs);
+  font-weight: 650;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.rs-axis {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  pointer-events: none;
+}
+.rs-axis-tick {
+  position: absolute;
+  top: 8px;
+  transform: translateX(-50%);
+  color: var(--muted);
+  font-size: var(--text-xs);
+  font-variant-numeric: tabular-nums;
+}
+.rs-lane {
+  display: grid;
+  grid-template-columns: var(--rs-head-w, 210px) minmax(0, 1fr);
+  align-items: center;
+  border-top: 1px solid var(--line);
+}
+.rs-lane-head {
+  margin: 0;
+  padding: var(--space-2) var(--space-3);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  line-height: 1.3;
+}
+.rs-lane-link {
+  color: var(--white);
+}
+a.rs-lane-link {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.rs-lane-count {
+  display: block;
+  color: var(--muted);
+  font-size: var(--text-xs);
+  font-weight: 400;
+}
+.rs-track {
+  position: relative;
+  margin-left: 8px;
+}
+.rs-grid {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--line);
+}
+.rs-now {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  background: color-mix(in srgb, var(--amber) 14%, transparent);
+  border-left: 1px dashed var(--amber);
+  border-right: 1px dashed var(--amber);
+}
+.rs-mark {
+  appearance: none;
+  position: absolute;
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  border-radius: 50%;
+  color: var(--rs-c);
+  cursor: pointer;
+}
+.rs-mark:hover {
+  background: color-mix(in srgb, var(--rs-c) 22%, transparent);
+}
+.rs-mark:focus-visible {
+  outline: 2px solid var(--white);
+  outline-offset: 1px;
+}
+.rs-mark.is-selected {
+  background: color-mix(in srgb, var(--rs-c) 28%, transparent);
+  box-shadow: 0 0 0 2px var(--white);
+}
+.rs-mark.is-twin {
+  box-shadow: 0 0 0 2px var(--white);
+  background: color-mix(in srgb, var(--rs-c) 16%, transparent);
+}
+.rs-mark.is-later,
+.rs-mark-label.is-later {
+  opacity: 0.38;
+}
+.rs-shape {
+  display: block;
+  color: var(--rs-c);
+}
+.rs-fill,
+.rs-dot {
+  fill: currentColor;
+}
+.rs-ring {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.3;
+}
+.rs-mark-label {
+  position: absolute;
+  color: var(--muted);
+  font-size: 11.5px;
+  line-height: 18px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+/* ---- the card of a mark */
+.rs-card {
+  position: absolute;
+  z-index: 40;
+  box-sizing: border-box;
+  padding: var(--space-3) var(--space-4) var(--space-4);
+  background: var(--panel-2);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  box-shadow: var(--elev-3);
+}
+.rs-card[hidden] {
+  display: none;
+}
+.rs-card-close {
+  appearance: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 44px;
+  height: 44px;
+  background: transparent;
+  border: 0;
+  color: var(--white);
+  font-size: 26px;
+  line-height: 1;
+  cursor: pointer;
+}
+.rs-card-kicker {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0 36px var(--space-1) 0;
+  color: var(--muted);
+  font-size: var(--text-sm);
+}
+.rs-card-title {
+  margin: 0 0 var(--space-2);
+  font-size: var(--text-md);
+  line-height: 1.3;
+}
+.rs-card-sig,
+.rs-card-meta {
+  margin: 0 0 var(--space-2);
+  font-size: var(--text-sm);
+  line-height: var(--leading-body);
+}
+.rs-card-meta {
+  color: var(--muted);
+}
+.rs-card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+}
+.rs-card-nopaper {
+  color: var(--muted);
+  font-size: var(--text-sm);
+}
+.view-host a.rs-btn {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 6px var(--space-3);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  color: var(--white);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  text-decoration: none;
+}
+.view-host a.rs-btn:hover {
+  border-color: var(--teal);
+}
+.view-host a.rs-btn-primary {
+  background: var(--teal);
+  border-color: var(--teal);
+  color: var(--on-accent);
+}
+
+/* ---- the same marks as a table */
+.rs-table-details {
+  margin: 0 0 var(--space-5);
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+.rs-table-details > summary {
+  cursor: pointer;
+  min-height: 44px;
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--text-md);
+}
+.rs-table-scroll {
+  max-width: 100%;
+  overflow-x: auto;
+}
+.rs-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-sm);
+}
+.rs-table caption {
+  padding: var(--space-2) var(--space-4);
+  color: var(--muted);
+  text-align: left;
+}
+.rs-table th,
+.rs-table td {
+  padding: 6px var(--space-4);
+  border-top: 1px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+.rs-table thead th {
+  color: var(--muted);
+  font-weight: 600;
+}
+.rs-num {
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---- a phone: the lanes stack (header above, strip below) and scroll sideways together */
+.rs-canvas.is-stacked .rs-lane {
+  display: block;
+}
+.rs-canvas.is-stacked .rs-lane-head {
+  position: sticky;
+  left: 0;
+  box-sizing: border-box;
+  width: var(--rs-view-w);
+  padding: var(--space-3) var(--space-3) 0;
+}
+.rs-canvas.is-stacked .rs-lane-link {
+  display: inline-block;
+  min-height: 24px;
+}
+.rs-canvas.is-stacked .rs-lane-count {
+  display: inline;
+  margin-left: var(--space-2);
+}
+.rs-canvas.is-stacked .rs-track {
+  margin-left: 14px;
+}
+@media (max-width: 559px) {
+  .rs-lede { font-size: var(--text-md); }
+}
+/* ===== M4: Results as a story -- end ===== */
+
+/* ===== M4: the WIMP exclusion plot (js/views/limits.js) -- begin ===== */
+:root {
+  /* One hue per series, light enough for the dark stage (>= 4.5:1 on --panel) and apart
+     for colour-blind readers; a curve is also told apart by its direct label, and a
+     marker by its shape. */
+  --limit-0: #7db4ff;
+  --limit-1: #ffd36b;
+  --limit-2: #f19ac4;
+  --limit-3: #ff9f84;
+  --limit-4: #b7a3ff;
+  --limit-5: #9fe0d2;
+}
+.lm-s0 { --lm: var(--limit-0); }
+.lm-s1 { --lm: var(--limit-1); }
+.lm-s2 { --lm: var(--limit-2); }
+.lm-s3 { --lm: var(--limit-3); }
+.lm-s4 { --lm: var(--limit-4); }
+.lm-s5 { --lm: var(--limit-5); }
+
+.lm-lede {
+  max-width: 74ch;
+  margin: 0 0 var(--space-4);
+  font-size: var(--text-lg);
+  line-height: var(--leading-body);
+}
+.lm-figure {
+  margin: 0 0 var(--space-5);
+  padding: var(--space-3);
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+.lm-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin: 0 0 var(--space-3);
+}
+.lm-chip {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 44px;
+  padding: 6px var(--space-3);
+  background: var(--panel-2);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-pill);
+  color: var(--white);
+  font: inherit;
+  font-size: var(--text-sm);
+  cursor: pointer;
+}
+.lm-chip[aria-pressed='true'] {
+  border-color: var(--white);
+  background: color-mix(in srgb, var(--white) 12%, var(--panel-2));
+}
+.lm-chip:hover {
+  border-color: var(--teal);
+}
+.lm-plot {
+  min-width: 0;
+  min-height: 300px;
+}
+.lm-svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  touch-action: pan-y;
+}
+.lm-svg text {
+  font-family: var(--font-ui);
+  fill: var(--white);
+  font-size: 13px;
+}
+.lm-tick {
+  fill: var(--muted);
+  font-size: 12.5px;
+  font-variant-numeric: tabular-nums;
+}
+.lm-axis-title {
+  font-size: 13.5px;
+}
+.lm-frame {
+  fill: none;
+  stroke: var(--line-strong);
+  stroke-width: 1;
+}
+.lm-gridline {
+  stroke: var(--line);
+  stroke-width: 1;
+}
+.lm-minor {
+  stroke: var(--line-strong);
+  stroke-width: 1;
+}
+.lm-region-note {
+  fill: var(--muted);
+  font-size: 12.5px;
+  font-style: italic;
+}
+.lm-series {
+  color: var(--lm);
+  transition: opacity var(--dur) var(--ease);
+}
+.lm-series.is-dim,
+.lm-label.is-dim {
+  opacity: 0.22;
+}
+.lm-excluded {
+  fill: var(--lm);
+  fill-opacity: 0.09;
+  stroke: none;
+}
+.lm-line {
+  fill: none;
+  stroke: var(--lm);
+  stroke-width: 2.5;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+.lm-dot {
+  fill: var(--lm);
+  stroke: var(--panel);
+  stroke-width: 1;
+}
+.lm-min-ring {
+  fill: none;
+  stroke: var(--lm);
+  stroke-width: 1.5;
+  stroke-dasharray: 2 2;
+}
+.lm-diamond {
+  fill: var(--panel);
+  stroke: var(--lm);
+  stroke-width: 2.5;
+  stroke-linejoin: round;
+}
+.lm-label {
+  fill: var(--lm);
+  font-weight: 650;
+  font-size: 13px;
+  paint-order: stroke;
+  stroke: var(--panel);
+  stroke-width: 4px;
+  stroke-linejoin: round;
+}
+.lm-cross-ring {
+  fill: none;
+  stroke: var(--white);
+  stroke-width: 2;
+}
+.lm-overlay {
+  cursor: crosshair;
+}
+.lm-readout {
+  min-height: 2.8em;
+  margin: var(--space-2) 0 0;
+  font-size: var(--text-md);
+  font-variant-numeric: tabular-nums;
+}
+.lm-caption {
+  max-width: 100ch;
+  margin-top: var(--space-2);
+  color: var(--muted);
+  font-size: var(--text-sm);
+  line-height: var(--leading-body);
+}
+.lm-caption strong {
+  color: var(--white);
+}
+.lm-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: var(--space-3);
+  margin: 0 0 var(--space-5);
+}
+.lm-stat {
+  margin: 0;
+  padding: var(--space-3) var(--space-4);
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--lm);
+  border-radius: var(--radius);
+}
+.lm-stat dt {
+  margin: 0 0 var(--space-1);
+  color: var(--muted);
+  font-size: var(--text-sm);
+}
+.lm-stat dd {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.lm-stat-value {
+  font-size: var(--text-2xl);
+  font-weight: 650;
+  line-height: 1.15;
+  font-variant-numeric: tabular-nums;
+}
+.lm-stat-note {
+  color: var(--muted);
+  font-size: var(--text-xs);
+}
+.lm-cites h3,
+.lm-numbers h3 {
+  margin: 0 0 var(--space-3);
+  font-size: var(--text-xl);
+}
+.lm-cites {
+  margin: 0 0 var(--space-5);
+}
+.lm-cite {
+  margin: 0 0 var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--lm);
+  border-radius: var(--radius);
+}
+.lm-cite h4 {
+  margin: 0 0 var(--space-2);
+  font-size: var(--text-md);
+}
+.lm-swatch {
+  vertical-align: -2px;
+  color: var(--lm);
+}
+.lm-cite-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2px var(--space-4);
+  margin: 0;
+  font-size: var(--text-sm);
+  line-height: var(--leading-body);
+}
+@media (min-width: 720px) {
+  .lm-cite-list {
+    grid-template-columns: 11em minmax(0, 1fr);
+  }
+}
+.lm-cite-list dt {
+  color: var(--muted);
+  margin-top: var(--space-2);
+}
+.lm-cite-list dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+@media (min-width: 720px) {
+  .lm-cite-list dt { margin-top: 0; }
+}
+.lm-quote {
+  margin: 0;
+  padding-left: var(--space-3);
+  border-left: 2px solid var(--line-strong);
+  color: var(--white);
+}
+.lm-numbers {
+  margin: 0 0 var(--space-5);
+}
+.lm-numbers-note {
+  margin: 0 0 var(--space-3);
+  color: var(--muted);
+  font-size: var(--text-sm);
+}
+.lm-data {
+  margin: 0 0 var(--space-2);
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+.lm-data > summary {
+  cursor: pointer;
+  padding: var(--space-3) var(--space-4);
+  min-height: 44px;
+  font-size: var(--text-md);
+}
+.lm-table-scroll {
+  max-width: 100%;
+  overflow-x: auto;
+}
+.lm-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-sm);
+}
+.lm-table caption {
+  padding: var(--space-2) var(--space-4);
+  color: var(--muted);
+  text-align: left;
+}
+.lm-table th,
+.lm-table td {
+  padding: 6px var(--space-4);
+  border-top: 1px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+.lm-table thead th {
+  color: var(--muted);
+  font-weight: 600;
+}
+.lm-num {
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+@media (max-width: 559px) {
+  .lm-figure { padding: var(--space-2); }
+  .lm-lede { font-size: var(--text-md); }
+}
+/* ===== M4: the WIMP exclusion plot -- end ===== */

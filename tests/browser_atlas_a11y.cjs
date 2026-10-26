@@ -330,6 +330,31 @@ async function openFilters(page) {
       await viewContext.close();
     });
 
+    // ---- views: "Results as a story" and the WIMP exclusion plot (M4) -----------------
+    // Real data only (the fixture tree has no limits bundle). The timeline with a card open and its
+    // table open, and the plot with its numbers and its method open, must be clean.
+    if (tree.label === "generated") {
+      await record(`[${tree.label}] axe: results as a story (a card open, the table open), and the WIMP exclusion plot (numbers and method open)`, async () => {
+        const viewContext = await browser.newContext({ viewport: { width: 1440, height: 960 }, reducedMotion: "reduce" });
+        const viewPage = await viewContext.newPage();
+        viewPage.setDefaultTimeout(30000);
+        await viewPage.goto(`${base}/atlas${dataTree}#/view/results-story`);
+        await viewPage.locator(".rs-mark").first().waitFor();
+        await viewPage.locator('.rs-mark[data-id="result:atlas-higgs-observation-2012"]').first().click();
+        await viewPage.locator(".rs-card:not([hidden])").waitFor();
+        await viewPage.locator(".rs-table-details > summary").click();
+        const story = await runAxe(viewPage, tree.label, "results as a story");
+        assert.deepEqual(story.violations, [], `expected 0 WCAG axe violations on results as a story, got ${JSON.stringify(story.violations)}`);
+        await viewPage.goto(`${base}/atlas${dataTree}#/view/limits/wimp-si`);
+        await viewPage.locator(".lm-svg").waitFor();
+        await viewPage.locator(".lm-data > summary").first().click();
+        await viewPage.locator("#view-method > summary").click();
+        const limits = await runAxe(viewPage, tree.label, "WIMP exclusion plot");
+        assert.deepEqual(limits.violations, [], `expected 0 WCAG axe violations on the WIMP exclusion plot, got ${JSON.stringify(limits.violations)}`);
+        await viewContext.close();
+      });
+    }
+
     // ---- local map view (docs/HEP_ATLAS_GEOMETRY.md §4) -- begin --------
     // Two states, both of which have to be clean: the map with nothing
     // selected, and the map with the drawer open (which is where panels.js's

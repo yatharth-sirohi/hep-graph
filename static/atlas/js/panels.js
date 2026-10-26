@@ -12,6 +12,8 @@ import { greatCircleM, initialBearing } from './localmap.js';
 import {
   VIEW_NAME, WORKING_TITLE, rowGeometry, rowsForBeamline, rowsForExperiment,
 } from './views/beam-rows.js';
+import { limitsLinkForRecord } from './views/limits-rows.js';
+import { storyLinkForTopic } from './views/results-rows.js';
 import { quoteView, readableText, readableView } from './tex.js';
 
 let ATLAS = null;
@@ -622,6 +624,49 @@ function beamSectionLinkLine(rows) {
   ]);
 }
 
+// ---- links to the M4 views (js/views/results-*.js, js/views/limits*.js) --------
+// `link` is `{ slug, title, hint }` from the views' own pure modules (results-rows.js,
+// limits-rows.js), or null when the view has nothing to show for this record: a
+// record the view cannot draw gets no link at all rather than a dead one.
+function viewRoute(link) {
+  return { type: 'view', slug: link.slug };
+}
+
+// A card with one prominent link per view (a topic panel's "See the results as a story").
+function viewCta(links, kicker = 'See the physics') {
+  const shown = links.filter(Boolean);
+  if (!shown.length) return null;
+  return h('div', { class: 'beam-section-cta view-cta' }, [
+    h('p', { class: 'beam-section-cta-kicker' }, kicker),
+    ...shown.map((link) => {
+      const route = viewRoute(link);
+      const a = h('a', { class: 'beam-section-link', href: `#/${route.type}/${route.slug}` }, [
+        h('span', { class: 'beam-section-link-title' }, link.title),
+        link.hint ? h('span', { class: 'beam-section-link-hint' }, link.hint) : null,
+      ]);
+      a.addEventListener('click', (event) => {
+        if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+        event.preventDefault();
+        CALLBACKS.navigate({ entity: route });
+      });
+      return a;
+    }),
+  ]);
+}
+
+// The quieter line an experiment or a result carries: the same links in running text.
+function viewLinkLine(links) {
+  const shown = links.filter(Boolean);
+  if (!shown.length) return null;
+  return h('p', { class: 'beam-section-links' }, [
+    'See the physics: ',
+    ...shown.flatMap((link, i) => [
+      i ? document.createTextNode(' \u00b7 ') : null,
+      linkTo(viewRoute(link), link.title),
+    ]),
+  ]);
+}
+
 // ---- distance between an experiment's sites ------------------------------
 // formatDistance/compassPoint mirror the local map view's own "off-campus
 // destination" rows (which compute the same great-circle figures with the same
@@ -724,6 +769,8 @@ async function renderExperiment(id, timelineState) {
 
   const experimentBeamRows = rowsForExperiment(ATLAS, exp);
   if (experimentBeamRows.length) frag.appendChild(beamSectionLinkLine(experimentBeamRows));
+  const experimentLimits = viewLinkLine([limitsLinkForRecord(ATLAS, exp)]);
+  if (experimentLimits) frag.appendChild(experimentLimits);
 
   const expPlainSummary = plainSummaryOf(exp, t);
   sections.add('What it studies', [
@@ -1039,6 +1086,10 @@ async function renderTopic(id) {
   frag.appendChild(h('h2', {}, topic.name));
   frag.appendChild(h('p', { class: 'plain-question' }, topic.question || ''));
   if (t.overview) frag.appendChild(h('p', {}, t.overview));
+  // The topic's results drawn as a timeline (and, for dark matter, its exclusion plot).
+  const topicResults = (await loader.getResults()).list;
+  const topicViews = viewCta([storyLinkForTopic(ATLAS, id, topicResults), limitsLinkForRecord(ATLAS, topic)]);
+  if (topicViews) frag.appendChild(topicViews);
 
   sections.add('Observables', topic.observables && topic.observables.length
     ? h('ul', { class: 'entity-list' }, topic.observables.map((o) => h('li', {}, o)))
@@ -1121,6 +1172,8 @@ async function renderResult(id) {
   // paper's title is not repeated (the title is already on the page).
   const lede = plainSummaryOf(result, t);
   if (lede) frag.appendChild(h('p', { class: 'plain-summary result-lede' }, lede));
+  const resultLimits = viewLinkLine([limitsLinkForRecord(ATLAS, result)]);
+  if (resultLimits) frag.appendChild(resultLimits);
   const claim = (t.claim && t.claim.quote) || (result.claim && result.claim.quote) || '';
   const locator = (t.claim && t.claim.locator) || (result.claim && result.claim.locator) || '';
   const excerpt = claim && claimExcerptLabel(result, claim, locator, !lede);
