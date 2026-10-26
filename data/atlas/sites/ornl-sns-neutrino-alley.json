@@ -7,9 +7,9 @@
     "confidence": "approximate",
     "kind": "campus",
     "lat": 35.9526819,
-    "locator": "Centroid of OSM way 907808191 \"ORNL Spallation Neutron Source\" complex boundary",
+    "locator": "Centroid of OSM way 907808191 \"ORNL Spallation Neutron Source\" complex boundary (stands in for the corridor, whose position is unpublished)",
     "lon": -84.3004404,
-    "note": "Correction: the previous ORNL-wide ROR point is 7 km from the SNS complex; this is the complex boundary centroid, not the Neutrino Alley basement itself. Previous record: campus point 36.01036, -84.26964 at 2000 m precision, sources ['src:facilities-verify-ornl-ror', 'src:ornl-wikipedia']; moved 3484 m (integrator, 2026-09-21, per docs/atlas-worklog/GEOMETRY_*.md).",
+    "note": "The position of Neutrino Alley itself is not published. This point is the centroid of the outline of the whole SNS complex (OpenStreetMap way 907808191), so it says only that the corridor is somewhere inside the complex (800 m precision). ORNL describes the corridor as a 164-foot (50 m) hallway whose closest point is about 20 m from the SNS target; the COHERENT collaboration calls it a basement hallway. An earlier version of this record used the ORNL-wide ROR point, 7 km away; the outline centroid replaced it on 2026-09-21.",
     "precision_m": 800,
     "sources": [
       "src:geo-ornl-osm-sns-boundary"
@@ -30,7 +30,7 @@
   },
   "name": "SNS Neutrino Alley",
   "notes": [
-    "setting is recorded as `underground` (a shielded sub-grade hallway per the COHERENT literature generally), though no official page fetched in this session confirms 'underground' specifically as opposed to ground-floor/basement; treat with caution."
+    "\"Underground\" here means a below-grade hall: the COHERENT collaboration calls Neutrino Alley a basement hallway. No source consulted (checked 2026-10-25) gives its depth below grade, its bearing, or which building lies above it."
   ],
   "place": {
     "city": "Oak Ridge",
@@ -43,11 +43,13 @@
     "src:ornl-sns-page",
     "src:ornl-wikipedia",
     "src:facilities-verify-ornl-ror",
-    "src:geo-ornl-osm-sns-boundary"
+    "src:geo-ornl-osm-sns-boundary",
+    "src:geo-ornl-neutrino-alley-qa",
+    "src:cevns-coherent-csi-2022-full-dataset"
   ],
   "summary": {
-    "plain": "A shielded corridor next to the neutron-producing target of the Spallation Neutron Source at Oak Ridge, Tennessee, used to detect neutrinos produced as a byproduct of the neutron beam.",
-    "technical": "'Neutrino Alley': a shielded basement hallway adjacent to the SNS liquid-mercury spallation target, exploited as a pion/muon-decay-at-rest neutrino source for CEvNS experiments (e.g. COHERENT); no official coordinate found in this session (see note)."
+    "plain": "A shielded basement hallway close to the neutron-producing target of the Spallation Neutron Source at Oak Ridge, Tennessee, used to detect neutrinos produced as a by-product of the neutron beam.",
+    "technical": "\"Neutrino Alley\": a 50 m basement hallway whose closest point is about 20 m from the SNS liquid-mercury spallation target, exploited as a pion/muon-decay-at-rest neutrino source for CEvNS experiments (COHERENT). No published coordinate or plan locates it; the marker is the centroid of the SNS complex outline (see site:ornl-sns-complex)."
   },
   "type": "site"
 }

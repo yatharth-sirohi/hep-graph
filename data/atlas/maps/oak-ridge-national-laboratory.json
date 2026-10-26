@@ -26,14 +26,14 @@
       "id": "surface",
       "kind": "surface",
       "name": "Surface",
-      "note": "Plan view of the SNS complex boundary, the linac structure, the Instrument Hall (building 8700) and the complex's other buildings."
+      "note": "Plan view of the SNS complex outline, the linac structure, the Instrument Hall (building 8700) and the complex's other buildings."
     },
     {
       "depth_m": null,
       "id": "neutrino-alley",
       "kind": "underground",
       "name": "Neutrino Alley (basement corridor)",
-      "note": "Named for reference only: no feature is drawn on this level this session. Neutrino Alley is a basement hallway under the SNS target building (src:geo-ornl-neutrino-alley-qa), but no source fetched this session gives its depth below grade."
+      "note": "Named for reference only: nothing is drawn on this level. The COHERENT collaboration calls Neutrino Alley a basement hallway (src:cevns-coherent-csi-2022-full-dataset), but no source consulted gives its depth below grade or its position."
     }
   ],
   "linked_map_ids": [],
@@ -42,12 +42,13 @@
   },
   "name": "Oak Ridge National Laboratory, Spallation Neutron Source",
   "notes": [
-    "Release pass 2 (2026-10-25): the linac structure and the Instrument Hall were placed by georeferencing ORNL's own interactive map ('Chestnut Ridge', labelled building polygons without coordinates) onto OpenStreetMap footprints; both are approximate and the method, its residuals and its limits are in the records and in docs/atlas-worklog/RELEASE_GEOMETRY_accel2.md.",
-    "COHERENT's four operating sub-detectors (CENNS-10, CsI, Ge, NaI) all sit in Neutrino Alley, officially 'about 20 meters from the SNS target' at its closest point and 50 m long overall (src:geo-ornl-neutrino-alley-qa); none is drawn individually, since no source gives any one detector's position along the alley or a coordinate/heading for the alley itself, only its overall length and closest-approach distance."
+    "The linac structure and the Instrument Hall were placed by georeferencing ORNL's own interactive map ('Chestnut Ridge', labelled building polygons without coordinates) onto OpenStreetMap footprints; both are approximate, and each record states the method, its residuals and its limits.",
+    "The dashed outline is the whole SNS complex (the site 'Spallation Neutron Source (SNS) accelerator and target complex'). It is not Neutrino Alley. COHERENT's four operating sub-detectors (CENNS-10, CsI, Ge, NaI) all sit in Neutrino Alley, officially 'about 20 meters from the SNS target' at its closest point and 50 m long overall (src:geo-ornl-neutrino-alley-qa); none is drawn, since no source gives the alley's coordinates or heading, or any detector's position along it."
   ],
   "schema": "hep-atlas/0.2",
   "schematics": [],
   "site_ids": [
+    "site:ornl-sns-complex",
     "site:ornl-sns-neutrino-alley"
   ],
   "sources": [
@@ -73,9 +74,9 @@
       "verified_at": "2026-10-25"
     },
     {
-      "backlog": "A COHERENT or SNS paper with a plan view of the target building basement and the alley (a scaled drawing or measured offsets from the target to each detector), or a basement drawing from ORNL; then place it from the 8700 footprint.",
-      "entity_id": "facility:oak-ridge-national-laboratory",
-      "reason": "Neutrino Alley (the COHERENT detector corridor) and the target position. ORNL says the corridor is 50 m long and 'about 20 meters from the SNS target' at its closest point, and ORNL's map says the Instrument Hall (8700) 'contains the SNS back-end system including the heavy-metal target'; but no fetched source gives the target's position inside the 8700 footprint, the alley's bearing, or which building lies above it. The site is accounted for on the map by the complex boundary (drawn); the corridor and the COHERENT detectors are not drawn.",
+      "backlog": "A COHERENT or SNS paper with a plan view of the target-building basement and the alley (a scaled drawing, or measured offsets from the target to each detector), or a basement drawing from ORNL; then place the alley from the 8700 footprint.",
+      "entity_id": "site:ornl-sns-neutrino-alley",
+      "reason": "Neutrino Alley (the COHERENT detector corridor) and the target position. ORNL says the corridor is a 50 m hallway whose closest point is 'about 20 meters from the SNS target', and ORNL's map says the Instrument Hall (8700) 'contains the SNS back-end system including the heavy-metal target'; but no source consulted gives the target's position inside the 8700 footprint, the alley's bearing, or which building lies above it. The dashed outline on this map is the whole SNS complex, not the alley, so the corridor and the COHERENT detectors are not drawn.",
       "sources": [
         "src:geo-ornl-neutrino-alley-qa",
         "src:geo-ornl-interactive-map"
