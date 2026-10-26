@@ -1,0 +1,154 @@
+{
+  "accelerator_ids": [
+    "accelerator:cern-ad",
+    "accelerator:elena"
+  ],
+  "aliases": [
+    "ALPHA-g",
+    "Antihydrogen Laser Physics Apparatus",
+    "ALPHA-2",
+    "ALPHA-3"
+  ],
+  "collaboration_ids": [
+    "collaboration:alpha"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "facility_id": "facility:cern",
+      "locator": "ALPHA page",
+      "note": "",
+      "quote": "ALPHA makes, captures and studies atoms of antihydrogen and compares these with hydrogen atoms.",
+      "role": "host",
+      "sources": [
+        "src:precision-2-cern-alpha-page"
+      ],
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:alpha",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2026-08-31",
+      "label": "operation (ALPHA 1 from 2005, ALPHA 2 from 2012, ALPHA-g and ALPHA 3 from 2021)",
+      "locator": "official site, section 'Experimental Hardware'",
+      "note": "Start year from the official hardware list (\"ALPHA 1 (2005– 2012)\") and CERN (\"Set up in late 2005\"). End: 31 August 2026, when the Antimatter Factory fell silent for Long Shutdown 3. the CERN Courier of 17 August 2000 reports the AD \"coming into action for physics\" and supplying ATRAP, ATHENA and ASACUSA",
+      "quote": "ALPHA 1 (2005– 2012)",
+      "sources": [
+        "src:precision-2-alpha-site-experiments",
+        "src:precision-2-cern-alpha-page",
+        "src:currency-cern-all-accelerators-2026-08-31"
+      ],
+      "start": "2005",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "Long Shutdown 3 (no antiproton beam)",
+      "locator": "opening paragraph",
+      "note": "The Antimatter Factory (AD and ELENA) delivered its last beams on 31 August 2026 and \"will progressively return to operation from 2028 onwards, with the different injectors and facilities restarting in stages\" (CERN, 31 August 2026); no experiment-specific restart date is published, so the end is left open.",
+      "quote": "CERN’s injector complex and Antimatter Factory took their final steps towards Long Shutdown 3 (LS3) this morning, as the last particle beams were extracted and the machines fell silent.",
+      "sources": [
+        "src:currency-cern-all-accelerators-2026-08-31"
+      ],
+      "start": "2026-08-31",
+      "status": "shutdown",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [],
+  "kind": "antimatter",
+  "lineage": [
+    {
+      "experiment_id": "experiment:athena",
+      "relation": "predecessor",
+      "sources": [
+        "src:precision-2-cern-alpha-page"
+      ]
+    }
+  ],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "locator": "official collaboration site",
+      "note": "",
+      "sources": [
+        "src:precision-2-alpha-site-home"
+      ],
+      "value": "https://alpha.web.cern.ch/",
+      "verified_at": "2026-10-26"
+    }
+  },
+  "name": "ALPHA",
+  "notes": [
+    "ALPHA-g and ALPHA-2/3 are apparatus of one collaboration; ALPHA-g has its own detector record (detector:alpha-g).",
+    "external.inspire_experiment left empty: the INSPIRE experiment record was not queried (stream rules forbid contacting inspirehep.net)."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "home page, opening paragraph",
+      "note": "",
+      "quote": "By precise comparisons of hydrogen and antihydrogen, the experiment hopes to study fundamental symmetries between matter and antimatter.",
+      "sources": [
+        "src:precision-2-alpha-site-home"
+      ],
+      "value": "Study fundamental symmetries between matter and antimatter by precise comparisons of hydrogen and antihydrogen",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "locator": "section on ALPHA-g",
+      "note": "",
+      "quote": "We expect to make the first determination of g for antimatter, and hope to improve on this to achieve an accuracy of 1% or better.",
+      "sources": [
+        "src:precision-2-alpha-site-motivation"
+      ],
+      "value": "Make the first determination of the gravitational acceleration g of antihydrogen (ALPHA-g), hoping to reach 1% accuracy or better",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:precision-2-alpha-site-home",
+    "src:precision-2-cern-alpha-page",
+    "src:precision-2-alpha-site-experiments",
+    "src:precision-2-alpha-site-motivation",
+    "src:currency-cern-all-accelerators-2026-08-31"
+  ],
+  "status": "shutdown",
+  "summary": {
+    "plain": "An experiment at CERN that makes atoms of antihydrogen, holds them in a magnetic trap and probes them with lasers and microwaves, comparing them with ordinary hydrogen. Its vertical trap, ALPHA-g, also tests how antimatter falls under gravity.",
+    "technical": "ALPHA (Antihydrogen Laser Physics Apparatus) at the CERN AD/ELENA: successor of ATHENA, synthesises antihydrogen from trapped antiprotons and positrons and confines it in a neutral-atom trap; ALPHA 2/3 do laser and microwave spectroscopy, ALPHA-g measures the gravitational response. Operating since 2005; paused for LS3 on 31 August 2026."
+  },
+  "topic_ids": [
+    "topic:antimatter"
+  ],
+  "type": "experiment",
+  "unique_capabilities": [
+    {
+      "confidence": "verified",
+      "locator": "ALPHA page, third paragraph",
+      "note": "",
+      "quote": "ALPHA uses a different trapping method to hold the antihydrogen atoms, and will keep them for a longer period before they annihilate with ordinary atoms.",
+      "sources": [
+        "src:precision-2-cern-alpha-page"
+      ],
+      "value": "Traps and cools antihydrogen atoms with a magnetic trap superposed on a Penning-Malmberg trap, rather than letting them annihilate on the walls as in ATHENA",
+      "verified_at": "2026-10-26"
+    }
+  ]
+}

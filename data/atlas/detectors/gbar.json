@@ -1,0 +1,110 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "experiment_ids": [
+    "experiment:gbar"
+  ],
+  "id": "detector:gbar",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2018-10",
+      "label": "approved by the CERN Research Board",
+      "locator": "CERN GBAR page, last paragraph",
+      "note": "",
+      "quote": "GBAR was approved by the CERN Research Board in May 2012 and received its first beam of antiprotons from ELENA in October 2018.",
+      "sources": [
+        "src:precision-2-cern-gbar-page"
+      ],
+      "start": "2012-05",
+      "status": "approved",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": "2022-12",
+      "label": "commissioning on ELENA",
+      "locator": "CERN GBAR page, last paragraph",
+      "note": "End: \"At the end of 2022 ... the GBAR collaboration detected some 20 antihydrogen atoms produced in this way\" (CERN, 14 July 2023); the exact day is not stated.",
+      "quote": "GBAR was approved by the CERN Research Board in May 2012 and received its first beam of antiprotons from ELENA in October 2018.",
+      "sources": [
+        "src:precision-2-cern-gbar-page",
+        "src:precision-2-cern-gbar-anticlub-2023"
+      ],
+      "start": "2018-10",
+      "status": "commissioning",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": "2026-08-31",
+      "label": "antihydrogen production and measurement preparation",
+      "locator": "CERN news of 14 July 2023, paragraph 4",
+      "note": "Start is the end-2022 antihydrogen run. End: 31 August 2026 (LS3).",
+      "quote": "At the end of 2022, during an operation that lasted several days, the GBAR collaboration detected some 20 antihydrogen atoms produced in this way, validating this \"in-flight\" production method for the first time.",
+      "sources": [
+        "src:precision-2-cern-gbar-anticlub-2023",
+        "src:currency-cern-all-accelerators-2026-08-31"
+      ],
+      "start": "2022-12",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "Long Shutdown 3 (no antiproton beam)",
+      "locator": "opening paragraph",
+      "note": "The Antimatter Factory (AD and ELENA) delivered its last beams on 31 August 2026 and \"will progressively return to operation from 2028 onwards, with the different injectors and facilities restarting in stages\" (CERN, 31 August 2026); no experiment-specific restart date is published, so the end is left open.",
+      "quote": "CERN’s injector complex and Antimatter Factory took their final steps towards Long Shutdown 3 (LS3) this morning, as the last particle beams were extracted and the machines fell silent.",
+      "sources": [
+        "src:currency-cern-all-accelerators-2026-08-31"
+      ],
+      "start": "2026-08-31",
+      "status": "shutdown",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "GBAR apparatus",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "locator": "CERN GBAR page, 2nd paragraph",
+      "note": "",
+      "quote": "It operates in the Antiproton Decelerator (AD) Hall, using antiprotons slowed down by the ELENA facility.",
+      "role": "main",
+      "site_id": "site:cern-antiproton-decelerator-hall",
+      "sources": [
+        "src:precision-2-cern-gbar-page"
+      ],
+      "start": "2018-10",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:currency-cern-all-accelerators-2026-08-31",
+    "src:precision-2-cern-gbar-anticlub-2023",
+    "src:precision-2-cern-gbar-page"
+  ],
+  "specs": {},
+  "status": "shutdown",
+  "subsystems": [],
+  "summary": {
+    "plain": "The GBAR apparatus: a small electron accelerator that makes positrons, traps for antiprotons and positrons, and a free-fall chamber where single antihydrogen atoms are released and their annihilation recorded.",
+    "technical": "Positron source (9 MeV linac on a tungsten target), positron accumulation traps, a positronium converter, a pulsed drift tube for the ELENA antiprotons and a free-fall chamber with annihilation detectors."
+  },
+  "technology_classes": [
+    "other"
+  ],
+  "type": "detector"
+}

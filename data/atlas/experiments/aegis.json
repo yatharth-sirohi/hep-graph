@@ -1,0 +1,130 @@
+{
+  "accelerator_ids": [
+    "accelerator:cern-ad",
+    "accelerator:elena"
+  ],
+  "aliases": [],
+  "collaboration_ids": [
+    "collaboration:aegis"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "facility_id": "facility:cern",
+      "locator": "CERN AEgIS page",
+      "note": "",
+      "quote": "AEGIS is a collaboration of physicists from all over Europe.",
+      "role": "host",
+      "sources": [
+        "src:precision-2-cern-aegis-page"
+      ],
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:aegis",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2018-12",
+      "label": "phase 1: apparatus construction, commissioning and proof-of-principle measurements",
+      "locator": "arXiv:1106.0209, Introduction",
+      "note": "Start is the date of a collaboration paper (1 June 2011) that describes AEGIS as \"under construction at CERN\", so it is a lower bound, not the start of construction. End: phase 1 was \"lasting approximately until the end of 2018\" (arXiv:2208.07050, section 2).",
+      "quote": "under construction at CERN",
+      "sources": [
+        "src:precision-2-aegis-giammarchi-arxiv-1106-0209",
+        "src:precision-2-aegis-caravita-arxiv-2208-07050"
+      ],
+      "start": "2011-06",
+      "status": "commissioning",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": "2026-08-31",
+      "label": "phase 2: pulsed antihydrogen source and gravity-measurement preparation",
+      "locator": "arXiv:2208.07050, abstract",
+      "note": "Phase 2 begins where phase 1 ends (approximately end of 2018); operation resumed on ELENA in late 2021 after the second long shutdown. End: 31 August 2026 (LS3).",
+      "quote": "AEgIS re-started its operation on the new CERN ELENA decelerator in late 2021, capturing its first antiprotons and commissioning its new antiproton energy degrading system and hardware/software control systems.",
+      "sources": [
+        "src:precision-2-aegis-caravita-arxiv-2208-07050",
+        "src:currency-cern-all-accelerators-2026-08-31"
+      ],
+      "start": "2018-12",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "Long Shutdown 3 (no antiproton beam)",
+      "locator": "opening paragraph",
+      "note": "The Antimatter Factory (AD and ELENA) delivered its last beams on 31 August 2026 and \"will progressively return to operation from 2028 onwards, with the different injectors and facilities restarting in stages\" (CERN, 31 August 2026); no experiment-specific restart date is published, so the end is left open.",
+      "quote": "CERN’s injector complex and Antimatter Factory took their final steps towards Long Shutdown 3 (LS3) this morning, as the last particle beams were extracted and the machines fell silent.",
+      "sources": [
+        "src:currency-cern-all-accelerators-2026-08-31"
+      ],
+      "start": "2026-08-31",
+      "status": "shutdown",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [],
+  "kind": "antimatter",
+  "lineage": [],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "locator": "CERN's own page for the experiment (aegis.web.cern.ch requires a CERN login)",
+      "note": "",
+      "sources": [
+        "src:precision-2-cern-aegis-page"
+      ],
+      "value": "https://home.cern/science/experiments/aegis",
+      "verified_at": "2026-10-26"
+    }
+  },
+  "name": "AEgIS",
+  "notes": [
+    "AEgIS is listed by CERN as AD-6; the approval date was not found in a fetchable source."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "CERN AEgIS page",
+      "note": "",
+      "quote": "The primary scientific goal of the Antihydrogen Experiment: Gravity, Interferometry, Spectroscopy (AEGIS) is the direct measurement of the Earth’s gravitational acceleration, g, on antihydrogen.",
+      "sources": [
+        "src:precision-2-cern-aegis-page"
+      ],
+      "value": "Directly measure the Earth’s gravitational acceleration g on antihydrogen",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:precision-2-cern-aegis-page",
+    "src:precision-2-aegis-giammarchi-arxiv-1106-0209",
+    "src:precision-2-aegis-caravita-arxiv-2208-07050",
+    "src:currency-cern-all-accelerators-2026-08-31"
+  ],
+  "status": "shutdown",
+  "summary": {
+    "plain": "A CERN experiment that aims to measure directly how antihydrogen atoms fall in Earth’s gravity. It makes pulses of antihydrogen from antiprotons and positronium atoms and will pass them through a grating system called a deflectometer.",
+    "technical": "AEgIS (Antihydrogen Experiment: Gravity, Interferometry, Spectroscopy, AD-6): pulsed antihydrogen by charge exchange between trapped antiprotons and laser-excited Rydberg positronium, with a moire deflectometer for the weak-equivalence-principle test. Phase 1 to about end 2018; phase 2 on ELENA since late 2021."
+  },
+  "topic_ids": [
+    "topic:antimatter"
+  ],
+  "type": "experiment",
+  "unique_capabilities": []
+}

@@ -1,0 +1,97 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "experiment_ids": [
+    "experiment:puma"
+  ],
+  "id": "detector:puma",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2024-12",
+      "label": "approved as CERN experiment AD-09",
+      "locator": "CERN PUMA page, last paragraph",
+      "note": "CERN gives March 2021 for the approval; the PUMA site says \"acceptance as a CERN experiment (AD-09) in 2021\".",
+      "quote": "PUMA was approved in March 2021 and is expected to begin operation in 2025.",
+      "sources": [
+        "src:precision-2-puma-site-home",
+        "src:precision-2-cern-puma-page"
+      ],
+      "start": "2021",
+      "status": "approved",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": "2026-08-31",
+      "label": "installation and commissioning with antiprotons",
+      "locator": "PUMA home page, last paragraph",
+      "note": "Start is the start of installation of the primary apparatus. End: 31 August 2026 (LS3); the PUMA page is undated, so the continuation of commissioning up to that date is an inference from \"ongoing\".",
+      "quote": "installation of the primary apparatus since December 2024. Commissioning with antiprotons at the AD is ongoing.",
+      "sources": [
+        "src:precision-2-puma-site-home",
+        "src:currency-cern-all-accelerators-2026-08-31"
+      ],
+      "start": "2024-12",
+      "status": "commissioning",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "Long Shutdown 3 (no antiproton beam)",
+      "locator": "opening paragraph",
+      "note": "The Antimatter Factory (AD and ELENA) delivered its last beams on 31 August 2026 and \"will progressively return to operation from 2028 onwards, with the different injectors and facilities restarting in stages\" (CERN, 31 August 2026); no experiment-specific restart date is published, so the end is left open.",
+      "quote": "CERN’s injector complex and Antimatter Factory took their final steps towards Long Shutdown 3 (LS3) this morning, as the last particle beams were extracted and the machines fell silent.",
+      "sources": [
+        "src:currency-cern-all-accelerators-2026-08-31"
+      ],
+      "start": "2026-08-31",
+      "status": "shutdown",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "PUMA apparatus",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "locator": "PUMA About page, last paragraph",
+      "note": "",
+      "quote": "The whole apparatus is currently installed at the AD Hall, with commissioning with antiprotons ongoing.",
+      "role": "main",
+      "site_id": "site:cern-antiproton-decelerator-hall",
+      "sources": [
+        "src:precision-2-puma-site-about"
+      ],
+      "start": "2024-12",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:currency-cern-all-accelerators-2026-08-31",
+    "src:precision-2-cern-puma-page",
+    "src:precision-2-puma-site-about",
+    "src:precision-2-puma-site-home"
+  ],
+  "specs": {},
+  "status": "shutdown",
+  "subsystems": [],
+  "summary": {
+    "plain": "A transportable two-part trap for antiprotons and exotic nuclei, surrounded by particle detectors that record what comes out when they annihilate.",
+    "technical": "Two-zone Penning trap (antiproton storage trap and collision trap) in a transportable frame with a surrounding annihilation-product detector, plus an offline ion source."
+  },
+  "technology_classes": [
+    "other"
+  ],
+  "type": "detector"
+}

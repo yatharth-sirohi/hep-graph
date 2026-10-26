@@ -1,0 +1,81 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "experiment_ids": [
+    "experiment:atrap"
+  ],
+  "id": "detector:atrap",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2026-08-31",
+      "label": "data taking at the Antiproton Decelerator",
+      "locator": "Courier article, 6th paragraph",
+      "note": "Start is a lower bound: the CERN Courier of 17 August 2000 reports the AD \"coming into action for physics\" and supplying ATRAP, ATHENA and ASACUSA; the experiment's own first-data date is not stated in a source consulted. The end of ATRAP data taking is not dated in any source consulted (the active interval is closed at the same upper bound as the completed one); CERN's AD page says \"ATRAP and ACE have now completed their experiments\" (undated), whereas the older CERN ATRAP page says \"ATRAP is still in operation\".",
+      "quote": "This is the motivation behind CERN’s new AD, which supplies antiprotons to several experiments – ATRAP (son of TRAP at LEAR), ATHENA and ASACUSA.",
+      "sources": [
+        "src:precision-2-cern-courier-ad-2000",
+        "src:precision-2-cern-atrap-page"
+      ],
+      "start": "2000",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "uncertain",
+      "end": null,
+      "label": "completed (true end date not published; upper bound)",
+      "locator": "AD page, last paragraph",
+      "note": "UPPER BOUND ONLY. The AD page states that ATRAP has completed but gives no date; the date used is the day the Antimatter Factory stopped for LS3, by which time ATRAP is no longer listed as running. The real end of ATRAP data taking is earlier and unknown (unresolved).",
+      "quote": "Whereas ATRAP and ACE have now completed their experiments.",
+      "sources": [
+        "src:precision-2-cern-ad-page"
+      ],
+      "start": "2026-08-31",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "ATRAP apparatus",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "locator": "Courier article",
+      "note": "AD hall campus-grade site; hall layout for the ATRAP zone is not documented in a fetched source.",
+      "quote": "This is the motivation behind CERN’s new AD, which supplies antiprotons to several experiments – ATRAP (son of TRAP at LEAR), ATHENA and ASACUSA.",
+      "role": "main",
+      "site_id": "site:cern-antiproton-decelerator-hall",
+      "sources": [
+        "src:precision-2-cern-courier-ad-2000"
+      ],
+      "start": "2000",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:precision-2-cern-ad-page",
+    "src:precision-2-cern-atrap-page",
+    "src:precision-2-cern-courier-ad-2000"
+  ],
+  "specs": {},
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "The ATRAP traps, which hold antiprotons and positrons together and detect the antihydrogen atoms they form.",
+    "technical": "Penning-Ioffe trap apparatus using cold positrons to cool antiprotons to form antihydrogen, with annihilation detectors."
+  },
+  "technology_classes": [
+    "other"
+  ],
+  "type": "detector"
+}
