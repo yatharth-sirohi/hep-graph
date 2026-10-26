@@ -10,7 +10,51 @@
   },
   "facility_id": "facility:cern",
   "feeds_accelerator_ids": [
-    "accelerator:lhc"
+    {
+      "confidence": "verified",
+      "end": "2000-11-02",
+      "id": "accelerator:lep",
+      "locator": "SPS Operations group, \"History\", section \"The LEP era\"",
+      "note": "Start = LEP's first beam, 14 July 1989 (\"LEP was commissioned in July 1989 and the first beam circulated in the collider on 14 July.\", CERN LEP page); earlier octant tests in 1988 are in the Warner paper. End = \"LEP was closed down on 2 November 2000\". The SPS received e+/e- from the PS at 3.5 GeV and delivered 20 GeV (the LEP injector linacs LIL and the accumulator EPA have no Atlas record).",
+      "quote": "With the commissioning of the Large Electron-Positron Collider in July 1989, the SPS got a new role as an injector, sending electrons and positrons to LEP at an energy of 20 GeV.",
+      "sources": [
+        "src:geo-cern-sps-history",
+        "src:cern-lep-page"
+      ],
+      "start": "1989-07-14",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "id": "accelerator:lhc",
+      "locator": "SPS Operations group, \"History\", section \"LHC run 1 and 2\"",
+      "note": "Start = the first LHC beam, which came from the SPS. Injection energy 450 GeV (IPAC 2024: \"SPS beams at 450 GeV are injected into the LHC via 2 transfer lines, TI2 and TI8\").",
+      "quote": "On 10 September 2008, the first beam from the SPS made a successful loop of the LHC.",
+      "sources": [
+        "src:geo-cern-sps-history",
+        "src:cern-accelerator-complex"
+      ],
+      "start": "2008-09-10",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "derived",
+      "id": "accelerator:hl-lhc",
+      "locator": "SPS Operations group, \"History\"; HiLumi LHC page",
+      "note": "Derived and planned: the HL-LHC is the upgrade of the LHC ring (accelerator:lhc) and keeps its injector chain; CERN says the HiLumi LHC \"should be operational in mid-2030\". The quote documents the existing SPS to LHC link that the HL-LHC inherits.",
+      "quote": "On 10 September 2008, the first beam from the SPS made a successful loop of the LHC.",
+      "sources": [
+        "src:geo-cern-sps-history",
+        "src:cern-hilumi-lhc-page"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2030",
+        "display": "mid-2030",
+        "planned": true
+      },
+      "verified_at": "2026-10-26"
+    }
   ],
   "id": "accelerator:sps",
   "intervals": [
@@ -63,6 +107,55 @@
       "start": "2026-08-31",
       "status": "shutdown",
       "verified_at": "2026-10-25"
+    },
+    {
+      "confidence": "verified",
+      "end": "2000-11-02",
+      "kind": "phase",
+      "label": "LEP injector (e+/e-)",
+      "locator": "LINAC 1988, MO1-04, introduction",
+      "note": "The SPS accelerated electrons and positrons from 3.5 GeV to 20 GeV for LEP (the paper describes the design; the SPS history page confirms \"an energy of 20 GeV\" in the LEP era).",
+      "quote": "Similarly the SPS operates as an e+/e- synchrotron between 3.5 GeV and 20 GeV, the nominal LEP injection energy.",
+      "sources": [
+        "src:lep-injector-linac1988-warner",
+        "src:geo-cern-sps-history",
+        "src:cern-lep-page"
+      ],
+      "specs": {
+        "beam_energy": {
+          "approx": false,
+          "confidence": "verified",
+          "dimension": "energy",
+          "display": "20 GeV (e+/e-)",
+          "locator": "LINAC 1988, MO1-04, introduction",
+          "note": "",
+          "quote": "Similarly the SPS operates as an e+/e- synchrotron between 3.5 GeV and 20 GeV, the nominal LEP injection energy.",
+          "sources": [
+            "src:lep-injector-linac1988-warner"
+          ],
+          "unit": "GeV",
+          "value": 20,
+          "verified_at": "2026-10-26"
+        },
+        "injection_energy": {
+          "approx": false,
+          "confidence": "verified",
+          "dimension": "energy",
+          "display": "3.5 GeV (e+/e-)",
+          "locator": "LINAC 1988, MO1-04, introduction",
+          "note": "",
+          "quote": "Similarly the SPS operates as an e+/e- synchrotron between 3.5 GeV and 20 GeV, the nominal LEP injection energy.",
+          "sources": [
+            "src:lep-injector-linac1988-warner"
+          ],
+          "unit": "GeV",
+          "value": 3.5,
+          "verified_at": "2026-10-26"
+        }
+      },
+      "start": "1989-07-14",
+      "status": "active",
+      "verified_at": "2026-10-26"
     }
   ],
   "is_collider": false,
@@ -81,7 +174,8 @@
   "name": "Super Proton Synchrotron",
   "notes": [
     "CONFLICT on the Sp̄pS collider era: home.cern's UA1 page gives 1981-1990 ('It ran from 1981 until 1990, when the SPS was used as a proton-antiproton collider'); some literature extends the era to 1991. The sourced 1981-1990 is recorded.",
-    "is_collider is false because the SPS is normally a synchrotron injector; its proton-antiproton collider operation is carried as a separate interval."
+    "is_collider is false because the SPS is normally a synchrotron injector; its proton-antiproton collider operation is carried as a separate interval.",
+    "The North Area fixed-target beams (beamline:cern-north-area) and the CNGS neutrino beam (beamline:cngs) were extracted from the SPS at 400 GeV/c; the SPS history page says the North Area \"took beams of 400 and later 450 GeV\"."
   ],
   "particles": [
     "proton",
@@ -126,6 +220,21 @@
       "unit": "km",
       "value": 7,
       "verified_at": "2026-09-16"
+    },
+    "injection_energy": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "energy",
+      "display": "26 GeV",
+      "locator": "home.cern, \"CERN's accelerator complex\"",
+      "note": "Energy of the beam from the PS (26 GeV per CERN's accelerator-complex page; the LS2 media kit writes 25 GeV, see accelerator:ps). Beams for the LHC and the North Area leave the SPS at up to 450 GeV.",
+      "quote": "These are accelerated to 2 GeV for injection into the Proton Synchrotron (PS), which pushes the beam up to 26 GeV. Protons are then sent to the Super Proton Synchrotron (SPS), where they are accelerated up to 450 GeV.",
+      "sources": [
+        "src:cern-accelerator-complex"
+      ],
+      "unit": "GeV",
+      "value": 26,
+      "verified_at": "2026-10-26"
     }
   },
   "status": "shutdown",

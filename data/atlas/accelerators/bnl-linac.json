@@ -1,0 +1,129 @@
+{
+  "aliases": [
+    "BNL Linac",
+    "Brookhaven Linac",
+    "200 MeV Linac"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "facility_id": "facility:brookhaven-national-laboratory",
+  "feeds_accelerator_ids": [
+    {
+      "confidence": "verified",
+      "id": "accelerator:bnl-booster",
+      "locator": "BNL \"Booster Synchrotron\" page",
+      "note": "Start = the completion of the Booster (\"begun in 1986 and completed in 1991\"); the page gives the year only. 200 MeV H- ions are stripped to protons on injection into the Booster.",
+      "quote": "accepting heavy ions from EBIS or protons from the 200-million electron volt (MeV) Linac. It then feeds them to the AGS for further acceleration and delivery to RHIC.",
+      "sources": [
+        "src:bnl-rhic-booster-page",
+        "src:bnl-rhic-linac-page"
+      ],
+      "start": "1991",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": {
+        "approx": true,
+        "date": "1991",
+        "display": "until the Booster entered service (completed 1991)"
+      },
+      "id": "accelerator:ags",
+      "locator": "BNL \"200 MeV Linear Accelerator\" page",
+      "note": "Derived: the Linac was the injector of the AGS from 1971; the Booster, \"used to preaccelerate particles entering the AGS ring\" (BNL Booster page), was completed in 1991. The pages consulted do not say that the Linac injected the AGS directly until exactly the Booster's first use, so the end is year-precision and approximate.",
+      "quote": "The Brookhaven Linear Accelerator (Linac) operation started in 1971 as a major upgrade to the Alternating Gradient Synchroton (AGS) complex.",
+      "sources": [
+        "src:bnl-rhic-linac-page",
+        "src:bnl-rhic-booster-page"
+      ],
+      "start": "1971",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "accelerator:bnl-linac",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "operating",
+      "locator": "BNL \"200 MeV Linear Accelerator\" page",
+      "note": "Year precision, as on the page; present tense on the page as read on 2026-10-26 (it serves the AGS complex and the Brookhaven Linac Isotope Producer).",
+      "quote": "The Brookhaven Linear Accelerator (Linac) operation started in 1971 as a major upgrade to the Alternating Gradient Synchroton (AGS) complex.",
+      "sources": [
+        "src:bnl-rhic-linac-page"
+      ],
+      "start": "1971",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "is_collider": false,
+  "kind": "linac",
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "note": "",
+      "sources": [
+        "src:bnl-rhic-linac-page"
+      ],
+      "value": "https://www.bnl.gov/rhic/linac.php",
+      "verified_at": "2026-10-26"
+    }
+  },
+  "name": "Brookhaven 200 MeV Linac",
+  "notes": [
+    "The Linac supplies protons to the Booster and to the Brookhaven Linac Isotope Producer (BLIP); heavy ions come from the Electron Beam Ion Source (EBIS, which replaced the two Tandem Van de Graaffs), neither of which has an accelerator record in the Atlas.",
+    "No site is more precise than the Upton campus: the footprint of Building 930 is drawn on the map as a building (approximate)."
+  ],
+  "particles": [
+    "H- ion",
+    "proton"
+  ],
+  "schema": "hep-atlas/0.2",
+  "site_id": "site:bnl-upton-campus",
+  "sources": [
+    "src:bnl-rhic-linac-page",
+    "src:bnl-rhic-complex-page"
+  ],
+  "specs": {
+    "beam_energy": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "energy",
+      "display": "200 MeV",
+      "locator": "BNL \"200 MeV Linear Accelerator\" page",
+      "note": "",
+      "quote": "The Linac is capable of producing a negatively charged hydrogen beam of up to 200 million electron-volts (MeV) energy and 135 microampere average current.",
+      "sources": [
+        "src:bnl-rhic-linac-page",
+        "src:bnl-rhic-complex-page"
+      ],
+      "unit": "MeV",
+      "value": 200,
+      "verified_at": "2026-10-26"
+    },
+    "length": {
+      "approx": false,
+      "confidence": "derived",
+      "dimension": "length",
+      "display": "140 m (459 ft)",
+      "locator": "BNL \"200 MeV Linear Accelerator\" page",
+      "note": "Tunnel length: 459 ft x 0.3048 m/ft = 139.9 m, rounded.",
+      "quote": "a radiofrequency quadropole, and nine accelerator radiofrequency cavities spanning the length of a 459 foot tunnel",
+      "sources": [
+        "src:bnl-rhic-linac-page"
+      ],
+      "unit": "m",
+      "value": 140,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "active",
+  "summary": {
+    "plain": "The first machine in Brookhaven's proton chain: a 140-metre linear accelerator that has given hydrogen ions 200 million electronvolts since 1971, before they are passed to the Booster, the AGS and RHIC.",
+    "technical": "200 MeV normal-conducting H- linac (ion sources, RFQ and nine accelerating cavities in a 459 ft tunnel, 135 uA average current); injects the AGS Booster through a charge-exchange foil, and supplies BLIP."
+  },
+  "type": "accelerator"
+}

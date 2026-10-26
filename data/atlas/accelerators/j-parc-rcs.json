@@ -10,7 +10,19 @@
   },
   "facility_id": "facility:j-parc",
   "feeds_accelerator_ids": [
-    "accelerator:j-parc-main-ring"
+    {
+      "confidence": "approximate",
+      "id": "accelerator:j-parc-main-ring",
+      "locator": "T2K experiment paper (NIM A 659, 106), §2 \"J-PARC Accelerator\"",
+      "note": "Start = the main ring reaching its initial 30 GeV target energy in December 2008 (J-PARC history: \"Initial target energy (30 GeV) was achieved at MR.\"); the first RCS injection into the ring happened earlier, during commissioning, and is not dated on the pages consulted. About 5 % of the RCS bunches go to the main ring; over 90 % go to the Materials and Life Science facility (J-PARC accelerators page).",
+      "quote": "beam is accelerated up to 3 GeV by the RCS with a 25 Hz cycle. The harmonic number of the RCS is two, and there are two bunches in a cycle. About 5% of these bunches are supplied to the MR.",
+      "sources": [
+        "src:t2k-nim-2011",
+        "src:jparc-facilities"
+      ],
+      "start": "2008-12",
+      "verified_at": "2026-10-26"
+    }
   ],
   "id": "accelerator:j-parc-rcs",
   "intervals": [
@@ -26,6 +38,39 @@
       "start": "2007-10",
       "status": "active",
       "verified_at": "2026-09-16"
+    },
+    {
+      "confidence": "verified",
+      "end": "2014-01",
+      "kind": "phase",
+      "label": "181 MeV injection (before the Linac energy upgrade)",
+      "locator": "T2K experiment paper (NIM A 659, 106), §2",
+      "note": "Start = the RCS reaching its expected 3 GeV energy (October 2007, J-PARC history); end = the Linac energy upgrade (January 2014).",
+      "quote": "An H− beam is accelerated up to 400 MeV5 (181 MeV at present) by the LINAC, and is converted to an H+ beam by charge-stripping foils at the RCS injection.",
+      "sources": [
+        "src:t2k-nim-2011",
+        "src:kek-history-page"
+      ],
+      "specs": {
+        "injection_energy": {
+          "approx": false,
+          "confidence": "verified",
+          "dimension": "energy",
+          "display": "181 MeV",
+          "locator": "T2K experiment paper (NIM A 659, 106), §2 \"J-PARC Accelerator\"",
+          "note": "",
+          "quote": "An H− beam is accelerated up to 400 MeV5 (181 MeV at present) by the LINAC, and is converted to an H+ beam by charge-stripping foils at the RCS injection.",
+          "sources": [
+            "src:t2k-nim-2011"
+          ],
+          "unit": "MeV",
+          "value": 181,
+          "verified_at": "2026-10-26"
+        }
+      },
+      "start": "2007-10",
+      "status": "active",
+      "verified_at": "2026-10-26"
     }
   ],
   "kind": "synchrotron",
@@ -89,6 +134,22 @@
       "unit": "m",
       "value": 350,
       "verified_at": "2026-09-16"
+    },
+    "injection_energy": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "energy",
+      "display": "400 MeV",
+      "locator": "T2K experiment paper (NIM A 659, 106), §2 \"J-PARC Accelerator\"",
+      "note": "Linac output energy since the January 2014 upgrade; 181 MeV before (see the interval below). The T2K paper (2011) quotes \"400 MeV (181 MeV at present)\".",
+      "quote": "An H− beam is accelerated up to 400 MeV5 (181 MeV at present) by the LINAC, and is converted to an H+ beam by charge-stripping foils at the RCS injection.",
+      "sources": [
+        "src:t2k-nim-2011",
+        "src:jparc-linac-page"
+      ],
+      "unit": "MeV",
+      "value": 400,
+      "verified_at": "2026-10-26"
     }
   },
   "status": "active",

@@ -715,6 +715,7 @@ SPEC_KEY_DIMENSIONS: dict[str, tuple[str, ...]] = {
     'altitude': ('length',),
     'beam_power': ('power',),
     'beam_energy': ('energy',),
+    'injection_energy': ('energy',),   # injector-chain stages: the energy at which the machine receives beam
     'cms_energy': ('energy',),
     'circumference': ('length',),
     'length': ('length',),

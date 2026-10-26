@@ -96,22 +96,64 @@
   ],
   "primary_beam": {
     "confidence": "verified",
+    "locator": "IPAC 2013, MOPEA058, \"The CNGS facility\"",
+    "note": "Corrected: the earlier record gave \"muon neutrino\" (the secondary beam) as the primary beam particle.",
+    "quote": "A 400 GeV/c proton beam is fast-extracted from the CERN SPS accelerator.",
+    "sources": [
+      "src:cngs-ipac2013-gschwendtner"
+    ],
+    "value": {
+      "energy": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "energy",
+        "display": "400 GeV/c",
+        "locator": "IPAC 2013, MOPEA058, \"The CNGS facility\"",
+        "note": "A momentum (GeV/c) of the protons extracted from the SPS.",
+        "quote": "A 400 GeV/c proton beam is fast-extracted from the CERN SPS accelerator.",
+        "sources": [
+          "src:cngs-ipac2013-gschwendtner"
+        ],
+        "unit": "GeV",
+        "value": 400,
+        "verified_at": "2026-10-26"
+      },
+      "particle": "proton"
+    },
+    "verified_at": "2026-10-26"
+  },
+  "schema": "hep-atlas/0.2",
+  "secondary_beam": {
+    "confidence": "verified",
+    "locator": "home.cern, \"CERN Neutrinos to Gran Sasso\"",
     "note": "",
+    "quote": "From July 2006 to December 2012, the CNGS project sent muon neutrinos from CERN to the Gran Sasso National Laboratory (LNGS), 732 kilometres away in Italy.",
     "sources": [
       "src:opera-cern-cngs-page"
     ],
-    "value": {
-      "energy": null,
-      "particle": "muon neutrino"
-    },
-    "verified_at": "2026-09-17"
+    "value": "muon neutrinos",
+    "verified_at": "2026-10-26"
   },
-  "schema": "hep-atlas/0.2",
-  "secondary_beam": null,
   "sources": [
     "src:opera-cern-cngs-page"
   ],
-  "specs": {},
+  "specs": {
+    "proton_energy": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "energy",
+      "display": "400 GeV/c",
+      "locator": "IPAC 2013, MOPEA058, \"The CNGS facility\"",
+      "note": "A momentum (GeV/c).",
+      "quote": "A 400 GeV/c proton beam is fast-extracted from the CERN SPS accelerator.",
+      "sources": [
+        "src:cngs-ipac2013-gschwendtner"
+      ],
+      "unit": "GeV",
+      "value": 400,
+      "verified_at": "2026-10-26"
+    }
+  },
   "status": "completed",
   "summary": {
     "plain": "A beam of neutrinos sent 732 kilometres straight through the Earth's crust, from CERN in Switzerland to the Gran Sasso laboratory in Italy, between 2006 and 2012, so that the OPERA experiment could watch them change type on the way.",

@@ -8,21 +8,37 @@
     "tier": "C"
   },
   "facility_id": "facility:slac",
-  "feeds_accelerator_ids": [],
+  "feeds_accelerator_ids": [
+    {
+      "confidence": "verified",
+      "id": "accelerator:pep-ii",
+      "locator": "PAC 1995, WAQ15, abstract",
+      "note": "Corrected direction: the earlier records had accelerator:pep-ii feeding accelerator:slac-linac, which reversed the chain. The linac supplied PEP-II with 9.0 GeV electrons and 3.1 GeV positrons (full-energy injection through the injection beamlines in the linac housing). No dates: the relationship runs over PEP-II's operation (hull of the two records, 1999 to 2008). SLAC says the linac was \"linac-driven\" for a series of three colliders, PEP, SLC and PEP-II (SLAC, 2016).",
+      "quote": "Utilization of the existing high power, low emittance beams available at SLAC required that a great portion of the systems for pulsed extraction and transport of 9.0 GeV electrons and 3.1 GeV positrons for injection into the PEP-II rings will reside in the existing linac housing.",
+      "sources": [
+        "src:pep-ii-injection-pac1995-fieguth",
+        "src:slac-grad-handbook",
+        "src:slac-linac-turns-50-2016"
+      ],
+      "verified_at": "2026-10-26"
+    }
+  ],
   "id": "accelerator:slac-linac",
   "intervals": [
     {
-      "confidence": "uncertain",
+      "confidence": "verified",
       "end": null,
-      "label": "constructed / operating",
-      "note": "Sourced to Wikipedia only; the official site consulted (www6.slac.stanford.edu, checked 2026-09-17) gives no construction date. The linac has fed SLC, PEP-II and LCLS; it is treated as continuously active since 1966 for lack of a sourced end or upgrade interval.",
-      "quote": "a 3.2 km (2 mi) linear accelerator constructed in 1966 ... has been operational since 1966.",
+      "label": "operating",
+      "locator": "SLAC news item, \"SLAC's Historic Linac Turns 50 and Gets a Makeover\", section \"50 Years of Discovery\"",
+      "note": "First particle beam, 21 May 1966; \"completed in 1966\" on the SLAC handbook page. Since 2009 one-third of the copper linac has driven the LCLS X-ray laser and the first third was cleared for LCLS-II; FACET, which used the first two-thirds, shut down on 4 April 2016 (same item).",
+      "quote": "When the linac produced its first particle beam in the early morning hours of May 21, 1966, it was the single largest civilian science project ever undertaken by the U.S. government.",
       "sources": [
-        "src:slac-wikipedia"
+        "src:slac-linac-turns-50-2016",
+        "src:slac-grad-handbook"
       ],
-      "start": "1966",
+      "start": "1966-05-21",
       "status": "active",
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-26"
     }
   ],
   "is_collider": false,
@@ -32,7 +48,7 @@
   },
   "name": "SLAC linear accelerator",
   "notes": [
-    "No sourced construction or commissioning interval is recorded; the single interval starts in 1966 (Wikipedia only) and is not split at construction. The linac has fed SLC, PEP-II and LCLS; the Atlas has records for SLC and PEP-II only."
+    "The linac has fed SPEAR (from 1972) and PEP (1980-1990), which the colliders stream owns and which have no record on this branch; PEP-II (1999-2008) is linked here; LCLS has no record. The SLC (1989-1998) did not take beam from the linac: \"Starting in 1983, extensive modifications and additions to the existing linac enabled it to simultaneously accelerate and collide 50 GeV electrons and positron bunches\" (SLAC handbook page), so the linac was the SLC's accelerator, and no feeds relationship is recorded."
   ],
   "particles": [
     "electron",
@@ -46,31 +62,34 @@
   "specs": {
     "beam_energy": {
       "approx": false,
-      "confidence": "uncertain",
+      "confidence": "verified",
       "dimension": "energy",
-      "display": "up to 50 GeV (design/maximum, electrons)",
-      "note": "Sourced to Wikipedia only; originally 20 GeV, later upgraded.",
-      "quote": "could accelerate electrons to energies of 20 GeV, and later up to 50 GeV",
+      "display": "up to 50 GeV (electrons)",
+      "locator": "SLAC graduate handbook page, \"The Linac and the SLAC Linear Collider\"",
+      "note": "Maximum, after the 1980s klystron upgrade; originally \"electron beams of about 20 GeV and positrons of about 13 GeV\", above 30 GeV after SLED in the 1970s (same page). The linac is shared: PEP-II used it at 9.0 GeV (electrons) and 3.1 GeV (positrons).",
+      "quote": "In the 1980s, new, improved klystrons manufactured at the laboratory reached peak powers of 64 MW which, in combination with SLED, boosted the linac energy to 50 GeV.",
       "sources": [
-        "src:slac-wikipedia"
+        "src:slac-grad-handbook"
       ],
       "unit": "GeV",
       "value": 50,
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-26"
     },
     "length": {
       "approx": false,
-      "confidence": "uncertain",
+      "confidence": "derived",
       "dimension": "length",
-      "display": "3.2 km (2 mi)",
-      "note": "Sourced to Wikipedia only.",
-      "quote": "3.2 km (2 mi) long",
+      "display": "3.2 km (two miles)",
+      "locator": "SLAC graduate handbook page, \"The Linac and the SLAC Linear Collider\"",
+      "note": "Derived by unit conversion: SLAC states \"two-mile-long\" (the 2016 news item says \"2-mile-long linac\"); 2 mi x 1.609344 km/mi = 3.22 km.",
+      "quote": "The first major accelerator facility at SLAC was the two-mile-long linear accelerator, completed in 1966.",
       "sources": [
-        "src:slac-wikipedia"
+        "src:slac-grad-handbook",
+        "src:slac-linac-turns-50-2016"
       ],
       "unit": "km",
       "value": 3.2,
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-26"
     }
   },
   "status": "active",

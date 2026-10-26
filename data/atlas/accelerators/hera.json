@@ -44,7 +44,8 @@
   },
   "name": "Hadron-Elektron-Ring-Anlage",
   "notes": [
-    "The per-species beam energies (27.5 GeV for e⁻/e⁺, 920 GeV for protons) are sourced to the existing Wikipedia citation plus a DESY-hosted page (desy.de/~ameyer/hq/node16.html, a physicist's teaching notes on the desy.de domain, which is secondary rather than DESY's own institutional page). Both agree on 27.5/920 GeV and on the 320 GeV cms energy already recorded; confidence stays uncertain because no official source was consulted for these two numbers specifically (checked 2026-09-17)."
+    "Injector chain (Klein & Yoshida 2008, Table 1): protons, RFQ - LINAC III (50 MeV) - DESY III (8 GeV) - PETRA (40 GeV) - HERA (920 GeV); electrons and positrons, LINAC II (450 MeV) - PIA - DESY II (7 GeV) - PETRA (12 GeV) - HERA (27.5 GeV). Only HERA has an Atlas record; the pre-accelerators and PETRA are not linked.",
+    "Operation dates: DESY's page says \"Research operation: 1992-2007\" and Klein & Yoshida say \"The first HERA data were taken in summer 1992. It ceased operations in June 2007\"; the day (30 June 2007) is from Wikipedia and stays on the interval with its low confidence."
   ],
   "particles": [
     "electron",
@@ -55,66 +56,85 @@
   "site_id": "site:desy-hamburg-campus",
   "sources": [
     "src:hera-wikipedia",
-    "src:facilities-verify-hera-desy-ameyer"
+    "src:facilities-verify-hera-desy-ameyer",
+    "src:hera-collider-physics-klein-yoshida-2008",
+    "src:geo-desy-hera-facts-page"
   ],
   "specs": {
     "beam_energy": {
       "approx": false,
-      "confidence": "uncertain",
+      "confidence": "verified",
       "dimension": "energy",
       "display": "27.5 GeV (electrons/positrons)",
-      "note": "Sourced to Wikipedia plus a DESY-hosted lecture-notes page (read from the Internet Archive capture 20250222113620 because the live host resets connections); both are secondary, so confidence stays uncertain until an official DESY accelerator-complex page is found. The quote is the Wikipedia sentence; the DESY-hosted page words the same values as \"collides 27.5 GeV electrons or positrons with 920 GeV protons\".",
-      "quote": "One accelerated electrons to energies of 27.5 GeV",
+      "locator": "Klein & Yoshida, arXiv:0805.3334, introduction",
+      "note": "Replaces the earlier Wikipedia and lecture-notes sourcing. Table 1 of the same paper gives the lepton ring energy as 27.5 GeV.",
+      "quote": "The energy of the electron (positron) beam was about 27.5 GeV.",
       "sources": [
-        "src:hera-wikipedia",
-        "src:facilities-verify-hera-desy-ameyer"
+        "src:hera-collider-physics-klein-yoshida-2008"
       ],
       "unit": "GeV",
       "value": 27.5,
-      "verified_at": "2026-10-25"
+      "verified_at": "2026-10-26"
     },
     "circumference": {
       "approx": false,
-      "confidence": "uncertain",
+      "confidence": "verified",
       "dimension": "length",
-      "display": "6.3 km",
-      "note": "Sourced to Wikipedia only.",
-      "quote": "The HERA tunnel runs 10 to 25 m below ground level and has a circumference of 6.3 km",
+      "display": "6336 m",
+      "locator": "DESY HERA page, \"Facts and figures\"",
+      "note": "DESY's own figure (the same page says \"a 6.3-kilometer-long tunnel\"). Klein & Yoshida (arXiv:0805.3334), Table 1 caption, write \"The main ring is 6223 m in circumference\", which differs by 1.8 %; the DESY figure is used and agrees with the tunnel geometry check on the DESY map.",
+      "quote": "Length: 6336 metres",
       "sources": [
-        "src:hera-wikipedia"
+        "src:geo-desy-hera-facts-page"
       ],
-      "unit": "km",
-      "value": 6.3,
-      "verified_at": "2026-09-17"
+      "unit": "m",
+      "value": 6336,
+      "verified_at": "2026-10-26"
     },
     "cms_energy": {
       "approx": false,
-      "confidence": "uncertain",
+      "confidence": "verified",
       "dimension": "energy",
       "display": "320 GeV",
-      "note": "Sourced to Wikipedia only; no official DESY page consulted (checked 2026-09-17) states the cms energy directly.",
-      "quote": "electrons or positrons were brought to collision with protons at a center-of-mass energy of 320 GeV.",
+      "locator": "Klein & Yoshida, arXiv:0805.3334, abstract",
+      "note": "The paper says \"about 320 GeV\".",
+      "quote": "From 1992 to 2007, HERA, the first electron-proton collider, operated at cms energies of about 320 GeV",
       "sources": [
-        "src:hera-wikipedia"
+        "src:hera-collider-physics-klein-yoshida-2008"
       ],
       "unit": "GeV",
       "value": 320,
-      "verified_at": "2026-09-17"
+      "verified_at": "2026-10-26"
+    },
+    "injection_energy": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "energy",
+      "display": "40 GeV (protons from PETRA); 12 GeV (electrons from PETRA)",
+      "locator": "Klein & Yoshida, arXiv:0805.3334, Table 1",
+      "note": "Table 1, \"Chain of (pre)accelerators at HERA and their energies\": protons source, RFQ (750 keV), LINAC III (50 MeV), DESY III (8 GeV), PETRA (40 GeV), HERA (920 GeV); electrons source (150 keV), LINAC II (450 MeV), PIA (450 MeV), DESY II (7 GeV), PETRA (12 GeV), HERA (27.5 GeV). PETRA belongs to the colliders stream and has no record on this branch.",
+      "quote": "Protons Source RFQ LINAC III DESY III PETRA HERA Ep 20 keV 750 keV 50 MeV 8 GeV 40 GeV 920 GeV Electrons Ee Source 150 keV LINAC II 450 MeV PIA 450 MeV DESY II 7 GeV PETRA 12 GeV HERA 27.5 GeV",
+      "sources": [
+        "src:hera-collider-physics-klein-yoshida-2008"
+      ],
+      "unit": "GeV",
+      "value": 40,
+      "verified_at": "2026-10-26"
     },
     "proton_energy": {
       "approx": false,
-      "confidence": "uncertain",
+      "confidence": "verified",
       "dimension": "energy",
       "display": "920 GeV (protons)",
-      "note": "See the beam-energy note on this record. The DESY-hosted lecture-notes page words the value as \"collides 27.5 GeV electrons or positrons with 920 GeV protons\" (Internet Archive capture 20250222113620); the quote is the Wikipedia sentence.",
-      "quote": "the other one protons to energies of 920 GeV in the opposite direction",
+      "locator": "Klein & Yoshida, arXiv:0805.3334, introduction",
+      "note": "820 GeV until 1998, 920 GeV from 1998; in the last three months of operation lower proton energies (460 and 575 GeV) were used (same paper).",
+      "quote": "The energy of the proton beam was initially set to 820 GeV until it was increased to 920 GeV, in 1998, and kept at that value.",
       "sources": [
-        "src:hera-wikipedia",
-        "src:facilities-verify-hera-desy-ameyer"
+        "src:hera-collider-physics-klein-yoshida-2008"
       ],
       "unit": "GeV",
       "value": 920,
-      "verified_at": "2026-10-25"
+      "verified_at": "2026-10-26"
     }
   },
   "status": "completed",

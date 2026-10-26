@@ -9,8 +9,37 @@
   },
   "facility_id": "facility:fermilab",
   "feeds_accelerator_ids": [
-    "accelerator:fermilab-recycler",
-    "accelerator:fermilab-main-injector"
+    {
+      "confidence": "verified",
+      "id": "accelerator:fermilab-main-injector",
+      "locator": "NuMI Neutrino Beam paper, §1 Introduction",
+      "note": "Start = the dedication of the Main Injector (see its operating interval); ring commissioning began in September 1998. 8 GeV protons into the Main Injector (the Tevatron-era chain: \"Protons from the Booster and antiprotons from the Recycler were accelerated to 150 GeV in the Main Injector\").",
+      "quote": "This accelerator would use the Fermilab 8 GeV Booster as an injector and have the ability to accelerate protons up to 150 GeV",
+      "sources": [
+        "src:fermilab-numi-beam-paper-2016",
+        "src:fermilab-geo-nagaitsev-pbar-recycler-mi-2014"
+      ],
+      "start": "1999-06-01",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "id": "accelerator:fermilab-recycler",
+      "locator": "Fermilab proton complex status, arXiv:1705.03075, section on the Recycler",
+      "note": "Start as on the Recycler's proton-stacking interval: \"just 6 batches in late 2014\" is the first documented step and the Recycler was an antiproton ring until the Tevatron stopped in 2011. Proton beam studies in the Recycler during commissioning (1999 to 2004) are not counted as chain operation.",
+      "quote": "the Recycler is now used to stack high intensity protons for loading into the 120 GeV Main Injector synchrotron which is located in the same tunnel. Circumference of the Recycler is sufficient to accommodate six batches of 84 Booster bunches each;",
+      "sources": [
+        "src:fermilab-proton-complex-status-2017"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2014",
+        "display": "by late 2014 (first documented step: 6 batches stacked); not before the Tevatron stopped in 2011",
+        "earliest": "2011",
+        "latest": "2014"
+      },
+      "verified_at": "2026-10-26"
+    }
   ],
   "id": "accelerator:fermilab-booster",
   "intervals": [
@@ -43,6 +72,83 @@
       "start": "1971-05-21",
       "status": "active",
       "verified_at": "2026-10-25"
+    },
+    {
+      "confidence": "approximate",
+      "end": {
+        "approx": true,
+        "date": "1993-09",
+        "display": "between Run Ia (ended May 1993) and Run Ib (began December 1993)",
+        "earliest": "1993-05",
+        "latest": "1993-12"
+      },
+      "kind": "phase",
+      "label": "200 MeV injection (before the 1993 Linac upgrade)",
+      "locator": "Shiltsev, arXiv:1109.1864, section on Run I",
+      "note": "The Linac upgrade from the initial 200 MeV to 400 MeV aimed at reducing space-charge effects at the Booster's injection energy; end as on accelerator:fermilab-linac.",
+      "quote": "The 400 MeV linac upgrade (from the initial 200 MeV) was implemented between Run Ia and Run Ib",
+      "sources": [
+        "src:fermilab-tevatron-shiltsev-2011"
+      ],
+      "specs": {
+        "injection_energy": {
+          "approx": false,
+          "confidence": "verified",
+          "dimension": "energy",
+          "display": "200 MeV",
+          "locator": "Shiltsev, arXiv:1109.1864, section on Run I",
+          "note": "",
+          "quote": "The 400 MeV linac upgrade (from the initial 200 MeV) was implemented between Run Ia and Run Ib",
+          "sources": [
+            "src:fermilab-tevatron-shiltsev-2011"
+          ],
+          "unit": "MeV",
+          "value": 200,
+          "verified_at": "2026-10-26"
+        }
+      },
+      "start": "1971-05-21",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "kind": "phase",
+      "label": "Injection from the PIP-II linac (planned)",
+      "locator": "IPAC'26 talk (M. Convery, 19 May 2026), slide \"Accelerator program evolution\"",
+      "note": "Schedule value, not an event: after the 2028-2029 \"long shutdown\" the Booster is commissioned with beam from the PIP-II linac, and \"Operation of LBNF beam to DUNE will begin in 2031\" (same slide). The 800 MeV injection energy is in the talk's table \"Key parameters\" (Linac 400, Linac2 800 MeV).",
+      "quote": "Booster commissioning with beam from the PIP-II linac uses the Booster Neutrino Beam facility which allows an experimental program if approved",
+      "sources": [
+        "src:currency-fnal-ipac26-accelerator-complex-talk"
+      ],
+      "specs": {
+        "injection_energy": {
+          "approx": false,
+          "confidence": "approximate",
+          "dimension": "energy",
+          "display": "800 MeV",
+          "locator": "IPAC'26 talk, slide \"PIP-II project and Linac2\"",
+          "note": "Design value of the PIP-II linac; planned, not yet in operation.",
+          "quote": "Linac2 is an 800 MeV H- superconducting RF linac, compatible with CW operations and upgradeable to 1 GeV",
+          "sources": [
+            "src:currency-fnal-ipac26-accelerator-complex-talk"
+          ],
+          "unit": "MeV",
+          "value": 800,
+          "verified_at": "2026-10-26"
+        }
+      },
+      "start": {
+        "approx": true,
+        "date": "2030",
+        "display": "after the 2028-2029 long shutdown; LBNF beam to DUNE planned for 2031",
+        "earliest": "2029",
+        "latest": "2031",
+        "planned": true
+      },
+      "status": "planned",
+      "verified_at": "2026-10-26"
     }
   ],
   "is_collider": false,
@@ -93,6 +199,22 @@
       "unit": "m",
       "value": 474,
       "verified_at": "2026-10-25"
+    },
+    "injection_energy": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "energy",
+      "display": "400 MeV",
+      "locator": "NuMI Neutrino Beam paper, §2; IPAC'26 talk, table \"Key parameters\"",
+      "note": "Current Linac injection energy (H- ions, stripped to protons in the Booster). 200 MeV before the 1993 Linac upgrade; 800 MeV planned with the PIP-II linac (see the intervals).",
+      "quote": "Protons originate as H− ions in the Linac which accelerates them to 400 MeV. The ions are converted into protons in the Booster where they are accelerated to 8 GeV as 1.6 µs long batches with a 53 MHz bunch spacing.",
+      "sources": [
+        "src:fermilab-numi-beam-paper-2016",
+        "src:currency-fnal-ipac26-accelerator-complex-talk"
+      ],
+      "unit": "MeV",
+      "value": 400,
+      "verified_at": "2026-10-26"
     }
   },
   "status": "active",

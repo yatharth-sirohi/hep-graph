@@ -52,7 +52,7 @@
   },
   "name": "Intersecting Storage Rings",
   "notes": [
-    "Per-ring beam energy (≈31 GeV) is recorded as a derived half of the sourced 62 GeV centre-of-mass energy; home.cern quotes only the collision energy."
+    "Per-ring energy: the earlier derived figure (about 31 GeV, half of 62 GeV) is replaced by the sourced 31.4 GeV/c of Bryant (arXiv:1206.3950); CERN's ISR page quotes only the 62 GeV maximum centre-of-mass energy."
   ],
   "particles": [
     "proton",
@@ -63,21 +63,24 @@
   "schema": "hep-atlas/0.2",
   "site_id": "site:cern-meyrin",
   "sources": [
-    "src:cern-isr-page"
+    "src:cern-isr-page",
+    "src:isr-bryant-arxiv-1206-3950"
   ],
   "specs": {
     "beam_energy": {
-      "approx": true,
-      "confidence": "derived",
+      "approx": false,
+      "confidence": "verified",
       "dimension": "energy",
-      "display": "≈31 GeV per ring",
-      "note": "Half of the sourced 62 GeV maximum centre-of-mass energy; home.cern does not state the per-ring energy.",
+      "display": "up to 31.4 GeV/c per ring",
+      "locator": "arXiv:1206.3950, abstract",
+      "note": "A momentum (GeV/c) for protons; replaces the earlier half-of-62-GeV derivation (about 31 GeV). \"Much of the operating life of the ISR was at 31.4 GeV/c, the maximum energy the magnet system could reach.\" (same paper).",
+      "quote": "The CERN PS injected 26 GeV/c proton beams into the two rings that could accelerate up to 31.4 GeV/c.",
       "sources": [
-        "src:cern-isr-page"
+        "src:isr-bryant-arxiv-1206-3950"
       ],
       "unit": "GeV",
-      "value": 31,
-      "verified_at": "2026-09-16"
+      "value": 31.4,
+      "verified_at": "2026-10-26"
     },
     "cms_energy": {
       "approx": false,
@@ -106,6 +109,21 @@
       "unit": "m",
       "value": 300,
       "verified_at": "2026-09-16"
+    },
+    "injection_energy": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "energy",
+      "display": "26 GeV/c from the PS",
+      "locator": "arXiv:1206.3950, abstract",
+      "note": "A momentum (GeV/c) for protons.",
+      "quote": "The CERN PS injected 26 GeV/c proton beams into the two rings that could accelerate up to 31.4 GeV/c.",
+      "sources": [
+        "src:isr-bryant-arxiv-1206-3950"
+      ],
+      "unit": "GeV",
+      "value": 26,
+      "verified_at": "2026-10-26"
     }
   },
   "status": "decommissioned",

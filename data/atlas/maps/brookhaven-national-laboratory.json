@@ -75,5 +75,16 @@
     "technical": "One local map for facility:brookhaven-national-laboratory spanning the RHIC and AGS ring footprints and the adjoining accelerator-complex buildings on the Upton campus. Geometry sourced from OpenStreetMap (way 50074088 for the RHIC ring, tagged tunnel=yes/indoor=yes; way 289305285 for the AGS ring, tagged place=locality) cross-checked against BNL's published RHIC circumference (2.4 mi) and the AGS's 1960 design-specification mean radius (421.5 ft), plus OSM building footprints for the STAR (1006/1006A) and PHENIX/sPHENIX (1008/1008A) halls corroborated against BNL's own central-campus-map building-number key."
   },
   "type": "map",
-  "unlocated": []
+  "unlocated": [
+    {
+      "backlog": "A BNL AGS Booster design drawing or civil-engineering plan with a scale bar (or a survey table of the ring), georeferenced against the surveyed AGS and RHIC rings; the BNL central campus map key only labels Building 942.",
+      "entity_id": "accelerator:bnl-booster",
+      "reason": "The AGS Booster (Building 942) sits beside the AGS ring, but OpenStreetMap carries only a hand-labelled place=locality boundary around it (way 996525504, drawn as the context feature \"AGS Booster (Building 942), approximate area\") and no consulted source gives a survey or a georeferenced trace of the Booster ring itself. That area label is not drawn as the accelerator.",
+      "sources": [
+        "src:geo-bnl-osm-context-buildings",
+        "src:bnl-rhic-booster-page"
+      ],
+      "verified_at": "2026-10-26"
+    }
+  ]
 }

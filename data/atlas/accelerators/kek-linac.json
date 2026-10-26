@@ -1,0 +1,163 @@
+{
+  "aliases": [
+    "KEKB injector linac",
+    "SuperKEKB injector linac",
+    "KEK Linac"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "B"
+  },
+  "facility_id": "facility:kek",
+  "feeds_accelerator_ids": [
+    {
+      "confidence": "approximate",
+      "end": "2010-06-30",
+      "id": "accelerator:kekb",
+      "locator": "KEK Accelerator Laboratory, \"KEKB Ring\" page",
+      "note": "Start = KEKB's first operation in 1998 (KEKB ring page: \"KEKB started its operation in 1998\"); end = \"KEKB/Belle operation successfully ended on 30-June-2010\" (Belle legacy site). The linac delivered electrons and positrons by top-up injection during collisions: \"the linac was upgraded for the KEKB asymmetric-energy collider project with energy enforcement up to 8 GeV\".",
+      "quote": "maintained nearly constant by a top-up injection from the Linac during the collision experiment.",
+      "sources": [
+        "src:kekb-ring-kek",
+        "src:superkekb-collider-nima-2018"
+      ],
+      "start": "1998",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "id": "accelerator:superkekb",
+      "locator": "Akai et al., NIM A 907 (2018) 188 (arXiv:1809.01958), §1",
+      "note": "Start = Phase 1 beam commissioning of the rebuilt collider (February to June 2016, same paper: \"Large-scale construction to upgrade both the collider rings and the injector was conducted, and beam commissioning ... was successfully carried out from February to June in 2016\"). The linac feeds the 1.1 GeV positron damping ring (DR, no Atlas record) and then the two rings; it also injects the Photon Factory rings (no record).",
+      "quote": "The SuperKEKB collider complex consists of a 7-GeV electron ring (the high-energy ring, HER), a 4-GeV positron ring (the low-energy ring, LER), and an injector linear accelerator (linac) with a 1.1-GeV positron damping ring (DR)",
+      "sources": [
+        "src:superkekb-collider-nima-2018"
+      ],
+      "start": "2016-02",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "accelerator:kek-linac",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "1982",
+      "label": "construction",
+      "locator": "Akai et al. (arXiv:1809.01958), §6 \"Injector linac\"",
+      "note": "Built for the Photon Factory as a 2.5 GeV electron linac; \"beginning in 1978\" and \"commissioned in 1982\" (year precision).",
+      "quote": "It was originally constructed for Photon Factory as a 2.5-GeV electron linac beginning in 1978 and was commissioned in 1982.",
+      "sources": [
+        "src:superkekb-collider-nima-2018"
+      ],
+      "start": "1978",
+      "status": "construction",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "operating",
+      "locator": "Akai et al. (arXiv:1809.01958), §6 \"Injector linac\"",
+      "note": "Delivering beams \"since 1982\"; upgraded in stages (positron generator for TRISTAN, operated until 1995; KEKB, up to 8 GeV; SuperKEKB, 7 GeV e- and 4 GeV e+ with a damping ring).",
+      "quote": "The electron–positron injector linac at KEK has delivered electrons and positrons for particle physics and photon science experiments since 1982.",
+      "sources": [
+        "src:superkekb-collider-nima-2018"
+      ],
+      "start": "1982",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": "2010-06-30",
+      "kind": "phase",
+      "label": "KEKB injector (up to 8 GeV)",
+      "locator": "Akai et al. (arXiv:1809.01958), §6 \"Injector linac\"",
+      "note": "The linac energy was raised for KEKB after the TRISTAN era (the positron generator for TRISTAN \"was operated until 1995\"); the exact date of the upgrade is not stated, so the phase is bounded by KEKB's own operation (1998 to 30 June 2010).",
+      "quote": "Then, the linac was upgraded for the KEKB asymmetric-energy collider project with energy enforcement up to 8 GeV",
+      "sources": [
+        "src:superkekb-collider-nima-2018",
+        "src:kekb-ring-kek"
+      ],
+      "specs": {
+        "beam_energy": {
+          "approx": false,
+          "confidence": "verified",
+          "dimension": "energy",
+          "display": "up to 8 GeV (electrons)",
+          "locator": "Akai et al. (arXiv:1809.01958), §6 \"Injector linac\"",
+          "note": "Full-energy injection into KEKB's 8 GeV electron and 3.5 GeV positron rings (KEKB ring page: \"It collides 3.5 GeV positrons and 8 GeV electrons at the interaction point\").",
+          "quote": "Then, the linac was upgraded for the KEKB asymmetric-energy collider project with energy enforcement up to 8 GeV",
+          "sources": [
+            "src:superkekb-collider-nima-2018"
+          ],
+          "unit": "GeV",
+          "value": 8,
+          "verified_at": "2026-10-26"
+        }
+      },
+      "start": "1998",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "is_collider": false,
+  "kind": "linac",
+  "links": {
+    "website": null
+  },
+  "name": "KEK electron-positron injector linac",
+  "notes": [
+    "No site is linked: the KEK Tsukuba campus has only the Belle II interaction-region site in the Atlas; the linac building footprint is drawn on the KEK map and linked to this record.",
+    "Not recorded: the 1.1 GeV positron damping ring (DR) added for SuperKEKB, the Photon Factory rings (PF and PF-AR) that the linac also injects, and the 12 GeV KEK-PS injector chain (a separate 40 MeV linac and 500 MeV booster).",
+    "The linac was originally the Photon Factory electron linac (2.5 GeV); a positron generator for TRISTAN was added and \"operated until 1995\" (Akai et al.)."
+  ],
+  "particles": [
+    "electron",
+    "positron"
+  ],
+  "schema": "hep-atlas/0.2",
+  "site_id": null,
+  "sources": [
+    "src:superkekb-collider-nima-2018",
+    "src:kekb-ring-kek"
+  ],
+  "specs": {
+    "beam_energy": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "energy",
+      "display": "7 GeV e⁻ and 4 GeV e⁺ (SuperKEKB)",
+      "locator": "Akai et al. (arXiv:1809.01958), §1 and Table 2 \"Injector beam parameters\"",
+      "note": "Injector beam energies of the current configuration: Table 2 lists 7.007 GeV for electrons and 4.0 GeV for positrons; the quantity records the electron energy.",
+      "quote": "The SuperKEKB collider complex consists of a 7-GeV electron ring (the high-energy ring, HER), a 4-GeV positron ring (the low-energy ring, LER), and an injector linear accelerator (linac) with a 1.1-GeV positron damping ring (DR)",
+      "sources": [
+        "src:superkekb-collider-nima-2018"
+      ],
+      "unit": "GeV",
+      "value": 7,
+      "verified_at": "2026-10-26"
+    },
+    "length": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "600 m",
+      "locator": "Akai et al. (arXiv:1809.01958), §6 \"Injector linac\"",
+      "note": "",
+      "quote": "The 600-m injector linac is composed of 60 high-power accelerating units followed by a beam switch yard.",
+      "sources": [
+        "src:superkekb-collider-nima-2018"
+      ],
+      "unit": "m",
+      "value": 600,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "active",
+  "summary": {
+    "plain": "The 600-metre linear accelerator at KEK that makes the electrons and positrons for the KEKB and SuperKEKB colliders. It has run since 1982 and today delivers 7 billion-electronvolt electrons and 4 billion-electronvolt positrons.",
+    "technical": "600 m electron/positron linac of 60 accelerating units (photocathode RF gun, flux-concentrator positron source, 1.1 GeV damping ring) injecting 7 GeV e- and 4 GeV e+ into SuperKEKB; earlier the 2.5 GeV Photon Factory linac and the 8 GeV / 3.5 GeV KEKB injector."
+  },
+  "type": "accelerator"
+}

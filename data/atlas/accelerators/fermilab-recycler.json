@@ -8,7 +8,44 @@
   },
   "facility_id": "facility:fermilab",
   "feeds_accelerator_ids": [
-    "accelerator:fermilab-main-injector"
+    {
+      "confidence": "approximate",
+      "end": "2011-09",
+      "id": "accelerator:fermilab-main-injector",
+      "locator": "Nagaitsev, arXiv:1408.0759, section 5 \"Antiproton Flow and Tevatron Shot-Setup\"",
+      "note": "Antiproton era: antiprotons for the Tevatron went from the Recycler into the Main Injector (accelerated to 150 GeV there). Start = \"late 2005\" (electron cooling in the Recycler began in September 2005); end = the end of Tevatron Run II, \"through September 2011\" (Shiltsev).",
+      "quote": "Since late 2005, all Tevatron antiprotons were extracted from the Recycler only.",
+      "sources": [
+        "src:fermilab-geo-nagaitsev-pbar-recycler-mi-2014",
+        "src:fermilab-tevatron-shiltsev-2011"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2005-10",
+        "display": "late 2005",
+        "earliest": "2005-09",
+        "latest": "2005-12"
+      },
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "id": "accelerator:fermilab-main-injector",
+      "locator": "Fermilab proton complex status, arXiv:1705.03075, section on the Recycler",
+      "note": "Proton era: Booster batches are stacked (slip-stacked) in the Recycler and loaded into the Main Injector for NuMI/NOvA; start as on the Recycler's proton-stacking interval.",
+      "quote": "the Recycler is now used to stack high intensity protons for loading into the 120 GeV Main Injector synchrotron which is located in the same tunnel. Circumference of the Recycler is sufficient to accommodate six batches of 84 Booster bunches each;",
+      "sources": [
+        "src:fermilab-proton-complex-status-2017"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2014",
+        "display": "by late 2014 (first documented step: 6 batches stacked); not before the Tevatron stopped in 2011",
+        "earliest": "2011",
+        "latest": "2014"
+      },
+      "verified_at": "2026-10-26"
+    }
   ],
   "id": "accelerator:fermilab-recycler",
   "intervals": [
@@ -73,7 +110,9 @@
     "website": null
   },
   "name": "Fermilab Recycler Ring",
-  "notes": [],
+  "notes": [
+    "The Recycler also re-bunches 8 GeV protons for the Muon Campus (Mu2e) and holds beam between the Booster and the Main Injector; the Delivery Ring and the Muon Campus beamlines have no accelerator record in the Atlas."
+  ],
   "particles": [
     "proton",
     "antiproton"
