@@ -1,0 +1,149 @@
+{
+  "accelerator_ids": [
+    "accelerator:sps"
+  ],
+  "aliases": [
+    "CDHSW",
+    "CERN-Dortmund-Heidelberg-Saclay"
+  ],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:cdhs"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
+  },
+  "energy_regime": null,
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:cern",
+      "locator": "page text, first paragraph",
+      "note": "",
+      "quote": "The CDHS neutrino experiment at CERN was a collaboration of CERN, Dortmund, Heidelberg and Saclay (later joined by Warsaw) led by Jack Steinberger.",
+      "role": "host",
+      "sources": [
+        "src:cdhs-knobloch-page-wayback"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:cdhs",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "1984",
+      "label": "data taking",
+      "locator": "page text, first paragraphs",
+      "note": "Month precision for the start, from the collaboration member's page. Dore (EPJ H 37, 2012) writes 'took data from 1977 in the neutrino beam of the CERN SPS' and the CERN Courier says the first SPS neutrino beams appeared early in 1977; the page's December 1976 is kept as the experiment's own statement. In 1983 the detector was split in two parts for a neutrino-oscillation experiment in the PS neutrino beam (Dore).",
+      "quote": "The experiment took data in the CERN neutrino beams from December 1976 until 1984.",
+      "sources": [
+        "src:cdhs-knobloch-page-wayback"
+      ],
+      "start": "1976-12",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "completed",
+      "locator": "page text, first paragraphs",
+      "note": "Terminal event: end of data taking, year precision ('until 1984').",
+      "quote": "The experiment took data in the CERN neutrino beams from December 1976 until 1984.",
+      "sources": [
+        "src:cdhs-knobloch-page-wayback"
+      ],
+      "start": "1984",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Detector mass",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "mass",
+        "display": "1250 tons",
+        "locator": "page text, first paragraph",
+        "note": "",
+        "quote": "The detector had a mass of 1250 tons and combined the functions of a muon spectrometer and hadron calorimeter.",
+        "sources": [
+          "src:cdhs-knobloch-page-wayback"
+        ],
+        "unit": "t",
+        "value": 1250,
+        "verified_at": "2026-10-26"
+      }
+    },
+    {
+      "label": "Magnetized iron modules",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "count",
+        "display": "19",
+        "locator": "page text, first paragraph",
+        "note": "",
+        "quote": "It consisted of 19 magnetized iron modules, separated from each other by wire drift chambers.",
+        "sources": [
+          "src:cdhs-knobloch-page-wayback"
+        ],
+        "unit": "",
+        "value": 19,
+        "verified_at": "2026-10-26"
+      }
+    }
+  ],
+  "kind": "accelerator_neutrino",
+  "lineage": [],
+  "links": {
+    "website": null
+  },
+  "name": "CDHS",
+  "notes": [
+    "The collaboration's own page lives at knobloch.web.cern.ch (offline); it is cited through an Internet Archive capture and no live website is recorded.",
+    "The RMP review hep-ex/9707015 calls the later experiment with the upgraded detector and the Warsaw group 'CDHSW'; it is recorded here as an alias, not a separate experiment."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "page text, first paragraph",
+      "note": "",
+      "quote": "The experiment was designed to study deep inelastic neutrino interactions in iron.",
+      "sources": [
+        "src:cdhs-knobloch-page-wayback"
+      ],
+      "value": "Study deep inelastic neutrino interactions in iron: total cross sections, structure functions, electroweak parameters, CKM mixing, multimuon events and neutrino-oscillation limits",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:cdhs-knobloch-page-wayback",
+    "src:cern-wa-1103-4572",
+    "src:cdhs-hep-ex9707015"
+  ],
+  "status": "completed",
+  "summary": {
+    "plain": "A 1250-tonne magnetised-iron detector in CERN's neutrino beams that, from 1976 to 1984, measured how neutrinos and antineutrinos scatter off iron nuclei. Led by Jack Steinberger, it pinned down cross sections, quark structure functions and electroweak parameters.",
+    "technical": "CERN-Dortmund-Heidelberg-Saclay (later Warsaw) experiment at the SPS: 1250 t detector of 19 toroidally magnetised iron modules interleaved with wire drift chambers, acting as muon spectrometer and hadron calorimeter; narrow- and wide-band nu_mu beams. 35 publications on total cross sections, structure functions, dimuons, electroweak parameters, CKM mixing and oscillation limits; in 1983 the detector was split in two for a PS oscillation experiment."
+  },
+  "topic_ids": [
+    "topic:neutrino-interactions",
+    "topic:electroweak-physics"
+  ],
+  "type": "experiment",
+  "unique_capabilities": []
+}

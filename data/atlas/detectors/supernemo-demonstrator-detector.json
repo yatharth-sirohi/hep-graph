@@ -1,0 +1,119 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
+  },
+  "experiment_ids": [
+    "experiment:supernemo-demonstrator"
+  ],
+  "id": "detector:supernemo-demonstrator-detector",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2025-04-10",
+      "label": "assembly completed and commissioning",
+      "locator": "report, section 'Year 2018'",
+      "note": "Start = completion of the basic assembly of the Demonstrator at LSM (November 2018); the sources do not date the start of commissioning itself, nor the earlier construction. The 2018-2020 report says 'The calorimeter is fully commissioned and the tracker commissioning is under progress'; a December 2024 paper still speaks of 'the final stages of installation and commissioning'.",
+      "quote": "The most important result is the completion of the basic assembly of the SuperNEMO Demonstrator in November 2018",
+      "sources": [
+        "src:supernemo-demonstrator-jinr-progress-report-2018-2020"
+      ],
+      "start": "2018-11",
+      "status": "commissioning",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "data taking",
+      "locator": "slide 'SuperNEMO demonstrator status'",
+      "note": "First ββ event recorded 10 April 2025; the June 2025 status talk reports 'Now in full data taking mode'. No later source was found, so whether data taking continues on 2026-10-26 is not confirmed.",
+      "quote": "Start of data acquisition: April 10th 2025",
+      "sources": [
+        "src:supernemo-demonstrator-lyon2025-status-talk"
+      ],
+      "start": "2025-04-10",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "SuperNEMO Demonstrator module",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "locator": "report, Figure 1 caption (typo 'Demosntrator' in the source)",
+      "note": "",
+      "quote": "Demosntrator (first module), mounted under the clean tent in the main hall of the LSM laboratory (Modane, France)",
+      "role": "main",
+      "site_id": "site:lsm-frejus",
+      "sources": [
+        "src:supernemo-demonstrator-jinr-progress-report-2018-2020"
+      ],
+      "start": "2018-11",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:supernemo-demonstrator-2412-18021",
+    "src:supernemo-demonstrator-lyon2025-status-talk",
+    "src:supernemo-demonstrator-jinr-progress-report-2018-2020"
+  ],
+  "specs": {
+    "isotope": {
+      "confidence": "verified",
+      "locator": "slide 'SuperNEMO as a technology demonstrator'",
+      "note": "",
+      "quote": "6.11 kg of 82Se",
+      "sources": [
+        "src:supernemo-demonstrator-lyon2025-status-talk"
+      ],
+      "value": "82Se",
+      "verified_at": "2026-10-26"
+    },
+    "isotope_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "6.11 kg",
+      "locator": "slide 'SuperNEMO as a technology demonstrator'",
+      "note": "",
+      "quote": "6.11 kg of 82Se",
+      "sources": [
+        "src:supernemo-demonstrator-lyon2025-status-talk"
+      ],
+      "unit": "kg",
+      "value": 6.11,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "active",
+  "subsystems": [],
+  "summary": {
+    "plain": "One drum-shaped module: a wall of selenium foils, a gas tracker on both sides, and blocks of plastic scintillator outside, all inside layers of radon, neutron and gamma shielding.",
+    "technical": "Source frame with 34 82Se foils (96-99 % enriched, 250 um), 2034 Geiger cells (14970 wires) in a He/ethanol/Ar mixture, 712 optical modules (440 8-inch and 272 5-inch PMTs on polystyrene scintillator), magnetic coil ~25 G, 18 cm iron and 24 cm polyethylene shielding, anti-radon tent."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "abstract",
+    "note": "",
+    "quote": "with the unique combination of a tracking detector and a segmented calorimeter",
+    "sources": [
+      "src:supernemo-demonstrator-2412-18021"
+    ],
+    "value": "82Se source foils between a wire (Geiger-cell) tracker and a calorimeter of plastic-scintillator blocks read out by PMTs",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "tracking_calorimeter",
+  "technology_classes": [
+    "tracking_calorimeter"
+  ],
+  "type": "detector"
+}

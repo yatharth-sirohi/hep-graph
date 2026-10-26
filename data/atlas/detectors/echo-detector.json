@@ -1,0 +1,119 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
+  },
+  "experiment_ids": [
+    "experiment:echo"
+  ],
+  "id": "detector:echo-detector",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2023-01",
+      "label": "ECHo-1k phase (medium-scale experiment, about 1 kBq of 163Ho)",
+      "locator": "abstract",
+      "note": "Start: the June 2017 overview (open access, published 2017-06-20) calls ECHo-1k the 'present medium scale experiment'; the dates of the data taking are not stated. Evidence that data were acquired: a July 2021 paper analyses 'high statistics data acquired with the first phase of the ECHo experiment, ECHo-1k'. End: the January 2023 ECHo-100k paper says ECHo-1k 'paved the way for the current phase, ECHo-100k'.",
+      "quote": "the strategies we have adopted to carry on the present medium scale experiment, ECHo-1K",
+      "sources": [
+        "src:echo-epjst-2017-gastaldo"
+      ],
+      "start": "2017-06",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "ECHo-100k phase (aims at a sensitivity below 2 eV)",
+      "locator": "abstract",
+      "note": "Start is the arXiv v1 date (2023-01-16) of the paper that calls ECHo-100k 'the current phase'; the true start is earlier and not dated. Open: the most recent source (September 2025, the ECHo-1k result) does not say whether ECHo-100k is taking data on 2026-10-26.",
+      "quote": "The results of the first phase of the experiment, ECHo-1k, have paved the way for the current phase, ECHo-100k, which aims at a sensitivity below 2 eV on the effective electron neutrino mass.",
+      "sources": [
+        "src:echo-2301-06455"
+      ],
+      "start": "2023-01",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "ECHo metallic magnetic calorimeter arrays with implanted 163Ho",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "locator": "section 3.1",
+      "note": "Campus-grade point of the Kirchhoff Institute where the detectors are fabricated; the papers do not state where the cryostat that measured the ECHo-1k spectrum stands.",
+      "quote": "The ECHo-1k detectors have been fabricated on 3'' silicon wafers in the cleanroom facility of the Kirchhoff-Institute for Physics, Heidelberg University.",
+      "role": "main",
+      "site_id": "site:kirchhoff-institute-for-physics-heidelberg",
+      "sources": [
+        "src:echo-2111-09945",
+        "src:echo-kip-heidelberg-site"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:echo-2111-09945",
+    "src:echo-2301-06455"
+  ],
+  "specs": {
+    "isotope": {
+      "confidence": "verified",
+      "locator": "abstract",
+      "note": "",
+      "quote": "The ECHo experiment has been designed for the determination of the effective electron neutrino mass by means of the analysis of the end-point region of the 163 Ho electron capture spectrum.",
+      "sources": [
+        "src:echo-2111-09945"
+      ],
+      "value": "163Ho",
+      "verified_at": "2026-10-26"
+    },
+    "sensor_count": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "count",
+      "display": "72 pixels per ECHo-1k chip",
+      "locator": "abstract",
+      "note": "ECHo-1k chip: 72 MMC pixels (36 channels); two such chips were used.",
+      "quote": "For the first phase of the experiment, ECHo-1k, a 72-pixel MMC array has been developed.",
+      "sources": [
+        "src:echo-2111-09945"
+      ],
+      "unit": "",
+      "value": 72,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "active",
+  "subsystems": [],
+  "summary": {
+    "plain": "Chips of ultra-cold magnetic thermometers: each pixel holds a few holmium-163 atoms and heats up by a measurable amount whenever one decays.",
+    "technical": "ECHo-1k: 72-pixel MMC array (gold or silver absorbers, Au:Er/Ag:Er sensors, 163Ho implanted) with SQUID readout; ECHo-100k uses wafer-scale implanted multiplexed arrays."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "abstract",
+    "note": "",
+    "quote": "Metallic magnetic calorimeters enclosing 163 Ho are used for the high energy resolution calorimetric measurement of the 163 Ho spectrum.",
+    "sources": [
+      "src:echo-2111-09945"
+    ],
+    "value": "Metallic magnetic calorimeters (MMC) with 163Ho ion-implanted in the absorber, read out by SQUIDs at millikelvin temperature",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "cryogenic_bolometer",
+  "technology_classes": [
+    "cryogenic_bolometer"
+  ],
+  "type": "detector"
+}

@@ -1,0 +1,121 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
+  },
+  "experiment_ids": [
+    "experiment:chorus"
+  ],
+  "id": "detector:chorus-detector",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "1994",
+      "label": "first operation (CERN Courier: began operation in 1993)",
+      "locator": "CERN Courier, 27 November 1998, section 'Muon neutrinos'",
+      "note": "The Courier says the detector began operation in 1993; the collaboration's own paper dates its data taking from 1994. The 1993-1994 period is recorded as commissioning/first operation, an interpretation that no source spells out.",
+      "quote": "With the West Area well served with muon neutrinos, specialized detectors (NOMAD using kinematic techniques, and CHORUS using nuclear emulsion to observe the final state tau leptons) began operation in 1993.",
+      "sources": [
+        "src:cern-wa-courier-neutrinos-stop-going-west-1998"
+      ],
+      "start": "1993",
+      "status": "commissioning",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "1997",
+      "label": "data taking",
+      "locator": "§1 Introduction",
+      "note": "Year precision, from the final-results paper. A conference summary (hep-ex/0206006) gives 'the years 1994-1998' for CHORUS and NOMAD together and the CERN Courier says the West Area neutrino experiments finished in September 1998; the data of the final analysis are those of 1994-1997.",
+      "quote": "The CHORUS experiment took data from 1994 to 1997.",
+      "sources": [
+        "src:chorus-0710-3361"
+      ],
+      "start": "1994",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "completed",
+      "locator": "§1 Introduction",
+      "note": "Terminal event: end of data taking at year precision. The CERN Courier (27 November 1998) dates the completion of the CHORUS and NOMAD experiments to September 1998; not used because the CHORUS data set ends in 1997.",
+      "quote": "The CHORUS experiment took data from 1994 to 1997.",
+      "sources": [
+        "src:chorus-0710-3361"
+      ],
+      "start": "1997",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "CHORUS detector",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": "1997",
+      "locator": "CERN Courier, 27 November 1998",
+      "note": "Approximate: no fetched source gives a coordinate or a hall for the SPS West Area, so the existing campus-grade point of the CERN Meyrin site (precision 500 m) is used. The cited sentence places the experiment in the West Area of the SPS.",
+      "quote": "With the West Area well served with muon neutrinos, specialized detectors (NOMAD using kinematic techniques, and CHORUS using nuclear emulsion to observe the final state tau leptons) began operation in 1993.",
+      "role": "main",
+      "site_id": "site:cern-meyrin",
+      "sources": [
+        "src:cern-wa-courier-neutrinos-stop-going-west-1998"
+      ],
+      "start": "1993",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:chorus-0710-3361",
+    "src:cern-wa-courier-neutrinos-stop-going-west-1998"
+  ],
+  "specs": {
+    "target_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "770 kg",
+      "locator": "§2 The experimental setup",
+      "note": "Mass of the nuclear-emulsion target.",
+      "quote": "The emulsion target has an overall mass of 770 kg and is segmented into four stacks.",
+      "sources": [
+        "src:chorus-0710-3361"
+      ],
+      "unit": "kg",
+      "value": 770,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "A block of nuclear emulsion, fine-grained enough to show the tiny kink of a decaying tau lepton, backed by electronic trackers, calorimeters and a muon spectrometer that tell where in the emulsion to look.",
+    "technical": "770 kg emulsion target (four stacks of eight modules of 36 plates) with scintillating-fibre target tracker and diamond tracker, air-core hadron spectrometer, calorimeters and magnetised-iron muon spectrometer; tau decays occur on average 1.7 mm from the neutrino vertex."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "§2 The experimental setup",
+    "note": "",
+    "quote": "The CHORUS detector is a hybrid setup which combines a nuclear emulsion target with various electronic detectors such as trigger hodoscopes, a scintillating fibre tracker system, a hadron spectrometer, electromagnetic and hadronic calorimeters, and a muon spectrometer [9].",
+    "sources": [
+      "src:chorus-0710-3361"
+    ],
+    "value": "Hybrid detector: nuclear-emulsion target with trigger hodoscopes, scintillating-fibre trackers, a hadron spectrometer, electromagnetic and hadronic calorimeters and a muon spectrometer",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "emulsion",
+  "technology_classes": [
+    "emulsion"
+  ],
+  "type": "detector"
+}

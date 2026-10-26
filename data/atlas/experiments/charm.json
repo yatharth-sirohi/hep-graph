@@ -1,0 +1,146 @@
+{
+  "accelerator_ids": [
+    "accelerator:sps"
+  ],
+  "aliases": [
+    "WA18",
+    "CERN-Hamburg-Amsterdam-Rome-Moscow Collaboration experiment"
+  ],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:charm"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
+  },
+  "energy_regime": null,
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:cern",
+      "locator": "§4.2.2 CERN experiments",
+      "note": "",
+      "quote": "The CHARM (CERN, Hamburg, Amsterdam, Rome, Moscow) Collaboration started to operate his detector in 1978, taking data with the CERN SPS neutrino beam.",
+      "role": "host",
+      "sources": [
+        "src:cern-wa-1103-4572"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:charm",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "1978",
+      "label": "proposal accepted",
+      "locator": "Administrative history",
+      "note": "Year precision; the end is the start of data taking. The accepting body was CERN's Experimental Physics (EP) Division.",
+      "quote": "In 1977 the proposal of the CHARM Collaboration (CERN-Hamburg-Amsterdam-Rome-Moscow Collaboration) to study semi-leptonic neutral current processes and muon polarization produced in neutrino and antineutrino interactions was accepted by the Experimental Physics (EP) Division.",
+      "sources": [
+        "src:charm-cern-archives-guide"
+      ],
+      "start": "1977",
+      "status": "approved",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "1984-09-03",
+      "label": "data taking (WA18)",
+      "locator": "Administrative history, CHARM experiments",
+      "note": "Data taking began in 1978 and ran with the complete apparatus from 1979 until 3 September 1984. Dore (EPJ H 37, 2012) and the CERN Courier (27 November 1998: 'A year later the 100 t CHARM electronic detector became operational', after 1977) agree on 1978. The collaboration also ran WA65 (1980-82, prompt neutrino production) and PS181 (a PS oscillation experiment, from 1983); these are not separate Atlas records.",
+      "quote": "WA18: The data-taking of this SPS experiment began in 1978. WA18 started running with the complete apparatus in 1979, and was completed on the 3rd September 1984.",
+      "sources": [
+        "src:charm-cern-archives-guide"
+      ],
+      "start": "1978",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "completed",
+      "locator": "Administrative history, CHARM experiments",
+      "note": "Terminal event: WA18 'was completed on the 3rd September 1984'.",
+      "quote": "WA18: The data-taking of this SPS experiment began in 1978. WA18 started running with the complete apparatus in 1979, and was completed on the 3rd September 1984.",
+      "sources": [
+        "src:charm-cern-archives-guide"
+      ],
+      "start": "1984-09-03",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Detector mass",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "mass",
+        "display": "100 t",
+        "locator": "CERN Courier, 27 November 1998, section 'First studies'",
+        "note": "Mass as quoted by the CERN Courier.",
+        "quote": "A year later the 100 t CHARM electronic detector became operational.",
+        "sources": [
+          "src:cern-wa-courier-neutrinos-stop-going-west-1998"
+        ],
+        "unit": "t",
+        "value": 100,
+        "verified_at": "2026-10-26"
+      }
+    }
+  ],
+  "kind": "accelerator_neutrino",
+  "lineage": [],
+  "links": {
+    "website": null
+  },
+  "name": "CHARM",
+  "notes": [
+    "The record is the neutrino experiment WA18 of the CHARM Collaboration, not the later CHARM II (experiment:charm-ii) and not the name's charm-quark physics. The CERN Archives file covers 'CHARM I and CHARM II'.",
+    "The CHARM detector was followed by CHARM II, a separate collaboration and detector; no source calls CHARM II a successor, so no lineage row is recorded."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "Administrative history",
+      "note": "",
+      "quote": "to study semi-leptonic neutral current processes and muon polarization produced in neutrino and antineutrino interactions",
+      "sources": [
+        "src:charm-cern-archives-guide"
+      ],
+      "value": "Study semi-leptonic neutral-current processes and the polarisation of muons produced in neutrino and antineutrino interactions",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:charm-cern-archives-guide",
+    "src:cern-wa-1103-4572",
+    "src:cern-wa-courier-neutrinos-stop-going-west-1998",
+    "src:charm-iris-1983-structure-functions"
+  ],
+  "status": "completed",
+  "summary": {
+    "plain": "A 100-tonne detector of marble plates and tracking tubes at CERN's SPS, running from 1978 to 1984, built to study the neutral-current weak force in neutrino collisions and the quark structure of the nucleon.",
+    "technical": "CERN-Hamburg-Amsterdam-Rome-Moscow experiment WA18: low-density, low-Z calorimeter of 78 marble plates with proportional-tube and scintillator planes, magnetised-iron frames and a muon spectrometer of magnetised iron toroids, optimised for neutral-current events in SPS narrow- and wide-band beams; results on structure functions, neutrino-electron scattering, beam dump, mu+ polarisation and the electroweak mixing angle."
+  },
+  "topic_ids": [
+    "topic:neutrino-interactions",
+    "topic:electroweak-physics"
+  ],
+  "type": "experiment",
+  "unique_capabilities": []
+}

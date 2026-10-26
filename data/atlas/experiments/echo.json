@@ -1,0 +1,206 @@
+{
+  "accelerator_ids": [],
+  "aliases": [
+    "Electron Capture in 163Ho experiment",
+    "ECHo-1k",
+    "ECHo-100k"
+  ],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:echo"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
+  },
+  "energy_regime": null,
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "facility_id": "facility:kirchhoff-institute-for-physics",
+      "locator": "title page affiliation (2013 overview); ECHo collaboration page",
+      "note": "The institute coordinates the collaboration (collaboration page, contact, corresponding author) and fabricates the detectors; the papers do not state where the ECHo-1k cryostat stood.",
+      "quote": "Kirchhoff Institute for Physics, Heidelberg University, INF 227 D-69120 Heidelberg, Germany",
+      "role": "host",
+      "sources": [
+        "src:echo-1309-5214",
+        "src:echo-kip-heidelberg-site"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:echo",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2017-06",
+      "label": "proposal and design of ECHo",
+      "locator": "abstract",
+      "note": "Start is the arXiv v1 date (2013-06-11) of the earliest ECHo paper found (a talk describing the experiment); no approval or funding date was found. End is the publication month of the 2017 overview that calls ECHo-1k 'the present medium scale experiment'.",
+      "quote": "In this talk we present the Electron Capture 163-Ho experiment ECHo, which aims to investigate the electron neutrino mass in the sub-eV range",
+      "sources": [
+        "src:echo-1306-2655"
+      ],
+      "start": "2013-06",
+      "status": "proposed",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": "2023-01",
+      "label": "ECHo-1k phase (medium-scale experiment, about 1 kBq of 163Ho)",
+      "locator": "abstract",
+      "note": "Start: the June 2017 overview (open access, published 2017-06-20) calls ECHo-1k the 'present medium scale experiment'; the dates of the data taking are not stated. Evidence that data were acquired: a July 2021 paper analyses 'high statistics data acquired with the first phase of the ECHo experiment, ECHo-1k'. End: the January 2023 ECHo-100k paper says ECHo-1k 'paved the way for the current phase, ECHo-100k'.",
+      "quote": "the strategies we have adopted to carry on the present medium scale experiment, ECHo-1K",
+      "sources": [
+        "src:echo-epjst-2017-gastaldo"
+      ],
+      "start": "2017-06",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "ECHo-100k phase (aims at a sensitivity below 2 eV)",
+      "locator": "abstract",
+      "note": "Start is the arXiv v1 date (2023-01-16) of the paper that calls ECHo-100k 'the current phase'; the true start is earlier and not dated. Open: the most recent source (September 2025, the ECHo-1k result) does not say whether ECHo-100k is taking data on 2026-10-26.",
+      "quote": "The results of the first phase of the experiment, ECHo-1k, have paved the way for the current phase, ECHo-100k, which aims at a sensitivity below 2 eV on the effective electron neutrino mass.",
+      "sources": [
+        "src:echo-2301-06455"
+      ],
+      "start": "2023-01",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Neutrino-mass limit (ECHo-1k, 2025)",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "mass_energy",
+        "display": "mνe < 15 eV/c² (90% credible interval)",
+        "locator": "abstract",
+        "note": "",
+        "quote": "reaching mνe < 15 eV/c2 (90% credible interval)",
+        "sources": [
+          "src:echo-2509-03423"
+        ],
+        "unit": "eV/c^2",
+        "value": 15,
+        "verified_at": "2026-10-26"
+      }
+    },
+    {
+      "label": "Endpoint energy measured by ECHo-1k",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "energy",
+        "display": "Q = 2862(4) eV",
+        "locator": "abstract",
+        "note": "",
+        "quote": "The derived endpoint energy Q = 2862(4) eV is in excellent agreement with the one independently determined via Penning-trap mass spectrometry of Q = 2863.2(6) eV [1].",
+        "sources": [
+          "src:echo-2509-03423"
+        ],
+        "unit": "eV",
+        "value": 2862,
+        "verified_at": "2026-10-26"
+      }
+    },
+    {
+      "label": "ECHo-100k target sensitivity",
+      "quantity": {
+        "approx": true,
+        "confidence": "verified",
+        "dimension": "mass_energy",
+        "display": "below 2 eV",
+        "locator": "abstract",
+        "note": "Design goal, not a result.",
+        "quote": "The results of the first phase of the experiment, ECHo-1k, have paved the way for the current phase, ECHo-100k, which aims at a sensitivity below 2 eV on the effective electron neutrino mass.",
+        "sources": [
+          "src:echo-2301-06455"
+        ],
+        "unit": "eV/c^2",
+        "value": 2,
+        "verified_at": "2026-10-26"
+      }
+    }
+  ],
+  "kind": "neutrino_mass",
+  "lineage": [
+    {
+      "confidence": "verified",
+      "experiment_id": "experiment:holmes",
+      "locator": "section 1 Introduction",
+      "note": "",
+      "quote": "This method was first proposed in [1] and is presently pursued by two collaborations, ECHo [2] and HOLMES [3].",
+      "relation": "complementary",
+      "sources": [
+        "src:echo-2107-13528"
+      ],
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "locator": "ECHo collaboration page",
+      "note": "",
+      "quote": "The Electron Capture 163Holmium experiment ECHo aims to investigate the electron neutrino mass in the sub-eV range",
+      "sources": [
+        "src:echo-kip-heidelberg-site"
+      ],
+      "value": "https://www.kip.uni-heidelberg.de/echo/",
+      "verified_at": "2026-10-26"
+    }
+  },
+  "name": "ECHo",
+  "notes": [
+    "Phase boundaries are approximate: no fetched source dates the ECHo-1k data taking; see the interval notes. The ECHo-1k result is an arXiv preprint (2509.03423) with no journal reference found.",
+    "No INSPIRE experiment id was looked up (inspirehep.net not contacted)."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "abstract",
+      "note": "",
+      "quote": "The ECHo experiment has been designed for the determination of the effective electron neutrino mass by means of the analysis of the end-point region of the 163 Ho electron capture spectrum.",
+      "sources": [
+        "src:echo-2111-09945"
+      ],
+      "value": "Determine the effective electron neutrino mass from the end-point region of the calorimetrically measured 163Ho electron-capture spectrum",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:echo-kip-heidelberg-site",
+    "src:echo-1306-2655",
+    "src:echo-epjst-2017-gastaldo",
+    "src:echo-2107-13528",
+    "src:echo-2301-06455",
+    "src:echo-2509-03423"
+  ],
+  "status": "active",
+  "summary": {
+    "plain": "An experiment coordinated from Heidelberg that weighs the electron neutrino by watching holmium-163 atoms decay inside tiny ultra-cold magnetic thermometers. Its first phase, ECHo-1k, set a limit of 15 electron-volts; the next phase aims below 2.",
+    "technical": "Calorimetric 163Ho electron-capture spectroscopy with metallic magnetic calorimeters (MMC), 163Ho produced at ILL and ion-implanted at Mainz: ECHo-1k (72-pixel arrays, about 2×10⁸ events, m < 15 eV/c² at 90%) and ECHo-100k (target below 2 eV)."
+  },
+  "topic_ids": [
+    "topic:neutrino-mass-direct"
+  ],
+  "type": "experiment",
+  "unique_capabilities": []
+}

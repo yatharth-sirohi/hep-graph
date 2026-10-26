@@ -1,0 +1,156 @@
+{
+  "accelerator_ids": [],
+  "aliases": [
+    "CANDLES-III"
+  ],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:candles"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
+  },
+  "energy_regime": null,
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:kamioka-observatory",
+      "locator": "§II, detector description",
+      "note": "",
+      "quote": "The current setup of the detector system, which is called CANDLES-III, is installed at lab-D of the Kamioka Underground Laboratory (2700 m.w.e.) in the Institute of Cosmic Ray Research of the University of Tokyo.",
+      "role": "host",
+      "sources": [
+        "src:candles-2008-09288"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:candles",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "CANDLES III data taking",
+      "locator": "§ on experiments with isotopes other than 136Xe, CANDLES paragraph",
+      "note": "Season precision for the start (\"Spring 2013\", review of March 2014). A December 2023 collaboration talk still lists 'CANDLES III: current operating detector system', so the experiment is recorded as ongoing; no later source was found.",
+      "quote": "The CANDLES III experiment is presently taking data since Spring 2013 at the Kamioka underground laboratory, Japan.",
+      "sources": [
+        "src:candles-1403-3329"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2013-04",
+        "display": "Spring 2013",
+        "earliest": "2013-03",
+        "latest": "2013-05"
+      },
+      "status": "active",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "CaF2 target mass (96 crystals)",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "mass",
+        "display": "305 kg",
+        "locator": "abstract",
+        "note": "",
+        "quote": "scintillation crystals (305 kg) with natural Ca",
+        "sources": [
+          "src:candles-2008-09288"
+        ],
+        "unit": "kg",
+        "value": 305,
+        "verified_at": "2026-10-26"
+      }
+    },
+    {
+      "label": "48Ca content (natural abundance)",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "mass",
+        "display": "350 g",
+        "locator": "abstract",
+        "note": "",
+        "quote": "which corresponds 350 g of 48 Ca",
+        "sources": [
+          "src:candles-2008-09288"
+        ],
+        "unit": "g",
+        "value": 350,
+        "verified_at": "2026-10-26"
+      }
+    },
+    {
+      "label": "48Ca Q-value",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "energy",
+        "display": "4267.98 keV",
+        "locator": "§I Introduction",
+        "note": "The highest Q-value among known double-beta-decay isotopes, above the bulk of natural radioactive backgrounds.",
+        "quote": "(Qββ =4267.98±0.32 keV [15])",
+        "sources": [
+          "src:candles-2008-09288"
+        ],
+        "unit": "keV",
+        "value": 4267.98,
+        "verified_at": "2026-10-26"
+      }
+    }
+  ],
+  "kind": "double_beta_decay",
+  "lineage": [],
+  "links": {
+    "website": null
+  },
+  "name": "CANDLES",
+  "notes": [
+    "Only natural calcium (0.2 % 48Ca) is used so far; the collaboration plans 48Ca-enriched scintillating bolometers (December 2023 talk). No lower limit on the 48Ca half-life is reported in the published low-background paper's abstract.",
+    "No official CANDLES website could be fetched; none is recorded. Construction dates before 2013 were not found."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "§II",
+      "note": "",
+      "quote": "CANDLES (CAlcium fluoride for the study of Neutrinos and Dark matters by Low Energy Spectrometer) is an experiment performed to search for the 0νββ decay of 48 Ca using undoped nat. CaF2 (CaF2 ) scintillation crystals.",
+      "sources": [
+        "src:candles-2008-09288"
+      ],
+      "value": "Search for neutrinoless double beta decay of 48Ca (the isotope with the highest Q-value) with CaF2 scintillating crystals inside a liquid-scintillator active shield",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:candles-2008-09288",
+    "src:candles-1403-3329",
+    "src:candles-umehara-dbd2023-slides"
+  ],
+  "status": "active",
+  "summary": {
+    "plain": "Ninety-six cubes of calcium fluoride crystal, immersed in liquid scintillator that vetoes outside radiation, in a laboratory of the Kamioka mine. It looks for the neutrinoless double beta decay of calcium-48, whose decay energy is the highest known, above most natural radioactivity.",
+    "technical": "CANDLES III: 96 undoped natural CaF2 crystals (10 cm cubes, 305 kg, 350 g 48Ca) with wavelength-shifter layers in a 4pi liquid-scintillator veto, 62 PMTs, water buffer and shielding at lab-D of the Kamioka Underground Laboratory (2700 m.w.e.); background ~1e-3 events/keV/yr/kg(natCa) in the 0vbb window."
+  },
+  "topic_ids": [
+    "topic:neutrinoless-double-beta-decay",
+    "topic:neutrino-physics"
+  ],
+  "type": "experiment",
+  "unique_capabilities": []
+}

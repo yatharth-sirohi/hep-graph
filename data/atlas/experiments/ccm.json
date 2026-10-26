@@ -1,0 +1,219 @@
+{
+  "accelerator_ids": [
+    "accelerator:lansce"
+  ],
+  "aliases": [
+    "CCM",
+    "CCM120",
+    "CCM200"
+  ],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:ccm"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
+  },
+  "energy_regime": null,
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:los-alamos-national-laboratory",
+      "locator": "Abstract",
+      "note": "",
+      "quote": "located at the Lujan Neutron Science Center (LANSCE) at Los Alamos National Laboratory (LANL)",
+      "role": "host",
+      "sources": [
+        "src:ccm-2105-14020"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:ccm",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2022",
+      "label": "engineering runs (CCM120 in 2019, CCM200 in 2021)",
+      "locator": "Abstract",
+      "note": "Start: the CCM120 engineering run 'in Fall 2019' (season precision). The DPF 2026 collaboration talk lists 'CCM200 Engineering Run (2021)' before the physics run; the end (2022) is the start of the physics run. Both are year-level.",
+      "quote": "An engineering run was performed in Fall 2019 to study the characteristics of the CCM120 detector",
+      "sources": [
+        "src:ccm-2105-14020"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2019-10",
+        "display": "Fall 2019",
+        "earliest": "2019-09",
+        "latest": "2019-11"
+      },
+      "status": "commissioning",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "CCM200 physics run (3-year data-taking period)",
+      "locator": "Talk slide 'Coherent CAPTAIN-Mills Experiment Overview'",
+      "note": "The July 2026 talk labels the CCM200 physics run '2022-2024'; an April 2024 talk says CCM was 'Mid-way through 3yr data taking period'. No source consulted says data taking has stopped or continues in 2026, and the August 2026 ALP paper says future analyses will use the full CCM200 dataset; the interval is left open. Year precision.",
+      "quote": "CCM200 Physics Run (2022-2024)",
+      "sources": [
+        "src:ccm-dpf-2026-newmark-talk"
+      ],
+      "start": "2022",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Liquid argon",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "mass",
+        "display": "10-ton",
+        "locator": "Abstract",
+        "note": "",
+        "quote": "CCM is a 10-ton liquid argon (LAr) detector",
+        "sources": [
+          "src:ccm-2105-14020"
+        ],
+        "unit": "t",
+        "value": 10,
+        "verified_at": "2026-10-26"
+      }
+    },
+    {
+      "label": "Fiducial volume (CCM200)",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "mass",
+        "display": "7 tons",
+        "locator": "Abstract",
+        "note": "Stored as mass (liquid argon).",
+        "quote": "instruments 7 tons (fiducial volume) of LAr with 200 8-inch photomultiplier tubes (PMTs)",
+        "sources": [
+          "src:ccm-2507-08886"
+        ],
+        "unit": "t",
+        "value": 7,
+        "verified_at": "2026-10-26"
+      }
+    },
+    {
+      "label": "Photomultiplier tubes (CCM200)",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "count",
+        "display": "200 photomultiplier tubes",
+        "locator": "Abstract",
+        "note": "",
+        "quote": "instruments 7 tons (fiducial volume) of LAr with 200 8-inch photomultiplier tubes (PMTs)",
+        "sources": [
+          "src:ccm-2507-08886"
+        ],
+        "unit": "",
+        "value": 200,
+        "verified_at": "2026-10-26"
+      }
+    },
+    {
+      "label": "Distance from the source",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "length",
+        "display": "20 meters",
+        "locator": "Abstract",
+        "note": "",
+        "quote": "CCM is a 10-ton liquid argon (LAr) detector located 20 meters from a high flux neutron/neutrino source",
+        "sources": [
+          "src:ccm-2105-14020"
+        ],
+        "unit": "m",
+        "value": 20,
+        "verified_at": "2026-10-26"
+      }
+    },
+    {
+      "label": "Proton beam energy",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "energy",
+        "display": "800 MeV",
+        "locator": "Introduction",
+        "note": "",
+        "quote": "CCM operates at the LANSCE Lujan Center where 800 MeV protons are delivered at a rate of 20 Hz",
+        "sources": [
+          "src:ccm-2109-14146"
+        ],
+        "unit": "MeV",
+        "value": 800,
+        "verified_at": "2026-10-26"
+      }
+    }
+  ],
+  "kind": "accelerator_neutrino",
+  "lineage": [],
+  "links": {
+    "website": null
+  },
+  "name": "Coherent CAPTAIN-Mills",
+  "notes": [
+    "The experiment's name appears as 'Coherent CAPTAIN-Mills' (it is not part of the COHERENT collaboration; the SBN workshop talk says 'Not affiliated with the COHERENT collaboration').",
+    "No official CCM website was found; none is recorded.",
+    "The 2019 detector (CCM120, 120 PMTs, about 5 t fiducial) was upgraded to CCM200 (200 PMTs, 7 t fiducial)."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "Abstract",
+      "note": "",
+      "quote": "CCM is a 10-ton liquid argon (LAr) detector located 20 meters from a high flux neutron/neutrino source and is designed to search for sterile neutrinos",
+      "sources": [
+        "src:ccm-2105-14020"
+      ],
+      "value": "Search for sterile neutrinos and light dark matter by coherent elastic scattering in 10 t of liquid argon, 20 m from the Lujan tungsten target",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [
+    "cevns"
+  ],
+  "sources": [
+    "src:ccm-2105-14020",
+    "src:ccm-2109-14146",
+    "src:ccm-2608-12616",
+    "src:ccm-2507-08886",
+    "src:ccm-2507-08887",
+    "src:ccm-dpf-2026-newmark-talk",
+    "src:ccm-sbn-et-2024-schneider-talk"
+  ],
+  "status": "active",
+  "summary": {
+    "plain": "A 10-ton tank of liquid argon in the Lujan neutron-source building at Los Alamos, watched by light sensors, 20 metres from a tungsten target hit by protons. It looks for sterile neutrinos and for light dark matter that the proton beam might make.",
+    "technical": "Liquid-argon scintillation (and Cherenkov) light detector, 10 t of argon with a 7 t fiducial volume and 200 8-inch PMTs (CCM200; 120 PMTs in the 2019 CCM120 engineering run), 20 m from the Lujan tungsten target (800 MeV protons, 20 Hz, 290 ns spill). Searches for sterile neutrinos, leptophobic and other light dark matter, and axion-like particles via coherent elastic scattering and electromagnetic signals; first Cherenkov event-by-event identification from sub-MeV electrons in LAr."
+  },
+  "topic_ids": [
+    "topic:sterile-neutrinos",
+    "topic:cevns",
+    "topic:accelerator-dark-matter-searches",
+    "topic:axions-alps"
+  ],
+  "type": "experiment",
+  "unique_capabilities": []
+}

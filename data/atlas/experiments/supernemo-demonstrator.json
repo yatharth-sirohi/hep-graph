@@ -1,0 +1,181 @@
+{
+  "accelerator_ids": [],
+  "aliases": [
+    "SuperNEMO",
+    "SuperNEMO Demonstrator Module"
+  ],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:supernemo"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
+  },
+  "energy_regime": null,
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:modane-underground-laboratory",
+      "locator": "poster text on the first page",
+      "note": "",
+      "quote": "currently undergoing the final stages of installation and commissioning at the Laboratoire Souterrain de Modane (LSM), in France",
+      "role": "host",
+      "sources": [
+        "src:supernemo-demonstrator-2412-18021"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:supernemo-demonstrator",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2025-04-10",
+      "label": "assembly completed and commissioning",
+      "locator": "report, section 'Year 2018'",
+      "note": "Start = completion of the basic assembly of the Demonstrator at LSM (November 2018); the sources do not date the start of commissioning itself, nor the earlier construction. The 2018-2020 report says 'The calorimeter is fully commissioned and the tracker commissioning is under progress'; a December 2024 paper still speaks of 'the final stages of installation and commissioning'.",
+      "quote": "The most important result is the completion of the basic assembly of the SuperNEMO Demonstrator in November 2018",
+      "sources": [
+        "src:supernemo-demonstrator-jinr-progress-report-2018-2020"
+      ],
+      "start": "2018-11",
+      "status": "commissioning",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "data taking",
+      "locator": "slide 'SuperNEMO demonstrator status'",
+      "note": "First ββ event recorded 10 April 2025; the June 2025 status talk reports 'Now in full data taking mode'. No later source was found, so whether data taking continues on 2026-10-26 is not confirmed.",
+      "quote": "Start of data acquisition: April 10th 2025",
+      "sources": [
+        "src:supernemo-demonstrator-lyon2025-status-talk"
+      ],
+      "start": "2025-04-10",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "82Se source mass",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "mass",
+        "display": "6.11 kg",
+        "locator": "slide 'SuperNEMO as a technology demonstrator'",
+        "note": "34 foils, 96-99 % enriched. The 2018-2020 report and the 2024 calorimeter paper give 6.3 kg and 6.11 kg respectively.",
+        "quote": "6.11 kg of 82Se",
+        "sources": [
+          "src:supernemo-demonstrator-lyon2025-status-talk"
+        ],
+        "unit": "kg",
+        "value": 6.11,
+        "verified_at": "2026-10-26"
+      }
+    },
+    {
+      "label": "Calorimeter optical modules",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "count",
+        "display": "712",
+        "locator": "abstract",
+        "note": "",
+        "quote": "The SuperNEMO Demonstrator’s calorimeter consists of 712 plastic scintillator blocks read out by large PMTs.",
+        "sources": [
+          "src:supernemo-demonstrator-2412-18021"
+        ],
+        "unit": "",
+        "value": 712,
+        "verified_at": "2026-10-26"
+      }
+    },
+    {
+      "label": "Tracker Geiger cells",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "count",
+        "display": "2034",
+        "locator": "slide 'SuperNEMO as a technology demonstrator'",
+        "note": "",
+        "quote": "2034 Geiger cells (14970 wires)",
+        "sources": [
+          "src:supernemo-demonstrator-lyon2025-status-talk"
+        ],
+        "unit": "",
+        "value": 2034,
+        "verified_at": "2026-10-26"
+      }
+    }
+  ],
+  "kind": "double_beta_decay",
+  "lineage": [
+    {
+      "confidence": "verified",
+      "experiment_id": "experiment:nemo-3",
+      "locator": "slide 'The SuperNEMO demonstrator: a technology demonstrator module'",
+      "note": "Also: 'SuperNEMO is a next generation experiment building on technology used by the currently running NEMO-III experiment' (arXiv:1005.1241, section 3) and 'SuperNEMO – successor of NEMO-3' (JINR PAC talk, January 2021).",
+      "quote": "Successor of NEMO-3",
+      "relation": "predecessor",
+      "sources": [
+        "src:supernemo-demonstrator-lyon2025-status-talk"
+      ],
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "SuperNEMO demonstrator",
+  "notes": [
+    "The Demonstrator is the first module of the planned SuperNEMO experiment; only the Demonstrator is recorded. It is a technology demonstrator as well as a physics experiment.",
+    "Expected sensitivity quoted by the collaboration (2018-2020 report): T1/2 > 6e24 yr with 6.3 kg of 82Se in 2.5 years. No physics result has been published yet.",
+    "No official website was reachable; none is recorded."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "abstract",
+      "note": "",
+      "quote": "The SuperNEMO experiment is searching for neutrinoless double-beta-decay of 82 Se, with the unique combination of a tracking detector and a segmented calorimeter.",
+      "sources": [
+        "src:supernemo-demonstrator-2412-18021"
+      ],
+      "value": "Search for neutrinoless double beta decay of 82Se, with a tracker that records each electron's path and a segmented calorimeter, to probe the decay mechanism as well as its existence",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:supernemo-demonstrator-2412-18021",
+    "src:supernemo-demonstrator-lyon2025-status-talk",
+    "src:supernemo-demonstrator-jinr-progress-report-2018-2020",
+    "src:supernemo-demonstrator-1005-1241",
+    "src:supernemo-demonstrator-jinr-pac-2021-talk"
+  ],
+  "status": "active",
+  "summary": {
+    "plain": "The first module of SuperNEMO, in the Modane underground laboratory. Thin selenium-82 foils sit between a gas tracker and a wall of plastic scintillators, so each decay electron is followed track by track. It recorded its first double beta event in April 2025.",
+    "technical": "SuperNEMO Demonstrator Module: 34 82Se foils (6.11 kg), a 2034-cell Geiger tracker and 712 scintillator-PMT optical modules, with a ~25 G coil, iron, polyethylene and anti-radon shielding at LSM (4800 m.w.e.). Successor to NEMO-3; goal 0vbb of 82Se with measurement of the electron energies and angle."
+  },
+  "topic_ids": [
+    "topic:neutrinoless-double-beta-decay",
+    "topic:neutrino-physics"
+  ],
+  "type": "experiment",
+  "unique_capabilities": []
+}

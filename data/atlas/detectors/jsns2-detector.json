@@ -1,0 +1,179 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
+  },
+  "experiment_ids": [
+    "experiment:jsns2"
+  ],
+  "id": "detector:jsns2-detector",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2020-06-05",
+      "label": "detector construction and installation",
+      "locator": "News list, item 2017.12",
+      "note": "Start from the news item dated 2017.12; end is the first data taking (commissioning run, 2020-06-05).",
+      "quote": "The part of the detector construction work is started at J-PARC.",
+      "sources": [
+        "src:jsns2-official-site-news"
+      ],
+      "start": "2017-12",
+      "status": "construction",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "2021-01-12",
+      "label": "commissioning run and refilling",
+      "locator": "News list, item 2020.6.5",
+      "note": "First data on 2020-06-05, a 10-day commissioning run (5-15 June 2020, per arXiv:2111.07482); the detector was then refilled and re-installed in December 2020. End is the start of the first long physics run.",
+      "quote": "We started to take data from June-5. The first physics run (the commissioning run) will be continued for 10 days.",
+      "sources": [
+        "src:jsns2-official-site-news"
+      ],
+      "start": "2020-06-05",
+      "status": "commissioning",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "long physics runs with the 24 m detector",
+      "locator": "News list, item 2021.1",
+      "note": "First long run 2021-01-12 to June 2021; further long runs from 2022-01-28, spring 2023 and 2023-12-07 are listed on the same page. The Feb 2026 first-results paper says data taking is ongoing.",
+      "quote": "In 2021-Jan, we start the first long term physics run (Jan-12).",
+      "sources": [
+        "src:jsns2-official-site-news"
+      ],
+      "start": "2021-01-12",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "locator": "Toppage news list",
+      "note": "",
+      "quote": "The first results on sterile neutrino search using 2022 data was published.",
+      "sources": [
+        "src:jsns2-official-site-news"
+      ],
+      "value": "https://research.kek.jp/group/mlfnu/eng/index.html",
+      "verified_at": "2026-10-26"
+    }
+  },
+  "name": "JSNS2 detector (24 m)",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "locator": "§I Introduction",
+      "note": "Start: the news item says the detector was moved from the assembly building to the MLF on Feb-19 (item dated 2020; the year is inferred from the dated entry); it was re-installed on the 3rd floor in December 2020 after filling. The site point is the MLF building centroid (campus-grade).",
+      "quote": "employs a 50-ton liquid scintillator detector on the third floor of the MLF, at a baseline of 24 m from the neutrino source",
+      "role": "main",
+      "site_id": "site:j-parc-mlf",
+      "sources": [
+        "src:jsns2-2602-06274"
+      ],
+      "start": "2020-02-19",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:jsns2-2602-06274",
+    "src:jsns2-1705-08629",
+    "src:jsns2-official-site-news",
+    "src:jsns2-official-site-research",
+    "src:jsns2-2111-07482"
+  ],
+  "specs": {
+    "fiducial_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "17 tons",
+      "locator": "abstract",
+      "note": "Design value in the technical design report; stored as mass because the validator has no scintillator-volume key.",
+      "quote": "The detector has a fiducial volume of 17 tons and is located 24 meters away from the mercury target.",
+      "sources": [
+        "src:jsns2-1705-08629"
+      ],
+      "unit": "t",
+      "value": 17,
+      "verified_at": "2026-10-26"
+    },
+    "pmt_count": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "count",
+      "display": "120 PMTs",
+      "locator": "News list, item 2020.1.16",
+      "note": "As built (January 2020); the technical design report foresaw 193 8-inch PMTs.",
+      "quote": "All of 120 PMTs were installed finally.",
+      "sources": [
+        "src:jsns2-official-site-news"
+      ],
+      "unit": "",
+      "value": 120,
+      "verified_at": "2026-10-26"
+    },
+    "target_distance": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "24 m",
+      "locator": "§1 Introduction",
+      "note": "",
+      "quote": "detector with 0.1 w% Gd concentration placed at 24 m from the target",
+      "sources": [
+        "src:jsns2-2111-07482"
+      ],
+      "unit": "m",
+      "value": 24,
+      "verified_at": "2026-10-26"
+    },
+    "total_mass": {
+      "approx": true,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "50-ton",
+      "locator": "§I Introduction",
+      "note": "",
+      "quote": "The JSNS2 experiment employs a 50-ton liquid scintillator detector on the third floor of the MLF",
+      "sources": [
+        "src:jsns2-2602-06274"
+      ],
+      "unit": "t",
+      "value": 50,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "active",
+  "subsystems": [],
+  "summary": {
+    "plain": "The scintillator detector of JSNS2: a tank of gadolinium-loaded liquid scintillator watched by light sensors, 24 metres from the mercury target of J-PARC's neutron source, built to catch the flash of an antineutrino striking a proton.",
+    "technical": "Liquid-scintillator detector: acrylic vessel with 17 t (fiducial) 0.1 % Gd-loaded scintillator, unloaded scintillator in the surrounding stainless-steel tank (about 50 t in all), 120 PMTs as installed; 24 m from the mercury target on the 3rd floor of the MLF."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "Research page, 'Detector'",
+    "note": "",
+    "quote": "The detector uses the Gd-loaded liquid scintillator, and oscillated anti-electron neutrinos are detected via the inverse beta decays",
+    "sources": [
+      "src:jsns2-official-site-research"
+    ],
+    "value": "Gadolinium-loaded liquid scintillator in an acrylic vessel inside a stainless-steel tank, read out by photomultipliers; inverse beta decay with a delayed Gd neutron-capture signal",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "liquid_scintillator",
+  "technology_classes": [
+    "liquid_scintillator"
+  ],
+  "type": "detector"
+}

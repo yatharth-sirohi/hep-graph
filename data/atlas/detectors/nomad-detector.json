@@ -1,0 +1,160 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
+  },
+  "experiment_ids": [
+    "experiment:nomad"
+  ],
+  "id": "detector:nomad-detector",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "1993",
+      "label": "approved",
+      "locator": "Administrative history",
+      "note": "'End of 1991' is stored as December 1991, approximate. The NOMAD final paper agrees: 'The NOMAD experiment was designed in 1991'. The end of this interval is the start of first operation (Courier: 1993).",
+      "quote": "NOMAD (Neutrino Oscillation MAgnetic Detector) or WA96 located in the West Area of SPS experiment was approved at the end of 1991.",
+      "sources": [
+        "src:nomad-cern-archives-guide"
+      ],
+      "start": {
+        "approx": true,
+        "date": "1991-12",
+        "display": "end of 1991",
+        "note": "Source wording: 'at the end of 1991'."
+      },
+      "status": "approved",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": "1995",
+      "label": "first operation (CERN Courier: began operation in 1993)",
+      "locator": "CERN Courier, 27 November 1998, section 'Muon neutrinos'",
+      "note": "The Courier says the detector began operation in 1993; the NOMAD final paper dates its event sample from 1995 and Dore (EPJ H 37, 2012) writes 'NOMAD (1994)'. The 1993-1995 period is recorded as commissioning/first operation, an interpretation that no source spells out.",
+      "quote": "With the West Area well served with muon neutrinos, specialized detectors (NOMAD using kinematic techniques, and CHORUS using nuclear emulsion to observe the final state tau leptons) began operation in 1993.",
+      "sources": [
+        "src:cern-wa-courier-neutrinos-stop-going-west-1998"
+      ],
+      "start": "1993",
+      "status": "commissioning",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "1998",
+      "label": "data taking",
+      "locator": "§1 Introduction",
+      "note": "Year precision, from the NOMAD final-results paper. The CERN archive's administrative history says the data taking was completed at the end of 1998 (used for the terminal event).",
+      "quote": "From 1995 to 1998 the experiment has collected 1 040 000 events with an identified muon, corresponding to about 1 350 000 νµ CC interactions",
+      "sources": [
+        "src:nomad-hep-ex0106102"
+      ],
+      "start": "1995",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "completed",
+      "locator": "Administrative history",
+      "note": "Terminal event: end of data taking, 'at the end of 1998' (December 1998, approximate). The CERN Courier (27 November 1998) dates the completion of the CHORUS and NOMAD experiments to September 1998. The detector was dismantled during 1999.",
+      "quote": "The data taking was completed at the end of 1998 and the detector was dismantled during the course of 1999.",
+      "sources": [
+        "src:nomad-cern-archives-guide"
+      ],
+      "start": {
+        "approx": true,
+        "date": "1998-12",
+        "display": "end of 1998",
+        "note": "Source wording: 'at the end of 1998'."
+      },
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "NOMAD detector",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": "1998",
+      "locator": "Administrative history",
+      "note": "Approximate: no fetched source gives a coordinate or a hall for the SPS West Area, so the existing campus-grade point of the CERN Meyrin site (precision 500 m) is used. The cited sentence places the experiment in the West Area of the SPS.",
+      "quote": "NOMAD (Neutrino Oscillation MAgnetic Detector) or WA96 located in the West Area of SPS experiment was approved at the end of 1991.",
+      "role": "main",
+      "site_id": "site:cern-meyrin",
+      "sources": [
+        "src:nomad-cern-archives-guide"
+      ],
+      "start": "1993",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:nomad-hep-ex0106102",
+    "src:nomad-cern-archives-guide"
+  ],
+  "specs": {
+    "fiducial_mass": {
+      "approx": true,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "about 2.7 tons",
+      "locator": "§2 NOMAD detector",
+      "note": "",
+      "quote": "Inside a 0.4 T magnetic field there is an active target consisting of drift chambers (DC) [8] with a fiducial mass of about 2.7 tons and a low average density (0.1 g/cm3 ).",
+      "sources": [
+        "src:nomad-hep-ex0106102"
+      ],
+      "unit": "t",
+      "value": 2.7,
+      "verified_at": "2026-10-26"
+    },
+    "magnetic_field": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "magnetic_field",
+      "display": "0.4 T",
+      "locator": "§2 NOMAD detector",
+      "note": "",
+      "quote": "Inside a 0.4 T magnetic field there is an active target consisting of drift chambers (DC) [8] with a fiducial mass of about 2.7 tons and a low average density (0.1 g/cm3 ).",
+      "sources": [
+        "src:nomad-hep-ex0106102"
+      ],
+      "unit": "T",
+      "value": 0.4,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "A light, finely instrumented tracker inside a large magnet, followed by calorimeters and muon chambers, built to measure the energy and direction of every particle from a neutrino interaction.",
+    "technical": "Drift-chamber active target (405 cm, about one radiation length, 0.1 g/cm3) in a 0.4 T field (the UA1 magnet), then TRD, preshower, lead-glass ECAL, HCAL and two muon-chamber stations; momentum resolution sigma_p/p = 0.008 p[GeV/c] (+) 0.05/sqrt(L[m])."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "§2 NOMAD detector",
+    "note": "",
+    "quote": "The target, 405 cm long and corresponding to about one radiation length, is followed by a transition radiation detector (TRD) [9] for electron identification, a preshower detector (PRS), and a high resolution lead-glass electromagnetic calorimeter (ECAL) [10].",
+    "sources": [
+      "src:nomad-hep-ex0106102"
+    ],
+    "value": "Magnetic detector: drift-chamber active target followed by a transition radiation detector, preshower, lead-glass electromagnetic calorimeter, hadron calorimeter and muon chambers",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "spectrometer",
+  "technology_classes": [
+    "spectrometer"
+  ],
+  "type": "detector"
+}

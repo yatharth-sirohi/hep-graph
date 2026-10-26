@@ -1,0 +1,148 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
+  },
+  "experiment_ids": [
+    "experiment:nemo-3"
+  ],
+  "id": "detector:nemo-3-detector",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2004-10",
+      "kind": "run",
+      "label": "Phase I data taking",
+      "locator": "§II, detector description",
+      "note": "Phase I: the dominant background was radon in the tracking chamber; the detector was then fitted with a radon trapping facility (December 2004).",
+      "quote": "the first data taking period, labeled Phase I, from February 2003 until October 2004",
+      "sources": [
+        "src:nemo-3-1506-05825"
+      ],
+      "start": "2003-02",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": "2010-12",
+      "kind": "run",
+      "label": "Phase II data taking",
+      "locator": "§II, detector description",
+      "note": "Reduced radon contamination (about 5 mBq/m3); 'end of running in December 2010'. A June 2025 SuperNEMO talk (see the log) gives NEMO-3 as '2003-2011'; the final-results paper is followed here.",
+      "quote": "The second data taking period between December 2004 until the end of running in December 2010 (Phase II)",
+      "sources": [
+        "src:nemo-3-1506-05825"
+      ],
+      "start": "2004-12",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "completed",
+      "locator": "§II, detector description",
+      "note": "Terminal event: end of running in December 2010.",
+      "quote": "The second data taking period between December 2004 until the end of running in December 2010 (Phase II)",
+      "sources": [
+        "src:nemo-3-1506-05825"
+      ],
+      "start": "2010-12",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "NEMO-3 detector",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": "2010-12",
+      "locator": "abstract",
+      "note": "",
+      "quote": "The NEMO-3 detector, which had been operating in the Modane Underground Laboratory from 2003 to 2010, was designed to search for neutrinoless double β (0νββ) decay.",
+      "role": "main",
+      "site_id": "site:lsm-frejus",
+      "sources": [
+        "src:nemo-3-1506-05825"
+      ],
+      "start": "2003-02",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:nemo-3-1506-05825"
+  ],
+  "specs": {
+    "isotope": {
+      "confidence": "verified",
+      "locator": "§II",
+      "note": "",
+      "quote": "The main isotope used to search for 0νββ decays is 100 Mo with a total mass of 6.914 kg.",
+      "sources": [
+        "src:nemo-3-1506-05825"
+      ],
+      "value": "100Mo (main isotope; also 82Se, 116Cd and others)",
+      "verified_at": "2026-10-26"
+    },
+    "isotope_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "6.914 kg",
+      "locator": "§II",
+      "note": "",
+      "quote": "The main isotope used to search for 0νββ decays is 100 Mo with a total mass of 6.914 kg.",
+      "sources": [
+        "src:nemo-3-1506-05825"
+      ],
+      "unit": "kg",
+      "value": 6.914,
+      "verified_at": "2026-10-26"
+    },
+    "magnetic_field": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "magnetic_field",
+      "display": "25 G",
+      "locator": "§II",
+      "note": "",
+      "quote": "A solenoidal magnet surrounding the detector provides a magnetic field of 25 G",
+      "sources": [
+        "src:nemo-3-1506-05825"
+      ],
+      "unit": "G",
+      "value": 25,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "A drum of thin foils holding the decaying atoms, ringed by thousands of gas-filled tracking cells and blocks of plastic scintillator. It sees each electron's path and energy, so it can tell a real decay from background.",
+    "technical": "Cylinder with 20 sectors of source foils (100Mo 6.914 kg, 96.5 % enriched) between two Geiger-mode tracking volumes (6180 open drift cells) and plastic-scintillator walls read by PMTs; 25 G solenoid; 19 cm iron shield and borated-water neutron shield."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "§II",
+    "note": "",
+    "quote": "The thin source foils with a density of 40–60 mg/cm2 containing the active double β decay isotope are surrounded by a tracking detector comprising open drift cells and a calorimeter composed of plastic scintillators.",
+    "sources": [
+      "src:nemo-3-1506-05825"
+    ],
+    "value": "Thin double-beta source foils surrounded by a gaseous tracking detector of open drift cells operating in Geiger mode and a calorimeter of plastic scintillators, inside a solenoid and a low-radioactivity shield",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "tracking_calorimeter",
+  "technology_classes": [
+    "tracking_calorimeter"
+  ],
+  "type": "detector"
+}

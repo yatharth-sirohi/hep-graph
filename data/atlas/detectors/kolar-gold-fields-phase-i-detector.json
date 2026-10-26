@@ -1,0 +1,121 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
+  },
+  "experiment_ids": [
+    "experiment:kolar-gold-fields-experiments"
+  ],
+  "id": "detector:kolar-gold-fields-phase-i-detector",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "1993",
+      "label": "data taking",
+      "locator": "section I, Introduction",
+      "note": "Month precision from 'at the end of 1980' (approximate). The same sentence gives 1600 proportional counters, 140 t of iron and the 7000 hg/cm^2 depth.",
+      "quote": "This 'Phase I' detector which comprised of 1600 proportional counters having a total weight of 140 tons of iron, was installed deep underground at the depth of 7000 hg/cm2 and started making observations on possible proton decay phenomenon at the end of 1980.",
+      "sources": [
+        "src:kgf-hep-ex0008074"
+      ],
+      "start": "1980-12",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "completed",
+      "locator": "section I, Introduction",
+      "note": "The paper says the proton-decay experiment stopped data taking in 1993; it does not give a separate retirement date for this detector.",
+      "quote": "Since the management of KGF mines decided to start closing the mines in 1993, the proton decay experiment stopped data taking in 1993.",
+      "sources": [
+        "src:kgf-hep-ex0008074"
+      ],
+      "start": "1993",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "KGF Phase I proton-decay detector",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "locator": "section I, Introduction",
+      "note": "Placed at the Kolar Gold Fields site; the mine level and shaft are not given by any source consulted (the depth is in the specs).",
+      "quote": "was installed deep underground at the depth of 7000 hg/cm2",
+      "role": "main",
+      "site_id": "site:kolar-gold-fields-mines",
+      "sources": [
+        "src:kgf-hep-ex0008074"
+      ],
+      "start": "1980-12",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:kgf-hep-ex0008074"
+  ],
+  "specs": {
+    "depth": {
+      "approx": false,
+      "confidence": "derived",
+      "dimension": "depth_mwe",
+      "display": "7000 m.w.e. (7000 hg/cm²)",
+      "locator": "section I, Introduction",
+      "note": "Paper unit hg/cm^2; 1 hg/cm^2 = 1 m.w.e.",
+      "quote": "was installed deep underground at the depth of 7000 hg/cm2",
+      "sources": [
+        "src:kgf-hep-ex0008074"
+      ],
+      "unit": "m.w.e.",
+      "value": 7000,
+      "verified_at": "2026-10-26"
+    },
+    "total_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "140 tons",
+      "locator": "section I, Introduction",
+      "note": "",
+      "quote": "This 'Phase I' detector which comprised of 1600 proportional counters having a total weight of 140 tons of iron, was installed deep underground at the depth of 7000 hg/cm2 and started making observations on possible proton decay phenomenon at the end of 1980.",
+      "sources": [
+        "src:kgf-hep-ex0008074"
+      ],
+      "unit": "t",
+      "value": 140,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "The first KGF proton-decay detector: 34 layers of gas-filled iron counters and iron plates, about 140 tons, installed very deep in the mine and running from the end of 1980.",
+    "technical": "Phase I: about 1600 iron-walled proportional counters (10 cm x 10 cm, 2.3 mm walls, 4 m or 6 m long) in 34 crossed layers with 1.2 cm iron plates, 4 x 6 m^2 floor area, 140 t, at 7000 hg/cm^2."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "section II, Experimental Details",
+    "note": "",
+    "quote": "Proportional counters of 10 x 10 cm cross sectional area, 2.3 mm thick iron walls and 4 m or 6 m length were placed in alternate horizontal layers in a crossed layer configuration.",
+    "sources": [
+      "src:kgf-hep-ex0008074"
+    ],
+    "value": "Iron-walled proportional counters in crossed horizontal layers interleaved with iron plates",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "tracking_calorimeter",
+  "technology_classes": [
+    "tracking_calorimeter"
+  ],
+  "type": "detector"
+}

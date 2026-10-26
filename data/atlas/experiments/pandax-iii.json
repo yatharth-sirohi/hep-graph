@@ -1,0 +1,143 @@
+{
+  "accelerator_ids": [],
+  "aliases": [
+    "PandaX-III neutrinoless double beta decay experiment"
+  ],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:pandax-4t"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
+  },
+  "energy_regime": null,
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:cjpl",
+      "locator": "abstract",
+      "note": "",
+      "quote": "PandaX-III (Particle And Astrophysical Xenon Experiment III) will search for the NLDBD of 136Xe at the China Jin Ping underground Laboratory (CJPL).",
+      "role": "host",
+      "sources": [
+        "src:pandax-iii-1610-08883"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:pandax-iii",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "first TPC module under construction",
+      "locator": "§1, end of the introduction",
+      "note": "Start is the date of the design paper (arXiv v1, 27 October 2016), which says the first module is under construction. A November 2023 status paper says 'The construction of the detector was completed. The detector will be installed at the CJPL-II after the performance test in Shanghai.' No later source was found on installation; the PandaX website (checked 2026-10-26) calls PandaX-III 'a R&D effort to develop a high pressure gaseous Xenon TPC'. The status 'construction' is therefore the last documented stage, not a statement about 2026.",
+      "quote": "The first 200 kg module is under construction and is expected to be deployed in the next 2-3 years.",
+      "sources": [
+        "src:pandax-iii-1610-08883"
+      ],
+      "start": "2016-10",
+      "status": "construction",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Xenon gas mass (first phase, 90 % enriched 136Xe)",
+      "quantity": {
+        "approx": true,
+        "confidence": "verified",
+        "dimension": "mass",
+        "display": "~140 kg",
+        "locator": "§1 Introduction",
+        "note": "The 2016 design paper gave 200 kg for the first module; the 2020 TPC paper and the 2023 status paper give about 140 kg.",
+        "quote": "It can hold about 140 kg of xenon (90% enriched) at an operating pressure of 10 bar.",
+        "sources": [
+          "src:pandax-iii-2311-13396"
+        ],
+        "unit": "kg",
+        "value": 140,
+        "verified_at": "2026-10-26"
+      }
+    },
+    {
+      "label": "Operating pressure",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "pressure",
+        "display": "10 bar",
+        "locator": "§1 Introduction",
+        "note": "",
+        "quote": "It can hold about 140 kg of xenon (90% enriched) at an operating pressure of 10 bar.",
+        "sources": [
+          "src:pandax-iii-2311-13396"
+        ],
+        "unit": "bar",
+        "value": 10,
+        "verified_at": "2026-10-26"
+      }
+    }
+  ],
+  "kind": "double_beta_decay",
+  "lineage": [],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "locator": "section 'PandaX III' of the home page",
+      "note": "",
+      "quote": "PandaX-III is a R&D effort to develop a high pressure gaseous Xenon TPC as a potential technology to search for the neutrinoless double beta decay of",
+      "sources": [
+        "src:dm-noble-liquid-pandax-4t-official-site"
+      ],
+      "value": "https://pandax.sjtu.edu.cn/",
+      "verified_at": "2026-10-26"
+    }
+  },
+  "name": "PandaX-III",
+  "notes": [
+    "Belongs to the PandaX programme (PandaX-I, II, 4T and xT); the collaboration record is the existing collaboration:pandax-4t ('PandaX Collaboration').",
+    "Meets the inclusion bar through a design report that names its site (arXiv:1610.08883, CJPL) and a 2023 status paper reporting the final detector constructed. No physics result exists. The official PandaX page describes PandaX-III as 'a R&D effort'; the integrator may prefer status `proposed`."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "abstract",
+      "note": "",
+      "quote": "The PandaX-III experiment searches the neutrinoless double beta decay of 136 Xe with a high-pressure xenon gaseous time projection chamber (TPC).",
+      "sources": [
+        "src:pandax-iii-2311-13396"
+      ],
+      "value": "Search for neutrinoless double beta decay of 136Xe with a high-pressure gaseous xenon time projection chamber read out by Micromegas",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:pandax-iii-1610-08883",
+    "src:pandax-iii-2311-13396",
+    "src:pandax-iii-2001-01356",
+    "src:dm-noble-liquid-pandax-4t-official-site"
+  ],
+  "status": "construction",
+  "summary": {
+    "plain": "A planned high-pressure xenon-gas detector for the Jinping underground laboratory in China, meant to look for neutrinoless double beta decay of xenon-136 by recording the tracks of the two electrons. The detector has been built and tested above ground; installation underground was still pending in 2023.",
+    "technical": "PandaX-III: cylindrical high-pressure gas TPC (120 cm x 160 cm active volume) with about 140 kg of 90 % enriched 136Xe at 10 bar, charge readout by 52 thermal-bonding Micromegas modules (20 x 20 cm2), to sit in a water-tank or dry shield at CJPL-II (2400 m of rock); topological discrimination expected to give 0.49 background counts per year in the region of interest."
+  },
+  "topic_ids": [
+    "topic:neutrinoless-double-beta-decay",
+    "topic:neutrino-physics"
+  ],
+  "type": "experiment",
+  "unique_capabilities": []
+}

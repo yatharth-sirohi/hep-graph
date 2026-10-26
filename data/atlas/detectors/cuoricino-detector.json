@@ -1,0 +1,134 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "D"
+  },
+  "experiment_ids": [
+    "experiment:cuoricino"
+  ],
+  "id": "detector:cuoricino-detector",
+  "intervals": [
+    {
+      "confidence": "verified",
+      "end": "2008-06",
+      "label": "data acquisition",
+      "locator": "§ on data collection",
+      "note": "The data were taken in two runs (Run I and Run II) separated by a major maintenance interruption; the array was first cooled down at the beginning of 2003 (0802.3439).",
+      "quote": "CUORICINO data acquisition started in April 2003 and ended in June 2008",
+      "sources": [
+        "src:cuoricino-1012-3266"
+      ],
+      "start": "2003-04",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "completed",
+      "locator": "§ on data collection",
+      "note": "Terminal event: end of data acquisition (June 2008).",
+      "quote": "CUORICINO data acquisition started in April 2003 and ended in June 2008",
+      "sources": [
+        "src:cuoricino-1012-3266"
+      ],
+      "start": "2008-06",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "CUORICINO detector",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "derived",
+      "end": "2008-06",
+      "locator": "§3.2, CUORE-0",
+      "note": "Derived: the CUORE-0 text puts the dilution refrigerator that previously hosted CUORICINO in Hall A; no fetched CUORICINO paper names the hall.",
+      "quote": "The tower was operated in Hall A of LNGS, in the same dilution refrigerator that previously hosted the CUORICINO experiment",
+      "role": "main",
+      "site_id": "site:lngs-hall-a",
+      "sources": [
+        "src:cuoricino-1612-04276"
+      ],
+      "start": "2003-04",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:cuoricino-1012-3266",
+    "src:cuoricino-0802-3439",
+    "src:cuoricino-hep-ex0501034"
+  ],
+  "specs": {
+    "active_mass": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "mass",
+      "display": "40.7 kg",
+      "locator": "abstract",
+      "note": "",
+      "quote": "CUORICINO is an array of 62 tellurium oxide (T eO2 ) bolometers with an active mass of 40.7 kg.",
+      "sources": [
+        "src:cuoricino-0802-3439"
+      ],
+      "unit": "kg",
+      "value": 40.7,
+      "verified_at": "2026-10-26"
+    },
+    "isotope": {
+      "confidence": "verified",
+      "locator": "§ 2",
+      "note": "",
+      "quote": "CUORICINO [12] was a tower array of 62 TeO2 crystals used as bolometric detectors.",
+      "sources": [
+        "src:cuoricino-1012-3266"
+      ],
+      "value": "130Te (in natural-abundance TeO2 crystals)",
+      "verified_at": "2026-10-26"
+    },
+    "temperature": {
+      "approx": true,
+      "confidence": "verified",
+      "dimension": "temperature",
+      "display": "~8 mK",
+      "locator": "§ on the detector (PRL 95, 142501)",
+      "note": "",
+      "quote": "CUORICINO is operated at a temperature of ∼8 mK with a spread of ∼1 mK",
+      "sources": [
+        "src:cuoricino-hep-ex0501034"
+      ],
+      "unit": "mK",
+      "value": 8,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "Sixty-two crystals of tellurium oxide stacked in thirteen layers. A decay inside a crystal warms it by a hair's breadth, and a thermistor on each crystal records the temperature pulse.",
+    "technical": "13 planes of 62 TeO2 bolometers (44 cubes of 5 cm and 18 of 3x3x6 cm), 40.7 kg active mass, NTD thermistors, ~8 mK base temperature, dilution refrigerator shielded against radioactivity and neutrons."
+  },
+  "technology": {
+    "confidence": "verified",
+    "locator": "§ 2",
+    "note": "",
+    "quote": "CUORICINO [12] was a tower array of 62 TeO2 crystals used as bolometric detectors.",
+    "sources": [
+      "src:cuoricino-1012-3266"
+    ],
+    "value": "A tower of TeO2 crystals used as cryogenic bolometers, cooled in a dilution refrigerator and read out by neutron-transmutation-doped thermistors",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "cryogenic_bolometer",
+  "technology_classes": [
+    "cryogenic_bolometer"
+  ],
+  "type": "detector"
+}
