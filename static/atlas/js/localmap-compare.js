@@ -352,10 +352,8 @@ export function hidesBasemap() {
 }
 
 export function basemapNotice() {
-  return 'The OpenStreetMap basemap is off while the overlay sits over your location: asking '
-    + 'OpenStreetMap for the tiles around you would tell it roughly where you are. The overlay, '
-    + 'the scale bar and the north indicator are unaffected. You can turn the basemap on under '
-    + '“Compare with…”.';
+  return 'Basemap off over your location, so no map tile request tells OpenStreetMap where you are. '
+    + 'Turn it on under “Compare with…”.';
 }
 
 export function destroy() {

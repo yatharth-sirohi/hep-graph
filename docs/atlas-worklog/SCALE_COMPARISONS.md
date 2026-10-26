@@ -170,4 +170,30 @@ access has been blocked because of a permissions policy"), found when the browse
 * `schema.py` and the ontology: spec keys of amendment A31 (the number may need to change at
   merge: A28 and A30 are already taken on other branches).
 
-<!-- caller: code sections below -->
+## Checks run (2026-10-26)
+
+* Validator: `python -m hepgraph.atlas.validate` ends `0 errors, 1596 warnings, 4 informational`
+  (the warnings are the existing ones; none concerns the new specs).
+* `python -m pytest -q`: 701 passed, 139 skipped (the PostgreSQL-backed tests).
+  New: `tests/test_atlas_scale_comparisons.py` (the LHC ring keeps its circumference to within 0.5 %
+  over Iowa City, Svalbard and the South Pole, measured by `hepgraph.atlas.geo`; every dimension
+  the line-up reads is a quoted, sourced length in its record) and the `Permissions-Policy` test in
+  `tests/test_atlas_server.py`.
+* `tests/browser_atlas.cjs` on chromium, `HEP_ATLAS_DATA=generated`: 107 passed, 0 uncaught errors.
+  Three of those are new: the overlay (the LHC over Fermilab's map is 26.7 km against the scale bar
+  within 1 % of CERN's 26 659 m, the address and the map point round-trip through a reload, then
+  "Over my location" with a granted position: `cmpc` leaves the address, the position is in no
+  address, history entry, storage or cookie, no basemap tile is requested until the reader turns
+  it on, and the ring still reads 26.7 km over Iowa City), the line-up (14 detectors = 14 table
+  rows, one scale to within 2-3 %, the person 1.8/71 of Hyper-Kamiokande's height, IceCube's panel
+  and 1 km bar, every dimension quoted in the method), and the line-up on a phone.
+* `tests/browser_atlas_a11y.cjs` on chromium: 42 passed, 0 axe violations in 34 states, including the
+  line-up (closed and with the method open) and a local map with an overlay.
+* The three new browser checks alone on firefox and webkit: passed on both (per the coordinator,
+  the full suites on those engines are the integrator's to run).
+* Read by eye at 1440 and 390 px. The LHC over Fermilab's map, measured on screen: the ring's
+  length in pixels times the metres per pixel at the view centre (what the scale bar says) is
+  26.59 km, against the record's 26.58 km and CERN's official 26.659 km; over the South Pole map
+  (a polar projection) 26.59 km; the scale bar reads "1 km" against a ring 8.5 km across.
+
+Screenshots (not committed): `/private/tmp/claude-501/-Users-yatharthsirohi-Desktop-HEP-Graph/eed887c7-349d-45f2-a24f-fe22c2d1c9c2/scratchpad/m4scale-run/final/`.
