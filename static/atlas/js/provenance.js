@@ -9,6 +9,7 @@
 // it gets the same shape (a labelled claim, never a bespoke one-off row).
 
 import { titleCase, fmtDate, quantityText } from './model.js';
+import { quoteView } from './tex.js';
 
 // A flat id -> record index (facilities/sites/accelerators/beamlines/
 // experiments/detectors/collaborations/topics — the same one model.js's
@@ -71,7 +72,7 @@ function rangeText(statusOrRole, start, end) {
   const startText = start ? fmtDate(start) : '';
   const endText = end ? fmtDate(end) : '';
   if (startText && endText) return `${head}, ${startText} – ${endText}`;
-  if (startText) return `${head}, ${/^\d{4}/.test(startText) ? 'since ' : ''}${startText}`;
+  if (startText) return `${head}, ${/^(?:c\. )?\d{4}/.test(startText) ? 'since ' : ''}${startText}`;
   if (endText) return `${head}, until ${endText}`;
   return head;
 }
@@ -305,7 +306,8 @@ export function sourceTypeWord(sourceType) {
 // with where to find it in the source (the claim's `locator`: page, section,
 // table), the confidence, and the sources that back it — instead of one row
 // per (pointer, source). The JSON pointer is a maintainer's handle, not
-// something a reader can act on: it stays only as the label's `title`.
+// something a reader can act on: it stays only as the label's `data-field`
+// attribute, for maintainers (a hover tooltip showed it to every reader).
 
 // Lower-case alphanumerics only, so a quote and a source excerpt compare equal
 // despite curly quotes, hyphens, whitespace or markup-free punctuation.
@@ -382,8 +384,8 @@ function claimGroup(pointer, provRecord, sourcesBundle, record) {
   const ordered = orderSourcesForQuote(sources, provRecord.quote);
 
   return h('li', { class: 'claim-group' }, [
-    h('div', { class: 'claim-label', title: `field: ${field}` }, label),
-    provRecord.quote ? h('div', { class: 'claim-evidence' }, `“${provRecord.quote}”`) : null,
+    h('div', { class: 'claim-label', 'data-field': field }, label),
+    provRecord.quote ? h('div', { class: 'claim-evidence' }, quoteView(provRecord.quote)) : null,
     locator ? h('div', { class: 'claim-locator' }, [h('span', { class: 'claim-locator-label' }, 'In the source: '), locator]) : null,
     confidence ? h('div', { class: 'claim-confidence' }, `Confidence: ${confidence}`) : null,
     h('ul', { class: 'claim-sources' }, ordered.map(sourceRow)),
@@ -406,14 +408,14 @@ export function renderClaimItems(entries, sourcesBundle, record) {
 
 // A23: a linked site's admitted-approximate `/coordinates` note, rendered in
 // the same claim-group shape as everything else in the Sources disclosure
-// (a labelled claim, the pointer only as a title) instead of a bespoke row.
+// (a labelled claim, the pointer only as a data attribute) instead of a bespoke row.
 // The headline keeps the established "Approximate location — <site name>"
 // wording (the panel's own "Beam and sites" line already says the same
 // thing next to the site link).
 export function renderApproximateLocationNote(site, note) {
   const { field } = claimLabel('/coordinates', site);
   return h('li', { class: 'claim-group approximate-location-note' }, [
-    h('div', { class: 'claim-label', title: `field: ${field}` }, `Approximate location — ${site.name}`),
+    h('div', { class: 'claim-label', 'data-field': field }, `Approximate location — ${site.name}`),
     h('div', { class: 'claim-evidence' }, note),
   ]);
 }

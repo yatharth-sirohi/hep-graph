@@ -774,6 +774,11 @@ input {
 .topic-link {
   text-decoration: none;
 }
+/* The Results controls sit in a disclosure that is only a disclosure on a
+   phone (phone.css): here its summary is hidden and it stays open. */
+.results-controls > summary {
+  display: none;
+}
 .results-filters {
   display: flex;
   flex-wrap: wrap;
@@ -1045,6 +1050,36 @@ input {
 .plain-summary {
   font-size: 15px;
 }
+/* A result's verbatim claim sits under its lede as an excerpt, labelled with
+   where in the paper it was taken from. */
+.result-excerpt {
+  margin: 8px 0 10px;
+  padding-left: 10px;
+  border-left: 2px solid var(--line-strong);
+  font-size: 13px;
+  color: var(--muted);
+}
+.excerpt-label {
+  font-weight: 600;
+}
+.quote-text {
+  font-style: italic;
+}
+.quote-text.is-verbatim {
+  font-style: normal;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+.quote-text sup,
+.quote-text sub {
+  font-size: 0.75em;
+  line-height: 0;
+}
+.quote-toggle {
+  font-size: 12px;
+  font-style: normal;
+}
 .source-list {
   list-style: none;
   padding: 0;
@@ -1083,7 +1118,7 @@ input {
 /* provenance.js's grouped-by-claim Sources disclosure (task A4): one claim
    label, its quote, where to find it in the source (locator) and confidence,
    then the sources that back it. The raw JSON pointer is only the label's
-   title attribute (review F11): a reader cannot act on it. */
+   data-field attribute (review F11): a reader cannot act on it. */
 .claim-group {
   border-left: 2px solid var(--line-strong);
   padding-left: 10px;
@@ -1844,9 +1879,9 @@ body.about-page {
 .map-swatch.legend-rep-point {
   height: 12px;
   width: 12px;
-  border: 2px solid var(--white);
+  border: 2px dashed var(--white);
   border-radius: 50%;
-  background: #f4f7f833;
+  background: transparent;
 }
 
 /* ---- centre: the map stage */
@@ -2016,6 +2051,17 @@ body.about-page {
 .map-depth-floor {
   stroke: var(--white);
   stroke-width: 1.5;
+}
+.map-depth-value,
+.map-depth-name {
+  fill: var(--white);
+  font-size: 9px;
+}
+.map-depth-name {
+  fill: var(--muted);
+}
+.map-depth-unrecorded {
+  margin: 0 0 8px;
 }
 .map-depth-key {
   list-style: none;

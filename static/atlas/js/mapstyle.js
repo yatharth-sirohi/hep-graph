@@ -133,6 +133,23 @@ export function pathOptions(feature, { level, status, ghost = false } = {}) {
   };
 }
 
+/**
+ * How the circle of a position-only feature is drawn. It is how well the
+ * position is known, not a structure, so it is a thin dashed ring with no fill:
+ * a footprint is a filled shape, and a filled amber disc 2 km across (Kamioka,
+ * Paranal) read as one and swamped the map. It is still a painted path with an
+ * invisible fill, so hovering or clicking inside it reaches the feature.
+ */
+export function uncertaintyRingOptions(options) {
+  return {
+    ...options,
+    weight: 2,
+    dashArray: '7 6',
+    fill: true,
+    fillOpacity: 0,
+  };
+}
+
 /** The pale casing drawn *behind* a subsurface feature (the level encoding). */
 export function casingOptions(feature, { ghost = false } = {}) {
   const t = typeStyle(feature.feature_type);
@@ -189,9 +206,9 @@ export function legendGroups(levels) {
   ]);
   const representationRows = ['surveyed', 'georeferenced', 'derived', 'inferred_direction']
     .map((key) => [`legend-rep-${key}`, REPRESENTATION_STYLES[key].label, REPRESENTATION_STYLES[key].hint]);
-  representationRows.push(['legend-rep-point', 'Position only (a circle with a centre mark)',
-    'no source gives this feature a footprint, so what is drawn is its position and a circle of '
-    + 'its positional accuracy, labelled “position uncertainty ±N m — not the detector outline”: '
+  representationRows.push(['legend-rep-point', 'Position only (a dashed ring with a centre mark)',
+    'no source gives this feature a footprint, so what is drawn is its position and a hollow dashed '
+    + 'ring of its positional accuracy, labelled “position uncertainty ±N m — not the detector outline”: '
     + 'the circle is how well the position is known, not the size of the thing']);
   return [
     { title: 'Feature type', note: 'What kind of thing the shape is.', rows: typeRows },
@@ -411,6 +428,44 @@ export function labelsFor(features, { isExperimentSite = () => false } = {}) {
     }
   }
   return labels;
+}
+
+/** The name each feature goes by in the list beside the map. A feature is named
+ *  for the entity it draws, so two outlines of one entity (the two ECN3
+ *  buildings, the two HL-LHC Point surface sites) would read as the same row
+ *  twice. Where names collide, each gets what tells it apart, tried in this
+ *  order and used only if it does tell the whole group apart: its type, its
+ *  level, both, its own name. "ECN3 cavern, CERN North Area — ECN3 access
+ *  building". `levelName(levelId)` gives a level's name. */
+export function listNamesFor(features, levelName = (id) => id) {
+  const shared = (f) => f.entity_name || f.name || f.id;
+  const groups = new Map();
+  for (const f of features) groups.set(shared(f), (groups.get(shared(f)) || []).concat(f));
+  const names = new Map();
+  for (const [name, group] of groups) {
+    if (group.length < 2) {
+      names.set(group[0].id, name);
+      continue;
+    }
+    const type = (f) => titleCase(f.feature_type || 'other');
+    // A level's depth, a building's number: kept out unless nothing else tells
+    // the rows apart.
+    const level = (f) => withoutParens(String(levelName(f.level_id) || ''));
+    const own = (f) => {
+      const text = f.name ? dropQualifiers(f.name) || f.name : '';
+      return text && text !== name ? text : '';
+    };
+    const ownBare = (f) => withoutParens(own(f));
+    const tellers = [type, level, (f) => `${type(f)}, ${level(f)}`, ownBare, own];
+    const teller = tellers.find((fn) => {
+      const values = group.map(fn);
+      return values.every(Boolean) && new Set(values.map((v) => v.toLowerCase())).size === group.length;
+    });
+    group.forEach((f, i) => {
+      names.set(f.id, `${name} \u2014 ${teller ? teller(f) : `${own(f) || type(f)} (${i + 1})`}`);
+    });
+  }
+  return names;
 }
 
 // --- series: many records, one label --------------------------------------

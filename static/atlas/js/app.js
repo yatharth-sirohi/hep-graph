@@ -376,6 +376,8 @@ async function main() {
         highlightedTopic = topicId;
         const markers = topicId ? topicMarkerIds(atlas, topicId) : null;
         globeApi.setHighlight(markers && markers.size ? markers : null);
+        // The camera goes to what is lit: the places the topic is about.
+        if (markers && markers.size) globeApi.fitHighlight();
       }
     }
 

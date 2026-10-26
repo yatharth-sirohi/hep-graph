@@ -5,10 +5,11 @@
 
 import * as loader from './loader.js';
 import {
-  quantityText, fmtDate, titleCase, kindLabel, statusEra, statusForTimeline, timelineAbsenceReason,
+  quantityText, fmtDate, fmtInterval, titleCase, kindLabel, statusEra, statusForTimeline, timelineAbsenceReason,
 } from './model.js';
 import * as provenance from './provenance.js';
 import { greatCircleM, initialBearing } from './localmap.js';
+import { quoteView, readableText, readableView } from './tex.js';
 
 let ATLAS = null;
 let INDEX = null;
@@ -249,9 +250,7 @@ async function documentsFor(id, record) {
 function intervalLine(iv) {
   const label = iv.label ? `${titleCase(iv.label)}: ` : '';
   const status = titleCase(iv.status);
-  const start = fmtDate(iv.start) || '?';
-  const end = fmtDate(iv.end) || 'present';
-  return `${label}${status} (${start}–${end})`;
+  return `${label}${status} (${fmtInterval(iv.start, iv.end) || '?–present'})`;
 }
 
 // Sources are ~2.2 MB combined (provenance.json + sources.json) and the
@@ -361,14 +360,44 @@ async function depictionOn(mapId, entityId) {
  * itself, but whose own site is drawn to scale on one, also gets that map (kind
  * `site`): the site is where the detector is, and that is what the map shows.
  */
+/**
+ * Every local map of a facility, the one its record names first. A facility can
+ * have several (JUNO has its campus and its reactor baselines; KM3NeT has ARCA
+ * and ORCA), and `map_id` on the record only names one of them.
+ */
+function mapIdsOfFacility(facilityId) {
+  const maps = (ATLAS && ATLAS.maps) || {};
+  const facility = ATLAS && ATLAS.facilities && ATLAS.facilities[facilityId];
+  const first = facility && facility.map_id;
+  return Object.keys(maps)
+    .filter((mapId) => maps[mapId].facility_id === facilityId || mapId === first)
+    .sort((a, b) => (b === first) - (a === first));
+}
+
+// The facilities an experiment runs at: the ones it names, and those of its sites.
+function facilityIdsOfExperiment(experiment) {
+  const ids = new Set(experiment.facility_ids || []);
+  for (const siteId of experiment.site_ids || []) {
+    const site = ATLAS.sites && ATLAS.sites[siteId];
+    if (site && site.facility_id) ids.add(site.facility_id);
+  }
+  return [...ids];
+}
+
 async function mapDepictions(record) {
   if (!record) return [];
   const maps = (ATLAS && ATLAS.maps) || {};
-  const ids = record.map_id ? [record.map_id] : (record.geometry_map_ids || []);
+  const kind = record.id ? record.id.split(':')[0] : '';
+  // A facility, or an experiment (which has no map of its own), is linked to
+  // every map of its facility; anything else to the map(s) built for it.
+  let ids;
+  if (kind === 'facility') ids = mapIdsOfFacility(record.id);
+  else if (kind === 'experiment') ids = [...new Set(facilityIdsOfExperiment(record).flatMap(mapIdsOfFacility))];
+  else ids = record.map_id ? [record.map_id] : (record.geometry_map_ids || []);
   const rows = [];
   for (const mapId of ids.filter((id) => maps[id])) {
     // A facility is the map's host, not a feature on it.
-    const how = record.id && record.id.startsWith('facility:') ? 'host' : await depictionOn(mapId, record.id);
+    const how = kind === 'facility' || kind === 'experiment' ? 'host' : await depictionOn(mapId, record.id);
     rows.push({ mapId, meta: maps[mapId], how });
   }
   if (record.id && record.id.startsWith('detector:') && !rows.some((row) => row.how === 'drawn')) {
@@ -721,6 +750,10 @@ async function renderExperiment(id, timelineState) {
     ['Related programs', lineageList(others)],
   ], { open: false, optional: ['Related programs'] });
 
+  // The local maps of the facility it runs at (every one of them).
+  const mapSection = await localMapLinks(exp);
+  if (mapSection) frag.appendChild(mapSection);
+
   sections.note();
   frag.appendChild(sourcesDisclosure(id, exp, { approximateSites }));
   CALLBACKS.focusGlobe(id);
@@ -728,6 +761,44 @@ async function renderExperiment(id, timelineState) {
 }
 
 // ------------------------------------------------------------- collaboration
+// What the roster's rows are, by `evidence_class`, for a roster none of whose
+// rows is individually dated: an official list of member institutions, or the
+// affiliations printed on a paper. Any other class is named by its own label.
+const ROSTER_ROW_WORDS = {
+  official_institution_list: (n, asOf) => `${n} institutions on the official list${asOf}, not individually dated`,
+  publication_affiliation_current: (n, asOf) => `${n} institutions listed on a collaboration paper${asOf}; `
+    + 'current membership not confirmed, not individually dated. The full membership is larger',
+};
+
+// The headline over a roster. A roster whose rows carry dates is counted as
+// confirmed and undated members. One whose rows carry none (`counts` all zero)
+// is not "0 confirmed institutions": it has a list, and the sentence says what
+// kind of list it is and that nothing on it is dated.
+function rosterCountLabel(membership) {
+  const counts = membership.counts || {};
+  const confirmed = counts.confirmed || 0;
+  const undated = counts.undated || 0;
+  const asOf = membership.as_of ? ` as of ${membership.as_of}` : '';
+  const history = membership.membership_history;
+  const rows = membership.members || [];
+  if (confirmed + undated === 0) {
+    if (!rows.length) return 'No institutions are listed in the Atlas roster for this collaboration yet';
+    const byClass = new Map();
+    for (const row of rows) {
+      const key = row.evidence_class || row.evidence_label || 'unspecified';
+      byClass.set(key, [...(byClass.get(key) || []), row]);
+    }
+    return [...byClass].map(([key, group]) => {
+      const words = ROSTER_ROW_WORDS[key];
+      return words ? words(group.length, asOf)
+        : `${group.length} institutions on the roster${asOf} (${group[0].evidence_label || key}), not individually dated`;
+    }).join('; ');
+  }
+  return (history === 'partial' || history === 'unknown')
+    ? `Partial roster: ${confirmed} confirmed institutions (+${undated} undated)${asOf}; the full membership is larger`
+    : `${confirmed} confirmed institutions (+${undated} undated)${asOf}`;
+}
+
 async function renderCollaboration(id, timelineState) {
   const collab = ATLAS.collaborations[id];
   if (!collab) return emptyNote('Unknown collaboration.');
@@ -774,19 +845,11 @@ async function renderCollaboration(id, timelineState) {
     // title attribute is invisible on a phone and to most keyboard users).
     frag.appendChild(emptyNote('Institution roster not yet curated for this collaboration.'));
   } else {
-    const counts = membership.counts || {};
-    const confirmed = counts.confirmed || 0;
-    const undated = counts.undated || 0;
-    const asOf = membership.as_of ? ` as of ${membership.as_of}` : '';
-    const history = membership.membership_history;
-    const countLabel = (history === 'partial' || history === 'unknown')
-      ? `Partial roster: ${confirmed} confirmed institutions (+${undated} undated)${asOf}; the full membership is larger`
-      : `${confirmed} confirmed institutions (+${undated} undated)${asOf}`;
     sections.add('Membership', [
-      h('p', { class: 'membership-count' }, countLabel),
+      h('p', { class: 'membership-count' }, rosterCountLabel(membership)),
       keyValueList([
-        ['Institutions', collab.membership && collab.membership.institution_count],
-        ['Countries', collab.membership && collab.membership.country_count],
+        ['Institutions (collaboration’s own count)', collab.membership && collab.membership.institution_count],
+        ['Countries (collaboration’s own count)', collab.membership && collab.membership.country_count],
         ['As of', collab.membership && collab.membership.as_of],
       ]),
     ]);
@@ -958,6 +1021,26 @@ async function renderTopic(id) {
 }
 
 // ------------------------------------------------------------------- result
+// Lower-case letters and digits only, so a quote and a title compare equal
+// despite TeX, typesetting, hyphens or case.
+function plainKey(text) {
+  return readableText(text).normalize('NFKC').toLowerCase().replace(/[^\p{L}\p{N}]+/gu, '');
+}
+
+// What the verbatim claim is called ("From the abstract"), from the claim's
+// `locator` (where in the source it was read). null when the quote should not
+// be shown under the lede: it is the paper's title, which the page already
+// carries. `always` keeps it even then (no plain-language summary to lead with).
+function claimExcerptLabel(result, quote, locator, always) {
+  const where = String(locator || '').toLowerCase();
+  const titleOnly = /\btitle\b/.test(where) && !/\babstract\b/.test(where);
+  const key = plainKey(quote);
+  const isTitle = titleOnly || [result.title, result.name].some((title) => title && plainKey(title) === key);
+  if (isTitle && !always) return null;
+  if (isTitle) return 'From the paper\u2019s title';
+  return /\babstract\b/.test(where) ? 'From the abstract' : 'From the paper';
+}
+
 async function renderResult(id) {
   const { byId } = await loader.getResults();
   const result = byId.get(id);
@@ -972,10 +1055,23 @@ async function renderResult(id) {
   frag.appendChild(h('h2', {}, result.name || result.title));
   frag.appendChild(h('p', { class: 'panel-subtitle' }, `${titleCase(result.result_type)} · ${fmtDate(result.date)}`));
   if (result.title && result.name && result.title !== result.name) {
-    frag.appendChild(h('p', { class: 'source-meta' }, `Paper title: ${result.title}`));
+    frag.appendChild(h('p', { class: 'source-meta' }, ['Paper title: ', readableView(result.title)]));
   }
-  const claim = (t.claim && t.claim.quote) || (result.claim && result.claim.quote) || (result.summary && result.summary.plain) || '';
-  if (claim) frag.appendChild(h('p', {}, claim));
+  // The lede is the Atlas's own plain-language summary. The paper's wording of
+  // the claim follows under a label that says where it was taken from, so it
+  // reads as an excerpt and not as the Atlas speaking; a quote that is only the
+  // paper's title is not repeated (the title is already on the page).
+  const lede = plainSummaryOf(result, t);
+  if (lede) frag.appendChild(h('p', { class: 'plain-summary result-lede' }, lede));
+  const claim = (t.claim && t.claim.quote) || (result.claim && result.claim.quote) || '';
+  const locator = (t.claim && t.claim.locator) || (result.claim && result.claim.locator) || '';
+  const excerpt = claim && claimExcerptLabel(result, claim, locator, !lede);
+  if (excerpt) {
+    frag.appendChild(h('p', { class: 'result-excerpt' }, [
+      h('span', { class: 'excerpt-label' }, `${excerpt}: `),
+      quoteView(claim),
+    ]));
+  }
   // The bundle carries one `date` plus a `date_kind` ("announcement" |
   // "preprint" | "publication"), not separate `announced` / `published`
   // fields — those never exist on a real result record, so this used to
@@ -996,9 +1092,20 @@ async function renderResult(id) {
       ...facilities.flatMap((facility, i) => [
         i ? document.createTextNode(', ') : null,
         linkTo(idRoute(facility.id), facility.name),
-        facility.map_id && maps[facility.map_id]
-          ? h('span', { class: 'result-where-map' }, [' (', linkTo(idRoute(facility.map_id), 'local map', 'local-map-link'), ')'])
-          : null,
+        // One map reads "local map"; a facility with several names each.
+        (() => {
+          const mapIds = mapIdsOfFacility(facility.id).filter((mapId) => maps[mapId]);
+          return mapIds.length
+            ? h('span', { class: 'result-where-map' }, [
+              ' (',
+              ...mapIds.flatMap((mapId, k) => [
+                k ? document.createTextNode(', ') : null,
+                linkTo(idRoute(mapId), mapIds.length === 1 ? 'local map' : maps[mapId].name, 'local-map-link'),
+              ]),
+              ')',
+            ])
+            : null;
+        })(),
       ]),
     ]));
   }
@@ -1106,7 +1213,7 @@ async function renderSite(id, timelineState) {
     ? h('ul', { class: 'entity-list' }, detectorsHere.map(({ detector, placement }) => h('li', { class: 'entity-link-with-meta' }, [
       linkTo(idRoute(detector.id), detector.name),
       placement.role ? ` — ${titleCase(placement.role)}` : '',
-      (placement.start || placement.end) ? ` (${placement.start || '?'}–${placement.end || 'present'})` : '',
+      (placement.start || placement.end) ? ` (${fmtInterval(placement.start, placement.end)})` : '',
     ])))
     : null);
 
@@ -1172,7 +1279,7 @@ async function renderDetector(id, timelineState) {
       return h('li', { class: 'entity-link-with-meta' }, [
         site ? linkTo(idRoute(site.id), site.name) : document.createTextNode(p.site_id),
         p.role ? ` — ${titleCase(p.role)}` : '',
-        (p.start || p.end) ? ` (${p.start || '?'}–${p.end || 'present'})` : '',
+        (p.start || p.end) ? ` (${fmtInterval(p.start, p.end)})` : '',
       ]);
     }))
     : null);

@@ -217,11 +217,45 @@ export function buildIndex(atlas) {
   return index;
 }
 
+// A date is a plain string ("2012-07-04") or a structured value
+// `{date, approx, planned, earliest, latest, display}` (an interval end that is
+// only known roughly). A structured value reads as its own `display` wording
+// when the record has one ("end of 2014"); otherwise as the date, with "c."
+// for an approximate one and the bounds it carries ("2028 (between 2027 and
+// 2028)"). An object is never printed as "[object Object]".
 export function fmtDate(d) {
   if (!d) return '';
   if (typeof d === 'string') return d;
-  if (typeof d === 'object') return d.display || d.date || '';
+  if (typeof d === 'object') {
+    if (d.display) return String(d.display);
+    if (!d.date) return '';
+    const base = `${d.approx ? 'c. ' : ''}${d.date}`;
+    const { earliest, latest } = d;
+    if (earliest && latest && earliest !== latest) return `${base} (between ${earliest} and ${latest})`;
+    if (earliest && earliest !== d.date) return `${base} (no earlier than ${earliest})`;
+    if (latest && latest !== d.date) return `${base} (no later than ${latest})`;
+    return base;
+  }
   return String(d);
+}
+
+// "2009–present" for an interval whose ends are strings or structured dates. An
+// open end reads "present", except after a planned start (a detector not yet
+// built is not "present"), which reads "planned from <start>". An end the record
+// words itself ("end of 2014", "summer of 2022") is a phrase, not a year, so a
+// range reads "since end of 2014" / "from X to Y" instead of a dash between
+// phrases. Empty when neither end is recorded.
+export function fmtInterval(start, end) {
+  const from = fmtDate(start);
+  const to = fmtDate(end);
+  if (!from && !to) return '';
+  const phrased = (d) => !!d && typeof d === 'object' && !!d.display;
+  if (from && !to) {
+    if (start && typeof start === 'object' && start.planned) return `planned from ${from}`;
+    return phrased(start) ? `since ${from}` : `${from}\u2013present`;
+  }
+  if (!from) return phrased(end) ? `until ${to}` : `?\u2013${to}`;
+  return phrased(start) || phrased(end) ? `from ${from} to ${to}` : `${from}\u2013${to}`;
 }
 
 export function quantityText(q) {

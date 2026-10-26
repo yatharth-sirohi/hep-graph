@@ -54,9 +54,9 @@ const SHEETS = {
     get: () => els.filters,
     toggled: true,
     opener: () => document.getElementById('phone-filters-btn'),
-    closeLabel: 'Close filters and legend',
-    heading: 'Filters & legend',
-    dialogLabel: () => 'Filters and legend',
+    closeLabel: 'Close views and filters',
+    heading: 'Views & filters',
+    dialogLabel: () => 'Views, filters and legend',
   },
   layers: {
     get: () => $('.map-layers'),
@@ -168,7 +168,7 @@ function decorate(sheet) {
     el.removeAttribute('tabindex');
     el.classList.remove('is-open', 'is-expanded');
     // The aside / section keep the label they were authored with.
-    const authored = { filters: 'Filters and legend', layers: 'Map layers, places and legend', mode: null, detail: null, drawer: 'Selected feature' };
+    const authored = { filters: 'Views, filters and legend', layers: 'Map layers, places and legend', mode: null, detail: null, drawer: 'Selected feature' };
     const key = Object.keys(SHEETS).find((k) => SHEETS[k] === sheet);
     if (authored[key]) el.setAttribute('aria-label', authored[key]); else el.removeAttribute('aria-label');
     for (const node of el.querySelectorAll(':scope > .sheet-bar, :scope > .phone-sheet-heading')) node.remove();
@@ -221,7 +221,7 @@ function buildHeaderButtons() {
   const wrap = document.createElement('div');
   wrap.className = 'phone-actions';
   const filters = headerButton('phone-filters-btn',
-    `${ICON_SLIDERS}<span class="phone-action-text">Filters &amp; legend</span><span class="phone-badge" hidden></span>`,
+    `${ICON_SLIDERS}<span class="phone-action-text">Views &amp; filters</span><span class="phone-badge" hidden></span>`,
     { 'aria-haspopup': 'dialog', 'aria-controls': 'filters-panel', 'aria-expanded': 'false' });
   const back = headerButton('phone-map-back-btn',
     '<span aria-hidden="true">←</span><span class="phone-action-text">Back to globe</span>');
@@ -259,7 +259,7 @@ function updateFilterBadge() {
   badge.hidden = count === 0;
   badge.textContent = String(count);
   headerButtons.filters.setAttribute('aria-label',
-    count ? `Filters & legend, ${count} filter${count === 1 ? '' : 's'} active` : 'Filters & legend');
+    count ? `Views & filters, ${count} filter${count === 1 ? '' : 's'} active` : 'Views & filters');
 }
 
 let lastMapRoute = null;

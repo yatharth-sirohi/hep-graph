@@ -49,6 +49,7 @@ let labelLayer = null;
 let symbolLayer = null;
 let labelRecords = new Map();
 let labelTexts = new Map();
+let listNames = new Map();
 let labelFrame = 0;
 let forcedLabelId = null;
 let view = { levels: null, basemap: true, sel: null, timelineState: { year: null } };
@@ -434,9 +435,13 @@ function framingFeatures() {
     .filter(featureVisible)
     .filter((f) => f.representation !== 'inferred_direction' && f.feature_type !== 'direction_line');
   // A campus boundary is context: Fermilab's is 7 km across and framing it left
-  // the rings a small knot in the middle. Frame the structures when there are any.
+  // the rings a small knot in the middle. Frame the structures when they have an
+  // extent of their own (a line or a polygon). When everything else is a point,
+  // the boundary is the facility itself and is framed too: McMurdo Station is a
+  // point 8 km from the Williams Field outline that the map is about.
   const structures = drawn.filter((f) => f.feature_type !== 'boundary');
-  return structures.length ? structures : drawn;
+  const hasExtent = structures.some((f) => !['Point', 'MultiPoint'].includes(f.geometry && f.geometry.type));
+  return structures.length && hasExtent ? structures : drawn;
 }
 
 /**
@@ -783,7 +788,7 @@ function pointLayers(L, feature, options) {
   const radius = pointRadius(feature);
   return {
     pointToLayer: (_geoJsonPoint, latlng) => L.circle(latlng, {
-      ...options, radius, fill: true, fillColor: options.color, fillOpacity: options.fillOpacity || 0.12,
+      ...mapstyle.uncertaintyRingOptions(options), radius, fillColor: options.color,
     }),
   };
 }
@@ -813,8 +818,10 @@ function drawFeatures(L) {
     if (mapstyle.levelIsSubsurface(level) && !isPoint) {
       parts.push(L.geoJSON(shape, { style: () => mapstyle.casingOptions(feature, { ghost }) }));
     }
+    // Leaflet applies `style` to every layer after `pointToLayer` has made it, so
+    // a Point's ring has to be styled here too or the footprint style wins.
     const main = L.geoJSON(shape, {
-      style: () => options,
+      style: () => (isPoint ? mapstyle.uncertaintyRingOptions(options) : options),
       ...(isPoint ? pointLayers(L, feature, options) : {}),
     });
     parts.push(main);
@@ -1229,6 +1236,9 @@ function addLabel(L, feature, shape, { options, ghost, series }) {
     lastKey: null,
     symbol: symbolFor(L, feature, labelShape, { options, ghost, series }),
     symbolShown: false,
+    // What the feature itself draws, for the labels of lower-priority features
+    // to keep clear of (see layoutLabels).
+    solid: { geometry: feature.geometry, type: feature.feature_type },
   });
 }
 
@@ -1455,6 +1465,96 @@ function labelCandidates(rec) {
   return out;
 }
 
+// ---- labels keep off the shapes of more important features ------------------
+// The declutter above only kept labels off each other. A label is also not put
+// on top of a ring, a beamline or a building that matters more than the feature
+// it names, unless it matters as much as they do (a ring, a line, a tunnel, a
+// hall, a cavern or an experiment's site keeps its place): a smaller building's
+// name stands beside the line it would otherwise cross, or is left to the hover
+// tooltip and the list. Context outlines (campus boundaries, roads,
+// water) are never obstacles; they are what labels are laid over.
+const CONTEXT_SOLID_TYPES = new Set(['boundary', 'level_outline', 'road', 'water']);
+const KEEP_OVER_SHAPES_RANK = 2;
+// A footprint no bigger than this on screen blocks its whole box, not just its edge.
+const SMALL_FOOTPRINT_PX = 90;
+const POINT_MARK_PX = 7;
+
+function screenSolid(rec) {
+  const { geometry, type } = rec.solid || {};
+  if (!geometry || CONTEXT_SOLID_TYPES.has(type)) return null;
+  const toPoint = ([lon, lat]) => mapInstance.latLngToContainerPoint([lat, lon]);
+  const segments = [];
+  const boxes = [];
+  let minX = Infinity;
+  let minY = Infinity;
+  let maxX = -Infinity;
+  let maxY = -Infinity;
+  const grow = (x, y) => {
+    minX = Math.min(minX, x);
+    maxX = Math.max(maxX, x);
+    minY = Math.min(minY, y);
+    maxY = Math.max(maxY, y);
+  };
+  const isArea = geometry.type === 'Polygon' || geometry.type === 'MultiPolygon';
+  for (const part of lineParts(geometry)) {
+    const pts = part.map(toPoint);
+    let lx = Infinity;
+    let ly = Infinity;
+    let hx = -Infinity;
+    let hy = -Infinity;
+    for (let i = 0; i < pts.length; i += 1) {
+      grow(pts[i].x, pts[i].y);
+      lx = Math.min(lx, pts[i].x);
+      hx = Math.max(hx, pts[i].x);
+      ly = Math.min(ly, pts[i].y);
+      hy = Math.max(hy, pts[i].y);
+      if (i) segments.push([pts[i - 1].x, pts[i - 1].y, pts[i].x, pts[i].y]);
+    }
+    if (isArea && hx - lx <= SMALL_FOOTPRINT_PX && hy - ly <= SMALL_FOOTPRINT_PX) {
+      boxes.push({ x: lx, y: ly, w: hx - lx, h: hy - ly });
+    }
+  }
+  for (const position of pointParts(geometry)) {
+    const p = toPoint(position);
+    grow(p.x, p.y);
+    boxes.push({ x: p.x - POINT_MARK_PX, y: p.y - POINT_MARK_PX, w: 2 * POINT_MARK_PX, h: 2 * POINT_MARK_PX });
+  }
+  if (rec.symbolShown && rec.symbol) {
+    const c = mapInstance.latLngToContainerPoint(rec.symbol.centre);
+    grow(c.x, c.y);
+    boxes.push({ x: c.x - SYMBOL_SIZE_PX / 2, y: c.y - SYMBOL_SIZE_PX / 2, w: SYMBOL_SIZE_PX, h: SYMBOL_SIZE_PX });
+  }
+  if (!Number.isFinite(minX)) return null;
+  return { id: rec.id, memberIds: rec.memberIds, bbox: { x: minX, y: minY, w: maxX - minX, h: maxY - minY }, segments, boxes };
+}
+
+/** Whether the segment (x0,y0)-(x1,y1) passes through the box (Liang–Barsky). */
+function segmentHitsBox([x0, y0, x1, y1], box) {
+  let t0 = 0;
+  let t1 = 1;
+  const dx = x1 - x0;
+  const dy = y1 - y0;
+  const clip = (p, q) => {
+    if (p === 0) return q >= 0;
+    const r = q / p;
+    if (p < 0) {
+      if (r > t1) return false;
+      if (r > t0) t0 = r;
+    } else {
+      if (r < t0) return false;
+      if (r < t1) t1 = r;
+    }
+    return true;
+  };
+  return clip(-dx, x0 - box.x) && clip(dx, box.x + box.w - x0)
+    && clip(-dy, y0 - box.y) && clip(dy, box.y + box.h - y0);
+}
+
+function solidHits(solid, box) {
+  if (!boxesOverlap(solid.bbox, box)) return false;
+  return solid.boxes.some((b) => boxesOverlap(b, box)) || solid.segments.some((seg) => segmentHitsBox(seg, box));
+}
+
 /**
  * Decide which labels show, and where, for the current view. Highest priority
  * first (the selected feature, then by feature type, then by size); each
@@ -1477,50 +1577,67 @@ function layoutLabels() {
   const inView = (box) => box.x >= LABEL_EDGE_PX && box.y >= LABEL_EDGE_PX
     && box.x + box.w <= mapSize.x - LABEL_EDGE_PX && box.y + box.h <= mapSize.y - LABEL_EDGE_PX;
   const order = [...labelRecords.values()].sort(labelPriority);
+  // The shapes of the features handled so far, whether or not their own label
+  // shows: what a label of lower priority is kept off.
+  const solids = [];
   for (const rec of order) {
-    const el = rec.tooltip.getElement();
-    if (!el) continue;
-    if (!rec.box.w || !rec.box.h) rec.box = { w: el.offsetWidth, h: el.offsetHeight };
-    if (!rec.box.w || !rec.box.h) continue;
-    const forced = isForced(rec);
-    // Four telescopes with the same ±15 m would carry four identical chips: say
-    // it once (the legend and every tooltip say it for the rest), unless the
-    // reader is asking about that one.
-    if (!circleReadable(rec) || (rec.circle && !forced && ringTextsShown.has(rec.circle.text))) {
-      el.classList.add('is-hidden');
-      continue;
-    }
-    let chosen = null;
-    let fallback = null;
-    for (const candidate of labelCandidates(rec)) {
-      const box = labelBox(candidate, rec.box);
-      if (!inView(box)) continue;
-      if (!fallback) fallback = { candidate, box };
-      const clear = !placed.some((other) => boxesOverlap(box, other))
-        && !blocked.some((other) => boxesOverlap(box, other));
-      if (clear) {
-        chosen = { candidate, box };
-        break;
+    placement: {
+      const el = rec.tooltip.getElement();
+      if (!el) break placement;
+      if (!rec.box.w || !rec.box.h) rec.box = { w: el.offsetWidth, h: el.offsetHeight };
+      if (!rec.box.w || !rec.box.h) break placement;
+      const forced = isForced(rec);
+      // Four telescopes with the same ±15 m would carry four identical chips: say
+      // it once (the legend and every tooltip say it for the rest), unless the
+      // reader is asking about that one.
+      if (!circleReadable(rec) || (rec.circle && !forced && ringTextsShown.has(rec.circle.text))) {
+        el.classList.add('is-hidden');
+        break placement;
       }
+      // Another feature's own parts (a series, an entity's several outlines) are
+      // not in its way; the label of an accuracy circle sits on its own ring.
+      const others = rec.circle ? [] : solids.filter((solid) => solid.id !== rec.id
+        && !(rec.memberIds && rec.memberIds.has(solid.id)) && !(solid.memberIds && solid.memberIds.has(rec.id)));
+      const onShape = (box) => others.some((solid) => solidHits(solid, box));
+      // A label that matters as much as the shapes (a ring, a line, a tunnel, a
+      // hall, a cavern, an experiment's site) is placed as it always was; a lesser
+      // one must also be clear of them, or it is left to its tooltip and its row
+      // in the list.
+      const avoidShapes = !forced && !rec.selected && rec.rank > KEEP_OVER_SHAPES_RANK;
+      let chosen = null;
+      let fallback = null;
+      for (const candidate of labelCandidates(rec)) {
+        const box = labelBox(candidate, rec.box);
+        if (!inView(box)) continue;
+        if (!fallback) fallback = { candidate, box };
+        const clear = !placed.some((other) => boxesOverlap(box, other))
+          && !blocked.some((other) => boxesOverlap(box, other));
+        if (clear && !(avoidShapes && onShape(box))) {
+          chosen = { candidate, box };
+          break;
+        }
+      }
+      if (!chosen && forced) chosen = fallback;
+      el.classList.toggle('is-forced', forced);
+      if (!chosen) {
+        el.classList.add('is-hidden');
+        break placement;
+      }
+      placed.push({
+        x: chosen.box.x - LABEL_PAD_PX,
+        y: chosen.box.y - LABEL_PAD_PX,
+        w: chosen.box.w + 2 * LABEL_PAD_PX,
+        h: chosen.box.h + 2 * LABEL_PAD_PX,
+      });
+      rec.lastKey = chosen.candidate.key;
+      if (rec.circle) ringTextsShown.add(rec.circle.text);
+      rec.tooltip.setLatLng(mapInstance.containerPointToLatLng([
+        chosen.box.x + chosen.box.w / 2, chosen.box.y + chosen.box.h / 2,
+      ]));
+      el.classList.remove('is-hidden');
     }
-    if (!chosen && forced) chosen = fallback;
-    el.classList.toggle('is-forced', forced);
-    if (!chosen) {
-      el.classList.add('is-hidden');
-      continue;
-    }
-    placed.push({
-      x: chosen.box.x - LABEL_PAD_PX,
-      y: chosen.box.y - LABEL_PAD_PX,
-      w: chosen.box.w + 2 * LABEL_PAD_PX,
-      h: chosen.box.h + 2 * LABEL_PAD_PX,
-    });
-    rec.lastKey = chosen.candidate.key;
-    if (rec.circle) ringTextsShown.add(rec.circle.text);
-    rec.tooltip.setLatLng(mapInstance.containerPointToLatLng([
-      chosen.box.x + chosen.box.w / 2, chosen.box.y + chosen.box.h / 2,
-    ]));
-    el.classList.remove('is-hidden');
+    const solid = screenSolid(rec);
+    if (solid) solids.push(solid);
   }
   container.classList.remove('map-labels-busy');
 }
@@ -1583,7 +1700,7 @@ function featureRow(feature) {
     'aria-pressed': selected ? 'true' : 'false',
     'data-feature-row': feature.id,
   }, [
-    h('span', { class: 'map-feature-name' }, feature.entity_name || feature.name),
+    h('span', { class: 'map-feature-name' }, listNames.get(feature.id) || feature.entity_name || feature.name),
     h('span', { class: 'map-feature-meta' },
       `${t.label} · ${level ? level.name : feature.level_id}`),
     h('span', { class: 'map-feature-meta' },
@@ -2130,31 +2247,38 @@ function renderDepth() {
   depth.innerHTML = '';
   depth.classList.toggle('hidden', !depthOpen);
   if (!depthOpen) return;
+  const depthValue = (d) => (d.value != null ? d.value : ((d.min || 0) + (d.max || 0)) / 2);
   const bars = [];
+  // Levels with no recorded depth are not plotted: the surface is at 0 m by
+  // definition, but an underground level whose depth the Atlas does not know
+  // would otherwise be drawn as if it were at the surface.
+  const unrecorded = [];
   for (const level of mapMeta.levels || []) {
     const d = level.depth_m;
-    const value = d ? (d.value != null ? d.value : ((d.min || 0) + (d.max || 0)) / 2) : 0;
-    bars.push({ label: level.name, depth: value, kind: 'level', display: d ? quantityText(d) : 'surface (0 m)' });
+    if (d) bars.push({ label: level.name, depth: depthValue(d), kind: 'level', display: quantityText(d) });
+    else if (level.kind === 'surface') bars.push({ label: level.name, depth: 0, kind: 'level', display: 'surface (0 m)' });
+    else unrecorded.push(level.name);
   }
   for (const feature of bundle.features) {
     if (!feature.depth_m) continue;
     const d = feature.depth_m;
-    const value = d.value != null ? d.value : ((d.min || 0) + (d.max || 0)) / 2;
-    bars.push({ label: feature.name, depth: value, kind: 'feature', display: quantityText(d) });
+    bars.push({ label: feature.name, depth: depthValue(d), kind: 'feature', display: quantityText(d) });
   }
   const maxDepth = Math.max(10, ...bars.map((b) => b.depth)) * 1.15;
   const W = 300;
-  const H = 240;
   const top = 26;
   const left = 54;
-  const plotH = H - top - 26;
+  const plotH = 188;
+  const labelBand = 78;
+  const H = top + plotH + 12 + labelBand;
   const svgNS = 'http://www.w3.org/2000/svg';
   const svg = document.createElementNS(svgNS, 'svg');
   svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
   svg.setAttribute('class', 'map-depth-svg');
   svg.setAttribute('role', 'img');
   svg.setAttribute('aria-label',
-    `Vertical section: depth below the surface in metres, ${bars.length} bars, deepest ${Math.round(Math.max(0, ...bars.map((b) => b.depth)))} metres.`);
+    `Vertical section: depth below the surface in metres, ${bars.length} bars, deepest ${Math.round(Math.max(0, ...bars.map((b) => b.depth)))} metres`
+    + `${unrecorded.length ? `; ${unrecorded.length} level${unrecorded.length === 1 ? '' : 's'} with no recorded depth not drawn` : ''}.`);
   const mk = (tag, attrs, text) => {
     const node = document.createElementNS(svgNS, tag);
     for (const [k, v] of Object.entries(attrs)) node.setAttribute(k, v);
@@ -2173,16 +2297,33 @@ function renderDepth() {
       `${Math.round(value)}`));
   }
   const slot = bars.length ? (W - left - 12) / bars.length : 0;
+  const barWidth = Math.max(6, slot - 8);
+  // The label band under the plot holds each bar's name, read upwards from the
+  // foot of its column; a long name is cut with an ellipsis (the whole name is
+  // the bar's <title> and sits in the key below).
+  const maxChars = 15;
   bars.forEach((bar, i) => {
     const x = left + 4 + i * slot;
     const y = top + (plotH * bar.depth) / maxDepth;
-    svg.appendChild(mk('rect', {
-      x, y: top, width: Math.max(6, slot - 8), height: Math.max(1, y - top),
+    const group = mk('g', { class: 'map-depth-column' });
+    group.appendChild(mk('title', {}, `${bar.label} — ${bar.display}`));
+    group.appendChild(mk('rect', {
+      x, y: top, width: barWidth, height: Math.max(1, y - top),
       class: `map-depth-bar is-${bar.kind}`,
     }));
-    svg.appendChild(mk('line', {
-      x1: x, y1: y, x2: x + Math.max(6, slot - 8), y2: y, class: 'map-depth-floor',
+    group.appendChild(mk('line', {
+      x1: x, y1: y, x2: x + barWidth, y2: y, class: 'map-depth-floor',
     }));
+    // The depth at the foot of the bar, and the name under the plot.
+    const cx = x + barWidth / 2;
+    group.appendChild(mk('text', {
+      x: cx, y: Math.min(y + 11, top + plotH + 9), 'text-anchor': 'middle', class: 'map-depth-value',
+    }, bar.depth ? `${Math.round(bar.depth)} m` : '0 m'));
+    const name = bar.label.length > maxChars ? `${bar.label.slice(0, maxChars - 1).trimEnd()}\u2026` : bar.label;
+    group.appendChild(mk('text', {
+      x: cx + 3, y: top + plotH + 16, class: 'map-depth-name', transform: `rotate(90 ${cx + 3} ${top + plotH + 16})`,
+    }, name));
+    svg.appendChild(group);
   });
   depth.append(
     h('h3', {}, 'Depth and level diagram — vertical section, not a plan view'),
@@ -2193,6 +2334,10 @@ function renderDepth() {
     h('ul', { class: 'map-depth-key' }, bars.map((bar) => h('li', {},
       `${bar.label} — ${bar.display}`))),
   );
+  if (unrecorded.length) {
+    depth.appendChild(h('p', { class: 'map-note map-depth-unrecorded' },
+      `Depth not recorded (not drawn): ${unrecorded.join('; ')}.`));
+  }
   const close = h('button', { type: 'button', class: 'text-btn' }, 'Close the depth diagram');
   close.addEventListener('click', () => {
     depthOpen = false;
@@ -2302,6 +2447,10 @@ export async function show(current, ctx) {
     try {
       [L, bundle] = await Promise.all([loadLeaflet(), fetchBundle(ctx.loaderBase, meta.bundle)]);
       labelTexts = mapstyle.labelsFor(bundle.features, { isExperimentSite });
+      listNames = mapstyle.listNamesFor(bundle.features, (id) => {
+        const level = (mapMeta.levels || []).find((lv) => lv.id === id);
+        return level ? level.name : id;
+      });
       createMap(L);
     } catch (error) {
       currentMapId = null;

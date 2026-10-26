@@ -114,6 +114,62 @@ function greatCircleDeg(aLat, aLon, bLat, bLon) {
   return (2 * Math.asin(Math.min(1, Math.sqrt(h)))) / rad;
 }
 
+// ---- fitting the camera to a set of places ---------------------------------
+// Opening a topic mutes every marker but the ones it is about; the camera should
+// go where they are. `fitView` answers where: the centre of the set and an
+// altitude that shows all of it. A set that spans most of the globe cannot be
+// shown whole at any altitude the overview uses, and flying in on part of it
+// would hide the rest, so the view then only turns to its densest region (the
+// most points within FIT_DENSE_RADIUS_DEG) and stays at overview height.
+const FIT_MAX_ALTITUDE = 2.4; // the opening overview
+const FIT_MIN_ALTITUDE = FOCUS_ALTITUDE;
+const FIT_OVERVIEW_ALTITUDE = 2;
+const FIT_DENSE_RADIUS_DEG = 25;
+
+function unitVector(lat, lon) {
+  const rad = Math.PI / 180;
+  return [Math.cos(lat * rad) * Math.cos(lon * rad), Math.cos(lat * rad) * Math.sin(lon * rad), Math.sin(lat * rad)];
+}
+
+function centreOf(points) {
+  const sum = [0, 0, 0];
+  for (const p of points) {
+    const v = unitVector(p.lat, p.lon);
+    sum[0] += v[0];
+    sum[1] += v[1];
+    sum[2] += v[2];
+  }
+  const norm = Math.hypot(...sum);
+  if (norm < 1e-9) return { lat: points[0].lat, lon: points[0].lon };
+  const deg = 180 / Math.PI;
+  return { lat: Math.asin(sum[2] / norm) * deg, lon: Math.atan2(sum[1], sum[0]) * deg };
+}
+
+// The camera altitude whose visible cap (half-angle acos(1 / (1 + altitude)))
+// covers `spreadDeg` around the centre with a margin.
+function altitudeForSpread(spreadDeg) {
+  const half = clamp(spreadDeg * 1.3 + 6, 10, 85) * (Math.PI / 180);
+  return clamp(1 / Math.cos(half) - 1, FIT_MIN_ALTITUDE, FIT_MAX_ALTITUDE);
+}
+
+/** `{ lat, lon, altitude, whole }` for a set of `{lat, lon}` places: the view
+ * that shows all of them, or, when they span most of the globe (`whole` false),
+ * the overview turned to their densest region. null for an empty set. */
+export function fitView(points) {
+  if (!points || !points.length) return null;
+  const centre = centreOf(points);
+  const spread = Math.max(...points.map((p) => greatCircleDeg(centre.lat, centre.lon, p.lat, p.lon)));
+  const half = clamp(spread * 1.3 + 6, 10, 85);
+  const needed = 1 / Math.cos(half * (Math.PI / 180)) - 1;
+  if (needed <= FIT_MAX_ALTITUDE) return { ...centre, altitude: altitudeForSpread(spread), whole: true };
+  let best = null;
+  for (const anchor of points) {
+    const near = points.filter((p) => greatCircleDeg(anchor.lat, anchor.lon, p.lat, p.lon) <= FIT_DENSE_RADIUS_DEG);
+    if (!best || near.length > best.length) best = near;
+  }
+  return { ...centreOf(best), altitude: FIT_OVERVIEW_ALTITUDE, whole: false };
+}
+
 function angularDistDeg(aLat, aLon, bLat, bLon) {
   const dLat = aLat - bLat;
   const dLon = lonDelta(aLon, bLon);
@@ -668,9 +724,22 @@ export function createGlobe(container, {
     // (see `expandTargetAltitude`, which always zooms cluster-expansion below
     // it) — the `> MIN_CLUSTER_ALTITUDE` guard is redundant here in practice
     // but keeps this condition correct if that gate is ever lowered.
+    //
+    // A facility that does not exist in the selected year or range is hidden
+    // (is-absent), so it must not be counted in, or named by, a cluster either:
+    // only the members present in the selection are clustered; the absent ones
+    // stay as (hidden) single markers, which is what they are on their own.
+    const absentInSelection = (f) => !!timelineMode
+      && !!(f.record.state_segments && f.record.state_segments.length)
+      && !segmentsPresence(f.record.state_segments);
+    const presentFacilities = clusterableFacilities.filter((f) => !absentInSelection(f));
+    const absentFacilities = clusterableFacilities.filter(absentInSelection);
     const facilityClustered = (currentAltitude >= FACILITY_CLUSTER_ALTITUDE && currentAltitude > MIN_CLUSTER_ALTITUDE)
-      ? clusterByRadius(clusterableFacilities, facilityClusterRadiusDeg(currentAltitude))
-      : clusterableFacilities.map((f) => ({ kind: 'single', lat: f.lat, lon: f.lon, item: f }));
+      ? clusterByRadius(presentFacilities, facilityClusterRadiusDeg(currentAltitude))
+      : presentFacilities.map((f) => ({ kind: 'single', lat: f.lat, lon: f.lon, item: f }));
+    for (const f of absentFacilities) {
+      facilityClustered.push({ kind: 'single', lat: f.lat, lon: f.lon, item: f });
+    }
     for (const f of selectedFacilities) {
       facilityClustered.push({ kind: 'single', lat: f.lat, lon: f.lon, item: f });
     }
@@ -1188,6 +1257,26 @@ export function createGlobe(container, {
     );
   }
 
+  /** Flies the camera to the places the current highlight (a topic's
+   * facilities and sites) is about: all of them in view, or the densest region
+   * when they span most of the globe (see fitView). Instant under
+   * prefers-reduced-motion. */
+  function fitHighlight() {
+    if (!highlightSet || !highlightSet.size) return;
+    const points = [];
+    for (const id of highlightSet) {
+      const at = atlas.sites && atlas.sites[id] ? siteCoords(id) : facilityAnchor(id);
+      if (at) points.push({ lat: at.lat, lon: at.lon });
+    }
+    const view = fitView(points);
+    if (!view) return;
+    stopAutoRotate();
+    globe.pointOfView(
+      { lat: view.lat, lng: view.lon, altitude: view.altitude },
+      reducedMotion() ? 0 : FOCUS_FLIGHT_MS,
+    );
+  }
+
   // ---- a panel laid over the bottom of the stage ---------------------------
   // On a phone the detail panel is a fixed bottom sheet over the globe. The
   // camera looks at the middle of the *canvas*, so a selected marker lands
@@ -1280,6 +1369,7 @@ export function createGlobe(container, {
         el.classList.toggle('is-muted', !!highlightSet && !lit);
       }
     },
+    fitHighlight,
     async setCollaboration(collaborationId, membership) {
       institutionCollaborationId = collaborationId;
       const collaboration = index.get(collaborationId);

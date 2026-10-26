@@ -513,6 +513,29 @@
      "All facility", the topic and type filters and "Group by experiment" sat
      off-screen where a reader never found them. Two dropdowns share a row, the
      sort takes its own, and the two group buttons split the last. */
+  /* ---- review F18: the controls are a "Filters" disclosure, shut by default,
+     so the sheet opens on the list of results and not on seven controls. */
+  .results-controls > summary {
+    display: flex;
+    align-items: center;
+    min-height: var(--phone-touch);
+    margin: 0 0 8px;
+    padding: 0 12px;
+    border: 1px solid var(--line-strong);
+    border-radius: 6px;
+    background: var(--panel-2);
+    color: var(--white);
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .results-controls > summary::marker {
+    color: var(--muted);
+  }
+  .results-controls:not([open]) > summary {
+    margin-bottom: 10px;
+  }
+  /* ---- end review F18 ---- */
   .results-filters,
   .mode-toolbar {
     flex-wrap: wrap;

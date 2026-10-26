@@ -23,6 +23,15 @@
 //      empty while some word matches something: "No matches" is only said when
 //      no word of the query is in the Atlas at all.
 //
+// A query about a discovery ("Higgs discovery", "where was the Higgs
+// discovered") is asking for the paper that announced it, not for every later
+// paper that mentions the word. When the query has a word of that family, the
+// results of a discovery kind (Discovery, or an Observation whose own title
+// announces a new thing: "Observation of a new ...", "Discovery of ...", "First
+// observation of ...") that match it come first — and, for an ordinary
+// Observation, only the earliest of them for the research topic the query names.
+// Nothing is named in the code: the kinds and years come from the entries.
+//
 // Rows are ordered by how directly they answer: an exact or prefix match on a
 // name or alias first (as before), then the words together in a name or alias,
 // then spread over name and subtitle, then through a topic. The type order
@@ -75,6 +84,30 @@ export function stem(word) {
     }
   }
   return word;
+}
+
+// ---- discovery queries ------------------------------------------------------
+// The result kind and year are the first and last parts of a result's subtitle
+// ("Observation · 2012"), which is where search.json carries them.
+const HEADLINE_TITLE = /\b(?:observation|discovery|detection) of (?:a |an )?(?:new|first)\b|\bdiscovery of\b|\bfirst (?:observation|detection|evidence)\b/;
+
+function resultKind(entry) {
+  return entry.type === 'result' ? fold(String(entry.subtitle || '').split('\u00b7')[0]).trim() : '';
+}
+
+function resultYear(entry) {
+  const match = /(\d{4})\s*$/.exec(String(entry.subtitle || ''));
+  return match ? Number(match[1]) : Infinity;
+}
+
+// How a result stands in a discovery query: 2 when its kind or its own title
+// says it announces a discovery, 1 when it is an ordinary Observation (a
+// candidate only if it is the earliest for the topic), 0 when it is neither.
+function discoveryStanding(entry) {
+  const kind = resultKind(entry);
+  if (kind === 'discovery' || kind === 'first detection') return 2;
+  if (kind !== 'observation') return 0;
+  return HEADLINE_TITLE.test(fold(entry.name)) ? 2 : 1;
 }
 
 function typeRank(type) {
@@ -169,6 +202,44 @@ export function createMatcher(entries, related = new Map()) {
     || a.row.rank - b.row.rank
     || a.row.entry.name.length - b.row.entry.name.length;
 
+  /** The matches of a discovery query: a name that is the query itself first as
+   * ever; then the discovery papers (see the header), the headline ones before
+   * the earliest-for-the-topic ones and each group earliest first; then the rest
+   * in the usual order. */
+  function orderForDiscovery(matches, topicWords) {
+    const head = matches.filter((m) => m.tier < 3).sort(byRank);
+    const tail = matches.filter((m) => m.tier >= 3);
+    // The topics a result is filed under that the query names ("Higgs" names
+    // "Higgs physics"); the earliest Observation or Discovery under each is the
+    // discovery paper, a later one is a further measurement.
+    const namedTopics = (match) => match.row.topics
+      .filter((topic) => topicWords.some((word) => pieceQuality(topic.pieces, word) === 0))
+      .map((topic) => topic.name);
+    const earliest = new Map();
+    for (const match of tail) {
+      if (!discoveryStanding(match.row.entry)) continue;
+      for (const name of namedTopics(match)) {
+        earliest.set(name, Math.min(earliest.get(name) ?? Infinity, resultYear(match.row.entry)));
+      }
+    }
+    const standing = (match) => {
+      const level = discoveryStanding(match.row.entry);
+      if (level === 2) return 2;
+      const year = resultYear(match.row.entry);
+      return level === 1 && namedTopics(match).some((name) => earliest.get(name) === year) ? 1 : 0;
+    };
+    const rank = new Map(tail.map((match) => [match, standing(match)]));
+    tail.sort((a, b) => {
+      const ra = rank.get(a);
+      const rb = rank.get(b);
+      if (ra && rb) {
+        return rb - ra || resultYear(a.row.entry) - resultYear(b.row.entry) || byRank(a, b);
+      }
+      return (rb > 0) - (ra > 0) || byRank(a, b);
+    });
+    return [...head, ...tail];
+  }
+
   /** Entries answering `query`, best first, as `{ entry, via }` (`via` names
    * the topic an entry was reached through, else null). */
   return function search(query, limit = 40) {
@@ -194,7 +265,11 @@ export function createMatcher(entries, related = new Map()) {
       .filter((s) => s && s.complete)
       .map((s) => ({ ...s, tier: s.tier + 10 }));
     if (exact.length || looser.length) {
-      return [...exact, ...looser].sort(byRank).slice(0, limit).map((s) => ({ entry: s.row.entry, via: s.via }));
+      const complete = [...exact, ...looser];
+      const ordered = words.some((word) => stem(word) === 'discover')
+        ? orderForDiscovery(complete, words.filter((word) => stem(word) !== 'discover'))
+        : complete.sort(byRank);
+      return ordered.slice(0, limit).map((s) => ({ entry: s.row.entry, via: s.via }));
     }
     const any = rows.map((row) => score(row, relaxed, null)).filter(Boolean);
     return any
