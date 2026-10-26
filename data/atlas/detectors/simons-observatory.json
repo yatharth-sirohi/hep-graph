@@ -1,0 +1,158 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "distinct_from": [],
+  "experiment_ids": [
+    "experiment:simons-observatory"
+  ],
+  "id": "detector:simons-observatory",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2024-04-25",
+      "label": "construction",
+      "locator": "abstract (arXiv:1808.07445); Simons Foundation press release of 3 June 2024",
+      "note": "Start is a lower bound: the August 2018 science-goals paper says SO is \"being built\"; no source states when construction began. End: the 2024 press release says the \"completion of the observatory's main construction phase coincided with Simons' 86th birthday on April 25\"; the year (2024) is inferred from the release date (3 June 2024) and Jim Simons's death on 10 May 2024, which the release dates \"a few weeks later\".",
+      "quote": "The Simons Observatory (SO) is a new cosmic microwave background experiment being built on Cerro Toco in Chile, due to begin observations in the early 2020s.",
+      "sources": [
+        "src:c2-cmb-so-science-goals",
+        "src:c2-cmb-sf-so-2024"
+      ],
+      "start": "2018-08",
+      "status": "construction",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "science observations",
+      "locator": "Simons Foundation press release of 3 June 2024, paragraph 1",
+      "note": "Start is the press-release date: the release says the observatory \"just completed its main construction phase\" and observers \"have begun searching\"; earlier engineering or first-light observations (the SATs) are not sourced here. Status as of 26 October 2026: the Simons Foundation release of 22 October 2026 says \"the Simons Observatory in Chile is completely online and conducting science operations\".",
+      "quote": "From a vantage point high in the Chilean Andes, cosmologists with the Simons Observatory have begun searching for evidence of what happened in the minuscule fraction of a second that followed the Big Bang.",
+      "sources": [
+        "src:c2-cmb-sf-so-2024",
+        "src:c2-cmb-sf-so-2026"
+      ],
+      "start": "2024-06-03",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "kind": "phase",
+      "label": "Large Aperture Telescope first light",
+      "locator": "Simons Foundation press release of 17 March 2025",
+      "note": "First celestial image (Mars) of the six-metre LAT, after mirror installation in February 2025.",
+      "quote": "The Simons Observatory’s Large Aperture Telescope captured this first light image of Mars on February 22, 2025.",
+      "sources": [
+        "src:c2-cmb-sf-so-2025"
+      ],
+      "start": "2025-02-22",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "Simons Observatory telescopes (LAT and SATs)",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "locator": "page text, paragraph 2",
+      "note": "",
+      "quote": "Located at an elevation of 5190 meters on Cerro Toco in the Atacama Desert of Northern Chile, an hour from the town of San Pedro de Atacama",
+      "role": "main",
+      "site_id": "site:simons-observatory-cerro-toco",
+      "sources": [
+        "src:c2-cmb-so-about"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:c2-cmb-so-about",
+    "src:c2-cmb-so-instr",
+    "src:c2-cmb-sf-so-2026",
+    "src:c2-cmb-so-science-goals"
+  ],
+  "specs": {
+    "diameter": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "6 m (LAT)",
+      "locator": "page text, paragraph 2",
+      "note": "",
+      "quote": "SO currently consists of three 0.5 meter diameter Small Aperture Telescopes (SATs), and one six-meter diameter Large Aperture Telescope (LAT).",
+      "sources": [
+        "src:c2-cmb-so-about"
+      ],
+      "unit": "m",
+      "value": 6,
+      "verified_at": "2026-10-26"
+    },
+    "sensor_count": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "count",
+      "display": "98,000 detectors",
+      "locator": "press release of 22 October 2026",
+      "note": "",
+      "quote": "the new observatory incorporates more than 16 times as many detectors — 98,000 in total.",
+      "sources": [
+        "src:c2-cmb-sf-so-2026"
+      ],
+      "unit": "",
+      "value": 98000,
+      "verified_at": "2026-10-26"
+    },
+    "telescope_count": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "count",
+      "display": "4 telescopes (3 SATs + 1 LAT)",
+      "locator": "page text, paragraph 2",
+      "note": "",
+      "quote": "SO currently consists of three 0.5 meter diameter Small Aperture Telescopes (SATs), and one six-meter diameter Large Aperture Telescope (LAT).",
+      "sources": [
+        "src:c2-cmb-so-about"
+      ],
+      "unit": "",
+      "value": 4,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "active",
+  "subsystems": [],
+  "summary": {
+    "plain": "One six-metre telescope and three half-metre telescopes on a Chilean mountain, carrying about 98,000 detectors that map the Big Bang afterglow far more deeply than earlier ground-based instruments.",
+    "technical": "Large Aperture Telescope (6 m crossed Dragone) plus three 0.5 m Small Aperture Telescopes at 5190 m on Cerro Toco; six bands 27-280 GHz; three more SATs (SO:UK, SO:JP) to be added."
+  },
+  "superseded_by": null,
+  "technology": {
+    "confidence": "verified",
+    "locator": "page text, paragraph 2",
+    "note": "",
+    "quote": "SO currently consists of three 0.5 meter diameter Small Aperture Telescopes (SATs), and one six-meter diameter Large Aperture Telescope (LAT).",
+    "sources": [
+      "src:c2-cmb-so-about"
+    ],
+    "value": "One 6 m Large Aperture Telescope and three 0.5 m Small Aperture Telescopes with transition-edge-sensor bolometer cameras in six frequency bands.",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "other",
+  "technology_classes": [
+    "other"
+  ],
+  "type": "detector"
+}

@@ -1,0 +1,224 @@
+{
+  "accelerator_ids": [],
+  "aliases": [
+    "SO",
+    "Simons Observatory (SO)",
+    "Advanced Simons Observatory"
+  ],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:simons-observatory"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "distinct_from": [],
+  "energy_regime": null,
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:parque-astronomico-atacama",
+      "locator": "About page, paragraph 6",
+      "note": "",
+      "quote": "and the Parque Astronomico de Atacama (PAA), within which the SO project is graciously hosted.",
+      "role": "host",
+      "sources": [
+        "src:c2-cmb-so-about"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:simons-observatory",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2024-04-25",
+      "label": "construction",
+      "locator": "abstract (arXiv:1808.07445); Simons Foundation press release of 3 June 2024",
+      "note": "Start is a lower bound: the August 2018 science-goals paper says SO is \"being built\"; no source states when construction began. End: the 2024 press release says the \"completion of the observatory's main construction phase coincided with Simons' 86th birthday on April 25\"; the year (2024) is inferred from the release date (3 June 2024) and Jim Simons's death on 10 May 2024, which the release dates \"a few weeks later\".",
+      "quote": "The Simons Observatory (SO) is a new cosmic microwave background experiment being built on Cerro Toco in Chile, due to begin observations in the early 2020s.",
+      "sources": [
+        "src:c2-cmb-so-science-goals",
+        "src:c2-cmb-sf-so-2024"
+      ],
+      "start": "2018-08",
+      "status": "construction",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "science observations",
+      "locator": "Simons Foundation press release of 3 June 2024, paragraph 1",
+      "note": "Start is the press-release date: the release says the observatory \"just completed its main construction phase\" and observers \"have begun searching\"; earlier engineering or first-light observations (the SATs) are not sourced here. Status as of 26 October 2026: the Simons Foundation release of 22 October 2026 says \"the Simons Observatory in Chile is completely online and conducting science operations\".",
+      "quote": "From a vantage point high in the Chilean Andes, cosmologists with the Simons Observatory have begun searching for evidence of what happened in the minuscule fraction of a second that followed the Big Bang.",
+      "sources": [
+        "src:c2-cmb-sf-so-2024",
+        "src:c2-cmb-sf-so-2026"
+      ],
+      "start": "2024-06-03",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "kind": "phase",
+      "label": "Large Aperture Telescope first light",
+      "locator": "Simons Foundation press release of 17 March 2025",
+      "note": "First celestial image (Mars) of the six-metre LAT, after mirror installation in February 2025.",
+      "quote": "The Simons Observatory’s Large Aperture Telescope captured this first light image of Mars on February 22, 2025.",
+      "sources": [
+        "src:c2-cmb-sf-so-2025"
+      ],
+      "start": "2025-02-22",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Telescopes",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "count",
+        "display": "4 telescopes (3 SATs + 1 LAT)",
+        "locator": "page text, paragraph 2",
+        "note": "",
+        "quote": "SO currently consists of three 0.5 meter diameter Small Aperture Telescopes (SATs), and one six-meter diameter Large Aperture Telescope (LAT).",
+        "sources": [
+          "src:c2-cmb-so-about"
+        ],
+        "unit": "",
+        "value": 4,
+        "verified_at": "2026-10-26"
+      }
+    },
+    {
+      "label": "Detectors",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "count",
+        "display": "98,000 detectors",
+        "locator": "press release of 22 October 2026",
+        "note": "",
+        "quote": "the new observatory incorporates more than 16 times as many detectors — 98,000 in total.",
+        "sources": [
+          "src:c2-cmb-sf-so-2026"
+        ],
+        "unit": "",
+        "value": 98000,
+        "verified_at": "2026-10-26"
+      }
+    },
+    {
+      "label": "Altitude",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "length",
+        "display": "5190 meters (17,000 feet)",
+        "locator": "page text, \"Site Coordinates\"",
+        "note": "",
+        "quote": "Site Coordinates: Longitude – 67 deg 47′ West | Latitude 22 deg 57′ South | Elevation Above Sea Level: 5190 meters (17,000 feet).",
+        "sources": [
+          "src:c2-cmb-so-site"
+        ],
+        "unit": "m",
+        "value": 5190,
+        "verified_at": "2026-10-26"
+      }
+    }
+  ],
+  "kind": "cmb",
+  "lineage": [
+    {
+      "confidence": "approximate",
+      "experiment_id": "experiment:act",
+      "locator": "Simons Foundation press release of 3 June 2024, \"A Cosmic Merger\"",
+      "note": "The source says the SO team \"came from\" the two earlier projects; it does not say SO succeeds them as an instrument.",
+      "quote": "The Simons Observatory team came from two earlier CMB projects: the Atacama Cosmology Telescope and the Simons Array.",
+      "relation": "predecessor",
+      "sources": [
+        "src:c2-cmb-sf-so-2024"
+      ],
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "experiment_id": "experiment:polarbear",
+      "locator": "Simons Foundation press release of 3 June 2024, \"A Cosmic Merger\"",
+      "note": "POLARBEAR / Simons Array; same caveat as the ACT row.",
+      "quote": "The Simons Observatory team came from two earlier CMB projects: the Atacama Cosmology Telescope and the Simons Array.",
+      "relation": "predecessor",
+      "sources": [
+        "src:c2-cmb-sf-so-2024"
+      ],
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": {
+      "confidence": "verified",
+      "locator": "home page",
+      "note": "",
+      "quote": "Searching for Our Cosmic Origins",
+      "sources": [
+        "src:c2-cmb-so-home"
+      ],
+      "value": "https://simonsobservatory.org/",
+      "verified_at": "2026-10-26"
+    }
+  },
+  "name": "Simons Observatory",
+  "notes": [
+    "The site page says two further SATs (SO:UK) and one more (SO:JP) are being added; the October 2026 release says three more SATs are \"due to arrive in the coming year\". They are not separate experiments here.",
+    "No INSPIRE experiment id is recorded: INSPIRE was not contacted by this stream."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "abstract (arXiv:1808.07445)",
+      "note": "",
+      "quote": "Our key science goals are to characterize the primordial perturbations, measure the number of relativistic species and the mass of neutrinos, test for deviations from a cosmological constant, improve our understanding of galaxy evolution, and constrain the duration of reionization.",
+      "sources": [
+        "src:c2-cmb-so-science-goals"
+      ],
+      "value": "Characterize the primordial perturbations, measure the number of relativistic species and the neutrino mass, test for deviations from a cosmological constant, and improve understanding of galaxy evolution and reionization.",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:c2-cmb-so-about",
+    "src:c2-cmb-so-instr",
+    "src:c2-cmb-so-site",
+    "src:c2-cmb-so-science-goals",
+    "src:c2-cmb-sf-so-2024",
+    "src:c2-cmb-sf-so-2025",
+    "src:c2-cmb-sf-so-2026"
+  ],
+  "status": "active",
+  "summary": {
+    "plain": "A set of four telescopes on a 5190-metre Chilean mountain, with about 98,000 detectors, that maps the Big Bang afterglow deeply and quickly. It aims to detect the polarization pattern of cosmic inflation and was reported fully online in October 2026.",
+    "technical": "CMB observatory on Cerro Toco (5190 m) in the Parque Astronómico Atacama: 6 m Large Aperture Telescope and three 0.5 m SATs (27-280 GHz, ~98,000 detectors), built by a collaboration formed from ACT and the Simons Array; construction to April 2024, observing since June 2024, LAT first light 22 February 2025, fully online October 2026."
+  },
+  "superseded_by": null,
+  "topic_ids": [
+    "topic:cmb",
+    "topic:cosmology"
+  ],
+  "type": "experiment",
+  "unique_capabilities": []
+}

@@ -1,0 +1,126 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "distinct_from": [],
+  "experiment_ids": [
+    "experiment:bicep2"
+  ],
+  "id": "detector:bicep2",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2012",
+      "label": "observations",
+      "locator": "abstract (arXiv:1403.3985)",
+      "note": "Years only: \"three seasons from 2010 to 2012\".",
+      "quote": "BICEP2 observed from the South Pole for three seasons from 2010 to 2012.",
+      "sources": [
+        "src:c2-cmb-bicep2-detection",
+        "src:c2-cmb-lambda-bk"
+      ],
+      "start": "2010",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "observations ended",
+      "locator": "LAMBDA BICEP/Keck text, \"BICEP2\"",
+      "note": "Year precision; LAMBDA gives \"from 2010-2012\" and the Keck Array, BICEP2's follow-on, began observing in 2012.",
+      "quote": "BICEP2 was a 26-cm refracting telescope that observed the cosmic microwave background (CMB) from the National Science Foundation's Amundsen-Scott South Pole Station from 2010-2012.",
+      "sources": [
+        "src:c2-cmb-lambda-bk"
+      ],
+      "start": "2012",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "BICEP2 telescope",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "locator": "BICEP2 II instrument paper (arXiv:1403.4302), Figure 1 caption",
+      "note": "",
+      "quote": "looking out through the roof of the Dark Sector Laboratory (DSL) located 800 m from the geographic South Pole",
+      "role": "main",
+      "site_id": "site:south-pole-dark-sector",
+      "sources": [
+        "src:c2-cmb-bicep2-experiment"
+      ],
+      "start": "2010",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:c2-cmb-bicep2-experiment",
+    "src:c2-cmb-bicep2-detection",
+    "src:c2-cmb-lambda-bk"
+  ],
+  "specs": {
+    "diameter": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "26 cm aperture",
+      "locator": "abstract (arXiv:1403.3985)",
+      "note": "",
+      "quote": "The telescope comprised a 26 cm aperture all-cold refracting optical system",
+      "sources": [
+        "src:c2-cmb-bicep2-detection"
+      ],
+      "unit": "cm",
+      "value": 26,
+      "verified_at": "2026-10-26"
+    },
+    "sensor_count": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "count",
+      "display": "512 bolometers",
+      "locator": "abstract (arXiv:1403.3985)",
+      "note": "",
+      "quote": "a focal plane of 512 antenna coupled transition edge sensor 150 GHz bolometers",
+      "sources": [
+        "src:c2-cmb-bicep2-detection"
+      ],
+      "unit": "",
+      "value": 512,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "A 26-centimetre refracting telescope with 512 superconducting detectors that observed a patch of the southern sky from the South Pole for three seasons.",
+    "technical": "All-cold 26 cm aperture refractor with 512 antenna-coupled TES bolometers at 150 GHz in the Dark Sector Laboratory; observed 2010-2012 over 380-400 deg^2."
+  },
+  "superseded_by": null,
+  "technology": {
+    "confidence": "verified",
+    "locator": "abstract (arXiv:1403.3985)",
+    "note": "",
+    "quote": "The telescope comprised a 26 cm aperture all-cold refracting optical system equipped with a focal plane of 512 antenna coupled transition edge sensor 150 GHz bolometers",
+    "sources": [
+      "src:c2-cmb-bicep2-detection"
+    ],
+    "value": "All-cold refracting optical system, 26 cm aperture, with a focal plane of 512 antenna-coupled transition edge sensor 150 GHz bolometers.",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "other",
+  "technology_classes": [
+    "other"
+  ],
+  "type": "detector"
+}

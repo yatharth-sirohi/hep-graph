@@ -1,0 +1,193 @@
+{
+  "accelerator_ids": [],
+  "aliases": [
+    "POLARBEAR",
+    "POLARBEAR-2",
+    "Simons Array",
+    "Huan Tran Telescope"
+  ],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:polarbear"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "distinct_from": [],
+  "energy_regime": null,
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:parque-astronomico-atacama",
+      "locator": "acknowledgements (arXiv:1312.6646)",
+      "note": "",
+      "quote": "The James Ax Observatory operates in the Parque Astronómico Atacama in Northern Chile",
+      "role": "host",
+      "sources": [
+        "src:c2-cmb-polarbear-lensing-evidence"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:polarbear",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2024",
+      "kind": "lifecycle",
+      "label": "observations (POLARBEAR-1 and Simons Array)",
+      "locator": "section 4 (arXiv:1210.7768); LAMBDA POLARBEAR text",
+      "note": "Start is first light of POLARBEAR-1 on the Huan Tran Telescope. End is the year LAMBDA gives for the Simons Array (\"2019 - 2024\"); LAMBDA does not say whether observations continued to the end of 2024.",
+      "quote": "First light with the fully integrated experiment was achieved on January 10th, 2012 with a scan of Jupiter.",
+      "sources": [
+        "src:c2-cmb-polarbear-instrument",
+        "src:c2-cmb-lambda-polarbear"
+      ],
+      "start": "2012-01-10",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": {
+        "approx": true,
+        "date": "2016-12"
+      },
+      "kind": "phase",
+      "label": "POLARBEAR-1 (Huan Tran Telescope)",
+      "locator": "LAMBDA POLARBEAR text; abstract (arXiv:2005.06168)",
+      "note": "The end is the last month of data in the published 670 deg^2 analysis (\"from July 2014 to December 2016\"); no source consulted states when POLARBEAR-1 observations ended, and the Simons Array receiver was deployed in 2018-2019.",
+      "quote": "In subsequent years (2014-2016) the POLARBEAR survey was expanded to cover 670 square degrees of sky.",
+      "sources": [
+        "src:c2-cmb-lambda-polarbear",
+        "src:c2-cmb-polarbear-670"
+      ],
+      "start": "2012-01-10",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": "2024",
+      "kind": "phase",
+      "label": "Simons Array (POLARBEAR-2 receivers)",
+      "locator": "LAMBDA POLARBEAR text",
+      "note": "Years only, as printed by LAMBDA.",
+      "quote": "The Simons Array (2019 - 2024) consisted of an array of second generation Polarbear-2 receivers.",
+      "sources": [
+        "src:c2-cmb-lambda-polarbear"
+      ],
+      "start": "2019",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "programme completed",
+      "locator": "LAMBDA POLARBEAR text",
+      "note": "LAMBDA describes the Simons Array in the past tense with the span \"2019 - 2024\"; it states no completion date or decommissioning, so completion is recorded at year precision. The CMB-S4 page (undated) still calls \"the current POLARBEAR/Simons Array\" one of the Chilean experiments.",
+      "quote": "The Simons Array (2019 - 2024) consisted of an array of second generation Polarbear-2 receivers.",
+      "sources": [
+        "src:c2-cmb-lambda-polarbear"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2024"
+      },
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Telescope aperture",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "length",
+        "display": "2.5 m aperture",
+        "locator": "section 2 (arXiv:2005.06168)",
+        "note": "",
+        "quote": "mounted on the 2.5 m aperture Huan Tran Telescope at the James Ax Observatory",
+        "sources": [
+          "src:c2-cmb-polarbear-670"
+        ],
+        "unit": "m",
+        "value": 2.5,
+        "verified_at": "2026-10-26"
+      }
+    },
+    {
+      "label": "POLARBEAR-1 bolometers",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "count",
+        "display": "1274 TES bolometers (POLARBEAR-1)",
+        "locator": "LAMBDA POLARBEAR text",
+        "note": "",
+        "quote": "It contained 1274 antenna-coupled TES bolometers observing at 150 GHz.",
+        "sources": [
+          "src:c2-cmb-lambda-polarbear"
+        ],
+        "unit": "",
+        "value": 1274,
+        "verified_at": "2026-10-26"
+      }
+    }
+  ],
+  "kind": "cmb",
+  "lineage": [],
+  "links": {
+    "website": null
+  },
+  "name": "POLARBEAR / Simons Array",
+  "notes": [
+    "POLARBEAR-1 and the Simons Array are recorded as one experiment with dated phases, as the brief and LAMBDA treat them; the Simons Array's three-telescope configuration is described in arXiv:1512.07299.",
+    "The sourced end of POLARBEAR-1 is not given; see the phase interval note. The Simons Array end (2024) rests on LAMBDA alone.",
+    "No INSPIRE experiment id is recorded: INSPIRE was not contacted by this stream."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "LAMBDA POLARBEAR text",
+      "note": "",
+      "quote": "It is designed to make measurements of the CMB polarization on small angular scales in order to detect the B-mode polarization and put limits on inflation.",
+      "sources": [
+        "src:c2-cmb-lambda-polarbear"
+      ],
+      "value": "Measure CMB polarization on small angular scales to detect B modes from gravitational lensing, limit inflation and reconstruct the CMB lensing potential.",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:c2-cmb-polarbear-instrument",
+    "src:c2-cmb-polarbear-lensing-evidence",
+    "src:c2-cmb-polarbear2-simons-array",
+    "src:c2-cmb-lambda-polarbear",
+    "src:c2-cmb-polarbear-670"
+  ],
+  "status": "completed",
+  "summary": {
+    "plain": "A telescope on a Chilean mountain that, from 2012, measured the polarization of the Big Bang afterglow on small scales, found evidence that gravity bends that light, and was extended into the three-telescope Simons Array.",
+    "technical": "CMB polarization experiment on the 2.5 m Huan Tran Telescope at the James Ax Observatory (Cerro Toco, 5200 m): POLARBEAR-1 (first light 10 January 2012; 1274 bolometers at 150 GHz) and the Simons Array of POLARBEAR-2 receivers (2019-2024 per LAMBDA)."
+  },
+  "superseded_by": null,
+  "topic_ids": [
+    "topic:cmb",
+    "topic:cosmology"
+  ],
+  "type": "experiment",
+  "unique_capabilities": []
+}

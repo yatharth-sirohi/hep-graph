@@ -1,0 +1,158 @@
+{
+  "accelerator_ids": [],
+  "aliases": [
+    "Degree Angular Scale Interferometer"
+  ],
+  "beamline_ids": [],
+  "collaboration_ids": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "distinct_from": [],
+  "energy_regime": null,
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:amundsen-scott-south-pole-station",
+      "locator": "abstract (astro-ph/0209478)",
+      "note": "",
+      "quote": "We report the detection of polarized anisotropy in the Cosmic Microwave Background radiation with the Degree Angular Scale Interferometer (DASI), located at the Amundsen-Scott South Pole research station.",
+      "role": "host",
+      "sources": [
+        "src:c2-cmb-dasi-pol-2002"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:dasi",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2000",
+      "label": "deployment",
+      "locator": "abstract (astro-ph/0104488)",
+      "note": "Season wording only (\"1999--2000 austral summer\"); the interval is stored at January 2000 with the season in `display`.",
+      "quote": "The telescope was deployed at the Amundsen-Scott South Pole research station during the 1999--2000 austral summer and conducted observations of the CMB throughout the following austral winter.",
+      "sources": [
+        "src:c2-cmb-dasi-design"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2000-01",
+        "display": "austral summer 1999-2000",
+        "earliest": "1999-12",
+        "latest": "2000-02"
+      },
+      "status": "commissioning",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": {
+        "approx": true,
+        "date": "2003",
+        "note": "last season reported in the 2004 three-year paper"
+      },
+      "label": "observations",
+      "locator": "abstract (astro-ph/0104488); abstract (astro-ph/0104489)",
+      "note": "First observations were made through the 2000 austral winter; polarization observations followed in 2001-2003 (abstract of astro-ph/0409357: data \"throughout the 2003 season\"). No source consulted states when DASI stopped observing; 2003 is the last season it reports.",
+      "quote": "The telescope was deployed at the Amundsen-Scott South Pole research station during the 1999--2000 austral summer and conducted observations of the CMB throughout the following austral winter.",
+      "sources": [
+        "src:c2-cmb-dasi-design",
+        "src:c2-cmb-dasi-first"
+      ],
+      "start": "2000",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "observations ended",
+      "locator": "abstract (astro-ph/0409357)",
+      "note": "Inferred terminal event: the 2004 paper analyses \"the complete 3-year data set\"; no fetched source states an end-of-observations or decommissioning date.",
+      "quote": "We present the analysis of the complete 3-year data set obtained with the Degree Angular Scale Interferometer (DASI) polarization experiment",
+      "sources": [
+        "src:c2-cmb-dasi-3yr"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2003"
+      },
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Receiver elements",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "count",
+        "display": "13 receiver elements",
+        "locator": "section 2 (astro-ph/0409357)",
+        "note": "",
+        "quote": "DASI is a 13-element, co-planar interferometric array operating in ten 1-GHz bands spanning 26 − 36 GHz.",
+        "sources": [
+          "src:c2-cmb-dasi-3yr"
+        ],
+        "unit": "",
+        "value": 13,
+        "verified_at": "2026-10-26"
+      }
+    }
+  ],
+  "kind": "cmb",
+  "lineage": [],
+  "links": {
+    "website": null
+  },
+  "name": "DASI",
+  "notes": [
+    "No collaboration record: none of the DASI papers read (astro-ph/0104488, 0104489, 0209478, 0409357) names a \"DASI Collaboration\"; they are signed by individual authors at the University of Chicago, UC Berkeley and collaborators.",
+    "No official website is recorded: astro.uchicago.edu/dasi now redirects to the University of Chicago department home page, which says nothing about DASI.",
+    "No INSPIRE experiment id is recorded: INSPIRE was not contacted by this stream."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "abstract (astro-ph/0104488)",
+      "note": "",
+      "quote": "a compact microwave interferometer designed to measure anisotropy in the Cosmic Microwave Background (CMB) on degree and sub-degree scales (l=100--900)",
+      "sources": [
+        "src:c2-cmb-dasi-design"
+      ],
+      "value": "Measure CMB anisotropy on degree and sub-degree scales (multipoles l = 100-900) and, from 2001, its polarization.",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:c2-cmb-dasi-design",
+    "src:c2-cmb-dasi-first",
+    "src:c2-cmb-dasi-pol-2002",
+    "src:c2-cmb-dasi-3yr"
+  ],
+  "status": "completed",
+  "summary": {
+    "plain": "A compact microwave interferometer at the South Pole that measured the Big Bang afterglow on degree scales in 2000 and, in 2002, made the first detection of its polarization.",
+    "technical": "Degree Angular Scale Interferometer (13 elements, 26-36 GHz, l = 100-900) at the South Pole (MAPO); deployed 1999-2000 austral summer; first-season power spectrum (2001), first CMB polarization detection (2002), three-year polarization results to the 2003 season (2004)."
+  },
+  "superseded_by": null,
+  "topic_ids": [
+    "topic:cmb",
+    "topic:cosmology"
+  ],
+  "type": "experiment",
+  "unique_capabilities": []
+}

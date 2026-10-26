@@ -1,0 +1,184 @@
+{
+  "accelerator_ids": [],
+  "aliases": [
+    "BICEP2 experiment"
+  ],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:bicep-keck"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "distinct_from": [],
+  "energy_regime": null,
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:amundsen-scott-south-pole-station",
+      "locator": "LAMBDA BICEP/Keck text, \"BICEP2\"",
+      "note": "",
+      "quote": "BICEP2 was a 26-cm refracting telescope that observed the cosmic microwave background (CMB) from the National Science Foundation's Amundsen-Scott South Pole Station from 2010-2012.",
+      "role": "host",
+      "sources": [
+        "src:c2-cmb-lambda-bk"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:bicep2",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2012",
+      "label": "observations",
+      "locator": "abstract (arXiv:1403.3985)",
+      "note": "Years only: \"three seasons from 2010 to 2012\".",
+      "quote": "BICEP2 observed from the South Pole for three seasons from 2010 to 2012.",
+      "sources": [
+        "src:c2-cmb-bicep2-detection",
+        "src:c2-cmb-lambda-bk"
+      ],
+      "start": "2010",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "observations ended",
+      "locator": "LAMBDA BICEP/Keck text, \"BICEP2\"",
+      "note": "Year precision; LAMBDA gives \"from 2010-2012\" and the Keck Array, BICEP2's follow-on, began observing in 2012.",
+      "quote": "BICEP2 was a 26-cm refracting telescope that observed the cosmic microwave background (CMB) from the National Science Foundation's Amundsen-Scott South Pole Station from 2010-2012.",
+      "sources": [
+        "src:c2-cmb-lambda-bk"
+      ],
+      "start": "2012",
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Aperture",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "length",
+        "display": "26 cm aperture",
+        "locator": "abstract (arXiv:1403.3985)",
+        "note": "",
+        "quote": "The telescope comprised a 26 cm aperture all-cold refracting optical system",
+        "sources": [
+          "src:c2-cmb-bicep2-detection"
+        ],
+        "unit": "cm",
+        "value": 26,
+        "verified_at": "2026-10-26"
+      }
+    },
+    {
+      "label": "Bolometers",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "count",
+        "display": "512 bolometers",
+        "locator": "abstract (arXiv:1403.3985)",
+        "note": "",
+        "quote": "a focal plane of 512 antenna coupled transition edge sensor 150 GHz bolometers",
+        "sources": [
+          "src:c2-cmb-bicep2-detection"
+        ],
+        "unit": "",
+        "value": 512,
+        "verified_at": "2026-10-26"
+      }
+    }
+  ],
+  "kind": "cmb",
+  "lineage": [
+    {
+      "confidence": "verified",
+      "experiment_id": "experiment:bicep1",
+      "locator": "section 1 (arXiv:1403.4302)",
+      "note": "",
+      "quote": "BICEP2 leverages the successful design and observing strategy of BICEP1",
+      "relation": "predecessor",
+      "sources": [
+        "src:c2-cmb-bicep2-experiment"
+      ],
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "experiment_id": "experiment:keck-array",
+      "locator": "LAMBDA BICEP/Keck text, \"Keck Array\"",
+      "note": "Held by the lexicographically smaller id (A1).",
+      "quote": "The Keck Array consists of five BICEP2-style receivers in a single telescope mount at the South Pole. The Keck Array observes the same field as BICEP2",
+      "relation": "same_program",
+      "sources": [
+        "src:c2-cmb-lambda-bk"
+      ],
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": {
+      "confidence": "approximate",
+      "locator": "page header",
+      "note": "The site is served on plain http: its TLS certificate has expired (checked 2026-10-26); the page content was read over http.",
+      "quote": "Official website for results from the BICEP/Keck series of CMB polarization experiments",
+      "sources": [
+        "src:c2-cmb-bk-site"
+      ],
+      "value": "http://bicepkeck.org/",
+      "verified_at": "2026-10-26"
+    }
+  },
+  "name": "BICEP2",
+  "notes": [
+    "The 2014 detection claim was withdrawn by the later joint analysis: \"We find strong evidence for dust and no statistically significant evidence for tensor modes\" (arXiv:1502.00612). Both results are recorded as separate result records."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "abstract (arXiv:1403.3985)",
+      "note": "",
+      "quote": "BICEP2 experiment, a cosmic microwave background (CMB) polarimeter specifically designed to search for the signal of inflationary gravitational waves in the B-mode power spectrum around $\\ell\\sim80$.",
+      "sources": [
+        "src:c2-cmb-bicep2-detection"
+      ],
+      "value": "Search for the B-mode signal of inflationary gravitational waves around multipole l ~ 80.",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:c2-cmb-bicep2-detection",
+    "src:c2-cmb-bicep2-experiment",
+    "src:c2-cmb-lambda-bk",
+    "src:c2-cmb-bk-site"
+  ],
+  "status": "completed",
+  "summary": {
+    "plain": "A 26-centimetre telescope at the South Pole that watched one patch of sky for three seasons. In 2014 it reported an excess of polarization attributed to gravitational waves, which a joint analysis with Planck data then traced largely to dust.",
+    "technical": "CMB polarimeter at the South Pole (Dark Sector Laboratory), 512 TES bolometers at 150 GHz, 2010-2012, ~400 deg^2; reported a B-mode excess at 30 < l < 150 (BICEP2 I, 2014) that BICEP2/Keck/Planck (2015) found consistent with dust; successor to BICEP1 and basis of the Keck Array and BICEP3 data."
+  },
+  "superseded_by": null,
+  "topic_ids": [
+    "topic:cmb",
+    "topic:cosmology"
+  ],
+  "type": "experiment",
+  "unique_capabilities": []
+}

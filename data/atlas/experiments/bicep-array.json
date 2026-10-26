@@ -1,0 +1,165 @@
+{
+  "accelerator_ids": [],
+  "aliases": [
+    "BICEP Array telescope"
+  ],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:bicep-keck"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "distinct_from": [],
+  "energy_regime": null,
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:amundsen-scott-south-pole-station",
+      "locator": "abstract (arXiv:2203.16556)",
+      "note": "",
+      "quote": "For the past decade, the BICEP/Keck collaboration has been operating a series of telescopes at the Amundsen-Scott South Pole Station",
+      "role": "host",
+      "sources": [
+        "src:c2-cmb-bk-latest-2022"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:bicep-array",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "observations",
+      "locator": "abstract (arXiv:2012.04047)",
+      "note": "The first (30/40 GHz) receiver started observing in early 2020 (also \"since 2020\", LAMBDA); further receivers were added later. The official BICEP/Keck publication list (checked 2026-10-26) includes a 2026 SPIE paper titled \"Optical characterization of the BICEP Array 150 and 220/270 GHz CMB polarimeters in the 2026 season\".",
+      "quote": "The 30/40 GHz receiver is designed to constrain the synchrotron foreground and has begun observing at the South Pole in early 2020.",
+      "sources": [
+        "src:c2-cmb-bicep-array-2020",
+        "src:c2-cmb-lambda-bk"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2020-02",
+        "display": "early 2020",
+        "earliest": "2020-01",
+        "latest": "2020-04"
+      },
+      "status": "active",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Receivers",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "count",
+        "display": "four receivers",
+        "locator": "abstract (arXiv:1808.00568)",
+        "note": "",
+        "quote": "It is comprised of four 550 mm aperture refractive telescopes",
+        "sources": [
+          "src:c2-cmb-bicep-array-2018"
+        ],
+        "unit": "",
+        "value": 4,
+        "verified_at": "2026-10-26"
+      }
+    },
+    {
+      "label": "Aperture",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "length",
+        "display": "550 mm aperture",
+        "locator": "abstract (arXiv:1808.00568)",
+        "note": "",
+        "quote": "It is comprised of four 550 mm aperture refractive telescopes",
+        "sources": [
+          "src:c2-cmb-bicep-array-2018"
+        ],
+        "unit": "mm",
+        "value": 550,
+        "verified_at": "2026-10-26"
+      }
+    }
+  ],
+  "kind": "cmb",
+  "lineage": [
+    {
+      "confidence": "verified",
+      "experiment_id": "experiment:keck-array",
+      "locator": "section 2 (arXiv:2203.16556)",
+      "note": "",
+      "quote": "In late 2019, Keck was decommissioned and replaced by the Bicep Array telescope",
+      "relation": "predecessor",
+      "sources": [
+        "src:c2-cmb-bk-latest-2022"
+      ],
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": {
+      "confidence": "approximate",
+      "locator": "page header",
+      "note": "The site is served on plain http: its TLS certificate has expired (checked 2026-10-26); the page content was read over http.",
+      "quote": "Official website for results from the BICEP/Keck series of CMB polarization experiments",
+      "sources": [
+        "src:c2-cmb-bk-site"
+      ],
+      "value": "http://bicepkeck.org/",
+      "verified_at": "2026-10-26"
+    }
+  },
+  "name": "BICEP Array",
+  "notes": [
+    "No INSPIRE experiment id is recorded: INSPIRE was not contacted by this stream."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "LAMBDA \"BICEP Array\"",
+      "note": "",
+      "quote": "The BICEP Array telescope is a set of multi-frequency cameras designed to constrain the energy scale of inflation through CMB B-mode searches while also controlling the polarized galactic foregrounds.",
+      "sources": [
+        "src:c2-cmb-lambda-bk"
+      ],
+      "value": "Constrain the energy scale of inflation through CMB B-mode searches while controlling polarized galactic foregrounds.",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:c2-cmb-bicep-array-2018",
+    "src:c2-cmb-bicep-array-2020",
+    "src:c2-cmb-bk-latest-2022",
+    "src:c2-cmb-lambda-bk",
+    "src:c2-cmb-bk-site"
+  ],
+  "status": "active",
+  "summary": {
+    "plain": "The newest BICEP/Keck telescope at the South Pole: four refracting telescopes in six frequency bands, built to detect or limit the polarization pattern left by gravitational waves from inflation while subtracting galactic foregrounds.",
+    "technical": "Stage-3 BICEP/Keck instrument: four BICEP3-class 550 mm receivers at 30/40, 95, 150 and 220/270 GHz, >30,000 detectors, projected sigma(r) ~ 0.003; first receiver observing since early 2020; replaced the Keck Array in late 2019."
+  },
+  "superseded_by": null,
+  "topic_ids": [
+    "topic:cmb",
+    "topic:cosmology"
+  ],
+  "type": "experiment",
+  "unique_capabilities": []
+}

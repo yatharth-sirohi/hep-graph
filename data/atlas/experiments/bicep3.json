@@ -1,0 +1,180 @@
+{
+  "accelerator_ids": [],
+  "aliases": [
+    "BICEP3 CMB polarimeter"
+  ],
+  "beamline_ids": [],
+  "collaboration_ids": [
+    "collaboration:bicep-keck"
+  ],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "distinct_from": [],
+  "energy_regime": null,
+  "external": {
+    "greybook": null,
+    "inspire_experiment": null,
+    "wikidata": null
+  },
+  "facility_roles": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "facility_id": "facility:amundsen-scott-south-pole-station",
+      "locator": "LAMBDA \"BICEP3\"",
+      "note": "",
+      "quote": "BICEP3, the successor to BICEP2, was deployed to the Dark Sector Laboratory at Amundsen-Scott South Pole Station in the 2014-2015 Austral summer season.",
+      "role": "host",
+      "sources": [
+        "src:c2-cmb-lambda-bk"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "id": "experiment:bicep3",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2016",
+      "label": "deployment and first season",
+      "locator": "LAMBDA \"BICEP3\"",
+      "note": "Deployed in the 2014-2015 austral summer (LAMBDA); the 2016 paper calls 2016 \"its second year of observation (and first science season)\", so the commissioning end is set at 2016 (year precision).",
+      "quote": "BICEP3, the successor to BICEP2, was deployed to the Dark Sector Laboratory at Amundsen-Scott South Pole Station in the 2014-2015 Austral summer season.",
+      "sources": [
+        "src:c2-cmb-lambda-bk"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2015-01",
+        "display": "2014-2015 austral summer",
+        "earliest": "2014-11",
+        "latest": "2015-02"
+      },
+      "status": "commissioning",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "verified",
+      "end": null,
+      "label": "science observations",
+      "locator": "section 2 (arXiv:2203.16556); abstract (arXiv:1607.04668)",
+      "note": "Open-ended: the official BICEP/Keck publication list (checked 2026-10-26) includes SPIE 2024-2026 papers on calibration of \"the BICEP3 and BICEP Array CMB Polarimeters from 2017 to 2024\" and on BICEP data \"from 2016 through 2024\"; no source states that BICEP3 stopped observing.",
+      "quote": "has been observing at the foreground-minimum 95 GHz since 2016",
+      "sources": [
+        "src:c2-cmb-bk-latest-2022",
+        "src:c2-cmb-bicep3-perf"
+      ],
+      "start": "2016",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "key_specs": [
+    {
+      "label": "Aperture",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "length",
+        "display": "520 mm aperture",
+        "locator": "abstract (arXiv:1607.04668)",
+        "note": "",
+        "quote": "BICEP3 is a 520 mm aperture, compact two-lens refractor",
+        "sources": [
+          "src:c2-cmb-bicep3-perf"
+        ],
+        "unit": "mm",
+        "value": 520,
+        "verified_at": "2026-10-26"
+      }
+    },
+    {
+      "label": "Bolometers",
+      "quantity": {
+        "approx": false,
+        "confidence": "verified",
+        "dimension": "count",
+        "display": "2560 TES bolometers",
+        "locator": "abstract (arXiv:1607.04668)",
+        "note": "",
+        "quote": "a full complement of 20 tiles of detectors (2560 TESs)",
+        "sources": [
+          "src:c2-cmb-bicep3-perf"
+        ],
+        "unit": "",
+        "value": 2560,
+        "verified_at": "2026-10-26"
+      }
+    }
+  ],
+  "kind": "cmb",
+  "lineage": [
+    {
+      "confidence": "verified",
+      "experiment_id": "experiment:bicep2",
+      "locator": "section 1 (arXiv:1607.04668)",
+      "note": "",
+      "quote": "Bicep3 replaces Bicep2 and is now in its second observing season (and first science season) during the 2016 austral winter",
+      "relation": "predecessor",
+      "sources": [
+        "src:c2-cmb-bicep3-perf"
+      ],
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": {
+      "confidence": "approximate",
+      "locator": "page header",
+      "note": "The site is served on plain http: its TLS certificate has expired (checked 2026-10-26); the page content was read over http.",
+      "quote": "Official website for results from the BICEP/Keck series of CMB polarization experiments",
+      "sources": [
+        "src:c2-cmb-bk-site"
+      ],
+      "value": "http://bicepkeck.org/",
+      "verified_at": "2026-10-26"
+    }
+  },
+  "name": "BICEP3",
+  "notes": [
+    "No INSPIRE experiment id is recorded: INSPIRE was not contacted by this stream.",
+    "\"Active\" as of 2026-10-26 rests on the open-ended 2016 observing statement and the official site's 2024-2026 publication list; no source dated 2026 states that BICEP3 is observing."
+  ],
+  "physics_goals": [
+    {
+      "confidence": "verified",
+      "locator": "abstract (arXiv:1607.04668)",
+      "note": "",
+      "quote": "BICEP3 is a 520 mm aperture, compact two-lens refractor designed to observe the polarization of the cosmic microwave background (CMB) at 95 GHz.",
+      "sources": [
+        "src:c2-cmb-bicep3-perf"
+      ],
+      "value": "Observe the CMB polarization at 95 GHz, the foreground minimum, to constrain inflationary gravitational waves.",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "secondary_kinds": [],
+  "sources": [
+    "src:c2-cmb-bicep3-perf",
+    "src:c2-cmb-lambda-bk",
+    "src:c2-cmb-bk-latest-2022",
+    "src:c2-cmb-bk18",
+    "src:c2-cmb-bk-site"
+  ],
+  "status": "active",
+  "summary": {
+    "plain": "The successor to BICEP2: a larger 95 GHz telescope with 2560 detectors in a South Pole laboratory. Its maps, with Keck Array data, give the strongest limit on gravitational waves from inflation.",
+    "technical": "95 GHz refracting CMB polarimeter (520 mm aperture, 2560 TES bolometers) at the South Pole, deployed 2014-15, science observations since 2016; its maps dominate the BICEP/Keck BK18 constraint r_0.05 < 0.036 (95%)."
+  },
+  "superseded_by": null,
+  "topic_ids": [
+    "topic:cmb",
+    "topic:cosmology"
+  ],
+  "type": "experiment",
+  "unique_capabilities": []
+}

@@ -1,0 +1,140 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "distinct_from": [],
+  "experiment_ids": [
+    "experiment:bicep-array"
+  ],
+  "id": "detector:bicep-array",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "observations",
+      "locator": "abstract (arXiv:2012.04047)",
+      "note": "The first (30/40 GHz) receiver started observing in early 2020 (also \"since 2020\", LAMBDA); further receivers were added later. The official BICEP/Keck publication list (checked 2026-10-26) includes a 2026 SPIE paper titled \"Optical characterization of the BICEP Array 150 and 220/270 GHz CMB polarimeters in the 2026 season\".",
+      "quote": "The 30/40 GHz receiver is designed to constrain the synchrotron foreground and has begun observing at the South Pole in early 2020.",
+      "sources": [
+        "src:c2-cmb-bicep-array-2020",
+        "src:c2-cmb-lambda-bk"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2020-02",
+        "display": "early 2020",
+        "earliest": "2020-01",
+        "latest": "2020-04"
+      },
+      "status": "active",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "BICEP Array",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "locator": "abstract (arXiv:2203.16556)",
+      "note": "Replaces the Keck Array on its South Pole mount; the sources do not give a more precise location than the Amundsen-Scott South Pole Station.",
+      "quote": "For the past decade, the BICEP/Keck collaboration has been operating a series of telescopes at the Amundsen-Scott South Pole Station",
+      "role": "main",
+      "site_id": "site:south-pole-dark-sector",
+      "sources": [
+        "src:c2-cmb-bk-latest-2022"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2020-02",
+        "display": "early 2020",
+        "earliest": "2020-01",
+        "latest": "2020-04"
+      },
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:c2-cmb-bicep-array-2018",
+    "src:c2-cmb-bicep-array-2020",
+    "src:c2-cmb-lambda-bk",
+    "src:c2-cmb-bk-site"
+  ],
+  "specs": {
+    "diameter": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "length",
+      "display": "550 mm aperture",
+      "locator": "abstract (arXiv:1808.00568)",
+      "note": "",
+      "quote": "It is comprised of four 550 mm aperture refractive telescopes",
+      "sources": [
+        "src:c2-cmb-bicep-array-2018"
+      ],
+      "unit": "mm",
+      "value": 550,
+      "verified_at": "2026-10-26"
+    },
+    "sensor_count": {
+      "approx": true,
+      "confidence": "approximate",
+      "dimension": "count",
+      "display": "over 30,000 detectors (design)",
+      "locator": "abstract (arXiv:1808.00568)",
+      "note": "Design figure for the full four-receiver instrument (\"over 30,000 detectors\"); not all receivers may be deployed.",
+      "quote": "with over 30,000 detectors",
+      "sources": [
+        "src:c2-cmb-bicep-array-2018"
+      ],
+      "unit": "",
+      "value": 30000,
+      "verified_at": "2026-10-26"
+    },
+    "telescope_count": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "count",
+      "display": "four receivers",
+      "locator": "abstract (arXiv:1808.00568)",
+      "note": "",
+      "quote": "It is comprised of four 550 mm aperture refractive telescopes",
+      "sources": [
+        "src:c2-cmb-bicep-array-2018"
+      ],
+      "unit": "",
+      "value": 4,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "active",
+  "subsystems": [],
+  "summary": {
+    "plain": "The newest BICEP/Keck instrument: four 55-centimetre refracting telescopes covering six frequency bands from 30 to 270 GHz, built to separate galactic dust and synchrotron from a possible inflationary signal.",
+    "technical": "Four BICEP3-class receivers (550 mm aperture) at 30/40, 95, 150 and 220/270 GHz with over 30,000 detectors at the South Pole; first receiver observing since early 2020; replaced the Keck Array."
+  },
+  "superseded_by": null,
+  "technology": {
+    "confidence": "verified",
+    "locator": "abstract (arXiv:1808.00568)",
+    "note": "",
+    "quote": "It is comprised of four 550 mm aperture refractive telescopes observing the polarization of the cosmic microwave background (CMB) at 30/40, 95, 150 and 220/270 GHz with over 30,000 detectors.",
+    "sources": [
+      "src:c2-cmb-bicep-array-2018"
+    ],
+    "value": "Four 550 mm aperture refracting telescopes (receivers) observing CMB polarization at 30/40, 95, 150 and 220/270 GHz.",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "other",
+  "technology_classes": [
+    "other"
+  ],
+  "type": "detector"
+}

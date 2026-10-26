@@ -1,0 +1,138 @@
+{
+  "aliases": [],
+  "coverage": {
+    "researched": "partial",
+    "tier": "C"
+  },
+  "distinct_from": [],
+  "experiment_ids": [
+    "experiment:dasi"
+  ],
+  "id": "detector:dasi",
+  "intervals": [
+    {
+      "confidence": "approximate",
+      "end": "2000",
+      "label": "deployment",
+      "locator": "abstract (astro-ph/0104488)",
+      "note": "Season wording only (\"1999--2000 austral summer\"); the interval is stored at January 2000 with the season in `display`.",
+      "quote": "The telescope was deployed at the Amundsen-Scott South Pole research station during the 1999--2000 austral summer and conducted observations of the CMB throughout the following austral winter.",
+      "sources": [
+        "src:c2-cmb-dasi-design"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2000-01",
+        "display": "austral summer 1999-2000",
+        "earliest": "1999-12",
+        "latest": "2000-02"
+      },
+      "status": "commissioning",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": {
+        "approx": true,
+        "date": "2003",
+        "note": "last season reported in the 2004 three-year paper"
+      },
+      "label": "observations",
+      "locator": "abstract (astro-ph/0104488); abstract (astro-ph/0104489)",
+      "note": "First observations were made through the 2000 austral winter; polarization observations followed in 2001-2003 (abstract of astro-ph/0409357: data \"throughout the 2003 season\"). No source consulted states when DASI stopped observing; 2003 is the last season it reports.",
+      "quote": "The telescope was deployed at the Amundsen-Scott South Pole research station during the 1999--2000 austral summer and conducted observations of the CMB throughout the following austral winter.",
+      "sources": [
+        "src:c2-cmb-dasi-design",
+        "src:c2-cmb-dasi-first"
+      ],
+      "start": "2000",
+      "status": "active",
+      "verified_at": "2026-10-26"
+    },
+    {
+      "confidence": "approximate",
+      "end": null,
+      "label": "observations ended",
+      "locator": "abstract (astro-ph/0409357)",
+      "note": "Inferred terminal event: the 2004 paper analyses \"the complete 3-year data set\"; no fetched source states an end-of-observations or decommissioning date.",
+      "quote": "We present the analysis of the complete 3-year data set obtained with the Degree Angular Scale Interferometer (DASI) polarization experiment",
+      "sources": [
+        "src:c2-cmb-dasi-3yr"
+      ],
+      "start": {
+        "approx": true,
+        "date": "2003"
+      },
+      "status": "completed",
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "links": {
+    "website": null
+  },
+  "name": "DASI interferometer",
+  "notes": [],
+  "parent_detector_id": null,
+  "placements": [
+    {
+      "confidence": "verified",
+      "end": null,
+      "locator": "section 2.1 (astro-ph/0104488)",
+      "note": "MAPO stands about 200 m from the Dark Sector Laboratory (BICEP1 characterization paper); shares the Dark Sector site record because no separate coordinates are published.",
+      "quote": "The telescope is situated atop the inner of two concentric towers attached to the Martin A. Pomerantz Observatory (MAPO), 0.7 km from the geographic South Pole.",
+      "role": "main",
+      "site_id": "site:south-pole-dark-sector",
+      "sources": [
+        "src:c2-cmb-dasi-design"
+      ],
+      "start": null,
+      "verified_at": "2026-10-26"
+    }
+  ],
+  "schema": "hep-atlas/0.2",
+  "sources": [
+    "src:c2-cmb-dasi-design",
+    "src:c2-cmb-dasi-3yr",
+    "src:c2-cmb-dasi-pol-2002"
+  ],
+  "specs": {
+    "sensor_count": {
+      "approx": false,
+      "confidence": "verified",
+      "dimension": "count",
+      "display": "13 receiver elements",
+      "locator": "section 2 (astro-ph/0409357)",
+      "note": "",
+      "quote": "DASI is a 13-element, co-planar interferometric array operating in ten 1-GHz bands spanning 26 − 36 GHz.",
+      "sources": [
+        "src:c2-cmb-dasi-3yr"
+      ],
+      "unit": "",
+      "value": 13,
+      "verified_at": "2026-10-26"
+    }
+  },
+  "status": "completed",
+  "subsystems": [],
+  "summary": {
+    "plain": "A 13-element microwave interferometer on a tower beside a South Pole observatory that, in 2002, made the first detection of the polarization of the Big Bang afterglow.",
+    "technical": "13-element, co-planar interferometric array operating in ten 1-GHz bands spanning 26-36 GHz, on the inner of two towers attached to MAPO; temperature anisotropy 140 < l < 900 (2000) and polarization (2001-2003)."
+  },
+  "superseded_by": null,
+  "technology": {
+    "confidence": "verified",
+    "locator": "section 2 (astro-ph/0409357)",
+    "note": "",
+    "quote": "DASI is a 13-element, co-planar interferometric array operating in ten 1-GHz bands spanning 26 − 36 GHz.",
+    "sources": [
+      "src:c2-cmb-dasi-3yr"
+    ],
+    "value": "13-element, co-planar interferometric array operating in ten 1-GHz bands spanning 26-36 GHz.",
+    "verified_at": "2026-10-26"
+  },
+  "technology_class": "other",
+  "technology_classes": [
+    "other"
+  ],
+  "type": "detector"
+}
