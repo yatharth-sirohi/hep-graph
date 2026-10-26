@@ -2624,6 +2624,9 @@ export async function show(current, ctx) {
     player.sync(view.proton);
     return;
   }
+  // A full render begins: forget what was last shown until it completes, so a render
+  // that never reaches its end (a panel that fails) cannot leave a stale key behind.
+  lastShownKey = null;
 
   if (mapId !== currentMapId) {
     destroyMap();
