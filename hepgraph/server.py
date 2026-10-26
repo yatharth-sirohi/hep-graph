@@ -49,6 +49,10 @@ _ATLAS_ETAG_LOCK = threading.Lock()
 # 304) while Vercel's CDN answers for everyone, so a page load no longer costs a
 # serverless invocation per file (it was ~40) or spends the per-address budget.
 ATLAS_CACHE_CONTROL = 'public, max-age=0, s-maxage=86400, stale-while-revalidate=604800'
+# Static files a single address may fetch per minute. A browser test suite on
+# one machine opens hundreds of pages a minute with no CDN in front, so it may
+# raise this locally (HEPGRAPH_ASSET_RATE_LIMIT); production keeps the default.
+ASSET_RATE_LIMIT = int(os.environ.get('HEPGRAPH_ASSET_RATE_LIMIT', '2000'))
 
 
 def _atlas_etag(target, body):
@@ -319,7 +323,7 @@ class Handler(BaseHTTPRequestHandler):
         # worker. One HEP Atlas page pulls dozens of bundles, so serving them
         # under the query budget would throttle ordinary browsing.
         asset = not urllib.parse.urlsplit(self.path).path.startswith('/api/')
-        if not state.rate_ok(self.client_address[0], 2000 if asset else 180,
+        if not state.rate_ok(self.client_address[0], ASSET_RATE_LIMIT if asset else 180,
                              'asset' if asset else 'api'):
             return self.respond({'status': 'resource_limit', 'message': 'Request rate limit reached; retry after one minute.'}, 429)
         if not asset and not state.workers.acquire(blocking=False):
